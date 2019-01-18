@@ -101,7 +101,7 @@ public:
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key,
                                                  bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
-  void UploadResources(ref_ptr<Texture> texture);
+  void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
 private:
   typedef std::map<StipplePenHandle, StipplePenResourceInfo> TResourceMapping;

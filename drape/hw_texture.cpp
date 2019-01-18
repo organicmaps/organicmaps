@@ -174,7 +174,7 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   Base::Create(context, params, data);
 
   m_textureID = GLFunctions::glGenTexture();
-  Bind();
+  Bind(context);
 
   UnpackFormat(context, m_params.m_format, m_unpackedLayout, m_unpackedPixelType);
 
@@ -199,8 +199,8 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   GLFunctions::glFlush();
 }
 
-void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-                                 ref_ptr<void> data)
+void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
+                                 uint32_t width, uint32_t height, ref_ptr<void> data)
 {
   ASSERT(Validate(), ());
   uint32_t const mappingSize = height * width * m_pixelBufferElementSize;
@@ -218,8 +218,9 @@ void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_
   }
 }
 
-void OpenGLHWTexture::Bind() const
+void OpenGLHWTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
 {
+  UNUSED_VALUE(context);
   ASSERT(Validate(), ());
   if (m_textureID != 0)
     GLFunctions::glBindTexture(GetID());

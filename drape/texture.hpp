@@ -59,7 +59,7 @@ public:
   virtual float GetT(uint32_t y) const;
   virtual uint32_t GetID() const;
 
-  virtual void Bind() const;
+  virtual void Bind(ref_ptr<dp::GraphicsContext> context) const;
 
   // Texture must be bound before calling this method.
   virtual void SetFilter(TextureFilter filter);
@@ -67,8 +67,8 @@ public:
   virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params);
   virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
                       ref_ptr<void> data);
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-                  ref_ptr<void> data);
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
+                  uint32_t width, uint32_t height, ref_ptr<void> data);
   
   ref_ptr<HWTexture> GetHardwareTexture() const;
 

@@ -171,7 +171,8 @@ void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const &
   Unlock();
 }
 
-void HWTextureApple::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data)
+void HWTextureApple::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
+                                uint32_t width, uint32_t height, ref_ptr<void> data)
 {
   uint8_t bytesPerPixel = GetBytesPerPixel(GetFormat());
   Lock();
@@ -197,8 +198,9 @@ void HWTextureApple::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t
   Unlock();
 }
 
-void HWTextureApple::Bind() const
+void HWTextureApple::Bind(ref_ptr<dp::GraphicsContext> context) const
 {
+  UNUSED_VALUE(context);
   ASSERT(Validate(), ());
   if (m_textureID != 0)
     GLFunctions::glBindTexture(GetID());

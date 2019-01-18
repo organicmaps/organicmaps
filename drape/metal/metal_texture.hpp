@@ -22,8 +22,9 @@ public:
   explicit MetalTexture(ref_ptr<MetalTextureAllocator> allocator);
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data) override;
-  void Bind() const override {}
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
+                  uint32_t width, uint32_t height, ref_ptr<void> data) override;
+  void Bind(ref_ptr<dp::GraphicsContext> context) const override {}
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;
   

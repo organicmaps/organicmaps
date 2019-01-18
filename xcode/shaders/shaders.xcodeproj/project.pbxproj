@@ -35,6 +35,8 @@
 		4566610520E25EF70085E8C1 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566610420E25EF70085E8C1 /* libplatform.a */; };
 		4566610720E25F560085E8C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566610620E25F560085E8C1 /* libz.tbd */; };
 		4566610A20E25F790085E8C1 /* test_main_loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566610920E25F790085E8C1 /* test_main_loop.cpp */; };
+		4577B28621F2088800864FAC /* vulkan_program_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B28221F2088800864FAC /* vulkan_program_pool.cpp */; };
+		4577B28721F2088800864FAC /* vulkan_program_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B28321F2088800864FAC /* vulkan_program_params.cpp */; };
 		45789EE021343F70009955CC /* metal_program_pool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDE21343F70009955CC /* metal_program_pool.mm */; };
 		45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE321353CA3009955CC /* program_manager_metal.mm */; };
 		45789EE72135464D009955CC /* metal_program_params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE62135464D009955CC /* metal_program_params.mm */; };
@@ -177,6 +179,10 @@
 		4566610620E25F560085E8C1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4566610820E25F790085E8C1 /* test_main_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test_main_loop.hpp; path = ../../qt_tstfrm/test_main_loop.hpp; sourceTree = "<group>"; };
 		4566610920E25F790085E8C1 /* test_main_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_main_loop.cpp; path = ../../qt_tstfrm/test_main_loop.cpp; sourceTree = "<group>"; };
+		4577B28221F2088800864FAC /* vulkan_program_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_program_pool.cpp; sourceTree = "<group>"; };
+		4577B28321F2088800864FAC /* vulkan_program_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_program_params.cpp; sourceTree = "<group>"; };
+		4577B28421F2088800864FAC /* vulkan_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_program_params.hpp; sourceTree = "<group>"; };
+		4577B28521F2088800864FAC /* vulkan_program_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_program_pool.hpp; sourceTree = "<group>"; };
 		45789EDC21342BDE009955CC /* debug_rect.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = debug_rect.metal; sourceTree = "<group>"; };
 		45789EDE21343F70009955CC /* metal_program_pool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_pool.mm; sourceTree = "<group>"; };
 		45789EDF21343F70009955CC /* metal_program_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_pool.hpp; sourceTree = "<group>"; };
@@ -270,6 +276,10 @@
 				4566608920E256240085E8C1 /* program_params.hpp */,
 				4566608120E256230085E8C1 /* program_pool.hpp */,
 				4566608620E256230085E8C1 /* programs.hpp */,
+				4577B28321F2088800864FAC /* vulkan_program_params.cpp */,
+				4577B28421F2088800864FAC /* vulkan_program_params.hpp */,
+				4577B28221F2088800864FAC /* vulkan_program_pool.cpp */,
+				4577B28521F2088800864FAC /* vulkan_program_pool.hpp */,
 			);
 			name = shaders;
 			path = ../../shaders;
@@ -557,11 +567,13 @@
 				45789EE72135464D009955CC /* metal_program_params.mm in Sources */,
 				4566608A20E256240085E8C1 /* program_params.cpp in Sources */,
 				45789EE021343F70009955CC /* metal_program_pool.mm in Sources */,
+				4577B28621F2088800864FAC /* vulkan_program_pool.cpp in Sources */,
 				4566608B20E256240085E8C1 /* gl_shaders.cpp in Sources */,
 				45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */,
 				4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */,
 				4566608C20E256240085E8C1 /* gl_program_params.cpp in Sources */,
 				4566608D20E256240085E8C1 /* gl_program_pool.cpp in Sources */,
+				4577B28721F2088800864FAC /* vulkan_program_params.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +628,9 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Debug;
@@ -629,6 +644,9 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Release;
@@ -675,6 +693,9 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = "Production Full";

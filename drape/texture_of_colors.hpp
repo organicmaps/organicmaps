@@ -34,7 +34,7 @@ public:
 
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, ColorKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
-  void UploadResources(ref_ptr<Texture> texture);
+  void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
 

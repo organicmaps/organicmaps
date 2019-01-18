@@ -164,7 +164,7 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
   return ReserveResource(false /* predefined */, key, newResource);
 }
 
-void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
+void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::TextureFormat::Alpha, ());
   TPendingNodes pendingNodes;
@@ -184,7 +184,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
   for (size_t i = 0; i < pendingNodes.size(); ++i)
     pendingNodes[i].second.Rasterize(rawBuffer + i * bytesPerNode);
 
-  texture->UploadData(0, pendingNodes.front().first.minY(), kMaxStipplePenLength,
+  texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength,
                       static_cast<uint32_t>(pendingNodes.size()) * kStippleHeight, make_ref(rawBuffer));
 
   mng.freeSharedBuffer(reserveBufferSize, ptr);

@@ -51,8 +51,8 @@ public:
     }
 
     ASSERT(m_indexer != nullptr, ());
-    Bind();
-    m_indexer->UploadResources(make_ref(this));
+    Bind(context);
+    m_indexer->UploadResources(context, make_ref(this));
   }
 
   TextureFormat GetFormat() const override
@@ -85,10 +85,10 @@ public:
     return m_isInitialized ? Texture::GetID() : 0;
   }
 
-  void Bind() const override
+  void Bind(ref_ptr<dp::GraphicsContext> context) const override
   {
     if (m_isInitialized)
-      Texture::Bind();
+      Texture::Bind(context);
   }
 
   void SetFilter(TextureFilter filter) override

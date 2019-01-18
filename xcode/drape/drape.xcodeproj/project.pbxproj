@@ -22,6 +22,22 @@
 		4560F5A52142890600CC736C /* metal_gpu_buffer_impl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4560F5A42142890600CC736C /* metal_gpu_buffer_impl.mm */; };
 		4560F5A7214297D800CC736C /* metal_vertex_array_buffer_impl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4560F5A6214297D800CC736C /* metal_vertex_array_buffer_impl.mm */; };
 		4560F5A92142A17B00CC736C /* metal_gpu_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4560F5A82142A17B00CC736C /* metal_gpu_buffer_impl.hpp */; };
+		4577B25421F2035D00864FAC /* vulkan_gpu_buffer_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B24421F2035C00864FAC /* vulkan_gpu_buffer_impl.cpp */; };
+		4577B25521F2035D00864FAC /* vulkan_texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24521F2035C00864FAC /* vulkan_texture.hpp */; };
+		4577B25621F2035D00864FAC /* vulkan_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B24621F2035C00864FAC /* vulkan_utils.cpp */; };
+		4577B25721F2035D00864FAC /* vulkan_vertex_array_buffer_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B24721F2035C00864FAC /* vulkan_vertex_array_buffer_impl.cpp */; };
+		4577B25821F2035D00864FAC /* vulkan_layers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24821F2035C00864FAC /* vulkan_layers.hpp */; };
+		4577B25921F2035D00864FAC /* vulkan_gpu_program.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24921F2035C00864FAC /* vulkan_gpu_program.hpp */; };
+		4577B25A21F2035D00864FAC /* vulkan_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B24A21F2035C00864FAC /* vulkan_texture.cpp */; };
+		4577B25B21F2035D00864FAC /* vulkan_memory_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24B21F2035C00864FAC /* vulkan_memory_manager.hpp */; };
+		4577B25C21F2035D00864FAC /* vulkan_gpu_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24C21F2035C00864FAC /* vulkan_gpu_buffer_impl.hpp */; };
+		4577B25D21F2035D00864FAC /* vulkan_layers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B24D21F2035C00864FAC /* vulkan_layers.cpp */; };
+		4577B25E21F2035D00864FAC /* vulkan_base_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24E21F2035C00864FAC /* vulkan_base_context.hpp */; };
+		4577B25F21F2035D00864FAC /* vulkan_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B24F21F2035D00864FAC /* vulkan_utils.hpp */; };
+		4577B26021F2035D00864FAC /* vulkan_mesh_object_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B25021F2035D00864FAC /* vulkan_mesh_object_impl.cpp */; };
+		4577B26121F2035D00864FAC /* vulkan_base_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B25121F2035D00864FAC /* vulkan_base_context.cpp */; };
+		4577B26221F2035D00864FAC /* vulkan_memory_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B25221F2035D00864FAC /* vulkan_memory_manager.cpp */; };
+		4577B26321F2035D00864FAC /* vulkan_device_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4577B25321F2035D00864FAC /* vulkan_device_holder.hpp */; };
 		45789ED72133DFC2009955CC /* metal_base_context.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789ED52133DFC2009955CC /* metal_base_context.mm */; };
 		45789EDA2133E14F009955CC /* metal_base_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45789ED92133E14F009955CC /* metal_base_context.hpp */; };
 		45789EF2213557F7009955CC /* gl_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45789EE9213557F4009955CC /* gl_constants.hpp */; };
@@ -146,6 +162,22 @@
 		4560F5A42142890600CC736C /* metal_gpu_buffer_impl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_gpu_buffer_impl.mm; sourceTree = "<group>"; };
 		4560F5A6214297D800CC736C /* metal_vertex_array_buffer_impl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_vertex_array_buffer_impl.mm; sourceTree = "<group>"; };
 		4560F5A82142A17B00CC736C /* metal_gpu_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_gpu_buffer_impl.hpp; sourceTree = "<group>"; };
+		4577B24421F2035C00864FAC /* vulkan_gpu_buffer_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_gpu_buffer_impl.cpp; path = ../vulkan/vulkan_gpu_buffer_impl.cpp; sourceTree = "<group>"; };
+		4577B24521F2035C00864FAC /* vulkan_texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_texture.hpp; path = ../vulkan/vulkan_texture.hpp; sourceTree = "<group>"; };
+		4577B24621F2035C00864FAC /* vulkan_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_utils.cpp; path = ../vulkan/vulkan_utils.cpp; sourceTree = "<group>"; };
+		4577B24721F2035C00864FAC /* vulkan_vertex_array_buffer_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_vertex_array_buffer_impl.cpp; path = ../vulkan/vulkan_vertex_array_buffer_impl.cpp; sourceTree = "<group>"; };
+		4577B24821F2035C00864FAC /* vulkan_layers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_layers.hpp; path = ../vulkan/vulkan_layers.hpp; sourceTree = "<group>"; };
+		4577B24921F2035C00864FAC /* vulkan_gpu_program.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_gpu_program.hpp; path = ../vulkan/vulkan_gpu_program.hpp; sourceTree = "<group>"; };
+		4577B24A21F2035C00864FAC /* vulkan_texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_texture.cpp; path = ../vulkan/vulkan_texture.cpp; sourceTree = "<group>"; };
+		4577B24B21F2035C00864FAC /* vulkan_memory_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_memory_manager.hpp; path = ../vulkan/vulkan_memory_manager.hpp; sourceTree = "<group>"; };
+		4577B24C21F2035C00864FAC /* vulkan_gpu_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_gpu_buffer_impl.hpp; path = ../vulkan/vulkan_gpu_buffer_impl.hpp; sourceTree = "<group>"; };
+		4577B24D21F2035C00864FAC /* vulkan_layers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_layers.cpp; path = ../vulkan/vulkan_layers.cpp; sourceTree = "<group>"; };
+		4577B24E21F2035C00864FAC /* vulkan_base_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_base_context.hpp; path = ../vulkan/vulkan_base_context.hpp; sourceTree = "<group>"; };
+		4577B24F21F2035D00864FAC /* vulkan_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_utils.hpp; path = ../vulkan/vulkan_utils.hpp; sourceTree = "<group>"; };
+		4577B25021F2035D00864FAC /* vulkan_mesh_object_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_mesh_object_impl.cpp; path = ../vulkan/vulkan_mesh_object_impl.cpp; sourceTree = "<group>"; };
+		4577B25121F2035D00864FAC /* vulkan_base_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_base_context.cpp; path = ../vulkan/vulkan_base_context.cpp; sourceTree = "<group>"; };
+		4577B25221F2035D00864FAC /* vulkan_memory_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vulkan_memory_manager.cpp; path = ../vulkan/vulkan_memory_manager.cpp; sourceTree = "<group>"; };
+		4577B25321F2035D00864FAC /* vulkan_device_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vulkan_device_holder.hpp; path = ../vulkan/vulkan_device_holder.hpp; sourceTree = "<group>"; };
 		45789ED52133DFC2009955CC /* metal_base_context.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_base_context.mm; sourceTree = "<group>"; };
 		45789ED92133E14F009955CC /* metal_base_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_base_context.hpp; sourceTree = "<group>"; };
 		45789EE9213557F4009955CC /* gl_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gl_constants.hpp; sourceTree = "<group>"; };
@@ -264,6 +296,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4577B24321F2034200864FAC /* vulkan */ = {
+			isa = PBXGroup;
+			children = (
+				4577B25121F2035D00864FAC /* vulkan_base_context.cpp */,
+				4577B24E21F2035C00864FAC /* vulkan_base_context.hpp */,
+				4577B25321F2035D00864FAC /* vulkan_device_holder.hpp */,
+				4577B24421F2035C00864FAC /* vulkan_gpu_buffer_impl.cpp */,
+				4577B24C21F2035C00864FAC /* vulkan_gpu_buffer_impl.hpp */,
+				4577B24921F2035C00864FAC /* vulkan_gpu_program.hpp */,
+				4577B24D21F2035C00864FAC /* vulkan_layers.cpp */,
+				4577B24821F2035C00864FAC /* vulkan_layers.hpp */,
+				4577B25221F2035D00864FAC /* vulkan_memory_manager.cpp */,
+				4577B24B21F2035C00864FAC /* vulkan_memory_manager.hpp */,
+				4577B25021F2035D00864FAC /* vulkan_mesh_object_impl.cpp */,
+				4577B24A21F2035C00864FAC /* vulkan_texture.cpp */,
+				4577B24521F2035C00864FAC /* vulkan_texture.hpp */,
+				4577B24621F2035C00864FAC /* vulkan_utils.cpp */,
+				4577B24F21F2035D00864FAC /* vulkan_utils.hpp */,
+				4577B24721F2035C00864FAC /* vulkan_vertex_array_buffer_impl.cpp */,
+			);
+			path = vulkan;
+			sourceTree = "<group>";
+		};
 		45789ED42133DF91009955CC /* metal */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +464,7 @@
 				4513BF091EC2F0760066565C /* viewport.cpp */,
 				4513BF0A1EC2F0760066565C /* viewport.hpp */,
 				3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */,
+				4577B24321F2034200864FAC /* vulkan */,
 			);
 			name = drape;
 			path = ../../drape;
@@ -432,6 +488,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4577B25F21F2035D00864FAC /* vulkan_utils.hpp in Headers */,
 				459843902139967F00F8CAB2 /* metal_texture.hpp in Headers */,
 				6729A5A31A69213A007D5872 /* stipple_pen_resource.hpp in Headers */,
 				6729A5661A69213A007D5872 /* attribute_provider.hpp in Headers */,
@@ -444,6 +501,7 @@
 				3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */,
 				6729A5971A69213A007D5872 /* overlay_tree.hpp in Headers */,
 				6729A5751A69213A007D5872 /* drape_global.hpp in Headers */,
+				4577B25C21F2035D00864FAC /* vulkan_gpu_buffer_impl.hpp in Headers */,
 				4560F59E213F986E00CC736C /* metal_states.hpp in Headers */,
 				6729A5701A69213A007D5872 /* color.hpp in Headers */,
 				6729A5801A69213A007D5872 /* glsl_func.hpp in Headers */,
@@ -475,19 +533,23 @@
 				6729A5AD1A69213A007D5872 /* uniform_value.hpp in Headers */,
 				6729A5951A69213A007D5872 /* overlay_handle.hpp in Headers */,
 				45201E951CE605B1008A4842 /* constants.hpp in Headers */,
+				4577B25E21F2035D00864FAC /* vulkan_base_context.hpp in Headers */,
 				6709472E1BDF9A4F005014C0 /* index_storage.hpp in Headers */,
 				6729A5B51A69213A007D5872 /* vertex_array_buffer.hpp in Headers */,
 				6729A5A71A69213A007D5872 /* texture_manager.hpp in Headers */,
 				34C624CA1DABDB2000510300 /* static_texture.hpp in Headers */,
+				4577B25521F2035D00864FAC /* vulkan_texture.hpp in Headers */,
 				6729A5901A69213A007D5872 /* object_pool.hpp in Headers */,
 				670947261BDF9A4F005014C0 /* bidi.hpp in Headers */,
 				457B536820358F7E00E4E752 /* glyph_generator.hpp in Headers */,
 				6729A5A11A69213A007D5872 /* shader.hpp in Headers */,
 				4513BF0C1EC2F0760066565C /* framebuffer.hpp in Headers */,
 				6729A5641A69213A007D5872 /* attribute_buffer_mutator.hpp in Headers */,
+				4577B25921F2035D00864FAC /* vulkan_gpu_program.hpp in Headers */,
 				6729A5811A69213A007D5872 /* glsl_types.hpp in Headers */,
 				6709472C1BDF9A4F005014C0 /* hw_texture.hpp in Headers */,
 				6729A5911A69213A007D5872 /* oglcontext.hpp in Headers */,
+				4577B25B21F2035D00864FAC /* vulkan_memory_manager.hpp in Headers */,
 				457B536620358F7E00E4E752 /* drape_routine.hpp in Headers */,
 				45789EF2213557F7009955CC /* gl_constants.hpp in Headers */,
 				6729A5AB1A69213A007D5872 /* texture.hpp in Headers */,
@@ -497,7 +559,9 @@
 				BB035F6C1E3A2A5C00519962 /* drape_diagnostics.hpp in Headers */,
 				45789EF7213557F7009955CC /* gl_gpu_program.hpp in Headers */,
 				6729A56E1A69213A007D5872 /* buffer_base.hpp in Headers */,
+				4577B26321F2035D00864FAC /* vulkan_device_holder.hpp in Headers */,
 				6729A58F1A69213A007D5872 /* index_buffer.hpp in Headers */,
+				4577B25821F2035D00864FAC /* vulkan_layers.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,8 +631,11 @@
 				6729A5941A69213A007D5872 /* overlay_handle.cpp in Sources */,
 				6709472D1BDF9A4F005014C0 /* index_storage.cpp in Sources */,
 				6729A5861A69213A007D5872 /* gpu_buffer.cpp in Sources */,
+				4577B25721F2035D00864FAC /* vulkan_vertex_array_buffer_impl.cpp in Sources */,
 				45789EF8213557F7009955CC /* gl_constants.cpp in Sources */,
+				4577B25621F2035D00864FAC /* vulkan_utils.cpp in Sources */,
 				6729A59A1A69213A007D5872 /* render_bucket.cpp in Sources */,
+				4577B25A21F2035D00864FAC /* vulkan_texture.cpp in Sources */,
 				4560F59F213F986E00CC736C /* metal_states.mm in Sources */,
 				4560F5A52142890600CC736C /* metal_gpu_buffer_impl.mm in Sources */,
 				6709472A1BDF9A4F005014C0 /* hw_texture_ios.mm in Sources */,
@@ -586,6 +653,7 @@
 				6729A5A21A69213A007D5872 /* stipple_pen_resource.cpp in Sources */,
 				6729A5691A69213A007D5872 /* batcher.cpp in Sources */,
 				670947251BDF9A4F005014C0 /* bidi.cpp in Sources */,
+				4577B25D21F2035D00864FAC /* vulkan_layers.cpp in Sources */,
 				6729A58C1A69213A007D5872 /* index_buffer_mutator.cpp in Sources */,
 				4598438F2139967F00F8CAB2 /* metal_texture.mm in Sources */,
 				BBB72E902110AF0F00249D4F /* oglcontext.cpp in Sources */,
@@ -595,19 +663,23 @@
 				6709472B1BDF9A4F005014C0 /* hw_texture.cpp in Sources */,
 				6729A5AA1A69213A007D5872 /* texture.cpp in Sources */,
 				BBB72E9C2111CE9100249D4F /* graphics_context_factory.cpp in Sources */,
+				4577B26221F2035D00864FAC /* vulkan_memory_manager.cpp in Sources */,
 				6729A5771A69213A007D5872 /* font_texture.cpp in Sources */,
 				4560F591213EC93400CC736C /* render_state_metal.mm in Sources */,
 				45D7ADE32113535600160DE3 /* render_state.cpp in Sources */,
 				6729A58E1A69213A007D5872 /* index_buffer.cpp in Sources */,
 				6729A5A61A69213A007D5872 /* texture_manager.cpp in Sources */,
+				4577B26121F2035D00864FAC /* vulkan_base_context.cpp in Sources */,
 				670947271BDF9A4F005014C0 /* glyph_manager.cpp in Sources */,
 				6729A56F1A69213A007D5872 /* color.cpp in Sources */,
+				4577B25421F2035D00864FAC /* vulkan_gpu_buffer_impl.cpp in Sources */,
 				6729A5671A69213A007D5872 /* batcher_helpers.cpp in Sources */,
 				6729A5B41A69213A007D5872 /* vertex_array_buffer.cpp in Sources */,
 				6729A5B21A69213A007D5872 /* vertex_decl.cpp in Sources */,
 				6729A5A81A69213A007D5872 /* texture_of_colors.cpp in Sources */,
 				6729A5AC1A69213A007D5872 /* uniform_value.cpp in Sources */,
 				6729A5961A69213A007D5872 /* overlay_tree.cpp in Sources */,
+				4577B26021F2035D00864FAC /* vulkan_mesh_object_impl.cpp in Sources */,
 				6729A5651A69213A007D5872 /* attribute_provider.cpp in Sources */,
 				4560F5A7214297D800CC736C /* metal_vertex_array_buffer_impl.mm in Sources */,
 			);
@@ -634,6 +706,8 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
 			};
 			name = Debug;
@@ -653,6 +727,8 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
 			};
 			name = Release;
@@ -734,6 +810,8 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
 			};
 			name = "Production Full";

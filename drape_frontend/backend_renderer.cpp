@@ -119,9 +119,6 @@ void BackendRenderer::RecacheChoosePositionMark()
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
-  //TODO(@rokuz, @darina): TEMPORARY
-  return;
-
   switch (message->GetType())
   {
   case Message::Type::UpdateReadManager:
@@ -619,9 +616,6 @@ void BackendRenderer::OnContextCreate()
   m_context->MakeCurrent();
   m_context->Init(m_apiVersion);
   dp::SupportManager::Instance().Init(m_context);
-
-  //TODO(@rokuz, @darina): TEMPORARY
-  return;
 
   m_readManager->Start();
   InitContextDependentResources();

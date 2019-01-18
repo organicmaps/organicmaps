@@ -114,7 +114,7 @@ UNIT_TEST(UploadingGlyphs)
   tex.Create(make_ref(&context), p);
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _))
       .WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(make_ref(&tex));
+  index.UploadResources(make_ref(&context), make_ref(&tex));
 
   count = 0;
   count += (index.MapResource(GlyphKey(0x68, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
@@ -128,7 +128,7 @@ UNIT_TEST(UploadingGlyphs)
 
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _))
       .WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(make_ref(&tex));
+  index.UploadResources(make_ref(&context), make_ref(&tex));
 
   RunTestLoop("UploadingGlyphs", std::bind(&UploadedRender::Render, &r, _1));
   DrapeRoutine::Shutdown();

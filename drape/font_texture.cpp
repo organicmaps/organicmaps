@@ -214,7 +214,7 @@ void GlyphIndex::OnCompleteGlyphGeneration(GlyphGenerator::GlyphGenerationDataAr
     m_pendingNodes.emplace_back(g.m_rect, g.m_glyph);
 }
 
-void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
+void GlyphIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
 {
   PendingNodes pendingNodes;
   {
@@ -251,7 +251,7 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
     ASSERT_EQUAL(glyph.m_image.m_height, rect.SizeY(), ());
 
     uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
-    texture->UploadData(zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
+    texture->UploadData(context, zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
     
     glyph.m_image.Destroy();
   }

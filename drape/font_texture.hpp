@@ -84,7 +84,7 @@ public:
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
   std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(std::vector<GlyphKey> const & keys,
                                                            bool & hasNewResources);
-  void UploadResources(ref_ptr<Texture> texture);
+  void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
 

@@ -210,7 +210,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       if (tex != nullptr && (texLoc = p->GetUniformLocation(texture.first)) >= 0)
       {
         GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
-        tex->Bind();
+        tex->Bind(context);
         GLFunctions::glUniformValuei(texLoc, m_usedSlots);
         tex->SetFilter(state.GetTextureFilter());
         m_usedSlots++;
@@ -225,7 +225,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
-    //TODO(@rokuz, @darina): Implement.
+    //TODO(@rokuz, @darina): Implement. Use Bind!
   }
   else
   {

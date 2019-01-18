@@ -1,0 +1,218 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4577B27F21F205D800864FAC /* vulkan_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4577B27E21F205D800864FAC /* vulkan_wrapper.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4577B26B21F2044300864FAC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4577B26D21F2044300864FAC /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4577B27921F2053900864FAC /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		4577B27A21F2053900864FAC /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		4577B27D21F205D800864FAC /* vulkan_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_wrapper.h; sourceTree = "<group>"; };
+		4577B27E21F205D800864FAC /* vulkan_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_wrapper.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4577B26A21F2044300864FAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4577B26421F2044300864FAC = {
+			isa = PBXGroup;
+			children = (
+				4577B27921F2053900864FAC /* common-debug.xcconfig */,
+				4577B27A21F2053900864FAC /* common-release.xcconfig */,
+				4577B26F21F2044300864FAC /* vulkan_wrapper */,
+				4577B26E21F2044300864FAC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4577B26E21F2044300864FAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4577B26D21F2044300864FAC /* libvulkan_wrapper.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4577B26F21F2044300864FAC /* vulkan_wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				4577B27E21F205D800864FAC /* vulkan_wrapper.cpp */,
+				4577B27D21F205D800864FAC /* vulkan_wrapper.h */,
+			);
+			name = vulkan_wrapper;
+			path = ../../3party/vulkan_wrapper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4577B26C21F2044300864FAC /* vulkan_wrapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4577B27621F2044300864FAC /* Build configuration list for PBXNativeTarget "vulkan_wrapper" */;
+			buildPhases = (
+				4577B26921F2044300864FAC /* Sources */,
+				4577B26A21F2044300864FAC /* Frameworks */,
+				4577B26B21F2044300864FAC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vulkan_wrapper;
+			productName = vulkan_wrapper;
+			productReference = 4577B26D21F2044300864FAC /* libvulkan_wrapper.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4577B26521F2044300864FAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					4577B26C21F2044300864FAC = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 4577B26821F2044300864FAC /* Build configuration list for PBXProject "vulkan_wrapper" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4577B26421F2044300864FAC;
+			productRefGroup = 4577B26E21F2044300864FAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4577B26C21F2044300864FAC /* vulkan_wrapper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4577B26921F2044300864FAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4577B27F21F205D800864FAC /* vulkan_wrapper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4577B27421F2044300864FAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4577B27521F2044300864FAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		4577B27721F2044300864FAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4577B27921F2053900864FAC /* common-debug.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+				);
+			};
+			name = Debug;
+		};
+		4577B27821F2044300864FAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4577B27A21F2053900864FAC /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+				);
+			};
+			name = Release;
+		};
+		4577B27B21F2057700864FAC /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
+		4577B27C21F2057700864FAC /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4577B27A21F2053900864FAC /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
+				);
+			};
+			name = "Production Full";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4577B26821F2044300864FAC /* Build configuration list for PBXProject "vulkan_wrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4577B27421F2044300864FAC /* Debug */,
+				4577B27521F2044300864FAC /* Release */,
+				4577B27B21F2057700864FAC /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4577B27621F2044300864FAC /* Build configuration list for PBXNativeTarget "vulkan_wrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4577B27721F2044300864FAC /* Debug */,
+				4577B27821F2044300864FAC /* Release */,
+				4577B27C21F2057700864FAC /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4577B26521F2044300864FAC /* Project object */;
+}

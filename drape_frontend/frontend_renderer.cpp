@@ -53,8 +53,8 @@ namespace
 {
 float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
 double constexpr kVSyncInterval = 0.06;
-// Metal rendering is fast, so we can decrease sync inverval.
-double constexpr kVSyncIntervalMetal = 0.03;
+// Metal/Vulkan rendering is fast, so we can decrease sync inverval.
+double constexpr kVSyncIntervalMetalVulkan = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
 
@@ -1689,8 +1689,11 @@ void FrontendRenderer::RenderFrame()
   }
   else
   {
-    auto const syncInverval = (m_apiVersion == dp::ApiVersion::Metal) ? kVSyncIntervalMetal : kVSyncInterval;
-    
+    auto const syncInverval = (m_apiVersion == dp::ApiVersion::Metal ||
+                               m_apiVersion == dp::ApiVersion::Vulkan)
+                              ? kVSyncIntervalMetalVulkan
+                              : kVSyncInterval;
+
     auto availableTime = syncInverval - m_frameData.m_timer.ElapsedSeconds();
     do
     {

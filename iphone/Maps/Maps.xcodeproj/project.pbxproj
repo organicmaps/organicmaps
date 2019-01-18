@@ -360,6 +360,7 @@
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 4598438921394D7700F8CAB2 /* shaders_metal.metallib */; };
 		4563158920E264C20076E9DB /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4563158820E264C20076E9DB /* libshaders.a */; };
+		4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4577B28021F2066A00864FAC /* libvulkan_wrapper.a */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */; };
@@ -1388,6 +1389,7 @@
 		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
 		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
 		4563158820E264C20076E9DB /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4577B28021F2066A00864FAC /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		4586D0C31F48121A00DF9CE5 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../../xcode/bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
@@ -1981,6 +1983,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
 				BB2C99B021B6AB4500F7371C /* libdescriptions.a in Frameworks */,
 				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
 				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
@@ -2155,6 +2158,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4577B28021F2066A00864FAC /* libvulkan_wrapper.a */,
 				BB2C99AF21B6AB4500F7371C /* libdescriptions.a */,
 				474C9F59213FF75800369009 /* StoreKit.framework */,
 				3D1958EA213804B6009A83EC /* libmetrics.a */,

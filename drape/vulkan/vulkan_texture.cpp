@@ -64,7 +64,7 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   auto const format = UnpackFormat(params.m_format);
   VkFormatProperties formatProperties;
   vkGetPhysicalDeviceFormatProperties(vulkanContext->GetPhysicalDevice(), format, &formatProperties);
-  CHECK(formatProperties.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, ());
+  CHECK(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, ());
 
   m_isMutable = params.m_isMutable;
   if (params.m_isRenderTarget)
@@ -86,13 +86,19 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   }
 }
 
-void VulkanTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data)
+void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
+                               uint32_t width, uint32_t height, ref_ptr<void> data)
 {
   CHECK(m_isMutable, ("Upload data is avaivable only for mutable textures."));
   CHECK(false, ());
 //  MTLRegion region = MTLRegionMake2D(x, y, width, height);
 //  auto const rowBytes = width * GetBytesPerPixel(m_params.m_format);
 //  [m_texture replaceRegion:region mipmapLevel:0 withBytes:data.get() bytesPerRow:rowBytes];
+}
+
+void VulkanTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
+{
+
 }
 
 void VulkanTexture::SetFilter(TextureFilter filter)
@@ -102,7 +108,7 @@ void VulkanTexture::SetFilter(TextureFilter filter)
 
 bool VulkanTexture::Validate() const
 {
-  return m_texture != nullptr && m_textureView != nullptr;
+  return m_texture != 0 && m_textureView != 0;
 }
 }  // namespace vulkan
 }  // namespace dp

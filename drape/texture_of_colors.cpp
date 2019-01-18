@@ -70,7 +70,7 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
   return ReserveResource(false /* predefined */, key, newResource);
 }
 
-void ColorPalette::UploadResources(ref_ptr<Texture> texture)
+void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::TextureFormat::RGBA8, ());
   buffer_vector<PendingColor, 16> pendingNodes;
@@ -159,7 +159,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
     }
 
     pointer = SharedBufferManager::GetRawPointer(buffer);
-    texture->UploadData(uploadRect.minX(), uploadRect.minY(),
+    texture->UploadData(context, uploadRect.minX(), uploadRect.minY(),
                         uploadRect.SizeX(), uploadRect.SizeY(), make_ref(pointer));
   }
 }
