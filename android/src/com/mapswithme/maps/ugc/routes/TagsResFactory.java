@@ -26,13 +26,13 @@ public class TagsResFactory
                       makeSelectedDrawable(color));
     drawable.addState(new int[] { -android.R.attr.state_selected, android.R.attr.state_enabled },
                       makeDefaultDrawable(context, color));
-    int unselectedDisabledColor = getUnselectedDisabledTagColor(context);
+    int unselectedDisabledColor = getDisabledTagColor(context);
     drawable.addState(new int[] { -android.R.attr.state_selected, -android.R.attr.state_enabled },
                       makeDefaultDrawable(context, unselectedDisabledColor));
     return drawable;
   }
 
-  private static int getUnselectedDisabledTagColor(@NonNull Context context)
+  private static int getDisabledTagColor(@NonNull Context context)
   {
     Resources res = context.getResources();
     return ThemeUtils.isNightTheme() ? res.getColor(R.color.white_12)
@@ -62,7 +62,7 @@ public class TagsResFactory
         new int[] {
             context.getResources().getColor(android.R.color.white),
             color,
-            getUnselectedDisabledTagColor(context)
+            getDisabledTagColor(context)
         }
     );
   }
