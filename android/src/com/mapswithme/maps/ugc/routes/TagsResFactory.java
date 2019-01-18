@@ -14,6 +14,7 @@ import android.graphics.drawable.shapes.RectShape;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.ThemeUtils;
 
 public class TagsResFactory
 {
@@ -25,10 +26,17 @@ public class TagsResFactory
                       makeSelectedDrawable(color));
     drawable.addState(new int[] { -android.R.attr.state_selected, android.R.attr.state_enabled },
                       makeDefaultDrawable(context, color));
+    int unselectedDisabledColor = getUnselectedDisabledTagColor(context);
     drawable.addState(new int[] { -android.R.attr.state_selected, -android.R.attr.state_enabled },
-                      /* FIXME */
-                      makeDefaultDrawable(context, Color.BLACK));
+                      makeDefaultDrawable(context, unselectedDisabledColor));
     return drawable;
+  }
+
+  private static int getUnselectedDisabledTagColor(@NonNull Context context)
+  {
+    Resources res = context.getResources();
+    return ThemeUtils.isNightTheme() ? res.getColor(R.color.white_12)
+                                     : res.getColor(R.color.black_12);
   }
 
   @NonNull
@@ -54,8 +62,7 @@ public class TagsResFactory
         new int[] {
             context.getResources().getColor(android.R.color.white),
             color,
-            /* FIXME */
-            Color.GRAY
+            getUnselectedDisabledTagColor(context)
         }
     );
   }
