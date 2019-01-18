@@ -1,6 +1,10 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/polygon.hpp"
+#include "geometry/rect2d.hpp"
+
+#include "coding/geometry_coding.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/geo_object_id.hpp"
@@ -41,11 +45,30 @@ public:
       toDo(m_triangles[i - 2], m_triangles[i - 1], m_triangles[i]);
   }
 
-  void SetForTests(uint64_t id, m2::PointD point)
+  void SetForTesting(uint64_t id, m2::PointD point)
   {
     m_id = id;
     m_points.clear();
     m_points.push_back(point);
+  }
+
+  void SetForTesting(uint64_t id, m2::RectD rect)
+  {
+    m_id = id;
+
+    m_points.clear();
+    m_points.push_back(rect.LeftBottom());
+    m_points.push_back(rect.RightBottom());
+    m_points.push_back(rect.RightTop());
+    m_points.push_back(rect.LeftTop());
+
+    buffer_vector<m2::PointD, 32> strip;
+    auto const index = FindSingleStrip(
+        m_points.size(), IsDiagonalVisibleFunctor<std::vector<m2::PointD>::const_iterator>(
+                             m_points.begin(), m_points.end()));
+    MakeSingleStripFromIndex(index, m_points.size(),
+                             [&](size_t i) { strip.push_back(m_points[i]); });
+    serial::StripToTriangles(strip.size(), strip, m_triangles);
   }
 
 private:

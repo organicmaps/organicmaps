@@ -291,21 +291,27 @@ void SaveInnerTriangles(std::vector<m2::PointD> const & points, GeometryCodingPa
   SaveInner(&coding::EncodeTriangleStrip, points, params, sink);
 }
 
+inline void StripToTriangles(size_t count, OutPointsT const & strip, OutPointsT & triangles)
+{
+  CHECK_GREATER_OR_EQUAL(count, 2, ());
+  triangles.clear();
+  triangles.reserve((count - 2) * 3);
+  for (size_t i = 2; i < count; ++i)
+  {
+    triangles.push_back(strip[i - 2]);
+    triangles.push_back(strip[i - 1]);
+    triangles.push_back(strip[i]);
+  }
+}
+
 inline void const * LoadInnerTriangles(void const * pBeg, size_t count,
                                        GeometryCodingParams const & params, OutPointsT & triangles)
 {
   CHECK_GREATER_OR_EQUAL(count, 2, ());
-  triangles.clear();
   OutPointsT points;
   void const * res = LoadInner(&coding::DecodeTriangleStrip, pBeg, count, params, points);
 
-  triangles.reserve((count - 2) * 3);
-  for (size_t i = 2; i < count; ++i)
-  {
-    triangles.push_back(points[i - 2]);
-    triangles.push_back(points[i - 1]);
-    triangles.push_back(points[i]);
-  }
+  StripToTriangles(count, points, triangles);
   return res;
 }
 
