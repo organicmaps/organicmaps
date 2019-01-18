@@ -399,4 +399,20 @@ namespace
     Route const & route = *routeResult.first;
     integration::TestRouteTime(route, 17704.3);
   }
+
+  // Test on roads with tag route=shuttle_train
+  UNIT_TEST(GermanyShuttleTrainTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(54.78370, 8.83528), {0., 0.},
+                                    MercatorBounds::FromLatLon(54.91681, 8.31346));
+
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
+    integration::TestRouteTime(route, 6392.28);
+  }
 }  // namespace
