@@ -23,8 +23,9 @@ using BoostPoint = boost::geometry::model::point<double, 2, boost::geometry::cs:
 using BoostPolygon = boost::geometry::model::polygon<BoostPoint>;
 using BoostRect = boost::geometry::model::box<BoostPoint>;
 
-struct RegionWithName
+class RegionWithName
 {
+public:
   RegionWithName(StringUtf8Multilang const & name) : m_name(name) {}
 
   // This function will take the following steps:
@@ -40,8 +41,9 @@ protected:
   StringUtf8Multilang m_name;
 };
 
-struct RegionWithData
+class RegionWithData
 {
+public:
   static uint8_t constexpr kNoRank = 0;
 
   RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}

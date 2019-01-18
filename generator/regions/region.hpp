@@ -13,12 +13,13 @@ class RegionDataProxy;
 
 namespace regions
 {
-struct City;
+class City;
 
 // This is a helper class that is needed to represent the region.
 // With this view, further processing is simplified.
-struct Region : public RegionWithName, public RegionWithData
+class Region : public RegionWithName, public RegionWithData
 {
+public:
   explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
   // Build a region and its boundary based on the heuristic.
   explicit Region(City const & city);

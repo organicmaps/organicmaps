@@ -121,7 +121,6 @@ private:
   MapIsoCode m_mapIsoCode;
 };
 
-
 inline std::ostream & operator<<(std::ostream & out, AdminLevel const & t)
 {
   out << static_cast<int>(t);

@@ -10,8 +10,9 @@ namespace generator
 {
 namespace regions
 {
-struct City : public RegionWithName, public RegionWithData
+class City : public RegionWithName, public RegionWithData
 {
+public:
   explicit City(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
     : RegionWithName(fb.GetParams().name),
       RegionWithData(rd)
