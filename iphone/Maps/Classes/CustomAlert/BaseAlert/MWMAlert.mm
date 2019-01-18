@@ -4,7 +4,6 @@
 #import "MWMDefaultAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMEditorViralAlert.h"
-#import "MWMFacebookAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMOsmAuthAlert.h"
 #import "MWMPlaceDoesntExistAlert.h"
@@ -17,7 +16,6 @@
 
 + (MWMAlert *)rateAlert { return [MWMRateAlert alert]; }
 + (MWMAlert *)locationAlert { return [MWMLocationAlert alert]; }
-+ (MWMAlert *)facebookAlert { return [MWMFacebookAlert alert]; }
 + (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];

@@ -14,7 +14,6 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 - (void)book:(BOOL)isDescription;
 - (void)editBookmark;
 - (void)orderTaxi:(MWMPlacePageTaxiProvider)provider;
-- (void)showAllReviews;
 - (void)showAllFacilities;
 - (void)showPhotoAtIndex:(NSInteger)index
                          referenceView:(UIView * _Nullable)referenceView

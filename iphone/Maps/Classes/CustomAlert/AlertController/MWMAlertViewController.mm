@@ -62,7 +62,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
-- (void)presentFacebookAlert { [self displayAlert:[MWMAlert facebookAlert]]; }
 - (void)presentLocationServiceNotSupportedAlert
 {
   [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];

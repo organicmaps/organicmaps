@@ -474,14 +474,12 @@
 		6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		6741A98B1BF340DE002C974C /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A35771B53D4C9009677EE /* MWMCircularProgress.xib */; };
 		6741A9901BF340DE002C974C /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */; };
-		6741A9911BF340DE002C974C /* MWMFacebookAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */; };
 		6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F4B6E1B46A5380081A24A /* MWMDownloaderDialogCell.xib */; };
 		6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
 		6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
 		6741A9A31BF340DE002C974C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
-		6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */; };
 		6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F198B1AB81A00006EAF7E /* MWMDefaultAlert.mm */; };
 		6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapsAppDelegate.mm */; };
 		6741A9B11BF340DE002C974C /* MWMAPIBarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.mm */; };
@@ -1695,9 +1693,6 @@
 		F6BBF2C41B4FFB72000CF8E2 /* MWMLocationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationAlert.h; sourceTree = "<group>"; };
 		F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMLocationAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMLocationAlert.xib; sourceTree = "<group>"; };
-		F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacebookAlert.h; sourceTree = "<group>"; };
-		F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMFacebookAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFacebookAlert.xib; sourceTree = "<group>"; };
 		F6BD1D1E1CA412920047B8E8 /* MWMOsmAuthAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOsmAuthAlert.h; sourceTree = "<group>"; };
 		F6BD1D1F1CA412920047B8E8 /* MWMOsmAuthAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMOsmAuthAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMOsmAuthAlert.xib; sourceTree = "<group>"; };
@@ -3584,7 +3579,6 @@
 				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
 				346B42A81DD5E3D20094EBEE /* LocationNotFoundAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
-				F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F61579301AC2CE760032D8E9 /* RateAlert */,
 				F64F19871AB81A00006EAF7E /* DefaultAlert */,
@@ -3739,16 +3733,6 @@
 				F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */,
 			);
 			path = LocationAlert;
-			sourceTree = "<group>";
-		};
-		F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */ = {
-			isa = PBXGroup;
-			children = (
-				F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */,
-				F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */,
-				F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */,
-			);
-			path = FacebookAlert;
 			sourceTree = "<group>";
 		};
 		F6BD1D1D1CA412700047B8E8 /* AuthAlert */ = {
@@ -4654,7 +4638,6 @@
 				F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				340FDC0A2031C39E00F140AD /* BMCPermissionsPendingCell.xib in Resources */,
 				346DB8311E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
-				6741A9911BF340DE002C974C /* MWMFacebookAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */,
@@ -4872,7 +4855,6 @@
 				F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
-				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */,
 				470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */,
@@ -5540,7 +5522,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -5591,7 +5572,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5645,7 +5625,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

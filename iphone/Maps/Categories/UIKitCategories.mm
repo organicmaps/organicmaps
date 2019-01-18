@@ -106,7 +106,7 @@
 {
   NSString * urlString = @"https://itunes.apple.com/app/id510623322?action=write-review";
   NSURL * url = [NSURL URLWithString:urlString];
-  [self openURL:url];
+  [self openURL:url options:@{} completionHandler:nil];
 }
 
 @end

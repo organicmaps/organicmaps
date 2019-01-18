@@ -164,7 +164,7 @@
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
     NSURL * url = [inRequest URL];
-    [UIApplication.sharedApplication openURL:url];
+    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
     decisionHandler(WKNavigationActionPolicyCancel);
     return;
   }

@@ -119,8 +119,9 @@
 }
 
 - (BOOL)textView:(UITextView *)textView
-    shouldInteractWithURL:(NSURL *)URL
-                  inRange:(NSRange)characterRange
+shouldInteractWithURL:(NSURL *)URL
+         inRange:(NSRange)characterRange
+     interaction:(UITextItemInteraction)interaction
 {
   NSString * scheme = URL.scheme;
   if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])

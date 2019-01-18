@@ -401,8 +401,7 @@ using namespace osm_auth_ios;
   [GIDSignIn sharedInstance].clientID =
       [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
 
-  if (@available(iOS 10, *))
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+  [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
   if ([MWMFrameworkHelper canUseNetwork]) {
     [[SubscriptionManager shared] validate];
@@ -941,66 +940,20 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showRateAlert) object:nil];
     [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
   }
-  else if ([self shouldShowFacebookAlert])
-  {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showFacebookAlert) object:nil];
-    [self performSelector:@selector(showFacebookAlert) withObject:nil afterDelay:30.0];
-  }
-}
-
-- (void)showAlert:(BOOL)isRate
-{
-  if (!Platform::IsConnected() || [MWMRouter isRoutingActive])
-    return;
-
-  if (isRate)
-    [[MWMAlertViewController activeAlertController] presentRateAlert];
-  else
-    [[MWMAlertViewController activeAlertController] presentFacebookAlert];
-  [NSUserDefaults.standardUserDefaults
-      setObject:NSDate.date
-         forKey:isRate ? kUDLastRateRequestDate : kUDLastShareRequstDate];
-}
-
-#pragma mark - Facebook
-
-- (void)showFacebookAlert { [self showAlert:NO]; }
-- (BOOL)shouldShowFacebookAlert
-{
-  NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
-  NSUserDefaults const * const standartDefaults = NSUserDefaults.standardUserDefaults;
-  if ([standartDefaults boolForKey:kUDAlreadySharedKey])
-    return NO;
-
-  NSUInteger const sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
-  if (sessionCount > kMaximumSessionCountForShowingShareAlert)
-    return NO;
-
-  NSDate * const lastShareRequestDate = [standartDefaults objectForKey:kUDLastShareRequstDate];
-  NSUInteger const daysFromLastShareRequest =
-      [MapsAppDelegate daysBetweenNowAndDate:lastShareRequestDate];
-  if (lastShareRequestDate != nil && daysFromLastShareRequest == 0)
-    return NO;
-
-  if (sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
-    return YES;
-
-  if (self.userIsNew)
-  {
-    if (sessionCount == 12)
-      return YES;
-  }
-  else
-  {
-    if (sessionCount == 5)
-      return YES;
-  }
-  return NO;
 }
 
 #pragma mark - Rate
 
-- (void)showRateAlert { [self showAlert:YES]; }
+- (void)showRateAlert
+{
+  if (!Platform::IsConnected() || [MWMRouter isRoutingActive])
+    return;
+
+  [[MWMAlertViewController activeAlertController] presentRateAlert];
+  [NSUserDefaults.standardUserDefaults setObject:NSDate.date
+                                          forKey:kUDLastRateRequestDate];
+}
+
 - (BOOL)shouldShowRateAlert
 {
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;

@@ -10,7 +10,6 @@
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentRoutingMigrationAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentRateAlert;
-- (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild;
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;

@@ -30,7 +30,7 @@ static NSString * const kStatisticsEvent = @"Location Alert";
     NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     UIApplication * a = UIApplication.sharedApplication;
     if ([a canOpenURL:url])
-      [a openURL:url];
+      [a openURL:url options:@{} completionHandler:nil];
   }];
 }
 

@@ -371,7 +371,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   else if (cell == self.manageSubscriptionsCell)
   {
-    [UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"]];
+    [UIApplication.sharedApplication
+     openURL:[NSURL URLWithString:@"https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"]
+     options:@{}
+     completionHandler:nil];
   }
 }
 

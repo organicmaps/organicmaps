@@ -70,7 +70,7 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
     return NO;
 
   NSURL * url = [NSURL URLWithString:openLink];
-  [app openURL:url];
+  [app openURL:url options:@{} completionHandler:nil];
   return YES;
 }
 

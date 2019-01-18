@@ -503,14 +503,14 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   
   if (!isDescription && data.isPartnerAppInstalled)
   {
-    [UIApplication.sharedApplication openURL:data.deepLink];
+    [UIApplication.sharedApplication openURL:data.deepLink options:@{} completionHandler:nil];
     return;
   }
   
   NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
   
-  [UIApplication.sharedApplication openURL:url];
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)searchBookingHotels
@@ -521,7 +521,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   logSponsoredEvent(data, kStatPlacePageHotelSearch);
   NSURL * url = data.bookingSearchURL;
   NSAssert(url, @"Search url can't be nil!");
-  [UIApplication.sharedApplication openURL:url];
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)openPartner
@@ -532,39 +532,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   logSponsoredEvent(data, kStatPlacePageSponsoredActionButtonClick);
   NSURL * url = data.sponsoredURL;
   NSAssert(url, @"Partner url can't be nil!");
-  [UIApplication.sharedApplication openURL:url];
-}
-
-- (void)call
-{
-  auto data = self.data;
-  if (!data)
-    return;
-  NSAssert(data.phoneNumber, @"Phone number can't be nil!");
-  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:data.phoneNumber]
-      stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  NSURL * url = [NSURL URLWithString:phoneNumber];
-  [UIApplication.sharedApplication openURL:url];
-}
-
-- (void)apiBack
-{
-  auto data = self.data;
-  if (!data)
-    return;
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
-  NSURL * url = [NSURL URLWithString:data.apiURL];
-  [UIApplication.sharedApplication openURL:url];
-  [self.ownerViewController.apiBar back];
-}
-
-- (void)showAllReviews
-{
-  auto data = self.data;
-  if (!data)
-    return;
-  logSponsoredEvent(data, kStatPlacePageHotelReviews);
-  [UIApplication.sharedApplication openURL:data.URLToAllReviews];
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)showPhotoAtIndex:(NSInteger)index

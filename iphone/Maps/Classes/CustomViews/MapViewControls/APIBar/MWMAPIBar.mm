@@ -53,7 +53,7 @@ static NSString * const kKeyPath = @"subviews";
   auto & bmManager = f.GetBookmarkManager();
   bmManager.GetEditSession().ClearGroup(UserMark::Type::API);
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
-  [UIApplication.sharedApplication openURL:url];
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
 @end

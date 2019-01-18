@@ -63,7 +63,7 @@ final class WhatsNewController: WelcomeViewController {
   @IBAction func onCta() {
     let config = pageConfig as! WhatsNewConfig
     if let url = URL(string: config.ctaButtonUrl!) {
-      UIApplication.shared.openURL(url)
+      UIApplication.shared.open(url)
     } else {
       assertionFailure()
     }

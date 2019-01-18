@@ -153,7 +153,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 
   [taxiDataSource taxiURL:^(NSURL * url) {
-    [UIApplication.sharedApplication openURL:url];
+    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
   }];
 }
 

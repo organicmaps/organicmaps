@@ -5,7 +5,6 @@
 
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (MWMAlert *)rateAlert;
-+ (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block;
 + (MWMAlert *)disabledLocationAlert;

@@ -72,9 +72,7 @@ class TutorialBlurView: UIVisualEffectView {
 
   func animateFadeOut(_ duration: TimeInterval, completion: @escaping () -> Void) {
     UIView.animate(withDuration: duration, animations: {
-      if #available(iOS 10.0, *) {
-        self.effect = nil
-      }
+      self.effect = nil
       self.contentView.alpha = 0
     }) { _ in
       self.contentView.backgroundColor = .clear
@@ -83,15 +81,10 @@ class TutorialBlurView: UIVisualEffectView {
   }
 
   func animateAppearance(_ duration: TimeInterval) {
-      contentView.alpha = 0
-      UIView.animate(withDuration: duration) {
-        self.contentView.alpha = 1
-        if #available(iOS 10.0, *) {
-          self.effect = UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark)
-        } else {
-          let bgColor = UIColor.isNightMode() ? UIColor.gray : UIColor.black
-          self.contentView.backgroundColor = bgColor.withAlphaComponent(0.5)
-        }
+    contentView.alpha = 0
+    UIView.animate(withDuration: duration) {
+      self.contentView.alpha = 1
+      self.effect = UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark)
     }
   }
 

@@ -68,7 +68,7 @@ extension SearchCategoriesViewController: SearchBannerCellDelegate {
       assertionFailure()
       return
     }
-    UIApplication.shared.openURL(url)
+    UIApplication.shared.open(url)
   }
   
   func cellDidPressClose(_ cell: SearchBannerCell) {
