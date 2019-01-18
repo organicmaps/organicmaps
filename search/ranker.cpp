@@ -623,7 +623,8 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
   KeywordLangMatcher::Score bestScore;
   auto updateScore = [&](int8_t lang, string const & s, bool force) {
-    auto const score = m_keywordsScorer.CalcScore(lang, s);
+    // Ignore name for categorial requests.
+    auto const score = m_keywordsScorer.CalcScore(lang, m_params.m_categorialRequest ? "" : s);
     if (force ? bestScore <= score : bestScore < score)
     {
       bestScore = score;

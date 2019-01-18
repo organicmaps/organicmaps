@@ -591,7 +591,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_preferredTypes = m_preferredTypes;
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;
-  params.m_needHighlighting = searchParams.m_needHighlighting;
+  params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
   params.m_query = m_query;
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
