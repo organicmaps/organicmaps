@@ -68,13 +68,13 @@
 
   <string-array name="power_management_scheme">
     <item>@string/power_management_setting_never</item>
-    <item>@string/power_management_setting_auto</item>
     <item>@string/power_managment_setting_manual_max</item>
+    <item>@string/power_management_setting_auto</item>
   </string-array>
 
   <string-array name="power_management_scheme_values">
     <item>1</item>
-    <item>4</item>
     <item>3</item>
+    <item>4</item>
   </string-array>
 </resources>

@@ -19,7 +19,7 @@ public final class PowerManagment
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ NONE, NORMAL, MEDIUM, HIGH, AUTO })
-  @interface SchemeType
+  public @interface SchemeType
   {
   }
 

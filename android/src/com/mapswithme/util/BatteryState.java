@@ -40,13 +40,13 @@ public final class BatteryState
   @IntRange(from=0, to=100)
   public static int getLevel()
   {
-    return getState().mLevel;
+    return getState().getLevel();
   }
 
   @ChargingStatus
   public static int getChargingStatus()
   {
-    return getState().mChargingStatus;
+    return getState().getChargingStatus();
   }
 
   @IntRange(from=0, to=100)

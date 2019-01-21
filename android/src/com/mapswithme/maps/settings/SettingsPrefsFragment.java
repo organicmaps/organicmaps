@@ -573,12 +573,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (powerManagementPref == null)
       return;
 
+    @PowerManagment.SchemeType
     int curValue = PowerManagment.getScheme();
     powerManagementPref.setValue(String.valueOf(curValue));
 
     powerManagementPref.setOnPreferenceChangeListener((preference, newValue) ->
     {
-      String valueStr = (String)newValue;
+      String valueStr = (String) newValue;
       PowerManagment.setScheme(Integer.parseInt(valueStr));
 
       return true;
