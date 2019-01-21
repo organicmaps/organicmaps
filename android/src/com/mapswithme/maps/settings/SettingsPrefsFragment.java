@@ -45,6 +45,7 @@ import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
@@ -338,6 +339,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
+    initPowerManagementPrefsCallbacks();
     initOptOut();
     updateTts();
   }
@@ -561,6 +563,25 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
         return true;
       }
+    });
+  }
+
+  private void initPowerManagementPrefsCallbacks()
+  {
+    final ListPreference powerManagementPref = (ListPreference)findPreference(
+      getString(R.string.pref_power_management));
+    if (powerManagementPref == null)
+      return;
+
+    int curValue = PowerManagment.getScheme();
+    powerManagementPref.setValue(String.valueOf(curValue));
+
+    powerManagementPref.setOnPreferenceChangeListener((preference, newValue) ->
+    {
+      String valueStr = (String)newValue;
+      PowerManagment.setScheme(Integer.parseInt(valueStr));
+
+      return true;
     });
   }
 

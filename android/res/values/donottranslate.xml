@@ -69,6 +69,7 @@
   <string name="pref_navigation" translatable="false">Navigation</string>
   <string name="pref_information" translatable="false">Information</string>
   <string name="pref_transliteration" translatable="false">Transliteration</string>
+  <string name="pref_power_management" translatable="false">PowerManagment</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>

@@ -1974,6 +1974,12 @@ Java_com_mapswithme_maps_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclas
                                        static_cast<bool>(state));
 }
 
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetPowerManagerScheme(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetPowerManager().GetScheme());
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass, jint schemeType)
 {
