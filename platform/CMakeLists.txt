@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 
 set(
   SRC
+  battery_tracker.cpp
+  battery_tracker.hpp
   chunks_download_strategy.cpp
   chunks_download_strategy.hpp
   constants.hpp

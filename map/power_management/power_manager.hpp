@@ -1,6 +1,7 @@
 #pragma once
 
-#include "map/power_management/battery_tracker.hpp"
+#include "platform/battery_tracker.hpp"
+
 #include "map/power_management/power_management_schemas.hpp"
 
 #include "base/visitor.hpp"
@@ -12,7 +13,7 @@
 namespace power_management
 {
 // Note: this class is NOT thread-safe.
-class PowerManager : public BatteryLevelTracker::Subscriber
+class PowerManager : public platform::BatteryLevelTracker::Subscriber
 {
 public:
   class Subscriber
@@ -32,6 +33,7 @@ public:
   FacilitiesState const & GetFacilities() const;
   Scheme const & GetScheme() const;
 
+  // BatteryLevelTracker::Subscriber overrides:
   void OnBatteryLevelReceived(uint8_t level) override;
 
   void Subscribe(Subscriber * subscriber);
@@ -53,6 +55,5 @@ private:
   std::vector<Subscriber *> m_subscribers;
 
   Config m_config;
-  BatteryLevelTracker m_batteryTracker;
 };
 }  // namespace power_management

@@ -4,8 +4,9 @@
 #include <cstdint>
 #include <vector>
 
-namespace power_management
+namespace platform
 {
+// Note: this class is NOT thread-safe.
 class BatteryLevelTracker
 {
 public:
@@ -20,11 +21,10 @@ public:
   void UnsubscribeAll();
 
 private:
-  uint8_t GetBatteryLevel();
   void RequestBatteryLevel();
 
   std::vector<Subscriber *> m_subscribers;
-  std::chrono::system_clock::time_point m_lastRequestedTime;
-  uint8_t m_lastReceivedlevel = 0;
+  std::chrono::system_clock::time_point m_lastRequestTime;
+  uint8_t m_lastReceivedLevel = 0;
 };
-}  // power_management
+}  // platform

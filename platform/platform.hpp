@@ -1,5 +1,6 @@
 #pragma once
 
+#include "platform/battery_tracker.hpp"
 #include "platform/country_defines.hpp"
 #include "platform/gui_thread.hpp"
 #include "platform/http_user_agent.hpp"
@@ -130,6 +131,8 @@ protected:
   std::unique_ptr<base::WorkerThread> m_networkThread;
   std::unique_ptr<base::WorkerThread> m_fileThread;
   std::unique_ptr<base::WorkerThread> m_backgroundThread;
+
+  platform::BatteryLevelTracker m_batteryTracker;
 
 public:
   Platform();
@@ -291,6 +294,9 @@ public:
   static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; }
 
   static ChargingStatus GetChargingStatus();
+
+  // Returns current battery level. Possible values are from 0 to 100.
+  // Returns 100 when actual level is unknown.
   static uint8_t GetBatteryLevel();
 
   void SetupMeasurementSystem() const;
@@ -346,6 +352,8 @@ public:
 
   // Use this method for testing purposes only.
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
+
+  platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
 
 private:
   void RunThreads();

@@ -329,6 +329,9 @@ unsigned Platform::CpuCores() const
 void Platform::ShutdownThreads()
 {
   ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
+
+  m_batteryTracker.UnsubscribeAll();
+
   m_networkThread->ShutdownAndJoin();
   m_fileThread->ShutdownAndJoin();
   m_backgroundThread->ShutdownAndJoin();
