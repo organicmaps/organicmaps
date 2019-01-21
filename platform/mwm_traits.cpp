@@ -19,8 +19,7 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
   if (GetFormat() < version::Format::v7)
     return HouseToStreetTableFormat::Unknown;
 
-  // todo: (@t.yan) adjust after production maps generation.
-  uint32_t constexpr kLastVersionWithFixed3BitsDDVector = 181219;
+  uint32_t constexpr kLastVersionWithFixed3BitsDDVector = 190113;
   if (GetVersion() <= kLastVersionWithFixed3BitsDDVector)
     return HouseToStreetTableFormat::Fixed3BitsDDVector;
 
