@@ -2657,10 +2657,7 @@
 "power_management_setting_auto" = "auto";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_setting_medium" = "medium";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_setting_high" = "high";
+"power_managment_setting_manual_max" = "extreme power saving";
 
 
 /**********  Partners  **********/
