@@ -94,6 +94,7 @@ using MapIsoCode = std::unordered_map<base::GeoObjectId, IsoCode>;
 class CollectorRegionInfo : public CollectorInterface
 {
 public:
+  static uint8_t const kVersion;
   static std::string const kDefaultExt;
 
   CollectorRegionInfo(std::string const & filename);

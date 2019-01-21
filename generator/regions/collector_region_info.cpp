@@ -11,16 +11,12 @@
 
 #include <map>
 
-namespace
-{
-uint8_t const kVersion = 0;
-}  // namespace
-
 namespace generator
 {
 namespace regions
 {
 std::string const CollectorRegionInfo::kDefaultExt = ".regions.bin";
+uint8_t const CollectorRegionInfo::kVersion = 0;
 
 PlaceType EncodePlaceType(std::string const & place)
 {

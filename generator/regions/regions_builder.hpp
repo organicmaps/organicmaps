@@ -23,7 +23,7 @@ public:
   using StringsList = std::vector<std::string>;
   using IdStringList = std::vector<std::pair<base::GeoObjectId, std::string>>;
   using CountryTrees = std::multimap<std::string, Node::Ptr>;
-  using NormalizedCountryFn = std::function<void(std::string, Node::Ptr)>;
+  using NormalizedCountryFn = std::function<void(std::string const &, Node::Ptr const &)>;
 
   explicit RegionsBuilder(Regions && regions,
                           std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
@@ -33,7 +33,7 @@ public:
   Regions const & GetCountries() const;
   StringsList GetCountryNames() const;
   void ForEachNormalizedCountry(NormalizedCountryFn fn);
-  IdStringList ToIdStringList(Node::Ptr tree) const;
+  IdStringList ToIdStringList(Node::Ptr const & tree) const;
 private:
   static Node::PtrList MakeSelectedRegionsByCountry(Region const & country,
                                                     Regions const & allRegions);

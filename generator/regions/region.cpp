@@ -18,10 +18,9 @@ namespace generator
 namespace regions
 {
 
-void MakePolygonWithRadius(BoostPoint const & point, BoostPolygon & polygon, double radius,
-                           size_t points = 16)
+BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size_t numPoints  = 16)
 {
-  boost::geometry::strategy::buffer::point_circle point_strategy(points);
+  boost::geometry::strategy::buffer::point_circle point_strategy(numPoints);
   boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(radius);
 
   static boost::geometry::strategy::buffer::join_round const join_strategy;
@@ -32,7 +31,7 @@ void MakePolygonWithRadius(BoostPoint const & point, BoostPolygon & polygon, dou
   boost::geometry::buffer(point, result, distance_strategy, side_strategy, join_strategy,
                           end_strategy, point_strategy);
   CHECK_EQUAL(result.size(), 1, ());
-  polygon = std::move(result.front());
+  return std::move(result.front());
 }
 Region::Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
   : RegionWithName(fb.GetParams().name)
@@ -49,14 +48,14 @@ Region::Region(City const & city)
   , RegionWithData(city.GetRegionData())
   , m_polygon(std::make_shared<BoostPolygon>())
 {
-  auto const radius = GetRediusByPlaceType(city.GetPlaceType());
-  MakePolygonWithRadius(city.GetCenter(), *m_polygon, radius);
+  auto const radius = GetRadiusByPlaceType(city.GetPlaceType());
+  *m_polygon = MakePolygonWithRadius(city.GetCenter(), radius);
   boost::geometry::envelope(*m_polygon, m_rect);
   m_area = boost::geometry::area(*m_polygon);
 }
 
 // static
-double Region::GetRediusByPlaceType(PlaceType place)
+double Region::GetRadiusByPlaceType(PlaceType place)
 {
   // Based on average radiuses of OSM place polygons.
   switch (place)
@@ -115,7 +114,7 @@ double Region::CalculateOverlapPercentage(Region const & other) const
   CHECK(other.m_polygon, ());
 
   if (!boost::geometry::intersects(other.m_rect, m_rect))
-    return false;
+    return 0.0;
 
   std::vector<BoostPolygon> coll;
   boost::geometry::intersection(*other.m_polygon, *m_polygon, coll);
@@ -142,8 +141,7 @@ bool Region::Contains(City const & cityPoint) const
 {
   CHECK(m_polygon, ());
 
-  return boost::geometry::covered_by(cityPoint.GetCenter(), m_rect) &&
-      boost::geometry::covered_by(cityPoint.GetCenter(), *m_polygon);
+  return Contains(cityPoint.GetCenter());
 }
 
 bool Region::Contains(BoostPoint const & point) const
@@ -152,15 +150,6 @@ bool Region::Contains(BoostPoint const & point) const
 
   return boost::geometry::covered_by(point, m_rect) &&
       boost::geometry::covered_by(point, *m_polygon);
-}
-
-void SetCityBestAttributesToRegion(City const & cityPoint, Region & region)
-{
-  if (cityPoint.GetMultilangName().CountLangs() > region.GetMultilangName().CountLangs())
-    region.SetMultilangName(cityPoint.GetMultilangName());
-
-  region.SetAdminLevel(cityPoint.GetAdminLevel());
-  region.SetPlaceType(cityPoint.GetPlaceType());
 }
 
 bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature)
@@ -178,8 +167,8 @@ bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & f
   if (placeType == PlaceType::Locality || placeType == PlaceType::Unknown)
     return false;
 
-  auto const radius = Region::GetRediusByPlaceType(placeType);
-  MakePolygonWithRadius({center.x, center.y}, polygon, radius);
+  auto const radius = Region::GetRadiusByPlaceType(placeType);
+  polygon = MakePolygonWithRadius({center.x, center.y}, radius);
   auto const & outer = polygon.outer();
   FeatureBuilder1::PointSeq seq;
   std::transform(std::begin(outer), std::end(outer), std::back_inserter(seq), [](BoostPoint const & p) {

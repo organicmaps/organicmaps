@@ -70,7 +70,7 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
   return result;
 }
 
-RegionsBuilder::IdStringList RegionsBuilder::ToIdStringList(Node::Ptr tree) const
+RegionsBuilder::IdStringList RegionsBuilder::ToIdStringList(Node::Ptr const & tree) const
 {
   IdStringList result;
   std::queue<Node::Ptr> queue;
@@ -134,7 +134,7 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & country,
     {
       auto const & currRegion = (*itCurr)->GetData();
       if (currRegion.Contains(firstRegion) ||
-          (firstRegion.GetWeight() < firstRegion.GetWeight() &&
+          (firstRegion.GetWeight() < currRegion.GetWeight() &&
            currRegion.Contains(firstRegion.GetCenter()) &&
            currRegion.CalculateOverlapPercentage(firstRegion) > 50.0))
       {

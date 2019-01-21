@@ -1,5 +1,7 @@
 #include "generator/regions/region_info.hpp"
 
+#include "generator/regions/collector_region_info.hpp"
+
 #include "coding/file_reader.hpp"
 
 #include "base/assert.hpp"
@@ -27,7 +29,7 @@ void RegionInfo::ParseFile(std::string const & filename)
   ReaderSource<FileReader> src(reader);
   uint8_t version;
   ReadPrimitiveFromSource(src, version);
-  UNUSED_VALUE(version);
+  CHECK_EQUAL(version, CollectorRegionInfo::kVersion, ());
   ReadMap(src, m_mapRegionData);
   ReadMap(src, m_mapIsoCode);
 }
@@ -62,97 +64,97 @@ void RegionDataProxy::SetPlaceType(PlaceType placeType)
   GetMapRegionData().at(m_osmId).m_place = placeType;
 }
 
-template<typename T>
+template <typename T>
 BaseRegionDataProxy<T>::BaseRegionDataProxy(T & regionInfoCollector, base::GeoObjectId const & osmId)
   : m_regionInfoCollector(regionInfoCollector), m_osmId(osmId) {}
 
-template<typename T>
+template <typename T>
 RegionInfo const & BaseRegionDataProxy<T>::GetCollector() const
 {
   return m_regionInfoCollector;
 }
 
-template<typename T>
+template <typename T>
 MapRegionData const & BaseRegionDataProxy<T>::GetMapRegionData() const
 {
   return GetCollector().m_mapRegionData;
 }
 
-template<typename T>
+template <typename T>
 MapIsoCode const & BaseRegionDataProxy<T>::GetMapIsoCode() const
 {
   return GetCollector().m_mapIsoCode;
 }
 
-template<typename T>
+template <typename T>
 base::GeoObjectId const & BaseRegionDataProxy<T>::GetOsmId() const
 {
   return m_osmId;
 }
 
-template<typename T>
+template <typename T>
 AdminLevel BaseRegionDataProxy<T>::GetAdminLevel() const
 {
   return GetMapRegionData().at(m_osmId).m_adminLevel;
 }
 
-template<typename T>
+template <typename T>
 PlaceType BaseRegionDataProxy<T>::GetPlaceType() const
 {
   return GetMapRegionData().at(m_osmId).m_place;
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasAdminLevel() const
 {
   return (GetMapRegionData().count(m_osmId) != 0) &&
       (GetMapRegionData().at(m_osmId).m_adminLevel != AdminLevel::Unknown);
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasPlaceType() const
 {
   return (GetMapRegionData().count(m_osmId) != 0) &&
       (GetMapRegionData().at(m_osmId).m_place != PlaceType::Unknown);
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasIsoCode() const
 {
   return GetMapIsoCode().count(m_osmId) != 0;
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasIsoCodeAlpha2() const
 {
   return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha2();
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasIsoCodeAlpha3() const
 {
   return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha3();
 }
 
-template<typename T>
+template <typename T>
 bool BaseRegionDataProxy<T>::HasIsoCodeAlphaNumeric() const
 {
   return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasNumeric();
 }
 
-template<typename T>
+template <typename T>
 std::string BaseRegionDataProxy<T>::GetIsoCodeAlpha2() const
 {
   return GetMapIsoCode().at(m_osmId).GetAlpha2();
 }
 
-template<typename T>
+template <typename T>
 std::string BaseRegionDataProxy<T>::GetIsoCodeAlpha3() const
 {
   return GetMapIsoCode().at(m_osmId).GetAlpha3();
 }
 
-template<typename T>
+template <typename T>
 std::string BaseRegionDataProxy<T>::GetIsoCodeAlphaNumeric() const
 {
   return GetMapIsoCode().at(m_osmId).GetNumeric();

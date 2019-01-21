@@ -1,6 +1,5 @@
 #include "generator/regions/regions_fixer.hpp"
 
-#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -11,7 +10,6 @@
 #include <set>
 #include <string>
 #include <utility>
-#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -25,13 +23,13 @@ class RegionLocalityChecker
 {
 public:
   RegionLocalityChecker() = default;
-  RegionLocalityChecker(RegionsBuilder::Regions const & regions)
+  explicit RegionLocalityChecker(RegionsBuilder::Regions const & regions)
   {
     for (auto const & region : regions)
     {
       auto const name = region.GetName();
       if (region.IsLocality() && !name.empty())
-        m_nameRegionMap.emplace(name, region);
+        m_nameRegionMap.emplace(std::move(name), region);
     }
   }
 
@@ -55,28 +53,28 @@ private:
 class RegionsFixerWithPlacePointApproximation
 {
 public:
-  RegionsFixerWithPlacePointApproximation(RegionsBuilder::Regions && regions,
-                                          PointCitiesMap const & pointCitiesMap)
+  explicit RegionsFixerWithPlacePointApproximation(RegionsBuilder::Regions && regions,
+                                                   PointCitiesMap const & pointCitiesMap)
     : m_regions(std::move(regions)), m_pointCitiesMap(pointCitiesMap) {}
 
 
   RegionsBuilder::Regions && GetFixedRegions()
   {
     RegionLocalityChecker regionsChecker(m_regions);
-    RegionsBuilder::Regions additivedRegions;
+    RegionsBuilder::Regions approximatedRegions;
     size_t countOfFixedRegions = 0;
     for (auto const & cityKeyValue : m_pointCitiesMap)
     {
       auto const & city = cityKeyValue.second;
       if (!regionsChecker.CityExistsAsRegion(city) && NeedCity(city))
       {
-        additivedRegions.push_back(Region(city));
+        approximatedRegions.push_back(Region(city));
         ++countOfFixedRegions;
       }
     }
 
     LOG(LINFO, ("City boundaries restored by approximation:", countOfFixedRegions));
-    std::move(std::begin(additivedRegions), std::end(additivedRegions),
+    std::move(std::begin(approximatedRegions), std::end(approximatedRegions),
               std::back_inserter(m_regions));
     return std::move(m_regions);
   }

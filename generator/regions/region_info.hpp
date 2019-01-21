@@ -17,7 +17,7 @@ namespace generator
 {
 namespace regions
 {
-template<typename T>
+template <typename T>
 class BaseRegionDataProxy;
 class RegionDataProxy;
 class ConstRegionDataProxy;
@@ -58,7 +58,7 @@ private:
   MapIsoCode m_mapIsoCode;
 };
 
-template<typename T>
+template <typename T>
 class BaseRegionDataProxy
 {
 public:

@@ -9,9 +9,9 @@
 #include "indexer/locality_index.hpp"
 #include "indexer/locality_index_builder.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "coding/mmap_reader.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
@@ -33,6 +33,8 @@ namespace
 {
 using KeyValue = std::pair<uint64_t, base::Json>;
 using IndexReader = ReaderPtr<Reader>;
+
+bool DefaultPred(KeyValue const &) { return true; }
 
 bool ParseKey(std::string const & line, int64_t & key)
 {
@@ -99,36 +101,35 @@ public:
 class KeyValueMem : public KeyValueInterface
 {
 public:
-  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred =
-      [](KeyValue const &) { return true; })
-{
-  std::string line;
-  KeyValue kv;
-  while (std::getline(stream, line))
+  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred = DefaultPred)
   {
-    if (!ParseKeyValueLine(line, kv) || !pred(kv))
-      continue;
+    std::string line;
+    KeyValue kv;
+    while (std::getline(stream, line))
+    {
+      if (!ParseKeyValueLine(line, kv) || !pred(kv))
+        continue;
 
-    m_map.insert(kv);
+      m_map.insert(kv);
+    }
+
   }
 
-}
+  // KeyValueInterface overrides:
+  boost::optional<base::Json> Find(uint64_t key) const override
+  {
+    boost::optional<base::Json> result;
+    auto const it = m_map.find(key);
+    if (it != std::end(m_map))
+      result = it->second;
 
-// KeyValueInterface overrides:
-boost::optional<base::Json> Find(uint64_t key) const override
-{
-  boost::optional<base::Json> result;
-  auto const it = m_map.find(key);
-  if (it != std::end(m_map))
-    result = it->second;
+    return result;
+  }
 
-  return result;
-}
-
-size_t Size() const override { return m_map.size(); }
+  size_t Size() const override { return m_map.size(); }
 
 private:
-std::unordered_map<uint64_t, base::Json> m_map;
+  std::unordered_map<uint64_t, base::Json> m_map;
 };
 
 // An implementation for reading key-value storage with loading and searching in disk.
@@ -313,8 +314,7 @@ FindRegion(FeatureBuilder1 const & fb, indexer::RegionsIndex<IndexReader> const 
            KeyValueInterface const & regionKv)
 {
   auto const ids = SearchObjectsInIndex(fb, regionIndex);
-  auto const deepest = GetDeepestRegion(ids, regionKv);
-  return deepest;
+  return GetDeepestRegion(ids, regionKv);
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
@@ -360,13 +360,12 @@ MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, base::Json json)
 boost::optional<indexer::GeoObjectsIndex<IndexReader>>
 MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 {
-  boost::optional<indexer::GeoObjectsIndex<IndexReader>> result;
   auto const dataFile = Platform().TmpPathForFile();
   SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
   if (!feature::GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
   {
     LOG(LCRITICAL, ("Error generating geo objects data."));
-    return result;
+    return {};
   }
 
   auto const indexFile = Platform().TmpPathForFile();
@@ -374,14 +373,13 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
   if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile))
   {
     LOG(LCRITICAL, ("Error generating geo objects index."));
-    return result;
+    return {};
   }
 
-  result = indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
-  return result;
+  return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
 }
 
-bool BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & regionIndex,
+void BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & regionIndex,
                                   KeyValueInterface const & regionKv,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   std::ostream & streamGeoObjectsKv, bool)
@@ -401,21 +399,11 @@ bool BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & reg
     ++countGeoObjects;
   };
 
-  try
-  {
-    feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
-    LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file:", e.Msg()));
-    return false;
-  }
-
-  return true;
+  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
 }
 
-bool BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
+void BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
                                      std::string const & pathInGeoObjectsTmpMwm,
                                      KeyValueInterface const & geoObjectsKv,
                                      std::ostream & streamGeoObjectsKv,
@@ -440,18 +428,8 @@ bool BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const
     ++countGeoObjects;
   };
 
-  try
-  {
-    feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
-    LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file:", e.Msg()));
-    return false;
-  }
-
-  return true;
+  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
 }
 }  // namespace
 
@@ -481,12 +459,8 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
   LOG(LINFO, ("Size of regions key-value storage:", regionsKv.Size()));
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
-  if (!BuildGeoObjectsWithAddresses(regionIndex, regionsKv, pathInGeoObjectsTmpMwm,
-                                    streamGeoObjectsKv, verbose))
-  {
-    return false;
-  }
-
+  BuildGeoObjectsWithAddresses(regionIndex, regionsKv, pathInGeoObjectsTmpMwm,
+                               streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));
   // Regions key-value storage is big (~80 Gb). We will not load the key value into memory.
   // This can be slow.
@@ -497,13 +471,11 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
   LOG(LINFO, ("Size of geo objects key-value storage:", geoObjectsKv.Size()));
   auto const geoObjectIndex = geoObjectIndexFuture.get();
   LOG(LINFO, ("Index was built."));
-  if (!geoObjectIndex ||
-      !BuildGeoObjectsWithoutAddresses(*geoObjectIndex, pathInGeoObjectsTmpMwm, geoObjectsKv,
-                                       streamGeoObjectsKv, streamIdsWithoutAddress, verbose))
-  {
+  if (!geoObjectIndex)
     return false;
-  }
 
+  BuildGeoObjectsWithoutAddresses(*geoObjectIndex, pathInGeoObjectsTmpMwm, geoObjectsKv,
+                                  streamGeoObjectsKv, streamIdsWithoutAddress, verbose);
   LOG(LINFO, ("Geo objects without addresses were built."));
   LOG(LINFO, ("Geo objects key-value storage saved to",  pathOutGeoObjectsKv));
   LOG(LINFO, ("Ids of POIs without addresses saved to", pathOutIdsWithoutAddress));

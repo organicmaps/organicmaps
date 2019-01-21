@@ -32,7 +32,11 @@ public:
   Data & GetData() { return m_data; }
   Data const & GetData() const { return m_data; }
 
-  void ShrinkToFitChildren() { PtrList(m_children).swap(m_children); }
+  void ShrinkToFitChildren()
+  {
+    if (m_children.capacity() != m_children.size())
+      PtrList(m_children).swap(m_children);
+  }
 
 private:
   Data m_data;

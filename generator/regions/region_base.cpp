@@ -77,16 +77,20 @@ uint8_t RegionWithData::GetRank() const
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood:
   case PlaceType::Locality:
-  case PlaceType::IsolatedDwelling: return static_cast<uint8_t>(placeType);
-  default: break;
+  case PlaceType::IsolatedDwelling:
+    return static_cast<uint8_t>(placeType);
+  default:
+    break;
   }
 
   switch (adminLevel)
   {
   case AdminLevel::Two:
   case AdminLevel::Four:
-  case AdminLevel::Six: return static_cast<uint8_t>(adminLevel);
-  default: break;
+  case AdminLevel::Six:
+    return static_cast<uint8_t>(adminLevel);
+  default:
+    break;
   }
 
   return kNoRank;
@@ -102,20 +106,28 @@ std::string RegionWithData::GetLabel() const
   case PlaceType::City:
   case PlaceType::Town:
   case PlaceType::Village:
-  case PlaceType::Hamlet: return "locality";
+  case PlaceType::Hamlet:
+    return "locality";
   case PlaceType::Suburb:
-  case PlaceType::Neighbourhood: return "suburb";
+  case PlaceType::Neighbourhood:
+    return "suburb";
   case PlaceType::Locality:
-  case PlaceType::IsolatedDwelling: return "sublocality";
-  default: break;
+  case PlaceType::IsolatedDwelling:
+    return "sublocality";
+  default:
+    break;
   }
 
   switch (adminLevel)
   {
-  case AdminLevel::Two: return "country";
-  case AdminLevel::Four: return "region";
-  case AdminLevel::Six: return "subregion";
-  default: break;
+  case AdminLevel::Two:
+    return "country";
+  case AdminLevel::Four:
+    return "region";
+  case AdminLevel::Six:
+    return "subregion";
+  default:
+    break;
   }
 
   return "";
@@ -131,20 +143,28 @@ size_t RegionWithData::GetWeight() const
   case PlaceType::City:
   case PlaceType::Town:
   case PlaceType::Village:
-  case PlaceType::Hamlet: return 3;
+  case PlaceType::Hamlet:
+    return 3;
   case PlaceType::Suburb:
-  case PlaceType::Neighbourhood: return 2;
+  case PlaceType::Neighbourhood:
+    return 2;
   case PlaceType::Locality:
-  case PlaceType::IsolatedDwelling: return 1;
-  default: break;
+  case PlaceType::IsolatedDwelling:
+    return 1;
+  default:
+    break;
   }
 
   switch (adminLevel)
   {
-  case AdminLevel::Two: return 6;
-  case AdminLevel::Four: return 5;
-  case AdminLevel::Six: return 4;
-  default: break;
+  case AdminLevel::Two:
+    return 6;
+  case AdminLevel::Four:
+    return 5;
+  case AdminLevel::Six:
+    return 4;
+  default:
+    break;
   }
 
   return 0;

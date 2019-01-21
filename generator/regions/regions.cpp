@@ -15,6 +15,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/transliteration.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
@@ -95,6 +96,7 @@ void RepackTmpMwm(std::string const & srcFilename, std::string const & repackedF
       return;
     }
 
+    CHECK(fb.IsArea(), ());
     collector(fb);
   };
 
@@ -121,7 +123,7 @@ bool GenerateRegions(std::string const & pathInRegionsTmpMwm,
   std::ofstream ofs(pathOutRegionsKv, std::ofstream::out);
   std::set<base::GeoObjectId> setIds;
   size_t countIds = 0;
-  kvBuilder->ForEachNormalizedCountry([&](std::string const & name, Node::Ptr tree) {
+  kvBuilder->ForEachNormalizedCountry([&](std::string const & name, Node::Ptr const & tree) {
     if (!tree)
       return;
 

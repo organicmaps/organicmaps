@@ -37,8 +37,8 @@ public:
   BoostRect const & GetRect() const { return m_rect; }
   double GetArea() const { return m_area; }
   // This function uses heuristics and assigns a radius according to the tag place.
-  // The radius will be returned in mercator.
-  static double GetRediusByPlaceType(PlaceType place);
+  // The radius will be returned in mercator units.
+  static double GetRadiusByPlaceType(PlaceType place);
 
 private:
   void FillPolygon(FeatureBuilder1 const & fb);
@@ -47,8 +47,6 @@ private:
   BoostRect m_rect;
   double m_area;
 };
-
-void SetCityBestAttributesToRegion(City const & cityPoint, Region & region);
 
 bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature);
 }  // namespace regions

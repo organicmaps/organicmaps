@@ -125,7 +125,7 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
     PrintTree(children[i], stream, prefix, i == size - 1);
 }
 
-void DebugPrintTree(Node::Ptr tree, std::ostream & stream)
+void DebugPrintTree(Node::Ptr const & tree, std::ostream & stream)
 {
   stream << "ROOT NAME: " << tree->GetData().GetName() << std::endl;
   stream << "MAX DEPTH: " <<  MaxDepth(tree) << std::endl;

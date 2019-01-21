@@ -14,7 +14,7 @@ namespace generator
 {
 namespace regions
 {
-std::string JsonPolicy::ToString(Node::PtrList const & nodePtrList)
+std::string JsonPolicy::ToString(Node::PtrList const & nodePtrList) const
 {
   auto const & main = nodePtrList.front()->GetData();
   auto const & country = nodePtrList.back()->GetData();
