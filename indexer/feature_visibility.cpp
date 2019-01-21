@@ -228,31 +228,15 @@ namespace
     if (!classif().IsTypeValid(type))
       return false;
 
-    static uint32_t const roundabout = classif().GetTypeByPath({"junction", "roundabout"});
     static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
     static uint32_t const sponsored = classif().GetTypeByPath({"sponsored"});
-    // Reserved for custom event processing, i.e. fc2018.
-    // static uint32_t const event = classif().GetTypeByPath({"event" });
 
-    if (g == GEOM_LINE || g == GEOM_UNDEFINED)
-    {
-      if (roundabout == type)
-        return true;
-
-      if (HasRoutingExceptionType(type))
-        return true;
-    }
+    if ((g == GEOM_LINE || g == GEOM_UNDEFINED) && HasRoutingExceptionType(type))
+      return true;
 
     ftype::TruncValue(type, 1);
-    if (g != GEOM_LINE)
-    {
-      if (sponsored == type || internet == type)
-        return true;
-
-      // Reserved for custom event processing, i.e. fc2018.
-      //if (event == type)
-      //  return true;
-    }
+    if (g != GEOM_LINE && (sponsored == type || internet == type))
+      return true;
 
     return false;
   }
@@ -268,12 +252,18 @@ namespace
       return true;
 
     static uint32_t const hwtag = classif().GetTypeByPath({"hwtag"});
+    static uint32_t const roundabout = classif().GetTypeByPath({"junction", "roundabout"});
     static uint32_t const psurface = classif().GetTypeByPath({"psurface"});
     static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
     static uint32_t const cuisine = classif().GetTypeByPath({"cuisine"});
+    // Reserved for custom event processing, e.g. fc2018.
+    // static uint32_t const event = classif().GetTypeByPath({"event" });
 
     // Caching type length to exclude generic [wheelchair].
     uint8_t const typeLength = ftype::GetLevel(type);
+
+    if ((g == GEOM_LINE || g == GEOM_UNDEFINED) && type == roundabout)
+      return true;
 
     ftype::TruncValue(type, 1);
     if (g == GEOM_LINE || g == GEOM_UNDEFINED)
@@ -287,6 +277,10 @@ namespace
 
     if (cuisine == type)
       return true;
+
+    // Reserved for custom event processing, i.e. fc2018.
+    // if (event == type)
+    //   return true;
 
     return false;
   }
