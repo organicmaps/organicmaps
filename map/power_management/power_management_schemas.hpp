@@ -26,6 +26,7 @@ enum class Facility : uint8_t
   Count
 };
 
+// Note: the order is important.
 enum class Scheme : uint8_t
 {
   None,

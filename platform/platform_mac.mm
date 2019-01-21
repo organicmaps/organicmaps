@@ -168,9 +168,15 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return EConnectionType::CONNECTION_WIFI;
 }
 
+// static
 Platform::ChargingStatus Platform::GetChargingStatus()
 {
   return Platform::ChargingStatus::Plugged;
+}
+
+uint8_t Platform::GetBatteryLevel()
+{
+  return 100;
 }
 
 void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)

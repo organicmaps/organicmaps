@@ -557,6 +557,7 @@ Framework::Framework(FrameworkParams const & params)
   eye::Eye::Instance().TrimExpired();
   eye::Eye::Instance().Subscribe(&m_notificationManager);
 
+  GetPowerManager().Load();
   GetPowerManager().Subscribe(this);
 }
 

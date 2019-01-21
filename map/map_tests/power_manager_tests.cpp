@@ -166,6 +166,7 @@ UNIT_TEST(PowerManager_SetConfig)
 UNIT_TEST(PowerManager_OnBatteryLevelChanged)
 {
   ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  Platform::ThreadRunner m_runner;
   PowerManager manager;
   SubscriberForTesting subscriber;
 
@@ -174,7 +175,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TestIsAllFacilitiesInState(manager, true);
   TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
 
-  manager.OnBatteryLevelChanged(50);
+  manager.OnBatteryLevelReceived(50);
 
   TestIsAllFacilitiesInState(manager, true);
   TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
@@ -182,7 +183,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
 
-  manager.OnBatteryLevelChanged(10);
+  manager.OnBatteryLevelReceived(10);
 
   TestIsAllFacilitiesInState(manager, true);
   TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
@@ -199,7 +200,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();
 
-  manager.OnBatteryLevelChanged(50);
+  manager.OnBatteryLevelReceived(50);
 
   TestIsAllFacilitiesInState(manager, true);
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
@@ -207,7 +208,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
 
-  manager.OnBatteryLevelChanged(28);
+  manager.OnBatteryLevelReceived(28);
 
   TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView,
                                            Facility::GpsTrackingForTraffic,
@@ -232,7 +233,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();
 
-  manager.OnBatteryLevelChanged(10);
+  manager.OnBatteryLevelReceived(10);
 
   TestIsAllFacilitiesInState(manager, false);
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
@@ -257,7 +258,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();
 
-  manager.OnBatteryLevelChanged(100);
+  manager.OnBatteryLevelReceived(100);
 
   TestIsAllFacilitiesInState(manager, true);
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());

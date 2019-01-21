@@ -87,6 +87,8 @@ set(
   notifications/notification_queue_storage.hpp
   place_page_info.cpp
   place_page_info.hpp
+  power_management/battery_tracker.cpp
+  power_management/battery_tracker.hpp
   power_management/power_manager.cpp
   power_management/power_manager.hpp
   power_management/power_management_schemas.cpp

@@ -1958,15 +1958,6 @@ Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeOnBatteryLevelChanged(JNIEnv *, jclass, jint level)
-{
-  CHECK_GREATER_OR_EQUAL(level, 0, ());
-  CHECK_LESS_OR_EQUAL(level, 100, ());
-
-  frm()->GetPowerManager().OnBatteryLevelChanged(static_cast<uint8_t>(level));
-}
-
-JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclass,
                                                                  jint facilityType, jboolean state)
 {

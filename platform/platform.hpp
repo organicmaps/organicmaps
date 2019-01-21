@@ -291,6 +291,7 @@ public:
   static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; }
 
   static ChargingStatus GetChargingStatus();
+  static uint8_t GetBatteryLevel();
 
   void SetupMeasurementSystem() const;
 

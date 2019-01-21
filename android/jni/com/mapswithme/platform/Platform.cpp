@@ -119,6 +119,22 @@ Platform::ChargingStatus Platform::GetChargingStatus()
       env->CallStaticIntMethod(clazzBatteryState, getChargingMethodId));
 }
 
+uint8_t Platform::GetBatteryLevel()
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return 100;
+
+  static auto const clazzBatteryState =
+      jni::GetGlobalClassRef(env, "com/mapswithme/util/BatteryState");
+  ASSERT(clazzBatteryState, ());
+
+  static auto const getLevelMethodId =
+      jni::GetStaticMethodID(env, clazzBatteryState, "getLevel", "()I");
+
+  return static_cast<uint8_t>(env->CallStaticIntMethod(clazzBatteryState, getLevelMethodId));
+}
+
 void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
 {
   android::Platform::Instance().SetGuiThread(move(guiThread));

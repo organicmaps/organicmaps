@@ -49,6 +49,10 @@ void PowerManager::Load()
     des(result);
 
     m_config = result;
+
+    if (m_config.m_scheme == Scheme::Auto)
+      m_batteryTracker.Subscribe(this);
+
     for (size_t i = 0; i < m_config.m_facilities.size(); ++i)
     {
       NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
@@ -80,6 +84,10 @@ void PowerManager::SetFacility(Facility const facility, bool enabled)
   m_config.m_facilities[static_cast<size_t>(facility)] = enabled;
 
   auto const isSchemeChanged = m_config.m_scheme != Scheme::None;
+
+  if (m_config.m_scheme == Scheme::Auto)
+    m_batteryTracker.Unsubscribe(this);
+
   m_config.m_scheme = Scheme::None;
 
   if (!Save())
@@ -98,8 +106,16 @@ void PowerManager::SetScheme(Scheme const scheme)
 
   m_config.m_scheme = scheme;
 
+  if (m_config.m_scheme == Scheme::Auto)
+    m_batteryTracker.Subscribe(this);
+  else
+    m_batteryTracker.Unsubscribe(this);
+
   if (m_config.m_scheme == Scheme::None || m_config.m_scheme == Scheme::Auto)
   {
+    if (!Save())
+      return;
+
     NotifySubscribers(m_subscribers, m_config.m_scheme);
     return;
   }
@@ -140,9 +156,11 @@ Scheme const & PowerManager::GetScheme() const
   return m_config.m_scheme;
 }
 
-void PowerManager::OnBatteryLevelChanged(uint8_t level)
+void PowerManager::OnBatteryLevelReceived(uint8_t level)
 {
   CHECK_LESS_OR_EQUAL(level, 100, ());
+
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, std::chrono::minutes(10), [] {});
 
   if (m_config.m_scheme != Scheme::Auto)
     return;
