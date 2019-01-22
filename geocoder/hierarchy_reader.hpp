@@ -3,10 +3,12 @@
 #include "geocoder/hierarchy.hpp"
 
 #include "base/exception.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <fstream>
 #include <map>
 #include <mutex>
+#include <string>
 #include <vector>
 
 namespace geocoder
@@ -19,9 +21,9 @@ public:
 
   DECLARE_EXCEPTION(OpenException, RootException);
 
-  HierarchyReader(std::string const & pathToJsonHierarchy);
+  explicit HierarchyReader(std::string const & pathToJsonHierarchy);
 
-  std::vector<Entry> ReadEntries(size_t readerCount, ParsingStats & stats);
+  std::vector<Entry> ReadEntries(size_t readersCount, ParsingStats & stats);
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);

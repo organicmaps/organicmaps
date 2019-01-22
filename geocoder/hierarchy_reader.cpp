@@ -21,14 +21,14 @@ HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy) :
     MYTHROW(OpenException, ("Failed to open file", pathToJsonHierarchy));
 }
 
-vector<Hierarchy::Entry> HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
+vector<Hierarchy::Entry> HierarchyReader::ReadEntries(size_t readersCount, ParsingStats & stats)
 {
   LOG(LINFO, ("Reading entries..."));
 
-  readerCount = max(readerCount, size_t{8});
-  vector<multimap<base::GeoObjectId, Entry>> taskEntries(readerCount);
+  readersCount = min(readersCount, size_t{8});
+  vector<multimap<base::GeoObjectId, Entry>> taskEntries(readersCount);
   vector<thread> tasks{};
-  for (size_t t = 0; t < readerCount; ++t)
+  for (size_t t = 0; t < readersCount; ++t)
     tasks.emplace_back(&HierarchyReader::ReadEntryMap, this, ref(taskEntries[t]), ref(stats));
 
   for (auto & reader : tasks)
@@ -99,7 +99,7 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
 
     Entry entry;
     // todo(@m) We should really write uints as uints.
-    auto osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
+    auto const osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
     entry.m_osmId = osmId;
 
     if (!entry.DeserializeFromJSON(line, stats))
