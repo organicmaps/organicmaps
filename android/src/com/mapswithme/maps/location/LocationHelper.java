@@ -327,9 +327,9 @@ public enum LocationHelper
   }
 
   /**
-   * Registers listener about location changes.
+   * Registers listener to obtain location updates.
    *
-   * @param listener    listener to register.
+   * @param listener    listener to be registered.
    * @param forceUpdate instantly notify given listener about available location, if any.
    */
   @UiThread
@@ -342,6 +342,17 @@ public enum LocationHelper
 
     if (forceUpdate)
       notifyLocationUpdated(listener);
+  }
+
+  /**
+   * Registers listener to obtain location updates.
+   *
+   * @param listener listener to be registered.
+   */
+  @UiThread
+  public void addListener(@NonNull LocationListener listener)
+  {
+    addListener(listener, false);
   }
 
   @UiThread

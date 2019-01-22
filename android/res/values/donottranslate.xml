@@ -96,4 +96,5 @@
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
+  <string name="user_lock_bottom_sheet_behavior" translatable="false">com.mapswithme.maps.widget.UserLockBottomSheetBehavior</string>
 </resources>

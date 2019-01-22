@@ -103,11 +103,7 @@
 
     <android.support.v4.widget.Space
       android:layout_width="match_parent"
-      android:layout_height="@dimen/margin_base"/>
+      android:layout_height="@dimen/place_page_buttons_height"/>
 
   </LinearLayout>
-
-  <include layout="@layout/shadow_top"/>
-
-  <include layout="@layout/shadow_bottom"/>
 </FrameLayout>

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <com.mapswithme.maps.widget.ObservableScrollView
+  <android.support.v4.widget.NestedScrollView
     android:id="@+id/pp__details"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:overScrollMode="never"
-    android:layout_above="@+id/pp__buttons">
-
-    <com.mapswithme.maps.widget.ObservableLinearLayout
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
-
       <include
         android:id="@+id/pp__preview"
         layout="@layout/place_page_preview"
@@ -25,21 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?panel"/>
-
-      <View
-        android:id="@+id/pp__height_compensation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="?cardBackground"/>
-    </com.mapswithme.maps.widget.ObservableLinearLayout>
-  </com.mapswithme.maps.widget.ObservableScrollView>
-
-  <include
-    android:id="@+id/pp__buttons"
-    layout="@layout/place_page_button_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"/>
+    </LinearLayout>
+  </android.support.v4.widget.NestedScrollView>
 
   <include
     android:id="@+id/toolbar_layout"

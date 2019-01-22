@@ -420,7 +420,7 @@ final class BannerController
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
     {
-      LOGGER.d(TAG, "onAdLoaded, ad = " + ad);
+/*      LOGGER.d(TAG, "onAdLoaded, ad = " + ad);
       if (mBanners == null)
         return;
 
@@ -441,7 +441,9 @@ final class BannerController
 
       ad.registerView(mBannerView);
 
-      loadIconAndOpenIfNeeded(ad);
+      // TODO:
+
+//      loadIconAndOpenIfNeeded(ad);
 
       if (mAdTracker != null)
       {
@@ -450,7 +452,7 @@ final class BannerController
       }
 
       if (mListener != null && mOpened)
-        mListener.onSizeChanged();
+        mListener.onSizeChanged();*/
     }
 
     @Override

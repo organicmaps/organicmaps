@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -28,10 +27,10 @@ public class PlacePageTracker
   private MapObject mMapObject;
   private boolean mTaxiTracked;
 
-  public PlacePageTracker(@NonNull PlacePageView placePageView)
+  public PlacePageTracker(@NonNull PlacePageView placePageView, @NonNull View bottomButtons)
   {
     mPlacePageView = placePageView;
-    mBottomButtons = mPlacePageView.findViewById(R.id.pp__buttons);
+    mBottomButtons = bottomButtons;
     mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
   }
 

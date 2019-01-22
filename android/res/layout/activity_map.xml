@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/coordinator"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:placePage="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -73,12 +73,28 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"/>
-
-  <com.mapswithme.maps.widget.placepage.PlacePageView
-    android:id="@+id/info_box"
+</RelativeLayout>
+  <FrameLayout
+    android:id="@+id/pp_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    placePage:animationType="bottom"/>
-</RelativeLayout>
+    app:behavior_hideable="true"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+    <com.mapswithme.maps.widget.placepage.PlacePageView
+      android:id="@+id/placepage"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  </FrameLayout>
+  <FrameLayout
+    android:id="@+id/pp_buttons_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:visibility="invisible">
+    <include
+      android:id="@+id/pp_buttons"
+      layout="@layout/place_page_button_frame"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
