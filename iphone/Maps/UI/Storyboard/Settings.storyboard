@@ -266,8 +266,43 @@
                                             <outlet property="title" destination="wjW-GA-wVI" id="9DP-zL-FLr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="VyW-Wh-2QX" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="MN2-YK-AUo" userLabel="Power Managment Cell" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="398.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MN2-YK-AUo" id="n6P-oZ-gz7">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Энергопотребление" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihs-G4-eJW">
+                                                    <rect key="frame" x="16" y="12" width="254" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Никогда" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ze-dx-apc">
+                                                    <rect key="frame" x="274" y="12" width="67" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="5Ze-dx-apc" secondAttribute="trailing" id="1Xi-Ac-WJM"/>
+                                                <constraint firstItem="5Ze-dx-apc" firstAttribute="leading" secondItem="ihs-G4-eJW" secondAttribute="trailing" constant="4" id="89c-Sa-w67"/>
+                                                <constraint firstAttribute="bottom" secondItem="ihs-G4-eJW" secondAttribute="bottom" constant="12" id="9pv-En-83z"/>
+                                                <constraint firstItem="ihs-G4-eJW" firstAttribute="top" secondItem="n6P-oZ-gz7" secondAttribute="top" constant="12" id="DZ6-FT-qIV"/>
+                                                <constraint firstAttribute="bottom" secondItem="5Ze-dx-apc" secondAttribute="bottom" constant="12" id="jOb-SF-EKF"/>
+                                                <constraint firstItem="ihs-G4-eJW" firstAttribute="leading" secondItem="n6P-oZ-gz7" secondAttribute="leading" constant="16" id="k1d-nW-Qgb"/>
+                                                <constraint firstItem="5Ze-dx-apc" firstAttribute="top" secondItem="n6P-oZ-gz7" secondAttribute="top" constant="12" id="ws1-mm-Rg0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="info" destination="5Ze-dx-apc" id="ebT-jJ-Zs9"/>
+                                            <outlet property="title" destination="ihs-G4-eJW" id="ppH-B2-8cU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="VyW-Wh-2QX" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="442.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VyW-Wh-2QX" id="ihq-PO-ic8">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -302,7 +337,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="pri-6G-9Zb" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="442.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="486.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pri-6G-9Zb" id="Zp6-d6-V6o">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -336,7 +371,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="486.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="530.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8Z-Jk-JIR" id="1QF-6L-hJp">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -370,7 +405,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="530.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="574.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P5e-67-f4k" id="RlB-hW-A2l">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -404,21 +439,21 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="F1Y-qu-HAo" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="574.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="618.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F1Y-qu-HAo" id="59j-Py-CGY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показывать предложения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="g5e-wH-Cqs">
-                                                    <rect key="frame" x="16" y="14" width="286" height="15.5"/>
+                                                    <rect key="frame" x="16" y="11" width="294" height="21"/>
                                                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fDF-O1-urS">
-                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="318" y="6.5" width="51" height="31"/>
                                                     <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
                                                     <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
@@ -438,7 +473,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="NOt-bc-7ls" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="618.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="662.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOt-bc-7ls" id="xdj-y5-zpk">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -476,7 +511,7 @@
                             <tableViewSection headerTitle="ПОДПИСКИ" id="hpa-fI-I3o">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="2pB-bw-TE4" customClass="SettingsTableViewSelectableProgressCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="746.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="790.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2pB-bw-TE4" id="Mjg-FQ-BbL">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -511,10 +546,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Wqu-gu-kFj" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="790.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="834.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wqu-gu-kFj" id="aVC-Mw-Q04">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Управление подписками" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6E-9d-5e0">
@@ -550,10 +585,10 @@
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="882.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="926.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ночной режим" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7P-cj-3tZ">
@@ -585,7 +620,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="926.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="970.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5R-fv-yd7" id="s7y-Nu-Y01">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -619,7 +654,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="veW-Fm-2Hl" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="970.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1014.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="veW-Fm-2Hl" id="AP7-jd-F4b">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -653,10 +688,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="nED-2n-gN6" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1014.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1058.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nED-2n-gN6" id="2oQ-0g-poj">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Голосовые инструкции" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2v2-mU-aWi">
@@ -692,10 +727,10 @@
                             <tableViewSection headerTitle="ИНФОРМАЦИЯ" id="i4H-WV-BaS">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="JTZ-K9-RVv" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1106.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1150.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JTZ-K9-RVv" id="mHA-wn-hse">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Справочный центр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ty-Jh-0Rp">
@@ -727,10 +762,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Kv3-pO-jV5" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1150.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1194.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kv3-pO-jV5" id="8mJ-wm-9uJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О приложении" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cS1-Lw-pFx">
@@ -789,6 +824,7 @@
                         <outlet property="mobileInternetCell" destination="6NC-QX-WiF" id="L1V-gS-sTe"/>
                         <outlet property="nightModeCell" destination="QNt-XC-xma" id="nSn-Jr-KuZ"/>
                         <outlet property="perspectiveViewCell" destination="X5R-fv-yd7" id="hCe-Sv-pxD"/>
+                        <outlet property="powerManagementCell" destination="MN2-YK-AUo" id="mzP-S3-YAE"/>
                         <outlet property="profileCell" destination="yh8-cr-14c" id="nzT-Um-BHL"/>
                         <outlet property="recentTrackCell" destination="VyW-Wh-2QX" id="zXx-a3-FBg"/>
                         <outlet property="restoreSubscriptionCell" destination="2pB-bw-TE4" id="wqz-cu-DZJ"/>
@@ -806,6 +842,7 @@
                         <segue destination="WyW-ez-gUy" kind="custom" identifier="SettingsToAbout" customClass="MWMSegue" id="GJ9-7y-RKR"/>
                         <segue destination="f2i-mO-skH" kind="custom" identifier="SettingsToHelp" customClass="MWMSegue" id="PSn-ic-YWl"/>
                         <segue destination="4XX-qH-r6x" kind="custom" identifier="SettingsToMobileInternetSegue" customClass="MWMSegue" id="wBF-fV-zWQ"/>
+                        <segue destination="vni-Mo-vH1" kind="custom" identifier="SettingsToPowerManagementSegue" customClass="MWMSegue" id="arI-ZG-u4b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I90-hv-hTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1863,7 +1900,7 @@
                 <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="AuthorizationLoginViewController" id="fxB-8Y-C2b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMV-2O-GbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="423"/>
+            <point key="canvasLocation" x="-559" y="428"/>
         </scene>
         <!--Mobile Internet View Controller-->
         <scene sceneID="oc3-3x-xki">
@@ -1985,7 +2022,126 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="223-mo-RpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="1088"/>
+            <point key="canvasLocation" x="1881" y="428"/>
+        </scene>
+        <!--Power Managment View Controller-->
+        <scene sceneID="UUD-VM-rzE">
+            <objects>
+                <tableViewController id="vni-Mo-vH1" customClass="MWMPowerManagmentViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="enF-2p-s0h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection footerTitle="Когда автоматический режим выбран, приложение может отключать энергопотребляющую функциональность при снижении уровня заряда" id="JOr-Xh-pe0">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="E3v-HX-t4T" customClass="SettingsTableViewSelectableCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E3v-HX-t4T" id="3Lz-ko-Zz4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Никогда" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmx-xQ-ZWp">
+                                                    <rect key="frame" x="16" y="14" width="333" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_management_setting_never"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qmx-xQ-ZWp" secondAttribute="bottom" constant="3.5" id="Qd6-UX-R46"/>
+                                                <constraint firstItem="qmx-xQ-ZWp" firstAttribute="leading" secondItem="3Lz-ko-Zz4" secondAttribute="leading" constant="16" id="cUw-eB-eNB"/>
+                                                <constraint firstItem="qmx-xQ-ZWp" firstAttribute="top" secondItem="3Lz-ko-Zz4" secondAttribute="topMargin" constant="3" id="nES-PB-5X7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qmx-xQ-ZWp" secondAttribute="trailing" constant="10" id="vvy-9n-x7b"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="title" destination="qmx-xQ-ZWp" id="hmJ-gO-2q6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="ZIh-Ok-kbn" customClass="SettingsTableViewSelectableCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZIh-Ok-kbn" id="Ev7-bM-Auy">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Экстремальное энергосбережение" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwv-qP-M40">
+                                                    <rect key="frame" x="16" y="14" width="333" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_managment_setting_manual_max"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kwv-qP-M40" secondAttribute="trailing" constant="10" id="7hw-Lo-aOR"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kwv-qP-M40" secondAttribute="bottom" constant="3.5" id="VD5-LQ-Axx"/>
+                                                <constraint firstItem="kwv-qP-M40" firstAttribute="leading" secondItem="Ev7-bM-Auy" secondAttribute="leading" constant="16" id="aBs-tO-uW7"/>
+                                                <constraint firstItem="kwv-qP-M40" firstAttribute="top" secondItem="Ev7-bM-Auy" secondAttribute="topMargin" constant="3" id="iw4-ul-enA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="title" destination="kwv-qP-M40" id="IUE-JV-ghM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="L0p-Ud-RNv" customClass="SettingsTableViewSelectableCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L0p-Ud-RNv" id="ZKy-q3-B0i">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Авто" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2d-wB-oZu">
+                                                    <rect key="frame" x="16" y="14" width="333" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_management_setting_auto"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="n2d-wB-oZu" secondAttribute="trailing" constant="10" id="2k6-NU-pcl"/>
+                                                <constraint firstItem="n2d-wB-oZu" firstAttribute="top" secondItem="ZKy-q3-B0i" secondAttribute="topMargin" constant="3" id="EX8-LG-hmY"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="n2d-wB-oZu" secondAttribute="bottom" constant="3.5" id="Ihm-8S-Jwj"/>
+                                                <constraint firstItem="n2d-wB-oZu" firstAttribute="leading" secondItem="ZKy-q3-B0i" secondAttribute="leading" constant="16" id="urc-8q-ael"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="title" destination="n2d-wB-oZu" id="rs8-N5-WgZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vni-Mo-vH1" id="A80-hu-EYk"/>
+                            <outlet property="delegate" destination="vni-Mo-vH1" id="U1W-Of-YX7"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="automatic" destination="L0p-Ud-RNv" id="7eL-uE-wdL"/>
+                        <outlet property="manualMax" destination="ZIh-Ok-kbn" id="AZa-qh-Rc1"/>
+                        <outlet property="never" destination="E3v-HX-t4T" id="33B-JV-0s4"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aI-lu-EnD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1881" y="1173"/>
         </scene>
     </scenes>
 </document>

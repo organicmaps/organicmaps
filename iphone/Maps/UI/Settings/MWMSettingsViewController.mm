@@ -17,6 +17,8 @@
 
 extern NSString * const kAlohalyticsTapEventKey;
 
+using namespace power_management;
+
 @interface MWMSettingsViewController ()<SettingsTableViewSwitchCellDelegate, RemoveAdsViewControllerDelegate>
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * profileCell;
@@ -27,6 +29,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoDownloadCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * backupBookmarksCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
+@property (weak, nonatomic) IBOutlet SettingsTableViewLinkCell * powerManagementCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
@@ -34,7 +37,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showOffersCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * statisticsCell;
 
-@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell * restoreSubscriptionCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * manageSubscriptionsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * nightModeCell;
@@ -114,6 +117,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   case network_policy::Never: mobileInternet = L(@"mobile_data_option_never"); break;
   }
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
+  
+  NSString * powerManagement = nil;
+  switch (GetFramework().GetPowerManager().GetScheme())
+  {
+  case Scheme::None: break;
+  case Scheme::Normal: powerManagement = L(@"power_management_setting_never"); break;
+  case Scheme::EconomyMedium: break;
+  case Scheme::EconomyMaximum: powerManagement = L(@"power_managment_setting_manual_max"); break;
+  case Scheme::Auto: powerManagement = L(@"power_management_setting_auto"); break;
+  }
+  [self.powerManagementCell configWithTitle:L(@"power_management_title") info:powerManagement];
 
   NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled())
@@ -312,6 +326,10 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatMobileInternet)
           withParameters:@{kStatAction : kStatChangeMobileInternet}];
     [self performSegueWithIdentifier:@"SettingsToMobileInternetSegue" sender:nil];
+  }
+  else if (cell == self.powerManagementCell)
+  {
+    [self performSegueWithIdentifier:@"SettingsToPowerManagementSegue" sender:nil];
   }
   else if (cell == self.recentTrackCell)
   {
