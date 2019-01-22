@@ -1,8 +1,8 @@
 #pragma once
 
-#include "platform/battery_tracker.hpp"
-
 #include "map/power_management/power_management_schemas.hpp"
+
+#include "platform/battery_tracker.hpp"
 
 #include "base/visitor.hpp"
 

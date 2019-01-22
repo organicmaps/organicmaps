@@ -18,15 +18,13 @@ void BatteryLevelTracker::Subscribe(Subscriber * subscriber)
 {
   m_subscribers.push_back(subscriber);
 
-  if (IsLevelExpired(m_lastRequestTime))
-  {
-    // Run periodic requests when the first subscriber is added.
-    if (m_subscribers.size() == 1)
-      RequestBatteryLevel();
-  }
-  else
-  {
+  if (!IsLevelExpired(m_lastRequestTime))
     subscriber->OnBatteryLevelReceived(m_lastReceivedLevel);
+
+  if (!m_isTrackingInProgress)
+  {
+    m_isTrackingInProgress = true;
+    RequestBatteryLevel();
   }
 }
 
@@ -44,7 +42,10 @@ void BatteryLevelTracker::UnsubscribeAll()
 void BatteryLevelTracker::RequestBatteryLevel()
 {
   if (m_subscribers.empty())
+  {
+    m_isTrackingInProgress = false;
     return;
+  }
 
   if (IsLevelExpired(m_lastRequestTime))
   {

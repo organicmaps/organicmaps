@@ -24,6 +24,8 @@
 		3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */; };
 		3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D97F64A1D9C05E800380945 /* http_client.cpp */; };
 		3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DE8B98E1DEC3115000E6083 /* network_policy.hpp */; };
+		3DEE1AE721F7091100054A91 /* battery_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AE521F7091100054A91 /* battery_tracker.cpp */; };
+		3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1AE621F7091100054A91 /* battery_tracker.hpp */; };
 		451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451E329D1F73A8B000964C9F /* secure_storage_ios.mm */; };
 		451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */; };
 		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
@@ -144,6 +146,8 @@
 		3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = safe_callback.hpp; sourceTree = "<group>"; };
 		3D97F64A1D9C05E800380945 /* http_client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_client.cpp; sourceTree = "<group>"; };
 		3DE8B98E1DEC3115000E6083 /* network_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network_policy.hpp; sourceTree = "<group>"; };
+		3DEE1AE521F7091100054A91 /* battery_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = battery_tracker.cpp; sourceTree = "<group>"; };
+		3DEE1AE621F7091100054A91 /* battery_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = battery_tracker.hpp; sourceTree = "<group>"; };
 		451E329D1F73A8B000964C9F /* secure_storage_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = secure_storage_ios.mm; sourceTree = "<group>"; };
 		451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = secure_storage_qt.cpp; sourceTree = "<group>"; };
 		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE1AE521F7091100054A91 /* battery_tracker.cpp */,
+				3DEE1AE621F7091100054A91 /* battery_tracker.hpp */,
 				3D15ACE0214A707800F725D5 /* localization.hpp */,
 				3D15ACDF214A707800F725D5 /* localization.mm */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
@@ -494,6 +500,7 @@
 				EB60B4DE204C175700E4953B /* network_policy_ios.h in Headers */,
 				56EB1EDF1C6B6E6C0022D831 /* mwm_traits.hpp in Headers */,
 				675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */,
+				3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */,
 				67AB92EB1B7B3E9100AB5194 /* get_text_by_id.hpp in Headers */,
 				675343D41A3F5D5A00A0A8C3 /* settings.hpp in Headers */,
 				675343B51A3F5D5A00A0A8C3 /* constants.hpp in Headers */,
@@ -655,6 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DEE1AE721F7091100054A91 /* battery_tracker.cpp in Sources */,
 				675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */,
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
 				67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */,

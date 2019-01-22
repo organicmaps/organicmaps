@@ -67,7 +67,7 @@ void PowerManager::Load()
   }
   catch (FileReader::Exception const & ex)
   {
-    LOG(LERROR, ("Cannot read power manager config file. Exception:", ex.Msg()));
+    LOG(LWARNING, ("Cannot read power manager config file. Exception:", ex.Msg()));
   }
 
   // Reset to default state.

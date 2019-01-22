@@ -26,5 +26,6 @@ private:
   std::vector<Subscriber *> m_subscribers;
   std::chrono::system_clock::time_point m_lastRequestTime;
   uint8_t m_lastReceivedLevel = 0;
+  bool m_isTrackingInProgress = false;
 };
 }  // platform
