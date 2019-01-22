@@ -623,9 +623,10 @@ UNIT_TEST(GermanyFrankfurtAirport2Test)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 
@@ -760,21 +761,6 @@ UNIT_TEST(NetherlandsBarneveldTest)
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                   MercatorBounds::FromLatLon(52.15866, 5.56538), {0., 0.},
                                   MercatorBounds::FromLatLon(52.16667, 5.55663));
-
-  Route const & route = *routeResult.first;
-  RouterResultCode const result = routeResult.second;
-
-  TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
-}
-
-UNIT_TEST(GermanyRaunheimAirportTest)
-{
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                  MercatorBounds::FromLatLon(50.03322, 8.50995), {0., 0.},
-                                  MercatorBounds::FromLatLon(50.02089, 8.49441));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;

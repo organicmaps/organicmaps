@@ -211,7 +211,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
-      MercatorBounds::FromLatLon(47.2584, 38.9128), 9200.);
+      MercatorBounds::FromLatLon(47.2584, 38.9128), 8004.74);
 }
 
 UNIT_TEST(RussiaTaganrogJukova2ToBolBulvarnaya8)
@@ -372,14 +372,6 @@ UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(40.74844, -73.98566), {0., 0.},
       MercatorBounds::FromLatLon(40.75047, -73.96759), 2265.);
-}
-
-UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
-{
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.15414, 20.85378), {0., 0.},
-      MercatorBounds::FromLatLon(56.51119, 21.01847), 192000);
 }
 
 UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)

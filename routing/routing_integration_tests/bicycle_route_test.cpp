@@ -111,3 +111,11 @@ UNIT_TEST(SwedenStockholmBicyclePastFerry)
       MercatorBounds::FromLatLon(59.4725, 18.51355), {0.0, 0.0},
       MercatorBounds::FromLatLon(59.32967, 18.075), 66161.2);
 }
+
+UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents<VehicleType::Bicycle>(),
+      MercatorBounds::FromLatLon(55.15414, 20.85378), {0., 0.},
+      MercatorBounds::FromLatLon(56.51119, 21.01847), 192000);
+}
