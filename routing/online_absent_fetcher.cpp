@@ -51,15 +51,15 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   m_fetcherThread->Join();
   for (auto const & point : m_fetcherThread->GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
   {
-    string const name = m_countryFileFn(point);
+    string name = m_countryFileFn(point);
     ASSERT(!name.empty(), ());
     if (name.empty() || m_countryLocalFileFn(name))
       continue;
 
     countries.emplace_back(move(name));
   }
-  m_fetcherThread.reset();
 
+  m_fetcherThread.reset();
   base::SortUnique(countries);
 }
 
