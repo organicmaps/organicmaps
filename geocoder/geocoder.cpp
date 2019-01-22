@@ -193,8 +193,8 @@ vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
 vector<Geocoder::Layer> const & Geocoder::Context::GetLayers() const { return m_layers; }
 
 // Geocoder ----------------------------------------------------------------------------------------
-Geocoder::Geocoder(string const & pathToJsonHierarchy, size_t readerCount)
-  : m_hierarchy(pathToJsonHierarchy, readerCount), m_index(m_hierarchy)
+Geocoder::Geocoder(string const & pathToJsonHierarchy, size_t hierarchyReadersCount)
+  : m_hierarchy(pathToJsonHierarchy, hierarchyReadersCount), m_index(m_hierarchy)
 {
 }
 

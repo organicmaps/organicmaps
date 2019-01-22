@@ -136,12 +136,12 @@ bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
-Hierarchy::Hierarchy(string const & pathToJsonHierarchy, size_t readerCount)
+Hierarchy::Hierarchy(string const & pathToJsonHierarchy, size_t readersCount)
 {
   ParsingStats stats;
 
   HierarchyReader reader{pathToJsonHierarchy};
-  m_entries = reader.ReadEntries(readerCount, stats);
+  m_entries = reader.ReadEntries(readersCount, stats);
 
   CheckDuplicateOsmIds(m_entries, stats);
 

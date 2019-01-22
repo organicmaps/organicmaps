@@ -21,11 +21,11 @@ public:
 
   HierarchyReader(std::string const & pathToJsonHierarchy);
 
-  auto ReadEntries(size_t readerCount, ParsingStats & stats) -> std::vector<Entry>;
+  std::vector<Entry> ReadEntries(size_t readerCount, ParsingStats & stats);
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
-  auto UnionEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts) -> std::vector<Entry>;
+  std::vector<Entry> UnionEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
 
   std::ifstream m_fileStm;
   std::mutex m_mutex;

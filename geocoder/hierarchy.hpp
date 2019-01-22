@@ -76,7 +76,7 @@ public:
     std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
   };
 
-  explicit Hierarchy(std::string const & pathToJsonHierarchy, std::size_t readerCount = 4);
+  explicit Hierarchy(std::string const & pathToJsonHierarchy, std::size_t readersCount = 4);
 
   std::vector<Entry> const & GetEntries() const;
 

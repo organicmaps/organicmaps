@@ -21,8 +21,7 @@ HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy) :
     MYTHROW(OpenException, ("Failed to open file", pathToJsonHierarchy));
 }
 
-auto HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
-  -> vector<Entry>
+vector<Hierarchy::Entry> HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
 {
   LOG(LINFO, ("Reading entries..."));
 
@@ -41,7 +40,7 @@ auto HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
   return UnionEntries(taskEntries);
 }
 
-auto HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & entryParts) -> vector<Entry>
+vector<Hierarchy::Entry> HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & entryParts)
 {
   auto entries = vector<Entry>{};
 
@@ -59,7 +58,7 @@ auto HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & 
 
     if (minPart->size())
     {
-      entries.emplace_back(std::move(minPart->begin()->second));
+      entries.emplace_back(move(minPart->begin()->second));
       minPart->erase(minPart->begin());
     }
 
@@ -118,5 +117,4 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
 
   entries = move(localEntries);
 }
-
 } // namespace geocoder
