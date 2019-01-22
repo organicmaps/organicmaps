@@ -93,10 +93,10 @@ private:
     CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
     for (auto const & i : intervals)
       m_index.ForEachInIntervalAndScale(i.first, i.second, scale,
-          [&](uint32_t index)
+          [&](uint64_t /* key */, uint32_t value)
           {
-            if (checkUnique(index))
-              fn(index);
+            if (checkUnique(value))
+              fn(value);
           });
   }
 

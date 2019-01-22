@@ -70,7 +70,7 @@ UNIT_TEST(CheckMWM_GeomIndex)
   // Count objects for each scale bucket.
   map<size_t, uint64_t> resCount;
   for (size_t i = 0; i < scale2Index.size(); ++i)
-    scale2Index[i]->ForEach([i, &resCount](uint32_t)
+    scale2Index[i]->ForEach([i, &resCount](uint64_t, uint32_t)
     {
       ++resCount[i];
     }, beg, end);

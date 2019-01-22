@@ -47,7 +47,7 @@ public:
     for (auto const & i : intervals)
     {
       m_intervalIndex->ForEach(
-            [&processObject](uint64_t storedId) {
+            [&processObject](uint64_t /* key */, uint64_t storedId) {
         processObject(LocalityObject::FromStoredId(storedId));
       },
       i.first, i.second);
@@ -89,9 +89,9 @@ public:
     auto const centralCellXY = centralCell.XY();
 
     auto chebyshevDistance = [centralCellXY] (auto && cellXY) {
-      auto abs = [](auto && a, auto && b) { return a > b ? a - b : b - a; };
-      auto const distanceX = abs(centralCellXY.first, cellXY.first);
-      auto const distanceY = abs(centralCellXY.second, cellXY.second);
+      auto absDiff = [](auto && a, auto && b) { return a > b ? a - b : b - a; };
+      auto const distanceX = absDiff(centralCellXY.first, cellXY.first);
+      auto const distanceY = absDiff(centralCellXY.second, cellXY.second);
       return std::max(distanceX, distanceY);
     };
 
@@ -101,34 +101,28 @@ public:
 
       auto const cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
       auto const distance = chebyshevDistance(cell.XY());
-      CHECK_GREATER(distance, 0, ());
+      CHECK_GREATER(distance, 1, ());
 
       return 1.0 / distance;
     };
 
-    auto processAll = [&] (int64_t cellNumber, uint64_t storedId) {
+    auto insertObject = [&] (int64_t cellNumber, uint64_t storedId) {
       auto const objectId = LocalityObject::FromStoredId(storedId).GetEncodedId();
       auto & objectWeight = objectWeights[objectId];
       objectWeight = max(objectWeight, cellRelativeWeight(cellNumber));
     };
 
-    auto process = [&](int64_t cellNumber, uint64_t storedId) {
+    auto insertObjectWithinSizeLimit = [&](int64_t cellNumber, uint64_t storedId) {
       if (objectWeights.size() < sizeHint)
-        processAll(cellNumber, storedId);
+        insertObject(cellNumber, storedId);
     };
 
     for (auto const & i : intervals)
     {
       if (bestCells.find(i.first) != bestCells.end())
-      {
-        m_intervalIndex->ForEach(processAll, i.first, i.second);
-      }
-      else
-      {
-        m_intervalIndex->ForEach(process, i.first, i.second);
-        if (objectWeights.size() >= sizeHint)
-          return;
-      }
+        m_intervalIndex->ForEach(insertObject, i.first, i.second);
+      else if (objectWeights.size() < sizeHint)
+        m_intervalIndex->ForEach(insertObjectWithinSizeLimit, i.first, i.second);
     }
 
     std::vector<std::pair<uint64_t, double>> result(objectWeights.begin(), objectWeights.end());

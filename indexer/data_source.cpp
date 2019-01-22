@@ -55,10 +55,10 @@ public:
       // iterate through intervals
       for (auto const & i : intervals)
       {
-        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint32_t index) {
-          if (!checkUnique(index))
+        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value) {
+          if (!checkUnique(value))
             return;
-          m_fn(index, *src);
+          m_fn(value, *src);
         });
         if (m_stop())
           break;

@@ -52,7 +52,8 @@ public:
       m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
   }
 
-  void ForEachInIntervalAndScale(uint64_t beg, uint64_t end, int scale, std::function<void(uint32_t)> const & fn) const
+  void ForEachInIntervalAndScale(uint64_t beg, uint64_t end, int scale,
+                                 std::function<void(uint64_t, uint32_t)> const & fn) const
   {
     auto const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())

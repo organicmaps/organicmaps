@@ -51,7 +51,7 @@ public:
     for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scale))
     {
       index.ForEachInIntervalAndScale(interval.first, interval.second, scale,
-                                      [&](uint32_t index) { indices.push_back(index); });
+                                      [&](uint64_t /* key */, uint32_t value) { indices.push_back(value); });
     }
 
     FeaturesLoaderGuard loader(m_dataSource, id);

@@ -64,7 +64,7 @@ RankedIds GetRankedIds(LocalityIndex const & index, m2::PointD const & center,
 {
   RankedIds ids;
   index.ForClosestToPoint(
-      [&ids](base::GeoObjectId const & id) { ids.push_back(id.GetEncodedId()); }, center,
+      [&ids](base::GeoObjectId const & id, auto) { ids.push_back(id.GetEncodedId()); }, center,
       MercatorBounds::DistanceOnEarth(center, border), topSize);
   return ids;
 };

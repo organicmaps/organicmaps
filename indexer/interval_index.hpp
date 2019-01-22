@@ -94,7 +94,7 @@ private:
         break;
       value += ReadVarInt<int64_t>(src);
       if (key >= beg)
-        Invoke(f, keyBase + key, value, 0 /* fake argument for invocation choice of |f| */);
+        f(keyBase + key, value);
     }
   }
 
@@ -168,18 +168,6 @@ private:
         childOffset += childSize;
       }
     }
-  }
-
-  template <typename F, typename = decltype(std::declval<F>()(uint64_t{0}, uint64_t{0}))>
-  static void Invoke(F const & f, uint64_t key, Value storedId, int /* best candidate (overload) */)
-  {
-    f(key, storedId);
-  }
-
-  template <typename F>
-  static void Invoke(F const & f, uint64_t key, Value storedId, ... /* default candidate (overload )*/)
-  {
-    f(storedId);
   }
 
   ReaderT m_Reader;
