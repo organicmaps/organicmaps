@@ -54,6 +54,12 @@ public:
 
   boost::optional<notifications::NotificationCandidate> GetNotification()
   {
+    // Do not disturb from 9p.m. to 10 a.m.
+    auto const time = notifications::Clock::to_time_t(notifications::Clock::now());
+    auto const localTime = std::localtime(&time);
+    if (localTime->tm_hour <= 9 || localTime->tm_hour >= 21)
+      return {};
+
     return m_manager.GetNotification();
   }
 
