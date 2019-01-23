@@ -184,4 +184,50 @@ UNIT_TEST(LocalityIndexTopSizeTest)
                  .size(),
              8, ());
 }
+
+UNIT_TEST(LocalityIndexWeightRankTest)
+{
+  m2::PointD queryPoint{0, 0};
+  m2::PointD queryBorder{0, 2};
+
+  LocalityObjectVector objects;
+  objects.m_objects.resize(7);
+  // Enclose query point.
+  objects.m_objects[0].SetForTesting(1, m2::PointD{0, 0});
+  objects.m_objects[1].SetForTesting(2, m2::PointD{0.000001, 0.000001}); // in the same lowermost cell
+  objects.m_objects[2].SetForTesting(3, m2::RectD{-1, -1, 1, 1});
+  // Closest objects.
+  objects.m_objects[3].SetForTesting(4, m2::RectD{0.5, 0.5, 1.0, 1.0});
+  objects.m_objects[4].SetForTesting(5, m2::PointD{1, 0});
+  objects.m_objects[5].SetForTesting(6, m2::PointD{1, 1});
+  objects.m_objects[6].SetForTesting(7, m2::RectD{1, 0, 1.1, 0.1});
+
+  vector<char> localityIndex;
+  MemWriter<vector<char>> writer(localityIndex);
+  BuildGeoObjectsIndex(objects, writer, "tmp");
+  MemReader reader(localityIndex.data(), localityIndex.size());
+
+  indexer::GeoObjectsIndex<MemReader> index(reader);
+
+  vector<pair<uint64_t, double>> ids;
+  index.ForClosestToPoint(
+      [&ids](base::GeoObjectId const & id, auto weight) { ids.push_back({id.GetEncodedId(), weight}); },
+      queryPoint, MercatorBounds::DistanceOnEarth(queryPoint, queryBorder),
+      7 /* topSize */);
+
+  TEST_EQUAL(ids.size(), 7, ());
+
+  // Enclose objects: "1", "2", "3".
+  TEST_EQUAL((map<uint64_t, double>(ids.begin(), ids.begin() + 3)),
+             (map<uint64_t, double>{{1, 1.0}, {2, 1.0}, {3, 1.0}}), ());
+  // "4"
+  TEST_EQUAL(ids[3].first, 4, ());
+  TEST_LESS(ids[3].second, 1.0, ());
+  // "5", "6", "7"
+  TEST_EQUAL((set<uint64_t>{ids[4].first, ids[5].first, ids[6].first}), (set<uint64_t>{5, 6, 7}), ());
+  TEST(ids[4].second < ids[3].second, ());
+  TEST(ids[5].second < ids[3].second, ());
+  TEST(ids[6].second < ids[3].second, ());
+}
+
 }  // namespace

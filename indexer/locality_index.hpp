@@ -101,9 +101,11 @@ public:
 
       auto const cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
       auto const distance = chebyshevDistance(cell.XY());
-      CHECK_GREATER(distance, 1, ());
+      auto const cellSize = 2 * cell.Radius();
+      auto const roudDistance = (distance + cellSize - 1) / cellSize * cellSize;
+      CHECK_GREATER(roudDistance, 1, ());
 
-      return 1.0 / distance;
+      return 1.0 / roudDistance;
     };
 
     auto insertObject = [&] (int64_t cellNumber, uint64_t storedId) {
