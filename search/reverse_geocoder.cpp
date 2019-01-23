@@ -36,13 +36,17 @@ m2::RectD GetLookupRect(m2::PointD const & center, double radiusM)
   return MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
 }
 
-void AddStreet(FeatureType & ft, m2::PointD const & center,
+void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresAndSuburbs,
                vector<ReverseGeocoder::Street> & streets)
 {
-  if (ft.GetFeatureType() != feature::GEOM_LINE || !ftypes::IsStreetChecker::Instance()(ft))
-  {
+  bool const addAsStreet =
+      ft.GetFeatureType() == feature::GEOM_LINE && ftypes::IsStreetChecker::Instance()(ft);
+  bool const isSquareOrSuburb =
+      ftypes::IsSquareChecker::Instance()(ft) || ftypes::IsSuburbChecker::Instance()(ft);
+  bool const addAsSquareOrSuburb = includeSquaresAndSuburbs && isSquareOrSuburb;
+
+  if (!addAsStreet && !addAsSquareOrSuburb)
     return;
-  }
 
   string name;
   if (!ft.GetName(StringUtf8Multilang::kDefaultCode, name))
@@ -58,11 +62,13 @@ ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(d
 
 // static
 void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
-                                       vector<Street> & streets)
+                                       bool includeSquaresAndSuburbs, vector<Street> & streets)
 {
   m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);
 
-  auto const addStreet = [&center, &streets](FeatureType & ft) { AddStreet(ft, center, streets); };
+  auto const addStreet = [&](FeatureType & ft) {
+    AddStreet(ft, center, includeSquaresAndSuburbs, streets);
+  };
 
   context.ForEachFeature(rect, addStreet);
   sort(streets.begin(), streets.end(), base::LessBy(&Street::m_distanceMeters));
@@ -75,7 +81,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
   if (mwmHandle.IsAlive())
   {
     search::MwmContext context(move(mwmHandle));
-    GetNearbyStreets(context, center, streets);
+    GetNearbyStreets(context, center, true /* includeSquaresAndSuburbs */, streets);
   }
 }
 
@@ -85,38 +91,57 @@ void ReverseGeocoder::GetNearbyStreets(FeatureType & ft, vector<Street> & street
   GetNearbyStreets(ft.GetID().m_mwmId, feature::GetCenter(ft), streets);
 }
 
+void ReverseGeocoder::GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
+                                               vector<Street> & streets) const
+{
+  MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
+  if (mwmHandle.IsAlive())
+  {
+    search::MwmContext context(move(mwmHandle));
+    GetNearbyStreets(context, center, false /* includeSquaresAndSuburbs */, streets);
+  }
+}
+
 // static
-boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(strings::UniString const & keyName,
+boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
                                                                  vector<Street> const & streets)
 {
-  // Find the exact match or the best match in kSimilarityTresholdPercent limit.
-  uint32_t result;
-  size_t minPercent = kSimilarityThresholdPercent + 1;
+  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
+    // Find the exact match or the best match in kSimilarityTresholdPercent limit.
+    uint32_t result;
+    size_t minPercent = kSimilarityThresholdPercent + 1;
 
-  for (auto const & street : streets)
-  {
-    strings::UniString const actual = GetStreetNameAsKey(street.m_name);
-
-    size_t const editDistance = strings::EditDistance(keyName.begin(), keyName.end(),
-                                                      actual.begin(), actual.end());
-
-    if (editDistance == 0)
-      return street.m_id.m_index;
-
-    if (actual.empty())
-      continue;
-
-    size_t const percent = editDistance * 100 / actual.size();
-    if (percent < minPercent)
+    auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
+    for (auto const & street : streets)
     {
-      result = street.m_id.m_index;
-      minPercent = percent;
-    }
-  }
+      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
 
-  if (minPercent <= kSimilarityThresholdPercent)
+      size_t const editDistance =
+          strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+
+      if (editDistance == 0)
+        return street.m_id.m_index;
+
+      if (actual.empty())
+        continue;
+
+      size_t const percent = editDistance * 100 / actual.size();
+      if (percent < minPercent)
+      {
+        result = street.m_id.m_index;
+        minPercent = percent;
+      }
+    }
+
+    if (minPercent <= kSimilarityThresholdPercent)
+      return result;
+    return {};
+  };
+
+  auto result = matchStreet(false /* ignoreStreetSynonyms */);
+  if (result)
     return result;
-  return {};
+  return matchStreet(true /* ignoreStreetSynonyms */);
 }
 
 string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const
@@ -206,7 +231,8 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
   case HouseToStreetTable::StreetIdType::Index:
   {
     vector<Street> streets;
-    GetNearbyStreets(bld.m_id.m_mwmId, bld.m_center, streets);
+    // Get streets without squares and suburbs for backward compatibility with data.
+    GetNearbyStreetsWaysOnly(bld.m_id.m_mwmId, bld.m_center, streets);
     if (streetId < streets.size())
     {
       addr.m_building = bld;

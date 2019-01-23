@@ -200,6 +200,20 @@ IsAirportChecker::IsAirportChecker()
   m_types.push_back(c.GetTypeByPath({"aeroway", "aerodrome"}));
 }
 
+IsSquareChecker::IsSquareChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"place", "square"}));
+}
+
+IsSuburbChecker::IsSuburbChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"landuse", "residential"}));
+  m_types.push_back(c.GetTypeByPath({"place", "neighbourhood"}));
+  m_types.push_back(c.GetTypeByPath({"place", "suburb"}));
+}
+
 IsStreetChecker::IsStreetChecker()
 {
   // TODO (@y, @m, @vng): this list must be up-to-date with

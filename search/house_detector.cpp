@@ -742,7 +742,7 @@ double Street::GetPrefixLength(size_t numSegs) const
 void Street::SetName(string const & name)
 {
   m_name = name;
-  m_processedName = strings::ToUtf8(GetStreetNameAsKey(name));
+  m_processedName = strings::ToUtf8(GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
 
 void Street::Reverse()

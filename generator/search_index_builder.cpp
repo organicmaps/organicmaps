@@ -344,9 +344,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
                     uint32_t & result)
 {
-  strings::UniString const street = search::GetStreetNameAsKey(streetName);
-
-  bool const hasStreet = !street.empty();
+  bool const hasStreet = !streetName.empty();
   if (hasStreet)
   {
     FeatureType ft;
@@ -354,9 +352,10 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const &
 
     using TStreet = search::ReverseGeocoder::Street;
     vector<TStreet> streets;
-    search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(ft), streets);
+    search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(ft),
+                                              true /* includeSquaresAndSuburbs */, streets);
 
-    auto const res = search::ReverseGeocoder::GetMatchedStreetIndex(street, streets);
+    auto const res = search::ReverseGeocoder::GetMatchedStreetIndex(streetName, streets);
 
     if (res)
     {

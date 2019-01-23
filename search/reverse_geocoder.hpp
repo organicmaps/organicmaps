@@ -68,7 +68,7 @@ public:
 
   /// Returns a feature id of street from |streets| whose name best matches |keyName|
   /// or empty value if the match was not found.
-  static boost::optional<uint32_t> GetMatchedStreetIndex(strings::UniString const & keyName,
+  static boost::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
                                                          std::vector<Street> const & streets);
 
   struct Address
@@ -85,8 +85,10 @@ public:
   friend std::string DebugPrint(Address const & addr);
 
   /// @return Sorted by distance streets vector for the specified MwmId.
+  /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:
+  /// existing mwms operate on streets without squares and suburbs.
   static void GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
-                               std::vector<Street> & streets);
+                               bool includeSquaresAndSuburbs, std::vector<Street> & streets);
   void GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                         std::vector<Street> & streets) const;
   void GetNearbyStreets(FeatureType & ft, std::vector<Street> & streets) const;
@@ -110,6 +112,9 @@ public:
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
 
 private:
+  /// Old data compatible method to retrieve nearby streets.
+  void GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
+                                std::vector<Street> & streets) const;
 
   /// Helper class to incapsulate house 2 street table reloading.
   class HouseTable

@@ -104,6 +104,22 @@ public:
   DECLARE_CHECKER_INSTANCE(IsAirportChecker);
 };
 
+class IsSquareChecker : public BaseChecker
+{
+  IsSquareChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsSquareChecker);
+};
+
+class IsSuburbChecker : public BaseChecker
+{
+  IsSuburbChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsSuburbChecker);
+};
+
 class IsStreetChecker : public BaseChecker
 {
   IsStreetChecker();

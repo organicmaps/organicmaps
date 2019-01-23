@@ -71,7 +71,7 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string const & s, Tokens & t
 // Chops off the last query token (the "prefix" one) from |str|.
 std::string DropLastToken(std::string const & str);
 
-strings::UniString GetStreetNameAsKey(std::string const & name);
+strings::UniString GetStreetNameAsKey(std::string const & name, bool ignoreStreetSynonyms);
 
 // *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);

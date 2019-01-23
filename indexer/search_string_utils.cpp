@@ -282,7 +282,7 @@ string DropLastToken(string const & str)
   return string(str.begin(), iter.base());
 }
 
-UniString GetStreetNameAsKey(string const & name)
+UniString GetStreetNameAsKey(string const & name, bool ignoreStreetSynonyms)
 {
   if (name.empty())
     return UniString();
@@ -293,6 +293,9 @@ UniString GetStreetNameAsKey(string const & name)
   {
     UniString const s = NormalizeAndSimplifyString(*iter);
     ++iter;
+
+    if (ignoreStreetSynonyms && IsStreetSynonym(s))
+      continue;
 
     res.append(s);
   }

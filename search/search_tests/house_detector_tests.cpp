@@ -57,7 +57,7 @@ class CollectStreetIDs
   static bool GetKey(string const & name, string & key)
   {
     TEST(!name.empty(), ());
-    key = strings::ToUtf8(search::GetStreetNameAsKey(name));
+    key = strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 
     if (key.empty())
     {
@@ -336,7 +336,7 @@ namespace
 {
 string GetStreetKey(string const & name)
 {
-  return strings::ToUtf8(search::GetStreetNameAsKey(name));
+  return strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
 } // namespace
 
