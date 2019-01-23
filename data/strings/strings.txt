@@ -37177,3 +37177,19 @@
   [power_managment_setting_manual_max]
     comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
     en = extreme power saving
+
+  [notification_leave_review_title2]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
+    en = Have you been here - %s?
+
+  [notification_leave_review_content2]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
+    en = It's time to help other travellers and rate it!
+
+  [ugc_thanks_message_auth]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
+    en = Your review has been saved
+
+  [ugc_thanks_message_not_auth]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
+    en = Please log in to upload a review
