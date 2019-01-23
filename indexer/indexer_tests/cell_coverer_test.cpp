@@ -57,6 +57,6 @@ UNIT_TEST(MaxDepthCoverSpiral)
     CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, levelMax, cells);
 
     TEST_EQUAL(cells.size(), 1, ());
-    TEST_EQUAL(cells[0].Level(), levelMax - 1, ());
+    TEST_EQUAL(cells[0].Level(), levelMax, ());
   }
 }
