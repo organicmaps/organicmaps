@@ -14,9 +14,10 @@ class BatchCallbacks
 {
 public:
   virtual ~BatchCallbacks() = default;
-  virtual void FlushData(BindingInfo const & binding, void const * data, uint32_t count) = 0;
+  virtual void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & binding,
+                         void const * data, uint32_t count) = 0;
   virtual void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex) = 0;
-  virtual void SubmitIndices() = 0;
+  virtual void SubmitIndices(ref_ptr<GraphicsContext> context) = 0;
   virtual uint32_t GetAvailableVertexCount() const = 0;
   virtual uint32_t GetAvailableIndexCount() const = 0;
   virtual void ChangeBuffer(ref_ptr<GraphicsContext> context) = 0;
@@ -34,10 +35,12 @@ public:
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
-  void FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexCount) const;
-  void FlushData(BindingInfo const & info, void const * data, uint32_t elementCount) const;
+  void FlushData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams,
+                 uint32_t vertexCount) const;
+  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info,
+                 void const * data, uint32_t elementCount) const;
   void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex);
-  void SubmitIndex();
+  void SubmitIndices(ref_ptr<GraphicsContext> context);
   uint32_t GetAvailableVertexCount() const;
   uint32_t GetAvailableIndexCount() const;
   void ChangeBuffer(ref_ptr<GraphicsContext> context) const;

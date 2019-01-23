@@ -163,6 +163,8 @@ append(
   ${DRAPE_ROOT}/vulkan/vulkan_mesh_object_impl.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_texture.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_texture.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_object_manager.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_object_manager.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_utils.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_utils.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_vertex_array_buffer_impl.cpp

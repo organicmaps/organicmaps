@@ -54,7 +54,7 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
 
   if (!Base::IsInitialized())
     Base::Build(context, m_program);
-  Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
+  Base::UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
 }
 
 void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect,
@@ -69,7 +69,7 @@ void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF 
 
   if (!Base::IsInitialized())
     Base::Build(context, m_program);
-  Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
+  Base::UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
 }
 
 void DebugRectRenderer::DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen,

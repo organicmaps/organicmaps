@@ -90,8 +90,9 @@ public:
     m_VAO = 0;
   }
 
-  void UpdateBuffer(uint32_t bufferInd) override
+  void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
   {
+    UNUSED_VALUE(context);
     auto & buffer = m_mesh->m_buffers[bufferInd];
     GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
     GLFunctions::glBufferData(gl_const::GLArrayBuffer,
@@ -203,7 +204,8 @@ void MeshObject::Reset()
   m_initialized = false;
 }
 
-void MeshObject::UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices)
+void MeshObject::UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd,
+                              std::vector<float> && vertices)
 {
   CHECK(m_initialized, ());
   CHECK_LESS(bufferInd, static_cast<uint32_t>(m_buffers.size()), ());
@@ -214,7 +216,7 @@ void MeshObject::UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices
   buffer.m_data = std::move(vertices);
 
   CHECK(m_impl != nullptr, ());
-  m_impl->UpdateBuffer(bufferInd);
+  m_impl->UpdateBuffer(context, bufferInd);
 }
 
 void MeshObject::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program)

@@ -206,17 +206,17 @@ void UniversalBatch::SetVertexStride(uint8_t vertexStride)
   m_vertexStride = vertexStride;
 }
 
-void UniversalBatch::FlushData(ref_ptr<AttributeProvider> streams,
+void UniversalBatch::FlushData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams,
                                uint32_t vertexCount) const
 {
   for (uint8_t i = 0; i < streams->GetStreamCount(); ++i)
-    FlushData(streams->GetBindingInfo(i), streams->GetRawPointer(i), vertexCount);
+    FlushData(context, streams->GetBindingInfo(i), streams->GetRawPointer(i), vertexCount);
 }
 
-void UniversalBatch::FlushData(BindingInfo const & info, void const * data,
-                               uint32_t elementCount) const
+void UniversalBatch::FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info,
+                               void const * data, uint32_t elementCount) const
 {
-  m_callbacks.FlushData(info, data, elementCount);
+  m_callbacks.FlushData(context, info, data, elementCount);
 }
 
 void * UniversalBatch::GetIndexStorage(uint32_t indexCount, uint32_t & startIndex)
@@ -224,9 +224,9 @@ void * UniversalBatch::GetIndexStorage(uint32_t indexCount, uint32_t & startInde
   return m_callbacks.GetIndexStorage(indexCount, startIndex);
 }
 
-void UniversalBatch::SubmitIndex()
+void UniversalBatch::SubmitIndices(ref_ptr<GraphicsContext> context)
 {
-  m_callbacks.SubmitIndices();
+  m_callbacks.SubmitIndices(context);
 }
 
 uint32_t UniversalBatch::GetAvailableVertexCount() const
@@ -292,9 +292,9 @@ void TriangleListBatch::BatchData(ref_ptr<GraphicsContext> context,
     uint32_t startIndex = 0;
     void * indicesStorage = GetIndexStorage(vertexCount, startIndex);
     GenerateIndices<ListIndexGenerator>(indicesStorage, vertexCount, startIndex);
-    SubmitIndex();
+    SubmitIndices(context);
 
-    FlushData(streams, vertexCount);
+    FlushData(context, streams, vertexCount);
     streams->Advance(vertexCount);
   }
 }
@@ -328,9 +328,9 @@ void LineStripBatch::BatchData(ref_ptr<GraphicsContext> context,
     uint32_t startIndex = 0;
     void * indicesStorage = GetIndexStorage(indexCount, startIndex);
     GenerateIndices<LineStripIndexGenerator>(indicesStorage, indexCount, startIndex);
-    SubmitIndex();
+    SubmitIndices(context);
 
-    FlushData(streams, vertexCount);
+    FlushData(context, streams, vertexCount);
     streams->Advance(vertexCount);
   }
 }
@@ -365,9 +365,9 @@ void LineRawBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attribute
     void * indicesStorage = GetIndexStorage(indexCount, startIndex);
     LineRawIndexGenerator generator(startIndex, m_indices);
     GenerateIndices(indicesStorage, indexCount, generator);
-    SubmitIndex();
+    SubmitIndices(context);
 
-    FlushData(streams, vertexCount);
+    FlushData(context, streams, vertexCount);
     streams->Advance(vertexCount);
   }
 }
@@ -398,7 +398,7 @@ uint32_t FanStripHelper::BatchIndexes(ref_ptr<GraphicsContext> context, uint32_t
   uint32_t startIndex = 0;
   void * pIndexStorage = GetIndexStorage(batchIndexCount, startIndex);
   GenerateIndexes(pIndexStorage, batchIndexCount, startIndex);
-  SubmitIndex();
+  SubmitIndices(context);
 
   return batchVertexCount;
 }
@@ -468,7 +468,7 @@ void TriangleStripBatch::BatchData(ref_ptr<GraphicsContext> context,
       ChangeBuffer(context);
 
     uint32_t const batchVertexCount = BatchIndexes(context, streams->GetVertexCount());
-    FlushData(streams, batchVertexCount);
+    FlushData(context, streams, batchVertexCount);
 
     uint32_t const advanceCount = IsFullUploaded() ? batchVertexCount : (batchVertexCount - 2);
     streams->Advance(advanceCount);
@@ -530,7 +530,7 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
         // now in cpuBuffer we have correct "fan" created from second part of data
         // first vertex of cpuBuffer if the first vertex of params, second vertex is
         // the last vertex of previous uploaded data. We copy this data on GPU.
-        FlushData(streams->GetBindingInfo(i), cpuBuffer.Data(), batchVertexCount + 1);
+        FlushData(context, streams->GetBindingInfo(i), cpuBuffer.Data(), batchVertexCount + 1);
       }
 
       uint32_t advanceCount = batchVertexCount;
@@ -548,7 +548,7 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
       if (IsFullUploaded())
       {
         // We can upload all input data as one peace. For upload we need only one iteration
-        FlushData(streams, batchVertexCount);
+        FlushData(context, streams, batchVertexCount);
         streams->Advance(batchVertexCount);
       }
       else
@@ -561,7 +561,7 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
         {
           const BindingInfo & binding = streams->GetBindingInfo(i);
           const void * rawDataPointer = streams->GetRawPointer(i);
-          FlushData(binding, rawDataPointer, batchVertexCount);
+          FlushData(context, binding, rawDataPointer, batchVertexCount);
 
           // "(vertexCount + 1) - batchVertexCount" we allocate CPUBuffer on all remaining data
           // + first vertex of fan, that must be duplicate in the next buffer
@@ -601,7 +601,7 @@ void TriangleListOfStripBatch::BatchData(ref_ptr<GraphicsContext> context,
       ChangeBuffer(context);
 
     uint32_t const batchVertexCount = BatchIndexes(context, streams->GetVertexCount());
-    FlushData(streams, batchVertexCount);
+    FlushData(context, streams, batchVertexCount);
     streams->Advance(batchVertexCount);
   }
 }

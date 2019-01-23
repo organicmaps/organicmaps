@@ -70,8 +70,9 @@ public:
   uint32_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
   uint32_t GetIndexCount() const;
 
-  void UploadData(BindingInfo const & bindingInfo, void const * data, uint32_t count);
-  void UploadIndexes(void const * data, uint32_t count);
+  void UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo,
+                  void const * data, uint32_t count);
+  void UploadIndices(ref_ptr<GraphicsContext> context, void const * data, uint32_t count);
 
   void ApplyMutation(ref_ptr<GraphicsContext> context,
                      ref_ptr<IndexBufferMutator> indexMutator,

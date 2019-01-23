@@ -3,6 +3,7 @@
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_device_holder.hpp"
+#include "drape/vulkan/vulkan_object_manager.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -21,7 +22,9 @@ class VulkanBaseContext : public dp::GraphicsContext
 {
 public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkDevice device, uint32_t renderingQueueFamilyIndex);
+                    VkPhysicalDeviceProperties const & gpuProperties,
+                    VkDevice device, uint32_t renderingQueueFamilyIndex,
+                    ref_ptr<VulkanObjectManager> objectManager);
 
   void Present() override {}
   void MakeCurrent() override {}
@@ -62,13 +65,17 @@ public:
   VkPhysicalDeviceProperties const & GetGpuProperties() const { return m_gpuProperties; }
   uint32_t GetRenderingQueueFamilyIndex() { return m_renderingQueueFamilyIndex; }
 
+  ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
+
+  VkCommandBuffer GetCurrentCommandBuffer() const { CHECK(false, ("Implement me")); return nullptr; }
+
 protected:
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
+  VkPhysicalDeviceProperties const m_gpuProperties;
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
-
-  VkPhysicalDeviceProperties m_gpuProperties;
+  ref_ptr<VulkanObjectManager> m_objectManager;
 
   std::shared_ptr<DeviceHolder> m_deviceHolder;
 

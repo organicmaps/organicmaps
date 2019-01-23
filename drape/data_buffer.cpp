@@ -68,15 +68,16 @@ void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target t
   }
 }
 
-DataBufferMapper::DataBufferMapper(ref_ptr<DataBuffer> buffer, uint32_t elementOffset,
-                                   uint32_t elementCount)
-  : m_buffer(buffer)
+DataBufferMapper::DataBufferMapper(ref_ptr<GraphicsContext> context, ref_ptr<DataBuffer> buffer,
+                                   uint32_t elementOffset, uint32_t elementCount)
+  : m_context(context)
+  , m_buffer(buffer)
 {
   m_buffer->GetBuffer()->Bind();
-  m_ptr = m_buffer->GetBuffer()->Map(elementOffset, elementCount);
+  m_ptr = m_buffer->GetBuffer()->Map(m_context, elementOffset, elementCount);
 }
 
-DataBufferMapper::~DataBufferMapper() { m_buffer->GetBuffer()->Unmap(); }
+DataBufferMapper::~DataBufferMapper() { m_buffer->GetBuffer()->Unmap(m_context); }
 
 void DataBufferMapper::UpdateData(void const * data, uint32_t elementOffset, uint32_t elementCount)
 {

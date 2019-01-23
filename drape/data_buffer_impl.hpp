@@ -4,6 +4,8 @@
 #include "drape/data_buffer.hpp"
 #include "drape/gpu_buffer.hpp"
 
+#include "base/macros.hpp"
+
 #include <cstdint>
 #include <utility>
 
@@ -40,31 +42,45 @@ public:
 
   void const * Data() const override { return m_buffer->Data(); }
 
-  void UploadData(void const * data, uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
+                  uint32_t elementCount) override
   {
+    UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
     uint32_t const newOffset = m_buffer->GetCurrentSize();
     m_buffer->Seek(newOffset);
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
+             uint32_t elementCount) override
   {
-    ASSERT(false, ("Data updating is unavailable for CPU buffer"));
-  }
-
-  void Bind() override { ASSERT(false, ("Binding is unavailable for CPU buffer")); }
-
-  void * Map(uint32_t elementOffset, uint32_t elementCount) override
-  {
+    UNUSED_VALUE(context);
+    UNUSED_VALUE(elementOffset);
+    UNUSED_VALUE(elementCount);
     ASSERT(false, ("Mapping is unavailable for CPU buffer"));
     return nullptr;
   }
 
-  void Unmap() override { ASSERT(false, ("Unmapping is unavailable for CPU buffer")); }
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
+                  uint32_t elementCount) override
+  {
+    UNUSED_VALUE(destPtr);
+    UNUSED_VALUE(srcPtr);
+    UNUSED_VALUE(elementOffset);
+    UNUSED_VALUE(elementCount);
+    ASSERT(false, ("Data updating is unavailable for CPU buffer"));
+  }
+
+  void Unmap(ref_ptr<GraphicsContext> context) override
+  {
+    UNUSED_VALUE(context);
+    ASSERT(false, ("Unmapping is unavailable for CPU buffer"));
+  }
+
+  void Bind() override { ASSERT(false, ("Binding is unavailable for CPU buffer")); }
 };
 
-// GPU implementation of data buffer.
+// GPU implementation of data buffer for OpenGL.
 class GpuBufferImpl : public DataBufferImpl<GPUBuffer>
 {
 public:
@@ -79,9 +95,18 @@ public:
     return nullptr;
   }
 
-  void UploadData(void const * data, uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
+                  uint32_t elementCount) override
   {
+    UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
+  }
+
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
+             uint32_t elementCount) override
+  {
+    UNUSED_VALUE(context);
+    return m_buffer->Map(elementOffset, elementCount);
   }
 
   void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
@@ -90,13 +115,12 @@ public:
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }
 
-  void Bind() override { m_buffer->Bind(); }
-
-  void * Map(uint32_t elementOffset, uint32_t elementCount) override
+  void Unmap(ref_ptr<GraphicsContext> context) override
   {
-    return m_buffer->Map(elementOffset, elementCount);
+    UNUSED_VALUE(context);
+    m_buffer->Unmap();
   }
 
-  void Unmap() override { m_buffer->Unmap(); }
+  void Bind() override { m_buffer->Bind(); }
 };
 }  // namespace dp

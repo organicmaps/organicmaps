@@ -67,7 +67,7 @@ UNIT_TEST(UploadDataTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  buffer->GetBuffer()->UploadData(data, 100);
+  buffer->GetBuffer()->UploadData(make_ref(&context), data, 100);
   buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
 
@@ -98,12 +98,12 @@ UNIT_TEST(ParticalUploadDataTest)
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 100, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 0, ());
 
-  buffer->GetBuffer()->UploadData(part1Data, 30);
+  buffer->GetBuffer()->UploadData(make_ref(&context), part1Data, 30);
   TEST_EQUAL(buffer->GetBuffer()->GetCapacity(), 100, ());
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 70, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 30, ());
 
-  buffer->GetBuffer()->UploadData(part2Data, 70);
+  buffer->GetBuffer()->UploadData(make_ref(&context), part2Data, 70);
   TEST_EQUAL(buffer->GetBuffer()->GetCapacity(), 100, ());
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 0, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 100, ());

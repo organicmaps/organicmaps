@@ -4,6 +4,7 @@
 
 #include "drape/graphics_context_factory.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/pointers.hpp"
 
@@ -44,6 +45,7 @@ private:
   drape_ptr<dp::vulkan::Layers> m_layers;
   VkPhysicalDevice m_gpu = nullptr;
   VkDevice m_device = nullptr;
+  drape_ptr<dp::vulkan::VulkanObjectManager> m_objectManager;
   drape_ptr<dp::vulkan::VulkanBaseContext> m_drawContext;
   drape_ptr<dp::vulkan::VulkanBaseContext> m_uploadContext;
 

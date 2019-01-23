@@ -234,8 +234,8 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
   Unbind();
 }
 
-void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data,
-                                   uint32_t count)
+void VertexArrayBuffer::UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo,
+                                   void const * data, uint32_t count)
 {
   ref_ptr<DataBuffer> buffer;
   if (!bindingInfo.IsDynamic())
@@ -245,7 +245,7 @@ void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const *
 
   if (count > 0)
     m_isChanged = true;
-  buffer->GetBuffer()->UploadData(data, count);
+  buffer->GetBuffer()->UploadData(context, data, count);
 }
 
 ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo)
@@ -343,10 +343,11 @@ uint32_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingIn
 
 uint32_t VertexArrayBuffer::GetIndexCount() const { return GetIndexBuffer()->GetCurrentSize(); }
 
-void VertexArrayBuffer::UploadIndexes(void const * data, uint32_t count)
+void VertexArrayBuffer::UploadIndices(ref_ptr<GraphicsContext> context, void const * data,
+                                      uint32_t count)
 {
   ASSERT_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
-  GetIndexBuffer()->UploadData(data, count);
+  GetIndexBuffer()->UploadData(context, data, count);
 }
 
 void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
@@ -365,7 +366,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
       m_indexBuffer = make_unique_dp<IndexBuffer>(indexMutator->GetCapacity());
       m_indexBuffer->MoveToGPU(context, GPUBuffer::IndexBuffer, m_batcherHash);
     }
-    m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
+    m_indexBuffer->UpdateData(context, indexMutator->GetIndexes(), indexMutator->GetIndexCount());
   }
 
   if (attrMutator == nullptr)
@@ -385,7 +386,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
 
     ref_ptr<DataBuffer> buffer = GetDynamicBuffer(it->first);
     ASSERT(buffer != nullptr, ());
-    DataBufferMapper mapper(buffer, offsets.first, offsets.second);
+    DataBufferMapper mapper(context, buffer, offsets.first, offsets.second);
     for (size_t i = 0; i < nodes.size(); ++i)
     {
       MutateNode const & node = nodes[i];

@@ -48,7 +48,7 @@ public:
   void SetBuffer(uint32_t bufferInd, std::vector<float> && vertices, uint32_t stride);
   void SetAttribute(std::string const & attributeName, uint32_t bufferInd, uint32_t offset, uint32_t componentsCount);
 
-  void UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices);
+  void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd, std::vector<float> && vertices);
 
   template <typename TParamsSetter, typename TParams>
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
@@ -130,7 +130,7 @@ public:
   virtual ~MeshObjectImpl() = default;
   virtual void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) = 0;
   virtual void Reset() = 0;
-  virtual void UpdateBuffer(uint32_t bufferInd) = 0;
+  virtual void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) = 0;
   virtual void Bind(ref_ptr<dp::GpuProgram> program) = 0;
   virtual void Unbind() = 0;
   virtual void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) = 0;

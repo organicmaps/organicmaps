@@ -14,7 +14,8 @@ namespace dp
 class Batcher::CallbacksWrapper : public BatchCallbacks
 {
 public:
-  CallbacksWrapper(RenderState const & state, ref_ptr<OverlayHandle> overlay, ref_ptr<Batcher> batcher)
+  CallbacksWrapper(RenderState const & state, ref_ptr<OverlayHandle> overlay,
+                   ref_ptr<Batcher> batcher)
     : m_state(state)
     , m_overlay(overlay)
     , m_batcher(batcher)
@@ -31,14 +32,15 @@ public:
     m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
-  void FlushData(BindingInfo const & info, void const * data, uint32_t count) override
+  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info,
+                 void const * data, uint32_t count) override
   {
     if (m_overlay != nullptr && info.IsDynamic())
     {
       uint32_t offset = m_buffer->GetDynamicBufferOffset(info);
       m_overlay->AddDynamicAttribute(info, offset, count);
     }
-    m_buffer->UploadData(info, data, count);
+    m_buffer->UploadData(context, info, data, count);
   }
 
   void * GetIndexStorage(uint32_t size, uint32_t & startIndex) override
@@ -55,10 +57,10 @@ public:
     }
   }
 
-  void SubmitIndices() override
+  void SubmitIndices(ref_ptr<GraphicsContext> context) override
   {
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
-      m_buffer->UploadIndexes(m_indexStorage.GetRawConst(), m_indexStorage.Size());
+      m_buffer->UploadIndices(context, m_indexStorage.GetRawConst(), m_indexStorage.Size());
   }
 
   uint32_t GetAvailableVertexCount() const override

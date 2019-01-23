@@ -11,14 +11,17 @@ namespace dp
 namespace vulkan
 {
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                                     VkDevice device, uint32_t renderingQueueFamilyIndex)
+                                     VkPhysicalDeviceProperties const & gpuProperties,
+                                     VkDevice device, uint32_t renderingQueueFamilyIndex,
+                                     ref_ptr<VulkanObjectManager> objectManager)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
+  , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
+  , m_objectManager(objectManager)
 {
   m_deviceHolder = std::make_shared<DeviceHolder>(m_device);
-  vkGetPhysicalDeviceProperties(m_gpu, &m_gpuProperties);
 }
 
 std::string VulkanBaseContext::GetRendererName() const

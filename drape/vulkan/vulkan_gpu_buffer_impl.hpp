@@ -20,15 +20,15 @@ namespace vulkan
 class VulkanGPUBuffer : public BufferBase
 {
 public:
-  VulkanGPUBuffer(ref_ptr<GraphicsContext> context, void const * data,
+  VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
                   uint8_t elementSize, uint32_t capacity, uint64_t batcherHash);
   
-  void UploadData(void const * data, uint32_t elementCount);
+  void UploadData(ref_ptr<VulkanBaseContext> context, void const * data, uint32_t elementCount);
   
-  void * Map(uint32_t elementOffset, uint32_t elementCount);
-  
+  void * Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset, uint32_t elementCount);
   void UpdateData(void * gpuPtr, void const * data,
                   uint32_t elementOffset, uint32_t elementCount);
+  void Unmap(ref_ptr<VulkanBaseContext> context);
 
   VkBuffer GetVulkanBuffer() const { return m_vulkanBuffer; }
   
@@ -53,9 +53,10 @@ public:
     return nullptr;
   }
   
-  void UploadData(void const * data, uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
+                  uint32_t elementCount) override
   {
-    m_buffer->UploadData(data, elementCount);
+    m_buffer->UploadData(context, data, elementCount);
   }
   
   void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
@@ -64,15 +65,20 @@ public:
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }
   
-  void * Map(uint32_t elementOffset, uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
+             uint32_t elementCount) override
   {
-    return m_buffer->Map(elementOffset, elementCount);
+    return m_buffer->Map(context, elementOffset, elementCount);
+  }
+
+  void Unmap(ref_ptr<GraphicsContext> context) override
+  {
+    m_buffer->Unmap(context);
   }
 
   VkBuffer GetVulkanBuffer() const { return m_buffer->GetVulkanBuffer(); }
-  
+
   void Bind() override {}
-  void Unmap() override {}
 };
 }  // namespace vulkan
 }  // namespace dp

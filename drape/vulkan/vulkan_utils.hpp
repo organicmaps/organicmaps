@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <vulkan_wrapper.h>

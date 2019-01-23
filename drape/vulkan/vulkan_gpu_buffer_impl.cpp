@@ -8,7 +8,7 @@ namespace dp
 {
 namespace vulkan
 {
-VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<GraphicsContext> context, void const * data,
+VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
                                  uint8_t elementSize, uint32_t capacity, uint64_t batcherHash)
   : BufferBase(elementSize, capacity)
   , m_batcherHash(batcherHash)
@@ -16,8 +16,10 @@ VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<GraphicsContext> context, void const * 
   Resize(context, data, capacity);
 }
 
-void VulkanGPUBuffer::UploadData(void const * data, uint32_t elementCount)
+void VulkanGPUBuffer::UploadData(ref_ptr<VulkanBaseContext> context, void const * data,
+                                 uint32_t elementCount)
 {
+  //TODO: Upload must be called only, there is no active command buffer.
   uint32_t const currentSize = GetCurrentSize();
   uint8_t const elementSize = GetElementSize();
   ASSERT(GetCapacity() >= elementCount + currentSize,
@@ -31,8 +33,10 @@ void VulkanGPUBuffer::UploadData(void const * data, uint32_t elementCount)
   BufferBase::UploadData(elementCount);
 }
 
-void * VulkanGPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
+void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset,
+                            uint32_t elementCount)
 {
+  //TODO: Stage + map.
   UNUSED_VALUE(elementCount);
   uint32_t const elementSize = GetElementSize();
   uint32_t const byteOffset = elementOffset * elementSize;
@@ -50,6 +54,11 @@ void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
 
   ASSERT(gpuPtr != nullptr, ());
   memcpy((uint8_t *)gpuPtr + byteOffset, data, byteCount);
+}
+
+void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
+{
+  //TODO: Unmap + barrier.
 }
 
 void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * data,

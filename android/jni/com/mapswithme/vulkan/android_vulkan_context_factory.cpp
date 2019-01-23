@@ -20,8 +20,11 @@ class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkDevice device, uint32_t renderingQueueFamilyIndex)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device, renderingQueueFamilyIndex)
+                    VkPhysicalDeviceProperties const & gpuProperties,
+                    VkDevice device, uint32_t renderingQueueFamilyIndex,
+                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
+                                    renderingQueueFamilyIndex, objectManager)
   {}
 };
 
@@ -29,8 +32,11 @@ class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                      VkDevice device, uint32_t renderingQueueFamilyIndex)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device, renderingQueueFamilyIndex)
+                      VkPhysicalDeviceProperties const & gpuProperties,
+                      VkDevice device, uint32_t renderingQueueFamilyIndex,
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
+                                    renderingQueueFamilyIndex, objectManager)
   {}
 
   void Present() override {}
@@ -169,15 +175,25 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
     return;
   }
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, m_device,
-                                                    renderingQueueFamilyIndex);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, m_device,
-                                                        renderingQueueFamilyIndex);
+  VkPhysicalDeviceProperties gpuProperties;
+  vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
+  VkPhysicalDeviceMemoryProperties memoryProperties;
+  vkGetPhysicalDeviceMemoryProperties(m_gpu, &memoryProperties);
+
+  m_objectManager = make_unique_dp<dp::vulkan::VulkanObjectManager>(m_device, gpuProperties.limits,
+                                                                    memoryProperties,
+                                                                    renderingQueueFamilyIndex);
+  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
+                                                    m_device, renderingQueueFamilyIndex,
+                                                    make_ref(m_objectManager));
+  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
+                                                        m_device, renderingQueueFamilyIndex,
+                                                        make_ref(m_objectManager));
 }
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
 {
-  m_layers->Uninitialize(m_vulkanInstance);
+  m_objectManager.reset();
 
   if (m_device != nullptr)
   {
@@ -186,7 +202,10 @@ AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
   }
 
   if (m_vulkanInstance != nullptr)
+  {
+    m_layers->Uninitialize(m_vulkanInstance);
     vkDestroyInstance(m_vulkanInstance, nullptr);
+  }
 }
 
 void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)

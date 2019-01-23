@@ -10,8 +10,8 @@ public:
   explicit IndexBuffer(uint32_t capacity);
 
   // Check size of buffer and size of uploaded data.
-  void UploadData(void const * data, uint32_t size);
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t size);
   // Resize buffer to new size, and discard old data.
-  void UpdateData(void const * data, uint32_t size);
+  void UpdateData(ref_ptr<GraphicsContext> context, void const * data, uint32_t size);
 };
 }  // namespace dp
