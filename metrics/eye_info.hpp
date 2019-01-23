@@ -196,19 +196,6 @@ public:
 
   using Events = std::deque<Event>;
 
-  MapObject() = default;
-
-  MapObject(std::string const & bestType, m2::PointD const & pos, std::string const & readableName)
-    : m_bestType(bestType)
-    , m_pos(pos)
-    , m_readableName(readableName)
-    , m_limitRect(MercatorBounds::ClampX(pos.x - kMwmPointAccuracy),
-                  MercatorBounds::ClampY(pos.y - kMwmPointAccuracy),
-                  MercatorBounds::ClampX(pos.x + kMwmPointAccuracy),
-                  MercatorBounds::ClampY(pos.y + kMwmPointAccuracy))
-  {
-  }
-
   bool operator==(MapObject const & rhs) const
   {
     return GetPos() == rhs.GetPos() && GetBestType() == rhs.GetBestType() &&

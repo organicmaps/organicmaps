@@ -6,6 +6,7 @@
 
 #include "metrics/eye.hpp"
 
+#include <ctime>
 #include <string>
 
 #include <boost/optional.hpp>

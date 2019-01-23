@@ -1461,8 +1461,7 @@ void Framework::InitDiscoveryManager()
   CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
 
   discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_localsApi.get());
-  m_discoveryManager =
-      make_unique<discovery::Manager>(m_model.GetDataSource(), *m_cityFinder.get(), apis);
+  m_discoveryManager = make_unique<discovery::Manager>(m_model.GetDataSource(), apis);
 }
 
 void Framework::InitTransliteration()

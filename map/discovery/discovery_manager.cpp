@@ -24,9 +24,8 @@ std::string GetQuery(discovery::ItemType const type)
 
 namespace discovery
 {
-Manager::Manager(DataSource const & dataSource, search::CityFinder & cityFinder, APIs const & apis)
+Manager::Manager(DataSource const & dataSource, APIs const & apis)
   : m_dataSource(dataSource)
-  , m_cityFinder(cityFinder)
   , m_searchApi(apis.m_search)
   , m_localsApi(apis.m_locals)
 {

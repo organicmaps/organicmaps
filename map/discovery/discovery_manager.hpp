@@ -1,7 +1,5 @@
 #pragma once
 
-#include "search/city_finder.hpp"
-
 #include "map/discovery/discovery_client_params.hpp"
 #include "map/discovery/discovery_search.hpp"
 #include "map/discovery/discovery_search_params.hpp"
@@ -55,7 +53,7 @@ public:
 
   using ErrorCalback = std::function<void(uint32_t const requestId, ItemType const type)>;
 
-  Manager(DataSource const & dataSource, search::CityFinder & cityFinder, APIs const & apis);
+  Manager(DataSource const & dataSource, APIs const & apis);
 
   template <typename ResultCallback>
   uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
@@ -122,7 +120,6 @@ private:
   static DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
 
   DataSource const & m_dataSource;
-  search::CityFinder & m_cityFinder;
   SearchAPI & m_searchApi;
   locals::Api & m_localsApi;
   uint32_t m_requestCounter = 0;
