@@ -109,7 +109,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)
         .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
-        .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
     dialog.setTargetFragment(this, ERROR_LOADING_DIALOG_REQ_CODE);
     dialog.show(this, ERROR_LOADING_DIALOG_TAG);

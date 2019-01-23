@@ -213,7 +213,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)
         .setReqCode(REQ_CODE_LOAD_FAILED)
-        .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
     dialog.setTargetFragment(this, REQ_CODE_LOAD_FAILED);
     dialog.show(this, ERROR_LOADING_DIALOG_TAG);

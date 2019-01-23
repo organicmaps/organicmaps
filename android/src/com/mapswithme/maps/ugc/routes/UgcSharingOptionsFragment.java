@@ -31,6 +31,7 @@ import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
@@ -51,6 +52,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 105;
   private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
+  private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
@@ -58,6 +60,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
+  private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -223,7 +226,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .setMessageId(R.string.common_check_internet_connection_dialog)
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)
-        .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
         .build();
     dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
@@ -512,7 +515,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .setMessageId(subtitle)
         .setPositiveBtnId(R.string.ok)
         .setReqCode(reqCode)
-        .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
     dialog.setTargetFragment(this, reqCode);
     dialog.show(this, tag);
@@ -541,5 +544,23 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   public void onAlertDialogCancel(int requestCode)
   {
 
+  }
+
+  private void showUploadCatalogConfirmationDialog()
+  {
+    /*FIXME text later*/
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.common_check_internet_connection_dialog_title)
+        .setMessageId(R.string.common_check_internet_connection_dialog)
+        .setPositiveBtnId(R.string.try_again)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG)
+        .setImageResId(R.drawable.ic_error_36px)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+        .setDialogFactory(new ConfirmationDialogFactory())
+        .build();
+    dialog.setTargetFragment(this, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG);
+    dialog.show(this, UPLOAD_CONFIRMATION_DIALOG_TAG);
   }
 }
