@@ -84,14 +84,6 @@ FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreetsImp
 
   auto & streets = entry.first;
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
-  for (size_t i = 0; i < streets.size(); ++i)
-  {
-    if (streets[i].m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
-    {
-      streets.resize(i);
-      break;
-    }
-  }
 
   return streets;
 }
@@ -116,7 +108,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
   result = kInvalidId;
 
   FeatureID streetId;
-  if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature.GetID(), streetId))
+  if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature, streetId))
   {
     result = streetId.m_index;
     return result;

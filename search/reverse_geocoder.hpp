@@ -100,7 +100,7 @@ public:
   std::string GetOriginalFeatureStreetName(FeatureType & ft) const;
   /// For |houseId| with street information sets |streetId| to FeatureID of street corresponding to
   /// |houseId| and returns true. Returs false otherwise.
-  bool GetStreetByHouse(FeatureID const & houseId, FeatureID & streetId) const;
+  bool GetStreetByHouse(FeatureType & house, FeatureID & streetId) const;
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
@@ -112,10 +112,6 @@ public:
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
 
 private:
-  /// Old data compatible method to retrieve nearby streets.
-  void GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
-                                std::vector<Street> & streets) const;
-
   /// Helper class to incapsulate house 2 street table reloading.
   class HouseTable
   {
@@ -129,6 +125,10 @@ private:
     std::unique_ptr<search::HouseToStreetTable> m_table;
     MwmSet::MwmHandle m_handle;
   };
+
+  /// Old data compatible method to retrieve nearby streets.
+  void GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
+                                std::vector<Street> & streets) const;
 
   /// Ignores changes from editor if |ignoreEdits| is true.
   bool GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits,
