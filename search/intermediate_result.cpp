@@ -148,10 +148,7 @@ bool RankerResult::IsEqualCommon(RankerResult const & r) const
   return m_geomType == r.m_geomType && GetBestType() == r.GetBestType() && m_str == r.m_str;
 }
 
-bool RankerResult::IsStreet() const
-{
-  return m_geomType == feature::GEOM_LINE && ftypes::IsStreetChecker::Instance()(m_types);
-}
+bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSuburbChecker::Instance()(m_types); }
 
 uint32_t RankerResult::GetBestType(vector<uint32_t> const & preferredTypes) const
 {

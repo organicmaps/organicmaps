@@ -3,6 +3,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -46,11 +47,22 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!m_context->GetFeature(featureId, feature))
     return;
 
-  if (feature.GetFeatureType() != feature::GEOM_LINE)
+  bool const isStreet = feature.GetFeatureType() == feature::GEOM_LINE &&
+                        ftypes::IsWayChecker::Instance()(feature);
+  bool const isSquareOrSuburb = ftypes::IsSquareChecker::Instance()(feature) ||
+                                ftypes::IsSuburbChecker::Instance()(feature);
+  if (!isStreet && !isSquareOrSuburb)
     return;
 
   vector<m2::PointD> points;
-  feature.ForEachPoint(base::MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
+  if (feature.GetFeatureType() == feature::GEOM_AREA)
+  {
+    points = feature.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+  }
+  else
+  {
+    feature.ForEachPoint(base::MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
+  }
   ASSERT(!points.empty(), ());
 
   for (auto const & point : points)

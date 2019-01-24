@@ -214,7 +214,7 @@ IsSuburbChecker::IsSuburbChecker()
   m_types.push_back(c.GetTypeByPath({"place", "suburb"}));
 }
 
-IsStreetChecker::IsStreetChecker()
+IsWayChecker::IsWayChecker()
 {
   // TODO (@y, @m, @vng): this list must be up-to-date with
   // data/categories.txt, so, it's worth it to generate or parse it
@@ -241,6 +241,16 @@ IsStreetChecker::IsStreetChecker()
                            {"highway", "unclassified"}};
   for (auto const & p : arr)
     m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
+}
+
+IsStreetOrSuburbChecker::IsStreetOrSuburbChecker()
+{
+  for (auto const t : IsWayChecker::Instance().m_types)
+    m_types.push_back(t);
+  for (auto const t : IsSquareChecker::Instance().m_types)
+    m_types.push_back(t);
+  for (auto const t : IsSuburbChecker::Instance().m_types)
+    m_types.push_back(t);
 }
 
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)

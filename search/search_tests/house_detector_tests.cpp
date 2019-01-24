@@ -77,7 +77,7 @@ public:
     if (f.GetFeatureType() == feature::GEOM_LINE)
     {
       string name;
-      if (f.GetName(0, name) && ftypes::IsStreetChecker::Instance()(f))
+      if (f.GetName(0, name) && ftypes::IsWayChecker::Instance()(f))
       {
         string key;
         if (GetKey(name, key))

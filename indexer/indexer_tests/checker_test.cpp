@@ -179,17 +179,17 @@ UNIT_TEST(IsTypeConformed)
   TEST(!ftypes::IsTypeConformed(types[1], {"*", "building", "*"}), ());
 }
 
-UNIT_TEST(IsStreetChecker)
+UNIT_TEST(IsWayChecker)
 {
   classificator::Load();
 
-  TEST(ftypes::IsStreetChecker::Instance()(GetStreetTypes()), ());
-  TEST(ftypes::IsStreetChecker::Instance()(GetStreetAndNotStreetTypes()), ());
+  TEST(ftypes::IsWayChecker::Instance()(GetStreetTypes()), ());
+  TEST(ftypes::IsWayChecker::Instance()(GetStreetAndNotStreetTypes()), ());
   // TODO (@y, @m, @vng): need to investigate - do we really need this
-  // TEST for absence of links, because IsStreetChecker() is used for
+  // TEST for absence of links, because IsWayChecker() is used for
   // search only.
   //
-  // TEST(!ftypes::IsStreetChecker::Instance()(GetLinkTypes()), ());
+  // TEST(!ftypes::IsWayChecker::Instance()(GetLinkTypes()), ());
 }
 
 UNIT_TEST(IsLinkChecker)

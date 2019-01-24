@@ -82,7 +82,7 @@ private:
 Model::Type Model::GetType(FeatureType & feature) const
 {
   static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
-  static auto const & streetChecker = IsStreetChecker::Instance();
+  static auto const & streetChecker = IsStreetOrSuburbChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
 

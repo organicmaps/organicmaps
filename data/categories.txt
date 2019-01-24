@@ -4168,7 +4168,7 @@ sk:^Ostrov
 sw:^Kisiwa
 fa:جزیره
 
-place-suburb
+place-suburb|landuse-residential|place-neighbourhood
 en:^Suburb|district
 ru:^Район|микрорайон|округ|квартал
 ar:^حي سكني|ضاحية
@@ -5966,7 +5966,7 @@ el:^Ράφτης|ράπτης
 sk:^Krajčírstvo
 fa:خیاطی
 
-area:highway-footway|area:highway-pedestrian|area:highway-steps
+area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:^Square
 ru:^Площадь
 ar:^ساحة

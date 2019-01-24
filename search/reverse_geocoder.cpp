@@ -40,7 +40,7 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
                vector<ReverseGeocoder::Street> & streets)
 {
   bool const addAsStreet =
-      ft.GetFeatureType() == feature::GEOM_LINE && ftypes::IsStreetChecker::Instance()(ft);
+      ft.GetFeatureType() == feature::GEOM_LINE && ftypes::IsWayChecker::Instance()(ft);
   bool const isSquareOrSuburb =
       ftypes::IsSquareChecker::Instance()(ft) || ftypes::IsSuburbChecker::Instance()(ft);
   bool const addAsSquareOrSuburb = includeSquaresAndSuburbs && isSquareOrSuburb;

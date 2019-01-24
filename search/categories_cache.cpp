@@ -52,7 +52,7 @@ CBV CategoriesCache::Load(MwmContext const & context) const
 
 // StreetsCache ------------------------------------------------------------------------------------
 StreetsCache::StreetsCache(base::Cancellable const & cancellable)
-  : CategoriesCache(ftypes::IsStreetChecker::Instance(), cancellable)
+  : CategoriesCache(ftypes::IsStreetOrSuburbChecker::Instance(), cancellable)
 {
 }
 
