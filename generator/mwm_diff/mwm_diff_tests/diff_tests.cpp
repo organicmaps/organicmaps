@@ -31,7 +31,8 @@ UNIT_TEST(IncrementalUpdates_Smoke)
       base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
   string const newMwmPath2 =
       base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
-  string const diffPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
+  string const diffPath =
+      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
 
   SCOPE_GUARD(cleanup, [&] {
     FileWriter::DeleteFileX(newMwmPath1);

@@ -2,7 +2,8 @@ project(mwm_diff_tests)
 
 set(
   SRC
-  diff_test.cpp
+  bsdiff_search_tests.cpp
+  diff_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
