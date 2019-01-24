@@ -284,7 +284,7 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
   TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)},
                         "Main Street", "en");
   TestCafe cafe(m2::PointD(1.0, 1.0), "Starbucks", "en");
-  cafe.SetStreet(mainStreet);
+  cafe.SetStreetName(mainStreet.GetName());
   cafe.SetHouseNumber("27");
 
   auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {

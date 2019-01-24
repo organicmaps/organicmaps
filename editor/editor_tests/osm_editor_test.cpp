@@ -291,7 +291,7 @@ void EditorTest::SetIndexTest()
   {
     TestCafe cafe({1.0, 1.0}, "London Cafe", "en");
     TestStreet street({{0.0, 0.0}, {1.0, 1.0}, {2.0, 2.0}}, "Test street", "en");
-    cafe.SetStreet(street);
+    cafe.SetStreetName(street.GetName());
     builder.Add(street);
     builder.Add(cafe);
     builder.Add(TestCafe({3.0, 3.0}, "London Cafe", "en"));

@@ -200,7 +200,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   TestPOI quantumTeleport2(m2::PointD(10, 10), "Quantum teleport 2", "en");
   quantumTeleport2.SetHouseNumber("3");
-  quantumTeleport2.SetStreet(feynmanStreet);
+  quantumTeleport2.SetStreetName(feynmanStreet.GetName());
 
   TestPOI quantumCafe(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
   TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
@@ -1654,6 +1654,29 @@ UNIT_CLASS_TEST(ProcessorTest, BrandTest)
     TEST(ResultsMatch("Subway", "en", rules), ());
     TEST(ResultsMatch("Сабвэй", "ru", rules), ());
     TEST(ResultsMatch("サブウェイ", "ja", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
+{
+  string const countryName = "Wonderland";
+
+  TestSquare square(m2::RectD(0.0, 0.0, 1.0, 1.0), "revolution square", "en");
+
+  TestPOI nonameHouse(m2::PointD(1.0, 1.0), "", "en");
+  nonameHouse.SetHouseNumber("3");
+  nonameHouse.SetStreetName(square.GetName());
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(square);
+                                     builder.Add(nonameHouse);
+                                   });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    TRules rules = {ExactMatch(countryId, nonameHouse)};
+    TEST(ResultsMatch("revolution square 3", rules), ());
   }
 }
 }  // namespace

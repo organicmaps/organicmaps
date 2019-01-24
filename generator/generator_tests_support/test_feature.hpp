@@ -5,6 +5,7 @@
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include <cstdint>
 #include <map>
@@ -117,6 +118,19 @@ private:
   std::vector<m2::PointD> m_points;
 };
 
+class TestSquare : public TestFeature
+{
+public:
+  TestSquare(m2::RectD const & rect, std::string const & name, std::string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  std::string ToString() const override;
+
+private:
+  m2::RectD m_rect;
+};
+
 class TestPOI : public TestFeature
 {
 public:
@@ -132,7 +146,7 @@ public:
   std::string ToString() const override;
 
   inline void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
-  inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
+  inline void SetStreetName(std::string const & name) { m_streetName = name; }
   inline void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
 
 protected:

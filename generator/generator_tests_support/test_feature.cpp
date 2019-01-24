@@ -220,6 +220,34 @@ string TestStreet::ToString() const
   return os.str();
 }
 
+// TestSquare --------------------------------------------------------------------------------------
+TestSquare::TestSquare(m2::RectD const & rect, string const & name, string const & lang)
+  : TestFeature(name, lang), m_rect(rect)
+{
+}
+
+void TestSquare::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"place", "square"}));
+
+  fb.AddPoint(m_rect.LeftBottom());
+  fb.AddPoint(m_rect.RightBottom());
+  fb.AddPoint(m_rect.RightTop());
+  fb.AddPoint(m_rect.LeftTop());
+  fb.AddPoint(m_rect.LeftBottom());
+  fb.SetArea();
+}
+
+string TestSquare::ToString() const
+{
+  ostringstream os;
+  os << "TestSquare [" << m_name << ", " << m_lang << ", " << m_rect << "]";
+  return os.str();
+}
+
 // TestPOI -----------------------------------------------------------------------------------------
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, name, lang)
