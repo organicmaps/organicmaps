@@ -215,8 +215,8 @@ public class PlacePageView extends RelativeLayout
   @NonNull
   private View mPopularityView;
 
-  @Nullable
-  UGCController mUgcController;
+  @NonNull
+  private UGCController mUgcController;
 
   @Nullable
   BannerController mBannerController;
@@ -775,7 +775,7 @@ public class PlacePageView extends RelativeLayout
     mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!", new Throwable());
+      LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!");
       return;
     }
     refreshPreview(mMapObject, NetworkPolicy.newInstance(true), priceInfo);
@@ -877,12 +877,6 @@ public class PlacePageView extends RelativeLayout
     mHotelRating.setText("");
     mHotelRatingBase.setText("");
     mTvSponsoredPrice.setText("");
-  }
-
-  private void clearUGCViews()
-  {
-    if (mUgcController != null)
-      mUgcController.clear();
   }
 
   @Override
@@ -1007,7 +1001,7 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject == null)
     {
       // FIXME query map object again
-      LOGGER.e(TAG, "A place page cannot be restored, mMapObject is null!", new Throwable());
+      LOGGER.e(TAG, "A place page cannot be restored, mMapObject is null!");
       return;
     }
 
@@ -1087,11 +1081,10 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject != null)
     {
       clearHotelViews();
-      clearUGCViews();
       processSponsored(policy);
       initEditMapObjectBtn();
-      if (mUgcController != null)
-        mUgcController.getUGC(mMapObject);
+      mUgcController.clearViewsFor(mMapObject);
+      mUgcController.getUGC(mMapObject);
 
       String country = MapManager.nativeGetSelectedCountry();
       if (country != null && !RoutingController.get().isNavigating())
@@ -1130,7 +1123,7 @@ public class PlacePageView extends RelativeLayout
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null", new Throwable());
+      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
       return;
     }
 
@@ -1142,7 +1135,7 @@ public class PlacePageView extends RelativeLayout
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null", new Throwable());
+      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
       return;
     }
 
@@ -1233,13 +1226,14 @@ public class PlacePageView extends RelativeLayout
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
     boolean sponsored = isSponsored();
-    UiUtils.showIf(sponsored, mPreviewRatingInfo, mHotelDiscount);
+    UiUtils.showIf(sponsored || mapObject.shouldShowUGC(), mPreviewRatingInfo);
+    UiUtils.showIf(sponsored, mHotelDiscount);
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
     if (sponsored)
-      refreshSponsoredViews(priceInfo);
+      refreshSponsoredViews(mapObject, priceInfo);
   }
 
-  private void refreshSponsoredViews(@Nullable HotelPriceInfo priceInfo)
+  private void refreshSponsoredViews(@NonNull MapObject mapObject, @Nullable HotelPriceInfo priceInfo)
   {
     boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
     @SuppressWarnings("ConstantConditions")
@@ -1251,7 +1245,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.showIf(!isPriceEmpty && ConnectionState.isConnected(), mTvSponsoredPrice);
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
                                  mSponsored.getType() == Sponsored.TYPE_BOOKING;
-    UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
+    UiUtils.showIf(isBookingInfoExist || mapObject.shouldShowUGC(), mPreviewRatingInfo);
     String discount = getHotelDiscount(priceInfo);
     UiUtils.hideIf(TextUtils.isEmpty(discount), mHotelDiscount);
     mHotelDiscount.setRating(Impress.DISCOUNT, discount);
@@ -1567,7 +1561,7 @@ public class PlacePageView extends RelativeLayout
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A location cannot be refreshed, mMapObject is null!", new Throwable());
+      LOGGER.e(TAG, "A location cannot be refreshed, mMapObject is null!");
       return;
     }
 
@@ -1732,7 +1726,7 @@ public class PlacePageView extends RelativeLayout
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
         if (mMapObject == null)
         {
-          LOGGER.e(TAG, "Cannot follow url, mMapObject is null!", new Throwable());
+          LOGGER.e(TAG, "Cannot follow url, mMapObject is null!");
           break;
         }
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
@@ -1906,6 +1900,7 @@ public class PlacePageView extends RelativeLayout
 
   public void hide()
   {
+    mDetails.scrollTo(0, 0);
     detachCountry();
   }
 
@@ -2013,10 +2008,10 @@ public class PlacePageView extends RelativeLayout
     return mBannerController != null && mBannerController.isActionButtonTouched(event);
   }
 
-  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
+/*  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
   {
     return mUgcController != null && mUgcController.isLeaveReviewButtonTouched(event);
-  }
+  }*/
 
   public boolean isSearchSimilarHotelsButtonTouched(@NonNull MotionEvent event)
   {
@@ -2033,6 +2028,12 @@ public class PlacePageView extends RelativeLayout
     }*/
   }
 
+
+  int getPreviewHeight()
+  {
+    return mPreview.getHeight();
+  }
+
   private class EditBookmarkClickListener implements OnClickListener
   {
     @Override
@@ -2040,7 +2041,7 @@ public class PlacePageView extends RelativeLayout
     {
       if (mMapObject == null)
       {
-        LOGGER.e(TAG, "A bookmark cannot be edited, mMapObject is null!", new Throwable());
+        LOGGER.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
         return;
       }
       Bookmark bookmark = (Bookmark) mMapObject;

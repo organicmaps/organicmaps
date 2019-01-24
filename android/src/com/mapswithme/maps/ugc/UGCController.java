@@ -146,8 +146,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UGC.setListener(this);
   }
 
-  public void clear()
+  public void clearViewsFor(@NonNull MapObject mapObject)
   {
+    if (mapObject.shouldShowUGC())
+      return;
+
     UiUtils.hide(mUgcRootView, mLeaveReviewButton, mPreviewUgcInfoView);
     mUGCReviewAdapter.setItems(new ArrayList<UGC.Review>());
     mUGCRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());

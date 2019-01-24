@@ -15,11 +15,16 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
 
-public class BottomSheetPlacePageController implements PlacePageController, LocationListener
+public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
+                                                       View.OnLayoutChangeListener
 {
   private static final int BUTTONS_ANIMATION_DURATION = 100;
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
   @NonNull
   private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
@@ -33,9 +38,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private PlacePageView mPlacePage;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private ViewGroup mButtons;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private PlacePageTracker mPlacePageTracker;
   @NonNull
   private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
@@ -45,6 +47,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onStateChanged(@NonNull View bottomSheet, int newState)
     {
+      LOGGER.d(TAG, "State changed, new state = "
+                    + BottomSheetPlacePageController.toString(newState));
       if (newState == BottomSheetBehavior.STATE_SETTLING
           || newState == BottomSheetBehavior.STATE_DRAGGING)
         return;
@@ -61,9 +65,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
-      // TODO: coming soon.
+      LOGGER.v(TAG, "Sliding: " + slideOffset);
     }
   };
+
+  private int mLastPeekHeight;
 
   public BottomSheetPlacePageController(@NonNull Activity activity)
   {
@@ -78,10 +84,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPpSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPpSheetBehavior.setBottomSheetCallback(mSheetCallback);
     mPlacePage = ppSheet.findViewById(R.id.placepage);
+    mPlacePage.addOnLayoutChangeListener(this);
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
-    mButtons = mButtonsLayout.findViewById(R.id.pp_buttons);
-    mPlacePage.initButtons(mButtons.findViewById(R.id.container));
-    mPlacePageTracker = new PlacePageTracker(mPlacePage, mButtons);
+    ViewGroup buttons = mButtonsLayout.findViewById(R.id.pp_buttons);
+    mPlacePage.initButtons(buttons.findViewById(R.id.container));
+    mPlacePageTracker = new PlacePageTracker(mPlacePage, buttons);
     LocationHelper.INSTANCE.addListener(this);
   }
 
@@ -94,12 +101,26 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void openFor(@NonNull MapObject object)
   {
-    mPlacePage.setMapObject(object, true, () -> {
-      mPpSheetBehavior.setState(object.isExtendedView() ? BottomSheetBehavior.STATE_EXPANDED
-                                                   : BottomSheetBehavior.STATE_COLLAPSED);
-      Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
+    mPlacePage.setMapObject(object, false, () -> {
+      if (object.isExtendedView())
+      {
+        mPpSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        return;
+      }
+
+      int peekHeight = mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
+      LOGGER.d(TAG, "Initial peek height = " + peekHeight + " for " + object.getFeatureId());
+      openBottomSheet(peekHeight);
     });
     mPlacePageTracker.setMapObject(object);
+    Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
+  }
+
+  private void openBottomSheet(int peekHeight)
+  {
+    mLastPeekHeight = peekHeight;
+    mPpSheetBehavior.setPeekHeight(mLastPeekHeight);
+    mPpSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
   }
 
   @Override
@@ -166,5 +187,39 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onLocationError(int errorCode)
   {
     // Do nothing by default.
+  }
+
+  @Override
+  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
+      oldTop, int oldRight, int oldBottom)
+  {
+    LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPpSheetBehavior.getState()));
+    if (mPpSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED)
+      return;
+
+    int peekHeight = mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
+    LOGGER.d(TAG, "New peek height = " + peekHeight);
+    if (peekHeight != mLastPeekHeight)
+      openBottomSheet(peekHeight);
+  }
+
+  @NonNull
+  private static String toString(@BottomSheetBehavior.State int state)
+  {
+    switch (state)
+    {
+      case BottomSheetBehavior.STATE_EXPANDED:
+        return "EXPANDED";
+      case BottomSheetBehavior.STATE_COLLAPSED:
+        return "COLLAPSED";
+      case BottomSheetBehavior.STATE_DRAGGING:
+        return "DRAGGING";
+      case BottomSheetBehavior.STATE_SETTLING:
+        return "SETTLING";
+      case BottomSheetBehavior.STATE_HIDDEN:
+        return "HIDDEN";
+      default:
+        throw new AssertionError("Unsupported state detected: " + state);
+    }
   }
 }
