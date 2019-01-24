@@ -235,7 +235,7 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startPoint,
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError)
+                                      double relativeError /* = 0.07 */)
 {
   TRouteResult routeResult =
       CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
@@ -249,7 +249,7 @@ void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
                                     m2::PointD const & startPoint,
                                     m2::PointD const & startDirection,
                                     m2::PointD const & finalPoint, double expectedTimeSeconds,
-                                    double relativeError)
+                                    double relativeError /* = 0.07 */)
 {
   TRouteResult routeResult =
       CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
