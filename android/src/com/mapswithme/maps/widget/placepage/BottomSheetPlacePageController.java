@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.graphics.Rect;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -47,8 +48,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onStateChanged(@NonNull View bottomSheet, int newState)
     {
-      LOGGER.d(TAG, "State changed, new state = "
-                    + BottomSheetPlacePageController.toString(newState));
+      LOGGER.d(TAG, "State change, new = " + BottomSheetPlacePageController.toString(newState)
+                    + " sheet height = " + mPpSheet.getHeight());
       if (newState == BottomSheetBehavior.STATE_SETTLING
           || newState == BottomSheetBehavior.STATE_DRAGGING)
         return;
@@ -65,11 +66,15 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
-      LOGGER.v(TAG, "Sliding: " + slideOffset);
+      updateViewPortRect();
     }
   };
 
   private int mLastPeekHeight;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mPpSheet;
+  private int mViewportMinHeight;
 
   public BottomSheetPlacePageController(@NonNull Activity activity)
   {
@@ -79,11 +84,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void initialize()
   {
-    View ppSheet = mActivity.findViewById(R.id.pp_bottom_sheet);
-    mPpSheetBehavior = BottomSheetBehavior.from(ppSheet);
+    mViewportMinHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
+    mPpSheet = mActivity.findViewById(R.id.pp_bottom_sheet);
+    mPpSheetBehavior = BottomSheetBehavior.from(mPpSheet);
     mPpSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPpSheetBehavior.setBottomSheetCallback(mSheetCallback);
-    mPlacePage = ppSheet.findViewById(R.id.placepage);
+    mPlacePage = mPpSheet.findViewById(R.id.placepage);
     mPlacePage.addOnLayoutChangeListener(this);
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.pp_buttons);
@@ -108,19 +114,26 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         return;
       }
 
-      int peekHeight = mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
-      LOGGER.d(TAG, "Initial peek height = " + peekHeight + " for " + object.getFeatureId());
-      openBottomSheet(peekHeight);
+      openBottomSheet();
     });
     mPlacePageTracker.setMapObject(object);
     Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
   }
 
-  private void openBottomSheet(int peekHeight)
+  private void openBottomSheet()
   {
-    mLastPeekHeight = peekHeight;
-    mPpSheetBehavior.setPeekHeight(mLastPeekHeight);
-    mPpSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    mPpSheet.post(() -> {
+      int peekHeight = getPeekHeight();
+      LOGGER.d(TAG, "Peek height = " + peekHeight);
+      mLastPeekHeight = peekHeight;
+      mPpSheetBehavior.setPeekHeight(mLastPeekHeight);
+      mPpSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    });
+  }
+
+  private int getPeekHeight()
+  {
+    return mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
   }
 
   @Override
@@ -197,10 +210,30 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     if (mPpSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED)
       return;
 
-    int peekHeight = mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
-    LOGGER.d(TAG, "New peek height = " + peekHeight);
-    if (peekHeight != mLastPeekHeight)
-      openBottomSheet(peekHeight);
+    if (getPeekHeight() == mLastPeekHeight)
+      return;
+
+    openBottomSheet();
+  }
+
+  private void updateViewPortRect()
+  {
+    View coordinatorLayout = (ViewGroup) mPpSheet.getParent();
+    int viewPortWidth = coordinatorLayout.getWidth();
+    int viewPortHeight = coordinatorLayout.getHeight();
+    Rect sheetRect = new Rect();
+    mPlacePage.getGlobalVisibleRect(sheetRect);
+    if (sheetRect.top < mViewportMinHeight)
+      return;
+
+    if (sheetRect.top >= viewPortHeight)
+    {
+      Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
+      return;
+    }
+    viewPortHeight -= sheetRect.height();
+    LOGGER.d(TAG, "Viewport room: 0, 0, " + viewPortWidth + ", " + viewPortHeight);
+    Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
   }
 
   @NonNull
