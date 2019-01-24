@@ -245,6 +245,20 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
   TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
 }
 
+void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
+                                    m2::PointD const & startPoint,
+                                    m2::PointD const & startDirection,
+                                    m2::PointD const & finalPoint, double expectedTimeSeconds,
+                                    double relativeError)
+{
+  TRouteResult routeResult =
+      CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  CHECK(routeResult.first, ());
+  TestRouteTime(*routeResult.first, expectedTimeSeconds, relativeError);
+}
+
 const TestTurn & TestTurn::TestValid() const
 {
   TEST(m_isValid, ());
