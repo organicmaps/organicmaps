@@ -4,6 +4,8 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -15,6 +17,8 @@ using namespace traffic;
 
 namespace
 {
+feature::TAltitude constexpr mountainSicknessAltitudeM = 3000;
+
 enum class Purpose
 {
   Weight,
@@ -42,23 +46,31 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   return 1.0 / percentage;
 }
 
-double GetPedestrianClimbPenalty(double tangent)
+double GetPedestrianClimbPenalty(double tangent, feature::TAltitude altitudeM)
 {
-  if (tangent < 0)
+  if (tangent <= 0) // Descent
     return 1.0 + 2.0 * (-tangent);
 
-  return 1.0 + 5.0 * tangent;
+  // Climb.
+  if (altitudeM < mountainSicknessAltitudeM)
+    return 1.0 + 10.0 * tangent;
+  else
+    return 1.0 + 30.0 * tangent;
 }
 
-double GetBicycleClimbPenalty(double tangent)
+double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
 {
-  if (tangent <= 0)
+  if (tangent <= 0) // Descent
     return 1.0;
 
-  return 1.0 + 10.0 * tangent;
+  // Climb.
+  if (altitudeM < mountainSicknessAltitudeM)
+    return 1.0 + 30.0 * tangent;
+  else
+    return 1.0 + 50.0 * tangent;
 }
 
-double GetCarClimbPenalty(double /* tangent */) { return 1.0; }
+double GetCarClimbPenalty(double /* tangent */, feature::TAltitude /* altitude */) { return 1.0; }
 
 template <typename GetClimbPenalty>
 double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road,
@@ -78,7 +90,7 @@ double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry c
 
   double const altitudeDiff =
       static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
-  return timeSec * getClimbPenalty(altitudeDiff / distance);
+  return timeSec * getClimbPenalty(altitudeDiff / distance, to.GetAltitude());
 }
 }  // namespace
 
