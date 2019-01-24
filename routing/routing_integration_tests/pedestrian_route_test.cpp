@@ -512,7 +512,7 @@ UNIT_TEST(RussiaPriut11Elbrus)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(43.31475, 42.46035), {0., 0.},
-      MercatorBounds::FromLatLon(43.35254, 42.43788), 37300.8 /* expectedTimeSeconds */);
+      MercatorBounds::FromLatLon(43.35254, 42.43788), 32588.6 /* expectedTimeSeconds */);
 }
 
 // Test on going down from Elbrus mountain to Priut11.
@@ -521,5 +521,5 @@ UNIT_TEST(RussiaElbrusPriut11)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(43.35254, 42.43788), {0., 0.},
-      MercatorBounds::FromLatLon(43.31475, 42.46035), 5980.33 /* expectedTimeSeconds */);
+      MercatorBounds::FromLatLon(43.31475, 42.46035), 5998.61 /* expectedTimeSeconds */);
 }

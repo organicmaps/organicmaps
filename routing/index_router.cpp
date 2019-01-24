@@ -473,7 +473,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   if (redressResult != RouterResultCode::NoError)
     return redressResult;
 
-  LOG(LINFO, ("Route length:", route.GetTotalDistanceMeters()));
+  LOG(LINFO, ("Route length:", route.GetTotalDistanceMeters(), "meters. ETA:",
+      route.GetTotalTimeSec(), "seconds."));
 
   m_lastRoute = make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(),
                                             route.GetSubroutes());

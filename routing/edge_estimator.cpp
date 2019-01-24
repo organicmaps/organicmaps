@@ -17,7 +17,7 @@ using namespace traffic;
 
 namespace
 {
-feature::TAltitude constexpr mountainSicknessAltitudeM = 3000;
+feature::TAltitude constexpr kMountainSicknessAltitudeM = 2500;
 
 enum class Purpose
 {
@@ -52,10 +52,12 @@ double GetPedestrianClimbPenalty(double tangent, feature::TAltitude altitudeM)
     return 1.0 + 2.0 * (-tangent);
 
   // Climb.
-  if (altitudeM < mountainSicknessAltitudeM)
-    return 1.0 + 10.0 * tangent;
-  else
-    return 1.0 + 30.0 * tangent;
+  // The upper the penalty is more:
+  // |1 + 10 * tangent| for altitudes lower than |kMountainSicknessAltitudeM|
+  // |1 + 20 * tangent| for 4000 meters
+  // |1 + 30 * tangent| for 5500 meters
+  // |1 + 40 * tangent| for 7000 meters
+  return 1.0 + (10.0 + max(0, altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500) * tangent;
 }
 
 double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
@@ -64,10 +66,10 @@ double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
     return 1.0;
 
   // Climb.
-  if (altitudeM < mountainSicknessAltitudeM)
+  if (altitudeM < kMountainSicknessAltitudeM)
     return 1.0 + 30.0 * tangent;
-  else
-    return 1.0 + 50.0 * tangent;
+
+  return 1.0 + 50.0 * tangent;
 }
 
 double GetCarClimbPenalty(double /* tangent */, feature::TAltitude /* altitude */) { return 1.0; }
