@@ -1,4 +1,3 @@
-// This file contains ThreadPool class.
 #pragma once
 
 #include "base/assert.hpp"

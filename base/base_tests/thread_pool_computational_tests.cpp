@@ -105,7 +105,7 @@ UNIT_TEST(ThreadPoolComputational_ManyTasks)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
-    size_t taskCount = 11;
+    size_t const taskCount = 11;
     std::atomic<size_t> counter{0};
     {
       base::thread_pool::computational::ThreadPool threadPool(4);
