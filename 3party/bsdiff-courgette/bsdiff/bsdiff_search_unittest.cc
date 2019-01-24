@@ -5,9 +5,9 @@
 #include "courgette/third_party/bsdiff/bsdiff_search.h"
 
 #include <cstring>
+#include <vector>
 
 #include "base/macros.h"
-#include "courgette/third_party/bsdiff/paged_array.h"
 #include "courgette/third_party/divsufsort/divsufsort.h"
 #include "testing/gtest/include/gtest/gtest.h"
 
@@ -18,9 +18,8 @@ TEST(BSDiffSearchTest, Search) {
   const char* str = "the quick brown fox jumps over the lazy dog.";
   int size = static_cast<int>(::strlen(str));
   const unsigned char* buf = reinterpret_cast<const unsigned char*>(str);
-  courgette::PagedArray<divsuf::saidx_t> I;
-  ASSERT_TRUE(I.Allocate(size + 1));
-  divsuf::divsufsort_include_empty(buf, I.begin(), size);
+  std::vector<divsuf::saidx_t> I(size + 1);
+  divsuf::divsufsort_include_empty(buf, I.data(), size);
 
   // Specific queries.
   const struct {
@@ -65,7 +64,7 @@ TEST(BSDiffSearchTest, Search) {
 
     // Perform the search.
     bsdiff::SearchResult match =
-        bsdiff::search<courgette::PagedArray<divsuf::saidx_t>&>(
+        bsdiff::search<decltype(I)>(
             I, buf, size, query_buf, query_size);
 
     // Check basic properties and match with expected values.
@@ -101,9 +100,9 @@ TEST(BSDiffSearchTest, SearchExact) {
     int size = static_cast<int>(::strlen(test_cases[idx]));
     const unsigned char* buf =
         reinterpret_cast<const unsigned char*>(test_cases[idx]);
-    courgette::PagedArray<divsuf::saidx_t> I;
-    ASSERT_TRUE(I.Allocate(size + 1));
-    divsuf::divsufsort_include_empty(buf, I.begin(), size);
+
+    std::vector<divsuf::saidx_t> I(size + 1);
+    divsuf::divsufsort_include_empty(buf, I.data(), size);
 
     // Test exact matches for every non-empty substring.
     for (int lo = 0; lo < size; ++lo) {
@@ -114,7 +113,7 @@ TEST(BSDiffSearchTest, SearchExact) {
         const unsigned char* query_buf =
             reinterpret_cast<const unsigned char*>(query.c_str());
         bsdiff::SearchResult match =
-            bsdiff::search<courgette::PagedArray<divsuf::saidx_t>&>(
+            bsdiff::search<decltype(I)>(
                 I, buf, size, query_buf, query_size);
 
         EXPECT_EQ(query_size, match.size);

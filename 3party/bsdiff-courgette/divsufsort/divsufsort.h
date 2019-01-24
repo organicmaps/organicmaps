@@ -30,8 +30,6 @@
 
 #include <stdint.h>
 
-#include "3party/bsdiff-courgette/bsdiff/paged_array.h"
-
 namespace divsuf {
 
 /*- Datatypes -*/
@@ -39,13 +37,8 @@ typedef int32_t saint_t;
 typedef int32_t saidx_t;
 typedef uint8_t sauchar_t;
 
-#ifdef DIVSUFSORT_NO_PAGED_ARRAY
 typedef saidx_t* saidx_it;
 typedef const saidx_t* const_saidx_it;
-#else
-typedef courgette::PagedArray<saidx_t>::iterator saidx_it;
-typedef courgette::PagedArray<saidx_t>::const_iterator const_saidx_it;
-#endif
 
 /*- Prototypes -*/
 

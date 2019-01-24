@@ -71,14 +71,14 @@ inline int matchlen(const unsigned char* buf1,
 // |pos| a position of best match in |old|. If multiple such positions exist,
 // |pos| would take an arbitrary one.
 template <class T>
-SearchResult search(T I,
+SearchResult search(const T & I,
                     const unsigned char* srcbuf,
                     int srcsize,
                     const unsigned char* keybuf,
                     int keysize) {
   int lo = 0;
   int hi = srcsize;
-  while (hi - lo >= 2) {
+  while (hi - lo > 1) {
     int mid = (lo + hi) / 2;
     if (std::lexicographical_compare(
             srcbuf + I[mid], srcbuf + srcsize, keybuf, keybuf + keysize)) {

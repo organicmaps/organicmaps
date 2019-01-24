@@ -38,6 +38,9 @@
 //              all routines to use MAPS.ME readers and writers instead
 //              of Courgette streams and files.
 //                --Maxim Pimenov <m@maps.me>
+// 2019-01-24 - Got rid of the paged array. We have enough address space
+//              for our application of bsdiff.
+//                --Maxim Pimenov <m@maps.me>
 
 // Changelog for bsdiff_apply:
 // 2009-03-31 - Change to use Streams.  Move CRC code to crc.{h,cc}
@@ -89,7 +92,6 @@
 
 #include "3party/bsdiff-courgette/bsdiff/bsdiff_common.h"
 #include "3party/bsdiff-courgette/bsdiff/bsdiff_search.h"
-#include "3party/bsdiff-courgette/bsdiff/paged_array.h"
 #include "3party/bsdiff-courgette/divsufsort/divsufsort.h"
 
 #include "zlib.h"
@@ -141,16 +143,20 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
   old_source.Read(old_buf.data(), old_buf.size());
   const uint8_t * old = old_buf.data();
 
-  courgette::PagedArray<divsuf::saidx_t> I;
-
-  if (!I.Allocate(old_size + 1)) {
-    LOG(LERROR, ("Could not allocate I[], ", ((old_size + 1) * sizeof(int)), "bytes"));
-    return MEM_ERROR;
+  std::vector<divsuf::saidx_t> I;
+  try
+  {
+    I.resize(old_size + 1);
+  }
+  catch (...)
+  {
+     LOG(LERROR, ("Could not allocate I[], ", ((old_size + 1) * sizeof(int)), "bytes"));
+     return MEM_ERROR;
   }
 
   base::Timer suf_sort_timer;
   divsuf::saint_t result = divsuf::divsufsort_include_empty(
-      old, I.begin(), old_size);
+       old, I.data(), old_size);
   LOG(LINFO, ("Done divsufsort", suf_sort_timer.ElapsedSeconds()));
   if (result != 0)
     return UNEXPECTED_ERROR;
@@ -215,7 +221,7 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 
     scan += match.size;
     for (int scsc = scan; scan < new_size; ++scan) {
-      match = search<courgette::PagedArray<divsuf::saidx_t>&>(
+      match = search<decltype(I)>(
           I, old, old_size, newbuf + scan, new_size - scan);
 
       for (; scsc < scan + match.size; scsc++)
