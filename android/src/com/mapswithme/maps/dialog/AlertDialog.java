@@ -63,7 +63,7 @@ public class AlertDialog extends BaseMwmDialogFragment
   {
     throw new UnsupportedOperationException("By default, you" +
                                             "shouldn't implement this method." +
-                                            " AlertDialog.Builder will do everything itself. " +
+                                            " AlertDialog.Builder will do everything by itself. " +
                                             "But if you want to use this method, " +
                                             "you'll have to implement it");
   }
@@ -260,7 +260,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
 
     @DrawableRes
-    public int getImageResId()
+    int getImageResId()
     {
       return mImageResId;
     }
@@ -280,7 +280,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
 
     @NonNull
-    public DialogViewStrategyType getDialogViewStrategyType()
+    DialogViewStrategyType getDialogViewStrategyType()
     {
       return mDialogViewStrategyType;
     }
