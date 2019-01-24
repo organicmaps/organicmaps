@@ -60,5 +60,19 @@ void VulkanBaseContext::ResetSurface()
   //TODO: reset swapchains, image views and so on.
   m_surface.reset();
 }
+
+void VulkanBaseContext::Present()
+{
+  // Resetting of the default staging buffer must be before submitting the queue.
+  // It guarantees the graphics data coherence.
+  m_objectManager->FlushDefaultStagingBuffer();
+
+  // TODO: submit queue, wait for finishing of rendering.
+
+  // Resetting of the default staging buffer and collecting destroyed objects must be
+  // only after the finishing of rendering. It prevents data collisions.
+  m_objectManager->ResetDefaultStagingBuffer();
+  m_objectManager->CollectObjects();
+}
 }  // namespace vulkan
 }  // namespace dp

@@ -26,7 +26,7 @@ public:
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<VulkanObjectManager> objectManager);
 
-  void Present() override {}
+  void Present() override;
   void MakeCurrent() override {}
   void DoneCurrent() override {}
   bool Validate() override { return true; }

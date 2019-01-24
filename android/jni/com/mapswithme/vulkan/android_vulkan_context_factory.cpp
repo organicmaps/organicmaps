@@ -179,10 +179,10 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
   VkPhysicalDeviceMemoryProperties memoryProperties;
   vkGetPhysicalDeviceMemoryProperties(m_gpu, &memoryProperties);
-
   m_objectManager = make_unique_dp<dp::vulkan::VulkanObjectManager>(m_device, gpuProperties.limits,
                                                                     memoryProperties,
                                                                     renderingQueueFamilyIndex);
+
   m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                     m_device, renderingQueueFamilyIndex,
                                                     make_ref(m_objectManager));

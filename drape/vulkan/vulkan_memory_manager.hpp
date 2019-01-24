@@ -21,12 +21,7 @@ class VulkanMemoryManager
 {
 public:
   VulkanMemoryManager(VkDevice device, VkPhysicalDeviceLimits const & deviceLimits,
-                      VkPhysicalDeviceMemoryProperties const & memoryProperties)
-    : m_device(device)
-    , m_deviceLimits(deviceLimits)
-    , m_memoryProperties(memoryProperties)
-  {}
-
+                      VkPhysicalDeviceMemoryProperties const & memoryProperties);
   ~VulkanMemoryManager();
 
   enum class ResourceType : uint8_t
@@ -45,8 +40,8 @@ public:
   {
     uint64_t const m_blockHash;
     VkDeviceMemory const m_memory;
-    uint32_t const m_offset;
-    uint32_t const m_size;
+    uint32_t const m_alignedOffset;
+    uint32_t const m_alignedSize;
     ResourceType const m_resourceType;
     bool const m_isCoherent;
 
@@ -54,8 +49,8 @@ public:
                uint32_t offset, uint32_t size, bool isCoherent)
       : m_blockHash(blockHash)
       , m_memory(memory)
-      , m_offset(offset)
-      , m_size(size)
+      , m_alignedOffset(offset)
+      , m_alignedSize(size)
       , m_resourceType(resourceType)
       , m_isCoherent(isCoherent)
     {}
@@ -69,10 +64,13 @@ public:
   void Deallocate(AllocationPtr ptr);
   void EndDeallocationSession();
 
+  uint32_t GetOffsetAlignment(ResourceType resourceType) const;
+  uint32_t GetSizeAlignment(VkMemoryRequirements const & memReqs) const;
+  uint32_t GetAligned(uint32_t value, uint32_t alignment) const;
+
 private:
   boost::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
                                                VkMemoryPropertyFlags properties) const;
-  uint32_t GetOffsetAlignment(ResourceType resourceType) const;
 
   VkDevice const m_device;
   VkPhysicalDeviceLimits const m_deviceLimits;

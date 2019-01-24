@@ -4,6 +4,7 @@
 #include "drape/data_buffer_impl.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_object_manager.hpp"
 
 #include "base/assert.hpp"
 
@@ -22,21 +23,23 @@ class VulkanGPUBuffer : public BufferBase
 public:
   VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
                   uint8_t elementSize, uint32_t capacity, uint64_t batcherHash);
-  
-  void UploadData(ref_ptr<VulkanBaseContext> context, void const * data, uint32_t elementCount);
-  
+
   void * Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset, uint32_t elementCount);
   void UpdateData(void * gpuPtr, void const * data,
                   uint32_t elementOffset, uint32_t elementCount);
   void Unmap(ref_ptr<VulkanBaseContext> context);
 
-  VkBuffer GetVulkanBuffer() const { return m_vulkanBuffer; }
-  
 protected:
   void Resize(ref_ptr<VulkanBaseContext> context, void const * data, uint32_t elementCount);
 
-  VkBuffer m_vulkanBuffer;
+  ref_ptr<VulkanObjectManager> m_objectManager;
+  VulkanObject m_geometryBuffer;
   uint64_t m_batcherHash;
+
+  VulkanObjectManager::StagingPointer m_defaultStagingBuffer;
+  VulkanObject m_temporaryStagingBuffer;
+  uint32_t m_mappingByteOffset = 0;
+  uint32_t m_mappingSizeInBytes = 0;
 };
   
 class VulkanGpuBufferImpl : public DataBufferImpl<VulkanGPUBuffer>
@@ -56,7 +59,9 @@ public:
   void UploadData(ref_ptr<GraphicsContext> context, void const * data,
                   uint32_t elementCount) override
   {
-    m_buffer->UploadData(context, data, elementCount);
+    // For Vulkan we can't update buffers by means of UploadData, because UploadData
+    // can be called from BR, where command buffers are not available.
+    CHECK(false, ("UploadData is unsupported for Vulkan buffers (use Map-Copy-Unmap)."));
   }
   
   void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
@@ -75,8 +80,6 @@ public:
   {
     m_buffer->Unmap(context);
   }
-
-  VkBuffer GetVulkanBuffer() const { return m_buffer->GetVulkanBuffer(); }
 
   void Bind() override {}
 };

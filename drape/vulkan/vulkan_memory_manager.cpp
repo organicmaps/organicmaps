@@ -2,6 +2,8 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -22,9 +24,9 @@ std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeIn
 
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes =
 {
-  50 * 1024 * 1024,                      // Geometry
+  80 * 1024 * 1024,                      // Geometry
   std::numeric_limits<uint32_t>::max(),  // Uniform (unlimited)
-  10 * 1024 * 1024,                      // Staging
+  20 * 1024 * 1024,                      // Staging
   std::numeric_limits<uint32_t>::max(),  // Image (unlimited)
 };
 
@@ -34,9 +36,12 @@ VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType r
   switch (resourceType)
   {
   case VulkanMemoryManager::ResourceType::Geometry:
-  case VulkanMemoryManager::ResourceType::Staging:
     fallbackTypeBits = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
     return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+  case VulkanMemoryManager::ResourceType::Staging:
+    // No fallback.
+    return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
 
   case VulkanMemoryManager::ResourceType::Uniform:
     // No fallback.
@@ -51,14 +56,14 @@ VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType r
   }
   return 0;
 }
-
-uint32_t GetAligned(uint32_t value, uint32_t alignment)
-{
-  if (alignment == 0)
-    return value;
-  return (value + alignment - 1) & ~(alignment - 1);
-}
 }  // namespace
+
+VulkanMemoryManager::VulkanMemoryManager(VkDevice device, VkPhysicalDeviceLimits const & deviceLimits,
+                                         VkPhysicalDeviceMemoryProperties const & memoryProperties)
+  : m_device(device)
+  , m_deviceLimits(deviceLimits)
+  , m_memoryProperties(memoryProperties)
+{}
 
 VulkanMemoryManager::~VulkanMemoryManager()
 {
@@ -93,17 +98,37 @@ boost::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(uint32_t typeB
 uint32_t VulkanMemoryManager::GetOffsetAlignment(ResourceType resourceType) const
 {
   if (resourceType == ResourceType::Uniform)
-    return static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment);
+  {
+    static uint32_t const kUniformAlignment =
+        base::LCM(static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment),
+                  static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+    return kUniformAlignment;
+  }
 
-  return static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment);
+  static uint32_t const kAlignment =
+      base::LCM(static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment),
+                static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+  return kAlignment;
+}
+
+uint32_t VulkanMemoryManager::GetSizeAlignment(VkMemoryRequirements const & memReqs) const
+{
+  return base::LCM(static_cast<uint32_t>(memReqs.alignment),
+                   static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+}
+
+uint32_t VulkanMemoryManager::GetAligned(uint32_t value, uint32_t alignment) const
+{
+  if (alignment == 0)
+    return value;
+  return (value + alignment - 1) & ~(alignment - 1);
 }
 
 VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType resourceType,
                                                                  VkMemoryRequirements memReqs,
                                                                  uint64_t blockHash)
 {
-  auto const alignedSize = GetAligned(static_cast<uint32_t>(memReqs.size),
-                                      static_cast<uint32_t>(memReqs.alignment));
+  auto const alignedSize = GetAligned(static_cast<uint32_t>(memReqs.size), GetSizeAlignment(memReqs));
   // Looking for an existed block.
   {
     auto & m = m_memory[static_cast<size_t>(resourceType)];
