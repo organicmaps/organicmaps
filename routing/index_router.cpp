@@ -486,6 +486,32 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   return RouterResultCode::NoError;
 }
 
+vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
+                              IndexGraphStarterJoints & jointStarter)
+{
+  CHECK(!jointsPath.empty(), ());
+
+  vector<Segment> path;
+  for (auto const & joint : jointsPath)
+  {
+    vector<Segment> jointPath = jointStarter.ReconstructJoint(joint);
+    if (jointPath.empty())
+      continue;
+
+    if (path.empty())
+    {
+      path = move(jointPath);
+      continue;
+    }
+
+    path.insert(path.end(),
+                path.back() == jointPath.front() ? jointPath.begin() + 1 : jointPath.begin(),
+                jointPath.end());
+  }
+
+  return path;
+}
+
 RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 size_t subrouteIdx,
                                                 RouterDelegate const & delegate,
@@ -573,7 +599,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     if (result != RouterResultCode::NoError)
       return result;
 
-    ProcessJointsBidirectional(routingResult.m_path, jointStarter, subroute);
+    subroute = ProcessJoints(routingResult.m_path, jointStarter);
   }
   else
   {
@@ -598,39 +624,6 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
               timer.ElapsedNano() / 1e6, "ms"));
 
   return RouterResultCode::NoError;
-}
-
-vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
-                              IndexGraphStarterJoints & jointStarter)
-{
-  CHECK(!jointsPath.empty(), ());
-
-  vector<Segment> path;
-  for (auto const & joint : jointsPath)
-  {
-    vector<Segment> jointPath = jointStarter.ReconstructJoint(joint);
-    if (jointPath.empty())
-      continue;
-
-    if (path.empty())
-    {
-      path = move(jointPath);
-      continue;
-    }
-
-    path.insert(path.end(),
-                path.back() == jointPath.front() ? jointPath.begin() + 1 : jointPath.begin(),
-                jointPath.end());
-  }
-
-  return path;
-}
-
-void IndexRouter::ProcessJointsBidirectional(vector<JointSegment> const & jointsPath,
-                                             IndexGraphStarterJoints & jointsStarter,
-                                             vector<Segment> & output)
-{
-  output = ProcessJoints(jointsPath, jointsStarter);
 }
 
 RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
@@ -921,7 +914,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       return result;
 
     vector<Segment> subroute;
-    ProcessJointsBidirectional(routingResult.m_path, jointStarter, subroute);
+    subroute = ProcessJoints(routingResult.m_path, jointStarter);
     CHECK(!subroute.empty(), ());
     output.insert(output.end(),
                   dropFirstSegment ? subroute.cbegin() + 1 : subroute.cbegin(), subroute.cend());

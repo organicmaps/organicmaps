@@ -115,10 +115,6 @@ private:
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
                                 Route & route) const;
 
-  void ProcessJointsBidirectional(std::vector<JointSegment> const & jointsPath,
-                                  IndexGraphStarterJoints & jointsStarter,
-                                  std::vector<Segment> & output);
-
   bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
 
