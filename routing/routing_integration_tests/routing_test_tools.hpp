@@ -134,7 +134,7 @@ void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
                                     m2::PointD const & startPoint,
                                     m2::PointD const & startDirection,
                                     m2::PointD const & finalPoint, double expectedTimeSeconds,
-                                    double relativeError = 0.07     );
+                                    double relativeError = 0.07);
 
 void CheckSubwayExistence(Route const & route);
 void CheckSubwayAbsent(Route const & route);
