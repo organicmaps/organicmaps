@@ -53,6 +53,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
+  private static final int REQ_CODE_ERROR_HTML_FORMATTING_DIALOG = 109;
+
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
@@ -61,6 +63,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
+  private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
+
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -546,21 +550,47 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   }
 
-  private void showUploadCatalogConfirmationDialog()
+  private void showConfirmationDialog(int reqCode, String tag, @StringRes int acceptBtn,
+                                      @StringRes int declineBtn, @StringRes int title,
+                                      @StringRes int description)
   {
-    /*FIXME text later*/
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.common_check_internet_connection_dialog_title)
-        .setMessageId(R.string.common_check_internet_connection_dialog)
-        .setPositiveBtnId(R.string.try_again)
-        .setNegativeBtnId(R.string.cancel)
-        .setReqCode(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG)
-        .setImageResId(R.drawable.ic_error_36px)
+        .setTitleId(title)
+        .setMessageId(description)
+        .setPositiveBtnId(acceptBtn)
+        .setNegativeBtnId(declineBtn)
+        .setReqCode(reqCode)
         .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
         .setDialogFactory(new ConfirmationDialogFactory())
         .build();
-    dialog.setTargetFragment(this, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG);
-    dialog.show(this, UPLOAD_CONFIRMATION_DIALOG_TAG);
+    dialog.setTargetFragment(this, reqCode);
+    dialog.show(this, tag);
+  }
+
+  private void showHtmlFormattingError()
+  {
+    showConfirmationDialog(REQ_CODE_ERROR_HTML_FORMATTING_DIALOG,
+                           ERROR_HTML_FORMATTING_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
+                           R.string.common_check_internet_connection_dialog_title,
+                           R.string.try_again, R.string.cancel);
+  }
+
+  private void showUploadCatalogConfirmationDialog()
+  {
+    /*FIXME text later*/
+    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
+                           R.string.common_check_internet_connection_dialog_title,
+                           R.string.try_again, R.string.cancel);
+  }
+
+  private void showUnresolvedConflictsErrorDialog()
+  {
+    /*FIXME text later*/
+    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
+                           R.string.common_check_internet_connection_dialog_title,
+                           R.string.try_again, R.string.cancel);
   }
 }

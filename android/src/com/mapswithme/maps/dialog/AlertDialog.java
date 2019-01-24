@@ -179,7 +179,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     @StringRes
     private int mNegativeBtn = INVALID_ID;
     @DrawableRes
-    private int mImageResId;
+    private int mImageResId = INVALID_ID;
     @NonNull
     private FragManagerStrategyType mFragManagerStrategyType = FragManagerStrategyType.DEFAULT;
     @NonNull
@@ -380,9 +380,11 @@ public class AlertDialog extends BaseMwmDialogFragment
       titleView.setText(args.getInt(ARG_TITLE_ID));
 
       ImageView imageView = root.findViewById(R.id.image);
-      boolean hasImage = args.containsKey(ARG_IMAGE_RES_ID);
-      imageView.setImageResource(hasImage ? args.getInt(ARG_IMAGE_RES_ID)
-                                          : R.drawable.ic_error_36px);
+      int imageResId = args.getInt(ARG_IMAGE_RES_ID);
+      boolean hasImage = imageResId != INVALID_ID;
+
+      imageView.setImageDrawable(hasImage ? fragment.getResources().getDrawable(imageResId)
+                                          : null);
       UiUtils.showIf(hasImage, imageView);
       appCompatDialog.setContentView(root);
       return appCompatDialog;
