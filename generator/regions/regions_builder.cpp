@@ -1,7 +1,7 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "base/assert.hpp"
-#include "base/primitive_thread_pool.hpp"
+#include "base/thread_pool_computational.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>

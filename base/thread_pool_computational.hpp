@@ -1,4 +1,4 @@
-// This file contains PrimitiveThreadPool class.
+// This file contains ThreadPool class.
 #pragma once
 
 #include "base/assert.hpp"
@@ -11,14 +11,19 @@
 #include <queue>
 #include <thread>
 
-namespace threads
+namespace base
 {
-// PrimitiveThreadPool is needed for easy parallelization of tasks.
-// PrimitiveThreadPool can accept tasks that return result as std::future.
+using namespace threads;
+namespace thread_pool
+{
+namespace computational
+{
+// ThreadPool is needed for easy parallelization of tasks.
+// ThreadPool can accept tasks that return result as std::future.
 // When the destructor is called, all threads will join.
 // Warning: ThreadPool works with std::thread instead of SimpleThread and therefore
 // should not be used when the JVM is needed.
-class PrimitiveThreadPool
+class ThreadPool
 {
 public:
   using FunctionType = FunctionWrapper;
@@ -27,7 +32,7 @@ public:
   // Constructs a ThreadPool.
   // threadCount - number of threads used by the thread pool.
   // Warning: The constructor may throw exceptions.
-  PrimitiveThreadPool(size_t threadCount) : m_done(false), m_joiner(m_threads)
+  ThreadPool(size_t threadCount) : m_done(false), m_joiner(m_threads)
   {
     CHECK_GREATER(threadCount, 0, ());
 
@@ -35,7 +40,7 @@ public:
     try
     {
       for (size_t i = 0; i < threadCount; i++)
-        m_threads.emplace_back(&PrimitiveThreadPool::Worker, this);
+        m_threads.emplace_back(&ThreadPool::Worker, this);
     }
     catch (...)  // std::system_error etc.
     {
@@ -46,7 +51,7 @@ public:
 
   // Destroys the ThreadPool.
   // This function will block until all runnables have been completed.
-  ~PrimitiveThreadPool()
+  ~ThreadPool()
   {
     {
       std::unique_lock<std::mutex> lock(m_mutex);
@@ -127,6 +132,6 @@ private:
   Threads m_threads;
   ThreadsJoiner<> m_joiner;
 };
-
-
-}  // namespace threads
+}  // namespace computational
+}  // namespace thread_pool
+}  // namespace base

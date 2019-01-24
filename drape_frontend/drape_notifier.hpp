@@ -4,7 +4,7 @@
 
 #include "drape/pointers.hpp"
 
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <atomic>
 #include <cstdint>
@@ -21,12 +21,12 @@ public:
   explicit DrapeNotifier(ref_ptr<ThreadsCommutator> commutator);
 
   uint64_t Notify(ThreadsCommutator::ThreadName threadName,
-                  base::WorkerThread::Duration const & duration,
+                  base::thread_pool::delayed::ThreadPool::Duration const & duration,
                   bool repeating, Functor && functor);
 
 private:
   void NotifyImpl(ThreadsCommutator::ThreadName threadName,
-                  base::WorkerThread::Duration const & duration, bool repeating,
+                  base::thread_pool::delayed::ThreadPool::Duration const & duration, bool repeating,
                   uint64_t notifyId, Functor && functor);
 
   ref_ptr<ThreadsCommutator> m_commutator;

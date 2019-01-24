@@ -11,7 +11,7 @@
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/primitive_thread_pool.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -268,7 +268,7 @@ std::vector<PopularityLine> BuildPopularitySrcFromAllData(std::vector<std::strin
 {
   CHECK_GREATER(cpuCount, 0, ());
 
-  threads::PrimitiveThreadPool threadPool(cpuCount);
+  base::thread_pool::computational::ThreadPool threadPool(cpuCount);
   std::vector<std::future<std::vector<PopularityLine>>> futures;
   for (auto const & filename : dataFilenames)
   {

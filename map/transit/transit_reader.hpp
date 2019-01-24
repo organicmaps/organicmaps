@@ -114,7 +114,7 @@ private:
   void ShrinkCacheToAllowableSize();
   void ClearCache(MwmSet::MwmId const & mwmId);
 
-  std::unique_ptr<threads::ThreadPool> m_threadsPool;
+  std::unique_ptr<base::thread_pool::routine::ThreadPool> m_threadsPool;
 
   std::mutex m_mutex;
   std::condition_variable m_event;

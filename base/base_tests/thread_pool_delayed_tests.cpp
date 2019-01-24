@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <condition_variable>
 #include <chrono>
@@ -13,24 +13,24 @@ using namespace std;
 
 namespace
 {
-UNIT_TEST(WorkerThread_Smoke)
+UNIT_TEST(ThreadPoolDelayed_Smoke)
 {
   {
-    WorkerThread thread;
+    thread_pool::delayed::ThreadPool thread;
   }
 
   {
-    WorkerThread thread;
-    TEST(thread.Shutdown(WorkerThread::Exit::SkipPending), ());
+    thread_pool::delayed::ThreadPool thread;
+    TEST(thread.Shutdown(thread_pool::delayed::ThreadPool::Exit::SkipPending), ());
   }
 
   {
-    WorkerThread thread;
-    TEST(thread.Shutdown(WorkerThread::Exit::ExecPending), ());
+    thread_pool::delayed::ThreadPool thread;
+    TEST(thread.Shutdown(thread_pool::delayed::ThreadPool::Exit::ExecPending), ());
   }
 }
 
-UNIT_TEST(WorkerThread_SimpleSync)
+UNIT_TEST(ThreadPoolDelayed_SimpleSync)
 {
   int value = 0;
 
@@ -38,7 +38,7 @@ UNIT_TEST(WorkerThread_SimpleSync)
   condition_variable cv;
   bool done = false;
 
-  WorkerThread thread;
+  thread_pool::delayed::ThreadPool thread;
   TEST(thread.Push([&value]() { ++value; }), ());
   TEST(thread.Push([&value]() { value *= 2; }), ());
   TEST(thread.Push([&value]() { value = value * value * value; }), ());
@@ -56,55 +56,55 @@ UNIT_TEST(WorkerThread_SimpleSync)
   TEST_EQUAL(value, 8, ());
 }
 
-UNIT_TEST(WorkerThread_SimpleFlush)
+UNIT_TEST(ThreadPoolDelayed_SimpleFlush)
 {
   int value = 0;
   {
-    WorkerThread thread;
+    thread_pool::delayed::ThreadPool thread;
     TEST(thread.Push([&value]() { ++value; }), ());
     TEST(thread.Push([&value]() {
       for (int i = 0; i < 10; ++i)
         value *= 2;
     }), ());
-    TEST(thread.Shutdown(WorkerThread::Exit::ExecPending), ());
+    TEST(thread.Shutdown(thread_pool::delayed::ThreadPool::Exit::ExecPending), ());
   }
   TEST_EQUAL(value, 1024, ());
 }
 
-UNIT_TEST(WorkerThread_PushFromPendingTask)
+UNIT_TEST(ThreadPoolDelayed_PushFromPendingTask)
 {
   // promise - future pair is used as a socketpair here to pass a
   // signal from the main thread to the worker thread.
   promise<void> p;
   auto f = p.get_future();
 
-  WorkerThread thread;
+  thread_pool::delayed::ThreadPool thread;
   bool const rv = thread.Push([&f, &thread]() {
     f.get();
     bool const rv = thread.Push([]() { TEST(false, ("This task should not be executed")); });
     TEST(!rv, ());
   });
   TEST(rv, ());
-  thread.Shutdown(WorkerThread::Exit::ExecPending);
+  thread.Shutdown(thread_pool::delayed::ThreadPool::Exit::ExecPending);
   p.set_value();
 }
 
-UNIT_TEST(WorkerThread_DelayedAndImmediateTasks)
+UNIT_TEST(ThreadPoolDelayed_DelayedAndImmediateTasks)
 {
   int const kNumTasks = 100;
 
   struct DelayedTaskEntry
   {
-    WorkerThread::TimePoint m_start = {};
-    WorkerThread::Duration m_delay = {};
-    WorkerThread::TimePoint m_end = {};
+    thread_pool::delayed::ThreadPool::TimePoint m_start = {};
+    thread_pool::delayed::ThreadPool::Duration m_delay = {};
+    thread_pool::delayed::ThreadPool::TimePoint m_end = {};
   };
 
   vector<DelayedTaskEntry> delayedEntries(kNumTasks);
-  vector<WorkerThread::TimePoint> immediateEntries(kNumTasks);
+  vector<thread_pool::delayed::ThreadPool::TimePoint> immediateEntries(kNumTasks);
 
   {
-    WorkerThread thread;
+    thread_pool::delayed::ThreadPool thread;
 
     for (int i = kNumTasks - 1; i >= 0; --i)
     {
@@ -122,7 +122,7 @@ UNIT_TEST(WorkerThread_DelayedAndImmediateTasks)
       TEST(rv, ());
     }
 
-    thread.Shutdown(WorkerThread::Exit::ExecPending);
+    thread.Shutdown(thread_pool::delayed::ThreadPool::Exit::ExecPending);
   }
 
   for (int i = 0; i < kNumTasks; ++i)

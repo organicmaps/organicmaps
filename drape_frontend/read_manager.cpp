@@ -68,7 +68,7 @@ void ReadManager::Start()
     return;
 
   using namespace std::placeholders;
-  m_pool = make_unique_dp<threads::ThreadPool>(kReadingThreadsCount,
+  m_pool = make_unique_dp<base::thread_pool::routine::ThreadPool>(kReadingThreadsCount,
                                                std::bind(&ReadManager::OnTaskFinished, this, _1));
 }
 

@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <algorithm>
 #include <atomic>
@@ -77,7 +77,7 @@ public:
   }
 
   template <typename Task>
-  static ResultPtr RunDelayed(base::WorkerThread::Duration const & duration, Task && t)
+  static ResultPtr RunDelayed(base::thread_pool::delayed::ThreadPool::Duration const & duration, Task && t)
   {
     ResultPtr result(new Result(Instance().GetNextId()));
     bool const success = Instance().m_workerThread.PushDelayed(duration, [result, t]() mutable
@@ -140,7 +140,7 @@ private:
   bool m_finished = false;
   std::condition_variable m_condition;
   std::mutex m_mutex;
-  base::WorkerThread m_workerThread;
+  base::thread_pool::delayed::ThreadPool m_workerThread;
 };
 
 // This is a helper class, which aggregates logic of waiting for active

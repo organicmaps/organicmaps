@@ -6,10 +6,10 @@
 #include "coding/internal/file_data.hpp"
 
 #include "base/thread.hpp"
+#include "base/thread_pool.hpp"
 #include "base/logging.hpp"
 
 #include "std/numeric.hpp"
-
 
 namespace
 {
@@ -103,7 +103,7 @@ UNIT_TEST(ApkReader_Multithreaded)
   srand(static_cast<unsigned>(size));
 
   size_t const count = 20;
-  threads::SimpleThreadPool pool(count);
+  base::thread_pool::routine_simple::ThreadPool pool(count);
 
   for (size_t i = 0; i < count; ++i)
     pool.Add(make_unique<ApkTester>(path));

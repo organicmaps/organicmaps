@@ -77,20 +77,6 @@ public:
   }
 };
 
-/// Simple threads container. Takes ownership for every added IRoutine.
-class SimpleThreadPool : public boost::noncopyable
-{
-  std::vector<std::unique_ptr<Thread>> m_pool;
-
-public:
-  SimpleThreadPool(size_t reserve = 0);
-
-  void Add(std::unique_ptr<IRoutine> && routine);
-  void Join();
-
-  IRoutine * GetRoutine(size_t i) const;
-};
-
 /// Suspends the execution of the current thread until the time-out interval elapses.
 /// @param[in] ms time-out interval in milliseconds
 void Sleep(size_t ms);

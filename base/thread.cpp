@@ -83,25 +83,6 @@ void Thread::Join()
 
 IRoutine * Thread::GetRoutine() { return m_routine.get(); }
 
-/////////////////////////////////////////////////////////////////////
-// SimpleThreadPool implementation
-
-SimpleThreadPool::SimpleThreadPool(size_t reserve) { m_pool.reserve(reserve); }
-
-void SimpleThreadPool::Add(std::unique_ptr<IRoutine> && routine)
-{
-  m_pool.emplace_back(new Thread());
-  m_pool.back()->Create(move(routine));
-}
-
-void SimpleThreadPool::Join()
-{
-  for (auto & thread : m_pool)
-    thread->Join();
-}
-
-IRoutine * SimpleThreadPool::GetRoutine(size_t i) const { return m_pool[i]->GetRoutine(); }
-
 void Sleep(size_t ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
 
 ThreadID GetCurrentThreadID() { return std::this_thread::get_id(); }

@@ -1,4 +1,4 @@
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <array>
 
@@ -6,41 +6,45 @@ using namespace std;
 
 namespace base
 {
-WorkerThread::WorkerThread(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
+namespace thread_pool
+{
+namespace delayed
+{
+ThreadPool::ThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
   : m_exit(e)
 {
   for (size_t i = 0; i < threadsCount; ++i)
-    m_threads.emplace_back(threads::SimpleThread(&WorkerThread::ProcessTasks, this));
+    m_threads.emplace_back(threads::SimpleThread(&ThreadPool::ProcessTasks, this));
 }
 
-WorkerThread::~WorkerThread()
+ThreadPool::~ThreadPool()
 {
   ShutdownAndJoin();
 }
 
-bool WorkerThread::Push(Task && t)
+bool ThreadPool::Push(Task && t)
 {
   return TouchQueues([&]() { m_immediate.emplace(move(t)); });
 }
 
-bool WorkerThread::Push(Task const & t)
+bool ThreadPool::Push(Task const & t)
 {
   return TouchQueues([&]() { m_immediate.emplace(t); });
 }
 
-bool WorkerThread::PushDelayed(Duration const & delay, Task && t)
+bool ThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
   auto const when = Now() + delay;
   return TouchQueues([&]() { m_delayed.emplace(when, move(t)); });
 }
 
-bool WorkerThread::PushDelayed(Duration const & delay, Task const & t)
+bool ThreadPool::PushDelayed(Duration const & delay, Task const & t)
 {
   auto const when = Now() + delay;
   return TouchQueues([&]() { m_delayed.emplace(when, t); });
 }
 
-void WorkerThread::ProcessTasks()
+void ThreadPool::ProcessTasks()
 {
   ImmediateQueue pendingImmediate;
   DelayedQueue pendingDelayed;
@@ -60,7 +64,7 @@ void WorkerThread::ProcessTasks()
         auto const when = m_delayed.top().m_when;
         m_cv.wait_until(lk, when, [this, when]() {
           return m_shutdown || !m_immediate.empty() || m_delayed.empty() ||
-                 (!m_delayed.empty() && m_delayed.top().m_when < when);
+              (!m_delayed.empty() && m_delayed.top().m_when < when);
         });
       }
       else
@@ -130,7 +134,7 @@ void WorkerThread::ProcessTasks()
   }
 }
 
-bool WorkerThread::Shutdown(Exit e)
+bool ThreadPool::Shutdown(Exit e)
 {
   lock_guard<mutex> lk(m_mu);
   if (m_shutdown)
@@ -141,7 +145,7 @@ bool WorkerThread::Shutdown(Exit e)
   return true;
 }
 
-void WorkerThread::ShutdownAndJoin()
+void ThreadPool::ShutdownAndJoin()
 {
   ASSERT(m_checker.CalledOnOriginalThread(), ());
   Shutdown(m_exit);
@@ -152,4 +156,6 @@ void WorkerThread::ShutdownAndJoin()
   }
   m_threads.clear();
 }
+}  // namespace delayed
+}  // namespace thread_pool
 }  // namespace base

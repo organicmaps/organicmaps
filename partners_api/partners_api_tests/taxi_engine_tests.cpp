@@ -14,7 +14,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/scope_guard.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <memory>
 

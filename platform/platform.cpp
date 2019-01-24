@@ -344,9 +344,9 @@ void Platform::ShutdownThreads()
 void Platform::RunThreads()
 {
   ASSERT(!m_networkThread && !m_fileThread && !m_backgroundThread, ());
-  m_networkThread = make_unique<base::WorkerThread>();
-  m_fileThread = make_unique<base::WorkerThread>();
-  m_backgroundThread = make_unique<base::WorkerThread>();
+  m_networkThread = make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_fileThread = make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_backgroundThread = make_unique<base::thread_pool::delayed::ThreadPool>();
 }
 
 string DebugPrint(Platform::EError err)

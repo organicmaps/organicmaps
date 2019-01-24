@@ -43,7 +43,7 @@ UNIT_TEST(ThreadPool_CanceledTaskTest)
 {
   int finishCounter = 0;
   threads::Condition cond;
-  threads::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
+  base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
 
   for (int i = 0; i < TASK_COUNT; ++i)
@@ -76,7 +76,7 @@ UNIT_TEST(ThreadPool_StopOperationTest)
   int finishCounter = 0;
   threads::Condition cond;
   // in this case we have empty pool, and all tasks must be finish only on Stop method call
-  threads::ThreadPool pool(0, std::bind(&JoinFinishFunction, std::placeholders::_1,
+  base::thread_pool::routine::ThreadPool pool(0, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
 
   for (int i = 0; i < TASK_COUNT; ++i)
@@ -126,7 +126,7 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
 
   int finishCounter = 0;
   threads::Condition cond;
-  threads::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
+  base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
 
   for (size_t i = 0; i < tasks.size(); ++i)
@@ -149,7 +149,7 @@ UNIT_TEST(ThreadPool_EmptyTest)
 {
   int finishCouter = 0;
   threads::Condition cond;
-  threads::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
+  base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCouter), std::ref(cond)));
 
   threads::Sleep(100);

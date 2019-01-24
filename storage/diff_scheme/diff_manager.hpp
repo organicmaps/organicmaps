@@ -5,7 +5,7 @@
 
 #include "base/observer_list.hpp"
 #include "base/thread_checker.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <functional>
 #include <mutex>
@@ -69,7 +69,7 @@ private:
   NameDiffInfoMap m_diffs;
   LocalMapsInfo m_localMapsInfo;
   base::ObserverListUnsafe<Observer> m_observers;
-  base::WorkerThread m_workerThread;
+  base::thread_pool::delayed::ThreadPool m_workerThread;
 };
 }  // namespace diffs
 }  // namespace storage

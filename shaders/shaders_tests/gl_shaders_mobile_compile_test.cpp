@@ -7,7 +7,7 @@
 #include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <atomic>
 #include <chrono>
@@ -217,7 +217,7 @@ void CompileShadersSamsungGoogleNexus(CompilerData const & compiler)
 
 UNIT_TEST(MobileCompileShaders_Test)
 {
-  base::WorkerThread workerThread(6 /* threadsCount */);
+  base::thread_pool::delayed::ThreadPool workerThread(6 /* threadsCount */);
 
   workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES2)});
@@ -243,7 +243,7 @@ UNIT_TEST(MobileCompileShaders_Test)
     CompileShadersSamsungGoogleNexus({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES3)});
   });
 
-  workerThread.Shutdown(base::WorkerThread::Exit::ExecPending);
+  workerThread.Shutdown(base::thread_pool::delayed::ThreadPool::Exit::ExecPending);
 }
 #endif
 
@@ -540,7 +540,7 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
      driversES3new}
   };
 
-  base::WorkerThread workerThread(16 /* threadsCount */);
+  base::thread_pool::delayed::ThreadPool workerThread(16 /* threadsCount */);
   uint32_t counter = 0;
   std::atomic<uint32_t> progressCounter(0);
   for (auto const & compiler : compilers)
@@ -562,10 +562,10 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
     }
   }
 
-  // Here we are in active waiting, because WorkerThread stops dispatching tasks
+  // Here we are in active waiting, because thread_pool::delayed::ThreadPool stops dispatching tasks
   // to different threads in case of shutting down.
   while (progressCounter < counter)
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  workerThread.Shutdown(base::WorkerThread::Exit::ExecPending);
+  workerThread.Shutdown(base::thread_pool::delayed::ThreadPool::Exit::ExecPending);
 }

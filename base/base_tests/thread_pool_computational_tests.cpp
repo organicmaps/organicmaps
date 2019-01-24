@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "base/primitive_thread_pool.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <atomic>
 #include <chrono>
@@ -14,14 +14,14 @@ namespace
 size_t const kTimes = 500;
 }  // namespace
 
-UNIT_TEST(PrimitiveThreadPool_SomeThreads)
+UNIT_TEST(ThreadPoolComputational_SomeThreads)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t const threadCount = 4;
     std::atomic<size_t> counter{0};
     {
-      threads::PrimitiveThreadPool threadPool(threadCount);
+      base::thread_pool::computational::ThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
@@ -35,14 +35,14 @@ UNIT_TEST(PrimitiveThreadPool_SomeThreads)
   }
 }
 
-UNIT_TEST(PrimitiveThreadPool_OneThread)
+UNIT_TEST(ThreadPoolComputational_OneThread)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t const threadCount = 1;
     std::atomic<size_t> counter{0};
     {
-      threads::PrimitiveThreadPool threadPool(threadCount);
+      base::thread_pool::computational::ThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
@@ -56,7 +56,7 @@ UNIT_TEST(PrimitiveThreadPool_OneThread)
   }
 }
 
-UNIT_TEST(PrimitiveThreadPool_ManyThread)
+UNIT_TEST(ThreadPoolComputational_ManyThread)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
@@ -65,7 +65,7 @@ UNIT_TEST(PrimitiveThreadPool_ManyThread)
     threadCount *= 2;
     std::atomic<size_t> counter{0};
     {
-      threads::PrimitiveThreadPool threadPool(threadCount);
+      base::thread_pool::computational::ThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
@@ -79,12 +79,12 @@ UNIT_TEST(PrimitiveThreadPool_ManyThread)
   }
 }
 
-UNIT_TEST(PrimitiveThreadPool_ReturnValue)
+UNIT_TEST(ThreadPoolComputational_ReturnValue)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t const threadCount = 4;
-    threads::PrimitiveThreadPool threadPool(threadCount);
+    base::thread_pool::computational::ThreadPool threadPool(threadCount);
     std::vector<std::future<size_t>> futures;
     for (size_t i = 0; i < threadCount; ++i)
     {
@@ -101,14 +101,14 @@ UNIT_TEST(PrimitiveThreadPool_ReturnValue)
   }
 }
 
-UNIT_TEST(PrimitiveThreadPool_ManyTasks)
+UNIT_TEST(ThreadPoolComputational_ManyTasks)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t taskCount = 11;
     std::atomic<size_t> counter{0};
     {
-      threads::PrimitiveThreadPool threadPool(4);
+      base::thread_pool::computational::ThreadPool threadPool(4);
       for (size_t i = 0; i < taskCount; ++i)
       {
         threadPool.Submit([&]() {

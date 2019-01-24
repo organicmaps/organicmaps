@@ -12,7 +12,7 @@
 #include "base/exception.hpp"
 #include "base/macros.hpp"
 #include "base/task_loop.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -128,9 +128,9 @@ protected:
 
   std::unique_ptr<base::TaskLoop> m_guiThread;
 
-  std::unique_ptr<base::WorkerThread> m_networkThread;
-  std::unique_ptr<base::WorkerThread> m_fileThread;
-  std::unique_ptr<base::WorkerThread> m_backgroundThread;
+  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_networkThread;
+  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_fileThread;
+  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_backgroundThread;
 
   platform::BatteryLevelTracker m_batteryTracker;
 
@@ -330,7 +330,7 @@ public:
   }
 
   template <typename Task>
-  void RunDelayedTask(Thread thread, base::WorkerThread::Duration const & delay, Task && task)
+  void RunDelayedTask(Thread thread, base::thread_pool::delayed::ThreadPool::Duration const & delay, Task && task)
   {
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
     switch (thread)

@@ -6,6 +6,7 @@
 
 #include "base/macros.hpp"
 #include "base/thread.hpp"
+#include "base/thread_pool.hpp"
 
 namespace
 {
@@ -74,7 +75,7 @@ namespace
     srand(666);
 
     size_t const count = 20;
-    threads::SimpleThreadPool pool(count);
+    base::thread_pool::routine_simple::ThreadPool pool(count);
 
     for (size_t i = 0; i < count; ++i)
       pool.Add(make_unique<FeaturesLoader>(src));

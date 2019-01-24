@@ -8,7 +8,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <functional>
 
@@ -54,7 +54,7 @@ private:
   void SendingCompletedImpl();
   void SaveUGCOnDiskImpl();
 
-  base::WorkerThread m_thread;
+  base::thread_pool::delayed::ThreadPool m_thread;
   Storage m_storage;
   Loader m_loader;
 };

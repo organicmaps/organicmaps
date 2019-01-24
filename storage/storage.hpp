@@ -15,7 +15,7 @@
 
 #include "base/deferred_task.hpp"
 #include "base/thread_checker.hpp"
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include "std/function.hpp"
 #include "std/list.hpp"

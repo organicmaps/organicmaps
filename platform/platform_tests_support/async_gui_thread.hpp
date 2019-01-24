@@ -3,7 +3,7 @@
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
-#include "base/worker_thread.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <memory>
 
@@ -16,8 +16,8 @@ class AsyncGuiThread
 public:
   AsyncGuiThread()
   {
-    GetPlatform().SetGuiThread(std::make_unique<base::WorkerThread>(
-        1 /* threadsCount */, base::WorkerThread::Exit::ExecPending));
+    GetPlatform().SetGuiThread(std::make_unique<base::thread_pool::delayed::ThreadPool>(
+        1 /* threadsCount */, base::thread_pool::delayed::ThreadPool::Exit::ExecPending));
   }
 
   virtual ~AsyncGuiThread()

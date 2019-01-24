@@ -14,11 +14,15 @@
 
 namespace base
 {
+namespace thread_pool
+{
+namespace delayed
+{
 // This class represents a simple worker thread with a queue of tasks.
 //
 // *NOTE* This class IS NOT thread-safe, it must be destroyed on the
 // same thread it was created, but Push* methods are thread-safe.
-class WorkerThread : public TaskLoop
+class ThreadPool : public TaskLoop
 {
 public:
   using Clock = std::chrono::steady_clock;
@@ -31,8 +35,8 @@ public:
     SkipPending
   };
 
-  explicit WorkerThread(size_t threadsCount = 1, Exit e = Exit::SkipPending);
-  ~WorkerThread() override;
+  explicit ThreadPool(size_t threadsCount = 1, Exit e = Exit::SkipPending);
+  ~ThreadPool() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
   // Returns false when the thread is shut down.
@@ -92,7 +96,7 @@ private:
 
   using ImmediateQueue = std::queue<Task>;
   using DelayedQueue =
-      std::priority_queue<DelayedTask, std::vector<DelayedTask>, std::greater<DelayedTask>>;
+  std::priority_queue<DelayedTask, std::vector<DelayedTask>, std::greater<DelayedTask>>;
 
   template <typename Fn>
   bool TouchQueues(Fn && fn)
@@ -119,4 +123,6 @@ private:
 
   ThreadChecker m_checker;
 };
+}  // namespace delayed
+}  // namespace thread_pool
 }  // namespace base
