@@ -2,9 +2,6 @@
 #import <Crashlytics/Crashlytics.h>
 #import "MWMBannerHelpers.h"
 #import "MWMFrameworkListener.h"
-#import "MWMSearchHotelsFilterViewController.h"
-#import "MWMSearchManager+Filter.h"
-#import "MWMSearchManager.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -70,7 +67,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 @property(nonatomic) NSUInteger lastSearchTimestamp;
 
-@property(nonatomic) MWMSearchFilterViewController * filter;
+@property(nonatomic) MWMHotelParams * filter;
 
 @property(nonatomic) MWMSearchIndex * itemsIndex;
 
@@ -319,7 +316,11 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   return [itemsIndex resultContainerIndexWithRow:row];
 }
 
-+ (void)update { [[MWMSearch manager] update]; }
++ (void)updateHotelFilterWithParams:(MWMHotelParams *)params
+{
+  [MWMSearch manager].filter = params;
+  [[MWMSearch manager] update];
+}
 
 - (void)reset
 {
@@ -375,11 +376,9 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   return hasRules || hasBookingParams;
 }
 
-+ (MWMSearchFilterViewController *)getFilter
++ (MWMHotelParams *)getFilter
 {
   MWMSearch * manager = [MWMSearch manager];
-  if (!manager.filter && manager.isHotelResults)
-    manager.filter = [MWMSearchHotelsFilterViewController controller];
   return manager.filter;
 }
 
@@ -388,19 +387,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   MWMSearch * manager = [MWMSearch manager];
   manager.filter = nil;
   [manager update];
-}
-
-+ (void)showHotelFilterWithParams:(search_filter::HotelParams &&)params
-                 onFinishCallback:(MWMVoidBlock)callback
-{
-  auto filter =
-  static_cast<MWMSearchHotelsFilterViewController *>([MWMSearchHotelsFilterViewController controller]);
-  auto search = [MWMSearch manager];
-  search.filter = filter;
-  [[MWMSearchManager manager] updateFilter:[filter, callback, params = std::move(params)]() mutable
-  {
-    [filter applyParams:std::move(params) onFinishCallback:callback];
-  }];
 }
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner

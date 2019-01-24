@@ -1,30 +1,21 @@
 #import "MWMSearchFilterViewController.h"
 #import "MWMTypes.h"
+#import "MWMHotelParams.h"
 
-#include "map/place_page_info.hpp"
+@class MWMSearchHotelsFilterViewController;
 
-#include "indexer/ftypes_matcher.hpp"
+@protocol MWMSearchHotelsFilterViewControllerDelegate<NSObject>
 
-namespace search_filter
-{
-enum class Price
-{
-  Any = 0,
-  One = 1,
-  Two = 2,
-  Three = 3
-};
-
-struct HotelParams
-{
-  ftypes::IsHotelChecker::Type m_type = ftypes::IsHotelChecker::Type::Count;
-  place_page::rating::FilterRating m_rating = place_page::rating::FilterRating::Any;
-  Price m_price = Price::Any;
-};
-}  // namespace search_filter
+- (void)hotelsFilterViewController:(MWMSearchHotelsFilterViewController *)viewController
+                   didSelectParams:(MWMHotelParams *)params;
+- (void)hotelsFilterViewControllerDidCancel:(MWMSearchHotelsFilterViewController *)viewController;
+  
+@end
 
 @interface MWMSearchHotelsFilterViewController : MWMSearchFilterViewController
 
-- (void)applyParams:(search_filter::HotelParams &&)params onFinishCallback:(MWMVoidBlock)callback;
+- (void)applyParams:(MWMHotelParams *)params;
+
+@property (nonatomic, weak) id<MWMSearchHotelsFilterViewControllerDelegate> delegate;
 
 @end

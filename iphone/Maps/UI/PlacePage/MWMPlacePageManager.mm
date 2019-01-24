@@ -12,8 +12,7 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSearch.h"
-#import "MWMSearchHotelsFilterViewController.h"
+#import "MWMSearchManager+Filter.h"
 #import "MWMStorage.h"
 #import "MWMUGCViewModel.h"
 #import "MapViewController.h"
@@ -627,23 +626,9 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!data)
     return;
-
-  search_filter::HotelParams params;
-  params.m_type = *data.hotelType;
-  CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.lat, data.latLon.lon));
-
-  if (data.isBooking)
-  {
-    if (auto const price = data.hotelRawApproximatePricing)
-    {
-      CHECK_LESS_OR_EQUAL(*price, base::Key(search_filter::Price::Three), ());
-      params.m_price = static_cast<search_filter::Price>(*price);
-    }
-
-    params.m_rating = place_page::rating::GetFilterRating(data.ratingRawValue);
-  }
-
-  [MWMSearch showHotelFilterWithParams:std::move(params)
+  
+  MWMHotelParams * params = [[MWMHotelParams alloc] initWithPlacePageData:data];
+  [[MWMSearchManager manager] showHotelFilterWithParams:params
                       onFinishCallback:^{
     [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
                                         forInputLocale:[NSLocale currentLocale].localeIdentifier];

@@ -13,6 +13,7 @@
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
 		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
+		330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */ = {isa = PBXBuildFile; fileRef = 330473E921F7440C00DC4AEA /* MWMHotelParams.mm */; };
 		331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */; };
 		331922AF21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 331922AE21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
@@ -728,9 +729,6 @@
 		F6E2FEB81E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCDD1E097B9F0083EBEC /* _MWMPPPSubtitle.xib */; };
 		F6E2FEBB1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCDE1E097B9F0083EBEC /* _MWMPPPTitle.xib */; };
 		F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */; };
-		F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */; };
-		F6E2FECA1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */; };
-		F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */; };
 		F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */; };
 		F6E2FED31E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCF11E097B9F0083EBEC /* MWMSearchHotelsFilterViewController.mm */; };
 		F6E2FED61E097BA00083EBEC /* MWMSearchChangeModeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCF31E097B9F0083EBEC /* MWMSearchChangeModeView.mm */; };
@@ -807,6 +805,8 @@
 		3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryCell.swift; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
 		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
+		330473E821F7440C00DC4AEA /* MWMHotelParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMHotelParams.h; sourceTree = "<group>"; };
+		330473E921F7440C00DC4AEA /* MWMHotelParams.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMHotelParams.mm; sourceTree = "<group>"; };
 		331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSectionHeaderView.swift; sourceTree = "<group>"; };
 		331922AD21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlaceDescriptionCell.h; sourceTree = "<group>"; };
 		331922AE21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlaceDescriptionCell.mm; sourceTree = "<group>"; };
@@ -1885,12 +1885,6 @@
 		F6E2FCDE1E097B9F0083EBEC /* _MWMPPPTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPTitle.xib; sourceTree = "<group>"; };
 		F6E2FCDF1E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPPPreviewLayoutHelper.h; sourceTree = "<group>"; };
 		F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMPPPreviewLayoutHelper.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F6E2FCE61E097B9F0083EBEC /* MWMSearchFilterPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterPresentationController.h; sourceTree = "<group>"; };
-		F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterPresentationController.mm; sourceTree = "<group>"; };
-		F6E2FCE91E097B9F0083EBEC /* MWMSearchFilterTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioning.h; sourceTree = "<group>"; };
-		F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterTransitioning.mm; sourceTree = "<group>"; };
-		F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioningManager.h; sourceTree = "<group>"; };
-		F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterTransitioningManager.mm; sourceTree = "<group>"; };
 		F6E2FCED1E097B9F0083EBEC /* MWMSearchFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterViewController.h; sourceTree = "<group>"; };
 		F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterViewController.mm; sourceTree = "<group>"; };
 		F6E2FCEF1E097B9F0083EBEC /* MWMSearchFilterViewController_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterViewController_Protected.h; sourceTree = "<group>"; };
@@ -4213,17 +4207,13 @@
 				F63AF50D1EA6215100A1DB98 /* FilterPriceCategoryCell.swift */,
 				F63AF5091EA6213F00A1DB98 /* FilterRatingCell.swift */,
 				F63AF5041EA6162400A1DB98 /* FilterTypeCell.swift */,
-				F6E2FCE61E097B9F0083EBEC /* MWMSearchFilterPresentationController.h */,
-				F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */,
-				F6E2FCE91E097B9F0083EBEC /* MWMSearchFilterTransitioning.h */,
-				F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */,
-				F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.h */,
-				F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */,
 				F6E2FCEF1E097B9F0083EBEC /* MWMSearchFilterViewController_Protected.h */,
 				F6E2FCED1E097B9F0083EBEC /* MWMSearchFilterViewController.h */,
 				F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */,
 				F6E2FCF01E097B9F0083EBEC /* MWMSearchHotelsFilterViewController.h */,
 				F6E2FCF11E097B9F0083EBEC /* MWMSearchHotelsFilterViewController.mm */,
+				330473E821F7440C00DC4AEA /* MWMHotelParams.h */,
+				330473E921F7440C00DC4AEA /* MWMHotelParams.mm */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -4994,7 +4984,6 @@
 				B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */,
 				33B19C67218B481700B323A7 /* TagCollectionViewCell.swift in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
-				F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
 				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */,
@@ -5138,7 +5127,6 @@
 				34AB66411FC5AA330078E451 /* RouteManagerTransitioningManager.swift in Sources */,
 				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				F682249B1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
-				F6E2FECA1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */,
 				3454D7DD1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
 				4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */,
 				340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
@@ -5205,7 +5193,6 @@
 				F6E2FEA01E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,
-				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
@@ -5288,6 +5275,7 @@
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
+				330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,

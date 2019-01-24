@@ -1,3 +1,0 @@
-@interface MWMSearchFilterPresentationController : UIPresentationController
-
-@end

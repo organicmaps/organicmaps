@@ -6,7 +6,6 @@
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearchChangeModeView.h"
-#import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTableViewController.h"
@@ -62,8 +61,6 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) MWMSearchTableViewController * tableViewController;
 @property(nonatomic) MWMNoMapsViewController * noMapsController;
 
-@property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
-
 @property(nonatomic) Observers * observers;
 
 @end
@@ -90,8 +87,6 @@ using Observers = NSHashTable<Observer>;
   [self.actionBarView mwm_refreshUI];
   [self.tableViewController mwm_refreshUI];
   [self.noMapsController mwm_refreshUI];
-  if ([MWMSearch hasFilter])
-    [[MWMSearch getFilter] mwm_refreshUI];
 }
 
 - (void)beginSearch

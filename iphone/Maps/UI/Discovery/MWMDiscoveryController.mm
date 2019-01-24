@@ -7,8 +7,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSearch.h"
-#import "MWMSearchHotelsFilterViewController.h"
+#import "MWMSearchManager+Filter.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
 
@@ -219,12 +218,12 @@ struct Callback
 - (void)openFilters
 {
   [self.navigationController popViewControllerAnimated:YES];
-  [MWMSearch showHotelFilterWithParams:{}
-                      onFinishCallback:^{
-                        [MWMMapViewControlsManager.manager
-                         searchTextOnMap:[L(@"hotel") stringByAppendingString:@" "]
-                         forInputLocale:[NSLocale currentLocale].localeIdentifier];
-                      }];
+  [[MWMSearchManager manager] showHotelFilterWithParams:nil
+                                       onFinishCallback:^{
+                                         [MWMMapViewControlsManager.manager
+                                          searchTextOnMap:[L(@"hotel") stringByAppendingString:@" "]
+                                          forInputLocale:[NSLocale currentLocale].localeIdentifier];
+                                       }];
 }
 
 - (void)searchFood

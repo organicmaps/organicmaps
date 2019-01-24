@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search Hotels Filter View Controller-->
+        <!--Фильтр-->
         <scene sceneID="3Lw-zP-9hH">
             <objects>
                 <viewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNn-Gp-Jtg" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
@@ -375,6 +375,21 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WEm-4S-gb9"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Фильтр" id="LCw-vA-SlU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="e9P-kS-9Lb">
+                            <connections>
+                                <action selector="closeAction" destination="LNn-Gp-Jtg" id="yeE-jT-g0N"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Сбросить" style="plain" id="GLW-fe-qUA">
+                            <connections>
+                                <action selector="resetAction" destination="LNn-Gp-Jtg" id="ibg-4x-8qC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doneButton" destination="ZN9-tQ-vmX" id="yjh-3u-Occ"/>
                         <outlet property="tableView" destination="7db-bh-egf" id="rYy-3D-opK"/>

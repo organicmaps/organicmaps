@@ -1,24 +1,15 @@
 #import "MWMSearchHotelsFilterViewController.h"
 #import <CoreActionSheetPicker/ActionSheetPicker.h>
 #import "MWMEye.h"
-#import "MWMSearch.h"
 #import "MWMSearchFilterViewController_Protected.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-#include "search/hotels_filter.hpp"
-
-#include "base/stl_helpers.hpp"
-
-#include <unordered_set>
 
 namespace
 {
 static NSTimeInterval kDayInterval = 24 * 60 * 60;
 static NSTimeInterval k30DaysInterval = 30 * kDayInterval;
 static NSTimeInterval k360DaysInterval = 360 * kDayInterval;
-static uint8_t kAdultsCount = 2;
-static int8_t kAgeOfChild = 5;
 static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
 
 std::array<ftypes::IsHotelChecker::Type, base::Key(ftypes::IsHotelChecker::Type::Count)> const
@@ -26,15 +17,6 @@ std::array<ftypes::IsHotelChecker::Type, base::Key(ftypes::IsHotelChecker::Type:
                ftypes::IsHotelChecker::Type::CampSite, ftypes::IsHotelChecker::Type::Chalet,
                ftypes::IsHotelChecker::Type::GuestHouse, ftypes::IsHotelChecker::Type::Hostel,
                ftypes::IsHotelChecker::Type::Motel, ftypes::IsHotelChecker::Type::Resort}};
-
-unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items)
-{
-  unsigned mask = 0;
-  for (auto const i : items)
-    mask = mask | 1U << static_cast<unsigned>(i);
-
-  return mask;
-}
 
 enum class Section
 {
@@ -118,8 +100,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 @property(nonatomic) NSDate * checkInDate;
 @property(nonatomic) NSDate * checkOutDate;
 
-@property(nonatomic, copy) MWMVoidBlock onFinishCallback;
-
 @end
 
 @implementation MWMSearchHotelsFilterViewController
@@ -131,28 +111,18 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
       [self controllerWithIdentifier:identifier]);
 }
 
-- (void)applyParams:(search_filter::HotelParams &&)params onFinishCallback:(MWMVoidBlock)callback
+- (void)applyParams:(MWMHotelParams *)params
 {
-  using namespace search_filter;
+  m_selectedTypes = params.types;
+  [self.type.collectionView reloadData];
+  
+  self.checkInDate = params.checkInDate;
+  self.checkOutDate = params.checkOutDate;
+
   using namespace place_page::rating;
-
-  self.onFinishCallback = callback;
-
-  if (params.m_type != ftypes::IsHotelChecker::Type::Count)
-  {
-    m_selectedTypes.emplace(params.m_type);
-    [self.type.collectionView
-                       selectItemAtIndexPath:[NSIndexPath indexPathForItem:base::Key(params.m_type)
-                                   inSection:0]
-                                    animated:NO
-                              scrollPosition:UICollectionViewScrollPositionNone];
-  }
-
   auto ratingCell = self.rating;
-
   ratingCell.any.selected = NO;
-
-  switch (params.m_rating)
+  switch (params.rating)
   {
   case FilterRating::Any:
     ratingCell.any.selected = YES;
@@ -169,20 +139,27 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   }
 
   auto priceCell = self.price;
-  switch (params.m_price)
+  switch (params.price)
   {
-  case Price::Any:
+  case Any:
     break;
-  case Price::One:
+  case One:
     priceCell.one.selected = YES;
     break;
-  case Price::Two:
+  case Two:
     priceCell.two.selected = YES;
     break;
-  case Price::Three:
+  case Three:
     priceCell.three.selected = YES;
     break;
   }
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  [self configNavigationBar:self.navigationController.navigationBar];
+  [self configNavigationItem:self.navigationItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -235,8 +212,34 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
   [MWMEye bookingFilterUsed];
-  [MWMSearch update];
-  [self dismissViewControllerAnimated:YES completion:self.onFinishCallback];
+  [self.delegate hotelsFilterViewController:self didSelectParams:[self getSelectedHotelParams]];
+}
+
+- (MWMHotelParams *)getSelectedHotelParams
+{
+  MWMHotelParams * params = [MWMHotelParams new];
+  params.types = m_selectedTypes;
+  params.checkInDate = self.checkInDate;
+  params.checkOutDate = self.checkOutDate;
+  
+  using namespace place_page::rating;
+  MWMFilterRatingCell * rating = self.rating;
+  if (rating.good.selected)
+    params.rating = FilterRating::Good;
+  else if (rating.veryGood.selected)
+    params.rating = FilterRating::VeryGood;
+  else if (rating.excellent.selected)
+    params.rating = FilterRating::Excellent;
+  
+  MWMFilterPriceCategoryCell * price = self.price;
+  if (price.one.selected)
+    params.price = One;
+  else if (price.two.selected)
+    params.price = Two;
+  else if (price.three.selected)
+    params.price = Three;
+  
+  return params;
 }
 
 - (void)initialCheckConfig
@@ -295,50 +298,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)resetTypes
 {
   m_selectedTypes.clear();
-}
-
-- (shared_ptr<search::hotels_filter::Rule>)rules
-{
-  using namespace search::hotels_filter;
-  MWMFilterRatingCell * rating = self.rating;
-  shared_ptr<Rule> ratingRule;
-  if (rating.good.selected)
-    ratingRule = Ge<Rating>(7.0);
-  else if (rating.veryGood.selected)
-    ratingRule = Ge<Rating>(8.0);
-  else if (rating.excellent.selected)
-    ratingRule = Ge<Rating>(9.0);
-
-  MWMFilterPriceCategoryCell * price = self.price;
-  shared_ptr<Rule> priceRule;
-  if (price.one.selected)
-    priceRule = Or(priceRule, Eq<PriceRate>(1));
-  if (price.two.selected)
-    priceRule = Or(priceRule, Eq<PriceRate>(2));
-  if (price.three.selected)
-    priceRule = Or(priceRule, Eq<PriceRate>(3));
-
-  shared_ptr<Rule> typeRule;
-  if (!m_selectedTypes.empty())
-    typeRule = OneOf(makeMask(m_selectedTypes));
-
-  if (!ratingRule && !priceRule && !typeRule)
-    return nullptr;
-
-  return And(And(ratingRule, priceRule), typeRule);
-}
-
-- (booking::filter::Params)availabilityParams
-{
-  using Clock = booking::AvailabilityParams::Clock;
-  booking::AvailabilityParams params;
-  params.m_rooms = {{kAdultsCount, kAgeOfChild}};
-  if (Platform::IsConnected())
-  {
-    params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
-    params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
-  }
-  return { make_shared<booking::AvailabilityParams>(params), {} };
 }
 
 #pragma mark - MWMFilterCheckCellDelegate
@@ -556,6 +515,76 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
                                                             timeStyle:NSDateFormatterNoStyle]
                     forState:UIControlStateNormal];
   }
+}
+
+#pragma mark - Navigation bar
+
+- (IBAction)closeAction
+{
+  [Statistics logEvent:kStatSearchFilterCancel withParameters:@{kStatCategory: kStatHotel}];
+  [self.delegate hotelsFilterViewControllerDidCancel:self];
+}
+
+- (IBAction)resetAction
+{
+  [Statistics logEvent:kStatSearchFilterReset withParameters:@{kStatCategory: kStatHotel}];
+  [self reset];
+}
+
+- (void)configNavigationBar:(UINavigationBar *)navBar
+{
+  if (IPAD)
+  {
+    UIColor * white = [UIColor white];
+    navBar.tintColor = white;
+    navBar.barTintColor = white;
+    navBar.translucent = NO;
+  }
+  navBar.titleTextAttributes = @{
+                                 NSForegroundColorAttributeName: IPAD ? [UIColor blackPrimaryText] : [UIColor whiteColor],
+                                 NSFontAttributeName: [UIFont bold17]
+                                 };
+}
+
+- (void)configNavigationItem:(UINavigationItem *)navItem
+{
+  UIFont * textFont = [UIFont regular17];
+  
+  UIColor * normalStateColor = IPAD ? [UIColor linkBlue] : [UIColor whiteColor];
+  UIColor * highlightedStateColor = IPAD ? [UIColor linkBlueHighlighted] : [UIColor whiteColor];
+  UIColor * disabledStateColor = [UIColor lightGrayColor];
+  
+  navItem.title = L(@"booking_filters");
+  navItem.rightBarButtonItem.title = L(@"booking_filters_reset");
+
+  [navItem.rightBarButtonItem setTitleTextAttributes:@{
+                                                       NSForegroundColorAttributeName: normalStateColor,
+                                                       NSFontAttributeName: textFont
+                                                       }
+                                            forState:UIControlStateNormal];
+  [navItem.rightBarButtonItem setTitleTextAttributes:@{
+                                                       NSForegroundColorAttributeName: highlightedStateColor,
+                                                       }
+                                            forState:UIControlStateHighlighted];
+  [navItem.rightBarButtonItem setTitleTextAttributes:@{
+                                                       NSForegroundColorAttributeName: disabledStateColor,
+                                                       }
+                                            forState:UIControlStateDisabled];
+  
+  [navItem.leftBarButtonItem setTitleTextAttributes:@{
+                                                      NSForegroundColorAttributeName: normalStateColor,
+                                                      NSFontAttributeName: textFont
+                                                      }
+                                           forState:UIControlStateNormal];
+  [navItem.leftBarButtonItem setTitleTextAttributes:@{
+                                                      NSForegroundColorAttributeName: highlightedStateColor,
+                                                      }
+                                           forState:UIControlStateHighlighted];
+  
+  [navItem.leftBarButtonItem setTitleTextAttributes:@{
+                                                      NSForegroundColorAttributeName: disabledStateColor,
+                                                      }
+                                           forState:UIControlStateDisabled];
 }
 
 @end
