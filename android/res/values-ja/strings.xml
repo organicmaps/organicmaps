@@ -1390,7 +1390,6 @@
 	<string name="hide_from_map">マップから隠す</string>
 	<string name="ugc_route_tags_screen_label">タグを選択</string>
 	<string name="ugc_route_tags_progress_msg">タグをロードしています…</string>
-	<string name="ugc_route_tags_desc">他の旅行者があなたのガイドを見つけられるようにタグを選択してください。これは必須です。</string>
 	<string name="public_access">パブリック・アクセス</string>
 	<string name="limited_access">制限されたアクセス</string>
 	<string name="upload_and_publish_desc">このガイドはパブリックのMAPS.MEカタログにアップロードされ、他のユーザーに対して利用可能になります</string>

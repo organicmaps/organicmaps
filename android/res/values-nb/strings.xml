@@ -1289,7 +1289,6 @@
 	<string name="hide_from_map">Skjul fra kart</string>
 	<string name="ugc_route_tags_screen_label">Velg emneknagger</string>
 	<string name="ugc_route_tags_progress_msg">Laster inn emneknagger…</string>
-	<string name="ugc_route_tags_desc">Vennligst velg emneknagger for å hjelpe andre til å finne guiden din. Obligatorisk.</string>
 	<string name="public_access">Offentlig tilgang</string>
 	<string name="limited_access">Begrenset adgang</string>
 	<string name="upload_and_publish_desc">Denne veiledningen vil bli lastet opp til den offentlige MAPS.ME katalogen og vil være tilgjengelig for andre brukere</string>

@@ -1397,7 +1397,6 @@
 	<string name="hide_from_map">إخفاء من الخريطة</string>
 	<string name="ugc_route_tags_screen_label">حدد العلامات</string>
 	<string name="ugc_route_tags_progress_msg">جارٍ تحميل العلامات…</string>
-	<string name="ugc_route_tags_desc">.يرجى تحديد العلامات لمساعدة المسافرين الآخرين في العثور على دليلك. وهذا إلزامي</string>
 	<string name="public_access">إطلاع الجمهور</string>
 	<string name="limited_access">محدودية فرص حصول</string>
 	<string name="upload_and_publish_desc">سيتم تحميل هذا الدليل إلى كتالوج MAPS.ME العام وسيكون متاحًا للمستخدمين الآخرين</string>

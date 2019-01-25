@@ -1397,7 +1397,6 @@
 	<string name="hide_from_map">Приховати з карти</string>
 	<string name="ugc_route_tags_screen_label">Виберіть теги</string>
 	<string name="ugc_route_tags_progress_msg">Завантажуємо теги…</string>
-	<string name="ugc_route_tags_desc">Просимо вибрати теги, або допомогти іншим мандрівникам знайти ваш путівник. Це обов’язково.</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
 	<string name="upload_and_publish_desc">Цей путівник буде завантажено у публічний каталог MAPS.ME та буде доступний іншим користувачам</string>

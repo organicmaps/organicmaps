@@ -1395,7 +1395,6 @@
 	<string name="hide_from_map">Remover do mapa</string>
 	<string name="ugc_route_tags_screen_label">Selecione tags</string>
 	<string name="ugc_route_tags_progress_msg">A carregar tags…</string>
-	<string name="ugc_route_tags_desc">Por favor, selecione tags para ajudar aos outros viajantes encontrar o seu guia. É obrigatório.</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso privado</string>
 	<string name="upload_and_publish_desc">Esse guia será carregado para catalogo público de MAPS.ME e estará disponível para outros usuários</string>

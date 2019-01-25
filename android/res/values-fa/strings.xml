@@ -1342,7 +1342,6 @@
 	<string name="hide_from_map">پنهان کردن از نقشه</string>
 	<string name="ugc_route_tags_screen_label">انتخاب برچسبها</string>
 	<string name="ugc_route_tags_progress_msg">درحال بارگیری برچسبها…</string>
-	<string name="ugc_route_tags_desc">لطفا برچسبها را برای کمک به مسافران دیگر برای یافتن راهنمای شما، انتخاب نمایید. این الزامی است.</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>
 	<string name="upload_and_publish_desc">این راهنما به کاتالوگ عمومی MAPS.ME ارسال خواهد شد و برای کاربران دیگر در دسترس خواهد بود</string>

@@ -1443,7 +1443,6 @@
 	<string name="hide_from_map">Скрыть с карты</string>
 	<string name="ugc_route_tags_screen_label">Выберите теги</string>
 	<string name="ugc_route_tags_progress_msg">Загружаем теги…</string>
-	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>
 	<string name="upload_and_publish_desc">Этот путеводитель будет загружен в публичный каталог MAPS.ME и будет доступен другим пользователям</string>

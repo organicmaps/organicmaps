@@ -1396,7 +1396,6 @@
 	<string name="hide_from_map">从卡中隐藏</string>
 	<string name="ugc_route_tags_screen_label">请选择标签</string>
 	<string name="ugc_route_tags_progress_msg">正在加载标签......</string>
-	<string name="ugc_route_tags_desc">请选择标签以帮助其他旅行者找到您的旅行指南。此为必填项。</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>
 	<string name="upload_and_publish_desc">本指南将上传到MAPS.ME公共目录，并可供其他用户使用</string>

@@ -1406,7 +1406,6 @@
 	<string name="hide_from_map">Masquer de la carte</string>
 	<string name="ugc_route_tags_screen_label">Sélectionner les tags</string>
 	<string name="ugc_route_tags_progress_msg">Chargement des tags en cours…</string>
-	<string name="ugc_route_tags_desc">Sélectionnez des tags pour aider les autres voyageurs à trouver votre guide. C\'est obligatoire.</string>
 	<string name="public_access">Accès publique</string>
 	<string name="limited_access">Accès limité</string>
 	<string name="upload_and_publish_desc">Ce guide sera chargé dans le catalogue public MAPS.ME et sera disponible pour les autres utilisateurs</string>

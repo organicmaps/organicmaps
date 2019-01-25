@@ -1397,7 +1397,6 @@
 	<string name="hide_from_map">Haritadan gizle</string>
 	<string name="ugc_route_tags_screen_label">Etiketleri seç</string>
 	<string name="ugc_route_tags_progress_msg">Etiketler yükleniyor…</string>
-	<string name="ugc_route_tags_desc">Diğer gezginlerin kılavuzunuzu bulmasına yardımcı olmak için lütfen etiketleri seçin. Bu zorunludur.</string>
 	<string name="public_access">Genel erişim</string>
 	<string name="limited_access">Sınırlı erişim</string>
 	<string name="upload_and_publish_desc">Bu kılavuz, herkese açık MAPS.ME kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır</string>

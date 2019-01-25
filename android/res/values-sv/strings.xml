@@ -1396,7 +1396,6 @@
 	<string name="hide_from_map">Dölj från kort</string>
 	<string name="ugc_route_tags_screen_label">Välj taggar</string>
 	<string name="ugc_route_tags_progress_msg">Laddar upp taggar…</string>
-	<string name="ugc_route_tags_desc">Var vänlig välj taggar för att hjälpa andra resenärer att hitta din reseguide. Detta är ett måste.</string>
 	<string name="public_access">Allmänhetens åtkomst</string>
 	<string name="limited_access">Privat åtkomst</string>
 	<string name="upload_and_publish_desc">Den här reseguiden kommer att laddas upp i den offentliga katalogen MAPS.ME och kommer att vara tillgänglig för andra användare</string>

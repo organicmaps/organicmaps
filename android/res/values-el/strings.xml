@@ -1156,7 +1156,6 @@
 	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
 	<string name="ugc_route_tags_screen_label">Επιλέξτε ετικέτες</string>
 	<string name="ugc_route_tags_progress_msg">Φόρτωση ετικετών…</string>
-	<string name="ugc_route_tags_desc">Παρακαλώ επιλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον οδηγό σας. Αυτό είναι υποχρεωτικό.</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
 	<string name="upload_and_publish_desc">Αυτός ο οδηγός θα ανέβει στο δημόσιο κατάλογο MAPS.ME και θα είναι διαθέσιμος για άλλους χρήστες</string>

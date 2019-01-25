@@ -1391,7 +1391,6 @@
 	<string name="hide_from_map">Sembunyikan dari peta</string>
 	<string name="ugc_route_tags_screen_label">Pilih tag</string>
 	<string name="ugc_route_tags_progress_msg">Memuat tag…</string>
-	<string name="ugc_route_tags_desc">Silakan pilih tag untuk membantu pelancong lain menemukan panduan Anda. Ini wajib.</string>
 	<string name="public_access">Akses umum</string>
 	<string name="limited_access">Akses terbatas</string>
 	<string name="upload_and_publish_desc">Panduan ini akan diunggah ke katalog MAPS.ME umum dan akan tersedia untuk pengguna lain</string>

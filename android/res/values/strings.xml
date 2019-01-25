@@ -1449,7 +1449,6 @@
 	<string name="hide_from_map">Hide from map</string>
 	<string name="ugc_route_tags_screen_label">Select tags</string>
 	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
-	<string name="ugc_route_tags_desc">Please select tags to help other travellers find your guide. This is mandatory.</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>
 	<!-- FIXME -->
@@ -1568,14 +1567,14 @@
 	<!-- FIXME -->
 	<string name="parthner_megafon_search_banner_button">[parthner_megafon_search_banner_button]</string>
 	<!-- FIXME. Power managment -->
-	<string name="power_managment_title">[power_managment_title]</string>
+	<string name="power_management_title">[power_management_title]</string>
 	<!-- FIXME. Power managment settings -->
-	<string name="power_managment_settings">[power_managment_settings]</string>
+	<string name="power_management_settings">[power_management_settings]</string>
 	<!-- FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level -->
-	<string name="power_managment_description">[power_managment_description]</string>
-	<string name="power_managment_setting_never">Never</string>
-	<string name="power_managment_setting_auto">Auto</string>
-	<string name="power_managment_setting_manual_max">Extreme power saving</string>
+	<string name="power_management_description">[power_management_description]</string>
+	<string name="power_management_setting_never">Never</string>
+	<string name="power_management_setting_auto">Auto</string>
+	<string name="power_management_setting_manual_max">Extreme power saving</string>
 	<string name="enable_logging_warning_message">The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.</string>
 	<string name="html_error_upload_title">Your guide has not been published</string>
 	<string name="html_error_upload_message">Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below</string>

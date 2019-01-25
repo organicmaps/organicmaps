@@ -1400,7 +1400,6 @@
 	<string name="hide_from_map">從卡中隱藏</string>
 	<string name="ugc_route_tags_screen_label">請選擇標籤</string>
 	<string name="ugc_route_tags_progress_msg">正在加載標籤......</string>
-	<string name="ugc_route_tags_desc">請選擇標籤以幫助其他旅行者找到您的旅行指南。此為必填項。</string>
 	<string name="public_access">公共訪問</string>
 	<string name="limited_access">私人訪問</string>
 	<string name="upload_and_publish_desc">本指南將上傳到MAPS.ME公共目錄，並可供其他用戶使用</string>

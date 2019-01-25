@@ -2491,8 +2491,6 @@
 
 "ugc_route_tags_progress_msg" = "Tags werden geladen…";
 
-"ugc_route_tags_desc" = "Bitte wählen Sie Tags, um anderen Reisenden zu helfen, Ihr Reiseführer zu finden. Das ist obligatorisch.";
-
 "public_access" = "Öffentlicher Zugriff";
 
 "limited_access" = "Privater Zugriff";
@@ -2715,19 +2713,19 @@
 "parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
 
 /* FIXME. Power managment */
-"power_managment_title" = "[power_managment_title]";
+"power_management_title" = "[power_management_title]";
 
 /* FIXME. Power managment settings */
-"power_managment_settings" = "[power_managment_settings]";
+"power_management_settings" = "[power_management_settings]";
 
 /* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_managment_description" = "[power_managment_description]";
+"power_management_description" = "[power_management_description]";
 
-"power_managment_setting_never" = "Never";
+"power_management_setting_never" = "Never";
 
-"power_managment_setting_auto" = "Auto";
+"power_management_setting_auto" = "Auto";
 
-"power_managment_setting_manual_max" = "Extreme power saving";
+"power_management_setting_manual_max" = "Extreme power saving";
 
 "enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
 

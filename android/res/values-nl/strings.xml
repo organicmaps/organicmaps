@@ -1392,7 +1392,6 @@
 	<string name="hide_from_map">Van de kaart verbergen</string>
 	<string name="ugc_route_tags_screen_label">Selecteer tags</string>
 	<string name="ugc_route_tags_progress_msg">Tags aan het laden…</string>
-	<string name="ugc_route_tags_desc">Gelieve tags te kiezen om andere reizigers te helpen uw gids te vinden. Dit is verplicht.</string>
 	<string name="public_access">Publiek toegang</string>
 	<string name="limited_access">Beperkte toegang</string>
 	<string name="upload_and_publish_desc">Deze gids zal worden geüpload naar de openbare MAPS.ME catalogus en zal voor andere gebruikers beschikbaar zijn</string>

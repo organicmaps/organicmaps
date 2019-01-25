@@ -1396,7 +1396,6 @@
 	<string name="hide_from_map">Skryť z mapy</string>
 	<string name="ugc_route_tags_screen_label">Vyberte značky</string>
 	<string name="ugc_route_tags_progress_msg">Načítavanie značiek…</string>
-	<string name="ugc_route_tags_desc">Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť vášho sprievodcu. Toto je povinné.</string>
 	<string name="public_access">Verejný prístup</string>
 	<string name="limited_access">Obmedzený prístup</string>
 	<string name="upload_and_publish_desc">Táto príručka bude nahraná do verejného katalógu MAPS.ME a bude dostupná ostatným používateľom</string>

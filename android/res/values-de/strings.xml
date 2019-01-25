@@ -1406,7 +1406,6 @@
 	<string name="hide_from_map">Auf der Karte ausblenden</string>
 	<string name="ugc_route_tags_screen_label">Tags wählen</string>
 	<string name="ugc_route_tags_progress_msg">Tags werden geladen…</string>
-	<string name="ugc_route_tags_desc">Bitte wählen Sie Tags, um anderen Reisenden zu helfen, Ihr Reiseführer zu finden. Das ist obligatorisch.</string>
 	<string name="public_access">Öffentlicher Zugriff</string>
 	<string name="limited_access">Privater Zugriff</string>
 	<string name="upload_and_publish_desc">Dieser Reiseführer wird in das öffentliche Katalog MAPS.ME geladen und wird für andere Benutzer verfügbar sein</string>

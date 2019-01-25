@@ -1385,7 +1385,6 @@
 	<string name="hide_from_map">Ocultar en el mapa</string>
 	<string name="ugc_route_tags_screen_label">Seleccione etiquetas</string>
 	<string name="ugc_route_tags_progress_msg">Cargando etiquetas…</string>
-	<string name="ugc_route_tags_desc">Por favor, seleccione las etiquetas para ayudar a otros viajeros a encontrar su guía. Esto es obligatorio.</string>
 	<string name="public_access">Acceso público</string>
 	<string name="limited_access">Acceso privado</string>
 	<string name="upload_and_publish_desc">Esta guía se cargará en el directorio público de MAPS.ME y estará disponible para otros usuarios</string>

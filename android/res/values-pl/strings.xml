@@ -1396,7 +1396,6 @@
 	<string name="hide_from_map">Ukryj mapy</string>
 	<string name="ugc_route_tags_screen_label">Wybierz tagi</string>
 	<string name="ugc_route_tags_progress_msg">Trwa pobieranie tagów…</string>
-	<string name="ugc_route_tags_desc">Proszę, wybierz tagi, aby ułatwić innym podróżnym odnalezienie Twojego przewodnika. Jest to obowiązkowe.</string>
 	<string name="public_access">Dostęp publiczny</string>
 	<string name="limited_access">Dostęp prywatny</string>
 	<string name="upload_and_publish_desc">Ten przewodnik zostanie pobrany do publicznego katalogu MAPS.ME i będzie dostępny dla innych użytkowników</string>

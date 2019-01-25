@@ -1392,7 +1392,6 @@
 	<string name="hide_from_map">Piilottaa kartalta</string>
 	<string name="ugc_route_tags_screen_label">Valitse tunnisteet</string>
 	<string name="ugc_route_tags_progress_msg">Lataamme tunnisteita…</string>
-	<string name="ugc_route_tags_desc">Ole hyvä, valitse tunnisteet, jotta muut matkustajat löytävät matkaoppaasi. Tämä on pakollista.</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Yksityinen pääsy</string>
 	<string name="upload_and_publish_desc">Tämä matkaopas lähetetään julkiseen hakemistoon MAPS.ME ja se on muiden käyttäjien käytettävissä</string>

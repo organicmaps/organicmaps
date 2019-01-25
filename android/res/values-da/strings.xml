@@ -1396,7 +1396,6 @@
 	<string name="hide_from_map">Skjul på kort</string>
 	<string name="ugc_route_tags_screen_label">Vælg tags</string>
 	<string name="ugc_route_tags_progress_msg">Indlæser tags…</string>
-	<string name="ugc_route_tags_desc">Vælg nogle tags for at gøre det nemmere for andre at finde din guide. Dette er obligatorisk.</string>
 	<string name="public_access">Offentlig adgang</string>
 	<string name="limited_access">Begrænset adgang</string>
 	<string name="upload_and_publish_desc">Denne guide vil blive uploadet til det offentlige MAPS.ME katalog, hvor den vil være tilgængelig for andre brugere</string>

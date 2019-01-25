@@ -1388,7 +1388,6 @@
 	<string name="hide_from_map">Ẩn từ bản đồ</string>
 	<string name="ugc_route_tags_screen_label">Chọn thẻ</string>
 	<string name="ugc_route_tags_progress_msg">Đang tải thẻ…</string>
-	<string name="ugc_route_tags_desc">Vui lòng chọn thẻ để giúp những khách du lịch khác tìm thấy hướng dẫn của bạn. Điều này là bắt buộc.</string>
 	<string name="public_access">Truy cập công khai</string>
 	<string name="limited_access">Truy cập hạn chế</string>
 	<string name="upload_and_publish_desc">Hướng dẫn này sẽ được tải lên danh mục MAPS.ME công khai và sẽ có sẵn cho những người dùng khác</string>

@@ -1400,7 +1400,6 @@
 	<string name="hide_from_map">Neukazovat na mapě</string>
 	<string name="ugc_route_tags_screen_label">Vyberte tagy</string>
 	<string name="ugc_route_tags_progress_msg">Načítáme tagy…</string>
-	<string name="ugc_route_tags_desc">Vyberte prosím tagy, abyste ostatním cestovatelům pomohli najít váš průvodce. Povinné.</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>
 	<string name="upload_and_publish_desc">Tento průvodce bude přidán do veřejného katalogu MAPS.ME a bude přístupný ostatním uživatelům</string>

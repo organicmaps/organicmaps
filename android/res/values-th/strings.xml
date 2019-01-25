@@ -1397,7 +1397,6 @@
 	<string name="hide_from_map">ซ่อนจากแผนที่</string>
 	<string name="ugc_route_tags_screen_label">เลือกแท็ก</string>
 	<string name="ugc_route_tags_progress_msg">กำลังโหลดแท็ก…</string>
-	<string name="ugc_route_tags_desc">โปรดเลือกแท็กเพื่อช่วยให้นักท่องเที่ยวคนอื่นๆ พบไกด์ของคุณ จำเป็นต้องเลือก</string>
 	<string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
 	<string name="limited_access">จำกัดการเข้าถึง</string>
 	<string name="upload_and_publish_desc">ไกด์นี้จะถูกอัพโหลดไปยังแคตตาล็อกสาธารณะของ MAPS.ME และเปิดให้ผู้ใช้งานคนอื่นเข้าถึงได้</string>

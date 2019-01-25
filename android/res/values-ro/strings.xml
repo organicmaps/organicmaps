@@ -1388,7 +1388,6 @@
 	<string name="hide_from_map">Ascundeți de pe hartă</string>
 	<string name="ugc_route_tags_screen_label">Alegeți tag-urile</string>
 	<string name="ugc_route_tags_progress_msg">Încărcăm tag-urile…</string>
-	<string name="ugc_route_tags_desc">Vă rugăm, alegeți tag-urile pentru a ajuta alți turiști să găsească ghidul dvs. Acest lucru este obligatoriu.</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
 	<string name="upload_and_publish_desc">Acest ghid va fi încărcat în catalogul public MAPS.ME și va fi disponibil altor utilizatori</string>

@@ -1391,7 +1391,6 @@
 	<string name="hide_from_map">Nascondere sulla mappa</string>
 	<string name="ugc_route_tags_screen_label">Impostare tag</string>
 	<string name="ugc_route_tags_progress_msg">Stiamo caricando tag…</string>
-	<string name="ugc_route_tags_desc">Scegliere i tag per aiutare altri viaggiatori a trovare la tua guida. E\' obbligatorio.</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>
 	<string name="upload_and_publish_desc">La seguente guida verrà caricata sul catalogo pubblico MAPS.ME in open access</string>

@@ -1392,7 +1392,6 @@
 	<string name="hide_from_map">Lefedés a térképen</string>
 	<string name="ugc_route_tags_screen_label">A tag-ek kiválasztása</string>
 	<string name="ugc_route_tags_progress_msg">Tag-ek betöltése…</string>
-	<string name="ugc_route_tags_desc">Kérjük, válassza ki a tag-ket, hogy segítsen a többi utazónak megtalálni az Ön útikalauzát. Ez kötelező.</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>
 	<string name="upload_and_publish_desc">Ez az útikalauz a MAPS.ME nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz</string>
