@@ -37154,42 +37154,144 @@
     zh-Hant = 分享您的印象很容易
     sk = Je ľahké podeliť sa o vaše dojmy
 
-  [power_management_title]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = power management
-
-  [power_management_settings]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = power management settings
-
-  [power_management_description]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = when automatic mode is selected...
-
-  [power_management_setting_never]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = never
-
-  [power_management_setting_auto]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = auto
-
-  [power_managment_setting_manual_max]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
-    en = extreme power saving
-
-  [notification_leave_review_title2]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
-    en = Have you been here - %s?
-
-  [notification_leave_review_content2]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
-    en = It's time to help other travellers and rate it!
-
   [ugc_thanks_message_auth]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
     en = Your review has been saved
 
   [ugc_thanks_message_not_auth]
-    comment = FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2
-    en = Please log in to upload a review
+    en = Please log in to leave a review
+
+  [notification_leave_review_v2_title]
+    en = Rate a place and help travellers!
+
+  [error_public_not _enought_title]
+    en = Not enough bookmarks
+
+  [error_public_not _enought_subtitle]
+    comment = FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue
+    en = [error_public_not _enought_subtitle]
+
+  [bookmark_public_upload_alert_title]
+    en = You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!
+
+  [bookmark_public_upload_alert_subtitle]
+    en = Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.
+
+  [bookmark_public_upload_alert_ok_button]
+    en = Yes, I'm sure!
+
+  [name_title]
+    en = Enter your guide's name
+
+  [name_placeholder]
+    comment = FIXME. e.g. Sightseeing in London
+    en = [name_placeholder]
+
+  [name_comment1]
+    comment = FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London".
+    en = [name_comment1]
+
+  [name_comment2]
+    comment = FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’.
+    en = [name_comment2]
+
+  [description_guide]
+    en = Description
+
+  [description_title]
+    en = Enter your guide's description
+
+  [description_placeholder]
+    en = Describe your guide in details
+
+  [description_comment1]
+    comment = FIXME. Guide description should contain at least 30 symbols (13 for oriental languages).
+    en = [description_comment1]
+
+  [ugc_route_tags_desc]
+    en = Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.
+
+  [html_format_error_title]
+    en = Your guide has not been published
+
+  [html_format_error_subtitle]
+    en = Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the "Edit online” button below.
+
+  [web_editor_description]
+    comment = FIXME. Upload your guide and get the link for edit from desktop
+    en = [web_editor_description]
+    ru =  Загрузите маршрут и получите ссылку для редактирования на компьютере
+
+  [edit_on_web_confirm]
+    en = Edit online
+
+  [update_guide]
+    en = Update guide
+    ru = Обновить маршрут
+
+  [direct_link_updating_text]
+    en = Updating your file…
+    ru = Обновляем ваш файл…
+
+  [direct_link_updating_success]
+    en = Guide has been updated
+
+  [unable_get_direct_link_desc]
+    comment = FIXME. You can share your guide by public link
+    en = [unable_get_direct_link_desc]
+    ru = Вы можете поделиться вашим маршрутом с помощью публичной ссылки
+
+  [any_access_update_alert_title]
+    en = Some changes may have occurred
+
+  [any_access_update_alert_message]
+    en = Do you want to update bookmarks? New version will be available at the same link.
+
+  [any_access_update_alert_update]
+    en = Update
+
+  [public_or_limited_access_after_edit_online_error_title]
+    en = You have edited you bookmarks online
+
+  [public_or_limited_access_after_edit_online_error_message]
+    en = Further on please edit, publish or share the guide with you friends via out website
+
+  [parthner_megafon_search_banner_message]
+    comment = FIXME
+    en = [parthner_megafon_search_banner_message]
+    ru = Роуминг, гудбай!
+
+  [parthner_megafon_search_banner_button]
+    comment = FIXME
+    en = [parthner_megafon_search_banner_button]
+    ru = Подробнее
+
+  [power_managment_title]
+    comment = FIXME. Power managment
+    en = [power_managment_title]
+
+  [power_managment_settings]
+    comment = FIXME. Power managment settings
+    en = [power_managment_settings]
+
+  [power_managment_description]
+    comment = FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level
+    en = [power_managment_description]
+
+  [power_managment_setting_never]
+    en = Never
+
+  [power_managment_setting_auto]
+    en = Auto
+
+  [power_managment_setting_manual_max]
+    en = Extreme power saving
+
+  [enable_logging_warning_message]
+    en = The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.
+
+  [html_error_upload_title]
+    en = Your guide has not been published
+
+  [html_error_upload_message]
+    en = Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the "Edit online" button below
+
