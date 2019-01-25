@@ -20,6 +20,7 @@ import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
@@ -84,6 +85,16 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
                                       onSubmitButtonClick();
                                       if (!ConnectionState.isConnected())
                                       {
+                                        if (isAuthorized())
+                                        {
+                                          Utils.toastShortcut(getContext(),
+                                                              R.string.ugc_thanks_message_auth);
+                                        }
+                                        else
+                                        {
+                                          Utils.toastShortcut(getContext(),
+                                                              R.string.ugc_thanks_message_not_auth);
+                                        }
                                         finishActivity();
                                         return;
                                       }
@@ -113,6 +124,11 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     {
       final Notifier notifier = Notifier.from(getActivity().getApplication());
       notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+      Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_auth);
+    }
+    else
+    {
+      Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_not_auth);
     }
 
     finishActivity();
@@ -134,6 +150,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+    Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_not_auth);
     finishActivity();
   }
 
@@ -141,6 +158,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
     Statistics.INSTANCE.trackUGCAuthFailed(type, error);
+    Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_not_auth);
     finishActivity();
   }
 
