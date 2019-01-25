@@ -132,8 +132,8 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        {37.409929478750627, 67.644798619710073}, {0., 0.},
-        {39.836562407458047, 65.774372510437971}, 239426.);
+        MercatorBounds::FromLatLon(55.85792, 37.40992), {0., 0.},
+        MercatorBounds::FromLatLon(54.79390, 39.83656), 239426.);
   }
 
   UNIT_TEST(RussiaMoscowBelarusMinsk)
@@ -148,16 +148,16 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        {-1.2653036222483705, 61.691304855049886}, {0., 0.},
-        {-5.4799407508360218, 58.242809563579847}, 455902.);
+        MercatorBounds::FromLatLon(52.37076, -1.26530), {0., 0.},
+        MercatorBounds::FromLatLon(50.21480, -5.47994), 455902.);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39ItalySienaCenterRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        {37.537596024929826, 67.536160359657288}, {0., 0.},
-        {11.327927635052676, 48.166256203616726}, 2870710.);
+        MercatorBounds::FromLatLon(55.79690, 37.53759), {0., 0.},
+        MercatorBounds::FromLatLon(43.32677, 11.32792), 2870710.);
   }
 
   UNIT_TEST(PeruSingleRoadTest)
