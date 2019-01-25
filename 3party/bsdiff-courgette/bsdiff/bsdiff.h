@@ -143,20 +143,9 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
   old_source.Read(old_buf.data(), old_buf.size());
   const uint8_t * old = old_buf.data();
 
-  std::vector<divsuf::saidx_t> I;
-  try
-  {
-    I.resize(old_size + 1);
-  }
-  catch (...)
-  {
-     LOG(LERROR, ("Could not allocate I[], ", ((old_size + 1) * sizeof(int)), "bytes"));
-     return MEM_ERROR;
-  }
-
+  std::vector<divsuf::saidx_t> suffix_array(old_size + 1);
   base::Timer suf_sort_timer;
-  divsuf::saint_t result = divsuf::divsufsort_include_empty(
-       old, I.data(), old_size);
+  divsuf::saint_t result = divsuf::divsufsort_include_empty(old, suffix_array.data(), old_size);
   LOG(LINFO, ("Done divsufsort", suf_sort_timer.ElapsedSeconds()));
   if (result != 0)
     return UNEXPECTED_ERROR;
@@ -221,8 +210,8 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 
     scan += match.size;
     for (int scsc = scan; scan < new_size; ++scan) {
-      match = search<decltype(I)>(
-          I, old, old_size, newbuf + scan, new_size - scan);
+      match = search<decltype(suffix_array)>(suffix_array, old, old_size, newbuf + scan,
+                                             new_size - scan);
 
       for (; scsc < scan + match.size; scsc++)
         if ((scsc + lastoffset < old_size) &&
@@ -348,7 +337,7 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 
   WriteVarUint(diff_skips.GetWriter(), pending_diff_zeros);
 
-  I.clear();
+  suffix_array.clear();
 
   MBSPatchHeader header;
   // The string will have a null terminator that we don't use, hence '-1'.

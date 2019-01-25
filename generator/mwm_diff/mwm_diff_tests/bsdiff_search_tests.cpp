@@ -19,9 +19,9 @@ UNIT_TEST(BSDiffSearchTest_Search)
   //                 012345678901234567890123456789012345678901234
   string const str = "the quick brown fox jumps over the lazy dog.";
   int const size = static_cast<int>(str.size());
-  unsigned char const * const buf = reinterpret_cast<unsigned char const * const>(str.data());
-  vector<divsuf::saidx_t> I(size + 1);
-  divsuf::divsufsort_include_empty(buf, I.data(), size);
+  auto buf = reinterpret_cast<unsigned char const * const>(str.data());
+  vector<divsuf::saidx_t> suffix_array(size + 1);
+  divsuf::divsufsort_include_empty(buf, suffix_array.data(), size);
 
   // Specific queries.
   struct
@@ -63,11 +63,11 @@ UNIT_TEST(BSDiffSearchTest_Search)
   {
     auto const & testCase = testCases[idx];
     int const querySize = static_cast<int>(testCase.m_query_str.size());
-    unsigned char const * const query_buf =
-        reinterpret_cast<unsigned char const * const>(testCase.m_query_str.data());
+    auto query_buf = reinterpret_cast<unsigned char const * const>(testCase.m_query_str.data());
 
     // Perform the search.
-    bsdiff::SearchResult const match = bsdiff::search<decltype(I)>(I, buf, size, query_buf, querySize);
+    bsdiff::SearchResult const match =
+        bsdiff::search<decltype(suffix_array)>(suffix_array, buf, size, query_buf, querySize);
 
     // Check basic properties and match with expected values.
     TEST_GREATER_OR_EQUAL(match.size, 0, ());
@@ -108,8 +108,8 @@ UNIT_TEST(BSDiffSearchTest_SearchExact)
     unsigned char const * const buf =
         reinterpret_cast<unsigned char const * const>(testCases[idx].data());
 
-    vector<divsuf::saidx_t> I(size + 1);
-    divsuf::divsufsort_include_empty(buf, I.data(), size);
+    vector<divsuf::saidx_t> suffix_array(size + 1);
+    divsuf::divsufsort_include_empty(buf, suffix_array.data(), size);
 
     // Test exact matches for every non-empty substring.
     for (int lo = 0; lo < size; ++lo)
@@ -122,7 +122,7 @@ UNIT_TEST(BSDiffSearchTest_SearchExact)
         unsigned char const * const query_buf =
             reinterpret_cast<unsigned char const * const>(query.c_str());
         bsdiff::SearchResult const match =
-            bsdiff::search<decltype(I)>(I, buf, size, query_buf, querySize);
+            bsdiff::search<decltype(suffix_array)>(suffix_array, buf, size, query_buf, querySize);
 
         TEST_EQUAL(querySize, match.size, ());
         TEST_GREATER_OR_EQUAL(match.pos, 0, ());

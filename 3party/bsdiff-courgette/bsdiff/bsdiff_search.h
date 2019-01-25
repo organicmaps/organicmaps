@@ -67,11 +67,11 @@ inline int matchlen(const unsigned char* buf1,
 }
 
 // Finds a suffix in |old| that has the longest common prefix with |keybuf|,
-// aided by suffix array |I| of |old|. Returns the match length, and writes to
+// aided by suffix array |sa| of |old|. Returns the match length, and writes to
 // |pos| a position of best match in |old|. If multiple such positions exist,
 // |pos| would take an arbitrary one.
 template <class T>
-SearchResult search(const T & I,
+SearchResult search(const T & sa,
                     const unsigned char* srcbuf,
                     int srcsize,
                     const unsigned char* keybuf,
@@ -81,15 +81,15 @@ SearchResult search(const T & I,
   while (hi - lo > 1) {
     int mid = (lo + hi) / 2;
     if (std::lexicographical_compare(
-            srcbuf + I[mid], srcbuf + srcsize, keybuf, keybuf + keysize)) {
+            srcbuf + sa[mid], srcbuf + srcsize, keybuf, keybuf + keysize)) {
       lo = mid;
     } else {
       hi = mid;
     }
   }
-  int x = matchlen(srcbuf + I[lo], keybuf, std::min(srcsize - I[lo], keysize));
-  int y = matchlen(srcbuf + I[hi], keybuf, std::min(srcsize - I[hi], keysize));
-  return (x > y) ? SearchResult(I[lo], x) : SearchResult(I[hi], y);
+  int x = matchlen(srcbuf + sa[lo], keybuf, std::min(srcsize - sa[lo], keysize));
+  int y = matchlen(srcbuf + sa[hi], keybuf, std::min(srcsize - sa[hi], keysize));
+  return (x > y) ? SearchResult(sa[lo], x) : SearchResult(sa[hi], y);
 }
 
 }  // namespace bsdiff
