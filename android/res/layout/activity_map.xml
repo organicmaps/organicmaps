@@ -74,27 +74,25 @@
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"/>
 </RelativeLayout>
-  <FrameLayout
-    android:id="@+id/pp_bottom_sheet"
+  <com.mapswithme.maps.widget.placepage.PlacePageView
+    android:id="@+id/placepage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fillViewport="true"
     app:behavior_hideable="true"
-    app:layout_behavior="@string/bottom_sheet_behavior">
-    <com.mapswithme.maps.widget.placepage.PlacePageView
-      android:id="@+id/placepage"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-  </FrameLayout>
+    app:layout_behavior="@string/bottom_sheet_behavior"/>
   <FrameLayout
     android:id="@+id/pp_buttons_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:visibility="invisible">
-    <include
-      android:id="@+id/pp_buttons"
-      layout="@layout/place_page_button_frame"
+    <LinearLayout
+      android:id="@+id/container"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="@dimen/place_page_buttons_height"
+      android:orientation="horizontal"
+      android:background="?ppButtonsBackground"/>
+    <include layout="@layout/divider_horizontal"/>
   </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

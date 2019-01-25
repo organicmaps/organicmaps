@@ -16,6 +16,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
@@ -30,7 +31,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private BottomSheetBehavior<View> mPpSheetBehavior;
+  private BottomSheetBehavior<View> mPlacePageBehavior;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mButtonsLayout;
@@ -49,7 +50,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     public void onStateChanged(@NonNull View bottomSheet, int newState)
     {
       LOGGER.d(TAG, "State change, new = " + BottomSheetPlacePageController.toString(newState)
-                    + " sheet height = " + mPpSheet.getHeight());
+                    + " placepage height = " + mPlacePage.getHeight());
       if (newState == BottomSheetBehavior.STATE_SETTLING
           || newState == BottomSheetBehavior.STATE_DRAGGING)
         return;
@@ -71,9 +72,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   };
 
   private int mLastPeekHeight;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPpSheet;
   private int mViewportMinHeight;
 
   public BottomSheetPlacePageController(@NonNull Activity activity)
@@ -85,17 +83,25 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void initialize()
   {
     mViewportMinHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
-    mPpSheet = mActivity.findViewById(R.id.pp_bottom_sheet);
-    mPpSheetBehavior = BottomSheetBehavior.from(mPpSheet);
-    mPpSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    mPpSheetBehavior.setBottomSheetCallback(mSheetCallback);
-    mPlacePage = mPpSheet.findViewById(R.id.placepage);
+    mPlacePage = mActivity.findViewById(R.id.placepage);
+    mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
+    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    mPlacePageBehavior.setBottomSheetCallback(mSheetCallback);
     mPlacePage.addOnLayoutChangeListener(this);
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
-    ViewGroup buttons = mButtonsLayout.findViewById(R.id.pp_buttons);
-    mPlacePage.initButtons(buttons.findViewById(R.id.container));
+    bringButtonsToFront();
+    ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
+    mPlacePage.initButtons(buttons);
     mPlacePageTracker = new PlacePageTracker(mPlacePage, buttons);
     LocationHelper.INSTANCE.addListener(this);
+  }
+
+  private void bringButtonsToFront()
+  {
+    if (Utils.isLollipopOrLater())
+      mButtonsLayout.setZ(mPlacePage.getZ() + 1);
+    else
+      mButtonsLayout.bringToFront();
   }
 
   @Override
@@ -110,7 +116,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePage.setMapObject(object, false, () -> {
       if (object.isExtendedView())
       {
-        mPpSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         return;
       }
 
@@ -122,12 +128,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
   private void openBottomSheet()
   {
-    mPpSheet.post(() -> {
+    mPlacePage.post(() -> {
       int peekHeight = getPeekHeight();
       LOGGER.d(TAG, "Peek height = " + peekHeight);
       mLastPeekHeight = peekHeight;
-      mPpSheetBehavior.setPeekHeight(mLastPeekHeight);
-      mPpSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      mPlacePageBehavior.setPeekHeight(mLastPeekHeight);
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     });
   }
 
@@ -139,7 +145,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void close()
   {
-    mPpSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePage.hide();
   }
 
@@ -180,7 +186,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public boolean isClosed()
   {
-    return mPpSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN;
+    return mPlacePageBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN;
   }
 
   @Override
@@ -206,8 +212,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
       oldTop, int oldRight, int oldBottom)
   {
-    LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPpSheetBehavior.getState()));
-    if (mPpSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED)
+    LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPlacePageBehavior.getState()));
+    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED)
       return;
 
     if (getPeekHeight() == mLastPeekHeight)
@@ -218,7 +224,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
   private void updateViewPortRect()
   {
-    View coordinatorLayout = (ViewGroup) mPpSheet.getParent();
+    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
     int viewPortWidth = coordinatorLayout.getWidth();
     int viewPortHeight = coordinatorLayout.getHeight();
     Rect sheetRect = new Rect();
