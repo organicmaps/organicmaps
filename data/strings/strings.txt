@@ -34779,40 +34779,6 @@
     zh-Hant = 正在加載標籤......
     fa = درحال بارگیری برچسبها…
 
-  [ugc_route_tags_desc]
-    en = Please select tags to help other travellers find your guide. This is mandatory.
-    ru = Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.
-    ar = .يرجى تحديد العلامات لمساعدة المسافرين الآخرين في العثور على دليلك. وهذا إلزامي
-    cs = Vyberte prosím tagy, abyste ostatním cestovatelům pomohli najít váš průvodce. Povinné.
-    da = Vælg nogle tags for at gøre det nemmere for andre at finde din guide. Dette er obligatorisk.
-    nl = Gelieve tags te kiezen om andere reizigers te helpen uw gids te vinden. Dit is verplicht.
-    fi = Ole hyvä, valitse tunnisteet, jotta muut matkustajat löytävät matkaoppaasi. Tämä on pakollista.
-    fr = Sélectionnez des tags pour aider les autres voyageurs à trouver votre guide. C'est obligatoire.
-    de = Bitte wählen Sie Tags, um anderen Reisenden zu helfen, Ihr Reiseführer zu finden. Das ist obligatorisch.
-    hu = Kérjük, válassza ki a tag-ket, hogy segítsen a többi utazónak megtalálni az Ön útikalauzát. Ez kötelező.
-    id = Silakan pilih tag untuk membantu pelancong lain menemukan panduan Anda. Ini wajib.
-    it = Scegliere i tag per aiutare altri viaggiatori a trovare la tua guida. E' obbligatorio.
-    ja = 他の旅行者があなたのガイドを見つけられるようにタグを選択してください。これは必須です。
-    ko = 당신의 가이드에서 다른 여행객을 돕기 위한 태그를 선택하세요. 필수입니다.
-    nb = Vennligst velg emneknagger for å hjelpe andre til å finne guiden din. Obligatorisk.
-    pl = Proszę, wybierz tagi, aby ułatwić innym podróżnym odnalezienie Twojego przewodnika. Jest to obowiązkowe.
-    pt = Por favor, selecione tags para ajudar aos outros viajantes encontrar o seu guia. É obrigatório.
-    pt-BR = Por favor, selecione as tags para ajudar os viajantes a encontrarem seu guia. Isto é obrigatório.
-    ro = Vă rugăm, alegeți tag-urile pentru a ajuta alți turiști să găsească ghidul dvs. Acest lucru este obligatoriu.
-    es = Por favor, seleccione las etiquetas para ayudar a otros viajeros a encontrar su guía. Esto es obligatorio.
-    es-MX = Por favor seleccione las etiquetas para ayudar a otros viajeros a encontrar su guía. Esto es obligatorio.
-    sv = Var vänlig välj taggar för att hjälpa andra resenärer att hitta din reseguide. Detta är ett måste.
-    th = โปรดเลือกแท็กเพื่อช่วยให้นักท่องเที่ยวคนอื่นๆ พบไกด์ของคุณ จำเป็นต้องเลือก
-    tr = Diğer gezginlerin kılavuzunuzu bulmasına yardımcı olmak için lütfen etiketleri seçin. Bu zorunludur.
-    uk = Просимо вибрати теги, або допомогти іншим мандрівникам знайти ваш путівник. Це обов’язково.
-    vi = Vui lòng chọn thẻ để giúp những khách du lịch khác tìm thấy hướng dẫn của bạn. Điều này là bắt buộc.
-    el = Παρακαλώ επιλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον οδηγό σας. Αυτό είναι υποχρεωτικό.
-    sk = Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť vášho sprievodcu. Toto je povinné.
-    sw = Tafadhali chagua vibandiko ili kuwasaidia wasafiri wengine. Hii ni lazima.
-    zh-Hans = 请选择标签以帮助其他旅行者找到您的旅行指南。此为必填项。
-    zh-Hant = 請選擇標籤以幫助其他旅行者找到您的旅行指南。此為必填項。
-    fa = لطفا برچسبها را برای کمک به مسافران دیگر برای یافتن راهنمای شما، انتخاب نمایید. این الزامی است.
-
   [public_access]
     en = Public access
     ru = Публичный доступ
@@ -37265,25 +37231,25 @@
     en = [parthner_megafon_search_banner_button]
     ru = Подробнее
 
-  [power_managment_title]
+  [power_management_title]
     comment = FIXME. Power managment
-    en = [power_managment_title]
+    en = [power_management_title]
 
-  [power_managment_settings]
+  [power_management_settings]
     comment = FIXME. Power managment settings
-    en = [power_managment_settings]
+    en = [power_management_settings]
 
-  [power_managment_description]
+  [power_management_description]
     comment = FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level
-    en = [power_managment_description]
+    en = [power_management_description]
 
-  [power_managment_setting_never]
+  [power_management_setting_never]
     en = Never
 
-  [power_managment_setting_auto]
+  [power_management_setting_auto]
     en = Auto
 
-  [power_managment_setting_manual_max]
+  [power_management_setting_manual_max]
     en = Extreme power saving
 
   [enable_logging_warning_message]
