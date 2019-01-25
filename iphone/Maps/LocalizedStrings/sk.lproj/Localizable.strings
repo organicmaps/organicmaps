@@ -2641,35 +2641,99 @@
 
 "whats_new_ugc_routes_title_android_only" = "Je ľahké podeliť sa o vaše dojmy";
 
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_title" = "power management";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_settings" = "power management settings";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_description" = "when automatic mode is selected...";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_setting_never" = "never";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_management_setting_auto" = "auto";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_setting_manual_max" = "extreme power saving";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 */
-"notification_leave_review_title2" = "Have you been here - %s?";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 */
-"notification_leave_review_content2" = "It's time to help other travellers and rate it!";
-
-/* FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 */
 "ugc_thanks_message_auth" = "Your review has been saved";
 
-/* FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 */
-"ugc_thanks_message_not_auth" = "Please log in to upload a review";
+"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+
+"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+
+"error_public_not_enought_title" = "Not enough bookmarks";
+
+/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
+"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+
+"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+
+"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+
+"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+
+"name_title" = "Enter your guide's name";
+
+/* FIXME. e.g. Sightseeing in London */
+"name_placeholder" = "[name_placeholder]";
+
+/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
+"name_comment1" = "[name_comment1]";
+
+/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
+"name_comment2" = "[name_comment2]";
+
+"description_guide" = "Description";
+
+"description_title" = "Enter your guide's description";
+
+"description_placeholder" = "Describe your guide in details";
+
+/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
+"description_comment1" = "[description_comment1]";
+
+"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+
+"html_format_error_title" = "Your guide has not been published";
+
+"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+
+/* FIXME. Upload your guide and get the link for edit from desktop */
+"web_editor_description" = "[web_editor_description]";
+
+"edit_on_web_confirm" = "Edit online";
+
+"update_guide" = "Update guide";
+
+"direct_link_updating_text" = "Updating your file…";
+
+"direct_link_updating_success" = "Guide has been updated";
+
+/* FIXME. You can share your guide by public link */
+"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+
+"any_access_update_alert_title" = "Some changes may have occurred";
+
+"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+
+"any_access_update_alert_update" = "Update";
+
+"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+
+"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+
+/* FIXME */
+"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+
+/* FIXME */
+"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+
+/* FIXME. Power managment */
+"power_managment_title" = "[power_managment_title]";
+
+/* FIXME. Power managment settings */
+"power_managment_settings" = "[power_managment_settings]";
+
+/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
+"power_managment_description" = "[power_managment_description]";
+
+"power_managment_setting_never" = "Never";
+
+"power_managment_setting_auto" = "Auto";
+
+"power_managment_setting_manual_max" = "Extreme power saving";
+
+"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+
+"html_error_upload_title" = "Your guide has not been published";
+
+"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
 
 
 /**********  Partners  **********/

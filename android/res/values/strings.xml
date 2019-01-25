@@ -1526,26 +1526,59 @@
 	<string name="whatsnew_paid_routes_title">More new experiences!</string>
 	<string name="whatsnew_paid_routes_message">In addition to the free routes, we have added 3 paid route categories to our catalog. Over 700 new routes!</string>
 	<string name="whats_new_ugc_routes_title_android_only">Easy to share your impressions</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_management_title">power management</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_management_settings">power management settings</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_management_description">when automatic mode is selected...</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_management_setting_never">never</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_management_setting_auto">auto</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_setting_manual_max">extreme power saving</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 -->
-	<string name="notification_leave_review_title2">Have you been here - %s?</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 -->
-	<string name="notification_leave_review_content2">It\'s time to help other travellers and rate it!</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 -->
 	<string name="ugc_thanks_message_auth">Your review has been saved</string>
-	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/UGC+Notifications#UGCNotifications-Newinv2 -->
-	<string name="ugc_thanks_message_not_auth">Please log in to upload a review</string>
+	<string name="ugc_thanks_message_not_auth">Please log in to leave a review</string>
+	<string name="notification_leave_review_v2_title">Rate a place and help travellers!</string>
+	<string name="error_public_not_enought_title">Not enough bookmarks</string>
+	<!-- FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue -->
+	<string name="error_public_not_enought_subtitle">[error_public_not _enought_subtitle]</string>
+	<string name="bookmark_public_upload_alert_title">You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!</string>
+	<string name="bookmark_public_upload_alert_subtitle">Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.</string>
+	<string name="bookmark_public_upload_alert_ok_button">Yes, I\'m sure!</string>
+	<string name="name_title">Enter your guide\'s name</string>
+	<!-- FIXME. e.g. Sightseeing in London -->
+	<string name="name_placeholder">[name_placeholder]</string>
+	<!-- FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". -->
+	<string name="name_comment1">[name_comment1]</string>
+	<!-- FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. -->
+	<string name="name_comment2">[name_comment2]</string>
+	<string name="description_guide">Description</string>
+	<string name="description_title">Enter your guide\'s description</string>
+	<string name="description_placeholder">Describe your guide in details</string>
+	<!-- FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). -->
+	<string name="description_comment1">[description_comment1]</string>
+	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.</string>
+	<string name="html_format_error_title">Your guide has not been published</string>
+	<string name="html_format_error_subtitle">Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.</string>
+	<!-- FIXME. Upload your guide and get the link for edit from desktop -->
+	<string name="web_editor_description">[web_editor_description]</string>
+	<string name="edit_on_web_confirm">Edit online</string>
+	<string name="update_guide">Update guide</string>
+	<string name="direct_link_updating_text">Updating your file…</string>
+	<string name="direct_link_updating_success">Guide has been updated</string>
+	<!-- FIXME. You can share your guide by public link -->
+	<string name="unable_get_direct_link_desc">[unable_get_direct_link_desc]</string>
+	<string name="any_access_update_alert_title">Some changes may have occurred</string>
+	<string name="any_access_update_alert_message">Do you want to update bookmarks? New version will be available at the same link.</string>
+	<string name="any_access_update_alert_update">Update</string>
+	<string name="public_or_limited_access_after_edit_online_error_title">You have edited you bookmarks online</string>
+	<string name="public_or_limited_access_after_edit_online_error_message">Further on please edit, publish or share the guide with you friends via out website</string>
+	<!-- FIXME -->
+	<string name="parthner_megafon_search_banner_message">[parthner_megafon_search_banner_message]</string>
+	<!-- FIXME -->
+	<string name="parthner_megafon_search_banner_button">[parthner_megafon_search_banner_button]</string>
+	<!-- FIXME. Power managment -->
+	<string name="power_managment_title">[power_managment_title]</string>
+	<!-- FIXME. Power managment settings -->
+	<string name="power_managment_settings">[power_managment_settings]</string>
+	<!-- FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level -->
+	<string name="power_managment_description">[power_managment_description]</string>
+	<string name="power_managment_setting_never">Never</string>
+	<string name="power_managment_setting_auto">Auto</string>
+	<string name="power_managment_setting_manual_max">Extreme power saving</string>
+	<string name="enable_logging_warning_message">The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.</string>
+	<string name="html_error_upload_title">Your guide has not been published</string>
+	<string name="html_error_upload_message">Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

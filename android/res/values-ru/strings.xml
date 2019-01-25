@@ -1514,6 +1514,16 @@
 	<string name="whatsnew_paid_routes_title">Больше новых впечатлений!</string>
 	<string name="whatsnew_paid_routes_message">В дополнение к бесплатным маршрутам мы добавили в каталог 3 категории платных путеводителей. Более 700 новых маршрутов!</string>
 	<string name="whats_new_ugc_routes_title_android_only">Делиться впечатлениями просто</string>
+	<!-- FIXME. Upload your guide and get the link for edit from desktop -->
+	<string name="web_editor_description">Загрузите маршрут и получите ссылку для редактирования на компьютере</string>
+	<string name="update_guide">Обновить маршрут</string>
+	<string name="direct_link_updating_text">Обновляем ваш файл…</string>
+	<!-- FIXME. You can share your guide by public link -->
+	<string name="unable_get_direct_link_desc">Вы можете поделиться вашим маршрутом с помощью публичной ссылки</string>
+	<!-- FIXME -->
+	<string name="parthner_megafon_search_banner_message">Роуминг, гудбай!</string>
+	<!-- FIXME -->
+	<string name="parthner_megafon_search_banner_button">Подробнее</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

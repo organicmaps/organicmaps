@@ -37163,10 +37163,10 @@
   [notification_leave_review_v2_title]
     en = Rate a place and help travellers!
 
-  [error_public_not _enought_title]
+  [error_public_not_enought_title]
     en = Not enough bookmarks
 
-  [error_public_not _enought_subtitle]
+  [error_public_not_enought_subtitle]
     comment = FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue
     en = [error_public_not _enought_subtitle]
 
