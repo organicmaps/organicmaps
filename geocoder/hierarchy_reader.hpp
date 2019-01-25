@@ -31,6 +31,7 @@ private:
 
   void DeserializeEntryMap(std::vector<std::string> const & linesBuffer, int const bufferSize,
                            std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
+
   std::vector<Entry> MergeEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
 
   boost::iostreams::filtering_istream m_fileStream;

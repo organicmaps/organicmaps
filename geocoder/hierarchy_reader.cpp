@@ -153,9 +153,10 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, in
     if (entry.m_type == Type::Count)
       continue;
 
-    ++stats.m_numLoaded;
-    if (stats.m_numLoaded % kLogBatch == 0)
-      LOG(LINFO, ("Read", (stats.m_numLoaded / kLogBatch) * kLogBatch, "entries"));
+    auto numLoaded = stats.m_numLoaded.fetch_add(1) + 1;
+
+    if (numLoaded % kLogBatch == 0)
+      LOG(LINFO, ("Read", numLoaded, "entries"));
 
     entries.emplace(osmId, move(entry));
   }
