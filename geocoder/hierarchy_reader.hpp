@@ -5,7 +5,8 @@
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
 
-#include <fstream>
+#include <boost/iostreams/filtering_stream.hpp>
+
 #include <map>
 #include <mutex>
 #include <string>
@@ -27,9 +28,12 @@ public:
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
-  std::vector<Entry> UnionEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
 
-  std::ifstream m_fileStm;
+  void DeserializeEntryMap(std::vector<std::string> const & linesBuffer, int const bufferSize,
+                           std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
+  std::vector<Entry> MergeEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
+
+  boost::iostreams::filtering_istream m_fileStream;
   std::mutex m_mutex;
 };
 } // namespace geocoder

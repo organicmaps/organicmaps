@@ -1,7 +1,12 @@
 #include "geocoder/hierarchy_reader.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
+#include <boost/iostreams/device/file.hpp>
+#include <boost/iostreams/filter/gzip.hpp>
+
+#include <queue>
 #include <thread>
 
 using namespace std;
@@ -14,10 +19,15 @@ namespace
 size_t const kLogBatch = 100000;
 } // namespace
 
-HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy) :
-  m_fileStm{pathToJsonHierarchy}
+HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy)
 {
-  if (!m_fileStm)
+  using namespace boost::iostreams;
+
+  if (strings::EndsWith(pathToJsonHierarchy, ".gz"))
+    m_fileStream.push(gzip_decompressor());
+  m_fileStream.push(file_source(pathToJsonHierarchy));
+
+  if (!m_fileStream)
     MYTHROW(OpenException, ("Failed to open file", pathToJsonHierarchy));
 }
 
@@ -25,7 +35,8 @@ vector<Hierarchy::Entry> HierarchyReader::ReadEntries(size_t readersCount, Parsi
 {
   LOG(LINFO, ("Reading entries..."));
 
-  readersCount = min(readersCount, size_t{8});
+  readersCount = min(readersCount, size_t{thread::hardware_concurrency()});
+
   vector<multimap<base::GeoObjectId, Entry>> taskEntries(readersCount);
   vector<thread> tasks{};
   for (size_t t = 0; t < readersCount; ++t)
@@ -37,10 +48,10 @@ vector<Hierarchy::Entry> HierarchyReader::ReadEntries(size_t readersCount, Parsi
   if (stats.m_numLoaded % kLogBatch != 0)
     LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
 
-  return UnionEntries(taskEntries);
+  return MergeEntries(taskEntries);
 }
 
-vector<Hierarchy::Entry> HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & entryParts)
+vector<Hierarchy::Entry> HierarchyReader::MergeEntries(vector<multimap<base::GeoObjectId, Entry>> & entryParts)
 {
   auto entries = vector<Entry>{};
 
@@ -50,20 +61,30 @@ vector<Hierarchy::Entry> HierarchyReader::UnionEntries(vector<multimap<base::Geo
 
   entries.reserve(size);
 
-  LOG(LINFO, ("Sorting entries..."));
+  LOG(LINFO, ("Merging entries..."));
 
-  while (entryParts.size())
+  using PartReference = reference_wrapper<multimap<base::GeoObjectId, Entry>>;
+  struct ReferenceGreater
   {
-    auto minPart = min_element(entryParts.begin(), entryParts.end());
+    bool operator () (PartReference const & l, PartReference const & r) const noexcept
+    { return l.get() > r.get(); }
+  };
 
-    if (minPart->size())
+  auto partsQueue = priority_queue<PartReference, std::vector<PartReference>, ReferenceGreater>
+                      (entryParts.begin(), entryParts.end());
+  while (partsQueue.size())
+  {
+    auto & minPart = partsQueue.top().get();
+    partsQueue.pop();
+
+    while (minPart.size() && (partsQueue.empty() || minPart <= partsQueue.top().get()))
     {
-      entries.emplace_back(move(minPart->begin()->second));
-      minPart->erase(minPart->begin());
+      entries.emplace_back(move(minPart.begin()->second));
+      minPart.erase(minPart.begin());
     }
 
-    if (minPart->empty())
-      entryParts.erase(minPart);
+    if (minPart.size())
+      partsQueue.push(ref(minPart));
   }
 
   return entries;
@@ -74,35 +95,59 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
   // Temporary local object for efficient concurent processing (individual cache line for container).
   auto localEntries = multimap<base::GeoObjectId, Entry>{};
 
-  string line;
+  int const kLineBufferCapacity = 10000;
+  vector<string> linesBuffer(kLineBufferCapacity);
+  int bufferSize = 0;
+
   while (true)
   {
+    bufferSize = 0;
+
     {
       auto && lock = lock_guard<mutex>(m_mutex);
-  
-      if (!getline(m_fileStm, line))
-        break;
+
+      for (; bufferSize < kLineBufferCapacity; ++bufferSize)
+      {
+        if (!getline(m_fileStream, linesBuffer[bufferSize]))
+          break;
+      }
     }
-        
+
+    if (!bufferSize)
+      break;
+
+    DeserializeEntryMap(linesBuffer, bufferSize, localEntries, stats);
+  }
+
+  entries = move(localEntries);
+}
+
+void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, int const bufferSize, 
+  multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats)
+{
+  for (int i = 0; i < bufferSize; ++i)
+  {
+    auto & line = linesBuffer[i];
+
     if (line.empty())
       continue;
 
-    auto const i = line.find(' ');
+    auto const p = line.find(' ');
     int64_t encodedId;
-    if (i == string::npos || !strings::to_any(line.substr(0, i), encodedId))
+    if (p == string::npos || !strings::to_any(line.substr(0, p), encodedId))
     {
       LOG(LWARNING, ("Cannot read osm id. Line:", line));
       ++stats.m_badOsmIds;
       continue;
     }
-    line = line.substr(i + 1);
+    auto json = line.substr(p + 1);
 
     Entry entry;
     // todo(@m) We should really write uints as uints.
     auto const osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
     entry.m_osmId = osmId;
 
-    if (!entry.DeserializeFromJSON(line, stats))
+    if (!entry.DeserializeFromJSON(json, stats))
       continue;
 
     if (entry.m_type == Type::Count)
@@ -112,9 +157,7 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
     if (stats.m_numLoaded % kLogBatch == 0)
       LOG(LINFO, ("Read", (stats.m_numLoaded / kLogBatch) * kLogBatch, "entries"));
 
-    localEntries.emplace(osmId, move(entry));
+    entries.emplace(osmId, move(entry));
   }
-
-  entries = move(localEntries);
 }
 } // namespace geocoder

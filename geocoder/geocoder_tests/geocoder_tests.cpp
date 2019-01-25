@@ -54,35 +54,6 @@ void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && e
   }
 }
 
-UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
-{
-  ScopedFile const regionsJsonFile("regions.jsonl", "");
-  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
-
-  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), 0, ());
-}
-
-UNIT_TEST(Geocoder_BigFileConcurrentRead)
-{
-  int const kEntryCount = 1000000;
-
-  stringstream s;
-  for (int i = 0; i < kEntryCount; ++i)
-  {
-    s << i << " "
-      << "{"
-      << R"("type": "Feature",)"
-      << R"("geometry": {"type": "Point", "coordinates": [0, 0]},)"
-      << R"("properties": {"name": ")" << i << R"(", "rank": 2, "address": {"country": ")" << i << R"("}})"
-      << "}\n";
-  }
-
-  ScopedFile const regionsJsonFile("regions.jsonl", s.str());
-  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
-
-  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), kEntryCount, ());
-}
-
 UNIT_TEST(Geocoder_Smoke)
 {
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
@@ -179,5 +150,34 @@ UNIT_TEST(Geocoder_MismatchedLocality)
 
   // "Street 3" looks almost like a match to "Paris-Street-3" but we should not emit it.
   TestGeocoder(geocoder, "Moscow Street 3", {});
+}
+
+UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
+{
+  ScopedFile const regionsJsonFile("regions.jsonl", "");
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+
+  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), 0, ());
+}
+
+UNIT_TEST(Geocoder_BigFileConcurrentRead)
+{
+  int const kEntryCount = 1000000;
+
+  stringstream s;
+  for (int i = 0; i < kEntryCount; ++i)
+  {
+    s << i << " "
+      << "{"
+      << R"("type": "Feature",)"
+      << R"("geometry": {"type": "Point", "coordinates": [0, 0]},)"
+      << R"("properties": {"name": ")" << i << R"(", "rank": 2, "address": {"country": ")" << i << R"("}})"
+      << "}\n";
+  }
+
+  ScopedFile const regionsJsonFile("regions.jsonl", s.str());
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+
+  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), kEntryCount, ());
 }
 }  // namespace geocoder
