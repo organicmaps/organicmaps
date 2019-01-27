@@ -13,6 +13,7 @@
 
 #include <cstdint>
 #include <utility>
+#include <vector>
 
 namespace dp
 {
@@ -39,7 +40,8 @@ protected:
   VulkanObjectManager::StagingPointer m_defaultStagingBuffer;
   VulkanObject m_temporaryStagingBuffer;
   uint32_t m_mappingByteOffset = 0;
-  uint32_t m_mappingSizeInBytes = 0;
+  std::vector<VkBufferCopy> m_regionsToCopy;
+  std::vector<VkBufferMemoryBarrier> m_barriers;
 };
   
 class VulkanGpuBufferImpl : public DataBufferImpl<VulkanGPUBuffer>
