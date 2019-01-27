@@ -2125,11 +2125,13 @@ void FrontendRenderer::OnContextDestroy()
 
   m_transitBackground.reset();
   m_debugRectRenderer.reset();
+
+  CHECK(m_context != nullptr, ());
+  m_gpuProgramManager->Destroy(m_context);
   m_gpuProgramManager.reset();
 
   // Here we have to erase weak pointer to the context, since it
   // can be destroyed after this method.
-  CHECK(m_context != nullptr, ());
   m_context->DoneCurrent();
   m_context = nullptr;
 
@@ -2279,7 +2281,6 @@ void FrontendRenderer::ReleaseResources()
   m_transitSchemeRenderer.reset();
   m_postprocessRenderer.reset();
   m_transitBackground.reset();
-
   m_gpuProgramManager.reset();
 
   // Here m_context can be nullptr, so call the method

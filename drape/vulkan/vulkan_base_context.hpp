@@ -12,7 +12,10 @@
 
 #include <boost/optional.hpp>
 
+#include <array>
 #include <cstdint>
+#include <functional>
+#include <vector>
 
 namespace dp
 {
@@ -25,6 +28,8 @@ public:
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<VulkanObjectManager> objectManager);
+
+  using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
 
   void Present() override;
   void MakeCurrent() override {}
@@ -69,17 +74,29 @@ public:
 
   VkCommandBuffer GetCurrentCommandBuffer() const { CHECK(false, ("Implement me")); return nullptr; }
 
+  enum class HandlerType : uint8_t
+  {
+    PrePresent = 0,
+    PostPresent,
+
+    Count
+  };
+  uint32_t RegisterHandler(HandlerType handlerType, ContextHandler && handler);
+  void UnregisterHandler(uint32_t id);
+
 protected:
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
   VkPhysicalDeviceProperties const m_gpuProperties;
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
+
   ref_ptr<VulkanObjectManager> m_objectManager;
-
   std::shared_ptr<DeviceHolder> m_deviceHolder;
-
   boost::optional<VkSurfaceKHR> m_surface;
+
+  std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
+             static_cast<size_t>(HandlerType::Count)> m_handlers;
 
   uint32_t m_stencilReferenceValue = 1;
 };

@@ -1,6 +1,7 @@
 #include "shaders/vulkan_program_pool.hpp"
 #include "shaders/program_params.hpp"
 
+#include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "platform/platform.hpp"
@@ -115,11 +116,11 @@ VkShaderModule LoadShaderModule(VkDevice device, std::string const & filename)
 }
 }  // namespace
 
-VulkanProgramPool::VulkanProgramPool(dp::vulkan::DeviceHolderPtr deviceHolder)
-  : m_deviceHolder(deviceHolder)
+VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
 {
-  auto devicePtr = m_deviceHolder.lock();
-  CHECK(devicePtr != nullptr, ());
+  ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+  VkDevice device = vulkanContext->GetDevice();
+
   auto reflection = ReadReflectionFile(base::JoinPath(kShadersDir, kShadersReflecton));
   CHECK_EQUAL(reflection.size(), static_cast<size_t>(Program::ProgramsCount), ());
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
@@ -128,8 +129,8 @@ VulkanProgramPool::VulkanProgramPool(dp::vulkan::DeviceHolderPtr deviceHolder)
     m_programs[i] = make_unique_dp<dp::vulkan::VulkanGpuProgram>(
       programName,
       std::move(reflection[i]),
-      LoadShaderModule(devicePtr->m_device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
-      LoadShaderModule(devicePtr->m_device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
+      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
+      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
   }
 
   ProgramParams::Init();
@@ -138,17 +139,22 @@ VulkanProgramPool::VulkanProgramPool(dp::vulkan::DeviceHolderPtr deviceHolder)
 VulkanProgramPool::~VulkanProgramPool()
 {
   ProgramParams::Destroy();
+  ASSERT(m_programs.front() == nullptr, ());
+}
 
-  auto devicePtr = m_deviceHolder.lock();
-  CHECK(devicePtr != nullptr, ());
+void VulkanProgramPool::Destroy(ref_ptr<dp::GraphicsContext> context)
+{
+  ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+  VkDevice device = vulkanContext->GetDevice();
 
   for (auto & p : m_programs)
   {
     if (p != nullptr)
     {
-      vkDestroyShaderModule(devicePtr->m_device, p->GetVertexShader(), nullptr);
-      vkDestroyShaderModule(devicePtr->m_device, p->GetFragmentShader(), nullptr);
+      vkDestroyShaderModule(device, p->GetVertexShader(), nullptr);
+      vkDestroyShaderModule(device, p->GetFragmentShader(), nullptr);
     }
+    p.reset();
   }
 }
 

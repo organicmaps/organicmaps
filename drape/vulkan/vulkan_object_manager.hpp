@@ -69,7 +69,6 @@ private:
   uint8_t * m_defaultStagingBufferPtr = nullptr;
   uint32_t m_defaultStagingBufferAlignment = 0;
   uint32_t m_defaultStagingBufferOffset = 0;
-  std::vector<VkMappedMemoryRange> m_regionsToFlush;
 
   std::mutex m_mutex;
 };

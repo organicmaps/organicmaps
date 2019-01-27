@@ -4,6 +4,8 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
+#include <limits>
 #include <sstream>
 
 namespace dp
@@ -67,12 +69,42 @@ void VulkanBaseContext::Present()
   // It guarantees the graphics data coherence.
   m_objectManager->FlushDefaultStagingBuffer();
 
+  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
+    h.second(make_ref(this));
+
+  // TODO: wait for all map-memory operations.
+
   // TODO: submit queue, wait for finishing of rendering.
+
+  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
+    h.second(make_ref(this));
 
   // Resetting of the default staging buffer and collecting destroyed objects must be
   // only after the finishing of rendering. It prevents data collisions.
   m_objectManager->ResetDefaultStagingBuffer();
   m_objectManager->CollectObjects();
+}
+
+uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHandler && handler)
+{
+  static uint32_t counter = 0;
+  CHECK_LESS(counter, std::numeric_limits<uint32_t>::max(), ());
+  ASSERT(handler != nullptr, ());
+  uint32_t const id = ++counter;
+  m_handlers[static_cast<uint32_t>(handlerType)].emplace_back(std::make_pair(id, std::move(handler)));
+  return id;
+}
+
+void VulkanBaseContext::UnregisterHandler(uint32_t id)
+{
+  for (size_t i = 0; i < m_handlers.size(); ++i)
+  {
+    m_handlers[i].erase(std::remove_if(m_handlers[i].begin(), m_handlers[i].end(),
+                                       [id](std::pair<uint8_t, ContextHandler> const & p)
+    {
+      return p.first == id;
+    }), m_handlers[i].end());
+  }
 }
 }  // namespace vulkan
 }  // namespace dp

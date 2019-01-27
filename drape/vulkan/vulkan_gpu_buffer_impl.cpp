@@ -97,12 +97,15 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
     CHECK(m_temporaryStagingBuffer.m_buffer != 0, ());
     stagingBuffer = m_temporaryStagingBuffer.m_buffer;
 
-    VkMappedMemoryRange mappedRange = {};
-    mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-    mappedRange.memory = m_temporaryStagingBuffer.m_allocation->m_memory;
-    mappedRange.offset = m_temporaryStagingBuffer.m_allocation->m_alignedOffset;
-    mappedRange.size = m_temporaryStagingBuffer.m_allocation->m_alignedSize;
-    CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
+    if (!m_temporaryStagingBuffer.m_allocation->m_isCoherent)
+    {
+      VkMappedMemoryRange mappedRange = {};
+      mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
+      mappedRange.memory = m_temporaryStagingBuffer.m_allocation->m_memory;
+      mappedRange.offset = m_temporaryStagingBuffer.m_allocation->m_alignedOffset;
+      mappedRange.size = m_temporaryStagingBuffer.m_allocation->m_alignedSize;
+      CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
+    }
     vkUnmapMemory(device, m_temporaryStagingBuffer.m_allocation->m_memory);
     CHECK_VK_CALL(vkBindBufferMemory(device, m_temporaryStagingBuffer.m_buffer,
                                      m_temporaryStagingBuffer.m_allocation->m_memory,

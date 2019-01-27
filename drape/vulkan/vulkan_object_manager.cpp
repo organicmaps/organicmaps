@@ -1,6 +1,8 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
+#include <algorithm>
+
 namespace dp
 {
 namespace vulkan
@@ -30,9 +32,6 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
                             m_defaultStagingBuffer.m_allocation->m_alignedOffset,
                             m_defaultStagingBuffer.m_allocation->m_alignedSize, 0,
                             reinterpret_cast<void **>(&m_defaultStagingBufferPtr)));
-
-  if (!m_defaultStagingBuffer.m_allocation->m_isCoherent)
-    m_regionsToFlush.reserve(10);
 }
 
 VulkanObjectManager::~VulkanObjectManager()
@@ -135,20 +134,11 @@ VulkanObjectManager::StagingPointer VulkanObjectManager::GetDefaultStagingBuffer
   auto const alignedOffset = m_defaultStagingBufferOffset;
   uint8_t * ptr = m_defaultStagingBufferPtr + alignedOffset;
 
-  if (!m_defaultStagingBuffer.m_allocation->m_isCoherent)
-  {
-    VkMappedMemoryRange mappedRange = {};
-    mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-    mappedRange.memory = m_defaultStagingBuffer.m_allocation->m_memory;
-    mappedRange.offset = alignedOffset;
-    mappedRange.size = alignedSize;
-    m_regionsToFlush.push_back(std::move(mappedRange));
-  }
-
   // Update offset and align it.
   m_defaultStagingBufferOffset += alignedSize;
   auto const alignment = m_memoryManager.GetOffsetAlignment(VulkanMemoryManager::ResourceType::Staging);
-  m_defaultStagingBufferOffset = m_memoryManager.GetAligned(m_defaultStagingBufferOffset, alignment);
+  m_defaultStagingBufferOffset = std::min(m_memoryManager.GetAligned(m_defaultStagingBufferOffset, alignment),
+                                          m_defaultStagingBuffer.m_allocation->m_alignedSize);
 
   StagingPointer stagingDataPtr;
   stagingDataPtr.m_stagingData.m_stagingBuffer = m_defaultStagingBuffer.m_buffer;
@@ -201,12 +191,15 @@ VulkanObjectManager::StagingData VulkanObjectManager::CopyWithTemporaryStagingBu
 void VulkanObjectManager::FlushDefaultStagingBuffer()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_defaultStagingBuffer.m_allocation->m_isCoherent)
+  if (m_defaultStagingBuffer.m_allocation->m_isCoherent || m_defaultStagingBufferOffset == 0)
     return;
 
-  CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, static_cast<uint32_t>(m_regionsToFlush.size()),
-                                          m_regionsToFlush.data()));
-  m_regionsToFlush.clear();
+  VkMappedMemoryRange mappedRange = {};
+  mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
+  mappedRange.memory = m_defaultStagingBuffer.m_allocation->m_memory;
+  mappedRange.offset = m_defaultStagingBuffer.m_allocation->m_alignedOffset;
+  mappedRange.size = mappedRange.offset + m_defaultStagingBufferOffset;
+  CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, 1, &mappedRange));
 }
 
 void VulkanObjectManager::ResetDefaultStagingBuffer()
