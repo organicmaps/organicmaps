@@ -96,14 +96,34 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mUploadAndPublishText;
+  private TextView mUploadAndPublishText;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mGetDirectLinkText;
+  private TextView mGetDirectLinkText;
 
   @Nullable
   private BookmarkCategory.AccessRules mCurrentMode;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mUpdateGuideDirectLinkBtn;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mUpdateGuidePublicAccessBtn;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mDirectLinkCreatedText;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mDirectLinkDescriptionText;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mShareDirectLinkBtn;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -139,8 +159,15 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     mGetDirectLinkCompletedStatusContainer = root.findViewById(R.id.get_direct_link_completed_status_container);
     mUploadAndPublishText = root.findViewById(R.id.upload_and_publish_text);
     mGetDirectLinkText = root.findViewById(R.id.get_direct_link_text);
-    TextView licenceAgreementText = root.findViewById(R.id.license_agreement_message);
+    mUpdateGuideDirectLinkBtn = root.findViewById(R.id.direct_link_update_btn);
+    mUpdateGuidePublicAccessBtn = root.findViewById(R.id.upload_and_publish_update_btn);
+    mDirectLinkCreatedText = root.findViewById(R.id.direct_link_created_text);
+    mDirectLinkDescriptionText = root.findViewById(R.id.direct_link_description_text);
+    mShareDirectLinkBtn = mGetDirectLinkCompletedStatusContainer.findViewById(R.id.share_direct_link_btn);
+    mUpdateGuideDirectLinkBtn.setSelected(true);
+    mUpdateGuidePublicAccessBtn.setSelected(true);
 
+    TextView licenceAgreementText = root.findViewById(R.id.license_agreement_message);
     String src = getResources().getString(R.string.ugc_routes_user_agreement,
                                           Framework.nativeGetPrivacyPolicyLink());
     Spanned spanned = Html.fromHtml(src);
@@ -151,14 +178,21 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void toggleViews()
   {
     boolean isPublished = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
-    UiUtils.hideIf(isPublished, mUploadAndPublishText, mGetDirectLinkContainer);
-    UiUtils.showIf(isPublished, mPublishingCompletedStatusContainer);
+    UiUtils.hideIf(isPublished, mUploadAndPublishText);
+    UiUtils.showIf(isPublished, mPublishingCompletedStatusContainer, mUpdateGuidePublicAccessBtn);
     mPublishCategoryImage.setSelected(!isPublished);
 
     boolean isLinkSuccessFormed = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
-    UiUtils.hideIf(isLinkSuccessFormed, mGetDirectLinkText);
-    UiUtils.showIf(isLinkSuccessFormed, mGetDirectLinkCompletedStatusContainer);
-    mGetDirectLinkImage.setSelected(!isLinkSuccessFormed);
+    UiUtils.hideIf(isLinkSuccessFormed || isPublished, mGetDirectLinkText);
+    UiUtils.showIf(isLinkSuccessFormed || isPublished, mGetDirectLinkCompletedStatusContainer);
+
+    UiUtils.showIf(isLinkSuccessFormed, mUpdateGuideDirectLinkBtn);
+    mGetDirectLinkImage.setSelected(!isLinkSuccessFormed && !isPublished);
+    mGetDirectLinkCompletedStatusContainer.setEnabled(!isPublished);
+
+    mDirectLinkCreatedText.setText(isPublished ? R.string.upload_and_publish_success : R.string.direct_link_success);
+    mDirectLinkDescriptionText.setText(isPublished ? R.string.upload_and_publish_success : R.string.get_direct_link_desc);
+    UiUtils.hideIf(isPublished, mShareDirectLinkBtn);
   }
 
   @Nullable
@@ -180,10 +214,11 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     View getDirectLinkView = root.findViewById(R.id.get_direct_link_text);
     getDirectLinkView.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
+    mUpdateGuideDirectLinkBtn.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
     View uploadAndPublishView = root.findViewById(R.id.upload_and_publish_text);
     uploadAndPublishView.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
-    View shareDirectLinkBtn = mGetDirectLinkCompletedStatusContainer.findViewById(R.id.share_direct_link_btn);
-    shareDirectLinkBtn.setOnClickListener(v -> onDirectLinkShared());
+    mUpdateGuidePublicAccessBtn.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
+    mShareDirectLinkBtn.setOnClickListener(v -> onDirectLinkShared());
     View sharePublishedBtn = mPublishingCompletedStatusContainer.findViewById(R.id.share_published_category_btn);
     sharePublishedBtn.setOnClickListener(v -> onPublishedCategoryShared());
     View editOnWebBtn = root.findViewById(R.id.edit_on_web_btn);

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?attr/selectableItemBackground">
+  <include
+    layout="@layout/list_divider"
+    android:id="@+id/top_divider"/>
+  <ImageView
+    android:id="@+id/get_direct_link_update_image"
+    android:layout_width="@dimen/sharing_options_img_size"
+    android:layout_height="@dimen/sharing_options_img_size"
+    app:tint="?accentColorSelector"
+    app:srcCompat="@drawable/ic_undo"
+    android:layout_below="@id/top_divider"
+    android:layout_marginTop="@dimen/margin_half_double_plus"
+    android:layout_marginBottom="@dimen/margin_half_double_plus"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"/>
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/upload_and_publish"
+    android:textAppearance="?android:attr/textAppearance"
+    android:textColor="?colorAccent"
+    android:layout_marginStart="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/margin_double_plus"
+    android:minHeight="@dimen/height_block_base"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:gravity="center_vertical"
+    tools:ignore="RtlSymmetry"
+    android:fontFamily="@string/robotoRegular"
+    tools:targetApi="jelly_bean"
+    android:layout_below="@id/top_divider"
+    android:layout_toEndOf="@id/get_direct_link_update_image"
+    android:layout_toRightOf="@id/get_direct_link_update_image"/>
+</RelativeLayout>
