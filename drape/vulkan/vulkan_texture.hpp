@@ -13,6 +13,8 @@ namespace dp
 {
 namespace vulkan
 {
+class VulkanStagingBuffer;
+
 class VulkanTextureAllocator : public HWTextureAllocator
 {
 public:
@@ -39,7 +41,10 @@ public:
   
 private:
   ref_ptr<VulkanTextureAllocator> m_allocator;
+  ref_ptr<VulkanObjectManager> m_objectManager;
   VulkanObject m_textureObject;
+  mutable drape_ptr<VulkanStagingBuffer> m_creationStagingBuffer;
+  uint32_t m_reservationId = 0;
   bool m_isMutable = false;
 };
 }  // namespace vulkan
