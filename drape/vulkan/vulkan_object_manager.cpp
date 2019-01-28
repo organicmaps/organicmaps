@@ -1,4 +1,5 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include <algorithm>
@@ -17,27 +18,13 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
   , m_memoryManager(device, deviceLimits, memoryProperties)
 {
   m_queueToDestroy.reserve(50);
-
-  m_defaultStagingBuffer = CreateBuffer(VulkanMemoryManager::ResourceType::Staging,
-                                        kDefaultStagingBufferSizeInBytes, 0 /* batcherHash */);
-  VkMemoryRequirements memReqs = {};
-  vkGetBufferMemoryRequirements(m_device, m_defaultStagingBuffer.m_buffer, &memReqs);
-  m_defaultStagingBufferAlignment = m_memoryManager.GetSizeAlignment(memReqs);
-
-  CHECK_VK_CALL(vkBindBufferMemory(device, m_defaultStagingBuffer.m_buffer,
-                                   m_defaultStagingBuffer.m_allocation->m_memory,
-                                   m_defaultStagingBuffer.m_allocation->m_alignedOffset));
-
-  CHECK_VK_CALL(vkMapMemory(device, m_defaultStagingBuffer.m_allocation->m_memory,
-                            m_defaultStagingBuffer.m_allocation->m_alignedOffset,
-                            m_defaultStagingBuffer.m_allocation->m_alignedSize, 0,
-                            reinterpret_cast<void **>(&m_defaultStagingBufferPtr)));
+  m_defaultStagingBuffer = make_unique_dp<VulkanStagingBuffer>(make_ref(this),
+                                                               kDefaultStagingBufferSizeInBytes);
 }
 
 VulkanObjectManager::~VulkanObjectManager()
 {
-  vkUnmapMemory(m_device, m_defaultStagingBuffer.m_allocation->m_memory);
-  DestroyObject(m_defaultStagingBuffer);
+  m_defaultStagingBuffer.reset();
   CollectObjects();
 }
 
@@ -123,89 +110,21 @@ void VulkanObjectManager::DestroyObject(VulkanObject object)
   m_queueToDestroy.push_back(std::move(object));
 }
 
-VulkanObjectManager::StagingPointer VulkanObjectManager::GetDefaultStagingBuffer(uint32_t sizeInBytes)
-{
-  std::lock_guard<std::mutex> lock(m_mutex);
-
-  auto const alignedSize = m_memoryManager.GetAligned(sizeInBytes, m_defaultStagingBufferAlignment);
-  if (m_defaultStagingBufferOffset + alignedSize > kDefaultStagingBufferSizeInBytes)
-    return {};
-
-  auto const alignedOffset = m_defaultStagingBufferOffset;
-  uint8_t * ptr = m_defaultStagingBufferPtr + alignedOffset;
-
-  // Update offset and align it.
-  m_defaultStagingBufferOffset += alignedSize;
-  auto const alignment = m_memoryManager.GetOffsetAlignment(VulkanMemoryManager::ResourceType::Staging);
-  m_defaultStagingBufferOffset = std::min(m_memoryManager.GetAligned(m_defaultStagingBufferOffset, alignment),
-                                          m_defaultStagingBuffer.m_allocation->m_alignedSize);
-
-  StagingPointer stagingDataPtr;
-  stagingDataPtr.m_stagingData.m_stagingBuffer = m_defaultStagingBuffer.m_buffer;
-  stagingDataPtr.m_stagingData.m_offset = alignedOffset;
-  stagingDataPtr.m_pointer = ptr;
-  return stagingDataPtr;
-}
-
-VulkanObjectManager::StagingData VulkanObjectManager::CopyWithDefaultStagingBuffer(uint32_t sizeInBytes,
-                                                                                   void * data)
-{
-  auto s = GetDefaultStagingBuffer(sizeInBytes);
-  memcpy(s.m_pointer, data, sizeInBytes);
-  return s.m_stagingData;
-}
-
-VulkanObjectManager::StagingData VulkanObjectManager::CopyWithTemporaryStagingBuffer(uint32_t sizeInBytes,
-                                                                                     void * data)
-{
-  auto stagingObj = CreateBuffer(VulkanMemoryManager::ResourceType::Staging,
-                                 sizeInBytes, 0 /* batcherHash */);
-  void * gpuPtr = nullptr;
-  CHECK_VK_CALL(vkMapMemory(m_device, stagingObj.m_allocation->m_memory,
-                            stagingObj.m_allocation->m_alignedOffset,
-                            stagingObj.m_allocation->m_alignedSize, 0, &gpuPtr));
-  memcpy(gpuPtr, data, sizeInBytes);
-  if (!stagingObj.m_allocation->m_isCoherent)
-  {
-    VkMappedMemoryRange mappedRange = {};
-    mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-    mappedRange.memory = stagingObj.m_allocation->m_memory;
-    mappedRange.offset = stagingObj.m_allocation->m_alignedOffset;
-    mappedRange.size = stagingObj.m_allocation->m_alignedSize;
-    CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, 1, &mappedRange));
-  }
-  vkUnmapMemory(m_device, stagingObj.m_allocation->m_memory);
-  CHECK_VK_CALL(vkBindBufferMemory(m_device, stagingObj.m_buffer,
-                                   stagingObj.m_allocation->m_memory,
-                                   stagingObj.m_allocation->m_alignedOffset));
-
-  StagingData stagingData;
-  stagingData.m_stagingBuffer = stagingObj.m_buffer;
-  stagingData.m_offset = 0;
-
-  // The object will be destroyed on the next CollectObjects().
-  DestroyObject(stagingObj);
-  return stagingData;
-}
-
 void VulkanObjectManager::FlushDefaultStagingBuffer()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_defaultStagingBuffer.m_allocation->m_isCoherent || m_defaultStagingBufferOffset == 0)
-    return;
-
-  VkMappedMemoryRange mappedRange = {};
-  mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-  mappedRange.memory = m_defaultStagingBuffer.m_allocation->m_memory;
-  mappedRange.offset = m_defaultStagingBuffer.m_allocation->m_alignedOffset;
-  mappedRange.size = mappedRange.offset + m_defaultStagingBufferOffset;
-  CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, 1, &mappedRange));
+  m_defaultStagingBuffer->Flush();
 }
 
 void VulkanObjectManager::ResetDefaultStagingBuffer()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  m_defaultStagingBufferOffset = 0;
+  m_defaultStagingBuffer->Reset();
+}
+
+ref_ptr<VulkanStagingBuffer> VulkanObjectManager::GetDefaultStagingBuffer() const
+{
+  return make_ref(m_defaultStagingBuffer);
 }
 
 void VulkanObjectManager::CollectObjects()

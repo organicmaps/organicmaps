@@ -1,6 +1,7 @@
 #include "drape/mesh_object.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
@@ -79,20 +80,38 @@ public:
 
     // Copy to default or temporary staging buffer.
     auto const sizeInBytes = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]));
-    auto staging = m_objectManager->CopyWithDefaultStagingBuffer(sizeInBytes, buffer.m_data.data());
-    if (!staging)
+    auto stagingBuffer = m_objectManager->GetDefaultStagingBuffer();
+    if (stagingBuffer->HasEnoughSpace(sizeInBytes))
     {
-      staging = m_objectManager->CopyWithTemporaryStagingBuffer(sizeInBytes, buffer.m_data.data());
-      CHECK(staging, ());
-    }
+      auto staging = stagingBuffer->Reserve(sizeInBytes);
+      memcpy(staging.m_pointer, buffer.m_data.data(), sizeInBytes);
 
-    // Schedule command to copy from the staging buffer to our geometry buffer.
-    VkBufferCopy copyRegion = {};
-    copyRegion.dstOffset = 0;
-    copyRegion.srcOffset = staging.m_offset;
-    copyRegion.size = sizeInBytes;
-    vkCmdCopyBuffer(commandBuffer, staging.m_stagingBuffer, m_geometryBuffers[bufferInd].m_buffer,
-                    1, &copyRegion);
+      // Schedule command to copy from the staging buffer to our geometry buffer.
+      VkBufferCopy copyRegion = {};
+      copyRegion.dstOffset = 0;
+      copyRegion.srcOffset = staging.m_offset;
+      copyRegion.size = sizeInBytes;
+      vkCmdCopyBuffer(commandBuffer, staging.m_stagingBuffer, m_geometryBuffers[bufferInd].m_buffer,
+                      1, &copyRegion);
+    }
+    else
+    {
+      // Here we use temporary staging object, which will be destroyed after the nearest
+      // command queue submitting.
+      VulkanStagingBuffer tempStagingBuffer(m_objectManager, sizeInBytes);
+      CHECK(tempStagingBuffer.HasEnoughSpace(sizeInBytes), ());
+      auto staging = tempStagingBuffer.Reserve(sizeInBytes);
+      memcpy(staging.m_pointer, buffer.m_data.data(), sizeInBytes);
+      tempStagingBuffer.Flush();
+
+      // Schedule command to copy from the staging buffer to our geometry buffer.
+      VkBufferCopy copyRegion = {};
+      copyRegion.dstOffset = 0;
+      copyRegion.srcOffset = staging.m_offset;
+      copyRegion.size = sizeInBytes;
+      vkCmdCopyBuffer(commandBuffer, staging.m_stagingBuffer, m_geometryBuffers[bufferInd].m_buffer,
+                      1, &copyRegion);
+    }
 
     // Set up a barrier to prevent data collisions.
     VkBufferMemoryBarrier barrier = {};

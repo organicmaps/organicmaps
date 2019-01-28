@@ -1,7 +1,5 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
-#include "base/assert.hpp"
-
 namespace dp
 {
 namespace vulkan

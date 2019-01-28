@@ -1,4 +1,5 @@
 #include "drape/vulkan/vulkan_gpu_buffer_impl.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/macros.hpp"
@@ -33,37 +34,33 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
   CHECK(commandBuffer != nullptr, ());
 
   // Copy to default or temporary staging buffer.
-  m_defaultStagingBuffer = m_objectManager->GetDefaultStagingBuffer(mappingSizeInBytes);
-  void * gpuPtr;
-  if (m_defaultStagingBuffer.m_stagingData)
+  m_stagingBufferRef = m_objectManager->GetDefaultStagingBuffer();
+  if (!m_stagingBufferRef->HasEnoughSpace(mappingSizeInBytes))
   {
-    gpuPtr = m_defaultStagingBuffer.m_pointer;
+    m_ownStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager, mappingSizeInBytes);
+    ASSERT(m_ownStagingBuffer->HasEnoughSpace(mappingSizeInBytes), ());
+    m_stagingBufferRef = make_ref(m_ownStagingBuffer);
   }
-  else
-  {
-    m_temporaryStagingBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Staging,
-                                                             mappingSizeInBytes, 0 /* batcherHash */);
 
-    CHECK_VK_CALL(vkMapMemory(device, m_temporaryStagingBuffer.m_allocation->m_memory,
-                              m_temporaryStagingBuffer.m_allocation->m_alignedOffset,
-                              m_temporaryStagingBuffer.m_allocation->m_alignedSize, 0, &gpuPtr));
-  }
-  return gpuPtr;
+  VulkanStagingBuffer::StagingData data;
+  m_reservationId = m_stagingBufferRef->ReserveWithId(mappingSizeInBytes, data);
+  return data.m_pointer;
 }
 
 void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
                                  uint32_t elementOffset, uint32_t elementCount)
 {
   CHECK(gpuPtr != nullptr, ());
+  CHECK(m_stagingBufferRef != nullptr, ());
   uint32_t const elementSize = GetElementSize();
   uint32_t const byteOffset = elementOffset * elementSize;
   uint32_t const byteCount = elementCount * elementSize;
   memcpy(static_cast<uint8_t *>(gpuPtr) + byteOffset, data, byteCount);
 
+  uint32_t const baseSrcOffset = m_stagingBufferRef->GetReservationById(m_reservationId).m_offset;
   VkBufferCopy copyRegion = {};
   copyRegion.dstOffset = m_mappingByteOffset + byteOffset;
-  copyRegion.srcOffset = m_defaultStagingBuffer.m_stagingData ?
-                         (m_defaultStagingBuffer.m_stagingData.m_offset + byteOffset) : byteOffset;
+  copyRegion.srcOffset = baseSrcOffset + byteOffset;
   copyRegion.size = byteCount;
 
   VkBufferMemoryBarrier barrier = {};
@@ -83,34 +80,16 @@ void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
 
 void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
 {
-  VkDevice device = context->GetDevice();
   VkCommandBuffer commandBuffer = context->GetCurrentCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
-  VkBuffer stagingBuffer;
-  if (m_defaultStagingBuffer.m_stagingData)
+  VkBuffer stagingBuffer = m_stagingBufferRef->GetReservationById(m_reservationId).m_stagingBuffer;
+  if (m_ownStagingBuffer != nullptr)
   {
-    stagingBuffer = m_defaultStagingBuffer.m_stagingData.m_stagingBuffer;
+    m_ownStagingBuffer->Flush();
+    m_ownStagingBuffer.reset();
   }
-  else
-  {
-    CHECK(m_temporaryStagingBuffer.m_buffer != 0, ());
-    stagingBuffer = m_temporaryStagingBuffer.m_buffer;
-
-    if (!m_temporaryStagingBuffer.m_allocation->m_isCoherent)
-    {
-      VkMappedMemoryRange mappedRange = {};
-      mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-      mappedRange.memory = m_temporaryStagingBuffer.m_allocation->m_memory;
-      mappedRange.offset = m_temporaryStagingBuffer.m_allocation->m_alignedOffset;
-      mappedRange.size = m_temporaryStagingBuffer.m_allocation->m_alignedSize;
-      CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
-    }
-    vkUnmapMemory(device, m_temporaryStagingBuffer.m_allocation->m_memory);
-    CHECK_VK_CALL(vkBindBufferMemory(device, m_temporaryStagingBuffer.m_buffer,
-                                     m_temporaryStagingBuffer.m_allocation->m_memory,
-                                     m_temporaryStagingBuffer.m_allocation->m_alignedOffset));
-  }
+  m_stagingBufferRef = nullptr;
 
   // Schedule command to copy from the staging buffer to the geometry buffer.
   vkCmdCopyBuffer(commandBuffer, stagingBuffer, m_geometryBuffer.m_buffer,
@@ -122,8 +101,6 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
                        static_cast<uint32_t>(m_barriers.size()), m_barriers.data(),
                        0, nullptr);
 
-  m_defaultStagingBuffer = {};
-  m_objectManager->DestroyObject(m_temporaryStagingBuffer);
   m_mappingByteOffset = 0;
   m_regionsToCopy.clear();
   m_barriers.clear();

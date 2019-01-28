@@ -22,9 +22,7 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_objectManager(objectManager)
-{
-  m_deviceHolder = std::make_shared<DeviceHolder>(m_device);
-}
+{}
 
 std::string VulkanBaseContext::GetRendererName() const
 {

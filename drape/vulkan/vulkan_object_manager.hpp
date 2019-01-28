@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_memory_manager.hpp"
 
 #include <vulkan_wrapper.h>
@@ -22,6 +23,8 @@ struct VulkanObject
   VulkanMemoryManager::AllocationPtr m_allocation;
 };
 
+class VulkanStagingBuffer;
+
 class VulkanObjectManager
 {
 public:
@@ -35,28 +38,15 @@ public:
   VulkanObject CreateImage(VkImageUsageFlagBits usageFlagBits, VkFormat format,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
 
-  struct StagingData
-  {
-    VkBuffer m_stagingBuffer = {};
-    uint32_t m_offset = 0;
-    operator bool() const { return m_stagingBuffer != 0; }
-  };
-  struct StagingPointer
-  {
-    StagingData m_stagingData;
-    uint8_t * m_pointer = nullptr;
-  };
-  StagingPointer GetDefaultStagingBuffer(uint32_t sizeInBytes);
-  StagingData CopyWithDefaultStagingBuffer(uint32_t sizeInBytes, void * data);
+
+  ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
   void FlushDefaultStagingBuffer();
   void ResetDefaultStagingBuffer();
-
-  // The result buffer will be destroyed after the nearest command queue submitting.
-  StagingData CopyWithTemporaryStagingBuffer(uint32_t sizeInBytes, void * data);
 
   void DestroyObject(VulkanObject object);
   void CollectObjects();
 
+  VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
 
 private:
@@ -65,10 +55,7 @@ private:
   VulkanMemoryManager m_memoryManager;
   std::vector<VulkanObject> m_queueToDestroy;
 
-  VulkanObject m_defaultStagingBuffer;
-  uint8_t * m_defaultStagingBufferPtr = nullptr;
-  uint32_t m_defaultStagingBufferAlignment = 0;
-  uint32_t m_defaultStagingBufferOffset = 0;
+  drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
 
   std::mutex m_mutex;
 };

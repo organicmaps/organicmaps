@@ -19,6 +19,8 @@ namespace dp
 {
 namespace vulkan
 {
+class VulkanStagingBuffer;
+
 class VulkanGPUBuffer : public BufferBase
 {
 public:
@@ -37,8 +39,9 @@ protected:
   VulkanObject m_geometryBuffer;
   uint64_t m_batcherHash;
 
-  VulkanObjectManager::StagingPointer m_defaultStagingBuffer;
-  VulkanObject m_temporaryStagingBuffer;
+  ref_ptr<VulkanStagingBuffer> m_stagingBufferRef;
+  drape_ptr<VulkanStagingBuffer> m_ownStagingBuffer;
+  uint32_t m_reservationId = 0;
   uint32_t m_mappingByteOffset = 0;
   std::vector<VkBufferCopy> m_regionsToCopy;
   std::vector<VkBufferMemoryBarrier> m_barriers;

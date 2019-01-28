@@ -2,7 +2,6 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
-#include "drape/vulkan/vulkan_device_holder.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
 #include "geometry/point2d.hpp"
@@ -65,7 +64,6 @@ public:
   VkPhysicalDevice const GetPhysicalDevice() const { return m_gpu; }
 
   VkDevice GetDevice() const { return m_device; }
-  DeviceHolderPtr GetDeviceHolder() const { return m_deviceHolder; }
 
   VkPhysicalDeviceProperties const & GetGpuProperties() const { return m_gpuProperties; }
   uint32_t GetRenderingQueueFamilyIndex() { return m_renderingQueueFamilyIndex; }
@@ -92,7 +90,6 @@ protected:
   uint32_t const m_renderingQueueFamilyIndex;
 
   ref_ptr<VulkanObjectManager> m_objectManager;
-  std::shared_ptr<DeviceHolder> m_deviceHolder;
   boost::optional<VkSurfaceKHR> m_surface;
 
   std::array<std::vector<std::pair<uint32_t, ContextHandler>>,

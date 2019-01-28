@@ -2,7 +2,7 @@
 
 #include "drape/hw_texture.hpp"
 #include "drape/pointers.hpp"
-#include "drape/vulkan/vulkan_device_holder.hpp"
+#include "drape/vulkan/vulkan_object_manager.hpp"
 
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
@@ -35,13 +35,11 @@ public:
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;
 
-  VkImageView GetTextureView() const { return m_textureView; }
+  VkImageView GetTextureView() const { return m_textureObject.m_imageView; }
   
 private:
   ref_ptr<VulkanTextureAllocator> m_allocator;
-  DeviceHolderPtr m_deviceHolder;
-  VkImage m_texture = {};
-  VkImageView m_textureView = {};
+  VulkanObject m_textureObject;
   bool m_isMutable = false;
 };
 }  // namespace vulkan

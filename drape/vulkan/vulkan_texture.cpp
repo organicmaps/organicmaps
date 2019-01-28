@@ -56,10 +56,6 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   Base::Create(context, params, data);
 
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  m_deviceHolder = vulkanContext->GetDeviceHolder();
-
-  auto devicePtr = m_deviceHolder.lock();
-  CHECK(devicePtr != nullptr, ());
 
   auto const format = UnpackFormat(params.m_format);
   VkFormatProperties formatProperties;
@@ -70,19 +66,11 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   if (params.m_isRenderTarget)
   {
     CHECK(false, ());
-//    texDesc.usage |= MTLTextureUsageRenderTarget;
-//    texDesc.storageMode = MTLStorageModePrivate;
-//    m_texture = [metalDevice newTextureWithDescriptor:texDesc];
-//    CHECK(m_texture != nil, ());
   }
   else
   {
-//    texDesc.storageMode = MTLStorageModeShared;
-//    m_texture = [metalDevice newTextureWithDescriptor:texDesc];
-//    CHECK(m_texture != nil, ());
-//    MTLRegion region = MTLRegionMake2D(0, 0, m_params.m_width, m_params.m_height);
-//    auto const rowBytes = m_params.m_width * GetBytesPerPixel(m_params.m_format);
-//    [m_texture replaceRegion:region mipmapLevel:0 withBytes:data.get() bytesPerRow:rowBytes];
+    // Create temporary staging buffer.
+    // TODO
   }
 }
 
@@ -108,7 +96,7 @@ void VulkanTexture::SetFilter(TextureFilter filter)
 
 bool VulkanTexture::Validate() const
 {
-  return m_texture != 0 && m_textureView != 0;
+  return m_textureObject.m_image != 0 && m_textureObject.m_imageView != 0;
 }
 }  // namespace vulkan
 }  // namespace dp

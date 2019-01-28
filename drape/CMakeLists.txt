@@ -152,7 +152,6 @@ append(
   VULKAN_SRC
   ${DRAPE_ROOT}/vulkan/vulkan_base_context.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_base_context.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_device_holder.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_gpu_program.hpp
@@ -165,6 +164,8 @@ append(
   ${DRAPE_ROOT}/vulkan/vulkan_texture.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_object_manager.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_object_manager.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_utils.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_utils.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_vertex_array_buffer_impl.cpp
