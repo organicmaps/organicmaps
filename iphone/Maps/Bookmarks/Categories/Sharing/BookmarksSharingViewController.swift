@@ -31,26 +31,34 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private let kTagsControllerIdentifier = "tags"
   private let kEditOnWebSegueIdentifier = "editOnWeb"
   
-  private let publicSectionIndex = 0
-  private let privateSectionIndex = 1
-  private let editOnWebCellIndex = 3
-  private let rowsInPrivateSection = 2
-  
+  private let privateSectionIndex = 0
+  private let publicSectionIndex = 1
+  private let editOnWebSectionIndex = 2
+  private let rowsInEditOnWebSection = 1
+  private let directLinkUpdateRowIndex = 2
+  private let publishUpdateRowIndex = 2
+
   private var rowsInPublicSection: Int {
-    return categoryAccessStatus == .public ? 4 : 3
+    return categoryAccessStatus == .public ? 3 : 2
+  }
+
+  private var rowsInPrivateSection: Int {
+    return categoryAccessStatus == .private ? 3 : 2
   }
   
   @IBOutlet private weak var uploadAndPublishCell: UploadActionCell!
   @IBOutlet private weak var getDirectLinkCell: UploadActionCell!
-  @IBOutlet private weak var editOnWebCell: UITableViewCell!
-  
+  @IBOutlet private weak var updatePublishCell: UITableViewCell!
+  @IBOutlet private weak var updateDirectLinkCell: UITableViewCell!
+  @IBOutlet private weak var directLinkInstructionsLabel: UILabel!
+
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("ugc_routes_user_agreement"), arguments: [ViewModel.termsOfUseLink()])
       let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular14(),
                                                        NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText()]
       licenseAgreementTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
-                                                                    defaultAttributes: attributes)
+                                                                          defaultAttributes: attributes)
       licenseAgreementTextView.delegate = self
     }
   }
@@ -70,7 +78,9 @@ final class BookmarksSharingViewController: MWMTableViewController {
       break
     case .public:
       categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
+      getDirectLinkCell.cellState = .disabled
       uploadAndPublishCell.cellState = .completed
+      directLinkInstructionsLabel.text = L("unable_get_direct_link_desc")
     case .private:
       categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
       getDirectLinkCell.cellState = .completed
@@ -79,7 +89,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     }
   }
   
-  func configureActionCells() {
+  private func configureActionCells() {
     uploadAndPublishCell.config(titles: [ .normal : L("upload_and_publish"),
                                           .inProgress : L("upload_and_publish_progress_text"),
                                           .completed : L("upload_and_publish_success") ],
@@ -96,16 +106,14 @@ final class BookmarksSharingViewController: MWMTableViewController {
     return UITableViewAutomaticDimension
   }
   
-  override func numberOfSections(in _: UITableView) -> Int {
-    return categoryAccessStatus == .public ? 1 : 2
-  }
-  
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch section {
     case publicSectionIndex:
       return rowsInPublicSection
     case privateSectionIndex:
       return rowsInPrivateSection
+    case editOnWebSectionIndex:
+      return rowsInEditOnWebSection
     default:
       return 0
     }
@@ -113,7 +121,16 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   override func tableView(_ tableView: UITableView,
                  titleForHeaderInSection section: Int) -> String? {
-    return section == 0 ? L("public_access") : L("limited_access")
+    switch section {
+    case 0:
+      return L("limited_access")
+    case 1:
+      return L("public_access")
+    case 2:
+      return L("edit_on_web")
+    default:
+      return nil
+    }
   }
   
   override func tableView(_ tableView: UITableView,
@@ -136,10 +153,22 @@ final class BookmarksSharingViewController: MWMTableViewController {
       startUploadAndPublishFlow()
     } else if cell == getDirectLinkCell {
       uploadAndGetDirectLink()
-    } 
+    } else if cell == updatePublishCell {
+      updatePublic()
+    } else if cell == updateDirectLinkCell {
+      updateDirectLink()
+    }
   }
-  
-  func startUploadAndPublishFlow() {
+
+  private func updatePublic() {
+
+  }
+
+  private func updateDirectLink() {
+
+  }
+
+  private func startUploadAndPublishFlow() {
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPublic])
     performAfterValidation(anchor: uploadAndPublishCell) { [weak self] in
       if let self = self {
@@ -148,7 +177,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     }
   }
   
-  func uploadAndPublish() {
+  private func uploadAndPublish() {
     guard categoryId != MWMFrameworkHelper.invalidCategoryId(),
       let tags = sharingTags,
       let userStatus = sharingUserStatus else {
@@ -170,10 +199,17 @@ final class BookmarksSharingViewController: MWMTableViewController {
         Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
           [kStatTracks : self.manager.getCategoryTracksCount(self.categoryId),
            kStatPoints : self.manager.getCategoryMarksCount(self.categoryId)])
-        
+
+        self.getDirectLinkCell.cellState = .disabled
+        self.directLinkInstructionsLabel.text = L("unable_get_direct_link_desc")
         self.tableView.beginUpdates()
-        self.tableView.deleteSections(IndexSet(arrayLiteral: self.privateSectionIndex), with: .fade)
-        self.tableView.insertRows(at: [IndexPath(item: self.editOnWebCellIndex,
+        let directLinkUpdateIndexPath = IndexPath(row: self.directLinkUpdateRowIndex,
+                                                  section: self.privateSectionIndex)
+        if (self.tableView.cellForRow(at: directLinkUpdateIndexPath) != nil) {
+          self.tableView.deleteRows(at: [directLinkUpdateIndexPath], with: .automatic)
+        }
+
+        self.tableView.insertRows(at: [IndexPath(row: self.publishUpdateRowIndex,
                                                  section: self.publicSectionIndex)],
                                   with: .automatic)
         self.tableView.endUpdates()
@@ -181,7 +217,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     }
   }
   
-  func uploadAndGetDirectLink() {
+  private func uploadAndGetDirectLink() {
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPrivate])
     performAfterValidation(anchor: getDirectLinkCell) { [weak self] in
       guard let s = self, s.categoryId != MWMFrameworkHelper.invalidCategoryId() else {
@@ -204,12 +240,15 @@ final class BookmarksSharingViewController: MWMTableViewController {
           Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
             [kStatTracks : s.manager.getCategoryTracksCount(s.categoryId),
              kStatPoints : s.manager.getCategoryMarksCount(s.categoryId)])
+          s.tableView.insertRows(at: [IndexPath(item: s.directLinkUpdateRowIndex,
+                                                section: s.privateSectionIndex)],
+                                 with: .automatic)
         }
       })
     }
   }
   
-  func performAfterValidation(anchor: UIView, action: @escaping MWMVoidBlock) {
+  private func performAfterValidation(anchor: UIView, action: @escaping MWMVoidBlock) {
     if MWMFrameworkHelper.isNetworkConnected() {
       signup(anchor: anchor, onComplete: { success in
         if success {
@@ -230,7 +269,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     }
   }
   
-  func showErrorAlert(_ error: NSError) {
+  private func showErrorAlert(_ error: NSError) {
     guard error.code == kCategoryUploadFailedCode,
       let statusCode = error.userInfo[kCategoryUploadStatusKey] as? Int,
       let status = MWMCategoryUploadStatus(rawValue: statusCode) else {

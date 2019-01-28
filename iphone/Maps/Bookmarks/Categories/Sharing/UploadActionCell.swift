@@ -6,6 +6,7 @@ enum UploadActionCellState: String {
   case normal
   case inProgress
   case completed
+  case disabled
 }
 
 final class UploadActionCell: MWMTableViewCell {
@@ -37,7 +38,7 @@ final class UploadActionCell: MWMTableViewCell {
         actionTitle.font = .regular16()
         actionTitle.text = titles?[.normal]
         shareButton.isHidden = true
-        break
+        selectionStyle = .default
       case .inProgress:
         progress.state = .spinner
         actionImage.tintColor = .blackSecondaryText()
@@ -45,15 +46,22 @@ final class UploadActionCell: MWMTableViewCell {
         actionTitle.font = .italic16()
         actionTitle.text = titles?[.inProgress]
         shareButton.isHidden = true
-        break
-      case .completed:
+        selectionStyle = .none
+     case .completed:
         progress.state = .completed
         actionImage.tintColor = .blackSecondaryText()
         actionTitle.textColor = .blackSecondaryText()
         actionTitle.font = .regular16()
         actionTitle.text = titles?[.completed]
         shareButton.isHidden = false
-        break
+        selectionStyle = .none
+      case .disabled:
+        progress.state = .normal
+        actionImage.tintColor = .blackSecondaryText()
+        actionTitle.textColor = .blackSecondaryText()
+        actionTitle.font = .regular16()
+        shareButton.isHidden = true
+        selectionStyle = .none
       }
     }
   }
