@@ -1,7 +1,5 @@
 #include "geocoder/hierarchy.hpp"
 
-#include "geocoder/hierarchy_reader.hpp"
-
 #include "indexer/search_string_utils.hpp"
 
 #include "base/exception.hpp"
@@ -14,30 +12,6 @@
 #include <utility>
 
 using namespace std;
-
-namespace
-{
-void CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
-                          geocoder::Hierarchy::ParsingStats & stats)
-{
-  size_t i = 0;
-  while (i < entries.size())
-  {
-    size_t j = i + 1;
-    while (j < entries.size() && entries[i].m_osmId == entries[j].m_osmId)
-      ++j;
-    if (j != i + 1)
-    {
-      ++stats.m_duplicateOsmIds;
-      // todo Remove the cast when the hierarchies no longer contain negative keys.
-      LOG(LDEBUG,
-          ("Duplicate osm id:", static_cast<int64_t>(entries[i].m_osmId.GetEncodedId()), "(",
-           entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
-    }
-    i = j;
-  }
-}
-}  // namespace
 
 namespace geocoder
 {
@@ -136,26 +110,14 @@ bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
-Hierarchy::Hierarchy(string const & pathToJsonHierarchy, size_t readersCount)
+Hierarchy::Hierarchy(vector<Entry> && entries, bool sorted)
+  : m_entries{std::move(entries)}
 {
-  ParsingStats stats;
-
-  HierarchyReader reader{pathToJsonHierarchy};
-  m_entries = reader.ReadEntries(readersCount, stats);
-
-  CheckDuplicateOsmIds(m_entries, stats);
-
-  LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
-  LOG(LINFO, ("Entries loaded:", stats.m_numLoaded));
-  LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
-  LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
-  LOG(LINFO, ("Duplicate base::GeoObjectIds:", stats.m_duplicateOsmIds));
-  LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
-  LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
-  LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
-  LOG(LINFO,
-      ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
-  LOG(LINFO, ("(End of stats.)"));
+  if (!sorted)
+  {
+    LOG(LINFO, ("Sorting entries..."));
+    sort(m_entries.begin(), m_entries.end());
+  }
 }
 
 vector<Hierarchy::Entry> const & Hierarchy::GetEntries() const

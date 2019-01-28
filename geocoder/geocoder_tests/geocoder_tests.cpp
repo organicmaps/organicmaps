@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "geocoder/geocoder.hpp"
+#include "geocoder/hierarchy_reader.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
@@ -155,7 +156,8 @@ UNIT_TEST(Geocoder_MismatchedLocality)
 UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
 {
   ScopedFile const regionsJsonFile("regions.jsonl", "");
-  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+  HierarchyReader reader{regionsJsonFile.GetFullPath()};
+  Geocoder geocoder(reader.Read(8 /* reader threads */));
 
   TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), 0, ());
 }
@@ -176,7 +178,8 @@ UNIT_TEST(Geocoder_BigFileConcurrentRead)
   }
 
   ScopedFile const regionsJsonFile("regions.jsonl", s.str());
-  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+  HierarchyReader reader{regionsJsonFile.GetFullPath()};
+  Geocoder geocoder(reader.Read(8 /* reader threads */));
 
   TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), kEntryCount, ());
 }

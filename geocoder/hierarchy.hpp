@@ -5,7 +5,6 @@
 #include "base/geo_object_id.hpp"
 
 #include <array>
-#include <atomic>
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -21,31 +20,31 @@ public:
   struct ParsingStats
   {
     // Number of entries that the hierarchy was constructed from.
-    std::atomic<uint64_t> m_numLoaded{0};
+    uint64_t m_numLoaded{0};
 
     // Number of corrupted json lines.
-    std::atomic<uint64_t> m_badJsons{0};
+    uint64_t m_badJsons{0};
 
     // Number of entries with unreadable base::GeoObjectIds.
-    std::atomic<uint64_t> m_badOsmIds{0};
+    uint64_t m_badOsmIds{0};
 
     // Number of base::GeoObjectsIds that occur as keys in at least two entries.
-    std::atomic<uint64_t> m_duplicateOsmIds{0};
+    uint64_t m_duplicateOsmIds{0};
 
     // Number of entries with duplicate subfields in the address field.
-    std::atomic<uint64_t> m_duplicateAddresses{0};
+    uint64_t m_duplicateAddresses{0};
 
     // Number of entries whose address field either does
     // not exist or consists of empty lines.
-    std::atomic<uint64_t> m_emptyAddresses{0};
+    uint64_t m_emptyAddresses{0};
 
     // Number of entries without the name field or with an empty one.
-    std::atomic<uint64_t> m_emptyNames{0};
+    uint64_t m_emptyNames{0};
 
     // Number of entries whose names do not match the most
     // specific parts of their addresses.
     // This is expected from POIs but not from regions or streets.
-    std::atomic<uint64_t> m_mismatchedNames{0};
+    uint64_t m_mismatchedNames{0};
   };
 
   // A single entry in the hierarchy directed acyclic graph.
@@ -76,7 +75,7 @@ public:
     std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
   };
 
-  explicit Hierarchy(std::string const & pathToJsonHierarchy, std::size_t readersCount = 4);
+  explicit Hierarchy(std::vector<Entry> && entries, bool sorted);
 
   std::vector<Entry> const & GetEntries() const;
 

@@ -5,8 +5,8 @@
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
 
-#include <boost/iostreams/filtering_stream.hpp>
-
+#include <atomic>
+#include <fstream>
 #include <map>
 #include <mutex>
 #include <string>
@@ -23,8 +23,9 @@ public:
   DECLARE_EXCEPTION(OpenException, RootException);
 
   explicit HierarchyReader(std::string const & pathToJsonHierarchy);
+  explicit HierarchyReader(std::istream & in);
 
-  std::vector<Entry> ReadEntries(size_t readersCount, ParsingStats & stats);
+  Hierarchy Read(size_t readersCount = 4);
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
@@ -33,8 +34,11 @@ private:
                            std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
 
   std::vector<Entry> MergeEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
+  void CheckDuplicateOsmIds(std::vector<Entry> const & entries, ParsingStats & stats);
 
-  boost::iostreams::filtering_istream m_fileStream;
+  std::ifstream m_fileStream;
+  std::istream & m_in;
   std::mutex m_mutex;
+  std::atomic<std::uint64_t> m_totalNumLoaded{0};
 };
 } // namespace geocoder
