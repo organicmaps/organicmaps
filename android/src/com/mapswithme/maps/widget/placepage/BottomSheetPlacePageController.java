@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +17,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
@@ -41,6 +41,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageTracker mPlacePageTracker;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Toolbar mToolbar;
+  private int mLastPeekHeight;
+  private int mViewportMinHeight;
   @NonNull
   private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new BottomSheetBehavior.BottomSheetCallback()
@@ -71,9 +76,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     }
   };
 
-  private int mLastPeekHeight;
-  private int mViewportMinHeight;
-
   public BottomSheetPlacePageController(@NonNull Activity activity)
   {
     mActivity = activity;
@@ -83,25 +85,22 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void initialize()
   {
     mViewportMinHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
+    mToolbar = mActivity.findViewById(R.id.pp_toolbar);
+    UiUtils.extendViewWithStatusBar(mToolbar);
+    UiUtils.showHomeUpButton(mToolbar);
+    mToolbar.setNavigationOnClickListener(v -> close());
     mPlacePage = mActivity.findViewById(R.id.placepage);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePageBehavior.setBottomSheetCallback(mSheetCallback);
     mPlacePage.addOnLayoutChangeListener(this);
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
-    bringButtonsToFront();
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
     mPlacePage.initButtons(buttons);
+    UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
+    UiUtils.bringViewToFrontOf(mActivity.findViewById(R.id.app_bar), mPlacePage);
     mPlacePageTracker = new PlacePageTracker(mPlacePage, buttons);
     LocationHelper.INSTANCE.addListener(this);
-  }
-
-  private void bringButtonsToFront()
-  {
-    if (Utils.isLollipopOrLater())
-      mButtonsLayout.setZ(mPlacePage.getZ() + 1);
-    else
-      mButtonsLayout.bringToFront();
   }
 
   @Override
@@ -122,6 +121,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       openBottomSheet();
     });
+    mToolbar.setTitle(object.getTitle());
     mPlacePageTracker.setMapObject(object);
     Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
   }

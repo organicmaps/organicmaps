@@ -55,6 +55,14 @@ public final class UiUtils
     params.setMargins(0, UiUtils.getStatusBarHeight(view.getContext()), 0, 0);
   }
 
+  public static void bringViewToFrontOf(@NonNull View frontView, @NonNull View backView)
+  {
+    if (Utils.isLollipopOrLater())
+      frontView.setZ(backView.getZ() + 1);
+    else
+      frontView.bringToFront();
+  }
+
   public static class SimpleAnimationListener implements AnimationListener
   {
     @Override
