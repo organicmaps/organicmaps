@@ -1,15 +1,14 @@
-project(mwm_diff_tests)
+project(bsdiff_tests)
 
 set(
   SRC
-  diff_tests.cpp
+  bsdiff_search_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  mwm_diff
   bsdiff
   platform
   coding
