@@ -74,8 +74,8 @@ public:
 private:
   template <typename F>
   void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
-                   uint32_t const offset, uint32_t const size,
-                   uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
+      uint32_t const offset, uint32_t const size,
+      uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
   {
     buffer_vector<uint8_t, 1024> data;
     data.resize_no_init(size);
@@ -100,8 +100,8 @@ private:
 
   template <typename F>
   void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level,
-                   uint32_t offset, uint32_t size,
-                   uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
+      uint32_t offset, uint32_t size,
+      uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
   {
     offset += m_LevelOffsets[level];
 

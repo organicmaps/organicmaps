@@ -78,8 +78,8 @@ UNIT_TEST(BuildLocalityIndexTest)
   objects.m_objects[2].SetForTesting(3, m2::PointD{1, 1});
   objects.m_objects[3].SetForTesting(4, m2::PointD{0, 1});
 
-  vector<char> localityIndex;
-  MemWriter<vector<char>> writer(localityIndex);
+  vector<uint8_t> localityIndex;
+  MemWriter<vector<uint8_t>> writer(localityIndex);
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
@@ -99,8 +99,8 @@ UNIT_TEST(LocalityIndexRankTest)
   objects.m_objects[2].SetForTesting(3, m2::PointD{3, 0});
   objects.m_objects[3].SetForTesting(4, m2::PointD{4, 0});
 
-  vector<char> localityIndex;
-  MemWriter<vector<char>> writer(localityIndex);
+  vector<uint8_t> localityIndex;
+  MemWriter<vector<uint8_t>> writer(localityIndex);
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
@@ -139,8 +139,8 @@ UNIT_TEST(LocalityIndexTopSizeTest)
   // The big object contains all points and must be returned on any query.
   objects.m_objects[7].SetForTesting(8, m2::RectD{0.0, 0.0, 10.0, 10.0});
 
-  vector<char> localityIndex;
-  MemWriter<vector<char>> writer(localityIndex);
+  vector<uint8_t> localityIndex;
+  MemWriter<vector<uint8_t>> writer(localityIndex);
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
@@ -202,8 +202,8 @@ UNIT_TEST(LocalityIndexWeightRankTest)
   objects.m_objects[5].SetForTesting(6, m2::PointD{1, 1});
   objects.m_objects[6].SetForTesting(7, m2::RectD{1, 0, 1.1, 0.1});
 
-  vector<char> localityIndex;
-  MemWriter<vector<char>> writer(localityIndex);
+  vector<uint8_t> localityIndex;
+  MemWriter<vector<uint8_t>> writer(localityIndex);
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
