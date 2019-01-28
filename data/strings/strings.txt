@@ -37261,3 +37261,9 @@
   [html_error_upload_message]
     en = Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the "Edit online" button below
 
+  [html_error_upload_message_try_again]
+    comment = FIXME. Please make sure that names and description
+    en = [html_error_upload_message_try_again]
+  [html_error_upload_title_try_again]
+    comment = FIXME. Your guide couldn't be uploaded
+    en = [html_error_upload_title_try_again]
