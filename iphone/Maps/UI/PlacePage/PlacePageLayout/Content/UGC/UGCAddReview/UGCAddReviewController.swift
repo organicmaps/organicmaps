@@ -65,13 +65,24 @@ final class UGCAddReviewController: MWMTableViewController {
     model.text = text
     onSave(model)
     guard let nc = navigationController else { return }
+    let onSuccess = { Toast.toast(withText: L("ugc_thanks_message_auth")).show() }
+    let onError = { Toast.toast(withText: L("ugc_thanks_message_not_auth")).show() }
+    let onComplete = { () -> Void in nc.popToRootViewController(animated: true) }
+    
     if MWMAuthorizationViewModel.isAuthenticated() || MWMPlatform.networkConnectionType() == .none {
+      if MWMAuthorizationViewModel.isAuthenticated() {
+        onSuccess()
+      } else {
+        onError()
+      }
       nc.popViewController(animated: true)
     } else {
       Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
                                                sourceComponent: .UGC,
-                                               completionHandler: { _ in nc.popToRootViewController(animated: true) })
+                                               successHandler: {_ in onSuccess()},
+                                               errorHandler: {_ in onError()},
+                                               completionHandler: {_ in onComplete()})
       present(authVC, animated: true, completion: nil)
     }
   }
