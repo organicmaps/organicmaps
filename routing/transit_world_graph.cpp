@@ -122,6 +122,11 @@ RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segme
   return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
 }
 
+RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, m2::PointD const & to)
+{
+  return HeuristicCostEstimate(GetPoint(from, true /* front */), to);
+}
+
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to)
 {
   return RouteWeight(m_estimator->CalcHeuristic(from, to));

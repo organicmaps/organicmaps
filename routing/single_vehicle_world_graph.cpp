@@ -130,6 +130,12 @@ RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from,
   return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
 }
 
+
+RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, m2::PointD const & to)
+{
+  return HeuristicCostEstimate(GetPoint(from, true /* front */), to);
+}
+
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(m2::PointD const & from,
                                                            m2::PointD const & to)
 {

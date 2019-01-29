@@ -1,5 +1,7 @@
 #include "routing/index_graph_starter_joints.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <utility>
 
@@ -17,6 +19,9 @@ void IndexGraphStarterJoints::Init(Segment const & startSegment, Segment const &
 {
   m_startSegment = startSegment;
   m_endSegment = endSegment;
+
+  m_startPoint = m_starter.GetPoint(m_startSegment, true /* front */);
+  m_endPoint = m_starter.GetPoint(m_endSegment, true /* front */);
 
   CHECK(m_starter.GetGraph().GetMode() == WorldGraph::Mode::Joints ||
         m_starter.GetGraph().GetMode() == WorldGraph::Mode::JointSingleMwm, ());
@@ -59,7 +64,10 @@ RouteWeight IndexGraphStarterJoints::HeuristicCostEstimate(JointSegment const & 
   else
     fromSegment = from.GetSegment(false /* start */);
 
-  return m_starter.HeuristicCostEstimate(fromSegment, toSegment);
+  ASSERT(toSegment == m_startSegment || toSegment == m_endSegment, ("Invariant violated."));
+
+  return toSegment == m_startSegment ? m_starter.HeuristicCostEstimate(fromSegment, m_startPoint)
+                                     : m_starter.HeuristicCostEstimate(fromSegment, m_endPoint);
 }
 
 m2::PointD const & IndexGraphStarterJoints::GetPoint(JointSegment const & jointSegment, bool start)
