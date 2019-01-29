@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.mapswithme.maps.widget.ToolbarController;
 
-public class BaseMwmToolbarFragment extends BaseMwmFragment
+public class BaseMwmToolbarFragment extends BaseAsyncOperationFragment
 {
   @SuppressWarnings("NullableProblems")
   @NonNull

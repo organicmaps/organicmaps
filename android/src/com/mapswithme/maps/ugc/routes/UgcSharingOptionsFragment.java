@@ -49,22 +49,19 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
   private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
-  private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 105;
   private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
   private static final int REQ_CODE_ERROR_HTML_FORMATTING_DIALOG = 109;
 
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
-  private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String NOT_ENOUGH_BOOKMARKS_DIALOG_TAG = "not_enough_bookmarks_dialog";
   private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
-  private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
-
+  private static final int MIN_REQUIRED_CATEGORY_SIZE = 3;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -231,9 +228,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onEditOnWebClicked()
   {
-    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
     Intent intent = new Intent(getContext(), SendLinkPlaceholderActivity.class)
-        .putExtra(SendLinkPlaceholderFragment.EXTRA_SHARED_LINK, deepLink);
+        .putExtra(SendLinkPlaceholderFragment.EXTRA_CATEGORY, mCategory);
     startActivity(intent);
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.EDIT_ON_WEB);
   }
@@ -291,6 +287,12 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onUploadAndPublishBtnClicked()
   {
+/*    if (mCategory.size() < MIN_REQUIRED_CATEGORY_SIZE)
+    {
+      showNotEnoughBookmarksDialog();
+      return;
+    }*/
+
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     onUploadBtnClicked();
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PUBLIC);
@@ -299,7 +301,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void onGetDirectLinkClicked()
   {
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
-    onUploadBtnClicked();
+    requestUpload();
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
   }
 
@@ -311,6 +313,11 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
       return;
     }
 
+    showUploadCatalogConfirmationDialog();
+  }
+
+  private void requestUpload()
+  {
     if (isAuthorized())
       onPostAuthCompleted();
     else
@@ -336,25 +343,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
       throw new IllegalStateException("CurrentMode must be initialized");
     showProgress();
     BookmarkManager.INSTANCE.uploadRoutes(mCurrentMode.ordinal(), mCategory);
-  }
-
-  private void showProgress()
-  {
-    String title = getString(R.string.upload_and_publish_progress_text);
-    ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(title);
-    getFragmentManager()
-        .beginTransaction()
-        .add(dialog, UPLOADING_PROGRESS_DIALOG_TAG)
-        .commitAllowingStateLoss();
-  }
-
-
-  private void hideProgress()
-  {
-    FragmentManager fm = getFragmentManager();
-    DialogFragment frag = (DialogFragment) fm.findFragmentByTag(UPLOADING_PROGRESS_DIALOG_TAG);
-    if (frag != null)
-      frag.dismissAllowingStateLoss();
   }
 
   @Override
@@ -486,7 +474,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_ACCESS_ERROR)
     {
-      showErrorEditedOnWebDialog();
+      showUnresolvedConflictsErrorDialog();
       return;
     }
 
@@ -521,15 +509,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
       throw new IllegalStateException("Access rules must be ACCESS_RULES_PUBLIC or ACCESS_RULES_DIRECT_LINK." +
                                       " Current value = " + mCategory.getAccessRules());
   }
-
-
-  private void showErrorEditedOnWebDialog()
-  {
-    showUploadErrorDialog(R.string.unable_upload_error_subtitle_edited,
-                          REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG,
-                          ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
-  }
-
 
   private void showErrorBrokenFileDialog()
   {
@@ -574,7 +553,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
       Utils.showSystemSettings(getContext());
-
+    else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG)
+      requestUpload();
   }
 
   @Override

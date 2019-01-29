@@ -117,12 +117,14 @@ public class AlertDialog extends BaseMwmDialogFragment
   {
     if (mTargetCallback != null)
       mTargetCallback.onAlertDialogPositiveClick(getArguments().getInt(ARG_REQ_CODE), which);
+    dismissAllowingStateLoss();
   }
 
   private void onNegativeClicked(int which)
   {
     if (mTargetCallback != null)
       mTargetCallback.onAlertDialogNegativeClick(getArguments().getInt(ARG_REQ_CODE), which);
+    dismissAllowingStateLoss();
   }
 
   @Override
