@@ -77,7 +77,7 @@ public:
   {
     for (auto const & m : kWikiData)
     {
-      auto const dir = DescriptionsCollectionBuilder::MakePath(m_wikiDir, m.m_url);
+      auto const dir = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, m.m_url);
       CHECK(Platform::MkDirRecursively(dir), ());
       for (auto const & d : m.m_pages)
       {
@@ -112,13 +112,13 @@ public:
     {
       std::string const wikiDir = "/wikiDir/";
       std::string const wikiUrl = "http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/";
-      auto const answer = DescriptionsCollectionBuilder::MakePath(wikiDir, wikiUrl);
+      auto const answer = DescriptionsCollectionBuilder::MakePathForWikipedia(wikiDir, wikiUrl);
       TEST_EQUAL(trueAnswer, answer, ());
     }
     {
       std::string const wikiDir = "/wikiDir";
       std::string const wikiUrl = "https://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium";
-      auto const answer = DescriptionsCollectionBuilder::MakePath(wikiDir, wikiUrl);
+      auto const answer = DescriptionsCollectionBuilder::MakePathForWikipedia(wikiDir, wikiUrl);
       TEST_EQUAL(trueAnswer, answer, ());
     }
   }
@@ -130,7 +130,8 @@ public:
       CHECK(!kWikiData.empty(), ());
       auto const & first = kWikiData.front();
       StringUtf8Multilang str;
-      auto const size = b.FindPageAndFill(first.m_url, str);
+      auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, first.m_url);
+      auto const size = b.FindPageAndFill(path, str);
       TEST(size, ());
       TEST_EQUAL(*size, GetPageSize(first.m_pages), ());
       TEST(CheckLangs(str, first.m_pages), ());
@@ -139,7 +140,8 @@ public:
       DescriptionsCollectionBuilder b(m_wikiDir, kMwmFile);
       StringUtf8Multilang str;
       std::string const badUrl = "https://en.wikipedia.org/wiki/Not_exists";
-      auto const size = b.FindPageAndFill(badUrl, str);
+      auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, badUrl);
+      auto const size = b.FindPageAndFill(path, str);
       TEST(!size, ());
     }
   }
@@ -151,7 +153,7 @@ public:
     auto const & first = kWikiData.front();
     std::string const lang = "en";
     auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
-    auto const path = DescriptionsCollectionBuilder::MakePath(m_wikiDir, first.m_url);
+    auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, first.m_url);
     auto const fullPath = base::JoinPath(path, (lang + ".html"));
     StringUtf8Multilang str;
     // This is a private function and should take the right path fullPath.
@@ -172,7 +174,8 @@ public:
     auto ft = MakeFeature(first.m_url);
     descriptions::FeatureDescription description;
     auto const wikiUrl = ft.GetMetadata().GetWikiURL();
-    auto const size = b.GetFeatureDescription(wikiUrl, featureId, description);
+    auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, wikiUrl);
+    auto const size = b.GetFeatureDescription(path, featureId, description);
 
     TEST_EQUAL(size, GetPageSize(first.m_pages), ());
     CHECK_NOT_EQUAL(size, 0, ());

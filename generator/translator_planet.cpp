@@ -15,12 +15,37 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
+#include <cctype>
 #include <string>
 #include <vector>
 
 namespace generator
 {
+namespace
+{
+// https://www.wikidata.org/wiki/Wikidata:Identifiers
+bool WikiDataValidator(std::string const & tagValue)
+{
+  if (tagValue.size() < 2)
+    return false;
+
+  size_t pos = 0;
+  // Only items are are needed.
+  if (tagValue[pos++] != 'Q')
+    return false;
+
+  while (pos != tagValue.size())
+  {
+    if (!std::isdigit(tagValue[pos++]))
+      return false;
+  }
+
+  return true;
+}
+}  // namespace
+
 TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
                                    cache::IntermediateDataReader & holder,
                                    feature::GenerateInfo const & info)
@@ -31,6 +56,7 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
   , m_nodeRelations(m_routingTagsProcessor)
   , m_wayRelations(m_routingTagsProcessor)
   , m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))
+  , m_wikiDataCollector(info.m_id2wikidataFilename, "wikidata", WikiDataValidator, true /* ignoreIfNotOpen */)
 {
   auto const addrFilePath = info.GetAddressesFileName();
   if (!addrFilePath.empty())
@@ -182,7 +208,7 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
 
   m_routingTagsProcessor.m_cameraNodeWriter.Process(*p, params, m_cache);
   m_routingTagsProcessor.m_roadAccessWriter.Process(*p);
-
+  m_wikiDataCollector.Collect(GetGeoObjectId(*p), *p);
   return true;
 }
 

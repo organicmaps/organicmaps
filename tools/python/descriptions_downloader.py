@@ -6,6 +6,8 @@ import logging
 import os
 import random
 import time
+import types
+import urllib.error
 import urllib.parse
 from multiprocessing.pool import ThreadPool
 
@@ -13,6 +15,7 @@ import htmlmin
 import requests
 import wikipediaapi
 from bs4 import BeautifulSoup
+from wikidata.client import Client
 
 """
 This script downloads Wikipedia pages for different languages.
@@ -20,7 +23,7 @@ This script downloads Wikipedia pages for different languages.
 log = logging.getLogger(__name__)
 
 WORKERS = 80
-CHUNK_SIZE = 128
+CHUNK_SIZE = 16
 REQUEST_ATTEMPTS = 32
 ATTEMPTS_PAUSE_MS = 4000
 
@@ -48,16 +51,21 @@ class GettingError(MyException):
     pass
 
 
-def try_get(obj, prop):
+def try_get(obj, prop, *args, **kwargs):
     attempts = REQUEST_ATTEMPTS
     while attempts != 0:
         try:
-            return getattr(obj, prop)
+            attr = getattr(obj, prop)
+            is_method = isinstance(attr, types.MethodType)
+            return attr(*args, **kwargs) if is_method else attr
         except (requests.exceptions.ConnectionError,
                 requests.exceptions.ReadTimeout,
                 json.decoder.JSONDecodeError):
             time.sleep(random.uniform(0.0, 1.0 / 1000.0 * ATTEMPTS_PAUSE_MS))
             attempts -= 1
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                raise GettingError(f"Page not found {e.msg}")
         except KeyError:
             raise GettingError(f"Getting {prop} field failed. {prop} not found.")
 
@@ -80,7 +88,7 @@ def read_popularity(path):
     return ids
 
 
-def should_download_wikipage(popularity_set):
+def should_download_page(popularity_set):
     @functools.wraps(popularity_set)
     def wrapped(ident):
         return popularity_set is None or ident in popularity_set
@@ -184,7 +192,7 @@ def get_wiki_langs(url):
         return curr_lang
 
 
-def download_all(path, url, langs):
+def download_all_from_wikipedia(path, url, langs):
     try:
         available_langs = get_wiki_langs(url)
     except ParseError:
@@ -195,8 +203,8 @@ def download_all(path, url, langs):
         download(path, lang[1])
 
 
-def worker(output_dir, checker, langs):
-    @functools.wraps(worker)
+def wikipedia_worker(output_dir, checker, langs):
+    @functools.wraps(wikipedia_worker)
     def wrapped(line):
         if not line.strip():
             return
@@ -211,20 +219,94 @@ def worker(output_dir, checker, langs):
             return
         parsed = urllib.parse.urlparse(url)
         path = os.path.join(output_dir, parsed.netloc, parsed.path[1:])
-        download_all(path, url, langs)
+        download_all_from_wikipedia(path, url, langs)
     return wrapped
+
+
+def download_from_wikipedia_tags(input_file, output_dir, langs, checker):
+    with open(input_file) as file:
+        _ = file.readline()
+        pool = ThreadPool(processes=WORKERS)
+        pool.map(wikipedia_worker(output_dir, checker, langs), file, CHUNK_SIZE)
+        pool.close()
+        pool.join()
+
+
+def get_wikidata_urls(entity, langs):
+    try:
+        keys = entity.data["sitelinks"].keys()
+    except (KeyError, AttributeError):
+        log.exception(f"Sitelinks not found for {entity.id}.")
+        return None
+    return [
+        entity.data["sitelinks"][k]["url"] for k in keys
+        if any([k.startswith(lang) for lang in langs])
+    ]
+
+
+def wikidata_worker(output_dir, checker, langs):
+    @functools.wraps(wikidata_worker)
+    def wrapped(line):
+        if not line.strip():
+            return
+        try:
+            ident, wikidata_id = line.split("\t")
+            ident = int(ident)
+            wikidata_id = wikidata_id.strip()
+            if not checker(ident):
+                return
+        except (AttributeError, IndexError):
+            log.exception(f"{line} is incorrect.")
+            return
+        client = Client()
+        try:
+            entity = try_get(client, "get", wikidata_id, load=True)
+        except GettingError:
+            log.exception(f"Error: page is not downloaded {wikidata_id}.")
+            return
+        urls = get_wikidata_urls(entity, langs)
+        if not urls:
+            return
+        path = os.path.join(output_dir, wikidata_id)
+        for url in urls:
+            download(path, url)
+    return wrapped
+
+
+def download_from_wikidata_tags(input_file, output_dir, langs, checker):
+    wikidata_output_dir = os.path.join(output_dir, "wikidata")
+    os.makedirs(wikidata_output_dir, exist_ok=True)
+    with open(input_file) as file:
+        pool = ThreadPool(processes=WORKERS)
+        pool.map(wikidata_worker(wikidata_output_dir, checker, langs), file, CHUNK_SIZE)
+        pool.close()
+        pool.join()
+
+
+def check_and_get_checker(popularity_file):
+    popularity_set = None
+    if popularity_file is None:
+        log.warning(f"Popularity file not set.")
+    elif os.path.exists(popularity_file):
+        popularity_set = read_popularity(popularity_file)
+        log.info(f"Popularity set size: {len(popularity_set)}.")
+    else:
+        log.error(f"Popularity file ({popularity_file}) not found.")
+    return should_download_page(popularity_set)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Download wiki pages.")
-    parser.add_argument("--o", metavar="PATH", type=str,
+    parser.add_argument("--output_dir", metavar="PATH", type=str,
                         help="Output dir for saving pages")
-    parser.add_argument("--p", metavar="PATH", type=str,
+    parser.add_argument("--popularity", metavar="PATH", type=str,
                         help="File with popular object ids for which we "
                              "download wikipedia data. If not given, download "
                              "for all objects.")
-    parser.add_argument('--i', metavar="PATH", type=str, required=True,
+    parser.add_argument('--wikipedia', metavar="PATH", type=str, required=True,
                         help="Input file with wikipedia url.")
+    parser.add_argument('--wikidata', metavar="PATH", type=str,
+                        help="Input file with wikidata ids.")
     parser.add_argument('--langs', metavar="LANGS", type=str, nargs='+',
                         action='append',
                         help="Languages ​​for pages. If left blank, pages in all "
@@ -236,22 +318,20 @@ def main():
     log.setLevel(logging.WARNING)
     wikipediaapi.log.setLevel(logging.WARNING)
     args = parse_args()
-    input_file = args.i
-    output_dir = args.o
-    popularity_file = args.p
+    wikipedia_file = args.wikipedia
+    wikidata_file = args.wikidata
+    output_dir = args.output_dir
+    popularity_file = args.popularity
     langs = list(itertools.chain.from_iterable(args.langs))
     os.makedirs(output_dir, exist_ok=True)
-    popularity_set = read_popularity(popularity_file) if popularity_file else None
-    if popularity_set:
-        log.info(f"Popularity set size: {len(popularity_set)}.")
-    checker = should_download_wikipage(popularity_set)
-    with open(input_file) as file:
-        _ = file.readline()
-        pool = ThreadPool(processes=WORKERS)
-        pool.map(worker(output_dir, checker, langs), file, CHUNK_SIZE)
-        pool.close()
-        pool.join()
-
+    checker = check_and_get_checker(popularity_file)
+    download_from_wikipedia_tags(wikipedia_file, output_dir, langs, checker)
+    if wikidata_file is None:
+        log.warning(f"Wikidata file not set.")
+    elif os.path.exists(wikidata_file):
+        download_from_wikidata_tags(wikidata_file, output_dir, langs, checker)
+    else:
+        log.warning(f"Wikidata ({wikidata_file}) file not set.")
 
 if __name__ == "__main__":
     main()

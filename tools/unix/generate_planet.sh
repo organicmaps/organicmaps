@@ -185,6 +185,7 @@ DESCRIPTIONS_DOWNLOADER="$PYTHON_SCRIPTS_PATH/descriptions_downloader.py"
 LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
 UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"
+WIKIDATA_FILE="${WIKIDATA_FILE:-$INTDIR/id2wikidata.csv}"
 BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
@@ -453,6 +454,9 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --popular_places_data=$POPULAR_PLACES_FILE"
+  [ -n "$OPT_DESCRIPTIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT  --id2wikidata=$WIKIDATA_FILE"
+
+
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
                     --node_storage=$NODE_STORAGE \
                     --osm_file_type=o5m \
@@ -555,14 +559,18 @@ if [ "$MODE" == "descriptions" ]; then
   LOG="$LOG_PATH/descriptions.log"
   LANGS="en ru es"
 
-  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" --dump_wikipedia_urls="$URLS_PATH" 2>> $LOG
-  $PYTHON36 $DESCRIPTIONS_DOWNLOADER --i "$URLS_PATH" --o "$WIKI_PAGES_PATH" --langs $LANGS 2>> $LOG
+  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+  --dump_wikipedia_urls="$URLS_PATH" --id2wikidata="$WIKIDATA_FILE" 2>> $LOG
+
+  PARAMS="--wikipedia $URLS_PATH --wikidata $WIKIDATA_FILE --output_dir $WIKI_PAGES_PATH"
+  [ -f "$POPULAR_PLACES_FILE" ] && PARAMS="$PARAMS --popularity=$POPULAR_PLACES_FILE"
+  $PYTHON36 $DESCRIPTIONS_DOWNLOADER $PARAMS --langs $LANGS 2>> $LOG
 
   for file in "$TARGET"/*.mwm; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       BASENAME="$(basename "$file" .mwm)"
-      "$GENERATOR_TOOL" --wikipedia_pages="$WIKI_PAGES_PATH/" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" \
-      --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+      "$GENERATOR_TOOL" --wikipedia_pages="$WIKI_PAGES_PATH/" --id2wikidata="$WIKIDATA_FILE" \
+      --data_path="$TARGET" --user_resource_path="$DATA_PATH/" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
       forky
     fi
   done

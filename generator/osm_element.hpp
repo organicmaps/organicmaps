@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
@@ -161,6 +162,8 @@ struct OsmElement
 
   std::string GetTag(std::string const & key) const;
 };
+
+base::GeoObjectId GetGeoObjectId(OsmElement const & element);
 
 std::string DebugPrint(OsmElement const & e);
 std::string DebugPrint(OsmElement::EntityType e);

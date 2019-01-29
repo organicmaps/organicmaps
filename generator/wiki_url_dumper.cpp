@@ -65,4 +65,67 @@ void WikiUrlDumper::DumpOne(std::string const & path, std::ostream & stream)
     stream << path << "\t" << feature.GetMostGenericOsmId() << "\t" <<  wikiUrl << "\n";
   });
 }
+
+WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string> const & datFiles)
+  :  m_path(path), m_dataFiles(datFiles)
+{
+  std::ifstream stream;
+  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  stream.open(m_path);
+  stream.exceptions(std::fstream::badbit);
+  uint64_t id;
+  std::string wikidata;
+  while (stream)
+  {
+    stream >> id >> wikidata;
+    m_id2wikiData.emplace(base::GeoObjectId(id), wikidata);
+  }
+}
+
+// static
+void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & id2wikiData,
+                               std::ostream & stream)
+{
+  auto const & needWikiUrl = ftypes::WikiChecker::Instance();
+  feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder1 const & feature, uint64_t /* pos */) {
+    if (!needWikiUrl(feature.GetTypesHolder()))
+      return;
+
+    auto const it = id2wikiData.find(feature.GetMostGenericOsmId());
+    if (it == std::end(id2wikiData))
+      return;
+
+    stream << it->first.GetEncodedId() << "\t" << it->second << "\n";
+  });
+}
+
+void WikiDataFilter::Filter(size_t cpuCount)
+{
+  CHECK_GREATER(cpuCount, 0, ());
+
+  base::thread_pool::computational::ThreadPool threadPool(cpuCount);
+  std::vector<std::future<std::string>> futures;
+  futures.reserve(m_dataFiles.size());
+
+  auto const fn = [&](std::string const & filename) {
+    std::stringstream stringStream;
+    FilterOne(filename, m_id2wikiData, stringStream);
+    return stringStream.str();
+  };
+
+  for (auto const & path : m_dataFiles)
+  {
+    auto result = threadPool.Submit(fn, path);
+    futures.emplace_back(std::move(result));
+  }
+
+  std::ofstream stream;
+  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  stream.open(m_path);
+  for (auto & f : futures)
+  {
+    auto lines = f.get();
+    stream << lines;
+  }
+}
 }  // namespace generator

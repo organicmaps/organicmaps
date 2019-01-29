@@ -153,3 +153,17 @@ std::string DebugPrint(OsmElement::Tag const & tag)
   ss << tag.key << '=' << tag.value;
   return ss.str();
 }
+
+base::GeoObjectId GetGeoObjectId(OsmElement const & element)
+{
+  switch (element.type)
+  {
+  case OsmElement::EntityType::Node:
+    return base::MakeOsmNode(element.id);
+  case OsmElement::EntityType::Way:
+    return base::MakeOsmWay(element.id);
+  case OsmElement::EntityType::Relation:
+    return base::MakeOsmRelation(element.id);
+  }
+  UNREACHABLE();
+}

@@ -1,8 +1,12 @@
 #include "generator/descriptions_section_builder.hpp"
 
+#include "generator/routing_helpers.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/string_utils.hpp"
+
+#include "defines.hpp"
 
 #include <fstream>
 #include <iterator>
@@ -26,6 +30,39 @@ std::string GetFileName(std::string path)
 
 namespace generator
 {
+WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & id2wikidataPath)
+  : m_mwmPath(mwmPath)
+  , m_id2wikidataPath(id2wikidataPath)
+{
+  std::string const osmIdsToFeatureIdsPath = m_mwmPath + OSM2FEATURE_FILE_EXTENSION;
+  if (!routing::ParseFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
+    LOG(LCRITICAL, ("Error parse OsmIdToFeatureId mapping."));
+
+  std::ifstream stream;
+  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  stream.open(m_id2wikidataPath);
+  stream.exceptions(std::fstream::badbit);
+  uint64_t id;
+  std::string wikidataId;
+  while (stream)
+  {
+    stream >> id >> wikidataId;
+    strings::Trim(wikidataId);
+    m_osmIdToFeatureId.emplace(base::GeoObjectId(id), wikidataId);
+  }
+}
+
+boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) const
+{
+  auto const itFeatureIdToOsmId = m_featureIdToOsmId.find(featureId);
+  if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId))
+    return {};
+
+  auto const itOsmIdToFeatureId = m_osmIdToFeatureId.find(itFeatureIdToOsmId->second);
+  return itOsmIdToFeatureId == std::end(m_osmIdToFeatureId) ?
+        boost::optional<std::string>() : itOsmIdToFeatureId->second;
+}
+
 std::string DescriptionsCollectionBuilderStat::LangStatisticsToString() const
 {
   std::stringstream stream;
@@ -46,11 +83,17 @@ std::string DescriptionsCollectionBuilderStat::LangStatisticsToString() const
 }
 
 DescriptionsCollectionBuilder::DescriptionsCollectionBuilder(std::string const & wikipediaDir,
+                                                             std::string const & mwmFile,
+                                                             std::string const & id2wikidataPath)
+  : m_wikidataHelper(mwmFile, id2wikidataPath), m_wikipediaDir(wikipediaDir), m_mwmFile(mwmFile) {}
+
+DescriptionsCollectionBuilder::DescriptionsCollectionBuilder(std::string const & wikipediaDir,
                                                              std::string const & mwmFile)
   : m_wikipediaDir(wikipediaDir), m_mwmFile(mwmFile) {}
 
 // static
-std::string DescriptionsCollectionBuilder::MakePath(std::string const & wikipediaDir, std::string wikipediaUrl)
+std::string DescriptionsCollectionBuilder::MakePathForWikipedia(std::string const & wikipediaDir,
+                                                                std::string wikipediaUrl)
 {
   strings::Trim(wikipediaUrl);
   strings::ReplaceFirst(wikipediaUrl, "http://", "");
@@ -59,6 +102,13 @@ std::string DescriptionsCollectionBuilder::MakePath(std::string const & wikipedi
     wikipediaUrl.pop_back();
 
   return base::JoinPath(wikipediaDir, wikipediaUrl);
+}
+
+// static
+std::string DescriptionsCollectionBuilder::MakePathForWikidata(std::string const & wikipediaDir,
+                                                               std::string wikidataId)
+{
+  return base::JoinPath(wikipediaDir, "wikidata", wikidataId);
 }
 
 // static
@@ -76,10 +126,9 @@ size_t DescriptionsCollectionBuilder::FillStringFromFile(std::string const & ful
   return contentSize;
 }
 
-boost::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::string wikipediaUrl,
+boost::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::string path,
                                                                        StringUtf8Multilang & str)
 {
-  auto const path = MakePath(m_wikipediaDir, wikipediaUrl);
   if (!IsValidDir(path))
   {
     LOG(LWARNING, ("Directory", path, "not found."));
@@ -108,19 +157,25 @@ boost::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::stri
   return size;
 }
 
-size_t DescriptionsCollectionBuilder::GetFeatureDescription(std::string const & wikiUrl, uint32_t featureId,
+size_t DescriptionsCollectionBuilder::GetFeatureDescription(std::string const & path, uint32_t featureId,
                                                             descriptions::FeatureDescription & description)
 {
-  if (wikiUrl.empty())
+  if (path.empty())
     return 0;
 
   StringUtf8Multilang string;
-  auto const ret = FindPageAndFill(wikiUrl, string);
+  auto const ret = FindPageAndFill(path, string);
   if (!ret || *ret == 0)
     return 0;
 
   description = descriptions::FeatureDescription(featureId, std::move(string));
   return *ret;
+}
+
+void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile,
+                              std::string const & id2wikidataPath)
+{
+  DescriptionsSectionBuilder<FeatureType>::Build(wikipediaDir, mwmFile, id2wikidataPath);
 }
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile)

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "base/geo_object_id.hpp"
-
 #include <string>
 
 struct OsmElement;
