@@ -80,6 +80,7 @@
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
+#include "base/cancellable.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -380,9 +381,9 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 // the CRC of the original file stored in the patch file, before applying the
 // patch to it.
 template <typename OldReader, typename NewSink, typename PatchReader>
-BSDiffStatus ApplyBinaryPatch(OldReader & old_reader,
-                              NewSink & new_sink,
-                              PatchReader & patch_reader) {
+BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
+                              PatchReader & patch_reader, const base::Cancellable & cancellable)
+{
   ReaderSource<OldReader> old_source(old_reader);
   ReaderSource<PatchReader> patch_source(patch_reader);
 
@@ -436,7 +437,14 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader,
 
   auto pending_diff_zeros = ReadVarUint<uint32_t>(diff_skips);
 
+  // We will check whether the application process has been cancelled
+  // upon copying every |kCheckCancelledPeriod| bytes from the old file.
+  const size_t kCheckCancelledPeriod = 100 * 1024;
+
   while (control_stream_copy_counts.Size() > 0) {
+    if (cancellable.IsCancelled())
+      return CANCELLED;
+
     auto copy_count = ReadVarUint<uint32_t>(control_stream_copy_counts);
     auto extra_count = ReadVarUint<uint32_t>(control_stream_extra_counts);
     auto seek_adjustment = ReadVarInt<int32_t>(control_stream_seeks);
@@ -452,6 +460,9 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader,
 
     // Add together bytes from the 'old' file and the 'diff' stream.
     for (size_t i = 0; i < copy_count; ++i) {
+      if (i > 0 && i % kCheckCancelledPeriod == 0 && cancellable.IsCancelled())
+        return CANCELLED;
+
       uint8_t diff_byte = 0;
       if (pending_diff_zeros) {
         --pending_diff_zeros;

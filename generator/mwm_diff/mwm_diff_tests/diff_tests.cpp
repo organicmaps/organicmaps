@@ -45,8 +45,10 @@ UNIT_TEST(IncrementalUpdates_Smoke)
     FileWriter writer(newMwmPath1);
   }
 
+  base::Cancellable cancellable;
   TEST(MakeDiff(oldMwmPath, newMwmPath1, diffPath), ());
-  TEST(ApplyDiff(oldMwmPath, newMwmPath2, diffPath), ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok,
+             ());
 
   {
     // Alter the old mwm slightly.
@@ -60,9 +62,15 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   }
 
   TEST(MakeDiff(oldMwmPath, newMwmPath1, diffPath), ());
-  TEST(ApplyDiff(oldMwmPath, newMwmPath2, diffPath), ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok,
+             ());
 
   TEST(base::IsEqualFiles(newMwmPath1, newMwmPath2), ());
+
+  cancellable.Cancel();
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
+             DiffApplicationResult::Cancelled, ());
+  cancellable.Reset();
 
   {
     // Corrupt the diff file contents.
@@ -76,14 +84,16 @@ UNIT_TEST(IncrementalUpdates_Smoke)
     writer.Write(diffContents.data(), diffContents.size());
   }
 
-  TEST(!ApplyDiff(oldMwmPath, newMwmPath2, diffPath), ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
+             DiffApplicationResult::Failed, ());
 
   {
     // Reset the diff file contents.
     FileWriter writer(diffPath);
   }
 
-  TEST(!ApplyDiff(oldMwmPath, newMwmPath2, diffPath), ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
+             DiffApplicationResult::Failed, ());
 }
 }  // namespace mwm_diff
 }  // namespace generator

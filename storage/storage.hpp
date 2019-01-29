@@ -12,6 +12,7 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "base/cancellable.hpp"
 #include "base/deferred_task.hpp"
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
@@ -138,7 +139,14 @@ struct NodeStatuses
   bool m_groupNode;
 };
 
-/// This class is used for downloading, updating and deleting maps.
+// This class is used for downloading, updating and deleting maps.
+// Storage manages a queue of mwms to be downloaded.
+// Every operation with this queue must be executed
+// on the storage thread. In the current implementation, the storage
+// thread coincides with the main (UI) thread.
+// Downloading of only one mwm at a time is supported, so while the
+// mwm at the top of the queue is being downloaded (or updated by
+// applying a diff file) all other mwms have to wait.
 class Storage : public diffs::Manager::Observer
 {
 public:
@@ -173,7 +181,7 @@ private:
 
   /// Set of mwm files which have been downloaded recently.
   /// When a mwm file is downloaded it's moved from |m_queue| to |m_justDownloaded|.
-  /// When a new mwm file is added to |m_queue| |m_justDownloaded| is cleared.
+  /// When a new mwm file is added to |m_queue|, |m_justDownloaded| is cleared.
   /// Note. This set is necessary for implementation of downloading progress of
   /// mwm group.
   CountriesSet m_justDownloaded;
@@ -190,6 +198,12 @@ private:
   /// used to correctly calculate total country download progress with more than 1 file
   /// <current, total>
   MapFilesDownloader::Progress m_countryProgress;
+
+  // Used to cancel an ongoing diff application.
+  // |m_diffsCancellable| is reset every time when a task to apply a diff is posted.
+  // We use the fact that at most one diff is being applied at a time and the
+  // calls to the diff manager's ApplyDiff are coordinated from the storage thread.
+  base::Cancellable m_diffsCancellable;
 
   DownloadingPolicy m_defaultDownloadingPolicy;
   DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;
@@ -682,9 +696,9 @@ private:
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTreeNode const & node) const;
 
-  void CalMaxMwmSizeBytes();
-
-  void OnDownloadFailed(CountryId const & countryId);
+  void CalcMaxMwmSizeBytes();
+  
+  void OnMapDownloadFailed(CountryId const & countryId);
 
   void LoadDiffScheme();
   void ApplyDiff(CountryId const & countryId, std::function<void(bool isSuccess)> const & fn);

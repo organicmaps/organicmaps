@@ -21,7 +21,7 @@ public:
   void ResetToDefaultOptions();
   bool SwitchToNextFile();
 
-  void SetFrozen() { m_isFrozen = true; }
+  void SetFrozen(bool isFrozen) { m_isFrozen = isFrozen; }
   bool IsFrozen() const { return m_isFrozen; }
 
   inline CountryId const & GetCountryId() const { return m_countryId; }

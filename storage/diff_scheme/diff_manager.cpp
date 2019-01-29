@@ -1,13 +1,12 @@
 #include "storage/diff_scheme/diff_manager.hpp"
 #include "storage/diff_scheme/diff_scheme_checker.hpp"
 
-#include "generator/mwm_diff/diff.hpp"
-
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
+#include "base/cancellable.hpp"
 
 namespace storage
 {
@@ -21,8 +20,7 @@ void Manager::Load(LocalMapsInfo && info)
     m_localMapsInfo = std::move(info);
   }
 
-  m_workerThread.Push([this, localMapsInfo]
-  {
+  m_workerThread.Push([this, localMapsInfo] {
     NameDiffInfoMap const diffs = Checker::Check(localMapsInfo);
 
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -47,17 +45,20 @@ void Manager::Load(LocalMapsInfo && info)
   });
 }
 
-void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const result)> const & task)
+void Manager::ApplyDiff(
+    ApplyDiffParams && p, base::Cancellable const & cancellable,
+    std::function<void(generator::mwm_diff::DiffApplicationResult result)> const & task)
 {
-  m_workerThread.Push([this, p, task]
-  {
+  using namespace generator::mwm_diff;
+
+  m_workerThread.Push([this, p, &cancellable, task] {
     CHECK(p.m_diffFile, ());
     CHECK(p.m_oldMwmFile, ());
 
     auto & diffReadyPath = p.m_diffReadyPath;
     auto & diffFile = p.m_diffFile;
     auto const diffPath = diffFile->GetPath(MapOptions::Diff);
-    bool result = false;
+    DiffApplicationResult result = DiffApplicationResult::Failed;
 
     diffFile->SyncWithDisk();
 
@@ -70,31 +71,58 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
       if (!isOnDisk)
         diffFile->SyncWithDisk();
 
+      {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        auto it = m_diffs.find(diffFile->GetCountryName());
+        CHECK(it != m_diffs.end(), ());
+        it->second.m_downloaded = true;
+      }
+
       string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
       string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
-      result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath) &&
-              base::RenameFileX(diffApplyingInProgressPath, newMwmPath);
+
+      result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath,
+                                              cancellable);
+      if (!base::RenameFileX(diffApplyingInProgressPath, newMwmPath))
+        result = DiffApplicationResult::Failed;
+
+      base::DeleteFileX(diffApplyingInProgressPath);
+
+      if (result != DiffApplicationResult::Ok)
+        base::DeleteFileX(newMwmPath);
     }
 
-    diffFile->DeleteFromDisk(MapOptions::Diff);
-
-    if (result)
+    switch (result)
     {
+    case DiffApplicationResult::Ok:
+    {
+      diffFile->DeleteFromDisk(MapOptions::Diff);
       std::lock_guard<std::mutex> lock(m_mutex);
       auto it = m_diffs.find(diffFile->GetCountryName());
       CHECK(it != m_diffs.end(), ());
       it->second.m_applied = true;
+      it->second.m_downloaded = false;
     }
-    else
+    break;
+    case DiffApplicationResult::Cancelled: break;
+    case DiffApplicationResult::Failed:
     {
-      std::lock_guard<std::mutex> lock(m_mutex);
-      m_status = Status::NotAvailable;
+      diffFile->DeleteFromDisk(MapOptions::Diff);
 
       GetPlatform().GetMarketingService().SendMarketingEvent(
           marketing::kDiffSchemeError,
           {{"type", "patching"},
            {"error", isFilePrepared ? "Cannot apply diff" : "Cannot prepare file"}});
+
+      std::lock_guard<std::mutex> lock(m_mutex);
+      m_status = Status::NotAvailable;
+
+      auto it = m_diffs.find(diffFile->GetCountryName());
+      CHECK(it != m_diffs.end(), ());
+      it->second.m_downloaded = false;
+    }
+    break;
     }
 
     task(result);
@@ -112,6 +140,12 @@ bool Manager::SizeFor(storage::CountryId const & countryId, uint64_t & size) con
   return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
 }
 
+bool Manager::SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const
+{
+  return WithDiff(countryId,
+                  [&size](DiffInfo const & info) { size = (info.m_downloaded ? 0 : info.m_size); });
+}
+
 bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & version) const
 {
   return WithDiff(countryId, [&version](DiffInfo const & info) { version = info.m_version; });
@@ -119,7 +153,7 @@ bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & versio
 
 bool Manager::HasDiffFor(storage::CountryId const & countryId) const
 {
-  return WithDiff(countryId, [](DiffInfo const &){});
+  return WithDiff(countryId, [](DiffInfo const &) {});
 }
 
 void Manager::RemoveAppliedDiffs()

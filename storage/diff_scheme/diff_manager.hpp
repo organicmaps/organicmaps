@@ -3,6 +3,8 @@
 #include "storage/diff_scheme/diff_types.hpp"
 #include "storage/storage_defines.hpp"
 
+#include "generator/mwm_diff/diff.hpp"
+
 #include "base/observer_list.hpp"
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
@@ -10,6 +12,11 @@
 #include <functional>
 #include <mutex>
 #include <utility>
+
+namespace base
+{
+class Cancellable;
+}
 
 namespace storage
 {
@@ -33,17 +40,31 @@ public:
     virtual void OnDiffStatusReceived(Status const status) = 0;
   };
 
+  // Returns the size of the diff file for |countryId| or 0 if there is no diff.
   bool SizeFor(storage::CountryId const & countryId, uint64_t & size) const;
+
+  // Returns how many bytes are left for the diff to be downloaded for |countryId|
+  // or 0 if there is no diff available or it has already been downloaded.
+  // This method may overestimate because it does not account for the possibility
+  // of resuming an old download, i.e. the return value is either 0 or the diff size.
+  bool SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const;
+
   bool VersionFor(storage::CountryId const & countryId, uint64_t & version) const;
   bool IsPossibleToAutoupdate() const;
+
+  // Checks whether the diff for |countryId| is available for download or
+  // has been downloaded.
   bool HasDiffFor(storage::CountryId const & countryId) const;
+
   void RemoveAppliedDiffs();
   void AbortDiffScheme();
 
   Status GetStatus() const;
 
   void Load(LocalMapsInfo && info);
-  void ApplyDiff(ApplyDiffParams && p, std::function<void(bool const result)> const & task);
+  void ApplyDiff(
+      ApplyDiffParams && p, base::Cancellable const & cancellable,
+      std::function<void(generator::mwm_diff::DiffApplicationResult result)> const & task);
 
   bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }

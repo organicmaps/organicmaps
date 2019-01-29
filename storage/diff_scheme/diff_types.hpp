@@ -23,6 +23,7 @@ struct DiffInfo final
   uint64_t m_size;
   uint64_t m_version;
   bool m_applied = false;
+  bool m_downloaded = false;
 };
 
 using NameDiffInfoMap = std::unordered_map<storage::CountryId, DiffInfo>;

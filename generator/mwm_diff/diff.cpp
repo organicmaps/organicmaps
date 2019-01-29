@@ -7,6 +7,8 @@
 #include "coding/writer.hpp"
 #include "coding/zlib.hpp"
 
+#include "base/assert.hpp"
+#include "base/cancellable.hpp"
 #include "base/logging.hpp"
 
 #include <cstdint>
@@ -52,9 +54,12 @@ bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter
   return true;
 }
 
-bool ApplyDiffVersion0(FileReader & oldReader, FileWriter & newWriter,
-                       ReaderSource<FileReader> & diffFileSource)
+generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
+    FileReader & oldReader, FileWriter & newWriter, ReaderSource<FileReader> & diffFileSource,
+    base::Cancellable const & cancellable)
 {
+  using generator::mwm_diff::DiffApplicationResult;
+
   vector<uint8_t> deflatedDiff(diffFileSource.Size());
   diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
 
@@ -73,15 +78,20 @@ bool ApplyDiffVersion0(FileReader & oldReader, FileWriter & newWriter,
   // its checksum is compared to the one stored in the diff file.
   MemReaderWithExceptions diffMemReader(diffBuf.data(), diffBuf.size());
 
-  auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader);
+  auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader, cancellable);
 
+  if (status == bsdiff::BSDiffStatus::CANCELLED)
+  {
+    LOG(LDEBUG, ("Diff application has been cancelled"));
+    return DiffApplicationResult::Cancelled;
+  }
   if (status != bsdiff::BSDiffStatus::OK)
   {
     LOG(LERROR, ("Could not apply patch with bsdiff:", status));
-    return false;
+    return DiffApplicationResult::Failed;
   }
 
-  return true;
+  return DiffApplicationResult::Ok;
 }
 }  // namespace
 
@@ -119,7 +129,8 @@ bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const
   return false;
 }
 
-bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string const & diffPath)
+DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwmPath,
+                                string const & diffPath, base::Cancellable const & cancellable)
 {
   try
   {
@@ -132,22 +143,33 @@ bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string cons
 
     switch (version)
     {
-    case VERSION_V0: return ApplyDiffVersion0(oldReader, newWriter, diffFileSource);
+    case VERSION_V0: return ApplyDiffVersion0(oldReader, newWriter, diffFileSource, cancellable);
     default: LOG(LERROR, ("Unknown version format of mwm diff:", version));
     }
   }
   catch (Reader::Exception const & e)
   {
     LOG(LERROR, ("Could not open file when applying a patch:", e.Msg()));
-    return false;
+    return DiffApplicationResult::Failed;
   }
   catch (Writer::Exception const & e)
   {
     LOG(LERROR, ("Could not open file when applying a patch:", e.Msg()));
-    return false;
+    return DiffApplicationResult::Failed;
   }
 
-  return false;
+  return DiffApplicationResult::Failed;
+}
+
+string DebugPrint(DiffApplicationResult const & result)
+{
+  switch (result)
+  {
+  case DiffApplicationResult::Ok: return "Ok";
+  case DiffApplicationResult::Failed: return "Failed";
+  case DiffApplicationResult::Cancelled: return "Cancelled";
+  }
+  UNREACHABLE();
 }
 }  // namespace mwm_diff
 }  // namespace generator

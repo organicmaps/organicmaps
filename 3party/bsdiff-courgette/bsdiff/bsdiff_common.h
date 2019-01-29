@@ -18,7 +18,8 @@ enum BSDiffStatus {
   CRC_ERROR = 2,
   READ_ERROR = 3,
   UNEXPECTED_ERROR = 4,
-  WRITE_ERROR = 5
+  WRITE_ERROR = 5,
+  CANCELLED = 6,
 };
 
 // The patch stream starts with a MBSPatchHeader.
@@ -57,7 +58,7 @@ BSDiffStatus MBS_ReadHeader(Source & src, MBSPatchHeader* header) {
   return OK;
 }
 
-std::string DebugPrint(BSDiffStatus status) {
+inline std::string DebugPrint(BSDiffStatus status) {
   switch (status) {
     case OK: return "OK";
     case MEM_ERROR: return "MEM_ERROR";
@@ -65,6 +66,7 @@ std::string DebugPrint(BSDiffStatus status) {
     case READ_ERROR: return "READ_ERROR";
     case UNEXPECTED_ERROR: return "UNEXPECTED_ERROR";
     case WRITE_ERROR: return "WRITE_ERROR";
+    case CANCELLED: return "CANCELLED";
   }
   return "Unknown status";
 }
