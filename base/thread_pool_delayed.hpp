@@ -18,7 +18,7 @@ namespace thread_pool
 {
 namespace delayed
 {
-// This class represents a simple worker thread with a queue of tasks.
+// This class represents a simple thread pool with a queue of tasks.
 //
 // *NOTE* This class IS NOT thread-safe, it must be destroyed on the
 // same thread it was created, but Push* methods are thread-safe.

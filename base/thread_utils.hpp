@@ -28,7 +28,7 @@ private:
   ThreadContainer & m_threads;
 };
 
-// This class is needed in ThreadPool to store std::packaged_task<> objects.
+// This class can be used in thread pools to store std::packaged_task<> objects.
 // std::packaged_task<> isn’t copyable so we have to use std::move().
 // This idea is borrowed from the book C++ Concurrency in action by Anthony Williams (Chapter 9).
 class FunctionWrapper

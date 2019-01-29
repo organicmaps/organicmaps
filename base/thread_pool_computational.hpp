@@ -86,7 +86,8 @@ public:
 
   // Stop a ThreadPool.
   // Removes the tasks that are not yet started from the queue.
-  // This function will not block until all runnables have been completed.
+  // Unlike the destructor, this function does not wait for all runnables to complete:
+  // the tasks will stop as soon as possible.
   void Stop()
   {
     {
