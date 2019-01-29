@@ -167,12 +167,12 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     mUpdateGuideDirectLinkBtn.setSelected(true);
     mUpdateGuidePublicAccessBtn.setSelected(true);
 
-    TextView licenceAgreementText = root.findViewById(R.id.license_agreement_message);
+    TextView licenseAgreementText = root.findViewById(R.id.license_agreement_message);
     String src = getResources().getString(R.string.ugc_routes_user_agreement,
                                           Framework.nativeGetPrivacyPolicyLink());
     Spanned spanned = Html.fromHtml(src);
-    licenceAgreementText.setMovementMethod(LinkMovementMethod.getInstance());
-    licenceAgreementText.setText(spanned);
+    licenseAgreementText.setMovementMethod(LinkMovementMethod.getInstance());
+    licenseAgreementText.setText(spanned);
   }
 
   private void toggleViews()
@@ -183,15 +183,19 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     mPublishCategoryImage.setSelected(!isPublished);
 
     boolean isLinkSuccessFormed = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
-    UiUtils.hideIf(isLinkSuccessFormed || isPublished, mGetDirectLinkText);
-    UiUtils.showIf(isLinkSuccessFormed || isPublished, mGetDirectLinkCompletedStatusContainer);
+    UiUtils.hideIf(isLinkSuccessFormed
+                   || isPublished, mGetDirectLinkText);
+    UiUtils.showIf(isLinkSuccessFormed
+                   || isPublished, mGetDirectLinkCompletedStatusContainer);
 
     UiUtils.showIf(isLinkSuccessFormed, mUpdateGuideDirectLinkBtn);
     mGetDirectLinkImage.setSelected(!isLinkSuccessFormed && !isPublished);
     mGetDirectLinkCompletedStatusContainer.setEnabled(!isPublished);
 
-    mDirectLinkCreatedText.setText(isPublished ? R.string.upload_and_publish_success : R.string.direct_link_success);
-    mDirectLinkDescriptionText.setText(isPublished ? R.string.upload_and_publish_success : R.string.get_direct_link_desc);
+    mDirectLinkCreatedText.setText(isPublished ? R.string.upload_and_publish_success
+                                               : R.string.direct_link_success);
+    mDirectLinkDescriptionText.setText(isPublished ? R.string.upload_and_publish_success
+                                                   : R.string.get_direct_link_desc);
     UiUtils.hideIf(isPublished, mShareDirectLinkBtn);
   }
 
