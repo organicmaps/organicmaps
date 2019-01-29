@@ -9,12 +9,10 @@
 #include "base/geo_object_id.hpp"
 
 #include <cstdint>
-#include <functional>
 #include <ostream>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
-#include <utility>
 
 struct OsmElement;
 class FeatureParams;
@@ -59,8 +57,6 @@ enum class PlaceType: uint8_t
 
 PlaceType EncodePlaceType(std::string const & place);
 
-class RegionDataProxy;
-
 // Codes for the names of countries, dependent territories, and special areas of geographical
 // interest.
 // https://en.wikipedia.org/wiki/ISO_3166-1
@@ -84,25 +80,11 @@ struct IsoCode
   char m_numeric[4] = {};
 };
 
-struct AdminCenter
-{
-  AdminCenter() : m_has(false) {}
-  AdminCenter(base::GeoObjectId const & id) : m_has(true), m_id(id) {}
-
-  bool HasId() const { return m_has; }
-  base::GeoObjectId GetId() const { return m_id; }
-
-private:
-  bool m_has;
-  base::GeoObjectId m_id;
-};
-
 struct RegionData
 {
   base::GeoObjectId m_osmId;
   AdminLevel m_adminLevel = AdminLevel::Unknown;
   PlaceType m_place = PlaceType::Unknown;
-  AdminCenter m_osmIdAdminCenter;
 };
 
 using MapRegionData = std::unordered_map<base::GeoObjectId, RegionData>;
@@ -112,6 +94,7 @@ using MapIsoCode = std::unordered_map<base::GeoObjectId, IsoCode>;
 class CollectorRegionInfo : public CollectorInterface
 {
 public:
+  static uint8_t const kVersion;
   static std::string const kDefaultExt;
 
   CollectorRegionInfo(std::string const & filename);
@@ -137,76 +120,6 @@ private:
   std::string m_filename;
   MapRegionData m_mapRegionData;
   MapIsoCode m_mapIsoCode;
-};
-
-// RegionInfo class is responsible for reading and accessing additional information about the regions.
-class RegionInfo
-{
-public:
-  RegionInfo() = default;
-  explicit RegionInfo(std::string const & filename);
-  explicit RegionInfo(Platform::FilesList const & filenames);
-
-  RegionDataProxy Get(base::GeoObjectId const & osmId);
-
-private:
-  friend class RegionDataProxy;
-
-  template <typename Source, typename Map>
-  void ReadMap(Source & src, Map & seq)
-  {
-    uint32_t size = 0;
-    ReadPrimitiveFromSource(src, size);
-    typename Map::mapped_type data;
-    for (uint32_t i = 0; i < size; ++i)
-    {
-      ReadPrimitiveFromSource(src, data);
-      seq.emplace(data.m_osmId, std::move(data));
-    }
-  }
-
-  void ParseFile(std::string const & filename);
-
-  MapRegionData m_mapRegionData;
-  MapIsoCode m_mapIsoCode;
-};
-
-class RegionDataProxy
-{
-public:
-  RegionDataProxy(RegionInfo & regionInfoCollector, base::GeoObjectId const & osmId);
-
-  base::GeoObjectId const & GetOsmId() const;
-  AdminLevel GetAdminLevel() const;
-  PlaceType GetPlaceType() const;
-
-  void SetAdminLevel(AdminLevel adminLevel);
-  void SetPlaceType(PlaceType placeType);
-
-  bool HasAdminLevel() const;
-  bool HasPlaceType() const;
-
-  bool HasIsoCodeAlpha2() const;
-  bool HasIsoCodeAlpha3() const;
-  bool HasIsoCodeAlphaNumeric() const;
-
-  std::string GetIsoCodeAlpha2() const;
-  std::string GetIsoCodeAlpha3() const;
-  std::string GetIsoCodeAlphaNumeric() const;
-
-  bool HasAdminCenter() const;
-  base::GeoObjectId GetAdminCenter() const;
-
-private:
-  bool HasIsoCode() const;
-  RegionInfo & GetCollector();
-  RegionInfo const & GetCollector() const;
-  MapRegionData & GetMapRegionData();
-  MapRegionData const & GetMapRegionData() const;
-  MapIsoCode const & GetMapIsoCode() const;
-
-  std::reference_wrapper<RegionInfo> m_regionInfoCollector;
-  base::GeoObjectId m_osmId;
 };
 
 inline std::ostream & operator<<(std::ostream & out, AdminLevel const & t)

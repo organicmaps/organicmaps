@@ -142,6 +142,7 @@ public:
   bool HasString(int8_t lang) const;
 
   int8_t FindString(string const & utf8s) const;
+  size_t CountLangs() const;
 
   template <class TSink>
   void Write(TSink & sink) const

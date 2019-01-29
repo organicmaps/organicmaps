@@ -13,25 +13,32 @@ class RegionDataProxy;
 
 namespace regions
 {
-struct City;
+class City;
 
 // This is a helper class that is needed to represent the region.
 // With this view, further processing is simplified.
-struct Region : public RegionWithName, public RegionWithData
+class Region : public RegionWithName, public RegionWithData
 {
+public:
   explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
+  // Build a region and its boundary based on the heuristic.
+  explicit Region(City const & city);
 
+  // After calling DeletePolygon, you cannot use Contains, ContainsRect, CalculateOverlapPercentage.
   void DeletePolygon();
-  bool IsCountry() const;
   bool Contains(Region const & smaller) const;
   bool ContainsRect(Region const & smaller) const;
+  bool Contains(City const & cityPoint) const;
+  bool Contains(BoostPoint const & point) const;
   double CalculateOverlapPercentage(Region const & other) const;
   BoostPoint GetCenter() const;
-  std::shared_ptr<BoostPolygon> const GetPolygon() const { return m_polygon; }
+  bool IsCountry() const;
+  bool IsLocality() const;
   BoostRect const & GetRect() const { return m_rect; }
   double GetArea() const { return m_area; }
-  bool Contains(City const & cityPoint) const;
-  void SetInfo(City const & cityPoint);
+  // This function uses heuristics and assigns a radius according to the tag place.
+  // The radius will be returned in mercator units.
+  static double GetRadiusByPlaceType(PlaceType place);
 
 private:
   void FillPolygon(FeatureBuilder1 const & fb);
@@ -40,5 +47,7 @@ private:
   BoostRect m_rect;
   double m_area;
 };
+
+bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature);
 }  // namespace regions
 }  // namespace generator

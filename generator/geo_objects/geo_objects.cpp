@@ -11,6 +11,8 @@
 
 #include "coding/mmap_reader.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/timer.hpp"
@@ -31,6 +33,8 @@ namespace
 {
 using KeyValue = std::pair<uint64_t, base::Json>;
 using IndexReader = ReaderPtr<Reader>;
+
+bool DefaultPred(KeyValue const &) { return true; }
 
 bool ParseKey(std::string const & line, int64_t & key)
 {
@@ -97,8 +101,7 @@ public:
 class KeyValueMem : public KeyValueInterface
 {
 public:
-  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred =
-      [](KeyValue const &) { return true; })
+  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred = DefaultPred)
   {
     std::string line;
     KeyValue kv;
@@ -213,9 +216,8 @@ std::vector<base::GeoObjectId> SearchObjectsInIndex(FeatureBuilder1 const & fb, 
 {
   std::vector<base::GeoObjectId> ids;
   auto const fn = [&ids] (base::GeoObjectId const & osmid) { ids.emplace_back(osmid); };
-  auto const center = fb.GetLimitRect().Center();
-  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, 0 /* meters */);
-  index.ForEachInRect(fn, rect);
+  auto const center = fb.GetKeyPoint();
+  index.ForEachInRect(fn, m2::RectD(center, center));
   return ids;
 }
 
@@ -227,10 +229,10 @@ int GetRankFromValue(base::Json json)
   return rank;
 }
 
-base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids,
-                            KeyValueInterface const & regionKv)
+boost::optional<KeyValue> GetDeepestRegion(std::vector<base::GeoObjectId> const & ids,
+                                           KeyValueInterface const & regionKv)
 {
-  base::Json deepest;
+  boost::optional<KeyValue> deepest;
   int deepestRank = 0;
   for (auto const & id : ids)
   {
@@ -249,17 +251,17 @@ base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids,
       continue;
     }
 
-    if (!deepest.get())
+    if (!deepest)
     {
       deepestRank = GetRankFromValue(temp);
-      deepest = temp;
+      deepest = KeyValue(static_cast<int64_t>(id.GetEncodedId()), temp);
     }
     else
     {
       int tempRank = GetRankFromValue(temp);
       if (deepestRank < tempRank)
       {
-        deepest = temp;
+        deepest = KeyValue(static_cast<int64_t>(id.GetEncodedId()), temp);
         deepestRank = tempRank;
       }
     }
@@ -274,17 +276,18 @@ void UpdateCoordinates(m2::PointD const & point, base::Json json)
   auto coordinates = json_object_get(geometry, "coordinates");
   if (json_array_size(coordinates) == 2)
   {
-    json_array_set_new(coordinates, 0, ToJSON(point.x).release());
-    json_array_set_new(coordinates, 1, ToJSON(point.y).release());
+    auto const latLon = MercatorBounds::ToLatLon(point);
+    json_array_set_new(coordinates, 0, ToJSON(latLon.lat).release());
+    json_array_set_new(coordinates, 1, ToJSON(latLon.lon).release());
   }
 }
 
-base::Json AddAddress(FeatureBuilder1 const & fb, base::Json regionJson)
+base::Json AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValue)
 {
-  base::Json result = regionJson.GetDeepCopy();
+  base::Json result = regionKeyValue.second.GetDeepCopy();
   int const kHouseOrPoiRank = 30;
   ToJSONObject(*result.get(), "rank", kHouseOrPoiRank);
-  UpdateCoordinates(fb.GetLimitRect().Center(), result);
+  UpdateCoordinates(fb.GetKeyPoint(), result);
   auto properties = json_object_get(result.get(), "properties");
   auto address = json_object_get(properties, "address");
 
@@ -299,29 +302,25 @@ base::Json AddAddress(FeatureBuilder1 const & fb, base::Json regionJson)
   else
     ToJSONObject(*address, "building", base::NewJSONNull());
 
+  ToJSONObject(*properties, "pid", regionKeyValue.first);
   // auto locales = json_object_get(result.get(), "locales");
   // auto en = json_object_get(result.get(), "en");
   // todo(maksimandrianov): Add en locales.
   return result;
 }
 
-boost::optional<base::Json>
+boost::optional<KeyValue>
 FindRegion(FeatureBuilder1 const & fb, indexer::RegionsIndex<IndexReader> const & regionIndex,
            KeyValueInterface const & regionKv)
 {
-  boost::optional<base::Json> result;
   auto const ids = SearchObjectsInIndex(fb, regionIndex);
-  auto const deepest = GetDeepestRegion(ids, regionKv);
-  if (deepest.get())
-    result = deepest;
-
-  return result;
+  return GetDeepestRegion(ids, regionKv);
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
-MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, base::Json json)
+MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyValue)
 {
-  auto const jsonWithAddress = AddAddress(fb, json);
+  auto const jsonWithAddress = AddAddress(fb, keyValue);
   auto const cstr = json_dumps(jsonWithAddress.get(), JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>(cstr);
 }
@@ -340,14 +339,8 @@ FindHousePoi(FeatureBuilder1 const & fb,
 
     auto properties = json_object_get(house->get(), "properties");
     auto address = json_object_get(properties, "address");
-    std::string const kHouseField = "building";
-    char const * key = nullptr;
-    json_t * value = nullptr;
-    json_object_foreach(address, key, value)
-    {
-      if (key == kHouseField)
-        return house;
-    }
+    if (json_object_get(address, "building"))
+      return house;
   }
 
   return {};
@@ -359,7 +352,7 @@ MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, base::Json json)
   auto const jsonWithAddress = json.GetDeepCopy();
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
   ToJSONObject(*properties, "name", fb.GetName());
-  UpdateCoordinates(fb.GetLimitRect().Center(), jsonWithAddress);
+  UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
   auto const cstr = json_dumps(jsonWithAddress.get(), JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>(cstr);
 }
@@ -367,13 +360,12 @@ MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, base::Json json)
 boost::optional<indexer::GeoObjectsIndex<IndexReader>>
 MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 {
-  boost::optional<indexer::GeoObjectsIndex<IndexReader>> result;
   auto const dataFile = Platform().TmpPathForFile();
   SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
   if (!feature::GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
   {
     LOG(LCRITICAL, ("Error generating geo objects data."));
-    return result;
+    return {};
   }
 
   auto const indexFile = Platform().TmpPathForFile();
@@ -381,57 +373,44 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
   if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile))
   {
     LOG(LCRITICAL, ("Error generating geo objects index."));
-    return result;
+    return {};
   }
 
-  result = indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
-  return result;
+  return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
 }
 
-bool BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & regionIndex,
+void BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & regionIndex,
                                   KeyValueInterface const & regionKv,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   std::ostream & streamGeoObjectsKv, bool)
 {
   size_t countGeoObjects = 0;
-  auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */)
-  {
+  auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
     if (!(IsBuilding(fb) || HasHouse(fb)))
       return;
 
-    auto region = FindRegion(fb, regionIndex, regionKv);
-    if (!region)
+    auto regionKeyValue = FindRegion(fb, regionIndex, regionKv);
+    if (!regionKeyValue)
       return;
 
-    auto const value = MakeGeoObjectValueWithAddress(fb, *region);
+    auto const value = MakeGeoObjectValueWithAddress(fb, *regionKeyValue);
     streamGeoObjectsKv << static_cast<int64_t>(fb.GetMostGenericOsmId().GetEncodedId()) << " "
                        << value.get() << "\n";
     ++countGeoObjects;
   };
 
-  try
-  {
-    feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
-    LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file:", e.Msg()));
-    return false;
-  }
-
-  return true;
+  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
 }
 
-bool BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
+void BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
                                      std::string const & pathInGeoObjectsTmpMwm,
                                      KeyValueInterface const & geoObjectsKv,
                                      std::ostream & streamGeoObjectsKv,
                                      std::ostream & streamIdsWithoutAddress, bool)
 {
   size_t countGeoObjects = 0;
-  auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */)
-  {
+  auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
     if (IsBuilding(fb) || HasHouse(fb))
       return;
 
@@ -449,18 +428,8 @@ bool BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const
     ++countGeoObjects;
   };
 
-  try
-  {
-    feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
-    LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file:", e.Msg()));
-    return false;
-  }
-
-  return true;
+  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
 }
 }  // namespace
 
@@ -490,12 +459,8 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
   LOG(LINFO, ("Size of regions key-value storage:", regionsKv.Size()));
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
-  if (!BuildGeoObjectsWithAddresses(regionIndex, regionsKv, pathInGeoObjectsTmpMwm,
-                                    streamGeoObjectsKv, verbose))
-  {
-    return false;
-  }
-
+  BuildGeoObjectsWithAddresses(regionIndex, regionsKv, pathInGeoObjectsTmpMwm,
+                               streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));
   // Regions key-value storage is big (~80 Gb). We will not load the key value into memory.
   // This can be slow.
@@ -506,13 +471,11 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
   LOG(LINFO, ("Size of geo objects key-value storage:", geoObjectsKv.Size()));
   auto const geoObjectIndex = geoObjectIndexFuture.get();
   LOG(LINFO, ("Index was built."));
-  if (!geoObjectIndex ||
-      !BuildGeoObjectsWithoutAddresses(*geoObjectIndex, pathInGeoObjectsTmpMwm, geoObjectsKv,
-                                       streamGeoObjectsKv, streamIdsWithoutAddress, verbose))
-  {
+  if (!geoObjectIndex)
     return false;
-  }
 
+  BuildGeoObjectsWithoutAddresses(*geoObjectIndex, pathInGeoObjectsTmpMwm, geoObjectsKv,
+                                  streamGeoObjectsKv, streamIdsWithoutAddress, verbose);
   LOG(LINFO, ("Geo objects without addresses were built."));
   LOG(LINFO, ("Geo objects key-value storage saved to",  pathOutGeoObjectsKv));
   LOG(LINFO, ("Ids of POIs without addresses saved to", pathOutIdsWithoutAddress));
