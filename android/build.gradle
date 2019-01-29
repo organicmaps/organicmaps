@@ -40,52 +40,48 @@ apply from: 'secure.properties'
 apply plugin: 'io.fabric'
 
 dependencies {
-  // android support libs
-  implementation ('com.android.support:support-v4:26.1.0') {
-    force = true;
-  }
-  implementation 'com.android.support:appcompat-v7:26.1.0'
-  implementation 'com.android.support:recyclerview-v7:26.1.0'
-  implementation 'com.android.support:design:26.1.0'
-  implementation 'com.android.support:cardview-v7:26.1.0'
-  implementation 'com.android.support:preference-v7:26.1.0'
-  implementation 'com.android.support:preference-v14:26.1.0'
-  implementation 'com.android.support:customtabs:26.1.0'
 
-  // google play services
-  implementation 'com.google.android.gms:play-services-location:11.8.0'
-  implementation 'com.google.android.gms:play-services-analytics:11.8.0'
-  implementation 'com.google.android.gms:play-services-plus:11.8.0'
-  implementation 'com.google.android.gms:play-services-gcm:11.8.0'
-  implementation 'com.google.android.gms:play-services-ads:11.8.0'
-  implementation 'com.google.android.gms:play-services-auth:11.8.0'
+  implementation 'com.android.support:multidex:' + propMultiDexVersion
+
+  implementation 'com.android.support:support-v4:' + propSupportLibraryVersion
+  implementation 'com.android.support:appcompat-v7:' + propSupportLibraryVersion
+  implementation 'com.android.support:recyclerview-v7:'+ propSupportLibraryVersion
+  implementation 'com.android.support:design:'+ propSupportLibraryVersion
+  implementation 'com.android.support:cardview-v7:'+ propSupportLibraryVersion
+  implementation 'com.android.support:preference-v7:'+ propSupportLibraryVersion
+  implementation 'com.android.support:preference-v14:'+ propSupportLibraryVersion
+  implementation 'com.android.support:customtabs:'+ propSupportLibraryVersion
+  implementation 'com.android.support:support-annotations:'+ propSupportLibraryVersion
+  implementation 'com.android.support:support-compat:27.1.1'+ propSupportLibraryVersion
+
+  implementation 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-plus:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
+
   // statistics
   implementation 'com.flurry.android:analytics:11.0.0@aar'
   // crash reporting
   implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') { transitive = true }
   implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.4@aar') { transitive = true }
   // 3-party
-  implementation ('com.facebook.android:facebook-android-sdk:4.26.0') {
-    exclude group: 'com.google.android.gms'
-    exclude group: 'com.android.support'
-  }
-  implementation('com.facebook.android:audience-network-sdk:4.27.0') {
-    exclude group: 'com.google.android.gms'
-    exclude group: 'com.android.support'
-  }
+  implementation 'com.facebook.android:facebook-android-sdk:4.26.0'
+  implementation 'com.facebook.android:audience-network-sdk:4.27.0'
   implementation 'com.google.code.gson:gson:2.6.1'
   implementation 'com.pushwoosh:pushwoosh:5.9.0'
   implementation 'com.pushwoosh:pushwoosh-gcm:5.9.0'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
   implementation ('com.my.target:mytarget-sdk:5.2.2') {
-    exclude group: 'com.android.support'
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-dash'
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-hls'
   }
   implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
-    exclude group: 'com.android.support'
-    transitive = true
+    transitive = true;
   }
   implementation fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
@@ -101,17 +97,14 @@ dependencies {
   implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.appsflyer:af-android-sdk:4.8.7'
   implementation ("ru.mail:libnotify:0.1.177-notify-support-v107-sdk-26@aar") {
-    transitive = true;
-    changing = true;
-    exclude group: 'com.android.support'
-    exclude group: 'com.google.android.gms'
+    transitive = true
+    changing = true
   }
   implementation ("ru.mail:libnotify-debug:0.1.177-notify-support-v107-sdk-26@aar") {
-    transitive = true;
-    changing = true;
-    exclude group: 'com.android.support'
-    exclude group: 'com.google.android.gms'
+    transitive = true
+    changing = true
   }
+
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
   implementation 'com.android.billingclient:billing:1.1'
   implementation 'uk.co.samuelwall:material-tap-target-prompt:2.12.1'
@@ -132,6 +125,34 @@ project.ext.appId = 'com.mapswithme.maps.pro'
 
 crashlytics {
   enableNdk true
+}
+
+configurations.all {
+  resolutionStrategy {
+    force 'com.android.support:multidex:' + propMultiDexVersion
+
+    force 'com.android.support:support-v4:' + propSupportLibraryVersion
+    force 'com.android.support:appcompat-v7:' + propSupportLibraryVersion
+    force 'com.android.support:recyclerview-v7:' + propSupportLibraryVersion
+    force 'com.android.support:design:' + propSupportLibraryVersion
+    force 'com.android.support:cardview-v7:' + propSupportLibraryVersion
+    force 'com.android.support:preference-v7:' + propSupportLibraryVersion
+    force 'com.android.support:preference-v14:' + propSupportLibraryVersion
+    force 'com.android.support:customtabs:' + propSupportLibraryVersion
+    force 'com.android.support:support-annotations:' + propSupportLibraryVersion
+    force 'com.android.support:support-compat:' + propSupportLibraryVersion
+
+    force 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-plus:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
+
+    failOnVersionConflict();
+  }
 }
 
 android {

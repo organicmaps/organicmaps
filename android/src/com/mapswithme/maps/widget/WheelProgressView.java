@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -11,9 +12,9 @@ import android.graphics.RectF;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableWrapper;
+import android.support.v7.graphics.drawable.DrawableWrapper;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;
@@ -22,7 +23,7 @@ import com.mapswithme.util.ThemeUtils;
 /**
  * Draws progress wheel, consisting of circle with background and 'stop' button in the center of the circle.
  */
-public class WheelProgressView extends ImageView
+public class WheelProgressView extends AppCompatImageView
 {
   private static final int DEFAULT_THICKNESS = 4;
 
@@ -109,8 +110,8 @@ public class WheelProgressView extends ImageView
     mCenter.set(left + width / 2, top + height / 2);
     mProgressRect.set(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
 
-    Drawable d = ((mCenterDrawable instanceof DrawableWrapper) ? ((DrawableWrapper)mCenterDrawable).getWrappedDrawable()
-                                                               : mCenterDrawable);
+    Drawable d = ((mCenterDrawable instanceof DrawableWrapper) ? ((DrawableWrapper) mCenterDrawable)
+        .getWrappedDrawable() : mCenterDrawable);
     if (d instanceof BitmapDrawable)
     {
       Bitmap bmp = ((BitmapDrawable)d).getBitmap();
