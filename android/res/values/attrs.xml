@@ -102,4 +102,15 @@
   <attr name="filterPropertyTextColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>
   <attr name="adsRemovalOptionsDivider" format="color"/>
+
+  <declare-styleable name="AnchorBottomSheetBehavior_Layout">
+    <attr name="behavior_anchorOffset" format="dimension" />
+    <attr name="behavior_defaultState" format="enum">
+      <enum name="expanded" value="3" />
+      <enum name="collapsed" value="4" />
+      <enum name="hidden" value="5" />
+      <enum name="anchored" value="6" />
+    </attr>
+    <attr name="behavior_skipAnchored" format="boolean" />
+  </declare-styleable>
 </resources>

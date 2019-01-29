@@ -18,6 +18,7 @@ allprojects {
     google()
     mavenCentral()
     jcenter()
+    maven { url 'https://jitpack.io' }
   }
 }
 
@@ -110,6 +111,7 @@ dependencies {
   implementation 'uk.co.samuelwall:material-tap-target-prompt:2.12.1'
   implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
   implementation 'com.google.android:flexbox:1.0.0'
+  implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
 }
 
 def getDate() {

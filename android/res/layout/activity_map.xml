@@ -80,7 +80,8 @@
     android:layout_height="wrap_content"
     android:fillViewport="true"
     app:behavior_hideable="true"
-    app:layout_behavior="@string/bottom_sheet_behavior"/>
+    app:behavior_defaultState="hidden"
+    app:layout_behavior="@string/placepage_behavior"/>
   <FrameLayout
     android:id="@+id/pp_buttons_layout"
     android:layout_width="match_parent"
