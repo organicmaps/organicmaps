@@ -51,7 +51,10 @@ public class SendLinkPlaceholderFragment extends NoToolbarBaseMwmAuthFragment im
   {
     View root = inflater.inflate(R.layout.fragment_ugc_route_send_link, container, false);
     View closeBtn = root.findViewById(R.id.close_btn);
-    closeBtn.setOnClickListener(v -> getActivity().finish());
+    View.OnClickListener finishClickListener = v -> getActivity().finish();
+    closeBtn.setOnClickListener(finishClickListener);
+    View cancelBtn = root.findViewById(R.id.cancel_btn);
+    cancelBtn.setOnClickListener(finishClickListener);
     View sendMeLinkBtn = root.findViewById(R.id.send_me_link_btn);
     sendMeLinkBtn.setOnClickListener(v -> onSendMeLinkBtnClicked());
     return root;

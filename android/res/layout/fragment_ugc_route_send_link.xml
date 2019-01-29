@@ -40,4 +40,17 @@
     android:layout_marginTop="@dimen/margin_base_plus"
     android:text="@string/send_a_link_btn"
     android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+  <TextView
+    android:id="@+id/cancel_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/primary_button_min_height"
+    android:textColor="?attr/colorAccent"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:text="@string/cancel"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textAllCaps="true"
+    android:textStyle="bold"
+    android:background="?attr/selectableItemBackground"/>
 </LinearLayout>
