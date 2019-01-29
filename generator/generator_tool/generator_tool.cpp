@@ -420,12 +420,8 @@ int GeneratorToolMain(int argc, char ** argv)
     auto const pathInRegionsTmpMwm = genInfo.GetTmpFileName(genInfo.m_fileName);
     auto const pathOutRepackedRegionsTmpMwm = genInfo.GetTmpFileName(genInfo.m_fileName + "_repacked");
     auto const pathOutRegionsKv = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
-    if (!regions::GenerateRegions(pathInRegionsTmpMwm, pathInRegionsCollector, pathOutRegionsKv,
-                                  pathOutRepackedRegionsTmpMwm, FLAGS_verbose))
-    {
-      LOG(LCRITICAL, ("Error generating regions kv."));
-      return EXIT_FAILURE;
-    }
+    regions::GenerateRegions(pathInRegionsTmpMwm, pathInRegionsCollector, pathOutRegionsKv,
+                             pathOutRepackedRegionsTmpMwm, FLAGS_verbose, threadsCount);
   }
 
   if (!FLAGS_popularity_csv.empty())

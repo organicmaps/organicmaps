@@ -1,8 +1,8 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "base/assert.hpp"
-#include "base/thread_pool_computational.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -12,6 +12,7 @@
 #include <queue>
 #include <thread>
 #include <unordered_set>
+
 
 namespace generator
 {
@@ -31,10 +32,10 @@ Node::Ptr ShrinkToFit(Node::Ptr p)
 
 RegionsBuilder::RegionsBuilder(Regions && regions,
                                std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
-                               size_t cpuCount)
+                               size_t threadsCount)
   : m_toStringPolicy(std::move(toStringPolicy))
   , m_regions(std::move(regions))
-  , m_cpuCount(cpuCount)
+  , m_threadsCount(threadsCount)
 {
   ASSERT(m_toStringPolicy, ());
   ASSERT(m_cpuCount != 0, ());
@@ -47,8 +48,8 @@ RegionsBuilder::RegionsBuilder(Regions && regions,
   std::sort(std::begin(m_countries), std::end(m_countries), cmp);
 }
 
-RegionsBuilder::RegionsBuilder(Regions && regions, size_t cpuCount)
-  : RegionsBuilder(std::move(regions), std::make_unique<JsonPolicy>(), cpuCount) {}
+RegionsBuilder::RegionsBuilder(Regions && regions, size_t threadsCount)
+  : RegionsBuilder(std::move(regions), std::make_unique<JsonPolicy>(), threadsCount) {}
 
 RegionsBuilder::Regions const & RegionsBuilder::GetCountries() const
 {
@@ -173,13 +174,10 @@ std::vector<Node::Ptr> RegionsBuilder::BuildCountryRegionTrees(RegionsBuilder::R
 {
   std::vector<std::future<Node::Ptr>> tmp;
   {
-    size_t const cpuCount = m_cpuCount > 0 ? static_cast<size_t>(m_cpuCount)
-                                           : std::thread::hardware_concurrency();
-    ASSERT_GREATER(cpuCount, 0, ());
-    ThreadPool threadPool(cpuCount);
+    base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
     for (auto const & country : countries)
     {
-      auto result = threadPool.enqueue(&RegionsBuilder::BuildCountryRegionTree, country, m_regions);
+      auto result = threadPool.Submit(&RegionsBuilder::BuildCountryRegionTree, country, m_regions);
       tmp.emplace_back(std::move(result));
     }
   }

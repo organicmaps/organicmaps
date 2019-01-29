@@ -104,10 +104,12 @@ void RepackTmpMwm(std::string const & srcFilename, std::string const & repackedF
 }
 }  // namespace
 
-bool GenerateRegions(std::string const & pathInRegionsTmpMwm,
+void GenerateRegions(std::string const & pathInRegionsTmpMwm,
                      std::string const & pathInRegionsCollector,
                      std::string const & pathOutRegionsKv,
-                     std::string const & pathOutRepackedRegionsTmpMwm, bool verbose)
+                     std::string const & pathOutRepackedRegionsTmpMwm,
+                     bool verbose,
+                     size_t threadsCount)
 {
   using namespace regions;
 
@@ -118,7 +120,7 @@ bool GenerateRegions(std::string const & pathInRegionsTmpMwm,
   RegionInfo regionsInfoCollector(pathInRegionsCollector);
   RegionsBuilder::Regions regions = ReadAndFixData(pathInRegionsTmpMwm, regionsInfoCollector);
   auto jsonPolicy = std::make_unique<JsonPolicy>(verbose);
-  auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions), std::move(jsonPolicy));
+  auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions), std::move(jsonPolicy), threadsCount);
 
   std::ofstream ofs(pathOutRegionsKv, std::ofstream::out);
   std::set<base::GeoObjectId> setIds;
@@ -153,7 +155,6 @@ bool GenerateRegions(std::string const & pathInRegionsTmpMwm,
   LOG(LINFO, ("Repacked regions temprory mwm saved to",  pathOutRepackedRegionsTmpMwm));
   LOG(LINFO, (countIds, "total ids.", setIds.size(), "unique ids."));
   LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
-  return true;
 }
 }  // namespace regions
 }  // namespace generator
