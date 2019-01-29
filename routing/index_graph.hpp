@@ -62,7 +62,6 @@ public:
   // Interface for AStarAlgorithm:
   void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
   void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
-  RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {

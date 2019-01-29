@@ -157,12 +157,6 @@ void IndexGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge
   GetEdgeList(segment, false /* isOutgoing */, edges);
 }
 
-RouteWeight IndexGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
-{
-  return RouteWeight(
-      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)));
-}
-
 RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(
