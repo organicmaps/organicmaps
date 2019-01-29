@@ -12,7 +12,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchCategoriesViewControllerDelegate?) {
     self.delegate = delegate
     self.categories = frameworkHelper.searchCategories()
-    self.rutaxi = frameworkHelper.hasRutaxiBanner()
+    self.rutaxi = frameworkHelper.hasMegafonCategoryBanner()
     super.init(nibName: nil, bundle: nil)
   }
   

@@ -1,5 +1,9 @@
 #import "MWMSearchFrameworkHelper.h"
 
+#include "partners_api/megafon_countries.hpp"
+
+#include "platform/preferred_languages.hpp"
+
 #include "Framework.h"
 
 @implementation MWMSearchFrameworkHelper
@@ -15,9 +19,20 @@
   return [result copy];
 }
 
-- (BOOL)hasRutaxiBanner
+- (BOOL)hasMegafonCategoryBanner
 {
-  return GetFramework().HasRuTaxiCategoryBanner();
+  auto & f = GetFramework();
+  auto const & purchase = f.GetPurchase();
+  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
+    return NO;
+  
+  auto const position = f.GetCurrentPosition();
+  if (!position)
+    return NO;
+  
+  auto const latLon = MercatorBounds::ToLatLon(position.get());
+  return ads::HasMegafonCategoryBanner(f.GetStorage(), f.GetTopmostCountries(latLon),
+                                       languages::GetCurrentNorm());
 }
 
 - (BOOL)isSearchHistoryEmpty

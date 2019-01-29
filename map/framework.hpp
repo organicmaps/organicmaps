@@ -361,7 +361,6 @@ public:
 
   ads::Engine const & GetAdsEngine() const;
   void DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
-  bool HasRuTaxiCategoryBanner();
 
 public:
   // SearchAPI::Delegate overrides:

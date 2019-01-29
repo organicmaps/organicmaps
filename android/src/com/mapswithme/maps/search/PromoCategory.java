@@ -51,7 +51,7 @@ public enum PromoCategory
         @Override
         boolean isSupported()
         {
-          return Framework.nativeHasRuTaxiCategoryBanner();
+          return Framework.nativeHasMegafonCategoryBanner();
         }
       };
 

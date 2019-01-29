@@ -3,7 +3,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWMSearchFrameworkHelper : NSObject
 
 - (NSArray<NSString *> *)searchCategories;
-- (BOOL)hasRutaxiBanner;
+- (BOOL)hasMegafonCategoryBanner;
 
 - (BOOL)isSearchHistoryEmpty;
 - (NSArray<NSString *> *)lastSearchQueries;

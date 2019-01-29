@@ -3414,24 +3414,6 @@ void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Pla
   m_adsEngine.get()->DisableAdProvider(type, place);
 }
 
-bool Framework::HasRuTaxiCategoryBanner()
-{
-  auto const & purchase = GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return false;
-
-  auto const position = GetCurrentPosition();
-  if (!position)
-    return false;
-
-  auto const taxiEngine = GetTaxiEngine(platform::GetCurrentNetworkPolicy());
-  if (!taxiEngine)
-    return false;
-
-  auto const providers = taxiEngine->GetProvidersAtPos(MercatorBounds::ToLatLon(position.get()));
-  return std::find(providers.begin(), providers.end(), taxi::Provider::Rutaxi) != providers.end();
-}
-
 void Framework::RunUITask(function<void()> fn)
 {
   GetPlatform().RunTask(Platform::Thread::Gui, move(fn));

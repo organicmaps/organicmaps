@@ -1790,15 +1790,32 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasRuTaxiCategoryBanner(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeHasMegafonCategoryBanner(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->HasRuTaxiCategoryBanner());
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
+    return static_cast<jboolean>(false);
+
+  auto const position = frm()->GetCurrentPosition();
+  if (!position)
+    return static_cast<jboolean>(false);
+
+  auto const latLon = MercatorBounds::ToLatLon(position.get());
+  return static_cast<jboolean>(ads::HasMegafonCategoryBanner(frm()->GetStorage(),
+                                                             frm()->GetTopmostCountries(latLon),
+                                                             languages::GetCurrentNorm()));
 }
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetMegafonDownloaderBannerUrl(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, ads::GetMegafonDownloaderBannerUrl());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetMegafonCategoryBannerUrl(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, ads::GetMegafonCategoryBannerUrl());
 }
 
 JNIEXPORT void JNICALL

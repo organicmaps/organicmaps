@@ -482,7 +482,10 @@ public class Framework
   @NonNull
   public static native String nativeGetMegafonDownloaderBannerUrl();
 
-  public static native boolean nativeHasRuTaxiCategoryBanner();
+  public static native boolean nativeHasMegafonCategoryBanner();
+
+  @NonNull
+  public static native String nativeGetMegafonCategoryBannerUrl();
 
   public static native void nativeMakeCrash();
 
