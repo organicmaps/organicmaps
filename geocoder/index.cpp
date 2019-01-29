@@ -8,7 +8,10 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <atomic>
 #include <cstddef>
+#include <mutex>
+#include <thread>
 
 using namespace std;
 
@@ -88,28 +91,46 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
 
 void Index::AddHouses()
 {
-  size_t numIndexed = 0;
-  for (DocId docId = 0; docId < static_cast<DocId>(m_docs.size()); ++docId)
+  atomic<size_t> numIndexed{0};
+  std::mutex mutex;
+
+  vector<thread> threads(thread::hardware_concurrency());
+
+  for (size_t t = 0; t < threads.size(); ++t)
   {
-    auto const & buildingDoc = GetDoc(docId);
+    threads[t] = thread([&, t, this]() {
+      size_t const size = m_docs.size() / threads.size();
+      size_t docId = t * size;
+      size_t const docIdEnd = (t + 1 == threads.size() ? m_docs.size() : docId + size);
 
-    if (buildingDoc.m_type != Type::Building)
-      continue;
-
-    size_t const t = static_cast<size_t>(Type::Street);
-
-    ForEachDocId(buildingDoc.m_address[t], [&](DocId const & streetCandidate) {
-      auto const & streetDoc = GetDoc(streetCandidate);
-      if (streetDoc.IsParentTo(buildingDoc))
+      for (; docId < docIdEnd; ++docId)
       {
-        m_buildingsOnStreet[streetCandidate].emplace_back(docId);
+        auto const & buildingDoc = GetDoc(docId);
 
-        ++numIndexed;
-        if (numIndexed % kLogBatch == 0)
-          LOG(LINFO, ("Indexed", numIndexed, "houses"));
+        if (buildingDoc.m_type != Type::Building)
+          continue;
+
+        size_t const streetType = static_cast<size_t>(Type::Street);
+
+        ForEachDocId(buildingDoc.m_address[streetType], [&](DocId const & streetCandidate) {
+          auto const & streetDoc = GetDoc(streetCandidate);
+
+          if (streetDoc.IsParentTo(buildingDoc))
+          {
+            auto && lock = lock_guard<std::mutex>(mutex);
+            m_buildingsOnStreet[streetCandidate].emplace_back(docId);
+          }
+        });
+
+        auto processedCount = numIndexed.fetch_add(1) + 1;
+        if (processedCount % kLogBatch == 0)
+          LOG(LINFO, ("Indexed", processedCount, "houses"));
       }
     });
   }
+
+  for (auto & t : threads)
+    t.join();
 
   if (numIndexed % kLogBatch != 0)
     LOG(LINFO, ("Indexed", numIndexed, "houses"));
