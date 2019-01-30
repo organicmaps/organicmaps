@@ -46,8 +46,7 @@ using namespace track_analyzing;
 
 namespace
 {
-uint16_t constexpr kWalkMaxspeedKMpHValue = 10;
-uint16_t constexpr kNoneMaxspeedKMpHValue = 200;
+uint16_t constexpr kMaxspeedTopBound = 200;
 
 string TypeToString(uint32_t type)
 {
@@ -340,18 +339,9 @@ private:
     m_featuresVector.GetVector().GetByIndex(featureId, feature);
 
     auto const maxspeed = m_maxspeeds.GetMaxspeed(featureId);
-    auto maxspeedValueKMpH = kInvalidSpeed;
-    if (maxspeed.IsValid())
-    {
-      maxspeedValueKMpH = maxspeed.GetSpeedKmPH(segment.IsForward());
-      if (maxspeedValueKMpH == kNoneMaxSpeed)
-        maxspeedValueKMpH = kNoneMaxspeedKMpHValue;
-
-      if (maxspeedValueKMpH == kWalkMaxSpeed)
-        maxspeedValueKMpH = kWalkMaxspeedKMpHValue;
-
-      maxspeedValueKMpH = min(maxspeedValueKMpH, kNoneMaxspeedKMpHValue);
-    }
+    auto const maxspeedValueKMpH = maxspeed.IsValid() ?
+                                   min(maxspeed.GetSpeedKmPH(segment.IsForward()), kMaxspeedTopBound) :
+                                   kInvalidSpeed;
 
     m_prevFeatureId = featureId;
     m_prevRoadInfo = {m_carModelTypes.GetType(feature),
