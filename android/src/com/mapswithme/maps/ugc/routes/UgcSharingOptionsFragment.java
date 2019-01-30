@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseAuthFragment;
+import com.mapswithme.maps.base.BaseToolbarAuthFragment;
 import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -40,8 +40,8 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.List;
 import java.util.Objects;
 
-public class UgcSharingOptionsFragment extends BaseAuthFragment implements BookmarkManager.BookmarksCatalogListener,
-                                                                           AlertDialogCallback
+public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implements BookmarkManager.BookmarksCatalogListener,
+                                                                                  AlertDialogCallback
 {
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;

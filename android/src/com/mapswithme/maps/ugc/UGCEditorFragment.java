@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseAuthFragment;
+import com.mapswithme.maps.base.BaseToolbarAuthFragment;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -25,7 +25,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
-public class UGCEditorFragment extends BaseAuthFragment
+public class UGCEditorFragment extends BaseToolbarAuthFragment
 {
   static final String ARG_FEATURE_ID = "arg_feature_id";
   static final String ARG_TITLE = "arg_title";

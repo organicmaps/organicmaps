@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseToolbarAuthFragment;
+import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
@@ -21,7 +21,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.List;
 import java.util.Objects;
 
-public class SendLinkPlaceholderFragment extends BaseToolbarAuthFragment implements BookmarkManager.BookmarksCatalogListener
+public class SendLinkPlaceholderFragment extends BaseAuthFragment implements BookmarkManager.BookmarksCatalogListener
 {
   public static final String EXTRA_CATEGORY = "bookmarks_category";
   private static final String BODY_STRINGS_SEPARATOR = "\n\n";
