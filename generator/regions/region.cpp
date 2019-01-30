@@ -73,6 +73,9 @@ double Region::GetRadiusByPlaceType(PlaceType place)
   case PlaceType::Neighbourhood:
   case PlaceType::IsolatedDwelling:
     return 0.0035;
+  case PlaceType::Locality:
+  case PlaceType::Unknown:
+    UNREACHABLE();
   }
   UNREACHABLE();
 }
