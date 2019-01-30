@@ -11,12 +11,10 @@ import com.mapswithme.maps.dialog.ProgressDialogFragment;
 public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
 {
   private static final String PROGRESS_DIALOG_TAG = "base_progress_dialog";
-  public static final String TITLE = "title";
 
   protected void showProgress()
   {
-    Bundle arguments = getArguments();
-    int resId = arguments.getInt(TITLE, getProgressDialogTitle());
+    int resId = getProgressDialogTitle();
     String title = getString(resId);
     ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(title);
     getFragmentManager()

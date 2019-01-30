@@ -3,7 +3,6 @@ package com.mapswithme.maps.ugc.routes;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,30 +108,16 @@ public class SendLinkPlaceholderFragment extends NoToolbarBaseMwmAuthFragment im
 
   private void onUploadFailed()
   {
-    showErrorDialog();
-  }
-
-  private void showErrorDialog()
-  {
     /* FIXME text*/
-    showErrorDialog(R.string.unable_upload_error_subtitle_edited,
-                    R.string.unable_upload_error_subtitle_edited,
-                    REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG,
-                    ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
-  }
-
-  private void showErrorDialog(@StringRes int title, @StringRes int subtitle, int reqCode,
-                               @NonNull String tag)
-  {
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(title)
-        .setMessageId(subtitle)
+        .setTitleId(R.string.unable_upload_error_subtitle_edited)
+        .setMessageId(R.string.unable_upload_error_subtitle_edited)
         .setPositiveBtnId(R.string.ok)
-        .setReqCode(reqCode)
+        .setReqCode(REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG)
         .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
-    dialog.setTargetFragment(this, reqCode);
-    dialog.show(this, tag);
+    dialog.setTargetFragment(this, REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG);
+    dialog.show(this, ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
   }
 
   private void onUploadSucceeded()
