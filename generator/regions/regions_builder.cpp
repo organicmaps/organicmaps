@@ -38,8 +38,7 @@ RegionsBuilder::RegionsBuilder(Regions && regions,
   , m_threadsCount(threadsCount)
 {
   ASSERT(m_toStringPolicy, ());
-  ASSERT(m_cpuCount != 0, ());
-
+  ASSERT(m_threadsCount != 0, ());
 
   auto const isCountry = [](Region const & r) { return r.IsCountry(); };
   std::copy_if(std::begin(m_regions), std::end(m_regions), std::back_inserter(m_countries), isCountry);
