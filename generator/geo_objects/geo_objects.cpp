@@ -286,11 +286,10 @@ base::Json AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValu
 {
   base::Json result = regionKeyValue.second.GetDeepCopy();
   int const kHouseOrPoiRank = 30;
-  ToJSONObject(*result.get(), "rank", kHouseOrPoiRank);
   UpdateCoordinates(fb.GetKeyPoint(), result);
   auto properties = json_object_get(result.get(), "properties");
   auto address = json_object_get(properties, "address");
-
+  ToJSONObject(*properties, "rank", kHouseOrPoiRank);
   auto const street = fb.GetParams().GetStreet();
   if (!street.empty())
     ToJSONObject(*address, "street", street);
