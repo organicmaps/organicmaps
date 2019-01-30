@@ -7,13 +7,12 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <cstdint>
 #include <fstream>
 #include <sstream>
 #include <utility>
-
-#include "3party/ThreadPool/ThreadPool.h"
 
 namespace generator
 {
@@ -24,7 +23,7 @@ void WikiUrlDumper::Dump(size_t cpuCount) const
 {
   CHECK_GREATER(cpuCount, 0, ());
 
-  ThreadPool threadPool(cpuCount);
+  base::thread_pool::computational::ThreadPool threadPool(cpuCount);
   std::vector<std::future<std::string>> futures;
   futures.reserve(m_dataFiles.size());
 
@@ -36,7 +35,7 @@ void WikiUrlDumper::Dump(size_t cpuCount) const
 
   for (auto const & path : m_dataFiles)
   {
-    auto result = threadPool.enqueue(fn, path);
+    auto result = threadPool.Submit(fn, path);
     futures.emplace_back(std::move(result));
   }
 
