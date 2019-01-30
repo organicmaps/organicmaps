@@ -22,17 +22,17 @@ public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
 
   @Override
   @CallSuper
-  public void onAttach(Context context)
+  public void onStart()
   {
-    super.onAttach(context);
+    super.onStart();
     mAuthorizer.attach(this);
   }
 
   @Override
   @CallSuper
-  public void onDestroyView()
+  public void onStop()
   {
-    super.onDestroyView();
+    super.onStop();
     mAuthorizer.detach();
   }
 
