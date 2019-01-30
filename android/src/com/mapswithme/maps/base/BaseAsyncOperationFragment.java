@@ -1,6 +1,5 @@
 package com.mapswithme.maps.base;
 
-import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +11,7 @@ public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
 {
   private static final String PROGRESS_DIALOG_TAG = "base_progress_dialog";
 
+  @SuppressWarnings("NullableProblems")
   protected void showProgress()
   {
     int resId = getProgressDialogTitle();
@@ -29,6 +29,7 @@ public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
     return R.string.downloading;
   }
 
+  @SuppressWarnings("NullableProblems")
   protected void hideProgress()
   {
     FragmentManager fm = getFragmentManager();

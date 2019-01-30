@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.BaseAuthFragment;
+import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.metrics.UserActionsLogger;

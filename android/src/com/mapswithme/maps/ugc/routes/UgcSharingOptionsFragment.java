@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.BaseAuthFragment;
+import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
