@@ -1,18 +1,15 @@
-package com.mapswithme.maps.auth;
+package com.mapswithme.maps.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.auth.Authorizer;
+import com.mapswithme.maps.auth.TargetFragmentCallback;
 
-/**
- * A base toolbar fragment which is responsible for the <b>authorization flow</b>,
- * starting from the getting an auth token from a social network and passing it to the core
- * to get user authorized for the MapsMe server (Passport).
- */
-public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragment
+public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
     implements Authorizer.Callback, TargetFragmentCallback
 {
   @NonNull
@@ -25,17 +22,17 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
 
   @Override
   @CallSuper
-  public void onStart()
+  public void onAttach(Context context)
   {
-    super.onStart();
+    super.onAttach(context);
     mAuthorizer.attach(this);
   }
 
   @Override
   @CallSuper
-  public void onStop()
+  public void onDestroyView()
   {
-    super.onStop();
+    super.onDestroyView();
     mAuthorizer.detach();
   }
 

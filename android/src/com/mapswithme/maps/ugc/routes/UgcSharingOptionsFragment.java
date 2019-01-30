@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -20,7 +18,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
+import com.mapswithme.maps.auth.BaseAuthFragment;
 import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -32,7 +30,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
-import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
@@ -43,8 +40,8 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.List;
 import java.util.Objects;
 
-public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment implements BookmarkManager.BookmarksCatalogListener,
-                                                                                       AlertDialogCallback
+public class UgcSharingOptionsFragment extends BaseAuthFragment implements BookmarkManager.BookmarksCatalogListener,
+                                                                           AlertDialogCallback
 {
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
