@@ -176,6 +176,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   else if (m_hints.m_isLaunchByDeepLink)
   {
     m_desiredInitMode = location::NotFollow;
+    m_allowToFollowAfterObsoletePosition = false;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
@@ -349,6 +350,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (IsWaitingForLocation())
   {
     m_notFollowAfterPending = false;
+    m_desiredInitMode = location::Follow;
 
     alohalytics::LogEvent(kAlohalyticsClickEvent,
                           LocationModeStatisticsName(location::PendingPosition));
