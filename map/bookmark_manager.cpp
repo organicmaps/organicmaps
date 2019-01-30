@@ -253,7 +253,7 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
   convertedCount = 0;
 
   auto const conversionFolder = base::JoinPath(GetBackupFolderName(),
-                                             "conversion");
+                                               "conversion");
   if (!GetPlatform().IsFileExistsByFullPath(conversionFolder) &&
       !GetPlatform().MkDirChecked(conversionFolder))
   {
@@ -1093,11 +1093,11 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     {
       auto fileSavePath = savePath.get();
       auto kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
-      if (kmlData && (::IsMyCategory(userId, kmlData->m_categoryData) || !FromCatalog(*kmlData)))
-      {
-        if (m_needTeardown)
-          return;
+      if (m_needTeardown)
+        return;
 
+      if (kmlData)
+      {
         if (migrated)
         {
           std::string fileName = base::GetNameFromFullPathWithoutExt(fileSavePath);
@@ -1966,10 +1966,6 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
         allConverted = false;
         continue;
       }
-
-      // Skip KML files from the catalog which are not belonged to the user.
-      if (FromCatalog(*kmlData) && !::IsMyCategory(userId, kmlData->m_categoryData))
-        continue;
 
       std::string fileName = base::GetNameFromFullPathWithoutExt(f);
       auto kmbPath = base::JoinPath(newDir, fileName + kKmbExtension);
