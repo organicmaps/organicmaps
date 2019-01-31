@@ -14,7 +14,7 @@ namespace
 // Information will be logged for every |kLogBatch| entries.
 size_t const kLogBatch = 100000;
 
-void operator += (Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats & stats)
+void operator+=(Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats & stats)
 {
   struct ValidationStats
   {
@@ -32,7 +32,6 @@ void operator += (Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats
   accumulator.m_emptyNames          += stats.m_emptyNames;
   accumulator.m_mismatchedNames     += stats.m_mismatchedNames;
 }
-
 } // namespace
 
 HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy)
@@ -47,11 +46,13 @@ HierarchyReader::HierarchyReader(std::istream & in)
 {
 }
 
-Hierarchy HierarchyReader::Read(size_t readersCount)
+Hierarchy HierarchyReader::Read(unsigned int readersCount)
 {
   LOG(LINFO, ("Reading entries..."));
 
-  readersCount = min(readersCount, size_t{thread::hardware_concurrency()});
+  if (auto hardwareConcurrency = thread::hardware_concurrency())
+    readersCount = min(hardwareConcurrency, readersCount);
+  readersCount = max(1U, readersCount);
 
   vector<multimap<base::GeoObjectId, Entry>> taskEntries(readersCount);
   vector<ParsingStats> tasksStats(readersCount);
@@ -109,7 +110,7 @@ vector<Hierarchy::Entry> HierarchyReader::MergeEntries(vector<multimap<base::Geo
 
   auto partsQueue = priority_queue<PartReference, std::vector<PartReference>, ReferenceGreater>
                       (entryParts.begin(), entryParts.end());
-  while (partsQueue.size())
+  while (!partsQueue.empty())
   {
     auto & minPart = partsQueue.top().get();
     partsQueue.pop();
@@ -120,7 +121,7 @@ vector<Hierarchy::Entry> HierarchyReader::MergeEntries(vector<multimap<base::Geo
       minPart.erase(minPart.begin());
     }
 
-    if (minPart.size())
+    if (!minPart.empty())
       partsQueue.push(ref(minPart));
   }
 
@@ -153,9 +154,9 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
   // Temporary local object for efficient concurent processing (individual cache line for container).
   auto localEntries = multimap<base::GeoObjectId, Entry>{};
 
-  int const kLineBufferCapacity = 10000;
+  size_t const kLineBufferCapacity = 10000;
   vector<string> linesBuffer(kLineBufferCapacity);
-  int bufferSize = 0;
+  size_t bufferSize = 0;
 
   while (true)
   {
@@ -180,10 +181,10 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
   entries = move(localEntries);
 }
 
-void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, int const bufferSize, 
+void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, size_t const bufferSize,
   multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats)
 {
-  for (int i = 0; i < bufferSize; ++i)
+  for (size_t i = 0; i < bufferSize; ++i)
   {
     auto & line = linesBuffer[i];
 
@@ -220,4 +221,4 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, in
     entries.emplace(osmId, move(entry));
   }
 }
-} // namespace geocoder
+}  // namespace geocoder

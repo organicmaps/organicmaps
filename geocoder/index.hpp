@@ -20,7 +20,7 @@ public:
   // that the index was constructed from.
   using DocId = std::vector<Doc>::size_type;
 
-  explicit Index(Hierarchy const & hierarchy);
+  explicit Index(Hierarchy const & hierarchy, unsigned int processingThreadsCount = 4);
 
   Doc const & GetDoc(DocId const id) const;
 
@@ -74,5 +74,7 @@ private:
 
   // Lists of houses grouped by the streets they belong to.
   std::unordered_map<DocId, std::vector<DocId>> m_buildingsOnStreet;
+
+  unsigned int m_processingThreadsCount;
 };
 }  // namespace geocoder

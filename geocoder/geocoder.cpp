@@ -2,9 +2,9 @@
 
 #include "geocoder/hierarchy_reader.hpp"
 
-#include "indexer/search_string_utils.hpp"
-
 #include "search/house_numbers_matcher.hpp"
+
+#include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

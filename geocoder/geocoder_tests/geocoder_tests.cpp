@@ -164,7 +164,7 @@ UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
 
 UNIT_TEST(Geocoder_BigFileConcurrentRead)
 {
-  int const kEntryCount = 1000000;
+  int const kEntryCount = 100000;
 
   stringstream s;
   for (int i = 0; i < kEntryCount; ++i)

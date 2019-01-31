@@ -25,12 +25,13 @@ public:
   explicit HierarchyReader(std::string const & pathToJsonHierarchy);
   explicit HierarchyReader(std::istream & in);
 
-  Hierarchy Read(size_t readersCount = 4);
+  // Read hierarchy file/stream concurrency in |readersCount| threads.
+  Hierarchy Read(unsigned int readersCount = 4);
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
 
-  void DeserializeEntryMap(std::vector<std::string> const & linesBuffer, int const bufferSize,
+  void DeserializeEntryMap(std::vector<std::string> const & linesBuffer, std::size_t const bufferSize,
                            std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
 
   std::vector<Entry> MergeEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
