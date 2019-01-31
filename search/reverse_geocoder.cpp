@@ -79,6 +79,48 @@ string Join(string const & s, Args &&... args)
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 // static
+boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
+                                                                 vector<Street> const & streets)
+{
+  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
+    // Find the exact match or the best match in kSimilarityTresholdPercent limit.
+    uint32_t result;
+    size_t minPercent = kSimilarityThresholdPercent + 1;
+
+    auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
+    for (auto const & street : streets)
+    {
+      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
+
+      size_t const editDistance =
+        strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+
+      if (editDistance == 0)
+        return street.m_id.m_index;
+
+      if (actual.empty())
+        continue;
+
+      size_t const percent = editDistance * 100 / actual.size();
+      if (percent < minPercent)
+      {
+        result = street.m_id.m_index;
+        minPercent = percent;
+      }
+    }
+
+    if (minPercent <= kSimilarityThresholdPercent)
+      return result;
+    return {};
+  };
+
+  auto result = matchStreet(false /* ignoreStreetSynonyms */);
+  if (result)
+    return result;
+  return matchStreet(true /* ignoreStreetSynonyms */);
+}
+
+// static
 void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
                                        bool includeSquaresAndSuburbs, vector<Street> & streets)
 {
@@ -118,48 +160,6 @@ void ReverseGeocoder::GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::Poi
     search::MwmContext context(move(mwmHandle));
     GetNearbyStreets(context, center, false /* includeSquaresAndSuburbs */, streets);
   }
-}
-
-// static
-boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
-                                                                 vector<Street> const & streets)
-{
-  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
-    // Find the exact match or the best match in kSimilarityTresholdPercent limit.
-    uint32_t result;
-    size_t minPercent = kSimilarityThresholdPercent + 1;
-
-    auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
-    for (auto const & street : streets)
-    {
-      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
-
-      size_t const editDistance =
-          strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
-
-      if (editDistance == 0)
-        return street.m_id.m_index;
-
-      if (actual.empty())
-        continue;
-
-      size_t const percent = editDistance * 100 / actual.size();
-      if (percent < minPercent)
-      {
-        result = street.m_id.m_index;
-        minPercent = percent;
-      }
-    }
-
-    if (minPercent <= kSimilarityThresholdPercent)
-      return result;
-    return {};
-  };
-
-  auto result = matchStreet(false /* ignoreStreetSynonyms */);
-  if (result)
-    return result;
-  return matchStreet(true /* ignoreStreetSynonyms */);
 }
 
 string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const

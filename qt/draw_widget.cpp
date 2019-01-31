@@ -520,6 +520,9 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   QMenu menu;
   auto const addStringFn = [&menu](string const & s)
   {
+    if (s.empty())
+      return;
+
     menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
@@ -534,13 +537,10 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 
     std::string name;
     ft.GetReadableName(name);
-    if (!name.empty())
-      addStringFn(name);
+    addStringFn(name);
 
-    search::ReverseGeocoder::Address const info = GetFeatureAddressInfo(m_framework, ft);
-    string const addr = info.FormatAddress();
-    if (!addr.empty())
-      addStringFn(addr);
+    auto const info = GetFeatureAddressInfo(m_framework, ft);
+    addStringFn(info.FormatAddress());
 
     menu.addSeparator();
   }, m_framework.PtoG(pt));
