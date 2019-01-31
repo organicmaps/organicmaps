@@ -133,9 +133,9 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
 void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                                  vector<Type> && allTypes, bool allTokensUsed)
+                                  vector<Type> const & allTypes, bool allTokensUsed)
 {
-  m_beam.Add(BeamKey(osmId, type, move(allTypes), allTokensUsed), certainty);
+  m_beam.Add(BeamKey(osmId, type, allTypes, allTokensUsed), certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
@@ -271,10 +271,7 @@ void Geocoder::Go(Context & ctx, Type type) const
       }
 
       for (auto const & docId : curLayer.m_entries)
-      {
-        ctx.AddResult(m_index.GetDoc(docId).m_osmId, certainty, type, move(allTypes),
-                      ctx.AllTokensUsed());
-      }
+        ctx.AddResult(m_index.GetDoc(docId).m_osmId, certainty, type, allTypes, ctx.AllTokensUsed());
 
       ctx.GetLayers().emplace_back(move(curLayer));
       SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });

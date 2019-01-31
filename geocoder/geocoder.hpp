@@ -52,7 +52,7 @@ public:
   public:
     struct BeamKey
     {
-      BeamKey(base::GeoObjectId osmId, Type type, std::vector<Type> && allTypes, bool allTokensUsed)
+      BeamKey(base::GeoObjectId osmId, Type type, std::vector<Type> const & allTypes, bool allTokensUsed)
         : m_osmId(osmId)
         , m_type(type)
         , m_allTypes(std::move(allTypes))
@@ -88,7 +88,7 @@ public:
     bool AllTokensUsed() const;
 
     void AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                   std::vector<Type> && allTypes, bool allTokensUsed);
+                   std::vector<Type> const & allTypes, bool allTokensUsed);
 
     void FillResults(std::vector<Result> & results) const;
 
