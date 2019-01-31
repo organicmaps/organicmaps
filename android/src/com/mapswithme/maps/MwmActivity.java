@@ -697,7 +697,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean closePlacePage()
   {
     mPlacePageController.close();
-    Framework.nativeDeactivatePopup();
     return true;
   }
 
@@ -752,8 +751,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
 
       // TODO: check for tablet.
-      /*if (mPlacePage.isDocked() || !mPlacePage.isFloating())
-        closePlacePage();*/
+      closePlacePage();
     });
   }
 
@@ -814,6 +812,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
+    mPlacePageController.onSave(outState);
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
 
@@ -852,7 +851,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
   {
     super.onRestoreInstanceState(savedInstanceState);
-
+    mPlacePageController.onRestore(savedInstanceState);
     if (mIsTabletLayout)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);

@@ -993,18 +993,6 @@ public class PlacePageView extends NestedScrollView
     attrArray.recycle();
   }
 
-  public void restore()
-  {
-    if (mMapObject == null)
-    {
-      // FIXME query map object again
-      LOGGER.e(TAG, "A place page cannot be restored, mMapObject is null!");
-      return;
-    }
-
-    setMapObject(mMapObject, true, null);
-  }
-
   public boolean isDocked()
   {
     return mIsDocked;
@@ -1760,7 +1748,6 @@ public class PlacePageView extends NestedScrollView
         RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
                                         Framework.ROUTER_TYPE_TAXI);
         hide();
-        Framework.nativeDeactivatePopup();
         if (mMapObject != null)
         {
           List<TaxiType> types = mMapObject.getReachableByTaxiTypes();

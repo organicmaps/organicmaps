@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private static final float ANCHOR_RATIO = 0.3f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
+  private static final String EXTRA_MAP_OBJECT = "extra_map_object";
   @NonNull
   private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
@@ -64,6 +66,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       if (newState == AnchorBottomSheetBehavior.STATE_HIDDEN)
       {
+        Framework.nativeDeactivatePopup();
         hideButtons();
         return;
       }
@@ -130,20 +133,20 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private void openPlacePage()
   {
     mPlacePage.post(() -> {
-      collapsePlacePage();
+      setPeekHeight();
+      mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
       setPlacePageAnchor();
     });
   }
 
-  private void collapsePlacePage()
+  private void setPeekHeight()
   {
     int peekHeight = getPeekHeight();
     LOGGER.d(TAG, "Peek height = " + peekHeight);
     mLastPeekHeight = peekHeight;
     mPlacePageBehavior.setPeekHeight(mLastPeekHeight);
-    mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
   }
-  
+
   private void setPlacePageAnchor()
   {
     View parent = (View) mPlacePage.getParent();
@@ -226,33 +229,42 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       oldTop, int oldRight, int oldBottom)
   {
     LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPlacePageBehavior.getState()));
+    if (mLastPeekHeight == 0)
+    {
+      LOGGER.d(TAG, "Layout changed - ignoring, peek height not calculated yet");
+      return;
+    }
+
+    updateViewPortRect();
+
     if (mPlacePageBehavior.getState() != AnchorBottomSheetBehavior.STATE_COLLAPSED)
       return;
 
     if (getPeekHeight() == mLastPeekHeight)
       return;
 
-    openPlacePage();
+    mPlacePage.post(this::setPeekHeight);
   }
 
   private void updateViewPortRect()
   {
-    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
-    int viewPortWidth = coordinatorLayout.getWidth();
-    int viewPortHeight = coordinatorLayout.getHeight();
-    Rect sheetRect = new Rect();
-    mPlacePage.getGlobalVisibleRect(sheetRect);
-    if (sheetRect.top < mViewportMinHeight)
-      return;
+    mPlacePage.post(() -> {
+      View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
+      int viewPortWidth = coordinatorLayout.getWidth();
+      int viewPortHeight = coordinatorLayout.getHeight();
+      Rect sheetRect = new Rect();
+      mPlacePage.getGlobalVisibleRect(sheetRect);
+      if (sheetRect.top < mViewportMinHeight)
+        return;
 
-    if (sheetRect.top >= viewPortHeight)
-    {
+      if (sheetRect.top >= viewPortHeight)
+      {
+        Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
+        return;
+      }
+      viewPortHeight -= sheetRect.height();
       Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-      return;
-    }
-    viewPortHeight -= sheetRect.height();
-    LOGGER.d(TAG, "Viewport room: 0, 0, " + viewPortWidth + ", " + viewPortHeight);
-    Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
+    });
   }
 
   @NonNull
@@ -275,5 +287,34 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       default:
         throw new AssertionError("Unsupported state detected: " + state);
     }
+  }
+
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    outState.putParcelable(EXTRA_MAP_OBJECT, mPlacePage.getMapObject());
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN)
+      return;
+
+    MapObject object = inState.getParcelable(EXTRA_MAP_OBJECT);
+    if (object == null)
+      return;
+
+    mPlacePage.setMapObject(object, true, this::restorePlacePage);
+    mToolbar.setTitle(object.getTitle());
+  }
+
+  private void restorePlacePage()
+  {
+    mPlacePage.post(() -> {
+      setPeekHeight();
+      setPlacePageAnchor();
+      showButtons();
+    });
   }
 }
