@@ -448,14 +448,10 @@ namespace
 
   void CheckPlace(Framework const & fm, double lat, double lon, POIInfo const & poi)
   {
-    search::AddressInfo const info = fm.GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
+    auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
 
-    TEST_EQUAL(info.m_street, poi.m_street, ());
-    TEST_EQUAL(info.m_house, poi.m_house, ());
-    // TODO(AlexZ): AddressInfo should contain addresses only. Refactor.
-    //TEST_EQUAL(info.m_name, poi.m_name, ());
-    //TEST_EQUAL(info.m_types.size(), 1, ());
-    //TEST_EQUAL(info.GetBestType(), poi.m_type, ());
+    TEST_EQUAL(info.m_street.m_name, poi.m_street, ());
+    TEST_EQUAL(info.m_building.m_name, poi.m_house, ());
   }
 }
 

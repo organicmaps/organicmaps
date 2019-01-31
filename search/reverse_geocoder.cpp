@@ -56,6 +56,24 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
 
   streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
 }
+
+// Following methods join only non-empty arguments in order with
+// commas.
+string Join(string const & s)
+{
+  return s;
+}
+
+template <typename... Args>
+string Join(string const & s, Args &&... args)
+{
+  auto const tail = Join(forward<Args>(args)...);
+  if (s.empty())
+    return tail;
+  if (tail.empty())
+    return s;
+  return s + ", " + tail;
+}
 }  // namespace
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
@@ -304,6 +322,19 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid,
 
   type = m_table->GetStreetIdType();
   return m_table->Get(fid.m_index, streetIndex);
+}
+
+string ReverseGeocoder::Address::FormatAddress() const
+{
+  // Check whether we can format address according to the query type
+  // and actual address distance.
+
+  // TODO (@m, @y): we can add "Near" prefix here in future according
+  // to the distance.
+  if (m_building.m_distanceMeters > 200.0)
+    return {};
+
+  return Join(m_street.m_name, m_building.m_name);
 }
 
 string DebugPrint(ReverseGeocoder::Object const & obj)

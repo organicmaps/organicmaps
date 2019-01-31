@@ -1,23 +1,20 @@
 #pragma once
 
-#include <QtWidgets/QDialog>
-#include <QtWidgets/QGridLayout>
+#include "search/reverse_geocoder.hpp"
 
 #include <string>
 
-class FeatureType;
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
 
-namespace search
-{
-struct AddressInfo;
-}
+class FeatureType;
 
 class FeatureInfoDialog : public QDialog
 {
   Q_OBJECT
 public:
-  FeatureInfoDialog(QWidget * parent, FeatureType & ft, search::AddressInfo const & address,
-                    std::string const & locale);
+  FeatureInfoDialog(QWidget * parent, FeatureType & ft,
+                    search::ReverseGeocoder::Address const & address, std::string const & locale);
 
 private:
   void AddElems(QGridLayout & layout, int row, int col, QWidget * widget)

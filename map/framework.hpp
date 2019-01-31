@@ -51,6 +51,7 @@
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
 #include "search/result.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
@@ -669,8 +670,6 @@ public:
   url_scheme::SearchRequest GetParsedSearchRequest() const;
 
 private:
-  // TODO(vng): Uncomment when needed.
-  //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 
@@ -693,17 +692,8 @@ public:
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
   void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
 
-  /// @returns address of nearby building with house number in approx 1km distance.
-  search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
+  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
-  /// @returns Valid street address only if it was specified in OSM for given feature;
-  /// @todo This functions are used in desktop app only. Should we really need them?
-  //@{
-  search::AddressInfo GetFeatureAddressInfo(FeatureType & ft) const;
-  search::AddressInfo GetFeatureAddressInfo(FeatureID const & fid) const;
-  //@}
-
-  vector<string> GetPrintableFeatureTypes(FeatureType & ft) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns nullptr if no feature was found at the given mercator point.

@@ -29,7 +29,6 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
-#include "search/reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/downloader_search_params.hpp"
@@ -806,6 +805,22 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
+search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
+{
+  double const kDistanceThresholdMeters = 0.5;
+
+  search::ReverseGeocoder const coder(m_model.GetDataSource());
+  search::ReverseGeocoder::Address address;
+  coder.GetNearbyAddress(pt, address);
+
+  // We do not init nearby address info for points that are located
+  // outside of the nearby building.
+  if (address.GetDistance() < kDistanceThresholdMeters)
+    return address;
+
+  return {};
+}
+
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
 {
   if (!fid.IsValid())
@@ -878,7 +893,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
-    info.SetAddress(GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet());
+    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
 
   info.SetFromFeatureType(ft);
 

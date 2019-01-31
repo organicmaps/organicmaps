@@ -759,14 +759,6 @@ void CallStartPurchaseTransactionListener(shared_ptr<jobject> listener, bool suc
 }
 
 /// @name JNI EXPORTS
-//@{
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
-{
-  search::AddressInfo const info = frm()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
-  return jni::ToJavaString(env, info.FormatNameAndAddress());
-}
-
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
 {

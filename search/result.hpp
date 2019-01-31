@@ -255,38 +255,4 @@ private:
 };
 
 std::string DebugPrint(search::Results const & results);
-
-struct AddressInfo
-{
-  enum class Type { Default, SearchResult };
-
-  std::string m_country;
-  std::string m_city;
-  std::string m_street;
-  std::string m_house;
-  std::string m_name;
-  std::vector<std::string> m_types;
-  double m_distanceMeters = -1.0;
-
-  std::string GetPinName() const;    // Caroline
-  std::string GetPinType() const;    // shop
-
-  std::string FormatPinText() const; // Caroline (clothes shop)
-  std::string FormatTypes() const;   // clothes shop
-  std::string GetBestType() const;
-  bool IsEmptyName() const;
-
-  // 7 vulica Frunze
-  std::string FormatHouseAndStreet(Type type = Type::Default) const;
-
-  // 7 vulica Frunze, Minsk, Belarus
-  std::string FormatAddress(Type type = Type::Default) const;
-
-  // Caroline, 7 vulica Frunze, Minsk, Belarus
-  std::string FormatNameAndAddress(Type type = Type::Default) const;
-
-  void Clear();
-};
-
-std::string DebugPrint(AddressInfo const & info);
 }  // namespace search

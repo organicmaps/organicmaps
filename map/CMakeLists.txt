@@ -10,7 +10,6 @@ include_directories(
 set(
   SRC
   ../api/src/c/api-client.c
-  address_finder.cpp
   api_mark_point.cpp
   api_mark_point.hpp
   benchmark_tools.hpp

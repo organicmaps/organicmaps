@@ -13,27 +13,6 @@ using namespace std;
 
 namespace search
 {
-namespace
-{
-// Following methods join only non-empty arguments in order with
-// commas.
-string Join(string const & s)
-{
-  return s;
-}
-
-template <typename... Args>
-string Join(string const & s, Args &&... args)
-{
-  auto const tail = Join(forward<Args>(args)...);
-  if (s.empty())
-    return tail;
-  if (tail.empty())
-    return s;
-  return s + ", " + tail;
-}
-}  // namespace
-
 // Result ------------------------------------------------------------------------------------------
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
                string const & address, uint32_t featureType, Metadata const & meta)
@@ -138,15 +117,15 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
   return m_hightlightRanges[idx];
 }
 
-void Result::PrependCity(string const & name)
+void Result::PrependCity(string const & city)
 {
   // It is expected that if |m_address| is not empty,
   // it starts with the region name. Avoid duplication
   // in the case where this region name coincides with
   // the city name and prepend otherwise.
   strings::SimpleTokenizer tok(m_address, ",");
-  if (tok && *tok != name)
-    m_address = Join(name, m_address);
+  if (tok && *tok != city)
+    m_address = city + ", " + m_address;
 }
 
 string Result::ToStringForStats() const
@@ -290,102 +269,5 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
 string DebugPrint(search::Results const & results)
 {
   return DebugPrintSequence(results.begin(), results.end());
-}
-
-// AddressInfo -------------------------------------------------------------------------------------
-bool AddressInfo::IsEmptyName() const
-{
-  return m_name.empty() && m_house.empty();
-}
-
-string AddressInfo::GetPinName() const
-{
-  if (IsEmptyName() && !m_types.empty())
-    return m_types[0];
-  return m_name.empty() ? m_house : m_name;
-}
-
-string AddressInfo::GetPinType() const
-{
-  return GetBestType();
-}
-
-string AddressInfo::FormatPinText() const
-{
-  // select name or house if name is empty
-  string const & ret = (m_name.empty() ? m_house : m_name);
-
-  string const type = GetBestType();
-  if (type.empty())
-    return ret;
-
-  return ret.empty() ? type : (ret + " (" + type + ')');
-}
-
-string AddressInfo::FormatHouseAndStreet(Type type /* = Type::Default */) const
-{
-  // Check whether we can format address according to the query type
-  // and actual address distance.
-
-  // TODO (@m, @y): we can add "Near" prefix here in future according
-  // to the distance.
-  if (m_distanceMeters > 0.0)
-  {
-    if (type == Type::SearchResult && m_distanceMeters > 50.0)
-      return {};
-    if (m_distanceMeters > 200.0)
-      return {};
-  }
-
-  return Join(m_street, m_house);
-}
-
-string AddressInfo::FormatAddress(Type type /* = Type::Default */) const
-{
-  return Join(FormatHouseAndStreet(type), m_city, m_country);
-}
-
-string AddressInfo::FormatNameAndAddress(Type type /* = Type::Default */) const
-{
-  return Join(m_name, FormatAddress(type));
-}
-
-string AddressInfo::FormatTypes() const
-{
-  string result;
-  for (size_t i = 0; i < m_types.size(); ++i)
-  {
-    ASSERT(!m_types.empty(), ());
-    if (!result.empty())
-      result += ' ';
-    result += m_types[i];
-  }
-  return result;
-}
-
-string AddressInfo::GetBestType() const
-{
-  if (m_types.empty())
-    return {};
-
-  /// @TODO(@m, @y): probably, we should skip some "common" types here
-  /// like in TypesHolder::SortBySpec.
-  ASSERT(!m_types[0].empty(), ());
-  return m_types[0];
-}
-
-void AddressInfo::Clear()
-{
-  m_country.clear();
-  m_city.clear();
-  m_street.clear();
-  m_house.clear();
-  m_name.clear();
-  m_types.clear();
-}
-
-string DebugPrint(AddressInfo const & info)
-{
-  return info.FormatNameAndAddress();
 }
 }  // namespace search

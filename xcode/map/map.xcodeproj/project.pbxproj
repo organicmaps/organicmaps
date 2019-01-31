@@ -155,7 +155,6 @@
 		674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A2A351B27011A001A525C /* working_time_tests.cpp */; };
 		674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A2A371B2715FB001A525C /* osm_opening_hours.hpp */; };
 		674C38621BFF3095000D603B /* user_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674C385F1BFF3095000D603B /* user_mark.cpp */; };
-		6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345CB1A4054E800A0A8C3 /* address_finder.cpp */; };
 		675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */; };
 		675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */; };
 		6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345DB1A4054E800A0A8C3 /* bookmark.cpp */; };
@@ -407,7 +406,6 @@
 		674A2A371B2715FB001A525C /* osm_opening_hours.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_opening_hours.hpp; sourceTree = "<group>"; };
 		674C385F1BFF3095000D603B /* user_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark.cpp; sourceTree = "<group>"; };
 		675345BB1A4054AD00A0A8C3 /* libmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmap.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		675345CB1A4054E800A0A8C3 /* address_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = address_finder.cpp; sourceTree = "<group>"; };
 		675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_manager.cpp; sourceTree = "<group>"; };
 		675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_manager.hpp; sourceTree = "<group>"; };
 		675345DB1A4054E800A0A8C3 /* bookmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark.cpp; sourceTree = "<group>"; };
@@ -785,7 +783,6 @@
 			isa = PBXGroup;
 			children = (
 				3DEE1AD921EE03B400054A91 /* power_management */,
-				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
@@ -1186,7 +1183,6 @@
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,
 				0C2B73DE1E92AB9900530BB8 /* local_ads_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
-				6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,

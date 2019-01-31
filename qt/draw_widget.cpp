@@ -8,6 +8,7 @@
 #include "map/framework.hpp"
 
 #include "search/result.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "storage/index.hpp"
 
@@ -34,6 +35,28 @@
 #include <QtCore/QTimer>
 
 using namespace qt::common;
+
+namespace
+{
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
+                                                       FeatureType & ft)
+{
+  search::ReverseGeocoder const coder(framework.GetDataSource());
+  search::ReverseGeocoder::Address address;
+  coder.GetExactAddress(ft, address);
+
+  return address;
+}
+
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
+                                                       FeatureID const & fid)
+{
+  FeatureType ft;
+  if (!framework.GetFeatureByID(fid, ft))
+    return {};
+  return GetFeatureAddressInfo(framework, ft);
+}
+}  // namespace
 
 namespace qt
 {
@@ -459,11 +482,11 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
 
 void DrawWidget::ShowPlacePage(place_page::Info const & info)
 {
-  search::AddressInfo address;
+  search::ReverseGeocoder::Address address;
   if (info.IsFeature())
-    address = m_framework.GetFeatureAddressInfo(info.GetID());
+    address = GetFeatureAddressInfo(m_framework, info.GetID());
   else
-    address = m_framework.GetAddressInfoAtPoint(info.GetMercator());
+    address = m_framework.GetAddressAtPoint(info.GetMercator());
 
   PlacePageDialog dlg(this, info, address);
   if (dlg.exec() == QDialog::Accepted)
@@ -502,16 +525,19 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 
   m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
   {
-    search::AddressInfo const info = m_framework.GetFeatureAddressInfo(ft);
-
     string concat;
-    for (auto const & type : info.m_types)
+    auto types = feature::TypesHolder(ft);
+    types.SortBySpec();
+    for (auto const & type : types.ToObjectNames())
       concat += type + " ";
     addStringFn(concat);
 
-    if (!info.m_name.empty())
-      addStringFn(info.m_name);
+    std::string name;
+    ft.GetReadableName(name);
+    if (!name.empty())
+      addStringFn(name);
 
+    search::ReverseGeocoder::Address const info = GetFeatureAddressInfo(m_framework, ft);
     string const addr = info.FormatAddress();
     if (!addr.empty())
       addStringFn(addr);
