@@ -7,7 +7,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:gravity="center_vertical"
   android:background="?cardBackground"
-  android:paddingTop="@dimen/margin_base">
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_quarter">
 
   <include
     android:id="@+id/downloader_status_frame"
@@ -179,7 +180,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginBottom="@dimen/margin_half_plus"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
@@ -194,7 +194,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_marginLeft="@dimen/margin_quarter"
     android:layout_marginStart="@dimen/margin_quarter"
-    android:layout_marginBottom="@dimen/margin_quarter"
     android:layout_marginRight="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_quarter"
     android:layout_below="@id/tv__address"

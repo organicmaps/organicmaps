@@ -11,9 +11,13 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.CompoundNativeAdLoader;
+import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -44,8 +48,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Toolbar mToolbar;
-  private int mLastPeekHeight;
   private int mViewportMinHeight;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BannerController mBannerController;
+  @NonNull
+  private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new AnchorBottomSheetBehavior.BottomSheetCallback()
@@ -68,6 +76,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         Framework.nativeDeactivatePopup();
         UiUtils.invisible(mButtonsLayout);
       }
+
+      setPeekHeight();
     }
 
     @Override
@@ -77,9 +87,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     }
   };
 
-  public BottomSheetPlacePageController(@NonNull Activity activity)
+  public BottomSheetPlacePageController(@NonNull Activity activity,
+                                        @NonNull AdsRemovalPurchaseControllerProvider provider)
   {
     mActivity = activity;
+    mPurchaseControllerProvider = provider;
   }
 
   @Override
@@ -94,6 +106,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
     mPlacePage.addOnLayoutChangeListener(this);
+
+    ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
+    DefaultAdTracker tracker = new DefaultAdTracker();
+    CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
+    mBannerController = new BannerController(bannerContainer, loader, tracker, mPurchaseControllerProvider);
+
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
     mPlacePage.initButtons(buttons);
@@ -112,7 +130,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void openFor(@NonNull MapObject object)
   {
-    mPlacePage.setMapObject(object, false, () -> {
+    mPlacePage.setMapObject(object, false, policy -> {
       if (object.isExtendedView())
       {
         mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
@@ -121,10 +139,18 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       UiUtils.show(mButtonsLayout);
       openPlacePage();
+      showBanner(object, policy);
     });
+
     mToolbar.setTitle(object.getTitle());
     mPlacePageTracker.setMapObject(object);
     Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
+  }
+
+  private void showBanner(@NonNull MapObject object, NetworkPolicy policy)
+  {
+    boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION && policy.сanUseNetwork();
+    mBannerController.updateData(canShowBanner ? object.getBanners() : null);
   }
 
   private void openPlacePage()
@@ -139,9 +165,18 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private void setPeekHeight()
   {
     int peekHeight = getPeekHeight();
-    LOGGER.d(TAG, "Peek height = " + peekHeight);
-    mLastPeekHeight = peekHeight;
-    mPlacePageBehavior.setPeekHeight(mLastPeekHeight);
+    if (peekHeight == mPlacePageBehavior.getPeekHeight())
+      return;
+
+    if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_SETTLING ||
+        mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_DRAGGING)
+    {
+      LOGGER.d(TAG, "Set new peek height ignored, sheet state inappropriate");
+      return;
+    }
+
+    LOGGER.d(TAG, "Set new peek height = " + peekHeight);
+    mPlacePageBehavior.setPeekHeight(peekHeight);
   }
 
   private void setPlacePageAnchor()
@@ -192,19 +227,13 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       oldTop, int oldRight, int oldBottom)
   {
     LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPlacePageBehavior.getState()));
-    if (mLastPeekHeight == 0)
+    if (mPlacePageBehavior.getPeekHeight() == 0)
     {
-      LOGGER.d(TAG, "Layout changed - ignoring, peek height not calculated yet");
+      LOGGER.d(TAG, "Layout change ignored, peek height not calculated yet");
       return;
     }
 
     updateViewPortRect();
-
-    if (mPlacePageBehavior.getState() != AnchorBottomSheetBehavior.STATE_COLLAPSED)
-      return;
-
-    if (getPeekHeight() == mLastPeekHeight)
-      return;
 
     mPlacePage.post(this::setPeekHeight);
   }
@@ -268,16 +297,61 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     if (object == null)
       return;
 
-    mPlacePage.setMapObject(object, true, this::restorePlacePage);
+    mPlacePage.setMapObject(object, true, policy -> {
+      restorePlacePage(object, policy);
+    });
     mToolbar.setTitle(object.getTitle());
   }
 
-  private void restorePlacePage()
+  private void restorePlacePage(MapObject object, NetworkPolicy policy)
   {
     mPlacePage.post(() -> {
+      UiUtils.show(mButtonsLayout);
       setPeekHeight();
       setPlacePageAnchor();
-      UiUtils.show(mButtonsLayout);
+      showBanner(object, policy);
     });
+  }
+
+  @Override
+  public void onActivityCreated(Activity activity, Bundle savedInstanceState)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onActivityStarted(Activity activity)
+  {
+    mBannerController.attach();
+  }
+
+  @Override
+  public void onActivityResumed(Activity activity)
+  {
+    mBannerController.onChangedVisibility(true);
+  }
+
+  @Override
+  public void onActivityPaused(Activity activity)
+  {
+    mBannerController.onChangedVisibility(false);
+  }
+
+  @Override
+  public void onActivityStopped(Activity activity)
+  {
+    mBannerController.detach();
+  }
+
+  @Override
+  public void onActivitySaveInstanceState(Activity activity, Bundle outState)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onActivityDestroyed(Activity activity)
+  {
+    // No op.
   }
 }

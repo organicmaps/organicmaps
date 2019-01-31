@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -53,18 +53,15 @@ final class BannerController
   private static final int MAX_TITLE_LINES = 2;
   private static final int MIN_TITLE_LINES = 1;
 
-  private static boolean isTouched(@Nullable View view, @NonNull MotionEvent event)
-  {
-    return view != null && !UiUtils.isHidden(view) && UiUtils.isViewTouched(event, view);
-  }
-
   @NonNull
-  private static View inflateBannerLayout(@NonNull NativeAdWrapper.UiType type, @NonNull ViewGroup containerView)
+  private static View inflateBannerLayout(@NonNull NativeAdWrapper.UiType type,
+                                          @NonNull ViewGroup containerView)
   {
     Context context = containerView.getContext();
     LayoutInflater li = LayoutInflater.from(context);
     View bannerView = li.inflate(type.getLayoutId(), containerView, false);
     containerView.removeAllViews();
+    TransitionManager.beginDelayedTransition(containerView);
     containerView.addView(bannerView);
     return bannerView;
   }
@@ -109,9 +106,6 @@ final class BannerController
 
   private final float mCloseFrameHeight;
 
-  @Nullable
-  private final BannerListener mListener;
-
   private boolean mOpened = false;
   private boolean mError = false;
   @Nullable
@@ -125,15 +119,14 @@ final class BannerController
   @NonNull
   private final AdsRemovalPurchaseControllerProvider mAdsRemovalProvider;
 
-  BannerController(@NonNull ViewGroup bannerContainer, @Nullable BannerListener listener,
-                   @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker,
+  BannerController(@NonNull ViewGroup bannerContainer, @NonNull CompoundNativeAdLoader loader,
+                   @Nullable AdTracker tracker,
                    @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider)
   {
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
     mContainerView.setOnClickListener(v -> animateActionButton());
     mBannerView = inflateBannerLayout(NativeAdWrapper.UiType.DEFAULT, mContainerView);
-    mListener = listener;
     mAdsLoader = loader;
     mAdTracker = tracker;
     Resources resources = mBannerView.getResources();
@@ -196,7 +189,7 @@ final class BannerController
     mError = value;
   }
 
-  boolean hasErrorOccurred()
+  private boolean hasErrorOccurred()
   {
     return mError;
   }
@@ -206,7 +199,7 @@ final class BannerController
     if (mBanners == null)
       return;
 
-    UiUtils.showIf(!hasErrorOccurred(), mContainerView);
+    UiUtils.showIf(!hasErrorOccurred() && mCurrentAd != null, mContainerView);
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
@@ -260,7 +253,7 @@ final class BannerController
     }
   }
 
-  boolean isBannerContainerVisible()
+  private boolean isBannerContainerVisible()
   {
     return UiUtils.isVisible(mContainerView);
   }
@@ -298,11 +291,6 @@ final class BannerController
     if (mCurrentAd != null)
       mCurrentAd.registerView(mBannerView);
     return true;
-  }
-
-  int getLastBannerHeight()
-  {
-    return mBannerView.getHeight();
   }
 
   private void setFrameHeight(int height)
@@ -374,11 +362,6 @@ final class BannerController
     }
   }
 
-  boolean isActionButtonTouched(@NonNull MotionEvent event)
-  {
-    return isTouched(mBannerView, event);
-  }
-
   private void animateActionButton()
   {
     View view = mOpened ? mActionLarge : mActionSmall;
@@ -407,11 +390,6 @@ final class BannerController
     return mOpened;
   }
 
-  interface BannerListener
-  {
-    void onSizeChanged();
-  }
-
   private class MyNativeAdsListener implements NativeAdListener
   {
     @Nullable
@@ -420,7 +398,7 @@ final class BannerController
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
     {
-/*      LOGGER.d(TAG, "onAdLoaded, ad = " + ad);
+      LOGGER.d("XXX", "onAdLoaded, ad = " + ad);
       if (mBanners == null)
         return;
 
@@ -441,18 +419,13 @@ final class BannerController
 
       ad.registerView(mBannerView);
 
-      // TODO:
-
-//      loadIconAndOpenIfNeeded(ad);
+      loadIconAndOpenIfNeeded(ad);
 
       if (mAdTracker != null)
       {
         onChangedVisibility(isBannerContainerVisible());
         mAdTracker.onContentObtained(ad.getProvider(), ad.getBannerId());
       }
-
-      if (mListener != null && mOpened)
-        mListener.onSizeChanged();*/
     }
 
     @Override
@@ -464,9 +437,6 @@ final class BannerController
       boolean isNotCached = mCurrentAd == null;
       setErrorStatus(isNotCached);
       updateVisibility();
-
-      if (mListener != null && isNotCached)
-        mListener.onSizeChanged();
 
       Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
     }

@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -44,8 +42,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.ads.CompoundNativeAdLoader;
-import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
@@ -119,8 +115,7 @@ public class PlacePageView extends NestedScrollView
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
-               EditBookmarkFragment.EditBookmarkListener,
-               BannerController.BannerListener
+               EditBookmarkFragment.EditBookmarkListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -216,9 +211,6 @@ public class PlacePageView extends NestedScrollView
   @NonNull
   private UGCController mUgcController;
 
-  @Nullable
-  BannerController mBannerController;
-
   // Data
   @Nullable
   private MapObject mMapObject;
@@ -241,8 +233,6 @@ public class PlacePageView extends NestedScrollView
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
-
-  private final int mMarginBase;
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
@@ -323,7 +313,7 @@ public class PlacePageView extends NestedScrollView
 
   public interface SetMapObjectListener
   {
-    void onSetMapObjectComplete();
+    void onSetMapObjectComplete(@NonNull NetworkPolicy policy);
   }
 
   public PlacePageView(Context context)
@@ -339,42 +329,9 @@ public class PlacePageView extends NestedScrollView
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    Activity activity = (Activity) context;
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
-    mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
     init(attrs, defStyleAttr);
-  }
-
-  public ViewGroup GetPreview() { return mPreview; }
-
-  public boolean isHorizontalScrollAreaTouched(@NonNull MotionEvent event)
-  {
-    return UiUtils.isViewTouched(event, mHotelGallery);
-  }
-
-  public void onActivityResume()
-  {
-    if (mBannerController != null)
-      mBannerController.onChangedVisibility(true);
-  }
-
-  public void onActivityPause()
-  {
-    if (mBannerController != null)
-      mBannerController.onChangedVisibility(false);
-  }
-
-  public void onActivityStopped()
-  {
-    if (mBannerController != null)
-      mBannerController.detach();
-  }
-
-  public void onActivityStarted()
-  {
-    if (mBannerController != null)
-      mBannerController.attach();
   }
 
   @Override
@@ -467,15 +424,6 @@ public class PlacePageView extends NestedScrollView
     initHotelRatingView();
 
     mUgcController = new UGCController(this);
-
-    ViewGroup bannerContainer = findViewById(R.id.banner_container);
-    if (bannerContainer != null)
-    {
-      DefaultAdTracker tracker = new DefaultAdTracker();
-      CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
-      mBannerController = new BannerController(bannerContainer, this, loader, tracker,
-                                               getActivity());
-    }
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -775,7 +723,7 @@ public class PlacePageView extends NestedScrollView
       LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!");
       return;
     }
-    refreshPreview(mMapObject, NetworkPolicy.newInstance(true), priceInfo);
+    refreshPreview(mMapObject, priceInfo);
   }
 
   @Override
@@ -1031,7 +979,10 @@ public class PlacePageView extends NestedScrollView
     if (!force && MapObject.same(mMapObject, mapObject))
     {
       if (listener != null)
-        listener.onSetMapObjectComplete();
+      {
+        NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
+        listener.onSetMapObjectComplete(policy);
+      }
       return;
     }
 
@@ -1048,15 +999,16 @@ public class PlacePageView extends NestedScrollView
         {
           setMapObjectInternal(policy);
           if (listener != null)
-            listener.onSetMapObjectComplete();
+            listener.onSetMapObjectComplete(policy);
         }
       });
     }
     else
     {
-      setMapObjectInternal(NetworkPolicy.newInstance(false));
+      NetworkPolicy policy = NetworkPolicy.newInstance(false);
+      setMapObjectInternal(policy);
       if (listener != null)
-        listener.onSetMapObjectComplete();
+        listener.onSetMapObjectComplete(policy);
     }
   }
 
@@ -1112,7 +1064,7 @@ public class PlacePageView extends NestedScrollView
       return;
     }
 
-    refreshPreview(mMapObject, policy, null);
+    refreshPreview(mMapObject, null);
     refreshViewsInternal(mMapObject);
   }
 
@@ -1183,19 +1135,6 @@ public class PlacePageView extends NestedScrollView
 
       mTvSubtitle.setText(sb);
     }
-  }
-
-  private void refreshPreview(@NonNull MapObject mapObject, @NonNull NetworkPolicy policy,
-                              @Nullable HotelPriceInfo priceInfo)
-  {
-    if (mBannerController != null)
-    {
-      boolean canShow = mapObject.getMapObjectType() != MapObject.MY_POSITION
-                        && policy.сanUseNetwork();
-      mBannerController.updateData(canShow ? mapObject.getBanners() : null);
-    }
-
-    refreshPreview(mapObject, priceInfo);
   }
 
   private void refreshPreview(@NonNull MapObject mapObject, @Nullable HotelPriceInfo priceInfo)
@@ -1986,32 +1925,6 @@ public class PlacePageView extends NestedScrollView
   {
     setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), true, null);
   }
-
-  public boolean isBannerTouched(@NonNull MotionEvent event)
-  {
-    return mBannerController != null && mBannerController.isActionButtonTouched(event);
-  }
-
-/*  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
-  {
-    return mUgcController != null && mUgcController.isLeaveReviewButtonTouched(event);
-  }*/
-
-  public boolean isSearchSimilarHotelsButtonTouched(@NonNull MotionEvent event)
-  {
-    return UiUtils.isViewTouched(event, mPreview.findViewById(R.id.search_hotels_btn));
-  }
-
-  @Override
-  public void onSizeChanged()
-  {
-/*    if (mBannerController != null && mBannerController.hasErrorOccurred())
-    {
-      mPreview.setPadding(mPreview.getPaddingLeft(), mPreview.getPaddingTop(),
-                          getPaddingRight(), mMarginBase);
-    }*/
-  }
-
 
   int getPreviewHeight()
   {
