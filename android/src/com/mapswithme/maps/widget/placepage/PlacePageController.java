@@ -11,6 +11,5 @@ public interface PlacePageController extends Initializable, Savable<Bundle>
 {
   void openFor(@NonNull MapObject object);
   void close();
-  // TODO: probably this method is redundant
   boolean isClosed();
 }

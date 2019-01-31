@@ -1,7 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.location.Location;
@@ -25,7 +23,6 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
                                                        View.OnLayoutChangeListener
 {
-  private static final int BUTTONS_ANIMATION_DURATION = 100;
   private static final float ANCHOR_RATIO = 0.3f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
@@ -62,16 +59,15 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                     + " placepage height = " + mPlacePage.getHeight());
       if (newState == AnchorBottomSheetBehavior.STATE_SETTLING
           || newState == AnchorBottomSheetBehavior.STATE_DRAGGING)
+      {
         return;
+      }
 
       if (newState == AnchorBottomSheetBehavior.STATE_HIDDEN)
       {
         Framework.nativeDeactivatePopup();
-        hideButtons();
-        return;
+        UiUtils.invisible(mButtonsLayout);
       }
-
-      showButtons();
     }
 
     @Override
@@ -123,6 +119,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         return;
       }
 
+      UiUtils.show(mButtonsLayout);
       openPlacePage();
     });
     mToolbar.setTitle(object.getTitle());
@@ -163,40 +160,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   {
     mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
     mPlacePage.hide();
-  }
-
-  private void showButtons()
-  {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(mButtonsLayout, "translationY",
-                                                     0);
-    animator.setDuration(BUTTONS_ANIMATION_DURATION);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationStart(Animator animation)
-      {
-        UiUtils.show(mButtonsLayout);
-        super.onAnimationStart(animation);
-      }
-    });
-    animator.start();
-  }
-
-  private void hideButtons()
-  {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(mButtonsLayout, "translationY",
-                                                     mButtonsLayout.getMeasuredHeight());
-    animator.setDuration(BUTTONS_ANIMATION_DURATION);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        super.onAnimationEnd(animation);
-        UiUtils.invisible(mButtonsLayout);
-      }
-    });
-    animator.start();
   }
 
   @Override
@@ -314,7 +277,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePage.post(() -> {
       setPeekHeight();
       setPlacePageAnchor();
-      showButtons();
+      UiUtils.show(mButtonsLayout);
     });
   }
 }

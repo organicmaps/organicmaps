@@ -696,6 +696,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public boolean closePlacePage()
   {
+    if (mPlacePageController.isClosed())
+      return false;
+
     mPlacePageController.close();
     return true;
   }
