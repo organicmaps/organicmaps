@@ -46,8 +46,8 @@ public:
   };
 
   using TagGroups = std::vector<TagGroup>;
-  using TagGroupsCallback = platform::SafeCallback<void(bool success, TagGroups const &)>;
-
+  using TagGroupsCallback = platform::SafeCallback<void(bool success, TagGroups const &,
+                                                        uint32_t maxTagsCount)>;
   using CustomProperties = std::vector<CustomProperty>;
   using CustomPropertiesCallback = platform::SafeCallback<void(bool success, CustomProperties const &)>;
 

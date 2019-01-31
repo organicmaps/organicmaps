@@ -85,7 +85,7 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onImportFinished", "(Ljava/lang/String;JZ)V");
   g_onTagsReceivedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onTagsReceived",
-                     "(Z[Lcom/mapswithme/maps/bookmarks/data/CatalogTagsGroup;)V");
+                     "(Z[Lcom/mapswithme/maps/bookmarks/data/CatalogTagsGroup;I)V");
   g_onCustomPropertiesReceivedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onCustomPropertiesReceived",
                      "(Z[Lcom/mapswithme/maps/bookmarks/data/CatalogCustomProperty;)V");
@@ -282,7 +282,8 @@ void OnImportFinished(JNIEnv * env, std::string const & serverId, kml::MarkGroup
   jni::HandleJavaException(env);
 }
 
-void OnTagsReceived(JNIEnv * env, bool successful, BookmarkCatalog::TagGroups const & groups)
+void OnTagsReceived(JNIEnv * env, bool successful, BookmarkCatalog::TagGroups const & groups,
+                    uint32_t maxTagsCount)
 {
   ASSERT(g_bookmarkManagerClass, ());
   ASSERT(g_catalogTagClass, ());
@@ -309,7 +310,7 @@ void OnTagsReceived(JNIEnv * env, bool successful, BookmarkCatalog::TagGroups co
                             static_cast<jfloat>(tag.m_color[1]),
                             static_cast<jfloat>(tag.m_color[2]));
     }));
-  }));
+  }), static_cast<jint>(maxTagsCount));
   jni::HandleJavaException(env);
 }
 
@@ -889,9 +890,9 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeRequestCatalogTags
 {
   auto & bm = frm()->GetBookmarkManager();
   bm.GetCatalog().RequestTagGroups(languages::GetCurrentNorm(),
-    [env](bool successful, BookmarkCatalog::TagGroups const & groups)
+    [env](bool successful, BookmarkCatalog::TagGroups const & groups, uint32_t maxTagsCount)
   {
-    OnTagsReceived(env, successful, groups);
+    OnTagsReceived(env, successful, groups, maxTagsCount);
   });
 }
 

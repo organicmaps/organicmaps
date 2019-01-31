@@ -270,8 +270,10 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups,
+                             int maxTagsCount)
   {
+    //TODO(@yoksnod): Implement maxTagsCount usage.
     List<CatalogTagsGroup> unmodifiableData = Collections.unmodifiableList(Arrays.asList(tagsGroups));
     for (BookmarksCatalogListener listener : mCatalogListeners)
     {

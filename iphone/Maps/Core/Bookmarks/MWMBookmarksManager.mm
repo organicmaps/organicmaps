@@ -624,8 +624,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 }
 
 - (void)loadTags:(LoadTagsCompletionBlock)completionBlock {
-  auto onTagsCompletion = [completionBlock](bool success, BookmarkCatalog::TagGroups const & tagGroups)
+  auto onTagsCompletion = [completionBlock](bool success, BookmarkCatalog::TagGroups const & tagGroups, uint32_t maxTagsCount)
   {
+    //TODO(@beloal): Implement maxTagsCount usage.
     if (success)
     {
       NSMutableArray * groups = [NSMutableArray new];

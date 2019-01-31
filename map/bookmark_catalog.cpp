@@ -39,7 +39,7 @@ std::string BuildTagsUrl(std::string const & language)
 {
   if (kCatalogEditorServer.empty())
     return {};
-  return kCatalogEditorServer + "editor/tags/?lang=" + language;
+  return kCatalogEditorServer + "editor/v2/tags/?lang=" + language;
 }
 
 std::string BuildCustomPropertiesUrl(std::string const & language)
@@ -88,11 +88,20 @@ struct TagData
                   visitor(m_subtags, "subtags"))
 };
 
+struct TagsMeta
+{
+  uint32_t m_maxTags;
+
+  DECLARE_VISITOR(visitor(m_maxTags, "max_for_bundle"))
+};
+
 struct TagsResponseData
 {
   std::vector<TagData> m_tags;
+  TagsMeta m_meta;
 
-  DECLARE_VISITOR(visitor(m_tags))
+  DECLARE_VISITOR(visitor(m_tags, "data"),
+                  visitor(m_meta, "meta"))
 };
 
 BookmarkCatalog::Tag::Color ExtractColor(std::string const & c)
@@ -293,7 +302,7 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
   if (tagsUrl.empty())
   {
     if (callback)
-      callback(false /* success */, {});
+      callback(false /* success */, {}, 0 /* maxTagsCount */);
     return;
   }
 
@@ -305,6 +314,7 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
     if (request.RunHttpRequest())
     {
       auto const resultCode = request.ErrorCode();
+      uint32_t maxTagsCount = 0;
       if (resultCode >= 200 && resultCode < 300)  // Ok.
       {
         TagsResponseData tagsResponseData;
@@ -317,7 +327,7 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
         {
           LOG(LWARNING, ("Tags request deserialization error:", ex.Msg()));
           if (callback)
-            callback(false /* success */, {});
+            callback(false /* success */, {}, 0 /* maxTagsCount */);
           return;
         }
 
@@ -337,9 +347,11 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
             group.m_tags.push_back(std::move(tag));
           }
           result.push_back(std::move(group));
+
+          maxTagsCount = tagsResponseData.m_meta.m_maxTags;
         }
         if (callback)
-          callback(true /* success */, result);
+          callback(true /* success */, result, maxTagsCount);
         return;
       }
       else
@@ -348,7 +360,7 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
       }
     }
     if (callback)
-      callback(false /* success */, {});
+      callback(false /* success */, {}, 0 /* maxTagsCount */);
   });
 }
 
