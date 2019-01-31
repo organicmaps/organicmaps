@@ -3,6 +3,7 @@
 #include "map/place_page_info.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_decl.hpp"
 #include "indexer/feature_algo.hpp"
 
 namespace utils
@@ -48,5 +49,22 @@ eye::MapObject MakeEyeMapObject(FeatureType & ft)
   mapObject.SetReadableName(name);
 
   return mapObject;
+}
+
+search::ReverseGeocoder::Address GetAddressAtPoint(DataSource const & dataSource,
+                                                   m2::PointD const & pt)
+{
+  double const kDistanceThresholdMeters = 0.5;
+
+  search::ReverseGeocoder const coder(dataSource);
+  search::ReverseGeocoder::Address address;
+  coder.GetNearbyAddress(pt, address);
+
+  // We do not init nearby address info for points that are located
+  // outside of the nearby building.
+  if (address.GetDistance() < kDistanceThresholdMeters)
+    return address;
+
+  return {};
 }
 }  // namespace utils

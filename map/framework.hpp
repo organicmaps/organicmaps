@@ -145,7 +145,6 @@ struct FrameworkParams
 class Framework : public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
                   public TipsApi::Delegate,
-                  public notifications::NotificationManager::Delegate,
                   private power_management::PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
@@ -263,8 +262,7 @@ public:
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
-  // NotificationManager::Delegate override.
-  ugc::Api * GetUGCApi() override { return m_ugcApi.get(); }
+  ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
   ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }

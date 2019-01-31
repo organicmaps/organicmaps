@@ -7,9 +7,11 @@
 #include "metrics/eye.hpp"
 
 #include <ctime>
+#include <memory>
 #include <string>
 
 #include <boost/optional.hpp>
+#include <search/reverse_geocoder.hpp>
 
 namespace notifications
 {
@@ -22,10 +24,11 @@ public:
   {
   public:
     virtual ~Delegate() = default;
-    virtual ugc::Api * GetUGCApi() = 0;
+    virtual ugc::Api & GetUGCApi() = 0;
+    virtual std::string GetAddress(m2::PointD const & pt) = 0;
   };
 
-  explicit NotificationManager(Delegate & delegate);
+  void SetDelegate(std::unique_ptr<Delegate> delegate);
 
   void Load();
   void TrimExpired();
@@ -41,17 +44,18 @@ private:
   void ProcessUgcRateCandidates(eye::MapObject const & poi);
   Candidates::iterator GetUgcRateCandidate();
 
-  Delegate & m_delegate;
+  std::unique_ptr<Delegate> m_delegate;
   // Notification candidates queue.
   Queue m_queue;
 };
 }  // namespace notifications
+
 namespace lightweight
 {
 class NotificationManager
 {
 public:
-  NotificationManager() : m_manager(m_delegate) { m_manager.Load(); }
+  NotificationManager() { m_manager.Load(); }
 
   boost::optional<notifications::NotificationCandidate> GetNotification()
   {
@@ -65,17 +69,6 @@ public:
   }
 
 private:
-  class EmptyDelegate : public notifications::NotificationManager::Delegate
-  {
-  public:
-    // NotificationManager::Delegate overrides:
-    ugc::Api * GetUGCApi() override
-    {
-      return nullptr;
-    }
-  };
-
-  EmptyDelegate m_delegate;
   notifications::NotificationManager m_manager;
 };
 }  // namespace lightweight

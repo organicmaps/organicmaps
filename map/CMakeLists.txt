@@ -79,6 +79,9 @@ set(
   mwm_url.hpp
   notifications/notification_manager.cpp
   notifications/notification_manager.hpp
+  notifications/notification_manager_delegate.cpp
+  notifications/notification_manager_delegate.hpp
+  notifications/notification_queue.cpp
   notifications/notification_queue.hpp
   notifications/notification_queue_serdes.cpp
   notifications/notification_queue_serdes.hpp

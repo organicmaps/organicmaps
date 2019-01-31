@@ -11,8 +11,11 @@ namespace notifications
 using Clock = std::chrono::system_clock;
 using Time = Clock::time_point;
 
-struct NotificationCandidate
+class NotificationCandidate
 {
+public:
+  friend class NotificationManagerForTesting;
+
   enum class Type : uint8_t
   {
     UgcAuth = 0,
@@ -20,12 +23,35 @@ struct NotificationCandidate
   };
 
   DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_created, "created_time"),
-                  visitor(m_used, "used"), visitor(m_mapObject, "object"));
+                  visitor(m_used, "used"), visitor(m_mapObject, "object"),
+                  visitor(m_address, std::string(""), "address"));
 
+  NotificationCandidate() = default;
+  // Constructs candidate with type Type::UgcReview.
+  NotificationCandidate(eye::MapObject const & poi, std::string const & address);
+
+  Type GetType() const;
+  Time GetCreatedTime() const;
+  Time GetLastUsedTime() const;
+  bool IsUsed() const;
+  void MarkAsUsed();
+
+  // Methods for Type::UgcReview type.
+  // It is possible to use inheritance, but our serialization/deserialization
+  // mechanism is not support it.
+  bool IsSameMapObject(eye::MapObject const & rhs) const;
+  std::string const & GetBestFeatureType() const;
+  m2::PointD const & GetPos() const;
+  std::string const & GetDefaultName() const;
+  std::string const & GetReadableName() const;
+  std::string const & GetAddress() const;
+
+private:
   Type m_type;
   Time m_created;
   Time m_used;
   std::shared_ptr<eye::MapObject> m_mapObject;
+  std::string m_address;
 };
 
 using Candidates = std::deque<NotificationCandidate>;

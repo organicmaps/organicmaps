@@ -6,6 +6,7 @@
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
+#include "map/notifications/notification_manager_delegate.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
@@ -380,6 +381,9 @@ void Framework::Migrate(bool keepDownloaded)
   InitDiscoveryManager();
   InitTaxiEngine();
   RegisterAllMaps();
+  m_notificationManager.SetDelegate(
+    std::make_unique<notifications::NotificationManagerDelegate>(m_model.GetDataSource(),
+                                                                 *m_cityFinder, *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -424,7 +428,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_model.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
-  , m_notificationManager(static_cast<notifications::NotificationManager::Delegate &>(*this))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -547,6 +550,9 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
+  m_notificationManager.SetDelegate(
+    std::make_unique<notifications::NotificationManagerDelegate>(m_model.GetDataSource(),
+                                                                 *m_cityFinder, *m_ugcApi));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
 
@@ -807,18 +813,7 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
-  double const kDistanceThresholdMeters = 0.5;
-
-  search::ReverseGeocoder const coder(m_model.GetDataSource());
-  search::ReverseGeocoder::Address address;
-  coder.GetNearbyAddress(pt, address);
-
-  // We do not init nearby address info for points that are located
-  // outside of the nearby building.
-  if (address.GetDistance() < kDistanceThresholdMeters)
-    return address;
-
-  return {};
+  return utils::GetAddressAtPoint(m_model.GetDataSource(), pt);
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
