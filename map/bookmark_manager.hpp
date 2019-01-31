@@ -311,6 +311,7 @@ public:
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
   void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
+  std::string GetCategoryServerId(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
   BookmarkCatalog const & GetCatalog() const;
 

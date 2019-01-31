@@ -111,7 +111,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_bookmarkCategoryConstructor =
       jni::GetConstructorID(env, g_bookmarkCategoryClass,
                             "(JLjava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZI)V");
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZILjava/lang/String;)V");
 
   g_catalogTagClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/CatalogTag");
@@ -926,12 +926,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
     auto const annotation = GetPreferredBookmarkStr(data.m_annotation);
     auto const description = GetPreferredBookmarkStr(data.m_description);
     auto const accessRules = data.m_accessRules;
+    auto const serverId = manager.GetCategoryServerId(item);
 
     jni::TScopedLocalRef preferBookmarkStrRef(env, jni::ToJavaString(env, preferBookmarkStr));
     jni::TScopedLocalRef authorIdRef(env, jni::ToJavaString(env, data.m_authorId));
     jni::TScopedLocalRef authorNameRef(env, jni::ToJavaString(env, data.m_authorName));
     jni::TScopedLocalRef annotationRef(env, jni::ToJavaString(env, annotation));
     jni::TScopedLocalRef descriptionRef(env, jni::ToJavaString(env, description));
+    jni::TScopedLocalRef serverIdRef(env, jni::ToJavaString(env, serverId));
 
     return env->NewObject(g_bookmarkCategoryClass,
                           g_bookmarkCategoryConstructor,
@@ -946,7 +948,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                           static_cast<jboolean>(isFromCatalog),
                           static_cast<jboolean>(isMyCategory),
                           static_cast<jboolean>(isVisible),
-                          static_cast<jint>(accessRules));
+                          static_cast<jint>(accessRules),
+                          serverIdRef.get());
   };
   return ToJavaArray(env, g_bookmarkCategoryClass, categories, bookmarkConverter);
 }

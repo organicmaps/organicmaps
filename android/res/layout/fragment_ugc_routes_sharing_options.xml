@@ -257,7 +257,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--FIXME text id-->
         <TextView
           android:minHeight="@dimen/height_block_base"
           android:gravity="center_vertical"
@@ -279,14 +278,14 @@
           <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/upload_and_publish_desc"/>
+            android:text="@string/web_editor_description"/>
           <Button
             android:id="@+id/edit_on_web_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_base"
             style="@style/MwmWidget.Button.Primary"
-            android:text="@string/edit_on_web"
+            android:text="@string/edit_on_web_confirm"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
         </LinearLayout>
         <include layout="@layout/list_divider"/>

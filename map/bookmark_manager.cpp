@@ -2363,6 +2363,16 @@ bool BookmarkManager::IsCategoryFromCatalog(kml::MarkGroupId categoryId) const
   return cat->IsCategoryFromCatalog();
 }
 
+std::string BookmarkManager::GetCategoryServerId(kml::MarkGroupId categoryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto cat = GetBmCategory(categoryId);
+  if (cat == nullptr)
+    return "";
+
+  return cat->GetServerId();
+}
+
 std::string BookmarkManager::GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const
 {
   auto cat = GetBmCategory(categoryId);

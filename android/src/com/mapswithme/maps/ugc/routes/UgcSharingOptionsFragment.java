@@ -45,7 +45,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 {
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
-  private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
   private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
@@ -54,7 +53,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String NOT_ENOUGH_BOOKMARKS_DIALOG_TAG = "not_enough_bookmarks_dialog";
-  private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
@@ -238,7 +236,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void shareCategory()
   {
-    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
+    String deepLink = BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, deepLink));
@@ -465,7 +463,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                                         uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
-      showErrorBrokenFileDialog();
+      showHtmlFormattingError();
       return;
     }
 
@@ -507,13 +505,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                                       " Current value = " + mCategory.getAccessRules());
   }
 
-  private void showErrorBrokenFileDialog()
-  {
-    showUploadErrorDialog(R.string.unable_upload_error_subtitle_broken,
-                          REQ_CODE_ERROR_BROKEN_FILE_DIALOG,
-                          ERROR_BROKEN_FILE_DIALOG_TAG);
-  }
-
   private void showUploadErrorDialog(@StringRes int subtitle, int reqCode, @NonNull String tag)
   {
     showErrorDialog(R.string.unable_upload_errorr_title, subtitle, reqCode, tag);
@@ -521,8 +512,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showNotEnoughBookmarksDialog()
   {
-    /* FIXME */
-    showErrorDialog(R.string.not_enough_memory, R.string.not_enough_memory,
+    showErrorDialog(R.string.error_public_not_enought_title,
+                    R.string.error_public_not_enought_subtitle,
                     REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS, NOT_ENOUGH_BOOKMARKS_DIALOG_TAG);
   }
 
@@ -587,26 +578,25 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private void showHtmlFormattingError()
   {
     showConfirmationDialog(REQ_CODE_ERROR_HTML_FORMATTING_DIALOG,
-                           ERROR_HTML_FORMATTING_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+                           ERROR_HTML_FORMATTING_DIALOG_TAG, R.string.html_format_error_title,
+                           R.string.html_format_error_title,
+                           R.string.edit_on_web, R.string.cancel);
   }
 
   private void showUploadCatalogConfirmationDialog()
   {
-    /*FIXME text later*/
     showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.bookmark_public_upload_alert_title,
+                           R.string.bookmark_public_upload_alert_subtitle,
+                           R.string.bookmark_public_upload_alert_ok_button, R.string.cancel);
   }
 
   private void showUnresolvedConflictsErrorDialog()
   {
-    /*FIXME text later*/
     showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+                           UPLOAD_CONFIRMATION_DIALOG_TAG,
+                           R.string.public_or_limited_access_after_edit_online_error_title,
+                           R.string.public_or_limited_access_after_edit_online_error_title,
+                           R.string.edit_on_web, R.string.cancel);
   }
 }
