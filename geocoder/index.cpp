@@ -51,6 +51,9 @@ void Index::AddEntries()
     if (doc.m_type == Type::Count)
       continue;
 
+    if (doc.m_type == Type::Building)
+      continue;
+
     if (doc.m_type == Type::Street)
     {
       AddStreet(docId, doc);
