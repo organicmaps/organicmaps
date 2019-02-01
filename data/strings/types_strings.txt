@@ -10940,7 +10940,7 @@
     en = leisure-marina
 
   [type.leisure.nature_reserve]
-    en = Reserve
+    en = Nature reserve
     ru = Заповедник
     ar = محمية
     cs = Rezervace
