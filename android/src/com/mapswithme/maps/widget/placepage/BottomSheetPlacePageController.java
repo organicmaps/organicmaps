@@ -1,11 +1,14 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +34,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
   private static final String EXTRA_MAP_OBJECT = "extra_map_object";
+  private static final int PEEK_HEIGHT_ANIM_DURATION = 300;
   @NonNull
   private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
@@ -86,6 +90,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       updateViewPortRect();
     }
   };
+
+  private boolean mPeekHeightAnimating;
 
   public BottomSheetPlacePageController(@NonNull Activity activity,
                                         @NonNull AdsRemovalPurchaseControllerProvider provider)
@@ -164,19 +170,60 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
   private void setPeekHeight()
   {
-    int peekHeight = getPeekHeight();
-    if (peekHeight == mPlacePageBehavior.getPeekHeight())
-      return;
-
-    if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_SETTLING ||
-        mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_DRAGGING)
+    if (mPeekHeightAnimating)
     {
-      LOGGER.d(TAG, "Set new peek height ignored, sheet state inappropriate");
+      Log.d(TAG, "Peek animation in progress, ignore.");
       return;
     }
 
-    LOGGER.d(TAG, "Set new peek height = " + peekHeight);
+    final int peekHeight = getPeekHeight();
+    if (peekHeight == mPlacePageBehavior.getPeekHeight())
+      return;
+
+    @AnchorBottomSheetBehavior.State
+    int currentState = mPlacePageBehavior.getState();
+    if (isSettlingState(currentState) || isDraggingState(currentState))
+    {
+      LOGGER.d(TAG, "Sheet state inappropriate, ignore.");
+      return;
+    }
+
+    if (isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0)
+    {
+      setPeekHeightAnimatedly(peekHeight);
+      return;
+    }
+
     mPlacePageBehavior.setPeekHeight(peekHeight);
+  }
+
+  private void setPeekHeightAnimatedly(int peekHeight)
+  {
+    int delta = peekHeight - mPlacePageBehavior.getPeekHeight();
+    ObjectAnimator animator = ObjectAnimator.ofFloat(mPlacePage, "translationY", -delta);
+    animator.setDuration(PEEK_HEIGHT_ANIM_DURATION);
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationStart(Animator animation)
+      {
+        mPeekHeightAnimating = true;
+        mPlacePage.setScrollable(false);
+        mPlacePageBehavior.setAllowUserDragging(false);
+      }
+
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mPlacePage.setTranslationY(0);
+        mPeekHeightAnimating = false;
+        mPlacePage.setScrollable(true);
+        mPlacePageBehavior.setAllowUserDragging(true);
+        mPlacePageBehavior.setPeekHeight(peekHeight);
+      }
+    });
+
+    animator.start();
   }
 
   private void setPlacePageAnchor()
@@ -353,5 +400,20 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onActivityDestroyed(Activity activity)
   {
     // No op.
+  }
+
+  private static boolean isSettlingState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_SETTLING;
+  }
+
+  private static boolean isDraggingState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_DRAGGING;
+  }
+
+  private static boolean isCollapsedState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_COLLAPSED;
   }
 }

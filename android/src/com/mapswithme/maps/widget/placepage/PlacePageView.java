@@ -25,9 +25,11 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -302,6 +304,33 @@ public class PlacePageView extends NestedScrollView
                                                .add(Statistics.EventParam.FROM, "placepage"));
     }
   };
+
+  private boolean mScrollable = true;
+
+  void setScrollable(boolean scrollable)
+  {
+    mScrollable = scrollable;
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent ev)
+  {
+    switch (ev.getAction())
+    {
+      case MotionEvent.ACTION_DOWN:
+        Log.d("XXX", "onTouchEvent mScrollable = " + mScrollable);
+        return mScrollable && super.onTouchEvent(ev);
+      default:
+        return super.onTouchEvent(ev);
+    }
+  }
+
+  @Override
+  public boolean onInterceptTouchEvent(MotionEvent event)
+  {
+    Log.d("XXX", "onInterceptTouchEvent mScrollable = " + mScrollable);
+    return mScrollable && super.onInterceptTouchEvent(event);
+  }
 
   public enum State
   {

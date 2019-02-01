@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.transition.TransitionManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -61,7 +60,6 @@ final class BannerController
     LayoutInflater li = LayoutInflater.from(context);
     View bannerView = li.inflate(type.getLayoutId(), containerView, false);
     containerView.removeAllViews();
-    TransitionManager.beginDelayedTransition(containerView);
     containerView.addView(bannerView);
     return bannerView;
   }
@@ -197,30 +195,26 @@ final class BannerController
   private void updateVisibility()
   {
     if (mBanners == null)
-      return;
+      throw new AssertionError("Banners must be non-null at this point!");
 
-    UiUtils.showIf(!hasErrorOccurred() && mCurrentAd != null, mContainerView);
-    if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
-        && mCurrentAd == null)
-    {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge, mAdChoices,
-                   mAdChoicesLabel, mAdsRemovalIcon, mAdsRemovalButton);
-    }
-    else if (mCurrentAd != null)
-    {
-      UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
-      PurchaseController<?> purchaseController
-          = mAdsRemovalProvider.getAdsRemovalPurchaseController();
-      boolean showRemovalButtons = purchaseController != null
-                                   && purchaseController.isPurchaseSupported();
-      UiUtils.showIf(showRemovalButtons, mAdsRemovalIcon, mAdsRemovalButton);
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge,
-                   mAdsRemovalButton, mAdChoicesLabel);
-      if (mOpened)
-        UiUtils.hide(mActionSmall);
-      else
-        UiUtils.hide(mActionContainer, mActionLarge, mAdsRemovalButton, mIcon);
-    }
+    UiUtils.hideIf(hasErrorOccurred() || mCurrentAd == null, mContainerView);
+
+    if (mCurrentAd == null)
+      throw new AssertionError("Banners must be non-null at this point!");
+
+    UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
+    PurchaseController<?> purchaseController
+        = mAdsRemovalProvider.getAdsRemovalPurchaseController();
+    boolean showRemovalButtons = purchaseController != null
+                                 && purchaseController.isPurchaseSupported();
+    UiUtils.showIf(showRemovalButtons, mAdsRemovalIcon, mAdsRemovalButton);
+    UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge,
+                 mAdsRemovalButton, mAdChoicesLabel);
+    if (mOpened)
+      UiUtils.hide(mActionSmall);
+    else
+      UiUtils.hide(mActionContainer, mActionLarge, mAdsRemovalButton, mIcon);
+    UiUtils.show(mBannerView);
   }
 
   void updateData(@Nullable List<Banner> banners)
@@ -231,16 +225,15 @@ final class BannerController
       unregisterCurrentAd();
     }
 
-    UiUtils.hide(mContainerView);
     setErrorStatus(false);
 
     mBanners = banners != null ? Collections.unmodifiableList(banners) : null;
+    UiUtils.showIf(mBanners != null, mContainerView);
     if (mBanners == null)
       return;
 
-    UiUtils.show(mContainerView);
+    UiUtils.hide(mBannerView);
     mAdsLoader.loadAd(mContainerView.getContext(), mBanners);
-    updateVisibility();
   }
 
   private void unregisterCurrentAd()
@@ -398,7 +391,7 @@ final class BannerController
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
     {
-      LOGGER.d("XXX", "onAdLoaded, ad = " + ad);
+      LOGGER.d(TAG, "onAdLoaded, ad = " + ad);
       if (mBanners == null)
         return;
 
@@ -413,13 +406,11 @@ final class BannerController
 
       mLastAdType = mCurrentAd.getType();
 
+      fillViews(ad);
+      loadIconAndOpenIfNeeded(ad);
       updateVisibility();
 
-      fillViews(ad);
-
       ad.registerView(mBannerView);
-
-      loadIconAndOpenIfNeeded(ad);
 
       if (mAdTracker != null)
       {
@@ -436,7 +427,7 @@ final class BannerController
 
       boolean isNotCached = mCurrentAd == null;
       setErrorStatus(isNotCached);
-      updateVisibility();
+      UiUtils.hide(mContainerView);
 
       Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
     }
