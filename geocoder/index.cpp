@@ -102,21 +102,21 @@ void Index::AddHouses()
     auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
     auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
 
-    Tokens const * buildingPlace = nullptr;
+    Tokens const * relationName = nullptr;
 
     if (!street.empty())
-      buildingPlace = &street;
+      relationName = &street;
     else if (!locality.empty())
-      buildingPlace = &locality;
+      relationName = &locality;
 
-    if (!buildingPlace)
+    if (!relationName)
       continue;
 
-    ForEachDocId(*buildingPlace, [&](DocId const & placeCandidate) {
-      auto const & streetDoc = GetDoc(placeCandidate);
-      if (streetDoc.IsParentTo(buildingDoc))
+    ForEachDocId(*relationName, [&](DocId const & candidate) {
+      auto const & candidateDoc = GetDoc(candidate);
+      if (candidateDoc.IsParentTo(buildingDoc))
       {
-        m_buildingsOnStreet[placeCandidate].emplace_back(docId);
+        m_relatedBuildings[candidate].emplace_back(docId);
 
         ++numIndexed;
         if (numIndexed % kLogBatch == 0)

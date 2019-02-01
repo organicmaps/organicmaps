@@ -302,9 +302,9 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
     // let's stay on the safer side and set the house number bit.
     ctx.SetHouseNumberBit();
 
-    for (auto const & streetDocId : layer.m_entries)
+    for (auto const & docId : layer.m_entries)
     {
-      m_index.ForEachBuildingOnStreet(streetDocId, [&](Index::DocId const & buildingDocId) {
+      m_index.ForEachRelatedBuilding(docId, [&](Index::DocId const & buildingDocId) {
         auto const & bld = m_index.GetDoc(buildingDocId);
         auto const bt = static_cast<size_t>(Type::Building);
         auto const & realHN = MakeHouseNumber(bld.m_address[bt]);
