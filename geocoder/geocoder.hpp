@@ -55,7 +55,7 @@ public:
       BeamKey(base::GeoObjectId osmId, Type type, std::vector<Type> const & allTypes, bool allTokensUsed)
         : m_osmId(osmId)
         , m_type(type)
-        , m_allTypes(std::move(allTypes))
+        , m_allTypes(allTypes)
         , m_allTokensUsed(allTokensUsed)
       {
         base::SortUnique(m_allTypes);

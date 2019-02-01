@@ -287,30 +287,32 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
 {
   if (ctx.GetLayers().empty())
     return;
-  auto const & layer = ctx.GetLayers().back();
-  if (layer.m_type != Type::Street)
-    return;
 
   auto const & subqueryHN = MakeHouseNumber(subquery);
 
   if (!search::house_numbers::LooksLikeHouseNumber(subqueryHN, false /* isPrefix */))
     return;
 
-  // We've already filled a street layer and now see something that resembles
-  // a house number. While it still can be something else (a zip code, for example)
-  // let's stay on the safer side and set the house number bit.
-  ctx.SetHouseNumberBit();
+  for_each(ctx.GetLayers().rbegin(), ctx.GetLayers().rend(), [&, this] (auto const & layer) {
+    if (layer.m_type != Type::Street && layer.m_type != Type::Locality)
+      return;
 
-  for (auto const & streetDocId : layer.m_entries)
-  {
-    m_index.ForEachBuildingOnStreet(streetDocId, [&](Index::DocId const & buildingDocId) {
-      auto const & bld = m_index.GetDoc(buildingDocId);
-      auto const bt = static_cast<size_t>(Type::Building);
-      auto const & realHN = MakeHouseNumber(bld.m_address[bt]);
-      if (search::house_numbers::HouseNumbersMatch(realHN, subqueryHN, false /* queryIsPrefix */))
-        curLayer.m_entries.emplace_back(buildingDocId);
-    });
-  }
+    // We've already filled a street/location layer and now see something that resembles
+    // a house number. While it still can be something else (a zip code, for example)
+    // let's stay on the safer side and set the house number bit.
+    ctx.SetHouseNumberBit();
+
+    for (auto const & streetDocId : layer.m_entries)
+    {
+      m_index.ForEachBuildingOnStreet(streetDocId, [&](Index::DocId const & buildingDocId) {
+        auto const & bld = m_index.GetDoc(buildingDocId);
+        auto const bt = static_cast<size_t>(Type::Building);
+        auto const & realHN = MakeHouseNumber(bld.m_address[bt]);
+        if (search::house_numbers::HouseNumbersMatch(realHN, subqueryHN, false /* queryIsPrefix */))
+          curLayer.m_entries.emplace_back(buildingDocId);
+      });
+    }
+  });
 }
 
 void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,

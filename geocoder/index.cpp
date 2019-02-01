@@ -99,13 +99,24 @@ void Index::AddHouses()
     if (buildingDoc.m_type != Type::Building)
       continue;
 
-    size_t const t = static_cast<size_t>(Type::Street);
+    auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
+    auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
 
-    ForEachDocId(buildingDoc.m_address[t], [&](DocId const & streetCandidate) {
-      auto const & streetDoc = GetDoc(streetCandidate);
+    Tokens const * buildingPlace = nullptr;
+
+    if (!street.empty())
+      buildingPlace = &street;
+    else if (!locality.empty())
+      buildingPlace = &locality;
+
+    if (!buildingPlace)
+      continue;
+
+    ForEachDocId(*buildingPlace, [&](DocId const & placeCandidate) {
+      auto const & streetDoc = GetDoc(placeCandidate);
       if (streetDoc.IsParentTo(buildingDoc))
       {
-        m_buildingsOnStreet[streetCandidate].emplace_back(docId);
+        m_buildingsOnStreet[placeCandidate].emplace_back(docId);
 
         ++numIndexed;
         if (numIndexed % kLogBatch == 0)
