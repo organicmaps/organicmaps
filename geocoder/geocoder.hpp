@@ -12,6 +12,7 @@
 
 #include <cstddef>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -118,8 +119,10 @@ public:
     std::vector<Layer> m_layers;
   };
 
-  explicit Geocoder(std::string const & pathToJsonHierarchy);
-  explicit Geocoder(Hierarchy && hierarchy);
+  explicit Geocoder(std::string const & pathToJsonHierarchy,
+      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
+  explicit Geocoder(std::istream & jsonHierarchy,
+      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
 
   void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
 
@@ -128,6 +131,8 @@ public:
   Index const & GetIndex() const;
 
 private:
+  explicit Geocoder(Hierarchy && hierarchy, unsigned int loadThreadsCount);
+
   void Go(Context & ctx, Type type) const;
 
   void FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer & curLayer) const;

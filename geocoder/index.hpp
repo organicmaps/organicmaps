@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -20,7 +21,8 @@ public:
   // that the index was constructed from.
   using DocId = std::vector<Doc>::size_type;
 
-  explicit Index(Hierarchy const & hierarchy, unsigned int processingThreadsCount = 4);
+  explicit Index(Hierarchy const & hierarchy,
+      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
 
   Doc const & GetDoc(DocId const id) const;
 
@@ -66,7 +68,7 @@ private:
   void AddStreet(DocId const & docId, Doc const & e);
 
   // Fills the |m_buildingsOnStreet| field.
-  void AddHouses();
+  void AddHouses(unsigned int loadThreadsCount);
 
   std::vector<Doc> const & m_docs;
 
@@ -74,7 +76,5 @@ private:
 
   // Lists of houses grouped by the streets they belong to.
   std::unordered_map<DocId, std::vector<DocId>> m_buildingsOnStreet;
-
-  unsigned int m_processingThreadsCount;
 };
 }  // namespace geocoder

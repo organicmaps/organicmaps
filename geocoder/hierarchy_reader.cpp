@@ -2,6 +2,7 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <queue>
 #include <thread>
 
@@ -41,7 +42,7 @@ HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy)
     MYTHROW(OpenException, ("Failed to open file", pathToJsonHierarchy));
 }
 
-HierarchyReader::HierarchyReader(std::istream & in)
+HierarchyReader::HierarchyReader(istream & in)
   : m_in{in}
 {
 }
@@ -86,7 +87,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
       ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
   LOG(LINFO, ("(End of stats.)"));
 
-  return Hierarchy{std::move(entries), true};
+  return Hierarchy{move(entries), true};
 }
 
 vector<Hierarchy::Entry> HierarchyReader::MergeEntries(vector<multimap<base::GeoObjectId, Entry>> & entryParts)
@@ -104,18 +105,18 @@ vector<Hierarchy::Entry> HierarchyReader::MergeEntries(vector<multimap<base::Geo
   using PartReference = reference_wrapper<multimap<base::GeoObjectId, Entry>>;
   struct ReferenceGreater
   {
-    bool operator () (PartReference const & l, PartReference const & r) const noexcept
+    bool operator()(PartReference const & l, PartReference const & r) const noexcept
     { return l.get() > r.get(); }
   };
 
-  auto partsQueue = priority_queue<PartReference, std::vector<PartReference>, ReferenceGreater>
-                      (entryParts.begin(), entryParts.end());
+  auto partsQueue = priority_queue<PartReference, vector<PartReference>, ReferenceGreater>(
+      entryParts.begin(), entryParts.end());
   while (!partsQueue.empty())
   {
     auto & minPart = partsQueue.top().get();
     partsQueue.pop();
 
-    while (minPart.size() && (partsQueue.empty() || minPart <= partsQueue.top().get()))
+    while (!minPart.empty() && (partsQueue.empty() || minPart <= partsQueue.top().get()))
     {
       entries.emplace_back(move(minPart.begin()->second));
       minPart.erase(minPart.begin());

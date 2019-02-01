@@ -23,17 +23,17 @@ size_t const kLogBatch = 100000;
 
 namespace geocoder
 {
-Index::Index(Hierarchy const & hierarchy, unsigned int processingThreadsCount)
-    : m_docs(hierarchy.GetEntries()), m_processingThreadsCount{processingThreadsCount}
+Index::Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount)
+  : m_docs(hierarchy.GetEntries())
 {
   if (auto hardwareConcurrency = thread::hardware_concurrency())
-    m_processingThreadsCount = min(hardwareConcurrency, m_processingThreadsCount);
-  m_processingThreadsCount = max(1U, m_processingThreadsCount);
+    loadThreadsCount = min(hardwareConcurrency, loadThreadsCount);
+  loadThreadsCount = max(1U, loadThreadsCount);
 
   LOG(LINFO, ("Indexing hierarchy entries..."));
   AddEntries();
   LOG(LINFO, ("Indexing houses..."));
-  AddHouses();
+  AddHouses(loadThreadsCount);
 }
 
 Index::Doc const & Index::GetDoc(DocId const id) const
@@ -94,12 +94,12 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
   }
 }
 
-void Index::AddHouses()
+void Index::AddHouses(unsigned int loadThreadsCount)
 {
   atomic<size_t> numIndexed{0};
-  std::mutex mutex;
+  mutex mutex;
 
-  vector<thread> threads(m_processingThreadsCount);
+  vector<thread> threads(loadThreadsCount);
   CHECK_GREATER(threads.size(), 0, ());
 
   for (size_t t = 0; t < threads.size(); ++t)

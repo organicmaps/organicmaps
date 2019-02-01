@@ -10,6 +10,7 @@
 #include <map>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace geocoder
@@ -23,10 +24,10 @@ public:
   DECLARE_EXCEPTION(OpenException, RootException);
 
   explicit HierarchyReader(std::string const & pathToJsonHierarchy);
-  explicit HierarchyReader(std::istream & in);
+  explicit HierarchyReader(std::istream & jsonHierarchy);
 
   // Read hierarchy file/stream concurrency in |readersCount| threads.
-  Hierarchy Read(unsigned int readersCount = 4);
+  Hierarchy Read(unsigned int readersCount = std::thread::hardware_concurrency());
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
