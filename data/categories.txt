@@ -2676,7 +2676,7 @@ en:^Ruins|U+1F5FF
 ru:^Руины|развалины
 ar:^آثار|أماكن جذابة|مناظر|سياحة
 cs:^Ruiny|zřícenina
-da:^Ruiner|bunker
+da:^Ruiner
 nl:^Ruïne|attractie
 fi:^Rauniot
 fr:^Ruines|attraction
