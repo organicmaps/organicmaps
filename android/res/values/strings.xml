@@ -2056,7 +2056,7 @@
 	<string name="type.leisure.ice_rink">leisure-ice_rink</string>
 	<string name="type.leisure.landscape_reserve">leisure-landscape_reserve</string>
 	<string name="type.leisure.marina">leisure-marina</string>
-	<string name="type.leisure.nature_reserve">Reserve</string>
+	<string name="type.leisure.nature_reserve">Nature reserve</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
