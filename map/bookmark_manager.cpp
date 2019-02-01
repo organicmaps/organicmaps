@@ -2368,7 +2368,7 @@ std::string BookmarkManager::GetCategoryServerId(kml::MarkGroupId categoryId) co
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto cat = GetBmCategory(categoryId);
   if (cat == nullptr)
-    return "";
+    return {};
 
   return cat->GetServerId();
 }
