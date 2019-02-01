@@ -29,7 +29,7 @@ struct CellIdFeaturePairForTest
   uint32_t m_value;
 };
 
-auto IndexValueInserter(auto & values)
+auto IndexValueInserter(vector<uint32_t> & values)
 {
   return [inserter = base::MakeBackInsertFunctor(values)] (uint64_t, auto value) { inserter(value); };
 };
