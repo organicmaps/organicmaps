@@ -77,11 +77,9 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 
 void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
 {
-  size_t const kMaxNumResultsToSend = 10;
 
-  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
-  string resultString = strings::to_string(numResultsToSend);
-  for (size_t i = 0; i < numResultsToSend; ++i)
+  string resultString = strings::to_string(res.GetCount());
+  for (size_t i = 0; i < res.GetCount(); ++i)
     resultString.append("\t" + res[i].ToStringForStats());
 
   string posX, posY;
