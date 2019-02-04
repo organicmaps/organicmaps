@@ -276,7 +276,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void openTagsScreen()
   {
-    Intent intent = new Intent(getContext(), UgcRoutePropertiesActivity.class);
+    Intent intent = new Intent(getContext(), EditCategoryNameActivity.class);
+    intent.putExtra(EditCategoryNameFragment.BUNDLE_BOOKMARK_CATEGORY, mCategory);
     startActivityForResult(intent, REQ_CODE_CUSTOM_PROPERTIES);
   }
 
@@ -558,9 +559,10 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   }
 
-  private void showConfirmationDialog(int reqCode, String tag, @StringRes int acceptBtn,
-                                      @StringRes int declineBtn, @StringRes int title,
-                                      @StringRes int description)
+  private void showConfirmationDialog(@StringRes int title, @StringRes int description,
+                                      @StringRes int acceptBtn,
+                                      @StringRes int declineBtn,
+                                      String tag, int reqCode)
   {
     AlertDialog dialog = new AlertDialog.Builder()
         .setTitleId(title)
@@ -578,26 +580,32 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showHtmlFormattingError()
   {
-    showConfirmationDialog(REQ_CODE_ERROR_HTML_FORMATTING_DIALOG,
-                           ERROR_HTML_FORMATTING_DIALOG_TAG, R.string.html_format_error_title,
-                           R.string.html_format_error_title,
-                           R.string.edit_on_web, R.string.cancel);
+    showConfirmationDialog(R.string.html_format_error_title,
+                           R.string.html_format_error_subtitle,
+                           R.string.edit_on_web,
+                           R.string.cancel,
+                           ERROR_HTML_FORMATTING_DIALOG_TAG,
+                           REQ_CODE_ERROR_HTML_FORMATTING_DIALOG
+                          );
   }
 
   private void showUploadCatalogConfirmationDialog()
   {
-    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.bookmark_public_upload_alert_title,
+    showConfirmationDialog(R.string.bookmark_public_upload_alert_title,
                            R.string.bookmark_public_upload_alert_subtitle,
-                           R.string.bookmark_public_upload_alert_ok_button, R.string.cancel);
+                           R.string.bookmark_public_upload_alert_ok_button,
+                           R.string.cancel,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+                          );
   }
 
   private void showUnresolvedConflictsErrorDialog()
   {
-    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG,
-                           R.string.public_or_limited_access_after_edit_online_error_title,
-                           R.string.public_or_limited_access_after_edit_online_error_title,
-                           R.string.edit_on_web, R.string.cancel);
+    showConfirmationDialog(R.string.public_or_limited_access_after_edit_online_error_title,
+                           R.string.public_or_limited_access_after_edit_online_error_message,
+                           R.string.edit_on_web,
+                           R.string.cancel,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+                          );
   }
 }

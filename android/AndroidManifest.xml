@@ -463,6 +463,14 @@
     <activity
       android:name="com.mapswithme.maps.bookmarks.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>
+    <activity
+      android:name="com.mapswithme.maps.ugc.routes.EditCategoryNameActivity"
+      android:label="@string/name"/>
+
+    <activity
+      android:name="com.mapswithme.maps.ugc.routes.EditCategoryDescriptionActivity"
+      android:label="@string/name"/>
+
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"

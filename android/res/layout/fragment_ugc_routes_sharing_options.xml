@@ -34,11 +34,13 @@
           android:gravity="center_vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/limited_access"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"/>
+          android:paddingLeft="@dimen/margin_base"
+          tools:ignore="UnusedAttribute"/>
         <include layout="@layout/list_divider"/>
         <RelativeLayout
           xmlns:android="http://schemas.android.com/apk/res/android"
@@ -146,11 +148,13 @@
           android:gravity="center_vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/public_access"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"/>
+          android:paddingLeft="@dimen/margin_base"
+          tools:ignore="UnusedAttribute"/>
         <include layout="@layout/list_divider"/>
         <RelativeLayout
           android:layout_width="match_parent"
