@@ -22,7 +22,8 @@ void operator+=(Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats &
     uint64_t m_numLoaded, m_badJsons, m_badOsmIds, m_duplicateOsmIds, m_duplicateAddresses,
              m_emptyAddresses, m_emptyNames, m_mismatchedNames;
   };
-  static_assert(sizeof(Hierarchy::ParsingStats) == sizeof(ValidationStats), "");
+  static_assert(sizeof(Hierarchy::ParsingStats) == sizeof(ValidationStats),
+                "Hierarchy::ParsingStats has modified");
 
   accumulator.m_numLoaded           += stats.m_numLoaded;
   accumulator.m_badJsons            += stats.m_badJsons;
