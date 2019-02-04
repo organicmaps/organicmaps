@@ -115,10 +115,13 @@ final class BannerController
   private final AdsRemovalPurchaseControllerProvider mAdsRemovalProvider;
   private int mClosedHeight;
   private int mOpentHeight;
+  @NonNull
+  private final BannerDetailsRequester mBannerDetailsRequester;
 
   BannerController(@NonNull ViewGroup bannerContainer, @NonNull CompoundNativeAdLoader loader,
                    @Nullable AdTracker tracker,
-                   @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider)
+                   @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider,
+                   @NonNull BannerDetailsRequester bannerDetailsRequester)
   {
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
@@ -130,6 +133,7 @@ final class BannerController
     mClosedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_small_height);
     mOpentHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
     mAdsRemovalProvider = adsRemovalProvider;
+    mBannerDetailsRequester = bannerDetailsRequester;
     initBannerViews();
   }
 
@@ -341,26 +345,6 @@ final class BannerController
     mActionLarge.setText(data.getAction());
   }
 
-  private void loadIconAndOpenIfNeeded(@NonNull MwmNativeAd data)
-  {
-    if (UiUtils.isLandscape(mContainerView.getContext()))
-    {
-      if (!mOpened)
-        open();
-      else
-        loadIcon(data);
-    }
-    else if (!mOpened)
-    {
-      close();
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
-    }
-    else
-    {
-      loadIcon(data);
-    }
-  }
-
   private void animateActionButton()
   {
     View view = mOpened ? mActionLarge : mActionSmall;
@@ -384,14 +368,26 @@ final class BannerController
     animator.start();
   }
 
-  boolean isOpened()
-  {
-    return mOpened;
-  }
-
   boolean hasAd()
   {
     return mCurrentAd != null;
+  }
+
+  private void setBannerState()
+  {
+    if (mCurrentAd == null)
+      throw new AssertionError("Current ad must be non-null at this point!");
+
+    if (mBannerDetailsRequester.shouldShowBannerDetails())
+    {
+      open();
+      loadIcon(mCurrentAd);
+    }
+    else
+    {
+      close();
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, PP_BANNER_STATE_PREVIEW);
+    }
   }
 
   private class MyNativeAdsListener implements NativeAdListener
@@ -418,9 +414,8 @@ final class BannerController
       mLastAdType = mCurrentAd.getType();
 
       fillViews(ad);
-      loadIconAndOpenIfNeeded(ad);
+      setBannerState();
       updateVisibility();
-
       ad.registerView(mBannerView);
 
       if (mAdTracker != null)
@@ -449,5 +444,10 @@ final class BannerController
       Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
                                         mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
     }
+  }
+
+  interface BannerDetailsRequester
+  {
+    boolean shouldShowBannerDetails();
   }
 }

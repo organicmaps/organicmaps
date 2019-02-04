@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
@@ -28,7 +29,8 @@ import com.mapswithme.util.statistics.PlacePageTracker;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
-                                                       View.OnLayoutChangeListener
+                                                       View.OnLayoutChangeListener,
+                                                       BannerController.BannerDetailsRequester
 {
   private static final float ANCHOR_RATIO = 0.3f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -55,6 +57,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private int mViewportMinHeight;
   private int mCurrentTop;
   private boolean mPeekHeightAnimating;
+  private int mOpenBannerTouchSlop;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BannerController mBannerController;
@@ -136,8 +139,10 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   {
     View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
     int height = coordinatorLayout.getHeight();
-    return mPlacePage.getHeight() > height * (1 - ANCHOR_RATIO)
-           ? (int) (height * ANCHOR_RATIO) : height - mPlacePage.getHeight();
+    int maxY = mPlacePage.getHeight() > height * (1 - ANCHOR_RATIO)
+               ? (int) (height * ANCHOR_RATIO) : height - mPlacePage.getHeight();
+    Resources res = mActivity.getResources();
+    return maxY + mOpenBannerTouchSlop;
   }
 
   private int calculateBannerMinY()
@@ -157,7 +162,9 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void initialize()
   {
-    mViewportMinHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
+    Resources res = mActivity.getResources();
+    mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
+    mOpenBannerTouchSlop = res.getDimensionPixelSize(R.dimen.placepage_banner_open_touch_slop);
     mToolbar = mActivity.findViewById(R.id.pp_toolbar);
     UiUtils.extendViewWithStatusBar(mToolbar);
     UiUtils.showHomeUpButton(mToolbar);
@@ -170,7 +177,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
     DefaultAdTracker tracker = new DefaultAdTracker();
     CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
-    mBannerController = new BannerController(bannerContainer, loader, tracker, mPurchaseControllerProvider);
+    mBannerController = new BannerController(bannerContainer, loader, tracker,
+                                             mPurchaseControllerProvider, this);
 
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
@@ -469,5 +477,23 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private static boolean isCollapsedState(@AnchorBottomSheetBehavior.State int state)
   {
     return state == AnchorBottomSheetBehavior.STATE_COLLAPSED;
+  }
+
+  private static boolean isAnchoredState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_ANCHORED;
+  }
+
+  private static boolean isExpandedState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_EXPANDED;
+  }
+
+  @Override
+  public boolean shouldShowBannerDetails()
+  {
+    @AnchorBottomSheetBehavior.State
+    int state = mPlacePageBehavior.getState();
+    return isAnchoredState(state) || isExpandedState(state);
   }
 }
