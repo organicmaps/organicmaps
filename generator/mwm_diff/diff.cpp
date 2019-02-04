@@ -78,20 +78,19 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
   // its checksum is compared to the one stored in the diff file.
   MemReaderWithExceptions diffMemReader(diffBuf.data(), diffBuf.size());
 
-  auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader, cancellable);
+  auto const status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader, cancellable);
 
   if (status == bsdiff::BSDiffStatus::CANCELLED)
   {
     LOG(LDEBUG, ("Diff application has been cancelled"));
     return DiffApplicationResult::Cancelled;
   }
-  if (status != bsdiff::BSDiffStatus::OK)
-  {
-    LOG(LERROR, ("Could not apply patch with bsdiff:", status));
-    return DiffApplicationResult::Failed;
-  }
 
-  return DiffApplicationResult::Ok;
+  if (status == bsdiff::BSDiffStatus::OK)
+    return DiffApplicationResult::Ok;
+
+  LOG(LERROR, ("Could not apply patch with bsdiff:", status));
+  return DiffApplicationResult::Failed;
 }
 }  // namespace
 

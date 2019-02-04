@@ -439,7 +439,7 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
 
   // We will check whether the application process has been cancelled
   // upon copying every |kCheckCancelledPeriod| bytes from the old file.
-  const size_t kCheckCancelledPeriod = 100 * 1024;
+  constexpr size_t kCheckCancelledPeriod = 100 * 1024;
 
   while (control_stream_copy_counts.Size() > 0) {
     if (cancellable.IsCancelled())

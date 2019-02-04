@@ -32,7 +32,7 @@ namespace
 bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string const & diffPath)
 {
   base::Cancellable cancellable;
-  auto result = generator::mwm_diff::ApplyDiff(oldMwmPath, newMwmPath, diffPath, cancellable);
+  auto const result = generator::mwm_diff::ApplyDiff(oldMwmPath, newMwmPath, diffPath, cancellable);
 
   switch (result)
   {
@@ -44,6 +44,7 @@ bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string cons
     UNREACHABLE();
     break;
   }
+
   UNREACHABLE();
 }
 }  // namespace

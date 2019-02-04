@@ -951,12 +951,8 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapOptions op
 
   if (options == MapOptions::Diff)
   {
-    /// At this point a diff applying process is going to start
-    /// and we can't stop the process.
-    /// TODO: Make the applying process cancellable.
     m_queue.begin()->SetFrozen(true);
     NotifyStatusChangedForHierarchy(countryId);
-    m_diffsCancellable.Reset();
     ApplyDiff(countryId, fn);
     return;
   }
@@ -1561,6 +1557,8 @@ void Storage::LoadDiffScheme()
 
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
+  m_diffsCancellable.Reset();
+
   diffs::Manager::ApplyDiffParams params;
   params.m_diffFile =
       PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId));
