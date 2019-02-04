@@ -1,10 +1,12 @@
 #include "search/tracer.hpp"
 
+#include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <cstddef>
 #include <iomanip>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -32,6 +34,27 @@ Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges, bool ca
     m_ranges[kv.first] = kv.second;
 }
 
+// Tracer ------------------------------------------------------------------------------------------
+vector<Tracer::Parse> Tracer::GetUniqueParses() const
+{
+  auto parses = m_parses;
+  base::SortUnique(parses);
+  return parses;
+}
+
+void Tracer::CallMethod(Branch branch)
+{
+  m_provenance.emplace_back(branch);
+}
+
+void Tracer::LeaveMethod(Branch branch)
+{
+  CHECK(!m_provenance.empty(), ());
+  CHECK_EQUAL(m_provenance.back(), branch, ());
+  m_provenance.pop_back();
+}
+
+// Functions ---------------------------------------------------------------------------------------
 string DebugPrint(Tracer::Parse const & parse)
 {
   using TokenType = Tracer::Parse::TokenType;
@@ -59,11 +82,21 @@ string DebugPrint(Tracer::Parse const & parse)
   return os.str();
 }
 
-// Tracer ------------------------------------------------------------------------------------------
-vector<Tracer::Parse> Tracer::GetUniqueParses() const
+string DebugPrint(Tracer::Branch branch)
 {
-  auto parses = m_parses;
-  base::SortUnique(parses);
-  return parses;
+  switch (branch)
+  {
+  case Tracer::Branch::GoEverywhere: return "GoEverywhere";
+  case Tracer::Branch::GoInViewport: return "GoInViewport";
+  case Tracer::Branch::MatchCategories: return "MatchCategories";
+  case Tracer::Branch::MatchRegions: return "MatchRegions";
+  case Tracer::Branch::MatchCities: return "MatchCities";
+  case Tracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
+  case Tracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
+  case Tracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
+  case Tracer::Branch::WithPostcodes: return "WithPostcodes";
+  case Tracer::Branch::MatchUnclassified: return "MatchUnclassified";
+  }
+  UNREACHABLE();
 }
 }  // namespace search

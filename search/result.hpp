@@ -3,6 +3,7 @@
 #include "search/bookmarks/results.hpp"
 #include "search/hotels_classifier.hpp"
 #include "search/ranking_info.hpp"
+#include "search/tracer.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -130,10 +131,18 @@ public:
 
   RankingInfo const & GetRankingInfo() const { return m_info; }
 
+  std::vector<Tracer::Branch> const & GetProvenance() const { return m_provenance; }
+
   template <typename Info>
   void SetRankingInfo(Info && info)
   {
     m_info = std::forward<Info>(info);
+  }
+
+  template <typename Prov>
+  void SetProvenance(Prov && prov)
+  {
+    m_provenance = std::forward<Prov>(prov);
   }
 
   // Returns a representation of this result that is sent to the
@@ -158,7 +167,10 @@ private:
   // a search query. -1 if undefined.
   int32_t m_positionInResults = -1;
 
+  std::vector<Tracer::Branch> m_provenance;
+
 public:
+  // Careful when moving: the order of destructors is important.
   Metadata m_metadata;
 };
 

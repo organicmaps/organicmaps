@@ -72,6 +72,13 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
   ASSERT(m_id.IsValid(), ());
 }
 
+PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
+                                 vector<Tracer::Branch> const & provenance)
+  : m_id(id), m_info(info), m_provenance(provenance)
+{
+  ASSERT(m_id.IsValid(), ());
+}
+
 // static
 bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2)
 {
@@ -259,8 +266,12 @@ string DebugPrint(RankerResult const & r)
   stringstream ss;
   ss << "RankerResult ["
      << "Name: " << r.GetName()
-     << "; Type: " << r.GetBestType()
-     << "; " << DebugPrint(r.GetRankingInfo())
+     << "; Type: " << r.GetBestType();
+
+    if (!r.GetProvenance().empty())
+      ss << "; Provenance: " << ::DebugPrint(r.GetProvenance());
+
+     ss << "; " << DebugPrint(r.GetRankingInfo())
      << "; Linear model rank: " << r.GetLinearModelRank()
      << "]";
   return ss.str();

@@ -166,7 +166,9 @@ string DebugPrint(Result const & result)
   os << "Result [";
   os << "name: " << result.GetString() << ", ";
   os << "type: " << readableType << ", ";
-  os << "info: " << DebugPrint(result.GetRankingInfo());
+  os << "info: " << DebugPrint(result.GetRankingInfo()) << ", ";
+  if (!result.GetProvenance().empty())
+    os << "provenance: " << ::DebugPrint(result.GetProvenance());
   os << "]";
   return os.str();
 }

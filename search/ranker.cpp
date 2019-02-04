@@ -400,6 +400,7 @@ public:
     InitRankingInfo(ft, center, preRankerResult, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
     r.SetRankingInfo(move(info));
+    r.m_provenance = move(preRankerResult.GetProvenance());
 
     return r;
   }
@@ -494,6 +495,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
   res.SetRankingInfo(rankerResult.GetRankingInfo());
+  res.SetProvenance(rankerResult.GetProvenance());
   return res;
 }
 

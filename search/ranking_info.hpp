@@ -17,6 +17,16 @@ struct RankingInfo
 {
   static double const kMaxDistMeters;
 
+  static void PrintCSVHeader(std::ostream & os);
+
+  void ToCSV(std::ostream & os) const;
+
+  // Returns rank calculated by a linear model. Large values
+  // correspond to important features.
+  double GetLinearModelRank() const;
+
+  size_t GetErrorsMade() const;
+
   // Distance from the feature to the pivot point.
   double m_distanceToPivot = kMaxDistMeters;
 
@@ -53,16 +63,6 @@ struct RankingInfo
 
   // True iff the feature has a name.
   bool m_hasName = false;
-
-  static void PrintCSVHeader(std::ostream & os);
-
-  void ToCSV(std::ostream & os) const;
-
-  // Returns rank calculated by a linear model. Large values
-  // correspond to important features.
-  double GetLinearModelRank() const;
-
-  size_t GetErrorsMade() const;
 };
 
 std::string DebugPrint(RankingInfo const & info);
