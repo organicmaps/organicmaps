@@ -22,9 +22,9 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+                    VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, objectManager)
+                                    renderingQueueFamilyIndex, depthFormat, objectManager)
   {}
 };
 
@@ -34,9 +34,9 @@ public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                       VkPhysicalDeviceProperties const & gpuProperties,
                       VkDevice device, uint32_t renderingQueueFamilyIndex,
-                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+                      VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, objectManager)
+                                    renderingQueueFamilyIndex, depthFormat, objectManager)
   {}
 
   void Present() override {}
@@ -175,6 +175,15 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
     return;
   }
 
+  VkFormat depthFormat = VK_FORMAT_D16_UNORM;
+  VkFormatProperties formatProperties;
+  vkGetPhysicalDeviceFormatProperties(m_gpu, depthFormat, &formatProperties);
+  if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT))
+  {
+    LOG(LWARNING, ("Vulkan error: depth format unsupported."));
+    return;
+  }
+
   VkPhysicalDeviceProperties gpuProperties;
   vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
   VkPhysicalDeviceMemoryProperties memoryProperties;
@@ -185,10 +194,10 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
 
   m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                     m_device, renderingQueueFamilyIndex,
-                                                    make_ref(m_objectManager));
+                                                    depthFormat, make_ref(m_objectManager));
   m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                         m_device, renderingQueueFamilyIndex,
-                                                        make_ref(m_objectManager));
+                                                        depthFormat, make_ref(m_objectManager));
 }
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
@@ -238,13 +247,22 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
     return;
   }
 
+  uint32_t const renderingQueueIndex = m_drawContext->GetRenderingQueueFamilyIndex();
+  VkBool32 supportsPresent;
+  statusCode = vkGetPhysicalDeviceSurfaceSupportKHR(m_gpu, renderingQueueIndex, m_surface, &supportsPresent);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceSupportKHR, statusCode);
+    return;
+  }
+  CHECK_EQUAL(supportsPresent, VK_TRUE, ());
+
   if (!QuerySurfaceSize())
     return;
 
   if (m_drawContext)
   {
-    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceWidth,
-                              m_surfaceHeight);
+    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities, m_surfaceWidth, m_surfaceHeight);
   }
 
   m_windowSurfaceValid = true;
@@ -252,9 +270,8 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
 
 bool AndroidVulkanContextFactory::QuerySurfaceSize()
 {
-  VkSurfaceCapabilitiesKHR surfaceCapabilities = {};
   auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface,
-                                                              &surfaceCapabilities);
+                                                              &m_surfaceCapabilities);
   if (statusCode != VK_SUCCESS)
   {
     LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceCapabilitiesKHR, statusCode);
@@ -289,15 +306,15 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
     return false;
   }
 
-  if (!(surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
+  if (!(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
   {
     LOG_ERROR_VK("Alpha channel is not supported.");
     return false;
   }
 
-  m_surfaceFormat = formats[chosenFormat].format;
-  m_surfaceWidth = static_cast<int>(surfaceCapabilities.currentExtent.width);
-  m_surfaceHeight = static_cast<int>(surfaceCapabilities.currentExtent.height);
+  m_surfaceFormat = formats[chosenFormat];
+  m_surfaceWidth = static_cast<int>(m_surfaceCapabilities.currentExtent.width);
+  m_surfaceHeight = static_cast<int>(m_surfaceCapabilities.currentExtent.height);
   return true;
 }
 

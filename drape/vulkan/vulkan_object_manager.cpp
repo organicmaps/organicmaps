@@ -40,7 +40,8 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   info.flags = 0;
   info.size = sizeInBytes;
   if (resourceType == VulkanMemoryManager::ResourceType::Geometry)
-    info.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
+    info.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT |
+        VK_BUFFER_USAGE_TRANSFER_DST_BIT;
   else if (resourceType == VulkanMemoryManager::ResourceType::Uniform)
     info.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
   else if (resourceType == VulkanMemoryManager::ResourceType::Staging)
@@ -48,7 +49,7 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   else
     CHECK(false, ("Unsupported resource type."));
 
-  info.usage = VK_SHARING_MODE_EXCLUSIVE;
+  info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   info.queueFamilyIndexCount = 1;
   info.pQueueFamilyIndices = &m_queueFamilyIndex;
   CHECK_VK_CALL(vkCreateBuffer(m_device, &info, nullptr, &result.m_buffer));
@@ -60,7 +61,7 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   return result;
 }
 
-VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlagBits usageFlagBits, VkFormat format,
+VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
                                               VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
@@ -78,8 +79,17 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlagBits usageFlagBits
   imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
   imageCreateInfo.extent = { width, height, 1 };
-  imageCreateInfo.usage = usageFlagBits | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+  imageCreateInfo.usage = usageFlags | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
   CHECK_VK_CALL(vkCreateImage(m_device, &imageCreateInfo, nullptr, &result.m_image));
+
+  VkMemoryRequirements memReqs = {};
+  vkGetImageMemoryRequirements(m_device, result.m_image, &memReqs);
+
+  result.m_allocation = m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image,
+                                                 memReqs, 0 /* blockHash */);
+
+  CHECK_VK_CALL(vkBindImageMemory(m_device, result.m_image,
+                                  result.GetMemory(), result.GetAlignedOffset()));
 
   VkImageViewCreateInfo viewCreateInfo = {};
   viewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -96,11 +106,6 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlagBits usageFlagBits
   viewCreateInfo.image = result.m_image;
   CHECK_VK_CALL(vkCreateImageView(m_device, &viewCreateInfo, nullptr, &result.m_imageView));
 
-  VkMemoryRequirements memReqs = {};
-  vkGetImageMemoryRequirements(m_device, result.m_image, &memReqs);
-
-  result.m_allocation = m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image,
-                                                 memReqs, 0 /* blockHash */);
   return result;
 }
 
@@ -113,13 +118,11 @@ void VulkanObjectManager::DestroyObject(VulkanObject object)
 
 void VulkanObjectManager::FlushDefaultStagingBuffer()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   m_defaultStagingBuffer->Flush();
 }
 
 void VulkanObjectManager::ResetDefaultStagingBuffer()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   m_defaultStagingBuffer->Reset();
 }
 

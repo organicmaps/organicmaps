@@ -28,3 +28,9 @@ extern std::string GetVulkanResultString(VkResult result);
     CHECK(statusCode == VK_SUCCESS, ("Vulkan error:", #method, "finished with code", \
                                      dp::vulkan::GetVulkanResultString(statusCode))); \
   } while (false)
+
+#define CHECK_RESULT_VK_CALL(method, statusCode) \
+  do { \
+    CHECK(statusCode == VK_SUCCESS, ("Vulkan error:", #method, "finished with code", \
+                                     dp::vulkan::GetVulkanResultString(statusCode))); \
+  } while (false)

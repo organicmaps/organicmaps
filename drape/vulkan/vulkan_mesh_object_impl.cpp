@@ -122,7 +122,7 @@ public:
   void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) override
   {
     //TODO (@rokuz, @darina): Implement.
-    CHECK(false, ());
+    //CHECK(false, ());
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}

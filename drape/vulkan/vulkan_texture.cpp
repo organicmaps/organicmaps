@@ -84,7 +84,7 @@ VkBufferImageCopy BufferCopyRegion(uint32_t x, uint32_t y, uint32_t width, uint3
 {
   VkBufferImageCopy bufferCopyRegion = {};
   bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-  bufferCopyRegion.imageSubresource.mipLevel = 1;
+  bufferCopyRegion.imageSubresource.mipLevel = 0;
   bufferCopyRegion.imageSubresource.baseArrayLayer = 0;
   bufferCopyRegion.imageSubresource.layerCount = 1;
   bufferCopyRegion.imageExtent.width = width;
@@ -127,8 +127,11 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   m_isMutable = params.m_isMutable;
   if (params.m_isRenderTarget)
   {
-    CHECK(false, ());
-    //TODO
+    // Create image.
+    //m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+    //                                               format,
+    //                                               VK_IMAGE_ASPECT_COLOR_BIT,
+    //                                               params.m_width, params.m_height);
   }
   else
   {
@@ -149,8 +152,8 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
     m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format,
                                                    VK_IMAGE_ASPECT_COLOR_BIT,
                                                    params.m_width, params.m_height);
-    CHECK_VK_CALL(vkBindImageMemory(vulkanContext->GetDevice(), m_textureObject.m_image,
-                                    m_textureObject.GetMemory(), m_textureObject.GetAlignedOffset()));
+    //CHECK_VK_CALL(vkBindImageMemory(vulkanContext->GetDevice(), m_textureObject.m_image,
+    //                                m_textureObject.GetMemory(), m_textureObject.GetAlignedOffset()));
   }
 }
 

@@ -376,7 +376,7 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
                                            ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
-  params.m_alphabet = "MGLFPSAUEDcale: 1234567890/()";
+  params.m_alphabet = "MGLFPSAUEDVcale: 1234567890/()";
   params.m_maxLength = 50;
   params.m_anchor = position.m_anchor;
   params.m_font = DrapeGui::GetGuiTextFont();

@@ -37,7 +37,7 @@ public:
   void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
                    IndicesRange const & range) override
   {
-    CHECK(false, ());
+//    CHECK(false, ());
 
 //    ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
 //    if (!metalContext->HasAppliedPipelineState())

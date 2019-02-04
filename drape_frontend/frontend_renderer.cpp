@@ -1595,6 +1595,8 @@ void FrontendRenderer::RenderEmptyFrame()
   if (!m_context->Validate())
     return;
 
+  m_context->BeginRendering();
+
   m_context->SetFramebuffer(nullptr /* default */);
   auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
   m_context->SetClearColor(c);
@@ -1619,6 +1621,8 @@ void FrontendRenderer::RenderFrame()
 
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
+
+  m_context->BeginRendering();
 
   ScreenBase modelView = ProcessEvents(m_frameData.m_modelViewChanged, m_frameData.m_viewportChanged);
   if (m_frameData.m_viewportChanged)

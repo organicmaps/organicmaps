@@ -146,7 +146,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
       auto const alignedOffset = GetAligned(block->m_freeOffset, GetOffsetAlignment(resourceType));
 
       // There is space in the current block.
-      if (!block->m_isBlocked && (block->m_blockSize <= alignedOffset + alignedSize))
+      if (!block->m_isBlocked && (block->m_blockSize >= alignedOffset + alignedSize))
       {
         block->m_freeOffset = alignedOffset + alignedSize;
         block->m_allocationCounter++;
@@ -187,13 +187,10 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   {
     flags = fallbackFlags.value();
     memoryTypeIndex = GetMemoryTypeIndex(memReqs.memoryTypeBits, flags);
-    if (!memoryTypeIndex)
-      CHECK(false, ("Unsupported memory allocation configuration."));
   }
-  else
-  {
+
+  if (!memoryTypeIndex)
     CHECK(false, ("Unsupported memory allocation configuration."));
-  }
 
   // Create new memory block.
   auto const blockSize = std::max(kMinBlockSizeInBytes[static_cast<size_t>(resourceType)],

@@ -26,18 +26,20 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    ref_ptr<VulkanObjectManager> objectManager);
+                    VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager);
+  ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
 
+  void BeginRendering() override;
   void Present() override;
-  void MakeCurrent() override {}
-  void DoneCurrent() override {}
-  bool Validate() override { return true; }
-  void Resize(int w, int h) override {}
-  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
-  void ApplyFramebuffer(std::string const & framebufferLabel) override {}
-  void Init(ApiVersion apiVersion) override {}
+  void MakeCurrent() override;
+  void DoneCurrent() override;
+  bool Validate() override;
+  void Resize(int w, int h) override;
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
+  void ApplyFramebuffer(std::string const & framebufferLabel) override;
+  void Init(ApiVersion apiVersion) override;
   ApiVersion GetApiVersion() const override { return dp::ApiVersion::Vulkan; }
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
@@ -46,19 +48,20 @@ public:
   void PushDebugLabel(std::string const & label) override {}
   void PopDebugLabel() override {}
   
-  void SetClearColor(Color const & color) override {}
-  void Clear(uint32_t clearBits, uint32_t storeBits) override {}
-  void Flush() override {}
-  void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override {}
-  void SetDepthTestEnabled(bool enabled) override {}
-  void SetDepthTestFunction(TestFunction depthFunction) override {}
-  void SetStencilTestEnabled(bool enabled) override {}
-  void SetStencilFunction(StencilFace face, TestFunction stencilFunction) override {}
+  void SetClearColor(Color const & color) override;
+  void Clear(uint32_t clearBits, uint32_t storeBits) override;
+  void Flush() override;
+  void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
+  void SetDepthTestEnabled(bool enabled) override;
+  void SetDepthTestFunction(TestFunction depthFunction) override;
+  void SetStencilTestEnabled(bool enabled) override;
+  void SetStencilFunction(StencilFace face, TestFunction stencilFunction) override;
   void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
-                         StencilAction depthFailAction, StencilAction passAction) override {}
+                         StencilAction depthFailAction, StencilAction passAction) override;
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
 
-  void SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat, int width, int height);
+  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
+                  VkSurfaceCapabilitiesKHR surfaceCapabilities, int width, int height);
   void ResetSurface();
 
   VkPhysicalDevice const GetPhysicalDevice() const { return m_gpu; }
@@ -70,7 +73,7 @@ public:
 
   ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
 
-  VkCommandBuffer GetCurrentCommandBuffer() const { CHECK(false, ("Implement me")); return nullptr; }
+  VkCommandBuffer GetCurrentCommandBuffer() const { return m_commandBuffer; }
 
   enum class HandlerType : uint8_t
   {
@@ -83,17 +86,73 @@ public:
   void UnregisterHandler(uint32_t id);
 
 protected:
+  void RecreateSwapchain();
+  void DestroySwapchain();
+
+  void CreateCommandPool();
+  void DestroyCommandPool();
+
+  void CreateCommandBuffer();
+  void DestroyCommandBuffer();
+
+  void CreateDepthTexture();
+  void DestroyDepthTexture();
+
+  void CreateDefaultFramebuffer();
+  void DestroyDefaultFramebuffer();
+
+  void CreateRenderPass();
+  void DestroyRenderPass();
+
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
   VkPhysicalDeviceProperties const m_gpuProperties;
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
+  VkFormat const m_depthFormat;
+
+  VkQueue m_queue;
+  VkCommandPool m_commandPool;
+  VkPipelineCache m_pipelineCache;
+  VkSubmitInfo m_submitInfo;
+  VkCommandBuffer m_commandBuffer;
+  VkRenderPass m_renderPass;
+
+  // Swap chain image presentation
+  VkSemaphore m_presentComplete;
+  // Command buffer submission and execution
+  VkSemaphore m_renderComplete;
+
+  VkDescriptorPool m_descriptorPool = VK_NULL_HANDLE;
+  VkFence m_fence;
 
   ref_ptr<VulkanObjectManager> m_objectManager;
   boost::optional<VkSurfaceKHR> m_surface;
 
+  VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
+  boost::optional<VkSurfaceFormatKHR> m_surfaceFormat;
+
+  VkSwapchainKHR m_swapchain = VK_NULL_HANDLE;
+  std::vector<VkImageView> m_swapchainImageViews;
+  uint32_t m_imageIndex = 0;
+
+  VulkanObject m_depthStencil;
+  std::vector<VkFramebuffer> m_defaultFramebuffers;
+
+  ref_ptr<dp::BaseFramebuffer> m_currentFramebuffer;
+
   std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
              static_cast<size_t>(HandlerType::Count)> m_handlers;
+
+  bool m_depthEnabled = false;
+  bool m_stencilEnabled = false;
+  StencilFace m_stencilFunctionFace = {};
+  TestFunction m_stencilFunction = {};
+  TestFunction m_depthFunction = {};
+  StencilFace m_stencilActionFace = {};
+  StencilAction m_stencilFailAction = {};
+  StencilAction m_depthFailAction = {};
+  StencilAction m_passAction = {};
 
   uint32_t m_stencilReferenceValue = 1;
 };

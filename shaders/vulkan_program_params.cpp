@@ -127,7 +127,7 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   memcpy(ptr, data, sizeInBytes);
 
   //TODO: setup descriptor to alignedOffset for m_uniformBuffers[index].
-  CHECK(false, ());
+  //CHECK(false, ());
 }
   
 void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,

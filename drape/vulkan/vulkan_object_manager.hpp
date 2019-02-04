@@ -56,7 +56,7 @@ public:
 
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                             uint32_t sizeInBytes, uint64_t batcherHash);
-  VulkanObject CreateImage(VkImageUsageFlagBits usageFlagBits, VkFormat format,
+  VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
 
   uint8_t * Map(VulkanObject object);
