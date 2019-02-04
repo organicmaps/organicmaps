@@ -26,7 +26,7 @@ public:
   explicit HierarchyReader(std::string const & pathToJsonHierarchy);
   explicit HierarchyReader(std::istream & jsonHierarchy);
 
-  // Read hierarchy file/stream concurrency in |readersCount| threads.
+  // Read hierarchy file/stream concurrently in |readersCount| threads.
   Hierarchy Read(unsigned int readersCount = std::thread::hardware_concurrency());
 
 private:
