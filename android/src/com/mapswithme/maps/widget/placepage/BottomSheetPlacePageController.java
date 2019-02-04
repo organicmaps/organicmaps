@@ -53,6 +53,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @NonNull
   private Toolbar mToolbar;
   private int mViewportMinHeight;
+  private int mCurrentTop;
+  private boolean mPeekHeightAnimating;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BannerController mBannerController;
@@ -87,11 +89,61 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
+      if (slideOffset < 0)
+        return;
+
       updateViewPortRect();
+
+      resizeBanner();
     }
   };
 
-  private boolean mPeekHeightAnimating;
+  private void resizeBanner()
+  {
+    int lastTop = mCurrentTop;
+    mCurrentTop = mPlacePage.getTop();
+
+    if (!mBannerController.hasAd())
+      return;
+
+    int bannerMaxY = calculateBannerMaxY();
+    int bannerMinY = calculateBannerMinY();
+    int maxDistance = Math.abs(bannerMaxY - bannerMinY);
+    int yDistance = Math.abs(mCurrentTop - bannerMinY);
+    float ratio = (float) yDistance / maxDistance;
+
+    if (ratio >= 1)
+    {
+      mBannerController.open();
+      return;
+    }
+
+    if (ratio == 0)
+    {
+      mBannerController.close();
+      return;
+    }
+
+    if (mCurrentTop < lastTop)
+      mBannerController.zoomOut(ratio);
+    else
+      mBannerController.zoomIn(ratio);
+  }
+
+  private int calculateBannerMaxY()
+  {
+    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
+    int height = coordinatorLayout.getHeight();
+    return mPlacePage.getHeight() > height * (1 - ANCHOR_RATIO)
+           ? (int) (height * ANCHOR_RATIO) : height - mPlacePage.getHeight();
+  }
+
+  private int calculateBannerMinY()
+  {
+    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
+    int height = coordinatorLayout.getHeight();
+    return height - mPlacePageBehavior.getPeekHeight();
+  }
 
   public BottomSheetPlacePageController(@NonNull Activity activity,
                                         @NonNull AdsRemovalPurchaseControllerProvider provider)
