@@ -432,11 +432,11 @@ void Processor::Search(SearchParams const & params)
     LOG(LDEBUG, ("Search has been cancelled."));
   }
 
-  if (!viewportSearch && !IsCancelled())
-    SendStatistics(params, viewport, m_emitter.GetResults());
-
   // Emit finish marker to client.
   m_geocoder.Finish(IsCancelled());
+
+  if (!viewportSearch && !IsCancelled())
+    SendStatistics(params, viewport, m_emitter.GetResults());
 }
 
 void Processor::SearchCoordinates()
