@@ -1041,12 +1041,15 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   layer.m_sortedFeatures = &sortedFeatures;
 
   ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
-//  size_t const numEmitted = ctx.m_numEmitted;
+  size_t const numEmitted = ctx.m_numEmitted;
+
+  LOG(LINFO, ("num emitted1", ctx.m_numEmitted));
   MatchPOIsAndBuildings(ctx, 0 /* curToken */);
+  LOG(LINFO, ("num emitted2", ctx.m_numEmitted));
 
   // A relaxed best effort parse: at least show the street if we can find one.
-//  if (numEmitted == ctx.m_numEmitted)
-//    FindPaths(ctx);
+  if (numEmitted == ctx.m_numEmitted)
+    FindPaths(ctx);
 }
 
 void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
@@ -1379,7 +1382,7 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   else
     m_preRanker.Emplace(id, info, m_params.m_tracer->GetProvenance());
 
-  // ++ctx.m_numEmitted;
+  ++ctx.m_numEmitted;
 }
 
 void Geocoder::EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
