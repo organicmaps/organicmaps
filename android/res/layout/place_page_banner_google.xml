@@ -2,12 +2,11 @@
 <com.google.android.gms.ads.formats.NativeContentAdView
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:minHeight="@dimen/placepage_banner_height">
+  android:layout_height="wrap_content">
   <RelativeLayout
+    android:id="@+id/banner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/placepage_banner_height"
     android:paddingLeft="@dimen/margin_quarter"
     android:paddingStart="@dimen/margin_quarter"
     android:background="?bannerBackground"

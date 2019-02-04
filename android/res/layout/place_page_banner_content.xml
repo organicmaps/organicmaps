@@ -76,18 +76,21 @@
         android:maxLines="1"
         android:minLines="1"
         android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textSize="12dp"
         android:textColor="?textBannerTitle"
         android:fontFamily="@string/robotoMedium"
         android:textStyle="bold"
         android:ellipsize="end"
         tools:text="Закажи одежду в интернет-магазине Wildberries."
-        tools:targetApi="jelly_bean"/>
+        tools:targetApi="jelly_bean"
+        tools:ignore="SpUsage"/>
     </LinearLayout>
     <TextView
       android:id="@+id/tv__banner_message"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:textSize="12dp"
       android:maxLines="3"
       android:ellipsize="end"
       tools:text="Бесплатная курьерская доставка по России!\n\nКоллекции женской, мужской и детской одежды, обуви,
@@ -95,7 +98,8 @@
       tools:maxLines="5"
       android:layout_below="@+id/banner_title"
       android:layout_toRightOf="@+id/iv__banner_icon"
-      android:layout_toEndOf="@+id/iv__banner_icon"/>
+      android:layout_toEndOf="@+id/iv__banner_icon"
+      tools:ignore="SpUsage"/>
   </RelativeLayout>
   <LinearLayout
     android:id="@+id/action_container"
@@ -119,6 +123,7 @@
       android:paddingEnd="@dimen/margin_quarter"
       android:minHeight="@dimen/placepage_banner_button_height"
       android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textSize="14dp"
       android:textAllCaps="true"
       android:background="?bannerRemoveButtonBackground"
       android:gravity="center"
@@ -128,7 +133,8 @@
       android:singleLine="true"
       tools:visibility="visible"
       android:fontFamily="@string/robotoMedium"
-      tools:targetApi="jelly_bean"/>
+      tools:targetApi="jelly_bean"
+      tools:ignore="SpUsage"/>
     <TextView
       android:id="@+id/tv__action_large"
       android:layout_width="@dimen/dp_0"
@@ -140,6 +146,7 @@
       android:paddingEnd="@dimen/margin_quarter"
       android:minHeight="@dimen/placepage_banner_button_height"
       android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textSize="14dp"
       android:textAllCaps="true"
       android:background="?bannerButtonBackground"
       android:gravity="center"
@@ -149,7 +156,8 @@
       tools:text="Заказать"
       tools:visibility="visible"
       android:fontFamily="@string/robotoMedium"
-      tools:targetApi="jelly_bean"/>
+      tools:targetApi="jelly_bean"
+      tools:ignore="SpUsage"/>
   </LinearLayout>
   <ImageButton
     android:id="@+id/remove_btn"

@@ -182,7 +182,8 @@
   <dimen name="placepage_facilities_item">32dp</dimen>
 
   <!-- Banner-->
-  <dimen name="placepage_banner_height">64dp</dimen>
+  <dimen name="placepage_banner_small_height">66dp</dimen>
+  <dimen name="placepage_banner_large_height">108dp</dimen>
   <dimen name="placepage_banner_icon_size">40dp</dimen>
   <dimen name="placepage_banner_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="placepage_banner_button_margin_top">5dp</dimen>

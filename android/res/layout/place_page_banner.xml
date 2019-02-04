@@ -2,9 +2,9 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/banner"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:minHeight="@dimen/placepage_banner_height"
   android:background="?bannerBackground"
   android:clipToPadding="false"
   tools:layout_height="wrap_content">

@@ -114,12 +114,14 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
     if (ratio >= 1)
     {
+      mBannerController.zoomOut(1);
       mBannerController.open();
       return;
     }
 
     if (ratio == 0)
     {
+      mBannerController.zoomIn(ratio);
       mBannerController.close();
       return;
     }

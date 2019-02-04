@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Collections;
 import java.util.List;
 
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
@@ -103,8 +101,6 @@ final class BannerController
   @NonNull
   private View mAdsRemovalButton;
 
-  private final float mCloseFrameHeight;
-
   private boolean mOpened = false;
   private boolean mError = false;
   @Nullable
@@ -117,6 +113,8 @@ final class BannerController
   private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
   @NonNull
   private final AdsRemovalPurchaseControllerProvider mAdsRemovalProvider;
+  private int mClosedHeight;
+  private int mOpentHeight;
 
   BannerController(@NonNull ViewGroup bannerContainer, @NonNull CompoundNativeAdLoader loader,
                    @Nullable AdTracker tracker,
@@ -129,7 +127,8 @@ final class BannerController
     mAdsLoader = loader;
     mAdTracker = tracker;
     Resources resources = mBannerView.getResources();
-    mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
+    mClosedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_small_height);
+    mOpentHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
     mAdsRemovalProvider = adsRemovalProvider;
     initBannerViews();
   }
@@ -258,7 +257,6 @@ final class BannerController
       return;
 
     mOpened = true;
-    setFrameHeight(WRAP_CONTENT);
     mMessage.setMaxLines(MAX_MESSAGE_LINES);
     mTitle.setMaxLines(MAX_TITLE_LINES);
     updateVisibility();
@@ -268,38 +266,37 @@ final class BannerController
       Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
       mCurrentAd.registerView(mBannerView);
     }
-
   }
 
   void zoomIn(float ratio)
   {
+    ViewGroup banner = mContainerView.findViewById(R.id.banner);
+    ViewGroup.LayoutParams lp = banner.getLayoutParams();
+    lp.height = (int) ((mOpentHeight - mClosedHeight) * ratio + mClosedHeight);
+    banner.setLayoutParams(lp);
+
   }
 
   void zoomOut(float ratio)
   {
+    ViewGroup banner = mContainerView.findViewById(R.id.banner);
+    ViewGroup.LayoutParams lp = banner.getLayoutParams();
+    lp.height = (int) (mClosedHeight - (mClosedHeight - mOpentHeight) * ratio);
+    banner.setLayoutParams(lp);
   }
 
-  boolean close()
+  void close()
   {
     if (!isBannerContainerVisible() || mBanners == null || !mOpened)
-      return false;
+      return;
 
     mOpened = false;
-    setFrameHeight((int) mCloseFrameHeight);
     UiUtils.hide(mIcon);
     mMessage.setMaxLines(MIN_MESSAGE_LINES);
     mTitle.setMaxLines(MIN_TITLE_LINES);
     updateVisibility();
     if (mCurrentAd != null)
       mCurrentAd.registerView(mBannerView);
-    return true;
-  }
-
-  private void setFrameHeight(int height)
-  {
-    ViewGroup.LayoutParams lp = mBannerView.getLayoutParams();
-    lp.height = height;
-    mBannerView.setLayoutParams(lp);
   }
 
   private void loadIcon(@NonNull MwmNativeAd ad)
