@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/pointers.hpp"
+
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
@@ -36,23 +38,31 @@ public:
   static size_t constexpr kResourcesCount =
       static_cast<uint32_t>(VulkanMemoryManager::ResourceType::Count);
 
+  struct MemoryBlock
+  {
+    VkDeviceMemory m_memory = {};
+    uint32_t m_blockSize = 0;
+    uint32_t m_freeOffset = 0;
+    uint32_t m_allocationCounter = 0;
+    bool m_isCoherent = false;
+    bool m_isBlocked = false;
+  };
+
   struct Allocation
   {
     uint64_t const m_blockHash;
-    VkDeviceMemory const m_memory;
     uint32_t const m_alignedOffset;
     uint32_t const m_alignedSize;
     ResourceType const m_resourceType;
-    bool const m_isCoherent;
+    ref_ptr<MemoryBlock> m_memoryBlock;
 
-    Allocation(ResourceType resourceType, uint64_t blockHash, VkDeviceMemory memory,
-               uint32_t offset, uint32_t size, bool isCoherent)
+    Allocation(ResourceType resourceType, uint64_t blockHash, uint32_t offset,
+               uint32_t size, ref_ptr<MemoryBlock> memoryBlock)
       : m_blockHash(blockHash)
-      , m_memory(memory)
       , m_alignedOffset(offset)
       , m_alignedSize(size)
       , m_resourceType(resourceType)
-      , m_isCoherent(isCoherent)
+      , m_memoryBlock(memoryBlock)
     {}
   };
 
@@ -78,19 +88,9 @@ private:
   bool m_isInDeallocationSession = false;
   uint32_t m_deallocationSessionMask = 0;
 
-  struct MemoryBlock
-  {
-    VkDeviceMemory m_memory = {};
-    uint32_t m_blockSize = 0;
-    uint32_t m_freeOffset = 0;
-    uint32_t m_allocationCounter = 0;
-    bool m_isCoherent = false;
-
-    bool operator<(MemoryBlock const & b) const { return m_blockSize < b.m_blockSize; }
-  };
-
-  std::array<std::unordered_map<uint64_t, std::vector<MemoryBlock>>, kResourcesCount> m_memory;
-  std::array<std::vector<MemoryBlock>, kResourcesCount> m_freeBlocks;
+  using MemoryBlocks = std::vector<drape_ptr<MemoryBlock>>;
+  std::array<std::unordered_map<uint64_t, MemoryBlocks>, kResourcesCount> m_memory;
+  std::array<MemoryBlocks, kResourcesCount> m_freeBlocks;
   std::array<uint32_t, kResourcesCount> m_sizes = {};
 };
 }  // namespace vulkan

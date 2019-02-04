@@ -17,9 +17,9 @@ namespace
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes =
 {
   64 * 1024,  // Geometry
-  32 * 1024,  // Uniform
-  0,          // Staging
-  0,          // Image
+  0,          // Uniform (no minimal size)
+  0,          // Staging (no minimal size)
+  0,          // Image (no minimal size)
 };
 
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes =
@@ -56,6 +56,12 @@ VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType r
   }
   return 0;
 }
+
+bool Less(drape_ptr<VulkanMemoryManager::MemoryBlock> const & b1,
+          drape_ptr<VulkanMemoryManager::MemoryBlock> const & b2)
+{
+  return b1->m_blockSize < b2->m_blockSize;
+}
 }  // namespace
 
 VulkanMemoryManager::VulkanMemoryManager(VkDevice device, VkPhysicalDeviceLimits const & deviceLimits,
@@ -70,12 +76,12 @@ VulkanMemoryManager::~VulkanMemoryManager()
   for (size_t i = 0; i < kResourcesCount; ++i)
   {
     for (auto const & b : m_freeBlocks[i])
-      vkFreeMemory(m_device, b.m_memory, nullptr);
+      vkFreeMemory(m_device, b->m_memory, nullptr);
 
     for (auto const & p : m_memory[i])
     {
       for (auto const & b : p.second)
-        vkFreeMemory(m_device, b.m_memory, nullptr);
+        vkFreeMemory(m_device, b->m_memory, nullptr);
     }
   }
 }
@@ -137,36 +143,37 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
     {
       CHECK(!it->second.empty(), ());
       auto & block = it->second.back();
-      auto const alignedOffset = GetAligned(block.m_freeOffset, GetOffsetAlignment(resourceType));
+      auto const alignedOffset = GetAligned(block->m_freeOffset, GetOffsetAlignment(resourceType));
 
       // There is space in the current block.
-      if (block.m_blockSize <= alignedOffset + alignedSize)
+      if (!block->m_isBlocked && (block->m_blockSize <= alignedOffset + alignedSize))
       {
-        block.m_freeOffset = alignedOffset + alignedSize;
-        block.m_allocationCounter++;
-        return std::make_shared<Allocation>(resourceType, blockHash, block.m_memory,
-                                            alignedOffset, alignedSize, block.m_isCoherent);
+        block->m_freeOffset = alignedOffset + alignedSize;
+        block->m_allocationCounter++;
+        return std::make_shared<Allocation>(resourceType, blockHash, alignedOffset, alignedSize,
+                                            make_ref(block));
       }
     }
 
     // Looking for a block in free ones.
     auto & fm = m_freeBlocks[static_cast<size_t>(resourceType)];
     // Free blocks array must be sorted by size.
-    MemoryBlock refBlock;
-    refBlock.m_blockSize = alignedSize;
-    auto const freeBlockIt = std::upper_bound(fm.begin(), fm.end(), refBlock);
+    static drape_ptr<MemoryBlock> refBlock = make_unique_dp<MemoryBlock>();
+    refBlock->m_blockSize = alignedSize;
+    auto const freeBlockIt = std::upper_bound(fm.begin(), fm.end(), refBlock, &Less);
     if (freeBlockIt != fm.end())
     {
-      MemoryBlock freeBlock = *freeBlockIt;
-      CHECK_EQUAL(freeBlock.m_allocationCounter, 0, ());
-      CHECK_EQUAL(freeBlock.m_freeOffset, 0, ());
-      CHECK_LESS_OR_EQUAL(alignedSize, freeBlock.m_blockSize, ());
+      drape_ptr<MemoryBlock> freeBlock = std::move(*freeBlockIt);
+      CHECK_EQUAL(freeBlock->m_allocationCounter, 0, ());
+      CHECK_EQUAL(freeBlock->m_freeOffset, 0, ());
+      CHECK_LESS_OR_EQUAL(alignedSize, freeBlock->m_blockSize, ());
+      CHECK(!freeBlock->m_isBlocked, ());
       fm.erase(freeBlockIt);
 
-      freeBlock.m_freeOffset = alignedSize;
-      freeBlock.m_allocationCounter++;
-      auto p = std::make_shared<Allocation>(resourceType, blockHash, freeBlock.m_memory,
-                                            0, alignedSize, freeBlock.m_isCoherent);
+      freeBlock->m_freeOffset = alignedSize;
+      freeBlock->m_allocationCounter++;
+      auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize,
+                                            make_ref(freeBlock));
       m[blockHash].push_back(std::move(freeBlock));
       return p;
     }
@@ -203,15 +210,15 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   // Attach block.
   auto & m = m_memory[static_cast<size_t>(resourceType)];
 
-  MemoryBlock newBlock;
-  newBlock.m_memory = memory;
-  newBlock.m_blockSize = blockSize;
-  newBlock.m_freeOffset = alignedSize;
-  newBlock.m_allocationCounter++;
-  newBlock.m_isCoherent = ((flags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) != 0);
+  auto newBlock = make_unique_dp<MemoryBlock>();
+  newBlock->m_memory = memory;
+  newBlock->m_blockSize = blockSize;
+  newBlock->m_freeOffset = alignedSize;
+  newBlock->m_allocationCounter++;
+  newBlock->m_isCoherent = ((flags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) != 0);
 
-  auto p = std::make_shared<Allocation>(resourceType, blockHash, newBlock.m_memory,
-                                        0, alignedSize, newBlock.m_isCoherent);
+  auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize,
+                                        make_ref(newBlock));
   m[blockHash].push_back(std::move(newBlock));
   return p;
 }
@@ -225,20 +232,22 @@ void VulkanMemoryManager::BeginDeallocationSession()
 void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
 {
   CHECK(ptr, ());
+  CHECK(!ptr->m_memoryBlock->m_isBlocked, ());
   auto const kResourceIndex = static_cast<size_t>(ptr->m_resourceType);
   auto & m = m_memory[kResourceIndex];
   auto const it = m.find(ptr->m_blockHash);
   CHECK(it != m.end(), ());
   auto blockIt = std::find_if(it->second.begin(), it->second.end(),
-                              [&ptr](MemoryBlock const & b)
+                              [&ptr](drape_ptr<MemoryBlock> const & b)
   {
-    return b.m_memory == ptr->m_memory;
+    ASSERT(ptr->m_memoryBlock != nullptr, ());
+    return b->m_memory == ptr->m_memoryBlock->m_memory;
   });
   CHECK(blockIt != it->second.end(), ());
-  CHECK_GREATER(blockIt->m_allocationCounter, 0, ());
-  blockIt->m_allocationCounter--;
+  CHECK_GREATER((*blockIt)->m_allocationCounter, 0, ());
+  (*blockIt)->m_allocationCounter--;
 
-  if (blockIt->m_allocationCounter == 0)
+  if ((*blockIt)->m_allocationCounter == 0)
   {
     if (m_isInDeallocationSession)
     {
@@ -248,20 +257,20 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
     }
     else
     {
-      MemoryBlock memoryBlock = *blockIt;
+      drape_ptr<MemoryBlock> memoryBlock = std::move(*blockIt);
       it->second.erase(blockIt);
       if (m_sizes[kResourceIndex] > kDesiredSizeInBytes[kResourceIndex])
       {
-        CHECK_LESS_OR_EQUAL(memoryBlock.m_blockSize, m_sizes[kResourceIndex], ());
-        m_sizes[kResourceIndex] -= memoryBlock.m_blockSize;
-        vkFreeMemory(m_device, memoryBlock.m_memory, nullptr);
+        CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[kResourceIndex], ());
+        m_sizes[kResourceIndex] -= memoryBlock->m_blockSize;
+        vkFreeMemory(m_device, memoryBlock->m_memory, nullptr);
       }
       else
       {
-        memoryBlock.m_freeOffset = 0;
+        memoryBlock->m_freeOffset = 0;
         auto & fm = m_freeBlocks[kResourceIndex];
         fm.push_back(std::move(memoryBlock));
-        std::sort(fm.begin(), fm.end());
+        std::sort(fm.begin(), fm.end(), &Less);
       }
     }
   }
@@ -282,27 +291,27 @@ void VulkanMemoryManager::EndDeallocationSession()
     auto & fm = m_freeBlocks[i];
     auto & m = m_memory[i];
     m[i].erase(std::remove_if(m[i].begin(), m[i].end(),
-                              [this, &fm, i](MemoryBlock const & b)
+                              [this, &fm, i](drape_ptr<MemoryBlock> & b)
     {
-      if (b.m_allocationCounter == 0)
+      if (b->m_allocationCounter == 0)
       {
         if (m_sizes[i] > kDesiredSizeInBytes[i])
         {
-          CHECK_LESS_OR_EQUAL(b.m_blockSize, m_sizes[i], ());
-          m_sizes[i] -= b.m_blockSize;
-          vkFreeMemory(m_device, b.m_memory, nullptr);
+          CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
+          m_sizes[i] -= b->m_blockSize;
+          vkFreeMemory(m_device, b->m_memory, nullptr);
         }
         else
         {
-          MemoryBlock block = b;
-          block.m_freeOffset = 0;
+          auto block = std::move(b);
+          block->m_freeOffset = 0;
           fm.push_back(std::move(block));
         }
         return true;
       }
       return false;
     }), m[i].end());
-    std::sort(fm.begin(), fm.end());
+    std::sort(fm.begin(), fm.end(), &Less);
   }
 }
 }  // namespace vulkan

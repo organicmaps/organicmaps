@@ -107,6 +107,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlagBits usageFlagBits
 void VulkanObjectManager::DestroyObject(VulkanObject object)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
+  CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());
   m_queueToDestroy.push_back(std::move(object));
 }
 
@@ -148,6 +149,47 @@ void VulkanObjectManager::CollectObjects()
   }
   m_memoryManager.EndDeallocationSession();
   m_queueToDestroy.clear();
+}
+
+uint8_t * VulkanObjectManager::Map(VulkanObject object)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());
+
+  CHECK(object.m_buffer != 0 || object.m_image != 0, ());
+  uint8_t * ptr = nullptr;
+  CHECK_VK_CALL(vkMapMemory(m_device, object.GetMemory(), object.GetAlignedOffset(),
+                            object.GetAlignedSize(), 0, reinterpret_cast<void **>(&ptr)));
+  object.m_allocation->m_memoryBlock->m_isBlocked = true;
+  return ptr;
+}
+
+void VulkanObjectManager::Flush(VulkanObject object, uint32_t offset, uint32_t size)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  if (object.m_allocation->m_memoryBlock->m_isCoherent)
+    return;
+
+  CHECK(object.m_allocation->m_memoryBlock->m_isBlocked, ());
+
+  VkMappedMemoryRange mappedRange = {};
+  mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
+  mappedRange.memory = object.GetMemory();
+  mappedRange.offset = object.GetAlignedOffset() + offset;
+  if (size == 0)
+    mappedRange.size = object.GetAlignedSize();
+  else
+    mappedRange.size = mappedRange.offset + size;
+  CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, 1, &mappedRange));
+}
+
+void VulkanObjectManager::Unmap(VulkanObject object)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  CHECK(object.m_allocation->m_memoryBlock->m_isBlocked, ());
+  vkUnmapMemory(m_device, object.GetMemory());
+  object.m_allocation->m_memoryBlock->m_isBlocked = false;
 }
 }  // namespace vulkan
 }  // namespace dp

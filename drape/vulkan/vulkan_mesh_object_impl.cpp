@@ -39,24 +39,14 @@ public:
                                                      sizeof(m_mesh->m_buffers[i].m_data[0]));
       m_geometryBuffers[i] = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
                                                            sizeInBytes, 0 /* batcherHash */);
-      void * gpuPtr = nullptr;
-      CHECK_VK_CALL(vkMapMemory(device, m_geometryBuffers[i].m_allocation->m_memory,
-                                m_geometryBuffers[i].m_allocation->m_alignedOffset,
-                                m_geometryBuffers[i].m_allocation->m_alignedSize, 0, &gpuPtr));
+      void * gpuPtr = m_objectManager->Map(m_geometryBuffers[i]);
       memcpy(gpuPtr, m_mesh->m_buffers[i].m_data.data(), sizeInBytes);
-      if (!m_geometryBuffers[i].m_allocation->m_isCoherent)
-      {
-        VkMappedMemoryRange mappedRange = {};
-        mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-        mappedRange.memory = m_geometryBuffers[i].m_allocation->m_memory;
-        mappedRange.offset = m_geometryBuffers[i].m_allocation->m_alignedOffset;
-        mappedRange.size = m_geometryBuffers[i].m_allocation->m_alignedSize;
-        CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
-      }
-      vkUnmapMemory(device, m_geometryBuffers[i].m_allocation->m_memory);
+      m_objectManager->Flush(m_geometryBuffers[i]);
+      m_objectManager->Unmap(m_geometryBuffers[i]);
+
       CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffers[i].m_buffer,
-                                       m_geometryBuffers[i].m_allocation->m_memory,
-                                       m_geometryBuffers[i].m_allocation->m_alignedOffset));
+                                       m_geometryBuffers[i].GetMemory(),
+                                       m_geometryBuffers[i].GetAlignedOffset()));
     }
   }
 

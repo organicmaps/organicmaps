@@ -30,7 +30,7 @@ public:
   ~VulkanProgramParamsSetter() override;
 
   void Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context);
-  void Flush(ref_ptr<dp::vulkan::VulkanBaseContext> context);
+  void Flush();
   void Finish();
 
   void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,

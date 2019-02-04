@@ -24,7 +24,6 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
                             uint32_t elementCount)
 {
   CHECK(m_objectManager != nullptr, ());
-  VkDevice device = context->GetDevice();
 
   uint32_t const elementSize = GetElementSize();
   uint32_t const mappingSizeInBytes = elementCount * elementSize;
@@ -120,26 +119,14 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
                                                    sizeInBytes, 0 /* batcherHash */);
   if (data != nullptr)
   {
-    void * gpuPtr = nullptr;
-    CHECK_VK_CALL(vkMapMemory(device, m_geometryBuffer.m_allocation->m_memory,
-                              m_geometryBuffer.m_allocation->m_alignedOffset,
-                              m_geometryBuffer.m_allocation->m_alignedSize, 0, &gpuPtr));
+    void * gpuPtr = m_objectManager->Map(m_geometryBuffer);
     memcpy(gpuPtr, data, sizeInBytes);
-    if (!m_geometryBuffer.m_allocation->m_isCoherent)
-    {
-      VkMappedMemoryRange mappedRange = {};
-      mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-      mappedRange.memory = m_geometryBuffer.m_allocation->m_memory;
-      mappedRange.offset = m_geometryBuffer.m_allocation->m_alignedOffset;
-      mappedRange.size = m_geometryBuffer.m_allocation->m_alignedSize;
-      CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
-    }
-    vkUnmapMemory(device, m_geometryBuffer.m_allocation->m_memory);
+    m_objectManager->Flush(m_geometryBuffer);
+    m_objectManager->Unmap(m_geometryBuffer);
   }
 
-  CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffer.m_buffer,
-                                   m_geometryBuffer.m_allocation->m_memory,
-                                   m_geometryBuffer.m_allocation->m_alignedOffset));
+  CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffer.m_buffer, m_geometryBuffer.GetMemory(),
+                                   m_geometryBuffer.GetAlignedOffset()));
 
   // If we have already set up data, we have to call SetDataSize.
   if (data != nullptr)

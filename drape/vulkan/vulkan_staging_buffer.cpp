@@ -16,28 +16,24 @@ VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectMana
   , m_sizeInBytes(sizeInBytes)
 {
   auto constexpr kStagingBuffer = VulkanMemoryManager::ResourceType::Staging;
-  VkDevice device = objectManager->GetDevice();
+  VkDevice device = m_objectManager->GetDevice();
   auto const & mm = m_objectManager->GetMemoryManager();
 
-  m_object = objectManager->CreateBuffer(kStagingBuffer, sizeInBytes, 0 /* batcherHash */);
+  m_object = m_objectManager->CreateBuffer(kStagingBuffer, sizeInBytes, 0 /* batcherHash */);
   VkMemoryRequirements memReqs = {};
   vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
   m_sizeAlignment = mm.GetSizeAlignment(memReqs);
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);
 
-  CHECK_VK_CALL(vkBindBufferMemory(device, m_object.m_buffer,
-                                   m_object.m_allocation->m_memory,
-                                   m_object.m_allocation->m_alignedOffset));
+  CHECK_VK_CALL(vkBindBufferMemory(device, m_object.m_buffer, m_object.GetMemory(),
+                                   m_object.GetAlignedOffset()));
 
-  CHECK_VK_CALL(vkMapMemory(device, m_object.m_allocation->m_memory,
-                            m_object.m_allocation->m_alignedOffset,
-                            m_object.m_allocation->m_alignedSize, 0,
-                            reinterpret_cast<void **>(&m_pointer)));
+  m_pointer = m_objectManager->Map(m_object);
 }
 
 VulkanStagingBuffer::~VulkanStagingBuffer()
 {
-  vkUnmapMemory(m_objectManager->GetDevice(), m_object.m_allocation->m_memory);
+  m_objectManager->Unmap(m_object);
   m_objectManager->DestroyObject(m_object);
 }
 
@@ -60,8 +56,7 @@ VulkanStagingBuffer::StagingData VulkanStagingBuffer::Reserve(uint32_t sizeInByt
 
   // Update offset and align it.
   m_offset += alignedSize;
-  m_offset = std::min(mm.GetAligned(m_offset, m_offsetAlignment),
-                      m_object.m_allocation->m_alignedSize);
+  m_offset = std::min(mm.GetAligned(m_offset, m_offsetAlignment), m_object.GetAlignedSize());
 
   StagingData result;
   result.m_stagingBuffer = m_object.m_buffer;
@@ -86,15 +81,11 @@ VulkanStagingBuffer::StagingData const & VulkanStagingBuffer::GetReservationById
 
 void VulkanStagingBuffer::Flush()
 {
-  if (m_object.m_allocation->m_isCoherent || m_offset == 0)
+  if (m_offset == 0)
     return;
 
-  VkMappedMemoryRange mappedRange = {};
-  mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-  mappedRange.memory = m_object.m_allocation->m_memory;
-  mappedRange.offset = m_object.m_allocation->m_alignedOffset;
-  mappedRange.size = mappedRange.offset + m_offset;
-  CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_objectManager->GetDevice(), 1, &mappedRange));
+  auto const size = m_offset;
+  m_objectManager->Flush(m_object, 0 /* offset */, size);
 }
 
 void VulkanStagingBuffer::Reset()

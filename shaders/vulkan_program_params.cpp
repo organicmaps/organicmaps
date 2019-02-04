@@ -26,14 +26,10 @@ VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
   sizeAlignment = objectManager->GetMemoryManager().GetSizeAlignment(memReqs);
   offsetAlignment = objectManager->GetMemoryManager().GetOffsetAlignment(kUniformBuffer);
 
-  CHECK_VK_CALL(vkBindBufferMemory(device, result.m_object.m_buffer,
-                                   result.m_object.m_allocation->m_memory,
-                                   result.m_object.m_allocation->m_alignedOffset));
+  CHECK_VK_CALL(vkBindBufferMemory(device, result.m_object.m_buffer, result.m_object.GetMemory(),
+                                   result.m_object.GetAlignedOffset()));
 
-  CHECK_VK_CALL(vkMapMemory(device, result.m_object.m_allocation->m_memory,
-                            result.m_object.m_allocation->m_alignedOffset,
-                            result.m_object.m_allocation->m_alignedSize, 0,
-                            reinterpret_cast<void **>(&result.m_pointer)));
+  result.m_pointer = objectManager->Map(result.m_object);
   return result;
 }
 }  // namespace
@@ -46,9 +42,9 @@ VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanB
                                                     m_sizeAlignment, m_offsetAlignment));
 
   m_flushHandlerId = context->RegisterHandler(VulkanBaseContext::HandlerType::PrePresent,
-                                              [this](ref_ptr<dp::vulkan::VulkanBaseContext> c)
+                                              [this](ref_ptr<dp::vulkan::VulkanBaseContext>)
   {
-    Flush(c);
+    Flush();
   });
   m_finishHandlerId = context->RegisterHandler(VulkanBaseContext::HandlerType::PostPresent,
                                                [this](ref_ptr<dp::vulkan::VulkanBaseContext>)
@@ -64,10 +60,9 @@ VulkanProgramParamsSetter::~VulkanProgramParamsSetter()
 
 void VulkanProgramParamsSetter::Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context)
 {
-  VkDevice device = context->GetDevice();
   for (auto & b : m_uniformBuffers)
   {
-    vkUnmapMemory(device, b.m_object.m_allocation->m_memory);
+    m_objectManager->Unmap(b.m_object);
     m_objectManager->DestroyObject(b.m_object);
   }
   m_uniformBuffers.clear();
@@ -75,20 +70,15 @@ void VulkanProgramParamsSetter::Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> c
   context->UnregisterHandler(m_flushHandlerId);
 }
 
-void VulkanProgramParamsSetter::Flush(ref_ptr<dp::vulkan::VulkanBaseContext> context)
+void VulkanProgramParamsSetter::Flush()
 {
-  VkDevice device = context->GetDevice();
   for (auto & ub : m_uniformBuffers)
   {
-    if (ub.m_object.m_allocation->m_isCoherent || ub.m_freeOffset == 0)
+    if (ub.m_freeOffset == 0)
       continue;
 
-    VkMappedMemoryRange mappedRange = {};
-    mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-    mappedRange.memory = ub.m_object.m_allocation->m_memory;
-    mappedRange.offset = ub.m_object.m_allocation->m_alignedOffset;
-    mappedRange.size = mappedRange.offset + ub.m_freeOffset;
-    CHECK_VK_CALL(vkFlushMappedMemoryRanges(device, 1, &mappedRange));
+    auto const size = ub.m_freeOffset;
+    m_objectManager->Flush(ub.m_object, 0 /* offset */, size);
   }
 }
 
@@ -132,7 +122,7 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   m_uniformBuffers[index].m_freeOffset += alignedSize;
   m_uniformBuffers[index].m_freeOffset =
     std::min(mm.GetAligned(m_uniformBuffers[index].m_freeOffset, m_offsetAlignment),
-             m_uniformBuffers[index].m_object.m_allocation->m_alignedSize);
+             m_uniformBuffers[index].m_object.GetAlignedSize());
 
   memcpy(ptr, data, sizeInBytes);
 
