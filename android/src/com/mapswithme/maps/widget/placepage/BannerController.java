@@ -114,7 +114,7 @@ final class BannerController
   @NonNull
   private final AdsRemovalPurchaseControllerProvider mAdsRemovalProvider;
   private int mClosedHeight;
-  private int mOpentHeight;
+  private int mOpenedHeight;
   @NonNull
   private final BannerDetailsRequester mBannerDetailsRequester;
 
@@ -131,7 +131,7 @@ final class BannerController
     mAdTracker = tracker;
     Resources resources = mBannerView.getResources();
     mClosedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_small_height);
-    mOpentHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
+    mOpenedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
     mAdsRemovalProvider = adsRemovalProvider;
     mBannerDetailsRequester = bannerDetailsRequester;
     initBannerViews();
@@ -276,16 +276,15 @@ final class BannerController
   {
     ViewGroup banner = mContainerView.findViewById(R.id.banner);
     ViewGroup.LayoutParams lp = banner.getLayoutParams();
-    lp.height = (int) ((mOpentHeight - mClosedHeight) * ratio + mClosedHeight);
+    lp.height = (int) ((mOpenedHeight - mClosedHeight) * ratio + mClosedHeight);
     banner.setLayoutParams(lp);
-
   }
 
   void zoomOut(float ratio)
   {
     ViewGroup banner = mContainerView.findViewById(R.id.banner);
     ViewGroup.LayoutParams lp = banner.getLayoutParams();
-    lp.height = (int) (mClosedHeight - (mClosedHeight - mOpentHeight) * ratio);
+    lp.height = (int) (mClosedHeight - (mClosedHeight - mOpenedHeight) * ratio);
     banner.setLayoutParams(lp);
   }
 

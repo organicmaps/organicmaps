@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -235,6 +234,7 @@ public class PlacePageView extends NestedScrollView
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
+  private boolean mScrollable = true;
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
@@ -305,8 +305,6 @@ public class PlacePageView extends NestedScrollView
     }
   };
 
-  private boolean mScrollable = true;
-
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -318,7 +316,6 @@ public class PlacePageView extends NestedScrollView
     switch (ev.getAction())
     {
       case MotionEvent.ACTION_DOWN:
-        Log.d("XXX", "onTouchEvent mScrollable = " + mScrollable);
         return mScrollable && super.onTouchEvent(ev);
       default:
         return super.onTouchEvent(ev);
@@ -328,7 +325,6 @@ public class PlacePageView extends NestedScrollView
   @Override
   public boolean onInterceptTouchEvent(MotionEvent event)
   {
-    Log.d("XXX", "onInterceptTouchEvent mScrollable = " + mScrollable);
     return mScrollable && super.onInterceptTouchEvent(event);
   }
 
