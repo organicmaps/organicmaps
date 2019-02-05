@@ -322,7 +322,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public boolean isClosed()
   {
-    return mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN;
+    return isHiddenState(mPlacePageBehavior.getState());
   }
 
   @Override
@@ -334,6 +334,9 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    if (isHiddenState(mPlacePageBehavior.getState()))
+      return;
+
     double north = trueNorth >= 0.0 ? trueNorth : magneticNorth;
     mPlacePage.refreshAzimuth(north);
   }
@@ -500,6 +503,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private static boolean isExpandedState(@AnchorBottomSheetBehavior.State int state)
   {
     return state == AnchorBottomSheetBehavior.STATE_EXPANDED;
+  }
+
+  private static boolean isHiddenState(@AnchorBottomSheetBehavior.State int state)
+  {
+    return state == AnchorBottomSheetBehavior.STATE_HIDDEN;
   }
 
   @Override
