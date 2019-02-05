@@ -98,26 +98,21 @@ Java_com_mapswithme_maps_LightFramework_nativeGetNotification(JNIEnv * env, jcla
   if (!notification)
     return nullptr;
 
+  auto const & n = notification.get();
   // Type::UgcReview is only supported.
-  CHECK_EQUAL(notification.get().m_type, notifications::NotificationCandidate::Type::UgcReview, ());
+  CHECK_EQUAL(n.GetType(), notifications::NotificationCandidate::Type::UgcReview, ());
 
   static jclass const candidateId =
-      jni::GetGlobalClassRef(env, "com/mapswithme/maps/background/NotificationCandidate");
-  static jclass const mapObjectId =
-      jni::GetGlobalClassRef(env, "com/mapswithme/maps/background/NotificationCandidate$MapObject");
+      jni::GetGlobalClassRef(env, "com/mapswithme/maps/background/NotificationCandidate$UgcReview");
   static jmethodID const candidateCtor = jni::GetConstructorID(
-      env, candidateId, "(ILcom/mapswithme/maps/background/NotificationCandidate$MapObject;)V");
-  static jmethodID const mapObjectCtor = jni::GetConstructorID(
-      env, mapObjectId, "(DDLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      env, candidateId,
+      "(DDLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
-  auto const & srcObject = notification.get().m_mapObject;
-  ASSERT(srcObject, ());
-  auto const readableName = jni::ToJavaString(env, srcObject->GetReadableName());
-  auto const defaultName = jni::ToJavaString(env, srcObject->GetDefaultName());
-  auto const type = jni::ToJavaString(env, srcObject->GetBestType());
-  auto const mapObject = env->NewObject(mapObjectId, mapObjectCtor, srcObject->GetPos().x,
-                                        srcObject->GetPos().y, readableName, defaultName, type);
-  return env->NewObject(candidateId, candidateCtor, static_cast<jint>(notification.get().m_type),
-                        mapObject);
+  auto const readableName = jni::ToJavaString(env, n.GetReadableName());
+  auto const defaultName = jni::ToJavaString(env, n.GetDefaultName());
+  auto const type = jni::ToJavaString(env, n.GetBestFeatureType());
+  auto const address = jni::ToJavaString(env, n.GetAddress());
+  return env->NewObject(candidateId, candidateCtor, n.GetPos().x, n.GetPos().y, readableName,
+                        defaultName, type, address);
 }
 }  // extern "C"

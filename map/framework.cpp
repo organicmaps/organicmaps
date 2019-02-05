@@ -7,6 +7,7 @@
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
+#include "map/notifications/notification_queue.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
@@ -115,6 +116,7 @@
 using namespace storage;
 using namespace routing;
 using namespace location;
+using namespace notifications;
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -382,8 +384,8 @@ void Framework::Migrate(bool keepDownloaded)
   InitTaxiEngine();
   RegisterAllMaps();
   m_notificationManager.SetDelegate(
-    std::make_unique<notifications::NotificationManagerDelegate>(m_model.GetDataSource(),
-                                                                 *m_cityFinder, *m_ugcApi));
+    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+                                                  *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -551,8 +553,8 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Transliterators initialized"));
 
   m_notificationManager.SetDelegate(
-    std::make_unique<notifications::NotificationManagerDelegate>(m_model.GetDataSource(),
-                                                                 *m_cityFinder, *m_ugcApi));
+    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+                                                  *m_ugcApi));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
 
@@ -3814,18 +3816,22 @@ double Framework::GetLastBackgroundTime() const
   return m_startBackgroundTime;
 }
 
-bool Framework::MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const
+bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
+                                  place_page::Info & info) const
 {
-  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(mapObject.GetPos(), kMwmPointAccuracy);
+  if (notification.GetType() != NotificationCandidate::Type::UgcReview)
+    return false;
+
+  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
   bool found = false;
 
-  m_model.GetDataSource().ForEachInRect([this, &info, &mapObject, &found](FeatureType & ft)
+  m_model.GetDataSource().ForEachInRect([this, &info, &notification, &found](FeatureType & ft)
   {
-   if (found || !feature::GetCenter(ft).EqualDxDy(mapObject.GetPos(), kMwmPointAccuracy))
+   if (found || !feature::GetCenter(ft).EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
      return;
 
    auto const foundMapObject = utils::MakeEyeMapObject(ft);
-   if (!foundMapObject.IsEmpty() && mapObject.AlmostEquals(foundMapObject))
+   if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
    {
      FillInfoFromFeatureType(ft, info);
      found = true;

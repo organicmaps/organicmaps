@@ -32,7 +32,7 @@ public final class Notifier
   private final Application mContext;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ID_NONE, ID_DOWNLOAD_FAILED, ID_IS_NOT_AUTHENTICATED })
+  @IntDef({ ID_NONE, ID_DOWNLOAD_FAILED, ID_IS_NOT_AUTHENTICATED, ID_LEAVE_REVIEW })
   public @interface NotificationId
   {
   }
@@ -80,9 +80,9 @@ public final class Notifier
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_NOT_AUTH_NOTIFICATION_SHOWN);
   }
 
-  void notifyLeaveReview(@NonNull NotificationCandidate.MapObject mapObject)
+  void notifyLeaveReview(@NonNull NotificationCandidate.UgcReview source)
   {
-    Intent reviewIntent = MwmActivity.createLeaveReviewIntent(mContext, mapObject);
+    Intent reviewIntent = MwmActivity.createLeaveReviewIntent(mContext, source);
     reviewIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_LEAVE_REVIEW);
     reviewIntent.putExtra(EXTRA_NOTIFICATION_CLICKED,
                           Statistics.EventName.UGC_REVIEW_NOTIFICATION_CLICKED);
@@ -93,12 +93,10 @@ public final class Notifier
     String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
     NotificationCompat.Builder builder =
         getBuilder(mContext.getString(R.string.notification_leave_review_title,
-                                      mapObject.getReadableName()),
-                   mContext.getString(R.string.notification_leave_review_content,
-                                      mapObject.getReadableName()),
-                   pi, channel);
-
-    builder.addAction(0, mContext.getString(R.string.leave_a_review), pi);
+                                      source.getReadableName()),
+                   mContext.getString(R.string.notification_leave_review_content),
+                   pi, channel)
+        .addAction(0, mContext.getString(R.string.leave_a_review), pi);
 
     getNotificationManager().notify(ID_LEAVE_REVIEW, builder.build());
 

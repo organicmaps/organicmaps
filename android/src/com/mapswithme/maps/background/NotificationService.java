@@ -79,13 +79,13 @@ public class NotificationService extends JobIntentService
 
     NotificationCandidate candidate = LightFramework.nativeGetNotification();
 
-    if (candidate == null || candidate.getMapObject() == null)
+    if (candidate == null)
       return false;
 
     if (candidate.getType() == NotificationCandidate.TYPE_UGC_REVIEW)
     {
       Notifier notifier = Notifier.from(getApplication());
-      notifier.notifyLeaveReview(candidate.getMapObject());
+      notifier.notifyLeaveReview((NotificationCandidate.UgcReview) candidate);
       return true;
     }
 

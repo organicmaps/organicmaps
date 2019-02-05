@@ -27,6 +27,7 @@ public:
                   visitor(m_address, std::string(""), "address"));
 
   NotificationCandidate() = default;
+  NotificationCandidate(Type type);
   // Constructs candidate with type Type::UgcReview.
   NotificationCandidate(eye::MapObject const & poi, std::string const & address);
 
@@ -45,6 +46,12 @@ public:
   std::string const & GetDefaultName() const;
   std::string const & GetReadableName() const;
   std::string const & GetAddress() const;
+
+  void SetBestFeatureType(std::string const & bestFeatureType);
+  void SetPos(m2::PointD const & pt);
+  void SetDefaultName(std::string const & name);
+  void SetReadableName(std::string const & name);
+  void SetAddress(std::string const & address);
 
 private:
   Type m_type;

@@ -4,12 +4,18 @@
 
 namespace notifications
 {
+NotificationCandidate::NotificationCandidate(Type type)
+  : m_type(NotificationCandidate::Type::UgcReview)
+  , m_created(Clock::now())
+{
+}
+
 NotificationCandidate::NotificationCandidate(eye::MapObject const & poi,
                                              std::string const & address)
-: m_type(NotificationCandidate::Type::UgcReview)
-, m_created(Clock::now())
-, m_mapObject(std::make_shared<eye::MapObject>(poi))
-, m_address(address)
+  : m_type(NotificationCandidate::Type::UgcReview)
+  , m_created(Clock::now())
+  , m_mapObject(std::make_shared<eye::MapObject>(poi))
+  , m_address(address)
 {
   CHECK(!poi.IsEmpty(), ());
 
@@ -83,5 +89,52 @@ std::string const & NotificationCandidate::GetAddress() const
   CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
 
   return m_address;
+}
+
+void NotificationCandidate::SetBestFeatureType(std::string const & bestFeatureType)
+{
+  CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
+
+  if (!m_mapObject)
+    m_mapObject = std::make_shared<eye::MapObject>();
+
+  m_mapObject->SetBestType(bestFeatureType);
+}
+
+void NotificationCandidate::SetPos(m2::PointD const & pt)
+{
+  CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
+
+  if (!m_mapObject)
+    m_mapObject = std::make_shared<eye::MapObject>();
+
+  m_mapObject->SetPos(pt);
+}
+
+void NotificationCandidate::SetDefaultName(std::string const & name)
+{
+  CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
+
+  if (!m_mapObject)
+    m_mapObject = std::make_shared<eye::MapObject>();
+
+  m_mapObject->SetDefaultName(name);
+}
+
+void NotificationCandidate::SetReadableName(std::string const & name)
+{
+  CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
+
+  if (!m_mapObject)
+    m_mapObject = std::make_shared<eye::MapObject>();
+
+  m_mapObject->SetReadableName(name);
+}
+
+void NotificationCandidate::SetAddress(std::string const & address)
+{
+  CHECK_EQUAL(m_type, NotificationCandidate::Type::UgcReview, ());
+
+  m_address = address;
 }
 }  // namespace notifications

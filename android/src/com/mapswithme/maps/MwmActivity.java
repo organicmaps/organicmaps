@@ -355,12 +355,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @NonNull
   public static Intent createLeaveReviewIntent(@NonNull Context context,
-                                               @NonNull NotificationCandidate.MapObject mapObject)
+                                               @NonNull NotificationCandidate.UgcReview nc)
   {
     return new Intent(context, MwmActivity.class)
       .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
       .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-      .putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowUGCEditorTask(mapObject));
+      .putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowUGCEditorTask(nc));
   }
 
   @Override
@@ -2687,18 +2687,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static class ShowUGCEditorTask implements MapTask
   {
     private static final long serialVersionUID = 1636712824900113568L;
-    @NonNull
-    private final NotificationCandidate.MapObject mMapObject;
+    // Nullable because of possible serialization from previous incompatible version of class.
+    @Nullable
+    private final NotificationCandidate.UgcReview mNotificationCandidate;
 
-    ShowUGCEditorTask(@NonNull NotificationCandidate.MapObject mapObject)
+    ShowUGCEditorTask(@Nullable NotificationCandidate.UgcReview notificationCandidate)
     {
-      mMapObject = mapObject;
+      mNotificationCandidate = notificationCandidate;
     }
 
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      MapObject mapObject = Framework.nativeGetMapObject(mMapObject);
+      if (mNotificationCandidate == null)
+        return false;
+
+      MapObject mapObject = Framework.nativeGetMapObject(mNotificationCandidate);
 
       if (mapObject == null)
         return false;

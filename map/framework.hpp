@@ -126,6 +126,11 @@ namespace descriptions
 class Loader;
 }
 
+namespace notifications
+{
+class NotificationCandidate;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -903,7 +908,8 @@ public:
   bool HaveTransit(m2::PointD const & pt) const override;
   double GetLastBackgroundTime() const override;
 
-  bool MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const;
+  bool MakePlacePageInfo(notifications::NotificationCandidate const & notification,
+                         place_page::Info & info) const;
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 

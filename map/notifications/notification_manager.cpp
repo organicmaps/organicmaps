@@ -104,7 +104,6 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi)
 
 namespace notifications
 {
-
 void NotificationManager::SetDelegate(std::unique_ptr<Delegate> delegate)
 {
   m_delegate = std::move(delegate);

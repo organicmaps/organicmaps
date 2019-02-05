@@ -38,6 +38,6 @@ string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
   if (city.empty())
     return address;
 
-  return city + " ," + address;
+  return address + ", " + city;
 }
 }  // namespace notifications

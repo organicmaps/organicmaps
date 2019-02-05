@@ -7,6 +7,7 @@
 
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
+#include "map/notifications/notification_queue.hpp"
 #include "map/user_mark.hpp"
 
 #include "partners_api/ads_engine.hpp"
@@ -55,6 +56,7 @@
 
 using namespace std;
 using namespace std::placeholders;
+using namespace notifications;
 
 unique_ptr<android::Framework> g_framework;
 
@@ -1933,34 +1935,34 @@ Java_com_mapswithme_maps_Framework_nativeGetAccessToken(JNIEnv * env, jclass)
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
-                                                      jobject notificationMapObject)
+                                                      jobject notificationCandidate)
 {
-  eye::MapObject mapObject;
+  NotificationCandidate notification(NotificationCandidate::Type::UgcReview);
   auto const getBestTypeId =
-      jni::GetMethodID(env, notificationMapObject, "getBestType", "()Ljava/lang/String;");
+      jni::GetMethodID(env, notificationCandidate, "getFeatureBestType", "()Ljava/lang/String;");
   auto const bestType =
-      static_cast<jstring>(env->CallObjectMethod(notificationMapObject, getBestTypeId));
-  mapObject.SetBestType(jni::ToNativeString(env, bestType));
+      static_cast<jstring>(env->CallObjectMethod(notificationCandidate, getBestTypeId));
+  notification.SetBestFeatureType(jni::ToNativeString(env, bestType));
 
   auto const getMercatorPosXId =
-      jni::GetMethodID(env, notificationMapObject, "getMercatorPosX", "()D");
+      jni::GetMethodID(env, notificationCandidate, "getMercatorPosX", "()D");
   auto const getMercatorPosYId =
-      jni::GetMethodID(env, notificationMapObject, "getMercatorPosY", "()D");
+      jni::GetMethodID(env, notificationCandidate, "getMercatorPosY", "()D");
 
   auto const posX =
-      static_cast<double>(env->CallDoubleMethod(notificationMapObject, getMercatorPosXId));
+      static_cast<double>(env->CallDoubleMethod(notificationCandidate, getMercatorPosXId));
   auto const posY =
-      static_cast<double>(env->CallDoubleMethod(notificationMapObject, getMercatorPosYId));
-  mapObject.SetPos({posX, posY});
+      static_cast<double>(env->CallDoubleMethod(notificationCandidate, getMercatorPosYId));
+  notification.SetPos({posX, posY});
 
   auto const getDefaultNameId =
-      jni::GetMethodID(env, notificationMapObject, "getDefaultName", "()Ljava/lang/String;");
+      jni::GetMethodID(env, notificationCandidate, "getDefaultName", "()Ljava/lang/String;");
   auto const defaultName =
-      static_cast<jstring>(env->CallObjectMethod(notificationMapObject, getDefaultNameId));
-  mapObject.SetDefaultName(jni::ToNativeString(env, defaultName));
+      static_cast<jstring>(env->CallObjectMethod(notificationCandidate, getDefaultNameId));
+  notification.SetDefaultName(jni::ToNativeString(env, defaultName));
 
   place_page::Info info;
-  if (frm()->MakePlacePageInfo(mapObject, info))
+  if (frm()->MakePlacePageInfo(notification, info))
     return usermark_helper::CreateMapObject(env, info);
 
   return nullptr;

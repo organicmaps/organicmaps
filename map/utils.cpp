@@ -3,8 +3,8 @@
 #include "map/place_page_info.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/feature_decl.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_decl.hpp"
 
 namespace utils
 {

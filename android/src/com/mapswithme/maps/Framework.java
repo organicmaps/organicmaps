@@ -514,7 +514,7 @@ public class Framework
 
   @Nullable
   public static native MapObject nativeGetMapObject(
-      @NonNull NotificationCandidate.MapObject mapObject);
+      @NonNull NotificationCandidate notificationCandidate);
 
   public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native int nativeGetPowerManagerScheme();
