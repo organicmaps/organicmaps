@@ -41,7 +41,7 @@ extension GeoTracker: CLLocationManagerDelegate {
         zones.forEach {
           locationManager.startMonitoring(
             for: CLCircularRegion(center: CLLocationCoordinate2DMake($0.latitude,  $0.longitude),
-                                  radius: 20,
+                                  radius: 100,
                                   identifier: $0.identifier))
         }
         trackingZones = zones.reduce(into: [:]) { $0[$1.identifier] = $1 }
