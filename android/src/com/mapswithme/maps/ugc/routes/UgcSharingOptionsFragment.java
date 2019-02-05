@@ -427,7 +427,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
 
   }

@@ -215,7 +215,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     }
 
     @Override
-    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                               int tagsLimit)
     {
       //TODO(@alexzatsepin): Implement me if necessary
     }

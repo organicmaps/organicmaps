@@ -1183,7 +1183,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
     //TODO(@alexzatsepin): Implement me if necessary
   }

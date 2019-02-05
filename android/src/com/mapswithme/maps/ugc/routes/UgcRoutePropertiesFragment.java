@@ -161,7 +161,8 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
     /* Do noting by default */
   }

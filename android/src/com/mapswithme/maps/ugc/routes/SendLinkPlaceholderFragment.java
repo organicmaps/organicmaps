@@ -150,7 +150,8 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
     /* do noting by default */
   }
