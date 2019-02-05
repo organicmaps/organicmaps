@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
@@ -47,6 +48,8 @@
         android:id="@+id/edit_text_field"
         android:layout_weight="1"
         android:layout_width="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="@string/name_placeholder"
         android:background="@null"
         android:layout_height="0dp"/>
       <View

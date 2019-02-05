@@ -257,11 +257,6 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
         getActivity().setResult(Activity.RESULT_OK, intent);
         getActivity().finish();
       }
-      else if (resultCode == Activity.RESULT_CANCELED)
-      {
-        getActivity().setResult(Activity.RESULT_CANCELED);
-        getActivity().finish();
-      }
     }
   }
 

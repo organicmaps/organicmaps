@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -28,11 +27,11 @@ import java.util.Objects;
 
 public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolbarFragment
 {
-  public static final String FORMAT_TEMPLATE = "%d / %d";
   public static final String BUNDLE_BOOKMARK_CATEGORY = "category";
-  public static final String TEXT_LENGTH_LIMIT = "text_length_limit";
+  private static final String FORMAT_TEMPLATE = "%d / %d";
+  private static final String TEXT_LENGTH_LIMIT = "text_length_limit";
   private static final int DEFAULT_TEXT_LENGTH_LIMIT = 42;
-  public static final String BREAK_LINE_CHAR = "\n";
+  private static final String DOUBLE_BREAK_LINE_CHAR = "\n\n";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -80,7 +79,7 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     titleView.setText(getTitleText());
     TextView summaryView = root.findViewById(R.id.summary);
     summaryView.setText(getTopSummaryText());
-    summaryView.append(BREAK_LINE_CHAR);
+    summaryView.append(DOUBLE_BREAK_LINE_CHAR);
     summaryView.append(getBottomSummaryText());
     return root;
   }
@@ -113,9 +112,10 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
   {
     super.onActivityResult(requestCode, resultCode, data);
     if (resultCode == Activity.RESULT_OK)
+    {
       getActivity().setResult(Activity.RESULT_OK, data);
-
-    getActivity().finish();
+      getActivity().finish();
+    }
   }
 
   @Override
@@ -148,9 +148,9 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
   protected abstract CharSequence getEditableText();
 
   @NonNull
-  private static String makeFormattedCharsAmount(CharSequence s, int limit)
+  private static String makeFormattedCharsAmount(@Nullable CharSequence s, int limit)
   {
-    return String.format(Locale.US, FORMAT_TEMPLATE, Math.min(s.length(), limit), limit);
+    return String.format(Locale.US, FORMAT_TEMPLATE, s == null ? 0 : Math.min(s.length(), limit), limit);
   }
 
   private class TextRestrictionWatcher implements TextWatcher
@@ -159,14 +159,14 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after)
     {
-
+      /* Do nothing by default. */
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      if (before + s.length() == 1)
-        ActivityCompat.invalidateOptionsMenu(getActivity());
+      if (s.length() == 0 || s.length() == 1)
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override

@@ -8,8 +8,14 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public class EditCategoryDescriptionFragment extends BaseEditUserBookmarkCategoryFragment
 {
-
   public static final int REQUEST_CODE_CUSTOM_PROPS = 100;
+  private static final int TEXT_LIMIT = 500;
+
+  @Override
+  protected int getDefaultTextLengthLimit()
+  {
+    return TEXT_LIMIT;
+  }
 
   @NonNull
   @Override

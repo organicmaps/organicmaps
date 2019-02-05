@@ -466,10 +466,9 @@
     <activity
       android:name="com.mapswithme.maps.ugc.routes.EditCategoryNameActivity"
       android:label="@string/name"/>
-
     <activity
       android:name="com.mapswithme.maps.ugc.routes.EditCategoryDescriptionActivity"
-      android:label="@string/description"/>
+      android:label="@string/description_guide"/>
 
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
