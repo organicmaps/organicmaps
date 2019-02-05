@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -245,11 +244,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onTrackFinished(boolean collapsed);
 
     void onTrackLeftAnimation(float offset);
-  }
-
-  public interface VisibleRectListener
-  {
-    void onVisibleRectChanged(Rect rect);
   }
 
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)

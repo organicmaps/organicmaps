@@ -209,6 +209,7 @@ public class PlacePageView extends NestedScrollView
   @NonNull
   private View mPopularityView;
 
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private UGCController mUgcController;
 
@@ -326,14 +327,6 @@ public class PlacePageView extends NestedScrollView
   public boolean onInterceptTouchEvent(MotionEvent event)
   {
     return mScrollable && super.onInterceptTouchEvent(event);
-  }
-
-  public enum State
-  {
-    HIDDEN,
-    PREVIEW,
-    DETAILS,
-    FULLSCREEN
   }
 
   public interface SetMapObjectListener
@@ -976,12 +969,6 @@ public class PlacePageView extends NestedScrollView
     return mIsFloating;
   }
 
-  public State getState()
-  {
-    // FIXME: adjust this state to the bottom sheet state.
-    return State.HIDDEN;
-  }
-
   private void clearBookmarkWebView()
   {
     mWvBookmarkNote.loadUrl("about:blank");
@@ -1082,18 +1069,6 @@ public class PlacePageView extends NestedScrollView
   }
 
   private void refreshViews(@NonNull NetworkPolicy policy)
-  {
-    if (mMapObject == null)
-    {
-      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
-      return;
-    }
-
-    refreshPreview(mMapObject, null);
-    refreshViewsInternal(mMapObject);
-  }
-
-  public void refreshViews()
   {
     if (mMapObject == null)
     {
@@ -1581,21 +1556,18 @@ public class PlacePageView extends NestedScrollView
 
   public void refreshAzimuth(double northAzimuth)
   {
-    if (isHidden() ||
-        mMapObject == null ||
-        MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+    if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
     final Location location = LocationHelper.INSTANCE.getSavedLocation();
     if (location == null)
       return;
 
-    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject
-                                                                               .getLon(),
-                                                                           location.getLatitude(), location
-                                                                               .getLongitude(),
-                                                                           northAzimuth)
-                                    .getAzimuth();
+    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(),
+                                                                           mMapObject.getLon(),
+                                                                           location.getLatitude(),
+                                                                           location.getLongitude(),
+                                                                           northAzimuth).getAzimuth();
     if (azimuth >= 0)
     {
       UiUtils.show(mAvDirection);
@@ -1749,16 +1721,6 @@ public class PlacePageView extends NestedScrollView
       setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
     else
       setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), true, null);
-
-    // TODO:
-    /*    post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        setState(mBookmarkSet ? State.DETAILS : State.PREVIEW);
-      }
-    });*/
   }
 
   private void showBigDirection()
@@ -1840,36 +1802,10 @@ public class PlacePageView extends NestedScrollView
     return true;
   }
 
-  int getDockedWidth()
-  {
-    int res = getWidth();
-    return (res == 0 ? getLayoutParams().width : res);
-  }
-
   public void hide()
   {
     scrollTo(0, 0);
     detachCountry();
-  }
-
-  public boolean isHidden()
-  {
-    return (getState() == State.HIDDEN);
-  }
-
-  @SuppressWarnings("SimplifiableIfStatement")
-  public boolean hideOnTouch()
-  {
-    if (mIsDocked || mIsFloating)
-      return false;
-
-    if (getState() == State.DETAILS || getState() == State.FULLSCREEN)
-    {
-      hide();
-      return true;
-    }
-
-    return false;
   }
 
   private static boolean isInvalidDownloaderStatus(int status)
