@@ -130,6 +130,9 @@ crashlytics {
 }
 
 configurations.all {
+  if (it.getName().contains("lint"))
+    return
+
   resolutionStrategy {
     force 'com.android.support:multidex:' + propMultiDexVersion
 
