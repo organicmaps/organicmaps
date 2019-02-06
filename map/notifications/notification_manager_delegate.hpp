@@ -5,6 +5,7 @@
 #include "geometry/point2d.hpp"
 
 class DataSource;
+class CachingAddressGetter;
 
 namespace search
 {
@@ -22,7 +23,7 @@ class NotificationManagerDelegate : public NotificationManager::Delegate
 {
 public:
   NotificationManagerDelegate(DataSource const & dataSource, search::CityFinder & cityFinder,
-                              ugc::Api & ugcApi);
+                              CachingAddressGetter & addressGetter, ugc::Api & ugcApi);
 
   // NotificationManager::Delegate overrides:
   ugc::Api & GetUGCApi() override;
@@ -31,6 +32,7 @@ public:
 private:
   DataSource const & m_dataSource;
   search::CityFinder & m_cityFinder;
+  CachingAddressGetter & m_addressGetter;
   ugc::Api & m_ugcApi;
 };
 }

@@ -31,6 +31,7 @@ set(
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
+  caching_address_getter.hpp
   chart_generator.cpp
   chart_generator.hpp
   cloud.cpp

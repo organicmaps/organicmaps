@@ -50,21 +50,4 @@ eye::MapObject MakeEyeMapObject(FeatureType & ft)
 
   return mapObject;
 }
-
-search::ReverseGeocoder::Address GetAddressAtPoint(DataSource const & dataSource,
-                                                   m2::PointD const & pt)
-{
-  double const kDistanceThresholdMeters = 0.5;
-
-  search::ReverseGeocoder const coder(dataSource);
-  search::ReverseGeocoder::Address address;
-  coder.GetNearbyAddress(pt, address);
-
-  // We do not init nearby address info for points that are located
-  // outside of the nearby building.
-  if (address.GetDistance() < kDistanceThresholdMeters)
-    return address;
-
-  return {};
-}
 }  // namespace utils

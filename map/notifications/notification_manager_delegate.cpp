@@ -2,7 +2,7 @@
 
 #include "ugc/api.hpp"
 
-#include "map/utils.hpp"
+#include "map/caching_address_getter.hpp"
 
 #include "search/city_finder.hpp"
 
@@ -16,8 +16,12 @@ namespace notifications
 {
 NotificationManagerDelegate::NotificationManagerDelegate(DataSource const & dataSource,
                                                          search::CityFinder & cityFinder,
+                                                         CachingAddressGetter & addressGetter,
                                                          ugc::Api & ugcApi)
-  : m_dataSource(dataSource), m_cityFinder(cityFinder), m_ugcApi(ugcApi)
+  : m_dataSource(dataSource)
+  , m_cityFinder(cityFinder)
+  , m_addressGetter(addressGetter)
+  , m_ugcApi(ugcApi)
 {
 }
 
@@ -28,7 +32,7 @@ ugc::Api & NotificationManagerDelegate::GetUGCApi()
 
 string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
 {
-  auto const address = utils::GetAddressAtPoint(m_dataSource, pt).FormatAddress();
+  auto const address = m_addressGetter.GetAddressAtPoint(m_dataSource, pt).FormatAddress();
   auto const langIndex = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const city = m_cityFinder.GetCityName(pt, langIndex);
 

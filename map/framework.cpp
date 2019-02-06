@@ -385,7 +385,7 @@ void Framework::Migrate(bool keepDownloaded)
   RegisterAllMaps();
   m_notificationManager.SetDelegate(
     std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
-                                                  *m_ugcApi));
+                                                  m_addressGetter, *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -554,7 +554,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_notificationManager.SetDelegate(
     std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
-                                                  *m_ugcApi));
+                                                  m_addressGetter, *m_ugcApi));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
 
@@ -815,7 +815,7 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
-  return utils::GetAddressAtPoint(m_model.GetDataSource(), pt);
+  return m_addressGetter.GetAddressAtPoint(m_model.GetDataSource(), pt);
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const

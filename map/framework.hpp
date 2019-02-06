@@ -5,6 +5,7 @@
 #include "map/booking_filter_processor.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/caching_address_getter.hpp"
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
@@ -857,6 +858,7 @@ public:
 
 private:
   unique_ptr<search::CityFinder> m_cityFinder;
+  CachingAddressGetter m_addressGetter;
   unique_ptr<ads::Engine> m_adsEngine;
   // The order matters here: storage::CountryInfoGetter and
   // search::CityFinder must be initialized before
