@@ -70,6 +70,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @NonNull
   private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
+  private final SlideListener mSlideListener;
+  @NonNull
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new AnchorBottomSheetBehavior.BottomSheetCallback()
 
@@ -98,6 +100,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
+      mSlideListener.onPlacePageSlide(bottomSheet.getTop());
+
       if (slideOffset < 0)
         return;
 
@@ -148,7 +152,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     int height = coordinatorLayout.getHeight();
     int maxY = mPlacePage.getHeight() > height * (1 - ANCHOR_RATIO)
                ? (int) (height * ANCHOR_RATIO) : height - mPlacePage.getHeight();
-    Resources res = mActivity.getResources();
     return maxY + mOpenBannerTouchSlop;
   }
 
@@ -160,10 +163,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   }
 
   public BottomSheetPlacePageController(@NonNull Activity activity,
-                                        @NonNull AdsRemovalPurchaseControllerProvider provider)
+                                        @NonNull AdsRemovalPurchaseControllerProvider provider,
+                                        @NonNull SlideListener listener)
   {
     mActivity = activity;
     mPurchaseControllerProvider = provider;
+    mSlideListener = listener;
   }
 
   @Override
@@ -297,8 +302,14 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         mPlacePageBehavior.setPeekHeight(peekHeight);
       }
     });
+    animator.addUpdateListener(animation -> onUpdateTranslation());
 
     animator.start();
+  }
+
+  private void onUpdateTranslation()
+  {
+    mSlideListener.onPlacePageSlide((int) (mPlacePage.getTop() + mPlacePage.getTranslationY()));
   }
 
   private void setPlacePageAnchor()

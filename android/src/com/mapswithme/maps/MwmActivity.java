@@ -153,7 +153,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  OnSubwayLayerToggleListener,
                                  BookmarkManager.BookmarksCatalogListener,
                                  AdsRemovalPurchaseControllerProvider,
-                                 AdsRemovalActivationCallback
+                                 AdsRemovalActivationCallback,
+                                 PlacePageController.SlideListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -234,6 +235,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PurchaseController<FailedPurchaseChecker> mBookmarkPurchaseController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageController mPlacePageController;
 
@@ -475,8 +477,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
-    mPlacePageController = new BottomSheetPlacePageController(this, this);
+    mPlacePageController = new BottomSheetPlacePageController(this, this, this);
     mPlacePageController.initialize();
+
     mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews();
 
@@ -1528,11 +1531,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onProgress(float translationX, float translationY)
   {
     if (mNavAnimationController != null)
-      mNavAnimationController.onPlacePageMoved(translationY);
+      mNavAnimationController.move(translationY);
     if (mPlacePageTracker != null)
       mPlacePageTracker.onMove();
   }
 */
+
+  @Override
+  public void onPlacePageSlide(int top)
+  {
+    if (mNavAnimationController != null)
+      mNavAnimationController.move(top);
+  }
 
   @Override
   public void onClick(View v)

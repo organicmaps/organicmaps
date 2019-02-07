@@ -14,4 +14,9 @@ public interface PlacePageController extends Initializable, Savable<Bundle>,
   void openFor(@NonNull MapObject object);
   void close();
   boolean isClosed();
+
+  interface SlideListener
+  {
+    void onPlacePageSlide(int top);
+  }
 }

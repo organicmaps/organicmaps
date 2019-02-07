@@ -181,13 +181,12 @@ class NavigationButtonsAnimationController
     });
   }
 
-  void onPlacePageMoved(float translationY)
+  void move(float translationY)
   {
-    if (UiUtils.isLandscape(mMyPosition.getContext()) || mMyPositionBottom == 0 || mContentHeight == 0)
+    if (mMyPositionBottom == 0 || mContentHeight == 0)
       return;
 
-    final float amount = mCurrentOffset > 0 ? mMargin : -mMargin;
-    final float translation = translationY - (mMyPositionBottom - mCurrentOffset + amount);
+    final float translation = translationY - (mMyPositionBottom - mCurrentOffset);
     update(translation <= mCurrentOffset ? translation : mCurrentOffset);
   }
 
@@ -238,6 +237,7 @@ class NavigationButtonsAnimationController
            && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
   }
 
+  // TODO: check for tablet
   void slide(boolean isDown, float distance)
   {
     if (UiUtils.isLandscape(mMyPosition.getContext())
