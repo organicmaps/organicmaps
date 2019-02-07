@@ -49,12 +49,14 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
   private static final int REQ_CODE_ERROR_HTML_FORMATTING_DIALOG = 109;
+  private static final int REQ_CODE_UPDATE_CONFIRMATION_DIALOG = 110;
 
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String NOT_ENOUGH_BOOKMARKS_DIALOG_TAG = "not_enough_bookmarks_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
+  private static final String UPDATE_CONFIRMATION_DIALOG_TAG = "update_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
   private static final int MIN_REQUIRED_CATEGORY_SIZE = 3;
 
@@ -210,15 +212,38 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     View getDirectLinkView = root.findViewById(R.id.get_direct_link_text);
     getDirectLinkView.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
-    mUpdateGuideDirectLinkBtn.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
+    mUpdateGuideDirectLinkBtn.setOnClickListener(v -> onUpdateDirectLinkClicked());
     View uploadAndPublishView = root.findViewById(R.id.upload_and_publish_text);
     uploadAndPublishView.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
-    mUpdateGuidePublicAccessBtn.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
+    mUpdateGuidePublicAccessBtn.setOnClickListener(v -> onUpdatePublicAccessClicked());
     mShareDirectLinkBtn.setOnClickListener(v -> onDirectLinkShared());
     View sharePublishedBtn = mPublishingCompletedStatusContainer.findViewById(R.id.share_published_category_btn);
     sharePublishedBtn.setOnClickListener(v -> onPublishedCategoryShared());
     View editOnWebBtn = root.findViewById(R.id.edit_on_web_btn);
     editOnWebBtn.setOnClickListener(v -> onEditOnWebClicked());
+  }
+
+  private void onUpdatePublicAccessClicked()
+  {
+    mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
+    onUpdateClickedInternal();
+  }
+
+  private void onUpdateDirectLinkClicked()
+  {
+    mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
+    onUpdateClickedInternal();
+  }
+
+  private void onUpdateClickedInternal()
+  {
+    if (isNetworkConnectionAbsent())
+    {
+      showNoNetworkConnectionDialog();
+      return;
+    }
+
+    showUpdateCategoryConfirmationDialog();
   }
 
   private void onEditOnWebClicked()
@@ -283,6 +308,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onUploadAndPublishBtnClicked()
   {
+    /* FIXME */
 /*    if (mCategory.size() < MIN_REQUIRED_CATEGORY_SIZE)
     {
       showNotEnoughBookmarksDialog();
@@ -543,7 +569,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
       Utils.showSystemSettings(getContext());
-    else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG)
+    else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+             || requestCode == REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
       requestUpload();
   }
 
@@ -597,6 +624,20 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                            R.string.cancel,
                            UPLOAD_CONFIRMATION_DIALOG_TAG, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
                           );
+  }
+
+  private void showUpdateCategoryConfirmationDialog()
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.any_access_update_alert_title)
+        .setMessageId(R.string.any_access_update_alert_message)
+        .setPositiveBtnId(R.string.any_access_update_alert_update)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
+    dialog.setTargetFragment(this, REQ_CODE_UPDATE_CONFIRMATION_DIALOG);
+    dialog.show(this, UPDATE_CONFIRMATION_DIALOG_TAG);
   }
 
   private void showUnresolvedConflictsErrorDialog()
