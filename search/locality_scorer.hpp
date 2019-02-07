@@ -30,7 +30,6 @@ public:
 
     virtual void GetNames(uint32_t featureId, std::vector<std::string> & names) const = 0;
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
-    virtual CBV GetMatchedFeatures(strings::UniString const & token, bool isPrefix) const = 0;
   };
 
   LocalityScorer(QueryParams const & params, Delegate const & delegate);
@@ -38,7 +37,7 @@ public:
   // Leaves at most |limit| elements of |localities|, ordered by their
   // features.
   void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
-                        CBV const & filter, size_t limit, std::vector<Locality> & localities);
+                        CBV const & filter, size_t limit, std::vector<Locality> & localities) const;
 
 private:
   struct ExLocality

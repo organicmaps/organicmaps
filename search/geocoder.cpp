@@ -185,24 +185,6 @@ public:
 
   uint8_t GetRank(uint32_t featureId) const override { return m_ranks.Get(featureId); }
 
-  CBV GetMatchedFeatures(strings::UniString const & token, bool isPrefix) const override
-  {
-    if (isPrefix)
-    {
-      SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> request;
-      request.m_names.emplace_back(strings::UniStringDFA(token));
-      request.SetLangs(m_params.GetLangs());
-      return CBV{m_retrieval.RetrieveAddressFeatures(request)};
-    }
-    else
-    {
-      SearchTrieRequest<strings::UniStringDFA> request;
-      request.m_names.emplace_back(token);
-      request.SetLangs(m_params.GetLangs());
-      return CBV{m_retrieval.RetrieveAddressFeatures(request)};
-    }
-  }
-
 private:
   MwmContext const & m_context;
   Geocoder::Params const & m_params;

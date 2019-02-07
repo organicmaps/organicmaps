@@ -121,24 +121,6 @@ public:
     return it == m_ranks.end() ? 0 : it->second;
   }
 
-  CBV GetMatchedFeatures(strings::UniString const & token, bool isPrefix) const override
-  {
-    vector<uint64_t> ids;
-
-    if (isPrefix)
-    {
-      m_searchIndex.ForEachInSubtree(token, [&ids](strings::UniString const & /* prefix */,
-                                                   uint32_t id) { ids.push_back(id); });
-    }
-    else
-    {
-      m_searchIndex.ForEachInNode(token, [&ids](uint32_t id) { ids.push_back(id); });
-    }
-
-    base::SortUnique(ids);
-    return CBV{coding::CompressedBitVectorBuilder::FromBitPositions(move(ids))};
-  }
-
 protected:
   QueryParams m_params;
   unordered_map<uint32_t, vector<string>> m_names;

@@ -4,10 +4,13 @@
 #include "search/geocoder_context.hpp"
 #include "search/idf_map.hpp"
 #include "search/token_slice.hpp"
+#include "search/utils.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/dfa_helpers.hpp"
+#include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -16,27 +19,50 @@
 #include <utility>
 
 using namespace std;
+using namespace strings;
 
 namespace search
 {
 namespace
 {
-struct IdfMapDelegate : public IdfMap::Delegate
+class IdfMapDelegate : public IdfMap::Delegate
 {
-  IdfMapDelegate(LocalityScorer::Delegate const & delegate, CBV const & filter)
-    : m_delegate(delegate), m_filter(filter)
+public:
+  IdfMapDelegate(vector<pair<LevenshteinDFA, uint64_t>> const & tokensToDf,
+                 vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> const & prefixToDf)
+    : m_tokensToDf(tokensToDf), m_prefixToDf(prefixToDf)
   {
   }
 
   ~IdfMapDelegate() override = default;
 
-  uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const override
+  uint64_t GetNumDocs(UniString const & token, bool isPrefix) const override
   {
-    return m_filter.Intersect(m_delegate.GetMatchedFeatures(token, isPrefix)).PopCount();
+    if (isPrefix)
+    {
+      for (auto const & dfa : m_prefixToDf)
+      {
+        auto it = dfa.first.Begin();
+        DFAMove(it, token);
+        if (it.Accepts())
+          return dfa.second;
+      }
+      return 0;
+    }
+
+    for (auto const & dfa : m_tokensToDf)
+    {
+      auto it = dfa.first.Begin();
+      DFAMove(it, token);
+      if (it.Accepts())
+        return dfa.second;
+    }
+    return 0;
   }
 
-  LocalityScorer::Delegate const & m_delegate;
-  CBV const & m_filter;
+private:
+  vector<pair<LevenshteinDFA, uint64_t>> const & m_tokensToDf;
+  vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> const & m_prefixToDf;
 };
 }  // namespace
 
@@ -57,7 +83,7 @@ LocalityScorer::LocalityScorer(QueryParams const & params, Delegate const & dele
 
 void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
                                       CBV const & filter, size_t limit,
-                                      vector<Locality> & localities)
+                                      vector<Locality> & localities) const
 {
   double const kUnknownIdf = 1.0;
 
@@ -66,21 +92,38 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   localities.clear();
 
   vector<CBV> intersections(ctx.m_numTokens);
-  for (size_t i = 0; i < ctx.m_numTokens; ++i)
-    intersections[i] = filter.Intersect(ctx.m_features[i]);
-
-  IdfMapDelegate delegate(m_delegate, filter);
-  IdfMap idfs(delegate, kUnknownIdf);
-  if (ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix())
+  vector<pair<LevenshteinDFA, uint64_t>> tokensToDf;
+  vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> prefixToDf;
+  bool const havePrefix = ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix();
+  size_t const nonPrefixTokens = havePrefix ? ctx.m_numTokens - 1 : ctx.m_numTokens;
+  for (size_t i = 0; i < nonPrefixTokens; ++i)
   {
-    auto const numDocs = intersections.back().PopCount();
-    double idf = kUnknownIdf;
-    if (numDocs > 0)
-      idf = 1.0 / static_cast<double>(numDocs);
-    m_params.GetToken(ctx.m_numTokens - 1).ForEach([&idfs, &idf](strings::UniString const & s) {
-      idfs.Set(s, true /* isPrefix */, idf);
-    });
+    intersections[i] = filter.Intersect(ctx.m_features[i]);
+    auto const df = intersections.back().PopCount();
+    if (df != 0)
+    {
+      m_params.GetToken(i).ForEach([&tokensToDf, &df](UniString const & s) {
+        tokensToDf.emplace_back(BuildLevenshteinDFA(s), df);
+      });
+    }
   }
+
+  if (havePrefix)
+  {
+    auto const count = ctx.m_numTokens - 1;
+    intersections[count] = filter.Intersect(ctx.m_features[count]);
+    auto const prefixDf = intersections.back().PopCount();
+    if (prefixDf != 0)
+    {
+      m_params.GetToken(count).ForEach([&prefixToDf, &prefixDf](UniString const & s) {
+        prefixToDf.emplace_back(PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s)),
+                                prefixDf);
+      });
+    }
+  }
+
+  IdfMapDelegate delegate(tokensToDf, prefixToDf);
+  IdfMap idfs(delegate, kUnknownIdf);
 
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
   {
@@ -213,7 +256,7 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
 
   for (auto const & name : names)
   {
-    vector<strings::UniString> tokens;
+    vector<UniString> tokens;
     NormalizeAndTokenizeString(name, tokens);
 
     DocVec::Builder builder;

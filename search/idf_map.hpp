@@ -19,11 +19,6 @@ public:
 
   IdfMap(Delegate const & delegate, double unknownIdf);
 
-  void Set(strings::UniString const & s, bool isPrefix, double idf)
-  {
-    SetImpl(isPrefix ? m_prefixIdfs : m_fullIdfs, s, idf);
-  }
-
   double Get(strings::UniString const & s, bool isPrefix)
   {
     return GetImpl(isPrefix ? m_prefixIdfs : m_fullIdfs, s, isPrefix);
@@ -32,7 +27,6 @@ public:
 private:
   using Map = std::map<strings::UniString, double>;
 
-  void SetImpl(Map & idfs, strings::UniString const & s, double idf) { idfs[s] = idf; }
   double GetImpl(Map & idfs, strings::UniString const & s, bool isPrefix);
 
   Map m_fullIdfs;
