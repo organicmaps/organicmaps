@@ -91,11 +91,17 @@ public final class Notifier
         PendingIntent.getActivity(mContext, 0, reviewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
     String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
+    String content = source.getAddress().isEmpty()
+                     ? source.getReadableName()
+                     : source.getReadableName() + ", " + source.getAddress();
+
     NotificationCompat.Builder builder =
-        getBuilder(mContext.getString(R.string.notification_leave_review_title,
-                                      source.getReadableName()),
-                   mContext.getString(R.string.notification_leave_review_content),
-                   pi, channel)
+        getBuilder(mContext.getString(R.string.notification_leave_review_v2_android_short_title),
+                   content, pi, channel)
+        .setStyle(new NotificationCompat.BigTextStyle()
+                       .setBigContentTitle(
+                         mContext.getString(R.string.notification_leave_review_v2_title))
+                       .bigText(content))
         .addAction(0, mContext.getString(R.string.leave_a_review), pi);
 
     getNotificationManager().notify(ID_LEAVE_REVIEW, builder.build());

@@ -140,9 +140,8 @@ using namespace storage;
   self.onReviewNotification = onReviewNotification;
 
   UILocalNotification * notification = [[UILocalNotification alloc] init];
-  notification.alertTitle = [NSString stringWithCoreFormat:L(@"notification_leave_review_title")
-                                                 arguments:@[place]];
-  notification.alertBody = L(@"notification_leave_review_content");
+  notification.alertTitle = L(@"notification_leave_review_v2_title");
+  notification.alertBody = place;
   notification.alertAction = L(@"leave_a_review");
   notification.soundName = UILocalNotificationDefaultSoundName;
   notification.userInfo = @{kLocalNotificationNameKey : kReviewNotificationValue};

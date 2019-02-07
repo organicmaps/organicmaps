@@ -460,8 +460,12 @@ using namespace osm_auth_ios;
     auto const notification = notificationCandidate.get();
     if (notification.GetType() == notifications::NotificationCandidate::Type::UgcReview)
     {
+      auto const place = notification.GetAddress().empty()
+                   ? notification.GetReadableName()
+                   : notification.GetReadableName() + ", " + notification.GetAddress();
+                   
       [LocalNotificationManager.sharedManager
-       showReviewNotificationForPlace:@(notification.GetReadableName().c_str())
+       showReviewNotificationForPlace:@(place.c_str())
        onTap:^{
          [Statistics logEvent:kStatUGCReviewNotificationClicked];
          place_page::Info info;
