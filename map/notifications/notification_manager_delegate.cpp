@@ -30,7 +30,7 @@ ugc::Api & NotificationManagerDelegate::GetUGCApi()
   return m_ugcApi;
 }
 
-string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
+std::string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
 {
   auto const address = m_addressGetter.GetAddressAtPoint(m_dataSource, pt).FormatAddress();
   auto const langIndex = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());

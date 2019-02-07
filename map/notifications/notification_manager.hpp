@@ -11,7 +11,6 @@
 #include <string>
 
 #include <boost/optional.hpp>
-#include <search/reverse_geocoder.hpp>
 
 namespace notifications
 {

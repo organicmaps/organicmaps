@@ -4,6 +4,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include <string>
+
 class DataSource;
 class CachingAddressGetter;
 
@@ -27,7 +29,7 @@ public:
 
   // NotificationManager::Delegate overrides:
   ugc::Api & GetUGCApi() override;
-  string GetAddress(m2::PointD const & pt) override;
+  std::string GetAddress(m2::PointD const & pt) override;
 
 private:
   DataSource const & m_dataSource;
@@ -35,4 +37,4 @@ private:
   CachingAddressGetter & m_addressGetter;
   ugc::Api & m_ugcApi;
 };
-}
+}  // namespace notifications

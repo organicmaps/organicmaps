@@ -5,7 +5,7 @@
 namespace notifications
 {
 NotificationCandidate::NotificationCandidate(Type type)
-  : m_type(NotificationCandidate::Type::UgcReview)
+  : m_type(type)
   , m_created(Clock::now())
 {
 }

@@ -2,8 +2,6 @@
 
 #include "metrics/eye_info.hpp"
 
-#include "geometry/point2d.hpp"
-
 namespace place_page
 {
 class Info;
