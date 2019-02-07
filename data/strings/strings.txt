@@ -37264,6 +37264,11 @@
   [html_error_upload_message_try_again]
     comment = FIXME. Please make sure that names and description
     en = [html_error_upload_message_try_again]
+
   [html_error_upload_title_try_again]
     comment = FIXME. Your guide couldn't be uploaded
     en = [html_error_upload_title_try_again]
+
+  [notification_leave_review_v2_android_short_title]
+    comment = FIXME.
+    en = Review and help travellers!
