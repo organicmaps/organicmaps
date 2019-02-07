@@ -19,19 +19,8 @@
   <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-      android:id="@+id/title"
-      android:minHeight="@dimen/height_block_base"
-      android:gravity="center_vertical"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:fontFamily="@string/robotoMedium"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
-      tools:ignore="UnusedAttribute"/>
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_base">
     <include layout="@layout/list_divider"/>
     <LinearLayout
       android:orientation="vertical"
@@ -44,19 +33,18 @@
       android:background="?attr/cardBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <EditText
-        android:id="@+id/edit_text_field"
+      <com.mapswithme.maps.widget.CustomTextInputLayout
+        android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:hint="@string/name_placeholder"
-        android:background="@null"
-        android:layout_height="0dp"/>
-      <View
-        android:background="?attr/iconTintDisabled"
-        android:layout_marginTop="@dimen/margin_half"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"/>
+        android:layout_height="0dp">
+        <EditText
+          android:id="@+id/edit_text_field"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:hint="@string/name_placeholder"
+          android:textColorHint="?attr/iconTintDisabled"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+      </com.mapswithme.maps.widget.CustomTextInputLayout>
       <TextView
         android:id="@+id/characters_amount"
         android:layout_gravity="end"

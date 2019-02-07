@@ -70,13 +70,12 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     setHasOptionsMenu(true);
     mEditText = root.findViewById(R.id.edit_text_field);
     InputFilter[] inputFilters = { new InputFilter.LengthFilter(mTextLimit) };
+    mEditText.setHint(getTitleText());
     mEditText.setFilters(inputFilters);
     mEditText.setText(getEditableText());
     mEditText.addTextChangedListener(new TextRestrictionWatcher());
     mCharactersAmountText = root.findViewById(R.id.characters_amount);
     mCharactersAmountText.setText(makeFormattedCharsAmount(getEditableText(), mTextLimit));
-    TextView titleView = root.findViewById(R.id.title);
-    titleView.setText(getTitleText());
     TextView summaryView = root.findViewById(R.id.summary);
     summaryView.setText(getTopSummaryText());
     summaryView.append(DOUBLE_BREAK_LINE_CHAR);
