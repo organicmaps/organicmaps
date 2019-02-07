@@ -339,12 +339,14 @@ size_t OrderCountries(boost::optional<m2::PointD> const & position, m2::RectD co
 Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories,
                    CitiesBoundariesTable const & citiesBoundaries, PreRanker & preRanker,
-                   VillagesCache & villagesCache, base::Cancellable const & cancellable)
+                   VillagesCache & villagesCache, LocalitiesCache & localitiesCache,
+                   base::Cancellable const & cancellable)
   : m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_categories(categories)
   , m_streetsCache(cancellable)
   , m_villagesCache(villagesCache)
+  , m_localitiesCache(localitiesCache)
   , m_hotelsCache(cancellable)
   , m_foodCache(cancellable)
   , m_hotelsFilter(m_hotelsCache)
@@ -635,8 +637,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
   vector<Locality> preLocalities;
 
-  CBV filter;
-  filter.SetFull();
+  CBV filter = m_localitiesCache.Get(*m_context);
   FillLocalityCandidates(ctx, filter, kMaxNumLocalities, preLocalities);
 
   size_t numCities = 0;

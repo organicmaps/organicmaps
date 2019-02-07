@@ -132,13 +132,14 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_villagesCache(static_cast<base::Cancellable const &>(*this))
+  , m_localitiesCache(static_cast<base::Cancellable const &>(*this))
   , m_citiesBoundaries(dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<base::Cancellable const &>(*this))
   , m_preRanker(dataSource, m_ranker)
   , m_geocoder(dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_villagesCache,
-               static_cast<base::Cancellable const &>(*this))
+               m_localitiesCache, static_cast<base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
@@ -610,6 +611,7 @@ void Processor::ClearCaches()
 {
   m_geocoder.ClearCaches();
   m_villagesCache.Clear();
+  m_localitiesCache.Clear();
   m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
   m_viewport.MakeEmpty();

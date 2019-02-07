@@ -58,6 +58,12 @@ public:
   VillagesCache(base::Cancellable const & cancellable);
 };
 
+class LocalitiesCache : public CategoriesCache
+{
+public:
+  LocalitiesCache(base::Cancellable const & cancellable);
+};
+
 class HotelsCache : public CategoriesCache
 {
 public:

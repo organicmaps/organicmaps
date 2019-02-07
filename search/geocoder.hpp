@@ -95,7 +95,7 @@ public:
 
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
            CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries,
-           PreRanker & preRanker, VillagesCache & villagesCache,
+           PreRanker & preRanker, VillagesCache & villagesCache, LocalitiesCache & localitiesCache,
            base::Cancellable const & cancellable);
   ~Geocoder();
 
@@ -148,7 +148,7 @@ private:
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename Locality>
-  using LocalitiesCache = map<TokenRange, vector<Locality>>;
+  using TokenToLocalities = map<TokenRange, vector<Locality>>;
 
   QueryParams::Token const & GetTokens(size_t i) const;
 
@@ -252,6 +252,7 @@ private:
 
   StreetsCache m_streetsCache;
   VillagesCache & m_villagesCache;
+  LocalitiesCache & m_localitiesCache;
   HotelsCache m_hotelsCache;
   FoodCache m_foodCache;
   hotels_filter::HotelsFilter m_hotelsFilter;
@@ -276,12 +277,12 @@ private:
 
   // m_cities stores both big cities that are visible at World.mwm
   // and small villages and hamlets that are not.
-  LocalitiesCache<City> m_cities;
-  LocalitiesCache<Region> m_regions[Region::TYPE_COUNT];
+  TokenToLocalities<City> m_cities;
+  TokenToLocalities<Region> m_regions[Region::TYPE_COUNT];
   CitiesBoundariesTable const & m_citiesBoundaries;
 
   // Caches of features in rects. These caches are separated from
-  // TLocalitiesCache because the latter are quite lightweight and not
+  // TokenToLocalities because the latter are quite lightweight and not
   // all of them are needed.
   PivotRectsCache m_pivotRectsCache;
   LocalityRectsCache m_localityRectsCache;

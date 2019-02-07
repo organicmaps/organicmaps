@@ -131,6 +131,7 @@ protected:
   int8_t m_currentLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;
 
   VillagesCache m_villagesCache;
+  LocalitiesCache m_localitiesCache;
   CitiesBoundariesTable m_citiesBoundaries;
 
   KeywordLangMatcher m_keywordsScorer;
