@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.util.Utils;
 
 public class RutaxiPromoProcessor implements PromoCategoryProcessor
@@ -18,6 +19,6 @@ public class RutaxiPromoProcessor implements PromoCategoryProcessor
   @Override
   public void process()
   {
-    Utils.openUrl(mActivity, "https://go.onelink.me/2944814706/86db6339");
+    Utils.openUrl(mActivity, Framework.nativeGetMegafonCategoryBannerUrl());
   }
 }

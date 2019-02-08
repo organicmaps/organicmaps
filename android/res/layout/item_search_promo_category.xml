@@ -21,8 +21,7 @@
     android:layout_centerVertical="true"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginLeft="@dimen/margin_base"
-    android:layout_below="@id/ad_choices_label"
-    tools:src="@drawable/ic_category_taxi"/>
+    android:layout_below="@id/ad_choices_label"/>
   <TextView
     android:id="@+id/promo_title"
     android:layout_width="wrap_content"

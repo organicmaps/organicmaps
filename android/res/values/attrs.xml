@@ -102,4 +102,5 @@
   <attr name="filterPropertyTextColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>
   <attr name="adsRemovalOptionsDivider" format="color"/>
+  <attr name="searchPromoLogo" format="reference"/>
 </resources>

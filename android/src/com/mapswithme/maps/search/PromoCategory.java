@@ -13,26 +13,26 @@ import java.util.List;
 
 public enum PromoCategory
 {
-  RUTAXI
+  MEGAFON
       {
         @NonNull
         @Override
         String getKey()
         {
-          return "taxi";
+          return "megafon";
         }
 
         @Override
         int getStringId()
         {
-          return R.string.taxi;
+          return R.string.megafon;
         }
 
         @NonNull
         @Override
         String getProvider()
         {
-          return "RuTaxi";
+          return "Megafon";
         }
 
         @Override
@@ -53,6 +53,12 @@ public enum PromoCategory
         {
           return Framework.nativeHasMegafonCategoryBanner();
         }
+
+        @Override
+        int getCallToActionText()
+        {
+          return R.string.details;
+        }
       };
 
   @NonNull
@@ -67,6 +73,9 @@ public enum PromoCategory
   abstract int getPosition();
 
   abstract boolean isSupported();
+
+  @StringRes
+  abstract int getCallToActionText();
 
   @NonNull
   abstract PromoCategoryProcessor createProcessor(@NonNull Activity activity);
