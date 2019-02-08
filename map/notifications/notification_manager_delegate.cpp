@@ -8,8 +8,6 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
 
 namespace notifications
@@ -33,8 +31,7 @@ ugc::Api & NotificationManagerDelegate::GetUGCApi()
 std::string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
 {
   auto const address = m_addressGetter.GetAddressAtPoint(m_dataSource, pt).FormatAddress();
-  auto const langIndex = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  auto const city = m_cityFinder.GetCityName(pt, langIndex);
+  auto const city = m_cityFinder.GetCityName(pt);
 
   if (address.empty())
     return city;

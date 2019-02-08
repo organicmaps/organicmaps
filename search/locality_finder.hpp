@@ -2,8 +2,11 @@
 
 #include "search/cities_boundaries_table.hpp"
 
+#include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
+
+#include "platform/preferred_languages.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -38,6 +41,20 @@ struct LocalityItem
   bool GetSpecifiedOrDefaultName(int8_t lang, string & name) const
   {
     return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
+  }
+
+  bool GetReadableName(string & name) const
+  {
+    auto const mwmInfo = m_id.m_mwmId.GetInfo();
+
+    if (!mwmInfo)
+      return false;
+
+    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+    feature::GetReadableName(mwmInfo->GetRegionData(), m_names, deviceLang,
+                             false /* allowTranslit */, name);
+
+    return !name.empty();
   }
 
   StringUtf8Multilang m_names;

@@ -17,8 +17,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/logging.hpp"
@@ -487,7 +485,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   {
     m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
       string city;
-      if (item.GetSpecifiedOrDefaultName(m_localeCode, city))
+      if (item.GetReadableName(city))
         res.PrependCity(city);
     });
   }
@@ -592,7 +590,6 @@ void Ranker::ClearCaches() { m_localities.ClearCache(); }
 
 void Ranker::SetLocale(string const & locale)
 {
-  m_localeCode = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
   m_regionInfoGetter.SetLocale(locale);
 }
 

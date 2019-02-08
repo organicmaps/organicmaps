@@ -21,6 +21,13 @@ string CityFinder::GetCityName(m2::PointD const & p, int8_t lang)
   return city;
 }
 
+string CityFinder::GetCityName(m2::PointD const & p)
+{
+  string city;
+  m_finder.GetLocality(p, [&](LocalityItem const & item) { item.GetReadableName(city); });
+  return city;
+}
+
 FeatureID CityFinder::GetCityFeatureID(m2::PointD const & p)
 {
   FeatureID id;

@@ -49,10 +49,9 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
     return;
 
   string name;
-  if (!ft.GetName(StringUtf8Multilang::kDefaultCode, name))
+  ft.GetReadableName(name);
+  if (name.empty())
     return;
-
-  ASSERT(!name.empty(), ());
 
   streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
 }
@@ -263,7 +262,7 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
     double distance;
     m_dataSource.ReadFeature(
         [&](FeatureType & ft) {
-          ft.GetName(StringUtf8Multilang::kDefaultCode, streetName);
+          ft.GetReadableName(streetName);
           distance = feature::GetMinDistanceMeters(ft, bld.m_center);
         },
         streetFeature);

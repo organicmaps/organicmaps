@@ -131,7 +131,6 @@ private:
   KeywordLangMatcher & m_keywordsScorer;
 
   mutable LocalityFinder m_localities;
-  int8_t m_localeCode;
   RegionInfoGetter m_regionInfoGetter;
 
   DataSource const & m_dataSource;
