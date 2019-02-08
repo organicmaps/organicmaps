@@ -5,6 +5,7 @@
 #include "map/booking_filter_processor.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/caching_address_getter.hpp"
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
@@ -51,6 +52,7 @@
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
 #include "search/result.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
@@ -125,6 +127,11 @@ namespace descriptions
 class Loader;
 }
 
+namespace notifications
+{
+class NotificationCandidate;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -144,7 +151,6 @@ struct FrameworkParams
 class Framework : public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
                   public TipsApi::Delegate,
-                  public notifications::NotificationManager::Delegate,
                   private power_management::PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
@@ -262,8 +268,7 @@ public:
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
-  // NotificationManager::Delegate override.
-  ugc::Api * GetUGCApi() override { return m_ugcApi.get(); }
+  ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
   ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
@@ -669,8 +674,6 @@ public:
   url_scheme::SearchRequest GetParsedSearchRequest() const;
 
 private:
-  // TODO(vng): Uncomment when needed.
-  //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 
@@ -693,17 +696,8 @@ public:
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
   void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
 
-  /// @returns address of nearby building with house number in approx 1km distance.
-  search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
+  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
-  /// @returns Valid street address only if it was specified in OSM for given feature;
-  /// @todo This functions are used in desktop app only. Should we really need them?
-  //@{
-  search::AddressInfo GetFeatureAddressInfo(FeatureType & ft) const;
-  search::AddressInfo GetFeatureAddressInfo(FeatureID const & fid) const;
-  //@}
-
-  vector<string> GetPrintableFeatureTypes(FeatureType & ft) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns nullptr if no feature was found at the given mercator point.
@@ -864,6 +858,7 @@ public:
 
 private:
   unique_ptr<search::CityFinder> m_cityFinder;
+  CachingAddressGetter m_addressGetter;
   unique_ptr<ads::Engine> m_adsEngine;
   // The order matters here: storage::CountryInfoGetter and
   // search::CityFinder must be initialized before
@@ -915,7 +910,8 @@ public:
   bool HaveTransit(m2::PointD const & pt) const override;
   double GetLastBackgroundTime() const override;
 
-  bool MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const;
+  bool MakePlacePageInfo(notifications::NotificationCandidate const & notification,
+                         place_page::Info & info) const;
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 

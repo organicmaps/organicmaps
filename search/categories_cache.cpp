@@ -62,6 +62,12 @@ VillagesCache::VillagesCache(base::Cancellable const & cancellable)
 {
 }
 
+// LocalitiesCache ----------------------------------------------------------------------------------
+LocalitiesCache::LocalitiesCache(base::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsLocalityChecker::Instance(), cancellable)
+{
+}
+
 // HotelsCache -------------------------------------------------------------------------------------
 HotelsCache::HotelsCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsHotelChecker::Instance(), cancellable)

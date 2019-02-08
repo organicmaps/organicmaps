@@ -97,12 +97,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   }
 
   @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-  {
-    super.onViewCreated(view, savedInstanceState);
-  }
-
-  @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
     inflater.inflate(R.menu.menu_done, menu);

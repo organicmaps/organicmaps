@@ -153,11 +153,29 @@ UNIT_TEST(Geocoder_MismatchedLocality)
   TestGeocoder(geocoder, "Moscow Street 3", {});
 }
 
+UNIT_TEST(Geocoder_LocalityBuilding)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Zelenograd"}}}
+
+22 {"properties": {"address": {"building": "2", "locality": "Zelenograd"}}}
+
+31 {"properties": {"address": {"street": "Street", "locality": "Zelenograd"}}}
+32 {"properties": {"address": {"building": "2", "street": "Street", "locality": "Zelenograd"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  base::GeoObjectId const building2(22);
+
+  TestGeocoder(geocoder, "Zelenograd 2", {{building2, 1.0}});
+}
+
 UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
 {
   ScopedFile const regionsJsonFile("regions.jsonl", "");
-  HierarchyReader reader{regionsJsonFile.GetFullPath()};
-  Geocoder geocoder(reader.Read(8 /* reader threads */));
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
 
   TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), 0, ());
 }
@@ -178,8 +196,7 @@ UNIT_TEST(Geocoder_BigFileConcurrentRead)
   }
 
   ScopedFile const regionsJsonFile("regions.jsonl", s.str());
-  HierarchyReader reader{regionsJsonFile.GetFullPath()};
-  Geocoder geocoder(reader.Read(8 /* reader threads */));
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
 
   TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), kEntryCount, ());
 }

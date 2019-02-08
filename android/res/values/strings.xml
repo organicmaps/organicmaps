@@ -1582,6 +1582,8 @@
 	<string name="html_error_upload_message_try_again">[html_error_upload_message_try_again]</string>
 	<!-- FIXME. Your guide couldn't be uploaded -->
 	<string name="html_error_upload_title_try_again">[html_error_upload_title_try_again]</string>
+	<!-- FIXME. -->
+	<string name="notification_leave_review_v2_android_short_title">Review and help travellers!</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2056,7 +2058,7 @@
 	<string name="type.leisure.ice_rink">leisure-ice_rink</string>
 	<string name="type.leisure.landscape_reserve">leisure-landscape_reserve</string>
 	<string name="type.leisure.marina">leisure-marina</string>
-	<string name="type.leisure.nature_reserve">Reserve</string>
+	<string name="type.leisure.nature_reserve">Nature reserve</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

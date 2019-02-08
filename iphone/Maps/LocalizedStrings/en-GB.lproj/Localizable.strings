@@ -2739,6 +2739,9 @@
 /* FIXME. Your guide couldn't be uploaded */
 "html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
 
+/* FIXME. */
+"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+
 
 /**********  Partners  **********/
 
@@ -3685,7 +3688,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Reserve";
+"type.leisure.nature_reserve" = "Nature reserve";
 
 "type.leisure.park" = "Park";
 

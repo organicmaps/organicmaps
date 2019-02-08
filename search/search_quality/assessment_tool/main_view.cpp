@@ -65,7 +65,7 @@ MainView::MainView(Framework & framework) : m_framework(framework)
         if (!m_framework.GetFeatureByID(selectedFeature, ft))
           return;
 
-        auto const address = m_framework.GetAddressInfoAtPoint(feature::GetCenter(ft));
+        auto const address = m_framework.GetAddressAtPoint(feature::GetCenter(ft));
         FeatureInfoDialog dialog(this /* parent */, ft, address, m_sampleLocale);
         dialog.exec();
       },

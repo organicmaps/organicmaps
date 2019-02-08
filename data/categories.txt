@@ -2250,35 +2250,35 @@ sw:^Sehemu ya kusali
 fa:معبد
 
 amenity-place_of_worship-christian|amenity-place_of_worship
-en:^Church|place of worship|temple|U+1F64F|U+26EA|U+271D|U+2626
+en:^Church|place of worship|temple|cathedral|basilica|U+1F64F|U+26EA|U+271D|U+2626
 ru:^Храм|костел|церковь|собор
 ar:^كنيسة|مكان عبادة|معبد
-cs:^Chrám|kostel|posvátné místo
+cs:^Chrám|kostel|posvátné místo|bazilika
 da:^Kirke|tempel|kultsted
 nl:^Kerk|tempel|kathedraal|gebedsplaats|gebedshuis
 fi:^Kirkko|uskonnollinen kohde
-fr:^Église|lieu de culte|temple
+fr:^Église|lieu de culte|temple|basilique
 de:^Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|Tempel
 hu:^Templom
 id:^Gereja|tempat ibadah
-it:^Chiesa|duomo|cattedrale|tempio
+it:^Chiesa|duomo|cattedrale|tempio|basilica
 ja:^教会|寺院|神社|仏閣|神殿|お寺
 ko:^교회|예배 장소|사찰
 nb:^Kirke|gudshus
-pl:^Kościół|świątynia
-pt:^Igreja|local de culto|templo|vistas
-pt-BR:^Igreja|local de culto|templo
+pl:^Kościół|świątynia|bazylika
+pt:^Igreja|local de culto|templo|vistas|basílica
+pt-BR:^Igreja|local de culto|templo|basílica
 ro:^Biserică|loc de cult|templu
-es:^Iglesia|templo|lugar de culto
+es:^Iglesia|templo|lugar de culto|basílica
 sv:^Kyrka|plats för tillbedjan|tempel
 th:^โบสถ์|สถานที่ประกอบพิธีกรรม
 tr:^Kilise|ibadet yerleri|tapınak
-uk:^Церква|пам’ятні місця
+uk:^Церква|пам’ятні місця|собор
 vi:^Chùa|nhà thờ
 zh-Hans:^教堂|礼拜场所|庙|景点
 zh-Hant:^教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
-sk:^Chrám|kostol|svätyňa|posvätné miesto
+sk:^Chrám|kostol|svätyňa|posvätné miesto|bazilika
 fa:کلیسا
 
 amenity-place_of_worship-muslim|amenity-place_of_worship
@@ -2676,7 +2676,7 @@ en:^Ruins|U+1F5FF
 ru:^Руины|развалины
 ar:^آثار|أماكن جذابة|مناظر|سياحة
 cs:^Ruiny|zřícenina
-da:^Ruiner|bunker
+da:^Ruiner
 nl:^Ruïne|attractie
 fi:^Rauniot
 fr:^Ruines|attraction
@@ -9269,19 +9269,163 @@ el:^Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
 boundary-national_park|@tourism
 en:National Park
 ru:Национальный парк
+ar:منتزه وطني
+cs:Národní park
+da:National park
+de:Naturschutzpark
+el:Εθνικό πάρκο
+es:Parque nacional
+fi:Kansallispuisto
+fr:Parc national
+hu:Nemzeti park
+id:Taman Nasional
+it:Parco nazionale
+ja:国立公園
+ko:국립 공원
+nb:Nasonalpark
+nl:Nationaal park
+pl:Park narodowy
+pt:Parque nacional
+pt-BR:Parque nacional
+ro:Parcul național
+sk:Národný park
+sv:Nationalpark
+sw:Hifadhi ya taifa
+th:อุทยานแห่งชาติ
+tr:Ulusal park
+uk:Національний парк
+vi:Công viên quốc gia
+zh-Hans:国家公园
+zh-Hant:國家公園
+fa:پارک ملی
 
 leisure-nature_reserve|@tourism
 en:Nature reserve
 ru:Заповедник
+ar:محمية
+cs:Rezervace
+da:Reservat
+de:Naturschutzgebiet
+el:Φυσικό απόθεμα
+es:Territorio reservado
+fi:Luonnonsuojelualue
+fr:Réserve naturelle
+hu:Védett terület
+id:Cagar Alam
+it:Riserva
+ja:自然保護区
+ko:천연보호구역
+nb:Reservat
+nl:Reserve
+pl:Rezerwat przyrody
+pt:Reserva natural
+pt-BR:Reserva Florestal
+ro:Rezervație naturală
+sk:Rezervácia
+sv:Naturreservat
+sw:Hifadhi
+th:เขตอนุรักษ์ธรรมชาติ
+tr:Doğal koruma alanı
+uk:Заповідник
+vi:Giữ chỗ
+zh-Hans:野生动物园
+zh-Hant:自然保護區
 
 natural-cape
 en:Cape
 ru:Мыс
+ar:رأس
+cs:Mys
+da:Tange
+de:Kap
+el:Ακρωτήρι
+es:Cabo
+fi:Niemeke
+fr:Cap
+hu:Hegytető
+id:Tanjung
+it:Capo
+ja:岬
+ko:곶
+nb:Kapp
+nl:Kaap
+pl:Przylądek
+pt:Cabo
+pt-BR:Cabo
+ro:Mantie
+sk:Mys
+sv:Udde
+sw:Rasi
+th:พื้นที่ยื่นเข้าไปในน้ำ
+tr:Burun
+uk:Мис
+vi:Áo choàng
+zh-Hans:海角
+zh-Hant:海角
+fa:دماغه
 
 natural-geyser
 en:Geyser
 ru:Гейзер
+ar:نبع ماء حار
+cs:Gejzír
+da:Gejser
+de:Geysir
+el:Θερμοπίδακας
+es:Geiser
+fi:Geysir
+fr:Geyser
+hu:Gejzír
+id:Geiser
+it:Geyser
+ja:間欠泉
+ko:온천
+nb:Gaysir
+nl:Geiser
+pl:Gejzer
+pt:Geiser
+pt-BR:Gêiser
+ro:Gheizer
+sk:Gejzír
+sv:Gejser
+sw:Chemchem ya maji moto
+th:นำ้พุร้อน
+tr:Gayzer
+uk:Гейзер
+vi:Suối nước nóng
+zh-Hans:间歇泉
+zh-Hant:間歇泉
+fa:چشمه آب گرم
 
 natural-glacier|@tourism
 en:Glacier
 ru:Ледник
+ar:كتلة جليدية
+cs:Ledovec
+da:Gletsjer
+de:Gletscher
+el:Παγετώνας
+es:Glaciar
+fi:Jäätikkö
+fr:Glacier
+hu:Gleccser
+id:Gletser
+it:Ghiacciaio
+ja:氷河
+ko:빙하
+nb:Isbre
+nl:Gletsjer
+pl:Lodowiec
+pt:Glaciar
+pt-BR:Geleira
+ro:Ghețar
+sk:Ľadovec
+sv:Glaciär
+sw:Mto barafu
+th:ธารน้ำแข็ง
+tr:Buzul
+uk:Льодовик
+vi:Sông băng
+zh-Hans:冰川
+zh-Hant:冰川
+fa:یخچال طبیعی

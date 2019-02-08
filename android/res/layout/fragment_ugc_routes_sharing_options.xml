@@ -34,11 +34,13 @@
           android:gravity="center_vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/limited_access"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"/>
+          android:paddingLeft="@dimen/margin_base"
+          tools:ignore="UnusedAttribute"/>
         <include layout="@layout/list_divider"/>
         <RelativeLayout
           xmlns:android="http://schemas.android.com/apk/res/android"
@@ -146,11 +148,13 @@
           android:gravity="center_vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/public_access"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"/>
+          android:paddingLeft="@dimen/margin_base"
+          tools:ignore="UnusedAttribute"/>
         <include layout="@layout/list_divider"/>
         <RelativeLayout
           android:layout_width="match_parent"
@@ -257,17 +261,18 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--FIXME text id-->
         <TextView
           android:minHeight="@dimen/height_block_base"
           android:gravity="center_vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/edit_on_web"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"/>
+          android:paddingLeft="@dimen/margin_base"
+          tools:targetApi="jelly_bean"/>
         <include layout="@layout/list_divider"/>
         <LinearLayout
           android:id="@+id/edit_on_web_btn_container"
@@ -279,14 +284,14 @@
           <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/upload_and_publish_desc"/>
+            android:text="@string/web_editor_description"/>
           <Button
             android:id="@+id/edit_on_web_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_base"
             style="@style/MwmWidget.Button.Primary"
-            android:text="@string/edit_on_web"
+            android:text="@string/edit_on_web_confirm"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
         </LinearLayout>
         <include layout="@layout/list_divider"/>

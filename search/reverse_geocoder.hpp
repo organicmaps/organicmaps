@@ -66,11 +66,6 @@ public:
     }
   };
 
-  /// Returns a feature id of street from |streets| whose name best matches |keyName|
-  /// or empty value if the match was not found.
-  static boost::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
-                                                         std::vector<Street> const & streets);
-
   struct Address
   {
     Building m_building;
@@ -80,9 +75,17 @@ public:
     std::string const & GetStreetName() const { return m_street.m_name; }
     double GetDistance() const { return m_building.m_distanceMeters; }
     bool IsValid() const { return m_building.IsValid() && m_street.IsValid(); }
+
+    // 7 vulica Frunze
+    std::string FormatAddress() const;
   };
 
   friend std::string DebugPrint(Address const & addr);
+
+  /// Returns a feature id of street from |streets| whose name best matches |keyName|
+  /// or empty value if the match was not found.
+  static boost::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
+                                                         std::vector<Street> const & streets);
 
   /// @return Sorted by distance streets vector for the specified MwmId.
   /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:

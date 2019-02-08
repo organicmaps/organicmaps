@@ -77,11 +77,9 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 
 void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
 {
-  size_t const kMaxNumResultsToSend = 10;
 
-  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
-  string resultString = strings::to_string(numResultsToSend);
-  for (size_t i = 0; i < numResultsToSend; ++i)
+  string resultString = strings::to_string(res.GetCount());
+  for (size_t i = 0; i < res.GetCount(); ++i)
     resultString.append("\t" + res[i].ToStringForStats());
 
   string posX, posY;
@@ -134,13 +132,14 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_villagesCache(static_cast<base::Cancellable const &>(*this))
+  , m_localitiesCache(static_cast<base::Cancellable const &>(*this))
   , m_citiesBoundaries(dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<base::Cancellable const &>(*this))
   , m_preRanker(dataSource, m_ranker)
   , m_geocoder(dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_villagesCache,
-               static_cast<base::Cancellable const &>(*this))
+               m_localitiesCache, static_cast<base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
@@ -434,11 +433,11 @@ void Processor::Search(SearchParams const & params)
     LOG(LDEBUG, ("Search has been cancelled."));
   }
 
-  if (!viewportSearch && !IsCancelled())
-    SendStatistics(params, viewport, m_emitter.GetResults());
-
   // Emit finish marker to client.
   m_geocoder.Finish(IsCancelled());
+
+  if (!viewportSearch && !IsCancelled())
+    SendStatistics(params, viewport, m_emitter.GetResults());
 }
 
 void Processor::SearchCoordinates()
@@ -612,6 +611,7 @@ void Processor::ClearCaches()
 {
   m_geocoder.ClearCaches();
   m_villagesCache.Clear();
+  m_localitiesCache.Clear();
   m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
   m_viewport.MakeEmpty();

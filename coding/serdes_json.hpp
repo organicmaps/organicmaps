@@ -170,6 +170,12 @@ public:
     });
   }
 
+  template <typename Optional>
+  void operator()(Optional const & opt, Optional const &, char const * name = nullptr)
+  {
+    (*this)(opt, name);
+  }
+
 protected:
   template <typename Fn>
   void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
@@ -368,6 +374,19 @@ public:
     (*this)(ll.lat, "lat");
     (*this)(ll.lon, "lon");
     RestoreContext(outerContext);
+  }
+
+  template <typename Optional>
+  void operator()(Optional & opt, Optional const & defaultValue, char const * name = nullptr)
+  {
+    auto json = base::GetJSONOptionalField(m_json, name);
+    if (!json)
+    {
+      opt = defaultValue;
+      return;
+    }
+
+    (*this)(opt, name);
   }
 
 protected:

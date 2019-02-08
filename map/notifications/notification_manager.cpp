@@ -104,9 +104,9 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi)
 
 namespace notifications
 {
-NotificationManager::NotificationManager(NotificationManager::Delegate & delegate)
-  : m_delegate(delegate)
+void NotificationManager::SetDelegate(std::unique_ptr<Delegate> delegate)
 {
+  m_delegate = std::move(delegate);
 }
 
 void NotificationManager::Load()
@@ -136,10 +136,10 @@ void NotificationManager::TrimExpired()
 
   candidates.erase(std::remove_if(candidates.begin(), candidates.end(), [](auto const & item)
   {
-    if (item.m_used.time_since_epoch().count() != 0)
-      return Clock::now() - item.m_used >= eye::Eye::GetMapObjectEventsExpirePeriod();
+    if (item.IsUsed())
+      return Clock::now() - item.GetLastUsedTime() >= eye::Eye::GetMapObjectEventsExpirePeriod();
 
-    return Clock::now() - item.m_created >= kCandidatesExpirePeriod;
+    return Clock::now() - item.GetCreatedTime() >= kCandidatesExpirePeriod;
   }), candidates.end());
 
   if (sizeBefore != candidates.size())
@@ -161,7 +161,7 @@ boost::optional<NotificationCandidate> NotificationManager::GetNotification()
   if (it == candidates.end())
     return {};
 
-  it->m_used = Clock::now();
+  it->MarkAsUsed();
   m_queue.m_lastNotificationProvidedTime = Clock::now();
 
   VERIFY(Save(), ());
@@ -176,15 +176,13 @@ size_t NotificationManager::GetCandidatesCount() const
 
 void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)
 {
-  CHECK(m_delegate.GetUGCApi(), ());
   CHECK_GREATER(poi.GetEvents().size(), 0, ());
-
-  auto const bestType = classif().GetTypeByReadableObjectName(poi.GetBestType());
 
   if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved)
     return ProcessUgcRateCandidates(poi);
 
-  m_delegate.GetUGCApi()->HasUGCForPlace(bestType, poi.GetPos(), [this, poi] (bool result)
+  auto const bestType = classif().GetTypeByReadableObjectName(poi.GetBestType());
+  m_delegate->GetUGCApi().HasUGCForPlace(bestType, poi.GetPos(), [this, poi] (bool result)
   {
     if (!result)
       ProcessUgcRateCandidates(poi);
@@ -202,16 +200,16 @@ void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
 {
   CHECK_GREATER(poi.GetEvents().size(), 0, ());
 
+  if (poi.IsEmpty())
+    return;
+
   auto it = m_queue.m_candidates.begin();
   for (; it != m_queue.m_candidates.end(); ++it)
   {
-    if (it->m_type != NotificationCandidate::Type::UgcReview || !it->m_mapObject ||
-        it->m_used.time_since_epoch().count() != 0)
-    {
+    if (it->GetType() != NotificationCandidate::Type::UgcReview || it->IsUsed())
       continue;
-    }
 
-    if (it->m_mapObject->AlmostEquals(poi))
+    if (it->IsSameMapObject(poi))
     {
       if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved)
       {
@@ -229,12 +227,7 @@ void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
   if (CheckUgcNotSavedTrigger(poi) || CheckRouteToInSameGeoTrigger(poi) ||
       CheckPlannedTripTrigger(poi))
   {
-    NotificationCandidate candidate;
-    candidate.m_type = NotificationCandidate::Type::UgcReview;
-    candidate.m_created = Clock::now();
-    candidate.m_mapObject = std::make_shared<eye::MapObject>(poi);
-    candidate.m_mapObject->GetEditableEvents().clear();
-    m_queue.m_candidates.emplace_back(std::move(candidate));
+    m_queue.m_candidates.emplace_back(poi, m_delegate->GetAddress(poi.GetPos()));
 
     VERIFY(Save(), ());
   }
@@ -245,9 +238,8 @@ Candidates::iterator NotificationManager::GetUgcRateCandidate()
   auto it = m_queue.m_candidates.begin();
   for (; it != m_queue.m_candidates.end(); ++it)
   {
-    if (it->m_used.time_since_epoch().count() == 0 &&
-        it->m_type == NotificationCandidate::Type::UgcReview &&
-        Clock::now() - it->m_created >= kMinTimeSinceLastEventForUgcRate)
+    if (!it->IsUsed() && it->GetType() == NotificationCandidate::Type::UgcReview &&
+        Clock::now() - it->GetCreatedTime() >= kMinTimeSinceLastEventForUgcRate)
     {
       return it;
     }

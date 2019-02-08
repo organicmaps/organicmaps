@@ -6,6 +6,8 @@
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
+#include "map/notifications/notification_manager_delegate.hpp"
+#include "map/notifications/notification_queue.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
@@ -29,7 +31,6 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
-#include "search/reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/downloader_search_params.hpp"
@@ -115,6 +116,7 @@
 using namespace storage;
 using namespace routing;
 using namespace location;
+using namespace notifications;
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -381,6 +383,9 @@ void Framework::Migrate(bool keepDownloaded)
   InitDiscoveryManager();
   InitTaxiEngine();
   RegisterAllMaps();
+  m_notificationManager.SetDelegate(
+    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+                                                  m_addressGetter, *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -425,7 +430,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_model.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
-  , m_notificationManager(static_cast<notifications::NotificationManager::Delegate &>(*this))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -548,6 +552,9 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
+  m_notificationManager.SetDelegate(
+    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+                                                  m_addressGetter, *m_ugcApi));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
 
@@ -806,6 +813,11 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
+search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
+{
+  return m_addressGetter.GetAddressAtPoint(m_model.GetDataSource(), pt);
+}
+
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
 {
   if (!fid.IsValid())
@@ -878,7 +890,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
-    info.SetAddress(GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet());
+    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
 
   info.SetFromFeatureType(ft);
 
@@ -3804,18 +3816,22 @@ double Framework::GetLastBackgroundTime() const
   return m_startBackgroundTime;
 }
 
-bool Framework::MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const
+bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
+                                  place_page::Info & info) const
 {
-  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(mapObject.GetPos(), kMwmPointAccuracy);
+  if (notification.GetType() != NotificationCandidate::Type::UgcReview)
+    return false;
+
+  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
   bool found = false;
 
-  m_model.GetDataSource().ForEachInRect([this, &info, &mapObject, &found](FeatureType & ft)
+  m_model.GetDataSource().ForEachInRect([this, &info, &notification, &found](FeatureType & ft)
   {
-   if (found || !feature::GetCenter(ft).EqualDxDy(mapObject.GetPos(), kMwmPointAccuracy))
+   if (found || !feature::GetCenter(ft).EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
      return;
 
    auto const foundMapObject = utils::MakeEyeMapObject(ft);
-   if (!foundMapObject.IsEmpty() && mapObject.AlmostEquals(foundMapObject))
+   if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
    {
      FillInfoFromFeatureType(ft, info);
      found = true;

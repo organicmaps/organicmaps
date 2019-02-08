@@ -42,12 +42,12 @@ public:
   }
 
   // Calls |fn| for DocIds of buildings that are located on the
-  // street whose DocId is |streetDocId|.
+  // street/locality whose DocId is |docId|.
   template <typename Fn>
-  void ForEachBuildingOnStreet(DocId const & streetDocId, Fn && fn) const
+  void ForEachRelatedBuilding(DocId const & docId, Fn && fn) const
   {
-    auto const it = m_buildingsOnStreet.find(streetDocId);
-    if (it == m_buildingsOnStreet.end())
+    auto const it = m_relatedBuildings.find(docId);
+    if (it == m_relatedBuildings.end())
       return;
 
     for (DocId const & docId : it->second)
@@ -66,14 +66,14 @@ private:
   // with and without synonyms of the word "street".
   void AddStreet(DocId const & docId, Doc const & e);
 
-  // Fills the |m_buildingsOnStreet| field.
+  // Fills the |m_relatedBuildings| field.
   void AddHouses(unsigned int loadThreadsCount);
 
   std::vector<Doc> const & m_docs;
 
   std::unordered_map<std::string, std::vector<DocId>> m_docIdsByTokens;
 
-  // Lists of houses grouped by the streets they belong to.
-  std::unordered_map<DocId, std::vector<DocId>> m_buildingsOnStreet;
+  // Lists of houses grouped by the streets/localities they belong to.
+  std::unordered_map<DocId, std::vector<DocId>> m_relatedBuildings;
 };
 }  // namespace geocoder

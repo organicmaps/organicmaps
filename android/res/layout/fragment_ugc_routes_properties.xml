@@ -6,6 +6,7 @@
   android:fillViewport="true">
   <LinearLayout
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ProgressBar
@@ -21,16 +22,6 @@
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <TextView
-        android:text="@string/custom_props_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_base"
-        android:paddingBottom="@dimen/margin_base"
-        android:paddingRight="@dimen/margin_half_double_plus"
-        android:paddingEnd="@dimen/margin_half_double_plus"
-        android:paddingLeft="@dimen/margin_half_double_plus"
-        android:paddingStart="@dimen/margin_half_double_plus"/>
       <include layout="@layout/list_divider"/>
       <TextView
         android:text="@string/custom_props_desc"

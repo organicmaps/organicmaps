@@ -270,12 +270,14 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups,
+                             int maxTagsCount)
   {
+    //TODO(@yoksnod): Implement maxTagsCount usage.
     List<CatalogTagsGroup> unmodifiableData = Collections.unmodifiableList(Arrays.asList(tagsGroups));
     for (BookmarksCatalogListener listener : mCatalogListeners)
     {
-      listener.onTagsReceived(successful, unmodifiableData);
+      listener.onTagsReceived(successful, unmodifiableData, maxTagsCount);
     }
   }
 
@@ -858,10 +860,10 @@ public enum BookmarkManager
 
     /**
      * The method is called when the tags were received from the server.
-     *  @param successful is the result of the receiving.
+     * @param successful is the result of the receiving.
      * @param tagsGroups is the tags collection.
      */
-    void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups);
+    void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups, int tagsLimit);
 
     /**
      * The method is called when the custom properties were received from the server.
@@ -905,7 +907,8 @@ public enum BookmarkManager
     }
 
     @Override
-    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                               int tagsLimit)
     {
       /* do noting by default */
     }

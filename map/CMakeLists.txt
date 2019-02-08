@@ -10,7 +10,6 @@ include_directories(
 set(
   SRC
   ../api/src/c/api-client.c
-  address_finder.cpp
   api_mark_point.cpp
   api_mark_point.hpp
   benchmark_tools.hpp
@@ -32,6 +31,7 @@ set(
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
+  caching_address_getter.hpp
   chart_generator.cpp
   chart_generator.hpp
   cloud.cpp
@@ -80,6 +80,9 @@ set(
   mwm_url.hpp
   notifications/notification_manager.cpp
   notifications/notification_manager.hpp
+  notifications/notification_manager_delegate.cpp
+  notifications/notification_manager_delegate.hpp
+  notifications/notification_queue.cpp
   notifications/notification_queue.hpp
   notifications/notification_queue_serdes.cpp
   notifications/notification_queue_serdes.hpp

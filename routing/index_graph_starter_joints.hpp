@@ -97,6 +97,9 @@ private:
   Segment m_startSegment;
   Segment m_endSegment;
 
+  m2::PointD m_startPoint;
+  m2::PointD m_endPoint;
+
   // See comments in |GetEdgeList()| about |m_savedWeight|.
   std::map<JointSegment, Weight> m_savedWeight;
 

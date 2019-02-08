@@ -9,7 +9,6 @@
 
 namespace usermark_helper
 {
-using search::AddressInfo;
 using feature::Metadata;
 
 void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, feature::Metadata const & metadata)

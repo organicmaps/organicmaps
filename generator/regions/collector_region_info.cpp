@@ -73,7 +73,7 @@ void CollectorRegionInfo::FillRegionData(base::GeoObjectId const & osmId, OsmEle
     auto const adminLevel = std::stoi(al);
     // Administrative level is in the range [1 ... 12].
     // https://wiki.openstreetmap.org/wiki/Tag:boundary=administrative
-    rd.m_adminLevel = (adminLevel >= 1 || adminLevel <= 12) ?
+    rd.m_adminLevel = (adminLevel >= 1 && adminLevel <= 12) ?
                         static_cast<AdminLevel>(adminLevel) : AdminLevel::Unknown;
   }
   catch (std::exception const & e)  // std::invalid_argument, std::out_of_range

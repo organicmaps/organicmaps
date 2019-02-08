@@ -24,8 +24,6 @@ struct TokenInfo
   bool m_isCategoryToken = false;
   bool m_inFeatureTypes = false;
 };
-
-UniString AsciiToUniString(char const * s) { return UniString(s, s + strlen(s)); }
 }  // namespace
 
 // CategoriesInfo ----------------------------------------------------------------------------------
@@ -114,11 +112,11 @@ bool IsStopWord(UniString const & s)
 {
   /// @todo Get all common used stop words and factor out this array into
   /// search_string_utils.cpp module for example.
-  static char const * arr[] = {"a", "de", "da", "la", "le"};
+  static char const * arr[] = {"a", "de", "di", "da", "la", "le", "де", "ди", "да", "ла", "ля", "ле"};
 
   static set<UniString> const kStopWords(
-      make_transform_iterator(arr, &AsciiToUniString),
-      make_transform_iterator(arr + ARRAY_SIZE(arr), &AsciiToUniString));
+      make_transform_iterator(arr, &MakeUniString),
+      make_transform_iterator(arr + ARRAY_SIZE(arr), &MakeUniString));
 
   return kStopWords.count(s) > 0;
 }

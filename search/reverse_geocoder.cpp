@@ -56,9 +56,69 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
 
   streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
 }
+
+// Following methods join only non-empty arguments in order with
+// commas.
+string Join(string const & s)
+{
+  return s;
+}
+
+template <typename... Args>
+string Join(string const & s, Args &&... args)
+{
+  auto const tail = Join(forward<Args>(args)...);
+  if (s.empty())
+    return tail;
+  if (tail.empty())
+    return s;
+  return s + ", " + tail;
+}
 }  // namespace
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
+
+// static
+boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
+                                                                 vector<Street> const & streets)
+{
+  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
+    // Find the exact match or the best match in kSimilarityTresholdPercent limit.
+    uint32_t result;
+    size_t minPercent = kSimilarityThresholdPercent + 1;
+
+    auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
+    for (auto const & street : streets)
+    {
+      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
+
+      size_t const editDistance =
+        strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+
+      if (editDistance == 0)
+        return street.m_id.m_index;
+
+      if (actual.empty())
+        continue;
+
+      size_t const percent = editDistance * 100 / actual.size();
+      if (percent < minPercent)
+      {
+        result = street.m_id.m_index;
+        minPercent = percent;
+      }
+    }
+
+    if (minPercent <= kSimilarityThresholdPercent)
+      return result;
+    return {};
+  };
+
+  auto result = matchStreet(false /* ignoreStreetSynonyms */);
+  if (result)
+    return result;
+  return matchStreet(true /* ignoreStreetSynonyms */);
+}
 
 // static
 void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
@@ -100,48 +160,6 @@ void ReverseGeocoder::GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::Poi
     search::MwmContext context(move(mwmHandle));
     GetNearbyStreets(context, center, false /* includeSquaresAndSuburbs */, streets);
   }
-}
-
-// static
-boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
-                                                                 vector<Street> const & streets)
-{
-  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
-    // Find the exact match or the best match in kSimilarityTresholdPercent limit.
-    uint32_t result;
-    size_t minPercent = kSimilarityThresholdPercent + 1;
-
-    auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
-    for (auto const & street : streets)
-    {
-      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
-
-      size_t const editDistance =
-          strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
-
-      if (editDistance == 0)
-        return street.m_id.m_index;
-
-      if (actual.empty())
-        continue;
-
-      size_t const percent = editDistance * 100 / actual.size();
-      if (percent < minPercent)
-      {
-        result = street.m_id.m_index;
-        minPercent = percent;
-      }
-    }
-
-    if (minPercent <= kSimilarityThresholdPercent)
-      return result;
-    return {};
-  };
-
-  auto result = matchStreet(false /* ignoreStreetSynonyms */);
-  if (result)
-    return result;
-  return matchStreet(true /* ignoreStreetSynonyms */);
 }
 
 string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const
@@ -304,6 +322,19 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid,
 
   type = m_table->GetStreetIdType();
   return m_table->Get(fid.m_index, streetIndex);
+}
+
+string ReverseGeocoder::Address::FormatAddress() const
+{
+  // Check whether we can format address according to the query type
+  // and actual address distance.
+
+  // TODO (@m, @y): we can add "Near" prefix here in future according
+  // to the distance.
+  if (m_building.m_distanceMeters > 200.0)
+    return {};
+
+  return Join(m_street.m_name, m_building.m_name);
 }
 
 string DebugPrint(ReverseGeocoder::Object const & obj)

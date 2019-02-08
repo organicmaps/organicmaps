@@ -161,7 +161,8 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
     /* Do noting by default */
   }
@@ -254,11 +255,6 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
         intent.putParcelableArrayListExtra(EXTRA_CATEGORY_OPTIONS, options);
         intent.putExtra(EXTRA_TAGS_ACTIVITY_RESULT, data.getExtras());
         getActivity().setResult(Activity.RESULT_OK, intent);
-        getActivity().finish();
-      }
-      else if (resultCode == Activity.RESULT_CANCELED)
-      {
-        getActivity().setResult(Activity.RESULT_CANCELED);
         getActivity().finish();
       }
     }

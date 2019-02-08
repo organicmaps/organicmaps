@@ -1,7 +1,5 @@
 #include "search/search_quality/assessment_tool/feature_info_dialog.hpp"
 
-#include "search/result.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -35,7 +33,8 @@ QLabel * MakeSelectableLabel(string const & s)
 }  // namespace
 
 FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
-                                     search::AddressInfo const & address, string const & locale)
+                                     search::ReverseGeocoder::Address const & address,
+                                     string const & locale)
   : QDialog(parent)
 {
   auto * layout = new QGridLayout();

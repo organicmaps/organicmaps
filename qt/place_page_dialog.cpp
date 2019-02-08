@@ -1,8 +1,6 @@
 #include "qt/place_page_dialog.hpp"
 
 #include "map/place_page_info.hpp"
-// For search::AddressInfo.
-#include "search/result.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
@@ -20,7 +18,7 @@ string GenerateStars(int count)
 }
 
 PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
-                                 search::AddressInfo const & address)
+                                 search::ReverseGeocoder::Address const & address)
   : QDialog(parent)
 {
   QGridLayout * grid = new QGridLayout();

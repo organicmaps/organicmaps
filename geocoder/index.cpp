@@ -57,6 +57,9 @@ void Index::AddEntries()
     if (doc.m_type == Type::Count)
       continue;
 
+    if (doc.m_type == Type::Building)
+      continue;
+
     if (doc.m_type == Type::Street)
     {
       AddStreet(docId, doc);
@@ -114,15 +117,25 @@ void Index::AddHouses(unsigned int loadThreadsCount)
         if (buildingDoc.m_type != Type::Building)
           continue;
 
-        size_t const streetType = static_cast<size_t>(Type::Street);
+        auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
+        auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
 
-        ForEachDocId(buildingDoc.m_address[streetType], [&](DocId const & streetCandidate) {
-          auto const & streetDoc = GetDoc(streetCandidate);
+        Tokens const * relationName = nullptr;
 
-          if (streetDoc.IsParentTo(buildingDoc))
+        if (!street.empty())
+          relationName = &street;
+        else if (!locality.empty())
+          relationName = &locality;
+
+        if (!relationName)
+          continue;
+
+        ForEachDocId(*relationName, [&](DocId const & candidate) {
+          auto const & candidateDoc = GetDoc(candidate);
+          if (candidateDoc.IsParentTo(buildingDoc))
           {
             auto && lock = lock_guard<std::mutex>(mutex);
-            m_buildingsOnStreet[streetCandidate].emplace_back(docId);
+            m_relatedBuildings[candidate].emplace_back(docId);
           }
         });
 

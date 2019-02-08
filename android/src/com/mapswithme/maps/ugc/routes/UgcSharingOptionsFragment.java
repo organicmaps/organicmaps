@@ -45,18 +45,18 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 {
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
-  private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
   private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final int REQ_CODE_UPLOAD_CONFIRMATION_DIALOG = 108;
   private static final int REQ_CODE_ERROR_HTML_FORMATTING_DIALOG = 109;
+  private static final int REQ_CODE_UPDATE_CONFIRMATION_DIALOG = 110;
 
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String NOT_ENOUGH_BOOKMARKS_DIALOG_TAG = "not_enough_bookmarks_dialog";
-  private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
+  private static final String UPDATE_CONFIRMATION_DIALOG_TAG = "update_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
   private static final int MIN_REQUIRED_CATEGORY_SIZE = 3;
 
@@ -212,15 +212,38 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     View getDirectLinkView = root.findViewById(R.id.get_direct_link_text);
     getDirectLinkView.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
-    mUpdateGuideDirectLinkBtn.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
+    mUpdateGuideDirectLinkBtn.setOnClickListener(v -> onUpdateDirectLinkClicked());
     View uploadAndPublishView = root.findViewById(R.id.upload_and_publish_text);
     uploadAndPublishView.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
-    mUpdateGuidePublicAccessBtn.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
+    mUpdateGuidePublicAccessBtn.setOnClickListener(v -> onUpdatePublicAccessClicked());
     mShareDirectLinkBtn.setOnClickListener(v -> onDirectLinkShared());
     View sharePublishedBtn = mPublishingCompletedStatusContainer.findViewById(R.id.share_published_category_btn);
     sharePublishedBtn.setOnClickListener(v -> onPublishedCategoryShared());
     View editOnWebBtn = root.findViewById(R.id.edit_on_web_btn);
     editOnWebBtn.setOnClickListener(v -> onEditOnWebClicked());
+  }
+
+  private void onUpdatePublicAccessClicked()
+  {
+    mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
+    onUpdateClickedInternal();
+  }
+
+  private void onUpdateDirectLinkClicked()
+  {
+    mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
+    onUpdateClickedInternal();
+  }
+
+  private void onUpdateClickedInternal()
+  {
+    if (isNetworkConnectionAbsent())
+    {
+      showNoNetworkConnectionDialog();
+      return;
+    }
+
+    showUpdateCategoryConfirmationDialog();
   }
 
   private void onEditOnWebClicked()
@@ -238,7 +261,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void shareCategory()
   {
-    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
+    String deepLink = BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, deepLink));
@@ -278,12 +301,14 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void openTagsScreen()
   {
-    Intent intent = new Intent(getContext(), UgcRoutePropertiesActivity.class);
+    Intent intent = new Intent(getContext(), EditCategoryNameActivity.class);
+    intent.putExtra(EditCategoryNameFragment.BUNDLE_BOOKMARK_CATEGORY, mCategory);
     startActivityForResult(intent, REQ_CODE_CUSTOM_PROPERTIES);
   }
 
   private void onUploadAndPublishBtnClicked()
   {
+    /* FIXME */
 /*    if (mCategory.size() < MIN_REQUIRED_CATEGORY_SIZE)
     {
       showNotEnoughBookmarksDialog();
@@ -429,7 +454,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
 
   }
@@ -465,7 +491,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                                         uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
-      showErrorBrokenFileDialog();
+      showHtmlFormattingError();
       return;
     }
 
@@ -507,13 +533,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                                       " Current value = " + mCategory.getAccessRules());
   }
 
-  private void showErrorBrokenFileDialog()
-  {
-    showUploadErrorDialog(R.string.unable_upload_error_subtitle_broken,
-                          REQ_CODE_ERROR_BROKEN_FILE_DIALOG,
-                          ERROR_BROKEN_FILE_DIALOG_TAG);
-  }
-
   private void showUploadErrorDialog(@StringRes int subtitle, int reqCode, @NonNull String tag)
   {
     showErrorDialog(R.string.unable_upload_errorr_title, subtitle, reqCode, tag);
@@ -521,8 +540,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showNotEnoughBookmarksDialog()
   {
-    /* FIXME */
-    showErrorDialog(R.string.not_enough_memory, R.string.not_enough_memory,
+    showErrorDialog(R.string.error_public_not_enought_title,
+                    R.string.error_public_not_enought_subtitle,
                     REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS, NOT_ENOUGH_BOOKMARKS_DIALOG_TAG);
   }
 
@@ -550,7 +569,8 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
       Utils.showSystemSettings(getContext());
-    else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG)
+    else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+             || requestCode == REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
       requestUpload();
   }
 
@@ -566,9 +586,10 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   }
 
-  private void showConfirmationDialog(int reqCode, String tag, @StringRes int acceptBtn,
-                                      @StringRes int declineBtn, @StringRes int title,
-                                      @StringRes int description)
+  private void showConfirmationDialog(@StringRes int title, @StringRes int description,
+                                      @StringRes int acceptBtn,
+                                      @StringRes int declineBtn,
+                                      String tag, int reqCode)
   {
     AlertDialog dialog = new AlertDialog.Builder()
         .setTitleId(title)
@@ -586,27 +607,46 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showHtmlFormattingError()
   {
-    showConfirmationDialog(REQ_CODE_ERROR_HTML_FORMATTING_DIALOG,
-                           ERROR_HTML_FORMATTING_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+    showConfirmationDialog(R.string.html_format_error_title,
+                           R.string.html_format_error_subtitle,
+                           R.string.edit_on_web,
+                           R.string.cancel,
+                           ERROR_HTML_FORMATTING_DIALOG_TAG,
+                           REQ_CODE_ERROR_HTML_FORMATTING_DIALOG
+                          );
   }
 
   private void showUploadCatalogConfirmationDialog()
   {
-    /*FIXME text later*/
-    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+    showConfirmationDialog(R.string.bookmark_public_upload_alert_title,
+                           R.string.bookmark_public_upload_alert_subtitle,
+                           R.string.bookmark_public_upload_alert_ok_button,
+                           R.string.cancel,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+                          );
+  }
+
+  private void showUpdateCategoryConfirmationDialog()
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.any_access_update_alert_title)
+        .setMessageId(R.string.any_access_update_alert_message)
+        .setPositiveBtnId(R.string.any_access_update_alert_update)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
+    dialog.setTargetFragment(this, REQ_CODE_UPDATE_CONFIRMATION_DIALOG);
+    dialog.show(this, UPDATE_CONFIRMATION_DIALOG_TAG);
   }
 
   private void showUnresolvedConflictsErrorDialog()
   {
-    /*FIXME text later*/
-    showConfirmationDialog(REQ_CODE_UPLOAD_CONFIRMATION_DIALOG,
-                           UPLOAD_CONFIRMATION_DIALOG_TAG, R.string.common_check_internet_connection_dialog_title,
-                           R.string.common_check_internet_connection_dialog_title,
-                           R.string.try_again, R.string.cancel);
+    showConfirmationDialog(R.string.public_or_limited_access_after_edit_online_error_title,
+                           R.string.public_or_limited_access_after_edit_online_error_message,
+                           R.string.edit_on_web,
+                           R.string.cancel,
+                           UPLOAD_CONFIRMATION_DIALOG_TAG, REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
+                          );
   }
 }

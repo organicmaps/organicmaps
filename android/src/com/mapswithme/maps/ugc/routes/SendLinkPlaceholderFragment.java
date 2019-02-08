@@ -78,7 +78,7 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   private void shareLink()
   {
     String emailBody = getString(R.string.edit_your_guide_email_body) + BODY_STRINGS_SEPARATOR +
-                       BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
+                       BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId());
 
     ShareCompat.IntentBuilder.from(getActivity())
                              .setType(TargetUtils.TYPE_TEXT_PLAIN)
@@ -93,14 +93,14 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   public void onUploadFinished(@NonNull BookmarkManager.UploadResult uploadResult, @NonNull
       String description, long originCategoryId, long resultCategoryId)
   {
+    hideProgress();
+
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_SUCCESS)
       onUploadSucceeded();
     else if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_AUTH_ERROR)
       authorize();
     else
       onUploadFailed();
-
-    hideProgress();
   }
 
   private void onUploadFailed()
@@ -120,6 +120,7 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   private void onUploadSucceeded()
   {
     mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
+    shareLink();
   }
 
   @Override
@@ -149,7 +150,8 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
+                             int tagsLimit)
   {
     /* do noting by default */
   }

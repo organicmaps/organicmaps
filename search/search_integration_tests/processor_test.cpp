@@ -1679,5 +1679,32 @@ UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
     TEST(ResultsMatch("revolution square 3", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
+{
+  TestCountry usa(m2::PointD(0.5, 0.5), "United States of America", "en");
+  TestPOI alabama(m2::PointD(0.5, 0.5), "Alabama", "en");
+  alabama.SetTypes({{"place", "state"}});
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+                            {
+                              builder.Add(usa);
+                              builder.Add(alabama);
+                            });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
+  {
+    TRules rules = {ExactMatch(worldId, usa)};
+    TEST(ResultsMatch("United States of America", rules), ());
+    TEST(ResultsMatch("USA", rules), ());
+    TEST(ResultsMatch("US", rules), ());
+  }
+
+  {
+    TRules rules = {ExactMatch(worldId, alabama)};
+    TEST(ResultsMatch("Alabama", rules), ());
+    TEST(ResultsMatch("AL", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
