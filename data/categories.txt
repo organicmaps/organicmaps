@@ -1911,7 +1911,7 @@ nl:3^Metro
 fi:3^Metro
 fr:3^Métro
 de:2^U-Bahn|Metro|ÖPNV
-hu:3^Metró|Földalatti|3metro
+hu:3^Metró|Földalatti
 id:3^Stasiun bawah tanah
 it:3^Metrò
 ja:1^地下鉄|地下鉄駅|電車|鉄道|交通|交通|鉄|電
@@ -1962,7 +1962,7 @@ nl:3^Veerpont|veerboot|veer|pont|overzetboot
 fi:3^Lautta|terminaali|kuljetus
 fr:3^Traversier|terminal
 de:2^Fähre|Terminal
-hu:2^Kompkikötő
+hu:4^Kompkikötő
 id:3^Terminal|feri
 it:3^Traghetto
 ja:1^フェリー
@@ -2259,7 +2259,7 @@ nl:^Kerk|tempel|kathedraal|gebedsplaats|gebedshuis
 fi:^Kirkko|uskonnollinen kohde
 fr:^Église|lieu de culte|temple|basilique
 de:^Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|Tempel
-hu:^Templom|Székesegyház|Katedrális|Dóm|Bazilika|Istentisztelei hely
+hu:^Templom|Székesegyház|Katedrális|Dóm|Bazilika|Istentiszteleti hely
 id:^Gereja|tempat ibadah
 it:^Chiesa|duomo|cattedrale|tempio|basilica
 ja:^教会|寺院|神社|仏閣|神殿|お寺
@@ -3797,7 +3797,7 @@ nl:3^Toilet
 fi:^WC
 fr:3^Toilettes
 de:3^Toilette
-hu:3^WC
+hu:^WC
 id:^Toilet
 it:3^Toilette
 ja:1^トイレ
@@ -9228,7 +9228,7 @@ el:^Καλύβα|αγροικία
 es:^Cabaña
 fi:^Autiotupa
 fr:^Cabane sauvage
-hu:^Menedékház (személyzet nélkül)
+hu:^Menedékház
 id:^Pondok Alam Liar
 it:^Rifugio
 ja:^無人小屋
