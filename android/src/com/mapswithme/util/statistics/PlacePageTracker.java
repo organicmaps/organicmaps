@@ -1,11 +1,14 @@
 package com.mapswithme.util.statistics;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.MwmNativeAd;
+import com.mapswithme.maps.base.Savable;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
@@ -14,9 +17,18 @@ import com.mapswithme.util.UiUtils;
 
 import java.util.List;
 
-public class PlacePageTracker
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
+
+public class PlacePageTracker implements Savable<Bundle>
 {
   private static final float VISIBILITY_RATIO_TAXI = 0.6f;
+  private static final String EXTRA_TAXI_TRACKED = "extra_taxi_tracked";
+  private static final String EXTRA_SPONSORED_TRACKED = "extra_sponsored_tracked";
+  private static final String EXTRA_BANNER_DETAILS_TRACKED = "extra_banner_details_tracked";
+  private static final String EXTRA_BANNER_PREVIEW_TRACKED = "extra_banner_preview_tracked";
+  private static final String EXTRA_PP_DETAILS_OPENED_TRACKED = "extra_pp_details_opened_tracked";
   @NonNull
   private final PlacePageView mPlacePageView;
   @NonNull
@@ -26,6 +38,10 @@ public class PlacePageTracker
   @Nullable
   private MapObject mMapObject;
   private boolean mTaxiTracked;
+  private boolean mSponsoredTracked;
+  private boolean mBannerDetailsTracked;
+  private boolean mBannerPreviewTracked;
+  private boolean mPpDetailsOpenedTracked;
 
   public PlacePageTracker(@NonNull PlacePageView placePageView, @NonNull View bottomButtons)
   {
@@ -46,18 +62,49 @@ public class PlacePageTracker
 
   public void onHidden()
   {
+    mMapObject = null;
     mTaxiTracked = false;
+    mSponsoredTracked = false;
+    mBannerDetailsTracked = false;
+    mBannerPreviewTracked = false;
+    mPpDetailsOpenedTracked = false;
   }
 
-  public void onOpened()
+  public void onBannerDetails(@Nullable MwmNativeAd ad)
   {
-    // TODO:
-/*    if (mPlacePageView.getState() == PlacePageView.State.DETAILS)
+    if (mBannerDetailsTracked)
+      return;
+
+    Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, ad, PP_BANNER_STATE_DETAILS);
+    mBannerDetailsTracked = true;
+  }
+
+  public void onBannerPreview(@Nullable MwmNativeAd ad)
+  {
+    if (mBannerPreviewTracked)
+      return;
+
+    Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, ad, PP_BANNER_STATE_PREVIEW);
+    mBannerPreviewTracked = true;
+  }
+
+  public void onDetails()
+  {
+    if (!mSponsoredTracked)
     {
       Sponsored sponsored = mPlacePageView.getSponsored();
       if (sponsored != null)
+      {
         Statistics.INSTANCE.trackSponsoredOpenEvent(sponsored);
-    }*/
+        mSponsoredTracked = true;
+      }
+    }
+
+    if (!mPpDetailsOpenedTracked)
+    {
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DETAILS_OPEN);
+      mPpDetailsOpenedTracked = true;
+    }
   }
 
   private void trackTaxiVisibility()
@@ -68,7 +115,7 @@ public class PlacePageTracker
       if (taxiTypes != null && !taxiTypes.isEmpty())
       {
         String providerName = taxiTypes.get(0).getProviderName();
-        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP,
+        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW,
                                            providerName);
         mTaxiTracked = true;
       }
@@ -80,6 +127,7 @@ public class PlacePageTracker
    * @param visibilityRatio Describes what the portion of view should be visible before
    *                        the view is considered visible on the screen. It can be from 0 to 1.
    */
+  @SuppressWarnings("SameParameterValue")
   private boolean isViewOnScreen(@NonNull View view, float visibilityRatio) {
 
     if (UiUtils.isInvisible(mPlacePageView))
@@ -94,5 +142,25 @@ public class PlacePageTracker
         return true;
     }
     return false;
+  }
+
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    outState.putBoolean(EXTRA_SPONSORED_TRACKED, mSponsoredTracked);
+    outState.putBoolean(EXTRA_TAXI_TRACKED, mTaxiTracked);
+    outState.putBoolean(EXTRA_BANNER_DETAILS_TRACKED, mBannerDetailsTracked);
+    outState.putBoolean(EXTRA_BANNER_PREVIEW_TRACKED, mBannerPreviewTracked);
+    outState.putBoolean(EXTRA_PP_DETAILS_OPENED_TRACKED, mPpDetailsOpenedTracked);
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    mSponsoredTracked = inState.getBoolean(EXTRA_SPONSORED_TRACKED);
+    mTaxiTracked = inState.getBoolean(EXTRA_TAXI_TRACKED);
+    mBannerDetailsTracked = inState.getBoolean(EXTRA_BANNER_DETAILS_TRACKED);
+    mBannerPreviewTracked = inState.getBoolean(EXTRA_BANNER_PREVIEW_TRACKED);
+    mPpDetailsOpenedTracked = inState.getBoolean(EXTRA_PP_DETAILS_OPENED_TRACKED);
   }
 }

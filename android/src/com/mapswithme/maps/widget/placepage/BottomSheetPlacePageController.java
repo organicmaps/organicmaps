@@ -17,6 +17,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
+import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
@@ -30,7 +31,8 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
                                                        View.OnLayoutChangeListener,
-                                                       BannerController.BannerDetailsRequester
+                                                       BannerController.BannerDetailsRequester,
+                                                       BannerController.BannerStateListener
 {
   private static final float ANCHOR_RATIO = 0.3f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -82,17 +84,20 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       LOGGER.d(TAG, "State change, new = " + BottomSheetPlacePageController.toString(newState)
                     + " old = " + BottomSheetPlacePageController.toString(oldState)
                     + " placepage height = " + mPlacePage.getHeight());
-      if (newState == AnchorBottomSheetBehavior.STATE_SETTLING
-          || newState == AnchorBottomSheetBehavior.STATE_DRAGGING)
+      if (isSettlingState(newState) || isDraggingState(newState))
       {
         return;
       }
 
-      if (newState == AnchorBottomSheetBehavior.STATE_HIDDEN)
+      if (isHiddenState(newState))
       {
         Framework.nativeDeactivatePopup();
         UiUtils.invisible(mButtonsLayout);
+        mPlacePageTracker.onHidden();
       }
+
+      if (isAnchoredState(newState) || isExpandedState(newState))
+        mPlacePageTracker.onDetails();
 
       setPeekHeight();
     }
@@ -101,6 +106,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
       mSlideListener.onPlacePageSlide(bottomSheet.getTop());
+      mPlacePageTracker.onMove();
 
       if (slideOffset < 0)
         return;
@@ -188,16 +194,17 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
     ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
     DefaultAdTracker tracker = new DefaultAdTracker();
-    CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
+    CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker,
+                                                                                         tracker);
     mBannerController = new BannerController(bannerContainer, loader, tracker,
-                                             mPurchaseControllerProvider, this);
+                                             mPurchaseControllerProvider, this, this);
 
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
     mPlacePage.initButtons(buttons);
     UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
     UiUtils.bringViewToFrontOf(mActivity.findViewById(R.id.app_bar), mPlacePage);
-    mPlacePageTracker = new PlacePageTracker(mPlacePage, buttons);
+    mPlacePageTracker = new PlacePageTracker(mPlacePage, mButtonsLayout);
     LocationHelper.INSTANCE.addListener(this);
   }
 
@@ -229,7 +236,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
   private void showBanner(@NonNull MapObject object, NetworkPolicy policy)
   {
-    boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION && policy.сanUseNetwork();
+    boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION
+                            && policy.сanUseNetwork();
     mBannerController.updateData(canShowBanner ? object.getBanners() : null);
   }
 
@@ -420,12 +428,14 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void onSave(@NonNull Bundle outState)
   {
+    mPlacePageTracker.onSave(outState);
     outState.putParcelable(EXTRA_MAP_OBJECT, mPlacePage.getMapObject());
   }
 
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
+    mPlacePageTracker.onRestore(inState);
     if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN)
       return;
 
@@ -527,5 +537,17 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     @AnchorBottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
     return isAnchoredState(state) || isExpandedState(state);
+  }
+
+  @Override
+  public void onBannerDetails(@NonNull MwmNativeAd ad)
+  {
+    mPlacePageTracker.onBannerDetails(ad);
+  }
+
+  @Override
+  public void onBannerPreview(@NonNull MwmNativeAd ad)
+  {
+    mPlacePageTracker.onBannerPreview(ad);
   }
 }

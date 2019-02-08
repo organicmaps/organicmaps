@@ -298,8 +298,7 @@ public enum Statistics
     public static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
 
     // place page
-    public static final String PP_OPEN = "PP. Open";
-    public static final String PP_CLOSE = "PP. Close";
+    public static final String PP_DETAILS_OPEN = "Placepage_Details_open";
     public static final String PP_SHARE = "PP. Share";
     public static final String PP_BOOKMARK = "PP. Bookmark";
     public static final String PP_ROUTE = "PP. Route";
@@ -369,8 +368,7 @@ public enum Statistics
     public static final String ROUTING_SETTINGS = "Routing. Settings";
     public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
     public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
-    public static final String ROUTING_TAXI_SHOW_IN_PP = "Placepage_Taxi_show";
-    public static final String ROUTING_TAXI_REAL_SHOW_IN_PP = "Placepage_Taxi_show_real";
+    public static final String ROUTING_TAXI_SHOW = "Placepage_Taxi_show";
     public static final String ROUTING_TAXI_CLICK_IN_PP = "Placepage_Taxi_click";
     public static final String ROUTING_TAXI_ROUTE_BUILT = "Routing_Build_Taxi";
     public static final String ROUTING_POINT_ADD = "Routing_Point_add";

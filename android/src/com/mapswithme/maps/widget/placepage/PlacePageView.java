@@ -1283,7 +1283,6 @@ public class PlacePageView extends NestedScrollView
     logo.setImageResource(type.getIcon());
     TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
     title.setText(type.getTitle());
-    Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type.getProviderName());
   }
 
   private void hideHotelDetailViews()

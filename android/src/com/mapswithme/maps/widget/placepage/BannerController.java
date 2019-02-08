@@ -35,7 +35,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
 
@@ -117,11 +116,14 @@ final class BannerController
   private int mOpenedHeight;
   @NonNull
   private final BannerDetailsRequester mBannerDetailsRequester;
+  @NonNull
+  private final BannerStateListener mBannerStateListener;
 
   BannerController(@NonNull ViewGroup bannerContainer, @NonNull CompoundNativeAdLoader loader,
                    @Nullable AdTracker tracker,
                    @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider,
-                   @NonNull BannerDetailsRequester bannerDetailsRequester)
+                   @NonNull BannerDetailsRequester bannerDetailsRequester,
+                   @NonNull BannerStateListener bannerStateListener)
   {
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
@@ -134,6 +136,7 @@ final class BannerController
     mOpenedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
     mAdsRemovalProvider = adsRemovalProvider;
     mBannerDetailsRequester = bannerDetailsRequester;
+    mBannerStateListener = bannerStateListener;
     initBannerViews();
   }
 
@@ -267,8 +270,8 @@ final class BannerController
     if (mCurrentAd != null)
     {
       loadIcon(mCurrentAd);
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
       mCurrentAd.registerView(mBannerView);
+      mBannerStateListener.onBannerDetails(mCurrentAd);
     }
   }
 
@@ -299,7 +302,10 @@ final class BannerController
     mTitle.setMaxLines(MIN_TITLE_LINES);
     updateVisibility();
     if (mCurrentAd != null)
+    {
       mCurrentAd.registerView(mBannerView);
+      mBannerStateListener.onBannerPreview(mCurrentAd);
+    }
   }
 
   private void loadIcon(@NonNull MwmNativeAd ad)
@@ -385,7 +391,7 @@ final class BannerController
     else
     {
       close();
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, PP_BANNER_STATE_PREVIEW);
+      mBannerStateListener.onBannerPreview(mCurrentAd);
     }
   }
 
@@ -448,5 +454,11 @@ final class BannerController
   interface BannerDetailsRequester
   {
     boolean shouldShowBannerDetails();
+  }
+
+  interface BannerStateListener
+  {
+    void onBannerDetails(@NonNull MwmNativeAd ad);
+    void onBannerPreview(@NonNull MwmNativeAd ad);
   }
 }

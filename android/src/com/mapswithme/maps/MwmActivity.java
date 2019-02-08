@@ -1482,61 +1482,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-/*  @Override
-  public void onPreviewVisibilityChanged(boolean isVisible)
-  {
-    if (mVisibleRectMeasurer != null)
-      mVisibleRectMeasurer.setPreviewVisible(isVisible);
-
-    if (isVisible)
-    {
-      if (mMainMenu.isAnimating() || mMainMenu.isOpen())
-        UiThread.runLater(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            if (mMainMenu.close(true))
-              mFadeView.fadeOut();
-          }
-        }, BaseMenu.ANIMATION_DURATION * 2);
-    }
-    else
-    {
-      Framework.nativeDeactivatePopup();
-      mPlacePage.setMapObject(null, false, null);
-      if (mPlacePageTracker != null)
-        mPlacePageTracker.onHidden();
-    }
-  }*/
-
-/*  @Override
-  public void onPlacePageVisibilityChanged(boolean isVisible)
-  {
-    if (mVisibleRectMeasurer != null)
-      mVisibleRectMeasurer.setPlacePageVisible(isVisible);
-
-    Statistics.INSTANCE.trackEvent(isVisible ? Statistics.EventName.PP_OPEN
-                                             : Statistics.EventName.PP_CLOSE);
-    AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
-                                   : AlohaHelper.PP_CLOSE);
-    if (mPlacePageTracker != null && isVisible)
-    {
-      mPlacePageTracker.onOpened();
-    }
-  }*/
-
-/*
-  @Override
-  public void onProgress(float translationX, float translationY)
-  {
-    if (mNavAnimationController != null)
-      mNavAnimationController.move(translationY);
-    if (mPlacePageTracker != null)
-      mPlacePageTracker.onMove();
-  }
-*/
-
   @Override
   public void onPlacePageSlide(int top)
   {
