@@ -201,7 +201,7 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
   ASSERT(range.IsValid(), (range));
   for (size_t i : range)
   {
-    res.append(params.GetToken(i).m_original);
+    res.append(params.GetToken(i).GetOriginal());
     if (i + 1 != range.End())
       res.append(sep);
   }

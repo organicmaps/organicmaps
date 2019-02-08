@@ -522,7 +522,7 @@ void Processor::InitParams(QueryParams & params) const
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
     auto & token = params.GetToken(i);
-    if (IsStreetSynonym(token.m_original))
+    if (IsStreetSynonym(token.GetOriginal()))
       params.GetTypeIndices(i).clear();
   }
 

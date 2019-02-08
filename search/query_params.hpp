@@ -26,8 +26,9 @@ public:
   using TypeIndices = std::vector<uint32_t>;
   using Langs = base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
 
-  struct Token
+  class Token
   {
+  public:
     Token() = default;
     Token(String const & original) : m_original(original) {}
 
@@ -57,11 +58,26 @@ public:
       }
     }
 
+    template <typename Fn>
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value, bool> AnyOf(
+        Fn && fn) const
+    {
+      if (fn(m_original))
+        return true;
+
+      return std::any_of(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
+    }
+
+    String const & GetOriginal() const { return m_original; }
+
     void Clear()
     {
       m_original.clear();
       m_synonyms.clear();
     }
+
+  private:
+    friend std::string DebugPrint(QueryParams::Token const & token);
 
     String m_original;
     std::vector<String> m_synonyms;
@@ -84,7 +100,7 @@ public:
     Clear();
     for (; tokenBegin != tokenEnd; ++tokenBegin)
       m_tokens.emplace_back(*tokenBegin);
-    m_prefixToken.m_original = prefix;
+    m_prefixToken = Token(prefix);
     m_hasPrefix = true;
     m_typeIndices.resize(GetNumTokens());
   }
@@ -131,6 +147,4 @@ private:
   Langs m_langs;
   int m_scale = scales::GetUpperScale();
 };
-
-std::string DebugPrint(QueryParams::Token const & token);
 }  // namespace search

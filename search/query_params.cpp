@@ -66,7 +66,7 @@ void QueryParams::Token::AddSynonym(String const & s)
 string DebugPrint(QueryParams::Token const & token)
 {
   ostringstream os;
-  os << "Token [ m_original=" << DebugPrint(token.m_original)
+  os << "Token [ m_original=" << DebugPrint(token.GetOriginal())
      << ", m_synonyms=" << DebugPrint(token.m_synonyms) << " ]";
   return os.str();
 }

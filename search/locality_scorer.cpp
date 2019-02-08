@@ -134,7 +134,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
          ++endToken)
     {
       auto const curToken = endToken - 1;
-      auto const & token = m_params.GetToken(curToken).m_original;
+      auto const & token = m_params.GetToken(curToken).GetOriginal();
       if (m_params.IsPrefixToken(curToken))
         builder.SetPrefix(token);
       else

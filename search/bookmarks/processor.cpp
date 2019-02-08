@@ -152,7 +152,7 @@ QueryVec Processor::GetQueryVec(IdfMap & idfs, QueryParams const & params) const
   QueryVec::Builder builder;
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
-    auto const & token = params.GetToken(i).m_original;
+    auto const & token = params.GetToken(i).GetOriginal();
     if (params.IsPrefixToken(i))
       builder.SetPrefix(token);
     else
