@@ -21,9 +21,6 @@ public:
   void ResetToDefaultOptions();
   bool SwitchToNextFile();
 
-  void SetFrozen(bool isFrozen) { m_isFrozen = isFrozen; }
-  bool IsFrozen() const { return m_isFrozen; }
-
   inline CountryId const & GetCountryId() const { return m_countryId; }
   inline MapOptions GetInitOptions() const { return m_init; }
   inline MapOptions GetCurrentFileOptions() const { return m_current; }

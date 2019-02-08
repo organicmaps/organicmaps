@@ -41,7 +41,7 @@ public:
   };
 
   using OnDiffApplicationFinished =
-      std::function<void(generator::mwm_diff::DiffApplicationResult result)>;
+      std::function<void(generator::mwm_diff::DiffApplicationResult)>;
 
   // If the diff is available, sets |size| to its size and returns true.
   // Otherwise, returns false.

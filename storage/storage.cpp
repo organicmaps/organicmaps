@@ -951,8 +951,6 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapOptions op
 
   if (options == MapOptions::Diff)
   {
-    m_queue.begin()->SetFrozen(true);
-    NotifyStatusChangedForHierarchy(countryId);
     ApplyDiff(countryId, fn);
     return;
   }
@@ -1171,7 +1169,7 @@ bool Storage::IsDiffApplyingInProgressToCountry(CountryId const & countryId) con
   if (!IsCountryFirstInQueue(countryId))
     return false;
 
-  return m_queue.front().IsFrozen();
+  return m_queue.front().GetCountryId() == m_latestDiffRequest;
 }
 
 void Storage::SetLocale(string const & locale) { m_countryNameGetter.SetLocale(locale); }
@@ -1288,7 +1286,7 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
   if (!queuedCountry)
     return false;
 
-  if (queuedCountry->IsFrozen())
+  if (m_latestDiffRequest && m_latestDiffRequest == countryId)
     m_diffsCancellable.Cancel();
 
   MapOptions const opt = queuedCountry->GetInitOptions();
@@ -1558,6 +1556,8 @@ void Storage::LoadDiffScheme()
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
   m_diffsCancellable.Reset();
+  m_latestDiffRequest = countryId;
+  NotifyStatusChangedForHierarchy(countryId);
 
   diffs::Manager::ApplyDiffParams params;
   params.m_diffFile =
@@ -1569,6 +1569,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
   {
     ASSERT(false, ("Invalid attempt to get version of diff with country id:", countryId));
     fn(false);
+    m_latestDiffRequest = {};
     return;
   }
 
@@ -1588,6 +1589,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
         }
 
         GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, countryId, result] {
+          m_latestDiffRequest = {};
           switch (result)
           {
           case DiffApplicationResult::Ok:
