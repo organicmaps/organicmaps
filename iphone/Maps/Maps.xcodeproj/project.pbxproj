@@ -67,7 +67,6 @@
 		340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */; };
 		3404F48B202894EA0090E401 /* BMCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F489202894EA0090E401 /* BMCViewController.swift */; };
 		3404F48C202894EA0090E401 /* BMCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F48A202894EA0090E401 /* BMCViewController.xib */; };
-		3404F48E2028966C0090E401 /* BMCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F48D2028966C0090E401 /* BMCViewModel.swift */; };
 		3404F490202898CC0090E401 /* BMCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F48F202898CC0090E401 /* BMCModels.swift */; };
 		3404F4952028A1B80090E401 /* BMCPermissionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F4932028A1B80090E401 /* BMCPermissionsCell.swift */; };
 		3404F4962028A1B80090E401 /* BMCPermissionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F4942028A1B80090E401 /* BMCPermissionsCell.xib */; };
@@ -292,7 +291,7 @@
 		34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */; };
 		34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */; };
 		34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD011C6DB693000DC38D /* MWMViewController.mm */; };
-		34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */; };
+		34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD081C6DBCDA000DC38D /* MWMNavigationController.m */; };
 		34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D1B6F01E95096B0057E9C7 /* libicu.a */; };
 		34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */; };
 		34D3AFEA1E378AF1004100F9 /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE81E378AF1004100F9 /* UINib+Init.swift */; };
@@ -382,6 +381,7 @@
 		4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
 		4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */; };
+		47289E532209BE3D002ABFC0 /* MWMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 47289E522209BE3D002ABFC0 /* MWMActivityIndicator.m */; };
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
@@ -556,8 +556,7 @@
 		B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AE20DAF9F000BAD749 /* Toast.swift */; };
 		B33D21B220DBCC5E00BAD749 /* MWMCatalogObserver.mm in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B120DBCC5D00BAD749 /* MWMCatalogObserver.mm */; };
 		B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */; };
-		B366130420D5D9BC00E7DC3E /* MWMCatalogCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B366130320D5D9BC00E7DC3E /* MWMCatalogCategory.m */; };
-		B366130720D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = B366130620D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm */; };
+		B366130420D5D9BC00E7DC3E /* MWMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B366130320D5D9BC00E7DC3E /* MWMCategory.m */; };
 		B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B366130820D5E2E000E7DC3E /* CatalogCategoryCell.swift */; };
 		B366130B20D5E2E000E7DC3E /* CatalogCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B366130920D5E2E000E7DC3E /* CatalogCategoryCell.xib */; };
 		B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */; };
@@ -895,7 +894,6 @@
 		3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosOGLContextFactory.mm; sourceTree = "<group>"; };
 		3404F489202894EA0090E401 /* BMCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCViewController.swift; sourceTree = "<group>"; };
 		3404F48A202894EA0090E401 /* BMCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCViewController.xib; sourceTree = "<group>"; };
-		3404F48D2028966C0090E401 /* BMCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCViewModel.swift; sourceTree = "<group>"; };
 		3404F48F202898CC0090E401 /* BMCModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCModels.swift; sourceTree = "<group>"; };
 		3404F4932028A1B80090E401 /* BMCPermissionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCPermissionsCell.swift; sourceTree = "<group>"; };
 		3404F4942028A1B80090E401 /* BMCPermissionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCPermissionsCell.xib; sourceTree = "<group>"; };
@@ -1231,7 +1229,7 @@
 		34C9BD011C6DB693000DC38D /* MWMViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34C9BD061C6DB6F3000DC38D /* MWMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMController.h; sourceTree = "<group>"; };
 		34C9BD071C6DBCDA000DC38D /* MWMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationController.h; sourceTree = "<group>"; };
-		34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationController.mm; sourceTree = "<group>"; };
+		34C9BD081C6DBCDA000DC38D /* MWMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNavigationController.m; sourceTree = "<group>"; };
 		34D1B6F01E95096B0057E9C7 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<group>"; };
 		34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Updates.swift"; sourceTree = "<group>"; };
 		34D3AFE81E378AF1004100F9 /* UINib+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Init.swift"; sourceTree = "<group>"; };
@@ -1413,6 +1411,8 @@
 		4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteStatistics.swift; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageDescriptionViewController.swift; sourceTree = "<group>"; };
+		47289E512209BE3D002ABFC0 /* MWMActivityIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMActivityIndicator.h; path = CustomViews/MWMActivityIndicator.h; sourceTree = "<group>"; };
+		47289E522209BE3D002ABFC0 /* MWMActivityIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MWMActivityIndicator.m; path = CustomViews/MWMActivityIndicator.m; sourceTree = "<group>"; };
 		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
 		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
@@ -1582,10 +1582,8 @@
 		B33D21B120DBCC5D00BAD749 /* MWMCatalogObserver.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCatalogObserver.mm; sourceTree = "<group>"; };
 		B33D21B320DBF3EB00BAD749 /* MWMCatalogCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogCommon.h; sourceTree = "<group>"; };
 		B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTabViewController.swift; sourceTree = "<group>"; };
-		B366130220D5D9BC00E7DC3E /* MWMCatalogCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogCategory.h; sourceTree = "<group>"; };
-		B366130320D5D9BC00E7DC3E /* MWMCatalogCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCatalogCategory.m; sourceTree = "<group>"; };
-		B366130520D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMCatalogCategory+Convenience.h"; sourceTree = "<group>"; };
-		B366130620D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMCatalogCategory+Convenience.mm"; sourceTree = "<group>"; };
+		B366130220D5D9BC00E7DC3E /* MWMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCategory.h; sourceTree = "<group>"; };
+		B366130320D5D9BC00E7DC3E /* MWMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCategory.m; sourceTree = "<group>"; };
 		B366130820D5E2E000E7DC3E /* CatalogCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCategoryCell.swift; sourceTree = "<group>"; };
 		B366130920D5E2E000E7DC3E /* CatalogCategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogCategoryCell.xib; sourceTree = "<group>"; };
 		B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
@@ -2586,7 +2584,6 @@
 			isa = PBXGroup;
 			children = (
 				34B846A72029E8110081ECCD /* BMCDefaultViewModel.swift */,
-				3404F48D2028966C0090E401 /* BMCViewModel.swift */,
 			);
 			path = BMCViewModel;
 			sourceTree = "<group>";
@@ -2837,7 +2834,7 @@
 				346EDAD91B9F0E35004F8DB5 /* MWMMultilineLabel.h */,
 				346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */,
 				34C9BD071C6DBCDA000DC38D /* MWMNavigationController.h */,
-				34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */,
+				34C9BD081C6DBCDA000DC38D /* MWMNavigationController.m */,
 				F6791B111C43DEA7007A8A6E /* MWMStartButton.h */,
 				F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */,
 				34AB39BF1D2BD8310021857D /* MWMStopButton.h */,
@@ -3497,6 +3494,8 @@
 				34ABA60F1C2D17C200FE1BEC /* Login */,
 				34BC72091B0DECAE0012A34B /* MapViewControls */,
 				34AB65C41FC5AA320078E451 /* NavigationDashboard */,
+				47289E512209BE3D002ABFC0 /* MWMActivityIndicator.h */,
+				47289E522209BE3D002ABFC0 /* MWMActivityIndicator.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -3508,10 +3507,8 @@
 				B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */,
 				B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */,
 				B3E3B50120D485FA00DA8C13 /* DownloadedBookmarksDataSource.swift */,
-				B366130220D5D9BC00E7DC3E /* MWMCatalogCategory.h */,
-				B366130320D5D9BC00E7DC3E /* MWMCatalogCategory.m */,
-				B366130520D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.h */,
-				B366130620D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm */,
+				B366130220D5D9BC00E7DC3E /* MWMCategory.h */,
+				B366130320D5D9BC00E7DC3E /* MWMCategory.m */,
 				B366130820D5E2E000E7DC3E /* CatalogCategoryCell.swift */,
 				B366130920D5E2E000E7DC3E /* CatalogCategoryCell.xib */,
 				47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */,
@@ -4899,7 +4896,7 @@
 				3467CEB2202C6EEE00D3C670 /* BMCNotificationsHeader.swift in Sources */,
 				34F4072F1E9E1AFF00E57AC0 /* BannersCache.swift in Sources */,
 				34D3B0211E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */,
-				B366130420D5D9BC00E7DC3E /* MWMCatalogCategory.m in Sources */,
+				B366130420D5D9BC00E7DC3E /* MWMCategory.m in Sources */,
 				3486B51E1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
 				F6E2FE491E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				348F8A531F863B6100060C2A /* UGCReview.swift in Sources */,
@@ -4955,7 +4952,6 @@
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy.mm in Sources */,
-				B366130720D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.mm in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
@@ -5007,7 +5003,7 @@
 				B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
-				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
+				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
 				F6550C1F1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
@@ -5261,6 +5257,7 @@
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */,
 				F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */,
+				47289E532209BE3D002ABFC0 /* MWMActivityIndicator.m in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				34AB66891FC5AA330078E451 /* NavigationControlView.swift in Sources */,
@@ -5293,7 +5290,6 @@
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
-				3404F48E2028966C0090E401 /* BMCViewModel.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,

@@ -18,8 +18,9 @@ struct CatalogCategoryInfo {
 
 @objc(MWMCatalogWebViewController)
 final class CatalogWebViewController: WebViewController {
-  let progressView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-  let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
+  let progressBgView = UIVisualEffectView(effect:
+    UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark))
+  let progressView = MWMActivityIndicator()
   let numberOfTasksLabel = UILabel()
   let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
   let pendingTransactionsHandler = InAppPurchase.pendingTransactionsHandler()
@@ -53,44 +54,44 @@ final class CatalogWebViewController: WebViewController {
     super.viewDidLoad()
 
     numberOfTasksLabel.translatesAutoresizingMaskIntoConstraints = false
-    progressImageView.translatesAutoresizingMaskIntoConstraints = false
     progressView.translatesAutoresizingMaskIntoConstraints = false
+    progressBgView.translatesAutoresizingMaskIntoConstraints = false
     loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
     numberOfTasksLabel.font = UIFont.medium14()
     numberOfTasksLabel.textColor = UIColor.white
     numberOfTasksLabel.text = "0"
-    progressView.layer.cornerRadius = 8
-    progressView.clipsToBounds = true
-    progressView.contentView.addSubview(progressImageView)
-    progressView.contentView.addSubview(numberOfTasksLabel)
-    view.addSubview(progressView)
+    progressBgView.layer.cornerRadius = 8
+    progressBgView.clipsToBounds = true
+    progressBgView.contentView.addSubview(progressView)
+    progressBgView.contentView.addSubview(numberOfTasksLabel)
+    view.addSubview(progressBgView)
     loadingIndicator.startAnimating()
     view.addSubview(loadingIndicator)
 
     loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    numberOfTasksLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor).isActive = true
-    numberOfTasksLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
-    progressImageView.centerXAnchor.constraint(equalTo: progressView.centerXAnchor).isActive = true
-    progressImageView.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
-    progressView.widthAnchor.constraint(equalToConstant: 48).isActive = true
-    progressView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    numberOfTasksLabel.centerXAnchor.constraint(equalTo: progressBgView.centerXAnchor).isActive = true
+    numberOfTasksLabel.centerYAnchor.constraint(equalTo: progressBgView.centerYAnchor).isActive = true
+    progressView.centerXAnchor.constraint(equalTo: progressBgView.centerXAnchor).isActive = true
+    progressView.centerYAnchor.constraint(equalTo: progressBgView.centerYAnchor).isActive = true
+    progressBgView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+    progressBgView.heightAnchor.constraint(equalToConstant: 48).isActive = true
 
     view.addSubview(toolbar)
     toolbar.translatesAutoresizingMaskIntoConstraints = false
     toolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     toolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    toolbar.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8).isActive = true
+    toolbar.topAnchor.constraint(equalTo: progressBgView.bottomAnchor, constant: 8).isActive = true
 
     if #available(iOS 11, *) {
       toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-      progressView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
+      progressBgView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
     } else {
       toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-      progressView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+      progressBgView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
     }
 
-    rotateProgress()
+    progressView.tintColor = UIColor.white()
     updateProgress()
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_close"), style: .plain, target: self, action: #selector(goBack))
   }
@@ -311,17 +312,7 @@ final class CatalogWebViewController: WebViewController {
   private func updateProgress() {
     let numberOfTasks = MWMBookmarksManager.shared().getCatalogDownloadsCount()
     numberOfTasksLabel.text = "\(numberOfTasks)"
-    progressView.isHidden = numberOfTasks == 0
-  }
-
-  private func rotateProgress() {
-    let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-    rotationAnimation.toValue = Double.pi * 2;
-    rotationAnimation.duration = 1
-    rotationAnimation.isCumulative = true
-    rotationAnimation.repeatCount = Float(Int.max)
-
-    progressImageView.layer.add(rotationAnimation, forKey:"rotationAnimation");
+    progressBgView.isHidden = numberOfTasks == 0
   }
 
   @objc private func onBack() {

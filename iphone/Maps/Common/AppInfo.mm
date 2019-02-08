@@ -187,7 +187,7 @@ string const kUniqueIdKey = "UniqueId";
   {
     if (isIOSVersionLessThan(10))
       return MWMOpenGLDriverRegular;
-    else if (isIOSVersionLessThan(@"10.3"))
+    else if (isIOSVersionLessThanString(@"10.3"))
       return MWMOpenGLDriverMetalPre103;
   }
   return MWMOpenGLDriverMetal;

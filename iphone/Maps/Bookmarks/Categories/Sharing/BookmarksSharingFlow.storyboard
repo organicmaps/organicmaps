@@ -45,7 +45,7 @@
                                                     <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ai-cK-Fh3">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ai-cK-Fh3" customClass="MWMActivityIndicator">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -177,7 +177,7 @@
                                                     <color key="textColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lF2-pc-Qo7">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lF2-pc-Qo7" customClass="MWMActivityIndicator">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -319,9 +319,13 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="8"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_on_web"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <segue destination="FPL-Dh-v8t" kind="presentation" identifier="editOnWeb" id="XOx-hn-7qC"/>
+                                                        <segue destination="FPL-Dh-v8t" kind="show" identifier="editOnWeb" id="XOx-hn-7qC"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -761,14 +765,24 @@ upload photos and more</string>
                                             <action selector="cancelButtonPressed:" destination="FPL-Dh-v8t" eventType="touchUpInside" id="Dcz-Ke-Dqs"/>
                                         </connections>
                                     </button>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="osb-Nl-1fT" customClass="MWMActivityIndicator">
+                                        <rect key="frame" x="155.5" y="143" width="24" height="24"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="2dy-Vg-dQd"/>
+                                            <constraint firstAttribute="width" constant="24" id="cc7-th-Ta7"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="oZZ-eC-b5K" firstAttribute="top" secondItem="pqq-0d-RGh" secondAttribute="bottom" constant="16" id="1by-bh-ar5"/>
                                     <constraint firstAttribute="trailing" secondItem="PKE-El-ftz" secondAttribute="trailing" constant="16" id="2VL-dr-I0z"/>
+                                    <constraint firstItem="osb-Nl-1fT" firstAttribute="centerY" secondItem="PKE-El-ftz" secondAttribute="centerY" id="AZc-rv-Oni"/>
                                     <constraint firstItem="oZZ-eC-b5K" firstAttribute="leading" secondItem="YNH-ha-MaJ" secondAttribute="leading" id="B8g-jn-MbD"/>
                                     <constraint firstAttribute="trailing" secondItem="oZZ-eC-b5K" secondAttribute="trailing" id="HPf-HB-MJa"/>
                                     <constraint firstItem="2gt-S9-kRm" firstAttribute="width" secondItem="PKE-El-ftz" secondAttribute="width" id="Q1q-1h-tCz"/>
+                                    <constraint firstItem="osb-Nl-1fT" firstAttribute="centerX" secondItem="PKE-El-ftz" secondAttribute="centerX" id="ZKa-j5-iD6"/>
                                     <constraint firstItem="pqq-0d-RGh" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="fcN-r1-eLk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqq-0d-RGh" secondAttribute="trailing" id="jDf-Qj-cIP"/>
                                     <constraint firstItem="2gt-S9-kRm" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="kg1-tq-q1x"/>
@@ -867,6 +881,7 @@ upload photos and more</string>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="osb-Nl-1fT" id="Rvk-kT-XVK"/>
                         <outlet property="cancelButton" destination="2gt-S9-kRm" id="0ga-Zq-IUh"/>
                         <outlet property="sendMeLinkButton" destination="PKE-El-ftz" id="5Od-ey-qJ2"/>
                     </connections>

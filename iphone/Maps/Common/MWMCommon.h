@@ -2,13 +2,13 @@
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {
-  NSArray const * const f = [first componentsSeparatedByString:@"."];
-  NSArray const * const s = [second componentsSeparatedByString:@"."];
+  NSArray<NSString *> * f = [first componentsSeparatedByString:@"."];
+  NSArray<NSString *> * s = [second componentsSeparatedByString:@"."];
   NSUInteger iter = 0;
   while (f.count > iter && s.count > iter)
   {
-    NSInteger fiv = ((NSString *)f[iter]).integerValue;
-    NSInteger siv = ((NSString *)s[iter]).integerValue;
+    NSInteger fiv = f[iter].integerValue;
+    NSInteger siv = s[iter].integerValue;
 
     if (fiv == siv)
       iter++;
@@ -18,14 +18,14 @@ static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * sec
   return f.count < s.count;
 }
 
-static inline BOOL isIOSVersionLessThan(NSString * version)
+static inline BOOL isIOSVersionLessThanString(NSString * version)
 {
   return firstVersionIsLessThanSecond(UIDevice.currentDevice.systemVersion, version);
 }
 
 static inline BOOL isIOSVersionLessThan(NSUInteger version)
 {
-  return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
+  return isIOSVersionLessThanString([NSString stringWithFormat:@"%@", @(version)]);
 }
 
 static inline BOOL isInterfaceRightToLeft()
@@ -36,8 +36,8 @@ static inline BOOL isInterfaceRightToLeft()
 
 static inline NSString * formattedSize(uint64_t size)
 {
-  return
-      [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
+  return [NSByteCountFormatter stringFromByteCount:size
+                                        countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 // Use only for screen dimensions CGFloat comparison

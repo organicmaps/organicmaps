@@ -6,25 +6,13 @@ protocol BookmarksSharingViewControllerDelegate: AnyObject {
 }
 
 final class BookmarksSharingViewController: MWMTableViewController {
-  typealias ViewModel = MWMAuthorizationViewModel
-  
-  @objc var categoryId = MWMFrameworkHelper.invalidCategoryId()
-  var categoryUrl: URL?
+  @objc var category: MWMCategory!
   @objc weak var delegate: BookmarksSharingViewControllerDelegate?
   private var sharingTags: [MWMTag]?
   private var sharingUserStatus: MWMCategoryAuthorType?
 
   private var manager: MWMBookmarksManager {
     return MWMBookmarksManager.shared()
-  }
-  
-  private var categoryAccessStatus: MWMCategoryAccessStatus? {
-    guard categoryId != MWMFrameworkHelper.invalidCategoryId() else {
-      assert(false)
-      return nil
-    }
-    
-    return manager.getCategoryAccessStatus(categoryId)
   }
   
   private let kPropertiesSegueIdentifier = "chooseProperties"
@@ -39,11 +27,11 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private let publishUpdateRowIndex = 2
 
   private var rowsInPublicSection: Int {
-    return categoryAccessStatus == .public ? 3 : 2
+    return category.accessStatus == .public ? 3 : 2
   }
 
   private var rowsInPrivateSection: Int {
-    return categoryAccessStatus == .private ? 3 : 2
+    return category.accessStatus == .private ? 3 : 2
   }
   
   @IBOutlet private weak var uploadAndPublishCell: UploadActionCell!
@@ -54,7 +42,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
 
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
-      let htmlString = String(coreFormat: L("ugc_routes_user_agreement"), arguments: [ViewModel.termsOfUseLink()])
+      let htmlString = String(coreFormat: L("ugc_routes_user_agreement"),
+                              arguments: [MWMAuthorizationViewModel.termsOfUseLink()])
       let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular14(),
                                                        NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText()]
       licenseAgreementTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
@@ -69,21 +58,22 @@ final class BookmarksSharingViewController: MWMTableViewController {
     title = L("sharing_options")
     configureActionCells()
     
-    assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "We can't share nothing")
+    guard category != nil else {
+      assert(false, "We can't share nothing")
+      return
+    }
 
-    guard let categoryAccessStatus = categoryAccessStatus else { return }
-
-    switch categoryAccessStatus {
+    switch category.accessStatus {
     case .local:
       break
     case .public:
-      categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
       getDirectLinkCell.cellState = .disabled
       uploadAndPublishCell.cellState = .completed
       directLinkInstructionsLabel.text = L("unable_get_direct_link_desc")
     case .private:
-      categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
       getDirectLinkCell.cellState = .completed
+    case .authorOnly:
+      break
     case .other:
       break
     }
@@ -178,27 +168,24 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   private func uploadAndPublish() {
-    guard categoryId != MWMFrameworkHelper.invalidCategoryId(),
-      let tags = sharingTags,
-      let userStatus = sharingUserStatus else {
+    guard let tags = sharingTags, let userStatus = sharingUserStatus else {
         assert(false, "not enough data for public sharing")
         return
     }
     
-    manager.setCategory(categoryId, authorType: userStatus)
-    manager.setCategory(categoryId, tags: tags)
-    manager.uploadAndPublishCategory(withId: categoryId, progress: { (progress) in
+    manager.setCategory(category.categoryId, authorType: userStatus)
+    manager.setCategory(category.categoryId, tags: tags)
+    manager.uploadAndPublishCategory(withId: category.categoryId, progress: { (progress) in
       self.uploadAndPublishCell.cellState = .inProgress
-    }) { (url, error) in
+    }) { (_, error) in
       if let error = error as NSError? {
         self.uploadAndPublishCell.cellState = .normal
         self.showErrorAlert(error)
       } else {
         self.uploadAndPublishCell.cellState = .completed
-        self.categoryUrl = url
         Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
-          [kStatTracks : self.manager.getCategoryTracksCount(self.categoryId),
-           kStatPoints : self.manager.getCategoryMarksCount(self.categoryId)])
+          [kStatTracks : self.category.trackCount,
+           kStatPoints : self.category.bookmarksCount])
 
         self.getDirectLinkCell.cellState = .disabled
         self.directLinkInstructionsLabel.text = L("unable_get_direct_link_desc")
@@ -220,26 +207,25 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private func uploadAndGetDirectLink() {
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPrivate])
     performAfterValidation(anchor: getDirectLinkCell) { [weak self] in
-      guard let s = self, s.categoryId != MWMFrameworkHelper.invalidCategoryId() else {
-        assert(false, "categoryId must be valid")
+      guard let s = self else {
+        assert(false, "Unexpected self == nil")
         return
       }
       
-      s.manager.uploadAndGetDirectLinkCategory(withId: s.categoryId, progress: { (progress) in
+      s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: { (progress) in
         if progress == .uploadStarted {
           s.getDirectLinkCell.cellState = .inProgress
         }
-      }, completion: { (url, error) in
+      }, completion: { (_, error) in
         if let error = error as NSError? {
           s.getDirectLinkCell.cellState = .normal
           s.showErrorAlert(error)
         } else {
           s.getDirectLinkCell.cellState = .completed
-          s.categoryUrl = url
           s.delegate?.didShareCategory()
           Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
-            [kStatTracks : s.manager.getCategoryTracksCount(s.categoryId),
-             kStatPoints : s.manager.getCategoryMarksCount(s.categoryId)])
+            [kStatTracks : s.category.trackCount,
+             kStatPoints : s.category.bookmarksCount])
           s.tableView.insertRows(at: [IndexPath(item: s.directLinkUpdateRowIndex,
                                                 section: s.privateSectionIndex)],
                                  with: .automatic)
@@ -323,7 +309,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
       Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatEditOnWeb])
       if let vc = segue.destination as? EditOnWebViewController {
         vc.delegate = self
-        vc.guideUrl = categoryUrl
+        vc.category = category
       }
     }
   }
@@ -339,7 +325,7 @@ extension BookmarksSharingViewController: UITextViewDelegate {
 
 extension BookmarksSharingViewController: UploadActionCellDelegate {
   func cellDidPressShareButton(_ cell: UploadActionCell, senderView: UIView) {
-    guard let url = categoryUrl else {
+    guard let url = manager.sharingUrl(forCategoryId: category.categoryId) else {
       assert(false, "must provide guide url")
       return
     }
@@ -391,6 +377,6 @@ extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegat
 
 extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
   func editOnWebViewControllerDidFinish(_ viewController: EditOnWebViewController) {
-    dismiss(animated: true)
+    navigationController?.popViewController(animated: true)
   }
 }

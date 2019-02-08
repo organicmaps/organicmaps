@@ -1,11 +1,10 @@
 protocol BMCCategoryCellDelegate {
-  func visibilityAction(category: BMCCategory)
-  func moreAction(category: BMCCategory, anchor: UIView)
+  func cell(_ cell: BMCCategoryCell, didCheck visible: Bool)
+  func cell(_ cell: BMCCategoryCell, didPress moreButton: UIButton)
 }
 
 final class BMCCategoryCell: MWMTableViewCell {
   @IBOutlet private weak var accessImageView: UIImageView!
-  @IBOutlet private weak var visibility: UIButton!
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.font = .regular16()
@@ -27,36 +26,35 @@ final class BMCCategoryCell: MWMTableViewCell {
     }
   }
 
-  private var category: BMCCategory? {
-    willSet {
-      category?.removeObserver(self)
+  @IBOutlet weak var visibleCheckmark: Checkmark! {
+    didSet {
+      visibleCheckmark.offTintColor = .blackHintText()
+      visibleCheckmark.onTintColor = .linkBlue()
     }
+  }
+
+  private var category: MWMCategory? {
     didSet {
       categoryUpdated()
-      category?.addObserver(self)
     }
   }
 
   private var delegate: BMCCategoryCellDelegate?
 
-  func config(category: BMCCategory, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
+  func config(category: MWMCategory, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
     self.category = category
     self.delegate = delegate
     return self
   }
 
-  @IBAction private func visibilityAction() {
-    guard let category = category else { return }
-    delegate?.visibilityAction(category: category)
+  @IBAction func onVisibleChanged(_ sender: Checkmark) {
+    delegate?.cell(self, didCheck: sender.isChecked)
   }
 
   @IBAction private func moreAction() {
-    guard let category = category else { return }
-    delegate?.moreAction(category: category, anchor: moreButton)
+    delegate?.cell(self, didPress: moreButton)
   }
-}
 
-extension BMCCategoryCell: BMCCategoryObserver {
   func categoryUpdated() {
     guard let category = category else { return }
     titleLabel.text = category.title
@@ -69,26 +67,20 @@ extension BMCCategoryCell: BMCCategoryObserver {
     case .public:
       accessString = L("public_access")
       accessImageView.image = UIImage(named: "ic_category_public")
-   case .private:
+    case .private:
       accessString = L("limited_access")
       accessImageView.image = UIImage(named: "ic_category_link")
+    case .authorOnly:
+      accessString = L("access_rules_author_only")
+      accessImageView.image = UIImage(named: "ic_category_private")
     case .other:
       assert(false, "We don't expect category with .other status here")
       accessImageView.image = nil
-      accessString = ""
+      accessString = "Other"
     }
 
-    let placesString = String(format: L("bookmarks_places"), category.count)
+    let placesString = String(format: L("bookmarks_places"), category.bookmarksCount + category.trackCount)
     subtitleLabel.text = accessString.count > 0 ? "\(accessString) • \(placesString)" : placesString
-
-    if category.isVisible {
-      visibility.tintColor = .linkBlue()
-      visibility.setImage(#imageLiteral(resourceName: "radioBtnOn"), for: .normal)
-      visibility.imageView?.mwm_coloring = .blue
-    } else {
-      visibility.tintColor = .blackHintText()
-      visibility.setImage(#imageLiteral(resourceName: "radioBtnOff"), for: .normal)
-      visibility.imageView?.mwm_coloring = .gray
-    }
+    visibleCheckmark.isChecked = category.isVisible
   }
 }

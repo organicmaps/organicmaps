@@ -4,8 +4,14 @@ protocol EditOnWebViewControllerDelegate: AnyObject {
 
 final class EditOnWebViewController: MWMViewController {
   weak var delegate: EditOnWebViewControllerDelegate?
-  var guideUrl: URL?
+  var category: MWMCategory!
   
+  @IBOutlet weak var activityIndicator: MWMActivityIndicator! {
+    didSet {
+      activityIndicator.tintColor = UIColor.white()
+    }
+  }
+
   @IBOutlet weak var sendMeLinkButton: MWMButton! {
     didSet {
       sendMeLinkButton.setTitle(L("send_a_link_btn").uppercased(), for: .normal)
@@ -17,28 +23,130 @@ final class EditOnWebViewController: MWMViewController {
       cancelButton.setTitle(L("cancel").uppercased(), for: .normal)
     }
   }
-  
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    guard category != nil else {
+      assert(false, "Category must be set")
+    }
+  }
+
+  override var hasNavigationBar: Bool {
+    return false
+  }
+
   @IBAction func sendMeLinkButtonPressed(_ sender: Any) {
-    guard let guide = guideUrl else {
-      assert(false, "must provide guide url")
-      return
-    }
-    
     Statistics.logEvent(kStatEditOnWebClick, withParameters: [kStatItem : kStatCopyLink])
-    let message = String(coreFormat: L("share_bookmarks_email_body_link"), arguments: [guide.absoluteString])
-    let shareController = MWMActivityViewController.share(for: nil, message: message) {
-      [weak self] _, success, _, _ in
-      if success {
-        Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatEditOnWeb])
-      }
-      if let self = self {
-        self.delegate?.editOnWebViewControllerDidFinish(self)
-      }
+    switch category.accessStatus {
+    case .local:
+      uploadCategory()
+    case .public:
+      fallthrough
+    case .private:
+      fallthrough
+    case .authorOnly:
+      presentSharingOptions()
+    case .other:
+      assert(false, "Unexpected")
     }
-    shareController?.present(inParentViewController: self, anchorView: sendMeLinkButton)
   }
   
   @IBAction func cancelButtonPressed(_ sender: Any) {
     delegate?.editOnWebViewControllerDidFinish(self)
+  }
+
+  private func uploadCategory() {
+    activityIndicator.isHidden = false
+    sendMeLinkButton.isEnabled = false
+    sendMeLinkButton.setTitle(nil, for: .normal)
+    MWMBookmarksManager.shared().uploadCategory(withId: category.categoryId, progress: { (progress) in
+
+    }) { [weak self] (url, error) in
+      guard let self = self else { return }
+      self.activityIndicator.isHidden = true
+      self.sendMeLinkButton.isEnabled = true
+      self.sendMeLinkButton.setTitle(L("send_a_link_btn").uppercased(), for: .normal)
+      if let error = error as NSError? {
+        guard error.code == kCategoryUploadFailedCode,
+          let statusCode = error.userInfo[kCategoryUploadStatusKey] as? Int,
+          let status = MWMCategoryUploadStatus(rawValue: statusCode) else {
+            assert(false)
+            return
+        }
+
+        switch status {
+        case .networkError:
+          self.networkError()
+        case .authError:
+          self.authError()
+        case .malformedData:
+          self.fileError()
+        case .serverError:
+          self.serverError()
+        case .accessError:
+          fallthrough
+        case .invalidCall:
+          self.anotherError()
+        }
+      } else {
+        self.presentSharingOptions()
+      }
+    }
+  }
+
+  private func presentSharingOptions() {
+    guard let url = MWMBookmarksManager.shared().webEditorUrl(forCategoryId: category.categoryId) else {
+      assert(false, "Unexpected empty url for category \(category.title)")
+      return
+    }
+
+    let message = String(coreFormat: L("share_bookmarks_email_body_link"),
+                         arguments: [url.absoluteString])
+    let shareController = MWMActivityViewController.share(for: nil, message: message) {
+      [weak self] _, success, _, _ in
+      if success {
+        Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatEditOnWeb])
+        if let self = self {
+          self.delegate?.editOnWebViewControllerDidFinish(self)
+        }
+      }
+    }
+    shareController?.present(inParentViewController: self, anchorView: sendMeLinkButton)
+  }
+
+  private func networkError() {
+    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("common_check_internet_connection_dialog_title"),
+                                                             message: L("common_check_internet_connection_dialog"),
+                                                             rightButtonTitle: L("try_again"),
+                                                             leftButtonTitle: L("cancel")) {
+                                                              self.uploadCategory()
+    }
+  }
+
+  private func serverError() {
+    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
+                                                             message: L("error_server_message"),
+                                                             rightButtonTitle: L("try_again"),
+                                                             leftButtonTitle: L("cancel")) {
+                                                              self.uploadCategory()
+    }
+  }
+
+  private func authError() {
+    signup(anchor: sendMeLinkButton) {
+      if ($0) {
+        self.uploadCategory()
+      }
+    }
+  }
+
+  private func fileError() {
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("unable_upload_errorr_title"),
+                                                          text: L("unable_upload_error_subtitle_broken"))
+  }
+
+  private func anotherError() {
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("unable_upload_errorr_title"),
+                                                          text: L("upload_error_toast"))
   }
 }

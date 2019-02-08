@@ -480,7 +480,7 @@ CGFloat const kPinDiameter = 18.0f;
                          [self.delegate bookmarksVCdidDeleteCategory:self];
                          [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatDelete}];
                        }];
-  deleteAction.enabled = [[MWMBookmarksManager sharedManager] groupsIdList].count > 1;
+  deleteAction.enabled = [[MWMBookmarksManager sharedManager] userCategories].count > 1;
   [actionSheet addAction:deleteAction];
 
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"cancel")
@@ -510,7 +510,7 @@ CGFloat const kPinDiameter = 18.0f;
   auto storyboard = [UIStoryboard instance:MWMStoryboardCategorySettings];
   auto settingsController = (CategorySettingsViewController *)[storyboard instantiateInitialViewController];
   settingsController.delegate = self;
-  settingsController.categoryId = m_categoryId;
+  settingsController.category = [[MWMBookmarksManager sharedManager] categoryWithId:m_categoryId];
   [self.navigationController pushViewController:settingsController animated:YES];
 }
 
@@ -525,7 +525,7 @@ CGFloat const kPinDiameter = 18.0f;
   auto storyboard = [UIStoryboard instance:MWMStoryboardSharing];
   auto shareController = (BookmarksSharingViewController *)[storyboard instantiateInitialViewController];
   shareController.delegate = self;
-  shareController.categoryId = m_categoryId;
+  shareController.category = [[MWMBookmarksManager sharedManager] categoryWithId:m_categoryId];
   [self.navigationController pushViewController:shareController animated:YES];
 }
 

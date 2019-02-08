@@ -143,9 +143,9 @@ extension DownloadedBookmarksViewController: CatalogCategoryCellDelegate {
         ppc.sourceRect = moreButton.bounds
       }
 
-      let showHide = L(category.visible ? "hide" : "show").capitalized
+      let showHide = L(category.isVisible ? "hide" : "show").capitalized
       actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
-        self.setCategoryVisible(!category.visible, at: indexPath.row)
+        self.setCategoryVisible(!category.isVisible, at: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
       }))
 

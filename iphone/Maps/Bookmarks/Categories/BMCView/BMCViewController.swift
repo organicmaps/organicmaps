@@ -1,5 +1,5 @@
 final class BMCViewController: MWMViewController {
-  private var viewModel: BMCViewModel! {
+  private var viewModel: BMCDefaultViewModel! {
     didSet {
       viewModel.view = self
       tableView.dataSource = self
@@ -71,8 +71,8 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-  private func shareCategoryFile(category: BMCCategory, anchor: UIView) {
-    viewModel.shareCategoryFile(category: category) {
+  private func shareCategoryFile(at index: Int, anchor: UIView) {
+    viewModel.shareCategoryFile(at: index) {
       switch $0 {
       case let .success(url):
         let shareController = MWMActivityViewController.share(for: url,
@@ -88,19 +88,18 @@ final class BMCViewController: MWMViewController {
   }
 
 
-  private func shareCategory(category: BMCCategory, anchor: UIView) {
+  private func shareCategory(category: MWMCategory, anchor: UIView) {
     let storyboard = UIStoryboard.instance(.sharing)
     let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
-    shareController.categoryId = category.identifier
-    
+    shareController.category = MWMBookmarksManager.shared().category(withId: category.categoryId)
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
                                                                                    animated: true)
   }
   
-  private func openCategorySettings(category: BMCCategory) {
+  private func openCategorySettings(category: MWMCategory) {
     let storyboard = UIStoryboard.instance(.categorySettings)
     let settingsController = storyboard.instantiateInitialViewController() as! CategorySettingsViewController
-    settingsController.categoryId = category.identifier
+    settingsController.category = MWMBookmarksManager.shared().category(withId: category.categoryId)
     settingsController.maxCategoryNameLength = viewModel.maxCategoryNameLength
     settingsController.minCategoryNameLength = viewModel.minCategoryNameLength
     settingsController.delegate = self
@@ -109,14 +108,23 @@ final class BMCViewController: MWMViewController {
                                                                                    animated: true)
   }
 
-  private func openCategory(category: BMCCategory) {
-    let bmViewController = BookmarksVC(category: category.identifier)!
+  private func openCategory(category: MWMCategory) {
+    let bmViewController = BookmarksVC(category: category.categoryId)!
     bmViewController.delegate = self
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
   }
 
-  private func editCategory(category: BMCCategory, anchor: UIView) {
+  private func setCategoryVisible(_ visible: Bool, at index: Int) {
+    let category = viewModel.category(at: index)
+    category.isVisible = visible
+    if let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as? BMCCategoriesHeader {
+      categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
+    }
+  }
+
+  private func editCategory(at index: Int, anchor: UIView) {
+    let category = viewModel.category(at: index)
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     if let ppc = actionSheet.popoverPresentationController {
       ppc.sourceView = anchor
@@ -131,13 +139,15 @@ final class BMCViewController: MWMViewController {
     }))
     let showHide = L(category.isVisible ? "hide_from_map" : "zoom_to_country")
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
-      self.visibilityAction(category: category)
+      self.setCategoryVisible(!category.isVisible, at: index)
+      let sectionIndex = self.viewModel.sectionIndex(section: .categories)
+      self.tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatMakeInvisibleOnMap])
     }))
     let exportFile = L("export_file")
     actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
-      self.shareCategoryFile(category: category, anchor: anchor)
+      self.shareCategoryFile(at: index, anchor: anchor)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatSendAsFile])
     }))
@@ -147,11 +157,11 @@ final class BMCViewController: MWMViewController {
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatSharingOptions])
     })
-    shareAction.isEnabled = MWMBookmarksManager.shared().isCategoryNotEmpty(category.identifier)
+    shareAction.isEnabled = MWMBookmarksManager.shared().isCategoryNotEmpty(category.categoryId)
     actionSheet.addAction(shareAction)
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
-      viewModel!.deleteCategory(category: category)
+      viewModel!.deleteCategory(at: index)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatDeleteGroup])
     })
@@ -210,22 +220,21 @@ extension BMCViewController: UITableViewDataSource {
     func dequeCell<Cell>(_ cell: Cell.Type) -> Cell where Cell: UITableViewCell {
       return tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
-    switch viewModel.item(indexPath: indexPath) {
-    case let permission as BMCPermission:
+    switch viewModel.sectionType(section: indexPath.section) {
+    case .permissions:
+      let permission = viewModel.permission(at: indexPath.row)
       if viewModel.isPendingPermission {
         return dequeCell(BMCPermissionsPendingCell.self).config(permission: permission)
       } else {
         return dequeCell(BMCPermissionsCell.self).config(permission: permission, delegate: self)
       }
-    case let category as BMCCategory:
-      return dequeCell(BMCCategoryCell.self).config(category: category, delegate: self)
-    case let model as BMCAction:
-      return dequeCell(BMCActionsCreateCell.self).config(model: model)
-    case is BMCNotification:
+    case .categories:
+      return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
+                                                    delegate: self)
+    case .actions:
+      return dequeCell(BMCActionsCreateCell.self).config(model: viewModel.action(at: indexPath.row))
+    case .notifications:
       return dequeCell(BMCNotificationsCell.self)
-    default:
-      assertionFailure()
-      return UITableViewCell()
     }
   }
 }
@@ -239,16 +248,16 @@ extension BMCViewController: UITableViewDelegate {
     return viewModel.numberOfRows(section: .categories) > 1
   }
 
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    guard let item = viewModel.item(indexPath: indexPath) as? BMCCategory,
-    editingStyle == .delete,
-    viewModel.sectionType(section: indexPath.section) == .categories
-    else {
-      assertionFailure()
-      return
+  func tableView(_ tableView: UITableView,
+                 commit editingStyle: UITableViewCellEditingStyle,
+                 forRowAt indexPath: IndexPath) {
+    guard editingStyle == .delete,
+      viewModel.sectionType(section: indexPath.section) == .categories else {
+        assertionFailure()
+        return
     }
 
-    viewModel.deleteCategory(category: item)
+    viewModel.deleteCategory(at: indexPath.row)
   }
 
   func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -276,13 +285,13 @@ extension BMCViewController: UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    switch viewModel.item(indexPath: indexPath) {
-    case is BMCPermission:
+    switch viewModel.sectionType(section: indexPath.section) {
+    case .permissions:
       return
-    case let category as BMCCategory:
-      openCategory(category: category)
-    case let action as BMCAction:
-      switch action {
+    case .categories:
+      openCategory(category: viewModel.category(at: indexPath.row))
+    case .actions:
+      switch viewModel.action(at: indexPath.row) {
       case .create: createNewCategory()
       }
     default:
@@ -308,15 +317,22 @@ extension BMCViewController: BMCPermissionsCellDelegate {
 }
 
 extension BMCViewController: BMCCategoryCellDelegate {
-  func visibilityAction(category: BMCCategory) {
-    viewModel.updateCategoryVisibility(category: category)
-    if let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as? BMCCategoriesHeader {
-      categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
+  func cell(_ cell: BMCCategoryCell, didCheck visible: Bool) {
+    guard let indexPath = tableView.indexPath(for: cell) else {
+      assertionFailure()
+      return
     }
+
+    setCategoryVisible(visible, at: indexPath.row)
   }
 
-  func moreAction(category: BMCCategory, anchor: UIView) {
-    editCategory(category: category, anchor: anchor)
+  func cell(_ cell: BMCCategoryCell, didPress moreButton: UIButton) {
+    guard let indexPath = tableView.indexPath(for: cell) else {
+      assertionFailure()
+      return
+    }
+
+    editCategory(at: indexPath.row, anchor: moreButton)
   }
 }
 
@@ -341,6 +357,7 @@ extension BMCViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
     viewModel.updateAllCategoriesVisibility(isShowAll: categoriesHeader.isShowAll)
     categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
+    tableView.reloadData()
   }
 }
 

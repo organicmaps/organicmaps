@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, MWMCategoryAccessStatus) {
   MWMCategoryAccessStatusLocal,
   MWMCategoryAccessStatusPublic,
   MWMCategoryAccessStatusPrivate,
+  MWMCategoryAccessStatusAuthorOnly,
   MWMCategoryAccessStatusOther
 };
 

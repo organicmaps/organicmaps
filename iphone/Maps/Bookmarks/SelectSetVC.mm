@@ -10,7 +10,7 @@
 }
 
 @property (copy, nonatomic) NSString * category;
-@property (copy, nonatomic) MWMGroupIDCollection groupIds;
+@property (copy, nonatomic) NSArray<MWMCategory *> * categories;
 @property (weak, nonatomic) id<MWMSelectSetDelegate> delegate;
 
 @end
@@ -42,7 +42,7 @@
 
 - (void)reloadData
 {
-  self.groupIds = [[MWMBookmarksManager sharedManager] groupsIdList];
+  self.categories = [[MWMBookmarksManager sharedManager] userCategories];
   [self.tableView reloadData];
 }
 
@@ -57,7 +57,7 @@
   if (section == 0)
     return 1;
 
-  return self.groupIds.count;
+  return self.categories.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -71,12 +71,10 @@
   }
   else
   {
-    auto const & bmManager = GetFramework().GetBookmarkManager();
-    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
-    if (bmManager.HasBmCategory(categoryId))
-      cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
+    MWMCategory * category = self.categories[indexPath.row];
+    cell.textLabel.text = category.title;
 
-    if (m_categoryId == categoryId)
+    if (m_categoryId == category.categoryId)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -111,7 +109,7 @@
   }
   else
   {
-    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
+    auto const categoryId = self.categories[indexPath.row].categoryId;
     [self moveBookmarkToSetWithCategoryId:categoryId];
     [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
     [self goBack];

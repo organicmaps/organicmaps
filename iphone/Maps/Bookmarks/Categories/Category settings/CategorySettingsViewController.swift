@@ -8,7 +8,7 @@ protocol CategorySettingsViewControllerDelegate: AnyObject {
 
 class CategorySettingsViewController: MWMTableViewController {
   
-  @objc var categoryId = MWMFrameworkHelper.invalidCategoryId()
+  @objc var category: MWMCategory!
   @objc var maxCategoryNameLength: UInt = 60
   @objc var minCategoryNameLength: UInt = 0
   private var changesMade = false
@@ -28,13 +28,12 @@ class CategorySettingsViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = L("list_settings")
-    
-    assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "must provide category info")
+    assert(category != nil, "must provide category info")
 
-    deleteListButton.isEnabled = (manager.groupsIdList().count > 1)
-    nameTextField.text = manager.getCategoryName(categoryId)
-    descriptionTextView.text = manager.getCategoryDescription(categoryId)
+    title = L("list_settings")
+    deleteListButton.isEnabled = (manager.userCategories().count > 1)
+    nameTextField.text = category.title
+    descriptionTextView.text = category.description
     
     navigationItem.rightBarButtonItem = saveButton
   }
@@ -50,44 +49,37 @@ class CategorySettingsViewController: MWMTableViewController {
     switch section {
     case 0:
       // if there are no bookmarks in category, hide 'sharing options' row
-      return MWMBookmarksManager.shared().isCategoryNotEmpty(categoryId) ? 2 : 1
+      return category.isEmpty ? 1 : 2
     default:
       return 1
     }
   }
   
   @IBAction func deleteListButtonPressed(_ sender: Any) {
-    guard categoryId != MWMFrameworkHelper.invalidCategoryId() else {
-      assert(false)
-      return
-    }
-    
-    manager.deleteCategory(categoryId)
-    delegate?.categorySettingsController(self, didDelete: categoryId)
+    manager.deleteCategory(category.categoryId)
+    delegate?.categorySettingsController(self, didDelete: category.categoryId)
     Statistics.logEvent(kStatBookmarkSettingsClick,
                         withParameters: [kStatOption : kStatDelete])
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let destinationVC = segue.destination as? BookmarksSharingViewController {
-      destinationVC.categoryId = categoryId
+      destinationVC.category = category
       Statistics.logEvent(kStatBookmarkSettingsClick,
                           withParameters: [kStatOption : kStatSharingOptions])
     }
   }
   
   @IBAction func onSave(_ sender: Any) {
-    guard categoryId != MWMFrameworkHelper.invalidCategoryId(),
-      let newName = nameTextField.text,
-      !newName.isEmpty else {
-        assert(false)
-        return
+    guard let newName = nameTextField.text, !newName.isEmpty else {
+      assert(false)
+      return
     }
-    
-    manager.setCategory(categoryId, name: newName)
-    manager.setCategory(categoryId, description: descriptionTextView.text)
+
+    category.title = newName
+    category.detailedAnnotation = descriptionTextView.text
     changesMade = true
-    delegate?.categorySettingsController(self, didEndEditing: categoryId)
+    delegate?.categorySettingsController(self, didEndEditing: category.categoryId)
     Statistics.logEvent(kStatBookmarkSettingsConfirm)
   }
   

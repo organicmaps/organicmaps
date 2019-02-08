@@ -1,6 +1,6 @@
 #import "MWMBookmarksManager.h"
 #import "AppInfo.h"
-#import "MWMCatalogCategory+Convenience.h"
+#import "MWMCategory.h"
 #import "MWMTag+Convenience.h"
 #import "MWMTagGroup+Convenience.h"
 #import "MWMCatalogObserver.h"
@@ -320,9 +320,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       return MWMCategoryAccessStatusPublic;
     case kml::AccessRules::DirectLink:
       return MWMCategoryAccessStatusPrivate;
+    case kml::AccessRules::AuthorOnly:
+      return MWMCategoryAccessStatusAuthorOnly;
     case kml::AccessRules::P2P:
     case kml::AccessRules::Paid:
-    case kml::AccessRules::AuthorOnly:
     case kml::AccessRules::Count:
       return MWMCategoryAccessStatusOther;
   }
@@ -331,6 +332,11 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId
 {
   return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_description).c_str());
+}
+
+- (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId
+{
+  return @(self.bm.GetCategoryData(groupId).m_authorName.c_str());
 }
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name
@@ -545,6 +551,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
+- (NSURL *)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId {
+  auto serverId = self.bm.GetCategoryServerId(groupId);
+  auto language = [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String;
+  NSString * urlString = @(self.bm.GetCatalog().GetWebEditorUrl(serverId, language).c_str());
+  return urlString ? [NSURL URLWithString:urlString] : nil;
+}
+
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(ProgressBlock)progress
@@ -574,6 +587,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::Public);
 }
 
+- (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
+                    progress:(ProgressBlock)progress
+                  completion:(UploadCompletionBlock)completion
+{
+  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
+  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::AuthorOnly);
+}
+
 - (void)registerUploadObserverForCategoryWithId:(MWMMarkGroupID)itemId
                                        progress:(ProgressBlock)progress
                                      completion:(UploadCompletionBlock)completion
@@ -590,22 +611,32 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return self.bm.IsCategoryFromCatalog(groupId);
 }
 
-- (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog
+- (NSArray<MWMCategory *> *)userCategories
+{
+  NSMutableArray * result = [NSMutableArray array];
+  auto const & list = self.bm.GetBmGroupsIdList();
+  for (auto const & groupId : list)
+  {
+    if ([self isCategoryEditable:groupId])
+      [result addObject:[self categoryWithId:groupId]];
+  }
+  return [result copy];
+}
+
+- (NSArray<MWMCategory *> *)categoriesFromCatalog
 {
   NSMutableArray * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
     if (![self isCategoryEditable:groupId])
-    {
-      kml::CategoryData categoryData = self.bm.GetCategoryData(groupId);
-      uint64_t bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
-      MWMCatalogCategory * category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
-                                                                       bookmarksCount:bookmarksCount];
-      [result addObject:category];
-    }
+      [result addObject:[self categoryWithId:groupId]];
   }
   return [result copy];
+}
+
+- (MWMCategory *)categoryWithId:(MWMMarkGroupID)groupId {
+  return [[MWMCategory alloc] initWithCategoryId:groupId bookmarksManager:self];
 }
 
 - (NSInteger)getCatalogDownloadsCount
@@ -640,7 +671,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       completionBlock(nil, 0);
   };
   
-  self.bm.GetCatalog().RequestTagGroups([[AppInfo sharedInfo] languageId].UTF8String, std::move(onTagsCompletion));
+  self.bm.GetCatalog().RequestTagGroups([[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
+                                        std::move(onTagsCompletion));
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags

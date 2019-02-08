@@ -2,7 +2,7 @@
 #import "MWMTypes.h"
 #import "MWMCatalogCommon.h"
 
-@class MWMCatalogCategory;
+@class MWMCategory;
 @class MWMTagGroup;
 @class MWMTag;
 
@@ -22,12 +22,12 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 
 - (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId;
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
-- (MWMGroupIDCollection)groupsIdList;
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId;
 - (MWMCategoryAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
+- (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId;
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name;
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;
@@ -60,12 +60,15 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 
 - (NSURL * _Nullable)catalogFrontendUrl;
 - (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(_Nullable ProgressBlock)progress
                 completion:(_Nullable DownloadCompletionBlock)completion;
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
-- (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog;
+- (NSArray<MWMCategory *> *)userCategories;
+- (NSArray<MWMCategory *> *)categoriesFromCatalog;
+- (MWMCategory *)categoryWithId:(MWMMarkGroupID)groupId;
 - (NSInteger)getCatalogDownloadsCount;
 - (BOOL)isCategoryDownloading:(NSString *)itemId;
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId;
@@ -81,6 +84,10 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
                               progress:(ProgressBlock)progress
                             completion:(UploadCompletionBlock)completion;
+
+- (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
+                    progress:(ProgressBlock)progress
+                  completion:(UploadCompletionBlock)completion;
 
 @end
 NS_ASSUME_NONNULL_END

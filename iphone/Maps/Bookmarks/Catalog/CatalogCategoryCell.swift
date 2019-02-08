@@ -35,12 +35,12 @@ final class CatalogCategoryCell: MWMTableViewCell {
     delegate?.cell(self, didPress: sender)
   }
 
-  func update(with category: MWMCatalogCategory, delegate: CatalogCategoryCellDelegate?) {
+  func update(with category: MWMCategory, delegate: CatalogCategoryCellDelegate?) {
     titleLabel.text = category.title
     let placesString = String(format: L("bookmarks_places"), category.bookmarksCount)
     let authorString = String(coreFormat: L("author_name_by_prefix"), arguments: [category.author])
     subtitleLabel.text = "\(placesString) • \(authorString)"
-    visibleCheckmark.isChecked = category.visible
+    visibleCheckmark.isChecked = category.isVisible
     self.delegate = delegate
   }
 }
