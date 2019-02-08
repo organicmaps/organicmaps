@@ -1,5 +1,7 @@
 #include "geocoder/geocoder.hpp"
 
+#include "geocoder/hierarchy_reader.hpp"
+
 #include "search/house_numbers_matcher.hpp"
 
 #include "indexer/search_string_utils.hpp"
@@ -13,6 +15,7 @@
 
 #include <algorithm>
 #include <set>
+#include <thread>
 #include <utility>
 
 using namespace std;
@@ -193,8 +196,18 @@ vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
 vector<Geocoder::Layer> const & Geocoder::Context::GetLayers() const { return m_layers; }
 
 // Geocoder ----------------------------------------------------------------------------------------
-Geocoder::Geocoder(string const & pathToJsonHierarchy)
-  : m_hierarchy(pathToJsonHierarchy), m_index(m_hierarchy)
+Geocoder::Geocoder(string const & pathToJsonHierarchy, unsigned int loadThreadsCount)
+  : Geocoder{HierarchyReader{pathToJsonHierarchy}.Read(loadThreadsCount), loadThreadsCount}
+{
+}
+
+Geocoder::Geocoder(istream & jsonHierarchy, unsigned int loadThreadsCount)
+  : Geocoder{HierarchyReader{jsonHierarchy}.Read(loadThreadsCount), loadThreadsCount}
+{
+}
+
+Geocoder::Geocoder(Hierarchy && hierarchy, unsigned int loadThreadsCount)
+  : m_hierarchy(move(hierarchy)), m_index(m_hierarchy, loadThreadsCount)
 {
 }
 

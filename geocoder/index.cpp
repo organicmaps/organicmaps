@@ -8,7 +8,10 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <atomic>
 #include <cstddef>
+#include <mutex>
+#include <thread>
 
 using namespace std;
 
@@ -20,12 +23,15 @@ size_t const kLogBatch = 100000;
 
 namespace geocoder
 {
-Index::Index(Hierarchy const & hierarchy) : m_docs(hierarchy.GetEntries())
+Index::Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount)
+  : m_docs(hierarchy.GetEntries())
 {
+  CHECK_GREATER_OR_EQUAL(loadThreadsCount, 1, ());
+
   LOG(LINFO, ("Indexing hierarchy entries..."));
   AddEntries();
   LOG(LINFO, ("Indexing houses..."));
-  AddHouses();
+  AddHouses(loadThreadsCount);
 }
 
 Index::Doc const & Index::GetDoc(DocId const id) const
@@ -89,41 +95,59 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
   }
 }
 
-void Index::AddHouses()
+void Index::AddHouses(unsigned int loadThreadsCount)
 {
-  size_t numIndexed = 0;
-  for (DocId docId = 0; docId < static_cast<DocId>(m_docs.size()); ++docId)
+  atomic<size_t> numIndexed{0};
+  mutex mutex;
+
+  vector<thread> threads(loadThreadsCount);
+  CHECK_GREATER(threads.size(), 0, ());
+
+  for (size_t t = 0; t < threads.size(); ++t)
   {
-    auto const & buildingDoc = GetDoc(docId);
+    threads[t] = thread([&, t, this]() {
+      size_t const size = m_docs.size() / threads.size();
+      size_t docId = t * size;
+      size_t const docIdEnd = (t + 1 == threads.size() ? m_docs.size() : docId + size);
 
-    if (buildingDoc.m_type != Type::Building)
-      continue;
-
-    auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
-    auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
-
-    Tokens const * relationName = nullptr;
-
-    if (!street.empty())
-      relationName = &street;
-    else if (!locality.empty())
-      relationName = &locality;
-
-    if (!relationName)
-      continue;
-
-    ForEachDocId(*relationName, [&](DocId const & candidate) {
-      auto const & candidateDoc = GetDoc(candidate);
-      if (candidateDoc.IsParentTo(buildingDoc))
+      for (; docId < docIdEnd; ++docId)
       {
-        m_relatedBuildings[candidate].emplace_back(docId);
+        auto const & buildingDoc = GetDoc(docId);
 
-        ++numIndexed;
-        if (numIndexed % kLogBatch == 0)
-          LOG(LINFO, ("Indexed", numIndexed, "houses"));
+        if (buildingDoc.m_type != Type::Building)
+          continue;
+
+        auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
+        auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
+
+        Tokens const * relationName = nullptr;
+
+        if (!street.empty())
+          relationName = &street;
+        else if (!locality.empty())
+          relationName = &locality;
+
+        if (!relationName)
+          continue;
+
+        ForEachDocId(*relationName, [&](DocId const & candidate) {
+          auto const & candidateDoc = GetDoc(candidate);
+          if (candidateDoc.IsParentTo(buildingDoc))
+          {
+            auto && lock = lock_guard<std::mutex>(mutex);
+            m_relatedBuildings[candidate].emplace_back(docId);
+          }
+        });
+
+        auto processedCount = numIndexed.fetch_add(1) + 1;
+        if (processedCount % kLogBatch == 0)
+          LOG(LINFO, ("Indexed", processedCount, "houses"));
       }
     });
   }
+
+  for (auto & t : threads)
+    t.join();
 
   if (numIndexed % kLogBatch != 0)
     LOG(LINFO, ("Indexed", numIndexed, "houses"));

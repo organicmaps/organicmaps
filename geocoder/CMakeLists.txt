@@ -8,6 +8,8 @@ set(
   geocoder.hpp
   hierarchy.cpp
   hierarchy.hpp
+  hierarchy_reader.cpp
+  hierarchy_reader.hpp
   index.cpp
   index.hpp
   result.cpp

@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "geocoder/geocoder.hpp"
+#include "geocoder/hierarchy_reader.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
@@ -169,5 +170,34 @@ UNIT_TEST(Geocoder_LocalityBuilding)
   base::GeoObjectId const building2(22);
 
   TestGeocoder(geocoder, "Zelenograd 2", {{building2, 1.0}});
+}
+
+UNIT_TEST(Geocoder_EmptyFileConcurrentRead)
+{
+  ScopedFile const regionsJsonFile("regions.jsonl", "");
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+
+  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), 0, ());
+}
+
+UNIT_TEST(Geocoder_BigFileConcurrentRead)
+{
+  int const kEntryCount = 100000;
+
+  stringstream s;
+  for (int i = 0; i < kEntryCount; ++i)
+  {
+    s << i << " "
+      << "{"
+      << R"("type": "Feature",)"
+      << R"("geometry": {"type": "Point", "coordinates": [0, 0]},)"
+      << R"("properties": {"name": ")" << i << R"(", "rank": 2, "address": {"country": ")" << i << R"("}})"
+      << "}\n";
+  }
+
+  ScopedFile const regionsJsonFile("regions.jsonl", s.str());
+  Geocoder geocoder(regionsJsonFile.GetFullPath(), 8 /* reader threads */);
+
+  TEST_EQUAL(geocoder.GetHierarchy().GetEntries().size(), kEntryCount, ());
 }
 }  // namespace geocoder
