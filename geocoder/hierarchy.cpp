@@ -9,37 +9,9 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <utility>
 
 using namespace std;
-
-namespace
-{
-// Information will be logged for every |kLogBatch| entries.
-size_t const kLogBatch = 100000;
-
-void CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
-                          geocoder::Hierarchy::ParsingStats & stats)
-{
-  size_t i = 0;
-  while (i < entries.size())
-  {
-    size_t j = i + 1;
-    while (j < entries.size() && entries[i].m_osmId == entries[j].m_osmId)
-      ++j;
-    if (j != i + 1)
-    {
-      ++stats.m_duplicateOsmIds;
-      // todo Remove the cast when the hierarchies no longer contain negative keys.
-      LOG(LDEBUG,
-          ("Duplicate osm id:", static_cast<int64_t>(entries[i].m_osmId.GetEncodedId()), "(",
-           entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
-    }
-    i = j;
-  }
-}
-}  // namespace
 
 namespace geocoder
 {
@@ -138,64 +110,14 @@ bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
-Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
+Hierarchy::Hierarchy(vector<Entry> && entries, bool sorted)
+  : m_entries{std::move(entries)}
 {
-  ifstream ifs(pathToJsonHierarchy);
-  string line;
-  ParsingStats stats;
-
-  LOG(LINFO, ("Reading entries..."));
-  while (getline(ifs, line))
+  if (!sorted)
   {
-    if (line.empty())
-      continue;
-
-    auto const i = line.find(' ');
-    int64_t encodedId;
-    if (i == string::npos || !strings::to_any(line.substr(0, i), encodedId))
-    {
-      LOG(LWARNING, ("Cannot read osm id. Line:", line));
-      ++stats.m_badOsmIds;
-      continue;
-    }
-    line = line.substr(i + 1);
-
-    Entry entry;
-    // todo(@m) We should really write uints as uints.
-    entry.m_osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
-
-    if (!entry.DeserializeFromJSON(line, stats))
-      continue;
-
-    if (entry.m_type == Type::Count)
-      continue;
-
-    ++stats.m_numLoaded;
-    if (stats.m_numLoaded % kLogBatch == 0)
-      LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
-
-    m_entries.emplace_back(move(entry));
+    LOG(LINFO, ("Sorting entries..."));
+    sort(m_entries.begin(), m_entries.end());
   }
-
-  if (stats.m_numLoaded % kLogBatch != 0)
-    LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
-
-  LOG(LINFO, ("Sorting entries..."));
-  sort(m_entries.begin(), m_entries.end());
-
-  CheckDuplicateOsmIds(m_entries, stats);
-
-  LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
-  LOG(LINFO, ("Entries loaded:", stats.m_numLoaded));
-  LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
-  LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
-  LOG(LINFO, ("Duplicate base::GeoObjectIds:", stats.m_duplicateOsmIds));
-  LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
-  LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
-  LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
-  LOG(LINFO,
-      ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
-  LOG(LINFO, ("(End of stats.)"));
 }
 
 vector<Hierarchy::Entry> const & Hierarchy::GetEntries() const

@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -20,7 +21,7 @@ public:
   // that the index was constructed from.
   using DocId = std::vector<Doc>::size_type;
 
-  explicit Index(Hierarchy const & hierarchy);
+  explicit Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount = 1);
 
   Doc const & GetDoc(DocId const id) const;
 
@@ -66,7 +67,7 @@ private:
   void AddStreet(DocId const & docId, Doc const & e);
 
   // Fills the |m_relatedBuildings| field.
-  void AddHouses();
+  void AddHouses(unsigned int loadThreadsCount);
 
   std::vector<Doc> const & m_docs;
 
