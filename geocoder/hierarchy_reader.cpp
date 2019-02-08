@@ -25,14 +25,14 @@ void operator+=(Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats &
   static_assert(sizeof(Hierarchy::ParsingStats) == sizeof(ValidationStats),
                 "Hierarchy::ParsingStats has been modified");
 
-  accumulator.m_numLoaded           += stats.m_numLoaded;
-  accumulator.m_badJsons            += stats.m_badJsons;
-  accumulator.m_badOsmIds           += stats.m_badOsmIds;
-  accumulator.m_duplicateOsmIds     += stats.m_duplicateOsmIds;
-  accumulator.m_duplicateAddresses  += stats.m_duplicateAddresses;
-  accumulator.m_emptyAddresses      += stats.m_emptyAddresses;
-  accumulator.m_emptyNames          += stats.m_emptyNames;
-  accumulator.m_mismatchedNames     += stats.m_mismatchedNames;
+  accumulator.m_numLoaded += stats.m_numLoaded;
+  accumulator.m_badJsons += stats.m_badJsons;
+  accumulator.m_badOsmIds += stats.m_badOsmIds;
+  accumulator.m_duplicateOsmIds += stats.m_duplicateOsmIds;
+  accumulator.m_duplicateAddresses += stats.m_duplicateAddresses;
+  accumulator.m_emptyAddresses += stats.m_emptyAddresses;
+  accumulator.m_emptyNames += stats.m_emptyNames;
+  accumulator.m_mismatchedNames += stats.m_mismatchedNames;
 }
 } // namespace
 
@@ -50,11 +50,9 @@ HierarchyReader::HierarchyReader(istream & in)
 
 Hierarchy HierarchyReader::Read(unsigned int readersCount)
 {
-  LOG(LINFO, ("Reading entries..."));
+  CHECK_GREATER_OR_EQUAL(readersCount, 1, ());
 
-  if (auto hardwareConcurrency = thread::hardware_concurrency())
-    readersCount = min(hardwareConcurrency, readersCount);
-  readersCount = max(1U, readersCount);
+  LOG(LINFO, ("Reading entries..."));
 
   vector<multimap<base::GeoObjectId, Entry>> taskEntries(readersCount);
   vector<ParsingStats> tasksStats(readersCount);
@@ -142,7 +140,7 @@ void HierarchyReader::CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> co
     if (j != i + 1)
     {
       ++stats.m_duplicateOsmIds;
-      // todo Remove the cast when the hierarchies no longer contain negative keys.
+      // TODO: Remove the cast when the hierarchies no longer contain negative keys.
       LOG(LDEBUG,
           ("Duplicate osm id:", static_cast<int64_t>(entries[i].m_osmId.GetEncodedId()), "(",
            entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
@@ -204,7 +202,7 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, si
     auto json = line.substr(p + 1);
 
     Entry entry;
-    // todo(@m) We should really write uints as uints.
+    // TODO: (@m) We should really write uints as uints.
     auto const osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
     entry.m_osmId = osmId;
 

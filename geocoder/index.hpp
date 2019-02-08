@@ -21,8 +21,7 @@ public:
   // that the index was constructed from.
   using DocId = std::vector<Doc>::size_type;
 
-  explicit Index(Hierarchy const & hierarchy,
-      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
+  explicit Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount = 1);
 
   Doc const & GetDoc(DocId const id) const;
 

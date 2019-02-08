@@ -119,10 +119,8 @@ public:
     std::vector<Layer> m_layers;
   };
 
-  explicit Geocoder(std::string const & pathToJsonHierarchy,
-      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
-  explicit Geocoder(std::istream & jsonHierarchy,
-      unsigned int loadThreadsCount = std::thread::hardware_concurrency());
+  explicit Geocoder(std::string const & pathToJsonHierarchy, unsigned int loadThreadsCount = 1);
+  explicit Geocoder(std::istream & jsonHierarchy, unsigned int loadThreadsCount = 1);
 
   void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
 

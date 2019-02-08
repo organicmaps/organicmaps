@@ -27,7 +27,7 @@ public:
   explicit HierarchyReader(std::istream & jsonHierarchy);
 
   // Read hierarchy file/stream concurrently in |readersCount| threads.
-  Hierarchy Read(unsigned int readersCount = std::thread::hardware_concurrency());
+  Hierarchy Read(unsigned int readersCount = 1);
 
 private:
   void ReadEntryMap(std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);

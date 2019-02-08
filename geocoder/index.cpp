@@ -26,9 +26,7 @@ namespace geocoder
 Index::Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount)
   : m_docs(hierarchy.GetEntries())
 {
-  if (auto hardwareConcurrency = thread::hardware_concurrency())
-    loadThreadsCount = min(hardwareConcurrency, loadThreadsCount);
-  loadThreadsCount = max(1U, loadThreadsCount);
+  CHECK_GREATER_OR_EQUAL(loadThreadsCount, 1, ());
 
   LOG(LINFO, ("Indexing hierarchy entries..."));
   AddEntries();
