@@ -147,6 +147,7 @@ static NSString * const kStatEditorProblemReport = @"Editor_Problem_report";
 static NSString * const kStatEditorRegRequest = @"Editor_Reg_request";
 static NSString * const kStatEditorSecondTimeShareClick = @"Editor_SecondTimeShare_click";
 static NSString * const kStatEditorSecondTimeShareShow = @"Editor_SecondTimeShare_show";
+static NSString * const kStatEnergySavingChange = @"Settings_EnergySaving_change";
 static NSString * const kStatError = @"error";
 static NSString * const kStatErrorCode = @"error_code";
 static NSString * const kStatErrorData = @"err_data";

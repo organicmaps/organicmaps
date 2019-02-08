@@ -579,8 +579,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     powerManagementPref.setOnPreferenceChangeListener((preference, newValue) ->
     {
-      String valueStr = (String) newValue;
-      PowerManagment.setScheme(Integer.parseInt(valueStr));
+      @PowerManagment.SchemeType
+      int scheme = Integer.parseInt((String) newValue);
+
+      PowerManagment.setScheme(scheme);
+      Statistics.INSTANCE.trackPowerManagmentSchemeChanged(scheme);
 
       return true;
     });

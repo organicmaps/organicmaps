@@ -40,6 +40,7 @@ import com.mapswithme.util.BatteryState;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.my.tracker.MyTracker;
 
@@ -436,6 +437,7 @@ public enum Statistics
       public static final String MAP_STYLE = "Settings. Map style.";
       public static final String VOICE_ENABLED = "Settings. Switch voice.";
       public static final String VOICE_LANGUAGE = "Settings. Voice language.";
+      public static final String ENERGY_SAVING = "Settings_EnergySaving_change";
 
       private Settings() {}
     }
@@ -1450,6 +1452,22 @@ public enum Statistics
 
     trackEvent(INAPP_PURCHASE_VALIDATION_ERROR, params().add(ERROR_CODE, errorCode)
                                                         .add(PURCHASE, purchaseId));
+  }
+
+  public void trackPowerManagmentSchemeChanged(@PowerManagment.SchemeType int scheme)
+  {
+    String statisticValue = "";
+    switch (scheme)
+    {
+      case PowerManagment.NONE:
+      case PowerManagment.MEDIUM:
+        throw new AssertionError("Incorrect scheme type");
+      case PowerManagment.NORMAL: statisticValue = "never"; break;
+      case PowerManagment.AUTO: statisticValue = "auto"; break;
+      case PowerManagment.HIGH: statisticValue = "max"; break;
+    }
+
+    trackEvent(EventName.Settings.ENERGY_SAVING, params().add(EventParam.VALUE, statisticValue));
   }
 
   public void trackPurchaseProductDelivered(@NonNull String purchaseId, @NonNull String vendor)

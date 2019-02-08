@@ -1,5 +1,6 @@
 #import "MWMPowerManagmentViewController.h"
 
+#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -43,12 +44,28 @@ using namespace power_management;
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 
   _selectedCell = selectedCell;
+  NSString * statisticValue = @"";
+  Scheme scheme = Scheme::None;
   if ([selectedCell isEqual:self.never])
-    GetFramework().GetPowerManager().SetScheme(Scheme::Normal);
+  {
+    statisticValue = @"never";
+    scheme = Scheme::Normal;
+  }
   else if ([selectedCell isEqual:self.manualMax])
-    GetFramework().GetPowerManager().SetScheme(Scheme::EconomyMaximum);
+  {
+    statisticValue = @"max";
+    scheme = Scheme::EconomyMaximum;
+  }
   else if ([selectedCell isEqual:self.automatic])
-    GetFramework().GetPowerManager().SetScheme(Scheme::Auto);
+  {
+    statisticValue = @"auto";
+    scheme = Scheme::Auto;
+  }
+  
+  CHECK_NOT_EQUAL(scheme, Scheme::None, ());
+  
+  GetFramework().GetPowerManager().SetScheme(scheme);
+  [Statistics logEvent:kStatEnergySavingChange withParameters:@{kStatValue: statisticValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
