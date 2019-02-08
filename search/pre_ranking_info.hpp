@@ -3,7 +3,6 @@
 #include "search/intersection_result.hpp"
 #include "search/model.hpp"
 #include "search/token_range.hpp"
-#include "search/tracer.hpp"
 
 #include "indexer/feature_decl.hpp"
 

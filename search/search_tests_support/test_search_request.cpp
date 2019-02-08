@@ -116,15 +116,12 @@ void TestSearchRequest::OnStarted()
 void TestSearchRequest::OnResults(search::Results const & results)
 {
   lock_guard<mutex> lock(m_mu);
+  m_results.assign(results.begin(), results.end());
   if (results.IsEndMarker())
   {
     m_done = true;
     m_endTime = m_timer.TimeElapsed();
     m_cv.notify_one();
-  }
-  else
-  {
-    m_results.assign(results.begin(), results.end());
   }
 }
 

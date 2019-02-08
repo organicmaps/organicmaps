@@ -8,6 +8,7 @@
 #include "search/bookmarks/processor.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
+#include "search/tracer.hpp"
 
 #include "storage/downloader_search_params.hpp"
 

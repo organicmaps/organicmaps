@@ -13,23 +13,6 @@ namespace search
 class Tracer
 {
 public:
-  // Mimics the Geocoder methods.
-  enum class Branch
-  {
-    GoEverywhere,
-    GoInViewport,
-    MatchCategories,
-    MatchRegions,
-    MatchCities,
-    MatchAroundPivot,
-    MatchPOIsAndBuildings,
-    GreedilyMatchStreets,
-    WithPostcodes,
-    MatchUnclassified,
-  };
-
-  using Provenance = std::vector<Branch>;
-
   struct Parse
   {
     using TokenType = BaseContext::TokenType;
@@ -62,17 +45,41 @@ public:
 
   std::vector<Parse> GetUniqueParses() const;
 
+private:
+  std::vector<Parse> m_parses;
+};
+
+class ResultTracer
+{
+public:
+  // Mimics the Geocoder methods.
+  enum class Branch
+  {
+    GoEverywhere,
+    GoInViewport,
+    MatchCategories,
+    MatchRegions,
+    MatchCities,
+    MatchAroundPivot,
+    MatchPOIsAndBuildings,
+    GreedilyMatchStreets,
+    WithPostcodes,
+    MatchUnclassified,
+    Relaxed,
+  };
+
+  using Provenance = std::vector<Branch>;
+
+  void Clear();
   void CallMethod(Branch branch);
   void LeaveMethod(Branch branch);
   Provenance const & GetProvenance() const { return m_provenance; }
 
 private:
-  std::vector<Parse> m_parses;
-
   // Traces the Geocoder call tree that leads to emitting the current result.
   Provenance m_provenance;
 };
 
 std::string DebugPrint(Tracer::Parse const & parse);
-std::string DebugPrint(Tracer::Branch branch);
+std::string DebugPrint(ResultTracer::Branch branch);
 }  // namespace search

@@ -35,7 +35,7 @@ public:
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info);
 
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
-                  std::vector<Tracer::Branch> const & provenance);
+                  std::vector<ResultTracer::Branch> const & provenance);
 
   static bool LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2);
   static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
@@ -55,7 +55,7 @@ public:
   uint8_t GetPopularity() const { return m_info.m_popularity; }
   PreRankingInfo & GetInfo() { return m_info; }
   PreRankingInfo const & GetInfo() const { return m_info; }
-  std::vector<Tracer::Branch> const & GetProvenance() const { return m_provenance; }
+  std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 
 private:
   friend class RankerResult;
@@ -64,7 +64,7 @@ private:
   PreRankingInfo m_info;
 
   // The call path in the Geocoder that leads to this result.
-  std::vector<Tracer::Branch> m_provenance;
+  std::vector<ResultTracer::Branch> m_provenance;
 };
 
 // Second result class. Objects are created during reading of features.
@@ -115,7 +115,7 @@ public:
 
   uint32_t GetBestType(std::vector<uint32_t> const & preferredTypes = {}) const;
 
-  std::vector<Tracer::Branch> const & GetProvenance() const { return m_provenance; }
+  std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 
 private:
   friend class RankerResultMaker;
@@ -146,7 +146,7 @@ private:
   Result::Metadata m_metadata;
 
   // The call path in the Geocoder that leads to this result.
-  std::vector<Tracer::Branch> m_provenance;
+  std::vector<ResultTracer::Branch> m_provenance;
 };
 
 void ProcessMetadata(FeatureType & ft, Result::Metadata & meta);

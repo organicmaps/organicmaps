@@ -21,6 +21,7 @@
 #include "search/ranking_utils.hpp"
 #include "search/streets_matcher.hpp"
 #include "search/token_range.hpp"
+#include "search/tracer.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -62,7 +63,6 @@ class FeaturesFilter;
 class FeaturesLayerMatcher;
 class PreRanker;
 class TokenSlice;
-class Tracer;
 
 // This class is used to retrieve all features corresponding to a
 // search query.  Search query is represented as a sequence of tokens
@@ -303,6 +303,8 @@ private:
   // Search query params prepared for retrieval.
   std::vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
   SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> m_prefixTokenRequest;
+
+  ResultTracer m_resultTracer;
 
   PreRanker & m_preRanker;
 };

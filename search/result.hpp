@@ -131,7 +131,7 @@ public:
 
   RankingInfo const & GetRankingInfo() const { return m_info; }
 
-  std::vector<Tracer::Branch> const & GetProvenance() const { return m_provenance; }
+  std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 
   template <typename Info>
   void SetRankingInfo(Info && info)
@@ -167,7 +167,7 @@ private:
   // a search query. -1 if undefined.
   int32_t m_positionInResults = -1;
 
-  std::vector<Tracer::Branch> m_provenance;
+  std::vector<ResultTracer::Branch> m_provenance;
 
 public:
   // Careful when moving: the order of destructors is important.

@@ -94,9 +94,12 @@ public:
 private:
   void FilterForViewportSearch();
 
+  void FilterRelaxedResults(bool lastUpdate);
+
   DataSource const & m_dataSource;
   Ranker & m_ranker;
   std::vector<PreRankerResult> m_results;
+  std::vector<PreRankerResult> m_relaxedResults;
   Params m_params;
 
   // Amount of results sent up the pipeline.

@@ -3,6 +3,7 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/lazy_centers_table.hpp"
 #include "search/pre_ranking_info.hpp"
+#include "search/tracer.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
@@ -15,6 +16,7 @@
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <iterator>
 #include <set>
 
@@ -56,6 +58,7 @@ void PreRanker::Init(Params const & params)
 {
   m_numSentResults = 0;
   m_results.clear();
+  m_relaxedResults.clear();
   m_params = params;
   m_currEmit.clear();
 }
@@ -222,8 +225,10 @@ void PreRanker::Filter(bool viewportSearch)
 
 void PreRanker::UpdateResults(bool lastUpdate)
 {
+  FilterRelaxedResults(lastUpdate);
   FillMissingFieldsInPreResults();
   Filter(m_params.m_viewportSearch);
+  LOG(LINFO, ("sending", m_results.size(), "results to ranker"));
   m_numSentResults += m_results.size();
   m_ranker.SetPreRankerResults(move(m_results));
   m_results.clear();
@@ -311,6 +316,25 @@ void PreRanker::FilterForViewportSearch()
     m_results.clear();
     for (size_t i : base::RandomSample(results.size(), BatchSize(), m_rng))
       m_results.push_back(results[i]);
+  }
+}
+
+void PreRanker::FilterRelaxedResults(bool lastUpdate)
+{
+  if (lastUpdate)
+  {
+    m_results.insert(m_results.end(), m_relaxedResults.begin(), m_relaxedResults.end());
+    m_relaxedResults.clear();
+  }
+  else
+  {
+    auto const isNotRelaxed = [](PreRankerResult const & res) {
+      auto const & prov = res.GetProvenance();
+      return find(prov.begin(), prov.end(), ResultTracer::Branch::Relaxed) == prov.end();
+    };
+    auto const it = partition(m_results.begin(), m_results.end(), isNotRelaxed);
+    m_relaxedResults.insert(m_relaxedResults.end(), it, m_results.end());
+    m_results.erase(it, m_results.end());
   }
 }
 }  // namespace search

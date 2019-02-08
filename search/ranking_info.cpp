@@ -80,8 +80,8 @@ string DebugPrint(RankingInfo const & info)
   os << "m_type:" << DebugPrint(info.m_type) << ",";
   os << "m_pureCats:" << info.m_pureCats << ",";
   os << "m_falseCats:" << info.m_falseCats << ",";
-  os << "m_allTokensUsed:" << info.m_allTokensUsed;
-  os << "m_categorialRequest:" << info.m_categorialRequest;
+  os << "m_allTokensUsed:" << info.m_allTokensUsed << ",";
+  os << "m_categorialRequest:" << info.m_categorialRequest << ",";
   os << "m_hasName:" << info.m_hasName;
   os << "]";
   return os.str();

@@ -549,8 +549,6 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_cuisineTypes = m_cuisineTypes;
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;
-  if (geocoderParams.m_tracer == nullptr)
-    geocoderParams.m_tracer = make_shared<Tracer>();
 
   m_geocoder.SetParams(geocoderParams);
 }

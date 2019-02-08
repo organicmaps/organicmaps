@@ -285,15 +285,15 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   {
     Rules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, lantern1),
                    ExactMatch(wonderlandId, firstAprilStreet)};
-    //    TEST(ResultsMatch("feynman street 1", rules), ());
+    TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse),
                    ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, firstAprilStreet)};
-    //    TEST(ResultsMatch("bohr street 1", rules), ());
+    TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
-//    TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());
+  TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, lantern2)};
@@ -301,7 +301,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, feynmanStreet)};
-    //    TEST(ResultsMatch("wonderland los alamos feynman 1 unit 1 ", rules), ());
+    TEST(ResultsMatch("wonderland los alamos feynman 1 unit 1 ", rules), ());
   }
   {
     // It's possible to find Descartes house by name.
@@ -317,12 +317,12 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, bornHouse), ExactMatch(wonderlandId, firstAprilStreet)};
-    //    TEST(ResultsMatch("long pond 1st april street 8 ", rules), ());
+    TEST(ResultsMatch("long pond 1st april street 8 ", rules), ());
   }
 
   {
     Rules rules = {ExactMatch(wonderlandId, terranceHouse), ExactMatch(wonderlandId, stradaDrive)};
-    //    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
+    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
   }
 }
 
@@ -1761,8 +1761,10 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, stPeterRu)};
+    Rules relaxedRules = {ExactMatch(wonderlandId, stPeterRu),
+                          ExactMatch(wonderlandId, streetRu)};
     TEST(ResultsMatch("собор святого петра ", rules), ());
-    TEST(ResultsMatch("собор св петра ", rules), ());
+    TEST(ResultsMatch("собор св петра ", relaxedRules), ());
   }
 }
 

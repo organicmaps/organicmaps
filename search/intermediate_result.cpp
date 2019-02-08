@@ -73,7 +73,7 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
 }
 
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
-                                 vector<Tracer::Branch> const & provenance)
+                                 vector<ResultTracer::Branch> const & provenance)
   : m_id(id), m_info(info), m_provenance(provenance)
 {
   ASSERT(m_id.IsValid(), ());

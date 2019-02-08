@@ -313,21 +313,9 @@ size_t OrderCountries(boost::optional<m2::PointD> const & position, m2::RectD co
   return distance(infos.begin(), sep);
 }
 
-void TraceEntrance(shared_ptr<Tracer> tracer, Tracer::Branch branch)
-{
-  if (tracer != nullptr)
-    tracer->CallMethod(branch);
-}
-
-void TraceExit(shared_ptr<Tracer> tracer, Tracer::Branch branch)
-{
-  if (tracer != nullptr)
-    tracer->LeaveMethod(branch);
-}
-
-#define TRACE(branch)                                       \
-  TraceEntrance(m_params.m_tracer, Tracer::Branch::branch); \
-  SCOPE_GUARD(tracerGuard, [&] { TraceExit(m_params.m_tracer, Tracer::Branch::branch); });
+#define TRACE(branch)                                      \
+  m_resultTracer.CallMethod(ResultTracer::Branch::branch); \
+  SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); });
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
@@ -395,6 +383,8 @@ void Geocoder::SetParams(Params const & params)
       request.SetLangs(m_params.GetLangs());
     }
   }
+
+  m_resultTracer.Clear();
 
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
@@ -1043,13 +1033,14 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
   size_t const numEmitted = ctx.m_numEmitted;
 
-  LOG(LINFO, ("num emitted1", ctx.m_numEmitted));
   MatchPOIsAndBuildings(ctx, 0 /* curToken */);
-  LOG(LINFO, ("num emitted2", ctx.m_numEmitted));
 
   // A relaxed best effort parse: at least show the street if we can find one.
-  if (numEmitted == ctx.m_numEmitted)
+  if (numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
+  {
+    TRACE(Relaxed);
     FindPaths(ctx);
+  }
 }
 
 void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
@@ -1377,10 +1368,7 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
 
   info.m_allTokensUsed = allTokensUsed;
 
-  if (m_params.m_tracer == nullptr)
-    m_preRanker.Emplace(id, info, Tracer::Provenance{});
-  else
-    m_preRanker.Emplace(id, info, m_params.m_tracer->GetProvenance());
+  m_preRanker.Emplace(id, info, m_resultTracer.GetProvenance());
 
   ++ctx.m_numEmitted;
 }

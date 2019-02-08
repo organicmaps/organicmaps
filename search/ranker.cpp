@@ -516,7 +516,9 @@ void Ranker::UpdateResults(bool lastUpdate)
     BailIfCancelled();
 
   MakeRankerResults(m_geocoderParams, m_tentativeResults);
+  LOG(LINFO, ("made res, size =", m_tentativeResults.size()));
   RemoveDuplicatingLinear(m_tentativeResults);
+  LOG(LINFO, ("removed duplicates, size =", m_tentativeResults.size()));
   if (m_tentativeResults.empty())
     return;
 

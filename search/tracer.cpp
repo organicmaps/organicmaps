@@ -6,7 +6,6 @@
 #include <cstddef>
 #include <iomanip>
 #include <sstream>
-#include <string>
 
 using namespace std;
 
@@ -42,12 +41,12 @@ vector<Tracer::Parse> Tracer::GetUniqueParses() const
   return parses;
 }
 
-void Tracer::CallMethod(Branch branch)
-{
-  m_provenance.emplace_back(branch);
-}
+// ResultTracer ------------------------------------------------------------------------------------
+void ResultTracer::Clear() { m_provenance.clear(); }
 
-void Tracer::LeaveMethod(Branch branch)
+void ResultTracer::CallMethod(Branch branch) { m_provenance.emplace_back(branch); }
+
+void ResultTracer::LeaveMethod(Branch branch)
 {
   CHECK(!m_provenance.empty(), ());
   CHECK_EQUAL(m_provenance.back(), branch, ());
@@ -82,20 +81,21 @@ string DebugPrint(Tracer::Parse const & parse)
   return os.str();
 }
 
-string DebugPrint(Tracer::Branch branch)
+string DebugPrint(ResultTracer::Branch branch)
 {
   switch (branch)
   {
-  case Tracer::Branch::GoEverywhere: return "GoEverywhere";
-  case Tracer::Branch::GoInViewport: return "GoInViewport";
-  case Tracer::Branch::MatchCategories: return "MatchCategories";
-  case Tracer::Branch::MatchRegions: return "MatchRegions";
-  case Tracer::Branch::MatchCities: return "MatchCities";
-  case Tracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
-  case Tracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
-  case Tracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
-  case Tracer::Branch::WithPostcodes: return "WithPostcodes";
-  case Tracer::Branch::MatchUnclassified: return "MatchUnclassified";
+  case ResultTracer::Branch::GoEverywhere: return "GoEverywhere";
+  case ResultTracer::Branch::GoInViewport: return "GoInViewport";
+  case ResultTracer::Branch::MatchCategories: return "MatchCategories";
+  case ResultTracer::Branch::MatchRegions: return "MatchRegions";
+  case ResultTracer::Branch::MatchCities: return "MatchCities";
+  case ResultTracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
+  case ResultTracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
+  case ResultTracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
+  case ResultTracer::Branch::WithPostcodes: return "WithPostcodes";
+  case ResultTracer::Branch::MatchUnclassified: return "MatchUnclassified";
+  case ResultTracer::Branch::Relaxed: return "Relaxed";
   }
   UNREACHABLE();
 }
