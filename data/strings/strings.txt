@@ -37272,3 +37272,19 @@
   [notification_leave_review_v2_android_short_title]
     comment = FIXME.
     en = Review and help travellers!
+  [notifications_illegal_alert_title]
+    comment = FIXME
+    en = Notifications about speedcams are illegal in %s
+    
+  [notifications_illegal_alert_message]
+    comment = FIXME
+    en = [notifications_illegal_alert_message]
+    
+  [megafon]
+    comment = FIXME. Replaces parthner_megafon_search_banner_title 
+    en = [megafon]
+    ru = Подробнее
+    
+  [notifications_illegal_alert_disable_button]
+    comment = FIXME
+    en = Disable notifications
