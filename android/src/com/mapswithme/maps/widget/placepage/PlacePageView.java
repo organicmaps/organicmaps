@@ -306,6 +306,10 @@ public class PlacePageView extends NestedScrollView
     }
   };
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private PlacePageButtonsListener mPlacePageButtonsListener;
+
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -459,8 +463,9 @@ public class PlacePageView extends NestedScrollView
     initPlaceDescriptionView();
   }
 
-  public void initButtons(@NonNull ViewGroup buttons)
+  public void initButtons(@NonNull ViewGroup buttons, @NonNull PlacePageButtonsListener listener)
   {
+    mPlacePageButtonsListener = listener;
     mButtons = new PlacePageButtons(this, buttons, new PlacePageButtons.ItemListener()
     {
       public void onPrepareVisibleView(@NonNull PlacePageButtons.PlacePageButton item,
@@ -526,6 +531,7 @@ public class PlacePageView extends NestedScrollView
             Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
             AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
             toggleIsBookmark(mMapObject);
+            mPlacePageButtonsListener.onBookmarkSet(mBookmarkSet);
             break;
 
           case SHARE:
