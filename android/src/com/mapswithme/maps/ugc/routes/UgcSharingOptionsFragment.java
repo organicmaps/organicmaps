@@ -188,7 +188,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
     mDirectLinkCreatedText.setText(isPublished ? R.string.upload_and_publish_success
                                                : R.string.direct_link_success);
-    mDirectLinkDescriptionText.setText(isPublished ? R.string.upload_and_publish_success
+    mDirectLinkDescriptionText.setText(isPublished ? R.string.unable_get_direct_link_desc
                                                    : R.string.get_direct_link_desc);
     UiUtils.hideIf(isPublished, mShareDirectLinkBtn);
   }
