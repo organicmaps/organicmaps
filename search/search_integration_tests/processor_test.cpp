@@ -1680,7 +1680,7 @@ UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
+UNIT_CLASS_TEST(ProcessorTest, CountrySynonymsTest)
 {
   TestCountry usa(m2::PointD(0.5, 0.5), "United States of America", "en");
   TestPOI alabama(m2::PointD(0.5, 0.5), "Alabama", "en");
@@ -1704,6 +1704,65 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
     TRules rules = {ExactMatch(worldId, alabama)};
     TEST(ResultsMatch("Alabama", rules), ());
     TEST(ResultsMatch("AL", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet streetEn(
+      vector<m2::PointD>{m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0), m2::PointD(-0.5, 0.5)},
+      "Southwest street", "en");
+
+  TestStreet streetRu(
+      vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.5)},
+      "большая свято-покровская улица", "ru");
+
+  TestPOI stPeterEn(m2::PointD(0.0, 0.0), "saint peter basilica", "en");
+  TestPOI stPeterRu(m2::PointD(0.5, 0.5), "собор святого петра", "ru");
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(streetEn);
+    builder.Add(streetRu);
+    builder.Add(stPeterEn);
+    builder.Add(stPeterRu);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    TRules rules = {ExactMatch(wonderlandId, streetEn)};
+    TEST(ResultsMatch("southwest street ", rules), ());
+    TEST(ResultsMatch("sw street ", rules), ());
+    TEST(ResultsMatch("southwest str ", rules), ());
+    TEST(ResultsMatch("sw str ", rules), ());
+    TEST(ResultsMatch("southwest st ", rules), ());
+    TEST(ResultsMatch("sw st ", rules), ());
+  }
+  {
+    TRules rules = {ExactMatch(wonderlandId, streetRu)};
+    TEST(ResultsMatch("большая свято покровская улица ", rules), ());
+    TEST(ResultsMatch("бол свято покровская улица ", rules), ());
+    TEST(ResultsMatch("б свято покровская улица ", rules), ());
+    TEST(ResultsMatch("большая св покровская улица ", rules), ());
+    TEST(ResultsMatch("бол св покровская улица ", rules), ());
+    TEST(ResultsMatch("б св покровская улица ", rules), ());
+    TEST(ResultsMatch("большая свято покровская ул ", rules), ());
+    TEST(ResultsMatch("бол свято покровская ул ", rules), ());
+    TEST(ResultsMatch("б свято покровская ул ", rules), ());
+    TEST(ResultsMatch("большая св покровская ул ", rules), ());
+    TEST(ResultsMatch("бол св покровская ул ", rules), ());
+    TEST(ResultsMatch("б св покровская ул ", rules), ());
+  }
+  {
+    TRules rules = {ExactMatch(wonderlandId, stPeterEn)};
+    TEST(ResultsMatch("saint peter basilica ", rules), ());
+    TEST(ResultsMatch("st peter basilica ", rules), ());
+  }
+  {
+    TRules rules = {ExactMatch(wonderlandId, stPeterRu)};
+    TEST(ResultsMatch("собор святого петра ", rules), ());
+    TEST(ResultsMatch("собор св петра ", rules), ());
   }
 }
 }  // namespace
