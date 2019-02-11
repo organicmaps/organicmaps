@@ -16,6 +16,20 @@ namespace dp
 {
 namespace vulkan
 {
+namespace
+{
+VkPrimitiveTopology GetPrimitiveType(MeshObject::DrawPrimitive primitive)
+{
+  switch (primitive)
+  {
+    case MeshObject::DrawPrimitive::Triangles: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+    case MeshObject::DrawPrimitive::TriangleStrip: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP;
+    case MeshObject::DrawPrimitive::LineStrip: return VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
+  }
+  CHECK(false, ("Unsupported type"));
+}
+}  // namespace
+
 class VulkanMeshObjectImpl : public MeshObjectImpl
 {
 public:
@@ -29,7 +43,9 @@ public:
     m_objectManager = vulkanContext->GetObjectManager();
     VkDevice device = vulkanContext->GetDevice();
 
+    m_pipeline = {};
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
+    m_bindingInfo.resize(m_mesh->m_buffers.size());
     for (size_t i = 0; i < m_mesh->m_buffers.size(); i++)
     {
       if (m_mesh->m_buffers[i].m_data.empty())
@@ -47,6 +63,19 @@ public:
       CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffers[i].m_buffer,
                                        m_geometryBuffers[i].GetMemory(),
                                        m_geometryBuffers[i].GetAlignedOffset()));
+
+      m_bindingInfo[i] = dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i].m_attributes.size()),
+                                         static_cast<uint8_t>(i));
+      for (size_t j = 0; j < m_mesh->m_buffers[i].m_attributes.size(); ++j)
+      {
+        auto const & attr = m_mesh->m_buffers[i].m_attributes[j];
+        auto & binding = m_bindingInfo[i].GetBindingDecl(static_cast<uint16_t>(j));
+        binding.m_attributeName = attr.m_attributeName;
+        binding.m_componentCount = static_cast<uint8_t>(attr.m_componentsCount);
+        binding.m_componentType = gl_const::GLFloatType;
+        binding.m_offset = static_cast<uint8_t>(attr.m_offset);
+        binding.m_stride = static_cast<uint8_t>(m_mesh->m_buffers[i].m_stride);
+      }
     }
   }
 
@@ -55,6 +84,7 @@ public:
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
     m_geometryBuffers.clear();
+    m_pipeline = {};
   }
 
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
@@ -121,8 +151,26 @@ public:
 
   void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) override
   {
-    //TODO (@rokuz, @darina): Implement.
-    //CHECK(false, ());
+    ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+    CHECK(commandBuffer != nullptr, ());
+
+    if (!m_pipeline)
+    {
+      vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
+      vulkanContext->SetBindingInfo(m_bindingInfo);
+      m_pipeline = vulkanContext->GetCurrentPipeline();
+      if (!m_pipeline)
+        return;
+    }
+
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+
+    VkDeviceSize offsets[1] = {0};
+    for (uint32_t i = 0; i < static_cast<uint32_t>(m_geometryBuffers.size()); ++i)
+      vkCmdBindVertexBuffers(commandBuffer, i, 1, &m_geometryBuffers[i].m_buffer, offsets);
+
+    vkCmdDraw(commandBuffer, verticesCount, 1, 0, 0);
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}
@@ -132,6 +180,8 @@ private:
   ref_ptr<dp::MeshObject> m_mesh;
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<VulkanObject> m_geometryBuffers;
+  std::vector<dp::BindingInfo> m_bindingInfo;
+  VkPipeline m_pipeline = {};
 };
 }  // namespace vulkan
 

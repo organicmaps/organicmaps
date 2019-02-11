@@ -32,6 +32,8 @@ public:
                   uint32_t elementOffset, uint32_t elementCount);
   void Unmap(ref_ptr<VulkanBaseContext> context);
 
+  VkBuffer GetVulkanBuffer() const { return m_geometryBuffer.m_buffer; }
+
 protected:
   void Resize(ref_ptr<VulkanBaseContext> context, void const * data, uint32_t elementCount);
 
@@ -87,6 +89,8 @@ public:
   }
 
   void Bind() override {}
+
+  VkBuffer GetVulkanBuffer() const { return m_buffer->GetVulkanBuffer(); }
 };
 }  // namespace vulkan
 }  // namespace dp

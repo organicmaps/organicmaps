@@ -597,5 +597,20 @@ void VulkanBaseContext::SetStencilReferenceValue(uint32_t stencilReferenceValue)
 {
   m_stencilReferenceValue = stencilReferenceValue;
 }
+    
+void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
+{
+  //TODO
+}
+    
+void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo)
+{
+  //TODO
+}
+
+VkPipeline VulkanBaseContext::GetCurrentPipeline()
+{
+  return nullptr;
+}
 }  // namespace vulkan
 }  // namespace dp

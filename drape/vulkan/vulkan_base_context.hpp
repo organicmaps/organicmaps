@@ -62,6 +62,9 @@ public:
                          StencilAction depthFailAction, StencilAction passAction) override;
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
 
+  void SetPrimitiveTopology(VkPrimitiveTopology topology);
+  void SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo);
+
   void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
                   VkSurfaceCapabilitiesKHR surfaceCapabilities, int width, int height);
   void ResetSurface();
@@ -76,6 +79,8 @@ public:
   ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
 
   VkCommandBuffer GetCurrentCommandBuffer() const { return m_commandBuffer; }
+
+  VkPipeline GetCurrentPipeline();
 
   enum class HandlerType : uint8_t
   {
@@ -156,7 +161,6 @@ protected:
   StencilAction m_stencilFailAction = {};
   StencilAction m_depthFailAction = {};
   StencilAction m_passAction = {};
-
   uint32_t m_stencilReferenceValue = 1;
 };
 }  // namespace vulkan

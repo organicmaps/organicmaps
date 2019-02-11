@@ -244,6 +244,11 @@ void VulkanPipeline::Dump(VkDevice device)
 void VulkanPipeline::Destroy(VkDevice device)
 {
   Dump(device);
+
+  for (auto const & p : m_pipelineCache)
+    vkDestroyPipeline(device, p.second, nullptr);
+  m_pipelineCache.clear();
+
   vkDestroyPipelineCache(device, m_vulkanPipelineCache, nullptr);
 }
 

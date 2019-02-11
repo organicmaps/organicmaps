@@ -242,12 +242,11 @@ void VertexArrayBuffer::UploadData(ref_ptr<GraphicsContext> context, BindingInfo
     buffer = GetOrCreateStaticBuffer(bindingInfo);
   else
     buffer = GetOrCreateDynamicBuffer(bindingInfo);
+  m_impl->AddBindingInfo(bindingInfo);
 
   if (count > 0)
     m_isChanged = true;
   buffer->GetBuffer()->UploadData(context, data, count);
-
-  //TODO(@rokuz): inject binding info
 }
 
 ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo)
