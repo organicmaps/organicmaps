@@ -31,7 +31,7 @@ ugc::Api & NotificationManagerDelegate::GetUGCApi()
 std::string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)
 {
   auto const address = m_addressGetter.GetAddressAtPoint(m_dataSource, pt).FormatAddress();
-  auto const city = m_cityFinder.GetCityName(pt);
+  auto const city = m_cityFinder.GetCityReadableName(pt);
 
   if (address.empty())
     return city;

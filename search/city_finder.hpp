@@ -24,7 +24,7 @@ public:
   explicit CityFinder(DataSource const & dataSource);
 
   std::string GetCityName(m2::PointD const & p, int8_t lang);
-  std::string GetCityName(m2::PointD const & p);
+  std::string GetCityReadableName(m2::PointD const & p);
   FeatureID GetCityFeatureID(m2::PointD const & p);
 
 private:

@@ -438,22 +438,15 @@ UNIT_TEST(Bookmarks_Getting)
 
 namespace
 {
-  struct POIInfo
-  {
-    char const * m_name;
-    char const * m_street;
-    char const * m_house;
-    char const * m_type;
-  };
+void CheckPlace(Framework const & fm, double lat, double lon, string const & street,
+                string const & houseNumber)
+{
+  auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
 
-  void CheckPlace(Framework const & fm, double lat, double lon, POIInfo const & poi)
-  {
-    auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
-
-    TEST_EQUAL(info.m_street.m_name, poi.m_street, ());
-    TEST_EQUAL(info.m_building.m_name, poi.m_house, ());
-  }
+  TEST_EQUAL(info.GetStreetName(), street, ());
+  TEST_EQUAL(info.GetHouseNumber(), houseNumber, ());
 }
+}  // namespace
 
 UNIT_TEST(Bookmarks_AddressInfo)
 {
@@ -463,9 +456,10 @@ UNIT_TEST(Bookmarks_AddressInfo)
   fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
   fm.OnSize(800, 600);
 
-  // Our code always uses "default" street name for addresses.
-  CheckPlace(fm, 53.8964918, 27.555559, { "Планета Pizza", "улица Карла Маркса", "10", "Cafe" });
-  CheckPlace(fm, 53.8964365, 27.5554007, { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "Hotel" });
+  TEST_EQUAL(languages::GetCurrentNorm(), "en", ());
+
+  CheckPlace(fm, 53.8964918, 27.555559, "vulica Karla Marksa", "10" /* houseNumber */);
+  CheckPlace(fm, 53.8964365, 27.5554007, "vulica Karla Marksa", "10" /* houseNumber */);
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)
