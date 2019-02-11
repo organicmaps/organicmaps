@@ -92,6 +92,7 @@ public:
     for (; tokenBegin != tokenEnd; ++tokenBegin)
       m_tokens.emplace_back(*tokenBegin);
     m_typeIndices.resize(GetNumTokens());
+    AddSynonyms();
   }
 
   template <typename It>
@@ -103,6 +104,7 @@ public:
     m_prefixToken = Token(prefix);
     m_hasPrefix = true;
     m_typeIndices.resize(GetNumTokens());
+    AddSynonyms();
   }
 
   size_t GetNumTokens() const { return m_hasPrefix ? m_tokens.size() + 1 : m_tokens.size(); }
@@ -136,6 +138,8 @@ public:
 
 private:
   friend std::string DebugPrint(QueryParams const & params);
+
+  void AddSynonyms();
 
   std::vector<Token> m_tokens;
   Token m_prefixToken;

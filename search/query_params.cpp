@@ -5,57 +5,38 @@
 
 #include "indexer/feature_impl.hpp"
 
+#include <map>
 #include <sstream>
 
 using namespace std;
+using namespace strings;
 
 namespace search
 {
 namespace
 {
-// TODO (@y, @m): reuse this class in Processor.
-class DoAddStreetSynonyms
-{
-public:
-  DoAddStreetSynonyms(QueryParams & params) : m_params(params) {}
-
-  void operator()(QueryParams::String const & s, size_t i)
-  {
-    if (s.size() > 2)
-      return;
-    string const ss = strings::ToUtf8(strings::MakeLowerCase(s));
-
-    // All synonyms should be lowercase!
-    if (ss == "n")
-      AddSynonym(i, "north");
-    if (ss == "w")
-      AddSynonym(i, "west");
-    if (ss == "s")
-      AddSynonym(i, "south");
-    if (ss == "e")
-      AddSynonym(i, "east");
-    if (ss == "nw")
-      AddSynonym(i, "northwest");
-    if (ss == "ne")
-      AddSynonym(i, "northeast");
-    if (ss == "sw")
-      AddSynonym(i, "southwest");
-    if (ss == "se")
-      AddSynonym(i, "southeast");
-  }
-
-private:
-  void AddSynonym(size_t i, string const & synonym) { m_params.GetToken(i).AddSynonym(synonym); }
-
-  QueryParams & m_params;
-};
+// All synonyms should be lowercase.
+map<string, vector<string>> const kSynonyms = {
+    {"n",    {"north"}},
+    {"w",    {"west"}},
+    {"s",    {"south"}},
+    {"e",    {"east"}},
+    {"nw",   {"northwest"}},
+    {"ne",   {"northeast"}},
+    {"sw",   {"southwest"}},
+    {"se",   {"southeast"}},
+    {"st",   {"saint", "street"}},
+    {"св",   {"святой", "святого", "святая", "святые", "святых", "свято"}},
+    {"б",    {"большая", "большой"}},
+    {"бол",  {"большая", "большой"}},
+    {"м",    {"малая", "малый"}},
+    {"мал",  {"малая", "малый"}},
+    {"нов",  {"новая", "новый"}},
+    {"стар", {"старая", "старый"}}};
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
-void QueryParams::Token::AddSynonym(string const & s)
-{
-  AddSynonym(strings::MakeUniString(s));
-}
+void QueryParams::Token::AddSynonym(string const & s) { AddSynonym(MakeUniString(s)); }
 
 void QueryParams::Token::AddSynonym(String const & s)
 {
@@ -151,6 +132,20 @@ void QueryParams::RemoveToken(size_t i)
     m_tokens.erase(m_tokens.begin() + i);
   }
   m_typeIndices.erase(m_typeIndices.begin() + i);
+}
+
+void QueryParams::AddSynonyms()
+{
+  for (auto & token : m_tokens)
+  {
+    string const ss = ToUtf8(MakeLowerCase(token.GetOriginal()));
+    auto const it = kSynonyms.find(ss);
+    if (it == kSynonyms.end())
+      continue;
+
+    for (auto const & synonym : it->second)
+      token.AddSynonym(synonym);
+  }
 }
 
 string DebugPrint(QueryParams const & params)
