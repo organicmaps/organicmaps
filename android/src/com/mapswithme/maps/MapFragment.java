@@ -197,7 +197,8 @@ public class MapFragment extends BaseMwmFragment
     final float exactDensityDpi = metrics.densityDpi;
 
     final boolean firstStart = SplashActivity.isFirstStart();
-    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink))
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
+                            BuildConfig.VERSION_CODE))
     {
       reportUnsupported();
       return;
@@ -365,7 +366,8 @@ public class MapFragment extends BaseMwmFragment
   static native boolean nativeIsEngineCreated();
   private static native boolean nativeCreateEngine(Surface surface, int density,
                                                    boolean firstLaunch,
-                                                   boolean isLaunchByDeepLink);
+                                                   boolean isLaunchByDeepLink,
+                                                   int appVersionCode);
   private static native boolean nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface(boolean destroyContext);
   private static native void nativePauseSurfaceRendering();

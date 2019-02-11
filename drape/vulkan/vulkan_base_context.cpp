@@ -16,21 +16,30 @@ namespace vulkan
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                                      VkPhysicalDeviceProperties const & gpuProperties,
                                      VkDevice device, uint32_t renderingQueueFamilyIndex,
-                                     VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager)
+                                     VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager,
+                                     drape_ptr<VulkanPipeline> && pipeline)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_depthFormat(depthFormat)
-  , m_objectManager(objectManager)
+  , m_objectManager(std::move(objectManager))
+  , m_pipeline(std::move(pipeline))
 {
   // Get a graphics queue from the device
   vkGetDeviceQueue(m_device, m_renderingQueueFamilyIndex, 0, &m_queue);
 }
 
+
 VulkanBaseContext::~VulkanBaseContext()
 {
+  if (m_pipeline)
+  {
+    m_pipeline->Destroy(m_device);
+    m_pipeline.reset();
+  }
+    
   DestroyDefaultFramebuffer();
   DestroyDepthTexture();
   DestroySwapchain();
@@ -150,6 +159,9 @@ void VulkanBaseContext::ResetSurface()
   vkDeviceWaitIdle(m_device);
   DestroyDefaultFramebuffer();
   m_surface.reset();
+
+  if (m_pipeline)
+    m_pipeline->Dump(m_device);
 }
 
 void VulkanBaseContext::BeginRendering()

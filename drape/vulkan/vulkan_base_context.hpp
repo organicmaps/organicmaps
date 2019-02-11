@@ -3,6 +3,7 @@
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
+#include "drape/vulkan/vulkan_pipeline.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -26,7 +27,8 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager);
+                    VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager,
+                    drape_ptr<VulkanPipeline> && pipeline);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
@@ -127,6 +129,7 @@ protected:
   VkFence m_fence;
 
   ref_ptr<VulkanObjectManager> m_objectManager;
+  drape_ptr<VulkanPipeline> m_pipeline;
   boost::optional<VkSurfaceKHR> m_surface;
 
   VkSurfaceCapabilitiesKHR m_surfaceCapabilities;

@@ -336,7 +336,7 @@ def generate_spirv_compatible_glsl_shader(output_file, shader_file, shader_dir, 
                 samplers_offset = 1
             for idx, s in enumerate(layout_counters[SAMPLERS][1]):
                 output_file.write('layout (binding = {0}) {1}\n'.format(samplers_offset + idx, s))
-                sampler = {'name': s[s.find('u_'):-1], 'idx': samplers_offset + idx}
+                sampler = {'name': s[s.find('u_'):-1], 'idx': samplers_offset + idx, 'frag':int(is_fragment_shader)}
                 if not sample_index in reflection_dict:
                     reflection_dict[sample_index] = [sampler]
                 else:

@@ -25,8 +25,15 @@ public:
   drape_ptr<dp::GpuProgram> Get(Program program) override;
 
 private:
-  std::array<drape_ptr<dp::vulkan::VulkanGpuProgram>,
-             static_cast<size_t>(Program::ProgramsCount)> m_programs;
+  struct ProgramData
+  {
+    VkShaderModule m_vertexShader;
+    VkShaderModule m_fragmentShader;
+    VkDescriptorSetLayout m_descriptorSetLayout;
+    VkPipelineLayout m_pipelineLayout;
+    dp::vulkan::VulkanGpuProgram::TextureBindings m_textureBindings;
+  };
+  std::array<ProgramData, static_cast<size_t>(Program::ProgramsCount)> m_programData;
 };
 }  // namespace vulkan
 }  // namespace gpu

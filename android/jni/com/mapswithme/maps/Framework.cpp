@@ -164,9 +164,9 @@ void Framework::TransitSchemeStateChanged(TransitReadManager::TransitSchemeState
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                                  bool launchByDeepLink)
+                                  bool launchByDeepLink, int appVersionCode)
 {
-  m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>();
+  m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode);
   if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())
   {
     LOG(LWARNING, ("Vulkan API is not supported."));

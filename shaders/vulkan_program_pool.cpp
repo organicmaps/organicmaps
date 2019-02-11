@@ -23,6 +23,8 @@ namespace vulkan
 {
 namespace
 {
+int8_t constexpr kInvalidBindingIndex = -1;
+
 std::string const kShadersDir = "vulkan_shaders";
 std::string const kShadersReflecton = "reflection.json";
 
@@ -34,7 +36,7 @@ std::vector<uint32_t> ReadShaderFile(std::string const & filename)
     ReaderPtr<Reader> reader(GetPlatform().GetReader(filename));
     auto const size = static_cast<size_t>(reader.Size());
     CHECK(size % sizeof(uint32_t) == 0,
-          ("Incorrect SPIR_V file alignment. Name =", filename, "Size =", size));
+          ("Incorrect SPIR-V file alignment. Name =", filename, "Size =", size));
     result.resize(size / sizeof(uint32_t));
     reader.Read(0, result.data(), size);
   }
@@ -47,10 +49,30 @@ std::vector<uint32_t> ReadShaderFile(std::string const & filename)
   return result;
 }
 
+struct TextureBindingReflectionInfo
+{
+  std::string m_name;
+  int8_t m_index = kInvalidBindingIndex;
+  int8_t m_isInFragmentShader = 1;
+  DECLARE_VISITOR(visitor(m_name, "name"),
+                  visitor(m_index, "idx"),
+                  visitor(m_isInFragmentShader, "frag"))
+};
+
+struct ReflectionInfo
+{
+  int8_t m_vsUniformsIndex = kInvalidBindingIndex;
+  int8_t m_fsUniformsIndex = kInvalidBindingIndex;
+  std::vector<TextureBindingReflectionInfo> m_textures;
+  DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"),
+                  visitor(m_fsUniformsIndex, "fs_uni"),
+                  visitor(m_textures, "tex"))
+};
+
 struct ReflectionData
 {
   int32_t m_programIndex = -1;
-  dp::vulkan::VulkanGpuProgram::ReflectionInfo m_info;
+  ReflectionInfo m_info;
   DECLARE_VISITOR(visitor(m_programIndex, "prg"),
                   visitor(m_info, "info"))
 };
@@ -61,10 +83,9 @@ struct ReflectionFile
   DECLARE_VISITOR(visitor(m_reflectionData))
 };
 
-std::map<uint8_t, dp::vulkan::VulkanGpuProgram::ReflectionInfo> ReadReflectionFile(
-  std::string const & filename)
+std::map<uint8_t, ReflectionInfo> ReadReflectionFile(std::string const & filename)
 {
-  std::map<uint8_t, dp::vulkan::VulkanGpuProgram::ReflectionInfo> result;
+  std::map<uint8_t, ReflectionInfo> result;
   std::string jsonStr;
   try
   {
@@ -90,6 +111,50 @@ std::map<uint8_t, dp::vulkan::VulkanGpuProgram::ReflectionInfo> ReadReflectionFi
 
   for (auto & d : reflectionFile.m_reflectionData)
     result.insert(std::make_pair(d.m_programIndex, std::move(d.m_info)));
+
+  return result;
+}
+
+std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const & reflectionInfo)
+{
+  std::vector<VkDescriptorSetLayoutBinding> result;
+
+  VkDescriptorSetLayoutBinding uniformsBinding = {};
+  uniformsBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+  uniformsBinding.descriptorCount = 1;
+
+  if (reflectionInfo.m_vsUniformsIndex != kInvalidBindingIndex &&
+      reflectionInfo.m_fsUniformsIndex != kInvalidBindingIndex)
+  {
+    CHECK_EQUAL(reflectionInfo.m_vsUniformsIndex, reflectionInfo.m_fsUniformsIndex, ());
+    uniformsBinding.binding = static_cast<uint32_t>(reflectionInfo.m_vsUniformsIndex);
+    uniformsBinding.stageFlags = VK_SHADER_STAGE_ALL_GRAPHICS;
+    result.push_back(std::move(uniformsBinding));
+  }
+  else if (reflectionInfo.m_vsUniformsIndex != kInvalidBindingIndex)
+  {
+    uniformsBinding.binding = static_cast<uint32_t>(reflectionInfo.m_vsUniformsIndex);
+    uniformsBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+    result.push_back(std::move(uniformsBinding));
+  }
+  else if (reflectionInfo.m_fsUniformsIndex != kInvalidBindingIndex)
+  {
+    uniformsBinding.binding = static_cast<uint32_t>(reflectionInfo.m_fsUniformsIndex);
+    uniformsBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+    result.push_back(std::move(uniformsBinding));
+  }
+
+  for (auto const & t : reflectionInfo.m_textures)
+  {
+    CHECK_GREATER_OR_EQUAL(t.m_index, 0, ());
+    VkDescriptorSetLayoutBinding textureBinding = {};
+    textureBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    textureBinding.binding = static_cast<uint32_t>(t.m_index);
+    textureBinding.descriptorCount = 1;
+    textureBinding.stageFlags =
+        (t.m_isInFragmentShader == 1) ? VK_SHADER_STAGE_FRAGMENT_BIT : VK_SHADER_STAGE_VERTEX_BIT;
+    result.push_back(std::move(textureBinding));
+  }
 
   return result;
 }
@@ -126,11 +191,30 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
   {
     auto const programName = DebugPrint(static_cast<Program>(i));
-    m_programs[i] = make_unique_dp<dp::vulkan::VulkanGpuProgram>(
-      programName,
-      std::move(reflection[i]),
-      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
-      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
+    m_programData[i].m_vertexShader =
+        LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv"));
+    m_programData[i].m_fragmentShader =
+        LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv"));
+
+    auto bindings = GetLayoutBindings(reflection[i]);
+    VkDescriptorSetLayoutCreateInfo descriptorLayout  = {};
+    descriptorLayout.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    descriptorLayout.pBindings = bindings.data();
+    descriptorLayout.bindingCount = static_cast<uint32_t>(bindings.size());
+
+    CHECK_VK_CALL(vkCreateDescriptorSetLayout(device, &descriptorLayout, nullptr,
+                                              &m_programData[i].m_descriptorSetLayout));
+
+    VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
+    pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+    pipelineLayoutCreateInfo.setLayoutCount = 1;
+    pipelineLayoutCreateInfo.pSetLayouts = &m_programData[i].m_descriptorSetLayout;
+
+    CHECK_VK_CALL(vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr,
+                                         &m_programData[i].m_pipelineLayout));
+
+    for (auto const & t : reflection[i].m_textures)
+      m_programData[i].m_textureBindings[t.m_name] = t.m_index;
   }
 
   ProgramParams::Init();
@@ -139,7 +223,6 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
 VulkanProgramPool::~VulkanProgramPool()
 {
   ProgramParams::Destroy();
-  ASSERT(m_programs.front() == nullptr, ());
 }
 
 void VulkanProgramPool::Destroy(ref_ptr<dp::GraphicsContext> context)
@@ -147,25 +230,36 @@ void VulkanProgramPool::Destroy(ref_ptr<dp::GraphicsContext> context)
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   VkDevice device = vulkanContext->GetDevice();
 
-  for (auto & p : m_programs)
+  for (auto & d : m_programData)
   {
-    if (p != nullptr)
-    {
-      vkDestroyShaderModule(device, p->GetVertexShader(), nullptr);
-      vkDestroyShaderModule(device, p->GetFragmentShader(), nullptr);
-    }
-    p.reset();
+    vkDestroyPipelineLayout(device, d.m_pipelineLayout, nullptr);
+    vkDestroyDescriptorSetLayout(device, d.m_descriptorSetLayout, nullptr);
+    vkDestroyShaderModule(device, d.m_vertexShader, nullptr);
+    vkDestroyShaderModule(device, d.m_fragmentShader, nullptr);
   }
 }
 
 drape_ptr<dp::GpuProgram> VulkanProgramPool::Get(Program program)
 {
-  auto & p = m_programs[static_cast<size_t>(program)];
-  CHECK(p != nullptr, ());
-  return make_unique_dp<dp::vulkan::VulkanGpuProgram>(p->GetName(),
-                                                      p->GetReflectionInfo(),
-                                                      p->GetVertexShader(),
-                                                      p->GetFragmentShader());
+  auto const & d = m_programData[static_cast<size_t>(program)];
+
+  VkPipelineShaderStageCreateInfo vsStage = {};
+  vsStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+  vsStage.stage = VK_SHADER_STAGE_VERTEX_BIT;
+  vsStage.module = d.m_vertexShader;
+  vsStage.pName = "main";
+
+  VkPipelineShaderStageCreateInfo fsStage = {};
+  fsStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+  fsStage.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+  fsStage.module = d.m_fragmentShader;
+  fsStage.pName = "main";
+
+  return make_unique_dp<dp::vulkan::VulkanGpuProgram>(DebugPrint(program),
+                                                      vsStage, fsStage,
+                                                      d.m_descriptorSetLayout,
+                                                      d.m_pipelineLayout,
+                                                      d.m_textureBindings);
 }
 }  // namespace vulkan
 }  // namespace gpu

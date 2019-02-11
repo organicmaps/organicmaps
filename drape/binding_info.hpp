@@ -4,9 +4,8 @@
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 
-#include <boost/shared_array.hpp>
-
 #include <string>
+#include <vector>
 
 namespace dp
 {
@@ -18,6 +17,7 @@ struct BindingDecl
   uint8_t m_stride;
   uint8_t m_offset;
 
+  bool operator==(BindingDecl const & other) const;
   bool operator!=(BindingDecl const & other) const;
   bool operator<(BindingDecl const & other) const;
 };
@@ -36,10 +36,12 @@ public:
   uint16_t GetElementSize() const;
   bool IsDynamic() const;
 
+  bool operator==(BindingInfo const & other) const;
+  bool operator!=(BindingInfo const & other) const;
   bool operator<(BindingInfo const & other) const;
 
 protected:
-  boost::shared_array<BindingDecl> m_bindings;
+  std::vector<BindingDecl> m_bindings;
   uint16_t m_info;
 };
 

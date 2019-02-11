@@ -95,7 +95,7 @@ namespace android
     void UpdateCompassSensor(int ind, float * arr);
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                           bool launchByDeepLink);
+                           bool launchByDeepLink, int appVersionCode);
     bool IsDrapeEngineCreated();
 
     void DetachSurface(bool destroyContext);

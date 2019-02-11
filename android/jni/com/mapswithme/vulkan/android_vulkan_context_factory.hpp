@@ -19,7 +19,7 @@ namespace android
 class AndroidVulkanContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  AndroidVulkanContextFactory();
+  explicit AndroidVulkanContextFactory(int appVersionCode);
   ~AndroidVulkanContextFactory();
 
   bool IsVulkanSupported() const;

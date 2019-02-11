@@ -164,6 +164,8 @@ append(
   ${DRAPE_ROOT}/vulkan/vulkan_texture.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_object_manager.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_object_manager.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_pipeline.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_pipeline.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.cpp
   ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.hpp
   ${DRAPE_ROOT}/vulkan/vulkan_utils.cpp

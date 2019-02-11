@@ -3,6 +3,7 @@
 #include "com/mapswithme/platform/Platform.hpp"
 
 #include "drape/drape_diagnostics.hpp"
+#include "drape/vulkan/vulkan_pipeline.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
@@ -22,9 +23,12 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+                    VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
+                    int appVersionCode)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, depthFormat, objectManager)
+                                    renderingQueueFamilyIndex, depthFormat, objectManager,
+                                    make_unique_dp<dp::vulkan::VulkanPipeline>(
+                                      device, appVersionCode))
   {}
 };
 
@@ -36,7 +40,8 @@ public:
                       VkDevice device, uint32_t renderingQueueFamilyIndex,
                       VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, depthFormat, objectManager)
+                                    renderingQueueFamilyIndex, depthFormat, objectManager,
+                                    nullptr /* pipeline */)
   {}
 
   void Present() override {}
@@ -63,7 +68,7 @@ public:
 };
 }  // namespace
 
-AndroidVulkanContextFactory::AndroidVulkanContextFactory()
+AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
 {
   if (InitVulkan() == 0)
   {
@@ -75,9 +80,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   appInfo.pNext = nullptr;
   appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 0);
-  // Vulkan is available since the following version of the app.
-  appInfo.applicationVersion = VK_MAKE_VERSION(9, 0, 0);
-  appInfo.engineVersion = VK_MAKE_VERSION(9, 0, 0);
+  appInfo.applicationVersion = static_cast<uint32_t>(appVersionCode);
+  appInfo.engineVersion = static_cast<uint32_t>(appVersionCode);
   appInfo.pApplicationName = "MAPS.ME";
   appInfo.pEngineName = "Drape Engine";
 
@@ -194,7 +198,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
 
   m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                     m_device, renderingQueueFamilyIndex,
-                                                    depthFormat, make_ref(m_objectManager));
+                                                    depthFormat, make_ref(m_objectManager),
+                                                    appVersionCode);
   m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                         m_device, renderingQueueFamilyIndex,
                                                         depthFormat, make_ref(m_objectManager));
@@ -202,6 +207,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
 {
+  m_drawContext.reset();
+  m_uploadContext.reset();
   m_objectManager.reset();
 
   if (m_device != nullptr)

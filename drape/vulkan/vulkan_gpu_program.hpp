@@ -7,12 +7,8 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
-#include <algorithm>
-#include <cstdint>
-#include <map>
+#include <array>
 #include <string>
-#include <utility>
-#include <vector>
 
 namespace dp
 {
@@ -21,74 +17,44 @@ namespace vulkan
 class VulkanGpuProgram : public GpuProgram
 {
 public:
-  static int8_t constexpr kInvalidBindingIndex = -1;
+  using TextureBindings = std::unordered_map<std::string, int8_t>;
 
-  struct TextureBindingInfo
-  {
-    std::string m_name;
-    int8_t m_index = kInvalidBindingIndex;
-    DECLARE_VISITOR(visitor(m_name, "name"),
-                    visitor(m_index, "idx"))
-  };
-
-  struct ReflectionInfo
-  {
-    int8_t m_vsUniformsIndex = kInvalidBindingIndex;
-    int8_t m_fsUniformsIndex = kInvalidBindingIndex;
-    std::vector<TextureBindingInfo> m_textures;
-    DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"),
-                    visitor(m_fsUniformsIndex, "fs_uni"),
-                    visitor(m_textures, "tex"))
-  };
-
-  using TexturesBindingInfo = std::map<std::string, TextureBindingInfo>;
-
-  VulkanGpuProgram(std::string const & programName, ReflectionInfo && reflectionInfo,
-                   VkShaderModule vertexShader, VkShaderModule fragmentShader)
+  VulkanGpuProgram(std::string const & programName,
+                   VkPipelineShaderStageCreateInfo const & vertexShader,
+                   VkPipelineShaderStageCreateInfo const & fragmentShader,
+                   VkDescriptorSetLayout descriptorSetLayout,
+                   VkPipelineLayout pipelineLayout,
+                   TextureBindings const & textureBindings)
     : GpuProgram(programName)
-    , m_reflectionInfo(std::move(reflectionInfo))
     , m_vertexShader(vertexShader)
     , m_fragmentShader(fragmentShader)
+    , m_descriptorSetLayout(descriptorSetLayout)
+    , m_pipelineLayout(pipelineLayout)
+    , m_textureBindings(textureBindings)
   {}
 
   void Bind() override {}
   void Unbind() override {}
 
-  VkShaderModule GetVertexShader() const { return m_vertexShader; }
-  VkShaderModule GetFragmentShader() const { return m_fragmentShader; }
-  ReflectionInfo GetReflectionInfo() const { return m_reflectionInfo; }
-
-  int8_t GetVertexShaderUniformsBindingIndex() const { return m_reflectionInfo.m_vsUniformsIndex; }
-  int8_t GetFragmentShaderUniformsBindingIndex() const { return m_reflectionInfo.m_fsUniformsIndex; }
-
-  TextureBindingInfo const & GetVertexTextureBindingInfo(std::string const & textureName) const
+  std::array<VkPipelineShaderStageCreateInfo, 2> GetShaders() const
   {
-    return GetTextureBindingInfo(textureName);
+    return {m_vertexShader, m_fragmentShader};
   }
 
-  TextureBindingInfo const & GetFragmentTextureBindingInfo(std::string const & textureName) const
-  {
-    return GetTextureBindingInfo(textureName);
-  }
+  VkDescriptorSetLayout GetDescriptorSetLayout() const { return m_descriptorSetLayout; }
+
+  VkPipelineLayout GetPipelineLayout() const { return m_pipelineLayout; }
+
+  TextureBindings const & GetTextureBindings() const { return m_textureBindings; }
 
 private:
-  TextureBindingInfo const & GetTextureBindingInfo(std::string const & textureName) const
-  {
-    static TextureBindingInfo kEmptyBinding;
-    auto const it = std::find_if(m_reflectionInfo.m_textures.cbegin(),
-                                 m_reflectionInfo.m_textures.cend(),
-                                 [&textureName](TextureBindingInfo const & info)
-    {
-      return info.m_name == textureName;
-    });
-    if (it == m_reflectionInfo.m_textures.cend())
-      return kEmptyBinding;
-    return *it;
-  }
+  // These objects aren't owned to this class, so must not be destroyed here.
+  VkPipelineShaderStageCreateInfo m_vertexShader;
+  VkPipelineShaderStageCreateInfo m_fragmentShader;
+  VkDescriptorSetLayout m_descriptorSetLayout;
+  VkPipelineLayout m_pipelineLayout;
 
-  ReflectionInfo m_reflectionInfo;
-  VkShaderModule m_vertexShader;
-  VkShaderModule m_fragmentShader;
+  TextureBindings m_textureBindings;
 };
 }  // namespace vulkan
 }  // namespace dp
