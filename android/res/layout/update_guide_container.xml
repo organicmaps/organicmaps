@@ -23,7 +23,7 @@
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/upload_and_publish"
+    android:text="@string/update_guide"
     android:textAppearance="?android:attr/textAppearance"
     android:textColor="?colorAccent"
     android:layout_marginStart="@dimen/margin_double_plus"
