@@ -2742,6 +2742,18 @@
 /* FIXME. */
 "notification_leave_review_v2_android_short_title" = "Review and help travellers!";
 
+/* FIXME */
+"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+
+/* FIXME */
+"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+
+/* FIXME. Replaces parthner_megafon_search_banner_title */
+"megafon" = "Подробнее";
+
+/* FIXME */
+"notifications_illegal_alert_disable_button" = "Disable notifications";
+
 
 /**********  Partners  **********/
 
