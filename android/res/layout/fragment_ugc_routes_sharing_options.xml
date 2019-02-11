@@ -230,15 +230,6 @@
             </LinearLayout>
             <include layout="@layout/list_divider"/>
             <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginRight="@dimen/margin_base"
-              android:layout_marginEnd="@dimen/margin_base"
-              android:text="@string/upload_and_publish_desc"
-              android:paddingTop="@dimen/margin_half_double_plus"
-              android:paddingBottom="@dimen/margin_half_double_plus"/>
-            <include layout="@layout/list_divider"/>
-            <TextView
               android:id="@+id/license_agreement_message"
               android:minHeight="@dimen/downloader_status_size"
               android:layout_width="match_parent"
