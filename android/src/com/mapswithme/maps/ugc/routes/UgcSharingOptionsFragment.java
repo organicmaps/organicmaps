@@ -513,13 +513,16 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onUploadSuccess()
   {
+    boolean isRefreshManual = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC
+                        || mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
     mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
     checkSuccessUploadedCategoryAccessRules();
 
     boolean isDirectLinkMode = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
+    int successMsgResId = isRefreshManual ? R.string.direct_link_updating_success
+                                          : isDirectLinkMode ? R.string.direct_link_success
+                                                             : R.string.upload_and_publish_success;
 
-    int successMsgResId = isDirectLinkMode ? R.string.direct_link_success
-                                           : R.string.upload_and_publish_success;
     Toast.makeText(getContext(), successMsgResId, Toast.LENGTH_SHORT).show();
     toggleViews();
     Statistics.INSTANCE.trackSharingOptionsUploadSuccess(mCategory);
