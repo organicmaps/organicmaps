@@ -49,5 +49,7 @@ private:
   uint32_t m_reservationId = 0;
   bool m_isMutable = false;
 };
+
+VkFormat UnpackFormat(TextureFormat format);
 }  // namespace vulkan
 }  // namespace dp

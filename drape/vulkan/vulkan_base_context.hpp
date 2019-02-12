@@ -30,7 +30,7 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager,
+                    ref_ptr<VulkanObjectManager> objectManager,
                     drape_ptr<VulkanPipeline> && pipeline);
   ~VulkanBaseContext() override;
 
@@ -119,6 +119,9 @@ protected:
   void CreateDefaultFramebuffer();
   void DestroyDefaultFramebuffer();
 
+  void CreateFramebuffer();
+  void DestroyFramebuffer();
+
   void CreateRenderPass();
   void DestroyRenderPass();
 
@@ -127,21 +130,19 @@ protected:
   VkPhysicalDeviceProperties const m_gpuProperties;
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
-  VkFormat const m_depthFormat;
 
-  VkQueue m_queue;
-  VkCommandPool m_commandPool;
-  VkPipelineCache m_pipelineCache;
-  VkSubmitInfo m_submitInfo;
-  VkCommandBuffer m_commandBuffer;
-  VkRenderPass m_renderPass;
+  VkQueue m_queue = {};
+  VkCommandPool m_commandPool = {};
+  VkCommandBuffer m_commandBuffer = {};
+  VkRenderPass m_renderPass = {};
+  std::vector<VkRenderPass> m_renderPassesToDestroy;
 
   // Swap chain image presentation
-  VkSemaphore m_presentComplete;
+  VkSemaphore m_presentComplete = {};
   // Command buffer submission and execution
-  VkSemaphore m_renderComplete;
+  VkSemaphore m_renderComplete = {};
 
-  VkFence m_fence;
+  VkFence m_fence = {};
 
   ref_ptr<VulkanObjectManager> m_objectManager;
   drape_ptr<VulkanPipeline> m_pipeline;
@@ -156,6 +157,9 @@ protected:
 
   VulkanObject m_depthStencil;
   std::vector<VkFramebuffer> m_defaultFramebuffers;
+
+  VkFramebuffer m_framebuffer = {};
+  std::vector<VkFramebuffer> m_framebuffersToDestroy;
 
   ref_ptr<dp::BaseFramebuffer> m_currentFramebuffer;
 

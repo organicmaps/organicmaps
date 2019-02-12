@@ -11,6 +11,7 @@
 #include "base/macros.hpp"
 #include "base/src_point.hpp"
 
+#include <array>
 #include <vector>
 
 namespace android
@@ -23,10 +24,10 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
+                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
                     int appVersionCode)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, depthFormat, objectManager,
+                                    renderingQueueFamilyIndex, objectManager,
                                     make_unique_dp<dp::vulkan::VulkanPipeline>(
                                       device, appVersionCode))
   {}
@@ -38,9 +39,9 @@ public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                       VkPhysicalDeviceProperties const & gpuProperties,
                       VkDevice device, uint32_t renderingQueueFamilyIndex,
-                      VkFormat depthFormat, ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, depthFormat, objectManager,
+                                    renderingQueueFamilyIndex, objectManager,
                                     nullptr /* pipeline */)
   {}
 
@@ -179,15 +180,17 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
-  VkFormat depthFormat = VK_FORMAT_D16_UNORM;
+  std::array<VkFormat, 2> depthFormats = {VK_FORMAT_D32_SFLOAT, VK_FORMAT_D24_UNORM_S8_UINT};
   VkFormatProperties formatProperties;
-  vkGetPhysicalDeviceFormatProperties(m_gpu, depthFormat, &formatProperties);
-  if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT))
+  for (auto depthFormat : depthFormats)
   {
-    LOG(LWARNING, ("Vulkan error: depth format unsupported."));
-    return;
+    vkGetPhysicalDeviceFormatProperties(m_gpu, depthFormat, &formatProperties);
+    if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT))
+    {
+      LOG(LWARNING, ("Vulkan error: depth format", depthFormat, "is unsupported"));
+      return;
+    }
   }
-
   VkPhysicalDeviceProperties gpuProperties;
   vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
   VkPhysicalDeviceMemoryProperties memoryProperties;
@@ -198,11 +201,11 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
 
   m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                     m_device, renderingQueueFamilyIndex,
-                                                    depthFormat, make_ref(m_objectManager),
+                                                    make_ref(m_objectManager),
                                                     appVersionCode);
   m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
                                                         m_device, renderingQueueFamilyIndex,
-                                                        depthFormat, make_ref(m_objectManager));
+                                                        make_ref(m_objectManager));
 }
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()

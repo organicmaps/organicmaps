@@ -21,22 +21,6 @@ namespace vulkan
 {
 namespace
 {
-VkFormat UnpackFormat(TextureFormat format)
-{
-  switch (format)
-  {
-  case TextureFormat::RGBA8: return VK_FORMAT_R8G8B8A8_UNORM;
-  case TextureFormat::Alpha: return VK_FORMAT_R8_UNORM;
-  case TextureFormat::RedGreen: return VK_FORMAT_R8G8_UNORM;
-  case TextureFormat::DepthStencil: return VK_FORMAT_D24_UNORM_S8_UINT;
-  case TextureFormat::Depth: return VK_FORMAT_D32_SFLOAT;
-  case TextureFormat::Unspecified:
-    CHECK(false, ());
-    return VK_FORMAT_UNDEFINED;
-  }
-  CHECK(false, ());
-}
-
 VkImageMemoryBarrier PreTransferBarrier(VkImageLayout initialLayout, VkImage image)
 {
   VkImageMemoryBarrier imageMemoryBarrier = {};
@@ -97,6 +81,22 @@ VkBufferImageCopy BufferCopyRegion(uint32_t x, uint32_t y, uint32_t width, uint3
 }
 }  // namespace
 
+VkFormat UnpackFormat(TextureFormat format)
+{
+  switch (format)
+  {
+    case TextureFormat::RGBA8: return VK_FORMAT_R8G8B8A8_UNORM;
+    case TextureFormat::Alpha: return VK_FORMAT_R8_UNORM;
+    case TextureFormat::RedGreen: return VK_FORMAT_R8G8_UNORM;
+    case TextureFormat::DepthStencil: return VK_FORMAT_D24_UNORM_S8_UINT;
+    case TextureFormat::Depth: return VK_FORMAT_D32_SFLOAT;
+    case TextureFormat::Unspecified:
+      CHECK(false, ());
+      return VK_FORMAT_UNDEFINED;
+  }
+  CHECK(false, ());
+}
+
 drape_ptr<HWTexture> VulkanTextureAllocator::CreateTexture(ref_ptr<dp::GraphicsContext> context)
 {
   return make_unique_dp<VulkanTexture>(make_ref<VulkanTextureAllocator>(this));
@@ -127,10 +127,21 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   if (params.m_isRenderTarget)
   {
     // Create image.
-    //m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-    //                                               format,
-    //                                               VK_IMAGE_ASPECT_COLOR_BIT,
-    //                                               params.m_width, params.m_height);
+    if (params.m_format == TextureFormat::DepthStencil || params.m_format == TextureFormat::Depth)
+    {
+      VkImageAspectFlags const aspect =
+          params.m_format == TextureFormat::DepthStencil ? (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT)
+                                                         : VK_IMAGE_ASPECT_DEPTH_BIT;
+      m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+                                                     format, aspect, params.m_width, params.m_height);
+    }
+    else
+    {
+      m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                                                     format,
+                                                     VK_IMAGE_ASPECT_COLOR_BIT,
+                                                     params.m_width, params.m_height);
+    }
   }
   else
   {

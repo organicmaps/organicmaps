@@ -1,4 +1,5 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "drape/framebuffer.hpp"
@@ -16,14 +17,13 @@ namespace vulkan
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                                      VkPhysicalDeviceProperties const & gpuProperties,
                                      VkDevice device, uint32_t renderingQueueFamilyIndex,
-                                     VkFormat depthFormat, ref_ptr<VulkanObjectManager> objectManager,
+                                     ref_ptr<VulkanObjectManager> objectManager,
                                      drape_ptr<VulkanPipeline> && pipeline)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
-  , m_depthFormat(depthFormat)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
 {
@@ -85,13 +85,49 @@ void VulkanBaseContext::Resize(int w, int h)
 
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
+  if (m_renderPass != VK_NULL_HANDLE)
+  {
+    vkCmdEndRenderPass(m_commandBuffer);
+    DestroyRenderPass();
+  }
 
+  if (m_framebuffer != VK_NULL_HANDLE)
+    DestroyFramebuffer();
+
+  m_currentFramebuffer = framebuffer;
 }
 
 void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 {
   //TODO: set renderPass to m_pipelineKey
   vkCmdSetStencilReference(m_commandBuffer, VK_STENCIL_FRONT_AND_BACK, m_stencilReferenceValue);
+
+  CreateRenderPass();
+
+  VkClearValue clearValues[2];
+  clearValues[0].color = {1.0f, 0.0f, 1.0f, 1.0f};
+  clearValues[1].depthStencil = { 1.0f, m_stencilReferenceValue };
+
+  VkRenderPassBeginInfo renderPassBeginInfo = {};
+  renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+  renderPassBeginInfo.renderPass = m_renderPass;
+  renderPassBeginInfo.renderArea.offset.x = 0;
+  renderPassBeginInfo.renderArea.offset.y = 0;
+  renderPassBeginInfo.renderArea.extent = m_surfaceCapabilities.currentExtent;
+  renderPassBeginInfo.clearValueCount = 2;
+  renderPassBeginInfo.pClearValues = clearValues;
+  if (m_currentFramebuffer != nullptr)
+  {
+    CreateFramebuffer();
+    renderPassBeginInfo.framebuffer = m_framebuffer;
+  }
+  else
+  {
+    if (m_defaultFramebuffers.empty())
+      CreateDefaultFramebuffer();
+    renderPassBeginInfo.framebuffer = m_defaultFramebuffers[m_imageIndex];
+  }
+  vkCmdBeginRenderPass(m_commandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 }
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
@@ -146,13 +182,11 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
     }
     m_surfaceFormat = surfaceFormat;
     m_surfaceCapabilities = surfaceCapabilities;
-    CreateRenderPass();
     CreateCommandPool();
     CreateCommandBuffer();
     CreateDepthTexture();
   }
   RecreateSwapchain();
-  CreateDefaultFramebuffer();
 }
 
 void VulkanBaseContext::ResetSurface()
@@ -176,16 +210,6 @@ void VulkanBaseContext::BeginRendering()
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   CHECK_VK_CALL(vkBeginCommandBuffer(m_commandBuffer, &commandBufferBeginInfo));
-}
-
-void VulkanBaseContext::Present()
-{
-  // Resetting of the default staging buffer must be before submitting the queue.
-  // It guarantees the graphics data coherence.
-  m_objectManager->FlushDefaultStagingBuffer();
-
-  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
-    h.second(make_ref(this));
 
   // Prepare frame. Acquire next image.
   // By setting timeout to UINT64_MAX we will always wait until the next image has been acquired or an actual
@@ -202,23 +226,25 @@ void VulkanBaseContext::Present()
   {
     CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
   }
+}
 
-  VkClearValue clearValues[2];
-  clearValues[0].color = {1.0f, 0.0f, 1.0f, 1.0f};
-  clearValues[1].depthStencil = { 1.0f, 0 };
+void VulkanBaseContext::Present()
+{
+  // Resetting of the default staging buffer must be before submitting the queue.
+  // It guarantees the graphics data coherence.
+  m_objectManager->FlushDefaultStagingBuffer();
 
-  VkRenderPassBeginInfo renderPassBeginInfo = {};
-  renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-  renderPassBeginInfo.renderPass = m_renderPass;
-  renderPassBeginInfo.renderArea.offset.x = 0;
-  renderPassBeginInfo.renderArea.offset.y = 0;
-  renderPassBeginInfo.renderArea.extent = m_surfaceCapabilities.currentExtent;
-  renderPassBeginInfo.clearValueCount = 2;
-  renderPassBeginInfo.pClearValues = clearValues;
-  renderPassBeginInfo.framebuffer = m_defaultFramebuffers[m_imageIndex];
-  vkCmdBeginRenderPass(m_commandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
+    h.second(make_ref(this));
 
-  vkCmdEndRenderPass(m_commandBuffer);
+  // TODO: wait for all map-memory operations.
+
+  if (m_renderPass != VK_NULL_HANDLE)
+  {
+    vkCmdEndRenderPass(m_commandBuffer);
+    DestroyRenderPass();
+  }
+
   CHECK_VK_CALL(vkEndCommandBuffer(m_commandBuffer));
 
   // Pipeline stage at which the queue submission will wait (via pWaitSemaphores)
@@ -247,7 +273,8 @@ void VulkanBaseContext::Present()
   // Check if a wait semaphore has been specified to wait for before presenting the image
   presentInfo.pWaitSemaphores = &m_renderComplete;
   presentInfo.waitSemaphoreCount = 1;
-  res = vkQueuePresentKHR(m_queue, &presentInfo);
+
+  VkResult res = vkQueuePresentKHR(m_queue, &presentInfo);
   if (!(res == VK_SUCCESS || res == VK_SUBOPTIMAL_KHR))
   {
     if (res == VK_ERROR_OUT_OF_DATE_KHR)
@@ -276,6 +303,14 @@ void VulkanBaseContext::Present()
   m_pipelineKey = {};
   m_stencilReferenceValue = 1;
   ClearParamDescriptors();
+
+  for (auto framebuffer : m_framebuffersToDestroy)
+    vkDestroyFramebuffer(m_device, framebuffer, nullptr);
+  m_framebuffersToDestroy.clear();
+
+  for (auto renderPass : m_renderPassesToDestroy)
+    vkDestroyRenderPass(m_device, renderPass, nullptr);
+  m_renderPassesToDestroy.clear();
 }
 
 uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHandler && handler)
@@ -442,8 +477,8 @@ void VulkanBaseContext::CreateDepthTexture()
   CHECK(m_depthStencil.m_image == VK_NULL_HANDLE, ());
   m_depthStencil = m_objectManager->CreateImage(
     VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
-    m_depthFormat,
-    VK_IMAGE_ASPECT_DEPTH_BIT /*| VK_IMAGE_ASPECT_STENCIL_BIT*/,
+    UnpackFormat(TextureFormat::Depth),
+    VK_IMAGE_ASPECT_DEPTH_BIT,
     m_surfaceCapabilities.currentExtent.width, m_surfaceCapabilities.currentExtent.height);
 }
 
@@ -488,28 +523,93 @@ void VulkanBaseContext::DestroyDefaultFramebuffer()
   m_defaultFramebuffers.clear();
 }
 
+void VulkanBaseContext::CreateFramebuffer()
+{
+  ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
+
+  auto const depthStencilRef = framebuffer->GetDepthStencilRef();
+  size_t const attachmentsCount = depthStencilRef != nullptr ? 2 : 1;
+  std::vector<VkImageView> attachmentsViews(attachmentsCount);
+
+  ASSERT(dynamic_cast<VulkanTexture *>(framebuffer->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
+  ref_ptr<VulkanTexture> colorAttachment = framebuffer->GetTexture()->GetHardwareTexture();
+
+  attachmentsViews[0] = colorAttachment->GetTextureView();
+
+  if (depthStencilRef != nullptr)
+  {
+    ASSERT(dynamic_cast<VulkanTexture *>(depthStencilRef->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
+    ref_ptr<VulkanTexture> depthStencilAttachment = depthStencilRef->GetTexture()->GetHardwareTexture();
+    attachmentsViews[1] = depthStencilAttachment->GetTextureView();
+  }
+
+  VkFramebufferCreateInfo frameBufferCreateInfo = {};
+  frameBufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+  frameBufferCreateInfo.pNext = nullptr;
+  frameBufferCreateInfo.renderPass = m_renderPass;
+  frameBufferCreateInfo.attachmentCount = static_cast<uint32_t>(attachmentsCount);
+  frameBufferCreateInfo.pAttachments = attachmentsViews.data();
+  frameBufferCreateInfo.width = m_surfaceCapabilities.currentExtent.width;
+  frameBufferCreateInfo.height = m_surfaceCapabilities.currentExtent.height;
+  frameBufferCreateInfo.layers = 1;
+
+  CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr, &m_framebuffer));
+}
+
+void VulkanBaseContext::DestroyFramebuffer()
+{
+  CHECK(m_framebuffer != VK_NULL_HANDLE, ());
+  m_framebuffersToDestroy.push_back(m_framebuffer);
+  m_framebuffer = VK_NULL_HANDLE;
+}
+
 void VulkanBaseContext::CreateRenderPass()
 {
-  std::array<VkAttachmentDescription, 2> attachments = {};
+  VkFormat colorFormat = m_surfaceFormat.get().format;
+  VkFormat depthFormat = UnpackFormat(TextureFormat::Depth);
+  if (m_currentFramebuffer != nullptr)
+  {
+    ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
+
+    colorFormat = UnpackFormat(framebuffer->GetTexture()->GetFormat());
+
+    auto const depthStencilRef = framebuffer->GetDepthStencilRef();
+    if (depthStencilRef != nullptr)
+    {
+      depthFormat = UnpackFormat(depthStencilRef->GetTexture()->GetFormat());
+    }
+    else
+    {
+      depthFormat = VK_FORMAT_UNDEFINED;
+    }
+  }
+  size_t const attachmentsCount = depthFormat == VK_FORMAT_UNDEFINED ? 1 : 2;
+
+  std::vector<VkAttachmentDescription> attachments(attachmentsCount);
 
   // Color attachment
-  attachments[0].format = m_surfaceFormat.get().format;
+  attachments[0].format = colorFormat;
   attachments[0].samples = VK_SAMPLE_COUNT_1_BIT;
   attachments[0].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
   attachments[0].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
   attachments[0].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
   attachments[0].stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
   attachments[0].initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-  attachments[0].finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-  // Depth attachment
-  attachments[1].format = m_depthFormat;
-  attachments[1].samples = VK_SAMPLE_COUNT_1_BIT;
-  attachments[1].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-  attachments[1].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-  attachments[1].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-  attachments[1].stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-  attachments[1].initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-  attachments[1].finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+  attachments[0].finalLayout = m_currentFramebuffer != nullptr ? VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                                                               : VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+  if (attachmentsCount == 2)
+  {
+    // Depth attachment
+    attachments[1].format = depthFormat;
+    attachments[1].samples = VK_SAMPLE_COUNT_1_BIT;
+    attachments[1].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachments[1].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+    attachments[1].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachments[1].stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    attachments[1].initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    attachments[1].finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+  }
 
   VkAttachmentReference colorReference = {};
   colorReference.attachment = 0;
@@ -523,7 +623,7 @@ void VulkanBaseContext::CreateRenderPass()
   subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
   subpassDescription.colorAttachmentCount = 1;
   subpassDescription.pColorAttachments = &colorReference;
-  subpassDescription.pDepthStencilAttachment = &depthReference;
+  subpassDescription.pDepthStencilAttachment = attachmentsCount == 2 ? &depthReference : nullptr;
   subpassDescription.inputAttachmentCount = 0;
   subpassDescription.pInputAttachments = nullptr;
   subpassDescription.preserveAttachmentCount = 0;
@@ -563,7 +663,9 @@ void VulkanBaseContext::CreateRenderPass()
 
 void VulkanBaseContext::DestroyRenderPass()
 {
-  vkDestroyRenderPass(m_device, m_renderPass, nullptr);
+  CHECK(m_renderPass != VK_NULL_HANDLE, ());
+  m_renderPassesToDestroy.push_back(m_renderPass);
+  m_renderPass = {};
 }
 
 void VulkanBaseContext::SetDepthTestEnabled(bool enabled)
