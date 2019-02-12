@@ -309,10 +309,17 @@ public class PlacePageView extends NestedScrollView
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageButtonsListener mPlacePageButtonsListener;
+  @Nullable
+  private Closable mClosable;
 
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
+  }
+
+  void addClosable(@NonNull Closable closable)
+  {
+    mClosable = closable;
   }
 
   @Override
@@ -570,11 +577,11 @@ public class PlacePageView extends NestedScrollView
             if (!controller.isPlanning())
             {
               controller.prepare(mMapObject, null);
-              hide();
+              close();
             }
             else if (controller.setStartPoint(mMapObject))
             {
-              hide();
+              close();
             }
             break;
 
@@ -582,7 +589,7 @@ public class PlacePageView extends NestedScrollView
             if (RoutingController.get().isPlanning())
             {
               RoutingController.get().setEndPoint(mMapObject);
-              hide();
+              close();
             }
             else
             {
@@ -1687,7 +1694,7 @@ public class PlacePageView extends NestedScrollView
       case R.id.tv__place_page_order_taxi:
         RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
                                         Framework.ROUTER_TYPE_TAXI);
-        hide();
+        close();
         if (mMapObject != null)
         {
           List<TaxiType> types = mMapObject.getReachableByTaxiTypes();
@@ -1806,9 +1813,16 @@ public class PlacePageView extends NestedScrollView
     return true;
   }
 
-  public void hide()
+  private void close()
+  {
+    if (mClosable != null)
+      mClosable.closePlacePage();
+  }
+
+  void reset()
   {
     scrollTo(0, 0);
+    clearBookmarkWebView();
     detachCountry();
   }
 

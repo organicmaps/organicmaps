@@ -1364,6 +1364,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
+  // Called from JNI.
   @Override
   public void onMapObjectActivated(final MapObject object)
   {
@@ -1385,6 +1386,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFadeView.fadeOut();
   }
 
+  // Called from JNI.
   @Override
   public void onDismiss(boolean switchFullScreenMode)
   {

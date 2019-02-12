@@ -33,7 +33,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                                                        View.OnLayoutChangeListener,
                                                        BannerController.BannerDetailsRequester,
                                                        BannerController.BannerStateListener,
-                                                       PlacePageButtonsListener
+                                                       PlacePageButtonsListener,
+                                                       Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -192,6 +193,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
     mPlacePage.addOnLayoutChangeListener(this);
+    mPlacePage.addClosable(this);
 
     ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
     DefaultAdTracker tracker = new DefaultAdTracker();
@@ -350,7 +352,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void close()
   {
     mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
-    mPlacePage.hide();
+    mPlacePage.reset();
   }
 
   @Override
@@ -580,5 +582,11 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       return;
 
     mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
+  }
+
+  @Override
+  public void closePlacePage()
+  {
+    close();
   }
 }
