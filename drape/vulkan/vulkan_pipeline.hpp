@@ -38,10 +38,6 @@ public:
 
   struct PipelineKey
   {
-    PipelineKey() = default;
-    PipelineKey(VkRenderPass renderPass, ref_ptr<VulkanGpuProgram> program,
-                DepthStencilKey const & depthStencil, std::vector<BindingInfo> && bindingInfo,
-                VkPrimitiveTopology primitiveTopology, bool blendingEnabled);
     bool operator<(PipelineKey const & rhs) const;
 
     VkRenderPass m_renderPass = {};

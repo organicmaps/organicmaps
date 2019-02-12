@@ -2,6 +2,7 @@
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_gpu_buffer_impl.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
@@ -77,6 +78,14 @@ public:
         return;
     }
 
+    if (!m_descriptorSetGroup)
+      m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
+
+    uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
+    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            vulkanContext->GetCurrentPipelineLayout(), 0, 1,
+                            &m_descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
+
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
 
     VkDeviceSize offsets[1] = {0};
@@ -111,6 +120,7 @@ private:
   std::vector<dp::BindingInfo> m_bindingInfo;
   VkPipeline m_pipeline = {};
   bool m_lastDrawAsLine = false;
+  DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan
   

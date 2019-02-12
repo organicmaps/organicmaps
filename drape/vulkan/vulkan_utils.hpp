@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/texture_types.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
@@ -31,11 +33,47 @@ struct ParamDescriptor
   int8_t m_textureSlot = 0;
 };
 
-struct DescriptorSet
+struct DescriptorSetGroup
 {
   VkDescriptorSet m_descriptorSet = {};
   VkDescriptorPool m_descriptorPool = {};
+
+  explicit operator bool()
+  {
+    return m_descriptorSet != VK_NULL_HANDLE &&
+           m_descriptorPool != VK_NULL_HANDLE;
+  }
 };
+
+template<typename T>
+void SetStateByte(T & state, uint8_t value, uint8_t byteNumber)
+{
+  auto const shift = byteNumber * 8;
+  auto const mask = ~(static_cast<T>(0xFF) << shift);
+  state = (state & mask) | (static_cast<T>(value) << shift);
+}
+
+template<typename T>
+uint8_t GetStateByte(T & state, uint8_t byteNumber)
+{
+  return static_cast<uint8_t>((state >> byteNumber * 8) & 0xFF);
+}
+
+struct SamplerKey
+{
+  SamplerKey() = default;
+  SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+  void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+  TextureFilter GetTextureFilter() const;
+  TextureWrapping GetWrapSMode() const;
+  TextureWrapping GetWrapTMode() const;
+  bool operator<(SamplerKey const & rhs) const;
+
+  uint32_t m_sampler = 0;
+};
+
+extern VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping);
+extern VkFilter GetVulkanFilter(TextureFilter filter);
 }  // namespace vulkan
 }  // namespace dp
 

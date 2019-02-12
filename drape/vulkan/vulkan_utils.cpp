@@ -4,6 +4,15 @@ namespace dp
 {
 namespace vulkan
 {
+namespace
+{
+// Sampler package.
+uint8_t constexpr kWrapSModeByte = 3;
+uint8_t constexpr kWrapTModeByte = 2;
+uint8_t constexpr kMagFilterByte = 1;
+uint8_t constexpr kMinFilterByte = 0;
+}  // namespace
+
 std::string GetVulkanResultString(VkResult result)
 {
   switch (result)
@@ -44,6 +53,59 @@ std::string GetVulkanResultString(VkResult result)
   }
   UNREACHABLE();
   return "Unknown result";
+}
+
+SamplerKey::SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+{
+  Set(filter, wrapSMode, wrapTMode);
+}
+
+void SamplerKey::Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+{
+  SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMinFilterByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMagFilterByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(wrapSMode), kWrapSModeByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(wrapTMode), kWrapTModeByte);
+}
+
+TextureFilter SamplerKey::GetTextureFilter() const
+{
+  return static_cast<TextureFilter>(GetStateByte(m_sampler, kMinFilterByte));
+}
+
+TextureWrapping SamplerKey::GetWrapSMode() const
+{
+  return static_cast<TextureWrapping>(GetStateByte(m_sampler, kWrapSModeByte));
+}
+
+TextureWrapping SamplerKey::GetWrapTMode() const
+{
+  return static_cast<TextureWrapping>(GetStateByte(m_sampler, kWrapTModeByte));
+}
+
+bool SamplerKey::operator<(SamplerKey const & rhs) const
+{
+  return m_sampler < rhs.m_sampler;
+}
+
+VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping)
+{
+  switch (wrapping)
+  {
+  case TextureWrapping::ClampToEdge: return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+  case TextureWrapping::Repeat: return VK_SAMPLER_ADDRESS_MODE_REPEAT;
+  }
+  UNREACHABLE();
+}
+
+VkFilter GetVulkanFilter(TextureFilter filter)
+{
+  switch (filter)
+  {
+  case TextureFilter::Linear: return VK_FILTER_LINEAR;
+  case TextureFilter::Nearest: return VK_FILTER_NEAREST;
+  }
+  UNREACHABLE();
 }
 }  // namespace vulkan
 }  // namespace dp

@@ -32,20 +32,6 @@ uint8_t constexpr kStencilFrontFailActionByte = 2;
 uint8_t constexpr kStencilFrontDepthFailActionByte = 1;
 uint8_t constexpr kStencilFrontPassActionByte = 0;
 
-template<typename T>
-void SetStateByte(T & state, uint8_t value, uint8_t byteNumber)
-{
-  auto const shift = byteNumber * 8;
-  auto const mask = ~(static_cast<T>(0xFF) << shift);
-  state = (state & mask) | (static_cast<T>(value) << shift);
-}
-
-template<typename T>
-uint8_t GetStateByte(T & state, uint8_t byteNumber)
-{
-  return static_cast<uint8_t>((state >> byteNumber * 8) & 0xFF);
-}
-
 VkCompareOp DecodeTestFunction(uint8_t testFunctionByte)
 {
   switch (static_cast<TestFunction>(testFunctionByte))
@@ -254,6 +240,8 @@ void VulkanPipeline::Destroy(VkDevice device)
 
 VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
 {
+  CHECK(key.m_renderPass != VK_NULL_HANDLE, ());
+
   auto const it = m_pipelineCache.find(key);
   if (it != m_pipelineCache.end())
     return it->second;
@@ -499,19 +487,6 @@ bool VulkanPipeline::DepthStencilKey::operator!=(DepthStencilKey const & rhs) co
          m_depthFunction != rhs.m_depthFunction || m_stencil != rhs.m_stencil;
 }
 
-VulkanPipeline::PipelineKey::PipelineKey(VkRenderPass renderPass, ref_ptr<VulkanGpuProgram> program,
-                                         DepthStencilKey const & depthStencil,
-                                         std::vector<BindingInfo> && bindingInfo,
-                                         VkPrimitiveTopology primitiveTopology,
-                                         bool blendingEnabled)
-  : m_renderPass(renderPass)
-  , m_program(std::move(program))
-  , m_depthStencil(depthStencil)
-  , m_bindingInfo(std::move(bindingInfo))
-  , m_primitiveTopology(primitiveTopology)
-  , m_blendingEnabled(blendingEnabled)
-{}
-  
 bool VulkanPipeline::PipelineKey::operator<(PipelineKey const & rhs) const
 {
   if (m_renderPass != rhs.m_renderPass)

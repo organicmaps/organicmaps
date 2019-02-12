@@ -31,7 +31,6 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
   vkGetDeviceQueue(m_device, m_renderingQueueFamilyIndex, 0, &m_queue);
 }
 
-
 VulkanBaseContext::~VulkanBaseContext()
 {
   if (m_pipeline)
@@ -39,6 +38,10 @@ VulkanBaseContext::~VulkanBaseContext()
     m_pipeline->Destroy(m_device);
     m_pipeline.reset();
   }
+
+  for (auto const & s : m_samplers)
+    vkDestroySampler(m_device, s.second, nullptr);
+  m_samplers.clear();
 
   DestroyDescriptorPools();
   DestroyDefaultFramebuffer();
@@ -92,6 +95,8 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 
 void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 {
+  //TODO: set renderPass to m_pipelineKey
+  vkCmdSetStencilReference(m_commandBuffer, VK_STENCIL_FRONT_AND_BACK, m_stencilReferenceValue);
 }
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
@@ -277,6 +282,10 @@ void VulkanBaseContext::Present()
   // only after the finishing of rendering. It prevents data collisions.
   m_objectManager->ResetDefaultStagingBuffer();
   m_objectManager->CollectObjects();
+
+  m_pipelineKey = {};
+  m_stencilReferenceValue = 1;
+  ClearParamDescriptors();
 }
 
 uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHandler && handler)
@@ -595,32 +604,28 @@ void VulkanBaseContext::DestroyDescriptorPools()
 
 void VulkanBaseContext::SetDepthTestEnabled(bool enabled)
 {
-  m_depthEnabled = enabled;
+  m_pipelineKey.m_depthStencil.SetDepthTestEnabled(enabled);
 }
 
 void VulkanBaseContext::SetDepthTestFunction(TestFunction depthFunction)
 {
-  m_depthFunction = depthFunction;
+  m_pipelineKey.m_depthStencil.SetDepthTestFunction(depthFunction);
 }
 
 void VulkanBaseContext::SetStencilTestEnabled(bool enabled)
 {
-  m_stencilEnabled = enabled;
+  m_pipelineKey.m_depthStencil.SetStencilTestEnabled(enabled);
 }
 
 void VulkanBaseContext::SetStencilFunction(StencilFace face, TestFunction stencilFunction)
 {
-  m_stencilFunctionFace = face;
-  m_stencilFunction = stencilFunction;
+  m_pipelineKey.m_depthStencil.SetStencilFunction(face, stencilFunction);
 }
 
 void VulkanBaseContext::SetStencilActions(StencilFace face, StencilAction stencilFailAction,
                                           StencilAction depthFailAction, StencilAction passAction)
 {
-  m_stencilActionFace = face;
-  m_stencilFailAction = stencilFailAction;
-  m_depthFailAction = depthFailAction;
-  m_passAction = passAction;
+  m_pipelineKey.m_depthStencil.SetStencilActions(face, stencilFailAction, depthFailAction, passAction);
 }
 
 void VulkanBaseContext::SetStencilReferenceValue(uint32_t stencilReferenceValue)
@@ -630,22 +635,22 @@ void VulkanBaseContext::SetStencilReferenceValue(uint32_t stencilReferenceValue)
     
 void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 {
-  //TODO
+  m_pipelineKey.m_primitiveTopology = topology;
 }
     
 void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo)
 {
-  //TODO
+  m_pipelineKey.m_bindingInfo = bindingInfo;
 }
 
 void VulkanBaseContext::SetProgram(ref_ptr<VulkanGpuProgram> program)
 {
-  m_currentProgram = program;
+  m_pipelineKey.m_program = program;
 }
     
 void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
 {
-  //TODO
+  m_pipelineKey.m_blendingEnabled = blendingEnabled;
 }
     
 void VulkanBaseContext::ApplyParamDescriptor(ParamDescriptor && descriptor)
@@ -660,18 +665,17 @@ void VulkanBaseContext::ClearParamDescriptors()
 
 VkPipeline VulkanBaseContext::GetCurrentPipeline()
 {
-  //TODO
-  return {};
+  return m_pipeline->GetPipeline(m_device, m_pipelineKey);
 }
 
-DescriptorSet VulkanBaseContext::GetCurrentDescriptorSet()
+DescriptorSetGroup VulkanBaseContext::GetCurrentDescriptorSetGroup()
 {
   CHECK(!m_descriptorPools.empty(), ());
-  CHECK(m_currentProgram != nullptr, ());
-  CHECK(!m_paramDescriptors.empty(), ());
+  CHECK(m_pipelineKey.m_program != nullptr, ());
+  CHECK(!m_paramDescriptors.empty(), ("Shaders parameters are not set."));
 
-  DescriptorSet s;
-  VkDescriptorSetLayout layout = m_currentProgram->GetDescriptorSetLayout();
+  DescriptorSetGroup s;
+  VkDescriptorSetLayout layout = m_pipelineKey.m_program->GetDescriptorSetLayout();
   VkDescriptorSetAllocateInfo allocInfo = {};
   allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
   allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.front();
@@ -726,8 +730,43 @@ DescriptorSet VulkanBaseContext::GetCurrentDescriptorSet()
 
   vkUpdateDescriptorSets(m_device, static_cast<uint32_t>(writeDescriptorSets.size()),
                          writeDescriptorSets.data(), 0, nullptr);
-
   return s;
+}
+
+VkPipelineLayout VulkanBaseContext::GetCurrentPipelineLayout() const
+{
+  CHECK(m_pipelineKey.m_program != nullptr, ());
+  return m_pipelineKey.m_program->GetPipelineLayout();
+}
+
+uint32_t VulkanBaseContext::GetCurrentDynamicBufferOffset() const
+{
+  for (auto const & p : m_paramDescriptors)
+  {
+    if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+      return p.m_bufferDynamicOffset;
+  }
+  CHECK(false, ("Shaders parameters are not set."));
+  return 0;
+}
+
+VkSampler VulkanBaseContext::GetSampler(SamplerKey const & key)
+{
+  auto const it = m_samplers.find(key);
+  if (it != m_samplers.end())
+    return it->second;
+
+  VkSamplerCreateInfo samplerCreateInfo = {};
+  samplerCreateInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+  samplerCreateInfo.magFilter = samplerCreateInfo.minFilter = GetVulkanFilter(key.GetTextureFilter());
+  samplerCreateInfo.addressModeU = GetVulkanSamplerAddressMode(key.GetWrapSMode());
+  samplerCreateInfo.addressModeV = GetVulkanSamplerAddressMode(key.GetWrapTMode());
+
+  VkSampler sampler;
+  CHECK_VK_CALL(vkCreateSampler(m_device, &samplerCreateInfo, nullptr, &sampler));
+
+  m_samplers.insert(std::make_pair(key, sampler));
+  return sampler;
 }
 }  // namespace vulkan
 }  // namespace dp

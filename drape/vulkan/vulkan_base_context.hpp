@@ -17,6 +17,7 @@
 #include <array>
 #include <cstdint>
 #include <functional>
+#include <map>
 #include <vector>
 
 namespace dp
@@ -86,7 +87,11 @@ public:
 
   VkCommandBuffer GetCurrentCommandBuffer() const { return m_commandBuffer; }
   VkPipeline GetCurrentPipeline();
-  DescriptorSet GetCurrentDescriptorSet();
+  DescriptorSetGroup GetCurrentDescriptorSetGroup();
+  VkPipelineLayout GetCurrentPipelineLayout() const;
+  uint32_t GetCurrentDynamicBufferOffset() const;
+
+  VkSampler GetSampler(SamplerKey const & key);
 
   enum class HandlerType : uint8_t
   {
@@ -161,19 +166,10 @@ protected:
   std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
              static_cast<size_t>(HandlerType::Count)> m_handlers;
 
-  bool m_depthEnabled = false;
-  bool m_stencilEnabled = false;
-  StencilFace m_stencilFunctionFace = {};
-  TestFunction m_stencilFunction = {};
-  TestFunction m_depthFunction = {};
-  StencilFace m_stencilActionFace = {};
-  StencilAction m_stencilFailAction = {};
-  StencilAction m_depthFailAction = {};
-  StencilAction m_passAction = {};
-  uint32_t m_stencilReferenceValue = 1;
-
-  ref_ptr<VulkanGpuProgram> m_currentProgram;
+  VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;
+  uint32_t m_stencilReferenceValue = 1;
+  std::map<SamplerKey, VkSampler> m_samplers;
 };
 }  // namespace vulkan
 }  // namespace dp

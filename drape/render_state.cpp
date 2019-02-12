@@ -237,12 +237,13 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       CHECK(it != bindings.end(), ("Texture bindings inconsistency."));
 
       ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
+      t->SetFilter(state.GetTextureFilter());
 
       dp::vulkan::ParamDescriptor descriptor;
       descriptor.m_type = dp::vulkan::ParamDescriptor::Type::Texture;
       descriptor.m_imageDescriptor.imageView = t->GetTextureView();
+      descriptor.m_imageDescriptor.sampler = vulkanContext->GetSampler(t->GetSamplerKey());
       descriptor.m_imageDescriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-      //descriptor.m_imageDescriptor.sampler =; //TODO(@rokuz, @darina): Implement.
       descriptor.m_textureSlot = it->second;
       vulkanContext->ApplyParamDescriptor(std::move(descriptor));
     }

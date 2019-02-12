@@ -3,6 +3,7 @@
 #include "drape/hw_texture.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
@@ -38,6 +39,7 @@ public:
   bool Validate() const override;
 
   VkImageView GetTextureView() const { return m_textureObject.m_imageView; }
+  SamplerKey GetSamplerKey() const;
   
 private:
   ref_ptr<VulkanTextureAllocator> m_allocator;

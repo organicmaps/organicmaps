@@ -1,7 +1,6 @@
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_staging_buffer.hpp"
-#include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/logging.hpp"
 
@@ -249,7 +248,13 @@ void VulkanTexture::SetFilter(TextureFilter filter)
 
 bool VulkanTexture::Validate() const
 {
-  return m_textureObject.m_image != 0 && m_textureObject.m_imageView != 0;
+  return m_textureObject.m_image != VK_NULL_HANDLE &&
+         m_textureObject.m_imageView != VK_NULL_HANDLE;
+}
+
+SamplerKey VulkanTexture::GetSamplerKey() const
+{
+  return SamplerKey(m_params.m_filter, m_params.m_wrapSMode, m_params.m_wrapTMode);
 }
 }  // namespace vulkan
 }  // namespace dp
