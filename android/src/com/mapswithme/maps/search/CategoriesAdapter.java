@@ -135,8 +135,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         break;
       case TYPE_PROMO_CATEGORY:
         view = mInflater.inflate(R.layout.item_search_promo_category, parent, false);
-        TextView callToActionView = view.findViewById(R.id.promo_action);
-        viewHolder = new PromoViewHolder(view, view.findViewById(R.id.promo_title), callToActionView);
+        viewHolder = new PromoViewHolder(view, view.findViewById(R.id.promo_title));
         break;
       default:
         throw new AssertionError("Unsupported type detected: " + viewType);
@@ -167,12 +166,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     @NonNull
     private final TextView mCallToActionView;
 
-    PromoViewHolder(@NonNull View v, @NonNull TextView tv, @NonNull TextView callToActionView)
+    PromoViewHolder(@NonNull View v, @NonNull TextView tv)
     {
       super(v, tv);
       mIcon = v.findViewById(R.id.promo_icon);
       mRemoveAds = v.findViewById(R.id.remove_ads);
-      mCallToActionView = callToActionView;
+      mCallToActionView = v.findViewById(R.id.promo_action);
       Resources res = v.getResources();
       int crossArea = res.getDimensionPixelSize(R.dimen.margin_base);
       UiUtils.expandTouchAreaForView(mRemoveAds, crossArea);

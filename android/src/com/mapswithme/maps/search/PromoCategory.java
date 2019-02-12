@@ -45,7 +45,7 @@ public enum PromoCategory
         @Override
         PromoCategoryProcessor createProcessor(@NonNull Activity activity)
         {
-          return new RutaxiPromoProcessor(activity);
+          return new MegafonPromoProcessor(activity);
         }
 
         @Override

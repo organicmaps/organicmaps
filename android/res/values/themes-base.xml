@@ -144,7 +144,6 @@
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
-    <item name="searchPromoLogo">@drawable/ic_category_megafon_night</item>
   </style>
 
   <!-- Night theme -->
@@ -292,6 +291,5 @@
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
-    <item name="searchPromoLogo">@drawable/ic_category_megafon_night</item>
   </style>
 </resources>
