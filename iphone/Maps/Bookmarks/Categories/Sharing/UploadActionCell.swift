@@ -5,6 +5,7 @@ protocol UploadActionCellDelegate: AnyObject {
 enum UploadActionCellState: String {
   case normal
   case inProgress
+  case updating
   case completed
   case disabled
 }
@@ -46,6 +47,14 @@ final class UploadActionCell: MWMTableViewCell {
         actionTitle.textColor = .blackSecondaryText()
         actionTitle.font = .italic16()
         actionTitle.text = titles?[.inProgress]
+        shareButton.isHidden = true
+        selectionStyle = .none
+      case .updating:
+        progressView.isHidden = false
+        actionImage.tintColor = .blackSecondaryText()
+        actionTitle.textColor = .blackSecondaryText()
+        actionTitle.font = .italic16()
+        actionTitle.text = titles?[.updating]
         shareButton.isHidden = true
         selectionStyle = .none
       case .completed:

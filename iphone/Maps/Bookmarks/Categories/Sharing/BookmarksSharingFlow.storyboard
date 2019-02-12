@@ -350,6 +350,7 @@
                     </tableView>
                     <connections>
                         <outlet property="directLinkInstructionsLabel" destination="XQh-26-CNo" id="0mF-Ta-Odg"/>
+                        <outlet property="editOnWebButton" destination="ULn-RX-CjB" id="EBo-eG-874"/>
                         <outlet property="getDirectLinkCell" destination="90b-ef-VUJ" id="L7h-0r-eSe"/>
                         <outlet property="licenseAgreementTextView" destination="dsV-Vs-oCo" id="TtB-Uw-WGR"/>
                         <outlet property="updateDirectLinkCell" destination="aAa-cf-kTL" id="Gaz-h4-0E6"/>

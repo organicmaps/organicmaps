@@ -382,6 +382,8 @@
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
 		4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */; };
 		47289E532209BE3D002ABFC0 /* MWMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 47289E522209BE3D002ABFC0 /* MWMActivityIndicator.m */; };
+		47289E5A2212DFFF002ABFC0 /* EditOnWebAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */; };
+		47289E5B2212DFFF002ABFC0 /* EditOnWebAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */; };
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
@@ -1413,6 +1415,8 @@
 		4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageDescriptionViewController.swift; sourceTree = "<group>"; };
 		47289E512209BE3D002ABFC0 /* MWMActivityIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMActivityIndicator.h; path = CustomViews/MWMActivityIndicator.h; sourceTree = "<group>"; };
 		47289E522209BE3D002ABFC0 /* MWMActivityIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MWMActivityIndicator.m; path = CustomViews/MWMActivityIndicator.m; sourceTree = "<group>"; };
+		47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOnWebAlertViewController.swift; sourceTree = "<group>"; };
+		47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOnWebAlertViewController.xib; sourceTree = "<group>"; };
 		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
 		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
@@ -2229,6 +2233,8 @@
 				33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */,
 				33F7668E21A57CDF00A88B16 /* EditOnWebViewController.swift */,
 				33F8BA3B2199858B00ECA8EE /* Tags */,
+				47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */,
+				47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -4699,6 +4705,7 @@
 				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE941E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
+				47289E5B2212DFFF002ABFC0 /* EditOnWebAlertViewController.xib in Resources */,
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				47E3C72221108E9F008B3B27 /* BookmarksLoadedViewController.xib in Resources */,
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
@@ -5193,6 +5200,7 @@
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
+				47289E5A2212DFFF002ABFC0 /* EditOnWebAlertViewController.swift in Sources */,
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,

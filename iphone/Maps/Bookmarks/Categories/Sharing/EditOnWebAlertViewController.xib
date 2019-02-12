@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditOnWebAlertViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="acceptButton" destination="VKv-gq-AkS" id="kY8-gy-8bh"/>
+                <outlet property="cancelButton" destination="ims-sO-qtH" id="hu3-Zu-NSd"/>
+                <outlet property="messageLabel" destination="UlE-bL-cfg" id="ttA-Qk-Ocu"/>
+                <outlet property="titleLabel" destination="z4t-Nz-dPi" id="khc-WY-B8p"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="307" height="257"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have edited you bookmarks online" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4t-Nz-dPi">
+                    <rect key="frame" x="16" y="24" width="275" height="43"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="public_or_limited_access_after_edit_online_error_title"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Further on please edit, publish or share the guide with you friends via out website" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlE-bL-cfg">
+                    <rect key="frame" x="16" y="77" width="275" height="33.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.0" alpha="0.5442155393835616" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="public_or_limited_access_after_edit_online_error_message"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ims-sO-qtH" userLabel="Cancel">
+                    <rect key="frame" x="16" y="188.5" width="275" height="48"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="lvW-2n-I6Q"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="0.0" alpha="0.38328339041095888" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onCancel:" destination="-1" eventType="touchUpInside" id="YMO-gu-PBi"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKv-gq-AkS" customClass="MWMButton">
+                    <rect key="frame" x="16" y="130.5" width="275" height="48"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="275" id="E1D-6z-eho"/>
+                        <constraint firstAttribute="height" constant="48" id="KpB-i9-dRs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <state key="normal" title="EDIT ON WEB">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onAccept:" destination="-1" eventType="touchUpInside" id="2Fj-t8-3OH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ims-sO-qtH" firstAttribute="trailing" secondItem="VKv-gq-AkS" secondAttribute="trailing" id="4eC-CL-lkC"/>
+                <constraint firstItem="UlE-bL-cfg" firstAttribute="trailing" secondItem="z4t-Nz-dPi" secondAttribute="trailing" id="CMm-Wn-MLd"/>
+                <constraint firstItem="ims-sO-qtH" firstAttribute="top" secondItem="VKv-gq-AkS" secondAttribute="bottom" constant="10" id="CdB-n2-LbK"/>
+                <constraint firstItem="z4t-Nz-dPi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="JCY-6N-QfB"/>
+                <constraint firstItem="VKv-gq-AkS" firstAttribute="top" secondItem="UlE-bL-cfg" secondAttribute="bottom" constant="20" id="NLz-BD-7D6"/>
+                <constraint firstItem="VKv-gq-AkS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Nqc-hN-IjG"/>
+                <constraint firstAttribute="bottom" secondItem="ims-sO-qtH" secondAttribute="bottom" constant="20.5" id="SdP-ZG-W3U"/>
+                <constraint firstItem="UlE-bL-cfg" firstAttribute="top" secondItem="z4t-Nz-dPi" secondAttribute="bottom" constant="10" id="UQO-SJ-iZX"/>
+                <constraint firstAttribute="trailing" secondItem="VKv-gq-AkS" secondAttribute="trailing" constant="16" id="fMP-8P-b6v"/>
+                <constraint firstAttribute="trailing" secondItem="z4t-Nz-dPi" secondAttribute="trailing" constant="16" id="npB-Ao-XgR"/>
+                <constraint firstItem="UlE-bL-cfg" firstAttribute="leading" secondItem="z4t-Nz-dPi" secondAttribute="leading" id="oHJ-L5-BLD"/>
+                <constraint firstItem="z4t-Nz-dPi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="w3r-vc-ZIQ"/>
+                <constraint firstItem="ims-sO-qtH" firstAttribute="leading" secondItem="VKv-gq-AkS" secondAttribute="leading" id="xB2-ch-cgh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="128.80000000000001" y="-31.03448275862069"/>
+        </view>
+    </objects>
+</document>

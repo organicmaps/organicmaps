@@ -27,18 +27,23 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private let publishUpdateRowIndex = 2
 
   private var rowsInPublicSection: Int {
-    return category.accessStatus == .public ? 3 : 2
+    return category.accessStatus == .public ? (uploadAndPublishCell.cellState == .updating ? 2 : 3) : 2
   }
 
   private var rowsInPrivateSection: Int {
-    return category.accessStatus == .private ? 3 : 2
+    return category.accessStatus == .private ? (getDirectLinkCell.cellState == .updating ? 2 : 3) : 2
   }
   
-  @IBOutlet private weak var uploadAndPublishCell: UploadActionCell!
-  @IBOutlet private weak var getDirectLinkCell: UploadActionCell!
-  @IBOutlet private weak var updatePublishCell: UITableViewCell!
-  @IBOutlet private weak var updateDirectLinkCell: UITableViewCell!
-  @IBOutlet private weak var directLinkInstructionsLabel: UILabel!
+  @IBOutlet weak var uploadAndPublishCell: UploadActionCell!
+  @IBOutlet weak var getDirectLinkCell: UploadActionCell!
+  @IBOutlet weak var updatePublishCell: UITableViewCell!
+  @IBOutlet weak var updateDirectLinkCell: UITableViewCell!
+  @IBOutlet weak var directLinkInstructionsLabel: UILabel!
+  @IBOutlet weak var editOnWebButton: UIButton! {
+    didSet {
+      editOnWebButton.setTitle(L("edit_on_web").uppercased(), for: .normal)
+    }
+  }
 
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
@@ -82,11 +87,13 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private func configureActionCells() {
     uploadAndPublishCell.config(titles: [ .normal : L("upload_and_publish"),
                                           .inProgress : L("upload_and_publish_progress_text"),
+                                          .updating : L("direct_link_updating_text"),
                                           .completed : L("upload_and_publish_success") ],
                                 image: UIImage(named: "ic24PxGlobe"),
                                 delegate: self)
     getDirectLinkCell.config(titles: [ .normal : L("upload_and_get_direct_link"),
                                        .inProgress : L("direct_link_progress_text"),
+                                       .updating : L("direct_link_updating_text"),
                                        .completed : L("direct_link_success") ],
                              image: UIImage(named: "ic24PxLink"),
                              delegate: self)
@@ -142,7 +149,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     if cell == uploadAndPublishCell {
       startUploadAndPublishFlow()
     } else if cell == getDirectLinkCell {
-      uploadAndGetDirectLink()
+      uploadAndGetDirectLink(update: false)
     } else if cell == updatePublishCell {
       updatePublic()
     } else if cell == updateDirectLinkCell {
@@ -151,11 +158,21 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
 
   private func updatePublic() {
-
+    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("any_access_update_alert_title"),
+                                                             message: L("any_access_update_alert_message"),
+                                                             rightButtonTitle: L("any_access_update_alert_update"),
+                                                             leftButtonTitle: L("cancel")) {
+                                                              self.uploadAndPublish(update: true)
+    }
   }
 
   private func updateDirectLink() {
-
+    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("any_access_update_alert_title"),
+                                                             message: L("any_access_update_alert_message"),
+                                                             rightButtonTitle: L("any_access_update_alert_update"),
+                                                             leftButtonTitle: L("cancel")) {
+                                                              self.uploadAndGetDirectLink(update: true)
+    }
   }
 
   private func startUploadAndPublishFlow() {
@@ -167,16 +184,25 @@ final class BookmarksSharingViewController: MWMTableViewController {
     }
   }
   
-  private func uploadAndPublish() {
-    guard let tags = sharingTags, let userStatus = sharingUserStatus else {
-        assert(false, "not enough data for public sharing")
-        return
+  private func uploadAndPublish(update: Bool) {
+    if !update {
+      guard let tags = sharingTags, let userStatus = sharingUserStatus else {
+          assert(false, "not enough data for public sharing")
+          return
+      }
+
+      manager.setCategory(category.categoryId, authorType: userStatus)
+      manager.setCategory(category.categoryId, tags: tags)
     }
-    
-    manager.setCategory(category.categoryId, authorType: userStatus)
-    manager.setCategory(category.categoryId, tags: tags)
+
+    uploadAndPublishCell.cellState = update ? .updating : .inProgress
+    if update {
+      self.tableView.deleteRows(at: [IndexPath(row: self.publishUpdateRowIndex,
+                                               section: self.publicSectionIndex)],
+                                with: .automatic)
+    }
+
     manager.uploadAndPublishCategory(withId: category.categoryId, progress: { (progress) in
-      self.uploadAndPublishCell.cellState = .inProgress
     }) { (_, error) in
       if let error = error as NSError? {
         self.uploadAndPublishCell.cellState = .normal
@@ -200,11 +226,14 @@ final class BookmarksSharingViewController: MWMTableViewController {
                                                  section: self.publicSectionIndex)],
                                   with: .automatic)
         self.tableView.endUpdates()
+        if update {
+          Toast.toast(withText: L("direct_link_updating_success")).show()
+        }
       }
     }
   }
   
-  private func uploadAndGetDirectLink() {
+  private func uploadAndGetDirectLink(update: Bool) {
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPrivate])
     performAfterValidation(anchor: getDirectLinkCell) { [weak self] in
       guard let s = self else {
@@ -212,10 +241,13 @@ final class BookmarksSharingViewController: MWMTableViewController {
         return
       }
       
+      s.getDirectLinkCell.cellState = update ? .updating : .inProgress
+      if update {
+        s.tableView.deleteRows(at: [IndexPath(item: s.directLinkUpdateRowIndex,
+                                              section: s.privateSectionIndex)],
+                               with: .automatic)
+      }
       s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: { (progress) in
-        if progress == .uploadStarted {
-          s.getDirectLinkCell.cellState = .inProgress
-        }
       }, completion: { (_, error) in
         if let error = error as NSError? {
           s.getDirectLinkCell.cellState = .normal
@@ -229,6 +261,9 @@ final class BookmarksSharingViewController: MWMTableViewController {
           s.tableView.insertRows(at: [IndexPath(item: s.directLinkUpdateRowIndex,
                                                 section: s.privateSectionIndex)],
                                  with: .automatic)
+          if update {
+            Toast.toast(withText: L("direct_link_updating_success")).show()
+          }
         }
       })
     }
@@ -291,13 +326,34 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   private func showMalformedDataError() {
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("unable_upload_errorr_title"),
-                                                          text: L("unable_upload_error_subtitle_broken"))
+    let alert = EditOnWebAlertViewController(with: L("html_format_error_title"),
+                                             message: L("html_format_error_subtitle"))
+    alert.onAcceptBlock = {
+      self.dismiss(animated: true, completion: {
+        self.performSegue(withIdentifier: self.kEditOnWebSegueIdentifier, sender: nil)
+      })
+    }
+    alert.onCancelBlock = {
+      self.dismiss(animated: true)
+    }
+
+    navigationController?.present(alert, animated: true)
   }
   
   private func showAccessError() {
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("unable_upload_errorr_title"),
-                                                          text: L("unable_upload_error_subtitle_edited"))
+    let alert = EditOnWebAlertViewController(with: L("public_or_limited_access_after_edit_online_error_title"),
+                                             message: L("public_or_limited_access_after_edit_online_error_message"))
+    alert.onAcceptBlock = {
+      self.dismiss(animated: true, completion: {
+        self.performSegue(withIdentifier: self.kEditOnWebSegueIdentifier, sender: nil)
+      })
+    }
+
+    alert.onCancelBlock = {
+      self.dismiss(animated: true)
+    }
+
+    navigationController?.present(alert, animated: true)
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
@@ -346,7 +402,7 @@ extension BookmarksSharingViewController: SharingTagsViewControllerDelegate {
   func sharingTagsViewController(_ viewController: SharingTagsViewController, didSelect tags: [MWMTag]) {
     navigationController?.popViewController(animated: true)
     sharingTags = tags
-    uploadAndPublish()
+    uploadAndPublish(update: false)
   }
   
   func sharingTagsViewControllerDidCancel(_ viewController: SharingTagsViewController) {
