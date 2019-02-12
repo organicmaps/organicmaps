@@ -2,8 +2,10 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
+#include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_pipeline.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -64,6 +66,11 @@ public:
 
   void SetPrimitiveTopology(VkPrimitiveTopology topology);
   void SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo);
+  void SetProgram(ref_ptr<VulkanGpuProgram> program);
+  void SetBlendingEnabled(bool blendingEnabled);
+
+  void ApplyParamDescriptor(ParamDescriptor && descriptor);
+  void ClearParamDescriptors();
 
   void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
                   VkSurfaceCapabilitiesKHR surfaceCapabilities, int width, int height);

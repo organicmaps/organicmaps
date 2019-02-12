@@ -59,11 +59,12 @@ private:
   void ApplyImpl(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                  T const & params)
   {
-    ApplyBytes(context, program, reinterpret_cast<void const *>(&params), sizeof(params));
+    ASSERT_EQUAL(T::GetName(), ProgramParams::GetBoundParamsName(program),
+                 ("Mismatched program and parameters", program->GetName()));
+    ApplyBytes(context, reinterpret_cast<void const *>(&params), sizeof(params));
   }
 
   void ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context,
-                  ref_ptr<dp::vulkan::VulkanGpuProgram> program,
                   void const * data, uint32_t sizeInBytes);
 
   ref_ptr<dp::vulkan::VulkanObjectManager> m_objectManager;

@@ -13,6 +13,23 @@ namespace dp
 namespace vulkan
 {
 extern std::string GetVulkanResultString(VkResult result);
+
+struct ParamDescriptor
+{
+  enum class Type : uint8_t
+  {
+    DynamicUniformBuffer,
+    Texture
+  };
+
+  Type m_type = Type::DynamicUniformBuffer;
+
+  VkDescriptorBufferInfo m_bufferDescriptor = {};
+  uint32_t m_bufferDynamicOffset = 0;
+
+  VkDescriptorImageInfo m_imageDescriptor = {};
+  int8_t m_textureSlot = 0;
+};
 }  // namespace vulkan
 }  // namespace dp
 

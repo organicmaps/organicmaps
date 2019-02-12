@@ -171,6 +171,8 @@ public:
       vkCmdBindVertexBuffers(commandBuffer, i, 1, &m_geometryBuffers[i].m_buffer, offsets);
 
     vkCmdDraw(commandBuffer, verticesCount, 1, 0, 0);
+
+    vulkanContext->ClearParamDescriptors();
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}

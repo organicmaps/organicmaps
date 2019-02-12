@@ -143,6 +143,10 @@ std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const
     uniformsBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
     result.push_back(std::move(uniformsBinding));
   }
+  else
+  {
+    CHECK(false, ("Uniforms must be at least in one shader."));
+  }
 
   for (auto const & t : reflectionInfo.m_textures)
   {

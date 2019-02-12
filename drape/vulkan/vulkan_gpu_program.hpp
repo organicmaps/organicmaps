@@ -38,7 +38,7 @@ public:
 
   std::array<VkPipelineShaderStageCreateInfo, 2> GetShaders() const
   {
-    return {m_vertexShader, m_fragmentShader};
+    return {{m_vertexShader, m_fragmentShader}};
   }
 
   VkDescriptorSetLayout GetDescriptorSetLayout() const { return m_descriptorSetLayout; }

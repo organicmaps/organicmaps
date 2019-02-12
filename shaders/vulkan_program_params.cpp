@@ -89,7 +89,6 @@ void VulkanProgramParamsSetter::Finish()
 }
 
 void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context,
-                                           ref_ptr<dp::vulkan::VulkanGpuProgram> program,
                                            void const * data, uint32_t sizeInBytes)
 {
   auto const & mm = m_objectManager->GetMemoryManager();
@@ -126,8 +125,12 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
 
   memcpy(ptr, data, sizeInBytes);
 
-  //TODO: setup descriptor to alignedOffset for m_uniformBuffers[index].
-  //CHECK(false, ());
+  dp::vulkan::ParamDescriptor descriptor;
+  descriptor.m_type = dp::vulkan::ParamDescriptor::Type::DynamicUniformBuffer;
+  descriptor.m_bufferDescriptor.buffer = m_uniformBuffers[index].m_object.m_buffer;
+  descriptor.m_bufferDescriptor.range = VK_WHOLE_SIZE;
+  descriptor.m_bufferDynamicOffset = alignedOffset;
+  context->ApplyParamDescriptor(std::move(descriptor));
 }
   
 void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,

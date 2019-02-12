@@ -102,6 +102,8 @@ public:
     vkCmdBindIndexBuffer(commandBuffer, vulkanIndexBuffer, 0, indexType);
 
     vkCmdDrawIndexed(commandBuffer, range.m_idxCount, 1, range.m_idxStart, 0, 0);
+
+    vulkanContext->ClearParamDescriptors();
   }
   
 private:

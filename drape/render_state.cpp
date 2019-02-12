@@ -1,9 +1,12 @@
 #include "drape/render_state.hpp"
+
 #include "drape/drape_global.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/gl_gpu_program.hpp"
 
-#include "base/buffer_vector.hpp"
+#include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_gpu_program.hpp"
+#include "drape/vulkan/vulkan_texture.hpp"
 
 namespace dp
 {
@@ -225,7 +228,24 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
-    //TODO(@rokuz, @darina): Implement. Use Bind!
+    ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+    ref_ptr<dp::vulkan::VulkanGpuProgram> p = program;
+    auto const & bindings = p->GetTextureBindings();
+    for (auto const & texture : state.GetTextures())
+    {
+      auto const it = bindings.find(texture.first);
+      CHECK(it != bindings.end(), ("Texture bindings inconsistency."));
+
+      ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
+
+      dp::vulkan::ParamDescriptor descriptor;
+      descriptor.m_type = dp::vulkan::ParamDescriptor::Type::Texture;
+      descriptor.m_imageDescriptor.imageView = t->GetTextureView();
+      descriptor.m_imageDescriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+      //descriptor.m_imageDescriptor.sampler =; //TODO(@rokuz, @darina): Implement.
+      descriptor.m_textureSlot = it->second;
+      vulkanContext->ApplyParamDescriptor(std::move(descriptor));
+    }
   }
   else
   {
@@ -254,7 +274,9 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
-    //TODO(@rokuz, @darina): Implement.
+    ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+    vulkanContext->SetProgram(program);
+    vulkanContext->SetBlendingEnabled(state.GetBlending().m_isEnabled);
   }
   else
   {
@@ -272,20 +294,26 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     ApplyDepthStencilStateForMetal(context);
 #endif
   }
-  else if (apiVersion == dp::ApiVersion::Vulkan)
-  {
-    //TODO(@rokuz, @darina): Implement.
-  }
 
-  // Metal does not support line width.
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (state.GetDrawAsLine())
   {
-    ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
-    GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
-  }
-  else if (apiVersion == dp::ApiVersion::Vulkan)
-  {
-    //TODO(@rokuz, @darina): Implement.
+    if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+    {
+      ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
+      GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
+    }
+    else if (apiVersion == dp::ApiVersion::Metal)
+    {
+      // Do nothing. Metal does not support line width.
+    }
+    else if (apiVersion == dp::ApiVersion::Vulkan)
+    {
+      ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
+      ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+      VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+      CHECK(commandBuffer != nullptr, ());
+      vkCmdSetLineWidth(commandBuffer, static_cast<float>(state.GetLineWidth()));
+    }
   }
 }
 }  // namespace dp

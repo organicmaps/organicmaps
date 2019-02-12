@@ -608,9 +608,29 @@ void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bind
   //TODO
 }
 
+void VulkanBaseContext::SetProgram(ref_ptr<VulkanGpuProgram> program)
+{
+  //TODO
+}
+    
+void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
+{
+  //TODO
+}
+    
+void VulkanBaseContext::ApplyParamDescriptor(ParamDescriptor && descriptor)
+{
+  //TODO
+}
+    
+void VulkanBaseContext::ClearParamDescriptors()
+{
+  //TODO
+}
+
 VkPipeline VulkanBaseContext::GetCurrentPipeline()
 {
-  return nullptr;
+  return {};
 }
 }  // namespace vulkan
 }  // namespace dp
