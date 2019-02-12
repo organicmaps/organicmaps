@@ -18,8 +18,7 @@ double constexpr kStepInMercator = 1;
 struct PointAndCountry
 {
   PointAndCountry(m2::PointD && pt, storage::CountryId && country)
-    : m_pt(std::move(pt))
-    , m_country(std::move(country))
+    : m_pt(std::move(pt)), m_country(std::move(country))
   {
   }
 

@@ -178,8 +178,7 @@ bool SearchPanel::TryMigrate(QString const & str)
   m_pEditor->setText("");
   parentWidget()->hide();
 
-  auto const stateChanged = [&](storage::CountryId const & id)
-  {
+  auto const stateChanged = [&](storage::CountryId const & id) {
     storage::Status const nextStatus = m_pDrawWidget->GetFramework().GetStorage().GetPrefetchStorage()->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
     if (nextStatus == storage::Status::EOnDisk)
@@ -189,8 +188,8 @@ bool SearchPanel::TryMigrate(QString const & str)
     }
   };
 
-  auto const progressChanged = [](storage::CountryId const & id, storage::MapFilesDownloader::Progress const & sz)
-  {
+  auto const progressChanged = [](storage::CountryId const & id,
+                                  storage::MapFilesDownloader::Progress const & sz) {
     LOG(LINFO, (id, "downloading progress:", sz));
   };
 

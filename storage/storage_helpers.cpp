@@ -52,14 +52,12 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   return IsEnoughSpaceForDownload(spaceNeedForUpdate, storage.GetMaxMwmSizeBytes());
 }
 
-m2::RectD CalcLimitRect(CountryId const & countryId,
-                        Storage const & storage,
+m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
 {
   m2::RectD boundingBox;
-  auto const accumulator =
-      [&countryInfoGetter, &boundingBox](CountryId const & descendantId, bool groupNode)
-  {
+  auto const accumulator = [&countryInfoGetter, &boundingBox](CountryId const & descendantId,
+                                                              bool groupNode) {
     if (!groupNode)
       boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));
   };

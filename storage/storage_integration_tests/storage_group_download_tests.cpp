@@ -27,11 +27,9 @@ using namespace storage;
 namespace
 {
 CountryId const kGroupCountryId = "New Zealand";
-CountriesSet const kLeafCountriesIds = {"Tokelau",
-                                         "New Zealand North_Auckland",
-                                         "New Zealand North_Wellington",
-                                         "New Zealand South_Canterbury",
-                                         "New Zealand South_Southland"};
+CountriesSet const kLeafCountriesIds = {
+    "Tokelau", "New Zealand North_Auckland", "New Zealand North_Wellington",
+    "New Zealand South_Canterbury", "New Zealand South_Southland"};
 
 string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
@@ -62,14 +60,13 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   //  All nodes in subtree (including the root) for the group node.
   storage.GetChildren(kGroupCountryId, children);
   CountriesSet subTree;
-  storage.ForEachInSubtree(kGroupCountryId, [&subTree](CountryId const & descendantId, bool /* groupNode */)
-  {
-    subTree.insert(descendantId);
-  });
+  storage.ForEachInSubtree(kGroupCountryId,
+                           [&subTree](CountryId const & descendantId, bool /* groupNode */) {
+                             subTree.insert(descendantId);
+                           });
 
   CountriesSet changed;
-  auto onChangeCountryFn = [&](CountryId const & countryId)
-  {
+  auto onChangeCountryFn = [&](CountryId const & countryId) {
     TEST(subTree.find(countryId) != subTree.end(), (countryId));
     changed.insert(countryId);
     if (!storage.IsDownloadInProgress())
@@ -80,8 +77,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
-  {
+  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize) {
     TEST(subTree.find(countryId) != subTree.end(), ());
     if (mapSize.first == mapSize.second)
     {
@@ -262,13 +258,12 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
-  auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
-  {
+  auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile) {
     CountryId const countryId = localCountryFile->GetCountryName();
     TEST(kLeafCountriesIds.find(countryId) != kLeafCountriesIds.end(), ());
   };
 
-  storage.Init(onUpdatedFn, [](CountryId const &, storage::LocalFilePtr const){return false;});
+  storage.Init(onUpdatedFn, [](CountryId const &, storage::LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 

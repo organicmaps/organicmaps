@@ -68,8 +68,7 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
   localFile.DeleteFromDisk(options);
 }
 
-CountryTreeNode const & LeafNodeFromCountryId(CountryTree const & root,
-                                               CountryId const & countryId)
+CountryTreeNode const & LeafNodeFromCountryId(CountryTree const & root, CountryId const & countryId)
 {
   CountryTreeNode const * node = root.FindFirstLeaf(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
@@ -606,10 +605,9 @@ void Storage::NotifyStatusChangedForHierarchy(CountryId const & countryId)
   NotifyStatusChanged(countryId);
 
   // Notification status changing for ancestors in country tree.
-  ForEachAncestorExceptForTheRoot(countryId,
-                                  [&](CountryId const & parentId, CountryTreeNode const &) {
-                                    NotifyStatusChanged(parentId);
-                                  });
+  ForEachAncestorExceptForTheRoot(
+      countryId,
+      [&](CountryId const & parentId, CountryTreeNode const &) { NotifyStatusChanged(parentId); });
 }
 
 void Storage::DownloadNextCountryFromQueue()
@@ -994,7 +992,8 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapOptions op
   fn(true);
 }
 
-void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::Status status, MapOptions options)
+void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::Status status,
+                                    MapOptions options)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
@@ -1422,7 +1421,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
   });
 
   CountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(),
-                               disputedTerritoriesWithoutSiblings.end());
+                              disputedTerritoriesWithoutSiblings.end());
   base::SortUnique(uniqueDisputed);
 
   for (auto const & countryId : uniqueDisputed)
@@ -1654,8 +1653,8 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
   DoDeferredDownloadIfNeeded();
 }
 
-StatusAndError Storage::GetNodeStatusInfo(
-    CountryTreeNode const & node, vector<pair<CountryId, NodeStatus>> & disputedTerritories,
+StatusAndError Storage::GetNodeStatusInfo(CountryTreeNode const & node,
+                                          vector<pair<CountryId, NodeStatus>> & disputedTerritories,
                                           bool isDisputedTerritoriesCounted) const
 {
   // Leaf node status.
@@ -1860,8 +1859,8 @@ MapFilesDownloader::Progress Storage::CalculateProgress(
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d), MapOptions::Map,
-                                                        GetCurrentDataVersion());
+      MwmSize const localCountryFileSz =
+          GetRemoteSize(GetCountryFile(d), MapOptions::Map, GetCurrentDataVersion());
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }

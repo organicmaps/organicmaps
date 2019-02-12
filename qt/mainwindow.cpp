@@ -456,9 +456,9 @@ void MainWindow::CreateCountryStatusControls()
   m_pDrawWidget->setLayout(mainLayout);
 
   m_pDrawWidget->SetCurrentCountryChangedListener([this](storage::CountryId const & countryId,
-                                                         string const & countryName, storage::Status status,
-                                                         uint64_t sizeInBytes, uint8_t progress)
-  {
+                                                         string const & countryName,
+                                                         storage::Status status,
+                                                         uint64_t sizeInBytes, uint8_t progress) {
     m_lastCountry = countryId;
     if (m_lastCountry.empty() || status == storage::Status::EOnDisk || status == storage::Status::EOnDiskOutOfDate)
     {

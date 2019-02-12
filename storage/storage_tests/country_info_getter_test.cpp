@@ -83,15 +83,15 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
   auto const countries5 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
   auto const expected2 = vector<storage::CountryId>{"Belarus",
-                                                     "Latvia",
-                                                     "Lithuania",
-                                                     "Poland",
-                                                     "Russia_Central",
-                                                     "Russia_Far Eastern",
-                                                     "Russia_Northwestern",
-                                                     "Sweden",
-                                                     "Ukraine",
-                                                     "USA_Alaska"};
+                                                    "Latvia",
+                                                    "Lithuania",
+                                                    "Poland",
+                                                    "Russia_Central",
+                                                    "Russia_Far Eastern",
+                                                    "Russia_Northwestern",
+                                                    "Sweden",
+                                                    "Ukraine",
+                                                    "USA_Alaska"};
   TEST_EQUAL(countries5, expected2, ());
 }
 

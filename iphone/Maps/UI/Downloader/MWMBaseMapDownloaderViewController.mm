@@ -166,8 +166,7 @@ using namespace storage;
   BOOL needReload = NO;
   auto const & s = GetFramework().GetStorage();
   s.ForEachInSubtree(self.parentCountryId.UTF8String,
-                     [&needReload, &countryId](CountryId const & descendantId, bool groupNode)
-                     {
+                     [&needReload, &countryId](CountryId const & descendantId, bool groupNode) {
                        needReload = needReload || countryId == descendantId;
                      });
   if (needReload)
@@ -177,7 +176,8 @@ using namespace storage;
   }
 }
 
-- (void)processCountry:(CountryId const &)countryId progress:(MapFilesDownloader::Progress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   for (UITableViewCell * cell in self.tableView.visibleCells)
   {

@@ -48,7 +48,7 @@ UNIT_TEST(StorageFastMigrationTests)
 // test below should be removed as well. Until code on the code is not removed from the project
 // this test should be kept in case we decide to recover this feature.
 
-//UNIT_TEST(StorageMigrationTests)
+// UNIT_TEST(StorageMigrationTests)
 //{
 //  CountriesVec const kOldCountries = {"Estonia"};
 //  CountriesVec const kNewCountries = {"Estonia_East", "Estonia_West"};
@@ -101,8 +101,8 @@ UNIT_TEST(StorageFastMigrationTests)
 //  for (auto const & countryId : kOldCountries)
 //    TEST(s.IsNodeDownloaded(countryId), (countryId));
 //
-//  TEST_NOT_EQUAL(f.PreMigrate(curPos, statePrefetchChanged, progressChanged), kInvalidCountryId, ());
-//  TEST(f.GetStorage().GetPrefetchStorage()->IsDownloadInProgress(), ("Empty queue"));
+//  TEST_NOT_EQUAL(f.PreMigrate(curPos, statePrefetchChanged, progressChanged), kInvalidCountryId,
+//  ()); TEST(f.GetStorage().GetPrefetchStorage()->IsDownloadInProgress(), ("Empty queue"));
 //  // Wait for downloading complete.
 //  testing::RunEventLoop();
 //

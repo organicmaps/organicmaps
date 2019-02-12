@@ -191,8 +191,10 @@ namespace android
                             booking::GetHotelInfoCallback const & callback);
 
     bool HasSpaceForMigration();
-    storage::CountryId PreMigrate(ms::LatLon const & position, storage::Storage::ChangeCountryFunction const & statusChangeListener,
-                                                                storage::Storage::ProgressFunction const & progressListener);
+    storage::CountryId PreMigrate(
+        ms::LatLon const & position,
+        storage::Storage::ChangeCountryFunction const & statusChangeListener,
+        storage::Storage::ProgressFunction const & progressListener);
     void Migrate(bool keepOldMaps);
 
     bool IsAutoRetryDownloadFailed();

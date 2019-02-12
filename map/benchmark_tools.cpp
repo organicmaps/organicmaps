@@ -180,19 +180,20 @@ void RunGraphicsBenchmark(Framework * framework)
   // Download regions and run scenarios after downloading.
   if (!handle->m_regionsToDownload.empty())
   {
-    framework->GetStorage().Subscribe([framework, handle](storage::CountryId const & countryId)
-    {
-      if (std::find(handle->m_regionsToDownload.begin(),
-                    handle->m_regionsToDownload.end(), countryId) != handle->m_regionsToDownload.end())
-      {
-        handle->m_regionsToDownloadCounter++;
-        if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())
-        {
-          handle->m_regionsToDownload.clear();
-          RunScenario(framework, handle);
-        }
-      }
-    }, [](storage::CountryId const &, storage::MapFilesDownloader::Progress const &){});
+    framework->GetStorage().Subscribe(
+        [framework, handle](storage::CountryId const & countryId) {
+          if (std::find(handle->m_regionsToDownload.begin(), handle->m_regionsToDownload.end(),
+                        countryId) != handle->m_regionsToDownload.end())
+          {
+            handle->m_regionsToDownloadCounter++;
+            if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())
+            {
+              handle->m_regionsToDownload.clear();
+              RunScenario(framework, handle);
+            }
+          }
+        },
+        [](storage::CountryId const &, storage::MapFilesDownloader::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);

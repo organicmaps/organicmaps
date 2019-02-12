@@ -98,7 +98,8 @@ CountryInfoGetterBase::TRegionId CountryInfoGetterBase::FindFirstCountry(m2::Poi
 }
 
 // CountryInfoGetter -------------------------------------------------------------------------------
-vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
+vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect,
+                                                               bool rough) const
 {
   size_t constexpr kAverageSize = 10;
 

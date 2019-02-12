@@ -334,16 +334,15 @@ bool Framework::IsEnoughSpaceForMigrate() const
 }
 
 CountryId Framework::PreMigrate(ms::LatLon const & position,
-                           Storage::ChangeCountryFunction const & change,
-                           Storage::ProgressFunction const & progress)
+                                Storage::ChangeCountryFunction const & change,
+                                Storage::ProgressFunction const & progress)
 {
   GetStorage().PrefetchMigrateData();
 
   auto const infoGetter =
       CountryInfoReader::CreateCountryInfoReader(GetPlatform());
 
-  CountryId currentCountryId =
-      infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
+  CountryId currentCountryId = infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
 
   if (currentCountryId == kInvalidCountryId)
     return kInvalidCountryId;
@@ -637,7 +636,8 @@ void Framework::ShowNode(storage::CountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
-void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId, storage::LocalFilePtr const localFile)
+void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
+                                        storage::LocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -659,7 +659,8 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId, st
   GetSearchAPI().ClearCaches();
 }
 
-bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storage::LocalFilePtr const localFile)
+bool Framework::OnCountryFileDelete(storage::CountryId const & countryId,
+                                    storage::LocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -708,8 +709,7 @@ bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
 {
   bool hasUnsavedChanges = false;
   auto const forEachInSubtree = [&hasUnsavedChanges, this](storage::CountryId const & fileName,
-      bool groupNode)
-  {
+                                                           bool groupNode) {
     if (groupNode)
       return;
     hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(

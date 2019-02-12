@@ -244,11 +244,13 @@ protected:
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
-  void OnCountryFileDownloaded(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
+  void OnCountryFileDownloaded(storage::CountryId const & countryId,
+                               storage::LocalFilePtr const localFile);
 
   /// This function will be called by m_storage before latest local files
   /// is deleted.
-  bool OnCountryFileDelete(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
+  bool OnCountryFileDelete(storage::CountryId const & countryId,
+                           storage::LocalFilePtr const localFile);
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
@@ -278,8 +280,9 @@ public:
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;
-  storage::CountryId PreMigrate(ms::LatLon const & position, storage::Storage::ChangeCountryFunction const & change,
-                  storage::Storage::ProgressFunction const & progress);
+  storage::CountryId PreMigrate(ms::LatLon const & position,
+                                storage::Storage::ChangeCountryFunction const & change,
+                                storage::Storage::ProgressFunction const & progress);
   void Migrate(bool keepDownloaded = true);
 
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.

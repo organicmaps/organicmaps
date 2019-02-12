@@ -279,15 +279,15 @@ class CountryDownloaderChecker
 public:
   CountryDownloaderChecker(Storage & storage, CountryId const & countryId, MapOptions files,
                            vector<Status> const & transitionList)
-      : m_storage(storage),
-        m_countryId(countryId),
-        m_countryFile(storage.GetCountryFile(m_countryId)),
-        m_files(files),
-        m_bytesDownloaded(0),
-        m_totalBytesToDownload(0),
-        m_slot(0),
-        m_currStatus(0),
-        m_transitionList(transitionList)
+    : m_storage(storage)
+    , m_countryId(countryId)
+    , m_countryFile(storage.GetCountryFile(m_countryId))
+    , m_files(files)
+    , m_bytesDownloaded(0)
+    , m_totalBytesToDownload(0)
+    , m_slot(0)
+    , m_currStatus(0)
+    , m_transitionList(transitionList)
   {
     m_slot = m_storage.Subscribe(
         bind(&CountryDownloaderChecker::OnCountryStatusChanged, this, _1),
@@ -364,10 +364,10 @@ class CancelDownloadingWhenAlmostDoneChecker : public CountryDownloaderChecker
 public:
   CancelDownloadingWhenAlmostDoneChecker(Storage & storage, CountryId const & countryId,
                                          TaskRunner & runner)
-      : CountryDownloaderChecker(storage, countryId, MapOptions::Map,
-                                 vector<Status>{Status::ENotDownloaded, Status::EDownloading,
-                                                 Status::ENotDownloaded}),
-        m_runner(runner)
+    : CountryDownloaderChecker(
+          storage, countryId, MapOptions::Map,
+          vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
+    , m_runner(runner)
   {
   }
 
@@ -439,7 +439,7 @@ class CountryStatusChecker
 {
 public:
   CountryStatusChecker(Storage & storage, CountryId const & countryId, Status status)
-      : m_storage(storage), m_countryId(countryId), m_status(status), m_triggered(false)
+    : m_storage(storage), m_countryId(countryId), m_status(status), m_triggered(false)
   {
     m_slot = m_storage.Subscribe(
         bind(&CountryStatusChecker::OnCountryStatusChanged, this, _1),
@@ -534,7 +534,8 @@ void OnCountryDownloaded(CountryId const & countryId, LocalFilePtr const localFi
 
 LocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, uint64_t size)
 {
-  LocalFilePtr localFile = PreparePlaceForCountryFiles(version, string() /* dataDir */, countryFile);
+  LocalFilePtr localFile =
+      PreparePlaceForCountryFiles(version, string() /* dataDir */, countryFile);
   TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version", version, ")"));
   {
     string const zeroes(size, '\0');
@@ -551,7 +552,7 @@ void InitStorage(Storage & storage, TaskRunner & runner,
                  Storage::UpdateCallback const & update = &OnCountryDownloaded)
 {
   storage.Clear();
-  storage.Init(update, [](CountryId const &, LocalFilePtr const){return false;});
+  storage.Init(update, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
@@ -666,7 +667,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   int64_t const v2 = isSingleMwm ? version::FOR_TESTING_SINGLE_MWM2
                                  : version::FOR_TESTING_TWO_COMPONENT_MWM2;
 
-  storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const){return false;});
+  storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
 
   CountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
@@ -712,8 +713,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 
   TaskRunner runner;
   tests::TestMwmSet mwmSet;
-  InitStorage(storage, runner, [&mwmSet](CountryId const &, LocalFilePtr const localFile)
-  {
+  InitStorage(storage, runner, [&mwmSet](CountryId const &, LocalFilePtr const localFile) {
     try
     {
       auto p = mwmSet.Register(*localFile);
@@ -970,7 +970,7 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
 UNIT_TEST(StorageTest_FailedDownloading)
 {
   Storage storage;
-  storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const){return false;});
+  storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
   storage.SetCurrentDataVersionForTesting(1234);
 
@@ -1077,8 +1077,8 @@ UNIT_TEST(StorageTest_GetAffiliations)
 
 UNIT_TEST(StorageTest_HasCountryId)
 {
-  CountriesVec middleEarthCountryIdVec =
-      {"Arnor", "Mordor", "Rhovanion", "Rhun", "Gondor", "Eriador", "Rohan"};
+  CountriesVec middleEarthCountryIdVec = {"Arnor",  "Mordor",  "Rhovanion", "Rhun",
+                                          "Gondor", "Eriador", "Rohan"};
   sort(middleEarthCountryIdVec.begin(), middleEarthCountryIdVec.end());
 }
 
@@ -1479,17 +1479,22 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   CountriesVec leafVec;
-  auto const forEach = [&leafVec](CountryId const & descendantId, bool groupNode)
-  {
+  auto const forEach = [&leafVec](CountryId const & descendantId, bool groupNode) {
     if (!groupNode)
       leafVec.push_back(descendantId);
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
 
-  CountriesVec const expectedLeafVec = {"Abkhazia", "OutdatedCountry1", "OutdatedCountry2", "Algeria_Central",
-                                         "Algeria_Coast", "South Korea_South",
-                                         "Disputable Territory", "Indisputable Territory Of Country1",
-                                         "Indisputable Territory Of Country2", "Disputable Territory"};
+  CountriesVec const expectedLeafVec = {"Abkhazia",
+                                        "OutdatedCountry1",
+                                        "OutdatedCountry2",
+                                        "Algeria_Central",
+                                        "Algeria_Coast",
+                                        "South Korea_South",
+                                        "Disputable Territory",
+                                        "Indisputable Territory Of Country1",
+                                        "Indisputable Territory Of Country2",
+                                        "Disputable Territory"};
   TEST_EQUAL(leafVec, expectedLeafVec, ());
 }
 
@@ -1498,24 +1503,24 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   // Two parent case.
-  auto const forEachParentDisputableTerritory =
-      [](CountryId const & parentId, CountryTreeNode const & parentNode)
-  {
+  auto const forEachParentDisputableTerritory = [](CountryId const & parentId,
+                                                   CountryTreeNode const & parentNode) {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container)
-                                 {
-                                   descendants.push_back(container.Value().Name());
-                                 });
+    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container) {
+      descendants.push_back(container.Value().Name());
+    });
 
     if (parentId == "Country1")
     {
-      CountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
+      CountriesVec const expectedDescendants = {"Disputable Territory",
+                                                "Indisputable Territory Of Country1"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
     if (parentId == "Country2")
     {
-      CountriesVec const expectedDescendants = {"Indisputable Territory Of Country2", "Disputable Territory"};
+      CountriesVec const expectedDescendants = {"Indisputable Territory Of Country2",
+                                                "Disputable Territory"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
@@ -1524,18 +1529,17 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   storage.ForEachAncestorExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
 
   // One parent case.
-  auto const forEachParentIndisputableTerritory =
-      [](CountryId const & parentId, CountryTreeNode const & parentNode)
-  {
+  auto const forEachParentIndisputableTerritory = [](CountryId const & parentId,
+                                                     CountryTreeNode const & parentNode) {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container)
-                                 {
-                                   descendants.push_back(container.Value().Name());
-                                 });
+    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container) {
+      descendants.push_back(container.Value().Name());
+    });
 
     if (parentId == "Country1")
     {
-      CountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
+      CountriesVec const expectedDescendants = {"Disputable Territory",
+                                                "Indisputable Territory Of Country1"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
@@ -1714,8 +1718,9 @@ UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
   TaskRunner runner;
   InitStorage(storage, runner);
-  
-  MapFilesDownloader::Progress currentProgress = storage.GetOverallProgress({"Abkhazia","Algeria_Coast"});
+
+  MapFilesDownloader::Progress currentProgress =
+      storage.GetOverallProgress({"Abkhazia", "Algeria_Coast"});
   TEST_EQUAL(currentProgress.first, 0, ());
   TEST_EQUAL(currentProgress.second, 0, ());
 }
@@ -1740,9 +1745,9 @@ UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
 UNIT_TEST(StorageTest_GetGroupNodePathToRootTest)
 {
   Storage storage;
-  
+
   CountriesVec path;
-  
+
   storage.GetGroupNodePathToRoot("France_Auvergne_Allier", path);
   TEST(path.empty(), ());
   
@@ -1865,7 +1870,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   storage.GetChildren(nodeId, children);
   vector<bool> downloaded(children.size());
 
-  auto const onStatusChange = [&](CountryId const &id) {
+  auto const onStatusChange = [&](CountryId const & id) {
     auto const status = storage.CountryStatusEx(id);
     if (status != Status::EOnDisk)
       return;

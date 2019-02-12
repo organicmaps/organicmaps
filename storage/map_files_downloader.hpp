@@ -18,7 +18,8 @@ public:
   // Denotes bytes downloaded and total number of bytes.
   using Progress = pair<int64_t, int64_t>;
 
-  using TFileDownloadedCallback = function<void(downloader::HttpRequest::Status status, Progress const & progress)>;
+  using TFileDownloadedCallback =
+      function<void(downloader::HttpRequest::Status status, Progress const & progress)>;
   using TDownloadingProgressCallback = function<void(Progress const & progress)>;
   using TServersListCallback = function<void(vector<string> & urls)>;
 

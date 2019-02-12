@@ -316,7 +316,8 @@ namespace qt
     return attrs.m_nodeLocalName.c_str();
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId, QTreeWidgetItem * parent)
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId,
+                                                 QTreeWidgetItem * parent)
   {
     QString const text = GetNodeName(countryId);
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
@@ -351,7 +352,8 @@ namespace qt
     return countryId.find(filter) != string::npos;
   }
 
-  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId, string const & filter)
+  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId,
+                                  string const & filter)
   {
     CountriesVec children;
     GetStorage().GetChildren(countryId, children);

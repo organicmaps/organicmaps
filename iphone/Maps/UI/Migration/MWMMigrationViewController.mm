@@ -68,8 +68,7 @@ using namespace storage;
     [Statistics logEvent:kStatDownloaderMigrationCompleted];
   };
 
-  auto onStatusChanged = [self, migrate](CountryId const & countryId)
-  {
+  auto onStatusChanged = [self, migrate](CountryId const & countryId) {
     if (m_countryId == kInvalidCountryId || m_countryId != countryId)
       return;
     auto & f = GetFramework();
@@ -78,19 +77,15 @@ using namespace storage;
     s->GetNodeStatuses(countryId, nodeStatuses);
     switch (nodeStatuses.m_status)
     {
-      case NodeStatus::OnDisk:
-        migrate();
-        break;
-      case NodeStatus::Undefined:
-      case NodeStatus::Error:
-        [self showError:nodeStatuses.m_error countryId:countryId]; break;
-      default:
-        break;
+    case NodeStatus::OnDisk: migrate(); break;
+    case NodeStatus::Undefined:
+    case NodeStatus::Error: [self showError:nodeStatuses.m_error countryId:countryId]; break;
+    default: break;
     }
   };
 
-  auto onProgressChanged = [self](CountryId const & countryId, TLocalAndRemoteSize const & progress)
-  {
+  auto onProgressChanged = [self](CountryId const & countryId,
+                                  TLocalAndRemoteSize const & progress) {
     MWMMigrationView * view = static_cast<MWMMigrationView *>(self.view);
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };

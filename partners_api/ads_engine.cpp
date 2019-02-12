@@ -20,8 +20,7 @@ Engine::Engine()
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
 }
 
-bool Engine::HasBanner(feature::TypesHolder const & types,
-                       storage::CountriesVec const & countryIds,
+bool Engine::HasBanner(feature::TypesHolder const & types, storage::CountriesVec const & countryIds,
                        std::string const & userLanguage) const
 {
   for (auto const & countryId : countryIds)

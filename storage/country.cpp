@@ -101,9 +101,7 @@ public:
     return nullptr;
   }
 
-  void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override
-  {
-  }
+  void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override {}
   void InsertAffiliation(CountryId const & /* countryId */,
                          string const & /* affilation */) override
   {
@@ -199,8 +197,7 @@ class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
   CountryTree & m_countries;
 
 public:
-  StoreCountriesTwoComponentMwms(CountryTree & countries,
-                                 TMappingAffiliations & /* affiliations */)
+  StoreCountriesTwoComponentMwms(CountryTree & countries, TMappingAffiliations & /* affiliations */)
     : m_countries(countries)
   {
   }

@@ -41,12 +41,14 @@ namespace qt
 
   private:
     void FillTree(string const & filter);
-    void FillTreeImpl(QTreeWidgetItem * parent, storage::CountryId const & countryId, string const & filter);
+    void FillTreeImpl(QTreeWidgetItem * parent, storage::CountryId const & countryId,
+                      string const & filter);
     void UpdateRowWithCountryInfo(storage::CountryId const & countryId);
     void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::CountryId const & countryId);
     QString GetNodeName(storage::CountryId const & countryId);
 
-    QTreeWidgetItem * CreateTreeItem(storage::CountryId const & countryId, QTreeWidgetItem * parent);
+    QTreeWidgetItem * CreateTreeItem(storage::CountryId const & countryId,
+                                     QTreeWidgetItem * parent);
     vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::CountryId const & countryId);
     storage::CountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
 

@@ -77,20 +77,17 @@ using namespace storage;
   GetFramework().GetStorage().CancelDownloadNode(countryId);
 }
 
-+ (void)showNode:(CountryId const &)countryId
-{
-  GetFramework().ShowNode(countryId);
-}
++ (void)showNode:(CountryId const &)countryId { GetFramework().ShowNode(countryId); }
 + (void)downloadNodes:(CountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
   auto & s = GetFramework().GetStorage();
-  MwmSize requiredSize = std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
-                                     [](size_t const & size, CountryId const & countryId)
-                                     {
-                                       NodeAttrs nodeAttrs;
-                                       GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-                                       return size + nodeAttrs.m_mwmSize;
-                                     });
+  MwmSize requiredSize =
+      std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
+                      [](size_t const & size, CountryId const & countryId) {
+                        NodeAttrs nodeAttrs;
+                        GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
+                        return size + nodeAttrs.m_mwmSize;
+                      });
   if (storage::IsEnoughSpaceForDownload(requiredSize))
   {
     [MWMFrameworkHelper checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {

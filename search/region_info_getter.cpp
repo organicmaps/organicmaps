@@ -20,8 +20,7 @@ namespace
 // the |countries| tree, except the root. Does nothing if there are
 // multiple ways from |id| to the |root|.
 template <typename Fn>
-void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & countries,
-                   Fn && fn)
+void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & countries, Fn && fn)
 {
   vector<storage::CountryTree::Node const *> nodes;
   countries.Find(id, nodes);

@@ -51,8 +51,7 @@ void Container::AppendSupportedUserLanguages(std::initializer_list<std::string> 
   }
 }
 
-bool Container::HasBanner(feature::TypesHolder const & types,
-                          storage::CountryId const & countryId,
+bool Container::HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
                           std::string const & userLanguage) const
 {
   if (!m_supportedCountries.empty() &&

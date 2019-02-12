@@ -37,10 +37,7 @@ public:
   storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Odessa"; }
-  storage::CountryId GetMwmId(m2::PointD const & point) override
-  {
-    return "Ukraine_Odessa Oblast";
-  }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return "Ukraine_Odessa Oblast"; }
 };
 
 class UkraineMariupolDelegate : public taxi::Delegate

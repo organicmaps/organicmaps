@@ -577,8 +577,9 @@ void Framework::Migrate(bool keepOldMaps)
   m_work.Migrate(keepOldMaps);
 }
 
-storage::CountryId Framework::PreMigrate(ms::LatLon const & position, Storage::ChangeCountryFunction const & statusChangeListener,
-                                                                       Storage::ProgressFunction const & progressListener)
+storage::CountryId Framework::PreMigrate(
+    ms::LatLon const & position, Storage::ChangeCountryFunction const & statusChangeListener,
+    Storage::ProgressFunction const & progressListener)
 {
   return m_work.PreMigrate(position, statusChangeListener, progressListener);
 }
@@ -697,7 +698,8 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 
 extern "C"
 {
-void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::CountryId> const & absentMaps)
+void CallRoutingListener(shared_ptr<jobject> listener, int errorCode,
+                         vector<storage::CountryId> const & absentMaps)
 {
   JNIEnv * env = jni::GetEnv();
   jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");

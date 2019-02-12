@@ -60,7 +60,9 @@ class Country
 public:
   Country() = default;
   explicit Country(CountryId const & name, CountryId const & parent = kInvalidCountryId)
-    : m_name(name), m_parent(parent) {}
+    : m_name(name), m_parent(parent)
+  {
+  }
 
   void SetFile(platform::CountryFile const & file) { m_file = file; }
   void SetSubtreeAttrs(MwmCounter subtreeMwmNumber, MwmSize subtreeMwmSizeBytes)

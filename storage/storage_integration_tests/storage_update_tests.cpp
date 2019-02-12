@@ -94,8 +94,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     string const version = strings::to_string(storage.GetCurrentDataVersion());
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion1, ());
-    auto onChangeCountryFn = [&](CountryId const & countryId)
-    {
+    auto onChangeCountryFn = [&](CountryId const & countryId) {
       if (!storage.IsDownloadInProgress())
         testing::StopEventLoop();
     };
@@ -132,8 +131,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     string const version = strings::to_string(storage.GetCurrentDataVersion());
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion2, ());
-    auto onChangeCountryFn = [&](CountryId const & countryId)
-    {
+    auto onChangeCountryFn = [&](CountryId const & countryId) {
       if (!storage.IsDownloadInProgress())
         testing::StopEventLoop();
     };

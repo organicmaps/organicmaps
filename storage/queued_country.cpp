@@ -5,7 +5,7 @@
 namespace storage
 {
 QueuedCountry::QueuedCountry(CountryId const & countryId, MapOptions opt)
-    : m_countryId(countryId), m_init(opt), m_left(opt), m_current(MapOptions::Nothing)
+  : m_countryId(countryId), m_init(opt), m_left(opt), m_current(MapOptions::Nothing)
 {
   // @TODO(bykoianko) Probably it's nessecary to check if InIndexInCountryTree here.
   ASSERT(IsCountryIdValid(GetCountryId()), ("Only valid countries may be downloaded."));

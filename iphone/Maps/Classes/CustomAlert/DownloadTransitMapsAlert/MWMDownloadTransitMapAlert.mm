@@ -174,7 +174,8 @@ CGFloat const kAnimationDuration = .05;
   }
 }
 
-- (void)processCountry:(CountryId const &)countryId progress:(MapFilesDownloader::Progress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   if (!self.rightButton.hidden ||
       find(m_countries.begin(), m_countries.end(), countryId) == m_countries.end())

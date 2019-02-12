@@ -34,9 +34,7 @@ void Update(CountryId const &, LocalFilePtr const localCountryFile)
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
-void UpdateWithoutChecks(CountryId const &, LocalFilePtr const /* localCountryFile */)
-{
-}
+void UpdateWithoutChecks(CountryId const &, LocalFilePtr const /* localCountryFile */) {}
 
 string const GetMwmFullPath(string const & countryId, string const & version)
 {
@@ -61,8 +59,7 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
 {
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-  auto const changeCountryFunction = [&](CountryId const & /* countryId */)
-  {
+  auto const changeCountryFunction = [&](CountryId const & /* countryId */) {
     if (!storage.IsDownloadInProgress())
     {
       // End wait for downloading complete.
@@ -70,7 +67,7 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
     }
   };
 
-  storage.Init(didDownload, [](CountryId const &, LocalFilePtr const){return false;});
+  storage.Init(didDownload, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
@@ -97,8 +94,8 @@ public:
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
-  auto const progressFunction = [this](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
-  {
+  auto const progressFunction = [this](CountryId const & countryId,
+                                       TLocalAndRemoteSize const & mapSize) {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
@@ -139,8 +136,7 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
   auto const progressFunction = [this](CountryId const & countryId,
-      TLocalAndRemoteSize const & mapSize)
-  {
+                                       TLocalAndRemoteSize const & mapSize) {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
@@ -175,7 +171,8 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
   CountriesVec availChildren;
   m_storage.GetChildrenInGroups(m_storage.GetRootId(), downloadedChildren, availChildren);
 
-  CountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
+  CountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,
+                                                   kDisputedCountryId1};
   TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
   TEST_EQUAL(availChildren.size(), 223, ());
 

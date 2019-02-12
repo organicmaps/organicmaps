@@ -90,7 +90,7 @@ public:
   }
 
   Progress GetDownloadingProgress() override { return Progress{}; }
-  
+
   bool IsIdle() override { return false; }
   
   void Reset() override {}

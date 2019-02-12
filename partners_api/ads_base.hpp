@@ -22,8 +22,7 @@ class ContainerBase
 {
 public:
   virtual ~ContainerBase() = default;
-  virtual bool HasBanner(feature::TypesHolder const & types,
-                         storage::CountryId const & countryId,
+  virtual bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
                          std::string const & userLanguage) const = 0;
   virtual std::string GetBannerId(feature::TypesHolder const & types,
                                   storage::CountryId const & countryId,
@@ -40,11 +39,9 @@ public:
   Container();
 
   // ContainerBase overrides:
-  bool HasBanner(feature::TypesHolder const & types,
-                 storage::CountryId const & countryId,
+  bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
                  std::string const & userLanguage) const override;
-  std::string GetBannerId(feature::TypesHolder const & types,
-                          storage::CountryId const & countryId,
+  std::string GetBannerId(feature::TypesHolder const & types, storage::CountryId const & countryId,
                           std::string const & userLanguage) const override;
   std::string GetBannerIdForOtherTypes() const override;
   bool HasSearchBanner() const override;
