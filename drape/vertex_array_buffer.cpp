@@ -215,7 +215,7 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Vulkan)
     {
-      m_impl = CreateImplForVulkan(make_ref(this));
+      m_impl = CreateImplForVulkan(context, make_ref(this));
     }
     else
     {

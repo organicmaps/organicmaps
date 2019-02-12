@@ -23,9 +23,20 @@ namespace vulkan
 class VulkanVertexArrayBufferImpl : public VertexArrayBufferImpl
 {
 public:
-  explicit VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer)
-    : m_vertexArrayBuffer(buffer)
+  VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer,
+                              ref_ptr<VulkanObjectManager> objectManager)
+    : m_vertexArrayBuffer(std::move(buffer))
+    , m_objectManager(std::move(objectManager))
   {}
+
+  ~VulkanVertexArrayBufferImpl() override
+  {
+    if (m_descriptorSetGroup)
+    {
+      m_objectManager->DestroyDescriptorSetGroup(m_descriptorSetGroup);
+      m_descriptorSetGroup = {};
+    }
+  }
   
   bool Build(ref_ptr<GpuProgram> program) override
   {
@@ -117,6 +128,7 @@ public:
   
 private:
   ref_ptr<VertexArrayBuffer> m_vertexArrayBuffer;
+  ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<dp::BindingInfo> m_bindingInfo;
   VkPipeline m_pipeline = {};
   bool m_lastDrawAsLine = false;
@@ -124,8 +136,10 @@ private:
 };
 }  // namespace vulkan
   
-drape_ptr<VertexArrayBufferImpl> VertexArrayBuffer::CreateImplForVulkan(ref_ptr<VertexArrayBuffer> buffer)
+drape_ptr<VertexArrayBufferImpl> VertexArrayBuffer::CreateImplForVulkan(ref_ptr<GraphicsContext> context,
+                                                                        ref_ptr<VertexArrayBuffer> buffer)
 {
-  return make_unique_dp<vulkan::VulkanVertexArrayBufferImpl>(buffer);
+  ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+  return make_unique_dp<vulkan::VulkanVertexArrayBufferImpl>(buffer, vulkanContext->GetObjectManager());
 }
 }  // namespace dp

@@ -2,6 +2,7 @@
 
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_memory_manager.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
 
@@ -68,6 +69,7 @@ public:
   void ResetDefaultStagingBuffer();
 
   void DestroyObject(VulkanObject object);
+  void DestroyDescriptorSetGroup(DescriptorSetGroup group);
   void CollectObjects();
 
   VkDevice GetDevice() const { return m_device; }
@@ -78,6 +80,7 @@ private:
   uint32_t const m_queueFamilyIndex;
   VulkanMemoryManager m_memoryManager;
   std::vector<VulkanObject> m_queueToDestroy;
+  std::vector<DescriptorSetGroup> m_descriptorsToDestroy;
 
   drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
 

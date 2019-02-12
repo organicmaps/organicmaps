@@ -1,6 +1,5 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_staging_buffer.hpp"
-#include "drape/vulkan/vulkan_utils.hpp"
 
 #include <algorithm>
 
@@ -116,6 +115,12 @@ void VulkanObjectManager::DestroyObject(VulkanObject object)
   m_queueToDestroy.push_back(std::move(object));
 }
 
+void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_descriptorsToDestroy.push_back(std::move(group));
+}
+
 void VulkanObjectManager::FlushDefaultStagingBuffer()
 {
   m_defaultStagingBuffer->Flush();
@@ -134,24 +139,31 @@ ref_ptr<VulkanStagingBuffer> VulkanObjectManager::GetDefaultStagingBuffer() cons
 void VulkanObjectManager::CollectObjects()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_queueToDestroy.empty())
-    return;
-
-  m_memoryManager.BeginDeallocationSession();
-  for (size_t i = 0; i < m_queueToDestroy.size(); ++i)
+  if (!m_queueToDestroy.empty())
   {
-    if (m_queueToDestroy[i].m_buffer != 0)
-      vkDestroyBuffer(m_device, m_queueToDestroy[i].m_buffer, nullptr);
-    if (m_queueToDestroy[i].m_imageView != 0)
-      vkDestroyImageView(m_device, m_queueToDestroy[i].m_imageView, nullptr);
-    if (m_queueToDestroy[i].m_image != 0)
-      vkDestroyImage(m_device, m_queueToDestroy[i].m_image, nullptr);
+    m_memoryManager.BeginDeallocationSession();
+    for (size_t i = 0; i < m_queueToDestroy.size(); ++i)
+    {
+      if (m_queueToDestroy[i].m_buffer != 0)
+        vkDestroyBuffer(m_device, m_queueToDestroy[i].m_buffer, nullptr);
+      if (m_queueToDestroy[i].m_imageView != 0)
+        vkDestroyImageView(m_device, m_queueToDestroy[i].m_imageView, nullptr);
+      if (m_queueToDestroy[i].m_image != 0)
+        vkDestroyImage(m_device, m_queueToDestroy[i].m_image, nullptr);
 
-    if (m_queueToDestroy[i].m_allocation)
-      m_memoryManager.Deallocate(m_queueToDestroy[i].m_allocation);
+      if (m_queueToDestroy[i].m_allocation)
+        m_memoryManager.Deallocate(m_queueToDestroy[i].m_allocation);
+    }
+    m_memoryManager.EndDeallocationSession();
+    m_queueToDestroy.clear();
   }
-  m_memoryManager.EndDeallocationSession();
-  m_queueToDestroy.clear();
+
+  for (auto const & d : m_descriptorsToDestroy)
+  {
+    CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
+                                       1 /* count */, &d.m_descriptorSet));
+  }
+  m_descriptorsToDestroy.clear();
 }
 
 uint8_t * VulkanObjectManager::Map(VulkanObject object)

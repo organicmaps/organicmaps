@@ -104,7 +104,8 @@ private:
   drape_ptr<VertexArrayBufferImpl> CreateImplForMetal(ref_ptr<VertexArrayBuffer> buffer);
 
   // Definition of this method is in a separate .cpp-file.
-  drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<VertexArrayBuffer> buffer);
+  drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<GraphicsContext> context,
+                                                       ref_ptr<VertexArrayBuffer> buffer);
 
   uint32_t const m_dataBufferSize;
   uint64_t const m_batcherHash;

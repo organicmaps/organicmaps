@@ -196,9 +196,7 @@ private:
     if (!m_descriptorSetGroup)
       return;
 
-    CHECK_VK_CALL(vkFreeDescriptorSets(m_objectManager->GetDevice(),
-                  m_descriptorSetGroup.m_descriptorPool, 1 /* count */,
-                  &m_descriptorSetGroup.m_descriptorSet));
+    m_objectManager->DestroyDescriptorSetGroup(m_descriptorSetGroup);
     m_descriptorSetGroup = {};
   }
 
