@@ -77,7 +77,6 @@ public:
   void ResetSurface();
 
   VkPhysicalDevice const GetPhysicalDevice() const { return m_gpu; }
-
   VkDevice GetDevice() const { return m_device; }
 
   VkPhysicalDeviceProperties const & GetGpuProperties() const { return m_gpuProperties; }
@@ -86,8 +85,8 @@ public:
   ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
 
   VkCommandBuffer GetCurrentCommandBuffer() const { return m_commandBuffer; }
-
   VkPipeline GetCurrentPipeline();
+  DescriptorSet GetCurrentDescriptorSet();
 
   enum class HandlerType : uint8_t
   {
@@ -118,6 +117,9 @@ protected:
   void CreateRenderPass();
   void DestroyRenderPass();
 
+  void CreateDescriptorPool();
+  void DestroyDescriptorPools();
+
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
   VkPhysicalDeviceProperties const m_gpuProperties;
@@ -137,7 +139,7 @@ protected:
   // Command buffer submission and execution
   VkSemaphore m_renderComplete;
 
-  VkDescriptorPool m_descriptorPool = VK_NULL_HANDLE;
+  std::vector<VkDescriptorPool> m_descriptorPools;
   VkFence m_fence;
 
   ref_ptr<VulkanObjectManager> m_objectManager;
@@ -147,7 +149,7 @@ protected:
   VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
   boost::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
-  VkSwapchainKHR m_swapchain = VK_NULL_HANDLE;
+  VkSwapchainKHR m_swapchain = {};
   std::vector<VkImageView> m_swapchainImageViews;
   uint32_t m_imageIndex = 0;
 
@@ -169,6 +171,9 @@ protected:
   StencilAction m_depthFailAction = {};
   StencilAction m_passAction = {};
   uint32_t m_stencilReferenceValue = 1;
+
+  ref_ptr<VulkanGpuProgram> m_currentProgram;
+  std::vector<ParamDescriptor> m_paramDescriptors;
 };
 }  // namespace vulkan
 }  // namespace dp

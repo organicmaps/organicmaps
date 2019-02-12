@@ -30,6 +30,12 @@ struct ParamDescriptor
   VkDescriptorImageInfo m_imageDescriptor = {};
   int8_t m_textureSlot = 0;
 };
+
+struct DescriptorSet
+{
+  VkDescriptorSet m_descriptorSet = {};
+  VkDescriptorPool m_descriptorPool = {};
+};
 }  // namespace vulkan
 }  // namespace dp
 

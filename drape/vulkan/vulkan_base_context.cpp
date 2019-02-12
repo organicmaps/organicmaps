@@ -39,7 +39,8 @@ VulkanBaseContext::~VulkanBaseContext()
     m_pipeline->Destroy(m_device);
     m_pipeline.reset();
   }
-    
+
+  DestroyDescriptorPools();
   DestroyDefaultFramebuffer();
   DestroyDepthTexture();
   DestroySwapchain();
@@ -152,6 +153,9 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   }
   RecreateSwapchain();
   CreateDefaultFramebuffer();
+
+  if (m_descriptorPools.empty())
+    CreateDescriptorPool();
 }
 
 void VulkanBaseContext::ResetSurface()
@@ -563,6 +567,32 @@ void VulkanBaseContext::DestroyRenderPass()
   vkDestroyRenderPass(m_device, m_renderPass, nullptr);
 }
 
+void VulkanBaseContext::CreateDescriptorPool()
+{
+  std::vector<VkDescriptorPoolSize> poolSizes =
+  {
+    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 1},  // Maximum uniform buffers count per draw call.
+    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3},  // Maximum textures count per draw call.
+  };
+
+  VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
+  descriptorPoolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+  descriptorPoolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
+  descriptorPoolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
+  descriptorPoolInfo.pPoolSizes = poolSizes.data();
+  descriptorPoolInfo.maxSets = 250;  // Approximately equal to draw calls count.
+
+  VkDescriptorPool descriptorPool;
+  CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool));
+  m_descriptorPools.push_back(descriptorPool);
+}
+
+void VulkanBaseContext::DestroyDescriptorPools()
+{
+  for (auto & pool : m_descriptorPools)
+    vkDestroyDescriptorPool(m_device, pool, nullptr);
+}
+
 void VulkanBaseContext::SetDepthTestEnabled(bool enabled)
 {
   m_depthEnabled = enabled;
@@ -610,7 +640,7 @@ void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bind
 
 void VulkanBaseContext::SetProgram(ref_ptr<VulkanGpuProgram> program)
 {
-  //TODO
+  m_currentProgram = program;
 }
     
 void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
@@ -620,17 +650,84 @@ void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
     
 void VulkanBaseContext::ApplyParamDescriptor(ParamDescriptor && descriptor)
 {
-  //TODO
+  m_paramDescriptors.push_back(std::move(descriptor));
 }
     
 void VulkanBaseContext::ClearParamDescriptors()
 {
-  //TODO
+  m_paramDescriptors.clear();
 }
 
 VkPipeline VulkanBaseContext::GetCurrentPipeline()
 {
+  //TODO
   return {};
+}
+
+DescriptorSet VulkanBaseContext::GetCurrentDescriptorSet()
+{
+  CHECK(!m_descriptorPools.empty(), ());
+  CHECK(m_currentProgram != nullptr, ());
+  CHECK(!m_paramDescriptors.empty(), ());
+
+  DescriptorSet s;
+  VkDescriptorSetLayout layout = m_currentProgram->GetDescriptorSetLayout();
+  VkDescriptorSetAllocateInfo allocInfo = {};
+  allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+  allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.front();
+  allocInfo.pSetLayouts = &layout;
+  allocInfo.descriptorSetCount = 1;
+
+  auto result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
+  if (result != VK_SUCCESS)
+  {
+    for (size_t i = 1; i < m_descriptorPools.size(); ++i)
+    {
+      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools[i];
+      result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
+      if (result == VK_SUCCESS)
+        break;
+    }
+
+    if (s.m_descriptorSet == VK_NULL_HANDLE)
+    {
+      CreateDescriptorPool();
+      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.back();
+      CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
+    }
+  }
+
+  std::vector<VkWriteDescriptorSet> writeDescriptorSets(m_paramDescriptors.size());
+  for (size_t i = 0; i < writeDescriptorSets.size(); ++i)
+  {
+    auto const & p = m_paramDescriptors[i];
+
+    writeDescriptorSets[i] = {};
+    writeDescriptorSets[i].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    writeDescriptorSets[i].dstSet = s.m_descriptorSet;
+    writeDescriptorSets[i].descriptorCount = 1;
+    if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+    {
+      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+      writeDescriptorSets[i].dstBinding = 0;
+      writeDescriptorSets[i].pBufferInfo = &p.m_bufferDescriptor;
+    }
+    else if (p.m_type == ParamDescriptor::Type::Texture)
+    {
+      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+      writeDescriptorSets[i].dstBinding = static_cast<uint32_t>(p.m_textureSlot);
+      writeDescriptorSets[i].pImageInfo = &p.m_imageDescriptor;
+    }
+    else
+    {
+      CHECK(false, ("Unsupported param descriptor type."));
+    }
+  }
+
+  vkUpdateDescriptorSets(m_device, static_cast<uint32_t>(writeDescriptorSets.size()),
+                         writeDescriptorSets.data(), 0, nullptr);
+
+  return s;
 }
 }  // namespace vulkan
 }  // namespace dp
