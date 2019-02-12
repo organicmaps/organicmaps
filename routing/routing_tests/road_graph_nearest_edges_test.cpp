@@ -2,7 +2,9 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/routing_tests/road_graph_builder.hpp"
+
 #include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 namespace routing_test
 {

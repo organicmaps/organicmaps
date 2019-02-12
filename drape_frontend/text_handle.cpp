@@ -6,6 +6,7 @@
 
 #include <ios>
 #include <sstream>
+#include <utility>
 
 namespace df
 {
@@ -22,13 +23,13 @@ TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text
   , m_fixedHeight(fixedHeight)
 {}
 
-TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text,
-                       dp::Anchor anchor, uint64_t priority, int fixedHeight,
+TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text, dp::Anchor anchor,
+                       uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
-                       gpu::TTextDynamicVertexBuffer && normals,
-                       int minVisibleScale, bool isBillboard)
+                       gpu::TTextDynamicVertexBuffer && normals, int minVisibleScale,
+                       bool isBillboard)
   : OverlayHandle(id, anchor, priority, minVisibleScale, isBillboard)
-  , m_buffer(move(normals))
+  , m_buffer(std::move(normals))
   , m_forceUpdateNormals(false)
   , m_isLastVisible(false)
   , m_text(text)

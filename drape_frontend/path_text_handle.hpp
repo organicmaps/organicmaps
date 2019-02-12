@@ -6,8 +6,8 @@
 #include "geometry/spline.hpp"
 
 #include <algorithm>
-#include <vector>
 #include <memory>
+#include <vector>
 
 namespace df
 {

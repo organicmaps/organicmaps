@@ -377,18 +377,18 @@ bool Storage::IsInnerNode(CountryId const & countryId) const
   return node != nullptr && node->ChildrenCount() != 0;
 }
 
-TLocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const
+LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(countryId);
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
   CountryFile const & countryFile = GetCountryFile(countryId);
   if (queuedCountry == nullptr)
   {
-    return TLocalAndRemoteSize(GetLocalSize(localFile, opt),
-                               GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
+    return LocalAndRemoteSize(GetLocalSize(localFile, opt),
+                              GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
   }
 
-  TLocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
+  LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
   if (!m_downloader->IsIdle() && IsCountryFirstInQueue(countryId))
   {
     sizes.first =
@@ -1922,7 +1922,7 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
         descendantNode.Value().GetSubtreeMwmSizeBytes();
     }
 
-    TLocalAndRemoteSize sizes =
+    LocalAndRemoteSize sizes =
         CountrySizeInBytes(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
     updateInfo.m_sizeDifference +=
         static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);

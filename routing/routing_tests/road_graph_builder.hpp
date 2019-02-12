@@ -5,6 +5,9 @@
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
+#include <utility>
+#include <vector>
+
 namespace routing_test
 {
 
@@ -22,14 +25,15 @@ public:
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgeLoader) const override;
-  void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                        vector<pair<routing::Edge, routing::Junction>> & vicinities) const override;
+  void FindClosestEdges(
+      m2::PointD const & point, uint32_t count,
+      std::vector<std::pair<routing::Edge, routing::Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(routing::Junction const & junction, feature::TypesHolder & types) const override;
   routing::IRoadGraph::Mode GetMode() const override;
 
 private:
-  vector<RoadInfo> m_roads;
+  std::vector<RoadInfo> m_roads;
 };
 
 FeatureID MakeTestFeatureID(uint32_t offset);

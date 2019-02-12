@@ -15,6 +15,7 @@
 #include "geometry/spline.hpp"
 
 #include <functional>
+#include <utility>
 #include <vector>
 
 class CaptionDefProto;
@@ -118,7 +119,7 @@ public:
   void ProcessAreaRule(Stylist::TRuleWrapper const & rule);
 
 private:
-  using TEdge = pair<int, int>;
+  using TEdge = std::pair<int, int>;
 
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
@@ -131,7 +132,7 @@ private:
   std::vector<m2::PointD> m_triangles;
 
   buffer_vector<m2::PointD, kBuildingOutlineSize> m_points;
-  buffer_vector<pair<TEdge, int>, kBuildingOutlineSize> m_edges;
+  buffer_vector<std::pair<TEdge, int>, kBuildingOutlineSize> m_edges;
 
   float const m_minPosZ;
   bool const m_isBuilding;

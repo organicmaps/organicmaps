@@ -6,9 +6,9 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/unordered_set.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <unordered_set>
 
 namespace search
 {
@@ -22,12 +22,12 @@ public:
   template <typename Fn>
   void ForEach(Fn && fn) const
   {
-    for_each(m_categories.begin(), m_categories.end(), forward<Fn>(fn));
+    std::for_each(m_categories.begin(), m_categories.end(), std::forward<Fn>(fn));
   }
 
 private:
   Classificator const & m_classificator;
-  unordered_set<uint32_t> m_categories;
+  std::unordered_set<uint32_t> m_categories;
 
   DISALLOW_COPY_AND_MOVE(CategoriesSet);
 };

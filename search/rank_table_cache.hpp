@@ -4,8 +4,9 @@
 
 #include "base/macros.hpp"
 
-#include "std/map.hpp"
-#include "std/unique_ptr.hpp"
+#include <map>
+#include <memory>
+#include <utility>
 
 class DataSource;
 
@@ -23,7 +24,7 @@ class RankTableCache
     TKey(TKey &&) = default;
 
     explicit TKey(TId const & id) { this->m_mwmId = id; }
-    explicit TKey(MwmSet::MwmHandle && handle) : MwmSet::MwmHandle(move(handle)) {}
+    explicit TKey(MwmSet::MwmHandle && handle) : MwmSet::MwmHandle(std::move(handle)) {}
   };
 
 public:
@@ -40,7 +41,7 @@ private:
     bool operator()(TKey const & r1, TKey const & r2) const { return (r1.GetId() < r2.GetId()); }
   };
 
-  map<TKey, unique_ptr<RankTable>, Compare> m_ranks;
+  std::map<TKey, std::unique_ptr<RankTable>, Compare> m_ranks;
 
   DISALLOW_COPY_AND_MOVE(RankTableCache);
 };

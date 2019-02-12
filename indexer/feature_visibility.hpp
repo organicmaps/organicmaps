@@ -60,8 +60,7 @@ namespace feature
   //@}
 
   /// @return (geometry type, is coastline)
-  pair<int, bool> GetDrawRule(TypesHolder const & types, int level,
-                              drule::KeysT & keys);
+  std::pair<int, bool> GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
   void GetDrawRule(std::vector<uint32_t> const & types, int level, int geoType,
                    drule::KeysT & keys);
   void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys);

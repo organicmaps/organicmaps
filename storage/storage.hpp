@@ -521,7 +521,7 @@ public:
   bool IsLeaf(CountryId const & countryId) const;
   bool IsInnerNode(CountryId const & countryId) const;
 
-  TLocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const;
+  LocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const;
   MwmSize GetRemoteSize(platform::CountryFile const & file, MapOptions opt, int64_t version) const;
   platform::CountryFile const & GetCountryFile(CountryId const & countryId) const;
   LocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;

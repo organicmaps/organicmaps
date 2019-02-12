@@ -81,7 +81,7 @@ UNIT_TEST(StorageFastMigrationTests)
 //    }
 //  };
 //
-//  auto progressChanged = [](CountryId const & id, TLocalAndRemoteSize const & sz)
+//  auto progressChanged = [](CountryId const & id, LocalAndRemoteSize const & sz)
 //  {
 //    LOG_SHORT(LINFO, (id, "downloading progress:", sz));
 //  };

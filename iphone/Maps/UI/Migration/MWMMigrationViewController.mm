@@ -85,7 +85,7 @@ using namespace storage;
   };
 
   auto onProgressChanged = [self](CountryId const & countryId,
-                                  TLocalAndRemoteSize const & progress) {
+                                  LocalAndRemoteSize const & progress) {
     MWMMigrationView * view = static_cast<MWMMigrationView *>(self.view);
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };

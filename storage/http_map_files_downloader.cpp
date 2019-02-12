@@ -31,7 +31,7 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   CHECK_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::GetServersList(TServersListCallback const & callback)
+void HttpMapFilesDownloader::GetServersList(ServersListCallback const & callback)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::Get(
@@ -41,8 +41,8 @@ void HttpMapFilesDownloader::GetServersList(TServersListCallback const & callbac
 
 void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string const & path,
                                              int64_t size,
-                                             TFileDownloadedCallback const & onDownloaded,
-                                             TDownloadingProgressCallback const & onProgress)
+                                             FileDownloadedCallback const & onDownloaded,
+                                             DownloadingProgressCallback const & onProgress)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::GetFile(
@@ -76,7 +76,7 @@ void HttpMapFilesDownloader::Reset()
   m_request.reset();
 }
 
-void HttpMapFilesDownloader::OnServersListDownloaded(TServersListCallback const & callback,
+void HttpMapFilesDownloader::OnServersListDownloaded(ServersListCallback const & callback,
                                                      downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
@@ -85,7 +85,7 @@ void HttpMapFilesDownloader::OnServersListDownloaded(TServersListCallback const 
   callback(urls);
 }
 
-void HttpMapFilesDownloader::OnMapFileDownloaded(TFileDownloadedCallback const & onDownloaded,
+void HttpMapFilesDownloader::OnMapFileDownloaded(FileDownloadedCallback const & onDownloaded,
                                                  downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
@@ -93,7 +93,7 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(TFileDownloadedCallback const &
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloadingProgress(
-    TDownloadingProgressCallback const & onProgress, downloader::HttpRequest & request)
+    DownloadingProgressCallback const & onProgress, downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   onProgress(request.GetProgress());

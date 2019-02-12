@@ -270,10 +270,11 @@ public:
   /// are older than the localFile (in this case mwm handle will point
   /// to just-registered file).
 protected:
-  pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile, EventList & events);
+  std::pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile,
+                                           EventList & events);
 
 public:
-  pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
+  std::pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
   //@}
 
   /// @name Remove mwm.

@@ -89,7 +89,7 @@ public:
   bool IsDrawableAny() const;
   bool IsDrawableLike(feature::EGeomType ft, bool emptyName = false) const;
 
-  pair<int, int> GetDrawScaleRange() const;
+  std::pair<int, int> GetDrawScaleRange() const;
 
   template <typename ToDo>
   void ForEachObject(ToDo && toDo)

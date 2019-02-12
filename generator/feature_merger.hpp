@@ -1,9 +1,11 @@
 #pragma once
+
 #include "generator/feature_emitter_iface.hpp"
 #include "generator/feature_builder.hpp"
 
 #include <map>
 #include <set>
+#include <utility>
 #include <vector>
 
 /// Feature builder class that used while feature type processing and merging.
@@ -46,7 +48,7 @@ public:
       toDo(poly[i]);
   }
 
-  pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
+  std::pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
   size_t GetKeyPointsCount() const;
 
   double GetPriority() const;

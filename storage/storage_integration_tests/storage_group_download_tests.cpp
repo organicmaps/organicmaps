@@ -77,7 +77,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize) {
+  auto onProgressFn = [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
     TEST(subTree.find(countryId) != subTree.end(), ());
     if (mapSize.first == mapSize.second)
     {

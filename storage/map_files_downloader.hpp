@@ -18,23 +18,23 @@ public:
   // Denotes bytes downloaded and total number of bytes.
   using Progress = pair<int64_t, int64_t>;
 
-  using TFileDownloadedCallback =
+  using FileDownloadedCallback =
       function<void(downloader::HttpRequest::Status status, Progress const & progress)>;
-  using TDownloadingProgressCallback = function<void(Progress const & progress)>;
-  using TServersListCallback = function<void(vector<string> & urls)>;
+  using DownloadingProgressCallback = function<void(Progress const & progress)>;
+  using ServersListCallback = function<void(vector<string> & urls)>;
 
   virtual ~MapFilesDownloader() = default;
 
   /// Asynchronously receives a list of all servers that can be asked
   /// for a map file and invokes callback on the original thread.
-  virtual void GetServersList(TServersListCallback const & callback) = 0;
+  virtual void GetServersList(ServersListCallback const & callback) = 0;
 
   /// Asynchronously downloads a map file, periodically invokes
   /// onProgress callback and finally invokes onDownloaded
   /// callback. Both callbacks will be invoked on the original thread.
   virtual void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
-                               TFileDownloadedCallback const & onDownloaded,
-                               TDownloadingProgressCallback const & onProgress) = 0;
+                               FileDownloadedCallback const & onDownloaded,
+                               DownloadingProgressCallback const & onProgress) = 0;
 
   /// Returns current downloading progress.
   virtual Progress GetDownloadingProgress() = 0;

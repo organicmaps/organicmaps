@@ -8,6 +8,6 @@ class TestMapFilesDownloader : public HttpMapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  void GetServersList(TServersListCallback const & callback) override;
+  void GetServersList(ServersListCallback const & callback) override;
 };
 }  // namespace storage

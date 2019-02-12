@@ -23,7 +23,7 @@ MapOptions LeastSignificantOption(MapOptions mask)
   return static_cast<MapOptions>(static_cast<uint8_t>(mask) & -static_cast<uint8_t>(mask));
 }
 
-string DebugPrint(MapOptions options)
+std::string DebugPrint(MapOptions options)
 {
   switch (options)
   {

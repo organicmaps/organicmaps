@@ -78,25 +78,28 @@ bool MergedFeatureBuilder1::EqualGeometry(MergedFeatureBuilder1 const & fb) cons
   return (GetOuterGeometry() == fb.GetOuterGeometry());
 }
 
-pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
+std::pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
 {
   // 1. check first rounds
   size_t sz = m_roundBounds[0].size();
-  if (i < sz) return make_pair(m_roundBounds[0][i], false);
+  if (i < sz)
+    return std::make_pair(m_roundBounds[0][i], false);
   i -= sz;
 
   // 2. check first point
-  if (i == 0) return make_pair(FirstPoint(), false);
+  if (i == 0)
+    return std::make_pair(FirstPoint(), false);
 
   // 3. check last rounds
   --i;
   sz = m_roundBounds[1].size();
-  if (i < sz) return make_pair(m_roundBounds[1][i], true);
+  if (i < sz)
+    return std::make_pair(m_roundBounds[1][i], true);
   i -= sz;
 
   // 4. return last point
   ASSERT_EQUAL ( i, 0, () );
-  return make_pair(LastPoint(), true);
+  return std::make_pair(LastPoint(), true);
 }
 
 size_t MergedFeatureBuilder1::GetKeyPointsCount() const
@@ -205,7 +208,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     size_t ind = 0;
     while (ind < curr.GetKeyPointsCount())  // GetKeyPointsCount() can be different on each iteration
     {
-      pair<m2::PointD, bool> const pt = curr.GetKeyPoint(ind++);
+      std::pair<m2::PointD, bool> const pt = curr.GetKeyPoint(ind++);
       map_t::const_iterator it = m_map.find(get_key(pt.first));
 
       MergedFeatureBuilder1 * pp = 0;
@@ -335,7 +338,7 @@ public:
 
   bool operator() (uint32_t type) const
   {
-    pair<int, int> const range = feature::GetDrawableScaleRange(type);
+    std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
 
     // We have feature types without any drawing rules.
     // This case was processed before:

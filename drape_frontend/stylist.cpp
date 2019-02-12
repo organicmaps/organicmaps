@@ -131,7 +131,7 @@ private:
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
-    m_rules.emplace_back(make_pair(dRule, depth));
+    m_rules.emplace_back(std::make_pair(dRule, depth));
   }
 
   void Init()
@@ -379,7 +379,8 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 {
   drule::KeysT keys;
-  pair<int, bool> const geomType = feature::GetDrawRule(feature::TypesHolder(f), zoomLevel, keys);
+  std::pair<int, bool> const geomType =
+      feature::GetDrawRule(feature::TypesHolder(f), zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 

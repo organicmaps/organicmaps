@@ -14,6 +14,7 @@
 #include "base/buffer_vector.hpp"
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 namespace dp
@@ -81,7 +82,7 @@ private:
   void Cache(TGenerator & generator) const
   {
     size_t beginOffset = 0;
-    for (pair<size_t, glsl::vec2> const & node : m_offsets)
+    for (std::pair<size_t, glsl::vec2> const & node : m_offsets)
     {
       size_t const endOffset = node.first;
       generator.SetPenPosition(node.second);
@@ -93,7 +94,7 @@ private:
 
   glm::vec2 m_baseOffset;
   glm::vec4 m_pivot;
-  buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
+  buffer_vector<std::pair<size_t, glsl::vec2>, 2> m_offsets;
   m2::PointF m_pixelSize;
   size_t m_rowsCount = 0;
 };

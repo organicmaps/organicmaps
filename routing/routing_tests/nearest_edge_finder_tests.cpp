@@ -10,6 +10,7 @@
 
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 
 void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
                         vector<pair<Edge, Junction>> const & expected)

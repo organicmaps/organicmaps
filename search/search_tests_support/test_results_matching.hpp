@@ -65,7 +65,7 @@ private:
 template <typename... TArgs>
 std::shared_ptr<MatchingRule> ExactMatch(TArgs &&... args)
 {
-  return std::make_shared<ExactMatchingRule>(forward<TArgs>(args)...);
+  return std::make_shared<ExactMatchingRule>(std::forward<TArgs>(args)...);
 }
 
 inline std::shared_ptr<MatchingRule> AlternativesMatch(

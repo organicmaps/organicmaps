@@ -1,4 +1,4 @@
-#include "road_graph_builder.hpp"
+#include "routing/routing_tests/road_graph_builder.hpp"
 
 #include "routing/road_graph.hpp"
 
@@ -11,8 +11,8 @@
 #include "std/algorithm.hpp"
 #include "std/shared_ptr.hpp"
 
-
 using namespace routing;
+using namespace std;
 
 namespace
 {

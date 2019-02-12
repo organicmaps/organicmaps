@@ -3,6 +3,8 @@
 
 #include "base/math.hpp"
 
+#include <utility>
+
 namespace df
 {
 
@@ -335,7 +337,7 @@ void PathTextHandle::GetPixelShape(ScreenBase const & screen, bool perspective, 
 
     bool const needAddRect = perspective ? !screen.IsReverseProjection3d(m2::PointD(r.Center())) : true;
     if (needAddRect)
-      rects.emplace_back(move(r));
+      rects.emplace_back(std::move(r));
   }
 }
 

@@ -42,7 +42,7 @@ using namespace routing;
 using namespace turns;
 using platform::LocalCountryFile;
 
-using TRouteResult = std::pair<std::shared_ptr<Route>, RouterResultCode>;
+typedef std::pair<std::shared_ptr<Route>, RouterResultCode> TRouteResult;
 
 namespace integration
 {

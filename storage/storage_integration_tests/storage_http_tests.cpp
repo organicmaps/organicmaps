@@ -95,7 +95,7 @@ public:
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
   auto const progressFunction = [this](CountryId const & countryId,
-                                       TLocalAndRemoteSize const & mapSize) {
+                                       LocalAndRemoteSize const & mapSize) {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
@@ -136,7 +136,7 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
   auto const progressFunction = [this](CountryId const & countryId,
-                                       TLocalAndRemoteSize const & mapSize) {
+                                       LocalAndRemoteSize const & mapSize) {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 

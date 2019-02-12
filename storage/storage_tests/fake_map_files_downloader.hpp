@@ -26,11 +26,11 @@ public:
   virtual ~FakeMapFilesDownloader();
 
   // MapFilesDownloader overrides:
-  void GetServersList(TServersListCallback const & callback) override;
+  void GetServersList(ServersListCallback const & callback) override;
 
   void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
-                       TFileDownloadedCallback const & onDownloaded,
-                       TDownloadingProgressCallback const & onProgress) override;
+                       FileDownloadedCallback const & onDownloaded,
+                       DownloadingProgressCallback const & onProgress) override;
   Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
@@ -43,8 +43,8 @@ private:
   bool m_idle;
 
   unique_ptr<FileWriter> m_writer;
-  TFileDownloadedCallback m_onDownloaded;
-  TDownloadingProgressCallback m_onProgress;
+  FileDownloadedCallback m_onDownloaded;
+  DownloadingProgressCallback m_onProgress;
 
   uint64_t m_timestamp;
 

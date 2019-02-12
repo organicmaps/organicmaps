@@ -133,7 +133,7 @@ public:
   template <typename Info>
   void SetRankingInfo(Info && info)
   {
-    m_info = forward<Info>(info);
+    m_info = std::forward<Info>(info);
   }
 
   // Returns a representation of this result that is sent to the

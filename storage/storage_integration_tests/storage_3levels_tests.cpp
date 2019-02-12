@@ -48,7 +48,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   string const mapDir = base::JoinFoldersToPath(platform.WritableDir(), version);
 
-  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize) {};
+  auto onProgressFn = [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {};
 
   auto onChangeCountryFn = [&](CountryId const & countryId) {
     if (!storage.IsDownloadInProgress())

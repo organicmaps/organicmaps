@@ -233,10 +233,10 @@ private:
 void CalculateOffsets(dp::Anchor anchor, float textRatio,
                       dp::TextureManager::TGlyphsBuffer const & glyphs,
                       buffer_vector<size_t, 2> const & delimIndexes,
-                      buffer_vector<pair<size_t, glsl::vec2>, 2> & result,
+                      buffer_vector<std::pair<size_t, glsl::vec2>, 2> & result,
                       m2::PointF & pixelSize, size_t & rowsCount)
 {
-  typedef pair<float, float> TLengthAndHeight;
+  typedef std::pair<float, float> TLengthAndHeight;
   buffer_vector<TLengthAndHeight, 2> lengthAndHeight;
   float maxLength = 0;
   float summaryHeight = 0;
@@ -280,8 +280,8 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
   for (size_t index = 0; index < delimIndexes.size(); ++index)
   {
     TLengthAndHeight const & node = lengthAndHeight[index];
-    result.push_back(make_pair(delimIndexes[index], glsl::vec2(xL(node.first, maxLength),
-                                                               yL(node.second))));
+    result.push_back(std::make_pair(delimIndexes[index],
+                                    glsl::vec2(xL(node.first, maxLength), yL(node.second))));
   }
 
   pixelSize = m2::PointF(maxLength, summaryHeight);

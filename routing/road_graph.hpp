@@ -273,7 +273,8 @@ public:
 
   /// Adds fake edges from fake position rp to real vicinity
   /// positions.
-  void AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinities);
+  void AddFakeEdges(Junction const & junction,
+                    std::vector<std::pair<Edge, Junction>> const & vicinities);
   void AddOutgoingFakeEdge(Edge const & e);
   void AddIngoingFakeEdge(Edge const & e);
 
@@ -294,7 +295,7 @@ public:
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
   virtual void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                                vector<pair<Edge, Junction>> & vicinities) const = 0;
+                                std::vector<std::pair<Edge, Junction>> & vicinities) const = 0;
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;
@@ -346,14 +347,16 @@ string DebugPrint(IRoadGraph::Mode mode);
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             std::initializer_list<m2::PointD> const & points);
 
-inline void JunctionsToPoints(vector<Junction> const & junctions, vector<m2::PointD> & points)
+inline void JunctionsToPoints(std::vector<Junction> const & junctions,
+                              std::vector<m2::PointD> & points)
 {
   points.resize(junctions.size());
   for (size_t i = 0; i < junctions.size(); ++i)
     points[i] = junctions[i].GetPoint();
 }
 
-inline void JunctionsToAltitudes(vector<Junction> const & junctions, feature::TAltitudes & altitudes)
+inline void JunctionsToAltitudes(std::vector<Junction> const & junctions,
+                                 feature::TAltitudes & altitudes)
 {
   altitudes.resize(junctions.size());
   for (size_t i = 0; i < junctions.size(); ++i)

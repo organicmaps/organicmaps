@@ -50,7 +50,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   }
 
   auto progressChanged = [&s, &kTestCountries, &baseProgress](CountryId const & id,
-                                                              TLocalAndRemoteSize const & sz) {
+                                                              LocalAndRemoteSize const & sz) {
     MapFilesDownloader::Progress currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
     

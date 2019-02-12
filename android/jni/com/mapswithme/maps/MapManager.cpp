@@ -189,8 +189,7 @@ static void MigrationStatusChangedCallback(CountryId const & countryId, bool kee
   }
 }
 
-static void MigrationProgressCallback(CountryId const & countryId,
-                                      TLocalAndRemoteSize const & sizes)
+static void MigrationProgressCallback(CountryId const & countryId, LocalAndRemoteSize const & sizes)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -563,7 +562,7 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef,
 }
 
 static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef,
-                                    CountryId const & countryId, TLocalAndRemoteSize const & sizes)
+                                    CountryId const & countryId, LocalAndRemoteSize const & sizes)
 {
   JNIEnv * env = jni::GetEnv();
 

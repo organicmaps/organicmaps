@@ -16,8 +16,10 @@
 #include "base/stl_helpers.hpp"
 
 #include <functional>
-#include "std/target_os.hpp"
 #include <unordered_map>
+#include <utility>
+
+#include "std/target_os.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeaturesCollector implementation
@@ -34,12 +36,12 @@ FeaturesCollector::~FeaturesCollector()
 }
 
 template <typename ValueT, size_t ValueSizeT = sizeof(ValueT) + 1>
-pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
+std::pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 {
   static_assert(is_integral<ValueT>::value, "Non integral value");
   static_assert(is_unsigned<ValueT>::value, "Non unsigned value");
 
-  pair<char[ValueSizeT], uint8_t> res;
+  std::pair<char[ValueSizeT], uint8_t> res;
   res.second = 0;
   while (v > 127)
   {

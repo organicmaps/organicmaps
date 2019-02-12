@@ -225,7 +225,7 @@ namespace qt
 
     QColor rowColor;
     QString statusString;
-    TLocalAndRemoteSize size(0, 0);
+    LocalAndRemoteSize size(0, 0);
 
     CountriesVec children;
     st.GetChildren(countryId, children);

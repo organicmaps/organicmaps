@@ -324,13 +324,13 @@ protected:
     ++m_currStatus;
     if (m_transitionList[m_currStatus] == Status::EDownloading)
     {
-      TLocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+      LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
       m_totalBytesToDownload = localAndRemoteSize.second;
     }
   }
 
   virtual void OnCountryDownloadingProgress(CountryId const & countryId,
-                                            TLocalAndRemoteSize const & progress)
+                                            LocalAndRemoteSize const & progress)
   {
     if (countryId != m_countryId)
       return;
@@ -342,7 +342,7 @@ protected:
     m_bytesDownloaded = progress.first;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
-    TLocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+    LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
     TEST_EQUAL(static_cast<decltype(localAndRemoteSize.second)>(m_totalBytesToDownload),
                localAndRemoteSize.second, (m_countryFile));
   }
@@ -374,7 +374,7 @@ public:
 protected:
   // CountryDownloaderChecker overrides:
   void OnCountryDownloadingProgress(CountryId const & countryId,
-                                    TLocalAndRemoteSize const & progress) override
+                                    LocalAndRemoteSize const & progress) override
   {
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
@@ -464,7 +464,7 @@ private:
   }
 
   void OnCountryDownloadingProgress(CountryId const & /* countryId */,
-                                    TLocalAndRemoteSize const & /* progress */)
+                                    LocalAndRemoteSize const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -515,7 +515,7 @@ public:
     testing::StopEventLoop();
   }
 
-  void OnProgress(CountryId const & /* countryId */, TLocalAndRemoteSize const & /* progress */) {}
+  void OnProgress(CountryId const & /* countryId */, LocalAndRemoteSize const & /* progress */) {}
 
 private:
   Storage & m_storage;
@@ -1883,7 +1883,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   };
 
   auto const onProgress = [&](CountryId const & /* countryId */,
-                              TLocalAndRemoteSize const & /* progress */) {};
+                              LocalAndRemoteSize const & /* progress */) {};
 
   auto const slot = storage.Subscribe(onStatusChange, onProgress);
   SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });

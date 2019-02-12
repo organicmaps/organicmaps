@@ -24,5 +24,4 @@ RankTable const & RankTableCache::Get(DataSource & dataSource, TId const & mwmId
 void RankTableCache::Remove(TId const & id) { m_ranks.erase(TKey(id)); }
 
 void RankTableCache::Clear() { m_ranks.clear(); }
-
 }  // namespace search

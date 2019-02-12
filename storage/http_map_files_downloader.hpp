@@ -17,21 +17,21 @@ public:
   virtual ~HttpMapFilesDownloader();
 
   // MapFilesDownloader overrides:
-  void GetServersList(TServersListCallback const & callback) override;
+  void GetServersList(ServersListCallback const & callback) override;
 
   void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
-                       TFileDownloadedCallback const & onDownloaded,
-                       TDownloadingProgressCallback const & onProgress) override;
+                       FileDownloadedCallback const & onDownloaded,
+                       DownloadingProgressCallback const & onProgress) override;
   Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 
 private:
-  void OnServersListDownloaded(TServersListCallback const & callback,
+  void OnServersListDownloaded(ServersListCallback const & callback,
                                downloader::HttpRequest & request);
-  void OnMapFileDownloaded(TFileDownloadedCallback const & onDownloaded,
+  void OnMapFileDownloaded(FileDownloadedCallback const & onDownloaded,
                            downloader::HttpRequest & request);
-  void OnMapFileDownloadingProgress(TDownloadingProgressCallback const & onProgress,
+  void OnMapFileDownloadingProgress(DownloadingProgressCallback const & onProgress,
                                     downloader::HttpRequest & request);
 
   unique_ptr<downloader::HttpRequest> m_request;

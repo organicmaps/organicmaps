@@ -3,6 +3,7 @@
 #include "search/features_layer.hpp"
 #include "search/intersection_result.hpp"
 
+#include <utility>
 #include <vector>
 
 #if defined(DEBUG)
@@ -70,7 +71,7 @@ public:
     LOG(LINFO, ("Found:", results.size(), "elapsed:", timer.ElapsedSeconds(), "seconds"));
 #endif  // defined(DEBUG)
 
-    for_each(results.begin(), results.end(), forward<TFn>(fn));
+    for_each(results.begin(), results.end(), std::forward<TFn>(fn));
   }
 
   static void SetModeForTesting(Mode mode) { m_mode = mode; }

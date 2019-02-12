@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <map>
+#include <utility>
 
 namespace df
 {
@@ -46,7 +47,7 @@ public:
     }
     dp::Batcher * batcher = m_pool.Get();
     using namespace std::placeholders;
-    m_batchers.insert(std::make_pair(key, make_pair(batcher, 1)));
+    m_batchers.insert(std::make_pair(key, std::make_pair(batcher, 1)));
     batcher->StartSession(std::bind(m_flushFn, key, _1, _2));
   }
 

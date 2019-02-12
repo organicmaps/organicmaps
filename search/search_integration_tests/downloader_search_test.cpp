@@ -81,11 +81,11 @@ class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  void GetServersList(TServersListCallback const & /* callback */) override {}
+  void GetServersList(ServersListCallback const & /* callback */) override {}
 
   void DownloadMapFile(vector<string> const & /* urls */, string const & /* path */,
-                       int64_t /* size */, TFileDownloadedCallback const & /* onDownloaded */,
-                       TDownloadingProgressCallback const & /* onProgress */) override
+                       int64_t /* size */, FileDownloadedCallback const & /* onDownloaded */,
+                       DownloadingProgressCallback const & /* onProgress */) override
   {
   }
 
