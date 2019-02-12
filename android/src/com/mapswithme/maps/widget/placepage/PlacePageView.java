@@ -988,14 +988,13 @@ public class PlacePageView extends NestedScrollView
 
   /**
    * @param mapObject new MapObject
-   * @param force     if true, new object'll be set without comparison with the old one
    * @param listener  listener
    */
-  public void setMapObject(@Nullable MapObject mapObject, boolean force,
-                           @Nullable final SetMapObjectListener listener)
+  public void setMapObject(@Nullable MapObject mapObject, @Nullable final SetMapObjectListener listener)
   {
-    if (!force && MapObject.same(mMapObject, mapObject))
+    if (MapObject.same(mMapObject, mapObject))
     {
+      mMapObject = mapObject;
       if (listener != null)
       {
         NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
@@ -1074,7 +1073,7 @@ public class PlacePageView extends NestedScrollView
     return mMapObject != null && (isSponsored() || mMapObject.getBanners() != null);
   }
 
-  private void refreshViews(@NonNull NetworkPolicy policy)
+  void refreshViews(@NonNull NetworkPolicy policy)
   {
     if (mMapObject == null)
     {
@@ -1723,9 +1722,9 @@ public class PlacePageView extends NestedScrollView
   private void toggleIsBookmark(@NonNull MapObject mapObject)
   {
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
-      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
+      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), null);
     else
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), true, null);
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), null);
   }
 
   private void showBigDirection()
@@ -1889,7 +1888,7 @@ public class PlacePageView extends NestedScrollView
   @Override
   public void onBookmarkSaved(long bookmarkId)
   {
-    setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), true, null);
+    setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), null);
   }
 
   int getPreviewHeight()
