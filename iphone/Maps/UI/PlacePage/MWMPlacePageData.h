@@ -3,7 +3,7 @@
 
 #include "partners_api/taxi_provider.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "map/place_page_info.hpp"
 #include "map/routing_mark.hpp"

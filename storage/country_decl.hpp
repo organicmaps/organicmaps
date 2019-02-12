@@ -1,10 +1,10 @@
 #pragma once
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "geometry/rect2d.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace storage
 {
@@ -24,17 +24,18 @@ namespace storage
   struct CountryInfo
   {
     CountryInfo() = default;
-    CountryInfo(string const & id) : m_name(id) {}
+    CountryInfo(std::string const & id) : m_name(id) {}
 
     /// Name (in native language) of country or region.
     /// (if empty - equals to file name of country - no additional memory)
-    string m_name;
+    std::string m_name;
 
     bool IsNotEmpty() const { return !m_name.empty(); }
 
     // @TODO(bykoianko) Twine will be used intead of this function.
     // So id (fName) will be converted to a local name.
-    static void FileName2FullName(string & fName);
-    static void FullName2GroupAndMap(string const & fName, string & group, string & map);
+    static void FileName2FullName(std::string & fName);
+    static void FullName2GroupAndMap(std::string const & fName, std::string & group,
+                                     std::string & map);
   };
 }

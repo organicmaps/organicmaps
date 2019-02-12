@@ -14,8 +14,8 @@
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "coding/reader_wrapper.hpp"
 

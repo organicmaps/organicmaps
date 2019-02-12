@@ -2,16 +2,15 @@
 
 #include "storage/country_decl.hpp"
 #include "storage/country_tree.hpp"
-#include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
 
 #include "platform/country_defines.hpp"
 
-#include "defines.hpp"
-
 #include "geometry/rect2d.hpp"
+
+#include "defines.hpp"
 
 #include <cstdint>
 #include <map>

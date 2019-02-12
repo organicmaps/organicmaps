@@ -15,7 +15,7 @@
 #include "search/utils.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"

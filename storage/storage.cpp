@@ -22,10 +22,10 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/chrono.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <chrono>
+#include <sstream>
+
 #include "std/target_os.hpp"
 
 #include <limits>
@@ -34,6 +34,8 @@
 
 using namespace downloader;
 using namespace platform;
+using namespace std;
+using namespace std::chrono;
 
 namespace storage
 {
@@ -867,6 +869,7 @@ void Storage::DoDownload()
 
   string const filePath =
       GetFileDownloadPath(queuedCountry.GetCountryId(), queuedCountry.GetCurrentFileOptions());
+  using namespace std::placeholders;
   m_downloader->DownloadMapFile(fileUrls, filePath, GetDownloadSize(queuedCountry),
                                 bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
                                 bind(&Storage::OnMapFileDownloadProgress, this, _1));

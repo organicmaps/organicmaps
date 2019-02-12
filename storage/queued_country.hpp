@@ -1,6 +1,7 @@
 #pragma once
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
+
 #include "platform/country_defines.hpp"
 
 namespace storage

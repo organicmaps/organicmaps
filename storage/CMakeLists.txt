@@ -29,8 +29,6 @@ set(
   downloading_policy.hpp
   http_map_files_downloader.cpp
   http_map_files_downloader.hpp
-  index.cpp
-  index.hpp
   map_files_downloader.hpp
   queued_country.cpp
   queued_country.hpp

@@ -2,7 +2,7 @@
 
 #include "transit/transit_graph_data.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include <string>
 

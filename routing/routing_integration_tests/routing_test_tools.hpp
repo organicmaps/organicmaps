@@ -42,7 +42,7 @@ using namespace routing;
 using namespace turns;
 using platform::LocalCountryFile;
 
-typedef pair<shared_ptr<Route>, RouterResultCode> TRouteResult;
+using TRouteResult = std::pair<std::shared_ptr<Route>, RouterResultCode>;
 
 namespace integration
 {
@@ -165,7 +165,7 @@ public:
   const TestTurn & TestNotValid() const;
   const TestTurn & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
   const TestTurn & TestDirection(CarDirection expectedDirection) const;
-  const TestTurn & TestOneOfDirections(set<CarDirection> const & expectedDirections) const;
+  const TestTurn & TestOneOfDirections(std::set<CarDirection> const & expectedDirections) const;
   const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 

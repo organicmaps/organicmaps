@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "storage/country_info_reader_light.hpp"
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"

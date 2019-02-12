@@ -11,7 +11,7 @@
 #include "routing/routing_session.hpp"
 #include "routing/speed_camera_manager.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 

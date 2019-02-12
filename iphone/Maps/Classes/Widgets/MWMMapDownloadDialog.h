@@ -1,6 +1,6 @@
 #import "MWMViewController.h"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 @class MapViewController;
 

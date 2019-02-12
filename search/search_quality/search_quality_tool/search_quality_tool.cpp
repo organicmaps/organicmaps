@@ -20,8 +20,8 @@
 #include "platform/platform.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/reader_wrapper.hpp"

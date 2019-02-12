@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "geometry/point2d.hpp"
 

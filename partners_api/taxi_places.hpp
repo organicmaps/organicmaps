@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "coding/serdes_json.hpp"
 

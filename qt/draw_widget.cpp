@@ -10,7 +10,7 @@
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "routing/routing_callbacks.hpp"
 

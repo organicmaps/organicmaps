@@ -27,8 +27,8 @@
 #include "search/search_quality/helpers.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/iostream.hpp"

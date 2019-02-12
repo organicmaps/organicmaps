@@ -8,7 +8,7 @@
 
 #include "map/routing_mark.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "editor/osm_editor.hpp"
 

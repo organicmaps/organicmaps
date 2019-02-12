@@ -2,7 +2,7 @@
 
 #include "indexer/ftypes_mapping.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "base/macros.hpp"
 

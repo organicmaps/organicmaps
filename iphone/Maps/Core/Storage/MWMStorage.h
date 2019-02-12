@@ -1,4 +1,4 @@
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 @interface MWMStorage : NSObject
 

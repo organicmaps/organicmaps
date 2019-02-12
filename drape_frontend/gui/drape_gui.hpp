@@ -4,7 +4,6 @@
 #include "drape_frontend/gui/scale_fps_helper.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
-#include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "drape/pointers.hpp"

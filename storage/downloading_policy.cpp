@@ -2,6 +2,8 @@
 
 #include "platform/platform.hpp"
 
+using namespace std::chrono;
+
 void StorageDownloadingPolicy::EnableCellularDownload(bool enabled)
 {
   m_cellularDownloadEnabled = enabled;

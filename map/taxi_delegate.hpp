@@ -2,6 +2,8 @@
 
 #include "partners_api/taxi_engine.hpp"
 
+#include "storage/storage_defines.hpp"
+
 namespace storage
 {
 class Storage;

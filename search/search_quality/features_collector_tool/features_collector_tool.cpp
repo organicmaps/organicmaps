@@ -11,8 +11,8 @@
 #include "indexer/data_source.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "coding/file_name_utils.hpp"
 

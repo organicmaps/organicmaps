@@ -1,7 +1,7 @@
 #pragma once
 
 #include "storage/diff_scheme/diff_types.hpp"
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "base/observer_list.hpp"
 #include "base/thread_checker.hpp"

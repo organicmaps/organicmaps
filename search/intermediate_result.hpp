@@ -5,7 +5,7 @@
 #include "search/ranking_utils.hpp"
 #include "search/result.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "indexer/feature_data.hpp"
 

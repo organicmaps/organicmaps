@@ -38,6 +38,7 @@
 
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 
 using TRouterFactory =
     function<unique_ptr<IRouter>(DataSource & dataSource, TCountryFileFn const & countryFileFn,

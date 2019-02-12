@@ -9,6 +9,10 @@ using namespace string_literals;
 
 namespace storage
 {
+storage::TCountryId const kInvalidCountryId;
+
+bool IsCountryIdValid(TCountryId const & countryId) { return countryId != kInvalidCountryId; }
+
 string DebugPrint(Status status)
 {
   switch (status)

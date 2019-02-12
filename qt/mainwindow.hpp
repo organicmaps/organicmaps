@@ -2,7 +2,7 @@
 
 #include "qt/draw_widget.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/location.hpp"
 #include "platform/location_service.hpp"

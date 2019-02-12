@@ -3,7 +3,6 @@
 #include "search/city_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/string_utf8_multilang.hpp"

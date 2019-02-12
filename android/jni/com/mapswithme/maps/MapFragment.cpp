@@ -4,7 +4,7 @@
 
 #include "com/mapswithme/platform/Platform.hpp"
 
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "base/logging.hpp"
 

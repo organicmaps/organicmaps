@@ -4,7 +4,7 @@
 #include <string>
 
 #include "storage/country.hpp"
-#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/get_text_by_id.hpp"
 

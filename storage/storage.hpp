@@ -5,7 +5,6 @@
 #include "storage/country_tree.hpp"
 #include "storage/diff_scheme/diff_manager.hpp"
 #include "storage/downloading_policy.hpp"
-#include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/pinger.hpp"
 #include "storage/queued_country.hpp"
@@ -17,13 +16,15 @@
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
 
-#include "std/function.hpp"
-#include "std/list.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <list>
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -32,7 +33,7 @@ namespace storage
 struct CountryIdAndName
 {
   TCountryId m_id;
-  string m_localName;
+  std::string m_localName;
 
   bool operator==(CountryIdAndName const & other) const
   {
@@ -80,18 +81,18 @@ struct NodeAttrs
 
   /// The name of the node in a local language. That means the language dependent on
   /// a device locale.
-  string m_nodeLocalName;
+  std::string m_nodeLocalName;
 
   /// The description of the node in a local language. That means the language dependent on
   /// a device locale.
-  string m_nodeLocalDescription;
+  std::string m_nodeLocalDescription;
 
   /// Node id and local name of the parents of the node.
   /// For the root |m_parentInfo| is empty.
   /// Locale language is a language set by Storage::SetLocale().
   /// \note Most number of nodes have only one parent. But in case of a disputed territories
   /// an mwm could have two or even more parents. See Country description for details.
-  vector<CountryIdAndName> m_parentInfo;
+  std::vector<CountryIdAndName> m_parentInfo;
 
   /// Node id and local name of the first level parents (root children nodes)
   /// if the node has first level parent(s). Otherwise |m_topmostParentInfo| is empty.
@@ -99,7 +100,7 @@ struct NodeAttrs
   /// Locale language is a language set by Storage::SetLocale().
   /// \note Most number of nodes have only first level parent. But in case of a disputed territories
   /// an mwm could have two or even more parents. See Country description for details.
-  vector<CountryIdAndName> m_topmostParentInfo;
+  std::vector<CountryIdAndName> m_topmostParentInfo;
 
   /// Progress of downloading for the node expandable or not. It reflects downloading progress in case of
   /// downloading and updating mwm.
@@ -142,19 +143,20 @@ class Storage : public diffs::Manager::Observer
 {
 public:
   struct StatusCallback;
-  using StartDownloadingCallback = function<void()>;
-  using TUpdateCallback = function<void(storage::TCountryId const &, TLocalFilePtr const)>;
-  using TDeleteCallback = function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
-  using TChangeCountryFunction = function<void(TCountryId const &)>;
-  using TProgressFunction = function<void(TCountryId const &, MapFilesDownloader::TProgress const &)>;
-  using TQueue = list<QueuedCountry>;
+  using StartDownloadingCallback = std::function<void()>;
+  using TUpdateCallback = std::function<void(storage::TCountryId const &, TLocalFilePtr const)>;
+  using TDeleteCallback = std::function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
+  using TChangeCountryFunction = std::function<void(TCountryId const &)>;
+  using TProgressFunction =
+      std::function<void(TCountryId const &, MapFilesDownloader::TProgress const &)>;
+  using TQueue = std::list<QueuedCountry>;
 
 private:
   /// We support only one simultaneous request at the moment
-  unique_ptr<MapFilesDownloader> m_downloader;
+  std::unique_ptr<MapFilesDownloader> m_downloader;
 
   /// Stores timestamp for update checks
-  int64_t m_currentVersion;
+  int64_t m_currentVersion = 0;
 
   TCountryTree m_countries;
 
@@ -179,11 +181,11 @@ private:
   /// stores countries whose download has failed recently
   TCountriesSet m_failedCountries;
 
-  map<TCountryId, list<TLocalFilePtr>> m_localFiles;
+  std::map<TCountryId, std::list<TLocalFilePtr>> m_localFiles;
 
   // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data
   // folder.
-  map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
+  std::map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
 
   /// used to correctly calculate total country download progress with more than 1 file
   /// <current, total>
@@ -197,7 +199,7 @@ private:
 
   int m_currentSlotId;
 
-  list<StatusCallback> m_statusCallbacks;
+  std::list<StatusCallback> m_statusCallbacks;
 
   struct CountryObservers
   {
@@ -206,7 +208,7 @@ private:
     int m_slotId;
   };
 
-  typedef list<CountryObservers> ObserversContT;
+  using ObserversContT = std::list<CountryObservers>;
   ObserversContT m_observers;
   //@}
 
@@ -221,11 +223,11 @@ private:
   // If |m_dataDir| is not empty Storage will create version directories and download maps in
   // platform::WritableDir/|m_dataDir|/. Not empty |m_dataDir| can be used only for
   // downloading maps to a special place but not for continue working with them from this place.
-  string m_dataDir;
+  std::string m_dataDir;
 
   // A list of urls for downloading maps. It's necessary for storage integration tests.
   // For example {"http://new-search.mapswithme.com/"}.
-  vector<string> m_downloadingUrlsForTesting;
+  std::vector<std::string> m_downloadingUrlsForTesting;
 
   bool m_integrityValidationEnabled = true;
 
@@ -235,7 +237,7 @@ private:
 
   CountryNameGetter m_countryNameGetter;
 
-  unique_ptr<Storage> m_prefetchStorage;
+  std::unique_ptr<Storage> m_prefetchStorage;
 
   // |m_affiliations| is a mapping from countryId to the list of names of
   // geographical objects (such as countries) that encompass this countryId.
@@ -251,16 +253,16 @@ private:
   ThreadChecker m_threadChecker;
 
   diffs::Manager m_diffManager;
-  vector<platform::LocalCountryFile> m_notAppliedDiffs;
+  std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   bool m_needToStartDeferredDownloading = false;
-  boost::optional<vector<string>> m_sessionServerList;
+  boost::optional<std::vector<std::string>> m_sessionServerList;
 
   StartDownloadingCallback m_startDownloadingCallback;
 
   void DownloadNextCountryFromQueue();
 
-  void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
+  void LoadCountriesFile(std::string const & pathToCountriesFile, std::string const & dataDir,
                          TMappingOldMwm * mapping = nullptr);
 
   void ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p);
@@ -302,10 +304,11 @@ public:
   /// * create a instance of Storage with a special countries.txt and |dataDir|
   /// * download some maps to WritableDir/|dataDir|
   /// * destroy the instance of Storage and move the downloaded maps to proper place
-  Storage(string const & pathToCountriesFile = COUNTRIES_FILE, string const & dataDir = string());
+  Storage(std::string const & pathToCountriesFile = COUNTRIES_FILE,
+          std::string const & dataDir = std::string());
 
   /// \brief This constructor should be used for testing only.
-  Storage(string const & referenceCountriesTxtJsonForTesting,
+  Storage(std::string const & referenceCountriesTxtJsonForTesting,
           unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
 
   void Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete);
@@ -318,8 +321,8 @@ public:
   /// The term node id means a string id of mwm or a group of mwm. The sting contains
   /// a name of file with mwm of a name country(territory).
   //@{
-  using TOnSearchResultCallback = function<void (TCountryId const &)>;
-  using TOnStatusChangedCallback = function<void (TCountryId const &)>;
+  using TOnSearchResultCallback = std::function<void(TCountryId const &)>;
+  using TOnStatusChangedCallback = std::function<void(TCountryId const &)>;
 
   /// \brief Information for "Update all mwms" button.
   struct UpdateInfo
@@ -403,6 +406,7 @@ public:
   /// \brief Gets all the attributes for a node by its |countryId|.
   /// \param |nodeAttrs| is filled with attributes in this method.
   void GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const;
+
   /// \brief Gets a short list of node attributes by its |countriId|.
   /// \note This method works quicklier than GetNodeAttrs().
   void GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeStatuses) const;
@@ -492,7 +496,7 @@ public:
   void RegisterAllLocalMaps(bool enableDiffs);
 
   // Returns list of all local maps, including fake countries (World*.mwm).
-  void GetLocalMaps(vector<TLocalFilePtr> & maps) const;
+  void GetLocalMaps(std::vector<TLocalFilePtr> & maps) const;
 
   // Returns number of downloaded maps (files), excluding fake countries (World*.mwm).
   size_t GetDownloadedFilesCount() const;
@@ -545,8 +549,9 @@ public:
   TCountryId GetCurrentDownloadingCountryId() const;
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
   /// get download url by base url & queued country
-  string GetFileDownloadUrl(string const & baseUrl, QueuedCountry const & queuedCountry) const;
-  string GetFileDownloadUrl(string const & baseUrl, string const & fileName) const;
+  std::string GetFileDownloadUrl(std::string const & baseUrl,
+                                 QueuedCountry const & queuedCountry) const;
+  std::string GetFileDownloadUrl(std::string const & baseUrl, std::string const & fileName) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
@@ -559,10 +564,10 @@ public:
 
   // for testing:
   void SetEnabledIntegrityValidationForTesting(bool enabled);
-  void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
+  void SetDownloaderForTesting(std::unique_ptr<MapFilesDownloader> && downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
-  void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls);
-  void SetLocaleForTesting(string const & jsonBuffer, string const & locale);
+  void SetDownloadingUrlsForTesting(std::vector<std::string> const & downloadingUrls);
+  void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);
 
   /// Returns true if the diff scheme is available and all local outdated maps can be updated via
   /// diffs.
@@ -611,7 +616,8 @@ private:
 
   // Registers disk files for a country. This method must be used only
   // for real (listed in countries.txt) countries.
-  void RegisterCountryFiles(TCountryId const & countryId, string const & directory, int64_t version);
+  void RegisterCountryFiles(TCountryId const & countryId, std::string const & directory,
+                            int64_t version);
 
   // Registers disk files for a country. This method must be used only
   // for custom (made by user) map files.
@@ -629,7 +635,7 @@ private:
 
   // Returns a path to a place on disk downloader can use for
   // downloaded files.
-  string GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const;
+  std::string GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const;
 
   void CountryStatusEx(TCountryId const & countryId, Status & status, MapOptions & options) const;
 
@@ -640,9 +646,10 @@ private:
   StatusAndError GetNodeStatus(TCountryTreeNode const & node) const;
   /// Returns status for a node (group node or not).
   /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
-  StatusAndError GetNodeStatusInfo(TCountryTreeNode const & node,
-                                   vector<pair<TCountryId, NodeStatus>> & disputedTeritories,
-                                   bool isDisputedTerritoriesCounted) const;
+  StatusAndError GetNodeStatusInfo(
+      TCountryTreeNode const & node,
+      std::vector<std::pair<TCountryId, NodeStatus>> & disputedTeritories,
+      bool isDisputedTerritoriesCounted) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
@@ -666,8 +673,11 @@ private:
 
   void PushToJustDownloaded(TQueue::iterator justDownloadedItem);
   void PopFromQueue(TQueue::iterator it);
+
   template <class ToDo>
-  void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
+  void ForEachAncestorExceptForTheRoot(std::vector<TCountryTreeNode const *> const & nodes,
+                                       ToDo && toDo) const;
+
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(TCountryTreeNode const & node) const;
 
@@ -676,7 +686,7 @@ private:
   void OnDownloadFailed(TCountryId const & countryId);
 
   void LoadDiffScheme();
-  void ApplyDiff(TCountryId const & countryId, function<void(bool isSuccess)> const & fn);
+  void ApplyDiff(TCountryId const & countryId, std::function<void(bool isSuccess)> const & fn);
 
   // Should be called once on startup, downloading process should be suspended until this method
   // was not called. Do not call this method manually.
@@ -684,7 +694,7 @@ private:
 
   void LoadServerListForSession();
   void LoadServerListForTesting();
-  void PingServerList(vector<string> const & urls);
+  void PingServerList(std::vector<std::string> const & urls);
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
@@ -716,7 +726,7 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo && toDo) const
 {
-  vector<TCountryTreeNode const *> nodes;
+  std::vector<TCountryTreeNode const *> nodes;
   m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {
@@ -724,13 +734,14 @@ void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo
     return;
   }
 
-  ForEachAncestorExceptForTheRoot(nodes, forward<ToDo>(toDo));
+  ForEachAncestorExceptForTheRoot(nodes, std::forward<ToDo>(toDo));
 }
 
 template <class ToDo>
-void Storage::ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const
+void Storage::ForEachAncestorExceptForTheRoot(std::vector<TCountryTreeNode const *> const & nodes,
+                                              ToDo && toDo) const
 {
-  set<TCountryTreeNode const *> visitedAncestors;
+  std::set<TCountryTreeNode const *> visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
@@ -756,4 +767,4 @@ void Storage::ForEachCountryFile(ToDo && toDo) const
       toDo(node.Value().GetFile());
   });
 }
-}  // storage
+}  // namespace storage

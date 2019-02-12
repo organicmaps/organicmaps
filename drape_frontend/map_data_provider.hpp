@@ -1,6 +1,5 @@
 #pragma once
 
-#include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "indexer/feature.hpp"

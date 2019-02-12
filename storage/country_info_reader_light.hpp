@@ -1,8 +1,8 @@
 #pragma once
 
-#include "storage/index.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/country_name_getter.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "coding/file_container.hpp"
 

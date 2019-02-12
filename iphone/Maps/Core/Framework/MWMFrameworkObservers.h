@@ -2,8 +2,8 @@
 
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "storage/index.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 using namespace storage;
 
