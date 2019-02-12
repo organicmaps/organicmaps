@@ -109,7 +109,6 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
     switch (v.getId())
     {
     case R.id.btn__explain_bad_rating:
-      Counters.setRatingApplied(GooglePlusDialogFragment.class);
       dismiss();
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       final PackageInfo info;

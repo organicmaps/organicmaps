@@ -58,7 +58,6 @@ dependencies {
   implementation 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
   implementation 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
   implementation 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
-  implementation 'com.google.android.gms:play-services-plus:' + propPlayServicesVersion
   implementation 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
   implementation 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
   implementation 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion

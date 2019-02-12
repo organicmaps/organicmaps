@@ -38,8 +38,6 @@ public enum LikesManager
   {
     GPLAY_NEW_USERS(RateStoreDialogFragment.class, DIALOG_DELAY_DEFAULT),
     GPLAY_OLD_USERS(RateStoreDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    GPLUS_NEW_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    GPLUS_OLD_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT);
 
@@ -64,20 +62,10 @@ public enum LikesManager
   static
   {
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
-    sOldUsersMapping.put(24, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(30, LikeType.FACEBOOK_INVITES_OLD_USERS);
-    sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
-    sOldUsersMapping.put(90, LikeType.GPLAY_OLD_USERS);
-
-    sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
     sNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
-    sNewUsersMapping.put(10, LikeType.GPLAY_NEW_USERS);
-    sNewUsersMapping.put(11, LikeType.GPLUS_NEW_USERS);
-    sNewUsersMapping.put(21, LikeType.GPLAY_NEW_USERS);
-    sNewUsersMapping.put(30, LikeType.GPLUS_NEW_USERS);
     sNewUsersMapping.put(35, LikeType.FACEBOOK_INVITE_NEW_USERS);
-    sNewUsersMapping.put(50, LikeType.GPLUS_NEW_USERS);
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
 
     sFragments.add(SearchFragment.class);
