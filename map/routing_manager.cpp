@@ -334,7 +334,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
                            true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
   }
 
-  CallRouteBuilded(code, storage::TCountriesVec());
+  CallRouteBuilded(code, storage::CountriesVec());
 }
 
 void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
@@ -345,7 +345,7 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode c
     return;
 
   InsertRoute(route);
-  CallRouteBuilded(code, storage::TCountriesVec());
+  CallRouteBuilded(code, storage::CountriesVec());
 }
 
 void RoutingManager::OnNeedMoreMaps(uint64_t routeId, vector<string> const & absentCountries)
@@ -839,7 +839,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
   {
-    CallRouteBuilded(RouterResultCode::Cancelled, storage::TCountriesVec());
+    CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesVec());
     CloseRouting(false /* remove route points */);
     return;
   }
@@ -853,7 +853,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     auto const & myPosition = m_bmManager->MyPositionMark();
     if (!myPosition.HasPosition())
     {
-      CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::TCountriesVec());
+      CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesVec());
       return;
     }
     p.m_position = myPosition.GetPivot();
@@ -867,7 +867,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     {
       if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, kEps))
       {
-        CallRouteBuilded(RouterResultCode::Cancelled, storage::TCountriesVec());
+        CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesVec());
         CloseRouting(false /* remove route points */);
         return;
       }
@@ -970,7 +970,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
 }
 
 void RoutingManager::CallRouteBuilded(RouterResultCode code,
-                                      storage::TCountriesVec const & absentCountries)
+                                      storage::CountriesVec const & absentCountries)
 {
   m_routingBuildingCallback(code, absentCountries);
 }

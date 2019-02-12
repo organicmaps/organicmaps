@@ -25,19 +25,19 @@ namespace
 class BelarusMinskDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Belarus"}; }
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {"Belarus"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Minsk"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return "Belarus_Minsk Region"; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return "Belarus_Minsk Region"; }
 };
 
 class UkraineOdessaDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Odessa"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override
+  storage::CountryId GetMwmId(m2::PointD const & point) override
   {
     return "Ukraine_Odessa Oblast";
   }
@@ -46,10 +46,10 @@ public:
 class UkraineMariupolDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Mariupol"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override
+  storage::CountryId GetMwmId(m2::PointD const & point) override
   {
     return "Ukraine_Donetsk Oblast";
   }
@@ -58,46 +58,46 @@ public:
 class BulgariaSofiaDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Bulgaria"}; }
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {"Bulgaria"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Sofia"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
 class UsaDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override
   {
     return {"United States of America"};
   }
 
   std::string GetCityName(m2::PointD const & point) override { return {}; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
 class RussiaKonetsDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override
   {
     return {"Russian Federation"};
   }
 
   std::string GetCityName(m2::PointD const & point) override { return "Konets"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
 class RussiaSochiDelegate : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override
   {
     return {"Russian Federation"};
   }
 
   std::string GetCityName(m2::PointD const & point) override { return "Sochi"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,

@@ -200,14 +200,14 @@ public:
   /// Which mwm this MapObject is in.
   /// Exception: for a country-name point it will be set to the topmost node for the mwm.
   /// TODO(@a): use m_topmostCountryIds in exceptional case.
-  void SetCountryId(storage::TCountryId const & countryId) { m_countryId = countryId; }
-  storage::TCountryId const & GetCountryId() const { return m_countryId; }
+  void SetCountryId(storage::CountryId const & countryId) { m_countryId = countryId; }
+  storage::CountryId const & GetCountryId() const { return m_countryId; }
   template <typename Countries>
   void SetTopmostCountryIds(Countries && ids)
   {
     m_topmostCountryIds = std::forward<Countries>(ids);
   }
-  storage::TCountriesVec const & GetTopmostCountryIds() const { return m_topmostCountryIds; }
+  storage::CountriesVec const & GetTopmostCountryIds() const { return m_topmostCountryIds; }
 
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
@@ -243,11 +243,11 @@ private:
   std::string m_localizedRatingString;
 
   /// CountryId
-  storage::TCountryId m_countryId = storage::kInvalidCountryId;
+  storage::CountryId m_countryId = storage::kInvalidCountryId;
   /// The topmost downloader nodes this MapObject is in, i.e.
   /// the country name for an object whose mwm represents only
   /// one part of the country (or several countries for disputed territories).
-  storage::TCountriesVec m_topmostCountryIds;
+  storage::CountriesVec m_topmostCountryIds;
 
   /// Comes from API, shared links etc.
   std::string m_customName;

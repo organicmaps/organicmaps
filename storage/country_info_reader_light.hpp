@@ -19,7 +19,7 @@ class CountryInfoReader : protected storage::CountryInfoGetterBase
 public:
   struct Info
   {
-    storage::TCountryId m_id;
+    storage::CountryId m_id;
     std::string m_name;
   };
 

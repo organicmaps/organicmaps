@@ -42,12 +42,12 @@ string const kCountryId = "Angola";
 
 class InterruptException : public exception {};
 
-void Update(TCountryId const &, storage::TLocalFilePtr const localCountryFile)
+void Update(CountryId const &, storage::LocalFilePtr const localCountryFile)
 {
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
-void ChangeCountry(Storage & storage, TCountryId const & countryId)
+void ChangeCountry(Storage & storage, CountryId const & countryId)
 {
   TEST_EQUAL(countryId, kCountryId, ());
 
@@ -55,9 +55,9 @@ void ChangeCountry(Storage & storage, TCountryId const & countryId)
     testing::StopEventLoop();
 }
 
-void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgressFn)
+void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgressFn)
 {
-  storage.Init(Update, [](TCountryId const &, storage::TLocalFilePtr const){return false;});
+  storage.Init(Update, [](CountryId const &, storage::LocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
@@ -71,7 +71,7 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
   Storage storage(COUNTRIES_FILE);
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-  InitStorage(storage, [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
+  InitStorage(storage, [](CountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
   TEST(!storage.IsDownloadInProgress(), ());
 
   storage.DownloadNode(kCountryId);
@@ -92,7 +92,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
     Storage storage(COUNTRIES_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-    auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+    auto onProgressFn = [](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
     {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
@@ -113,7 +113,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage(COUNTRIES_FILE);
 
-    auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+    auto onProgressFn = [](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
     {
       TEST_EQUAL(countryId, kCountryId, ());
     };
@@ -147,7 +147,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     Storage storage(COUNTRIES_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-    InitStorage(storage, [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
+    InitStorage(storage, [](CountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
     TEST(!storage.IsDownloadInProgress(), ());
 
     storage.DownloadNode(kCountryId);
@@ -172,7 +172,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
       Storage storage(COUNTRIES_FILE);
       TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-      auto onProgressFn = [i, j](TCountryId const & countryId,
+      auto onProgressFn = [i, j](CountryId const & countryId,
                                  TLocalAndRemoteSize const & mapSize)
       {
         TEST_EQUAL(countryId, kCountryId, ());
@@ -195,7 +195,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
       Storage storage(COUNTRIES_FILE);
       TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-      InitStorage(storage, [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
+      InitStorage(storage, [](CountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
       TEST(storage.IsDownloadInProgress(), ());
 
       NodeAttrs attrs;

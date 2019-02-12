@@ -77,7 +77,7 @@ void Init(string const & resource_path, string const & mwm_path)
   classificator::Load();
 
   g_affiliations = make_unique<storage::TMappingAffiliations>();
-  storage::TCountryTree countries;
+  storage::CountryTree countries;
   auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, *g_affiliations);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
 }

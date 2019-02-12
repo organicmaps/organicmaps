@@ -107,17 +107,17 @@ Status Manager::GetStatus() const
   return m_status;
 }
 
-bool Manager::SizeFor(storage::TCountryId const & countryId, uint64_t & size) const
+bool Manager::SizeFor(storage::CountryId const & countryId, uint64_t & size) const
 {
   return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
 }
 
-bool Manager::VersionFor(storage::TCountryId const & countryId, uint64_t & version) const
+bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & version) const
 {
   return WithDiff(countryId, [&version](DiffInfo const & info) { version = info.m_version; });
 }
 
-bool Manager::HasDiffFor(storage::TCountryId const & countryId) const
+bool Manager::HasDiffFor(storage::CountryId const & countryId) const
 {
   return WithDiff(countryId, [](DiffInfo const &){});
 }

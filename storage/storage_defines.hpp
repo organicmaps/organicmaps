@@ -12,15 +12,15 @@
 
 namespace storage
 {
-using TCountryId = std::string;
-using TCountriesSet = std::set<TCountryId>;
-using TCountriesVec = std::vector<TCountryId>;
-using TLocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
+using CountryId = std::string;
+using CountriesSet = std::set<CountryId>;
+using CountriesVec = std::vector<CountryId>;
+using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
 
-extern const storage::TCountryId kInvalidCountryId;
+extern const storage::CountryId kInvalidCountryId;
 
 // @TODO(bykoianko) Check in country tree if the countryId is valid.
-bool IsCountryIdValid(TCountryId const & countryId);
+bool IsCountryIdValid(CountryId const & countryId);
 
 /// Inner status which is used inside Storage class
 enum class Status : uint8_t
@@ -83,4 +83,4 @@ struct StatusAndError
   StatusAndError ParseStatus(Status innerStatus);
 }  // namespace storage
 
-using TDownloadFn = std::function<void(storage::TCountryId const &)>;
+using DownloadFn = std::function<void(storage::CountryId const &)>;

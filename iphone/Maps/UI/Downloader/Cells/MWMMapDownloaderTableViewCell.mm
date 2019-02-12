@@ -19,7 +19,7 @@
 
 @implementation MWMMapDownloaderTableViewCell
 {
-  storage::TCountryId m_countryId;
+  storage::CountryId m_countryId;
 }
 
 + (CGFloat)estimatedHeight { return 52.0; }
@@ -62,7 +62,7 @@
                                     selectedAttrs:selectedTitleAttrs
                                   unselectedAttrs:unselectedTitleAttrs];
 
-  TMwmSize size;
+  MwmSize size;
   bool const isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
 
   switch (nodeAttrs.m_status)
@@ -134,7 +134,7 @@
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   if (countryId != m_countryId)
     return;
@@ -143,8 +143,8 @@
   [self config:nodeAttrs];
 }
 
-- (void)processCountry:(TCountryId const &)countryId
-              progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   if (countryId != m_countryId)
     return;

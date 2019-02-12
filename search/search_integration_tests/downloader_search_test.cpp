@@ -89,7 +89,7 @@ public:
   {
   }
 
-  TProgress GetDownloadingProgress() override { return TProgress{}; }
+  Progress GetDownloadingProgress() override { return Progress{}; }
   
   bool IsIdle() override { return false; }
   

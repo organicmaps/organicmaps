@@ -25,11 +25,11 @@ struct DiffInfo final
   bool m_applied = false;
 };
 
-using NameDiffInfoMap = std::unordered_map<storage::TCountryId, DiffInfo>;
+using NameDiffInfoMap = std::unordered_map<storage::CountryId, DiffInfo>;
 
 struct LocalMapsInfo final
 {
-  using NameVersionMap = std::unordered_map<storage::TCountryId, uint64_t>;
+  using NameVersionMap = std::unordered_map<storage::CountryId, uint64_t>;
 
   uint64_t m_currentDataVersion = 0;
   NameVersionMap m_localMaps;

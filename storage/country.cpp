@@ -20,7 +20,7 @@ namespace storage
 // Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
-using TMwmSubtreeAttrs = pair<TMwmCounter, TMwmSize>;
+using TMwmSubtreeAttrs = pair<MwmCounter, MwmSize>;
 
 namespace
 {
@@ -28,22 +28,22 @@ class StoreSingleMwmInterface
 {
 public:
   virtual ~StoreSingleMwmInterface() = default;
-  virtual Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize,
+  virtual Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize,
                                         string const & mapSha1, size_t depth,
-                                        TCountryId const & parent) = 0;
-  virtual void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId) = 0;
-  virtual void InsertAffiliation(TCountryId const & countryId, string const & affilation) = 0;
+                                        CountryId const & parent) = 0;
+  virtual void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) = 0;
+  virtual void InsertAffiliation(CountryId const & countryId, string const & affilation) = 0;
   virtual TMappingOldMwm GetMapping() const = 0;
 };
 
 class StoreCountriesSingleMwms : public StoreSingleMwmInterface
 {
-  TCountryTree & m_countries;
+  CountryTree & m_countries;
   TMappingAffiliations & m_affiliations;
   TMappingOldMwm m_idsMapping;
 
 public:
-  StoreCountriesSingleMwms(TCountryTree & countries, TMappingAffiliations & affiliations)
+  StoreCountriesSingleMwms(CountryTree & countries, TMappingAffiliations & affiliations)
     : m_countries(countries), m_affiliations(affiliations)
   {
   }
@@ -54,8 +54,8 @@ public:
   }
 
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, string const & mapSha1,
-                                size_t depth, TCountryId const & parent) override
+  Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, string const & mapSha1,
+                                size_t depth, CountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
@@ -68,12 +68,12 @@ public:
     return &m_countries.AddAtDepth(depth, country);
   }
 
-  void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId) override
+  void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) override
   {
     m_idsMapping[oldId].insert(newId);
   }
 
-  void InsertAffiliation(TCountryId const & countryId, string const & affilation) override
+  void InsertAffiliation(CountryId const & countryId, string const & affilation) override
   {
     ASSERT(!affilation.empty(), ());
     ASSERT(!countryId.empty(), ());
@@ -92,34 +92,34 @@ class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
 public:
   StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, TMwmSize /* mapSize */,
+  Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */,
                                 string const & /* mapSha1 */, size_t /* depth */,
-                                TCountryId const & /* parent */) override
+                                CountryId const & /* parent */) override
   {
     CountryInfo info(id);
     m_file2info[id] = move(info);
     return nullptr;
   }
 
-  void InsertOldMwmMapping(TCountryId const & /* newId */, TCountryId const & /* oldId */) override
+  void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override
   {
   }
-  void InsertAffiliation(TCountryId const & /* countryId */,
+  void InsertAffiliation(CountryId const & /* countryId */,
                          string const & /* affilation */) override
   {
   }
   TMappingOldMwm GetMapping() const override
   {
     ASSERT(false, ());
-    return map<TCountryId, TCountriesSet>();
+    return map<CountryId, CountriesSet>();
   }
 };
 }  // namespace
 
-TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, TCountryId const & parent,
+TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId const & parent,
                                          StoreSingleMwmInterface & store)
 {
-  TCountryId id;
+  CountryId id;
   FromJSONObject(node, "id", id);
 
   // Mapping two component (big) mwms to one componenst (small) ones.
@@ -144,8 +144,8 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, TCountryId
   // We expect that mwm and routing files should be less than 2GB.
   Country * addedNode = store.InsertToCountryTree(id, nodeSize, nodeHash, depth, parent);
 
-  TMwmCounter mwmCounter = 0;
-  TMwmSize mwmSize = 0;
+  MwmCounter mwmCounter = 0;
+  MwmSize mwmSize = 0;
   vector<json_t *> children;
   FromJSONObjectOptionalField(node, "g", children);
   if (children.empty())
@@ -190,24 +190,24 @@ class StoreTwoComponentMwmInterface
 {
 public:
   virtual ~StoreTwoComponentMwmInterface() = default;
-  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize /* routingSize */,
-                           size_t depth, TCountryId const & parent) = 0;
+  virtual Country * Insert(string const & id, MwmSize mapSize, MwmSize /* routingSize */,
+                           size_t depth, CountryId const & parent) = 0;
 };
 
 class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
 {
-  TCountryTree & m_countries;
+  CountryTree & m_countries;
 
 public:
-  StoreCountriesTwoComponentMwms(TCountryTree & countries,
+  StoreCountriesTwoComponentMwms(CountryTree & countries,
                                  TMappingAffiliations & /* affiliations */)
     : m_countries(countries)
   {
   }
 
   // StoreTwoComponentMwmInterface overrides:
-  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize routingSize, size_t depth,
-                           TCountryId const & parent) override
+  virtual Country * Insert(string const & id, MwmSize mapSize, MwmSize routingSize, size_t depth,
+                           CountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
@@ -228,8 +228,8 @@ class StoreFile2InfoTwoComponentMwms : public StoreTwoComponentMwmInterface
 public:
   StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
   // StoreTwoComponentMwmInterface overrides:
-  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize /* routingSize */,
-                           size_t /* depth */, TCountryId const & /* parent */) override
+  virtual Country * Insert(string const & id, MwmSize mapSize, MwmSize /* routingSize */,
+                           size_t /* depth */, CountryId const & /* parent */) override
   {
     if (mapSize == 0)
       return nullptr;
@@ -242,12 +242,12 @@ public:
 }  // namespace
 
 TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node,
-                                               TCountryId const & parent,
+                                               CountryId const & parent,
                                                StoreTwoComponentMwmInterface & store)
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
-  TCountryId file;
+  CountryId file;
   FromJSONObjectOptionalField(node, "f", file);
   if (file.empty())
     FromJSONObject(node, "n", file);  // If file is empty, it's the same as the name.
@@ -259,11 +259,11 @@ TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node,
   ASSERT_LESS_OR_EQUAL(0, mwmSize, ());
   ASSERT_LESS_OR_EQUAL(0, routingSize, ());
 
-  Country * addedNode = store.Insert(file, static_cast<TMwmSize>(mwmSize),
-                                     static_cast<TMwmSize>(routingSize), depth, parent);
+  Country * addedNode = store.Insert(file, static_cast<MwmSize>(mwmSize),
+                                     static_cast<MwmSize>(routingSize), depth, parent);
 
-  TMwmCounter countryCounter = 0;
-  TMwmSize countrySize = 0;
+  MwmCounter countryCounter = 0;
+  MwmSize countrySize = 0;
   vector<json_t *> children;
   FromJSONObjectOptionalField(node, "g", children);
   if (children.empty())
@@ -304,7 +304,7 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
   }
 }
 
-int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countries,
+int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries,
                                 TMappingAffiliations & affiliations,
                                 TMappingOldMwm * mapping /* = nullptr */)
 {
@@ -339,7 +339,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countr
   return version;
 }
 
-int64_t LoadCountriesFromFile(string const & path, TCountryTree & countries,
+int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               TMappingAffiliations & affiliations, TMappingOldMwm * mapping)
 {
   string json;

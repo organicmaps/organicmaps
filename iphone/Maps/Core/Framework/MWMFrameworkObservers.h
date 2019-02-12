@@ -14,7 +14,7 @@ using namespace storage;
 @protocol MWMFrameworkRouteBuilderObserver<MWMFrameworkObserver>
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
-                       countries:(storage::TCountriesVec const &)absentCountries;
+                       countries:(storage::CountriesVec const &)absentCountries;
 
 @optional
 
@@ -25,12 +25,12 @@ using namespace storage;
 
 @protocol MWMFrameworkStorageObserver<MWMFrameworkObserver>
 
-- (void)processCountryEvent:(TCountryId const &)countryId;
+- (void)processCountryEvent:(CountryId const &)countryId;
 
 @optional
 
-- (void)processCountry:(TCountryId const &)countryId
-              progress:(MapFilesDownloader::TProgress const &)progress;
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress;
 
 @end
 
@@ -38,7 +38,7 @@ using namespace storage;
 
 @optional
 
-- (void)processViewportCountryEvent:(TCountryId const &)countryId;
+- (void)processViewportCountryEvent:(CountryId const &)countryId;
 - (void)processViewportChangedEvent;
 
 @end

@@ -6,7 +6,7 @@ namespace ads
 {
 namespace
 {
-storage::TCountriesVec const kCountries = {
+storage::CountriesVec const kCountries = {
   "Armenia",
   "Austria",
   "Belarus",
@@ -55,8 +55,8 @@ bool IsRussianLocale(std::string const & currentLocale)
   return currentLocale.find("ru") != std::string::npos;
 }
 
-bool ContainsCountry(storage::Storage const & storage, storage::TCountriesVec const & countries,
-                     storage::TCountriesVec const & referenceCountries)
+bool ContainsCountry(storage::Storage const & storage, storage::CountriesVec const & countries,
+                     storage::CountriesVec const & referenceCountries)
 {
   for (auto const & c : countries)
   {
@@ -76,13 +76,13 @@ bool HasMegafonDownloaderBanner(storage::Storage const & storage, std::string co
   if (!IsRussianLocale(currentLocale))
     return false;
 
-  storage::TCountriesVec countries;
+  storage::CountriesVec countries;
   storage.GetTopmostNodesFor(mwmId, countries);
   return ContainsCountry(storage, countries, kCountries);
 }
 
 bool HasMegafonCategoryBanner(storage::Storage const & storage,
-                              storage::TCountriesVec const & countries,
+                              storage::CountriesVec const & countries,
                               std::string const & currentLocale)
 {
   if (!IsRussianLocale(currentLocale))

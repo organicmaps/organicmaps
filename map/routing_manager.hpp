@@ -92,7 +92,7 @@ public:
   };
 
   using RouteBuildingCallback =
-      std::function<void(routing::RouterResultCode, storage::TCountriesVec const &)>;
+      std::function<void(routing::RouterResultCode, storage::CountriesVec const &)>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -209,7 +209,7 @@ public:
 
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::RouterResultCode code,
-                        storage::TCountriesVec const & absentCountries);
+                        storage::CountriesVec const & absentCountries);
   void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnNeedMoreMaps(uint64_t routeId, std::vector<std::string> const & absentCountries);

@@ -53,10 +53,10 @@ CGFloat const kAnimationDuration = .05;
 
 @implementation MWMDownloadTransitMapAlert
 {
-  storage::TCountriesVec m_countries;
+  storage::CountriesVec m_countries;
 }
 
-+ (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
++ (instancetype)downloaderAlertWithMaps:(storage::CountriesVec const &)countries
                                    code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock
@@ -90,7 +90,7 @@ CGFloat const kAnimationDuration = .05;
   return alert;
 }
 
-+ (instancetype)alertWithCountries:(storage::TCountriesVec const &)countries
++ (instancetype)alertWithCountries:(storage::CountriesVec const &)countries
 {
   NSAssert(!countries.empty(), @"countries can not be empty.");
   MWMDownloadTransitMapAlert * alert =
@@ -119,10 +119,10 @@ CGFloat const kAnimationDuration = .05;
   auto const & s = GetFramework().GetStorage();
   m_countries.erase(
       remove_if(m_countries.begin(), m_countries.end(),
-                [&s](TCountryId const & countryId) { return s.HasLatestVersion(countryId); }),
+                [&s](CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
       m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
-  TMwmSize totalSize = 0;
+  MwmSize totalSize = 0;
   for (auto const & countryId : m_countries)
   {
     storage::NodeAttrs attrs;
@@ -145,7 +145,7 @@ CGFloat const kAnimationDuration = .05;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   if (find(m_countries.begin(), m_countries.end(), countryId) == m_countries.end())
     return;
@@ -174,7 +174,7 @@ CGFloat const kAnimationDuration = .05;
   }
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId progress:(MapFilesDownloader::Progress const &)progress
 {
   if (!self.rightButton.hidden ||
       find(m_countries.begin(), m_countries.end(), countryId) == m_countries.end())

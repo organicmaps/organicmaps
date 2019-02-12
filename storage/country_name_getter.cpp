@@ -25,7 +25,7 @@ string CountryNameGetter::Get(string const & key) const
   return (*m_getCurLang)(key);
 }
 
-string CountryNameGetter::operator()(TCountryId const & countryId) const
+string CountryNameGetter::operator()(CountryId const & countryId) const
 {
   string const name = Get(countryId);
   if (name.empty())

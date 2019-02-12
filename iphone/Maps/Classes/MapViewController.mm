@@ -571,14 +571,14 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - MWMFrameworkDrapeObserver
 
-- (void)processViewportCountryEvent:(TCountryId const &)countryId
+- (void)processViewportCountryEvent:(CountryId const &)countryId
 {
   [self.downloadDialog processViewportCountryEvent:countryId];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   if (countryId.empty())
   {

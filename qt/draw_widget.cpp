@@ -70,7 +70,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * paren
       [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
 
   m_framework.GetRoutingManager().SetRouteBuildingListener(
-      [](routing::RouterResultCode, storage::TCountriesVec const &) {});
+      [](routing::RouterResultCode, storage::CountriesVec const &) {});
 
   m_framework.GetRoutingManager().SetRouteRecommendationListener(
     [this](RoutingManager::Recommendation r)
@@ -78,7 +78,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * paren
     OnRouteRecommendation(r);
   });
 
-  m_framework.SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId) {
+  m_framework.SetCurrentCountryChangedListener([this](storage::CountryId const & countryId) {
     m_countryId = countryId;
     UpdateCountryStatus(countryId);
   });
@@ -94,7 +94,7 @@ DrawWidget::~DrawWidget()
   delete m_rubberBand;
 }
 
-void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
+void DrawWidget::UpdateCountryStatus(storage::CountryId const & countryId)
 {
   if (m_currentCountryChanged != nullptr)
   {
@@ -102,7 +102,7 @@ void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
     auto status = m_framework.GetStorage().CountryStatusEx(countryId);
 
     uint8_t progressInPercentage = 0;
-    storage::MapFilesDownloader::TProgress progressInByte = make_pair(0, 0);
+    storage::MapFilesDownloader::Progress progressInByte = make_pair(0, 0);
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;
@@ -128,14 +128,14 @@ void DrawWidget::SetCurrentCountryChangedListener(DrawWidget::TCurrentCountryCha
   m_currentCountryChanged = listener;
 }
 
-void DrawWidget::DownloadCountry(storage::TCountryId const & countryId)
+void DrawWidget::DownloadCountry(storage::CountryId const & countryId)
 {
   m_framework.GetStorage().DownloadNode(countryId);
   if (!m_countryId.empty())
     UpdateCountryStatus(m_countryId);
 }
 
-void DrawWidget::RetryToDownloadCountry(storage::TCountryId const & countryId)
+void DrawWidget::RetryToDownloadCountry(storage::CountryId const & countryId)
 {
   // TODO @bykoianko
 }

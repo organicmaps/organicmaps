@@ -36,7 +36,7 @@ using namespace storage;
 
 @implementation MWMMapDownloaderDefaultDataSource
 {
-  TCountryId m_parentId;
+  CountryId m_parentId;
 }
 
 @synthesize isParentRoot = _isParentRoot;
@@ -60,8 +60,8 @@ initForRootCountryId:(NSString *)countryId
 - (void)load
 {
   auto const & s = GetFramework().GetStorage();
-  TCountriesVec downloadedChildren;
-  TCountriesVec availableChildren;
+  CountriesVec downloadedChildren;
+  CountriesVec availableChildren;
   s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
   if (self.mode == MWMMapDownloaderModeAvailable)
   {
@@ -76,7 +76,7 @@ initForRootCountryId:(NSString *)countryId
   }
 }
 
-- (void)configAvailableSections:(TCountriesVec const &)availableChildren
+- (void)configAvailableSections:(CountriesVec const &)availableChildren
 {
   NSMutableSet<NSString *> * indexSet = [NSMutableSet setWithCapacity:availableChildren.size()];
   NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> * availableCountries = [@{} mutableCopy];
@@ -102,7 +102,7 @@ initForRootCountryId:(NSString *)countryId
   self.availableCountries = availableCountries;
 }
 
-- (void)configDownloadedSection:(TCountriesVec const &)downloadedChildren
+- (void)configDownloadedSection:(CountriesVec const &)downloadedChildren
 {
   NSMutableArray<NSString *> * downloadedCountries = [@[] mutableCopy];
   for (auto const & countryId : downloadedChildren)
@@ -210,7 +210,7 @@ initForRootCountryId:(NSString *)countryId
 - (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().GetStorage();
-  TCountriesVec children;
+  CountriesVec children;
   s.GetChildren([self countryIdForIndexPath:indexPath].UTF8String, children);
   BOOL const haveChildren = !children.empty();
   if (haveChildren)

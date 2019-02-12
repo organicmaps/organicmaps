@@ -136,11 +136,11 @@ enum class State
 
 @interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
 {
-  std::unordered_set<TCountryId> m_updatingCountries;
+  std::unordered_set<CountryId> m_updatingCountries;
 }
 
 @property(nonatomic) Framework::DoAfterUpdate todo;
-@property(nonatomic) TMwmSize sizeInMB;
+@property(nonatomic) MwmSize sizeInMB;
 @property(nonatomic) NodeErrorCode errorCode;
 @property(nonatomic) BOOL progressFinished;
 
@@ -159,7 +159,7 @@ enum class State
   auto const & s = f.GetStorage();
   storage::Storage::UpdateInfo updateInfo;
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  TMwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
+  MwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
   view.updateSize = formattedSize(updateSizeInBytes);
   controller.sizeInMB = updateSizeInBytes / MB;
   [MWMFrameworkListener addObserver:controller];
@@ -241,7 +241,7 @@ enum class State
   } completion:nil];
 }
 
-- (void)updateProcessStatus:(TCountryId const &)countryId
+- (void)updateProcessStatus:(CountryId const &)countryId
 {
   auto const & s = GetFramework().GetStorage();
   NodeAttrs nodeAttrs;
@@ -259,7 +259,7 @@ enum class State
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   NodeStatuses nodeStatuses;
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
@@ -311,8 +311,8 @@ enum class State
         withParameters:@{kStatMapDataSize : @(self.sizeInMB), kStatType : errorType}];
 }
 
-- (void)processCountry:(TCountryId const &)countryId
-              progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   if (m_updatingCountries.find(countryId) != m_updatingCountries.end())
     [self updateProcessStatus:countryId];

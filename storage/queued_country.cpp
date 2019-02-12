@@ -4,7 +4,7 @@
 
 namespace storage
 {
-QueuedCountry::QueuedCountry(TCountryId const & countryId, MapOptions opt)
+QueuedCountry::QueuedCountry(CountryId const & countryId, MapOptions opt)
     : m_countryId(countryId), m_init(opt), m_left(opt), m_current(MapOptions::Nothing)
 {
   // @TODO(bykoianko) Probably it's nessecary to check if InIndexInCountryTree here.

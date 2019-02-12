@@ -26,7 +26,7 @@ namespace
 {
 CGSize constexpr kInitialDialogSize = {200, 200};
 
-BOOL canAutoDownload(storage::TCountryId const & countryId)
+BOOL canAutoDownload(storage::CountryId const & countryId)
 {
   if (![MWMSettings autoDownloadEnabled])
     return NO;
@@ -80,8 +80,8 @@ using namespace storage;
 
 @implementation MWMMapDownloadDialog
 {
-  TCountryId m_countryId;
-  TCountryId m_autoDownloadCountryId;
+  CountryId m_countryId;
+  CountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller
@@ -278,7 +278,7 @@ using namespace storage;
   [self addToSuperview];
 }
 
-- (void)processViewportCountryEvent:(TCountryId const &)countryId
+- (void)processViewportCountryEvent:(CountryId const &)countryId
 {
   m_countryId = countryId;
   if (countryId == kInvalidCountryId)
@@ -312,7 +312,7 @@ using namespace storage;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   if (m_countryId != countryId)
     return;
@@ -322,8 +322,8 @@ using namespace storage;
     [self removeFromSuperview];
 }
 
-- (void)processCountry:(TCountryId const &)countryId
-              progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   if (self.superview && m_countryId == countryId)
     [self showDownloading:static_cast<CGFloat>(progress.first) / progress.second];

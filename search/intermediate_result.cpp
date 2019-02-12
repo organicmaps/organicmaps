@@ -135,7 +135,7 @@ RankerResult::RankerResult(double lat, double lon)
 }
 
 bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
-                                storage::TCountryId & countryId) const
+                                storage::CountryId & countryId) const
 {
   static SkipRegionInfo const checker;
   if (checker.IsSkip(ftype))
@@ -167,7 +167,7 @@ uint32_t RankerResult::GetBestType(vector<uint32_t> const & preferredTypes) cons
 
 // RankerResult::RegionInfo ------------------------------------------------------------------------
 bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & infoGetter,
-                                            storage::TCountryId & countryId) const
+                                            storage::CountryId & countryId) const
 {
   if (!m_countryId.empty())
   {

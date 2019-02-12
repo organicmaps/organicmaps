@@ -10,12 +10,12 @@
 
 using namespace storage;
 
-void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload,
-                 Storage::TProgressFunction const & progress)
+void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
+                 Storage::ProgressFunction const & progress)
 {
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
   
-  auto const changeCountryFunction = [&](TCountryId const & /* countryId */)
+  auto const changeCountryFunction = [&](CountryId const & /* countryId */)
   {
     if (!storage.IsDownloadInProgress())
     {
@@ -24,7 +24,7 @@ void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload
     }
   };
   
-  storage.Init(didDownload, [](TCountryId const &, TLocalFilePtr const){return false;});
+  storage.Init(didDownload, [](CountryId const &, LocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
@@ -34,7 +34,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 {
   WritableDirChanger writableDirChanger(storage::kMapTestDir);
   
-  TCountriesVec const kTestCountries = {
+  CountriesVec const kTestCountries = {
     "Angola",
     "Tokelau",
     "New Zealand North_Auckland",
@@ -44,7 +44,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   Storage s;
   
   s.SetDownloadingUrlsForTesting({storage::kTestWebServer});
-  MapFilesDownloader::TProgress baseProgress = s.GetOverallProgress(kTestCountries);
+  MapFilesDownloader::Progress baseProgress = s.GetOverallProgress(kTestCountries);
   
   TEST_EQUAL(baseProgress.first, 0, ());
   TEST_EQUAL(baseProgress.second, 0, ());
@@ -54,9 +54,9 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
     baseProgress.second += s.CountrySizeInBytes(country, MapOptions::MapWithCarRouting).second;
   }
   
-  auto progressChanged = [&s, &kTestCountries, &baseProgress](TCountryId const & id, TLocalAndRemoteSize const & sz)
+  auto progressChanged = [&s, &kTestCountries, &baseProgress](CountryId const & id, TLocalAndRemoteSize const & sz)
   {
-    MapFilesDownloader::TProgress currentProgress = s.GetOverallProgress(kTestCountries);
+    MapFilesDownloader::Progress currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
     
     TEST_GREATER_OR_EQUAL(currentProgress.first, baseProgress.first, ());
@@ -66,7 +66,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
     TEST_EQUAL(currentProgress.second, baseProgress.second, ());
   };
   
-  InitStorage(s, [](storage::TCountryId const &, TLocalFilePtr const){}, progressChanged);
+  InitStorage(s, [](storage::CountryId const &, LocalFilePtr const){}, progressChanged);
 
   for (auto const & countryId : kTestCountries)
     s.DownloadNode(countryId);

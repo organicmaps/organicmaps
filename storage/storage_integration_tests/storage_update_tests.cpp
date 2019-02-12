@@ -69,7 +69,7 @@ string GetCountriesTxtFilePath()
   return base::JoinFoldersToPath(GetPlatform().WritableDir(), kCountriesTxtFile);
 }
 
-string GetMwmFilePath(string const & version, TCountryId const & countryId)
+string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
   return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
                                  countryId + DATA_FILE_EXTENSION);
@@ -83,7 +83,7 @@ UNIT_TEST(SmallMwms_Update_Test)
 
   Platform & platform = GetPlatform();
 
-  auto onProgressFn = [&](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize) {};
+  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize) {};
 
   // Download countries.txt for version 1
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion1), GetCountriesTxtFilePath(), kCountriesTxtFileSize1), ());
@@ -94,7 +94,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     string const version = strings::to_string(storage.GetCurrentDataVersion());
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion1, ());
-    auto onChangeCountryFn = [&](TCountryId const & countryId)
+    auto onChangeCountryFn = [&](CountryId const & countryId)
     {
       if (!storage.IsDownloadInProgress())
         testing::StopEventLoop();
@@ -102,7 +102,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     storage.Subscribe(onChangeCountryFn, onProgressFn);
     storage.SetDownloadingUrlsForTesting({kTestWebServer});
 
-    TCountriesVec children;
+    CountriesVec children;
     storage.GetChildren(kGroupCountryId, children);
 
     // Download group
@@ -132,7 +132,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     string const version = strings::to_string(storage.GetCurrentDataVersion());
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion2, ());
-    auto onChangeCountryFn = [&](TCountryId const & countryId)
+    auto onChangeCountryFn = [&](CountryId const & countryId)
     {
       if (!storage.IsDownloadInProgress())
         testing::StopEventLoop();
@@ -140,7 +140,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     storage.Subscribe(onChangeCountryFn, onProgressFn);
     storage.SetDownloadingUrlsForTesting({kTestWebServer});
 
-    TCountriesVec children;
+    CountriesVec children;
     storage.GetChildren(kGroupCountryId, children);
 
     // Check group node status is EOnDiskOutOfDate

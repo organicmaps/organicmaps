@@ -160,7 +160,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (void)updateBookmarkStatus:(BOOL)isBookmark;
 
 /// Country id for changing place page's fields which depend on application state.
-- (storage::TCountryId const &)countryId;
+- (storage::CountryId const &)countryId;
 - (FeatureID const &)featureId;
 
 // Regular

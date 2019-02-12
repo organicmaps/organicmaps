@@ -16,7 +16,7 @@ using namespace storage;
 
 @implementation MWMMigrationViewController
 {
-  TCountryId m_countryId;
+  CountryId m_countryId;
 }
 
 - (void)viewDidLoad
@@ -68,7 +68,7 @@ using namespace storage;
     [Statistics logEvent:kStatDownloaderMigrationCompleted];
   };
 
-  auto onStatusChanged = [self, migrate](TCountryId const & countryId)
+  auto onStatusChanged = [self, migrate](CountryId const & countryId)
   {
     if (m_countryId == kInvalidCountryId || m_countryId != countryId)
       return;
@@ -89,7 +89,7 @@ using namespace storage;
     }
   };
 
-  auto onProgressChanged = [self](TCountryId const & countryId, TLocalAndRemoteSize const & progress)
+  auto onProgressChanged = [self](CountryId const & countryId, TLocalAndRemoteSize const & progress)
   {
     MWMMigrationView * view = static_cast<MWMMigrationView *>(self.view);
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
@@ -104,7 +104,7 @@ using namespace storage;
   }];
 }
 
-- (void)showError:(NodeErrorCode)errorCode countryId:(TCountryId const &)countryId
+- (void)showError:(NodeErrorCode)errorCode countryId:(CountryId const &)countryId
 {
   [self setState:MWMMigrationViewState::Default];
   MWMAlertViewController * avc = [MWMAlertViewController activeAlertController];

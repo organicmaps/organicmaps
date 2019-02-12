@@ -47,7 +47,7 @@ void FakeMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string
   m_taskRunner.PostTask(bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
 }
 
-MapFilesDownloader::TProgress FakeMapFilesDownloader::GetDownloadingProgress()
+MapFilesDownloader::Progress FakeMapFilesDownloader::GetDownloadingProgress()
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   return m_progress;

@@ -4,7 +4,7 @@
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
++ (instancetype)downloaderAlertWithMaps:(storage::CountriesVec const &)countries
                                    code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock

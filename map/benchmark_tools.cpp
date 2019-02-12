@@ -28,7 +28,7 @@ struct BenchmarkHandle
 {
   std::vector<df::ScenarioManager::ScenarioData> m_scenariosToRun;
   size_t m_currentScenario = 0;
-  std::vector<storage::TCountryId> m_regionsToDownload;
+  std::vector<storage::CountryId> m_regionsToDownload;
   size_t m_regionsToDownloadCounter = 0;
 
 #ifdef DRAPE_MEASURER_BENCHMARK
@@ -165,7 +165,7 @@ void RunGraphicsBenchmark(Framework * framework)
     return;
 
   // Find out regions to download.
-  std::set<storage::TCountryId> regions;
+  std::set<storage::CountryId> regions;
   for (m2::PointD const & pt : points)
     regions.insert(framework->GetCountryInfoGetter().GetRegionCountryId(pt));
 
@@ -180,7 +180,7 @@ void RunGraphicsBenchmark(Framework * framework)
   // Download regions and run scenarios after downloading.
   if (!handle->m_regionsToDownload.empty())
   {
-    framework->GetStorage().Subscribe([framework, handle](storage::TCountryId const & countryId)
+    framework->GetStorage().Subscribe([framework, handle](storage::CountryId const & countryId)
     {
       if (std::find(handle->m_regionsToDownload.begin(),
                     handle->m_regionsToDownload.end(), countryId) != handle->m_regionsToDownload.end())
@@ -192,7 +192,7 @@ void RunGraphicsBenchmark(Framework * framework)
           RunScenario(framework, handle);
         }
       }
-    }, [](storage::TCountryId const &, storage::MapFilesDownloader::TProgress const &){});
+    }, [](storage::CountryId const &, storage::MapFilesDownloader::Progress const &){});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);

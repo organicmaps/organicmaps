@@ -17,14 +17,14 @@ double constexpr kStepInMercator = 1;
 
 struct PointAndCountry
 {
-  PointAndCountry(m2::PointD && pt, storage::TCountryId && country)
+  PointAndCountry(m2::PointD && pt, storage::CountryId && country)
     : m_pt(std::move(pt))
     , m_country(std::move(country))
   {
   }
 
   m2::PointD m_pt;
-  storage::TCountryId m_country;
+  storage::CountryId m_country;
 };
 
 UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)

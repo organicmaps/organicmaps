@@ -16,10 +16,10 @@ class MapFilesDownloader
 {
 public:
   // Denotes bytes downloaded and total number of bytes.
-  using TProgress = pair<int64_t, int64_t>;
+  using Progress = pair<int64_t, int64_t>;
 
-  using TFileDownloadedCallback = function<void(downloader::HttpRequest::Status status, TProgress const & progress)>;
-  using TDownloadingProgressCallback = function<void(TProgress const & progress)>;
+  using TFileDownloadedCallback = function<void(downloader::HttpRequest::Status status, Progress const & progress)>;
+  using TDownloadingProgressCallback = function<void(Progress const & progress)>;
   using TServersListCallback = function<void(vector<string> & urls)>;
 
   virtual ~MapFilesDownloader() = default;
@@ -36,7 +36,7 @@ public:
                                TDownloadingProgressCallback const & onProgress) = 0;
 
   /// Returns current downloading progress.
-  virtual TProgress GetDownloadingProgress() = 0;
+  virtual Progress GetDownloadingProgress() = 0;
 
   /// Returns true when downloader does not perform any job.
   virtual bool IsIdle() = 0;

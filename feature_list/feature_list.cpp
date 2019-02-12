@@ -294,12 +294,12 @@ bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, base::GeoOb
       });
 }
 
-void DidDownload(storage::TCountryId const & /* countryId */,
+void DidDownload(storage::CountryId const & /* countryId */,
                  shared_ptr<platform::LocalCountryFile> const & /* localFile */)
 {
 }
 
-bool WillDelete(storage::TCountryId const & /* countryId */,
+bool WillDelete(storage::CountryId const & /* countryId */,
                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
 {
   return false;

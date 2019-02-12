@@ -61,12 +61,12 @@ struct ApiItem
   {
   }
 
-  bool AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
+  bool AreAllCountriesDisabled(storage::CountriesVec const & countryIds,
                                std::string const & city) const;
-  bool IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
+  bool IsAnyCountryEnabled(storage::CountriesVec const & countryIds,
                            std::string const & city) const;
-  bool IsMwmDisabled(storage::TCountryId const & mwmId) const;
-  bool IsMwmEnabled(storage::TCountryId const & mwmId) const;
+  bool IsMwmDisabled(storage::CountryId const & mwmId) const;
+  bool IsMwmEnabled(storage::CountryId const & mwmId) const;
 
   Provider::Type m_type;
   ApiPtr m_api;

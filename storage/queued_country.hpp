@@ -13,7 +13,7 @@ namespace storage
 class QueuedCountry
 {
 public:
-  QueuedCountry(TCountryId const & m_countryId, MapOptions opt);
+  QueuedCountry(CountryId const & m_countryId, MapOptions opt);
 
   void AddOptions(MapOptions opt);
   void RemoveOptions(MapOptions opt);
@@ -24,15 +24,15 @@ public:
   void SetFrozen() { m_isFrozen = true; }
   bool IsFrozen() const { return m_isFrozen; }
 
-  inline TCountryId const & GetCountryId() const { return m_countryId; }
+  inline CountryId const & GetCountryId() const { return m_countryId; }
   inline MapOptions GetInitOptions() const { return m_init; }
   inline MapOptions GetCurrentFileOptions() const { return m_current; }
   inline MapOptions GetDownloadedFilesOptions() const { return UnsetOptions(m_init, m_left); }
 
-  inline bool operator==(TCountryId const & countryId) const { return m_countryId == countryId; }
+  inline bool operator==(CountryId const & countryId) const { return m_countryId == countryId; }
 
 private:
-  TCountryId m_countryId;
+  CountryId m_countryId;
   MapOptions m_init;
   MapOptions m_left;
   MapOptions m_current;

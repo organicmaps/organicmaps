@@ -244,11 +244,11 @@ protected:
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
-  void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile);
+  void OnCountryFileDownloaded(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
 
   /// This function will be called by m_storage before latest local files
   /// is deleted.
-  bool OnCountryFileDelete(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile);
+  bool OnCountryFileDelete(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
@@ -278,13 +278,13 @@ public:
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;
-  storage::TCountryId PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
-                  storage::Storage::TProgressFunction const & progress);
+  storage::CountryId PreMigrate(ms::LatLon const & position, storage::Storage::ChangeCountryFunction const & change,
+                  storage::Storage::ProgressFunction const & progress);
   void Migrate(bool keepDownloaded = true);
 
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.
-  bool HasUnsavedEdits(storage::TCountryId const & countryId);
+  bool HasUnsavedEdits(storage::CountryId const & countryId);
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
@@ -298,7 +298,7 @@ public:
   //@}
 
   /// Shows group or leaf mwm on the map.
-  void ShowNode(storage::TCountryId const & countryId);
+  void ShowNode(storage::CountryId const & countryId);
 
   // TipsApi::Delegate override.
   /// Checks, whether the country which contains the specified point is loaded.
@@ -311,7 +311,7 @@ public:
 
   /// @name Get any country info by point.
   //@{
-  storage::TCountryId GetCountryIndex(m2::PointD const & pt) const;
+  storage::CountryId GetCountryIndex(m2::PointD const & pt) const;
 
   string GetCountryName(m2::PointD const & pt) const;
   //@}
@@ -410,8 +410,8 @@ public:
   void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
-  using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
-  storage::TCountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
+  using TCurrentCountryChanged = function<void(storage::CountryId const &)>;
+  storage::CountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
@@ -541,7 +541,7 @@ private:
 
   void OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel);
 
-  storage::TCountryId m_lastReportedCountry;
+  storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
@@ -854,7 +854,7 @@ private:
   //@}
 
 public:
-  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
+  storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
 
 private:
   unique_ptr<search::CityFinder> m_cityFinder;

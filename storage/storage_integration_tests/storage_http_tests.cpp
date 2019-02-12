@@ -29,12 +29,12 @@ string const kDisputedCountryId2 = "Crimea";
 string const kDisputedCountryId3 = "Campo de Hielo Sur";
 string const kUndisputedCountryId = "Argentina_Buenos Aires_North";
 
-void Update(TCountryId const &, TLocalFilePtr const localCountryFile)
+void Update(CountryId const &, LocalFilePtr const localCountryFile)
 {
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
-void UpdateWithoutChecks(TCountryId const &, TLocalFilePtr const /* localCountryFile */)
+void UpdateWithoutChecks(CountryId const &, LocalFilePtr const /* localCountryFile */)
 {
 }
 
@@ -56,12 +56,12 @@ string const GetResumeFullPath(string const & countryId, string const & version)
                                  kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
 }
 
-void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload,
-                 Storage::TProgressFunction const & progress)
+void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
+                 Storage::ProgressFunction const & progress)
 {
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-  auto const changeCountryFunction = [&](TCountryId const & /* countryId */)
+  auto const changeCountryFunction = [&](CountryId const & /* countryId */)
   {
     if (!storage.IsDownloadInProgress())
     {
@@ -70,7 +70,7 @@ void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload
     }
   };
 
-  storage.Init(didDownload, [](TCountryId const &, TLocalFilePtr const){return false;});
+  storage.Init(didDownload, [](CountryId const &, LocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
@@ -97,7 +97,7 @@ public:
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
-  auto const progressFunction = [this](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+  auto const progressFunction = [this](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
@@ -138,7 +138,7 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
-  auto const progressFunction = [this](TCountryId const & countryId,
+  auto const progressFunction = [this](CountryId const & countryId,
       TLocalAndRemoteSize const & mapSize)
   {
     NodeAttrs nodeAttrs;
@@ -171,11 +171,11 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
   TEST(platform.IsFileExistsByFullPath(mwmFullPath3), ());
   TEST(platform.IsFileExistsByFullPath(mwmFullPathUndisputed), ());
 
-  TCountriesVec downloadedChildren;
-  TCountriesVec availChildren;
+  CountriesVec downloadedChildren;
+  CountriesVec availChildren;
   m_storage.GetChildrenInGroups(m_storage.GetRootId(), downloadedChildren, availChildren);
 
-  TCountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
+  CountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
   TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
   TEST_EQUAL(availChildren.size(), 223, ());
 

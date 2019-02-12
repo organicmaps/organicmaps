@@ -21,9 +21,9 @@ namespace
 {
 string const kCountryId = "Germany"; // Germany has 3-levels hierachy
 
-int GetLevelCount(Storage & storage, TCountryId const & countryId)
+int GetLevelCount(Storage & storage, CountryId const & countryId)
 {
-  TCountriesVec children;
+  CountriesVec children;
   storage.GetChildren(countryId, children);
   int level = 0;
   for (auto const & child : children)
@@ -48,11 +48,11 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   string const mapDir = base::JoinFoldersToPath(platform.WritableDir(), version);
 
-  auto onProgressFn = [&](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
   };
 
-  auto onChangeCountryFn = [&](TCountryId const & countryId)
+  auto onChangeCountryFn = [&](CountryId const & countryId)
   {
     if (!storage.IsDownloadInProgress())
       testing::StopEventLoop();

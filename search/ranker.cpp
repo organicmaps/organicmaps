@@ -699,7 +699,7 @@ string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) cons
 {
   auto const type = result.GetBestType(m_params.m_preferredTypes);
 
-  storage::TCountryId id;
+  storage::CountryId id;
   if (!result.GetCountryId(m_infoGetter, type, id))
     return {};
 

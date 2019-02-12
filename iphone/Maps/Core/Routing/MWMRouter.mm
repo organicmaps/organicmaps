@@ -621,7 +621,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 #pragma mark - MWMFrameworkRouteBuilderObserver
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
-                       countries:(storage::TCountriesVec const &)absentCountries
+                       countries:(storage::CountriesVec const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
@@ -693,7 +693,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 #pragma mark - Alerts
 
 - (void)presentDownloaderAlert:(routing::RouterResultCode)code
-                     countries:(storage::TCountriesVec const &)countries
+                     countries:(storage::CountriesVec const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
   if (platform::migrate::NeedMigrate())
@@ -712,7 +712,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
           if (code != routing::RouterResultCode::NeedMoreMaps)
             [MWMRouter stopRouting];
         }
-        downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
+        downloadBlock:^(storage::CountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
                           onSuccess:onSuccess];
         }

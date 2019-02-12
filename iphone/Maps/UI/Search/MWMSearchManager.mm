@@ -199,7 +199,7 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(storage::TCountryId const &)countryId
+- (void)processCountryEvent:(storage::CountryId const &)countryId
 {
   using namespace storage;
   NodeStatuses nodeStatuses{};

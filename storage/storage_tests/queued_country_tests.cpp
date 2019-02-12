@@ -8,7 +8,7 @@ namespace storage
 UNIT_TEST(QueuedCountry_AddOptions)
 {
   Storage storage;
-  TCountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
+  CountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
   QueuedCountry country(countryId, MapOptions::CarRouting);
 
   TEST_EQUAL(countryId, country.GetCountryId(), ());
@@ -31,7 +31,7 @@ UNIT_TEST(QueuedCountry_AddOptions)
 UNIT_TEST(QueuedCountry_RemoveOptions)
 {
   Storage storage;
-  TCountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
+  CountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
 
   {
     QueuedCountry country(countryId, MapOptions::MapWithCarRouting);

@@ -864,7 +864,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(storage::TCountryId const &)countryId
+- (void)processCountryEvent:(storage::CountryId const &)countryId
 {
   // Dispatch this method after delay since there are too many events for group mwms download.
   // We do not need to update badge frequently.

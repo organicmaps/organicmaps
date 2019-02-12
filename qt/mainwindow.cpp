@@ -455,7 +455,7 @@ void MainWindow::CreateCountryStatusControls()
 
   m_pDrawWidget->setLayout(mainLayout);
 
-  m_pDrawWidget->SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId,
+  m_pDrawWidget->SetCurrentCountryChangedListener([this](storage::CountryId const & countryId,
                                                          string const & countryName, storage::Status status,
                                                          uint64_t sizeInBytes, uint8_t progress)
   {

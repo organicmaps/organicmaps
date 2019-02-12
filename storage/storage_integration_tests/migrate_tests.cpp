@@ -50,9 +50,9 @@ UNIT_TEST(StorageFastMigrationTests)
 
 //UNIT_TEST(StorageMigrationTests)
 //{
-//  TCountriesVec const kOldCountries = {"Estonia"};
-//  TCountriesVec const kNewCountries = {"Estonia_East", "Estonia_West"};
-//  TCountriesVec const kPrefetchCountries = {"Russia_Moscow"};
+//  CountriesVec const kOldCountries = {"Estonia"};
+//  CountriesVec const kNewCountries = {"Estonia_East", "Estonia_West"};
+//  CountriesVec const kPrefetchCountries = {"Russia_Moscow"};
 //
 //  WritableDirChanger writableDirChanger(kMapTestDir);
 //
@@ -61,7 +61,7 @@ UNIT_TEST(StorageFastMigrationTests)
 //  Framework f(kFrameworkParams);
 //  auto & s = f.GetStorage();
 //
-//  auto statePrefetchChanged = [&](TCountryId const & id)
+//  auto statePrefetchChanged = [&](CountryId const & id)
 //  {
 //    Status const nextStatus = f.GetStorage().GetPrefetchStorage()->CountryStatusEx(id);
 //    LOG_SHORT(LINFO, (id, "status :", nextStatus));
@@ -72,7 +72,7 @@ UNIT_TEST(StorageFastMigrationTests)
 //    }
 //  };
 //
-//  auto stateChanged = [&](TCountryId const & id)
+//  auto stateChanged = [&](CountryId const & id)
 //  {
 //    if (!f.GetStorage().IsDownloadInProgress())
 //    {
@@ -81,7 +81,7 @@ UNIT_TEST(StorageFastMigrationTests)
 //    }
 //  };
 //
-//  auto progressChanged = [](TCountryId const & id, TLocalAndRemoteSize const & sz)
+//  auto progressChanged = [](CountryId const & id, TLocalAndRemoteSize const & sz)
 //  {
 //    LOG_SHORT(LINFO, (id, "downloading progress:", sz));
 //  };

@@ -7,7 +7,7 @@ namespace taxi
 bool Places::IsCountriesEmpty() const { return m_countries.empty(); }
 bool Places::IsMwmsEmpty() const { return m_mwmIds.empty(); }
 
-bool Places::Has(storage::TCountryId const & id, std::string const & city) const
+bool Places::Has(storage::CountryId const & id, std::string const & city) const
 {
   auto const countryIt =
       std::find_if(m_countries.cbegin(), m_countries.cend(),
@@ -27,7 +27,7 @@ bool Places::Has(storage::TCountryId const & id, std::string const & city) const
   return cityIt != cities.cend();
 }
 
-bool Places::Has(storage::TCountryId const & mwmId) const
+bool Places::Has(storage::CountryId const & mwmId) const
 {
   return m_mwmIds.find(mwmId) != m_mwmIds.cend();
 }

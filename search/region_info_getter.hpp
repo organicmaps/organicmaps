@@ -16,11 +16,11 @@ public:
   void LoadCountriesTree();
   void SetLocale(std::string const & locale);
 
-  std::string GetLocalizedFullName(storage::TCountryId const & id) const;
-  std::string GetLocalizedCountryName(storage::TCountryId const & id) const;
+  std::string GetLocalizedFullName(storage::CountryId const & id) const;
+  std::string GetLocalizedCountryName(storage::CountryId const & id) const;
 
 private:
-  storage::TCountryTree m_countries;
+  storage::CountryTree m_countries;
   std::unique_ptr<platform::GetTextById> m_nameGetter;
 };
 }  // namespace search

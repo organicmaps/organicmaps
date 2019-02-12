@@ -90,7 +90,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
       }
     }
     auto const & mercator = result.GetFeatureCenter();
-    storage::TCountryId const & countryId = m_infoGetter.GetRegionCountryId(mercator);
+    storage::CountryId const & countryId = m_infoGetter.GetRegionCountryId(mercator);
     if (countryId == storage::kInvalidCountryId)
       continue;
 

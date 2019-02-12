@@ -106,7 +106,7 @@ using namespace storage;
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
-    TCountryId const countryId = notificationCountryId.UTF8String;
+    CountryId const countryId = notificationCountryId.UTF8String;
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
             kStatAction : kStatDownload,

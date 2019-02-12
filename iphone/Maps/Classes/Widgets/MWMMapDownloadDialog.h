@@ -8,6 +8,6 @@
 
 + (instancetype)dialogForController:(MapViewController *)controller;
 
-- (void)processViewportCountryEvent:(storage::TCountryId const &)countryId;
+- (void)processViewportCountryEvent:(storage::CountryId const &)countryId;
 
 @end

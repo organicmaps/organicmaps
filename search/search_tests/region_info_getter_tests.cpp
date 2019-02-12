@@ -19,12 +19,12 @@ public:
 
   void SetLocale(std::string const & locale) { m_regionInfoGetter.SetLocale(locale); }
 
-  std::string GetLocalizedFullName(storage::TCountryId const & id) const
+  std::string GetLocalizedFullName(storage::CountryId const & id) const
   {
     return m_regionInfoGetter.GetLocalizedFullName(id);
   }
 
-  std::string GetLocalizedCountryName(storage::TCountryId const & id) const
+  std::string GetLocalizedCountryName(storage::CountryId const & id) const
   {
     return m_regionInfoGetter.GetLocalizedCountryName(id);
   }

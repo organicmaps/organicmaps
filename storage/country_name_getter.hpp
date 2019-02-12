@@ -9,7 +9,7 @@
 
 namespace storage
 {
-/// CountryNameGetter is responsible for generating text name for TCountryId in a specified locale
+/// CountryNameGetter is responsible for generating text name for CountryId in a specified locale
 /// To get this country name use operator().
 /// If the country caption is not available for specified locale, class tries to find it in
 /// English locale.
@@ -31,7 +31,7 @@ public:
   /// \note Unlike operator (), does not return key if localized string is not found.
   std::string Get(std::string const & key) const;
 
-  std::string operator()(TCountryId const & countryId) const;
+  std::string operator()(CountryId const & countryId) const;
 
   // for testing
   void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);

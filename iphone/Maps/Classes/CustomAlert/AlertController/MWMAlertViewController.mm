@@ -102,7 +102,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingMigrationAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
+- (void)presentDownloaderAlertWithCountries:(storage::CountriesVec const &)countries
                                        code:(routing::RouterResultCode)code
                                 cancelBlock:(MWMVoidBlock)cancelBlock
                               downloadBlock:(MWMDownloadBlock)downloadBlock

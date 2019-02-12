@@ -20,10 +20,10 @@ namespace
 // the |countries| tree, except the root. Does nothing if there are
 // multiple ways from |id| to the |root|.
 template <typename Fn>
-void GetPathToRoot(storage::TCountryId const & id, storage::TCountryTree const & countries,
+void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & countries,
                    Fn && fn)
 {
-  vector<storage::TCountryTree::Node const *> nodes;
+  vector<storage::CountryTree::Node const *> nodes;
   countries.Find(id, nodes);
 
   if (nodes.empty())
@@ -52,12 +52,12 @@ void RegionInfoGetter::SetLocale(string const & locale)
   m_nameGetter = platform::GetTextByIdFactory(platform::TextSource::Countries, locale);
 }
 
-string RegionInfoGetter::GetLocalizedFullName(storage::TCountryId const & id) const
+string RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id) const
 {
   size_t const kMaxNumParts = 2;
 
   vector<string> parts;
-  GetPathToRoot(id, m_countries, [&](storage::TCountryId const & id) {
+  GetPathToRoot(id, m_countries, [&](storage::CountryId const & id) {
     parts.push_back(GetLocalizedCountryName(id));
   });
 
@@ -84,7 +84,7 @@ string RegionInfoGetter::GetLocalizedFullName(storage::TCountryId const & id) co
   return {};
 }
 
-string RegionInfoGetter::GetLocalizedCountryName(storage::TCountryId const & id) const
+string RegionInfoGetter::GetLocalizedCountryName(storage::CountryId const & id) const
 {
   if (!m_nameGetter)
     return {};

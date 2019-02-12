@@ -31,7 +31,7 @@ public:
   void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
                        TFileDownloadedCallback const & onDownloaded,
                        TDownloadingProgressCallback const & onProgress) override;
-  TProgress GetDownloadingProgress() override;
+  Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 
@@ -39,7 +39,7 @@ private:
   void DownloadNextChunk(uint64_t requestId);
 
   vector<string> m_servers;
-  TProgress m_progress;
+  Progress m_progress;
   bool m_idle;
 
   unique_ptr<FileWriter> m_writer;

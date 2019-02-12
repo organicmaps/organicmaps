@@ -22,7 +22,7 @@ public:
   void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
                        TFileDownloadedCallback const & onDownloaded,
                        TDownloadingProgressCallback const & onProgress) override;
-  TProgress GetDownloadingProgress() override;
+  Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 

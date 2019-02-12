@@ -35,7 +35,7 @@ void Container::AppendExcludedTypes(
 }
 
 void Container::AppendSupportedCountries(
-    std::initializer_list<storage::TCountryId> const & countries)
+    std::initializer_list<storage::CountryId> const & countries)
 {
   m_supportedCountries.insert(countries.begin(), countries.end());
 }
@@ -52,7 +52,7 @@ void Container::AppendSupportedUserLanguages(std::initializer_list<std::string> 
 }
 
 bool Container::HasBanner(feature::TypesHolder const & types,
-                          storage::TCountryId const & countryId,
+                          storage::CountryId const & countryId,
                           std::string const & userLanguage) const
 {
   if (!m_supportedCountries.empty() &&
@@ -66,7 +66,7 @@ bool Container::HasBanner(feature::TypesHolder const & types,
 }
 
 std::string Container::GetBannerId(feature::TypesHolder const & types,
-                                   storage::TCountryId const & countryId,
+                                   storage::CountryId const & countryId,
                                    std::string const & userLanguage) const
 {
   if (!HasBanner(types, countryId, userLanguage))

@@ -21,7 +21,7 @@ Engine::Engine()
 }
 
 bool Engine::HasBanner(feature::TypesHolder const & types,
-                       storage::TCountriesVec const & countryIds,
+                       storage::CountriesVec const & countryIds,
                        std::string const & userLanguage) const
 {
   for (auto const & countryId : countryIds)
@@ -37,7 +37,7 @@ bool Engine::HasBanner(feature::TypesHolder const & types,
 }
 
 std::vector<Banner> Engine::GetBanners(feature::TypesHolder const & types,
-                                       storage::TCountriesVec const & countryIds,
+                                       storage::CountriesVec const & countryIds,
                                        std::string const & userLanguage) const
 {
   std::vector<Banner> result;

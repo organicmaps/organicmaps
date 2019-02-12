@@ -34,16 +34,16 @@ public:
   // Returns country file name without an extension for a country |pt|
   // belongs to. If there is no such country, returns an empty
   // string.
-  TCountryId GetRegionCountryId(m2::PointD const & pt) const;
+  CountryId GetRegionCountryId(m2::PointD const & pt) const;
 
   // Returns true when |pt| belongs to at least one of the specified
   // |regions|.
   bool IsBelongToRegions(m2::PointD const & pt, TRegionIdSet const & regions) const;
 
   // Returns true if there're at least one region with id equal to |countryId|.
-  bool IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const;
+  bool IsBelongToRegions(CountryId const & countryId, TRegionIdSet const & regions) const;
 
-  void RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const;
+  void RegionIdsToCountryIds(TRegionIdSet const & regions, CountriesVec & countries) const;
 
 protected:
   // Returns identifier of the first country containing |pt|.
@@ -69,19 +69,19 @@ public:
   // Returns vector of countries file names without an extension for
   // countries belong to |rect|. |rough| provides fast rough result
   // or a slower but more precise one.
-  std::vector<TCountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
+  std::vector<CountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
 
   // Returns a list of country ids by a |pt| in mercator.
   // |closestCoutryIds| is filled with country ids of mwm which covers |pt| or close to it.
   // |closestCoutryIds| is not filled with country world.mwm country id and with custom mwm.
   // If |pt| is covered by a sea or a ocean closestCoutryIds may be left empty.
-  void GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds);
+  void GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds);
 
   // Returns info for a region |pt| belongs to.
   void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
 
   // Returns info for a country by id.
-  void GetRegionInfo(TCountryId const & countryId, CountryInfo & info) const;
+  void GetRegionInfo(CountryId const & countryId, CountryInfo & info) const;
 
   // Return limit rects of USA:
   // 0 - continental part
@@ -95,7 +95,7 @@ public:
   // Returns limit rect for |countryId| (non-expandable node).
   // Returns bounding box in mercator coordinates if |countryId| is a country id of non-expandable node
   // and zero rect otherwise.
-  m2::RectD GetLimitRectForLeaf(TCountryId const & leafCountryId) const;
+  m2::RectD GetLimitRectForLeaf(CountryId const & leafCountryId) const;
 
   // Returns identifiers for all regions matching to correspondent |affiliation|.
   virtual void GetMatchedRegions(string const & affiliation, TRegionIdSet & regions) const;
@@ -122,7 +122,7 @@ protected:
   // @TODO(bykoianko): consider to get rid of m_countryIndex.
   // The possibility should be considered.
   // Maps all leaf country id (file names) to their indices in m_countries.
-  std::unordered_map<TCountryId, TRegionId> m_countryIndex;
+  std::unordered_map<CountryId, TRegionId> m_countryIndex;
 
   TMappingAffiliations const * m_affiliations = nullptr;
 

@@ -97,7 +97,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   Observers * observers = self.routeBuildingObservers;
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener(
-      [observers](RouterResultCode code, TCountriesVec const & absentCountries) {
+      [observers](RouterResultCode code, CountriesVec const & absentCountries) {
         loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
           [observer processRouteBuilderEvent:code countries:absentCountries];
         });
@@ -130,11 +130,11 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   Observers * observers = self.storageObservers;
   auto & s = GetFramework().GetStorage();
   s.Subscribe(
-      [observers](TCountryId const & countryId) {
+      [observers](CountryId const & countryId) {
         for (TStorageObserver observer in observers)
           [observer processCountryEvent:countryId];
       },
-      [observers](TCountryId const & countryId, MapFilesDownloader::TProgress const & progress) {
+      [observers](CountryId const & countryId, MapFilesDownloader::Progress const & progress) {
         for (TStorageObserver observer in observers)
         {
           if ([observer respondsToSelector:@selector(processCountry:progress:)])
@@ -149,7 +149,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 {
   Observers * observers = self.drapeObservers;
   auto & f = GetFramework();
-  f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId) {
+  f.SetCurrentCountryChangedListener([observers](CountryId const & countryId) {
     for (TDrapeObserver observer in observers)
     {
       if ([observer respondsToSelector:@selector(processViewportCountryEvent:)])

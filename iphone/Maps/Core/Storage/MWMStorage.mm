@@ -13,7 +13,7 @@ using namespace storage;
 
 @implementation MWMStorage
 
-+ (void)downloadNode:(TCountryId const &)countryId onSuccess:(MWMVoidBlock)onSuccess
++ (void)downloadNode:(CountryId const &)countryId onSuccess:(MWMVoidBlock)onSuccess
 {
   if (IsEnoughSpaceForDownload(countryId, GetFramework().GetStorage()))
   {
@@ -29,14 +29,14 @@ using namespace storage;
   }
 }
 
-+ (void)retryDownloadNode:(TCountryId const &)countryId
++ (void)retryDownloadNode:(CountryId const &)countryId
 {
   [MWMFrameworkHelper checkConnectionAndPerformAction:[countryId] {
     GetFramework().GetStorage().RetryDownloadNode(countryId);
   }];
 }
 
-+ (void)updateNode:(TCountryId const &)countryId
++ (void)updateNode:(CountryId const &)countryId
 {
   if (IsEnoughSpaceForUpdate(countryId, GetFramework().GetStorage()))
   {
@@ -50,7 +50,7 @@ using namespace storage;
   }
 }
 
-+ (void)deleteNode:(TCountryId const &)countryId
++ (void)deleteNode:(CountryId const &)countryId
 {
   if ([MWMRouter isRoutingActive])
   {
@@ -72,20 +72,20 @@ using namespace storage;
   }
 }
 
-+ (void)cancelDownloadNode:(TCountryId const &)countryId
++ (void)cancelDownloadNode:(CountryId const &)countryId
 {
   GetFramework().GetStorage().CancelDownloadNode(countryId);
 }
 
-+ (void)showNode:(TCountryId const &)countryId
++ (void)showNode:(CountryId const &)countryId
 {
   GetFramework().ShowNode(countryId);
 }
-+ (void)downloadNodes:(TCountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
++ (void)downloadNodes:(CountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
   auto & s = GetFramework().GetStorage();
-  TMwmSize requiredSize = std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
-                                     [](size_t const & size, TCountryId const & countryId)
+  MwmSize requiredSize = std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
+                                     [](size_t const & size, CountryId const & countryId)
                                      {
                                        NodeAttrs nodeAttrs;
                                        GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);

@@ -14,7 +14,7 @@ auto const kEntertainmentPlacementId = "9";
 auto const kBuildingPlacementId = "11";
 auto const kBannerIdForOtherTypes = "14";
 
-std::initializer_list<storage::TCountryId> const kSupportedCountries =
+std::initializer_list<storage::CountryId> const kSupportedCountries =
 {
   "Azerbaijan Region",
   "Armenia",

@@ -19,7 +19,7 @@ public:
 
   struct Country
   {
-    storage::TCountryId m_id;
+    storage::CountryId m_id;
     std::vector<std::string> m_cities;
 
     DECLARE_VISITOR_AND_DEBUG_PRINT(Country, visitor(m_id, "id"), visitor(m_cities, "cities"))
@@ -27,15 +27,15 @@ public:
 
   bool IsCountriesEmpty() const;
   bool IsMwmsEmpty() const;
-  bool Has(storage::TCountryId const & id, std::string const & city) const;
-  bool Has(storage::TCountryId const & mwmId) const;
+  bool Has(storage::CountryId const & id, std::string const & city) const;
+  bool Has(storage::CountryId const & mwmId) const;
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Places, visitor(m_countries, "countries"),
                                   visitor(m_mwmIds, "mwms"))
 
 private:
   std::vector<Country> m_countries;
-  std::unordered_set<storage::TCountryId> m_mwmIds;
+  std::unordered_set<storage::CountryId> m_mwmIds;
 };
 
 struct SupportedPlaces

@@ -86,12 +86,12 @@ struct CompletenessQuery
 
 DECLARE_EXCEPTION(MalformedQueryException, RootException);
 
-void DidDownload(TCountryId const & /* countryId */,
+void DidDownload(CountryId const & /* countryId */,
                  shared_ptr<platform::LocalCountryFile> const & /* localFile */)
 {
 }
 
-bool WillDelete(TCountryId const & /* countryId */,
+bool WillDelete(CountryId const & /* countryId */,
                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
 {
   return false;

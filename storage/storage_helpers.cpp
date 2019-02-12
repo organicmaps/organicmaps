@@ -20,15 +20,15 @@ bool IsDownloadFailed(Status status)
          status == Status::EUnknown;
 }
 
-bool IsEnoughSpaceForDownload(TMwmSize mwmSize)
+bool IsEnoughSpaceForDownload(MwmSize mwmSize)
 {
   // Additional size which is necessary to have on flash card to download file of mwmSize bytes.
-  TMwmSize constexpr kExtraSizeBytes = 10 * 1024 * 1024;
+  MwmSize constexpr kExtraSizeBytes = 10 * 1024 * 1024;
   return GetPlatform().GetWritableStorageStatus(mwmSize + kExtraSizeBytes) ==
          Platform::TStorageStatus::STORAGE_OK;
 }
 
-bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize)
+bool IsEnoughSpaceForDownload(MwmSize mwmSizeDiff, MwmSize maxMwmSize)
 {
   // Mwm size is less than |maxMwmSize|. In case of map update at first we download updated map
   // and only after that we do delete the obsolete map. So in such a case we might need up to
@@ -36,29 +36,29 @@ bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize)
   return IsEnoughSpaceForDownload(mwmSizeDiff + maxMwmSize);
 }
 
-bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage)
+bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage)
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
   return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
 }
 
-bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage)
+bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage)
 {
   Storage::UpdateInfo updateInfo;
   
   storage.GetUpdateInfo(countryId, updateInfo);
-  TMwmSize spaceNeedForUpdate = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
+  MwmSize spaceNeedForUpdate = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
   return IsEnoughSpaceForDownload(spaceNeedForUpdate, storage.GetMaxMwmSizeBytes());
 }
 
-m2::RectD CalcLimitRect(TCountryId const & countryId,
+m2::RectD CalcLimitRect(CountryId const & countryId,
                         Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
 {
   m2::RectD boundingBox;
   auto const accumulator =
-      [&countryInfoGetter, &boundingBox](TCountryId const & descendantId, bool groupNode)
+      [&countryInfoGetter, &boundingBox](CountryId const & descendantId, bool groupNode)
   {
     if (!groupNode)
       boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));

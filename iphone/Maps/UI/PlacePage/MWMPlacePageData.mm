@@ -479,7 +479,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 #pragma mark - Getters
 
 - (BOOL)isPopular { return m_info.GetPopularity() > 0; }
-- (storage::TCountryId const &)countryId { return m_info.GetCountryId(); }
+- (storage::CountryId const &)countryId { return m_info.GetCountryId(); }
 - (FeatureID const &)featureId { return m_info.GetID(); }
 - (NSString *)title { return @(m_info.GetTitle().c_str()); }
 - (NSString *)subtitle { return @(m_info.GetSubtitle().c_str()); }

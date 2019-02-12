@@ -65,12 +65,12 @@ public:
 
   void SetRouter(routing::RouterType routerType);
 
-  using TCurrentCountryChanged = function<void(storage::TCountryId const &, string const &,
+  using TCurrentCountryChanged = function<void(storage::CountryId const &, string const &,
                                                storage::Status, uint64_t, uint8_t)>;
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
-  void DownloadCountry(storage::TCountryId const & countryId);
-  void RetryToDownloadCountry(storage::TCountryId const & countryId);
+  void DownloadCountry(storage::CountryId const & countryId);
+  void RetryToDownloadCountry(storage::CountryId const & countryId);
 
   void SetSelectionMode(bool mode);
   void SetCityBoundariesSelectionMode(bool mode);
@@ -105,7 +105,7 @@ private:
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
   void ShowPlacePage(place_page::Info const & info);
 
-  void UpdateCountryStatus(storage::TCountryId const & countryId);
+  void UpdateCountryStatus(storage::CountryId const & countryId);
 
   QRubberBand * m_rubberBand;
   QPoint m_rubberBandOrigin;
@@ -113,7 +113,7 @@ private:
   bool m_emulatingLocation;
 
   TCurrentCountryChanged m_currentCountryChanged;
-  storage::TCountryId m_countryId;
+  storage::CountryId m_countryId;
 
   bool m_selectionMode = false;
   bool m_cityBoundariesSelectionMode = false;

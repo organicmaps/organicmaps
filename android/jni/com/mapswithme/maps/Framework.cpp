@@ -324,7 +324,7 @@ Storage & Framework::GetStorage()
 
 DataSource const & Framework::GetDataSource() { return m_work.GetDataSource(); }
 
-void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
+void Framework::ShowNode(CountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
@@ -577,8 +577,8 @@ void Framework::Migrate(bool keepOldMaps)
   m_work.Migrate(keepOldMaps);
 }
 
-storage::TCountryId Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryFunction const & statusChangeListener,
-                                                                       Storage::TProgressFunction const & progressListener)
+storage::CountryId Framework::PreMigrate(ms::LatLon const & position, Storage::ChangeCountryFunction const & statusChangeListener,
+                                                                       Storage::ProgressFunction const & progressListener)
 {
   return m_work.PreMigrate(position, statusChangeListener, progressListener);
 }
@@ -697,7 +697,7 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 
 extern "C"
 {
-void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps)
+void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::CountryId> const & absentMaps)
 {
   JNIEnv * env = jni::GetEnv();
   jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
@@ -1267,7 +1267,7 @@ Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass
   CHECK(g_framework, ("Framework isn't created yet!"));
   auto rf = jni::make_global_ref(listener);
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      [rf](routing::RouterResultCode e, storage::TCountriesVec const & v) {
+      [rf](routing::RouterResultCode e, storage::CountriesVec const & v) {
         CallRoutingListener(rf, static_cast<int>(e), v);
       });
 }

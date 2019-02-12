@@ -200,7 +200,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   auto data = self.data;
   if (!data || [data countryId] != countryId)
@@ -223,8 +223,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.layout processDownloaderEventWithStatus:status progress:0];
 }
 
-- (void)processCountry:(TCountryId const &)countryId
-              progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId
+              progress:(MapFilesDownloader::Progress const &)progress
 {
   auto data = self.data;
   if (!data || countryId == kInvalidCountryId || [data countryId] != countryId)

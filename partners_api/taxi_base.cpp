@@ -15,7 +15,7 @@ bool ApiBase::IsDistanceSupported(ms::LatLon const & from, ms::LatLon const & to
   return ms::DistanceOnEarth(from, to) <= kMaxSupportedDistance;
 }
 
-bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
+bool ApiItem::AreAllCountriesDisabled(storage::CountriesVec const & countryIds,
                                       std::string const & city) const
 {
   if (countryIds.empty())
@@ -33,7 +33,7 @@ bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
   return isCountryDisabled;
 }
 
-bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
+bool ApiItem::IsAnyCountryEnabled(storage::CountriesVec const & countryIds,
                                   std::string const & city) const
 {
   if (countryIds.empty())
@@ -53,7 +53,7 @@ bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
   return false;
 }
 
-bool ApiItem::IsMwmDisabled(storage::TCountryId const & mwmId) const
+bool ApiItem::IsMwmDisabled(storage::CountryId const & mwmId) const
 {
   auto const & disabled = m_places.m_disabledPlaces;
   if (mwmId.empty())
@@ -62,7 +62,7 @@ bool ApiItem::IsMwmDisabled(storage::TCountryId const & mwmId) const
   return disabled.Has(mwmId);
 }
 
-bool ApiItem::IsMwmEnabled(storage::TCountryId const & mwmId) const
+bool ApiItem::IsMwmEnabled(storage::CountryId const & mwmId) const
 {
   auto const & enabled = m_places.m_enabledPlaces;
   if (mwmId.empty())

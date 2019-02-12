@@ -12,9 +12,9 @@ enum class MapOptions : uint8_t
   Diff = 0x4
 };
 
-using TMwmCounter = uint32_t;
-using TMwmSize = uint64_t;
-using TLocalAndRemoteSize = pair<TMwmSize, TMwmSize>;
+using MwmCounter = uint32_t;
+using MwmSize = uint64_t;
+using TLocalAndRemoteSize = pair<MwmSize, MwmSize>;
 
 bool HasOptions(MapOptions mask, MapOptions options);
 

@@ -11,10 +11,10 @@
 class DownloadingPolicy
 {
 public:
-  using TProcessFunc = std::function<void(storage::TCountriesSet const &)>;
+  using TProcessFunc = std::function<void(storage::CountriesSet const &)>;
   virtual ~DownloadingPolicy() = default;
   virtual bool IsDownloadingAllowed() { return true; }
-  virtual void ScheduleRetry(storage::TCountriesSet const &, TProcessFunc const &) {}
+  virtual void ScheduleRetry(storage::CountriesSet const &, TProcessFunc const &) {}
 };
 
 class StorageDownloadingPolicy : public DownloadingPolicy
@@ -39,6 +39,6 @@ public:
 
   // DownloadingPolicy overrides:
   bool IsDownloadingAllowed() override;
-  void ScheduleRetry(storage::TCountriesSet const & failedCountries,
+  void ScheduleRetry(storage::CountriesSet const & failedCountries,
                      TProcessFunc const & func) override;
 };

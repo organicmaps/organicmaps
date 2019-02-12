@@ -20,13 +20,13 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position, Storage const &
 
 bool IsDownloadFailed(Status status);
 
-bool IsEnoughSpaceForDownload(TMwmSize mwmSize);
-bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize);
-bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage);
-bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage);
+bool IsEnoughSpaceForDownload(MwmSize mwmSize);
+bool IsEnoughSpaceForDownload(MwmSize mwmSizeDiff, MwmSize maxMwmSize);
+bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage);
+bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage);
 
 /// \brief Calculates limit rect for |countryId| (expandable or not).
 /// \returns bounding box in mercator coordinates.
-m2::RectD CalcLimitRect(TCountryId const & countryId, Storage const & storage,
+m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter);
 }  // namespace storage

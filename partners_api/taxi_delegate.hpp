@@ -13,8 +13,8 @@ class Delegate
 public:
   virtual ~Delegate() = default;
 
-  virtual storage::TCountriesVec GetCountryIds(m2::PointD const & point) = 0;
+  virtual storage::CountriesVec GetCountryIds(m2::PointD const & point) = 0;
   virtual std::string GetCityName(m2::PointD const & point) = 0;
-  virtual storage::TCountryId GetMwmId(m2::PointD const & point) = 0;
+  virtual storage::CountryId GetMwmId(m2::PointD const & point) = 0;
 };
 }  // namespace taxi

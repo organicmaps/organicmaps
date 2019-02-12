@@ -20,10 +20,10 @@ public:
   Engine();
 
   bool HasBanner(feature::TypesHolder const & types,
-                 storage::TCountriesVec const & countryIds,
+                 storage::CountriesVec const & countryIds,
                  std::string const & userLanguage) const;
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
-                                 storage::TCountriesVec const & countryIds,
+                                 storage::CountriesVec const & countryIds,
                                  std::string const & userLanguage) const;
   void DisableAdProvider(Banner::Type const type, Banner::Place const place);
   bool HasSearchBanner() const;

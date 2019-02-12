@@ -51,7 +51,7 @@ private:
 }  // namespace
 
 // CountryInfoGetterBase ---------------------------------------------------------------------------
-TCountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
+CountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
 {
   TRegionId const id = FindFirstCountry(pt);
   return id != kInvalidId ? m_countries[id].m_countryId : kInvalidCountryId;
@@ -68,7 +68,7 @@ bool CountryInfoGetterBase::IsBelongToRegions(m2::PointD const & pt,
   return false;
 }
 
-bool CountryInfoGetterBase::IsBelongToRegions(TCountryId const & countryId,
+bool CountryInfoGetterBase::IsBelongToRegions(CountryId const & countryId,
                                               TRegionIdSet const & regions) const
 {
   for (auto const & id : regions)
@@ -80,7 +80,7 @@ bool CountryInfoGetterBase::IsBelongToRegions(TCountryId const & countryId,
 }
 
 void CountryInfoGetterBase::RegionIdsToCountryIds(TRegionIdSet const & regions,
-                                                  TCountriesVec & countries) const
+                                                  CountriesVec & countries) const
 {
   for (auto const & id : regions)
     countries.push_back(m_countries[id].m_countryId);
@@ -98,11 +98,11 @@ CountryInfoGetterBase::TRegionId CountryInfoGetterBase::FindFirstCountry(m2::Poi
 }
 
 // CountryInfoGetter -------------------------------------------------------------------------------
-vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
+vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
 {
   size_t constexpr kAverageSize = 10;
 
-  std::vector<TCountryId> result;
+  std::vector<CountryId> result;
   result.reserve(kAverageSize);
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
@@ -119,7 +119,7 @@ vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const 
   return result;
 }
 
-void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)
+void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds)
 {
   double const kLookupRadiusM = 30 /* km */ * 1000;
 
@@ -141,7 +141,7 @@ void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info)
     GetRegionInfo(m_countries[id].m_countryId, info);
 }
 
-void CountryInfoGetter::GetRegionInfo(TCountryId const & countryId, CountryInfo & info) const
+void CountryInfoGetter::GetRegionInfo(CountryId const & countryId, CountryInfo & info) const
 {
   auto const it = m_id2info.find(countryId);
   if (it == m_id2info.end())
@@ -169,7 +169,7 @@ m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
   return rect;
 }
 
-m2::RectD CountryInfoGetter::GetLimitRectForLeaf(TCountryId const & leafCountryId) const
+m2::RectD CountryInfoGetter::GetLimitRectForLeaf(CountryId const & leafCountryId) const
 {
   auto const it = this->m_countryIndex.find(leafCountryId);
   ASSERT(it != this->m_countryIndex.end(), ());

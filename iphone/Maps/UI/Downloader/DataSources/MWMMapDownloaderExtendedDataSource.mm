@@ -47,7 +47,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
     return;
   auto & f = GetFramework();
   auto & countryInfoGetter = f.GetCountryInfoGetter();
-  TCountriesVec closestCoutryIds;
+  CountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
   for (auto const & countryId : closestCoutryIds)

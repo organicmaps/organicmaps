@@ -13,9 +13,9 @@ namespace
 class DelegateForTesting : public taxi::Delegate
 {
 public:
-  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {""}; }
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override { return {""}; }
   std::string GetCityName(m2::PointD const & point) override { return ""; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return ""; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return ""; }
 };
 
 using Runner = Platform::ThreadRunner;

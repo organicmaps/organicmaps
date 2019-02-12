@@ -18,7 +18,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 
 /// \brief Calculates and adds some information to transit graph (|data|) after deserializing
 /// from json.
-void ProcessGraph(std::string const & mwmPath, storage::TCountryId const & countryId,
+void ProcessGraph(std::string const & mwmPath, storage::CountryId const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
 
 /// \brief Builds the transit section in the mwm based on transit graph in json which represents
@@ -31,7 +31,7 @@ void ProcessGraph(std::string const & mwmPath, storage::TCountryId const & count
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
-void BuildTransit(std::string const & mwmDir, storage::TCountryId const & countryId,
+void BuildTransit(std::string const & mwmDir, storage::CountryId const & countryId,
                   std::string const & osmIdToFeatureIdsPath, std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing

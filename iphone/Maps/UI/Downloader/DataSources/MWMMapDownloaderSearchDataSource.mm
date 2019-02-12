@@ -68,7 +68,7 @@ using namespace storage;
 {
   auto const & s = GetFramework().GetStorage();
   NSString * countryId = [self countryIdForIndexPath:indexPath];
-  TCountriesVec children;
+  CountriesVec children;
   s.GetChildren(countryId.UTF8String, children);
   BOOL const haveChildren = !children.empty();
   if (haveChildren)

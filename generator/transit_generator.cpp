@@ -43,7 +43,7 @@ using namespace storage;
 
 namespace
 {
-void LoadBorders(string const & dir, TCountryId const & countryId, vector<m2::RegionD> & borders)
+void LoadBorders(string const & dir, CountryId const & countryId, vector<m2::RegionD> & borders)
 {
   string const polyFile = base::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
   borders.clear();
@@ -59,7 +59,7 @@ void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatu
         (osmIdToFeatureIdsPath));
 }
 
-string GetMwmPath(string const & mwmDir, TCountryId const & countryId)
+string GetMwmPath(string const & mwmDir, CountryId const & countryId)
 {
   return base::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
@@ -68,7 +68,7 @@ string GetMwmPath(string const & mwmDir, TCountryId const & countryId)
 /// The result of the calculation is set to |Gate::m_bestPedestrianSegment| of every gate
 /// from |graphData.m_gates|.
 /// \note All gates in |graphData.m_gates| must have a valid |m_point| field before the call.
-void CalculateBestPedestrianSegments(string const & mwmPath, TCountryId const & countryId,
+void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & countryId,
                                      GraphData & graphData)
 {
   // Creating IndexRouter.
@@ -171,7 +171,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
   }
 }
 
-void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
+void ProcessGraph(string const & mwmPath, CountryId const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
 {
   CalculateBestPedestrianSegments(mwmPath, countryId, data);
@@ -179,7 +179,7 @@ void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
   data.CheckValidSortedUnique();
 }
 
-void BuildTransit(string const & mwmDir, TCountryId const & countryId,
+void BuildTransit(string const & mwmDir, CountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
   LOG(LINFO, ("Building transit section for", countryId, "mwmDir:", mwmDir));

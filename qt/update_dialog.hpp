@@ -27,9 +27,9 @@ namespace qt
 
     /// @name Called from downloader to notify GUI
     //@{
-    void OnCountryChanged(storage::TCountryId const & countryId);
-    void OnCountryDownloadProgress(storage::TCountryId const & countryId,
-                                   storage::MapFilesDownloader::TProgress const & progress);
+    void OnCountryChanged(storage::CountryId const & countryId);
+    void OnCountryDownloadProgress(storage::CountryId const & countryId,
+                                   storage::MapFilesDownloader::Progress const & progress);
     //@}
 
     void ShowModal();
@@ -41,14 +41,14 @@ namespace qt
 
   private:
     void FillTree(string const & filter);
-    void FillTreeImpl(QTreeWidgetItem * parent, storage::TCountryId const & countryId, string const & filter);
-    void UpdateRowWithCountryInfo(storage::TCountryId const & countryId);
-    void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::TCountryId const & countryId);
-    QString GetNodeName(storage::TCountryId const & countryId);
+    void FillTreeImpl(QTreeWidgetItem * parent, storage::CountryId const & countryId, string const & filter);
+    void UpdateRowWithCountryInfo(storage::CountryId const & countryId);
+    void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::CountryId const & countryId);
+    QString GetNodeName(storage::CountryId const & countryId);
 
-    QTreeWidgetItem * CreateTreeItem(storage::TCountryId const & countryId, QTreeWidgetItem * parent);
-    vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::TCountryId const & countryId);
-    storage::TCountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
+    QTreeWidgetItem * CreateTreeItem(storage::CountryId const & countryId, QTreeWidgetItem * parent);
+    vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::CountryId const & countryId);
+    storage::CountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
 
   private:
     inline storage::Storage & GetStorage() const { return m_framework.GetStorage(); }
@@ -57,6 +57,6 @@ namespace qt
     Framework & m_framework;
     int m_observerSlotId;
 
-    unordered_multimap<storage::TCountryId, QTreeWidgetItem *> m_treeItemByCountryId;
+    unordered_multimap<storage::CountryId, QTreeWidgetItem *> m_treeItemByCountryId;
   };
 } // namespace qt

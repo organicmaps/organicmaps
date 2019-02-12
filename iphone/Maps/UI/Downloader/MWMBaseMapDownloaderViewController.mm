@@ -82,7 +82,7 @@ using namespace storage;
 
 @implementation MWMBaseMapDownloaderViewController
 {
-  TCountryId m_actionSheetId;
+  CountryId m_actionSheetId;
 }
 
 - (void)viewDidLoad
@@ -152,7 +152,7 @@ using namespace storage;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(TCountryId const &)countryId
+- (void)processCountryEvent:(CountryId const &)countryId
 {
   if (self.skipCountryEventProcessing)
     return;
@@ -166,7 +166,7 @@ using namespace storage;
   BOOL needReload = NO;
   auto const & s = GetFramework().GetStorage();
   s.ForEachInSubtree(self.parentCountryId.UTF8String,
-                     [&needReload, &countryId](TCountryId const & descendantId, bool groupNode)
+                     [&needReload, &countryId](CountryId const & descendantId, bool groupNode)
                      {
                        needReload = needReload || countryId == descendantId;
                      });
@@ -177,7 +177,7 @@ using namespace storage;
   }
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(CountryId const &)countryId progress:(MapFilesDownloader::Progress const &)progress
 {
   for (UITableViewCell * cell in self.tableView.visibleCells)
   {
@@ -224,7 +224,7 @@ using namespace storage;
 - (void)configAllMapsView
 {
   auto const & s = GetFramework().GetStorage();
-  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  CountryId const parentCountryId = self.parentCountryId.UTF8String;
   if (self.dataSource != self.defaultDataSource)
   {
     self.showAllMapsButtons = NO;
@@ -245,7 +245,7 @@ using namespace storage;
     }
     else
     {
-      TCountriesVec queuedChildren;
+      CountriesVec queuedChildren;
       s.GetQueuedChildren(parentCountryId, queuedChildren);
       if (queuedChildren.empty())
       {
@@ -262,12 +262,12 @@ using namespace storage;
   }
   else if (parentCountryId != s.GetRootId())
   {
-    TCountriesVec queuedChildren;
+    CountriesVec queuedChildren;
     s.GetQueuedChildren(parentCountryId, queuedChildren);
     if (queuedChildren.empty())
     {
-      TCountriesVec downloadedChildren;
-      TCountriesVec availableChildren;
+      CountriesVec downloadedChildren;
+      CountriesVec availableChildren;
       s.GetChildrenInGroups(parentCountryId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
       self.showAllMapsButtons = downloadedChildren.size() != availableChildren.size();
       if (self.showAllMapsButtons)
@@ -284,8 +284,8 @@ using namespace storage;
     }
     else
     {
-      TMwmSize queuedSize = 0;
-      for (TCountryId const & countryId : queuedChildren)
+      MwmSize queuedSize = 0;
+      for (CountryId const & countryId : queuedChildren)
       {
         NodeAttrs nodeAttrs;
         s.GetNodeAttrs(countryId, nodeAttrs);
@@ -340,7 +340,7 @@ using namespace storage;
 - (IBAction)allMapsAction
 {
   self.skipCountryEventProcessing = YES;
-  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  CountryId const parentCountryId = self.parentCountryId.UTF8String;
   if (self.mode == MWMMapDownloaderModeDownloaded)
   {
     [Statistics logEvent:kStatDownloaderMapAction
@@ -378,7 +378,7 @@ using namespace storage;
                          kStatFrom : kStatDownloader,
                          kStatScenario : kStatDownloadGroup
                          }];
-  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  CountryId const parentCountryId = self.parentCountryId.UTF8String;
   [MWMStorage cancelDownloadNode:parentCountryId];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:parentCountryId];
@@ -619,14 +619,14 @@ using namespace storage;
 
 #pragma mark - MWMMapDownloaderProtocol
 
-- (void)openNodeSubtree:(storage::TCountryId const &)countryId
+- (void)openNodeSubtree:(storage::CountryId const &)countryId
 {
   MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:kBaseControllerIdentifier];
   [vc setParentCountryId:@(countryId.c_str()) mode:self.mode];
   [MWMSegue segueFrom:self to:vc];
 }
 
-- (void)downloadNode:(storage::TCountryId const &)countryId
+- (void)downloadNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
@@ -641,7 +641,7 @@ using namespace storage;
   [self processCountryEvent:countryId];
 }
 
-- (void)retryDownloadNode:(storage::TCountryId const &)countryId
+- (void)retryDownloadNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
@@ -656,7 +656,7 @@ using namespace storage;
   [self processCountryEvent:countryId];
 }
 
-- (void)updateNode:(storage::TCountryId const &)countryId
+- (void)updateNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
@@ -671,7 +671,7 @@ using namespace storage;
   [self processCountryEvent:countryId];
 }
 
-- (void)deleteNode:(storage::TCountryId const &)countryId
+- (void)deleteNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
@@ -686,7 +686,7 @@ using namespace storage;
   [self processCountryEvent:countryId];
 }
 
-- (void)cancelNode:(storage::TCountryId const &)countryId
+- (void)cancelNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatDownloader}];
   self.skipCountryEventProcessing = YES;
@@ -695,7 +695,7 @@ using namespace storage;
   [self processCountryEvent:countryId];
 }
 
-- (void)showNode:(storage::TCountryId const &)countryId
+- (void)showNode:(storage::CountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{

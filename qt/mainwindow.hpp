@@ -35,7 +35,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QPushButton * m_retryButton = nullptr;
   QLabel * m_downloadingStatusLabel = nullptr;
 
-  storage::TCountryId m_lastCountry;
+  storage::CountryId m_lastCountry;
 
   std::unique_ptr<location::LocationService> const m_locationService;
 

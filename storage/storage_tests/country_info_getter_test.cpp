@@ -58,13 +58,13 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
   m2::PointD const halfSize = m2::PointD(0.1, 0.1);
   auto const countries =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), false /* rough */);
-  TEST_EQUAL(countries, vector<storage::TCountryId>{"Belarus"}, ());
+  TEST_EQUAL(countries, vector<storage::CountryId>{"Belarus"}, ());
 
   // Several countries.
   m2::PointD const halfSize2 = m2::PointD(5.0, 5.0);
   auto const countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2),
                                                             false /* rough */);
-  auto const expected = vector<storage::TCountryId>{
+  auto const expected = vector<storage::CountryId>{
       "Belarus", "Latvia", "Lithuania", "Poland", "Russia_Central", "Russia_Northwestern",
       "Ukraine"};
   TEST_EQUAL(countries2, expected, ());
@@ -72,17 +72,17 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
   // No one found.
   auto const countries3 =
       getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize), false /* rough */);
-  TEST_EQUAL(countries3, vector<storage::TCountryId>{}, ());
+  TEST_EQUAL(countries3, vector<storage::CountryId>{}, ());
 
   // Inside mwm (rough).
   auto const countries4 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
-  TEST_EQUAL(countries, vector<storage::TCountryId>{"Belarus"}, ());
+  TEST_EQUAL(countries, vector<storage::CountryId>{"Belarus"}, ());
 
   // Several countries (rough).
   auto const countries5 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
-  auto const expected2 = vector<storage::TCountryId>{"Belarus",
+  auto const expected2 = vector<storage::CountryId>{"Belarus",
                                                      "Latvia",
                                                      "Lithuania",
                                                      "Poland",
@@ -135,7 +135,7 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
 UNIT_TEST(CountryInfoGetter_HitsInRadius)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
-  TCountriesVec results;
+  CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(56.1702, 28.1505), results);
   TEST_EQUAL(results.size(), 3, ());
   TEST(find(results.begin(), results.end(), "Belarus_Vitebsk Region") != results.end(), ());
@@ -146,7 +146,7 @@ UNIT_TEST(CountryInfoGetter_HitsInRadius)
 UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
-  TCountriesVec results;
+  CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
   TEST_EQUAL(results.size(), 2, ());
   TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
@@ -156,7 +156,7 @@ UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
 UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
-  TCountriesVec results;
+  CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
   TEST_EQUAL(results.size(), 1, ());
   TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());

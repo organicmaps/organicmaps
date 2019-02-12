@@ -101,7 +101,7 @@ public:
   double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
-                    storage::TCountryId & countryId) const;
+                    storage::CountryId & countryId) const;
 
   bool IsEqualCommon(RankerResult const & r) const;
 
@@ -112,17 +112,17 @@ private:
 
   struct RegionInfo
   {
-    storage::TCountryId m_countryId;
+    storage::CountryId m_countryId;
     m2::PointD m_point;
 
-    void SetParams(storage::TCountryId const & countryId, m2::PointD const & point)
+    void SetParams(storage::CountryId const & countryId, m2::PointD const & point)
     {
       m_countryId = countryId;
       m_point = point;
     }
 
     bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
-                      storage::TCountryId & countryId) const;
+                      storage::CountryId & countryId) const;
   };
 
   RegionInfo m_region;

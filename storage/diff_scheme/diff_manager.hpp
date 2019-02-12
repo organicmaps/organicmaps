@@ -21,8 +21,8 @@ public:
   struct ApplyDiffParams
   {
     string m_diffReadyPath;
-    TLocalFilePtr m_diffFile;
-    TLocalFilePtr m_oldMwmFile;
+    LocalFilePtr m_diffFile;
+    LocalFilePtr m_oldMwmFile;
   };
 
   class Observer
@@ -33,10 +33,10 @@ public:
     virtual void OnDiffStatusReceived(Status const status) = 0;
   };
 
-  bool SizeFor(storage::TCountryId const & countryId, uint64_t & size) const;
-  bool VersionFor(storage::TCountryId const & countryId, uint64_t & version) const;
+  bool SizeFor(storage::CountryId const & countryId, uint64_t & size) const;
+  bool VersionFor(storage::CountryId const & countryId, uint64_t & version) const;
   bool IsPossibleToAutoupdate() const;
-  bool HasDiffFor(storage::TCountryId const & countryId) const;
+  bool HasDiffFor(storage::CountryId const & countryId) const;
   void RemoveAppliedDiffs();
   void AbortDiffScheme();
 
@@ -50,7 +50,7 @@ public:
 
 private:
   template <typename Fn>
-  bool WithDiff(storage::TCountryId const & countryId, Fn && fn) const
+  bool WithDiff(storage::CountryId const & countryId, Fn && fn) const
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_status != Status::Available)

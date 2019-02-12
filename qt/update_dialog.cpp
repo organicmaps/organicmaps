@@ -107,14 +107,14 @@ namespace qt
   /// when user clicks on any map row in the table
   void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   {
-    TCountryId const countryId = GetCountryIdByTreeItem(item);
+    CountryId const countryId = GetCountryIdByTreeItem(item);
 
     Storage & st = GetStorage();
 
     NodeAttrs attrs;
     st.GetNodeAttrs(countryId, attrs);
 
-    TCountriesVec children;
+    CountriesVec children;
     st.GetChildren(countryId, children);
 
     // For group process only click on the column #.
@@ -212,14 +212,14 @@ namespace qt
       item.setTextColor(column, color);
   }
 
-  void UpdateDialog::UpdateRowWithCountryInfo(TCountryId const & countryId)
+  void UpdateDialog::UpdateRowWithCountryInfo(CountryId const & countryId)
   {
     auto const items = GetTreeItemsByCountryId(countryId);
     for (auto const item : items)
       UpdateRowWithCountryInfo(item, countryId);
   }
 
-  void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, TCountryId const & countryId)
+  void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId const & countryId)
   {
     Storage const & st = GetStorage();
 
@@ -227,7 +227,7 @@ namespace qt
     QString statusString;
     TLocalAndRemoteSize size(0, 0);
 
-    TCountriesVec children;
+    CountriesVec children;
     st.GetChildren(countryId, children);
 
     NodeAttrs attrs;
@@ -308,7 +308,7 @@ namespace qt
     //    SetRowColor(*item, rowColor);
   }
 
-  QString UpdateDialog::GetNodeName(storage::TCountryId const & countryId)
+  QString UpdateDialog::GetNodeName(storage::CountryId const & countryId)
   {
     // QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str()); // ???
     storage::NodeAttrs attrs;
@@ -316,7 +316,7 @@ namespace qt
     return attrs.m_nodeLocalName.c_str();
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TCountryId const & countryId, QTreeWidgetItem * parent)
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId, QTreeWidgetItem * parent)
   {
     QString const text = GetNodeName(countryId);
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
@@ -330,7 +330,7 @@ namespace qt
     return item;
   }
 
-  vector<QTreeWidgetItem *> UpdateDialog::GetTreeItemsByCountryId(TCountryId const & countryId)
+  vector<QTreeWidgetItem *> UpdateDialog::GetTreeItemsByCountryId(CountryId const & countryId)
   {
     vector<QTreeWidgetItem *> res;
     auto const p = m_treeItemByCountryId.equal_range(countryId);
@@ -339,7 +339,7 @@ namespace qt
     return res;
   }
 
-  storage::TCountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
+  storage::CountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
   {
     return item->data(KColumnIndexCountry, Qt::UserRole).toString().toUtf8().constData();
   }
@@ -351,9 +351,9 @@ namespace qt
     return countryId.find(filter) != string::npos;
   }
 
-  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, TCountryId const & countryId, string const & filter)
+  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId, string const & filter)
   {
-    TCountriesVec children;
+    CountriesVec children;
     GetStorage().GetChildren(countryId, children);
 
     if (children.empty())
@@ -400,7 +400,7 @@ namespace qt
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    TCountryId const rootId = m_framework.GetStorage().GetRootId();
+    CountryId const rootId = m_framework.GetStorage().GetRootId();
     FillTreeImpl(nullptr /* parent */, rootId, filter);
 
     // Expand the root.
@@ -413,7 +413,7 @@ namespace qt
     m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
   }
 
-  void UpdateDialog::OnCountryChanged(TCountryId const & countryId)
+  void UpdateDialog::OnCountryChanged(CountryId const & countryId)
   {
     UpdateRowWithCountryInfo(countryId);
 
@@ -426,8 +426,8 @@ namespace qt
     }
   }
 
-  void UpdateDialog::OnCountryDownloadProgress(TCountryId const & countryId,
-                                               MapFilesDownloader::TProgress const & progress)
+  void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId,
+                                               MapFilesDownloader::Progress const & progress)
   {
     auto const items = GetTreeItemsByCountryId(countryId);
     for (auto const item : items)

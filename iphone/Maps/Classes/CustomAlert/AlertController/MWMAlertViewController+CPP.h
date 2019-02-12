@@ -8,7 +8,7 @@
 @interface MWMAlertViewController (CPP)
 
 - (void)presentAlert:(routing::RouterResultCode)type;
-- (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
+- (void)presentDownloaderAlertWithCountries:(storage::CountriesVec const &)countries
                                        code:(routing::RouterResultCode)code
                                 cancelBlock:(nonnull MWMVoidBlock)cancelBlock
                               downloadBlock:(nonnull MWMDownloadBlock)downloadBlock

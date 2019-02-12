@@ -11,11 +11,11 @@ namespace storage
   struct CountryDef
   {
     /// File name without extension (equal to english name - used in search for region).
-    TCountryId m_countryId;
+    CountryId m_countryId;
     m2::RectD m_rect;
 
     CountryDef() {}
-    CountryDef(TCountryId const & countryId, m2::RectD const & rect)
+    CountryDef(CountryId const & countryId, m2::RectD const & rect)
       : m_countryId(countryId), m_rect(rect)
     {
     }

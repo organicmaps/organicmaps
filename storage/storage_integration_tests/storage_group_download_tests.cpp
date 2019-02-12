@@ -26,26 +26,26 @@ using namespace storage;
 
 namespace
 {
-TCountryId const kGroupCountryId = "New Zealand";
-TCountriesSet const kLeafCountriesIds = {"Tokelau",
+CountryId const kGroupCountryId = "New Zealand";
+CountriesSet const kLeafCountriesIds = {"Tokelau",
                                          "New Zealand North_Auckland",
                                          "New Zealand North_Wellington",
                                          "New Zealand South_Canterbury",
                                          "New Zealand South_Southland"};
 
-string GetMwmFilePath(string const & version, TCountryId const & countryId)
+string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
   return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
                                  countryId + DATA_FILE_EXTENSION);
 }
 
-string GetMwmDownloadingFilePath(string const & version, TCountryId const & countryId)
+string GetMwmDownloadingFilePath(string const & version, CountryId const & countryId)
 {
   return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
                                  countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
 }
 
-string GetMwmResumeFilePath(string const & version, TCountryId const & countryId)
+string GetMwmResumeFilePath(string const & version, CountryId const & countryId)
 {
   return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
                                  countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
@@ -58,17 +58,17 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
-  TCountriesVec children;
+  CountriesVec children;
   //  All nodes in subtree (including the root) for the group node.
   storage.GetChildren(kGroupCountryId, children);
-  TCountriesSet subTree;
-  storage.ForEachInSubtree(kGroupCountryId, [&subTree](TCountryId const & descendantId, bool /* groupNode */)
+  CountriesSet subTree;
+  storage.ForEachInSubtree(kGroupCountryId, [&subTree](CountryId const & descendantId, bool /* groupNode */)
   {
     subTree.insert(descendantId);
   });
 
-  TCountriesSet changed;
-  auto onChangeCountryFn = [&](TCountryId const & countryId)
+  CountriesSet changed;
+  auto onChangeCountryFn = [&](CountryId const & countryId)
   {
     TEST(subTree.find(countryId) != subTree.end(), (countryId));
     changed.insert(countryId);
@@ -79,8 +79,8 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     }
   };
 
-  TCountriesSet downloadedChecker;
-  auto onProgressFn = [&](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+  CountriesSet downloadedChecker;
+  auto onProgressFn = [&](CountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     TEST(subTree.find(countryId) != subTree.end(), ());
     if (mapSize.first == mapSize.second)
@@ -93,7 +93,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   int const subsrcibtionId = storage.Subscribe(onChangeCountryFn, onProgressFn);
 
   // Check group node is not downloaded
-  TCountriesVec downloaded, available;
+  CountriesVec downloaded, available;
   storage.GetChildrenInGroups(storage.GetRootId(), downloaded, available);
   TEST(downloaded.empty(), ());
 
@@ -102,7 +102,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   TEST(downloaded.empty(), ());
 
   // Check status for the all children nodes is set to ENotDownloaded.
-  TMwmSize totalGroupSize = 0;
+  MwmSize totalGroupSize = 0;
   for (auto const & countryId : children)
   {
     TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
@@ -174,12 +174,12 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 
   // Check group is downloaded.
   storage.GetChildrenInGroups(storage.GetRootId(), downloaded, available);
-  TEST_EQUAL(downloaded, TCountriesVec({kGroupCountryId}), ());
+  TEST_EQUAL(downloaded, CountriesVec({kGroupCountryId}), ());
 
   // Check all group children are downloaded.
   storage.GetChildrenInGroups(kGroupCountryId, downloaded, available);
-  TEST_EQUAL(TCountriesSet(children.begin(), children.end()),
-             TCountriesSet(downloaded.begin(), downloaded.end()), ());
+  TEST_EQUAL(CountriesSet(children.begin(), children.end()),
+             CountriesSet(downloaded.begin(), downloaded.end()), ());
 
   storage.Unsubscribe(subsrcibtionId);
 }
@@ -191,19 +191,19 @@ void DeleteGroup(Storage & storage, bool oneByOne)
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
-  TCountriesVec v;
+  CountriesVec v;
   storage.GetChildren(kGroupCountryId, v);
-  TCountriesSet const children(v.begin(), v.end());
+  CountriesSet const children(v.begin(), v.end());
   v.clear();
 
   // Check group node is downloaded.
-  TCountriesVec downloaded, available;
+  CountriesVec downloaded, available;
   storage.GetChildrenInGroups(storage.GetRootId(), downloaded, available);
-  TEST_EQUAL(downloaded, TCountriesVec({kGroupCountryId}), ());
+  TEST_EQUAL(downloaded, CountriesVec({kGroupCountryId}), ());
 
   // Check children nodes are downloaded.
   storage.GetChildrenInGroups(kGroupCountryId, downloaded, available);
-  TEST_EQUAL(children, TCountriesSet(downloaded.begin(), downloaded.end()), ());
+  TEST_EQUAL(children, CountriesSet(downloaded.begin(), downloaded.end()), ());
 
   // Check there are mwm files for the children nodes.
   for (auto const & countryId : children)
@@ -262,22 +262,22 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
-  auto onUpdatedFn = [&](TCountryId const &, storage::TLocalFilePtr const localCountryFile)
+  auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
   {
-    TCountryId const countryId = localCountryFile->GetCountryName();
+    CountryId const countryId = localCountryFile->GetCountryName();
     TEST(kLeafCountriesIds.find(countryId) != kLeafCountriesIds.end(), ());
   };
 
-  storage.Init(onUpdatedFn, [](TCountryId const &, storage::TLocalFilePtr const){return false;});
+  storage.Init(onUpdatedFn, [](CountryId const &, storage::LocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 
   tests_support::ScopedDir cleanupVersionDir(version);
 
   // Check children for the kGroupCountryId
-  TCountriesVec children;
+  CountriesVec children;
   storage.GetChildren(kGroupCountryId, children);
-  TEST_EQUAL(TCountriesSet(children.begin(), children.end()), kLeafCountriesIds, ());
+  TEST_EQUAL(CountriesSet(children.begin(), children.end()), kLeafCountriesIds, ());
 
   DownloadGroup(storage, downloadOneByOne);
 
