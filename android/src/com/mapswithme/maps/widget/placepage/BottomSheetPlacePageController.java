@@ -218,7 +218,17 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void openFor(@NonNull MapObject object)
   {
-    mPlacePage.setMapObject(object, false, policy -> {
+    mPlacePage.setMapObject(object, false, (policy, isSameObject) -> {
+      @AnchorBottomSheetBehavior.State
+      int state = mPlacePageBehavior.getState();
+      // The method openFor could be invoked many times, e.g. when we leave the map and come back
+      // on it. So, we should do nothing if the map object is not changed or place page is already
+      // opened. Otherwise, the place page discards its current state to collapsed state
+      // and it's wrong. This behavior possibly will be refactored, so that the framework doesn't call
+      // 'ActivateMapSelection' method from 'UpdatePlacePageInfoForCurrentSelection'.
+      if (isSameObject && !isHiddenState(state))
+        return;
+
       if (object.isExtendedView())
       {
         mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
@@ -446,7 +456,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     if (object == null)
       return;
 
-    mPlacePage.setMapObject(object, true, policy -> {
+    mPlacePage.setMapObject(object, true, (policy, isSameObject) -> {
       restorePlacePage(object, policy);
     });
     mToolbar.setTitle(object.getTitle());

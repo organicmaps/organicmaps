@@ -335,7 +335,7 @@ public class PlacePageView extends NestedScrollView
 
   public interface SetMapObjectListener
   {
-    void onSetMapObjectComplete(@NonNull NetworkPolicy policy);
+    void onSetMapObjectComplete(@NonNull NetworkPolicy policy, boolean isSameObject);
   }
 
   public PlacePageView(Context context)
@@ -999,7 +999,7 @@ public class PlacePageView extends NestedScrollView
       if (listener != null)
       {
         NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
-        listener.onSetMapObjectComplete(policy);
+        listener.onSetMapObjectComplete(policy, true);
       }
       return;
     }
@@ -1017,7 +1017,7 @@ public class PlacePageView extends NestedScrollView
         {
           setMapObjectInternal(policy);
           if (listener != null)
-            listener.onSetMapObjectComplete(policy);
+            listener.onSetMapObjectComplete(policy, false);
         }
       });
     }
@@ -1026,7 +1026,7 @@ public class PlacePageView extends NestedScrollView
       NetworkPolicy policy = NetworkPolicy.newInstance(false);
       setMapObjectInternal(policy);
       if (listener != null)
-        listener.onSetMapObjectComplete(policy);
+        listener.onSetMapObjectComplete(policy, false);
     }
   }
 
