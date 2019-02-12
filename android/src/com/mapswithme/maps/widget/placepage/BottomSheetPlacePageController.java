@@ -571,9 +571,14 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void onBookmarkSet(boolean isSet)
   {
-    if (isSet)
-      mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
-    else
-      mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+    if (!isSet)
+      return;
+
+    @AnchorBottomSheetBehavior.State
+    int state = mPlacePageBehavior.getState();
+    if (!isCollapsedState(state))
+      return;
+
+    mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
   }
 }
