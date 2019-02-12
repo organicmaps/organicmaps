@@ -173,6 +173,12 @@ void Manager::RemoveAppliedDiffs()
     m_status = Status::NotAvailable;
 }
 
+void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_diffs.erase(countryId);
+}
+
 void Manager::AbortDiffScheme()
 {
   std::lock_guard<std::mutex> lock(m_mutex);

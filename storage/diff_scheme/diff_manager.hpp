@@ -61,6 +61,7 @@ public:
   bool HasDiffFor(storage::CountryId const & countryId) const;
 
   void RemoveAppliedDiffs();
+  void RemoveDiffForCountry(storage::CountryId const & countryId);
   void AbortDiffScheme();
 
   Status GetStatus() const;
