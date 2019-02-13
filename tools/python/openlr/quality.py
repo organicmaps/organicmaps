@@ -139,6 +139,15 @@ def parse_route(route):
         ))
     return result
 
+def ignored_segments_number(tree, limit):
+    ignored_segments = 0
+    segments = islice(tree.findall('.//Segment'), limit)
+    for s in segments:
+        ignored = s.find('Ignored')
+        if ignored is not None and ignored.text == 'true':
+            ignored_segments += 1
+    return ignored_segments
+
 def parse_segments(tree, limit):
     segments = islice(tree.findall('.//Segment'), limit)
     for s in segments:
@@ -150,7 +159,9 @@ def parse_segments(tree, limit):
         # TODO(mgsergio): This is a temproraty hack. All untouched segments
         # within limit are considered accurate, so golden path should be equal
         # matched path.
-        golden_route = parse_route(s.find('GoldenRoute')) or matched_route
+        golden_route = parse_route(s.find('GoldenRoute'))
+        if not golden_route:
+            continue
         yield Segment(segment_id, golden_route, matched_route)
 
 def calculate(tree):
@@ -163,6 +174,7 @@ def calculate(tree):
             raise
         except Segment.NoGoldenPathError:
             raise
+
     return result
 
 def merge(src, dst):
@@ -236,7 +248,9 @@ if __name__ == '__main__':
         )
         for x in assessed_scores.items():
             print('{}\t{}'.format(*x))
-        print('mean: {:.4f}, std: {:.4f}'.format(
+        print('Edge number: {:d}, mean: {:.4f}, std: {:.4f}'.format(
+            len(assessed_scores),
             np.mean(list(assessed_scores.values())),
             np.std(list(assessed_scores.values()), ddof=1)
         ))
+        print('Ignored segments number: {:d}'.format(ignored_segments_number(assessed, args.limit)))
