@@ -3,6 +3,8 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/data_header.hpp"
+#include "indexer/feature_utils.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
@@ -13,6 +15,8 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -20,6 +24,7 @@
 #include <fstream>
 #include <memory>
 #include <set>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -438,12 +443,17 @@ UNIT_TEST(Bookmarks_Getting)
 
 namespace
 {
-void CheckPlace(Framework const & fm, double lat, double lon, string const & street,
-                string const & houseNumber)
+void CheckPlace(Framework const & fm, std::shared_ptr<MwmInfo> mwmInfo, double lat, double lon,
+                StringUtf8Multilang const & streetNames, string const & houseNumber)
 {
   auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
 
-  TEST_EQUAL(info.GetStreetName(), street, ());
+  std::string streetName;
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  feature::GetReadableName(mwmInfo->GetRegionData(), streetNames, deviceLang,
+                           false /* allowTranslit */, streetName);
+
+  TEST_EQUAL(info.GetStreetName(), streetName, ());
   TEST_EQUAL(info.GetHouseNumber(), houseNumber, ());
 }
 }  // namespace
@@ -453,13 +463,23 @@ UNIT_TEST(Bookmarks_AddressInfo)
   // Maps added in constructor (we need minsk-pass.mwm only)
   Framework fm(kFrameworkParams);
   fm.DeregisterAllMaps();
-  fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
+  auto const regResult = fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
   fm.OnSize(800, 600);
 
-  TEST_EQUAL(languages::GetCurrentNorm(), "en", ());
+  TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
-  CheckPlace(fm, 53.8964918, 27.555559, "vulica Karla Marksa", "10" /* houseNumber */);
-  CheckPlace(fm, 53.8964365, 27.5554007, "vulica Karla Marksa", "10" /* houseNumber */);
+  auto mwmInfo = regResult.first.GetInfo();
+
+  TEST(mwmInfo != nullptr, ());
+
+  StringUtf8Multilang streetNames;
+  streetNames.AddString("default", "улица Карла Маркса");
+  streetNames.AddString("int_name", "vulica Karla Marksa");
+  streetNames.AddString("be", "вуліца Карла Маркса");
+  streetNames.AddString("ru", "улица Карла Маркса");
+
+  CheckPlace(fm, mwmInfo, 53.8964918, 27.555559, streetNames, "10" /* houseNumber */);
+  CheckPlace(fm, mwmInfo, 53.8964365, 27.5554007, streetNames, "10" /* houseNumber */);
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)
