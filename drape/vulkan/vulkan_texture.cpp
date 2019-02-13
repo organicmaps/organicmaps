@@ -151,8 +151,6 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
     m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format,
                                                    VK_IMAGE_ASPECT_COLOR_BIT,
                                                    params.m_width, params.m_height);
-    //CHECK_VK_CALL(vkBindImageMemory(vulkanContext->GetDevice(), m_textureObject.m_image,
-    //                                m_textureObject.GetMemory(), m_textureObject.GetAlignedOffset()));
   }
 }
 

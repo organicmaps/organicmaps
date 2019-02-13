@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/pointers.hpp"
+#include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_memory_manager.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
@@ -10,6 +11,7 @@
 #include <vulkan/vulkan.h>
 
 #include <cstdint>
+#include <map>
 #include <memory>
 #include <mutex>
 #include <vector>
@@ -59,6 +61,8 @@ public:
                             uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
+  DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program,
+                                              std::vector<ParamDescriptor> const & descriptors);
 
   uint8_t * Map(VulkanObject object);
   void Flush(VulkanObject object, uint32_t offset = 0, uint32_t size = 0);
@@ -74,15 +78,23 @@ public:
 
   VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
+  VkSampler GetSampler(SamplerKey const & key);
 
 private:
+  void CreateDescriptorPool();
+  void DestroyDescriptorPools();
+
   VkDevice const m_device;
   uint32_t const m_queueFamilyIndex;
   VulkanMemoryManager m_memoryManager;
   std::vector<VulkanObject> m_queueToDestroy;
+
+  std::vector<VkDescriptorPool> m_descriptorPools;
   std::vector<DescriptorSetGroup> m_descriptorsToDestroy;
 
   drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
+
+  std::map<SamplerKey, VkSampler> m_samplers;
 
   std::mutex m_mutex;
 };

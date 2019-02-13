@@ -71,9 +71,6 @@ struct SamplerKey
 
   uint32_t m_sampler = 0;
 };
-
-extern VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping);
-extern VkFilter GetVulkanFilter(TextureFilter filter);
 }  // namespace vulkan
 }  // namespace dp
 

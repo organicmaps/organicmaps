@@ -11,6 +11,8 @@
 
 #include "std/target_os.hpp"
 
+#include <algorithm>
+
 namespace dp
 {
 namespace
@@ -215,7 +217,8 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Vulkan)
     {
-      m_impl = CreateImplForVulkan(context, make_ref(this));
+      CHECK(!m_bindingInfo.empty(), ());
+      m_impl = CreateImplForVulkan(context, make_ref(this), std::move(m_bindingInfo));
     }
     else
     {
@@ -242,7 +245,10 @@ void VertexArrayBuffer::UploadData(ref_ptr<GraphicsContext> context, BindingInfo
     buffer = GetOrCreateStaticBuffer(bindingInfo);
   else
     buffer = GetOrCreateDynamicBuffer(bindingInfo);
-  m_impl->AddBindingInfo(bindingInfo);
+
+  // For Vulkan rendering we have to know the whole collection of binding info.
+  if (context->GetApiVersion() == dp::ApiVersion::Vulkan && !m_impl)
+    CollectBindingInfo(bindingInfo);
 
   if (count > 0)
     m_isChanged = true;
@@ -426,5 +432,27 @@ ref_ptr<DataBufferBase> VertexArrayBuffer::GetIndexBuffer() const
 {
   CHECK(m_indexBuffer != nullptr, ());
   return m_indexBuffer->GetBuffer();
+}
+
+void VertexArrayBuffer::CollectBindingInfo(dp::BindingInfo const & bindingInfo)
+{
+  auto const id = bindingInfo.GetID();
+  auto const it = std::find_if(m_bindingInfo.begin(), m_bindingInfo.end(),
+                               [id](dp::BindingInfo const & info)
+  {
+    return info.GetID() == id;
+  });
+  if (it != m_bindingInfo.end())
+  {
+    CHECK(*it == bindingInfo, ("Incorrect binding info."));
+    return;
+  }
+
+  m_bindingInfo.push_back(bindingInfo);
+  std::sort(m_bindingInfo.begin(), m_bindingInfo.end(),
+            [](dp::BindingInfo const & info1, dp::BindingInfo const & info2)
+  {
+    return info1.GetID() < info2.GetID();
+  });
 }
 }  // namespace dp

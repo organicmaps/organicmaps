@@ -87,25 +87,5 @@ bool SamplerKey::operator<(SamplerKey const & rhs) const
 {
   return m_sampler < rhs.m_sampler;
 }
-
-VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping)
-{
-  switch (wrapping)
-  {
-  case TextureWrapping::ClampToEdge: return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-  case TextureWrapping::Repeat: return VK_SAMPLER_ADDRESS_MODE_REPEAT;
-  }
-  UNREACHABLE();
-}
-
-VkFilter GetVulkanFilter(TextureFilter filter)
-{
-  switch (filter)
-  {
-  case TextureFilter::Linear: return VK_FILTER_LINEAR;
-  case TextureFilter::Nearest: return VK_FILTER_NEAREST;
-  }
-  UNREACHABLE();
-}
 }  // namespace vulkan
 }  // namespace dp

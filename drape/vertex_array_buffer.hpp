@@ -9,6 +9,7 @@
 #include "drape/pointers.hpp"
 
 #include <map>
+#include <vector>
 
 namespace dp
 {
@@ -100,12 +101,15 @@ private:
 
   void PreflushImpl(ref_ptr<GraphicsContext> context);
 
+  void CollectBindingInfo(dp::BindingInfo const & bindingInfo);
+
   // Definition of this method is in a .mm-file.
   drape_ptr<VertexArrayBufferImpl> CreateImplForMetal(ref_ptr<VertexArrayBuffer> buffer);
 
   // Definition of this method is in a separate .cpp-file.
   drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<GraphicsContext> context,
-                                                       ref_ptr<VertexArrayBuffer> buffer);
+                                                       ref_ptr<VertexArrayBuffer> buffer,
+                                                       std::vector<dp::BindingInfo> && bindingInfo);
 
   uint32_t const m_dataBufferSize;
   uint64_t const m_batcherHash;
@@ -119,5 +123,6 @@ private:
   bool m_isPreflushed = false;
   bool m_moveToGpuOnBuild = false;
   bool m_isChanged = false;
+  std::vector<dp::BindingInfo> m_bindingInfo;
 };
 }  // namespace dp

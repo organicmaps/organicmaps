@@ -44,7 +44,6 @@ public:
     VkDevice device = vulkanContext->GetDevice();
 
     ResetDescriptorSetGroup();
-    m_pipeline = {};
 
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
     m_bindingInfo.resize(m_mesh->m_buffers.size());
@@ -84,7 +83,6 @@ public:
   void Reset() override
   {
     ResetDescriptorSetGroup();
-    m_pipeline = {};
 
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
@@ -159,14 +157,8 @@ public:
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
-    if (!m_pipeline)
-    {
-      vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
-      vulkanContext->SetBindingInfo(m_bindingInfo);
-      m_pipeline = vulkanContext->GetCurrentPipeline();
-      if (!m_pipeline)
-        return;
-    }
+    vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
+    vulkanContext->SetBindingInfo(m_bindingInfo);
 
     if (!m_descriptorSetGroup)
       m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
@@ -176,7 +168,8 @@ public:
                             vulkanContext->GetCurrentPipelineLayout(), 0, 1,
                             &m_descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
 
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+                      vulkanContext->GetCurrentPipeline());
 
     VkDeviceSize offsets[1] = {0};
     for (uint32_t i = 0; i < static_cast<uint32_t>(m_geometryBuffers.size()); ++i)
@@ -204,7 +197,6 @@ private:
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<VulkanObject> m_geometryBuffers;
   std::vector<dp::BindingInfo> m_bindingInfo;
-  VkPipeline m_pipeline = {};
   DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan

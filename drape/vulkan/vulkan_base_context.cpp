@@ -39,11 +39,6 @@ VulkanBaseContext::~VulkanBaseContext()
     m_pipeline.reset();
   }
 
-  for (auto const & s : m_samplers)
-    vkDestroySampler(m_device, s.second, nullptr);
-  m_samplers.clear();
-
-  DestroyDescriptorPools();
   DestroyDefaultFramebuffer();
   DestroyDepthTexture();
   DestroySwapchain();
@@ -158,9 +153,6 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   }
   RecreateSwapchain();
   CreateDefaultFramebuffer();
-
-  if (m_descriptorPools.empty())
-    CreateDescriptorPool();
 }
 
 void VulkanBaseContext::ResetSurface()
@@ -194,8 +186,6 @@ void VulkanBaseContext::Present()
 
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
     h.second(make_ref(this));
-
-  // TODO: wait for all map-memory operations.
 
   // Prepare frame. Acquire next image.
   // By setting timeout to UINT64_MAX we will always wait until the next image has been acquired or an actual
@@ -576,32 +566,6 @@ void VulkanBaseContext::DestroyRenderPass()
   vkDestroyRenderPass(m_device, m_renderPass, nullptr);
 }
 
-void VulkanBaseContext::CreateDescriptorPool()
-{
-  std::vector<VkDescriptorPoolSize> poolSizes =
-  {
-    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 1},  // Maximum uniform buffers count per draw call.
-    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3},  // Maximum textures count per draw call.
-  };
-
-  VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
-  descriptorPoolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-  descriptorPoolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-  descriptorPoolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
-  descriptorPoolInfo.pPoolSizes = poolSizes.data();
-  descriptorPoolInfo.maxSets = 250;  // Approximately equal to draw calls count.
-
-  VkDescriptorPool descriptorPool;
-  CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool));
-  m_descriptorPools.push_back(descriptorPool);
-}
-
-void VulkanBaseContext::DestroyDescriptorPools()
-{
-  for (auto & pool : m_descriptorPools)
-    vkDestroyDescriptorPool(m_device, pool, nullptr);
-}
-
 void VulkanBaseContext::SetDepthTestEnabled(bool enabled)
 {
   m_pipelineKey.m_depthStencil.SetDepthTestEnabled(enabled);
@@ -670,67 +634,9 @@ VkPipeline VulkanBaseContext::GetCurrentPipeline()
 
 DescriptorSetGroup VulkanBaseContext::GetCurrentDescriptorSetGroup()
 {
-  CHECK(!m_descriptorPools.empty(), ());
   CHECK(m_pipelineKey.m_program != nullptr, ());
   CHECK(!m_paramDescriptors.empty(), ("Shaders parameters are not set."));
-
-  DescriptorSetGroup s;
-  VkDescriptorSetLayout layout = m_pipelineKey.m_program->GetDescriptorSetLayout();
-  VkDescriptorSetAllocateInfo allocInfo = {};
-  allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-  allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.front();
-  allocInfo.pSetLayouts = &layout;
-  allocInfo.descriptorSetCount = 1;
-
-  auto result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
-  if (result != VK_SUCCESS)
-  {
-    for (size_t i = 1; i < m_descriptorPools.size(); ++i)
-    {
-      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools[i];
-      result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
-      if (result == VK_SUCCESS)
-        break;
-    }
-
-    if (s.m_descriptorSet == VK_NULL_HANDLE)
-    {
-      CreateDescriptorPool();
-      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.back();
-      CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
-    }
-  }
-
-  std::vector<VkWriteDescriptorSet> writeDescriptorSets(m_paramDescriptors.size());
-  for (size_t i = 0; i < writeDescriptorSets.size(); ++i)
-  {
-    auto const & p = m_paramDescriptors[i];
-
-    writeDescriptorSets[i] = {};
-    writeDescriptorSets[i].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    writeDescriptorSets[i].dstSet = s.m_descriptorSet;
-    writeDescriptorSets[i].descriptorCount = 1;
-    if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
-    {
-      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
-      writeDescriptorSets[i].dstBinding = 0;
-      writeDescriptorSets[i].pBufferInfo = &p.m_bufferDescriptor;
-    }
-    else if (p.m_type == ParamDescriptor::Type::Texture)
-    {
-      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-      writeDescriptorSets[i].dstBinding = static_cast<uint32_t>(p.m_textureSlot);
-      writeDescriptorSets[i].pImageInfo = &p.m_imageDescriptor;
-    }
-    else
-    {
-      CHECK(false, ("Unsupported param descriptor type."));
-    }
-  }
-
-  vkUpdateDescriptorSets(m_device, static_cast<uint32_t>(writeDescriptorSets.size()),
-                         writeDescriptorSets.data(), 0, nullptr);
-  return s;
+  return m_objectManager->CreateDescriptorSetGroup(m_pipelineKey.m_program, m_paramDescriptors);
 }
 
 VkPipelineLayout VulkanBaseContext::GetCurrentPipelineLayout() const
@@ -752,21 +658,7 @@ uint32_t VulkanBaseContext::GetCurrentDynamicBufferOffset() const
 
 VkSampler VulkanBaseContext::GetSampler(SamplerKey const & key)
 {
-  auto const it = m_samplers.find(key);
-  if (it != m_samplers.end())
-    return it->second;
-
-  VkSamplerCreateInfo samplerCreateInfo = {};
-  samplerCreateInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
-  samplerCreateInfo.magFilter = samplerCreateInfo.minFilter = GetVulkanFilter(key.GetTextureFilter());
-  samplerCreateInfo.addressModeU = GetVulkanSamplerAddressMode(key.GetWrapSMode());
-  samplerCreateInfo.addressModeV = GetVulkanSamplerAddressMode(key.GetWrapTMode());
-
-  VkSampler sampler;
-  CHECK_VK_CALL(vkCreateSampler(m_device, &samplerCreateInfo, nullptr, &sampler));
-
-  m_samplers.insert(std::make_pair(key, sampler));
-  return sampler;
+  return m_objectManager->GetSampler(key);
 }
 }  // namespace vulkan
 }  // namespace dp

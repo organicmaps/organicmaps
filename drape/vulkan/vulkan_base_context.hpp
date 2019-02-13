@@ -122,9 +122,6 @@ protected:
   void CreateRenderPass();
   void DestroyRenderPass();
 
-  void CreateDescriptorPool();
-  void DestroyDescriptorPools();
-
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
   VkPhysicalDeviceProperties const m_gpuProperties;
@@ -144,7 +141,6 @@ protected:
   // Command buffer submission and execution
   VkSemaphore m_renderComplete;
 
-  std::vector<VkDescriptorPool> m_descriptorPools;
   VkFence m_fence;
 
   ref_ptr<VulkanObjectManager> m_objectManager;
@@ -169,7 +165,6 @@ protected:
   VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;
   uint32_t m_stencilReferenceValue = 1;
-  std::map<SamplerKey, VkSampler> m_samplers;
 };
 }  // namespace vulkan
 }  // namespace dp

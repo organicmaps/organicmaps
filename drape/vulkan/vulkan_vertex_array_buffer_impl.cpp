@@ -10,7 +10,6 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
-#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <utility>
@@ -24,9 +23,11 @@ class VulkanVertexArrayBufferImpl : public VertexArrayBufferImpl
 {
 public:
   VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer,
-                              ref_ptr<VulkanObjectManager> objectManager)
+                              ref_ptr<VulkanObjectManager> objectManager,
+                              std::vector<dp::BindingInfo> && bindingInfo)
     : m_vertexArrayBuffer(std::move(buffer))
     , m_objectManager(std::move(objectManager))
+    , m_bindingInfo(std::move(bindingInfo))
   {}
 
   ~VulkanVertexArrayBufferImpl() override
@@ -48,28 +49,6 @@ public:
   void Unbind() override {}
   void BindBuffers(dp::BuffersMap const & buffers) const override {}
 
-  void AddBindingInfo(dp::BindingInfo const & bindingInfo) override
-  {
-    auto const id = bindingInfo.GetID();
-    auto const it = std::find_if(m_bindingInfo.begin(), m_bindingInfo.end(),
-                                 [id](dp::BindingInfo const & info)
-    {
-      return info.GetID() == id;
-    });
-    if (it != m_bindingInfo.end())
-    {
-      CHECK(*it == bindingInfo, ("Incorrect binding info."));
-      return;
-    }
-
-    m_bindingInfo.push_back(bindingInfo);
-    std::sort(m_bindingInfo.begin(), m_bindingInfo.end(),
-              [](dp::BindingInfo const & info1, dp::BindingInfo const & info2)
-    {
-      return info1.GetID() < info2.GetID();
-    });
-  }
-  
   void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
                    IndicesRange const & range) override
   {
@@ -77,17 +56,9 @@ public:
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
-    if (!m_pipeline || (m_lastDrawAsLine != drawAsLine))
-    {
-      m_lastDrawAsLine = drawAsLine;
-
-      vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST :
-                                                       VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
-      vulkanContext->SetBindingInfo(m_bindingInfo);
-      m_pipeline = vulkanContext->GetCurrentPipeline();
-      if (!m_pipeline)
-        return;
-    }
+    vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST :
+                                                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
+    vulkanContext->SetBindingInfo(m_bindingInfo);
 
     if (!m_descriptorSetGroup)
       m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
@@ -97,7 +68,8 @@ public:
                             vulkanContext->GetCurrentPipelineLayout(), 0, 1,
                             &m_descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
 
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+                      vulkanContext->GetCurrentPipeline());
 
     VkDeviceSize offsets[1] = {0};
     uint32_t bufferIndex = 0;
@@ -130,16 +102,16 @@ private:
   ref_ptr<VertexArrayBuffer> m_vertexArrayBuffer;
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<dp::BindingInfo> m_bindingInfo;
-  VkPipeline m_pipeline = {};
-  bool m_lastDrawAsLine = false;
   DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan
   
 drape_ptr<VertexArrayBufferImpl> VertexArrayBuffer::CreateImplForVulkan(ref_ptr<GraphicsContext> context,
-                                                                        ref_ptr<VertexArrayBuffer> buffer)
+                                                                        ref_ptr<VertexArrayBuffer> buffer,
+                                                                        std::vector<dp::BindingInfo> && bindingInfo)
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  return make_unique_dp<vulkan::VulkanVertexArrayBufferImpl>(buffer, vulkanContext->GetObjectManager());
+  return make_unique_dp<vulkan::VulkanVertexArrayBufferImpl>(buffer, vulkanContext->GetObjectManager(),
+                                                             std::move(bindingInfo));
 }
 }  // namespace dp
