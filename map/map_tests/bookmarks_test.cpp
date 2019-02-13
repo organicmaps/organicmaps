@@ -15,10 +15,9 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/string_utf8_multilang.hpp"
-
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <array>
 #include <fstream>
@@ -443,12 +442,12 @@ UNIT_TEST(Bookmarks_Getting)
 
 namespace
 {
-void CheckPlace(Framework const & fm, std::shared_ptr<MwmInfo> mwmInfo, double lat, double lon,
+void CheckPlace(Framework const & fm, shared_ptr<MwmInfo> mwmInfo, double lat, double lon,
                 StringUtf8Multilang const & streetNames, string const & houseNumber)
 {
   auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
 
-  std::string streetName;
+  string streetName;
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   feature::GetReadableName(mwmInfo->GetRegionData(), streetNames, deviceLang,
                            false /* allowTranslit */, streetName);

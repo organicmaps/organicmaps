@@ -26,12 +26,12 @@ void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll, std::string con
   ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(MercatorBounds::FromLatLon(ll), addr);
 
-  std::string const etalonKey =
+  std::string const expectedKey =
       strings::ToUtf8(GetStreetNameAsKey(street, false /* ignoreStreetSynonyms */));
   std::string const resultKey =
       strings::ToUtf8(GetStreetNameAsKey(addr.m_street.m_name, false /* ignoreStreetSynonyms */));
 
-  TEST_EQUAL(resultKey, etalonKey, (addr));
+  TEST_EQUAL(resultKey, expectedKey, (addr));
   TEST_EQUAL(houseNumber, addr.GetHouseNumber(), (addr));
 }
 
