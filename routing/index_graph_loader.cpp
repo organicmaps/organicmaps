@@ -57,7 +57,6 @@ private:
 
   unordered_map<NumMwmId, GraphAttrs> m_graphs;
 
-  // TODO (@gmoryes) move this field to |GeometryIndexGraph| after @bykoianko PR
   unordered_map<NumMwmId, map<SegmentCoord, vector<RouteSegment::SpeedCamera>>> m_cachedCameras;
   decltype(m_cachedCameras)::iterator ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
 };

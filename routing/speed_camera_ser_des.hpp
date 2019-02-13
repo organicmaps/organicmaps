@@ -41,8 +41,7 @@ struct SpeedCameraMwmPosition
   double m_coef = 0.0;
 };
 
-// Don't touch the order of enum (this is will be part of mwm).
-// TODO (@gmoryes) change comment after adding section in mwm.
+// Don't touch the order of enum (this is the part of mwm).
 enum class SpeedCameraDirection
 {
   Unknown = 0,

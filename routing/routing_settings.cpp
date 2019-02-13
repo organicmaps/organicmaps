@@ -35,8 +35,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
     return {true /* m_matchRoute */,        true /* m_soundDirection */,
             50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */,
             true /* m_showTurnAfterNext */};
-    // TODO (@gmoryes) make m_speedCameraWarningEnabled to true after tests ok. Now it can be on with:
-    // TODO (@gmoryes) typing "?speedcams" in search panel.
   }
   UNREACHABLE();
 }
