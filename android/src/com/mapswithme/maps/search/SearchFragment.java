@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.search.SearchAdView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -36,17 +35,14 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.libnotify.debug.NotifyDebugActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class SearchFragment extends BaseMwmFragment
@@ -56,23 +52,7 @@ public class SearchFragment extends BaseMwmFragment
                                     CategoriesAdapter.CategoriesUiListener,
                                     HotelsFilterHolder, NativeBookingFilterListener
 {
-  private static final int MIN_QUERY_LENGTH_FOR_AD = 3;
-  private static final long ADS_DELAY_MS = 200;
-  private static final long RESULTS_DELAY_MS = 400;
-  private static final int AD_POSITION = 3;
-
   private long mLastQueryTimestamp;
-
-  @Nullable
-  private GoogleAdsLoader mAdsLoader;
-  private boolean mAdsRequested = false;
-  private int mAdsOrientation = -1;
-  @Nullable
-  private SearchAdView mGoogleAdView;
-  @NonNull
-  private final Runnable mResultsShowingTask = this::refreshSearchResults;
-  @NonNull
-  private final Runnable mSearchEndTask = this::onSearchEnd;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
@@ -109,11 +89,6 @@ public class SearchFragment extends BaseMwmFragment
       if (!isAdded())
         return;
 
-      UiThread.cancelDelayedTasks(mSearchEndTask);
-      UiThread.cancelDelayedTasks(mResultsShowingTask);
-      mGoogleAdView = null;
-      stopAdsLoading();
-
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
@@ -127,12 +102,6 @@ public class SearchFragment extends BaseMwmFragment
         stopSearch();
         closeSearch();
         return;
-      }
-
-      if (mAdsLoader != null && !isTabletSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
-      {
-        mAdsRequested = true;
-        mAdsLoader.scheduleAdsLoading(getActivity(), query);
       }
 
       runSearch();
@@ -216,10 +185,6 @@ public class SearchFragment extends BaseMwmFragment
   private HotelsFilter mInitialHotelsFilter;
   @Nullable
   private BookingFilterParams mInitialFilterParams;
-
-  private boolean mIsHotel;
-  @NonNull
-  private SearchResult[] mSearchResults = new SearchResult[0];
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
   {
@@ -344,16 +309,6 @@ public class SearchFragment extends BaseMwmFragment
     mSearchAdapter = new SearchAdapter(this);
     readArguments();
 
-    if (ConnectionState.isWifiConnected())
-    {
-      mAdsLoader = new GoogleAdsLoader(getContext(), ADS_DELAY_MS);
-      mAdsLoader.attach(searchAdView ->
-                        {
-                          mGoogleAdView = searchAdView;
-                          mAdsRequested = false;
-                        });
-    }
-
     ViewGroup root = (ViewGroup) view;
     mAppBarLayout = root.findViewById(R.id.app_bar);
     mToolbarLayout = mAppBarLayout.findViewById(R.id.collapsing_toolbar);
@@ -475,14 +430,6 @@ public class SearchFragment extends BaseMwmFragment
     mAttachedRecyclers.clear();
     SearchEngine.INSTANCE.removeListener(this);
     super.onDestroy();
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    if (mAdsLoader != null)
-      mAdsLoader.detach();
-    super.onDestroyView();
   }
 
   private String getQuery()
@@ -663,37 +610,18 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResultsUpdate(SearchResult[] results, long timestamp, boolean isHotel)
+  public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp, boolean isHotel)
   {
     if (!isAdded() || !mToolbarController.hasQuery())
       return;
 
-    mSearchResults = results;
-    mIsHotel = isHotel;
-
-    if (mAdsRequested)
-    {
-      UiThread.cancelDelayedTasks(mResultsShowingTask);
-      UiThread.runLater(mResultsShowingTask, RESULTS_DELAY_MS);
-    }
-    else
-    {
-      refreshSearchResults();
-    }
+    refreshSearchResults(isHotel, results);
   }
 
   @Override
   public void onResultsEnd(long timestamp)
   {
-    if (mAdsRequested)
-    {
-      UiThread.cancelDelayedTasks(mSearchEndTask);
-      UiThread.runLater(mSearchEndTask, RESULTS_DELAY_MS);
-    }
-    else
-    {
-      onSearchEnd();
-    }
+    onSearchEnd();
   }
 
   @Override
@@ -723,36 +651,13 @@ public class SearchFragment extends BaseMwmFragment
     // Do nothing by default.
   }
 
-  private void refreshSearchResults()
+  private void refreshSearchResults(boolean isHotel, @NonNull SearchResult[] results)
   {
-    // Search is running hence results updated.
-    stopAdsLoading();
     mSearchRunning = true;
     updateFrames();
-    mSearchAdapter.refreshData(combineResultsWithAds());
+    mSearchAdapter.refreshData(results);
     mToolbarController.showProgress(true);
-    updateFilterButton(mIsHotel);
-  }
-
-  @NonNull
-  private SearchData[] combineResultsWithAds()
-  {
-    if (mSearchResults.length < AD_POSITION || mGoogleAdView == null)
-      return mSearchResults;
-
-    List<SearchData> result = new LinkedList<>();
-    int counter = 0;
-    for (SearchResult r : mSearchResults)
-    {
-      if (r.type != SearchResultTypes.TYPE_SUGGEST && counter++ == AD_POSITION)
-        result.add(new GoogleAdsBanner(mGoogleAdView));
-      else
-        result.add(r);
-    }
-
-    SearchData[] resultArray = new SearchData[result.size()];
-    result.toArray(resultArray);
-    return resultArray;
+    updateFilterButton(isHotel);
   }
 
   private void updateFilterButton(boolean isHotel)
@@ -830,15 +735,6 @@ public class SearchFragment extends BaseMwmFragment
   public SearchToolbarController getController()
   {
     return mToolbarController;
-  }
-
-  private void stopAdsLoading()
-  {
-    if (mAdsLoader == null)
-      return;
-
-    mAdsLoader.cancelAdsLoading();
-    mAdsRequested = false;
   }
 
   private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand

@@ -4,16 +4,16 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 
-import static com.mapswithme.maps.search.SearchResultTypes.TYPE_LOCAL_ADS_CUSTOMER;
-import static com.mapswithme.maps.search.SearchResultTypes.TYPE_RESULT;
-import static com.mapswithme.maps.search.SearchResultTypes.TYPE_SUGGEST;
-
 /**
  * Class instances are created from native code.
  */
 @SuppressWarnings("unused")
-public class SearchResult implements SearchData, PopularityProvider
+public class SearchResult implements PopularityProvider
 {
+  public static final int TYPE_SUGGEST = 0;
+  public static final int TYPE_RESULT = 1;
+  public static final int TYPE_LOCAL_ADS_CUSTOMER = 2;
+
   // Values should match osm::YesNoUnknown enum.
   public static final int OPEN_NOW_UNKNOWN = 0;
   public static final int OPEN_NOW_YES = 1;
@@ -96,12 +96,6 @@ public class SearchResult implements SearchData, PopularityProvider
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
-  }
-
-  @Override
-  public int getItemViewType()
-  {
-    return type;
   }
 
   @NonNull

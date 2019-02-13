@@ -8,6 +8,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,7 +19,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mapswithme.HotelUtils;
@@ -35,12 +35,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mapswithme.maps.search.SearchResult.TYPE_LOCAL_ADS_CUSTOMER;
+import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
+import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
 import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {
   private final SearchFragment mSearchFragment;
-  private SearchData[] mResults;
+  @Nullable
+  private SearchResult[] mResults;
   @NonNull
   private final FilteredHotelIds mFilteredHotelIds = new FilteredHotelIds();
   private final Drawable mClosedMarkerBackground;
@@ -52,7 +56,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super(itemView);
     }
 
-    abstract void bind(@NonNull SearchData searchData, int position);
+    abstract void bind(@NonNull SearchResult result, int position);
   }
 
   private static abstract class BaseResultViewHolder extends SearchDataViewHolder
@@ -81,9 +85,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
 
     @Override
-    void bind(@NonNull SearchData result, int order)
+    void bind(@NonNull SearchResult result, int order)
     {
-      mResult = (SearchResult)result;
+      mResult = result;
       mOrder = order;
       TextView titleView = getTitleView();
 
@@ -160,25 +164,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     void processClick(SearchResult result, int order)
     {
       mSearchFragment.setQuery(result.suggestion);
-    }
-  }
-
-  private static class GoogleAdsViewHolder extends SearchDataViewHolder
-  {
-    @NonNull
-    private ViewGroup container;
-
-    GoogleAdsViewHolder(@NonNull View view)
-    {
-      super(view);
-      container = (FrameLayout)view;
-    }
-
-    @Override
-    void bind(@NonNull SearchData searchData, int position)
-    {
-      container.removeAllViews();
-      container.addView(((GoogleAdsBanner)searchData).getAdView());
     }
   }
 
@@ -298,7 +283,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
 
     @Override
-    void bind(@NonNull SearchData result, int order)
+    void bind(@NonNull SearchResult result, int order)
     {
       super.bind(result, order);
       setBackground();
@@ -416,17 +401,14 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     switch (viewType)
     {
-      case SearchResultTypes.TYPE_SUGGEST:
+      case TYPE_SUGGEST:
         return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
 
-      case SearchResultTypes.TYPE_RESULT:
+      case TYPE_RESULT:
         return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
 
-      case SearchResultTypes.TYPE_LOCAL_ADS_CUSTOMER:
+      case TYPE_LOCAL_ADS_CUSTOMER:
         return new LocalAdsCustomerViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
-
-      case SearchResultTypes.TYPE_GOOGLE_ADS:
-        return new GoogleAdsViewHolder(new FrameLayout(parent.getContext()));
 
       default:
         throw new IllegalArgumentException("Unhandled view type given");
@@ -442,7 +424,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   @Override
   public int getItemViewType(int position)
   {
-    return mResults[position].getItemViewType();
+    return mResults[position].type;
   }
 
   boolean showPopulateButton()
@@ -450,8 +432,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     return (!RoutingController.get().isWaitingPoiPick() &&
             mResults != null &&
             mResults.length > 0 &&
-            SearchResult.class.isInstance(mResults[0]) &&
-            ((SearchResult) mResults[0]).type != SearchResultTypes.TYPE_SUGGEST);
+            mResults[0].type != TYPE_SUGGEST);
   }
 
   @Override
@@ -476,7 +457,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     refreshData(null);
   }
 
-  void refreshData(SearchData[] results)
+  void refreshData(@Nullable SearchResult[] results)
   {
     mResults = results;
     notifyDataSetChanged();

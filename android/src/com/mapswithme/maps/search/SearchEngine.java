@@ -24,7 +24,7 @@ public enum SearchEngine implements NativeSearchListener,
   private String mQuery;
 
   @Override
-  public void onResultsUpdate(final SearchResult[] results, final long timestamp,
+  public void onResultsUpdate(@NonNull final SearchResult[] results, final long timestamp,
                               final boolean isHotel)
   {
     UiThread.run(
