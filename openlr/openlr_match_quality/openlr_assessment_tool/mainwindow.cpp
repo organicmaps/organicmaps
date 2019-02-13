@@ -326,6 +326,7 @@ void MainWindow::CreateTrafficPanel(string const & dataFilePath)
   m_docWidget->setWidget(new TrafficPanel(m_trafficMode, m_docWidget));
 
   m_docWidget->adjustSize();
+  m_docWidget->setMinimumWidth(400);
   m_docWidget->show();
 }
 

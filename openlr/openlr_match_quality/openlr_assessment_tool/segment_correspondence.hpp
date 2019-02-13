@@ -19,6 +19,7 @@ public:
 
   SegmentCorrespondence(SegmentCorrespondence const & sc);
   SegmentCorrespondence(openlr::LinearSegment const & segment,
+                        uint32_t positiveOffset, uint32_t negativeOffset,
                         openlr::Path const & matchedPath,
                         openlr::Path const & fakePath,
                         openlr::Path const & goldenPath,
@@ -26,6 +27,9 @@ public:
 
   openlr::Path const & GetMatchedPath() const { return m_matchedPath; }
   bool HasMatchedPath() const { return !m_matchedPath.empty(); }
+
+  uint32_t GetPositiveOffset() const { return m_positiveOffset; }
+  uint32_t GetNegativeOffset() const { return m_negativeOffset; }
 
   openlr::Path const & GetFakePath() const { return m_fakePath; }
   bool HasFakePath() const { return !m_fakePath.empty(); }
@@ -47,6 +51,9 @@ public:
 
 private:
   openlr::LinearSegment m_partnerSegment;
+
+  uint32_t m_positiveOffset = 0;
+  uint32_t m_negativeOffset = 0;
 
   openlr::Path m_matchedPath;
   openlr::Path m_fakePath;

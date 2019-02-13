@@ -142,7 +142,6 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
                                       Graph::EdgeVector & path)
 {
   // TODO(mgsergio): Turn Dijkstra to A*.
-
   uint32_t const kLengthToleranceM = 10;
 
   struct State

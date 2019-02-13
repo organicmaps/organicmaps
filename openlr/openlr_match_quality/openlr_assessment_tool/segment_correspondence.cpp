@@ -6,6 +6,9 @@ SegmentCorrespondence::SegmentCorrespondence(SegmentCorrespondence const & sc)
 {
   m_partnerSegment = sc.m_partnerSegment;
 
+  m_positiveOffset = sc.m_positiveOffset;
+  m_negativeOffset = sc.m_negativeOffset;
+
   m_matchedPath = sc.m_matchedPath;
   m_fakePath = sc.m_fakePath;
   m_goldenPath = sc.m_goldenPath;
@@ -17,11 +20,14 @@ SegmentCorrespondence::SegmentCorrespondence(SegmentCorrespondence const & sc)
 }
 
 SegmentCorrespondence::SegmentCorrespondence(openlr::LinearSegment const & segment,
+                                             uint32_t positiveOffset, uint32_t negativeOffset,
                                              openlr::Path const & matchedPath,
                                              openlr::Path const & fakePath,
                                              openlr::Path const & goldenPath,
                                              pugi::xml_node const & partnerSegmentXML)
   : m_partnerSegment(segment)
+  , m_positiveOffset(positiveOffset)
+  , m_negativeOffset(negativeOffset)
   , m_matchedPath(matchedPath)
   , m_fakePath(fakePath)
 {

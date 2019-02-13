@@ -19,16 +19,16 @@
 
 namespace
 {
+uint32_t UintFromXML(pugi::xml_node const & node)
+{
+  THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse uint"));
+  return node.text().as_uint();
+}
+
 bool IsForwardFromXML(pugi::xml_node const & node)
 {
   THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse IsForward"));
   return node.text().as_bool();
-}
-
-uint32_t SegmentIdFromXML(pugi::xml_node const & node)
-{
-  THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse SegmentId"));
-  return node.text().as_uint();
 }
 
 void LatLonToXML(ms::LatLon const & latLon, pugi::xml_node & node)
@@ -63,6 +63,15 @@ void FeatureIdToXML(FeatureID const & fid, pugi::xml_node & node)
 
 namespace openlr
 {
+uint32_t UintValueFromXML(pugi::xml_node const & node)
+{
+  auto const value = node.child("olr:value");
+  if (!value)
+    return 0;
+
+  return UintFromXML(value);
+}
+
 void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPath> const & paths)
 {
   std::ofstream ofs(fileName);
@@ -120,7 +129,7 @@ void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Pat
     FeatureIdFromXML(e.child("FeatureID"), dataSource, fid);
 
     auto const isForward = IsForwardFromXML(e.child("IsForward"));
-    auto const segmentId = SegmentIdFromXML(e.child("SegmentId"));
+    auto const segmentId = UintFromXML(e.child("SegmentId"));
 
     ms::LatLon start, end;
     LatLonFromXML(e.child("StartJunction"), start);

@@ -5,6 +5,7 @@
 #include "base/exception.hpp"
 #include "base/newtype.hpp"
 
+#include <cstdint>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -29,6 +30,8 @@ struct DecodedPath
   PartnerSegmentId m_segmentId;
   Path m_path;
 };
+
+uint32_t UintValueFromXML(pugi::xml_node const & node);
 
 void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPath> const & paths);
 void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const & paths);

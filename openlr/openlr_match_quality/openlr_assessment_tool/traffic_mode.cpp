@@ -5,6 +5,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/scales.hpp"
 
+#include "base/assert.hpp"
 #include "base/scope_guard.hpp"
 
 #include "3party/pugixml/src/utils.hpp"
@@ -142,7 +143,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
       // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
       auto const partnerSegmentXML = xmlSegment.child("reportSegments");
       if (!openlr::SegmentFromXML(partnerSegmentXML, segment))
-        MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
+        MYTHROW(TrafficModeError, ("An error occurred while parsing: can't parse segment"));
 
       if (auto const route = xmlSegment.child("Route"))
         openlr::PathFromXML(route, m_dataSource, matchedPath);
@@ -151,7 +152,29 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
       if (auto const route = xmlSegment.child("GoldenRoute"))
         openlr::PathFromXML(route, m_dataSource, goldenPath);
 
-      m_segments.emplace_back(segment, matchedPath, fakePath, goldenPath, partnerSegmentXML);
+      uint32_t positiveOffsetM = 0;
+      uint32_t negativeOffsetM = 0;
+      if (auto const reportSegmentLRC = partnerSegmentXML.child("ReportSegmentLRC"))
+      {
+        if (auto const method = reportSegmentLRC.child("method"))
+        {
+          if (auto const locationReference = method.child("olr:locationReference"))
+          {
+            if (auto const optionLinearLocationReference = locationReference
+                .child("olr:optionLinearLocationReference"))
+            {
+              if (auto const positiveOffset = optionLinearLocationReference.child("olr:positiveOffset"))
+                positiveOffsetM = UintValueFromXML(positiveOffset);
+
+              if (auto const negativeOffset = optionLinearLocationReference.child("olr:negativeOffset"))
+                negativeOffsetM = UintValueFromXML(negativeOffset);
+            }
+          }
+        }
+      }
+
+      m_segments.emplace_back(segment, positiveOffsetM, negativeOffsetM, matchedPath, fakePath,
+                              goldenPath, partnerSegmentXML);
       if (auto const status = xmlSegment.child("Ignored"))
       {
         if (status.text().as_bool())
@@ -161,13 +184,13 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
   }
   catch (openlr::DecodedPathLoadError const & e)
   {
-    MYTHROW(TrafficModeError, ("An exception occured while parsing", dataFileName, e.Msg()));
+    MYTHROW(TrafficModeError, ("An exception occurred while parsing", dataFileName, e.Msg()));
   }
 
-  // TODO(mgsergio): LOG(LINFO, (xxx, "segments are loaded"));
+  LOG(LINFO, (segments.size(), "segments are loaded."));
 }
 
-// TODO(mgsergio): Check if a path was commited, or commit it.
+// TODO(mgsergio): Check if a path was committed, or commit it.
 bool TrafficMode::SaveSampleAs(std::string const & fileName) const
 {
   CHECK(!fileName.empty(), ("Can't save to an empty file."));
@@ -211,7 +234,7 @@ int TrafficMode::rowCount(const QModelIndex & parent) const
   return static_cast<int>(m_segments.size());
 }
 
-int TrafficMode::columnCount(const QModelIndex & parent) const { return 2; }
+int TrafficMode::columnCount(const QModelIndex & parent) const { return 4; }
 
 QVariant TrafficMode::data(const QModelIndex & index, int role) const
 {
@@ -229,6 +252,33 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
 
   if (index.column() == 1)
     return static_cast<int>(m_segments[index.row()].GetStatus());
+
+  if (index.column() == 2)
+    return m_segments[index.row()].GetPositiveOffset();
+
+  if (index.column() == 3)
+    return m_segments[index.row()].GetNegativeOffset();
+
+  return QVariant();
+}
+
+QVariant TrafficMode::headerData(int section, Qt::Orientation orientation,
+                                 int role /* = Qt::DisplayRole */) const
+{
+  if (orientation == Qt::Horizontal)
+  {
+    if (role == Qt::DisplayRole)
+    {
+      switch (section)
+      {
+      case 0: return "Segment id"; break;
+      case 1: return "Status code"; break;
+      case 2: return "Positive offset (Meters)"; break;
+      case 3: return "Negative offset (Meters)"; break;
+      }
+      UNREACHABLE();
+    }
+  }
 
   return QVariant();
 }

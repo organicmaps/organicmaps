@@ -69,7 +69,7 @@ void TrafficPanel::CreateTable(QAbstractItemModel * trafficModel)
   m_table->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
   m_table->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
   m_table->verticalHeader()->setVisible(false);
-  m_table->horizontalHeader()->setVisible(false);
+  m_table->horizontalHeader()->setVisible(true);
   m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
   m_table->setModel(trafficModel);
