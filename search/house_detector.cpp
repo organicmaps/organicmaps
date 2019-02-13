@@ -247,8 +247,8 @@ public:
       m_results[ind] = ScoredHouse(p.m_house, p.m_distMeters);
   }
 
-  template <typename TCont>
-  void FlushResults(TCont & cont) const
+  template <typename Cont>
+  void FlushResults(Cont & cont) const
   {
     size_t const baseScore = 1 << (ARRAY_SIZE(m_results) - 2);
 

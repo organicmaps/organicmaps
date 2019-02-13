@@ -39,15 +39,15 @@ struct NameScores
   ErrorsMade m_errorsMade;
 };
 
-template <typename TSlice>
-void UpdateNameScores(string const & name, TSlice const & slice, NameScores & bestScores)
+template <typename Slice>
+void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
   bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(name, slice));
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(name, slice));
 }
 
-template <typename TSlice>
-void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & slice,
+template <typename Slice>
+void UpdateNameScores(vector<strings::UniString> const & tokens, Slice const & slice,
                       NameScores & bestScores)
 {
   bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(tokens, slice));

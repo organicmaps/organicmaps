@@ -13,9 +13,9 @@
 
 namespace search
 {
-template <typename LowTokensIterType, typename F>
-void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIterType itLowBeg,
-                                          LowTokensIterType itLowEnd, F f)
+template <typename LowTokensIter, typename F>
+void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIter itLowBeg,
+                                          LowTokensIter itLowEnd, F f)
 {
   // split input query by tokens and prefix
   search::Delimiters delimsTest;
@@ -40,7 +40,7 @@ void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIterTy
     size_t maxCount = 0;
     std::pair<uint16_t, uint16_t> result(0, 0);
 
-    for (LowTokensIterType itLow = itLowBeg; itLow != itLowEnd; ++itLow)
+    for (auto itLow = itLowBeg; itLow != itLowEnd; ++itLow)
     {
       size_t const cnt = strings::CountNormLowerSymbols(subStr, *itLow);
 

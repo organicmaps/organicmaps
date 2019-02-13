@@ -47,19 +47,19 @@ bool SearchTest::ResultsMatch(string const & query, Mode mode,
   return MatchResults(m_dataSource, rules, request.Results());
 }
 
-bool SearchTest::ResultsMatch(vector<search::Result> const & results, TRules const & rules)
+bool SearchTest::ResultsMatch(vector<search::Result> const & results, Rules const & rules)
 {
   return MatchResults(m_dataSource, rules, results);
 }
 
-bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
+bool SearchTest::ResultsMatch(SearchParams const & params, Rules const & rules)
 {
   tests_support::TestSearchRequest request(m_engine, params);
   request.Run();
   return ResultsMatch(request.Results(), rules);
 }
 
-bool SearchTest::ResultMatches(search::Result const & result, TRule const & rule)
+bool SearchTest::ResultMatches(search::Result const & result, Rule const & rule)
 {
   return tests_support::ResultMatches(m_dataSource, rule, result);
 }

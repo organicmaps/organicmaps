@@ -109,12 +109,12 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
 
   SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
   {
-    TRules rules = {ExactMatch(id, wineShop)};
+    Rules rules = {ExactMatch(id, wineShop)};
     TEST(ResultsMatch("wine ", rules), ());
   }
 
   {
-    TRules rules = {ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
+    Rules rules = {ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
                     ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
     TEST(ResultsMatch("shop ", rules), ());
   }
@@ -134,7 +134,7 @@ UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
 
   SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)));
   {
-    TRules rules = {ExactMatch(id, redStation), ExactMatch(id, blueStation)};
+    Rules rules = {ExactMatch(id, redStation), ExactMatch(id, blueStation)};
     TEST(ResultsMatch("Subway ", rules), ());
   }
 }
@@ -224,9 +224,9 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
     SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
     {
-      TRules rules = {ExactMatch(id, poi)};
+      Rules rules = {ExactMatch(id, poi)};
       auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
-      TEST(ResultsMatch(query, categoryIsSearchable ? rules : TRules{}), ());
+      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), ());
     }
     DeregisterMap(countryName);
   };
@@ -294,7 +294,7 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
 
   SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
   {
-    TRules rules = {ExactMatch(id, cafe)};
+    Rules rules = {ExactMatch(id, cafe)};
     TEST(ResultsMatch("Starbucks ", rules), ());
     TEST(ResultsMatch("Main street 27 ", rules), ());
     TEST(ResultsMatch("Main street 27 Starbucks ", rules), ());

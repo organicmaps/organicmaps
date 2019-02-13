@@ -45,7 +45,7 @@ UNIT_CLASS_TEST(RankerTest, ErrorsInStreets)
     auto request = MakeRequest("Мазурова 14");
     auto const & results = request->Results();
 
-    TRules rules = {ExactMatch(id, mazurova14), ExactMatch(id, masherova14)};
+    Rules rules = {ExactMatch(id, mazurova14), ExactMatch(id, masherova14)};
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(results.size(), 2, ());
@@ -86,15 +86,15 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
     auto request = MakeRequest("eat ");
     auto const & results = request->Results();
 
-    TRules barRules;
+    Rules barRules;
     for (auto const & b : bars)
       barRules.push_back(ExactMatch(id, b));
 
-    TRules cafeRules;
+    Rules cafeRules;
     for (auto const & c : cafes)
       cafeRules.push_back(ExactMatch(id, c));
 
-    TRules fastfoodRules;
+    Rules fastfoodRules;
     for (auto const & f : fastfoods)
       fastfoodRules.push_back(ExactMatch(id, f));
 

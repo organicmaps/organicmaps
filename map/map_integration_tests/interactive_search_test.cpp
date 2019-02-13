@@ -113,7 +113,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
         m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)), stats);
     request.Run();
 
-    TRules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
+    Rules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
                           ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
     TEST(!stats.m_hotelDisplacementModeSet, ());
@@ -127,7 +127,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
                                      m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), stats);
     request.Run();
 
-    TRules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
+    Rules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
                           ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
     TEST(stats.m_hotelDisplacementModeSet, ());
@@ -162,7 +162,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
     request.Run();
 
     TEST(MatchResults(m_dataSource,
-                      TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe2), ExactMatch(id, cafe3)},
+                      Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe2), ExactMatch(id, cafe3)},
                       request.Results()),
          ());
   }
@@ -175,8 +175,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
 
     auto const & results = request.Results();
 
-    TEST(MatchResults(m_dataSource, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
-             MatchResults(m_dataSource, TRules{ExactMatch(id, cafe2)}, results),
+    TEST(MatchResults(m_dataSource, Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
+             MatchResults(m_dataSource, Rules{ExactMatch(id, cafe2)}, results),
          ());
   }
 }

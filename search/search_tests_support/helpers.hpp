@@ -19,8 +19,8 @@ namespace search
 class SearchTest : public tests_support::TestWithCustomMwms
 {
 public:
-  using TRule = std::shared_ptr<tests_support::MatchingRule>;
-  using TRules = std::vector<TRule>;
+  using Rule = std::shared_ptr<tests_support::MatchingRule>;
+  using Rules = std::vector<Rule>;
 
   SearchTest();
   ~SearchTest() override = default;
@@ -31,17 +31,17 @@ public:
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
 
-  bool ResultsMatch(std::string const & query, TRules const & rules);
+  bool ResultsMatch(std::string const & query, Rules const & rules);
 
-  bool ResultsMatch(std::string const & query, string const & locale, TRules const & rules);
+  bool ResultsMatch(std::string const & query, string const & locale, Rules const & rules);
 
-  bool ResultsMatch(std::string const & query, Mode mode, TRules const & rules);
+  bool ResultsMatch(std::string const & query, Mode mode, Rules const & rules);
 
-  bool ResultsMatch(std::vector<search::Result> const & results, TRules const & rules);
+  bool ResultsMatch(std::vector<search::Result> const & results, Rules const & rules);
 
-  bool ResultsMatch(SearchParams const & params, TRules const & rules);
+  bool ResultsMatch(SearchParams const & params, Rules const & rules);
 
-  bool ResultMatches(search::Result const & result, TRule const & rule);
+  bool ResultMatches(search::Result const & result, Rule const & rule);
 
   std::unique_ptr<tests_support::TestSearchRequest> MakeRequest(std::string const & query,
                                                                 std::string const & locale = "en");

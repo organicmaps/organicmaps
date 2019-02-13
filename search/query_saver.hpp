@@ -12,15 +12,15 @@ class QuerySaver
 {
 public:
   /// Search request <locale, request>.
-  using TSearchRequest = std::pair<std::string, std::string>;
+  using SearchRequest = std::pair<std::string, std::string>;
 
   QuerySaver();
 
-  void Add(TSearchRequest const & query);
+  void Add(SearchRequest const & query);
 
   /// Returns several last saved queries from newest to oldest query.
   /// @see kMaxSuggestCount in implementation file.
-  std::list<TSearchRequest> const & Get() const { return m_topQueries; }
+  std::list<SearchRequest> const & Get() const { return m_topQueries; }
 
   /// Clear last queries storage. All data will be lost.
   void Clear();
@@ -34,6 +34,6 @@ private:
   void Save();
   void Load();
 
-  std::list<TSearchRequest> m_topQueries;
+  std::list<SearchRequest> m_topQueries;
 };
 }  // namespace search

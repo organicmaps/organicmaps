@@ -68,8 +68,8 @@ public:
   void SetContext(MwmContext * context);
   void SetPostcodes(CBV const * postcodes);
 
-  template <typename TFn>
-  void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
+  template <typename Fn>
+  void Match(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
     if (child.m_type >= parent.m_type)
       return;
@@ -86,15 +86,15 @@ public:
       break;
     case Model::TYPE_BUILDING:
       ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
-      MatchPOIsWithBuildings(child, parent, std::forward<TFn>(fn));
+      MatchPOIsWithBuildings(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_STREET:
       ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING,
              ("Invalid child layer type:", child.m_type));
       if (child.m_type == Model::TYPE_POI)
-        MatchPOIsWithStreets(child, parent, std::forward<TFn>(fn));
+        MatchPOIsWithStreets(child, parent, std::forward<Fn>(fn));
       else
-        MatchBuildingsWithStreets(child, parent, std::forward<TFn>(fn));
+        MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
       break;
     }
   }
@@ -102,8 +102,8 @@ public:
   void OnQueryFinished();
 
 private:
-  template <typename TFn>
-  void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
+  template <typename Fn>
+  void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
     // Following code initially loads centers of POIs and then, for
     // each building, tries to find all POIs located at distance less
@@ -186,8 +186,8 @@ private:
     }
   }
 
-  template <typename TFn>
-  void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
+  template <typename Fn>
+  void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
     BailIfCancelled(m_cancellable);
 
@@ -260,9 +260,9 @@ private:
                             });
   }
 
-  template <typename TFn>
+  template <typename Fn>
   void MatchBuildingsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent,
-                                 TFn && fn)
+                                 Fn && fn)
   {
     ASSERT_EQUAL(child.m_type, Model::TYPE_BUILDING, ());
     ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
@@ -353,12 +353,12 @@ private:
   uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
-  using TStreet = ReverseGeocoder::Street;
-  using TStreets = std::vector<TStreet>;
+  using Street = ReverseGeocoder::Street;
+  using Streets = std::vector<Street>;
 
-  TStreets const & GetNearbyStreets(uint32_t featureId);
-  TStreets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
-  TStreets const & GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature);
+  Streets const & GetNearbyStreets(uint32_t featureId);
+  Streets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
+  Streets const & GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature);
 
   inline bool GetByIndex(uint32_t id, FeatureType & ft) const
   {
@@ -380,7 +380,7 @@ private:
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.
-  Cache<uint32_t, TStreets> m_nearbyStreetsCache;
+  Cache<uint32_t, Streets> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be

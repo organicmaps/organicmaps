@@ -747,8 +747,8 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
   }
 }
 
-template <typename TFn>
-void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn)
+template <typename Fn>
+void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, Fn && fn)
 {
   for (size_t i = 0; i < infos.size(); ++i)
   {
@@ -942,8 +942,8 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
   search();
 }
 
-template <typename TFn>
-void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
+template <typename Fn>
+void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
 {
   size_t const maxPostcodeTokens = GetMaxNumTokensInPostcode();
 

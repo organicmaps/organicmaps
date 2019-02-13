@@ -26,8 +26,8 @@ struct MatchCostData
   }
 };
 
-template <typename PriorityQueyeT>
-void PushMatchCost(PriorityQueyeT & q, uint32_t maxCost, uint32_t a, uint32_t b, uint32_t cost)
+template <typename PriorityQueue>
+void PushMatchCost(PriorityQueue & q, uint32_t maxCost, uint32_t a, uint32_t b, uint32_t cost)
 {
   if (cost <= maxCost)
     q.push(MatchCostData(a, b, cost));
@@ -46,10 +46,10 @@ public:
   uint32_t SwapCost(strings::UniChar a1, strings::UniChar a2) const;
 };
 
-template <typename CharT, typename CostF>
-uint32_t StringMatchCost(CharT const * sA, size_t sizeA,
-                         CharT const * sB, size_t sizeB,
-                         CostF const & costF, uint32_t maxCost,
+template <typename Char, typename CostFn>
+uint32_t StringMatchCost(Char const * sA, size_t sizeA,
+                         Char const * sB, size_t sizeB,
+                         CostFn const & costF, uint32_t maxCost,
                          bool bPrefixMatch = false)
 {
   std::priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256> > q;

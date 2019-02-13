@@ -25,8 +25,8 @@ namespace impl
   };
 }  // namespace impl
 
-template <typename T, typename OutIterT, typename CompT>
-void LongestSubsequence(std::vector<T> const & in, OutIterT out, CompT cmp)
+template <typename T, typename OutIter, typename Comp>
+void LongestSubsequence(std::vector<T> const & in, OutIter out, Comp cmp)
 {
   if (in.empty())
     return;

@@ -62,10 +62,10 @@ private:
   std::vector<std::shared_ptr<MatchingRule>> m_rules;
 };
 
-template <typename... TArgs>
-std::shared_ptr<MatchingRule> ExactMatch(TArgs &&... args)
+template <typename... Args>
+std::shared_ptr<MatchingRule> ExactMatch(Args &&... args)
 {
-  return std::make_shared<ExactMatchingRule>(std::forward<TArgs>(args)...);
+  return std::make_shared<ExactMatchingRule>(std::forward<Args>(args)...);
 }
 
 inline std::shared_ptr<MatchingRule> AlternativesMatch(

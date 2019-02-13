@@ -16,23 +16,23 @@ class RankTable;
 
 class RankTableCache
 {
-  using TId = MwmSet::MwmId;
+  using Id = MwmSet::MwmId;
 
   struct TKey : public MwmSet::MwmHandle
   {
     TKey() = default;
     TKey(TKey &&) = default;
 
-    explicit TKey(TId const & id) { this->m_mwmId = id; }
+    explicit TKey(Id const & id) { this->m_mwmId = id; }
     explicit TKey(MwmSet::MwmHandle && handle) : MwmSet::MwmHandle(std::move(handle)) {}
   };
 
 public:
   RankTableCache() = default;
 
-  RankTable const & Get(DataSource & dataSource, TId const & mwmId);
+  RankTable const & Get(DataSource & dataSource, Id const & mwmId);
 
-  void Remove(TId const & id);
+  void Remove(Id const & id);
   void Clear();
 
 private:

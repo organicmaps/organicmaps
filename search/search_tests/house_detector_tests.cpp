@@ -71,8 +71,8 @@ class CollectStreetIDs
     return true;
   }
 
-  typedef map<string, vector<FeatureID> > ContT;
-  ContT m_ids;
+  using Cont = map<string, vector<FeatureID>>;
+  Cont m_ids;
   vector<FeatureID> m_empty;
 
 public:
@@ -92,28 +92,28 @@ public:
 
   void Finish()
   {
-    for (ContT::iterator i = m_ids.begin(); i != m_ids.end(); ++i)
+    for (Cont::iterator i = m_ids.begin(); i != m_ids.end(); ++i)
       sort(i->second.begin(), i->second.end());
   }
 
   vector<FeatureID> const & Get(string const & key) const
   {
-    ContT::const_iterator i = m_ids.find(key);
+    Cont::const_iterator i = m_ids.find(key);
     return (i == m_ids.end() ? m_empty : i->second);
   }
 };
 
 UNIT_TEST(HS_ParseNumber)
 {
-  typedef search::ParsedNumber NumberT;
+  using Number = search::ParsedNumber;
 
   {
-    NumberT n("135");
+    Number n("135");
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 135, ());
 
-    NumberT n1("133");
-    NumberT n2("137");
+    Number n1("133");
+    Number n2("137");
     TEST(n.IsIntersect(n1, 2), ());
     TEST(!n.IsIntersect(n1, 1), ());
     TEST(n.IsIntersect(n2, 2), ());
@@ -121,69 +121,69 @@ UNIT_TEST(HS_ParseNumber)
   }
 
   {
-    NumberT n("135 1к/2");
+    Number n("135 1к/2");
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 135, ());
 
-    TEST(!n.IsIntersect(NumberT("134")), ());
-    TEST(!n.IsIntersect(NumberT("136")), ());
+    TEST(!n.IsIntersect(Number("134")), ());
+    TEST(!n.IsIntersect(Number("136")), ());
   }
 
   {
-    NumberT n("135A");
+    Number n("135A");
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 135, ());
 
-    TEST(!n.IsIntersect(NumberT("134")), ());
-    TEST(!n.IsIntersect(NumberT("136")), ());
+    TEST(!n.IsIntersect(Number("134")), ());
+    TEST(!n.IsIntersect(Number("136")), ());
   }
 
   {
-    NumberT n("135-к1", false);
+    Number n("135-к1", false);
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 135, ());
 
-    TEST(!n.IsIntersect(NumberT("134")), ());
-    TEST(!n.IsIntersect(NumberT("136")), ());
+    TEST(!n.IsIntersect(Number("134")), ());
+    TEST(!n.IsIntersect(Number("136")), ());
   }
 
   {
-    NumberT n("135-12", false);
+    Number n("135-12", false);
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 135, ());
 
-    TEST(!n.IsIntersect(NumberT("134")), ());
-    TEST(!n.IsIntersect(NumberT("136")), ());
+    TEST(!n.IsIntersect(Number("134")), ());
+    TEST(!n.IsIntersect(Number("136")), ());
   }
 
 
   {
-    NumberT n("135-24", true);
+    Number n("135-24", true);
     TEST(!n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 13524, ());
   }
 
   {
-    NumberT n("135;133;131");
+    Number n("135;133;131");
     TEST(n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 131, ());
 
     for (int i = 131; i <= 135; ++i)
-      TEST(n.IsIntersect(NumberT(strings::to_string(i))), ());
-    TEST(!n.IsIntersect(NumberT("130")), ());
-    TEST(!n.IsIntersect(NumberT("136")), ());
+      TEST(n.IsIntersect(Number(strings::to_string(i))), ());
+    TEST(!n.IsIntersect(Number("130")), ());
+    TEST(!n.IsIntersect(Number("136")), ());
   }
 
   {
-    NumberT n("6-10", false);
+    Number n("6-10", false);
     TEST(!n.IsOdd(), ());
     TEST_EQUAL(n.GetIntNumber(), 6, ());
 
     for (int i = 6; i <= 10; ++i)
-      TEST(n.IsIntersect(NumberT(strings::to_string(i))), ());
+      TEST(n.IsIntersect(Number(strings::to_string(i))), ());
 
-    TEST(!n.IsIntersect(NumberT("5")), ());
-    TEST(!n.IsIntersect(NumberT("11")), ());
+    TEST(!n.IsIntersect(Number("5")), ());
+    TEST(!n.IsIntersect(Number("11")), ());
   }
 }
 

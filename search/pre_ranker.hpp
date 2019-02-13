@@ -61,12 +61,12 @@ public:
 
   void Finish(bool cancelled);
 
-  template <typename... TArgs>
-  void Emplace(TArgs &&... args)
+  template <typename... Args>
+  void Emplace(Args &&... args)
   {
     if (m_numSentResults >= Limit())
       return;
-    m_results.emplace_back(std::forward<TArgs>(args)...);
+    m_results.emplace_back(std::forward<Args>(args)...);
   }
 
   // Computes missing fields for all pre-results.
@@ -83,10 +83,10 @@ public:
   inline size_t NumSentResults() const { return m_numSentResults; }
   inline size_t Limit() const { return m_params.m_limit; }
 
-  template <typename TFn>
-  void ForEach(TFn && fn)
+  template <typename Fn>
+  void ForEach(Fn && fn)
   {
-    std::for_each(m_results.begin(), m_results.end(), std::forward<TFn>(fn));
+    std::for_each(m_results.begin(), m_results.end(), std::forward<Fn>(fn));
   }
 
   void ClearCaches();

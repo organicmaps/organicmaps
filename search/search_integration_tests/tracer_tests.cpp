@@ -47,7 +47,7 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
 
   TestSearchRequest request(m_engine, params);
   request.Run();
-  TRules rules = {ExactMatch(id, regularCafe), ExactMatch(id, moscowCafe)};
+  Rules rules = {ExactMatch(id, regularCafe), ExactMatch(id, moscowCafe)};
   TEST(ResultsMatch(request.Results(), rules), ());
 
   auto const actual = tracer->GetUniqueParses();

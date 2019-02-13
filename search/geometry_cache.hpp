@@ -51,11 +51,11 @@ protected:
   // will be cached for each mwm individually.
   GeometryCache(size_t maxNumEntries, base::Cancellable const & cancellable);
 
-  template <typename TPred>
-  std::pair<Entry &, bool> FindOrCreateEntry(MwmSet::MwmId const & id, TPred && pred)
+  template <typename Pred>
+  std::pair<Entry &, bool> FindOrCreateEntry(MwmSet::MwmId const & id, Pred && pred)
   {
     auto & entries = m_entries[id];
-    auto it = find_if(entries.begin(), entries.end(), std::forward<TPred>(pred));
+    auto it = find_if(entries.begin(), entries.end(), std::forward<Pred>(pred));
     if (it != entries.end())
     {
       if (it != entries.begin())

@@ -167,8 +167,8 @@ private:
 
   void FillVillageLocalities(BaseContext const & ctx);
 
-  template <typename TFn>
-  void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, TFn && fn);
+  template <typename Fn>
+  void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, Fn && fn);
 
   // Throws CancelException if cancelled.
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
@@ -195,8 +195,8 @@ private:
   // incorporated into |filter|.
   void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter);
 
-  template <typename TFn>
-  void WithPostcodes(BaseContext & ctx, TFn && fn);
+  template <typename Fn>
+  void WithPostcodes(BaseContext & ctx, Fn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.

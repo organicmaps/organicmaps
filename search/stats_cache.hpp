@@ -9,10 +9,10 @@
 
 namespace search
 {
-template <class TKey, class TValue>
+template <class Key, class Value>
 class Cache
 {
-  std::unordered_map<TKey, TValue> m_map;
+  std::unordered_map<Key, Value> m_map;
 
   /// query statistics
   size_t m_accesses;
@@ -27,15 +27,15 @@ public:
   {
   }
 
-  std::pair<TValue &, bool> Get(TKey const & key)
+  std::pair<Value &, bool> Get(Key const & key)
   {
-    auto r = m_map.insert(make_pair(key, TValue()));
+    auto r = m_map.insert(make_pair(key, Value()));
 
     ++m_accesses;
     if (r.second)
       ++m_misses;
 
-    return std::pair<TValue &, bool>(r.first->second, r.second);
+    return std::pair<Value &, bool>(r.first->second, r.second);
   }
 
   void Clear()

@@ -8,8 +8,8 @@ namespace search
 {
 namespace
 {
-template <typename TSlice>
-string SliceToString(string const & name, TSlice const & slice)
+template <typename Slice>
+string SliceToString(string const & name, Slice const & slice)
 {
   ostringstream os;
   os << name << " [";

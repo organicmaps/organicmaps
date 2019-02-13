@@ -26,8 +26,8 @@ using ParentGraph = deque<unordered_map<uint32_t, uint32_t>>;
 
 // This function tries to estimate amount of work needed to perform an
 // intersection pass on a sequence of layers.
-template <typename TIt>
-uint64_t CalcPassCost(TIt begin, TIt end)
+template <typename It>
+uint64_t CalcPassCost(It begin, It end)
 {
   uint64_t cost = 0;
 

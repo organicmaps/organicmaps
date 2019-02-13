@@ -57,7 +57,7 @@ void InitMatcher(char const * query, KeywordMatcher & matcher)
 
 class TestScore
 {
-  typedef KeywordMatcher::Score Score;
+  using Score = KeywordMatcher::Score;
   Score m_score;
 
 public:

@@ -555,7 +555,7 @@ private:
   unique_ptr<descriptions::Loader> m_descriptionsLoader;
 
 public:
-  using TSearchRequest = search::QuerySaver::TSearchRequest;
+  using SearchRequest = search::QuerySaver::SearchRequest;
 
   // When search in viewport is active or delayed, restarts search in
   // viewport. When |forceSearch| is false, request is skipped when it
@@ -592,8 +592,8 @@ public:
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end,
                                 bool clear, SearchMarkPostProcessing fn = nullptr);
-  list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
-  void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
+  list<SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
+  void SaveSearchQuery(SearchRequest const & query) { m_searchQuerySaver.Add(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
   /// Calculate distance and direction to POI for the given position.

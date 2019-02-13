@@ -96,7 +96,7 @@ void NestedRectsCache::Update()
         m_position, GetRadiusMeters(static_cast<RectScale>(scale)));
 
     MwmSet::MwmId lastId;
-    TFeatures * lastFeatures = nullptr;
+    Features * lastFeatures = nullptr;
     auto addId = [&lastId, &lastFeatures, &bucket](FeatureID const & id)
     {
       if (!id.IsValid())

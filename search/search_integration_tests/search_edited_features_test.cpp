@@ -37,10 +37,10 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
   FeatureID cafeId(id, 0 /* index */);
 
   {
-    TRules const rules = {ExactMatch(id, cafe)};
+    Rules const rules = {ExactMatch(id, cafe)};
 
     TEST(ResultsMatch("Bar", rules), ());
-    TEST(ResultsMatch("Drunken", TRules{}), ());
+    TEST(ResultsMatch("Drunken", Rules{}), ());
 
     EditFeature(cafeId, [](osm::EditableMapObject & emo) {
       emo.SetName("The Drunken Clam", StringUtf8Multilang::kEnglishCode);
@@ -51,9 +51,9 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
   }
 
   {
-    TRules const rules = {ExactMatch(id, cafe)};
+    Rules const rules = {ExactMatch(id, cafe)};
 
-    TEST(ResultsMatch("Wifi", TRules{}), ());
+    TEST(ResultsMatch("Wifi", Rules{}), ());
 
     EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(osm::Internet::Wlan); });
 
@@ -89,7 +89,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 
   SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
   {
-    TRules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
+    Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
                           ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
@@ -97,21 +97,21 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 
   SetViewport(m2::RectD(-2.0, -2.0, -1.0, -1.0));
   {
-    TRules const rules = {};
+    Rules const rules = {};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
   }
 
   SetViewport(m2::RectD(-1.0, -1.0, 1.5, 1.5));
   {
-    TRules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1)};
+    Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1)};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
   }
 
   SetViewport(m2::RectD(1.5, 1.5, 4.0, 4.0));
   {
-    TRules const rules = {ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
+    Rules const rules = {ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
   }
@@ -121,7 +121,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 
   SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
   {
-    TRules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery2)};
+    Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery2)};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
   }

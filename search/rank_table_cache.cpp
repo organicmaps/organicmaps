@@ -7,7 +7,7 @@
 
 namespace search
 {
-RankTable const & RankTableCache::Get(DataSource & dataSource, TId const & mwmId)
+RankTable const & RankTableCache::Get(DataSource & dataSource, Id const & mwmId)
 {
   auto const it = m_ranks.find(TKey(mwmId));
   if (it != m_ranks.end())
@@ -21,7 +21,7 @@ RankTable const & RankTableCache::Get(DataSource & dataSource, TId const & mwmId
   return *(m_ranks.emplace(move(handle), move(table)).first->second.get());
 }
 
-void RankTableCache::Remove(TId const & id) { m_ranks.erase(TKey(id)); }
+void RankTableCache::Remove(Id const & id) { m_ranks.erase(TKey(id)); }
 
 void RankTableCache::Clear() { m_ranks.clear(); }
 }  // namespace search

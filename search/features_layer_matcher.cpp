@@ -60,22 +60,22 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType &
   return GetMatchingStreetImpl(houseId, houseFeature);
 }
 
-FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
+FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
 {
   FeatureType feature;
   return GetNearbyStreetsImpl(featureId, feature);
 }
 
-FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId,
+FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId,
                                                                               FeatureType & feature)
 {
   return GetNearbyStreetsImpl(featureId, feature);
 }
 
-FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreetsImpl(
+FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreetsImpl(
     uint32_t featureId, FeatureType & feature)
 {
-  static FeaturesLayerMatcher::TStreets const kEmptyStreets;
+  static FeaturesLayerMatcher::Streets const kEmptyStreets;
 
   auto entry = m_nearbyStreetsCache.Get(featureId);
   if (!entry.second)
@@ -121,7 +121,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 
   if (edited)
   {
-    auto const ret = find_if(streets.begin(), streets.end(), [&streetName](TStreet const & st)
+    auto const ret = find_if(streets.begin(), streets.end(), [&streetName](Street const & st)
                              {
                                return st.m_name == streetName;
                              });

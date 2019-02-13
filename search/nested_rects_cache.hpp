@@ -43,10 +43,10 @@ private:
   m2::PointD m_position;
   bool m_valid;
 
-  using TFeatures = std::vector<uint32_t>;
-  using TBucket = std::map<MwmSet::MwmId, TFeatures>;
+  using Features = std::vector<uint32_t>;
+  using Bucket = std::map<MwmSet::MwmId, Features>;
 
   // Sorted lists of features.
-  TBucket m_buckets[RECT_SCALE_COUNT];
+  Bucket m_buckets[RECT_SCALE_COUNT];
 };
 }  // namespace search

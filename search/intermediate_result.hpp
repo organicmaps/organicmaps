@@ -82,10 +82,10 @@ public:
 
   search::RankingInfo const & GetRankingInfo() const { return m_info; }
 
-  template <typename TInfo>
-  inline void SetRankingInfo(TInfo && info)
+  template <typename Info>
+  inline void SetRankingInfo(Info && info)
   {
-    m_info = std::forward<TInfo>(info);
+    m_info = std::forward<Info>(info);
   }
 
   FeatureID const & GetID() const { return m_id; }

@@ -163,7 +163,7 @@ public:
 
 // This template is used to accumulate, serialize and deserialize
 // a group of values of the same type.
-template <typename TValue>
+template <typename Value>
 class ValueList;
 
 // ValueList<FeatureIndexValue> serializes a group of feature

@@ -4,7 +4,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
-using TSearchRequest = search::QuerySaver::TSearchRequest;
+using SearchRequest = search::QuerySaver::SearchRequest;
 
 extern "C"
 {
@@ -19,7 +19,7 @@ extern "C"
     static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
     static jmethodID const listAddMethod = jni::GetMethodID(env, result, "add", "(Ljava/lang/Object;)Z");
 
-    for (TSearchRequest const & item : items)
+    for (SearchRequest const & item : items)
     {
       jni::TScopedLocalRef locale(env, jni::ToJavaString(env, item.first.c_str()));
       jni::TScopedLocalRef query(env, jni::ToJavaString(env, item.second.c_str()));
@@ -33,7 +33,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchRecents_nativeAdd(JNIEnv * env, jclass thiz, jstring locale, jstring query)
   {
-    TSearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
+    SearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
     g_framework->NativeFramework()->SaveSearchQuery(sr);
   }
 

@@ -115,7 +115,7 @@ bool IsStopWord(UniString const & s, bool isPrefix)
 class BuildingPartSynonymsMatcher
 {
 public:
-  using TSynonyms = StringSet<UniChar, 4>;
+  using Synonyms = StringSet<UniChar, 4>;
 
   BuildingPartSynonymsMatcher()
   {
@@ -129,17 +129,17 @@ public:
   // Returns true if |s| looks like a building synonym.
   inline bool Has(UniString const & s) const
   {
-    return m_synonyms.Has(s.begin(), s.end()) == TSynonyms::Status::Full;
+    return m_synonyms.Has(s.begin(), s.end()) == Synonyms::Status::Full;
   }
 
 private:
-  TSynonyms m_synonyms;
+  Synonyms m_synonyms;
 };
 
 class StringsMatcher
 {
 public:
-  using TStrings = StringSet<UniChar, 8>;
+  using Strings = StringSet<UniChar, 8>;
 
   StringsMatcher()
   {
@@ -164,21 +164,21 @@ public:
     auto const status = m_strings.Has(s.begin(), s.end());
     switch (status)
     {
-    case TStrings::Status::Absent: return false;
-    case TStrings::Status::Prefix: return isPrefix;
-    case TStrings::Status::Full: return true;
+    case Strings::Status::Absent: return false;
+    case Strings::Status::Prefix: return isPrefix;
+    case Strings::Status::Full: return true;
     }
     UNREACHABLE();
   }
 
 private:
-  TStrings m_strings;
+  Strings m_strings;
 };
 
 class HouseNumberClassifier
 {
 public:
-  using TPatterns = StringSet<Token::Type, 4>;
+  using Patterns = StringSet<Token::Type, 4>;
 
   HouseNumberClassifier()
   {
@@ -235,9 +235,9 @@ public:
                                        make_transform_iterator(parse.end(), &TokenToType));
     switch (status)
     {
-    case TPatterns::Status::Absent: return false;
-    case TPatterns::Status::Prefix: return true;
-    case TPatterns::Status::Full: return true;
+    case Patterns::Status::Absent: return false;
+    case Patterns::Status::Prefix: return true;
+    case Patterns::Status::Full: return true;
     }
     UNREACHABLE();
   }
@@ -260,7 +260,7 @@ private:
   static Token::Type TokenToType(Token const & token) { return token.m_type; }
 
   StringsMatcher m_matcher;
-  TPatterns m_patterns;
+  Patterns m_patterns;
 };
 
 Token::Type GetCharType(UniChar c)
@@ -352,8 +352,8 @@ bool IsShortBuildingSynonym(UniString const & t)
   return false;
 }
 
-template <typename TFn>
-void ForEachGroup(vector<Token> const & ts, TFn && fn)
+template <typename Fn>
+void ForEachGroup(vector<Token> const & ts, Fn && fn)
 {
   size_t i = 0;
   while (i < ts.size())
@@ -372,8 +372,8 @@ void ForEachGroup(vector<Token> const & ts, TFn && fn)
   }
 }
 
-template <typename TFn>
-void TransformString(UniString && token, TFn && fn)
+template <typename Fn>
+void TransformString(UniString && token, Fn && fn)
 {
   static UniString const kLiter = MakeUniString("лит");
 
