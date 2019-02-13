@@ -205,7 +205,7 @@ private:
   // calls to the diff manager's ApplyDiff are coordinated from the storage thread.
   base::Cancellable m_diffsCancellable;
 
-  boost::optional<TCountryId> m_latestDiffRequest;
+  boost::optional<CountryId> m_latestDiffRequest;
 
   DownloadingPolicy m_defaultDownloadingPolicy;
   DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;

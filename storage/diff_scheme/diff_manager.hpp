@@ -44,14 +44,14 @@ public:
 
   // If the diff is available, sets |size| to its size and returns true.
   // Otherwise, returns false.
-  bool SizeFor(storage::TCountryId const & countryId, uint64_t & size) const;
+  bool SizeFor(storage::CountryId const & countryId, uint64_t & size) const;
 
   // Sets |size| to how many bytes are left for the diff to be downloaded for |countryId|
   // or 0 if there is no diff available or it has already been downloaded.
   // This method may overestimate because it does not account for the possibility
   // of resuming an old download, i.e. the return value is either 0 or the diff size.
   // Returns true iff the diff is available.
-  bool SizeToDownloadFor(storage::TCountryId const & countryId, uint64_t & size) const;
+  bool SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const;
 
   bool VersionFor(storage::CountryId const & countryId, uint64_t & version) const;
   bool IsPossibleToAutoupdate() const;

@@ -590,6 +590,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
     }
   }
 
+  CountryId const countryId = FindCountryIdByFile(countryFile.GetName());
   if (!IsLeaf(countryId))
   {
     LOG(LERROR, ("Removed files for an unknown country:", localFile));
@@ -1404,7 +1405,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
   // All disputed territories in subtree with root == |parent|.
   CountriesVec allDisputedTerritories;
   parentNode->ForEachChild([&](CountryTreeNode const & childNode) {
-    vector<pair<TCountryId, NodeStatus>> disputedTerritoriesAndStatus;
+    vector<pair<CountryId, NodeStatus>> disputedTerritoriesAndStatus;
     StatusAndError const childStatus = GetNodeStatusInfo(childNode, disputedTerritoriesAndStatus,
                                                          true /* isDisputedTerritoriesCounted */);
 
@@ -1679,7 +1680,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
 }
 
 StatusAndError Storage::GetNodeStatusInfo(
-    CountryTreeNode const & node, vector<pair<TCountryId, NodeStatus>> & disputedTerritories,
+    CountryTreeNode const & node, vector<pair<CountryId, NodeStatus>> & disputedTerritories,
     bool isDisputedTerritoriesCounted) const
 {
   // Leaf node status.
