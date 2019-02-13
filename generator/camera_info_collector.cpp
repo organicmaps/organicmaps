@@ -17,7 +17,6 @@
 
 #include <algorithm>
 #include <limits>
-#include <vector>
 
 namespace generator
 {
@@ -315,6 +314,34 @@ void CamerasInfoCollector::Camera::Serialize(FileWriter & writer,
                                              uint32_t & prevFeatureId) const
 {
   routing::SerializeSpeedCamera(writer, m_data, prevFeatureId);
+}
+
+bool IsCamerasInfoProhibited(std::string const & mwmName)
+{
+  std::vector<std::string> const kMwmBlockList = {
+      "Cyprus",
+      "Macedonia",
+      "Switzerland_Central",
+      "Switzerland_Eastern",
+      "Switzerland_Espace Mittelland_Bern",
+      "Switzerland_Espace Mittelland_East",
+      "Switzerland_Lake Geneva region",
+      "Switzerland_Northwestern",
+      "Switzerland_Ticino",
+      "Switzerland_Zurich",
+      "Turkey_Aegean Region",
+      "Turkey_Black Sea Region",
+      "Turkey_Central Anatolia Region_Ankara",
+      "Turkey_Central Anatolia Region_Kayseri",
+      "Turkey_Eastern Anatolia Region",
+      "Turkey_Marmara Region_Bursa",
+      "Turkey_Marmara Region_Istanbul",
+      "Turkey_Mediterranean Region",
+      "Turkey_Southeastern Anatolia Region",
+  };
+  CHECK(is_sorted(kMwmBlockList.cbegin(), kMwmBlockList.cend()), ());
+
+  return std::binary_search(kMwmBlockList.cbegin(), kMwmBlockList.cend(), mwmName);
 }
 
 void BuildCamerasInfo(std::string const & dataFilePath,

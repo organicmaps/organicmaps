@@ -520,10 +520,18 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-      string const camerasFilename =
-          genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+      if (IsCamerasInfoProhibited(country))
+      {
+        LOG(LINFO,
+            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
+      }
+      else
+      {
+        string const camerasFilename =
+            genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
-      BuildCamerasInfo(datFile, camerasFilename, osmToFeatureFilename);
+        BuildCamerasInfo(datFile, camerasFilename, osmToFeatureFilename);
+      }
     }
 
     if (FLAGS_make_routing_index)

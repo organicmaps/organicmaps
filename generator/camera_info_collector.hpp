@@ -21,7 +21,6 @@
 #include "base/geo_object_id.hpp"
 
 #include <cstdint>
-#include <limits>
 #include <map>
 #include <string>
 #include <utility>
@@ -86,6 +85,10 @@ private:
 
   std::vector<Camera> m_cameras;
 };
+
+/// \returns true if any information about speed cameras is prohibited in |mwmName|.
+/// \param mwmName is mwm name without extention. E.g. "Russia_Moscow".
+bool IsCamerasInfoProhibited(std::string const & mwmName);
 
 // To start building camera info, the following data must be ready:
 // 1. GenerateIntermediateData(). Cached data about camera node to ways.
