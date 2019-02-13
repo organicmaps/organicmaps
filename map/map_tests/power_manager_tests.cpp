@@ -96,9 +96,10 @@ UNIT_TEST(PowerManager_SetFacility)
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
 }
 
-UNIT_TEST(PowerManager_SetConfig)
+UNIT_TEST(PowerManager_SetScheme)
 {
   ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  Platform::ThreadRunner m_runner;
   PowerManager manager;
   SubscriberForTesting subscriber;
 
@@ -161,6 +162,23 @@ UNIT_TEST(PowerManager_SetConfig)
   TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, true, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::UgcUploading, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, true, ());
+
+  subscriber.m_onShemeEvents.clear();
+  subscriber.m_onFacilityEvents.clear();
+
+  manager.SetScheme(Scheme::Auto);
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::Auto, ());
+
+  subscriber.m_onShemeEvents.clear();
+  subscriber.m_onFacilityEvents.clear();
+
+  manager.SetScheme(Scheme::Normal);
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::Normal, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
 }
 
 UNIT_TEST(PowerManager_OnBatteryLevelChanged)

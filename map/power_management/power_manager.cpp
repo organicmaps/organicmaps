@@ -122,9 +122,6 @@ void PowerManager::SetScheme(Scheme const scheme)
 
   auto actualState = GetFacilitiesState(scheme);
 
-  if (m_config.m_facilities == actualState)
-    return;
-
   std::swap(m_config.m_facilities, actualState);
 
   if (!Save())
