@@ -53,6 +53,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 # End of setting build type
 
 # Options
+# Call `make package` after cmake to build design tool.
 option(BUILD_DESIGNER "Build application as design tool" OFF)
 if (BUILD_DESIGNER)
   message("Designer tool building is enabled")
