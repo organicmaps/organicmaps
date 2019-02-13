@@ -1601,7 +1601,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
           break;
           case DiffApplicationResult::Cancelled:
           {
-	    CHECK(!IsDiffApplyingInProgressToCountry(countryId), ());
+            CHECK(!IsDiffApplyingInProgressToCountry(countryId), ());
           }
           break;
           case DiffApplicationResult::Failed: fn(false); break;

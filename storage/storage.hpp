@@ -699,7 +699,7 @@ private:
   bool IsDisputed(CountryTreeNode const & node) const;
 
   void CalcMaxMwmSizeBytes();
-  
+
   void OnMapDownloadFailed(CountryId const & countryId);
 
   void LoadDiffScheme();
