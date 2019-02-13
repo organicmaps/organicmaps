@@ -265,22 +265,17 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
 QVariant TrafficMode::headerData(int section, Qt::Orientation orientation,
                                  int role /* = Qt::DisplayRole */) const
 {
-  if (orientation == Qt::Horizontal)
-  {
-    if (role == Qt::DisplayRole)
-    {
-      switch (section)
-      {
-      case 0: return "Segment id"; break;
-      case 1: return "Status code"; break;
-      case 2: return "Positive offset (Meters)"; break;
-      case 3: return "Negative offset (Meters)"; break;
-      }
-      UNREACHABLE();
-    }
-  }
+  if (orientation != Qt::Horizontal && role != Qt::DisplayRole)
+    return QVariant();
 
-  return QVariant();
+  switch (section)
+  {
+  case 0: return "Segment id"; break;
+  case 1: return "Status code"; break;
+  case 2: return "Positive offset (Meters)"; break;
+  case 3: return "Negative offset (Meters)"; break;
+  }
+  UNREACHABLE();
 }
 
 void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection const &)
