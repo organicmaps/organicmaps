@@ -7,10 +7,12 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdarg.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdarg>
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

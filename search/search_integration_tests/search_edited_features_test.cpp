@@ -12,11 +12,12 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
-#include "std/shared_ptr.hpp"
+#include <memory>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;
+using namespace std;
 
 namespace
 {

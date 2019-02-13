@@ -4,7 +4,8 @@
 #include "search/geocoder_context.hpp"
 #include "search/token_range.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
+#include <vector>
 
 namespace search
 {
@@ -25,10 +26,10 @@ public:
   };
 
   static void Go(BaseContext const & ctx, FeaturesFilter const & filter, QueryParams const & params,
-                 vector<Prediction> & predictions);
+                 std::vector<Prediction> & predictions);
 
 private:
   static void FindStreets(BaseContext const & ctx, FeaturesFilter const & filter,
-                          QueryParams const & params, vector<Prediction> & prediction);
+                          QueryParams const & params, std::vector<Prediction> & prediction);
 };
 }  // namespace search

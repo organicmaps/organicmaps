@@ -5,6 +5,8 @@
 
 #include "base/logging.hpp"
 
+#include <utility>
+
 namespace search
 {
 namespace bookmarks
@@ -21,8 +23,8 @@ public:
     m_results.Clear();
   }
 
-  bool AddResult(Result && res) { return m_results.AddResult(move(res)); }
-  void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(move(res)); }
+  bool AddResult(Result && res) { return m_results.AddResult(std::move(res)); }
+  void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(std::move(res)); }
 
   void AddBookmarkResult(bookmarks::Result const & result) { m_results.AddBookmarkResult(result); }
 

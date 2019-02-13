@@ -9,12 +9,12 @@
 
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/random.hpp"
-#include "std/set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <random>
+#include <set>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -66,7 +66,7 @@ public:
   {
     if (m_numSentResults >= Limit())
       return;
-    m_results.emplace_back(forward<TArgs>(args)...);
+    m_results.emplace_back(std::forward<TArgs>(args)...);
   }
 
   // Computes missing fields for all pre-results.
@@ -86,7 +86,7 @@ public:
   template <typename TFn>
   void ForEach(TFn && fn)
   {
-    for_each(m_results.begin(), m_results.end(), forward<TFn>(fn));
+    std::for_each(m_results.begin(), m_results.end(), std::forward<TFn>(fn));
   }
 
   void ClearCaches();
@@ -96,7 +96,7 @@ private:
 
   DataSource const & m_dataSource;
   Ranker & m_ranker;
-  vector<PreRankerResult> m_results;
+  std::vector<PreRankerResult> m_results;
   Params m_params;
 
   // Amount of results sent up the pipeline.
@@ -106,15 +106,15 @@ private:
   NestedRectsCache m_pivotFeatures;
 
   // A set of ids for features that are emitted during the current search session.
-  set<FeatureID> m_currEmit;
+  std::set<FeatureID> m_currEmit;
 
   // A set of ids for features that were emitted during the previous
   // search session.  They're used for filtering of current search in
   // viewport results, because we need to give more priority to
   // results that were on map previously.
-  set<FeatureID> m_prevEmit;
+  std::set<FeatureID> m_prevEmit;
 
-  minstd_rand m_rng;
+  std::minstd_rand m_rng;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

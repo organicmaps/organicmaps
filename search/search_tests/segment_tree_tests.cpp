@@ -5,6 +5,7 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <initializer_list>
 #include <limits>
 #include <set>

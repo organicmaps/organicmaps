@@ -25,12 +25,13 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/limits.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <fstream>
+#include <iostream>
+#include <limits>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "defines.hpp"
 
@@ -38,6 +39,7 @@
 
 using namespace search::tests_support;
 using namespace search;
+using namespace std;
 using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");

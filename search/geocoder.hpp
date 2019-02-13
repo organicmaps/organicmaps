@@ -37,12 +37,13 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/limits.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -87,10 +88,10 @@ public:
     m2::RectD m_pivot;
     boost::optional<m2::PointD> m_position;
     Locales m_categoryLocales;
-    shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-    vector<uint32_t> m_cuisineTypes;
-    vector<uint32_t> m_preferredTypes;
-    shared_ptr<Tracer> m_tracer;
+    std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+    std::vector<uint32_t> m_cuisineTypes;
+    std::vector<uint32_t> m_preferredTypes;
+    std::shared_ptr<Tracer> m_tracer;
   };
 
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
@@ -145,10 +146,10 @@ private:
   // Sets search query params for categorial search.
   void SetParamsForCategorialSearch(Params const & params);
 
-  void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
+  void GoImpl(std::vector<std::shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename Locality>
-  using TokenToLocalities = map<TokenRange, vector<Locality>>;
+  using TokenToLocalities = std::map<TokenRange, vector<Locality>>;
 
   QueryParams::Token const & GetTokens(size_t i) const;
 
@@ -160,14 +161,14 @@ private:
 
   void FillLocalityCandidates(BaseContext const & ctx,
                               CBV const & filter, size_t const maxNumLocalities,
-                              vector<Locality> & preLocalities);
+                              std::vector<Locality> & preLocalities);
 
   void FillLocalitiesTable(BaseContext const & ctx);
 
   void FillVillageLocalities(BaseContext const & ctx);
 
   template <typename TFn>
-  void ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn);
+  void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, TFn && fn);
 
   // Throws CancelException if cancelled.
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
@@ -212,7 +213,7 @@ private:
   // Returns true if current path in the search tree (see comment for
   // MatchPOIsAndBuildings()) looks sane. This method is used as a fast
   // pre-check to cut off unnecessary work.
-  bool IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const;
+  bool IsLayerSequenceSane(std::vector<FeaturesLayer> const & layers) const;
 
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
@@ -273,7 +274,7 @@ private:
   MwmSet::MwmId m_worldId;
 
   // Context of the currently processed mwm.
-  unique_ptr<MwmContext> m_context;
+  std::unique_ptr<MwmContext> m_context;
 
   // m_cities stores both big cities that are visible at World.mwm
   // and small villages and hamlets that are not.
@@ -294,14 +295,14 @@ private:
   FeaturesFilter const * m_filter;
 
   // Features matcher for layers intersection.
-  map<MwmSet::MwmId, unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
+  std::map<MwmSet::MwmId, unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
   FeaturesLayerMatcher * m_matcher;
 
   // Path finder for interpretations.
   FeaturesLayerPathFinder m_finder;
 
   // Search query params prepared for retrieval.
-  vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
+  std::vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
   SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> m_prefixTokenRequest;
 
   PreRanker & m_preRanker;

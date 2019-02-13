@@ -12,7 +12,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstdint>
+#include <cstddef>
 #include <limits>
 #include <string>
 #include <vector>

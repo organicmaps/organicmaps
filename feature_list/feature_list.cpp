@@ -32,6 +32,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/iostream.hpp"
+#include "std/sstream.hpp"
 
 class ClosestPoint
 {

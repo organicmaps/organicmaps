@@ -2,8 +2,6 @@
 
 #include "search/result.hpp"
 
-#include "std/cstdint.hpp"
-
 namespace search
 {
 // static

@@ -15,6 +15,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <set>
 #include <unordered_map>
 #include <vector>

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "std/algorithm.hpp"
-#include "std/set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <set>
+#include <utility>
+#include <vector>
 
 // todo(@m) Move to search/base?
 namespace search
@@ -16,7 +16,7 @@ template <typename Elem>
 class IntervalSet
 {
 public:
-  using Interval = pair<Elem, Elem>;
+  using Interval = std::pair<Elem, Elem>;
 
   // Adds an |interval| to the set, coalescing adjacent intervals if needed.
   //
@@ -29,21 +29,21 @@ public:
   //
   // Complexity: O(num of intervals intersecting with |interval| +
   // log(total number of intervals)).
-  void SubtractFrom(Interval const & interval, vector<Interval> & difference) const;
+  void SubtractFrom(Interval const & interval, std::vector<Interval> & difference) const;
 
   // Returns all elements of the set as a set of intervals.
   //
   // Complexity: O(1).
-  inline set<Interval> const & Elems() const { return m_intervals; }
+  inline std::set<Interval> const & Elems() const { return m_intervals; }
 
 private:
-  using Iterator = typename set<Interval>::iterator;
+  using Iterator = typename std::set<Interval>::iterator;
 
   // Calculates range of intervals that have non-empty intersection with a given |interval|.
   void Cover(Interval const & interval, Iterator & begin, Iterator & end) const;
 
   // This is a set of disjoint intervals.
-  set<Interval> m_intervals;
+  std::set<Interval> m_intervals;
 };
 
 template <typename Elem>
@@ -98,7 +98,7 @@ void IntervalSet<Elem>::Add(Interval const & interval)
 
 template <typename Elem>
 void IntervalSet<Elem>::SubtractFrom(Interval const & interval,
-                                      vector<Interval> & difference) const
+                                     std::vector<Interval> & difference) const
 {
   Iterator begin;
   Iterator end;
@@ -117,7 +117,7 @@ void IntervalSet<Elem>::SubtractFrom(Interval const & interval,
     }
     else
     {
-      from = max(from, it->second);
+      from = std::max(from, it->second);
     }
   }
 
@@ -131,7 +131,7 @@ void IntervalSet<Elem>::Cover(Interval const & interval, Iterator & begin, Itera
   Elem const & from = interval.first;
   Elem const & to = interval.second;
 
-  begin = m_intervals.lower_bound(make_pair(from, from));
+  begin = m_intervals.lower_bound(std::make_pair(from, from));
   if (begin != m_intervals.begin())
   {
     auto prev = begin;
@@ -140,6 +140,6 @@ void IntervalSet<Elem>::Cover(Interval const & interval, Iterator & begin, Itera
       begin = prev;
   }
 
-  end = m_intervals.lower_bound(make_pair(to, to));
+  end = m_intervals.lower_bound(std::make_pair(to, to));
 }
 }  // namespace search

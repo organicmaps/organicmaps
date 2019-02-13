@@ -3,7 +3,8 @@
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
+#include <vector>
 
 namespace search
 {
@@ -29,7 +30,7 @@ struct ProjectionOnStreet
 class ProjectionOnStreetCalculator
 {
 public:
-  explicit ProjectionOnStreetCalculator(vector<m2::PointD> const & points);
+  explicit ProjectionOnStreetCalculator(std::vector<m2::PointD> const & points);
 
   // Finds nearest point on the street to the |point|. If such point
   // is located within |m_maxDistMeters|, stores projection in |proj|
@@ -38,6 +39,6 @@ public:
   bool GetProjection(m2::PointD const & point, ProjectionOnStreet & proj) const;
 
 private:
-  vector<m2::ParametrizedSegment<m2::PointD>> m_segments;
+  std::vector<m2::ParametrizedSegment<m2::PointD>> m_segments;
 };
 }  // namespace search

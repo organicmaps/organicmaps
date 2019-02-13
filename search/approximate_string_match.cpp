@@ -7,7 +7,6 @@
 
 namespace search
 {
-
 using strings::UniChar;
 
 uint32_t DefaultMatchCost::Cost10(UniChar) const
@@ -44,5 +43,4 @@ uint32_t DefaultMatchCost::SwapCost(UniChar, UniChar) const
 {
   return 256;
 }
-
 }  // namespace search

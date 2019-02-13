@@ -4,8 +4,6 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include <memory>
-
 namespace search
 {
 FeatureLoader::FeatureLoader(DataSource const & dataSource) : m_dataSource(dataSource) {}

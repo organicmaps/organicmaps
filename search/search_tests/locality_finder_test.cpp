@@ -16,6 +16,9 @@
 
 #include "base/cancellable.hpp"
 
+#include <string>
+#include <vector>
+
 namespace
 {
 class LocalityFinderTest : public generator::tests_support::TestWithClassificator
@@ -61,11 +64,11 @@ public:
     platform::CountryIndexes::DeleteFromDisk(m_worldFile);
   }
 
-  void RunTests(vector<ms::LatLon> const & input, char const * results[])
+  void RunTests(std::vector<ms::LatLon> const & input, char const * results[])
   {
     for (size_t i = 0; i < input.size(); ++i)
     {
-      string result;
+      std::string result;
       m_finder.GetLocality(
           MercatorBounds::FromLatLon(input[i]), [&](search::LocalityItem const & item) {
             item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
@@ -82,7 +85,7 @@ public:
 
 UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
 {
-  vector<ms::LatLon> input;
+  std::vector<ms::LatLon> input;
   input.emplace_back(53.8993094, 27.5433964);   // Minsk
   input.emplace_back(48.856517, 2.3521);        // Paris
   input.emplace_back(52.5193859, 13.3908289);   // Berlin
@@ -125,7 +128,7 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
 
 UNIT_CLASS_TEST(LocalityFinderTest, Moscow)
 {
-  vector<ms::LatLon> input;
+  std::vector<ms::LatLon> input;
   input.emplace_back(55.80166, 37.54066);   // Krasnoarmeyskaya 30
 
   char const * results[] =

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <memory>
 
 namespace search
 {
@@ -49,5 +50,4 @@ public:
   // FeaturesFilter overrides:
   CBV Filter(CBV const & cbv) const override;
 };
-
 }  // namespace search

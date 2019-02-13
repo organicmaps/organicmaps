@@ -2,7 +2,7 @@
 
 #include "base/macros.hpp"
 
-#include "std/limits.hpp"
+#include <limits>
 
 namespace search
 {
@@ -11,7 +11,7 @@ uint8_t DummyRankTable::Get(uint64_t /* i */) const { return 0; }
 uint64_t DummyRankTable::Size() const
 {
   NOTIMPLEMENTED();
-  return numeric_limits<uint64_t>::max();
+  return std::numeric_limits<uint64_t>::max();
 }
 
 RankTable::Version DummyRankTable::GetVersion() const

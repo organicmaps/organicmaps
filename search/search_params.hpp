@@ -24,8 +24,8 @@ struct SearchParams
   static size_t const kDefaultNumResultsEverywhere = 30;
   static size_t const kDefaultNumResultsInViewport = 200;
 
-  using OnStarted = function<void()>;
-  using OnResults = function<void(Results const &)>;
+  using OnStarted = std::function<void()>;
+  using OnResults = std::function<void(Results const &)>;
 
   bool IsEqualCommon(SearchParams const & rhs) const;
 

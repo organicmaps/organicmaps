@@ -32,18 +32,18 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cmath.hpp"
-#include "std/cstdio.hpp"
-#include "std/fstream.hpp"
-#include "std/iomanip.hpp"
-#include "std/iostream.hpp"
-#include "std/limits.hpp"
-#include "std/map.hpp"
-#include "std/numeric.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <map>
+#include <numeric>
+#include <sstream>
+#include <string>
+#include <vector>
 
 #include "defines.hpp"
 
@@ -51,6 +51,7 @@
 
 using namespace search::tests_support;
 using namespace search;
+using namespace std;
 using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");

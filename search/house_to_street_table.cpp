@@ -11,7 +11,11 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
+#include <vector>
+
 #include "defines.hpp"
+
+using namespace std;
 
 namespace search
 {

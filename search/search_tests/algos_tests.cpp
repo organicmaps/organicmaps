@@ -2,13 +2,14 @@
 
 #include "search/algos.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
+using namespace std;
 
 namespace
 {
-
 struct CompWithEqual
 {
   bool Less(int i1, int i2) const { return i1 <= i2; }
@@ -22,8 +23,7 @@ void TestLongestSequence(int in[], size_t inSz, int eta[])
   reverse(res.begin(), res.end());
   TEST(equal(res.begin(), res.end(), eta), (res));
 }
-
-}
+}  // namespace
 
 UNIT_TEST(LS_Smoke)
 {

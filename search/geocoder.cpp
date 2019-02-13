@@ -40,13 +40,12 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/iterator.hpp"
-#include "std/random.hpp"
-#include "std/sstream.hpp"
-#include "std/transform_iterator.hpp"
-#include "std/unique_ptr.hpp"
+#include <algorithm>
+#include <functional>
+#include <iterator>
+#include <memory>
+#include <random>
+#include <sstream>
 
 #include "defines.hpp"
 
@@ -54,8 +53,7 @@
 #include "base/timer.hpp"
 #endif
 
-#include <memory>
-
+using namespace std;
 using namespace strings;
 
 namespace search

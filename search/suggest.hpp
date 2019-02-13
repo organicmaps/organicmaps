@@ -22,6 +22,6 @@ struct Suggest
   int8_t m_locale;
 };
 
-void GetSuggestion(RankerResult const & res, string const & query, QueryTokens const & paramTokens,
+void GetSuggestion(RankerResult const & res, std::string const & query, QueryTokens const & paramTokens,
                    strings::UniString const & prefix, std::string & suggest);
 }  // namespace search

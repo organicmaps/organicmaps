@@ -2,7 +2,7 @@
 
 namespace search
 {
-string DebugPrint(Mode mode)
+std::string DebugPrint(Mode mode)
 {
   switch (mode)
   {

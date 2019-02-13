@@ -7,6 +7,8 @@
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/feature_decl.hpp"
 
+using namespace std;
+
 namespace search
 {
 EditorDelegate::EditorDelegate(DataSource const & dataSource) : m_dataSource(dataSource) {}

@@ -10,9 +10,10 @@
 
 #include "base/thread_checker.hpp"
 
+#include <cstddef>
 #include <cstdint>
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include <boost/optional.hpp>
 

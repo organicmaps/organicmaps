@@ -104,6 +104,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/map.hpp"
+#include "std/sstream.hpp"
 #include "std/target_os.hpp"
 
 #include "api/internal/c/api-client-internals.h"

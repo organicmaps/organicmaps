@@ -73,5 +73,4 @@ CBV LocalityRectsCache::Get(MwmContext const & context, m2::RectD const & rect, 
     InitEntry(context, rect, scale, entry);
   return entry.m_cbv;
 }
-
 }  // namespace search

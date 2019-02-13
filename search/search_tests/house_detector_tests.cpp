@@ -17,10 +17,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/iostream.hpp"
-#include "std/fstream.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <fstream>
+#include <map>
+#include <string>
+#include <vector>
 
-
+using namespace std;
 using platform::LocalCountryFile;
 
 class StreetIDsByName
@@ -338,7 +342,7 @@ string GetStreetKey(string const & name)
 {
   return strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(HS_StreetKey)
 {
@@ -351,7 +355,6 @@ UNIT_TEST(HS_StreetKey)
 
 namespace
 {
-
 struct Address
 {
   string m_streetKey;
@@ -368,8 +371,7 @@ void swap(Address & a1, Address & a2)
   std::swap(a1.m_lat, a2.m_lat);
   std::swap(a1.m_lon, a2.m_lon);
 }
-
-}
+}  // namespace
 
 UNIT_TEST(HS_MWMSearch)
 {

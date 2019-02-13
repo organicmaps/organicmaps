@@ -2,9 +2,6 @@
 
 #include "search/cbv.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
-
 namespace search
 {
 // FeaturesFilter ----------------------------------------------------------------------------------

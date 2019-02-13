@@ -35,7 +35,7 @@ bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
 }
 
 template <typename T>
-bool Less(std::vector<T> lhs, std::vector<T> rhs)
+bool Less(vector<T> lhs, vector<T> rhs)
 {
   sort(lhs.begin(), lhs.end());
   sort(rhs.begin(), rhs.end());
@@ -43,7 +43,7 @@ bool Less(std::vector<T> lhs, std::vector<T> rhs)
 }
 
 template <typename T>
-bool Equal(std::vector<T> lhs, std::vector<T> rhs)
+bool Equal(vector<T> lhs, vector<T> rhs)
 {
   sort(lhs.begin(), lhs.end());
   sort(rhs.begin(), rhs.end());
@@ -131,7 +131,7 @@ bool Sample::operator<(Sample const & rhs) const
 bool Sample::operator==(Sample const & rhs) const { return !(*this < rhs) && !(rhs < *this); }
 
 // static
-bool Sample::DeserializeFromJSONLines(string const & lines, std::vector<Sample> & samples)
+bool Sample::DeserializeFromJSONLines(string const & lines, vector<Sample> & samples)
 {
   istringstream is(lines);
   string line;
@@ -153,7 +153,7 @@ bool Sample::DeserializeFromJSONLines(string const & lines, std::vector<Sample> 
 }
 
 // static
-void Sample::SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines)
+void Sample::SerializeToJSONLines(vector<Sample> const & samples, string & lines)
 {
   for (auto const & sample : samples)
   {

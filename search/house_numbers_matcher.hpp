@@ -2,9 +2,9 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace search
 {
@@ -27,7 +27,7 @@ struct Token
 
   Token() = default;
   Token(strings::UniString const & value, Type type) : m_value(value), m_type(type) {}
-  Token(strings::UniString && value, Type type) : m_value(move(value)), m_type(type) {}
+  Token(strings::UniString && value, Type type) : m_value(std::move(value)), m_type(type) {}
   Token(Token &&) = default;
 
   Token & operator=(Token &&) = default;
@@ -53,27 +53,27 @@ struct Token
 };
 
 // Tokenizes |s| that may be a house number.
-void Tokenize(strings::UniString s, bool isPrefix, vector<Token> & ts);
+void Tokenize(strings::UniString s, bool isPrefix, std::vector<Token> & ts);
 
 // Parses a string that can be one or more house numbers. This method
 // can be used to parse addr:housenumber fields.
-void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & parses);
+void ParseHouseNumber(strings::UniString const & s, std::vector<std::vector<Token>> & parses);
 
 // Parses a part of search query that can be a house number.
-void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Token> & parse);
+void ParseQuery(strings::UniString const & query, bool queryIsPrefix, std::vector<Token> & parse);
 
 // Returns true if house number matches to a given query.
 bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
                        bool queryIsPrefix);
 
 // Returns true if house number matches to a given parsed query.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> const & queryParse);
+bool HouseNumbersMatch(strings::UniString const & houseNumber, std::vector<Token> const & queryParse);
 
 // Returns true if |s| looks like a house number.
 bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix);
 
-string DebugPrint(Token::Type type);
+std::string DebugPrint(Token::Type type);
 
-string DebugPrint(Token const & token);
+std::string DebugPrint(Token const & token);
 }  // namespace house_numbers
 }  // namespace search

@@ -7,13 +7,12 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "std/map.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 class FeatureType;
 
@@ -72,14 +71,14 @@ struct Rule
 {
   virtual ~Rule() = default;
 
-  static bool IsIdentical(shared_ptr<Rule> const & lhs, shared_ptr<Rule> const & rhs);
+  static bool IsIdentical(std::shared_ptr<Rule> const & lhs, std::shared_ptr<Rule> const & rhs);
 
   virtual bool Matches(Description const & d) const = 0;
   virtual bool IdenticalTo(Rule const & rhs) const = 0;
-  virtual string ToString() const = 0;
+  virtual std::string ToString() const = 0;
 };
 
-string DebugPrint(Rule const & rule);
+std::string DebugPrint(Rule const & rule);
 
 template <typename Field>
 struct EqRule final : public Rule
@@ -100,9 +99,9 @@ struct EqRule final : public Rule
     return r && Field::Eq(r->m_value, m_value);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ " << Field::Name() << " == " << m_value << " ]";
     return os.str();
   }
@@ -129,9 +128,9 @@ struct LtRule final : public Rule
     return r && Field::Eq(r->m_value, m_value);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ " << Field::Name() << " < " << m_value << " ]";
     return os.str();
   }
@@ -159,9 +158,9 @@ struct LeRule final : public Rule
     return r && Field::Eq(r->m_value, m_value);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ " << Field::Name() << " <= " << m_value << " ]";
     return os.str();
   }
@@ -188,9 +187,9 @@ struct GtRule final : public Rule
     return r && Field::Eq(r->m_value, m_value);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ " << Field::Name() << " > " << m_value << " ]";
     return os.str();
   }
@@ -218,9 +217,9 @@ struct GeRule final : public Rule
     return r && Field::Eq(r->m_value, m_value);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ " << Field::Name() << " >= " << m_value << " ]";
     return os.str();
   }
@@ -230,7 +229,7 @@ struct GeRule final : public Rule
 
 struct AndRule final : public Rule
 {
-  AndRule(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
+  AndRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -249,9 +248,9 @@ struct AndRule final : public Rule
     return r && IsIdentical(m_lhs, r->m_lhs) && IsIdentical(m_rhs, r->m_rhs);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[";
     os << (m_lhs ? m_lhs->ToString() : "<none>");
     os << " && ";
@@ -260,13 +259,13 @@ struct AndRule final : public Rule
     return os.str();
   }
 
-  shared_ptr<Rule> m_lhs;
-  shared_ptr<Rule> m_rhs;
+  std::shared_ptr<Rule> m_lhs;
+  std::shared_ptr<Rule> m_rhs;
 };
 
 struct OrRule final : public Rule
 {
-  OrRule(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
+  OrRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -285,9 +284,9 @@ struct OrRule final : public Rule
     return r && IsIdentical(m_lhs, r->m_lhs) && IsIdentical(m_rhs, r->m_rhs);
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[";
     os << (m_lhs ? m_lhs->ToString() : "<none>");
     os << " || ";
@@ -296,8 +295,8 @@ struct OrRule final : public Rule
     return os.str();
   }
 
-  shared_ptr<Rule> m_lhs;
-  shared_ptr<Rule> m_rhs;
+  std::shared_ptr<Rule> m_lhs;
+  std::shared_ptr<Rule> m_rhs;
 };
 
 struct OneOfRule final : public Rule
@@ -313,9 +312,9 @@ struct OneOfRule final : public Rule
     return r && m_types == r->m_types;
   }
 
-  string ToString() const override
+  std::string ToString() const override
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[ one of:";
     for (size_t i = 0; i < static_cast<size_t>(ftypes::IsHotelChecker::Type::Count); ++i)
     {
@@ -334,75 +333,75 @@ struct OneOfRule final : public Rule
 };
 
 template <typename Field>
-shared_ptr<Rule> Eq(typename Field::Value value)
+std::shared_ptr<Rule> Eq(typename Field::Value value)
 {
-  return make_shared<EqRule<Field>>(value);
+  return std::make_shared<EqRule<Field>>(value);
 }
 
 template <typename Field>
-shared_ptr<Rule> Lt(typename Field::Value value)
+std::shared_ptr<Rule> Lt(typename Field::Value value)
 {
-  return make_shared<LtRule<Field>>(value);
+  return std::make_shared<LtRule<Field>>(value);
 }
 
 template <typename Field>
-shared_ptr<Rule> Le(typename Field::Value value)
+std::shared_ptr<Rule> Le(typename Field::Value value)
 {
-  return make_shared<LeRule<Field>>(value);
+  return std::make_shared<LeRule<Field>>(value);
 }
 
 template <typename Field>
-inline shared_ptr<Rule> Gt(typename Field::Value value)
+inline std::shared_ptr<Rule> Gt(typename Field::Value value)
 {
-  return make_shared<GtRule<Field>>(value);
+  return std::make_shared<GtRule<Field>>(value);
 }
 
 template <typename Field>
-shared_ptr<Rule> Ge(typename Field::Value value)
+std::shared_ptr<Rule> Ge(typename Field::Value value)
 {
-  return make_shared<GeRule<Field>>(value);
+  return std::make_shared<GeRule<Field>>(value);
 }
 
-inline shared_ptr<Rule> And(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
+inline std::shared_ptr<Rule> And(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs)
 {
-  return make_shared<AndRule>(lhs, rhs);
+  return std::make_shared<AndRule>(lhs, rhs);
 }
 
-inline shared_ptr<Rule> Or(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
+inline std::shared_ptr<Rule> Or(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs)
 {
-  return make_shared<OrRule>(lhs, rhs);
+  return std::make_shared<OrRule>(lhs, rhs);
 }
 
-inline shared_ptr<Rule> Is(ftypes::IsHotelChecker::Type type)
+inline std::shared_ptr<Rule> Is(ftypes::IsHotelChecker::Type type)
 {
   CHECK(type != ftypes::IsHotelChecker::Type::Count, ());
-  return make_shared<OneOfRule>(1U << static_cast<unsigned>(type));
+  return std::make_shared<OneOfRule>(1U << static_cast<unsigned>(type));
 }
 
-inline shared_ptr<Rule> OneOf(unsigned types) { return make_shared<OneOfRule>(types); }
+inline std::shared_ptr<Rule> OneOf(unsigned types) { return std::make_shared<OneOfRule>(types); }
 
 class HotelsFilter
 {
 public:
-  using Descriptions = vector<pair<uint32_t, Description>>;
+  using Descriptions = std::vector<std::pair<uint32_t, Description>>;
 
   class ScopedFilter
   {
   public:
     ScopedFilter(MwmSet::MwmId const & mwmId, Descriptions const & descriptions,
-                 shared_ptr<Rule> rule);
+                 std::shared_ptr<Rule> rule);
 
     bool Matches(FeatureID const & fid) const;
 
   private:
     MwmSet::MwmId const m_mwmId;
     Descriptions const & m_descriptions;
-    shared_ptr<Rule> const m_rule;
+    std::shared_ptr<Rule> const m_rule;
   };
 
   HotelsFilter(HotelsCache & hotels);
 
-  unique_ptr<ScopedFilter> MakeScopedFilter(MwmContext const & context, shared_ptr<Rule> rule);
+  std::unique_ptr<ScopedFilter> MakeScopedFilter(MwmContext const & context, std::shared_ptr<Rule> rule);
 
   void ClearCaches();
 
@@ -410,7 +409,7 @@ private:
   Descriptions const & GetDescriptions(MwmContext const & context);
 
   HotelsCache & m_hotels;
-  map<MwmSet::MwmId, Descriptions> m_descriptions;
+  std::map<MwmSet::MwmId, Descriptions> m_descriptions;
 };
 }  // namespace hotels_filter
 }  // namespace search

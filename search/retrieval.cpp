@@ -25,10 +25,15 @@
 
 #include "base/checked_cast.hpp"
 #include "base/control_flow.hpp"
+#include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
+#include <vector>
 
+using namespace std;
 using namespace strings;
 using osm::Editor;
 

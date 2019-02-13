@@ -2,13 +2,15 @@
 
 #include "search/house_numbers_matcher.hpp"
 
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 #include "base/string_utils.hpp"
 
 using namespace search::house_numbers;
 using namespace search;
 using namespace strings;
+using namespace std;
 
 namespace
 {

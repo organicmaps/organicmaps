@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <type_traits>

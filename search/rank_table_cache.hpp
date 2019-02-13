@@ -45,5 +45,4 @@ private:
 
   DISALLOW_COPY_AND_MOVE(RankTableCache);
 };
-
 }  // namespace search

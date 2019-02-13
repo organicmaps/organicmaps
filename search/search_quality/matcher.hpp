@@ -3,7 +3,7 @@
 #include "search/result.hpp"
 #include "search/search_quality/sample.hpp"
 
-#include <cstdint>
+#include <cstddef>
 #include <limits>
 #include <vector>
 

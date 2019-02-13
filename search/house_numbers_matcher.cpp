@@ -4,12 +4,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <iterator>
+#include <limits>
+#include <sstream>
+
 #include "std/transform_iterator.hpp"
 
+using namespace std;
 using namespace strings;
 
 namespace search

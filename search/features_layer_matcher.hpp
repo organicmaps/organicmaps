@@ -29,12 +29,14 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/limits.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 class DataSource;
 
@@ -58,7 +60,7 @@ namespace search
 class FeaturesLayerMatcher
 {
 public:
-  static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
+  static uint32_t const kInvalidId = std::numeric_limits<uint32_t>::max();
   static int constexpr kBuildingRadiusMeters = 50;
   static int constexpr kStreetRadiusMeters = 100;
 
@@ -84,15 +86,15 @@ public:
       break;
     case Model::TYPE_BUILDING:
       ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
-      MatchPOIsWithBuildings(child, parent, forward<TFn>(fn));
+      MatchPOIsWithBuildings(child, parent, std::forward<TFn>(fn));
       break;
     case Model::TYPE_STREET:
       ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING,
              ("Invalid child layer type:", child.m_type));
       if (child.m_type == Model::TYPE_POI)
-        MatchPOIsWithStreets(child, parent, forward<TFn>(fn));
+        MatchPOIsWithStreets(child, parent, std::forward<TFn>(fn));
       else
-        MatchBuildingsWithStreets(child, parent, forward<TFn>(fn));
+        MatchBuildingsWithStreets(child, parent, std::forward<TFn>(fn));
       break;
     }
   }
@@ -115,7 +117,7 @@ private:
 
     BailIfCancelled(m_cancellable);
 
-    vector<PointRectMatcher::PointIdPair> poiCenters;
+    std::vector<PointRectMatcher::PointIdPair> poiCenters;
     poiCenters.reserve(pois.size());
 
     for (size_t i = 0; i < pois.size(); ++i)
@@ -125,7 +127,7 @@ private:
         poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
     }
 
-    vector<PointRectMatcher::RectIdPair> buildingRects;
+    std::vector<PointRectMatcher::RectIdPair> buildingRects;
     buildingRects.reserve(buildings.size());
     for (size_t i = 0; i < buildings.size(); ++i)
     {
@@ -160,7 +162,7 @@ private:
     // |buildings| doesn't contain buildings matching by house number,
     // so following code reads buildings in POIs vicinities and checks
     // house numbers.
-    vector<house_numbers::Token> queryParse;
+    std::vector<house_numbers::Token> queryParse;
     ParseQuery(parent.m_subQuery, parent.m_lastTokenIsPrefix, queryParse);
     if (queryParse.empty())
       return;
@@ -195,7 +197,7 @@ private:
     auto const & pois = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;
 
-    vector<PointRectMatcher::PointIdPair> poiCenters;
+    std::vector<PointRectMatcher::PointIdPair> poiCenters;
     poiCenters.reserve(pois.size());
 
     for (size_t i = 0; i < pois.size(); ++i)
@@ -205,10 +207,10 @@ private:
         poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
     }
 
-    vector<PointRectMatcher::RectIdPair> streetRects;
+    std::vector<PointRectMatcher::RectIdPair> streetRects;
     streetRects.reserve(streets.size());
 
-    vector<ProjectionOnStreetCalculator> streetProjectors;
+    std::vector<ProjectionOnStreetCalculator> streetProjectors;
     streetProjectors.reserve(streets.size());
 
     for (size_t i = 0; i < streets.size(); ++i)
@@ -277,13 +279,13 @@ private:
       for (uint32_t const houseId : buildings)
       {
         uint32_t const streetId = GetMatchingStreet(houseId);
-        if (binary_search(streets.begin(), streets.end(), streetId))
+        if (std::binary_search(streets.begin(), streets.end(), streetId))
           fn(houseId, streetId);
       }
       return;
     }
 
-    vector<house_numbers::Token> queryParse;
+    std::vector<house_numbers::Token> queryParse;
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
 
     uint32_t numFilterInvocations = 0;
@@ -311,7 +313,7 @@ private:
       return house_numbers::HouseNumbersMatch(houseNumber, queryParse);
     };
 
-    unordered_map<uint32_t, bool> cache;
+    std::unordered_map<uint32_t, bool> cache;
     auto cachingHouseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool {
       auto const it = cache.find(id);
       if (it != cache.cend())
@@ -352,7 +354,7 @@ private:
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
   using TStreet = ReverseGeocoder::Street;
-  using TStreets = vector<TStreet>;
+  using TStreets = std::vector<TStreet>;
 
   TStreets const & GetNearbyStreets(uint32_t featureId);
   TStreets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);

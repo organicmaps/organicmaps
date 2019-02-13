@@ -1,12 +1,12 @@
 #pragma once
 
-#include <memory>
-#include <string>
-
 #include "storage/country.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/get_text_by_id.hpp"
+
+#include <memory>
+#include <string>
 
 namespace search
 {

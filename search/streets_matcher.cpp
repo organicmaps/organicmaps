@@ -8,6 +8,8 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
+using namespace std;
+
 namespace search
 {
 namespace

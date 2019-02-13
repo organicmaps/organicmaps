@@ -2,10 +2,9 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
-
 #include "base/macros.hpp"
+
+#include <string>
 
 class FeatureType;
 
@@ -56,5 +55,5 @@ public:
   Type GetType(FeatureType & feature) const;
 };
 
-string DebugPrint(Model::Type type);
+std::string DebugPrint(Model::Type type);
 }  // namespace search

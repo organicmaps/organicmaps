@@ -20,6 +20,7 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <string>
 #include <unordered_set>
 #include <utility>
 
@@ -36,14 +37,14 @@ struct LocalityItem
   LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
                Boundaries const & boundaries, uint64_t population, FeatureID const & id);
 
-  bool GetName(int8_t lang, string & name) const { return m_names.GetString(lang, name); }
+  bool GetName(int8_t lang, std::string & name) const { return m_names.GetString(lang, name); }
 
-  bool GetSpecifiedOrDefaultName(int8_t lang, string & name) const
+  bool GetSpecifiedOrDefaultName(int8_t lang, std::string & name) const
   {
     return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
   }
 
-  bool GetReadableName(string & name) const
+  bool GetReadableName(std::string & name) const
   {
     auto const mwmInfo = m_id.m_mwmId.GetInfo();
 
@@ -64,7 +65,7 @@ struct LocalityItem
   FeatureID m_id;
 };
 
-string DebugPrint(LocalityItem const & item);
+std::string DebugPrint(LocalityItem const & item);
 
 class LocalitySelector
 {

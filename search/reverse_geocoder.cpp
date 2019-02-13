@@ -13,6 +13,8 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
+#include <cstddef>
 #include <functional>
 #include <limits>
 

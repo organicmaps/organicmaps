@@ -10,7 +10,12 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/limits.hpp"
+#include <cstdint>
+#include <cstring>
+#include <limits>
+#include <memory>
+
+using namespace std;
 
 namespace
 {
@@ -61,7 +66,6 @@ private:
   char const * m_pData;
   size_t m_size;
 };
-
 }  // namespace
 
 namespace search

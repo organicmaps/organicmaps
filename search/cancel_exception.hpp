@@ -3,8 +3,6 @@
 #include "base/cancellable.hpp"
 #include "base/exception.hpp"
 
-#include "std/string.hpp"
-
 namespace search
 {
 // This exception can be thrown from the deep darkness of search and

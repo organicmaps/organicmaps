@@ -18,9 +18,11 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/string.hpp"
+#include <algorithm>
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;

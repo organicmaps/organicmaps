@@ -114,7 +114,7 @@ Model::Type Model::GetType(FeatureType & feature) const
   return TYPE_UNCLASSIFIED;
 }
 
-string DebugPrint(Model::Type type)
+std::string DebugPrint(Model::Type type)
 {
   switch (type)
   {
@@ -129,6 +129,6 @@ string DebugPrint(Model::Type type)
   case Model::TYPE_COUNT: return "Count";
   }
   ASSERT(false, ("Unknown search type:", static_cast<int>(type)));
-  return string();
+  return {};
 }
 }  // namespace search

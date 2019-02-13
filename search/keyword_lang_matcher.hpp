@@ -5,6 +5,7 @@
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>

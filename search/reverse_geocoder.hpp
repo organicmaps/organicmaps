@@ -6,7 +6,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <string>

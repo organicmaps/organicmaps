@@ -14,9 +14,9 @@
 
 #include "base/macros.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <memory>
+#include <string>
 
 class MwmValue;
 
@@ -33,7 +33,7 @@ public:
 
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
-  inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
+  inline std::shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
   template <typename TFn>
   void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, TFn && fn) const

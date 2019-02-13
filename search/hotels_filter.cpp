@@ -7,7 +7,9 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
 
 namespace search
 {

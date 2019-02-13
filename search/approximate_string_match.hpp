@@ -1,17 +1,17 @@
 #pragma once
+
 #include "indexer/search_string_utils.hpp"
 
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/queue.hpp"
+#include <cstdint>
+#include <queue>
 
 namespace search
 {
-
 namespace impl
 {
-
 struct MatchCostData
 {
   uint32_t m_A, m_B;
@@ -32,8 +32,7 @@ void PushMatchCost(PriorityQueyeT & q, uint32_t maxCost, uint32_t a, uint32_t b,
   if (cost <= maxCost)
     q.push(MatchCostData(a, b, cost));
 }
-
-}  // namespace search::impl
+}  // namespace impl
 
 class DefaultMatchCost
 {
@@ -53,7 +52,7 @@ uint32_t StringMatchCost(CharT const * sA, size_t sizeA,
                          CostF const & costF, uint32_t maxCost,
                          bool bPrefixMatch = false)
 {
-  priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256> > q;
+  std::priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256> > q;
   q.push(impl::MatchCostData(0, 0, 0));
   while (!q.empty())
   {
@@ -89,5 +88,4 @@ uint32_t StringMatchCost(CharT const * sA, size_t sizeA,
   }
   return maxCost + 1;
 }
-
 }  // namespace search

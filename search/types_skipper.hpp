@@ -4,6 +4,8 @@
 
 #include "base/buffer_vector.hpp"
 
+#include <cstdint>
+
 namespace search
 {
 // There are 2 different ways of search index skipping:

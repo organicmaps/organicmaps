@@ -11,10 +11,11 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
+#include <cstdint>
+#include <string>
 
 using namespace search;
+using namespace std;
 using namespace strings;
 
 namespace

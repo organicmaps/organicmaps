@@ -5,10 +5,12 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <functional>
 
+using namespace std::chrono;
 using namespace std;
 
 namespace search

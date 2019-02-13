@@ -3,6 +3,8 @@
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
 
+#include <cstdint>
+
 namespace search
 {
 static const uint8_t kCategoriesLang = 128;

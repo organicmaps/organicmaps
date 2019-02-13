@@ -29,11 +29,13 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 namespace search
 {

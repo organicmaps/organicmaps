@@ -2,6 +2,8 @@
 
 #include "indexer/rank_table.hpp"
 
+#include <cstdint>
+
 namespace search
 {
 // This dummy rank table is used instead of a normal rank table when

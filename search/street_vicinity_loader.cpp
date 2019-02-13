@@ -11,6 +11,8 @@
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
+using namespace std;
+
 namespace search
 {
 StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
@@ -74,5 +76,4 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 
   street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points);
 }
-
 }  // namespace search

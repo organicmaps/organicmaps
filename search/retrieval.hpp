@@ -13,7 +13,7 @@
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
 
 class MwmValue;
 
@@ -37,29 +37,29 @@ public:
 
   // Following functions retrieve from the search index corresponding to
   // |value| all features matching to |request|.
-  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
       SearchTrieRequest<strings::UniStringDFA> const & request) const;
 
-  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request) const;
 
-  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
       SearchTrieRequest<strings::LevenshteinDFA> const & request) const;
 
-  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request) const;
 
   // Retrieves from the search index corresponding to |value| all
   // postcodes matching to |slice|.
-  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice) const;
+  std::unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice) const;
 
   // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
-  unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                   int scale) const;
+  std::unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
+                                                                       int scale) const;
 
 private:
   template <template <typename> class R, typename... Args>
-  unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args) const;
+  std::unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args) const;
 
   MwmContext const & m_context;
   base::Cancellable const & m_cancellable;
@@ -67,7 +67,7 @@ private:
 
   version::MwmTraits::SearchIndexFormat m_format;
 
-  unique_ptr<TrieRoot<FeatureWithRankAndCenter>> m_root0;
-  unique_ptr<TrieRoot<FeatureIndexValue>> m_root1;
+  std::unique_ptr<TrieRoot<FeatureWithRankAndCenter>> m_root0;
+  std::unique_ptr<TrieRoot<FeatureIndexValue>> m_root1;
 };
 }  // namespace search

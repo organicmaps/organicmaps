@@ -4,7 +4,10 @@
 
 #include "base/string_utils.hpp"
 
+#include <string>
+
 using namespace search;
+using namespace std;
 
 namespace
 {

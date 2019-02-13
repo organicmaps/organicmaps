@@ -10,7 +10,6 @@
 #include "coding/reader.hpp"
 
 #include "base/macros.hpp"
-#include "base/mutex.hpp"
 #include "base/thread.hpp"
 
 #include <condition_variable>

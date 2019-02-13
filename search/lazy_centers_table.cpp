@@ -9,7 +9,7 @@ namespace search
 LazyCentersTable::LazyCentersTable(MwmValue & value)
   : m_value(value)
   , m_state(STATE_NOT_LOADED)
-  , m_reader(unique_ptr<ModelReader>())
+  , m_reader(std::unique_ptr<ModelReader>())
 {
 }
 

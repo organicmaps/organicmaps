@@ -31,12 +31,13 @@
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 class DataSource;
 

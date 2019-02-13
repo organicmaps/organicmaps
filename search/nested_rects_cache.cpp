@@ -10,7 +10,7 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 namespace search
 {
@@ -57,8 +57,8 @@ double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
   if (auto const & info = id.m_mwmId.GetInfo())
   {
     auto const & rect = info->m_bordersRect;
-    return max(MercatorBounds::DistanceOnEarth(rect.Center(), m_position),
-               GetRadiusMeters(static_cast<RectScale>(scale)));
+    return std::max(MercatorBounds::DistanceOnEarth(rect.Center(), m_position),
+                    GetRadiusMeters(static_cast<RectScale>(scale)));
   }
 
   return RankingInfo::kMaxDistMeters;
@@ -110,7 +110,7 @@ void NestedRectsCache::Update()
     };
     m_dataSource.ForEachFeatureIDInRect(addId, rect, m_scale);
     for (auto & kv : bucket)
-      sort(kv.second.begin(), kv.second.end());
+      std::sort(kv.second.begin(), kv.second.end());
   }
 
   m_valid = true;

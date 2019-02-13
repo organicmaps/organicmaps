@@ -4,7 +4,8 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
 #include "std/initializer_list.hpp"
 
 namespace search
@@ -96,6 +97,6 @@ bool TypesSkipper::IsCountryOrState(feature::TypesHolder const & types) const
 // static
 bool TypesSkipper::HasType(Cont const & v, uint32_t t)
 {
-  return find(v.begin(), v.end(), t) != v.end();
+  return std::find(v.begin(), v.end(), t) != v.end();
 }
 }  // namespace search
