@@ -33,6 +33,5 @@ private:
   MapOptions m_init;
   MapOptions m_left;
   MapOptions m_current;
-  bool m_isFrozen = false;
 };
 }  // namespace storage
