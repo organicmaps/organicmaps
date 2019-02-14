@@ -331,6 +331,7 @@ bool IsCamerasInfoProhibited(std::string const & mwmName)
     if (strings::StartsWith(mwmName, country))
       return true;
   }
+
   return false;
 }
 
