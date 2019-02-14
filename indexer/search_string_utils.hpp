@@ -16,6 +16,10 @@ namespace search
 // It does some magic text transformation which greatly helps us to improve our search.
 strings::UniString NormalizeAndSimplifyString(std::string const & s);
 
+// Replace abbreviations which can be split during tokenization with full form.
+// Eg. "пр-т" -> "проспект".
+void PreprocessBeforeTokenization(strings::UniString & query);
+
 template <class Delims, typename Fn>
 void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
 {

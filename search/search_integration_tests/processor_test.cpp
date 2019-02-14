@@ -1765,5 +1765,48 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
     TEST(ResultsMatch("собор св петра ", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, PreprocessBeforeTokenizationTest)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet prt(
+      vector<m2::PointD>{m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0), m2::PointD(-0.5, 0.5)},
+      "Октябрьский проспект", "ru");
+
+  TestStreet prd(
+      vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.5)},
+      "Жуков проезд", "ru");
+
+  TestStreet nabya(
+      vector<m2::PointD>{m2::PointD(0.0, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.5)},
+      "Москворецкая набережная", "ru");
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(prt);
+    builder.Add(prd);
+    builder.Add(nabya);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules = {ExactMatch(wonderlandId, prt)};
+    TEST(ResultsMatch("Октябрьский проспект", rules), ());
+    TEST(ResultsMatch("пр-т Октябрьский", rules), ());
+    TEST(ResultsMatch("Октябрьский пр-т", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(wonderlandId, prd)};
+    TEST(ResultsMatch("Жуков проезд", rules), ());
+    TEST(ResultsMatch("пр-д Жуков", rules), ());
+    TEST(ResultsMatch("Жуков пр-д", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(wonderlandId, nabya)};
+    TEST(ResultsMatch("Москворецкая набережная", rules), ());
+    TEST(ResultsMatch("наб-я Москворецкая", rules), ());
+    TEST(ResultsMatch("Москворецкая наб-я", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

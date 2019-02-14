@@ -128,6 +128,32 @@ UniString NormalizeAndSimplifyString(string const & s)
   */
 }
 
+void PreprocessBeforeTokenization(strings::UniString & query)
+{
+  search::Delimiters const delims;
+  vector<pair<strings::UniString, strings::UniString>> const replacements = {
+      {MakeUniString("пр-т"),  MakeUniString("проспект")},
+      {MakeUniString("пр-д"),  MakeUniString("проезд")},
+      {MakeUniString("наб-я"), MakeUniString("набережная")}};
+
+  for (auto const & replacement : replacements)
+  {
+    auto start = query.begin();
+    while ((start = std::search(start, query.end(), replacement.first.begin(),
+                                replacement.first.end())) != query.end())
+    {
+      auto end = start + replacement.first.size();
+      if ((start == query.begin() || delims(*(start - 1))) && (end == query.end() || delims(*end)))
+      {
+        auto const dist = distance(query.begin(), start);
+        query.Replace(start, end, replacement.second.begin(), replacement.second.end());
+        start = query.begin() + dist;
+      }
+      start += 1;
+    }
+  }
+}
+
 UniString FeatureTypeToString(uint32_t type)
 {
   string const s = "!type:" + to_string(type);

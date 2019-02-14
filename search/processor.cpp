@@ -209,7 +209,9 @@ void Processor::SetQuery(string const & query)
   vector<strings::UniString> tokens;
   {
     search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
-    SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
+    auto normalizedQuery = NormalizeAndSimplifyString(query);
+    PreprocessBeforeTokenization(normalizedQuery);
+    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(tokens), delims);
   }
 
   search::Delimiters delims;
