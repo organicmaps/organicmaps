@@ -15,6 +15,8 @@
 		4513BF0D1EC2F0760066565C /* viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4513BF091EC2F0760066565C /* viewport.cpp */; };
 		4513BF0E1EC2F0760066565C /* viewport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4513BF0A1EC2F0760066565C /* viewport.hpp */; };
 		45201E951CE605B1008A4842 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45201E941CE605B1008A4842 /* constants.hpp */; };
+		4525F88522154BE800CAC51A /* vulkan_pipeline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4525F88322154BE800CAC51A /* vulkan_pipeline.hpp */; };
+		4525F88622154BE800CAC51A /* vulkan_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4525F88422154BE800CAC51A /* vulkan_pipeline.cpp */; };
 		452D373421F7415F00CD3A94 /* vulkan_object_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452D373221F7415E00CD3A94 /* vulkan_object_manager.cpp */; };
 		452D373521F7415F00CD3A94 /* vulkan_object_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452D373321F7415F00CD3A94 /* vulkan_object_manager.hpp */; };
 		452D373921FF081C00CD3A94 /* vulkan_staging_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452D373721FF081B00CD3A94 /* vulkan_staging_buffer.cpp */; };
@@ -158,6 +160,8 @@
 		4513BF091EC2F0760066565C /* viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport.cpp; sourceTree = "<group>"; };
 		4513BF0A1EC2F0760066565C /* viewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport.hpp; sourceTree = "<group>"; };
 		45201E941CE605B1008A4842 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
+		4525F88322154BE800CAC51A /* vulkan_pipeline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_pipeline.hpp; sourceTree = "<group>"; };
+		4525F88422154BE800CAC51A /* vulkan_pipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_pipeline.cpp; sourceTree = "<group>"; };
 		452D373221F7415E00CD3A94 /* vulkan_object_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_object_manager.cpp; sourceTree = "<group>"; };
 		452D373321F7415F00CD3A94 /* vulkan_object_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_object_manager.hpp; sourceTree = "<group>"; };
 		452D373721FF081B00CD3A94 /* vulkan_staging_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_staging_buffer.cpp; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 				4577B25021F2035D00864FAC /* vulkan_mesh_object_impl.cpp */,
 				452D373221F7415E00CD3A94 /* vulkan_object_manager.cpp */,
 				452D373321F7415F00CD3A94 /* vulkan_object_manager.hpp */,
+				4525F88422154BE800CAC51A /* vulkan_pipeline.cpp */,
+				4525F88322154BE800CAC51A /* vulkan_pipeline.hpp */,
 				452D373721FF081B00CD3A94 /* vulkan_staging_buffer.cpp */,
 				452D373821FF081C00CD3A94 /* vulkan_staging_buffer.hpp */,
 				4577B24A21F2035C00864FAC /* vulkan_texture.cpp */,
@@ -540,6 +546,7 @@
 				6743D3451C3533AE0095054B /* support_manager.hpp in Headers */,
 				6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */,
 				6729A5721A69213A007D5872 /* cpu_buffer.hpp in Headers */,
+				4525F88522154BE800CAC51A /* vulkan_pipeline.hpp in Headers */,
 				6729A5AD1A69213A007D5872 /* uniform_value.hpp in Headers */,
 				6729A5951A69213A007D5872 /* overlay_handle.hpp in Headers */,
 				45201E951CE605B1008A4842 /* constants.hpp in Headers */,
@@ -641,6 +648,7 @@
 				6729A5941A69213A007D5872 /* overlay_handle.cpp in Sources */,
 				6709472D1BDF9A4F005014C0 /* index_storage.cpp in Sources */,
 				6729A5861A69213A007D5872 /* gpu_buffer.cpp in Sources */,
+				4525F88622154BE800CAC51A /* vulkan_pipeline.cpp in Sources */,
 				4577B25721F2035D00864FAC /* vulkan_vertex_array_buffer_impl.cpp in Sources */,
 				45789EF8213557F7009955CC /* gl_constants.cpp in Sources */,
 				4577B25621F2035D00864FAC /* vulkan_utils.cpp in Sources */,

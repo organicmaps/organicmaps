@@ -141,10 +141,7 @@ char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
-
-#if defined(OMIM_METAL_AVAILABLE)
-char const kMetalAllowed[] = "MetalAllowed";
-#endif
+char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
 
 #if defined(OMIM_OS_ANDROID)
 char const kICUDataFile[] = "icudt57l.dat";
@@ -2559,20 +2556,18 @@ void Framework::UpdateSavedDataVersion()
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 
-#if defined(OMIM_METAL_AVAILABLE)
-bool Framework::LoadMetalAllowed()
+dp::ApiVersion Framework::LoadPreferredGraphicsAPI()
 {
-  bool allowed;
-  if (settings::Get(kMetalAllowed, allowed))
-    return allowed;
-  return true;
+  std::string apiStr;
+  if (settings::Get(kPreferredGraphicsAPI, apiStr))
+    return dp::ApiVersionFromString(apiStr);
+  return dp::ApiVersionFromString({});
 }
 
-void Framework::SaveMetalAllowed(bool allowed)
+void Framework::SavePreferredGraphicsAPI(dp::ApiVersion apiVersion)
 {
-  settings::Set(kMetalAllowed, allowed);
+  settings::Set(kPreferredGraphicsAPI, DebugPrint(apiVersion));
 }
-#endif
 
 void Framework::AllowTransliteration(bool allowTranslit)
 {
@@ -2854,15 +2849,22 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
 #if defined(OMIM_METAL_AVAILABLE)
   if (query == "?metal")
   {
-    SaveMetalAllowed(true);
-    return true;
-  }
-  if (query == "?gl")
-  {
-    SaveMetalAllowed(false);
+    SavePreferredGraphicsAPI(dp::ApiVersion::Metal);
     return true;
   }
 #endif
+#if defined(OMIM_OS_ANDROID)
+  if (query == "?vulkan")
+  {
+    SavePreferredGraphicsAPI(dp::ApiVersion::Vulkan);
+    return true;
+  }
+#endif
+  if (query == "?gl")
+  {
+    SavePreferredGraphicsAPI(dp::ApiVersion::OpenGLES3);
+    return true;
+  }
   return false;
 }
 

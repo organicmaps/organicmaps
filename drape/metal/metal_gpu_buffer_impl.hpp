@@ -49,8 +49,10 @@ public:
     return nullptr;
   }
   
-  void UploadData(void const * data, uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context,
+                  void const * data, uint32_t elementCount) override
   {
+    UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
   }
   
@@ -60,15 +62,17 @@ public:
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }
   
-  void * Map(uint32_t elementOffset, uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context,
+             uint32_t elementOffset, uint32_t elementCount) override
   {
+    UNUSED_VALUE(context);
     return m_buffer->Map(elementOffset, elementCount);
   }
   
   id<MTLBuffer> GetMetalBuffer() const { return m_buffer->GetMetalBuffer(); }
   
   void Bind() override {}
-  void Unmap() override {}
+  void Unmap(ref_ptr<GraphicsContext>) override {}
 };
 }  // namespace metal
 }  // namespace dp

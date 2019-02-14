@@ -166,21 +166,24 @@ void Framework::TransitSchemeStateChanged(TransitReadManager::TransitSchemeState
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                                   bool launchByDeepLink, int appVersionCode)
 {
-  m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode);
-  if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())
+  if (m_work.LoadPreferredGraphicsAPI() == dp::ApiVersion::Vulkan)
   {
-    LOG(LWARNING, ("Vulkan API is not supported."));
-    m_vulkanContextFactory.reset();
-  }
-
-  if (m_vulkanContextFactory)
-  {
-    auto f = CastFactory(m_vulkanContextFactory);
-    f->SetSurface(env, jSurface);
-    if (!f->IsValid())
+    m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode);
+    if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())
     {
-      LOG(LWARNING, ("Invalid Vulkan API context."));
+      LOG(LWARNING, ("Vulkan API is not supported."));
       m_vulkanContextFactory.reset();
+    }
+
+    if (m_vulkanContextFactory)
+    {
+      auto f = CastFactory(m_vulkanContextFactory);
+      f->SetSurface(env, jSurface);
+      if (!f->IsValid())
+      {
+        LOG(LWARNING, ("Invalid Vulkan API context."));
+        m_vulkanContextFactory.reset();
+      }
     }
   }
 

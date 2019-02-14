@@ -100,4 +100,40 @@ inline std::string DebugPrint(dp::ApiVersion apiVersion)
   }
   return "Unknown";
 }
+
+inline dp::ApiVersion ApiVersionFromString(std::string const & str)
+{
+  if (str == "Metal")
+  {
+#if defined(OMIM_OS_ANDROID)
+    return dp::ApiVersion::Vulkan;
+#endif
+    return dp::ApiVersion::Metal;
+  }
+
+  if (str == "Vulkan")
+  {
+#if defined(OMIM_OS_IPHONE)
+    return dp::ApiVersion::Metal;
+#endif
+    return dp::ApiVersion::Vulkan;
+  }
+
+  if (str == "OpenGLES2")
+    return dp::ApiVersion::OpenGLES2;
+
+  if (str == "OpenGLES3")
+    return dp::ApiVersion::OpenGLES3;
+
+  // Default behavior for different OS. Appropriate fallback will be chosen
+  // if default API is not supported.
+#if defined(OMIM_OS_IPHONE)
+  return dp::ApiVersion::Metal;
+#elif defined(OMIM_OS_ANDROID)
+  //TODO(@rokuz,@darina): Uncomment on full laucnch of Vulkan.
+  return dp::ApiVersion::OpenGLES3; //dp::ApiVersion::Vulkan;
+#else
+  return dp::ApiVersion::OpenGLES3;
+#endif
+}
 }  // namespace dp
