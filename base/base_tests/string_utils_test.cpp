@@ -756,3 +756,69 @@ UNIT_TEST(CSV)
   std::vector<std::string> expected3;
   TEST_EQUAL(target, expected3, ());
 }
+
+UNIT_TEST(UniString_Replace)
+{
+  std::vector<std::string> const testStrings = {
+      "longlong",
+      "ss",
+      "samesize",
+      "sometext longlong",
+      "sometext ss",
+      "sometext samesize",
+      "longlong sometext",
+      "ss sometext",
+      "samesize sometext",
+      "longlong ss samesize",
+      "sometext longlong sometext ss samesize sometext",
+      "длинная строка",
+      "к с",
+      "такая же строка",
+      "sometext длинная строка",
+      "sometext к с",
+      "sometext такая же строка",
+      "длинная строка sometext",
+      "к с sometext",
+      "samesize sometext",
+      "длинная строка к с samesize",
+      "sometext длинная строка sometext к с такая же строка sometext"};
+
+  std::vector<std::pair<std::string, std::string>> const replacements = {
+      {"longlong", "ll"},
+      {"ss", "shortshort"},
+      {"samesize", "sizesame"},
+      {"длинная строка", "д с"},
+      {"к с", "короткая строка"},
+      {"такая же строка", "строка такая же"}};
+
+  for (auto testString : testStrings)
+  {
+    auto uniStr = strings::MakeUniString(testString);
+    for (auto const & r : replacements)
+    {
+      {
+        auto const toReplace = strings::MakeUniString(r.first);
+        auto const replacement = strings::MakeUniString(r.second);
+        auto & str = uniStr;
+        auto start = std::search(str.begin(), str.end(), toReplace.begin(), toReplace.end());
+        if (start != str.end())
+        {
+          auto end = start + toReplace.size();
+          str.Replace(start, end, replacement.begin(), replacement.end());
+        }
+      }
+      {
+        auto const toReplace = r.first;
+        auto const replacement = r.second;
+        auto & str = testString;
+        auto start = std::search(str.begin(), str.end(), toReplace.begin(), toReplace.end());
+        if (start != str.end())
+        {
+          auto end = start + toReplace.size();
+          str.replace(start, end, replacement.begin(), replacement.end());
+        }
+      }
+    }
+    TEST_EQUAL(testString, ToUtf8(uniStr), ());
+  }
+}

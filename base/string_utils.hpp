@@ -32,9 +32,8 @@ public:
   UniString() {}
   explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
 
-  template <class IterT>
-  UniString(IterT b, IterT e)
-    : BaseT(b, e)
+  template <typename Iter>
+  UniString(Iter b, Iter e) : BaseT(b, e)
   {
   }
 
@@ -51,6 +50,26 @@ public:
     UniString result(*this);
     result += rhs;
     return result;
+  }
+
+  template <class Iter>
+  void Replace(iterator first, iterator last, Iter first2, Iter last2)
+  {
+    auto it = first;
+    auto it2 = first2;
+    for (; it < last && it2 < last2; ++it, ++it2)
+      *it = *it2;
+
+    if (it == last && it2 == last2)
+      return;
+
+    if (it == last)
+    {
+      insert(it, it2, last2);
+      return;
+    }
+
+    erase(it, last);
   }
 };
 
