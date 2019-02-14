@@ -91,12 +91,10 @@ public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdap
   private void initDecor(@NonNull TagsRecyclerHolder holder,
                          @NonNull ComponentHolder componentHolder)
   {
-    RecyclerView.ItemDecoration decor;
-    int index = 0;
-    while ((decor = holder.mRecycler.getItemDecorationAt(index)) != null)
+    int decorationCount = holder.mRecycler.getItemDecorationCount();
+    for (int i = 0; i < decorationCount; i++)
     {
-      holder.mRecycler.removeItemDecoration(decor);
-      index++;
+      holder.mRecycler.removeItemDecorationAt(i);
     }
     holder.mRecycler.addItemDecoration(componentHolder.mDecor);
   }
