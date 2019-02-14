@@ -11,7 +11,7 @@ std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, floa
   // depth-space is [0;1], so we have to remap projection matrix.
   float depthScale = 1.0f;
   float depthOffset = 0.0f;
-  if (apiVersion == dp::ApiVersion::Metal)
+  if (apiVersion == dp::ApiVersion::Metal || apiVersion == dp::ApiVersion::Vulkan)
   {
     depthScale = 0.5f;
     depthOffset = 0.5f;

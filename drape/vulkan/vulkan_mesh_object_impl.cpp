@@ -41,7 +41,6 @@ public:
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     m_objectManager = vulkanContext->GetObjectManager();
-    VkDevice device = vulkanContext->GetDevice();
 
     ResetDescriptorSetGroup();
 
@@ -59,10 +58,6 @@ public:
       void * gpuPtr = m_objectManager->Map(m_geometryBuffers[i]);
       memcpy(gpuPtr, m_mesh->m_buffers[i].m_data.data(), sizeInBytes);
       m_objectManager->Flush(m_geometryBuffers[i]);
-
-      CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffers[i].m_buffer,
-                                       m_geometryBuffers[i].GetMemory(),
-                                       m_geometryBuffers[i].GetAlignedOffset()));
       m_objectManager->Unmap(m_geometryBuffers[i]);
 
       m_bindingInfo[i] = dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i].m_attributes.size()),

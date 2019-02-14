@@ -111,7 +111,6 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
   BufferBase::Resize(elementCount);
 
   m_objectManager = context->GetObjectManager();
-  VkDevice device = context->GetDevice();
 
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
 

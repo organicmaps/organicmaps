@@ -168,7 +168,7 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
   if (screen.isPerspective())
     return modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
 
-  if (apiVersion == dp::ApiVersion::Metal)
+  if (apiVersion == dp::ApiVersion::Metal || apiVersion == dp::ApiVersion::Vulkan)
   {
     modelTransform(3, 2) = modelTransform(3, 2) + 0.5f;
     modelTransform(2, 2) = modelTransform(2, 2) * 0.5f;

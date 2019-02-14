@@ -39,6 +39,7 @@ public:
   bool Validate() const override;
 
   VkImageView GetTextureView() const { return m_textureObject.m_imageView; }
+  VkImage GetImage() const { return m_textureObject.m_image; }
   SamplerKey GetSamplerKey() const;
   
 private:

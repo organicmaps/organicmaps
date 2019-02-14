@@ -38,8 +38,8 @@ public:
 
   void BeginRendering() override;
   void Present() override;
-  void MakeCurrent() override;
-  void DoneCurrent() override;
+  void MakeCurrent() override {};
+  void DoneCurrent() override {};
   bool Validate() override;
   void Resize(int w, int h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
@@ -118,14 +118,11 @@ protected:
   void CreateDepthTexture();
   void DestroyDepthTexture();
 
-  void CreateDefaultFramebuffer();
-  void DestroyDefaultFramebuffer();
-
-  void CreateFramebuffer();
-  void DestroyFramebuffer();
-
-  void CreateRenderPass();
-  void DestroyRenderPass();
+  VkRenderPass CreateRenderPass(uint32_t attachmentsCount, VkFormat colorFormat, VkAttachmentLoadOp loadOp,
+                                VkAttachmentStoreOp storeOp, VkImageLayout initLayout, VkImageLayout finalLayout,
+                                VkFormat depthFormat, VkAttachmentLoadOp depthLoadOp,
+                                VkAttachmentStoreOp depthStoreOp, VkImageLayout depthInitLayout,
+                                VkImageLayout depthFinalLayout);
 
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;
@@ -137,8 +134,7 @@ protected:
   VkCommandPool m_commandPool = {};
   VkCommandBuffer m_renderingCommandBuffer = {};
   VkCommandBuffer m_memoryCommandBuffer = {};
-  VkRenderPass m_renderPass = {};
-  std::vector<VkRenderPass> m_renderPassesToDestroy;
+  bool m_isActiveRenderPass = false;
 
   // Swap chain image presentation
   VkSemaphore m_presentComplete = {};
@@ -156,25 +152,30 @@ protected:
 
   VkSwapchainKHR m_swapchain = {};
   std::vector<VkImageView> m_swapchainImageViews;
+  std::vector<VkImage> m_swapchainImages;
   uint32_t m_imageIndex = 0;
 
   VulkanObject m_depthStencil;
-  std::vector<VkFramebuffer> m_defaultFramebuffers;
 
-  VkFramebuffer m_framebuffer = {};
-  std::vector<VkFramebuffer> m_framebuffersToDestroy;
+  uint32_t m_clearBits;
+  uint32_t m_storeBits;
+  Color m_clearColor;
+  uint32_t m_stencilReferenceValue = 1;
 
-  ref_ptr<dp::BaseFramebuffer> m_currentFramebuffer;
+  ref_ptr<BaseFramebuffer> m_currentFramebuffer;
 
-  VkAttachmentDescription m_colorAttachment;
-  VkAttachmentDescription m_depthAttachment;
+  struct FramebufferData
+  {
+    VkRenderPass m_renderPass = {};
+    std::vector<VkFramebuffer> m_framebuffers = {};
+  };
+  std::map<ref_ptr<BaseFramebuffer>, FramebufferData> m_framebuffersData;
 
   std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
              static_cast<size_t>(HandlerType::Count)> m_handlers;
 
   VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;
-  uint32_t m_stencilReferenceValue = 1;
 };
 }  // namespace vulkan
 }  // namespace dp
