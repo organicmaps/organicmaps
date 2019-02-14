@@ -85,7 +85,9 @@ public:
 
   ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
 
-  VkCommandBuffer GetCurrentCommandBuffer() const { return m_commandBuffer; }
+  VkCommandBuffer GetCurrentMemoryCommandBuffer() const { return m_memoryCommandBuffer; }
+  VkCommandBuffer GetCurrentRenderingCommandBuffer() const { return m_renderingCommandBuffer; }
+
   VkPipeline GetCurrentPipeline();
   DescriptorSetGroup GetCurrentDescriptorSetGroup();
   VkPipelineLayout GetCurrentPipelineLayout() const;
@@ -110,8 +112,8 @@ protected:
   void CreateCommandPool();
   void DestroyCommandPool();
 
-  void CreateCommandBuffer();
-  void DestroyCommandBuffer();
+  void CreateCommandBuffers();
+  void DestroyCommandBuffers();
 
   void CreateDepthTexture();
   void DestroyDepthTexture();
@@ -133,7 +135,8 @@ protected:
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
-  VkCommandBuffer m_commandBuffer = {};
+  VkCommandBuffer m_renderingCommandBuffer = {};
+  VkCommandBuffer m_memoryCommandBuffer = {};
   VkRenderPass m_renderPass = {};
   std::vector<VkRenderPass> m_renderPassesToDestroy;
 
@@ -162,6 +165,9 @@ protected:
   std::vector<VkFramebuffer> m_framebuffersToDestroy;
 
   ref_ptr<dp::BaseFramebuffer> m_currentFramebuffer;
+
+  VkAttachmentDescription m_colorAttachment;
+  VkAttachmentDescription m_depthAttachment;
 
   std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
              static_cast<size_t>(HandlerType::Count)> m_handlers;

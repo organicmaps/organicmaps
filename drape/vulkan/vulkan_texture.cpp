@@ -174,7 +174,7 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
   CHECK(data != nullptr, ());
 
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+  VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
   auto const sizeInBytes = GetBytesPerPixel(GetFormat()) * width * height;
@@ -223,7 +223,7 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
 void VulkanTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+  VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
   // Fill texture on the first bind.

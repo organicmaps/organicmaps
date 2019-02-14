@@ -43,7 +43,7 @@ VulkanBaseContext::~VulkanBaseContext()
   DestroyDepthTexture();
   DestroySwapchain();
   DestroyRenderPass();
-  DestroyCommandBuffer();
+  DestroyCommandBuffers();
   DestroyCommandPool();
 }
 
@@ -87,7 +87,7 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
   if (m_renderPass != VK_NULL_HANDLE)
   {
-    vkCmdEndRenderPass(m_commandBuffer);
+    vkCmdEndRenderPass(m_renderingCommandBuffer);
     DestroyRenderPass();
   }
 
@@ -100,9 +100,11 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 {
   //TODO: set renderPass to m_pipelineKey
-  vkCmdSetStencilReference(m_commandBuffer, VK_STENCIL_FRONT_AND_BACK, m_stencilReferenceValue);
+  vkCmdSetStencilReference(m_renderingCommandBuffer, VK_STENCIL_FRONT_AND_BACK,
+                           m_stencilReferenceValue);
 
   CreateRenderPass();
+  m_pipelineKey.m_renderPass = m_renderPass;
 
   VkClearValue clearValues[2];
   clearValues[0].color = {1.0f, 0.0f, 1.0f, 1.0f};
@@ -127,7 +129,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       CreateDefaultFramebuffer();
     renderPassBeginInfo.framebuffer = m_defaultFramebuffers[m_imageIndex];
   }
-  vkCmdBeginRenderPass(m_commandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+  vkCmdBeginRenderPass(m_renderingCommandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 }
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
@@ -156,13 +158,13 @@ void VulkanBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t
   viewport.height = h;
   viewport.minDepth = 0.0f;
   viewport.maxDepth = 1.0f;
-  vkCmdSetViewport(GetCurrentCommandBuffer(), 0, 1, &viewport);
+  vkCmdSetViewport(m_renderingCommandBuffer, 0, 1, &viewport);
 
   VkRect2D scissor = {};
   scissor.extent = {w, h};
   scissor.offset.x = x;
   scissor.offset.y = y;
-  vkCmdSetScissor(GetCurrentCommandBuffer(), 0, 1, &scissor);
+  vkCmdSetScissor(m_renderingCommandBuffer, 0, 1, &scissor);
 }
 
 void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
@@ -176,14 +178,14 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
     if (m_surfaceFormat.is_initialized())
     {
       DestroyRenderPass();
-      DestroyCommandBuffer();
+      DestroyCommandBuffers();
       DestroyCommandPool();
       DestroyDepthTexture();
     }
     m_surfaceFormat = surfaceFormat;
     m_surfaceCapabilities = surfaceCapabilities;
     CreateCommandPool();
-    CreateCommandBuffer();
+    CreateCommandBuffers();
     CreateDepthTexture();
   }
   RecreateSwapchain();
@@ -209,7 +211,8 @@ void VulkanBaseContext::BeginRendering()
 
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-  CHECK_VK_CALL(vkBeginCommandBuffer(m_commandBuffer, &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffer, &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
 
   // Prepare frame. Acquire next image.
   // By setting timeout to UINT64_MAX we will always wait until the next image has been acquired or an actual
@@ -241,24 +244,26 @@ void VulkanBaseContext::Present()
 
   if (m_renderPass != VK_NULL_HANDLE)
   {
-    vkCmdEndRenderPass(m_commandBuffer);
+    vkCmdEndRenderPass(m_renderingCommandBuffer);
     DestroyRenderPass();
   }
 
-  CHECK_VK_CALL(vkEndCommandBuffer(m_commandBuffer));
+  CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffer));
+  CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffer));
 
   // Pipeline stage at which the queue submission will wait (via pWaitSemaphores)
   const VkPipelineStageFlags waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 
   VkSubmitInfo submitInfo = {};
+  VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
   submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
   submitInfo.pWaitDstStageMask = &waitStageMask;
   submitInfo.pWaitSemaphores = &m_presentComplete;
   submitInfo.waitSemaphoreCount = 1;
   submitInfo.pSignalSemaphores = &m_renderComplete;
   submitInfo.signalSemaphoreCount = 1;
-  submitInfo.commandBufferCount = 1;
-  submitInfo.pCommandBuffers = &m_commandBuffer;
+  submitInfo.commandBufferCount = 2;
+  submitInfo.pCommandBuffers = commandBuffers;
 
   CHECK_VK_CALL(vkQueueSubmit(m_queue, 1, &submitInfo, m_fence));
   //CHECK_VK_CALL(vkQueueWaitIdle(m_queue));
@@ -440,7 +445,7 @@ void VulkanBaseContext::DestroyCommandPool()
   vkDestroyCommandPool(m_device, m_commandPool, nullptr);
 }
 
-void VulkanBaseContext::CreateCommandBuffer()
+void VulkanBaseContext::CreateCommandBuffers()
 {
   // A fence is need to check for command buffer completion before we can recreate it
   VkFenceCreateInfo fenceCI = {};
@@ -461,15 +466,17 @@ void VulkanBaseContext::CreateCommandBuffer()
   cmdBufAllocateInfo.commandPool = m_commandPool;
   cmdBufAllocateInfo.commandBufferCount = 1;
   cmdBufAllocateInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-  CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &m_commandBuffer));
+  CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &m_memoryCommandBuffer));
+  CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &m_renderingCommandBuffer));
 }
 
-void VulkanBaseContext::DestroyCommandBuffer()
+void VulkanBaseContext::DestroyCommandBuffers()
 {
   vkDestroyFence(m_device, m_fence, nullptr);
   vkDestroySemaphore(m_device, m_presentComplete, nullptr);
   vkDestroySemaphore(m_device, m_renderComplete, nullptr);
-  vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_commandBuffer);
+  vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_memoryCommandBuffer);
+  vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_renderingCommandBuffer);
 }
 
 void VulkanBaseContext::CreateDepthTexture()
@@ -698,12 +705,12 @@ void VulkanBaseContext::SetStencilReferenceValue(uint32_t stencilReferenceValue)
 {
   m_stencilReferenceValue = stencilReferenceValue;
 }
-    
+
 void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 {
   m_pipelineKey.m_primitiveTopology = topology;
 }
-    
+
 void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo)
 {
   m_pipelineKey.m_bindingInfo = bindingInfo;
@@ -713,17 +720,28 @@ void VulkanBaseContext::SetProgram(ref_ptr<VulkanGpuProgram> program)
 {
   m_pipelineKey.m_program = program;
 }
-    
+
 void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
 {
   m_pipelineKey.m_blendingEnabled = blendingEnabled;
 }
-    
+
 void VulkanBaseContext::ApplyParamDescriptor(ParamDescriptor && descriptor)
 {
+  if (descriptor.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+  {
+    for (auto & param : m_paramDescriptors)
+    {
+      if (param.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+      {
+        param = std::move(descriptor);
+        return;
+      }
+    }
+  }
   m_paramDescriptors.push_back(std::move(descriptor));
 }
-    
+
 void VulkanBaseContext::ClearParamDescriptors()
 {
   m_paramDescriptors.clear();

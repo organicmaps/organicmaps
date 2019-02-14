@@ -303,7 +303,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   size_t attribsCount = 0;
   for (size_t i = 0; i < key.m_bindingInfo.size(); ++i)
   {
-    bindingDescriptions[i].binding = key.m_bindingInfo[i].GetID();
+    bindingDescriptions[i].binding = static_cast<uint32_t>(i);
     bindingDescriptions[i].stride = key.m_bindingInfo[i].GetElementSize();
     bindingDescriptions[i].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     attribsCount += key.m_bindingInfo[i].GetCount();
@@ -316,8 +316,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
     for (uint8_t j = 0; j < key.m_bindingInfo[i].GetCount(); ++j)
     {
       BindingDecl const & bindingDecl = key.m_bindingInfo[i].GetBindingDecl(j);
-      attributeDescriptions[bindingCounter].location = static_cast<uint32_t>(i);
-      attributeDescriptions[bindingCounter].binding = bindingCounter;
+      attributeDescriptions[bindingCounter].location = bindingCounter;
+      attributeDescriptions[bindingCounter].binding = static_cast<uint32_t>(i);
       attributeDescriptions[bindingCounter].format = GetAttributeFormat(bindingDecl.m_componentCount,
                                                                         bindingDecl.m_componentType);
       attributeDescriptions[bindingCounter].offset = bindingDecl.m_offset;

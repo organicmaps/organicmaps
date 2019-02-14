@@ -59,11 +59,11 @@ public:
       void * gpuPtr = m_objectManager->Map(m_geometryBuffers[i]);
       memcpy(gpuPtr, m_mesh->m_buffers[i].m_data.data(), sizeInBytes);
       m_objectManager->Flush(m_geometryBuffers[i]);
-      m_objectManager->Unmap(m_geometryBuffers[i]);
 
       CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffers[i].m_buffer,
                                        m_geometryBuffers[i].GetMemory(),
                                        m_geometryBuffers[i].GetAlignedOffset()));
+      m_objectManager->Unmap(m_geometryBuffers[i]);
 
       m_bindingInfo[i] = dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i].m_attributes.size()),
                                          static_cast<uint8_t>(i));
@@ -94,7 +94,7 @@ public:
     CHECK_LESS(bufferInd, static_cast<uint32_t>(m_geometryBuffers.size()), ());
 
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
     auto & buffer = m_mesh->m_buffers[bufferInd];
@@ -154,7 +154,7 @@ public:
   void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) override
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
     vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
@@ -176,8 +176,6 @@ public:
       vkCmdBindVertexBuffers(commandBuffer, i, 1, &m_geometryBuffers[i].m_buffer, offsets);
 
     vkCmdDraw(commandBuffer, verticesCount, 1, 0, 0);
-
-    vulkanContext->ClearParamDescriptors();
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}

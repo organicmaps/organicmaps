@@ -53,7 +53,7 @@ public:
                    IndicesRange const & range) override
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+    VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
     vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST :
@@ -94,8 +94,6 @@ public:
     vkCmdBindIndexBuffer(commandBuffer, vulkanIndexBuffer, 0, indexType);
 
     vkCmdDrawIndexed(commandBuffer, range.m_idxCount, 1, range.m_idxStart, 0, 0);
-
-    vulkanContext->ClearParamDescriptors();
   }
   
 private:

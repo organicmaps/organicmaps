@@ -318,8 +318,8 @@ void VulkanObjectManager::CreateDescriptorPool()
 {
   std::vector<VkDescriptorPoolSize> poolSizes =
     {
-      {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 1},  // Maximum uniform buffers count per draw call.
-      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3},  // Maximum textures count per draw call.
+      {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 500},  // Maximum uniform buffers count per draw call.
+      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1000},  // Maximum textures count per draw call.
     };
 
   VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
@@ -327,7 +327,7 @@ void VulkanObjectManager::CreateDescriptorPool()
   descriptorPoolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
   descriptorPoolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
   descriptorPoolInfo.pPoolSizes = poolSizes.data();
-  descriptorPoolInfo.maxSets = 500;  // Approximately equal to doubled maximum VAO per frame.
+  descriptorPoolInfo.maxSets = 1500;  // Approximately equal to doubled maximum VAO per frame.
 
   VkDescriptorPool descriptorPool;
   CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool));

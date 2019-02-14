@@ -29,7 +29,7 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
   uint32_t const mappingSizeInBytes = elementCount * elementSize;
   m_mappingByteOffset = elementOffset * elementSize;
 
-  VkCommandBuffer commandBuffer = context->GetCurrentCommandBuffer();
+  VkCommandBuffer commandBuffer = context->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
   // Copy to default or temporary staging buffer.
@@ -79,7 +79,7 @@ void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
 
 void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
 {
-  VkCommandBuffer commandBuffer = context->GetCurrentCommandBuffer();
+  VkCommandBuffer commandBuffer = context->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
   VkBuffer stagingBuffer = m_stagingBufferRef->GetReservationById(m_reservationId).m_stagingBuffer;
@@ -117,16 +117,16 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
 
   m_geometryBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
                                                    sizeInBytes, 0 /* batcherHash */);
+  void * gpuPtr = m_objectManager->Map(m_geometryBuffer);
   if (data != nullptr)
   {
-    void * gpuPtr = m_objectManager->Map(m_geometryBuffer);
     memcpy(gpuPtr, data, sizeInBytes);
     m_objectManager->Flush(m_geometryBuffer);
-    m_objectManager->Unmap(m_geometryBuffer);
   }
-
   CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffer.m_buffer, m_geometryBuffer.GetMemory(),
                                    m_geometryBuffer.GetAlignedOffset()));
+
+  m_objectManager->Unmap(m_geometryBuffer);
 
   // If we have already set up data, we have to call SetDataSize.
   if (data != nullptr)

@@ -229,6 +229,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+    vulkanContext->ClearParamDescriptors();
     ref_ptr<dp::vulkan::VulkanGpuProgram> p = program;
     auto const & bindings = p->GetTextureBindings();
     for (auto const & texture : state.GetTextures())
@@ -311,7 +312,7 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     {
       ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
       ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-      VkCommandBuffer commandBuffer = vulkanContext->GetCurrentCommandBuffer();
+      VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
       CHECK(commandBuffer != nullptr, ());
       vkCmdSetLineWidth(commandBuffer, static_cast<float>(state.GetLineWidth()));
     }
