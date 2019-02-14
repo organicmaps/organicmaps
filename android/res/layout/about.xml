@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
-  <com.mapswithme.maps.widget.ObservableScrollView
+  <android.support.v4.widget.NestedScrollView
       android:id="@+id/content_frame"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
@@ -93,7 +93,7 @@
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/copyright"/>
     </LinearLayout>
-  </com.mapswithme.maps.widget.ObservableScrollView>
+  </android.support.v4.widget.NestedScrollView>
 
   <include layout="@layout/shadow_top"/>
 </FrameLayout>
