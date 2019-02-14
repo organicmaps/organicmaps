@@ -7,6 +7,7 @@ import android.support.annotation.StringRes;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.ConnectionState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public enum PromoCategory
         @Override
         boolean isSupported()
         {
-          return Framework.nativeHasMegafonCategoryBanner();
+          return ConnectionState.isConnected() && Framework.nativeHasMegafonCategoryBanner();
         }
 
         @Override
