@@ -8,6 +8,7 @@
 #include "drape/index_buffer_mutator.hpp"
 #include "drape/pointers.hpp"
 
+#include <cstdint>
 #include <map>
 #include <vector>
 
@@ -109,7 +110,8 @@ private:
   // Definition of this method is in a separate .cpp-file.
   drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<GraphicsContext> context,
                                                        ref_ptr<VertexArrayBuffer> buffer,
-                                                       std::vector<dp::BindingInfo> && bindingInfo);
+                                                       BindingInfoArray && bindingInfo,
+                                                       uint8_t bindingInfoCount);
 
   uint32_t const m_dataBufferSize;
   uint64_t const m_batcherHash;
@@ -123,6 +125,7 @@ private:
   bool m_isPreflushed = false;
   bool m_moveToGpuOnBuild = false;
   bool m_isChanged = false;
-  std::vector<dp::BindingInfo> m_bindingInfo;
+  BindingInfoArray m_bindingInfo;
+  uint8_t m_bindingInfoCount = 0;
 };
 }  // namespace dp

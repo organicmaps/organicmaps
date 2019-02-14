@@ -45,7 +45,8 @@ public:
     ResetDescriptorSetGroup();
 
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
-    m_bindingInfo.resize(m_mesh->m_buffers.size());
+    m_bindingInfoCount = static_cast<uint8_t>(m_mesh->m_buffers.size());
+    CHECK_LESS_OR_EQUAL(m_bindingInfoCount, kMaxBindingInfo, ());
     for (size_t i = 0; i < m_mesh->m_buffers.size(); i++)
     {
       if (m_mesh->m_buffers[i].m_data.empty())
@@ -150,7 +151,7 @@ public:
     CHECK(commandBuffer != nullptr, ());
 
     vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
-    vulkanContext->SetBindingInfo(m_bindingInfo);
+    vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
     if (!m_descriptorSetGroup)
       m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
@@ -186,7 +187,8 @@ private:
   ref_ptr<dp::MeshObject> m_mesh;
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<VulkanObject> m_geometryBuffers;
-  std::vector<dp::BindingInfo> m_bindingInfo;
+  BindingInfoArray m_bindingInfo;
+  uint8_t m_bindingInfoCount = 0;
   DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan

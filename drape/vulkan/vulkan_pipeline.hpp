@@ -43,7 +43,8 @@ public:
     VkRenderPass m_renderPass = {};
     ref_ptr<VulkanGpuProgram> m_program;
     DepthStencilKey m_depthStencil;
-    std::vector<BindingInfo> m_bindingInfo;
+    BindingInfoArray m_bindingInfo;
+    uint8_t m_bindingInfoCount = 0;
     VkPrimitiveTopology m_primitiveTopology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
     bool m_blendingEnabled = false;
   };

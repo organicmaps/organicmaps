@@ -299,9 +299,9 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   dynamicStateCreateInfo.dynamicStateCount = static_cast<uint32_t>(dynamicState.size());
 
   // Input state.
-  std::vector<VkVertexInputBindingDescription> bindingDescriptions(key.m_bindingInfo.size());
+  std::vector<VkVertexInputBindingDescription> bindingDescriptions(key.m_bindingInfoCount);
   size_t attribsCount = 0;
-  for (size_t i = 0; i < key.m_bindingInfo.size(); ++i)
+  for (size_t i = 0; i < key.m_bindingInfoCount; ++i)
   {
     bindingDescriptions[i].binding = static_cast<uint32_t>(i);
     bindingDescriptions[i].stride = key.m_bindingInfo[i].GetElementSize();
@@ -311,7 +311,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
 
   std::vector<VkVertexInputAttributeDescription> attributeDescriptions(attribsCount);
   uint32_t bindingCounter = 0;
-  for (size_t i = 0; i < key.m_bindingInfo.size(); ++i)
+  for (size_t i = 0; i < key.m_bindingInfoCount; ++i)
   {
     for (uint8_t j = 0; j < key.m_bindingInfo[i].GetCount(); ++j)
     {
@@ -500,8 +500,14 @@ bool VulkanPipeline::PipelineKey::operator<(PipelineKey const & rhs) const
   if (m_depthStencil != rhs.m_depthStencil)
     return m_depthStencil < rhs.m_depthStencil;
 
-  if (m_bindingInfo != rhs.m_bindingInfo)
-    return m_bindingInfo < rhs.m_bindingInfo;
+  if (m_bindingInfoCount != rhs.m_bindingInfoCount)
+    return m_bindingInfoCount < rhs.m_bindingInfoCount;
+
+  for (uint8_t i = 0; i < m_bindingInfoCount; ++i)
+  {
+    if (m_bindingInfo[i] != rhs.m_bindingInfo[i])
+      return m_bindingInfo[i] < rhs.m_bindingInfo[i];
+  }
 
   if (m_primitiveTopology != rhs.m_primitiveTopology)
     return m_primitiveTopology < rhs.m_primitiveTopology;

@@ -24,10 +24,12 @@ class VulkanVertexArrayBufferImpl : public VertexArrayBufferImpl
 public:
   VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer,
                               ref_ptr<VulkanObjectManager> objectManager,
-                              std::vector<dp::BindingInfo> && bindingInfo)
+                              BindingInfoArray && bindingInfo,
+                              uint8_t bindingInfoCount)
     : m_vertexArrayBuffer(std::move(buffer))
     , m_objectManager(std::move(objectManager))
     , m_bindingInfo(std::move(bindingInfo))
+    , m_bindingInfoCount(bindingInfoCount)
   {}
 
   ~VulkanVertexArrayBufferImpl() override
@@ -58,7 +60,7 @@ public:
 
     vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST :
                                                      VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
-    vulkanContext->SetBindingInfo(m_bindingInfo);
+    vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
     if (!m_descriptorSetGroup)
       m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
@@ -99,17 +101,19 @@ public:
 private:
   ref_ptr<VertexArrayBuffer> m_vertexArrayBuffer;
   ref_ptr<VulkanObjectManager> m_objectManager;
-  std::vector<dp::BindingInfo> m_bindingInfo;
+  BindingInfoArray m_bindingInfo;
+  uint8_t m_bindingInfoCount = 0;
   DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan
   
 drape_ptr<VertexArrayBufferImpl> VertexArrayBuffer::CreateImplForVulkan(ref_ptr<GraphicsContext> context,
                                                                         ref_ptr<VertexArrayBuffer> buffer,
-                                                                        std::vector<dp::BindingInfo> && bindingInfo)
+                                                                        BindingInfoArray && bindingInfo,
+                                                                        uint8_t bindingInfoCount)
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   return make_unique_dp<vulkan::VulkanVertexArrayBufferImpl>(buffer, vulkanContext->GetObjectManager(),
-                                                             std::move(bindingInfo));
+                                                             std::move(bindingInfo), bindingInfoCount);
 }
 }  // namespace dp

@@ -4,11 +4,15 @@
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 
+#include <array>
+#include <cstdint>
 #include <string>
-#include <vector>
 
 namespace dp
 {
+size_t constexpr kMaxBindingDecl = 8;
+size_t constexpr kMaxBindingInfo = 2;
+
 struct BindingDecl
 {
   std::string m_attributeName;
@@ -41,7 +45,7 @@ public:
   bool operator<(BindingInfo const & other) const;
 
 protected:
-  std::vector<BindingDecl> m_bindings;
+  std::array<BindingDecl, kMaxBindingDecl> m_bindings;
   uint16_t m_info;
 };
 
@@ -57,6 +61,8 @@ uint8_t FillDecl(size_t index, std::string const & attrName, dp::BindingInfo & i
 
   return sizeof(TFieldType);
 }
+
+using BindingInfoArray = std::array<dp::BindingInfo, kMaxBindingInfo>;
 
 template <typename TVertex>
 class BindingFiller

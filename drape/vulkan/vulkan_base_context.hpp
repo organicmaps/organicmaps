@@ -66,7 +66,7 @@ public:
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
 
   void SetPrimitiveTopology(VkPrimitiveTopology topology);
-  void SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo);
+  void SetBindingInfo(BindingInfoArray const & bindingInfo, uint8_t bindingInfoCount);
   void SetProgram(ref_ptr<VulkanGpuProgram> program);
   void SetBlendingEnabled(bool blendingEnabled);
 

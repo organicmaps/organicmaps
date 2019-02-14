@@ -824,10 +824,12 @@ void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 {
   m_pipelineKey.m_primitiveTopology = topology;
 }
-
-void VulkanBaseContext::SetBindingInfo(std::vector<dp::BindingInfo> const & bindingInfo)
+    
+void VulkanBaseContext::SetBindingInfo(BindingInfoArray const & bindingInfo, uint8_t bindingInfoCount)
 {
-  m_pipelineKey.m_bindingInfo = bindingInfo;
+  std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount,
+            m_pipelineKey.m_bindingInfo.begin());
+  m_pipelineKey.m_bindingInfoCount = bindingInfoCount;
 }
 
 void VulkanBaseContext::SetProgram(ref_ptr<VulkanGpuProgram> program)

@@ -217,8 +217,8 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Vulkan)
     {
-      CHECK(!m_bindingInfo.empty(), ());
-      m_impl = CreateImplForVulkan(context, make_ref(this), std::move(m_bindingInfo));
+      CHECK_NOT_EQUAL(m_bindingInfoCount, 0, ());
+      m_impl = CreateImplForVulkan(context, make_ref(this), std::move(m_bindingInfo), m_bindingInfoCount);
     }
     else
     {
@@ -448,8 +448,9 @@ void VertexArrayBuffer::CollectBindingInfo(dp::BindingInfo const & bindingInfo)
     return;
   }
 
-  m_bindingInfo.push_back(bindingInfo);
-  std::sort(m_bindingInfo.begin(), m_bindingInfo.end(),
+  CHECK_LESS(m_bindingInfoCount, kMaxBindingInfo, ());
+  m_bindingInfo[m_bindingInfoCount++] = bindingInfo;
+  std::sort(m_bindingInfo.begin(), m_bindingInfo.begin() + m_bindingInfoCount,
             [](dp::BindingInfo const & info1, dp::BindingInfo const & info2)
   {
     return info1.GetID() < info2.GetID();

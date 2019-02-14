@@ -55,9 +55,10 @@ BindingInfo::BindingInfo()
 {}
 
 BindingInfo::BindingInfo(uint8_t count, uint8_t id)
-  : m_bindings(count)
-  , m_info((static_cast<uint16_t>(count) << 8) | id)
-{}
+  : m_info((static_cast<uint16_t>(count) << 8) | id)
+{
+  CHECK_LESS_OR_EQUAL(count, kMaxBindingDecl, ());
+}
 
 uint8_t BindingInfo::GetCount() const
 {
