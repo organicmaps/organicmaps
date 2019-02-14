@@ -16,6 +16,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <array>
 #include <limits>
 
 namespace generator
@@ -318,30 +319,19 @@ void CamerasInfoCollector::Camera::Serialize(FileWriter & writer,
 
 bool IsCamerasInfoProhibited(std::string const & mwmName)
 {
-  std::vector<std::string> const kMwmBlockList = {
+  std::array<std::string, 4> kCountryBlockList = {
       "Cyprus",
       "Macedonia",
-      "Switzerland_Central",
-      "Switzerland_Eastern",
-      "Switzerland_Espace Mittelland_Bern",
-      "Switzerland_Espace Mittelland_East",
-      "Switzerland_Lake Geneva region",
-      "Switzerland_Northwestern",
-      "Switzerland_Ticino",
-      "Switzerland_Zurich",
-      "Turkey_Aegean Region",
-      "Turkey_Black Sea Region",
-      "Turkey_Central Anatolia Region_Ankara",
-      "Turkey_Central Anatolia Region_Kayseri",
-      "Turkey_Eastern Anatolia Region",
-      "Turkey_Marmara Region_Bursa",
-      "Turkey_Marmara Region_Istanbul",
-      "Turkey_Mediterranean Region",
-      "Turkey_Southeastern Anatolia Region",
+      "Switzerland",
+      "Turkey",
   };
-  CHECK(is_sorted(kMwmBlockList.cbegin(), kMwmBlockList.cend()), ());
 
-  return std::binary_search(kMwmBlockList.cbegin(), kMwmBlockList.cend(), mwmName);
+  for (auto const & country : kCountryBlockList)
+  {
+    if (strings::StartsWith(mwmName, country))
+      return true;
+  }
+  return false;
 }
 
 void BuildCamerasInfo(std::string const & dataFilePath,
