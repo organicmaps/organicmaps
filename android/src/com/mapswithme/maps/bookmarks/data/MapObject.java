@@ -213,7 +213,7 @@ public class MapObject implements Parcelable, PopularityProvider
    * MapObject does not participate in any sets or other collections that need {@code hashCode()}.
    * So {@code sameAs()} serves as {@code equals()} but does not break the equals+hashCode contract.
    */
-  public boolean sameAs(MapObject other)
+  public boolean sameAs(@Nullable MapObject other)
   {
     if (other == null)
       return false;
@@ -225,13 +225,14 @@ public class MapObject implements Parcelable, PopularityProvider
     if (getClass() != other.getClass())
       return false;
 
+    if (mFeatureId != FeatureId.EMPTY && other.getFeatureId() != FeatureId.EMPTY)
+      return mFeatureId.equals(other.getFeatureId());
+
     return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
-           Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
-           TextUtils.equals(mTitle, other.mTitle) &&
-           TextUtils.equals(mSubtitle, other.mSubtitle);
+           Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat);
   }
 
-  public static boolean same(MapObject one, MapObject another)
+  public static boolean same(@Nullable MapObject one, @Nullable MapObject another)
   {
     //noinspection SimplifiableIfStatement
     if (one == null && another == null)

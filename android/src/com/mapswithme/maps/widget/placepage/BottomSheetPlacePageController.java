@@ -235,9 +235,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         return;
       }
 
+      mPlacePage.resetScroll();
+      mPlacePage.resetWebView();
+
       if (object.isExtendedView())
       {
-        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
+        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
         return;
       }
 

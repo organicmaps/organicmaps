@@ -982,11 +982,6 @@ public class PlacePageView extends NestedScrollView
     return mIsFloating;
   }
 
-  private void clearBookmarkWebView()
-  {
-    mWvBookmarkNote.loadUrl("about:blank");
-  }
-
   @Nullable
   public MapObject getMapObject()
   {
@@ -1821,9 +1816,19 @@ public class PlacePageView extends NestedScrollView
 
   void reset()
   {
-    scrollTo(0, 0);
-    clearBookmarkWebView();
+    resetScroll();
+    resetWebView();
     detachCountry();
+  }
+
+  void resetScroll()
+  {
+    scrollTo(0, 0);
+  }
+
+  void resetWebView()
+  {
+    mWvBookmarkNote.loadUrl("about:blank");
   }
 
   private static boolean isInvalidDownloaderStatus(int status)
