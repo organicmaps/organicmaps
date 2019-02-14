@@ -9,6 +9,8 @@
 
 #include <string>
 
+using namespace std;
+
 namespace search
 {
 /// Max distance from house to street where we do search matching
@@ -93,7 +95,7 @@ FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreetsImpl
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)
 {
   // Check if this feature is modified - the logic will be different.
-  std::string streetName;
+  string streetName;
   bool const edited =
       osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
 

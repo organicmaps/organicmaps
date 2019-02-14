@@ -5,6 +5,7 @@
 #include "search/token_range.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <vector>
 
 namespace search

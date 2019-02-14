@@ -18,7 +18,7 @@ class Cache
   size_t m_accesses;
   size_t m_misses;
 
-  std::size_t m_emptyQueriesCount;  /// empty queries count at a row
+  size_t m_emptyQueriesCount;       /// empty queries count at a row
   std::string m_name;               /// cache name for print functions
 
 public:
@@ -29,7 +29,7 @@ public:
 
   std::pair<Value &, bool> Get(Key const & key)
   {
-    auto r = m_map.insert(make_pair(key, Value()));
+    auto r = m_map.insert(std::make_pair(key, Value()));
 
     ++m_accesses;
     if (r.second)

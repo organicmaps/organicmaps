@@ -229,7 +229,8 @@ struct GeRule final : public Rule
 
 struct AndRule final : public Rule
 {
-  AndRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs))
+  AndRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs)
+    : m_lhs(std::move(lhs)), m_rhs(std::move(rhs))
   {
   }
 
@@ -267,7 +268,8 @@ struct AndRule final : public Rule
 
 struct OrRule final : public Rule
 {
-  OrRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs))
+  OrRule(std::shared_ptr<Rule> lhs, std::shared_ptr<Rule> rhs)
+    : m_lhs(std::move(lhs)), m_rhs(std::move(rhs))
   {
   }
 

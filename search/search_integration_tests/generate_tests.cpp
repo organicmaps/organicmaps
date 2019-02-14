@@ -21,8 +21,6 @@
 #include <string>
 #include <utility>
 
-#include "std/initializer_list.hpp"
-
 using namespace generator::tests_support;
 using namespace std;
 

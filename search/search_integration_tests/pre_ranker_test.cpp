@@ -32,6 +32,8 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cstddef>
+#include <cstdint>
 #include <iterator>
 #include <vector>
 

@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <cstdint>
 #include <memory>
-#include <unordered_map>
 #include <vector>
 
 namespace search

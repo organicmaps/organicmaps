@@ -40,9 +40,9 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <map>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -149,7 +149,7 @@ private:
   void GoImpl(std::vector<std::shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename Locality>
-  using TokenToLocalities = std::map<TokenRange, vector<Locality>>;
+  using TokenToLocalities = std::map<TokenRange, std::vector<Locality>>;
 
   QueryParams::Token const & GetTokens(size_t i) const;
 
@@ -294,7 +294,7 @@ private:
   FeaturesFilter const * m_filter;
 
   // Features matcher for layers intersection.
-  std::map<MwmSet::MwmId, unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
+  std::map<MwmSet::MwmId, std::unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
   FeaturesLayerMatcher * m_matcher;
 
   // Path finder for interpretations.

@@ -6,6 +6,7 @@
 #include "base/string_utils.hpp"
 
 #include <cstdint>
+#include <string>
 #include <vector>
 
 namespace search
@@ -39,5 +40,5 @@ struct FeaturesLayer
   bool m_lastTokenIsPrefix;
 };
 
-string DebugPrint(FeaturesLayer const & layer);
+std::string DebugPrint(FeaturesLayer const & layer);
 }  // namespace search

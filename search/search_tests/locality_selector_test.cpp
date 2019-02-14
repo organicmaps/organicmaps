@@ -4,7 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include <cstdint>
 #include <string>
+#include <vector>
 
 using namespace search;
 using namespace std;

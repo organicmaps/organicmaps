@@ -12,7 +12,6 @@
 #include <cstdint>
 #include <deque>
 #include <map>
-#include <memory>
 #include <utility>
 
 namespace base
@@ -55,7 +54,7 @@ protected:
   std::pair<Entry &, bool> FindOrCreateEntry(MwmSet::MwmId const & id, Pred && pred)
   {
     auto & entries = m_entries[id];
-    auto it = find_if(entries.begin(), entries.end(), std::forward<Pred>(pred));
+    auto it = std::find_if(entries.begin(), entries.end(), std::forward<Pred>(pred));
     if (it != entries.end())
     {
       if (it != entries.begin())

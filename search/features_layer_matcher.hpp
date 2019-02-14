@@ -238,7 +238,7 @@ private:
         streetRects.emplace_back(rect, i /* id */);
       }
 
-      vector<m2::PointD> streetPoints;
+      std::vector<m2::PointD> streetPoints;
       streetPoints.reserve(streetFt.GetPointsCount());
       for (size_t j = 0; j < streetFt.GetPointsCount(); ++j)
         streetPoints.emplace_back(streetFt.GetPoint(j));
@@ -294,7 +294,7 @@ private:
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
 
-      if (binary_search(buildings.begin(), buildings.end(), id))
+      if (std::binary_search(buildings.begin(), buildings.end(), id))
         return true;
 
       if (m_postcodes && !m_postcodes->HasBit(id))

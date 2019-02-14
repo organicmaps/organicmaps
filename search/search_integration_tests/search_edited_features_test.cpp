@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "search/search_tests_support/helpers.hpp"
-
 #include "search/search_tests_support/test_results_matching.hpp"
 
 #include "generator/generator_tests_support/test_feature.hpp"
@@ -11,8 +10,6 @@
 #include "geometry/point2d.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
-
-#include <memory>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;

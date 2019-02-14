@@ -29,7 +29,7 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <memory>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -1731,7 +1731,7 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
-    TRules rules = {ExactMatch(wonderlandId, streetEn)};
+    Rules rules = {ExactMatch(wonderlandId, streetEn)};
     TEST(ResultsMatch("southwest street ", rules), ());
     TEST(ResultsMatch("sw street ", rules), ());
     TEST(ResultsMatch("southwest str ", rules), ());
@@ -1740,7 +1740,7 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
     TEST(ResultsMatch("sw st ", rules), ());
   }
   {
-    TRules rules = {ExactMatch(wonderlandId, streetRu)};
+    Rules rules = {ExactMatch(wonderlandId, streetRu)};
     TEST(ResultsMatch("большая свято покровская улица ", rules), ());
     TEST(ResultsMatch("бол свято покровская улица ", rules), ());
     TEST(ResultsMatch("б свято покровская улица ", rules), ());
@@ -1755,12 +1755,12 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
     TEST(ResultsMatch("б св покровская ул ", rules), ());
   }
   {
-    TRules rules = {ExactMatch(wonderlandId, stPeterEn)};
+    Rules rules = {ExactMatch(wonderlandId, stPeterEn)};
     TEST(ResultsMatch("saint peter basilica ", rules), ());
     TEST(ResultsMatch("st peter basilica ", rules), ());
   }
   {
-    TRules rules = {ExactMatch(wonderlandId, stPeterRu)};
+    Rules rules = {ExactMatch(wonderlandId, stPeterRu)};
     TEST(ResultsMatch("собор святого петра ", rules), ());
     TEST(ResultsMatch("собор св петра ", rules), ());
   }

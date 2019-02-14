@@ -33,7 +33,7 @@ public:
 
   bool ResultsMatch(std::string const & query, Rules const & rules);
 
-  bool ResultsMatch(std::string const & query, string const & locale, Rules const & rules);
+  bool ResultsMatch(std::string const & query, std::string const & locale, Rules const & rules);
 
   bool ResultsMatch(std::string const & query, Mode mode, Rules const & rules);
 

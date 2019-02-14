@@ -1,12 +1,14 @@
-#include "types_skipper.hpp"
+#include "search/types_skipper.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <algorithm>
 
-#include "std/initializer_list.hpp"
+using base::StringIL;
 
 namespace search
 {

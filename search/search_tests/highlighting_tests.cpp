@@ -8,6 +8,7 @@
 #include "base/string_utils.hpp"
 
 #include <cstdarg>
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
