@@ -103,21 +103,15 @@ inline std::string DebugPrint(dp::ApiVersion apiVersion)
 
 inline dp::ApiVersion ApiVersionFromString(std::string const & str)
 {
+#if defined(OMIM_METAL_AVAILABLE)
   if (str == "Metal")
-  {
-#if defined(OMIM_OS_ANDROID)
-    return dp::ApiVersion::Vulkan;
-#endif
     return dp::ApiVersion::Metal;
-  }
+#endif
 
+#if defined(OMIM_OS_ANDROID)
   if (str == "Vulkan")
-  {
-#if defined(OMIM_OS_IPHONE)
-    return dp::ApiVersion::Metal;
-#endif
     return dp::ApiVersion::Vulkan;
-  }
+#endif
 
   if (str == "OpenGLES2")
     return dp::ApiVersion::OpenGLES2;
@@ -127,7 +121,7 @@ inline dp::ApiVersion ApiVersionFromString(std::string const & str)
 
   // Default behavior for different OS. Appropriate fallback will be chosen
   // if default API is not supported.
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_METAL_AVAILABLE)
   return dp::ApiVersion::Metal;
 #elif defined(OMIM_OS_ANDROID)
   //TODO(@rokuz,@darina): Uncomment on full laucnch of Vulkan.
