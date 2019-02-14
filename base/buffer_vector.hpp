@@ -410,6 +410,19 @@ public:
       resize(std::distance(b, i));
   }
 
+  void erase(iterator first, iterator last)
+  {
+    if (first == last)
+      return;
+
+    auto const numToErase = std::distance(first, last);
+    for (; first != end() - numToErase; ++first)
+    {
+      Swap(*first, *(first + numToErase));
+    }
+    resize(std::distance(begin(), first));
+  }
+
 private:
   void SwitchToDynamic()
   {

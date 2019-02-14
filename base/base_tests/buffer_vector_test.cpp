@@ -363,3 +363,24 @@ UNIT_TEST(BufferVector_OnlyMoveableItems)
   for (size_t i = 0; i < 10; ++i)
     TEST_EQUAL(*v[i], i, ());
 }
+
+UNIT_TEST(BufferVector_Erase)
+{
+  buffer_vector<int, 32> v1;
+  std::vector<int> v2;
+  for (int i = 1; i < 100; ++i)
+  {
+    v1.push_back(i);
+    v2.push_back(i);
+  }
+
+  while (v1.size() > 1)
+  {
+    v1.erase(v1.begin() + v1.size() / 3, v1.begin() + 2 * v1.size () / 3);
+    v2.erase(v2.begin() + v2.size() / 3, v2.begin() + 2 * v2.size () / 3);
+
+    TEST_EQUAL(v1.size(), v2.size(), ());
+    for (size_t i = 0; i < v1.size(); ++i)
+      TEST_EQUAL(v1[i], v2[i], ());
+  }
+}
