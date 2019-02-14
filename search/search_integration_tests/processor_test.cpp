@@ -262,13 +262,13 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, quantumCafe),
-                    ExactMatch(wonderlandId, quantumTeleport1),
-                    ExactMatch(wonderlandId, quantumTeleport2)};
+                   ExactMatch(wonderlandId, quantumTeleport1),
+                   ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("quantum", rules), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, quantumCafe),
-                    ExactMatch(wonderlandId, quantumTeleport1)};
+                   ExactMatch(wonderlandId, quantumTeleport1)};
     TEST(ResultsMatch("quantum Moscow ", rules), ());
   }
   {
@@ -284,13 +284,13 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, lantern1),
-                    ExactMatch(wonderlandId, firstAprilStreet)};
-//    TEST(ResultsMatch("feynman street 1", rules), ());
+                   ExactMatch(wonderlandId, firstAprilStreet)};
+    //    TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse),
-                    ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, firstAprilStreet)};
-//    TEST(ResultsMatch("bohr street 1", rules), ());
+                   ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, firstAprilStreet)};
+    //    TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
 //    TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());
@@ -300,9 +300,8 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("bohr street 1 lantern ", rules), ());
   }
   {
-    Rules rules = {ExactMatch(wonderlandId, feynmanHouse),
-                    ExactMatch(wonderlandId, feynmanStreet)};
-//    TEST(ResultsMatch("wonderland los alamos feynman 1 unit 1 ", rules), ());
+    Rules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, feynmanStreet)};
+    //    TEST(ResultsMatch("wonderland los alamos feynman 1 unit 1 ", rules), ());
   }
   {
     // It's possible to find Descartes house by name.
@@ -317,14 +316,13 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("Los Alamos 2", rules), ());
   }
   {
-    Rules rules = {ExactMatch(wonderlandId, bornHouse),
-                    ExactMatch(wonderlandId, firstAprilStreet)};
-//    TEST(ResultsMatch("long pond 1st april street 8 ", rules), ());
+    Rules rules = {ExactMatch(wonderlandId, bornHouse), ExactMatch(wonderlandId, firstAprilStreet)};
+    //    TEST(ResultsMatch("long pond 1st april street 8 ", rules), ());
   }
 
   {
     Rules rules = {ExactMatch(wonderlandId, terranceHouse), ExactMatch(wonderlandId, stradaDrive)};
-//    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
+    //    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
   }
 }
 
@@ -477,7 +475,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
     auto request = MakeRequest("golden gate bridge ");
 
     Rules rules = {ExactMatch(wonderlandId, goldenGateBridge),
-                    ExactMatch(wonderlandId, goldenGateStreet)};
+                   ExactMatch(wonderlandId, goldenGateStreet)};
 
     TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
@@ -495,7 +493,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
     auto const & results = request->Results();
 
     Rules rules{ExactMatch(wonderlandId, cafe1), ExactMatch(wonderlandId, cafe2),
-                 ExactMatch(wonderlandId, lermontov)};
+                ExactMatch(wonderlandId, lermontov)};
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(3, results.size(), ("Unexpected number of retrieved cafes."));
@@ -604,27 +602,27 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
 
   {
     Rules rules{ExactMatch(countryId, building0), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград генералова к100 ", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград генералова к100 ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building1), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград генералова к200 ", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград генералова к200 ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building1), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград к200 генералова ", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград к200 генералова ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building2), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград 300 строение 400 генералова ", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград 300 строение 400 генералова ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград генералова строе 300", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград генералова строе 300", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building2), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Зеленоград генералова 300 строе", "ru", rules), ());
+    //    TEST(ResultsMatch("Зеленоград генералова 300 строе", "ru", rules), ());
   }
 }
 
@@ -703,24 +701,24 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
   {
     Rules rules{ExactMatch(countryId, building28), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Долгопрудный первомайская 28а ", "ru", rules), ());
+    //    TEST(ResultsMatch("Долгопрудный первомайская 28а ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building28), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru", rules), ());
+    //    TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29),
-                 ExactMatch(countryId, building30), ExactMatch(countryId, street)};
+                ExactMatch(countryId, building30), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Долгопрудный первомайская 141701", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building31), ExactMatch(countryId, street)};
-//    TEST(ResultsMatch("Долгопрудный первомайская 141702", "ru", rules), ());
+    //    TEST(ResultsMatch("Долгопрудный первомайская 141702", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29),
-                 ExactMatch(countryId, building30), ExactMatch(countryId, street)};
+                ExactMatch(countryId, building30), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Долгопрудный 141701", "ru", rules), ());
   }
   {
@@ -784,7 +782,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 
   {
     Rules const rules = {ExactMatch(wonderlandId, nonameAtm), ExactMatch(wonderlandId, namedAtm),
-                          ExactMatch(wonderlandId, busStop)};
+                         ExactMatch(wonderlandId, busStop)};
 
     auto request = MakeRequest("atm");
     TEST(ResultsMatch(request->Results(), rules), ());
@@ -896,8 +894,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
-                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
-                          ExactMatch(wonderlandId, hotelDeVille)};
+                         ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                         ExactMatch(wonderlandId, hotelDeVille)};
     // A prefix token.
     auto request = MakeRequest("hotel");
     TEST(ResultsMatch(request->Results(), rules), ());
@@ -905,8 +903,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
-                          ExactMatch(wonderlandId, hotelCafe),
-                          ExactMatch(wonderlandId, hotelDeVille)};
+                         ExactMatch(wonderlandId, hotelCafe),
+                         ExactMatch(wonderlandId, hotelDeVille)};
     // It looks like a category search but we cannot tell it, so
     // even the features that match only by name are emitted.
     TEST(ResultsMatch("hotel san diego ", rules), ());
@@ -914,16 +912,16 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
-                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
-                          ExactMatch(wonderlandId, hotelDeVille)};
+                         ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                         ExactMatch(wonderlandId, hotelDeVille)};
     // Homel matches exactly, other features are matched by fuzzy names.
     TEST(ResultsMatch("homel ", rules), ());
   }
 
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
-                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
-                          ExactMatch(wonderlandId, hotelDeVille)};
+                         ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                         ExactMatch(wonderlandId, hotelDeVille)};
     // A typo in search: all features fit.
     TEST(ResultsMatch("hofel ", rules), ());
   }
@@ -1061,7 +1059,7 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
     // Too many errors, can't do anything.
     TEST(ResultsMatch("масква лениноргадсский чирчиль", "ru", Rules{}), ());
 
-//    TEST(ResultsMatch("моксва ленинргадский черчиль", "ru", rules), ());
+    //    TEST(ResultsMatch("моксва ленинргадский черчиль", "ru", rules), ());
 
     TEST(ResultsMatch("food", "ru", rulesWithoutStreet), ());
     TEST(ResultsMatch("foood", "ru", rulesWithoutStreet), ());
@@ -1142,7 +1140,7 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
 
   {
     TEST(ResultsMatch("la motviderie ", "fr", Rules{}), ());
-//    TEST(ResultsMatch("la la le la la la ", "fr", {ExactMatch(id, street)}), ());
+    //    TEST(ResultsMatch("la la le la la la ", "fr", {ExactMatch(id, street)}), ());
     TEST(ResultsMatch("la la le la la la", "fr", Rules{}), ());
   }
 }

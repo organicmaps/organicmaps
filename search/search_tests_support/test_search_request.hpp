@@ -25,8 +25,8 @@ class TestSearchEngine;
 class TestSearchRequest
 {
 public:
-  TestSearchRequest(TestSearchEngine & engine, std::string const & query, std::string const & locale,
-                    Mode mode, m2::RectD const & viewport);
+  TestSearchRequest(TestSearchEngine & engine, std::string const & query,
+                    std::string const & locale, Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
 
   // Initiates the search and waits for it to finish.
@@ -37,8 +37,8 @@ public:
   std::vector<search::Result> const & Results() const;
 
 protected:
-  TestSearchRequest(TestSearchEngine & engine, std::string const & query, std::string const & locale,
-                    Mode mode, m2::RectD const & viewport,
+  TestSearchRequest(TestSearchEngine & engine, std::string const & query,
+                    std::string const & locale, Mode mode, m2::RectD const & viewport,
                     SearchParams::OnStarted const & onStarted,
                     SearchParams::OnResults const & onResults);
 

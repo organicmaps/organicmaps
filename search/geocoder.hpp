@@ -159,9 +159,8 @@ private:
 
   void InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer);
 
-  void FillLocalityCandidates(BaseContext const & ctx,
-                              CBV const & filter, size_t const maxNumLocalities,
-                              std::vector<Locality> & preLocalities);
+  void FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,
+                              size_t const maxNumLocalities, std::vector<Locality> & preLocalities);
 
   void FillLocalitiesTable(BaseContext const & ctx);
 

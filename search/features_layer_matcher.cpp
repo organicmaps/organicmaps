@@ -67,7 +67,7 @@ FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uin
 }
 
 FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId,
-                                                                              FeatureType & feature)
+                                                                             FeatureType & feature)
 {
   return GetNearbyStreetsImpl(featureId, feature);
 }
@@ -121,10 +121,8 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 
   if (edited)
   {
-    auto const ret = find_if(streets.begin(), streets.end(), [&streetName](Street const & st)
-                             {
-                               return st.m_name == streetName;
-                             });
+    auto const ret = find_if(streets.begin(), streets.end(),
+                             [&streetName](Street const & st) { return st.m_name == streetName; });
     if (ret != streets.end())
     {
       result = ret->m_id.m_index;

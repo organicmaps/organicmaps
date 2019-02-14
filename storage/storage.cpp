@@ -1681,9 +1681,9 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
   DoDeferredDownloadIfNeeded();
 }
 
-StatusAndError Storage::GetNodeStatusInfo(
-    CountryTreeNode const & node, vector<pair<CountryId, NodeStatus>> & disputedTerritories,
-    bool isDisputedTerritoriesCounted) const
+StatusAndError Storage::GetNodeStatusInfo(CountryTreeNode const & node,
+                                          vector<pair<CountryId, NodeStatus>> & disputedTerritories,
+                                          bool isDisputedTerritoriesCounted) const
 {
   // Leaf node status.
   if (node.ChildrenCount() == 0)

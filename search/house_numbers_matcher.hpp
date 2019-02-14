@@ -67,7 +67,8 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniStrin
                        bool queryIsPrefix);
 
 // Returns true if house number matches to a given parsed query.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, std::vector<Token> const & queryParse);
+bool HouseNumbersMatch(strings::UniString const & houseNumber,
+                       std::vector<Token> const & queryParse);
 
 // Returns true if |s| looks like a house number.
 bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix);

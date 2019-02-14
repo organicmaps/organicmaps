@@ -90,7 +90,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
   SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
-                          ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
+                         ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
     TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
   }

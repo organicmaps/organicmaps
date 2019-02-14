@@ -47,12 +47,10 @@ public:
 };
 
 template <typename Char, typename CostFn>
-uint32_t StringMatchCost(Char const * sA, size_t sizeA,
-                         Char const * sB, size_t sizeB,
-                         CostFn const & costF, uint32_t maxCost,
-                         bool bPrefixMatch = false)
+uint32_t StringMatchCost(Char const * sA, size_t sizeA, Char const * sB, size_t sizeB,
+                         CostFn const & costF, uint32_t maxCost, bool bPrefixMatch = false)
 {
-  std::priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256> > q;
+  std::priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256>> q;
   q.push(impl::MatchCostData(0, 0, 0));
   while (!q.empty())
   {

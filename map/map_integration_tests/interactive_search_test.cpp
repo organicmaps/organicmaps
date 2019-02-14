@@ -114,7 +114,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     request.Run();
 
     Rules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
-                          ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
+                         ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
     TEST(!stats.m_hotelDisplacementModeSet, ());
     TEST_EQUAL(stats.m_numShownResults, 4, ());
@@ -128,7 +128,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     request.Run();
 
     Rules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
-                          ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
+                         ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
     TEST(stats.m_hotelDisplacementModeSet, ());
     TEST_EQUAL(stats.m_numShownResults, 4, ());

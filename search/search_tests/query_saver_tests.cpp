@@ -9,7 +9,7 @@ using namespace std;
 
 namespace
 {
-search::QuerySaver::SearchRequest const record1("RU_ru" ,"test record1");
+search::QuerySaver::SearchRequest const record1("RU_ru", "test record1");
 search::QuerySaver::SearchRequest const record2("En_us", "sometext");
 }
 
@@ -118,8 +118,8 @@ UNIT_TEST(QuerySaverTrimRequestTest)
   QuerySaver saver;
   saver.Clear();
 
-  search::QuerySaver::SearchRequest const rec1("RU_ru" ,"test record1");
-  search::QuerySaver::SearchRequest const rec2("RU_ru" ,"test record1 ");
+  search::QuerySaver::SearchRequest const rec1("RU_ru", "test record1");
+  search::QuerySaver::SearchRequest const rec2("RU_ru", "test record1 ");
 
   saver.Add(rec1);
   saver.Add(rec2);

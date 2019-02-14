@@ -115,7 +115,7 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
 
   {
     Rules rules = {ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
-                    ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
+                   ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
     TEST(ResultsMatch("shop ", rules), ());
   }
 }

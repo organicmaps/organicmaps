@@ -51,11 +51,12 @@ public:
 
   // Retrieves from the search index corresponding to |value| all
   // postcodes matching to |slice|.
-  std::unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice) const;
+  std::unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
+      TokenSlice const & slice) const;
 
   // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
   std::unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                       int scale) const;
+                                                                        int scale) const;
 
 private:
   template <template <typename> class R, typename... Args>

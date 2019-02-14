@@ -82,12 +82,11 @@ void QuerySaver::Add(SearchRequest const & query)
   SearchRequest trimmedQuery(query);
   strings::Trim(trimmedQuery.first);
   strings::Trim(trimmedQuery.second);
-  auto trimmedComparator = [&trimmedQuery](SearchRequest request)
-    {
-      strings::Trim(request.first);
-      strings::Trim(request.second);
-      return trimmedQuery == request;
-    };
+  auto trimmedComparator = [&trimmedQuery](SearchRequest request) {
+    strings::Trim(request.first);
+    strings::Trim(request.second);
+    return trimmedQuery == request;
+  };
   // Remove items if needed.
   auto const it = find_if(m_topQueries.begin(), m_topQueries.end(), trimmedComparator);
   if (it != m_topQueries.end())
