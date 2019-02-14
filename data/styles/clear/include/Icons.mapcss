@@ -150,7 +150,9 @@ area|z18-[tourism],
 node|z18-[craft],
 area|z18-[craft],
 node[amenity=bbq],
-area[amenity=bbq]
+area[amenity=bbq],
+node[amenity=toilets],
+area[amenity=toilets]
 {z-index: 2400;}
 
 node|z18-[sport=archery],
@@ -208,8 +210,6 @@ node[amenity=nightclub],
 area[amenity=nightclub],
 node[amenity=fire_station],
 area[amenity=fire_station],
-node[amenity=toilets],
-area[amenity=toilets],
 node[amenity=atm],
 area[amenity=atm],
 node[amenity=bureau_de_change],
@@ -629,7 +629,9 @@ area[shop=mall]
 {z-index: 2930;}
 
 node[highway=bus_stop],
-area[highway=bus_stop],
+area[highway=bus_stop]
+{z-index: 2300;}
+
 node[public_transport=station],
 area[public_transport=station],
 node[railway=subway_entrance],
