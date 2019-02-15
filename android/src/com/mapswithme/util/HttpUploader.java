@@ -72,7 +72,7 @@ public final class HttpUploader
 
   public Result upload()
   {
-    int status;
+    int status = STATUS_CODE_UNKNOWN;
     String message;
     PrintWriter writer = null;
     BufferedReader reader = null;
@@ -124,7 +124,6 @@ public final class HttpUploader
     }
     catch (IOException e)
     {
-      status = STATUS_CODE_UNKNOWN;
       message = "I/O exception '" + Utils.makeUrlSafe(mUrl) + "'";
       if (connection != null)
       {
