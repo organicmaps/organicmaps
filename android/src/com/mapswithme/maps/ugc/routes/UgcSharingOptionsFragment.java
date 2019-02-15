@@ -314,12 +314,11 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onUploadAndPublishBtnClicked()
   {
-    /* FIXME */
-/*    if (mCategory.size() < MIN_REQUIRED_CATEGORY_SIZE)
+    if (mCategory.size() < MIN_REQUIRED_CATEGORY_SIZE)
     {
       showNotEnoughBookmarksDialog();
       return;
-    }*/
+    }
 
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     onUploadBtnClicked();
