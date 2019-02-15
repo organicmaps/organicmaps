@@ -24,17 +24,18 @@ VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectMana
   vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
   m_sizeAlignment = mm.GetSizeAlignment(memReqs);
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);
-  m_pointer = m_objectManager->Map(m_object);
+  m_pointer = m_objectManager->MapUnsafe(m_object);
 }
 
 VulkanStagingBuffer::~VulkanStagingBuffer()
 {
-  m_objectManager->Unmap(m_object);
+  m_objectManager->UnmapUnsafe(m_object);
   m_objectManager->DestroyObject(m_object);
 }
 
 bool VulkanStagingBuffer::HasEnoughSpace(uint32_t sizeInBytes) const
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const & mm = m_objectManager->GetMemoryManager();
   auto const alignedSize = mm.GetAligned(sizeInBytes, m_sizeAlignment);
   return m_offset + alignedSize <= m_sizeInBytes;
@@ -42,6 +43,7 @@ bool VulkanStagingBuffer::HasEnoughSpace(uint32_t sizeInBytes) const
 
 VulkanStagingBuffer::StagingData VulkanStagingBuffer::Reserve(uint32_t sizeInBytes)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_offset % m_offsetAlignment == 0, ());
   CHECK(HasEnoughSpace(sizeInBytes), ());
   auto const & mm = m_objectManager->GetMemoryManager();
@@ -64,6 +66,7 @@ VulkanStagingBuffer::StagingData VulkanStagingBuffer::Reserve(uint32_t sizeInByt
 
 uint32_t VulkanStagingBuffer::ReserveWithId(uint32_t sizeInBytes, StagingData & data)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   data = Reserve(sizeInBytes);
   m_reservation.push_back(data);
   return static_cast<uint32_t>(m_reservation.size()) - 1;
@@ -71,21 +74,24 @@ uint32_t VulkanStagingBuffer::ReserveWithId(uint32_t sizeInBytes, StagingData & 
 
 VulkanStagingBuffer::StagingData const & VulkanStagingBuffer::GetReservationById(uint32_t id) const
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_LESS(id, m_reservation.size(), ());
   return m_reservation[id];
 }
 
 void VulkanStagingBuffer::Flush()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (m_offset == 0)
     return;
 
   auto const size = m_offset;
-  m_objectManager->Flush(m_object, 0 /* offset */, size);
+  m_objectManager->FlushUnsafe(m_object, 0 /* offset */, size);
 }
 
 void VulkanStagingBuffer::Reset()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_offset = 0;
   m_reservation.clear();
 }

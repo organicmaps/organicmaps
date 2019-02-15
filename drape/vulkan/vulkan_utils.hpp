@@ -15,6 +15,7 @@ namespace dp
 namespace vulkan
 {
 extern std::string GetVulkanResultString(VkResult result);
+extern VkFormat UnpackFormat(TextureFormat format);
 
 struct ParamDescriptor
 {

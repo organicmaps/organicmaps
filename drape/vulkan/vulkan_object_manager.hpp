@@ -64,9 +64,12 @@ public:
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program,
                                               std::vector<ParamDescriptor> const & descriptors);
 
-  uint8_t * Map(VulkanObject object);
-  void Flush(VulkanObject object, uint32_t offset = 0, uint32_t size = 0);
-  void Unmap(VulkanObject object);
+  // Use unsafe function ONLY if an object exists on the only thread, otherwise
+  // use safe Fill function.
+  uint8_t * MapUnsafe(VulkanObject object);
+  void FlushUnsafe(VulkanObject object, uint32_t offset = 0, uint32_t size = 0);
+  void UnmapUnsafe(VulkanObject object);
+  void Fill(VulkanObject object, void const * data, uint32_t sizeInBytes);
 
   ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
   void FlushDefaultStagingBuffer();

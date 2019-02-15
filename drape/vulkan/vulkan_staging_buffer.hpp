@@ -3,6 +3,8 @@
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
+#include "base/thread_checker.hpp"
+
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
@@ -47,6 +49,7 @@ private:
   uint8_t * m_pointer = nullptr;
   uint32_t m_offset = 0;
   std::vector<StagingData> m_reservation;
+  ThreadChecker m_threadChecker;
 };
 }  // namespace vulkan
 }  // namespace dp

@@ -6,6 +6,8 @@
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
+#include "base/thread_checker.hpp"
+
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
@@ -73,6 +75,7 @@ private:
   uint32_t m_sizeAlignment = 0;
   uint32_t m_flushHandlerId = 0;
   uint32_t m_finishHandlerId = 0;
+  ThreadChecker m_threadChecker;
 };
 }  // namespace vulkan
 }  // namespace gpu

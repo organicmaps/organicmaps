@@ -111,19 +111,11 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
   BufferBase::Resize(elementCount);
 
   m_objectManager = context->GetObjectManager();
-
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
 
   m_geometryBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
                                                    sizeInBytes, 0 /* batcherHash */);
-  void * gpuPtr = m_objectManager->Map(m_geometryBuffer);
-  if (data != nullptr)
-  {
-    memcpy(gpuPtr, data, sizeInBytes);
-    m_objectManager->Flush(m_geometryBuffer);
-  }
-
-  m_objectManager->Unmap(m_geometryBuffer);
+  m_objectManager->Fill(m_geometryBuffer, data, sizeInBytes);
 
   // If we have already set up data, we have to call SetDataSize.
   if (data != nullptr)

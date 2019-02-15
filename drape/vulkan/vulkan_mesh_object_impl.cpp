@@ -55,10 +55,7 @@ public:
                                                      sizeof(m_mesh->m_buffers[i].m_data[0]));
       m_geometryBuffers[i] = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
                                                            sizeInBytes, 0 /* batcherHash */);
-      void * gpuPtr = m_objectManager->Map(m_geometryBuffers[i]);
-      memcpy(gpuPtr, m_mesh->m_buffers[i].m_data.data(), sizeInBytes);
-      m_objectManager->Flush(m_geometryBuffers[i]);
-      m_objectManager->Unmap(m_geometryBuffers[i]);
+      m_objectManager->Fill(m_geometryBuffers[i], m_mesh->m_buffers[i].m_data.data(), sizeInBytes);
 
       m_bindingInfo[i] = dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i].m_attributes.size()),
                                          static_cast<uint8_t>(i));

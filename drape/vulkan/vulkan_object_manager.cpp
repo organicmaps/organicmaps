@@ -99,7 +99,8 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
 
   result.m_allocation = m_memoryManager.Allocate(resourceType, memReqs, batcherHash);
 
-  CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(), result.GetAlignedOffset()));
+  CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(),
+                                   result.GetAlignedOffset()));
 
   return result;
 }
@@ -276,12 +277,11 @@ void VulkanObjectManager::CollectObjects()
   m_descriptorsToDestroy.clear();
 }
 
-uint8_t * VulkanObjectManager::Map(VulkanObject object)
+uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());
 
-  CHECK(object.m_buffer != 0 || object.m_image != 0, ());
+  CHECK(object.m_buffer != VK_NULL_HANDLE || object.m_image != VK_NULL_HANDLE, ());
   uint8_t * ptr = nullptr;
   CHECK_VK_CALL(vkMapMemory(m_device, object.GetMemory(), object.GetAlignedOffset(),
                             object.GetAlignedSize(), 0, reinterpret_cast<void **>(&ptr)));
@@ -289,10 +289,8 @@ uint8_t * VulkanObjectManager::Map(VulkanObject object)
   return ptr;
 }
 
-void VulkanObjectManager::Flush(VulkanObject object, uint32_t offset, uint32_t size)
+void VulkanObjectManager::FlushUnsafe(VulkanObject object, uint32_t offset, uint32_t size)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   if (object.m_allocation->m_memoryBlock->m_isCoherent)
     return;
 
@@ -309,28 +307,44 @@ void VulkanObjectManager::Flush(VulkanObject object, uint32_t offset, uint32_t s
   CHECK_VK_CALL(vkFlushMappedMemoryRanges(m_device, 1, &mappedRange));
 }
 
-void VulkanObjectManager::Unmap(VulkanObject object)
+void VulkanObjectManager::UnmapUnsafe(VulkanObject object)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   CHECK(object.m_allocation->m_memoryBlock->m_isBlocked, ());
   vkUnmapMemory(m_device, object.GetMemory());
   object.m_allocation->m_memoryBlock->m_isBlocked = false;
 }
 
+void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t sizeInBytes)
+{
+  if (data == nullptr)
+    return;
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+  void * gpuPtr = MapUnsafe(object);
+  memcpy(gpuPtr, data, sizeInBytes);
+  FlushUnsafe(object);
+  UnmapUnsafe(object);
+}
+
 void VulkanObjectManager::CreateDescriptorPool()
 {
+  // Maximum uniform buffers descriptors count per frame.
+  uint32_t constexpr kMaxUniformBufferDescriptorsCount = 500;
+  // Maximum textures descriptors count per frame.
+  uint32_t constexpr kMaxImageSamplerDescriptorsCount = 1000;
+
   std::vector<VkDescriptorPoolSize> poolSizes =
-    {
-      {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 500},  // Maximum uniform buffers count per draw call.
-      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1000},  // Maximum textures count per draw call.
-    };
+  {
+    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, kMaxUniformBufferDescriptorsCount},
+    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, kMaxImageSamplerDescriptorsCount},
+  };
 
   VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
   descriptorPoolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
   descriptorPoolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
   descriptorPoolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
   descriptorPoolInfo.pPoolSizes = poolSizes.data();
-  descriptorPoolInfo.maxSets = 1500;  // Approximately equal to doubled maximum VAO per frame.
+  descriptorPoolInfo.maxSets = kMaxUniformBufferDescriptorsCount + kMaxImageSamplerDescriptorsCount;
 
   VkDescriptorPool descriptorPool;
   CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool));

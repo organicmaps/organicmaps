@@ -26,7 +26,7 @@ VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
   sizeAlignment = objectManager->GetMemoryManager().GetSizeAlignment(memReqs);
   offsetAlignment = objectManager->GetMemoryManager().GetOffsetAlignment(kUniformBuffer);
 
-  result.m_pointer = objectManager->Map(result.m_object);
+  result.m_pointer = objectManager->MapUnsafe(result.m_object);
   return result;
 }
 }  // namespace
@@ -57,9 +57,10 @@ VulkanProgramParamsSetter::~VulkanProgramParamsSetter()
 
 void VulkanProgramParamsSetter::Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto & b : m_uniformBuffers)
   {
-    m_objectManager->Unmap(b.m_object);
+    m_objectManager->UnmapUnsafe(b.m_object);
     m_objectManager->DestroyObject(b.m_object);
   }
   m_uniformBuffers.clear();
@@ -69,18 +70,20 @@ void VulkanProgramParamsSetter::Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> c
 
 void VulkanProgramParamsSetter::Flush()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto & ub : m_uniformBuffers)
   {
     if (ub.m_freeOffset == 0)
       continue;
 
     auto const size = ub.m_freeOffset;
-    m_objectManager->Flush(ub.m_object, 0 /* offset */, size);
+    m_objectManager->FlushUnsafe(ub.m_object, 0 /* offset */, size);
   }
 }
 
 void VulkanProgramParamsSetter::Finish()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto & b : m_uniformBuffers)
     b.m_freeOffset = 0;
 }
@@ -88,6 +91,7 @@ void VulkanProgramParamsSetter::Finish()
 void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context,
                                            void const * data, uint32_t sizeInBytes)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const & mm = m_objectManager->GetMemoryManager();
   auto const alignedSize = mm.GetAligned(sizeInBytes, m_sizeAlignment);
 

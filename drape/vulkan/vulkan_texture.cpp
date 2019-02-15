@@ -81,22 +81,6 @@ VkBufferImageCopy BufferCopyRegion(uint32_t x, uint32_t y, uint32_t width, uint3
 }
 }  // namespace
 
-VkFormat UnpackFormat(TextureFormat format)
-{
-  switch (format)
-  {
-    case TextureFormat::RGBA8: return VK_FORMAT_R8G8B8A8_UNORM;
-    case TextureFormat::Alpha: return VK_FORMAT_R8_UNORM;
-    case TextureFormat::RedGreen: return VK_FORMAT_R8G8_UNORM;
-    case TextureFormat::DepthStencil: return VK_FORMAT_D24_UNORM_S8_UINT;
-    case TextureFormat::Depth: return VK_FORMAT_D32_SFLOAT;
-    case TextureFormat::Unspecified:
-      CHECK(false, ());
-      return VK_FORMAT_UNDEFINED;
-  }
-  CHECK(false, ());
-}
-
 drape_ptr<HWTexture> VulkanTextureAllocator::CreateTexture(ref_ptr<dp::GraphicsContext> context)
 {
   return make_unique_dp<VulkanTexture>(make_ref<VulkanTextureAllocator>(this));
