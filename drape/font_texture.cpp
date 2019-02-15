@@ -97,11 +97,15 @@ GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
   ASSERT(m_generator != nullptr, ());
   m_generator->RegisterListener(make_ref(this));
 
-  // Cache invalid glyph.
-  auto const key = GlyphKey(m_mng->GetInvalidGlyph(GlyphManager::kDynamicGlyphSize).m_code,
-                            GlyphManager::kDynamicGlyphSize);
+  // Cache predefined glyphs.
   bool newResource = false;
-  MapResource(key, newResource);
+  uint32_t constexpr kPredefinedGlyphsCount = 128;
+  for (uint32_t i = 0; i < kPredefinedGlyphsCount; ++i)
+  {
+    auto const key = GlyphKey(i, GlyphManager::kDynamicGlyphSize);
+
+    MapResource(key, newResource);
+  }
 }
 
 GlyphIndex::~GlyphIndex()
@@ -162,12 +166,15 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   GlyphManager::Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
   m2::RectU r;
-  if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
+  if (!glyph.m_metrics.m_isValid || !m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    LOG(LWARNING, ("Glyphs packer could not pack a glyph", key.GetUnicodePoint(),
-                   "w =", glyph.m_image.m_width, "h =", glyph.m_image.m_height,
-                   "packerSize =", m_packer.GetSize()));
+    if (glyph.m_metrics.m_isValid)
+    {
+      LOG(LWARNING, ("Glyphs packer could not pack a glyph", key.GetUnicodePoint(),
+        "w =", glyph.m_image.m_width, "h =", glyph.m_image.m_height,
+        "packerSize =", m_packer.GetSize()));
+    }
 
     auto const invalidGlyph = m_mng->GetInvalidGlyph(key.GetFixedSize());
     auto invalidGlyphIndex = m_index.find(GlyphKey(invalidGlyph.m_code, key.GetFixedSize()));

@@ -30,10 +30,8 @@ uint32_t const kMaxTextureSize = 1024;
 uint32_t const kStippleTextureWidth = 512;
 uint32_t const kMinStippleTextureHeight = 64;
 uint32_t const kMinColorTextureSize = 32;
+uint32_t const kGlyphsTextureSize = 1024;
 size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
-
-// number of glyphs (since 0) which will be in each texture
-size_t const kDuplicatedGlyphsCount = 128;
 
 uint32_t const kReservedPatterns = 10;
 size_t const kReservedColors = 20;
@@ -237,7 +235,6 @@ uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 
 void TextureManager::Release()
 {
-  m_glyphGroups.clear();
   m_hybridGlyphGroups.clear();
 
   m_symbolTextures.clear();
@@ -303,7 +300,7 @@ bool TextureManager::HasAsyncRoutines() const
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
   std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
-  m2::PointU size(m_maxTextureSize, m_maxTextureSize);
+  m2::PointU size(kGlyphsTextureSize, kGlyphsTextureSize);
   m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager),
                                                         m_glyphGenerator,
                                                         make_ref(m_textureAllocator)));
@@ -350,67 +347,6 @@ void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniStri
     m_nothingToUpload.clear();
 }
 
-size_t TextureManager::FindGlyphsGroup(strings::UniChar const & c) const
-{
-  auto const iter = std::lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c,
-                                     [](GlyphGroup const & g, strings::UniChar const & c)
-  {
-    return g.m_endChar < c;
-  });
-
-  if (iter == m_glyphGroups.end())
-    return kInvalidGlyphGroup;
-
-  return static_cast<size_t>(std::distance(m_glyphGroups.begin(), iter));
-}
-
-size_t TextureManager::FindGlyphsGroup(strings::UniString const & text) const
-{
-  size_t groupIndex = kInvalidGlyphGroup;
-  for (auto const & c : text)
-  {
-    // Skip glyphs which can be duplicated.
-    if (c < kDuplicatedGlyphsCount)
-      continue;
-
-    size_t currentIndex = FindGlyphsGroup(c);
-
-    // an invalid glyph found
-    if (currentIndex == kInvalidGlyphGroup)
-    {
-#if defined(TRACK_GLYPH_USAGE)
-      GlyphUsageTracker::Instance().AddInvalidGlyph(text, c);
-#endif
-      return kInvalidGlyphGroup;
-    }
-
-    // Check if each glyph in text id in one group.
-    if (groupIndex == kInvalidGlyphGroup)
-      groupIndex = currentIndex;
-    else if (groupIndex != currentIndex)
-    {
-#if defined(TRACK_GLYPH_USAGE)
-      GlyphUsageTracker::Instance().AddUnexpectedGlyph(text, c, currentIndex, groupIndex);
-#endif
-      return kInvalidGlyphGroup;
-    }
-  }
-
-  // All glyphs in duplicated range.
-  if (groupIndex == kInvalidGlyphGroup)
-    groupIndex = FindGlyphsGroup(text[0]);
-
-  return groupIndex;
-}
-
-size_t TextureManager::FindGlyphsGroup(TMultilineText const & text) const
-{
-  strings::UniString combinedString;
-  MultilineTextToUniString(text, combinedString);
-
-  return FindGlyphsGroup(combinedString);
-}
-
 uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
                                                       HybridGlyphGroup const & group) const
 {
@@ -453,8 +389,10 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, in
 
   // Looking for a hybrid texture which contains text entirely.
   for (size_t i = 0; i < m_hybridGlyphGroups.size() - 1; i++)
+  {
     if (GetNumberOfUnfoundCharacters(text, fixedHeight, m_hybridGlyphGroups[i]) == 0)
       return i;
+  }
 
   // Check if we can contain text in the last hybrid texture.
   uint32_t const unfoundChars = GetNumberOfUnfoundCharacters(text, fixedHeight, group);
@@ -539,30 +477,11 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   // Initialize glyphs.
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
-
-  uint32_t const textureSquare = m_maxTextureSize * m_maxTextureSize;
+  uint32_t const textureSquare = kGlyphsTextureSize * kGlyphsTextureSize;
   uint32_t const baseGlyphHeight =
       static_cast<uint32_t>(params.m_glyphMngParams.m_baseGlyphHeight * kGlyphAreaMultiplier);
   uint32_t const averageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
-
-  m_glyphGroups.push_back(GlyphGroup());
   m_maxGlypsCount = static_cast<uint32_t>(ceil(kGlyphAreaCoverage * textureSquare / averageGlyphSquare));
-  m_glyphManager->ForEachUnicodeBlock([this](strings::UniChar const & start, strings::UniChar const & end)
-  {
-    if (m_glyphGroups.empty())
-    {
-      m_glyphGroups.push_back(GlyphGroup(start, end));
-      return;
-    }
-
-    GlyphGroup & group = m_glyphGroups.back();
-    ASSERT_LESS_OR_EQUAL(group.m_endChar, start, ());
-
-    if (end - group.m_startChar < m_maxGlypsCount)
-      group.m_endChar = end;
-    else
-      m_glyphGroups.push_back(GlyphGroup(start, end));
-  });
 
   m_nothingToUpload.clear();
 }

@@ -94,9 +94,10 @@ UNIT_TEST(UploadingGlyphs)
   args.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(args.m_fonts);
 
+  uint32_t constexpr kTextureSize = 1024;
   GlyphGenerator glyphGenerator(4);
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng), make_ref(&glyphGenerator));
+  DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng), make_ref(&glyphGenerator));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
   count += (index.MapResource(GlyphKey(0x58, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x59, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
@@ -108,7 +109,7 @@ UNIT_TEST(UploadingGlyphs)
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator(make_ref(&context));
   p.m_format = dp::TextureFormat::Alpha;
-  p.m_width = p.m_height = 128;
+  p.m_width = p.m_height = kTextureSize;
 
   DummyTexture tex;
   tex.Create(make_ref(&context), p);

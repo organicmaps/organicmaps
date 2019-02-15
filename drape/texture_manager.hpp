@@ -150,10 +150,6 @@ private:
   void GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
                         int fixedHeight, TGlyphsBuffer & regions);
 
-  size_t FindGlyphsGroup(strings::UniChar const & c) const;
-  size_t FindGlyphsGroup(strings::UniString const & text) const;
-  size_t FindGlyphsGroup(TMultilineText const & text) const;
-
   size_t FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight);
   size_t FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight);
 
@@ -198,29 +194,10 @@ private:
   template<typename TText, typename TBuffer>
   void CalcGlyphRegions(TText const & text, int fixedHeight, TBuffer & buffers)
   {
-    size_t const groupIndex = FindGlyphsGroup(text);
-    bool useHybridGroup = false;
-    if (fixedHeight < 0 && groupIndex != GetInvalidGlyphGroup())
-    {
-      GlyphGroup & group = m_glyphGroups[groupIndex];
-      uint32_t const absentGlyphs = GetAbsentGlyphsCount(group.m_texture, text, fixedHeight);
-      if (group.m_texture == nullptr || group.m_texture->HasEnoughSpace(absentGlyphs))
-        FillResults<GlyphGroup>(text, fixedHeight, buffers, group);
-      else
-        useHybridGroup = true;
-    }
-    else
-    {
-      useHybridGroup = true;
-    }
-
-    if (useHybridGroup)
-    {
-      size_t const hybridGroupIndex = FindHybridGlyphsGroup(text, fixedHeight);
-      ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
-      HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
-      FillResults<HybridGlyphGroup>(text, fixedHeight, buffers, group);
-    }
+    size_t const hybridGroupIndex = FindHybridGlyphsGroup(text, fixedHeight);
+    ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
+    HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
+    FillResults<HybridGlyphGroup>(text, fixedHeight, buffers, group);
   }
 
   uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
@@ -250,7 +227,6 @@ private:
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;
 
-  buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
 
   base::Timer m_uploadTimer;

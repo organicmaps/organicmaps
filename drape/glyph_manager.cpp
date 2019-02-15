@@ -649,7 +649,7 @@ bool GlyphManager::AreGlyphsReady(strings::UniString const & str, int fixedSize)
 
 GlyphManager::Glyph GlyphManager::GetInvalidGlyph(int fixedSize) const
 {
-  strings::UniChar const kInvalidGlyphCode = 0x9;
+  strings::UniChar constexpr kInvalidGlyphCode = 0x9;
   int const kFontId = 0;
 
   static bool s_inited = false;
