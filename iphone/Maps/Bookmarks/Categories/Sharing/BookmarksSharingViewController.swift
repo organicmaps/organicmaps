@@ -15,8 +15,10 @@ final class BookmarksSharingViewController: MWMTableViewController {
     return MWMBookmarksManager.shared()
   }
   
-  private let kPropertiesSegueIdentifier = "chooseProperties"
+  private let kPropertiesControllerIdentifier = "chooseProperties"
   private let kTagsControllerIdentifier = "tags"
+  private let kNameControllerIdentifier = "guideName"
+  private let kDescriptionControllerIdentifier = "guideDescription"
   private let kEditOnWebSegueIdentifier = "editOnWeb"
   
   private let privateSectionIndex = 0
@@ -174,11 +176,19 @@ final class BookmarksSharingViewController: MWMTableViewController {
 
   private func startUploadAndPublishFlow() {
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPublic])
-    performAfterValidation(anchor: uploadAndPublishCell) { [weak self] in
-      if let self = self {
-        self.performSegue(withIdentifier: self.kPropertiesSegueIdentifier, sender: self)
+    let alert = EditOnWebAlertViewController(with: L("bookmark_public_upload_alert_title"),
+                                             message: L("bookmark_public_upload_alert_subtitle"),
+                                             acceptButtonTitle: L("bookmark_public_upload_alert_ok_button"))
+    alert.onAcceptBlock = { [unowned self] in
+      self.dismiss(animated: true)
+      self.performAfterValidation(anchor: self.uploadAndPublishCell) { [weak self] in
+        if let self = self {
+          self.showEditName()
+        }
       }
     }
+    alert.onCancelBlock = { [unowned self] in self.dismiss(animated: true) }
+    present(alert, animated: true)
   }
   
   private func uploadAndPublish(update: Bool) {
@@ -322,7 +332,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   private func showMalformedDataError() {
     let alert = EditOnWebAlertViewController(with: L("html_format_error_title"),
-                                             message: L("html_format_error_subtitle"))
+                                             message: L("html_format_error_subtitle"),
+                                             acceptButtonTitle: L("edit_on_web").uppercased())
     alert.onAcceptBlock = {
       self.dismiss(animated: true, completion: {
         self.performSegue(withIdentifier: self.kEditOnWebSegueIdentifier, sender: nil)
@@ -337,7 +348,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   private func showAccessError() {
     let alert = EditOnWebAlertViewController(with: L("public_or_limited_access_after_edit_online_error_title"),
-                                             message: L("public_or_limited_access_after_edit_online_error_message"))
+                                             message: L("public_or_limited_access_after_edit_online_error_message"),
+                                             acceptButtonTitle: L("edit_on_web").uppercased())
     alert.onAcceptBlock = {
       self.dismiss(animated: true, completion: {
         self.performSegue(withIdentifier: self.kEditOnWebSegueIdentifier, sender: nil)
@@ -352,17 +364,60 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
-    if segue.identifier == kPropertiesSegueIdentifier {
-      if let vc = segue.destination as? SharingPropertiesViewController {
-        vc.delegate = self
-      }
-    } else if segue.identifier == kEditOnWebSegueIdentifier {
+    if segue.identifier == kEditOnWebSegueIdentifier {
       Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatEditOnWeb])
       if let vc = segue.destination as? EditOnWebViewController {
         vc.delegate = self
         vc.category = category
       }
     }
+  }
+
+  private func showEditName() {
+    let storyboard = UIStoryboard.instance(.sharing)
+    let guideNameController = storyboard.instantiateViewController(withIdentifier: kNameControllerIdentifier)
+      as! GuideNameViewController
+    guideNameController.guideName = category.title
+    guideNameController.delegate = self
+    navigationController?.pushViewController(guideNameController, animated: true)
+  }
+
+  private func showEditDescr() {
+    let storyboard = UIStoryboard.instance(.sharing)
+    let guideDescrController = storyboard.instantiateViewController(withIdentifier: kDescriptionControllerIdentifier)
+      as! GuideDescriptionViewController
+    guideDescrController.guideDescription = category.detailedAnnotation
+    guideDescrController.delegate = self
+
+    replaceTopViewController(guideDescrController, animated: true)
+  }
+
+  private func showSelectTags() {
+    let storyboard = UIStoryboard.instance(.sharing)
+    let tagsController = storyboard.instantiateViewController(withIdentifier: kTagsControllerIdentifier)
+      as! SharingTagsViewController
+    tagsController.delegate = self
+
+    replaceTopViewController(tagsController, animated: true)
+  }
+
+  private func showSelectProperties() {
+    let storyboard = UIStoryboard.instance(.sharing)
+    let propertiesController = storyboard.instantiateViewController(withIdentifier: kPropertiesControllerIdentifier)
+      as! SharingPropertiesViewController
+    propertiesController.delegate = self
+    replaceTopViewController(propertiesController, animated: true)
+  }
+
+  private func replaceTopViewController(_ viewController: UIViewController, animated: Bool) {
+    guard var viewControllers = navigationController?.viewControllers else {
+      assert(false)
+      return
+    }
+
+    viewControllers.removeLast()
+    viewControllers.append(viewController)
+    navigationController?.setViewControllers(viewControllers, animated: animated)
   }
 }
 
@@ -409,25 +464,26 @@ extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegat
   func sharingPropertiesViewController(_ viewController: SharingPropertiesViewController,
                                        didSelect userStatus: MWMCategoryAuthorType) {
     sharingUserStatus = userStatus
-    
-    let storyboard = UIStoryboard.instance(.sharing)
-    let tagsController = storyboard.instantiateViewController(withIdentifier: kTagsControllerIdentifier)
-      as! SharingTagsViewController
-    tagsController.delegate = self
-    
-    guard var viewControllers = navigationController?.viewControllers else {
-      assert(false)
-      return
-    }
-    
-    viewControllers.removeLast()
-    viewControllers.append(tagsController)
-    navigationController?.setViewControllers(viewControllers, animated: true)
+    showSelectTags()
   }
 }
 
 extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
   func editOnWebViewControllerDidFinish(_ viewController: EditOnWebViewController) {
     navigationController?.popViewController(animated: true)
+  }
+}
+
+extension BookmarksSharingViewController: GuideNameViewControllerDelegate {
+  func viewController(_ viewController: GuideNameViewController, didFinishEditing text: String) {
+    category.title = text
+    showEditDescr()
+  }
+}
+
+extension BookmarksSharingViewController: GuideDescriptionViewControllerDelegate {
+  func viewController(_ viewController: GuideDescriptionViewController, didFinishEditing text: String) {
+    category.detailedAnnotation = text
+    showSelectProperties()
   }
 }

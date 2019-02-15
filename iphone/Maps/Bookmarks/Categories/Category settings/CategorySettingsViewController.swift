@@ -33,7 +33,7 @@ class CategorySettingsViewController: MWMTableViewController {
     title = L("list_settings")
     deleteListButton.isEnabled = (manager.userCategories().count > 1)
     nameTextField.text = category.title
-    descriptionTextView.text = category.description
+    descriptionTextView.text = category.detailedAnnotation
     
     navigationItem.rightBarButtonItem = saveButton
   }

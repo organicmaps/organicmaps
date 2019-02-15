@@ -104,8 +104,10 @@
 
 - (void)updatePlaceholderInset:(UIEdgeInsets)inset
 {
-  CGFloat const kDefaultPlaceholderLeftInset = 5.0;
-  self.placeholderView.frame = CGRectMake(inset.left + kDefaultPlaceholderLeftInset, inset.top, self.bounds.size.width - inset.right, self.bounds.size.height - inset.bottom);
+  self.placeholderView.frame = CGRectMake(inset.left + self.textContainer.lineFragmentPadding,
+                                          inset.top,
+                                          self.bounds.size.width - inset.right,
+                                          self.bounds.size.height - inset.bottom);
   [self resizePlaceholderFrame];
 }
 

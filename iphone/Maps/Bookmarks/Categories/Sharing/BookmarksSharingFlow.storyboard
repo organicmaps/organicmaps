@@ -356,7 +356,6 @@
                         <outlet property="updateDirectLinkCell" destination="aAa-cf-kTL" id="Gaz-h4-0E6"/>
                         <outlet property="updatePublishCell" destination="7OC-5n-kuV" id="JuX-3X-bo4"/>
                         <outlet property="uploadAndPublishCell" destination="YW0-jq-Isw" id="84h-vp-JdM"/>
-                        <segue destination="fDN-IN-IEc" kind="show" identifier="chooseProperties" id="I88-nm-PsT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ylv-YU-ujs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -576,7 +575,7 @@
         <!--Sharing Properties View Controller-->
         <scene sceneID="zug-ko-B9e">
             <objects>
-                <tableViewController storyboardIdentifier="chooseTags" id="fDN-IN-IEc" customClass="SharingPropertiesViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="chooseProperties" id="fDN-IN-IEc" customClass="SharingPropertiesViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ibV-nf-9aS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -889,7 +888,137 @@ upload photos and more</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QOd-Rm-O5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640.02998500749629" y="703.20000000000005"/>
+            <point key="canvasLocation" x="-199" y="712"/>
+        </scene>
+        <!--Guide name-->
+        <scene sceneID="gWg-zK-J9t">
+            <objects>
+                <tableViewController storyboardIdentifier="guideName" id="cvj-kq-BmC" customClass="GuideNameViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Uwp-K9-cnW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Enter the name" id="E0V-qx-dBx">
+                                <string key="footerTitle">Please name your guide so that travelers can easily find it: for example, "Sightseeing in London".
+
+The name shouldn't contain special symbols or digits. The name shouldn't be 'My places'</string>
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="L0q-Dk-RQu">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="L0q-Dk-RQu" id="ny0-9t-pzR">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. Sightseeing in London" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JAZ-st-xqM">
+                                                    <rect key="frame" x="16" y="12" width="343" height="20"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="onEditName:" destination="cvj-kq-BmC" eventType="editingChanged" id="pfy-5S-MSz"/>
+                                                        <outlet property="delegate" destination="cvj-kq-BmC" id="1L3-Mb-fvM"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JAZ-st-xqM" firstAttribute="leading" secondItem="ny0-9t-pzR" secondAttribute="leading" constant="16" id="QKc-7g-vle"/>
+                                                <constraint firstItem="JAZ-st-xqM" firstAttribute="centerY" secondItem="ny0-9t-pzR" secondAttribute="centerY" id="RJB-Fh-0le"/>
+                                                <constraint firstAttribute="trailing" secondItem="JAZ-st-xqM" secondAttribute="trailing" constant="16" id="vp9-Kv-ImW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="cvj-kq-BmC" id="8XX-1A-zJM"/>
+                            <outlet property="delegate" destination="cvj-kq-BmC" id="qis-et-cHS"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Guide name" id="Gga-VP-bBS">
+                        <barButtonItem key="rightBarButtonItem" title="Next" style="done" id="xYp-nr-e29">
+                            <connections>
+                                <action selector="onNext:" destination="cvj-kq-BmC" id="jsm-tf-e4c"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="nameTextField" destination="JAZ-st-xqM" id="WoE-Je-Mat"/>
+                        <outlet property="nextBarButton" destination="xYp-nr-e29" id="chV-vS-2Bt"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJr-37-0dP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="640.79999999999995" y="711.99400299850083"/>
+        </scene>
+        <!--Description-->
+        <scene sceneID="j38-lP-seP">
+            <objects>
+                <tableViewController storyboardIdentifier="guideDescription" id="Stq-Tq-XqB" customClass="GuideDescriptionViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Y7n-SR-xIH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Enter description" footerTitle="Guide description should contain at least 30 symbols (13 for oriental languages)." id="C3r-nD-p7y">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="160" id="NR5-qU-x6v">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NR5-qU-x6v" id="gPI-nK-hOK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-9t-xe5" customClass="MWMTextView">
+                                                    <rect key="frame" x="16" y="12" width="343" height="135.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="textContainer.lineFragmentPadding">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="Stq-Tq-XqB" id="vUs-Qc-Ooa"/>
+                                                    </connections>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vso-9t-xe5" firstAttribute="top" secondItem="gPI-nK-hOK" secondAttribute="top" constant="12" id="TTz-Iz-x8C"/>
+                                                <constraint firstAttribute="bottom" secondItem="Vso-9t-xe5" secondAttribute="bottom" constant="12" id="ZZ1-By-uo7"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vso-9t-xe5" secondAttribute="trailing" constant="16" id="wRQ-S2-jBx"/>
+                                                <constraint firstItem="Vso-9t-xe5" firstAttribute="leading" secondItem="gPI-nK-hOK" secondAttribute="leading" constant="16" id="yzc-mZ-oj6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Stq-Tq-XqB" id="bbX-wm-Kag"/>
+                            <outlet property="delegate" destination="Stq-Tq-XqB" id="X6r-zo-5w0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Description" id="eXR-fT-zTY">
+                        <barButtonItem key="rightBarButtonItem" title="Next" style="done" id="rdU-IO-XZ6">
+                            <connections>
+                                <action selector="onNext:" destination="Stq-Tq-XqB" id="LcF-9Q-ZZW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="Vso-9t-xe5" id="aX6-JT-uq1"/>
+                        <outlet property="nextBarButton" destination="rdU-IO-XZ6" id="ZeO-K6-5TO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ir8-PR-GNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1533.5999999999999" y="711.99400299850083"/>
         </scene>
     </scenes>
     <resources>
