@@ -21,7 +21,9 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:layout_width="0dp"
-      tools:ignore="UnusedAttribute"/>
+      tools:ignore="UnusedAttribute"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"/>
     <ImageView
       android:id="@+id/image"
       android:layout_gravity="center_vertical"

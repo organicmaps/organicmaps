@@ -58,7 +58,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
   private static final String UPDATE_CONFIRMATION_DIALOG_TAG = "update_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
-  private static final int MIN_REQUIRED_CATEGORY_SIZE = 3;
+  private static final int MIN_REQUIRED_CATEGORY_SIZE = 0;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -131,7 +131,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_ugc_routes_sharing_options, container, false);
@@ -205,7 +205,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new FinishActivityToolbarController(root, getActivity());
+    return new FinishActivityToolbarController(root, requireActivity());
   }
 
   private void initClickListeners(@NonNull View root)
@@ -282,7 +282,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showNoNetworkConnectionDialog()
   {
-    Fragment fragment = getFragmentManager().findFragmentByTag(NO_NETWORK_CONNECTION_DIALOG_TAG);
+    Fragment fragment = requireFragmentManager().findFragmentByTag(NO_NETWORK_CONNECTION_DIALOG_TAG);
     if (fragment != null)
       return;
 
@@ -378,7 +378,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   }
 
   @Override
-  public void onSaveInstanceState(Bundle outState)
+  public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
     if (mCurrentMode != null)
@@ -498,7 +498,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private void onUploadError(@NonNull BookmarkManager.UploadResult uploadResult)
   {
     Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_UPLOAD_ERROR,
-                                        uploadResult.ordinal());
+                                                 uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
       showHtmlFormattingError();
@@ -581,10 +581,13 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
     if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
-      Utils.showSystemSettings(getContext());
+      Utils.showSystemSettings(requireContext());
     else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
              || requestCode == REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
       requestUpload();
+    else if (requestCode == REQ_CODE_ERROR_HTML_FORMATTING_DIALOG)
+      SendLinkPlaceholderFragment.shareLink(BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId()),
+                                            requireActivity());
   }
 
   @Override
@@ -620,13 +623,19 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showHtmlFormattingError()
   {
-    showConfirmationDialog(R.string.html_format_error_title,
-                           R.string.html_format_error_subtitle,
-                           R.string.edit_on_web,
-                           R.string.cancel,
-                           ERROR_HTML_FORMATTING_DIALOG_TAG,
-                           REQ_CODE_ERROR_HTML_FORMATTING_DIALOG
-                          );
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.html_format_error_title)
+        .setMessageId(R.string.html_format_error_subtitle)
+        .setPositiveBtnId(R.string.edit_on_web)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_ERROR_HTML_FORMATTING_DIALOG)
+        .setImageResId(R.drawable.ic_error_red)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+        .setDialogFactory(new ConfirmationDialogFactory())
+        .build();
+    dialog.setTargetFragment(this, REQ_CODE_ERROR_HTML_FORMATTING_DIALOG);
+    dialog.show(this, ERROR_HTML_FORMATTING_DIALOG_TAG);
   }
 
   private void showUploadCatalogConfirmationDialog()

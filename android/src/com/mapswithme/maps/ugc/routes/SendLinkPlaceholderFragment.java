@@ -3,6 +3,7 @@ package com.mapswithme.maps.ugc.routes;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,15 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
 
-public class SendLinkPlaceholderFragment extends BaseAuthFragment implements BookmarkManager.BookmarksCatalogListener
+public class SendLinkPlaceholderFragment extends BaseAuthFragment implements BookmarkManager.BookmarksCatalogListener,
+                                                                             AlertDialogCallback
 {
   public static final String EXTRA_CATEGORY = "bookmarks_category";
   private static final String BODY_STRINGS_SEPARATOR = "\n\n";
@@ -77,16 +80,21 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
 
   private void shareLink()
   {
-    String emailBody = getString(R.string.edit_your_guide_email_body) + BODY_STRINGS_SEPARATOR +
-                       BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId());
-
-    ShareCompat.IntentBuilder.from(getActivity())
-                             .setType(TargetUtils.TYPE_TEXT_PLAIN)
-                             .setSubject(getString(R.string.edit_guide_title))
-                             .setText(emailBody)
-                             .setChooserTitle(getString(R.string.share))
-                             .startChooser();
+    shareLink(BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId()), requireActivity());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_EDIT_ON_WEB_CLICK);
+  }
+
+  static void shareLink(@NonNull String url, @NonNull FragmentActivity activity)
+  {
+    String emailBody = activity.getString(R.string.edit_your_guide_email_body)
+                       + BODY_STRINGS_SEPARATOR + url;
+
+    ShareCompat.IntentBuilder.from(activity)
+                             .setType(TargetUtils.TYPE_TEXT_PLAIN)
+                             .setSubject(activity.getString(R.string.edit_guide_title))
+                             .setText(emailBody)
+                             .setChooserTitle(activity.getString(R.string.share))
+                             .startChooser();
   }
 
   @Override
@@ -105,11 +113,11 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
 
   private void onUploadFailed()
   {
-    /* FIXME text*/
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.unable_upload_error_subtitle_edited)
-        .setMessageId(R.string.unable_upload_error_subtitle_edited)
-        .setPositiveBtnId(R.string.ok)
+        .setTitleId(R.string.html_error_upload_title_try_again)
+        .setMessageId(R.string.html_error_upload_message_try_again)
+        .setPositiveBtnId(R.string.try_again)
+        .setNegativeBtnId(R.string.cancel)
         .setReqCode(REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG)
         .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
@@ -189,6 +197,24 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
 
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
+  {
+    /* do noting by default */
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    shareLink();
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    /* do noting by default */
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
   {
     /* do noting by default */
   }

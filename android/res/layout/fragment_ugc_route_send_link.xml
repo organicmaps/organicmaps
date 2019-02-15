@@ -28,7 +28,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:layout_weight="1"
-    mapsme:imgSrcDefault="@drawable/img_guide_edit_on_web"
+    mapsme:imgSrcDefault="@drawable/img_editonweb"
     mapsme:titleDefault="@string/edit_guide_title"
     mapsme:subTitleDefault="@string/edit_guide_subtitle"/>
   <Button
