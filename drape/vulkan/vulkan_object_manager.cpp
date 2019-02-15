@@ -98,6 +98,9 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   vkGetBufferMemoryRequirements(m_device, result.m_buffer, &memReqs);
 
   result.m_allocation = m_memoryManager.Allocate(resourceType, memReqs, batcherHash);
+
+  CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(), result.GetAlignedOffset()));
+
   return result;
 }
 

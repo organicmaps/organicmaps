@@ -123,8 +123,6 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
     memcpy(gpuPtr, data, sizeInBytes);
     m_objectManager->Flush(m_geometryBuffer);
   }
-  CHECK_VK_CALL(vkBindBufferMemory(device, m_geometryBuffer.m_buffer, m_geometryBuffer.GetMemory(),
-                                   m_geometryBuffer.GetAlignedOffset()));
 
   m_objectManager->Unmap(m_geometryBuffer);
 

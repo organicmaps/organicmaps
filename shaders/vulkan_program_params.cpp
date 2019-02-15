@@ -26,9 +26,6 @@ VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
   sizeAlignment = objectManager->GetMemoryManager().GetSizeAlignment(memReqs);
   offsetAlignment = objectManager->GetMemoryManager().GetOffsetAlignment(kUniformBuffer);
 
-  CHECK_VK_CALL(vkBindBufferMemory(device, result.m_object.m_buffer, result.m_object.GetMemory(),
-                                   result.m_object.GetAlignedOffset()));
-
   result.m_pointer = objectManager->Map(result.m_object);
   return result;
 }

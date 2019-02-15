@@ -24,10 +24,6 @@ VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectMana
   vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
   m_sizeAlignment = mm.GetSizeAlignment(memReqs);
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);
-
-  CHECK_VK_CALL(vkBindBufferMemory(device, m_object.m_buffer, m_object.GetMemory(),
-                                   m_object.GetAlignedOffset()));
-
   m_pointer = m_objectManager->Map(m_object);
 }
 
