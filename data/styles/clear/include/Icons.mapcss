@@ -628,14 +628,12 @@ node[shop=mall],
 area[shop=mall]
 {z-index: 2930;}
 
-node[highway=bus_stop],
-area[highway=bus_stop]
-{z-index: 2300;}
-
 node[public_transport=station],
 area[public_transport=station],
 node[railway=subway_entrance],
-node[railway=station][transport=subway]
+node[railway=station][transport=subway],
+node[highway=bus_stop],
+area[highway=bus_stop]
 {z-index: 3000;}
 
 /* 2. NATURAL */
@@ -2056,7 +2054,7 @@ line|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 line|z16-[power=tower]
-{icon-image: dot-m.svg;}
+shelter{icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],
 area|z16-[amenity=taxi]
