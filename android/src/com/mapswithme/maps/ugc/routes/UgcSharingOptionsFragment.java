@@ -248,6 +248,12 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onEditOnWebClicked()
   {
+    if (isNetworkConnectionAbsent())
+    {
+      showNoNetworkConnectionDialog();
+      return;
+    }
+
     Intent intent = new Intent(getContext(), SendLinkPlaceholderActivity.class)
         .putExtra(SendLinkPlaceholderFragment.EXTRA_CATEGORY, mCategory);
     startActivity(intent);
@@ -322,6 +328,11 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onGetDirectLinkClicked()
   {
+    if (isNetworkConnectionAbsent())
+    {
+      showNoNetworkConnectionDialog();
+      return;
+    }
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
     requestUpload();
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
