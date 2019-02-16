@@ -73,7 +73,8 @@ public:
 private:
   // Retrieves the same |jointEdges|, but into others mwms.
   // If they are cross mwm edges, of course.
-  void CheckAndProcessTransitFeatures(std::vector<JointEdge> & jointEdges,
+  void CheckAndProcessTransitFeatures(Segment const & parent,
+                                      std::vector<JointEdge> & jointEdges,
                                       std::vector<RouteWeight> & parentWeights,
                                       bool isOutgoing);
   // WorldGraph overrides:

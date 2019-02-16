@@ -82,7 +82,7 @@ public:
 
     m_transitions[Key(featureId, segmentIdx)] = transition;
     m_crossMwmIdToFeatureId.emplace(crossMwmId, featureId);
-    m_transitFeatureIdToSegmentId.emplace(featureId, segmentIdx);
+    m_transitFeatureIdToSegmentId[featureId].emplace_back(segmentIdx);
   }
 
   bool IsFeatureCrossMwmConnector(uint32_t featureId) const
@@ -90,7 +90,7 @@ public:
     return m_transitFeatureIdToSegmentId.find(featureId) != m_transitFeatureIdToSegmentId.cend();
   }
 
-  uint32_t GetTransitSegmentId(uint32_t featureId) const
+  std::vector<uint32_t> const & GetTransitSegmentId(uint32_t featureId) const
   {
     auto it = m_transitFeatureIdToSegmentId.find(featureId);
     CHECK(it != m_transitFeatureIdToSegmentId.cend(), ());
@@ -305,7 +305,7 @@ private:
   NumMwmId const m_mwmId;
   std::vector<Segment> m_enters;
   std::vector<Segment> m_exits;
-  std::map<uint32_t, uint32_t> m_transitFeatureIdToSegmentId;
+  std::map<uint32_t, std::vector<uint32_t>> m_transitFeatureIdToSegmentId;
   std::unordered_map<Key, Transition<CrossMwmId>, HashKey> m_transitions;
   std::unordered_map<CrossMwmId, uint32_t, connector::HashKey> m_crossMwmIdToFeatureId;
   connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;

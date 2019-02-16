@@ -89,7 +89,7 @@ public:
     return GetCrossMwmConnectorWithTransitions(numMwmId).IsFeatureCrossMwmConnector(featureId);
   }
 
-  uint32_t GetTransitSegmentId(NumMwmId numMwmId, uint32_t featureId)
+  std::vector<uint32_t> const & GetTransitSegmentId(NumMwmId numMwmId, uint32_t featureId)
   {
     return GetCrossMwmConnectorWithTransitions(numMwmId).GetTransitSegmentId(featureId);
   }

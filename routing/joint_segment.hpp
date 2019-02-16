@@ -18,10 +18,13 @@ public:
   JointSegment() = default;
   JointSegment(Segment const & from, Segment const & to);
 
+  uint32_t & GetFeatureId() { return m_featureId; }
   uint32_t GetFeatureId() const { return m_featureId; }
   NumMwmId GetMwmId() const { return m_numMwmId; }
+  NumMwmId & GetMwmId() { return m_numMwmId; }
   uint32_t GetStartSegmentId() const { return m_startSegmentId; }
   uint32_t GetEndSegmentId() const { return m_endSegmentId; }
+  uint32_t GetSegmentId(bool start) const { return start ? m_startSegmentId : m_endSegmentId; }
   bool IsForward() const { return m_forward; }
 
   void ToFake(uint32_t fakeId);
@@ -51,6 +54,7 @@ public:
     : m_target(target), m_weight(weight) {}
 
   JointSegment const & GetTarget() const { return m_target; }
+  JointSegment & GetTarget() { return m_target; }
   RouteWeight & GetWeight() { return m_weight; }
   RouteWeight const & GetWeight() const { return m_weight; }
 

@@ -15,21 +15,20 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
   CHECK(m_estimator, ());
 }
 
-void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(vector<JointEdge> & jointEdges,
+void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & parent,
+                                                             vector<JointEdge> & jointEdges,
                                                              vector<RouteWeight> & parentWeights,
                                                              bool isOutgoing)
 {
+  bool opposite = !isOutgoing;
   vector<JointEdge> newCrossMwmEdges;
   for (size_t i = 0; i < jointEdges.size(); ++i)
   {
-    auto const & jointEdge = jointEdges[i];
-    if (!m_crossMwmGraph->IsFeatureTransit(jointEdge.GetTarget().GetMwmId(),
-                                           jointEdge.GetTarget().GetFeatureId()))
-    {
+    JointSegment const & target = jointEdges[i].GetTarget();
+    if (!m_crossMwmGraph->IsFeatureTransit(target.GetMwmId(), target.GetFeatureId()))
       continue;
-    }
 
-    JointSegment const & target = jointEdge.GetTarget();
+    auto & currentIndexGraph = GetIndexGraph(parent.GetMwmId());
 
     vector<Segment> twins;
     m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
@@ -38,13 +37,23 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(vector<JointEdge> &
       NumMwmId const twinMwmId = twin.GetMwmId();
       uint32_t const twinFeatureId = twin.GetFeatureId();
 
-      Segment const start(twinMwmId, twinFeatureId, target.GetStartSegmentId(), target.IsForward());
-      Segment const end(twinMwmId, twinFeatureId, target.GetEndSegmentId(), target.IsForward());
+      Segment const start(twinMwmId, twinFeatureId, target.GetSegmentId(!opposite), target.IsForward());
 
-      JointSegment jointSegment(start, end);
+      auto & twinIndexGraph = GetIndexGraph(twinMwmId);
 
-      newCrossMwmEdges.emplace_back(jointSegment, jointEdge.GetWeight());
-      parentWeights.emplace_back(parentWeights[i]);
+      vector<uint32_t> lastPoints;
+      twinIndexGraph.GetLastPointsForJoint({start}, isOutgoing, lastPoints);
+      ASSERT_EQUAL(lastPoints.size(), 1, ());
+
+      if (auto edge = currentIndexGraph.GetJointEdgeByLastPoint(parent, target.GetSegment(!opposite),
+                                                                isOutgoing, lastPoints.back()))
+      {
+        newCrossMwmEdges.emplace_back(*edge);
+        newCrossMwmEdges.back().GetTarget().GetFeatureId() = twinFeatureId;
+        newCrossMwmEdges.back().GetTarget().GetMwmId() = twinMwmId;
+
+        parentWeights.emplace_back(parentWeights[i]);
+      }
     }
   }
 
@@ -64,7 +73,7 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & parent, bool isOutgoin
   indexGraph.GetEdgeList(parent, isOutgoing, jointEdges, parentWeights);
 
   if (m_mode != WorldGraph::Mode::JointSingleMwm)
-    CheckAndProcessTransitFeatures(jointEdges, parentWeights, isOutgoing);
+    CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
 }
 
 void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,

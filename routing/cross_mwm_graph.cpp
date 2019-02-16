@@ -157,16 +157,20 @@ void CrossMwmGraph::Clear()
 void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
 {
   vector<Segment> result;
-  uint32_t const transitSegmentId = m_crossMwmIndexGraph.GetTransitSegmentId(segment.GetMwmId(),
-                                                                             segment.GetFeatureId());
+  std::vector<uint32_t> const & transitSegmentIds =
+    m_crossMwmIndexGraph.GetTransitSegmentId(segment.GetMwmId(), segment.GetFeatureId());
 
-  Segment const transitSegment(segment.GetMwmId(), segment.GetFeatureId(),
-                               transitSegmentId, segment.IsForward());
+  for (auto transitSegmentId : transitSegmentIds)
+  {
+    Segment const transitSegment(segment.GetMwmId(), segment.GetFeatureId(),
+                                 transitSegmentId, segment.IsForward());
 
-  if (!IsTransition(transitSegment, isOutgoing))
-    return;
+    if (!IsTransition(transitSegment, isOutgoing))
+      continue;
 
-  GetTwins(transitSegment, isOutgoing, twins);
+    GetTwins(transitSegment, isOutgoing, twins);
+    break;
+  }
 }
 
 bool CrossMwmGraph::IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId)

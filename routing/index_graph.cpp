@@ -104,9 +104,24 @@ void IndexGraph::GetLastPointsForJoint(vector<Segment> const & children,
     //   This is the direction, indicating the end of the road,
     //   where we should go for building JointSegment.
     // You can retrieve such result if bust possible options of |child.IsForward()| and |isOutgoing|.
-    std::tie(std::ignore, endPointId) =
-      GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, child.IsForward() == isOutgoing,
-                                                 pointsNumber);
+    bool forward = child.IsForward() == isOutgoing;
+    if (IsRoad(child.GetFeatureId()))
+    {
+      std::tie(std::ignore, endPointId) =
+        GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward,
+                                                   pointsNumber);
+    }
+    else
+    {
+      // child.GetFeatureId() can be not road in this case:
+      // -->--> { -->-->--> } -->
+      // Where { ... } - borders of mwm
+      // Here one feature, which enter from mwm A to mwm B and then exit from B to A.
+      // And in mwm B no other feature cross this one, those feature is in geometry
+      // and absent in roadIndex.
+      // In this case we just return endPointNumber.
+      endPointId = forward ? pointsNumber - 1 : 0;
+    }
 
     lastPoints.push_back(endPointId);
   }
@@ -123,6 +138,25 @@ void IndexGraph::GetEdgeList(Segment const & parent, bool isOutgoing, vector<Joi
 
   ReconstructJointSegment(parent, possibleChildren, lastPoints,
                           isOutgoing, edges, parentWeights);
+}
+
+boost::optional<JointEdge>
+IndexGraph::GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
+                                    bool isOutgoing, uint32_t lastPoint)
+{
+  vector<Segment> const possibleChilds = {firstChild};
+  vector<uint32_t> const lastPoints = {lastPoint};
+
+  vector<JointEdge> edges;
+  vector<RouteWeight> parentWeights;
+  ReconstructJointSegment(parent, possibleChilds, lastPoints,
+                          isOutgoing, edges, parentWeights);
+
+  CHECK_LESS_OR_EQUAL(edges.size(), 1, ());
+  if (edges.size() == 1)
+    return {edges.back()};
+
+  return {};
 }
 
 void IndexGraph::Build(uint32_t numJoints)

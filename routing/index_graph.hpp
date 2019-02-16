@@ -19,6 +19,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+#include <boost/optional.hpp>
+
 namespace routing
 {
 class IndexGraph final
@@ -37,6 +39,9 @@ public:
 
   void GetEdgeList(Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
                    std::vector<RouteWeight> & parentWeights);
+
+  boost::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
+                                                     bool isOutgoing, uint32_t lastPoint);
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 
@@ -81,6 +86,8 @@ public:
   }
 
   bool IsJoint(RoadPoint const & roadPoint) const;
+  void GetLastPointsForJoint(std::vector<Segment> const & children, bool isOutgoing,
+                             std::vector<uint32_t> & lastPoints);
 
 private:
   RouteWeight CalcSegmentWeight(Segment const & segment);
@@ -94,7 +101,6 @@ private:
     return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
   }
 
-  void GetLastPointsForJoint(std::vector<Segment> const & children, bool isOutgoing, std::vector<uint32_t> & lastPoints);
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
   void ReconstructJointSegment(Segment const & parent, std::vector<Segment> const & firstChildren,
                                std::vector<uint32_t> const & lastPointIds,
