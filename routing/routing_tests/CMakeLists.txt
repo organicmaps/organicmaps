@@ -28,6 +28,7 @@ set(
   routing_algorithm.cpp
   routing_algorithm.hpp
   routing_helpers_tests.cpp
+  routing_options_tests.cpp
   routing_session_test.cpp
   speed_cameras_tests.cpp
   tools.hpp

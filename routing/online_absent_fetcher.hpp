@@ -7,6 +7,7 @@
 
 #include "base/thread.hpp"
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>

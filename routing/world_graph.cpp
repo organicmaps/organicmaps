@@ -36,6 +36,18 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, std::vector<
   SetMode(prevMode);
 }
 
+RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */)
+{
+  return {};
+}
+
+bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
+{
+  return true;
+}
+
+void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
+
 std::string DebugPrint(WorldGraph::Mode mode)
 {
   switch (mode)

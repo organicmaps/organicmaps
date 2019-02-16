@@ -56,6 +56,12 @@ public:
   double CalcSegmentETA(Segment const & segment) override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
   std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
+
+  /// \returns true if feature, associated with segment satisfies users conditions.
+  bool IsRoutingOptionsGood(Segment const & segment) override;
+  RoutingOptions GetRoutingOptions(Segment const & segment) override;
+  void SetRoutingOptions(RoutingOptions routingOptions) override { m_avoidRoutingOptions = routingOptions; }
+
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
   std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
 
@@ -86,5 +92,6 @@ private:
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   Mode m_mode = Mode::NoLeaps;
+  RoutingOptions m_avoidRoutingOptions = RoutingOptions();
 };
 }  // namespace routing

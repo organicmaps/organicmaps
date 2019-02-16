@@ -1,12 +1,16 @@
 #include "routing/index_graph.hpp"
 
 #include "routing/restrictions_serialization.hpp"
+#include "routing/routing_options.hpp"
+
+#include "platform/settings.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 
 #include <algorithm>
+#include <cstdlib>
 #include <limits>
 
 namespace
@@ -57,8 +61,11 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
 
 namespace routing
 {
-IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator)
-  : m_geometry(geometry), m_estimator(move(estimator))
+IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
+                       RoutingOptions routingOptions)
+  : m_geometry(geometry),
+    m_estimator(move(estimator)),
+    m_avoidRoutingOptions(routingOptions)
 {
   CHECK(m_geometry, ());
   CHECK(m_estimator, ());
@@ -205,6 +212,9 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
   if (!road.IsValid())
     return;
 
+  if (!road.SuitableForOptions(m_avoidRoutingOptions))
+    return;
+
   bool const bidirectional = !road.IsOneWay();
 
   if ((isOutgoing || bidirectional) && rp.GetPointId() + 1 < road.GetPointsCount())
@@ -235,6 +245,9 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
   {
     RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
     if (!road.IsValid())
+      return;
+
+    if (!road.SuitableForOptions(m_avoidRoutingOptions))
       return;
 
     bool const bidirectional = !road.IsOneWay();

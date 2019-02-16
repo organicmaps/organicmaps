@@ -5,6 +5,7 @@
 #include "routing/joint_segment.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 
@@ -13,6 +14,7 @@
 #include "geometry/point2d.hpp"
 
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -76,6 +78,10 @@ public:
 
   /// \returns transitions for mwm with id |numMwmId|.
   virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) = 0;
+
+  virtual bool IsRoutingOptionsGood(Segment const & /* segment */);
+  virtual RoutingOptions GetRoutingOptions(Segment const & /* segment */);
+  virtual void SetRoutingOptions(RoutingOptions /* routingOptions */);
 
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;

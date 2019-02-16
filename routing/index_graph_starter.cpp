@@ -53,7 +53,8 @@ size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
 }
 
 IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
-                                     FakeEnding const & finishEnding, uint32_t fakeNumerationStart,
+                                     FakeEnding const & finishEnding,
+                                     uint32_t fakeNumerationStart,
                                      bool strictForward, WorldGraph & graph)
   : m_graph(graph)
 {
@@ -124,6 +125,11 @@ m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool fro
   return GetJunction(segment, front).GetPoint();
 }
 
+bool IndexGraphStarter::IsRoutingOptionsGood(Segment const & segment) const
+{
+  return m_graph.IsRoutingOptionsGood(segment);
+}
+
 set<NumMwmId> IndexGraphStarter::GetMwms() const
 {
   set<NumMwmId> mwms;
@@ -165,6 +171,9 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   // If mode is LeapsOnly we need to connect start/finish segment to transitions.
   if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
   {
+    if (segment.IsRealSegment() && !IsRoutingOptionsGood(segment))
+      return;
+
     // Ingoing edges listing is not supported in LeapsOnly mode because we do not have enough
     // information to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
     CHECK(isOutgoing, ("Ingoing edges listing is not supported in LeapsOnly mode."));

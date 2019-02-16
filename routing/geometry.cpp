@@ -3,9 +3,12 @@
 #include "routing/city_roads.hpp"
 #include "routing/maxspeeds.hpp"
 #include "routing/routing_exceptions.hpp"
+#include "routing/routing_options.hpp"
 
 #include "indexer/altitude_loader.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -158,6 +161,14 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, inCity, maxspeed});
   m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, inCity, maxspeed});
   m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
+
+  feature::TypesHolder types(feature);
+  auto const & optionsClassfier = RoutingOptionsClassifier::Instance();
+  for (uint32_t type : types)
+  {
+    if (auto const it = optionsClassfier.Get(type))
+      m_routingOptions.Add(*it);
+  }
 
   m_junctions.clear();
   m_junctions.reserve(feature.GetPointsCount());

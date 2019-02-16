@@ -35,6 +35,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
     for (auto const & twin : twins)
     {
       NumMwmId const twinMwmId = twin.GetMwmId();
+
       uint32_t const twinFeatureId = twin.GetFeatureId();
 
       Segment const start(twinMwmId, twinFeatureId, target.GetSegmentId(!opposite), target.IsForward());
@@ -89,13 +90,14 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
       GetTwins(segment, isOutgoing, edges);
     else
       m_crossMwmGraph->GetOutgoingEdgeList(segment, edges);
+
     return;
   }
 
   IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
-  if (m_mode != Mode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
+  if (m_mode != Mode::JointSingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, edges);
 }
 
@@ -188,6 +190,7 @@ unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &)
 
 vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
 {
+  ASSERT(segment.IsRealSegment(), ());
   return m_loader->GetSpeedCameraInfo(segment);
 }
 
@@ -200,5 +203,19 @@ void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutg
                                             vector<Segment> & twins)
 {
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
+}
+
+bool SingleVehicleWorldGraph::IsRoutingOptionsGood(Segment const & segment)
+{
+  auto const & geometry = GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId());
+  return geometry.SuitableForOptions(m_avoidRoutingOptions);
+}
+
+RoutingOptions SingleVehicleWorldGraph::GetRoutingOptions(Segment const & segment)
+{
+  ASSERT(segment.IsRealSegment(), ());
+
+  auto const & geometry = GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId());
+  return geometry.GetRoutingOptions();
 }
 }  // namespace routing

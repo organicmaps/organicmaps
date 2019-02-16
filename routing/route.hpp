@@ -100,10 +100,10 @@ public:
   TransitInfo const & GetTransitInfo() const { return m_transitInfo.Get(); }
 
   void SetSpeedCameraInfo(std::vector<SpeedCamera> && data) { m_speedCameras = std::move(data); }
-  bool IsRealSegment() const { return m_segment.IsRealSegment(); }
   std::vector<SpeedCamera> const & GetSpeedCams() const { return m_speedCameras; }
-  RoutingOptions::Road GetRoadType() const { return m_roadType; }
-  void SetRoadType(RoutingOptions::Road road) { m_roadType = road; }
+
+  RoutingOptions GetRoadTypes() const { return m_roadTypes; }
+  void SetRoadTypes(RoutingOptions types) { m_roadTypes = types; }
 
 private:
   Segment m_segment;
@@ -137,7 +137,7 @@ private:
   // and theirs' max speed.
   std::vector<SpeedCamera> m_speedCameras;
 
-  RoutingOptions::Road m_roadType = RoutingOptions::Road::Usual;
+  RoutingOptions m_roadTypes;
 };
 
 class Route

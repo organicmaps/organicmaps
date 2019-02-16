@@ -53,6 +53,8 @@ public:
   /// \brief Reconstructs JointSegment by segment after building the route.
   std::vector<Segment> ReconstructJoint(JointSegment const & joint);
 
+  void Reset();
+
 private:
   static auto constexpr kInvisibleId = std::numeric_limits<uint32_t>::max() - 2;
 

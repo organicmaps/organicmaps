@@ -2,7 +2,10 @@
 
 #include "platform/location.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

@@ -398,4 +398,19 @@ bool IndexGraphStarterJoints::IsJoint(Segment const & segment, bool fromStart)
   return m_starter.GetGraph().GetIndexGraph(segment.GetMwmId())
                   .IsJoint(segment.GetRoadPoint(fromStart));
 }
+
+void IndexGraphStarterJoints::Reset()
+{
+  m_startJoint = JointSegment();
+  m_endJoint = JointSegment();
+  m_startSegment = Segment();
+  m_endSegment = Segment();
+  m_savedWeight.clear();
+  m_fakeJointSegments.clear();
+  m_reconstructedFakeJoints.clear();
+  m_startOutEdges.clear();
+  m_endOutEdges.clear();
+  m_fakeId = 0;
+  m_init = false;
+}
 }  // namespace routing

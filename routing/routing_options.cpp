@@ -2,23 +2,33 @@
 
 #include "platform/settings.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include <initializer_list>
 #include <sstream>
+#include <utility>
+
+using namespace std;
 
 namespace routing
 {
-std::string const RoutingOptions::kAvoidRoutingOptionSettings = "avoid_routing_options";
+
+// RoutingOptions -------------------------------------------------------------------------------------
+
+string const RoutingOptions::kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
 
 // static
-RoutingOptions RoutingOptions::LoadFromSettings()
+RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 {
-  RoadType mode = 0;
-  UNUSED_VALUE(settings::Get(kAvoidRoutingOptionSettings, mode));
+  uint32_t mode = 0;
+  UNUSED_VALUE(settings::Get(kAvoidRoutingOptionSettingsForCar, mode));
 
-  return RoutingOptions(mode);
+  return RoutingOptions(base::checked_cast<RoadType>(mode));
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)
@@ -36,38 +46,107 @@ bool RoutingOptions::Has(RoutingOptions::Road type) const
   return (m_options & static_cast<RoadType>(type)) != 0;
 }
 
-std::string DebugPrint(RoutingOptions const & routingOptions)
+// RoutingOptionsClassifier ---------------------------------------------------------------------------
+
+RoutingOptionsClassifier::RoutingOptionsClassifier()
 {
-  std::ostringstream ss;
+  Classificator const & c = classif();
+
+  initializer_list<pair<vector<string>, RoutingOptions::Road>> const types = {
+    {{"highway", "motorway"},             RoutingOptions::Road::Motorway},
+
+    {{"hwtag", "toll"},                   RoutingOptions::Road::Toll},
+
+    {{"route", "ferry"},                  RoutingOptions::Road::Ferry},
+    {{"route", "ferry", "motorcar"},      RoutingOptions::Road::Ferry},
+    {{"route", "ferry", "motor_vehicle"}, RoutingOptions::Road::Ferry},
+
+    {{"highway", "track"},                RoutingOptions::Road::Dirty},
+    {{"highway", "road"},                 RoutingOptions::Road::Dirty},
+    {{"psurface", "unpaved_bad"},         RoutingOptions::Road::Dirty},
+    {{"psurface", "unpaved_good"},        RoutingOptions::Road::Dirty}
+  };
+
+  for (auto const & data : types)
+  {
+    auto const & stringType = data.first;
+    auto const & optionType = data.second;
+
+    ASSERT_EQUAL(m_data.count(c.GetTypeByPath(stringType)), 0, ());
+    m_data[c.GetTypeByPath(stringType)] = optionType;
+  }
+}
+
+boost::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
+{
+  auto const it = m_data.find(type);
+  if (it == m_data.cend())
+    return boost::none;
+
+  return it->second;
+}
+
+RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
+{
+  static RoutingOptionsClassifier instance;
+  return instance;
+}
+
+RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options)
+{
+  if (options.Has(RoutingOptions::Road::Toll))
+    return RoutingOptions::Road::Toll;
+
+  if (options.Has(RoutingOptions::Road::Ferry))
+    return RoutingOptions::Road::Ferry;
+
+  if (options.Has(RoutingOptions::Road::Dirty))
+    return RoutingOptions::Road::Dirty;
+
+  if (options.Has(RoutingOptions::Road::Motorway))
+    return RoutingOptions::Road::Motorway;
+
+  return RoutingOptions::Road::Usual;
+}
+
+string DebugPrint(RoutingOptions const & routingOptions)
+{
+  ostringstream ss;
   ss << "RoutingOptions: {";
 
-  if (routingOptions.Has(RoutingOptions::Road::Usual))
-    ss << " | " << DebugPrint(RoutingOptions::Road::Usual);
+  bool wasAppended = false;
+  auto const append = [&](RoutingOptions::Road road) {
+    if (routingOptions.Has(road))
+    {
+      wasAppended = true;
+      ss << " | " << DebugPrint(road);
+    }
+  };
 
-  if (routingOptions.Has(RoutingOptions::Road::Toll))
-    ss << " | " << DebugPrint(RoutingOptions::Road::Toll);
+  append(RoutingOptions::Road::Usual);
+  append(RoutingOptions::Road::Toll);
+  append(RoutingOptions::Road::Motorway);
+  append(RoutingOptions::Road::Ferry);
+  append(RoutingOptions::Road::Dirty);
 
-  if (routingOptions.Has(RoutingOptions::Road::Motorway))
-    ss << " | " << DebugPrint(RoutingOptions::Road::Motorway);
-
-  if (routingOptions.Has(RoutingOptions::Road::Ferry))
-    ss << " | " << DebugPrint(RoutingOptions::Road::Ferry);
-
-  if (routingOptions.Has(RoutingOptions::Road::Dirty))
-    ss << " | " << DebugPrint(RoutingOptions::Road::Dirty);
+  if (wasAppended)
+    ss << " | ";
 
   ss << "}";
+
   return ss.str();
 }
-std::string DebugPrint(RoutingOptions::Road type)
+
+string DebugPrint(RoutingOptions::Road type)
 {
   switch (type)
   {
-  case RoutingOptions::Road::Toll: return "toll";
-  case RoutingOptions::Road::Motorway: return "motorway";
-  case RoutingOptions::Road::Ferry: return "ferry";
-  case RoutingOptions::Road::Dirty: return "dirty";
-  case RoutingOptions::Road::Usual: return "usual";
+    case RoutingOptions::Road::Toll: return "toll";
+    case RoutingOptions::Road::Motorway: return "motorway";
+    case RoutingOptions::Road::Ferry: return "ferry";
+    case RoutingOptions::Road::Dirty: return "dirty";
+    case RoutingOptions::Road::Usual: return "usual";
+    case RoutingOptions::Road::Max: return "max";
   }
 
   UNREACHABLE();

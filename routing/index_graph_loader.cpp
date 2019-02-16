@@ -30,7 +30,8 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, DataSource & dataSource);
+                       shared_ptr<EdgeEstimator> estimator, DataSource & dataSource,
+                       RoutingOptions routingOptions = RoutingOptions());
 
   // IndexGraphLoader overrides:
   Geometry & GetGeometry(NumMwmId numMwmId) override;
@@ -59,18 +60,22 @@ private:
 
   unordered_map<NumMwmId, map<SegmentCoord, vector<RouteSegment::SpeedCamera>>> m_cachedCameras;
   decltype(m_cachedCameras)::iterator ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
+
+  RoutingOptions m_avoidRoutingOptions = RoutingOptions();
 };
 
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource)
+    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource,
+    RoutingOptions routingOptions)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
+  , m_avoidRoutingOptions(routingOptions)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_vehicleModelFactory, ());
@@ -198,7 +203,7 @@ IndexGraphLoaderImpl::GraphAttrs & IndexGraphLoaderImpl::CreateIndexGraph(
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-  graph.m_indexGraph = make_unique<IndexGraph>(graph.m_geometry, m_estimator);
+  graph.m_indexGraph = make_unique<IndexGraph>(graph.m_geometry, m_estimator, m_avoidRoutingOptions);
   base::Timer timer;
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   DeserializeIndexGraph(mwmValue, m_vehicleType, *graph.m_indexGraph);
@@ -237,10 +242,11 @@ namespace routing
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource)
+    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource,
+    RoutingOptions routingOptions)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, numMwmIds, vehicleModelFactory,
-                                           estimator, dataSource);
+                                           estimator, dataSource, routingOptions);
 }
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph)

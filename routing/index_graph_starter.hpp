@@ -65,6 +65,7 @@ public:
   Junction const & GetJunction(Segment const & segment, bool front) const;
   Junction const & GetRouteJunction(std::vector<Segment> const & route, size_t pointIndex) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
+  bool IsRoutingOptionsGood(Segment const & segment) const;
   uint32_t GetNumFakeSegments() const
   {
     // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
@@ -162,5 +163,6 @@ private:
   Ending m_finish;
   double m_startToFinishDistanceM;
   FakeGraph<Segment, FakeVertex> m_fake;
+  RoutingOptions m_avoidRoutingOptions;
 };
 }  // namespace routing
