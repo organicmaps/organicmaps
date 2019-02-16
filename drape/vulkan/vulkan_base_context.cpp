@@ -1,4 +1,5 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
@@ -14,6 +15,31 @@ namespace dp
 {
 namespace vulkan
 {
+namespace
+{
+uint32_t constexpr kDefaultStagingBufferSizeInBytes = 10 * 1024 * 1024;
+
+VkImageMemoryBarrier PostRenderBarrier(VkImage image)
+{
+  VkImageMemoryBarrier imageMemoryBarrier = {};
+  imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+  imageMemoryBarrier.pNext = nullptr;
+  imageMemoryBarrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+  imageMemoryBarrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+  imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+  imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+  imageMemoryBarrier.image = image;
+  imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+  imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+  imageMemoryBarrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+  imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
+  imageMemoryBarrier.subresourceRange.levelCount = 1;
+  imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
+  imageMemoryBarrier.subresourceRange.layerCount = 1;
+  return imageMemoryBarrier;
+}
+}  // namespace
+
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                                      VkPhysicalDeviceProperties const & gpuProperties,
                                      VkDevice device, uint32_t renderingQueueFamilyIndex,
@@ -27,6 +53,7 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
 {
+  //TODO: do it for draw context only.
   // Get a graphics queue from the device
   vkGetDeviceQueue(m_device, m_renderingQueueFamilyIndex, 0, &m_queue);
 }
@@ -38,6 +65,8 @@ VulkanBaseContext::~VulkanBaseContext()
     m_pipeline->Destroy(m_device);
     m_pipeline.reset();
   }
+
+  m_defaultStagingBuffer.reset();
 
   for (auto & fbData : m_framebuffersData)
   {
@@ -76,46 +105,6 @@ bool VulkanBaseContext::Validate()
 
 void VulkanBaseContext::Resize(int w, int h)
 {
-}
-
-VkImageMemoryBarrier PostRenderBarrier(VkImage image)
-{
-  VkImageMemoryBarrier imageMemoryBarrier = {};
-  imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-  imageMemoryBarrier.pNext = nullptr;
-  imageMemoryBarrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-  imageMemoryBarrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-  imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-  imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-  imageMemoryBarrier.image = image;
-  imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-  imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
-  imageMemoryBarrier.subresourceRange.levelCount = 1;
-  imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
-  imageMemoryBarrier.subresourceRange.layerCount = 1;
-  return imageMemoryBarrier;
-}
-
-VkImageMemoryBarrier PrePresentBarrier(VkImage image)
-{
-  VkImageMemoryBarrier imageMemoryBarrier = {};
-  imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-  imageMemoryBarrier.pNext = nullptr;
-  imageMemoryBarrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-  imageMemoryBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-  imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-  imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-  imageMemoryBarrier.image = image;
-  imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-  imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
-  imageMemoryBarrier.subresourceRange.levelCount = 1;
-  imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
-  imageMemoryBarrier.subresourceRange.layerCount = 1;
-  return imageMemoryBarrier;
 }
 
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
@@ -200,6 +189,8 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
                                              VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                                              depthFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, depthStoreOp,
+                                             VK_ATTACHMENT_LOAD_OP_DONT_CARE,
+                                             VK_ATTACHMENT_STORE_OP_DONT_CARE,
                                              VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
     }
@@ -207,7 +198,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     {
       ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
       auto const depthStencilRef = framebuffer->GetDepthStencilRef();
-      uint32_t const attachmentsCount = depthStencilRef != nullptr ? 2 : 1;
+      auto const attachmentsCount = (depthStencilRef != nullptr) ? 2 : 1;
       colorFormat = UnpackFormat(framebuffer->GetTexture()->GetFormat());
       if (depthStencilRef != nullptr)
         depthFormat = UnpackFormat(depthStencilRef->GetTexture()->GetFormat());
@@ -217,6 +208,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
                                              VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
                                              depthFormat, depthLoadOp, depthStoreOp,
+                                             stencilLoadOp, stencilStoreOp,
                                              VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
     }
@@ -228,7 +220,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     {
       std::array<VkImageView, 2> attachmentViews = {};
 
-      // Depth/Stencil attachment is the same for all frame buffers
+      // Depth/Stencil attachment is the same for all swapchain-bound frame buffers.
       attachmentViews[1] = m_depthStencil.m_imageView;
 
       VkFramebufferCreateInfo frameBufferCreateInfo = {};
@@ -241,12 +233,13 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       frameBufferCreateInfo.height = m_surfaceCapabilities.currentExtent.height;
       frameBufferCreateInfo.layers = 1;
 
-      // Create frame buffers for every swap chain image
+      // Create frame buffers for every swap chain image.
       fbData.m_framebuffers.resize(m_swapchainImageViews.size());
       for (size_t i = 0; i < fbData.m_framebuffers.size(); ++i)
       {
         attachmentViews[0] = m_swapchainImageViews[i];
-        CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr, &fbData.m_framebuffers[i]));
+        CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr,
+                                          &fbData.m_framebuffers[i]));
       }
     }
     else
@@ -254,7 +247,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
 
       auto const depthStencilRef = framebuffer->GetDepthStencilRef();
-      uint32_t const attachmentsCount = depthStencilRef != nullptr ? 2 : 1;
+      auto const attachmentsCount = (depthStencilRef != nullptr) ? 2 : 1;
       std::vector<VkImageView> attachmentsViews(attachmentsCount);
 
       ASSERT(dynamic_cast<VulkanTexture *>(framebuffer->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
@@ -289,7 +282,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   VkClearValue clearValues[2];
   clearValues[0].color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(),
                            m_clearColor.GetAlphaF()}};
-  clearValues[1].depthStencil = {1.0f, m_stencilReferenceValue};
+  clearValues[1].depthStencil = {1.0f, 0};
 
   VkRenderPassBeginInfo renderPassBeginInfo = {};
   renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -307,6 +300,8 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
 {
+  m_defaultStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager,
+                                                               kDefaultStagingBufferSizeInBytes);
 }
 
 void VulkanBaseContext::SetClearColor(Color const & color)
@@ -318,23 +313,26 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
 {
   if (m_isActiveRenderPass)
   {
-    VkClearRect clearRect;
+    VkClearRect clearRect = {};
     clearRect.baseArrayLayer = 0;
     clearRect.layerCount = 1;
     clearRect.rect.extent = m_surfaceCapabilities.currentExtent;
     clearRect.rect.offset.x = 0;
     clearRect.rect.offset.y = 0;
 
-    std::vector<VkClearAttachment> attachments;
+    uint32_t constexpr kMaxClearAttachment = 2;
+    std::array<VkClearAttachment, kMaxClearAttachment> attachments = {};
+    uint32_t attachmentsCount = 0;
     {
       if (clearBits & ClearBits::ColorBit)
       {
         VkClearAttachment attachment = {};
         attachment.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
         attachment.colorAttachment = 0;
-        attachment.clearValue.color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(),
-                                        m_clearColor.GetAlphaF()}};
-        attachments.push_back(std::move(attachment));
+        attachment.clearValue.color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(),
+                                        m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}};
+        CHECK_LESS(attachmentsCount, kMaxClearAttachment, ());
+        attachments[attachmentsCount++] = std::move(attachment);
       }
       if (clearBits & ClearBits::DepthBit || clearBits & ClearBits::StencilBit)
       {
@@ -343,13 +341,13 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
           attachment.aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
         if (clearBits & ClearBits::StencilBit)
           attachment.aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
-        attachment.colorAttachment = 1;
-        attachment.clearValue.depthStencil = {1.0f, m_stencilReferenceValue};
-        attachments.push_back(std::move(attachment));
+        attachment.clearValue.depthStencil = {1.0f, 0};
+        CHECK_LESS(attachmentsCount, kMaxClearAttachment, ());
+        attachments[attachmentsCount++] = std::move(attachment);
       }
     }
 
-    vkCmdClearAttachments(m_renderingCommandBuffer, static_cast<uint32_t>(attachments.size()), attachments.data(),
+    vkCmdClearAttachments(m_renderingCommandBuffer, attachmentsCount, attachments.data(),
                           1 /* rectCount */, &clearRect);
   }
   else
@@ -359,14 +357,11 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
   }
 }
 
-void VulkanBaseContext::Flush()
-{
-
-}
-
 void VulkanBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
-  VkViewport viewport;
+  VkViewport viewport = {};
+  viewport.x = x;
+  viewport.y = y;
   viewport.width = w;
   viewport.height = h;
   viewport.minDepth = 0.0f;
@@ -412,6 +407,7 @@ void VulkanBaseContext::ResetSurface()
   vkDestroyRenderPass(m_device, m_framebuffersData[nullptr].m_renderPass, nullptr);
   m_framebuffersData[nullptr] = {};
   // TODO(@darina): clear pipeline keys with the same renderPass
+  DestroySwapchain();
 
   m_surface.reset();
 
@@ -422,8 +418,8 @@ void VulkanBaseContext::ResetSurface()
 void VulkanBaseContext::BeginRendering()
 {
   // Record command buffer.
-  // A fence is used to wait until this command buffer has finished execution and is no longer in-flight
-  // Command buffers can only be re-recorded or destroyed if they are not in-flight
+  // A fence is used to wait until this command buffer has finished execution and is no longer in-flight.
+  // Command buffers can only be re-recorded or destroyed if they are not in-flight.
   CHECK_VK_CALL(vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX));
   CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
 
@@ -433,14 +429,14 @@ void VulkanBaseContext::BeginRendering()
   CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
 
   // Prepare frame. Acquire next image.
-  // By setting timeout to UINT64_MAX we will always wait until the next image has been acquired or an actual
-  // error is thrown. With that we don't have to handle VK_NOT_READY
+  // By setting timeout to UINT64_MAX we will always wait until the next image has been acquired
+  // or an actual error is thrown. With that we don't have to handle VK_NOT_READY.
   VkResult res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
-                                       (VkFence)nullptr, &m_imageIndex); //???????????????????????????????????
+                                       (VkFence)nullptr, &m_imageIndex);
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
     // Recreate the swapchain if it's no longer compatible with the surface (OUT_OF_DATE)
-    // or no longer optimal for presentation (SUBOPTIMAL)
+    // or no longer optimal for presentation (SUBOPTIMAL).
     RecreateSwapchain();
   }
   else
@@ -451,30 +447,22 @@ void VulkanBaseContext::BeginRendering()
 
 void VulkanBaseContext::Present()
 {
-  // Resetting of the default staging buffer must be before submitting the queue.
+  // Flushing of the default staging buffer must be before submitting the queue.
   // It guarantees the graphics data coherence.
-  m_objectManager->FlushDefaultStagingBuffer();
+  m_defaultStagingBuffer->Flush();
 
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
     h.second(make_ref(this));
 
-  // TODO: wait for all map-memory operations.
-
   CHECK(m_isActiveRenderPass, ());
-
-  //VkImageMemoryBarrier imageBarrier = PrePresentBarrier(m_swapchainImages[m_imageIndex]);
-  //vkCmdPipelineBarrier(m_renderingCommandBuffer, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-  //                     VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, 0, 0, nullptr, 0, nullptr, 1,
-  //                     &imageBarrier);
-
   m_isActiveRenderPass = false;
   vkCmdEndRenderPass(m_renderingCommandBuffer);
 
   CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffer));
   CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffer));
 
-  // Pipeline stage at which the queue submission will wait (via pWaitSemaphores)
-  const VkPipelineStageFlags waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+  // Pipeline stage at which the queue submission will wait (via pWaitSemaphores).
+  VkPipelineStageFlags const waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 
   VkSubmitInfo submitInfo = {};
   VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
@@ -488,7 +476,6 @@ void VulkanBaseContext::Present()
   submitInfo.pCommandBuffers = commandBuffers;
 
   CHECK_VK_CALL(vkQueueSubmit(m_queue, 1, &submitInfo, m_fence));
-  CHECK_VK_CALL(vkQueueWaitIdle(m_queue));
 
   // Queue an image for presentation.
   VkPresentInfoKHR presentInfo = {};
@@ -497,16 +484,16 @@ void VulkanBaseContext::Present()
   presentInfo.swapchainCount = 1;
   presentInfo.pSwapchains = &m_swapchain;
   presentInfo.pImageIndices = &m_imageIndex;
-  // Check if a wait semaphore has been specified to wait for before presenting the image
+  // Check if a wait semaphore has been specified to wait for before presenting the image.
   presentInfo.pWaitSemaphores = &m_renderComplete;
   presentInfo.waitSemaphoreCount = 1;
 
   VkResult res = vkQueuePresentKHR(m_queue, &presentInfo);
-  if (!(res == VK_SUCCESS || res == VK_SUBOPTIMAL_KHR))
+  if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR)
   {
     if (res == VK_ERROR_OUT_OF_DATE_KHR)
     {
-      // Swap chain is no longer compatible with the surface and needs to be recreated
+      // Swap chain is no longer compatible with the surface and needs to be recreated.
       RecreateSwapchain();
     }
     else
@@ -514,17 +501,14 @@ void VulkanBaseContext::Present()
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
     }
   }
-  else
-  {
-    CHECK_VK_CALL(vkQueueWaitIdle(m_queue));
-  }
+  CHECK_VK_CALL(vkQueueWaitIdle(m_queue));
 
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
     h.second(make_ref(this));
 
   // Resetting of the default staging buffer and collecting destroyed objects must be
   // only after the finishing of rendering. It prevents data collisions.
-  m_objectManager->ResetDefaultStagingBuffer();
+  m_defaultStagingBuffer->Reset();
   m_objectManager->CollectObjects();
 
   m_pipelineKey = {};
@@ -590,11 +574,11 @@ void VulkanBaseContext::RecreateSwapchain()
   CHECK(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, ());
   swapchainCreateInfo.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
 
-  // This mode waits for the vertical blank ("v-sync")
+  // This mode waits for the vertical blank ("v-sync").
   swapchainCreateInfo.presentMode = VK_PRESENT_MODE_FIFO_KHR;
 
   swapchainCreateInfo.oldSwapchain = oldSwapchain;
-  // Setting clipped to VK_TRUE allows the implementation to discard rendering outside of the surface area
+  // Setting clipped to VK_TRUE allows the implementation to discard rendering outside of the surface area.
   swapchainCreateInfo.clipped = VK_TRUE;
 
   CHECK_VK_CALL(vkCreateSwapchainKHR(m_device, &swapchainCreateInfo, nullptr, &m_swapchain));
@@ -604,10 +588,9 @@ void VulkanBaseContext::RecreateSwapchain()
     for (auto const & imageView : m_swapchainImageViews)
       vkDestroyImageView(m_device, imageView, nullptr);
     m_swapchainImageViews.clear();
-    vkDestroySwapchainKHR(m_device, oldSwapchain, nullptr);
   }
 
-  // Create swapchain image views
+  // Create swapchain image views.
   uint32_t swapchainImageCount = 0;
   CHECK_VK_CALL(vkGetSwapchainImagesKHR(m_device, m_swapchain, &swapchainImageCount, nullptr));
 
@@ -622,16 +605,15 @@ void VulkanBaseContext::RecreateSwapchain()
     colorAttachmentImageView.image = m_swapchainImages[i];
     colorAttachmentImageView.viewType = VK_IMAGE_VIEW_TYPE_2D;
     colorAttachmentImageView.format = m_surfaceFormat.get().format;
-    colorAttachmentImageView.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
-    colorAttachmentImageView.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
-    colorAttachmentImageView.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
-    colorAttachmentImageView.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+    colorAttachmentImageView.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
+                                           VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
     colorAttachmentImageView.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     colorAttachmentImageView.subresourceRange.baseMipLevel = 0;
     colorAttachmentImageView.subresourceRange.levelCount = 1;
     colorAttachmentImageView.subresourceRange.baseArrayLayer = 0;
     colorAttachmentImageView.subresourceRange.layerCount = 1;
-    CHECK_VK_CALL(vkCreateImageView(m_device, &colorAttachmentImageView, nullptr, &m_swapchainImageViews[i]));
+    CHECK_VK_CALL(vkCreateImageView(m_device, &colorAttachmentImageView, nullptr,
+                                    &m_swapchainImageViews[i]));
   }
 }
 
@@ -648,7 +630,7 @@ void VulkanBaseContext::CreateCommandPool()
 {
   VkCommandPoolCreateInfo commandPoolCI = {};
   commandPoolCI.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-  // This flag will implicitly reset command buffers from this pool when calling vkBeginCommandBuffer
+  // This flag will implicitly reset command buffers from this pool when calling vkBeginCommandBuffer.
   commandPoolCI.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
   commandPoolCI.queueFamilyIndex = m_renderingQueueFamilyIndex;
   CHECK_VK_CALL(vkCreateCommandPool(m_device, &commandPoolCI, nullptr, &m_commandPool));
@@ -661,20 +643,20 @@ void VulkanBaseContext::DestroyCommandPool()
 
 void VulkanBaseContext::CreateCommandBuffers()
 {
-  // A fence is need to check for command buffer completion before we can recreate it
+  // A fence is need to check for command buffer completion before we can recreate it.
   VkFenceCreateInfo fenceCI = {};
   fenceCI.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
   fenceCI.flags = VK_FENCE_CREATE_SIGNALED_BIT;
   CHECK_VK_CALL(vkCreateFence(m_device, &fenceCI, nullptr, &m_fence));
 
-  // Semaphores are used to order queue submissions
+  // Semaphores are used to order queue submissions.
   VkSemaphoreCreateInfo semaphoreCI = {};
   semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
   CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_presentComplete));
   CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_renderComplete));
 
-  // Create a single command buffer that is recorded every frame
+  // Create a single command buffer that is recorded every frame.
   VkCommandBufferAllocateInfo cmdBufAllocateInfo = {};
   cmdBufAllocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
   cmdBufAllocateInfo.commandPool = m_commandPool;
@@ -709,15 +691,17 @@ void VulkanBaseContext::DestroyDepthTexture()
     m_objectManager->DestroyObject(m_depthStencil);
 }
 
-VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, VkFormat colorFormat, VkAttachmentLoadOp loadOp,
-                                                 VkAttachmentStoreOp storeOp, VkImageLayout initLayout, VkImageLayout finalLayout,
+VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, VkFormat colorFormat,
+                                                 VkAttachmentLoadOp loadOp, VkAttachmentStoreOp storeOp,
+                                                 VkImageLayout initLayout, VkImageLayout finalLayout,
                                                  VkFormat depthFormat, VkAttachmentLoadOp depthLoadOp,
-                                                 VkAttachmentStoreOp depthStoreOp, VkImageLayout depthInitLayout,
+                                                 VkAttachmentStoreOp depthStoreOp, VkAttachmentLoadOp stencilLoadOp,
+                                                 VkAttachmentStoreOp stencilStoreOp, VkImageLayout depthInitLayout,
                                                  VkImageLayout depthFinalLayout)
 {
   std::vector<VkAttachmentDescription> attachments(attachmentsCount);
 
-  // Color attachment
+  // Color attachment.
   attachments[0].format = colorFormat;
   attachments[0].samples = VK_SAMPLE_COUNT_1_BIT;
   attachments[0].loadOp = loadOp;
@@ -729,13 +713,13 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, VkFo
 
   if (attachmentsCount == 2)
   {
-    // Depth attachment
+    // Depth attachment.
     attachments[1].format = depthFormat;
     attachments[1].samples = VK_SAMPLE_COUNT_1_BIT;
     attachments[1].loadOp = depthLoadOp;
     attachments[1].storeOp = depthStoreOp;
-    attachments[1].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    attachments[1].stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    attachments[1].stencilLoadOp = stencilLoadOp;
+    attachments[1].stencilStoreOp = stencilStoreOp;
     attachments[1].initialLayout = depthInitLayout;
     attachments[1].finalLayout = depthFinalLayout;
   }
@@ -759,8 +743,8 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, VkFo
   subpassDescription.pPreserveAttachments = nullptr;
   subpassDescription.pResolveAttachments = nullptr;
 
-  // Subpass dependencies for layout transitions
-  std::array<VkSubpassDependency, 2> dependencies;
+  // Subpass dependencies for layout transitions.
+  std::array<VkSubpassDependency, 2> dependencies = {};
 
   dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
   dependencies[0].dstSubpass = 0;
@@ -774,7 +758,7 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, VkFo
   dependencies[1].dstSubpass = VK_SUBPASS_EXTERNAL;
   dependencies[1].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
   dependencies[1].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-  dependencies[1].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT; //??????????????????????
+  dependencies[1].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
   dependencies[1].dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
   dependencies[1].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
@@ -897,6 +881,11 @@ uint32_t VulkanBaseContext::GetCurrentDynamicBufferOffset() const
 VkSampler VulkanBaseContext::GetSampler(SamplerKey const & key)
 {
   return m_objectManager->GetSampler(key);
+}
+
+ref_ptr<VulkanStagingBuffer> VulkanBaseContext::GetDefaultStagingBuffer() const
+{
+  return make_ref(m_defaultStagingBuffer);
 }
 }  // namespace vulkan
 }  // namespace dp

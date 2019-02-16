@@ -55,7 +55,7 @@ public:
   
   void SetClearColor(Color const & color) override;
   void Clear(uint32_t clearBits, uint32_t storeBits) override;
-  void Flush() override;
+  void Flush() override {}
   void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
   void SetDepthTestEnabled(bool enabled) override;
   void SetDepthTestFunction(TestFunction depthFunction) override;
@@ -88,6 +88,8 @@ public:
   VkCommandBuffer GetCurrentMemoryCommandBuffer() const { return m_memoryCommandBuffer; }
   VkCommandBuffer GetCurrentRenderingCommandBuffer() const { return m_renderingCommandBuffer; }
 
+  ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
+
   VkPipeline GetCurrentPipeline();
   DescriptorSetGroup GetCurrentDescriptorSetGroup();
   VkPipelineLayout GetCurrentPipelineLayout() const;
@@ -118,10 +120,12 @@ protected:
   void CreateDepthTexture();
   void DestroyDepthTexture();
 
-  VkRenderPass CreateRenderPass(uint32_t attachmentsCount, VkFormat colorFormat, VkAttachmentLoadOp loadOp,
-                                VkAttachmentStoreOp storeOp, VkImageLayout initLayout, VkImageLayout finalLayout,
+  VkRenderPass CreateRenderPass(uint32_t attachmentsCount, VkFormat colorFormat,
+                                VkAttachmentLoadOp loadOp, VkAttachmentStoreOp storeOp,
+                                VkImageLayout initLayout, VkImageLayout finalLayout,
                                 VkFormat depthFormat, VkAttachmentLoadOp depthLoadOp,
-                                VkAttachmentStoreOp depthStoreOp, VkImageLayout depthInitLayout,
+                                VkAttachmentStoreOp depthStoreOp, VkAttachmentLoadOp stencilLoadOp,
+                                VkAttachmentStoreOp stencilStoreOp, VkImageLayout depthInitLayout,
                                 VkImageLayout depthFinalLayout);
 
   VkInstance const m_vulkanInstance;
@@ -176,6 +180,8 @@ protected:
 
   VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;
+
+  drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
 };
 }  // namespace vulkan
 }  // namespace dp

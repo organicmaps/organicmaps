@@ -180,7 +180,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
-  std::array<VkFormat, 2> depthFormats = {VK_FORMAT_D32_SFLOAT, VK_FORMAT_D24_UNORM_S8_UINT};
+  std::array<VkFormat, 2> depthFormats = {dp::vulkan::UnpackFormat(dp::TextureFormat::Depth),
+                                          dp::vulkan::UnpackFormat(dp::TextureFormat::DepthStencil)};
   VkFormatProperties formatProperties;
   for (auto depthFormat : depthFormats)
   {

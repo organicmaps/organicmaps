@@ -241,7 +241,7 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
 
 bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame)
 {
-  if (!IsEnabled())
+  //if (!IsEnabled())
   {
     CHECK(m_framebufferFallback != nullptr, ());
     return m_framebufferFallback();
@@ -262,7 +262,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
                                    ref_ptr<gpu::ProgramManager> gpuProgramManager,
                                    dp::Viewport const & viewport)
 {
-  if (!IsEnabled())
+  //if (!IsEnabled())
     return true;
 
   // Subpixel Morphological Antialiasing (SMAA).

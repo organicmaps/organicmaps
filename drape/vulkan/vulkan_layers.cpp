@@ -154,14 +154,20 @@ VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags,
   {
     logLevel = base::LogLevel::LERROR;
   }
+#ifdef ENABLE_VULKAN_DEBUG_DIAGNOSTICS_MESSAGES
   else if (flags & VK_DEBUG_REPORT_DEBUG_BIT_EXT)
   {
     logLevel = base::LogLevel::LDEBUG;
   }
+#else
+  else
+  {
+    return VK_FALSE;
+  }
+#endif
 
   LOG(logLevel, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
                  "] [OBJ:", object, "LOC:", location, "]:", pMessage));
-
   return VK_FALSE;
 }
 

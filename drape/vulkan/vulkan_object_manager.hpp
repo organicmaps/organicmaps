@@ -71,10 +71,6 @@ public:
   void UnmapUnsafe(VulkanObject object);
   void Fill(VulkanObject object, void const * data, uint32_t sizeInBytes);
 
-  ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
-  void FlushDefaultStagingBuffer();
-  void ResetDefaultStagingBuffer();
-
   void DestroyObject(VulkanObject object);
   void DestroyDescriptorSetGroup(DescriptorSetGroup group);
   void CollectObjects();
@@ -94,8 +90,6 @@ private:
 
   std::vector<VkDescriptorPool> m_descriptorPools;
   std::vector<DescriptorSetGroup> m_descriptorsToDestroy;
-
-  drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
 
   std::map<SamplerKey, VkSampler> m_samplers;
 

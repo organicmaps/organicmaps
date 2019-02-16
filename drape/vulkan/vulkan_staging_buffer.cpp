@@ -74,7 +74,6 @@ uint32_t VulkanStagingBuffer::ReserveWithId(uint32_t sizeInBytes, StagingData & 
 
 VulkanStagingBuffer::StagingData const & VulkanStagingBuffer::GetReservationById(uint32_t id) const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_LESS(id, m_reservation.size(), ());
   return m_reservation[id];
 }

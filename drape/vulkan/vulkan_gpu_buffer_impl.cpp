@@ -33,7 +33,7 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
   CHECK(commandBuffer != nullptr, ());
 
   // Copy to default or temporary staging buffer.
-  m_stagingBufferRef = m_objectManager->GetDefaultStagingBuffer();
+  m_stagingBufferRef = context->GetDefaultStagingBuffer();
   if (!m_stagingBufferRef->HasEnoughSpace(mappingSizeInBytes))
   {
     m_ownStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager, mappingSizeInBytes);

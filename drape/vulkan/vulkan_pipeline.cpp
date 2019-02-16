@@ -255,7 +255,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo = {};
   rasterizationStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
   rasterizationStateCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
-  rasterizationStateCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+  rasterizationStateCreateInfo.cullMode = VK_CULL_MODE_NONE;
   rasterizationStateCreateInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
   rasterizationStateCreateInfo.lineWidth = 1.0f;
 

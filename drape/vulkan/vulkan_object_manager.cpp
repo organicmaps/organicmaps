@@ -1,5 +1,4 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
-#include "drape/vulkan/vulkan_staging_buffer.hpp"
 
 #include "base/macros.hpp"
 
@@ -11,8 +10,6 @@ namespace vulkan
 {
 namespace
 {
-uint32_t constexpr kDefaultStagingBufferSizeInBytes = 10 * 1024 * 1024;
-
 VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping)
 {
   switch (wrapping)
@@ -43,8 +40,6 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
 {
   m_queueToDestroy.reserve(50);
   m_descriptorsToDestroy.reserve(50);
-  m_defaultStagingBuffer = make_unique_dp<VulkanStagingBuffer>(make_ref(this),
-                                                               kDefaultStagingBufferSizeInBytes);
   CreateDescriptorPool();
 }
 
@@ -56,7 +51,6 @@ VulkanObjectManager::~VulkanObjectManager()
     vkDestroySampler(m_device, s.second, nullptr);
   m_samplers.clear();
 
-  m_defaultStagingBuffer.reset();
   DestroyDescriptorPools();
 }
 
@@ -140,8 +134,16 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   viewCreateInfo.pNext = nullptr;
   viewCreateInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
   viewCreateInfo.format = format;
-  viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
-                               VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
+  if (usageFlags & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT)
+  {
+    viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_IDENTITY, VK_COMPONENT_SWIZZLE_IDENTITY,
+                                 VK_COMPONENT_SWIZZLE_IDENTITY, VK_COMPONENT_SWIZZLE_IDENTITY};
+  }
+  else
+  {
+    viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
+                                 VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
+  }
   viewCreateInfo.subresourceRange.aspectMask = aspectFlags;
   viewCreateInfo.subresourceRange.baseMipLevel = 0;
   viewCreateInfo.subresourceRange.levelCount = 1;
@@ -230,21 +232,6 @@ void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_descriptorsToDestroy.push_back(std::move(group));
-}
-
-void VulkanObjectManager::FlushDefaultStagingBuffer()
-{
-  m_defaultStagingBuffer->Flush();
-}
-
-void VulkanObjectManager::ResetDefaultStagingBuffer()
-{
-  m_defaultStagingBuffer->Reset();
-}
-
-ref_ptr<VulkanStagingBuffer> VulkanObjectManager::GetDefaultStagingBuffer() const
-{
-  return make_ref(m_defaultStagingBuffer);
 }
 
 void VulkanObjectManager::CollectObjects()

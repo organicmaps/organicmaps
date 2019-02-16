@@ -94,7 +94,7 @@ public:
 
     // Copy to default or temporary staging buffer.
     auto const sizeInBytes = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]));
-    auto stagingBuffer = m_objectManager->GetDefaultStagingBuffer();
+    auto stagingBuffer = vulkanContext->GetDefaultStagingBuffer();
     if (stagingBuffer->HasEnoughSpace(sizeInBytes))
     {
       auto staging = stagingBuffer->Reserve(sizeInBytes);

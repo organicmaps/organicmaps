@@ -165,7 +165,7 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
 
   VkBuffer sb;
   uint32_t offset;
-  auto stagingBuffer = m_objectManager->GetDefaultStagingBuffer();
+  auto stagingBuffer = vulkanContext->GetDefaultStagingBuffer();
   if (stagingBuffer->HasEnoughSpace(sizeInBytes))
   {
     auto staging = stagingBuffer->Reserve(sizeInBytes);
