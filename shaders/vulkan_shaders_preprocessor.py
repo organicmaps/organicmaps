@@ -231,21 +231,21 @@ def get_subscript(offset, param):
 
 
 def write_uniform_block(output_file, program_params):
-    groups = dict()
+    groups = []
     c = 0
     group_index = 0
     group_params = []
     for p in program_params:
         sz = get_size_by_type(p[0])
         if sz % 4 == 0:
-            groups[(p[0], p[1])] = [p]
+            groups.append((p[0], p[1], [p]))
         else:
             if c + sz < 4:
                 group_params.append(p)
                 c += sz
             elif c + sz == 4:
                 group_params.append(p)
-                groups[('vec4', 'u_grouped{0}'.format(group_index))] = group_params
+                groups.append(('vec4', 'u_grouped{0}'.format(group_index), group_params))
                 group_index += 1
                 group_params = []
                 c = 0
@@ -253,16 +253,16 @@ def write_uniform_block(output_file, program_params):
                 print('Must be possible to unite sequential variables to vec4')
                 exit(1)
     if c != 0:
-        groups[('vec4', 'u_grouped{0}'.format(group_index))] = group_params
+        groups.append(('vec4', 'u_grouped{0}'.format(group_index), group_params))
 
     output_file.write('layout (binding = 0) uniform UBO\n')
     output_file.write('{\n')
-    for g in groups.keys():
+    for g in groups:
         output_file.write('  {0} {1};\n'.format(g[0], g[1]))
     output_file.write('} uniforms;\n')
-    for k in groups.keys():
+    for k in groups:
         name = k[1]
-        params = groups[k]
+        params = k[2]
         offset = 0
         if len(params) == 1 and get_size_by_type(params[0][0]) % 4 == 0:
             output_file.write('#define {0} uniforms.{1}\n'.format(params[0][1], name))

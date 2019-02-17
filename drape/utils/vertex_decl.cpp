@@ -128,7 +128,7 @@ dp::BindingInfo TextDynamicBindingInit()
                                               sizeof(TextDynamicVertex::TNormal)), "");
 
   dp::BindingFiller<TextDynamicVertex> filler(2, TextDynamicVertex::GetDynamicStreamID());
-  filler.FillDecl<TextStaticVertex::TPosition3d>("a_position");
+  filler.FillDecl<TextDynamicVertex::TPosition3d>("a_position");
   filler.FillDecl<TextDynamicVertex::TNormal>("a_normal");
 
   return filler.m_info;

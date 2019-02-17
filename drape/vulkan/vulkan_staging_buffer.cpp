@@ -13,7 +13,7 @@ namespace vulkan
 VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager,
                                          uint32_t sizeInBytes)
   : m_objectManager(objectManager)
-  , m_sizeInBytes(sizeInBytes)
+  , m_sizeInBytes(VulkanMemoryManager::GetAligned(sizeInBytes, 64))
 {
   auto constexpr kStagingBuffer = VulkanMemoryManager::ResourceType::Staging;
   VkDevice device = m_objectManager->GetDevice();
@@ -22,7 +22,11 @@ VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectMana
   m_object = m_objectManager->CreateBuffer(kStagingBuffer, sizeInBytes, 0 /* batcherHash */);
   VkMemoryRequirements memReqs = {};
   vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
+
+  // We must be able to map the whole range.
   m_sizeAlignment = mm.GetSizeAlignment(memReqs);
+  CHECK(HasEnoughSpace(m_sizeInBytes), ());
+
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);
   m_pointer = m_objectManager->MapUnsafe(m_object);
 }

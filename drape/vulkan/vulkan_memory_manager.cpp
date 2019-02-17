@@ -123,7 +123,8 @@ uint32_t VulkanMemoryManager::GetSizeAlignment(VkMemoryRequirements const & memR
                    static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
 }
 
-uint32_t VulkanMemoryManager::GetAligned(uint32_t value, uint32_t alignment) const
+// static
+uint32_t VulkanMemoryManager::GetAligned(uint32_t value, uint32_t alignment)
 {
   if (alignment == 0)
     return value;

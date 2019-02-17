@@ -1,8 +1,8 @@
-attribute vec4 a_position;
-attribute vec2 a_normal;
 attribute vec2 a_colorTexCoord;
 attribute vec2 a_outlineColorTexCoord;
 attribute vec2 a_maskTexCoord;
+attribute vec4 a_position;
+attribute vec2 a_normal;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;

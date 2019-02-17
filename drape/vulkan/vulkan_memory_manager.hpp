@@ -76,7 +76,7 @@ public:
 
   uint32_t GetOffsetAlignment(ResourceType resourceType) const;
   uint32_t GetSizeAlignment(VkMemoryRequirements const & memReqs) const;
-  uint32_t GetAligned(uint32_t value, uint32_t alignment) const;
+  static uint32_t GetAligned(uint32_t value, uint32_t alignment);
 
 private:
   boost::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
