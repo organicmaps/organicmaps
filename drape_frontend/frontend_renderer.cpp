@@ -1542,7 +1542,7 @@ void FrontendRenderer::RenderTransitBackground()
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
   CHECK(region.GetTexture() != nullptr, ("Texture manager is not initialized"));
   if (!m_transitBackground->IsInitialized())
-    m_transitBackground->SetTextureRect(region.GetTexRect());
+    m_transitBackground->SetTextureRect(m_context, region.GetTexRect());
 
   m_transitBackground->RenderTexture(m_context, make_ref(m_gpuProgramManager),
                                      region.GetTexture(), 1.0f /* opacity */, false /* invertV */);

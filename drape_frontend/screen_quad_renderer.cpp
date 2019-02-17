@@ -42,15 +42,27 @@ private:
 ScreenQuadRenderer::ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context)
   : Base(context, DrawPrimitive::TriangleStrip)
 {
-  Rebuild();
+  Rebuild(context);
 }
 
-void ScreenQuadRenderer::Rebuild()
+void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GraphicsContext> context)
 {
-  std::vector<float> vertices = {-1.0f, 1.0f,  m_textureRect.minX(), m_textureRect.maxY(),
-                                 1.0f,  1.0f,  m_textureRect.maxX(), m_textureRect.maxY(),
-                                 -1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),
-                                 1.0f,  -1.0f, m_textureRect.maxX(), m_textureRect.minY()};
+  std::vector<float> vertices;
+  vertices.reserve(4);
+  if (context->GetApiVersion() == dp::ApiVersion::Vulkan)
+  {
+    vertices = {-1.0f, -1.0f,  m_textureRect.minX(), m_textureRect.minY(),
+                1.0f,  -1.0f,  m_textureRect.maxX(), m_textureRect.minY(),
+                -1.0f, 1.0f, m_textureRect.minX(), m_textureRect.maxY(),
+                1.0f,  1.0f, m_textureRect.maxX(), m_textureRect.maxY()};
+  }
+  else
+  {
+    vertices = {-1.0f, 1.0f,  m_textureRect.minX(), m_textureRect.maxY(),
+                1.0f,  1.0f,  m_textureRect.maxX(), m_textureRect.maxY(),
+                -1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),
+                1.0f,  -1.0f, m_textureRect.maxX(), m_textureRect.minY()};
+  }
   auto const bufferIndex = 0;
   SetBuffer(bufferIndex, std::move(vertices), sizeof(float) * 4 /* stride */);
   SetAttribute("a_pos", bufferIndex, 0 /* offset */, 2 /* componentsCount */);
@@ -69,9 +81,9 @@ void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context,
                params.GetProgramParams());
 }
 
-void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect)
+void ScreenQuadRenderer::SetTextureRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect)
 {
   m_textureRect = rect;
-  Rebuild();
+  Rebuild(context);
 }
 }  // namespace df

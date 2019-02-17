@@ -17,7 +17,7 @@ class ScreenQuadRenderer : public dp::MeshObject
 public:
   explicit ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context);
 
-  void SetTextureRect(m2::RectF const & rect);
+  void SetTextureRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect);
   m2::RectF const & GetTextureRect() const { return m_textureRect; }
 
   // The parameter invertV is necessary, since there are some APIs (e.g. Metal) there render target
@@ -26,7 +26,7 @@ public:
                      ref_ptr<dp::Texture> texture, float opacity, bool invertV = true);
 
 private:
-  void Rebuild();
+  void Rebuild(ref_ptr<dp::GraphicsContext> context);
 
   m2::RectF m_textureRect = m2::RectF(0.0f, 0.0f, 1.0f, 1.0f);
 };
