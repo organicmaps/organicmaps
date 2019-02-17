@@ -17,14 +17,17 @@ std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, floa
     depthOffset = 0.5f;
   }
 
+  // In Vulkan y-direction is inverted.
+  float const yDir = (apiVersion == dp::ApiVersion::Vulkan ? -1.0f : 1.0f);
+
   float const width = right - left;
   float const height = top - bottom;
   float const depth = kMaxDepth - kMinDepth;
 
   result[0] = 2.0f / width;
   result[3] = -(right + left) / width;
-  result[5] = 2.0f / height;
-  result[7] = -(top + bottom) / height;
+  result[5] = 2.0f / height * yDir;
+  result[7] = -(top + bottom) / height * yDir;
   result[10] = -2.0f * depthScale / depth;
   result[11] = depthOffset - (kMaxDepth + kMinDepth) / depth;
   result[15] = 1.0;

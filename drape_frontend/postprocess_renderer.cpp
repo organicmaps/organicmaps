@@ -187,6 +187,7 @@ bool PostprocessRenderer::IsEnabled() const
   // Do not use post processing in routing following mode by energy-saving reasons.
   // For Metal rendering to the texture is more efficient,
   // since nextDrawable will be requested later.
+
   if (m_apiVersion != dp::ApiVersion::Metal && m_isRouteFollowingActive)
     return false;
 
@@ -241,7 +242,7 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
 
 bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame)
 {
-  //if (!IsEnabled())
+  if (!IsEnabled())
   {
     CHECK(m_framebufferFallback != nullptr, ());
     return m_framebufferFallback();
@@ -262,7 +263,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
                                    ref_ptr<gpu::ProgramManager> gpuProgramManager,
                                    dp::Viewport const & viewport)
 {
-  //if (!IsEnabled())
+  if (!IsEnabled())
     return true;
 
   // Subpixel Morphological Antialiasing (SMAA).

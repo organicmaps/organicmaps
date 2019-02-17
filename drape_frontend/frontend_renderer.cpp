@@ -1304,7 +1304,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   DrapeImmediateRenderingMeasurerGuard drapeMeasurerGuard(m_context);
 #endif
 
-  //PreRender3dLayer(modelView);
+  PreRender3dLayer(modelView);
 
   if (m_postprocessRenderer->BeginFrame(m_context, activeFrame))
   {
@@ -1329,20 +1329,20 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
-//    if (m_buildingsFramebuffer->IsSupported())
-//    {
-//      RenderTrafficLayer(modelView);
-//      if (!HasTransitRouteData())
-//        RenderRouteLayer(modelView);
-//      Render3dLayer(modelView);
-//    }
-//    else
-//    {
-//      Render3dLayer(modelView);
-//      RenderTrafficLayer(modelView);
-//      if (!HasTransitRouteData())
-//        RenderRouteLayer(modelView);
-//    }
+    if (m_buildingsFramebuffer->IsSupported())
+    {
+      RenderTrafficLayer(modelView);
+      if (!HasTransitRouteData())
+        RenderRouteLayer(modelView);
+      Render3dLayer(modelView);
+    }
+    else
+    {
+      Render3dLayer(modelView);
+      RenderTrafficLayer(modelView);
+      if (!HasTransitRouteData())
+        RenderRouteLayer(modelView);
+    }
 
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
@@ -1794,8 +1794,11 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   }
   else if (m_isIsometry)
   {
+    // In Vulkan y-direction is inverted.
+    float const yDir = (m_apiVersion == dp::ApiVersion::Vulkan ? -1.0f : 1.0f);
+
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
-    transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle));
+    transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle)) * yDir;
     transform(2, 2) = 1.0f / screen.GetHeight();
     if (m_apiVersion == dp::ApiVersion::Metal || m_apiVersion == dp::ApiVersion::Vulkan)
     {
