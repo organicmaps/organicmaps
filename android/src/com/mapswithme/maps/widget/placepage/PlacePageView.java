@@ -1906,6 +1906,8 @@ public class PlacePageView extends NestedScrollView
   public void onBookmarkSaved(long bookmarkId)
   {
     setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), null);
+    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
+    refreshViews(policy);
   }
 
   int getPreviewHeight()
