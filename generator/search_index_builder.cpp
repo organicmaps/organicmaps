@@ -335,7 +335,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::world)
-    synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
+    synonyms.reset(new SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE)));
 
   features.GetVector().ForEach(FeatureInserter<TKey, TValue>(
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
