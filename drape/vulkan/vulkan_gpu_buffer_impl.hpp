@@ -26,6 +26,7 @@ class VulkanGPUBuffer : public BufferBase
 public:
   VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
                   uint8_t elementSize, uint32_t capacity, uint64_t batcherHash);
+  ~VulkanGPUBuffer() override;
 
   void * Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset, uint32_t elementCount);
   void UpdateData(void * gpuPtr, void const * data,

@@ -20,6 +20,12 @@ VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const 
   Resize(context, data, capacity);
 }
 
+VulkanGPUBuffer::~VulkanGPUBuffer()
+{
+  CHECK(m_objectManager != nullptr, ());
+  m_objectManager->DestroyObject(m_geometryBuffer);
+}
+
 void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset,
                             uint32_t elementCount)
 {
