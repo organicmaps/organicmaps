@@ -17,9 +17,9 @@ void IndexBuffer::UploadData(ref_ptr<GraphicsContext> context, void const * data
 void IndexBuffer::UpdateData(ref_ptr<GraphicsContext> context, void const * data, uint32_t size)
 {
   ASSERT_LESS_OR_EQUAL(size, GetBuffer()->GetCapacity(), ());
-  if (size == 0)
-    return;
 
-  UploadData(context, data, size);
+  GetBuffer()->Seek(0);
+  if (size > 0)
+    UploadData(context, data, size);
 }
 }  // namespace dp

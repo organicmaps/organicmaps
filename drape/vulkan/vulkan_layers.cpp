@@ -256,7 +256,7 @@ Layers::Layers(bool enableDiagnostics)
                                          kInstanceExtensions, ARRAY_SIZE(kInstanceExtensions));
 
   for (auto ext : m_instanceExtensions)
-    LOG(LDEBUG, ("Vulkan instance extension prepared", ext));
+    LOG(LINFO, ("Vulkan instance extension prepared", ext));
 
   if (m_enableDiagnostics && !IsContained(kDebugReportExtension, m_instanceExtensions))
     LOG(LWARNING, ("Vulkan diagnostics in not available on this device."));
@@ -374,7 +374,7 @@ bool Layers::Initialize(VkInstance instance, VkPhysicalDevice physicalDevice)
   m_deviceExtensions = CheckExtensions(extensionsProperties, m_enableDiagnostics,
                                        kDeviceExtensions, ARRAY_SIZE(kDeviceExtensions));
   for (auto ext : m_deviceExtensions)
-    LOG(LDEBUG, ("Vulkan device extension prepared", ext));
+    LOG(LINFO, ("Vulkan device extension prepared", ext));
 
   if (m_enableDiagnostics && IsContained(kDebugReportExtension, m_instanceExtensions))
   {
