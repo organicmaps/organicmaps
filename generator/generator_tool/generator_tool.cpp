@@ -34,6 +34,7 @@
 #include "generator/wiki_url_dumper.hpp"
 
 #include "routing/cross_mwm_ids.hpp"
+#include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -529,7 +530,7 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-      if (IsCamerasInfoProhibited(country))
+      if (routing::ShouldRemoveSpeedcamWhileMapGeneration(platform::CountryFile(country)))
       {
         LOG(LINFO,
             ("Cameras info is prohibited for", country, "and speedcams section is not generated."));

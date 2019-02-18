@@ -16,7 +16,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <array>
 #include <limits>
 
 namespace generator
@@ -315,24 +314,6 @@ void CamerasInfoCollector::Camera::Serialize(FileWriter & writer,
                                              uint32_t & prevFeatureId) const
 {
   routing::SerializeSpeedCamera(writer, m_data, prevFeatureId);
-}
-
-bool IsCamerasInfoProhibited(std::string const & mwmName)
-{
-  std::array<std::string, 4> kCountryBlockList = {
-      "Cyprus",
-      "Macedonia",
-      "Switzerland",
-      "Turkey",
-  };
-
-  for (auto const & country : kCountryBlockList)
-  {
-    if (strings::StartsWith(mwmName, country))
-      return true;
-  }
-
-  return false;
 }
 
 void BuildCamerasInfo(std::string const & dataFilePath,

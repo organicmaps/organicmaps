@@ -12,6 +12,7 @@
 #include "routing/joint.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/segment.hpp"
 #include "routing/segmented_route.hpp"
 #include "routing/world_graph.hpp"
 
@@ -19,6 +20,8 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/mwm_set.hpp"
+
+#include "platform/country_file.hpp"
 
 #include "geometry/tree4d.hpp"
 
@@ -120,6 +123,11 @@ private:
 
   RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
                                         RouterResultCode resultCode) const;
+
+  /// \brief Fills |speedcamProhibitedMwms| with mwms which are crossed by |segments|
+  /// where speed cameras are prohibited.
+  void FillsSpeedcamProhibitedMwms(std::vector<Segment> const & segments,
+                                   std::vector<platform::CountryFile> & speedcamProhibitedMwms) const;
 
   template <typename Graph>
   RouterResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result) const

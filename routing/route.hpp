@@ -12,6 +12,8 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "platform/country_file.hpp"
+
 #include "geometry/polyline2d.hpp"
 
 #include "base/assert.hpp"
@@ -372,6 +374,17 @@ public:
   /// \returns Length of the route segment with |segIdx| in meters.
   double GetSegLenMeters(size_t segIdx) const;
 
+  /// \brief Moves |speedcamProhibited| to |m_speedcamProhibited|.
+  void StealSpeedcamProhibited(std::vector<platform::CountryFile> && speedcamProhibited);
+
+  /// \returns true if the route crosses at lease one mwm where there are restrictions on warning
+  /// about speed cameras.
+  bool CrossSpeedcomProhibited() const;
+
+  /// \returns mwm list which is crossed by the route and where there are restrictions on warning
+  /// about speed cameras.
+  std::vector<platform::CountryFile> const & GetSpeedcamProhibited() const;
+
 private:
   friend std::string DebugPrint(Route const & r);
 
@@ -402,5 +415,8 @@ private:
   std::vector<SubrouteAttrs> m_subrouteAttrs;
   // Route identifier. It's unique within single program session.
   uint64_t m_routeId = 0;
+
+  // Mwms which are crossed by the route where speed cameras are prohibited.
+  std::vector<platform::CountryFile> m_speedcamProhibited;
 };
 } // namespace routing

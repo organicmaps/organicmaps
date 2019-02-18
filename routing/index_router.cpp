@@ -15,6 +15,7 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
+#include "routing/speed_camera_prohibition.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/transit_world_graph.hpp"
 #include "routing/turns_generator.hpp"
@@ -29,13 +30,13 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/mwm_traits.hpp"
-
+#include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -963,6 +964,10 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
       routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(routeSegment.GetSegment()));
   }
 
+  vector<platform::CountryFile> speedcamProhibited;
+  FillsSpeedcamProhibitedMwms(segments, speedcamProhibited);
+  route.StealSpeedcamProhibited(move(speedcamProhibited));
+
   if (delegate.IsCancelled())
     return RouterResultCode::Cancelled;
 
@@ -1015,5 +1020,22 @@ RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
   }
 
   return RouterResultCode::TransitRouteNotFoundTooLongPedestrian;
+}
+
+void IndexRouter::FillsSpeedcamProhibitedMwms(vector<Segment> const & segments,
+                                              vector<platform::CountryFile> & speedcamProhibitedMwms) const
+{
+  CHECK(m_numMwmIds, ());
+
+  set<NumMwmId> mwmIds;
+  for (auto const & s : segments)
+    mwmIds.insert(s.GetMwmId());
+
+  for (auto const id : mwmIds)
+  {
+    auto const & country = m_numMwmIds->GetFile(id);
+    if (ShouldWarnAboutSpeedcam(country))
+      speedcamProhibitedMwms.push_back(country);
+  }
 }
 }  // namespace routing

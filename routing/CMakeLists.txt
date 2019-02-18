@@ -119,6 +119,8 @@ set(
   speed_camera.hpp
   speed_camera_manager.cpp
   speed_camera_manager.hpp
+  speed_camera_prohibition.cpp
+  speed_camera_prohibition.hpp
   speed_camera_ser_des.cpp
   speed_camera_ser_des.hpp
   traffic_stash.cpp
