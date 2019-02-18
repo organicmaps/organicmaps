@@ -237,32 +237,41 @@ void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 
 void VulkanObjectManager::CollectObjects()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  if (!m_queueToDestroy.empty())
+  std::vector<VulkanObject> queueToDestroy;
+  std::vector<DescriptorSetGroup> descriptorsToDestroy;
   {
-    m_memoryManager.BeginDeallocationSession();
-    for (size_t i = 0; i < m_queueToDestroy.size(); ++i)
-    {
-      if (m_queueToDestroy[i].m_buffer != 0)
-        vkDestroyBuffer(m_device, m_queueToDestroy[i].m_buffer, nullptr);
-      if (m_queueToDestroy[i].m_imageView != 0)
-        vkDestroyImageView(m_device, m_queueToDestroy[i].m_imageView, nullptr);
-      if (m_queueToDestroy[i].m_image != 0)
-        vkDestroyImage(m_device, m_queueToDestroy[i].m_image, nullptr);
-
-      if (m_queueToDestroy[i].m_allocation)
-        m_memoryManager.Deallocate(m_queueToDestroy[i].m_allocation);
-    }
-    m_memoryManager.EndDeallocationSession();
-    m_queueToDestroy.clear();
+    std::lock_guard<std::mutex> lock(m_mutex);
+    std::swap(m_queueToDestroy, queueToDestroy);
+    std::swap(m_descriptorsToDestroy, descriptorsToDestroy);
   }
 
-  for (auto const & d : m_descriptorsToDestroy)
+  for (auto const & d : descriptorsToDestroy)
   {
     CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
                                        1 /* count */, &d.m_descriptorSet));
   }
-  m_descriptorsToDestroy.clear();
+
+  if (!queueToDestroy.empty())
+  {
+    for (size_t i = 0; i < queueToDestroy.size(); ++i)
+    {
+      if (queueToDestroy[i].m_buffer != 0)
+        vkDestroyBuffer(m_device, queueToDestroy[i].m_buffer, nullptr);
+      if (queueToDestroy[i].m_imageView != 0)
+        vkDestroyImageView(m_device, queueToDestroy[i].m_imageView, nullptr);
+      if (queueToDestroy[i].m_image != 0)
+        vkDestroyImage(m_device, queueToDestroy[i].m_image, nullptr);
+    }
+
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_memoryManager.BeginDeallocationSession();
+    for (size_t i = 0; i < queueToDestroy.size(); ++i)
+    {
+      if (queueToDestroy[i].m_allocation)
+        m_memoryManager.Deallocate(queueToDestroy[i].m_allocation);
+    }
+    m_memoryManager.EndDeallocationSession();
+  }
 }
 
 uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
