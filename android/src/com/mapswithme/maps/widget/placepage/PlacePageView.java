@@ -853,6 +853,7 @@ public class PlacePageView extends NestedScrollView
     mHotelRating.setText("");
     mHotelRatingBase.setText("");
     mTvSponsoredPrice.setText("");
+    mGalleryAdapter.setItems(new ArrayList<>());
   }
 
   @Override
@@ -1248,8 +1249,6 @@ public class PlacePageView extends NestedScrollView
 
   private void refreshHotelDetailViews()
   {
-    mGalleryAdapter.setItems(new ArrayList<>());
-
     if (mSponsored == null)
     {
       hideHotelDetailViews();
