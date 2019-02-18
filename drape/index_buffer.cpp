@@ -20,19 +20,6 @@ void IndexBuffer::UpdateData(ref_ptr<GraphicsContext> context, void const * data
   if (size == 0)
     return;
 
-  GetBuffer()->Seek(0);
-  if (context->GetApiVersion() == dp::ApiVersion::Vulkan)
-  {
-    // For Vulkan we can't update by means of UploadData, because UploadData can be called from
-    // BR, where command buffers are not available.
-    auto ptr = GetBuffer()->Map(context, 0, size);
-    CHECK(ptr != nullptr, ());
-    GetBuffer()->UpdateData(ptr, data, 0, size);
-    GetBuffer()->Unmap(context);
-  }
-  else
-  {
-    UploadData(context, data, size);
-  }
+  UploadData(context, data, size);
 }
 }  // namespace dp

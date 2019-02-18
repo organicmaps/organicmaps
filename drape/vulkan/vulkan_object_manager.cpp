@@ -3,6 +3,7 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <cstring>
 
 namespace dp
 {
@@ -303,12 +304,12 @@ void VulkanObjectManager::UnmapUnsafe(VulkanObject object)
 
 void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t sizeInBytes)
 {
-  if (data == nullptr)
-    return;
-
   std::lock_guard<std::mutex> lock(m_mutex);
   void * gpuPtr = MapUnsafe(object);
-  memcpy(gpuPtr, data, sizeInBytes);
+  if (data != nullptr)
+    memcpy(gpuPtr, data, sizeInBytes);
+  else
+    memset(gpuPtr, 0, sizeInBytes);
   FlushUnsafe(object);
   UnmapUnsafe(object);
 }

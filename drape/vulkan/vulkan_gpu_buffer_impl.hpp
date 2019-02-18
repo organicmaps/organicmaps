@@ -32,6 +32,8 @@ public:
                   uint32_t elementOffset, uint32_t elementCount);
   void Unmap(ref_ptr<VulkanBaseContext> context);
 
+  void Advance(uint32_t elementCount) { BufferBase::UploadData(elementCount); }
+
   VkBuffer GetVulkanBuffer() const { return m_geometryBuffer.m_buffer; }
 
 protected:
@@ -66,9 +68,18 @@ public:
   void UploadData(ref_ptr<GraphicsContext> context, void const * data,
                   uint32_t elementCount) override
   {
-    // For Vulkan we can't update buffers by means of UploadData, because UploadData
-    // can be called from BR, where command buffers are not available.
-    CHECK(false, ("UploadData is unsupported for Vulkan buffers (use Map-Copy-Unmap)."));
+    // In Vulkan we must call upload only from FR.
+    ref_ptr<VulkanBaseContext> vulkanContext = context;
+    CHECK(vulkanContext->GetCurrentMemoryCommandBuffer() != nullptr, ());
+
+    uint32_t const currentSize = m_buffer->GetCurrentSize();
+    ASSERT(m_buffer->GetCapacity() >= elementCount + currentSize,
+           ("Not enough memory to upload ", elementCount, " elements"));
+    auto ptr = m_buffer->Map(context, currentSize, elementCount);
+    CHECK(ptr != nullptr, ());
+    m_buffer->UpdateData(ptr, data, 0, elementCount);
+    m_buffer->Unmap(context);
+    m_buffer->Advance(elementCount);
   }
   
   void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
