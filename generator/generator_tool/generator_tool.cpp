@@ -530,7 +530,7 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-      if (routing::ShouldRemoveSpeedcamWhileMapGeneration(platform::CountryFile(country)))
+      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
       {
         LOG(LINFO,
             ("Cameras info is prohibited for", country, "and speedcams section is not generated."));

@@ -126,8 +126,8 @@ private:
 
   /// \brief Fills |speedcamProhibitedMwms| with mwms which are crossed by |segments|
   /// where speed cameras are prohibited.
-  void FillsSpeedcamProhibitedMwms(std::vector<Segment> const & segments,
-                                   std::vector<platform::CountryFile> & speedcamProhibitedMwms) const;
+  void FillSpeedCamProhibitedMwms(std::vector<Segment> const & segments,
+                                  std::vector<platform::CountryFile> & speedCamProhibitedMwms) const;
 
   template <typename Graph>
   RouterResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result) const

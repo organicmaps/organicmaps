@@ -368,19 +368,19 @@ double Route::GetSegLenMeters(size_t segIdx) const
          (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetDistFromBeginningMeters());
 }
 
-void Route::StealSpeedcamProhibited(vector<platform::CountryFile> && speedcamProhibited)
+void Route::SetMwmsPartlyProhibitedForSpeedCams(vector<platform::CountryFile> && mwms)
 {
-  m_speedcamProhibited = move(speedcamProhibited);
+  m_speedCamProhibitedMwms = move(mwms);
 }
 
-bool Route::CrossSpeedcomProhibited() const
+bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
 {
-  return m_speedcamProhibited.empty();
+  return m_speedCamProhibitedMwms.empty();
 }
 
-std::vector<platform::CountryFile> const & Route::GetSpeedcamProhibited() const
+std::vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
-  return m_speedcamProhibited;
+  return m_speedCamProhibitedMwms;
 }
 
 double Route::GetETAToLastPassedPointSec() const

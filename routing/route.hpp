@@ -374,16 +374,15 @@ public:
   /// \returns Length of the route segment with |segIdx| in meters.
   double GetSegLenMeters(size_t segIdx) const;
 
-  /// \brief Moves |speedcamProhibited| to |m_speedcamProhibited|.
-  void StealSpeedcamProhibited(std::vector<platform::CountryFile> && speedcamProhibited);
+  void SetMwmsPartlyProhibitedForSpeedCams(std::vector<platform::CountryFile> && mwms);
 
-  /// \returns true if the route crosses at lease one mwm where there are restrictions on warning
+  /// \returns true if the route crosses at least one mwm where there are restrictions on warning
   /// about speed cameras.
-  bool CrossSpeedcomProhibited() const;
+  bool CrossMwmsPartlyProhibitedForSpeedCams() const;
 
   /// \returns mwm list which is crossed by the route and where there are restrictions on warning
   /// about speed cameras.
-  std::vector<platform::CountryFile> const & GetSpeedcamProhibited() const;
+  std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
 private:
   friend std::string DebugPrint(Route const & r);
@@ -417,6 +416,6 @@ private:
   uint64_t m_routeId = 0;
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
-  std::vector<platform::CountryFile> m_speedcamProhibited;
+  std::vector<platform::CountryFile> m_speedCamProhibitedMwms;
 };
 } // namespace routing

@@ -955,18 +955,25 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
                    route);
 
+  CHECK(m_numMwmIds, ());
   auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
   {
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(routeSegment.GetSegment()));
 
-    if (m_vehicleType == VehicleType::Car && routeSegment.IsRealSegment())
+    // Removing speed cameras from the route with method AreSpeedCamerasProhibited(...)
+    // at runtime is necessary for maps from Jan 2019 with speed cameras where it's prohibited
+    // to use them.
+    if (m_vehicleType == VehicleType::Car && routeSegment.IsRealSegment()
+        && !AreSpeedCamerasProhibited(m_numMwmIds->GetFile(routeSegment.GetSegment().GetMwmId())))
+    {
       routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(routeSegment.GetSegment()));
+    }
   }
 
-  vector<platform::CountryFile> speedcamProhibited;
-  FillsSpeedcamProhibitedMwms(segments, speedcamProhibited);
-  route.StealSpeedcamProhibited(move(speedcamProhibited));
+  vector<platform::CountryFile> speedCamProhibited;
+  FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
+  route.SetMwmsPartlyProhibitedForSpeedCams(move(speedCamProhibited));
 
   if (delegate.IsCancelled())
     return RouterResultCode::Cancelled;
@@ -1022,8 +1029,8 @@ RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
   return RouterResultCode::TransitRouteNotFoundTooLongPedestrian;
 }
 
-void IndexRouter::FillsSpeedcamProhibitedMwms(vector<Segment> const & segments,
-                                              vector<platform::CountryFile> & speedcamProhibitedMwms) const
+void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
+                                             vector<platform::CountryFile> & speedCamProhibitedMwms) const
 {
   CHECK(m_numMwmIds, ());
 
@@ -1033,9 +1040,12 @@ void IndexRouter::FillsSpeedcamProhibitedMwms(vector<Segment> const & segments,
 
   for (auto const id : mwmIds)
   {
+    if (id == kFakeNumMwmId)
+      continue;
+
     auto const & country = m_numMwmIds->GetFile(id);
-    if (ShouldWarnAboutSpeedcam(country))
-      speedcamProhibitedMwms.push_back(country);
+    if (AreSpeedCamerasPartlyProhibited(country))
+      speedCamProhibitedMwms.emplace_back(country);
   }
 }
 }  // namespace routing

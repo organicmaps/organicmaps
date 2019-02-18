@@ -6,18 +6,14 @@
 
 namespace
 {
-// List of country names where mwm should be generated without speedcameras.
-std::vector<std::string> kCountryBlockListForMapGeneration = {
-    "Cyprus",
-    "Macedonia",
-    "Switzerland",
-    "Turkey",
+// List of country names where mwm should be generated without speed cameras.
+std::vector<std::string> kSpeedCamerasProhibitedCountries = {
+    "Cyprus", "Macedonia", "Switzerland", "Turkey",
 };
 
-// List of country names where an end user should be warned about speedcameras.
-std::vector<std::string> kCountryWarnList = {
-    "France",
-    "Germany",
+// List of country names where an end user should be warned about speed cameras.
+std::vector<std::string> kSpeedCamerasPartlyProhibitedCountries = {
+    "France", "Germany",
 };
 
 bool IsMwmContained(platform::CountryFile const & mwm, std::vector<std::string> const & countryList)
@@ -34,13 +30,13 @@ bool IsMwmContained(platform::CountryFile const & mwm, std::vector<std::string> 
 
 namespace routing
 {
-bool ShouldRemoveSpeedcamWhileMapGeneration(platform::CountryFile const & mwm)
+bool AreSpeedCamerasProhibited(platform::CountryFile const & mwm)
 {
-  return IsMwmContained(mwm, kCountryBlockListForMapGeneration);
+  return IsMwmContained(mwm, kSpeedCamerasProhibitedCountries);
 }
 
-bool ShouldWarnAboutSpeedcam(platform::CountryFile const & mwm)
+bool AreSpeedCamerasPartlyProhibited(platform::CountryFile const & mwm)
 {
-  return ShouldRemoveSpeedcamWhileMapGeneration(mwm) || IsMwmContained(mwm, kCountryWarnList);
+  return IsMwmContained(mwm, kSpeedCamerasPartlyProhibitedCountries);
 }
 } // namespace routing
