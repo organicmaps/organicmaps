@@ -191,6 +191,8 @@ BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
 OPENTABLE_FILE="${OPENTABLE_FILE:-$INTDIR/restaurants.csv}"
 CITIES_BOUNDARIES_DATA="${CITIES_BOUNDARIES_DATA:-$INTDIR/cities_boundaries.bin}"
+BRANDS_TRANSLATIONS_DATA="${BRANDS_TRANSLATIONS_DATA:-$INTDIR/translations_food.json}"
+BRANDS_DATA="${BRANDS_DATA:-$INTDIR/ids_food.json}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 PYTHON="$(which python2.7)"
 PYTHON36="$(which python36)" || PYTHON36="$(which python3.6)"
@@ -455,7 +457,8 @@ if [ "$MODE" == "features" ]; then
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --popular_places_data=$POPULAR_PLACES_FILE"
   [ -n "$OPT_DESCRIPTIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT  --idToWikidata=$WIKIDATA_FILE"
-
+  [ -f "$BRANDS_TRANSLATIONS_DATA" ] && PARAMS_SPLIT="$PARAMS_SPLIT --brands_translations_data=$BRANDS_TRANSLATIONS_DATA"
+  [ -f "$BRANDS_DATA" ] && PARAMS_SPLIT="$PARAMS_SPLIT --brands_data=$BRANDS_DATA"
 
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
                     --node_storage=$NODE_STORAGE \
