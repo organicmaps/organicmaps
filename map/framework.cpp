@@ -415,7 +415,8 @@ Framework::Framework(FrameworkParams const & params)
             [this]() -> DataSource & { return m_model.GetDataSource(); },
             [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
-            [this]() -> StringsBundle const & { return m_stringsBundle; }),
+            [this]() -> StringsBundle const & { return m_stringsBundle; },
+            [this]() -> power_management::PowerManager const & { return m_powerManager; }),
         static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
@@ -3791,6 +3792,14 @@ void Framework::OnPowerFacilityChanged(power_management::Facility const facility
       allow3dBuildings = allow3dBuildings && enabled;
 
     Allow3dMode(allow3d, allow3dBuildings);
+  }
+  else if (facility == power_management::Facility::TrafficJams)
+  {
+    auto trafficState = enabled && LoadTrafficEnabled();
+    if (trafficState == GetTrafficManager().IsEnabled())
+      return;
+
+    GetTrafficManager().SetEnabled(trafficState);
   }
 }
 

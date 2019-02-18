@@ -230,6 +230,9 @@ protected:
 
   bool m_isRenderingEnabled;
 
+  // Note. |m_powerManager| should be declared before |m_routingManager|
+  power_management::PowerManager m_powerManager;
+
   TransitReadManager m_transitManager;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
@@ -904,7 +907,6 @@ private:
   std::unique_ptr<Purchase> m_purchase;
   TipsApi m_tipsApi;
   notifications::NotificationManager m_notificationManager;
-  power_management::PowerManager m_powerManager;
 
 public:
   TipsApi const & GetTipsApi() const;

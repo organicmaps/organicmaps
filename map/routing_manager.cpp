@@ -1,6 +1,7 @@
 #include "routing_manager.hpp"
 
 #include "map/chart_generator.hpp"
+#include "map/power_management/power_manager.hpp"
 #include "map/routing_mark.hpp"
 
 #include "private.h"
@@ -1092,6 +1093,10 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
 
 bool RoutingManager::IsTrackingReporterEnabled() const
 {
+  auto const & pm = m_callbacks.m_powerManagerGetter();
+  if (!pm.IsFacilityEnabled(power_management::Facility::GpsTrackingForTraffic))
+    return false;
+
   if (m_currentRouterType != RouterType::Vehicle)
     return false;
 

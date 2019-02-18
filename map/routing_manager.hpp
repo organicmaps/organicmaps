@@ -44,6 +44,11 @@ class NumMwmIds;
 
 class DataSource;
 
+namespace power_management
+{
+  class PowerManager;
+}
+
 struct RoutePointInfo
 {
   std::string m_name;
@@ -72,16 +77,19 @@ public:
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
     using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
+    using PowerManagerGetter = std::function<power_management::PowerManager const &()>;
 
     template <typename DataSourceGetter, typename CountryInfoGetter,
-              typename CountryParentNameGetter, typename StringsBundleGetter>
+              typename CountryParentNameGetter, typename StringsBundleGetter,
+              typename PowerManagerGetter>
     Callbacks(DataSourceGetter && dataSourceGetter, CountryInfoGetter && countryInfoGetter,
               CountryParentNameGetter && countryParentNameGetter,
-              StringsBundleGetter && stringsBundleGetter)
+              StringsBundleGetter && stringsBundleGetter, PowerManagerGetter && powerManagerGetter)
       : m_dataSourceGetter(std::forward<DataSourceGetter>(dataSourceGetter))
       , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
       , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
       , m_stringsBundleGetter(std::forward<StringsBundleGetter>(stringsBundleGetter))
+      , m_powerManagerGetter(std::forward<PowerManagerGetter>(powerManagerGetter))
     {
     }
 
@@ -89,6 +97,7 @@ public:
     CountryInfoGetterFn m_countryInfoGetter;
     CountryParentNameGetterFn m_countryParentNameGetterFn;
     GetStringsBundleFn m_stringsBundleGetter;
+    PowerManagerGetter m_powerManagerGetter;
   };
 
   using RouteBuildingCallback =
