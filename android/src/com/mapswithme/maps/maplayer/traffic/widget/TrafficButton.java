@@ -45,8 +45,8 @@ public class TrafficButton
   void turnOff()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_off_night
-                                                       : R.drawable.ic_traffic_off);
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.bg_subway_night_default
+                                                       : R.drawable.bg_subway_light_default);
   }
 
   void turnOn()
