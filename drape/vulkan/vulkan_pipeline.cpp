@@ -385,6 +385,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   VkGraphicsPipelineCreateInfo pipelineCreateInfo = {};
   pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
   pipelineCreateInfo.layout = key.m_program->GetPipelineLayout();
+  CHECK(pipelineCreateInfo.layout != VK_NULL_HANDLE, ());
   pipelineCreateInfo.renderPass = key.m_renderPass;
   pipelineCreateInfo.basePipelineIndex = -1;
   pipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;
@@ -396,8 +397,9 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   pipelineCreateInfo.pViewportState = &viewportStateCreateInfo;
   pipelineCreateInfo.pDepthStencilState = &depthStencilState;
   pipelineCreateInfo.pDynamicState = &dynamicStateCreateInfo;
-  pipelineCreateInfo.stageCount = static_cast<uint32_t>(key.m_program->GetShaders().size());
-  pipelineCreateInfo.pStages = key.m_program->GetShaders().data();
+  auto shaders = key.m_program->GetShaders();
+  pipelineCreateInfo.stageCount = static_cast<uint32_t>(shaders.size());
+  pipelineCreateInfo.pStages = shaders.data();
 
   VkPipeline pipeline;
   CHECK_VK_CALL(vkCreateGraphicsPipelines(device, m_vulkanPipelineCache, 1, &pipelineCreateInfo,
