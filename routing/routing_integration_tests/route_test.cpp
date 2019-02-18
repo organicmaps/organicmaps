@@ -415,4 +415,19 @@ namespace
     Route const & route = *routeResult.first;
     integration::TestRouteTime(route, 6392.28);
   }
+
+  UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
+  {
+    TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(52.67316, 48.22478), {0., 0.},
+                                  MercatorBounds::FromLatLon(53.49143, 49.52386));
+
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
+    integration::TestRouteTime(route, 7136.04);
+  }
 }  // namespace
