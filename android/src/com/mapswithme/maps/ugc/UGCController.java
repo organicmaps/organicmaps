@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +20,7 @@ import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.UiUtils;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -148,13 +147,10 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   public void clearViewsFor(@NonNull MapObject mapObject)
   {
-    if (mapObject.shouldShowUGC())
-      return;
-
     UiUtils.hide(mUgcRootView, mLeaveReviewButton, mPreviewUgcInfoView);
-    mUGCReviewAdapter.setItems(new ArrayList<UGC.Review>());
-    mUGCRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
-    mUGCUserRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
+    mUGCReviewAdapter.setItems(Collections.emptyList());
+    mUGCRatingRecordsAdapter.setItems(Collections.emptyList());
+    mUGCUserRatingRecordsAdapter.setItems(Collections.emptyList());
     mReviewCount.setText("");
     mSummaryReviewCount.setText("");
   }
@@ -193,11 +189,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UGC.requestUGC(mMapObject.getFeatureId());
   }
 
-  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
-  {
-    return UiUtils.isViewTouched(event, mLeaveReviewButton);
-  }
-
   @Override
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
@@ -207,7 +198,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     UiUtils.showIf(ugc != null, mUgcMoreReviews);
     UiUtils.showIf(ugc != null && impress != UGC.RATING_NONE, mSummaryRootView);
-    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
+    RatingView ratingView = mPreviewUgcInfoView.findViewById(R.id.rating_view);
     if (ugc == null)
     {
       mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
