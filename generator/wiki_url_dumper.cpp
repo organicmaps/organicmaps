@@ -66,8 +66,8 @@ void WikiUrlDumper::DumpOne(std::string const & path, std::ostream & stream)
   });
 }
 
-WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string> const & datFiles)
-  :  m_path(path), m_dataFiles(datFiles)
+WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string> const & dataFiles)
+  :  m_path(path), m_dataFiles(dataFiles)
 {
   std::ifstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);
@@ -78,12 +78,12 @@ WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string
   while (stream)
   {
     stream >> id >> wikidata;
-    m_id2wikiData.emplace(base::GeoObjectId(id), wikidata);
+    m_idToWikiData.emplace(base::GeoObjectId(id), wikidata);
   }
 }
 
 // static
-void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & id2wikiData,
+void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & idToWikiData,
                                std::ostream & stream)
 {
   auto const & needWikiUrl = ftypes::WikiChecker::Instance();
@@ -91,8 +91,8 @@ void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjec
     if (!needWikiUrl(feature.GetTypesHolder()))
       return;
 
-    auto const it = id2wikiData.find(feature.GetMostGenericOsmId());
-    if (it == std::end(id2wikiData))
+    auto const it = idToWikiData.find(feature.GetMostGenericOsmId());
+    if (it == std::end(idToWikiData))
       return;
 
     stream << it->first.GetEncodedId() << "\t" << it->second << "\n";
@@ -109,7 +109,7 @@ void WikiDataFilter::Filter(size_t cpuCount)
 
   auto const fn = [&](std::string const & filename) {
     std::stringstream stringStream;
-    FilterOne(filename, m_id2wikiData, stringStream);
+    FilterOne(filename, m_idToWikiData, stringStream);
     return stringStream.str();
   };
 

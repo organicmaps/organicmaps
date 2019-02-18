@@ -101,8 +101,8 @@ public:
     auto const descriptionList = b.MakeDescriptions<Feature, ForEachFromDatMockAdapt>();
     auto const  & stat = b.GetStat();
     TEST_EQUAL(GetTestDataPages(), descriptionList.size(), ());
-    TEST_EQUAL(GetTestDataPages(), stat.GetPages(), ());
-    TEST_EQUAL(GetTestDataSize(), stat.GetSize(), ());
+    TEST_EQUAL(GetTestDataPages(), stat.GetNumberOfPages(), ());
+    TEST_EQUAL(GetTestDataSize(), stat.GetTotalSize(), ());
     TEST(CheckLangs(stat.GetLangStatistics()), ());
   }
 
@@ -133,7 +133,7 @@ public:
       auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, first.m_url);
       auto const size = b.FindPageAndFill(path, str);
       TEST(size, ());
-      TEST_EQUAL(*size, GetPageSize(first.m_pages), ());
+      TEST_EQUAL(*size, GetNumberOfPagesize(first.m_pages), ());
       TEST(CheckLangs(str, first.m_pages), ());
     }
     {
@@ -177,7 +177,7 @@ public:
     auto const path = DescriptionsCollectionBuilder::MakePathForWikipedia(m_wikiDir, wikiUrl);
     auto const size = b.GetFeatureDescription(path, featureId, description);
 
-    TEST_EQUAL(size, GetPageSize(first.m_pages), ());
+    TEST_EQUAL(size, GetNumberOfPagesize(first.m_pages), ());
     CHECK_NOT_EQUAL(size, 0, ());
     TEST_EQUAL(description.m_featureIndex, featureId, ());
     TEST(CheckLangs(description.m_description, first.m_pages), ());
@@ -285,7 +285,7 @@ private:
     return StringUtf8Multilang::GetLangIndex(lang) != StringUtf8Multilang::kUnsupportedLanguageCode;
   }
 
-  static size_t GetPageSize(std::vector<std::pair<std::string, std::string>> const & p)
+  static size_t GetNumberOfPagesize(std::vector<std::pair<std::string, std::string>> const & p)
   {
     return std::accumulate(std::begin(p), std::end(p), size_t{0}, [] (size_t acc, auto const & n) {
       return acc + n.second.size();

@@ -53,7 +53,7 @@ struct GenerateInfo
 
   std::string m_popularPlacesFilename;
 
-  std::string m_id2wikidataFilename;
+  std::string m_idToWikidataFilename;
 
   std::shared_ptr<generator::OsmIdToBoundariesTable> m_boundariesTable;
 

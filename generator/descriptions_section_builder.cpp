@@ -30,9 +30,9 @@ std::string GetFileName(std::string path)
 
 namespace generator
 {
-WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & id2wikidataPath)
+WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & idToWikidataPath)
   : m_mwmPath(mwmPath)
-  , m_id2wikidataPath(id2wikidataPath)
+  , m_idToWikidataPath(idToWikidataPath)
 {
   std::string const osmIdsToFeatureIdsPath = m_mwmPath + OSM2FEATURE_FILE_EXTENSION;
   if (!routing::ParseFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
@@ -40,7 +40,7 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
 
   std::ifstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  stream.open(m_id2wikidataPath);
+  stream.open(m_idToWikidataPath);
   stream.exceptions(std::fstream::badbit);
   uint64_t id;
   std::string wikidataId;
@@ -48,7 +48,7 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
   {
     stream >> id >> wikidataId;
     strings::Trim(wikidataId);
-    m_osmIdToFeatureId.emplace(base::GeoObjectId(id), wikidataId);
+    m_osmIdToWikidataId.emplace(base::GeoObjectId(id), wikidataId);
   }
 }
 
@@ -58,9 +58,9 @@ boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) c
   if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId))
     return {};
 
-  auto const itOsmIdToFeatureId = m_osmIdToFeatureId.find(itFeatureIdToOsmId->second);
-  return itOsmIdToFeatureId == std::end(m_osmIdToFeatureId) ?
-        boost::optional<std::string>() : itOsmIdToFeatureId->second;
+  auto const itOsmIdToWikidataId = m_osmIdToWikidataId.find(itFeatureIdToOsmId->second);
+  return itOsmIdToWikidataId == std::end(m_osmIdToWikidataId) ?
+        boost::optional<std::string>() : itOsmIdToWikidataId->second;
 }
 
 std::string DescriptionsCollectionBuilderStat::LangStatisticsToString() const
@@ -84,8 +84,8 @@ std::string DescriptionsCollectionBuilderStat::LangStatisticsToString() const
 
 DescriptionsCollectionBuilder::DescriptionsCollectionBuilder(std::string const & wikipediaDir,
                                                              std::string const & mwmFile,
-                                                             std::string const & id2wikidataPath)
-  : m_wikidataHelper(mwmFile, id2wikidataPath), m_wikipediaDir(wikipediaDir), m_mwmFile(mwmFile) {}
+                                                             std::string const & idToWikidataPath)
+  : m_wikidataHelper(mwmFile, idToWikidataPath), m_wikipediaDir(wikipediaDir), m_mwmFile(mwmFile) {}
 
 DescriptionsCollectionBuilder::DescriptionsCollectionBuilder(std::string const & wikipediaDir,
                                                              std::string const & mwmFile)
@@ -173,9 +173,9 @@ size_t DescriptionsCollectionBuilder::GetFeatureDescription(std::string const & 
 }
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile,
-                              std::string const & id2wikidataPath)
+                              std::string const & idToWikidataPath)
 {
-  DescriptionsSectionBuilder<FeatureType>::Build(wikipediaDir, mwmFile, id2wikidataPath);
+  DescriptionsSectionBuilder<FeatureType>::Build(wikipediaDir, mwmFile, idToWikidataPath);
 }
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile)

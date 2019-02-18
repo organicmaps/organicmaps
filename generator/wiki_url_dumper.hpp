@@ -26,16 +26,16 @@ private:
 class WikiDataFilter
 {
 public:
-  explicit WikiDataFilter(std::string const & path, std::vector<std::string> const & datFiles);
+  explicit WikiDataFilter(std::string const & path, std::vector<std::string> const & dataFiles);
 
-  static void FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & id2wikiData,
+  static void FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & idToWikiData,
                         std::ostream & stream);
 
   void Filter(size_t cpuCount);
 
 private:
   std::string m_path;
-  std::map<base::GeoObjectId, std::string> m_id2wikiData;
+  std::map<base::GeoObjectId, std::string> m_idToWikiData;
   std::vector<std::string> m_dataFiles;
 };
 }  // namespace generator

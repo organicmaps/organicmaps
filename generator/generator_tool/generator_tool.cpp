@@ -153,7 +153,7 @@ DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(ugc_data, "", "Input UGC source database file name.");
 
 DEFINE_string(wikipedia_pages, "", "Input dir with wikipedia pages.");
-DEFINE_string(id2wikidata, "", "Path to file with id to wikidata mapping.");
+DEFINE_string(idToWikidata, "", "Path to file with id to wikidata mapping.");
 DEFINE_string(dump_wikipedia_urls, "", "Output file with wikipedia urls.");
 
 DEFINE_bool(generate_popular_places, false, "Generate popular places section.");
@@ -307,7 +307,7 @@ int GeneratorToolMain(int argc, char ** argv)
     genInfo.m_emitCoasts = FLAGS_emit_coasts;
     genInfo.m_fileName = FLAGS_output;
     genInfo.m_genAddresses = FLAGS_generate_addresses_file;
-    genInfo.m_id2wikidataFilename = FLAGS_id2wikidata;
+    genInfo.m_idToWikidataFilename = FLAGS_idToWikidata;
 
     auto emitter = CreateEmitter(EmitterType::Planet, genInfo);
     if (!GenerateFeatures(genInfo, emitter))
@@ -439,9 +439,9 @@ int GeneratorToolMain(int argc, char ** argv)
     WikiUrlDumper wikiUrlDumper(FLAGS_dump_wikipedia_urls, datFiles);
     wikiUrlDumper.Dump(threadsCount);
 
-    if (!FLAGS_id2wikidata.empty())
+    if (!FLAGS_idToWikidata.empty())
     {
-      WikiDataFilter wikiDataFilter(FLAGS_id2wikidata, datFiles);
+      WikiDataFilter wikiDataFilter(FLAGS_idToWikidata, datFiles);
       wikiDataFilter.Filter(threadsCount);
     }
   }
@@ -611,8 +611,8 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (!FLAGS_wikipedia_pages.empty())
     {
-      if (!FLAGS_id2wikidata.empty())
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile, FLAGS_id2wikidata);
+      if (!FLAGS_idToWikidata.empty())
+        BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile, FLAGS_idToWikidata);
       else
         BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile);
     }
@@ -688,7 +688,7 @@ int GeneratorToolMain(int argc, char ** argv)
 
 
 int main(int argc, char ** argv)
-{ 
+{
   try
   {
     return GeneratorToolMain(argc, argv);

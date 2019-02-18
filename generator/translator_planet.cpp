@@ -56,7 +56,7 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
   , m_nodeRelations(m_routingTagsProcessor)
   , m_wayRelations(m_routingTagsProcessor)
   , m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))
-  , m_wikiDataCollector(info.m_id2wikidataFilename, "wikidata", WikiDataValidator, true /* ignoreIfNotOpen */)
+  , m_wikiDataCollector(info.m_idToWikidataFilename, "wikidata", WikiDataValidator, true /* ignoreIfNotOpen */)
 {
   auto const addrFilePath = info.GetAddressesFileName();
   if (!addrFilePath.empty())

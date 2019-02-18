@@ -14,7 +14,7 @@ class GeoObjectId;
 
 namespace generator
 {
-// CollectorTag class collects validated value of a tag and to save it to file with following
+// CollectorTag class collects validated value of a tag and saves it to file with following
 // format: osmId<tab>tagValue.
 class CollectorTag : public CollectorInterface
 {

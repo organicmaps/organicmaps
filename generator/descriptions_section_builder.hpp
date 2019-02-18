@@ -38,15 +38,15 @@ class WikidataHelper
 {
 public:
   WikidataHelper() = default;
-  explicit WikidataHelper(std::string const & mwmPath, std::string const & id2wikidataPath);
+  explicit WikidataHelper(std::string const & mwmPath, std::string const & idToWikidataPath);
 
   boost::optional<std::string> GetWikidataId(uint32_t featureId) const;
 
 private:
   std::string m_mwmPath;
-  std::string m_id2wikidataPath;
+  std::string m_idToWikidataPath;
   std::map<uint32_t, base::GeoObjectId> m_featureIdToOsmId;
-  std::map<base::GeoObjectId, std::string> m_osmIdToFeatureId;
+  std::map<base::GeoObjectId, std::string> m_osmIdToWikidataId;
 };
 
 template <class T>
@@ -81,10 +81,10 @@ public:
   void IncPage() { ++m_pages; }
   void IncNumberWikipediaUrls() { ++m_numberWikipediaUrls; }
   void IncNumberWikidataIds() { ++m_numberWikidataIds; }
-  size_t GetSize() const { return m_size; }
-  size_t GetPages() const { return m_pages; }
-  size_t GetNumberWikipediaUrls() const { return m_numberWikipediaUrls; }
-  size_t GetNumberWikidataIds() const { return m_numberWikidataIds; }
+  size_t GetTotalSize() const { return m_size; }
+  size_t GetNumberOfPages() const { return m_pages; }
+  size_t GetNumberOfWikipediaUrls() const { return m_numberWikipediaUrls; }
+  size_t GetNumberOfWikidataIds() const { return m_numberWikidataIds; }
   LangStatistics const & GetLangStatistics() const { return m_langsStat; }
 
 private:
@@ -101,7 +101,7 @@ public:
   friend class generator_tests::TestDescriptionSectionBuilder;
 
   DescriptionsCollectionBuilder(std::string const & wikipediaDir, std::string const & mwmFile,
-                                std::string const & id2wikidataPath);
+                                std::string const & idToWikidataPath);
   DescriptionsCollectionBuilder(std::string const & wikipediaDir, std::string const & mwmFile);
 
   template <typename Ft, template <typename> class ForEachFromDatAdapter>
@@ -172,9 +172,9 @@ template <typename Ft, template <typename> class ForEachFromDatAdapter = ForEach
 struct DescriptionsSectionBuilder
 {
   static void Build(std::string const & wikipediaDir, std::string const & mwmFile,
-                    std::string const & id2wikidataPath)
+                    std::string const & idToWikidataPath)
   {
-    DescriptionsCollectionBuilder descriptionsCollectionBuilder(wikipediaDir, mwmFile, id2wikidataPath);
+    DescriptionsCollectionBuilder descriptionsCollectionBuilder(wikipediaDir, mwmFile, idToWikidataPath);
     Build(mwmFile, descriptionsCollectionBuilder);
   }
 
@@ -189,10 +189,10 @@ private:
   {
     auto descriptionList = builder.MakeDescriptions<Ft, ForEachFromDatAdapter>();
     auto const & stat = builder.GetStat();
-    auto const size = stat.GetSize();
-    LOG(LINFO, ("Added", stat.GetNumberWikipediaUrls(), "pages form wikipedia urls for", mwmFile));
-    LOG(LINFO, ("Added", stat.GetNumberWikidataIds(), "pages form wikidata ids for", mwmFile));
-    LOG(LINFO, ("Added", stat.GetPages(), "pages for", mwmFile));
+    auto const size = stat.GetTotalSize();
+    LOG(LINFO, ("Added", stat.GetNumberOfWikipediaUrls(), "pages from wikipedia urls for", mwmFile));
+    LOG(LINFO, ("Added", stat.GetNumberOfWikidataIds(), "pages from wikidata ids for", mwmFile));
+    LOG(LINFO, ("Added", stat.GetNumberOfPages(), "pages for", mwmFile));
     LOG(LINFO, ("Total size of added pages (before writing to section):", size));
     CHECK_GREATER_OR_EQUAL(size, 0, ());
     if (size == 0)
@@ -212,7 +212,7 @@ private:
 };
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile,
-                              std::string const & id2wikidataPath);
+                              std::string const & idToWikidataPath);
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile);
 }  // namespace generator
