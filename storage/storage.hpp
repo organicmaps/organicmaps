@@ -195,10 +195,6 @@ private:
   // folder.
   std::map<platform::CountryFile, LocalFilePtr> m_localFilesForFakeCountries;
 
-  /// used to correctly calculate total country download progress with more than 1 file
-  /// <current, total>
-  MapFilesDownloader::Progress m_countryProgress;
-
   // Used to cancel an ongoing diff application.
   // |m_diffsCancellable| is reset every time when a task to apply a diff is posted.
   // We use the fact that at most one diff is being applied at a time and the
@@ -214,8 +210,6 @@ private:
   //@{
 
   int m_currentSlotId;
-
-  std::list<StatusCallback> m_statusCallbacks;
 
   struct CountryObservers
   {
