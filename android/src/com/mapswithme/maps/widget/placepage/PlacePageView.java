@@ -61,7 +61,6 @@ import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
-import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
@@ -847,7 +846,7 @@ public class PlacePageView extends NestedScrollView
     mHotelMoreDescription.setVisibility(GONE);
     mFacilitiesAdapter.setItems(Collections.emptyList());
     mHotelMoreFacilities.setVisibility(GONE);
-    mGalleryAdapter.setItems(new ArrayList<Image>());
+    mGalleryAdapter.setItems(new ArrayList<>());
     mNearbyAdapter.setItems(Collections.emptyList());
     mReviewAdapter.setItems(new ArrayList<Review>());
     mHotelRating.setText("");
