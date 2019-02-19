@@ -52,6 +52,7 @@ public:
   VulkanPipeline(VkDevice device, int appVersionCode);
   void Dump(VkDevice device);
   void Destroy(VkDevice device);
+  void ResetCache(VkDevice device);
 
   VkPipeline GetPipeline(VkDevice device, PipelineKey const & key);
 

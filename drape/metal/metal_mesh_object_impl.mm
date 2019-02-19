@@ -65,7 +65,9 @@ public:
   {
     m_geometryBuffers.clear();
   }
-  
+
+  void ResetCache(dp::RenderState const & state) override {}
+
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
   {
     UNUSED_VALUE(context);

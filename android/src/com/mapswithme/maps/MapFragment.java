@@ -257,7 +257,7 @@ public class MapFragment extends BaseMwmFragment
       return;
 
     nativeDetachSurface(!getActivity().isChangingConfigurations());
-    mContextCreated = false;
+    mContextCreated = !nativeDestroyContextOnSurfaceDetach();
   }
 
   @Override
@@ -364,6 +364,7 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeScaleMinus();
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
+  static native boolean nativeDestroyContextOnSurfaceDetach();
   private static native boolean nativeCreateEngine(Surface surface, int density,
                                                    boolean firstLaunch,
                                                    boolean isLaunchByDeepLink,

@@ -116,14 +116,13 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
       VkImageAspectFlags const aspect =
           params.m_format == TextureFormat::DepthStencil ? (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT)
                                                          : VK_IMAGE_ASPECT_DEPTH_BIT;
-      m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+      m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
                                                      format, aspect, params.m_width, params.m_height);
     }
     else
     {
       m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-                                                     format,
-                                                     VK_IMAGE_ASPECT_COLOR_BIT,
+                                                     format, VK_IMAGE_ASPECT_COLOR_BIT,
                                                      params.m_width, params.m_height);
     }
   }

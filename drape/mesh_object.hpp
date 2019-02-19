@@ -55,6 +55,8 @@ public:
               dp::RenderState const & state, ref_ptr<TParamsSetter> paramsSetter,
               TParams const & params)
   {
+    ResetCache(state);
+
     Bind(context, program);
 
     ApplyState(context, program, state);
@@ -70,6 +72,7 @@ public:
   bool IsInitialized() const { return m_initialized; }
   void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program);
   void Reset();
+  void ResetCache(dp::RenderState const & state);
 
   static std::vector<float> GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount);
 
@@ -130,6 +133,7 @@ public:
   virtual ~MeshObjectImpl() = default;
   virtual void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) = 0;
   virtual void Reset() = 0;
+  virtual void ResetCache(dp::RenderState const & state) = 0;
   virtual void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) = 0;
   virtual void Bind(ref_ptr<dp::GpuProgram> program) = 0;
   virtual void Unbind() = 0;

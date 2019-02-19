@@ -90,6 +90,8 @@ public:
     m_VAO = 0;
   }
 
+  void ResetCache(dp::RenderState const & state) override {}
+
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
   {
     UNUSED_VALUE(context);
@@ -202,6 +204,12 @@ void MeshObject::Reset()
   m_impl->Reset();
 
   m_initialized = false;
+}
+
+void MeshObject::ResetCache(dp::RenderState const & state)
+{
+  CHECK(m_impl != nullptr, ());
+  m_impl->ResetCache(state);
 }
 
 void MeshObject::UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd,

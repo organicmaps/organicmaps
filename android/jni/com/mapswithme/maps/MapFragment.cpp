@@ -75,6 +75,12 @@ Java_com_mapswithme_maps_MapFragment_nativeIsEngineCreated(JNIEnv * env, jclass 
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_MapFragment_nativeDestroyContextOnSurfaceDetach(JNIEnv * env, jclass clazz)
+{
+  return g_framework->DestroyContextOnSurfaceDetach();
+}
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeAttachSurface(JNIEnv * env, jclass clazz,
                                                          jobject surface)
 {

@@ -163,6 +163,13 @@ void Framework::TransitSchemeStateChanged(TransitReadManager::TransitSchemeState
     m_onTransitStateChangedFn(state);
 }
 
+bool Framework::DestroyContextOnSurfaceDetach()
+{
+  if (m_vulkanContextFactory)
+    return false;
+  return true;
+}
+
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                                   bool launchByDeepLink, int appVersionCode)
 {
