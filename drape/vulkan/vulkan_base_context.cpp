@@ -652,7 +652,7 @@ void VulkanBaseContext::RecreateSwapchain()
   CHECK(m_surface.is_initialized(), ());
   CHECK(m_surfaceFormat.is_initialized(), ());
 
-  VkSwapchainKHR oldSwapchain = m_swapchain;
+  DestroySwapchain();
 
   VkSwapchainCreateInfoKHR swapchainCI = {};
   swapchainCI.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
@@ -683,18 +683,10 @@ void VulkanBaseContext::RecreateSwapchain()
 
   // This mode waits for the vertical blank ("v-sync").
   swapchainCI.presentMode = VK_PRESENT_MODE_FIFO_KHR;
-  swapchainCI.oldSwapchain = oldSwapchain;
+  swapchainCI.oldSwapchain = VK_NULL_HANDLE;
   swapchainCI.clipped = VK_TRUE;
 
   CHECK_VK_CALL(vkCreateSwapchainKHR(m_device, &swapchainCI, nullptr, &m_swapchain));
-
-  if (oldSwapchain != VK_NULL_HANDLE)
-  {
-    for (auto const & imageView : m_swapchainImageViews)
-      vkDestroyImageView(m_device, imageView, nullptr);
-    m_swapchainImageViews.clear();
-    m_swapchainImages.clear();
-  }
 
   // Create swapchain image views.
   uint32_t swapchainImageCount = 0;
@@ -725,6 +717,9 @@ void VulkanBaseContext::RecreateSwapchain()
 
 void VulkanBaseContext::DestroySwapchain()
 {
+  if (m_swapchain == VK_NULL_HANDLE)
+    return;
+
   for (auto const & imageView : m_swapchainImageViews)
     vkDestroyImageView(m_device, imageView, nullptr);
   m_swapchainImageViews.clear();
