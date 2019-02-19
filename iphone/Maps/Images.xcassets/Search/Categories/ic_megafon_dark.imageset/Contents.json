@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ic_rutaxi_dark.png",
+      "filename" : "ic_megafon_dark.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_rutaxi_dark@2x.png",
+      "filename" : "ic_megafon_dark@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_rutaxi_dark@3x.png",
+      "filename" : "ic_megafon_dark@3x.png",
       "scale" : "3x"
     }
   ],

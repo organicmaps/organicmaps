@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_rutaxi_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_megafon_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="UkL-Ob-9dH"/>
@@ -34,7 +34,7 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="megafon"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-p4-OlN">
@@ -56,7 +56,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium12"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerButtonBackground"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="install_app"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="details"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onInstall:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0o7-8I-f79"/>
@@ -121,6 +121,6 @@
     </objects>
     <resources>
         <image name="ic_ad_close" width="8" height="8"/>
-        <image name="ic_rutaxi_light" width="40" height="40"/>
+        <image name="ic_megafon_light" width="28" height="28"/>
     </resources>
 </document>

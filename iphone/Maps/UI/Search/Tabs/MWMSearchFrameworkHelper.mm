@@ -35,6 +35,12 @@
                                        languages::GetCurrentNorm());
 }
 
+- (NSURL *)megafonBannerUrl
+{
+  auto urlStr = ads::GetMegafonCategoryBannerUrl();
+  return [NSURL URLWithString:@(urlStr.c_str())];
+}
+
 - (BOOL)isSearchHistoryEmpty
 {
   return GetFramework().GetLastSearchQueries().empty();

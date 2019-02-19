@@ -9,7 +9,7 @@ class SearchBannerCell: MWMTableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    taxiImageView.mwm_name = "ic_rutaxi"
+    taxiImageView.mwm_name = "ic_megafon"
   }
   
   @IBAction private func onInstall(_ sender: UIButton) {

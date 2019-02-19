@@ -6,13 +6,16 @@ protocol SearchCategoriesViewControllerDelegate: AnyObject {
 final class SearchCategoriesViewController: MWMTableViewController {
   private weak var delegate: SearchCategoriesViewControllerDelegate?
   private let categories: [String]
-  private let rutaxi: Bool
-  private static let rutaxiIndex = 6
+  private let showMegafonBanner: Bool
+  private let bannerUrl: URL
+  private static let megafonIndex = 6
   
   init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchCategoriesViewControllerDelegate?) {
     self.delegate = delegate
-    self.categories = frameworkHelper.searchCategories()
-    self.rutaxi = frameworkHelper.hasMegafonCategoryBanner()
+    categories = frameworkHelper.searchCategories()
+    showMegafonBanner = frameworkHelper.hasMegafonCategoryBanner()
+    bannerUrl = frameworkHelper.megafonBannerUrl()
+
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -29,11 +32,11 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories.count + (rutaxi ? 1 : 0)
+    return categories.count + (showMegafonBanner ? 1 : 0)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if rutaxi && (indexPath.row == SearchCategoriesViewController.rutaxiIndex) {
+    if showMegafonBanner && (indexPath.row == SearchCategoriesViewController.megafonIndex) {
       let cell = tableView.dequeueReusableCell(cell: SearchBannerCell.self, indexPath: indexPath)
       cell.delegate = self
       return cell
@@ -54,7 +57,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
-    if rutaxi && (index > SearchCategoriesViewController.rutaxiIndex) {
+    if showMegafonBanner && (index > SearchCategoriesViewController.megafonIndex) {
       return categories[index - 1]
     } else {
       return categories[index]
@@ -64,11 +67,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
 
 extension SearchCategoriesViewController: SearchBannerCellDelegate {
   func cellDidPressAction(_ cell: SearchBannerCell) {
-    guard let url = URL(string: "https://go.onelink.me/2944814706/86db6339") else {
-      assertionFailure()
-      return
-    }
-    UIApplication.shared.open(url)
+    UIApplication.shared.open(bannerUrl)
   }
   
   func cellDidPressClose(_ cell: SearchBannerCell) {
