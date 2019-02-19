@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,9 +132,6 @@ final class BannerController
     mBannerView = inflateBannerLayout(NativeAdWrapper.UiType.DEFAULT, mContainerView);
     mAdsLoader = loader;
     mAdTracker = tracker;
-    Resources resources = mBannerView.getResources();
-    mClosedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_small_height);
-    mOpenedHeight = resources.getDimensionPixelSize(R.dimen.placepage_banner_large_height);
     mAdsRemovalProvider = adsRemovalProvider;
     mBannerDetailsRequester = bannerDetailsRequester;
     mBannerStateListener = bannerStateListener;
@@ -263,10 +261,8 @@ final class BannerController
     if (!isBannerContainerVisible() || mBanners == null || mOpened)
       return;
 
-    mOpened = true;
-    mMessage.setMaxLines(MAX_MESSAGE_LINES);
-    mTitle.setMaxLines(MAX_TITLE_LINES);
-    updateVisibility();
+    setOpenedStateInternal();
+
     if (mCurrentAd != null)
     {
       loadIcon(mCurrentAd);
@@ -293,19 +289,56 @@ final class BannerController
 
   void close()
   {
-    if (!isBannerContainerVisible() || mBanners == null || !mOpened)
+    if (!isBannerContainerVisible() || mBanners == null)
       return;
 
-    mOpened = false;
-    UiUtils.hide(mIcon);
-    mMessage.setMaxLines(MIN_MESSAGE_LINES);
-    mTitle.setMaxLines(MIN_TITLE_LINES);
-    updateVisibility();
+    setClosedStateInternal();
+
     if (mCurrentAd != null)
     {
       mCurrentAd.registerView(mBannerView);
       mBannerStateListener.onBannerPreview(mCurrentAd);
     }
+  }
+
+  private void measureBannerSizes()
+  {
+    boolean currentState = mOpened;
+
+    DisplayMetrics dm = mContainerView.getResources().getDisplayMetrics();
+    final float screenWidth = dm.widthPixels;
+
+    int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+    int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec((int) screenWidth, View.MeasureSpec.AT_MOST);
+
+    setClosedStateInternal();
+    mBannerView.measure(widthMeasureSpec, heightMeasureSpec);
+    mClosedHeight = mBannerView.getMeasuredHeight();
+    LOGGER.d(TAG, "Banner close height = " + mClosedHeight);
+
+    setOpenedStateInternal();
+    mBannerView.measure(widthMeasureSpec, heightMeasureSpec);
+    mOpenedHeight = mBannerView.getMeasuredHeight();
+    LOGGER.d(TAG, "Banner open height = " + mOpenedHeight);
+
+    mOpened = currentState;
+  }
+
+  private void setOpenedStateInternal()
+  {
+    mOpened = true;
+    mMessage.setMaxLines(MAX_MESSAGE_LINES);
+    mTitle.setMaxLines(MAX_TITLE_LINES);
+    updateVisibility();
+  }
+
+  private void setClosedStateInternal()
+  {
+    mOpened = false;
+    UiUtils.hide(mIcon);
+    mMessage.setMaxLines(MIN_MESSAGE_LINES);
+    mTitle.setMaxLines(MIN_TITLE_LINES);
+    updateVisibility();
   }
 
   private void loadIcon(@NonNull MwmNativeAd ad)
@@ -419,8 +452,8 @@ final class BannerController
       mLastAdType = mCurrentAd.getType();
 
       fillViews(ad);
+      measureBannerSizes();
       setBannerState();
-      updateVisibility();
       ad.registerView(mBannerView);
 
       if (mAdTracker != null)
