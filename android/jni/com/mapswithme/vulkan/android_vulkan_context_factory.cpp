@@ -180,8 +180,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
-  std::array<VkFormat, 2> depthFormats = {dp::vulkan::UnpackFormat(dp::TextureFormat::Depth),
-                                          dp::vulkan::UnpackFormat(dp::TextureFormat::DepthStencil)};
+  std::array<VkFormat, 2> depthFormats = {{dp::vulkan::UnpackFormat(dp::TextureFormat::Depth),
+                                          dp::vulkan::UnpackFormat(dp::TextureFormat::DepthStencil)}};
   VkFormatProperties formatProperties;
   for (auto depthFormat : depthFormats)
   {
@@ -243,6 +243,14 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
     return;
   }
 
+  SetVulkanSurface();
+}
+
+void AndroidVulkanContextFactory::SetVulkanSurface()
+{
+  if (m_windowSurfaceValid)
+    return;
+
   VkAndroidSurfaceCreateInfoKHR createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
   createInfo.pNext = nullptr;
@@ -268,13 +276,10 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
   }
   CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
-  if (!QuerySurfaceSize())
-    return;
+  CHECK(QuerySurfaceSize(), ());
 
   if (m_drawContext)
-  {
-    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities, m_surfaceWidth, m_surfaceHeight);
-  }
+    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
 
   m_windowSurfaceValid = true;
 }
@@ -331,20 +336,36 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
 
 void AndroidVulkanContextFactory::ResetSurface()
 {
+  ResetVulkanSurface(true /* allowPipelineDump */);
+
+  ANativeWindow_release(m_nativeWindow);
+  m_nativeWindow = nullptr;
+}
+
+void AndroidVulkanContextFactory::ResetVulkanSurface(bool allowPipelineDump)
+{
+  if (!m_windowSurfaceValid)
+    return;
+
   if (m_drawContext)
-    m_drawContext->ResetSurface();
+    m_drawContext->ResetSurface(allowPipelineDump);
 
-  if (m_windowSurfaceValid)
-  {
-    ASSERT(m_vulkanInstance != nullptr,());
-    vkDestroySurfaceKHR(m_vulkanInstance, m_surface, nullptr);
-    m_surface = 0;
+  vkDestroySurfaceKHR(m_vulkanInstance, m_surface, nullptr);
+  m_surface = 0;
+  m_windowSurfaceValid = false;
+}
 
-    ANativeWindow_release(m_nativeWindow);
-    m_nativeWindow = nullptr;
+void AndroidVulkanContextFactory::ChangeSurface(JNIEnv * env, jobject jsurface, int w, int h)
+{
+  if (w == m_surfaceWidth && m_surfaceHeight == h)
+    return;
 
-    m_windowSurfaceValid = false;
-  }
+  auto nativeWindow = ANativeWindow_fromSurface(env, jsurface);
+  CHECK(nativeWindow == m_nativeWindow, ("Native window changing is not supported."));
+
+  ResetVulkanSurface(false /* allowPipelineDump */);
+  SetVulkanSurface();
+  LOG(LINFO, ("Surface changed", m_surfaceWidth, m_surfaceHeight));
 }
 
 bool AndroidVulkanContextFactory::IsVulkanSupported() const
@@ -367,26 +388,6 @@ int AndroidVulkanContextFactory::GetHeight() const
 {
   ASSERT(IsValid(), ());
   return m_surfaceHeight;
-}
-
-void AndroidVulkanContextFactory::UpdateSurfaceSize(int w, int h)
-{
-  ASSERT(IsValid(), ());
-  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
-      (m_surfaceHeight != w && m_surfaceHeight != h))
-  {
-    LOG(LINFO, ("Surface size changed and must be re-queried."));
-    if (!QuerySurfaceSize())
-    {
-      m_surfaceWidth = w;
-      m_surfaceHeight = h;
-    }
-  }
-  else
-  {
-    m_surfaceWidth = w;
-    m_surfaceHeight = h;
-  }
 }
 
 dp::GraphicsContext * AndroidVulkanContextFactory::GetDrawContext()

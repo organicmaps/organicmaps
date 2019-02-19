@@ -238,6 +238,12 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       CHECK(it != bindings.end(), ("Texture bindings inconsistency."));
 
       ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
+      if (t == nullptr)
+      {
+        texture.second->UpdateState(context);
+        t = texture.second->GetHardwareTexture();
+        CHECK(t != nullptr, ());
+      }
       t->Bind(context);
       t->SetFilter(state.GetTextureFilter());
 

@@ -9,7 +9,6 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "geometry/point2d.hpp"
-#include "vulkan_texture.hpp"
 
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
@@ -76,8 +75,8 @@ public:
   void ClearParamDescriptors();
 
   void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                  VkSurfaceCapabilitiesKHR surfaceCapabilities, int width, int height);
-  void ResetSurface();
+                  VkSurfaceCapabilitiesKHR const & surfaceCapabilities);
+  void ResetSurface(bool allowPipelineDump);
 
   VkPhysicalDevice const GetPhysicalDevice() const { return m_gpu; }
   VkDevice GetDevice() const { return m_device; }

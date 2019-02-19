@@ -105,7 +105,7 @@ void VulkanBaseContext::Init(ApiVersion apiVersion)
 }
 
 void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                                   VkSurfaceCapabilitiesKHR surfaceCapabilities, int width, int height)
+                                   VkSurfaceCapabilitiesKHR const & surfaceCapabilities)
 {
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
@@ -115,7 +115,7 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   RecreateSwapchain();
 }
 
-void VulkanBaseContext::ResetSurface()
+void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 {
   vkDeviceWaitIdle(m_device);
 
@@ -130,13 +130,14 @@ void VulkanBaseContext::ResetSurface()
 
   m_surface.reset();
 
-  if (m_pipeline)
+  if (m_pipeline && allowPipelineDump)
     m_pipeline->Dump(m_device);
 }
 
 void VulkanBaseContext::Resize(int w, int h)
 {
-  if (m_depthTexture != nullptr && m_surfaceCapabilities.currentExtent.width == w &&
+  if (m_depthTexture != nullptr &&
+      m_surfaceCapabilities.currentExtent.width == w &&
       m_surfaceCapabilities.currentExtent.height == h)
   {
     return;
@@ -305,7 +306,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   VkClearValue clearValues[2];
   clearValues[0].color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(),
                            m_clearColor.GetAlphaF()}};
-  clearValues[1].depthStencil = {1.0f, m_stencilReferenceValue};
+  clearValues[1].depthStencil = {1.0f, 0};
 
   VkRenderPassBeginInfo renderPassBeginInfo = {};
   renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -808,11 +809,6 @@ void VulkanBaseContext::RecreateDepthTexture()
 
   m_depthTexture = make_unique_dp<VulkanTexture>(params.m_allocator);
   m_depthTexture->Create(this, params, nullptr);
-
-  //m_depthTexture = m_objectManager->CreateImage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-  //                                              UnpackFormat(TextureFormat::Depth), VK_IMAGE_ASPECT_DEPTH_BIT,
-  //                                              m_surfaceCapabilities.currentExtent.width,
-  //                                              m_surfaceCapabilities.currentExtent.height);
 }
 
 VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, AttachmentsOperations const & attachmentsOp,

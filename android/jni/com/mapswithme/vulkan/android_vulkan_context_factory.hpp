@@ -33,12 +33,14 @@ public:
 
   void SetSurface(JNIEnv * env, jobject jsurface);
   void ResetSurface();
+  void ChangeSurface(JNIEnv * env, jobject jsurface, int w, int h);
 
   int GetWidth() const;
   int GetHeight() const;
-  void UpdateSurfaceSize(int w, int h);
 
 private:
+  void SetVulkanSurface();
+  void ResetVulkanSurface(bool allowPipelineDump);
   bool QuerySurfaceSize();
 
   VkInstance m_vulkanInstance = nullptr;

@@ -107,9 +107,10 @@ Java_com_mapswithme_maps_MapFragment_nativeResumeSurfaceRendering(JNIEnv *, jcla
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeSurfaceChanged(JNIEnv * env, jclass clazz, jint w, jint h)
+Java_com_mapswithme_maps_MapFragment_nativeSurfaceChanged(JNIEnv * env, jclass, jobject surface,
+                                                          jint w, jint h)
 {
-  g_framework->Resize(w, h);
+  g_framework->Resize(env, surface, w, h);
 }
 
 JNIEXPORT void JNICALL

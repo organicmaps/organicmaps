@@ -230,11 +230,11 @@ public class MapFragment extends BaseMwmFragment
     }
 
     LOGGER.d(TAG, "surfaceChanged, mContextCreated = " + mContextCreated);
-    if (!mContextCreated ||
-        (!mRequireResize && surfaceHolder.isCreating()))
+    if (!mContextCreated || (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
-    nativeSurfaceChanged(width, height);
+    final Surface surface = surfaceHolder.getSurface();
+    nativeSurfaceChanged(surface, width, height);
 
     mRequireResize = false;
     setupWidgets(width, height);
@@ -373,7 +373,7 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeDetachSurface(boolean destroyContext);
   private static native void nativePauseSurfaceRendering();
   private static native void nativeResumeSurfaceRendering();
-  private static native void nativeSurfaceChanged(int w, int h);
+  private static native void nativeSurfaceChanged(Surface surface, int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();

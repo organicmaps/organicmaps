@@ -117,7 +117,7 @@ namespace android
       return m_work.GetRoutingManager().GetLastUsedRouter();
     }
 
-    void Resize(int w, int h);
+    void Resize(JNIEnv * env, jobject jSurface, int w, int h);
 
     struct Finger
     {

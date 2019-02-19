@@ -248,12 +248,26 @@ bool Framework::IsDrapeEngineCreated()
   return m_work.IsDrapeEngineCreated();
 }
 
-void Framework::Resize(int w, int h)
+void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)
 {
   if (m_vulkanContextFactory)
-    CastFactory(m_vulkanContextFactory)->UpdateSurfaceSize(w, h);
+  {
+    auto vulkanContextFactory = CastFactory(m_vulkanContextFactory);
+    if (vulkanContextFactory->GetWidth() != w || vulkanContextFactory->GetHeight() != h)
+    {
+      m_vulkanContextFactory->SetPresentAvailable(false);
+      m_work.SetRenderingDisabled(false /* destroyContext */);
+
+      vulkanContextFactory->ChangeSurface(env, jSurface, w, h);
+
+      vulkanContextFactory->SetPresentAvailable(true);
+      m_work.SetRenderingEnabled();
+    }
+  }
   else
+  {
     m_oglContextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize(w, h);
+  }
   m_work.OnSize(w, h);
 
   //TODO: remove after correct visible rect calculation.
