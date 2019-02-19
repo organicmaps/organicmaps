@@ -378,7 +378,6 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ugc_route_tags_desc"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                                 </userDefinedRuntimeAttributes>
@@ -501,7 +500,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGHTSEEING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6H-nE-Qck">
-                                                            <rect key="frame" x="0.0" y="4.5" width="81" height="15"/>
+                                                            <rect key="frame" x="0.0" y="5" width="81" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.38" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -512,10 +511,9 @@
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="W6H-nE-Qck" secondAttribute="bottom" constant="4.5" id="LKQ-m7-WEA"/>
+                                                        <constraint firstAttribute="bottom" secondItem="W6H-nE-Qck" secondAttribute="bottom" constant="5" id="LKQ-m7-WEA"/>
                                                         <constraint firstItem="W6H-nE-Qck" firstAttribute="leading" secondItem="hXP-fc-7dB" secondAttribute="leading" id="d7f-3h-5kl"/>
-                                                        <constraint firstItem="W6H-nE-Qck" firstAttribute="top" secondItem="hXP-fc-7dB" secondAttribute="top" constant="4.5" id="iWV-zZ-MWl"/>
-                                                        <constraint firstItem="W6H-nE-Qck" firstAttribute="centerY" secondItem="hXP-fc-7dB" secondAttribute="centerY" id="nGi-NO-wpI"/>
+                                                        <constraint firstItem="W6H-nE-Qck" firstAttribute="top" secondItem="hXP-fc-7dB" secondAttribute="top" constant="5" id="iWV-zZ-MWl"/>
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="title" destination="W6H-nE-Qck" id="B5d-tx-YaA"/>
@@ -555,6 +553,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="UZU-x1-VBd" id="o5u-kl-mKw"/>
+                        <outlet property="descriptionLabel" destination="tjK-HW-d6t" id="dpY-62-3jn"/>
                         <outlet property="doneButton" destination="qY7-OC-33A" id="EoL-xY-8JM"/>
                         <outlet property="loadingTagsView" destination="tUs-JB-h8i" id="Hhx-T9-H1Q"/>
                         <outlet property="progressView" destination="RMh-DN-eFb" id="TwY-gF-3Rb"/>

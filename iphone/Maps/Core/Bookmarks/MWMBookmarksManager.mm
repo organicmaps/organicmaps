@@ -626,7 +626,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 - (void)loadTags:(LoadTagsCompletionBlock)completionBlock {
   auto onTagsCompletion = [completionBlock](bool success, BookmarkCatalog::TagGroups const & tagGroups, uint32_t maxTagsCount)
   {
-    //TODO(@beloal): Implement maxTagsCount usage.
     if (success)
     {
       NSMutableArray * groups = [NSMutableArray new];
@@ -636,9 +635,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
         [groups addObject:tagGroup];
       }
       
-      completionBlock([groups copy]);
+      completionBlock([groups copy], maxTagsCount);
     } else
-      completionBlock(nil);
+      completionBlock(nil, 0);
   };
   
   self.bm.GetCatalog().RequestTagGroups([[AppInfo sharedInfo] languageId].UTF8String, std::move(onTagsCompletion));

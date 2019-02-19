@@ -1,5 +1,4 @@
 final class TagsCollectionViewLayout: UICollectionViewLayout {
-
   private var headersCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
   private var cellsCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
   fileprivate var contentHeight: CGFloat = 0
@@ -40,8 +39,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
       
       let indexPath = IndexPath(item: 0, section: section)
       
-      if collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader,
-                                          at: indexPath) != nil {
+      if collectionView.numberOfSections > 0 {
         let headerSize = headersCache[indexPath]?.size ?? CGSize(width: contentWidth, height: itemHeight)
         let frame = CGRect(x: 0, y: yOffset, width: headerSize.width, height: headerSize.height)
         let attr = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
@@ -89,6 +87,10 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
     }
 
     return visibleLayoutAttributes
+  }
+
+  override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    return cellsCache[indexPath]
   }
   
   override public func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,

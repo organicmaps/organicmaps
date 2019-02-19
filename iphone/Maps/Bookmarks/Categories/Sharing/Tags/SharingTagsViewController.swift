@@ -4,11 +4,15 @@ protocol SharingTagsViewControllerDelegate: AnyObject {
 }
 
 final class SharingTagsViewController: MWMViewController {
-  
   @IBOutlet private weak var loadingTagsView: UIView!
   @IBOutlet private weak var progressView: UIView!
   @IBOutlet private weak var collectionView: UICollectionView!
   @IBOutlet private weak var doneButton: UIBarButtonItem!
+  @IBOutlet private weak var descriptionLabel: UILabel! {
+    didSet {
+      descriptionLabel.text = ""
+    }
+  }
   
   private lazy var progress: MWMCircularProgress = {
     return MWMCircularProgress(parentView: progressView)
@@ -16,6 +20,7 @@ final class SharingTagsViewController: MWMViewController {
   
   let dataSource = TagsDataSource()
   weak var delegate: SharingTagsViewControllerDelegate?
+  var isSelectionAvailable = true
   
   let kTagCellIdentifier = "TagCellIdentifier"
   let kTagHeaderIdentifier = "TagHeaderIdentifier"
@@ -24,7 +29,9 @@ final class SharingTagsViewController: MWMViewController {
     super.viewDidLoad()
 
     title = L("ugc_route_tags_screen_label")
-    
+    descriptionLabel.text = String(coreFormat: L("ugc_route_tags_desc"),
+                                   arguments:[dataSource.maxNumberOfTagsToSelect])
+
     doneButton.isEnabled = false
     navigationItem.rightBarButtonItem = doneButton
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -46,6 +53,8 @@ final class SharingTagsViewController: MWMViewController {
       self.loadingTagsView.isHidden = true
       
       if success {
+        self.descriptionLabel.text = String(coreFormat: L("ugc_route_tags_desc"),
+                                            arguments:[self.dataSource.maxNumberOfTagsToSelect])
         self.collectionView.reloadData()
       } else {
         MWMAlertViewController.activeAlert().presentTagsLoadingErrorAlert(okBlock: { [weak self] in
@@ -84,7 +93,8 @@ final class SharingTagsViewController: MWMViewController {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kTagCellIdentifier,for: indexPath) as! TagCollectionViewCell
-    cell.update(with: dataSource.tag(in: indexPath.section, at: indexPath.item))
+    cell.update(with: dataSource.tag(in: indexPath.section, at: indexPath.item),
+                enabled: cell.isSelected || isSelectionAvailable)
     
     //we need to do this because of bug - ios 12 doesnt apply layout to cells until scrolling
     if #available(iOS 12.0, *) {
@@ -107,6 +117,11 @@ final class SharingTagsViewController: MWMViewController {
   func collectionView(_ collectionView: UICollectionView,
                       didSelectItemAt indexPath: IndexPath) {
     doneButton.isEnabled = true
+    
+    if collectionView.indexPathsForSelectedItems?.count == dataSource.maxNumberOfTagsToSelect {
+      isSelectionAvailable = false
+      reloadUnselectedCells()
+    }
   }
 
   func collectionView(_ collectionView: UICollectionView,
@@ -116,5 +131,23 @@ final class SharingTagsViewController: MWMViewController {
     } else {
       doneButton.isEnabled = false
     }
+    
+    isSelectionAvailable = true
+    reloadUnselectedCells()
+  }
+  
+  func reloadUnselectedCells() {
+    if let selectedItemsIndexes = collectionView.indexPathsForSelectedItems {
+      let visibleItemsIndexes = collectionView.indexPathsForVisibleItems
+      let notSelectedItemsIndexes = visibleItemsIndexes.filter { !selectedItemsIndexes.contains($0) }
+      UIView.performWithoutAnimation {
+        collectionView.reloadItems(at: notSelectedItemsIndexes)
+      }
+    }
+  }
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    return isSelectionAvailable
   }
 }

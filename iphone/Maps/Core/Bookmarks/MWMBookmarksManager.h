@@ -6,9 +6,10 @@
 @class MWMTagGroup;
 @class MWMTag;
 
-typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * tags);
-
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags, NSInteger maxTagsNumber);
+
 @interface MWMBookmarksManager : NSObject
 
 + (MWMBookmarksManager *)sharedManager;
