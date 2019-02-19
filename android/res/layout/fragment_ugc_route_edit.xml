@@ -50,7 +50,7 @@
           android:layout_marginEnd="@dimen/margin_base"/>
         <ImageView
           android:id="@+id/edit_text_clear_btn"
-          android:src="@drawable/ic_clear_rounded"
+          android:src="?attr/icClearRounded"
           android:background="?selectableItemBackgroundBorderless"
           android:layout_gravity="center"
           android:layout_weight="0"

@@ -75,6 +75,7 @@
   <attr name="filterPropertyTextColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>
   <attr name="adsRemovalOptionsDivider" format="color"/>
+  <attr name="icClearRounded" format="reference"/>
 
   <declare-styleable name="AnchorBottomSheetBehavior_Layout">
     <attr name="behavior_anchorOffset" format="dimension" />

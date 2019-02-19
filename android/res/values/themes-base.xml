@@ -140,6 +140,7 @@
     <item name="filterPropertyTextColor">@color/filter_date_property_color</item>
     <item name="adsRemovalOptionsBg">@drawable/bg_ads_removal_options</item>
     <item name="adsRemovalOptionsDivider">@color/black_8</item>
+    <item name="icClearRounded">@drawable/ic_clear_rounded</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
@@ -287,6 +288,7 @@
     <item name="filterPropertyTextColor">@color/filter_date_property_color_night</item>
     <item name="adsRemovalOptionsBg">@drawable/bg_ads_removal_options_night</item>
     <item name="adsRemovalOptionsDivider">@color/white_8</item>
+    <item name="icClearRounded">@drawable/ic_clear_rounded_night</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
