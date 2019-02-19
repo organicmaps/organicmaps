@@ -423,11 +423,49 @@ namespace
                                   MercatorBounds::FromLatLon(52.67316, 48.22478), {0., 0.},
                                   MercatorBounds::FromLatLon(53.49143, 49.52386));
 
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
+    integration::TestRouteTime(route, 7136.04);
+  }
+
+  // Test on removing speed cameras form the route for maps from Jan 2019,
+  // and on the absence of speed cameras in maps for later maps for Switzerland.
+  UNIT_TEST(SwitzerlandNoSpeedCamerasInRouteTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(47.5194, 8.73093), {0., 0.},
+                                    MercatorBounds::FromLatLon(52.6756, 13.2745));
+
     RouterResultCode const result = routeResult.second;
     TEST_EQUAL(result, RouterResultCode::NoError, ());
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 7136.04);
+    auto const & routeSegments = route.GetRouteSegments();
+    for (auto const & routeSegment : routeSegments)
+    {
+      if (!routeSegment.GetSpeedCams().empty())
+        continue;
+
+      TEST(routeSegment.GetSpeedCams().empty(),
+           (routeSegment.GetSegment(), routeSegment.GetStreet()));
+    }
+  }
+
+  // Test on warning about speed cameras for countries where speed cameras partly prohibited.
+  UNIT_TEST(GermanyWarningAboutSpeedCamerasTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(52.38465, 13.41906), {0., 0.},
+                                    MercatorBounds::FromLatLon(52.67564, 13.27453));
+
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
+    TEST(route.CrossMwmsPartlyProhibitedForSpeedCams(), ());
   }
 }  // namespace
