@@ -416,6 +416,6 @@ private:
   uint64_t m_routeId = 0;
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
-  std::vector<platform::CountryFile> m_speedCamProhibitedMwms;
+  std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
 };
 } // namespace routing

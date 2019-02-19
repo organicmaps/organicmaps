@@ -370,17 +370,17 @@ double Route::GetSegLenMeters(size_t segIdx) const
 
 void Route::SetMwmsPartlyProhibitedForSpeedCams(vector<platform::CountryFile> && mwms)
 {
-  m_speedCamProhibitedMwms = move(mwms);
+  m_speedCamPartlyProhibitedMwms = move(mwms);
 }
 
 bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
 {
-  return m_speedCamProhibitedMwms.empty();
+  return !m_speedCamPartlyProhibitedMwms.empty();
 }
 
 std::vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
-  return m_speedCamProhibitedMwms;
+  return m_speedCamPartlyProhibitedMwms;
 }
 
 double Route::GetETAToLastPassedPointSec() const
