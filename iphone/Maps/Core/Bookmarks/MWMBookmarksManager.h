@@ -78,15 +78,15 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author;
 
 - (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
-                                    progress:(ProgressBlock)progress
+                                    progress:(_Nullable ProgressBlock)progress
                                   completion:(UploadCompletionBlock)completion;
 
 - (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
-                              progress:(ProgressBlock)progress
+                              progress:(_Nullable ProgressBlock)progress
                             completion:(UploadCompletionBlock)completion;
 
 - (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
-                    progress:(ProgressBlock)progress
+                    progress:(_Nullable ProgressBlock)progress
                   completion:(UploadCompletionBlock)completion;
 
 @end

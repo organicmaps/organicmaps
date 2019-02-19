@@ -220,6 +220,7 @@ extension BMCViewController: UITableViewDataSource {
     func dequeCell<Cell>(_ cell: Cell.Type) -> Cell where Cell: UITableViewCell {
       return tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
+
     switch viewModel.sectionType(section: indexPath.section) {
     case .permissions:
       let permission = viewModel.permission(at: indexPath.row)

@@ -148,8 +148,7 @@ extension BMCDefaultViewModel {
   }
 
   func deleteCategory(at index: Int) {
-    guard let section = sections.index(of: .categories)
-    else {
+    guard let section = sections.index(of: .categories) else {
       assertionFailure()
       return
     }

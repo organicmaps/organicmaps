@@ -76,7 +76,7 @@ final class BMCCategoryCell: MWMTableViewCell {
     case .other:
       assert(false, "We don't expect category with .other status here")
       accessImageView.image = nil
-      accessString = "Other"
+      accessString = ""
     }
 
     let placesString = String(format: L("bookmarks_places"), category.bookmarksCount + category.trackCount)

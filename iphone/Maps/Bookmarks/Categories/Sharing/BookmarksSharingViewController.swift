@@ -27,11 +27,11 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private let publishUpdateRowIndex = 2
 
   private var rowsInPublicSection: Int {
-    return category.accessStatus == .public ? (uploadAndPublishCell.cellState == .updating ? 2 : 3) : 2
+    return (category.accessStatus == .public && uploadAndPublishCell.cellState != .updating) ? 3 : 2
   }
 
   private var rowsInPrivateSection: Int {
-    return category.accessStatus == .private ? (getDirectLinkCell.cellState == .updating ? 2 : 3) : 2
+    return (category.accessStatus == .private && getDirectLinkCell.cellState != .updating) ? 3 : 2
   }
   
   @IBOutlet weak var uploadAndPublishCell: UploadActionCell!
@@ -59,14 +59,11 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
+    assert(category != nil, "We can't share nothing")
+
     title = L("sharing_options")
     configureActionCells()
-    
-    guard category != nil else {
-      assert(false, "We can't share nothing")
-      return
-    }
 
     switch category.accessStatus {
     case .local:
@@ -187,8 +184,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private func uploadAndPublish(update: Bool) {
     if !update {
       guard let tags = sharingTags, let userStatus = sharingUserStatus else {
-          assert(false, "not enough data for public sharing")
-          return
+        assert(false, "not enough data for public sharing")
+        return
       }
 
       manager.setCategory(category.categoryId, authorType: userStatus)
@@ -202,8 +199,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
                                 with: .automatic)
     }
 
-    manager.uploadAndPublishCategory(withId: category.categoryId, progress: { (progress) in
-    }) { (_, error) in
+    manager.uploadAndPublishCategory(withId: category.categoryId, progress: nil) { (_, error) in
       if let error = error as NSError? {
         self.uploadAndPublishCell.cellState = .normal
         self.showErrorAlert(error)
@@ -247,8 +243,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
                                               section: s.privateSectionIndex)],
                                with: .automatic)
       }
-      s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: { (progress) in
-      }, completion: { (_, error) in
+      s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: nil) { (_, error) in
         if let error = error as NSError? {
           s.getDirectLinkCell.cellState = .normal
           s.showErrorAlert(error)
@@ -265,7 +260,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
             Toast.toast(withText: L("direct_link_updating_success")).show()
           }
         }
-      })
+      }
     }
   }
   

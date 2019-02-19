@@ -555,7 +555,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   auto serverId = self.bm.GetCategoryServerId(groupId);
   auto language = [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String;
   NSString * urlString = @(self.bm.GetCatalog().GetWebEditorUrl(serverId, language).c_str());
-  return urlString ? [NSURL URLWithString:urlString] : nil;
+  return [NSURL URLWithString:urlString];
 }
 
 - (void)downloadItemWithId:(NSString *)itemId
@@ -613,7 +613,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSArray<MWMCategory *> *)userCategories
 {
-  NSMutableArray * result = [NSMutableArray array];
+  NSMutableArray<MWMCategory *> * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
@@ -625,7 +625,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSArray<MWMCategory *> *)categoriesFromCatalog
 {
-  NSMutableArray * result = [NSMutableArray array];
+  NSMutableArray<MWMCategory *>  * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {

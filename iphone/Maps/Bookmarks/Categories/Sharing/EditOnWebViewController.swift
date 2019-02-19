@@ -26,9 +26,7 @@ final class EditOnWebViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    guard category != nil else {
-      assert(false, "Category must be set")
-    }
+    assert(category != nil, "Category must be set")
   }
 
   override var hasNavigationBar: Bool {
