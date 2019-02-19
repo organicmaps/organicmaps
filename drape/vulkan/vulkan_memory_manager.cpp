@@ -15,20 +15,20 @@ namespace vulkan
 namespace
 {
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes =
-{
-  64 * 1024,  // Geometry
-  0,          // Uniform (no minimal size)
-  0,          // Staging (no minimal size)
-  0,          // Image (no minimal size)
-};
+{{
+  1024 * 1024,  // Geometry
+  0,            // Uniform (no minimal size)
+  0,            // Staging (no minimal size)
+  0,            // Image (no minimal size)
+}};
 
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes =
-{
+{{
   80 * 1024 * 1024,                      // Geometry
   std::numeric_limits<uint32_t>::max(),  // Uniform (unlimited)
   20 * 1024 * 1024,                      // Staging
   std::numeric_limits<uint32_t>::max(),  // Image (unlimited)
-};
+}};
 
 VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType resourceType,
                                              boost::optional<VkMemoryPropertyFlags> & fallbackTypeBits)
@@ -175,6 +175,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
       freeBlock->m_allocationCounter++;
       auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize,
                                             make_ref(freeBlock));
+
       m[blockHash].push_back(std::move(freeBlock));
       return p;
     }
@@ -231,8 +232,8 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
 {
   CHECK(ptr, ());
   CHECK(!ptr->m_memoryBlock->m_isBlocked, ());
-  auto const kResourceIndex = static_cast<size_t>(ptr->m_resourceType);
-  auto & m = m_memory[kResourceIndex];
+  auto const resourceIndex = static_cast<size_t>(ptr->m_resourceType);
+  auto & m = m_memory[resourceIndex];
   auto const it = m.find(ptr->m_blockHash);
   CHECK(it != m.end(), ());
   auto blockIt = std::find_if(it->second.begin(), it->second.end(),
@@ -251,22 +252,22 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
     {
       // Here we set a bit in the deallocation mask to skip the processing of untouched
       // resource collections.
-      m_deallocationSessionMask |= (1 << kResourceIndex);
+      m_deallocationSessionMask |= (1 << resourceIndex);
     }
     else
     {
       drape_ptr<MemoryBlock> memoryBlock = std::move(*blockIt);
       it->second.erase(blockIt);
-      if (m_sizes[kResourceIndex] > kDesiredSizeInBytes[kResourceIndex])
+      if (m_sizes[resourceIndex] > kDesiredSizeInBytes[resourceIndex])
       {
-        CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[kResourceIndex], ());
-        m_sizes[kResourceIndex] -= memoryBlock->m_blockSize;
+        CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[resourceIndex], ());
+        m_sizes[resourceIndex] -= memoryBlock->m_blockSize;
         vkFreeMemory(m_device, memoryBlock->m_memory, nullptr);
       }
       else
       {
         memoryBlock->m_freeOffset = 0;
-        auto & fm = m_freeBlocks[kResourceIndex];
+        auto & fm = m_freeBlocks[resourceIndex];
         fm.push_back(std::move(memoryBlock));
         std::sort(fm.begin(), fm.end(), &Less);
       }
@@ -287,28 +288,41 @@ void VulkanMemoryManager::EndDeallocationSession()
       continue;
 
     auto & fm = m_freeBlocks[i];
-    auto & m = m_memory[i];
-    m[i].erase(std::remove_if(m[i].begin(), m[i].end(),
-                              [this, &fm, i](drape_ptr<MemoryBlock> & b)
+
+    static std::vector<uint64_t> hashesToDelete;
+    for (auto & p : m_memory[i])
     {
-      if (b->m_allocationCounter == 0)
+      auto & m = p.second;
+      m.erase(std::remove_if(m.begin(), m.end(),
+                             [this, &fm, i](drape_ptr<MemoryBlock> & b)
       {
-        if (m_sizes[i] > kDesiredSizeInBytes[i])
+        if (b->m_allocationCounter == 0)
         {
-          CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
-          m_sizes[i] -= b->m_blockSize;
-          vkFreeMemory(m_device, b->m_memory, nullptr);
+          if (m_sizes[i] > kDesiredSizeInBytes[i])
+          {
+            CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
+            m_sizes[i] -= b->m_blockSize;
+            vkFreeMemory(m_device, b->m_memory, nullptr);
+          }
+          else
+          {
+            auto block = std::move(b);
+            block->m_freeOffset = 0;
+            fm.push_back(std::move(block));
+          }
+          return true;
         }
-        else
-        {
-          auto block = std::move(b);
-          block->m_freeOffset = 0;
-          fm.push_back(std::move(block));
-        }
-        return true;
-      }
-      return false;
-    }), m[i].end());
+        return false;
+      }), m.end());
+
+      if (m.empty())
+        hashesToDelete.push_back(p.first);
+    }
+
+    for (auto hash : hashesToDelete)
+      m_memory[i].erase(hash);
+    hashesToDelete.clear();
+
     std::sort(fm.begin(), fm.end(), &Less);
   }
 }

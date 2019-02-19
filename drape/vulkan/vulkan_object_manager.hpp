@@ -94,6 +94,7 @@ private:
   std::map<SamplerKey, VkSampler> m_samplers;
 
   std::mutex m_mutex;
+  std::mutex m_destroyMutex;
 };
 }  // namespace vulkan
 }  // namespace dp

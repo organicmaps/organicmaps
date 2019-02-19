@@ -191,7 +191,7 @@ void VulkanPipeline::Dump(VkDevice device)
   if (!m_isChanged)
     return;
 
-  size_t constexpr kMaxCacheSizeInBytes = 200 * 1024;
+  size_t constexpr kMaxCacheSizeInBytes = 500 * 1024;
 
   size_t cacheSize;
   VkResult statusCode;

@@ -120,7 +120,7 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
 
   m_geometryBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
-                                                   sizeInBytes, 0 /* batcherHash */);
+                                                   sizeInBytes, m_batcherHash);
   m_objectManager->Fill(m_geometryBuffer, data, sizeInBytes);
 
   // If we have already set up data, we have to call SetDataSize.

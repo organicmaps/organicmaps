@@ -1,4 +1,6 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
+
+#include "drape/drape_routine.hpp"
 #include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -509,7 +511,17 @@ void VulkanBaseContext::Present()
   // Resetting of the default staging buffer and collecting destroyed objects must be
   // only after the finishing of rendering. It prevents data collisions.
   m_defaultStagingBuffer->Reset();
-  m_objectManager->CollectObjects();
+
+  static uint8_t framesCounter = 0;
+  if (framesCounter % 10 == 0)
+  {
+    framesCounter = 0;
+    DrapeRoutine::Run([this]() { m_objectManager->CollectObjects(); });
+  }
+  else
+  {
+    framesCounter++;
+  }
 
   m_pipelineKey = {};
   m_stencilReferenceValue = 1;

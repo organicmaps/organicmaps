@@ -10,7 +10,7 @@ namespace vulkan
 {
 namespace
 {
-uint32_t constexpr kUniformBufferSizeInBytes = 32 * 1024;
+uint32_t constexpr kUniformBufferSizeInBytes = 64 * 1024;
 
 VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
                                                              ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,

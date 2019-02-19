@@ -161,6 +161,8 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
   VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
+  Bind(context);
+
   auto const sizeInBytes = GetBytesPerPixel(GetFormat()) * width * height;
 
   VkBuffer sb;

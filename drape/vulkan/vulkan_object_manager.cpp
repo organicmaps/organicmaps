@@ -58,8 +58,6 @@ VulkanObjectManager::~VulkanObjectManager()
 VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                                                uint32_t sizeInBytes, uint64_t batcherHash)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   VulkanObject result;
   VkBufferCreateInfo info = {};
   info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -92,10 +90,12 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   VkMemoryRequirements memReqs = {};
   vkGetBufferMemoryRequirements(m_device, result.m_buffer, &memReqs);
 
-  result.m_allocation = m_memoryManager.Allocate(resourceType, memReqs, batcherHash);
-
-  CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(),
-                                   result.GetAlignedOffset()));
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    result.m_allocation = m_memoryManager.Allocate(resourceType, memReqs, batcherHash);
+    CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(),
+                                     result.GetAlignedOffset()));
+  }
 
   return result;
 }
@@ -103,8 +103,6 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
 VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
                                               VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   VulkanObject result;
   VkImageCreateInfo imageCreateInfo = {};
   imageCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -124,11 +122,13 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   VkMemoryRequirements memReqs = {};
   vkGetImageMemoryRequirements(m_device, result.m_image, &memReqs);
 
-  result.m_allocation = m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image,
-                                                 memReqs, 0 /* blockHash */);
-
-  CHECK_VK_CALL(vkBindImageMemory(m_device, result.m_image,
-                                  result.GetMemory(), result.GetAlignedOffset()));
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    result.m_allocation = m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image,
+                                                   memReqs, 0 /* blockHash */);
+    CHECK_VK_CALL(vkBindImageMemory(m_device, result.m_image,
+                                    result.GetMemory(), result.GetAlignedOffset()));
+  }
 
   VkImageViewCreateInfo viewCreateInfo = {};
   viewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -224,14 +224,13 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 
 void VulkanObjectManager::DestroyObject(VulkanObject object)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());
+  std::lock_guard<std::mutex> lock(m_destroyMutex);
   m_queueToDestroy.push_back(std::move(object));
 }
 
 void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_destroyMutex);
   m_descriptorsToDestroy.push_back(std::move(group));
 }
 
@@ -240,7 +239,7 @@ void VulkanObjectManager::CollectObjects()
   std::vector<VulkanObject> queueToDestroy;
   std::vector<DescriptorSetGroup> descriptorsToDestroy;
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_destroyMutex);
     std::swap(m_queueToDestroy, queueToDestroy);
     std::swap(m_descriptorsToDestroy, descriptorsToDestroy);
   }
