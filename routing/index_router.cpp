@@ -1036,7 +1036,7 @@ void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
 
   set<NumMwmId> mwmIds;
   for (auto const & s : segments)
-    mwmIds.insert(s.GetMwmId());
+    mwmIds.emplace(s.GetMwmId());
 
   for (auto const id : mwmIds)
   {

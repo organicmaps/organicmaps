@@ -428,14 +428,14 @@ namespace
     integration::TestRouteTime(route, 7136.04);
   }
 
-  // Test on removing speed cameras form the route for maps from Jan 2019,
+  // Test on removing speed cameras from the route for maps from Jan 2019,
   // and on the absence of speed cameras in maps for later maps for Switzerland.
   UNIT_TEST(SwitzerlandNoSpeedCamerasInRouteTest)
   {
     TRouteResult const routeResult =
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(47.5194, 8.73093), {0., 0.},
-                                    MercatorBounds::FromLatLon(52.6756, 13.2745));
+                                    MercatorBounds::FromLatLon(46.80592, 7.13724));
 
     RouterResultCode const result = routeResult.second;
     TEST_EQUAL(result, RouterResultCode::NoError, ());
@@ -445,9 +445,6 @@ namespace
     auto const & routeSegments = route.GetRouteSegments();
     for (auto const & routeSegment : routeSegments)
     {
-      if (!routeSegment.GetSpeedCams().empty())
-        continue;
-
       TEST(routeSegment.GetSpeedCams().empty(),
            (routeSegment.GetSegment(), routeSegment.GetStreet()));
     }

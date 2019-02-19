@@ -2,6 +2,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <vector>
 
 namespace
@@ -18,13 +19,9 @@ std::vector<std::string> kSpeedCamerasPartlyProhibitedCountries = {
 
 bool IsMwmContained(platform::CountryFile const & mwm, std::vector<std::string> const & countryList)
 {
-  for (auto const & country : countryList)
-  {
-    if (strings::StartsWith(mwm.GetName(), country))
-      return true;
-  }
-
-  return false;
+  return std::any_of(countryList.cbegin(), countryList.cend(), [&mwm](auto const & country) {
+    return strings::StartsWith(mwm.GetName(), country);
+  });
 }
 }  // namespace
 
