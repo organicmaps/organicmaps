@@ -5,21 +5,6 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <TextView
-    android:text="@string/ugc_route_tags_desc"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceSmall"
-    android:paddingTop="@dimen/margin_base"
-    android:paddingBottom="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_half_double_plus"
-    android:paddingEnd="@dimen/margin_half_double_plus"
-    android:paddingLeft="@dimen/margin_half_double_plus"
-    android:paddingStart="@dimen/margin_half_double_plus"/>
-  <View
-    android:background="?android:attr/listDivider"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_height"/>
   <LinearLayout
     android:id="@+id/progress_container"
     android:orientation="vertical"
@@ -49,6 +34,16 @@
     android:paddingRight="@dimen/margin_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+      android:id="@+id/ugc_route_tags_desc"
+      android:text="@string/ugc_route_tags_desc"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <View
+      android:background="?android:attr/listDivider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"/>
     <android.support.v7.widget.RecyclerView
       android:id="@+id/recycler"
       android:overScrollMode="never"

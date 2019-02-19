@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.AdapterPositionConverter;
@@ -38,6 +39,7 @@ import com.mapswithme.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
@@ -66,6 +68,10 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   @Nullable
   private TagsCompositeAdapter mTagsAdapter;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mDescriptionView;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -75,6 +81,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
     setHasOptionsMenu(true);
     mProgress = root.findViewById(R.id.progress_container);
     mTagsContainer = root.findViewById(R.id.tags_container);
+    mDescriptionView = root.findViewById(R.id.ugc_route_tags_desc);
     initRecycler(root);
     UiUtils.hide(mTagsContainer);
     UiUtils.show(mProgress);
@@ -224,6 +231,8 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
                                                                 false);
     mRecycler.setLayoutManager(layoutManager);
     mRecycler.setAdapter(compositeAdapter);
+    String description = getString(R.string.ugc_route_tags_desc, String.valueOf(tagsLimit), Locale.US);
+    mDescriptionView.setText(description);
     ActivityCompat.invalidateOptionsMenu(getActivity());
   }
 
