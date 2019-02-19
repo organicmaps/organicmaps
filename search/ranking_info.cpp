@@ -72,17 +72,17 @@ string DebugPrint(RankingInfo const & info)
   ostringstream os;
   os << boolalpha;
   os << "RankingInfo [";
-  os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
-  os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
-  os << "m_popularity:" << static_cast<int>(info.m_popularity) << ",";
-  os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
-  os << "m_errorsMade:" << DebugPrint(info.m_errorsMade) << ",";
-  os << "m_type:" << DebugPrint(info.m_type) << ",";
-  os << "m_pureCats:" << info.m_pureCats << ",";
-  os << "m_falseCats:" << info.m_falseCats << ",";
-  os << "m_allTokensUsed:" << info.m_allTokensUsed << ",";
-  os << "m_categorialRequest:" << info.m_categorialRequest << ",";
-  os << "m_hasName:" << info.m_hasName;
+  os << "m_distanceToPivot:" << info.m_distanceToPivot;
+  os << ", m_rank:" << static_cast<int>(info.m_rank);
+  os << ", m_popularity:" << static_cast<int>(info.m_popularity);
+  os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
+  os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
+  os << ", m_type:" << DebugPrint(info.m_type);
+  os << ", m_pureCats:" << info.m_pureCats;
+  os << ", m_falseCats:" << info.m_falseCats;
+  os << ", m_allTokensUsed:" << info.m_allTokensUsed;
+  os << ", m_categorialRequest:" << info.m_categorialRequest;
+  os << ", m_hasName:" << info.m_hasName;
   os << "]";
   return os.str();
 }

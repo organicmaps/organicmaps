@@ -293,7 +293,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
-  TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());
+    TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, lantern2)};
@@ -1761,8 +1761,7 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, stPeterRu)};
-    Rules relaxedRules = {ExactMatch(wonderlandId, stPeterRu),
-                          ExactMatch(wonderlandId, streetRu)};
+    Rules relaxedRules = {ExactMatch(wonderlandId, stPeterRu), ExactMatch(wonderlandId, streetRu)};
     TEST(ResultsMatch("собор святого петра ", rules), ());
     TEST(ResultsMatch("собор св петра ", relaxedRules), ());
   }

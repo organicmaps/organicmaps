@@ -32,8 +32,6 @@ class ReverseGeocoder;
 class PreRankerResult
 {
 public:
-  PreRankerResult(FeatureID const & id, PreRankingInfo const & info);
-
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                   std::vector<ResultTracer::Branch> const & provenance);
 

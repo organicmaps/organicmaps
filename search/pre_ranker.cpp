@@ -228,7 +228,6 @@ void PreRanker::UpdateResults(bool lastUpdate)
   FilterRelaxedResults(lastUpdate);
   FillMissingFieldsInPreResults();
   Filter(m_params.m_viewportSearch);
-  LOG(LINFO, ("sending", m_results.size(), "results to ranker"));
   m_numSentResults += m_results.size();
   m_ranker.SetPreRankerResults(move(m_results));
   m_results.clear();

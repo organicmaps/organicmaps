@@ -66,12 +66,6 @@ public:
 }  // namespace
 
 // PreRankerResult ---------------------------------------------------------------------------------
-PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info)
-  : m_id(id), m_info(info)
-{
-  ASSERT(m_id.IsValid(), ());
-}
-
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                                  vector<ResultTracer::Branch> const & provenance)
   : m_id(id), m_info(info), m_provenance(provenance)
