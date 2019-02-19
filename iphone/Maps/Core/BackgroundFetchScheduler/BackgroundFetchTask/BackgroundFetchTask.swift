@@ -60,17 +60,3 @@ final class BackgroundUGCUpload: BackgroundFetchTask {
     return "UGC upload"
   }
 }
-
-@objc(MWMBackgroundDownloadMapNotification)
-final class BackgroundDownloadMapNotification: BackgroundFetchTask {
-  override var frameworkType: BackgroundFetchTaskFrameworkType { return .full }
-
-  override fileprivate func fire() {
-    LocalNotificationManager.shared().showDownloadMapNotificationIfNeeded(self.finish)
-  }
-
-  override var description: String {
-    return "Download map notification"
-  }
-}
-

@@ -1,5 +1,6 @@
 #import "MapsAppDelegate.h"
 
+#import "CoreNotificationWrapper+Core.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAuthorizationCommon.h"
@@ -13,6 +14,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMTextToSpeech.h"
+#import "NSDate+TimeDistance.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -131,11 +133,12 @@ void TrackMarketingAppLaunch()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, UNUserNotificationCenterDelegate>
+@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, NotificationManagerDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
 @property(nonatomic) id<IPendingTransactionsHandler> pendingTransactionHandler;
+@property(nonatomic) NotificationManager * notificationManager;
 
 @end
 
@@ -372,13 +375,6 @@ using namespace osm_auth_ios;
 
   [self commonInit];
 
-  LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
-  if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
-  {
-    NSNotification * notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-    [notificationManager processNotification:notification.userInfo onLaunch:YES];
-  }
-
   if ([Alohalytics isFirstSession])
   {
     [self firstLaunchSetup];
@@ -401,7 +397,9 @@ using namespace osm_auth_ios;
   [GIDSignIn sharedInstance].clientID =
       [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
 
-  [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+  self.notificationManager = [[NotificationManager alloc] init];
+  self.notificationManager.delegate = self;
+  [UNUserNotificationCenter currentNotificationCenter].delegate = self.notificationManager;
 
   if ([MWMFrameworkHelper canUseNetwork]) {
     [[SubscriptionManager shared] validate];
@@ -429,57 +427,45 @@ using namespace osm_auth_ios;
 - (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
          completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
 {
-  auto completion = ^(UIBackgroundFetchResult result) {
-    if (completionHandler)
-      completionHandler(result);
-  };
   self.backgroundFetchScheduler =
-      [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks completionHandler:completion];
+      [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
+                                       completionHandler:^(UIBackgroundFetchResult result) {
+                                         if (completionHandler)
+                                           completionHandler(result);
+                                       }];
   [self.backgroundFetchScheduler run];
 }
 
 - (void)application:(UIApplication *)application
     performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  auto onTap = ^{
-    MapViewController * mapViewController = [MapViewController sharedController];
-    [mapViewController.navigationController popToRootViewControllerAnimated:NO];
-    [mapViewController showUGCAuth];
-  };
-
-  if ([LocalNotificationManager.sharedManager showUGCNotificationIfNeeded:onTap])
+  if ([LocalNotificationManager shouldShowAuthNotification])
   {
+    AuthNotification * n = [[AuthNotification alloc] initWithTitle:L(@"notification_unsent_reviews_title")
+                                                            text:L(@"notification_unsent_reviews_message")];
+    [self.notificationManager showNotification:n];
+    [LocalNotificationManager authNotificationWasShown];
     completionHandler(UIBackgroundFetchResultNewData);
     return;
   }
 
-  lightweight::Framework const framework(lightweight::REQUEST_TYPE_NOTIFICATION);
-  auto const notificationCandidate = framework.GetNotification();
-  if (notificationCandidate)
+  CoreNotificationWrapper * reviewNotification = [LocalNotificationManager reviewNotificationWrapper];
+  if (reviewNotification)
   {
-    auto const notification = notificationCandidate.get();
-    if (notification.GetType() == notifications::NotificationCandidate::Type::UgcReview)
-    {
-      auto const place = notification.GetAddress().empty()
-                   ? notification.GetReadableName()
-                   : notification.GetReadableName() + ", " + notification.GetAddress();
-                   
-      [LocalNotificationManager.sharedManager
-       showReviewNotificationForPlace:@(place.c_str())
-       onTap:^{
-         [Statistics logEvent:kStatUGCReviewNotificationClicked];
-         place_page::Info info;
-         if (GetFramework().MakePlacePageInfo(notification, info))
-           [[MapViewController sharedController].controlsManager showPlacePageReview:info];
-     }];
-    }
+    NSString * text = reviewNotification.address.length > 0
+      ? [NSString stringWithFormat:@"%@, %@", reviewNotification.readableName, reviewNotification.address]
+      : reviewNotification.readableName;
+    ReviewNotification * n = [[ReviewNotification alloc] initWithTitle:L(@"notification_leave_review_v2_title")
+                                                                  text:text
+                                                   notificationWrapper:reviewNotification];
+    [self.notificationManager showNotification:n];
+    [LocalNotificationManager reviewNotificationWasShown];
   }
 
-  auto tasks = @[
-    [[MWMBackgroundStatisticsUpload alloc] init], [[MWMBackgroundEditsUpload alloc] init],
-    [[MWMBackgroundUGCUpload alloc] init], [[MWMBackgroundDownloadMapNotification alloc] init]
-  ];
-  [self runBackgroundTasks:tasks completionHandler:completionHandler];
+  [self runBackgroundTasks:@[[MWMBackgroundStatisticsUpload new],
+                             [MWMBackgroundEditsUpload new],
+                             [MWMBackgroundUGCUpload new]]
+         completionHandler:completionHandler];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -752,45 +738,6 @@ continueUserActivity:(NSUserActivity *)userActivity
   };
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center
-       willPresentNotification:(UNNotification *)notification
-         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
-{
-  if ([LocalNotificationManager isLocalNotification:notification])
-    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
-  else
-    [MWMPushNotifications userNotificationCenter:center
-                         willPresentNotification:notification
-                           withCompletionHandler:completionHandler];
-}
-
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center
-didReceiveNotificationResponse:(UNNotificationResponse *)response
-         withCompletionHandler:(void(^)(void))completionHandler
-{
-  if ([LocalNotificationManager isLocalNotification:response.notification])
-  {
-    if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier])
-    {
-      auto userInfo = response.notification.request.content.userInfo;
-      [[LocalNotificationManager sharedManager] processNotification:userInfo onLaunch:NO];
-    }
-    completionHandler();
-  }
-  else
-  {
-    [MWMPushNotifications userNotificationCenter:center
-                  didReceiveNotificationResponse:response
-                           withCompletionHandler:completionHandler];
-  }
-}
-
-- (void)application:(UIApplication *)application
-    didReceiveLocalNotification:(UILocalNotification *)notification
-{
-  [[LocalNotificationManager sharedManager] processNotification:notification.userInfo onLaunch:NO];
-}
-
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
   m_sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
@@ -805,7 +752,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   if (isFBURL)
     return YES;
 
-  for (auto host in @[@"dlink.maps.me", @"dlink.mapsme.devmail.ru"])
+  for (NSString * host in @[@"dlink.maps.me", @"dlink.mapsme.devmail.ru"])
   {
     if ([self checkLaunchURL:(url.host.length > 0 && [url.host rangeOfString:host].location != NSNotFound)
          ? [self convertUniversalLink:url] : url])
@@ -926,8 +873,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     return;
 
   NSDate * lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
-  NSUInteger daysFromLastLaunch = [self.class daysBetweenNowAndDate:lastLaunchDate];
-  if (daysFromLastLaunch > 0)
+  if (lastLaunchDate.daysToNow > 0)
   {
     sessionCount++;
     [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
@@ -969,8 +915,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     return NO;
 
   NSDate * const lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
-  NSUInteger const daysFromLastRateRequest =
-      [MapsAppDelegate daysBetweenNowAndDate:lastRateRequestDate];
+  NSInteger const daysFromLastRateRequest = lastRateRequestDate.daysToNow;
   // Do not show more than one alert per day.
   if (lastRateRequestDate != nil && daysFromLastRateRequest == 0)
     return NO;
@@ -1002,20 +947,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   return YES;
 }
 
-+ (NSInteger)daysBetweenNowAndDate:(NSDate *)fromDate
-{
-  if (!fromDate)
-    return 0;
-
-  NSDate * now = NSDate.date;
-  NSCalendar * calendar = NSCalendar.currentCalendar;
-  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:fromDate];
-  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&now interval:NULL forDate:now];
-  NSDateComponents * difference =
-      [calendar components:NSCalendarUnitDay fromDate:fromDate toDate:now options:0];
-  return difference.day;
-}
-
 #pragma mark - Showcase
 
 - (MWMMyTarget *)myTarget
@@ -1026,6 +957,27 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   if (!_myTarget)
     _myTarget = [[MWMMyTarget alloc] init];
   return _myTarget;
+}
+
+#pragma mark - NotificationManagerDelegate
+
+- (void)didOpenNotification:(Notification *)notification
+{
+  if (notification.class == ReviewNotification.class)
+  {
+    [Statistics logEvent:kStatUGCReviewNotificationClicked];
+    ReviewNotification * reviewNotification = (ReviewNotification *)notification;
+    place_page::Info info;
+    if (GetFramework().MakePlacePageInfo(reviewNotification.notificationWrapper.notificationCandidate, info))
+      [[MapViewController sharedController].controlsManager showPlacePageReview:info];
+  }
+  else if (notification.class == AuthNotification.class)
+  {
+    [Statistics logEvent:@"UGC_UnsentNotification_clicked"];
+    MapViewController * mapViewController = [MapViewController sharedController];
+    [mapViewController.navigationController popToRootViewControllerAnimated:NO];
+    [mapViewController showUGCAuth];
+  }
 }
 
 @end

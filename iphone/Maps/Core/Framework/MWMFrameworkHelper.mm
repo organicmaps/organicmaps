@@ -6,7 +6,7 @@
 #include "Framework.h"
 
 #include "base/sunrise_sunset.hpp"
-#include "platform/network_policy.hpp"
+#include "platform/network_policy_ios.h"
 
 @implementation MWMFrameworkHelper
 
@@ -99,8 +99,7 @@
 
 + (BOOL)canUseNetwork
 {
-  return platform::GetCurrentNetworkPolicy().CanUse() ||
-         GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WWAN;
+  return network_policy::CanUseNetwork();
 }
 
 + (BOOL)isNetworkConnected

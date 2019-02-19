@@ -1,18 +1,14 @@
-#import "MWMTypes.h"
+NS_ASSUME_NONNULL_BEGIN
 
-#import <UserNotifications/UserNotifications.h>
-
-typedef void (^CompletionHandler)(UIBackgroundFetchResult);
+@class CoreNotificationWrapper;
 
 @interface LocalNotificationManager : NSObject
 
-+ (instancetype)sharedManager;
-
-+ (BOOL)isLocalNotification:(UNNotification *)notification;
-
-- (BOOL)showUGCNotificationIfNeeded:(MWMVoidBlock)onTap;
-- (void)showReviewNotificationForPlace:(NSString *)place onTap:(MWMVoidBlock)onReviewNotification;
-- (void)showDownloadMapNotificationIfNeeded:(CompletionHandler)completionHandler;
-- (void)processNotification:(NSDictionary *)userInfo onLaunch:(BOOL)onLaunch;
++ (BOOL)shouldShowAuthNotification;
++ (void)authNotificationWasShown;
++ (CoreNotificationWrapper * _Nullable)reviewNotificationWrapper;
++ (void)reviewNotificationWasShown;
 
 @end
+
+NS_ASSUME_NONNULL_END
