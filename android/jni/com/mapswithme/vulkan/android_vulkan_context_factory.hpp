@@ -32,7 +32,7 @@ public:
   void SetPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);
-  void ResetSurface();
+  void ResetSurface(bool allowPipelineDump);
   void ChangeSurface(JNIEnv * env, jobject jsurface, int w, int h);
 
   int GetWidth() const;

@@ -1115,7 +1115,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
     m_viewport.SetViewport(0, 0, sx, sy);
   }
 
-  if (viewportChanged || m_needRestoreSize)
+  if (viewportChanged || m_needRestoreSize || m_apiVersion == dp::ApiVersion::Vulkan)
   {
     CHECK(m_context != nullptr, ());
     m_context->Resize(sx, sy);
@@ -1595,7 +1595,8 @@ void FrontendRenderer::RenderEmptyFrame()
   if (!m_context->Validate())
     return;
 
-  m_context->BeginRendering();
+  if (!m_context->BeginRendering())
+    return;
 
   m_context->SetFramebuffer(nullptr /* default */);
   auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
@@ -1622,7 +1623,8 @@ void FrontendRenderer::RenderFrame()
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
-  m_context->BeginRendering();
+  if (!m_context->BeginRendering())
+    return;
 
   ScreenBase modelView = ProcessEvents(m_frameData.m_modelViewChanged, m_frameData.m_viewportChanged);
   if (m_frameData.m_viewportChanged)

@@ -51,7 +51,7 @@ class GraphicsContext
 {
 public:
   virtual ~GraphicsContext() = default;
-  virtual void BeginRendering() {}
+  virtual bool BeginRendering() { return true; }
   virtual void Present() = 0;
   virtual void MakeCurrent() = 0;
   virtual void DoneCurrent() {}

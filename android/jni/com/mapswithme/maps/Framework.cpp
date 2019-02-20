@@ -303,7 +303,8 @@ void Framework::DetachSurface(bool destroyContext)
     // destroyed in ResetSurface().
     m_work.SetRenderingDisabled(false /* destroyContext */);
 
-    CastFactory(m_vulkanContextFactory)->ResetSurface();
+    // Allow pipeline dump only on enter background.
+    CastFactory(m_vulkanContextFactory)->ResetSurface(destroyContext /* allowPipelineDump */);
   }
   else
   {

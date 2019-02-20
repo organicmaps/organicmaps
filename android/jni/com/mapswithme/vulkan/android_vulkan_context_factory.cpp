@@ -30,7 +30,13 @@ public:
                                     renderingQueueFamilyIndex, objectManager,
                                     make_unique_dp<dp::vulkan::VulkanPipeline>(
                                       device, appVersionCode))
-  {}
+  {
+    VkQueue queue;
+    vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
+    SetRenderingQueue(queue);
+    CreateCommandPool();
+    CreateSyncPrimitives();
+  }
 };
 
 class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
@@ -334,9 +340,9 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
   return true;
 }
 
-void AndroidVulkanContextFactory::ResetSurface()
+void AndroidVulkanContextFactory::ResetSurface(bool allowPipelineDump)
 {
-  ResetVulkanSurface(true /* allowPipelineDump */);
+  ResetVulkanSurface(allowPipelineDump);
 
   ANativeWindow_release(m_nativeWindow);
   m_nativeWindow = nullptr;

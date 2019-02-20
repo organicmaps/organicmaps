@@ -54,13 +54,8 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
-{
-  //TODO: do it for draw context only.
-  // Get a graphics queue from the device
-  vkGetDeviceQueue(m_device, m_renderingQueueFamilyIndex, 0, &m_queue);
-  CreateCommandPool();
-  CreateSyncPrimitives();
-}
+  , m_presentAvailable(true)
+{}
 
 VulkanBaseContext::~VulkanBaseContext()
 {
@@ -104,21 +99,41 @@ void VulkanBaseContext::Init(ApiVersion apiVersion)
                                                                kDefaultStagingBufferSizeInBytes);
 }
 
+void VulkanBaseContext::SetPresentAvailable(bool available)
+{
+  LOG(LINFO, ("Present available: ", available));
+  m_presentAvailable = available;
+}
+
 void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
                                    VkSurfaceCapabilitiesKHR const & surfaceCapabilities)
 {
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
   m_surfaceCapabilities = surfaceCapabilities;
-  CreateCommandBuffers();
-  RecreateDepthTexture();
-  RecreateSwapchain();
+  RecreateSwapchainAndDependencies();
 }
 
 void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 {
   vkDeviceWaitIdle(m_device);
+  ResetSwapchainAndDependencies();
+  m_surface.reset();
 
+  if (m_pipeline && allowPipelineDump)
+    m_pipeline->Dump(m_device);
+}
+
+void VulkanBaseContext::RecreateSwapchainAndDependencies()
+{
+  ResetSwapchainAndDependencies();
+  CreateCommandBuffers();
+  RecreateDepthTexture();
+  RecreateSwapchain();
+}
+
+void VulkanBaseContext::ResetSwapchainAndDependencies()
+{
   if (m_pipeline)
     m_pipeline->ResetCache(m_device);
 
@@ -127,11 +142,11 @@ void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 
   DestroyCommandBuffers();
   DestroySwapchain();
+}
 
-  m_surface.reset();
-
-  if (m_pipeline && allowPipelineDump)
-    m_pipeline->Dump(m_device);
+void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
+{
+  m_queue = queue;
 }
 
 void VulkanBaseContext::Resize(int w, int h)
@@ -148,13 +163,20 @@ void VulkanBaseContext::Resize(int w, int h)
   m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(w);
   m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(h);
 
-  RecreateDepthTexture();
-  RecreateSwapchain();
+  RecreateSwapchainAndDependencies();
 }
 
-void VulkanBaseContext::BeginRendering()
+bool VulkanBaseContext::BeginRendering()
 {
-  CHECK_VK_CALL(vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX));
+  if (!m_presentAvailable)
+    return false;
+
+  // For commands that wait indefinitely for device execution
+  // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
+  VkResult res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
+  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
+    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
+
   CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
 
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
@@ -163,12 +185,14 @@ void VulkanBaseContext::BeginRendering()
   CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffer, &commandBufferBeginInfo));
   CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
 
-  VkResult res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
-                                       (VkFence)nullptr, &m_imageIndex);
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
+                              VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
-    RecreateSwapchain();
+    RecreateSwapchainAndDependencies();
   else
     CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
+
+  return true;
 }
 
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
@@ -365,12 +389,16 @@ void VulkanBaseContext::Present()
   if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR)
   {
     if (res == VK_ERROR_OUT_OF_DATE_KHR)
-      RecreateSwapchain();
+      RecreateSwapchainAndDependencies();
     else
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
   }
 
-  CHECK_VK_CALL(vkQueueWaitIdle(m_queue));
+  // For commands that wait indefinitely for device execution
+  // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
+  res = vkQueueWaitIdle(m_queue);
+  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
+    CHECK_RESULT_VK_CALL(vkQueueWaitIdle, res);
 
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
     h.second(make_ref(this));
@@ -751,11 +779,13 @@ void VulkanBaseContext::CreateCommandPool()
 
 void VulkanBaseContext::DestroyCommandPool()
 {
-  vkDestroyCommandPool(m_device, m_commandPool, nullptr);
+  if (m_commandPool != VK_NULL_HANDLE)
+    vkDestroyCommandPool(m_device, m_commandPool, nullptr);
 }
 
 void VulkanBaseContext::CreateCommandBuffers()
 {
+  CHECK(m_commandPool != VK_NULL_HANDLE, ());
   VkCommandBufferAllocateInfo cmdBufAllocateInfo = {};
   cmdBufAllocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
   cmdBufAllocateInfo.commandPool = m_commandPool;
@@ -767,8 +797,11 @@ void VulkanBaseContext::CreateCommandBuffers()
 
 void VulkanBaseContext::DestroyCommandBuffers()
 {
-  vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_memoryCommandBuffer);
-  vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_renderingCommandBuffer);
+  if (m_memoryCommandBuffer != VK_NULL_HANDLE)
+    vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_memoryCommandBuffer);
+
+  if (m_renderingCommandBuffer != VK_NULL_HANDLE)
+    vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_renderingCommandBuffer);
 }
 
 void VulkanBaseContext::CreateSyncPrimitives()
@@ -788,9 +821,14 @@ void VulkanBaseContext::CreateSyncPrimitives()
 
 void VulkanBaseContext::DestroySyncPrimitives()
 {
-  vkDestroyFence(m_device, m_fence, nullptr);
-  vkDestroySemaphore(m_device, m_presentComplete, nullptr);
-  vkDestroySemaphore(m_device, m_renderComplete, nullptr);
+  if (m_fence != VK_NULL_HANDLE)
+    vkDestroyFence(m_device, m_fence, nullptr);
+
+  if (m_presentComplete != VK_NULL_HANDLE)
+    vkDestroySemaphore(m_device, m_presentComplete, nullptr);
+
+  if (m_renderComplete != VK_NULL_HANDLE)
+    vkDestroySemaphore(m_device, m_renderComplete, nullptr);
 }
 
 void VulkanBaseContext::RecreateDepthTexture()

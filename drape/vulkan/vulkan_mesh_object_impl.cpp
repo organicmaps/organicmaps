@@ -84,9 +84,10 @@ public:
 
   void ResetCache(dp::RenderState const & state) override
   {
-    if (state.GetColorTexture() != m_lastColorTexture)
+    auto newTex = state.GetColorTexture()->GetHardwareTexture();
+    if (newTex != m_lastColorTexture)
     {
-      m_lastColorTexture = state.GetColorTexture();
+      m_lastColorTexture = newTex;
       ResetDescriptorSetGroup();
     }
   }
@@ -199,7 +200,7 @@ private:
   BindingInfoArray m_bindingInfo;
   uint8_t m_bindingInfoCount = 0;
   DescriptorSetGroup m_descriptorSetGroup;
-  ref_ptr<dp::Texture> m_lastColorTexture;
+  ref_ptr<dp::HWTexture> m_lastColorTexture;
 };
 }  // namespace vulkan
 

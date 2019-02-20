@@ -16,6 +16,7 @@
 #include <boost/optional.hpp>
 
 #include <array>
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -37,7 +38,7 @@ public:
 
   using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
 
-  void BeginRendering() override;
+  bool BeginRendering() override;
   void Present() override;
   void MakeCurrent() override {};
   void DoneCurrent() override {};
@@ -46,6 +47,7 @@ public:
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void ApplyFramebuffer(std::string const & framebufferLabel) override;
   void Init(ApiVersion apiVersion) override;
+  void SetPresentAvailable(bool available) override;
   ApiVersion GetApiVersion() const override { return dp::ApiVersion::Vulkan; }
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
@@ -109,6 +111,8 @@ public:
   void UnregisterHandler(uint32_t id);
 
 protected:
+  void SetRenderingQueue(VkQueue queue);
+
   void RecreateSwapchain();
   void DestroySwapchain();
 
@@ -124,6 +128,9 @@ protected:
   void DestroyFramebuffers();
 
   void RecreateDepthTexture();
+
+  void RecreateSwapchainAndDependencies();
+  void ResetSwapchainAndDependencies();
 
   struct AttachmentOp
   {
@@ -198,6 +205,7 @@ protected:
   std::vector<ParamDescriptor> m_paramDescriptors;
 
   drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
+  std::atomic<bool> m_presentAvailable;
 };
 }  // namespace vulkan
 }  // namespace dp

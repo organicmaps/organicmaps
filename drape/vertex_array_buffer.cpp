@@ -436,16 +436,13 @@ ref_ptr<DataBufferBase> VertexArrayBuffer::GetIndexBuffer() const
 
 void VertexArrayBuffer::CollectBindingInfo(dp::BindingInfo const & bindingInfo)
 {
-  auto const id = bindingInfo.GetID();
-  auto const it = std::find_if(m_bindingInfo.begin(), m_bindingInfo.end(),
-                               [id](dp::BindingInfo const & info)
+  for (size_t i = 0; i < m_bindingInfoCount; ++i)
   {
-    return info.GetID() == id;
-  });
-  if (it != m_bindingInfo.end())
-  {
-    CHECK(*it == bindingInfo, ("Incorrect binding info."));
-    return;
+    if (m_bindingInfo[i].GetID() == bindingInfo.GetID())
+    {
+      CHECK(m_bindingInfo[i] == bindingInfo, ("Incorrect binding info."));
+      return;
+    }
   }
 
   CHECK_LESS(m_bindingInfoCount, kMaxBindingInfo, ());
