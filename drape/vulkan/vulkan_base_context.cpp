@@ -151,8 +151,7 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
 
 void VulkanBaseContext::Resize(int w, int h)
 {
-  if (m_depthTexture != nullptr &&
-      m_surfaceCapabilities.currentExtent.width == w &&
+  if (m_surfaceCapabilities.currentExtent.width == w &&
       m_surfaceCapabilities.currentExtent.height == h)
   {
     return;
