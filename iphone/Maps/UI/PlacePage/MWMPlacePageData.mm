@@ -641,7 +641,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (ftraits::UGCRatingCategories)ugcRatingCategories { return m_info.GetRatingCategories(); }
 
-- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel resultHandler:(void (^)(BOOL))resultHandler 
 {
   using namespace ugc;
   auto appInfo = AppInfo.sharedInfo;
@@ -658,9 +658,16 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     r.emplace_back(star.title.UTF8String, star.value);
 
   UGCUpdate update{r, t, std::chrono::system_clock::now()};
-  auto & f = GetFramework();
-  f.GetUGCApi()->SetUGCUpdate(m_info.GetID(), update);
-  f.UpdatePlacePageInfoForCurrentSelection();
+  
+  GetFramework().GetUGCApi()->SetUGCUpdate(m_info.GetID(), update,
+  [resultHandler](Storage::SettingResult const result)
+  {
+    if (result != Storage::SettingResult::Success)
+      return resultHandler(NO);
+    
+    resultHandler(YES);
+    GetFramework().UpdatePlacePageInfoForCurrentSelection();
+  });
 }
 
 #pragma mark - Bookmark

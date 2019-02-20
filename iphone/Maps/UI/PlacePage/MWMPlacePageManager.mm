@@ -81,7 +81,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 @interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
                                   MWMPlacePageLayoutDataSource, MWMLocationObserver,
-                                  MWMBookmarksObserver>
+                                  MWMBookmarksObserver, MWMUGCAddReviewControllerDelegate>
 
 @property(nonatomic) MWMPlacePageLayout * layout;
 @property(nonatomic) MWMPlacePageData * data;
@@ -602,19 +602,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
         }];
   auto ugcReviewModel =
       [[MWMUGCReviewModel alloc] initWithReviewValue:value ratings:ratings title:title text:@""];
-  auto ugcVC = [MWMUGCAddReviewController instanceWithModel:ugcReviewModel
-                                                     onSave:^(MWMUGCReviewModel * model) {
-                                                       auto data = self.data;
-                                                       if (!data)
-                                                       {
-                                                         NSAssert(false, @"");
-                                                         return;
-                                                       }
-                                                       RegisterEventIfPossible(
-                                                           eye::MapObject::Event::Type::UgcSaved,
-                                                           data.getRawData);
-                                                       [data setUGCUpdateFrom:model];
-                                                     }];
+  auto ugcVC = [MWMUGCAddReviewController instanceWithModel:ugcReviewModel delegate: self];
   [[MapViewController sharedController].navigationController pushViewController:ugcVC animated:YES];
 }
 
@@ -697,5 +685,28 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 #pragma mark - Ownerfacilities
 
 - (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
+
+- (void)saveUgcWithModel:(MWMUGCReviewModel *)model resultHandler:(void (^)(BOOL))resultHandler
+{
+  auto data = self.data;
+  if (!data)
+  {
+   NSAssert(false, @"");
+   resultHandler(NO);
+   return;
+  }
+  
+  __weak auto weakData = data;
+  [data setUGCUpdateFrom:model resultHandler:^(BOOL result)
+  {
+   if (result)
+   {
+     auto data = weakData;
+     if (data)
+      RegisterEventIfPossible(eye::MapObject::Event::Type::UgcSaved, data.getRawData);
+   }
+   resultHandler(result);
+  }];
+}
 
 @end

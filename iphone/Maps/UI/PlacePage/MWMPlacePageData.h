@@ -197,7 +197,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 
 // UGC
 - (ftraits::UGCRatingCategories)ugcRatingCategories;
-- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel;
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
+           resultHandler:(void (^)(BOOL))resultHandler;
 
 // Route points
 - (RouteMarkType)routeMarkType;

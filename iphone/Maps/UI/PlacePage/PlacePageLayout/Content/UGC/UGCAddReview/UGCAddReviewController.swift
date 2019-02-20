@@ -1,3 +1,9 @@
+@objc(MWMUGCAddReviewControllerDelegate)
+protocol UGCAddReviewControllerDelegate {
+  typealias onSaveHandler = (Bool) -> Void
+  func saveUgc(model: UGCAddReviewController.Model, resultHandler: @escaping onSaveHandler)
+}
+
 @objc(MWMUGCAddReviewController)
 final class UGCAddReviewController: MWMTableViewController {
   typealias Model = UGCReviewModel
@@ -10,10 +16,10 @@ final class UGCAddReviewController: MWMTableViewController {
     case text
   }
 
-  @objc static func instance(model: Model, onSave: @escaping (Model) -> Void) -> UGCAddReviewController {
+  @objc static func instance(model: Model, delegate: UGCAddReviewControllerDelegate) -> UGCAddReviewController {
     let vc = UGCAddReviewController(nibName: toString(self), bundle: nil)
     vc.model = model
-    vc.onSave = onSave
+    vc.delegate = delegate
     return vc
   }
 
@@ -26,8 +32,8 @@ final class UGCAddReviewController: MWMTableViewController {
     }
   }
 
-  private var onSave: ((Model) -> Void)!
   private var sections: [Sections] = []
+  private var delegate: UGCAddReviewControllerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -60,31 +66,41 @@ final class UGCAddReviewController: MWMTableViewController {
       assertionFailure()
       return
     }
-    Statistics.logEvent(kStatUGCReviewSuccess)
+    
     reviewPosted = true
     model.text = text
-    onSave(model)
-    guard let nc = navigationController else { return }
-    let onSuccess = { Toast.toast(withText: L("ugc_thanks_message_auth")).show() }
-    let onError = { Toast.toast(withText: L("ugc_thanks_message_not_auth")).show() }
-    let onComplete = { () -> Void in nc.popToRootViewController(animated: true) }
     
-    if MWMAuthorizationViewModel.isAuthenticated() || MWMPlatform.networkConnectionType() == .none {
-      if MWMAuthorizationViewModel.isAuthenticated() {
-        onSuccess()
-      } else {
-        onError()
+    delegate!.saveUgc(model: model, resultHandler: { (saveResult) in
+      guard let nc = self.navigationController else { return }
+
+      if !saveResult {
+        nc.popViewController(animated: true)
+        return
       }
-      nc.popViewController(animated: true)
-    } else {
-      Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
-      let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
-                                               sourceComponent: .UGC,
-                                               successHandler: {_ in onSuccess()},
-                                               errorHandler: {_ in onError()},
-                                               completionHandler: {_ in onComplete()})
-      present(authVC, animated: true, completion: nil)
-    }
+      
+      Statistics.logEvent(kStatUGCReviewSuccess)
+      
+      let onSuccess = { Toast.toast(withText: L("ugc_thanks_message_auth")).show() }
+      let onError = { Toast.toast(withText: L("ugc_thanks_message_not_auth")).show() }
+      let onComplete = { () -> Void in nc.popToRootViewController(animated: true) }
+      
+      if MWMAuthorizationViewModel.isAuthenticated() || MWMPlatform.networkConnectionType() == .none {
+        if MWMAuthorizationViewModel.isAuthenticated() {
+          onSuccess()
+        } else {
+          onError()
+        }
+        nc.popViewController(animated: true)
+      } else {
+        Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
+        let authVC = AuthorizationViewController(barButtonItem: self.navigationItem.rightBarButtonItem!,
+                                                 sourceComponent: .UGC,
+                                                 successHandler: {_ in onSuccess()},
+                                                 errorHandler: {_ in onError()},
+                                                 completionHandler: {_ in onComplete()})
+        self.present(authVC, animated: true, completion: nil)
+      }
+    })
   }
 
   override func numberOfSections(in _: UITableView) -> Int {
