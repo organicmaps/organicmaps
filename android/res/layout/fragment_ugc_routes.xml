@@ -40,10 +40,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="?android:attr/textAppearanceSmall"/>
-    <View
-      android:background="?android:attr/listDivider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"/>
+    <include layout="@layout/list_divider"/>
     <android.support.v7.widget.RecyclerView
       android:id="@+id/recycler"
       android:overScrollMode="never"

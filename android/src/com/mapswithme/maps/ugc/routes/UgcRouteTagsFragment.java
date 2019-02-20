@@ -39,7 +39,6 @@ import com.mapswithme.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
@@ -231,9 +230,9 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
                                                                 false);
     mRecycler.setLayoutManager(layoutManager);
     mRecycler.setAdapter(compositeAdapter);
-    String description = getString(R.string.ugc_route_tags_desc, String.valueOf(tagsLimit), Locale.US);
+    String description = getString(R.string.ugc_route_tags_desc, String.valueOf(tagsLimit));
     mDescriptionView.setText(description);
-    ActivityCompat.invalidateOptionsMenu(getActivity());
+    requireActivity().invalidateOptionsMenu();
   }
 
   @NonNull
