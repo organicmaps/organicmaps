@@ -58,7 +58,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private static final String UPLOAD_CONFIRMATION_DIALOG_TAG = "upload_confirmation_dialog";
   private static final String UPDATE_CONFIRMATION_DIALOG_TAG = "update_confirmation_dialog";
   private static final String ERROR_HTML_FORMATTING_DIALOG_TAG = "error_html_formatting_dialog";
-  private static final int MIN_REQUIRED_CATEGORY_SIZE = 0;
+  private static final int MIN_REQUIRED_CATEGORY_SIZE = 3;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
