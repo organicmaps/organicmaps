@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -90,12 +89,12 @@ public class TrafficButton
 
   public void show()
   {
-    Animations.appearSliding(mButton, Animations.LEFT, null);
+    UiUtils.show(mButton);
   }
 
   public void hide()
   {
-    Animations.disappearSliding(mButton, Animations.LEFT, null);
+    UiUtils.hide(mButton);
   }
 
   public void hideImmediately()

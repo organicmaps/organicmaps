@@ -29,7 +29,6 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -359,19 +358,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   public void fadeInSearchButtons()
   {
     UiUtils.show(mSearchButtonFrame);
-    Animations.fadeInView(mSearchButtonFrame, null);
   }
 
   public void fadeOutSearchButtons()
   {
-    Animations.fadeOutView(mSearchButtonFrame, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        mSearchButtonFrame.setVisibility(View.INVISIBLE);
-      }
-    });
+    UiUtils.invisible(mSearchButtonFrame);
   }
 
   public void show(boolean show)

@@ -111,7 +111,6 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.BottomSheetPlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
@@ -832,11 +831,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
 
-    if (mNavMyPosition != null)
-      mNavMyPosition.onSaveState(outState);
-    if(mNavAnimationController != null)
-      mNavAnimationController.onSaveState(outState);
-
     if (mFilterController != null)
       mFilterController.onSaveState(outState);
 
@@ -873,11 +867,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
 
     mNavigationController.onRestoreState(savedInstanceState);
-
-    if (mNavMyPosition != null)
-      mNavMyPosition.onRestoreState(savedInstanceState);
-    if(mNavAnimationController != null)
-      mNavAnimationController.onRestoreState(savedInstanceState);
 
     if (mFilterController != null)
       mFilterController.onRestoreState(savedInstanceState);
@@ -1427,22 +1416,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
 
       mIsFullscreenAnimating = true;
-      Animations.disappearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          final int menuHeight = menu.getFrame().getHeight();
-          adjustBottomWidgets(menuHeight);
+      UiUtils.invisible(menu.getFrame());
 
-          mIsFullscreenAnimating = false;
-          if (mIsAppearMenuLater)
-          {
-            appearMenu(menu);
-            mIsAppearMenuLater = false;
-          }
-        }
-      });
+      final int menuHeight = menu.getFrame().getHeight();
+      adjustBottomWidgets(menuHeight);
+
+      mIsFullscreenAnimating = false;
+      if (mIsAppearMenuLater)
+      {
+        appearMenu(menu);
+        mIsAppearMenuLater = false;
+      }
+
       if (mNavAnimationController != null)
         mNavAnimationController.disappearZoomButtons();
       if (mNavMyPosition != null)
@@ -1475,14 +1460,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void appearMenuFrame(@NonNull BaseMenu menu)
   {
-    Animations.appearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        adjustBottomWidgets(0);
-      }
-    });
+    UiUtils.show(menu.getFrame());
+    adjustBottomWidgets(0);
   }
 
   @Override
@@ -1673,36 +1652,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
-    adjustMenuLineFrameVisibility(new Runnable()
+    adjustMenuLineFrameVisibility();
+    mNavigationController.showSearchButtons(RoutingController.get().isPlanning()
+                                            || RoutingController.get().isBuilt());
+
+    if (RoutingController.get().isNavigating())
     {
-      @Override
-      public void run()
-      {
-          mNavigationController.showSearchButtons(RoutingController.get().isPlanning()
-                                                  || RoutingController.get().isBuilt());
+      mNavigationController.show(true);
+      mSearchController.hide();
+      mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
+      return;
+    }
 
-        if (RoutingController.get().isNavigating())
-        {
-          mNavigationController.show(true);
-          mSearchController.hide();
-          mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
-          return;
-        }
+    if (mIsTabletLayout)
+    {
+      mMainMenu.setEnabled(MainMenu.Item.POINT_TO_POINT, !RoutingController.get().isPlanning());
+      mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
+    }
+    else if (RoutingController.get().isPlanning())
+    {
+      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
+      return;
+    }
 
-        if (mIsTabletLayout)
-        {
-          mMainMenu.setEnabled(MainMenu.Item.POINT_TO_POINT, !RoutingController.get().isPlanning());
-          mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-        }
-        else if (RoutingController.get().isPlanning())
-        {
-          mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
-          return;
-        }
-
-        mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
-      }
-    });
+    mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
   }
 
   @Override
@@ -1718,16 +1691,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closePlacePage();
   }
 
-  private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)
+  private void adjustMenuLineFrameVisibility()
   {
     final RoutingController controller = RoutingController.get();
 
     if (controller.isBuilt() || controller.isTaxiRequestHandled())
     {
       showLineFrame();
-
-      if (completion != null)
-        completion.run();
       return;
     }
 
@@ -1735,31 +1705,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (showAddStartOrFinishFrame(controller, true))
       {
-        if (completion != null)
-          completion.run();
         return;
       }
 
-      showLineFrame(false, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          final int menuHeight = getCurrentMenu().getFrame().getHeight();
-          adjustBottomWidgets(menuHeight);
-          if (completion != null)
-            completion.run();
-        }
-      });
-
+      showLineFrame(false);
+      final int menuHeight = getCurrentMenu().getFrame().getHeight();
+      adjustBottomWidgets(menuHeight);
       return;
     }
 
     hideRoutingActionFrame();
     showLineFrame();
-
-    if (completion != null)
-      completion.run();
   }
 
   private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
@@ -1843,19 +1799,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showLineFrame()
   {
-    showLineFrame(true, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        adjustBottomWidgets(0);
-      }
-    });
+    showLineFrame(true);
+    adjustBottomWidgets(0);
   }
 
-  private void showLineFrame(boolean show, @Nullable Runnable completion)
+  private void showLineFrame(boolean show)
   {
-    mMainMenu.showLineFrame(show, completion);
+    mMainMenu.showLineFrame(show);
   }
 
   private void setNavButtonsTopLimit(int limit)

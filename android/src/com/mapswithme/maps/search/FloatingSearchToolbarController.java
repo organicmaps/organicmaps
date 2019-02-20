@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 
 public class FloatingSearchToolbarController extends SearchToolbarController
@@ -59,28 +58,20 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
     if (ParsedMwmRequest.hasRequest())
     {
-      Animations.appearSliding(getToolbar(), Animations.TOP, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          if (mVisibilityListener != null)
-            mVisibilityListener.onSearchVisibilityChanged(true);
-        }
-      });
+      UiUtils.show(getToolbar());
+
+      if (mVisibilityListener != null)
+        mVisibilityListener.onSearchVisibilityChanged(true);
+
       setQuery(ParsedMwmRequest.getCurrentRequest().getTitle());
     }
     else if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
-      Animations.appearSliding(getToolbar(), Animations.TOP, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          if (mVisibilityListener != null)
-            mVisibilityListener.onSearchVisibilityChanged(true);
-        }
-      });
+      UiUtils.show(getToolbar());
+
+      if (mVisibilityListener != null)
+        mVisibilityListener.onSearchVisibilityChanged(true);
+
       setQuery(SearchEngine.INSTANCE.getQuery());
     }
     else
@@ -105,15 +96,10 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     if (!UiUtils.isVisible(getToolbar()))
       return false;
 
-    Animations.disappearSliding(getToolbar(), Animations.TOP, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (mVisibilityListener != null)
-          mVisibilityListener.onSearchVisibilityChanged(false);
-      }
-    });
+    UiUtils.hide(getToolbar());
+
+    if (mVisibilityListener != null)
+      mVisibilityListener.onSearchVisibilityChanged(false);
 
     return true;
   }

@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.maplayer.MapLayerController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 
 public class SubwayMapLayerController implements MapLayerController
@@ -34,7 +33,7 @@ public class SubwayMapLayerController implements MapLayerController
   @Override
   public void show()
   {
-    Animations.appearSliding(mSubwayBtn, Animations.LEFT, null);
+    UiUtils.show(mSubwayBtn);
   }
 
   @Override
@@ -46,7 +45,7 @@ public class SubwayMapLayerController implements MapLayerController
   @Override
   public void hide()
   {
-    Animations.disappearSliding(mSubwayBtn, Animations.LEFT, null);
+    UiUtils.hide(mSubwayBtn);
   }
 
   @Override

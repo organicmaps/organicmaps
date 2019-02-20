@@ -13,7 +13,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
@@ -421,17 +420,8 @@ public class MainMenu extends BaseMenu
     return mAnimationTrackListener;
   }
 
-  public void showLineFrame(boolean show, @Nullable Runnable completion)
+  public void showLineFrame(boolean show)
   {
-    if (show)
-    {
-      UiUtils.hide(mFrame);
-      Animations.appearSliding(mFrame, Animations.BOTTOM, completion);
-    }
-    else
-    {
-      UiUtils.show(mFrame);
-      Animations.disappearSliding(mFrame, Animations.BOTTOM, completion);
-    }
+    UiUtils.showIf(show, mFrame);
   }
 }
