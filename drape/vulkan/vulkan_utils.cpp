@@ -1,5 +1,7 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
+#include <array>
+
 namespace dp
 {
 namespace vulkan
@@ -102,6 +104,37 @@ TextureWrapping SamplerKey::GetWrapTMode() const
 bool SamplerKey::operator<(SamplerKey const & rhs) const
 {
   return m_sampler < rhs.m_sampler;
+}
+
+void DescriptorSetGroup::Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors)
+{
+  std::vector<VkWriteDescriptorSet> writeDescriptorSets(descriptors.size());
+  for (size_t i = 0; i < writeDescriptorSets.size(); ++i)
+  {
+    writeDescriptorSets[i] = {};
+    writeDescriptorSets[i].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    writeDescriptorSets[i].dstSet = m_descriptorSet;
+    writeDescriptorSets[i].descriptorCount = 1;
+    if (descriptors[i].m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+    {
+      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+      writeDescriptorSets[i].dstBinding = 0;
+      writeDescriptorSets[i].pBufferInfo = &descriptors[i].m_bufferDescriptor;
+    }
+    else if (descriptors[i].m_type == ParamDescriptor::Type::Texture)
+    {
+      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+      writeDescriptorSets[i].dstBinding = static_cast<uint32_t>(descriptors[i].m_textureSlot);
+      writeDescriptorSets[i].pImageInfo = &descriptors[i].m_imageDescriptor;
+    }
+    else
+    {
+      CHECK(false, ("Unsupported param descriptor type."));
+    }
+  }
+
+  vkUpdateDescriptorSets(device, static_cast<uint32_t>(writeDescriptorSets.size()),
+                         writeDescriptorSets.data(), 0, nullptr);
 }
 }  // namespace vulkan
 }  // namespace dp

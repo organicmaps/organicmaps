@@ -42,6 +42,7 @@ public:
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     m_objectManager = vulkanContext->GetObjectManager();
 
+    ResetDescriptorSetGroup();
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
     m_bindingInfoCount = static_cast<uint8_t>(m_mesh->m_buffers.size());
     CHECK_LESS_OR_EQUAL(m_bindingInfoCount, kMaxBindingInfo, ());
@@ -73,13 +74,10 @@ public:
 
   void Reset() override
   {
+    ResetDescriptorSetGroup();
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
     m_geometryBuffers.clear();
-  }
-
-  void ResetCache(dp::RenderState const & state) override
-  {
   }
 
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
@@ -153,12 +151,13 @@ public:
     vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
     vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
-    auto descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
+    UpdateDescriptorSetGroup(vulkanContext);
 
     uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                             vulkanContext->GetCurrentPipelineLayout(), 0, 1,
-                            &descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
+                            &m_descriptorSetGroups[m_descriptorSetIndex].m_descriptorSet,
+                            1, &dynamicOffset);
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                       vulkanContext->GetCurrentPipeline());
@@ -168,19 +167,54 @@ public:
       vkCmdBindVertexBuffers(commandBuffer, i, 1, &m_geometryBuffers[i].m_buffer, offsets);
 
     vkCmdDraw(commandBuffer, verticesCount, 1, 0, 0);
-
-    m_objectManager->DestroyDescriptorSetGroup(descriptorSetGroup);
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}
   void Unbind() override {}
 
 private:
+  void ResetDescriptorSetGroup()
+  {
+    for (auto const & g : m_descriptorSetGroups)
+      m_objectManager->DestroyDescriptorSetGroup(g);
+    m_descriptorSetGroups.clear();
+  }
+
+  void UpdateDescriptorSetGroup(ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext)
+  {
+    if (m_program != vulkanContext->GetCurrentProgram())
+    {
+      ResetDescriptorSetGroup();
+      m_program = vulkanContext->GetCurrentProgram();
+    }
+
+    if (m_updateDescriptorFrame != vulkanContext->GetCurrentFrameIndex())
+    {
+      m_updateDescriptorFrame = vulkanContext->GetCurrentFrameIndex();
+      m_descriptorSetIndex = 0;
+    }
+    else
+    {
+      m_descriptorSetIndex++;
+    }
+
+    CHECK_LESS_OR_EQUAL(m_descriptorSetIndex, m_descriptorSetGroups.size(), ());
+    if (m_descriptorSetIndex == m_descriptorSetGroups.size())
+      m_descriptorSetGroups.emplace_back(m_objectManager->CreateDescriptorSetGroup(m_program));
+
+    m_descriptorSetGroups[m_descriptorSetIndex].Update(vulkanContext->GetDevice(),
+                                                       vulkanContext->GetCurrentParamDescriptors());
+  }
+
   ref_ptr<dp::MeshObject> m_mesh;
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<VulkanObject> m_geometryBuffers;
   BindingInfoArray m_bindingInfo;
   uint8_t m_bindingInfoCount = 0;
+  std::vector<DescriptorSetGroup> m_descriptorSetGroups;
+  ref_ptr<VulkanGpuProgram> m_program;
+  uint32_t m_updateDescriptorFrame = 0;
+  uint32_t m_descriptorSetIndex = 0;
 };
 }  // namespace vulkan
 

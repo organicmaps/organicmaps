@@ -9,6 +9,7 @@
 #include <vulkan/vulkan.h>
 
 #include <string>
+#include <vector>
 
 namespace dp
 {
@@ -44,6 +45,8 @@ struct DescriptorSetGroup
     return m_descriptorSet != VK_NULL_HANDLE &&
            m_descriptorPool != VK_NULL_HANDLE;
   }
+
+  void Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors);
 };
 
 template<typename T>

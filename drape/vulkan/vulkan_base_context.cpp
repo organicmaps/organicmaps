@@ -164,6 +164,8 @@ bool VulkanBaseContext::BeginRendering()
   if (!m_presentAvailable)
     return false;
 
+  m_frameCounter++;
+
   // For commands that wait indefinitely for device execution
   // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
   VkResult res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
@@ -649,11 +651,11 @@ VkPipeline VulkanBaseContext::GetCurrentPipeline()
   return m_pipeline->GetPipeline(m_device, m_pipelineKey);
 }
 
-DescriptorSetGroup VulkanBaseContext::GetCurrentDescriptorSetGroup()
+std::vector<ParamDescriptor> const & VulkanBaseContext::GetCurrentParamDescriptors() const
 {
   CHECK(m_pipelineKey.m_program != nullptr, ());
   CHECK(!m_paramDescriptors.empty(), ("Shaders parameters are not set."));
-  return m_objectManager->CreateDescriptorSetGroup(m_pipelineKey.m_program, m_paramDescriptors);
+  return m_paramDescriptors;
 }
 
 VkPipelineLayout VulkanBaseContext::GetCurrentPipelineLayout() const

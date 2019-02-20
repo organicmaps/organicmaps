@@ -94,11 +94,15 @@ public:
   ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
 
   VkPipeline GetCurrentPipeline();
-  DescriptorSetGroup GetCurrentDescriptorSetGroup();
   VkPipelineLayout GetCurrentPipelineLayout() const;
   uint32_t GetCurrentDynamicBufferOffset() const;
+  std::vector<ParamDescriptor> const & GetCurrentParamDescriptors() const;
+  ref_ptr<VulkanGpuProgram> GetCurrentProgram() const { return m_pipelineKey.m_program; }
+  uint32_t GetCurrentFrameIndex() const { return m_frameCounter; }
 
   VkSampler GetSampler(SamplerKey const & key);
+
+  void UpdateDescriptorSetGroup(DescriptorSetGroup & descriptorSetGroup);
 
   enum class HandlerType : uint8_t
   {
@@ -206,6 +210,7 @@ protected:
 
   drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
   std::atomic<bool> m_presentAvailable;
+  uint32_t m_frameCounter = 0;
 };
 }  // namespace vulkan
 }  // namespace dp

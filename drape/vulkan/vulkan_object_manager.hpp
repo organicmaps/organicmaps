@@ -61,8 +61,7 @@ public:
                             uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
-  DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program,
-                                              std::vector<ParamDescriptor> const & descriptors);
+  DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);
 
   // Use unsafe function ONLY if an object exists on the only thread, otherwise
   // use safe Fill function.

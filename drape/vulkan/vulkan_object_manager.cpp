@@ -157,8 +157,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   return result;
 }
 
-DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program,
-                                                                 std::vector<ParamDescriptor> const & descriptors)
+DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -190,36 +189,6 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
       CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
     }
   }
-
-  std::vector<VkWriteDescriptorSet> writeDescriptorSets(descriptors.size());
-  for (size_t i = 0; i < writeDescriptorSets.size(); ++i)
-  {
-    auto const & p = descriptors[i];
-
-    writeDescriptorSets[i] = {};
-    writeDescriptorSets[i].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    writeDescriptorSets[i].dstSet = s.m_descriptorSet;
-    writeDescriptorSets[i].descriptorCount = 1;
-    if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
-    {
-      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
-      writeDescriptorSets[i].dstBinding = 0;
-      writeDescriptorSets[i].pBufferInfo = &p.m_bufferDescriptor;
-    }
-    else if (p.m_type == ParamDescriptor::Type::Texture)
-    {
-      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-      writeDescriptorSets[i].dstBinding = static_cast<uint32_t>(p.m_textureSlot);
-      writeDescriptorSets[i].pImageInfo = &p.m_imageDescriptor;
-    }
-    else
-    {
-      CHECK(false, ("Unsupported param descriptor type."));
-    }
-  }
-
-  vkUpdateDescriptorSets(m_device, static_cast<uint32_t>(writeDescriptorSets.size()),
-                         writeDescriptorSets.data(), 0, nullptr);
   return s;
 }
 
