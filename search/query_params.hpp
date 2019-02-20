@@ -86,6 +86,8 @@ public:
 
   QueryParams() = default;
 
+  void SetQuery(std::string const & query) { m_query = query; }
+
   template <typename It>
   void InitNoPrefix(It tokenBegin, It tokenEnd)
   {
@@ -141,6 +143,9 @@ private:
   friend std::string DebugPrint(QueryParams const & params);
 
   void AddSynonyms();
+
+  // The original query without any normalizations.
+  std::string m_query;
 
   std::vector<Token> m_tokens;
   Token m_prefixToken;

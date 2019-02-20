@@ -151,7 +151,9 @@ void QueryParams::AddSynonyms()
 string DebugPrint(QueryParams const & params)
 {
   ostringstream os;
-  os << "QueryParams [ m_tokens=" << ::DebugPrint(params.m_tokens)
+  os << "QueryParams [ "
+     << "m_query=\"" << params.m_query << "\""
+     << ", m_tokens=" << ::DebugPrint(params.m_tokens)
      << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
      << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
      << ", m_langs=" << DebugPrint(params.m_langs) << " ]";
