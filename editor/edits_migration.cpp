@@ -20,30 +20,31 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
                                   FeatureStatus const featureStatus,
                                   TGenerateIDFn const & generateID)
 {
-  unique_ptr<FeatureType> feature;
+  if (featureStatus == FeatureStatus::Created)
+    return generateID();
+
+  FeatureID fid;
   auto count = 0;
   forEach(
-      [&feature, &count](FeatureType const & ft)
-      {
+      [&fid, &count](FeatureType const & ft) {
         if (ft.GetFeatureType() != feature::GEOM_POINT)
           return;
         // TODO(mgsergio): Check that ft and xml correspond to the same feature.
-        feature = make_unique<FeatureType>(ft);
+        fid = ft.GetID();
         ++count;
       },
       MercatorBounds::FromLatLon(xml.GetCenter()));
 
-  if (!feature && featureStatus != FeatureStatus::Created)
+  if (count == 0)
     MYTHROW(MigrationError, ("No pointed features returned."));
-  if (featureStatus == FeatureStatus::Created)
-    return generateID();
 
   if (count > 1)
   {
     LOG(LWARNING,
         (count, "features returned for point", MercatorBounds::FromLatLon(xml.GetCenter())));
   }
-  return feature->GetID();
+
+  return fid;
 }
 
 FeatureID MigrateWayOrRelatonFeatureIndex(
