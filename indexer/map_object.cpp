@@ -77,6 +77,17 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_featureID = ft.GetID();
   ASSERT(m_featureID.IsValid(), ());
   m_geomType = ft.GetFeatureType();
+  if (m_geomType == feature::GEOM_AREA)
+  {
+    m_triangles = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+  }
+  else if (m_geomType == feature::GEOM_LINE)
+  {
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    m_points.reserve(ft.GetPointsCount());
+    ft.ForEachPoint([this](m2::PointD const & p) { m_points.push_back(p); },
+                    FeatureType::BEST_GEOMETRY);
+  }
 
   SetInetIfNeeded(ft, m_metadata);
 }
@@ -84,6 +95,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 FeatureID const & MapObject::GetID() const { return m_featureID; }
 ms::LatLon MapObject::GetLatLon() const { return MercatorBounds::ToLatLon(m_mercator); }
 m2::PointD const & MapObject::GetMercator() const { return m_mercator; }
+vector<m2::PointD> const & MapObject::GetTriangesAsPoints() const { return m_triangles; }
 feature::TypesHolder const & MapObject::GetTypes() const { return m_types; }
 
 string MapObject::GetDefaultName() const

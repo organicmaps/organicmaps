@@ -60,6 +60,7 @@ public:
 
   ms::LatLon GetLatLon() const;
   m2::PointD const & GetMercator() const;
+  std::vector<m2::PointD> const & GetTriangesAsPoints() const;
 
   feature::TypesHolder const & GetTypes() const;
   std::string GetDefaultName() const;
@@ -107,6 +108,10 @@ protected:
   
   FeatureID m_featureID;
   m2::PointD m_mercator;
+
+  std::vector<m2::PointD> m_points;
+  std::vector<m2::PointD> m_triangles;
+
   StringUtf8Multilang m_name;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
