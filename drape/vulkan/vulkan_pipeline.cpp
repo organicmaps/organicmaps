@@ -238,11 +238,7 @@ void VulkanPipeline::ResetCache(VkDevice device)
 void VulkanPipeline::Destroy(VkDevice device)
 {
   Dump(device);
-
-  for (auto const & p : m_pipelineCache)
-    vkDestroyPipeline(device, p.second, nullptr);
-  m_pipelineCache.clear();
-
+  ResetCache(device);
   vkDestroyPipelineCache(device, m_vulkanPipelineCache, nullptr);
 }
 

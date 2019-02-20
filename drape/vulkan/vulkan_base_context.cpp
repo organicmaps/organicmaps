@@ -111,6 +111,8 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
   m_surfaceCapabilities = surfaceCapabilities;
+
+  LOG(LINFO, ("RecreateSwapchainAndDependencies in SetSurface"));
   RecreateSwapchainAndDependencies();
 }
 
@@ -126,17 +128,16 @@ void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 
 void VulkanBaseContext::RecreateSwapchainAndDependencies()
 {
+  vkDeviceWaitIdle(m_device);
   ResetSwapchainAndDependencies();
   CreateCommandBuffers();
   RecreateDepthTexture();
   RecreateSwapchain();
+  vkDeviceWaitIdle(m_device);
 }
 
 void VulkanBaseContext::ResetSwapchainAndDependencies()
 {
-  if (m_pipeline)
-    m_pipeline->ResetCache(m_device);
-
   DestroyFramebuffers();
   m_depthTexture.reset();
 
@@ -151,17 +152,10 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
 
 void VulkanBaseContext::Resize(int w, int h)
 {
-  if (m_surfaceCapabilities.currentExtent.width == w &&
-      m_surfaceCapabilities.currentExtent.height == h)
-  {
-    return;
-  }
-
-  vkDeviceWaitIdle(m_device);
-
   m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(w);
   m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(h);
 
+  LOG(LINFO, ("RecreateSwapchainAndDependencies in Resize"));
   RecreateSwapchainAndDependencies();
 }
 
@@ -178,18 +172,23 @@ bool VulkanBaseContext::BeginRendering()
 
   CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
 
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
+                              VK_NULL_HANDLE, &m_imageIndex);
+  if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
+  {
+    LOG(LINFO, ("RecreateSwapchainAndDependencies in BeginRendering"));
+    RecreateSwapchainAndDependencies();
+  }
+  else
+  {
+    CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
+  }
+
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
   CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffer, &commandBufferBeginInfo));
   CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
-
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
-                              VK_NULL_HANDLE, &m_imageIndex);
-  if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
-    RecreateSwapchainAndDependencies();
-  else
-    CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
 
   return true;
 }
@@ -373,28 +372,37 @@ void VulkanBaseContext::Present()
   submitInfo.commandBufferCount = 2;
   submitInfo.pCommandBuffers = commandBuffers;
 
-  CHECK_VK_CALL(vkQueueSubmit(m_queue, 1, &submitInfo, m_fence));
-
-  VkPresentInfoKHR presentInfo = {};
-  presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-  presentInfo.pNext = nullptr;
-  presentInfo.swapchainCount = 1;
-  presentInfo.pSwapchains = &m_swapchain;
-  presentInfo.pImageIndices = &m_imageIndex;
-  presentInfo.pWaitSemaphores = &m_renderComplete;
-  presentInfo.waitSemaphoreCount = 1;
-
-  VkResult res = vkQueuePresentKHR(m_queue, &presentInfo);
-  if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR)
-  {
-    if (res == VK_ERROR_OUT_OF_DATE_KHR)
-      RecreateSwapchainAndDependencies();
-    else
-      CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
-  }
-
   // For commands that wait indefinitely for device execution
   // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
+  VkResult res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fence);
+  if (res != VK_ERROR_DEVICE_LOST)
+  {
+    CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
+
+    VkPresentInfoKHR presentInfo = {};
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    presentInfo.pNext = nullptr;
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = &m_swapchain;
+    presentInfo.pImageIndices = &m_imageIndex;
+    presentInfo.pWaitSemaphores = &m_renderComplete;
+    presentInfo.waitSemaphoreCount = 1;
+
+    res = vkQueuePresentKHR(m_queue, &presentInfo);
+    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR)
+    {
+      if (res == VK_ERROR_OUT_OF_DATE_KHR)
+      {
+        vkQueueWaitIdle(m_queue);
+        LOG(LINFO, ("RecreateSwapchainAndDependencies in Present"));
+        RecreateSwapchainAndDependencies();
+      }
+      else
+      {
+        CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
+      }
+    }
+  }
   res = vkQueueWaitIdle(m_queue);
   if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
     CHECK_RESULT_VK_CALL(vkQueueWaitIdle, res);
@@ -406,11 +414,12 @@ void VulkanBaseContext::Present()
   // only after the finishing of rendering. It prevents data collisions.
   m_defaultStagingBuffer->Reset();
 
+  m_objectManager->CollectObjectsSync();
   static uint8_t framesCounter = 0;
   if (framesCounter % 10 == 0)
   {
     framesCounter = 0;
-    DrapeRoutine::Run([this]() { m_objectManager->CollectObjects(); });
+    DrapeRoutine::Run([this]() { m_objectManager->CollectObjectsAsync(); });
   }
   else
   {
@@ -757,6 +766,9 @@ void VulkanBaseContext::DestroySwapchain()
 
 void VulkanBaseContext::DestroyFramebuffers()
 {
+  if (m_pipeline)
+    m_pipeline->ResetCache(m_device);
+
   for (auto & fbData : m_framebuffersData)
   {
     for (auto & framebuffer : fbData.second.m_framebuffers)

@@ -32,15 +32,6 @@ public:
     , m_bindingInfoCount(bindingInfoCount)
   {}
 
-  ~VulkanVertexArrayBufferImpl() override
-  {
-    if (m_descriptorSetGroup)
-    {
-      m_objectManager->DestroyDescriptorSetGroup(m_descriptorSetGroup);
-      m_descriptorSetGroup = {};
-    }
-  }
-  
   bool Build(ref_ptr<GpuProgram> program) override
   {
     UNUSED_VALUE(program);
@@ -62,13 +53,12 @@ public:
                                                      VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
     vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
-    if (!m_descriptorSetGroup)
-      m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
+    auto descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
 
     uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                             vulkanContext->GetCurrentPipelineLayout(), 0, 1,
-                            &m_descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
+                            &descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                       vulkanContext->GetCurrentPipeline());
@@ -96,6 +86,8 @@ public:
     vkCmdBindIndexBuffer(commandBuffer, vulkanIndexBuffer, 0, indexType);
 
     vkCmdDrawIndexed(commandBuffer, range.m_idxCount, 1, range.m_idxStart, 0, 0);
+
+    m_objectManager->DestroyDescriptorSetGroup(descriptorSetGroup);
   }
   
 private:
@@ -103,7 +95,6 @@ private:
   ref_ptr<VulkanObjectManager> m_objectManager;
   BindingInfoArray m_bindingInfo;
   uint8_t m_bindingInfoCount = 0;
-  DescriptorSetGroup m_descriptorSetGroup;
 };
 }  // namespace vulkan
   

@@ -73,7 +73,8 @@ public:
 
   void DestroyObject(VulkanObject object);
   void DestroyDescriptorSetGroup(DescriptorSetGroup group);
-  void CollectObjects();
+  void CollectObjectsSync();
+  void CollectObjectsAsync();
 
   VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };

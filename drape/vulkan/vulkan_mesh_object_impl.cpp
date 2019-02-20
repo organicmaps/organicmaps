@@ -42,8 +42,6 @@ public:
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     m_objectManager = vulkanContext->GetObjectManager();
 
-    ResetDescriptorSetGroup();
-
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
     m_bindingInfoCount = static_cast<uint8_t>(m_mesh->m_buffers.size());
     CHECK_LESS_OR_EQUAL(m_bindingInfoCount, kMaxBindingInfo, ());
@@ -75,8 +73,6 @@ public:
 
   void Reset() override
   {
-    ResetDescriptorSetGroup();
-
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
     m_geometryBuffers.clear();
@@ -84,12 +80,6 @@ public:
 
   void ResetCache(dp::RenderState const & state) override
   {
-    auto newTex = state.GetColorTexture()->GetHardwareTexture();
-    if (newTex != m_lastColorTexture)
-    {
-      m_lastColorTexture = newTex;
-      ResetDescriptorSetGroup();
-    }
   }
 
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
@@ -163,13 +153,12 @@ public:
     vulkanContext->SetPrimitiveTopology(GetPrimitiveType(m_mesh->m_drawPrimitive));
     vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
-    if (!m_descriptorSetGroup)
-      m_descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
+    auto descriptorSetGroup = vulkanContext->GetCurrentDescriptorSetGroup();
 
     uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                             vulkanContext->GetCurrentPipelineLayout(), 0, 1,
-                            &m_descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
+                            &descriptorSetGroup.m_descriptorSet, 1, &dynamicOffset);
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                       vulkanContext->GetCurrentPipeline());
@@ -179,28 +168,19 @@ public:
       vkCmdBindVertexBuffers(commandBuffer, i, 1, &m_geometryBuffers[i].m_buffer, offsets);
 
     vkCmdDraw(commandBuffer, verticesCount, 1, 0, 0);
+
+    m_objectManager->DestroyDescriptorSetGroup(descriptorSetGroup);
   }
 
   void Bind(ref_ptr<dp::GpuProgram> program) override {}
   void Unbind() override {}
 
 private:
-  void ResetDescriptorSetGroup()
-  {
-    if (!m_descriptorSetGroup)
-      return;
-
-    m_objectManager->DestroyDescriptorSetGroup(m_descriptorSetGroup);
-    m_descriptorSetGroup = {};
-  }
-
   ref_ptr<dp::MeshObject> m_mesh;
   ref_ptr<VulkanObjectManager> m_objectManager;
   std::vector<VulkanObject> m_geometryBuffers;
   BindingInfoArray m_bindingInfo;
   uint8_t m_bindingInfoCount = 0;
-  DescriptorSetGroup m_descriptorSetGroup;
-  ref_ptr<dp::HWTexture> m_lastColorTexture;
 };
 }  // namespace vulkan
 

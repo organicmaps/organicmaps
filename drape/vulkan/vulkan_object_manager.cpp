@@ -46,7 +46,8 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
 
 VulkanObjectManager::~VulkanObjectManager()
 {
-  CollectObjects();
+  CollectObjectsSync();
+  CollectObjectsAsync();
 
   for (auto const & s : m_samplers)
     vkDestroySampler(m_device, s.second, nullptr);
@@ -234,20 +235,26 @@ void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
   m_descriptorsToDestroy.push_back(std::move(group));
 }
 
-void VulkanObjectManager::CollectObjects()
+void VulkanObjectManager::CollectObjectsSync()
 {
-  std::vector<VulkanObject> queueToDestroy;
   std::vector<DescriptorSetGroup> descriptorsToDestroy;
   {
     std::lock_guard<std::mutex> lock(m_destroyMutex);
-    std::swap(m_queueToDestroy, queueToDestroy);
     std::swap(m_descriptorsToDestroy, descriptorsToDestroy);
   }
-
   for (auto const & d : descriptorsToDestroy)
   {
     CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
                                        1 /* count */, &d.m_descriptorSet));
+  }
+}
+
+void VulkanObjectManager::CollectObjectsAsync()
+{
+  std::vector<VulkanObject> queueToDestroy;
+  {
+    std::lock_guard<std::mutex> lock(m_destroyMutex);
+    std::swap(m_queueToDestroy, queueToDestroy);
   }
 
   if (!queueToDestroy.empty())
