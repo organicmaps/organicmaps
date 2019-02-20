@@ -791,7 +791,10 @@ void VulkanBaseContext::CreateCommandPool()
 void VulkanBaseContext::DestroyCommandPool()
 {
   if (m_commandPool != VK_NULL_HANDLE)
+  {
     vkDestroyCommandPool(m_device, m_commandPool, nullptr);
+    m_commandPool = VK_NULL_HANDLE;
+  }
 }
 
 void VulkanBaseContext::CreateCommandBuffers()
@@ -809,10 +812,16 @@ void VulkanBaseContext::CreateCommandBuffers()
 void VulkanBaseContext::DestroyCommandBuffers()
 {
   if (m_memoryCommandBuffer != VK_NULL_HANDLE)
+  {
     vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_memoryCommandBuffer);
+    m_memoryCommandBuffer = VK_NULL_HANDLE;
+  }
 
   if (m_renderingCommandBuffer != VK_NULL_HANDLE)
+  {
     vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_renderingCommandBuffer);
+    m_renderingCommandBuffer = VK_NULL_HANDLE;
+  }
 }
 
 void VulkanBaseContext::CreateSyncPrimitives()
@@ -833,13 +842,22 @@ void VulkanBaseContext::CreateSyncPrimitives()
 void VulkanBaseContext::DestroySyncPrimitives()
 {
   if (m_fence != VK_NULL_HANDLE)
+  {
     vkDestroyFence(m_device, m_fence, nullptr);
+    m_fence = VK_NULL_HANDLE;
+  }
 
   if (m_presentComplete != VK_NULL_HANDLE)
+  {
     vkDestroySemaphore(m_device, m_presentComplete, nullptr);
+    m_presentComplete = VK_NULL_HANDLE;
+  }
 
   if (m_renderComplete != VK_NULL_HANDLE)
+  {
     vkDestroySemaphore(m_device, m_renderComplete, nullptr);
+    m_renderComplete = VK_NULL_HANDLE;
+  }
 }
 
 void VulkanBaseContext::RecreateDepthTexture()
