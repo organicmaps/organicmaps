@@ -1,11 +1,11 @@
 #include "indexer/feature.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/editable_map_object.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/map_object.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -180,6 +180,55 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
+// static
+FeatureType FeatureType::ConstructFromMapObject(osm::MapObject const & emo)
+{
+  FeatureType ft;
+  uint8_t const geomType = emo.GetGeomType();
+  ft.m_limitRect.MakeEmpty();
+
+  switch (geomType)
+  {
+  case feature::GEOM_POINT:
+    ft.m_center = emo.GetMercator();
+    ft.m_limitRect.Add(ft.m_center);
+    break;
+  case feature::GEOM_LINE:
+    ft.m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
+    for (auto const & p : ft.m_points)
+      ft.m_limitRect.Add(p);
+    break;
+  case feature::GEOM_AREA:
+    ft.m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
+    for (auto const & p : ft.m_triangles)
+      ft.m_limitRect.Add(p);
+    break;
+  }
+
+  ft.m_parsed.m_points = ft.m_parsed.m_triangles = true;
+
+  ft.m_params.name = emo.GetNameMultilang();
+  string const & house = emo.GetHouseNumber();
+  if (house.empty())
+    ft.m_params.house.Clear();
+  else
+    ft.m_params.house.Set(house);
+  ft.m_parsed.m_common = true;
+
+  ft.m_metadata = emo.GetMetadata();
+  ft.m_parsed.m_metadata = true;
+
+  CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
+  copy(emo.GetTypes().begin(), emo.GetTypes().end(), ft.m_types.begin());
+
+  ft.m_parsed.m_types = true;
+  ft.m_header = CalculateHeader(emo.GetTypes().Size(), geomType, ft.m_params);
+  ft.m_parsed.m_header2 = true;
+
+  ft.m_id = emo.GetID();
+  return ft;
+}
+
 void FeatureType::Deserialize(SharedLoadInfo const * loadInfo, Buffer buffer)
 {
   CHECK(loadInfo, ());
@@ -202,17 +251,6 @@ feature::EGeomType FeatureType::GetFeatureType() const
   case HEADER_GEOM_AREA: return GEOM_AREA;
   default: return GEOM_POINT;
   }
-}
-
-void FeatureType::SetTypes(array<uint32_t, feature::kMaxTypesCount> const & types, uint32_t count)
-{
-  ASSERT_GREATER_OR_EQUAL(count, 1, ("Must be one type at least."));
-  ASSERT_LESS(count, feature::kMaxTypesCount, ("Too many types for feature"));
-  count = min(count, static_cast<uint32_t>(feature::kMaxTypesCount - 1));
-  m_types.fill(0);
-  copy_n(begin(types), count, begin(m_types));
-  auto value = static_cast<uint8_t>((count - 1) & feature::HEADER_TYPE_MASK);
-  m_header = (m_header & (~feature::HEADER_TYPE_MASK)) | value;
 }
 
 void FeatureType::ParseTypes()
@@ -282,44 +320,6 @@ int8_t FeatureType::GetLayer()
 
   ParseCommon();
   return m_params.layer;
-}
-
-void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
-{
-  uint8_t geoType;
-  if (emo.IsPointType())
-  {
-    // We are here for existing point features and for newly created point features.
-    m_center = emo.GetMercator();
-    m_limitRect.MakeEmpty();
-    m_limitRect.Add(m_center);
-    m_parsed.m_points = m_parsed.m_triangles = true;
-    geoType = feature::GEOM_POINT;
-  }
-  else
-  {
-    geoType = m_header & HEADER_GEOTYPE_MASK;
-  }
-
-  m_params.name = emo.GetName();
-  string const & house = emo.GetHouseNumber();
-  if (house.empty())
-    m_params.house.Clear();
-  else
-    m_params.house.Set(house);
-  m_parsed.m_common = true;
-
-  m_metadata = emo.GetMetadata();
-  m_parsed.m_metadata = true;
-
-  uint32_t typesCount = 0;
-  for (uint32_t const type : emo.GetTypes())
-    m_types[typesCount++] = type;
-  m_parsed.m_types = true;
-  m_header = CalculateHeader(typesCount, geoType, m_params);
-  m_parsed.m_header2 = true;
-
-  m_id = emo.GetID();
 }
 
 void FeatureType::ParseEverything()
@@ -551,74 +551,6 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-void FeatureType::SetNames(StringUtf8Multilang const & newNames)
-{
-  m_params.name.Clear();
-  // Validate passed string to clean up empty names (if any).
-  newNames.ForEach([this](int8_t langCode, string const & name) {
-    if (!name.empty())
-      m_params.name.AddString(langCode, name);
-  });
-
-  if (m_params.name.IsEmpty())
-    m_header = m_header & ~feature::HEADER_HAS_NAME;
-  else
-    m_header = m_header | feature::HEADER_HAS_NAME;
-}
-
-void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
-{
-  m_parsed.m_metadata = true;
-  m_metadata = newMetadata;
-}
-
-void FeatureType::UpdateHeader(bool commonParsed, bool metadataParsed)
-{
-  feature::EHeaderTypeMask geomType =
-      static_cast<feature::EHeaderTypeMask>(m_header & feature::HEADER_GEOTYPE_MASK);
-  if (!geomType)
-  {
-    geomType = m_params.house.IsEmpty() && !m_params.ref.empty() ? feature::HEADER_GEOM_POINT
-                                                                 : feature::HEADER_GEOM_POINT_EX;
-  }
-
-  m_header = feature::CalculateHeader(GetTypesCount(), geomType, m_params);
-  m_parsed.m_header2 = true;
-  m_parsed.m_types = true;
-
-  m_parsed.m_common = commonParsed;
-  m_parsed.m_metadata = metadataParsed;
-}
-
-bool FeatureType::UpdateMetadataValue(string const & key, string const & value)
-{
-  feature::Metadata::EType mdType;
-  if (!feature::Metadata::TypeFromString(key, mdType))
-    return false;
-  m_metadata.Set(mdType, value);
-  return true;
-}
-
-void FeatureType::ForEachMetadataItem(
-    bool skipSponsored, function<void(string const & tag, string const & value)> const & fn) const
-{
-  for (auto const type : m_metadata.GetPresentTypes())
-  {
-    if (skipSponsored && m_metadata.IsSponsoredType(static_cast<feature::Metadata::EType>(type)))
-      continue;
-    auto const attributeName = ToString(static_cast<feature::Metadata::EType>(type));
-    fn(attributeName, m_metadata.Get(type));
-  }
-}
-
-void FeatureType::SetCenter(m2::PointD const & pt)
-{
-  ASSERT_EQUAL(GetFeatureType(), GEOM_POINT, ("Only for point feature."));
-  m_center = pt;
-  m_limitRect.Add(m_center);
-  m_parsed.m_points = m_parsed.m_triangles = true;
-}
-
 namespace
 {
   template <class TCont>
@@ -805,14 +737,6 @@ string FeatureType::GetHouseNumber()
 {
   ParseCommon();
   return m_params.house.Get();
-}
-
-void FeatureType::SetHouseNumber(string const & number)
-{
-  if (number.empty())
-    m_params.house.Clear();
-  else
-    m_params.house.Set(number);
 }
 
 bool FeatureType::GetName(int8_t lang, string & name)

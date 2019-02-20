@@ -3,7 +3,7 @@
 #include "editor/xml_feature.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/feature.hpp"
+#include "indexer/editable_map_object.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -368,13 +368,13 @@ UNIT_TEST(XMLFeature_FromXMLAndBackToXML)
   editor::XMLFeature xmlWithType = xmlNoType;
   xmlWithType.SetTagValue("amenity", "atm");
 
-  FeatureType ft;
-  editor::FromXML(xmlWithType, ft);
-  auto fromFtWithType = editor::ToXML(ft, true);
+  osm::EditableMapObject emo;
+  editor::FromXML(xmlWithType, emo);
+  auto fromFtWithType = editor::ToXML(emo, true);
   fromFtWithType.SetAttribute("timestamp", kTimestamp);
   TEST_EQUAL(fromFtWithType, xmlWithType, ());
 
-  auto fromFtWithoutType = editor::ToXML(ft, false);
+  auto fromFtWithoutType = editor::ToXML(emo, false);
   fromFtWithoutType.SetAttribute("timestamp", kTimestamp);
   TEST_EQUAL(fromFtWithoutType, xmlNoType, ());
 }

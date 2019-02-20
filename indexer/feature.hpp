@@ -23,7 +23,7 @@ class SharedLoadInfo;
 
 namespace osm
 {
-class EditableMapObject;
+class MapObject;
 }
 
 // Lazy feature loader. Loads needed data and caches it.
@@ -32,6 +32,8 @@ class FeatureType
 public:
   using Buffer = char const *;
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
+
+  static FeatureType ConstructFromMapObject(osm::MapObject const & emo);
 
   void Deserialize(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
 
@@ -68,26 +70,7 @@ public:
 
   int8_t GetLayer();
 
-  /// @name Editor methods.
-  //@{
-  /// Apply changes from UI for edited or newly created features.
-  /// Replaces all FeatureType's components.
   std::vector<m2::PointD> GetTriangesAsPoints(int scale);
-
-  void ReplaceBy(osm::EditableMapObject const & ef);
-
-  void SetNames(StringUtf8Multilang const & newNames);
-  void SetTypes(std::array<uint32_t, feature::kMaxTypesCount> const & types, uint32_t count);
-  void SetMetadata(feature::Metadata const & newMetadata);
-
-  void UpdateHeader(bool commonParsed, bool metadataParsed);
-  bool UpdateMetadataValue(std::string const & key, std::string const & value);
-  void ForEachMetadataItem(
-      bool skipSponsored,
-      std::function<void(std::string const & tag, std::string const & value)> const & fn) const;
-
-  void SetCenter(m2::PointD const &pt);
-  //@}
 
   void SetID(FeatureID const & id) { m_id = id; }
   FeatureID const & GetID() const { return m_id; }
@@ -157,8 +140,6 @@ public:
   std::string DebugString(int scale);
 
   std::string GetHouseNumber();
-  /// Needed for Editor, to change house numbers in runtime.
-  void SetHouseNumber(std::string const & number);
 
   /// @name Get names for feature.
   /// @param[out] defaultName corresponds to osm tag "name"

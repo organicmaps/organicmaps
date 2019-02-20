@@ -213,8 +213,6 @@ vector<feature::Metadata::EType> const & EditableMapObject::GetEditableFields() 
   return m_editableProperties.m_metadata;
 }
 
-StringUtf8Multilang const & EditableMapObject::GetName() const { return m_name; }
-
 NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true */)
 {
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
@@ -282,7 +280,6 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 }
 
 vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
-string const & EditableMapObject::GetHouseNumber() const { return m_houseNumber; }
 
 string EditableMapObject::GetPostcode() const
 {
@@ -292,6 +289,18 @@ string EditableMapObject::GetPostcode() const
 string EditableMapObject::GetWikipedia() const
 {
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
+}
+
+void EditableMapObject::ForEachMetadataItem(
+    bool skipSponsored, function<void(string const & tag, string const & value)> const & fn) const
+{
+  for (auto const type : m_metadata.GetPresentTypes())
+  {
+    if (skipSponsored && m_metadata.IsSponsoredType(static_cast<feature::Metadata::EType>(type)))
+      continue;
+    auto const attributeName = ToString(static_cast<feature::Metadata::EType>(type));
+    fn(attributeName, m_metadata.Get(type));
+  }
 }
 
 uint64_t EditableMapObject::GetTestId() const
@@ -420,6 +429,8 @@ void EditableMapObject::SetType(uint32_t featureType)
   }
 }
 
+void EditableMapObject::SetTypes(feature::TypesHolder const & types) { m_types = types; }
+
 void EditableMapObject::SetID(FeatureID const & fid) { m_featureID = fid; }
 void EditableMapObject::SetStreet(LocalizedStreet const & st) { m_street = st; }
 
@@ -431,6 +442,15 @@ void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
 void EditableMapObject::SetHouseNumber(string const & houseNumber)
 {
   m_houseNumber = houseNumber;
+}
+
+bool EditableMapObject::UpdateMetadataValue(string const & key, string const & value)
+{
+  feature::Metadata::EType mdType;
+  if (!feature::Metadata::TypeFromString(key, mdType))
+    return false;
+  m_metadata.Set(mdType, value);
+  return true;
 }
 
 void EditableMapObject::SetPostcode(string const & postcode)

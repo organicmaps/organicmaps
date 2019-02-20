@@ -1071,7 +1071,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
     MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
     [dvc configWithDelegate:self
-                               name:m_mapObject.GetName()
+                               name:m_mapObject.GetNameMultilang()
         additionalSkipLanguageCodes:m_newAdditionalLanguages
                selectedLanguageCode:((NSNumber *)sender).integerValue];
   }

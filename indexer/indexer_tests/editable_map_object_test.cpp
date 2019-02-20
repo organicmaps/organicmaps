@@ -262,8 +262,8 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
 
   vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
-  auto const namesDataSource =
-      EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("ko"));
+  auto const namesDataSource = EditableMapObject::GetNamesDataSource(
+      emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("ko"));
 
   TEST_EQUAL(namesDataSource.names.size(), 9, ("All names except the default should be pushed into "
                                            "data source plus empty mandatory names"));
@@ -281,8 +281,8 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
-    auto const namesDataSource =
-        EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("fr"));
+    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
+        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
     TEST_EQUAL(namesDataSource.names.size(), 9,
                ("All names + empty mandatory names should be pushed into "
                 "the data source, except the default one."));
@@ -293,8 +293,8 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
 
-    auto const namesDataSource =
-        EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("fr"));
+    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
+        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
     TEST_EQUAL(namesDataSource.names.size(), 9,
                ("All names + empty mandatory names should be pushed into "
                 "the data source, except the default one."));
@@ -305,8 +305,8 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
 
-    auto const namesDataSource =
-        EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("en"));
+    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
+        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("en"));
     TEST_EQUAL(namesDataSource.names.size(), 8,
                ("All names + empty mandatory names should be pushed into "
                 "the data source, except the default one."));
@@ -594,7 +594,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   emo.SetName(name);
   emo.RemoveBlankAndDuplicationsForDefault();
 
-  TEST_EQUAL(getCountOfNames(emo.GetName()), 4, ());
+  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 4, ());
 
   name.Clear();
 
@@ -606,7 +606,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   emo.SetName(name);
   emo.RemoveBlankAndDuplicationsForDefault();
 
-  TEST_EQUAL(getCountOfNames(emo.GetName()), 2, ());
+  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 2, ());
 
   name.Clear();
 
@@ -618,7 +618,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   emo.SetName(name);
   emo.RemoveBlankAndDuplicationsForDefault();
 
-  TEST_EQUAL(getCountOfNames(emo.GetName()), 1, ());
+  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
 
   name.Clear();
 
@@ -630,6 +630,6 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   emo.SetName(name);
   emo.RemoveBlankAndDuplicationsForDefault();
 
-  TEST_EQUAL(getCountOfNames(emo.GetName()), 1, ());
+  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
 }
 }  // namespace

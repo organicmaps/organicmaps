@@ -99,7 +99,7 @@ public:
   /// Returns empty string when there is no street the feature belongs to.
   std::string GetFeatureStreetName(FeatureType & ft) const;
   /// Same with GetFeatureStreetName but gets street from mwm only (not editor).
-  std::string GetOriginalFeatureStreetName(FeatureType & ft) const;
+  std::string GetOriginalFeatureStreetName(FeatureID const & fid) const;
   /// For |houseId| with street information sets |streetId| to FeatureID of street corresponding to
   /// |houseId| and returns true. Returs false otherwise.
   bool GetStreetByHouse(FeatureType & house, FeatureID & streetId) const;

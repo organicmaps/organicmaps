@@ -58,8 +58,8 @@ public:
     virtual ~Delegate() = default;
 
     virtual MwmSet::MwmId GetMwmIdByMapName(string const & name) const = 0;
-    virtual unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & fid) const = 0;
-    virtual string GetOriginalFeatureStreet(FeatureType & ft) const = 0;
+    virtual unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const = 0;
+    virtual string GetOriginalFeatureStreet(FeatureID const & fid) const = 0;
     virtual void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const = 0;
   };
 
@@ -196,8 +196,7 @@ private:
   struct FeatureTypeInfo
   {
     FeatureStatus m_status;
-    // TODO(AlexZ): Integrate EditableMapObject class into an editor instead of FeatureType.
-    FeatureType m_feature;
+    EditableMapObject m_object;
     /// If not empty contains Feature's addr:street, edited by user.
     string m_street;
     time_t m_modificationTimestamp = base::INVALID_TIME_STAMP;
@@ -236,8 +235,8 @@ private:
 
   // These methods are just checked wrappers around Delegate.
   MwmSet::MwmId GetMwmIdByMapName(string const & name);
-  unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & fid) const;
-  string GetOriginalFeatureStreet(FeatureType & ft) const;
+  unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const;
+  string GetOriginalFeatureStreet(FeatureID const & fid) const;
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
   FeatureID GetFeatureIdByXmlFeature(FeaturesContainer const & features,
                                      editor::XMLFeature const & xml, MwmSet::MwmId const & mwmId,

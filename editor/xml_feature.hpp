@@ -13,7 +13,10 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-class FeatureType;
+namespace osm
+{
+class EditableMapObject;
+}
 
 namespace editor
 {
@@ -175,16 +178,16 @@ private:
 
 /// Rewrites all but geometry and types.
 /// Should be applied to existing features only (in mwm files).
-void ApplyPatch(XMLFeature const & xml, FeatureType & feature);
+void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object);
 
 /// @param serializeType if false, types are not serialized.
 /// Useful for applying modifications to existing OSM features, to avoid issues when someone
 /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
-XMLFeature ToXML(FeatureType & feature, bool serializeType);
+XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType);
 
 /// Creates new feature, including geometry and types.
 /// @Note: only nodes (points) are supported at the moment.
-bool FromXML(XMLFeature const & xml, FeatureType & feature);
+bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object);
 
 string DebugPrint(XMLFeature const & feature);
 string DebugPrint(XMLFeature::Type const type);

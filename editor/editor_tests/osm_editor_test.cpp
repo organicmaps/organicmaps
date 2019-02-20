@@ -151,8 +151,6 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
                              osm::EditableMapObject const & emo,
                              pugi::xml_document & out)
 {
-  auto & editor = osm::Editor::Instance();
-
   pugi::xml_node root = out.append_child("mapsme");
   root.append_attribute("format_version") = 1;
 
@@ -161,11 +159,8 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
   mwmNode.append_attribute("version") = static_cast<long long>(mwmId.GetInfo()->GetVersion());
   pugi::xml_node created = mwmNode.append_child("create");
 
-  FeatureType ft;
-  editor.GetEditedFeature(emo.GetID().m_mwmId, emo.GetID().m_index, ft);
-
-  editor::XMLFeature xf = editor::ToXML(ft, true);
-  xf.SetMWMFeatureIndex(ft.GetID().m_index);
+  editor::XMLFeature xf = editor::ToXML(emo, true);
+  xf.SetMWMFeatureIndex(emo.GetID().m_index);
   xf.SetModificationTime(time(nullptr));
   xf.SetUploadTime(time(nullptr));
   xf.SetUploadStatus("Uploaded");
@@ -244,7 +239,7 @@ void EditorTest::GetFeatureTypeInfoTest()
     auto const featuresAfter = editor.m_features.Get();
     auto const fti = editor.GetFeatureTypeInfo(*featuresAfter, ft.GetID().m_mwmId, ft.GetID().m_index);
     TEST_NOT_EQUAL(fti, 0, ());
-    TEST_EQUAL(fti->m_feature.GetID(), ft.GetID(), ());
+    TEST_EQUAL(fti->m_object.GetID(), ft.GetID(), ());
   });
 }
 
@@ -307,26 +302,24 @@ void EditorTest::SetIndexTest()
   osm::EditableMapObject emo;
   CreateCafeAtPoint({2.0, 2.0}, gbMwmId, emo);
 
-  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
-  {
-    auto const firstPtr = editor.GetOriginalFeature(ft.GetID());
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft) {
+    auto const firstPtr = editor.GetOriginalMapObject(ft.GetID());
     TEST(firstPtr, ());
     SetBuildingLevelsToOne(ft);
-    auto const secondPtr = editor.GetOriginalFeature(ft.GetID());
+    auto const secondPtr = editor.GetOriginalMapObject(ft.GetID());
     TEST(secondPtr, ());
     TEST_EQUAL(firstPtr->GetID(), secondPtr->GetID(), ());
   });
 
-  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
-  {
-    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft), "Test street", ());
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft) {
+    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft.GetID()), "Test street", ());
 
     EditFeature(ft, [](osm::EditableMapObject & emo)
     {
       osm::LocalizedStreet ls{"Some street", ""};
       emo.SetStreet(ls);
     });
-    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft), "Test street", ());
+    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft.GetID()), "Test street", ());
   });
 
   uint32_t counter = 0;
@@ -991,7 +984,7 @@ void EditorTest::LoadMapEditsTest()
     {
       for (auto const & index : mwm.second)
       {
-        loadedFeatures.emplace_back(index.second.m_feature.GetID());
+        loadedFeatures.emplace_back(index.second.m_object.GetID());
       }
     }
   };

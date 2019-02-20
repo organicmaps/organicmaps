@@ -171,11 +171,15 @@ string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const
   return addr.m_street.m_name;
 }
 
-string ReverseGeocoder::GetOriginalFeatureStreetName(FeatureType & ft) const
+string ReverseGeocoder::GetOriginalFeatureStreetName(FeatureID const & fid) const
 {
   Address addr;
   HouseTable table(m_dataSource);
-  GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), true /* ignoreEdits */, addr);
+  Building bld;
+
+  m_dataSource.ReadFeature([&](FeatureType & ft) { bld = FromFeature(ft, 0.0 /* distMeters */); },
+                           fid);
+  GetNearbyAddress(table, bld, true /* ignoreEdits */, addr);
   return addr.m_street.m_name;
 }
 

@@ -18,20 +18,22 @@ MwmSet::MwmId EditorDelegate::GetMwmIdByMapName(string const & name) const
   return m_dataSource.GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
-unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid) const
+unique_ptr<osm::EditableMapObject> EditorDelegate::GetOriginalMapObject(FeatureID const & fid) const
 {
   FeaturesLoaderGuard guard(m_dataSource, fid.m_mwmId);
   auto feature = guard.GetOriginalFeatureByIndex(fid.m_index);
-  if (feature)
-    feature->ParseEverything();
+  if (!feature)
+    return {};
 
-  return feature;
+  auto object = make_unique<osm::EditableMapObject>();
+  object->SetFromFeatureType(*feature);
+  return object;
 }
 
-string EditorDelegate::GetOriginalFeatureStreet(FeatureType & ft) const
+string EditorDelegate::GetOriginalFeatureStreet(FeatureID const & fid) const
 {
   search::ReverseGeocoder const coder(m_dataSource);
-  return coder.GetOriginalFeatureStreetName(ft);
+  return coder.GetOriginalFeatureStreetName(fid);
 }
 
 void EditorDelegate::ForEachFeatureAtPoint(osm::Editor::FeatureTypeFn && fn,

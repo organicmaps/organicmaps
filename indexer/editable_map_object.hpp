@@ -11,6 +11,7 @@
 #include "coding/string_utf8_multilang.hpp"
 
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -103,14 +104,16 @@ public:
   // TODO(AlexZ): Remove this method and use GetEditableProperties() in UI.
   std::vector<feature::Metadata::EType> const & GetEditableFields() const;
 
-  StringUtf8Multilang const & GetName() const;
   /// See comment for NamesDataSource class.
   NamesDataSource GetNamesDataSource(bool addFakes = true);
   LocalizedStreet const & GetStreet() const;
   std::vector<LocalizedStreet> const & GetNearbyStreets() const;
-  std::string const & GetHouseNumber() const;
   std::string GetPostcode() const;
   std::string GetWikipedia() const;
+
+  void ForEachMetadataItem(
+      bool skipSponsored,
+      std::function<void(std::string const & tag, std::string const & value)> const & fn) const;
 
   // These two methods should only be used in tests.
   uint64_t GetTestId() const;
@@ -122,12 +125,13 @@ public:
   void SetName(std::string name, int8_t langCode = StringUtf8Multilang::kDefaultCode);
   void SetMercator(m2::PointD const & center);
   void SetType(uint32_t featureType);
+  void SetTypes(feature::TypesHolder const & types);
   void SetID(FeatureID const & fid);
 
-  //  void SetTypes(feature::TypesHolder const & types);
   void SetStreet(LocalizedStreet const & st);
   void SetNearbyStreets(std::vector<LocalizedStreet> && streets);
   void SetHouseNumber(std::string const & houseNumber);
+  bool UpdateMetadataValue(std::string const & key, std::string const & value);
   void SetPostcode(std::string const & postcode);
   void SetPhone(std::string const & phone);
   void SetFax(std::string const & fax);
@@ -180,7 +184,6 @@ public:
   static void RemoveFakeNames(FakeNames const & fakeNames, StringUtf8Multilang & name);
 
 private:
-  std::string m_houseNumber;
   LocalizedStreet m_street;
   std::vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
