@@ -757,9 +757,10 @@ void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & 
   m_work.GetUGC(fid, ugcCallback);
 }
 
-void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc)
+void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc,
+                             ugc::Api::OnResultCallback const & callback /*  = nullptr */)
 {
-  m_work.GetUGCApi()->SetUGCUpdate(fid, ugc);
+  m_work.GetUGCApi()->SetUGCUpdate(fid, ugc, callback);
 }
 
 void Framework::UploadUGC()

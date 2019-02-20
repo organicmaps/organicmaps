@@ -209,7 +209,8 @@ namespace android
                                         std::string const & productId, ms::LatLon const & from,
                                         ms::LatLon const & to);
     void RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback);
-    void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc);
+    void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc,
+                      ugc::Api::OnResultCallback const & callback = nullptr);
     void UploadUGC();
 
     int ToDoAfterUpdate() const;

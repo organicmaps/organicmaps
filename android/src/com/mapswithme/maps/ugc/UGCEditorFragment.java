@@ -1,6 +1,7 @@
 package com.mapswithme.maps.ugc;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,26 +81,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(getArguments().getString(ARG_TITLE));
     View submitButton = getToolbarController().findViewById(R.id.submit);
-    submitButton.setOnClickListener(v ->
-                                    {
-                                      onSubmitButtonClick();
-                                      if (!ConnectionState.isConnected())
-                                      {
-                                        if (isAuthorized())
-                                        {
-                                          Utils.toastShortcut(getContext(),
-                                                              R.string.ugc_thanks_message_auth);
-                                        }
-                                        else
-                                        {
-                                          Utils.toastShortcut(getContext(),
-                                                              R.string.ugc_thanks_message_not_auth);
-                                        }
-                                        finishActivity();
-                                        return;
-                                      }
-                                      authorize();
-                                    });
+    submitButton.setOnClickListener(v -> onSubmitButtonClick());
   }
 
   @NonNull
@@ -115,6 +97,48 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
         super.onUpClick();
       }
     };
+  }
+
+  @Override
+  @CallSuper
+  public void onStart()
+  {
+    super.onStart();
+
+    UGC.setSaveListener((boolean result) ->
+    {
+      if (!result)
+      {
+        finishActivity();
+        return;
+      }
+
+      UserActionsLogger.logUgcSaved();
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
+
+      if (!ConnectionState.isConnected())
+      {
+        if (isAuthorized())
+        {
+          Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_auth);
+        }
+        else
+        {
+          Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_not_auth);
+        }
+        finishActivity();
+        return;
+      }
+      authorize();
+    });
+  }
+
+  @Override
+  @CallSuper
+  public void onStop()
+  {
+    super.onStop();
+    UGC.setSaveListener(null);
   }
 
   @Override
@@ -180,8 +204,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
                                "; lat = " + getArguments().getDouble(ARG_LAT) +
                                "; lon = " + getArguments().getDouble(ARG_LON));
     }
+
     UGC.setUGCUpdate(featureId, update);
-    UserActionsLogger.logUgcSaved();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
   }
 }

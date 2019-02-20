@@ -41,12 +41,14 @@ public class UGC
   private final int mBasedOnCount;
   private final float mAverageRating;
   @Nullable
-  private static UGCListener mListener;
+  private static ReceiveUGCListener mReceiveListener;
+  @Nullable
+  private static SaveUGCListener mSaveListener;
 
   public static void init(final @NonNull Context context)
   {
     final AppBackgroundTracker.OnTransitionListener listener = new UploadUgcTransitionListener(context);
-    MwmApplication.backgroundTracker().addListener(listener);
+    MwmApplication.backgroundTracker(context).addListener(listener);
   }
 
   private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews,
@@ -78,14 +80,24 @@ public class UGC
     return Arrays.asList(mReviews);
   }
 
-  public static void setListener(@Nullable UGCListener listener)
+  public static void setReceiveListener(@Nullable ReceiveUGCListener listener)
   {
-    mListener = listener;
+    mReceiveListener = listener;
   }
 
-  public static native void requestUGC(@NonNull FeatureId fid);
+  public static void setSaveListener(@Nullable SaveUGCListener listener)
+  {
+    mSaveListener = listener;
+  }
 
-  public static native void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
+  public static void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update)
+  {
+    nativeSetUGCUpdate(fid, update);
+  }
+
+  public static native void nativeRequestUGC(@NonNull FeatureId fid);
+
+  public static native void nativeSetUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
 
   public static native void nativeUploadUGC();
 
@@ -94,15 +106,27 @@ public class UGC
   @NonNull
   public static native String nativeFormatRating(float rating);
 
+  // Called from JNI.
+  @SuppressWarnings("unused")
   public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate,
                                    @Impress int impress, @NonNull String rating)
   {
-    if (mListener != null)
-    {
-      if (ugc == null && ugcUpdate != null)
-        impress = UGC.RATING_COMING_SOON;
-      mListener.onUGCReceived(ugc, ugcUpdate, impress, rating);
-    }
+    if (mReceiveListener == null)
+      return;
+
+    if (ugc == null && ugcUpdate != null)
+      impress = UGC.RATING_COMING_SOON;
+    mReceiveListener.onUGCReceived(ugc, ugcUpdate, impress, rating);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  public static void onUGCSaved(boolean result)
+  {
+    if (mSaveListener == null)
+      return;
+
+    mSaveListener.onUGCSaved(result);
   }
 
   public static class Rating implements Parcelable
@@ -258,10 +282,15 @@ public class UGC
     }
   }
 
-  interface UGCListener
+  interface ReceiveUGCListener
   {
     void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @Impress int impress,
                        @NonNull String rating);
+  }
+
+  interface SaveUGCListener
+  {
+    void onUGCSaved(boolean result);
   }
 
   private static class UploadUgcTransitionListener implements AppBackgroundTracker.OnTransitionListener
