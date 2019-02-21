@@ -93,6 +93,9 @@ public:
     auto const indexType = dp::IndexStorage::IsSupported32bit() ? VK_INDEX_TYPE_UINT32 : VK_INDEX_TYPE_UINT16;
     vkCmdBindIndexBuffer(commandBuffer, vulkanIndexBuffer, 0, indexType);
 
+    CHECK_LESS_OR_EQUAL(range.m_idxStart + range.m_idxCount,
+                        m_objectManager->GetMemoryManager().GetDeviceLimits().maxDrawIndexedIndexValue, ());
+
     vkCmdDrawIndexed(commandBuffer, range.m_idxCount, 1, range.m_idxStart, 0, 0);
   }
   

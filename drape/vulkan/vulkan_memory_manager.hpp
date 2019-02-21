@@ -78,15 +78,20 @@ public:
   uint32_t GetSizeAlignment(VkMemoryRequirements const & memReqs) const;
   static uint32_t GetAligned(uint32_t value, uint32_t alignment);
 
+  VkPhysicalDeviceLimits const & GetDeviceLimits() const;
+
 private:
   boost::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
                                                VkMemoryPropertyFlags properties) const;
+  void IncrementTotalAllocationsCount();
+  void DecrementTotalAllocationsCount();
 
   VkDevice const m_device;
   VkPhysicalDeviceLimits const m_deviceLimits;
   VkPhysicalDeviceMemoryProperties const m_memoryProperties;
   bool m_isInDeallocationSession = false;
   uint32_t m_deallocationSessionMask = 0;
+  uint32_t m_totalAllocationCounter = 0;
 
   using MemoryBlocks = std::vector<drape_ptr<MemoryBlock>>;
   std::array<std::unordered_map<uint64_t, MemoryBlocks>, kResourcesCount> m_memory;

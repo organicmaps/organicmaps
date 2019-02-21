@@ -76,14 +76,21 @@ VulkanMemoryManager::~VulkanMemoryManager()
   for (size_t i = 0; i < kResourcesCount; ++i)
   {
     for (auto const & b : m_freeBlocks[i])
+    {
+      DecrementTotalAllocationsCount();
       vkFreeMemory(m_device, b->m_memory, nullptr);
+    }
 
     for (auto const & p : m_memory[i])
     {
       for (auto const & b : p.second)
+      {
+        DecrementTotalAllocationsCount();
         vkFreeMemory(m_device, b->m_memory, nullptr);
+      }
     }
   }
+  ASSERT_EQUAL(m_totalAllocationCounter, 0, ());
 }
 
 boost::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(uint32_t typeBits,
@@ -203,6 +210,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   memAllocInfo.pNext = nullptr;
   memAllocInfo.allocationSize = blockSize;
   memAllocInfo.memoryTypeIndex = memoryTypeIndex.value();
+  IncrementTotalAllocationsCount();
   CHECK_VK_CALL(vkAllocateMemory(m_device, &memAllocInfo, nullptr, &memory));
   m_sizes[static_cast<size_t>(resourceType)] += blockSize;
 
@@ -262,6 +270,7 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
       {
         CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[resourceIndex], ());
         m_sizes[resourceIndex] -= memoryBlock->m_blockSize;
+        DecrementTotalAllocationsCount();
         vkFreeMemory(m_device, memoryBlock->m_memory, nullptr);
       }
       else
@@ -302,6 +311,7 @@ void VulkanMemoryManager::EndDeallocationSession()
           {
             CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
             m_sizes[i] -= b->m_blockSize;
+            DecrementTotalAllocationsCount();
             vkFreeMemory(m_device, b->m_memory, nullptr);
           }
           else
@@ -325,6 +335,23 @@ void VulkanMemoryManager::EndDeallocationSession()
 
     std::sort(fm.begin(), fm.end(), &Less);
   }
+}
+
+void VulkanMemoryManager::IncrementTotalAllocationsCount()
+{
+  ++m_totalAllocationCounter;
+  CHECK_LESS_OR_EQUAL(m_totalAllocationCounter, m_deviceLimits.maxMemoryAllocationCount, ());
+}
+
+void VulkanMemoryManager::DecrementTotalAllocationsCount()
+{
+  CHECK_GREATER(m_totalAllocationCounter, 0, ());
+  --m_totalAllocationCounter;
+}
+
+VkPhysicalDeviceLimits const & VulkanMemoryManager::GetDeviceLimits() const
+{
+  return m_deviceLimits;
 }
 }  // namespace vulkan
 }  // namespace dp
