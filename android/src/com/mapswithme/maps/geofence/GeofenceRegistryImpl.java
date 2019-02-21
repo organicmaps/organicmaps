@@ -58,7 +58,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     for (GeoFenceFeature each : features)
     {
       Geofence geofence = new Geofence.Builder()
-          .setRequestId(each.getId().toString())
+          .setRequestId(each.getId().toFeatureIdString())
           .setCircularRegion(each.getLatitude(), each.getLongitude(), PREFERRED_GEOFENCE_RADIUS)
           .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
           .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)

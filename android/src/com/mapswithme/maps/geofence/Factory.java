@@ -11,6 +11,6 @@ class Factory
   public static FeatureId from(@NonNull Geofence geofence)
   {
     String requestId = geofence.getRequestId();
-    return FeatureId.fromString(requestId);
+    return FeatureId.fromFeatureIdString(requestId);
   }
 }
