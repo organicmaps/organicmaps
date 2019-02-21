@@ -9,12 +9,12 @@ uint32_t constexpr IndexGraphSerializer::JointsFilter::kPushedEntry;
 
 // IndexGraphSerializer::SectionSerializer ---------------------------------------------------------
 void IndexGraphSerializer::SectionSerializer::PreSerialize(
-    IndexGraph const & graph, unordered_map<uint32_t, VehicleMask> const & masks,
+    IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks,
     JointIdEncoder & jointEncoder)
 {
   m_buffer.clear();
-  MemWriter<vector<uint8_t>> memWriter(m_buffer);
-  BitWriter<MemWriter<vector<uint8_t>>> writer(memWriter);
+  MemWriter<std::vector<uint8_t>> memWriter(m_buffer);
+  BitWriter<MemWriter<std::vector<uint8_t>>> writer(memWriter);
 
   // -1 for uint32_t is some confusing, but it allows process first iteration in the common way.
   // Gamma coder can't write 0, so init prevFeatureId = -1 in case of first featureId == 0.
@@ -65,7 +65,7 @@ void IndexGraphSerializer::JointsFilter::Push(Joint::Id jointIdInFile, RoadPoint
 
 // IndexGraphSerializer ----------------------------------------------------------------------------
 // static
-VehicleMask IndexGraphSerializer::GetRoadMask(unordered_map<uint32_t, VehicleMask> const & masks,
+VehicleMask IndexGraphSerializer::GetRoadMask(std::unordered_map<uint32_t, VehicleMask> const & masks,
                                               uint32_t featureId)
 {
   auto const & it = masks.find(featureId);
@@ -90,8 +90,8 @@ uint32_t IndexGraphSerializer::ConvertJointsNumber(uint32_t jointsNumber)
 
 // static
 void IndexGraphSerializer::PrepareSectionSerializers(
-    IndexGraph const & graph, unordered_map<uint32_t, VehicleMask> const & masks,
-    vector<SectionSerializer> & serializers)
+    IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks,
+    std::vector<SectionSerializer> & serializers)
 {
   size_t maskToIndex[kNumVehicleMasks] = {};
   // Car routing is most used routing: put car sections first.

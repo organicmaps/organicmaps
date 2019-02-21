@@ -12,13 +12,13 @@
 
 #include "base/checked_cast.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
-#include "std/type_traits.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <limits>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace routing
 {
@@ -29,12 +29,12 @@ public:
 
   template <class Sink>
   static void Serialize(IndexGraph const & graph,
-                        unordered_map<uint32_t, VehicleMask> const & masks, Sink & sink)
+                        std::unordered_map<uint32_t, VehicleMask> const & masks, Sink & sink)
   {
     Header header(graph);
     JointIdEncoder jointEncoder;
 
-    vector<SectionSerializer> serializers;
+    std::vector<SectionSerializer> serializers;
     PrepareSectionSerializers(graph, masks, serializers);
 
     for (SectionSerializer & serializer : serializers)
@@ -234,7 +234,7 @@ private:
     uint8_t m_version = kLastVersion;
     uint32_t m_numRoads = 0;
     Joint::Id m_numJoints = 0;
-    vector<Section> m_sections;
+    std::vector<Section> m_sections;
   };
 
   class JointIdEncoder final
@@ -266,7 +266,7 @@ private:
 
   private:
     Joint::Id m_count = 0;
-    unordered_map<Joint::Id, Joint::Id> m_convertedIds;
+    std::unordered_map<Joint::Id, Joint::Id> m_convertedIds;
   };
 
   class JointIdDecoder final
@@ -323,7 +323,7 @@ private:
     Joint::Id GetCount() const { return m_count; }
 
   private:
-    static uint32_t constexpr kEmptyEntry = numeric_limits<uint32_t>::max();
+    static uint32_t constexpr kEmptyEntry = std::numeric_limits<uint32_t>::max();
     static uint32_t constexpr kPushedEntry = kEmptyEntry - 1;
 
     // Joints number is large.
@@ -337,7 +337,7 @@ private:
 
     IndexGraph & m_graph;
     Joint::Id m_count = 0;
-    vector<pair<uint32_t, Point>> m_entries;
+    std::vector<std::pair<uint32_t, Point>> m_entries;
   };
 
   class SectionSerializer final
@@ -351,7 +351,7 @@ private:
 
     void AddRoad(uint32_t featureId) { m_featureIds.push_back(featureId); }
     void SortRoads() { sort(m_featureIds.begin(), m_featureIds.end()); }
-    void PreSerialize(IndexGraph const & graph, unordered_map<uint32_t, VehicleMask> const & masks,
+    void PreSerialize(IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks,
                       JointIdEncoder & jointEncoder);
 
     template <class Sink>
@@ -363,15 +363,15 @@ private:
 
   private:
     VehicleMask const m_mask;
-    vector<uint32_t> m_featureIds;
-    vector<uint8_t> m_buffer;
+    std::vector<uint32_t> m_featureIds;
+    std::vector<uint8_t> m_buffer;
   };
 
-  static VehicleMask GetRoadMask(unordered_map<uint32_t, VehicleMask> const & masks,
+  static VehicleMask GetRoadMask(std::unordered_map<uint32_t, VehicleMask> const & masks,
                                  uint32_t featureId);
   static uint32_t ConvertJointsNumber(uint32_t jointsNumber);
   static void PrepareSectionSerializers(IndexGraph const & graph,
-                                        unordered_map<uint32_t, VehicleMask> const & masks,
-                                        vector<SectionSerializer> & sections);
+                                        std::unordered_map<uint32_t, VehicleMask> const & masks,
+                                        std::vector<SectionSerializer> & sections);
 };
 }  // namespace routing

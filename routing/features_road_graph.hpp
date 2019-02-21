@@ -13,9 +13,10 @@
 
 #include "base/cache.hpp"
 
-#include "std/map.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <memory>
+#include <utility>
+#include <vector>
 
 class DataSource;
 class FeatureType;
@@ -48,7 +49,7 @@ private:
     double const m_maxSpeed;
     double const m_offroadSpeedKMpH;
 
-    mutable map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
+    mutable std::map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
   };
 
   class RoadInfoCache
@@ -60,7 +61,7 @@ private:
 
   private:
     using TMwmFeatureCache = base::Cache<uint32_t, RoadInfo>;
-    map<MwmSet::MwmId, TMwmFeatureCache> m_cache;
+    std::map<MwmSet::MwmId, TMwmFeatureCache> m_cache;
   };
 
 public:
@@ -76,7 +77,7 @@ public:
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                        vector<pair<Edge, Junction>> & vicinities) const override;
+                        std::vector<std::pair<Edge, Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
   IRoadGraph::Mode GetMode() const override;
@@ -117,7 +118,7 @@ private:
   IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
-  mutable map<MwmSet::MwmId, Value> m_mwmLocks;
+  mutable std::map<MwmSet::MwmId, Value> m_mwmLocks;
 };
 
 // @returns a distance d such as that for a given point p any edge

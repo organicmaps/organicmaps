@@ -5,11 +5,11 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace routing
 {
@@ -74,7 +74,7 @@ public:
     }
   }
 
-  pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward, uint32_t pointsNumber) const
+  std::pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward, uint32_t pointsNumber) const
   {
     CHECK_GREATER_OR_EQUAL(pointsNumber, 2, ("Number of points of road should be greater or equal 2"));
 
@@ -90,7 +90,7 @@ public:
     }
     else
     {
-      for (index = min(pointId, pointsNumber) - 1; index < pointsNumber; --index)
+      for (index = std::min(pointId, pointsNumber) - 1; index < pointsNumber; --index)
       {
         Joint::Id const jointId = GetJointId(index);
         if (jointId != Joint::kInvalidId)
@@ -106,13 +106,13 @@ public:
 private:
   // Joint ids indexed by point id.
   // If some point id doesn't match any joint id, this vector contains Joint::kInvalidId.
-  vector<Joint::Id> m_jointIds;
+  std::vector<Joint::Id> m_jointIds;
 };
 
 class RoadIndex final
 {
 public:
-  void Import(vector<Joint> const & joints);
+  void Import(std::vector<Joint> const & joints);
 
   void AddJoint(RoadPoint const & rp, Joint::Id jointId)
   {
@@ -138,7 +138,7 @@ public:
   // If forward == false: neighbor with smaller point id (left neighbor)
   //
   // If there is no nearest point, return {Joint::kInvalidId, 0}
-  pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
+  std::pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
 
   uint32_t GetSize() const { return base::asserted_cast<uint32_t>(m_roads.size()); }
 
@@ -160,6 +160,6 @@ public:
 
 private:
   // Map from feature id to RoadJointIds.
-  unordered_map<uint32_t, RoadJointIds> m_roads;
+  std::unordered_map<uint32_t, RoadJointIds> m_roads;
 };
 }  // namespace routing

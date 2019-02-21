@@ -7,13 +7,13 @@
 
 #include "base/thread.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace routing
 {
-using TCountryLocalFileFn = function<bool(string const &)>;
+using TCountryLocalFileFn = std::function<bool(string const &)>;
 
 class IOnlineFetcher
 {
@@ -41,6 +41,6 @@ private:
 
   TCountryFileFn const m_countryFileFn;
   TCountryLocalFileFn const m_countryLocalFileFn;
-  unique_ptr<threads::Thread> m_fetcherThread;
+  std::unique_ptr<threads::Thread> m_fetcherThread;
 };
 }  // namespace routing

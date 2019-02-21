@@ -25,9 +25,8 @@
 
 #include "geometry/tree4d.hpp"
 
-#include "std/unique_ptr.hpp"
-
 #include <functional>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -69,7 +68,7 @@ public:
   IndexRouter(VehicleType vehicleType, bool loadAltitudes,
               CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
-              shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+              shared_ptr<NumMwmIds> numMwmIds, std::unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();

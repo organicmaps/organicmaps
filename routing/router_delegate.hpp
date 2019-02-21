@@ -6,8 +6,7 @@
 #include "base/cancellable.hpp"
 #include "base/timer.hpp"
 
-#include "std/function.hpp"
-#include "std/mutex.hpp"
+#include <mutex>
 
 namespace routing
 {
@@ -43,7 +42,7 @@ public:
   void Reset() override;
 
 private:
-  mutable mutex m_guard;
+  mutable std::mutex m_guard;
   ProgressCallback m_progressCallback;
   PointCheckCallback m_pointCallback;
 };

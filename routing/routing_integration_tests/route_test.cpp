@@ -6,9 +6,10 @@
 
 #include "geometry/mercator.hpp"
 
-#include "std/limits.hpp"
+#include <limits>
 
 using namespace routing;
+using namespace std;
 
 namespace
 {

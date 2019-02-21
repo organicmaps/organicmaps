@@ -4,7 +4,7 @@
 
 namespace routing
 {
-void RoadIndex::Import(vector<Joint> const & joints)
+void RoadIndex::Import(std::vector<Joint> const & joints)
 {
   for (Joint::Id jointId = 0; jointId < joints.size(); ++jointId)
   {

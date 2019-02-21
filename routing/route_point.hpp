@@ -2,7 +2,7 @@
 
 #include "routing/road_point.hpp"
 
-#include "std/cstdint.hpp"
+#include <cstdint>
 
 namespace routing
 {
