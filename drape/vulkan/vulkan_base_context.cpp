@@ -232,7 +232,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     if (m_currentFramebuffer == nullptr)
     {
       colorFormat = m_surfaceFormat.get().format;
-      depthFormat = UnpackFormat(TextureFormat::Depth);
+      depthFormat = VulkanFormatUnpacker::Unpack(TextureFormat::Depth);
 
       attachmentsOp.m_color.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
       attachmentsOp.m_depth.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
@@ -249,9 +249,9 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
       auto const depthStencilRef = framebuffer->GetDepthStencilRef();
       auto const attachmentsCount = (depthStencilRef != nullptr) ? 2 : 1;
-      colorFormat = UnpackFormat(framebuffer->GetTexture()->GetFormat());
+      colorFormat = VulkanFormatUnpacker::Unpack(framebuffer->GetTexture()->GetFormat());
       if (depthStencilRef != nullptr)
-        depthFormat = UnpackFormat(depthStencilRef->GetTexture()->GetFormat());
+        depthFormat = VulkanFormatUnpacker::Unpack(depthStencilRef->GetTexture()->GetFormat());
 
       fbData.m_renderPass = CreateRenderPass(attachmentsCount, attachmentsOp, colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,

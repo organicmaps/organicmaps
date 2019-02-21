@@ -16,7 +16,16 @@ namespace dp
 namespace vulkan
 {
 extern std::string GetVulkanResultString(VkResult result);
-extern VkFormat UnpackFormat(TextureFormat format);
+
+class VulkanFormatUnpacker
+{
+public:
+  static bool Init(VkPhysicalDevice gpu);
+  static VkFormat Unpack(TextureFormat format);
+
+private:
+  static VkFormat m_bestDepthFormat;
+};
 
 template<typename T>
 void SetStateByte(T & state, uint8_t value, uint8_t byteNumber)

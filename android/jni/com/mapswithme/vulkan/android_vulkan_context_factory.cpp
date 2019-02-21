@@ -156,6 +156,9 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
+  if (!dp::vulkan::VulkanFormatUnpacker::Init(m_gpu))
+    return;
+
   if (!m_layers->Initialize(m_vulkanInstance, m_gpu))
     return;
 
@@ -186,18 +189,6 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
-  std::array<VkFormat, 2> depthFormats = {{dp::vulkan::UnpackFormat(dp::TextureFormat::Depth),
-                                          dp::vulkan::UnpackFormat(dp::TextureFormat::DepthStencil)}};
-  VkFormatProperties formatProperties;
-  for (auto depthFormat : depthFormats)
-  {
-    vkGetPhysicalDeviceFormatProperties(m_gpu, depthFormat, &formatProperties);
-    if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT))
-    {
-      LOG(LWARNING, ("Vulkan error: depth format", depthFormat, "is unsupported"));
-      return;
-    }
-  }
   VkPhysicalDeviceProperties gpuProperties;
   vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
   VkPhysicalDeviceMemoryProperties memoryProperties;

@@ -57,7 +57,56 @@ std::string GetVulkanResultString(VkResult result)
   return "Unknown result";
 }
 
-VkFormat UnpackFormat(TextureFormat format)
+// static
+VkFormat VulkanFormatUnpacker::m_bestDepthFormat = VK_FORMAT_UNDEFINED;
+
+// static
+bool VulkanFormatUnpacker::Init(VkPhysicalDevice gpu)
+{
+  std::array<VkFormat, 3> depthFormats = {{VK_FORMAT_D32_SFLOAT,
+                                           VK_FORMAT_X8_D24_UNORM_PACK32,
+                                           VK_FORMAT_D16_UNORM}};
+  VkFormatProperties formatProperties;
+  for (auto depthFormat : depthFormats)
+  {
+    vkGetPhysicalDeviceFormatProperties(gpu, depthFormat, &formatProperties);
+    if (formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
+    {
+      m_bestDepthFormat = depthFormat;
+      break;
+    }
+  }
+
+  if (m_bestDepthFormat == VK_FORMAT_UNDEFINED)
+  {
+    LOG(LWARNING, ("Vulkan error: there is no any supported depth format."));
+    return false;
+  }
+
+  vkGetPhysicalDeviceFormatProperties(gpu, Unpack(TextureFormat::DepthStencil), &formatProperties);
+  if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT))
+  {
+    LOG(LWARNING, ("Vulkan error: depth-stencil format is unsupported."));
+    return false;
+  }
+
+  std::array<VkFormat, 2> framebufferColorFormats = {{Unpack(TextureFormat::RGBA8),
+                                                      Unpack(TextureFormat::RedGreen)}};
+  for (auto colorFormat : framebufferColorFormats)
+  {
+    vkGetPhysicalDeviceFormatProperties(gpu, colorFormat, &formatProperties);
+    if (!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT))
+    {
+      LOG(LWARNING, ("Vulkan error: framebuffer format", colorFormat, "is unsupported."));
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// static
+VkFormat VulkanFormatUnpacker::Unpack(TextureFormat format)
 {
   switch (format)
   {
@@ -65,7 +114,7 @@ VkFormat UnpackFormat(TextureFormat format)
   case TextureFormat::Alpha: return VK_FORMAT_R8_UNORM;
   case TextureFormat::RedGreen: return VK_FORMAT_R8G8_UNORM;
   case TextureFormat::DepthStencil: return VK_FORMAT_D24_UNORM_S8_UINT;
-  case TextureFormat::Depth: return VK_FORMAT_D16_UNORM;
+  case TextureFormat::Depth: return m_bestDepthFormat;
   case TextureFormat::Unspecified:
     CHECK(false, ());
     return VK_FORMAT_UNDEFINED;

@@ -374,6 +374,8 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
+  void SetYInvertedIn3d(bool isYInverted);
+
 #ifdef DEBUG
   static char const * BEGIN_DRAG;
   static char const * DRAG;

@@ -102,7 +102,7 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   m_objectManager = vulkanContext->GetObjectManager();
 
-  auto const format = UnpackFormat(params.m_format);
+  auto const format = VulkanFormatUnpacker::Unpack(params.m_format);
   VkFormatProperties formatProperties;
   vkGetPhysicalDeviceFormatProperties(vulkanContext->GetPhysicalDevice(), format, &formatProperties);
   CHECK(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, ());

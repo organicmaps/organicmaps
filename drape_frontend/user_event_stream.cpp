@@ -1268,4 +1268,9 @@ void UserEventStream::SetKineticScrollEnabled(bool enabled)
   if (!m_kineticScrollEnabled)
     m_scroller.Cancel();
 }
+
+void UserEventStream::SetYInvertedIn3d(bool isYInverted)
+{
+  m_navigator.SetYInvertedIn3d(isYInverted);
+}
 }  // namespace df

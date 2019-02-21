@@ -296,6 +296,11 @@ void Navigator::Disable3dMode()
     m_Screen.ResetPerspective();
 }
 
+void Navigator::SetYInvertedIn3d(bool isYInverted)
+{
+  m_Screen.SetYInvertedIn3d(isYInverted);
+}
+
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
 {
   double const dx = rect.SizeX();

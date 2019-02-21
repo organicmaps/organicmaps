@@ -98,6 +98,9 @@ public:
   bool isAutoPerspective() const { return m_isAutoPerspective; }
   void SetAutoPerspective(bool isAutoPerspective);
 
+  bool IsYInvertedIn3d() const { return m_isYInvertedIn3d; }
+  void SetYInvertedIn3d(bool isYInverted);
+
   bool IsReverseProjection3d(m2::PointD const & pt) const;
 
   m2::PointD PtoP3d(m2::PointD const & pt) const;
@@ -178,6 +181,7 @@ private:
   double m_3dScale;
   bool m_isPerspective;
   bool m_isAutoPerspective;
+  bool m_isYInvertedIn3d;
 };
 
 /// checking whether the s1 transforms into s2 without scaling, only with shift and rotation

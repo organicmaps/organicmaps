@@ -1623,7 +1623,8 @@ void FrontendRenderer::RenderFrame()
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
-  ScreenBase modelView = ProcessEvents(m_frameData.m_modelViewChanged, m_frameData.m_viewportChanged);
+  ScreenBase const & modelView = ProcessEvents(m_frameData.m_modelViewChanged,
+                                               m_frameData.m_viewportChanged);
   if (m_frameData.m_viewportChanged)
     OnResize(modelView);
 
@@ -2161,6 +2162,9 @@ void FrontendRenderer::OnContextCreate()
   m_context->MakeCurrent();
 
   m_context->Init(m_apiVersion);
+
+  if (m_apiVersion == dp::ApiVersion::Vulkan)
+    m_userEventStream.SetYInvertedIn3d(true);
 
   // Render empty frame here to avoid black initialization screen.
   RenderEmptyFrame();
