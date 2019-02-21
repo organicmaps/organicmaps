@@ -165,17 +165,9 @@ bool VulkanBaseContext::BeginRendering()
     return false;
 
   m_frameCounter++;
-
-  // For commands that wait indefinitely for device execution
-  // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
-  VkResult res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
-  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
-    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
-
-  CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
-
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_presentComplete,
-                              VK_NULL_HANDLE, &m_imageIndex);
+  
+  auto const res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_acquireComplete,
+                                         VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
     LOG(LINFO, ("RecreateSwapchainAndDependencies in BeginRendering"));
@@ -367,7 +359,7 @@ void VulkanBaseContext::Present()
   VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
   submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
   submitInfo.pWaitDstStageMask = &waitStageMask;
-  submitInfo.pWaitSemaphores = &m_presentComplete;
+  submitInfo.pWaitSemaphores = &m_acquireComplete;
   submitInfo.waitSemaphoreCount = 1;
   submitInfo.pSignalSemaphores = &m_renderComplete;
   submitInfo.signalSemaphoreCount = 1;
@@ -391,24 +383,16 @@ void VulkanBaseContext::Present()
     presentInfo.waitSemaphoreCount = 1;
 
     res = vkQueuePresentKHR(m_queue, &presentInfo);
-    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR)
-    {
-      if (res == VK_ERROR_OUT_OF_DATE_KHR)
-      {
-        vkQueueWaitIdle(m_queue);
-        LOG(LINFO, ("RecreateSwapchainAndDependencies in Present"));
-        RecreateSwapchainAndDependencies();
-      }
-      else
-      {
-        CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
-      }
-    }
+    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR)
+      CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
   }
-  res = vkQueueWaitIdle(m_queue);
-  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
-    CHECK_RESULT_VK_CALL(vkQueueWaitIdle, res);
 
+  res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
+  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
+    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
+
+  CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
+  
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
     h.second(make_ref(this));
 
@@ -831,13 +815,12 @@ void VulkanBaseContext::CreateSyncPrimitives()
   // A fence is need to check for command buffer completion before we can recreate it.
   VkFenceCreateInfo fenceCI = {};
   fenceCI.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-  fenceCI.flags = VK_FENCE_CREATE_SIGNALED_BIT;
   CHECK_VK_CALL(vkCreateFence(m_device, &fenceCI, nullptr, &m_fence));
 
   VkSemaphoreCreateInfo semaphoreCI = {};
   semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
-  CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_presentComplete));
+  CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_acquireComplete));
   CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_renderComplete));
 }
 
@@ -849,10 +832,10 @@ void VulkanBaseContext::DestroySyncPrimitives()
     m_fence = VK_NULL_HANDLE;
   }
 
-  if (m_presentComplete != VK_NULL_HANDLE)
+  if (m_acquireComplete != VK_NULL_HANDLE)
   {
-    vkDestroySemaphore(m_device, m_presentComplete, nullptr);
-    m_presentComplete = VK_NULL_HANDLE;
+    vkDestroySemaphore(m_device, m_acquireComplete, nullptr);
+    m_acquireComplete = VK_NULL_HANDLE;
   }
 
   if (m_renderComplete != VK_NULL_HANDLE)

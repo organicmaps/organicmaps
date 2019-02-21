@@ -166,9 +166,9 @@ protected:
   VkCommandBuffer m_memoryCommandBuffer = {};
   bool m_isActiveRenderPass = false;
 
-  // Swap chain image presentation
-  VkSemaphore m_presentComplete = {};
-  // Command buffer submission and execution
+  // Swap chain image acquiring.
+  VkSemaphore m_acquireComplete = {};
+  // Command buffer submission and execution.
   VkSemaphore m_renderComplete = {};
 
   VkFence m_fence = {};

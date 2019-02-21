@@ -172,6 +172,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
   queueCreateInfo.pQueuePriorities = priorities;
 
   VkDeviceCreateInfo deviceCreateInfo = {};
+  VkPhysicalDeviceFeatures enabledFeatures = {};
   deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
   deviceCreateInfo.pNext = nullptr;
   deviceCreateInfo.queueCreateInfoCount = 1;
@@ -181,6 +182,11 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
   deviceCreateInfo.enabledExtensionCount = m_layers->GetDeviceExtensionsCount();
   deviceCreateInfo.ppEnabledExtensionNames = m_layers->GetDeviceExtensions();
   deviceCreateInfo.pEnabledFeatures = nullptr;
+  if (enableDiagnostics)
+  {
+    enabledFeatures.robustBufferAccess = VK_TRUE;
+    deviceCreateInfo.pEnabledFeatures = &enabledFeatures;
+  }
 
   statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
   if (statusCode != VK_SUCCESS)
