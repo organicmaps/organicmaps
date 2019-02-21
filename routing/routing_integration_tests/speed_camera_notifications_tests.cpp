@@ -172,7 +172,6 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_3)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.76766, 37.59260}, speedKmPH, routingSession);
-      TEST(NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
@@ -208,7 +207,6 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_4)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.65647, 37.53643}, speedKmPH, routingSession);
-      TEST(NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
@@ -240,7 +238,6 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_5)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.76766, 37.59260}, speedKmPH, routingSession);
-      TEST(NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
@@ -386,7 +383,6 @@ UNIT_TEST(SpeedCameraNotification_AutoMode_1)
     {
       double const speedKmPH = 40.0;
       ChangePosition({55.76476, 37.58905}, speedKmPH, routingSession);
-      TEST(NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
