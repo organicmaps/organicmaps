@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/feature.hpp"
 
 namespace
 {
@@ -631,5 +632,43 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   emo.RemoveBlankAndDuplicationsForDefault();
 
   TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
+}
+
+UNIT_TEST(EditableMapObject_FromFeatureType)
+{
+  classificator::Load();
+
+  EditableMapObject emo;
+  auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
+  auto const cafeType = classif().GetTypeByPath({"amenity", "cafe"});
+  feature::TypesHolder types;
+  types.Add(wifiType);
+  types.Add(cafeType);
+  emo.SetTypes(types);
+
+  emo.SetHouseNumber("1");
+
+  StringUtf8Multilang names;
+
+  names.AddString(GetLangCode("default"), "Default name");
+  names.AddString(GetLangCode("ru"), "Ru name");
+
+  emo.SetWebsite("https://some.thing.org");
+
+  emo.SetName(names);
+
+  emo.SetPointType();
+  emo.SetMercator(m2::PointD(1.0, 1.0));
+
+  auto ft = FeatureType::ConstructFromMapObject(emo);
+  EditableMapObject emo2;
+  emo2.SetFromFeatureType(ft);
+  TEST(emo.GetTypes().Equals(emo2.GetTypes()), ());
+  TEST_EQUAL(emo.GetNameMultilang(), emo2.GetNameMultilang(), ());
+  TEST_EQUAL(emo.GetHouseNumber(), emo2.GetHouseNumber(), ());
+  TEST_EQUAL(emo.GetMercator(), emo2.GetMercator(), ());
+  TEST_EQUAL(emo.GetWebsite(), emo2.GetWebsite(), ());
+  TEST(emo.IsPointType(), ());
+  TEST(emo2.IsPointType(), ());
 }
 }  // namespace
