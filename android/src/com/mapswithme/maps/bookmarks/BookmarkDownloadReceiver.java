@@ -10,10 +10,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.background.AbstractLogBroadcastReceiver;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
-import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class BookmarkDownloadReceiver extends AbstractLogBroadcastReceiver implements Detachable<BookmarkDownloadHandler>
 {
@@ -53,16 +55,20 @@ public class BookmarkDownloadReceiver extends AbstractLogBroadcastReceiver imple
   @Override
   public void onReceiveInternal(@NonNull Context context, @NonNull Intent intent)
   {
+    Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+    String tag = BookmarkDownloadReceiver.class.getSimpleName();
     OperationStatus status
         = intent.getParcelableExtra(SystemDownloadCompletedService.EXTRA_DOWNLOAD_STATUS);
     Result result = status.getResult();
     if (status.isOk() && result != null && !TextUtils.isEmpty(result.getArchiveId())
         && !TextUtils.isEmpty(result.getFilePath()))
     {
-
+      logger.i(tag, "Start to import downloaded bookmark");
       BookmarkManager.INSTANCE.importFromCatalog(result.getArchiveId(), result.getFilePath());
       return;
     }
+
+    logger.i(tag, "Handle download result by handler '" + mHandler + "'");
 
     Error error = status.getError();
     if (error == null || mHandler == null)

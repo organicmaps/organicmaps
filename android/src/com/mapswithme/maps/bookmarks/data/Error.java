@@ -63,6 +63,15 @@ public class Error implements Parcelable
     dest.writeString(mMessage);
   }
 
+  @Override
+  public String toString()
+  {
+    return "Error{" +
+           "mHttpCode=" + mHttpCode +
+           ", mMessage='" + mMessage + '\'' +
+           '}';
+  }
+
   public static final Creator<Error> CREATOR = new Creator<Error>()
   {
     @Override

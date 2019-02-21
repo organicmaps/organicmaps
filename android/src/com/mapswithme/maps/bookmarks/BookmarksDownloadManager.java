@@ -21,7 +21,8 @@ public class BookmarksDownloadManager
 {
   private static final String QUERY_PARAM_ID_KEY = "id";
   private static final String QUERY_PARAM_NAME_KEY = "name";
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+  private static final String TAG = BookmarksDownloadManager.class.getSimpleName();
 
   @NonNull
   private final Context mContext;
@@ -48,7 +49,7 @@ public class BookmarksDownloadManager
     Uri srcUri = uriPair.first;
     Uri dstUri = uriPair.second;
 
-    LOGGER.d("Bookmarks catalog url", "Value = " + dstUri);
+    LOGGER.d(TAG, "Bookmarks catalog url = " + dstUri);
     DownloadManager.Request request = new DownloadManager
         .Request(dstUri)
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
@@ -58,8 +59,13 @@ public class BookmarksDownloadManager
     String accessToken = Framework.nativeGetAccessToken();
     if (!TextUtils.isEmpty(accessToken))
     {
+      LOGGER.d(TAG, "User authorized");
       String headerValue = HttpClient.HEADER_BEARER_PREFFIX + accessToken;
       request.addRequestHeader(HttpClient.HEADER_AUTHORIZATION, headerValue);
+    }
+    else
+    {
+      LOGGER.d(TAG, "User not authorized");
     }
 
     String title = makeTitle(srcUri);

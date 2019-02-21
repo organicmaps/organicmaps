@@ -70,4 +70,13 @@ public class OperationStatus implements Parcelable
     dest.writeParcelable(mResult, flags);
     dest.writeParcelable(mError, flags);
   }
+
+  @Override
+  public String toString()
+  {
+    return "OperationStatus{" +
+           "mResult=" + mResult +
+           ", mError=" + mError +
+           '}';
+  }
 }

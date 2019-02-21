@@ -15,6 +15,8 @@ import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.IOException;
 
@@ -41,6 +43,9 @@ public class SystemDownloadCompletedService extends JobIntentService
       throw new IllegalStateException("Failed to get a download manager");
 
     final OperationStatus status = doInBackground(manager, intent);
+    Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+    String tag = SystemDownloadCompletedService.class.getSimpleName();
+    logger.i(tag, "Download status: " + status);
     UiThread.run(new SendStatusTask(getApplicationContext(), status));
   }
 

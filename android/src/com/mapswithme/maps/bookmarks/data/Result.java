@@ -48,6 +48,15 @@ public class Result implements Parcelable
     dest.writeString(mArchiveId);
   }
 
+  @Override
+  public String toString()
+  {
+    return "Result{" +
+           "mFilePath='" + mFilePath + '\'' +
+           ", mArchiveId='" + mArchiveId + '\'' +
+           '}';
+  }
+
   public static final Creator<Result> CREATOR = new Creator<Result>()
   {
     @Override
