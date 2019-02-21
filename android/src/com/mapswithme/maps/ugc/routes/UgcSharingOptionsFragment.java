@@ -267,7 +267,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void shareCategory()
   {
-    String deepLink = BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId());
+    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, deepLink));
