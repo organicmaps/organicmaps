@@ -14,14 +14,9 @@ namespace
 void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 {
   auto & info = g_framework->GetPlacePageInfo();
-
   auto const userPos = g_framework->NativeFramework()->GetCurrentPosition();
-  if (userPos)
-  {
-    auto const mapObject = utils::MakeEyeMapObject(info);
-    if (!mapObject.IsEmpty())
-      eye::Eye::Event::MapObjectEvent(mapObject, type, userPos.get());
-  }
+
+  utils::RegisterEyeEventIfPossible(type, userPos, info);
 }
 }  // namespace
 

@@ -119,13 +119,10 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
       if (!ConnectionState.isConnected())
       {
         if (isAuthorized())
-        {
           Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_auth);
-        }
         else
-        {
           Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_not_auth);
-        }
+
         finishActivity();
         return;
       }

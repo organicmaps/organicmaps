@@ -33,7 +33,7 @@ final class UGCAddReviewController: MWMTableViewController {
   }
 
   private var sections: [Sections] = []
-  private var delegate: UGCAddReviewControllerDelegate?
+  private var delegate: UGCAddReviewControllerDelegate!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -70,7 +70,7 @@ final class UGCAddReviewController: MWMTableViewController {
     reviewPosted = true
     model.text = text
     
-    delegate!.saveUgc(model: model, resultHandler: { (saveResult) in
+    delegate.saveUgc(model: model, resultHandler: { (saveResult) in
       guard let nc = self.navigationController else { return }
 
       if !saveResult {

@@ -70,12 +70,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page::Info const & info)
 {
   auto const userPos = GetFramework().GetCurrentPosition();
-  if (userPos)
-  {
-    auto const mapObject = utils::MakeEyeMapObject(info);
-    if (!mapObject.IsEmpty())
-      eye::Eye::Event::MapObjectEvent(mapObject, type, userPos.get());
-  }
+  utils::RegisterEyeEventIfPossible(type, userPos, info);
 }
 }  // namespace
 
@@ -691,22 +686,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!data)
   {
-   NSAssert(false, @"");
-   resultHandler(NO);
-   return;
+    NSAssert(false, @"");
+    resultHandler(NO);
+    return;
   }
   
-  __weak auto weakData = data;
-  [data setUGCUpdateFrom:model resultHandler:^(BOOL result)
-  {
-   if (result)
-   {
-     auto data = weakData;
-     if (data)
-      RegisterEventIfPossible(eye::MapObject::Event::Type::UgcSaved, data.getRawData);
-   }
-   resultHandler(result);
-  }];
+  [data setUGCUpdateFrom:model resultHandler:resultHandler];
 }
 
 @end

@@ -12,6 +12,7 @@
 #include "local_ads/event.hpp"
 
 #include "map/bookmark_helpers.hpp"
+#include "map/utils.hpp"
 
 #include "platform/preferred_languages.hpp"
 
@@ -660,13 +661,19 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   UGCUpdate update{r, t, std::chrono::system_clock::now()};
   
   GetFramework().GetUGCApi()->SetUGCUpdate(m_info.GetID(), update,
-  [resultHandler](Storage::SettingResult const result)
+  [resultHandler, info = m_info](Storage::SettingResult const result)
   {
     if (result != Storage::SettingResult::Success)
-      return resultHandler(NO);
-    
+    {
+      resultHandler(NO);
+      return;
+    }
+
     resultHandler(YES);
     GetFramework().UpdatePlacePageInfoForCurrentSelection();
+    
+    utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::UgcSaved,
+                                      GetFramework().GetCurrentPosition(), info);
   });
 }
 

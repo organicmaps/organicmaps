@@ -2456,16 +2456,8 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   {
     GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
 
-    auto const userPos = GetCurrentPosition();
-    if (userPos)
-    {
-      auto const mapObject = utils::MakeEyeMapObject(outInfo);
-      if (!mapObject.IsEmpty())
-      {
-        eye::Eye::Event::MapObjectEvent(mapObject, eye::MapObject::Event::Type::Open,
-                                        userPos.get());
-      }
-    }
+    utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
+                                      outInfo);
 
     return df::SelectionShape::OBJECT_POI;
   }

@@ -6,6 +6,8 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 
+#include "metrics/eye.hpp"
+
 namespace utils
 {
 eye::MapObject MakeEyeMapObject(place_page::Info const & info)
@@ -49,5 +51,17 @@ eye::MapObject MakeEyeMapObject(FeatureType & ft)
   mapObject.SetReadableName(name);
 
   return mapObject;
+}
+
+void RegisterEyeEventIfPossible(eye::MapObject::Event::Type const type,
+                                boost::optional<m2::PointD> const & userPos,
+                                place_page::Info const & info)
+{
+  if (!userPos)
+    return;
+
+  auto const mapObject = utils::MakeEyeMapObject(info);
+  if (!mapObject.IsEmpty())
+    eye::Eye::Event::MapObjectEvent(mapObject, type, *userPos);
 }
 }  // namespace utils
