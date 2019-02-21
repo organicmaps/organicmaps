@@ -215,7 +215,9 @@ void SpeedCameraManager::PassClosestCameraToUI()
   CHECK(m_closestCamera.IsValid(), ("Attempt to show invalid speed cam"));
   // Clear previous speed cam in UI.
   m_speedCamClearCallback();
-  m_speedCamShowCallback(m_closestCamera.m_position, m_closestCamera.m_maxSpeedKmH);
+
+  if (Enable())
+    m_speedCamShowCallback(m_closestCamera.m_position, m_closestCamera.m_maxSpeedKmH);
 }
 
 bool SpeedCameraManager::IsSpeedHigh(double distanceToCameraMeters, double speedMpS,
