@@ -133,7 +133,6 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
                            {MakeJunctionForTesting(m2::PointD(10, 90)),
                             MakeJunctionForTesting(m2::PointD(10, 10))}),  // feature 3
   };
-  vector<uint32_t> const featureId_1 = { 0, 1, 2, 3 }; // featureIDs in the first connected component
 
   // Roads in the second connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_2 = {
@@ -150,7 +149,6 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
                            {MakeJunctionForTesting(m2::PointD(30, 70)),
                             MakeJunctionForTesting(m2::PointD(30, 30))}),  // feature 7
   };
-  vector<uint32_t> const featureId_2 = { 4, 5, 6, 7 }; // featureIDs in the second connected component
 
   for (auto const & ri : roadInfo_1)
     graph.AddRoad(IRoadGraph::RoadInfo(ri));

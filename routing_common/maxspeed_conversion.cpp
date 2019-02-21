@@ -46,26 +46,29 @@ uint16_t Maxspeed::GetSpeedInUnits(bool forward) const
 
 uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 {
-  uint16_t constexpr kNoneSpeedLimitKmPH = 130;
-  uint16_t constexpr kWalkSpeedLimitKmPH = 6;
-
   auto speedInUnits = GetSpeedInUnits(forward);
   if (speedInUnits == kInvalidSpeed)
     return kInvalidSpeed; // That means IsValid() returns false.
 
   if (IsNumeric(speedInUnits))
-    return ToSpeedKmPH(speedInUnits, m_units);
+    return static_cast<uint16_t>(ToSpeedKmPH(speedInUnits, m_units));
 
   // A feature is marked as a feature without any speed limits. (maxspeed=="none").
   if (kNoneMaxSpeed)
+  {
+    uint16_t constexpr kNoneSpeedLimitKmPH = 130;
     return kNoneSpeedLimitKmPH;
+  }
 
   // If a feature is marked with the maxspeed=="walk" tag (speed == kWalkMaxSpeed) a driver
   // should drive with a speed of a walking person.
   if (kWalkMaxSpeed)
+  {
+    uint16_t constexpr kWalkSpeedLimitKmPH = 6;
     return kWalkSpeedLimitKmPH;
+  }
 
-  CHECK(false, ("Method IsNumeric() returns something wrong."));
+  UNREACHABLE();
 }
 
 // FeatureMaxspeed ---------------------------------------------------------------------------------

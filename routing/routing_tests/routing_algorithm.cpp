@@ -52,7 +52,7 @@ public:
   using Edge = WeightedEdge;
   using Weight = double;
 
-  RoadGraph(IRoadGraph const & roadGraph)
+  explicit RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 

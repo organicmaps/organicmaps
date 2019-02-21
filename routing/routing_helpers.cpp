@@ -151,38 +151,4 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
-
-void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const & path,
-                            Route::TTimes & times)
-{
-  times.clear();
-  if (path.empty())
-    return;
-
-  // graph.GetMaxSpeedKMpH() below is used on purpose.
-  // The idea is while pedestrian (bicycle) routing ways for pedestrians (cyclists) are preferred.
-  // At the same time routing along big roads is still possible but if there's
-  // a pedestrian (bicycle) alternative it's prefered. To implement it a small speed
-  // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
-  // the most likely a pedestrian (a cyclist) will go along big roads with average
-  // speed (graph.GetMaxSpeedKMpH()).
-  // @TODO Eta part of speed should be used here.
-  double const speedMpS = KMPH2MPS(graph.GetMaxSpeedKMpH());
-  CHECK_GREATER(speedMpS, 0.0, ());
-
-  times.reserve(path.size());
-
-  double trackTimeSec = 0.0;
-  times.emplace_back(0, trackTimeSec);
-
-  for (size_t i = 1; i < path.size(); ++i)
-  {
-    double const lengthM =
-        MercatorBounds::DistanceOnEarth(path[i - 1].GetPoint(), path[i].GetPoint());
-    trackTimeSec += lengthM / speedMpS;
-
-    times.emplace_back(i, trackTimeSec);
-  }
-  CHECK_EQUAL(times.size(), path.size(), ());
-}
 }  // namespace routing

@@ -296,11 +296,6 @@ string VehicleModelFactory::GetParent(string const & country) const
   return m_countryParentNameGetterFn(country);
 }
 
-double GetMaxWeight(VehicleModel::InOutCitySpeedKMpH const & speed)
-{
-  return max(speed.m_inCity.m_weight, speed.m_outCity.m_weight);
-}
-
 string DebugPrint(VehicleModelInterface::RoadAvailability const l)
 {
   switch (l)

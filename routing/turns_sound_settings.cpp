@@ -108,7 +108,6 @@ uint32_t Settings::ComputeDistToPronounceDistM(double speedMetersPerSecond) cons
 
 string DebugPrint(Notification const & notification)
 {
-  string units;
   stringstream out;
   out << "Notification [ m_distanceUnits == " << notification.m_distanceUnits
       << ", m_exitNum == " << notification.m_exitNum

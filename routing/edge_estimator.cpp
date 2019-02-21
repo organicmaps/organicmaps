@@ -36,9 +36,11 @@ double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double spe
 
 double CalcTrafficFactor(SpeedGroup speedGroup)
 {
-  double constexpr kImpossibleDrivingFactor = 1e4;
   if (speedGroup == SpeedGroup::TempBlock)
+  {
+    double constexpr kImpossibleDrivingFactor = 1e4;
     return kImpossibleDrivingFactor;
+  }
 
   double const percentage =
       0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
@@ -219,12 +221,6 @@ bool CarEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash-
 
 double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const
 {
-  // Current time estimation are too optimistic.
-  // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
-  // Add some penalty to make estimation of a more realistic.
-  // TODO: make accurate tuning, remove penalty.
-  double constexpr kTimePenalty = 1.8;
-
   double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
 
   if (m_trafficStash)
@@ -234,7 +230,14 @@ double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadG
     double const trafficFactor = CalcTrafficFactor(speedGroup);
     result *= trafficFactor;
     if (speedGroup != SpeedGroup::Unknown && speedGroup != SpeedGroup::G5)
+    {
+      // Current time estimation are too optimistic.
+      // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
+      // Add some penalty to make estimation of a more realistic.
+      // TODO: make accurate tuning, remove penalty.
+      double constexpr kTimePenalty = 1.8;
       result *= kTimePenalty;
+    }
   }
 
   return result;

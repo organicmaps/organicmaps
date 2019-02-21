@@ -50,10 +50,6 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
 /// \returns Segment() if mwm of |edge| is not alive.
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 
-/// \brief Fills |times| according to max speed at |graph| and |path|.
-void CalculateMaxSpeedTimes(RoadGraphBase const & graph, std::vector<Junction> const & path,
-                            Route::TTimes & times);
-
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the

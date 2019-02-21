@@ -122,26 +122,6 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
   return indexRouter;
 }
 
-unique_ptr<IRouter> CreateAStarRouter(DataSource & dataSource,
-                                      storage::CountryInfoGetter const & infoGetter,
-                                      vector<LocalCountryFile> const & localFiles,
-                                      TRouterFactory const & routerFactory)
-{
-  // |infoGetter| should be a reference to an object which exists while the
-  // result of the function is used.
-  auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
-  {
-    return infoGetter.GetRegionCountryId(pt);
-  };
-
-  auto numMwmIds = make_shared<NumMwmIds>();
-  for (auto const & file : localFiles)
-    numMwmIds->RegisterFile(file.GetCountryFile());
-
-  unique_ptr<IRouter> router = routerFactory(dataSource, countryFileGetter, numMwmIds);
-  return unique_ptr<IRouter>(move(router));
-}
-
 void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
 {
   // Setting stored paths from testingmain.cpp

@@ -55,7 +55,7 @@ class DummyFetcher : public IOnlineFetcher
   vector<string> m_absent;
 
 public:
-  DummyFetcher(vector<string> const & absent) : m_absent(absent) {}
+  explicit DummyFetcher(vector<string> const & absent) : m_absent(absent) {}
 
   // IOnlineFetcher overrides:
   void GenerateRequest(Checkpoints const &) override {}
