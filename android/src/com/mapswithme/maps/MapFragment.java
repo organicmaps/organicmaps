@@ -255,8 +255,7 @@ public class MapFragment extends BaseMwmFragment
   void destroySurface()
   {
     LOGGER.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
-             ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded(),
-             new Throwable());
+             ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded());
     if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
       return;
 

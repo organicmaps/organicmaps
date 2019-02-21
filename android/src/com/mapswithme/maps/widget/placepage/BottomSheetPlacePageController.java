@@ -392,7 +392,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
       oldTop, int oldRight, int oldBottom)
   {
-    LOGGER.d(TAG, "Layout changed, current state  = " + toString(mPlacePageBehavior.getState()));
     if (mPlacePageBehavior.getPeekHeight() == 0)
     {
       LOGGER.d(TAG, "Layout change ignored, peek height not calculated yet");
