@@ -65,9 +65,9 @@ std::string BuildUploadUrl()
 
 std::string BuildWebEditorUrl(std::string const & serverId, std::string const & language)
 {
-  if (kCatalogDownloadServer.empty())
+  if (kCatalogEditorServer.empty())
     return {};
-  return kCatalogDownloadServer + "webeditor/" + language + "/edit/" + serverId;
+  return kCatalogEditorServer + "webeditor/" + language + "/edit/" + serverId;
 }
 
 struct SubtagData
