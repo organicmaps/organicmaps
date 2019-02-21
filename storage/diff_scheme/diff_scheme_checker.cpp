@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <utility>
 
+#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
@@ -131,8 +132,8 @@ NameDiffInfoMap Checker::Check(LocalMapsInfo const & info)
     ost << "Request to diffs server failed. Code = " << request.ErrorCode()
         << ", redirection = " << request.WasRedirected();
     LOG(LINFO, (ost.str()));
-    GetPlatform().GetMarketingService().SendMarketingEvent(
-        marketing::kDiffSchemeError, {{"type", "network"}, {"error", ost.str()}});
+    alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_error",
+                                            {{"type", "network"}, {"error", ost.str()}});
   }
 
   return diffs;

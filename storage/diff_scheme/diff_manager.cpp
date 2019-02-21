@@ -8,6 +8,8 @@
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace storage
 {
 namespace diffs
@@ -30,7 +32,7 @@ void Manager::Load(LocalMapsInfo && info)
     {
       m_status = Status::NotAvailable;
 
-      GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDiffSchemeFallback, {});
+      alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
     }
     else
     {
@@ -111,8 +113,8 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
     {
       diffFile->DeleteFromDisk(MapOptions::Diff);
 
-      GetPlatform().GetMarketingService().SendMarketingEvent(
-          marketing::kDiffSchemeError,
+      alohalytics::Stats::Instance().LogEvent(
+          "Downloader_DiffScheme_error",
           {{"type", "patching"},
            {"error", isFilePrepared ? "Cannot apply diff" : "Cannot prepare file"}});
 
