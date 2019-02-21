@@ -4,6 +4,7 @@
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
+#include "drape/vulkan/vulkan_param_descriptor.hpp"
 #include "drape/vulkan/vulkan_pipeline.hpp"
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -101,8 +102,6 @@ public:
   uint32_t GetCurrentFrameIndex() const { return m_frameCounter; }
 
   VkSampler GetSampler(SamplerKey const & key);
-
-  void UpdateDescriptorSetGroup(DescriptorSetGroup & descriptorSetGroup);
 
   enum class HandlerType : uint8_t
   {

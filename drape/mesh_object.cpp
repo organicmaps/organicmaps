@@ -160,7 +160,7 @@ MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawP
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
-    InitForVulkan();
+    InitForVulkan(context);
   }
   CHECK(m_impl != nullptr, ());
 }

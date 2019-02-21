@@ -18,37 +18,6 @@ namespace vulkan
 extern std::string GetVulkanResultString(VkResult result);
 extern VkFormat UnpackFormat(TextureFormat format);
 
-struct ParamDescriptor
-{
-  enum class Type : uint8_t
-  {
-    DynamicUniformBuffer,
-    Texture
-  };
-
-  Type m_type = Type::DynamicUniformBuffer;
-
-  VkDescriptorBufferInfo m_bufferDescriptor = {};
-  uint32_t m_bufferDynamicOffset = 0;
-
-  VkDescriptorImageInfo m_imageDescriptor = {};
-  int8_t m_textureSlot = 0;
-};
-
-struct DescriptorSetGroup
-{
-  VkDescriptorSet m_descriptorSet = {};
-  VkDescriptorPool m_descriptorPool = {};
-
-  explicit operator bool()
-  {
-    return m_descriptorSet != VK_NULL_HANDLE &&
-           m_descriptorPool != VK_NULL_HANDLE;
-  }
-
-  void Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors);
-};
-
 template<typename T>
 void SetStateByte(T & state, uint8_t value, uint8_t byteNumber)
 {

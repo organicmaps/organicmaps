@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_memory_manager.hpp"
+#include "drape/vulkan/vulkan_param_descriptor.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"

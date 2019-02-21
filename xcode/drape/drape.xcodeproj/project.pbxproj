@@ -54,6 +54,8 @@
 		45789EF8213557F7009955CC /* gl_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45789EEF213557F6009955CC /* gl_constants.cpp */; };
 		45789EF9213557F7009955CC /* gl_functions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45789EF0213557F6009955CC /* gl_functions.hpp */; };
 		45789EFA213557F7009955CC /* gl_extensions_list.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45789EF1213557F7009955CC /* gl_extensions_list.hpp */; };
+		45799345221E858000627B5E /* vulkan_param_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45799343221E857F00627B5E /* vulkan_param_descriptor.cpp */; };
+		45799346221E858000627B5E /* vulkan_param_descriptor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45799344221E858000627B5E /* vulkan_param_descriptor.hpp */; };
 		457B536620358F7E00E4E752 /* drape_routine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536320358F7D00E4E752 /* drape_routine.hpp */; };
 		457B536720358F7E00E4E752 /* glyph_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457B536420358F7D00E4E752 /* glyph_generator.cpp */; };
 		457B536820358F7E00E4E752 /* glyph_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536520358F7E00E4E752 /* glyph_generator.hpp */; };
@@ -199,6 +201,8 @@
 		45789EEF213557F6009955CC /* gl_constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl_constants.cpp; sourceTree = "<group>"; };
 		45789EF0213557F6009955CC /* gl_functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gl_functions.hpp; sourceTree = "<group>"; };
 		45789EF1213557F7009955CC /* gl_extensions_list.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gl_extensions_list.hpp; sourceTree = "<group>"; };
+		45799343221E857F00627B5E /* vulkan_param_descriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_param_descriptor.cpp; sourceTree = "<group>"; };
+		45799344221E858000627B5E /* vulkan_param_descriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_param_descriptor.hpp; sourceTree = "<group>"; };
 		457B536320358F7D00E4E752 /* drape_routine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_routine.hpp; sourceTree = "<group>"; };
 		457B536420358F7D00E4E752 /* glyph_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glyph_generator.cpp; sourceTree = "<group>"; };
 		457B536520358F7E00E4E752 /* glyph_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glyph_generator.hpp; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 		4577B24321F2034200864FAC /* vulkan */ = {
 			isa = PBXGroup;
 			children = (
+				45799343221E857F00627B5E /* vulkan_param_descriptor.cpp */,
+				45799344221E858000627B5E /* vulkan_param_descriptor.hpp */,
 				4577B25121F2035D00864FAC /* vulkan_base_context.cpp */,
 				4577B24E21F2035C00864FAC /* vulkan_base_context.hpp */,
 				4577B24421F2035C00864FAC /* vulkan_gpu_buffer_impl.cpp */,
@@ -508,6 +514,7 @@
 				6729A5A31A69213A007D5872 /* stipple_pen_resource.hpp in Headers */,
 				452D373521F7415F00CD3A94 /* vulkan_object_manager.hpp in Headers */,
 				6729A5661A69213A007D5872 /* attribute_provider.hpp in Headers */,
+				45799346221E858000627B5E /* vulkan_param_descriptor.hpp in Headers */,
 				6729A58D1A69213A007D5872 /* index_buffer_mutator.hpp in Headers */,
 				6729A5781A69213A007D5872 /* font_texture.hpp in Headers */,
 				670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */,
@@ -657,6 +664,7 @@
 				4560F59F213F986E00CC736C /* metal_states.mm in Sources */,
 				4560F5A52142890600CC736C /* metal_gpu_buffer_impl.mm in Sources */,
 				6709472A1BDF9A4F005014C0 /* hw_texture_ios.mm in Sources */,
+				45799345221E858000627B5E /* vulkan_param_descriptor.cpp in Sources */,
 				459843792136AC2600F8CAB2 /* metal_mesh_object_impl.mm in Sources */,
 				4513BF0D1EC2F0760066565C /* viewport.cpp in Sources */,
 				34C624C91DABDB2000510300 /* static_texture.cpp in Sources */,
