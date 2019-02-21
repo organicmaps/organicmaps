@@ -2,8 +2,8 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
+#include <algorithm>
+#include <limits>
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -20,10 +20,10 @@ namespace coding
 {
 namespace
 {
-size_t const kAlphabetSize = static_cast<size_t>(numeric_limits<uint8_t>::max()) + 1;
+size_t const kAlphabetSize = static_cast<size_t>(std::numeric_limits<uint8_t>::max()) + 1;
 
 // Calculates frequences for data symbols.
-void CalcFrequences(vector<uint8_t> const & data, uint64_t frequency[])
+void CalcFrequences(std::vector<uint8_t> const & data, uint64_t frequency[])
 {
   memset(frequency, 0, sizeof(*frequency) * kAlphabetSize);
   for (uint8_t symbol : data)
@@ -31,7 +31,7 @@ void CalcFrequences(vector<uint8_t> const & data, uint64_t frequency[])
 }
 }  // namespace
 
-SimpleDenseCoding::SimpleDenseCoding(vector<uint8_t> const & data)
+SimpleDenseCoding::SimpleDenseCoding(std::vector<uint8_t> const & data)
 {
   // This static initialization isn't thread safe prior to C++11.
   uint64_t frequency[kAlphabetSize];  // Maps symbols to frequences.
@@ -47,7 +47,7 @@ SimpleDenseCoding::SimpleDenseCoding(vector<uint8_t> const & data)
   {
     return frequency[lsym] > frequency[rsym];
   };
-  sort(symbols, symbols + kAlphabetSize, frequencyCmp);
+  std::sort(symbols, symbols + kAlphabetSize, frequencyCmp);
   for (size_t r = 0; r < kAlphabetSize; ++r)
     rank[symbols[r]] = r;
 
