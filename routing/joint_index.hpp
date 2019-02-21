@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 
+#include <cstdint>
 #include <vector>
 
 namespace routing

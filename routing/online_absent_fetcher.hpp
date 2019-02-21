@@ -13,14 +13,14 @@
 
 namespace routing
 {
-using TCountryLocalFileFn = std::function<bool(string const &)>;
+using TCountryLocalFileFn = std::function<bool(std::string const &)>;
 
 class IOnlineFetcher
 {
 public:
   virtual ~IOnlineFetcher() = default;
   virtual void GenerateRequest(Checkpoints const &) = 0;
-  virtual void GetAbsentCountries(vector<string> & countries) = 0;
+  virtual void GetAbsentCountries(std::vector<std::string> & countries) = 0;
 };
 
 /*!
@@ -34,7 +34,7 @@ public:
 
   // IOnlineFetcher overrides:
   void GenerateRequest(Checkpoints const &) override;
-  void GetAbsentCountries(vector<string> & countries) override;
+  void GetAbsentCountries(std::vector<std::string> & countries) override;
 
 private:
   bool AllPointsInSameMwm(Checkpoints const &) const;

@@ -29,7 +29,7 @@ private:
   class CrossCountryVehicleModel : public VehicleModelInterface
   {
   public:
-    CrossCountryVehicleModel(shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
+    CrossCountryVehicleModel(std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
     // VehicleModelInterface overrides:
     VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f,
@@ -45,11 +45,11 @@ private:
   private:
     VehicleModelInterface * GetVehicleModel(FeatureID const & featureId) const;
 
-    shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
+    std::shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
     double const m_maxSpeed;
     double const m_offroadSpeedKMpH;
 
-    mutable std::map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
+    mutable std::map<MwmSet::MwmId, std::shared_ptr<VehicleModelInterface>> m_cache;
   };
 
   class RoadInfoCache
@@ -66,7 +66,7 @@ private:
 
 public:
   FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
-                    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
+                    std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
   static int GetStreetReadScale();
 

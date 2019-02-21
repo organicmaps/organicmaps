@@ -1,5 +1,10 @@
 #include "openlr/graph.hpp"
 
+#include <map>
+#include <memory>
+#include <utility>
+#include <vector>
+
 using namespace routing;
 
 namespace openlr
@@ -10,7 +15,7 @@ using EdgeGetter = void (IRoadGraph::*)(Junction const &, RoadGraphBase::TEdgeVe
 
 void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
                      EdgeGetter const edgeGetter,
-                     map<openlr::Graph::Junction, Graph::EdgeVector> & cache,
+                     std::map<openlr::Graph::Junction, Graph::EdgeVector> & cache,
                      Graph::EdgeVector & edges)
 {
   auto const it = cache.find(junction);
@@ -28,7 +33,7 @@ void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
 }
 }  // namespace
 
-Graph::Graph(DataSource const & dataSource, shared_ptr<CarModelFactory> carModelFactory)
+Graph::Graph(DataSource const & dataSource, std::shared_ptr<CarModelFactory> carModelFactory)
   : m_graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
 {
 }
@@ -56,7 +61,7 @@ void Graph::GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges
 }
 
 void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
-                             vector<pair<Edge, Junction>> & vicinities) const
+                             std::vector<std::pair<Edge, Junction>> & vicinities) const
 {
   m_graph.FindClosestEdges(point, count, vicinities);
 }

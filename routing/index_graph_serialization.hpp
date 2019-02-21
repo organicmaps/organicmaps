@@ -323,8 +323,8 @@ private:
     Joint::Id GetCount() const { return m_count; }
 
   private:
-    static uint32_t constexpr kEmptyEntry = std::numeric_limits<uint32_t>::max();
-    static uint32_t constexpr kPushedEntry = kEmptyEntry - 1;
+    static auto constexpr kEmptyEntry = std::numeric_limits<uint32_t>::max();
+    static auto constexpr kPushedEntry = std::numeric_limits<uint32_t>::max() - 1;
 
     // Joints number is large.
     // Therefore point id and joint id are stored in same space to save some memory.

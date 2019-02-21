@@ -12,6 +12,7 @@
 
 #include "base/buffer_vector.hpp"
 
+#include <string>
 #include <vector>
 
 namespace routing
@@ -25,7 +26,7 @@ struct LoadedPathSegment
 {
   std::vector<Junction> m_path;
   std::vector<turns::SingleLaneInfo> m_lanes;
-  string m_name;
+  std::string m_name;
   double m_weight = 0.0; /*!< Time in seconds to pass the segment. */
   SegmentRange m_segmentRange;
   std::vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */
