@@ -10,15 +10,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/unique_ptr.hpp"
+#include <boost/optional.hpp>
 
 namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                                   XMLFeature const & xml,
                                   FeatureStatus const featureStatus,
-                                  TGenerateIDFn const & generateID)
+                                  GenerateIDFn const & generateID)
 {
   if (featureStatus == FeatureStatus::Created)
     return generateID();
@@ -50,9 +49,9 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
 FeatureID MigrateWayOrRelatonFeatureIndex(
     osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
     FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
-    TGenerateIDFn const & /*Unused for the same reason*/)
+    GenerateIDFn const & /*Unused for the same reason*/)
 {
-  unique_ptr<FeatureType> feature;
+  boost::optional<FeatureID> fid;
   auto bestScore = 0.6;  // initial score is used as a threshold.
   auto geometry = xml.GetGeometry();
   auto count = 0;
@@ -64,7 +63,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   auto const someFeaturePoint = geometry[0];
 
   forEach(
-      [&feature, &geometry, &count, &bestScore](FeatureType & ft) {
+      [&fid, &geometry, &count, &bestScore](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::GEOM_AREA)
           return;
         ++count;
@@ -87,7 +86,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
         if (score > bestScore)
         {
           bestScore = score;
-          feature = make_unique<FeatureType>(ft);
+          fid = ft.GetID();
         }
       },
       someFeaturePoint);
@@ -95,18 +94,18 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   if (count == 0)
     MYTHROW(MigrationError, ("No ways returned for point", someFeaturePoint));
 
-  if (!feature)
+  if (!fid)
   {
     MYTHROW(MigrationError,
-            ("None of returned ways suffice. Possibly, the feature have been deleted."));
+            ("None of returned ways suffice. Possibly, the feature has been deleted."));
   }
-  return feature->GetID();
+  return fid.get();
 }
 
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
                               FeatureStatus const featureStatus,
-                              TGenerateIDFn const & generateID)
+                              GenerateIDFn const & generateID)
 {
   switch (xml.GetType())
   {

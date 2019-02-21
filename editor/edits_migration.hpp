@@ -8,18 +8,18 @@
 
 #include "base/exception.hpp"
 
-#include "std/functional.hpp"
+#include <functional>
 
 namespace editor
 {
 DECLARE_EXCEPTION(MigrationError, RootException);
 
-using TGenerateIDFn = function<FeatureID()>;
+using GenerateIDFn = std::function<FeatureID()>;
 
-/// Tries to match xml feature with one on a new mwm and retruns FeatrueID
-/// of a found feature, thows MigrationError if migration fails.
+/// Tries to match xml feature with one on a new mwm and returns FeatureID
+/// of a found feature, throws MigrationError if migration fails.
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
                               FeatureStatus const featureStatus,
-                              TGenerateIDFn const & generateID);
+                              GenerateIDFn const & generateID);
 }  // namespace editor
