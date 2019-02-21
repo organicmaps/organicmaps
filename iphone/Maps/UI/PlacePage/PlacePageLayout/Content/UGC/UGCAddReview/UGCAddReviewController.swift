@@ -1,5 +1,5 @@
-@objc(MWMUGCAddReviewControllerDelegate)
-protocol UGCAddReviewControllerDelegate {
+@objc(MWMGCReviewSaver)
+protocol UGCReviewSaver {
   typealias onSaveHandler = (Bool) -> Void
   func saveUgc(model: UGCAddReviewController.Model, resultHandler: @escaping onSaveHandler)
 }
@@ -16,10 +16,10 @@ final class UGCAddReviewController: MWMTableViewController {
     case text
   }
 
-  @objc static func instance(model: Model, delegate: UGCAddReviewControllerDelegate) -> UGCAddReviewController {
+  @objc static func instance(model: Model, saver: UGCReviewSaver) -> UGCAddReviewController {
     let vc = UGCAddReviewController(nibName: toString(self), bundle: nil)
     vc.model = model
-    vc.delegate = delegate
+    vc.saver = saver
     return vc
   }
 
@@ -33,7 +33,7 @@ final class UGCAddReviewController: MWMTableViewController {
   }
 
   private var sections: [Sections] = []
-  private var delegate: UGCAddReviewControllerDelegate!
+  private var saver: UGCReviewSaver!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -70,7 +70,7 @@ final class UGCAddReviewController: MWMTableViewController {
     reviewPosted = true
     model.text = text
     
-    delegate.saveUgc(model: model, resultHandler: { (saveResult) in
+    saver.saveUgc(model: model, resultHandler: { (saveResult) in
       guard let nc = self.navigationController else { return }
 
       if !saveResult {
