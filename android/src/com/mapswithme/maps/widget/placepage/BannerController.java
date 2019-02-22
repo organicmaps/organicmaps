@@ -411,6 +411,11 @@ final class BannerController
     return mCurrentAd != null;
   }
 
+  int getClosedHeight()
+  {
+    return mClosedHeight;
+  }
+
   private void setBannerState()
   {
     if (mCurrentAd == null)

@@ -40,7 +40,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
   private static final String EXTRA_MAP_OBJECT = "extra_map_object";
-  private static final int PEEK_HEIGHT_ANIM_DURATION = 300;
+  private static final int ANIM_BANNER_APPEARING_MS = 300;
+  private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @NonNull
   private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
@@ -296,7 +297,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   {
     int delta = peekHeight - mPlacePageBehavior.getPeekHeight();
     ObjectAnimator animator = ObjectAnimator.ofFloat(mPlacePage, "translationY", -delta);
-    animator.setDuration(PEEK_HEIGHT_ANIM_DURATION);
+    animator.setDuration(delta == mBannerController.getClosedHeight() ? ANIM_BANNER_APPEARING_MS
+                                                                      : ANIM_CHANGE_PEEK_HEIGHT_MS);
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
