@@ -29,6 +29,9 @@
   auto const position = f.GetCurrentPosition();
   if (!position)
     return NO;
+
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return NO;
   
   auto const latLon = MercatorBounds::ToLatLon(position.get());
   return ads::HasMegafonCategoryBanner(f.GetStorage(), f.GetTopmostCountries(latLon),
