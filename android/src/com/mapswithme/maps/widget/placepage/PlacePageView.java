@@ -745,15 +745,26 @@ public class PlacePageView extends NestedScrollView
     if (mSponsored == null || !TextUtils.equals(priceInfo.getId(), mSponsored.getId()))
       return;
 
-    String text = Utils.formatCurrencyString(priceInfo.getPrice(), priceInfo.getCurrency());
+    String price = makePrice(getContext(), priceInfo);
+    if (price != null)
+      mSponsoredPrice = price;
 
-    mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     if (mMapObject == null)
     {
       LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!");
       return;
     }
     refreshPreview(mMapObject, priceInfo);
+  }
+
+  @Nullable
+  private static String makePrice(@NonNull Context context, @NonNull HotelPriceInfo priceInfo)
+  {
+    if (TextUtils.isEmpty(priceInfo.getPrice()) || TextUtils.isEmpty(priceInfo.getCurrency()))
+      return null;
+
+    String text = Utils.formatCurrencyString(priceInfo.getPrice(), priceInfo.getCurrency());
+    return context.getString(R.string.place_page_starting_from, text);
   }
 
   @Override
@@ -1173,7 +1184,7 @@ public class PlacePageView extends NestedScrollView
     mRatingView.setRating(impress, mSponsored.getRating());
     UiUtils.showIf(!isRatingEmpty, mRatingView);
     mTvSponsoredPrice.setText(mSponsoredPrice);
-    UiUtils.showIf(!isPriceEmpty && ConnectionState.isConnected(), mTvSponsoredPrice);
+    UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
                                  mSponsored.getType() == Sponsored.TYPE_BOOKING;
     UiUtils.showIf(isBookingInfoExist || mapObject.shouldShowUGC(), mPreviewRatingInfo);
