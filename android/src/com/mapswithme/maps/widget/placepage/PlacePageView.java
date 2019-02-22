@@ -1040,7 +1040,6 @@ public class PlacePageView extends NestedScrollView
       processSponsored(policy);
       initEditMapObjectBtn();
       mUgcController.clearViewsFor(mMapObject);
-      mUgcController.getUGC(mMapObject);
 
       String country = MapManager.nativeGetSelectedCountry();
       if (country != null && !RoutingController.get().isNavigating())
@@ -1085,6 +1084,7 @@ public class PlacePageView extends NestedScrollView
 
     refreshPreview(mMapObject, null);
     refreshViewsInternal(mMapObject);
+    mUgcController.getUGC(mMapObject);
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
