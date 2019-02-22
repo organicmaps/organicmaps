@@ -251,7 +251,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
-  [self.welcomePageController show];
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
 }
@@ -271,6 +270,7 @@ BOOL gIsFirstMyPositionMode = YES;
                                          selector:@selector(didBecomeActive)
                                              name:UIApplicationDidBecomeActiveNotification
                                            object:nil];
+  [self.welcomePageController show];
 }
 
 - (void)didBecomeActive

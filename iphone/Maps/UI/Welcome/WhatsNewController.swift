@@ -5,8 +5,6 @@ final class WhatsNewController: WelcomeViewController {
     let title: String
     let text: String
     let buttonTitle: String
-    let ctaButtonTitle: String?
-    let ctaButtonUrl: String?
   }
   
   static var welcomeConfigs: [WelcomeConfig] {
@@ -14,15 +12,11 @@ final class WhatsNewController: WelcomeViewController {
     WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_1"),
                    title: "whats_new_ugc_routes_title",
                    text: "whats_new_ugc_routes_subtitle",
-                   buttonTitle: "whats_new_next_button",
-                   ctaButtonTitle: nil,
-                   ctaButtonUrl: nil),
+                   buttonTitle: "whats_new_next_button"),
     WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_2"),
                    title: "whats_new_webeditor_title",
                    text: "whats_new_ugc_routes_message2",
-                   buttonTitle: "done",
-                   ctaButtonTitle: nil,
-                   ctaButtonUrl: nil)
+                   buttonTitle: "done")
     ]
   }
 
@@ -46,27 +40,5 @@ final class WhatsNewController: WelcomeViewController {
       result.append(vc)
     }
     return result
-  }
-  
-  @IBOutlet weak var ctaButton: UIButton!
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    let config = pageConfig as! WhatsNewConfig
-    if let ctaTitleKey = config.ctaButtonTitle {
-      ctaButton.setTitle(L(ctaTitleKey), for: .normal)
-    } else {
-      ctaButton.isHidden = true
-    }
-  }
-  
-  @IBAction func onCta() {
-    let config = pageConfig as! WhatsNewConfig
-    if let url = URL(string: config.ctaButtonUrl!) {
-      UIApplication.shared.open(url)
-    } else {
-      assertionFailure()
-    }
-    close()
   }
 }
