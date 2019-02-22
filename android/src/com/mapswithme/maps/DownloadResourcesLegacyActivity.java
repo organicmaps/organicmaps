@@ -235,10 +235,11 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     showMap();
   }
 
+  @CallSuper
   @Override
-  protected void onDestroy()
+  protected void safeOnDestroy()
   {
-    super.onDestroy();
+    super.safeOnDestroy();
     Utils.keepScreenOn(false, getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {

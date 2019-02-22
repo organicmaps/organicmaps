@@ -1239,10 +1239,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.onActivityStopped(this);
   }
 
+  @CallSuper
   @Override
-  protected void onDestroy()
+  protected void safeOnDestroy()
   {
-    super.onDestroy();
+    super.safeOnDestroy();
     if (mAdsRemovalPurchaseController != null)
       mAdsRemovalPurchaseController.destroy();
     if (mBookmarkPurchaseController != null)

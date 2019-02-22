@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -61,10 +62,11 @@ public class SearchActivity extends BaseMwmFragmentActivity
     mAdsRemovalPurchaseController.initialize(this);
   }
 
+  @CallSuper
   @Override
-  protected void onDestroy()
+  protected void safeOnDestroy()
   {
-    super.onDestroy();
+    super.safeOnDestroy();
     if (mAdsRemovalPurchaseController != null)
       mAdsRemovalPurchaseController.destroy();
   }

@@ -150,10 +150,28 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   @CallSuper
   @Override
-  protected void onDestroy()
+  protected final void onDestroy()
   {
     super.onDestroy();
     mBaseDelegate.onDestroy();
+
+    if (!MwmApplication.get().arePlatformAndCoreInitialized()
+        || !PermissionsUtils.isExternalStorageGranted())
+    {
+      return;
+    }
+
+    safeOnDestroy();
+  }
+
+  /**
+   * Use this safe method instead of {@link #onDestroy()}.
+   * When this method is called, the core is already initialized and
+   * {@link #safeOnCreate(Bundle savedInstanceState)} was called.
+   */
+  @CallSuper
+  protected void safeOnDestroy()
+  {
   }
 
   @CallSuper
