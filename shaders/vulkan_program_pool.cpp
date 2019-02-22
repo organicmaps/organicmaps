@@ -27,25 +27,24 @@ int8_t constexpr kInvalidBindingIndex = -1;
 
 std::string const kShadersDir = "vulkan_shaders";
 std::string const kShadersReflecton = "reflection.json";
+std::string const kShadersPackFile = "shaders_pack.spv";
 
-std::vector<uint32_t> ReadShaderFile(std::string const & filename)
+std::vector<uint8_t> ReadShadersPackFile(std::string const & filename)
 {
-  std::vector<uint32_t> result;
+  std::vector<uint8_t> result;
   try
   {
     ReaderPtr<Reader> reader(GetPlatform().GetReader(filename));
     auto const size = static_cast<size_t>(reader.Size());
-    CHECK(size % sizeof(uint32_t) == 0,
-          ("Incorrect SPIR-V file alignment. Name =", filename, "Size =", size));
-    result.resize(size / sizeof(uint32_t));
+    CHECK(size % sizeof(uint32_t) == 0, ("Incorrect SPIR-V file alignment."));
+    result.resize(size);
     reader.Read(0, result.data(), size);
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Error reading shader file ", filename, " : ", e.what()));
+    CHECK(false, ("Error reading shader file ", filename, " : ", e.what()));
     return {};
   }
-
   return result;
 }
 
@@ -64,6 +63,7 @@ struct ReflectionInfo
   int8_t m_vsUniformsIndex = kInvalidBindingIndex;
   int8_t m_fsUniformsIndex = kInvalidBindingIndex;
   std::vector<TextureBindingReflectionInfo> m_textures;
+
   DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"),
                   visitor(m_fsUniformsIndex, "fs_uni"),
                   visitor(m_textures, "tex"))
@@ -72,8 +72,16 @@ struct ReflectionInfo
 struct ReflectionData
 {
   int32_t m_programIndex = -1;
+  uint32_t m_vsOffset = 0;
+  uint32_t m_fsOffset = 0;
+  uint32_t m_vsSize = 0;
+  uint32_t m_fsSize = 0;
   ReflectionInfo m_info;
   DECLARE_VISITOR(visitor(m_programIndex, "prg"),
+                  visitor(m_vsOffset, "vs_off"),
+                  visitor(m_fsOffset, "fs_off"),
+                  visitor(m_vsSize, "vs_size"),
+                  visitor(m_fsSize, "fs_size"),
                   visitor(m_info, "info"))
 };
 
@@ -83,9 +91,9 @@ struct ReflectionFile
   DECLARE_VISITOR(visitor(m_reflectionData))
 };
 
-std::map<uint8_t, ReflectionInfo> ReadReflectionFile(std::string const & filename)
+std::map<uint8_t, ReflectionData> ReadReflectionFile(std::string const & filename)
 {
-  std::map<uint8_t, ReflectionInfo> result;
+  std::map<uint8_t, ReflectionData> result;
   std::string jsonStr;
   try
   {
@@ -110,7 +118,10 @@ std::map<uint8_t, ReflectionInfo> ReadReflectionFile(std::string const & filenam
   }
 
   for (auto & d : reflectionFile.m_reflectionData)
-    result.insert(std::make_pair(d.m_programIndex, std::move(d.m_info)));
+  {
+    auto const index = d.m_programIndex;
+    result.insert(std::make_pair(index, std::move(d)));
+  }
 
   return result;
 }
@@ -163,21 +174,18 @@ std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const
   return result;
 }
 
-VkShaderModule LoadShaderModule(VkDevice device, std::string const & filename)
+VkShaderModule LoadShaderModule(VkDevice device, std::vector<uint8_t> const & packData,
+                                uint32_t offset, uint32_t size)
 {
   VkShaderModule shaderModule;
-
-  auto src = ReadShaderFile(filename);
-  if (src.empty())
-    return {};
-
-  auto const sizeInBytes = src.size() * sizeof(uint32_t);
+  CHECK(offset % sizeof(uint32_t) == 0, ("Incorrect SPIR-V file alignment."));
+  CHECK(size % sizeof(uint32_t) == 0, ("Incorrect SPIR-V file size."));
 
   VkShaderModuleCreateInfo moduleCreateInfo = {};
   moduleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
   moduleCreateInfo.pNext = nullptr;
-  moduleCreateInfo.codeSize = sizeInBytes;
-  moduleCreateInfo.pCode = src.data();
+  moduleCreateInfo.codeSize = size;
+  moduleCreateInfo.pCode = reinterpret_cast<uint32_t const *>(packData.data() + offset);
   moduleCreateInfo.flags = 0;
 
   CHECK_VK_CALL(vkCreateShaderModule(device, &moduleCreateInfo, nullptr, &shaderModule));
@@ -192,15 +200,17 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
 
   auto reflection = ReadReflectionFile(base::JoinPath(kShadersDir, kShadersReflecton));
   CHECK_EQUAL(reflection.size(), static_cast<size_t>(Program::ProgramsCount), ());
+
+  auto packFileData = ReadShadersPackFile(base::JoinPath(kShadersDir, kShadersPackFile));
+
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
   {
-    auto const programName = DebugPrint(static_cast<Program>(i));
-    m_programData[i].m_vertexShader =
-        LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv"));
-    m_programData[i].m_fragmentShader =
-        LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv"));
-
-    auto bindings = GetLayoutBindings(reflection[i]);
+    auto const & refl = reflection[i];
+    m_programData[i].m_vertexShader = LoadShaderModule(device, packFileData,
+                                                       refl.m_vsOffset, refl.m_vsSize);
+    m_programData[i].m_fragmentShader = LoadShaderModule(device, packFileData,
+                                                         refl.m_fsOffset, refl.m_fsSize);
+    auto bindings = GetLayoutBindings(refl.m_info);
     VkDescriptorSetLayoutCreateInfo descriptorLayout  = {};
     descriptorLayout.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorLayout.pBindings = bindings.data();
@@ -217,7 +227,7 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
     CHECK_VK_CALL(vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr,
                                          &m_programData[i].m_pipelineLayout));
 
-    for (auto const & t : reflection[i].m_textures)
+    for (auto const & t : refl.m_info.m_textures)
       m_programData[i].m_textureBindings[t.m_name] = t.m_index;
   }
 

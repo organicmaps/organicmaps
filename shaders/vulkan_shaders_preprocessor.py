@@ -2,7 +2,6 @@ import os
 import re
 import sys
 from subprocess import Popen, PIPE
-from shutil import copyfile
 import json
 
 VERTEX_SHADER_EXT = '.vsh.glsl'
@@ -384,8 +383,9 @@ def generate_shader(shader, shader_dir, generation_dir, shaders_library, program
     with open(output_path, 'w') as file:
         generate_spirv_compatible_glsl_shader(file, shader, shader_dir, shaders_library,
                                               program_params, layout_counters, reflection_dict)
+    spv_path = output_path + '.spv'
     try:
-        execute_external([glslc_path, '-c', output_path, '-o', output_path + '.spv', '-std=310es', '--target-env=vulkan'])
+        execute_external([glslc_path, '-c', output_path, '-o', spv_path, '-std=310es', '--target-env=vulkan'])
         if debug_output:
             debug_dir = os.path.join(generation_dir, 'debug', program_name)
             debug_path = os.path.join(debug_dir, output_name)
@@ -399,6 +399,7 @@ def generate_shader(shader, shader_dir, generation_dir, shaders_library, program
         print('Could not generate SPIR-V for the shader {0}. Most likely glslc from Android NDK is not found.'.format(shader))
         os.remove(output_path)
         exit(1)
+    return spv_path
 
 
 # Check if varying are in the same order in vertex and fragment shaders.
@@ -414,6 +415,14 @@ def check_varying_consistency(vs_file_name, fs_file_name):
         if line.startswith('varying '):
             fs_varyings.append(line)
     return vs_varyings == fs_varyings
+
+
+def write_shader_to_pack(pack_file, shader_file_name):
+    offset = pack_file.tell()
+    with open(shader_file_name, 'rb') as shader_file:
+        pack_file.write(shader_file.read())
+    os.remove(shader_file_name)
+    return offset, pack_file.tell() - offset
 
 
 if __name__ == '__main__':
@@ -441,19 +450,29 @@ if __name__ == '__main__':
     gpu_programs_cache = read_index_file(os.path.join(shader_dir, index_file_name), programs_order)
     shaders_library = read_shaders_lib_file(os.path.join(shader_dir, shaders_lib_file))
     reflection = []
-    for (k, v) in gpu_programs_cache.items():
-        if not k in program_params:
-            print('Program params were not found for the shader ' + k)
-            exit(1)
-        if not check_varying_consistency(os.path.join(shader_dir, v[0]), os.path.join(shader_dir, v[1])):
-            print('Varyings must be in the same order in VS and FS. Shaders: {0}, {1} / Program: {2}.'.format(v[0], v[1], k))
-            exit(1)
-        layout_counters = {IN: 0, OUT: 0, UNIFORMS: 0, SAMPLERS: [0, list()]}
-        reflection_dict = {'prg': v[2], 'info': dict()}
-        generate_shader(v[0], shader_dir, generation_dir, shaders_library, k, program_params[k], layout_counters,
-                        k + VERTEX_SHADER_EXT_OUT, reflection_dict['info'], glslc_path)
-        generate_shader(v[1], shader_dir, generation_dir, shaders_library, k, program_params[k], layout_counters,
-                        k + FRAG_SHADER_EXT_OUT, reflection_dict['info'], glslc_path)
-        reflection.append(reflection_dict)
+    current_offset = 0
+    with open(os.path.join(generation_dir, 'shaders_pack.spv'), 'wb') as pack_file:
+        for (k, v) in gpu_programs_cache.items():
+            if not k in program_params:
+                print('Program params were not found for the shader ' + k)
+                exit(1)
+            if not check_varying_consistency(os.path.join(shader_dir, v[0]), os.path.join(shader_dir, v[1])):
+                print('Varyings must be in the same order in VS and FS. Shaders: {0}, {1} / Program: {2}.'.format(v[0], v[1], k))
+                exit(1)
+            layout_counters = {IN: 0, OUT: 0, UNIFORMS: 0, SAMPLERS: [0, list()]}
+            reflection_dict = {'prg': v[2], 'info': dict()}
+            vs_offset = write_shader_to_pack(pack_file, generate_shader(v[0], shader_dir, generation_dir,
+                                                                        shaders_library, k, program_params[k],
+                                                                        layout_counters, k + VERTEX_SHADER_EXT_OUT,
+                                                                        reflection_dict['info'], glslc_path))
+            reflection_dict['vs_off'] = vs_offset[0]
+            reflection_dict['vs_size'] = vs_offset[1]
+            fs_offset = write_shader_to_pack(pack_file, generate_shader(v[1], shader_dir, generation_dir,
+                                                                        shaders_library, k, program_params[k],
+                                                                        layout_counters, k + FRAG_SHADER_EXT_OUT,
+                                                                        reflection_dict['info'], glslc_path))
+            reflection_dict['fs_off'] = fs_offset[0]
+            reflection_dict['fs_size'] = fs_offset[1]
+            reflection.append(reflection_dict)
     with open(os.path.join(generation_dir, 'reflection.json'), 'w') as reflection_file:
-        reflection_file.write(json.dumps(reflection))
+        reflection_file.write(json.dumps(reflection, separators=(',',':')))
