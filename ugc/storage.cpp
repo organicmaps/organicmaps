@@ -64,8 +64,48 @@ void DeserializeIndexes(string const & jsonData, ugc::UpdateIndexes & res)
   if (jsonData.empty())
     return;
 
-  ugc::DeserializerJsonV0 des(jsonData);
-  des(res);
+  try
+  {
+    ugc::DeserializerJsonV0 des(jsonData);
+    des(res);
+  }
+  catch (base::Json::Exception const & e)
+  {
+    LOG(LERROR, ("Exception while indexes deserialization. Reason:", e.what()));
+    map<string, string> const stat = {
+        {"error", "Cannot deserialize indexes. Content: " + jsonData}};
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", stat);
+    res.clear();
+  }
+}
+
+void DeserializeUGCUpdate(vector<uint8_t> const & buf, ugc::UGCUpdate & dst)
+{
+  MemReaderWithExceptions r(buf.data(), buf.size());
+  NonOwningReaderSource source(r);
+
+  try
+  {
+    ugc::Deserialize(source, dst);
+    return;
+  }
+  catch (ugc::BadBlob const & e)
+  {
+    LOG(LERROR, ("BadBlob exception while UGCUpdate deserialization. Reason:", e.what()));
+    map<string, string> const stat = {
+        {"error", "Cannot deserialize UGCUpdate. Bad blob exception. Content: " +
+                      std::string(buf.cbegin(), buf.cend())}};
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", stat);
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Exception while UGCUpdate deserialization. Reason:", e.what()));
+    map<string, string> const stat = {{"error", "Cannot deserialize UGCUpdate. Content: " +
+                                                    std::string(buf.cbegin(), buf.cend())}};
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", stat);
+  }
+
+  dst = {};
 }
 
 string SerializeIndexes(ugc::UpdateIndexes const & indexes)
@@ -178,10 +218,8 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
     return {};
   }
 
-  MemReader r(buf.data(), buf.size());
-  NonOwningReaderSource source(r);
   UGCUpdate update;
-  Deserialize(source, update);
+  DeserializeUGCUpdate(buf, update);
   return update;
 }
 
@@ -410,10 +448,11 @@ string Storage::GetUGCToSend() const
       return string();
     }
 
-    MemReader r(buf.data(), buf.size());
-    NonOwningReaderSource source(r);
     UGCUpdate update;
-    Deserialize(source, update);
+    DeserializeUGCUpdate(buf, update);
+
+    if (update.IsEmpty())
+      continue;
 
     string data;
     {
