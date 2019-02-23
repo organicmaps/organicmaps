@@ -5,18 +5,24 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <array>
-
 namespace dp
 {
 namespace vulkan
 {
 void DescriptorSetGroup::Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors)
 {
-  size_t constexpr kMaxDescriptorSets = 8;
   size_t const writeDescriptorsCount = descriptors.size();
   CHECK_LESS_OR_EQUAL(writeDescriptorsCount, kMaxDescriptorSets, ());
 
+  std::array<uint32_t, kMaxDescriptorSets> ids = {};
+  for (size_t i = 0; i < writeDescriptorsCount; ++i)
+    ids[i] = descriptors[i].m_id;
+
+  if (m_updated && ids == m_ids)
+    return;
+
+  m_ids = ids;
+  m_updated = true;
   std::array<VkWriteDescriptorSet, kMaxDescriptorSets> writeDescriptorSets = {};
   for (size_t i = 0; i < writeDescriptorsCount; ++i)
   {

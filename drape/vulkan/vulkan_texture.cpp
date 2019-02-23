@@ -99,6 +99,10 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
 {
   Base::Create(context, params, data);
 
+  static uint32_t textureCounter = 0;
+  textureCounter++;
+  m_textureID = textureCounter;
+
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   m_objectManager = vulkanContext->GetObjectManager();
 

@@ -285,7 +285,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     {
       context->SetFramebuffer(make_ref(m_edgesFramebuffer));
       context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit | dp::ClearBits::StencilBit /* storeBits */);
-      if (m_apiVersion == dp::ApiVersion::Metal)
+      if (m_apiVersion == dp::ApiVersion::Metal || m_apiVersion == dp::ApiVersion::Vulkan)
         context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Greater);
       else
         context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::NotEqual);

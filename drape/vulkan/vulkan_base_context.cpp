@@ -40,6 +40,18 @@ VkImageMemoryBarrier PostRenderBarrier(VkImage image)
   imageMemoryBarrier.subresourceRange.layerCount = 1;
   return imageMemoryBarrier;
 }
+
+uint16_t PackAttachmentsOperations(VulkanBaseContext::AttachmentsOperations const & operations)
+{
+  uint16_t result = 0;
+  result |= operations.m_color.m_loadOp;
+  result |= (operations.m_color.m_storeOp << 2);
+  result |= operations.m_depth.m_loadOp << 4;
+  result |= (operations.m_depth.m_storeOp << 6);
+  result |= operations.m_stencil.m_loadOp << 8;
+  result |= (operations.m_stencil.m_storeOp << 10);
+  return result;
+}
 }  // namespace
 
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
@@ -69,7 +81,7 @@ VulkanBaseContext::~VulkanBaseContext()
 
   m_defaultStagingBuffer.reset();
 
-  DestroyFramebuffers();
+  DestroyRenderPassAndFramebuffers();
   DestroySwapchain();
   DestroySyncPrimitives();
   DestroyCommandBuffers();
@@ -101,7 +113,6 @@ void VulkanBaseContext::Init(ApiVersion apiVersion)
 
 void VulkanBaseContext::SetPresentAvailable(bool available)
 {
-  LOG(LINFO, ("Present available: ", available));
   m_presentAvailable = available;
 }
 
@@ -111,8 +122,6 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
   m_surfaceCapabilities = surfaceCapabilities;
-
-  LOG(LINFO, ("RecreateSwapchainAndDependencies in SetSurface"));
   RecreateSwapchainAndDependencies();
 }
 
@@ -138,7 +147,7 @@ void VulkanBaseContext::RecreateSwapchainAndDependencies()
 
 void VulkanBaseContext::ResetSwapchainAndDependencies()
 {
-  DestroyFramebuffers();
+  DestroyRenderPassAndFramebuffers();
   m_depthTexture.reset();
 
   DestroyCommandBuffers();
@@ -154,8 +163,6 @@ void VulkanBaseContext::Resize(int w, int h)
 {
   m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(w);
   m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(h);
-
-  LOG(LINFO, ("RecreateSwapchainAndDependencies in Resize"));
   RecreateSwapchainAndDependencies();
 }
 
@@ -169,14 +176,9 @@ bool VulkanBaseContext::BeginRendering()
   auto const res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_acquireComplete,
                                          VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
-  {
-    LOG(LINFO, ("RecreateSwapchainAndDependencies in BeginRendering"));
     RecreateSwapchainAndDependencies();
-  }
   else
-  {
     CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
-  }
 
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -213,8 +215,24 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   vkCmdSetStencilReference(m_renderingCommandBuffer, VK_STENCIL_FRONT_AND_BACK,
                            m_stencilReferenceValue);
 
+  // Calculate attachment operations.
   auto attachmentsOp = GetAttachmensOperations();
+  if (m_currentFramebuffer == nullptr)
+  {
+    attachmentsOp.m_color.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachmentsOp.m_depth.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachmentsOp.m_stencil.m_loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    attachmentsOp.m_stencil.m_storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+  }
+  auto const packedAttachmentOperations = PackAttachmentsOperations(attachmentsOp);
 
+  // Destroy data associated with current framebuffer if bound attachments operations
+  // are changed.
+  auto const ops = m_framebuffersData[m_currentFramebuffer].m_packedAttachmentOperations;
+  if (ops != packedAttachmentOperations)
+    DestroyRenderPassAndFramebuffer(m_currentFramebuffer);
+
+  // Initialize render pass.
   auto & fbData = m_framebuffersData[m_currentFramebuffer];
   if (fbData.m_renderPass == VK_NULL_HANDLE)
   {
@@ -226,10 +244,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       colorFormat = m_surfaceFormat.get().format;
       depthFormat = VulkanFormatUnpacker::Unpack(TextureFormat::Depth);
 
-      attachmentsOp.m_color.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-      attachmentsOp.m_depth.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-      attachmentsOp.m_stencil.m_loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-
+      fbData.m_packedAttachmentOperations = packedAttachmentOperations;
       fbData.m_renderPass = CreateRenderPass(2 /* attachmentsCount */, attachmentsOp,
                                              colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
@@ -245,6 +260,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       if (depthStencilRef != nullptr)
         depthFormat = VulkanFormatUnpacker::Unpack(depthStencilRef->GetTexture()->GetFormat());
 
+      fbData.m_packedAttachmentOperations = packedAttachmentOperations;
       fbData.m_renderPass = CreateRenderPass(attachmentsCount, attachmentsOp, colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
                                              VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
                                              depthFormat, VK_IMAGE_LAYOUT_UNDEFINED,
@@ -252,6 +268,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     }
   }
 
+  // Initialize framebuffers.
   if (fbData.m_framebuffers.empty())
   {
     if (m_currentFramebuffer == nullptr)
@@ -750,7 +767,7 @@ void VulkanBaseContext::DestroySwapchain()
   m_swapchain = VK_NULL_HANDLE;
 }
 
-void VulkanBaseContext::DestroyFramebuffers()
+void VulkanBaseContext::DestroyRenderPassAndFramebuffers()
 {
   if (m_pipeline)
     m_pipeline->ResetCache(m_device);
@@ -762,6 +779,21 @@ void VulkanBaseContext::DestroyFramebuffers()
     vkDestroyRenderPass(m_device, fbData.second.m_renderPass, nullptr);
   }
   m_framebuffersData.clear();
+}
+
+void VulkanBaseContext::DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer)
+{
+  auto const & fbData = m_framebuffersData[m_currentFramebuffer];
+  if (m_pipeline && fbData.m_renderPass != VK_NULL_HANDLE)
+    m_pipeline->ResetCache(m_device, fbData.m_renderPass);
+
+  for (auto & fb : fbData.m_framebuffers)
+    vkDestroyFramebuffer(m_device, fb, nullptr);
+
+  if (fbData.m_renderPass != VK_NULL_HANDLE)
+    vkDestroyRenderPass(m_device, fbData.m_renderPass, nullptr);
+
+  m_framebuffersData.erase(framebuffer);
 }
 
 void VulkanBaseContext::CreateCommandPool()

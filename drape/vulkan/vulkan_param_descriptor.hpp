@@ -6,6 +6,7 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -18,7 +19,7 @@ struct ParamDescriptor
 {
   enum class Type : uint8_t
   {
-    DynamicUniformBuffer,
+    DynamicUniformBuffer = 0,
     Texture
   };
 
@@ -29,12 +30,19 @@ struct ParamDescriptor
 
   VkDescriptorImageInfo m_imageDescriptor = {};
   int8_t m_textureSlot = 0;
+
+  uint32_t m_id = 0;
 };
+
+size_t constexpr kMaxDescriptorSets = 8;
 
 struct DescriptorSetGroup
 {
   VkDescriptorSet m_descriptorSet = {};
   VkDescriptorPool m_descriptorPool = {};
+
+  std::array<uint32_t, kMaxDescriptorSets> m_ids = {};
+  bool m_updated = false;
 
   explicit operator bool()
   {

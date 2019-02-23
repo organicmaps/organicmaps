@@ -173,7 +173,7 @@ bool Framework::DestroyContextOnSurfaceDetach()
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                                   bool launchByDeepLink, int appVersionCode)
 {
-  if (true)//m_work.LoadPreferredGraphicsAPI() == dp::ApiVersion::Vulkan)
+  if (m_work.LoadPreferredGraphicsAPI() == dp::ApiVersion::Vulkan)
   {
     m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode);
     if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())

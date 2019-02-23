@@ -53,6 +53,7 @@ public:
   void Dump(VkDevice device);
   void Destroy(VkDevice device);
   void ResetCache(VkDevice device);
+  void ResetCache(VkDevice device, VkRenderPass renderPass);
 
   VkPipeline GetPipeline(VkDevice device, PipelineKey const & key);
 

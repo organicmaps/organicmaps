@@ -113,6 +113,19 @@ public:
   uint32_t RegisterHandler(HandlerType handlerType, ContextHandler && handler);
   void UnregisterHandler(uint32_t id);
 
+  struct AttachmentOp
+  {
+    VkAttachmentLoadOp m_loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    VkAttachmentStoreOp m_storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+  };
+
+  struct AttachmentsOperations
+  {
+    AttachmentOp m_color;
+    AttachmentOp m_depth;
+    AttachmentOp m_stencil;
+  };
+
 protected:
   void SetRenderingQueue(VkQueue queue);
 
@@ -128,25 +141,13 @@ protected:
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
 
-  void DestroyFramebuffers();
+  void DestroyRenderPassAndFramebuffers();
+  void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
 
   void RecreateDepthTexture();
 
   void RecreateSwapchainAndDependencies();
   void ResetSwapchainAndDependencies();
-
-  struct AttachmentOp
-  {
-    VkAttachmentLoadOp m_loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    VkAttachmentStoreOp m_storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-  };
-
-  struct AttachmentsOperations
-  {
-    AttachmentOp m_color;
-    AttachmentOp m_depth;
-    AttachmentOp m_stencil;
-  };
 
   AttachmentsOperations GetAttachmensOperations();
 
@@ -197,6 +198,7 @@ protected:
   struct FramebufferData
   {
     VkRenderPass m_renderPass = {};
+    uint16_t m_packedAttachmentOperations = 0;
     std::vector<VkFramebuffer> m_framebuffers = {};
   };
   std::map<ref_ptr<BaseFramebuffer>, FramebufferData> m_framebuffersData;

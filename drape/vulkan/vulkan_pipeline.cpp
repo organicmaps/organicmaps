@@ -235,6 +235,22 @@ void VulkanPipeline::ResetCache(VkDevice device)
   m_isChanged = true;
 }
 
+void VulkanPipeline::ResetCache(VkDevice device, VkRenderPass renderPass)
+{
+  for (auto it = m_pipelineCache.begin(); it != m_pipelineCache.end();)
+  {
+    if (it->first.m_renderPass == renderPass)
+    {
+      vkDestroyPipeline(device, it->second, nullptr);
+      it = m_pipelineCache.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+}
+
 void VulkanPipeline::Destroy(VkDevice device)
 {
   Dump(device);
@@ -355,6 +371,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
 
   if (key.m_depthStencil.m_stencilEnabled)
   {
+    depthStencilState.stencilTestEnable = VK_TRUE;
     depthStencilState.front.compareOp =
       DecodeTestFunction(GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontFunctionByte));
     depthStencilState.front.failOp =
@@ -381,6 +398,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   }
   else
   {
+    depthStencilState.stencilTestEnable = VK_FALSE;
     depthStencilState.front.compareOp = VK_COMPARE_OP_ALWAYS;
     depthStencilState.back.compareOp = VK_COMPARE_OP_ALWAYS;
   }

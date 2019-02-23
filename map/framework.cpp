@@ -142,6 +142,7 @@ char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
+char const kShowDebugInfo[] = "DebugInfo";
 
 #if defined(OMIM_OS_ANDROID)
 char const kICUDataFile[] = "icudt57l.dat";
@@ -1891,6 +1892,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   bool const transitSchemeEnabled = LoadTransitSchemeEnabled();
   m_transitManager.EnableTransitSchemeMode(transitSchemeEnabled);
 
+  // Show debug info if it's enabled in the config.
+  bool showDebugInfo;
+  if (!settings::Get(kShowDebugInfo, showDebugInfo))
+    showDebugInfo = false;
+  if (showDebugInfo)
+    m_drapeEngine->ShowDebugInfo(showDebugInfo);
+
   benchmark::RunGraphicsBenchmark(this);
 }
 
@@ -2831,9 +2839,16 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     m_drapeEngine->ShowDebugInfo(true /* shown */);
     return true;
   }
+  if (query == "?debug-info-always")
+  {
+    m_drapeEngine->ShowDebugInfo(true /* shown */);
+    settings::Set(kShowDebugInfo, true);
+    return true;
+  }
   if (query == "?no-debug-info")
   {
     m_drapeEngine->ShowDebugInfo(false /* shown */);
+    settings::Set(kShowDebugInfo, false);
     return true;
   }
   if (query == "?debug-rect")

@@ -253,6 +253,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       descriptor.m_imageDescriptor.sampler = vulkanContext->GetSampler(t->GetSamplerKey());
       descriptor.m_imageDescriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
       descriptor.m_textureSlot = it->second;
+      descriptor.m_id = texture.second->GetID();
       vulkanContext->ApplyParamDescriptor(std::move(descriptor));
     }
   }
