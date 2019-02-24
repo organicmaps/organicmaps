@@ -63,6 +63,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private int mCurrentTop;
   private boolean mPeekHeightAnimating;
   private int mOpenBannerTouchSlop;
+  /**
+   * Represents a value that describes how much banner details are opened.
+   * Must be in the range [0;1]. 0 means that the banner details are completely closed,
+   * 1 - the details are completely opened.
+   */
+  private float mBannerRatio;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BannerController mBannerController;
@@ -127,6 +133,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     int maxDistance = Math.abs(bannerMaxY - bannerMinY);
     int yDistance = Math.abs(mCurrentTop - bannerMinY);
     float ratio = (float) yDistance / maxDistance;
+    mBannerRatio = ratio;
 
     if (ratio >= 1)
     {
@@ -271,6 +278,9 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       Log.d(TAG, "Peek animation in progress, ignore.");
       return;
     }
+
+    if (mBannerRatio > 0)
+      return;
 
     final int peekHeight = getPeekHeight();
     if (peekHeight == mPlacePageBehavior.getPeekHeight())
