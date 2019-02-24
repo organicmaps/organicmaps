@@ -11,6 +11,7 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
+#include <array>
 #include <cstdint>
 #include <cstring>
 #include <utility>
@@ -71,22 +72,24 @@ public:
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
                       vulkanContext->GetCurrentPipeline());
 
-    VkDeviceSize offsets[1] = {0};
+    size_t constexpr kMaxBuffersCount = 4;
+    std::array<VkBuffer, kMaxBuffersCount> buffers = {};
+    std::array<VkDeviceSize, kMaxBuffersCount> offsets = {};
+
     uint32_t bufferIndex = 0;
     for (auto & buffer : m_vertexArrayBuffer->m_staticBuffers)
     {
       ref_ptr<VulkanGpuBufferImpl> b = buffer.second->GetBuffer();
-      VkBuffer vulkanBuffer = b->GetVulkanBuffer();
-      vkCmdBindVertexBuffers(commandBuffer, bufferIndex, 1, &vulkanBuffer, offsets);
-      bufferIndex++;
+      CHECK_LESS(bufferIndex, kMaxBuffersCount, ());
+      buffers[bufferIndex++] = b->GetVulkanBuffer();
     }
     for (auto & buffer : m_vertexArrayBuffer->m_dynamicBuffers)
     {
       ref_ptr<VulkanGpuBufferImpl> b = buffer.second->GetBuffer();
-      VkBuffer vulkanBuffer = b->GetVulkanBuffer();
-      vkCmdBindVertexBuffers(commandBuffer, bufferIndex, 1, &vulkanBuffer, offsets);
-      bufferIndex++;
+      CHECK_LESS(bufferIndex, kMaxBuffersCount, ());
+      buffers[bufferIndex++] = b->GetVulkanBuffer();
     }
+    vkCmdBindVertexBuffers(commandBuffer, 0, bufferIndex, buffers.data(), offsets.data());
 
     ref_ptr<VulkanGpuBufferImpl> ib = m_vertexArrayBuffer->m_indexBuffer->GetBuffer();
     VkBuffer vulkanIndexBuffer = ib->GetVulkanBuffer();
