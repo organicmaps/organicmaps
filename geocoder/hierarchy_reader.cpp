@@ -163,7 +163,7 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
     bufferSize = 0;
 
     {
-      auto && lock = lock_guard<mutex>(m_mutex);
+      lock_guard<mutex> lock(m_mutex);
 
       for (; bufferSize < kLineBufferCapacity; ++bufferSize)
       {

@@ -134,7 +134,7 @@ void Index::AddHouses(unsigned int loadThreadsCount)
           auto const & candidateDoc = GetDoc(candidate);
           if (candidateDoc.IsParentTo(buildingDoc))
           {
-            auto && lock = lock_guard<std::mutex>(mutex);
+            lock_guard<std::mutex> lock(mutex);
             m_relatedBuildings[candidate].emplace_back(docId);
           }
         });
