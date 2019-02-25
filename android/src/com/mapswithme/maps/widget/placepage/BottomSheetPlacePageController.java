@@ -5,13 +5,16 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -22,6 +25,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
@@ -98,10 +102,16 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
         updateViewPortRect();
         UiUtils.invisible(mButtonsLayout);
         mPlacePageTracker.onHidden();
+        return;
       }
 
+      setPullDrawable();
+
       if (isAnchoredState(newState) || isExpandedState(newState))
+      {
         mPlacePageTracker.onDetails();
+        return;
+      }
 
       setPeekHeight();
     }
@@ -120,6 +130,25 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       resizeBanner();
     }
   };
+
+  private void setPullDrawable()
+  {
+    @AnchorBottomSheetBehavior.State
+    int state = mPlacePageBehavior.getState();
+    @DrawableRes
+    int drawableId = UiUtils.NO_ID;
+    if (isCollapsedState(state))
+      drawableId = R.drawable.ic_disclosure_up;
+    else if (isAnchoredState(state) || isExpandedState(state))
+      drawableId = R.drawable.ic_disclosure_down;
+
+    if (drawableId == UiUtils.NO_ID)
+      return;
+
+    ImageView img = mPlacePage.findViewById(R.id.pull_icon);
+    Drawable drawable = Graphics.tint(mActivity, drawableId, R.attr.bannerButtonBackgroundColor);
+    img.setImageDrawable(drawable);
+  }
 
   private void resizeBanner()
   {
@@ -480,6 +509,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       setPeekHeight();
       setPlacePageAnchor();
       showBanner(object, policy);
+      setPullDrawable();
     });
   }
 
