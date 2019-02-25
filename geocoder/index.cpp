@@ -98,7 +98,7 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
 void Index::AddHouses(unsigned int loadThreadsCount)
 {
   atomic<size_t> numIndexed{0};
-  mutex mutex;
+  mutex buildingsMutex;
 
   vector<thread> threads(loadThreadsCount);
   CHECK_GREATER(threads.size(), 0, ());
@@ -134,7 +134,7 @@ void Index::AddHouses(unsigned int loadThreadsCount)
           auto const & candidateDoc = GetDoc(candidate);
           if (candidateDoc.IsParentTo(buildingDoc))
           {
-            auto && lock = lock_guard<std::mutex>(mutex);
+            lock_guard<mutex> lock(buildingsMutex);
             m_relatedBuildings[candidate].emplace_back(docId);
           }
         });
