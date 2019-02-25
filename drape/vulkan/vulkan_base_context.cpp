@@ -161,6 +161,12 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
 
 void VulkanBaseContext::Resize(int w, int h)
 {
+  if (m_swapchain != VK_NULL_HANDLE &&
+      m_surfaceCapabilities.currentExtent.width == static_cast<uint32_t>(w) &&
+      m_surfaceCapabilities.currentExtent.height == static_cast<uint32_t>(h))
+  {
+    return;
+  }
   m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(w);
   m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(h);
   RecreateSwapchainAndDependencies();

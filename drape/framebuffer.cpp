@@ -21,6 +21,9 @@ Framebuffer::DepthStencil::~DepthStencil()
 void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context,
                                         uint32_t width, uint32_t height)
 {
+  if (m_texture && m_texture->GetWidth() == width && m_texture->GetHeight() == height)
+    return;
+
   Destroy();
 
   Texture::Params params;
