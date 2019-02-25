@@ -279,6 +279,9 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       return;
     }
 
+    // If banner details are little bit or completely opened we haven't to change the peek height,
+    // because the peek height is reasonable only for collapsed state and banner details are always
+    // closed in collapsed state.
     if (mBannerRatio > 0)
       return;
 

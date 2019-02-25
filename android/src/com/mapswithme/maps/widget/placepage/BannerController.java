@@ -301,6 +301,11 @@ final class BannerController
     }
   }
 
+  private void discardBannerSize()
+  {
+    zoomOut(0);
+  }
+
   private void measureBannerSizes()
   {
     boolean currentState = mOpened;
@@ -446,6 +451,7 @@ final class BannerController
         return;
 
       unregisterCurrentAd();
+      discardBannerSize();
 
       mCurrentAd = new NativeAdWrapper(ad);
       if (mLastAdType != mCurrentAd.getType())
