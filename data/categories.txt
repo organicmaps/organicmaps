@@ -2189,7 +2189,7 @@ ru:^Место для пикника|3Пикник
 ar:^مكان نزهة|سياحة|مناظر
 cs:3^Piknik|picnic|picnik
 da:3^Picnic
-nl:3^Picnicplaats|3picnicweide|3picnictafel
+nl:3^Picknickplaats|picknickweide|picknicktafel
 fi:3^Piknikpaikat
 fr:3^Terrain de pique-nique|3aire de pique-nique
 de:3^Picknickplatz|Grillplatz
@@ -2707,15 +2707,20 @@ fa:خرابه های تاریخی
 historic-ship|@tourism
 en:^Ship|boat
 ru:^Корабль|судно|лодка
+nl:^Schip|boot
+de:^Schiff|Boot
 
 historic-tomb|@tourism
 en:^Tomb|grave|memorial
 ru:^Гробница|склеп|захоронение|могила|кладбище
+nl:^Tombe|graf|gedenkteken
+de:^Grab|Gedenkstätte
 
 leisure-dog_park
 en:3^Dog area|Dog park
 ru:^Место для выгула собак|Площадка для собак|4Собачья площадка
 cs:3^Psí hřiště
+nl:4^Hondenpark|Hondengebied
 de:4^Hundezone|Hundeauslaufzone
 fi:Koirapuisto
 he:גינת כלבים
@@ -2837,7 +2842,7 @@ it:^Car Sharing
 ja:^カーシェアリング
 ko:^카셰어링
 nb:^Kjøre sammen
-nl:^Autodelen
+nl:3^Carpool|Carpoolen|Auto delen|Autodelen
 pl:^Carsharing
 pt:^Partilha de carro
 pt-BR:^Compartilhamento de carro
@@ -2858,7 +2863,7 @@ ru:4^Прокат авто|3авто|3машина|прокат|авто нап�
 ar:^تأجير سيارات|سيارة|تأجير|إيجار
 cs:3^Půjčovna aut|auto|pronájem|nájemné
 da:4^Biludlejning|bil
-nl:3^Autoverhuur|autodelen|auto|huur
+nl:3^Autoverhuur|4huurauto|auto delen|auto|huur
 fi:^Autovuokraamo
 fr:4^Location de voitures|auto|loueur|location|partage
 de:3^Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih|KFZ-Vermietung|Fahrzeugvermietung
@@ -2891,7 +2896,7 @@ ru:^Кинотеатр|3кино
 ar:^سينما
 cs:3^Kino|biograf
 da:3^Biograf
-nl:3^Bioscoop|cinema
+nl:3^Bioscoop|filmtheater|cinema
 fi:^Elokuvateatteri
 fr:3^Cinéma
 de:3^Kino|Cinema|Filmtheater|Lichtspielhaus
@@ -2957,7 +2962,7 @@ ru:3^Ночной клуб|3дискотека|ночной бар|диско|т
 ar:^نادي ليلي|رقص
 cs:4^Noční klub|3disco|3klub
 da:3^Natklub|dans|danseklub
-nl:3^Discotheek|3disco|dansen
+nl:3^Discotheek|3disco|dansen|nachtclub
 fi:^Yökerho
 fr:3^Discothèque|3boîte de nuit|danse
 de:3^Nachtclub|Nachtklub|Nachtbar|Nachtlokal|Disko|Tanzen|Club
@@ -3214,7 +3219,7 @@ ru:4^Больница
 ar:^مستشفى
 cs:4^Nemocnice
 da:4^Hospital
-nl:4^Ziekenhuis
+nl:4^Ziekenhuis|hospitaal
 fi:^Sairaala
 fr:4^Hôpital
 de:4^Krankenhaus
@@ -3248,9 +3253,9 @@ ru:4госпиталь|врач|доктор|медицинский центр|�
 ar:^عيادة|طبيب|دكتور
 cs:klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 da:sygehus
-nl:kliniek|hospitaal|tandarts|3dokter
+nl:kliniek|hospitaal|3dokter|3eerste hulp
 fr:clinique|3médecin|3docteur
-de:Spital|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
+de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
 hu:rendelőintézet|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
 ko:의사|의사가
@@ -3274,7 +3279,7 @@ ru:^Поликлиника|клиника|больница|врач|медици
 ar:^عيادة|مستشفى|طبيب|دكتور
 cs:^Klinika|nemocnice
 da:^Klinik|hospital
-nl:^Kliniek|ziekenhuis
+nl:^Kliniek|ziekenhuis|hospitaal
 fi:^Klinikka|sairaala
 fr:^Clinique|hôpital
 de:^Klinik|Krankenhaus|Ambulanz|Arzt|Diagnostik|Gesundheitsdienstleistungen|Doktor
@@ -3306,7 +3311,7 @@ ru:^Врач|больница|клиника|поликлиника
 ar:^طبيب|عيادة|مستشفى
 cs:^Lékařská ordinace|Klinika|nemocnice
 da:^Lægekontor|lægehus|klinik|hospital
-nl:^Huisartsenpost|Kliniek|huisarts|ziekenhuis
+nl:^Huisartsenpost|Kliniek|huisarts|ziekenhuis|dokter
 fi:^Lääkärin vastaanotto|Klinikka|sairaala
 fr:^Cabinet médical|hôpital
 de:^Arztpraxis|Klinik|Krankenhaus
@@ -3369,7 +3374,7 @@ ru:^Охотничья вышка
 ar:^منصة صيد
 cs:^Lovecké stanoviště|posed
 da:^Jagtsted|hochsitz
-nl:^Jaagplek
+nl:^Jachtplaats|jaagplek
 fi:^Metsästyspaikka
 fr:^Mirador
 de:^Hochsitz|Anstand
@@ -3467,9 +3472,9 @@ en:U+1F697|U+1F17F|U+1F698|U+1F699
 ru:Автостоянка|парковка
 ar:^موقف سيارات
 da:3Parkeringsplads
-nl:parking
+nl:3Parkeren|parkeerplaats|parking
 fr:3parking
-de:Parking
+de:3Parkplatz|Parking
 ja:パーキング|コインパーキング
 pt:3Parking
 pt-BR:3^Estacionamento
@@ -3520,9 +3525,10 @@ fa:داروخانه
 amenity-pharmacy|@pharmacy
 en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
 ar:^متجر أدوية|صيدلية
-nl:verdeelstation
+nl:Apotheek|drogist
 fi:3Farmasia
 fr:dispensaire
+de:Apotheke|Drogerie
 ja:ドラッグストア|薬剤師|調剤|薬屋
 ko:약물 매장|약종상
 pt:3Farmacêutico
@@ -3545,7 +3551,7 @@ da:3^Postboks|3postboks|postkasse|p/o|post
 nl:3^Brievenbus|post
 fi:^Postilaatikko
 fr:3^Boîte aux lettres|courrier
-de:3^Briefkasten|3Postfach
+de:3^Briefkasten|3Postfach|post
 hu:3^Postaláda|Levelesláda
 id:^Kotak pos
 it:3^Casella
@@ -3629,7 +3635,7 @@ ru:^Мусорный контейнер|мусорка
 ar:^قمامة|مهملات|سلة مهملات|صندوق قمامة
 cs:^Odpadky|koš|popelnice|uložiště odpadu
 da:^Bortskaffelse af affald|skraldespand|skrald
-nl:^Uitschot|afval|prullenbak|vuilnis
+nl:^Afvalcontainer|afval|prullenbak|vuilnis
 fi:^Roska
 fr:^Déchets|poubelle|déchet
 de:^Müllcontainer|Mülltonne|Abfälle|Müll
@@ -3662,10 +3668,10 @@ ru:^Приём вторсырья|утиль|сырье|сбор сырья|ст
 ar:^مركز إعادة تدوير
 cs:^Recyklační středisko
 da:^Genbrugsplads
-nl:^Milieustraat
+nl:^Milieustraat|recycling centrum|milieupark|gemeentewerf
 fi:^Kierrätyskeskus
 fr:^Centre de recyclage
-de:^Recyclinghof
+de:^Recyclinghof|Recyclingzentrum
 hu:^Hulladékudvar|Újrahasznosító központ|hulladékgyűjtő központ
 id:^TPA
 it:^Centro di riciclaggio
@@ -3793,7 +3799,7 @@ ru:3^Туалет
 ar:^حمام
 cs:3^Záchody
 da:3^Toilet
-nl:3^Toilet
+nl:3^Toilet|WC
 fi:^WC
 fr:3^Toilettes
 de:3^Toilette
@@ -3825,7 +3831,7 @@ amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 ar:^حمام|مرحاض
 cs:wc|toalety
-nl:wc
+nl:WC|toilet
 fr:wc
 de:WC
 hu:WC
@@ -4043,7 +4049,7 @@ ru:^Округ|графство
 ar:^مقاطعة
 cs:^Země
 da:^Amt
-nl:^Graafschap
+nl:^Provincie|graafschap
 fi:^Lääni
 fr:^Comté
 de:^Kreis|Bezirk
@@ -4141,7 +4147,7 @@ ru:^Остров
 ar:^جزيرة
 cs:^Ostrov
 da:^Ø
-nl:^Eilandje
+nl:^Eiland|eilandje
 fi:^Saari
 fr:^Île|ilôt
 de:^Insel
@@ -4207,7 +4213,7 @@ ru:^Посёлок|деревня
 ar:^قرية صغيرة|قرية
 cs:^Vesnička
 da:^Landsby|landsby
-nl:^Gehucht|buurschap|dorpje|dorp
+nl:^Gehucht|buurtschap|dorpje|dorp
 fi:^Pieni kylä
 fr:^Hameau|village
 de:^Weiler|Dorf
@@ -4273,7 +4279,7 @@ ru:^Местность|регион
 ar:^منطقة مجاورة
 cs:^Lokalita
 da:^Lokalitet|sted
-nl:^Plaats|localiteit
+nl:^Plaats|streek|localiteit
 fi:^Paikkakunta
 fr:^Localité
 de:^Örtlichkeit|Lokalität|Region|Ort
@@ -4405,7 +4411,7 @@ ru:^Гоночный трек
 ar:^مسار سباق
 cs:^Závodiště
 da:^Væddeløbsbane
-nl:^Racebaan
+nl:^Renbaan|racebaan
 fi:^Kilparata
 fr:^Circuit
 de:^Rennbahn
@@ -4503,7 +4509,7 @@ ru:3^Съезд
 ar:^مخرج|تقاطع
 cs:^Dopravní uzel|3dálnice
 da:2^Motorvejsafkørsel|afkørsel
-nl:3^Afrit|3uitgang|3kruising
+nl:3^Afrit|3afslag|3uitgang|3kruising
 fi:^Poistumistie|liittymä
 fr:3^Sortie|3bifurcation
 de:4^Ausfahrt|Abfahrt
@@ -4888,7 +4894,7 @@ ru:3^Парикмахерская|стрижки|укладки|покрас|с�
 ar:^مصفف شعر
 cs:4^Kadeřnictví|4holičství
 da:3^Frisør
-nl:3^Kapper
+nl:3^Kapper|kapsalon|haarsalon|kapperszaak
 fi:^Kampaamo
 fr:3^Coiffeur|salon de coiffure
 de:3^Friseur|Frisiersalon|Frisör|Coiffeur
@@ -4954,7 +4960,7 @@ ru:^Стадион|4спорт|матч|арена|спортивная арен
 ar:^استاد|رياضة
 cs:^Stadion|4sport
 da:^Stadium|sport
-nl:^Stadium|4sport
+nl:^Stadion|stadium|4sport|arena
 fi:^Stadion
 fr:^Stade|4sport
 de:^Stadion|4Sport|Olympiastadion|Sportstadion|Sportkomplex|Arena
@@ -5149,11 +5155,11 @@ fa:استخرشنا
 sport-equestrian
 en:Equestrian Sports
 ru:Конный спорт
-de:Pferdesport
-es:Deportes ecuestres
+nl:Paardensport|ruitersport
 fr:Sport équestre
 hu:Lovassportok
-nl:Paardensport
+de:Pferdesport
+es:Deportes ecuestres
 pt-BR:Esportes equestres
 el:Ιππασία
 
@@ -5162,11 +5168,12 @@ en:^Basketball
 ru:^Баскетбол
 de:^Basketball
 es:^Baloncesto
+nl:^Basketbal
 fi:^Koripallo
 fr:^Basket-ball
+de:^Basketball
 it:^Pallacanestro
 hu:^Kosárlabda
-nl:^Basketbal
 pt-BR:^Basquetebol
 da:^Basketball
 fa:بسکتبال
@@ -5175,13 +5182,13 @@ el:Καλαθόσφαιρα
 sport-athletics
 en:^Athletics
 ru:^Лёгкая атлетика
-de:^Leichtathletik
 es:^Atletismo
+nl:^Atletiek
 fi:^Yleisurheilu
 fr:^Athlétisme
+de:^Leichtathletik
 it:^Atletica leggera
 hu:^Atlétika
-nl:^Atletiek
 pt-BR:^Atletismo
 el:Στίβος
 
@@ -5312,7 +5319,7 @@ da:^Bugt|havbugt
 nl:^Baai
 fi:^Lahti
 fr:^Baie
-de:^Bucht|Bay
+de:^Bucht|Bai
 hu:^Öböl
 id:^Teluk
 it:^Baia
@@ -5374,7 +5381,7 @@ ru:3^СТО|3автомастерская|автосервис|авто
 ar:^محل صيانة السيارات|محطة خدمات
 cs:3^Auto opravna|auto|auta|Půjčení
 da:3^Garage|3bilværksted|service station
-nl:3^Auto reparatie|auto|wagen
+nl:3^Auto reparatie|auto|wagen|garage
 fi:^Autokorjaamo
 fr:3^Réparation d'automobiles|3garage|4station service|voiture|auto
 de:3^Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|Werkstatt
@@ -5407,7 +5414,7 @@ ru:4^Кемпинг
 ar:^تخييم|مكان التخييم|أرض التخييم
 cs:4^Kempování|camping|kemp|camp
 da:^Camping|campingplads|teltplads|lejrplads
-nl:4^Camping|kamperen
+nl:4^Camping|kamperen|kampeerplek
 fi:^Retkeily
 fr:4^Camping|terrain de camping
 de:4^Zeltplatz|Zelten|Campingplatz|Camping
@@ -5440,7 +5447,7 @@ ru:4^Автокемпинг|кемпинг|стоянка грузовиков
 ar:^موقع البيت المتنقل
 cs:^Kemp pro obytné přívěsy
 da:^Autocamperplads|husvogn
-nl:^Caravan site|camping
+nl:^Caravan site|camping|woonwagenkamp
 fi:^Asuntovaunupaikka|Retkeily
 fr:4^Parc caravanier|VR|caravane|camping-car
 de:4^Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark
@@ -5471,7 +5478,7 @@ ru:^Офис|компания|контора|фирма|бизнес|бюро|у
 ar:^مكتب|شركة
 cs:^Kancelář
 da:^Kontor|firma|virksomhed
-nl:^Kantoor|ambt
+nl:^Kantoor|ambt|bedrijf|bedrijfspand|bedrijfskantoor
 fi:^Toimisto
 fr:^Bureau|compagnie
 de:^Büro|Amt|Unternehmen|Agentur|Dienststelle|Firma|Geschäft|Gesellschaft
@@ -5536,7 +5543,7 @@ ru:^Госучреждение|административное учрежден
 ar:^مكتب حكومي
 cs:^Úřad vlády
 da:^Regeringskontor
-nl:^Overheidskantoor|overheidspand
+nl:^Overheidskantoor|overheidspand|regeringskantoor
 fi:^Viranomaistoimito
 fr:^Administration publique
 de:^Regierungsstelle
@@ -5568,7 +5575,7 @@ ru:^Адвокат|нотариус|юрист|право|защита прав|
 ar:^مكتب محامي|مكتب محاماة
 cs:^Právní kancelář
 da:^Advokatkontor
-nl:^Advocatenkantoor
+nl:^Advocatenkantoor|advocaat
 fi:^Lakitoimisto
 fr:^Cabinet d'avocat
 de:^Anwaltsbüro|Anwaltskanzlei|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
@@ -5599,7 +5606,7 @@ ru:^Мобильный оператор
 ar:^شركة اتصالات|شركة محمول
 cs:^Mobilní operátor
 da:^Mobiloperatør
-nl:^Mobiele provider
+nl:^Mobiele provider|provider
 fi:^Matkapuhelinoperaattori
 fr:^Opérateur mobile
 de:^Mobilbetreiber|Mobilfunkanbieter
@@ -5630,7 +5637,7 @@ ru:^Пивоварня|пивзавод|производство пива|пив
 ar:^مصنع جعة
 cs:^Pivovar
 da:^Bryggeri
-nl:^Brouwerij
+nl:^Brouwerij|bier|ambachtelijk bier|brouwhuis
 fi:^Panimo
 fr:^Brasserie
 de:^Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
@@ -5661,7 +5668,7 @@ ru:^Столяр|мастерская столяра
 ar:^نجار
 cs:^Truhlář
 da:^Tømrer
-nl:^Timmerman
+nl:^Timmerman|houtbewerker
 fi:^Puuseppä
 fr:^Menuisier|charpentier
 de:^Zimmermann
@@ -5723,10 +5730,10 @@ ru:^Садовник
 ar:^مهندس مناظر
 cs:^Zahradník
 da:^Gartner
-nl:^Tuinarchitect|landschapsarchitect
+nl:^Tuinarchitect|landschapsarchitect|tuinman
 fi:^Puutarhuri
 fr:^Paysagiste
-de:^Landschaftsgärtner
+de:^Landschaftsgärtner|Gärtner
 hu:^Kertész
 id:^Tukang kebun
 it:^Giardiniere|architetto di esterni
@@ -5754,10 +5761,10 @@ ru:^Кондиционеры
 ar:^تكييف|مكيف هواء
 cs:^HVAC|montér vzduchotechniky
 da:^Blikkenslager|klimaanlæg
-nl:^Airconditioning|luchtbehandeling
+nl:^Airconditioning|luchtbehandeling|airco
 fi:^Ilmastointilaite
 fr:^Climatiseur
-de:^Heizung|Lüftung|Klima|Installateur
+de:^Heizung|Lüftung|Klima|Installateur|Klimaanlage
 hu:^Hűtés-fűtés szerelő|légkondicionáló
 id:^Hvac
 it:^Impianti HVAC|aria condizionata
@@ -5847,7 +5854,7 @@ ru:^Фотограф|фотоателье
 ar:^مصور فوتوغرافي|استوديو تصوير
 cs:^Fotograf|fotografické studio
 da:^Fotograf|studio
-nl:^Fotograaf
+nl:^Fotograaf|fotografie studio
 fi:^Valokuvaaja
 fr:^Photographe|studio photographique
 de:^Fotograf|Fotostudio
@@ -5882,7 +5889,7 @@ da:^VVS-mand
 nl:^Loodgieter
 fi:^Putkimies
 fr:^Plombier
-de:^Installateur
+de:^Installateur|Klempner
 hu:^Vízvezeték-szerelő
 id:^Tukang pipa
 it:^Idraulico|tubista
@@ -6231,6 +6238,7 @@ ru:^Копировальный центр|печать|полиграфия
 ar:^محل نسخ|طباعة
 cs:^Kopírovací obchod|Tiskárny
 da:^Kopieringsbutik|Trykkeri
+nl:^Copy shop|Kopieerwinkel|printer|drukker
 fi:^Painotalo|Tulostaja
 fr:^Boutique de photocopies|Imprimerie
 de:^Kopierladen|Drucker
@@ -6293,7 +6301,7 @@ ru:^Турагентство|путешествия|туристическое �
 ar:^وكيل سفريات|جولات
 cs:^Cestovní kancelář|cesty
 da:^Rejsebureau|rundrejser
-nl:^Reisagentschap|reizen
+nl:^Reisbureau|reisagentschap|reizen
 fi:^Matkatoimisto
 fr:^Agence de voyages|Voyages organisés
 de:^Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
@@ -6356,7 +6364,7 @@ ru:^Химчистка
 ar:^غسيل جاف|غسيل
 cs:^Chemické čištění|čistírna
 da:^Renseri|vaskeri
-nl:^Droogkuis|wassen
+nl:^Stomerij|chemisch reinigen|droogkuis|wassen|stomen
 fi:^Kuivapesula|pesula
 fr:^Nettoyage à sec|Lavage
 de:^Chemische Reinigung|Reinigung
@@ -6420,7 +6428,7 @@ ru:^Автомойка
 ar:^مغسلة سيارات
 cs:^Myčka aut
 da:^Bilvask
-nl:^Car wash
+nl:^Car wash|autowasstraat|wasstraat
 fi:^Autopesula
 fr:^Station de lavage
 de:^Autowäsche
@@ -6487,7 +6495,7 @@ da:^Ladestation|opladning
 nl:^Oplaadstation|opladen
 fi:^Latausasema|lataus
 fr:^Station de recharge|Recharge
-de:^Ladestation
+de:^Ladestation|aufladen
 hu:^Töltőállomás|töltés
 id:^Pusat Pengisian Daya|pengisian daya
 it:^Stazione di ricarica|ricarica
@@ -6516,10 +6524,10 @@ ru:^Детская комната|ясли
 ar:^حضانة|رعاية أطفال
 cs:^Jesle|Péče o děti
 da:^Vuggestue|Børnehave
-nl:^Crèche|kinderzorg
+nl:^Crèche|kinderopvang|kinderzorg
 fi:^Päivähoito|Lastenhoito
 fr:^Garderie|Garde d'enfant
-de:^Kindertagesstätte|Kinderzimmer|Kindergarten|Kinderbetreuung
+de:^Kindertagesstätte|Kindergarten|Kinderbetreuung
 hu:^Bölcsőde|Gyermekgondozás|Gyermekfelügyelet
 id:^Penitipan Anak|Perawatan Anak
 it:^Asilo|cura dell'infanzia
@@ -6612,7 +6620,7 @@ ru:^Телефон для экстренных вызовов
 ar:^هاتف الطوارئ
 cs:^Tísňového volání
 da:^Nødtelefon
-nl:^Praatpaal
+nl:^Praatpaal|4noodtelefoon
 fi:^Hätäpuhelin
 fr:^Téléphone d'urgence
 de:^Notruftelefon|Nottelefon
@@ -6646,7 +6654,7 @@ ru:^Фитнес-клуб|качалка|тренажерный зал|фитн�
 ar:^مركز للياقة البدنية، نادي رياضي
 cs:^Fitness|tělocvična
 da:^Trænings- og motionscenter|fitnesscenter
-nl:^Fitnesscentrum|sportschool
+nl:^Fitnesscentrum|sportschool|gym|fitness|workout
 fi:^Kuntosali
 fr:^Centre fitness|salle de gym
 de:^Fitnessstudio|Fitnesscenter|Fitness|Fitnessraum|Fitnessclub|Gesundheitsclub|Training|Trainingsraum|Turnhalle
@@ -6839,7 +6847,7 @@ ru:2^Зоопарк
 ar:^حديقة حيوان
 cs:^zoologická zahrada
 da:^Zoo
-nl:^Dierentuin
+nl:^Dierentuin|zoo
 fi:^Eläintarha
 fr:^Zoo
 de:^Zoo
@@ -6873,7 +6881,7 @@ ru:^Туристический офис
 ar:^مكتب سياحة
 cs:^Informační centrum
 da:^Turistkontor
-nl:^Toeristische informatie
+nl:^VVV|Toeristische informatie
 fi:^Turistitoimisto
 fr:^Office de tourisme
 de:^Fremdenverkehrsamt
@@ -6937,10 +6945,10 @@ ru:^Суд
 ar:^محكمة
 cs:^Soud
 da:^Domhus|retsbygning
-nl:^Rechtbank
+nl:^Rechtban|gerechtsgebouw
 fi:^Oikeustalo
 fr:^Palais de justice
-de:^Justizgebäude
+de:^Justizgebäude|Gerichtsgebäude
 hu:^Bíróság
 id:^Gedung pengadilan
 it:^Tribunale
@@ -7065,7 +7073,7 @@ ru:^Зона отдыха на трассе
 ar:^استراحة
 cs:^Odpočívadlo
 da:^Rasteplads
-nl:^Parkeerplaats
+nl:^Snelweg rustplaats|Parkeerplaats
 fi:^Levähdyspaikka
 fr:^Aire de repos
 de:^Rastplatz
@@ -7191,7 +7199,7 @@ ru:^Подстанция
 ar:^محطة كهرباء فرعية
 cs:^Rozvodna
 da:^Transformerstation
-nl:^Substation
+nl:^Onderstation
 fi:^Muuntoasema
 fr:^Sous-station
 de:^Umspannwerk
@@ -7254,10 +7262,10 @@ ru:^Рыбный магазин|рыба|морепродукты|рыбная �
 ar:^سماك
 cs:^Prodej ryb
 da:^Fiskehandler
-nl:^Visboer
+nl:^Visboer|vismarkt|vis|zeevoedsel|schelpdier
 fi:^Kalakauppias
 fr:^Poissonnier
-de:^Fischhändler
+de:^Fischhändler|Fischmarkt|Fisch|Meeresfrüchte|Schaltier
 hu:^Halüzlet
 id:^Penjual Ikan
 it:^Pescivendolo
@@ -7286,7 +7294,7 @@ ru:^Билетная касса|билет|театральная касса|б�
 ar:^مكتب تذاكر
 cs:^Prodej vstupenek
 da:^Billetkontor
-nl:^Kaartjesverkoop
+nl:^Kaartverkoop|Kaartjesverkoop|kaartjes
 fi:^Lippumyymälä
 fr:^Billetterie
 de:^Fahrkartenschalter|Fahrkartengeschäft|Fahrkarten|Fahrkartenzentrum|Fahrkartenausgabe|Fahrkartenagentur|Fahrkartenhäuschen|Reisecenter|Kassenschalter|Zahlschalter
@@ -7318,10 +7326,10 @@ ru:^Винный магазин
 ar:^متجر مشروبات روحية
 cs:^Vinařství
 da:^Vinhandel
-nl:^Wijn|Slijterij
+nl:^Slijterij|Wijn
 fi:^Alkoholimyymälä
 fr:^Hors licence
-de:^Wein- und Spirituosengeschäft
+de:^Wein- und Spirituosengeschäft|Weinladen
 hu:^Borkereskedés
 id:^Toko anggur
 it:^Negozio di alcolici
@@ -7447,7 +7455,7 @@ ru:^Карта
 ar:^خريطة سياحية
 cs:^Turistická mapa
 da:^Turistkort
-nl:^Toeristische kaart
+nl:^Toeristische kaart|toeristenkaart
 fi:^Turistikartta
 fr:^Carte touristique
 de:^Touristenkarte
@@ -7510,7 +7518,7 @@ ru:^Вертолётная площадка
 ar:^مهبط مروحيات
 cs:^Helipad
 da:^Helikopterlandingsplads
-nl:^Heliplatform
+nl:^Heliplatform|helikopterplatform|helipad
 fi:^Helikopterialusta
 fr:^Hélisurface
 de:^Hubschrauberlandeplatz
@@ -7542,7 +7550,7 @@ ru:^Паркомат
 ar:^ماكينة دفع تذاكر الموقف
 cs:^Parkovací automat
 da:^Parkeringsbilletmaskine
-nl:^Betaalautomaat parkeergarage
+nl:^Parkeerautomaat|Betaalautomaat parkeergarage
 fi:^Pysäköintimaksuautomaatti
 fr:^Horodateur
 de:^Parkautomat
@@ -7798,7 +7806,7 @@ ru:^Пункт оплаты
 ar:^كشك رسوم عبور
 cs:^Mýtné
 da:^Betalingsstation
-nl:^Tolhokje
+nl:^Tolhuisje|Tolhokje
 fi:^Tietulliasema
 fr:^Poste de péage
 de:^Mautstelle
@@ -7865,7 +7873,7 @@ da:^Vandpark
 nl:^Waterpark
 fi:^Vesipuisto
 fr:^Centre aquatique
-de:^Freizeitbad
+de:^Wasserpark|Freizeitbad
 hu:^Strand|Élményfürdő|Aquapark
 id:^Taman air
 it:^Parco acquatico
@@ -8372,7 +8380,7 @@ ru:^Дом отдыха
 ar:^منتج
 cs:^Letovisko
 da:^Resort
-nl:^Complex
+nl:^Resort|Complex
 fi:^Lomakohteet
 fr:^Complexe touristique
 de:^Resort
@@ -8479,7 +8487,7 @@ it:^Chiosco gelati
 ja:^アイスクリーム屋
 ko:^아이스크림 스탠드
 nb:^Iskrem
-nl:^Ijsstand
+nl:^Ijskraam|Ijsstand
 pl:^Stoisko z lodami
 pt:^Banca de gelados
 pt-BR:^Sorveteria
@@ -8512,7 +8520,7 @@ it:^Internet Cafe
 ja:^インターネットカフェ
 ko:^인터넷 카페
 nb:^Internettkafé
-nl:^Internetcafe
+nl:^Internetcafé
 pl:^Kafejka internetowa
 pt:^Cibercafé
 pt-BR:^Cibercafé
@@ -8545,7 +8553,7 @@ it:^Parcheggio moto
 ja:^バイク駐輪場
 ko:^오토바이 주차
 nb:^Motorsykkelparkering
-nl:^Parking Motorfietsen
+nl:^Motorfiets Parkeerplaats|Parking Motorfietsen
 pl:^Parking motocyklowy
 pt:^Estacionamento de motos
 pt-BR:^Estacionamento de motos
@@ -8578,7 +8586,7 @@ it:^Casa di riposo
 ja:^養護施設
 ko:^요양원
 nb:^Sykehjem
-nl:^Bejaardentehuis
+nl:^Bejaardentehuis|Pleeghuis
 pl:^Dom opieki
 pt:^Casa de repouso
 pt-BR:^Casa de repouso
@@ -8708,7 +8716,7 @@ it:^Defibrillatore
 ja:^除細動器
 ko:^제세동기
 nb:^Hjertestarter
-nl:^Defibrillator
+nl:^AED|Defibrillator
 pl:^Defibrylator
 pt:^Desfibrilador
 pt-BR:^Desfibrilador
@@ -9004,7 +9012,7 @@ it:^Centro massaggi
 ja:^マッサージパーラー
 ko:^안마 시술소
 nb:^Massasjesalong
-nl:^Massagesalon
+nl:^Massagesalon|Massagetherapie|Wellness-Center|Spa|Massage
 pl:^Salon masażu
 pt:^Centro de massagens
 pt-BR:^Massagista
@@ -9070,7 +9078,7 @@ it:^Edicola
 ja:^新聞販売店
 ko:^신문 가판대
 nb:^Aviskiosk
-nl:^Kiosk
+nl:^Kiosk|krant
 pl:^Stoisko z prasą
 pt:^Banca de jornais
 pt-BR:^Banca de jornais|jornaleiro
@@ -9168,7 +9176,7 @@ it:^Studio tatuaggi
 ja:^タトゥーパーラー
 ko:^문신 시술소
 nb:^Tatovør
-nl:^Tattoosalon
+nl:^Tatoeagezaak|Tattoosalon|Tattoo Studio|Tattoo Shop|tatoeage
 pl:^Salon tatuażu
 pt:^Estúdio de tatuagens
 pt-BR:^Estúdio de tatuagens|tatuador
@@ -9192,7 +9200,7 @@ cs:^Smíšené zboží
 da:^Småtingsbutik
 de:^Billigladen
 el:^Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
-es:^«Todo a cien»
+es:^Tienda de Variedades
 fi:^Halpakauppa
 fr:^Bazar
 hu:^Vegyesbolt
@@ -9201,7 +9209,7 @@ it:^Negozio di accessori
 ja:^雑貨店
 ko:^잡화점
 nb:^Billigbutikk
-nl:^Bazaar
+nl:^Bazaar|Variety Store
 pl:^Sklep z różnościami
 pt:^Loja dos 300
 pt-BR:^1,99|Loja de variedades
@@ -9252,13 +9260,17 @@ zh-Hant:^山屋
 tourism-gallery|@tourism
 en:^Gallery|museum
 ru:^Галерея|музей|картины|картинная галерея
+de:^Galerie|Museum
+nl:^Galerij|museum
 
 tourism-theme_park|@tourism|@children
 en:^Theme park|Amusement park
 ru:^Парк развлечений|Парк аттракционов|Тематический парк
+de:^Freizeitpark|Vergnügungspark
 fr:^Parc d'attractions|Parc de loisirs
 es:^Parque de atracciones
 fi:^Huvipuisto
+nl:^Pretpark|Attractiepark
 pt:^Parque de diversão
 
 boundary-national_park|@tourism
@@ -9311,7 +9323,7 @@ it:Riserva
 ja:自然保護区
 ko:천연보호구역
 nb:Reservat
-nl:Reserve
+nl:Natuurgebied|reservaat
 pl:Rezerwat przyrody
 pt:Reserva natural
 pt-BR:Reserva Florestal
