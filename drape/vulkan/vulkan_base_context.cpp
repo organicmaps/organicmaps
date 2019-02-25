@@ -1,6 +1,5 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
 
-#include "drape/drape_routine.hpp"
 #include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -107,6 +106,7 @@ std::string VulkanBaseContext::GetRendererVersion() const
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
 {
+  UNUSED_VALUE(apiVersion);
   m_defaultStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager,
                                                                kDefaultStagingBufferSizeInBytes);
 }
@@ -413,25 +413,21 @@ void VulkanBaseContext::Present()
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
     h.second(make_ref(this));
 
-  // Resetting of the default staging buffer and collecting destroyed objects must be
-  // only after the finishing of rendering. It prevents data collisions.
+  // Resetting of the default staging buffer only after the finishing of rendering.
+  // It prevents data collisions.
   m_defaultStagingBuffer->Reset();
 
-  m_objectManager->CollectObjectsSync();
-  static uint8_t framesCounter = 0;
-  if (framesCounter % 10 == 0)
-  {
-    framesCounter = 0;
-    DrapeRoutine::Run([this]() { m_objectManager->CollectObjectsAsync(); });
-  }
-  else
-  {
-    framesCounter++;
-  }
+  // Descriptors can be used only on the thread which renders.
+  m_objectManager->CollectDescriptorSetGroups();
 
   m_pipelineKey = {};
   m_stencilReferenceValue = 1;
   ClearParamDescriptors();
+}
+
+void VulkanBaseContext::CollectMemory()
+{
+  m_objectManager->CollectObjects();
 }
 
 uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHandler && handler)

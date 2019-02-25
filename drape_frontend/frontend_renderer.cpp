@@ -1715,6 +1715,7 @@ void FrontendRenderer::RenderFrame()
 
 #ifndef DISABLE_SCREEN_PRESENTATION
   m_context->Present();
+  m_context->CollectMemory();
 #endif
 
   // Limit fps in following mode.

@@ -41,8 +41,8 @@ public:
 
   bool BeginRendering() override;
   void Present() override;
-  void MakeCurrent() override {};
-  void DoneCurrent() override {};
+  void CollectMemory() override;
+  void DoneCurrent() override {}
   bool Validate() override { return true; }
   void Resize(int w, int h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;

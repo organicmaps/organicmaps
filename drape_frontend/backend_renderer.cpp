@@ -655,8 +655,11 @@ void BackendRenderer::Routine::Do()
 void BackendRenderer::RenderFrame()
 {
   CHECK(m_context != nullptr, ());
-  if (m_context->Validate())
-    ProcessSingleMessage();
+  if (!m_context->Validate())
+    return;
+
+  ProcessSingleMessage();
+  m_context->CollectMemory();
 }
 
 void BackendRenderer::InitContextDependentResources()

@@ -37,6 +37,11 @@ public:
     CreateCommandPool();
     CreateSyncPrimitives();
   }
+
+  void MakeCurrent() override
+  {
+    m_objectManager->RegisterRendererThread(dp::vulkan::VulkanObjectManager::Frontend);
+  }
 };
 
 class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
@@ -51,8 +56,13 @@ public:
                                     nullptr /* pipeline */)
   {}
 
+  void MakeCurrent() override
+  {
+    m_objectManager->RegisterRendererThread(dp::vulkan::VulkanObjectManager::Backend);
+  }
+
   void Present() override {}
-  void MakeCurrent() override {}
+
   void Resize(int w, int h) override {}
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
   void Init(dp::ApiVersion apiVersion) override

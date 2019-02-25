@@ -15,6 +15,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <thread>
 #include <vector>
 
 namespace dp
@@ -58,6 +59,14 @@ public:
                       uint32_t queueFamilyIndex);
   ~VulkanObjectManager();
 
+  enum RendererType
+  {
+    Frontend = 0,
+    Backend,
+    Count
+  };
+  void RegisterRendererThread(RendererType type);
+
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                             uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
@@ -73,8 +82,8 @@ public:
 
   void DestroyObject(VulkanObject object);
   void DestroyDescriptorSetGroup(DescriptorSetGroup group);
-  void CollectObjectsSync();
-  void CollectObjectsAsync();
+  void CollectDescriptorSetGroups();
+  void CollectObjects();
 
   VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
@@ -83,11 +92,15 @@ public:
 private:
   void CreateDescriptorPool();
   void DestroyDescriptorPools();
+  void CollectObjectsForThread(RendererType type);
+  void CollectObjectsImpl(std::vector<VulkanObject> const & objects);
 
   VkDevice const m_device;
   uint32_t const m_queueFamilyIndex;
   VulkanMemoryManager m_memoryManager;
-  std::vector<VulkanObject> m_queueToDestroy;
+
+  std::array<std::thread::id, RendererType::Count> m_renderers = {};
+  std::array<std::vector<VulkanObject>, RendererType::Count>  m_queuesToDestroy = {};
 
   std::vector<VkDescriptorPool> m_descriptorPools;
   std::vector<DescriptorSetGroup> m_descriptorsToDestroy;

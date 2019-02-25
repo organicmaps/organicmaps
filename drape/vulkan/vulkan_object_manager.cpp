@@ -1,5 +1,7 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
+#include "drape/drape_routine.hpp"
+
 #include "base/macros.hpp"
 
 #include <algorithm>
@@ -39,21 +41,29 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
   , m_queueFamilyIndex(queueFamilyIndex)
   , m_memoryManager(device, deviceLimits, memoryProperties)
 {
-  m_queueToDestroy.reserve(50);
+  for (size_t i = 0; i < RendererType::Count; ++i)
+    m_queuesToDestroy[i].reserve(50);
   m_descriptorsToDestroy.reserve(50);
   CreateDescriptorPool();
 }
 
 VulkanObjectManager::~VulkanObjectManager()
 {
-  CollectObjectsSync();
-  CollectObjectsAsync();
+  CollectDescriptorSetGroups();
+
+  for (size_t i = 0; i < RendererType::Count; ++i)
+    CollectObjectsImpl(m_queuesToDestroy[i]);
 
   for (auto const & s : m_samplers)
     vkDestroySampler(m_device, s.second, nullptr);
   m_samplers.clear();
 
   DestroyDescriptorPools();
+}
+
+void VulkanObjectManager::RegisterRendererThread(RendererType type)
+{
+  m_renderers[type] = std::this_thread::get_id();
 }
 
 VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
@@ -159,7 +169,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
 
 DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
 
   CHECK(!m_descriptorPools.empty(), ());
 
@@ -194,59 +204,76 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 
 void VulkanObjectManager::DestroyObject(VulkanObject object)
 {
-  std::lock_guard<std::mutex> lock(m_destroyMutex);
-  m_queueToDestroy.push_back(std::move(object));
+  auto const currentThreadId = std::this_thread::get_id();
+  if (currentThreadId == m_renderers[RendererType::Frontend])
+    m_queuesToDestroy[RendererType::Frontend].push_back(std::move(object));
+  else if (currentThreadId == m_renderers[RendererType::Backend])
+    m_queuesToDestroy[RendererType::Backend].push_back(std::move(object));
+  else
+    CHECK(false, ("Unknown thread."));
 }
 
 void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 {
-  std::lock_guard<std::mutex> lock(m_destroyMutex);
+  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
   m_descriptorsToDestroy.push_back(std::move(group));
 }
 
-void VulkanObjectManager::CollectObjectsSync()
+void VulkanObjectManager::CollectDescriptorSetGroups()
 {
-  std::vector<DescriptorSetGroup> descriptorsToDestroy;
-  {
-    std::lock_guard<std::mutex> lock(m_destroyMutex);
-    std::swap(m_descriptorsToDestroy, descriptorsToDestroy);
-  }
-  for (auto const & d : descriptorsToDestroy)
+  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
+  for (auto const & d : m_descriptorsToDestroy)
   {
     CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
                                        1 /* count */, &d.m_descriptorSet));
   }
+  m_descriptorsToDestroy.clear();
 }
 
-void VulkanObjectManager::CollectObjectsAsync()
+void VulkanObjectManager::CollectObjects()
 {
+  auto const currentThreadId = std::this_thread::get_id();
+  if (currentThreadId == m_renderers[RendererType::Frontend])
+    CollectObjectsForThread(RendererType::Frontend);
+  else if (currentThreadId == m_renderers[RendererType::Backend])
+    CollectObjectsForThread(RendererType::Backend);
+  else
+    CHECK(false, ("Unknown thread."));
+}
+
+void VulkanObjectManager::CollectObjectsForThread(RendererType type)
+{
+  if (m_queuesToDestroy[type].empty())
+    return;
+
   std::vector<VulkanObject> queueToDestroy;
+  std::swap(m_queuesToDestroy[type], queueToDestroy);
+  DrapeRoutine::Run([this, queueToDestroy = std::move(queueToDestroy)]()
   {
-    std::lock_guard<std::mutex> lock(m_destroyMutex);
-    std::swap(m_queueToDestroy, queueToDestroy);
+    CollectObjectsImpl(queueToDestroy);
+  });
+}
+
+void VulkanObjectManager::CollectObjectsImpl(std::vector<VulkanObject> const & objects)
+{
+  for (auto const & obj : objects)
+  {
+    if (obj.m_buffer != VK_NULL_HANDLE)
+      vkDestroyBuffer(m_device, obj.m_buffer, nullptr);
+    if (obj.m_imageView != VK_NULL_HANDLE)
+      vkDestroyImageView(m_device, obj.m_imageView, nullptr);
+    if (obj.m_image != VK_NULL_HANDLE)
+      vkDestroyImage(m_device, obj.m_image, nullptr);
   }
 
-  if (!queueToDestroy.empty())
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_memoryManager.BeginDeallocationSession();
+  for (auto const & obj : objects)
   {
-    for (size_t i = 0; i < queueToDestroy.size(); ++i)
-    {
-      if (queueToDestroy[i].m_buffer != 0)
-        vkDestroyBuffer(m_device, queueToDestroy[i].m_buffer, nullptr);
-      if (queueToDestroy[i].m_imageView != 0)
-        vkDestroyImageView(m_device, queueToDestroy[i].m_imageView, nullptr);
-      if (queueToDestroy[i].m_image != 0)
-        vkDestroyImage(m_device, queueToDestroy[i].m_image, nullptr);
-    }
-
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_memoryManager.BeginDeallocationSession();
-    for (size_t i = 0; i < queueToDestroy.size(); ++i)
-    {
-      if (queueToDestroy[i].m_allocation)
-        m_memoryManager.Deallocate(queueToDestroy[i].m_allocation);
-    }
-    m_memoryManager.EndDeallocationSession();
+    if (obj.m_allocation)
+      m_memoryManager.Deallocate(obj.m_allocation);
   }
+  m_memoryManager.EndDeallocationSession();
 }
 
 uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
