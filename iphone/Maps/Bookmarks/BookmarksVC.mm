@@ -579,7 +579,6 @@ CGFloat const kPinDiameter = 18.0f;
 
 - (void)categorySettingsController:(CategorySettingsViewController *)viewController didDelete:(MWMMarkGroupID)categoryId
 {
-  [self.navigationController popViewControllerAnimated:YES];
   [self.delegate bookmarksVCdidDeleteCategory:self];
 }
 

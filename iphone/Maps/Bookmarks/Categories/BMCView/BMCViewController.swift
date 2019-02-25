@@ -380,6 +380,7 @@ extension BMCViewController: BookmarksVCDelegate {
   }
 
   func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC!) {
-    navigationController?.popViewController(animated: true)
+    guard let parentVC = parent else { return }
+    navigationController?.popToViewController(parentVC, animated: true)
   }
 }
