@@ -95,6 +95,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       if (isHiddenState(newState))
       {
         Framework.nativeDeactivatePopup();
+        updateViewPortRect();
         UiUtils.invisible(mButtonsLayout);
         mPlacePageTracker.onHidden();
       }
