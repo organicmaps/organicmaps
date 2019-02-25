@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Делиться впечатлениями просто";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Ваш отзыв сохранен";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Зарегистрируйтесь, чтобы оставить отзыв";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Оставьте отзыв и помогите путешественникам!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Недостаточно меток";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "В вашем маршруте должно быть минимум 3 метки, чтобы загрузить его в публичный каталог";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Вы всего в паре шагов от загрузки вашего маршрута в каталог MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Убедитесь, что у маршрута есть название и описание, а все метки содержат информацию о местах. Благодаря этому, пользователи найдут маршрут и смогут воспользоваться им в поездке.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Да, все хорошо!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Введите название";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "например, Пабы Лондона";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Назовите маршрут конкретно, чтобы пользователи смогли найти его, например, \"Пабы Лондона\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Название не должно содержать специальных символов или цифр. Не публикуйте маршруты с названием \"Мои метки\"";
 
-"description_guide" = "Description";
+"description_guide" = "Описание";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Введите описание маршрута";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Опишите свой маршрут подробно";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Описание маршрута должно состоять из 30 символов минимум.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно. Не больше %s тегов.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Ваш маршрут не был опубликован";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в нашем редакторе по кнопке \"Редактировать онлайн\" ниже.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
 "web_editor_description" = "Загрузите маршрут и получите ссылку для редактирования на компьютере";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Редактировать онлайн";
 
-"update_guide" = "Обновить маршрут";
+"update_guide" = "Загрузить новую версию";
 
-"direct_link_updating_text" = "Обновляем ваш файл…";
+"direct_link_updating_text" = "Обновляем маршрут…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Маршрут обновлен";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "Вы можете поделиться вашим маршрутом с помощью публичной ссылки";
+"unable_get_direct_link_desc" = "Вы можете поделиться маршрутом с помощью публичной ссылки";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Возможно, есть новая версия маршрута";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Вы хотите обновить метки? Новая версия будет доступна по той же ссылке.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Обновить";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Вы редактировали маршрут онлайн";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "В дальнейшем редактируйте, публикуйте или делитесь маршрутом с друзьями через наш вебсайт";
 
-/* FIXME */
 "parthner_megafon_search_banner_message" = "Роуминг, гудбай!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "Подробнее";
+"power_managment_title" = "Режим энергосбережения";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Никогда";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Авто";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Максимальное энергосбережение";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Данная опция включается для логирования действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте опцию только по просьбе поддержки MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Проверьте доступ к сети и повторите попытку";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Нет соединения с Интернетом";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Оставляйте отзыв и помогайте путешественникам!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
-
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
-
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
-
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
-
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
-
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
-
-/* FIXME. Replaces parthner_megafon_search_banner_title */
 "megafon" = "Подробнее";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"notifications_illegal_alert_disable_button" = "Выключить уведомления";
 
+"access_rules_author_only" = "Редактируется онлайн";
 
-/**********  Partners  **********/
+"privacy_settings_menu" = "Настройки конфиденциальности";
+
+"gdpr_request_setting" = "Получить ID для GDPR запроса";
+
+"gdpr_request_window_title" = "Ваш ID: %s.";
+
+"gdpr_request_window_message" = "Пожалуйста, скопируйте его и отправьте запрос на support@maps.me";
+
+"gdpr_request_window_copy" = "Скопировать ID";
+
+"unable_upadate_error_title" = "Не удалось обновить маршрут";
+
+"unable_upadate_error_message" = "Возникли ошибки при обновлении. Проверьте изменения и повторите попытку";
+
+"whats_new_wiki_title" = "Что это за место?";
+
+"whats_new_wiki_message" = "В карточки популярных достопримечательностей мы добавили статьи из Wikipedia.org, доступные офлайн";
 
 "sponsored_partner1_action" = "Аутлеты";
 

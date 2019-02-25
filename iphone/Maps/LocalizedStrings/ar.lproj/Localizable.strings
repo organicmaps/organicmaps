@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "من السهل مشاركة انطباعاتك";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "تم حفظ تعليقك";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "يرجي تسجيل الدخول لوضع تعليق";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "ضع تقييمًا لمكان زيارتك و ساعد المسافرين!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "لا يوجد معلمات كافية";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "يجب أن يكون هناك 3 معلمات على الأقل لرفع دليلك إلى الدليل العام";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "أنت على بعد خطوات قليلة لمشاركة معلماتك مع جميع مسافري MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "يرجي التأكد من وجود اسم ووصف محدد لقائمتك، و جميع المعلمات تحتوي على بعض المعلومات عن الأماكن. بهذه الطريقة يمكن العثور على قائمتك و استخدامها بواسطة الآخرين.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "نعم، أنا متأكد!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "إدخل اسم دليلك";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "مثال: حانات لندن";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "يرجى تسمية دليلك حتى يستطيع المسافرين العثور عليه بسهولة: مثال \"حانات لندن\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "يجب أن لا يحتوي الاسم على علامات خاصة أو أرقام. لا يجب أن يكون الاسم \"أماكني\"";
 
-"description_guide" = "Description";
+"description_guide" = "الوصف";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "إدخل وصف دليلك";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "صف دليلك بالتفصيل";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "يجب أن يحتوي وصف الدليل على 30 حرفًا على الأقل.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "يرجى اختيار الوسوم لمساعدة المسافرين الآخرين في العثور على دليلك. هذا إجباري. %s وسم بحد أقصى.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "لم يتم نشر دليلك";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "يرجى التأكد أن أسماء ووصف معلماتك بالصيغة الصحيحة. يمكنك التحقق منها فى المتصفح بالضغط على زر \"حرر الآن\" فى الأسفل.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "ارفع دليلك واحصل على رابط التحرير من جهازك";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "حرر الآن";
 
-"update_guide" = "Update guide";
+"update_guide" = "الرفع و التحديث";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "تحديث ملفك…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "تم نشر دليلك";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "يمكنك مشاركة دليلك بواسطة رابط عام";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "ربما حدثت بعض التغييرات";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "هل تريد تحديث معلماتك؟ الإصدار الجديد سيكون متاحًا عبر نفس الرابط.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "تحديث";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "لقد قمت بتحديث معلماتك على الإنترنت";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "فى المستقبل، يرجى تحرير، أو نشر، أو مشاركة دليلك مع أصدقائك عبر موقعنا";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "وضع توفير الطاقة";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "أبدًا";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "تلقائي";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "توفير الطاقة القصوى";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "يرجى التحقق من إعدادات الشبكة الخاصة بك و حاول مرة أخرى";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "لا يوجد اتصال بالانترنت";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "ضع تعليق وساعد المسافرين!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "تعطيل الإشعارات";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "التحرير على الإنترنت";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "إعدادات الخصوصية";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "احصل على اسم مستخدم طبقًا لقواعد GDPR";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "اسم المستخدم: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "يرجى نسخه وإرسال الطلب إلى support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "انسخ اسم المستخدم";
 
+"unable_upadate_error_title" = "فشل تحديث الملف";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "حدثت بعض الأخطاء أثناء التحديث يرجى التحقق من التغييرات و حاول مرة أخرى";
+
+"whats_new_wiki_title" = "ما هذا المكان؟";
+
+"whats_new_wiki_message" = "لقد أضفنا مقالات Wikipedia.org إلى صفحات معظم الأماكن السياحية المشهورة. أنها متاحة بدون اتصال بالانترنت";
 
 "sponsored_partner1_action" = "Outlets";
 

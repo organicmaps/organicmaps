@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Je ľahké podeliť sa o vaše dojmy";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Recenzia bola uložená";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Ak chcete zanechať recenziu, prihláste sa";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Ohodnoťte navštívené miesto a pomôžte cestujúcim!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Nie je dostatok záložiek";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Mali by ste mať minimálne 3 záložky, aby ste mohli nahrať sprievodcu do verejného katalógu";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Áno som si istý!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Zadajte názov sprievodcu";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "napr. Londýnske krčmy";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Prosím pomenujte svojho sprievodcu tak, aby ho mohli cestujúci ľahko nájsť: napríklad \"Londýnske krčmy\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Názov by nemal obsahovať špeciálne symboly ani číslice. Názov by nemal byť \"Moje miesta\"";
 
-"description_guide" = "Description";
+"description_guide" = "Popis";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Zadajte popis vášho sprievodcu";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Opíšte podrobne svojho sprievodcu";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Váš popis sprievodcu by mal obsahovať najmenej 30 symbolov.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť sprievodcu. Je to povinné. Maximálny počet značiek je %s.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Váš sprievodca nebol uverejnený";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Uistite sa, že názvy a popisy vašich záložiek majú platný formát. Môžete si ho skontrolovať v prehliadači pre stolné počítače kliknutím na tlačidlo \"Upraviť online\" nižšie.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Nahrajte si sprievodcu a získajte odkaz na úpravu z pracovnej plochy";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Upraviť online";
 
-"update_guide" = "Update guide";
+"update_guide" = "Nahrať aktualizáciu";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Aktualizácia vášho súboru…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Váš sprievodca bol aktualizovaný";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Sprievodcu môžete zdieľať prostredníctvom verejného odkazu";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Je možné, že sa vyskytli nejaké zmeny";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Chcete aktualizovať svoje záložky? Nová verzia bude k dispozícii prostredníctvom toho istého odkazu.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Aktualizácia";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Upravili ste záložky online";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "V budúcnosti môžete upravovať, publikovať alebo zdieľať sprievodcu s priateľmi prostredníctvom našich webových stránok";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Úsporný režim";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Nikdy";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Automaticky";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Maximálna úspora batérie";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Skontrolujte svoje sieťové nastavenia a skúste to znova";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Žiadne internetové pripojenie";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Ohodnotiť a pomôcť cestujúcim!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Vypnite upozornenia";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Online úprava";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Nastavenia ochrany osobných údajov";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Získajte ID pre GDPR žiadosť";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Vaše ID: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Skopírujte ho a pošlite žiadosť na adresu support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Skopírujte ID";
 
+"unable_upadate_error_title" = "Aktualizácia súboru zlyhala";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Počas aktualizácie sa vyskytli určité chyby. Skontrolujte zmeny a skúste to znova";
+
+"whats_new_wiki_title" = "Čo je to za miesto?";
+
+"whats_new_wiki_message" = "Pridali sme články Wikipedia.org na stránky najobľúbenejších turistických atrakcií. Sú k dispozícii offline";
 
 "sponsored_partner1_action" = "Outlets";
 

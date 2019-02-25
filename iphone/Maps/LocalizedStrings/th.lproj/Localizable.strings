@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "แบ่งปันความประทับใจของคุณได้ง่าย ๆ";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "รีวิวของคุณได้รับการบันทึก";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "โปรดเข้าสู่ระบบเพื่อการรีวิว";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "โปรดให้คะแนนสถานที่เพื่อเป็นตัวช่วยแก่นักท่องเที่ยวคนอื่นๆ";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "มีบุ๊กมาร์กไม่เพียงพอ";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "คุณจำเป็นต้องมีอย่างน้อย 3 บุ๊กมาร์กเพื่ออัพโหลดไกด์ของคุณไปยังแคตตาล็อกสาธารณะ";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "เหลืออีกเพียงไม่กี่ขั้นตอนในการแชร์บุ๊กมาร์กแก่นักท่องเที่ยวใน MAPS.ME ทุกคน!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "โปรดแน่ใจว่าคุณได้ระบุชื่อที่ชัดเจนและคำบรรยายในรายการของคุณ และบุ๊กมาร์กทั้งหมดนั้นมีข้อมูลเกี่ยวกับสถานที่ วิธีนี้จะทำให้คนอื่นๆ นั้นพบและใช้รายการของคุณได้";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "ใช่ ฉันแน่ใจ!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "โปรดตั้งชื่อไกด์ของคุณ";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "ยกตัวอย่างเช่น ผับในลอนดอน";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "โปรดตั้งชื่อไกด์ของคุณ เพื่อให้นักท่องเที่ยวคนอื่นๆ หาไกด์ได้ง่ายๆ ยกตัวอย่างเช่น \"ผับในลอนดอน\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "ชื่อไม่ควรจะมีสัญลักษณ์หรือตัวเลขพิเศษใดๆ ชื่อไม่ควรใช้ว่า \"ที่ของฉัน\"";
 
-"description_guide" = "Description";
+"description_guide" = "คำบรรยาย";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "โปรดใส่คำบรรยายไกด์ของคุณ";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "โปรดบรรยายรายละเอียดของไกด์คุณ";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "คำบรรยายของไกด์คุณควรมีความยาวอย่างน้อย 30 ตัวอักษร";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "โปรดเลือกแท็กเพื่อช่วยให้นักท่องเที่ยวคนอื่นพบกับไกด์ของคุณ คุณสามารถใส่แท็กได้มากที่สุด %s คำ";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "ไกด์ของคุณยังไม่ได้รับการเผยแพร่";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "โปรดมั่นใจว่าชื่อและคำบรรยายบุ๊กมาร์กของคุณนั้นอยู่ในฟอร์แม็ตที่ถูกต้อง คุณสามารถตรวจทานได้ในบราวเซอร์ของพีซีด้วยการคลิกที่ปุ่ม \"แก้ไขทางออนไลน์\" ด้านล่าง";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "อัพโหลดไกด์ของคุณและรับลิงค์เพื่อใช้อีดิตจากพีซี";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "แก้ไขทางออนไลน์";
 
-"update_guide" = "Update guide";
+"update_guide" = "อัพโหลดเนื้อหาที่อัพเดต";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "อัพโหลดไฟล์ของคุณ";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "ไกด์ของคุณได้รับการเผยแพร่แล้ว";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "คุณสามารถแชร์ไกด์ของคุณได้ทางลิงค์สำหรับเผยแพร่ทางสาธารณะ";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "อาจจะมีการเปลี่ยนแปลงบางอย่าง";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "คุณต้องการอัพเดตบุ๊กมาร์กของคุณหรือไม่ เวอร์ชันใหม่นั้นจะเปิดดูได้จากลิงค์เดิม";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "อัพเดต";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "คุณได้แก้ไขบุ๊กมาร์กของคุณทางระบบออนไลน์แล้ว";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "ในอนาคต โปรดแก้ไข เผยแพร่ หรือแชร์ไกด์ของคุณกับเพื่อนๆ ของคุณผ่านทางเว็บไซต์ของเรา";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "โหมดประหยัดพลังงาน";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "เมื่อโหมดอัตโนมัตินั้นถูกเลือก แอปพลิเคชันจะเริ่มหยุดการใช้พลังงานจากแบตเตอรีขึ้นอยู่กับจำนวนไฟในแบตเตอรีว่าเหลือเท่าไร";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "ไม่ใช้";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "อัตโนมัติ";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "ประหยัดพลังงานสูงสุด";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก MAPS.ME เท่านั้น";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "โปรดเช็คการตั้งค่าเครือข่ายและลองใหม่อีกครั้ง";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "รีวิวและช่วยนักท่องเที่ยวคนอื่น!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "ปิดการแจ้งเตือน";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "การแก้ไขทางออนไลน์";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "การตั้งค่าความเป็นส่วนตัว";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "รับชื่อบัญชีเพื่อขอ GDPR";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "ชื่อบัญชีของคุณ: %s";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "โปรดคัดลอกชื่อบัญชีและส่งมาทางคำร้องที่ support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "คัดลอกชื่อบัญชี";
 
+"unable_upadate_error_title" = "อัพเดตไฟล์ล้มเหลว";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "มีข้อผิดพลาดบางอย่างเกิดขึ้นขณะอัพเดต โปรดตรวจทานการแก้ไขและลองใหม่อีกครั้ง";
+
+"whats_new_wiki_title" = "สถานที่นั้นคืออะไร";
+
+"whats_new_wiki_message" = "เราได้เพิ่มบทความของ Wikipedia.org ไปยังหน้าของจุดที่นักท่องเที่ยวให้ความสนใจเกือบทุกแห่ง ใช้งานได้โดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
 
 "sponsored_partner1_action" = "Outlets";
 

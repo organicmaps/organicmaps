@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Könnyű megosztani a benyomásaidat";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Az értékelésed elmentve";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Kérjük jelentkezz be az értékeléshez";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Értékelj egy meglátogatott helyet és segíts az utazóknak!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Nincs elegendő könyvjelző";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Legalább 3 könyvjelződnek kell lennie, hogy az útmutatódat feltölthesd a nyilvános katalógusba";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Csak pár lépésnyire vagy attól, hogy megoszthasd a könyvjelzőidet minden MAPS.ME utazóval!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Kéjük győződj meg róla, hogy egy jellemző neved és leírásod van a listádhoz, és hogy minden könyvjelzőnél van információ a helyekről. Ily módon a listádat mások is megtalálhatják és használhatják.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Igen, biztos vagyok benne!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Add meg az útmutatód nevét";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "pl.: Londoni kocsmák";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Kérjük adj nevet az útmutatódnak, így az utazók könnyen megtalálhatják: például \"Londoni kocsmák\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "A név ne tartalmazzon speciális szimbólumokat vagy számokat. A név ne legyen a \"Helyeim\"";
 
-"description_guide" = "Description";
+"description_guide" = "Leírás";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Add meg az útmutatód leírását";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Fejtsd ki az útmutatód részleteit";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Az útmutató leírásodnak legalább 30 szimbólumot kellene tartalmaznia.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Kérjük válassz címkéket, hogy segíts más utazóknak megtalálni az útmutatódat. Ez kötelező. Maximum %s címke.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Az útmutatód nem lett közzétéve";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Kérjük győződj meg róla, hogy a könyvjelzőid nevei és könyvjelzői mind érvényes formátumúak. Ellenőrizheted egy asztali böngészőn a lenti \"Online szerkesztés\" gombra kattintva.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Töltsd fel az útmutatódat és szerezd be a szerkesztési linket az asztaliról";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Online szerkesztés";
 
-"update_guide" = "Update guide";
+"update_guide" = "Egy frissítés feltöltése";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "A fájlod frissítése…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Az útmutatód frissítve lett";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Egy nyilvános linkkel megoszthatod az útmutatódat";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Néhány változás történhetett";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Szeretnéd frissíteni a könyvjelzőidet? Az új verzió ugyanazon a linken keresztül lesz elérhető.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Frissítés";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Online szerkesztetted a könyvjelzőidet";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "A jövőben kérjük a weboldalunkon keresztül szerkeszd, publikáld vagy oszd meg az útmutatót a barátaiddal";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Energiatakarékos mód";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Amikor az automatikus mód van kiválasztva, az alkalmazás elkezdi kikapcsolni az akkumulátort merítő funkciókat a jelenlegi akkumulátor töltöttség alapján";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Soha";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Automatikus";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a MAPS.ME support kérésére kapcsold be ezt az opciót.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Kérjük ellenőrizd a hálózati beállításaidat és próbáld újra";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Nincs internetkapcsolat";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Értékelj és segítsd az utazókat!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Értesítések kikapcsolása";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Online szerkesztés";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Adatvédelmi beállítások";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "ID beszerzése GDPR kéréshez";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "A te ID-d: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Kérjük másold le és küldd el a kérést a support@maps.me címre";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "ID lemásolása";
 
+"unable_upadate_error_title" = "Fájl frissítés sikertelen";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Néhány hiba történt frissítés közben. Kérjük ellenőrizd a változtatásokat és próbáld újra";
+
+"whats_new_wiki_title" = "Mi ez a hely?";
+
+"whats_new_wiki_message" = "Wikipedia.org cikkeket adtunk hozzá a legnépszerűbb látnivalók oldalaihoz. Offline elérhetőek";
 
 "sponsored_partner1_action" = "Outlets";
 

@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Easy to share your impressions";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Το σχόλιό σας έχει αποθηκευτεί";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Εγγραφείτε για ν' αφήσετε σχόλια";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Αφήστε τα σχόλιά σας και βοηθήστε τους ταξιδιώτες!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Δεν υπάρχουν αρκετά σημάδια";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Η διαδρομή σας πρέπει να έχει τουλάχιστον 3 σημάδια για να μεταφορτωθεί στον δημόσιο κατάλογο";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Είστε μόνο μερικά βήματα μακριά από τη φόρτωση της διαδρομής σας στον κατάλογο MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Βεβαιωθείτε ότι η διαδρομή έχει τίτλο και περιγραφή και ότι όλα τα σημάδια περιέχουν πληροφορίες σχετικά με τις τοποθεσίες. Χάρη σε αυτό, οι χρήστες θα βρουν τη διαδρομή και θα μπορέσουν να τη χρησιμοποιήσουν στο ταξίδι τους.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Ναι, όλα είναι καλά!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Εισαγάγετε έναν τίτλο";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "για παράδειγμα, \"Οι παμπ του Λονδίνου\"";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Δώστε στη διαδρομή έναν συγκεκριμένο τίτλο, έτσι ώστε οι χρήστες να μπορούν να την εντοπίσουν, για παράδειγμα, \"Οι παμπ του Λονδίνου\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Ο τίτλος δεν πρέπει να περιέχει ειδικούς χαρακτήρες ή αριθμούς. Μην δημοσιεύετε διαδρομές με τον τίτλο \"Τα σημάδια μου\"";
 
-"description_guide" = "Description";
+"description_guide" = "Περιγραφή";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Εισαγάγετε μια περιγραφή της διαδρομής";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Περιγράψτε λεπτομερώς τη διαδρομή σας";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Η περιγραφή της διαδρομής πρέπει να είναι τουλάχιστον 30 χαρακτήρες.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Διαλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον ταξιδιωτικό σας οδηγό. Αυτό είναι απαραίτητο. Ο μέγιστος αριθμός των ετικετών δεν πρέπει να υπερβαίνει %s.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Η διαδρομή σας δεν έχει δημοσιευθεί";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Βεβαιωθείτε ότι τα ονόματα και οι περιγραφές των σημαδιών στη διαδρομή έχουν τη σωστή μορφοποίηση. Μπορείτε να το ελέγξετε στον επεξεργαστή μας κάνοντας κλικ στο κουμπί \"Επεξεργασία online\" παρακάτω.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Φορτώστε τη διαδρομή και λάβετε έναν σύνδεσμο για επεξεργασία στον υπολογιστή";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Επεξεργασία online";
 
-"update_guide" = "Update guide";
+"update_guide" = "Φόρτωση της νέας έκδοσης";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Ενημέρωση της διαδρομής…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Η διαδρομή ενημερώθηκε";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Μπορείτε να μοιραστείτε τη διαδρομή χρησιμοποιώντας έναν δημόσιο σύνδεσμο";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Ίσως υπάρχει μια νέα έκδοση της διαδρομής";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Θέλετε να ενημερώσετε τα σημάδια? Η νέα έκδοση θα είναι διαθέσιμη με τον ίδιο σύνδεσμο.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Ενημέρωση";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Κάνατε την επεξεργασία της διαδρομής online";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Στο μέλλον κάντε την επεξεργασία, δημοσίευση ή κοινή χρήση της διαδρομής με φίλους μέσω της ιστοσελίδας μας";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Λειτουργία εξοικονόμησης ενέργειας";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Ποτέ";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Αυτόματα";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Μέγιστη εξοικονόμηση ενέργειας";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Ελέγξτε την πρόσβαση στο δίκτυο και δοκιμάστε ξανά";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Δεν υπάρχει σύνδεση με το διαδίκτυο";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Αφήνετε τα σχόλιά σας και βοηθάτε τους ταξιδιώτες!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Απενεργοποίηση των ειδοποιήσεων";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Επεξεργάζεται online";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Ρυθμίσεις απορρήτου";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Λήψη του αναγνωριστικού αριθμού για το αίτημα GDPR";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Ο αναγνωριστικός αριθμός σας είναι: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Αντιγράψτε το και στείλτε το αίτημα στη διεύθυνση support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Αντιγραφή του αναγνωριστικού αριθμού";
 
+"unable_upadate_error_title" = "Δεν ήταν δυνατή η ενημέρωση της διαδρομής";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Παρουσιάστηκαν σφάλματα κατά την ενημέρωση. Ελέγξτε τις αλλαγές και δοκιμάστε ξανά";
+
+"whats_new_wiki_title" = "Τι είναι αυτό το μέρος?";
+
+"whats_new_wiki_message" = "Στις κάρτες των δημοφιλών αξιοθέατων προσθέσαμε άρθρα από το Wikipedia.org που είναι διαθέσιμα εκτός σύνδεσης";
 
 "sponsored_partner1_action" = "Outlets";
 

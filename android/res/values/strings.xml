@@ -1527,73 +1527,56 @@
 	<string name="whats_new_ugc_routes_title_android_only">Easy to share your impressions</string>
 	<string name="ugc_thanks_message_auth">Your review has been saved</string>
 	<string name="ugc_thanks_message_not_auth">Please log in to leave a review</string>
-	<string name="notification_leave_review_v2_title">Rate a place and help travellers!</string>
+	<string name="notification_leave_review_v2_title">Rate a visited place and help travellers!</string>
 	<string name="error_public_not_enought_title">Not enough bookmarks</string>
-	<!-- FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue -->
-	<string name="error_public_not_enought_subtitle">[error_public_not _enought_subtitle]</string>
+	<string name="error_public_not_enought_subtitle">You should have at least 3 bookmarks to be able to upload your guide to the public catalogue</string>
 	<string name="bookmark_public_upload_alert_title">You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Yes, I\'m sure!</string>
 	<string name="name_title">Enter your guide\'s name</string>
-	<!-- FIXME. e.g. Sightseeing in London -->
-	<string name="name_placeholder">[name_placeholder]</string>
-	<!-- FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". -->
-	<string name="name_comment1">[name_comment1]</string>
-	<!-- FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. -->
-	<string name="name_comment2">[name_comment2]</string>
+	<string name="name_placeholder">e.g. London Pubs</string>
+	<string name="name_comment1">Please name your guide so that travellers can easily find it: for example, \"London Pubs\"</string>
+	<string name="name_comment2">The name shouldn\'t contain special symbols or digits. The name shouldn\'t be \"My places\"</string>
 	<string name="description_guide">Description</string>
 	<string name="description_title">Enter your guide\'s description</string>
-	<string name="description_placeholder">Describe your guide in details</string>
-	<!-- FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). -->
-	<string name="description_comment1">[description_comment1]</string>
-	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.</string>
+	<string name="description_placeholder">Describe your guide in detail</string>
+	<string name="description_comment1">Your guide description should contain at least 30 symbols.</string>
+	<string name="ugc_route_tags_desc">Please select tags to help other travellers find your guide. This is mandatory. %s tags maximum.</string>
 	<string name="html_format_error_title">Your guide has not been published</string>
-	<string name="html_format_error_subtitle">Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.</string>
-	<!-- FIXME. Upload your guide and get the link for edit from desktop -->
-	<string name="web_editor_description">[web_editor_description]</string>
+	<string name="html_format_error_subtitle">Please make sure that names and descriptions of your bookmarks all have a valid format. You can check it on a desktop browser by clicking the \"Edit online\" button below.</string>
+	<string name="web_editor_description">Upload your guide and get the edit link from desktop</string>
 	<string name="edit_on_web_confirm">Edit online</string>
-	<string name="update_guide">Update guide</string>
+	<string name="update_guide">Upload an update</string>
 	<string name="direct_link_updating_text">Updating your file…</string>
-	<string name="direct_link_updating_success">Guide has been updated</string>
-	<!-- FIXME. You can share your guide by public link -->
-	<string name="unable_get_direct_link_desc">[unable_get_direct_link_desc]</string>
+	<string name="direct_link_updating_success">Your guide has been updated</string>
+	<string name="unable_get_direct_link_desc">You can share your guide via a public link</string>
 	<string name="any_access_update_alert_title">Some changes may have occurred</string>
-	<string name="any_access_update_alert_message">Do you want to update bookmarks? New version will be available at the same link.</string>
+	<string name="any_access_update_alert_message">Do you want to update your bookmarks? The new version will be available via the same link.</string>
 	<string name="any_access_update_alert_update">Update</string>
 	<string name="public_or_limited_access_after_edit_online_error_title">You have edited you bookmarks online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">Further on please edit, publish or share the guide with you friends via out website</string>
-	<!-- FIXME -->
-	<string name="parthner_megafon_search_banner_message">[parthner_megafon_search_banner_message]</string>
-	<!-- FIXME -->
-	<string name="parthner_megafon_search_banner_button">[parthner_megafon_search_banner_button]</string>
-	<!-- FIXME. Power managment -->
-	<string name="power_management_title">[power_management_title]</string>
-	<!-- FIXME. Power managment settings -->
-	<string name="power_management_settings">[power_management_settings]</string>
-	<!-- FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level -->
-	<string name="power_management_description">[power_management_description]</string>
-	<string name="power_management_setting_never">Never</string>
-	<string name="power_management_setting_auto">Auto</string>
-	<string name="power_management_setting_manual_max">Extreme power saving</string>
+	<string name="public_or_limited_access_after_edit_online_error_message">In the future, please edit, publish or share the guide with you friends via our website</string>
+	<string name="parthner_megafon_search_banner_message">Say goodbye to roaming!</string>
+	<string name="power_managment_title">Power saving mode</string>
+	<string name="power_managment_description">When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level</string>
+	<string name="power_managment_setting_never">Never</string>
+	<string name="power_managment_setting_auto">Automatic</string>
+	<string name="power_managment_setting_manual_max">Maximum power saving</string>
 	<string name="enable_logging_warning_message">The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.</string>
-	<string name="html_error_upload_title">Your guide has not been published</string>
-	<string name="html_error_upload_message">Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below</string>
-	<!-- FIXME. Please make sure that names and description -->
-	<string name="html_error_upload_message_try_again">[html_error_upload_message_try_again]</string>
-	<!-- FIXME. Your guide couldn't be uploaded -->
-	<string name="html_error_upload_title_try_again">[html_error_upload_title_try_again]</string>
-	<!-- FIXME. -->
+	<string name="html_error_upload_message_try_again">Please check your network settings and try again</string>
+	<string name="html_error_upload_title_try_again">No internet connection</string>
 	<string name="notification_leave_review_v2_android_short_title">Review and help travellers!</string>
-	<!-- FIXME -->
-	<string name="notifications_illegal_alert_title">Notifications about speedcams are illegal in %s</string>
-	<!-- FIXME -->
-	<string name="notifications_illegal_alert_message">[notifications_illegal_alert_message]</string>
-	<!-- FIXME. Replaces parthner_megafon_search_banner_title -->
-	<string name="megafon">[megafon]</string>
-	<!-- FIXME -->
-	<string name="notifications_illegal_alert_disable_button">Disable notifications</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="megafon">Read more</string>
+	<string name="notifications_illegal_alert_disable_button">Turn off notifications</string>
+	<string name="access_rules_author_only">Online editing</string>
+	<string name="privacy_settings_menu">Privacy settings</string>
+	<string name="gdpr_request_setting">Get ID for GDPR request</string>
+	<string name="gdpr_request_window_title">Your ID is %s.</string>
+	<string name="gdpr_request_window_message">Please copy it and send the request to support\@maps.me</string>
+	<string name="gdpr_request_window_copy">Copy the ID</string>
+	<string name="unable_upadate_error_title">File update failed</string>
+	<string name="unable_upadate_error_message">Some mistakes occurred while updating. Please check the changes and try again</string>
+	<string name="whats_new_wiki_title">What\'s that place?</string>
+	<string name="whats_new_wiki_message">We\'ve added Wikipedia.org articles to the pages of the most popular tourist attractions. They are available offline</string>
 	<string name="sponsored_partner1_action">Outlets</string>
 	<string name="sponsored_partner2_action">Discount</string>
 	<string name="sponsored_partner3_action">Coupon</string>

@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Mudah untuk membagikan kesan Anda";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Ulasan Anda telah disimpan";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Harap masuk untuk memberikan ulasan";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Beri nilai tempat yang sudah dikunjungi dan bantu para traveler!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Bookmark tidak mencukupi";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Anda setidaknya harus memiliki 3 bookmark untuk dapat mengunggah panduan ke katalog publik";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Tinggal sedikit lagi untuk dapat membagikan bookmark dengan para traveler MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Pastikan Anda memiliki nama yang spesifik dan deskripsi untuk daftar Anda, dan semua bookmark memiliki sedikit info tentang tempat-tempat tersebut. Dengan begini, daftar Anda dapat ditemukan dan digunakan oleh orang lain.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Ya, saya yakin!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Masukkan nama panduan Anda";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "mis. London Pubs";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Beri nama panduan Anda sehingga traveler dapat menemukannya dengan mudah: misalnya, \"London Pubs\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Nama tidak boleh berisi karakter khusus atau angka. Nama tidak boleh berupa \"Tempat saya\"";
 
-"description_guide" = "Description";
+"description_guide" = "Deskripsi";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Masukkan deskripsi panduan Anda";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Deskripsikan panduan Anda secara mendetail";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Deskripsi panduan Anda setidaknya harus terdiri dari 30 simbol.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Pilih tag untuk membantu traveler lain menemukan panduan Anda. Ini wajib diisi. Maksimum %s tag.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Panduan Anda belum dipublikasikan";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Pastikan bahwa nama dan deskripsi bookmark dalam format yang valid. Anda dapat memeriksanya di browser desktop dengan mengeklik tombol \"Edit online\" di bawah.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Unggah panduan dan dapatkan tautan edit dari desktop";
 
 "edit_on_web_confirm" = "Edit online";
 
-"update_guide" = "Update guide";
+"update_guide" = "Unggah pembaruan";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Memperbarui file Anda…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Panduan Anda telah diperbarui";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Anda dapat membagikan panduan dengan tautan publik";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Beberapa perubahan mungkin terjadi";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Ingin memperbarui bookmark Anda? Versi baru akan tersedia dengan tautan yang sama.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Perbarui";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Anda telah mengedit bookmark secara online";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Selanjutnya, edit, publikasikan, atau bagikan panduan dengan teman melalui situs web kami";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Mode hemat daya";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Saat mode otomatis dipilih, aplikasi mulai menonaktifkan fitur yang menghabiskan daya baterai, bergantung pada tingkat daya baterai saat ini";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Jangan pernah";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Otomatis";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Hemat daya maksimum";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Periksa pengaturan jaringan Anda dan coba lagi";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Tidak ada koneksi internet";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Ulas dan bantu traveler!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Nonaktifkan pemberitahuan";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Pengeditan online";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Pengaturan privasi";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Dapatkan ID untuk permintaan GDPR";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "ID Anda: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Salin dan kirim permintaan ke support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Salin ID";
 
+"unable_upadate_error_title" = "Pembaruan file gagal";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Beberapa kesalahan terjadi saat memperbarui. Periksa perubahan dan coba lagi";
+
+"whats_new_wiki_title" = "Tempat apa itu?";
+
+"whats_new_wiki_message" = "Kami telah menambahkan artikel Wikipedia.org ke halaman tempat wisata yang paling populer dikunjungi turis. Tersedia secara offline";
 
 "sponsored_partner1_action" = "Outlets";
 

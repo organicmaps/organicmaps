@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Det er nemt at dele dine indtryk";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Din anmeldelse er blevet gemt";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Log ind for efterlade en anmeldelse";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Vurder et besøgt sted og hjælp rejsende!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Ikke nok bogmærker";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Du skal have mindst 3 bogmærker, for at kunne uploade din guide til det offentlige katalog";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Du er et par skridt væk fra at dele dine bogmærker med alle MAPS.ME rejsende!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Sørg for, at du har et bestemt navn og en beskrivelse til din liste, og at alle bogmærker har oplysninger om stederne. På denne måde kan din liste findes og bruges af andre.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Ja, jeg er sikker!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Indtast navn på din guide";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "f.eks. London Pubs";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Navngiv din guide, så rejsende nemt kan finde det, f.eks. \"London Pubs\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Navnet bør ikke indeholde specielle symboler eller cifre. Navnet skal ikke være \"mine steder\"";
 
-"description_guide" = "Description";
+"description_guide" = "Beskrivelse";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Indtast beskrivelse til din guide";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Beskriv din guide i detaljer";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Din guide-beskrivelse skal indeholde mindst 30 symboler.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Vælg tags for at hjælpe andre rejsende med at finde din guide. Dette er obligatorisk. Maksimum %s tags.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Din guide er ikke blevet udgivet";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Sørg for at navne og beskrivelser af dine bogmærker alle har et gyldigt format. Du kan tjekke det, via en browser på skrivebordet, ved at klikke på knappen \"Rediger online\", nedenfor.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Upload din guide og få rediger linket fra skrivebordet";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Rediger online";
 
-"update_guide" = "Update guide";
+"update_guide" = "Upload en opdatering";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Opdaterer din fil…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Din guide er blevet opdateret";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Du kan dele din guide via et offentligt link";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Nogle ændringer kan have fundet sted";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Vil du opdatere dine bogmærker? Den nye version vil være tilgængelig via det samme link.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Opdater";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Du har redigeret dine bogmærker online";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "I fremtiden rediger, udgiv eller del guiden, med dine venner, via vores hjemmeside";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Strømsparetilstand";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Aldrig";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Automatisk";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Maksimum strømbesparelse";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra MAPS.ME support.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Kontroller dine netværksindstillinger, og prøv igen";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Ingen internetforbindelse";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Anmeld og hjælpe rejsende!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Slå fra meddelelser";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Online redigering";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Indstillinger for beskyttelse af personlige oplysninger";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Få ID til GDPR anmodning";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Dit ID: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Kopiere det og send anmodningen til support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Kopier ID'et";
 
+"unable_upadate_error_title" = "Fil opdatering fejlede";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Der opstod nogle fejl under opdatering. Kontroller ændringerne, og prøv igen";
+
+"whats_new_wiki_title" = "Hvad er det sted?";
+
+"whats_new_wiki_message" = "Vi har tilføjet Wikipedia.org artikler til siderne, af de mest populære turistattraktioner. De er tilgængelige offline";
 
 "sponsored_partner1_action" = "Outlets";
 

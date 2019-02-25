@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Voit helposti jakaa kokemuksiasi";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Arvostelusi tallennettiin";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Kirjaudu sisään jättääksesi arvostelun";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Arvostele paikka, jossa kävit, ja auta matkailijoita!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Ei tarpeeksi kirjanmerkkejä";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Sinulla täytyy olla vähintään 3 kirjanmerkkiä, jotta voit lähettää oppaan julkiseen luetteloon";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien MAPS.ME-matkailijoiden kanssa!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Varmista, että listallasi on kunnollinen nimi ja kuvaus, ja että kaikissa kirjanmerkeissäsi on paikoista jotain tietoa. Näin muut voivat löytää listasi ja käyttää sitä.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Kyllä, tottakai!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Kirjoita oppaasi nimi";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "esim. Lontoon pubit";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Nimeä oppaasi niin, että matkailijat voivat löytää sen helposti: esimerkiksi \"Lontoon pubit\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Nimessä ei saa olla erikoismerkkejä tai numeroita. Nimi ei saa olla \"Minun paikkani\"";
 
-"description_guide" = "Description";
+"description_guide" = "Kuvaus";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Kirjoita oppaasi kuvaus";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Kuvaile opastasi yksityiskohtaisesti";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Oppaasi kuvauksen pitäisi olla vähintään 30 merkin pituinen.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Valitsethan avainsanoja auttaaksesi muita matkailijoita löytämään oppaasi. Tämä on pakollinen. Enintään %s avainsanaa.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Opastasi ei julkaistu";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Varmista, että kaikkien kirjanmerkkien nimet ja kuvaukset ovat oikein muotoiltu. Voit tarkistaa sen tietokoneen selaimella klikkaamalla \"Muokkaa netissä\" -painiketta alla.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Lähetä oppaaksi, niin saat muokkaus linkin tietokoneelle";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Muokkaa netissä";
 
-"update_guide" = "Update guide";
+"update_guide" = "Lähetä päivitys";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Tiedostoasi päivitetään…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Oppaasi päivitettiin";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Voit jakaa oppaasi julkisella linkillä";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "On voinut tapahtua muutoksia";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Haluatko päivittää kirjanmerkkisi? Uusi versio on saatavilla saman linkin kautta.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Päivitä";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Muokkasit kirjanmerkkejäsi netissä";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Muokkaa, julkaise tai jaa opas tulevaisuudessa nettisivujemme kautta";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Virransäästötila";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Ei koskaan";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Automaattinen";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Täysi virransäästö";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos MAPS.ME:n tuki pyytää.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Tarkista verkkoasetukset ja kokeile uudelleen";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Ei nettiyhteyttä";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Arvostele ja auta matkailijoita!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Kytke ilmoitukset pois";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Nettimuokkaus";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Yksityisyysasetukset";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "ID:n hankkiminen GDPR-pyyntöä varten";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Sinun ID: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Kopioi se ja lähetä pyyntö osoitteeseen support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Kopioi ID";
 
+"unable_upadate_error_title" = "Tiedoston päivitys epäonnistui";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Päivityksen aikana tapahtui jokin virhe. Tarkista muutokset ja yritä uudelleen";
+
+"whats_new_wiki_title" = "Mikä tuo paikka on?";
+
+"whats_new_wiki_message" = "Olemme lisänneet suosituimpien turistikohteiden sivuille Wikipedia.org-artikkelit. Ne ovat saatilla myös ilman nettiä";
 
 "sponsored_partner1_action" = "Outlets";
 

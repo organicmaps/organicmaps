@@ -1513,20 +1513,58 @@
 	<string name="whatsnew_paid_routes_title">Больше новых впечатлений!</string>
 	<string name="whatsnew_paid_routes_message">В дополнение к бесплатным маршрутам мы добавили в каталог 3 категории платных путеводителей. Более 700 новых маршрутов!</string>
 	<string name="whats_new_ugc_routes_title_android_only">Делиться впечатлениями просто</string>
-	<!-- FIXME. Upload your guide and get the link for edit from desktop -->
+	<string name="ugc_thanks_message_auth">Ваш отзыв сохранен</string>
+	<string name="ugc_thanks_message_not_auth">Зарегистрируйтесь, чтобы оставить отзыв</string>
+	<string name="notification_leave_review_v2_title">Оставьте отзыв и помогите путешественникам!</string>
+	<string name="error_public_not_enought_title">Недостаточно меток</string>
+	<string name="error_public_not_enought_subtitle">В вашем маршруте должно быть минимум 3 метки, чтобы загрузить его в публичный каталог</string>
+	<string name="bookmark_public_upload_alert_title">Вы всего в паре шагов от загрузки вашего маршрута в каталог MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_subtitle">Убедитесь, что у маршрута есть название и описание, а все метки содержат информацию о местах. Благодаря этому, пользователи найдут маршрут и смогут воспользоваться им в поездке.</string>
+	<string name="bookmark_public_upload_alert_ok_button">Да, все хорошо!</string>
+	<string name="name_title">Введите название</string>
+	<string name="name_placeholder">например, Пабы Лондона</string>
+	<string name="name_comment1">Назовите маршрут конкретно, чтобы пользователи смогли найти его, например, \"Пабы Лондона\"</string>
+	<string name="name_comment2">Название не должно содержать специальных символов или цифр. Не публикуйте маршруты с названием \"Мои метки\"</string>
+	<string name="description_guide">Описание</string>
+	<string name="description_title">Введите описание маршрута</string>
+	<string name="description_placeholder">Опишите свой маршрут подробно</string>
+	<string name="description_comment1">Описание маршрута должно состоять из 30 символов минимум.</string>
+	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно. Не больше %s тегов.</string>
+	<string name="html_format_error_title">Ваш маршрут не был опубликован</string>
+	<string name="html_format_error_subtitle">Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в нашем редакторе по кнопке \"Редактировать онлайн\" ниже.</string>
 	<string name="web_editor_description">Загрузите маршрут и получите ссылку для редактирования на компьютере</string>
-	<string name="update_guide">Обновить маршрут</string>
-	<string name="direct_link_updating_text">Обновляем ваш файл…</string>
-	<!-- FIXME. You can share your guide by public link -->
-	<string name="unable_get_direct_link_desc">Вы можете поделиться вашим маршрутом с помощью публичной ссылки</string>
-	<!-- FIXME -->
+	<string name="edit_on_web_confirm">Редактировать онлайн</string>
+	<string name="update_guide">Загрузить новую версию</string>
+	<string name="direct_link_updating_text">Обновляем маршрут…</string>
+	<string name="direct_link_updating_success">Маршрут обновлен</string>
+	<string name="unable_get_direct_link_desc">Вы можете поделиться маршрутом с помощью публичной ссылки</string>
+	<string name="any_access_update_alert_title">Возможно, есть новая версия маршрута</string>
+	<string name="any_access_update_alert_message">Вы хотите обновить метки? Новая версия будет доступна по той же ссылке.</string>
+	<string name="any_access_update_alert_update">Обновить</string>
+	<string name="public_or_limited_access_after_edit_online_error_title">Вы редактировали маршрут онлайн</string>
+	<string name="public_or_limited_access_after_edit_online_error_message">В дальнейшем редактируйте, публикуйте или делитесь маршрутом с друзьями через наш вебсайт</string>
 	<string name="parthner_megafon_search_banner_message">Роуминг, гудбай!</string>
-	<!-- FIXME -->
-	<string name="parthner_megafon_search_banner_button">Подробнее</string>
-	<!-- FIXME. Replaces parthner_megafon_search_banner_title -->
+	<string name="power_managment_title">Режим энергосбережения</string>
+	<string name="power_managment_description">Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
+	<string name="power_managment_setting_never">Никогда</string>
+	<string name="power_managment_setting_auto">Авто</string>
+	<string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
+	<string name="enable_logging_warning_message">Данная опция включается для логирования действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте опцию только по просьбе поддержки MAPS.ME.</string>
+	<string name="html_error_upload_message_try_again">Проверьте доступ к сети и повторите попытку</string>
+	<string name="html_error_upload_title_try_again">Нет соединения с Интернетом</string>
+	<string name="notification_leave_review_v2_android_short_title">Оставляйте отзыв и помогайте путешественникам!</string>
 	<string name="megafon">Подробнее</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="notifications_illegal_alert_disable_button">Выключить уведомления</string>
+	<string name="access_rules_author_only">Редактируется онлайн</string>
+	<string name="privacy_settings_menu">Настройки конфиденциальности</string>
+	<string name="gdpr_request_setting">Получить ID для GDPR запроса</string>
+	<string name="gdpr_request_window_title">Ваш ID: %s.</string>
+	<string name="gdpr_request_window_message">Пожалуйста, скопируйте его и отправьте запрос на support\@maps.me</string>
+	<string name="gdpr_request_window_copy">Скопировать ID</string>
+	<string name="unable_upadate_error_title">Не удалось обновить маршрут</string>
+	<string name="unable_upadate_error_message">Возникли ошибки при обновлении. Проверьте изменения и повторите попытку</string>
+	<string name="whats_new_wiki_title">Что это за место?</string>
+	<string name="whats_new_wiki_message">В карточки популярных достопримечательностей мы добавили статьи из Wikipedia.org, доступные офлайн</string>
 	<string name="sponsored_partner1_action">Аутлеты</string>
 	<string name="sponsored_partner3_action">Купон</string>
 	<string name="sponsored_partner18_action">Лайфхак</string>

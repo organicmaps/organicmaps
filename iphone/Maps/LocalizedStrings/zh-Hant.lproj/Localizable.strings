@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "分享您的印象很容易";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "您的評論已保存";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "請註冊以留下評論";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "請發表評論來幫助旅行者們！";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "標籤不足";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "您的路線至少應有3個標籤才能上傳到公共目錄中";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "您只需幾步即可將您的路徑加載到MAPS.ME目錄中！";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "是的，全部正確！";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "請輸入名稱";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "例如，倫敦酒吧";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "請具體化命名線路以便用戶能夠找到它們，例如\"倫敦酒吧\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "名稱不應包含特殊字符或數字。請不要發布名稱為\"我的標籤\"的路線";
 
-"description_guide" = "Description";
+"description_guide" = "描述";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "請輸入線路描述";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "請詳細描述您的路線";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "路線描述至少應為30個字符。";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "請選擇標籤以幫助其他旅行者找到您的指南。這是必須的。不要超過 %s 標籤。";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "您的路線尚未發布";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "請確保線路中標籤的名稱和描述格式正確。您可以單擊下面的\"在線編輯\"鍵在我們的編輯器中進行檢查。";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "請下載路線並獲取在電腦上編輯的鏈接";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "在線編輯";
 
-"update_guide" = "Update guide";
+"update_guide" = "下載新版本";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "更新路線中……";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "路線已更新";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "您可以使用公共鏈接共享路線";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "可能有路線新版本";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "您是否更新標籤？新版本將在同一連鏈接上訪問。";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "更新";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "您在線編輯了路線";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "以後請通過我們的網站編輯、發布或與朋友分享路線";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "省電模式";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "如果開啟省電模式，應用程序將根據手機的當前電量關耗電功能";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "從不";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "自動";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "最大程度省電";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在MAPS.ME支持請求時開啟該選項。";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "請檢查網絡訪問，然後再重試";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "未連接到網絡";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "請發表評論來幫助旅行者們！";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "關閉通知";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "在線編輯";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "隱私設置";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "GDPR請求獲取ID";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "您的ID：%s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "請複制並發送請求至support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "複製ID";
 
+"unable_upadate_error_title" = "無法更新路線";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "更新時出錯。請檢查更改，然後再重試";
+
+"whats_new_wiki_title" = "這是什麼地方？";
+
+"whats_new_wiki_message" = "在熱門景點的卡片中，我們添加了來自Wikipedia.org的文章，可以離線使用";
 
 "sponsored_partner1_action" = "Outlets";
 

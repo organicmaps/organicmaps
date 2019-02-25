@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "İzlenimlerinizi paylaşmak çok kolay";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Yorumunuz kaydedildi";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Yorum yapmak için lütfen giriş yapınız";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Ziyaret edilen bir yere puan verin ve gezginlere yardım edin!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Yeterli yer imi yok";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Kılavuzunuzu genel kataloğa yükleyebilmek için en az 3 yer iminiz olmalı";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Yer imlerinizi tüm MAPS.ME gezginleriyle paylaşmanıza az kaldı!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Lütfen listeniz için belirli bir ad ve açıklamanız olduğundan ve tüm yer imlerinde yerler hakkında biraz bilgi bulunduğundan emin olun. Bu şekilde listeniz başkaları tarafından bulunabilir ve kullanılabilir.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Evet, eminim!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Kılavuzunuzun adını girin";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "örneğin: Londra Barları";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Lütfen kılavuzunuzu gezginlerin kolayca bulabilmesi için adlandırın: örneğin, \"Londra Pubs\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Koyduğunuz ad, özel sembol veya rakam içermemelidir. Ad, \"Yerlerim\" olmamalı";
 
-"description_guide" = "Description";
+"description_guide" = "Açıklama";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Kılavuzunuzun açıklamasını girin";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Kılavuzunuzu ayrıntılı olarak tanımlayın";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Kılavuz açıklamanız en az 30 karakter içermelidir.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Diğer gezginlerin kılavuzunuzu bulmasına yardımcı olmak için lütfen etiketleri seçin. Bu zorunludur. En fazla %s etiket.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Kılavuzunuz yayınlanmadı";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Lütfen yer imlerinizin adlarının ve açıklamalarının geçerli bir biçimde olduğundan emin olun. Aşağıdaki \"Çevrimiçi düzenle\" butonuna tıklayarak bir masaüstü tarayıcısında kontrol edebilirsiniz.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Kılavuzunuzu yükleyin ve düzenleme bağlantısını masaüstünden alın";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Çevrimiçi düzenle";
 
-"update_guide" = "Update guide";
+"update_guide" = "Güncelleme yükle";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Dosyanız güncelleniyor…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Kılavuzunuz güncellendi";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Kılavuzunuzu genel bir bağlantı yoluyla paylaşabilirsiniz";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Bazı değişiklikler olmuş olabilir";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Yer imlerinizi güncellemek ister misiniz? Yeni sürüm aynı link üzerinden erişilebilecektir.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Güncelleştirme";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Yer imlerinizi çevrimiçi düzenlediniz";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Gelecekte lütfen web sitemiz üzerinden kılavuzu düzenleyin, yayınlayın veya arkadaşlarınızla paylaşın";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Güç tasarrufu modu";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Asla";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Otomatik";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca MAPS.ME desteğinin isteği üzerine etkinleştirin.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Lütfen ağ ayarlarınızı kontrol edip tekrar deneyin";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "İnternet bağlantısı yok";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "İnceleyin ve gezginlere yardım edin!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Bildirimleri kapat";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Çevrimiçi düzenleme";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Gizlilik ayarları";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "GDPR isteği için kimlik al";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Kimliğiniz: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Lütfen kopyalayın ve talebi support@maps.me adresine gönderin";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Kimliği kopyala";
 
+"unable_upadate_error_title" = "Dosya güncellemesi başarısız oldu";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Güncelleme sırasında bazı hatalar oluştu. Lütfen değişiklikleri kontrol edip tekrar deneyin";
+
+"whats_new_wiki_title" = "O yer neresi?";
+
+"whats_new_wiki_message" = "En popüler turistik mekanların sayfalarına Wikipedia.org makaleleri ekledik. Çevrimdışı kullanılabilirler";
 
 "sponsored_partner1_action" = "Outlets";
 

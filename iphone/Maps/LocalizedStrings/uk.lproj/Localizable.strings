@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Ділитись враженнями легко";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Ваш відгук збережено";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Зареєструйтеся, щоб залишити відгук";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Залишіть відгук і допоможіть мандрівникам!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Недостатньо міток";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "У вашому маршруті має бути мінімум 3 мітки, щоб його можна було завантажити до публічного каталогу";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Ви всього в парі кроків від завантаження вашого маршруту до каталогу MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Переконайтеся, що маршрут має назву й опис, а всі мітки містять інформацію про місця. Завдяки цьому користувачі знайдуть маршрут і зможуть скористатися ним у мандрівці.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Так, усе добре!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Введіть назву";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "наприклад, Паби Лондону";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Назвіть маршрут конкретно, щоб користувачі змогли знайти його, наприклад, \"Паби Лондону\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Назва не повинна містити спеціальних символів або цифр. Не публікуйте маршрути з назвою \"Мої мітки\"";
 
-"description_guide" = "Description";
+"description_guide" = "Опис";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Введіть опис маршруту";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Детально опишіть свій маршрут";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "Опис маршруту має складати мінімум 30 символів.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Будь ласка, оберіть теги, щоб допомогти іншим мандрівникам знайти ваш путівник. Це обов’язково. Не більш ніж %s тегів.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Ваш маршрут не був опублікований";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Будь ласка, переконайтеся, що назви й описи міток у маршруті мають належне форматування. Ви можете перевірити це в нашому редакторі за допомогою кнопки \"Редагувати онлайн\" нижче.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Завантажте маршрут і отримайте посилання для редагування на комп’ютері";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Редагувати онлайн";
 
-"update_guide" = "Update guide";
+"update_guide" = "Завантажити нову версію";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Оновлюємо маршрут…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "Маршрут оновлено";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Ви можете поділитися маршрутом за допомогою публічного посилання";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Можливо, є нова версія маршруту";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Бажаєте оновити мітки? Нова версія буде доступною за тим самим посиланням.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Оновити";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Ви редагували маршрут онлайн";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Надалі редагуйте, публікуйте маршрут або діліться ним з друзями через наш веб-сайт";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Режим енергозбереження";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Ніколи";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Автоматично";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Максимальне енергозбереження";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Вмикайте цю опцію тільки на прохання служби підтримки MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Перевірте доступ до мережі та спробуйте ще раз";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Немає з’єднання з Інтернетом";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Залишайте відгук і допомагайте мандрівникам!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Вимкнути сповіщення";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Редагується онлайн";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Налаштування конфіденційності";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Отримати ID для GDPR запиту";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Ваш ID: %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Будь ласка, скопіюйте його й надішліть запит на support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Скопіювати ID";
 
+"unable_upadate_error_title" = "Не вдалося оновити маршрут";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Виникли помилки під час оновлення. Перевірте зміни та спробуйте ще раз";
+
+"whats_new_wiki_title" = "Що це за місце?";
+
+"whats_new_wiki_message" = "Ми додали статті з Wikipedia.org, які доступні офлайн, до карток популярних визначних місць";
 
 "sponsored_partner1_action" = "Outlets";
 

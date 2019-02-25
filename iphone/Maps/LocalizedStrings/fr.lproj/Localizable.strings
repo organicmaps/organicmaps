@@ -2639,123 +2639,109 @@
 
 "whats_new_ugc_routes_title_android_only" = "Il est facile de partager vos impressions";
 
-"ugc_thanks_message_auth" = "Your review has been saved";
+"ugc_thanks_message_auth" = "Votre avis a été enregistré";
 
-"ugc_thanks_message_not_auth" = "Please log in to leave a review";
+"ugc_thanks_message_not_auth" = "Inscrivez-vous pour nous donner votre avis";
 
-"notification_leave_review_v2_title" = "Rate a place and help travellers!";
+"notification_leave_review_v2_title" = "Laissez un commentaire et aidez les autres voyageurs!";
 
-"error_public_not_enought_title" = "Not enough bookmarks";
+"error_public_not_enought_title" = "Pas assez de tags";
 
-/* FIXME. You should have at least 3 bookmarks to be able to upload your guide to the public catalogue */
-"error_public_not_enought_subtitle" = "[error_public_not _enought_subtitle]";
+"error_public_not_enought_subtitle" = "Votre itinéraire doit avoir au moins 3 tags afin d'effectuer le téléchargement dans le répertoire public";
 
-"bookmark_public_upload_alert_title" = "You are a few steps away from sharing your bookmarks with all MAPS.ME travellers!";
+"bookmark_public_upload_alert_title" = "Il ne vous reste que deux étapes à suivre pour charger votre itinéraire dans le répertoire MAPS.ME!";
 
-"bookmark_public_upload_alert_subtitle" = "Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.";
+"bookmark_public_upload_alert_subtitle" = "Assurez-vous que votre itinéraire a un nom et une description, ainsi que tous les tags contiennent des informations sur les lieux. Grâce à ça les utilisateurs peuvent trouver l'itinéraire et l'utiliser pour leurs voyages.";
 
-"bookmark_public_upload_alert_ok_button" = "Yes, I'm sure!";
+"bookmark_public_upload_alert_ok_button" = "Oui, tout va bien!";
 
-"name_title" = "Enter your guide's name";
+"name_title" = "Entrez un nom";
 
-/* FIXME. e.g. Sightseeing in London */
-"name_placeholder" = "[name_placeholder]";
+"name_placeholder" = "par exemple, les pubs de Londres";
 
-/* FIXME. Please name your guide so that travellers can easily find it: for example, "Sightseeing in London". */
-"name_comment1" = "[name_comment1]";
+"name_comment1" = "Veuillez donner un nom spécifique à l'itinéraire pour que les utilisateurs puissent le trouver, par exemple, \"les Pubs de Londres\"";
 
-/* FIXME. The name shouldn't contain special symbols or digits. The name shouldn't be 'My places’. */
-"name_comment2" = "[name_comment2]";
+"name_comment2" = "Le nom ne doit pas contenir de caractères spéciaux ni de chiffres. Ne publiez pas d'itinéraires avec le nom \"My Tags\"";
 
-"description_guide" = "Description";
+"description_guide" = "Descriptif";
 
-"description_title" = "Enter your guide's description";
+"description_title" = "Entrez une description de l'itinéraire";
 
-"description_placeholder" = "Describe your guide in details";
+"description_placeholder" = "Décrivez votre itinéraire en détail";
 
-/* FIXME. Guide description should contain at least 30 symbols (13 for oriental languages). */
-"description_comment1" = "[description_comment1]";
+"description_comment1" = "La description de l'itinéraire doit comporter au moins 30 caractères.";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory. %s tags maximum.";
+"ugc_route_tags_desc" = "Sélectionnez des tags pour aider les autres voyageurs à trouver votre guide de voyage. Cela est indispensable. Pas plus que %s tags.";
 
-"html_format_error_title" = "Your guide has not been published";
+"html_format_error_title" = "Votre itinéraire n'a pas été publié";
 
-"html_format_error_subtitle" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online” button below.";
+"html_format_error_subtitle" = "Assurez-vous que les noms et les descriptions des tags dans l'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton Modifier en ligne ci-dessous.";
 
-/* FIXME. Upload your guide and get the link for edit from desktop */
-"web_editor_description" = "[web_editor_description]";
+"web_editor_description" = "Téléchargez l'itinéraire et vous obtiendrez un lien pour pouvoir le modifier sur votre ordinateur";
 
-"edit_on_web_confirm" = "Edit online";
+"edit_on_web_confirm" = "Éditer en ligne";
 
-"update_guide" = "Update guide";
+"update_guide" = "Télécharger la nouvelle version";
 
-"direct_link_updating_text" = "Updating your file…";
+"direct_link_updating_text" = "Mise à jour de l'itinéraire…";
 
-"direct_link_updating_success" = "Guide has been updated";
+"direct_link_updating_success" = "L'itinéraire a été mis à jour";
 
-/* FIXME. You can share your guide by public link */
-"unable_get_direct_link_desc" = "[unable_get_direct_link_desc]";
+"unable_get_direct_link_desc" = "Vous pouvez désormais partager l'itinéraire en utilisant un lien public";
 
-"any_access_update_alert_title" = "Some changes may have occurred";
+"any_access_update_alert_title" = "Il est possible qu'une nouvelle version de l'itinéraire soir disponible";
 
-"any_access_update_alert_message" = "Do you want to update bookmarks? New version will be available at the same link.";
+"any_access_update_alert_message" = "Voulez-vous mettre à jour les tags? La nouvelle version sera disponible sur le même lien.";
 
-"any_access_update_alert_update" = "Update";
+"any_access_update_alert_update" = "Mettre à jour";
 
-"public_or_limited_access_after_edit_online_error_title" = "You have edited you bookmarks online";
+"public_or_limited_access_after_edit_online_error_title" = "Vous avez édité l'itinéraire en ligne";
 
-"public_or_limited_access_after_edit_online_error_message" = "Further on please edit, publish or share the guide with you friends via out website";
+"public_or_limited_access_after_edit_online_error_message" = "Ensuite vous pouvez éditer, publier ou partager l’itinéraire avec des amis via notre site Web";
 
-/* FIXME */
-"parthner_megafon_search_banner_message" = "[parthner_megafon_search_banner_message]";
+"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
 
-/* FIXME */
-"parthner_megafon_search_banner_button" = "[parthner_megafon_search_banner_button]";
+"power_managment_title" = "Mode économie d'énergie";
 
-/* FIXME. Power managment */
-"power_management_title" = "[power_management_title]";
+"power_managment_description" = "Si le mode d'économie d'énergie est activé, l'application désactive les fonctions consommant de l'énergie en fonction de la charge actuelle du téléphone";
 
-/* FIXME. Power managment settings */
-"power_management_settings" = "[power_management_settings]";
+"power_managment_setting_never" = "Jamais";
 
-/* FIXME. When automatic mode is selected application starts to disable battery draining features depending on the current battery charge level */
-"power_management_description" = "[power_management_description]";
+"power_managment_setting_auto" = "Automatique";
 
-"power_management_setting_never" = "Never";
+"power_managment_setting_manual_max" = "Économie d'énergie maximale";
 
-"power_management_setting_auto" = "Auto";
+"enable_logging_warning_message" = "Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support MAPS.ME.";
 
-"power_management_setting_manual_max" = "Extreme power saving";
+"html_error_upload_message_try_again" = "Vérifiez l'accès au réseau et réessayez";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.";
+"html_error_upload_title_try_again" = "Il n'y a pas de connexion internet";
 
-"html_error_upload_title" = "Your guide has not been published";
+"notification_leave_review_v2_android_short_title" = "Laissez vos commentaire et aidez les voyageurs!";
 
-"html_error_upload_message" = "Please make sure that names and descriptions of your bookmarks all have valid formatting. You can check it in a desktop browser by clicking the \"Edit online\" button below";
+"megafon" = "Read more";
 
-/* FIXME. Please make sure that names and description */
-"html_error_upload_message_try_again" = "[html_error_upload_message_try_again]";
+"notifications_illegal_alert_disable_button" = "Désactiver les notifications";
 
-/* FIXME. Your guide couldn't be uploaded */
-"html_error_upload_title_try_again" = "[html_error_upload_title_try_again]";
+"access_rules_author_only" = "Édition en ligne";
 
-/* FIXME. */
-"notification_leave_review_v2_android_short_title" = "Review and help travellers!";
+"privacy_settings_menu" = "Paramètres de confidentialité";
 
-/* FIXME */
-"notifications_illegal_alert_title" = "Notifications about speedcams are illegal in %s";
+"gdpr_request_setting" = "Obtenir un ID pour la demande GDPR";
 
-/* FIXME */
-"notifications_illegal_alert_message" = "[notifications_illegal_alert_message]";
+"gdpr_request_window_title" = "Votre ID : %s.";
 
-/* FIXME. Replaces parthner_megafon_search_banner_title */
-"megafon" = "[megafon]";
+"gdpr_request_window_message" = "Veuillez le copier et envoyer une demande à support@maps.me";
 
-/* FIXME */
-"notifications_illegal_alert_disable_button" = "Disable notifications";
+"gdpr_request_window_copy" = "Copier l'ID";
 
+"unable_upadate_error_title" = "Impossible de mettre à jour l'itinéraire";
 
-/**********  Partners  **********/
+"unable_upadate_error_message" = "Il y a eu des erreurs pendant la mise à jour. Veuilelz revérifiez les modifications et réessayez";
+
+"whats_new_wiki_title" = "Quel est cet endroit?";
+
+"whats_new_wiki_message" = "Dans les fiches des attractions touristiques populaires, nous avons ajouté des articles de Wikipedia.org, disponibles hors connexion";
 
 "sponsored_partner1_action" = "Outlets";
 
