@@ -25,4 +25,8 @@ void main()
   // And these for the searches, they indicate the ends of the loops.
   v_offset2 = u_framebufferMetrics.xxyy * kMaxSearchSteps + vec4(v_offset0.xz, v_offset1.yw);
   gl_Position = vec4(a_pos, 0.0, 1.0);
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
 }

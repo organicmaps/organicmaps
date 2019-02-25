@@ -148,12 +148,9 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
   auto const dX = static_cast<float>(2.0 * pos.x / screen.PixelRect().SizeX() - 1.0);
   auto const dY = static_cast<float>(2.0 * pos.y / screen.PixelRect().SizeY() - 1.0);
 
-  // In Vulkan y-direction is inverted.
-  float const yDir = (apiVersion == dp::ApiVersion::Vulkan ? -1.0f : 1.0f);
-
   math::Matrix<float, 4, 4> scaleM = math::Identity<float, 4>();
   scaleM(0, 0) = scaleX;
-  scaleM(1, 1) = scaleY * yDir;
+  scaleM(1, 1) = scaleY;
   scaleM(2, 2) = scaleZ;
 
   math::Matrix<float, 4, 4> rotateM = math::Identity<float, 4>();
@@ -164,14 +161,14 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
 
   math::Matrix<float, 4, 4> translateM = math::Identity<float, 4>();
   translateM(3, 0) = dX;
-  translateM(3, 1) = -dY * yDir;
+  translateM(3, 1) = -dY;
   translateM(3, 2) = dz;
 
   math::Matrix<float, 4, 4> modelTransform = rotateM * scaleM * translateM;
   if (screen.isPerspective())
     return modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
 
-  if (apiVersion == dp::ApiVersion::Metal || apiVersion == dp::ApiVersion::Vulkan)
+  if (apiVersion == dp::ApiVersion::Metal)
   {
     modelTransform(3, 2) = modelTransform(3, 2) + 0.5f;
     modelTransform(2, 2) = modelTransform(2, 2) * 0.5f;

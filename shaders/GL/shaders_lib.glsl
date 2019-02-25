@@ -14,6 +14,10 @@ vec4 applyPivotTransform(vec4 pivot, mat4 pivotTransform, float pivotRealZ)
   float w = transformedPivot.w;
   transformedPivot.xyw = (pivotTransform * vec4(transformedPivot.xy, pivotRealZ, w)).xyw;
   transformedPivot.z *= transformedPivot.w / w;
+#ifdef VULKAN
+  transformedPivot.y = -transformedPivot.y;
+  transformedPivot.z = (transformedPivot.z  + transformedPivot.w) / 2.0;
+#endif
   return transformedPivot;
 }
 
@@ -23,7 +27,12 @@ vec4 applyBillboardPivotTransform(vec4 pivot, mat4 pivotTransform, float pivotRe
   float logicZ = pivot.z / pivot.w;
   vec4 transformedPivot = pivotTransform * vec4(pivot.xy, pivotRealZ, pivot.w);
   vec4 scale = pivotTransform * vec4(1.0, -1.0, 0.0, 1.0);
-  return vec4(transformedPivot.xy / transformedPivot.w, logicZ, 1.0) + vec4(offset / scale.w * scale.x, 0.0, 0.0);
+  vec4 position = vec4(transformedPivot.xy / transformedPivot.w, logicZ, 1.0) + vec4(offset / scale.w * scale.x, 0.0, 0.0);
+#ifdef VULKAN
+  position.y = -position.y;
+  position.z = (position.z  + position.w) / 2.0;
+#endif
+  return position;
 }
 
 // This function calculates transformed position on an axis for line shaders family.

@@ -30,5 +30,9 @@ void main()
     v_intensity = 0.0;
 
   gl_Position = u_pivotTransform * pos;
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
   v_colorTexCoords = a_colorTexCoords;
 }

@@ -47,8 +47,6 @@ public:
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();
 
-  void SetYInvertedIn3d(bool isYInverted);
-
 private:
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;

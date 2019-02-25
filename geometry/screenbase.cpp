@@ -33,7 +33,6 @@ ScreenBase::ScreenBase()
   , m_3dScale(1.0)
   , m_isPerspective(false)
   , m_isAutoPerspective(false)
-  , m_isYInvertedIn3d(false)
 {
   m_GtoP = math::Identity<double, 3>();
   m_PtoG = math::Identity<double, 3>();
@@ -124,12 +123,6 @@ double ScreenBase::CalculatePerspectiveAngle(double scale) const
 void ScreenBase::SetAutoPerspective(bool isAutoPerspective)
 {
   m_isAutoPerspective = isAutoPerspective;
-  UpdateDependentParameters();
-}
-
-void ScreenBase::SetYInvertedIn3d(bool isYInverted)
-{
-  m_isYInvertedIn3d = isYInverted;
   UpdateDependentParameters();
 }
 

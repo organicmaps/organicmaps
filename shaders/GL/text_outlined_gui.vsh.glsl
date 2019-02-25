@@ -27,6 +27,10 @@ void main()
   vec4 pos = (vec4(a_position, 1.0) + vec4(0.0, 0.0, depthShift, 0.0)) * u_modelView;
   vec4 shiftedPos = vec4(a_normal, 0.0, 0.0) + pos;
   gl_Position = shiftedPos * u_projection;
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
   vec2 colorTexCoord = mix(a_colorTexCoord, a_outlineColorTexCoord, isOutline);
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, colorTexCoord);

@@ -13,4 +13,8 @@ void main()
   v_colorTexCoords = a_tcoord;
   v_offset = u_framebufferMetrics.xyxy * vec4(1.0, 0.0, 0.0, 1.0) + a_tcoord.xyxy;
   gl_Position = vec4(a_pos, 0.0, 1.0);
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
 }

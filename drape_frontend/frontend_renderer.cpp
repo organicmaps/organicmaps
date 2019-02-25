@@ -1797,13 +1797,10 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   }
   else if (m_isIsometry)
   {
-    // In Vulkan y-direction is inverted.
-    float const yDir = (m_apiVersion == dp::ApiVersion::Vulkan ? -1.0f : 1.0f);
-
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
-    transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle)) * yDir;
+    transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle));
     transform(2, 2) = 1.0f / screen.GetHeight();
-    if (m_apiVersion == dp::ApiVersion::Metal || m_apiVersion == dp::ApiVersion::Vulkan)
+    if (m_apiVersion == dp::ApiVersion::Metal)
     {
       transform(3, 2) = transform(3, 2) + 0.5f;
       transform(2, 2) = transform(2, 2) * 0.5f;
@@ -2162,9 +2159,6 @@ void FrontendRenderer::OnContextCreate()
   m_context->MakeCurrent();
 
   m_context->Init(m_apiVersion);
-
-  if (m_apiVersion == dp::ApiVersion::Vulkan)
-    m_userEventStream.SetYInvertedIn3d(true);
 
   // Render empty frame here to avoid black initialization screen.
   RenderEmptyFrame();

@@ -12,4 +12,8 @@ void main()
   vec4 position = u_transform * vec4(a_pos.xyz, 1.0);
   v_intensity = vec2(max(0.0, -dot(lightDir, a_normal)), a_pos.w);
   gl_Position = position;
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
 }
