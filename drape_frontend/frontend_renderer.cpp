@@ -1304,9 +1304,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   DrapeImmediateRenderingMeasurerGuard drapeMeasurerGuard(m_context);
 #endif
 
-  PreRender3dLayer(modelView);
-
-  if (m_postprocessRenderer->BeginFrame(m_context, activeFrame))
+  if (m_postprocessRenderer->BeginFrame(m_context, modelView, activeFrame))
   {
     RefreshBgColor();
     
@@ -2188,6 +2186,10 @@ void FrontendRenderer::OnContextCreate()
       return false;
     m_context->SetFramebuffer(nullptr /* default */);
     return true;
+  },
+  [this](ScreenBase const & modelView)
+  {
+    PreRender3dLayer(modelView);
   });
 
 #ifndef OMIM_OS_IPHONE_SIMULATOR

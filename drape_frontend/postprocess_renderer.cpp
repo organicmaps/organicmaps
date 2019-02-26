@@ -147,18 +147,22 @@ PostprocessRenderer::~PostprocessRenderer()
   ClearContextDependentResources();
 }
 
-void PostprocessRenderer::Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback)
+void PostprocessRenderer::Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback,
+                               PrerenderFrame && prerenderFrame)
 {
   m_apiVersion = context->GetApiVersion();
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(context);
   m_framebufferFallback = std::move(fallback);
   ASSERT(m_framebufferFallback != nullptr, ());
+  m_prerenderFrame = std::move(prerenderFrame);
+  ASSERT(m_prerenderFrame != nullptr, ());
 }
 
 void PostprocessRenderer::ClearContextDependentResources()
 {
   m_screenQuadRenderer.reset();
   m_framebufferFallback = nullptr;
+  m_prerenderFrame = nullptr;
   m_staticTextures.reset();
 
   m_mainFramebuffer.reset();
@@ -240,17 +244,26 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
   return true;
 }
 
-bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame)
+bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
+                                     bool activeFrame)
 {
   if (!IsEnabled())
   {
+    CHECK(m_prerenderFrame != nullptr, ());
+    m_prerenderFrame(modelView);
+
     CHECK(m_framebufferFallback != nullptr, ());
     return m_framebufferFallback();
   }
 
   m_frameStarted = activeFrame || !m_isMainFramebufferRendered;
   if (m_frameStarted)
+  {
+    CHECK(m_prerenderFrame != nullptr, ());
+    m_prerenderFrame(modelView);
+
     context->SetFramebuffer(make_ref(m_mainFramebuffer));
+  }
 
   if (m_frameStarted && CanRenderAntialiasing())
     context->SetStencilTestEnabled(false);
