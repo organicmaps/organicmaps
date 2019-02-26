@@ -183,7 +183,12 @@ final class BookmarksSharingViewController: MWMTableViewController {
       self.dismiss(animated: true)
       self.performAfterValidation(anchor: self.uploadAndPublishCell) { [weak self] in
         if let self = self {
-          self.showEditName()
+          if (self.category.trackCount + self.category.bookmarksCount > 2) {
+            self.showEditName()
+          } else {
+            MWMAlertViewController.activeAlert().presentInfoAlert(L("error_public_not_enough_title"),
+                                                                  text: L("error_public_not_enough_subtitle"))
+          }
         }
       }
     }
