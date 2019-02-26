@@ -131,6 +131,28 @@ string SerializeIndexes(ugc::UpdateIndexes const & indexes)
   return string(buffer.get());
 }
 
+bool SaveIndexes(ugc::UpdateIndexes const & indexes, std::string const & pathToTargetFile = "")
+{
+  if (indexes.empty())
+    return false;
+
+  auto const indexFilePath = pathToTargetFile.empty() ? GetIndexFilePath() : pathToTargetFile;
+  auto const jsonData = SerializeIndexes(indexes);
+  try
+  {
+    FileWriter w(indexFilePath);
+    w.Write(jsonData.c_str(), jsonData.length());
+  }
+  catch (FileWriter::Exception const & exception)
+  {
+    LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
+    base::DeleteFileX(indexFilePath);
+    return false;
+  }
+
+  return true;
+}
+
 template <typename UGCUpdate>
 ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
                                                 FeatureType & featureType,
@@ -186,7 +208,9 @@ ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
   }
 
   indexes.emplace_back(move(index));
-  return ugc::Storage::SettingResult::Success;
+
+  return SaveIndexes(indexes) ? ugc::Storage::SettingResult::Success
+                              : ugc::Storage::SettingResult::WritingError;
 }
 }  // namespace
 
@@ -203,7 +227,8 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
     return {};
 
   auto const offset = index->m_offset;
-  auto const size = static_cast<size_t>(UGCSizeAtIndex(distance(m_indexes.begin(), index)));
+  auto const pos = static_cast<size_t>(distance(m_indexes.begin(), index));
+  auto const size = static_cast<size_t>(UGCSizeAtPos(pos));
   vector<uint8_t> buf;
   buf.resize(size);
   auto const ugcFilePath = GetUGCFilePath();
@@ -305,7 +330,7 @@ void Storage::Migrate(string const & indexFilePath)
     DefragmentationImpl(true /* force */);
     // fallthrough
   case migration::Result::Success:
-    if (!SaveIndex(indexFilePath))
+    if (!SaveIndexes(m_indexes, indexFilePath))
     {
       base::DeleteFileX(indexFilePath);
       base::DeleteFileX(ugcFilePath);
@@ -343,28 +368,6 @@ UpdateIndexes::const_iterator Storage::FindIndex(uint32_t bestType, m2::PointD c
     });
 }
 
-bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
-{
-  if (m_indexes.empty())
-    return false;
-
-  auto const indexFilePath = pathToTargetFile.empty() ? GetIndexFilePath() : pathToTargetFile;
-  auto const jsonData = SerializeIndexes(m_indexes);
-  try
-  {
-    FileWriter w(indexFilePath);
-    w.Write(jsonData.c_str(), jsonData.length());
-  }
-  catch (FileWriter::Exception const & exception)
-  {
-    LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
-    base::DeleteFileX(indexFilePath);
-    return false;
-  }
-
-  return true;
-}
-
 void Storage::Defragmentation()
 {
   DefragmentationImpl(false /* force */);
@@ -391,7 +394,7 @@ void Storage::DefragmentationImpl(bool force)
         continue;
 
       auto const offset = index.m_offset;
-      auto const size = static_cast<size_t>(UGCSizeAtIndex(i));
+      auto const size = static_cast<size_t>(UGCSizeAtPos(i));
       vector<uint8_t> buf;
       buf.resize(size);
       r.Read(offset, buf.data(), size);
@@ -436,7 +439,7 @@ string Storage::GetUGCToSend() const
       continue;
 
     auto const offset = index.m_offset;
-    auto const bufSize = static_cast<size_t>(UGCSizeAtIndex(i));
+    auto const bufSize = static_cast<size_t>(UGCSizeAtPos(i));
     buf.resize(bufSize);
     try
     {
@@ -520,23 +523,23 @@ void Storage::MarkAllAsSynchronized()
 
   auto const indexPath = GetIndexFilePath();
   base::DeleteFileX(indexPath);
-  SaveIndex();
+  SaveIndexes(m_indexes);
 }
 
-uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
+uint64_t Storage::UGCSizeAtPos(size_t const pos) const
 {
   CHECK(!m_indexes.empty(), ());
   auto const indexesSize = m_indexes.size();
-  CHECK_LESS(indexPosition, indexesSize, ());
-  auto const indexOffset = m_indexes[indexPosition].m_offset;
+  CHECK_LESS(pos, indexesSize, ());
+  auto const offset = m_indexes[pos].m_offset;
   uint64_t nextOffset;
-  if (indexPosition == indexesSize - 1)
+  if (pos == indexesSize - 1)
     CHECK(GetUGCFileSize(nextOffset), ());
   else
-    nextOffset = m_indexes[indexPosition + 1].m_offset;
+    nextOffset = m_indexes[pos + 1].m_offset;
 
-  CHECK_GREATER(nextOffset, indexOffset, ());
-  return nextOffset - indexOffset;
+  CHECK_GREATER(nextOffset, offset, ());
+  return nextOffset - offset;
 }
 
 unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
@@ -578,6 +581,11 @@ void Storage::LoadForTesting(std::string const & testIndexFilePath)
 
   if (m_indexes.front().m_version != IndexVersion::Latest)
     Migrate(testIndexFilePath);
+}
+
+bool Storage::SaveIndexForTesting(std::string const & testIndexFilePath) const
+{
+  return SaveIndexes(m_indexes, testIndexFilePath);
 }
 }  // namespace ugc
 

@@ -41,7 +41,6 @@ public:
   void HasUGCForPlace(uint32_t bestType, m2::PointD const & point,
                       HasUGCForPlaceCallback const & callback);
   void SendingCompleted();
-  void SaveUGCOnDisk();
 
   Loader & GetLoader();
 
@@ -52,7 +51,6 @@ private:
   void HasUGCForPlaceImpl(uint32_t bestType, m2::PointD const & point,
                           HasUGCForPlaceCallback const & callback) const;
   void SendingCompletedImpl();
-  void SaveUGCOnDiskImpl();
 
   base::thread_pool::delayed::ThreadPool m_thread;
   Storage m_storage;

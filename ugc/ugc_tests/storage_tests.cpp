@@ -47,7 +47,7 @@ string const kTestMwmName = "ugc storage test";
 bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
   if (v == ugc::IndexVersion::Latest)
-    return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "index.json"));
+    return base::DeleteFileX(base::JoinPath(GetPlatform().SettingsDir(), "index.json"));
 
   string version;
   switch (v)
@@ -60,14 +60,13 @@ bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
     break;
   }
 
-  return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "index.json." + version));
+  return base::DeleteFileX(base::JoinPath(GetPlatform().SettingsDir(), "index.json." + version));
 }
 
 bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
   if (v == ugc::IndexVersion::Latest)
-    return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin"));
-
+    return base::DeleteFileX(base::JoinPath(GetPlatform().SettingsDir(), "ugc.update.bin"));
 
   string version;
   switch (v)
@@ -80,7 +79,8 @@ bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
       break;
   }
 
-  return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin." + version));
+  return base::DeleteFileX(
+      base::JoinPath(GetPlatform().SettingsDir(), "ugc.update.bin." + version));
 }
 }  // namespace
 
@@ -203,6 +203,7 @@ public:
   ~StorageTest()
   {
     TEST(DeleteUGCFile(), ());
+    TEST(DeleteIndexFile(), ());
   }
 };
 }  // namespace ugc_tests
@@ -224,7 +225,6 @@ UNIT_CLASS_TEST(StorageTest, Smoke)
   TEST(!storage.GetUGCToSend().empty(), ());
   storage.MarkAllAsSynchronized();
   TEST(storage.GetUGCToSend().empty(), ());
-  TEST(DeleteIndexFile(), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, DuplicatesAndDefragmentationSmoke)
@@ -288,7 +288,6 @@ UNIT_CLASS_TEST(StorageTest, LoadIndex)
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
     TEST_EQUAL(storage.SetUGCUpdate(railwayId, railwayUGC), Storage::SettingResult::Success, ());
-    storage.SaveIndex();
   }
 
   Storage storage(builder.GetDataSource());
@@ -303,7 +302,6 @@ UNIT_CLASS_TEST(StorageTest, LoadIndex)
 
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(indexArray.size(), 3, ());
-  TEST(DeleteIndexFile(), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, ContentTest)
@@ -357,7 +355,6 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   storage.MarkAllAsSynchronized();
   TEST(firstIndex.m_synchronized, ());
   TEST(lastIndex.m_synchronized, ());
-  TEST(DeleteIndexFile(), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, InvalidUGC)
@@ -420,7 +417,6 @@ UNIT_CLASS_TEST(StorageTest, NumberOfUnsynchronized)
     Storage storage(builder.GetDataSource());
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
-    storage.SaveIndex();
   }
 
   Storage storage(builder.GetDataSource());
@@ -433,8 +429,6 @@ UNIT_CLASS_TEST(StorageTest, NumberOfUnsynchronized)
 
   storage.MarkAllAsSynchronized();
   TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 0, ());
-
-  TEST(DeleteIndexFile(), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
@@ -450,7 +444,6 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
     Storage storage(builder.GetDataSource());
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
-    storage.SaveIndex();
     TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 1, ());
   }
 
@@ -461,11 +454,9 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
     storage.Load();
     storage.MarkAllAsSynchronized();
     TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 0, ());
-    storage.SaveIndex();
   }
 
   TEST_EQUAL(lightweight::impl::GetNumberOfUnsentUGC(), 0, ());
-  TEST(DeleteIndexFile(), ());
 }
 
 UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
@@ -509,8 +500,6 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
       TEST_EQUAL(static_cast<uint8_t>(i.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
       TEST(!i.m_synchronized, ());
     }
-
-    TEST(s.SaveIndex(indexFilePath), ());
   }
 
   {
@@ -534,7 +523,7 @@ UNIT_TEST(UGC_NoReviews)
   auto & builder = MwmBuilder::Builder();
   Storage s(builder.GetDataSource());
   s.Load();
-  s.SaveIndex();
+  s.SaveIndexForTesting();
   // When we didn't write any reviews there should be no index file and no ugc file.
   TEST(!DeleteIndexFile(), ());
   TEST(!DeleteUGCFile(), ());
@@ -568,8 +557,7 @@ UNIT_TEST(UGC_TooOldDataVersionsForMigration)
     railwayIndex.m_dataVersion = kMinVersionForMigration;
     railwayIndex.m_version = IndexVersion::V0;
     railwayIndex.m_synchronized = true;
-
-    s.SaveIndex();
+    s.SaveIndexForTesting();
   }
 
   {
@@ -584,7 +572,6 @@ UNIT_TEST(UGC_TooOldDataVersionsForMigration)
     TEST_EQUAL(static_cast<uint8_t>(railwayIndex.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
     TEST(!railwayIndex.m_synchronized, ());
     TEST_EQUAL(railwayIndex.m_dataVersion, kMinVersionForMigration, ());
-    s.SaveIndex();
   }
 
   {
