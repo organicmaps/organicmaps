@@ -30,6 +30,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
+  private boolean mSafeCreated;
 
   @Override
   @NonNull
@@ -107,6 +108,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     attachDefaultFragment();
+    mSafeCreated = true;
   }
 
   @ColorRes
@@ -155,11 +157,8 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     super.onDestroy();
     mBaseDelegate.onDestroy();
 
-    if (!MwmApplication.get().arePlatformAndCoreInitialized()
-        || !PermissionsUtils.isExternalStorageGranted())
-    {
+    if (!mSafeCreated)
       return;
-    }
 
     safeOnDestroy();
   }
@@ -172,6 +171,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @CallSuper
   protected void safeOnDestroy()
   {
+    mSafeCreated = false;
   }
 
   @CallSuper
