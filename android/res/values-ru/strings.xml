@@ -1528,10 +1528,10 @@
 	<string name="description_guide">Описание</string>
 	<string name="description_title">Введите описание маршрута</string>
 	<string name="description_placeholder">Опишите свой маршрут подробно</string>
-	<string name="description_comment1">Описание маршрута должно состоять из 30 символов минимум.</string>
+	<string name="description_comment1">Описание маршрута должно состоять из минимум 30 символов.</string>
 	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно. Не больше %s тегов.</string>
 	<string name="html_format_error_title">Ваш маршрут не был опубликован</string>
-	<string name="html_format_error_subtitle">Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в нашем редакторе по кнопке \"Редактировать онлайн\" ниже.</string>
+	<string name="html_format_error_subtitle">Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в браузере на компьютере по кнопке \"Редактировать онлайн\" ниже.</string>
 	<string name="web_editor_description">Загрузите маршрут и получите ссылку для редактирования на компьютере</string>
 	<string name="edit_on_web_confirm">Редактировать онлайн</string>
 	<string name="update_guide">Загрузить новую версию</string>
@@ -1549,7 +1549,7 @@
 	<string name="power_managment_setting_never">Никогда</string>
 	<string name="power_managment_setting_auto">Авто</string>
 	<string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
-	<string name="enable_logging_warning_message">Данная опция включается для логирования действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте опцию только по просьбе поддержки MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки MAPS.ME.</string>
 	<string name="html_error_upload_message_try_again">Проверьте доступ к сети и повторите попытку</string>
 	<string name="html_error_upload_title_try_again">Нет соединения с Интернетом</string>
 	<string name="notification_leave_review_v2_android_short_title">Оставляйте отзыв и помогайте путешественникам!</string>
@@ -1557,7 +1557,7 @@
 	<string name="notifications_illegal_alert_disable_button">Выключить уведомления</string>
 	<string name="access_rules_author_only">Редактируется онлайн</string>
 	<string name="privacy_settings_menu">Настройки конфиденциальности</string>
-	<string name="gdpr_request_setting">Получить ID для GDPR запроса</string>
+	<string name="gdpr_request_setting">Получить ID для GDPR-запроса</string>
 	<string name="gdpr_request_window_title">Ваш ID: %s.</string>
 	<string name="gdpr_request_window_message">Пожалуйста, скопируйте его и отправьте запрос на support\@maps.me</string>
 	<string name="gdpr_request_window_copy">Скопировать ID</string>

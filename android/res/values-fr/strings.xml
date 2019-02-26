@@ -1494,14 +1494,14 @@
 	<string name="description_comment1">La description de l\'itinéraire doit comporter au moins 30 caractères.</string>
 	<string name="ugc_route_tags_desc">Sélectionnez des tags pour aider les autres voyageurs à trouver votre guide de voyage. Cela est indispensable. Pas plus que %s tags.</string>
 	<string name="html_format_error_title">Votre itinéraire n\'a pas été publié</string>
-	<string name="html_format_error_subtitle">Assurez-vous que les noms et les descriptions des tags dans l\'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton Modifier en ligne ci-dessous.</string>
+	<string name="html_format_error_subtitle">Assurez-vous que les noms et les descriptions des tags dans l\'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton \"Modifier en ligne\" ci-dessous.</string>
 	<string name="web_editor_description">Téléchargez l\'itinéraire et vous obtiendrez un lien pour pouvoir le modifier sur votre ordinateur</string>
 	<string name="edit_on_web_confirm">Éditer en ligne</string>
 	<string name="update_guide">Télécharger la nouvelle version</string>
 	<string name="direct_link_updating_text">Mise à jour de l\'itinéraire…</string>
 	<string name="direct_link_updating_success">L\'itinéraire a été mis à jour</string>
 	<string name="unable_get_direct_link_desc">Vous pouvez désormais partager l\'itinéraire en utilisant un lien public</string>
-	<string name="any_access_update_alert_title">Il est possible qu\'une nouvelle version de l\'itinéraire soir disponible</string>
+	<string name="any_access_update_alert_title">Il est possible qu\'une nouvelle version de l\'itinéraire soit disponible</string>
 	<string name="any_access_update_alert_message">Voulez-vous mettre à jour les tags? La nouvelle version sera disponible sur le même lien.</string>
 	<string name="any_access_update_alert_update">Mettre à jour</string>
 	<string name="public_or_limited_access_after_edit_online_error_title">Vous avez édité l\'itinéraire en ligne</string>
@@ -1514,7 +1514,7 @@
 	<string name="enable_logging_warning_message">Cette option est activée pour l\'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support MAPS.ME.</string>
 	<string name="html_error_upload_message_try_again">Vérifiez l\'accès au réseau et réessayez</string>
 	<string name="html_error_upload_title_try_again">Il n\'y a pas de connexion internet</string>
-	<string name="notification_leave_review_v2_android_short_title">Laissez vos commentaire et aidez les voyageurs!</string>
+	<string name="notification_leave_review_v2_android_short_title">Laissez vos commentaire et aidez les voyageurs !</string>
 	<string name="notifications_illegal_alert_disable_button">Désactiver les notifications</string>
 	<string name="access_rules_author_only">Édition en ligne</string>
 	<string name="privacy_settings_menu">Paramètres de confidentialité</string>

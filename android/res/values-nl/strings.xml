@@ -1480,7 +1480,7 @@
 	<string name="description_comment1">De routebeschrijving moet uit minimaal 30 tekens bestaan.</string>
 	<string name="ugc_route_tags_desc">Alstublieft, selecteer tags om andere reizigers te helpen uw reisgids te vinden. Dit is verplicht. Niet meer dan %s tags.</string>
 	<string name="html_format_error_title">Uw route is niet gepubliceerd</string>
-	<string name="html_format_error_subtitle">Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop Online bewerken hieronder te klikken.</string>
+	<string name="html_format_error_subtitle">Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop \"Online bewerken\" hieronder te klikken.</string>
 	<string name="web_editor_description">Download de route en krijg een link om deze te bewerken op de computer</string>
 	<string name="edit_on_web_confirm">Bewerk online</string>
 	<string name="update_guide">Download de nieuwe versie</string>

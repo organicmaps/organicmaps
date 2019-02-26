@@ -37632,7 +37632,7 @@
 
   [description_comment1]
     en = Your guide description should contain at least 30 symbols.
-    ru = Описание маршрута должно состоять из 30 символов минимум.
+    ru = Описание маршрута должно состоять из минимум 30 символов.
     ar = يجب أن يحتوي وصف الدليل على 30 حرفًا على الأقل.
     cs = Popis trasy musí mít nejméně než 30 symboly.
     da = Din guide-beskrivelse skal indeholde mindst 30 symboler.
@@ -37734,13 +37734,13 @@
 
   [html_format_error_subtitle]
     en = Please make sure that names and descriptions of your bookmarks all have a valid format. You can check it on a desktop browser by clicking the "Edit online" button below.
-    ru = Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в нашем редакторе по кнопке "Редактировать онлайн" ниже.
+    ru = Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в браузере на компьютере по кнопке "Редактировать онлайн" ниже.
     ar = يرجى التأكد أن أسماء ووصف معلماتك بالصيغة الصحيحة. يمكنك التحقق منها فى المتصفح بالضغط على زر "حرر الآن" فى الأسفل.
     cs = Prosím, přesvědčte se, že názvy i popisy značek na trase mají správné formátování. Můžete zkontrolovat to v našem editoru pří pomoci knoflíku níže "Upravovat on-line".
     da = Sørg for at navne og beskrivelser af dine bogmærker alle har et gyldigt format. Du kan tjekke det, via en browser på skrivebordet, ved at klikke på knappen "Rediger online", nedenfor.
-    nl = Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop Online bewerken hieronder te klikken.
+    nl = Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop "Online bewerken" hieronder te klikken.
     fi = Varmista, että kaikkien kirjanmerkkien nimet ja kuvaukset ovat oikein muotoiltu. Voit tarkistaa sen tietokoneen selaimella klikkaamalla "Muokkaa netissä" -painiketta alla.
-    fr = Assurez-vous que les noms et les descriptions des tags dans l'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton Modifier en ligne ci-dessous.
+    fr = Assurez-vous que les noms et les descriptions des tags dans l'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton "Modifier en ligne" ci-dessous.
     de = Bitte überprüfen Sie, ob der Titel und die Beschreibung der Markierungen in der Route richtig formatiert sind. Sie können das in unserem Editor überprüfen. Dafür klicken Sie auf die Taste "Online bearbeiten" weiter unten.
     hu = Kérjük győződj meg róla, hogy a könyvjelzőid nevei és könyvjelzői mind érvényes formátumúak. Ellenőrizheted egy asztali böngészőn a lenti "Online szerkesztés" gombra kattintva.
     id = Pastikan bahwa nama dan deskripsi bookmark dalam format yang valid. Anda dapat memeriksanya di browser desktop dengan mengeklik tombol "Edit online" di bawah.
@@ -37978,7 +37978,7 @@
     da = Nogle ændringer kan have fundet sted
     nl = Misschien is er een nieuwe versie van de route
     fi = On voinut tapahtua muutoksia
-    fr = Il est possible qu'une nouvelle version de l'itinéraire soir disponible
+    fr = Il est possible qu'une nouvelle version de l'itinéraire soit disponible
     de = Möglicherweise gibt es eine neue Version der Route
     hu = Néhány változás történhetett
     id = Beberapa perubahan mungkin terjadi
@@ -38316,7 +38316,7 @@
 
   [enable_logging_warning_message]
     en = The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of MAPS.ME support.
-    ru = Данная опция включается для логирования действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте опцию только по просьбе поддержки MAPS.ME.
+    ru = Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки MAPS.ME.
     ar = يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من MAPS.ME.
     cs = Daná možnost se zapojuje pro protokolování činností za účelem diagnostiky. To pomáhá týmu odhalit problémy s přílohou. Zapojujte možnost jenom na požádání podržení MAPS.ME.
     da = Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra MAPS.ME support.
@@ -38424,7 +38424,7 @@
     da = Anmeld og hjælpe rejsende!
     nl = Laat een feedback achter en help reizigers!
     fi = Arvostele ja auta matkailijoita!
-    fr = Laissez vos commentaire et aidez les voyageurs!
+    fr = Laissez vos commentaire et aidez les voyageurs !
     de = Hinterlassen Sie Ihr Feedback und helfen Sie damit den Reisenden!
     hu = Értékelj és segítsd az utazókat!
     id = Ulas dan bantu traveler!
@@ -38558,7 +38558,7 @@
 
   [gdpr_request_setting]
     en = Get ID for GDPR request
-    ru = Получить ID для GDPR запроса
+    ru = Получить ID для GDPR-запроса
     ar = احصل على اسم مستخدم طبقًا لقواعد GDPR
     cs = Dostat ID pro GDPR požadavek
     da = Få ID til GDPR anmodning
@@ -38795,7 +38795,7 @@
     fa = آن محل چیست؟
 
   [whats_new_wiki_message]
-    en = We've added Wikipedia.org articles to the pages of the most popular tourist attractions. They are available offline
+    en = We've added Wikipedia.org articles to the place pages of the most popular tourist attractions. They are available offline
     ru = В карточки популярных достопримечательностей мы добавили статьи из Wikipedia.org, доступные офлайн
     ar = لقد أضفنا مقالات Wikipedia.org إلى صفحات معظم الأماكن السياحية المشهورة. أنها متاحة بدون اتصال بالانترنت
     cs = Do kartiček populárních pamětihodností jsme vložili články ze Wikipedia.org, které jsou přístupny offline

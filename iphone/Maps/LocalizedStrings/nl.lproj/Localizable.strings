@@ -2675,7 +2675,7 @@
 
 "html_format_error_title" = "Uw route is niet gepubliceerd";
 
-"html_format_error_subtitle" = "Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop Online bewerken hieronder te klikken.";
+"html_format_error_subtitle" = "Zorg ervoor dat de namen en beschrijvingen van tags in de route de juiste opmaak hebben. U kunt dit controleren in onze editor door op de knop \"Online bewerken\" hieronder te klikken.";
 
 "web_editor_description" = "Download de route en krijg een link om deze te bewerken op de computer";
 

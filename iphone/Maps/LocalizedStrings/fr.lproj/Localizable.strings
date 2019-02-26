@@ -2675,7 +2675,7 @@
 
 "html_format_error_title" = "Votre itinéraire n'a pas été publié";
 
-"html_format_error_subtitle" = "Assurez-vous que les noms et les descriptions des tags dans l'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton Modifier en ligne ci-dessous.";
+"html_format_error_subtitle" = "Assurez-vous que les noms et les descriptions des tags dans l'itinéraire ont la bonne mise en forme. Vous pouvez le vérifier en cliquant sur le bouton \"Modifier en ligne\" ci-dessous.";
 
 "web_editor_description" = "Téléchargez l'itinéraire et vous obtiendrez un lien pour pouvoir le modifier sur votre ordinateur";
 
@@ -2689,7 +2689,7 @@
 
 "unable_get_direct_link_desc" = "Vous pouvez désormais partager l'itinéraire en utilisant un lien public";
 
-"any_access_update_alert_title" = "Il est possible qu'une nouvelle version de l'itinéraire soir disponible";
+"any_access_update_alert_title" = "Il est possible qu'une nouvelle version de l'itinéraire soit disponible";
 
 "any_access_update_alert_message" = "Voulez-vous mettre à jour les tags? La nouvelle version sera disponible sur le même lien.";
 
@@ -2717,7 +2717,7 @@
 
 "html_error_upload_title_try_again" = "Il n'y a pas de connexion internet";
 
-"notification_leave_review_v2_android_short_title" = "Laissez vos commentaire et aidez les voyageurs!";
+"notification_leave_review_v2_android_short_title" = "Laissez vos commentaire et aidez les voyageurs !";
 
 "megafon" = "Read more";
 
