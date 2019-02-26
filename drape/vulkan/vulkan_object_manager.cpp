@@ -41,7 +41,7 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
   , m_queueFamilyIndex(queueFamilyIndex)
   , m_memoryManager(device, deviceLimits, memoryProperties)
 {
-  for (size_t i = 0; i < RendererType::Count; ++i)
+  for (size_t i = 0; i < ThreadType::Count; ++i)
     m_queuesToDestroy[i].reserve(50);
   m_descriptorsToDestroy.reserve(50);
   CreateDescriptorPool();
@@ -49,9 +49,9 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
 
 VulkanObjectManager::~VulkanObjectManager()
 {
-  CollectDescriptorSetGroups();
+  CollectDescriptorSetGroupsUnsafe();
 
-  for (size_t i = 0; i < RendererType::Count; ++i)
+  for (size_t i = 0; i < ThreadType::Count; ++i)
     CollectObjectsImpl(m_queuesToDestroy[i]);
 
   for (auto const & s : m_samplers)
@@ -61,7 +61,7 @@ VulkanObjectManager::~VulkanObjectManager()
   DestroyDescriptorPools();
 }
 
-void VulkanObjectManager::RegisterRendererThread(RendererType type)
+void VulkanObjectManager::RegisterThread(ThreadType type)
 {
   m_renderers[type] = std::this_thread::get_id();
 }
@@ -169,7 +169,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
 
 DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program)
 {
-  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
+  CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
 
   CHECK(!m_descriptorPools.empty(), ());
 
@@ -205,23 +205,35 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 void VulkanObjectManager::DestroyObject(VulkanObject object)
 {
   auto const currentThreadId = std::this_thread::get_id();
-  if (currentThreadId == m_renderers[RendererType::Frontend])
-    m_queuesToDestroy[RendererType::Frontend].push_back(std::move(object));
-  else if (currentThreadId == m_renderers[RendererType::Backend])
-    m_queuesToDestroy[RendererType::Backend].push_back(std::move(object));
+  if (currentThreadId == m_renderers[ThreadType::Frontend])
+  {
+    m_queuesToDestroy[ThreadType::Frontend].push_back(std::move(object));
+  }
+  else if (currentThreadId == m_renderers[ThreadType::Backend])
+  {
+    m_queuesToDestroy[ThreadType::Backend].push_back(std::move(object));
+  }
   else
-    CHECK(false, ("Unknown thread."));
+  {
+    std::lock_guard<std::mutex> lock(m_destroyMutex);
+    m_queuesToDestroy[ThreadType::Other].push_back(std::move(object));
+  }
 }
 
 void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 {
-  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
+  CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
   m_descriptorsToDestroy.push_back(std::move(group));
 }
 
 void VulkanObjectManager::CollectDescriptorSetGroups()
 {
-  CHECK(std::this_thread::get_id() == m_renderers[RendererType::Frontend], ());
+  CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
+  CollectDescriptorSetGroupsUnsafe();
+}
+
+void VulkanObjectManager::CollectDescriptorSetGroupsUnsafe()
+{
   for (auto const & d : m_descriptorsToDestroy)
   {
     CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
@@ -233,15 +245,20 @@ void VulkanObjectManager::CollectDescriptorSetGroups()
 void VulkanObjectManager::CollectObjects()
 {
   auto const currentThreadId = std::this_thread::get_id();
-  if (currentThreadId == m_renderers[RendererType::Frontend])
-    CollectObjectsForThread(RendererType::Frontend);
-  else if (currentThreadId == m_renderers[RendererType::Backend])
-    CollectObjectsForThread(RendererType::Backend);
-  else
-    CHECK(false, ("Unknown thread."));
+  if (currentThreadId == m_renderers[ThreadType::Frontend])
+  {
+    CollectObjectsForThread(ThreadType::Frontend);
+  }
+  else if (currentThreadId == m_renderers[ThreadType::Backend])
+  {
+    CollectObjectsForThread(ThreadType::Backend);
+
+    std::lock_guard<std::mutex> lock(m_destroyMutex);
+    CollectObjectsForThread(ThreadType::Other);
+  }
 }
 
-void VulkanObjectManager::CollectObjectsForThread(RendererType type)
+void VulkanObjectManager::CollectObjectsForThread(ThreadType type)
 {
   if (m_queuesToDestroy[type].empty())
     return;
@@ -358,7 +375,7 @@ void VulkanObjectManager::DestroyDescriptorPools()
 
 VkSampler VulkanObjectManager::GetSampler(SamplerKey const & key)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_samplerMutex);
 
   auto const it = m_samplers.find(key);
   if (it != m_samplers.end())

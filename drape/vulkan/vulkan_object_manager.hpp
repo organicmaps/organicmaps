@@ -59,13 +59,14 @@ public:
                       uint32_t queueFamilyIndex);
   ~VulkanObjectManager();
 
-  enum RendererType
+  enum ThreadType
   {
     Frontend = 0,
     Backend,
+    Other,
     Count
   };
-  void RegisterRendererThread(RendererType type);
+  void RegisterThread(ThreadType type);
 
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                             uint32_t sizeInBytes, uint64_t batcherHash);
@@ -92,15 +93,16 @@ public:
 private:
   void CreateDescriptorPool();
   void DestroyDescriptorPools();
-  void CollectObjectsForThread(RendererType type);
+  void CollectObjectsForThread(ThreadType type);
   void CollectObjectsImpl(std::vector<VulkanObject> const & objects);
+  void CollectDescriptorSetGroupsUnsafe();
 
   VkDevice const m_device;
   uint32_t const m_queueFamilyIndex;
   VulkanMemoryManager m_memoryManager;
 
-  std::array<std::thread::id, RendererType::Count> m_renderers = {};
-  std::array<std::vector<VulkanObject>, RendererType::Count>  m_queuesToDestroy = {};
+  std::array<std::thread::id, ThreadType::Count> m_renderers = {};
+  std::array<std::vector<VulkanObject>, ThreadType::Count>  m_queuesToDestroy = {};
 
   std::vector<VkDescriptorPool> m_descriptorPools;
   std::vector<DescriptorSetGroup> m_descriptorsToDestroy;
@@ -108,6 +110,7 @@ private:
   std::map<SamplerKey, VkSampler> m_samplers;
 
   std::mutex m_mutex;
+  std::mutex m_samplerMutex;
   std::mutex m_destroyMutex;
 };
 }  // namespace vulkan

@@ -40,7 +40,7 @@ public:
 
   void MakeCurrent() override
   {
-    m_objectManager->RegisterRendererThread(dp::vulkan::VulkanObjectManager::Frontend);
+    m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
   }
 };
 
@@ -58,7 +58,7 @@ public:
 
   void MakeCurrent() override
   {
-    m_objectManager->RegisterRendererThread(dp::vulkan::VulkanObjectManager::Backend);
+    m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Backend);
   }
 
   void Present() override {}

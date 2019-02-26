@@ -4,6 +4,7 @@
 
 #include "base/macros.hpp"
 
+#include <algorithm>
 #include <cstring>
 
 namespace dp
@@ -16,7 +17,6 @@ VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const 
   , m_batcherHash(batcherHash)
 {
   m_regionsToCopy.reserve(5);
-  m_barriers.reserve(5);
   Resize(context, data, capacity);
 }
 
@@ -34,6 +34,8 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
   uint32_t const elementSize = GetElementSize();
   uint32_t const mappingSizeInBytes = elementCount * elementSize;
   m_mappingByteOffset = elementOffset * elementSize;
+  m_mappingByteOffsetMin = std::numeric_limits<uint32_t>::max();
+  m_mappingByteOffsetMax = std::numeric_limits<uint32_t>::min();
 
   VkCommandBuffer commandBuffer = context->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
@@ -68,19 +70,12 @@ void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
   copyRegion.srcOffset = baseSrcOffset + byteOffset;
   copyRegion.size = byteCount;
 
-  VkBufferMemoryBarrier barrier = {};
-  barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-  barrier.pNext = nullptr;
-  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-  barrier.dstAccessMask = VK_ACCESS_INDEX_READ_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
-  barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  barrier.buffer = m_geometryBuffer.m_buffer;
-  barrier.offset = copyRegion.dstOffset;
-  barrier.size = copyRegion.size;
+  m_mappingByteOffsetMin = std::min(m_mappingByteOffsetMin,
+                                    static_cast<uint32_t>(copyRegion.dstOffset));
+  m_mappingByteOffsetMax = std::max(m_mappingByteOffsetMax,
+                                    static_cast<uint32_t>(copyRegion.dstOffset + copyRegion.size));
 
   m_regionsToCopy.push_back(std::move(copyRegion));
-  m_barriers.push_back(std::move(barrier));
 }
 
 void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
@@ -101,14 +96,23 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
                   static_cast<uint32_t>(m_regionsToCopy.size()), m_regionsToCopy.data());
 
   // Set up barriers to prevent data collisions.
+  CHECK_LESS(m_mappingByteOffsetMin, m_mappingByteOffsetMax, ());
+  VkBufferMemoryBarrier barrier = {};
+  barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+  barrier.pNext = nullptr;
+  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+  barrier.dstAccessMask = VK_ACCESS_INDEX_READ_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
+  barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+  barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+  barrier.buffer = m_geometryBuffer.m_buffer;
+  barrier.offset = m_mappingByteOffsetMin;
+  barrier.size = m_mappingByteOffsetMax - m_mappingByteOffsetMin;
   vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                        VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
-                       static_cast<uint32_t>(m_barriers.size()), m_barriers.data(),
-                       0, nullptr);
+                       1, &barrier, 0, nullptr);
 
   m_mappingByteOffset = 0;
   m_regionsToCopy.clear();
-  m_barriers.clear();
 }
 
 void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * data,

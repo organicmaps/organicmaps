@@ -12,6 +12,7 @@
 #include <vulkan/vulkan.h>
 
 #include <cstdint>
+#include <limits>
 #include <utility>
 #include <vector>
 
@@ -48,8 +49,9 @@ protected:
   drape_ptr<VulkanStagingBuffer> m_ownStagingBuffer;
   uint32_t m_reservationId = 0;
   uint32_t m_mappingByteOffset = 0;
+  uint32_t m_mappingByteOffsetMin = std::numeric_limits<uint32_t>::max();
+  uint32_t m_mappingByteOffsetMax = std::numeric_limits<uint32_t>::min();
   std::vector<VkBufferCopy> m_regionsToCopy;
-  std::vector<VkBufferMemoryBarrier> m_barriers;
 };
   
 class VulkanGpuBufferImpl : public DataBufferImpl<VulkanGPUBuffer>

@@ -182,6 +182,7 @@ bool VulkanBaseContext::BeginRendering()
 
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+  commandBufferBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
   CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffer, &commandBufferBeginInfo));
   CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
