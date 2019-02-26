@@ -116,9 +116,12 @@ std::string OsmElement::ToString(std::string const & shift) const
   case EntityType::Member:
     ss << "Member: " << ref << " type: " << DebugPrint(memberType) << " role: " << role;
     break;
-  default:
-    ss << "Unknown element";
+  case EntityType::Unknown:
+  case EntityType::Osm:
+    UNREACHABLE();
+    break;
   }
+
   if (!m_tags.empty())
   {
     std::string shift2 = shift;
@@ -131,12 +134,10 @@ std::string OsmElement::ToString(std::string const & shift) const
 
 std::string OsmElement::GetTag(std::string const & key) const
 {
-  auto const it = std::find_if(begin(m_tags), end(m_tags),
+  auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
                                [&key](Tag const & tag) { return tag.key == key; });
-  if (it == end(m_tags))
-    return {};
 
-  return it->value;
+  return it == m_tags.cend() ? std::string() : it->value;
 }
 
 std::string DebugPrint(OsmElement const & e)
