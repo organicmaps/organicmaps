@@ -62,6 +62,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
+    mBaseDelegate.onCreate();
     // An intent that was skipped due to core wasn't initialized has to be used
     // as a target intent for this activity, otherwise all input extras will be lost
     // in a splash activity loop.
