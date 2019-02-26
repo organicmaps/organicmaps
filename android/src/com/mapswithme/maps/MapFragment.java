@@ -64,6 +64,7 @@ public class MapFragment extends BaseMwmFragment
   private int mWidth;
   private boolean mRequireResize;
   private boolean mContextCreated;
+  private boolean mSurfaceAttached;
   private boolean mLaunchByDeepLink;
   private static boolean sWasCopyrightDisplayed;
   @Nullable
@@ -184,6 +185,7 @@ public class MapFragment extends BaseMwmFragment
         return;
       }
       mContextCreated = true;
+      mSurfaceAttached = true;
       mRequireResize = true;
       return;
     }
@@ -217,6 +219,7 @@ public class MapFragment extends BaseMwmFragment
     }
 
     mContextCreated = true;
+    mSurfaceAttached = true;
     onRenderingInitialized();
   }
 
@@ -252,12 +255,14 @@ public class MapFragment extends BaseMwmFragment
   void destroyContext()
   {
     LOGGER.d(TAG, "destroyContext, mContextCreated = " + mContextCreated +
-                  ", isAdded = " + isAdded(), new Throwable());
-    if (!mContextCreated || !isAdded())
+             ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded(),
+             new Throwable());
+    if (!mContextCreated || !mSurfaceAttached || !isAdded())
       return;
 
     nativeDetachSurface(!getActivity().isChangingConfigurations());
     mContextCreated = !nativeDestroyContextOnSurfaceDetach();
+    mSurfaceAttached = false;
   }
 
   @Override
