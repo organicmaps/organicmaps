@@ -60,7 +60,7 @@ static NSString *const kReadableName = @"readableName";
 }
 
 - (notifications::NotificationCandidate)notificationCandidate {
-  notifications::NotificationCandidate nc;
+  notifications::NotificationCandidate nc(notifications::NotificationCandidate::Type::UgcReview);
   nc.SetDefaultName(self.defaultName.UTF8String);
   nc.SetBestFeatureType(self.bestType.UTF8String);
   nc.SetPos(m2::PointD(self.x, self.y));
