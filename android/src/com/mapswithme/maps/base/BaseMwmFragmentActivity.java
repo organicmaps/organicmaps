@@ -109,6 +109,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     attachDefaultFragment();
+    mBaseDelegate.onSafeCreate();
     mSafeCreated = true;
   }
 
@@ -172,6 +173,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @CallSuper
   protected void safeOnDestroy()
   {
+    mBaseDelegate.onSafeDestroy();
     mSafeCreated = false;
   }
 

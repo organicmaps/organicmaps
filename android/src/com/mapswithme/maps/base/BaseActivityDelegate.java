@@ -5,15 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 public class BaseActivityDelegate
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BaseActivityDelegate.class.getSimpleName();
   @NonNull
   private final BaseActivity mActivity;
@@ -36,6 +40,16 @@ public class BaseActivityDelegate
     mThemeName = Config.getCurrentUiTheme();
     if (!TextUtils.isEmpty(mThemeName))
       mActivity.get().setTheme(mActivity.getThemeResourceId(mThemeName));
+  }
+
+  public void onSafeCreate()
+  {
+    logLifecycleMethod("onSafeCreate()");
+  }
+
+  public void onSafeDestroy()
+  {
+    logLifecycleMethod("onSafeDestroy()");
   }
 
   public void onDestroy()
@@ -93,6 +107,8 @@ public class BaseActivityDelegate
 
   private void logLifecycleMethod(@NonNull String method)
   {
-    CrashlyticsUtils.log(Log.INFO, TAG, mActivity.getClass().getSimpleName() + ": " + method);
+    String msg = mActivity.getClass().getSimpleName() + ": " + method + " activity: " + mActivity;
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    LOGGER.i(TAG, msg);
   }
 }
