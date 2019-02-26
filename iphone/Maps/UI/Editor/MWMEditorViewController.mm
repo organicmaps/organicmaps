@@ -899,8 +899,9 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
     isFieldValid = osm::EditableMapObject::ValidateBuildingLevels(val);
     break;
   case MWMEditorCellTypeAdditionalName:
-    m_mapObject.SetName(val, static_cast<MWMEditorAdditionalNameTableViewCell *>(cell).code);
     isFieldValid = osm::EditableMapObject::ValidateName(val);
+    if (isFieldValid)
+      m_mapObject.SetName(val, static_cast<MWMEditorAdditionalNameTableViewCell *>(cell).code);
     break;
   default: NSAssert(false, @"Invalid field for changeText");
   }
