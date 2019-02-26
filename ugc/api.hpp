@@ -44,6 +44,8 @@ public:
 
   Loader & GetLoader();
 
+  void ValidateStorage();
+
 private:
   void GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback);
   Storage::SettingResult SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);

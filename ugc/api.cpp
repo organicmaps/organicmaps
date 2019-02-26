@@ -59,6 +59,11 @@ Loader & Api::GetLoader()
   return m_loader;
 }
 
+void Api::ValidateStorage()
+{
+  m_thread.Push([this] { m_storage.Validate(); });
+}
+
 void Api::GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback)
 {
   CHECK(callback, ());

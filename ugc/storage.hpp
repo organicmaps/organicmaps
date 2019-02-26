@@ -41,6 +41,7 @@ public:
   void Load();
   size_t GetNumberOfUnsynchronized() const;
   bool HasUGCForPlace(uint32_t bestType, m2::PointD const & point) const;
+  void Validate() const;
 
   /// Testing
   UpdateIndexes & GetIndexesForTesting() { return m_indexes; }

@@ -19,7 +19,9 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 
+#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <map>
@@ -211,6 +213,51 @@ ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
 
   return SaveIndexes(indexes) ? ugc::Storage::SettingResult::Success
                               : ugc::Storage::SettingResult::WritingError;
+}
+
+void FindZombieObjects(size_t indexesCount)
+{
+  auto const ugcFilePath = GetUGCFilePath();
+  vector<uint8_t> ugcFileContent;
+  try
+  {
+    FileReader r(ugcFilePath);
+    ugcFileContent = r.ReadAsBytes();
+  }
+  catch (FileReader::Exception const & exception)
+  {
+    ugcFileContent.clear();
+  }
+
+  uint32_t ugcCount = 0;
+
+  MemReaderWithExceptions r(ugcFileContent.data(), ugcFileContent.size());
+  NonOwningReaderSource source(r);
+  ugc::UGCUpdate unused;
+  try
+  {
+    while (source.Size() != 0)
+    {
+      ++ugcCount;
+      ugc::Deserialize(source, unused);
+    }
+  }
+  catch (RootException const & e)
+  {
+    auto const error = "Cannot deserialize ugc.update.bin file during zombie objects search";
+    LOG(LERROR, (error));
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", {{"error", error}});
+    return;
+  }
+
+  if (indexesCount == ugcCount)
+    return;
+
+  auto const zombieCount = ugcCount - indexesCount;
+  LOG(LERROR, ("Zombie objects are detected. ", zombieCount, "zombie objects are found."));
+
+  alohalytics::Stats::Instance().LogEvent(
+      "UGC_File_error", {{"error", "zombie: " + strings::to_string(zombieCount)}});
 }
 }  // namespace
 
@@ -501,6 +548,11 @@ size_t Storage::GetNumberOfUnsynchronized() const
 bool Storage::HasUGCForPlace(uint32_t bestType, m2::PointD const & point) const
 {
   return FindIndex(bestType, point) != m_indexes.cend();
+}
+
+void Storage::Validate() const
+{
+  FindZombieObjects(m_indexes.size());
 }
 
 void Storage::MarkAllAsSynchronized()
