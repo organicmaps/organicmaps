@@ -466,9 +466,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressLint("InlinedApi")
   @CallSuper
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
     if (savedInstanceState != null)
       mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
@@ -1241,9 +1241,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @CallSuper
   @Override
-  protected void safeOnDestroy()
+  protected void onSafeDestroy()
   {
-    super.safeOnDestroy();
+    super.onSafeDestroy();
     if (mAdsRemovalPurchaseController != null)
       mAdsRemovalPurchaseController.destroy();
     if (mBookmarkPurchaseController != null)

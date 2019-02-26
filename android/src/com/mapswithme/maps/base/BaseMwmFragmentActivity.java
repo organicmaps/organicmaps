@@ -56,7 +56,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
    * Shows splash screen and initializes the core in case when it was not initialized.
    *
    * Do not override this method!
-   * Use {@link #safeOnCreate(Bundle savedInstanceState)}
+   * Use {@link #onSafeCreate(Bundle savedInstanceState)}
    */
   @CallSuper
   @Override
@@ -78,10 +78,9 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       return;
     }
 
-    mBaseDelegate.onCreate();
     super.onCreate(savedInstanceState);
 
-    safeOnCreate(savedInstanceState);
+    onSafeCreate(savedInstanceState);
   }
 
   /**
@@ -89,7 +88,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
    * When this method is called, the core is already initialized.
    */
   @CallSuper
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
@@ -162,16 +161,16 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     if (!mSafeCreated)
       return;
 
-    safeOnDestroy();
+    onSafeDestroy();
   }
 
   /**
    * Use this safe method instead of {@link #onDestroy()}.
    * When this method is called, the core is already initialized and
-   * {@link #safeOnCreate(Bundle savedInstanceState)} was called.
+   * {@link #onSafeCreate(Bundle savedInstanceState)} was called.
    */
   @CallSuper
-  protected void safeOnDestroy()
+  protected void onSafeDestroy()
   {
     mBaseDelegate.onSafeDestroy();
     mSafeCreated = false;

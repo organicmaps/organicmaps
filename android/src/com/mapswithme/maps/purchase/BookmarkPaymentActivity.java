@@ -23,9 +23,9 @@ public class BookmarkPaymentActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
     overridePendingTransition(0, 0);
   }
 

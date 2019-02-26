@@ -212,9 +212,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @CallSuper
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
 
@@ -237,9 +237,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @CallSuper
   @Override
-  protected void safeOnDestroy()
+  protected void onSafeDestroy()
   {
-    super.safeOnDestroy();
+    super.onSafeDestroy();
     Utils.keepScreenOn(false, getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {

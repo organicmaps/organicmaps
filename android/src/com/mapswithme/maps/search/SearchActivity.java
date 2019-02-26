@@ -55,18 +55,18 @@ public class SearchActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
     mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
     mAdsRemovalPurchaseController.initialize(this);
   }
 
   @CallSuper
   @Override
-  protected void safeOnDestroy()
+  protected void onSafeDestroy()
   {
-    super.safeOnDestroy();
+    super.onSafeDestroy();
     if (mAdsRemovalPurchaseController != null)
       mAdsRemovalPurchaseController.destroy();
   }

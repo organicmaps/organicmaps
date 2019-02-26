@@ -14,9 +14,9 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
   @CallSuper
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
 
     Toolbar toolbar = getToolbar();
     if (toolbar != null)

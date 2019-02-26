@@ -13,9 +13,9 @@ public abstract class BaseMwmExtraTitleActivity extends BaseMwmFragmentActivity
 
   @Override
   @CallSuper
-  protected void safeOnCreate(Bundle savedInstanceState)
+  protected void onSafeCreate(Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onSafeCreate(savedInstanceState);
 
     String title = "";
     Bundle bundle = getIntent().getExtras();
