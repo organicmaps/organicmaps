@@ -3812,6 +3812,12 @@ void Framework::OnPowerFacilityChanged(power_management::Facility const facility
   }
 }
 
+void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme)
+{
+  if (actualScheme == power_management::Scheme::EconomyMaximum && GetTrafficManager().IsEnabled())
+    GetTrafficManager().SetEnabled(false);
+}
+
 TipsApi const & Framework::GetTipsApi() const
 {
   return m_tipsApi;

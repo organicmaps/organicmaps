@@ -920,4 +920,5 @@ public:
 
   // PowerManager::Subscriber override.
   void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
+  void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
 };
