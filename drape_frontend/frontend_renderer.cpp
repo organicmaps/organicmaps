@@ -1603,6 +1603,7 @@ void FrontendRenderer::RenderEmptyFrame()
   m_context->ApplyFramebuffer("Empty frame");
   m_viewport.Apply(m_context);
 
+  m_context->EndRendering();
   m_context->Present();
 }
 
@@ -1654,6 +1655,8 @@ void FrontendRenderer::RenderFrame()
 #endif
 
   RenderScene(modelView, isActiveFrameForScene);
+
+  m_context->EndRendering();
 
   auto const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
   isActiveFrame |= hasForceUpdate;

@@ -40,6 +40,7 @@ public:
   using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
 
   bool BeginRendering() override;
+  void EndRendering() override;
   void Present() override;
   void CollectMemory() override;
   void DoneCurrent() override {}
@@ -212,6 +213,7 @@ protected:
   drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
   std::atomic<bool> m_presentAvailable;
   uint32_t m_frameCounter = 0;
+  bool m_needPresent = true;
 };
 }  // namespace vulkan
 }  // namespace dp

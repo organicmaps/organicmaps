@@ -196,6 +196,48 @@ bool VulkanBaseContext::BeginRendering()
   return true;
 }
 
+void VulkanBaseContext::EndRendering()
+{
+  CHECK(m_presentAvailable, ());
+
+  // Flushing of the default staging buffer must be before submitting the queue.
+  // It guarantees the graphics data coherence.
+  m_defaultStagingBuffer->Flush();
+
+  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
+    h.second(make_ref(this));
+
+  CHECK(m_isActiveRenderPass, ());
+  m_isActiveRenderPass = false;
+  vkCmdEndRenderPass(m_renderingCommandBuffer);
+
+  CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffer));
+  CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffer));
+
+  VkSubmitInfo submitInfo = {};
+  VkPipelineStageFlags const waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+  VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
+  submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+  submitInfo.pWaitDstStageMask = &waitStageMask;
+  submitInfo.pWaitSemaphores = &m_acquireComplete;
+  submitInfo.waitSemaphoreCount = 1;
+  submitInfo.pSignalSemaphores = &m_renderComplete;
+  submitInfo.signalSemaphoreCount = 1;
+  submitInfo.commandBufferCount = 2;
+  submitInfo.pCommandBuffers = commandBuffers;
+
+  auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fence);
+  if (res != VK_ERROR_DEVICE_LOST)
+  {
+    m_needPresent = true;
+    CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
+  }
+  else
+  {
+    m_needPresent = false;
+  }
+}
+
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
   if (m_isActiveRenderPass)
@@ -364,39 +406,8 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void VulkanBaseContext::Present()
 {
-  // Flushing of the default staging buffer must be before submitting the queue.
-  // It guarantees the graphics data coherence.
-  m_defaultStagingBuffer->Flush();
-
-  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
-    h.second(make_ref(this));
-
-  CHECK(m_isActiveRenderPass, ());
-  m_isActiveRenderPass = false;
-  vkCmdEndRenderPass(m_renderingCommandBuffer);
-
-  CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffer));
-  CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffer));
-
-  VkSubmitInfo submitInfo = {};
-  VkPipelineStageFlags const waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-  VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
-  submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-  submitInfo.pWaitDstStageMask = &waitStageMask;
-  submitInfo.pWaitSemaphores = &m_acquireComplete;
-  submitInfo.waitSemaphoreCount = 1;
-  submitInfo.pSignalSemaphores = &m_renderComplete;
-  submitInfo.signalSemaphoreCount = 1;
-  submitInfo.commandBufferCount = 2;
-  submitInfo.pCommandBuffers = commandBuffers;
-
-  // For commands that wait indefinitely for device execution
-  // a return value of VK_ERROR_DEVICE_LOST is equivalent to VK_SUCCESS.
-  VkResult res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fence);
-  if (res != VK_ERROR_DEVICE_LOST)
+  if (m_needPresent && m_presentAvailable)
   {
-    CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
-
     VkPresentInfoKHR presentInfo = {};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     presentInfo.pNext = nullptr;
@@ -406,12 +417,12 @@ void VulkanBaseContext::Present()
     presentInfo.pWaitSemaphores = &m_renderComplete;
     presentInfo.waitSemaphoreCount = 1;
 
-    res = vkQueuePresentKHR(m_queue, &presentInfo);
+    auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
     if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR)
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
   }
 
-  res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
+  auto const res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
   if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
     CHECK_RESULT_VK_CALL(vkWaitForFences, res);
 
