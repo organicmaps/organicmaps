@@ -430,12 +430,23 @@ final class BannerController
     {
       open();
       loadIcon(mCurrentAd);
+      setBannerInitialHeight(mOpenedHeight);
     }
     else
     {
       close();
+      setBannerInitialHeight(mClosedHeight);
       mBannerStateListener.onBannerPreview(mCurrentAd);
     }
+  }
+
+  private void setBannerInitialHeight(int height)
+  {
+    LOGGER.d(TAG, "Set banner initial height = " + height);
+    ViewGroup banner = mContainerView.findViewById(R.id.banner);
+    ViewGroup.LayoutParams lp = banner.getLayoutParams();
+    lp.height = height;
+    banner.setLayoutParams(lp);
   }
 
   private class MyNativeAdsListener implements NativeAdListener
