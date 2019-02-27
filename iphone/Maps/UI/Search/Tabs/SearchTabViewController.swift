@@ -58,7 +58,7 @@ final class SearchTabViewController: TabViewController {
 extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String) {
-    let query = category + " "
+    let query = L(category) + " "
     delegate?.searchTabController(self, didSearch: query)
   }
 }
