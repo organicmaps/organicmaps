@@ -1478,7 +1478,7 @@
 	<string name="whats_new_ugc_routes_title_android_only">Il est facile de partager vos impressions</string>
 	<string name="ugc_thanks_message_auth">Votre avis a été enregistré</string>
 	<string name="ugc_thanks_message_not_auth">Inscrivez-vous pour nous donner votre avis</string>
-	<string name="notification_leave_review_v2_title">Laissez un commentaire et aidez les autres voyageurs!</string>
+	<string name="notification_leave_review_v2_title">Laissez un commentaire et aidez les autres voyageurs !</string>
 	<string name="error_public_not_enought_title">Pas assez de tags</string>
 	<string name="error_public_not_enought_subtitle">Votre itinéraire doit avoir au moins 3 tags afin d\'effectuer le téléchargement dans le répertoire public</string>
 	<string name="bookmark_public_upload_alert_title">Il ne vous reste que deux étapes à suivre pour charger votre itinéraire dans le répertoire MAPS.ME!</string>
@@ -1487,7 +1487,7 @@
 	<string name="name_title">Entrez un nom</string>
 	<string name="name_placeholder">par exemple, les pubs de Londres</string>
 	<string name="name_comment1">Veuillez donner un nom spécifique à l\'itinéraire pour que les utilisateurs puissent le trouver, par exemple, \"les Pubs de Londres\"</string>
-	<string name="name_comment2">Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d\'itinéraires avec le nom \"My Tags\"</string>
+	<string name="name_comment2">Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d\'itinéraires avec le nom \"Mes endroits\"</string>
 	<string name="description_guide">Descriptif</string>
 	<string name="description_title">Entrez une description de l\'itinéraire</string>
 	<string name="description_placeholder">Décrivez votre itinéraire en détail</string>

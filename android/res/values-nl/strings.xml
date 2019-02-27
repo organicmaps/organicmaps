@@ -1473,7 +1473,7 @@
 	<string name="name_title">Voer de naam in</string>
 	<string name="name_placeholder">bijvoorbeeld \"London pubs\"</string>
 	<string name="name_comment1">Geef de route een specifieke naam zodat gebruikers deze kunnen vinden, bijvoorbeeld \"London Pubs\"</string>
-	<string name="name_comment2">De naam mag geen speciale tekens. Publiceer geen routes met de naam \"Mijn tags\"</string>
+	<string name="name_comment2">De naam mag geen speciale tekens. Publiceer geen routes met de naam \"Mijn Plaatsen\"</string>
 	<string name="description_guide">Beschrijving</string>
 	<string name="description_title">Voer de route beschrijving in</string>
 	<string name="description_placeholder">Beschrijf uw route in detail</string>

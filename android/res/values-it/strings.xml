@@ -1472,7 +1472,7 @@
 	<string name="name_title">Inserire nome</string>
 	<string name="name_placeholder">per esempio, I Pub di Londra</string>
 	<string name="name_comment1">Nome concreto aiuterà i viaggiatori a trovare l\'itinerario, per esempio \"I Pub di Londra\"</string>
-	<string name="name_comment2">Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei segnalibri\"</string>
+	<string name="name_comment2">Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei luoghi\"</string>
 	<string name="description_guide">Descrizione</string>
 	<string name="description_title">Inserire una descrizione dell\'itinerario</string>
 	<string name="description_placeholder">Fornire una descrizione completa dell\'itinerario</string>
@@ -1483,7 +1483,7 @@
 	<string name="web_editor_description">Scarica l\'itinerario e ricevi il link per poter modificarlo sul PC</string>
 	<string name="edit_on_web_confirm">Modifica online</string>
 	<string name="update_guide">Carica una nuova versione</string>
-	<string name="direct_link_updating_text">Stiamo aggiornanzhdo l\'itinerario…</string>
+	<string name="direct_link_updating_text">Stiamo aggiornando l\'itinerario…</string>
 	<string name="direct_link_updating_success">Itinerario aggiornato</string>
 	<string name="unable_get_direct_link_desc">Condividere l\'itinerario tramite il link pubblico</string>
 	<string name="any_access_update_alert_title">Disponibile una nuova versione dell\'itinerario</string>

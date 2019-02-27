@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Nome concreto aiuterà i viaggiatori a trovare l'itinerario, per esempio \"I Pub di Londra\"";
 
-"name_comment2" = "Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei segnalibri\"";
+"name_comment2" = "Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei luoghi\"";
 
 "description_guide" = "Descrizione";
 
@@ -2683,7 +2683,7 @@
 
 "update_guide" = "Carica una nuova versione";
 
-"direct_link_updating_text" = "Stiamo aggiornanzhdo l'itinerario…";
+"direct_link_updating_text" = "Stiamo aggiornando l'itinerario…";
 
 "direct_link_updating_success" = "Itinerario aggiornato";
 

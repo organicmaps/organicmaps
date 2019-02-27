@@ -2643,7 +2643,7 @@
 
 "ugc_thanks_message_not_auth" = "Inscrivez-vous pour nous donner votre avis";
 
-"notification_leave_review_v2_title" = "Laissez un commentaire et aidez les autres voyageurs!";
+"notification_leave_review_v2_title" = "Laissez un commentaire et aidez les autres voyageurs !";
 
 "error_public_not_enought_title" = "Pas assez de tags";
 
@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Veuillez donner un nom spécifique à l'itinéraire pour que les utilisateurs puissent le trouver, par exemple, \"les Pubs de Londres\"";
 
-"name_comment2" = "Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d'itinéraires avec le nom \"My Tags\"";
+"name_comment2" = "Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d'itinéraires avec le nom \"Mes endroits\"";
 
 "description_guide" = "Descriptif";
 

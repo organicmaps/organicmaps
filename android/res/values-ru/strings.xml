@@ -1520,7 +1520,7 @@
 	<string name="error_public_not_enought_subtitle">В вашем маршруте должно быть как минимум 3 метки, чтобы загрузить его в публичный каталог</string>
 	<string name="bookmark_public_upload_alert_title">Вы всего в паре шагов от загрузки вашего маршрута в каталог MAPS.ME!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Убедитесь, что у маршрута есть название и описание, а все метки содержат информацию о местах. Благодаря этому, пользователи найдут маршрут и смогут воспользоваться им в поездке.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Да, все хорошо!</string>
+	<string name="bookmark_public_upload_alert_ok_button">Да, всё хорошо!</string>
 	<string name="name_title">Введите название</string>
 	<string name="name_placeholder">например, Пабы Лондона</string>
 	<string name="name_comment1">Назовите маршрут конкретно, чтобы пользователи смогли найти его, например, \"Пабы Лондона\"</string>

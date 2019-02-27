@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Kérjük adj nevet az útmutatódnak, így az utazók könnyen megtalálhatják: például \"Londoni kocsmák\"";
 
-"name_comment2" = "A név ne tartalmazzon speciális szimbólumokat. A név ne legyen a \"Helyeim\"";
+"name_comment2" = "A név ne tartalmazzon speciális szimbólumokat. A név ne legyen a \"Saját helyeim\"";
 
 "description_guide" = "Leírás";
 
