@@ -480,20 +480,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сбор статистики" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="K9e-I1-pZu">
-                                                    <rect key="frame" x="16" y="11" width="286" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="294" height="21"/>
                                                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y8g-7o-Lbp">
-                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="318" y="6.5" width="51" height="31"/>
                                                     <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
                                                     <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Y8g-7o-Lbp" secondAttribute="trailing" constant="8" id="0ea-lb-yKQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Y8g-7o-Lbp" secondAttribute="trailing" id="0ea-lb-yKQ"/>
                                                 <constraint firstItem="Y8g-7o-Lbp" firstAttribute="leading" secondItem="K9e-I1-pZu" secondAttribute="trailing" constant="8" id="4kv-L1-0PW"/>
                                                 <constraint firstItem="K9e-I1-pZu" firstAttribute="leading" secondItem="xdj-y5-zpk" secondAttribute="leading" constant="16" id="CKf-VS-yE9"/>
                                                 <constraint firstItem="K9e-I1-pZu" firstAttribute="top" secondItem="xdj-y5-zpk" secondAttribute="topMargin" constant="3" id="c8E-CL-9S8"/>
