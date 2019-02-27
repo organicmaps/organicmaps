@@ -362,7 +362,7 @@ using namespace power_management;
   }
   else if (cell == self.restoreSubscriptionCell)
   {
-    self.restoreSubscriptionCell.selected = false;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.restoreSubscriptionCell.progress startAnimating];
     self.restoringSubscription = YES;
     __weak auto s = self;
@@ -389,6 +389,7 @@ using namespace power_management;
   }
   else if (cell == self.manageSubscriptionsCell)
   {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [UIApplication.sharedApplication
      openURL:[NSURL URLWithString:@"https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"]
      options:@{}
