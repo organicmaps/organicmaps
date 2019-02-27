@@ -548,13 +548,13 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void showUploadErrorDialog(@StringRes int subtitle, int reqCode, @NonNull String tag)
   {
-    showErrorDialog(R.string.unable_update_error_title, subtitle, reqCode, tag);
+    showErrorDialog(R.string.unable_upadate_error_title, subtitle, reqCode, tag);
   }
 
   private void showNotEnoughBookmarksDialog()
   {
-    showErrorDialog(R.string.error_public_not_enough_title,
-                    R.string.error_public_not_enough_subtitle,
+    showErrorDialog(R.string.error_public_not_enought_title,
+                    R.string.error_public_not_enought_subtitle,
                     REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS, NOT_ENOUGH_BOOKMARKS_DIALOG_TAG);
   }
 
