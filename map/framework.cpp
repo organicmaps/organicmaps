@@ -1442,8 +1442,7 @@ void Framework::InitUGC()
   m_ugcApi = make_unique<ugc::Api>(m_model.GetDataSource(), [this](size_t numberOfUnsynchronized) {
 
     bool ugcStorageValidationExecuted = false;
-    if (!settings::Get("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted))
-      ugcStorageValidationExecuted = false;
+    UNUSED_VALUE(settings::Get("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted));
 
     if (!ugcStorageValidationExecuted)
     {
