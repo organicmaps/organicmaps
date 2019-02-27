@@ -22,11 +22,12 @@ import java.util.Map;
 @UiThread
 public final class Sponsored
 {
+  // Order is important, must match place_page_info.hpp/SponsoredType.
   public static final int TYPE_NONE = 0;
   public static final int TYPE_BOOKING = 1;
   public static final int TYPE_OPENTABLE = 2;
-  public static final int TYPE_PARTNER = 4;
-  public static final int TYPE_HOLIDAY = 5;
+  public static final int TYPE_PARTNER = 3;
+  public static final int TYPE_HOLIDAY = 4;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_PARTNER, TYPE_HOLIDAY })
