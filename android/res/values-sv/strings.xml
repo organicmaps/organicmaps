@@ -1477,7 +1477,7 @@
 	<string name="name_title">Ange ett namn</string>
 	<string name="name_placeholder">till exempel, pubar i London</string>
 	<string name="name_comment1">Benämn resrutten konkret så att användare kan hitta den, till exempel, \"Pubar i London\"</string>
-	<string name="name_comment2">Namnet ska innehålla varken specialtecken eller siffror. Publicera inte resrutter med namnet \"Mina etiketter\"</string>
+	<string name="name_comment2">Namnet ska innehålla varken specialtecken. Publicera inte resrutter med namnet \"Mina etiketter\"</string>
 	<string name="description_guide">Beskrivning</string>
 	<string name="description_title">Ange beskrivning av resrutten</string>
 	<string name="description_placeholder">Beskriv din resrutt i detalj</string>

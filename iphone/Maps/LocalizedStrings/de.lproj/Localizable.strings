@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Betiteln Sie die Route konkret, damit die Benutzer sie finden können, z.B. \"Londoner Pubs\"";
 
-"name_comment2" = "Der Titel soll keine Sonderzeichen oder Ziffern enthalten. Veröffentlichen Sie keine Routen mit dem Titel \"Meine Markierungen\"";
+"name_comment2" = "Der Titel soll keine Sonderzeichen enthalten. Veröffentlichen Sie keine Routen mit dem Titel \"Meine Markierungen\"";
 
 "description_guide" = "Beschreibung";
 

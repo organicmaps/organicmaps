@@ -1468,7 +1468,7 @@
 	<string name="name_title">귀하의 가이드 이름을 입력하세요</string>
 	<string name="name_placeholder">예) 런던의 술집들</string>
 	<string name="name_comment1">여행객들이 쉽게 발견할 수 있도록 귀하의 가이드 이름을 지어주세요. 예시, \"런던의 술집들\"</string>
-	<string name="name_comment2">이름은 특정한 심볼들이나 숫자를 포함할 수 없습니다 이름은 \"내 장소\"가 되면 안됩니다</string>
+	<string name="name_comment2">이름은 특정한 심볼들을 포함할 수 없습니다. \"내 장소\"는 이름이 될 수 없습니다</string>
 	<string name="description_guide">묘사</string>
 	<string name="description_title">가이드의 묘사를 입력해주세요</string>
 	<string name="description_placeholder">가이드를 자세히 묘사해주세요</string>

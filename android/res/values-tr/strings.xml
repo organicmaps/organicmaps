@@ -1478,7 +1478,7 @@
 	<string name="name_title">Kılavuzunuzun adını girin</string>
 	<string name="name_placeholder">örneğin: Londra Barları</string>
 	<string name="name_comment1">Lütfen kılavuzunuzu gezginlerin kolayca bulabilmesi için adlandırın: örneğin, \"Londra Pubs\"</string>
-	<string name="name_comment2">Koyduğunuz ad, özel sembol veya rakam içermemelidir. Ad, \"Yerlerim\" olmamalı</string>
+	<string name="name_comment2">Koyduğunuz ad, özel sembol içermemelidir. Ad, \"Yerlerim\" olmamalı</string>
 	<string name="description_guide">Açıklama</string>
 	<string name="description_title">Kılavuzunuzun açıklamasını girin</string>
 	<string name="description_placeholder">Kılavuzunuzu ayrıntılı olarak tanımlayın</string>

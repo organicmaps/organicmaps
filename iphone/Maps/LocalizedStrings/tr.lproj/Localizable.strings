@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Lütfen kılavuzunuzu gezginlerin kolayca bulabilmesi için adlandırın: örneğin, \"Londra Pubs\"";
 
-"name_comment2" = "Koyduğunuz ad, özel sembol veya rakam içermemelidir. Ad, \"Yerlerim\" olmamalı";
+"name_comment2" = "Koyduğunuz ad, özel sembol içermemelidir. Ad, \"Yerlerim\" olmamalı";
 
 "description_guide" = "Açıklama";
 

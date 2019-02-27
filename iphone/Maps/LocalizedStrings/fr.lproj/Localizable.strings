@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Veuillez donner un nom spécifique à l'itinéraire pour que les utilisateurs puissent le trouver, par exemple, \"les Pubs de Londres\"";
 
-"name_comment2" = "Le nom ne doit pas contenir de caractères spéciaux ni de chiffres. Ne publiez pas d'itinéraires avec le nom \"My Tags\"";
+"name_comment2" = "Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d'itinéraires avec le nom \"My Tags\"";
 
 "description_guide" = "Descriptif";
 

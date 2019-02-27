@@ -1472,19 +1472,19 @@
 	<string name="error_public_not_enought_title">标签不足</string>
 	<string name="error_public_not_enought_subtitle">您的路线至少应有3个标签才能上传到公共目录中</string>
 	<string name="bookmark_public_upload_alert_title">您只需几步即可将您的路径加载到MAPS.ME目录中！</string>
-	<string name="bookmark_public_upload_alert_subtitle">请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们。</string>
+	<string name="bookmark_public_upload_alert_subtitle">请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们.</string>
 	<string name="bookmark_public_upload_alert_ok_button">是的，全部正确！</string>
 	<string name="name_title">请输入名称</string>
 	<string name="name_placeholder">例如，伦敦酒吧</string>
 	<string name="name_comment1">请具体化命名线路以便用户能够找到它们，例如\"伦敦酒吧\"</string>
-	<string name="name_comment2">名称不应包含特殊字符或数字。请不要发布名称为\"我的标签\"的路线</string>
+	<string name="name_comment2">名称不应包含特殊字符. 请不要发布名称为\"我的标签\"的路线</string>
 	<string name="description_guide">描述</string>
 	<string name="description_title">请输入线路描述</string>
 	<string name="description_placeholder">请详细描述您的路线</string>
-	<string name="description_comment1">路线描述至少应为30个字符。</string>
-	<string name="ugc_route_tags_desc">请选择标签以帮助其他旅行者找到您的指南。这是必须的。不要超过 %s 标签。</string>
+	<string name="description_comment1">路线描述至少应为30个字符.</string>
+	<string name="ugc_route_tags_desc">请选择标签以帮助其他旅行者找到您的指南. 这是必须的. 不要超过 %s 标签.</string>
 	<string name="html_format_error_title">您的路线尚未发布</string>
-	<string name="html_format_error_subtitle">请确保线路中标签的名称和描述格式正确。您可以单击下面的\"在线编辑\"键在我们的编辑器中进行检查。</string>
+	<string name="html_format_error_subtitle">请确保线路中标签的名称和描述格式正确. 您可以单击下面的\"在线编辑\"键在我们的编辑器中进行检查.</string>
 	<string name="web_editor_description">请下载路线并获取在电脑上编辑的链接</string>
 	<string name="edit_on_web_confirm">在线编辑</string>
 	<string name="update_guide">下载新版本</string>
@@ -1492,7 +1492,7 @@
 	<string name="direct_link_updating_success">路线已更新</string>
 	<string name="unable_get_direct_link_desc">您可以使用公共链接共享路线</string>
 	<string name="any_access_update_alert_title">可能有路线新版本</string>
-	<string name="any_access_update_alert_message">您是否更新标签？新版本将在同一连链接上访问。</string>
+	<string name="any_access_update_alert_message">您是否更新标签？新版本将在同一连链接上访问.</string>
 	<string name="any_access_update_alert_update">更新</string>
 	<string name="public_or_limited_access_after_edit_online_error_title">您在线编辑了路线</string>
 	<string name="public_or_limited_access_after_edit_online_error_message">以后请通过我们的网站编辑、发布或与朋友分享路线</string>
@@ -1501,7 +1501,7 @@
 	<string name="power_managment_setting_never">从不</string>
 	<string name="power_managment_setting_auto">自动</string>
 	<string name="power_managment_setting_manual_max">最大程度省电</string>
-	<string name="enable_logging_warning_message">此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在MAPS.ME支持请求时开启该选项。</string>
+	<string name="enable_logging_warning_message">此选项启用以记录操作来进行诊断. 这有助于团队识别应用程序的问题. 请仅在MAPS.ME支持请求时开启该选项.</string>
 	<string name="html_error_upload_message_try_again">请检查网络访问，然后再重试</string>
 	<string name="html_error_upload_title_try_again">未连接到网络</string>
 	<string name="notification_leave_review_v2_android_short_title">请发表评论来帮助旅行者们！</string>
@@ -1513,7 +1513,7 @@
 	<string name="gdpr_request_window_message">请复制并发送请求至support\@maps.me</string>
 	<string name="gdpr_request_window_copy">复制ID</string>
 	<string name="unable_upadate_error_title">无法更新路线</string>
-	<string name="unable_upadate_error_message">更新时出错。请检查更改，然后再重试</string>
+	<string name="unable_upadate_error_message">更新时出错. 请检查更改，然后再重试</string>
 	<string name="whats_new_wiki_title">这是什么地方？</string>
 	<string name="whats_new_wiki_message">在热门景点的卡片中，我们添加了来自Wikipedia.org的文章，可以离线使用</string>
 

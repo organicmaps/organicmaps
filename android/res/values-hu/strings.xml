@@ -1473,7 +1473,7 @@
 	<string name="name_title">Add meg az útmutatód nevét</string>
 	<string name="name_placeholder">pl.: Londoni kocsmák</string>
 	<string name="name_comment1">Kérjük adj nevet az útmutatódnak, így az utazók könnyen megtalálhatják: például \"Londoni kocsmák\"</string>
-	<string name="name_comment2">A név ne tartalmazzon speciális szimbólumokat vagy számokat. A név ne legyen a \"Helyeim\"</string>
+	<string name="name_comment2">A név ne tartalmazzon speciális szimbólumokat. A név ne legyen a \"Helyeim\"</string>
 	<string name="description_guide">Leírás</string>
 	<string name="description_title">Add meg az útmutatód leírását</string>
 	<string name="description_placeholder">Fejtsd ki az útmutatód részleteit</string>

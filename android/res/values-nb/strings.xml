@@ -1370,7 +1370,7 @@
 	<string name="name_title">Skriv inn navnet på guiden din</string>
 	<string name="name_placeholder">for eksempel Puber i London</string>
 	<string name="name_comment1">Vennligst oppgi din guide slik at reisende lett kan finne den: for eksempel \"London Pubs\"</string>
-	<string name="name_comment2">Navnet bør ikke inneholde spesielle symboler eller siffer. Navnet bør ikke være \"Mine steder\"</string>
+	<string name="name_comment2">Navnet bør ikke inneholde spesielle symboler. Navnet bør ikke være \"Mine steder\"</string>
 	<string name="description_guide">Beskrivelse</string>
 	<string name="description_title">Skriv inn beskrivelse for guiden</string>
 	<string name="description_placeholder">Beskriv din guide i detalj</string>

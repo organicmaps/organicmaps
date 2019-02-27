@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Geef de route een specifieke naam zodat gebruikers deze kunnen vinden, bijvoorbeeld \"London Pubs\"";
 
-"name_comment2" = "De naam mag geen speciale tekens of cijfers bevatten. Publiceer geen routes met de naam \"Mijn tags\"";
+"name_comment2" = "De naam mag geen speciale tekens. Publiceer geen routes met de naam \"Mijn tags\"";
 
 "description_guide" = "Beschrijving";
 

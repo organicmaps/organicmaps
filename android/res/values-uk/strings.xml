@@ -1478,7 +1478,7 @@
 	<string name="name_title">Введіть назву</string>
 	<string name="name_placeholder">наприклад, Паби Лондону</string>
 	<string name="name_comment1">Назвіть маршрут конкретно, щоб користувачі змогли знайти його, наприклад, \"Паби Лондону\"</string>
-	<string name="name_comment2">Назва не повинна містити спеціальних символів або цифр. Не публікуйте маршрути з назвою \"Мої мітки\"</string>
+	<string name="name_comment2">Назва не повинна містити спеціальних символів. Не публікуйте маршрути з назвою \"Мої мітки\"</string>
 	<string name="description_guide">Опис</string>
 	<string name="description_title">Введіть опис маршруту</string>
 	<string name="description_placeholder">Детально опишіть свій маршрут</string>

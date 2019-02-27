@@ -1469,7 +1469,7 @@
 	<string name="name_title">Introduceți denumirea</string>
 	<string name="name_placeholder">de exemplu, Pub-urile din Londra</string>
 	<string name="name_comment1">Dați un nume traseului, pentru ca utilizatorii să-l poată găsi cu ușurință, de exemplu \"Pub-urile din Londra\"</string>
-	<string name="name_comment2">Denumirea nu trebuie să conțină simboluri speciale sau cifre. Nu publicați trasee cu denumirea \"Etichetele mele\"</string>
+	<string name="name_comment2">Denumirea nu trebuie să conțină simboluri speciale. Nu publicați trasee cu denumirea \"Etichetele mele\"</string>
 	<string name="description_guide">Descriere</string>
 	<string name="description_title">Introduceți descrierea traseului</string>
 	<string name="description_placeholder">Descrieți detaliat traseul</string>

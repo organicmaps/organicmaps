@@ -1469,7 +1469,7 @@
 	<string name="name_title">Nhập tên gọi</string>
 	<string name="name_placeholder">ví dụ, Quán rượu London</string>
 	<string name="name_comment1">Hãy gọi tên tuyến hướng dẫn một cách cụ thể để người dùng có thể tìm chính xác được nó, ví dụ, \"Quán rượu London\"</string>
-	<string name="name_comment2">Tên gọi không được chứa những ký tự đặc biệt hay chữ số. Không đăng lên những tuyến hướng dẫn với tên gọi \"Thẻ đánh dấu của tôi\"</string>
+	<string name="name_comment2">Tên gọi không được chứa những ký tự đặc biệt. Không đăng lên những tuyến hướng dẫn với tên gọi \"Thẻ đánh dấu của tôi\"</string>
 	<string name="description_guide">Mô tả</string>
 	<string name="description_title">Hãy nhập thông tin mô tả hướng dẫn</string>
 	<string name="description_placeholder">Hãy mổ tả hướng dẫn của mình một cách cụ thể</string>

@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Prosím pomenujte svojho sprievodcu tak, aby ho mohli cestujúci ľahko nájsť: napríklad \"Londýnske krčmy\"";
 
-"name_comment2" = "Názov by nemal obsahovať špeciálne symboly ani číslice. Názov by nemal byť \"Moje miesta\"";
+"name_comment2" = "Názov by nemal obsahovať špeciálne symboly. Názov by nemal byť \"Moje miesta\"";
 
 "description_guide" = "Popis";
 

@@ -1536,7 +1536,7 @@
 	<string name="name_title">Enter your guide\'s name</string>
 	<string name="name_placeholder">e.g. London Pubs</string>
 	<string name="name_comment1">Please name your guide so that travellers can easily find it: for example, \"London Pubs\"</string>
-	<string name="name_comment2">The name shouldn\'t contain special symbols or digits. The name shouldn\'t be \"My places\"</string>
+	<string name="name_comment2">The name shouldn\'t contain special symbols. The name shouldn\'t be \"My places\"</string>
 	<string name="description_guide">Description</string>
 	<string name="description_title">Enter your guide\'s description</string>
 	<string name="description_placeholder">Describe your guide in detail</string>
@@ -1574,7 +1574,7 @@
 	<string name="gdpr_request_window_message">Please copy it and send the request to support\@maps.me</string>
 	<string name="gdpr_request_window_copy">Copy the ID</string>
 	<string name="unable_upadate_error_title">File update failed</string>
-	<string name="unable_upadate_error_message">Some mistakes occurred while updating. Please check the changes and try again</string>
+	<string name="unable_upadate_error_message">Some errors occurred while updating. Please check the changes and try again</string>
 	<string name="whats_new_wiki_title">What\'s that place?</string>
 	<string name="whats_new_wiki_message">We\'ve added Wikipedia.org articles to the place pages of the most popular tourist attractions. They are available offline</string>
 	<string name="sponsored_partner1_action">Outlets</string>

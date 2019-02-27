@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Beri nama panduan Anda sehingga traveler dapat menemukannya dengan mudah: misalnya, \"London Pubs\"";
 
-"name_comment2" = "Nama tidak boleh berisi karakter khusus atau angka. Nama tidak boleh berupa \"Tempat saya\"";
+"name_comment2" = "Nama tidak boleh berisi karakter khusus. Nama tidak boleh berupa \"Tempat saya\"";
 
 "description_guide" = "Deskripsi";
 

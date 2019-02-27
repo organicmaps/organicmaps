@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Navngiv din guide, så rejsende nemt kan finde det, f.eks. \"London Pubs\"";
 
-"name_comment2" = "Navnet bør ikke indeholde specielle symboler eller cifre. Navnet skal ikke være \"mine steder\"";
+"name_comment2" = "Navnet bør ikke indeholde specielle symboler. Navnet skal ikke være \"mine steder\"";
 
 "description_guide" = "Beskrivelse";
 

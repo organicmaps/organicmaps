@@ -1230,7 +1230,7 @@
 	<string name="name_title">Εισαγάγετε έναν τίτλο</string>
 	<string name="name_placeholder">για παράδειγμα, \"Οι παμπ του Λονδίνου\"</string>
 	<string name="name_comment1">Δώστε στη διαδρομή έναν συγκεκριμένο τίτλο, έτσι ώστε οι χρήστες να μπορούν να την εντοπίσουν, για παράδειγμα, \"Οι παμπ του Λονδίνου\"</string>
-	<string name="name_comment2">Ο τίτλος δεν πρέπει να περιέχει ειδικούς χαρακτήρες ή αριθμούς. Μην δημοσιεύετε διαδρομές με τον τίτλο \"Τα σημάδια μου\"</string>
+	<string name="name_comment2">Ο τίτλος δεν πρέπει να περιέχει ειδικούς χαρακτήρες. Μην δημοσιεύετε διαδρομές με τον τίτλο \"Τα σημάδια μου\"</string>
 	<string name="description_guide">Περιγραφή</string>
 	<string name="description_title">Εισαγάγετε μια περιγραφή της διαδρομής</string>
 	<string name="description_placeholder">Περιγράψτε λεπτομερώς τη διαδρομή σας</string>

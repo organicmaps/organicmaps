@@ -1477,7 +1477,7 @@
 	<string name="name_title">Wpisz nazwę</string>
 	<string name="name_placeholder">na przykład: londyńskie puby</string>
 	<string name="name_comment1">Nadaj nazwę trasie konkretnie, aby użytkownicy mogli ją znaleźć, na przykład \"Londyńskie Puby\"</string>
-	<string name="name_comment2">Nazwa nie może zawierać znaków specjalnych ani cyfr. Nie publikuj tras o nazwie \"Moje znaczniki\"</string>
+	<string name="name_comment2">Nazwa nie może zawierać znaków specjalnych. Nie publikuj tras o nazwie \"Moje znaczniki\"</string>
 	<string name="description_guide">Opis</string>
 	<string name="description_title">Podaj opis trasy</string>
 	<string name="description_placeholder">Szczegółowo opisz swoją trasę</string>

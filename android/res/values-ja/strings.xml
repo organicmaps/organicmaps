@@ -1471,7 +1471,7 @@
 	<string name="name_title">ガイドの名前を入力してください</string>
 	<string name="name_placeholder">ロンドンパブなど</string>
 	<string name="name_comment1">旅行者が簡単に発見できるようにガイドに名前を付けてください：例、「ロンドンパブ」</string>
-	<string name="name_comment2">この名前には特別な記号や数字が含まれていてはなりません。この名前は「マイプレイス」であってはなりません</string>
+	<string name="name_comment2">この名前には特別な記号や含まれていてはなりません。この名前は「マイプレイス」であってはなりません</string>
 	<string name="description_guide">説明</string>
 	<string name="description_title">ガイドの説明を入力してください</string>
 	<string name="description_placeholder">詳しくガイドを説明してください</string>

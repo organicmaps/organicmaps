@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Dați un nume traseului, pentru ca utilizatorii să-l poată găsi cu ușurință, de exemplu \"Pub-urile din Londra\"";
 
-"name_comment2" = "Denumirea nu trebuie să conțină simboluri speciale sau cifre. Nu publicați trasee cu denumirea \"Etichetele mele\"";
+"name_comment2" = "Denumirea nu trebuie să conțină simboluri speciale. Nu publicați trasee cu denumirea \"Etichetele mele\"";
 
 "description_guide" = "Descriere";
 

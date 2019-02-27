@@ -1417,7 +1417,7 @@
 	<string name="name_title">نام راهنمای خود را وارد کنید</string>
 	<string name="name_placeholder">برای مثال، بارهای لندن</string>
 	<string name="name_comment1">لطفا راهنمای خود را آنگونه نام گذاری کنید که مسافران به آسانی آن را پیدا کنند: برای مثال، \"بارهای لندن\"</string>
-	<string name="name_comment2">نام انتخابی نباید شامل حروف یا ارقام خاص باشد. نام انتخابی نباید \"مکان‌های من\" باشد</string>
+	<string name="name_comment2">نام انتخابی نباید شامل حروف قام خاص باشد. نام انتخابی نباید \"مکان‌های من\" باشد</string>
 	<string name="description_guide">توضیحات</string>
 	<string name="description_title">توضیحات راهنمای خود را وارد کنید</string>
 	<string name="description_placeholder">راهنمای خود را با جزئیات توضیح دهید</string>

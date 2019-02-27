@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Hãy gọi tên tuyến hướng dẫn một cách cụ thể để người dùng có thể tìm chính xác được nó, ví dụ, \"Quán rượu London\"";
 
-"name_comment2" = "Tên gọi không được chứa những ký tự đặc biệt hay chữ số. Không đăng lên những tuyến hướng dẫn với tên gọi \"Thẻ đánh dấu của tôi\"";
+"name_comment2" = "Tên gọi không được chứa những ký tự đặc biệt. Không đăng lên những tuyến hướng dẫn với tên gọi \"Thẻ đánh dấu của tôi\"";
 
 "description_guide" = "Mô tả";
 

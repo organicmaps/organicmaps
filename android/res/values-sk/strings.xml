@@ -1477,7 +1477,7 @@
 	<string name="name_title">Zadajte názov sprievodcu</string>
 	<string name="name_placeholder">napr. Londýnske krčmy</string>
 	<string name="name_comment1">Prosím pomenujte svojho sprievodcu tak, aby ho mohli cestujúci ľahko nájsť: napríklad \"Londýnske krčmy\"</string>
-	<string name="name_comment2">Názov by nemal obsahovať špeciálne symboly ani číslice. Názov by nemal byť \"Moje miesta\"</string>
+	<string name="name_comment2">Názov by nemal obsahovať špeciálne symboly. Názov by nemal byť \"Moje miesta\"</string>
 	<string name="description_guide">Popis</string>
 	<string name="description_title">Zadajte popis vášho sprievodcu</string>
 	<string name="description_placeholder">Opíšte podrobne svojho sprievodcu</string>

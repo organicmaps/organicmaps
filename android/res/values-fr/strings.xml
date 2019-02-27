@@ -1487,7 +1487,7 @@
 	<string name="name_title">Entrez un nom</string>
 	<string name="name_placeholder">par exemple, les pubs de Londres</string>
 	<string name="name_comment1">Veuillez donner un nom spécifique à l\'itinéraire pour que les utilisateurs puissent le trouver, par exemple, \"les Pubs de Londres\"</string>
-	<string name="name_comment2">Le nom ne doit pas contenir de caractères spéciaux ni de chiffres. Ne publiez pas d\'itinéraires avec le nom \"My Tags\"</string>
+	<string name="name_comment2">Le nom ne doit pas contenir de caractères spéciaux. Ne publiez pas d\'itinéraires avec le nom \"My Tags\"</string>
 	<string name="description_guide">Descriptif</string>
 	<string name="description_title">Entrez une description de l\'itinéraire</string>
 	<string name="description_placeholder">Décrivez votre itinéraire en détail</string>

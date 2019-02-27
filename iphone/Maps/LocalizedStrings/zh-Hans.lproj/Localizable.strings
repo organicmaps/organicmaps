@@ -2651,7 +2651,7 @@
 
 "bookmark_public_upload_alert_title" = "您只需几步即可将您的路径加载到MAPS.ME目录中！";
 
-"bookmark_public_upload_alert_subtitle" = "请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们。";
+"bookmark_public_upload_alert_subtitle" = "请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们.";
 
 "bookmark_public_upload_alert_ok_button" = "是的，全部正确！";
 
@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "请具体化命名线路以便用户能够找到它们，例如\"伦敦酒吧\"";
 
-"name_comment2" = "名称不应包含特殊字符或数字。请不要发布名称为\"我的标签\"的路线";
+"name_comment2" = "名称不应包含特殊字符. 请不要发布名称为\"我的标签\"的路线";
 
 "description_guide" = "描述";
 
@@ -2669,13 +2669,13 @@
 
 "description_placeholder" = "请详细描述您的路线";
 
-"description_comment1" = "路线描述至少应为30个字符。";
+"description_comment1" = "路线描述至少应为30个字符.";
 
-"ugc_route_tags_desc" = "请选择标签以帮助其他旅行者找到您的指南。这是必须的。不要超过 %s 标签。";
+"ugc_route_tags_desc" = "请选择标签以帮助其他旅行者找到您的指南. 这是必须的. 不要超过 %s 标签.";
 
 "html_format_error_title" = "您的路线尚未发布";
 
-"html_format_error_subtitle" = "请确保线路中标签的名称和描述格式正确。您可以单击下面的\"在线编辑\"键在我们的编辑器中进行检查。";
+"html_format_error_subtitle" = "请确保线路中标签的名称和描述格式正确. 您可以单击下面的\"在线编辑\"键在我们的编辑器中进行检查.";
 
 "web_editor_description" = "请下载路线并获取在电脑上编辑的链接";
 
@@ -2691,7 +2691,7 @@
 
 "any_access_update_alert_title" = "可能有路线新版本";
 
-"any_access_update_alert_message" = "您是否更新标签？新版本将在同一连链接上访问。";
+"any_access_update_alert_message" = "您是否更新标签？新版本将在同一连链接上访问.";
 
 "any_access_update_alert_update" = "更新";
 
@@ -2711,7 +2711,7 @@
 
 "power_managment_setting_manual_max" = "最大程度省电";
 
-"enable_logging_warning_message" = "此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在MAPS.ME支持请求时开启该选项。";
+"enable_logging_warning_message" = "此选项启用以记录操作来进行诊断. 这有助于团队识别应用程序的问题. 请仅在MAPS.ME支持请求时开启该选项.";
 
 "html_error_upload_message_try_again" = "请检查网络访问，然后再重试";
 
@@ -2737,7 +2737,7 @@
 
 "unable_upadate_error_title" = "无法更新路线";
 
-"unable_upadate_error_message" = "更新时出错。请检查更改，然后再重试";
+"unable_upadate_error_message" = "更新时出错. 请检查更改，然后再重试";
 
 "whats_new_wiki_title" = "这是什么地方？";
 

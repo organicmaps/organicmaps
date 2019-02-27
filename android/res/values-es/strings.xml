@@ -1466,7 +1466,7 @@
 	<string name="name_title">Ingresa un nombre</string>
 	<string name="name_placeholder">por ejemplo, los pubs de Londres</string>
 	<string name="name_comment1">Nombra la ruta específicamente para que los usuarios puedan encontrarla, por ejemplo, \"Pubs de Londres\"</string>
-	<string name="name_comment2">El nombre no debe contener caracteres especiales o números. No publiques rutas con el nombre \"Mis marcas\"</string>
+	<string name="name_comment2">El nombre no debe contener caracteres especiales. No publiques rutas con el nombre \"Mis marcas\"</string>
 	<string name="description_guide">Descripción</string>
 	<string name="description_title">Introduce la descripción de la ruta</string>
 	<string name="description_placeholder">Describe tu ruta en detalle</string>

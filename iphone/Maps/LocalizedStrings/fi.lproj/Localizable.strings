@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Nimeä oppaasi niin, että matkailijat voivat löytää sen helposti: esimerkiksi \"Lontoon pubit\"";
 
-"name_comment2" = "Nimessä ei saa olla erikoismerkkejä tai numeroita. Nimi ei saa olla \"Minun paikkani\"";
+"name_comment2" = "Nimessä ei saa olla erikoismerkkejä. Nimi ei saa olla \"Minun paikkani\"";
 
 "description_guide" = "Kuvaus";
 

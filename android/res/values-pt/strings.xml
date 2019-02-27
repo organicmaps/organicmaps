@@ -1476,7 +1476,7 @@
 	<string name="name_title">Insere o nome</string>
 	<string name="name_placeholder">por exemplo, Pubs de Londres</string>
 	<string name="name_comment1">De a percurso um nome especifico para que os usuários possam encontrá-lo, por exemplo, \"Pubs de Londres\"</string>
-	<string name="name_comment2">O nome não deve conter caracteres especiais ou números. Não publique percursos com nome \"Minhas tags\"</string>
+	<string name="name_comment2">O nome não deve conter caracteres especiais. Não publique percursos com nome \"Minhas tags\"</string>
 	<string name="description_guide">Descrição</string>
 	<string name="description_title">Insere descrição do percurso</string>
 	<string name="description_placeholder">Descreve o seu percurso detalhadamente</string>

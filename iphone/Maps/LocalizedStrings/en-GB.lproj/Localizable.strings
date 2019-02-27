@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Please name your guide so that travellers can easily find it: for example, \"London Pubs\"";
 
-"name_comment2" = "The name shouldn't contain special symbols or digits. The name shouldn't be \"My places\"";
+"name_comment2" = "The name shouldn't contain special symbols. The name shouldn't be \"My places\"";
 
 "description_guide" = "Description";
 
@@ -2737,7 +2737,7 @@
 
 "unable_upadate_error_title" = "File update failed";
 
-"unable_upadate_error_message" = "Some mistakes occurred while updating. Please check the changes and try again";
+"unable_upadate_error_message" = "Some errors occurred while updating. Please check the changes and try again";
 
 "whats_new_wiki_title" = "What's that place?";
 

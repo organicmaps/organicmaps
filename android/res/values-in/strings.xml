@@ -1472,7 +1472,7 @@
 	<string name="name_title">Masukkan nama panduan Anda</string>
 	<string name="name_placeholder">mis. London Pubs</string>
 	<string name="name_comment1">Beri nama panduan Anda sehingga traveler dapat menemukannya dengan mudah: misalnya, \"London Pubs\"</string>
-	<string name="name_comment2">Nama tidak boleh berisi karakter khusus atau angka. Nama tidak boleh berupa \"Tempat saya\"</string>
+	<string name="name_comment2">Nama tidak boleh berisi karakter khusus. Nama tidak boleh berupa \"Tempat saya\"</string>
 	<string name="description_guide">Deskripsi</string>
 	<string name="description_title">Masukkan deskripsi panduan Anda</string>
 	<string name="description_placeholder">Deskripsikan panduan Anda secara mendetail</string>

@@ -1473,7 +1473,7 @@
 	<string name="name_title">Kirjoita oppaasi nimi</string>
 	<string name="name_placeholder">esim. Lontoon pubit</string>
 	<string name="name_comment1">Nimeä oppaasi niin, että matkailijat voivat löytää sen helposti: esimerkiksi \"Lontoon pubit\"</string>
-	<string name="name_comment2">Nimessä ei saa olla erikoismerkkejä tai numeroita. Nimi ei saa olla \"Minun paikkani\"</string>
+	<string name="name_comment2">Nimessä ei saa olla erikoismerkkejä. Nimi ei saa olla \"Minun paikkani\"</string>
 	<string name="description_guide">Kuvaus</string>
 	<string name="description_title">Kirjoita oppaasi kuvaus</string>
 	<string name="description_placeholder">Kuvaile opastasi yksityiskohtaisesti</string>

@@ -1478,7 +1478,7 @@
 	<string name="name_title">إدخل اسم دليلك</string>
 	<string name="name_placeholder">مثال: حانات لندن</string>
 	<string name="name_comment1">يرجى تسمية دليلك حتى يستطيع المسافرين العثور عليه بسهولة: مثال \"حانات لندن\"</string>
-	<string name="name_comment2">يجب أن لا يحتوي الاسم على علامات خاصة أو أرقام. لا يجب أن يكون الاسم \"أماكني\"</string>
+	<string name="name_comment2">يجب أن لا يحتوي الاسم على علامات خاصة. لا يجب أن يكون الاسم \"أماكني\"</string>
 	<string name="description_guide">الوصف</string>
 	<string name="description_title">إدخل وصف دليلك</string>
 	<string name="description_placeholder">صف دليلك بالتفصيل</string>

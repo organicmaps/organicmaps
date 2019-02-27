@@ -1478,7 +1478,7 @@
 	<string name="name_title">โปรดตั้งชื่อไกด์ของคุณ</string>
 	<string name="name_placeholder">ยกตัวอย่างเช่น ผับในลอนดอน</string>
 	<string name="name_comment1">โปรดตั้งชื่อไกด์ของคุณ เพื่อให้นักท่องเที่ยวคนอื่นๆ หาไกด์ได้ง่ายๆ ยกตัวอย่างเช่น \"ผับในลอนดอน\"</string>
-	<string name="name_comment2">ชื่อไม่ควรจะมีสัญลักษณ์หรือตัวเลขพิเศษใดๆ ชื่อไม่ควรใช้ว่า \"ที่ของฉัน\"</string>
+	<string name="name_comment2">ชื่อไม่ควรจะมีสัญลักษณ์หรใดๆ ชื่อไม่ควรใช้ว่า \"ที่ของฉัน\"</string>
 	<string name="description_guide">คำบรรยาย</string>
 	<string name="description_title">โปรดใส่คำบรรยายไกด์ของคุณ</string>
 	<string name="description_placeholder">โปรดบรรยายรายละเอียดของไกด์คุณ</string>

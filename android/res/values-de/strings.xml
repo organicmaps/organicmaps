@@ -1487,7 +1487,7 @@
 	<string name="name_title">Geben Sie den Name ein</string>
 	<string name="name_placeholder">z.B. Londoner Pubs</string>
 	<string name="name_comment1">Betiteln Sie die Route konkret, damit die Benutzer sie finden können, z.B. \"Londoner Pubs\"</string>
-	<string name="name_comment2">Der Titel soll keine Sonderzeichen oder Ziffern enthalten. Veröffentlichen Sie keine Routen mit dem Titel \"Meine Markierungen\"</string>
+	<string name="name_comment2">Der Titel soll keine Sonderzeichen enthalten. Veröffentlichen Sie keine Routen mit dem Titel \"Meine Markierungen\"</string>
 	<string name="description_guide">Beschreibung</string>
 	<string name="description_title">Geben Sie die Beschreibung der Route ein</string>
 	<string name="description_placeholder">Beschreiben Sie ausführlich Ihre Route</string>

@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Nome concreto aiuterà i viaggiatori a trovare l'itinerario, per esempio \"I Pub di Londra\"";
 
-"name_comment2" = "Nel nome non usare simboli, caratteri speciali o numeri. Non pubblicare itinerari con nome \"I miei segnalibri\"";
+"name_comment2" = "Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei segnalibri\"";
 
 "description_guide" = "Descrizione";
 

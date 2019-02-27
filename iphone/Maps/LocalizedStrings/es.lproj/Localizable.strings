@@ -2661,7 +2661,7 @@
 
 "name_comment1" = "Nombra la ruta específicamente para que los usuarios puedan encontrarla, por ejemplo, \"Pubs de Londres\"";
 
-"name_comment2" = "El nombre no debe contener caracteres especiales o números. No publiques rutas con el nombre \"Mis marcas\"";
+"name_comment2" = "El nombre no debe contener caracteres especiales. No publiques rutas con el nombre \"Mis marcas\"";
 
 "description_guide" = "Descripción";
 

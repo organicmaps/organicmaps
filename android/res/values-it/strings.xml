@@ -1472,7 +1472,7 @@
 	<string name="name_title">Inserire nome</string>
 	<string name="name_placeholder">per esempio, I Pub di Londra</string>
 	<string name="name_comment1">Nome concreto aiuterà i viaggiatori a trovare l\'itinerario, per esempio \"I Pub di Londra\"</string>
-	<string name="name_comment2">Nel nome non usare simboli, caratteri speciali o numeri. Non pubblicare itinerari con nome \"I miei segnalibri\"</string>
+	<string name="name_comment2">Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei segnalibri\"</string>
 	<string name="description_guide">Descrizione</string>
 	<string name="description_title">Inserire una descrizione dell\'itinerario</string>
 	<string name="description_placeholder">Fornire una descrizione completa dell\'itinerario</string>
