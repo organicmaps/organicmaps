@@ -106,8 +106,8 @@
       android:order="14"/>
     <ListPreference
       android:key="@string/pref_power_management"
-      android:title="@string/power_management_title"
-      android:summary="@string/power_management_description"
+      android:title="@string/power_managment_title"
+      android:summary="@string/power_managment_description"
       android:entries="@array/power_management_scheme"
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
