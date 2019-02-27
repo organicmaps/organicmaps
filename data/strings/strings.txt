@@ -37354,8 +37354,8 @@
     el = Βεβαιωθείτε ότι η διαδρομή έχει τίτλο και περιγραφή και ότι όλα τα σημάδια περιέχουν πληροφορίες σχετικά με τις τοποθεσίες. Χάρη σε αυτό, οι χρήστες θα βρουν τη διαδρομή και θα μπορέσουν να τη χρησιμοποιήσουν στο ταξίδι τους.
     sk = Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.
     sw = Tafadhali hakikisha una jina mahususi maelezo ya orodha yako, na vialamisho vyote viwe na taarifa kuhusu mahali. Kwa jinsi hii orodha yako inaweza kupatikana na kutumiwa na wengine.
-    zh-Hans = 请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们.
-    zh-Hant = 請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們.
+    zh-Hans = 请确保路线具有名称和描述，并且所有标签都包含场地信息。这样用户就能找到路线并在旅途中使用它们。
+    zh-Hant = 請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。
     fa = لطفا اطمینان حاصل کنید نام و توضیح مشخصی برای فهرست خود داشته باشید و تمام نشان شده‌ها دارای اطلاعاتی راجع به مکان‌ها هستند. به این ترتیب لیست شما می‌تواند توسط دیگران یافت استفاده شود.
 
   [bookmark_public_upload_alert_ok_button]
@@ -37660,8 +37660,8 @@
     el = Η περιγραφή της διαδρομής πρέπει να είναι τουλάχιστον 30 χαρακτήρες.
     sk = Váš popis sprievodcu by mal obsahovať najmenej 30 symbolov.
     sw = Maelezo ya mwongozo yawe na angalau alama 30.
-    zh-Hans = 路线描述至少应为30个字符.
-    zh-Hant = 路線描述至少應為30個字符.
+    zh-Hans = 路线描述至少应为30个字符。
+    zh-Hant = 路線描述至少應為30個字符。
     fa = توضیحات راهنما باید شامل حداقل 30 حرف باشد.
 
   [ugc_route_tags_desc]
@@ -37694,8 +37694,8 @@
     el = Διαλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον ταξιδιωτικό σας οδηγό. Αυτό είναι απαραίτητο. Ο μέγιστος αριθμός των ετικετών δεν πρέπει να υπερβαίνει %s.
     sk = Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť sprievodcu. Je to povinné. Maximálny počet značiek je %s.
     sw = Tafadhali chagua vibandiko ili kuwawezesha wasafiri wengine waupate mwongozo wako. Hii ni lazima. %s upeo wa vibandiko.
-    zh-Hans = 请选择标签以帮助其他旅行者找到您的指南. 这是必须的. 不要超过 %s 标签.
-    zh-Hant = 請選擇標籤以幫助其他旅行者找到您的指南. 這是必須的. 不要超過 %s 標籤.
+    zh-Hans = 请选择标签以帮助其他旅行者找到您的指南。这是必须的。不要超过 %s 标签。
+    zh-Hant = 請選擇標籤以幫助其他旅行者找到您的指南。這是必須的。不要超過 %s 標籤。
     fa = لطفاً برای کمک به سایر مسافران جهت یافتن راهنمای شما برچسب انتخاب کنید. این الزامی است. %s بیشترین برچسب‌ها.
 
   [html_format_error_title]
@@ -37762,8 +37762,8 @@
     el = Βεβαιωθείτε ότι τα ονόματα και οι περιγραφές των σημαδιών στη διαδρομή έχουν τη σωστή μορφοποίηση. Μπορείτε να το ελέγξετε στον επεξεργαστή μας κάνοντας κλικ στο κουμπί "Επεξεργασία online" παρακάτω.
     sk = Uistite sa, že názvy a popisy vašich záložiek majú platný formát. Môžete si ho skontrolovať v prehliadači pre stolné počítače kliknutím na tlačidlo "Upraviť online" nižšie.
     sw = Tafadhali hakikisha kwamba majina na maelezo ya vialamisho vyako vyote vina mfumo sahihi. Unaweza kukiangalia katika kivinjari chako cha kompyuta kwa kubofya kitufe cha "Hariri Mtandaoni" hapo chini.
-    zh-Hans = 请确保线路中标签的名称和描述格式正确. 您可以单击下面的"在线编辑"键在我们的编辑器中进行检查.
-    zh-Hant = 請確保線路中標籤的名稱和描述格式正確. 您可以單擊下面的"在線編輯"鍵在我們的編輯器中進行檢查.
+    zh-Hans = 请确保线路中标签的名称和描述格式正确。您可以单击下面的"在线编辑"键在我们的编辑器中进行检查。
+    zh-Hant = 請確保線路中標籤的名稱和描述格式正確。您可以單擊下面的"在線編輯"鍵在我們的編輯器中進行檢查。
     fa = لطفاً اطمینان حاصل کنید که نام و توضیحات تمام نشان شده‌های شما دارای فرمت معتبر است. می‌توانید آن را با کلیک روی گزینه "ویرایش آنلاین" از طریق مرورگر کامپیوتر بررسی کنید.
 
   [web_editor_description]
@@ -37880,7 +37880,7 @@
     de = Die Route wird aktualisiert…
     hu = A fájlod frissítése…
     id = Memperbarui file Anda…
-    it = Stiamo aggiornando l'itinerario…
+    it = Stiamo aggiornanzhdo l'itinerario…
     ja = あなたのファイルを更新しています…
     ko = 귀하의 파일을 업데이트 중입니다…
     nb = Oppdaterer filen din…
@@ -38034,8 +38034,8 @@
     el = Θέλετε να ενημερώσετε τα σημάδια? Η νέα έκδοση θα είναι διαθέσιμη με τον ίδιο σύνδεσμο.
     sk = Chcete aktualizovať svoje záložky? Nová verzia bude k dispozícii prostredníctvom toho istého odkazu.
     sw = Je, unataka kuboresha vialamisho vyako? Toleo jipya litapatikana kupitia kiunganishi kilekile.
-    zh-Hans = 您是否更新标签？新版本将在同一连链接上访问.
-    zh-Hant = 您是否更新標籤？新版本將在同一連鏈接上訪問.
+    zh-Hans = 您是否更新标签？新版本将在同一连链接上访问。
+    zh-Hant = 您是否更新標籤？新版本將在同一連鏈接上訪問。
     fa = آیا می خواهید نشان شده های خود را به روز کنید؟ نسخه جدید از طریق همان لینک دردسترس خواهد بود.
 
   [any_access_update_alert_update]
@@ -38344,8 +38344,8 @@
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του MAPS.ME.
     sk = Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory MAPS.ME.
     sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa MAPS.ME tu.
-    zh-Hans = 此选项启用以记录操作来进行诊断. 这有助于团队识别应用程序的问题. 请仅在MAPS.ME支持请求时开启该选项.
-    zh-Hant = 此選項啟用以記錄操作來進行診斷. 這有助於團隊識別應用程序的問題. 請僅在MAPS.ME支持請求時開啟該選項.
+    zh-Hans = 此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在MAPS.ME支持请求时开启该选项。
+    zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在MAPS.ME支持請求時開啟該選項。
     fa = این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی MAPS.ME فعال کنید.
 
   [html_error_upload_message_try_again]
@@ -38620,8 +38620,8 @@
     el = Ο αναγνωριστικός αριθμός σας είναι: %s.
     sk = Vaše ID: %s.
     sw = Utambulisho yako: %s.
-    zh-Hans = 您的ID：%s.
-    zh-Hant = 您的ID：%s.
+    zh-Hans = 您的ID：%s。
+    zh-Hant = 您的ID：%s。
     fa = شناسه شما: %s.
 
   [gdpr_request_window_message]
@@ -38756,8 +38756,8 @@
     el = Παρουσιάστηκαν σφάλματα κατά την ενημέρωση. Ελέγξτε τις αλλαγές και δοκιμάστε ξανά
     sk = Počas aktualizácie sa vyskytli určité chyby. Skontrolujte zmeny a skúste to znova
     sw = Kuna makosa yametokea wakati wa uboreshaji. Tafadhali angalia mabadiliko na ujaribu tena
-    zh-Hans = 更新时出错. 请检查更改，然后再重试
-    zh-Hant = 更新時出錯. 請檢查更改，然後再重試
+    zh-Hans = 更新时出错。请检查更改，然后再重试
+    zh-Hant = 更新時出錯。請檢查更改，然後再重試
     fa = هنگام به روز رسانی برخی اشتباهات رخ داده است. لطفاً تغییرات را بررسی و مجدد تلاش کنید
 
   [whats_new_wiki_title]

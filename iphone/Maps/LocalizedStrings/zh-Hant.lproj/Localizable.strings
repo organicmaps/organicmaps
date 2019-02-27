@@ -2651,7 +2651,7 @@
 
 "bookmark_public_upload_alert_title" = "您只需幾步即可將您的路徑加載到MAPS.ME目錄中！";
 
-"bookmark_public_upload_alert_subtitle" = "請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們.";
+"bookmark_public_upload_alert_subtitle" = "請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。";
 
 "bookmark_public_upload_alert_ok_button" = "是的，全部正確！";
 
@@ -2669,13 +2669,13 @@
 
 "description_placeholder" = "請詳細描述您的路線";
 
-"description_comment1" = "路線描述至少應為30個字符.";
+"description_comment1" = "路線描述至少應為30個字符。";
 
-"ugc_route_tags_desc" = "請選擇標籤以幫助其他旅行者找到您的指南. 這是必須的. 不要超過 %s 標籤.";
+"ugc_route_tags_desc" = "請選擇標籤以幫助其他旅行者找到您的指南。這是必須的。不要超過 %s 標籤。";
 
 "html_format_error_title" = "您的路線尚未發布";
 
-"html_format_error_subtitle" = "請確保線路中標籤的名稱和描述格式正確. 您可以單擊下面的\"在線編輯\"鍵在我們的編輯器中進行檢查.";
+"html_format_error_subtitle" = "請確保線路中標籤的名稱和描述格式正確。您可以單擊下面的\"在線編輯\"鍵在我們的編輯器中進行檢查。";
 
 "web_editor_description" = "請下載路線並獲取在電腦上編輯的鏈接";
 
@@ -2691,7 +2691,7 @@
 
 "any_access_update_alert_title" = "可能有路線新版本";
 
-"any_access_update_alert_message" = "您是否更新標籤？新版本將在同一連鏈接上訪問.";
+"any_access_update_alert_message" = "您是否更新標籤？新版本將在同一連鏈接上訪問。";
 
 "any_access_update_alert_update" = "更新";
 
@@ -2711,7 +2711,7 @@
 
 "power_managment_setting_manual_max" = "最大程度省電";
 
-"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷. 這有助於團隊識別應用程序的問題. 請僅在MAPS.ME支持請求時開啟該選項.";
+"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在MAPS.ME支持請求時開啟該選項。";
 
 "html_error_upload_message_try_again" = "請檢查網絡訪問，然後再重試";
 
@@ -2729,7 +2729,7 @@
 
 "gdpr_request_setting" = "GDPR請求獲取ID";
 
-"gdpr_request_window_title" = "您的ID：%s.";
+"gdpr_request_window_title" = "您的ID：%s。";
 
 "gdpr_request_window_message" = "請複制並發送請求至support@maps.me";
 
@@ -2737,7 +2737,7 @@
 
 "unable_upadate_error_title" = "無法更新路線";
 
-"unable_upadate_error_message" = "更新時出錯. 請檢查更改，然後再重試";
+"unable_upadate_error_message" = "更新時出錯。請檢查更改，然後再重試";
 
 "whats_new_wiki_title" = "這是什麼地方？";
 
