@@ -9,13 +9,9 @@ final class WhatsNewController: WelcomeViewController {
   
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_1"),
-                   title: "whats_new_ugc_routes_title",
-                   text: "whats_new_ugc_routes_subtitle",
-                   buttonTitle: "whats_new_next_button"),
-    WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_2"),
-                   title: "whats_new_webeditor_title",
-                   text: "whats_new_ugc_routes_message2",
+    WhatsNewConfig(image: UIImage(named: "img_whatsnew_wiki")!,
+                   title: "whats_new_wiki_title",
+                   text: "whats_new_wiki_message",
                    buttonTitle: "done")
     ]
   }
