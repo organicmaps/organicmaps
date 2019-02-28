@@ -42,7 +42,7 @@ public class PurchaseUtils
   @NonNull
   static ProductDetails toProductDetails(@NonNull SkuDetails skuDetails)
   {
-    float price = skuDetails.getPriceAmountMicros() / 1000000;
+    float price = skuDetails.getPriceAmountMicros() / 1000000f;
     String currencyCode = skuDetails.getPriceCurrencyCode();
     return new ProductDetails(skuDetails.getSku(), price, currencyCode, skuDetails.getTitle());
   }
