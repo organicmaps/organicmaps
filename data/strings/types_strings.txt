@@ -18845,3 +18845,51 @@
 
   [type.wheelchair.yes]
     en = wheelchair-yes
+
+  [type.piste_lift]
+    en = piste:lift
+
+  [type.piste_lift.j.bar]
+    en = piste:lift-j-bar
+
+  [type.piste_lift.magic_carpet]
+    en = piste:lift-magic_carpet
+
+  [type.piste_lift.platter]
+    en = piste:lift-platter
+
+  [type.piste_lift.rope_tow]
+    en = piste:lift-rope_tow
+
+  [type.piste_lift.t.bar]
+    en = piste:lift-t-bar
+
+  [type.piste_type]
+    en = piste:type
+
+  [type.piste_type.downhill]
+    en = piste:type-downhill
+
+  [type.piste_type.downhill.advanced]
+    en = piste:type-downhill-advanced
+
+  [type.piste_type.downhill.easy]
+    en = piste:type-downhill-easy
+
+  [type.piste_type.downhill.expert]
+    en = piste:type-downhill-expert
+
+  [type.piste_type.downhill.freeride]
+    en = piste:type-downhill-freeride
+
+  [type.piste_type.downhill.intermediate]
+    en = piste:type-downhill-intermediate
+
+  [type.piste_type.downhill.novice]
+    en = piste:type-downhill-novice
+
+  [type.piste_type.nordic]
+    en = piste:type-nordic
+
+  [type.piste_type.sled]
+    en = piste:type-sled
