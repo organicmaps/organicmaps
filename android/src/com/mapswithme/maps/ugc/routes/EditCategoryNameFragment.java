@@ -20,7 +20,7 @@ public class EditCategoryNameFragment extends BaseEditUserBookmarkCategoryFragme
   @NonNull
   protected CharSequence getTopSummaryText()
   {
-    return getString(R.string.name_comment2);
+    return getString(R.string.name_comment1);
   }
 
   @NonNull
