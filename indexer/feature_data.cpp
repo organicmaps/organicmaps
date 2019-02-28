@@ -94,6 +94,8 @@ public:
       { "sponsored" },
       { "entrance" },
       { "cuisine" },
+      { "area:highway" },
+      { "earthquake:damage" },
     };
 
     AddTypes(arr1);
