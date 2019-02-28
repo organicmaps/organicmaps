@@ -42,7 +42,6 @@ public:
 
   void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) override
   {
-    m_descriptorUpdater.Reset();
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
     m_bindingInfoCount = static_cast<uint8_t>(m_mesh->m_buffers.size());
     CHECK_LESS_OR_EQUAL(m_bindingInfoCount, kMaxBindingInfo, ());
@@ -74,7 +73,7 @@ public:
 
   void Reset() override
   {
-    m_descriptorUpdater.Reset();
+    m_descriptorUpdater.Destroy();
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
     m_geometryBuffers.clear();

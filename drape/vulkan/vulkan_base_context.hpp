@@ -6,6 +6,7 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_param_descriptor.hpp"
 #include "drape/vulkan/vulkan_pipeline.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
@@ -37,7 +38,7 @@ public:
                     drape_ptr<VulkanPipeline> && pipeline);
   ~VulkanBaseContext() override;
 
-  using ContextHandler = std::function<void(ref_ptr<VulkanBaseContext>)>;
+  using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
 
   bool BeginRendering() override;
   void EndRendering() override;
@@ -90,10 +91,12 @@ public:
 
   ref_ptr<VulkanObjectManager> GetObjectManager() const { return m_objectManager; }
 
-  VkCommandBuffer GetCurrentMemoryCommandBuffer() const { return m_memoryCommandBuffer; }
-  VkCommandBuffer GetCurrentRenderingCommandBuffer() const { return m_renderingCommandBuffer; }
-
+  // The following methods return short-live objects. Typically they must not be stored.
+  VkCommandBuffer GetCurrentMemoryCommandBuffer() const;
+  VkCommandBuffer GetCurrentRenderingCommandBuffer() const;
   ref_ptr<VulkanStagingBuffer> GetDefaultStagingBuffer() const;
+
+  uint32_t GetCurrentInflightFrameIndex() const { return m_inflightFrameIndex; }
 
   VkPipeline GetCurrentPipeline();
   VkPipelineLayout GetCurrentPipelineLayout() const;
@@ -108,6 +111,7 @@ public:
   {
     PrePresent = 0,
     PostPresent,
+    UpdateInflightFrame,
 
     Count
   };
@@ -164,16 +168,17 @@ protected:
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
-  VkCommandBuffer m_renderingCommandBuffer = {};
-  VkCommandBuffer m_memoryCommandBuffer = {};
   bool m_isActiveRenderPass = false;
 
-  // Swap chain image acquiring.
-  VkSemaphore m_acquireComplete = {};
-  // Command buffer submission and execution.
-  VkSemaphore m_renderComplete = {};
+  std::array<VkCommandBuffer, kMaxInflightFrames> m_renderingCommandBuffers = {};
+  std::array<VkCommandBuffer, kMaxInflightFrames> m_memoryCommandBuffers = {};
 
-  VkFence m_fence = {};
+  // Swap chain image acquiring.
+  std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
+  // Command buffers submission and execution.
+  std::array<VkSemaphore, kMaxInflightFrames> m_renderSemaphores = {};
+  // All rendering tasks completion.
+  std::array<VkFence, kMaxInflightFrames> m_fences = {};
 
   ref_ptr<VulkanObjectManager> m_objectManager;
   drape_ptr<VulkanPipeline> m_pipeline;
@@ -210,10 +215,11 @@ protected:
   VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;
 
-  drape_ptr<VulkanStagingBuffer> m_defaultStagingBuffer;
+  std::array<drape_ptr<VulkanStagingBuffer>, kMaxInflightFrames> m_defaultStagingBuffers = {};
   std::atomic<bool> m_presentAvailable;
   uint32_t m_frameCounter = 0;
   bool m_needPresent = true;
+  uint32_t m_inflightFrameIndex = 0;
 };
 }  // namespace vulkan
 }  // namespace dp

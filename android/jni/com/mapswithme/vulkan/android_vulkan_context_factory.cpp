@@ -35,7 +35,6 @@ public:
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
     SetRenderingQueue(queue);
     CreateCommandPool();
-    CreateSyncPrimitives();
   }
 
   void MakeCurrent() override

@@ -13,6 +13,9 @@ namespace vulkan
 {
 namespace
 {
+size_t constexpr kBackendQueueIndex = 0;
+size_t constexpr kOtherQueueIndex = 0;
+
 VkSamplerAddressMode GetVulkanSamplerAddressMode(TextureWrapping wrapping)
 {
   switch (wrapping)
@@ -41,18 +44,25 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
   , m_queueFamilyIndex(queueFamilyIndex)
   , m_memoryManager(device, deviceLimits, memoryProperties)
 {
-  for (size_t i = 0; i < ThreadType::Count; ++i)
-    m_queuesToDestroy[i].reserve(50);
-  m_descriptorsToDestroy.reserve(50);
+  for (auto & q : m_queuesToDestroy[ThreadType::Frontend])
+    q.reserve(50);
+
+  for (auto & descriptorsToDestroy : m_descriptorsToDestroy)
+    descriptorsToDestroy.reserve(50);
+
   CreateDescriptorPool();
 }
 
 VulkanObjectManager::~VulkanObjectManager()
 {
-  CollectDescriptorSetGroupsUnsafe();
+  for (auto & descriptorsToDestroy : m_descriptorsToDestroy)
+    CollectDescriptorSetGroupsUnsafe(descriptorsToDestroy);
 
   for (size_t i = 0; i < ThreadType::Count; ++i)
-    CollectObjectsImpl(m_queuesToDestroy[i]);
+  {
+    for (auto & q : m_queuesToDestroy[i])
+      CollectObjectsImpl(q);
+  }
 
   for (auto const & s : m_samplers)
     vkDestroySampler(m_device, s.second, nullptr);
@@ -64,6 +74,13 @@ VulkanObjectManager::~VulkanObjectManager()
 void VulkanObjectManager::RegisterThread(ThreadType type)
 {
   m_renderers[type] = std::this_thread::get_id();
+}
+
+void VulkanObjectManager::SetCurrentInflightFrameIndex(uint32_t index)
+{
+  CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
+  CHECK_LESS(m_currentInflightFrameIndex, kMaxInflightFrames, ());
+  m_currentInflightFrameIndex = index;
 }
 
 VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
@@ -207,71 +224,71 @@ void VulkanObjectManager::DestroyObject(VulkanObject object)
   auto const currentThreadId = std::this_thread::get_id();
   if (currentThreadId == m_renderers[ThreadType::Frontend])
   {
-    m_queuesToDestroy[ThreadType::Frontend].push_back(std::move(object));
+    m_queuesToDestroy[ThreadType::Frontend][m_currentInflightFrameIndex].push_back(std::move(object));
   }
   else if (currentThreadId == m_renderers[ThreadType::Backend])
   {
-    m_queuesToDestroy[ThreadType::Backend].push_back(std::move(object));
+    m_queuesToDestroy[ThreadType::Backend][kBackendQueueIndex].push_back(std::move(object));
   }
   else
   {
     std::lock_guard<std::mutex> lock(m_destroyMutex);
-    m_queuesToDestroy[ThreadType::Other].push_back(std::move(object));
+    m_queuesToDestroy[ThreadType::Other][kOtherQueueIndex].push_back(std::move(object));
   }
 }
 
 void VulkanObjectManager::DestroyDescriptorSetGroup(DescriptorSetGroup group)
 {
   CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
-  m_descriptorsToDestroy.push_back(std::move(group));
+  m_descriptorsToDestroy[m_currentInflightFrameIndex].push_back(std::move(group));
 }
 
-void VulkanObjectManager::CollectDescriptorSetGroups()
+void VulkanObjectManager::CollectDescriptorSetGroups(uint32_t inflightFrameIndex)
 {
   CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
-  CollectDescriptorSetGroupsUnsafe();
+  CollectDescriptorSetGroupsUnsafe(m_descriptorsToDestroy[inflightFrameIndex]);
 }
 
-void VulkanObjectManager::CollectDescriptorSetGroupsUnsafe()
+void VulkanObjectManager::CollectDescriptorSetGroupsUnsafe(DescriptorSetGroupArray & descriptors)
 {
-  for (auto const & d : m_descriptorsToDestroy)
+  for (auto const & d : descriptors)
   {
     CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
                                        1 /* count */, &d.m_descriptorSet));
   }
-  m_descriptorsToDestroy.clear();
+  descriptors.clear();
 }
 
-void VulkanObjectManager::CollectObjects()
+void VulkanObjectManager::CollectObjects(uint32_t inflightFrameIndex)
 {
   auto const currentThreadId = std::this_thread::get_id();
   if (currentThreadId == m_renderers[ThreadType::Frontend])
   {
-    CollectObjectsForThread(ThreadType::Frontend);
+    CollectObjectsForThread(m_queuesToDestroy[ThreadType::Frontend][inflightFrameIndex]);
   }
   else if (currentThreadId == m_renderers[ThreadType::Backend])
   {
-    CollectObjectsForThread(ThreadType::Backend);
+    CollectObjectsForThread(m_queuesToDestroy[ThreadType::Backend][kBackendQueueIndex]);
 
     std::lock_guard<std::mutex> lock(m_destroyMutex);
-    CollectObjectsForThread(ThreadType::Other);
+    CollectObjectsForThread(m_queuesToDestroy[ThreadType::Other][kOtherQueueIndex]);
   }
 }
 
-void VulkanObjectManager::CollectObjectsForThread(ThreadType type)
+void VulkanObjectManager::CollectObjectsForThread(VulkanObjectArray & objects)
 {
-  if (m_queuesToDestroy[type].empty())
+  if (objects.empty())
     return;
 
   std::vector<VulkanObject> queueToDestroy;
-  std::swap(m_queuesToDestroy[type], queueToDestroy);
+  std::swap(objects, queueToDestroy);
   DrapeRoutine::Run([this, queueToDestroy = std::move(queueToDestroy)]()
   {
     CollectObjectsImpl(queueToDestroy);
   });
 }
 
-void VulkanObjectManager::CollectObjectsImpl(std::vector<VulkanObject> const & objects)
+void VulkanObjectManager::CollectObjectsImpl(VulkanObjectArray const & objects)
 {
   for (auto const & obj : objects)
   {

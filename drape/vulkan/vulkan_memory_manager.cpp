@@ -17,7 +17,7 @@ namespace
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes =
 {{
   1024 * 1024,  // Geometry
-  64 * 1024,    // Uniform (no minimal size)
+  128 * 1024,   // Uniform
   0,            // Staging (no minimal size)
   0,            // Image (no minimal size)
 }};

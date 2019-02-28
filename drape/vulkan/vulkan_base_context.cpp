@@ -1,9 +1,5 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
 
-#include "drape/vulkan/vulkan_staging_buffer.hpp"
-#include "drape/vulkan/vulkan_texture.hpp"
-#include "drape/vulkan/vulkan_utils.hpp"
-
 #include "drape/framebuffer.hpp"
 
 #include "base/assert.hpp"
@@ -18,7 +14,7 @@ namespace vulkan
 {
 namespace
 {
-uint32_t constexpr kDefaultStagingBufferSizeInBytes = 10 * 1024 * 1024;
+uint32_t constexpr kDefaultStagingBufferSizeInBytes = 3 * 1024 * 1024;
 
 VkImageMemoryBarrier PostRenderBarrier(VkImage image)
 {
@@ -78,7 +74,8 @@ VulkanBaseContext::~VulkanBaseContext()
     m_pipeline.reset();
   }
 
-  m_defaultStagingBuffer.reset();
+  for (auto & b : m_defaultStagingBuffers)
+    b.reset();
 
   DestroyRenderPassAndFramebuffers();
   DestroySwapchain();
@@ -107,8 +104,8 @@ std::string VulkanBaseContext::GetRendererVersion() const
 void VulkanBaseContext::Init(ApiVersion apiVersion)
 {
   UNUSED_VALUE(apiVersion);
-  m_defaultStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager,
-                                                               kDefaultStagingBufferSizeInBytes);
+  for (auto & b : m_defaultStagingBuffers)
+    b = make_unique_dp<VulkanStagingBuffer>(m_objectManager, kDefaultStagingBufferSizeInBytes);
 }
 
 void VulkanBaseContext::SetPresentAvailable(bool available)
@@ -122,12 +119,15 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surf
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
   m_surfaceCapabilities = surfaceCapabilities;
+  CreateSyncPrimitives();
   RecreateSwapchainAndDependencies();
 }
 
 void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 {
   vkDeviceWaitIdle(m_device);
+  DestroySyncPrimitives();
+
   ResetSwapchainAndDependencies();
   m_surface.reset();
 
@@ -177,56 +177,87 @@ bool VulkanBaseContext::BeginRendering()
   if (!m_presentAvailable)
     return false;
 
+  auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE, UINT64_MAX);
+  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
+    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
+
+  CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fences[m_inflightFrameIndex]));
+
+  // Clear resources for the finished inflight frame.
+  {
+    for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
+      h.second(m_inflightFrameIndex);
+
+    // Resetting of the default staging buffer is only after the finishing of current
+    // inflight frame rendering. It prevents data collisions.
+    m_defaultStagingBuffers[m_inflightFrameIndex]->Reset();
+
+    // Descriptors can be used only on the thread which renders.
+    m_objectManager->CollectDescriptorSetGroups(m_inflightFrameIndex);
+
+    CollectMemory();
+  }
+
   m_frameCounter++;
   
-  auto const res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_acquireComplete,
-                                         VK_NULL_HANDLE, &m_imageIndex);
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_acquireSemaphores[m_inflightFrameIndex],
+                              VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
+  {
     RecreateSwapchainAndDependencies();
+    return false;
+  }
   else
+  {
     CHECK_RESULT_VK_CALL(vkAcquireNextImageKHR, res);
+  }
+
+  m_objectManager->SetCurrentInflightFrameIndex(m_inflightFrameIndex);
+  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::UpdateInflightFrame)])
+    h.second(m_inflightFrameIndex);
 
   VkCommandBufferBeginInfo commandBufferBeginInfo = {};
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   commandBufferBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-  CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffer, &commandBufferBeginInfo));
-  CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffer, &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffers[m_inflightFrameIndex],
+                                     &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffers[m_inflightFrameIndex],
+                                     &commandBufferBeginInfo));
 
   return true;
 }
 
 void VulkanBaseContext::EndRendering()
 {
-  CHECK(m_presentAvailable, ());
-
   // Flushing of the default staging buffer must be before submitting the queue.
   // It guarantees the graphics data coherence.
-  m_defaultStagingBuffer->Flush();
+  m_defaultStagingBuffers[m_inflightFrameIndex]->Flush();
 
   for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PrePresent)])
-    h.second(make_ref(this));
+    h.second(m_inflightFrameIndex);
 
   CHECK(m_isActiveRenderPass, ());
   m_isActiveRenderPass = false;
-  vkCmdEndRenderPass(m_renderingCommandBuffer);
+  vkCmdEndRenderPass(m_renderingCommandBuffers[m_inflightFrameIndex]);
 
-  CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffer));
-  CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffer));
+  CHECK_VK_CALL(vkEndCommandBuffer(m_memoryCommandBuffers[m_inflightFrameIndex]));
+  CHECK_VK_CALL(vkEndCommandBuffer(m_renderingCommandBuffers[m_inflightFrameIndex]));
 
   VkSubmitInfo submitInfo = {};
   VkPipelineStageFlags const waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-  VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffer, m_renderingCommandBuffer};
+  VkCommandBuffer commandBuffers[] = {m_memoryCommandBuffers[m_inflightFrameIndex],
+                                      m_renderingCommandBuffers[m_inflightFrameIndex]};
   submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
   submitInfo.pWaitDstStageMask = &waitStageMask;
-  submitInfo.pWaitSemaphores = &m_acquireComplete;
+  submitInfo.pWaitSemaphores = &m_acquireSemaphores[m_inflightFrameIndex];
   submitInfo.waitSemaphoreCount = 1;
-  submitInfo.pSignalSemaphores = &m_renderComplete;
+  submitInfo.pSignalSemaphores = &m_renderSemaphores[m_inflightFrameIndex];
   submitInfo.signalSemaphoreCount = 1;
   submitInfo.commandBufferCount = 2;
   submitInfo.pCommandBuffers = commandBuffers;
 
-  auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fence);
+  auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]);
   if (res != VK_ERROR_DEVICE_LOST)
   {
     m_needPresent = true;
@@ -247,12 +278,13 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
       ref_ptr<Framebuffer> fb = m_currentFramebuffer;
       ref_ptr<VulkanTexture> tex = fb->GetTexture()->GetHardwareTexture();
       VkImageMemoryBarrier imageBarrier = PostRenderBarrier(tex->GetImage());
-      vkCmdPipelineBarrier(m_renderingCommandBuffer, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-                           VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1,
-                           &imageBarrier);
+      vkCmdPipelineBarrier(m_renderingCommandBuffers[m_inflightFrameIndex],
+                           VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                           VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0,
+                           nullptr, 0, nullptr, 1, &imageBarrier);
     }
 
-    vkCmdEndRenderPass(m_renderingCommandBuffer);
+    vkCmdEndRenderPass(m_renderingCommandBuffers[m_inflightFrameIndex]);
     m_isActiveRenderPass = false;
   }
 
@@ -261,7 +293,7 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 
 void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 {
-  vkCmdSetStencilReference(m_renderingCommandBuffer, VK_STENCIL_FRONT_AND_BACK,
+  vkCmdSetStencilReference(m_renderingCommandBuffers[m_inflightFrameIndex], VK_STENCIL_FRONT_AND_BACK,
                            m_stencilReferenceValue);
 
   // Calculate attachment operations.
@@ -401,7 +433,8 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   renderPassBeginInfo.framebuffer = fbData.m_framebuffers[m_currentFramebuffer == nullptr ? m_imageIndex : 0];
 
   m_isActiveRenderPass = true;
-  vkCmdBeginRenderPass(m_renderingCommandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+  vkCmdBeginRenderPass(m_renderingCommandBuffers[m_inflightFrameIndex], &renderPassBeginInfo,
+                       VK_SUBPASS_CONTENTS_INLINE);
 }
 
 void VulkanBaseContext::Present()
@@ -414,7 +447,7 @@ void VulkanBaseContext::Present()
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = &m_swapchain;
     presentInfo.pImageIndices = &m_imageIndex;
-    presentInfo.pWaitSemaphores = &m_renderComplete;
+    presentInfo.pWaitSemaphores = &m_renderSemaphores[m_inflightFrameIndex];
     presentInfo.waitSemaphoreCount = 1;
 
     auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
@@ -422,21 +455,7 @@ void VulkanBaseContext::Present()
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
   }
 
-  auto const res = vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, UINT64_MAX);
-  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
-    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
-
-  CHECK_VK_CALL(vkResetFences(m_device, 1, &m_fence));
-  
-  for (auto const & h : m_handlers[static_cast<uint32_t>(HandlerType::PostPresent)])
-    h.second(make_ref(this));
-
-  // Resetting of the default staging buffer only after the finishing of rendering.
-  // It prevents data collisions.
-  m_defaultStagingBuffer->Reset();
-
-  // Descriptors can be used only on the thread which renders.
-  m_objectManager->CollectDescriptorSetGroups();
+  m_inflightFrameIndex = (m_inflightFrameIndex + 1) % kMaxInflightFrames;
 
   m_pipelineKey = {};
   m_stencilReferenceValue = 1;
@@ -445,7 +464,7 @@ void VulkanBaseContext::Present()
 
 void VulkanBaseContext::CollectMemory()
 {
-  m_objectManager->CollectObjects();
+  m_objectManager->CollectObjects(m_inflightFrameIndex);
 }
 
 uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHandler && handler)
@@ -513,8 +532,8 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
       }
     }
 
-    vkCmdClearAttachments(m_renderingCommandBuffer, attachmentsCount, attachments.data(),
-                          1 /* rectCount */, &clearRect);
+    vkCmdClearAttachments(m_renderingCommandBuffers[m_inflightFrameIndex], attachmentsCount,
+                          attachments.data(), 1 /* rectCount */, &clearRect);
   }
   else
   {
@@ -527,8 +546,8 @@ VulkanBaseContext::AttachmentsOperations VulkanBaseContext::GetAttachmensOperati
 {
   AttachmentsOperations operations;
 
-  // Here, if we do not clear attachments, we load data ONLY if we store it afterwards, otherwise we use 'DontCare' option
-  // to improve performance.
+  // Here, if we do not clear attachments, we load data ONLY if we store it afterwards,
+  // otherwise we use 'DontCare' option to improve performance.
   if (m_clearBits & ClearBits::ColorBit)
     operations.m_color.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
   else
@@ -578,13 +597,13 @@ void VulkanBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t
   viewport.height = h;
   viewport.minDepth = 0.0f;
   viewport.maxDepth = 1.0f;
-  vkCmdSetViewport(m_renderingCommandBuffer, 0, 1, &viewport);
+  vkCmdSetViewport(m_renderingCommandBuffers[m_inflightFrameIndex], 0, 1, &viewport);
 
   VkRect2D scissor = {};
   scissor.extent = {w, h};
   scissor.offset.x = x;
   scissor.offset.y = y;
-  vkCmdSetScissor(m_renderingCommandBuffer, 0, 1, &scissor);
+  vkCmdSetScissor(m_renderingCommandBuffers[m_inflightFrameIndex], 0, 1, &scissor);
 }
 
 void VulkanBaseContext::SetDepthTestEnabled(bool enabled)
@@ -695,9 +714,19 @@ VkSampler VulkanBaseContext::GetSampler(SamplerKey const & key)
   return m_objectManager->GetSampler(key);
 }
 
+VkCommandBuffer VulkanBaseContext::GetCurrentMemoryCommandBuffer() const
+{
+  return m_memoryCommandBuffers[m_inflightFrameIndex];
+}
+
+VkCommandBuffer VulkanBaseContext::GetCurrentRenderingCommandBuffer() const
+{
+  return m_renderingCommandBuffers[m_inflightFrameIndex];
+}
+
 ref_ptr<VulkanStagingBuffer> VulkanBaseContext::GetDefaultStagingBuffer() const
 {
-  return make_ref(m_defaultStagingBuffer);
+  return make_ref(m_defaultStagingBuffers[m_inflightFrameIndex]);
 }
   
 void VulkanBaseContext::RecreateSwapchain()
@@ -837,57 +866,80 @@ void VulkanBaseContext::CreateCommandBuffers()
   cmdBufAllocateInfo.commandPool = m_commandPool;
   cmdBufAllocateInfo.commandBufferCount = 1;
   cmdBufAllocateInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-  CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &m_memoryCommandBuffer));
-  CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &m_renderingCommandBuffer));
+
+  for (auto & cb : m_memoryCommandBuffers)
+    CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &cb));
+
+  for (auto & cb : m_renderingCommandBuffers)
+    CHECK_VK_CALL(vkAllocateCommandBuffers(m_device, &cmdBufAllocateInfo, &cb));
 }
 
 void VulkanBaseContext::DestroyCommandBuffers()
 {
-  if (m_memoryCommandBuffer != VK_NULL_HANDLE)
+  for (auto & cb : m_memoryCommandBuffers)
   {
-    vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_memoryCommandBuffer);
-    m_memoryCommandBuffer = VK_NULL_HANDLE;
+    if (cb == VK_NULL_HANDLE)
+      continue;
+
+    vkFreeCommandBuffers(m_device, m_commandPool, 1, &cb);
+    cb = VK_NULL_HANDLE;
   }
 
-  if (m_renderingCommandBuffer != VK_NULL_HANDLE)
+  for (auto & cb : m_renderingCommandBuffers)
   {
-    vkFreeCommandBuffers(m_device, m_commandPool, 1, &m_renderingCommandBuffer);
-    m_renderingCommandBuffer = VK_NULL_HANDLE;
+    if (cb == VK_NULL_HANDLE)
+      continue;
+
+    vkFreeCommandBuffers(m_device, m_commandPool, 1, &cb);
+    cb = VK_NULL_HANDLE;
   }
 }
 
 void VulkanBaseContext::CreateSyncPrimitives()
 {
-  // A fence is need to check for command buffer completion before we can recreate it.
   VkFenceCreateInfo fenceCI = {};
   fenceCI.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-  CHECK_VK_CALL(vkCreateFence(m_device, &fenceCI, nullptr, &m_fence));
+  fenceCI.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+  for (auto & f : m_fences)
+    CHECK_VK_CALL(vkCreateFence(m_device, &fenceCI, nullptr, &f));
 
   VkSemaphoreCreateInfo semaphoreCI = {};
   semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
-  CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_acquireComplete));
-  CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &m_renderComplete));
+  for (auto & s : m_acquireSemaphores)
+    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &s));
+
+  for (auto & s : m_renderSemaphores)
+    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &s));
 }
 
 void VulkanBaseContext::DestroySyncPrimitives()
 {
-  if (m_fence != VK_NULL_HANDLE)
+  for (auto & f : m_fences)
   {
-    vkDestroyFence(m_device, m_fence, nullptr);
-    m_fence = VK_NULL_HANDLE;
+    if (f == VK_NULL_HANDLE)
+      continue;
+
+    vkDestroyFence(m_device, f, nullptr);
+    f = VK_NULL_HANDLE;
   }
 
-  if (m_acquireComplete != VK_NULL_HANDLE)
+  for (auto & s : m_acquireSemaphores)
   {
-    vkDestroySemaphore(m_device, m_acquireComplete, nullptr);
-    m_acquireComplete = VK_NULL_HANDLE;
+    if (s == VK_NULL_HANDLE)
+      continue;
+
+    vkDestroySemaphore(m_device, s, nullptr);
+    s = VK_NULL_HANDLE;
   }
 
-  if (m_renderComplete != VK_NULL_HANDLE)
+  for (auto & s : m_renderSemaphores)
   {
-    vkDestroySemaphore(m_device, m_renderComplete, nullptr);
-    m_renderComplete = VK_NULL_HANDLE;
+    if (s == VK_NULL_HANDLE)
+      continue;
+
+    vkDestroySemaphore(m_device, s, nullptr);
+    s = VK_NULL_HANDLE;
   }
 }
 

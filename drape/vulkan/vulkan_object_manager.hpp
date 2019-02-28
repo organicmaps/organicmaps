@@ -11,6 +11,7 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
+#include <array>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -68,6 +69,8 @@ public:
   };
   void RegisterThread(ThreadType type);
 
+  void SetCurrentInflightFrameIndex(uint32_t index);
+
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                             uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
@@ -83,31 +86,37 @@ public:
 
   void DestroyObject(VulkanObject object);
   void DestroyDescriptorSetGroup(DescriptorSetGroup group);
-  void CollectDescriptorSetGroups();
-  void CollectObjects();
+  void CollectDescriptorSetGroups(uint32_t inflightFrameIndex);
+  void CollectObjects(uint32_t inflightFrameIndex);
 
   VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
   VkSampler GetSampler(SamplerKey const & key);
 
 private:
+  using DescriptorSetGroupArray = std::vector<DescriptorSetGroup>;
+  using VulkanObjectArray = std::vector<VulkanObject>;
+
   void CreateDescriptorPool();
   void DestroyDescriptorPools();
-  void CollectObjectsForThread(ThreadType type);
-  void CollectObjectsImpl(std::vector<VulkanObject> const & objects);
-  void CollectDescriptorSetGroupsUnsafe();
+  void CollectObjectsForThread(VulkanObjectArray & objects);
+  void CollectObjectsImpl(VulkanObjectArray const & objects);
+  void CollectDescriptorSetGroupsUnsafe(DescriptorSetGroupArray & descriptors);
 
   VkDevice const m_device;
   uint32_t const m_queueFamilyIndex;
   VulkanMemoryManager m_memoryManager;
 
   std::array<std::thread::id, ThreadType::Count> m_renderers = {};
-  std::array<std::vector<VulkanObject>, ThreadType::Count>  m_queuesToDestroy = {};
+  std::array<std::array<VulkanObjectArray, kMaxInflightFrames>, ThreadType::Count> m_queuesToDestroy = {};
 
   std::vector<VkDescriptorPool> m_descriptorPools;
-  std::vector<DescriptorSetGroup> m_descriptorsToDestroy;
+
+  std::array<DescriptorSetGroupArray, kMaxInflightFrames> m_descriptorsToDestroy;
 
   std::map<SamplerKey, VkSampler> m_samplers;
+
+  uint32_t m_currentInflightFrameIndex = 0;
 
   std::mutex m_mutex;
   std::mutex m_samplerMutex;

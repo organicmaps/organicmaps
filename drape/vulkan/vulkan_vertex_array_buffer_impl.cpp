@@ -37,7 +37,7 @@ public:
 
   ~VulkanVertexArrayBufferImpl() override
   {
-    m_descriptorUpdater.Reset();
+    m_descriptorUpdater.Destroy();
   }
 
   bool Build(ref_ptr<GpuProgram> program) override

@@ -56,47 +56,58 @@ ParamDescriptorUpdater::ParamDescriptorUpdater(ref_ptr<VulkanObjectManager> obje
   : m_objectManager(std::move(objectManager))
 {}
 
-void ParamDescriptorUpdater::Reset()
+void ParamDescriptorUpdater::Reset(uint32_t inflightFrameIndex)
 {
-  for (auto const & g : m_descriptorSetGroups)
+  auto & ud = m_updateData[inflightFrameIndex];
+  for (auto const & g : ud.m_descriptorSetGroups)
     m_objectManager->DestroyDescriptorSetGroup(g);
-  m_descriptorSetGroups.clear();
-  m_descriptorSetIndex = 0;
-  m_updateDescriptorFrame = 0;
+  ud.m_descriptorSetGroups.clear();
+  ud.m_descriptorSetIndex = 0;
+  ud.m_updateDescriptorFrame = 0;
+}
+
+void ParamDescriptorUpdater::Destroy()
+{
+  for (size_t i = 0; i < m_updateData.size(); ++i)
+    Reset(static_cast<uint32_t>(i));
 }
 
 void ParamDescriptorUpdater::Update(ref_ptr<dp::GraphicsContext> context)
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  if (m_program != vulkanContext->GetCurrentProgram())
+  m_currentInflightFrameIndex = vulkanContext->GetCurrentInflightFrameIndex();
+  auto & ud = m_updateData[m_currentInflightFrameIndex];
+
+  if (ud.m_program != vulkanContext->GetCurrentProgram())
   {
-    Reset();
-    m_program = vulkanContext->GetCurrentProgram();
+    Reset(m_currentInflightFrameIndex);
+    ud.m_program = vulkanContext->GetCurrentProgram();
   }
 
   // We can update descriptors only once per frame. So if we need to render
   // object several times per frame, we must allocate new descriptors.
-  if (m_updateDescriptorFrame != vulkanContext->GetCurrentFrameIndex())
+  if (ud.m_updateDescriptorFrame != vulkanContext->GetCurrentFrameIndex())
   {
-    m_updateDescriptorFrame = vulkanContext->GetCurrentFrameIndex();
-    m_descriptorSetIndex = 0;
+    ud.m_updateDescriptorFrame = vulkanContext->GetCurrentFrameIndex();
+    ud.m_descriptorSetIndex = 0;
   }
   else
   {
-    m_descriptorSetIndex++;
+    ud.m_descriptorSetIndex++;
   }
 
-  CHECK_LESS_OR_EQUAL(m_descriptorSetIndex, m_descriptorSetGroups.size(), ());
-  if (m_descriptorSetIndex == m_descriptorSetGroups.size())
-    m_descriptorSetGroups.emplace_back(m_objectManager->CreateDescriptorSetGroup(m_program));
+  CHECK_LESS_OR_EQUAL(ud.m_descriptorSetIndex, ud.m_descriptorSetGroups.size(), ());
+  if (ud.m_descriptorSetIndex == ud.m_descriptorSetGroups.size())
+    ud.m_descriptorSetGroups.emplace_back(m_objectManager->CreateDescriptorSetGroup(ud.m_program));
 
-  m_descriptorSetGroups[m_descriptorSetIndex].Update(vulkanContext->GetDevice(),
-                                                     vulkanContext->GetCurrentParamDescriptors());
+  ud.m_descriptorSetGroups[ud.m_descriptorSetIndex].Update(vulkanContext->GetDevice(),
+                                                           vulkanContext->GetCurrentParamDescriptors());
 }
 
 VkDescriptorSet ParamDescriptorUpdater::GetDescriptorSet() const
 {
-  return m_descriptorSetGroups[m_descriptorSetIndex].m_descriptorSet;
+  auto const & ud = m_updateData[m_currentInflightFrameIndex];
+  return ud.m_descriptorSetGroups[ud.m_descriptorSetIndex].m_descriptorSet;
 }
 }  // namespace vulkan
 }  // namespace dp

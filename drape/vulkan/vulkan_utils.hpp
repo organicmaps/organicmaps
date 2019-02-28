@@ -17,6 +17,8 @@ namespace vulkan
 {
 extern std::string GetVulkanResultString(VkResult result);
 
+uint32_t constexpr kMaxInflightFrames = 2;
+
 class VulkanFormatUnpacker
 {
 public:

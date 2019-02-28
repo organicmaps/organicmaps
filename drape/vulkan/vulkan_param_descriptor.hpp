@@ -2,6 +2,7 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
@@ -61,15 +62,22 @@ public:
   explicit ParamDescriptorUpdater(ref_ptr<VulkanObjectManager> objectManager);
 
   void Update(ref_ptr<dp::GraphicsContext> context);
-  void Reset();
+  void Destroy();
   VkDescriptorSet GetDescriptorSet() const;
 
 private:
+  void Reset(uint32_t inflightFrameIndex);
+
   ref_ptr<VulkanObjectManager> m_objectManager;
-  std::vector<DescriptorSetGroup> m_descriptorSetGroups;
-  ref_ptr<VulkanGpuProgram> m_program;
-  uint32_t m_updateDescriptorFrame = 0;
-  uint32_t m_descriptorSetIndex = 0;
+  struct UpdateData
+  {
+    std::vector<DescriptorSetGroup> m_descriptorSetGroups;
+    ref_ptr<VulkanGpuProgram> m_program;
+    uint32_t m_updateDescriptorFrame = 0;
+    uint32_t m_descriptorSetIndex = 0;
+  };
+  std::array<UpdateData, kMaxInflightFrames> m_updateData;
+  uint32_t m_currentInflightFrameIndex = 0;
 };
 
 }  // namespace vulkan

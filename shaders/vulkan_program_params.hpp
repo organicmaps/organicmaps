@@ -5,6 +5,7 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
+#include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/thread_checker.hpp"
 
@@ -33,7 +34,7 @@ public:
 
   void Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context);
   void Flush();
-  void Finish();
+  void Finish(uint32_t inflightFrameIndex);
 
   void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
              MapProgramParams const & params) override;
@@ -70,12 +71,15 @@ private:
                   void const * data, uint32_t sizeInBytes);
 
   ref_ptr<dp::vulkan::VulkanObjectManager> m_objectManager;
-  std::vector<UniformBuffer> m_uniformBuffers;
+  std::array<std::vector<UniformBuffer>, dp::vulkan::kMaxInflightFrames> m_uniformBuffers;
   uint32_t m_offsetAlignment = 0;
   uint32_t m_sizeAlignment = 0;
   uint32_t m_flushHandlerId = 0;
   uint32_t m_finishHandlerId = 0;
+  uint32_t m_updateInflightFrameId = 0;
   ThreadChecker m_threadChecker;
+
+  uint32_t m_currentInflightFrameIndex = 0;
 };
 }  // namespace vulkan
 }  // namespace gpu
