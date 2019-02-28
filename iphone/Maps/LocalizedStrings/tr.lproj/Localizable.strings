@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Gelecekte lütfen web sitemiz üzerinden kılavuzu düzenleyin, yayınlayın veya arkadaşlarınızla paylaşın";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Güç tasarrufu modu";
 
 "power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "İnceleyin ve gezginlere yardım edin!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Bildirimleri kapat";
 

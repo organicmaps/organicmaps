@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "将来的には当社のウェブサイトを通じてガイドを編集、公開、もしくは友人と共有してください";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "電力節約モード";
 
 "power_managment_description" = "自動モードが選択されている場合、このアプリケーションは現在のバッテリーの充電状態に応じてバッテリー消費の激しい機能の無効化を開始します";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "レビューして旅行者を助けましょう！";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "通知を無効化";
 

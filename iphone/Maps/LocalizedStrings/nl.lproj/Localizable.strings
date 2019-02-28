@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Later bewerk, publiceer of deel de route met de vrienden via onze website";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Energiebesparende modus";
 
 "power_managment_description" = "Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Laat een feedback achter en help reizigers!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Meldingen uitschakelen";
 

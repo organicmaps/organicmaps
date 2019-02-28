@@ -1543,7 +1543,6 @@
 	<string name="any_access_update_alert_update">Обновить</string>
 	<string name="public_or_limited_access_after_edit_online_error_title">Вы редактировали маршрут онлайн</string>
 	<string name="public_or_limited_access_after_edit_online_error_message">В дальнейшем редактируйте, публикуйте или делитесь маршрутом с друзьями через наш вебсайт</string>
-	<string name="parthner_megafon_search_banner_message">Роуминг, гудбай!</string>
 	<string name="power_managment_title">Режим энергосбережения</string>
 	<string name="power_managment_description">Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
 	<string name="power_managment_setting_never">Никогда</string>
@@ -1553,7 +1552,7 @@
 	<string name="html_error_upload_message_try_again">Проверьте доступ к сети и повторите попытку</string>
 	<string name="html_error_upload_title_try_again">Нет соединения с Интернетом</string>
 	<string name="notification_leave_review_v2_android_short_title">Оставляйте отзыв и помогайте путешественникам!</string>
-	<string name="megafon">Подробнее</string>
+	<string name="megafon">Роуминг, гудбай!</string>
 	<string name="notifications_illegal_alert_disable_button">Выключить уведомления</string>
 	<string name="access_rules_author_only">Редактируется онлайн</string>
 	<string name="privacy_settings_menu">Настройки конфиденциальности</string>

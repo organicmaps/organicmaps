@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "以后请通过我们的网站编辑、发布或与朋友分享路线";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "省电模式";
 
 "power_managment_description" = "如果开启省电模式，应用程序将根据手机的当前电量关耗电功能";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "请发表评论来帮助旅行者们！";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "关闭通知";
 

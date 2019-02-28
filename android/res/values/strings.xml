@@ -1555,7 +1555,6 @@
 	<string name="any_access_update_alert_update">Update</string>
 	<string name="public_or_limited_access_after_edit_online_error_title">You have edited you bookmarks online</string>
 	<string name="public_or_limited_access_after_edit_online_error_message">In the future, please edit, publish or share the guide with you friends via our website</string>
-	<string name="parthner_megafon_search_banner_message">Say goodbye to roaming!</string>
 	<string name="power_managment_title">Power saving mode</string>
 	<string name="power_managment_description">When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level</string>
 	<string name="power_managment_setting_never">Never</string>
@@ -1565,7 +1564,7 @@
 	<string name="html_error_upload_message_try_again">Please check your network settings and try again</string>
 	<string name="html_error_upload_title_try_again">No internet connection</string>
 	<string name="notification_leave_review_v2_android_short_title">Review and help travellers!</string>
-	<string name="megafon">Read more</string>
+	<string name="megafon">Say goodbye to roaming!</string>
 	<string name="notifications_illegal_alert_disable_button">Turn off notifications</string>
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="privacy_settings_menu">Privacy settings</string>

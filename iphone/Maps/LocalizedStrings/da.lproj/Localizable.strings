@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "I fremtiden rediger, udgiv eller del guiden, med dine venner, via vores hjemmeside";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Strømsparetilstand";
 
 "power_managment_description" = "Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Anmeld og hjælpe rejsende!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Slå fra meddelelser";
 

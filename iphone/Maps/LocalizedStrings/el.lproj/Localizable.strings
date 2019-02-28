@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Στο μέλλον κάντε την επεξεργασία, δημοσίευση ή κοινή χρήση της διαδρομής με φίλους μέσω της ιστοσελίδας μας";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Λειτουργία εξοικονόμησης ενέργειας";
 
 "power_managment_description" = "Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Αφήνετε τα σχόλιά σας και βοηθάτε τους ταξιδιώτες!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Απενεργοποίηση των ειδοποιήσεων";
 

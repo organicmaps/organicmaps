@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Надалі редагуйте, публікуйте маршрут або діліться ним з друзями через наш веб-сайт";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Режим енергозбереження";
 
 "power_managment_description" = "Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Залишайте відгук і допомагайте мандрівникам!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Вимкнути сповіщення";
 

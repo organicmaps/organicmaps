@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "În continuare editați, publicați și faceți schimb de trasee cu prietenii prin intermediul site-ului nostru";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Modul de economisire a energiei";
 
 "power_managment_description" = "Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de încărcarea bateriei telefonice";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Lăsați un comentariu și ajutați călătorii!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Porniți notificarea";
 

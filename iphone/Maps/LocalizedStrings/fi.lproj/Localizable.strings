@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Muokkaa, julkaise tai jaa opas tulevaisuudessa nettisivujemme kautta";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Virransäästötila";
 
 "power_managment_description" = "Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Arvostele ja auta matkailijoita!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Kytke ilmoitukset pois";
 

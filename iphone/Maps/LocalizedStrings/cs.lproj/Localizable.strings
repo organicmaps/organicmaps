@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "V budoucnu upravujte, publikujte nebo se dělte trasou s kamarády přes naši webovou stránku";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Nízkoenergetický režim";
 
 "power_managment_description" = "Pokud je nízkoenergetický režim zapojen, příloha bude vypínat funkce, které mrhají energii v závislosti na nynější nabíjení telefonu";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Ponechávejte ohlas a pomáhejte cestovatelům!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Vypnout oznámení";
 

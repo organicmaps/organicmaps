@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Selanjutnya, edit, publikasikan, atau bagikan panduan dengan teman melalui situs web kami";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Mode hemat daya";
 
 "power_managment_description" = "Saat mode otomatis dipilih, aplikasi mulai menonaktifkan fitur yang menghabiskan daya baterai, bergantung pada tingkat daya baterai saat ini";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Ulas dan bantu traveler!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Nonaktifkan pemberitahuan";
 

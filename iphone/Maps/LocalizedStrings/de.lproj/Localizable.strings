@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Ferner bearbeiten, veröffentlichen oder teilen Sie die Route mit Ihren Freunden auf unserer Website";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Stromsparmodus";
 
 "power_managment_description" = "Falls der Stromsparmodus aktiviert ist, wird die App stromintensive Prozesse je nach dem aktuellen Ladezustand deaktivieren";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Hinterlassen Sie Ihr Feedback und helfen Sie damit den Reisenden!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Benachrichtigungen deaktivieren";
 

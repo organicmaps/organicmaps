@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "En el futuro edita, publica o comparte la ruta con tus amigos a través de nuestro sitio web";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Modo de ahorro de energía";
 
 "power_managment_description" = "Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones que consumen energía, según la carga actual del teléfono";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "¡Escribe un comentario y ayuda a los viajeros!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Desactivar notificaciones";
 

@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Trong tương lại hãy chỉnh sửa, đăng và chia sẻ hướng dẫn cùng bạn bè qua website của chúng tôi";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Chế độ tiết kiệm năng lượng";
 
 "power_managment_description" = "Nếu chế độ tiết kiệm năng lượng được bật, ứng dụng sẽ tắt các chức năng tiêu thụ năng lượng tùy thuộc vào mức pin hiện tại của điện thoại";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Hãy để lại nhận xét và giúp khách du lịch!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Tắt thông báo";
 

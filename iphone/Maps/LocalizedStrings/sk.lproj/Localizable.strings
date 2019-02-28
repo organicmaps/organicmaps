@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "V budúcnosti môžete upravovať, publikovať alebo zdieľať sprievodcu s priateľmi prostredníctvom našich webových stránok";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Úsporný režim";
 
 "power_managment_description" = "Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Ohodnotiť a pomôcť cestujúcim!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Vypnite upozornenia";
 

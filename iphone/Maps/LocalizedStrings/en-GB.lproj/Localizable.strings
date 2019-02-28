@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "In the future, please edit, publish or share the guide with you friends via our website";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Power saving mode";
 
 "power_managment_description" = "When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Review and help travellers!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Turn off notifications";
 

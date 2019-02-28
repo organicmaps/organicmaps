@@ -2699,8 +2699,6 @@
 
 "public_or_limited_access_after_edit_online_error_message" = "Vidare redigera, publicera eller dela resrutten med vänner via vår hemsida";
 
-"parthner_megafon_search_banner_message" = "Say goodbye to roaming!";
-
 "power_managment_title" = "Energisparläge";
 
 "power_managment_description" = "Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning";
@@ -2719,7 +2717,7 @@
 
 "notification_leave_review_v2_android_short_title" = "Lämna en recension och hjälp resenärer!";
 
-"megafon" = "Read more";
+"megafon" = "Say goodbye to roaming!";
 
 "notifications_illegal_alert_disable_button" = "Stäng av meddelanden";
 
