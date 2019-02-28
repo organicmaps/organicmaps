@@ -38140,10 +38140,6 @@
     zh-Hant = 以後請通過我們的網站編輯、發布或與朋友分享路線
     fa = در آینده، لطفاً راهنما را ویرایش، منتشر یا با دوستان خود از طریق وب سایت ما به اشتراک گذارید
 
-  [parthner_megafon_search_banner_message]
-    en = Say goodbye to roaming!
-    ru = Роуминг, гудбай!
-
   [power_managment_title]
     en = Power saving mode
     ru = Режим энергосбережения
@@ -38451,8 +38447,8 @@
     fa = نظر خود را بیان و به مسافران کمک کنید!
     
   [megafon]
-    en = Read more
-    ru = Подробнее
+    en = Say goodbye to roaming!
+    ru = Роуминг, гудбай!
     
   [notifications_illegal_alert_disable_button]
     en = Turn off notifications
