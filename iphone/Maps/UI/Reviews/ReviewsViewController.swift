@@ -15,6 +15,11 @@ final class ReviewsViewController: MWMTableViewController {
     super.viewDidLoad()
     registerCells()
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.refresh()
+  }
 
   private func registerCells() {
     [UGCYourReviewCell.self, UGCReviewCell.self].forEach {
@@ -31,11 +36,23 @@ final class ReviewsViewController: MWMTableViewController {
     switch cellModel {
     case let cellModel as UGCYourReview:
       let cell = tableView.dequeueReusableCell(withCellClass: UGCYourReviewCell.self, indexPath: indexPath) as! UGCYourReviewCell
-      cell.config(yourReview: cellModel, onUpdate: tableView.refresh)
+      cell.config(yourReview: cellModel,
+                  isExpanded: viewModel.isExpanded(cellModel),
+                  onUpdate: { [weak self] in
+                    guard let self = self else { return }
+                    self.viewModel.markExpanded(cellModel)
+                    self.tableView.refresh()
+      })
       return cell
     case let cellModel as UGCReview:
       let cell = tableView.dequeueReusableCell(withCellClass: UGCReviewCell.self, indexPath: indexPath) as! UGCReviewCell
-      cell.config(review: cellModel, onUpdate: tableView.refresh)
+      cell.config(review: cellModel,
+                  isExpanded: viewModel.isExpanded(cellModel),
+                  onUpdate: { [weak self] in
+                    guard let self = self else { return }
+                    self.viewModel.markExpanded(cellModel)
+                    self.tableView.refresh()
+      })
       return cell
     default: assert(false)
     }

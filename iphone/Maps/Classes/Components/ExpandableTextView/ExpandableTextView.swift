@@ -1,184 +1,120 @@
 import UIKit
 
-@IBDesignable final class ExpandableTextView: UIView {
-  @IBInspectable var text: String = "" {
-    didSet {
-      guard oldValue != text else { return }
-      update()
-    }
-  }
-
-  @IBInspectable var textColor: UIColor? {
-    get { return settings.textColor }
-    set {
-      settings.textColor = newValue ?? settings.textColor
-      update()
-    }
-  }
-
-  @IBInspectable var expandText: String {
-    get { return settings.expandText }
-    set {
-      settings.expandText = newValue
-      update()
-    }
-  }
-
-  @IBInspectable var expandTextColor: UIColor? {
-    get { return settings.expandTextColor }
-    set {
-      settings.expandTextColor = newValue ?? settings.expandTextColor
-      update()
-    }
-  }
-
-  @IBInspectable var numberOfCompactLines: Int {
-    get { return settings.numberOfCompactLines }
-    set {
-      settings.numberOfCompactLines = newValue
-      update()
-    }
-  }
-
-  var textFont: UIFont {
-    get { return settings.textFont }
-    set {
-      settings.textFont = newValue
-      update()
-    }
-  }
-
-  var settings = ExpandableTextViewSettings() {
-    didSet { update() }
-  }
-
-  var onUpdate: (() -> Void)?
-
-  override var frame: CGRect {
-    didSet {
-      guard frame.size != oldValue.size else { return }
-      update()
-    }
-  }
-
-  override var bounds: CGRect {
-    didSet {
-      guard bounds.size != oldValue.size else { return }
-      update()
-    }
-  }
-
-  private var isCompact = true {
-    didSet {
-      guard oldValue != isCompact else { return }
-      update()
-    }
-  }
-
-  private func createTextLayer() {
-    self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-
-    var truncate = false
-    let size: CGSize
-    let fullSize = text.size(width: frame.width, font: textFont, maxNumberOfLines: 0)
-    if isCompact {
-      size = text.size(width: frame.width, font: textFont, maxNumberOfLines: numberOfCompactLines)
-      truncate = size.height < fullSize.height
-      if truncate {
-        let expandSize = expandText.size(width: frame.width, font: textFont, maxNumberOfLines: 1)
-        let layer = CATextLayer()
-        layer.position = CGPoint(x: 0, y: size.height)
-        layer.bounds = CGRect(origin: CGPoint(), size: expandSize)
-        layer.anchorPoint = CGPoint()
-        layer.string = expandText
-        layer.font = CGFont(textFont.fontName as CFString)
-        layer.fontSize = textFont.pointSize
-        layer.foregroundColor = expandTextColor?.cgColor
-        layer.contentsScale = UIScreen.main.scale
-
-        self.layer.addSublayer(layer)
-      }
-    } else {
-      size = fullSize
-    }
-
-    let layer = CATextLayer()
-    layer.bounds = CGRect(origin: CGPoint(), size: size)
-    layer.anchorPoint = CGPoint()
-    layer.string = text
-    layer.isWrapped = true
-    layer.truncationMode = truncate ? kCATruncationEnd : kCATruncationNone
-    layer.font = CGFont(textFont.fontName as CFString)
-    layer.fontSize = textFont.pointSize
-    layer.foregroundColor = textColor?.cgColor
-    layer.contentsScale = UIScreen.main.scale
-
-    self.layer.addSublayer(layer)
-  }
-
-  public override func awakeFromNib() {
-    super.awakeFromNib()
-    setup()
-  }
-
-  public convenience init() {
-    self.init(frame: CGRect())
-  }
-
-  public override init(frame: CGRect) {
+final class ExpandableReviewView: UIView {
+  var contentLabel: UILabel = {
+    let label = UILabel(frame: .zero)
+    label.numberOfLines = 0
+    label.clipsToBounds = true
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
+  var moreLabel: UILabel = {
+    let label = UILabel(frame: .zero)
+    label.clipsToBounds = true
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
+  var moreZeroHeight: NSLayoutConstraint!
+  private var settings: ExpandableReviewSettings = ExpandableReviewSettings()
+  private var isExpanded = false
+  private var onUpdateHandler: (() -> Void)?
+  
+  override init(frame: CGRect) {
     super.init(frame: frame)
-    setup()
+    configureContent()
   }
-
-  public required init?(coder aDecoder: NSCoder) {
+  
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    setup()
+    configureContent()
   }
-
-  override func mwm_refreshUI() {
-    super.mwm_refreshUI()
-    textColor = textColor?.opposite()
-    expandTextColor = expandTextColor?.opposite()
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    updateRepresentation()
   }
-
-  private func setup() {
+  
+  func configureContent() {
+    self.addSubview(contentLabel)
+    self.addSubview(moreLabel)
+    let labels: [String: Any] = ["contentLabel": contentLabel, "moreLabel": moreLabel]
+    var contentConstraints: [NSLayoutConstraint] = []
+    let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[contentLabel]-0-[moreLabel]",
+                                                             metrics: nil,
+                                                             views: labels)
+    contentConstraints += verticalConstraints
+    let moreBottomConstraint = bottomAnchor.constraint(equalTo: moreLabel.bottomAnchor)
+    moreBottomConstraint.priority = .defaultLow
+    contentConstraints.append(moreBottomConstraint)
+    
+    let contentHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[contentLabel]-0-|",
+                                                                      metrics: nil,
+                                                                      views: labels)
+    contentConstraints += contentHorizontalConstraints
+    let moreHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[moreLabel]-0-|",
+                                                                   metrics: nil,
+                                                                   views: labels)
+    contentConstraints += moreHorizontalConstraints
+    NSLayoutConstraint.activate(contentConstraints)
+    moreZeroHeight = moreLabel.heightAnchor.constraint(equalToConstant: 0.0)
+    apply(settings: settings)
+    
     layer.backgroundColor = UIColor.clear.cgColor
     isOpaque = true
     gestureRecognizers = nil
     addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
-    update()
+  }
+  
+  func apply(settings: ExpandableReviewSettings) {
+    self.settings = settings
+    self.contentLabel.textColor = settings.textColor
+    self.contentLabel.font = settings.textFont
+    self.moreLabel.font = settings.textFont
+    self.moreLabel.textColor = settings.expandTextColor
+    self.moreLabel.text = settings.expandText
   }
 
-  private var scheduledUpdate: DispatchWorkItem?
-
-  private func updateImpl() {
-    createTextLayer()
-
-    invalidateIntrinsicContentSize()
-    onUpdate?()
+  override func mwm_refreshUI() {
+    super.mwm_refreshUI()
+    settings.textColor = settings.textColor.opposite()
+    settings.expandTextColor = settings.expandTextColor.opposite()
   }
-
-  func update() {
-    scheduledUpdate?.cancel()
-    scheduledUpdate = DispatchWorkItem { [weak self] in self?.updateImpl() }
-    DispatchQueue.main.async(execute: scheduledUpdate!)
-  }
-
-  override var intrinsicContentSize: CGSize {
-    var viewSize = CGSize()
-    layer.sublayers?.forEach { layer in
-      viewSize.width = max(viewSize.width, layer.frame.maxX)
-      viewSize.height = max(viewSize.height, layer.frame.maxY)
-    }
-    return viewSize
-  }
-
-  override func prepareForInterfaceBuilder() {
-    super.prepareForInterfaceBuilder()
-    updateImpl()
+  
+  func configure(text: String, isExpanded: Bool, onUpdate: @escaping () -> Void) {
+    contentLabel.text = text
+    self.isExpanded = isExpanded
+    contentLabel.numberOfLines = isExpanded ? 0 : settings.numberOfCompactLines
+    onUpdateHandler = onUpdate
   }
 
   @objc private func onTap() {
-    isCompact = false
+    if !isExpanded {
+      isExpanded = true
+      updateRepresentation()
+      contentLabel.numberOfLines = 0
+      onUpdateHandler?()
+    }
+  }
+  
+  func updateRepresentation() {
+    guard let text = contentLabel.text else {
+      return
+    }
+    if isExpanded {
+      moreZeroHeight.isActive = true
+    } else {
+      let height = (text as NSString).boundingRect(with: CGSize(width: contentLabel.bounds.width,
+                                                                height: .greatestFiniteMagnitude),
+                                                   options: .usesLineFragmentOrigin,
+                                                   attributes: [.font: contentLabel.font],
+                                                   context: nil).height
+      if height > contentLabel.bounds.height {
+        moreZeroHeight.isActive = false
+      } else {
+        moreZeroHeight.isActive = true
+      }
+    }
   }
 }

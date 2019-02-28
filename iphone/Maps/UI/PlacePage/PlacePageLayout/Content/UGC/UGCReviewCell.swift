@@ -22,20 +22,22 @@ final class UGCReviewCell: MWMTableViewCell {
     }
   }
 
-  @IBOutlet private weak var reviewLabel: ExpandableTextView! {
+  @IBOutlet private weak var reviewLabel: ExpandableReviewView! {
     didSet {
-      reviewLabel.textFont = UIFont.regular14()
-      reviewLabel.textColor = UIColor.blackPrimaryText()
-      reviewLabel.expandText = L("placepage_more_button")
-      reviewLabel.expandTextColor = UIColor.linkBlue()
+      let settings = ExpandableReviewSettings(expandText: L("placepage_more_button"),
+                                              expandTextColor: .linkBlue(),
+                                              textColor: .blackPrimaryText(),
+                                              textFont: .regular14())
+      reviewLabel.apply(settings: settings)
     }
   }
 
-  @objc func config(review: UGCReview, onUpdate: @escaping () -> Void) {
+  @objc func config(review: UGCReview, isExpanded: Bool, onUpdate: @escaping () -> Void) {
     titleLabel.text = review.title
     dateLabel.text = review.date
-    reviewLabel.text = review.text
-    reviewLabel.onUpdate = onUpdate
+    reviewLabel.configure(text: review.text,
+                          isExpanded: isExpanded,
+                          onUpdate: onUpdate)
     ratingView.value = review.rating.value
     ratingView.type = review.rating.type
     isSeparatorHidden = true

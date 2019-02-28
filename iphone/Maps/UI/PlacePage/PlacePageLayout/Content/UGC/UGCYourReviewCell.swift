@@ -19,12 +19,13 @@ final class UGCYourReviewCell: MWMTableViewCell {
     }
   }
 
-  @IBOutlet private weak var reviewLabel: ExpandableTextView! {
+  @IBOutlet private weak var reviewLabel: ExpandableReviewView! {
     didSet {
-      reviewLabel.textFont = UIFont.regular14()
-      reviewLabel.textColor = UIColor.blackPrimaryText()
-      reviewLabel.expandText = L("placepage_more_button")
-      reviewLabel.expandTextColor = UIColor.linkBlue()
+      let settings = ExpandableReviewSettings(expandText: L("placepage_more_button"),
+                                              expandTextColor: .linkBlue(),
+                                              textColor: .blackPrimaryText(),
+                                              textFont: .regular14())
+      reviewLabel.apply(settings: settings)
     }
   }
 
@@ -45,12 +46,13 @@ final class UGCYourReviewCell: MWMTableViewCell {
     }
   }
 
-  @objc func config(yourReview: UGCYourReview, onUpdate: @escaping () -> Void) {
+  @objc func config(yourReview: UGCYourReview, isExpanded: Bool, onUpdate: @escaping () -> Void) {
     dateLabel.text = yourReview.date
     self.yourReview = yourReview
-    reviewLabel.text = yourReview.text
+    reviewLabel.configure(text: yourReview.text,
+                          isExpanded: isExpanded,
+                          onUpdate: onUpdate)
     reviewBottomOffset.constant = yourReview.text.isEmpty ? 0 : Config.defaultReviewBottomOffset
-    reviewLabel.onUpdate = onUpdate
     updateCollectionView()
     isSeparatorHidden = true
   }

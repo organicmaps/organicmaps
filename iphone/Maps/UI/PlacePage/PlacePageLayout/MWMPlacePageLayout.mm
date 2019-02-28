@@ -555,8 +555,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         Class cls = [MWMUGCYourReviewCell class];
         auto c = static_cast<MWMUGCYourReviewCell *>(
             [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-        [c configWithYourReview:static_cast<MWMUGCYourReview *>([ugc reviewWithIndex:indexPath.row])
-                        onUpdate:onUpdate];
+        auto review = static_cast<MWMUGCYourReview *>([ugc reviewWithIndex:indexPath.row]);
+        [c configWithYourReview:review
+                     isExpanded:[ugc isExpanded:review]
+                       onUpdate:^{
+                         [ugc markExpanded:review];
+                         onUpdate();
+                       }];
         return c;
       }
       case ReviewRow::Review:
@@ -564,8 +569,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         Class cls = [MWMUGCReviewCell class];
         auto c = static_cast<MWMUGCReviewCell *>(
             [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-        [c configWithReview:static_cast<MWMUGCReview *>([ugc reviewWithIndex:indexPath.row])
-                    onUpdate:onUpdate];
+        auto review = static_cast<MWMUGCReview *>([ugc reviewWithIndex:indexPath.row]);
+        [c configWithReview:review
+                 isExpanded:[ugc isExpanded:review]
+                    onUpdate:^{
+                      [ugc markExpanded:review];
+                      onUpdate();
+                    }];
         return c;
       }
       case ReviewRow::MoreReviews:

@@ -30,6 +30,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 @interface MWMUGCViewModel ()
 @property(copy, nonatomic) MWMVoidBlock refreshCallback;
+@property(strong, nonatomic) NSMutableDictionary *expandedReviews;
 @end
 
 @implementation MWMUGCViewModel
@@ -44,6 +45,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   self = [super init];
   if (self)
   {
+    _expandedReviews = [[NSMutableDictionary alloc] initWithCapacity: 1];
     m_ugc = ugc;
     m_ugcUpdate = update;
     [self fillReviewRows];
@@ -111,6 +113,16 @@ MWMUGCRatingValueType * ratingValueType(float rating)
                date:[self reviewDate:review.m_time]
                text:@(review.m_text.m_text.c_str())
              rating:ratingValueType(review.m_rating)];
+}
+
+- (BOOL)isExpanded:(id<MWMReviewProtocol> _Nonnull) review {
+  NSString *key = [[NSString alloc] initWithFormat:@"%@%lu", review.date, (unsigned long)[review.text hash]];
+  return _expandedReviews[key] == nil ? NO : YES;
+}
+
+- (void)markExpanded:(id<MWMReviewProtocol> _Nonnull) review {
+  NSString *key = [[NSString alloc] initWithFormat:@"%@%lu", review.date, (unsigned long)[review.text hash]];
+  _expandedReviews[key] = @YES;
 }
 
 #pragma mark - Propertis
