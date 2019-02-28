@@ -413,8 +413,7 @@ public class BookmarkCategory implements Parcelable
     ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_link_inline),
     ACCESS_RULES_P2P(R.string.access_rules_p_to_p, R.drawable.ic_public_inline),
     ACCESS_RULES_PAID(R.string.access_rules_paid, R.drawable.ic_public_inline),
-    //TODO(@alexzatsepin): Set correct resources.
-    ACCESS_RULES_AUTHOR_ONLY(R.string.access_rules_p_to_p, R.drawable.ic_lock);
+    ACCESS_RULES_AUTHOR_ONLY(R.string.access_rules_author_only, R.drawable.ic_lock);
 
     private final int mResId;
     private final int mDrawableResId;
