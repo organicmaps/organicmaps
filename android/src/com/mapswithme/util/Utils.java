@@ -767,7 +767,8 @@ public class Utils
     if (TextUtils.isEmpty(type))
       return "";
 
-    String key = "type." + type.replace('-', '.');
+    String key = "type." + type.replace('-', '.')
+                               .replace(':', '_');
     return getLocalizedFeatureByKey(context, key);
   }
 
