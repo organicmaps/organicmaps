@@ -508,10 +508,10 @@ public:
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
-  void SetRenderingDisabled(bool destroyContext);
+  void SetRenderingDisabled(bool destroySurface);
 
-  void OnRecoverGLContext(int width, int height);
-  void OnDestroyGLContext();
+  void OnRecoverSurface(int width, int height);
+  void OnDestroySurface();
 
 private:
   /// Depends on initialized Drape engine.

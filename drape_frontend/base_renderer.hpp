@@ -52,7 +52,7 @@ public:
   bool CanReceiveMessages();
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory);
-  void SetRenderingDisabled(bool const destroyContext);
+  void SetRenderingDisabled(bool const destroySurface);
 
   bool IsRenderingEnabled() const;
 

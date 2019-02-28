@@ -44,11 +44,13 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
   , m_queueFamilyIndex(queueFamilyIndex)
   , m_memoryManager(device, deviceLimits, memoryProperties)
 {
+  size_t constexpr kAvgDestroyCount = 50;
+
   for (auto & q : m_queuesToDestroy[ThreadType::Frontend])
-    q.reserve(50);
+    q.reserve(kAvgDestroyCount);
 
   for (auto & descriptorsToDestroy : m_descriptorsToDestroy)
-    descriptorsToDestroy.reserve(50);
+    descriptorsToDestroy.reserve(kAvgDestroyCount);
 
   CreateDescriptorPool();
 }
@@ -362,9 +364,9 @@ void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t 
 void VulkanObjectManager::CreateDescriptorPool()
 {
   // Maximum uniform buffers descriptors count per frame.
-  uint32_t constexpr kMaxUniformBufferDescriptorsCount = 500;
+  uint32_t constexpr kMaxUniformBufferDescriptorsCount = 500 * kMaxInflightFrames;
   // Maximum textures descriptors count per frame.
-  uint32_t constexpr kMaxImageSamplerDescriptorsCount = 1000;
+  uint32_t constexpr kMaxImageSamplerDescriptorsCount = 1000 * kMaxInflightFrames;
 
   std::vector<VkDescriptorPoolSize> poolSizes =
   {

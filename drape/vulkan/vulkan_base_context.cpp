@@ -205,6 +205,8 @@ bool VulkanBaseContext::BeginRendering()
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
     RecreateSwapchainAndDependencies();
+    DestroySyncPrimitives();
+    CreateSyncPrimitives();
     return false;
   }
   else

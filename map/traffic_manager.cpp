@@ -162,12 +162,12 @@ void TrafficManager::OnMwmDeregistered(platform::LocalCountryFile const & countr
   }
 }
 
-void TrafficManager::OnDestroyGLContext()
+void TrafficManager::OnDestroySurface()
 {
   Pause();
 }
 
-void TrafficManager::OnRecoverGLContext()
+void TrafficManager::OnRecoverSurface()
 {
   Resume();
 }

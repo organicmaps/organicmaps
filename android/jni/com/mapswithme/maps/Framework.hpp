@@ -61,7 +61,7 @@ namespace android
 
     std::string m_searchQuery;
 
-    bool m_isContextDestroyed;
+    bool m_isSurfaceDestroyed;
 
     std::map<gui::EWidget, gui::Position> m_guiPositions;
 
@@ -97,8 +97,8 @@ namespace android
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                            bool launchByDeepLink, int appVersionCode);
     bool IsDrapeEngineCreated();
-    bool DestroyContextOnSurfaceDetach();
-    void DetachSurface(bool destroyContext);
+    bool DestroySurfaceOnDetach();
+    void DetachSurface(bool destroySurface);
     bool AttachSurface(JNIEnv * env, jobject jSurface);
     void PauseSurfaceRendering();
     void ResumeSurfaceRendering();

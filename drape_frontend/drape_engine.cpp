@@ -352,10 +352,10 @@ void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contex
   LOG(LDEBUG, ("Rendering enabled"));
 }
 
-void DrapeEngine::SetRenderingDisabled(bool const destroyContext)
+void DrapeEngine::SetRenderingDisabled(bool const destroySurface)
 {
-  m_frontend->SetRenderingDisabled(destroyContext);
-  m_backend->SetRenderingDisabled(destroyContext);
+  m_frontend->SetRenderingDisabled(destroySurface);
+  m_backend->SetRenderingDisabled(destroySurface);
 
   LOG(LDEBUG, ("Rendering disabled"));
 }

@@ -63,7 +63,7 @@ public class MapFragment extends BaseMwmFragment
   private int mHeight;
   private int mWidth;
   private boolean mRequireResize;
-  private boolean mContextCreated;
+  private boolean mSurfaceCreated;
   private boolean mSurfaceAttached;
   private boolean mLaunchByDeepLink;
   private static boolean sWasCopyrightDisplayed;
@@ -113,7 +113,7 @@ public class MapFragment extends BaseMwmFragment
                       mWidth - marginX,
                       offsetY + marginY,
                       ANCHOR_CENTER);
-    if (forceRedraw && mContextCreated)
+    if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }
 
@@ -123,7 +123,7 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(R.dimen.margin_ruler_left),
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_LEFT_BOTTOM);
-    if (forceRedraw && mContextCreated)
+    if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }
 
@@ -133,7 +133,7 @@ public class MapFragment extends BaseMwmFragment
                       mWidth - UiUtils.dimen(R.dimen.margin_watermark_right),
                       mHeight - UiUtils.dimen(R.dimen.margin_watermark_bottom) + offsetY,
                       ANCHOR_RIGHT_BOTTOM);
-    if (forceRedraw && mContextCreated)
+    if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }
 
@@ -175,7 +175,7 @@ public class MapFragment extends BaseMwmFragment
       return;
     }
 
-    LOGGER.d(TAG, "surfaceCreated, mContextCreated = " + mContextCreated);
+    LOGGER.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
     final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
     {
@@ -184,7 +184,7 @@ public class MapFragment extends BaseMwmFragment
         reportUnsupported();
         return;
       }
-      mContextCreated = true;
+      mSurfaceCreated = true;
       mSurfaceAttached = true;
       mRequireResize = true;
       return;
@@ -218,7 +218,7 @@ public class MapFragment extends BaseMwmFragment
       });
     }
 
-    mContextCreated = true;
+    mSurfaceCreated = true;
     mSurfaceAttached = true;
     onRenderingInitialized();
   }
@@ -232,8 +232,8 @@ public class MapFragment extends BaseMwmFragment
       return;
     }
 
-    LOGGER.d(TAG, "surfaceChanged, mContextCreated = " + mContextCreated);
-    if (!mContextCreated || (!mRequireResize && surfaceHolder.isCreating()))
+    LOGGER.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
+    if (!mSurfaceCreated || (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
     final Surface surface = surfaceHolder.getSurface();
@@ -249,19 +249,19 @@ public class MapFragment extends BaseMwmFragment
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
     LOGGER.d(TAG, "surfaceDestroyed");
-    destroyContext();
+    destroySurface();
   }
 
-  void destroyContext()
+  void destroySurface()
   {
-    LOGGER.d(TAG, "destroyContext, mContextCreated = " + mContextCreated +
+    LOGGER.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
              ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded(),
              new Throwable());
-    if (!mContextCreated || !mSurfaceAttached || !isAdded())
+    if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
       return;
 
     nativeDetachSurface(!getActivity().isChangingConfigurations());
-    mContextCreated = !nativeDestroyContextOnSurfaceDetach();
+    mSurfaceCreated = !nativeDestroySurfaceOnDetach();
     mSurfaceAttached = false;
   }
 
@@ -361,7 +361,7 @@ public class MapFragment extends BaseMwmFragment
 
   boolean isContextCreated()
   {
-    return mContextCreated;
+    return mSurfaceCreated;
   }
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
@@ -369,13 +369,13 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeScaleMinus();
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
-  static native boolean nativeDestroyContextOnSurfaceDetach();
+  static native boolean nativeDestroySurfaceOnDetach();
   private static native boolean nativeCreateEngine(Surface surface, int density,
                                                    boolean firstLaunch,
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
   private static native boolean nativeAttachSurface(Surface surface);
-  private static native void nativeDetachSurface(boolean destroyContext);
+  private static native void nativeDetachSurface(boolean destroySurface);
   private static native void nativePauseSurfaceRendering();
   private static native void nativeResumeSurfaceRendering();
   private static native void nativeSurfaceChanged(Surface surface, int w, int h);

@@ -106,7 +106,7 @@ enum MultiTouchAction
 
 Framework::Framework()
   : m_lastCompass(0.0)
-  , m_isContextDestroyed(false)
+  , m_isSurfaceDestroyed(false)
   , m_currentMode(location::PendingPosition)
   , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
@@ -163,7 +163,7 @@ void Framework::TransitSchemeStateChanged(TransitReadManager::TransitSchemeState
     m_onTransitStateChangedFn(state);
 }
 
-bool Framework::DestroyContextOnSurfaceDetach()
+bool Framework::DestroySurfaceOnDetach()
 {
   if (m_vulkanContextFactory)
     return false;
@@ -219,7 +219,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   {
     CHECK(oglFactory != nullptr, ());
     p.m_apiVersion = oglFactory->IsSupportedOpenGLES3() ? dp::ApiVersion::OpenGLES3 :
-                     dp::ApiVersion::OpenGLES2;
+                                                          dp::ApiVersion::OpenGLES2;
     p.m_surfaceWidth = oglFactory->GetWidth();
     p.m_surfaceHeight = oglFactory->GetHeight();
   }
@@ -256,7 +256,7 @@ void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)
     if (vulkanContextFactory->GetWidth() != w || vulkanContextFactory->GetHeight() != h)
     {
       m_vulkanContextFactory->SetPresentAvailable(false);
-      m_work.SetRenderingDisabled(false /* destroyContext */);
+      m_work.SetRenderingDisabled(false /* destroySurface */);
 
       vulkanContextFactory->ChangeSurface(env, jSurface, w, h);
 
@@ -274,9 +274,9 @@ void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)
   frm()->SetVisibleViewport(m2::RectD(0, 0, w, h));
 }
 
-void Framework::DetachSurface(bool destroyContext)
+void Framework::DetachSurface(bool destroySurface)
 {
-  LOG(LINFO, ("Detach surface started. destroyContext =", destroyContext));
+  LOG(LINFO, ("Detach surface started. destroySurface =", destroySurface));
   if (m_vulkanContextFactory)
   {
     m_vulkanContextFactory->SetPresentAvailable(false);
@@ -287,12 +287,12 @@ void Framework::DetachSurface(bool destroyContext)
     m_oglContextFactory->SetPresentAvailable(false);
   }
 
-  if (destroyContext)
+  if (destroySurface)
   {
-    LOG(LINFO, ("Destroy context."));
-    m_isContextDestroyed = true;
+    LOG(LINFO, ("Destroy surface."));
+    m_isSurfaceDestroyed = true;
     m_work.EnterBackground();
-    m_work.OnDestroyGLContext();
+    m_work.OnDestroySurface();
   }
 
   if (m_vulkanContextFactory)
@@ -301,14 +301,14 @@ void Framework::DetachSurface(bool destroyContext)
     // we have to destroy only resources bound with surface (swapchains,
     // image views, framebuffers and command buffers). All these resources will be
     // destroyed in ResetSurface().
-    m_work.SetRenderingDisabled(false /* destroyContext */);
+    m_work.SetRenderingDisabled(false /* destroySurface */);
 
     // Allow pipeline dump only on enter background.
-    CastFactory(m_vulkanContextFactory)->ResetSurface(destroyContext /* allowPipelineDump */);
+    CastFactory(m_vulkanContextFactory)->ResetSurface(destroySurface /* allowPipelineDump */);
   }
   else
   {
-    m_work.SetRenderingDisabled(destroyContext);
+    m_work.SetRenderingDisabled(destroySurface);
     auto factory = m_oglContextFactory->CastFactory<AndroidOGLContextFactory>();
     factory->ResetSurface();
   }
@@ -359,11 +359,11 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
     m_work.SetRenderingEnabled(make_ref(m_oglContextFactory));
   }
 
-  if (m_isContextDestroyed)
+  if (m_isSurfaceDestroyed)
   {
-    LOG(LINFO, ("Recover GL resources, viewport size:", w, h));
-    m_work.OnRecoverGLContext(w, h);
-    m_isContextDestroyed = false;
+    LOG(LINFO, ("Recover surface, viewport size:", w, h));
+    m_work.OnRecoverSurface(w, h);
+    m_isSurfaceDestroyed = false;
 
     m_work.EnterForeground();
   }

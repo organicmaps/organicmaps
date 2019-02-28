@@ -526,7 +526,7 @@ using namespace osm_auth_ios;
   if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
   {
     f.SetRenderingDisabled(true);
-    f.OnDestroyGLContext();
+    f.OnDestroySurface();
   }
   else
   {
@@ -575,7 +575,7 @@ using namespace osm_auth_ios;
   if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
   {
     m2::PointU const size = ((EAGLView *)self.mapViewController.view).pixelSize;
-    f.OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
+    f.OnRecoverSurface(static_cast<int>(size.x), static_cast<int>(size.y));
   }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];

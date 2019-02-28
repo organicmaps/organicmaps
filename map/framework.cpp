@@ -360,7 +360,7 @@ void Framework::Migrate(bool keepDownloaded)
   if (m_drapeEngine && m_isRenderingEnabled)
   {
     m_drapeEngine->SetRenderingDisabled(true);
-    OnDestroyGLContext();
+    OnDestroySurface();
   }
   m_selectedFeature = FeatureID();
   m_discoveryManager.reset();
@@ -389,8 +389,8 @@ void Framework::Migrate(bool keepDownloaded)
   if (m_drapeEngine && m_isRenderingEnabled)
   {
     m_drapeEngine->SetRenderingEnabled();
-    OnRecoverGLContext(m_currentModelView.PixelRectIn3d().SizeX(),
-                       m_currentModelView.PixelRectIn3d().SizeY());
+    OnRecoverSurface(m_currentModelView.PixelRectIn3d().SizeX(),
+                     m_currentModelView.PixelRectIn3d().SizeY());
   }
   InvalidateRect(MercatorBounds::FullRect());
 }
@@ -1902,7 +1902,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   benchmark::RunGraphicsBenchmark(this);
 }
 
-void Framework::OnRecoverGLContext(int width, int height)
+void Framework::OnRecoverSurface(int width, int height)
 {
   if (m_drapeEngine)
   {
@@ -1915,14 +1915,14 @@ void Framework::OnRecoverGLContext(int width, int height)
     m_drapeApi.Invalidate();
   }
 
-  m_trafficManager.OnRecoverGLContext();
+  m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
   m_localAdsManager.Invalidate();
 }
 
-void Framework::OnDestroyGLContext()
+void Framework::OnDestroySurface()
 {
-  m_trafficManager.OnDestroyGLContext();
+  m_trafficManager.OnDestroySurface();
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1955,11 +1955,11 @@ void Framework::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextF
     m_drapeEngine->SetRenderingEnabled(contextFactory);
 }
 
-void Framework::SetRenderingDisabled(bool destroyContext)
+void Framework::SetRenderingDisabled(bool destroySurface)
 {
   m_isRenderingEnabled = false;
   if (m_drapeEngine)
-    m_drapeEngine->SetRenderingDisabled(destroyContext);
+    m_drapeEngine->SetRenderingDisabled(destroySurface);
 }
 
 void Framework::EnableDebugRectRendering(bool enabled)

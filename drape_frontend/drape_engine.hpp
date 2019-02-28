@@ -142,7 +142,7 @@ public:
   void InvalidateUserMarks();
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
-  void SetRenderingDisabled(bool const destroyContext);
+  void SetRenderingDisabled(bool const destroySurface);
   void InvalidateRect(m2::RectD const & rect);
   void UpdateMapStyle();
 

@@ -47,9 +47,9 @@ void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> conte
   SetRenderingEnabled(true);
 }
 
-void BaseRenderer::SetRenderingDisabled(bool const destroyContext)
+void BaseRenderer::SetRenderingDisabled(bool const destroySurface)
 {
-  if (destroyContext)
+  if (destroySurface)
     m_wasContextReset = true;
   SetRenderingEnabled(false);
 }

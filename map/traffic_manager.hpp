@@ -75,8 +75,8 @@ public:
 
   void Invalidate();
 
-  void OnDestroyGLContext();
-  void OnRecoverGLContext();
+  void OnDestroySurface();
+  void OnRecoverSurface();
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
 
   void OnEnterForeground();
