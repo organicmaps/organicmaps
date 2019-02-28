@@ -122,12 +122,12 @@ using namespace power_management;
   switch (GetFramework().GetPowerManager().GetScheme())
   {
   case Scheme::None: break;
-  case Scheme::Normal: powerManagement = L(@"power_management_setting_never"); break;
+  case Scheme::Normal: powerManagement = L(@"power_managment_setting_never"); break;
   case Scheme::EconomyMedium: break;
   case Scheme::EconomyMaximum: powerManagement = L(@"power_managment_setting_manual_max"); break;
-  case Scheme::Auto: powerManagement = L(@"power_management_setting_auto"); break;
+  case Scheme::Auto: powerManagement = L(@"power_managment_setting_auto"); break;
   }
-  [self.powerManagementCell configWithTitle:L(@"power_management_title") info:powerManagement];
+  [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
 
   NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled())

@@ -20,7 +20,7 @@ using namespace power_management;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"power_management_title");
+  self.title = L(@"power_managment_title");
 
   SettingsTableViewSelectableCell * selectedCell;
   switch (GetFramework().GetPowerManager().GetScheme())
@@ -76,7 +76,7 @@ using namespace power_management;
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-  return L(@"power_management_description");
+  return L(@"power_managment_description");
 }
 
 @end

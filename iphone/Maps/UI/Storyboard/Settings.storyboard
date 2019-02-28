@@ -2050,7 +2050,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_management_setting_never"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_managment_setting_never"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -2110,7 +2110,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_management_setting_auto"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="power_managment_setting_auto"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
