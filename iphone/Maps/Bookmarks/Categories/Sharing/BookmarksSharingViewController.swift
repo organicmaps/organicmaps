@@ -186,8 +186,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
           if (self.category.trackCount + self.category.bookmarksCount > 2) {
             self.showEditName()
           } else {
-            MWMAlertViewController.activeAlert().presentInfoAlert(L("error_public_not_enough_title"),
-                                                                  text: L("error_public_not_enough_subtitle"))
+            MWMAlertViewController.activeAlert().presentInfoAlert(L("error_public_not_enought_title"),
+                                                                  text: L("error_public_not_enought_subtitle"))
           }
         }
       }
