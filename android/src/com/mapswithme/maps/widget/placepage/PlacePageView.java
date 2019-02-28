@@ -1094,14 +1094,14 @@ public class PlacePageView extends NestedScrollView
     }
 
     refreshPreview(mMapObject, null);
+    refreshDetails(mMapObject);
+    refreshHotelDetailViews(policy);
     refreshViewsInternal(mMapObject);
     mUgcController.getUGC(mMapObject);
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
   {
-    refreshDetails(mapObject);
-
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
     switch (mapObject.getMapObjectType())
     {
@@ -1218,8 +1218,6 @@ public class PlacePageView extends NestedScrollView
   {
     refreshLatLon(mapObject);
 
-    refreshHotelDetailViews();
-
     if (mSponsored == null || mSponsored.getType() != Sponsored.TYPE_BOOKING)
     {
       String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
@@ -1257,7 +1255,7 @@ public class PlacePageView extends NestedScrollView
     setPlaceDescription(mapObject);
   }
 
-  private void refreshHotelDetailViews()
+  private void refreshHotelDetailViews(@NonNull NetworkPolicy policy)
   {
     if (mSponsored == null)
     {
@@ -1266,7 +1264,7 @@ public class PlacePageView extends NestedScrollView
     }
 
     boolean isConnected = ConnectionState.isConnected();
-    if (isConnected)
+    if (isConnected && policy.сanUseNetwork())
       showHotelDetailViews();
     else
       hideHotelDetailViews();
