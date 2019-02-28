@@ -71,3 +71,10 @@ if (PLATFORM_MAC)
     "-framework CoreLocation"
   )
 endif()
+
+if (PLATFORM_LINUX)
+  omim_link_libraries(
+    ${PROJECT_NAME}
+    dl
+  )
+endif()
