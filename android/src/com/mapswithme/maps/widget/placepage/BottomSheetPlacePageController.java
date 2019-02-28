@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -10,8 +11,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -80,6 +84,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
   private final SlideListener mSlideListener;
+  @NonNull
+  private final GestureDetectorCompat mGestureDetector;
   @NonNull
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new AnchorBottomSheetBehavior.BottomSheetCallback()
@@ -208,8 +214,10 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mActivity = activity;
     mPurchaseControllerProvider = provider;
     mSlideListener = listener;
+    mGestureDetector = new GestureDetectorCompat(activity, new PlacePageGestureListener());
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   @Override
   public void initialize()
   {
@@ -223,6 +231,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePage = mActivity.findViewById(R.id.placepage);
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
+    mPlacePage.setOnTouchListener((v, event) -> mGestureDetector.onTouchEvent(event));
     mPlacePage.addOnLayoutChangeListener(this);
     mPlacePage.addClosable(this);
 
@@ -623,5 +632,29 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void closePlacePage()
   {
     close();
+  }
+
+  private class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener
+  {
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e)
+    {
+      @AnchorBottomSheetBehavior.State
+      int state = mPlacePageBehavior.getState();
+      if (isCollapsedState(state))
+      {
+        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
+        return true;
+      }
+
+      if (isAnchoredState(state) || isExpandedState(state))
+      {
+        mPlacePage.resetScroll();
+        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+        return true;
+      }
+
+      return false;
+    }
   }
 }
