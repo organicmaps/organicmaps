@@ -2500,6 +2500,22 @@
 	<string name="type.wheelchair.limited">wheelchair-limited</string>
 	<string name="type.wheelchair.no">wheelchair-no</string>
 	<string name="type.wheelchair.yes">wheelchair-yes</string>
+	<string name="type.piste_lift">piste:lift</string>
+	<string name="type.piste_lift.j.bar">piste:lift-j-bar</string>
+	<string name="type.piste_lift.magic_carpet">piste:lift-magic_carpet</string>
+	<string name="type.piste_lift.platter">piste:lift-platter</string>
+	<string name="type.piste_lift.rope_tow">piste:lift-rope_tow</string>
+	<string name="type.piste_lift.t.bar">piste:lift-t-bar</string>
+	<string name="type.piste_type">piste:type</string>
+	<string name="type.piste_type.downhill">piste:type-downhill</string>
+	<string name="type.piste_type.downhill.advanced">piste:type-downhill-advanced</string>
+	<string name="type.piste_type.downhill.easy">piste:type-downhill-easy</string>
+	<string name="type.piste_type.downhill.expert">piste:type-downhill-expert</string>
+	<string name="type.piste_type.downhill.freeride">piste:type-downhill-freeride</string>
+	<string name="type.piste_type.downhill.intermediate">piste:type-downhill-intermediate</string>
+	<string name="type.piste_type.downhill.novice">piste:type-downhill-novice</string>
+	<string name="type.piste_type.nordic">piste:type-nordic</string>
+	<string name="type.piste_type.sled">piste:type-sled</string>
 
 	<!-- SECTION: Brands -->
 	<string name="brand.aiya">Aiya</string>
