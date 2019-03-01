@@ -328,11 +328,13 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
   ForEachFromDatRawFormat(srcFilePath,
                           [&midPoints, &country](FeatureBuilder1 const & ft, uint64_t pos) {
                             // Removing speed cameras from geometry index for some countries.
-                            if (!routing::AreSpeedCamerasProhibited(country) || !ft.IsPoint() ||
-                                !classif().GetTypeByPath({"highway", "speed_camera"}))
+                            if (routing::AreSpeedCamerasProhibited(country) && ft.IsPoint() &&
+                                classif().GetTypeByPath({"highway", "speed_camera"}))
                             {
-                              midPoints(ft, pos);
+                              return;
                             }
+
+                            midPoints(ft, pos);
                           });
 
   // sort features by their middle point
