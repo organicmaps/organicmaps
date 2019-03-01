@@ -32,9 +32,9 @@ public class EditCategoryDescriptionFragment extends BaseEditUserBookmarkCategor
   }
 
   @Override
-  protected int getTitleText()
+  protected int getHintText()
   {
-    return R.string.description_title;
+    return R.string.description_placeholder;
   }
 
   @Override

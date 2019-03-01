@@ -70,7 +70,7 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     setHasOptionsMenu(true);
     mEditText = root.findViewById(R.id.edit_text_field);
     InputFilter[] inputFilters = { new InputFilter.LengthFilter(mTextLimit) };
-    mEditText.setHint(getTitleText());
+    mEditText.setHint(getHintText());
     mEditText.setFilters(inputFilters);
     mEditText.setText(getEditableText());
     mEditText.addTextChangedListener(new TextRestrictionWatcher());
@@ -90,7 +90,7 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
   protected abstract CharSequence getBottomSummaryText();
 
   @StringRes
-  protected abstract int getTitleText();
+  protected abstract int getHintText();
 
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)

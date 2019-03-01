@@ -11,9 +11,9 @@ public class EditCategoryNameFragment extends BaseEditUserBookmarkCategoryFragme
   public static final int REQ_CODE_EDIT_DESCRIPTION = 75;
 
   @Override
-  protected int getTitleText()
+  protected int getHintText()
   {
-    return R.string.name_title;
+    return R.string.name_placeholder;
   }
 
   @Override
