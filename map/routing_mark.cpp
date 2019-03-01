@@ -3,6 +3,8 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/localization.hpp"
+
 #include <algorithm>
 
 namespace
@@ -60,6 +62,12 @@ dp::Anchor RouteMarkPoint::GetAnchor() const
 df::DepthLayer RouteMarkPoint::GetDepthLayer() const
 {
   return df::DepthLayer::RoutingMarkLayer;
+}
+
+void RouteMarkPoint::SetIsVisible(bool isVisible)
+{
+  SetDirty();
+  m_markData.m_isVisible = isVisible;
 }
 
 void RouteMarkPoint::SetRoutePointType(RouteMarkType type)
@@ -599,4 +607,67 @@ int SpeedCameraMark::GetMinTitleZoom() const
 dp::Anchor SpeedCameraMark::GetAnchor() const
 {
   return dp::Center;
+}
+
+RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg)
+  : UserMark(ptOrg, Type::ROAD_WARNING)
+{
+
+}
+
+void RoadWarningMark::SetIndex(uint32_t index)
+{
+  SetDirty();
+  m_index = index;
+}
+
+void RoadWarningMark::SetIsVisible(bool isVisible)
+{
+  SetDirty();
+  m_isVisible = isVisible;
+}
+
+void RoadWarningMark::SetRoadWarningType(RoadWarningMarkType type)
+{
+  SetDirty();
+  m_type = type;
+}
+
+void RoadWarningMark::SetFeatureId(FeatureID const & featureId)
+{
+  SetDirty();
+  m_featureId = featureId;
+}
+
+void RoadWarningMark::SetDistance(std::string const & distance)
+{
+  SetDirty();
+  m_distance = distance;
+}
+
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames() const
+{
+  std::string symbolName;
+  switch (m_type)
+  {
+  case RoadWarningMarkType::Ferry: symbolName = "ferry"; break;
+  case RoadWarningMarkType::Paid: symbolName = "paid_road"; break;
+  case RoadWarningMarkType::Unpaved: symbolName = "unpaved_road"; break;
+  }
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
+  return symbol;
+}
+
+// static
+std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType type)
+{
+  switch (type)
+  {
+  case RoadWarningMarkType::Ferry: return platform::GetLocalizedString("ferry_crossing");
+  case RoadWarningMarkType::Paid: return platform::GetLocalizedString("toll_road");
+  case RoadWarningMarkType::Unpaved: return platform::GetLocalizedString("unpaved_road");
+  }
+  UNREACHABLE();
+  return {};
 }

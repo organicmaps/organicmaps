@@ -184,7 +184,7 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
-void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments, df::Subroute & subroute)
+bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments, df::Subroute & subroute)
 {
   if (m_subrouteIndex > 0)
   {
@@ -200,7 +200,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
   // Read transit display info.
   if (!m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
-    return;
+    return false;
 
   subroute.m_maxPixelWidth = m_maxSubrouteWidth;
   subroute.m_styleType = df::SubrouteStyleType::Multiple;
@@ -408,6 +408,12 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
   m_routeInfo.m_totalDistInMeters = prevDistance;
   m_routeInfo.m_totalTimeInSec = static_cast<int>(ceil(prevTime));
+
+  auto const isValidSubroute = subroute.m_polyline.GetSize() > 1;
+  if (!isValidSubroute)
+    LOG(LWARNING, ("Invalid subroute. Points number =", subroute.m_polyline.GetSize()));
+
+  return isValidSubroute;
 }
 
 void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const & segments,

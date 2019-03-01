@@ -107,7 +107,7 @@ public:
                       GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
                       std::map<std::string, m2::PointF> const & transitSymbolSizes);
 
-  void ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
+  bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
   void CreateTransitMarks();
 
   TransitRouteInfo const & GetRouteInfo();

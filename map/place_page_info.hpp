@@ -76,6 +76,7 @@ public:
   bool IsBookmark() const { return m_markGroupId != kml::kInvalidMarkGroupId && m_markId != kml::kInvalidMarkId; }
   bool IsMyPosition() const { return m_isMyPosition; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
+  bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
@@ -196,6 +197,11 @@ public:
   size_t GetIntermediateIndex() const { return m_intermediateIndex; }
   void SetIsRoutePoint() { m_isRoutePoint = true; }
 
+  /// Road type
+  void SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,
+                   std::string const & distance);
+  RoadWarningMarkType GetRoadType() const { return m_roadType; }
+
   /// CountryId
   /// Which mwm this MapObject is in.
   /// Exception: for a country-name point it will be set to the topmost node for the mwm.
@@ -271,6 +277,9 @@ private:
   RouteMarkType m_routeMarkType;
   size_t m_intermediateIndex = 0;
   bool m_isRoutePoint = false;
+
+  /// Road type
+  RoadWarningMarkType m_roadType = RoadWarningMarkType::Count;
 
   bool m_isMyPosition = false;
 

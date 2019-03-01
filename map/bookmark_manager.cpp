@@ -1493,6 +1493,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   BestUserMarkFinder finder(holder, this);
   finder(UserMark::Type::ROUTING);
+  finder(UserMark::Type::ROAD_WARNING);
   finder(UserMark::Type::SEARCH);
   finder(UserMark::Type::API);
   for (auto & pair : m_categories)

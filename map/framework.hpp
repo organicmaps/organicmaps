@@ -704,6 +704,7 @@ private:
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
+  void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
 
 public:
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;

@@ -31,7 +31,7 @@ public:
   virtual ~RouteMarkPoint() {}
 
   bool IsVisible() const override { return m_markData.m_isVisible; }
-  void SetIsVisible(bool isVisible) { m_markData.m_isVisible = isVisible; }
+  void SetIsVisible(bool isVisible);
 
   dp::Anchor GetAnchor() const override;
   df::DepthLayer GetDepthLayer() const override;
@@ -192,4 +192,47 @@ private:
   ColoredSymbolZoomInfo m_textBg;
   std::string m_title;
   dp::TitleDecl m_titleDecl;
+};
+
+enum class RoadWarningMarkType : uint8_t
+{
+  // Do not change the order!
+  Unpaved,
+  Paid,
+  Ferry,
+  Count
+};
+
+class RoadWarningMark : public UserMark
+{
+public:
+  explicit RoadWarningMark(m2::PointD const & ptOrg);
+
+  dp::Anchor GetAnchor() const override { return dp::Anchor::Bottom; }
+
+  void SetIndex(uint32_t index);
+  uint32_t GetIndex() const override { return m_index; }
+
+  void SetIsVisible(bool isVisible);
+  bool IsVisible() const override { return m_isVisible; }
+
+  void SetRoadWarningType(RoadWarningMarkType type);
+  RoadWarningMarkType GetRoadWarningType() const { return m_type; }
+
+  void SetFeatureId(FeatureID const & featureId);
+  FeatureID GetFeatureID() const override { return m_featureId; }
+
+  void SetDistance(std::string const & distance);
+  std::string GetDistance() const { return m_distance; }
+
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  static std::string GetLocalizedRoadWarningType(RoadWarningMarkType type);
+
+private:
+  RoadWarningMarkType m_type = RoadWarningMarkType::Count;
+  FeatureID m_featureId;
+  uint32_t m_index = 0;
+  std::string m_distance;
+  bool m_isVisible = true;
 };

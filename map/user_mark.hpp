@@ -39,6 +39,7 @@ public:
     STATIC,
     ROUTING,
     SPEED_CAM,
+    ROAD_WARNING,
     TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK,

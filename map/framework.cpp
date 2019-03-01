@@ -1030,6 +1030,27 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
+void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const
+{
+  CHECK(roadTypeMark.GetFeatureID().IsValid(), ());
+
+  FeaturesLoaderGuard const guard(m_model.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
+  FeatureType ft;
+  if (!guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index, ft))
+  {
+    LOG(LERROR, ("Feature can't be loaded:", roadTypeMark.GetFeatureID()));
+    return;
+  }
+  FillInfoFromFeatureType(ft, info);
+
+
+  info.SetRoadType(ft,
+                   roadTypeMark.GetRoadWarningType(),
+                   RoadWarningMark::GetLocalizedRoadWarningType(roadTypeMark.GetRoadWarningType()),
+                   roadTypeMark.GetDistance());
+  info.SetMercator(roadTypeMark.GetPivot());
+}
+
 void Framework::ShowBookmark(kml::MarkId id)
 {
   auto const * mark = m_bmManager->GetBookmark(id);
@@ -2261,6 +2282,8 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
                       ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
 
+  m_routingManager.UpdateRouteMarksVisibility(info.IsRoadType() ? info.GetRoadType() : RoadWarningMarkType::Count);
+
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
   else
@@ -2274,6 +2297,8 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   if (notifyUI && m_deactivateMapSelectionFn)
     m_deactivateMapSelectionFn(!somethingWasAlreadySelected);
+
+  m_routingManager.UpdateRouteMarksVisibility(RoadWarningMarkType::Count);
 
   if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
     m_drapeEngine->DeselectObject();
@@ -2445,6 +2470,9 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     case UserMark::Type::ROUTING:
       FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
       break;
+    case UserMark::Type::ROAD_WARNING:
+      FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
+      break;
     default:
       ASSERT(false, ("FindNearestUserMark returned invalid mark."));
     }
@@ -2491,7 +2519,7 @@ UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInf
   {
     if (type == UserMark::Type::BOOKMARK)
       return tapInfo.GetBookmarkSearchRect(m_currentModelView);
-    if (type == UserMark::Type::ROUTING)
+    if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
       return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
     return tapInfo.GetDefaultSearchRect(m_currentModelView);
   });

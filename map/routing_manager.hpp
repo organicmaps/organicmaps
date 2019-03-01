@@ -285,11 +285,34 @@ public:
   /// \brief It deletes file with saved route points if it exists.
   void DeleteSavedRoutePoints();
 
+  void UpdateRouteMarksVisibility(RoadWarningMarkType selectedType);
+
   void UpdatePreviewMode();
   void CancelPreviewMode();
 
 private:
   void InsertRoute(routing::Route const & route);
+
+  struct RoadInfo
+  {
+    RoadInfo() = default;
+
+    explicit RoadInfo(m2::PointD const & pt, FeatureID const & featureId)
+      : m_startPoint(pt)
+      , m_featureId(featureId)
+    {}
+
+    m2::PointD m_startPoint;
+    FeatureID m_featureId;
+    double m_distance = 0.0;
+  };
+  using RoadWarningsCollection = std::map<routing::RoutingOptions::Road, std::vector<RoadInfo>>;
+
+  using GetMwmIdFn = std::function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
+  void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
+                           double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
+  void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
+
   bool IsTrackingReporterEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;

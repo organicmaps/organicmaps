@@ -95,6 +95,7 @@ string DebugPrint(UserMark::Type type)
   case UserMark::Type::BOOKMARK: return "BOOKMARK";
   case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
   case UserMark::Type::ROUTING: return "ROUTING";
+  case UserMark::Type::ROAD_WARNING: return "ROAD_WARNING";
   case UserMark::Type::SPEED_CAM: return "SPEED_CAM";
   case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
   case UserMark::Type::TRANSIT: return "TRANSIT";
