@@ -33,6 +33,10 @@ final class EditOnWebViewController: MWMViewController {
     return false
   }
 
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return UIColor.isNightMode() ? .lightContent : .default
+  }
+
   @IBAction func sendMeLinkButtonPressed(_ sender: Any) {
     Statistics.logEvent(kStatEditOnWebClick, withParameters: [kStatItem : kStatCopyLink])
     switch category.accessStatus {

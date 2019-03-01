@@ -1,7 +1,5 @@
 #import <UIKit/UIKit.h>
 
-@interface UIView  (RuntimeAttributes)
-
-- (void)setBackgroundColorName:(NSString *)colorName;
+@interface UIView (RuntimeAttributes)
 
 @end

@@ -131,7 +131,7 @@
 		3454D7DD1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B11E07F045004AF2AD /* UISwitch+RuntimeAttributes.m */; };
 		3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.mm */; };
 		3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */; };
-		3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */; };
+		3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.m */; };
 		34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
 		3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
 		345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */; };
@@ -999,7 +999,7 @@
 		3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UITextView+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RuntimeAttributes.h"; sourceTree = "<group>"; };
-		3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIView+RuntimeAttributes.mm"; sourceTree = "<group>"; };
+		3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34574A651E3B85F80061E839 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3457C4241F680F1900028233 /* String+BoundingRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BoundingRect.swift"; sourceTree = "<group>"; };
@@ -2695,7 +2695,7 @@
 				3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */,
 				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
 				3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */,
-				3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */,
+				3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.m */,
 				340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */,
 				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
@@ -4958,7 +4958,7 @@
 				F6E2FD651E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
 				F6E2FF2D1E097BA00083EBEC /* MWMSearchCell.mm in Sources */,
 				3454D7C51E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
-				3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */,
+				3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.m in Sources */,
 				34AB66831FC5AA330078E451 /* NavigationAddPointToastView.swift in Sources */,
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,

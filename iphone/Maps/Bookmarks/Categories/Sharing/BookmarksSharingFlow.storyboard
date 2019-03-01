@@ -52,11 +52,17 @@
                                                         <constraint firstAttribute="height" constant="24" id="4Ee-n2-9vE"/>
                                                         <constraint firstAttribute="width" constant="24" id="cE0-J8-T89"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ept-QQ-o9W">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                     <color key="tintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button" image="ic24PxShare"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="shareButtonPressed:" destination="90b-ef-VUJ" eventType="touchUpInside" id="D5v-pl-bJ3"/>
                                                     </connections>
@@ -184,11 +190,17 @@
                                                         <constraint firstAttribute="height" constant="24" id="9r2-mf-DsT"/>
                                                         <constraint firstAttribute="width" constant="24" id="Gon-Yr-8Fq"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYo-PL-9Fc">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                     <color key="tintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button" image="ic24PxShare"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="shareButtonPressed:" destination="YW0-jq-Isw" eventType="touchUpInside" id="j1d-qF-UIt"/>
                                                     </connections>
@@ -236,6 +248,7 @@
                                                         <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
                                                             <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
                                             </subviews>
@@ -290,7 +303,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Web editor" id="Ycc-hd-WDM">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="129" id="wRG-8I-r2U">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="129" id="wRG-8I-r2U" customClass="MWMTableViewCell">
                                         <rect key="frame" x="0.0" y="515.5" width="375" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wRG-8I-r2U" id="BPo-ON-rJH">
@@ -904,7 +917,7 @@ upload photos and more</string>
 
 The name shouldn't contain special symbols or digits. The name shouldn't be 'My places'</string>
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="L0q-Dk-RQu">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="L0q-Dk-RQu" customClass="MWMTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="L0q-Dk-RQu" id="ny0-9t-pzR">
@@ -916,6 +929,10 @@ The name shouldn't contain special symbols or digits. The name shouldn't be 'My 
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="onEditName:" destination="cvj-kq-BmC" eventType="editingChanged" id="pfy-5S-MSz"/>
                                                         <outlet property="delegate" destination="cvj-kq-BmC" id="1L3-Mb-fvM"/>
@@ -965,7 +982,7 @@ The name shouldn't contain special symbols or digits. The name shouldn't be 'My 
                         <sections>
                             <tableViewSection headerTitle="Enter description" footerTitle="Guide description should contain at least 30 symbols (13 for oriental languages)." id="C3r-nD-p7y">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="160" id="NR5-qU-x6v">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="160" id="NR5-qU-x6v" customClass="MWMTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NR5-qU-x6v" id="gPI-nK-hOK">
@@ -981,6 +998,9 @@ The name shouldn't contain special symbols or digits. The name shouldn't be 'My 
                                                         <userDefinedRuntimeAttribute type="number" keyPath="textContainer.lineFragmentPadding">
                                                             <integer key="value" value="0"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outlet property="delegate" destination="Stq-Tq-XqB" id="vUs-Qc-Ooa"/>

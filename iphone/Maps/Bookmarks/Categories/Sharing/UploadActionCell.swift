@@ -14,11 +14,7 @@ final class UploadActionCell: MWMTableViewCell {
   @IBOutlet private weak var actionImage: UIImageView!
   @IBOutlet private weak var actionTitle: UILabel!
   @IBOutlet private weak var shareButton: UIButton!
-  @IBOutlet private weak var progressView: UIView! {
-    didSet {
-      progressView.tintColor = UIColor.linkBlue()
-    }
-  }
+  @IBOutlet private weak var progressView: UIView!
 
   weak var delegate: UploadActionCellDelegate?
   private var titles: [UploadActionCellState : String]?
