@@ -93,7 +93,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
     getDirectLinkCell.config(titles: [ .normal : L("upload_and_get_direct_link"),
                                        .inProgress : L("direct_link_progress_text"),
                                        .updating : L("direct_link_updating_text"),
-                                       .completed : L("direct_link_success") ],
+                                       .completed : L("direct_link_success"),
+                                       .disabled : L("upload_and_publish_success")],
                              image: UIImage(named: "ic24PxLink"),
                              delegate: self)
   }
