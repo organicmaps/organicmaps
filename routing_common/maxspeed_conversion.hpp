@@ -160,6 +160,7 @@ enum class SpeedMacro : uint8_t
 uint16_t constexpr kInvalidSpeed = std::numeric_limits<uint16_t>::max();
 uint16_t constexpr kNoneMaxSpeed = std::numeric_limits<uint16_t>::max() - 1;
 uint16_t constexpr kWalkMaxSpeed = std::numeric_limits<uint16_t>::max() - 2;
+uint16_t constexpr kCommonMaxSpeedValue = std::numeric_limits<uint16_t>::max() - 3;
 
 class SpeedInUnits
 {
