@@ -1,6 +1,7 @@
 #import "MWMBookmarksManager.h"
 #import "AppInfo.h"
 #import "MWMCategory.h"
+#import "MWMCarPlayBookmarkObject.h"
 #import "MWMTag+Convenience.h"
 #import "MWMTagGroup+Convenience.h"
 #import "MWMCatalogObserver.h"
@@ -47,7 +48,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   static MWMBookmarksManager * manager;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    manager = [[super alloc] initManager];
+    manager = [[self alloc] initManager];
   });
   return manager;
 }
@@ -383,6 +384,25 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   }];
 }
 
+- (BOOL)checkCategoryName:(NSString *)name
+{
+  return !self.bm.IsUsedCategoryName(name.UTF8String);
+}
+
+#pragma mark - Bookmarks
+
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId
+{
+  NSMutableArray<MWMCarPlayBookmarkObject *> * result = [NSMutableArray array];
+  auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
+  for (auto bookmarkId : bookmarkIds)
+  {
+    MWMCarPlayBookmarkObject *bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
+    [result addObject:bookmark];
+  }
+  return [result copy];
+}
+
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
   self.bm.GetEditSession().DeleteBookmark(bookmarkId);
@@ -390,11 +410,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
       [observer onBookmarkDeleted:bookmarkId];
   }];
-}
-
-- (BOOL)checkCategoryName:(NSString *)name
-{
-  return !self.bm.IsUsedCategoryName(name.UTF8String);
 }
 
 #pragma mark - Category sharing

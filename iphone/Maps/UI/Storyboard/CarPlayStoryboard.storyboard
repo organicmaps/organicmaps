@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wnk-yS-70Z">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Car Play Map View Controller-->
+        <scene sceneID="5vb-C1-ak4">
+            <objects>
+                <viewController id="Wnk-yS-70Z" customClass="CarPlayMapViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o9I-Sz-toK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAY-9Y-UMN">
+                                <rect key="frame" x="331" y="34" width="30" height="60"/>
+                                <subviews>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hD-QK-pwq">
+                                        <rect key="frame" x="0.0" y="5" width="30" height="55"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3af-sk-wxY">
+                                                <rect key="frame" x="0.0" y="21" width="30" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="dub-Q6-uQK"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="3af-sk-wxY" firstAttribute="leading" secondItem="1hD-QK-pwq" secondAttribute="leading" id="FeL-XM-PB3"/>
+                                            <constraint firstAttribute="bottom" secondItem="3af-sk-wxY" secondAttribute="bottom" constant="4" id="Lre-a2-mgf"/>
+                                            <constraint firstAttribute="height" constant="55" id="eLm-Q1-gmp"/>
+                                            <constraint firstAttribute="trailing" secondItem="3af-sk-wxY" secondAttribute="trailing" id="vA1-1o-R2h"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhn-dc-aMW">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_carplay_camera" translatesAutoresizingMaskIntoConstraints="NO" id="Vip-QN-Smh">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifo-0s-Ynd">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="ifo-0s-Ynd" secondAttribute="bottom" id="3Xs-qB-du5"/>
+                                            <constraint firstAttribute="height" constant="30" id="3kW-0W-yq6"/>
+                                            <constraint firstItem="ifo-0s-Ynd" firstAttribute="leading" secondItem="uhn-dc-aMW" secondAttribute="leading" id="E66-Vw-hnJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vip-QN-Smh" secondAttribute="bottom" id="Fyn-Kb-u3B"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vip-QN-Smh" secondAttribute="trailing" id="Ko3-FW-nRj"/>
+                                            <constraint firstAttribute="trailing" secondItem="ifo-0s-Ynd" secondAttribute="trailing" id="O1W-WY-amn"/>
+                                            <constraint firstItem="Vip-QN-Smh" firstAttribute="top" secondItem="uhn-dc-aMW" secondAttribute="top" id="UwD-bP-0ze"/>
+                                            <constraint firstItem="ifo-0s-Ynd" firstAttribute="top" secondItem="uhn-dc-aMW" secondAttribute="top" id="d6z-uY-hED"/>
+                                            <constraint firstItem="Vip-QN-Smh" firstAttribute="leading" secondItem="uhn-dc-aMW" secondAttribute="leading" id="oJg-ld-yAS"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="1hD-QK-pwq" firstAttribute="leading" secondItem="dAY-9Y-UMN" secondAttribute="leading" id="6LO-Gn-TAQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="uhn-dc-aMW" secondAttribute="trailing" id="7Xw-O9-Q18"/>
+                                    <constraint firstAttribute="trailing" secondItem="1hD-QK-pwq" secondAttribute="trailing" id="DwE-PO-Png"/>
+                                    <constraint firstItem="uhn-dc-aMW" firstAttribute="top" secondItem="dAY-9Y-UMN" secondAttribute="top" id="YQG-Dw-ZrP"/>
+                                    <constraint firstAttribute="height" constant="60" id="lWz-ou-THE"/>
+                                    <constraint firstAttribute="width" constant="30" id="pLu-F8-bWR"/>
+                                    <constraint firstItem="uhn-dc-aMW" firstAttribute="leading" secondItem="dAY-9Y-UMN" secondAttribute="leading" id="u2b-Zv-qig"/>
+                                    <constraint firstAttribute="bottom" secondItem="1hD-QK-pwq" secondAttribute="bottom" id="uZc-jn-PWc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dAY-9Y-UMN" secondAttribute="trailing" constant="14" placeholder="YES" id="Qzf-ri-mLE"/>
+                            <constraint firstItem="dAY-9Y-UMN" firstAttribute="top" secondItem="HDO-Ge-bK0" secondAttribute="top" constant="14" id="VaC-AO-1lC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HDO-Ge-bK0"/>
+                    </view>
+                    <connections>
+                        <outlet property="currentSpeedLabel" destination="3af-sk-wxY" id="WgR-NP-nvm"/>
+                        <outlet property="currentSpeedView" destination="1hD-QK-pwq" id="Mbg-8c-EWp"/>
+                        <outlet property="speedCamImageView" destination="Vip-QN-Smh" id="ASc-eP-fXa"/>
+                        <outlet property="speedInfoView" destination="dAY-9Y-UMN" id="k1g-9g-oKS"/>
+                        <outlet property="speedLimitContainer" destination="uhn-dc-aMW" id="AQt-AB-ZyL"/>
+                        <outlet property="speedLimitLabel" destination="ifo-0s-Ynd" id="zgD-Di-6YZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hr-Cq-l0z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="31" y="227"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_carplay_camera" width="15" height="15"/>
+    </resources>
+</document>

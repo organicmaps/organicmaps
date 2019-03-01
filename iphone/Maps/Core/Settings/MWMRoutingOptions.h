@@ -2,6 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(RoutingOptions)
 @interface MWMRoutingOptions : NSObject
 
 @property(nonatomic) BOOL avoidToll;

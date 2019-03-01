@@ -48,6 +48,11 @@
 + (UIColor *)ratingLightGreen;
 + (UIColor *)ratingGreen;
 + (UIColor *)border;
++ (UIColor *)speedLimitRed;
++ (UIColor *)speedLimitGeen;
++ (UIColor *)speedLimitWhite;
++ (UIColor *)speedLimitLightGray;
++ (UIColor *)speedLimitDarkGray;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 + (UIColor *)colorFromHexString:(NSString *)hexString;

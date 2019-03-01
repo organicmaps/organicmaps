@@ -308,7 +308,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
 - (void)showDropDown
 {
-  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:[MapViewController sharedController].view];
+  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:[MapViewController sharedController].controlsView];
   [dd showWithMessage:L(@"editor_edits_sent_message")];
 }
 

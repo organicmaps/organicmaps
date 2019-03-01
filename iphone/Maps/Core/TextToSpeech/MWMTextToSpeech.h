@@ -14,15 +14,14 @@
 
 @property(nonatomic) BOOL active;
 - (void)setNotificationsLocale:(NSString *)locale;
-- (void)playTurnNotifications;
+- (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications;
 - (void)playWarningSound;
 
-- (instancetype)init __attribute__((unavailable("call tts instead")));
-- (instancetype)copy __attribute__((unavailable("call tts instead")));
-- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call tts instead")));
-+ (instancetype)alloc __attribute__((unavailable("call tts instead")));
+- (instancetype)init __attribute__((unavailable("call +tts instead")));
+- (instancetype)copy __attribute__((unavailable("call +tts instead")));
+- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +tts instead")));
 + (instancetype)allocWithZone:(struct _NSZone *)zone
-    __attribute__((unavailable("call tts instead")));
-+ (instancetype) new __attribute__((unavailable("call tts instead")));
+__attribute__((unavailable("call +tts instead")));
++ (instancetype) new __attribute__((unavailable("call +tts instead")));
 
 @end

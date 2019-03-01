@@ -18,6 +18,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 @interface MWMRoutePreview ()<MWMCircularProgressProtocol>
 
 @property(nonatomic) BOOL isVisible;
+@property(nonatomic) BOOL actualVisibilityValue;
 @property(weak, nonatomic) IBOutlet UIButton * backButton;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
 @property(weak, nonatomic) IBOutlet UIView * contentView;
@@ -38,6 +39,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
+  self.actualVisibilityValue = NO;
   self.translatesAutoresizingMaskIntoConstraints = NO;
   [self setupProgresses];
   [self.backButton matchInterfaceOrientation];
@@ -174,12 +176,16 @@ static CGFloat const kDrivingOptionsHeight = 48;
     return;
   [superview addSubview:self];
   [self setupConstraints];
+  self.actualVisibilityValue = YES;
   dispatch_async(dispatch_get_main_queue(), ^{
     self.isVisible = YES;
   });
 }
 
-- (void)remove { self.isVisible = NO; }
+- (void)remove {
+  self.actualVisibilityValue = NO;
+  self.isVisible = NO;
+}
 
 - (void)setupConstraints {}
 
@@ -209,6 +215,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 
 - (void)setIsVisible:(BOOL)isVisible
 {
+  if (isVisible != self.actualVisibilityValue) { return; }
   _isVisible = isVisible;
   auto sv = self.superview;
   [sv setNeedsLayout];

@@ -35,7 +35,7 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
 - (void)show
 {
-  UIView * superview = [MapsAppDelegate theApp].mapViewController.view;
+  UIView * superview = [MapsAppDelegate theApp].mapViewController.controlsView;
   [superview addSubview:self];
   [superview endEditing:YES];
   [self setNeedsLayout];

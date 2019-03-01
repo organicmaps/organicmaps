@@ -102,6 +102,10 @@ public:
 
   using RouteBuildingCallback =
       std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
+  using RouteSpeedCamShowCallback =
+      std::function<void(m2::PointD const &, double)>;
+  using RouteSpeedCamsClearCallback =
+      std::function<void()>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -144,6 +148,17 @@ public:
   {
     m_routingBuildingCallback = buildingCallback;
   }
+
+  void SetRouteSpeedCamShowListener(RouteSpeedCamShowCallback const & speedCamShowCallback)
+  {
+    m_routeSpeedCamShowCallback = speedCamShowCallback;
+  }
+    
+  void SetRouteSpeedCamsClearListener(RouteSpeedCamsClearCallback const & speedCamsClearCallback)
+  {
+    m_routeSpeedCamsClearCallback = speedCamsClearCallback;
+  }
+  
   void SetRouteStartBuildListener(RouteStartBuildCallback const & startBuildCallback)
   {
     m_routingStartBuildCallback = startBuildCallback;
@@ -337,6 +352,8 @@ private:
   void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
 
   RouteBuildingCallback m_routingBuildingCallback;
+  RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
+  RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
   RouteRecommendCallback m_routeRecommendCallback;
   RouteStartBuildCallback m_routingStartBuildCallback;
   Callbacks m_callbacks;

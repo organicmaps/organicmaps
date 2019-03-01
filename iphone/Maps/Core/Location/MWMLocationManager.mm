@@ -171,7 +171,7 @@ void setPermissionRequested()
   static MWMLocationManager * manager;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    manager = [[super alloc] initManager];
+    manager = [[self alloc] initManager];
   });
   return manager;
 }

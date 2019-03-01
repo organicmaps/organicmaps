@@ -42,11 +42,11 @@ struct ProductInfo;
 + (MWMHotelParams *)getFilter;
 + (void)clearFilter;
 
-- (instancetype)init __attribute__((unavailable("unavailable")));
-- (instancetype)copy __attribute__((unavailable("unavailable")));
-- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("unavailable")));
-+ (instancetype)alloc __attribute__((unavailable("unavailable")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("unavailable")));
-+ (instancetype) new __attribute__((unavailable("unavailable")));
+- (instancetype)init __attribute__((unavailable("call +manager instead")));
+- (instancetype)copy __attribute__((unavailable("call +manager instead")));
+- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+__attribute__((unavailable("call +manager instead")));
++ (instancetype) new __attribute__((unavailable("call +manager instead")));
 
 @end

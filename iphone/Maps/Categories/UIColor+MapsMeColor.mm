@@ -374,4 +374,25 @@ UIColor * color(SEL cmd)
 + (UIColor *)facebookButtonBackgroundDisabled {
   return [self.facebookButtonBackground colorWithAlphaComponent:alpha70];
 }
+
++ (UIColor *)speedLimitRed {
+  return [UIColor colorWithRed:scaled(224) green:scaled(31) blue:scaled(31) alpha:alpha100];
+}
+
++ (UIColor *)speedLimitGeen {
+  return [UIColor colorWithRed:scaled(1) green:scaled(104) blue:scaled(44) alpha:alpha100];
+}
+
++ (UIColor *)speedLimitWhite {
+  return [UIColor colorWithRed:scaled(255) green:scaled(255) blue:scaled(255) alpha:alpha80];
+}
+
++ (UIColor *)speedLimitLightGray {
+  return [UIColor colorWithRed:scaled(0) green:scaled(0) blue:scaled(0) alpha:alpha20];
+}
+
++ (UIColor *)speedLimitDarkGray {
+  return [UIColor colorWithRed:scaled(51) green:scaled(51) blue:scaled(50) alpha:alpha100];
+}
+
 @end

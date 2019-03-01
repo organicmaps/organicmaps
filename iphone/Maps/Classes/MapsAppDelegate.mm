@@ -24,6 +24,7 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <UserNotifications/UserNotifications.h>
+#import <CarPlay/CarPlay.h>
 
 #import <AppsFlyerLib/AppsFlyerTracker.h>
 #import <Crashlytics/Crashlytics.h>
@@ -107,7 +108,10 @@ void OverrideUserAgent()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, NotificationManagerDelegate, AppsFlyerTrackerDelegate>
+@interface MapsAppDelegate ()<MWMFrameworkStorageObserver,
+                              NotificationManagerDelegate,
+                              AppsFlyerTrackerDelegate,
+                              CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
@@ -153,7 +157,12 @@ using namespace osm_auth_ios;
 
 - (BOOL)isDrapeEngineCreated
 {
-  return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
+  return self.mapViewController.mapView.drapeEngineCreated;
+}
+
+- (BOOL)isGraphicContextInitialized
+{
+  return self.mapViewController.mapView.graphicContextInitialized;
 }
 
 - (void)searchText:(NSString *)searchString
@@ -413,8 +422,8 @@ using namespace osm_auth_ios;
   // because of new OpenGL driver powered by Metal.
   if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
   {
-    m2::PointU const size = ((EAGLView *)self.mapViewController.view).pixelSize;
-    f.OnRecoverSurface(static_cast<int>(size.x), static_cast<int>(size.y), true /* recreateContextDependentResources */);
+    CGSize const objcSize = self.mapViewController.mapView.pixelSize;
+    f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height), true /* recreateContextDependentResources */);
   }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
@@ -643,6 +652,10 @@ continueUserActivity:(NSUserActivity *)userActivity
   return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
 }
 
+- (MWMCarPlayService *)carplayService {
+  return [MWMCarPlayService shared];
+}
+
 #pragma mark - TTS
 
 - (void)enableTTSForTheFirstTime
@@ -813,6 +826,61 @@ continueUserActivity:(NSUserActivity *)userActivity
   dispatch_async(dispatch_get_main_queue(), ^{
     [Crashlytics.sharedInstance recordError:error];
   });
+}
+
+#pragma mark - CPApplicationDelegate implementation
+
+- (void)application:(UIApplication *)application
+didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
+           toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
+  [self.carplayService setupWithWindow:window
+                   interfaceController:interfaceController];
+  [self updateVisualScaleFromWindow:self.window
+                           toWindow:window
+                 isCarplayActivated:YES];
+}
+
+- (void)application:(UIApplication *)application
+didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
+         fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
+  [self.carplayService destroy];
+  [self updateVisualScaleFromWindow:window
+                           toWindow:self.window
+                 isCarplayActivated:NO];
+}
+
+- (void)updateVisualScaleFromWindow:(UIWindow *)sourceWindow
+                          toWindow:(UIWindow *)destinationWindow
+                isCarplayActivated:(BOOL)isCarplayActivated {
+  CGFloat sourceContentScale = sourceWindow.screen.nativeScale;
+  CGFloat destinationContentScale = destinationWindow.screen.nativeScale;
+  if (ABS(sourceContentScale - destinationContentScale) > 0.1) {
+    if (isCarplayActivated) {
+      [self updateVisualScale:destinationContentScale];
+    } else {
+      [self updateVisualScaleToMain];
+    }
+  }
+}
+
+- (void)updateVisualScale:(CGFloat)scale {
+  if ([self isGraphicContextInitialized]) {
+    [self.mapViewController.mapView updateVisualScaleTo:scale];
+  } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self updateVisualScale:scale];
+    });
+  }
+}
+
+- (void)updateVisualScaleToMain {
+  if ([self isGraphicContextInitialized]) {
+    [self.mapViewController.mapView updateVisualScaleToMain];
+  } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self updateVisualScaleToMain];
+    });
+  }
 }
 
 @end

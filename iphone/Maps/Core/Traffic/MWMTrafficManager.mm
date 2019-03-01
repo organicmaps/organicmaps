@@ -26,7 +26,7 @@ using Observers = NSHashTable<Observer>;
   static MWMTrafficManager * manager;
   static dispatch_once_t onceToken = 0;
   dispatch_once(&onceToken, ^{
-    manager = [[super alloc] initManager];
+    manager = [[self alloc] initManager];
   });
   return manager;
 }

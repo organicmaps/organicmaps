@@ -12,6 +12,9 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 @interface MWMRouter : NSObject
 
++ (void)subscribeToEvents;
++ (void)unsubscribeFromEvents;
+
 + (BOOL)isTaxi;
 + (BOOL)isRoutingActive;
 + (BOOL)isRouteBuilt;
@@ -60,10 +63,20 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)saveRouteIfNeeded;
 + (void)restoreRouteIfNeeded;
 + (BOOL)hasSavedRoute;
++ (BOOL)isRestoreProcessCompleted;
 
 + (void)updateRoute;
 + (BOOL)hasActiveDrivingOptions;
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type;
++ (void)showNavigationMapControls;
++ (void)hideNavigationMapControls;
+
+- (instancetype)init __attribute__((unavailable("call +router instead")));
+- (instancetype)copy __attribute__((unavailable("call +router instead")));
+- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+__attribute__((unavailable("call +router instead")));
++ (instancetype) new __attribute__((unavailable("call +router instead")));
 
 @end
 

@@ -321,6 +321,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, point, cameraSpeedKmPH]()
     {
+      if (m_routeSpeedCamShowCallback)
+        m_routeSpeedCamShowCallback(point, cameraSpeedKmPH);
+      
       auto editSession = m_bmManager->GetEditSession();
       auto mark = editSession.CreateUserMark<SpeedCameraMark>(point);
 
@@ -345,6 +348,8 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     GetPlatform().RunTask(Platform::Thread::Gui, [this]()
     {
       m_bmManager->GetEditSession().ClearGroup(UserMark::Type::SPEED_CAM);
+      if (m_routeSpeedCamsClearCallback)
+        m_routeSpeedCamsClearCallback();
     });
   });
 }

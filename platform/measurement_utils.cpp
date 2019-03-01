@@ -62,6 +62,20 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units)
   UNREACHABLE();
 }
 
+bool FormatDistanceWithLocalization(double m, string & res, char const * high, char const * low)
+{
+  auto units = Units::Metric;
+  TryGet(settings::kMeasurementUnits, units);
+
+  /// @todo Put string units resources.
+  switch (units)
+  {
+  case Units::Imperial: return FormatDistanceImpl(m, res, high, low, 1609.344, 0.3048);
+  case Units::Metric: return FormatDistanceImpl(m, res, high, low, 1000.0, 1.0);
+  }
+  UNREACHABLE();
+}
+  
 bool FormatDistance(double m, string & res)
 {
   auto units = Units::Metric;
@@ -209,6 +223,17 @@ string FormatSpeed(double metersPerSecond, Units units)
   {
   case Units::Imperial: unitsPerHour = MetersToMiles(metersPerSecond) * kSecondsPerHour; break;
   case Units::Metric: unitsPerHour = metersPerSecond * kSecondsPerHour / metersPerKilometer; break;
+  }
+  return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
+}
+  
+string FormatSpeedLimit(double kilometersPerHour, Units units)
+{
+  double unitsPerHour;
+  switch (units)
+  {
+      case Units::Imperial: unitsPerHour = 0.621371192 * kilometersPerHour; break;
+      case Units::Metric: unitsPerHour = kilometersPerHour; break;
   }
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
 }

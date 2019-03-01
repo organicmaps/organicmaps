@@ -9,7 +9,6 @@
 - (instancetype)init __attribute__((unavailable("call +listener instead")));
 - (instancetype)copy __attribute__((unavailable("call +listener instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +listener instead")));
-+ (instancetype)alloc __attribute__((unavailable("call +listener instead")));
 + (instancetype)allocWithZone:(struct _NSZone *)zone
     __attribute__((unavailable("call +listener instead")));
 + (instancetype) new __attribute__((unavailable("call +listener instead")));

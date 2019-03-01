@@ -49,7 +49,7 @@
 - (NSString *)speedUnits
 {
   auto const units = coreUnits([MWMSettings measurementUnits]);
-  return @(measurement_utils::FormatSpeedUnits(units).c_str());
+  return [self localizedUnitSpeed:@(measurement_utils::FormatSpeedUnits(units).c_str())];
 }
 
 - (NSString *)eta { return [NSDateComponentsFormatter etaStringFrom:self.timeToTarget]; }
@@ -68,6 +68,15 @@
     NSFontAttributeName: [UIFont medium17]
   };
   return [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
+}
+
+- (NSString *)localizedUnitSpeed:(NSString *)speedUnits {
+  if ([speedUnits isEqualToString:@"mph"]) {
+    return L(@"miles_per_hour");
+  } else if ([speedUnits isEqualToString:@"km/h"]) {
+    return L(@"kilometers_per_hour");
+  }
+  return speedUnits;
 }
 
 @end

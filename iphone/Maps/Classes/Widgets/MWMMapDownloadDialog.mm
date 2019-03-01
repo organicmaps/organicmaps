@@ -3,6 +3,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMAlertViewController.h"
 #import "MWMBottomMenuViewController.h"
+#import "SwiftBridge.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
@@ -166,6 +167,9 @@ using namespace storage;
         m_autoDownloadCountryId = kInvalidCountryId;
         [self showDownloadRequest];
       }
+      if (@available(iOS 12.0, *)) {
+        [[MWMCarPlayService shared] showNoMapAlert];
+      }
       break;
       }
       case NodeStatus::Downloading:
@@ -209,6 +213,9 @@ using namespace storage;
 
 - (void)removeFromSuperview
 {
+  if (@available(iOS 12.0, *)) {
+    [[MWMCarPlayService shared] hideNoMapAlert];
+  }
   self.progress.state = MWMCircularProgressStateNormal;
   [MWMFrameworkListener removeObserver:self];
   [super removeFromSuperview];

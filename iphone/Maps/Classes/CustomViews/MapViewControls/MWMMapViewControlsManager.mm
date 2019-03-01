@@ -288,7 +288,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMSideButtons *)sideButtons
 {
   if (!_sideButtons)
-    _sideButtons = [[MWMSideButtons alloc] initWithParentView:self.ownerController.view];
+    _sideButtons = [[MWMSideButtons alloc] initWithParentView:self.ownerController.controlsView];
   return _sideButtons;
 }
 
@@ -319,7 +319,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (!_navigationManager)
     _navigationManager =
-        [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view];
+        [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.controlsView];
   return _navigationManager;
 }
 
@@ -450,7 +450,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [ownerController addChildViewController:self.tutorialViewContoller];
   self.tutorialViewContoller.view.frame = ownerController.view.bounds;
   self.tutorialViewContoller.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [ownerController.view addSubview:self.tutorialViewContoller.view];
+  [ownerController.controlsView addSubview:self.tutorialViewContoller.view];
   [self.tutorialViewContoller didMoveToParentViewController:ownerController];
 }
 

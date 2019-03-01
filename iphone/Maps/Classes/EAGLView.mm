@@ -5,18 +5,38 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "Framework.h"
-
-#include "drape/drape_global.hpp"
-#include "drape/visual_scale.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+
+#include "drape/drape_global.hpp"
+#include "drape/pointers.hpp"
+#include "drape/visual_scale.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "Framework.h"
 
 #ifdef OMIM_METAL_AVAILABLE
 #import "MetalContextFactory.h"
 #import <MetalKit/MetalKit.h>
 #endif
+
+namespace dp
+{
+  class GraphicsContextFactory;
+}
+
+@interface EAGLView()
+{
+  dp::ApiVersion m_apiVersion;
+  drape_ptr<dp::GraphicsContextFactory> m_factory;
+  // Do not call onSize from layoutSubViews when real size wasn't changed.
+  // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
+  CGRect m_lastViewSize;
+  bool m_presentAvailable;
+  double main_visualScale;
+}
+@property(nonatomic, readwrite) BOOL graphicContextInitialized;
+@end
 
 @implementation EAGLView
 
@@ -119,11 +139,16 @@ double getExactDPI(double contentScaleFactor)
     layer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
                                  kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
   }
+  auto & f = GetFramework();
+  f.SetGraphicsContextInitializationHandler([self]() {
+    self.graphicContextInitialized = YES;
+  });
 }
 
 - (void)createDrapeEngine
 {
-  m2::PointU const s = [self pixelSize];
+  CGSize const objcSize = [self pixelSize];
+  m2::PointU const s = m2::PointU(static_cast<uint32_t>(objcSize.width), static_cast<uint32_t>(objcSize.height));
   
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
@@ -172,12 +197,13 @@ double getExactDPI(double contentScaleFactor)
   }
 }
 
-- (m2::PointU)pixelSize
+- (CGSize)pixelSize
 {
   CGSize const s = self.bounds.size;
-  uint32_t const w = static_cast<uint32_t>(s.width * self.contentScaleFactor);
-  uint32_t const h = static_cast<uint32_t>(s.height * self.contentScaleFactor);
-  return m2::PointU(w, h);
+  
+  CGFloat const w = s.width * self.contentScaleFactor;
+  CGFloat const h = s.height * self.contentScaleFactor;
+  return CGSizeMake(w, h);
 }
 
 - (void)layoutSubviews
@@ -185,9 +211,10 @@ double getExactDPI(double contentScaleFactor)
   if (!CGRectEqualToRect(m_lastViewSize, self.frame))
   {
     m_lastViewSize = self.frame;
-    m2::PointU const s = [self pixelSize];
+    CGSize const objcSize = [self pixelSize];
+    m2::PointU const s = m2::PointU(static_cast<uint32_t>(objcSize.width), static_cast<uint32_t>(objcSize.height));
     GetFramework().OnSize(s.x, s.y);
-    [self.widgetsManager resize:CGSizeMake(s.x, s.y)];
+    [self.widgetsManager resize:objcSize];
   }
   [super layoutSubviews];
 }
@@ -210,6 +237,15 @@ double getExactDPI(double contentScaleFactor)
   if (!_widgetsManager)
     _widgetsManager = [[MWMMapWidgets alloc] init];
   return _widgetsManager;
+}
+
+- (void)updateVisualScaleTo:(CGFloat)visualScale {
+  main_visualScale = df::VisualParams::Instance().GetVisualScale();
+  GetFramework().UpdateVisualScale(visualScale);
+}
+
+- (void)updateVisualScaleToMain {
+  GetFramework().UpdateVisualScale(main_visualScale);
 }
 
 @end

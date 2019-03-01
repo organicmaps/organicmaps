@@ -1,7 +1,7 @@
 import UIKit
 
 class DrivingOptionsViewController: MWMTableViewController {
-  let options = MWMRoutingOptions()
+  let options = RoutingOptions()
   @IBOutlet var tollRoadsCell: SettingsTableViewSwitchCell!
   @IBOutlet var unpavedRoadsCell: SettingsTableViewSwitchCell!
   @IBOutlet var ferryCrossingsCell: SettingsTableViewSwitchCell!

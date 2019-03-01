@@ -81,7 +81,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     _mapViewController = controller;
     _delegate = delegate;
     [controller addChildViewController:self];
-    [controller.view addSubview:self.view];
+    [controller.controlsView addSubview:self.view];
     [controller.view layoutIfNeeded];
   }
   return self;
@@ -393,7 +393,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   });
   BOOL const menuActive = (state == MWMBottomMenuStateActive);
   if (menuActive)
-    [self.mapViewController.view bringSubviewToFront:self.menuView];
+    [self.mapViewController.controlsView bringSubviewToFront:self.menuView];
 
   [self.dimBackground setVisible:menuActive completion:nil];
   self.menuView.state = state;

@@ -299,7 +299,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   private func performAfterValidation(anchor: UIView, action: @escaping MWMVoidBlock) {
-    if MWMFrameworkHelper.isNetworkConnected() {
+    if FrameworkHelper.isNetworkConnected() {
       signup(anchor: anchor, onComplete: { success in
         if success {
           action()

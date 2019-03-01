@@ -1,14 +1,19 @@
 #import "MWMMapDownloaderMode.h"
 #import "MWMViewController.h"
+#import "MWMMyPositionMode.h"
 
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
 @class MWMPlacePageData;
+@class EAGLView;
+@protocol MWMLocationModeListener;
 
 @interface MapViewController : MWMViewController
 
 + (MapViewController *)sharedController;
+- (void)addListener:(id<MWMLocationModeListener>)listener;
+- (void)removeListener:(id<MWMLocationModeListener>)listener;
 
 // called when app is terminated by system
 - (void)onTerminate;
@@ -38,9 +43,16 @@
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
 - (void)initialize;
+- (void)enableCarPlayRepresentation;
+- (void)disableCarPlayRepresentation;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
+
+
+@property(nonatomic) MWMMyPositionMode currentPositionMode;
+@property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
+@property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
 
 @end

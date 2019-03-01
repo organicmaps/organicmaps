@@ -3,6 +3,7 @@
 #import "MWMCatalogCommon.h"
 
 @class MWMCategory;
+@class MWMCarPlayBookmarkObject;
 @class MWMTagGroup;
 @class MWMTag;
 
@@ -37,9 +38,10 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
 - (void)setCatalogCategoriesVisible:(BOOL)isVisible;
 - (void)deleteCategory:(MWMMarkGroupID)groupId;
-
-- (void)deleteBookmark:(MWMMarkID)bookmarkId;
 - (BOOL)checkCategoryName:(NSString *)name;
+
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
+- (void)deleteBookmark:(MWMMarkID)bookmarkId;
 
 - (void)shareCategory:(MWMMarkGroupID)groupId;
 - (NSURL *)shareCategoryURL;
@@ -89,6 +91,13 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
                     progress:(_Nullable ProgressBlock)progress
                   completion:(UploadCompletionBlock)completion;
+
+- (instancetype)init __attribute__((unavailable("call +manager instead")));
+- (instancetype)copy __attribute__((unavailable("call +manager instead")));
+- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+__attribute__((unavailable("call +manager instead")));
++ (instancetype) new __attribute__((unavailable("call +manager instead")));
 
 @end
 NS_ASSUME_NONNULL_END

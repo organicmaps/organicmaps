@@ -18,6 +18,7 @@
 #import "MWMPlacePageProtocol.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
+#import "MWMLocationModeListener.h"
 
 #include "Framework.h"
 
@@ -93,15 +94,19 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @property(nonatomic) BOOL skipForceTouch;
 
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaBottom;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaKeyboard;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaBottom;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaKeyboard;
+@property(strong, nonatomic) IBOutlet UILabel * carplayPlaceholderLabel;
+
+@property(strong, nonatomic) NSHashTable<id<MWMLocationModeListener>> *listeners;
 
 @end
 
 @implementation MapViewController
+@synthesize mapView, controlsView;
 
 + (MapViewController *)sharedController { return [MapsAppDelegate theApp].mapViewController; }
 
@@ -150,11 +155,14 @@ BOOL gIsFirstMyPositionMode = YES;
           withTouches:(NSSet *)touches
              andEvent:(UIEvent *)event
 {
+  if (@available(iOS 12.0, *)) {
+    if ([MWMCarPlayService shared].isCarplayActivated) { return; }
+  }
   NSArray * allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)
     return;
 
-  UIView * v = self.view;
+  UIView * v = self.mapView;
   CGFloat const scaleFactor = v.contentScaleFactor;
 
   df::TouchEvent e;
@@ -236,8 +244,8 @@ BOOL gIsFirstMyPositionMode = YES;
   [super didReceiveMemoryWarning];
 }
 
-- (void)onTerminate { [(EAGLView *)self.view deallocateNative]; }
-- (void)onGetFocus:(BOOL)isOnFocus { [(EAGLView *)self.view setPresentAvailable:isOnFocus]; }
+- (void)onTerminate { [self.mapView deallocateNative]; }
+- (void)onGetFocus:(BOOL)isOnFocus { [self.mapView setPresentAvailable:isOnFocus]; }
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -256,11 +264,12 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewDidLoad];
 
-  [(EAGLView *)self.view setLaunchByDeepLink:DeepLinkHandler.shared.isLaunchedByDeeplink];
+  [self.mapView setLaunchByDeepLink:DeepLinkHandler.shared.isLaunchedByDeeplink];
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
-  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
+  self.currentPositionMode = MWMMyPositionModePendingPosition;
+  [self processMyPositionStateModeEvent:self.currentPositionMode];
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
@@ -285,9 +294,8 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewDidLayoutSubviews
 {
   [super viewDidLayoutSubviews];
-  EAGLView * renderingView = (EAGLView *)self.view;
-  if (!renderingView.drapeEngineCreated)
-    [renderingView createDrapeEngine];
+  if (!self.mapView.drapeEngineCreated)
+    [self.mapView createDrapeEngine];
 }
 
 - (void)mwm_refreshUI
@@ -368,6 +376,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)initialize
 {
+  self.listeners = [NSHashTable<id<MWMLocationModeListener>> weakObjectsHashTable];
   Framework & f = GetFramework();
   // TODO: Review and improve this code.
   f.SetMapSelectionListeners(
@@ -384,6 +393,14 @@ BOOL gIsFirstMyPositionMode = YES;
   self.userTouchesAction = UserTouchesActionNone;
   [[MWMBookmarksManager sharedManager] loadBookmarks];
   [MWMFrameworkListener addObserver:self];
+}
+
+- (void)addListener:(id<MWMLocationModeListener>)listener {
+  [self.listeners addObject:listener];
+}
+
+- (void)removeListener:(id<MWMLocationModeListener>)listener {
+  [self.listeners removeObject:listener];
 }
 
 #pragma mark - Open controllers
@@ -529,12 +546,17 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
+  self.currentPositionMode = mode;
   [MWMLocationManager setMyPositionMode:mode];
   [[MWMSideButtons buttons] processMyPositionStateModeEvent:mode];
+  NSArray<id<MWMLocationModeListener>> * objects = self.listeners.allObjects;
+  for (id<MWMLocationModeListener> object in objects) {
+    [object processMyPositionStateModeEvent:mode];
+  }
   self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
   {
-  case location::NotFollowNoPosition:
+  case MWMMyPositionModeNotFollowNoPosition:
   {
     BOOL const hasLocation = [MWMLocationManager lastLocation] != nil;
     if (hasLocation)
@@ -558,10 +580,10 @@ BOOL gIsFirstMyPositionMode = YES;
     }
     break;
   }
-  case location::PendingPosition:
-  case location::NotFollow: break;
-  case location::Follow:
-  case location::FollowAndRotate: self.disableStandbyOnLocationStateMode = YES; break;
+  case MWMMyPositionModePendingPosition:
+  case MWMMyPositionModeNotFollow: break;
+  case MWMMyPositionModeFollow:
+  case MWMMyPositionModeFollowAndRotate: self.disableStandbyOnLocationStateMode = YES; break;
   }
   gIsFirstMyPositionMode = NO;
 }
@@ -772,6 +794,35 @@ BOOL gIsFirstMyPositionMode = YES;
   
   auto const center = MercatorBounds::FromLatLon(lat, lon);
   f.SetViewportCenter(center, zoomLevel, false);
+}
+
+#pragma mark - CarPlay map append/remove
+
+- (void)disableCarPlayRepresentation
+{
+  self.carplayPlaceholderLabel.hidden = YES;
+  self.mapView.frame = self.view.bounds;
+  [self.view insertSubview:self.mapView atIndex:0];
+  [[self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor] setActive:YES];
+  [[self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor] setActive:YES];
+  [[self.mapView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor] setActive:YES];
+  [[self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor] setActive:YES];
+  self.controlsView.hidden = NO;
+  [MWMFrameworkHelper setVisibleViewport:self.view.bounds];
+}
+
+- (void)enableCarPlayRepresentation
+{
+  UIViewController *presentedController = self.presentedViewController;
+  if (presentedController != nil) {
+    [presentedController dismissViewControllerAnimated:NO completion:nil];
+  }
+  [[MapsAppDelegate theApp] showMap];
+  [self.mapView removeFromSuperview];
+  if (!self.controlsView.isHidden) {
+    self.controlsView.hidden = YES;
+  }
+  self.carplayPlaceholderLabel.hidden = NO;
 }
 
 @end

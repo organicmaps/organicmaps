@@ -42,6 +42,7 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units);
 /// @param[out] res formatted std::string for search
 /// @return should be direction arrow drawed? false if distance is to small (< 1.0)
 bool FormatDistance(double m, std::string & res);
+bool FormatDistanceWithLocalization(double m, std::string & res, char const * high, char const * low);
 
 /// We always use meters and feet/yards for altitude
 std::string FormatAltitude(double altitudeInMeters);
@@ -50,6 +51,7 @@ std::string FormatSpeedWithDeviceUnits(double metersPerSecond);
 std::string FormatSpeedWithUnits(double metersPerSecond, Units units);
 std::string FormatSpeed(double metersPerSecond, Units units);
 std::string FormatSpeedUnits(Units units);
+std::string FormatSpeedLimit(double kilometersPerHour, Units units);
 
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions to DMS.

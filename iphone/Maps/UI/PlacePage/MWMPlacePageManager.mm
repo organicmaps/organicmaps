@@ -187,8 +187,26 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   string distance;
   CLLocationCoordinate2D const & coord = lastLocation.coordinate;
   ms::LatLon const & target = data.latLon;
-  measurement_utils::FormatDistance(
-      ms::DistanceOnEarth(coord.latitude, coord.longitude, target.m_lat, target.m_lon), distance);
+  double meters = ms::DistanceOnEarth(coord.latitude, coord.longitude, target.m_lat, target.m_lon);
+  if (meters < 0.)
+    return nil;
+  
+  auto units = measurement_utils::Units::Metric;
+  settings::TryGet(settings::kMeasurementUnits, units);
+  
+  string s;
+  switch (units) {
+    case measurement_utils::Units::Imperial:
+      measurement_utils::FormatDistanceWithLocalization(meters,
+                                                        distance,
+                                                        [[@" " stringByAppendingString:L(@"mile")] UTF8String],
+                                                        [[@" " stringByAppendingString:L(@"foot")] UTF8String]);
+    case measurement_utils::Units::Metric:
+      measurement_utils::FormatDistanceWithLocalization(meters,
+                                                        distance,
+                                                        [[@" " stringByAppendingString:L(@"kilometer")] UTF8String],
+                                                        [[@" " stringByAppendingString:L(@"meter")] UTF8String]);
+  }
   return @(distance.c_str());
 }
 

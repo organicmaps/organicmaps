@@ -38,6 +38,7 @@ using namespace routing;
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isAPICall;
+@property(nonatomic) BOOL isRestoreProcessCompleted;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
 + (MWMRouter *)router;
@@ -85,7 +86,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   static MWMRouter * router;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    router = [[super alloc] initRouter];
+    router = [[self alloc] initRouter];
   });
   return router;
 }
@@ -230,8 +231,21 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
     _routingOptions = [MWMRoutingOptions new];
+    _isRestoreProcessCompleted = NO;
   }
   return self;
+}
+
++ (void)subscribeToEvents
+{
+  [MWMFrameworkListener addObserver:[MWMRouter router]];
+  [MWMLocationManager addObserver:[MWMRouter router]];
+}
+
++ (void)unsubscribeFromEvents
+{
+  [MWMFrameworkListener removeObserver:[MWMRouter router]];
+  [MWMLocationManager removeObserver:[MWMRouter router]];
 }
 
 + (void)setType:(MWMRouterType)type
@@ -507,7 +521,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   // Don't save taxi routing type as default.
   if ([MWMRouter isTaxi])
     GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
-  [[MWMMapViewControlsManager manager] onRouteStop];
+  [self hideNavigationMapControls];
   [MWMRouter router].canAutoAddLastLocation = YES;
 }
 
@@ -612,9 +626,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (![MWMRouter isRoutingActive])
     return;
   auto tts = [MWMTextToSpeech tts];
+  NSArray<NSString *> *turnNotifications = [MWMRouter turnNotifications];
   if ([MWMRouter isOnRoute] && tts.active)
   {
-    [tts playTurnNotifications];
+    [tts playTurnNotifications:turnNotifications];
     [tts playWarningSound];
   }
 
@@ -763,12 +778,15 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if ([MapsAppDelegate theApp].isDrapeEngineCreated)
   {
     auto & rm = GetFramework().GetRoutingManager();
-    if ([self isRoutingActive] || ![self hasSavedRoute])
+    if ([self isRoutingActive] || ![self hasSavedRoute]) {
+      self.router.isRestoreProcessCompleted = YES;
       return;
+    }
     rm.LoadRoutePoints([self](bool success)
     {
       if (success)
         [self rebuildWithBestRouter:YES];
+      self.router.isRestoreProcessCompleted = YES;
     });
   }
   else
@@ -777,6 +795,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       [self restoreRouteIfNeeded];
     });
   }
+}
+
++ (BOOL)isRestoreProcessCompleted
+{
+  return self.router.isRestoreProcessCompleted;
 }
 
 + (BOOL)hasSavedRoute
@@ -814,6 +837,14 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
   [options save];
   [self rebuildWithBestRouter:YES];
+}
+
++ (void)showNavigationMapControls {
+  [[MWMMapViewControlsManager manager] onRouteStart];
+}
+
++ (void)hideNavigationMapControls {
+  [[MWMMapViewControlsManager manager] onRouteStop];
 }
 
 @end

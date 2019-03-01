@@ -2,10 +2,17 @@
 #import "MWMLocationManager.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
+#import "MWMCategory.h"
+#import "Statistics.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "EAGLView.h"
 
 #include "Framework.h"
 
 #include "platform/network_policy_ios.h"
+#include "platform/local_country_file_utils.hpp"
+
+extern NSString * const kAlohalyticsTapEventKey;
 
 #include "base/sunrise_sunset.hpp"
 
@@ -23,7 +30,7 @@
 
 + (void)setVisibleViewport:(CGRect)rect
 {
-  CGFloat const scale = [MapViewController sharedController].view.contentScaleFactor;
+  CGFloat const scale = [MapViewController sharedController].mapView.contentScaleFactor;
   CGFloat const x0 = rect.origin.x * scale;
   CGFloat const y0 = rect.origin.y * scale;
   CGFloat const x1 = x0 + rect.size.width * scale;
@@ -116,5 +123,57 @@
 }
 
 + (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
+
++ (NSArray<NSString *> *)obtainLastSearchQueries
+{
+  NSMutableArray * result = [NSMutableArray array];
+  auto const & queries = GetFramework().GetLastSearchQueries();
+  for (auto const & item : queries)
+  {
+    [result addObject:@(item.second.c_str())];
+  }
+  return [result copy];
+}
+
+#pragma mark - Map Interaction
+
++ (void)zoomMap:(MWMZoomMode)mode
+{
+  [Statistics logEvent:kStatEventName(kStatZoom, kStatOut)];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
+  switch(mode) {
+    case MWMZoomModeIn:
+      GetFramework().Scale(Framework::SCALE_MAG, true);
+      break;
+    case MWMZoomModeOut:
+      GetFramework().Scale(Framework::SCALE_MIN, true);
+      break;
+  }
+}
+
++ (void)moveMap:(UIOffset)offset
+{
+  GetFramework().Move(offset.horizontal, offset.vertical, true);
+}
+
++ (void)deactivateMapSelection:(BOOL)notifyUI
+{
+  GetFramework().DeactivateMapSelection(notifyUI);
+}
+
++ (void)switchMyPositionMode
+{
+  GetFramework().SwitchMyPositionNextMode();
+}
+
++ (void)stopLocationFollow
+{
+  GetFramework().StopLocationFollow();
+}
+
++ (BOOL)needUpdateMaps
+{
+  return platform::migrate::NeedMigrate();
+}
 
 @end

@@ -96,7 +96,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   static MWMSearch * manager;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    manager = [[super alloc] initManager];
+    manager = [[self alloc] initManager];
   });
   return manager;
 }

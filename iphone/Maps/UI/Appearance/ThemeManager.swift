@@ -18,7 +18,7 @@ final class ThemeManager: NSObject {
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
         guard isVehicleRouting else { return .day }
-        switch MWMFrameworkHelper.daytime() {
+        switch FrameworkHelper.daytime() {
         case .day: return .vehicleDay
         case .night: return .vehicleNight
         }
@@ -36,7 +36,7 @@ final class ThemeManager: NSObject {
       }
     }(actualTheme)
 
-    MWMFrameworkHelper.setTheme(actualTheme)
+    FrameworkHelper.setTheme(actualTheme)
     if nightMode != newNightMode {
       UIColor.setNightMode(newNightMode)
       (UIViewController.topViewController() as! MWMController).mwm_refreshUI()

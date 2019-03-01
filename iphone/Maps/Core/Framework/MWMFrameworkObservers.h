@@ -20,6 +20,8 @@ using namespace storage;
 
 - (void)processRouteBuilderProgress:(CGFloat)progress;
 - (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation;
+- (void)speedCameraShowedUpOnRoute:(double)speedLimit;
+- (void)speedCameraLeftVisibleArea;
 
 @end
 

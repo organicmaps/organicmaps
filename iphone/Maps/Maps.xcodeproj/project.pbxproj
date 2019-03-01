@@ -569,15 +569,37 @@
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
 		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
+		CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E8676226774C700D1EDF7 /* CPConstants.swift */; };
 		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
 		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
 		CD96C71122A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */; };
 		CD96C71422A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */; };
 		CD96C71722A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */; };
 		CD96C71C22A8113100DB7CFE /* MWMDiscoveryControllerViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */; };
+		CD9AD967228067F500EC174A /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD966228067F500EC174A /* MapInfo.swift */; };
+		CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96B2281B56900EC174A /* CPViewPortState.swift */; };
+		CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */; };
+		CDB4D4D5222D118E00104869 /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB4D4D4222D118E00104869 /* CarPlay.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */; };
+		CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4E0222D70DF00104869 /* CarPlayMapViewController.swift */; };
+		CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4E3222E8FF600104869 /* CarPlayService.swift */; };
+		CDB4D5002231412900104869 /* MapTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */; };
+		CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FC2231412900104869 /* ListTemplateBuilder.swift */; };
+		CDB4D5022231412900104869 /* SettingsTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FD2231412900104869 /* SettingsTemplateBuilder.swift */; };
 		CDB92CEE229E9CF900EC757C /* MWMDiscoveryMapObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CED229E9CF900EC757C /* MWMDiscoveryMapObjects.mm */; };
 		CDB92CF1229EB8A800EC757C /* MWMDiscoverySearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */; };
 		CDB92CF822A5350500EC757C /* MWMDiscoveryHotelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */; };
+		CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */; };
+		CDCA273A2237FCFE00167D87 /* SearchTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27392237FCFE00167D87 /* SearchTemplateBuilder.swift */; };
+		CDCA273F2238087700167D87 /* MWMCarPlaySearchService.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA273E2238087700167D87 /* MWMCarPlaySearchService.mm */; };
+		CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA2742223F8D1E00167D87 /* ListItemInfo.swift */; };
+		CDCA2745223FCFD200167D87 /* SearchResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA2744223FCFD200167D87 /* SearchResultInfo.swift */; };
+		CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA2747223FD24600167D87 /* MWMCarPlaySearchResultObject.mm */; };
+		CDCA277222426A2400167D87 /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA277122426A2400167D87 /* MWMCarPlayBookmarkObject.mm */; };
+		CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27802243F59800167D87 /* CarPlayRouter.swift */; };
+		CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27832245090900167D87 /* ListenerContainer.swift */; };
+		CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278522451F5000167D87 /* RouteInfo.swift */; };
+		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
 		F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
 		F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
 		F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
@@ -1607,6 +1629,9 @@
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
 		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
 		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
+		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
+		CD08888422BCF1C900C1368D /* maps.me full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me full.entitlements"; sourceTree = "<group>"; };
+		CD6E8676226774C700D1EDF7 /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
 		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
 		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
 		CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCollectionHolderCell.xib; sourceTree = "<group>"; };
@@ -1614,6 +1639,16 @@
 		CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoveryGuideViewModel.m; sourceTree = "<group>"; };
 		CD96C71522A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCityGalleryObjects.h; sourceTree = "<group>"; };
 		CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCityGalleryObjects.mm; sourceTree = "<group>"; };
+		CD9AD966228067F500EC174A /* MapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
+		CD9AD96B2281B56900EC174A /* CPViewPortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPViewPortState.swift; sourceTree = "<group>"; };
+		CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInfo.swift; sourceTree = "<group>"; };
+		CDB4D4D4222D118E00104869 /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = System/Library/Frameworks/CarPlay.framework; sourceTree = SDKROOT; };
+		CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CarPlayStoryboard.storyboard; sourceTree = "<group>"; };
+		CDB4D4E0222D70DF00104869 /* CarPlayMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapViewController.swift; sourceTree = "<group>"; };
+		CDB4D4E3222E8FF600104869 /* CarPlayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayService.swift; sourceTree = "<group>"; };
+		CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTemplateBuilder.swift; sourceTree = "<group>"; };
+		CDB4D4FC2231412900104869 /* ListTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTemplateBuilder.swift; sourceTree = "<group>"; };
+		CDB4D4FD2231412900104869 /* SettingsTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTemplateBuilder.swift; sourceTree = "<group>"; };
 		CDB92CE9229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryControllerViewModel.h; sourceTree = "<group>"; };
 		CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryControllerViewModel.mm; sourceTree = "<group>"; };
 		CDB92CEC229E9CF900EC757C /* MWMDiscoveryMapObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryMapObjects.h; sourceTree = "<group>"; };
@@ -1622,6 +1657,24 @@
 		CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoverySearchViewModel.m; sourceTree = "<group>"; };
 		CDB92CF622A5350500EC757C /* MWMDiscoveryHotelViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryHotelViewModel.h; sourceTree = "<group>"; };
 		CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoveryHotelViewModel.m; sourceTree = "<group>"; };
+		CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInfo.swift; sourceTree = "<group>"; };
+		CDCA27392237FCFE00167D87 /* SearchTemplateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTemplateBuilder.swift; sourceTree = "<group>"; };
+		CDCA273D2238087700167D87 /* MWMCarPlaySearchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlaySearchService.h; sourceTree = "<group>"; };
+		CDCA273E2238087700167D87 /* MWMCarPlaySearchService.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlaySearchService.mm; sourceTree = "<group>"; };
+		CDCA2742223F8D1E00167D87 /* ListItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemInfo.swift; sourceTree = "<group>"; };
+		CDCA2744223FCFD200167D87 /* SearchResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultInfo.swift; sourceTree = "<group>"; };
+		CDCA2746223FD24600167D87 /* MWMCarPlaySearchResultObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlaySearchResultObject.h; sourceTree = "<group>"; };
+		CDCA2747223FD24600167D87 /* MWMCarPlaySearchResultObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlaySearchResultObject.mm; sourceTree = "<group>"; };
+		CDCA277022426A2400167D87 /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
+		CDCA277122426A2400167D87 /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
+		CDCA27802243F59800167D87 /* CarPlayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayRouter.swift; sourceTree = "<group>"; };
+		CDCA27832245090900167D87 /* ListenerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenerContainer.swift; sourceTree = "<group>"; };
+		CDCA278522451F5000167D87 /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
+		CDCA278A2248F34C00167D87 /* MWMRoutingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingManager.h; sourceTree = "<group>"; };
+		CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingManager.mm; sourceTree = "<group>"; };
+		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
+		CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationModeListener.h; sourceTree = "<group>"; };
+		CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCameraManagerMode.h; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
 		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -1996,6 +2049,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
+				CDB4D4D5222D118E00104869 /* CarPlay.framework in Frameworks */,
 				BB2C99B021B6AB4500F7371C /* libdescriptions.a in Frameworks */,
 				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
 				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
@@ -2081,6 +2135,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CDB4D4E2222E8F8200104869 /* CarPlay */,
 				346EDAD81B9F0E15004F8DB5 /* Components */,
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				F64F195F1AB8125C006EAF7E /* CustomAlert */,
@@ -2163,6 +2218,8 @@
 			children = (
 				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
 				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
+				CD08888422BCF1C900C1368D /* maps.me full.entitlements */,
+				CD08888322BCF1C800C1368D /* maps.me rel.entitlements */,
 				345E8F4D1F83976800A826CC /* GoogleService-Info.plist */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
@@ -2176,6 +2233,7 @@
 			isa = PBXGroup;
 			children = (
 				4577B28021F2066A00864FAC /* libvulkan_wrapper.a */,
+				CDB4D4D4222D118E00104869 /* CarPlay.framework */,
 				BB2C99AF21B6AB4500F7371C /* libdescriptions.a */,
 				474C9F59213FF75800369009 /* StoreKit.framework */,
 				3D1958EA213804B6009A83EC /* libmetrics.a */,
@@ -2383,8 +2441,8 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				CDCA27822245090900167D87 /* EventListening */,
 				47B9064821C7FA100079C85E /* WebImage */,
-				473464A8218C688400D6AF5B /* Util */,
 				470F5A7B2189BA7200754295 /* InappPurchase */,
 				474C9F602141894300369009 /* Metrics */,
 				472E3F4221468AF40020E412 /* Subscriptions */,
@@ -2536,6 +2594,7 @@
 				340E1EE81E2F614400CE49BF /* Settings.storyboard */,
 				340E1EE91E2F614400CE49BF /* Storyboard.swift */,
 				340E1EEA1E2F614400CE49BF /* Welcome.storyboard */,
+				CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -2946,6 +3005,7 @@
 		3486B50F1E27AD3B0069C126 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				CDCA27762243CCFF00167D87 /* ProxyObjects */,
 				3486B5101E27AD3B0069C126 /* Framework.cpp */,
 				3486B5111E27AD3B0069C126 /* Framework.h */,
 				3486B5121E27AD3B0069C126 /* MWMFrameworkListener.h */,
@@ -3396,13 +3456,6 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
-		473464A8218C688400D6AF5B /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
 		474A450520EBA03900C10B4E /* Layers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3585,6 +3638,93 @@
 				CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		CDB4D4DA222D24EE00104869 /* CarPlay */ = {
+			isa = PBXGroup;
+			children = (
+				CDB4D4E0222D70DF00104869 /* CarPlayMapViewController.swift */,
+			);
+			path = CarPlay;
+			sourceTree = "<group>";
+		};
+		CDB4D4E2222E8F8200104869 /* CarPlay */ = {
+			isa = PBXGroup;
+			children = (
+				CD9AD96B2281B56900EC174A /* CPViewPortState.swift */,
+				CD6E8676226774C700D1EDF7 /* CPConstants.swift */,
+				CDB4D4FA2231412900104869 /* Template Builders */,
+				CDB4D4F72231412900104869 /* Templates Data */,
+				CDB4D4E3222E8FF600104869 /* CarPlayService.swift */,
+				CDCA27802243F59800167D87 /* CarPlayRouter.swift */,
+				CDCA273D2238087700167D87 /* MWMCarPlaySearchService.h */,
+				CDCA273E2238087700167D87 /* MWMCarPlaySearchService.mm */,
+				CDCA2746223FD24600167D87 /* MWMCarPlaySearchResultObject.h */,
+				CDCA2747223FD24600167D87 /* MWMCarPlaySearchResultObject.mm */,
+				CDCA277022426A2400167D87 /* MWMCarPlayBookmarkObject.h */,
+				CDCA277122426A2400167D87 /* MWMCarPlayBookmarkObject.mm */,
+			);
+			path = CarPlay;
+			sourceTree = "<group>";
+		};
+		CDB4D4F72231412900104869 /* Templates Data */ = {
+			isa = PBXGroup;
+			children = (
+				CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */,
+				CDCA2742223F8D1E00167D87 /* ListItemInfo.swift */,
+				CDCA2744223FCFD200167D87 /* SearchResultInfo.swift */,
+				CDCA278522451F5000167D87 /* RouteInfo.swift */,
+				CD9AD966228067F500EC174A /* MapInfo.swift */,
+				CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */,
+			);
+			path = "Templates Data";
+			sourceTree = "<group>";
+		};
+		CDB4D4FA2231412900104869 /* Template Builders */ = {
+			isa = PBXGroup;
+			children = (
+				CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */,
+				CDB4D4FC2231412900104869 /* ListTemplateBuilder.swift */,
+				CDB4D4FD2231412900104869 /* SettingsTemplateBuilder.swift */,
+				CDCA27392237FCFE00167D87 /* SearchTemplateBuilder.swift */,
+			);
+			path = "Template Builders";
+			sourceTree = "<group>";
+		};
+		CDCA27762243CCFF00167D87 /* ProxyObjects */ = {
+			isa = PBXGroup;
+			children = (
+				CDCA278D2248F34C00167D87 /* Location */,
+				CDCA27892248F34C00167D87 /* Routing */,
+			);
+			path = ProxyObjects;
+			sourceTree = "<group>";
+		};
+		CDCA27822245090900167D87 /* EventListening */ = {
+			isa = PBXGroup;
+			children = (
+				CDCA27832245090900167D87 /* ListenerContainer.swift */,
+			);
+			path = EventListening;
+			sourceTree = "<group>";
+		};
+		CDCA27892248F34C00167D87 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				CDCA278A2248F34C00167D87 /* MWMRoutingManager.h */,
+				CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */,
+				CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */,
+				CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		CDCA278D2248F34C00167D87 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		F607C18B1C047FCA00B53A87 /* Segue */ = {
@@ -3837,6 +3977,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CDB4D4DA222D24EE00104869 /* CarPlay */,
 				F6E407CC1FC45ED4001F7821 /* Discovery */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
@@ -4528,9 +4669,9 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
-						DevelopmentTeam = 3T6FSDE8C7;
+						DevelopmentTeam = N9X2A789QT;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -4831,6 +4972,7 @@
 				47B505552136B0CF009CBB55 /* SearchTutorialBlur.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				34E50DF31F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,
+				CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
@@ -4954,6 +5096,7 @@
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
+				CDCA273F2238087700167D87 /* MWMCarPlaySearchService.mm in Sources */,
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
@@ -4993,6 +5136,7 @@
 				F6E2FE491E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				348F8A531F863B6100060C2A /* UGCReview.swift in Sources */,
 				340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
+				CDCA273A2237FCFE00167D87 /* SearchTemplateBuilder.swift in Sources */,
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */,
@@ -5041,6 +5185,7 @@
 				34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */,
 				346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
+				CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
@@ -5054,12 +5199,14 @@
 				473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
+				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				33F8BA4421998BFA00ECA8EE /* MWMTagGroup.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
+				CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
 				474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */,
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,
@@ -5077,6 +5224,7 @@
 				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */,
 				33F8BA4121998BEB00ECA8EE /* MWMTag.m in Sources */,
+				CDB4D5022231412900104869 /* SettingsTemplateBuilder.swift in Sources */,
 				F6EBB26F1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift in Sources */,
 				47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
@@ -5116,6 +5264,7 @@
 				34AB66741FC5AA330078E451 /* BaseRoutePreviewStatus.swift in Sources */,
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
+				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
 				347039A91FB9A5CF00E47496 /* MWMBookmarksManager.mm in Sources */,
 				F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
 				34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */,
@@ -5123,6 +5272,7 @@
 				34AB664D1FC5AA330078E451 /* RouteManagerFooterView.swift in Sources */,
 				F6E2FD771E097BA00083EBEC /* MWMMapDownloaderDataSource.mm in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
+				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
 				349D1AD81E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
@@ -5140,6 +5290,7 @@
 				47C3DB582268CDDB00DF6F91 /* DeeplinkInfoViewController.swift in Sources */,
 				3404F490202898CC0090E401 /* BMCModels.swift in Sources */,
 				F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
+				CDB4D5002231412900104869 /* MapTemplateBuilder.swift in Sources */,
 				3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
 				470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */,
 				34AB66171FC5AA320078E451 /* MWMiPhoneRoutePreview.m in Sources */,
@@ -5149,6 +5300,7 @@
 				F6E2FD981E097BA00083EBEC /* MWMBookmarkTitleCell.m in Sources */,
 				33E905462180C40900868CAC /* UIViewController+Authorization.swift in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
+				CDCA2745223FCFD200167D87 /* SearchResultInfo.swift in Sources */,
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,
 				349D1ADE1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.mm in Sources */,
@@ -5167,6 +5319,7 @@
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */,
+				CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
 				3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */,
 				34AB66771FC5AA330078E451 /* TransportRoutePreviewStatus.swift in Sources */,
@@ -5205,6 +5358,7 @@
 				F6E2FE3A1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */,
+				CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
@@ -5229,6 +5383,7 @@
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				340FDC092031C39E00F140AD /* BMCPermissionsPendingCell.swift in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
+				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
 				3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
 				47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */,
@@ -5239,6 +5394,7 @@
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				33F8BA472199A91900ECA8EE /* MWMTag+Convenience.mm in Sources */,
 				F6E2FE9D1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
+				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
 				3454D7C81E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
@@ -5254,12 +5410,14 @@
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
+				CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */,
 				F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */,
+				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */,
@@ -5277,6 +5435,7 @@
 				47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */,
 				4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */,
 				34BBD6601F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */,
+				CDCA277222426A2400167D87 /* MWMCarPlayBookmarkObject.mm in Sources */,
 				F6E2FD7D1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED31E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				340475741E081A4600C92850 /* MWMStorage.mm in Sources */,
@@ -5289,6 +5448,7 @@
 				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
+				CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */,
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
@@ -5339,6 +5499,7 @@
 				3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.mm in Sources */,
+				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,
 				47F6E51221F61908004580CA /* CoreNotificationWrapper.mm in Sources */,
 				F6E2FE971E097BA00083EBEC /* ContextViews.mm in Sources */,
 				344532561F7155540059FBCC /* UGCReviewModel.swift in Sources */,
@@ -5393,6 +5554,7 @@
 				CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
+				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,
@@ -5545,8 +5707,10 @@
 			baseConfigurationReference = 0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5556,6 +5720,8 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
+				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
 			};
 			name = Debug;
 		};
@@ -5563,9 +5729,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "maps.me rel.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5575,6 +5743,8 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
+				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
 			};
 			name = Release;
 		};
@@ -5582,9 +5752,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 166595280BE641CF8ADE2209 /* Pods-MAPS.ME.production full.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "maps.me full.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5594,6 +5766,8 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
+				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
 			};
 			name = "Production Full";
 		};

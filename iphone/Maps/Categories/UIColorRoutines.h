@@ -1,5 +1,6 @@
 static CGFloat const alpha04 = 0.04;
 static CGFloat const alpha12 = 0.12;
+static CGFloat const alpha20 = 0.20;
 static CGFloat const alpha26 = 0.26;
 static CGFloat const alpha30 = 0.3;
 static CGFloat const alpha32 = 0.32;

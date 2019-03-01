@@ -28,8 +28,9 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
 - (void)didMoveToSuperview
 {
   [super didMoveToSuperview];
-  self.minY = self.superview.height;
-  self.width = self.superview.width;
+  CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+  self.minY = screenSize.height;
+  self.width = screenSize.width;
 }
 
 - (void)layoutSubviews

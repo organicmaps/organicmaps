@@ -135,10 +135,10 @@ NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSS
     entity.isValid = YES;
     entity.timeToTarget = info.m_time;
     entity.targetDistance = @(info.m_distToTarget.c_str());
-    entity.targetUnits = @(info.m_targetUnitsSuffix.c_str());
+    entity.targetUnits = [self localizedUnitLength:@(info.m_targetUnitsSuffix.c_str())];
     entity.progress = info.m_completionPercent;
     entity.distanceToTurn = @(info.m_distToTurn.c_str());
-    entity.turnUnits = @(info.m_turnUnitsSuffix.c_str());
+    entity.turnUnits = [self localizedUnitLength:@(info.m_turnUnitsSuffix.c_str())];
     entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.nextTurnImage = image(info.m_nextTurn, true);
 
@@ -176,6 +176,19 @@ NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSS
     entity.transitSteps = transitSteps;
   }
   [self onNavigationInfoUpdated];
+}
+
+- (NSString *)localizedUnitLength:(NSString *)targetUnits {
+  if ([targetUnits isEqualToString:@"mi"]) {
+    return L(@"mile");
+  } else if ([targetUnits isEqualToString:@"km"]) {
+    return L(@"kilometer");
+  } else if ([targetUnits isEqualToString:@"ft"]) {
+    return L(@"foot");
+  } else if ([targetUnits isEqualToString:@"m"]) {
+    return L(@"meter");
+  }
+  return targetUnits;
 }
 
 @end

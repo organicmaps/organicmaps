@@ -5,7 +5,7 @@
   func create() {
     switch self {
     case .none: return
-    case .full: MWMFrameworkHelper.createFramework()
+    case .full: FrameworkHelper.createFramework()
     }
   }
 }

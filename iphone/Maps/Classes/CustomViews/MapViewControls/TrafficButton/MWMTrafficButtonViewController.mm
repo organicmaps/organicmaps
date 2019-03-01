@@ -54,7 +54,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   {
     MapViewController * ovc = [MapViewController sharedController];
     [ovc addChildViewController:self];
-    [ovc.view addSubview:self.view];
+    [ovc.controlsView addSubview:self.view];
     [self configLayout];
     [self refreshAppearance];
     [MWMTrafficManager addObserver:self];

@@ -124,6 +124,18 @@ void loopWrappers(Observers * observers, TLoopBlock block)
         [observer processRouteRecommendation:rec];
     });
   });
+  rm.SetRouteSpeedCamShowListener([observers](m2::PointD const & point, double cameraSpeedKmPH) {
+    loopWrappers(observers, [cameraSpeedKmPH](TRouteBuildingObserver observer) {
+      if ([observer respondsToSelector:@selector(speedCameraShowedUpOnRoute:)])
+          [observer speedCameraShowedUpOnRoute:cameraSpeedKmPH];
+    });
+  });
+  rm.SetRouteSpeedCamsClearListener([observers]() {
+    loopWrappers(observers, ^(TRouteBuildingObserver observer) {
+      if ([observer respondsToSelector:@selector(speedCameraLeftVisibleArea)])
+          [observer speedCameraLeftVisibleArea];
+    });
+  });
 }
 
 #pragma mark - MWMFrameworkStorageObserver

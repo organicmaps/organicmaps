@@ -10,7 +10,12 @@ final class VisibleArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMFrameworkHelper.setVisibleViewport(areaFrame)
+    if #available(iOS 12.0, *) {
+      if CarPlayService.shared.isCarplayActivated {
+        return
+      }
+    }
+    FrameworkHelper.setVisibleViewport(areaFrame)
   }
 }
 

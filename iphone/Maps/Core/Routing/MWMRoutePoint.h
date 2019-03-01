@@ -9,6 +9,12 @@ typedef NS_ENUM(NSUInteger, MWMRoutePointType) {
 - (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
                           intermediateIndex:(size_t)intermediateIndex;
 
+- (instancetype)initWithCGPoint:(CGPoint)point
+                          title:(NSString *)title
+                       subtitle:(NSString *)subtitle
+                           type:(MWMRoutePointType)type
+              intermediateIndex:(size_t)intermediateIndex;
+
 @property(copy, nonatomic, readonly) NSString * title;
 @property(copy, nonatomic, readonly) NSString * subtitle;
 @property(copy, nonatomic, readonly) NSString * latLonString;

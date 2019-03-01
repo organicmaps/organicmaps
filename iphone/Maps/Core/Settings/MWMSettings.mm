@@ -115,6 +115,16 @@ NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
 
 + (MWMTheme)theme
 {
+  if (@available(iOS 12.0, *)) {
+    if ([MWMCarPlayService shared].isCarplayActivated) {
+      UIUserInterfaceStyle style = [[MWMCarPlayService shared] interfaceStyle];
+      switch (style) {
+      case UIUserInterfaceStyleLight: return MWMThemeDay;
+      case UIUserInterfaceStyleDark: return MWMThemeNight;
+      case UIUserInterfaceStyleUnspecified: break;
+      }
+    }
+  }
   auto ud = NSUserDefaults.standardUserDefaults;
   if (![ud boolForKey:kUDAutoNightModeOff])
     return MWMThemeAuto;
