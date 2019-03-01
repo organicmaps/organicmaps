@@ -16,7 +16,7 @@ final class ExpandableReviewView: UIView {
     return label
   }()
   
-  var moreZeroHeight: NSLayoutConstraint!
+  var moreLabelZeroHeight: NSLayoutConstraint!
   private var settings: ExpandableReviewSettings = ExpandableReviewSettings()
   private var isExpanded = false
   private var onUpdateHandler: (() -> Void)?
@@ -41,7 +41,7 @@ final class ExpandableReviewView: UIView {
     self.addSubview(moreLabel)
     let labels: [String: Any] = ["contentLabel": contentLabel, "moreLabel": moreLabel]
     var contentConstraints: [NSLayoutConstraint] = []
-    let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[contentLabel]-0-[moreLabel]",
+    let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentLabel][moreLabel]",
                                                              metrics: nil,
                                                              views: labels)
     contentConstraints += verticalConstraints
@@ -49,16 +49,16 @@ final class ExpandableReviewView: UIView {
     moreBottomConstraint.priority = .defaultLow
     contentConstraints.append(moreBottomConstraint)
     
-    let contentHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[contentLabel]-0-|",
+    let contentHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentLabel]|",
                                                                       metrics: nil,
                                                                       views: labels)
     contentConstraints += contentHorizontalConstraints
-    let moreHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[moreLabel]-0-|",
+    let moreHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[moreLabel]|",
                                                                    metrics: nil,
                                                                    views: labels)
     contentConstraints += moreHorizontalConstraints
     NSLayoutConstraint.activate(contentConstraints)
-    moreZeroHeight = moreLabel.heightAnchor.constraint(equalToConstant: 0.0)
+    moreLabelZeroHeight = moreLabel.heightAnchor.constraint(equalToConstant: 0.0)
     apply(settings: settings)
     
     layer.backgroundColor = UIColor.clear.cgColor
@@ -103,7 +103,7 @@ final class ExpandableReviewView: UIView {
       return
     }
     if isExpanded {
-      moreZeroHeight.isActive = true
+      moreLabelZeroHeight.isActive = true
     } else {
       let height = (text as NSString).boundingRect(with: CGSize(width: contentLabel.bounds.width,
                                                                 height: .greatestFiniteMagnitude),
@@ -111,9 +111,9 @@ final class ExpandableReviewView: UIView {
                                                    attributes: [.font: contentLabel.font],
                                                    context: nil).height
       if height > contentLabel.bounds.height {
-        moreZeroHeight.isActive = false
+        moreLabelZeroHeight.isActive = false
       } else {
-        moreZeroHeight.isActive = true
+        moreLabelZeroHeight.isActive = true
       }
     }
   }

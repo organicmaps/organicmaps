@@ -215,8 +215,8 @@
 		349D1ADE1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ACC1E2E325B004A2006 /* MWMBottomMenuViewController.mm */; };
 		349D1AE11E2E325C004A2006 /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349D1ACD1E2E325B004A2006 /* MWMBottomMenuViewController.xib */; };
 		349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */; };
-		349FC5481F680DAE00968C9F /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5451F680DAE00968C9F /* ExpandableTextView.swift */; };
-		349FC54B1F680DAE00968C9F /* ExpandableTextViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5461F680DAE00968C9F /* ExpandableTextViewSettings.swift */; };
+		349FC5481F680DAE00968C9F /* ExpandableReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5451F680DAE00968C9F /* ExpandableReviewView.swift */; };
+		349FC54B1F680DAE00968C9F /* ExpandableReviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5461F680DAE00968C9F /* ExpandableReviewSettings.swift */; };
 		34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB39C01D2BD8310021857D /* MWMStopButton.mm */; };
 		34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */; };
 		34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */; };
@@ -1125,8 +1125,8 @@
 		349D1ACC1E2E325B004A2006 /* MWMBottomMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMBottomMenuViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		349D1ACD1E2E325B004A2006 /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
 		349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hierarchy.swift"; sourceTree = "<group>"; };
-		349FC5451F680DAE00968C9F /* ExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
-		349FC5461F680DAE00968C9F /* ExpandableTextViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextViewSettings.swift; sourceTree = "<group>"; };
+		349FC5451F680DAE00968C9F /* ExpandableReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableReviewView.swift; sourceTree = "<group>"; };
+		349FC5461F680DAE00968C9F /* ExpandableReviewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableReviewSettings.swift; sourceTree = "<group>"; };
 		34AB39BF1D2BD8310021857D /* MWMStopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStopButton.h; sourceTree = "<group>"; };
 		34AB39C01D2BD8310021857D /* MWMStopButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStopButton.mm; sourceTree = "<group>"; };
 		34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMNavigationDashboardManager+Entity.mm"; sourceTree = "<group>"; };
@@ -2839,7 +2839,7 @@
 				3470402E1EA6470700038379 /* BorderedButton.swift */,
 				340708761F2B5D6C00029ECC /* DimBackground.swift */,
 				F652B2E81C6DE8CF00D20C8C /* DropDown */,
-				349FC5441F680DAE00968C9F /* ExpandableTextView */,
+				349FC5441F680DAE00968C9F /* ExpandableReviewView */,
 				F6FEA82B1C58E89B007223CC /* MWMButton.h */,
 				F6FEA82C1C58E89B007223CC /* MWMButton.mm */,
 				343E75951E5B1EE20041226A /* MWMCollectionViewController.h */,
@@ -3033,13 +3033,13 @@
 			path = BottomMenu;
 			sourceTree = "<group>";
 		};
-		349FC5441F680DAE00968C9F /* ExpandableTextView */ = {
+		349FC5441F680DAE00968C9F /* ExpandableReviewView */ = {
 			isa = PBXGroup;
 			children = (
-				349FC5451F680DAE00968C9F /* ExpandableTextView.swift */,
-				349FC5461F680DAE00968C9F /* ExpandableTextViewSettings.swift */,
+				349FC5451F680DAE00968C9F /* ExpandableReviewView.swift */,
+				349FC5461F680DAE00968C9F /* ExpandableReviewSettings.swift */,
 			);
-			path = ExpandableTextView;
+			path = ExpandableReviewView;
 			sourceTree = "<group>";
 		};
 		34AB65C41FC5AA320078E451 /* NavigationDashboard */ = {
@@ -4868,7 +4868,7 @@
 				47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */,
 				34AB666E1FC5AA330078E451 /* TransportTransitStepsCollectionView.swift in Sources */,
 				F6E2FF541E097BA00083EBEC /* MWMHelpController.mm in Sources */,
-				349FC5481F680DAE00968C9F /* ExpandableTextView.swift in Sources */,
+				349FC5481F680DAE00968C9F /* ExpandableReviewView.swift in Sources */,
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				337F98B021D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm in Sources */,
@@ -5315,7 +5315,7 @@
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */,
-				349FC54B1F680DAE00968C9F /* ExpandableTextViewSettings.swift in Sources */,
+				349FC54B1F680DAE00968C9F /* ExpandableReviewSettings.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
 				34AB66531FC5AA330078E451 /* MWMiPadRoutePreview.mm in Sources */,
