@@ -81,8 +81,8 @@ public:
   /// Geometry points are now stored in <nd x="..." y="..." /> nodes like in osm <way>.
   /// But they are not the same as osm's. I.e. osm's one stores reference to a <node>
   /// with it's own data and lat, lon. Here we store only cooridanes in mercator.
-  template <typename TIterator>
-  void SetGeometry(TIterator begin, TIterator end)
+  template <typename Iterator>
+  void SetGeometry(Iterator begin, Iterator end)
   {
     ASSERT_NOT_EQUAL(GetType(), Type::Unknown, ());
     ASSERT_NOT_EQUAL(GetType(), Type::Node, ());
@@ -95,8 +95,8 @@ public:
     }
   }
 
-  template <typename TCollection>
-  void SetGeometry(TCollection const & geometry)
+  template <typename Collection>
+  void SetGeometry(Collection const & geometry)
   {
     SetGeometry(begin(geometry), end(geometry));
   }
@@ -104,8 +104,8 @@ public:
   std::string GetName(std::string const & lang) const;
   std::string GetName(uint8_t const langCode = StringUtf8Multilang::kDefaultCode) const;
 
-  template <typename TFunc>
-  void ForEachName(TFunc && func) const
+  template <typename Fn>
+  void ForEachName(Fn && func) const
   {
     static auto const kPrefixLen = strlen(kLocalName);
     auto const tags = GetRootNode().select_nodes("tag");
@@ -152,8 +152,8 @@ public:
   bool HasAttribute(std::string const & key) const;
   bool HasKey(std::string const & key) const;
 
-  template <typename TFunc>
-  void ForEachTag(TFunc && func) const
+  template <typename Fn>
+  void ForEachTag(Fn && func) const
   {
     for (auto const & tag : GetRootNode().select_nodes("tag"))
       func(tag.node().attribute("k").value(), tag.node().attribute("v").value());

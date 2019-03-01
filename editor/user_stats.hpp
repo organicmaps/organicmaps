@@ -37,7 +37,7 @@ private:
 class UserStatsLoader
 {
 public:
-  using TOnUpdateCallback = std::function<void()>;
+  using OnUpdateCallback = std::function<void()>;
 
   enum class UpdatePolicy { Lazy, Force };
 
@@ -48,9 +48,9 @@ public:
 
   /// Launches the update process if stats are too old or if policy is UpdatePolicy::Force.
   /// The process posts fn to a gui thread on success.
-  void Update(std::string const & userName, UpdatePolicy policy, TOnUpdateCallback fn);
+  void Update(std::string const & userName, UpdatePolicy policy, OnUpdateCallback fn);
   /// Calls Update with UpdatePolicy::Lazy.
-  void Update(std::string const & userName, TOnUpdateCallback fn);
+  void Update(std::string const & userName, OnUpdateCallback fn);
 
   /// Resets internal state and removes records from settings.
   void DropStats(std::string const & userName);

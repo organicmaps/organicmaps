@@ -107,8 +107,8 @@ private:
   OptionalSaveStorage * m_storage = new OptionalSaveStorage;
 };
 
-template <typename TFn>
-void ForEachCafeAtPoint(DataSource & dataSource, m2::PointD const & mercator, TFn && fn)
+template <typename Fn>
+void ForEachCafeAtPoint(DataSource & dataSource, m2::PointD const & mercator, Fn && fn)
 {
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, 0.2 /* rect width */);
 

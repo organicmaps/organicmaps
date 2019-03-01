@@ -10,9 +10,9 @@ using namespace editor;
 UNIT_TEST(EditorConfig_TypeDescription)
 {
   using EType = feature::Metadata::EType;
-  using TFields = editor::TypeAggregatedDescription::TFeatureFields;
+  using Fields = editor::TypeAggregatedDescription::FeatureFields;
 
-  TFields const poi = {
+  Fields const poi = {
     feature::Metadata::FMD_OPEN_HOURS,
     feature::Metadata::FMD_PHONE_NUMBER,
     feature::Metadata::FMD_WEBSITE,
@@ -35,7 +35,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(config.GetTypeDescription({"amenity-hunting_stand"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(!desc.IsAddressEditable(), ());
-    TEST_EQUAL(desc.GetEditableFields(), TFields {EType::FMD_HEIGHT}, ());
+    TEST_EQUAL(desc.GetEditableFields(), Fields{EType::FMD_HEIGHT}, ());
   }
   {
     editor::TypeAggregatedDescription desc;
@@ -70,7 +70,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     editor::TypeAggregatedDescription desc;
     TEST(config.GetTypeDescription({"tourism-artwork-impresionism-monet"}, desc), ());
     TEST(desc.IsNameEditable(), ());
-    TEST_EQUAL(desc.GetEditableFields(), TFields {}, ());
+    TEST_EQUAL(desc.GetEditableFields(), Fields{}, ());
   }
   // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.
 }

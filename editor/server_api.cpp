@@ -16,7 +16,7 @@
 
 namespace
 {
-std::string KeyValueTagsToXML(osm::ServerApi06::TKeyValueTags const & kvTags)
+std::string KeyValueTagsToXML(osm::ServerApi06::KeyValueTags const & kvTags)
 {
   std::ostringstream stream;
   stream << "<osm>\n"
@@ -37,7 +37,7 @@ ServerApi06::ServerApi06(OsmOAuth const & auth)
 {
 }
 
-uint64_t ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags) const
+uint64_t ServerApi06::CreateChangeSet(KeyValueTags const & kvTags) const
 {
   if (!m_auth.IsAuthorized())
     MYTHROW(NotAuthorized, ("Not authorized."));
@@ -105,7 +105,7 @@ void ServerApi06::DeleteElement(editor::XMLFeature const & element) const
     MYTHROW(ErrorDeletingElement, ("Could not delete an element:", response));
 }
 
-void ServerApi06::UpdateChangeSet(uint64_t changesetId, TKeyValueTags const & kvTags) const
+void ServerApi06::UpdateChangeSet(uint64_t changesetId, KeyValueTags const & kvTags) const
 {
   OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId), "PUT", KeyValueTagsToXML(kvTags));
   if (response.first != OsmOAuth::HTTP::OK)

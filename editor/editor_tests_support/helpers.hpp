@@ -15,8 +15,8 @@ namespace tests_support
 void SetUpEditorForTesting(std::unique_ptr<osm::Editor::Delegate> delegate);
 void TearDownEditorForTesting();
 
-template <typename TFn>
-void EditFeature(FeatureType & ft, TFn && fn)
+template <typename Fn>
+void EditFeature(FeatureType & ft, Fn && fn)
 {
   auto & editor = osm::Editor::Instance();
 

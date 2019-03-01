@@ -5,7 +5,7 @@
 #include <string>
 
 using osm::OsmOAuth;
-using osm::TKeySecret;
+using osm::KeySecret;
 
 namespace
 {

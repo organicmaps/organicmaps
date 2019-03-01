@@ -144,7 +144,7 @@ TimeTable TimeTable::GetPredefinedTimeTable()
   return tt;
 }
 
-bool TimeTable::SetOpeningDays(TOpeningDays const & days)
+bool TimeTable::SetOpeningDays(OpeningDays const & days)
 {
   if (days.empty())
     return false;
@@ -292,9 +292,9 @@ TimeTableSet::TimeTableSet()
   m_table.push_back(TimeTable::GetPredefinedTimeTable());
 }
 
-TOpeningDays TimeTableSet::GetUnhandledDays() const
+OpeningDays TimeTableSet::GetUnhandledDays() const
 {
-  TOpeningDays days = {
+  OpeningDays days = {
     osmoh::Weekday::Sunday,
     osmoh::Weekday::Monday,
     osmoh::Weekday::Tuesday,
@@ -381,7 +381,7 @@ bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
 
     auto && tt = ttSet.m_table[i];
     // Remove all days of updated timetable from all other timetables.
-    TOpeningDays days;
+    OpeningDays days;
     std::set_difference(std::begin(tt.GetOpeningDays()), std::end(tt.GetOpeningDays()),
                         std::begin(updated.GetOpeningDays()), std::end(updated.GetOpeningDays()),
                         inserter(days, std::end(days)));

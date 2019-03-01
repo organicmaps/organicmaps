@@ -49,14 +49,14 @@ public:
   void SaveTransactionTest();
 
 private:
-  template <typename TBuildFn>
-  MwmSet::MwmId ConstructTestMwm(TBuildFn && fn)
+  template <typename BuildFn>
+  MwmSet::MwmId ConstructTestMwm(BuildFn && fn)
   {
-    return BuildMwm("TestCountry", std::forward<TBuildFn>(fn));
+    return BuildMwm("TestCountry", std::forward<BuildFn>(fn));
   }
 
-  template <typename TBuildFn>
-  MwmSet::MwmId BuildMwm(std::string const & name, TBuildFn && fn, int64_t version = 0)
+  template <typename BuildFn>
+  MwmSet::MwmId BuildMwm(std::string const & name, BuildFn && fn, int64_t version = 0)
   {
     m_mwmFiles.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(name), version);
     auto & file = m_mwmFiles.back();

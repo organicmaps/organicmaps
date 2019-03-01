@@ -19,7 +19,7 @@ struct ClientToken;
 
 class ChangesetWrapper
 {
-  using TTypeCount = std::map<std::string, size_t>;
+  using TypeCount = std::map<std::string, size_t>;
 
 public:
   DECLARE_EXCEPTION(ChangesetWrapperException, RootException);
@@ -32,8 +32,8 @@ public:
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
-  ChangesetWrapper(TKeySecret const & keySecret,
-                   ServerApi06::TKeyValueTags const & comments) noexcept;
+  ChangesetWrapper(KeySecret const & keySecret,
+                   ServerApi06::KeyValueTags const & comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
@@ -59,15 +59,15 @@ private:
   void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc, double radiusInMeters = 1.0);
   void LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const & max, pugi::xml_document & doc);
 
-  ServerApi06::TKeyValueTags m_changesetComments;
+  ServerApi06::KeyValueTags m_changesetComments;
   ServerApi06 m_api;
   static constexpr uint64_t kInvalidChangesetId = 0;
   uint64_t m_changesetId = kInvalidChangesetId;
 
-  TTypeCount m_modified_types;
-  TTypeCount m_created_types;
-  TTypeCount m_deleted_types;
-  static std::string TypeCountToString(TTypeCount const & typeCount);
+  TypeCount m_modified_types;
+  TypeCount m_created_types;
+  TypeCount m_deleted_types;
+  static std::string TypeCountToString(TypeCount const & typeCount);
   std::string GetDescription() const;
 };
 

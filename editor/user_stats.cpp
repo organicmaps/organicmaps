@@ -131,7 +131,7 @@ bool UserStatsLoader::Update(std::string const & userName)
 }
 
 void UserStatsLoader::Update(std::string const & userName, UpdatePolicy const policy,
-                             TOnUpdateCallback fn)
+                             OnUpdateCallback fn)
 {
   auto nothingToUpdate = false;
   if (policy == UpdatePolicy::Lazy)
@@ -154,7 +154,7 @@ void UserStatsLoader::Update(std::string const & userName, UpdatePolicy const po
   });
 }
 
-void UserStatsLoader::Update(std::string const & userName, TOnUpdateCallback fn)
+void UserStatsLoader::Update(std::string const & userName, OnUpdateCallback fn)
 {
   Update(userName, UpdatePolicy::Lazy, fn);
 }

@@ -7,8 +7,8 @@
 
 namespace osm
 {
-using TKeySecret = std::pair<std::string /*key*/, std::string /*secret*/>;
-using TRequestToken = TKeySecret;
+using KeySecret = std::pair<std::string /*key*/, std::string /*secret*/>;
+using RequestToken = KeySecret;
 
 /// All methods that interact with the OSM server are blocking and not asynchronous.
 class OsmOAuth
@@ -35,7 +35,7 @@ public:
   /// A pair of <http error code, response contents>.
   using Response = std::pair<int, std::string>;
   /// A pair of <url, key-secret>.
-  using TUrlRequestToken = std::pair<std::string, TRequestToken>;
+  using UrlRequestToken = std::pair<std::string, RequestToken>;
 
   DECLARE_EXCEPTION(OsmOAuthException, RootException);
   DECLARE_EXCEPTION(NetworkError, OsmOAuthException);
@@ -53,8 +53,8 @@ public:
   DECLARE_EXCEPTION(FinishAuthorizationServerError, OsmOAuthException);
   DECLARE_EXCEPTION(ResetPasswordServerError, OsmOAuthException);
 
-  static bool IsValid(TKeySecret const & ks) noexcept;
-  static bool IsValid(TUrlRequestToken const & urt) noexcept;
+  static bool IsValid(KeySecret const & ks) noexcept;
+  static bool IsValid(UrlRequestToken const & urt) noexcept;
 
   /// The constructor. Simply stores a lot of strings in fields.
   OsmOAuth(std::string const & consumerKey, std::string const & consumerSecret,
@@ -62,7 +62,7 @@ public:
 
   /// Should be used everywhere in production code instead of servers below.
   static OsmOAuth ServerAuth() noexcept;
-  static OsmOAuth ServerAuth(TKeySecret const & userKeySecret) noexcept;
+  static OsmOAuth ServerAuth(KeySecret const & userKeySecret) noexcept;
 
   /// Ilya Zverev's test server.
   static OsmOAuth IZServerAuth() noexcept;
@@ -71,8 +71,8 @@ public:
   /// api.openstreetmap.org
   static OsmOAuth ProductionServerAuth() noexcept;
 
-  void SetKeySecret(TKeySecret const & keySecret) noexcept;
-  TKeySecret const & GetKeySecret() const noexcept;
+  void SetKeySecret(KeySecret const & keySecret) noexcept;
+  KeySecret const & GetKeySecret() const noexcept;
   bool IsAuthorized() const noexcept;
 
   /// @returns false if login and/or password are invalid.
@@ -94,11 +94,11 @@ public:
 
   /// @name Methods for WebView-based authentication.
   //@{
-  TUrlRequestToken GetFacebookOAuthURL() const;
-  TUrlRequestToken GetGoogleOAuthURL() const;
-  TKeySecret FinishAuthorization(TRequestToken const & requestToken,
-                                 std::string const & verifier) const;
-  //AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier);
+  UrlRequestToken GetFacebookOAuthURL() const;
+  UrlRequestToken GetGoogleOAuthURL() const;
+  KeySecret FinishAuthorization(RequestToken const & requestToken,
+                                std::string const & verifier) const;
+  // AuthResult FinishAuthorization(KeySecret const & requestToken, string const & verifier);
   std::string GetRegistrationURL() const noexcept { return m_baseUrl + "/user/new"; }
   std::string GetResetPasswordURL() const noexcept { return m_baseUrl + "/user/forgot-password"; }
   //@}
@@ -111,11 +111,11 @@ private:
   };
 
   /// Key and secret for application.
-  TKeySecret const m_consumerKeySecret;
+  KeySecret const m_consumerKeySecret;
   std::string const m_baseUrl;
   std::string const m_apiUrl;
   /// Key and secret to sign every OAuth request.
-  TKeySecret m_tokenKeySecret;
+  KeySecret m_tokenKeySecret;
 
   SessionID FetchSessionId(std::string const & subUrl = "/login",
                            std::string const & cookies = "") const;
@@ -132,8 +132,8 @@ private:
   /// @returns non-empty string with oauth_verifier value.
   std::string SendAuthRequest(std::string const & requestTokenKey, SessionID const & lastSid) const;
   /// @returns valid key and secret or throws otherwise.
-  TRequestToken FetchRequestToken() const;
-  TKeySecret FetchAccessToken(SessionID const & sid) const;
+  RequestToken FetchRequestToken() const;
+  KeySecret FetchAccessToken(SessionID const & sid) const;
   //AuthResult FetchAccessToken(SessionID const & sid);
 };
 

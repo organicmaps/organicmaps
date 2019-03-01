@@ -104,8 +104,8 @@ string DebugPrint(xml_document const & doc)
 
 namespace osm
 {
-ChangesetWrapper::ChangesetWrapper(TKeySecret const & keySecret,
-                                   ServerApi06::TKeyValueTags const & comments) noexcept
+ChangesetWrapper::ChangesetWrapper(KeySecret const & keySecret,
+                                   ServerApi06::KeyValueTags const & comments) noexcept
   : m_changesetComments(comments), m_api(OsmOAuth::ServerAuth(keySecret))
 {
 }
@@ -252,7 +252,7 @@ void ChangesetWrapper::Delete(XMLFeature node)
   m_deleted_types[GetTypeForFeature(node)]++;
 }
 
-string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
+string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
 {
   if (typeCount.empty())
     return string();

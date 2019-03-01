@@ -14,7 +14,7 @@ using osmoh::operator ""_h;
 
 osmoh::Timespan const kTwentyFourHours = {0_h, 24_h};
 
-editor::ui::TOpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
+editor::ui::OpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
 {
   std::set<osmoh::Weekday> openingDays;
   for (auto const & wd : wds.GetWeekdayRanges())
@@ -85,7 +85,7 @@ int32_t NextWeekdayNumber(osmoh::Weekday const wd)
 // Exampls:
 // su, mo, we -> mo, we, su;
 // su, mo, fr, sa -> fr, sa, su, mo.
-std::vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
+std::vector<osmoh::Weekday> RemoveInversion(editor::ui::OpeningDays const & days)
 {
   std::vector<osmoh::Weekday> result(begin(days), end(days));
   if ((NextWeekdayNumber(result.back()) != WeekdayNumber(result.front()) &&
@@ -107,12 +107,12 @@ std::vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & day
   return result;
 }
 
-using TWeekdays = std::vector<osmoh::Weekday>;
+using Weekdays = std::vector<osmoh::Weekday>;
 
-std::vector<TWeekdays> SplitIntoIntervals(editor::ui::TOpeningDays const & days)
+std::vector<Weekdays> SplitIntoIntervals(editor::ui::OpeningDays const & days)
 {
   ASSERT_GREATER(days.size(), 0, ("At least one day must present."));
-  std::vector<TWeekdays> result;
+  std::vector<Weekdays> result;
   auto const & noInversionDays = RemoveInversion(days);
   ASSERT(!noInversionDays.empty(), ());
 
@@ -166,7 +166,7 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
   return spans;
 }
 
-editor::ui::TOpeningDays const kWholeWeek = {
+editor::ui::OpeningDays const kWholeWeek = {
   osmoh::Weekday::Monday,
   osmoh::Weekday::Tuesday,
   osmoh::Weekday::Wednesday,
@@ -176,10 +176,10 @@ editor::ui::TOpeningDays const kWholeWeek = {
   osmoh::Weekday::Sunday
 };
 
-editor::ui::TOpeningDays GetCommonDays(editor::ui::TOpeningDays const & a,
-                                       editor::ui::TOpeningDays const & b)
+editor::ui::OpeningDays GetCommonDays(editor::ui::OpeningDays const & a,
+                                      editor::ui::OpeningDays const & b)
 {
-  editor::ui::TOpeningDays result;
+  editor::ui::OpeningDays result;
   std::set_intersection(begin(a), end(a), begin(b), end(b), inserter(result, begin(result)));
   return result;
 }
@@ -205,7 +205,7 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
     auto const commonDays = GetCommonDays(ttOpeningDays,
                                           MakeOpeningDays(rulePart.GetWeekdays()));
 
-    auto const removeCommonDays = [&commonDays](editor::ui::TTimeTableProxy & tt)
+    auto const removeCommonDays = [&commonDays](editor::ui::TimeTableSet::Proxy & tt)
     {
       for (auto const day : commonDays)
         VERIFY(tt.RemoveWorkingDay(day), ("Can't remove working day"));
