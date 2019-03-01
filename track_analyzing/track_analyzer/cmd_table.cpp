@@ -375,6 +375,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     if (mwmFilter(mwmName))
       return;
 
+    auto const countryName = storage.GetTopmostParentFor(mwmName);
     shared_ptr<VehicleModelInterface> vehicleModel =
         CarModelFactory({}).GetVehicleModelForCountry(mwmName);
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
@@ -406,7 +407,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           subTrackBegin = subTrackEnd;
         }
 
-        auto const summary = aggregator.GetSummary(user, mwmName);
+        auto const summary = aggregator.GetSummary(user, countryName);
         if (!summary.empty())
           cout << summary;
       }
