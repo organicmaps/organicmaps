@@ -33,6 +33,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
 #include <cstdio>
 #include <fstream>
@@ -51,6 +52,7 @@
 
 using namespace search::tests_support;
 using namespace search;
+using namespace std::chrono;
 using namespace std;
 using namespace storage;
 
