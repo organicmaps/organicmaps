@@ -105,6 +105,8 @@ set(
   routing_exceptions.hpp
   routing_helpers.cpp
   routing_helpers.hpp
+  routing_options.cpp
+  routing_options.hpp
   routing_result_graph.hpp
   routing_session.cpp
   routing_session.hpp

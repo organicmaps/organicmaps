@@ -84,6 +84,8 @@
 		4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63A21F1E7F0008171B8 /* joint_segment.cpp */; };
 		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
 		44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44AE4A11214FBB8D006321F5 /* speed_camera.hpp */; };
+		44C56C0A22296498006C2A1D /* routing_options.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44C56C0822296498006C2A1D /* routing_options.hpp */; };
+		44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44C56C0922296498006C2A1D /* routing_options.cpp */; };
 		44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */; };
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44EB88C4214007AD004E2863 /* speed_camera_notification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */; };
@@ -380,6 +382,8 @@
 		4408A63A21F1E7F0008171B8 /* joint_segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = joint_segment.cpp; sourceTree = "<group>"; };
 		44AE4A10214FBB8D006321F5 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
 		44AE4A11214FBB8D006321F5 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
+		44C56C0822296498006C2A1D /* routing_options.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_options.hpp; sourceTree = "<group>"; };
+		44C56C0922296498006C2A1D /* routing_options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_options.cpp; sourceTree = "<group>"; };
 		44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_ser_des.hpp; sourceTree = "<group>"; };
 		44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_ser_des.cpp; sourceTree = "<group>"; };
 		44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_notification.cpp; sourceTree = "<group>"; };
@@ -816,6 +820,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				44C56C0922296498006C2A1D /* routing_options.cpp */,
+				44C56C0822296498006C2A1D /* routing_options.hpp */,
 				5610731A221ABF96008447B2 /* speed_camera_prohibition.cpp */,
 				56107319221ABF96008447B2 /* speed_camera_prohibition.hpp */,
 				4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */,
@@ -1030,6 +1036,7 @@
 				0C090C821E4E274000D52AFD /* index_graph_loader.hpp in Headers */,
 				670EE5721B664796001E8064 /* directions_engine.hpp in Headers */,
 				56C439291E93BF8C00998E29 /* cross_mwm_graph.hpp in Headers */,
+				44C56C0A22296498006C2A1D /* routing_options.hpp in Headers */,
 				4408A63C21F1E7F0008171B8 /* joint_segment.hpp in Headers */,
 				0C81E1541F02589800DC66DF /* traffic_stash.hpp in Headers */,
 				40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */,
@@ -1278,6 +1285,7 @@
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				4408A63B21F1E7F0008171B8 /* index_graph_starter_joints.cpp in Sources */,
+				44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */,
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
 				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
