@@ -262,20 +262,6 @@ namespace
         MercatorBounds::FromLatLon(46.13418, -63.84656), 23000.);
   }
 
-  UNIT_TEST(RussiaFerryToCrimea)
-  {
-    // Forward
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.38053, 36.73226), {0., 0.},
-        MercatorBounds::FromLatLon(45.36078, 36.60866), 15500.);
-    // And backward case
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
-        MercatorBounds::FromLatLon(45.38053, 36.73226), 15500.);
-  }
-
   UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
   {
     // Forward

@@ -15,7 +15,13 @@ UNIT_TEST(RoutingQuality_FinlandBridgeInsteadOfFerry)
 
 UNIT_TEST(RoutingQuality_RussiaToCrimeaFerry)
 {
+  // From Russia to Crimea
   TEST(CheckCarRoute({45.34123, 36.67679} /* start */, {45.36479, 36.62194} /* finish */,
+                     {{{45.3532, 36.64912}}} /* reference track */),
+       ());
+
+  // From Crimea to Russia
+  TEST(CheckCarRoute({45.36479, 36.62194} /* start */, {45.34123, 36.67679} /* finish */,
                      {{{45.3532, 36.64912}}} /* reference track */),
        ());
 }
