@@ -27,7 +27,7 @@ std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInB
   80 * 1024 * 1024,                      // Geometry
   std::numeric_limits<uint32_t>::max(),  // Uniform (unlimited)
   20 * 1024 * 1024,                      // Staging
-  std::numeric_limits<uint32_t>::max(),  // Image (unlimited)
+  100 * 1024 * 1024,                     // Image
 }};
 
 VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType resourceType,
@@ -168,7 +168,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
     // Free blocks array must be sorted by size.
     static drape_ptr<MemoryBlock> refBlock = make_unique_dp<MemoryBlock>();
     refBlock->m_blockSize = alignedSize;
-    auto const freeBlockIt = std::upper_bound(fm.begin(), fm.end(), refBlock, &Less);
+    auto const freeBlockIt = std::lower_bound(fm.begin(), fm.end(), refBlock, &Less);
     if (freeBlockIt != fm.end())
     {
       drape_ptr<MemoryBlock> freeBlock = std::move(*freeBlockIt);
@@ -305,24 +305,23 @@ void VulkanMemoryManager::EndDeallocationSession()
       m.erase(std::remove_if(m.begin(), m.end(),
                              [this, &fm, i](drape_ptr<MemoryBlock> & b)
       {
-        if (b->m_allocationCounter == 0)
+        if (b->m_allocationCounter != 0)
+          return false;
+
+        if (m_sizes[i] > kDesiredSizeInBytes[i])
         {
-          if (m_sizes[i] > kDesiredSizeInBytes[i])
-          {
-            CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
-            m_sizes[i] -= b->m_blockSize;
-            DecrementTotalAllocationsCount();
-            vkFreeMemory(m_device, b->m_memory, nullptr);
-          }
-          else
-          {
-            auto block = std::move(b);
-            block->m_freeOffset = 0;
-            fm.push_back(std::move(block));
-          }
-          return true;
+          CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
+          m_sizes[i] -= b->m_blockSize;
+          DecrementTotalAllocationsCount();
+          vkFreeMemory(m_device, b->m_memory, nullptr);
         }
-        return false;
+        else
+        {
+          auto block = std::move(b);
+          block->m_freeOffset = 0;
+          fm.push_back(std::move(block));
+        }
+        return true;
       }), m.end());
 
       if (m.empty())

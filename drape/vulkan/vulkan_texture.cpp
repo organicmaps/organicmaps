@@ -106,6 +106,12 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   m_objectManager = vulkanContext->GetObjectManager();
 
+  if (Validate())
+  {
+    m_objectManager->DestroyObject(m_textureObject);
+    m_textureObject = {};
+  }
+
   auto const format = VulkanFormatUnpacker::Unpack(params.m_format);
   VkFormatProperties formatProperties;
   vkGetPhysicalDeviceFormatProperties(vulkanContext->GetPhysicalDevice(), format, &formatProperties);
