@@ -10,7 +10,7 @@
 
 - (void)updateActiveSection:(NSUInteger)index;
 
-- (editor::ui::TTimeTableProxy)timeTableProxy:(NSUInteger)index;
+- (editor::ui::TimeTableSet::Proxy)timeTableProxy:(NSUInteger)index;
 - (void)deleteSchedule:(NSUInteger)index;
 
 @end

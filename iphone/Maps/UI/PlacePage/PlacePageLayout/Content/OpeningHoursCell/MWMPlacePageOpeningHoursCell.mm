@@ -112,8 +112,8 @@ WeekDayView getWeekDayView()
   [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
   {
-    ui::TTimeTableProxy tt = timeTableSet.Get(idx);
-    ui::TOpeningDays const & workingDays = tt.GetOpeningDays();
+    auto tt = timeTableSet.Get(idx);
+    ui::OpeningDays const & workingDays = tt.GetOpeningDays();
     if (workingDays.find(currentDay) != workingDays.end())
     {
       haveCurrentDay = YES;
@@ -149,7 +149,7 @@ WeekDayView getWeekDayView()
   [self alignTimeOffsets];
 }
 
-- (void)addCurrentDay:(ui::TTimeTableProxy)timeTable
+- (void)addCurrentDay:(ui::TimeTableSet::Proxy)timeTable
 {
   WeekDayView cd = self.currentDay;
   NSString * label;
@@ -186,7 +186,7 @@ WeekDayView getWeekDayView()
   [cd setClosed:NO];
 }
 
-- (void)addWeekDays:(ui::TTimeTableProxy)timeTable
+- (void)addWeekDays:(ui::TimeTableSet::Proxy)timeTable
 {
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;
@@ -210,7 +210,7 @@ WeekDayView getWeekDayView()
 
 - (void)addClosedDays
 {
-  editor::ui::TOpeningDays closedDays = timeTableSet.GetUnhandledDays();
+  editor::ui::OpeningDays closedDays = timeTableSet.GetUnhandledDays();
   if (closedDays.empty())
     return;
   WeekDayView wd = getWeekDayView();

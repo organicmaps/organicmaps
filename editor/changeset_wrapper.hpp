@@ -1,14 +1,15 @@
 #pragma once
 
-#include "base/exception.hpp"
-
 #include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/exception.hpp"
+
 #include <map>
+#include <string>
 #include <vector>
 
 class FeatureType;

@@ -16,7 +16,7 @@ namespace
 using namespace osm;
 using namespace jni;
 
-jobjectArray ToStringArray(JNIEnv * env, TKeySecret const & secret)
+jobjectArray ToStringArray(JNIEnv * env, KeySecret const & secret)
 {
   jobjectArray resultArray = env->NewObjectArray(2, GetStringClass(env), nullptr);
   env->SetObjectArrayElement(resultArray, 0, ToJavaString(env, secret.first));
@@ -25,7 +25,7 @@ jobjectArray ToStringArray(JNIEnv * env, TKeySecret const & secret)
 }
 
 // @returns [url, key, secret]
-jobjectArray ToStringArray(JNIEnv * env, OsmOAuth::TUrlRequestToken const & uks)
+jobjectArray ToStringArray(JNIEnv * env, OsmOAuth::UrlRequestToken const & uks)
 {
   jobjectArray resultArray = env->NewObjectArray(3, GetStringClass(env), nullptr);
   env->SetObjectArrayElement(resultArray, 0, ToJavaString(env, uks.first));
@@ -62,9 +62,9 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithWebviewToken(JNIEnv * env
 {
   try
   {
-    TRequestToken const rt = { ToNativeString(env, key), ToNativeString(env, secret) };
+    RequestToken const rt = { ToNativeString(env, key), ToNativeString(env, secret) };
     OsmOAuth auth = OsmOAuth::ServerAuth();
-    TKeySecret const ks = auth.FinishAuthorization(rt, ToNativeString(env, verifier));
+    KeySecret const ks = auth.FinishAuthorization(rt, ToNativeString(env, verifier));
     return ToStringArray(env, ks);
   }
   catch (std::exception const & ex)
@@ -79,7 +79,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetFacebookAuthUrl(JNIEnv * env, 
 {
   try
   {
-    OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
+    OsmOAuth::UrlRequestToken const uks = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
     return ToStringArray(env, uks);
   }
   catch (std::exception const & ex)
@@ -94,7 +94,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jc
 {
   try
   {
-    OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
+    OsmOAuth::UrlRequestToken const uks = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
     return ToStringArray(env, uks);
   }
   catch (std::exception const & ex)
@@ -109,7 +109,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jcla
 {
   try
   {
-    TKeySecret keySecret(jni::ToNativeString(env, token), jni::ToNativeString(env, secret));
+    KeySecret keySecret(jni::ToNativeString(env, token), jni::ToNativeString(env, secret));
     ServerApi06 const api(OsmOAuth::ServerAuth(keySecret));
     return jni::ToJavaString(env, api.GetUserPreferences().m_displayName);
   }

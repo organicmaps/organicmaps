@@ -19,10 +19,13 @@
 #include "base/timer.hpp"
 
 #include <atomic>
+#include <cstdint>
 #include <ctime>
 #include <functional>
 #include <map>
+#include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace editor
@@ -58,7 +61,7 @@ public:
     virtual ~Delegate() = default;
 
     virtual MwmSet::MwmId GetMwmIdByMapName(std::string const & name) const = 0;
-    virtual unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const = 0;
+    virtual std::unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const = 0;
     virtual std::string GetOriginalFeatureStreet(FeatureID const & fid) const = 0;
     virtual void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const = 0;
   };
@@ -100,9 +103,9 @@ public:
 
   static Editor & Instance();
 
-  void SetDelegate(unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
+  void SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
 
-  void SetStorageForTesting(unique_ptr<editor::StorageBase> storage)
+  void SetStorageForTesting(std::unique_ptr<editor::StorageBase> storage)
   {
     m_storage = std::move(storage);
   }
@@ -214,7 +217,7 @@ private:
 
   /// @returns false if fails.
   bool Save(FeaturesContainer const & features) const;
-  bool SaveTransaction(shared_ptr<FeaturesContainer> const & features);
+  bool SaveTransaction(std::shared_ptr<FeaturesContainer> const & features);
   bool RemoveFeatureIfExists(FeatureID const & fid);
   /// Notify framework that something has changed and should be redisplayed.
   void Invalidate();
@@ -239,7 +242,7 @@ private:
 
   // These methods are just checked wrappers around Delegate.
   MwmSet::MwmId GetMwmIdByMapName(std::string const & name);
-  unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const;
+  std::unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const;
   std::string GetOriginalFeatureStreet(FeatureID const & fid) const;
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
   FeatureID GetFeatureIdByXmlFeature(FeaturesContainer const & features,
@@ -259,7 +262,7 @@ private:
   /// Deleted, edited and created features.
   base::AtomicSharedPtr<FeaturesContainer> m_features;
 
-  unique_ptr<Delegate> m_delegate;
+  std::unique_ptr<Delegate> m_delegate;
 
   /// Invalidate map viewport after edits.
   InvalidateFn m_invalidateFn;
@@ -269,9 +272,9 @@ private:
   editor::ConfigLoader m_configLoader;
 
   /// Notes to be sent to osm.
-  shared_ptr<editor::Notes> m_notes;
+  std::shared_ptr<editor::Notes> m_notes;
 
-  unique_ptr<editor::StorageBase> m_storage;
+  std::unique_ptr<editor::StorageBase> m_storage;
   
   std::atomic<bool> m_isUploadingNow;
 

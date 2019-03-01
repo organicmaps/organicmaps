@@ -24,7 +24,7 @@ NSString * stringFromTime(osmoh::Time const & time)
   return [fmt stringFromDate:dateFromTime(time)];
 }
 
-NSString * stringFromOpeningDays(editor::ui::TOpeningDays const & openingDays)
+NSString * stringFromOpeningDays(editor::ui::OpeningDays const & openingDays)
 {
   NSCalendar * cal = NSCalendar.currentCalendar;
   cal.locale = NSLocale.currentLocale;

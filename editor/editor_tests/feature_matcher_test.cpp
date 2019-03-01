@@ -3,6 +3,9 @@
 #include "editor/feature_matcher.hpp"
 #include "editor/xml_feature.hpp"
 
+#include <string>
+#include <vector>
+
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace

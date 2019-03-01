@@ -31,7 +31,7 @@
         break;
       }
     };
-    osm::TKeySecret const keySecret = osm_auth_ios::AuthorizationGetCredentials();
+    osm::KeySecret const keySecret = osm_auth_ios::AuthorizationGetCredentials();
     osm::Editor::Instance().UploadChanges(
         keySecret.first, keySecret.second,
         {{"created_by",

@@ -14,10 +14,10 @@ UIColor * AuthorizationButtonBackgroundColor(AuthorizationButtonType type);
 void AuthorizationConfigButton(UIButton * btn, AuthorizationButtonType type);
 
 // Deletes any stored credentials if called with empty key or secret.
-void AuthorizationStoreCredentials(osm::TKeySecret const & keySecret);
+void AuthorizationStoreCredentials(osm::KeySecret const & keySecret);
 BOOL AuthorizationHaveCredentials();
 // Returns empty key and secret if user has not beed authorized.
-osm::TKeySecret AuthorizationGetCredentials();
+osm::KeySecret AuthorizationGetCredentials();
 
 void AuthorizationSetNeedCheck(BOOL needCheck);
 BOOL AuthorizationIsNeedCheck();

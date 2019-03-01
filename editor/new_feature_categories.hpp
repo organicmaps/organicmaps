@@ -18,7 +18,7 @@ namespace osm
 class NewFeatureCategories
 {
 public:
-  using TypeName = string;
+  using TypeName = std::string;
   using TypeNames = std::vector<TypeName>;
 
   NewFeatureCategories(editor::EditorConfig const & config);

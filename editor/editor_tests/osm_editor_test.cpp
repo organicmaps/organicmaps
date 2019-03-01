@@ -622,7 +622,7 @@ void EditorTest::RollBackChangesTest()
     builder.Add(cafe);
   });
 
-  const std::string houseNumber = "4a";
+  std::string const houseNumber = "4a";
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor, &houseNumber](FeatureType & ft)
   {

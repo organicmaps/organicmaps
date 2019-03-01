@@ -89,7 +89,7 @@ using namespace osmoh;
   }
 }
 
-- (ui::TTimeTableProxy)timeTableProxy:(NSUInteger)index
+- (ui::TimeTableSet::Proxy)timeTableProxy:(NSUInteger)index
 {
   NSAssert(index < self.count, @"Invalid section index");
   return timeTableSet.Get(index);
@@ -123,7 +123,7 @@ using namespace osmoh;
   return self.sections[section].numberOfRows;
 }
 
-- (ui::TOpeningDays)unhandledDays
+- (ui::OpeningDays)unhandledDays
 {
   return timeTableSet.GetUnhandledDays();
 }

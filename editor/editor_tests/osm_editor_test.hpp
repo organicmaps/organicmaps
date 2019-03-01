@@ -13,6 +13,8 @@
 
 #include "platform/local_country_file_utils.hpp"
 
+#include "base/assert.hpp"
+
 #include <string>
 #include <utility>
 #include <vector>

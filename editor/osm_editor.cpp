@@ -852,9 +852,11 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   if (!m_isUploadingNow)
   {
     m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [
-      upload = move(upload), key, secret, tags = move(tags), callback = move(callback)
-    ]() { upload(move(key), move(secret), move(tags), move(callback)); });
+    GetPlatform().RunTask(Platform::Thread::Network, [upload = move(upload), key, secret,
+                                                      tags = move(tags), callback = move(callback)]()
+    {
+      upload(move(key), move(secret), move(tags), move(callback));
+    });
   }
 }
 

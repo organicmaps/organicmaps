@@ -13,7 +13,7 @@ NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
 NSString * const kOSMUserName = @"UDOsmUserName";
 
-void SetOSMUserNameWithCredentials(osm::TKeySecret const & keySecret)
+void SetOSMUserNameWithCredentials(osm::KeySecret const & keySecret)
 {
   using namespace osm;
   dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
@@ -75,7 +75,7 @@ void AuthorizationConfigButton(UIButton * btn, AuthorizationButtonType type)
   [btn setBackgroundColor:[bgCol colorWithAlphaComponent:highlightedAlpha] forState:UIControlStateHighlighted];
 }
 
-void AuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
+void AuthorizationStoreCredentials(osm::KeySecret const & keySecret)
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   if (keySecret.first.empty() || keySecret.second.empty())
@@ -101,13 +101,13 @@ BOOL AuthorizationHaveCredentials()
   return requestToken && requestSecret;
 }
 
-osm::TKeySecret AuthorizationGetCredentials()
+osm::KeySecret AuthorizationGetCredentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   NSString * requestToken = [ud stringForKey:kOSMRequestToken];
   NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
   if (requestToken && requestSecret)
-    return osm::TKeySecret(requestToken.UTF8String, requestSecret.UTF8String);
+    return osm::KeySecret(requestToken.UTF8String, requestSecret.UTF8String);
   return {};
 }
 

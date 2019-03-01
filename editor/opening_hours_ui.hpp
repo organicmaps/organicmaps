@@ -49,8 +49,6 @@ private:
   osmoh::TTimespans m_excludeTime;
 };
 
-class TimeTableProxy;
-
 class TimeTableSet
 {
   using TimeTableSetImpl = std::vector<TimeTable>;

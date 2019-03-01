@@ -75,7 +75,7 @@ void addDay(ui::TimeTable const & tt, vector<Day> & allDays)
   allDays.emplace_back(workingDays, workingTimes, breaks);
 }
 
-void addUnhandledDays(ui::TOpeningDays const & days, vector<Day> & allDays)
+void addUnhandledDays(ui::OpeningDays const & days, vector<Day> & allDays)
 {
   if (!days.empty())
     allDays.emplace_back(stringFromOpeningDays(days));
@@ -108,7 +108,7 @@ void addUnhandledDays(ui::TOpeningDays const & days, vector<Day> & allDays)
 
   for (auto const & tt : timeTableSet)
   {
-    ui::TOpeningDays const & workingDays = tt.GetOpeningDays();
+    auto const & workingDays = tt.GetOpeningDays();
     if (workingDays.find(today) != workingDays.end())
     {
       hasCurrentDay = YES;

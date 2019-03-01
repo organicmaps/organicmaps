@@ -31,7 +31,7 @@
 - (CGFloat)heightForIndexPath:(NSIndexPath * _Nonnull)indexPath withWidth:(CGFloat)width;
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSUInteger)numberOfRowsInSection:(NSUInteger)section;
-- (editor::ui::TOpeningDays)unhandledDays;
+- (editor::ui::OpeningDays)unhandledDays;
 
 - (void)storeCachedData;
 - (void)updateOpeningHours;

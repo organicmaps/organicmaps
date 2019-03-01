@@ -9,9 +9,11 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <exception>
 #include <random>
 #include <sstream>
+#include <utility>
 
 #include "private.h"
 
