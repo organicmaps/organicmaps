@@ -505,15 +505,19 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     if (object == null)
       return;
 
+    @AnchorBottomSheetBehavior.State
+    int state = mPlacePageBehavior.getState();
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
-      restorePlacePage(object, policy);
+      restorePlacePageState(object, policy, state);
     });
     mToolbar.setTitle(object.getTitle());
   }
 
-  private void restorePlacePage(MapObject object, NetworkPolicy policy)
+  private void restorePlacePageState(@NonNull MapObject object, @NonNull NetworkPolicy policy,
+                                     @AnchorBottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
+      mPlacePageBehavior.setState(state);
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
       setPlacePageAnchor();
