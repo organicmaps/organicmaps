@@ -2,6 +2,8 @@
 
 #include "editor/osm_auth.hpp"
 
+#include <string>
+
 using osm::OsmOAuth;
 using osm::TKeySecret;
 
@@ -31,7 +33,7 @@ UNIT_TEST(OSM_Auth_Login)
   TEST(auth.IsAuthorized(), ("Should be authorized."));
   OsmOAuth::Response const perm = auth.Request("/permissions");
   TEST_EQUAL(perm.first, OsmOAuth::HTTP::OK, ("permission request ok"));
-  TEST_NOT_EQUAL(perm.second.find("write_api"), string::npos, ("can write to api"));
+  TEST_NOT_EQUAL(perm.second.find("write_api"), std::string::npos, ("can write to api"));
 }
 
 UNIT_TEST(OSM_Auth_ForgotPassword)

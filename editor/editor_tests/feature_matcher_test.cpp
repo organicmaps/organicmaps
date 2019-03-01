@@ -279,7 +279,7 @@ UNIT_TEST(GetBestOsmNode_Test)
     TEST(osmResponse.load_buffer(osmRawResponseNode, ::strlen(osmRawResponseNode)), ());
 
     auto const bestNode = matcher::GetBestOsmNode(osmResponse, ms::LatLon(53.8977254, 27.5578377));
-    TEST_EQUAL(bestNode.attribute("id").value(), string("277172019"), ());
+    TEST_EQUAL(bestNode.attribute("id").value(), std::string("277172019"), ());
   }
 }
 
@@ -288,7 +288,7 @@ UNIT_TEST(GetBestOsmWay_Test)
   {
     pugi::xml_document osmResponse;
     TEST(osmResponse.load_buffer(osmRawResponseWay, ::strlen(osmRawResponseWay)), ());
-    vector<m2::PointD> const geometry = {
+    std::vector<m2::PointD> const geometry = {
       {27.557515856307106, 64.236609073256034},
       {27.55784576801841,  64.236820967769773},
       {27.557352241556003, 64.236863883114324},
@@ -308,7 +308,7 @@ UNIT_TEST(GetBestOsmWay_Test)
     pugi::xml_document osmResponse;
     TEST(osmResponse.load_buffer(osmRawResponseWay, ::strlen(osmRawResponseWay)), ());
     // Each point is moved for 0.0001 on x and y. It is aboout a half of side length.
-    vector<m2::PointD> const geometry = {
+    std::vector<m2::PointD> const geometry = {
       {27.557615856307106, 64.236709073256034},
       {27.55794576801841,  64.236920967769773},
       {27.557452241556003, 64.236963883114324},
@@ -329,7 +329,7 @@ UNIT_TEST(GetBestOsmRealtion_Test)
 {
   pugi::xml_document osmResponse;
   TEST(osmResponse.load_buffer(osmRawResponseRelation, ::strlen(osmRawResponseRelation)), ());
-  vector<m2::PointD> const geometry = {
+  std::vector<m2::PointD> const geometry = {
     {37.640253436865322, 67.455316241497655},
     {37.64019442826654, 67.455394025559684},
     {37.640749645536772, 67.455726619480004},
@@ -402,7 +402,7 @@ UNIT_TEST(GetBestOsmRealtion_Test)
   };
 
   auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
-  TEST_EQUAL(bestWay.attribute("id").value(), string("365808"), ());
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("365808"), ());
 }
 
 char const * const osmResponseBuildingMiss = R"SEP(
@@ -452,7 +452,7 @@ UNIT_TEST(HouseBuildingMiss_test)
 {
   pugi::xml_document osmResponse;
   TEST(osmResponse.load_buffer(osmResponseBuildingMiss, ::strlen(osmResponseBuildingMiss)), ());
-  vector<m2::PointD> const geometry = {
+  std::vector<m2::PointD> const geometry = {
     {-0.2048121407986514, 60.333984198674443},
     {-0.20478800091734684,  60.333909096821458},
     {-0.20465925488366565,  60.334029796228037},
@@ -462,10 +462,10 @@ UNIT_TEST(HouseBuildingMiss_test)
   };
 
   auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
-  TEST_EQUAL(bestWay.attribute("id").value(), string("345630019"), ());
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("345630019"), ());
 }
 
-string const kHouseWithSeveralEntrances = R"xxx("
+std::string const kHouseWithSeveralEntrances = R"xxx("
 <osm version="0.6" generator="CGImap 0.6.0 (3589 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
   <node id="339283610" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184397" lon="37.5700770"/>
   <node id="339283612" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184655" lon="37.5702599"/>
@@ -512,7 +512,7 @@ UNIT_TEST(HouseWithSeveralEntrances)
   TEST(osmResponse.load_buffer(kHouseWithSeveralEntrances.c_str(),
                                kHouseWithSeveralEntrances.size()), ());
 
-  vector<m2::PointD> geometry = {
+  std::vector<m2::PointD> geometry = {
     {37.570076119676798, 67.574481424499169},
     {37.570258509891175, 67.574527022052763},
     {37.569802534355233, 67.575570401367315},
@@ -522,10 +522,10 @@ UNIT_TEST(HouseWithSeveralEntrances)
   };
 
   auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
-  TEST_EQUAL(bestWay.attribute("id").value(), string("30680719"), ());
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("30680719"), ());
 }
 
-string const kRelationWithSingleWay = R"XXX(
+std::string const kRelationWithSingleWay = R"XXX(
 <osm version="0.6" generator="CGImap 0.6.0 (2191 thorn-01.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
 <node id="287253844" visible="true" version="6" changeset="41744272" timestamp="2016-08-27T20:57:16Z" user="Vadiм" uid="326091" lat="55.7955735" lon="37.5399204"/>
 <node id="287253846" visible="true" version="6" changeset="41744272" timestamp="2016-08-27T20:57:16Z" user="Vadiм" uid="326091" lat="55.7952597" lon="37.5394774"/>
@@ -561,7 +561,7 @@ UNIT_TEST(RelationWithSingleWay)
   pugi::xml_document osmResponse;
   TEST(osmResponse.load_buffer(kRelationWithSingleWay.c_str(), kRelationWithSingleWay.size()), ());
 
-  vector<m2::PointD> geometry = {
+  std::vector<m2::PointD> geometry = {
     {37.539920043497688, 67.533792313440074},
     {37.539477479006933, 67.533234413960827},
     {37.541207503834414, 67.532770391797811},
@@ -571,12 +571,12 @@ UNIT_TEST(RelationWithSingleWay)
   };
 
   auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
-  TEST_EQUAL(bestWay.attribute("id").value(), string("26232961"), ());
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("26232961"), ());
 }
 
 UNIT_TEST(ScoreTriangulatedGeometries)
 {
-  vector<m2::PointD> lhs = {
+  std::vector<m2::PointD> lhs = {
     {0, 0},
     {10, 10},
     {10, 0},
@@ -585,7 +585,7 @@ UNIT_TEST(ScoreTriangulatedGeometries)
     {0, 10}
   };
 
-  vector<m2::PointD> rhs = {
+  std::vector<m2::PointD> rhs = {
     {-1, -1},
     {9, 9},
     {9, -1},

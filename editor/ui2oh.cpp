@@ -2,9 +2,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/array.hpp"
-#include "std/string.hpp"
+#include <algorithm>
+#include <set>
+#include <string>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -16,7 +16,7 @@ osmoh::Timespan const kTwentyFourHours = {0_h, 24_h};
 
 editor::ui::TOpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
 {
-  set<osmoh::Weekday> openingDays;
+  std::set<osmoh::Weekday> openingDays;
   for (auto const & wd : wds.GetWeekdayRanges())
   {
     if (wd.HasSunday())
@@ -50,13 +50,12 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
   for (auto & span : spans)
     span.ExpandPlus();
 
-  sort(begin(spans), end(spans), [](Timespan const & a, Timespan const & b)
-       {
-         auto const start1 = a.GetStart().GetHourMinutes().GetDuration();
-         auto const start2 = b.GetStart().GetHourMinutes().GetDuration();
+  std::sort(std::begin(spans), std::end(spans), [](Timespan const & a, Timespan const & b) {
+    auto const start1 = a.GetStart().GetHourMinutes().GetDuration();
+    auto const start2 = b.GetStart().GetHourMinutes().GetDuration();
 
-         return start1 < start2;
-       });
+    return start1 < start2;
+  });
 
   // Take first start and last end as opening time span.
   tt.SetOpeningTime({spans.front().GetStart(), spans.back().GetEnd()});
@@ -86,9 +85,9 @@ int32_t NextWeekdayNumber(osmoh::Weekday const wd)
 // Exampls:
 // su, mo, we -> mo, we, su;
 // su, mo, fr, sa -> fr, sa, su, mo.
-vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
+std::vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
 {
-  vector<osmoh::Weekday> result(begin(days), end(days));
+  std::vector<osmoh::Weekday> result(begin(days), end(days));
   if ((NextWeekdayNumber(result.back()) != WeekdayNumber(result.front()) &&
        result.back() != osmoh::Weekday::Sunday) || result.size() < 2)
     return result;
@@ -108,12 +107,12 @@ vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
   return result;
 }
 
-using TWeekdays = vector<osmoh::Weekday>;
+using TWeekdays = std::vector<osmoh::Weekday>;
 
-vector<TWeekdays> SplitIntoIntervals(editor::ui::TOpeningDays const & days)
+std::vector<TWeekdays> SplitIntoIntervals(editor::ui::TOpeningDays const & days)
 {
   ASSERT_GREATER(days.size(), 0, ("At least one day must present."));
-  vector<TWeekdays> result;
+  std::vector<TWeekdays> result;
   auto const & noInversionDays = RemoveInversion(days);
   ASSERT(!noInversionDays.empty(), ());
 
@@ -181,7 +180,7 @@ editor::ui::TOpeningDays GetCommonDays(editor::ui::TOpeningDays const & a,
                                        editor::ui::TOpeningDays const & b)
 {
   editor::ui::TOpeningDays result;
-  set_intersection(begin(a), end(a), begin(b), end(b), inserter(result, begin(result)));
+  std::set_intersection(begin(a), end(a), begin(b), end(b), inserter(result, begin(result)));
   return result;
 }
 

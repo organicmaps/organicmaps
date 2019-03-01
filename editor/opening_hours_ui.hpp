@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/set.hpp"
-#include "std/vector.hpp"
+#include <set>
+#include <vector>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -9,8 +9,7 @@ namespace editor
 {
 namespace ui
 {
-
-using TOpeningDays = set<osmoh::Weekday>;
+using TOpeningDays = std::set<osmoh::Weekday>;
 
 class TimeTable
 {
@@ -73,7 +72,7 @@ using TTimeTableProxy = TimeTableProxyBase<TimeTableSet>;
 
 class TimeTableSet
 {
-  using TTimeTableSetImpl = vector<TimeTable>;
+  using TTimeTableSetImpl = std::vector<TimeTable>;
 
 public:
   TimeTableSet();

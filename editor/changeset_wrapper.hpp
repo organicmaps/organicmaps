@@ -8,8 +8,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/set.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <vector>
 
 class FeatureType;
 
@@ -19,7 +19,7 @@ struct ClientToken;
 
 class ChangesetWrapper
 {
-  using TTypeCount = map<string, size_t>;
+  using TTypeCount = std::map<std::string, size_t>;
 
 public:
   DECLARE_EXCEPTION(ChangesetWrapperException, RootException);
@@ -39,7 +39,7 @@ public:
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
   /// OsmObjectWasDeletedException means that node was deleted from OSM server by someone else.
   editor::XMLFeature GetMatchingNodeFeatureFromOSM(m2::PointD const & center);
-  editor::XMLFeature GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geomerty);
+  editor::XMLFeature GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geomerty);
 
   /// Throws exceptions from above list.
   void Create(editor::XMLFeature node);
@@ -67,8 +67,8 @@ private:
   TTypeCount m_modified_types;
   TTypeCount m_created_types;
   TTypeCount m_deleted_types;
-  static string TypeCountToString(TTypeCount const & typeCount);
-  string GetDescription() const;
+  static std::string TypeCountToString(TTypeCount const & typeCount);
+  std::string GetDescription() const;
 };
 
 }  // namespace osm

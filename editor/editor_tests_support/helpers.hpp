@@ -6,13 +6,13 @@
 
 #include "base/assert.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
 
 namespace editor
 {
 namespace tests_support
 {
-void SetUpEditorForTesting(unique_ptr<osm::Editor::Delegate> delegate);
+void SetUpEditorForTesting(std::unique_ptr<osm::Editor::Delegate> delegate);
 void TearDownEditorForTesting();
 
 template <typename TFn>

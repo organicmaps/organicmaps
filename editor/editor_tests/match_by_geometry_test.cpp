@@ -8,7 +8,7 @@
 namespace
 {
 // This place on OSM map https://www.openstreetmap.org/relation/1359233.
-string const kSenatskiyDvorets = R"XXX(
+std::string const kSenatskiyDvorets = R"XXX(
 <?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6" generator="CGImap 0.6.0 (31854 thorn-01.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
   <node id="271895281" visible="true" version="9" changeset="39264478" timestamp="2016-05-12T13:15:43Z" user="Felis Pimeja" uid="260756" lat="55.7578113" lon="37.6220187" />
@@ -141,7 +141,7 @@ UNIT_TEST(MatchByGeometry)
   // It is a triangulated polygon. Every triangle is presented as three points.
   // For simplification, you can visualize it as a single sequence of points
   // by using, for ex. Gnuplot.
-  vector<m2::PointD> geometry = {
+  std::vector<m2::PointD> geometry = {
     {37.621818614168603, 67.468231078000599},
     {37.621858847304139, 67.468292768808396},
     {37.621783745451154, 67.468236442418657},
@@ -250,7 +250,7 @@ UNIT_TEST(MatchByGeometry)
   };
 
   auto const matched = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
-  TEST_EQUAL(matched.attribute("id").value(), string("85761"), ());
+  TEST_EQUAL(matched.attribute("id").value(), std::string("85761"), ());
 }
 }  // namespace
 

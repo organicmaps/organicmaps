@@ -2,8 +2,8 @@
 
 #include "indexer/feature_meta.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -14,7 +14,7 @@ namespace editor
 struct TypeAggregatedDescription
 {
   using EType = feature::Metadata::EType;
-  using TFeatureFields = vector<EType>;
+  using TFeatureFields = std::vector<EType>;
 
   bool IsEmpty() const
   {
@@ -38,9 +38,9 @@ public:
   EditorConfig() = default;
 
   // TODO(mgsergio): Reduce overhead by matching uint32_t types instead of strings.
-  bool GetTypeDescription(vector<string> classificatorTypes,
+  bool GetTypeDescription(std::vector<std::string> classificatorTypes,
                           TypeAggregatedDescription & outDesc) const;
-  vector<string> GetTypesThatCanBeAdded() const;
+  std::vector<std::string> GetTypesThatCanBeAdded() const;
 
   void SetConfig(pugi::xml_document const & doc);
 

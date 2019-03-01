@@ -33,18 +33,17 @@
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/array.hpp"
-#include "std/chrono.hpp"
-#include "std/sstream.hpp"
 #include "std/target_os.hpp"
-#include "std/tuple.hpp"
-#include "std/unordered_map.hpp"
-#include "std/unordered_set.hpp"
+
+#include <algorithm>
+#include <array>
+#include <sstream>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/opening_hours/opening_hours.hpp"
 #include "3party/pugixml/src/pugixml.hpp"
+
+using namespace std;
 
 using namespace pugi;
 using feature::EGeomType;
@@ -69,13 +68,13 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(FeatureStatus status, std::string const & sectionName)
+  XmlSection(FeatureStatus status, string const & sectionName)
     : m_status(status), m_sectionName(sectionName)
   {
   }
 
   FeatureStatus m_status = FeatureStatus::Untouched;
-  std::string m_sectionName;
+  string m_sectionName;
 };
 
 array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
@@ -853,11 +852,9 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   if (!m_isUploadingNow)
   {
     m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), key, secret,
-                                                      tags = std::move(tags), callback = std::move(callback)]()
-    {
-      upload(std::move(key), std::move(secret), std::move(tags), std::move(callback));
-    });
+    GetPlatform().RunTask(Platform::Thread::Network, [
+      upload = move(upload), key, secret, tags = move(tags), callback = move(callback)
+    ]() { upload(move(key), move(secret), move(tags), move(callback)); });
   }
 }
 

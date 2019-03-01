@@ -1,10 +1,7 @@
 #include "opening_hours_ui.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/numeric.hpp"
-#include "std/stack.hpp"
-#include "std/tuple.hpp"
-#include "std/type_traits.hpp"
+#include <algorithm>
+#include <iterator>
 
 #include "base/assert.hpp"
 
@@ -49,17 +46,17 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
       span.GetEnd().GetHourMinutes().AddDuration(24_h);
   }
 
-  sort(begin(spans), end(spans), [](osmoh::Timespan const & s1, osmoh::Timespan const s2)
-       {
-         auto const start1 = s1.GetStart().GetHourMinutes();
-         auto const start2 = s2.GetStart().GetHourMinutes();
+  std::sort(std::begin(spans), std::end(spans),
+            [](osmoh::Timespan const & s1, osmoh::Timespan const s2) {
+              auto const start1 = s1.GetStart().GetHourMinutes();
+              auto const start2 = s2.GetStart().GetHourMinutes();
 
-         // If two spans start at the same point the longest span should be leftmost.
-         if (start1 == start2)
-           return SpanLength(s1) > SpanLength(s2);
+              // If two spans start at the same point the longest span should be leftmost.
+              if (start1 == start2)
+                return SpanLength(s1) > SpanLength(s2);
 
-         return start1 < start2;
-       });
+              return start1 < start2;
+            });
 
   osmoh::TTimespans result{spans.front()};
   for (size_t i = 1, j = 0; i < spans.size(); ++i)
@@ -329,10 +326,8 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
 bool TimeTableSet::IsTwentyFourPerSeven() const
 {
   return GetUnhandledDays().empty() &&
-         all_of(std::begin(m_table), std::end(m_table), [](TimeTable const & tt)
-                {
-                  return tt.IsTwentyFourHours();
-                });
+         std::all_of(std::begin(m_table), std::end(m_table),
+                     [](TimeTable const & tt) { return tt.IsTwentyFourHours(); });
 }
 
 bool TimeTableSet::Append(TimeTable const & tt)
@@ -387,9 +382,9 @@ bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
     auto && tt = ttSet.m_table[i];
     // Remove all days of updated timetable from all other timetables.
     TOpeningDays days;
-    set_difference(std::begin(tt.GetOpeningDays()), std::end(tt.GetOpeningDays()),
-                   std::begin(updated.GetOpeningDays()), std::end(updated.GetOpeningDays()),
-                   inserter(days, std::end(days)));
+    std::set_difference(std::begin(tt.GetOpeningDays()), std::end(tt.GetOpeningDays()),
+                        std::begin(updated.GetOpeningDays()), std::end(updated.GetOpeningDays()),
+                        inserter(days, std::end(days)));
 
     if (!tt.SetOpeningDays(days))
       return false;

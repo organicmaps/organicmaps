@@ -14,7 +14,7 @@
 
 namespace
 {
-string const kUserStatsUrl = "https://editor-api.maps.me/user?format=xml";
+std::string const kUserStatsUrl = "https://editor-api.maps.me/user?format=xml";
 int32_t constexpr kUninitialized = -1;
 
 auto constexpr kSettingsUserName = "LastLoggedUser";
@@ -35,10 +35,12 @@ UserStats::UserStats()
 {
 }
 
-UserStats::UserStats(time_t const updateTime, uint32_t const rating,
-                     uint32_t const changesCount, string const & levelUpFeat)
-  : m_changesCount(changesCount), m_rank(rating)
-  , m_updateTime(updateTime), m_levelUpRequiredFeat(levelUpFeat)
+UserStats::UserStats(time_t const updateTime, uint32_t const rating, uint32_t const changesCount,
+                     std::string const & levelUpFeat)
+  : m_changesCount(changesCount)
+  , m_rank(rating)
+  , m_updateTime(updateTime)
+  , m_levelUpRequiredFeat(levelUpFeat)
   , m_valid(true)
 {
 }
@@ -59,7 +61,7 @@ bool UserStats::GetRank(int32_t & rank) const
   return true;
 }
 
-bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat) const
+bool UserStats::GetLevelUpRequiredFeat(std::string & levelUpFeat) const
 {
   if (m_levelUpRequiredFeat.empty())
     return false;
@@ -78,13 +80,13 @@ UserStatsLoader::UserStatsLoader()
     LOG(LINFO, ("User stats info was loaded successfully"));
 }
 
-bool UserStatsLoader::Update(string const & userName)
+bool UserStatsLoader::Update(std::string const & userName)
 {
   if (userName.empty())
     return false;
 
   {
-    lock_guard<mutex> g(m_mutex);
+    std::lock_guard<std::mutex> g(m_mutex);
     m_userName = userName;
   }
 
@@ -117,7 +119,7 @@ bool UserStatsLoader::Update(string const & userName)
   auto rank = document.select_node("mmwatch/rank/@value").attribute().as_int(-1);
   auto levelUpFeat = document.select_node("mmwatch/levelUpFeat/@value").attribute().as_string();
 
-  lock_guard<mutex> g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
   if (m_userName != userName)
     return false;
 
@@ -128,13 +130,13 @@ bool UserStatsLoader::Update(string const & userName)
   return true;
 }
 
-void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
+void UserStatsLoader::Update(std::string const & userName, UpdatePolicy const policy,
                              TOnUpdateCallback fn)
 {
   auto nothingToUpdate = false;
   if (policy == UpdatePolicy::Lazy)
   {
-    lock_guard<mutex> g(m_mutex);
+    std::lock_guard<std::mutex> g(m_mutex);
     nothingToUpdate = m_userStats && m_userName == userName &&
                       difftime(time(nullptr), m_lastUpdate) < kSecondsInHour;
   }
@@ -152,31 +154,31 @@ void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
   });
 }
 
-void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
+void UserStatsLoader::Update(std::string const & userName, TOnUpdateCallback fn)
 {
   Update(userName, UpdatePolicy::Lazy, fn);
 }
 
-void UserStatsLoader::DropStats(string const & userName)
+void UserStatsLoader::DropStats(std::string const & userName)
 {
-  lock_guard<mutex> g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
   if (m_userName != userName)
     return;
   m_userStats = {};
   DropSettings();
 }
 
-UserStats UserStatsLoader::GetStats(string const & userName) const
+UserStats UserStatsLoader::GetStats(std::string const & userName) const
 {
-  lock_guard<mutex> g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
   if (m_userName == userName)
     return m_userStats;
   return {};
 }
 
-string UserStatsLoader::GetUserName() const
+std::string UserStatsLoader::GetUserName() const
 {
-  lock_guard<mutex> g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
   return m_userName;
 }
 

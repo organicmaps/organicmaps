@@ -2,9 +2,11 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-#include "std/unordered_map.hpp"
+#include <algorithm>
+#include <cstring>
+#include <unordered_map>
+
+using namespace std;
 
 namespace
 {

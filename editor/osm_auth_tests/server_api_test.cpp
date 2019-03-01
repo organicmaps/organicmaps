@@ -5,8 +5,10 @@
 #include "geometry/mercator.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/cstring.hpp"
+#include <cstdint>
+#include <string>
 
 #include "3party/pugixml/src/pugixml.hpp"
 

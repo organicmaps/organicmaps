@@ -2,8 +2,6 @@
 
 #include "editor/opening_hours_ui.hpp"
 
-#include "std/string.hpp"
-
 namespace osmoh
 {
 class OpeningHours;

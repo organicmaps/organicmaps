@@ -4,10 +4,10 @@
 #include "base/stl_helpers.hpp"
 #include "base/stl_iterator.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/function.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <functional>
+#include <string>
+#include <utility>
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/adapted/boost_tuple.hpp>

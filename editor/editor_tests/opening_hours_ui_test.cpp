@@ -2,6 +2,8 @@
 
 #include "editor/opening_hours_ui.hpp"
 
+#include <set>
+
 using namespace editor::ui;
 
 UNIT_TEST(TestTimeTable)
@@ -23,7 +25,7 @@ UNIT_TEST(TestTimeTable)
     TEST(tt.RemoveWorkingDay(osmoh::Weekday::Friday), ());
     TEST(!tt.RemoveWorkingDay(osmoh::Weekday::Saturday), ());
 
-    TEST_EQUAL(tt.GetOpeningDays(), (set<osmoh::Weekday>{osmoh::Weekday::Saturday}), ());
+    TEST_EQUAL(tt.GetOpeningDays(), (std::set<osmoh::Weekday>{osmoh::Weekday::Saturday}), ());
   }
 }
 
@@ -184,7 +186,7 @@ UNIT_TEST(TestAppendTimeTable)
       TEST(tt.Commit(), ());
 
       TEST(tts.Append(tts.GetComplementTimeTable()), ());
-      TEST_EQUAL(tts.Back().GetOpeningDays(), (set<osmoh::Weekday>{osmoh::Weekday::Sunday,
+      TEST_EQUAL(tts.Back().GetOpeningDays(), (std::set<osmoh::Weekday>{osmoh::Weekday::Sunday,
                 osmoh::Weekday::Saturday}), ());
     }
 
@@ -196,7 +198,7 @@ UNIT_TEST(TestAppendTimeTable)
     }
 
     TEST(tts.Append(tts.GetComplementTimeTable()), ());
-    TEST_EQUAL(tts.Back().GetOpeningDays(), (set<osmoh::Weekday>{osmoh::Weekday::Monday,
+    TEST_EQUAL(tts.Back().GetOpeningDays(), (std::set<osmoh::Weekday>{osmoh::Weekday::Monday,
               osmoh::Weekday::Tuesday}), ());
 
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
@@ -206,7 +208,7 @@ UNIT_TEST(TestAppendTimeTable)
     TEST(tts.Remove(0), ());
     TEST(tts.Remove(1), ());
     TEST_EQUAL(tts.Size(), 1, ());
-    TEST_EQUAL(tts.GetUnhandledDays(), (set<osmoh::Weekday>{osmoh::Weekday::Monday,
+    TEST_EQUAL(tts.GetUnhandledDays(), (std::set<osmoh::Weekday>{osmoh::Weekday::Monday,
               osmoh::Weekday::Tuesday,
               osmoh::Weekday::Wednesday,
               osmoh::Weekday::Thursday,

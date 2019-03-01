@@ -6,8 +6,8 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
@@ -33,12 +33,11 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
 }
 
 NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other)
-  : m_index(move(other.m_index))
-  , m_types(move(other.m_types))
+  : m_index(std::move(other.m_index)), m_types(std::move(other.m_types))
 {
 }
 
-void NewFeatureCategories::AddLanguage(string lang)
+void NewFeatureCategories::AddLanguage(std::string lang)
 {
   auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
   if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
@@ -58,9 +57,9 @@ void NewFeatureCategories::AddLanguage(string lang)
   m_addedLangs.Insert(langCode);
 }
 
-NewFeatureCategories::TypeNames NewFeatureCategories::Search(string const & query) const
+NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const & query) const
 {
-  vector<uint32_t> resultTypes;
+  std::vector<uint32_t> resultTypes;
   m_index.GetAssociatedTypes(query, resultTypes);
 
   auto const & c = classif();

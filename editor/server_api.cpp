@@ -9,15 +9,16 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+#include <string>
 
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace
 {
-string KeyValueTagsToXML(osm::ServerApi06::TKeyValueTags const & kvTags)
+std::string KeyValueTagsToXML(osm::ServerApi06::TKeyValueTags const & kvTags)
 {
-  ostringstream stream;
+  std::ostringstream stream;
   stream << "<osm>\n"
   "<changeset>\n";
   for (auto const & tag : kvTags)
@@ -72,7 +73,7 @@ void ServerApi06::CreateElementAndSetAttributes(editor::XMLFeature & element) co
 
 uint64_t ServerApi06::ModifyElement(editor::XMLFeature const & element) const
 {
-  string const id = element.GetAttribute("id");
+  std::string const id = element.GetAttribute("id");
   if (id.empty())
     MYTHROW(ModifiedElementHasNoIdAttribute, ("Please set id attribute for", element));
 
@@ -94,7 +95,7 @@ void ServerApi06::ModifyElementAndSetVersion(editor::XMLFeature & element) const
 
 void ServerApi06::DeleteElement(editor::XMLFeature const & element) const
 {
-  string const id = element.GetAttribute("id");
+  std::string const id = element.GetAttribute("id");
   if (id.empty())
     MYTHROW(DeletedElementHasNoIdAttribute, ("Please set id attribute for", element));
 
@@ -118,10 +119,12 @@ void ServerApi06::CloseChangeSet(uint64_t changesetId) const
     MYTHROW(ErrorClosingChangeSet, ("CloseChangeSet request has failed:", response));
 }
 
-uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, string const & message) const
+uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & message) const
 {
   CHECK(!message.empty(), ("Note content should not be empty."));
-  string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) + "&lon=" + strings::to_string_dac(ll.lon, 7) + "&text=" + UrlEncode(message + " #mapsme");
+  std::string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) +
+                             "&lon=" + strings::to_string_dac(ll.lon, 7) +
+                             "&text=" + UrlEncode(message + " #mapsme");
   OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
@@ -141,9 +144,9 @@ void ServerApi06::CloseNote(uint64_t const id) const
     MYTHROW(ErrorDeletingElement, ("Could not close a note:", response));
 }
 
-bool ServerApi06::TestOSMUser(string const & userName)
+bool ServerApi06::TestOSMUser(std::string const & userName)
 {
-  string const method = "/user/" + UrlEncode(userName);
+  std::string const method = "/user/" + UrlEncode(userName);
   return m_auth.DirectRequest(method, false).first == OsmOAuth::HTTP::OK;
 }
 
@@ -176,8 +179,9 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(double minLat, double minLo
 
   // Digits After Comma.
   static constexpr double kDAC = 7;
-  string const url = "/map?bbox=" + to_string_dac(minLon, kDAC) + ',' + to_string_dac(minLat, kDAC) + ',' +
-      to_string_dac(maxLon, kDAC) + ',' + to_string_dac(maxLat, kDAC);
+  std::string const url = "/map?bbox=" + to_string_dac(minLon, kDAC) + ',' +
+                          to_string_dac(minLat, kDAC) + ',' + to_string_dac(maxLon, kDAC) + ',' +
+                          to_string_dac(maxLat, kDAC);
 
   return m_auth.DirectRequest(url);
 }

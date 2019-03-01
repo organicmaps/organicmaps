@@ -8,12 +8,14 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/iostream.hpp"
-#include "std/map.hpp"
+#include <iostream>
+#include <map>
 
 #include "private.h"
 
 #include "3party/liboauthcpp/include/liboauthcpp/liboauthcpp.h"
+
+using namespace std;
 
 using platform::HttpClient;
 

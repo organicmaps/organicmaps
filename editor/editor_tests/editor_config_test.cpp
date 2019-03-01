@@ -5,8 +5,6 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/set.hpp"
-
 using namespace editor;
 
 UNIT_TEST(EditorConfig_TypeDescription)

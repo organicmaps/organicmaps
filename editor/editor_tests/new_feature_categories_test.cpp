@@ -6,18 +6,13 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
-#include "std/transform_iterator.hpp"
-
-#include <functional>
-#include <map>
-#include <set>
+#include <algorithm>
 #include <string>
-#include <vector>
+
+using namespace std;
 
 UNIT_TEST(NewFeatureCategories_UniqueNames)
 {
-  using namespace std;
-
   classificator::Load();
 
   editor::EditorConfig config;
@@ -32,8 +27,8 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
       continue;
     categories.AddLanguage(lang);
     auto names = categories.GetAllCreatableTypeNames();
-    std::sort(names.begin(), names.end());
-    auto result = std::unique(names.begin(), names.end());
+    sort(names.begin(), names.end());
+    auto result = unique(names.begin(), names.end());
 
     if (result != names.end())
     {

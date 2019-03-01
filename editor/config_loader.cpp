@@ -7,11 +7,13 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
-#include "std/exception.hpp"
-#include "std/fstream.hpp"
-#include "std/iterator.hpp"
+#include <exception>
+#include <fstream>
+#include <iterator>
 
 #include "3party/pugixml/src/pugixml.hpp"
+
+using namespace std;
 
 namespace
 {
@@ -20,7 +22,7 @@ using platform::HttpClient;
 auto const kConfigFileName = "editor.config";
 auto const kHashFileName = "editor.config.hash";
 
-auto const kSynchroTimeout = hours(4);
+auto const kSynchroTimeout = chrono::hours(4);
 auto const kRemoteHashUrl = "http://osmz.ru/mwm/editor.config.date";
 auto const kRemoteConfigUrl = "http://osmz.ru/mwm/editor.config";
 

@@ -2,7 +2,8 @@
 
 #include "editor/ui2oh.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+#include <string>
 
 using namespace osmoh;
 using namespace editor;
@@ -10,9 +11,9 @@ using namespace editor::ui;
 
 namespace
 {
-string ToString(OpeningHours const & oh)
+std::string ToString(OpeningHours const & oh)
 {
-  stringstream sstr;
+  std::stringstream sstr;
   sstr << oh.GetRule();
   return sstr.str();
 }

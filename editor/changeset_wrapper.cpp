@@ -8,11 +8,14 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/random.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <exception>
+#include <random>
+#include <sstream>
 
 #include "private.h"
+
+using namespace std;
 
 using editor::XMLFeature;
 
@@ -117,7 +120,7 @@ ChangesetWrapper::~ChangesetWrapper()
       m_api.UpdateChangeSet(m_changesetId, m_changesetComments);
       m_api.CloseChangeSet(m_changesetId);
     }
-    catch (std::exception const & ex)
+    catch (exception const & ex)
     {
       LOG(LWARNING, (ex.what()));
     }

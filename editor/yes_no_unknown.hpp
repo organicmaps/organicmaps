@@ -1,7 +1,6 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
+#include <string>
 
 /// Used to store and edit 3-state OSM information, for example,
 /// "This place has internet", "does not have", or "it's not specified yet".
@@ -15,7 +14,7 @@ enum YesNoUnknown
   No = 2
 };
 
-inline string DebugPrint(YesNoUnknown value)
+inline std::string DebugPrint(YesNoUnknown value)
 {
   switch (value)
   {
