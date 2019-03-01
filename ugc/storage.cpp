@@ -246,7 +246,9 @@ void FindZombieObjects(size_t indexesCount)
   {
     auto const error = "Cannot deserialize ugc.update.bin file during zombie objects search";
     LOG(LERROR, (error));
-    alohalytics::Stats::Instance().LogEvent("UGC_File_error", {{"error", error}});
+
+    map<string, string> errorParams = {{"error", error}};
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", errorParams);
     return;
   }
 
@@ -256,8 +258,8 @@ void FindZombieObjects(size_t indexesCount)
   auto const zombieCount = ugcCount - indexesCount;
   LOG(LERROR, ("Zombie objects are detected. ", zombieCount, "zombie objects are found."));
 
-  alohalytics::Stats::Instance().LogEvent(
-      "UGC_File_error", {{"error", "zombie: " + strings::to_string(zombieCount)}});
+  map<string, string> errorParams = {{"error", "zombie: " + strings::to_string(zombieCount)}};
+  alohalytics::Stats::Instance().LogEvent("UGC_File_error", errorParams);
 }
 }  // namespace
 
