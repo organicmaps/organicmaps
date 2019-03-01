@@ -8,6 +8,9 @@
 #include "generator/region_meta.hpp"
 #include "generator/tesselator.hpp"
 
+#include "routing/speed_camera_prohibition.hpp"
+
+#include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
@@ -16,6 +19,7 @@
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
+#include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "coding/file_container.hpp"
@@ -320,7 +324,16 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
 
   // stores cellIds for middle points
   CalculateMidPoints midPoints;
-  ForEachFromDatRawFormat(srcFilePath, midPoints);
+  platform::CountryFile const country(name);
+  ForEachFromDatRawFormat(srcFilePath,
+                          [&midPoints, &country](FeatureBuilder1 const & ft, uint64_t pos) {
+                            // Removing speed cameras from geometry index for some countries.
+                            if (!routing::AreSpeedCamerasProhibited(country) || !ft.IsPoint() ||
+                                !classif().GetTypeByPath({"highway", "speed_camera"}))
+                            {
+                              midPoints(ft, pos);
+                            }
+                          });
 
   // sort features by their middle point
   midPoints.Sort();
