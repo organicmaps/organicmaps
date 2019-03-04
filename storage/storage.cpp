@@ -700,6 +700,12 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   // switch to next file.
   if (isDownloadedDiff || p.GetFileSizeByFullPath(readyFilePath, size))
   {
+    if (m_latestDiffRequest)
+    {
+      // No need to kick the downloader: it will be kicked by
+      // the current diff application process when it is completed or cancelled.
+      return;
+    }
     OnMapFileDownloadFinished(HttpRequest::Status::Completed,
                               MapFilesDownloader::Progress(size, size));
     return;
@@ -1600,14 +1606,18 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
             RegisterCountryFiles(diffFile);
             Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
             fn(true);
+            break;
           }
-          break;
           case DiffApplicationResult::Cancelled:
           {
-            CHECK(!IsDiffApplyingInProgressToCountry(countryId), ());
+            DownloadNextCountryFromQueue();
+            break;
           }
-          break;
-          case DiffApplicationResult::Failed: fn(false); break;
+          case DiffApplicationResult::Failed:
+          {
+            fn(false);
+            break;
+          }
           }
         });
       });
