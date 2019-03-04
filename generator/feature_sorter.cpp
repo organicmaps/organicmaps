@@ -331,9 +331,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
                                            FeatureBuilder1 const & ft, uint64_t pos) {
     // Removing point features with speed cameras type from geometry index for some countries.
     if (speedCamerasProhibitedMwm && ft.IsPoint() && ft.HasType(speedCameraType))
-    {
       return;
-    }
 
     midPoints(ft, pos);
   });
