@@ -237,12 +237,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onUpdateClickedInternal()
   {
-    if (isNetworkConnectionAbsent())
-    {
-      showNoNetworkConnectionDialog();
-      return;
-    }
-
     showUpdateCategoryConfirmationDialog();
   }
 
@@ -360,8 +354,22 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     if (isDirectLinkUploadMode())
       requestDirectLink();
+    else if (isPublishRefreshManual())
+      requestPublishingImmediately();
     else
       openTagsScreen();
+  }
+
+  private boolean isPublishRefreshManual()
+  {
+    return mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
+  }
+
+  private void requestPublishingImmediately()
+  {
+    showProgress();
+    BookmarkManager.INSTANCE.uploadToCatalog(BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC,
+                                             mCategory);
   }
 
   private boolean isDirectLinkUploadMode()
