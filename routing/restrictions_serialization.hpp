@@ -11,9 +11,10 @@
 #include "base/bits.hpp"
 #include "base/checked_cast.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace routing
 {
@@ -27,7 +28,7 @@ struct Restriction
   /// could be split into two categories.
   /// * no_left_turn, no_right_turn, no_u_turn and so on go to "No" category.
   /// * only_left_turn, only_right_turn and so on go to "Only" category.
-  /// That's enough to rememeber if
+  /// That's enough to remember if
   /// * there's only way to pass the junction is driving along the restriction (Only)
   /// * driving along the restriction is prohibited (No)
   enum class Type
@@ -36,21 +37,21 @@ struct Restriction
     Only,  // Only going according such restriction is permitted
   };
 
-  Restriction(Type type, vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
+  Restriction(Type type, std::vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
   bool IsValid() const;
   bool operator==(Restriction const & restriction) const;
   bool operator<(Restriction const & restriction) const;
 
   // Links of the restriction in feature ids term.
-  vector<uint32_t> m_featureIds;
+  std::vector<uint32_t> m_featureIds;
   Type m_type;
 };
 
-using RestrictionVec = vector<Restriction>;
+using RestrictionVec = std::vector<Restriction>;
 
-string ToString(Restriction::Type const & type);
-string DebugPrint(Restriction::Type const & type);
-string DebugPrint(Restriction const & restriction);
+std::string ToString(Restriction::Type const & type);
+std::string DebugPrint(Restriction::Type const & type);
+std::string DebugPrint(Restriction const & restriction);
 
 struct RestrictionHeader
 {
@@ -95,8 +96,8 @@ class RestrictionSerializer
 public:
   template <class Sink>
   static void Serialize(RestrictionHeader const & header,
-                        routing::RestrictionVec::const_iterator begin,
-                        routing::RestrictionVec::const_iterator end, Sink & sink)
+                        RestrictionVec::const_iterator begin,
+                        RestrictionVec::const_iterator end, Sink & sink)
   {
     auto const firstOnlyIt = begin + header.m_noRestrictionCount;
     SerializeSingleType(begin, firstOnlyIt, sink);
@@ -105,12 +106,12 @@ public:
 
   template <class Source>
   static void Deserialize(RestrictionHeader const & header,
-                          routing::RestrictionVec & restrictionsNo,
-                          routing::RestrictionVec & restrictionsOnly, Source & src)
+                          RestrictionVec & restrictionsNo,
+                          RestrictionVec & restrictionsOnly, Source & src)
   {
-    DeserializeSingleType(routing::Restriction::Type::No, header.m_noRestrictionCount,
+    DeserializeSingleType(Restriction::Type::No, header.m_noRestrictionCount,
                           restrictionsNo, src);
-    DeserializeSingleType(routing::Restriction::Type::Only, header.m_onlyRestrictionCount,
+    DeserializeSingleType(Restriction::Type::Only, header.m_onlyRestrictionCount,
                           restrictionsOnly, src);
   }
 
@@ -122,14 +123,14 @@ private:
   /// \param end is an iterator to the element after the last element to serialize.
   /// \note All restrictions should have the same type.
   template <class Sink>
-  static void SerializeSingleType(routing::RestrictionVec::const_iterator begin,
-                                  routing::RestrictionVec::const_iterator end, Sink & sink)
+  static void SerializeSingleType(RestrictionVec::const_iterator begin,
+                                  RestrictionVec::const_iterator end, Sink & sink)
   {
     if (begin == end)
       return;
 
-    CHECK(is_sorted(begin, end), ());
-    routing::Restriction::Type const type = begin->m_type;
+    CHECK(std::is_sorted(begin, end), ());
+    Restriction::Type const type = begin->m_type;
 
     uint32_t prevFirstLinkFeatureId = 0;
     BitWriter<FileWriter> bits(sink);
@@ -160,8 +161,8 @@ private:
   }
 
   template <class Source>
-  static bool DeserializeSingleType(routing::Restriction::Type type, uint32_t count,
-                                    routing::RestrictionVec & restrictions, Source & src)
+  static bool DeserializeSingleType(Restriction::Type type, uint32_t count,
+                                    RestrictionVec & restrictions, Source & src)
   {
     uint32_t prevFirstLinkFeatureId = 0;
     BitReader<Source> bits(src);
@@ -175,7 +176,7 @@ private:
       }
       size_t const numLinks = biasedLinkNumber + 1 /* number of link is two or more */;
 
-      routing::Restriction restriction(type, {} /* links */);
+      Restriction restriction(type, {} /* links */);
       restriction.m_featureIds.resize(numLinks);
       auto const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
       if (biasedFirstFeatureId == 0)
