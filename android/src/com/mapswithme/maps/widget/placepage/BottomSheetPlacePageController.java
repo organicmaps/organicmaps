@@ -104,10 +104,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       if (isHiddenState(newState))
       {
-        Framework.nativeDeactivatePopup();
-        updateViewPortRect();
-        UiUtils.invisible(mButtonsLayout);
-        mPlacePageTracker.onHidden();
+        onHiddenInternal();
         return;
       }
 
@@ -136,6 +133,15 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       resizeBanner();
     }
   };
+
+  private void onHiddenInternal()
+  {
+    mBannerRatio = 0;
+    Framework.nativeDeactivatePopup();
+    updateViewPortRect();
+    UiUtils.invisible(mButtonsLayout);
+    mPlacePageTracker.onHidden();
+  }
 
   private void setPullDrawable()
   {
