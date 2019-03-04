@@ -556,10 +556,8 @@ UNIT_TEST(RussiaTiinskTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
 }
 
