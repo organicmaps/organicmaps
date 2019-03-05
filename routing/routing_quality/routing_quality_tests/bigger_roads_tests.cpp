@@ -50,15 +50,12 @@ UNIT_TEST(RoutingQuality_USAOklahoma)
        ());
 }
 
-// @TODO This test was broken after using maxspeed tag value always if it's available.
-// It should be fixed by using maxspeed taking into account highway class.
-// Trunk should be preferred against primary.
-//UNIT_TEST(RoutingQuality_IranSouth)
-//{
-//  TEST(CheckCarRoute({32.45088, 51.76419} /* start */, {32.97067, 51.50399} /* finish */,
-//                     {{{32.67021, 51.64323}, {32.68752, 51.63387}}} /* reference track */),
-//       ());
-//}
+UNIT_TEST(RoutingQuality_IranSouth)
+{
+  TEST(CheckCarRoute({32.45088, 51.76419} /* start */, {32.97067, 51.50399} /* finish */,
+                     {{{32.67021, 51.64323}, {32.68752, 51.63387}}} /* reference track */),
+       ());
+}
 
 UNIT_TEST(RoutingQuality_EindhovenNetherlands)
 {
