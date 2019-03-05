@@ -1244,20 +1244,33 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   if (msg->IsDismiss())
   {
     m_selectionShape->Hide();
+    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.is_initialized())
+    {
+      AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo.get().m_startRect, true /* isAnim */,
+                                                   false /* fitInViewport */));
+    }
+    m_selectionTrackInfo.reset();
   }
   else
   {
     double offsetZ = 0.0;
-    if (m_userEventStream.GetCurrentScreen().isPerspective())
+    auto const & modelView = m_userEventStream.GetCurrentScreen();
+    if (modelView.isPerspective())
     {
       dp::TOverlayContainer selectResult;
       if (m_overlayTree->IsNeedUpdate())
-        BuildOverlayTree(m_userEventStream.GetCurrentScreen());
+        BuildOverlayTree(modelView);
       m_overlayTree->Select(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> handle : selectResult)
         offsetZ = max(offsetZ, handle->GetPivotZ());
     }
     m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
+    if (!m_myPositionController->IsModeChangeViewport())
+    {
+      m2::PointD startPosition;
+      m_selectionShape->IsVisible(modelView, startPosition);
+      m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+    }
   }
 }
 
@@ -1991,13 +2004,15 @@ void FrontendRenderer::OnTouchMapAction(TouchEvent::ETouchType touchType)
   // the completion of touch actions. It helps to prevent the creation of redundant checks.
   auto const blockTimer = (touchType == TouchEvent::TOUCH_DOWN || touchType == TouchEvent::TOUCH_MOVE);
   m_myPositionController->ResetRoutingNotFollowTimer(blockTimer);
+  m_selectionTrackInfo.reset();
 }
+
 bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
                                             m2::RectD const & newViewport, m2::PointD & gOffset)
 {
   gOffset = m2::PointD(0, 0);
   if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
-      oldViewport == newViewport)
+      oldViewport == newViewport || !m_selectionTrackInfo.is_initialized())
   {
     return false;
   }
@@ -2009,43 +2024,62 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
 
   m2::PointD pos;
   m2::PointD targetPos;
-  if (m_selectionShape->IsVisible(screen, pos) &&
-      m_selectionShape->IsVisible(targetScreen, targetPos))
+  if (!m_selectionShape->IsVisible(screen, pos) || !m_selectionShape->IsVisible(targetScreen, targetPos))
+    return false;
+
+  m2::RectD rect(pos, pos);
+  m2::RectD targetRect(targetPos, targetPos);
+
+  if (m_overlayTree->IsNeedUpdate())
+    BuildOverlayTree(screen);
+
+  if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
+        m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
+        m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
   {
-    m2::RectD rect(pos, pos);
-    m2::RectD targetRect(targetPos, targetPos);
+    double const r = m_selectionShape->GetRadius();
+    rect.Inflate(r, r);
+    targetRect.Inflate(r, r);
+  }
 
-    if (m_overlayTree->IsNeedUpdate())
-      BuildOverlayTree(screen);
+  double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
+  rect.Inflate(kOffset, kOffset);
+  targetRect.Inflate(kOffset, kOffset);
 
-    if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-          m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
-          m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+  if (newViewport.SizeX() < rect.SizeX() || newViewport.SizeY() < rect.SizeY())
+    return false;
+
+  m2::PointD pOffset(0.0, 0.0);
+  if ((oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect)) ||
+      (newViewport.IsRectInside(rect) && m_selectionTrackInfo.get().m_snapSides != m2::PointI::Zero()))
+  {
+    // In case the rect of the selection is [partly] hidden, scroll the map to keep it visible.
+    // In case the rect of the selection is visible after the map scrolling,
+    // try to rollback part of that scrolling to return the map to its original position.
+    if (rect.minX() < newViewport.minX() || m_selectionTrackInfo.get().m_snapSides.x < 0)
     {
-      double const r = m_selectionShape->GetRadius();
-      rect.Inflate(r, r);
-      targetRect.Inflate(r, r);
+      pOffset.x = std::max(m_selectionTrackInfo.get().m_startPos.x - pos.x, newViewport.minX() - rect.minX());
+      m_selectionTrackInfo.get().m_snapSides.x = -1;
+    }
+    else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo.get().m_snapSides.x > 0)
+    {
+      pOffset.x = std::min(m_selectionTrackInfo.get().m_startPos.x - pos.x, newViewport.maxX() - rect.maxX());
+      m_selectionTrackInfo.get().m_snapSides.x = 1;
     }
 
-    if (oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect))
+    if (rect.minY() < newViewport.minY() || m_selectionTrackInfo.get().m_snapSides.y < 0)
     {
-      double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
-      m2::PointD pOffset(0.0, 0.0);
-      if (rect.minX() < newViewport.minX())
-        pOffset.x = newViewport.minX() - rect.minX() + kOffset;
-      else if (rect.maxX() > newViewport.maxX())
-        pOffset.x = newViewport.maxX() - rect.maxX() - kOffset;
-
-      if (rect.minY() < newViewport.minY())
-        pOffset.y = newViewport.minY() - rect.minY() + kOffset;
-      else if (rect.maxY() > newViewport.maxY())
-        pOffset.y = newViewport.maxY() - rect.maxY() - kOffset;
-
-      gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
-      return true;
+      pOffset.y = std::max(m_selectionTrackInfo.get().m_startPos.y - pos.y, newViewport.minY() - rect.minY());
+      m_selectionTrackInfo.get().m_snapSides.y = -1;
+    }
+    else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo.get().m_snapSides.y > 0)
+    {
+      pOffset.y = std::min(m_selectionTrackInfo.get().m_startPos.y - pos.y, newViewport.maxY() - rect.maxY());
+      m_selectionTrackInfo.get().m_snapSides.y = 1;
     }
   }
-  return false;
+  gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
+  return true;
 }
 
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)

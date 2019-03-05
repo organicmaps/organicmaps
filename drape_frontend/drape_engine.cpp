@@ -199,7 +199,7 @@ void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, i
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
+  PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim, true /* fitInViewport */));
 }
 
 void DrapeEngine::ClearUserMarksGroup(kml::MarkGroupId groupId)

@@ -619,7 +619,7 @@ void RoutingManager::FollowRoute()
 
   m_transitReadManager->BlockTransitSchemeMode(true /* isBlocked */);
 
-  // Switching on the extrapolatior only for following mode in car and bicycle navigation.
+  // Switching on the extrapolator only for following mode in car and bicycle navigation.
   m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle ||
                         m_currentRouterType == RouterType::Bicycle);
   m_delegate.OnRouteFollow(m_currentRouterType);

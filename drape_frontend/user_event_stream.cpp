@@ -362,7 +362,7 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
 
 bool UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)
 {
-  return SetRect(anyRectEvent->GetRect(), anyRectEvent->IsAnim());
+  return SetRect(anyRectEvent->GetRect(), anyRectEvent->IsAnim(), anyRectEvent->FitInViewport());
 }
 
 bool UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
@@ -455,16 +455,22 @@ bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool
   CheckMinGlobalRect(rect, kDefault3dScale);
   CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
-  return SetRect(targetRect, isAnim, parallelAnimCreator);
+  return SetRect(targetRect, isAnim, true /* fitInViewport */, parallelAnimCreator);
 }
 
-bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim,
+bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport,
                               TAnimationCreator const & parallelAnimCreator)
 {
   ScreenBase tmp = GetCurrentScreen();
-  tmp.SetFromRects(rect, tmp.PixelRectIn3d());
-  tmp.MatchGandP3d(rect.GlobalCenter(), tmp.PixelRectIn3d().Center());
-
+  if (fitInViewport)
+  {
+    tmp.SetFromRects(rect, tmp.PixelRectIn3d());
+    tmp.MatchGandP3d(rect.GlobalCenter(), tmp.PixelRectIn3d().Center());
+  }
+  else
+  {
+    tmp.SetFromRects(rect, tmp.PixelRect());
+  }
   return SetScreen(tmp, isAnim, parallelAnimCreator);
 }
 

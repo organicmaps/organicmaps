@@ -39,6 +39,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 namespace dp
 {
 class Framebuffer;
@@ -268,7 +270,23 @@ private:
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   gui::TWidgetsLayoutInfo m_lastWidgetsLayout;
   drape_ptr<MyPositionController> m_myPositionController;
+
   drape_ptr<SelectionShape> m_selectionShape;
+  struct SelectionTrackInfo
+  {
+    SelectionTrackInfo() = default;
+
+    SelectionTrackInfo(m2::AnyRectD const & startRect, m2::PointD const & startPos)
+      : m_startRect(startRect)
+      , m_startPos(startPos)
+    {}
+
+    m2::AnyRectD m_startRect;
+    m2::PointD m_startPos;
+    m2::PointI m_snapSides = m2::PointI::Zero();
+  };
+  boost::optional<SelectionTrackInfo> m_selectionTrackInfo;
+
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;
   drape_ptr<TransitSchemeRenderer> m_transitSchemeRenderer;
