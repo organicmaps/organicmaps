@@ -42,8 +42,13 @@ CBV CategoriesCache::Load(MwmContext const & context) const
   // but the interface of Retrieval forces us to make a choice.
   SearchTrieRequest<strings::UniStringDFA> request;
 
+  // m_categories usually has truncated types; add them together with their subtrees.
   m_categories.ForEach([&request, &c](uint32_t const type) {
-    request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(type)));
+    c.ForEachInSubtree(
+        [&](uint32_t descendantType) {
+          request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(descendantType)));
+        },
+        type);
   });
 
   Retrieval retrieval(context, m_cancellable);
