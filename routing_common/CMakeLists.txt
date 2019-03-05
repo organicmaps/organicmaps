@@ -10,6 +10,7 @@ set(
   bicycle_model.hpp
   car_model.cpp
   car_model.hpp
+  car_model_coefs.hpp
   maxspeed_conversion.cpp
   maxspeed_conversion.hpp
   num_mwm_id.hpp
