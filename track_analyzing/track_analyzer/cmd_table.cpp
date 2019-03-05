@@ -46,7 +46,7 @@ using namespace track_analyzing;
 
 namespace
 {
-uint16_t constexpr kMaxspeedTopBound = 200;
+MaxspeedType constexpr kMaxspeedTopBound = 200;
 
 string TypeToString(uint32_t type)
 {
@@ -189,7 +189,7 @@ struct RoadInfo
   }
 
   CarModelTypes::Type m_type;
-  uint16_t m_maxspeedKMpH = kInvalidSpeed;
+  MaxspeedType m_maxspeedKMpH = kInvalidSpeed;
   bool m_isCityRoad = false;
   bool m_isOneWay = false;
 };
