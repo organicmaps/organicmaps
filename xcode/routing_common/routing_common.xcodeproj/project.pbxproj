@@ -37,6 +37,7 @@
 		671E78CD1E6A413F00B2859B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78CC1E6A413F00B2859B /* libz.tbd */; };
 		671E78CF1E6A414600B2859B /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78CE1E6A414600B2859B /* libjansson.a */; };
 		671E78D11E6A414B00B2859B /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78D01E6A414B00B2859B /* libopening_hours.a */; };
+		F6E4ECE0223AB60600C8A79A /* car_model_coefs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6E4ECDF223AB60600C8A79A /* car_model_coefs.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		671E78CC1E6A413F00B2859B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		671E78CE1E6A414600B2859B /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libjansson.a"; sourceTree = "<group>"; };
 		671E78D01E6A414B00B2859B /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libopening_hours.a"; sourceTree = "<group>"; };
+		F6E4ECDF223AB60600C8A79A /* car_model_coefs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_model_coefs.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		671E78741E6A3BE200B2859B /* routing_common */ = {
 			isa = PBXGroup;
 			children = (
+				F6E4ECDF223AB60600C8A79A /* car_model_coefs.hpp */,
 				5631B663219B11D5009F47D4 /* maxspeed_conversion.cpp */,
 				5631B664219B11D5009F47D4 /* maxspeed_conversion.hpp */,
 				56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */,
@@ -198,6 +201,7 @@
 				671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */,
 				671E788B1E6A3C5D00B2859B /* car_model.hpp in Headers */,
 				671E788F1E6A3C5D00B2859B /* vehicle_model.hpp in Headers */,
+				F6E4ECE0223AB60600C8A79A /* car_model_coefs.hpp in Headers */,
 				5631B666219B11D5009F47D4 /* maxspeed_conversion.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,7 +79,7 @@ public:
     for (auto const & additionalTag : CarModel::GetAdditionalTags())
       m_hwtags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
 
-    for (auto const & speedForType : CarModel::GetLimits())
+    for (auto const & speedForType : CarModel::GetOptions())
       m_hwtags.push_back(classif().GetTypeByPath(speedForType.m_types));
 
     for (auto const & surface : CarModel::GetSurfaces())

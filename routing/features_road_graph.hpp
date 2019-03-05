@@ -32,8 +32,7 @@ private:
     CrossCountryVehicleModel(std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
     // VehicleModelInterface overrides:
-    VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f,
-                                              SpeedParams const & speedParams) const override;
+    SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
     double GetMaxWeightSpeed() const override { return m_maxSpeed; };
     double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
