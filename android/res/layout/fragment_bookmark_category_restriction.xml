@@ -34,6 +34,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
       <com.mapswithme.maps.widget.CustomTextInputLayout
+        android:id="@+id/edit_text_container"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp">

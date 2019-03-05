@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -70,7 +71,8 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     setHasOptionsMenu(true);
     mEditText = root.findViewById(R.id.edit_text_field);
     InputFilter[] inputFilters = { new InputFilter.LengthFilter(mTextLimit) };
-    mEditText.setHint(getHintText());
+    TextInputLayout editTextContainer = root.findViewById(R.id.edit_text_container);
+    editTextContainer.setHint(getString(getHintText()));
     mEditText.setFilters(inputFilters);
     mEditText.setText(getEditableText());
     mEditText.addTextChangedListener(new TextRestrictionWatcher());
