@@ -115,9 +115,12 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   m_selectedTypes = params.types;
   [self.type.collectionView reloadData];
-  
-  self.checkInDate = params.checkInDate;
-  self.checkOutDate = params.checkOutDate;
+
+  if (params.checkInDate != nil && params.checkOutDate != nil)
+  {
+    self.checkInDate = params.checkInDate;
+    self.checkOutDate = params.checkOutDate;
+  }
 
   using namespace place_page::rating;
   auto ratingCell = self.rating;
