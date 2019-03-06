@@ -41,7 +41,6 @@
         <EditText
           android:id="@+id/edit_text_field"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:hint="@string/name_placeholder"
           android:textColorHint="?attr/iconTintDisabled"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>

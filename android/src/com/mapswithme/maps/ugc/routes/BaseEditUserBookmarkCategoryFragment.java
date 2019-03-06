@@ -72,7 +72,9 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     mEditText = root.findViewById(R.id.edit_text_field);
     InputFilter[] inputFilters = { new InputFilter.LengthFilter(mTextLimit) };
     TextInputLayout editTextContainer = root.findViewById(R.id.edit_text_container);
-    editTextContainer.setHint(getString(getHintText()));
+    String hint = getString(getHintText());
+    editTextContainer.setHint(hint);
+    mEditText.setFilters(inputFilters);
     mEditText.setFilters(inputFilters);
     mEditText.setText(getEditableText());
     mEditText.addTextChangedListener(new TextRestrictionWatcher());
