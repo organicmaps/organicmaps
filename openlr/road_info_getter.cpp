@@ -6,8 +6,6 @@
 
 #include "base/assert.hpp"
 
-#include "std/iterator.hpp"
-
 namespace
 {
 openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayClass const & hwClass)
@@ -23,12 +21,12 @@ openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayCla
   default: return openlr::FunctionalRoadClass::FRC7;
   }
 }
-}
+}  // namespace
 
 namespace openlr
 {
 RoadInfoGetter::RoadInfoGetter(DataSource const & dataSource)
-  : m_dataSource(dataSource), m_c(classif())
+  : m_dataSource(dataSource)
 {
 }
 
@@ -43,7 +41,6 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
 
   RoadInfo info;
-//  info.m_frc = GetFunctionalRoadClass(feature::TypesHolder(ft));
   info.m_fow = GetFormOfWay(feature::TypesHolder(ft));
   info.m_hwClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
   info.m_link = ftypes::IsLinkChecker::Instance()(ft);
@@ -55,35 +52,13 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   return it->second;
 }
 
-FunctionalRoadClass RoadInfoGetter::GetFunctionalRoadClass(feature::TypesHolder const & types) const
-{
-  if (m_trunkChecker(types))
-    return FunctionalRoadClass::FRC0;
-
-  if (m_primaryChecker(types))
-    return FunctionalRoadClass::FRC1;
-
-  if (m_secondaryChecker(types))
-    return FunctionalRoadClass::FRC2;
-
-  if (m_tertiaryChecker(types))
-    return FunctionalRoadClass::FRC3;
-
-  if (m_residentialChecker(types))
-    return FunctionalRoadClass::FRC4;
-
-  if (m_livingStreetChecker(types))
-    return FunctionalRoadClass::FRC5;
-
-  return FunctionalRoadClass::FRC7;
-}
-
 FormOfWay RoadInfoGetter::GetFormOfWay(feature::TypesHolder const & types) const
 {
-  if (m_trunkChecker(types))
+  auto const hwClass = ftypes::GetHighwayClass(feature::TypesHolder(types));
+  if (hwClass == ftypes::HighwayClass::Trunk)
     return FormOfWay::Motorway;
 
-  if (m_primaryChecker(types))
+  if (hwClass == ftypes::HighwayClass::Primary)
     return FormOfWay::MultipleCarriageway;
 
   return FormOfWay::SingleCarriageway;

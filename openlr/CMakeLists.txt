@@ -27,8 +27,6 @@ set(
   paths_connector.hpp
   road_info_getter.cpp
   road_info_getter.hpp
-  road_type_checkers.cpp
-  road_type_checkers.hpp
   router.cpp
   router.hpp
   stats.hpp
