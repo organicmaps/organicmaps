@@ -4,6 +4,7 @@
 #include "openlr/road_type_checkers.hpp"
 
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "std/map.hpp"
 
@@ -22,10 +23,11 @@ class RoadInfoGetter final
 public:
   struct RoadInfo
   {
-    RoadInfo() = default;
-
     FunctionalRoadClass m_frc = FunctionalRoadClass::NotAValue;
     FormOfWay m_fow = FormOfWay::NotAValue;
+    ftypes::HighwayClass m_hwClass = ftypes::HighwayClass::Undefined;
+    bool m_link = false;
+    bool m_oneWay = false;
   };
 
   RoadInfoGetter(DataSource const & dataSource);
