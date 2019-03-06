@@ -12,8 +12,14 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
 
   var status: TransactionStatus {
     let routeTransactions = SKPaymentQueue.default().transactions.filter {
-      !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
+      var isOk = !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
         !Subscription.productIds.contains($0.payment.productIdentifier)
+      if isOk && $0.transactionState == .purchasing {
+        isOk = false
+        Statistics.logEvent("Pending_purchasing_transaction",
+                            withParameters: ["productId" : $0.payment.productIdentifier])
+      }
+      return isOk
     }
 
     if routeTransactions.count > 1 {
