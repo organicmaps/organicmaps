@@ -36,5 +36,7 @@ omim_link_libraries(
   ${LIBZ}
 )
 
+omim_add_pybindings_subdirectory(pytrack_generator)
+
 link_qt5_core(${PROJECT_NAME})
 link_qt5_network(${PROJECT_NAME})
