@@ -12360,8 +12360,8 @@
    "g": [
     {
      "id": "South Africa_Western Cape", 
-     "s": 23826809, 
-     "sha1_base64": "jIRuCov7rqi2MSS1Xw+9EoPgp8c=", 
+     "s": 25355941, 
+     "sha1_base64": "QqCRUsWHw5A9WaGDa6jYKeH697U=", 
      "old": [
       "South Africa"
      ], 
@@ -12373,8 +12373,8 @@
     }, 
     {
      "id": "South Africa_Gauteng", 
-     "s": 16113854, 
-     "sha1_base64": "AKn6gGt34hFGI+4EHk3bHt8OqSA=", 
+     "s": 16237030, 
+     "sha1_base64": "2S/KGVBeEE2UutvIFdSGah9qH9U=", 
      "old": [
       "South Africa"
      ], 
@@ -12385,8 +12385,8 @@
     }, 
     {
      "id": "South Africa_North West", 
-     "s": 6108377, 
-     "sha1_base64": "H8VIodaZ4x0619pTFGetmL6u3Yc=", 
+     "s": 6195513, 
+     "sha1_base64": "bH87cvnMfmlUhDwBTmSLIN7isXk=", 
      "old": [
       "South Africa"
      ], 
@@ -12397,8 +12397,8 @@
     }, 
     {
      "id": "South Africa_Free State", 
-     "s": 7116673, 
-     "sha1_base64": "F0ptHQBIEwXq6/5ATDhWFW2UBYY=", 
+     "s": 7124358, 
+     "sha1_base64": "dSfJRReeogwWTd+DacvbNd2NKDs=", 
      "old": [
       "South Africa"
      ], 
@@ -12409,8 +12409,8 @@
     }, 
     {
      "id": "South Africa_Eastern Cape", 
-     "s": 12713624, 
-     "sha1_base64": "CJuKG0PBUQGHPv7ms3b34vKIY/E=", 
+     "s": 12884152, 
+     "sha1_base64": "XicL3LVXAbO4dkUMC/VEqL+2/4o=", 
      "old": [
       "South Africa"
      ], 
@@ -12421,8 +12421,8 @@
     }, 
     {
      "id": "South Africa_Northern Cape", 
-     "s": 8984267, 
-     "sha1_base64": "DoymmaJgjkj6dIHzP8lfyX7r0xE=", 
+     "s": 9000592, 
+     "sha1_base64": "8cHhw+xNOoxs/mYYfD9rkNYCMDI=", 
      "old": [
       "South Africa"
      ], 
@@ -12433,8 +12433,8 @@
     }, 
     {
      "id": "South Africa_Mpumalanga", 
-     "s": 7327800, 
-     "sha1_base64": "a50w7deSki4BRgC1dfs9HRhWEGo=", 
+     "s": 7359457, 
+     "sha1_base64": "2Mff7Zamb8uvTzl48Cnyz8r1364=", 
      "old": [
       "South Africa"
      ], 
@@ -12445,8 +12445,8 @@
     }, 
     {
      "id": "South Africa_Limpopo", 
-     "s": 7177527, 
-     "sha1_base64": "ZI7N+e8QbuDAf92cYmtIzGnzxkk=", 
+     "s": 7193263, 
+     "sha1_base64": "WeZiMCox9BUFxC2/rOsKpC9xUeE=", 
      "old": [
       "South Africa"
      ], 
@@ -12457,8 +12457,8 @@
     }, 
     {
      "id": "South Africa_KwaZulu-Natal", 
-     "s": 21241430, 
-     "sha1_base64": "NDoRZasth+TjXvSzhxfeRWeJYkA=", 
+     "s": 21606493, 
+     "sha1_base64": "cNUUOrqu87Yzhx1ueWxx3HeXnwQ=", 
      "old": [
       "South Africa"
      ], 
