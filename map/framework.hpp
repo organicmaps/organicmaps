@@ -655,6 +655,12 @@ public:
   void Scale(double factor, bool isAnim);
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
+  /// Moves the viewport a distance of factorX * viewportWidth and factorY * viewportHeight.
+  /// E.g. factorX == 1.0 moves the map one screen size to the right, factorX == -0.5 moves the map
+  /// half screen size to the left, factorY == -2.0 moves the map two sizes down,
+  /// factorY = 1.5 moves the map one and a half size up.
+  void Move(double factorX, double factorY, bool isAnim);
+
   void TouchEvent(df::TouchEvent const & touch);
   //@}
 

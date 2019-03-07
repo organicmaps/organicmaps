@@ -188,6 +188,11 @@ void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
   AddUserEvent(make_unique_dp<ScaleEvent>(factor, pxPoint, isAnim));
 }
 
+void DrapeEngine::Move(double factorX, double factorY, bool isAnim)
+{
+  AddUserEvent(make_unique_dp<MoveEvent>(factorX, factorY, isAnim));
+}
+
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim,
                                      bool trackVisibleViewport)
 {

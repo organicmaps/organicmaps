@@ -177,6 +177,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         TouchCancel(m_touches);
       }
       break;
+    case UserEvent::EventType::Move:
+      {
+        ref_ptr<MoveEvent> moveEvent = make_ref(e);
+        breakAnim = OnMove(moveEvent);
+        TouchCancel(m_touches);
+      }
+      break;
     case UserEvent::EventType::Resize:
       {
         ref_ptr<ResizeEvent> resizeEvent = make_ref(e);
@@ -358,6 +365,21 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
     m_listener->OnAnimatedScaleEnded();
 
   return true;
+}
+
+bool UserEventStream::OnMove(ref_ptr<MoveEvent> moveEvent)
+{
+  double const factorX = moveEvent->GetFactorX();
+  double const factorY = moveEvent->GetFactorY();
+
+  ScreenBase screen;
+  GetTargetScreen(screen);
+  auto const & rect = screen.PixelRectIn3d();
+  screen.Move(factorX * rect.SizeX(), -factorY * rect.SizeY());
+
+  ShrinkAndScaleInto(screen, df::GetWorldRect());
+
+  return SetScreen(screen, moveEvent->IsAnim());
 }
 
 bool UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)

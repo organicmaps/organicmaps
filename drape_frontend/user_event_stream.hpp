@@ -40,7 +40,8 @@ public:
     Rotate,
     FollowAndRotate,
     AutoPerspective,
-    VisibleViewport
+    VisibleViewport,
+    Move
   };
 
   virtual ~UserEvent() = default;
@@ -131,6 +132,27 @@ public:
 private:
   double m_factor;
   m2::PointD m_pxPoint;
+  bool m_isAnim;
+};
+
+class MoveEvent : public UserEvent
+{
+public:
+  MoveEvent(double factorX, double factorY, bool isAnim)
+    : m_factorX(factorX)
+    , m_factorY(factorY)
+    , m_isAnim(isAnim)
+  {}
+
+  EventType GetType() const override { return UserEvent::EventType::Move; }
+
+  double GetFactorX() const { return m_factorX; }
+  double GetFactorY() const { return m_factorY; }
+  bool IsAnim() const { return m_isAnim; }
+
+private:
+  double m_factorX;
+  double m_factorY;
   bool m_isAnim;
 };
 
@@ -402,6 +424,7 @@ public:
 
 private:
   bool OnSetScale(ref_ptr<ScaleEvent> scaleEvent);
+  bool OnMove(ref_ptr<MoveEvent> moveEvent);
   bool OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent);
   bool OnSetRect(ref_ptr<SetRectEvent> rectEvent);
   bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);

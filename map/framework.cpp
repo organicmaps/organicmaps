@@ -1274,6 +1274,12 @@ void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
     m_drapeEngine->Scale(factor, pxPoint, isAnim);
 }
 
+void Framework::Move(double factorX, double factorY, bool isAnim)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Move(factorX, factorY, isAnim);
+}
+
 void Framework::TouchEvent(df::TouchEvent const & touch)
 {
   if (m_drapeEngine != nullptr)
