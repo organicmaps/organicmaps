@@ -76,6 +76,19 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
       m_type = static_cast<Type>(i);
   }
 
+  auto const & subregion = m_address[static_cast<size_t>(Type::Subregion)];
+  auto const & locality = m_address[static_cast<size_t>(Type::Locality)];
+  if (m_type == Type::Street && locality.empty() && subregion.empty() /* if locality detection fail */)
+  {
+    ++stats.m_noLocalityStreets;
+    return false;
+  }
+  if (m_type == Type::Building && locality.empty() && subregion.empty() /* if locality detection fail */)
+  {
+    ++stats.m_noLocalityBuildings;
+    return false;
+  }
+
   m_nameTokens.clear();
   FromJSONObjectOptionalField(properties, "name", m_name);
   search::NormalizeAndTokenizeAsUtf8(m_name, m_nameTokens);

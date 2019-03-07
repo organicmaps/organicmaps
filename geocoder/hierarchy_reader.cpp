@@ -20,7 +20,7 @@ void operator+=(Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats &
   struct ValidationStats
   {
     uint64_t m_numLoaded, m_badJsons, m_badOsmIds, m_duplicateOsmIds, m_duplicateAddresses,
-             m_emptyAddresses, m_emptyNames, m_mismatchedNames;
+             m_emptyAddresses, m_emptyNames, m_noLocalityStreets, m_noLocalityBuildings, m_mismatchedNames;
   };
   static_assert(sizeof(Hierarchy::ParsingStats) == sizeof(ValidationStats),
                 "Hierarchy::ParsingStats has been modified");
@@ -32,6 +32,8 @@ void operator+=(Hierarchy::ParsingStats & accumulator, Hierarchy::ParsingStats &
   accumulator.m_duplicateAddresses += stats.m_duplicateAddresses;
   accumulator.m_emptyAddresses += stats.m_emptyAddresses;
   accumulator.m_emptyNames += stats.m_emptyNames;
+  accumulator.m_noLocalityStreets += stats.m_noLocalityStreets;
+  accumulator.m_noLocalityBuildings += stats.m_noLocalityBuildings;
   accumulator.m_mismatchedNames += stats.m_mismatchedNames;
 }
 } // namespace
@@ -82,6 +84,8 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
   LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
   LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
   LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
+  LOG(LINFO, ("Street entries without a locality name:", stats.m_noLocalityStreets));
+  LOG(LINFO, ("Building entries without a localtity name:", stats.m_noLocalityBuildings));
   LOG(LINFO,
       ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
   LOG(LINFO, ("(End of stats.)"));
