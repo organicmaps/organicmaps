@@ -269,17 +269,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
       @AnchorBottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
-      // The method openFor could be invoked many times, e.g. when we leave the map and come back
-      // on it. So, we should do nothing if the map object is not changed or place page is already
-      // opened, but we have to refresh place page views, since the map object data could be changed
-      // while we were on the another screen (e.g. editor, ugc, settings, etc.). This behavior is
-      // produced by the framework 'UpdatePlacePageInfoForCurrentSelection' method that in turn calls
-      // method 'ActivateMapSelection'.
       if (isSameObject && !isHiddenState(state))
-      {
-        mPlacePage.refreshViews(policy);
         return;
-      }
 
       mPlacePage.resetScroll();
       mPlacePage.resetWebView();

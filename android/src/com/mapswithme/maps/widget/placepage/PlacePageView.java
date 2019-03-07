@@ -1008,9 +1008,10 @@ public class PlacePageView extends NestedScrollView
     if (MapObject.same(mMapObject, mapObject))
     {
       mMapObject = mapObject;
+      NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
+      refreshViews(policy);
       if (listener != null)
       {
-        NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
         listener.onSetMapObjectComplete(policy, true);
       }
       return;
