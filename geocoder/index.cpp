@@ -44,11 +44,11 @@ Index::Doc const & Index::GetDoc(DocId const id) const
 // static
 string Index::MakeIndexKey(Tokens const & tokens)
 {
-  if (tokens.size() == 1 || std::is_sorted(begin(tokens), end(tokens)))
+  if (tokens.size() == 1 || is_sorted(begin(tokens), end(tokens)))
     return strings::JoinStrings(tokens, " ");
 
   auto indexTokens = tokens;
-  std::sort(begin(indexTokens), end(indexTokens));
+  sort(begin(indexTokens), end(indexTokens));
   return strings::JoinStrings(indexTokens, " ");
 }
 
