@@ -441,6 +441,11 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
 
 m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
 {
+  return P3dtoP(pt, 0.0 /* ptZ */);
+}
+
+m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt, double ptZ) const
+{
   if (!m_isPerspective)
     return pt;
 
@@ -448,14 +453,24 @@ m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
   double const normalizedY = -2.0 * pt.y / PixelRectIn3d().SizeY() + 1.0;
 
   double normalizedZ = 0.0;
+
   if (m_3dAngleX != 0.0)
   {
     double const halfFOV = m_3dFOV / 2.0;
     double const cameraZ = 1.0 / tan(halfFOV);
 
     double const tanX = tan(m_3dAngleX);
-    double const cameraDistanceZ =
-        cameraZ * (1.0 + (normalizedY + 1.0) * tanX / (cameraZ - normalizedY * tanX));
+    double cameraDistanceZ = cameraZ * (1.0 + (normalizedY + 1.0) * tanX / (cameraZ - normalizedY * tanX));
+
+    if (ptZ != 0.0)
+    {
+      double const t = sqrt(cameraZ * cameraZ + normalizedY * normalizedY);
+      double const cosBeta = cameraZ / t;
+      double const sinBeta = normalizedY / t;
+      double const dz = ptZ * GetZScale() * cosBeta / (cos(m_3dAngleX) * cosBeta - sin(m_3dAngleX) * sinBeta);
+
+      cameraDistanceZ -= dz;
+    }
 
     double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
     double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);

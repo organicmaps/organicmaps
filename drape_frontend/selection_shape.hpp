@@ -44,6 +44,7 @@ public:
 
   bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
   double GetRadius() const { return m_radius; }
+  double GetPositionZ() const { return m_positionZ; }
 
   ESelectedObject GetSelectedObject() const;
 

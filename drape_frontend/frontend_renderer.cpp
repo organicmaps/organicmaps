@@ -2041,6 +2041,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
     rect.Inflate(r, r);
     targetRect.Inflate(r, r);
   }
+  double const ptZ = m_selectionShape->GetPositionZ();
 
   double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
   rect.Inflate(kOffset, kOffset);
@@ -2078,7 +2079,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
       m_selectionTrackInfo.get().m_snapSides.y = 1;
     }
   }
-  gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
+  gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(pos, ptZ));
   return true;
 }
 
