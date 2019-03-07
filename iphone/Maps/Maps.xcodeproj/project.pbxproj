@@ -409,6 +409,7 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
+		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
 		47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */; };
 		47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */; };
@@ -1450,6 +1451,7 @@
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
+		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
 		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
 		47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoTrackerCore.h; sourceTree = "<group>"; };
 		47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGeoTrackerCore.mm; sourceTree = "<group>"; };
@@ -2108,6 +2110,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				47AEF83F2231249E00D20538 /* categories_brands.txt */,
 				471BBD92213038E000EB17C9 /* TipsAndTricks */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Categories */,
@@ -4571,6 +4574,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47AEF8402231249E00D20538 /* categories_brands.txt in Resources */,
 				F6C3A1B221AC22810060EEC8 /* Alert 5.m4a in Resources */,
 				4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
