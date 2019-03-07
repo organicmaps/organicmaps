@@ -83,11 +83,25 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
 {
   CHECK_EQUAL(doc.m_type, Type::Street, ());
   size_t const t = static_cast<size_t>(doc.m_type);
+
+  auto isStreetSuffix = [] (std::string const & s) {
+    return search::IsStreetSynonym(strings::MakeUniString(s));
+  };
+
+  if (all_of(begin(doc.m_address[t]), end(doc.m_address[t]), isStreetSuffix))
+  {
+    LOG(LDEBUG, ("Undefined proper name in tokens ", doc.m_address[t], "of street entry",
+                 doc.m_osmId, "(", doc.m_address, ")"));
+    if (doc.m_address[t].size() > 1)
+      m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
+    return;
+  }
+
   m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
 
   for (size_t i = 0; i < doc.m_address[t].size(); ++i)
   {
-    if (!search::IsStreetSynonym(strings::MakeUniString(doc.m_address[t][i])))
+    if (!isStreetSuffix(doc.m_address[t][i]))
       continue;
     auto addr = doc.m_address[t];
     addr.erase(addr.begin() + i);
