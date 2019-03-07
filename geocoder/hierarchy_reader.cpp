@@ -85,7 +85,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
   LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
   LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
   LOG(LINFO, ("Street entries without a locality name:", stats.m_noLocalityStreets));
-  LOG(LINFO, ("Building entries without a localtity name:", stats.m_noLocalityBuildings));
+  LOG(LINFO, ("Building entries without a locality name:", stats.m_noLocalityBuildings));
   LOG(LINFO,
       ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
   LOG(LINFO, ("(End of stats.)"));
