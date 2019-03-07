@@ -8,6 +8,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <atomic>
 #include <cstddef>
 #include <mutex>
@@ -43,7 +44,12 @@ Index::Doc const & Index::GetDoc(DocId const id) const
 // static
 string Index::MakeIndexKey(Tokens const & tokens)
 {
-  return strings::JoinStrings(tokens, " ");
+  if (tokens.size() == 1 || is_sorted(begin(tokens), end(tokens)))
+    return strings::JoinStrings(tokens, " ");
+
+  auto indexTokens = tokens;
+  sort(begin(indexTokens), end(indexTokens));
+  return strings::JoinStrings(indexTokens, " ");
 }
 
 void Index::AddEntries()
