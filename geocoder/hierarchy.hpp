@@ -72,7 +72,7 @@ public:
     Type m_type = Type::Count;
 
     // The address fields of this entry, one per Type.
-    std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
+    std::array<Tokens, static_cast<size_t>(Type::Count)> m_address;
   };
 
   explicit Hierarchy(std::vector<Entry> && entries, bool sorted);
