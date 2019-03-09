@@ -28,7 +28,7 @@ class MapObjectShareable extends BaseShareable
     {
       subject = activity.getString(R.string.my_position_share_email_subject);
       text = activity.getString(R.string.my_position_share_email,
-                                Framework.nativeGetNameAndAddress(mapObject.getLat(), mapObject.getLon()),
+                                Framework.nativeGetAddress(mapObject.getLat(), mapObject.getLon()),
                                 ge0Url, httpUrl);
     }
     else
