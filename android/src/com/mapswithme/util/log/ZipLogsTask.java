@@ -64,11 +64,12 @@ class ZipLogsTask implements Runnable
       }
       else
       {
-        byte data[] = new byte[BUFFER_SIZE];
         try(FileInputStream fi = new FileInputStream(sourcePath);
-            BufferedInputStream origin = new BufferedInputStream(fi, BUFFER_SIZE);) {
+            BufferedInputStream origin = new BufferedInputStream(fi, BUFFER_SIZE);)
+        {
           ZipEntry entry = new ZipEntry(getLastPathComponent(sourcePath));
           out.putNextEntry(entry);
+          byte data[] = new byte[BUFFER_SIZE];
           int count;
           while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1) {
             out.write(data, 0, count);
