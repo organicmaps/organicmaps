@@ -55,11 +55,11 @@ class ZipLogsTask implements Runnable
   private boolean zipFileAtPath(@NonNull String sourcePath, @NonNull String toLocation)
   {
     File sourceFile = new File(sourcePath);
-    try
+    try(FileOutputStream dest = new FileOutputStream(toLocation, false);
+        ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest)))
     {
       BufferedInputStream origin;
-      FileOutputStream dest = new FileOutputStream(toLocation, false);
-      ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
+
       if (sourceFile.isDirectory())
       {
         zipSubFolder(out, sourceFile, sourceFile.getParent().length());
@@ -77,7 +77,6 @@ class ZipLogsTask implements Runnable
           out.write(data, 0, count);
         }
       }
-      out.close();
     }
     catch (Exception e)
     {
