@@ -2,6 +2,7 @@
 
 #include "openlr/graph.hpp"
 #include "openlr/openlr_model.hpp"
+#include "openlr/road_info_getter.hpp"
 #include "openlr/stats.hpp"
 
 #include <cstddef>
@@ -13,7 +14,8 @@ namespace openlr
 class PathsConnector
 {
 public:
-  PathsConnector(double const pathLengthTolerance, Graph & graph, v2::Stats & stat);
+  PathsConnector(double pathLengthTolerance, Graph & graph, RoadInfoGetter & infoGetter,
+                 v2::Stats & stat);
 
   bool ConnectCandidates(std::vector<LocationReferencePoint> const & points,
                          std::vector<std::vector<Graph::EdgeVector>> const & lineCandidates,
@@ -21,16 +23,16 @@ public:
 
 private:
   bool FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                        FunctionalRoadClass const frc, uint32_t const maxPathLength,
+                        FunctionalRoadClass lfrcnp, uint32_t maxPathLength,
                         Graph::EdgeVector & path);
 
   bool ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
-                                     FunctionalRoadClass const frc,
-                                     double const distanceToNextPoint,
+                                     FunctionalRoadClass lfrcnp, double distanceToNextPoint,
                                      Graph::EdgeVector & resultPath);
 
   double m_pathLengthTolerance;
   Graph & m_graph;
+  RoadInfoGetter & m_infoGetter;
   v2::Stats & m_stat;
 };
 }  // namespace openlr

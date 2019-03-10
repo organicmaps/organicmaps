@@ -22,8 +22,6 @@ class RoadInfoGetter final
 public:
   struct RoadInfo
   {
-    FunctionalRoadClass m_frc = FunctionalRoadClass::NotAValue;
-    FormOfWay m_fow = FormOfWay::NotAValue;
     ftypes::HighwayClass m_hwClass = ftypes::HighwayClass::Undefined;
     bool m_link = false;
     bool m_oneWay = false;
@@ -34,7 +32,6 @@ public:
   RoadInfo Get(FeatureID const & fid);
 
  private:
-  FormOfWay GetFormOfWay(feature::TypesHolder const & types) const;
 
   DataSource const & m_dataSource;
   std::map<FeatureID, RoadInfo> m_cache;

@@ -24,9 +24,6 @@ namespace openlr
 {
 namespace
 {
-// TODO(mgsergio): Maybe add a penalty if this value deviates, not just throw it away.
-int const kFRCThreshold = 3;
-
 int const kNumBuckets = 256;
 double const kAnglesInBucket = 360.0 / kNumBuckets;
 
@@ -182,8 +179,9 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
 }
 
 void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines,
-                                               bool const isLastPoint, double const bearDistM,
-                                               FunctionalRoadClass const frc,
+                                               bool isLastPoint, double bearDistM,
+                                               FunctionalRoadClass frc,
+                                               FormOfWay fow,
                                                vector<LinkPtr> & allPaths)
 {
   queue<LinkPtr> q;
@@ -228,7 +226,7 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
       ASSERT(currentEdge.HasRealPart(), ());
 
-      if (!PassesRestriction(e, frc, kFRCThreshold, m_infoGetter))
+      if (!PassesRestriction(e, frc, fow, 1 /* kFRCThreshold */, m_infoGetter))
         continue;
 
       // TODO(mgsergio): Should we check form of way as well?
@@ -343,7 +341,8 @@ void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint cons
   auto const startPoint = MercatorBounds::FromLatLon(p.m_latLon);
 
   vector<LinkPtr> allPaths;
-  GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, allPaths);
+  GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,
+                      allPaths);
   GetBestCandidatePaths(allPaths, isLastPoint, p.m_bearing, bearDistM, startPoint, candidates);
   LOG(LDEBUG, (candidates.size(), "candidate paths found for point (LatLon)", p.m_latLon));
 }

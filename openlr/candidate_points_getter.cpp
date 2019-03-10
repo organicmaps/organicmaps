@@ -34,7 +34,7 @@ void CandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p,
 
   // TODO: Move this to a separate stage.
   // 1030292476 Does not match. Some problem occur with points.
-  // Either points duplicatate or something alike. Check this
+  // Either points duplicate or something alike. Check this
   // later. The idea to fix this was to move SortUnique to the stage
   // after enriching with projections.
 

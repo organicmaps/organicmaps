@@ -310,7 +310,7 @@ public:
       return false;
 
     vector<Graph::EdgeVector> resultPath;
-    PathsConnector connector(kPathLengthTolerance, m_graph, stat);
+    PathsConnector connector(kPathLengthTolerance, m_graph, m_infoGetter, stat);
     if (!connector.ConnectCandidates(points, lineCandidates, resultPath))
       return false;
 

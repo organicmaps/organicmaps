@@ -471,7 +471,7 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
     GetIngoingEdges(u.m_junction, edges);
   for (auto const & edge : edges)
   {
-    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
+    if (!ConformLfrcnp(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }
@@ -531,7 +531,7 @@ void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass con
     auto const & edge = p.first;
     if (edge.IsFake())
       continue;
-    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
+    if (!ConformLfrcnp(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }
