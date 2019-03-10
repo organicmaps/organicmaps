@@ -226,7 +226,7 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
       ASSERT(currentEdge.HasRealPart(), ());
 
-      if (!PassesRestriction(e, frc, fow, 1 /* kFRCThreshold */, m_infoGetter))
+      if (!PassesRestriction(e, frc, fow, 2 /* kFRCThreshold */, m_infoGetter))
         continue;
 
       // TODO(mgsergio): Should we check form of way as well?
