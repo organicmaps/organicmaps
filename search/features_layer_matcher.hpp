@@ -341,24 +341,21 @@ private:
         if (!loaded && !GetByIndex(houseId, feature))
           continue;
 
-        if (GetMatchingStreet(houseId, feature) == streetId)
+        if (GetMatchingStreet(feature) == streetId)
           fn(houseId, streetId);
       }
     }
   }
 
-  // Returns id of a street feature corresponding to a |houseId|, or
+  // Returns id of a street feature corresponding to a |houseId|/|houseFeature|, or
   // kInvalidId if there're not such street.
   uint32_t GetMatchingStreet(uint32_t houseId);
-  uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
-  uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
+  uint32_t GetMatchingStreet(FeatureType & houseFeature);
 
   using Street = ReverseGeocoder::Street;
   using Streets = std::vector<Street>;
 
-  Streets const & GetNearbyStreets(uint32_t featureId);
-  Streets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
-  Streets const & GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature);
+  Streets const & GetNearbyStreets(FeatureType & feature);
 
   inline bool GetByIndex(uint32_t id, FeatureType & ft) const
   {

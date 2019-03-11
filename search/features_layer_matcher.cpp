@@ -53,38 +53,24 @@ void FeaturesLayerMatcher::OnQueryFinished()
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
 {
-  FeatureType feature;
-  return GetMatchingStreetImpl(houseId, feature);
-}
-
-uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature)
-{
-  return GetMatchingStreetImpl(houseId, houseFeature);
-}
-
-FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
-{
-  FeatureType feature;
-  return GetNearbyStreetsImpl(featureId, feature);
-}
-
-FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId,
-                                                                             FeatureType & feature)
-{
-  return GetNearbyStreetsImpl(featureId, feature);
-}
-
-FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreetsImpl(
-    uint32_t featureId, FeatureType & feature)
-{
-  static FeaturesLayerMatcher::Streets const kEmptyStreets;
-
-  auto entry = m_nearbyStreetsCache.Get(featureId);
+  auto entry = m_matchingStreetsCache.Get(houseId);
   if (!entry.second)
     return entry.first;
 
-  if (!feature.GetID().IsValid() && !GetByIndex(featureId, feature))
-    return kEmptyStreets;
+  FeatureType feature;
+  if (!GetByIndex(houseId, feature))
+    return kInvalidId;
+
+  return GetMatchingStreet(feature);
+}
+
+FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(FeatureType & feature)
+{
+  static FeaturesLayerMatcher::Streets const kEmptyStreets;
+
+  auto entry = m_nearbyStreetsCache.Get(feature.GetID().m_index);
+  if (!entry.second)
+    return entry.first;
 
   auto & streets = entry.first;
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
@@ -92,7 +78,7 @@ FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreetsImpl
   return streets;
 }
 
-uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)
+uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
 {
   // Check if this feature is modified - the logic will be different.
   string streetName;
@@ -100,13 +86,9 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
       osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
 
   // Check the cached result value.
-  auto entry = m_matchingStreetsCache.Get(houseId);
+  auto entry = m_matchingStreetsCache.Get(houseFeature.GetID().m_index);
   if (!edited && !entry.second)
     return entry.first;
-
-  // Load feature if needed.
-  if (!houseFeature.GetID().IsValid() && !GetByIndex(houseId, houseFeature))
-    return kInvalidId;
 
   uint32_t & result = entry.first;
   result = kInvalidId;
@@ -119,7 +101,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
   }
 
   // Get nearby streets and calculate the resulting index.
-  auto const & streets = GetNearbyStreets(houseId, houseFeature);
+  auto const & streets = GetNearbyStreets(houseFeature);
 
   if (edited)
   {
