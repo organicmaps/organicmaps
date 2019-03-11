@@ -36,7 +36,7 @@ namespace
     }
 
   public:
-    FeaturesLoader(SourceT const & src) : m_src(src) {}
+    explicit FeaturesLoader(SourceT const & src) : m_src(src) {}
 
     virtual void Do()
     {

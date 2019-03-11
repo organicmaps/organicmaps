@@ -155,7 +155,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   {
     int64_t m_pos;
   public:
-    ThreadByPos(int64_t pos) : m_pos(pos) {}
+    explicit ThreadByPos(int64_t pos) : m_pos(pos) {}
     inline bool operator() (ThreadHandleT const & p) const
     {
       return (p.second == m_pos);

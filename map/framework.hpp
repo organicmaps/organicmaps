@@ -265,7 +265,7 @@ protected:
   void InitTransliteration();
 
 public:
-  Framework(FrameworkParams const & params = {});
+  explicit Framework(FrameworkParams const & params = {});
   virtual ~Framework();
 
   /// Get access to booking api helpers

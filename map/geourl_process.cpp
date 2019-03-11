@@ -111,7 +111,7 @@ namespace url_scheme
     };
 
   public:
-    LatLonParser(Info & info)
+    explicit LatLonParser(Info & info)
       : m_regexp("-?\\d+\\.{1}\\d*, *-?\\d+\\.{1}\\d*")
       , m_info(info)
       , m_latPriority(-1)

@@ -119,7 +119,7 @@ class CPUDrawer::CPUOverlayTree
     bool m_isIntersect;
 
   public:
-    DoPreciseIntersect(CPUDrawer::OverlayWrapper const * oe)
+    explicit DoPreciseIntersect(CPUDrawer::OverlayWrapper const * oe)
       : m_elem(oe), m_isIntersect(false)
     {
     }

@@ -51,7 +51,7 @@ namespace stats
     MapInfo & m_info;
 
   public:
-    AccumulateStatistic(MapInfo & info) : m_info(info) {}
+    explicit AccumulateStatistic(MapInfo & info) : m_info(info) {}
 
     void operator() (FeatureType & f, uint32_t)
     {

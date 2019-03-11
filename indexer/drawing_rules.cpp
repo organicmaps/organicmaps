@@ -217,7 +217,7 @@ namespace
     {
       LineDefProto m_line;
     public:
-      Line(LineRuleProto const & r)
+      explicit Line(LineRuleProto const & r)
       {
         m_line.set_color(r.color());
         m_line.set_width(r.width());
@@ -236,7 +236,7 @@ namespace
     {
       AreaRuleProto m_area;
     public:
-      Area(AreaRuleProto const & r) : m_area(r) {}
+      explicit Area(AreaRuleProto const & r) : m_area(r) {}
 
       virtual AreaRuleProto const * GetArea() const { return &m_area; }
     };
@@ -245,7 +245,7 @@ namespace
     {
       SymbolRuleProto m_symbol;
     public:
-      Symbol(SymbolRuleProto const & r) : m_symbol(r)
+      explicit Symbol(SymbolRuleProto const & r) : m_symbol(r)
       {
         SetType(r.apply_for_type());
       }
@@ -261,9 +261,8 @@ namespace
       text_type_t m_textTypeSecondary;
 
     public:
-      CaptionT(T const & r) : m_caption(r)
-        , m_textTypePrimary(text_type_name)
-        , m_textTypeSecondary(text_type_name)
+      explicit CaptionT(T const & r)
+        : m_caption(r), m_textTypePrimary(text_type_name), m_textTypeSecondary(text_type_name)
       {
         if (!m_caption.primary().text().empty())
           m_textTypePrimary = GetTextType(m_caption.primary().text());
@@ -305,7 +304,7 @@ namespace
     {
       ShieldRuleProto m_shield;
     public:
-      Shield(ShieldRuleProto const & r) : m_shield(r) {}
+      explicit Shield(ShieldRuleProto const & r) : m_shield(r) {}
 
       virtual ShieldRuleProto const * GetShield() const { return &m_shield; }
     };
@@ -408,7 +407,7 @@ namespace
     }
 
   public:
-    DoSetIndex(RulesHolder & holder)
+    explicit DoSetIndex(RulesHolder & holder)
       : m_holder(holder) {}
 
     void operator() (ClassifObject * p)

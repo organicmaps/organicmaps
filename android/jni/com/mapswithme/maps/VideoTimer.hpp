@@ -13,7 +13,7 @@ namespace android
 
   public:
 
-    VideoTimer(TFrameFn frameFn);
+    explicit VideoTimer(TFrameFn frameFn);
     ~VideoTimer();
 
     void SetParentObject(jobject videoTimer);

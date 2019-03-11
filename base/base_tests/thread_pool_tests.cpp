@@ -92,7 +92,7 @@ namespace
   class CancelTestTask : public threads::IRoutine
   {
   public:
-    CancelTestTask(bool isWaitDoCall)
+    explicit CancelTestTask(bool isWaitDoCall)
       : m_waitDoCall(isWaitDoCall)
       , m_doCalled(false)
     {

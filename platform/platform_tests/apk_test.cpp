@@ -41,9 +41,8 @@ namespace
     string const & m_cont;
 
   public:
-    ApkTester(string const & cont) : m_cont(cont)
+    explicit ApkTester(string const & cont) : m_cont(cont), m_hashes(COUNT)
     {
-      m_hashes.resize(COUNT);
     }
 
     virtual void Do()

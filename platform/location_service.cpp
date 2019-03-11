@@ -71,7 +71,7 @@ namespace location
     }
 
   public:
-    DesktopLocationService(LocationObserver & observer)
+    explicit DesktopLocationService(LocationObserver & observer)
       : LocationService(observer), m_reportFirstEvent(true)
     {
 #if defined(OMIM_OS_MAC)

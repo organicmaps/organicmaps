@@ -14,7 +14,7 @@ namespace
   {
     size_t & m_count;
   public:
-    DoDump(size_t & count) : m_count(count)
+    explicit DoDump(size_t & count) : m_count(count)
     {
       m_count = 0;
     }

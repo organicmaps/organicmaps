@@ -32,7 +32,7 @@ namespace
   {
     Classificator const & m_c;
   public:
-    DoCheckConsistency(Classificator const & c) : m_c(c) {}
+    explicit DoCheckConsistency(Classificator const & c) : m_c(c) {}
     void operator() (ClassifObject const * p, uint32_t type) const
     {
       if (p->IsDrawableAny() && !m_c.IsTypeValid(type))

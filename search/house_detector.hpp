@@ -75,7 +75,7 @@ struct HouseProjection : public ProjectionOnStreet
   class EqualHouse
   {
   public:
-    EqualHouse(House const * h) : m_house(h) {}
+    explicit EqualHouse(House const * h) : m_house(h) {}
     bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
 
   private:

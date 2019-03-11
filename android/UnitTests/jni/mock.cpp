@@ -76,7 +76,7 @@ namespace android_tests
     JavaVM * m_Vm;
     JNIEnv * m_Env;
   public:
-    MainThreadScopeGuard(JavaVM * vm) : m_Vm(vm), m_Env(nullptr) 
+    explicit MainThreadScopeGuard(JavaVM * vm) : m_Vm(vm), m_Env(nullptr)
     { 
       assert(vm);
       m_Vm->AttachCurrentThread(&m_Env, NULL); 

@@ -95,7 +95,7 @@ namespace location
     }
 
   public:
-    WiFiLocationService(LocationObserver & observer) : LocationService(observer)
+    explicit WiFiLocationService(LocationObserver & observer) : LocationService(observer)
     {
     }
 

@@ -128,7 +128,7 @@ public:
     unsigned int charcode;
 
     symbol_holder() : advance(0), angle(0.0), charcode(0) {}
-    symbol_holder(unsigned int code) : advance(0), angle(0.0), charcode(code) {}
+    explicit symbol_holder(unsigned int code) : advance(0), angle(0.0), charcode(code) {}
     ml::rect_d const & bounds() const { return m_bounds; }
   };
 

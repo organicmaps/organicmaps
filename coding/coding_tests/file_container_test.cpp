@@ -240,7 +240,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
   class HandleWrapper
   {
   public:
-    HandleWrapper(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
+    explicit HandleWrapper(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
     {
       TEST(m_handle.IsValid(), ());
     }

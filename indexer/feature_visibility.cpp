@@ -136,7 +136,7 @@ namespace
     int m_scale;
 
   public:
-    IsDrawableChecker(int scale) : m_scale(scale) {}
+    explicit IsDrawableChecker(int scale) : m_scale(scale) {}
 
     typedef bool ResultType;
 

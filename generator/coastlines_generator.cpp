@@ -103,7 +103,7 @@ namespace
     size_t m_totalNotMergedCoastsPoints;
 
   public:
-    DoAddToTree(CoastlineFeaturesGenerator & rMain)
+    explicit DoAddToTree(CoastlineFeaturesGenerator & rMain)
       : m_rMain(rMain), m_notMergedCoastsCount(0), m_totalNotMergedCoastsPoints(0) {}
 
     virtual void operator() (FeatureBuilder1 const & fb)

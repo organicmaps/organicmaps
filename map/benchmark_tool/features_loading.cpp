@@ -28,7 +28,7 @@ namespace
     int m_scale;
 
   public:
-    Accumulator(Result & res) : m_res(res) {}
+    explicit Accumulator(Result & res) : m_res(res) {}
 
     void Reset(int scale)
     {
