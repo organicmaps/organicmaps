@@ -44,7 +44,7 @@ Debugging may not work in Qt Creator. To enable it, try creating a Build & Run k
 preferences with XCode's lldb as a debugger and a clang compiler.
 
 At the moment configuration assumes you've cloned repository into omim (also a default name) directory.
-If you are using shadow-dir for building artifacts (default behavior) and custom directory for repo - 
+If you are using shadow-dir for building artifacts (default behavior) and custom directory for repo -
 you'll need to create a "data" symlink in the shadow-dir path to the /repo/data directory.
 
 ### XCode
@@ -72,25 +72,26 @@ sign for Google or Facebook open-source projects.
 
 ### Core
 
-* `anim` - core animation controller.
 * `api` - external API of the application.
 * `base` - some base things, like macros, logging, caches etc.
 * `coding` - I/O classes and data processing.
 * `drape` - the new graphics library core.
 * `drape_frontend` - scene and resource manager for the Drape library.
-* `drape_head` - an application that uses the Drape library.
 * `generator` - map building tool.
+* `geocoder` -
 * `geometry` - geometry primitives we use.
-* `graphics` - the current graphics library's core
-* `gui` - right, the GUI.
 * `indexer` - processor for map files, classificator, styles.
 * `map` - app business logic, including a scene manager.
 * `platform` - platform abstraction classes: file paths, http requests, location services.
 * `routing` - in-app routing engine.
+* `routing_common` -
 * `search` - ranking and searching classes.
-* `sound` - text-to-speech functions.
 * `std` - standard headers wrappers, for Boost, STL, C-rt.
 * `storage` - map reading function.
+* `tracking` -
+* `traffic` - real-time traffic information.
+* `transit` -
+* `ugc` - user generated content, such as reviews.
 
 ### Other
 
@@ -98,19 +99,32 @@ Some of these contain their own README files.
 
 * `3party` - external libraries, sometimes modified.
 * `android` - Android UI.
+* `cmake` - CMake helper files.
 * `data` - data files for the application: maps, styles, country borders.
 * `debian` - package sources for Debian.
+* `descriptions` -
+* `editor` -
+* `feature_list` -
 * `installer` - long-abandoned installer for Windows.
-* `integration_tests` - routing tests for map files.
 * `iphone` - iOS UI.
-* `pedestrian_routing_benchmarks` - said benchmarks.
+* `kml` - manipulation of KML files.
+* `local_ads` -
+* `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
+* `metrics` -
+* `openlr` -
+* `partners_api` - API for partners of the MAPS.ME project.
+* `pyhelpers` -
 * `qt` - desktop application.
 * `qt_tstfrm` - widgets for visual testing.
+* `shaders` - shaders for rendering.
 * `skin_generator` - a console app for building skin files with icons and symbols.
+* `software_renderer` -
 * `stats` - Alohalytics statistics.
 * `testing` - common interfaces for tests.
 * `tizen` - Tizen application.
 * `tools` - tools for building packages and maps, for testing etc.
+* `track_analyzing` -
+* `track_generator` - Generate smooth tracks based on waypoints from KML.
 * `xcode` - XCode workspace.
 
 ## Questions?
