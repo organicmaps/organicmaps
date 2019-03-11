@@ -177,7 +177,14 @@ bool VulkanBaseContext::BeginRendering()
   if (!m_presentAvailable)
     return false;
 
-  auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE, UINT64_MAX);
+  // We wait for the fences no longer than kTimeoutNanoseconds. If timer is expired skip
+  // the frame. It helps to prevent freeze on vkWaitForFences in the case of resetting surface.
+  uint64_t constexpr kTimeoutNanoseconds = 2 * 1000 * 1000 * 1000;
+  auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE,
+                             kTimeoutNanoseconds);
+  if (res == VK_TIMEOUT)
+    return false;
+
   if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
     CHECK_RESULT_VK_CALL(vkWaitForFences, res);
 
@@ -199,9 +206,20 @@ bool VulkanBaseContext::BeginRendering()
   }
 
   m_frameCounter++;
-  
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_acquireSemaphores[m_inflightFrameIndex],
+
+  // Here we also wait no longer than kTimeoutNanoseconds. In this case we have to
+  // recreate synchronization primitives, because one of fences can be reset.
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, kTimeoutNanoseconds,
+                              m_acquireSemaphores[m_inflightFrameIndex],
                               VK_NULL_HANDLE, &m_imageIndex);
+  if (res == VK_TIMEOUT)
+  {
+    vkDeviceWaitIdle(m_device);
+    DestroySyncPrimitives();
+    CreateSyncPrimitives();
+    return false;
+  }
+
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
     RecreateSwapchainAndDependencies();
