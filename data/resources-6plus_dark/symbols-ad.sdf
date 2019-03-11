@@ -23,7 +23,7 @@
   <symbol minX="110" maxX="220" minY="105" maxY="210" name="local_ads-search-result-shop-clothes"/>
   <symbol minX="220" maxX="330" minY="105" maxY="210" name="local_ads-search-result-shop-butcher"/>
   <symbol minX="330" maxX="440" minY="105" maxY="210" name="local_ads-search-result-shop-alcohol"/>
-  <symbol minX="440" maxX="550" minY="105" maxY="210" name="local_ads-search-result-restraunt"/>
+  <symbol minX="440" maxX="550" minY="105" maxY="210" name="local_ads-search-result-restaurant"/>
   <symbol minX="550" maxX="660" minY="105" maxY="210" name="local_ads-search-result-pub"/>
   <symbol minX="660" maxX="770" minY="105" maxY="210" name="local_ads-search-result-playground"/>
   <symbol minX="770" maxX="880" minY="105" maxY="210" name="local_ads-search-result-nightclub"/>
