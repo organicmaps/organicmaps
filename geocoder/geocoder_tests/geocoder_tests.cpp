@@ -135,11 +135,11 @@ UNIT_TEST(Geocoder_MismatchedLocality)
 10 {"properties": {"address": {"locality": "Moscow"}}}
 11 {"properties": {"address": {"locality": "Paris"}}}
 
-21 {"properties": {"address": {"street": "Street", "locality": "Moscow"}}}
-22 {"properties": {"address": {"building": "2", "street": "Street", "locality": "Moscow"}}}
+21 {"properties": {"address": {"street": "Krymskaya", "locality": "Moscow"}}}
+22 {"properties": {"address": {"building": "2", "street": "Krymskaya", "locality": "Moscow"}}}
 
-31 {"properties": {"address": {"street": "Street", "locality": "Paris"}}}
-32 {"properties": {"address": {"building": "3", "street": "Street", "locality": "Paris"}}}
+31 {"properties": {"address": {"street": "Krymskaya", "locality": "Paris"}}}
+32 {"properties": {"address": {"building": "3", "street": "Krymskaya", "locality": "Paris"}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
@@ -147,10 +147,10 @@ UNIT_TEST(Geocoder_MismatchedLocality)
 
   base::GeoObjectId const building2(22);
 
-  TestGeocoder(geocoder, "Moscow Street 2", {{building2, 1.0}});
+  TestGeocoder(geocoder, "Moscow Krymskaya 2", {{building2, 1.0}});
 
-  // "Street 3" looks almost like a match to "Paris-Street-3" but we should not emit it.
-  TestGeocoder(geocoder, "Moscow Street 3", {});
+  // "Krymskaya 3" looks almost like a match to "Paris-Krymskaya-3" but we should not emit it.
+  TestGeocoder(geocoder, "Moscow Krymskaya 3", {});
 }
 
 UNIT_TEST(Geocoder_LocalityBuilding)
@@ -160,8 +160,8 @@ UNIT_TEST(Geocoder_LocalityBuilding)
 
 22 {"properties": {"address": {"building": "2", "locality": "Zelenograd"}}}
 
-31 {"properties": {"address": {"street": "Street", "locality": "Zelenograd"}}}
-32 {"properties": {"address": {"building": "2", "street": "Street", "locality": "Zelenograd"}}}
+31 {"properties": {"address": {"street": "Krymskaya", "locality": "Zelenograd"}}}
+32 {"properties": {"address": {"building": "2", "street": "Krymskaya", "locality": "Zelenograd"}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
