@@ -186,7 +186,7 @@ private:
       }
       restriction.m_featureIds[0] =
           prevFirstLinkFeatureId + base::checked_cast<uint32_t>(biasedFirstFeatureId) - 1;
-      for (size_t i = 1; i < numLinks; ++i)
+      for (size_t j = 1; j < numLinks; ++j)
       {
         auto const biasedDelta = coding::DeltaCoder::Decode(bits);
         if (biasedDelta == 0)
@@ -196,8 +196,8 @@ private:
         }
 
         uint32_t const delta = base::asserted_cast<uint32_t>(biasedDelta - 1);
-        restriction.m_featureIds[i] =
-            static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction.m_featureIds[i - 1]);
+        restriction.m_featureIds[j] =
+            static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction.m_featureIds[j - 1]);
       }
 
       prevFirstLinkFeatureId = restriction.m_featureIds[0];
