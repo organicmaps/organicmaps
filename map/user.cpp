@@ -271,7 +271,16 @@ void User::ResetAccessToken()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_accessToken.clear();
-  GetPlatform().GetSecureStorage().Remove(kMapsMeTokenKey);
+  m_userName.clear();
+  m_userId.clear();
+  m_details = {};
+
+  // Reset all user-bound keys.
+  std::vector<std::string> const kKeysToRemove = {{kMapsMeTokenKey, kReviewIdsKey,
+                                                   kUserNameKey, kUserIdKey}};
+  for (auto const & k : kKeysToRemove)
+    GetPlatform().GetSecureStorage().Remove(k);
+
   NotifySubscribersImpl();
 }
 

@@ -99,10 +99,11 @@ private:
   std::string m_accessToken;
   std::string m_userName;
   std::string m_userId;
-  mutable std::mutex m_mutex;
   bool m_authenticationInProgress = false;
   Details m_details;
   std::vector<std::unique_ptr<Subscriber>> m_subscribers;
+
+  mutable std::mutex m_mutex;
 };
 
 namespace lightweight
