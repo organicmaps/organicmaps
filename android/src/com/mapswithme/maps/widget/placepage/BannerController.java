@@ -40,7 +40,7 @@ import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
 
 
-final class BannerController
+final class BannerController implements PlacePageStateObserver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE
       .getLogger(LoggerFactory.Type.MISC);
@@ -100,8 +100,8 @@ final class BannerController
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mAdsRemovalButton;
-
-  private boolean mOpened = false;
+  @Nullable
+  private BannerState mState;
   private boolean mError = false;
   @Nullable
   private NativeAdWrapper mCurrentAd;
@@ -116,14 +116,14 @@ final class BannerController
   private int mClosedHeight;
   private int mOpenedHeight;
   @NonNull
-  private final BannerDetailsRequester mBannerDetailsRequester;
+  private final BannerStateRequester mBannerStateRequester;
   @NonNull
   private final BannerStateListener mBannerStateListener;
 
   BannerController(@NonNull ViewGroup bannerContainer, @NonNull CompoundNativeAdLoader loader,
                    @Nullable AdTracker tracker,
                    @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider,
-                   @NonNull BannerDetailsRequester bannerDetailsRequester,
+                   @NonNull BannerStateRequester bannerStateRequester,
                    @NonNull BannerStateListener bannerStateListener)
   {
     LOGGER.d(TAG, "Constructor()");
@@ -133,7 +133,7 @@ final class BannerController
     mAdsLoader = loader;
     mAdTracker = tracker;
     mAdsRemovalProvider = adsRemovalProvider;
-    mBannerDetailsRequester = bannerDetailsRequester;
+    mBannerStateRequester = bannerStateRequester;
     mBannerStateListener = bannerStateListener;
     initBannerViews();
   }
@@ -181,7 +181,8 @@ final class BannerController
   {
     boolean isCross = clickedView.getId() == R.id.remove_btn;
     @Statistics.BannerState
-    int state = mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW;
+    int state = isDetailsState(mState) ? PP_BANNER_STATE_DETAILS
+                                       : PP_BANNER_STATE_PREVIEW;
     Statistics.INSTANCE.trackPPBannerClose(state, isCross);
     FragmentActivity activity = (FragmentActivity) mBannerView.getContext();
     AdsRemovalPurchaseDialog.show(activity);
@@ -215,7 +216,7 @@ final class BannerController
     UiUtils.showIf(showRemovalButtons, mAdsRemovalIcon, mAdsRemovalButton);
     UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge,
                  mAdsRemovalButton, mAdChoicesLabel);
-    if (mOpened)
+    if (isDetailsState(mState))
       UiUtils.hide(mActionSmall);
     else
       UiUtils.hide(mActionContainer, mActionLarge, mAdsRemovalButton, mIcon);
@@ -258,7 +259,7 @@ final class BannerController
 
   void open()
   {
-    if (!isBannerContainerVisible() || mBanners == null || mOpened)
+    if (!isBannerContainerVisible() || mBanners == null || isDetailsState(mState))
       return;
 
     setOpenedStateInternal();
@@ -308,8 +309,6 @@ final class BannerController
 
   private void measureBannerSizes()
   {
-    boolean currentState = mOpened;
-
     DisplayMetrics dm = mContainerView.getResources().getDisplayMetrics();
     final float screenWidth = dm.widthPixels;
 
@@ -325,13 +324,11 @@ final class BannerController
     mBannerView.measure(widthMeasureSpec, heightMeasureSpec);
     mOpenedHeight = mBannerView.getMeasuredHeight();
     LOGGER.d(TAG, "Banner open height = " + mOpenedHeight);
-
-    mOpened = currentState;
   }
 
   private void setOpenedStateInternal()
   {
-    mOpened = true;
+    mState = BannerState.DETAILS;
     mMessage.setMaxLines(MAX_MESSAGE_LINES);
     mTitle.setMaxLines(MAX_TITLE_LINES);
     updateVisibility();
@@ -339,7 +336,7 @@ final class BannerController
 
   private void setClosedStateInternal()
   {
-    mOpened = false;
+    mState = BannerState.PREVIEW;
     UiUtils.hide(mIcon);
     mMessage.setMaxLines(MIN_MESSAGE_LINES);
     mTitle.setMaxLines(MIN_TITLE_LINES);
@@ -390,9 +387,8 @@ final class BannerController
 
   private void animateActionButton()
   {
-    View view = mOpened ? mActionLarge : mActionSmall;
     ObjectAnimator animator;
-    if (mOpened)
+    if (isDetailsState(mState))
     {
       Context context = mBannerView.getContext();
       Resources res = context.getResources();
@@ -400,15 +396,25 @@ final class BannerController
                                                 : res.getColor(R.color.black_12);
       int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.white_24)
                                               : res.getColor(R.color.black_24);
-      animator = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(),
+      animator = ObjectAnimator.ofObject(mActionLarge, "backgroundColor", new ArgbEvaluator(),
                                          colorFrom, colorTo, colorFrom);
     }
     else
     {
-      animator = ObjectAnimator.ofFloat(view, "alpha", 0.3f, 1f);
+      animator = ObjectAnimator.ofFloat(mActionSmall, "alpha", 0.3f, 1f);
     }
     animator.setDuration(300);
     animator.start();
+  }
+
+  private static boolean isDetailsState(@Nullable BannerState state)
+  {
+    return state == BannerState.DETAILS;
+  }
+
+  private static boolean isPreviewState(@Nullable BannerState state)
+  {
+    return state == BannerState.PREVIEW;
   }
 
   boolean hasAd()
@@ -421,18 +427,28 @@ final class BannerController
     return mClosedHeight;
   }
 
-  private void setBannerState()
+  private void setBannerState(@Nullable BannerState state)
   {
     if (mCurrentAd == null)
       throw new AssertionError("Current ad must be non-null at this point!");
 
-    if (mBannerDetailsRequester.shouldShowBannerDetails())
+    if (state == null)
+    {
+      LOGGER.d(TAG, "Banner state not determined yet, discard banner size");
+      setBannerInitialHeight(0);
+      mState = null;
+      return;
+    }
+
+    if (isDetailsState(state))
     {
       open();
       loadIcon(mCurrentAd);
       setBannerInitialHeight(mOpenedHeight);
+      return;
     }
-    else
+
+    if (isPreviewState(state))
     {
       close();
       setBannerInitialHeight(mClosedHeight);
@@ -447,6 +463,16 @@ final class BannerController
     ViewGroup.LayoutParams lp = banner.getLayoutParams();
     lp.height = height;
     banner.setLayoutParams(lp);
+  }
+
+  @Override
+  public void onPlacePageStateChanged()
+  {
+    if (mCurrentAd == null)
+      return;
+
+    BannerState newState =  mBannerStateRequester.requestBannerState();
+    setBannerState(newState);
   }
 
   private class MyNativeAdsListener implements NativeAdListener
@@ -475,7 +501,8 @@ final class BannerController
 
       fillViews(ad);
       measureBannerSizes();
-      setBannerState();
+      BannerState state = mBannerStateRequester.requestBannerState();
+      setBannerState(state);
       ad.registerView(mBannerView);
 
       if (mAdTracker != null)
@@ -486,7 +513,8 @@ final class BannerController
     }
 
     @Override
-    public void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error)
+    public void onError(@NonNull String bannerId, @NonNull String provider,
+                        @NonNull NativeAdError error)
     {
       if (mBanners == null)
         return;
@@ -495,20 +523,29 @@ final class BannerController
       setErrorStatus(isNotCached);
       UiUtils.hide(mContainerView);
 
-      Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
+      Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error,
+                                             isDetailsState(mState) ? 1 : 0);
     }
 
     @Override
     public void onClick(@NonNull MwmNativeAd ad)
     {
       Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
-                                        mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
+                                        isDetailsState(mState) ? PP_BANNER_STATE_DETAILS
+                                                               : PP_BANNER_STATE_PREVIEW);
     }
   }
 
-  interface BannerDetailsRequester
+  interface BannerStateRequester
   {
-    boolean shouldShowBannerDetails();
+    @Nullable
+    BannerState requestBannerState();
+  }
+
+  enum BannerState
+  {
+    PREVIEW,
+    DETAILS
   }
 
   interface BannerStateListener

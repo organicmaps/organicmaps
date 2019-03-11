@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -39,7 +40,7 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
                                                        View.OnLayoutChangeListener,
-                                                       BannerController.BannerDetailsRequester,
+                                                       BannerController.BannerStateRequester,
                                                        BannerController.BannerStateListener,
                                                        PlacePageButtonsListener,
                                                        Closable
@@ -112,10 +113,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       if (isAnchoredState(newState) || isExpandedState(newState))
       {
+        mBannerController.onPlacePageStateChanged();
         mPlacePageTracker.onDetails();
         return;
       }
 
+      mBannerController.onPlacePageStateChanged();
       setPeekHeight();
     }
 
@@ -136,7 +139,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
   private void onHiddenInternal()
   {
-    mBannerRatio = 0;
     Framework.nativeDeactivatePopup();
     updateViewPortRect();
     UiUtils.invisible(mButtonsLayout);
@@ -272,6 +274,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       if (isSameObject && !isHiddenState(state))
         return;
 
+      mBannerRatio = 0;
       mPlacePage.resetScroll();
       mPlacePage.resetWebView();
 
@@ -514,10 +517,10 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                                      @AnchorBottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
+      setPlacePageAnchor();
       mPlacePageBehavior.setState(state);
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
-      setPlacePageAnchor();
       showBanner(object, policy);
       setPullDrawable();
     });
@@ -595,12 +598,19 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     return state == AnchorBottomSheetBehavior.STATE_HIDDEN;
   }
 
+  @Nullable
   @Override
-  public boolean shouldShowBannerDetails()
+  public BannerController.BannerState requestBannerState()
   {
     @AnchorBottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    return isAnchoredState(state) || isExpandedState(state);
+    if (isSettlingState(state) || isDraggingState(state) || isHiddenState(state))
+      return null;
+
+    if (isAnchoredState(state) || isExpandedState(state))
+      return BannerController.BannerState.DETAILS;
+
+    return BannerController.BannerState.PREVIEW;
   }
 
   @Override
