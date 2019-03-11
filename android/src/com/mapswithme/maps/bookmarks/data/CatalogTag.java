@@ -72,7 +72,7 @@ public class CatalogTag implements Parcelable
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CatalogTag that = (CatalogTag) o;
-    return mId.equals(that.mId) || mId.equals(that.mId);
+    return mId.equals(that.mId);
   }
 
   @Override
