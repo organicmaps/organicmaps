@@ -112,18 +112,19 @@ class BottomPanel
 
   public void update()
   {
+    // DownloaderAdapter getAdapter is nonNull.
     DownloaderAdapter adapter = mFragment.getAdapter();
-    boolean search = adapter != null && adapter.isSearchResultsMode();
+    boolean search = adapter.isSearchResultsMode();
 
     boolean show = !search;
-    UiUtils.showIf(show && adapter != null && adapter.isMyMapsMode(), mFab);
+    UiUtils.showIf(show && adapter.isMyMapsMode(), mFab);
 
     if (show)
     {
-      String root = adapter != null ? adapter.getCurrentRootId() : "";
-      if (adapter != null && adapter.isMyMapsMode())
+      String root = adapter.getCurrentRootId();
+      int status = MapManager.nativeGetStatus(root);
+      if (adapter.isMyMapsMode())
       {
-        int status = MapManager.nativeGetStatus(root);
         switch (status)
         {
         case CountryItem.STATUS_UPDATABLE:
@@ -156,7 +157,6 @@ class BottomPanel
         show = !CountryItem.isRoot(root);
         if (show)
         {
-          int status = MapManager.nativeGetStatus(root);
           switch (status)
           {
           case CountryItem.STATUS_UPDATABLE:
