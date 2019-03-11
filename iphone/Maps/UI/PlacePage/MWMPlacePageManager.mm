@@ -462,6 +462,20 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.layout reloadBookmarkSection:NO];
 }
 
+- (void)call
+{
+  MWMPlacePageData *data = self.data;
+  if (!data) return;
+  NSString *filteredDigits = [[data.phoneNumber componentsSeparatedByCharactersInSet:
+                               [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                              componentsJoinedByString:@""];
+  NSString *resultNumber = [data.phoneNumber hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
+  NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+  if ([UIApplication.sharedApplication canOpenURL:phoneURL]) {
+    [UIApplication.sharedApplication openURL:phoneURL options:@{} completionHandler:nil];
+  }
+}
+
 - (void)editBookmark
 {
   auto data = self.data;
