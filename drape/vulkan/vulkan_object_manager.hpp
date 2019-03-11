@@ -73,7 +73,7 @@ public:
 
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
                             uint32_t sizeInBytes, uint64_t batcherHash);
-  VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
+  VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);
 

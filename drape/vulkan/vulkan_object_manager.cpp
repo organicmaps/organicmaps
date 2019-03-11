@@ -130,7 +130,7 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   return result;
 }
 
-VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFormat format,
+VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
                                               VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height)
 {
   VulkanObject result;
@@ -142,7 +142,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   imageCreateInfo.mipLevels = 1;
   imageCreateInfo.arrayLayers = 1;
   imageCreateInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-  imageCreateInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+  imageCreateInfo.tiling = tiling;
   imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
   imageCreateInfo.extent = { width, height, 1 };

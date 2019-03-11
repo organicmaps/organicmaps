@@ -113,9 +113,12 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   }
 
   auto const format = VulkanFormatUnpacker::Unpack(params.m_format);
+
   VkFormatProperties formatProperties;
   vkGetPhysicalDeviceFormatProperties(vulkanContext->GetPhysicalDevice(), format, &formatProperties);
-  CHECK(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, ());
+  VkImageTiling tiling = VK_IMAGE_TILING_LINEAR;
+  if (formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT)
+    tiling = VK_IMAGE_TILING_OPTIMAL;
 
   m_isMutable = params.m_isMutable;
   if (params.m_isRenderTarget)
@@ -127,12 +130,12 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
           params.m_format == TextureFormat::DepthStencil ? (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT)
                                                          : VK_IMAGE_ASPECT_DEPTH_BIT;
       m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                                                     format, aspect, params.m_width, params.m_height);
+                                                     format, tiling, aspect, params.m_width, params.m_height);
     }
     else
     {
       m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-                                                     format, VK_IMAGE_ASPECT_COLOR_BIT,
+                                                     format, tiling, VK_IMAGE_ASPECT_COLOR_BIT,
                                                      params.m_width, params.m_height);
     }
   }
@@ -152,9 +155,8 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
     m_creationStagingBuffer->Flush();
 
     // Create image.
-    m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format,
-                                                   VK_IMAGE_ASPECT_COLOR_BIT,
-                                                   params.m_width, params.m_height);
+    m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format, tiling,
+                                                   VK_IMAGE_ASPECT_COLOR_BIT, params.m_width, params.m_height);
   }
 }
 
