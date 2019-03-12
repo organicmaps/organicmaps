@@ -7,13 +7,16 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
 
-class FeatureType;
+namespace osm
+{
+class MapObject;
+}  // namespace osm
 
 class FeatureInfoDialog : public QDialog
 {
   Q_OBJECT
 public:
-  FeatureInfoDialog(QWidget * parent, FeatureType & ft,
+  FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
                     search::ReverseGeocoder::Address const & address, std::string const & locale);
 
 private:

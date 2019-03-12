@@ -400,7 +400,7 @@ Framework::Framework(FrameworkParams const & params)
   : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1),
                       bind(&Framework::ReadFeatures, this, _1, _2),
-                      bind(&Framework::GetFeatureByID, this, _1))
+                      bind(&Framework::GetMapObjectByID, this, _1))
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
@@ -2219,11 +2219,15 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
   return poi.IsValid() ? poi : (area.IsValid() ? area : line);
 }
 
-std::unique_ptr<FeatureType> Framework::GetFeatureByID(FeatureID const & fid) const
+osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
 {
+  osm::MapObject res;
   ASSERT(fid.IsValid(), ());
   FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
-  return guard.GetFeatureByIndex(fid.m_index);
+  auto ft = guard.GetFeatureByIndex(fid.m_index);
+  if (ft)
+    res.SetFromFeatureType(*ft);
+  return res;
 }
 
 BookmarkManager & Framework::GetBookmarkManager()
@@ -2901,7 +2905,8 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
     {
       FeatureID const & fid = edit.first;
 
-      auto ft = GetFeatureByID(fid);
+      FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+      auto ft = guard.GetFeatureByIndex(fid.m_index);
       if (!ft)
       {
         LOG(LERROR, ("Feature can't be loaded:", fid));
@@ -3098,7 +3103,8 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!fid.IsValid())
     return false;
 
-  auto ft = GetFeatureByID(fid);
+  FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+  auto ft = guard.GetFeatureByIndex(fid.m_index);
   if (!ft)
     return false;
 

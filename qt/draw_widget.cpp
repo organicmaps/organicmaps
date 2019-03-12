@@ -36,18 +36,6 @@
 
 using namespace qt::common;
 
-namespace
-{
-search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
-                                                       FeatureID const & fid)
-{
-  auto ft = framework.GetFeatureByID(fid);
-  if (!ft)
-    return {};
-  return qt::common::GetFeatureAddressInfo(framework, *ft);
-}
-}  // namespace
-
 namespace qt
 {
 DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
@@ -474,9 +462,14 @@ void DrawWidget::ShowPlacePage(place_page::Info const & info)
 {
   search::ReverseGeocoder::Address address;
   if (info.IsFeature())
-    address = GetFeatureAddressInfo(m_framework, info.GetID());
+  {
+    search::ReverseGeocoder const coder(m_framework.GetDataSource());
+    coder.GetExactAddress(info.GetID(), address);
+  }
   else
+  {
     address = m_framework.GetAddressAtPoint(info.GetMercator());
+  }
 
   PlacePageDialog dlg(this, info, address);
   if (dlg.exec() == QDialog::Accepted)

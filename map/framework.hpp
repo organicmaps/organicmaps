@@ -44,6 +44,7 @@
 #include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
+#include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
 #include "indexer/popularity_loader.hpp"
 
@@ -720,7 +721,7 @@ public:
     indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), fn, mercator, 0.0);
   }
 
-  std::unique_ptr<FeatureType> GetFeatureByID(FeatureID const & fid) const;
+  osm::MapObject GetMapObjectByID(FeatureID const & fid) const;
 
   void MemoryWarning();
   void EnterBackground();

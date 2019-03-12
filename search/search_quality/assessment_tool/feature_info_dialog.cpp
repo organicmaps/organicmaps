@@ -1,8 +1,7 @@
 #include "search/search_quality/assessment_tool/feature_info_dialog.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
-#include "indexer/feature_algo.hpp"
+#include "indexer/map_object.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -32,7 +31,7 @@ QLabel * MakeSelectableLabel(string const & s)
 }
 }  // namespace
 
-FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
+FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
                                      search::ReverseGeocoder::Address const & address,
                                      string const & locale)
   : QDialog(parent)
@@ -40,7 +39,7 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
   auto * layout = new QGridLayout();
 
   {
-    auto const & id = ft.GetID();
+    auto const & id = mapObject.GetID();
     CHECK(id.IsValid(), ());
 
     auto * label = new QLabel("id:");
@@ -51,7 +50,7 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
 
   {
     auto * label = new QLabel("lat lon:");
-    auto const ll = MercatorBounds::ToLatLon(feature::GetCenter(ft));
+    auto const ll = mapObject.GetLatLon();
     auto const ss = strings::to_string_dac(ll.lat, 5) + " " + strings::to_string_dac(ll.lon, 5);
     auto * content = MakeSelectableLabel(ss);
 
@@ -70,7 +69,7 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
     for (auto const & code : codes)
     {
       string name;
-      if (!ft.GetName(code, name))
+      if (!mapObject.GetNameMultilang().GetString(code, name))
         continue;
 
       auto const * lang = StringUtf8Multilang::GetLangByCode(code);
@@ -86,7 +85,8 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, FeatureType & ft,
     auto const & c = classif();
 
     vector<string> types;
-    ft.ForEachType([&](uint32_t type) { types.push_back(c.GetReadableObjectName(type)); });
+    for (auto type : mapObject.GetTypes())
+      types.push_back(c.GetReadableObjectName(type));
 
     if (!types.empty())
     {

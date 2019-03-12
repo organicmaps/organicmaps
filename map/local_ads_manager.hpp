@@ -14,6 +14,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_mapping.hpp"
+#include "indexer/map_object.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/location.hpp"
@@ -59,12 +60,12 @@ public:
   using ReadFeatureTypeFn = std::function<void(FeatureType &)>;
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
                                             std::vector<FeatureID> const & features)>;
-  using GetFeatureByIdFn = std::function<std::unique_ptr<FeatureType>(FeatureID const &)>;
+  using GetMapObjectByIdFn = std::function<osm::MapObject(FeatureID const &)>;
   using OnCampaignFeaturesFn = std::function<void(std::vector<FeatureID> const & features)>;
   using Timestamp = local_ads::Timestamp;
 
   LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn, GetMwmIdByNameFn && getMwmIdByName,
-                  ReadFeaturesFn && readFeaturesFn, GetFeatureByIdFn && getFeatureByIDFn);
+                  ReadFeaturesFn && readFeaturesFn, GetMapObjectByIdFn && getMapObjectByIdFn);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
 
   void Startup(BookmarkManager * bmManager, bool isEnabled);
@@ -115,7 +116,7 @@ private:
 
   using CampaignData = std::map<FeatureID, std::shared_ptr<LocalAdsMarkData>>;
   CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
-                             Timestamp timestamp, GetFeatureByIdFn const & getFeatureByIdFn) const;
+                             Timestamp timestamp, GetMapObjectByIdFn const & getMapObjectByIdFn) const;
   FeaturesCache ReadCampaignFeatures(CampaignData & campaignData) const;
 
   void CreateLocalAdsMarks(CampaignData && campaignData);
@@ -136,7 +137,7 @@ private:
   GetMwmsByRectFn const m_getMwmsByRectFn;
   GetMwmIdByNameFn const m_getMwmIdByNameFn;
   ReadFeaturesFn const m_readFeaturesFn;
-  GetFeatureByIdFn const m_getFeatureByIdFn;
+  GetMapObjectByIdFn const m_getMapObjectByIdFn;
 
   std::atomic<bool> m_isStarted;
 

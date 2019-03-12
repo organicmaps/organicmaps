@@ -124,6 +124,7 @@ public:
   /// @param addr (out) the exact address of a feature.
   /// @returns false if  can't extruct address or ft have no house number.
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
+  bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
 private:
   /// Helper class to incapsulate house 2 street table reloading.

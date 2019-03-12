@@ -242,6 +242,13 @@ bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr) const
                           addr);
 }
 
+bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) const
+{
+  bool res;
+  m_dataSource.ReadFeature([&](FeatureType & ft) { res = GetExactAddress(ft, addr); }, fid);
+  return res;
+}
+
 bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits,
                                        Address & addr) const
 {

@@ -94,9 +94,9 @@ std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
   return ss.str();
 }
 
-std::string GetCustomIcon(FeatureType & featureType)
+std::string GetCustomIcon(osm::MapObject const & mapObject)
 {
-  auto const & metadata = featureType.GetMetadata();
+  auto const & metadata = mapObject.GetMetadata();
   auto const websiteStr = metadata.Get(feature::Metadata::FMD_WEBSITE);
   if (websiteStr.find("burgerking") != std::string::npos)
     return "0_burger-king";
@@ -236,18 +236,18 @@ void DeserializePackedFeatures(ReaderSource<FileReader> & src, std::vector<Packe
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
                                  GetMwmIdByNameFn && getMwmIdByName,
                                  ReadFeaturesFn && readFeaturesFn,
-                                 GetFeatureByIdFn && getFeatureByIDFn)
+                                 GetMapObjectByIdFn && getMapObjectByIdFn)
   : m_getMwmsByRectFn(std::move(getMwmsByRectFn))
   , m_getMwmIdByNameFn(std::move(getMwmIdByName))
   , m_readFeaturesFn(std::move(readFeaturesFn))
-  , m_getFeatureByIdFn(std::move(getFeatureByIDFn))
+  , m_getMapObjectByIdFn(std::move(getMapObjectByIdFn))
   , m_isStarted(false)
   , m_bmManager(nullptr)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
   CHECK(m_readFeaturesFn != nullptr, ());
-  CHECK(m_getFeatureByIdFn != nullptr, ());
+  CHECK(m_getMapObjectByIdFn != nullptr, ());
 }
 
 void LocalAdsManager::Startup(BookmarkManager * bmManager, bool isEnabled)
@@ -443,7 +443,7 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
         ClearLocalAdsForMwm(mwm);
         if (!info.m_data.empty())
         {
-          auto campaignData = ParseCampaign(info.m_data, mwm, info.m_created, m_getFeatureByIdFn);
+          auto campaignData = ParseCampaign(info.m_data, mwm, info.m_created, m_getMapObjectByIdFn);
           if (!campaignData.empty())
           {
             UpdateFeaturesCache(ReadCampaignFeatures(campaignData));
@@ -608,7 +608,7 @@ void LocalAdsManager::InvalidateImpl()
     for (auto const & info : m_info)
     {
       auto data = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
-                                info.second.m_created, m_getFeatureByIdFn);
+                                info.second.m_created, m_getMapObjectByIdFn);
       campaignData.insert(data.begin(), data.end());
     }
   }
@@ -619,9 +619,9 @@ void LocalAdsManager::InvalidateImpl()
 LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t> const & rawData,
                                                              MwmSet::MwmId const & mwmId,
                                                              Timestamp timestamp,
-                                                             GetFeatureByIdFn const & getFeatureByIdFn) const
+                                                             GetMapObjectByIdFn const & getMapObjectByIdFn) const
 {
-  ASSERT(getFeatureByIdFn != nullptr, ());
+  ASSERT(getMapObjectByIdFn != nullptr, ());
   CampaignData data;
   auto campaigns = local_ads::Deserialize(rawData);
   for (local_ads::Campaign const & campaign : campaigns)
@@ -641,10 +641,10 @@ LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t
     if (iconName.empty() || local_ads::Clock::now() > expiration)
       continue;
 
-    auto featureType = getFeatureByIdFn(featureId);
-    if (featureType)
+    auto const mapObject = getMapObjectByIdFn(featureId);
+    if (mapObject.GetID().IsValid())
     {
-      auto const customIcon = GetCustomIcon(*featureType);
+      auto const customIcon = GetCustomIcon(mapObject);
       if (!customIcon.empty())
         iconName = customIcon;
     }
