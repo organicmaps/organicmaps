@@ -50,10 +50,6 @@ enum class RouteType : uint8_t
 
 struct RoutePattern
 {
-  bool m_isDashed = false;
-  double m_dashLength = 0.0;
-  double m_gapLength = 0.0;
-
   RoutePattern() = default;
 
   RoutePattern(double dashLength, double gapLength)
@@ -69,6 +65,10 @@ struct RoutePattern
            std::fabs(m_dashLength - pattern.m_dashLength) < kEps &&
            std::fabs(m_gapLength - pattern.m_gapLength) < kEps;
   }
+
+  bool m_isDashed = false;
+  double m_dashLength = 0.0;
+  double m_gapLength = 0.0;
 };
 
 enum class SubrouteStyleType
@@ -79,14 +79,8 @@ enum class SubrouteStyleType
 
 struct SubrouteStyle
 {
-  df::ColorConstant m_color;
-  df::ColorConstant m_outlineColor;
-  df::RoutePattern m_pattern;
-  size_t m_startIndex = 0;
-  size_t m_endIndex = 0;
-
   SubrouteStyle() = default;
-  SubrouteStyle(df::ColorConstant const & color)
+  explicit SubrouteStyle(df::ColorConstant const & color)
     : m_color(color)
     , m_outlineColor(color)
   {}
@@ -106,16 +100,19 @@ struct SubrouteStyle
     , m_pattern(pattern)
   {}
 
-  bool operator == (SubrouteStyle const & style) const
+  bool operator==(SubrouteStyle const & style) const
   {
     return m_color == style.m_color && m_outlineColor == style.m_outlineColor &&
            m_pattern == style.m_pattern;
   }
 
-  bool operator != (SubrouteStyle const & style) const
-  {
-    return !operator == (style);
-  }
+  bool operator!=(SubrouteStyle const & style) const { return !operator==(style); }
+
+  df::ColorConstant m_color;
+  df::ColorConstant m_outlineColor;
+  df::RoutePattern m_pattern;
+  size_t m_startIndex = 0;
+  size_t m_endIndex = 0;
 };
 
 // Colored circle on the subroute.
@@ -157,11 +154,13 @@ using SubrouteConstPtr = std::shared_ptr<Subroute const>;
 
 struct RouteRenderProperty
 {
-  dp::RenderState m_state;
-  std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
   RouteRenderProperty()
     : m_state(CreateRenderState(gpu::Program::Route, DepthLayer::GeometryLayer))
   {}
+
+  dp::RenderState m_state;
+  std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
+  std::vector<m2::RectD> m_boundingBoxes;
 };
 
 struct BaseSubrouteData
@@ -196,11 +195,11 @@ class RouteShape
 {
 public:
   using RV = gpu::RouteVertex;
-  using TGeometryBuffer = buffer_vector<RV, 128>;
+  using GeometryBuffer = buffer_vector<RV, 128>;
   using AV = gpu::SolidTexturingVertex;
-  using TArrowGeometryBuffer = buffer_vector<AV, 128>;
+  using ArrowGeometryBuffer = buffer_vector<AV, 128>;
   using MV = gpu::RouteMarkerVertex;
-  using TMarkersGeometryBuffer = buffer_vector<MV, 32>;
+  using MarkersGeometryBuffer = buffer_vector<MV, 32>;
 
   static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context,
                                                 dp::DrapeID subrouteId, SubrouteConstPtr subroute,
@@ -218,20 +217,30 @@ public:
                                SubrouteArrowsData & routeArrowsData);
 
 private:
+  template<typename GeometryBufferType>
+  struct GeometryBufferData
+  {
+    GeometryBufferData()
+      : m_boundingBox(m2::RectD::GetEmptyRect())
+    {}
+
+    GeometryBufferType m_geometry;
+    GeometryBufferType m_joinsGeometry;
+    m2::RectD m_boundingBox;
+  };
   static void PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                               std::vector<glsl::vec4> const & segmentsColors, float baseDepth,
-                              TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry);
+                              std::vector<GeometryBufferData<GeometryBuffer>> & geometryBufferData);
   static void PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                    m2::RectF const & texRect, float depthStep, float depth,
-                                   TArrowGeometryBuffer & geometry,
-                                   TArrowGeometryBuffer & joinsGeometry);
+                                   GeometryBufferData<ArrowGeometryBuffer> & geometryBufferData);
   static void PrepareMarkersGeometry(std::vector<SubrouteMarker> const & markers,
                                      m2::PointD const & pivot, float baseDepth,
-                                     TMarkersGeometryBuffer & geometry);
+                                     MarkersGeometryBuffer & geometry);
 
   static void BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderState const & state,
                             ref_ptr<void> geometry, uint32_t geomSize, ref_ptr<void> joinsGeometry,
-                            uint32_t joinsGeomSize, dp::BindingInfo const & bindingInfo,
-                            RouteRenderProperty & property);
+                            uint32_t joinsGeomSize, m2::RectD const & boundingBox,
+                            dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
 };
 }  // namespace df

@@ -435,8 +435,14 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   mng->GetParamsSetter()->Apply(context, prg, params);
 
   // Render buckets.
-  for (auto const & bucket : subrouteData->m_renderProperty.m_buckets)
-    bucket->Render(context, state.GetDrawAsLine());
+  auto const & clipRect = screen.ClipRect();
+  CHECK_EQUAL(subrouteData->m_renderProperty.m_buckets.size(),
+              subrouteData->m_renderProperty.m_boundingBoxes.size(), ());
+  for (size_t i = 0; i < subrouteData->m_renderProperty.m_buckets.size(); ++i)
+  {
+    if (subrouteData->m_renderProperty.m_boundingBoxes[i].IsIntersect(clipRect))
+      subrouteData->m_renderProperty.m_buckets[i]->Render(context, state.GetDrawAsLine());
+  }
 }
 
 void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -470,8 +476,15 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   prg->Bind();
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
-  for (auto const & bucket : subrouteInfo.m_arrowsData->m_renderProperty.m_buckets)
-    bucket->Render(context, state.GetDrawAsLine());
+
+  auto const & clipRect = screen.ClipRect();
+  CHECK_EQUAL(subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(),
+              subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes.size(), ());
+  for (size_t i = 0; i < subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(); ++i)
+  {
+    if (subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes[i].IsIntersect(clipRect))
+      subrouteInfo.m_arrowsData->m_renderProperty.m_buckets[i]->Render(context, state.GetDrawAsLine());
+  }
 }
 
 void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
