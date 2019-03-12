@@ -217,8 +217,11 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Vulkan)
     {
-      CHECK_NOT_EQUAL(m_bindingInfoCount, 0, ());
-      m_impl = CreateImplForVulkan(context, make_ref(this), std::move(m_bindingInfo), m_bindingInfoCount);
+      if (!m_staticBuffers.empty())
+      {
+        CHECK_NOT_EQUAL(m_bindingInfoCount, 0, ());
+        m_impl = CreateImplForVulkan(context, make_ref(this), std::move(m_bindingInfo), m_bindingInfoCount);
+      }
     }
     else
     {
