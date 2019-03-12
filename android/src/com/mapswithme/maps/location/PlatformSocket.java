@@ -248,7 +248,7 @@ class PlatformSocket
       return false;
     }
 
-    if (data.length < 0 || count < 0 || count > data.length)
+    if (count < 0 || count > data.length)
     {
       LOGGER.e(TAG, "Illegal arguments, data.length = " + data.length + ", count = " + count + "\n");
       return false;
