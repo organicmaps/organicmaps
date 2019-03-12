@@ -1610,7 +1610,8 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
           }
           case DiffApplicationResult::Cancelled:
           {
-            DownloadNextCountryFromQueue();
+            if (m_downloader->IsIdle())
+              DownloadNextCountryFromQueue();
             break;
           }
           case DiffApplicationResult::Failed:
