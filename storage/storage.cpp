@@ -1761,7 +1761,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
       m_countryNameGetter.Get(countryId + LOCALIZATION_DESCRIPTION_SUFFIX);
 
   // Progress.
-  if (nodeAttrs.m_status == NodeStatus::OnDisk || nodeAttrs.m_status == NodeStatus::Applying)
+  if (nodeAttrs.m_status == NodeStatus::OnDisk)
   {
     // Group or leaf node is on disk and up to date.
     MwmSize const subTreeSizeBytes = node->Value().GetSubtreeMwmSizeBytes();
