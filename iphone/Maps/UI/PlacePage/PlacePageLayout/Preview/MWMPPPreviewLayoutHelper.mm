@@ -398,10 +398,12 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     auto data = self.data;
     if (!data)
       return;
-
-    [self.tableView update:^{
-      self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
-    }];
+    MWMAdBannerState destinationState = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
+    if (destinationState != self.cachedBannerCell.state) {
+      [self.tableView update:^{
+        self.cachedBannerCell.state = destinationState;
+      }];
+    }
   });
 }
 

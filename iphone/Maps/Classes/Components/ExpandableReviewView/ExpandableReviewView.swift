@@ -99,12 +99,7 @@ final class ExpandableReviewView: UIView {
   }
   
   func updateRepresentation() {
-    guard let text = contentLabel.text else {
-      return
-    }
-    if isExpanded {
-      moreLabelZeroHeight.isActive = true
-    } else {
+    if let text = contentLabel.text, !text.isEmpty, !isExpanded {
       let height = (text as NSString).boundingRect(with: CGSize(width: contentLabel.bounds.width,
                                                                 height: .greatestFiniteMagnitude),
                                                    options: .usesLineFragmentOrigin,
@@ -112,9 +107,9 @@ final class ExpandableReviewView: UIView {
                                                    context: nil).height
       if height > contentLabel.bounds.height {
         moreLabelZeroHeight.isActive = false
-      } else {
-        moreLabelZeroHeight.isActive = true
+        return
       }
     }
+    moreLabelZeroHeight.isActive = true
   }
 }
