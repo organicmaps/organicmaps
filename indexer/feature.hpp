@@ -7,6 +7,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/macros.hpp"
 
 #include <array>
 #include <cstdint>
@@ -33,9 +34,8 @@ public:
   using Buffer = char const *;
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
 
-  static FeatureType ConstructFromMapObject(osm::MapObject const & emo);
-
-  void Deserialize(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
+  FeatureType(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
+  FeatureType(osm::MapObject const & emo);
 
   feature::EGeomType GetFeatureType() const;
   FeatureParamsBase & GetParams() { return m_params; }
@@ -74,11 +74,6 @@ public:
 
   void SetID(FeatureID const & id) { m_id = id; }
   FeatureID const & GetID() const { return m_id; }
-
-  /// @name Parse functions.
-  //@{
-  /// Super-method to call all possible Parse* methods.
-  void ParseEverything();
 
   void ResetGeometry();
   uint32_t ParseGeometry(int scale);
@@ -249,4 +244,6 @@ private:
   uint32_t m_ptsSimpMask = 0;
 
   InnerGeomStat m_innerStats;
+
+  DISALLOW_COPY_AND_MOVE(FeatureType);
 };

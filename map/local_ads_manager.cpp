@@ -641,10 +641,10 @@ LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t
     if (iconName.empty() || local_ads::Clock::now() > expiration)
       continue;
 
-    FeatureType featureType;
-    if (getFeatureByIdFn(featureId, featureType))
+    auto featureType = getFeatureByIdFn(featureId);
+    if (featureType)
     {
-      auto const customIcon = GetCustomIcon(featureType);
+      auto const customIcon = GetCustomIcon(*featureType);
       if (!customIcon.empty())
         iconName = customIcon;
     }

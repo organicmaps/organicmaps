@@ -249,8 +249,7 @@ void EditorTest::GetEditedFeatureTest()
 
   {
     FeatureID feature;
-    FeatureType ft;
-    TEST(!editor.GetEditedFeature(feature, ft), ());
+    TEST(!editor.GetEditedFeature(feature), ());
   }
 
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
@@ -259,21 +258,20 @@ void EditorTest::GetEditedFeatureTest()
     builder.Add(cafe);
   });
 
-  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
-  {
-    FeatureType featureType;
-    TEST(!editor.GetEditedFeature(ft.GetID(), featureType), ());
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft) {
+    TEST(!editor.GetEditedFeature(ft.GetID()), ());
 
     SetBuildingLevelsToOne(ft);
 
-    TEST(editor.GetEditedFeature(ft.GetID(), featureType), ());
+    auto featureType = editor.GetEditedFeature(ft.GetID());
+    TEST(featureType, ());
 
     osm::EditableMapObject savedEmo;
-    FillEditableMapObject(editor, featureType, savedEmo);
+    FillEditableMapObject(editor, *featureType, savedEmo);
 
     TEST_EQUAL(savedEmo.GetBuildingLevels(), "1", ());
 
-    TEST_EQUAL(ft.GetID(), featureType.GetID(), ());
+    TEST_EQUAL(ft.GetID(), featureType->GetID(), ());
   });
 }
 
@@ -472,11 +470,10 @@ void EditorTest::DeleteFeatureTest()
   osm::EditableMapObject emo;
   CreateCafeAtPoint({3.0, 3.0}, mwmId, emo);
 
-  FeatureType ft;
-  editor.GetEditedFeature(emo.GetID().m_mwmId, emo.GetID().m_index, ft);
-  editor.DeleteFeature(ft.GetID());
+  auto ft = editor.GetEditedFeature(emo.GetID());
+  editor.DeleteFeature(ft->GetID());
 
-  TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Untouched, ());
+  TEST_EQUAL(editor.GetFeatureStatus(ft->GetID()), FeatureStatus::Untouched, ());
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {

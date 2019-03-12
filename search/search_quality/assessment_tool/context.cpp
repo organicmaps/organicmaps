@@ -89,9 +89,9 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     if (result.GetResultType() != search::Result::Type::Feature)
       continue;
 
-    FeatureType ft;
-    CHECK(loader.Load(result.GetFeatureID(), ft), ());
-    outResults.push_back(search::Sample::Result::Build(ft, *foundEntries[i].m_curr));
+    auto ft = loader.Load(result.GetFeatureID());
+    CHECK(ft, ());
+    outResults.push_back(search::Sample::Result::Build(*ft, *foundEntries[i].m_curr));
   }
 
   return outSample;

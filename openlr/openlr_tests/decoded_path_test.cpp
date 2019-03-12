@@ -141,11 +141,11 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
   TEST(mwmHandle.IsAlive(), ());
 
   FeaturesLoaderGuard const guard(dataSource, regResult.first);
-  FeatureType road;
-  TEST(guard.GetFeatureByIndex(0, road), ());
-  road.ParseEverything();
+  auto road = guard.GetFeatureByIndex(0);
+  TEST(road, ());
 
-  fn(dataSource, road);
+  road->ParseGeometry(FeatureType::BEST_GEOMETRY);
+  fn(dataSource, *road);
 }
 
 UNIT_TEST(MakePath_Test)

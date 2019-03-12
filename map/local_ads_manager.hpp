@@ -59,7 +59,7 @@ public:
   using ReadFeatureTypeFn = std::function<void(FeatureType &)>;
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
                                             std::vector<FeatureID> const & features)>;
-  using GetFeatureByIdFn = std::function<bool(FeatureID const &, FeatureType &)>;
+  using GetFeatureByIdFn = std::function<std::unique_ptr<FeatureType>(FeatureID const &)>;
   using OnCampaignFeaturesFn = std::function<void(std::vector<FeatureID> const & features)>;
   using Timestamp = local_ads::Timestamp;
 

@@ -76,15 +76,15 @@ public:
     if (m_loadedIds.count(id) != 0)
       return;
 
-    FeatureType ft;
-    if (!m_ctx.GetFeature(id, ft))
+    auto ft = m_ctx.GetFeature(id);
+    if (!ft)
       return;
 
-    if (ft.GetFeatureType() != feature::GEOM_POINT)
+    if (ft->GetFeatureType() != feature::GEOM_POINT)
       return;
 
     using namespace ftypes;
-    switch (IsLocalityChecker::Instance().GetType(ft))
+    switch (IsLocalityChecker::Instance().GetType(*ft))
     {
     case CITY:
     case TOWN:
@@ -94,15 +94,15 @@ public:
       return;
     }
 
-    auto const population = ftypes::GetPopulation(ft);
+    auto const population = ftypes::GetPopulation(*ft);
     if (population == 0)
       return;
 
-    auto const names = ft.GetNames();
-    auto const center = ft.GetCenter();
+    auto const names = ft->GetNames();
+    auto const center = ft->GetCenter();
 
     CitiesBoundariesTable::Boundaries boundaries;
-    auto const fid = ft.GetID();
+    auto const fid = ft->GetID();
     m_boundaries.Get(fid, boundaries);
 
     m_holder.Add(LocalityItem(names, center, boundaries, population, fid));

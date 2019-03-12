@@ -32,9 +32,9 @@ search::Result MakeResultFromFeatureType(FeatureType & ft)
   return {ft.GetID(), feature::GetCenter(ft), name, "", holder.GetBestType(), metadata};
 }
 
-FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet::MwmId & mwmId,
-                                           std::unique_ptr<FeaturesLoaderGuard> & guard,
-                                           FeatureID const & id)
+std::unique_ptr<FeatureType> MakeFeatureTypeWithCachedGuard(
+    DataSource const & dataSource, MwmSet::MwmId & mwmId,
+    std::unique_ptr<FeaturesLoaderGuard> & guard, FeatureID const & id)
 {
   if (mwmId != id.m_mwmId)
   {
@@ -44,33 +44,28 @@ FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet
 
   CHECK_EQUAL(guard->GetId(), mwmId, ());
 
-  FeatureType ft;
-  if (!guard->GetFeatureByIndex(id.m_index, ft))
-  {
+  auto ft = guard->GetFeatureByIndex(id.m_index);
+  if (!ft)
     LOG(LERROR, ("Feature can't be loaded:", id));
-    return {};
-  }
 
-  // We need to parse data here, because of the problems with feature loader, which works with
-  // last loaded feature from FeatureGuard only.
-  // TODO(a): parse data lazy, when it needed.
-  ft.ParseEverything();
   return ft;
 }
 
 class GreaterRating
 {
 public:
-  bool operator()(FeatureType & lhs, FeatureType & rhs) const
+  bool operator()(std::unique_ptr<FeatureType> & lhs, std::unique_ptr<FeatureType> & rhs) const
   {
     double constexpr kPenaltyRating = -1.0;
     double lhsRating = kPenaltyRating;
     double rhsRating = kPenaltyRating;
 
-    if (!strings::to_double(lhs.GetMetadata().Get(feature::Metadata::EType::FMD_RATING), lhsRating))
+    if (!strings::to_double(lhs->GetMetadata().Get(feature::Metadata::EType::FMD_RATING),
+                            lhsRating))
       lhsRating = kPenaltyRating;
 
-    if (!strings::to_double(rhs.GetMetadata().Get(feature::Metadata::EType::FMD_RATING), rhsRating))
+    if (!strings::to_double(rhs->GetMetadata().Get(feature::Metadata::EType::FMD_RATING),
+                            rhsRating))
       rhsRating = kPenaltyRating;
 
     return lhsRating > rhsRating;
@@ -166,7 +161,7 @@ void SearchHotels::ProcessAccumulated()
     return MakeFeatureTypeWithCachedGuard(GetDataSource(), mwmId, guard, id);
   };
 
-  std::vector<FeatureType> sortedByRating;
+  std::vector<std::unique_ptr<FeatureType>> sortedByRating;
   sortedByRating.resize(m_featureIds.size());
 
   for (size_t i = 0; i < m_featureIds.size(); ++i)
@@ -181,7 +176,7 @@ void SearchHotels::ProcessAccumulated()
 
   for (size_t i = 0; i < size; ++i)
   {
-    auto result = MakeResultFromFeatureType(sortedByRating[i]);
+    auto result = MakeResultFromFeatureType(*sortedByRating[i]);
     AppendResult(std::move(result));
   }
 }
@@ -247,13 +242,13 @@ void SearchPopularPlaces::ProcessAccumulated()
 
     if (popularity > 0)
     {
-      appendResult(popularity, ft);
+      appendResult(popularity, *ft);
       continue;
     }
 
-    if (ft.HasName())
+    if (ft->HasName())
     {
-      appendResult(popularity, ft);
+      appendResult(popularity, *ft);
       continue;
     }
 
@@ -267,7 +262,7 @@ void SearchPopularPlaces::ProcessAccumulated()
     for (auto const & featureId : featuresWithoutNames)
     {
       auto ft = makeFeatureType(featureId);
-      appendResult(0, ft);
+      appendResult(0, *ft);
 
       if (GetResults().GetCount() >= itemsCount)
         break;

@@ -20,7 +20,7 @@ class FeatureLoader
 public:
   explicit FeatureLoader(DataSource const & dataSource);
 
-  WARN_UNUSED_RESULT bool Load(FeatureID const & id, FeatureType & ft);
+  std::unique_ptr<FeatureType> Load(FeatureID const & id);
 
   void Reset();
 

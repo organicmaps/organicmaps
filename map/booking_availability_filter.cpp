@@ -121,15 +121,15 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
                            });
     ASSERT(it != hotelToResults.cend(), ());
 
-    FeatureType ft;
-    if (!guard->GetFeatureByIndex(featureId.m_index, ft))
+    auto ft = guard->GetFeatureByIndex(featureId.m_index);
+    if (!ft)
     {
       hotelToResults.erase(it);
       LOG(LERROR, ("Feature can't be loaded:", featureId));
       continue;
     }
 
-    auto const hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     auto const status = cache.Get(hotelId);
 
     it->m_hotelId = hotelId;
@@ -231,14 +231,14 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
       mwmId = featureId.m_mwmId;
     }
 
-    FeatureType ft;
-    if (!guard->GetFeatureByIndex(featureId.m_index, ft))
+    auto ft = guard->GetFeatureByIndex(featureId.m_index);
+    if (!ft)
     {
       LOG(LERROR, ("Feature can't be loaded:", featureId));
       continue;
     }
 
-    auto const & hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const & hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
 
     if (m_cache->Get(hotelId) == availability::Cache::HotelStatus::Available)
       sortedResults.push_back(featureId);

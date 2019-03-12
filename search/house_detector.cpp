@@ -887,18 +887,18 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     if (m_id2st.find(ids[i]) != m_id2st.end())
       continue;
 
-    FeatureType f;
-    if (!m_loader.Load(ids[i], f))
+    auto f = m_loader.Load(ids[i]);
+    if (!f)
     {
       LOG(LWARNING, ("Can't read feature from:", ids[i].m_mwmId));
       continue;
     }
 
-    if (f.GetFeatureType() == feature::GEOM_LINE)
+    if (f->GetFeatureType() == feature::GEOM_LINE)
     {
       // Use default name as a primary compare key for merging.
       string name;
-      if (!f.GetName(StringUtf8Multilang::kDefaultCode, name))
+      if (!f->GetName(StringUtf8Multilang::kDefaultCode, name))
         continue;
       ASSERT(!name.empty(), ());
 
@@ -906,7 +906,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
 
       Street * st = new Street();
       st->SetName(name);
-      f.ForEachPoint(StreetCreator(st), FeatureType::BEST_GEOMETRY);
+      f->ForEachPoint(StreetCreator(st), FeatureType::BEST_GEOMETRY);
 
       if (m_end2st.empty())
       {

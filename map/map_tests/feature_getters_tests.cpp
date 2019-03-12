@@ -43,17 +43,22 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
   ftypes::IsBuildingChecker const & isBuilding = ftypes::IsBuildingChecker::Instance();
   {
     // Restaurant in the building.
-    auto const feature = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.89395, 27.567365));
-    string name;
-    TEST(feature->GetName(StringUtf8Multilang::kDefaultCode, name), ());
-    TEST_EQUAL("Родны Кут", name, ());
-    TEST(!isBuilding(*feature), ());
+    auto const id = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.89395, 27.567365));
+    TEST(id.IsValid(), ());
+    frm.GetDataSource().ReadFeature(
+        [&](FeatureType & ft) {
+          string name;
+          ft.GetName(StringUtf8Multilang::kDefaultCode, name);
+          TEST_EQUAL("Родны Кут", name, ());
+          TEST(!isBuilding(ft), ());
+        },
+        id);
   }
 
   {
     // Same building as above, very close to the restaurant.
-    auto const feature = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.893603, 27.567032));
-    TEST(feature, ());
-    TEST(isBuilding(*feature), ());
+    auto const id = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.893603, 27.567032));
+    TEST(id.IsValid(), ());
+    frm.GetDataSource().ReadFeature([&](FeatureType & ft) { TEST(isBuilding(ft), ()); }, id);
   }
 }

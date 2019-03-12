@@ -32,9 +32,9 @@ public:
   void EditFeature(FeatureID const & id, EditorFn && fn)
   {
     FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId);
-    FeatureType ft;
-    CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
-    editor::tests_support::EditFeature(ft, std::forward<EditorFn>(fn));
+    auto ft = loader.GetFeatureByIndex(id.m_index);
+    CHECK(ft, ());
+    editor::tests_support::EditFeature(*ft, std::forward<EditorFn>(fn));
   }
 };
 }  // namespace tests_support

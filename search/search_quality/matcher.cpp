@@ -90,10 +90,10 @@ bool Matcher::Matches(Sample::Result const & golden, search::Result const & actu
   if (actual.GetResultType() != Result::Type::Feature)
     return false;
 
-  FeatureType ft;
-  if (!m_loader.Load(actual.GetFeatureID(), ft))
+  auto ft = m_loader.Load(actual.GetFeatureID());
+  if (!ft)
     return false;
 
-  return Matches(golden, ft);
+  return Matches(golden, *ft);
 }
 }  // namespace search

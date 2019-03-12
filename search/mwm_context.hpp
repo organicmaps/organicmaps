@@ -64,14 +64,14 @@ public:
     CoverRect(rect, scale, intervals);
 
     ForEachIndexImpl(intervals, scale, [&](uint32_t index) {
-      FeatureType ft;
-      if (GetFeature(index, ft))
-        fn(ft);
+      auto ft = GetFeature(index);
+      if (ft)
+        fn(*ft);
     });
   }
 
   // Returns false if feature was deleted by user.
-  WARN_UNUSED_RESULT bool GetFeature(uint32_t index, FeatureType & ft) const;
+  std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
 
   WARN_UNUSED_RESULT inline bool GetCenter(uint32_t index, m2::PointD & center)
   {

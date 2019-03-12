@@ -61,12 +61,12 @@ MainView::MainView(Framework & framework) : m_framework(framework)
           return;
         }
 
-        FeatureType ft;
-        if (!m_framework.GetFeatureByID(selectedFeature, ft))
+        auto ft = m_framework.GetFeatureByID(selectedFeature);
+        if (!ft)
           return;
 
-        auto const address = m_framework.GetAddressAtPoint(feature::GetCenter(ft));
-        FeatureInfoDialog dialog(this /* parent */, ft, address, m_sampleLocale);
+        auto const address = m_framework.GetAddressAtPoint(feature::GetCenter(*ft));
+        FeatureInfoDialog dialog(this /* parent */, *ft, address, m_sampleLocale);
         dialog.exec();
       },
       [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); });

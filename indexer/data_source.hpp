@@ -100,12 +100,11 @@ public:
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   std::string GetCountryFileName() const;
   bool IsWorld() const;
+  /// Editor core only method, to get 'untouched', original version of feature.
   std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
   std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
   /// Everyone, except Editor core, should use this method.
-  WARN_UNUSED_RESULT bool GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
-  /// Editor core only method, to get 'untouched', original version of feature.
-  WARN_UNUSED_RESULT bool GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const;
+  std::unique_ptr<FeatureType> GetFeatureByIndex(uint32_t index) const;
   size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
 
 private:

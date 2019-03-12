@@ -64,19 +64,19 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     {
       FeatureID const & fid = result.GetFeatureID();
       FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
-      FeatureType ft;
-      if (!loader.GetFeatureByIndex(fid.m_index, ft))
+      auto ft = loader.GetFeatureByIndex(fid.m_index);
+      if (!ft)
       {
         LOG(LERROR, ("Feature can't be loaded:", fid));
         continue;
       }
 
-      ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(ft);
+      ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(*ft);
 
       if (type == ftypes::COUNTRY || type == ftypes::STATE)
       {
         std::string groupFeatureName;
-        if (GetGroupCountryIdFromFeature(m_storage, ft, groupFeatureName))
+        if (GetGroupCountryIdFromFeature(m_storage, *ft, groupFeatureName))
         {
           storage::DownloaderSearchResult downloaderResult(groupFeatureName,
                                                            result.GetString() /* m_matchedName */);

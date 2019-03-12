@@ -104,9 +104,9 @@ CuisineFilter::Descriptions const & CuisineFilter::GetDescriptions(MwmContext co
   auto & descriptions = m_descriptions[mwmId];
   food.ForEach([&descriptions, &context, &loadFromMetadata](uint64_t bit) {
     auto const id = base::asserted_cast<uint32_t>(bit);
-    FeatureType ft;
-    if (context.GetFeature(id, ft))
-      descriptions.emplace_back(id, Description(ft, loadFromMetadata));
+    auto ft = context.GetFeature(id);
+    if (ft)
+      descriptions.emplace_back(id, Description(*ft, loadFromMetadata));
   });
   return descriptions;
 }

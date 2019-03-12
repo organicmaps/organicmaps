@@ -290,9 +290,9 @@ void MainModel::AddNonFoundResult(FeatureID const & id)
   if (resurrected)
     return;
 
-  FeatureType ft;
-  CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
-  auto const result = search::Sample::Result::Build(ft, search::Sample::Result::Relevance::Vital);
+  auto ft = m_loader.Load(id);
+  CHECK(ft, ("Can't load feature:", id));
+  auto const result = search::Sample::Result::Build(*ft, search::Sample::Result::Relevance::Vital);
   context.AddNonFoundResult(result);
 }
 
@@ -429,8 +429,8 @@ void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn 
       return fn(context.m_foundResultsEdits, i);
   }
 
-  FeatureType ft;
-  CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
+  auto ft = m_loader.Load(id);
+  CHECK(ft, ("Can't load feature:", id));
   search::Matcher matcher(m_loader);
 
   auto const & nonFoundResults = context.m_nonFoundResults;
@@ -438,7 +438,7 @@ void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn 
   for (size_t i = 0; i < nonFoundResults.size(); ++i)
   {
     auto const & result = context.m_nonFoundResults[i];
-    if (matcher.Matches(result, ft))
+    if (matcher.Matches(result, *ft))
       return fn(context.m_nonFoundResultsEdits, i);
   }
 }

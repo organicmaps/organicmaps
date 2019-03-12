@@ -29,10 +29,10 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
     return it->second;
 
   FeaturesLoaderGuard g(m_dataSource, fid.m_mwmId);
-  FeatureType ft;
-  CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
+  auto ft = g.GetOriginalFeatureByIndex(fid.m_index);
+  CHECK(ft, ());
 
-  RoadInfo info(ft);
+  RoadInfo info(*ft);
   it = m_cache.emplace(fid, info).first;
 
   return it->second;

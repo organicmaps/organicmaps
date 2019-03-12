@@ -17,7 +17,7 @@ public:
 
   // FeatureSource overrides:
   FeatureStatus GetFeatureStatus(uint32_t index) const override;
-  bool GetModifiedFeature(uint32_t index, FeatureType & feature) const override;
+  std::unique_ptr<FeatureType> GetModifiedFeature(uint32_t index) const override;
   void ForEachAdditionalFeature(m2::RectD const & rect, int scale,
                                 std::function<void(uint32_t)> const & fn) const override;
 };

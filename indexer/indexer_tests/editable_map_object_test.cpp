@@ -660,7 +660,7 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   emo.SetPointType();
   emo.SetMercator(m2::PointD(1.0, 1.0));
 
-  auto ft = FeatureType::ConstructFromMapObject(emo);
+  FeatureType ft(emo);
   EditableMapObject emo2;
   emo2.SetFromFeatureType(ft);
   TEST(emo.GetTypes().Equals(emo2.GetTypes()), ());

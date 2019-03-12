@@ -34,6 +34,7 @@
 #include <cstdint>
 #include <functional>
 #include <limits>
+#include <memory>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -122,29 +123,30 @@ private:
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      FeatureType poiFt;
-      if (GetByIndex(pois[i], poiFt))
-        poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
+      auto poiFt = GetByIndex(pois[i]);
+      if (poiFt)
+        poiCenters.emplace_back(feature::GetCenter(*poiFt, FeatureType::WORST_GEOMETRY),
+                                i /* id */);
     }
 
     std::vector<PointRectMatcher::RectIdPair> buildingRects;
     buildingRects.reserve(buildings.size());
     for (size_t i = 0; i < buildings.size(); ++i)
     {
-      FeatureType buildingFt;
-      if (!GetByIndex(buildings[i], buildingFt))
+      auto buildingFt = GetByIndex(buildings[i]);
+      if (!buildingFt)
         continue;
 
-      if (buildingFt.GetFeatureType() == feature::GEOM_POINT)
+      if (buildingFt->GetFeatureType() == feature::GEOM_POINT)
       {
-        auto const center = feature::GetCenter(buildingFt, FeatureType::WORST_GEOMETRY);
+        auto const center = feature::GetCenter(*buildingFt, FeatureType::WORST_GEOMETRY);
         buildingRects.emplace_back(
             MercatorBounds::RectByCenterXYAndSizeInMeters(center, kBuildingRadiusMeters),
             i /* id */);
       }
       else
       {
-        buildingRects.emplace_back(buildingFt.GetLimitRect(FeatureType::WORST_GEOMETRY),
+        buildingRects.emplace_back(buildingFt->GetLimitRect(FeatureType::WORST_GEOMETRY),
                                    i /* id */);
       }
     }
@@ -202,9 +204,10 @@ private:
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      FeatureType poiFt;
-      if (GetByIndex(pois[i], poiFt))
-        poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
+      auto poiFt = GetByIndex(pois[i]);
+      if (poiFt)
+        poiCenters.emplace_back(feature::GetCenter(*poiFt, FeatureType::WORST_GEOMETRY),
+                                i /* id */);
     }
 
     std::vector<PointRectMatcher::RectIdPair> streetRects;
@@ -215,33 +218,33 @@ private:
 
     for (size_t i = 0; i < streets.size(); ++i)
     {
-      FeatureType streetFt;
-      if (!GetByIndex(streets[i], streetFt))
+      auto streetFt = GetByIndex(streets[i]);
+      if (!streetFt)
         continue;
 
-      streetFt.ParseGeometry(FeatureType::WORST_GEOMETRY);
+      streetFt->ParseGeometry(FeatureType::WORST_GEOMETRY);
 
       m2::RectD inflationRect;
       // Any point is good enough here, and feature::GetCenter would re-read the geometry.
-      if (streetFt.GetPointsCount() > 0)
+      if (streetFt->GetPointsCount() > 0)
       {
-        inflationRect = MercatorBounds::RectByCenterXYAndSizeInMeters(streetFt.GetPoint(0),
+        inflationRect = MercatorBounds::RectByCenterXYAndSizeInMeters(streetFt->GetPoint(0),
                                                                       0.5 * kStreetRadiusMeters);
       }
 
-      for (size_t j = 0; j + 1 < streetFt.GetPointsCount(); ++j)
+      for (size_t j = 0; j + 1 < streetFt->GetPointsCount(); ++j)
       {
-        auto const & p1 = streetFt.GetPoint(j);
-        auto const & p2 = streetFt.GetPoint(j + 1);
+        auto const & p1 = streetFt->GetPoint(j);
+        auto const & p2 = streetFt->GetPoint(j + 1);
         m2::RectD rect(p1, p2);
         rect.Inflate(inflationRect.SizeX(), inflationRect.SizeY());
         streetRects.emplace_back(rect, i /* id */);
       }
 
       std::vector<m2::PointD> streetPoints;
-      streetPoints.reserve(streetFt.GetPointsCount());
-      for (size_t j = 0; j < streetFt.GetPointsCount(); ++j)
-        streetPoints.emplace_back(streetFt.GetPoint(j));
+      streetPoints.reserve(streetFt->GetPointsCount());
+      for (size_t j = 0; j < streetFt->GetPointsCount(); ++j)
+        streetPoints.emplace_back(streetFt->GetPoint(j));
       streetProjectors.emplace_back(streetPoints);
     }
 
@@ -289,7 +292,8 @@ private:
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
 
     uint32_t numFilterInvocations = 0;
-    auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool {
+    auto houseNumberFilter = [&](uint32_t id, std::unique_ptr<FeatureType> & feature,
+                                 bool & loaded) -> bool {
       ++numFilterInvocations;
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
@@ -301,7 +305,10 @@ private:
         return false;
 
       if (!loaded)
-        loaded = GetByIndex(id, feature);
+      {
+        feature = GetByIndex(id);
+        loaded = feature != nullptr;
+      }
 
       if (!loaded)
         return false;
@@ -309,12 +316,13 @@ private:
       if (!child.m_hasDelayedFeatures)
         return false;
 
-      strings::UniString const houseNumber(strings::MakeUniString(feature.GetHouseNumber()));
+      strings::UniString const houseNumber(strings::MakeUniString(feature->GetHouseNumber()));
       return house_numbers::HouseNumbersMatch(houseNumber, queryParse);
     };
 
     std::unordered_map<uint32_t, bool> cache;
-    auto cachingHouseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool {
+    auto cachingHouseNumberFilter = [&](uint32_t id, std::unique_ptr<FeatureType> & feature,
+                                        bool & loaded) -> bool {
       auto const it = cache.find(id);
       if (it != cache.cend())
         return it->second;
@@ -333,15 +341,18 @@ private:
 
       for (uint32_t houseId : street.m_features)
       {
-        FeatureType feature;
+        std::unique_ptr<FeatureType> feature;
         bool loaded = false;
         if (!cachingHouseNumberFilter(houseId, feature, loaded))
           continue;
 
-        if (!loaded && !GetByIndex(houseId, feature))
+        if (!loaded)
+          feature = GetByIndex(houseId);
+
+        if (!feature)
           continue;
 
-        if (GetMatchingStreet(feature) == streetId)
+        if (GetMatchingStreet(*feature) == streetId)
           fn(houseId, streetId);
       }
     }
@@ -357,16 +368,16 @@ private:
 
   Streets const & GetNearbyStreets(FeatureType & feature);
 
-  inline bool GetByIndex(uint32_t id, FeatureType & ft) const
+  std::unique_ptr<FeatureType> GetByIndex(uint32_t id) const
   {
     /// @todo Add Cache for feature id -> (point, name / house number).
-    if (m_context->GetFeature(id, ft))
-      return true;
+    auto res = m_context->GetFeature(id);
 
     // It may happen to features deleted by the editor. We do not get them from EditableDataSource
     // but we still have ids of these features in the search index.
-    LOG(LWARNING, ("GetFeature() returned false.", id));
-    return false;
+    if (!res)
+      LOG(LWARNING, ("GetFeature() returned false.", id));
+    return res;
   }
 
   MwmContext * m_context;

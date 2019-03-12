@@ -59,11 +59,11 @@ public:
     Names names;
     for (auto const & index : indices)
     {
-      FeatureType ft;
-      TEST(loader.GetFeatureByIndex(index, ft), ("Can't load feature by index:", index));
+      auto ft = loader.GetFeatureByIndex(index);
+      TEST(ft, ("Can't load feature by index:", index));
 
       string name;
-      TEST(ft.GetName(StringUtf8Multilang::kEnglishCode, name),
+      TEST(ft->GetName(StringUtf8Multilang::kEnglishCode, name),
            ("Can't get en name by index:", index));
       names.push_back(name);
     }

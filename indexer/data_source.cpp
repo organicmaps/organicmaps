@@ -79,7 +79,7 @@ private:
 
 void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
 {
-  FeatureType feature;
+  unique_ptr<FeatureType> ft;
   switch (src.GetFeatureStatus(index))
   {
   case FeatureStatus::Deleted:
@@ -87,16 +87,17 @@ void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & s
   case FeatureStatus::Created:
   case FeatureStatus::Modified:
   {
-    VERIFY(src.GetModifiedFeature(index, feature), ());
+    ft = src.GetModifiedFeature(index);
     break;
   }
   case FeatureStatus::Untouched:
   {
-    src.GetOriginalFeature(index, feature);
+    ft = src.GetOriginalFeature(index);
     break;
   }
   }
-  fn(feature);
+  CHECK(ft, ());
+  fn(*ft);
 }
 }  //  namespace
 
@@ -117,45 +118,33 @@ bool FeaturesLoaderGuard::IsWorld() const
   return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
-unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index) const
-{
-  auto feature = make_unique<FeatureType>();
-  if (GetOriginalFeatureByIndex(index, *feature))
-    return feature;
-
-  return {};
-}
-
 unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
 {
-  auto feature = make_unique<FeatureType>();
   if (!m_handle.IsAlive())
     return {};
 
   ASSERT_NOT_EQUAL(m_source->GetFeatureStatus(index), FeatureStatus::Created, ());
-  if (GetFeatureByIndex(index, *feature))
-    return feature;
-
-  return {};
+  return GetFeatureByIndex(index);
 }
 
-WARN_UNUSED_RESULT bool FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index,
-                                                               FeatureType & ft) const
+unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
 {
   if (!m_handle.IsAlive())
-    return false;
+    return {};
 
   ASSERT_NOT_EQUAL(FeatureStatus::Deleted, m_source->GetFeatureStatus(index),
                    ("Deleted feature was cached. It should not be here. Please review your code."));
-  if (m_source->GetModifiedFeature(index, ft))
-    return true;
-  return GetOriginalFeatureByIndex(index, ft);
+
+  auto ft = m_source->GetModifiedFeature(index);
+  if (ft)
+    return ft;
+
+  return GetOriginalFeatureByIndex(index);
 }
 
-WARN_UNUSED_RESULT bool FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index,
-                                                                       FeatureType & ft) const
+unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index) const
 {
-  return m_handle.IsAlive() ? m_source->GetOriginalFeature(index, ft) : false;
+  return m_handle.IsAlive() ? m_source->GetOriginalFeature(index) : nullptr;
 }
 
 // DataSource ----------------------------------------------------------------------------------
@@ -310,12 +299,13 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> cons
         ASSERT_NOT_EQUAL(
             FeatureStatus::Deleted, fts,
             ("Deleted feature was cached. It should not be here. Please review your code."));
-        FeatureType featureType;
+        unique_ptr<FeatureType> ft;
         if (fts == FeatureStatus::Modified || fts == FeatureStatus::Created)
-          VERIFY(src->GetModifiedFeature(fidIter->m_index, featureType), ());
+          ft = src->GetModifiedFeature(fidIter->m_index);
         else
-          src->GetOriginalFeature(fidIter->m_index, featureType);
-        fn(featureType);
+          ft = src->GetOriginalFeature(fidIter->m_index);
+        CHECK(ft, ());
+        fn(*ft);
       } while (++fidIter != endIter && id == fidIter->m_mwmId);
     }
     else

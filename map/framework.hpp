@@ -712,17 +712,15 @@ public:
 
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
-  /// @returns nullptr if no feature was found at the given mercator point.
-  unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
+  /// @returns invalid FeatureID if no feature was found at the given mercator point.
+  FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
   template <typename TFn>
   void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
   {
     indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), fn, mercator, 0.0);
   }
-  /// Set parse to false if you don't need all feature fields ready.
-  /// TODO(AlexZ): Refactor code which uses this method to get rid of it.
-  /// FeatureType instances should not be used outside ForEach* core methods.
-  WARN_UNUSED_RESULT bool GetFeatureByID(FeatureID const & fid, FeatureType & ft) const;
+
+  std::unique_ptr<FeatureType> GetFeatureByID(FeatureID const & fid) const;
 
   void MemoryWarning();
   void EnterBackground();

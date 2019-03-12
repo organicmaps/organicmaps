@@ -22,21 +22,23 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
 {
 }
 
-bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
+std::unique_ptr<FeatureType> MwmContext::GetFeature(uint32_t index) const
 {
+  std::unique_ptr<FeatureType> ft;
   switch (GetEditedStatus(index))
   {
   case FeatureStatus::Deleted:
   case FeatureStatus::Obsolete:
-    return false;
+    return ft;
   case FeatureStatus::Modified:
   case FeatureStatus::Created:
-    VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());
-    return true;
+    ft = osm::Editor::Instance().GetEditedFeature(FeatureID(GetId(), index));
+    CHECK(ft, ());
+    return ft;
   case FeatureStatus::Untouched:
-    m_vector.GetByIndex(index, ft);
-    ft.SetID(FeatureID(GetId(), index));
-    return true;
+    ft = m_vector.GetByIndex(index);
+    ft->SetID(FeatureID(GetId(), index));
+    return ft;
   }
   UNREACHABLE();
 }

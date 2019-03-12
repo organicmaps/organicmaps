@@ -51,8 +51,6 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
   for (size_t i = 0; i < track.size(); ++i)
   {
     MatchedTrackPoint const & point = track[i];
-    FeatureType feature;
-    featuresVector.GetVector().GetByIndex(point.GetSegment().GetFeatureId(), feature);
 
     double speed = 0.0;
     uint64_t elapsed = 0;

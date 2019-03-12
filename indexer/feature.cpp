@@ -180,56 +180,7 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-// static
-FeatureType FeatureType::ConstructFromMapObject(osm::MapObject const & emo)
-{
-  FeatureType ft;
-  uint8_t const geomType = emo.GetGeomType();
-  ft.m_limitRect.MakeEmpty();
-
-  switch (geomType)
-  {
-  case feature::GEOM_POINT:
-    ft.m_center = emo.GetMercator();
-    ft.m_limitRect.Add(ft.m_center);
-    break;
-  case feature::GEOM_LINE:
-    ft.m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
-    for (auto const & p : ft.m_points)
-      ft.m_limitRect.Add(p);
-    break;
-  case feature::GEOM_AREA:
-    ft.m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
-    for (auto const & p : ft.m_triangles)
-      ft.m_limitRect.Add(p);
-    break;
-  }
-
-  ft.m_parsed.m_points = ft.m_parsed.m_triangles = true;
-
-  ft.m_params.name = emo.GetNameMultilang();
-  string const & house = emo.GetHouseNumber();
-  if (house.empty())
-    ft.m_params.house.Clear();
-  else
-    ft.m_params.house.Set(house);
-  ft.m_parsed.m_common = true;
-
-  ft.m_metadata = emo.GetMetadata();
-  ft.m_parsed.m_metadata = true;
-
-  CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
-  copy(emo.GetTypes().begin(), emo.GetTypes().end(), ft.m_types.begin());
-
-  ft.m_parsed.m_types = true;
-  ft.m_header = CalculateHeader(emo.GetTypes().Size(), geomType, ft.m_params);
-  ft.m_parsed.m_header2 = true;
-
-  ft.m_id = emo.GetID();
-  return ft;
-}
-
-void FeatureType::Deserialize(SharedLoadInfo const * loadInfo, Buffer buffer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer buffer)
 {
   CHECK(loadInfo, ());
   m_loadInfo = loadInfo;
@@ -241,6 +192,52 @@ void FeatureType::Deserialize(SharedLoadInfo const * loadInfo, Buffer buffer)
   m_limitRect = m2::RectD::GetEmptyRect();
   m_parsed.Reset();
   m_innerStats.MakeZero();
+}
+
+FeatureType::FeatureType(osm::MapObject const & emo)
+{
+  uint8_t const geomType = emo.GetGeomType();
+  m_limitRect.MakeEmpty();
+
+  switch (geomType)
+  {
+  case feature::GEOM_POINT:
+    m_center = emo.GetMercator();
+    m_limitRect.Add(m_center);
+    break;
+  case feature::GEOM_LINE:
+    m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
+    for (auto const & p : m_points)
+      m_limitRect.Add(p);
+    break;
+  case feature::GEOM_AREA:
+    m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
+    for (auto const & p : m_triangles)
+      m_limitRect.Add(p);
+    break;
+  }
+
+  m_parsed.m_points = m_parsed.m_triangles = true;
+
+  m_params.name = emo.GetNameMultilang();
+  string const & house = emo.GetHouseNumber();
+  if (house.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(house);
+  m_parsed.m_common = true;
+
+  m_metadata = emo.GetMetadata();
+  m_parsed.m_metadata = true;
+
+  CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
+  copy(emo.GetTypes().begin(), emo.GetTypes().end(), m_types.begin());
+
+  m_parsed.m_types = true;
+  m_header = CalculateHeader(emo.GetTypes().Size(), geomType, m_params);
+  m_parsed.m_header2 = true;
+
+  m_id = emo.GetID();
 }
 
 feature::EGeomType FeatureType::GetFeatureType() const
@@ -320,15 +317,6 @@ int8_t FeatureType::GetLayer()
 
   ParseCommon();
   return m_params.layer;
-}
-
-void FeatureType::ParseEverything()
-{
-  // Also calls ParseCommon() and ParseTypes().
-  ParseHeader2();
-  ParseGeometry(FeatureType::BEST_GEOMETRY);
-  ParseTriangles(FeatureType::BEST_GEOMETRY);
-  ParseMetadata();
 }
 
 void FeatureType::ParseHeader2()

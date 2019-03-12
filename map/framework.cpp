@@ -400,7 +400,7 @@ Framework::Framework(FrameworkParams const & params)
   : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1),
                       bind(&Framework::ReadFeatures, this, _1, _2),
-                      bind(&Framework::GetFeatureByID, this, _1, _2))
+                      bind(&Framework::GetFeatureByID, this, _1))
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
@@ -828,22 +828,24 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   }
 
   FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
-  FeatureType ft;
-  if (!guard.GetFeatureByIndex(fid.m_index, ft))
+  auto ft = guard.GetFeatureByIndex(fid.m_index);
+  if (!ft)
   {
     LOG(LERROR, ("Feature can't be loaded:", fid));
     return;
   }
 
-  FillInfoFromFeatureType(ft, info);
+  FillInfoFromFeatureType(*ft, info);
 }
 
 void Framework::FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const
 {
-  auto feature = GetFeatureAtPoint(mercator);
-  if (feature)
+  auto const id = GetFeatureAtPoint(mercator);
+
+  if (id.IsValid())
   {
-    FillInfoFromFeatureType(*feature, info);
+    m_model.GetDataSource().ReadFeature(
+        [&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, id);
   }
   else
   {
@@ -2184,50 +2186,44 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
   return m_ParsedMapApi.GetSearchRequest();
 }
 
-unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
+FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
 {
-  unique_ptr<FeatureType> poi, line, area;
-  uint32_t const coastlineType = classif().GetCoastType();
-  indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&, coastlineType](FeatureType & ft)
+  FeatureID poi, line, area;
+  bool haveBuilding = false;
+  indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&](FeatureType & ft)
   {
-    // TODO @alexz
-    // remove manual parsing after refactoring with usermarks'll be finished
-    ft.ParseEverything();
     switch (ft.GetFeatureType())
     {
     case feature::GEOM_POINT:
-      poi.reset(new FeatureType(ft));
+      poi = ft.GetID();
       break;
     case feature::GEOM_LINE:
-      line.reset(new FeatureType(ft));
+      line = ft.GetID();
       break;
     case feature::GEOM_AREA:
       // Buildings have higher priority over other types.
-      if (area && ftypes::IsBuildingChecker::Instance()(*area))
+      if (haveBuilding)
         return;
       // Skip/ignore coastlines.
-      if (feature::TypesHolder(ft).Has(coastlineType))
+      if (feature::TypesHolder(ft).Has(classif().GetCoastType()))
         return;
-      area.reset(new FeatureType(ft));
+      area = ft.GetID();
+      haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
       break;
     case feature::GEOM_UNDEFINED:
       ASSERT(false, ("case feature::GEOM_UNDEFINED"));
       break;
     }
   }, mercator);
-  return poi ? move(poi) : (area ? move(area) : move(line));
+
+  return poi.IsValid() ? poi : (area.IsValid() ? area : line);
 }
 
-bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
+std::unique_ptr<FeatureType> Framework::GetFeatureByID(FeatureID const & fid) const
 {
   ASSERT(fid.IsValid(), ());
-
   FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
-  if (!guard.GetFeatureByIndex(fid.m_index, ft))
-    return false;
-
-  ft.ParseEverything();
-  return true;
+  return guard.GetFeatureByIndex(fid.m_index);
 }
 
 BookmarkManager & Framework::GetBookmarkManager()
@@ -2762,14 +2758,14 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
     return triangles;
 
   FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
-  FeatureType ft;
-  if (!guard.GetFeatureByIndex(m_selectedFeature.m_index, ft))
+  auto ft = guard.GetFeatureByIndex(m_selectedFeature.m_index);
+  if (!ft)
     return triangles;
 
-  if (ftypes::IsBuildingChecker::Instance()(feature::TypesHolder(ft)))
+  if (ftypes::IsBuildingChecker::Instance()(feature::TypesHolder(*ft)))
   {
     triangles.reserve(10);
-    ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    ft->ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
     {
       triangles.emplace_back(p1, p2, p3);
     }, scales::GetUpperScale());
@@ -2905,19 +2901,19 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
     {
       FeatureID const & fid = edit.first;
 
-      FeatureType ft;
-      if (!GetFeatureByID(fid, ft))
+      auto ft = GetFeatureByID(fid);
+      if (!ft)
       {
         LOG(LERROR, ("Feature can't be loaded:", fid));
         return true;
       }
 
       string name;
-      ft.GetReadableName(name);
-      feature::TypesHolder const types(ft);
+      ft->GetReadableName(name);
+      feature::TypesHolder const types(*ft);
       search::Result::Metadata smd;
-      results.AddResultNoChecks(
-          search::Result(fid, feature::GetCenter(ft), name, edit.second, types.GetBestType(), smd));
+      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), name, edit.second,
+                                               types.GetBestType(), smd));
     }
     params.m_onResults(results);
 
@@ -2952,12 +2948,12 @@ WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID 
                                        osm::LocalizedStreet & result)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
-  FeatureType ft;
-  if (!g.GetFeatureByIndex(fid.m_index, ft))
+  auto ft = g.GetFeatureByIndex(fid.m_index);
+  if (!ft)
     return false;
 
-  ft.GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
-  ft.GetReadableName(result.m_localizedName);
+  ft->GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
+  ft->GetReadableName(result.m_localizedName);
   if (result.m_localizedName == result.m_defaultName)
     result.m_localizedName.clear();
   return true;
@@ -3051,14 +3047,13 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
   if (!hostingBuildingFid.IsValid())
     return;
 
-  FeatureType hostingBuildingFeature;
-
   FeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId);
-  if (!g.GetFeatureByIndex(hostingBuildingFid.m_index, hostingBuildingFeature))
+  auto hostingBuildingFeature = g.GetFeatureByIndex(hostingBuildingFid.m_index);
+  if (!hostingBuildingFeature)
     return;
 
   search::ReverseGeocoder::Address address;
-  if (coder.GetExactAddress(hostingBuildingFeature, address))
+  if (coder.GetExactAddress(*hostingBuildingFeature, address))
   {
     if (emo.GetHouseNumber().empty())
       emo.SetHouseNumber(address.GetHouseNumber());
@@ -3103,27 +3098,25 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!fid.IsValid())
     return false;
 
-  FeatureType ft;
-  if (!GetFeatureByID(fid, ft))
+  auto ft = GetFeatureByID(fid);
+  if (!ft)
     return false;
 
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorEditStart, {});
 
   emo = {};
-  emo.SetFromFeatureType(ft);
-  emo.SetHouseNumber(ft.GetHouseNumber());
+  emo.SetFromFeatureType(*ft);
   auto const & editor = osm::Editor::Instance();
-  emo.SetEditableProperties(editor.GetEditableProperties(ft));
+  emo.SetEditableProperties(editor.GetEditableProperties(*ft));
 
   auto const & dataSource = m_model.GetDataSource();
   search::ReverseGeocoder const coder(dataSource);
-  SetStreet(coder, dataSource, ft, emo);
+  SetStreet(coder, dataSource, *ft, emo);
 
-  if (!ftypes::IsBuildingChecker::Instance()(ft) &&
+  if (!ftypes::IsBuildingChecker::Instance()(*ft) &&
       (emo.GetHouseNumber().empty() || emo.GetStreet().m_defaultName.empty()))
   {
-    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft)),
-                              dataSource, coder, emo);
+    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(*ft)), dataSource, coder, emo);
   }
 
   return true;
@@ -3148,42 +3141,43 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
 
     FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
-    FeatureType originalFeature;
+    std::unique_ptr<FeatureType> originalFeature;
     if (!isCreatedFeature)
     {
-      if (!g.GetOriginalFeatureByIndex(emo.GetID().m_index, originalFeature))
+      originalFeature = g.GetOriginalFeatureByIndex(emo.GetID().m_index);
+      if (!originalFeature)
         return osm::Editor::SaveResult::NoUnderlyingMapError;
     }
     else
     {
-      originalFeature = FeatureType::ConstructFromMapObject(emo);
+      originalFeature = std::make_unique<FeatureType>(emo);
     }
 
     // Handle only pois.
-    if (ftypes::IsBuildingChecker::Instance()(originalFeature))
+    if (ftypes::IsBuildingChecker::Instance()(*originalFeature))
       break;
 
-    auto const hostingBuildingFid = FindBuildingAtPoint(feature::GetCenter(originalFeature));
+    auto const hostingBuildingFid = FindBuildingAtPoint(feature::GetCenter(*originalFeature));
     // The is no building to take address from. Fallback to simple saving.
     if (!hostingBuildingFid.IsValid())
       break;
 
-    FeatureType hostingBuildingFeature;
-    if (!g.GetFeatureByIndex(hostingBuildingFid.m_index, hostingBuildingFeature))
+    auto hostingBuildingFeature = g.GetFeatureByIndex(hostingBuildingFid.m_index);
+    if (!hostingBuildingFeature)
       break;
 
-    issueLatLon = MercatorBounds::ToLatLon(feature::GetCenter(hostingBuildingFeature));
+    issueLatLon = MercatorBounds::ToLatLon(feature::GetCenter(*hostingBuildingFeature));
 
     search::ReverseGeocoder::Address hostingBuildingAddress;
     search::ReverseGeocoder const coder(m_model.GetDataSource());
     // The is no address to take from a hosting building. Fallback to simple saving.
-    if (!coder.GetExactAddress(hostingBuildingFeature, hostingBuildingAddress))
+    if (!coder.GetExactAddress(*hostingBuildingFeature, hostingBuildingAddress))
       break;
 
     string originalFeatureStreet;
     if (!isCreatedFeature)
     {
-      originalFeatureStreet = coder.GetOriginalFeatureStreetName(originalFeature.GetID());
+      originalFeatureStreet = coder.GetOriginalFeatureStreetName(originalFeature->GetID());
     }
     else
     {
@@ -3222,7 +3216,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     if ((originalFeatureStreet.empty() || isCreatedFeature) && !isStreetOverridden)
         emo.SetStreet({});
     // Do not save house number if it was taken from hosting building.
-    if ((originalFeature.GetHouseNumber().empty() || isCreatedFeature) && !isHouseNumberOverridden)
+    if ((originalFeature->GetHouseNumber().empty() || isCreatedFeature) && !isHouseNumberOverridden)
       emo.SetHouseNumber("");
 
     if (!isStreetOverridden && !isHouseNumberOverridden)
@@ -3234,17 +3228,16 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
     if (shouldNotify)
     {
-      FeatureType editedFeature;
+      auto editedFeature = editor.GetEditedFeature(emo.GetID());
       string editedFeatureStreet;
       // Such a notification have been already sent. I.e at least one of
       // street of house number should differ in emo and editor.
-      shouldNotify = !isCreatedFeature &&
-                     ((editor.GetEditedFeature(emo.GetID(), editedFeature) &&
-                       !editedFeature.GetHouseNumber().empty() &&
-                       editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
-                      (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
-                       !editedFeatureStreet.empty() &&
-                       editedFeatureStreet != emo.GetStreet().m_defaultName));
+      shouldNotify =
+          !isCreatedFeature &&
+          ((editedFeature && !editedFeature->GetHouseNumber().empty() &&
+            editedFeature->GetHouseNumber() != emo.GetHouseNumber()) ||
+           (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
+            !editedFeatureStreet.empty() && editedFeatureStreet != emo.GetStreet().m_defaultName));
     }
   } while (0);
 
@@ -3393,11 +3386,11 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     table.Get(fid, boundaries);
 
     string id = "fid:" + strings::to_string(fid);
-    FeatureType ft;
-    if (loader.GetFeatureByIndex(fid, ft))
+    auto ft = loader.GetFeatureByIndex(fid);
+    if (ft)
     {
       string name;
-      ft.GetName(StringUtf8Multilang::kDefaultCode, name);
+      ft->GetName(StringUtf8Multilang::kDefaultCode, name);
       id += ", name:" + name;
     }
 

@@ -59,16 +59,16 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
   }
 
   FeatureID const featureId = edge.GetFeatureId();
-  FeatureType ft;
   FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
-  if (!loader.GetFeatureByIndex(featureId.m_index, ft))
+  auto ft = loader.GetFeatureByIndex(featureId.m_index);
+  if (!ft)
   {
     LOG(LERROR, ("Can't load types for feature", featureId));
     return;
   }
 
-  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-  types = feature::TypesHolder(ft);
+  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
+  types = feature::TypesHolder(*ft);
 }
 
 void IndexRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const

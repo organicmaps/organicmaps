@@ -41,10 +41,10 @@ namespace
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
                                                        FeatureID const & fid)
 {
-  FeatureType ft;
-  if (!framework.GetFeatureByID(fid, ft))
+  auto ft = framework.GetFeatureByID(fid);
+  if (!ft)
     return {};
-  return qt::common::GetFeatureAddressInfo(framework, ft);
+  return qt::common::GetFeatureAddressInfo(framework, *ft);
 }
 }  // namespace
 

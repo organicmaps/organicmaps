@@ -223,18 +223,18 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
   if (!featureId.IsValid())
     return;
 
-  FeatureType ft;
-  if(!GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft))
+  auto ft = GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index);
+  if (!ft)
     return;
 
-  auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
+  auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(*ft));
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
 
   pathSegment.m_highwayClass = highwayClass;
-  pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
-  ft.GetName(StringUtf8Multilang::kDefaultCode, pathSegment.m_name);
-  pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
+  pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(*ft);
+  ft->GetName(StringUtf8Multilang::kDefaultCode, pathSegment.m_name);
+  pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
 }
 
 void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
@@ -255,15 +255,15 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       continue;
 
     auto const & outFeatureId = edge.GetFeatureId();
-    FeatureType ft;
-    if (!GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft))
+    auto ft = GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index);
+    if (!ft)
       continue;
 
-    auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
+    auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(*ft));
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
 
-    bool const isLink = ftypes::IsLinkChecker::Instance()(ft);
+    bool const isLink = ftypes::IsLinkChecker::Instance()(*ft);
 
     double angle = 0;
 

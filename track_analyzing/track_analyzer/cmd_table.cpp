@@ -335,8 +335,8 @@ private:
     if (featureId == m_prevFeatureId)
       return m_prevRoadInfo;
 
-    FeatureType feature;
-    m_featuresVector.GetVector().GetByIndex(featureId, feature);
+    auto feature = m_featuresVector.GetVector().GetByIndex(featureId);
+    CHECK(feature, ());
 
     auto const maxspeed = m_maxspeeds.GetMaxspeed(featureId);
     auto const maxspeedValueKMpH = maxspeed.IsValid() ?
@@ -344,10 +344,8 @@ private:
                                    kInvalidSpeed;
 
     m_prevFeatureId = featureId;
-    m_prevRoadInfo = {m_carModelTypes.GetType(feature),
-                      maxspeedValueKMpH,
-                      m_cityRoads.IsCityRoad(featureId),
-                      m_vehicleModel.IsOneWay(feature)};
+    m_prevRoadInfo = {m_carModelTypes.GetType(*feature), maxspeedValueKMpH,
+                      m_cityRoads.IsCityRoad(featureId), m_vehicleModel.IsOneWay(*feature)};
 
     return m_prevRoadInfo;
   }

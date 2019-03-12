@@ -8,10 +8,10 @@ FeatureStatus EditableFeatureSource::GetFeatureStatus(uint32_t index) const
   return editor.GetFeatureStatus(m_handle.GetId(), index);
 }
 
-bool EditableFeatureSource::GetModifiedFeature(uint32_t index, FeatureType & feature) const
+unique_ptr<FeatureType> EditableFeatureSource::GetModifiedFeature(uint32_t index) const
 {
   osm::Editor & editor = osm::Editor::Instance();
-  return editor.GetEditedFeature(m_handle.GetId(), index, feature);
+  return editor.GetEditedFeature(FeatureID(m_handle.GetId(), index));
 }
 
 void EditableFeatureSource::ForEachAdditionalFeature(m2::RectD const & rect, int scale,

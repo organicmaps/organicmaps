@@ -516,21 +516,14 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index,
-                              FeatureType & outFeature) const
+unique_ptr<FeatureType> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
-  auto const * featureInfo = GetFeatureTypeInfo(*features, mwmId, index);
+  auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
   if (featureInfo == nullptr)
-    return false;
+    return {};
 
-  outFeature = FeatureType::ConstructFromMapObject(featureInfo->m_object);
-  return true;
-}
-
-bool Editor::GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) const
-{
-  return GetEditedFeature(fid.m_mwmId, fid.m_index, outFeature);
+  return make_unique<FeatureType>(featureInfo->m_object);
 }
 
 bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const

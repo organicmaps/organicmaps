@@ -256,26 +256,26 @@ class RankerResultMaker
 
   unique_ptr<FeaturesLoaderGuard> m_loader;
 
-  bool LoadFeature(FeatureID const & id, FeatureType & ft)
+  unique_ptr<FeatureType> LoadFeature(FeatureID const & id)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
       m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id.m_mwmId);
-    if (!m_loader->GetFeatureByIndex(id.m_index, ft))
-      return false;
-
-    ft.SetID(id);
-    return true;
+    auto ft = m_loader->GetFeatureByIndex(id.m_index);
+    if (ft)
+      ft->SetID(id);
+    return ft;
   }
 
   // For the best performance, incoming ids should be sorted by id.first (mwm file id).
-  bool LoadFeature(FeatureID const & id, FeatureType & ft, m2::PointD & center, string & name,
-                   string & country)
+  unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, string & name,
+                                      string & country)
   {
-    if (!LoadFeature(id, ft))
-      return false;
+    auto ft = LoadFeature(id);
+    if (!ft)
+      return ft;
 
-    center = feature::GetCenter(ft);
-    m_ranker.GetBestMatchName(ft, name);
+    center = feature::GetCenter(*ft);
+    m_ranker.GetBestMatchName(*ft, name);
 
     // Country (region) name is a file name if feature isn't from
     // World.mwm.
@@ -285,7 +285,7 @@ class RankerResultMaker
     else
       country = m_loader->GetCountryFileName();
 
-    return true;
+    return ft;
   }
 
   void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res,
@@ -316,12 +316,12 @@ class RankerResultMaker
           preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
       {
         auto const & mwmId = ft.GetID().m_mwmId;
-        FeatureType street;
-        if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
+        auto street = LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street));
+        if (street)
         {
           auto const type = Model::TYPE_STREET;
           auto const & range = preInfo.m_tokenRange[type];
-          auto const nameScores = GetNameScores(street, m_params, range, type);
+          auto const nameScores = GetNameScores(*street, m_params, range, type);
 
           nameScore = min(nameScore, nameScores.m_nameScore);
           errorsMade += nameScores.m_errorsMade;
@@ -330,12 +330,12 @@ class RankerResultMaker
 
       if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
       {
-        FeatureType city;
-        if (LoadFeature(preInfo.m_cityId, city))
+        auto city = LoadFeature(preInfo.m_cityId);
+        if (city)
         {
           auto const type = Model::TYPE_CITY;
           auto const & range = preInfo.m_tokenRange[type];
-          errorsMade += GetErrorsMade(city, m_params, range, type);
+          errorsMade += GetErrorsMade(*city, m_params, range, type);
         }
       }
 
@@ -386,18 +386,18 @@ public:
 
   boost::optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
   {
-    FeatureType ft;
     m2::PointD center;
     string name;
     string country;
 
-    if (!LoadFeature(preRankerResult.GetId(), ft, center, name, country))
+    auto ft = LoadFeature(preRankerResult.GetId(), center, name, country);
+    if (!ft)
       return {};
 
-    RankerResult r(ft, center, m_ranker.m_params.m_pivot, name, country);
+    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, name, country);
 
     search::RankingInfo info;
-    InitRankingInfo(ft, center, preRankerResult, info);
+    InitRankingInfo(*ft, center, preRankerResult, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
     r.SetRankingInfo(move(info));
     r.m_provenance = move(preRankerResult.GetProvenance());

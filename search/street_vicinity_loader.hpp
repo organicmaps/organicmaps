@@ -67,11 +67,11 @@ public:
       if (!std::binary_search(sortedIds.begin(), sortedIds.end(), id))
         continue;
 
-      FeatureType ft;
-      if (!m_context->GetFeature(id, ft))
+      auto ft = m_context->GetFeature(id);
+      if (!ft)
         continue;  // Feature was deleted.
 
-      if (calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj) &&
+      if (calculator.GetProjection(feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY), proj) &&
           proj.m_distMeters <= offsetMeters)
       {
         fn(id);

@@ -347,12 +347,12 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const &
   bool const hasStreet = !streetName.empty();
   if (hasStreet)
   {
-    FeatureType ft;
-    VERIFY(ctx.GetFeature(featureID, ft), ());
+    auto ft = ctx.GetFeature(featureID);
+    CHECK(ft, ());
 
     using TStreet = search::ReverseGeocoder::Street;
     vector<TStreet> streets;
-    search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(ft),
+    search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(*ft),
                                               true /* includeSquaresAndSuburbs */, streets);
 
     auto const res = search::ReverseGeocoder::GetMatchedStreetIndex(streetName, streets);

@@ -195,13 +195,13 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
-  FeatureType ft;
   FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
-  if (!loader.GetFeatureByIndex(featureId.m_index, ft))
+  auto ft = loader.GetFeatureByIndex(featureId.m_index);
+  if (!ft)
     return;
 
-  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-  types = feature::TypesHolder(ft);
+  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
+  types = feature::TypesHolder(*ft);
 }
 
 void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
@@ -292,16 +292,15 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   if (found)
     return ri;
 
-  FeatureType ft;
-
   FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
 
-  if (!loader.GetFeatureByIndex(featureId.m_index, ft))
+  auto ft = loader.GetFeatureByIndex(featureId.m_index);
+  if (!ft)
     return ri;
 
-  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
 
-  ExtractRoadInfo(featureId, ft, GetSpeedKMpHFromFt(ft, speedParams), ri);
+  ExtractRoadInfo(featureId, *ft, GetSpeedKMpHFromFt(*ft, speedParams), ri);
   return ri;
 }
 

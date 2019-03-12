@@ -692,11 +692,11 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
       ++index;
 
     FeaturesLoaderGuard loader(m_dataSource, countryId);
-    FeatureType ft;
-    TEST(loader.GetFeatureByIndex(base::checked_cast<uint32_t>(index), ft), ());
+    auto ft = loader.GetFeatureByIndex(base::checked_cast<uint32_t>(index));
+    TEST(ft, ());
 
     auto rule = ExactMatch(countryId, building31);
-    TEST(rule->Matches(ft), ());
+    TEST(rule->Matches(*ft), ());
   }
 
   {
@@ -789,12 +789,12 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     for (auto const & result : request->Results())
     {
       FeaturesLoaderGuard loader(m_dataSource, wonderlandId);
-      FeatureType ft;
-      TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
+      auto ft = loader.GetFeatureByIndex(result.GetFeatureID().m_index);
+      TEST(ft, ());
 
       auto const & info = result.GetRankingInfo();
 
-      if (busStop.Matches(ft))
+      if (busStop.Matches(*ft))
       {
         TEST(!info.m_pureCats, (result));
         TEST(info.m_falseCats, (result));

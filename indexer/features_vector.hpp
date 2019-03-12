@@ -5,6 +5,7 @@
 
 #include "coding/var_record_reader.hpp"
 
+#include <memory>
 
 namespace feature { class FeaturesOffsetsTable; }
 
@@ -21,7 +22,7 @@ public:
   {
   }
 
-  void GetByIndex(uint32_t index, FeatureType & ft) const;
+  std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
 
   size_t GetNumFeatures() const;
 
@@ -29,8 +30,7 @@ public:
   {
     uint32_t index = 0;
     m_recordReader.ForEachRecord([&](uint32_t pos, char const * data, uint32_t /*size*/) {
-      FeatureType ft;
-      ft.Deserialize(&m_loadInfo, data);
+      FeatureType ft(&m_loadInfo, data);
 
       // We can't properly set MwmId here, because FeaturesVector
       // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.

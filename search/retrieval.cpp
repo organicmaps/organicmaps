@@ -98,9 +98,9 @@ private:
     auto & editor = Editor::Instance();
     for (auto const index : features)
     {
-      FeatureType ft;
-      VERIFY(editor.GetEditedFeature(m_id, index, ft), ());
-      fn(ft, index);
+      auto ft = editor.GetEditedFeature(FeatureID(m_id, index));
+      CHECK(ft, ());
+      fn(*ft, index);
     }
   }
 

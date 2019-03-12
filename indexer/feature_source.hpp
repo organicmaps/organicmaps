@@ -33,13 +33,13 @@ public:
 
   size_t GetNumFeatures() const;
 
-  bool GetOriginalFeature(uint32_t index, FeatureType & feature) const;
+  std::unique_ptr<FeatureType> GetOriginalFeature(uint32_t index) const;
 
   FeatureID GetFeatureId(uint32_t index) const { return FeatureID(m_handle.GetId(), index); }
 
   virtual FeatureStatus GetFeatureStatus(uint32_t index) const;
 
-  virtual bool GetModifiedFeature(uint32_t index, FeatureType & feature) const;
+  virtual std::unique_ptr<FeatureType> GetModifiedFeature(uint32_t index) const;
 
   // Runs |fn| for each feature, that is not present in the mwm. 
   virtual void ForEachAdditionalFeature(m2::RectD const & rect, int scale,
