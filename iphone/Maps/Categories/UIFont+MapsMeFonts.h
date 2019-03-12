@@ -10,6 +10,7 @@
 + (UIFont *)regular16;
 + (UIFont *)regular17;
 + (UIFont *)regular18;
++ (UIFont *)regular20;
 + (UIFont *)regular24;
 + (UIFont *)regular32;
 + (UIFont *)regular52;
