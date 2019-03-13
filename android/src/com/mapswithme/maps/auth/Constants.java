@@ -1,6 +1,6 @@
 package com.mapswithme.maps.auth;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 class Constants
@@ -16,5 +16,5 @@ class Constants
   static final String EXTRA_TERMS_OF_USE_ACCEPTED = "extra_terms_of_use_accepted";
   static final String EXTRA_PROMO_ACCEPTED = "extra_promo_accepted";
   static final List<String> FACEBOOK_PERMISSIONS =
-      Arrays.asList("email", "user_friends");
+      Collections.singletonList("email");
 }
