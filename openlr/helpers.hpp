@@ -32,6 +32,9 @@ bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, F
                        int frcThreshold, RoadInfoGetter & infoGetter);
 
 /// \returns true if edge |e| conforms Lowest Functional Road Class to Next Point.
+/// \note lfrcnp means Lowest Functional Road Class To Next LR-point.
+/// Please see openlr documentation for details:
+/// http://www.openlr.org/data/docs/whitepaper/1_0/OpenLR-Whitepaper_v1.0.pdf
 bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lfrcnp,
                    int frcThreshold, RoadInfoGetter & infoGetter);
 }  // namespace openlr
