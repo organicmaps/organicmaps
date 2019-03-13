@@ -114,8 +114,8 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   private void onUploadFailed()
   {
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.html_error_upload_title_try_again)
-        .setMessageId(R.string.html_error_upload_message_try_again)
+        .setTitleId(R.string.bookmarks_convert_error_title)
+        .setMessageId(R.string.upload_error_toast)
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)
         .setReqCode(REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG)
