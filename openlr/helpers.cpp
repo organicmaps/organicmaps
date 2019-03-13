@@ -81,13 +81,13 @@ bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, F
   return static_cast<int>(frc) <= static_cast<int>(restriction) + frcThreshold;
 }
 
-bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lfrcnp,
+bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
                    int frcThreshold, RoadInfoGetter & infoGetter)
 {
-  if (e.IsFake() || lfrcnp == FunctionalRoadClass::NotAValue)
+  if (e.IsFake() || lowestFrcToNextPoint == FunctionalRoadClass::NotAValue)
     return true;
 
   auto const frc = HighwayClassToFunctionalRoadClass(infoGetter.Get(e.GetFeatureId()).m_hwClass);
-  return static_cast<int>(frc) <= static_cast<int>(lfrcnp) + frcThreshold;
+  return static_cast<int>(frc) <= static_cast<int>(lowestFrcToNextPoint) + frcThreshold;
 }
 }  // namespace openlr

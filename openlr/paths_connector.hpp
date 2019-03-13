@@ -23,12 +23,12 @@ public:
 
 private:
   bool FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                        FunctionalRoadClass lfrcnp, uint32_t maxPathLength,
+                        FunctionalRoadClass lowestFrcToNextPoint, uint32_t maxPathLength,
                         Graph::EdgeVector & path);
 
   bool ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
-                                     FunctionalRoadClass lfrcnp, double distanceToNextPoint,
-                                     Graph::EdgeVector & resultPath);
+                                     FunctionalRoadClass lowestFrcToNextPoint,
+                                     double distanceToNextPoint, Graph::EdgeVector & resultPath);
 
   double m_pathLengthTolerance;
   Graph & m_graph;

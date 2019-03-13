@@ -65,7 +65,7 @@ bool ValidatePath(Graph::EdgeVector const & path,
 }
 }  // namespace
 
-PathsConnector::PathsConnector(double const pathLengthTolerance, Graph & graph,
+PathsConnector::PathsConnector(double pathLengthTolerance, Graph & graph,
                                RoadInfoGetter & infoGetter, v2::Stats & stat)
   : m_pathLengthTolerance(pathLengthTolerance)
   , m_graph(graph)
@@ -141,7 +141,7 @@ bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & po
 }
 
 bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                                      FunctionalRoadClass lfrcnp, uint32_t maxPathLength,
+                                      FunctionalRoadClass lowestFrcToNextPoint, uint32_t maxPathLength,
                                       Graph::EdgeVector & path)
 {
   // TODO(mgsergio): Turn Dijkstra to A*.
@@ -197,7 +197,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
     m_graph.GetOutgoingEdges(u.GetEndJunction(), edges);
     for (auto const & e : edges)
     {
-      if (!ConformLfrcnp(e, lfrcnp, 2 /* frcThreshold */, m_infoGetter))
+      if (!ConformLfrcnp(e, lowestFrcToNextPoint, 2 /* frcThreshold */, m_infoGetter))
         continue;
       // TODO(mgsergio): Use frc to filter edges.
 
@@ -222,7 +222,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
 
 bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
                                                    Graph::EdgeVector const & to,
-                                                   FunctionalRoadClass lfrcnp,
+                                                   FunctionalRoadClass lowestFrcToNextPoint,
                                                    double distanceToNextPoint,
                                                    Graph::EdgeVector & resultPath)
 
@@ -242,7 +242,7 @@ bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & fro
 
   Graph::EdgeVector shortestPath;
   auto const found =
-      FindShortestPath(from.back(), to.front(), lfrcnp, distanceToNextPoint, shortestPath);
+      FindShortestPath(from.back(), to.front(), lowestFrcToNextPoint, distanceToNextPoint, shortestPath);
   if (!found)
     return false;
 

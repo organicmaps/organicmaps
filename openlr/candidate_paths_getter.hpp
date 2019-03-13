@@ -107,9 +107,8 @@ private:
                      Graph::EdgeVector & edges);
 
   void GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool isLastPoint,
-                           double bearDistM, FunctionalRoadClass  frc,
-                           FormOfWay fow,
-                           std::vector<LinkPtr> & allPaths);
+                           double bearDistM, FunctionalRoadClass  functionalRoadClass,
+                           FormOfWay formOfWay, std::vector<LinkPtr> & allPaths);
 
   void GetBestCandidatePaths(std::vector<LinkPtr> const & allPaths, bool const isLastPoint,
                              uint32_t const requiredBearing, double const bearDistM,

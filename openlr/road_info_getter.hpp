@@ -22,6 +22,8 @@ class RoadInfoGetter final
 public:
   struct RoadInfo
   {
+    RoadInfo(FeatureType & ft);
+
     ftypes::HighwayClass m_hwClass = ftypes::HighwayClass::Undefined;
     bool m_link = false;
     bool m_oneWay = false;

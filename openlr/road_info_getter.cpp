@@ -8,6 +8,15 @@
 
 namespace openlr
 {
+// RoadInfoGetter::RoadInfo ------------------------------------------------------------------------
+RoadInfoGetter::RoadInfo::RoadInfo(FeatureType & ft)
+  : m_hwClass(ftypes::GetHighwayClass(feature::TypesHolder(ft)))
+  , m_link(ftypes::IsLinkChecker::Instance()(ft))
+  , m_oneWay(ftypes::IsOneWayChecker::Instance()(ft))
+{
+}
+
+// RoadInfoGetter ----------------------------------------------------------------------------------
 RoadInfoGetter::RoadInfoGetter(DataSource const & dataSource)
   : m_dataSource(dataSource)
 {
@@ -23,11 +32,7 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   FeatureType ft;
   CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
 
-  RoadInfo info;
-  info.m_hwClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
-  info.m_link = ftypes::IsLinkChecker::Instance()(ft);
-  info.m_oneWay = ftypes::IsOneWayChecker::Instance()(ft);
-
+  RoadInfo info(ft);
   it = m_cache.emplace(fid, info).first;
 
   return it->second;
