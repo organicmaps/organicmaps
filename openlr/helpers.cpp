@@ -10,6 +10,23 @@
 #include <string>
 #include <type_traits>
 
+namespace
+{
+openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayClass const & hwClass)
+{
+  switch (hwClass)
+  {
+  case ftypes::HighwayClass::Trunk: return openlr::FunctionalRoadClass::FRC0;
+  case ftypes::HighwayClass::Primary: return openlr::FunctionalRoadClass::FRC1;
+  case ftypes::HighwayClass::Secondary: return openlr::FunctionalRoadClass::FRC2;
+  case ftypes::HighwayClass::Tertiary: return openlr::FunctionalRoadClass::FRC3;
+  case ftypes::HighwayClass::LivingStreet: return openlr::FunctionalRoadClass::FRC4;
+  case ftypes::HighwayClass::Service: return openlr::FunctionalRoadClass::FRC5;
+  default: return openlr::FunctionalRoadClass::FRC7;
+  }
+}
+}  // namespace
+
 namespace openlr
 {
 bool PointsAreClose(m2::PointD const & p1, m2::PointD const & p2)
@@ -54,13 +71,23 @@ std::string LogAs2GisPath(Graph::EdgeVector const & path)
 
 std::string LogAs2GisPath(Graph::Edge const & e) { return LogAs2GisPath(Graph::EdgeVector({e})); }
 
-bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass const restriction,
-                       int const frcThreshold, RoadInfoGetter & infoGetter)
+bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay fow,
+                       int frcThreshold, RoadInfoGetter & infoGetter)
 {
-  if (e.IsFake())
+  if (e.IsFake() || restriction == FunctionalRoadClass::NotAValue)
     return true;
 
-  auto const frc = infoGetter.Get(e.GetFeatureId()).m_frc;
+  auto const frc = HighwayClassToFunctionalRoadClass(infoGetter.Get(e.GetFeatureId()).m_hwClass);
   return static_cast<int>(frc) <= static_cast<int>(restriction) + frcThreshold;
+}
+
+bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
+                   int frcThreshold, RoadInfoGetter & infoGetter)
+{
+  if (e.IsFake() || lowestFrcToNextPoint == FunctionalRoadClass::NotAValue)
+    return true;
+
+  auto const frc = HighwayClassToFunctionalRoadClass(infoGetter.Get(e.GetFeatureId()).m_hwClass);
+  return static_cast<int>(frc) <= static_cast<int>(lowestFrcToNextPoint) + frcThreshold;
 }
 }  // namespace openlr

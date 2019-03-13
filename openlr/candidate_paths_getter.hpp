@@ -106,9 +106,9 @@ private:
   void GetStartLines(std::vector<m2::PointD> const & points, bool const isLastPoint,
                      Graph::EdgeVector & edges);
 
-  void GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool const isLastPoint,
-                           double const bearDistM, FunctionalRoadClass const frc,
-                           std::vector<LinkPtr> & allPaths);
+  void GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool isLastPoint,
+                           double bearDistM, FunctionalRoadClass  functionalRoadClass,
+                           FormOfWay formOfWay, std::vector<LinkPtr> & allPaths);
 
   void GetBestCandidatePaths(std::vector<LinkPtr> const & allPaths, bool const isLastPoint,
                              uint32_t const requiredBearing, double const bearDistM,

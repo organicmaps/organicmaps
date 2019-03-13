@@ -65,9 +65,12 @@ bool ValidatePath(Graph::EdgeVector const & path,
 }
 }  // namespace
 
-PathsConnector::PathsConnector(double const pathLengthTolerance, Graph & graph,
-                              v2::Stats & stat)
-  : m_pathLengthTolerance(pathLengthTolerance), m_graph(graph), m_stat(stat)
+PathsConnector::PathsConnector(double pathLengthTolerance, Graph & graph,
+                               RoadInfoGetter & infoGetter, v2::Stats & stat)
+  : m_pathLengthTolerance(pathLengthTolerance)
+  , m_graph(graph)
+  , m_infoGetter(infoGetter)
+  , m_stat(stat)
 {
 }
 
@@ -101,7 +104,7 @@ bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & po
         resultPathPart.clear();
 
         found = ConnectAdjacentCandidateLines(fromCandidates[fromInd], toCandidates[toInd],
-                                              point.m_functionalRoadClass, distanceToNextPoint,
+                                              point.m_lfrcnp, distanceToNextPoint,
                                               resultPathPart);
 
         if (!found)
@@ -138,7 +141,7 @@ bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & po
 }
 
 bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                                      FunctionalRoadClass const frc, uint32_t const maxPathLength,
+                                      FunctionalRoadClass lowestFrcToNextPoint, uint32_t maxPathLength,
                                       Graph::EdgeVector & path)
 {
   // TODO(mgsergio): Turn Dijkstra to A*.
@@ -194,6 +197,8 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
     m_graph.GetOutgoingEdges(u.GetEndJunction(), edges);
     for (auto const & e : edges)
     {
+      if (!ConformLfrcnp(e, lowestFrcToNextPoint, 2 /* frcThreshold */, m_infoGetter))
+        continue;
       // TODO(mgsergio): Use frc to filter edges.
 
       // Only start and/or end of the route can be fake.
@@ -217,8 +222,8 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
 
 bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
                                                    Graph::EdgeVector const & to,
-                                                   FunctionalRoadClass const frc,
-                                                   double const distanceToNextPoint,
+                                                   FunctionalRoadClass lowestFrcToNextPoint,
+                                                   double distanceToNextPoint,
                                                    Graph::EdgeVector & resultPath)
 
 {
@@ -237,7 +242,7 @@ bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & fro
 
   Graph::EdgeVector shortestPath;
   auto const found =
-      FindShortestPath(from.back(), to.front(), frc, distanceToNextPoint, shortestPath);
+      FindShortestPath(from.back(), to.front(), lowestFrcToNextPoint, distanceToNextPoint, shortestPath);
   if (!found)
     return false;
 

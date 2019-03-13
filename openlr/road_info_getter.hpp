@@ -1,11 +1,11 @@
 #pragma once
 
 #include "openlr/openlr_model.hpp"
-#include "openlr/road_type_checkers.hpp"
 
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "std/map.hpp"
+#include <map>
 
 class Classificator;
 class DataSource;
@@ -22,30 +22,20 @@ class RoadInfoGetter final
 public:
   struct RoadInfo
   {
-    RoadInfo() = default;
+    explicit RoadInfo(FeatureType & ft);
 
-    FunctionalRoadClass m_frc = FunctionalRoadClass::NotAValue;
-    FormOfWay m_fow = FormOfWay::NotAValue;
+    ftypes::HighwayClass m_hwClass = ftypes::HighwayClass::Undefined;
+    bool m_link = false;
+    bool m_oneWay = false;
   };
 
-  RoadInfoGetter(DataSource const & dataSource);
+  explicit RoadInfoGetter(DataSource const & dataSource);
 
   RoadInfo Get(FeatureID const & fid);
 
  private:
-  FunctionalRoadClass GetFunctionalRoadClass(feature::TypesHolder const & types) const;
-  FormOfWay GetFormOfWay(feature::TypesHolder const & types) const;
 
   DataSource const & m_dataSource;
-  Classificator const & m_c;
-
-  TrunkChecker const m_trunkChecker;
-  PrimaryChecker const m_primaryChecker;
-  SecondaryChecker const m_secondaryChecker;
-  TertiaryChecker const m_tertiaryChecker;
-  ResidentialChecker const m_residentialChecker;
-  LivingStreetChecker const m_livingStreetChecker;
-
-  map<FeatureID, RoadInfo> m_cache;
+  std::map<FeatureID, RoadInfo> m_cache;
 };
 }  // namespace openlr
