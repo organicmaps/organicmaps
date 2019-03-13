@@ -30,7 +30,7 @@
                         <outlet property="delegate" destination="-1" id="sDX-YJ-iGy"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcr-zs-NMw">
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcr-zs-NMw">
                     <rect key="frame" x="27.5" y="183.5" width="320" height="320"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
