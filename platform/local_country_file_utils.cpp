@@ -136,11 +136,11 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
 string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
                    MapOptions options)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), options, version);
+  string const filename = GetFileName(countryFile.GetName(), options, version);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
-    return base::JoinFoldersToPath(dir, readyFile);
-  return base::JoinFoldersToPath({dir, strings::to_string(version)}, readyFile);
+    return base::JoinFoldersToPath(dir, filename);
+  return base::JoinFoldersToPath({dir, strings::to_string(version)}, filename);
 }
 }  // namespace
 
@@ -274,9 +274,10 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
-  for (string const & file :
-       {WORLD_FILE_NAME,
-        (migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME : WORLD_COASTS_FILE_NAME)})
+  string const world(WORLD_FILE_NAME);
+  string const worldCoasts(migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME
+                                                  : WORLD_COASTS_FILE_NAME);
+  for (string const & file : {world, worldCoasts})
   {
     auto i = localFiles.begin();
     for (; i != localFiles.end(); ++i)

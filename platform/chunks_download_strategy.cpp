@@ -6,7 +6,9 @@
 #include "coding/file_reader.hpp"
 #include "coding/varint.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
 
