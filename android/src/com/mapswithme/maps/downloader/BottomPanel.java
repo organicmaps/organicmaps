@@ -112,7 +112,6 @@ class BottomPanel
 
   public void update()
   {
-    // DownloaderAdapter getAdapter is nonNull.
     DownloaderAdapter adapter = mFragment.getAdapter();
     boolean search = adapter.isSearchResultsMode();
 
