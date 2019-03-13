@@ -510,7 +510,7 @@ public:
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool destroySurface);
 
-  void OnRecoverSurface(int width, int height);
+  void OnRecoverSurface(int width, int height, bool recreateContextDependentResources);
   void OnDestroySurface();
 
 private:
