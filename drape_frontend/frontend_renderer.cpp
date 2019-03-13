@@ -646,7 +646,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<PrepareSubrouteArrowsMessage> msg = message;
       m_routeRenderer->CacheRouteArrows(m_userEventStream.GetCurrentScreen(),
-                                        msg->GetSubrouteId(), msg->MoveBorders(),
+                                        msg->GetSubrouteId(), msg->AcceptBorders(),
                                         std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
       break;
     }

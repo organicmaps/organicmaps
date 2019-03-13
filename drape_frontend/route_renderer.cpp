@@ -273,11 +273,11 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen,
       dist = m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance;
 
     // We run asynchronous task to calculate new positions of route arrows.
-    auto subrouteId = subrouteInfo.m_subrouteId;
-    auto screenRect = screen.ClipRect();
-    auto screenScale = screen.GetScale();
+    auto const subrouteId = subrouteInfo.m_subrouteId;
+    auto const screenRect = screen.ClipRect();
+    auto const screenScale = screen.GetScale();
+    auto const subrouteLength = subrouteInfo.m_length;
     auto subroute = subrouteInfo.m_subroute;
-    auto subrouteLength = subrouteInfo.m_length;
     dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth,
                                      subroute = std::move(subroute), subrouteLength,
                                      dist, prepareCallback]()

@@ -36,8 +36,7 @@ public:
   void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
                    IndicesRange const & range) override
   {
-    if (!m_vertexArrayBuffer->HasBuffers())
-      return;
+    CHECK(m_vertexArrayBuffer->HasBuffers(), ());
 
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
     if (!metalContext->HasAppliedPipelineState())

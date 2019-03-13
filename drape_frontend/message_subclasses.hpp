@@ -572,7 +572,7 @@ public:
 
   Type GetType() const override { return Type::PrepareSubrouteArrows; }
   dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
-  std::vector<ArrowBorders> && MoveBorders() { return std::move(m_borders); }
+  std::vector<ArrowBorders> && AcceptBorders() { return std::move(m_borders); }
 
 private:
   dp::DrapeID m_subrouteId;

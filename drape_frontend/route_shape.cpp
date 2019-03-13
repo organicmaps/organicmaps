@@ -128,9 +128,9 @@ void GenerateJoinsTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> co
     glsl::vec3 const len2 = glsl::vec3(length.x, length.y, SideByNormal(normals[3 * j + 1], isLeft));
     glsl::vec3 const len3 = glsl::vec3(length.x, length.y, SideByNormal(normals[3 * j + 2], isLeft));
 
-    joinsGeometry.emplace_back(RouteShape::RV(pivot, normals[3 * j], len1, color));
-    joinsGeometry.emplace_back(RouteShape::RV(pivot, normals[3 * j + 1], len2, color));
-    joinsGeometry.emplace_back(RouteShape::RV(pivot, normals[3 * j + 2], len3, color));
+    joinsGeometry.emplace_back(pivot, normals[3 * j], len1, color);
+    joinsGeometry.emplace_back(pivot, normals[3 * j + 1], len2, color);
+    joinsGeometry.emplace_back(pivot, normals[3 * j + 2], len3, color);
   }
 }
 
@@ -152,12 +152,12 @@ void GenerateArrowsTriangles(glsl::vec4 const & pivot, std::vector<glsl::vec2> c
   size_t const trianglesCount = normals.size() / 3;
   for (size_t j = 0; j < trianglesCount; j++)
   {
-    joinsGeometry.emplace_back(RouteShape::AV(pivot, normals[3 * j],
-                               normalizedUV ? GetUV(texRect, uv[3 * j]) : uv[3 * j]));
-    joinsGeometry.emplace_back(RouteShape::AV(pivot, normals[3 * j + 1],
-                               normalizedUV ? GetUV(texRect, uv[3 * j + 1]) : uv[3 * j + 1]));
-    joinsGeometry.emplace_back(RouteShape::AV(pivot, normals[3 * j + 2],
-                               normalizedUV ? GetUV(texRect, uv[3 * j + 2]) : uv[3 * j + 2]));
+    joinsGeometry.emplace_back(pivot, normals[3 * j],
+                               normalizedUV ? GetUV(texRect, uv[3 * j]) : uv[3 * j]);
+    joinsGeometry.emplace_back(pivot, normals[3 * j + 1],
+                               normalizedUV ? GetUV(texRect, uv[3 * j + 1]) : uv[3 * j + 1]);
+    joinsGeometry.emplace_back(pivot, normals[3 * j + 2],
+                               normalizedUV ? GetUV(texRect, uv[3 * j + 2]) : uv[3 * j + 2]);
   }
 }
 
@@ -238,23 +238,23 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
     float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
 
-    geometry.emplace_back(RV(startPivot, glsl::vec2(0, 0),
-                             glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
-    geometry.emplace_back(RV(startPivot, leftNormalStart,
-                             glsl::vec3(startLength, projLeftStart, kLeftSide), segments[i].m_color));
-    geometry.emplace_back(RV(endPivot, glsl::vec2(0, 0),
-                             glsl::vec3(length, 0, kCenter), segments[i].m_color));
-    geometry.emplace_back(RV(endPivot, leftNormalEnd,
-                             glsl::vec3(length, projLeftEnd, kLeftSide), segments[i].m_color));
+    geometry.emplace_back(startPivot, glsl::vec2(0, 0),
+                          glsl::vec3(startLength, 0, kCenter), segments[i].m_color);
+    geometry.emplace_back(startPivot, leftNormalStart,
+                          glsl::vec3(startLength, projLeftStart, kLeftSide), segments[i].m_color);
+    geometry.emplace_back(endPivot, glsl::vec2(0, 0),
+                          glsl::vec3(length, 0, kCenter), segments[i].m_color);
+    geometry.emplace_back(endPivot, leftNormalEnd,
+                          glsl::vec3(length, projLeftEnd, kLeftSide), segments[i].m_color);
 
-    geometry.emplace_back(RV(startPivot, rightNormalStart,
-                             glsl::vec3(startLength, projRightStart, kRightSide), segments[i].m_color));
-    geometry.emplace_back(RV(startPivot, glsl::vec2(0, 0),
-                             glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
-    geometry.emplace_back(RV(endPivot, rightNormalEnd,
-                             glsl::vec3(length, projRightEnd, kRightSide), segments[i].m_color));
-    geometry.emplace_back(RV(endPivot, glsl::vec2(0, 0),
-                             glsl::vec3(length, 0, kCenter), segments[i].m_color));
+    geometry.emplace_back(startPivot, rightNormalStart,
+                          glsl::vec3(startLength, projRightStart, kRightSide), segments[i].m_color);
+    geometry.emplace_back(startPivot, glsl::vec2(0, 0),
+                          glsl::vec3(startLength, 0, kCenter), segments[i].m_color);
+    geometry.emplace_back(endPivot, rightNormalEnd,
+                          glsl::vec3(length, projRightEnd, kRightSide), segments[i].m_color);
+    geometry.emplace_back(endPivot, glsl::vec2(0, 0),
+                          glsl::vec3(length, 0, kCenter), segments[i].m_color);
 
     auto & joinsGeometry = geomBufferData.m_joinsGeometry;
 
@@ -358,15 +358,15 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
     glsl::vec2 const uvLeft = GetUV(tr, 0.5f, 0.0f);
     glsl::vec2 const uvRight = GetUV(tr, 0.5f, 1.0f);
 
-    geometry.emplace_back(AV(startPivot, glsl::vec2(0, 0), uvCenter));
-    geometry.emplace_back(AV(startPivot, leftNormalStart, uvLeft));
-    geometry.emplace_back(AV(endPivot, glsl::vec2(0, 0), uvCenter));
-    geometry.emplace_back(AV(endPivot, leftNormalEnd, uvLeft));
+    geometry.emplace_back(startPivot, glsl::vec2(0, 0), uvCenter);
+    geometry.emplace_back(startPivot, leftNormalStart, uvLeft);
+    geometry.emplace_back(endPivot, glsl::vec2(0, 0), uvCenter);
+    geometry.emplace_back(endPivot, leftNormalEnd, uvLeft);
 
-    geometry.emplace_back(AV(startPivot, rightNormalStart, uvRight));
-    geometry.emplace_back(AV(startPivot, glsl::vec2(0, 0), uvCenter));
-    geometry.emplace_back(AV(endPivot, rightNormalEnd, uvRight));
-    geometry.emplace_back(AV(endPivot, glsl::vec2(0, 0), uvCenter));
+    geometry.emplace_back(startPivot, rightNormalStart, uvRight);
+    geometry.emplace_back(startPivot, glsl::vec2(0, 0), uvCenter);
+    geometry.emplace_back(endPivot, rightNormalEnd, uvRight);
+    geometry.emplace_back(endPivot, glsl::vec2(0, 0), uvCenter);
 
     auto & joinsGeometry = geometryBufferData.m_joinsGeometry;
 
