@@ -1,5 +1,7 @@
 #include "platform/chunks_download_strategy.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/varint.hpp"
@@ -7,7 +9,6 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
-
 
 namespace downloader
 {
@@ -80,7 +81,7 @@ void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
   }
 
   // Delete if no chunks or some error occured.
-  (void)FileWriter::DeleteFileX(fName);
+  UNUSED_VALUE(Platform::RemoveFileIfExists(fName));
 }
 
 int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t fileSize,
@@ -89,39 +90,42 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
   ASSERT ( fileSize > 0, () );
   ASSERT ( chunkSize > 0, () );
 
-  try
+  if (Platform::IsFileExistsByFullPath(fName))
   {
-    FileReader r(fName);
-    ReaderSource<FileReader> src(r);
-
-    int64_t const readSize = ReadVarInt<int64_t>(src);
-    if (readSize == fileSize)
+    try
     {
-      // Load chunks.
-      uint64_t const size = src.Size();
-      int const stSize = sizeof(ChunkT);
-      size_t const count = size / stSize;
-      ASSERT_EQUAL(size, stSize * count, ());
+      FileReader r(fName);
+      ReaderSource<FileReader> src(r);
 
-      m_chunks.resize(count);
-      src.Read(&m_chunks[0], stSize * count);
-
-      // Reset status "downloading" to "free".
-      int64_t downloadedSize = 0;
-      for (size_t i = 0; i < count-1; ++i)
+      int64_t const readSize = ReadVarInt<int64_t>(src);
+      if (readSize == fileSize)
       {
-        if (m_chunks[i].m_status != CHUNK_COMPLETE)
-          m_chunks[i].m_status = CHUNK_FREE;
-        else
-          downloadedSize += (m_chunks[i+1].m_pos - m_chunks[i].m_pos);
-      }
+        // Load chunks.
+        uint64_t const size = src.Size();
+        int const stSize = sizeof(ChunkT);
+        size_t const count = size / stSize;
+        ASSERT_EQUAL(size, stSize * count, ());
 
-      return downloadedSize;
+        m_chunks.resize(count);
+        src.Read(&m_chunks[0], stSize * count);
+
+        // Reset status "downloading" to "free".
+        int64_t downloadedSize = 0;
+        for (size_t i = 0; i < count - 1; ++i)
+        {
+          if (m_chunks[i].m_status != CHUNK_COMPLETE)
+            m_chunks[i].m_status = CHUNK_FREE;
+          else
+            downloadedSize += (m_chunks[i + 1].m_pos - m_chunks[i].m_pos);
+        }
+
+        return downloadedSize;
+      }
     }
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LDEBUG, (e.Msg()));
+    catch (FileReader::Exception const & e)
+    {
+      LOG(LDEBUG, (e.Msg()));
+    }
   }
 
   InitChunks(fileSize, chunkSize);

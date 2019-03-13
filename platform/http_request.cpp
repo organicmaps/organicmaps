@@ -269,11 +269,10 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     // 3. Clean up resume file with chunks range on success
     if (m_status == Status::Completed)
     {
-      base::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+      Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
 
       // Rename finished file to it's original name.
-      if (Platform::IsFileExistsByFullPath(m_filePath))
-        base::DeleteFileX(m_filePath);
+      Platform::RemoveFileIfExists(m_filePath);
       CHECK(base::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
             (m_filePath, strerror(errno)));
 
@@ -353,8 +352,8 @@ public:
 
       if (m_doCleanProgressFiles)
       {
-        base::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
-        base::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+        Platform::RemoveFileIfExists(m_filePath + DOWNLOADING_FILE_EXTENSION);
+        Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
       }
     }
   }

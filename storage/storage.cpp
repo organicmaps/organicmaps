@@ -167,6 +167,7 @@ void Storage::DeleteAllLocalMaps(CountriesVec * existedCountries /* = nullptr */
         existedCountries->push_back(localFiles.first);
       localFile->SyncWithDisk();
       DeleteFromDiskWithIndexes(*localFile, MapOptions::MapWithCarRouting);
+      DeleteFromDiskWithIndexes(*localFile, MapOptions::Diff);
     }
   }
 }
@@ -287,6 +288,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
       LOG(LINFO, ("Removing obsolete", localFile));
       localFile.SyncWithDisk();
       DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
+      DeleteFromDiskWithIndexes(localFile, MapOptions::Diff);
       ++j;
     }
 
@@ -582,6 +584,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 
   CountryFile const countryFile = localFile.GetCountryFile();
   DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
+  DeleteFromDiskWithIndexes(localFile, MapOptions::Diff);
 
   {
     auto it = m_localFilesForFakeCountries.find(countryFile);
@@ -1480,6 +1483,8 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  LOG(LINFO, ("Downloading", countryId));
+
   CountryTreeNode const * const node = m_countries.FindFirst(countryId);
 
   if (!node)
@@ -1919,6 +1924,8 @@ void Storage::UpdateNode(CountryId const & countryId)
 void Storage::CancelDownloadNode(CountryId const & countryId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  LOG(LINFO, ("Cancelling the downloading of", countryId));
 
   CountriesSet setQueue;
   GetQueuedCountries(m_queue, setQueue);

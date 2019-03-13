@@ -94,7 +94,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       base::DeleteFileX(diffApplyingInProgressPath);
 
       if (result != DiffApplicationResult::Ok)
-        base::DeleteFileX(newMwmPath);
+        Platform::RemoveFileIfExists(newMwmPath);
     }
 
     switch (result)
@@ -108,11 +108,14 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       it->second.m_status = SingleDiffStatus::Applied;
       break;
     }
-    case DiffApplicationResult::Cancelled: break;
+    case DiffApplicationResult::Cancelled:
+      // The diff file will be deleted by storage.
+      // Another way would be to leave it on disk but all consequences
+      // of interacting with storage are much harder to be taken into account that way.
+      break;
     case DiffApplicationResult::Failed:
     {
       diffFile->DeleteFromDisk(MapOptions::Diff);
-
       alohalytics::Stats::Instance().LogEvent(
           "Downloader_DiffScheme_error",
           {{"type", "patching"},

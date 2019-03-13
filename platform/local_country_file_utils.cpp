@@ -10,8 +10,8 @@
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
@@ -24,7 +24,6 @@
 
 namespace platform
 {
-
 namespace migrate
 {
 // Set of functions to support migration between different versions of MWM
@@ -43,10 +42,7 @@ bool NeedMigrate()
   return true;
 }
 
-void SetMigrationFlag()
-{
-  settings::Set("LastMigration", kMinRequiredVersion);
-}
+void SetMigrationFlag() { settings::Set("LastMigration", kMinRequiredVersion); }
 }  // namespace migrate
 
 namespace
@@ -136,6 +132,16 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
     diffs.push_back(localDiff);
   }
 }
+
+string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
+                   MapOptions options)
+{
+  string const readyFile = GetFileName(countryFile.GetName(), options, version);
+  string const dir = GetDataDirFullPath(dataDir);
+  if (version == 0)
+    return base::JoinFoldersToPath(dir, readyFile);
+  return base::JoinFoldersToPath({dir, strings::to_string(version)}, readyFile);
+}
 }  // namespace
 
 void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile)
@@ -146,13 +152,19 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
+  for (MapOptions opt : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
   {
-    string const path = GetFileDownloadPath(version, dataDir, countryFile, file);
+    string const path = GetFileDownloadPath(version, dataDir, countryFile, opt);
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
-    base::DeleteFileX(path);
-    base::DeleteFileX(path + RESUME_FILE_EXTENSION);
-    base::DeleteFileX(path + DOWNLOADING_FILE_EXTENSION);
+    Platform::RemoveFileIfExists(path);
+    Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
+    Platform::RemoveFileIfExists(path + DOWNLOADING_FILE_EXTENSION);
+  }
+
+  // Delete the diff that was downloaded but wasn't applied.
+  {
+    string const path = GetFilePath(version, dataDir, countryFile, MapOptions::Diff);
+    Platform::RemoveFileIfExists(path);
   }
 }
 
@@ -262,8 +274,9 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
-  for (string const & file : { WORLD_FILE_NAME,
-    (migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME : WORLD_COASTS_FILE_NAME) })
+  for (string const & file :
+       {WORLD_FILE_NAME,
+        (migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME : WORLD_COASTS_FILE_NAME)})
   {
     auto i = localFiles.begin();
     for (; i != localFiles.end(); ++i)
@@ -279,8 +292,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
           platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
 
       // Assume that empty path means the resource file.
-      LocalCountryFile worldFile{string(), CountryFile(file),
-                                 version::ReadVersionDate(reader)};
+      LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
       worldFile.m_files = MapOptions::Map;
       if (i != localFiles.end())
       {
@@ -323,7 +335,8 @@ bool ParseVersion(string const & s, int64_t & version)
   return true;
 }
 
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile)
+shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version,
+                                                         CountryFile const & countryFile)
 {
   return PreparePlaceForCountryFiles(version, string(), countryFile);
 }
@@ -345,17 +358,19 @@ string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, Map
   return GetFileDownloadPath(version, string(), countryFile, options);
 }
 
-string GetFileDownloadPath(int64_t version, string const & dataDir,
-                           CountryFile const & countryFile, MapOptions options)
+string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
+                           MapOptions options)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
+  string const readyFile =
+      GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinFoldersToPath(dir, readyFile);
   return base::JoinFoldersToPath({dir, strings::to_string(version)}, readyFile);
 }
 
-unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapOptions options)
+unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file,
+                                         MapOptions options)
 {
   Platform & platform = GetPlatform();
   // See LocalCountryFile comment for explanation.
@@ -406,15 +421,9 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
   char const * ext = nullptr;
   switch (index)
   {
-    case Index::Bits:
-      ext = kBitsExt;
-      break;
-    case Index::Nodes:
-      ext = kNodesExt;
-      break;
-    case Index::Offsets:
-      ext = kOffsetsExt;
-      break;
+  case Index::Bits: ext = kBitsExt; break;
+  case Index::Nodes: ext = kNodesExt; break;
+  case Index::Offsets: ext = kOffsetsExt; break;
   }
   return base::JoinFoldersToPath(IndexesDir(localFile), localFile.GetCountryName() + ext);
 }
@@ -460,12 +469,9 @@ string DebugPrint(CountryIndexes::Index index)
 {
   switch (index)
   {
-    case CountryIndexes::Index::Bits:
-      return "Bits";
-    case CountryIndexes::Index::Nodes:
-      return "Nodes";
-    case CountryIndexes::Index::Offsets:
-      return "Offsets";
+  case CountryIndexes::Index::Bits: return "Bits";
+  case CountryIndexes::Index::Nodes: return "Nodes";
+  case CountryIndexes::Index::Offsets: return "Offsets";
   }
   UNREACHABLE();
 }
