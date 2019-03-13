@@ -55,7 +55,7 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
   if (name.empty())
     return;
 
-  streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
+  streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name, ft.GetNames());
 }
 
 // Following methods join only non-empty arguments in order with
@@ -91,23 +91,36 @@ boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string con
     auto const key = GetStreetNameAsKey(keyName, ignoreStreetSynonyms);
     for (auto const & street : streets)
     {
-      strings::UniString const actual = GetStreetNameAsKey(street.m_name, ignoreStreetSynonyms);
+      bool fullMatchFound = false;
+      street.m_multilangName.ForEach([&](int8_t /* langCode */, string const & name) {
+        if (fullMatchFound)
+          return;
 
-      size_t const editDistance =
-        strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+        strings::UniString const actual = GetStreetNameAsKey(name, ignoreStreetSynonyms);
 
-      if (editDistance == 0)
-        return street.m_id.m_index;
+        size_t const editDistance =
+            strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
 
-      if (actual.empty())
-        continue;
+        if (editDistance == 0)
+        {
+          result = street.m_id.m_index;
+          fullMatchFound = true;
+          return;
+        }
 
-      size_t const percent = editDistance * 100 / actual.size();
-      if (percent < minPercent)
-      {
-        result = street.m_id.m_index;
-        minPercent = percent;
-      }
+        if (actual.empty())
+          return;
+
+        size_t const percent = editDistance * 100 / actual.size();
+        if (percent < minPercent)
+        {
+          result = street.m_id.m_index;
+          minPercent = percent;
+        }
+      });
+
+      if (fullMatchFound)
+        return result;
     }
 
     if (minPercent <= kSimilarityThresholdPercent)
@@ -264,17 +277,16 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
   case HouseToStreetTable::StreetIdType::FeatureId:
   {
     FeatureID streetFeature(bld.m_id.m_mwmId, streetId);
-    string streetName;
-    double distance;
     m_dataSource.ReadFeature(
-        [&](FeatureType & ft) {
+        [&bld, &addr](FeatureType & ft) {
+          string streetName;
           ft.GetReadableName(streetName);
-          distance = feature::GetMinDistanceMeters(ft, bld.m_center);
+          double distance = feature::GetMinDistanceMeters(ft, bld.m_center);
+          addr.m_street = Street(ft.GetID(), distance, streetName, ft.GetNames());
         },
         streetFeature);
-    CHECK(!streetName.empty(), ());
+    CHECK(!addr.m_street.m_name.empty(), ());
     addr.m_building = bld;
-    addr.m_street = Street(streetFeature, distance, streetName);
     return true;
   }
   case HouseToStreetTable::StreetIdType::None:

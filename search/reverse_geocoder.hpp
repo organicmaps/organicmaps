@@ -4,6 +4,8 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -48,7 +50,17 @@ public:
 
   explicit ReverseGeocoder(DataSource const & dataSource);
 
-  using Street = Object;
+  struct Street : public Object
+  {
+    StringUtf8Multilang m_multilangName;
+
+    Street() = default;
+    Street(FeatureID const & id, double dist, std::string const & name,
+           StringUtf8Multilang const & multilangName)
+      : Object(id, dist, name), m_multilangName(multilangName)
+    {
+    }
+  };
 
   struct Building : public Object
   {
