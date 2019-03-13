@@ -187,14 +187,14 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestStreet firstAprilStreet(vector<m2::PointD>{m2::PointD(14.998, 15), m2::PointD(15.002, 15)},
                               "1st April street", "en");
 
-  TestBuilding feynmanHouse(m2::PointD(10, 10), "Feynman house", "1 unit 1", feynmanStreet, "en");
-  TestBuilding bohrHouse(m2::PointD(10, 10), "Bohr house", "1 unit 1", bohrStreet1, "en");
+  TestBuilding feynmanHouse(m2::PointD(10, 10), "Feynman house", "1 unit 1", feynmanStreet.GetName("en"), "en");
+  TestBuilding bohrHouse(m2::PointD(10, 10), "Bohr house", "1 unit 1", bohrStreet1.GetName("en"), "en");
   TestBuilding hilbertHouse(
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
-      "Hilbert house", "1 unit 2", bohrStreet1, "en");
+      "Hilbert house", "1 unit 2", bohrStreet1.GetName("en"), "en");
   TestBuilding descartesHouse(m2::PointD(10, 10), "Descartes house", "2", "en");
-  TestBuilding bornHouse(m2::PointD(14.999, 15), "Born house", "8", firstAprilStreet, "en");
+  TestBuilding bornHouse(m2::PointD(14.999, 15), "Born house", "8", firstAprilStreet.GetName("en"), "en");
 
   TestPOI busStop(m2::PointD(0, 0), "Bus stop", "en");
   TestPOI tramStop(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
@@ -202,7 +202,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   TestPOI quantumTeleport2(m2::PointD(10, 10), "Quantum teleport 2", "en");
   quantumTeleport2.SetHouseNumber("3");
-  quantumTeleport2.SetStreetName(feynmanStreet.GetName());
+  quantumTeleport2.SetStreetName(feynmanStreet.GetName("en"));
 
   TestPOI quantumCafe(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
   TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
@@ -211,7 +211,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestStreet stradaDrive(vector<m2::PointD>{m2::PointD(-10.001, -10.001), m2::PointD(-10, -10),
                                             m2::PointD(-9.999, -9.999)},
                          "Strada drive", "en");
-  TestBuilding terranceHouse(m2::PointD(-10, -10), "", "155", stradaDrive, "en");
+  TestBuilding terranceHouse(m2::PointD(-10, -10), "", "155", stradaDrive.GetName("en"), "en");
 
   BuildWorld([&](TestMwmBuilder & builder)
              {
@@ -638,10 +638,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
       "Первомайская", "ru");
   street.SetPostcode("141701");
 
-  TestBuilding building28(m2::PointD(0.0, 0.00001), "", "28а", street, "ru");
+  TestBuilding building28(m2::PointD(0.0, 0.00001), "", "28а", street.GetName("ru"), "ru");
   building28.SetPostcode("141701");
 
-  TestBuilding building29(m2::PointD(0.0, -0.00001), "", "29", street, "ru");
+  TestBuilding building29(m2::PointD(0.0, -0.00001), "", "29", street.GetName("ru"), "ru");
   building29.SetPostcode("141701");
 
   TestPOI building30(m2::PointD(0.00002, 0.00002), "", "en");
@@ -649,7 +649,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   building30.SetPostcode("141701");
   building30.SetTypes({{"building", "address"}});
 
-  TestBuilding building31(m2::PointD(0.00001, 0.00001), "", "31", street, "ru");
+  TestBuilding building31(m2::PointD(0.00001, 0.00001), "", "31", street.GetName("ru"), "ru");
   building31.SetPostcode("141702");
 
   TestBuilding building1(m2::PointD(10, 10), "", "1", "en");
@@ -1115,7 +1115,7 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
     builder.Add(city);
   });
 
-  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) {
+  auto id = BuildCountry(country.GetName("en"), [&](TestMwmBuilder & builder) {
     builder.Add(street);
     builder.Add(bakery);
   });
@@ -1151,7 +1151,7 @@ UNIT_CLASS_TEST(ProcessorTest, Numerals)
   TestPOI school(m2::PointD(0, 0), "СШ №61", "ru");
   school.SetTypes({{"amenity", "school"}});
 
-  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) { builder.Add(school); });
+  auto id = BuildCountry(country.GetName("ru"), [&](TestMwmBuilder & builder) { builder.Add(school); });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
   {
@@ -1307,8 +1307,8 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
 
   TestStreet street(vector<m2::PointD>{m2::PointD(-1.0, 0.0), m2::PointD(1.0, 0.0)}, "Queer Street",
                     "en");
-  TestBuilding building0(m2::PointD(-1.0, 0.0), "" /* name */, "0", street, "en");
-  TestBuilding building1(m2::PointD(1.0, 0.0), "", "1", street, "en");
+  TestBuilding building0(m2::PointD(-1.0, 0.0), "" /* name */, "0", street.GetName("en"), "en");
+  TestBuilding building1(m2::PointD(1.0, 0.0), "", "1", street.GetName("en"), "en");
   TestBuilding building2(m2::PointD(2.0, 0.0), "named building", "" /* house number */, "en");
   TestBuilding building3(m2::PointD(3.0, 0.0), "named building", "", "en");
 
@@ -1397,7 +1397,7 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
       "Computing street", "en");
 
   TestBuilding statisticalLearningBuilding(m2::PointD(8.0, 8.0), "Statistical Learning, Inc.", "0",
-                                           computingStreet, "en");
+                                           computingStreet.GetName("en"), "en");
 
   TestPOI reinforcementCafe(m2::PointD(8.0, 8.0), "Trattoria Reinforcemento", "en");
   reinforcementCafe.SetTypes({{"amenity", "cafe"}});
@@ -1665,7 +1665,7 @@ UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
 
   TestPOI nonameHouse(m2::PointD(1.0, 1.0), "", "en");
   nonameHouse.SetHouseNumber("3");
-  nonameHouse.SetStreetName(square.GetName());
+  nonameHouse.SetStreetName(square.GetName("en"));
 
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                    {

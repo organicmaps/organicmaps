@@ -48,7 +48,7 @@ public:
   }
 
   // TestFeature overrides:
-  std::string ToString() const override { return m_name; }
+  std::string ToDebugString() const override { return DebugPrint(m_name); }
 
 private:
   std::vector<uint32_t> m_types;

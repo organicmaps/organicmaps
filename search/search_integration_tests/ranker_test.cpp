@@ -25,12 +25,12 @@ UNIT_CLASS_TEST(RankerTest, ErrorsInStreets)
   TestStreet mazurova(
       vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0, 0), m2::PointD(0.001, 0.001)},
       "Мазурова", "ru");
-  TestBuilding mazurova14(m2::PointD(-0.001, -0.001), "", "14", mazurova, "ru");
+  TestBuilding mazurova14(m2::PointD(-0.001, -0.001), "", "14", mazurova.GetName("ru"), "ru");
 
   TestStreet masherova(
       vector<m2::PointD>{m2::PointD(-0.001, 0.001), m2::PointD(0, 0), m2::PointD(0.001, -0.001)},
       "Машерова", "ru");
-  TestBuilding masherova14(m2::PointD(0.001, 0.001), "", "14", masherova, "ru");
+  TestBuilding masherova14(m2::PointD(0.001, 0.001), "", "14", masherova.GetName("ru"), "ru");
 
   auto id = BuildCountry("Belarus", [&](TestMwmBuilder & builder) {
     builder.Add(mazurova);

@@ -40,8 +40,13 @@ public:
     fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
-    if (!m_name.empty())
-      CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+    m_name.ForEach([&](int8_t langCode, string const & name) {
+      if (!name.empty())
+      {
+        auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
+        CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
+      }
+    });
 
     auto const & classificator = classif();
     fb.AddType(classificator.GetTypeByPath({"place", "country"}));
@@ -284,7 +289,7 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
   TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)},
                         "Main Street", "en");
   TestCafe cafe(m2::PointD(1.0, 1.0), "Starbucks", "en");
-  cafe.SetStreetName(mainStreet.GetName());
+  cafe.SetStreetName(mainStreet.GetName("en"));
   cafe.SetHouseNumber("27");
 
   auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
