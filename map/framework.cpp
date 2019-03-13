@@ -836,29 +836,6 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   }
 
   FillInfoFromFeatureType(ft, info);
-
-  // Fill countryId for place page info
-  uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
-  if (info.GetTypes().Has(placeContinentType))
-    return;
-
-  uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
-  uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
-
-  bool const isState = info.GetTypes().Has(placeStateType);
-  bool const isCountry = info.GetTypes().Has(placeCountryType);
-  if (isCountry || isState)
-  {
-    size_t const level = isState ? 1 : 0;
-    CountriesVec countries;
-    CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    GetStorage().GetTopmostNodesFor(countryId, countries, level);
-    if (countries.size() == 1)
-      countryId = countries.front();
-
-    info.SetCountryId(countryId);
-    info.SetTopmostCountryIds(move(countries));
-  }
 }
 
 void Framework::FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const
@@ -981,6 +958,29 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   ASSERT(m_taxiEngine, ());
   info.SetReachableByTaxiProviders(m_taxiEngine->GetProvidersAtPos(latlon));
   info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
+
+  // Fill countryId for place page info
+  uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
+  if (info.GetTypes().Has(placeContinentType))
+    return;
+
+  uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
+  uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
+
+  bool const isState = info.GetTypes().Has(placeStateType);
+  bool const isCountry = info.GetTypes().Has(placeCountryType);
+  if (isCountry || isState)
+  {
+    size_t const level = isState ? 1 : 0;
+    CountriesVec countries;
+    CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+    GetStorage().GetTopmostNodesFor(countryId, countries, level);
+    if (countries.size() == 1)
+      countryId = countries.front();
+
+    info.SetCountryId(countryId);
+    info.SetTopmostCountryIds(move(countries));
+  }
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
@@ -2455,6 +2455,8 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
   {
     FillPointInfo(tapInfo.m_mercator, {} /* customTitle */, outInfo);
+    if (!outInfo.IsFeature() && featureTapped.IsValid())
+      FillFeatureInfo(featureTapped, outInfo);
     showMapSelection = true;
   }
   else if (featureTapped.IsValid())
