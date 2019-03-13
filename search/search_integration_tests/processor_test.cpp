@@ -1809,5 +1809,33 @@ UNIT_CLASS_TEST(ProcessorTest, PreprocessBeforeTokenizationTest)
     TEST(ResultsMatch("Москворецкая наб-я", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StreetNameLocaleTest)
+{
+  string const countryName = "Wonderland";
+
+  StringUtf8Multilang streetName;
+  streetName.AddString("default", "default");
+  streetName.AddString("en", "english");
+  streetName.AddString("ja", "japanese");
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(0.0, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.5)},
+      streetName);
+
+  TestPOI nonameHouse(m2::PointD(0.0, 0.0), "", "en");
+  nonameHouse.SetHouseNumber("3");
+  nonameHouse.SetStreetName(street.GetName("ja"));
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(nonameHouse);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
+  {
+    Rules rules = {ExactMatch(countryId, nonameHouse)};
+    TEST(ResultsMatch("default 3", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

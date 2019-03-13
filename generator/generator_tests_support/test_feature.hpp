@@ -35,11 +35,11 @@ public:
   bool Matches(FeatureType & feature) const;
   void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   uint64_t GetId() const { return m_id; }
-  StringUtf8Multilang const & GetNames() const { return m_name; }
+  StringUtf8Multilang const & GetNames() const { return m_names; }
   std::string GetName(std::string const & lang) const
   {
     std::string res;
-    if (m_name.GetString(lang, res))
+    if (m_names.GetString(lang, res))
       return res;
     return {};
   }
@@ -68,7 +68,7 @@ protected:
   m2::PointD const m_center;
   std::vector<m2::PointD> const m_boundary;
   Type const m_type;
-  StringUtf8Multilang m_name;
+  StringUtf8Multilang m_names;
   std::string m_postcode;
   feature::Metadata m_metadata;
 

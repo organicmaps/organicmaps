@@ -40,7 +40,7 @@ public:
     fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
-    m_name.ForEach([&](int8_t langCode, string const & name) {
+    m_names.ForEach([&](int8_t langCode, string const & name) {
       if (!name.empty())
       {
         auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
