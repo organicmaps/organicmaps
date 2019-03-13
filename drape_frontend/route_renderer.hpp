@@ -29,6 +29,7 @@ extern std::string const kTransitStopInnerMarkerColor;
 class RouteRenderer final
 {
 public:
+  using PrepareRouteArrowsCallback = std::function<void(dp::DrapeID, std::vector<ArrowBorders> &&)>;
   using CacheRouteArrowsCallback = std::function<void(dp::DrapeID, std::vector<ArrowBorders> const &)>;
   using PreviewPointsRequestCallback = std::function<void(uint32_t)>;
 
@@ -55,7 +56,10 @@ public:
 
   explicit RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest);
 
-  void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
+  void PrepareRouteArrows(ScreenBase const & screen, PrepareRouteArrowsCallback const & prepareCallback);
+  void CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subrouteId,
+                        std::vector<ArrowBorders> && arrowBorders,
+                        CacheRouteArrowsCallback const & cacheCallback);
 
   void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                    ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues);

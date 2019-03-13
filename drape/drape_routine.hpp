@@ -19,8 +19,6 @@ namespace dp
 // OpenGL data), use FR/BR threads for that.
 class DrapeRoutine
 {
-  friend class Promise;
-
 public:
   class Result
   {
@@ -92,6 +90,23 @@ public:
     return result;
   }
 
+  // Asynchronous execution for tasks when execution order matters.
+  template <typename Task>
+  static ResultPtr RunSequential(Task && t)
+  {
+    ResultPtr result(new Result(Instance().GetNextId()));
+    bool const success = Instance().m_sequentialWorkerThread.Push([result, t]() mutable
+    {
+      t();
+      Instance().Notify(result->Finish());
+    });
+
+    if (!success)
+      return {};
+
+    return result;
+  }
+
 private:
   static DrapeRoutine & Instance()
   {
@@ -129,6 +144,7 @@ private:
   void FinishAll()
   {
     m_workerThread.ShutdownAndJoin();
+    m_sequentialWorkerThread.ShutdownAndJoin();
 
     std::lock_guard<std::mutex> lock(m_mutex);
     m_finished = true;
@@ -141,6 +157,7 @@ private:
   std::condition_variable m_condition;
   std::mutex m_mutex;
   base::thread_pool::delayed::ThreadPool m_workerThread;
+  base::thread_pool::delayed::ThreadPool m_sequentialWorkerThread;
 };
 
 // This is a helper class, which aggregates logic of waiting for active
@@ -179,10 +196,9 @@ public:
   void Remove(std::shared_ptr<TaskType> const & task)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_tasks.erase(
-        std::remove_if(m_tasks.begin(), m_tasks.end(),
-                       [task](ActiveTask const & t) { return t.m_task == task; }),
-        m_tasks.end());
+    m_tasks.erase(std::remove_if(m_tasks.begin(), m_tasks.end(),
+                  [task](ActiveTask const & t) { return t.m_task == task; }),
+                  m_tasks.end());
   }
 
   void FinishAll()

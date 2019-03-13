@@ -5,6 +5,7 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/drape_routine.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/utils/projection.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -145,17 +146,17 @@ bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1,
   return true;
 }
 
-std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float currentHalfWidth,
-                                                RouteRenderer::SubrouteInfo const & subrouteInfo,
-                                                double distanceFromBegin)
+std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double screenScale,
+                                                float currentHalfWidth, SubrouteConstPtr const & subroute,
+                                                double subrouteLength, double distanceFromBegin)
 {
-  auto const & turns = subrouteInfo.m_subroute->m_turns;
+  auto const & turns = subroute->m_turns;
   if (turns.empty())
     return {};
 
   // Calculate arrow mercator length.
   double glbHalfLen = 0.5 * kArrowSize;
-  double const glbHalfTextureWidth = currentHalfWidth * kArrowHeightFactor * screen.GetScale();
+  double const glbHalfTextureWidth = currentHalfWidth * kArrowHeightFactor * screenScale;
   double const glbHalfTextureLen = glbHalfTextureWidth * kArrowAspect;
   if (glbHalfLen < glbHalfTextureLen)
     glbHalfLen = glbHalfTextureLen;
@@ -164,20 +165,20 @@ std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float
   double const glbArrowTail = 2.0 * kArrowTailSize * glbHalfTextureLen;
   double const glbMinArrowSize = glbArrowHead + glbArrowTail;
 
-  double const kExtendCoef = 1.1;
-  m2::RectD screenRect = screen.ClipRect();
-  screenRect.Scale(kExtendCoef);
+  double constexpr kExtentCoef = 1.1;
+  screenRect.Scale(kExtentCoef);
 
   // Calculate arrow borders.
+  size_t constexpr kAverageArrowsCount = 10;
   std::vector<ArrowBorders> newArrowBorders;
-  newArrowBorders.reserve(turns.size());
-  auto const & polyline = subrouteInfo.m_subroute->m_polyline;
+  newArrowBorders.reserve(kAverageArrowsCount);
+  auto const & polyline = subroute->m_polyline;
   for (size_t i = 0; i < turns.size(); i++)
   {
     ArrowBorders arrowBorders;
     arrowBorders.m_groupIndex = static_cast<int>(i);
     arrowBorders.m_startDistance = std::max(0.0, turns[i] - glbHalfLen * 0.8);
-    arrowBorders.m_endDistance = std::min(subrouteInfo.m_length, turns[i] + glbHalfLen * 1.2);
+    arrowBorders.m_endDistance = std::min(subrouteLength, turns[i] + glbHalfLen * 1.2);
 
     if ((arrowBorders.m_endDistance - arrowBorders.m_startDistance) < glbMinArrowSize ||
         arrowBorders.m_startDistance < distanceFromBegin)
@@ -248,9 +249,9 @@ RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsReques
   ASSERT(m_previewPointsRequest != nullptr, ());
 }
 
-void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback)
+void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen,
+                                       PrepareRouteArrowsCallback const & prepareCallback)
 {
-  ASSERT(callback != nullptr, ());
   for (auto & subrouteInfo : m_subroutes)
   {
     // Interpolate values by zoom level.
@@ -270,18 +271,49 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallb
     double dist = kInvalidDistance;
     if (m_followingEnabled)
       dist = m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance;
-    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, subrouteInfo, dist);
-    if (newArrowBorders.empty())
+
+    // We run asynchronous task to calculate new positions of route arrows.
+    auto subrouteId = subrouteInfo.m_subrouteId;
+    auto screenRect = screen.ClipRect();
+    auto screenScale = screen.GetScale();
+    auto subroute = subrouteInfo.m_subroute;
+    auto subrouteLength = subrouteInfo.m_length;
+    dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth,
+                                     subroute = std::move(subroute), subrouteLength,
+                                     dist, prepareCallback]()
     {
-      // Clear arrows.
-      subrouteInfo.m_arrowsData.reset();
-      subrouteInfo.m_arrowBorders.clear();
-    }
-    else if (!AreEqualArrowBorders(newArrowBorders, subrouteInfo.m_arrowBorders))
-    {
-      subrouteInfo.m_arrowBorders = std::move(newArrowBorders);
-      callback(subrouteInfo.m_subrouteId, subrouteInfo.m_arrowBorders);
-    }
+      ASSERT(prepareCallback != nullptr, ());
+      prepareCallback(subrouteId, CalculateArrowBorders(screenRect, screenScale, halfWidth,
+                                                        subroute, subrouteLength, dist));
+    });
+  }
+}
+
+void RouteRenderer::CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subrouteId,
+                                     std::vector<ArrowBorders> && arrowBorders,
+                                     CacheRouteArrowsCallback const & cacheCallback)
+{
+  ASSERT(cacheCallback != nullptr, ());
+  auto const it = FindSubroute(m_subroutes, subrouteId);
+  if (it == m_subroutes.end())
+    return;
+
+  auto & subrouteInfo = *it;
+
+  double zoom = 0.0;
+  float halfWidth = 0.0;
+  InterpolateByZoom(subrouteInfo.m_subroute, screen, halfWidth, zoom);
+
+  if (arrowBorders.empty() || zoom < kArrowAppearingZoomLevel)
+  {
+    // Clear arrows.
+    subrouteInfo.m_arrowsData.reset();
+    subrouteInfo.m_arrowBorders.clear();
+  }
+  else if (!AreEqualArrowBorders(arrowBorders, subrouteInfo.m_arrowBorders))
+  {
+    subrouteInfo.m_arrowBorders = std::move(arrowBorders);
+    cacheCallback(subrouteInfo.m_subrouteId, subrouteInfo.m_arrowBorders);
   }
 }
 

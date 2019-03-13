@@ -474,8 +474,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_routeRenderer->UpdateDistanceFromBegin(info.GetDistanceFromBegin());
         // Here we have to recache route arrows.
-        m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
-                                     std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+        m_routeRenderer->PrepareRouteArrows(m_userEventStream.GetCurrentScreen(),
+                                            std::bind(&FrontendRenderer::OnPrepareRouteArrows, this, _1, _2));
       }
 
       break;
@@ -514,8 +514,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_routeRenderer->AddSubrouteData(m_context, std::move(subrouteData), make_ref(m_gpuProgramManager));
 
       // Here we have to recache route arrows.
-      m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
-                                   std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+      m_routeRenderer->PrepareRouteArrows(m_userEventStream.GetCurrentScreen(),
+                                          std::bind(&FrontendRenderer::OnPrepareRouteArrows, this, _1, _2));
 
       if (m_pendingFollowRoute != nullptr)
       {
@@ -642,9 +642,18 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Type::RecoverGLResources:
+  case Message::Type::PrepareSubrouteArrows:
     {
-      UpdateGLResources();
+      ref_ptr<PrepareSubrouteArrowsMessage> msg = message;
+      m_routeRenderer->CacheRouteArrows(m_userEventStream.GetCurrentScreen(),
+                                        msg->GetSubrouteId(), msg->MoveBorders(),
+                                        std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+      break;
+    }
+
+  case Message::Type::RecoverContextDependentResources:
+    {
+      UpdateContextDependentResources();
       break;
     }
 
@@ -683,7 +692,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         blocker.Wait();
       }
 
-      UpdateGLResources();
+      UpdateContextDependentResources();
       break;
     }
 
@@ -996,7 +1005,7 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void FrontendRenderer::UpdateGLResources()
+void FrontendRenderer::UpdateContextDependentResources()
 {
   ++m_lastRecacheRouteId;
 
@@ -1011,7 +1020,7 @@ void FrontendRenderer::UpdateGLResources()
 
   m_trafficRenderer->ClearContextDependentResources();
 
-  // In some cases UpdateGLResources can be called before the rendering of
+  // In some cases UpdateContextDependentResources can be called before the rendering of
   // the first frame. m_currentZoomLevel will be equal to -1, so ResolveTileKeys
   // could not be called.
   if (m_currentZoomLevel > 0)
@@ -2406,7 +2415,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
   RefreshPivotTransform(modelView);
 
   m_myPositionController->OnUpdateScreen(modelView);
-  m_routeRenderer->UpdateRoute(modelView, std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+  m_routeRenderer->PrepareRouteArrows(modelView, std::bind(&FrontendRenderer::OnPrepareRouteArrows, this, _1, _2));
 }
 
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
@@ -2448,10 +2457,17 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
   m_modelViewChangedFn(modelView);
 }
 
-void FrontendRenderer::OnCacheRouteArrows(int routeIndex, std::vector<ArrowBorders> const & borders)
+void FrontendRenderer::OnPrepareRouteArrows(dp::DrapeID subrouteIndex, std::vector<ArrowBorders> && borders)
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<PrepareSubrouteArrowsMessage>(subrouteIndex, std::move(borders)),
+                            MessagePriority::Normal);
+}
+
+void FrontendRenderer::OnCacheRouteArrows(dp::DrapeID subrouteIndex, std::vector<ArrowBorders> const & borders)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<CacheSubrouteArrowsMessage>(routeIndex, borders, m_lastRecacheRouteId),
+                            make_unique_dp<CacheSubrouteArrowsMessage>(subrouteIndex, borders, m_lastRecacheRouteId),
                             MessagePriority::Normal);
 }
 

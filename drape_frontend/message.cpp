@@ -37,6 +37,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::SelectObject: return "SelectObject";
   case Message::Type::AddSubroute: return "AddSubroute";
   case Message::Type::RemoveSubroute: return "RemoveSubroute";
+  case Message::Type::PrepareSubrouteArrows: return "PrepareSubrouteArrows";
   case Message::Type::CacheSubrouteArrows: return "CacheSubrouteArrows";
   case Message::Type::FlushSubroute: return "FlushSubroute";
   case Message::Type::FlushSubrouteArrows: return "FlushSubrouteArrows";
@@ -64,7 +65,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::SetDisplacementMode: return "SetDisplacementMode";
   case Message::Type::AllowAutoZoom: return "AllowAutoZoom";
   case Message::Type::RequestSymbolsSize: return "RequestSymbolsSize";
-  case Message::Type::RecoverGLResources: return "RecoverGLResources";
+  case Message::Type::RecoverContextDependentResources: return "RecoverContextDependentResources";
   case Message::Type::SetVisibleViewport: return "SetVisibleViewport";
   case Message::Type::EnableTraffic: return "EnableTraffic";
   case Message::Type::FlushTrafficGeometry: return "FlushTrafficGeometry";

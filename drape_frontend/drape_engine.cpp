@@ -147,7 +147,7 @@ void DrapeEngine::Update(int w, int h)
   RecacheMapShapes();
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<RecoverGLResourcesMessage>(),
+                                  make_unique_dp<RecoverContextDependentResourcesMessage>(),
                                   MessagePriority::Normal);
 
   ResizeImpl(w, h);
