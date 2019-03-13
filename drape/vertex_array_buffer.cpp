@@ -180,7 +180,7 @@ void VertexArrayBuffer::Render(ref_ptr<GraphicsContext> context, bool drawAsLine
 void VertexArrayBuffer::RenderRange(ref_ptr<GraphicsContext> context,
                                     bool drawAsLine, IndicesRange const & range)
 {
-  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && GetIndexCount() > 0)
+  if (HasBuffers() && GetIndexCount() > 0)
   {
     // If OES_vertex_array_object is supported than all bindings have already saved in VAO
     // and we need only bind VAO.
@@ -201,6 +201,9 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
 {
   if (m_moveToGpuOnBuild && !m_isPreflushed)
     PreflushImpl(context);
+
+  if (!HasBuffers())
+    return;
 
   if (!m_impl)
   {
@@ -226,9 +229,7 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
   }
 
-  if (m_staticBuffers.empty())
-    return;
-
+  CHECK(m_impl != nullptr, ());
   if (!m_impl->Build(program))
     return;
 
@@ -408,13 +409,17 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
 
 bool VertexArrayBuffer::Bind() const
 {
-  CHECK(m_impl != nullptr, ());
+  if (m_impl == nullptr)
+    return false;
+
   return m_impl->Bind();
 }
 
 void VertexArrayBuffer::Unbind() const
 {
-  CHECK(m_impl != nullptr, ());
+  if (m_impl == nullptr)
+    return;
+
   m_impl->Unbind();
 }
 

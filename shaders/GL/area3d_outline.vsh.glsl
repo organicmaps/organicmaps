@@ -19,6 +19,10 @@ void main()
   pos.xyw = (pos * u_projection).xyw;
   pos.z = a_position.z * u_zScale;
   gl_Position = u_pivotTransform * pos;
+#ifdef VULKAN
+  gl_Position.y = -gl_Position.y;
+  gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
+#endif
 
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, a_colorTexCoords);

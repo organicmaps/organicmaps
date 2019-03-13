@@ -117,7 +117,7 @@ public:
   DrapeEngine(Params && params);
   ~DrapeEngine();
 
-  void Update(int w, int h);
+  void RecoverSurface(int w, int h, bool recreateContextDependentResources);
 
   void Resize(int w, int h);
   void Invalidate();

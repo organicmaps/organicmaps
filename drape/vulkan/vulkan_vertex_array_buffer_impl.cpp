@@ -53,6 +53,8 @@ public:
   void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
                    IndicesRange const & range) override
   {
+    CHECK(m_vertexArrayBuffer->HasBuffers(), ());
+
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
     CHECK(commandBuffer != nullptr, ());

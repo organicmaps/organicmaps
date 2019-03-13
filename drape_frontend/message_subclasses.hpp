@@ -561,6 +561,24 @@ private:
   int const m_recacheId;
 };
 
+class PrepareSubrouteArrowsMessage : public Message
+{
+public:
+  PrepareSubrouteArrowsMessage(dp::DrapeID subrouteId,
+                               std::vector<ArrowBorders> && borders)
+    : m_subrouteId(subrouteId)
+    , m_borders(std::move(borders))
+  {}
+
+  Type GetType() const override { return Type::PrepareSubrouteArrows; }
+  dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
+  std::vector<ArrowBorders> && AcceptBorders() { return std::move(m_borders); }
+
+private:
+  dp::DrapeID m_subrouteId;
+  std::vector<ArrowBorders> m_borders;
+};
+
 class CacheSubrouteArrowsMessage : public Message
 {
 public:
@@ -711,10 +729,10 @@ public:
   Type GetType() const override { return Type::Invalidate; }
 };
 
-class RecoverGLResourcesMessage : public Message
+class RecoverContextDependentResourcesMessage : public Message
 {
 public:
-  Type GetType() const override { return Type::RecoverGLResources; }
+  Type GetType() const override { return Type::RecoverContextDependentResources; }
   bool IsGraphicsContextDependent() const override { return true; }
 };
 

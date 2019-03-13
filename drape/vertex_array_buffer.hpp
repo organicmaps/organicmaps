@@ -84,6 +84,7 @@ public:
 
   void ResetChangingTracking() { m_isChanged = false; }
   bool IsChanged() const { return m_isChanged; }
+  bool HasBuffers() const { return !m_staticBuffers.empty() || !m_dynamicBuffers.empty(); }
 
 private:
   ref_ptr<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);

@@ -134,7 +134,7 @@ DrapeEngine::~DrapeEngine()
   m_glyphGenerator.reset();
 }
 
-void DrapeEngine::Update(int w, int h)
+void DrapeEngine::RecoverSurface(int w, int h, bool recreateContextDependentResources)
 {
   if (m_choosePositionMode)
   {
@@ -142,13 +142,15 @@ void DrapeEngine::Update(int w, int h)
                                     make_unique_dp<ShowChoosePositionMarkMessage>(),
                                     MessagePriority::Normal);
   }
-  RecacheGui(false);
 
-  RecacheMapShapes();
-
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<RecoverGLResourcesMessage>(),
-                                  MessagePriority::Normal);
+  if (recreateContextDependentResources)
+  {
+    RecacheGui(false);
+    RecacheMapShapes();
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<RecoverContextDependentResourcesMessage>(),
+                                    MessagePriority::Normal);
+  }
 
   ResizeImpl(w, h);
 }

@@ -226,7 +226,7 @@ private:
   };
 
   void ReleaseResources();
-  void UpdateGLResources();
+  void UpdateContextDependentResources();
 
   void BeginUpdateOverlayTree(ScreenBase const & modelView);
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
@@ -255,7 +255,8 @@ private:
 
   void ProcessSelection(ref_ptr<SelectObjectMessage> msg);
 
-  void OnCacheRouteArrows(int routeIndex, std::vector<ArrowBorders> const & borders);
+  void OnPrepareRouteArrows(dp::DrapeID subrouteIndex, std::vector<ArrowBorders> && borders);
+  void OnCacheRouteArrows(dp::DrapeID subrouteIndex, std::vector<ArrowBorders> const & borders);
 
   void CollectShowOverlaysEvents();
 

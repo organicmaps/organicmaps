@@ -362,7 +362,8 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
   if (m_isSurfaceDestroyed)
   {
     LOG(LINFO, ("Recover surface, viewport size:", w, h));
-    m_work.OnRecoverSurface(w, h);
+    bool const recreateContextDependentResources = (m_vulkanContextFactory == nullptr);
+    m_work.OnRecoverSurface(w, h, recreateContextDependentResources);
     m_isSurfaceDestroyed = false;
 
     m_work.EnterForeground();

@@ -390,7 +390,8 @@ void Framework::Migrate(bool keepDownloaded)
   {
     m_drapeEngine->SetRenderingEnabled();
     OnRecoverSurface(m_currentModelView.PixelRectIn3d().SizeX(),
-                     m_currentModelView.PixelRectIn3d().SizeY());
+                     m_currentModelView.PixelRectIn3d().SizeY(),
+                     true /* recreateContextDependentResources */);
   }
   InvalidateRect(MercatorBounds::FullRect());
 }
@@ -1910,11 +1911,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   benchmark::RunGraphicsBenchmark(this);
 }
 
-void Framework::OnRecoverSurface(int width, int height)
+void Framework::OnRecoverSurface(int width, int height, bool recreateContextDependentResources)
 {
   if (m_drapeEngine)
   {
-    m_drapeEngine->Update(width, height);
+    m_drapeEngine->RecoverSurface(width, height, recreateContextDependentResources);
 
     InvalidateUserMarks();
 
@@ -2447,19 +2448,18 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   }
 
   FeatureID featureTapped = tapInfo.m_featureTapped;
-
   if (!featureTapped.IsValid())
     featureTapped = FindBuildingAtPoint(tapInfo.m_mercator);
 
   bool showMapSelection = false;
-  if (featureTapped.IsValid())
-  {
-    FillFeatureInfo(featureTapped, outInfo);
-    showMapSelection = true;
-  }
-  else if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
+  if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
   {
     FillPointInfo(tapInfo.m_mercator, {} /* customTitle */, outInfo);
+    showMapSelection = true;
+  }
+  else if (featureTapped.IsValid())
+  {
+    FillFeatureInfo(featureTapped, outInfo);
     showMapSelection = true;
   }
 
