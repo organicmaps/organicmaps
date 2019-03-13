@@ -33,6 +33,7 @@ final class SearchHistoryViewController: MWMViewController {
       let nib = UINib(nibName: "SearchHistoryClearCell", bundle: nil)
       tableView.register(nib, forCellReuseIdentifier: SearchHistoryViewController.clearCellIdentifier)
     }
+    tableView.keyboardDismissMode = .onDrag
   }
   
   func showNoResultsView() {

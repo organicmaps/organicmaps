@@ -29,6 +29,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
     tableView.register(cellClass: SearchCategoryCell.self)
     tableView.register(cellClass: SearchBannerCell.self)
     tableView.separatorStyle = .none
+    tableView.keyboardDismissMode = .onDrag
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
