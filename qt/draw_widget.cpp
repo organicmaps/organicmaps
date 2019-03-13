@@ -39,22 +39,12 @@ using namespace qt::common;
 namespace
 {
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
-                                                       FeatureType & ft)
-{
-  search::ReverseGeocoder const coder(framework.GetDataSource());
-  search::ReverseGeocoder::Address address;
-  coder.GetExactAddress(ft, address);
-
-  return address;
-}
-
-search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
                                                        FeatureID const & fid)
 {
   FeatureType ft;
   if (!framework.GetFeatureByID(fid, ft))
     return {};
-  return GetFeatureAddressInfo(framework, ft);
+  return qt::common::GetFeatureAddressInfo(framework, ft);
 }
 }  // namespace
 
@@ -512,40 +502,6 @@ void DrawWidget::ShowPlacePage(place_page::Info const & info)
     }
   }
   m_framework.DeactivateMapSelection(false);
-}
-
-void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
-{
-  // show feature types
-  QMenu menu;
-  auto const addStringFn = [&menu](string const & s)
-  {
-    if (s.empty())
-      return;
-
-    menu.addAction(QString::fromUtf8(s.c_str()));
-  };
-
-  m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
-  {
-    string concat;
-    auto types = feature::TypesHolder(ft);
-    types.SortBySpec();
-    for (auto const & type : types.ToObjectNames())
-      concat += type + " ";
-    addStringFn(concat);
-
-    std::string name;
-    ft.GetReadableName(name);
-    addStringFn(name);
-
-    auto const info = GetFeatureAddressInfo(m_framework, ft);
-    addStringFn(info.FormatAddress());
-
-    menu.addSeparator();
-  }, m_framework.PtoG(pt));
-
-  menu.exec(e->pos());
 }
 
 void DrawWidget::SetRouter(routing::RouterType routerType)

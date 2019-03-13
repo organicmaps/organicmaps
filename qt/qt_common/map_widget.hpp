@@ -4,9 +4,13 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "kml/type_utils.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "qt/qt_common/qtoglcontextfactory.hpp"
+
+#include "kml/type_utils.hpp"
+
+#include "indexer/feature.hpp"
 
 #include <QtCore/QTimer>
 #include <QtWidgets/QOpenGLWidget>
@@ -73,6 +77,7 @@ protected:
 
   void UpdateScaleControl();
   void Build();
+  void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
   // QOpenGLWidget overrides:
   void initializeGL() override;
@@ -101,5 +106,8 @@ protected:
   unique_ptr<QOpenGLVertexArrayObject> m_vao;
   unique_ptr<QOpenGLBuffer> m_vbo;
 };
+
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
+                                                       FeatureType & ft);
 }  // namespace common
 }  // namespace qt

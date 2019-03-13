@@ -9,10 +9,13 @@
 
 #include "base/assert.hpp"
 
+#include <string>
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtWidgets/QAction>
+#include <QtWidgets/QMenu>
 
 #include <QtGui/QOpenGLBuffer>
 #include <QtGui/QOpenGLVertexArrayObject>
@@ -265,6 +268,40 @@ void MapWidget::Build()
   m_vao->release();
 }
 
+void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
+{
+  // show feature types
+  QMenu menu;
+  auto const addStringFn = [&menu](string const & s) {
+    if (s.empty())
+      return;
+
+    menu.addAction(QString::fromUtf8(s.c_str()));
+  };
+
+  m_framework.ForEachFeatureAtPoint(
+      [&](FeatureType & ft) {
+        string concat;
+        auto types = feature::TypesHolder(ft);
+        types.SortBySpec();
+        for (auto const & type : types.ToObjectNames())
+          concat += type + " ";
+        addStringFn(concat);
+
+        std::string name;
+        ft.GetReadableName(name);
+        addStringFn(name);
+
+        auto const info = GetFeatureAddressInfo(m_framework, ft);
+        addStringFn(info.FormatAddress());
+
+        menu.addSeparator();
+      },
+      m_framework.PtoG(pt));
+
+  menu.exec(e->pos());
+}
+
 void MapWidget::initializeGL()
 {
   ASSERT(m_contextFactory == nullptr, ());
@@ -368,6 +405,16 @@ void MapWidget::wheelEvent(QWheelEvent * e)
 {
   QOpenGLWidget::wheelEvent(e);
   m_framework.Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
+}
+
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
+                                                       FeatureType & ft)
+{
+  search::ReverseGeocoder const coder(framework.GetDataSource());
+  search::ReverseGeocoder::Address address;
+  coder.GetExactAddress(ft, address);
+
+  return address;
 }
 }  // namespace common
 }  // namespace qt
