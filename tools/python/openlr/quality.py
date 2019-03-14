@@ -140,17 +140,28 @@ def parse_route(route):
     return result
 
 def ignored_segments_number(tree, limit):
-    ignored_segments = 0
-    ignored_segments_but_matched = 0
+    ignored_segments_num = 0
+    ignored_segments_but_matched = []
     segments = islice(tree.findall('.//Segment'), limit)
     for s in segments:
         ignored = s.find('Ignored')
         if ignored is not None and ignored.text == 'true':
-            ignored_segments += 1
+            ignored_segments_num += 1
             route = s.find('Route')
             if route is not None:
-                ignored_segments_but_matched += 1
-    return ignored_segments, ignored_segments_but_matched
+                segment_id = int(s.find('.//ReportSegmentID').text)
+                ignored_segments_but_matched.append(str(segment_id))
+    return ignored_segments_num, ignored_segments_but_matched
+
+def print_ignored_segments_result(descr, tree, limit):
+    assessed_ignored_seg = []
+    (assessed_ignored_seg_num, assessed_ignored_seg_but_matched) = ignored_segments_number(tree, limit)
+    print()
+    print(descr)
+    print('{} matched segments from {} ignored segments.'.
+        format(len(assessed_ignored_seg_but_matched), assessed_ignored_seg_num))
+    print('Ignored segments, but matched:'.format(descr))
+    print('\n'.join(assessed_ignored_seg_but_matched))
 
 def parse_segments(tree, limit):
     segments = islice(tree.findall('.//Segment'), limit)
@@ -257,10 +268,9 @@ if __name__ == '__main__':
             'Base' if mean1 - mean2 > 0 else 'New',
             mean1 - mean2
         ))
-        print('Base: {0[1]} matched segments from {0[0]} ignored segments.'.
-            format(ignored_segments_number(assessed, args.limit)))
-        print('New: {0[1]} matched segments from {0[0]} ignored segments.'.
-            format(ignored_segments_number(candidate, args.limit)))
+
+        print_ignored_segments_result('Base', assessed, args.limit)
+        print_ignored_segments_result('New', candidate, args.limit)
     else:
         print('{}\t{}'.format(
             'segment_id', 'intersection_weight')
@@ -273,5 +283,4 @@ if __name__ == '__main__':
             np.std(list(assessed_scores.values()), ddof=1)
         ))
 
-        print('{0[1]} matched segments from {0[0]} ignored segments.'.
-            format(ignored_segments_number(assessed, args.limit)))
+        print_ignored_segments_result('', assessed, args.limit)
