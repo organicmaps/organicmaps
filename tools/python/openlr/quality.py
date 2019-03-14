@@ -160,7 +160,7 @@ def print_ignored_segments_result(descr, tree, limit):
     print(descr)
     print('{} matched segments from {} ignored segments.'.
         format(len(assessed_ignored_seg_but_matched), assessed_ignored_seg_num))
-    print('Ignored segments, but matched:'.format(descr))
+    print('Ignored segments, but matched:')
     print('\n'.join(assessed_ignored_seg_but_matched))
 
 def parse_segments(tree, limit):
