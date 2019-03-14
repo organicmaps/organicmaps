@@ -1,5 +1,6 @@
 #include "map/discovery/discovery_search.hpp"
 
+#include "search/feature_loader.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/utils.hpp"
 
@@ -30,25 +31,6 @@ search::Result MakeResultFromFeatureType(FeatureType & ft)
   search::ProcessMetadata(ft, metadata);
 
   return {ft.GetID(), feature::GetCenter(ft), name, "", holder.GetBestType(), metadata};
-}
-
-std::unique_ptr<FeatureType> MakeFeatureTypeWithCachedGuard(
-    DataSource const & dataSource, MwmSet::MwmId & mwmId,
-    std::unique_ptr<FeaturesLoaderGuard> & guard, FeatureID const & id)
-{
-  if (mwmId != id.m_mwmId)
-  {
-    guard = std::make_unique<FeaturesLoaderGuard>(dataSource, id.m_mwmId);
-    mwmId = id.m_mwmId;
-  }
-
-  CHECK_EQUAL(guard->GetId(), mwmId, ());
-
-  auto ft = guard->GetFeatureByIndex(id.m_index);
-  if (!ft)
-    LOG(LERROR, ("Feature can't be loaded:", id));
-
-  return ft;
 }
 
 class GreaterRating
@@ -153,21 +135,13 @@ void SearchHotels::ProcessAccumulated()
 {
   ASSERT(std::is_sorted(m_featureIds.cbegin(), m_featureIds.cend()), ());
 
-  MwmSet::MwmId mwmId;
-  std::unique_ptr<FeaturesLoaderGuard> guard;
-
-  auto const makeFeatureType = [this, &guard, &mwmId](FeatureID const & id)
-  {
-    return MakeFeatureTypeWithCachedGuard(GetDataSource(), mwmId, guard, id);
-  };
+  search::FeatureLoader loader(GetDataSource());
 
   std::vector<std::unique_ptr<FeatureType>> sortedByRating;
   sortedByRating.resize(m_featureIds.size());
 
   for (size_t i = 0; i < m_featureIds.size(); ++i)
-  {
-    sortedByRating[i] = makeFeatureType(m_featureIds[i]);
-  }
+    sortedByRating[i] = loader.Load(m_featureIds[i]);
 
   auto const size = std::min(sortedByRating.size(), GetParams().m_itemsCount);
 
@@ -210,13 +184,7 @@ void SearchPopularPlaces::ProcessFeatureId(FeatureID const & id)
 
 void SearchPopularPlaces::ProcessAccumulated()
 {
-  MwmSet::MwmId mwmId;
-  std::unique_ptr<FeaturesLoaderGuard> guard;
-
-  auto const makeFeatureType = [this, &guard, &mwmId](FeatureID const & id)
-  {
-    return MakeFeatureTypeWithCachedGuard(GetDataSource(), mwmId, guard, id);
-  };
+  search::FeatureLoader loader(GetDataSource());
 
   auto const appendResult = [this](uint8_t popularity, FeatureType & ft)
   {
@@ -238,7 +206,7 @@ void SearchPopularPlaces::ProcessAccumulated()
       break;
 
     auto const popularity = item.first;
-    auto ft = makeFeatureType(item.second);
+    auto ft = loader.Load(item.second);
 
     if (popularity > 0)
     {
@@ -261,7 +229,7 @@ void SearchPopularPlaces::ProcessAccumulated()
   {
     for (auto const & featureId : featuresWithoutNames)
     {
-      auto ft = makeFeatureType(featureId);
+      auto ft = loader.Load(featureId);
       appendResult(0, *ft);
 
       if (GetResults().GetCount() >= itemsCount)
