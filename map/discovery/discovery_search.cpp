@@ -36,21 +36,9 @@ search::Result MakeResultFromFeatureType(FeatureType & ft)
 class GreaterRating
 {
 public:
-  bool operator()(std::unique_ptr<FeatureType> & lhs, std::unique_ptr<FeatureType> & rhs) const
+  bool operator()(search::Result const & lhs, search::Result const & rhs) const
   {
-    double constexpr kPenaltyRating = -1.0;
-    double lhsRating = kPenaltyRating;
-    double rhsRating = kPenaltyRating;
-
-    if (!strings::to_double(lhs->GetMetadata().Get(feature::Metadata::EType::FMD_RATING),
-                            lhsRating))
-      lhsRating = kPenaltyRating;
-
-    if (!strings::to_double(rhs->GetMetadata().Get(feature::Metadata::EType::FMD_RATING),
-                            rhsRating))
-      rhsRating = kPenaltyRating;
-
-    return lhsRating > rhsRating;
+    return lhs.m_metadata.m_hotelRating > rhs.m_metadata.m_hotelRating;
   }
 };
 }  // namespace
@@ -137,11 +125,15 @@ void SearchHotels::ProcessAccumulated()
 
   search::FeatureLoader loader(GetDataSource());
 
-  std::vector<std::unique_ptr<FeatureType>> sortedByRating;
-  sortedByRating.resize(m_featureIds.size());
+  std::vector<search::Result> sortedByRating;
+  sortedByRating.reserve(m_featureIds.size());
 
-  for (size_t i = 0; i < m_featureIds.size(); ++i)
-    sortedByRating[i] = loader.Load(m_featureIds[i]);
+  for (auto const featureId : m_featureIds)
+  {
+    auto ft = loader.Load(featureId);
+    CHECK(ft, ("Failed to load feature with id", featureId));
+    sortedByRating.push_back(MakeResultFromFeatureType(*ft));
+  }
 
   auto const size = std::min(sortedByRating.size(), GetParams().m_itemsCount);
 
@@ -149,10 +141,7 @@ void SearchHotels::ProcessAccumulated()
                     sortedByRating.end(), GreaterRating());
 
   for (size_t i = 0; i < size; ++i)
-  {
-    auto result = MakeResultFromFeatureType(*sortedByRating[i]);
-    AppendResult(std::move(result));
-  }
+    AppendResult(std::move(sortedByRating[i]));
 }
 
 SearchPopularPlaces::SearchPopularPlaces(DataSource const & dataSource,
