@@ -100,8 +100,7 @@ bool DirectoryHasIndexesOnly(string const & directory)
 inline string GetDataDirFullPath(string const & dataDir)
 {
   Platform & platform = GetPlatform();
-  return dataDir.empty() ? platform.WritableDir()
-                         : base::JoinFoldersToPath(platform.WritableDir(), dataDir);
+  return dataDir.empty() ? platform.WritableDir() : base::JoinPath(platform.WritableDir(), dataDir);
 }
 
 void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diffs)
@@ -139,8 +138,8 @@ string GetFilePath(int64_t version, string const & dataDir, CountryFile const & 
   string const filename = GetFileName(countryFile.GetName(), options, version);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
-    return base::JoinFoldersToPath(dir, filename);
-  return base::JoinFoldersToPath({dir, strings::to_string(version)}, filename);
+    return base::JoinPath(dir, filename);
+  return base::JoinPath(dir, strings::to_string(version), filename);
 }
 }  // namespace
 
@@ -189,7 +188,7 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
     // Remove downloader and diff files for old version directories.
     if (version < latestVersion && (IsDownloaderFile(name) || IsDiffFile(name)))
     {
-      base::DeleteFileX(base::JoinFoldersToPath(directory, name));
+      base::DeleteFileX(base::JoinPath(directory, name));
       continue;
     }
 
@@ -223,7 +222,7 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
     if (IsSpecialName(name))
       continue;
 
-    if (names.count(name) == 0 && DirectoryHasIndexesOnly(base::JoinFoldersToPath(directory, name)))
+    if (names.count(name) == 0 && DirectoryHasIndexesOnly(base::JoinPath(directory, name)))
     {
       // Directory which looks like a directory with indexes for absent country. It's OK to remove
       // it.
@@ -242,7 +241,7 @@ void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
   Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
 
   for (auto const & fwt : fwts)
-    FindAllDiffsInDirectory(base::JoinFoldersToPath(dir, fwt.first /* subdir */), diffs);
+    FindAllDiffsInDirectory(base::JoinPath(dir, fwt.first /* subdir */), diffs);
 }
 
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles)
@@ -265,7 +264,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
     if (!ParseVersion(subdir, version) || version > latestVersion)
       continue;
 
-    string const fullPath = base::JoinFoldersToPath(dir, subdir);
+    string const fullPath = base::JoinPath(dir, subdir);
     FindAllLocalMapsInDirectoryAndCleanup(fullPath, version, latestVersion, localFiles);
     Platform::EError err = Platform::RmDir(fullPath);
     if (err != Platform::ERR_OK && err != Platform::ERR_DIRECTORY_NOT_EMPTY)
@@ -348,7 +347,7 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return make_shared<LocalCountryFile>(dir, countryFile, version);
-  string const directory = base::JoinFoldersToPath(dir, strings::to_string(version));
+  string const directory = base::JoinPath(dir, strings::to_string(version));
   if (!Platform::MkDirChecked(directory))
     return shared_ptr<LocalCountryFile>();
   return make_shared<LocalCountryFile>(directory, countryFile, version);
@@ -366,8 +365,8 @@ string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile 
       GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
-    return base::JoinFoldersToPath(dir, readyFile);
-  return base::JoinFoldersToPath({dir, strings::to_string(version)}, readyFile);
+    return base::JoinPath(dir, readyFile);
+  return base::JoinPath(dir, strings::to_string(version), readyFile);
 }
 
 unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file,
@@ -426,7 +425,7 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
   case Index::Nodes: ext = kNodesExt; break;
   case Index::Offsets: ext = kOffsetsExt; break;
   }
-  return base::JoinFoldersToPath(IndexesDir(localFile), localFile.GetCountryName() + ext);
+  return base::JoinPath(IndexesDir(localFile), localFile.GetCountryName() + ext);
 }
 
 // static
@@ -458,12 +457,12 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
     int64_t const version = localFile.GetVersion();
     ASSERT_GREATER(version, 0, ());
 
-    dir = base::JoinFoldersToPath(GetPlatform().WritableDir(), strings::to_string(version));
+    dir = base::JoinPath(GetPlatform().WritableDir(), strings::to_string(version));
     if (!Platform::MkDirChecked(dir))
       MYTHROW(FileSystemException, ("Can't create directory", dir));
   }
 
-  return base::JoinFoldersToPath(dir, file.GetName());
+  return base::JoinPath(dir, file.GetName());
 }
 
 string DebugPrint(CountryIndexes::Index index)

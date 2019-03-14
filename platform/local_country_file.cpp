@@ -74,7 +74,7 @@ void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 
 string LocalCountryFile::GetPath(MapOptions file) const
 {
-  return base::JoinFoldersToPath(m_directory, GetFileName(m_countryFile.GetName(), file, GetVersion()));
+  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), file, GetVersion()));
 }
 
 uint64_t LocalCountryFile::GetSize(MapOptions filesMask) const

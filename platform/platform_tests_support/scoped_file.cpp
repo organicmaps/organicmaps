@@ -40,7 +40,7 @@ ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
 }
 
 ScopedFile::ScopedFile(string const & relativePath, string const & contents, Mode mode)
-  : m_fullPath(base::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath))
+  : m_fullPath(base::JoinPath(GetPlatform().WritableDir(), relativePath))
 {
   if (mode == Mode::DoNotCreate)
     return;

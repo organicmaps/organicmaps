@@ -95,7 +95,7 @@ bool Platform::RmDirRecursively(string const & dirName)
   GetFilesByRegExp(dirName, ".*", allFiles);
   for (string const & file : allFiles)
   {
-    string const path = base::JoinFoldersToPath(dirName, file);
+    string const path = base::JoinPath(dirName, file);
 
     EFileType type;
     if (GetFileType(path, type) != ERR_OK)
@@ -215,7 +215,7 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
   for (string const & file : allFiles)
   {
     EFileType type;
-    if (GetFileType(base::JoinFoldersToPath(directory, file), type) != ERR_OK)
+    if (GetFileType(base::JoinPath(directory, file), type) != ERR_OK)
       continue;
     if (typeMask & type)
       outFiles.emplace_back(file, type);

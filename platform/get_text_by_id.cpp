@@ -34,8 +34,8 @@ namespace platform
 {
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
-  string const pathToJson = base::JoinFoldersToPath(
-      {GetTextSourceString(textSource), localeName + ".json"}, "localize.json");
+  string const pathToJson =
+      base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
 
   try
   {

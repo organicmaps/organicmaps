@@ -96,8 +96,12 @@ string HomeDir()
 // An exception is thrown if the default dir is not already there and we were unable to create it.
 string DefaultWritableDir()
 {
-  initializer_list<string> dirs = {".local", "share", "MapsWithMe"};
-  auto const result = base::JoinFoldersToPath(dirs, "" /* file */);
+  initializer_list<string> const dirs = {".local", "share", "MapsWithMe"};
+  string result;
+  for (auto const & dir : dirs)
+    result = base::JoinPath(result, dir);
+  result = base::AddSlashIfNeeded(result);
+
   auto const home = HomeDir();
   if (!MkDirsChecked(home, dirs))
     MYTHROW(FileSystemException, ("Cannot create directory:", result));

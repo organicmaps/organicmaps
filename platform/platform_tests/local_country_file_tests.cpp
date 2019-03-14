@@ -212,13 +212,13 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {"Netherlands.mwm.routing.downloading2", ScopedFile::Mode::Create},
       {"Germany.mwm.ready3", ScopedFile::Mode::Create},
       {"UK_England.mwm.resume4", ScopedFile::Mode::Create},
-      {base::JoinFoldersToPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
+      {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
        ScopedFile::Mode::Create}};
   ScopedFile toBeKept[] = {
       {"Italy.mwm", ScopedFile::Mode::Create},
       {"Spain.mwm", ScopedFile::Mode::Create},
       {"Spain.mwm.routing", ScopedFile::Mode::Create},
-      {base::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
+      {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
        ScopedFile::Mode::Create}};
 
   CleanupMapsDirectory(101010 /* latestVersion */);
@@ -347,9 +347,8 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
 
   CountryFile germanyFile("Germany");
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
-  TEST_EQUAL(
-      base::JoinFoldersToPath(germanyLocalFile.GetDirectory(), germanyFile.GetName()),
-      CountryIndexes::IndexesDir(germanyLocalFile), ());
+  TEST_EQUAL(base::JoinPath(germanyLocalFile.GetDirectory(), germanyFile.GetName()),
+             CountryIndexes::IndexesDir(germanyLocalFile), ());
   CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
   string const bitsPath = CountryIndexes::GetPath(germanyLocalFile, CountryIndexes::Index::Bits);
@@ -378,7 +377,7 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
   string const userFilePath =
-      base::JoinFoldersToPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
+      base::JoinPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
   {
     FileWriter writer(userFilePath);
     string const data = "user data";

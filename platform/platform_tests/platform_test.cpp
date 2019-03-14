@@ -110,8 +110,8 @@ UNIT_TEST(GetFilesInDir_Smoke)
 UNIT_TEST(DirsRoutines)
 {
   string const baseDir = GetPlatform().WritableDir();
-  string const testDir = base::JoinFoldersToPath(baseDir, "test-dir");
-  string const testFile = base::JoinFoldersToPath(testDir, "test-file");
+  string const testDir = base::JoinPath(baseDir, "test-dir");
+  string const testFile = base::JoinPath(testDir, "test-file");
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
@@ -137,11 +137,11 @@ UNIT_TEST(GetFilesByType)
 
   string const baseDir = GetPlatform().WritableDir();
 
-  string const testDir = base::JoinFoldersToPath(baseDir, kTestDirBaseName);
+  string const testDir = base::JoinPath(baseDir, kTestDirBaseName);
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir, bind(&Platform::RmDir, testDir));
 
-  string const testFile = base::JoinFoldersToPath(baseDir, kTestFileBaseName);
+  string const testFile = base::JoinPath(baseDir, kTestFileBaseName);
   TEST(!Platform::IsFileExistsByFullPath(testFile), ());
   {
     FileWriter writer(testFile);
@@ -216,15 +216,15 @@ UNIT_TEST(GetWritableStorageStatus)
 
 UNIT_TEST(RmDirRecursively)
 {
-  string const testDir1 = base::JoinFoldersToPath(GetPlatform().WritableDir(), "test_dir1");
+  string const testDir1 = base::JoinPath(GetPlatform().WritableDir(), "test_dir1");
   TEST_EQUAL(Platform::MkDir(testDir1), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir1, bind(&Platform::RmDir, testDir1));
 
-  string const testDir2 = base::JoinFoldersToPath(testDir1, "test_dir2");
+  string const testDir2 = base::JoinPath(testDir1, "test_dir2");
   TEST_EQUAL(Platform::MkDir(testDir2), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir2, bind(&Platform::RmDir, testDir2));
 
-  string const filePath = base::JoinFoldersToPath(testDir2, "test_file");
+  string const filePath = base::JoinPath(testDir2, "test_file");
   {
     FileWriter testFile(filePath);
     testFile.Write("HOHOHO", 6);
