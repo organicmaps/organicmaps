@@ -9,6 +9,7 @@
 #include "routing_common/car_model.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include <unordered_map>
 
@@ -427,16 +428,22 @@ void TestRouteGeometry(IndexGraphStarter & starter,
       geom.push_back(point);
   };
 
-  for (size_t i = 0; i < routeSegs.size(); ++i)
+  for (auto const & routeSeg : routeSegs)
   {
-    m2::PointD const & pnt = starter.GetPoint(routeSegs[i], false /* front */);
+    m2::PointD const & pnt = starter.GetPoint(routeSeg, false /* front */);
     // Note. In case of A* router all internal points of route are duplicated.
     // So it's necessary to exclude the duplicates.
     pushPoint(pnt);
   }
 
   pushPoint(starter.GetPoint(routeSegs.back(), false /* front */));
-  TEST_EQUAL(geom, expectedRouteGeom, ());
+  TEST_EQUAL(geom.size(), expectedRouteGeom.size(), ("geom:", geom, "expectedRouteGeom:", expectedRouteGeom));
+  for (size_t i = 0; i < geom.size(); ++i)
+  {
+    static double constexpr kEps = 1e-8;
+    TEST(base::AlmostEqualAbs(geom[i], expectedRouteGeom[i], kEps),
+         ("geom:", geom, "expectedRouteGeom:", expectedRouteGeom));
+  }
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
