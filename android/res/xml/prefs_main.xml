@@ -90,6 +90,7 @@
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="@string/enable_logging"
+      android:summary="@string/enable_logging_warning_message"
       android:defaultValue="false"
       android:order="12"/>
     <SwitchPreferenceCompat
