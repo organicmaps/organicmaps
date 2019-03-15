@@ -77,6 +77,9 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   }
   if (info.IsFeature())
   {
+    grid->addWidget(new QLabel("Feature ID"), row, 0);
+    grid->addWidget(new QLabel(QString::fromStdString(DebugPrint(info.GetID()))), row++, 1);
+
     grid->addWidget(new QLabel("Raw Types"), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);

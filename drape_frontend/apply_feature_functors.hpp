@@ -118,21 +118,46 @@ public:
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void ProcessAreaRule(Stylist::TRuleWrapper const & rule);
 
-private:
-  using TEdge = std::pair<int, int>;
+  struct Edge
+  {
+    Edge() = default;
+    Edge(int startIndex, int endIndex) : m_startIndex(startIndex), m_endIndex(endIndex) {}
 
+    bool operator==(Edge const & edge) const
+    {
+      return (m_startIndex == edge.m_startIndex && m_endIndex == edge.m_endIndex) ||
+        (m_startIndex == edge.m_endIndex && m_endIndex == edge.m_startIndex);
+    }
+
+    int m_startIndex = -1;
+    int m_endIndex = -1;
+  };
+
+  struct ExtendedEdge
+  {
+    ExtendedEdge() = default;
+    ExtendedEdge(Edge && edge, int internalVertexIndex, bool twoSide)
+      : m_edge(std::move(edge))
+      , m_internalVertexIndex(internalVertexIndex)
+      , m_twoSide(twoSide)
+    {}
+
+    Edge m_edge;
+    int m_internalVertexIndex = -1;
+    bool m_twoSide = false;
+  };
+
+private:
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);
-  void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3);
-  bool EqualEdges(TEdge const & edge1, TEdge const & edge2) const;
-  bool FindEdge(TEdge const & edge);
+  void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3, bool twoSide);
+  bool IsDuplicatedEdge(Edge const & edge);
   m2::PointD CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const;
 
   std::vector<m2::PointD> m_triangles;
-
   buffer_vector<m2::PointD, kBuildingOutlineSize> m_points;
-  buffer_vector<std::pair<TEdge, int>, kBuildingOutlineSize> m_edges;
+  buffer_vector<ExtendedEdge, kBuildingOutlineSize> m_edges;
 
   float const m_minPosZ;
   bool const m_isBuilding;

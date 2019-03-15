@@ -81,7 +81,7 @@ void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batch
     {
       glsl::vec2 const pos = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[i],
                                                          m_params.m_tileCenter, kShapeCoordScalar));
-      vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, m_params.m_depth), ouv));
+      vertices.emplace_back(glsl::vec3(pos, m_params.m_depth), ouv);
     }
 
     auto outlineState = CreateRenderState(gpu::Program::AreaOutline, DepthLayer::GeometryLayer);
@@ -153,20 +153,20 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
                                                          m_params.m_tileCenter, kShapeCoordScalar));
 
     glsl::vec3 normal(glsl::ToVec2(m_buildingOutline.m_normals[i]), 0.0f);
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(startPt, -m_params.m_minPosZ), normal, uv));
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(endPt, -m_params.m_minPosZ), normal, uv));
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(startPt, -m_params.m_posZ), normal, uv));
+    vertexes.emplace_back(glsl::vec3(startPt, -m_params.m_minPosZ), normal, uv);
+    vertexes.emplace_back(glsl::vec3(endPt, -m_params.m_minPosZ), normal, uv);
+    vertexes.emplace_back(glsl::vec3(startPt, -m_params.m_posZ), normal, uv);
 
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(startPt, -m_params.m_posZ), normal, uv));
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(endPt, -m_params.m_minPosZ), normal, uv));
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(endPt, -m_params.m_posZ), normal, uv));
+    vertexes.emplace_back(glsl::vec3(startPt, -m_params.m_posZ), normal, uv);
+    vertexes.emplace_back(glsl::vec3(endPt, -m_params.m_minPosZ), normal, uv);
+    vertexes.emplace_back(glsl::vec3(endPt, -m_params.m_posZ), normal, uv);
   }
 
   glsl::vec3 const normal(0.0f, 0.0f, -1.0f);
   for (auto const & vertex : m_vertexes)
   {
     glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
-    vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(pt, -m_params.m_posZ), normal, uv));
+    vertexes.emplace_back(glsl::vec3(pt, -m_params.m_posZ), normal, uv);
   }
 
   auto state = CreateRenderState(gpu::Program::Area3d, DepthLayer::Geometry3dLayer);
