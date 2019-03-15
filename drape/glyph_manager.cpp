@@ -368,7 +368,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
   m_impl->m_baseGlyphHeight = params.m_baseGlyphHeight;
   m_impl->m_sdfScale = params.m_sdfScale;
 
-  using TFontAndBlockName = pair<std::string, std::string>;
+  using TFontAndBlockName = std::pair<std::string, std::string>;
   using TFontLst = buffer_vector<TFontAndBlockName, 64>;
 
   TFontLst whitelst;
@@ -378,17 +378,17 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
   ParseUniBlocks(params.m_uniBlocks, [this](std::string const & name,
                                             strings::UniChar start, strings::UniChar end)
   {
-    m_impl->m_blocks.push_back(UnicodeBlock(name, start, end));
+    m_impl->m_blocks.emplace_back(name, start, end);
   });
 
   ParseFontList(params.m_whitelist, [&whitelst](std::string const & ubName, std::string const & fontName)
   {
-    whitelst.push_back(TFontAndBlockName(fontName, ubName));
+    whitelst.emplace_back(fontName, ubName);
   });
 
   ParseFontList(params.m_blacklist, [&blacklst](std::string const & ubName, std::string const & fontName)
   {
-    blacklst.push_back(TFontAndBlockName(fontName, ubName));
+    blacklst.emplace_back(fontName, ubName);
   });
 
   m_impl->m_fonts.reserve(params.m_fonts.size());
@@ -398,7 +398,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
   for (auto const & fontName : params.m_fonts)
   {
     bool ignoreFont = false;
-    for_each(blacklst.begin(), blacklst.end(), [&ignoreFont, &fontName](TFontAndBlockName const & p)
+    std::for_each(blacklst.begin(), blacklst.end(), [&ignoreFont, &fontName](TFontAndBlockName const & p)
     {
       if (p.first == fontName && p.second == "*")
         ignoreFont = true;
@@ -420,16 +420,16 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
       continue;
     }
 
-    using TBlockIndex = size_t;
-    using TCharCounter = int;
-    using TCoverNode = std::pair<TBlockIndex, TCharCounter>;
-    using TCoverInfo = std::vector<TCoverNode>;
+    using BlockIndex = size_t;
+    using CharCounter = int;
+    using CoverNode = std::pair<BlockIndex, CharCounter>;
+    using CoverInfo = std::vector<CoverNode>;
 
     size_t currentUniBlock = 0;
-    TCoverInfo coverInfo;
-    for (FT_ULong const & charCode : charCodes)
+    CoverInfo coverInfo;
+    for (auto const charCode : charCodes)
     {
-      while(currentUniBlock < m_impl->m_blocks.size())
+      while (currentUniBlock < m_impl->m_blocks.size())
       {
         if (m_impl->m_blocks[currentUniBlock].HasSymbol(static_cast<strings::UniChar>(charCode)))
           break;
@@ -440,50 +440,60 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
         break;
 
       if (coverInfo.empty() || coverInfo.back().first != currentUniBlock)
-        coverInfo.push_back(make_pair(currentUniBlock, 1));
+        coverInfo.emplace_back(currentUniBlock, 1);
       else
         ++coverInfo.back().second;
     }
 
-    using TUpdateCoverInfoFn = std::function<void(UnicodeBlock const & uniBlock, TCoverNode & node)>;
+    using TUpdateCoverInfoFn = std::function<void(UnicodeBlock const & uniBlock, CoverNode & node)>;
     auto enumerateFn = [this, &coverInfo, &fontName] (TFontLst const & lst, TUpdateCoverInfoFn const & fn)
     {
-      for (TFontAndBlockName const & b : lst)
+      for (auto const & b : lst)
       {
         if (b.first != fontName)
           continue;
 
-        for (TCoverNode & node : coverInfo)
+        for (CoverNode & node : coverInfo)
         {
-          UnicodeBlock const & uniBlock = m_impl->m_blocks[node.first];
+          auto const & uniBlock = m_impl->m_blocks[node.first];
           if (uniBlock.m_name == b.second)
           {
             fn(uniBlock, node);
             break;
           }
           else if (b.second == "*")
+          {
             fn(uniBlock, node);
+          }
         }
       }
     };
 
-    enumerateFn(blacklst, [](UnicodeBlock const &, TCoverNode & node)
+    enumerateFn(blacklst, [](UnicodeBlock const &, CoverNode & node)
     {
       node.second = 0;
     });
 
-    enumerateFn(whitelst, [this](UnicodeBlock const & uniBlock, TCoverNode & node)
+    enumerateFn(whitelst, [this](UnicodeBlock const & uniBlock, CoverNode & node)
     {
       node.second = static_cast<int>(uniBlock.m_end + 1 - uniBlock.m_start + m_impl->m_fonts.size());
     });
 
-    for (TCoverNode & node : coverInfo)
+    for (CoverNode & node : coverInfo)
     {
       UnicodeBlock & uniBlock = m_impl->m_blocks[node.first];
       uniBlock.m_fontsWeight.resize(m_impl->m_fonts.size(), 0);
       uniBlock.m_fontsWeight.back() = node.second;
     }
   }
+
+  std::ostringstream ss;
+  for (auto const & b : m_impl->m_blocks)
+  {
+    if (b.m_fontsWeight.empty())
+      ss << b.m_name << ", ";
+  }
+  LOG(LINFO, ("Unsupported unicode blocks:", ss.str()));
 
   m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
 }
@@ -509,8 +519,9 @@ uint32_t GlyphManager::GetSdfScale() const
 
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 {
-  TUniBlockIter iter = m_impl->m_blocks.end();
-  if (m_impl->m_lastUsedBlock != m_impl->m_blocks.end() && m_impl->m_lastUsedBlock->HasSymbol(unicodePoint))
+  auto iter = m_impl->m_blocks.cend();
+  if (m_impl->m_lastUsedBlock != m_impl->m_blocks.end() &&
+      m_impl->m_lastUsedBlock->HasSymbol(unicodePoint))
   {
     iter = m_impl->m_lastUsedBlock;
   }
@@ -518,8 +529,8 @@ int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
   {
     if (iter == m_impl->m_blocks.end() || !iter->HasSymbol(unicodePoint))
     {
-      iter = lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
-                         [](UnicodeBlock const & block, strings::UniChar const & v)
+      iter = std::lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
+                              [](UnicodeBlock const & block, strings::UniChar const & v)
       {
         return block.m_end < v;
       });
@@ -536,8 +547,8 @@ int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 
 int GlyphManager::GetFontIndexImmutable(strings::UniChar unicodePoint) const
 {
-  TUniBlockIter iter = lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
-                                   [](UnicodeBlock const & block, strings::UniChar const & v)
+  TUniBlockIter iter = std::lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
+                                        [](UnicodeBlock const & block, strings::UniChar const & v)
   {
     return block.m_end < v;
   });
@@ -638,7 +649,7 @@ bool GlyphManager::AreGlyphsReady(strings::UniString const & str, int fixedSize)
   {
     int const fontIndex = GetFontIndexImmutable(code);
     if (fontIndex == kInvalidFont)
-      continue;
+      return false;
 
     if (!m_impl->m_fonts[fontIndex]->IsGlyphReady(code, fixedSize))
       return false;
