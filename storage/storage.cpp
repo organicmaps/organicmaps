@@ -1609,9 +1609,8 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
         GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, countryId, result] {
           auto realResult = result;
           if (m_diffsBeingApplied.count(countryId) == 0 && realResult == DiffApplicationResult::Ok)
-          {
             realResult = DiffApplicationResult::Cancelled;
-          }
+
           m_latestDiffRequest = {};
           m_diffsBeingApplied.erase(countryId);
           switch (realResult)
