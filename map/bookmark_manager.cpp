@@ -1465,13 +1465,11 @@ public:
 
   void operator()(kml::MarkGroupId groupId)
   {
+    if (m_mark != nullptr)
+      return;
     m2::AnyRectD const & rect = m_rectHolder(BookmarkManager::GetGroupType(groupId));
     if (UserMark const * p = m_manager->FindMarkInRect(groupId, rect, m_d))
-    {
-      static double const kEps = 1e-5;
-      if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
-        m_mark = p;
-    }
+      m_mark = p;
   }
 
   UserMark const * GetFoundMark() const { return m_mark; }
