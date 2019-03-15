@@ -501,6 +501,9 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
     return UNEXPECTED_ERROR;
   }
 
+  if (cancellable.IsCancelled())
+    return CANCELLED;
+
   return OK;
 }
 }  // namespace bsdiff

@@ -203,6 +203,13 @@ private:
 
   boost::optional<CountryId> m_latestDiffRequest;
 
+  // Since the diff manager runs on a different thread, the result
+  // of diff application may return "Ok" when in fact the diff was
+  // cancelled. However, the storage thread knows for sure whether the
+  // latest request was to apply or to cancel the diff, and this knowledge
+  // is represented by |m_diffsBeingApplied|.
+  std::set<CountryId> m_diffsBeingApplied;
+
   DownloadingPolicy m_defaultDownloadingPolicy;
   DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;
 

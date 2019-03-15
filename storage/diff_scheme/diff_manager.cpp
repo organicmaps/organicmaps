@@ -102,10 +102,6 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
     case DiffApplicationResult::Ok:
     {
       diffFile->DeleteFromDisk(MapOptions::Diff);
-      std::lock_guard<std::mutex> lock(m_mutex);
-      auto it = m_diffs.find(diffFile->GetCountryName());
-      CHECK(it != m_diffs.end(), ());
-      it->second.m_status = SingleDiffStatus::Applied;
       break;
     }
     case DiffApplicationResult::Cancelled:
@@ -163,25 +159,13 @@ bool Manager::HasDiffFor(storage::CountryId const & countryId) const
   return WithDiff(countryId, [](DiffInfo const &) {});
 }
 
-void Manager::RemoveAppliedDiffs()
-{
-  std::lock_guard<std::mutex> lock(m_mutex);
-  for (auto it = m_diffs.begin(); it != m_diffs.end();)
-  {
-    if (it->second.m_status == SingleDiffStatus::Applied)
-      it = m_diffs.erase(it);
-    else
-      ++it;
-  }
-
-  if (m_diffs.empty())
-    m_status = Status::NotAvailable;
-}
-
 void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_diffs.erase(countryId);
+
+  if (m_diffs.empty())
+    m_status = Status::NotAvailable;
 }
 
 void Manager::AbortDiffScheme()
