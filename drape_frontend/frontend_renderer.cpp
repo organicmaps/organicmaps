@@ -1753,6 +1753,8 @@ void FrontendRenderer::RenderFrame()
   scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
     m_frameData.m_inactiveFramesCounter + 1 < FrameData::kMaxInactiveFrames);
 
+  m_debugRectRenderer->FinishRendering();
+
 #ifndef DRAPE_MEASURER_BENCHMARK
   drapeMeasurerGuard.SetProperties(isActiveFrameForScene, modelView.GetOrg());
 #endif

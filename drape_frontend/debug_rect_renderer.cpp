@@ -15,19 +15,26 @@ void PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt, s
   buffer.push_back(2.0f * (pt.x / szX - 0.5f));
   buffer.push_back(2.0f * (-pt.y / szY + 0.5f));
 }
+
+drape_ptr<dp::MeshObject> CreateMesh(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                                     std::vector<float> && vertices)
+{
+  auto mesh = make_unique_dp<dp::MeshObject>(context, dp::MeshObject::DrawPrimitive::LineStrip);
+  mesh->SetBuffer(0 /* bufferInd */, std::move(vertices), static_cast<uint32_t>(sizeof(float) * 2));
+  mesh->SetAttribute("a_position", 0 /* bufferInd */, 0 /* offset */, 2 /* componentsCount */);
+  mesh->Build(context, program);
+  CHECK(mesh->IsInitialized(), ());
+  return mesh;
+}
 }  // namespace
 
 DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                      ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
-  : Base(context, DrawPrimitive::LineStrip)
-  , m_program(program)
+  : m_program(program)
   , m_paramsSetter(paramsSetter)
   , m_state(CreateRenderState(gpu::Program::DebugRect, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
-
-  Base::SetBuffer(0 /* bufferInd */, {} /* vertices */, static_cast<uint32_t>(sizeof(float) * 2));
-  Base::SetAttribute("a_position", 0 /* bufferInd */, 0 /* offset */, 2 /* componentsCount */);
 }
 
 bool DebugRectRenderer::IsEnabled() const
@@ -38,6 +45,13 @@ bool DebugRectRenderer::IsEnabled() const
 void DebugRectRenderer::SetEnabled(bool enabled)
 {
   m_isEnabled = enabled;
+  if (!m_isEnabled)
+  {
+    m_rectMeshes.clear();
+    m_arrowMeshes.clear();
+    m_currentRectMesh = 0;
+    m_currentArrowMesh = 0;
+  }
 }
 
 void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::PointF const & arrowStart,
@@ -52,9 +66,10 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
   PixelPointToScreenSpace(screen, arrowEnd, vertices);
   PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
 
-  if (!Base::IsInitialized())
-    Base::Build(context, m_program);
-  Base::UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
+  if (m_currentArrowMesh >= m_arrowMeshes.size())
+    m_arrowMeshes.emplace_back(CreateMesh(context, m_program, std::move(vertices)));
+  else
+    m_arrowMeshes[m_currentArrowMesh]->UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
 }
 
 void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect,
@@ -67,9 +82,10 @@ void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF 
   PixelPointToScreenSpace(screen, rect.RightBottom(), vertices);
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
 
-  if (!Base::IsInitialized())
-    Base::Build(context, m_program);
-  Base::UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
+  if (m_currentRectMesh >= m_rectMeshes.size())
+    m_rectMeshes.emplace_back(CreateMesh(context, m_program, std::move(vertices)));
+  else
+    m_rectMeshes[m_currentRectMesh]->UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
 }
 
 void DebugRectRenderer::DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen,
@@ -83,8 +99,8 @@ void DebugRectRenderer::DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBas
   gpu::DebugRectProgramParams params;
   params.m_color = glsl::ToVec4(color);
 
-  Base::Render(context, m_program, m_state, m_paramsSetter, params);
-};
+  m_rectMeshes[m_currentRectMesh++]->Render(context, m_program, m_state, m_paramsSetter, params);
+}
 
 void DebugRectRenderer::DrawArrow(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen,
                                   dp::OverlayTree::DisplacementData const & data)
@@ -100,6 +116,12 @@ void DebugRectRenderer::DrawArrow(ref_ptr<dp::GraphicsContext> context, ScreenBa
   gpu::DebugRectProgramParams params;
   params.m_color = glsl::ToVec4(data.m_arrowColor);
 
-  Base::Render(context, m_program, m_state, m_paramsSetter, params);
-};
+  m_arrowMeshes[m_currentArrowMesh++]->Render(context, m_program, m_state, m_paramsSetter, params);
+}
+
+void DebugRectRenderer::FinishRendering()
+{
+  m_currentRectMesh = 0;
+  m_currentArrowMesh = 0;
+}
 }  // namespace df

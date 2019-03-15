@@ -209,7 +209,6 @@ void MeshObject::UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t buf
 {
   CHECK(m_initialized, ());
   CHECK_LESS(bufferInd, static_cast<uint32_t>(m_buffers.size()), ());
-  CHECK(m_buffers[bufferInd].m_bufferId != 0, ());
   CHECK(!vertices.empty(), ());
 
   auto & buffer = m_buffers[bufferInd];
