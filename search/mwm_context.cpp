@@ -19,6 +19,7 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table.get())
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
   , m_centers(m_value)
+  , m_editableSource(m_handle)
 {
 }
 
@@ -32,11 +33,12 @@ std::unique_ptr<FeatureType> MwmContext::GetFeature(uint32_t index) const
     return ft;
   case FeatureStatus::Modified:
   case FeatureStatus::Created:
-    ft = osm::Editor::Instance().GetEditedFeature(FeatureID(GetId(), index));
+    ft = m_editableSource.GetModifiedFeature(index);
     CHECK(ft, ());
     return ft;
   case FeatureStatus::Untouched:
-    ft = m_vector.GetByIndex(index);
+    auto ft = m_vector.GetByIndex(index);
+    CHECK(ft, ());
     ft->SetID(FeatureID(GetId(), index));
     return ft;
   }

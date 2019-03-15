@@ -516,14 +516,14 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-unique_ptr<FeatureType> Editor::GetEditedFeature(FeatureID const & fid) const
+boost::optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
   auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
   if (featureInfo == nullptr)
     return {};
 
-  return make_unique<FeatureType>(featureInfo->m_object);
+  return featureInfo->m_object;
 }
 
 bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const

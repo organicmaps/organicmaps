@@ -3,6 +3,8 @@
 #include "search/house_to_street_table.hpp"
 #include "search/reverse_geocoder.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"

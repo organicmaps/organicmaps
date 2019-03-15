@@ -8,6 +8,8 @@
 #include "search/search_trie.hpp"
 #include "search/token_slice.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -98,9 +100,10 @@ private:
     auto & editor = Editor::Instance();
     for (auto const index : features)
     {
-      auto ft = editor.GetEditedFeature(FeatureID(m_id, index));
-      CHECK(ft, ());
-      fn(*ft, index);
+      auto emo = editor.GetEditedFeature(FeatureID(m_id, index));
+      CHECK(emo, ());
+      FeatureType ft(*emo);
+      fn(ft, index);
     }
   }
 

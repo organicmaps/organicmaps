@@ -263,15 +263,12 @@ void EditorTest::GetEditedFeatureTest()
 
     SetBuildingLevelsToOne(ft);
 
-    auto featureType = editor.GetEditedFeature(ft.GetID());
-    TEST(featureType, ());
+    auto savedEmo = editor.GetEditedFeature(ft.GetID());
+    TEST(savedEmo, ());
 
-    osm::EditableMapObject savedEmo;
-    FillEditableMapObject(editor, *featureType, savedEmo);
+    TEST_EQUAL(savedEmo->GetBuildingLevels(), "1", ());
 
-    TEST_EQUAL(savedEmo.GetBuildingLevels(), "1", ());
-
-    TEST_EQUAL(ft.GetID(), featureType->GetID(), ());
+    TEST_EQUAL(ft.GetID(), savedEmo->GetID(), ());
   });
 }
 

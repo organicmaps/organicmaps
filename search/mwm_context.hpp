@@ -3,7 +3,7 @@
 #include "search/house_to_street_table.hpp"
 #include "search/lazy_centers_table.hpp"
 
-#include "editor/osm_editor.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_source.hpp"
@@ -84,7 +84,7 @@ public:
 private:
   FeatureStatus GetEditedStatus(uint32_t index) const
   {
-    return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
+    return m_editableSource.GetFeatureStatus(index);
   }
 
   template <class Fn>
@@ -103,6 +103,7 @@ private:
   FeaturesVector m_vector;
   ScaleIndex<ModelReaderPtr> m_index;
   LazyCentersTable m_centers;
+  EditableFeatureSource m_editableSource;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };

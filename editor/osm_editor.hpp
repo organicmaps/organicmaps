@@ -28,6 +28,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 namespace editor
 {
 namespace testing
@@ -142,8 +144,8 @@ public:
   /// Marks feature as "deleted" from MwM file.
   void DeleteFeature(FeatureID const & fid);
 
-  /// @returns nullptr if feature wasn't edited.
-  std::unique_ptr<FeatureType> GetEditedFeature(FeatureID const & fid) const;
+  /// @returns empty object if feature wasn't edited.
+  boost::optional<osm::EditableMapObject> GetEditedFeature(FeatureID const & fid) const;
 
   /// @returns false if feature wasn't edited.
   /// @param outFeatureStreet is valid only if true was returned.

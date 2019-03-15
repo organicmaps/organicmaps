@@ -1,9 +1,10 @@
-#include "reverse_geocoder.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "search/mwm_context.hpp"
 
-#include "indexer/data_source.hpp"
+#include "editor/osm_editor.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
