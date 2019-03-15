@@ -62,6 +62,8 @@ public:
 
   AndroidSecureStorage & GetSecureStorage() { return m_secureStorage; }
 
+  jobject GetContext() { return m_functorProcessObject; }
+
   static Platform & Instance();
 
 private:

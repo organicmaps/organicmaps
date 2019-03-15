@@ -2,6 +2,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/core/ScopedLocalRef.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "platform/localization.hpp"
 
@@ -9,15 +10,21 @@
 
 namespace
 {
-std::string GetLocalizedStringByUtil(std::string const & methodName, std::string const & str)
+jmethodID GetMethodId(std::string const & methodName)
 {
   JNIEnv * env = jni::GetEnv();
-  static auto const getLocalizedString = jni::GetStaticMethodID(
-      env, g_utilsClazz, methodName.c_str(), "(Ljava/lang/String;)Ljava/lang/String;");
+  return jni::GetStaticMethodID(env, g_utilsClazz, methodName.c_str(),
+                                "(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;");
+}
+
+std::string GetLocalizedStringByUtil(jmethodID const & methodId, std::string const & str)
+{
+  JNIEnv * env = jni::GetEnv();
 
   jni::TScopedLocalRef strRef(env, jni::ToJavaString(env, str));
-  auto localizedString =
-      env->CallStaticObjectMethod(g_utilsClazz, getLocalizedString, strRef.get());
+  auto localizedString = env->CallStaticObjectMethod(g_utilsClazz, methodId,
+                                                     android::Platform::Instance().GetContext(),
+                                                     strRef.get());
 
   return jni::ToNativeString(env, static_cast<jstring>(localizedString));
 }
@@ -27,11 +34,19 @@ namespace platform
 {
 std::string GetLocalizedTypeName(std::string const & type)
 {
-  return GetLocalizedStringByUtil("getLocalizedFeatureType", type);
+  static auto const methodId = GetMethodId("getLocalizedFeatureType");
+  return GetLocalizedStringByUtil(methodId, type);
 }
 
 std::string GetLocalizedBrandName(std::string const & brand)
 {
-  return GetLocalizedStringByUtil("getLocalizedBrand", brand);
+  static auto const methodId = GetMethodId("getLocalizedBrand");
+  return GetLocalizedStringByUtil(methodId, brand);
+}
+
+std::string GetLocalizedString(std::string const & key)
+{
+  static auto const methodId = GetMethodId("getStringValueByKey");
+  return GetLocalizedStringByUtil(methodId, key);
 }
 }  // namespace platform

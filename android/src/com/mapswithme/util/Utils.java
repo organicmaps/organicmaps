@@ -781,12 +781,4 @@ public class Utils
     String key = "brand." + brand;
     return getLocalizedFeatureByKey(context, key);
   }
-
-  // Called from JNI.
-  @NonNull
-  @SuppressWarnings("unused")
-  public static String getLocalizedFeatureType(@NonNull String type)
-  {
-    return getLocalizedFeatureType(MwmApplication.get(), type);
-  }
 }
