@@ -72,13 +72,6 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       if (!isOnDisk)
         diffFile->SyncWithDisk();
 
-      {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        auto it = m_diffs.find(diffFile->GetCountryName());
-        CHECK(it != m_diffs.end(), ());
-        it->second.m_status = SingleDiffStatus::Downloaded;
-      }
-
       string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
       string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
@@ -119,10 +112,6 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
 
       std::lock_guard<std::mutex> lock(m_mutex);
       m_status = Status::NotAvailable;
-
-      auto it = m_diffs.find(diffFile->GetCountryName());
-      CHECK(it != m_diffs.end(), ());
-      it->second.m_status = SingleDiffStatus::NotDownloaded;
       break;
     }
     }
@@ -144,9 +133,7 @@ bool Manager::SizeFor(storage::CountryId const & countryId, uint64_t & size) con
 
 bool Manager::SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const
 {
-  return WithDiff(countryId, [&size](DiffInfo const & info) {
-    size = (info.m_status == SingleDiffStatus::Downloaded ? 0 : info.m_size);
-  });
+  return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
 }
 
 bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & version) const

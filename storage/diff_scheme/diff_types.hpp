@@ -18,21 +18,12 @@ enum class Status
   Available
 };
 
-// Status of a single diff.
-enum class SingleDiffStatus
-{
-  NotDownloaded,
-  Downloaded,
-  Applied
-};
-
 struct DiffInfo final
 {
   DiffInfo(uint64_t size, uint64_t version) : m_size(size), m_version(version) {}
 
   uint64_t m_size;
   uint64_t m_version;
-  SingleDiffStatus m_status = SingleDiffStatus::NotDownloaded;
 };
 
 using NameDiffInfoMap = std::unordered_map<storage::CountryId, DiffInfo>;
