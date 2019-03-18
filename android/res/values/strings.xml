@@ -2515,6 +2515,23 @@
 	<string name="type.piste_type.downhill.novice">piste:type-downhill-novice</string>
 	<string name="type.piste_type.nordic">piste:type-nordic</string>
 	<string name="type.piste_type.sled">piste:type-sled</string>
+	<string name="type.building_part">building:part</string>
+	<string name="type.earthquake_damage">earthquake:damage</string>
+	<string name="type.area_highway.cycleway">area:highway-cycleway</string>
+	<string name="type.area_highway.footway">area:highway-footway</string>
+	<string name="type.area_highway.living_street">area:highway-living_street</string>
+	<string name="type.area_highway.motorway">area:highway-motorway</string>
+	<string name="type.area_highway.path">area:highway-path</string>
+	<string name="type.area_highway.pedestrian">area:highway-pedestrian</string>
+	<string name="type.area_highway.primary">area:highway-primary</string>
+	<string name="type.area_highway.residential">area:highway-residential</string>
+	<string name="type.area_highway.secondary">area:highway-secondary</string>
+	<string name="type.area_highway.service">area:highway-service</string>
+	<string name="type.area_highway.tertiary">area:highway-tertiary</string>
+	<string name="type.area_highway.steps">area:highway-steps</string>
+	<string name="type.area_highway.track">area:highway-track</string>
+	<string name="type.area_highway.trunk">area:highway-trunk</string>
+	<string name="type.area_highway.unclassified">area:highway-unclassified</string>
 
 	<!-- SECTION: Brands -->
 	<string name="brand.aiya">Aiya</string>
