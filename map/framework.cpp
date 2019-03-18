@@ -888,15 +888,22 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
     if (!m_bookingAvailabilityParams.IsEmpty())
     {
-      auto const & url = info.GetSponsoredUrl();
-      auto const & urlWithParams =
+      auto const urlSetter = [this](auto const & getter, auto const & setter)
+      {
+        auto const & url = getter();
+        auto const & urlWithParams =
           m_bookingApi->ApplyAvailabilityParams(url, m_bookingAvailabilityParams);
-      info.SetSponsoredUrl(urlWithParams);
-
-      auto const & deepLink = info.GetSponsoredDeepLink();
-      auto const & deepLinkWithParams =
-          m_bookingApi->ApplyAvailabilityParams(deepLink, m_bookingAvailabilityParams);
-      info.SetSponsoredDeepLink(deepLinkWithParams);
+        setter(ref(urlWithParams));
+      };
+      using place_page::Info;
+      urlSetter(bind(&Info::GetSponsoredUrl, &info),
+                bind(&Info::SetSponsoredUrl, &info, _1));
+      urlSetter(bind(&Info::GetSponsoredDescriptionUrl, &info),
+                bind(&Info::SetSponsoredDescriptionUrl, &info, _1));
+      urlSetter(bind(&Info::GetSponsoredReviewUrl, &info),
+                bind(&Info::SetSponsoredReviewUrl, &info, _1));
+      urlSetter(bind(&Info::GetSponsoredDeepLink, &info),
+                bind(&Info::SetSponsoredDeepLink, &info, _1));
     }
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))
