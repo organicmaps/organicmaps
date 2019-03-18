@@ -95,5 +95,21 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   // All.
   testTypes(typesFood, 3);
 }
+
+UNIT_TEST(IsCategorialRequestFuzzy)
+{
+  auto const isHotelRequest = [](string const & q) { return IsCategorialRequestFuzzy(q, "hotel"); };
+
+  TEST(isHotelRequest("hotel"), ());
+  TEST(isHotelRequest("Hotel"), ());
+  TEST(isHotelRequest("motel"), ());
+  TEST(isHotelRequest("отель"), ());
+  TEST(isHotelRequest("гостиница"), ());
+  TEST(isHotelRequest("гостиница москва"), ());
+  TEST(isHotelRequest("new york hotel"), ());
+  TEST(!isHotelRequest("new york where to stay"), ());
+  TEST(!isHotelRequest("where to stay"), ());
+  TEST(!isHotelRequest("random request"), ());
+}
 }  // namespace
 }  // namespace search

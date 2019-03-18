@@ -60,8 +60,8 @@ vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
   locales.Insert(static_cast<uint64_t>(code));
 
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
-                 search::Delimiters());
+  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
+                 Delimiters());
 
   FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
@@ -124,5 +124,50 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
       fn(FeatureID(mwmId, base::asserted_cast<uint32_t>(bit)));
     });
   }
+}
+
+bool IsCategorialRequestFuzzy(string const & query, string const & categoryEn)
+{
+  auto const & catHolder = GetDefaultCategories();
+  auto const types = GetCategoryTypes(categoryEn, "en", catHolder);
+
+  vector<QueryParams::String> queryTokens;
+  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(queryTokens),
+                 Delimiters());
+
+  bool isCategorialRequest = false;
+  for (auto const type : types)
+  {
+    if (isCategorialRequest)
+      return true;
+
+    catHolder.ForEachNameByType(
+        type, [&](CategoriesHolder::Category::Name const & categorySynonym) {
+          if (isCategorialRequest)
+            return;
+          vector<QueryParams::String> categoryTokens;
+          SplitUniString(NormalizeAndSimplifyString(categorySynonym.m_name),
+                         base::MakeBackInsertFunctor(categoryTokens), Delimiters());
+          for (size_t start = 0; start < queryTokens.size(); ++start)
+          {
+            bool found = true;
+            for (size_t i = 0; i < categoryTokens.size() && start + i < queryTokens.size(); ++i)
+            {
+              if (queryTokens[start + i] != categoryTokens[i])
+              {
+                found = false;
+                break;
+              }
+            }
+            if (found)
+            {
+              isCategorialRequest = true;
+              break;
+            }
+          }
+        });
+  }
+
+  return isCategorialRequest;
 }
 }  // namespace search
