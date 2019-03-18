@@ -80,7 +80,14 @@
 - (void)setDataTaskInfo:(DataTaskInfo *)taskInfo forTask:(NSURLSessionTask *)task
 {
   dispatch_barrier_sync(self.taskInfoQueue, ^{
-    self.taskInfoByTaskID[task] = taskInfo;
+    self.taskInfoByTaskID[@(task.taskIdentifier)] = taskInfo;
+  });
+}
+
+- (void)removeTaskInfoForTask:(NSURLSessionTask *)task
+{
+  dispatch_barrier_sync(self.taskInfoQueue, ^{
+    [self.taskInfoByTaskID removeObjectForKey:@(task.taskIdentifier)];
   });
 }
 
@@ -88,7 +95,7 @@
 {
   __block DataTaskInfo * taskInfo = nil;
   dispatch_sync(self.taskInfoQueue, ^{
-    taskInfo = self.taskInfoByTaskID[task];
+    taskInfo = self.taskInfoByTaskID[@(task.taskIdentifier)];
   });
 
   return taskInfo;
@@ -123,7 +130,7 @@
     didCompleteWithError:(NSError *)error
 {
   DataTaskInfo * taskInfo = [self taskInfoForTask:task];
-  [self.taskInfoByTaskID removeObjectForKey:@(taskInfo.task.taskIdentifier)];
+  [self removeTaskInfoForTask:task];
 
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:task:didCompleteWithError:)])
   {
