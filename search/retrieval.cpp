@@ -11,8 +11,8 @@
 #include "editor/osm_editor.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/scales.hpp"
@@ -37,6 +37,7 @@
 
 using namespace std;
 using namespace strings;
+using osm::EditableMapObject;
 using osm::Editor;
 
 namespace search
@@ -102,8 +103,7 @@ private:
     {
       auto emo = editor.GetEditedFeature(FeatureID(m_id, index));
       CHECK(emo, ());
-      FeatureType ft(*emo);
-      fn(ft, index);
+      fn(*emo, index);
     }
   }
 
@@ -161,12 +161,13 @@ bool MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
 }
 
 template <typename DFA>
-bool MatchFeatureByNameAndType(FeatureType & ft, SearchTrieRequest<DFA> const & request)
+bool MatchFeatureByNameAndType(EditableMapObject const & emo,
+                               SearchTrieRequest<DFA> const & request)
 {
-  feature::TypesHolder th(ft);
+  auto const & th = emo.GetTypes();
 
   bool matched = false;
-  ft.ForEachName([&](int8_t lang, string const & name) {
+  emo.GetNameMultilang().ForEach([&](int8_t lang, string const & name) {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 
@@ -182,9 +183,9 @@ bool MatchFeatureByNameAndType(FeatureType & ft, SearchTrieRequest<DFA> const & 
   return matched;
 }
 
-bool MatchFeatureByPostcode(FeatureType & ft, TokenSlice const & slice)
+bool MatchFeatureByPostcode(EditableMapObject const & emo, TokenSlice const & slice)
 {
-  string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+  string const postcode = emo.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
   vector<UniString> tokens;
   NormalizeAndTokenizeString(postcode, tokens, Delimiters());
   if (slice.Size() > tokens.size())
@@ -220,8 +221,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
       } /* filter */,
       collector);
 
-  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
-    if (MatchFeatureByNameAndType(ft, request))
+  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
+    if (MatchFeatureByNameAndType(emo, request))
       features.push_back(index);
   });
 
@@ -244,8 +245,8 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
       } /* filter */,
       collector);
 
-  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
-    if (MatchFeatureByPostcode(ft, slice))
+  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
+    if (MatchFeatureByPostcode(emo, slice))
       features.push_back(index);
   });
 
@@ -267,8 +268,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
 
   context.ForEachIndex(coverage, scale, collector);
 
-  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
-    auto const center = feature::GetCenter(ft);
+  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
+    auto const center = emo.GetMercator();
     if (rect.IsPointInside(center))
       features.push_back(index);
   });
