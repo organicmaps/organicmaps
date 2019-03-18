@@ -71,7 +71,7 @@ ColoredDebugMarkPoint::ColoredDebugMarkPoint(m2::PointD const & ptOrg)
   params.m_radiusInPixels = 7.0f * vs;
   params.m_color = dp::Color::Green();
   m_coloredSymbols.m_needOverlay = false;
-  m_coloredSymbols.m_zoomInfo.insert(make_pair(1, params));
+  m_coloredSymbols.m_zoomInfo.insert(std::make_pair(1, params));
 }
 
 void ColoredDebugMarkPoint::SetColor(dp::Color const & color)

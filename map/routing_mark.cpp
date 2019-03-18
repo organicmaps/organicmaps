@@ -161,6 +161,14 @@ drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
   return titles;
 }
 
+
+drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RouteMarkPoint::GetColoredSymbols() const
+{
+  auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
+  coloredSymbol->m_isSymbolStub = true;
+  return coloredSymbol;
+}
+
 void RouteMarkPoint::SetFollowingMode(bool enabled)
 {
   if (m_followingMode == enabled)
@@ -657,6 +665,13 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
   return symbol;
+}
+
+drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RoadWarningMark::GetColoredSymbols() const
+{
+  auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
+  coloredSymbol->m_isSymbolStub = true;
+  return coloredSymbol;
 }
 
 // static

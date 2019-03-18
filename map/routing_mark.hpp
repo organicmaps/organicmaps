@@ -62,7 +62,8 @@ public:
 
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
-  bool HasSymbolShapes() const override { return false; }
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+
   bool HasTitlePriority() const override { return true; }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
@@ -108,9 +109,9 @@ class TransitMark : public UserMark
 public:
   explicit TransitMark(m2::PointD const & ptOrg);
 
-  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::TransitMarkLayer; }
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingBottomMarkLayer; }
 
-  bool HasSymbolShapes() const override { return !m_symbolNames.empty() || !m_coloredSymbols.m_zoomInfo.empty(); }
+  bool SymbolIsPOI() const override { return true; }
   bool HasTitlePriority() const override { return true; }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
@@ -173,7 +174,7 @@ public:
   uint32_t GetIndex() const override { return m_index; }
 
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingMarkLayer; }
-  bool HasSymbolShapes() const override { return true; }
+  bool SymbolIsPOI() const override { return true; }
   bool HasTitlePriority() const override { return true; }
   uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::SpeedCamera); }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
@@ -211,6 +212,9 @@ public:
   explicit RoadWarningMark(m2::PointD const & ptOrg);
 
   dp::Anchor GetAnchor() const override { return dp::Anchor::Bottom; }
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingBottomMarkLayer; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::RoadWarning); }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   void SetIndex(uint32_t index);
   uint32_t GetIndex() const override { return m_index; }
@@ -228,6 +232,8 @@ public:
   std::string GetDistance() const { return m_distance; }
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
 
   int GetAutoVisibleMinZoom() const override { return kAutoVisibleMinZoom; }
 

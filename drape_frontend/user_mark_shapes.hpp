@@ -28,7 +28,7 @@ struct UserMarkRenderParams
   drape_ptr<UserPointMark::SymbolOffsets> m_symbolOffsets;
   drape_ptr<UserPointMark::SymbolNameZoomInfo> m_badgeNames;
   df::ColorConstant m_color;
-  bool m_hasSymbolShapes = false;
+  bool m_symbolIsPOI = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
   SpecialDisplacement m_displacement = SpecialDisplacement::UserMark;

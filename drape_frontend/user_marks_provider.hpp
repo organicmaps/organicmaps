@@ -40,6 +40,7 @@ public:
   struct ColoredSymbolZoomInfo
   {
     std::map<int, df::ColoredSymbolViewParams> m_zoomInfo;
+    bool m_isSymbolStub = false;
     bool m_needOverlay = true;
     bool m_addTextSize = false;
   };
@@ -74,7 +75,7 @@ public:
   virtual uint16_t GetPriority() const = 0;
   virtual df::SpecialDisplacement GetDisplacement() const = 0;
   virtual uint32_t GetIndex() const = 0;
-  virtual bool HasSymbolShapes() const = 0;
+  virtual bool SymbolIsPOI() const = 0;
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
   virtual int GetMinTitleZoom() const = 0;

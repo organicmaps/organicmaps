@@ -95,8 +95,7 @@ struct UserPointVertex : public gpu::BaseVertex
   TColorAndAnimate m_colorAndAnimate;
 };
 
-std::string GetSymbolNameForZoomLevel(drape_ptr<UserPointMark::SymbolNameZoomInfo> const & symbolNames,
-                                      TileKey const & tileKey)
+std::string GetSymbolNameForZoomLevel(ref_ptr<UserPointMark::SymbolNameZoomInfo> symbolNames, TileKey const & tileKey)
 {
   if (!symbolNames)
     return {};
@@ -109,9 +108,21 @@ std::string GetSymbolNameForZoomLevel(drape_ptr<UserPointMark::SymbolNameZoomInf
   return {};
 }
 
-void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
+m2::PointF GetSymbolOffsetForZoomLevel(ref_ptr<UserPointMark::SymbolOffsets> symbolOffsets, TileKey const & tileKey)
+{
+  if (!symbolOffsets)
+    return m2::PointF::Zero();
+
+  CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
+  CHECK_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
+
+  auto const offsetIndex = static_cast<size_t>(tileKey.m_zoomLevel - 1);
+  return symbolOffsets->at(offsetIndex);
+}
+
+void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                                  UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
-                                 m2::PointD const & tileCenter, ref_ptr<dp::TextureManager> textures,
+                                 m2::PointD const & tileCenter, m2::PointF const & symbolOffset,
                                  m2::PointF & symbolSize, dp::Batcher & batcher)
 {
   m2::PointF sizeInc(0.0f, 0.0f);
@@ -143,59 +154,71 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
     offset = StraightTextLayout::GetSymbolBasedTextOffset(symbolSize, titleDecl.m_anchor, renderInfo.m_anchor);
   }
 
-  for (auto itSym = renderInfo.m_coloredSymbols->m_zoomInfo.rbegin();
-       itSym != renderInfo.m_coloredSymbols->m_zoomInfo.rend(); ++itSym)
+  ColoredSymbolViewParams params;
+
+  if (renderInfo.m_coloredSymbols->m_isSymbolStub)
   {
-    if (itSym->first <= tileKey.m_zoomLevel)
+    params.m_anchor = renderInfo.m_anchor;
+    params.m_color = dp::Color::Transparent();
+    params.m_shape = ColoredSymbolViewParams::Shape::Rectangle;
+    params.m_sizeInPixels = symbolSize;
+    params.m_offset = symbolOffset;
+  }
+  else
+  {
+    for (auto itSym = renderInfo.m_coloredSymbols->m_zoomInfo.rbegin();
+         itSym != renderInfo.m_coloredSymbols->m_zoomInfo.rend(); ++itSym)
     {
-      ColoredSymbolViewParams params = itSym->second;
-
-      m2::PointF coloredSize(0.0f, 0.0f);
-      if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
+      if (itSym->first <= tileKey.m_zoomLevel)
       {
-        params.m_radiusInPixels = params.m_radiusInPixels + std::max(sizeInc.x, sizeInc.y) / 2.0f;
-        coloredSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+        params = itSym->second;
+        break;
       }
-      else
-      {
-        params.m_sizeInPixels = params.m_sizeInPixels + sizeInc;
-        coloredSize = params.m_sizeInPixels;
-      }
-      if (!isTextBg)
-        symbolSize = m2::PointF(std::max(coloredSize.x, symbolSize.x), std::max(coloredSize.y, symbolSize.y));
-
-      params.m_featureID = renderInfo.m_featureId;
-      params.m_tileCenter = tileCenter;
-      params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
-      params.m_depth = renderInfo.m_depth;
-      params.m_depthLayer = renderInfo.m_depthLayer;
-      params.m_minVisibleScale = renderInfo.m_minZoom;
-      params.m_specialDisplacement = renderInfo.m_displacement;
-      params.m_specialPriority = renderInfo.m_priority;
-      params.m_offset += offset;
-      if (renderInfo.m_symbolSizes != nullptr)
-      {
-        ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                           kStartUserMarkOverlayIndex + renderInfo.m_index,
-                           isTextBg ? symbolSizesInc : *renderInfo.m_symbolSizes.get())
-            .Draw(context, &batcher, textures);
-      }
-      else
-      {
-        ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                           kStartUserMarkOverlayIndex + renderInfo.m_index, renderInfo.m_coloredSymbols->m_needOverlay)
-            .Draw(context, &batcher, textures);
-      }
-      break;
     }
+  }
+
+  m2::PointF coloredSize(0.0f, 0.0f);
+  if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
+  {
+    params.m_radiusInPixels = params.m_radiusInPixels + std::max(sizeInc.x, sizeInc.y) / 2.0f;
+    coloredSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+  }
+  else
+  {
+    params.m_sizeInPixels = params.m_sizeInPixels + sizeInc;
+    coloredSize = params.m_sizeInPixels;
+  }
+  if (!isTextBg)
+    symbolSize = m2::PointF(std::max(coloredSize.x, symbolSize.x), std::max(coloredSize.y, symbolSize.y));
+
+  params.m_featureID = renderInfo.m_featureId;
+  params.m_tileCenter = tileCenter;
+  params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
+  params.m_depth = renderInfo.m_depth;
+  params.m_depthLayer = renderInfo.m_depthLayer;
+  params.m_minVisibleScale = renderInfo.m_minZoom;
+  params.m_specialDisplacement = renderInfo.m_displacement;
+  params.m_specialPriority = renderInfo.m_priority;
+  params.m_offset += offset;
+  if (renderInfo.m_symbolSizes != nullptr)
+  {
+    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                       kStartUserMarkOverlayIndex + renderInfo.m_index,
+                       isTextBg ? symbolSizesInc : *renderInfo.m_symbolSizes.get())
+        .Draw(context, &batcher, textures);
+  }
+  else
+  {
+    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                       kStartUserMarkOverlayIndex + renderInfo.m_index, renderInfo.m_coloredSymbols->m_needOverlay)
+        .Draw(context, &batcher, textures);
   }
 }
 
-void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context,
+void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                             UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
                             m2::PointD const & tileCenter, std::string const & symbolName,
-                            ref_ptr<dp::TextureManager> textures, m2::PointF & symbolOffset,
-                            dp::Batcher & batcher)
+                            m2::PointF const & symbolOffset, dp::Batcher & batcher)
 {
   PoiSymbolViewParams params(renderInfo.m_featureId);
   params.m_tileCenter = tileCenter;
@@ -207,29 +230,19 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context,
   params.m_specialPriority = renderInfo.m_priority;
   params.m_symbolName = symbolName;
   params.m_anchor = renderInfo.m_anchor;
+  params.m_offset = symbolOffset;
 
   bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
   params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
 
-  if (renderInfo.m_symbolOffsets != nullptr)
-  {
-    ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
-    ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
-    size_t offsetIndex = 0;
-    if (tileKey.m_zoomLevel > 0)
-      offsetIndex = static_cast<size_t>(std::min(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE) - 1);
-    symbolOffset = renderInfo.m_symbolOffsets->at(offsetIndex);
-    params.m_offset = symbolOffset;
-  }
   PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
                  kStartUserMarkOverlayIndex + renderInfo.m_index)
       .Draw(context, &batcher, textures);
 }
 
-void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context,
+void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                         UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
-                        m2::PointD const & tileCenter, m2::PointF const & symbolSize,
-                        m2::PointF const & symbolOffset, ref_ptr<dp::TextureManager> textures,
+                        m2::PointD const & tileCenter,m2::PointF const & symbolOffset, m2::PointF const & symbolSize,
                         dp::Batcher & batcher)
 {
   if (renderInfo.m_minTitleZoom > tileKey.m_zoomLevel)
@@ -270,14 +283,14 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context,
       params.m_specialDisplacement = renderInfo.m_displacement;
       params.m_specialPriority = renderInfo.m_priority;
       params.m_startOverlayRank = dp::OverlayRank0;
-      if (renderInfo.m_hasSymbolShapes)
-      {
-        if (renderInfo.m_symbolNames != nullptr)
-          params.m_startOverlayRank++;
-        if (renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay)
-          params.m_startOverlayRank++;
-        ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
-      }
+
+      if (renderInfo.m_symbolNames != nullptr && renderInfo.m_symbolIsPOI)
+        params.m_startOverlayRank++;
+
+      if (renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay)
+        params.m_startOverlayRank++;
+
+      ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
     }
 
     if (renderInfo.m_symbolSizes != nullptr)
@@ -355,9 +368,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
 
     m2::PointF symbolSize(0.0f, 0.0f);
-    m2::PointF symbolOffset(0.0f, 0.0f);
-
-    auto const symbolName = GetSymbolNameForZoomLevel(renderInfo.m_symbolNames, tileKey);
+    auto const symbolName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_symbolNames), tileKey);
     if (!symbolName.empty())
     {
       dp::TextureManager::SymbolRegion region;
@@ -365,111 +376,110 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       symbolSize = region.GetPixelSize();
     }
 
-    dp::Color color = dp::Color::White();
-    if (!renderInfo.m_color.empty())
-      color = df::GetColorConstant(renderInfo.m_color);
+    m2::PointF symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
 
-    if (renderInfo.m_hasSymbolShapes)
+    if (renderInfo.m_coloredSymbols != nullptr)
     {
-      if (renderInfo.m_coloredSymbols != nullptr)
-      {
-        GenerateColoredSymbolShapes(context, renderInfo, tileKey, tileCenter, textures, symbolSize,
-                                    batcher);
-      }
-
-      if (renderInfo.m_symbolNames != nullptr)
-      {
-        GeneratePoiSymbolShape(context, renderInfo, tileKey, tileCenter, symbolName, textures,
-                               symbolOffset, batcher);
-      }
+      GenerateColoredSymbolShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize,
+                                  batcher);
     }
-    else if (renderInfo.m_symbolNames != nullptr)
+
+    if (renderInfo.m_symbolNames != nullptr)
     {
-      dp::TextureManager::SymbolRegion region;
-      dp::TextureManager::SymbolRegion backgroundRegion;
-
-      buffer.clear();
-      textures->GetSymbolRegion(symbolName, region);
-      auto const backgroundSymbol = GetBackgroundForSymbol(symbolName, textures);
-      if (!backgroundSymbol.empty())
-        textures->GetSymbolRegion(backgroundSymbol, backgroundRegion);
-
-      m2::RectF const & texRect = region.GetTexRect();
-      m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
-      m2::PointF const pxSize = region.GetPixelSize();
-      dp::Anchor const anchor = renderInfo.m_anchor;
-      m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
-                                                     kShapeCoordScalar);
-      glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
-      bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
-
-      glsl::vec2 left, right, up, down;
-      AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
-      AlignVertical(pxSize.y * 0.5f, anchor, up, down);
-
-      m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
-      glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
-      up += offset;
-      down += offset;
-
-      glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
-                                 runAnim ? 1.0f : -1.0f);
-      buffer.emplace_back(pos, left + down,
-                          glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
-                          colorAndAnimate);
-      buffer.emplace_back(pos, left + up,
-                          glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
-                          colorAndAnimate);
-      buffer.emplace_back(pos, right + down,
-                          glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
-                          colorAndAnimate);
-      buffer.emplace_back(pos, right + up,
-                          glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
-                          colorAndAnimate);
-
-      gpu::Program program;
-      gpu::Program program3d;
-      if (renderInfo.m_isMarkAboveText)
+      if (renderInfo.m_symbolIsPOI)
       {
-        program = runAnim ? gpu::Program::BookmarkAnimAboveText
-                          : gpu::Program::BookmarkAboveText;
-        program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard
-                            : gpu::Program::BookmarkAboveTextBillboard;
+        GeneratePoiSymbolShape(context, textures, renderInfo, tileKey, tileCenter, symbolName, symbolOffset, batcher);
       }
-      else
+      else if (renderInfo.m_symbolNames != nullptr)
       {
-        program = runAnim ? gpu::Program::BookmarkAnim
-                          : gpu::Program::Bookmark;
-        program3d = runAnim ? gpu::Program::BookmarkAnimBillboard
-                            : gpu::Program::BookmarkBillboard;
+        dp::TextureManager::SymbolRegion region;
+        dp::TextureManager::SymbolRegion backgroundRegion;
+
+        buffer.clear();
+        textures->GetSymbolRegion(symbolName, region);
+        auto const backgroundSymbol = GetBackgroundForSymbol(symbolName, textures);
+        if (!backgroundSymbol.empty())
+          textures->GetSymbolRegion(backgroundSymbol, backgroundRegion);
+
+        m2::RectF const & texRect = region.GetTexRect();
+        m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
+        m2::PointF const pxSize = region.GetPixelSize();
+        dp::Anchor const anchor = renderInfo.m_anchor;
+        m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
+                                                       kShapeCoordScalar);
+        glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
+        bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
+
+        glsl::vec2 left, right, up, down;
+        AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
+        AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+
+        m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
+        glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+        up += offset;
+        down += offset;
+
+        dp::Color color = dp::Color::White();
+        if (!renderInfo.m_color.empty())
+          color = df::GetColorConstant(renderInfo.m_color);
+
+        glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
+                                   runAnim ? 1.0f : -1.0f);
+        buffer.emplace_back(pos, left + down,
+                            glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
+                            colorAndAnimate);
+        buffer.emplace_back(pos, left + up,
+                            glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
+                            colorAndAnimate);
+        buffer.emplace_back(pos, right + down,
+                            glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
+                            colorAndAnimate);
+        buffer.emplace_back(pos, right + up,
+                            glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
+                            colorAndAnimate);
+
+        gpu::Program program;
+        gpu::Program program3d;
+        if (renderInfo.m_isMarkAboveText)
+        {
+          program = runAnim ? gpu::Program::BookmarkAnimAboveText
+                            : gpu::Program::BookmarkAboveText;
+          program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard
+                              : gpu::Program::BookmarkAboveTextBillboard;
+        }
+        else
+        {
+          program = runAnim ? gpu::Program::BookmarkAnim
+                            : gpu::Program::Bookmark;
+          program3d = runAnim ? gpu::Program::BookmarkAnimBillboard
+                              : gpu::Program::BookmarkBillboard;
+        }
+        auto state = CreateRenderState(program, renderInfo.m_depthLayer);
+        state.SetProgram3d(program3d);
+        state.SetColorTexture(region.GetTexture());
+        state.SetTextureFilter(dp::TextureFilter::Nearest);
+        state.SetDepthTestEnabled(renderInfo.m_depthTestEnabled);
+
+        dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
+        attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+
+        batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
       }
-      auto state = CreateRenderState(program, renderInfo.m_depthLayer);
-      state.SetProgram3d(program3d);
-      state.SetColorTexture(region.GetTexture());
-      state.SetTextureFilter(dp::TextureFilter::Nearest);
-      state.SetDepthTestEnabled(renderInfo.m_depthTestEnabled);
-
-      dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
-      attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
-
-      batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
     }
 
     if (renderInfo.m_titleDecl != nullptr)
     {
-      GenerateTextShapes(context, renderInfo, tileKey, tileCenter, symbolSize, symbolOffset,
-                         textures, batcher);
+      GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
     }
 
     if (renderInfo.m_badgeNames != nullptr)
     {
-      ASSERT(!renderInfo.m_hasSymbolShapes || renderInfo.m_symbolNames == nullptr,
+      ASSERT(!renderInfo.m_symbolIsPOI || renderInfo.m_symbolNames == nullptr,
              ("Multiple POI shapes in an usermark are not supported yet"));
-      auto const badgeName = GetSymbolNameForZoomLevel(renderInfo.m_badgeNames, tileKey);
+      auto const badgeName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_badgeNames), tileKey);
       if (!badgeName.empty())
       {
-        GeneratePoiSymbolShape(context, renderInfo, tileKey, tileCenter, badgeName, textures,
-                               symbolOffset, batcher);
+        GeneratePoiSymbolShape(context, textures, renderInfo, tileKey, tileCenter, badgeName, symbolOffset, batcher);
       }
     }
 
@@ -511,8 +521,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
                     ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
                     UserLinesRenderCollection & renderParams, dp::Batcher & batcher)
 {
-  ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
-  ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::GetUpperStyleScale(), ());
+  CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
+  CHECK_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::GetUpperStyleScale(), ());
 
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;

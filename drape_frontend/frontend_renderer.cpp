@@ -1405,7 +1405,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     {
       StencilWriterGuard guard(make_ref(m_postprocessRenderer), m_context);
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
-      RenderUserMarksLayer(modelView, DepthLayer::TransitMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
       RenderSearchMarksLayer(modelView);
     }
@@ -1765,7 +1765,7 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
   static std::vector<DepthLayer> layers = {DepthLayer::OverlayLayer,
                                            DepthLayer::LocalAdsMarkLayer,
                                            DepthLayer::NavigationLayer,
-                                           DepthLayer::TransitMarkLayer,
+                                           DepthLayer::RoutingBottomMarkLayer,
                                            DepthLayer::RoutingMarkLayer};
   BeginUpdateOverlayTree(modelView);
   for (auto const & layerId : layers)

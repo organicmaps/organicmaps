@@ -30,6 +30,7 @@ public:
     TransitTransfer,
     TransitKeyStop,
     SpeedCamera,
+    RoadWarning,
   };
 
   enum Type: uint32_t
@@ -75,7 +76,7 @@ public:
   uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::UserMark; }
   uint32_t GetIndex() const override { return 0; }
-  bool HasSymbolShapes() const override { return false; }
+  bool SymbolIsPOI() const override { return false; }
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
   int GetMinTitleZoom() const override { return GetMinZoom(); }
@@ -139,7 +140,7 @@ public:
   ColoredDebugMarkPoint(m2::PointD const & ptOrg);
 
   void SetColor(dp::Color const & color);
-  bool HasSymbolShapes() const override { return true; }
+  bool SymbolIsPOI() const override { return true; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
 
