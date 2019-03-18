@@ -18893,3 +18893,54 @@
 
   [type.piste_type.sled]
     en = piste:type-sled
+
+  [type.building_part]
+    en = building:part
+
+  [type.earthquake_damage]
+    en = earthquake:damage
+
+  [type.area_highway.cycleway]
+    en = area:highway-cycleway
+
+  [type.area_highway.footway]
+    en = area:highway-footway
+
+  [type.area_highway.living_street]
+    en = area:highway-living_street
+
+  [type.area_highway.motorway]
+    en = area:highway-motorway
+
+  [type.area_highway.path]
+    en = area:highway-path
+
+  [type.area_highway.pedestrian]
+    en = area:highway-pedestrian
+
+  [type.area_highway.primary]
+    en = area:highway-primary
+
+  [type.area_highway.residential]
+    en = area:highway-residential
+
+  [type.area_highway.secondary]
+    en = area:highway-secondary
+
+  [type.area_highway.service]
+    en = area:highway-service
+
+  [type.area_highway.tertiary]
+    en = area:highway-tertiary
+
+  [type.area_highway.steps]
+    en = area:highway-steps
+
+  [type.area_highway.track]
+    en = area:highway-track
+
+  [type.area_highway.trunk]
+    en = area:highway-trunk
+
+  [type.area_highway.unclassified]
+    en = area:highway-unclassified
