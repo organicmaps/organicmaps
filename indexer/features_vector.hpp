@@ -5,7 +5,9 @@
 
 #include "coding/var_record_reader.hpp"
 
+#include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace feature { class FeaturesOffsetsTable; }
 
@@ -55,7 +57,7 @@ private:
 
   feature::SharedLoadInfo m_loadInfo;
   VarRecordReader<FilesContainerR::TReader, &VarRecordSizeReaderVarint> m_recordReader;
-  mutable vector<char> m_buffer;
+  mutable std::vector<char> m_buffer;
   feature::FeaturesOffsetsTable const * m_table;
 };
 

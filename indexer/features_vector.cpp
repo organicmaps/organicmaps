@@ -10,7 +10,7 @@ std::unique_ptr<FeatureType> FeaturesVector::GetByIndex(uint32_t index) const
   uint32_t offset = 0, size = 0;
   auto const ftOffset = m_table ? m_table->GetFeatureOffset(index) : index;
   m_recordReader.ReadRecord(ftOffset, m_buffer, offset, size);
-  return make_unique<FeatureType>(&m_loadInfo, &m_buffer[offset]);
+  return std::make_unique<FeatureType>(&m_loadInfo, &m_buffer[offset]);
 }
 
 size_t FeaturesVector::GetNumFeatures() const

@@ -123,10 +123,11 @@ private:
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      auto poiFt = GetByIndex(pois[i]);
-      if (poiFt)
+      if (auto poiFt = GetByIndex(pois[i]))
+      {
         poiCenters.emplace_back(feature::GetCenter(*poiFt, FeatureType::WORST_GEOMETRY),
                                 i /* id */);
+      }
     }
 
     std::vector<PointRectMatcher::RectIdPair> buildingRects;
@@ -204,10 +205,11 @@ private:
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      auto poiFt = GetByIndex(pois[i]);
-      if (poiFt)
+      if (auto poiFt = GetByIndex(pois[i]))
+      {
         poiCenters.emplace_back(feature::GetCenter(*poiFt, FeatureType::WORST_GEOMETRY),
                                 i /* id */);
+      }
     }
 
     std::vector<PointRectMatcher::RectIdPair> streetRects;

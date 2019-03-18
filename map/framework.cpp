@@ -840,12 +840,12 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
 
 void Framework::FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const
 {
-  auto const id = GetFeatureAtPoint(mercator);
+  auto const fid = GetFeatureAtPoint(mercator);
 
-  if (id.IsValid())
+  if (fid.IsValid())
   {
     m_model.GetDataSource().ReadFeature(
-        [&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, id);
+        [&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, fid);
   }
   else
   {

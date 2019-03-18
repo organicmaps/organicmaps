@@ -366,8 +366,7 @@ int main(int argc, char ** argv)
     FeaturesLoaderGuard loader(dataSource, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
-      auto ft = loader.GetFeatureByIndex(static_cast<uint32_t>(ftIndex));
-      if (ft)
+      if (auto ft = loader.GetFeatureByIndex(static_cast<uint32_t>(ftIndex)))
         doProcess.Process(*ft, featureIdToOsmId);
     }
     doProcess.ClearCache();

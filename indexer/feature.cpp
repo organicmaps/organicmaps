@@ -189,7 +189,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer buffer)
 
   m_offsets.Reset();
   m_ptsSimpMask = 0;
-  m_limitRect = m2::RectD::GetEmptyRect();
+  m_limitRect.MakeEmpty();
   m_parsed.Reset();
   m_innerStats.MakeZero();
 }

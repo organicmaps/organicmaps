@@ -118,8 +118,7 @@ HotelsFilter::Descriptions const & HotelsFilter::GetDescriptions(MwmContext cons
     auto const id = base::asserted_cast<uint32_t>(bit);
 
     Description description;
-    auto ft = context.GetFeature(id);
-    if (ft)
+    if (auto ft = context.GetFeature(id))
       description.FromFeature(*ft);
     descriptions.emplace_back(id, description);
   });
