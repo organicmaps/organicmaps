@@ -349,7 +349,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       continue;
 
     UserMarkRenderParams & renderInfo = *it->second;
-    if (!renderInfo.m_isVisible)
+    if (!renderInfo.m_isVisible && renderInfo.m_autoVisibleMinZoom > tileKey.m_zoomLevel)
       continue;
 
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();

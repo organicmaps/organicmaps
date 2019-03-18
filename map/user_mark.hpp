@@ -9,9 +9,10 @@
 
 #include "base/macros.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
+#include <limits>
+#include <memory>
+#include <string>
+#include <utility>
 
 class UserMark : public df::UserPointMark
 {
@@ -59,6 +60,7 @@ public:
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
   bool IsVisible() const override { return true; }
+  int GetAutoVisibleMinZoom() const override { return std::numeric_limits<int>::max(); }
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override { return {}; }
   dp::Anchor GetAnchor() const override { return dp::Center; }

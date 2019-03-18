@@ -205,6 +205,8 @@ enum class RoadWarningMarkType : uint8_t
 
 class RoadWarningMark : public UserMark
 {
+  int const kAutoVisibleMinZoom = 13;
+
 public:
   explicit RoadWarningMark(m2::PointD const & ptOrg);
 
@@ -226,6 +228,8 @@ public:
   std::string GetDistance() const { return m_distance; }
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  int GetAutoVisibleMinZoom() const override { return kAutoVisibleMinZoom; }
 
   static std::string GetLocalizedRoadWarningType(RoadWarningMarkType type);
 

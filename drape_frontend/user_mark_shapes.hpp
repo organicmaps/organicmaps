@@ -8,6 +8,7 @@
 
 #include "geometry/spline.hpp"
 
+#include <limits>
 #include <memory>
 #include <unordered_map>
 
@@ -38,6 +39,7 @@ struct UserMarkRenderParams
   bool m_hasCreationAnimation = false;
   bool m_justCreated = false;
   bool m_isVisible = true;
+  int m_autoVisibleMinZoom = std::numeric_limits<int>::max();
   FeatureID m_featureId;
   bool m_isMarkAboveText = false;
 };
