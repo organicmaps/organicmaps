@@ -300,7 +300,11 @@ public:
       // because we do not need geometry for invisible features (just search index and placepage
       // data) and want to avoid size checks applied to areas.
       if (originalFeature.GetGeomType() != feature::GEOM_POINT)
-        originalFeature.SetCenter(originalFeature.GetGeometryCenter());
+      {
+        auto const center = originalFeature.GetGeometryCenter();
+        originalFeature.ResetGeometry();
+        originalFeature.SetCenter(center);
+      }
 
       m_worldBucket.PushSure(originalFeature);
       return;
