@@ -77,7 +77,7 @@ void DeserializeCampaign(ReaderSource<FileReader> & src, std::string & countryNa
 
 std::string GetPath(std::string const & fileName)
 {
-  return base::JoinFoldersToPath(GetPlatform().SettingsDir(), fileName);
+  return base::JoinPath(GetPlatform().SettingsDir(), fileName);
 }
 
 std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)

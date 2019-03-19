@@ -135,7 +135,7 @@ std::string GetClientIdHash()
 
 std::string GetPath(std::string const & fileName)
 {
-  return base::JoinFoldersToPath({GetPlatform().SettingsDir(), kStatisticsFolderName}, fileName);
+  return base::JoinPath(GetPlatform().SettingsDir(), kStatisticsFolderName, fileName);
 }
 
 std::string GetPath(local_ads::Event const & event)

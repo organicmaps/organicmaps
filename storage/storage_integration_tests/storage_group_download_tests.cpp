@@ -33,20 +33,20 @@ CountriesSet const kLeafCountriesIds = {
 
 string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 countryId + DATA_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version, countryId + DATA_FILE_EXTENSION);
 }
 
 string GetMwmDownloadingFilePath(string const & version, CountryId const & countryId)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
+  return base::JoinPath(
+      GetPlatform().WritableDir(), version,
+      countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
 }
 
 string GetMwmResumeFilePath(string const & version, CountryId const & countryId)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version,
+                        countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
 }
 
 void DownloadGroup(Storage & storage, bool oneByOne)

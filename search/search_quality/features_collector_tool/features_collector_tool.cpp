@@ -116,7 +116,7 @@ int main(int argc, char * argv[])
   if (!FLAGS_data_path.empty())
   {
     platform.SetResourceDir(FLAGS_data_path);
-    countriesFile = base::JoinFoldersToPath(FLAGS_data_path, COUNTRIES_FILE);
+    countriesFile = base::JoinPath(FLAGS_data_path, COUNTRIES_FILE);
   }
 
   if (!FLAGS_mwm_path.empty())

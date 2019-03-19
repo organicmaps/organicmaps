@@ -26,11 +26,6 @@ std::string GetDirectory(std::string const & path);
 /// Get folder separator for specific platform
 std::string GetNativeSeparator();
 
-/// @deprecated use JoinPath instead.
-std::string JoinFoldersToPath(std::string const & folder, std::string const & file);
-std::string JoinFoldersToPath(std::initializer_list<std::string> const & folders,
-                              std::string const & file);
-
 /// Add the terminating slash to the folder path std::string if it's not already there.
 std::string AddSlashIfNeeded(std::string const & path);
 

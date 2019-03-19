@@ -169,13 +169,13 @@ void UnpackBorders(string const & baseDir, string const & targetDir)
     MYTHROW(FileSystemException, ("Unable to find or create directory", targetDir));
 
   vector<storage::CountryDef> countries;
-  FilesContainerR reader(base::JoinFoldersToPath(baseDir, PACKED_POLYGONS_FILE));
+  FilesContainerR reader(base::JoinPath(baseDir, PACKED_POLYGONS_FILE));
   ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, countries);
 
   for (size_t id = 0; id < countries.size(); id++)
   {
-    ofstream poly(base::JoinFoldersToPath(targetDir, countries[id].m_countryId + ".poly"));
+    ofstream poly(base::JoinPath(targetDir, countries[id].m_countryId + ".poly"));
     poly << countries[id].m_countryId << endl;
     src = reader.GetReader(strings::to_string(id));
     uint32_t const count = ReadVarUint<uint32_t>(src);

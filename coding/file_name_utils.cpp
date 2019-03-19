@@ -62,21 +62,6 @@ string GetNativeSeparator()
 #endif
 }
 
-string JoinFoldersToPath(const string & folder, const string & file)
-{
-  return base::AddSlashIfNeeded(folder) + file;
-}
-
-string JoinFoldersToPath(initializer_list<string> const & folders, const string & file)
-{
-  string result;
-  for (string const & s : folders)
-    result += AddSlashIfNeeded(s);
-
-  result += file;
-  return result;
-}
-
 string AddSlashIfNeeded(string const & path)
 {
   string const sep = GetNativeSeparator();

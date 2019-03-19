@@ -120,14 +120,14 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines,
 std::string GetCompilerPath(std::string const & compilerName)
 {
   Platform & platform = GetPlatform();
-  std::string compilerPath = base::JoinFoldersToPath(kCompilersDir, compilerName);
+  std::string compilerPath = base::JoinPath(kCompilersDir, compilerName);
   if (platform.IsFileExistsByFullPath(compilerPath))
     return compilerPath;
-  
-  compilerPath = base::JoinFoldersToPath({platform.ResourcesDir(), kCompilersDir}, compilerName);
+
+  compilerPath = base::JoinPath(platform.ResourcesDir(), kCompilersDir, compilerName);
   if (!platform.IsFileExistsByFullPath(compilerPath))
   {
-    compilerPath = base::JoinFoldersToPath({platform.WritableDir(), kCompilersDir}, compilerName);
+    compilerPath = base::JoinPath(platform.WritableDir(), kCompilersDir, compilerName);
     TEST(platform.IsFileExistsByFullPath(compilerPath), ("GLSL compiler not found"));
   }
   return compilerPath;

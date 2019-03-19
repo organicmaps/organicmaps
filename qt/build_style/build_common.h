@@ -16,7 +16,7 @@ bool CopyFile(QString const & oldFile, QString const & newFile);
 void CopyFromResources(QString const & name, QString const & output);
 void CopyToResources(QString const & name, QString const & input, QString const & newName = "");
 
-QString JoinFoldersToPath(std::initializer_list<QString> const & folders);
+QString JoinPathQt(std::initializer_list<QString> const & folders);
 
 QString GetExternalPath(QString const & name, QString const & primaryPath,
                         QString const & secondaryPath);

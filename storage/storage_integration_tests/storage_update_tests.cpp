@@ -66,13 +66,12 @@ string GetCountriesTxtWebUrl(string const version)
 
 string GetCountriesTxtFilePath()
 {
-  return base::JoinFoldersToPath(GetPlatform().WritableDir(), kCountriesTxtFile);
+  return base::JoinPath(GetPlatform().WritableDir(), kCountriesTxtFile);
 }
 
 string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 countryId + DATA_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version, countryId + DATA_FILE_EXTENSION);
 }
 
 } // namespace

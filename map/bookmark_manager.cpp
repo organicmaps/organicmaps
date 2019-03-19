@@ -357,7 +357,7 @@ bool MigrateIfNeeded()
   }
 
   for (auto & f : files)
-    f = base::JoinFoldersToPath(dir, f);
+    f = base::JoinPath(dir, f);
 
   std::string failedStage;
   auto const backupDir = CheckAndCreateBackupFolder();

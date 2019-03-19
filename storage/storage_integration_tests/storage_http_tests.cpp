@@ -38,20 +38,21 @@ void UpdateWithoutChecks(CountryId const &, LocalFilePtr const /* localCountryFi
 
 string const GetMwmFullPath(string const & countryId, string const & version)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 countryId + DATA_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version, countryId + DATA_FILE_EXTENSION);
 }
 
 string const GetDownloadingFullPath(string const & countryId, string const & version)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
+  return base::JoinPath(
+      GetPlatform().WritableDir(), version,
+      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
 }
 
 string const GetResumeFullPath(string const & countryId, string const & version)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                 kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
+  return base::JoinPath(
+      GetPlatform().WritableDir(), version,
+      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
 }
 
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,

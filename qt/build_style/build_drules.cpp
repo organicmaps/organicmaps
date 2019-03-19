@@ -24,7 +24,7 @@ namespace build_style
 {
 void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir)
 {
-  QString const outputTemplate = JoinFoldersToPath({outputDir, "drules_proto_design"});
+  QString const outputTemplate = JoinPathQt({outputDir, "drules_proto_design"});
   QString const outputFile = outputTemplate + ".bin";
 
   // Caller ensures that output directory is clear

@@ -76,9 +76,8 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 {
   classificator::Load();
 
-  string const originalMapPath =
-      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
-  string const mapPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
+  string const originalMapPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const mapPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
   base::CopyFileX(originalMapPath, mapPath);
   SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
 

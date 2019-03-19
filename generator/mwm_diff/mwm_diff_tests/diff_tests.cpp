@@ -26,13 +26,10 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 {
   base::ScopedLogAbortLevelChanger ignoreLogError(base::LogLevel::LCRITICAL);
 
-  string const oldMwmPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
-  string const newMwmPath1 =
-      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
-  string const newMwmPath2 =
-      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
-  string const diffPath =
-      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
+  string const oldMwmPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const newMwmPath1 = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
+  string const newMwmPath2 = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
+  string const diffPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
 
   SCOPE_GUARD(cleanup, [&] {
     FileWriter::DeleteFileX(newMwmPath1);

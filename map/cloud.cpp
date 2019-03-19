@@ -831,7 +831,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
 
   // 3. Create a temporary file from the original uploading file.
   auto name = ExtractFileNameWithoutExtension(filePath);
-  auto const tmpPath = base::JoinFoldersToPath(GetPlatform().TmpDir(), name + ".tmp");
+  auto const tmpPath = base::JoinPath(GetPlatform().TmpDir(), name + ".tmp");
   if (!base::CopyFileX(filePath, tmpPath))
     return {};
 
@@ -844,8 +844,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
   if (originalSha1 != tmpSha1)
     return {};
 
-  auto const outputPath = base::JoinFoldersToPath(GetPlatform().TmpDir(),
-                                                name + ".uploaded");
+  auto const outputPath = base::JoinPath(GetPlatform().TmpDir(), name + ".uploaded");
 
   // 5. Convert temporary file and save to output path.
   CHECK(m_params.m_backupConverter, ());

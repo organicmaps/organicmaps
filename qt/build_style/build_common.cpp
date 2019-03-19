@@ -46,8 +46,8 @@ bool CopyFile(QString const & oldFile, QString const & newFile)
 void CopyFromResources(QString const & name, QString const & output)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinFoldersToPath({resourceDir, name}),
-                JoinFoldersToPath({output, name})))
+  if (!CopyFile(JoinPathQt({resourceDir, name}),
+                JoinPathQt({output, name})))
   {
     throw std::runtime_error(std::string("Cannot copy file ") +
                              name.toStdString() +
@@ -58,8 +58,8 @@ void CopyFromResources(QString const & name, QString const & output)
 void CopyToResources(QString const & name, QString const & input, QString const & newName)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinFoldersToPath({input, name}),
-                JoinFoldersToPath({resourceDir, newName.isEmpty() ? name : newName})))
+  if (!CopyFile(JoinPathQt({input, name}),
+                JoinPathQt({resourceDir, newName.isEmpty() ? name : newName})))
   {
     throw std::runtime_error(std::string("Cannot copy file ") +
                              name.toStdString() +
@@ -67,7 +67,7 @@ void CopyToResources(QString const & name, QString const & input, QString const 
   }
 }
 
-QString JoinFoldersToPath(std::initializer_list<QString> const & folders)
+QString JoinPathQt(std::initializer_list<QString> const & folders)
 {
   QString result;
   bool firstInserted = false;
@@ -89,9 +89,9 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
                         QString const & secondaryPath)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  QString path = JoinFoldersToPath({resourceDir, primaryPath, name});
+  QString path = JoinPathQt({resourceDir, primaryPath, name});
   if (!QFileInfo::exists(path))
-    path = JoinFoldersToPath({resourceDir, secondaryPath, name});
+    path = JoinPathQt({resourceDir, secondaryPath, name});
 
   // Special case for looking for in application folder.
   if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
@@ -100,7 +100,7 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
     QRegExp rx("(/[^/]*\\.app)", Qt::CaseInsensitive);
     int i = rx.indexIn(appPath);
     if (i >= 0)
-      path = JoinFoldersToPath({appPath.left(i), name});
+      path = JoinPathQt({appPath.left(i), name});
   }
   return path;
 }

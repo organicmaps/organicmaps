@@ -756,7 +756,7 @@ void MainWindow::OnBuildPhonePackage()
     QString const targetDir = QFileDialog::getExistingDirectory(nullptr, "Choose output directory");
     if (targetDir.isEmpty())
       return;
-    auto outDir = QDir(JoinFoldersToPath({targetDir, kStylesFolder}));
+    auto outDir = QDir(JoinPathQt({targetDir, kStylesFolder}));
     if (outDir.exists())
     {
       QMessageBox msgBox;
@@ -769,13 +769,13 @@ void MainWindow::OnBuildPhonePackage()
         throw std::runtime_error(std::string("Target directory exists: ") + outDir.absolutePath().toStdString());
     }
 
-    QString const stylesDir = JoinFoldersToPath({m_mapcssFilePath, "..", "..", ".."});
-    if (!QDir(JoinFoldersToPath({stylesDir, kClearStyleFolder})).exists())
+    QString const stylesDir = JoinPathQt({m_mapcssFilePath, "..", "..", ".."});
+    if (!QDir(JoinPathQt({stylesDir, kClearStyleFolder})).exists())
       throw std::runtime_error(std::string("Styles folder is not found in ") + stylesDir.toStdString());
 
     QString text = build_style::RunBuildingPhonePack(stylesDir, targetDir);
     text.append("\nMobile device style package is in the directory: ");
-    text.append(JoinFoldersToPath({targetDir, kStylesFolder}));
+    text.append(JoinPathQt({targetDir, kStylesFolder}));
     text.append(". Copy it to your mobile device.\n");
     InfoDialog dlg(QString("Building phone pack"), text, nullptr);
     dlg.exec();
