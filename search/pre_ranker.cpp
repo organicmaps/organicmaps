@@ -78,8 +78,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
   unique_ptr<RankTable> popularityRanks = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
-
-  m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
+  bool pivotFeaturesInitialized = false;
 
   ForEach([&](PreRankerResult & r) {
     FeatureID const & id = r.GetId();
@@ -116,6 +115,11 @@ void PreRanker::FillMissingFieldsInPreResults()
     }
     else
     {
+      if (!pivotFeaturesInitialized)
+      {
+        m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
+        pivotFeaturesInitialized = true;
+      }
       info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
     }
   });
