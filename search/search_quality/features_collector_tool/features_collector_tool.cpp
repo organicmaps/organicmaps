@@ -106,6 +106,7 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
 int main(int argc, char * argv[])
 {
   ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  CheckLocale();
 
   google::SetUsageMessage("Features collector tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);

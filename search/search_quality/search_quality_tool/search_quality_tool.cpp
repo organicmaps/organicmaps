@@ -351,6 +351,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSour
 int main(int argc, char * argv[])
 {
   ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  CheckLocale();
 
   ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();

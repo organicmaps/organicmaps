@@ -13,6 +13,8 @@ namespace search
 size_t constexpr kMaxOpenFiles = 4000;
 
 void ChangeMaxNumberOfOpenFiles(size_t n);
+
+void CheckLocale();
 }  // namespace search
 
 namespace m2

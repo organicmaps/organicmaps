@@ -1,6 +1,11 @@
 #include "search/search_quality/helpers.hpp"
 
+#include "base/assert.hpp"
+#include "base/string_utils.hpp"
+
 #include "std/target_os.hpp"
+
+#include <memory>
 
 #include <sys/resource.h>
 
@@ -25,6 +30,38 @@ void ChangeMaxNumberOfOpenFiles(size_t n)
   rlp.rlim_cur = n;
   setrlimit(RLIMIT_NOFILE, &rlp);
 #endif
+}
+
+void CheckLocale()
+{
+  string const kJson = "{\"coord\":123.456}";
+  string const kErrorMsg = "Bad locale. Consider setting LC_ALL=C";
+
+  double coord;
+  {
+    base::Json root(kJson.c_str());
+    FromJSONObject(root.get(), "coord", coord);
+  }
+
+  string line;
+  {
+    auto root = base::NewJSONObject();
+    ToJSONObject(*root, "coord", coord);
+
+    unique_ptr<char, JSONFreeDeleter> buffer(
+        json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+
+    line.append(buffer.get());
+  }
+
+  CHECK_EQUAL(line, kJson, (kErrorMsg));
+
+  {
+    string const kTest = "123.456";
+    double value;
+    VERIFY(strings::to_double(kTest, value), (kTest));
+    CHECK_EQUAL(strings::to_string(value), kTest, (kErrorMsg));
+  }
 }
 }  // namespace search
 
@@ -93,7 +130,7 @@ void ToJSONObject(json_t & root, char const * field, PointD const & point)
   json_object_set_new(&root, field, json.release());
 }
 
-bool FromJSONObjectOptional(json_t * root, std::string const & field, PointD & point)
+bool FromJSONObjectOptional(json_t * root, string const & field, PointD & point)
 {
   return FromJSONObjectOptional(root, field.c_str(), point);
 }

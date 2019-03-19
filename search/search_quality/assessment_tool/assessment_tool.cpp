@@ -17,6 +17,7 @@ DEFINE_string(data_path, "", "Path to data directory");
 int main(int argc, char ** argv)
 {
   search::ChangeMaxNumberOfOpenFiles(search::kMaxOpenFiles);
+  search::CheckLocale();
 
   google::SetUsageMessage("Features collector tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
