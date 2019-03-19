@@ -96,14 +96,16 @@ namespace stats
         }, FeatureType::BEST_GEOMETRY);
       }
 
-      m_info.m_byGeomType[f.GetGeomType()].Add(allSize, len, area);
+      bool hasName = f.GetNames().CountLangs() != 0;
 
-      f.ForEachType([this, allSize, len, area](uint32_t type)
+      m_info.m_byGeomType[f.GetGeomType()].Add(allSize, len, area, hasName);
+
+      f.ForEachType([this, allSize, len, area, hasName](uint32_t type)
       {
-        m_info.m_byClassifType[ClassifType(type)].Add(allSize, len, area);
+        m_info.m_byClassifType[ClassifType(type)].Add(allSize, len, area, hasName);
       });
 
-      m_info.m_byAreaSize[AreaType(GetAreaIndex(area))].Add(trg.m_size, len, area);
+      m_info.m_byAreaSize[AreaType(GetAreaIndex(area))].Add(trg.m_size, len, area, hasName);
     }
   };
 
@@ -116,11 +118,12 @@ namespace stats
   void PrintInfo(std::string const & prefix, GeneralInfo const & info, bool measurements)
   {
     std::cout << prefix << ": size = " << info.m_size << "; count = " << info.m_count;
+
     if (measurements)
     {
       std::cout << "; length = " << uint64_t(info.m_length) << " m; area = " << uint64_t(info.m_area) << " m²";
     }
-    std::cout << endl;
+    std::cout << "; names = " << info.m_names << endl;
   }
 
   std::string GetKey(GeomType type)
