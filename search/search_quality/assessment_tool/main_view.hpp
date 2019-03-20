@@ -32,8 +32,8 @@ public:
   void SetSamples(ContextList::SamplesSlice const & samples) override;
   void OnSearchStarted() override;
   void OnSearchCompleted() override;
-  void ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
-                  m2::PointD const & position, bool hasEdits) override;
+  void ShowSample(size_t sampleIndex, search::Sample const & sample,
+                  boost::optional<m2::PointD> const & position, bool hasEdits) override;
 
   void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,

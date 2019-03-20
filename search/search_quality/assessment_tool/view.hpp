@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 class Edits;
 class Model;
 
@@ -31,8 +33,8 @@ public:
   virtual void SetSamples(ContextList::SamplesSlice const & samples) = 0;
   virtual void OnSearchStarted() = 0;
   virtual void OnSearchCompleted() = 0;
-  virtual void ShowSample(size_t index, search::Sample const & sample, bool positionAvailable,
-                          m2::PointD const & position, bool hasEdits) = 0;
+  virtual void ShowSample(size_t index, search::Sample const & sample,
+                          boost::optional<m2::PointD> const & position, bool hasEdits) = 0;
 
   virtual void AddFoundResults(search::Results::ConstIter begin,
                                search::Results::ConstIter end) = 0;

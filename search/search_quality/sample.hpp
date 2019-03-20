@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 class FeatureType;
 
 namespace search
@@ -58,8 +60,7 @@ struct Sample
 
   strings::UniString m_query;
   std::string m_locale;
-  m2::PointD m_pos = m2::PointD(0, 0);
-  bool m_posAvailable = false;
+  boost::optional<m2::PointD> m_pos;
   m2::RectD m_viewport = m2::RectD(0, 0, 0, 0);
   std::vector<Result> m_results;
   std::vector<strings::UniString> m_relatedQueries;

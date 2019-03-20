@@ -120,7 +120,7 @@ void MainModel::OnSampleSelected(int index)
 
   auto & context = m_contexts[index];
   auto const & sample = context.m_sample;
-  m_view->ShowSample(index, sample, sample.m_posAvailable, sample.m_pos, context.HasChanges());
+  m_view->ShowSample(index, sample, sample.m_pos, context.HasChanges());
 
   ResetSearch();
   auto const timestamp = m_queryTimestamp;
@@ -218,8 +218,8 @@ void MainModel::OnShowPositionClicked()
   auto const & context = m_contexts[m_selectedSample];
 
   vector<m2::PointD> points;
-  if (context.m_sample.m_posAvailable)
-    points.push_back(context.m_sample.m_pos);
+  if (context.m_sample.m_pos)
+    points.push_back(*context.m_sample.m_pos);
 
   size_t resultsAdded = 0;
   for (auto const & result : context.m_foundResults)

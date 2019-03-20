@@ -6,6 +6,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include <boost/optional.hpp>
+
 #include <QtCore/QMargins>
 #include <QtWidgets/QWidget>
 
@@ -25,8 +27,7 @@ public:
 
   SampleView(QWidget * parent, Framework & framework);
 
-  void SetContents(search::Sample const & sample, bool positionAvailable,
-                   m2::PointD const & position);
+  void SetContents(search::Sample const & sample, boost::optional<m2::PointD> const & position);
   void OnSearchStarted();
   void OnSearchCompleted();
 
@@ -89,5 +90,5 @@ private:
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;
 
-  bool m_positionAvailable = false;
+  boost::optional<m2::PointD> m_position;
 };

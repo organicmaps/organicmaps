@@ -11,7 +11,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <ios>
 #include <memory>
 #include <sstream>
 
@@ -118,8 +117,6 @@ bool Sample::operator<(Sample const & rhs) const
     return m_locale < rhs.m_locale;
   if (m_pos != rhs.m_pos)
     return m_pos < rhs.m_pos;
-  if (m_posAvailable != rhs.m_posAvailable)
-    return m_posAvailable < rhs.m_posAvailable;
   if (m_viewport != rhs.m_viewport)
     return LessRect(m_viewport, rhs.m_viewport);
   if (!Equal(m_results, rhs.m_results))
@@ -167,9 +164,7 @@ void Sample::DeserializeFromJSONImpl(json_t * root)
 {
   FromJSONObject(root, "query", m_query);
   FromJSONObject(root, "locale", m_locale);
-
-  m_posAvailable = FromJSONObjectOptional(root, "position", m_pos);
-
+  FromJSONObjectOptional(root, "position", m_pos);
   FromJSONObject(root, "viewport", m_viewport);
   FromJSONObjectOptional(root, "results", m_results);
   FromJSONObjectOptional(root, "related_queries", m_relatedQueries);
@@ -191,9 +186,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_inputLocale = m_locale;
   params.m_viewport = m_viewport;
   params.m_mode = Mode::Everywhere;
-  if (m_posAvailable)
-    params.m_position = m_pos;
-
+  params.m_position = m_pos.value_or(m2::PointD());
   params.m_needAddress = true;
   params.m_suggestsEnabled = false;
   params.m_needHighlighting = false;
@@ -293,8 +286,7 @@ string DebugPrint(Sample const & s)
   oss << "[";
   oss << "query: " << DebugPrint(s.m_query) << ", ";
   oss << "locale: " << s.m_locale << ", ";
-  oss << "pos: " << DebugPrint(s.m_pos) << ", ";
-  oss << "posAvailable: " << boolalpha << s.m_posAvailable << ", ";
+  oss << "pos: " << (s.m_pos ? DebugPrint(*s.m_pos) : "null") << ", ";
   oss << "viewport: " << DebugPrint(s.m_viewport) << ", ";
   oss << "results: [";
   for (size_t i = 0; i < s.m_results.size(); ++i)

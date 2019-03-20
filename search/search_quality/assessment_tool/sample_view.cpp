@@ -167,8 +167,8 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   Clear();
 }
 
-void SampleView::SetContents(search::Sample const & sample, bool positionAvailable,
-                             m2::PointD const & position)
+void SampleView::SetContents(search::Sample const & sample,
+                             boost::optional<m2::PointD> const & position)
 {
   if (!sample.m_query.empty())
   {
@@ -189,9 +189,9 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
     m_relatedQueriesBox->show();
 
   ClearAllResults();
-  m_positionAvailable = positionAvailable;
-  if (m_positionAvailable)
-    ShowUserPosition(position);
+  m_position = position;
+  if (m_position)
+    ShowUserPosition(*m_position);
   else
     HideUserPosition();
 }
@@ -209,7 +209,7 @@ void SampleView::OnSearchCompleted()
 {
   m_spinner->Hide();
   auto const resultsAvailable = m_foundResults->HasResultsWithPoints();
-  if (m_positionAvailable)
+  if (m_position)
   {
     if (resultsAvailable)
       m_showPosition->setText(tr("Show position and top results"));
@@ -319,7 +319,7 @@ void SampleView::Clear()
 
   ClearAllResults();
   HideUserPosition();
-  m_positionAvailable = false;
+  m_position = boost::none;
   OnSearchCompleted();
 }
 

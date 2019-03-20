@@ -6,6 +6,7 @@
 #include "std/target_os.hpp"
 
 #include <memory>
+#include <utility>
 
 #include <sys/resource.h>
 
@@ -112,14 +113,18 @@ void FromJSONObject(json_t * root, string const & field, PointD & point)
   FromJSONObject(root, field.c_str(), point);
 }
 
-bool FromJSONObjectOptional(json_t * root, char const * field, PointD & point)
+void FromJSONObjectOptional(json_t * root, char const * field, boost::optional<PointD> & point)
 {
   json_t * p = base::GetJSONOptionalField(root, field);
   if (!p || base::JSONIsNull(p))
-    return false;
+  {
+    point = boost::none;
+    return;
+  }
 
-  ParsePoint(p, point);
-  return true;
+  PointD parsed;
+  ParsePoint(p, parsed);
+  point = move(parsed);
 }
 
 void ToJSONObject(json_t & root, char const * field, PointD const & point)
@@ -130,12 +135,25 @@ void ToJSONObject(json_t & root, char const * field, PointD const & point)
   json_object_set_new(&root, field, json.release());
 }
 
-bool FromJSONObjectOptional(json_t * root, string const & field, PointD & point)
+void FromJSONObjectOptional(json_t * root, string const & field, boost::optional<PointD> & point)
 {
-  return FromJSONObjectOptional(root, field.c_str(), point);
+  FromJSONObjectOptional(root, field.c_str(), point);
 }
 
 void ToJSONObject(json_t & root, string const & field, PointD const & point)
+{
+  ToJSONObject(root, field.c_str(), point);
+}
+
+void ToJSONObject(json_t & root, char const * field, boost::optional<PointD> const & point)
+{
+  if (point)
+    ToJSONObject(root, field, *point);
+  else
+    ToJSONObject(root, field, base::NewJSONNull());
+}
+
+void ToJSONObject(json_t & root, std::string const & field, boost::optional<PointD> const & point)
 {
   ToJSONObject(root, field.c_str(), point);
 }

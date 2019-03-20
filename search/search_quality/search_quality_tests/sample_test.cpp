@@ -29,8 +29,7 @@ void SampleTest::Init()
 {
   m_cuba.m_query = strings::MakeUniString("cuba");
   m_cuba.m_locale = "en";
-  m_cuba.m_pos = {37.618706, 99.53730574302003};
-  m_cuba.m_posAvailable = true;
+  m_cuba.m_pos = m2::PointD{37.618706, 99.53730574302003};
   m_cuba.m_viewport = {37.1336, 67.1349, 38.0314, 67.7348};
   search::Sample::Result cubaRes;
   cubaRes.m_name = strings::MakeUniString("Cuba");
@@ -44,8 +43,7 @@ void SampleTest::Init()
 
   m_riga.m_query = strings::MakeUniString("riga");
   m_riga.m_locale = "en";
-  m_riga.m_pos = {37.65376, 98.51110651930014};
-  m_riga.m_posAvailable = true;
+  m_riga.m_pos = m2::PointD{37.65376, 98.51110651930014};
   m_riga.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
   search::Sample::Result rigaRes;
   rigaRes.m_name = strings::MakeUniString("Rīga");
@@ -57,8 +55,7 @@ void SampleTest::Init()
 
   m_tula.m_query = strings::MakeUniString("tula");
   m_tula.m_locale = "en";
-  m_tula.m_pos = {0.0, 0.0};
-  m_tula.m_posAvailable = false;
+  m_tula.m_pos = boost::none;
   m_tula.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
 }
 }  // namespace
@@ -165,7 +162,7 @@ UNIT_CLASS_TEST(SampleTest, Arrays)
 
 UNIT_CLASS_TEST(SampleTest, SerDes)
 {
-  vector<Sample> expected = {m_cuba, m_riga};
+  vector<Sample> expected = {m_cuba, m_riga, m_tula};
 
   std::string lines;
   Sample::SerializeToJSONLines(expected, lines);
