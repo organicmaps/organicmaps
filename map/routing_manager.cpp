@@ -536,7 +536,7 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
                                          m2::PointD const & startPt, double baseDistance,
                                          GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings)
 {
-  auto const isImportantType = [](RoutingOptions::Road roadType)
+  auto const isWarnedType = [](RoutingOptions::Road roadType)
   {
     return roadType == RoutingOptions::Road::Toll || roadType == RoutingOptions::Road::Ferry ||
       roadType == RoutingOptions::Road::Dirty;
@@ -550,10 +550,10 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
     auto const currentType = ChooseMainRoutingOptionRoad(segments[i].GetRoadTypes());
     if (currentType != lastType)
     {
-      if (isImportantType(lastType))
+      if (isWarnedType(lastType))
         roadWarnings[lastType].back().m_distance = segments[i].GetDistFromBeginningMeters() - startDistance;
 
-      if (isImportantType(currentType))
+      if (isWarnedType(currentType))
       {
         startDistance = currentDistance;
         auto const featureId = FeatureID(getMwmIdFn(segments[i].GetSegment().GetMwmId()),
@@ -565,7 +565,7 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
     }
     currentDistance = segments[i].GetDistFromBeginningMeters();
   }
-  if (isImportantType(lastType))
+  if (isWarnedType(lastType))
     roadWarnings[lastType].back().m_distance = segments.back().GetDistFromBeginningMeters() - startDistance;
 }
 
