@@ -37,6 +37,7 @@ enum class RouterResultCode
   TransitRouteNotFoundNoNetwork = 13,
   TransitRouteNotFoundTooLongPedestrian = 14,
   RouteNotFoundRedressRouteError = 15,
+  HasWarnings = 16,
 };
 
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
@@ -71,6 +72,7 @@ inline std::string DebugPrint(RouterResultCode code)
   case RouterResultCode::TransitRouteNotFoundNoNetwork: return "TransitRouteNotFoundNoNetwork";
   case RouterResultCode::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
   case RouterResultCode::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
+  case RouterResultCode::HasWarnings: return "HasWarnings";
   }
 
   std::string const result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));

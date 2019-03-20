@@ -81,6 +81,7 @@
   case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
   case routing::RouterResultCode::Cancelled:
   case routing::RouterResultCode::NoError:
+  case routing::RouterResultCode::HasWarnings:
   case routing::RouterResultCode::NeedMoreMaps: return nil;
   case routing::RouterResultCode::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
   }

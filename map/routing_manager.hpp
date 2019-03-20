@@ -291,7 +291,7 @@ public:
   void CancelPreviewMode();
 
 private:
-  void InsertRoute(routing::Route const & route);
+  bool InsertRoute(routing::Route const & route);
 
   struct RoadInfo
   {

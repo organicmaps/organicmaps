@@ -30,6 +30,7 @@ class ResultCodesHelper
   private static final int TRANSIT_ROUTE_NOT_FOUND_NO_NETWORK = 13;
   private static final int TRANSIT_ROUTE_NOT_FOUND_TOO_LONG_PEDESTRIAN = 14;
   private static final int ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR = 15;
+  static final int HAS_WARNINGS = 16;
 
   static Pair<String, String> getDialogTitleSubtitle(int errorCode, int missingCount)
   {

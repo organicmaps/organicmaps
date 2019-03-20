@@ -128,6 +128,7 @@ public class RoutingController implements TaxiManager.TaxiListener
       mContainsCachedResult = true;
 
       if (mLastResultCode == ResultCodesHelper.NO_ERROR
+        || mLastResultCode == ResultCodesHelper.HAS_WARNINGS
         || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
       {
         mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
@@ -183,7 +184,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     mContainsCachedResult = false;
 
-    if (mLastResultCode == ResultCodesHelper.NO_ERROR)
+    if (mLastResultCode == ResultCodesHelper.NO_ERROR || mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
     {
       updatePlan();
       return;

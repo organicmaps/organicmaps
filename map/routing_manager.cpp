@@ -362,7 +362,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
   CHECK_EQUAL(code, RouterResultCode::NoError, ());
   HidePreviewSegments();
 
-  InsertRoute(route);
+  auto const hasWarnings = InsertRoute(route);
   m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
 
   // Validate route (in case of bicycle routing it can be invalid).
@@ -375,7 +375,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
                            true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
   }
 
-  CallRouteBuilded(code, storage::CountriesVec());
+  CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesVec());
 }
 
 void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
@@ -385,8 +385,8 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode c
   if (code != RouterResultCode::NoError)
     return;
 
-  InsertRoute(route);
-  CallRouteBuilded(code, storage::CountriesVec());
+  auto const hasWarnings = InsertRoute(route);
+  CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesVec());
 }
 
 void RoutingManager::OnNeedMoreMaps(uint64_t routeId, vector<string> const & absentCountries)
@@ -596,10 +596,10 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
   });
 }
 
-void RoutingManager::InsertRoute(Route const & route)
+bool RoutingManager::InsertRoute(Route const & route)
 {
   if (!m_drapeEngine)
-    return;
+    return false;
 
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
@@ -644,7 +644,8 @@ void RoutingManager::InsertRoute(Route const & route)
           subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
           FillTrafficForRendering(segments, subroute->m_traffic);
           FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
-          CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+          if (m_currentRouterType == RouterType::Vehicle)
+            CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
           break;
         }
       case RouterType::Transit:
@@ -692,7 +693,12 @@ void RoutingManager::InsertRoute(Route const & route)
     });
   }
 
-  CreateRoadWarningMarks(std::move(roadWarnings));
+  if (!roadWarnings.empty())
+  {
+    CreateRoadWarningMarks(std::move(roadWarnings));
+    return true;
+  }
+  return false;
 }
 
 void RoutingManager::FollowRoute()

@@ -627,6 +627,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   switch (code)
   {
   case routing::RouterResultCode::NoError:
+  case routing::RouterResultCode::HasWarnings:
   {
     GetFramework().DeactivateMapSelection(true);
 
