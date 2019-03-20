@@ -2515,14 +2515,21 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
 UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const
 {
-  UserMark const * mark = GetBookmarkManager().FindNearestUserMark([this, &tapInfo](UserMark::Type type)
-  {
-    if (type == UserMark::Type::BOOKMARK)
-      return tapInfo.GetBookmarkSearchRect(m_currentModelView);
-    if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
-      return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
-    return tapInfo.GetDefaultSearchRect(m_currentModelView);
-  });
+  UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
+    [this, &tapInfo](UserMark::Type type)
+    {
+      if (type == UserMark::Type::BOOKMARK)
+        return tapInfo.GetBookmarkSearchRect(m_currentModelView);
+      if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
+        return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
+      return tapInfo.GetDefaultSearchRect(m_currentModelView);
+    },
+    [this](UserMark::Type type)
+    {
+      if (type == UserMark::Type::ROAD_WARNING)
+        return GetDrawScale() < RoadWarningMark::kAutoVisibleMinZoom;
+      return false;
+    });
   return mark;
 }
 

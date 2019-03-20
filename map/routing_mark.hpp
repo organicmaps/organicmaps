@@ -206,9 +206,9 @@ enum class RoadWarningMarkType : uint8_t
 
 class RoadWarningMark : public UserMark
 {
-  int const kAutoVisibleMinZoom = 13;
-
 public:
+  static int constexpr kAutoVisibleMinZoom = 13;
+
   explicit RoadWarningMark(m2::PointD const & ptOrg);
 
   dp::Anchor GetAnchor() const override { return dp::Anchor::Bottom; }

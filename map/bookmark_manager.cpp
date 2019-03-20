@@ -871,7 +871,8 @@ kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
   return kml::kInvalidMarkGroupId;
 }
 
-UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, double & d) const
+UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect,
+                                                 bool findOnlyVisible, double & d) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const * group = GetGroup(groupId);
@@ -883,6 +884,9 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
     for (auto markId : group->GetUserMarks())
     {
       auto const * mark = GetMark(markId);
+      if (findOnlyVisible && !mark->IsVisible())
+        continue;
+
       if (mark->IsAvailableForSearch() && rect.IsPointInside(mark->GetPivot()))
         f(mark);
     }
@@ -1456,8 +1460,10 @@ class BestUserMarkFinder
 {
 public:
   explicit BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder,
+                              BookmarkManager::TFindOnlyVisibleChecker const & findOnlyVisible,
                               BookmarkManager const * manager)
     : m_rectHolder(rectHolder)
+    , m_findOnlyVisible(findOnlyVisible)
     , m_d(numeric_limits<double>::max())
     , m_mark(nullptr)
     , m_manager(manager)
@@ -1467,15 +1473,16 @@ public:
   {
     if (m_mark != nullptr)
       return;
-    m2::AnyRectD const & rect = m_rectHolder(BookmarkManager::GetGroupType(groupId));
-    if (UserMark const * p = m_manager->FindMarkInRect(groupId, rect, m_d))
+    auto const groupType = BookmarkManager::GetGroupType(groupId);
+    if (auto const * p = m_manager->FindMarkInRect(groupId, m_rectHolder(groupType), m_findOnlyVisible(groupType), m_d))
       m_mark = p;
   }
 
   UserMark const * GetFoundMark() const { return m_mark; }
 
 private:
-  BookmarkManager::TTouchRectHolder const & m_rectHolder;
+  BookmarkManager::TTouchRectHolder const m_rectHolder;
+  BookmarkManager::TFindOnlyVisibleChecker const m_findOnlyVisible;
   double m_d;
   UserMark const * m_mark;
   BookmarkManager const * m_manager;
@@ -1485,13 +1492,14 @@ private:
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return FindNearestUserMark([&rect](UserMark::Type) { return rect; });
+  return FindNearestUserMark([&rect](UserMark::Type) { return rect; }, [&rect](UserMark::Type) { return false; });
 }
 
-UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
+UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder,
+                                                      TFindOnlyVisibleChecker const & findOnlyVisible) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  BestUserMarkFinder finder(holder, this);
+  BestUserMarkFinder finder(holder, findOnlyVisible, this);
   finder(UserMark::Type::ROUTING);
   finder(UserMark::Type::ROAD_WARNING);
   finder(UserMark::Type::SEARCH);
