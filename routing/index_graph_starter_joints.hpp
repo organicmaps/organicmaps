@@ -182,6 +182,9 @@ void IndexGraphStarterJoints<Graph>::Init(Segment const & startSegment, Segment 
   m_startSegment = startSegment;
   m_endSegment = endSegment;
 
+  m_startPoint = m_graph.GetPoint(m_startSegment, true /* front */);
+  m_endPoint = m_graph.GetPoint(m_endSegment, true /* front */);
+
   if (IsRealSegment(startSegment))
     m_startJoint = CreateInvisibleJoint(startSegment, true /* start */);
   else
