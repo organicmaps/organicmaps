@@ -95,6 +95,8 @@ public:
 
   void OnViewportChanged(m2::RectD const & viewport);
 
+  void CacheWorldLocalities() { m_engine.CacheWorldLocalities(); }
+
   void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
 
   // Search everywhere.

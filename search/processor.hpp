@@ -91,6 +91,7 @@ public:
   void InitEmitter(SearchParams const & searchParams);
 
   void ClearCaches();
+  void CacheWorldLocalities();
   void LoadCitiesBoundaries();
   void LoadCountriesTree();
 

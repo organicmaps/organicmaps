@@ -622,6 +622,19 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
   scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
 }
 
+void Geocoder::CacheWorldLocalities()
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  m_dataSource.GetMwmsInfo(infos);
+
+  MwmSet::MwmHandle handle = FindWorld(m_dataSource, infos);
+  if (handle.IsAlive())
+  {
+    auto context = make_unique<MwmContext>(move(handle));
+    UNUSED_VALUE(m_localitiesCache.Get(*context));
+  }
+}
+
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
   vector<Locality> preLocalities;

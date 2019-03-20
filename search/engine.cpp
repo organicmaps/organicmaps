@@ -112,6 +112,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   for (size_t i = 0; i < params.m_numThreads; ++i)
     m_threads.emplace_back(&Engine::MainLoop, this, ref(m_contexts[i]));
 
+  CacheWorldLocalities();
   LoadCitiesBoundaries();
   LoadCountriesTree();
 }
@@ -147,6 +148,12 @@ void Engine::SetLocale(string const & locale)
 void Engine::ClearCaches()
 {
   PostMessage(Message::TYPE_BROADCAST, [](Processor & processor) { processor.ClearCaches(); });
+}
+
+void Engine::CacheWorldLocalities()
+{
+  PostMessage(Message::TYPE_BROADCAST,
+              [](Processor & processor) { processor.CacheWorldLocalities(); });
 }
 
 void Engine::LoadCitiesBoundaries()

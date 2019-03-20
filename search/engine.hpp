@@ -102,6 +102,9 @@ public:
   // Posts request to clear caches to the queue.
   void ClearCaches();
 
+  // Posts requests to load and cache localities from World.mwm.
+  void CacheWorldLocalities();
+
   // Posts request to reload cities boundaries tables.
   void LoadCitiesBoundaries();
 

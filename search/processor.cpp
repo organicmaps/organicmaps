@@ -312,6 +312,8 @@ m2::RectD const & Processor::GetViewport() const
   return m_viewport;
 }
 
+void Processor::CacheWorldLocalities() { m_geocoder.CacheWorldLocalities(); }
+
 void Processor::LoadCitiesBoundaries()
 {
   if (m_citiesBoundaries.Load())

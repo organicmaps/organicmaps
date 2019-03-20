@@ -510,6 +510,7 @@ Framework::Framework(FrameworkParams const & params)
 
   // Need to reload cities boundaries because maps in indexer were updated.
   GetSearchAPI().LoadCitiesBoundaries();
+  GetSearchAPI().CacheWorldLocalities();
 
   // Init storage with needed callback.
   m_storage.Init(

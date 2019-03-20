@@ -121,6 +121,7 @@ public:
   // noticeable time.
   void Finish(bool cancelled);
 
+  void CacheWorldLocalities();
   void ClearCaches();
 
 private:
