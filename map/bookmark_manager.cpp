@@ -1469,13 +1469,15 @@ public:
     , m_manager(manager)
   {}
 
-  void operator()(kml::MarkGroupId groupId)
+  bool operator()(kml::MarkGroupId groupId)
   {
-    if (m_mark != nullptr)
-      return;
     auto const groupType = BookmarkManager::GetGroupType(groupId);
     if (auto const * p = m_manager->FindMarkInRect(groupId, m_rectHolder(groupType), m_findOnlyVisible(groupType), m_d))
+    {
       m_mark = p;
+      return true;
+    }
+    return false;
   }
 
   UserMark const * GetFoundMark() const { return m_mark; }
@@ -1500,13 +1502,15 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   BestUserMarkFinder finder(holder, findOnlyVisible, this);
-  finder(UserMark::Type::ROUTING);
-  finder(UserMark::Type::ROAD_WARNING);
-  finder(UserMark::Type::SEARCH);
-  finder(UserMark::Type::API);
-  for (auto & pair : m_categories)
-    finder(pair.first);
-
+  auto const hasFound = finder(UserMark::Type::ROUTING) ||
+                        finder(UserMark::Type::ROAD_WARNING) ||
+                        finder(UserMark::Type::SEARCH) ||
+                        finder(UserMark::Type::API);
+  if (!hasFound)
+  {
+    for (auto & pair : m_categories)
+      finder(pair.first);
+  }
   return finder.GetFoundMark();
 }
 
