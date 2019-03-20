@@ -24,9 +24,6 @@ using namespace std;
 
 namespace
 {
-
-using TRoutingAlgorithm = AStarBidirectionalRoutingAlgorithm;
-
 void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
                          vector<Junction> const & expected)
 {
@@ -36,8 +33,8 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   InitRoadGraphMockSourceWithTest2(graph);
 
   RoutingResult<Junction, double /* Weight */> result;
-  TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+  TestAStarBidirectionalAlgo algorithm;
+  TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
 
   TEST_EQUAL(expected, result.m_path, ());
@@ -103,8 +100,8 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
       MakeJunctionForTesting(m2::PointD(0, 60)), MakeJunctionForTesting(m2::PointD(40, 100))};
 
   RoutingResult<Junction, double /* Weight */> result;
-  TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+  TestAStarBidirectionalAlgo algorithm;
+  TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
 
   TEST_EQUAL(expected, result.m_path, ());
@@ -156,7 +153,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   for (auto const & ri : roadInfo_2)
     graph.AddRoad(IRoadGraph::RoadInfo(ri));
 
-  TRoutingAlgorithm algorithm;
+  TestAStarBidirectionalAlgo algorithm;
 
   // In this test we check that there is no any route between pairs from different connected components,
   // but there are routes between points in one connected component.
@@ -169,9 +166,9 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
-      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::NoPath,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::NoPath,
                  algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
@@ -184,9 +181,9 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       Junction const finalPos = roadInfo_1[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
@@ -199,9 +196,9 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+      TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
@@ -226,8 +223,8 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
   RoutingResult<Junction, double /* Weight */> result;
-  TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+  TestAStarBidirectionalAlgo algorithm;
+  TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());
@@ -260,8 +257,8 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
   RoutingResult<Junction, double /* Weight */> result;
-  TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+  TestAStarBidirectionalAlgo algorithm;
+  TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());
@@ -291,8 +288,8 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
   RoutingResult<Junction, double /* Weight */> result;
-  TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+  TestAStarBidirectionalAlgo algorithm;
+  TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());

@@ -102,46 +102,46 @@ private:
   double const m_maxSpeedMPS;
 };
 
-typedef AStarAlgorithm<RoadGraph> TAlgorithmImpl;
-
-IRoutingAlgorithm::Result Convert(TAlgorithmImpl::Result value)
+TestAStarBidirectionalAlgo::Result Convert(AStarAlgorithm<RoadGraph>::Result value)
 {
   switch (value)
   {
-  case TAlgorithmImpl::Result::OK: return IRoutingAlgorithm::Result::OK;
-  case TAlgorithmImpl::Result::NoPath: return IRoutingAlgorithm::Result::NoPath;
-  case TAlgorithmImpl::Result::Cancelled: return IRoutingAlgorithm::Result::Cancelled;
+  case AStarAlgorithm<RoadGraph>::Result::OK: return TestAStarBidirectionalAlgo::Result::OK;
+  case AStarAlgorithm<RoadGraph>::Result::NoPath: return TestAStarBidirectionalAlgo::Result::NoPath;
+  case AStarAlgorithm<RoadGraph>::Result::Cancelled: return TestAStarBidirectionalAlgo::Result::Cancelled;
   }
-  ASSERT(false, ("Unexpected TAlgorithmImpl::Result value:", value));
-  return IRoutingAlgorithm::Result::NoPath;
+
+  UNREACHABLE();
+  return TestAStarBidirectionalAlgo::Result::NoPath;
 }
 }  // namespace
 
-string DebugPrint(IRoutingAlgorithm::Result const & value)
+string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 {
   switch (value)
   {
-  case IRoutingAlgorithm::Result::OK:
+  case TestAStarBidirectionalAlgo::Result::OK:
     return "OK";
-  case IRoutingAlgorithm::Result::NoPath:
+  case TestAStarBidirectionalAlgo::Result::NoPath:
     return "NoPath";
-  case IRoutingAlgorithm::Result::Cancelled:
+  case TestAStarBidirectionalAlgo::Result::Cancelled:
     return "Cancelled";
   }
-  ASSERT(false, ("Unexpected TAlgorithmImpl::Result value:", value));
+
+  UNREACHABLE();
   return string();
 }
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
-IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
+TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);
   base::Cancellable const cancellable;
-  TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                                cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
-  TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(params, path);
+  AStarAlgorithm<RoadGraph>::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
+                                           cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
+  AStarAlgorithm<RoadGraph>::Result const res = AStarAlgorithm<RoadGraph>().FindPathBidirectional(params, path);
   return Convert(res);
 }
 }  // namespace routing

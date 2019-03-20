@@ -8,10 +8,7 @@
 
 namespace routing
 {
-
-// IRoutingAlgorithm is an abstract interface of a routing algorithm,
-// which searches the optimal way between two junctions on the graph
-class IRoutingAlgorithm
+class TestAStarBidirectionalAlgo
 {
 public:
   enum class Result
@@ -21,20 +18,10 @@ public:
     Cancelled
   };
 
-  virtual Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                                Junction const & finalPos,
-                                RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path) = 0;
-};
-
-std::string DebugPrint(IRoutingAlgorithm::Result const & result);
-
-// AStar-bidirectional routing algorithm implementation
-class AStarBidirectionalRoutingAlgorithm : public IRoutingAlgorithm
-{
-public:
-  // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
                         Junction const & finalPos,
-                        RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path) override;
+                        RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path);
 };
+
+std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & result);
 }  // namespace routing
