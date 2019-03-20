@@ -195,8 +195,6 @@ protected:
   // search::Engine and, therefore, destroyed after search::Engine.
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 
-  unique_ptr<ugc::Api> m_ugcApi;
-
   LocalAdsManager m_localAdsManager;
 
   unique_ptr<SearchAPI> m_searchAPI;
@@ -240,6 +238,8 @@ protected:
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
+
+  unique_ptr<ugc::Api> m_ugcApi;
 
   User m_user;
 

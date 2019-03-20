@@ -368,14 +368,12 @@ void Framework::Migrate(bool keepDownloaded)
   m_infoGetter.reset();
   m_taxiEngine.reset();
   m_cityFinder.reset();
-  m_ugcApi.reset();
   CountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
   GetStorage().Migrate(keepDownloaded ? existedCountries : CountriesVec());
   InitCountryInfoGetter();
-  InitUGC();
   InitSearchAPI();
   InitCityFinder();
   InitDiscoveryManager();
@@ -469,9 +467,6 @@ Framework::Framework(FrameworkParams const & params)
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
 
-  InitUGC();
-  LOG(LDEBUG, ("UGC initialized"));
-
   InitSearchAPI();
   LOG(LDEBUG, ("Search API initialized"));
 
@@ -547,6 +542,9 @@ Framework::Framework(FrameworkParams const & params)
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
   m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   m_trafficManager.SetEnabled(LoadTrafficEnabled());
+
+  InitUGC();
+  LOG(LDEBUG, ("UGC initialized"));
 
   m_adsEngine = make_unique<ads::Engine>();
 
@@ -1479,16 +1477,6 @@ void Framework::InitUGC()
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
   m_ugcApi = make_unique<ugc::Api>(m_model.GetDataSource(), [this](size_t numberOfUnsynchronized) {
-
-    bool ugcStorageValidationExecuted = false;
-    UNUSED_VALUE(settings::Get("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted));
-
-    if (!ugcStorageValidationExecuted)
-    {
-      m_ugcApi->ValidateStorage();
-      settings::Set("WasUgcStorageValidationExecuted", true);
-    }
-
     if (numberOfUnsynchronized == 0)
       return;
 
@@ -1496,6 +1484,15 @@ void Framework::InitUGC()
         "UGC_unsent", {{"num", strings::to_string(numberOfUnsynchronized)},
                        {"is_authenticated", strings::to_string(m_user.IsAuthenticated())}});
   });
+
+  bool ugcStorageValidationExecuted = false;
+  UNUSED_VALUE(settings::Get("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted));
+
+  if (!ugcStorageValidationExecuted)
+  {
+    m_ugcApi->ValidateStorage();
+    settings::Set("WasUgcStorageValidationExecuted", true);
+  }
 }
 
 void Framework::InitSearchAPI()
