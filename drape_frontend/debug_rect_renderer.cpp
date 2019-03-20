@@ -66,7 +66,8 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
   PixelPointToScreenSpace(screen, arrowEnd, vertices);
   PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
 
-  if (m_currentArrowMesh >= m_arrowMeshes.size())
+  ASSERT_LESS_OR_EQUAL(m_currentArrowMesh, m_arrowMeshes.size(), ());
+  if (m_currentArrowMesh == m_arrowMeshes.size())
     m_arrowMeshes.emplace_back(CreateMesh(context, m_program, std::move(vertices)));
   else
     m_arrowMeshes[m_currentArrowMesh]->UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
@@ -82,7 +83,8 @@ void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF 
   PixelPointToScreenSpace(screen, rect.RightBottom(), vertices);
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
 
-  if (m_currentRectMesh >= m_rectMeshes.size())
+  ASSERT_LESS_OR_EQUAL(m_currentRectMesh, m_rectMeshes.size(), ());
+  if (m_currentRectMesh == m_rectMeshes.size())
     m_rectMeshes.emplace_back(CreateMesh(context, m_program, std::move(vertices)));
   else
     m_rectMeshes[m_currentRectMesh]->UpdateBuffer(context, 0 /* bufferInd */, std::move(vertices));
