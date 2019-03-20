@@ -25,8 +25,6 @@
 
 using namespace std;
 
-// MainModel::SampleContext ------------------------------------------------------------------------
-
 // MainModel ---------------------------------------------------------------------------------------
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)

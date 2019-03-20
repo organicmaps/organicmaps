@@ -1,4 +1,4 @@
-#include "geometry_utils.hpp"
+#include "search/geometry_utils.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -16,6 +16,9 @@ bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double eps)
   return m2::IsEqual(r1, r2, eps, eps);
 }
 
+// 11.5 - lower bound for rect when we need to inflate it
+// 1.5 - inflate delta for viewport scale
+// 7 - query scale depth to cache viewport features
 bool GetInflatedViewport(m2::RectD & viewport)
 {
   // 11.5 - lower bound for rect when we need to inflate it

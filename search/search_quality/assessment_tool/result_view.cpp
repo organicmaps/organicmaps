@@ -181,6 +181,7 @@ void ResultView::UpdateRelevanceRadioButtons()
   m_vital->setChecked(false);
 
   auto const & r = m_editor->Get();
+
   if (!r)
     return;
 

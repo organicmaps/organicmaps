@@ -27,12 +27,12 @@ public:
 
     Entry() = default;
     Entry(boost::optional<Relevance> relevance, Type type)
-      : m_curr(relevance), m_orig(relevance), m_type(type)
+      : m_currRelevance(relevance), m_origRelevance(relevance), m_type(type)
     {
     }
 
-    boost::optional<Relevance> m_curr = {};
-    boost::optional<Relevance> m_orig = {};
+    boost::optional<Relevance> m_currRelevance = {};
+    boost::optional<Relevance> m_origRelevance = {};
     bool m_deleted = false;
     Type m_type = Type::Loaded;
   };

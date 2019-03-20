@@ -1,22 +1,12 @@
 #include "search/engine.hpp"
 
-#include "search/geometry_utils.hpp"
 #include "search/processor.hpp"
-#include "search/search_params.hpp"
 
 #include "storage/country_info_getter.hpp"
 
 #include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "platform/platform.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
-#include "geometry/mercator.hpp"
-
-#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 

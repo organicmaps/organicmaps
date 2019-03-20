@@ -1,13 +1,10 @@
 #pragma once
 
 #include "search/bookmarks/processor.hpp"
-#include "search/result.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
 
 #include "indexer/categories_holder.hpp"
-
-#include "coding/reader.hpp"
 
 #include "base/macros.hpp"
 #include "base/thread.hpp"
@@ -135,8 +132,6 @@ private:
     Fn m_fn;
   };
 
-  // alignas() is used here to prevent false-sharing between different
-  // threads.
   struct Context
   {
     // This field *CAN* be accessed by other threads, so |m_mu| must

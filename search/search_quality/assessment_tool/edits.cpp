@@ -8,12 +8,12 @@ namespace
 {
 void UpdateNumEdits(Edits::Entry const & entry, Edits::Relevance const & r, size_t & numEdits)
 {
-  if (entry.m_curr != entry.m_orig && r == entry.m_orig)
+  if (entry.m_currRelevance != entry.m_origRelevance && r == entry.m_origRelevance)
   {
     CHECK_GREATER(numEdits, 0, ());
     --numEdits;
   }
-  if (entry.m_curr == entry.m_orig && r != entry.m_orig)
+  if (entry.m_currRelevance == entry.m_origRelevance && r != entry.m_origRelevance)
     ++numEdits;
 }
 }  // namespace
@@ -31,7 +31,7 @@ bool Edits::Editor::Set(Relevance relevance)
 
 boost::optional<Edits::Relevance> const & Edits::Editor::Get() const
 {
-  return m_parent.Get(m_index).m_curr;
+  return m_parent.Get(m_index).m_currRelevance;
 }
 
 bool Edits::Editor::HasChanges() const { return m_parent.HasChanges(m_index); }
@@ -47,7 +47,7 @@ void Edits::Apply()
   WithObserver(Update::MakeAll(), [this]() {
     for (auto & entry : m_entries)
     {
-      entry.m_orig = entry.m_curr;
+      entry.m_origRelevance = entry.m_currRelevance;
       entry.m_type = Entry::Type::Loaded;
     }
     m_numEdits = 0;
@@ -61,8 +61,8 @@ void Edits::Reset(vector<boost::optional<Edits::Relevance>> const & relevances)
     for (size_t i = 0; i < m_entries.size(); ++i)
     {
       auto & entry = m_entries[i];
-      entry.m_orig = relevances[i];
-      entry.m_curr = relevances[i];
+      entry.m_origRelevance = relevances[i];
+      entry.m_currRelevance = relevances[i];
       entry.m_deleted = false;
       entry.m_type = Entry::Type::Loaded;
     }
@@ -79,8 +79,8 @@ bool Edits::SetRelevance(size_t index, Relevance relevance)
 
     UpdateNumEdits(entry, relevance, m_numEdits);
 
-    entry.m_curr = relevance;
-    return entry.m_curr != entry.m_orig;
+    entry.m_currRelevance = relevance;
+    return entry.m_currRelevance != entry.m_origRelevance;
   });
 }
 
@@ -90,7 +90,7 @@ void Edits::SetAllRelevances(Relevance relevance)
     for (auto & entry : m_entries)
     {
       UpdateNumEdits(entry, relevance, m_numEdits);
-      entry.m_curr = relevance;
+      entry.m_currRelevance = relevance;
     }
   });
 }
@@ -153,7 +153,7 @@ vector<boost::optional<Edits::Relevance>> Edits::GetRelevances() const
 {
   vector<boost::optional<Edits::Relevance>> relevances(m_entries.size());
   for (size_t i = 0; i < m_entries.size(); ++i)
-    relevances[i] = m_entries[i].m_curr;
+    relevances[i] = m_entries[i].m_currRelevance;
   return relevances;
 }
 
@@ -177,5 +177,5 @@ bool Edits::HasChanges(size_t index) const
 {
   CHECK_LESS(index, m_entries.size(), ());
   auto const & entry = m_entries[index];
-  return entry.m_curr != entry.m_orig;
+  return entry.m_currRelevance != entry.m_origRelevance;
 }

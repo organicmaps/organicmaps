@@ -43,7 +43,6 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
   // Iterates over original (loaded from the file with search samples)
   // results first.
-
   size_t k = 0;
   for (size_t i = 0; i < m_sample.m_results.size(); ++i)
   {
@@ -53,7 +52,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     {
       auto const & entry = nonFoundEntries[k++];
       auto const deleted = entry.m_deleted;
-      auto const & curr = entry.m_curr;
+      auto const & curr = entry.m_currRelevance;
       if (!deleted && curr)
       {
         auto result = m_sample.m_results[i];
@@ -63,11 +62,11 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       continue;
     }
 
-    if (!foundEntries[j].m_curr)
+    if (!foundEntries[j].m_currRelevance)
       continue;
 
     auto result = m_sample.m_results[i];
-    result.m_relevance = *foundEntries[j].m_curr;
+    result.m_relevance = *foundEntries[j].m_currRelevance;
     outResults.push_back(move(result));
   }
 
@@ -81,7 +80,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       continue;
     }
 
-    if (!foundEntries[i].m_curr)
+    if (!foundEntries[i].m_currRelevance)
       continue;
 
     auto const & result = m_foundResults[i];
@@ -91,7 +90,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     auto ft = loader.Load(result.GetFeatureID());
     CHECK(ft, ());
-    outResults.push_back(search::Sample::Result::Build(*ft, *foundEntries[i].m_curr));
+    outResults.push_back(search::Sample::Result::Build(*ft, *foundEntries[i].m_currRelevance));
   }
 
   return outSample;
