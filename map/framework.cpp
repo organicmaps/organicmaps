@@ -1035,16 +1035,16 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
   CHECK(roadTypeMark.GetFeatureID().IsValid(), ());
 
   FeaturesLoaderGuard const guard(m_model.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
-  FeatureType ft;
-  if (!guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index, ft))
+  auto ft = guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index);
+  if (!ft)
   {
     LOG(LERROR, ("Feature can't be loaded:", roadTypeMark.GetFeatureID()));
     return;
   }
-  FillInfoFromFeatureType(ft, info);
+  FillInfoFromFeatureType(*ft, info);
 
 
-  info.SetRoadType(ft,
+  info.SetRoadType(*ft,
                    roadTypeMark.GetRoadWarningType(),
                    RoadWarningMark::GetLocalizedRoadWarningType(roadTypeMark.GetRoadWarningType()),
                    roadTypeMark.GetDistance());

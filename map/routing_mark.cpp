@@ -661,6 +661,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   case RoadWarningMarkType::Ferry: symbolName = "ferry"; break;
   case RoadWarningMarkType::Paid: symbolName = "paid_road"; break;
   case RoadWarningMarkType::Unpaved: symbolName = "unpaved_road"; break;
+  case RoadWarningMarkType::Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
@@ -682,7 +683,7 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
   case RoadWarningMarkType::Ferry: return platform::GetLocalizedString("ferry_crossing");
   case RoadWarningMarkType::Paid: return platform::GetLocalizedString("toll_road");
   case RoadWarningMarkType::Unpaved: return platform::GetLocalizedString("unpaved_road");
+  case RoadWarningMarkType::Count: CHECK(false, ()); break;
   }
-  UNREACHABLE();
   return {};
 }
