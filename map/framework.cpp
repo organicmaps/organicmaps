@@ -3846,37 +3846,6 @@ booking::AvailabilityParams Framework::GetLastBookingAvailabilityParams() const
   return m_bookingAvailabilityParams;
 }
 
-void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
-{
-  if (facility == power_management::Facility::PerspectiveView ||
-      facility == power_management::Facility::Buildings3d)
-  {
-    bool allow3d = true, allow3dBuildings = true;
-    Load3dMode(allow3d, allow3dBuildings);
-
-    if (facility == power_management::Facility::PerspectiveView)
-      allow3d = allow3d && enabled;
-    else
-      allow3dBuildings = allow3dBuildings && enabled;
-
-    Allow3dMode(allow3d, allow3dBuildings);
-  }
-  else if (facility == power_management::Facility::TrafficJams)
-  {
-    auto trafficState = enabled && LoadTrafficEnabled();
-    if (trafficState == GetTrafficManager().IsEnabled())
-      return;
-
-    GetTrafficManager().SetEnabled(trafficState);
-  }
-}
-
-void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme)
-{
-  if (actualScheme == power_management::Scheme::EconomyMaximum && GetTrafficManager().IsEnabled())
-    GetTrafficManager().SetEnabled(false);
-}
-
 TipsApi const & Framework::GetTipsApi() const
 {
   return m_tipsApi;
@@ -3924,4 +3893,40 @@ bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
   rect, scales::GetUpperScale());
 
   return found;
+}
+
+void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
+{
+  if (facility == power_management::Facility::PerspectiveView ||
+      facility == power_management::Facility::Buildings3d)
+  {
+    bool allow3d = true, allow3dBuildings = true;
+    Load3dMode(allow3d, allow3dBuildings);
+
+    if (facility == power_management::Facility::PerspectiveView)
+      allow3d = allow3d && enabled;
+    else
+      allow3dBuildings = allow3dBuildings && enabled;
+
+    Allow3dMode(allow3d, allow3dBuildings);
+  }
+  else if (facility == power_management::Facility::TrafficJams)
+  {
+    auto trafficState = enabled && LoadTrafficEnabled();
+    if (trafficState == GetTrafficManager().IsEnabled())
+      return;
+
+    GetTrafficManager().SetEnabled(trafficState);
+  }
+}
+
+void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme)
+{
+  if (actualScheme == power_management::Scheme::EconomyMaximum && GetTrafficManager().IsEnabled())
+    GetTrafficManager().SetEnabled(false);
+}
+
+notifications::NotificationManager & Framework::GetNotificationManager()
+{
+  return m_notificationManager;
 }

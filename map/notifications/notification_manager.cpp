@@ -146,7 +146,7 @@ void NotificationManager::TrimExpired()
     VERIFY(Save(), ());
 }
 
-boost::optional<NotificationCandidate> NotificationManager::GetNotification()
+Notification NotificationManager::GetNotification()
 {
   if (Clock::now() - m_queue.m_lastNotificationProvidedTime < kPeriodBetweenNotifications)
     return {};

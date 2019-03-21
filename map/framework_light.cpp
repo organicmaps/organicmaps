@@ -4,6 +4,7 @@
 #include "base/string_utils.hpp"
 
 #include <sstream>
+#include <utility>
 
 namespace
 {
@@ -60,11 +61,15 @@ Framework::Framework(RequestTypeMask request) : m_request(request)
 
   if (request & REQUEST_TYPE_NOTIFICATION)
   {
-    m_notificationManager = std::make_unique<lightweight::NotificationManager>();
     request ^= REQUEST_TYPE_NOTIFICATION;
   }
 
   CHECK_EQUAL(request, REQUEST_TYPE_EMPTY, ("Incorrect mask type:", request));
+}
+
+void Framework::SetDelegate(std::unique_ptr<Delegate> delegate)
+{
+  m_delegate = std::move(delegate);
 }
 
 bool Framework::IsUserAuthenticated() const
@@ -115,9 +120,20 @@ Statistics * Framework::GetLocalAdsStatistics()
   return m_localAdsStatistics.get();
 }
 
-boost::optional<notifications::NotificationCandidate> Framework::GetNotification() const
+notifications::Notification Framework::GetNotification() const
 {
-  return m_notificationManager->GetNotification();
+  // Do not disturb from 9p.m. to 10 a.m.
+  auto const time = notifications::Clock::to_time_t(notifications::Clock::now());
+  auto const localTime = std::localtime(&time);
+  if (localTime->tm_hour <= 9 || localTime->tm_hour >= 21)
+    return {};
+
+  if (m_delegate)
+    return m_delegate->GetNotificationManager().GetNotification();
+
+  notifications::NotificationManager notificationManager;
+  notificationManager.Load();
+  return notificationManager.GetNotification();
 }
 
 std::string FeatureParamsToString(int64_t mwmVersion, std::string const & countryId, uint32_t featureIndex)

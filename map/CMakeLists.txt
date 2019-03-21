@@ -57,6 +57,7 @@ set(
   framework.hpp
   framework_light.cpp
   framework_light.hpp
+  framework_light_delegate.hpp
   ge0_parser.cpp
   ge0_parser.hpp
   geourl_process.cpp
