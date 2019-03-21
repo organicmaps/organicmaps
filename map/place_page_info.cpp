@@ -19,6 +19,8 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "base/assert.hpp"
+
 #include <sstream>
 
 #include "private.h"
@@ -336,11 +338,11 @@ void Info::SetPartnerIndex(int index)
 void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,
                        std::string const & distance)
 {
-  CHECK(type != RoadWarningMarkType::Count, ());
+  CHECK_NOT_EQUAL(type, RoadWarningMarkType::Count, ());
   m_roadType = type;
 
   std::vector<std::string> subtitle;
-  if (type == RoadWarningMarkType::Paid)
+  if (type == RoadWarningMarkType::Toll)
   {
     std::vector<std::string> title;
     auto shields = ftypes::GetRoadShields(ft);
@@ -361,7 +363,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
     else
       subtitle.push_back(localizedType);
   }
-  else if (type == RoadWarningMarkType::Unpaved)
+  else if (type == RoadWarningMarkType::Dirty)
   {
     m_uiTitle = localizedType;
     subtitle.push_back(distance);

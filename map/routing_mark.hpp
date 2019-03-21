@@ -197,17 +197,17 @@ private:
 
 enum class RoadWarningMarkType : uint8_t
 {
-  // Do not change the order!
-  Unpaved,
-  Paid,
-  Ferry,
-  Count
+  // Do not change the order, it uses in platforms.
+  Toll = 0,
+  Ferry = 1,
+  Dirty = 2,
+  Count = 3
 };
 
 class RoadWarningMark : public UserMark
 {
 public:
-  static int constexpr kAutoVisibleMinZoom = 13;
+  static int constexpr kAlwaysVisibleMinZoom = 13;
 
   explicit RoadWarningMark(m2::PointD const & ptOrg);
 
@@ -235,7 +235,7 @@ public:
 
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
 
-  int GetAutoVisibleMinZoom() const override { return kAutoVisibleMinZoom; }
+  int GetAlwaysVisibleMinZoom() const override { return kAlwaysVisibleMinZoom; }
 
   static std::string GetLocalizedRoadWarningType(RoadWarningMarkType type);
 
@@ -246,3 +246,5 @@ private:
   std::string m_distance;
   bool m_isVisible = true;
 };
+
+std::string DebugPrint(RoadWarningMarkType type);

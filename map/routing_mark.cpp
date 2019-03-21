@@ -619,9 +619,7 @@ dp::Anchor SpeedCameraMark::GetAnchor() const
 
 RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg)
   : UserMark(ptOrg, Type::ROAD_WARNING)
-{
-
-}
+{}
 
 void RoadWarningMark::SetIndex(uint32_t index)
 {
@@ -658,9 +656,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   std::string symbolName;
   switch (m_type)
   {
+  case RoadWarningMarkType::Toll: symbolName = "paid_road"; break;
   case RoadWarningMarkType::Ferry: symbolName = "ferry"; break;
-  case RoadWarningMarkType::Paid: symbolName = "paid_road"; break;
-  case RoadWarningMarkType::Unpaved: symbolName = "unpaved_road"; break;
+  case RoadWarningMarkType::Dirty: symbolName = "unpaved_road"; break;
   case RoadWarningMarkType::Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
@@ -680,10 +678,22 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
 {
   switch (type)
   {
+  case RoadWarningMarkType::Toll: return platform::GetLocalizedString("toll_road");
   case RoadWarningMarkType::Ferry: return platform::GetLocalizedString("ferry_crossing");
-  case RoadWarningMarkType::Paid: return platform::GetLocalizedString("toll_road");
-  case RoadWarningMarkType::Unpaved: return platform::GetLocalizedString("unpaved_road");
-  case RoadWarningMarkType::Count: CHECK(false, ()); break;
+  case RoadWarningMarkType::Dirty: return platform::GetLocalizedString("unpaved_road");
+  case RoadWarningMarkType::Count: CHECK(false, ("Invalid road warning mark type", type)); break;
   }
   return {};
+}
+
+std::string DebugPrint(RoadWarningMarkType type)
+{
+  switch (type)
+  {
+  case RoadWarningMarkType::Toll: return "Toll";
+  case RoadWarningMarkType::Ferry: return "Ferry";
+  case RoadWarningMarkType::Dirty: return "Dirty";
+  case RoadWarningMarkType::Count: return "Count";
+  }
+  UNREACHABLE();
 }

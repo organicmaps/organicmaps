@@ -1494,7 +1494,7 @@ private:
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return FindNearestUserMark([&rect](UserMark::Type) { return rect; }, [&rect](UserMark::Type) { return false; });
+  return FindNearestUserMark([&rect](UserMark::Type) { return rect; }, [](UserMark::Type) { return false; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder,
@@ -1508,7 +1508,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
                         finder(UserMark::Type::API);
   if (!hasFound)
   {
-    for (auto & pair : m_categories)
+    for (auto const & pair : m_categories)
       finder(pair.first);
   }
   return finder.GetFoundMark();

@@ -65,7 +65,7 @@ public:
   virtual float GetDepth() const = 0;
   virtual DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
-  virtual int GetAutoVisibleMinZoom() const = 0;
+  virtual int GetAlwaysVisibleMinZoom() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
   virtual drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const = 0;

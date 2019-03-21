@@ -214,11 +214,12 @@ VehicleType GetVehicleType(RouterType routerType)
 RoadWarningMarkType GetRoadType(RoutingOptions::Road road)
 {
   if (road == RoutingOptions::Road::Toll)
-    return RoadWarningMarkType::Paid;
+    return RoadWarningMarkType::Toll;
   if (road == RoutingOptions::Road::Ferry)
     return RoadWarningMarkType::Ferry;
   if (road == RoutingOptions::Road::Dirty)
-    return RoadWarningMarkType::Unpaved;
+    return RoadWarningMarkType::Dirty;
+
   CHECK(false, ("Invalid road type to avoid:", road));
   return RoadWarningMarkType::Count;
 }
@@ -241,6 +242,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
   points.push_back(startPt);
   for (auto const & s : segments)
     points.push_back(s.GetJunction().GetPoint());
+
   if (points.size() < 2)
   {
     LOG(LWARNING, ("Invalid subroute. Points number =", points.size()));
@@ -532,7 +534,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   }
 }
 
-void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments,
+void RoutingManager::CollectRoadWarnings(vector<routing::RouteSegment> const & segments,
                                          m2::PointD const & startPt, double baseDistance,
                                          GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings)
 {
@@ -551,7 +553,10 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
     if (currentType != lastType)
     {
       if (isWarnedType(lastType))
+      {
+        ASSERT(!roadWarnings[lastType].empty(), ());
         roadWarnings[lastType].back().m_distance = segments[i].GetDistFromBeginningMeters() - startDistance;
+      }
 
       if (isWarnedType(currentType))
       {
@@ -695,7 +700,7 @@ bool RoutingManager::InsertRoute(Route const & route)
 
   if (!roadWarnings.empty())
   {
-    CreateRoadWarningMarks(std::move(roadWarnings));
+    CreateRoadWarningMarks(move(roadWarnings));
     return true;
   }
   return false;

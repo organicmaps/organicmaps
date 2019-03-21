@@ -2527,7 +2527,7 @@ UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInf
     [this](UserMark::Type type)
     {
       if (type == UserMark::Type::ROAD_WARNING)
-        return GetDrawScale() < RoadWarningMark::kAutoVisibleMinZoom;
+        return GetDrawScale() < RoadWarningMark::kAlwaysVisibleMinZoom;
       return false;
     });
   return mark;

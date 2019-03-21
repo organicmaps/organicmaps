@@ -291,6 +291,7 @@ public:
   void CancelPreviewMode();
 
 private:
+  /// \returns true if the route has warnings.
   bool InsertRoute(routing::Route const & route);
 
   struct RoadInfo
