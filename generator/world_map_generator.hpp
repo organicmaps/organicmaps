@@ -356,11 +356,11 @@ private:
     if (fb.GetName().empty())
       return false;
 
-    auto const attractionTypes =
+    auto static const attractionTypes =
         search::GetCategoryTypes("attractions", "en", GetDefaultCategories());
     ASSERT(is_sorted(attractionTypes.begin(), attractionTypes.end()), ());
     auto const & featureTypes = fb.GetTypes();
-    if (!std::any_of(featureTypes.begin(), featureTypes.end(), [&attractionTypes](uint32_t t) {
+    if (!std::any_of(featureTypes.begin(), featureTypes.end(), [](uint32_t t) {
           return binary_search(attractionTypes.begin(), attractionTypes.end(), t);
         }))
     {
