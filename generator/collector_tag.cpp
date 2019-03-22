@@ -30,13 +30,13 @@ CollectorTag::CollectorTag(std::string const & filename, std::string const & tag
   }
 }
 
-void CollectorTag::Collect(base::GeoObjectId const & osmId, OsmElement const & el)
+void CollectorTag::Collect(OsmElement const & el)
 {
   if (!m_needCollect)
     return;
 
   auto const tag = el.GetTag(m_tagKey);
   if (!tag.empty() && m_validator(tag))
-    m_stream << osmId.GetEncodedId() << "\t" << tag << "\n";
+    m_stream << GetGeoObjectId(el).GetEncodedId() << "\t" << tag << "\n";
 }
 }  // namespace generator

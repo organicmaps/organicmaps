@@ -2,6 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 
+#include "base/macros.hpp"
+
 namespace generator
 {
 EmitterSimple::EmitterSimple(feature::GenerateInfo const & info) :
@@ -9,14 +11,17 @@ EmitterSimple::EmitterSimple(feature::GenerateInfo const & info) :
 
 void EmitterSimple::GetNames(std::vector<std::string> & names) const
 {
-  if (m_regionGenerator)
-    names = m_regionGenerator->Parent().Names();
-  else
-    names.clear();
+  names = m_regionGenerator->Parent().Names();
 }
 
-void EmitterSimple::operator()(FeatureBuilder1 & fb)
+void EmitterSimple::Process(FeatureBuilder1 & fb)
 {
   (*m_regionGenerator)(fb);
+}
+
+void EmitterPreserialize::Process(FeatureBuilder1 & fb)
+{
+  UNUSED_VALUE(fb.PreSerialize());
+  EmitterSimple::Process(fb);
 }
 }  // namespace generator

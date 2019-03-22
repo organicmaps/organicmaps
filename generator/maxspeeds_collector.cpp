@@ -32,8 +32,11 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
 
 namespace generator
 {
-void MaxspeedsCollector::Process(OsmElement const & p)
+void MaxspeedsCollector::CollectFeature(FeatureBuilder1 const &, OsmElement const & p)
 {
+  if (!p.IsWay())
+    return;
+
   ostringstream ss;
   ss << p.id << ",";
 
@@ -93,6 +96,11 @@ void MaxspeedsCollector::Process(OsmElement const & p)
   }
 
   m_data.push_back(ss.str());
+}
+
+void MaxspeedsCollector::Save()
+{
+  Flush();
 }
 
 void MaxspeedsCollector::Flush()

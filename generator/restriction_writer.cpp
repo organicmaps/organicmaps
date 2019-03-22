@@ -43,6 +43,11 @@ bool TagToType(std::string const & tag, Restriction::Type & type)
 
 namespace routing
 {
+RestrictionWriter::RestrictionWriter(std::string const & fullPath)
+{
+  Open(fullPath);
+}
+
 void RestrictionWriter::Open(std::string const & fullPath)
 {
   LOG(LINFO, ("Saving road restrictions in osm id terms to", fullPath));
@@ -52,7 +57,7 @@ void RestrictionWriter::Open(std::string const & fullPath)
     LOG(LINFO, ("Cannot open file", fullPath));
 }
 
-void RestrictionWriter::Write(RelationElement const & relationElement)
+void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
 {
   if (!IsOpened())
   {
@@ -60,7 +65,8 @@ void RestrictionWriter::Write(RelationElement const & relationElement)
     return;
   }
 
-  CHECK_EQUAL(relationElement.GetType(), "restriction", ());
+  if (relationElement.GetType() != "restriction")
+    return;
 
   // Note. For the time being only line-point-line road restriction is supported.
   if (relationElement.nodes.size() != 1 || relationElement.ways.size() != 2)

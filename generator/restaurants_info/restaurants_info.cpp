@@ -1,6 +1,8 @@
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/translator_collection.hpp"
+#include "generator/translator_factory.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -87,8 +89,11 @@ int main(int argc, char * argv[])
 
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
   std::vector<FeatureBuilder1> features;
+  generator::CacheLoader cacheLoader(info);
+  generator::TranslatorCollection translators;
   auto emitter = generator::CreateEmitter(generator::EmitterType::Restaurants, features);
-  generator::GenerateFeatures(info, emitter);
+  translators.Append(generator::CreateTranslator(generator::TranslatorType::Country, emitter, cacheLoader.GetCache(), info));
+  GenerateRaw(info, translators);
 
   {
     std::ofstream ost(FLAGS_out);

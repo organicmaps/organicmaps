@@ -9,6 +9,8 @@
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/translator_collection.hpp"
+#include "generator/translator_factory.hpp"
 
 #include "routing/speed_camera_ser_des.hpp"
 
@@ -164,7 +166,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   genInfo.m_osmFileName = base::JoinPath(tmpDir, osmRelativePath);
   genInfo.m_osmFileType = feature::GenerateInfo::OsmSourceType::XML;
 
-  TEST(GenerateIntermediateData(genInfo), ("Can not generate intermediate data for speed cam"));
+  TEST(GenerateIntermediateData(genInfo), ("Cannot generate intermediate data for speed cam"));
 
   // Building empty mwm.
   LocalCountryFile country(base::JoinPath(tmpDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
@@ -173,8 +175,11 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
 
   // Step 2. Generate binary file about cameras.
   {
-    auto emitter = CreateEmitter(EmitterType::Planet, genInfo);
-    TEST(GenerateFeatures(genInfo, emitter), ("Can not generate features for speed camera"));
+    CacheLoader cacheLoader(genInfo);
+    TranslatorCollection translators;
+    auto emitter = CreateEmitter(EmitterType::Country, genInfo);
+    translators.Append(CreateTranslator(TranslatorType::Country, emitter, cacheLoader.GetCache(), genInfo));
+    TEST(GenerateRaw(genInfo, translators), ("Cannot generate features for speed camera"));
   }
 
   TEST(GenerateFinalFeatures(genInfo, country.GetCountryName(),

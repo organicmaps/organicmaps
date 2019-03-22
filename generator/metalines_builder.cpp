@@ -140,11 +140,15 @@ public:
 };
 
 // MetalinesBuilder --------------------------------------------------------------------------------
-void MetalinesBuilder::operator()(OsmElement const & el, FeatureParams const & params)
+void MetalinesBuilder::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
 {
+  if (!feature.IsLine())
+    return;
+
+  auto const & params = feature.GetParams();
   static uint32_t const highwayType = classif().GetTypeByPath({"highway"});
   if (params.FindType(highwayType, 1) == ftype::GetEmptyValue() ||
-      el.Nodes().front() == el.Nodes().back())
+      element.Nodes().front() == element.Nodes().back())
   {
     return;
   }
@@ -157,9 +161,14 @@ void MetalinesBuilder::operator()(OsmElement const & el, FeatureParams const & p
   size_t const key = std::hash<std::string>{}(name + '\0' + params.ref);
   auto segment = m_data.find(key);
   if (segment == m_data.cend())
-    m_data.emplace(key, std::make_shared<Segments>(el));
+    m_data.emplace(key, std::make_shared<Segments>(element));
   else
-    segment->second->Add(el);
+    segment->second->Add(element);
+}
+
+void MetalinesBuilder::Save()
+{
+  Flush();
 }
 
 void MetalinesBuilder::Flush()

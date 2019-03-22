@@ -29,6 +29,8 @@
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
+#include "generator/translator_collection.hpp"
+#include "generator/translator_factory.hpp"
 #include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/wiki_url_dumper.hpp"
@@ -268,7 +270,7 @@ int GeneratorToolMain(int argc, char ** argv)
     LOG(LINFO, ("Generating intermediate data ...."));
     if (!GenerateIntermediateData(genInfo))
     {
-      return -1;
+      return EXIT_FAILURE;
     }
   }
 
@@ -296,12 +298,9 @@ int GeneratorToolMain(int argc, char ** argv)
     countryParentGetter = make_unique<storage::CountryParentGetter>();
 
   // Generate dat file.
-  if (FLAGS_generate_features || FLAGS_make_coasts)
+  if (FLAGS_generate_features || FLAGS_make_coasts || FLAGS_generate_world)
   {
     LOG(LINFO, ("Generating final data ..."));
-    CHECK(!FLAGS_generate_region_features, ("FLAGS_generate_features and FLAGS_make_coasts should "
-                                            "not be used with FLAGS_generate_region_features"));
-
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -310,9 +309,33 @@ int GeneratorToolMain(int argc, char ** argv)
     genInfo.m_genAddresses = FLAGS_generate_addresses_file;
     genInfo.m_idToWikidataFilename = FLAGS_idToWikidata;
 
-    auto emitter = CreateEmitter(EmitterType::Planet, genInfo);
-    if (!GenerateFeatures(genInfo, emitter))
-      return -1;
+    CHECK(!(FLAGS_generate_features && FLAGS_make_coasts), ());
+    CHECK(!(FLAGS_generate_world && FLAGS_make_coasts), ());
+    if (FLAGS_dump_cities_boundaries)
+      CHECK(FLAGS_generate_features, ());
+
+    CacheLoader cacheLoader(genInfo);
+    TranslatorCollection translators;
+    if (FLAGS_generate_features)
+    {
+      auto emitter = CreateEmitter(EmitterType::Country, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::Country, emitter, cacheLoader.GetCache(), genInfo));
+    }
+
+    if (FLAGS_generate_world)
+    {
+      auto emitter = CreateEmitter(EmitterType::World, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::World, emitter, cacheLoader.GetCache(), genInfo));
+    }
+
+    if (FLAGS_make_coasts)
+    {
+      auto emitter = CreateEmitter(EmitterType::Coastline, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::Coastline, emitter, cacheLoader.GetCache()));
+    }
+
+    if (!GenerateRaw(genInfo, translators))
+      return EXIT_FAILURE;
 
     if (FLAGS_generate_world)
     {
@@ -331,8 +354,7 @@ int GeneratorToolMain(int argc, char ** argv)
       }
     }
   }
-
-  if (FLAGS_generate_region_features || FLAGS_generate_geo_objects_features)
+  else if (FLAGS_generate_region_features || FLAGS_generate_geo_objects_features)
   {
     CHECK(!FLAGS_generate_features && !FLAGS_make_coasts,
           ("FLAGS_generate_features and FLAGS_make_coasts should "
@@ -340,17 +362,23 @@ int GeneratorToolMain(int argc, char ** argv)
     CHECK(!(FLAGS_generate_region_features && FLAGS_generate_geo_objects_features), ());
 
     genInfo.m_fileName = FLAGS_output;
+
+    CacheLoader cacheLoader(genInfo);
+    TranslatorCollection translators;
     if (FLAGS_generate_region_features)
     {
-      if (!GenerateRegionFeatures(genInfo))
-        return -1;
+      auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::Regions, emitter, cacheLoader.GetCache(), genInfo));
     }
 
     if (FLAGS_generate_geo_objects_features)
     {
-      if (!GenerateGeoObjectsFeatures(genInfo))
-        return -1;
+      auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::GeoObjects, emitter, cacheLoader.GetCache()));
     }
+
+    if (!GenerateRaw(genInfo, translators))
+      return EXIT_FAILURE;
   }
 
   if (!FLAGS_geo_objects_key_value.empty())
@@ -358,7 +386,7 @@ int GeneratorToolMain(int argc, char ** argv)
     if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
                                          FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
                                          FLAGS_geo_objects_key_value, FLAGS_verbose))
-      return -1;
+      return EXIT_FAILURE;
   }
 
   if (genInfo.m_bucketNames.empty() && !FLAGS_output.empty())
@@ -369,7 +397,7 @@ int GeneratorToolMain(int argc, char ** argv)
     if (FLAGS_output.empty())
     {
       LOG(LCRITICAL, ("Bad output or intermediate_data_path. Output:", FLAGS_output));
-      return -1;
+      return EXIT_FAILURE;
     }
 
     auto const locDataFile = base::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
@@ -379,7 +407,7 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!feature::GenerateGeoObjectsData(FLAGS_geo_objects_features, FLAGS_nodes_list_path, locDataFile))
       {
         LOG(LCRITICAL, ("Error generating geo objects data."));
-        return -1;
+        return EXIT_FAILURE;
       }
 
       LOG(LINFO, ("Saving geo objects index to", outFile));
@@ -387,7 +415,7 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!indexer::BuildGeoObjectsIndexFromDataFile(locDataFile, outFile))
       {
         LOG(LCRITICAL, ("Error generating geo objects index."));
-        return -1;
+        return EXIT_FAILURE;
       }
     }
 
@@ -396,7 +424,7 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!feature::GenerateRegionsData(FLAGS_regions_features, locDataFile))
       {
         LOG(LCRITICAL, ("Error generating regions data."));
-        return -1;
+        return EXIT_FAILURE;
       }
 
       LOG(LINFO, ("Saving regions index to", outFile));
@@ -404,12 +432,12 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!indexer::BuildRegionsIndexFromDataFile(locDataFile, outFile))
       {
         LOG(LCRITICAL, ("Error generating regions index."));
-        return -1;
+        return EXIT_FAILURE;
       }
       if (!feature::GenerateBorders(FLAGS_regions_features, outFile))
       {
         LOG(LCRITICAL, ("Error generating regions borders."));
-        return -1;
+        return EXIT_FAILURE;
       }
     }
   }
@@ -551,7 +579,7 @@ int GeneratorToolMain(int argc, char ** argv)
         // All the mwms should use proper VehicleModels.
         LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
                         "countries_obsolete.txt). File must be located in data directory."));
-        return -1;
+        return EXIT_FAILURE;
       }
 
       string const restrictionsFilename =
@@ -589,7 +617,7 @@ int GeneratorToolMain(int argc, char ** argv)
         // All the mwms should use proper VehicleModels.
         LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
                         "countries_obsolete.txt). File must be located in data directory."));
-        return -1;
+        return EXIT_FAILURE;
       }
 
       if (FLAGS_make_cross_mwm)

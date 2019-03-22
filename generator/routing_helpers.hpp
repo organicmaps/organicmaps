@@ -15,16 +15,6 @@
 
 namespace routing
 {
-struct TagsProcessor
-{
-  explicit TagsProcessor(std::string const & maxspeedsFilePath) : m_maxspeedsCollector(maxspeedsFilePath) {}
-
-  RoadAccessWriter m_roadAccessWriter;
-  RestrictionWriter m_restrictionWriter;
-  CameraNodeProcessor m_cameraNodeWriter;
-  generator::MaxspeedsCollector m_maxspeedsCollector;
-};
-
 // Adds feature id and corresponding |osmId| to |osmIdToFeatureId|.
 // Note. In general, one |featureId| may correspond to several osm ids.
 // But for a road feature |featureId| corresponds to exactly one osm id.

@@ -70,10 +70,24 @@ void OsmElement::AddTag(std::string const & k, std::string const & v)
   m_tags.emplace_back(k, value);
 }
 
-bool OsmElement::HasTagValue(std::string const & k, std::string const & v) const
+bool OsmElement::HasTag(std::string const & k, std::string const & v) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
     return t.key == k && t.value == v;
+  });
+}
+
+bool OsmElement::HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const
+{
+  return std::any_of(std::begin(m_tags), std::end(m_tags), [&](auto const & t) {
+    auto beginEnd = tags.equal_range(t.key);
+    for (auto it = beginEnd.first; it != beginEnd.second; ++it)
+    {
+      if (it->second == t.value)
+        return true;
+    }
+
+    return false;
   });
 }
 

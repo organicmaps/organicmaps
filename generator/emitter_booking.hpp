@@ -25,7 +25,7 @@ public:
   }
 
   // EmitterInterface overrides:
-  void operator()(FeatureBuilder1 & fb) override
+  void Process(FeatureBuilder1 & fb) override
   {
     if (m_dataset.NecessaryMatchingConditionHolds(fb))
       m_features.emplace(fb.GetMostGenericOsmId(), fb);

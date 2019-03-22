@@ -7,13 +7,14 @@ struct OsmElement;
 
 namespace generator
 {
-// Osm to feature translator interface.
+// Implementing this interface allows an object to create intermediate data from OsmElement.
 class TranslatorInterface
 {
 public:
-  virtual ~TranslatorInterface() {}
+  virtual ~TranslatorInterface() = default;
 
-  virtual void EmitElement(OsmElement * p) = 0;
+  virtual void Preprocess(OsmElement & element) {}
+  virtual void Emit(OsmElement & element) = 0;
   virtual bool Finish() = 0;
   virtual void GetNames(std::vector<std::string> & names) const = 0;
 };

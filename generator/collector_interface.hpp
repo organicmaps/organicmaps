@@ -3,6 +3,8 @@
 #include <string>
 
 struct OsmElement;
+class FeatureBuilder1;
+class RelationElement;
 namespace base
 {
 class GeoObjectId;
@@ -10,12 +12,16 @@ class GeoObjectId;
 
 namespace generator
 {
+// Implementing this interface allows an object to collect data from RelationElement,
+// OsmElement and FeatureBuilder1 elements.
 class CollectorInterface
 {
 public:
   virtual ~CollectorInterface() = default;
 
-  virtual void Collect(base::GeoObjectId const & osmId, OsmElement const & el) = 0;
+  virtual void Collect(OsmElement const &) {}
+  virtual void CollectRelation(RelationElement const &) {}
+  virtual void CollectFeature(FeatureBuilder1 const &, OsmElement const &) {}
   virtual void Save() = 0;
 };
 }  // namespace generator

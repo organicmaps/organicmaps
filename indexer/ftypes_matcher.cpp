@@ -476,6 +476,42 @@ IsPopularityPlaceChecker::IsPopularityPlaceChecker()
     m_types.push_back(c.GetTypeByPath({t.first, t.second}));
 }
 
+IsIslandChecker::IsIslandChecker()
+{
+  vector<pair<string, string>> const types = {
+    {"place", "island"},
+    {"place", "islet"},
+  };
+
+  Classificator const & c = classif();
+  for (auto const & t : types)
+    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
+}
+
+IsLandChecker::IsLandChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"natural", "land"}));
+}
+
+uint32_t IsLandChecker::GetLandType() const
+{
+  CHECK_EQUAL(m_types.size(), 1, ());
+  return m_types[0];
+}
+
+IsCoastlineChecker::IsCoastlineChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"natural", "coastline"}));
+}
+
+uint32_t IsCoastlineChecker::GetCoastlineType() const
+{
+  CHECK_EQUAL(m_types.size(), 1, ());
+  return m_types[0];
+}
+
 boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
 {
   feature::TypesHolder types(ft);

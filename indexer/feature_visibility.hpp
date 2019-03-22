@@ -6,6 +6,7 @@
 
 #include "base/base.hpp"
 
+#include <cstdint>
 #include <initializer_list>
 #include <string>
 #include <utility>
@@ -34,7 +35,10 @@ namespace feature
   /// For FEATURE_TYPE_AREA removes line-drawing only types.
   bool RemoveUselessTypes(std::vector<uint32_t> & types, EGeomType geomType,
                           bool emptyName = false);
-  //@}
+
+  // Returns true, if there is at least one type that is needed for the application.
+  // This can be specified either by the drawing rule or by other rules.
+  bool HasUsefulType(std::vector<uint32_t> const & types, EGeomType geomType, bool emptyName = false);
 
   int GetMinDrawableScale(FeatureType & ft);
   int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect);

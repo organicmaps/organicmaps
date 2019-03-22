@@ -256,6 +256,7 @@ public:
     m_types = rhs.m_types;
     m_addrTags = rhs.m_addrTags;
     m_metadata = rhs.m_metadata;
+    m_reverseGeometry = rhs.m_reverseGeometry;
   }
 
   bool IsValid() const { return !m_types.empty(); }

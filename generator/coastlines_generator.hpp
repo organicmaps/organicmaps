@@ -24,7 +24,7 @@ public:
 
   void AddRegionToTree(FeatureBuilder1 const & fb);
 
-  void operator() (FeatureBuilder1 const & fb);
+  void Process(FeatureBuilder1 const & fb);
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish();
 

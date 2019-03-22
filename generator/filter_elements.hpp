@@ -33,6 +33,7 @@
 // (https://wiki.openstreetmap.org/wiki/Multiple_values).
 #pragma once
 
+#include "generator/filter_interface.hpp"
 #include "generator/osm_element.hpp"
 
 #include <cstdint>
@@ -68,10 +69,13 @@ private:
 };
 
 // This is the main class that implements the element skipping mechanism.
-class FilterElements
+class FilterElements : public FilterInterface
 {
 public:
   explicit FilterElements(const std::string & filename);
+
+  // FilterInterface overrides:
+  bool IsAccepted(OsmElement const & element) override;
 
   bool NeedSkip(OsmElement const & element) const;
 

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/generator_tests/common.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/regions/collector_region_info.hpp"
@@ -29,11 +30,14 @@ namespace
 {
 using Tags = std::vector<std::pair<std::string, std::string>>;
 
-OsmElement MakeOsmElement(uint64_t id, std::string const & adminLevel,
+FeatureBuilder1 const kEmptyFeature;
+
+OsmElement CreateOsmRelation(uint64_t id, std::string const & adminLevel,
                           std::string const & place = "")
 {
   OsmElement el;
   el.id = id;
+  el.type = OsmElement::EntityType::Relation;
   el.AddTag("place", place);
   el.AddTag("admin_level", adminLevel);
 
@@ -44,14 +48,14 @@ std::string MakeCollectorData()
 {
   auto const filename = GetFileName();
   CollectorRegionInfo collector(filename);
-  collector.Collect(MakeOsmRelation(1 /* id */), MakeOsmElement(1 /* id */, "2" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(2 /* id */), MakeOsmElement(2 /* id */, "2" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(3 /* id */), MakeOsmElement(3 /* id */, "4" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(4 /* id */), MakeOsmElement(4 /* id */, "4" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(5 /* id */), MakeOsmElement(5 /* id */, "4" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(6 /* id */), MakeOsmElement(6 /* id */, "6" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(7 /* id */), MakeOsmElement(7 /* id */, "6" /* adminLevel */));
-  collector.Collect(MakeOsmRelation(8 /* id */), MakeOsmElement(8 /* id */, "4" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(1 /* id */, "2" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(2 /* id */, "2" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(3 /* id */, "4" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(4 /* id */, "4" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(5 /* id */, "4" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(6 /* id */, "6" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(7 /* id */, "6" /* adminLevel */));
+  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(8 /* id */, "4" /* adminLevel */));
   collector.Save();
   return filename;
 }

@@ -1,5 +1,6 @@
 #include "generator/camera_node_processor.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/maxspeeds_parser.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
@@ -20,6 +21,12 @@ size_t const CameraNodeIntermediateDataProcessor::kMaxSpeedSpeedStringLength = 3
 
 namespace routing
 {
+CameraNodeProcessor::CameraNodeProcessor(std::string const & writerFile, std::string const & readerFile,
+                                         std::string const & speedFile)
+{
+  Open(writerFile, readerFile, speedFile);
+}
+
 void CameraNodeProcessor::Open(std::string const & writerFile, std::string const & readerFile,
                                std::string const & speedFile)
 {
@@ -31,7 +38,7 @@ void CameraNodeProcessor::Open(std::string const & writerFile, std::string const
   ReaderSource<FileReader> src(maxSpeedReader);
 
   static auto constexpr kMaxSpeedSpeedStringLength =
-    generator::CameraNodeIntermediateDataProcessor::kMaxSpeedSpeedStringLength;
+      generator::CameraNodeIntermediateDataProcessor::kMaxSpeedSpeedStringLength;
   std::array<char, kMaxSpeedSpeedStringLength> buffer{};
   uint64_t nodeOsmId = 0;
   size_t maxSpeedStringLength = 0;
@@ -49,10 +56,9 @@ void CameraNodeProcessor::Open(std::string const & writerFile, std::string const
   }
 }
 
-void CameraNodeProcessor::Process(OsmElement & p, FeatureParams const & params,
-                                  generator::cache::IntermediateDataReader & cache)
+void CameraNodeProcessor::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & p)
 {
-  if (!(p.type == OsmElement::EntityType::Node && ftypes::IsSpeedCamChecker::Instance()(params.m_types)))
+  if (!(p.type == OsmElement::EntityType::Node && ftypes::IsSpeedCamChecker::Instance()(feature.GetTypes())))
     return;
 
   std::string maxSpeedStringKmPH = "0";

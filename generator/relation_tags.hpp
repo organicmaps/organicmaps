@@ -20,9 +20,8 @@ namespace generator
 class RelationTagsBase
 {
 public:
-  explicit RelationTagsBase(routing::TagsProcessor & tagsProcessor);
-
-  virtual ~RelationTagsBase() {}
+  RelationTagsBase();
+  virtual ~RelationTagsBase() = default;
 
   void Reset(uint64_t fID, OsmElement * p);
 
@@ -46,7 +45,6 @@ protected:
 
   uint64_t m_featureID;
   OsmElement * m_current;
-  routing::TagsProcessor & m_routingTagsProcessor;
 
 private:
   base::Cache<uint64_t, RelationElement> m_cache;
@@ -54,9 +52,6 @@ private:
 
 class RelationTagsNode : public RelationTagsBase
 {
-public:
-  explicit RelationTagsNode(routing::TagsProcessor & tagsProcessor);
-
 protected:
   void Process(RelationElement const & e) override;
 
@@ -66,9 +61,6 @@ private:
 
 class RelationTagsWay : public RelationTagsBase
 {
-public:
-  explicit RelationTagsWay(routing::TagsProcessor & routingTagsProcessor);
-
 private:
   using Base = RelationTagsBase;
   using NameKeys = std::unordered_set<std::string>;

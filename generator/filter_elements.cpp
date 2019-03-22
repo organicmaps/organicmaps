@@ -160,6 +160,11 @@ FilterElements::FilterElements(std::string const & filename)
     LOG(LERROR, ("Cannot parse file", filename));
 }
 
+bool FilterElements::IsAccepted(OsmElement const & element)
+{
+  return !NeedSkip(element);
+}
+
 bool FilterElements::NeedSkip(OsmElement const & element) const
 {
   switch (element.type)

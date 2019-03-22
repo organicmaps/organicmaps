@@ -25,7 +25,7 @@ public:
                         Validator const & validator, bool ignoreIfNotOpen = false);
 
   // CollectorInterface overrides:
-  void Collect(base::GeoObjectId const & osmId, OsmElement const & el) override;
+  void Collect(OsmElement const & el) override;
   void Save() override {}
 
 private:

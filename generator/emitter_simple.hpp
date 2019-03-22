@@ -20,12 +20,21 @@ public:
 
   // EmitterInterface overrides:
   void GetNames(std::vector<std::string> & names) const override;
-  void operator()(FeatureBuilder1 & fb) override;
+  void Process(FeatureBuilder1 & fb) override;
   bool Finish() override { return true; }
 
 private:
   using SimpleGenerator = SimpleCountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
 
   std::unique_ptr<SimpleGenerator> m_regionGenerator;
+};
+
+class EmitterPreserialize : public EmitterSimple
+{
+public:
+  using EmitterSimple::EmitterSimple;
+
+  // EmitterInterface overrides:
+  void Process(FeatureBuilder1 & fb) override;
 };
 }  // namespace generator

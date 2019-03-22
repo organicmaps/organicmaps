@@ -10,7 +10,7 @@ EmitterRestaurants::EmitterRestaurants(std::vector<FeatureBuilder1> & features)
 {
 }
 
-void EmitterRestaurants::operator()(FeatureBuilder1 & fb)
+void EmitterRestaurants::Process(FeatureBuilder1 & fb)
 {
   if (!ftypes::IsEatChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
   {

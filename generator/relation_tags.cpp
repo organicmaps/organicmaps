@@ -4,11 +4,7 @@
 
 namespace generator
 {
-RelationTagsBase::RelationTagsBase(routing::TagsProcessor & tagsProcessor) :
-  m_routingTagsProcessor(tagsProcessor),
-  m_cache(14 /* logCacheSize */)
-{
-}
+RelationTagsBase::RelationTagsBase() : m_cache(14 /* logCacheSize */) {}
 
 void RelationTagsBase::Reset(uint64_t fID, OsmElement * p)
 {
@@ -35,22 +31,11 @@ void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & 
   m_current->AddTag(p.first, p.second);
 }
 
-RelationTagsNode::RelationTagsNode(routing::TagsProcessor & tagsProcessor) :
-  RelationTagsBase(tagsProcessor)
-{
-}
-
 void RelationTagsNode::Process(RelationElement const & e)
 {
   std::string const & type = e.GetType();
   if (Base::IsSkipRelation(type))
     return;
-
-  if (type == "restriction")
-  {
-    m_routingTagsProcessor.m_restrictionWriter.Write(e);
-    return;
-  }
 
   bool const processAssociatedStreet = type == "associatedStreet" &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
@@ -71,11 +56,6 @@ void RelationTagsNode::Process(RelationElement const & e)
     else if (p.first == "name" && processAssociatedStreet)
       Base::AddCustomTag({"addr:street", p.second});
   }
-}
-
-RelationTagsWay::RelationTagsWay(routing::TagsProcessor & routingTagsProcessor) :
-  RelationTagsBase(routingTagsProcessor)
-{
 }
 
 bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
@@ -114,12 +94,6 @@ void RelationTagsWay::Process(RelationElement const & e)
         Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
-    return;
-  }
-
-  if (type == "restriction")
-  {
-    m_routingTagsProcessor.m_restrictionWriter.Write(e);
     return;
   }
 

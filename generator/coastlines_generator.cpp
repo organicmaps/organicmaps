@@ -86,7 +86,7 @@ void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
   fb.ForEachGeometryPointEx(createRgn);
 }
 
-void CoastlineFeaturesGenerator::operator()(FeatureBuilder1 const & fb)
+void CoastlineFeaturesGenerator::Process(FeatureBuilder1 const & fb)
 {
   if (fb.IsGeometryClosed())
     AddRegionToTree(fb);

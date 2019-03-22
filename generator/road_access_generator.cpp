@@ -314,10 +314,12 @@ RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) 
 }
 
 // RoadAccessWriter ------------------------------------------------------------
-RoadAccessWriter::RoadAccessWriter()
+RoadAccessWriter::RoadAccessWriter(std::string const & filePath)
 {
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
+
+  Open(filePath);
 }
 
 void RoadAccessWriter::Open(string const & filePath)
@@ -330,7 +332,7 @@ void RoadAccessWriter::Open(string const & filePath)
     LOG(LINFO, ("Cannot open file", filePath));
 }
 
-void RoadAccessWriter::Process(OsmElement const & elem)
+void RoadAccessWriter::CollectFeature(FeatureBuilder1 const &, OsmElement const & elem)
 {
   if (!IsOpened())
   {

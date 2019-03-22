@@ -7,12 +7,15 @@
 
 namespace generator
 {
-Place::Place(FeatureBuilder1 const & ft, uint32_t type) :
+Place::Place(FeatureBuilder1 const & ft, uint32_t type, bool saveParams) :
   m_ft(ft),
   m_pt(ft.GetKeyPoint()),
   m_type(type)
 {
   using namespace ftypes;
+
+  if (!saveParams)
+    m_ft.SetParams({}/* params */);
 
   switch (IsLocalityChecker::Instance().GetType(m_type))
   {

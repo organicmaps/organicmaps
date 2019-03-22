@@ -13,7 +13,7 @@ namespace generator
 class Place
 {
 public:
-  Place(FeatureBuilder1 const & ft, uint32_t type);
+  Place(FeatureBuilder1 const & ft, uint32_t type, bool saveParams = true);
 
   FeatureBuilder1 const & GetFeature() const { return m_ft; }
   m2::RectD GetLimitRect() const;

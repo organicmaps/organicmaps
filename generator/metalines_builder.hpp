@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/collector_interface.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
 
@@ -13,15 +14,16 @@ namespace feature
 class Segments;
 
 /// Merges road segments with similar name and ref values into groups called metalines.
-class MetalinesBuilder
+class MetalinesBuilder : public generator::CollectorInterface
 {
 public:
   explicit MetalinesBuilder(std::string const & filePath) : m_filePath(filePath) {}
 
-  ~MetalinesBuilder() { Flush(); }
-
+  // CollectorInterface overrides:
   /// Add a highway segment to the collection of metalines.
-  void operator()(OsmElement const & el, FeatureParams const & params);
+  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element) override;
+
+  void Save() override;
 
   /// Write all metalines to the intermediate file.
   void Flush();

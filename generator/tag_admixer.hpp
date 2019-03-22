@@ -6,6 +6,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -105,20 +106,20 @@ public:
     }
   }
 
-  void operator()(OsmElement * e)
+  void operator()(OsmElement & element)
   {
-    if (e->type == OsmElement::EntityType::Way && m_ways.find(e->id) != m_ways.end())
+    if (element.type == OsmElement::EntityType::Way && m_ways.find(element.id) != m_ways.end())
     {
       // Exclude ferry routes.
-      if (find(e->Tags().begin(), e->Tags().end(), m_ferryTag) == e->Tags().end())
-        e->AddTag("highway", m_ways[e->id]);
+      if (find(element.Tags().begin(), element.Tags().end(), m_ferryTag) == element.Tags().end())
+        element.AddTag("highway", m_ways[element.id]);
     }
-    else if (e->type == OsmElement::EntityType::Node && m_capitals.find(e->id) != m_capitals.end())
+    else if (element.type == OsmElement::EntityType::Node && m_capitals.find(element.id) != m_capitals.end())
     {
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
-      e->UpdateTag("population", [] (std::string & v)
+      element.UpdateTag("population", [] (std::string & v)
       {
         uint64_t n;
         if (!strings::to_uint64(v, n) || n < 45000)
@@ -167,9 +168,9 @@ public:
     }
   }
 
-  void operator()(OsmElement * p)
+  void operator()(OsmElement & element)
   {
-    for (auto & tag : p->m_tags)
+    for (auto & tag : element.m_tags)
     {
       auto it = m_entries.find(tag);
       if (it != m_entries.end())
@@ -178,7 +179,7 @@ public:
         tag.key = v[0];
         tag.value = v[1];
         for (size_t i = 2; i < v.size(); i += 2)
-          p->AddTag(v[i], v[i + 1]);
+          element.AddTag(v[i], v[i + 1]);
       }
     }
   }
@@ -224,14 +225,14 @@ public:
     }
   }
 
-  void operator()(OsmElement * p)
+  void operator()(OsmElement & element)
   {
-    std::pair<OsmElement::EntityType, uint64_t> elementId = {p->type, p->id};
+    std::pair<OsmElement::EntityType, uint64_t> elementId = {element.type, element.id};
     auto elements = m_elements.find(elementId);
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag tag : elements->second)
-        p->UpdateTag(tag.key, [&tag](std::string & v) { v = tag.value; });
+        element.UpdateTag(tag.key, [&tag](std::string & v) { v = tag.value; });
     }
   }
 };

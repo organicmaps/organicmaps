@@ -37,8 +37,9 @@ PlaceType EncodePlaceType(std::string const & place)
 
 CollectorRegionInfo::CollectorRegionInfo(std::string const & filename) : m_filename(filename) {}
 
-void CollectorRegionInfo::Collect(base::GeoObjectId const & osmId, OsmElement const & el)
+void CollectorRegionInfo::CollectFeature(const FeatureBuilder1 &, OsmElement const & el)
 {
+  base::GeoObjectId const osmId = GetGeoObjectId(el);
   RegionData regionData;
   FillRegionData(osmId, el, regionData);
   m_mapRegionData.emplace(osmId, regionData);

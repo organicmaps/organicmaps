@@ -100,7 +100,7 @@ public:
   CollectorRegionInfo(std::string const & filename);
 
   // CollectorInterface overrides:
-  void Collect(base::GeoObjectId const & osmId, OsmElement const & el) override;
+  void CollectFeature(FeatureBuilder1 const &, OsmElement const & el) override;
   void Save() override;
 
 private:

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/collector_interface.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/intermediate_data.hpp"
 
@@ -21,12 +22,17 @@
 #include <string>
 #include <vector>
 
+class FeatureBuilder1;
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing
 {
-class CameraNodeProcessor
+class CameraNodeProcessor : public generator::CollectorInterface
 {
 public:
+  CameraNodeProcessor() = default;
+  CameraNodeProcessor(std::string const & writerFile, std::string const & readerFile,
+                      std::string const & speedFile);
+
   void Open(std::string const & writerFile, std::string const & readerFile,
             std::string const & speedFile);
 
@@ -36,8 +42,9 @@ public:
     m_cameraNodeToWays->ForEachByKey(id, std::forward<ToDo>(toDo));
   }
 
-  void Process(OsmElement & p, FeatureParams const & params,
-               generator::cache::IntermediateDataReader & cache);
+  // generator::CollectorInterface overrides:
+  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & p) override;
+  void Save() override {}
 
 private:
   using Cache = generator::cache::IndexFileReader;

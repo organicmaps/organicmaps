@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/collector_interface.hpp"
 #include "generator/osm_element.hpp"
 
 #include <string>
@@ -10,14 +11,15 @@ namespace generator
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
 /// Every line describes maxspeed, maxspeed:forward and maxspeed:backward
 /// tags of features. The format of the lines is described below.
-class MaxspeedsCollector
+class MaxspeedsCollector : public CollectorInterface
 {
 public:
   /// \param filePath path to csv file.
   explicit MaxspeedsCollector(std::string const & filePath) : m_filePath(filePath) {}
-  ~MaxspeedsCollector() { Flush(); }
 
-  void Process(OsmElement const & p);
+  // CollectorInterface overrides:
+  void CollectFeature(FeatureBuilder1 const &, OsmElement const & p) override;
+  void Save() override;
 
 private:
   void Flush();

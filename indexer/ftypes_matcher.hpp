@@ -243,6 +243,31 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPopularityPlaceChecker);
 };
 
+class IsIslandChecker : public BaseChecker
+{
+  IsIslandChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsIslandChecker);
+};
+
+class IsLandChecker : public BaseChecker
+{
+  IsLandChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsLandChecker);
+
+  uint32_t GetLandType() const;
+};
+
+class IsCoastlineChecker : public BaseChecker
+{
+  IsCoastlineChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsCoastlineChecker);
+
+  uint32_t GetCoastlineType() const;
+};
+
 class IsHotelChecker : public BaseChecker
 {
 public:

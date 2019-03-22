@@ -8,6 +8,7 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
 #include <array>
 
 using namespace std;
@@ -348,30 +349,44 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   return false;
 }
 
-bool RemoveUselessTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
+bool IsUsefulType(uint32_t t, EGeomType geomType, bool emptyName)
 {
   Classificator const & c = classif();
 
-  types.erase(remove_if(types.begin(), types.end(), [&] (uint32_t t)
+  if (IsUsefulNondrawableType(t, geomType))
+    return true;
+
+  IsDrawableLikeChecker doCheck(geomType, emptyName);
+  if (c.ProcessObjects(t, doCheck))
+    return true;
+
+  // IsDrawableLikeChecker checks only unique area styles,
+  // so we need to take into account point styles too.
+  if (geomType == GEOM_AREA)
   {
-   if (IsUsefulNondrawableType(t, geomType))
-     return false;
+    IsDrawableLikeChecker doCheck(GEOM_POINT, emptyName);
+    if (c.ProcessObjects(t, doCheck))
+      return true;
+  }
 
-   IsDrawableLikeChecker doCheck(geomType, emptyName);
-   if (c.ProcessObjects(t, doCheck))
-     return false;
+  return false;
+}
 
-   // IsDrawableLikeChecker checks only unique area styles,
-   // so we need to take into account point styles too.
-   if (geomType == GEOM_AREA)
-   {
-     IsDrawableLikeChecker doCheck(GEOM_POINT, emptyName);
-     if (c.ProcessObjects(t, doCheck))
-       return false;
-   }
+bool HasUsefulType(vector<uint32_t> const & types, EGeomType geomType, bool emptyName)
+{
+  if (types.empty())
+    return false;
 
-   return true;
-  }), types.end());
+  return any_of(types.begin(), types.end(), [&](uint32_t t) {
+    return IsUsefulType(t, geomType, emptyName);
+  });
+}
+
+bool RemoveUselessTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
+{
+  base::EraseIf(types, [&] (uint32_t t) {
+    return !IsUsefulType(t, geomType, emptyName);
+  });
 
   return !types.empty();
 }
