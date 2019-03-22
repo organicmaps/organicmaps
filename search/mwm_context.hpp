@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <utility>
 
 class MwmValue;
 
@@ -51,9 +52,15 @@ public:
   void ForEachIndex(m2::RectD const & rect, Fn && fn) const
   {
     uint32_t const scale = m_value.GetHeader().GetLastScale();
+    ForEachIndex(rect, scale, std::forward<Fn>(fn));
+  }
+
+  template <typename Fn>
+  void ForEachIndex(m2::RectD const & rect, uint32_t scale, Fn && fn) const
+  {
     covering::Intervals intervals;
-    CoverRect(rect, scale, intervals);
-    ForEachIndex(intervals, scale, forward<Fn>(fn));
+    CoverRect(rect, m_value.GetHeader().GetLastScale(), intervals);
+    ForEachIndex(intervals, scale, std::forward<Fn>(fn));
   }
 
   template <typename Fn>
