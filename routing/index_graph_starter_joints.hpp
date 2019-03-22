@@ -1,10 +1,13 @@
 #pragma once
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
 #include "geometry/point2d.hpp"
+
+#include "base/assert.hpp"
 
 #include <limits>
 #include <map>
@@ -64,15 +67,15 @@ public:
   // have got fake m_numMwmId during mwm generation.
   bool IsRealSegment(Segment const & segment) const
   {
-    return segment.GetFeatureId() != std::numeric_limits<uint32_t>::max();
+    return segment.GetFeatureId() != FakeFeatureIds::kIndexGraphStarterId;
   }
 
   Segment const & GetSegmentOfFakeJoint(JointSegment const & joint, bool start);
 
 private:
-  static auto constexpr kInvisibleStartId = std::numeric_limits<uint32_t>::max() - 2;
-  static auto constexpr kInvisibleEndId = std::numeric_limits<uint32_t>::max() - 1;
-  static auto constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
+  static auto constexpr kInvalidId = JointSegment::kInvalidId;
+  static auto constexpr kInvisibleEndId = kInvalidId - 1;
+  static auto constexpr kInvisibleStartId = kInvalidId - 2;
 
   struct FakeJointSegment
   {
@@ -243,7 +246,7 @@ std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegme
   if (IsInvisible(joint))
     return {};
 
-  // In case of a fake vertex we return its prebuild path.
+  // In case of a fake vertex we return its prebuilt path.
   if (joint.IsFake())
   {
     auto const it = m_reconstructedFakeJoints.find(joint);
@@ -474,7 +477,7 @@ template <typename Graph>
 std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment const & startSegment,
                                                                        bool fromStart)
 {
-  Segment endSegment = fromStart ? m_endSegment : m_startSegment;
+  Segment const & endSegment = fromStart ? m_endSegment : m_startSegment;
 
   std::queue<Segment> queue;
   queue.push(startSegment);

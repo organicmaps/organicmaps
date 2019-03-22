@@ -15,6 +15,8 @@ namespace routing
 class JointSegment
 {
 public:
+  static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
+
   JointSegment() = default;
   JointSegment(Segment const & from, Segment const & to);
 
@@ -44,7 +46,6 @@ public:
   }
 
 private:
-  static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
   uint32_t m_featureId = kInvalidId;
   uint32_t m_startSegmentId = kInvalidId;
   uint32_t m_endSegmentId = kInvalidId;

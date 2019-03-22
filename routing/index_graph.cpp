@@ -2,6 +2,7 @@
 
 #include "routing/restrictions_serialization.hpp"
 #include "routing/routing_options.hpp"
+#include "routing/world_graph.hpp"
 
 #include "platform/settings.hpp"
 
@@ -9,7 +10,6 @@
 #include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 
-#include "routing/world_graph.hpp"
 
 #include <algorithm>
 #include <cstdlib>
