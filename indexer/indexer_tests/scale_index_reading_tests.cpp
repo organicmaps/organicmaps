@@ -10,6 +10,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/feature_visibility.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
 
@@ -42,16 +43,17 @@ class ScaleIndexReadingTest : public TestWithCustomMwms
 {
 public:
   template <typename ScaleIndex>
-  Names CollectNames(MwmSet::MwmId const & id, ScaleIndex const & index, int scale,
-                     m2::RectD const & rect)
+  Names CollectNames(MwmSet::MwmId const & id, ScaleIndex const & index, int scaleForIntervals,
+                     int scaleForZoomLevels, m2::RectD const & rect)
   {
     covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
 
     vector<uint32_t> indices;
-    for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scale))
+    for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scaleForIntervals))
     {
-      index.ForEachInIntervalAndScale(interval.first, interval.second, scale,
-                                      [&](uint64_t /* key */, uint32_t value) { indices.push_back(value); });
+      index.ForEachInIntervalAndScale(
+          interval.first, interval.second, scaleForZoomLevels,
+          [&](uint64_t /* key */, uint32_t value) { indices.push_back(value); });
     }
 
     FeaturesLoaderGuard loader(m_dataSource, id);
@@ -105,11 +107,26 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
   ScaleIndex<ReaderPtr<Reader>> index(subReader, factory);
 
   auto collectNames = [&](m2::RectD const & rect) {
-    return CollectNames(id, index, header.GetLastScale(), rect);
+    return CollectNames(id, index, header.GetLastScale(), header.GetLastScale(), rect);
   };
 
   TEST_EQUAL(collectNames(m2::RectD{-0.5, -0.5, 0.5, 0.5}), Names({"A"}), ());
   TEST_EQUAL(collectNames(m2::RectD{0.5, -0.5, 1.5, 1.5}), Names({"B", "C"}), ());
   TEST_EQUAL(collectNames(m2::RectD{-0.5, -0.5, 1.5, 1.5}), Names({"A", "B", "C", "D"}), ());
+
+  auto collectNamesForExactScale = [&](m2::RectD const & rect, int scale) {
+    return CollectNames(id, index, header.GetLastScale(), scale, rect);
+  };
+
+  auto const drawableScale = feature::GetMinDrawableScaleClassifOnly(a.GetTypes());
+  CHECK_LESS(drawableScale, header.GetLastScale(),
+             ("Change the test to ensure scales less than last scale work."));
+
+  TEST_EQUAL(collectNamesForExactScale(m2::RectD{-0.5, -0.5, 0.5, 0.5}, drawableScale),
+             Names({"A"}), ());
+  TEST_EQUAL(collectNamesForExactScale(m2::RectD{0.5, -0.5, 1.5, 1.5}, drawableScale),
+             Names({"B", "C"}), ());
+  TEST_EQUAL(collectNamesForExactScale(m2::RectD{-0.5, -0.5, 1.5, 1.5}, drawableScale),
+             Names({"A", "B", "C", "D"}), ());
 }
 }  // namespace

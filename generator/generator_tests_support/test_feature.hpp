@@ -1,5 +1,6 @@
 #pragma once
 
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
@@ -156,6 +157,7 @@ public:
   void Serialize(FeatureBuilder1 & fb) const override;
   std::string ToDebugString() const override;
 
+  feature::TypesHolder GetTypes() const;
   void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   void SetStreetName(std::string const & name) { m_streetName = name; }
   void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }

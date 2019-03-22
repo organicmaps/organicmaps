@@ -313,6 +313,14 @@ string TestPOI::ToDebugString() const
   return os.str();
 }
 
+feature::TypesHolder TestPOI::GetTypes() const
+{
+  feature::TypesHolder types;
+  for (auto const path : m_types)
+    types.Add(classif().GetTypeByPath(path));
+  return types;
+}
+
 // TestMultilingualPOI -----------------------------------------------------------------------------
 TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const & defaultName,
                                          map<string, string> const & multilingualNames)
