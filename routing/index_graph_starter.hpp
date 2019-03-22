@@ -1,6 +1,8 @@
 #pragma once
 
+#include "routing/base/astar_graph.hpp"
 #include "routing/base/routing_result.hpp"
+
 #include "routing/fake_ending.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
@@ -26,13 +28,13 @@ namespace routing
 class FakeEdgesContainer;
 
 // IndexGraphStarter adds fake start and finish vertices for AStarAlgorithm.
-class IndexGraphStarter final
+class IndexGraphStarter : public AStarGraph<IndexGraph::Vertex, IndexGraph::Edge, IndexGraph::Weight>
 {
 public:
   // AStarAlgorithm types aliases:
-  using Vertex = IndexGraph::Vertex;
-  using Edge = IndexGraph::Edge;
-  using Weight = IndexGraph::Weight;
+  using Vertex = AStarGraph::Vertex;
+  using Edge = AStarGraph::Edge;
+  using Weight = AStarGraph::Weight;
 
   friend class FakeEdgesContainer;
 
@@ -91,17 +93,17 @@ public:
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
-  void GetOutgoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) const
+  void GetOutgoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) override
   {
     GetEdgesList(segment, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) const
+  void GetIngoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) override
   {
     GetEdgesList(segment, false /* isOutgoing */, edges);
   }
 
-  RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) const
+  RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
   {
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */),
                                          GetPoint(to, true /* front */));
@@ -119,6 +121,8 @@ public:
 
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
   double CalcSegmentETA(Segment const & segment) const;
+
+  ~IndexGraphStarter() override = default;
 
 private:
   // Start or finish ending information. 

@@ -5,6 +5,8 @@
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
+
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/cross_mwm_ids.hpp"
@@ -201,13 +203,13 @@ private:
   Segment m_start;
 };
 
-class DijkstraWrapperJoints final
+class DijkstraWrapper : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
 public:
   // AStarAlgorithm types aliases:
-  using Vertex = JointSegment;
-  using Edge = JointEdge;
-  using Weight = RouteWeight;
+  using Vertex = AStarGraph::Vertex;
+  using Edge = AStarGraph::Edge;
+  using Weight = AStarGraph::Weight;
 
   explicit DijkstraWrapperJoints(IndexGraphWrapper & graph, Segment const & start)
     : m_graph(graph, start) {}
@@ -465,8 +467,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
 
     Segment const & enter = connector.GetEnter(i);
 
+    using Algorithm = AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
 
-    AStarAlgorithm<DijkstraWrapperJoints> astar;
+    Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
     AStarAlgorithm<DijkstraWrapperJoints>::Context context;

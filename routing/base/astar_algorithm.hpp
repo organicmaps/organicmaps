@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_weight.hpp"
 #include "routing/base/routing_result.hpp"
 
@@ -15,13 +16,12 @@
 
 namespace routing
 {
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 class AStarAlgorithm
 {
 public:
-  using Vertex = typename Graph::Vertex;
-  using Edge = typename Graph::Edge;
-  using Weight = typename Graph::Weight;
+
+  using Graph = AStarGraph<Vertex, Edge, Weight>;
 
   enum class Result
   {
@@ -178,8 +178,8 @@ public:
   // Adjust route to the previous one.
   // Expects |params.m_checkLengthCallback| to check wave propagation limit.
   template <typename P>
-  typename AStarAlgorithm<Graph>::Result AdjustRoute(P & params,
-                                                     RoutingResult<Vertex, Weight> & result) const;
+  typename AStarAlgorithm<Vertex, Edge, Weight>::Result AdjustRoute(P & params,
+                                                                    RoutingResult<Vertex, Weight> & result) const;
 
 private:
   // Periodicity of switching a wave of bidirectional algorithm.
@@ -295,20 +295,20 @@ private:
                                            std::vector<Vertex> & path);
 };
 
-template <typename Graph>
-constexpr typename Graph::Weight AStarAlgorithm<Graph>::kEpsilon;
-template <typename Graph>
-constexpr typename Graph::Weight AStarAlgorithm<Graph>::kInfiniteDistance;
-template <typename Graph>
-constexpr typename Graph::Weight AStarAlgorithm<Graph>::kZeroDistance;
+template <typename Vertex, typename Edge, typename Weight>
+constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kEpsilon;
+template <typename Vertex, typename Edge, typename Weight>
+constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kInfiniteDistance;
+template <typename Vertex, typename Edge, typename Weight>
+constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kZeroDistance;
 
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 template <typename VisitVertex, typename AdjustEdgeWeight, typename FilterStates>
-void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVertex,
+void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(Graph & graph, Vertex const & startVertex,
                                           VisitVertex && visitVertex,
                                           AdjustEdgeWeight && adjustEdgeWeight,
                                           FilterStates && filterStates,
-                                          AStarAlgorithm<Graph>::Context & context) const
+                                          AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
   context.Clear();
 
@@ -355,11 +355,11 @@ void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVer
   }
 }
 
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 template <typename VisitVertex>
-void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVertex,
+void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(Graph & graph, Vertex const & startVertex,
                                           VisitVertex && visitVertex,
-                                          AStarAlgorithm<Graph>::Context & context) const
+                                          AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
   auto const adjustEdgeWeight = [](Vertex const & /* vertex */, Edge const & edge) {
     return edge.GetWeight();
@@ -379,10 +379,10 @@ void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVer
 // http://research.microsoft.com/pubs/154937/soda05.pdf
 // http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
-typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
-    P & params, RoutingResult<Vertex, Weight> & result) const
+typename AStarAlgorithm<Vertex, Edge, Weight>::Result
+AStarAlgorithm<Vertex, Edge, Weight>::FindPath(P & params, RoutingResult<Vertex, Weight> & result) const
 {
   result.Clear();
 
@@ -455,10 +455,11 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
   return resultCode;
 }
 
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
-typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectional(
-    P & params, RoutingResult<Vertex, Weight> & result) const
+typename AStarAlgorithm<Vertex, Edge, Weight>::Result
+AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
+                                                            RoutingResult<Vertex, Weight> & result) const
 {
   auto & graph = params.m_graph;
   auto const & finalVertex = params.m_finalVertex;
@@ -599,10 +600,11 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
   return Result::NoPath;
 }
 
-template <typename Graph>
+template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
-typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
-    P & params, RoutingResult<Vertex, Weight> & result) const
+typename AStarAlgorithm<Vertex, Edge, Weight>::Result
+  AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params, RoutingResult<Vertex,
+                                                    Weight> & result) const
 {
   CHECK(params.m_prevRoute, ());
   auto & graph = params.m_graph;
@@ -697,10 +699,10 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
 }
 
 // static
-template <typename Graph>
-void AStarAlgorithm<Graph>::ReconstructPath(Vertex const & v,
-                                            std::map<Vertex, Vertex> const & parent,
-                                            std::vector<Vertex> & path)
+template <typename Vertex, typename Edge, typename Weight>
+void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(Vertex const & v,
+                                                           std::map<Vertex, Vertex> const & parent,
+                                                           std::vector<Vertex> & path)
 {
   path.clear();
   Vertex cur = v;
@@ -716,11 +718,12 @@ void AStarAlgorithm<Graph>::ReconstructPath(Vertex const & v,
 }
 
 // static
-template <typename Graph>
-void AStarAlgorithm<Graph>::ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
-                                                         std::map<Vertex, Vertex> const & parentV,
-                                                         std::map<Vertex, Vertex> const & parentW,
-                                                         std::vector<Vertex> & path)
+template <typename Vertex, typename Edge, typename Weight>
+void
+AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
+                                                                   std::map<Vertex, Vertex> const & parentV,
+                                                                   std::map<Vertex, Vertex> const & parentW,
+                                                                   std::vector<Vertex> & path)
 {
   std::vector<Vertex> pathV;
   ReconstructPath(v, parentV, pathV);
@@ -732,10 +735,11 @@ void AStarAlgorithm<Graph>::ReconstructPathBidirectional(Vertex const & v, Verte
   path.insert(path.end(), pathW.rbegin(), pathW.rend());
 }
 
-template <typename Graph>
-void AStarAlgorithm<Graph>::Context::ReconstructPath(Vertex const & v,
-                                                     std::vector<Vertex> & path) const
+template <typename Vertex, typename Edge, typename Weight>
+void
+AStarAlgorithm<Vertex, Edge, Weight>::Context::ReconstructPath(Vertex const & v,
+                                                               std::vector<Vertex> & path) const
 {
-  AStarAlgorithm<Graph>::ReconstructPath(v, m_parents, path);
+  AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(v, m_parents, path);
 }
 }  // namespace routing

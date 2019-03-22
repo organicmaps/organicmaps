@@ -157,6 +157,8 @@ void TestIndexGraphTopology::SetVertexAccess(Vertex v, RoadAccess::Type type)
   CHECK(found, ("Cannot set access for vertex that is not in the graph", v));
 }
 
+using AlgorithmForWorldGraph = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
+
 bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
                                       vector<Edge> & pathEdges) const
 {
@@ -192,9 +194,11 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
-  AStarAlgorithm<WorldGraph> algorithm;
+  AlgorithmForWorldGraph algorithm;
 
-  AStarAlgorithm<WorldGraph>::ParamsForTests params(*worldGraph, startSegment, finishSegment,
+  WorldGraphForAStar graphForAStar(*worldGraph);
+
+  AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
                                                     nullptr /* prevRoute */,
                                                     {} /* checkLengthCallback */);
   RoutingResult<Segment, RouteWeight> routingResult;
@@ -210,9 +214,9 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
           ("Distances differ:", routingResult.m_distance, unidirectionalRoutingResult.m_distance));
   }
 
-  if (resultCode == AStarAlgorithm<WorldGraph>::Result::NoPath)
+  if (resultCode == AlgorithmForWorldGraph::Result::NoPath)
     return false;
-  CHECK_EQUAL(resultCode, AStarAlgorithm<WorldGraph>::Result::OK, ());
+  CHECK_EQUAL(resultCode, AlgorithmForWorldGraph::Result::OK, ());
 
   CHECK_GREATER_OR_EQUAL(routingResult.m_path.size(), 2, ());
   CHECK_EQUAL(routingResult.m_path.front(), startSegment, ());
@@ -379,14 +383,14 @@ shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> traffic
   return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
 }
 
-AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,
-                                                         vector<Segment> & roadPoints,
-                                                         double & timeSec)
+AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result
+CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
+               double & timeSec)
 {
-  AStarAlgorithm<IndexGraphStarter> algorithm;
+  AStarAlgorithm<Segment, SegmentEdge, RouteWeight> algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  AStarAlgorithm<IndexGraphStarter>::ParamsForTests params(
+  AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::ParamsForTests params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
 
@@ -398,7 +402,7 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
 }
 
 void TestRouteGeometry(IndexGraphStarter & starter,
-                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
+                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
                        vector<m2::PointD> const & expectedRouteGeom)
 {
   vector<Segment> routeSegs;
@@ -407,7 +411,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 
   TEST_EQUAL(resultCode, expectedRouteResult, ());
 
-  if (AStarAlgorithm<IndexGraphStarter>::Result::NoPath == expectedRouteResult &&
+  if (AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result::NoPath == expectedRouteResult &&
       expectedRouteGeom.empty())
   {
     // The route goes through a restriction. So there's no choice for building route
@@ -415,7 +419,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
     return;
   }
 
-  if (resultCode != AStarAlgorithm<IndexGraphStarter>::Result::OK)
+  if (resultCode != AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result::OK)
     return;
 
   CHECK(!routeSegs.empty(), ());
@@ -445,7 +449,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
-                      AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
+                      AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {

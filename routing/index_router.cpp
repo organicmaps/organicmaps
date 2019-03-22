@@ -572,7 +572,8 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   auto checkLength = [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); };
 
   base::HighResTimer timer;
-  if (starter.GetGraph().GetMode() == WorldGraphMode::Joints)
+  WorldGraphMode mode = starter.GetGraph().GetMode();
+  if (mode == WorldGraph::Mode::Joints)
   {
     IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
     RoutingResult<JointSegment, RouteWeight> routingResult;
@@ -594,12 +595,16 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       delegate.OnPointCheck(pointFrom);
     };
 
-    AStarAlgorithm<IndexGraphStarterJoints<IndexGraphStarter>>::Params params(
+    using Vertex = IndexGraphStarterJoints::Vertex;
+    using Edge = IndexGraphStarterJoints::Edge;
+    using Weight = IndexGraphStarterJoints::Weight;
+
+    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(), nullptr /* prevRoute */,
       delegate, onVisitJunctionJoints, checkLength);
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
-    RouterResultCode const result = FindPath<IndexGraphStarterJoints<IndexGraphStarter>>(params, mwmIds, routingResult);
+    RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
     if (result != RouterResultCode::NoError)
       return result;
 
@@ -607,13 +612,17 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   }
   else
   {
+    using Vertex = IndexGraphStarter::Vertex;
+    using Edge = IndexGraphStarter::Edge;
+    using Weight = IndexGraphStarter::Weight;
+
     RoutingResult<Segment, RouteWeight> routingResult;
-    AStarAlgorithm<IndexGraphStarter>::Params params(
+    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       delegate, onVisitJunction, checkLength);
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
-    RouterResultCode const result = FindPath<IndexGraphStarter>(params, mwmIds, routingResult);
+    RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
 
     if (result != RouterResultCode::NoError)
       return result;
@@ -695,13 +704,17 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
     return weight <= RouteWeight(kAdjustLimitSec) && starter.CheckLength(weight);
   };
 
-  AStarAlgorithm<IndexGraphStarter> algorithm;
-  AStarAlgorithm<IndexGraphStarter>::Params params(starter, starter.GetStartSegment(),
-                                                   {} /* finalVertex */, &prevEdges, delegate,
-                                                   onVisitJunction, checkLength);
+  using Vertex = IndexGraphStarter::Vertex;
+  using Edge = IndexGraphStarter::Edge;
+  using Weight = IndexGraphStarter::Weight;
+
+  AStarAlgorithm<Vertex, Edge, Weight> algorithm;
+  AStarAlgorithm<Vertex, Edge, Weight>::Params params(starter, starter.GetStartSegment(),
+                                                      {} /* finalVertex */, &prevEdges, delegate,
+                                                      onVisitJunction, checkLength);
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
-      ConvertResult<IndexGraphStarter>(algorithm.AdjustRoute(params, result));
+      ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, result));
   if (resultCode != RouterResultCode::NoError)
     return resultCode;
 
@@ -903,12 +916,16 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     fillMwmIds(start, end, mwmIds);
 
-    AStarAlgorithm<IndexGraphStarterJoints<IndexGraphStarter>>::Params params(
+    using Vertex = IndexGraphStarterJoints::Vertex;
+    using Edge = IndexGraphStarterJoints::Edge;
+    using Weight = IndexGraphStarterJoints::Weight;
+
+    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
       nullptr /* prevRoute */, delegate,
       {} /* onVisitedVertexCallback */, checkLength);
 
-    return FindPath<IndexGraphStarterJoints<IndexGraphStarter>>(params, mwmIds, routingResult);
+    return FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
   };
 
   deque<vector<Segment>> paths;

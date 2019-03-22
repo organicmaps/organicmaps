@@ -41,8 +41,38 @@ namespace routing_test
 using namespace routing;
 
 // The value doesn't matter, it doesn't associated with any real mwm id.
-// It just a noticeable value to detect the source of such id while debuggging unit tests.
+// It just a noticeable value to detect the source of such id while debuging unit tests.
 NumMwmId constexpr kTestNumMwmId = 777;
+
+class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
+{
+public:
+  using Vertex = AStarGraph::Vertex;
+  using Edge = AStarGraph::Edge;
+  using Weight = AStarGraph::Weight;
+
+  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
+
+  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
+  {
+    return m_graph.HeuristicCostEstimate(from, to);
+  }
+
+  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetOutgoingEdgesList(v, edges);
+  }
+
+  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetIngoingEdgesList(v, edges);
+  }
+
+  ~WorldGraphForAStar() override = default;
+
+private:
+  WorldGraph & m_graph;
+};
 
 struct RestrictionTest
 {
@@ -231,19 +261,19 @@ shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
     traffic::TrafficCache const & trafficCache);
 shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash);
 
-routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(
-    routing::IndexGraphStarter & starter, vector<routing::Segment> & roadPoints, double & timeSec);
+AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(
+    IndexGraphStarter & starter, vector<Segment> & roadPoints, double & timeSec);
 
 void TestRouteGeometry(
-    routing::IndexGraphStarter & starter,
-    routing::AStarAlgorithm<routing::IndexGraphStarter>::Result expectedRouteResult,
+    IndexGraphStarter & starter,
+    AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
     vector<m2::PointD> const & expectedRouteGeom);
 
 /// \brief Applies |restrictions| to graph in |restrictionTest| and
 /// tests the resulting route.
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
-                      AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
+                      AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
 

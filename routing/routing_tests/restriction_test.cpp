@@ -62,6 +62,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildCrossGraph()
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
+using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
+
 UNIT_CLASS_TEST(RestrictionTest, CrossGraph_NoUTurn)
 {
   Init(BuildCrossGraph());
@@ -70,7 +72,7 @@ UNIT_CLASS_TEST(RestrictionTest, CrossGraph_NoUTurn)
 
   vector<m2::PointD> const expectedGeom = {
       {-1.0 /* x */, 0.0 /* y */}, {0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}};
-  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, CrossGraph_UTurn)
@@ -85,7 +87,7 @@ UNIT_CLASS_TEST(RestrictionTest, CrossGraph_UTurn)
                                            {1.0, 0.0},  {1.0, 1.0}, {1.0, 2.0}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *m_graph),
       MakeFakeEnding(7, 0, m2::PointD(1, 2), *m_graph), move(restrictions), *this);
 }
@@ -145,7 +147,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph)
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
@@ -160,7 +162,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF2F1)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(5 /* featureId */, 0 /* senmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictions), *this);
 }
@@ -174,7 +176,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictions), *this);
 }
@@ -191,7 +193,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionOnlyF5F3)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -213,7 +215,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2RestrictionOnl
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -267,7 +269,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph)
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
@@ -281,7 +283,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F2No)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictions), *this);
 }
@@ -298,7 +300,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F1Only)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -373,7 +375,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph)
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
@@ -391,7 +393,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3Only)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -410,7 +412,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3OnlyF3F4Only)
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -429,7 +431,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), move(restrictionsNo), *this);
 }
@@ -487,7 +489,7 @@ UNIT_TEST(FlagGraph)
       MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *graph),
                   MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {0.5, 1}};
-  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
 // Route through flag graph with one restriciton (type no) from F0 to F3.
@@ -500,7 +502,7 @@ UNIT_CLASS_TEST(RestrictionTest, FlagGraph_RestrictionF0F3No)
       {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
       MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), move(restrictions), *this);
 }
@@ -514,7 +516,7 @@ UNIT_CLASS_TEST(RestrictionTest, FlagGraph_RestrictionF0F1Only)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {0.5, 1}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
       MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), move(restrictions), *this);
 }
@@ -537,7 +539,7 @@ UNIT_CLASS_TEST(RestrictionTest, FlagGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
       MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), move(restrictionsNo), *this);
 }
@@ -592,7 +594,7 @@ UNIT_TEST(PosterGraph)
                   MakeFakeEnding(6, 0, m2::PointD(2, 1), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}};
 
-  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
 // Route through poster graph with restrictions F0-F3 (type no).
@@ -605,7 +607,7 @@ UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F3No)
       {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
       MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), move(restrictions), *this);
 }
@@ -624,7 +626,7 @@ UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F1Only)
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
       MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), move(restrictionsNo), *this);
 }
@@ -671,7 +673,7 @@ UNIT_TEST(TwoWayGraph)
                   MakeFakeEnding(2, 0, m2::PointD(4, 0), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{-1 /* x */, 0 /* y */}, {0, 0}, {1, 0}, {3, 0}, {4, 0}};
 
-  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
 // 1          *---F4----*
@@ -720,7 +722,7 @@ UNIT_TEST(SquaresGraph)
       MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *graph),
                   MakeFakeEnding(5, 0, m2::PointD(0, 0), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}};
-  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
 // It's a test on correct working in case when because of adding restrictions
@@ -740,7 +742,7 @@ UNIT_CLASS_TEST(RestrictionTest, SquaresGraph_RestrictionF0F1OnlyF1F5Only)
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
       MakeFakeEnding(5, 0, m2::PointD(0, 0), *m_graph), move(restrictionsNo), *this);
 }
@@ -782,7 +784,7 @@ UNIT_CLASS_TEST(RestrictionTest, LineGraph_RestrictionF1F1No)
       {0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
       MakeFakeEnding(2, 0, m2::PointD(5, 0), *m_graph), move(restrictions), *this);
 }
@@ -835,7 +837,7 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {0, 1}, {1, 1}};
 
   TestRestrictions(
-      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
       MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), move(restrictionsNo), *this);
 }
@@ -889,7 +891,7 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughStart)
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
-  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
@@ -901,7 +903,7 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
-  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, NonPassThroughWay)
@@ -911,7 +913,7 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughWay)
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
-  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, {});
+  TestRouteGeometry(*m_starter, Algorithm::Result::NoPath, {});
 }
 
 UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)
@@ -923,6 +925,6 @@ UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
-  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 }  // namespace routing_test

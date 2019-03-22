@@ -1,6 +1,7 @@
 #include "routing/routing_tests/routing_algorithm.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
 #include "routing/maxspeeds.hpp"
 #include "routing/routing_helpers.hpp"
 
@@ -44,19 +45,21 @@ private:
   double const weight;
 };
 
+using Algorithm = AStarAlgorithm<Junction, WeightedEdge, double>;
+
 /// A wrapper around IRoadGraph, which makes it possible to use IRoadGraph with astar algorithms.
-class RoadGraph
+class RoadGraph : public AStarGraph<Junction, WeightedEdge, double>
 {
 public:
-  using Vertex = Junction;
-  using Edge = WeightedEdge;
-  using Weight = double;
+  using Vertex = AStarGraph::Vertex;
+  using Edge = AStarGraph::Edge;
+  using Weight = AStarGraph::Weight;
 
   explicit RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 
-  void GetOutgoingEdgesList(Junction const & v, vector<WeightedEdge> & adj) const
+  void GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj) override
   {
     IRoadGraph::TEdgeVector edges;
     m_roadGraph.GetOutgoingEdges(v, edges);
@@ -74,7 +77,7 @@ public:
     }
   }
 
-  void GetIngoingEdgesList(Junction const & v, vector<WeightedEdge> & adj) const
+  void GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj) override
   {
     IRoadGraph::TEdgeVector edges;
     m_roadGraph.GetIngoingEdges(v, edges);
@@ -92,7 +95,7 @@ public:
     }
   }
 
-  double HeuristicCostEstimate(Junction const & v, Junction const & w) const
+  double HeuristicCostEstimate(Vertex const & v, Vertex const & w) override
   {
     return TimeBetweenSec(v, w, m_maxSpeedMPS);
   }
@@ -102,13 +105,13 @@ private:
   double const m_maxSpeedMPS;
 };
 
-TestAStarBidirectionalAlgo::Result Convert(AStarAlgorithm<RoadGraph>::Result value)
+TestAStarBidirectionalAlgo::Result Convert(Algorithm::Result value)
 {
   switch (value)
   {
-  case AStarAlgorithm<RoadGraph>::Result::OK: return TestAStarBidirectionalAlgo::Result::OK;
-  case AStarAlgorithm<RoadGraph>::Result::NoPath: return TestAStarBidirectionalAlgo::Result::NoPath;
-  case AStarAlgorithm<RoadGraph>::Result::Cancelled: return TestAStarBidirectionalAlgo::Result::Cancelled;
+  case Algorithm::Result::OK: return TestAStarBidirectionalAlgo::Result::OK;
+  case Algorithm::Result::NoPath: return TestAStarBidirectionalAlgo::Result::NoPath;
+  case Algorithm::Result::Cancelled: return TestAStarBidirectionalAlgo::Result::Cancelled;
   }
 
   UNREACHABLE();
@@ -139,9 +142,9 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
 {
   RoadGraph roadGraph(graph);
   base::Cancellable const cancellable;
-  AStarAlgorithm<RoadGraph>::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
+  Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
                                            cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
-  AStarAlgorithm<RoadGraph>::Result const res = AStarAlgorithm<RoadGraph>().FindPathBidirectional(params, path);
+  Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }
 }  // namespace routing

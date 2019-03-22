@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
+
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
@@ -23,12 +25,11 @@
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -39,6 +40,8 @@ using namespace routing_test;
 
 using TestEdge = TestIndexGraphTopology::Edge;
 
+using AlgorithmForIndexGraphStarter = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
+
 double constexpr kUnknownWeight = -1.0;
 
 void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expectedLength,
@@ -48,7 +51,7 @@ void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expec
   vector<Segment> route;
   double timeSec;
   auto const resultCode = CalculateRoute(*starter, route, timeSec);
-  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
+  TEST_EQUAL(resultCode, AlgorithmForIndexGraphStarter::Result::OK, ());
 
   TEST_GREATER(route.size(), 2, ());
 
@@ -465,7 +468,7 @@ UNIT_TEST(OneSegmentWayBackward)
   vector<Segment> route;
   double timeSec;
   auto const resultCode = CalculateRoute(*starter, route, timeSec);
-  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, ());
+  TEST_EQUAL(resultCode, AlgorithmForIndexGraphStarter::Result::NoPath, ());
 }
 
 // Roads                             y:
@@ -505,7 +508,7 @@ UNIT_TEST(FakeSegmentCoordinates)
                                          m2::PointD(3, 0), *worldGraph);
 
       auto starter = MakeStarter(start, finish, *worldGraph);
-      TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+      TestRouteGeometry(*starter, AlgorithmForIndexGraphStarter::Result::OK, expectedGeom);
     }
   }
 }
@@ -848,6 +851,6 @@ UNIT_TEST(FinishNearZeroEdge)
 
   vector<m2::PointD> const expectedGeom = {
       {1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
-  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, AlgorithmForIndexGraphStarter::Result::OK, expectedGeom);
 }
 }  // namespace routing_test
