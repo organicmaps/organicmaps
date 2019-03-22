@@ -18,15 +18,25 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
+
+#include <limits>
 
 #include <QtCore/Qt>
 #include <QtGui/QCloseEvent>
+#include <QtGui/QIntValidator>
+#include <QtGui/QKeySequence>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QToolBar>
@@ -125,6 +135,13 @@ void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & r
   m_sampleView->ShowNonFoundResults(results, entries);
 }
 
+void MainView::ShowMarks(Context const & context)
+{
+  ClearSearchResultMarks();
+  ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
+  ShowNonFoundResultsMarks(context.m_nonFoundResults, context.m_nonFoundResultsEdits.GetEntries());
+}
+
 void MainView::ShowFoundResultsMarks(search::Results::ConstIter begin,
                                      search::Results::ConstIter end)
 
@@ -165,6 +182,7 @@ void MainView::OnResultChanged(size_t sampleIndex, ResultType type, Edits::Updat
 
   if (!m_samplesView->IsSelected(sampleIndex))
     return;
+
   switch (type)
   {
   case ResultType::Found: m_sampleView->GetFoundResultsView().Update(update); break;
@@ -174,6 +192,7 @@ void MainView::OnResultChanged(size_t sampleIndex, ResultType type, Edits::Updat
 
 void MainView::OnSampleChanged(size_t sampleIndex, bool hasEdits)
 {
+  m_samplesView->OnUpdate(sampleIndex);
   if (!m_samplesView->IsSelected(sampleIndex))
     return;
   SetSampleDockTitle(hasEdits);
@@ -274,6 +293,17 @@ void MainView::InitMenuBar()
     m_saveAs->setEnabled(false);
     connect(m_saveAs, &QAction::triggered, this, &MainView::SaveAs);
     fileMenu->addAction(m_saveAs);
+  }
+
+  {
+    m_initiateBackgroundSearch = new QAction(tr("Initiate background search"), this /* parent */);
+    m_initiateBackgroundSearch->setShortcut(Qt::CTRL | Qt::Key_I);
+    m_initiateBackgroundSearch->setStatusTip(
+        tr("Search in the background for the queries from a selected range"));
+    m_initiateBackgroundSearch->setEnabled(false);
+    connect(m_initiateBackgroundSearch, &QAction::triggered, this,
+            &MainView::InitiateBackgroundSearch);
+    fileMenu->addAction(m_initiateBackgroundSearch);
   }
 
   fileMenu->addSeparator();
@@ -379,6 +409,7 @@ void MainView::Open()
     return;
 
   m_model->Open(file);
+  m_initiateBackgroundSearch->setEnabled(true);
 }
 
 void MainView::Save() { m_model->Save(); }
@@ -390,6 +421,52 @@ void MainView::SaveAs()
   auto const file = name.toStdString();
   if (!file.empty())
     m_model->SaveAs(file);
+}
+
+void MainView::InitiateBackgroundSearch()
+{
+  QDialog dialog(this);
+  QFormLayout form(&dialog);
+
+  form.addRow(new QLabel("Queries range"));
+
+  QValidator * validator = new QIntValidator(0, std::numeric_limits<int>::max(), this);
+
+  QLineEdit * lineEditFrom = new QLineEdit(&dialog);
+  form.addRow(new QLabel("First"), lineEditFrom);
+  lineEditFrom->setValidator(validator);
+
+  QLineEdit * lineEditTo = new QLineEdit(&dialog);
+  form.addRow(new QLabel("Last"), lineEditTo);
+  lineEditTo->setValidator(validator);
+
+  QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal,
+                             &dialog);
+  form.addRow(&buttonBox);
+
+  connect(&buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+  connect(&buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+  if (dialog.exec() != QDialog::Accepted)
+    return;
+
+  std::string const strFrom = lineEditFrom->text().toStdString();
+  std::string const strTo = lineEditTo->text().toStdString();
+  uint64_t from = 0;
+  uint64_t to = 0;
+  if (!strings::to_uint64(strFrom, from))
+  {
+    LOG(LERROR, ("Could not parse number from", strFrom));
+    return;
+  }
+  if (!strings::to_uint64(strTo, to))
+  {
+    LOG(LERROR, ("Could not parse number from", strTo));
+    return;
+  }
+
+  m_model->InitiateBackgroundSearch(base::checked_cast<size_t>(from),
+                                    base::checked_cast<size_t>(to));
 }
 
 void MainView::SetSamplesDockTitle(bool hasEdits)

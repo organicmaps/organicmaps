@@ -39,6 +39,7 @@ public:
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                            std::vector<Edits::Entry> const & entries) override;
 
+  void ShowMarks(Context const & context) override;
   void ShowFoundResultsMarks(search::Results::ConstIter begin,
                              search::Results::ConstIter end) override;
   void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
@@ -101,6 +102,7 @@ private:
   void Open();
   void Save();
   void SaveAs();
+  void InitiateBackgroundSearch();
 
   void SetSamplesDockTitle(bool hasEdits);
   void SetSampleDockTitle(bool hasEdits);
@@ -120,6 +122,7 @@ private:
 
   QAction * m_save = nullptr;
   QAction * m_saveAs = nullptr;
+  QAction * m_initiateBackgroundSearch = nullptr;
 
   State m_state = State::BeforeSearch;
   FeatureID m_selectedFeature;

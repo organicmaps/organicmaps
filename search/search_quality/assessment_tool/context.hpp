@@ -19,6 +19,13 @@ class FeatureLoader;
 
 struct Context
 {
+  enum class SearchState
+  {
+    Untouched,
+    InQueue,
+    Completed
+  };
+
   Context(Edits::OnUpdate onFoundResultsUpdate, Edits::OnUpdate onNonFoundResultsUpdate)
     : m_foundResultsEdits(onFoundResultsUpdate), m_nonFoundResultsEdits(onNonFoundResultsUpdate)
   {
@@ -60,6 +67,8 @@ struct Context
   std::vector<search::Sample::Result> m_nonFoundResults;
   Edits m_nonFoundResultsEdits;
 
+  SearchState m_searchState = SearchState::Untouched;
+
   bool m_initialized = false;
 };
 
@@ -80,6 +89,11 @@ public:
     }
 
     bool IsChanged(size_t index) const { return (*m_contexts)[index].HasChanges(); }
+
+    Context::SearchState GetSearchState(size_t index) const
+    {
+      return (*m_contexts)[index].m_searchState;
+    }
 
     size_t Size() const { return m_contexts->Size(); }
 

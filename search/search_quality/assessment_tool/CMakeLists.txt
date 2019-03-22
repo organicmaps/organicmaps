@@ -30,6 +30,8 @@ set(
   sample_view.hpp
   samples_view.cpp
   samples_view.hpp
+  search_request_runner.cpp
+  search_request_runner.hpp
   view.hpp
 )
 

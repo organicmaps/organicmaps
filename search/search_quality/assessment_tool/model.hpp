@@ -16,6 +16,14 @@ public:
   virtual void Save() = 0;
   virtual void SaveAs(std::string const & path) = 0;
 
+  // Initiates the search in the background on all samples
+  // in the 1-based range [|from|, |to|], both ends included.
+  // Another background search that may currently be running will be cancelled
+  // but the results for already completed requests will not be discarded.
+  //
+  // Does nothing if the range is invalid.
+  virtual void InitiateBackgroundSearch(size_t from, size_t to) = 0;
+
   virtual void OnSampleSelected(int index) = 0;
   virtual void OnResultSelected(int index) = 0;
   virtual void OnNonFoundResultSelected(int index) = 0;

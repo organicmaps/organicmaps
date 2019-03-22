@@ -22,7 +22,14 @@ QVariant SamplesView::Model::data(QModelIndex const & index, int role) const
   if (role == Qt::BackgroundRole && m_samples.IsValid())
   {
     if (m_samples.IsChanged(row))
-      return QBrush(QColor(255, 255, 200));
+      return QBrush(QColor(0xFF, 0xFF, 0xC8));
+
+    if (m_samples.GetSearchState(row) == Context::SearchState::InQueue)
+      return QBrush(QColor(0xFF, 0xCC, 0x66));
+
+    if (m_samples.GetSearchState(row) == Context::SearchState::Completed)
+      return QBrush(QColor(0xCA, 0xFE, 0xDB));
+
     return QBrush(Qt::transparent);
   }
   return QStandardItemModel::data(index, role);

@@ -41,6 +41,7 @@ public:
   virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                                    std::vector<Edits::Entry> const & entries) = 0;
 
+  virtual void ShowMarks(Context const & context) = 0;
   virtual void ShowFoundResultsMarks(search::Results::ConstIter begin,
                                      search::Results::ConstIter end) = 0;
   virtual void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,

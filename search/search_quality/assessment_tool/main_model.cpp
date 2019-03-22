@@ -37,6 +37,12 @@ MainModel::MainModel(Framework & framework)
         [this](size_t sampleIndex, Edits::Update const & update) {
           OnUpdate(View::ResultType::NonFound, sampleIndex, update);
         })
+  , m_runner(m_framework, m_dataSource, m_contexts,
+             [this](search::Results const & results) { UpdateViewOnResults(results); },
+             [this](size_t index) {
+               // The second parameter does not matter, we only change SearchStatus.
+               m_view->OnSampleChanged(index, false /* hasEdits */);
+             })
 {
 }
 
@@ -63,7 +69,8 @@ void MainModel::Open(string const & path)
     return;
   }
 
-  ResetSearch();
+  m_runner.ResetForegroundSearch();
+  m_runner.ResetBackgroundSearch();
 
   m_view->Clear();
 
@@ -108,6 +115,11 @@ void MainModel::SaveAs(string const & path)
   m_path = path;
 }
 
+void MainModel::InitiateBackgroundSearch(size_t from, size_t to)
+{
+  m_runner.InitiateBackgroundSearch(from, to);
+}
+
 void MainModel::OnSampleSelected(int index)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
@@ -120,55 +132,19 @@ void MainModel::OnSampleSelected(int index)
 
   auto & context = m_contexts[index];
   auto const & sample = context.m_sample;
+
   m_view->ShowSample(index, sample, sample.m_pos, context.HasChanges());
 
-  ResetSearch();
-  auto const timestamp = m_queryTimestamp;
+  m_runner.ResetForegroundSearch();
   m_numShownResults = 0;
 
   if (context.m_initialized)
   {
-    OnResults(timestamp, index, context.m_foundResults, context.m_foundResultsEdits.GetRelevances(),
-              context.m_goldenMatching, context.m_actualMatching);
+    UpdateViewOnResults(context.m_foundResults);
     return;
   }
 
-  auto & engine = m_framework.GetSearchAPI().GetEngine();
-  {
-    search::SearchParams params;
-    sample.FillSearchParams(params);
-    params.m_onResults = [this, index, sample, timestamp](search::Results const & results) {
-      vector<boost::optional<Edits::Relevance>> relevances;
-      vector<size_t> goldenMatching;
-      vector<size_t> actualMatching;
-
-      if (results.IsEndedNormal())
-      {
-        // Can't use m_loader here due to thread-safety issues.
-        search::FeatureLoader loader(m_dataSource);
-        search::Matcher matcher(loader);
-
-        vector<search::Result> const actual(results.begin(), results.end());
-        matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
-        relevances.resize(actual.size());
-        for (size_t i = 0; i < goldenMatching.size(); ++i)
-        {
-          auto const j = goldenMatching[i];
-          if (j != search::Matcher::kInvalidId)
-          {
-            CHECK_LESS(j, relevances.size(), ());
-            relevances[j] = sample.m_results[i].m_relevance;
-          }
-        }
-      }
-
-      GetPlatform().RunTask(Platform::Thread::Gui, bind(&MainModel::OnResults, this, timestamp, index, results,
-                                                        relevances, goldenMatching, actualMatching));
-    };
-
-    m_queryHandle = engine.Search(params);
-    m_view->OnSearchStarted();
-  }
+  InitiateForegroundSearch(index);
 }
 
 void MainModel::OnResultSelected(int index)
@@ -294,6 +270,16 @@ void MainModel::AddNonFoundResult(FeatureID const & id)
   context.AddNonFoundResult(result);
 }
 
+void MainModel::InitiateForegroundSearch(size_t index)
+{
+  auto & context = m_contexts[index];
+  auto const & sample = context.m_sample;
+
+  m_view->ShowSample(index, sample, sample.m_pos, context.HasChanges());
+  m_runner.InitiateForegroundSearch(index);
+  m_view->OnSearchStarted();
+}
+
 void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update)
 {
   using Type = Edits::Update::Type;
@@ -320,80 +306,32 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Updat
   {
     CHECK(context.m_initialized, ());
     CHECK_EQUAL(type, View::ResultType::NonFound, ());
-    ShowMarks(context);
+    m_view->ShowMarks(context);
   }
 }
 
-void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
-                          vector<boost::optional<Edits::Relevance>> const & relevances,
-                          vector<size_t> const & goldenMatching,
-                          vector<size_t> const & actualMatching)
+void MainModel::UpdateViewOnResults(search::Results const & results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
-
-  if (timestamp != m_queryTimestamp)
-    return;
 
   CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
   m_view->AddFoundResults(results.begin() + m_numShownResults, results.end());
   m_numShownResults = results.GetCount();
 
-  auto & context = m_contexts[sampleIndex];
-  context.m_foundResults = results;
-
   if (!results.IsEndedNormal())
     return;
 
-  if (!context.m_initialized)
-  {
-    context.m_foundResultsEdits.Reset(relevances);
-    context.m_goldenMatching = goldenMatching;
-    context.m_actualMatching = actualMatching;
-
-    {
-      vector<boost::optional<Edits::Relevance>> relevances;
-
-      auto & nonFound = context.m_nonFoundResults;
-      CHECK(nonFound.empty(), ());
-      for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
-      {
-        auto const j = context.m_goldenMatching[i];
-        if (j != search::Matcher::kInvalidId)
-          continue;
-        nonFound.push_back(context.m_sample.m_results[i]);
-        relevances.emplace_back(nonFound.back().m_relevance);
-      }
-      context.m_nonFoundResultsEdits.Reset(relevances);
-    }
-
-    context.m_initialized = true;
-  }
+  auto & context = m_contexts[m_selectedSample];
 
   m_view->ShowNonFoundResults(context.m_nonFoundResults,
                               context.m_nonFoundResultsEdits.GetEntries());
-  ShowMarks(context);
-  m_view->OnResultChanged(sampleIndex, View::ResultType::Found,
-                          Edits::Update::MakeAll());
-  m_view->OnResultChanged(sampleIndex, View::ResultType::NonFound,
-                          Edits::Update::MakeAll());
-  m_view->OnSampleChanged(sampleIndex, context.HasChanges());
-  m_view->SetEdits(sampleIndex, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
+  m_view->ShowMarks(context);
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found, Edits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound, Edits::Update::MakeAll());
+  m_view->OnSampleChanged(m_selectedSample, context.HasChanges());
+
+  m_view->SetEdits(m_selectedSample, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
   m_view->OnSearchCompleted();
-}
-
-void MainModel::ResetSearch()
-{
-  ++m_queryTimestamp;
-  if (auto handle = m_queryHandle.lock())
-    handle->Cancel();
-}
-
-void MainModel::ShowMarks(Context const & context)
-{
-  m_view->ClearSearchResultMarks();
-  m_view->ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
-  m_view->ShowNonFoundResultsMarks(context.m_nonFoundResults,
-                                   context.m_nonFoundResultsEdits.GetEntries());
 }
 
 void MainModel::OnChangeAllRelevancesClicked(Edits::Relevance relevance)
