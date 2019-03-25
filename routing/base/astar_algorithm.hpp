@@ -139,12 +139,12 @@ public:
 
     void SetParent(Vertex const & parent, Vertex const & child) { m_parents[parent] = child; }
 
-    bool HasParent(Vertex const & child)
+    bool HasParent(Vertex const & child) const
     {
       return m_parents.count(child) != 0;
     }
 
-    Vertex const & GetParent(Vertex const & child)
+    Vertex const & GetParent(Vertex const & child) const
     {
       auto const it = m_parents.find(child);
       CHECK(it != m_parents.cend(), ("Can not find parent of child:", child));
