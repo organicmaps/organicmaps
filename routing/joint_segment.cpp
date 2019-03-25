@@ -1,5 +1,7 @@
 #include "routing/joint_segment.hpp"
 
+#include "routing/fake_feature_ids.hpp"
+
 #include "base/assert.hpp"
 
 #include <sstream>
@@ -8,7 +10,7 @@ namespace routing
 {
 bool IsRealSegment(Segment const & segment)
 {
-  return segment.GetSegmentIdx() != std::numeric_limits<uint32_t>::max();
+  return segment.GetFeatureId() != FakeFeatureIds::kIndexGraphStarterId;
 }
 
 JointSegment::JointSegment(Segment const & from, Segment const & to)
