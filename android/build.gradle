@@ -68,7 +68,7 @@ dependencies {
   implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.4@aar') { transitive = true }
   // 3-party
   implementation 'com.facebook.android:facebook-android-sdk:4.40.0'
-  implementation 'com.facebook.android:audience-network-sdk:4.27.0'
+  implementation 'com.facebook.android:audience-network-sdk:4.28.2'
   implementation 'com.google.code.gson:gson:2.6.1'
   implementation 'com.pushwoosh:pushwoosh:5.9.0'
   implementation 'com.pushwoosh:pushwoosh-gcm:5.9.0'
