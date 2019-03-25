@@ -26,7 +26,8 @@ string const RoutingOptions::kAvoidRoutingOptionSettingsForCar = "avoid_routing_
 RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 {
   uint32_t mode = 0;
-  UNUSED_VALUE(settings::Get(kAvoidRoutingOptionSettingsForCar, mode));
+  if (!settings::Get(kAvoidRoutingOptionSettingsForCar, mode))
+    mode = 0;
 
   return RoutingOptions(base::checked_cast<RoadType>(mode));
 }
