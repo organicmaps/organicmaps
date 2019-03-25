@@ -10,7 +10,6 @@
 #include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 
-
 #include <algorithm>
 #include <cstdlib>
 #include <limits>
