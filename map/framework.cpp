@@ -1225,6 +1225,11 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
 {
   if (m_drapeEngine == nullptr)
     return;
+
+  double constexpr kEps = 0.5;
+  if (m2::IsEqual(m_visibleViewport, rect, kEps, kEps))
+    return;
+
   m_visibleViewport = rect;
   m_drapeEngine->SetVisibleViewport(rect);
 }

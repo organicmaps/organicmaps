@@ -439,9 +439,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       return;
     }
 
-    updateViewPortRect();
-
     mPlacePage.post(this::setPeekHeight);
+
+    if (isHiddenState(mPlacePageBehavior.getState()))
+      return;
+
+    updateViewPortRect();
   }
 
   private void updateViewPortRect()
