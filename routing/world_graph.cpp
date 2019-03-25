@@ -46,7 +46,18 @@ bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
   return true;
 }
 
+std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const & segment)
+{
+  return {};
+}
+
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
+
+std::vector<Segment> const & WorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+{
+  static std::vector<Segment> const kEmpty;
+  return kEmpty;
+}
 
 std::string DebugPrint(WorldGraphMode mode)
 {

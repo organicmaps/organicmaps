@@ -59,9 +59,7 @@ public:
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const override;
   double CalcSegmentETA(Segment const & segment) override;
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
-  std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
 
   void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<JointEdge> & edges,
@@ -92,6 +90,5 @@ private:
   std::unique_ptr<TransitGraphLoader> m_transitLoader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
-  std::vector<Segment> const kEmptyTransitions = {};
 };
 }  // namespace routing

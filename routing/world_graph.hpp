@@ -78,7 +78,7 @@ public:
   virtual double CalcSegmentETA(Segment const & segment) = 0;
 
   /// \returns transitions for mwm with id |numMwmId|.
-  virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) = 0;
+  virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter);
 
   virtual bool IsRoutingOptionsGood(Segment const & /* segment */);
   virtual RoutingOptions GetRoutingOptions(Segment const & /* segment */);
@@ -87,7 +87,7 @@ public:
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;
 
-  virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) = 0;
+  virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment);
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
 

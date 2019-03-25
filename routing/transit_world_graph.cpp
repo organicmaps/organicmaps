@@ -164,11 +164,6 @@ double TransitWorldGraph::CalcSegmentETA(routing::Segment const & segment)
   return m_estimator->CalcSegmentETA(segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
 }
 
-vector<Segment> const & TransitWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
-{
-  return kEmptyTransitions;
-}
-
 unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
 {
   if (!TransitGraph::IsTransitSegment(segment))
@@ -184,8 +179,6 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   // Fake segment between pedestrian feature and gate.
   return {};
 }
-
-std::vector<RouteSegment::SpeedCamera> TransitWorldGraph::GetSpeedCamInfo(Segment const & segment) { return {}; }
 
 void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
                                       vector<Segment> & twins)
