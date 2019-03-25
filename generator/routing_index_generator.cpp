@@ -173,13 +173,13 @@ public:
     return m_graph.GetPoint(s, forward);
   }
 
-  void GetEdgesList(Segment const & from, bool isOutgoing, std::vector<SegmentEdge> & edges)
+  void GetEdgesList(Segment const & from, bool isOutgoing, vector<SegmentEdge> & edges)
   {
     m_graph.GetEdgeList(from, isOutgoing, edges);
   }
 
   void GetEdgeList(Segment const & segment, bool isOutgoing,
-                   std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) const
+                   vector<JointEdge> & edges, vector<RouteWeight> & parentWeights) const
   {
     return m_graph.GetEdgeList(segment, isOutgoing, edges, parentWeights);
   }
@@ -470,7 +470,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
     AStarAlgorithm<DijkstraWrapperJoints>::Context context;
-    std::unordered_map<uint32_t, std::vector<JointSegment>> visitedVertexes;
+    unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(wrapper, wrapper.GetGraph().GetStartJoint(),
                         [&](JointSegment const & vertex)
                         {
