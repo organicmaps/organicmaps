@@ -141,7 +141,6 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
   double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override { return 0.0; }
   double GetUTurnPenalty() const override;
-  bool LeapIsAllowed(NumMwmId /* mwmId */) const override;
 
 private:
   map<Segment, double> m_segmentWeights;

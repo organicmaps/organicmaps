@@ -54,7 +54,6 @@ public:
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const override;
   double CalcSegmentETA(Segment const & segment) override;
-  bool LeapIsAllowed(NumMwmId mwmId) const override;
   std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
 
   /// \returns true if feature, associated with segment satisfies users conditions.

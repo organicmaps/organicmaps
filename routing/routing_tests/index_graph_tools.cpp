@@ -117,8 +117,6 @@ double WeightedEdgeEstimator::CalcSegmentWeight(Segment const & segment,
 
 double WeightedEdgeEstimator::GetUTurnPenalty() const { return 0.0; }
 
-bool WeightedEdgeEstimator::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
-
 // TestIndexGraphTopology --------------------------------------------------------------------------
 TestIndexGraphTopology::TestIndexGraphTopology(uint32_t numVertices) : m_numVertices(numVertices) {}
 

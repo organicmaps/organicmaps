@@ -176,11 +176,6 @@ double SingleVehicleWorldGraph::CalcSegmentETA(Segment const & segment)
   return m_estimator->CalcSegmentETA(segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
 }
 
-bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
-{
-  return m_estimator->LeapIsAllowed(mwmId);
-}
-
 vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
 {
   return m_crossMwmGraph->GetTransitions(numMwmId, isEnter);

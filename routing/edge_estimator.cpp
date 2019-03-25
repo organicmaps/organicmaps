@@ -138,7 +138,6 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 0.0 /* seconds */; }
-  bool LeapIsAllowed(NumMwmId /* mwmId */) const override { return false; }
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
@@ -162,7 +161,6 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 20.0 /* seconds */; }
-  bool LeapIsAllowed(NumMwmId /* mwmId */) const override { return false; }
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
@@ -186,7 +184,6 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override;
   double GetUTurnPenalty() const override;
-  bool LeapIsAllowed(NumMwmId mwmId) const override;
 
 private:
   double CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const;
@@ -216,8 +213,6 @@ double CarEstimator::GetUTurnPenalty() const
   // experiments.
   return 2 * 60;  // seconds
 }
-
-bool CarEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash->Has(mwmId); }
 
 double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const
 {

@@ -164,8 +164,6 @@ double TransitWorldGraph::CalcSegmentETA(routing::Segment const & segment)
   return m_estimator->CalcSegmentETA(segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
 }
 
-bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
-
 vector<Segment> const & TransitWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
 {
   return kEmptyTransitions;
