@@ -9,6 +9,7 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
 #include <limits>
 #include <map>
 #include <queue>
@@ -480,7 +481,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
   Segment const & endSegment = fromStart ? m_endSegment : m_startSegment;
 
   std::queue<Segment> queue;
-  queue.push(startSegment);
+  queue.emplace(startSegment);
 
   std::map<Segment, Segment> parent;
   std::map<Segment, RouteWeight> weight;
