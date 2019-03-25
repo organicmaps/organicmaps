@@ -46,7 +46,7 @@ using namespace track_analyzing;
 
 namespace
 {
-uint16_t constexpr kMaxspeedTopBound = 200;
+MaxspeedType constexpr kMaxspeedTopBound = 200;
 
 string TypeToString(uint32_t type)
 {
@@ -79,7 +79,7 @@ public:
     for (auto const & additionalTag : CarModel::GetAdditionalTags())
       m_hwtags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
 
-    for (auto const & speedForType : CarModel::GetLimits())
+    for (auto const & speedForType : CarModel::GetOptions())
       m_hwtags.push_back(classif().GetTypeByPath(speedForType.m_types));
 
     for (auto const & surface : CarModel::GetSurfaces())
@@ -189,7 +189,7 @@ struct RoadInfo
   }
 
   CarModelTypes::Type m_type;
-  uint16_t m_maxspeedKMpH = kInvalidSpeed;
+  MaxspeedType m_maxspeedKMpH = kInvalidSpeed;
   bool m_isCityRoad = false;
   bool m_isOneWay = false;
 };
@@ -375,6 +375,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     if (mwmFilter(mwmName))
       return;
 
+    auto const countryName = storage.GetTopmostParentFor(mwmName);
     shared_ptr<VehicleModelInterface> vehicleModel =
         CarModelFactory({}).GetVehicleModelForCountry(mwmName);
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
@@ -406,7 +407,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           subTrackBegin = subTrackEnd;
         }
 
-        auto const summary = aggregator.GetSummary(user, mwmName);
+        auto const summary = aggregator.GetSummary(user, countryName);
         if (!summary.empty())
           cout << summary;
       }

@@ -82,7 +82,7 @@ double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry c
 {
   Junction const & from = road.GetJunction(segment.GetPointId(false /* front */));
   Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
-  VehicleModelInterface::SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
+  SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
   double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
   double const speedMpS = KMPH2MPS(purpose == Purpose::Weight ? speed.m_weight : speed.m_eta);

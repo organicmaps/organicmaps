@@ -69,16 +69,15 @@ public:
     // some speed depending of road type (0 <= speed <= maxSpeed).  For
     // tests purposes for all allowed features speed must be the same as
     // max speed.
-    using SpeedKMpH = typename Model::SpeedKMpH;
-
-    SpeedKMpH GetSpeed(FeatureType & f, routing::SpeedParams const & speedParams) const override
+    routing::SpeedKMpH GetSpeed(FeatureType & f,
+                                routing::SpeedParams const & speedParams) const override
     {
       auto const speed = Model::GetSpeed(f, speedParams);
       if (speed.m_weight <= 0.0)
-        return SpeedKMpH();
+        return routing::SpeedKMpH();
 
       // Note. Max weight speed is used for eta as well here. It's ok for test purposes.
-      return SpeedKMpH(Model::GetMaxWeightSpeed());
+      return routing::SpeedKMpH(Model::GetMaxWeightSpeed());
     }
   };
 

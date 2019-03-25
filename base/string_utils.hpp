@@ -123,7 +123,7 @@ bool IsASCIILatin(UniChar c);
 
 inline std::string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
-template <typename TDelimFn, typename TIt = UniString::const_iterator, bool KeepEmptyTokens = false>
+template <typename DelimFn, typename Iter = UniString::const_iterator, bool KeepEmptyTokens = false>
 class TokenizeIterator
 {
 public:
@@ -134,14 +134,14 @@ public:
   using iterator_category = std::input_iterator_tag;
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(std::string const & s, TDelimFn const & delimFn)
+  TokenizeIterator(std::string const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
     Move();
   }
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(UniString const & s, TDelimFn const & delimFn)
+  TokenizeIterator(UniString const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
     Move();
@@ -199,17 +199,17 @@ private:
   //
   // This version of TokenizeIterator iterates over all tokens and
   // keeps the invariant above.
-  TIt m_start;
-  TIt m_end;
+  Iter m_start;
+  Iter m_end;
 
   // The end of the string the iterator iterates over.
-  TIt m_finish;
+  Iter m_finish;
 
-  TDelimFn m_delimFn;
+  DelimFn m_delimFn;
 };
 
-template <typename TDelimFn, typename TIt>
-class TokenizeIterator<TDelimFn, TIt, true /* KeepEmptyTokens */>
+template <typename DelimFn, typename Iter>
+class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */>
 {
 public:
   using difference_type = std::ptrdiff_t;
@@ -219,7 +219,7 @@ public:
   using iterator_category = std::input_iterator_tag;
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(std::string const & s, TDelimFn const & delimFn)
+  TokenizeIterator(std::string const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
   {
     while (m_end != m_finish && !m_delimFn(*m_end))
@@ -227,7 +227,7 @@ public:
   }
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(UniString const & s, TDelimFn const & delimFn)
+  TokenizeIterator(UniString const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
   {
     while (m_end != m_finish && !m_delimFn(*m_end))
@@ -296,13 +296,13 @@ private:
   //
   // This version of TokenizeIterator iterates over all tokens and
   // keeps the invariant above.
-  TIt m_start;
-  TIt m_end;
+  Iter m_start;
+  Iter m_end;
 
   // The end of the string the iterator iterates over.
-  TIt m_finish;
+  Iter m_finish;
 
-  TDelimFn m_delimFn;
+  DelimFn m_delimFn;
 
   // When true, iterator is at the end position and is not valid
   // anymore.
@@ -512,15 +512,14 @@ bool IsHTML(std::string const & utf8);
 /// Compare str1 and str2 and return if they are equal except for mismatchedSymbolsNum symbols
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount);
 
-template <typename TIterator, typename TDelimiter>
-typename TIterator::value_type JoinStrings(TIterator begin, TIterator end,
-                                           TDelimiter const & delimiter)
+template <typename Iterator, typename Delimiter>
+typename Iterator::value_type JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
 {
   if (begin == end)
     return {};
 
   auto result = *begin++;
-  for (TIterator it = begin; it != end; ++it)
+  for (Iterator it = begin; it != end; ++it)
   {
     result += delimiter;
     result += *it;
@@ -529,15 +528,14 @@ typename TIterator::value_type JoinStrings(TIterator begin, TIterator end,
   return result;
 }
 
-template <typename TContainer, typename TDelimiter>
-typename TContainer::value_type JoinStrings(TContainer const & container,
-                                            TDelimiter const & delimiter)
+template <typename Container, typename Delimiter>
+typename Container::value_type JoinStrings(Container const & container, Delimiter const & delimiter)
 {
-  return JoinStrings(container.begin(), container.end(), delimiter);
+  return JoinStrings(begin(container), end(container), delimiter);
 }
 
-template <typename TFn>
-void ForEachMatched(std::string const & s, std::regex const & regex, TFn && fn)
+template <typename Fn>
+void ForEachMatched(std::string const & s, std::regex const & regex, Fn && fn)
 {
   for (std::sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
     fn(*cur);
@@ -552,8 +550,8 @@ void ForEachMatched(std::string const & s, std::regex const & regex, TFn && fn)
 // [b1, e1) and the other is [b2, e2). The iterator form is chosen to
 // fit both std::string and strings::UniString.  This function does
 // not normalize either of the strings.
-template <typename TIter>
-size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter const & e2)
+template <typename Iter>
+size_t EditDistance(Iter const & b1, Iter const & e1, Iter const & b2, Iter const & e2)
 {
   size_t const n = std::distance(b1, e1);
   size_t const m = std::distance(b2, e2);

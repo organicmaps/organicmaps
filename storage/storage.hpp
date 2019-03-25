@@ -401,6 +401,9 @@ public:
   void GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nodes,
                           size_t level = 0) const;
 
+  /// \brief Returns topmost country id prior root id or |countryId| itself, if it's already
+  /// a topmost node or it's a disputed territory.
+  CountryId const GetTopmostParentFor(CountryId const & countryId) const;
   /// \brief Returns parent id for node if node has single parent. Otherwise (if node is disputed
   /// territory and has multiple parents or does not exist) returns empty CountryId
   CountryId const GetParentIdFor(CountryId const & countryId) const;

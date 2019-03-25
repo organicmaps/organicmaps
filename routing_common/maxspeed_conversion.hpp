@@ -157,20 +157,23 @@ enum class SpeedMacro : uint8_t
   Speed125MPH,
 };
 
-uint16_t constexpr kInvalidSpeed = std::numeric_limits<uint16_t>::max();
-uint16_t constexpr kNoneMaxSpeed = std::numeric_limits<uint16_t>::max() - 1;
-uint16_t constexpr kWalkMaxSpeed = std::numeric_limits<uint16_t>::max() - 2;
+using MaxspeedType = uint16_t;
+
+MaxspeedType constexpr kInvalidSpeed = std::numeric_limits<MaxspeedType>::max();
+MaxspeedType constexpr kNoneMaxSpeed = std::numeric_limits<MaxspeedType>::max() - 1;
+MaxspeedType constexpr kWalkMaxSpeed = std::numeric_limits<MaxspeedType>::max() - 2;
+MaxspeedType constexpr kCommonMaxSpeedValue = std::numeric_limits<MaxspeedType>::max() - 3;
 
 class SpeedInUnits
 {
 public:
   SpeedInUnits() = default;
-  SpeedInUnits(uint16_t speed, measurement_utils::Units units) noexcept : m_speed(speed), m_units(units) {}
+  SpeedInUnits(MaxspeedType speed, measurement_utils::Units units) noexcept : m_speed(speed), m_units(units) {}
 
-  void SetSpeed(uint16_t speed) { m_speed = speed; }
+  void SetSpeed(MaxspeedType speed) { m_speed = speed; }
   void SetUnits(measurement_utils::Units units) { m_units = units; }
 
-  uint16_t GetSpeed() const { return m_speed; }
+  MaxspeedType GetSpeed() const { return m_speed; }
   measurement_utils::Units GetUnits() const { return m_units; }
 
   bool operator==(SpeedInUnits const & rhs) const;
@@ -181,7 +184,7 @@ public:
 
 private:
   // Speed in km per hour or mile per hour depends on m_units value.
-  uint16_t m_speed = kInvalidSpeed;
+  MaxspeedType m_speed = kInvalidSpeed;
   // |m_units| is undefined in case of SpeedMacro::None and SpeedMacro::Walk.
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
 };
@@ -190,17 +193,17 @@ class Maxspeed
 {
 public:
   Maxspeed() = default;
-  Maxspeed(measurement_utils::Units units, uint16_t forward, uint16_t backward);
+  Maxspeed(measurement_utils::Units units, MaxspeedType forward, MaxspeedType backward);
 
   bool operator==(Maxspeed const & rhs) const;
 
   void SetUnits(measurement_utils::Units units) { m_units = units; }
-  void SetForward(uint16_t forward) { m_forward = forward; }
-  void SetBackward(uint16_t backward) { m_backward = backward; }
+  void SetForward(MaxspeedType forward) { m_forward = forward; }
+  void SetBackward(MaxspeedType backward) { m_backward = backward; }
 
   measurement_utils::Units GetUnits() const { return m_units; }
-  uint16_t GetForward() const { return m_forward; }
-  uint16_t GetBackward() const { return m_backward; }
+  MaxspeedType GetForward() const { return m_forward; }
+  MaxspeedType GetBackward() const { return m_backward; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
@@ -210,20 +213,20 @@ public:
 
   /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
   /// |kWalkMaxSpeed| may be returned.
-  uint16_t GetSpeedInUnits(bool forward) const;
+  MaxspeedType GetSpeedInUnits(bool forward) const;
 
   /// \brief returns speed in km per hour. If it's not valid |kInvalidSpeed| is
   /// returned. Otherwise forward or backward speed in km per hour is returned. |kNoneMaxSpeed| and
   /// |kWalkMaxSpeed| are converted to some numbers.
-  uint16_t GetSpeedKmPH(bool forward) const;
+  MaxspeedType GetSpeedKmPH(bool forward) const;
 
 private:
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
   // Speed in km per hour or mile per hour depends on |m_units|.
-  uint16_t m_forward = kInvalidSpeed;
+  MaxspeedType m_forward = kInvalidSpeed;
   // Speed in km per hour or mile per hour depends on |m_units|. If |m_backward| == kInvalidSpeed
   // |m_forward| speed should be used for the both directions.
-  uint16_t m_backward = kInvalidSpeed;
+  MaxspeedType m_backward = kInvalidSpeed;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
@@ -234,8 +237,8 @@ private:
 class FeatureMaxspeed
 {
 public:
-  FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
-                  uint16_t backward = kInvalidSpeed) noexcept;
+  FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, MaxspeedType forward,
+                  MaxspeedType backward = kInvalidSpeed) noexcept;
 
   bool operator==(FeatureMaxspeed const & rhs) const;
   bool IsFeatureIdLess(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
@@ -281,7 +284,7 @@ bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs);
 /// \returns false if |speed| is equal to |kInvalidSpeed|, |kNoneMaxSpeed| or
 /// |kWalkMaxSpeed|.
 /// \param speed in km per hour or mile per hour.
-bool IsNumeric(uint16_t speed);
+bool IsNumeric(MaxspeedType speed);
 
 std::string DebugPrint(Maxspeed maxspeed);
 std::string DebugPrint(SpeedMacro maxspeed);

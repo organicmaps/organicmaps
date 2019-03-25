@@ -29,7 +29,7 @@ bool SpeedInUnits::IsNumeric() const
 }
 
 // Maxspeed ----------------------------------------------------------------------------------------
-Maxspeed::Maxspeed(Units units, uint16_t forward, uint16_t backward)
+Maxspeed::Maxspeed(Units units, MaxspeedType forward, MaxspeedType backward)
   : m_units(units), m_forward(forward), m_backward(backward)
 {
 }
@@ -39,24 +39,24 @@ bool Maxspeed::operator==(Maxspeed const & rhs) const
   return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
 }
 
-uint16_t Maxspeed::GetSpeedInUnits(bool forward) const
+MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const
 {
   return (forward || !IsBidirectional()) ? m_forward : m_backward;
 }
 
-uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
+MaxspeedType Maxspeed::GetSpeedKmPH(bool forward) const
 {
   auto speedInUnits = GetSpeedInUnits(forward);
   if (speedInUnits == kInvalidSpeed)
     return kInvalidSpeed; // That means IsValid() returns false.
 
   if (IsNumeric(speedInUnits))
-    return static_cast<uint16_t>(ToSpeedKmPH(speedInUnits, m_units));
+    return static_cast<MaxspeedType>(ToSpeedKmPH(speedInUnits, m_units));
 
   // A feature is marked as a feature without any speed limits. (maxspeed=="none").
   if (kNoneMaxSpeed)
   {
-    uint16_t constexpr kNoneSpeedLimitKmPH = 130;
+    MaxspeedType constexpr kNoneSpeedLimitKmPH = 130;
     return kNoneSpeedLimitKmPH;
   }
 
@@ -64,7 +64,7 @@ uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
   // should drive with a speed of a walking person.
   if (kWalkMaxSpeed)
   {
-    uint16_t constexpr kWalkSpeedLimitKmPH = 6;
+    MaxspeedType constexpr kWalkSpeedLimitKmPH = 6;
     return kWalkSpeedLimitKmPH;
   }
 
@@ -72,8 +72,8 @@ uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 }
 
 // FeatureMaxspeed ---------------------------------------------------------------------------------
-FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
-                                 uint16_t backward /* = kInvalidSpeed */) noexcept
+FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, MaxspeedType forward,
+                                 MaxspeedType backward /* = kInvalidSpeed */) noexcept
   : m_featureId(fid), m_maxspeed(units, forward, backward)
 {
 }
@@ -96,7 +96,7 @@ SpeedInUnits FeatureMaxspeed::GetBackwardSpeedInUnits() const
 // MaxspeedConverter -------------------------------------------------------------------------------
 MaxspeedConverter::MaxspeedConverter()
 {
-  vector<tuple<SpeedMacro, uint16_t, Units>> const table = {
+  vector<tuple<SpeedMacro, MaxspeedType, Units>> const table = {
       // Special values.
       {SpeedMacro::Undefined, kInvalidSpeed /* speed */, Units::Metric},
       {SpeedMacro::None, kNoneMaxSpeed /* speed */, Units::Metric},
@@ -308,7 +308,7 @@ bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs)
   return lhs.IsFeatureIdLess(rhs);
 }
 
-bool IsNumeric(uint16_t speed)
+bool IsNumeric(MaxspeedType speed)
 {
   return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed;
 }

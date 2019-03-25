@@ -36,7 +36,7 @@ public:
             feature::TAltitudes const * altitudes, bool inCity, Maxspeed const & maxspeed);
 
   bool IsOneWay() const { return m_isOneWay; }
-  VehicleModelInterface::SpeedKMpH const & GetSpeed(bool forward) const;
+  SpeedKMpH const & GetSpeed(bool forward) const;
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
 
   Junction const & GetJunction(uint32_t junctionId) const
@@ -75,8 +75,8 @@ public:
 
 private:
   buffer_vector<Junction, 32> m_junctions;
-  VehicleModelInterface::SpeedKMpH m_forwardSpeed;
-  VehicleModelInterface::SpeedKMpH m_backwardSpeed;
+  SpeedKMpH m_forwardSpeed;
+  SpeedKMpH m_backwardSpeed;
   bool m_isOneWay = false;
   bool m_valid = false;
   bool m_isPassThroughAllowed = false;

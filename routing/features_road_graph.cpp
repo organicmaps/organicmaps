@@ -48,7 +48,7 @@ FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
 {
 }
 
-VehicleModelInterface::SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(
+SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(
     FeatureType & f, SpeedParams const & speedParams) const
 {
   return GetVehicleModel(f.GetID())->GetSpeed(f, speedParams);
@@ -84,7 +84,7 @@ VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleM
   auto const vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(
       featureId.m_mwmId.GetInfo()->GetCountryName());
 
-  ASSERT(nullptr != vehicleModel, ());
+  ASSERT(vehicleModel, ());
   ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxWeightSpeed(), ());
 
   itr = m_cache.insert(make_pair(featureId.m_mwmId, move(vehicleModel))).first;

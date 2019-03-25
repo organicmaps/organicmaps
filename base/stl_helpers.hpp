@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <iterator>
@@ -414,4 +415,13 @@ void AccumulateIntervals1With2(Iter1 b1, Iter1 e1, Iter2 b2, Iter2 e2, InsertIte
   if (validPrev)
     *res++ = prev;
 }
+
+struct EnumClassHash
+{
+  template<typename T, std::enable_if_t<std::is_enum<T>::value> * = nullptr>
+  size_t operator()(T const & t) const noexcept
+  {
+    return static_cast<size_t>(t);
+  }
+};
 }  // namespace base

@@ -2107,6 +2107,20 @@ CountryId const Storage::GetParentIdFor(CountryId const & countryId) const
   return nodes[0]->Value().GetParent();
 }
 
+CountryId const Storage::GetTopmostParentFor(CountryId const & countryId) const
+{
+  auto const rootId = GetRootId();
+  auto result = countryId;
+  auto parent = GetParentIdFor(result);
+  while (!parent.empty() && parent != rootId)
+  {
+    result = move(parent);
+    parent = GetParentIdFor(result);
+  }
+
+  return result;
+}
+
 MwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_t version) const
 {
   if (version::IsSingleMwm(version))

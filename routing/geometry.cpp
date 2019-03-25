@@ -190,7 +190,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   }
 }
 
-VehicleModelInterface::SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
+SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
 {
   return forward ? m_forwardSpeed : m_backwardSpeed;
 }

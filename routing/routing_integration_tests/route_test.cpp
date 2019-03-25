@@ -46,7 +46,7 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(55.77399, 37.68468), {0., 0.},
+        MercatorBounds::FromLatLon(55.77397, 37.68465), {0., 0.},
         MercatorBounds::FromLatLon(55.77198, 37.68782), 1032.);
   }
 
@@ -262,20 +262,6 @@ namespace
         MercatorBounds::FromLatLon(46.13418, -63.84656), 23000.);
   }
 
-  UNIT_TEST(RussiaFerryToCrimea)
-  {
-    // Forward
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.38053, 36.73226), {0., 0.},
-        MercatorBounds::FromLatLon(45.36078, 36.60866), 15500.);
-    // And backward case
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
-        MercatorBounds::FromLatLon(45.38053, 36.73226), 15500.);
-  }
-
   UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
   {
     // Forward
@@ -302,7 +288,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 16594.5);
+    integration::TestRouteTime(route, 14770.0);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -316,7 +302,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 955.5);
+    integration::TestRouteTime(route, 979.4);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -398,7 +384,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 17704.3);
+    integration::TestRouteTime(route, 19621.8);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -426,7 +412,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 7136.04);
+    integration::TestRouteTime(route, 6445.17);
   }
 
   // Test on removing speed cameras from the route for maps from Jan 2019,
