@@ -159,11 +159,12 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         }
 
         context.m_initialized = true;
+
+        if (background)
+          RunNextBackgroundRequest(timestamp);
       }
 
-      if (background)
-        RunNextBackgroundRequest(timestamp);
-      else
+      if (!background)
         m_updateViewOnResults(results);
     });
   };

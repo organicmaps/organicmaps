@@ -1,12 +1,12 @@
 #include "search/search_quality/assessment_tool/main_model.hpp"
 
 #include "search/feature_loader.hpp"
+#include "search/search_params.hpp"
 #include "search/search_quality/assessment_tool/view.hpp"
+#include "search/search_quality/helpers.hpp"
 #include "search/search_quality/matcher.hpp"
 
 #include "map/framework.hpp"
-
-#include "search/search_params.hpp"
 
 #include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"
@@ -44,6 +44,7 @@ MainModel::MainModel(Framework & framework)
                m_view->OnSampleChanged(index, false /* hasEdits */);
              })
 {
+  search::CheckLocale();
 }
 
 void MainModel::Open(string const & path)
