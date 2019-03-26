@@ -1263,7 +1263,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   else
   {
     double offsetZ = 0.0;
-    auto const & modelView = m_userEventStream.GetCurrentScreen();
+    ScreenBase modelView;
+    m_userEventStream.GetTargetScreen(modelView);
     if (modelView.isPerspective())
     {
       dp::TOverlayContainer selectResult;
