@@ -118,7 +118,7 @@ def getDate() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
+project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2, 'arm64-v8a': 3]
 project.ext.appId = 'com.mapswithme.maps.pro'
 
 crashlytics {
@@ -203,9 +203,9 @@ android {
       if (project.hasProperty('pch')) pchFlag = 'ON'
 
       cmake {
-        cppFlags '-fexceptions', '-frtti', '-m32'
+        cppFlags '-fexceptions', '-frtti'
         cFlags '-ffunction-sections', '-fdata-sections',
-               '-Wno-extern-c-compat', '-m32'
+               '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
                   "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
       }
@@ -213,17 +213,21 @@ android {
 
     ndk {
       abiFilters = new HashSet<>()
-      if (project.hasProperty('arm')) {
-        println("Building for the ARM architecture")
+      if (project.hasProperty("arm32")) {
+        println("Building for the ARM32 architecture")
         abiFilters.add("armeabi-v7a")
-      } else if (project.hasProperty('x86')) {
+      } else if (project.hasProperty("arm64")) {
+        println("Building for the ARM64 architecture")
+        abiFilters.add("arm64-v8a")
+      } else if (project.hasProperty("x86")) {
         println("Building for the x86 architecture")
         abiFilters.add("x86")
       } else {
         if (!project.hasProperty('splitApk')) {
           println("Building for the ARM and x86 architectures")
-          abiFilters.add("armeabi-v7a")
           abiFilters.add("x86")
+          abiFilters.add("armeabi-v7a")
+          abiFilters.add("arm64-v8a")
         }
       }
     }
@@ -370,7 +374,7 @@ android {
     println ("Create separate apks: " + enabled)
     enable enabled
     reset()
-    include 'x86', 'armeabi-v7a'
+    include 'x86', 'armeabi-v7a', 'arm64-v8a'
     universalApk true
   }
 
@@ -467,8 +471,6 @@ android {
   }
 
   packagingOptions {
-    exclude 'lib/arm64-v8a/libcrashlytics-envelope.so'
-    exclude 'lib/arm64-v8a/libcrashlytics.so'
     exclude 'lib/armeabi/libcrashlytics-envelope.so'
     exclude 'lib/armeabi/libcrashlytics.so'
     exclude 'lib/mips64/libcrashlytics-envelope.so'
@@ -477,6 +479,34 @@ android {
     exclude 'lib/mips/libcrashlytics.so'
     exclude 'lib/x86_64/libcrashlytics-envelope.so'
     exclude 'lib/x86_64/libcrashlytics.so'
+    exclude 'lib/armeabi/libVkLayer_core_validation.so'
+    exclude 'lib/armeabi/libVkLayer_threading.so'
+    exclude 'lib/armeabi/libVkLayer_image.so'
+    exclude 'lib/armeabi/libVkLayer_parameter_validation.so'
+    exclude 'lib/armeabi/libVkLayer_object_tracker.so'
+    exclude 'lib/armeabi/libVkLayer_swapchain.so'
+    exclude 'lib/armeabi/libVkLayer_unique_objects.so'
+    exclude 'lib/x86_64/libVkLayer_core_validation.so'
+    exclude 'lib/x86_64/libVkLayer_threading.so'
+    exclude 'lib/x86_64/libVkLayer_image.so'
+    exclude 'lib/x86_64/libVkLayer_parameter_validation.so'
+    exclude 'lib/x86_64/libVkLayer_object_tracker.so'
+    exclude 'lib/x86_64/libVkLayer_swapchain.so'
+    exclude 'lib/x86_64/libVkLayer_unique_objects.so'
+    exclude 'lib/mips64/libVkLayer_core_validation.so'
+    exclude 'lib/mips64/libVkLayer_threading.so'
+    exclude 'lib/mips64/libVkLayer_image.so'
+    exclude 'lib/mips64/libVkLayer_parameter_validation.so'
+    exclude 'lib/mips64/libVkLayer_object_tracker.so'
+    exclude 'lib/mips64/libVkLayer_swapchain.so'
+    exclude 'lib/mips64/libVkLayer_unique_objects.so'
+    exclude 'lib/mips/libVkLayer_core_validation.so'
+    exclude 'lib/mips/libVkLayer_threading.so'
+    exclude 'lib/mips/libVkLayer_image.so'
+    exclude 'lib/mips/libVkLayer_parameter_validation.so'
+    exclude 'lib/mips/libVkLayer_object_tracker.so'
+    exclude 'lib/mips/libVkLayer_swapchain.so'
+    exclude 'lib/mips/libVkLayer_unique_objects.so'
   }
 }
 
@@ -487,9 +517,6 @@ project.ext.PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcess
 project.ext.NDK_BUILD = android.getNdkDirectory().toString() + '/ndk-build'
 if (System.properties['os.name'].toLowerCase().contains('windows'))
   project.ext.NDK_BUILD += ".cmd"
-
-def archs = ['x86', 'armeabi-v7a']
-def buildTypes = [[ndkType: 'release', cppType: "production", flags: propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags: propDebugNdkFlags]]
 
 // Tasks for generating obb files for Google Play
 def unalignedFonts = "${propObbFontsOutput}.unaligned"

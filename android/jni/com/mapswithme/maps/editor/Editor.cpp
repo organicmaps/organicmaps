@@ -401,7 +401,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz
 {
   auto const stats = Editor::Instance().GetStats();
   jlongArray result = env->NewLongArray(3);
-  jlong buf[] = {stats.m_edits.size(), stats.m_uploadedCount, stats.m_lastUploadTimestamp};
+  jlong buf[] = {static_cast<jlong>(stats.m_edits.size()), static_cast<jlong>(stats.m_uploadedCount),
+                 stats.m_lastUploadTimestamp};
   env->SetLongArrayRegion(result, 0, 3, buf);
   return result;
 }
