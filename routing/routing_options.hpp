@@ -33,6 +33,7 @@ public:
   explicit RoutingOptions(RoadType mask) : m_options(mask) {}
 
   static RoutingOptions LoadCarOptionsFromSettings();
+  static void SaveCarOptionsToSettings(RoutingOptions options);
 
   void Add(Road type);
   void Remove(Road type);

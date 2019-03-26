@@ -8,6 +8,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/string_utils.hpp"
 
 #include <initializer_list>
 #include <sstream>
@@ -30,6 +31,13 @@ RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
     mode = 0;
 
   return RoutingOptions(base::checked_cast<RoadType>(mode));
+}
+
+// static
+void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
+{
+  settings::Set(kAvoidRoutingOptionSettingsForCar,
+                strings::to_string(static_cast<int32_t>(options.GetOptions())));
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)

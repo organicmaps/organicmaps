@@ -11,12 +11,19 @@ namespace
 {
 using RoadType = RoutingOptions::RoadType;
 
-void Checker(std::vector<RoutingOptions::Road> const & include)
+RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
 {
   RoutingOptions options;
 
   for (auto type : include)
     options.Add(type);
+
+  return options;
+}
+
+void Checker(std::vector<RoutingOptions::Road> const & include)
+{
+  RoutingOptions options = CreateOptions(include);
 
   for (auto type : include)
     TEST(options.Has(type), ());
@@ -47,5 +54,17 @@ UNIT_TEST(RoutingOptionTest)
   Checker({RoutingOptions::Road::Toll});
   Checker({RoutingOptions::Road::Dirty, RoutingOptions::Road::Motorway});
   Checker({});
+}
+
+UNIT_TEST(RoutingOption_GetSetTest)
+{
+  RoutingOptions options = CreateOptions({RoutingOptions::Road::Toll,
+                                          RoutingOptions::Road::Motorway,
+                                          RoutingOptions::Road::Dirty});
+
+  RoutingOptions::SaveCarOptionsToSettings(options);
+  RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();
+
+  TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
 }
 }  // namespace
