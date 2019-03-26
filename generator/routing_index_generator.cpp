@@ -168,6 +168,11 @@ public:
   Segment GetStartSegment() const { return m_start; }
   Segment GetFinishSegment() const { return {}; }
   bool ConvertToReal(Segment const & /* segment */) const { return false; }
+  RouteWeight HeuristicCostEstimate(Segment const & /* from */, m2::PointD const & /* to */)
+  {
+    CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
+    return GetAStarWeightZero<RouteWeight>();
+  }
   // @}
 
   m2::PointD const & GetPoint(Segment const & s, bool forward)
@@ -203,41 +208,18 @@ private:
   Segment m_start;
 };
 
-class DijkstraWrapper : public AStarGraph<Segment, SegmentEdge, RouteWeight>
+class DijkstraWrapperJoints : public IndexGraphStarterJoints<IndexGraphWrapper>
 {
 public:
-  // AStarAlgorithm types aliases:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
 
-  explicit DijkstraWrapperJoints(IndexGraphWrapper & graph, Segment const & start)
-    : m_graph(graph, start) {}
+  DijkstraWrapperJoints(IndexGraphWrapper & graph, Segment const & start)
+    : IndexGraphStarterJoints<IndexGraphWrapper>(graph, start) {}
 
-  void GetOutgoingEdgesList(Vertex const & vertex, vector<Edge> & edges)
-  {
-    m_graph.GetOutgoingEdgesList(vertex, edges);
-  }
-
-  void GetIngoingEdgesList(Vertex const & vertex, vector<Edge> & edges)
-  {
-    m_graph.GetIngoingEdgesList(vertex, edges);
-  }
-
-  Weight HeuristicCostEstimate(Vertex const & /* from */, Vertex const & /* to */)
+    // IndexGraphStarterJoints overrides
+  Weight HeuristicCostEstimate(Vertex const & /* from */, Vertex const & /* to */) override
   {
     return GetAStarWeightZero<Weight>();
   }
-
-  m2::PointD const & GetPoint(Vertex const & vertex, bool forward)
-  {
-    return m_graph.GetPoint(vertex, forward);
-  }
-
-  IndexGraphStarterJoints<IndexGraphWrapper> & GetGraph() { return m_graph; }
-
-private:
-  IndexGraphStarterJoints<IndexGraphWrapper> m_graph;
 };
 
 // Calculate distance from the starting border point to the transition along the border.
@@ -472,15 +454,15 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
-    AStarAlgorithm<DijkstraWrapperJoints>::Context context;
+    Algorithm::Context context;
     unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
-    astar.PropagateWave(wrapper, wrapper.GetGraph().GetStartJoint(),
+    astar.PropagateWave(wrapper, wrapper.GetStartJoint(),
                         [&](JointSegment const & vertex)
                         {
                           if (vertex.IsFake())
                           {
-                            Segment start = wrapper.GetGraph().GetSegmentOfFakeJoint(vertex, true /* start */);
-                            Segment end = wrapper.GetGraph().GetSegmentOfFakeJoint(vertex, false /* start */);
+                            Segment start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
+                            Segment end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
                             if (start.IsForward() != end.IsForward())
                               return true;
 
@@ -519,7 +501,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           if (context.HasParent(jointSegment))
           {
             JointSegment const & parent = context.GetParent(jointSegment);
-            parentSegment = parent.IsFake() ? wrapper.GetGraph().GetSegmentOfFakeJoint(parent, false /* start */)
+            parentSegment = parent.IsFake() ? wrapper.GetSegmentOfFakeJoint(parent, false /* start */)
                                             : parent.GetSegment(false /* start */);
 
             weight = context.GetDistance(parent);

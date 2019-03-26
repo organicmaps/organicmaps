@@ -26,9 +26,6 @@ template <typename Graph>
 class IndexGraphStarterJoints : public AStarGraph<JointSegment, JointEdge, RouteWeight>
 {
 public:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
 
   explicit IndexGraphStarterJoints(Graph & graph) : m_graph(graph) {}
   IndexGraphStarterJoints(Graph & graph,

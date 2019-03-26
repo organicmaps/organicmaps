@@ -27,9 +27,6 @@ struct Edge
 class UndirectedGraph : public AStarGraph<unsigned, routing_test::Edge, double>
 {
 public:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
 
   void AddEdge(unsigned u, unsigned v, unsigned w)
   {

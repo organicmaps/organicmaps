@@ -31,10 +31,6 @@ class FakeEdgesContainer;
 class IndexGraphStarter : public AStarGraph<IndexGraph::Vertex, IndexGraph::Edge, IndexGraph::Weight>
 {
 public:
-  // AStarAlgorithm types aliases:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
 
   friend class FakeEdgesContainer;
 

@@ -44,36 +44,6 @@ using namespace routing;
 // It just a noticeable value to detect the source of such id while debuging unit tests.
 NumMwmId constexpr kTestNumMwmId = 777;
 
-class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
-{
-public:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
-
-  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
-
-  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
-  {
-    return m_graph.HeuristicCostEstimate(from, to);
-  }
-
-  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
-  {
-    m_graph.GetOutgoingEdgesList(v, edges);
-  }
-
-  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
-  {
-    m_graph.GetIngoingEdgesList(v, edges);
-  }
-
-  ~WorldGraphForAStar() override = default;
-
-private:
-  WorldGraph & m_graph;
-};
-
 struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }

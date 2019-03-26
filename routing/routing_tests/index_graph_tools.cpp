@@ -21,6 +21,33 @@ namespace
 {
 double constexpr kEpsilon = 1e-6;
 
+class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
+{
+public:
+
+  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
+
+  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
+  {
+    return m_graph.HeuristicCostEstimate(from, to);
+  }
+
+  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetOutgoingEdgesList(v, edges);
+  }
+
+  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetIngoingEdgesList(v, edges);
+  }
+
+  ~WorldGraphForAStar() override = default;
+
+private:
+  WorldGraph & m_graph;
+};
+
 template <typename Graph>
 Graph & GetGraph(unordered_map<NumMwmId, unique_ptr<Graph>> const & graphs, NumMwmId mwmId)
 {
@@ -199,8 +226,8 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   WorldGraphForAStar graphForAStar(*worldGraph);
 
   AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
-                                                    nullptr /* prevRoute */,
-                                                    {} /* checkLengthCallback */);
+                                                nullptr /* prevRoute */,
+                                                {} /* checkLengthCallback */);
   RoutingResult<Segment, RouteWeight> routingResult;
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 
@@ -216,8 +243,8 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   if (resultCode == AlgorithmForWorldGraph::Result::NoPath)
     return false;
-  CHECK_EQUAL(resultCode, AlgorithmForWorldGraph::Result::OK, ());
 
+  CHECK_EQUAL(resultCode, AlgorithmForWorldGraph::Result::OK, ());
   CHECK_GREATER_OR_EQUAL(routingResult.m_path.size(), 2, ());
   CHECK_EQUAL(routingResult.m_path.front(), startSegment, ());
   CHECK_EQUAL(routingResult.m_path.back(), finishSegment, ());
@@ -383,14 +410,13 @@ shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> traffic
   return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
 }
 
-AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result
-CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
-               double & timeSec)
+AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
+                                              double & timeSec)
 {
-  AStarAlgorithm<Segment, SegmentEdge, RouteWeight> algorithm;
+  AlgorithmForWorldGraph algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::ParamsForTests params(
+  AlgorithmForWorldGraph::ParamsForTests params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
 
@@ -402,7 +428,7 @@ CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
 }
 
 void TestRouteGeometry(IndexGraphStarter & starter,
-                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                       AlgorithmForWorldGraph::Result expectedRouteResult,
                        vector<m2::PointD> const & expectedRouteGeom)
 {
   vector<Segment> routeSegs;
@@ -411,7 +437,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 
   TEST_EQUAL(resultCode, expectedRouteResult, ());
 
-  if (AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result::NoPath == expectedRouteResult &&
+  if (AlgorithmForWorldGraph::Result::NoPath == expectedRouteResult &&
       expectedRouteGeom.empty())
   {
     // The route goes through a restriction. So there's no choice for building route
@@ -419,7 +445,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
     return;
   }
 
-  if (resultCode != AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result::OK)
+  if (resultCode != AlgorithmForWorldGraph::Result::OK)
     return;
 
   CHECK(!routeSegs.empty(), ());
@@ -449,7 +475,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
-                      AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                      AlgorithmForWorldGraph::Result expectedRouteResult,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {

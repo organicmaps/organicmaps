@@ -572,8 +572,8 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   auto checkLength = [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); };
 
   base::HighResTimer timer;
-  WorldGraphMode mode = starter.GetGraph().GetMode();
-  if (mode == WorldGraph::Mode::Joints)
+  WorldGraphMode const mode = starter.GetGraph().GetMode();
+  if (mode == WorldGraphMode::Joints)
   {
     IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
     RoutingResult<JointSegment, RouteWeight> routingResult;
@@ -595,9 +595,9 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       delegate.OnPointCheck(pointFrom);
     };
 
-    using Vertex = IndexGraphStarterJoints::Vertex;
-    using Edge = IndexGraphStarterJoints::Edge;
-    using Weight = IndexGraphStarterJoints::Weight;
+    using Vertex = IndexGraphStarterJoints<IndexGraphStarter>::Vertex;
+    using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
+    using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
 
     AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(), nullptr /* prevRoute */,
@@ -916,9 +916,9 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     fillMwmIds(start, end, mwmIds);
 
-    using Vertex = IndexGraphStarterJoints::Vertex;
-    using Edge = IndexGraphStarterJoints::Edge;
-    using Weight = IndexGraphStarterJoints::Weight;
+    using Vertex = IndexGraphStarterJoints<IndexGraphStarter>::Vertex;
+    using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
+    using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
 
     AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),

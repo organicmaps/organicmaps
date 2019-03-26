@@ -143,7 +143,7 @@ private:
   template <typename Vertex, typename Edge, typename Weight>
   RouterResultCode FindPath(
       typename AStarAlgorithm<Vertex, Edge, Weight>::Params & params, std::set<NumMwmId> const & mwmIds,
-      RoutingResult<Vertex, Weight> & routingResult, WorldGraph::Mode mode) const
+      RoutingResult<Vertex, Weight> & routingResult, WorldGraphMode mode) const
   {
     AStarAlgorithm<Vertex, Edge, Weight> algorithm;
     if (mode == WorldGraphMode::LeapsOnly)

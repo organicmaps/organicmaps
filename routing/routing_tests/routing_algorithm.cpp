@@ -2,6 +2,7 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
+
 #include "routing/maxspeeds.hpp"
 #include "routing/routing_helpers.hpp"
 
@@ -48,12 +49,9 @@ private:
 using Algorithm = AStarAlgorithm<Junction, WeightedEdge, double>;
 
 /// A wrapper around IRoadGraph, which makes it possible to use IRoadGraph with astar algorithms.
-class RoadGraph : public AStarGraph<Junction, WeightedEdge, double>
+class RoadGraph : public Algorithm::Graph
 {
 public:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
 
   explicit RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
@@ -143,7 +141,7 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
   RoadGraph roadGraph(graph);
   base::Cancellable const cancellable;
   Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                                           cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
+                           cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }
