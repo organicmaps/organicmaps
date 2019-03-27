@@ -31,7 +31,7 @@ namespace
 {
 string const kBookingApiBaseUrlV1 = "https://distribution-xml.booking.com/json/bookings";
 string const kBookingApiBaseUrlV2 = "https://distribution-xml.booking.com/2.0/json";
-string const kExtendedHotelInfoBaseUrl = "https://hotels.maps.me/getDescription";
+string const kExtendedHotelInfoBaseUrl = BOOKING_EXTENDED_INFO_BASE_URL;
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
