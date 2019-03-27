@@ -1825,18 +1825,12 @@ public class PlacePageView extends NestedScrollView
   void reset()
   {
     resetScroll();
-    resetWebView();
     detachCountry();
   }
 
   void resetScroll()
   {
     scrollTo(0, 0);
-  }
-
-  void resetWebView()
-  {
-    mWvBookmarkNote.loadUrl("about:blank");
   }
 
   private static boolean isInvalidDownloaderStatus(int status)

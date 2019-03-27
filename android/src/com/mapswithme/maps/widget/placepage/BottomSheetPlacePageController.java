@@ -276,7 +276,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
       mBannerRatio = 0;
       mPlacePage.resetScroll();
-      mPlacePage.resetWebView();
 
       if (object.isExtendedView())
       {
