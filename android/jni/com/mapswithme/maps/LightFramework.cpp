@@ -4,23 +4,23 @@
 
 #include "base/assert.hpp"
 
-#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
-using namespace lightweight;
+#include "com/mapswithme/core/jni_helper.hpp"
 
 extern "C"
 {
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeIsAuthenticated(JNIEnv * env, jclass clazz)
 {
-  Framework const framework(REQUEST_TYPE_USER_AUTH_STATUS);
+  lightweight::Framework const framework(lightweight::REQUEST_TYPE_USER_AUTH_STATUS);
   return static_cast<jboolean>(framework.IsUserAuthenticated());
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeGetNumberUnsentUGC(JNIEnv * env, jclass clazz)
 {
-  Framework const framework(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
+  lightweight::Framework const framework(lightweight::REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
   return static_cast<jint>(framework.GetNumberOfUnsentUGC());
 }
 
@@ -40,7 +40,7 @@ Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass
                                                             jstring mwmName, jlong mwmVersion,
                                                             jint featureIndex)
 {
-  auto const featureId = FeatureParamsToString(
+  auto const featureId = lightweight::FeatureParamsToString(
     static_cast<int64_t>(mwmVersion), jni::ToNativeString(env, mwmName),
     static_cast<uint32_t>(featureIndex));
 
@@ -53,7 +53,7 @@ Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, 
                                                                   jdouble radiusInMeters,
                                                                   jint maxCount)
 {
-  Framework framework(REQUEST_TYPE_LOCAL_ADS_FEATURES);
+  lightweight::Framework framework(lightweight::REQUEST_TYPE_LOCAL_ADS_FEATURES);
   auto const features = framework.GetLocalAdsFeatures(lat, lon, radiusInMeters, maxCount);
 
   static jclass const geoFenceFeatureClazz =
@@ -81,7 +81,7 @@ Java_com_mapswithme_maps_LightFramework_nativeLogLocalAdsEvent(JNIEnv * env, jcl
                                                                jlong mwmVersion, jstring countryId,
                                                                jint featureIndex)
 {
-  Framework framework(REQUEST_TYPE_LOCAL_ADS_STATISTICS);
+  lightweight::Framework framework(lightweight::REQUEST_TYPE_LOCAL_ADS_STATISTICS);
   local_ads::Event event(static_cast<local_ads::EventType>(type), static_cast<long>(mwmVersion),
                          jni::ToNativeString(env, countryId), static_cast<uint32_t>(featureIndex),
                          static_cast<uint8_t>(1) /* zoom level */, local_ads::Clock::now(),
