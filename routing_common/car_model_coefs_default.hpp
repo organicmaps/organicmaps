@@ -40,7 +40,7 @@ HighwayBasedFactors const kGlobalHighwayBasedFactors = {
     // {maxspeed : InOutCityFactor(in city, out city)}
     {kCommonMaxSpeedValue, InOutCityFactor(0.80)}
   }},
-  {HighwayType::HighwayLiving_street /* highway class */, {
+  {HighwayType::HighwayLivingStreet /* highway class */, {
     // {maxspeed : InOutCityFactor(in city, out city)}
     {kCommonMaxSpeedValue, InOutCityFactor(0.75)}
   }},
