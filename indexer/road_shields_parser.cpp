@@ -63,6 +63,7 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"ua:local", RoadShieldType::Generic_White},
     {"za:national", RoadShieldType::Generic_White},
     {"za:regional", RoadShieldType::Generic_White},
+    {"my:federal", RoadShieldType::Generic_Orange},
     // United States road networks.
     {"us:i", RoadShieldType::US_Interstate},
     {"us:us", RoadShieldType::US_Highway},
@@ -475,7 +476,8 @@ class MalaysiaRoadShieldParser : public SimpleUnicodeRoadShieldParser
 public:
   explicit MalaysiaRoadShieldParser(std::string const & baseRoadNumber)
     : SimpleUnicodeRoadShieldParser(baseRoadNumber,
-                                    {{Name("AH", "AH"), RoadShieldType::Generic_Blue}},
+                                    {{Name("AH", "AH"), RoadShieldType::Generic_Blue},
+                                     {Name("E", "E"), RoadShieldType::Generic_Blue}},
                                      RoadShieldType::Generic_Orange)
   {
   }
