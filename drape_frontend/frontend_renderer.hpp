@@ -211,9 +211,9 @@ private:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
-  void OnTouchMapAction(TouchEvent::ETouchType touchType) override;
+  void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) override;
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                            m2::PointD & gOffset) override;
+                            bool needOffset, m2::PointD & gOffset) override;
 
   class Routine : public threads::IRoutine
   {

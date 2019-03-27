@@ -434,6 +434,10 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   m_visibleViewport = viewportEvent->GetRect();
   m2::PointD gOffset;
   ScreenBase screen;
+
+  auto const hasOffset = m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport,
+                                                          !m_needTrackCenter, gOffset);
+
   if (m_needTrackCenter)
   {
     GetTargetScreen(screen);
@@ -441,7 +445,7 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
     ShrinkAndScaleInto(screen, df::GetWorldRect());
     return SetScreen(screen, true /* isAnim */);
   }
-  else if (m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, gOffset))
+  else if (hasOffset)
   {
     screen = GetCurrentScreen();
     screen.MoveG(gOffset);
@@ -725,14 +729,14 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
     break;
   }
 
+  if (m_listener)
+    m_listener->OnTouchMapAction(touchEvent.GetTouchType(), isMapTouch);
+
   return isMapTouch;
 }
 
 bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 {
-  if (m_listener)
-    m_listener->OnTouchMapAction(TouchEvent::TOUCH_DOWN);
-
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
   
@@ -798,9 +802,6 @@ bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshol
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
-  if (m_listener)
-    m_listener->OnTouchMapAction(TouchEvent::TOUCH_MOVE);
-
   double const kDragThreshold = pow(VisualParams::Instance().GetDragThreshold(), 2);
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -882,9 +883,6 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
 {
-  if (m_listener)
-    m_listener->OnTouchMapAction(TouchEvent::TOUCH_CANCEL);
-
   size_t touchCount = GetValidTouchesCount(touches);
   UNUSED_VALUE(touchCount);
   bool isMapTouch = true;
@@ -926,9 +924,6 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
 {
-  if (m_listener)
-    m_listener->OnTouchMapAction(TouchEvent::TOUCH_UP);
-
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
   switch (m_state)

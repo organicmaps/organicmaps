@@ -377,10 +377,10 @@ public:
     virtual void OnScaleEnded() = 0;
     virtual void OnAnimatedScaleEnded() = 0;
 
-    virtual void OnTouchMapAction(TouchEvent::ETouchType touchType) = 0;
+    virtual void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) = 0;
 
     virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                                      m2::PointD & gOffset) = 0;
+                                      bool needOffset, m2::PointD & gOffset) = 0;
   };
 
   UserEventStream();

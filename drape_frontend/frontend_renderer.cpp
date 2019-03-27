@@ -1195,6 +1195,7 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 void FrontendRenderer::OnCompassTapped()
 {
   m_myPositionController->OnCompassTapped();
+  m_selectionTrackInfo.reset();
 }
 
 FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
@@ -2001,6 +2002,7 @@ void FrontendRenderer::OnScaleEnded()
   m_myPositionController->ScaleEnded();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
   m_firstLaunchAnimationInterrupted = true;
+  m_selectionTrackInfo.reset();
 }
 
 void FrontendRenderer::OnAnimatedScaleEnded()
@@ -2008,20 +2010,28 @@ void FrontendRenderer::OnAnimatedScaleEnded()
   m_myPositionController->ResetBlockAutoZoomTimer();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
   m_firstLaunchAnimationInterrupted = true;
+  m_selectionTrackInfo.reset();
 }
 
-void FrontendRenderer::OnTouchMapAction(TouchEvent::ETouchType touchType)
+void FrontendRenderer::OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch)
 {
   // Here we block timer on start of touch actions. Timer will be unblocked on
   // the completion of touch actions. It helps to prevent the creation of redundant checks.
   auto const blockTimer = (touchType == TouchEvent::TOUCH_DOWN || touchType == TouchEvent::TOUCH_MOVE);
   m_myPositionController->ResetRoutingNotFollowTimer(blockTimer);
-  m_selectionTrackInfo.reset();
+  if (isMapTouch)
+    m_selectionTrackInfo.reset();
 }
 
-bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
-                                            m2::RectD const & newViewport, m2::PointD & gOffset)
+bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
+                                            bool needOffset, m2::PointD & gOffset)
 {
+  if (!needOffset)
+  {
+    m_selectionTrackInfo.reset();
+    return false;
+  }
+
   gOffset = m2::PointD(0, 0);
   if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
       oldViewport == newViewport || !m_selectionTrackInfo.is_initialized())
