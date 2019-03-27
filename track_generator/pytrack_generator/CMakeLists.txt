@@ -15,11 +15,14 @@ omim_link_libraries(
   ${Boost_LIBRARIES}
   routing_quality
   routing
+  traffic
   routing_common
+  storage
+  indexer
+  platform
   coding
   geometry
   base
-  stats_client
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
