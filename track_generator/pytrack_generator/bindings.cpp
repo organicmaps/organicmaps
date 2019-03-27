@@ -6,6 +6,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "base/assert.hpp"
+
 #include <exception>
 #include <sstream>
 #include <string>
