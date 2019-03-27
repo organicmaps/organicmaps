@@ -52,6 +52,7 @@ public:
   class Delegate
   {
   public:
+    virtual ~Delegate() = default;
     virtual notifications::NotificationManager & GetNotificationManager() = 0;
   };
   friend struct LightFrameworkTest;
