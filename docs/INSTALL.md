@@ -162,7 +162,6 @@ to SDK and NDK. Or specify these in command line:
 
 ## iOS
 
-* Install [Homebrew](http://brew.sh/) and run `brew install carthage`.
 * Open `xcode/omim.xcworkspace` in XCode.
 * Select "xcMAPS.ME" product scheme for developing, or "MAPS.ME" to make a distribution package.
 * Run the project (Product → Run).

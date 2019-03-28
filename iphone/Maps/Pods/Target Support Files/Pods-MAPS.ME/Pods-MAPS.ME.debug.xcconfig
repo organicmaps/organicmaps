@@ -1,0 +1,9 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ActionSheetPicker-3.0" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts" "${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit" "${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit" "${PODS_ROOT}/AppsFlyerFramework" "${PODS_ROOT}/Pushwoosh/Framework"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts/Bolts.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_LDFLAGS = $(inherited) -ObjC -l"stdc++" -l"z" -framework "ActionSheetPicker_3_0" -framework "AdSupport" -framework "AppsFlyerLib" -framework "Bolts" -framework "CoreLocation" -framework "FBSDKCoreKit" -framework "FBSDKLoginKit" -framework "Pushwoosh" -framework "Security" -framework "StoreKit" -framework "SystemConfiguration" -framework "UIKit" -framework "iAd" -weak_framework "Accounts" -weak_framework "AudioToolbox" -weak_framework "CoreGraphics" -weak_framework "CoreLocation" -weak_framework "Foundation" -weak_framework "QuartzCore" -weak_framework "Security" -weak_framework "Social" -weak_framework "UIKit"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods

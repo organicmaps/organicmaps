@@ -1,5 +1,5 @@
 #import "MWMSearchHotelsFilterViewController.h"
-#import <CoreActionSheetPicker/ActionSheetPicker.h>
+#import "ActionSheetPicker.h"
 #import "MWMEye.h"
 #import "MWMSearchFilterViewController_Protected.h"
 #import "Statistics.h"

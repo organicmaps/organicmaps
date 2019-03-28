@@ -1,0 +1,41 @@
+PODS:
+  - ActionSheetPicker-3.0 (2.3.0)
+  - AppsFlyerFramework (4.8.9)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.42.0):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.42.0):
+    - FBSDKCoreKit
+  - Pushwoosh (5.9.0)
+
+DEPENDENCIES:
+  - ActionSheetPicker-3.0 (= 2.3.0)
+  - AppsFlyerFramework (= 4.8.9)
+  - FBSDKLoginKit (= 4.42.0)
+  - Pushwoosh (= 5.9.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ActionSheetPicker-3.0
+    - AppsFlyerFramework
+    - Bolts
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Pushwoosh
+
+SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
+  AppsFlyerFramework: 0fc823ec9b77f913e4108caa82c969be033058b1
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
+  FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
+  Pushwoosh: 8eda99efebf90e44a53b55976db51c5da9b18deb
+
+PODFILE CHECKSUM: c14eb7e3b15fcc412e5bfd713ad86281c4417a12
+
+COCOAPODS: 1.6.1
