@@ -1,9 +1,9 @@
 #include "routing_common/car_model.hpp"
 #include "routing_common/car_model_coefs.hpp"
 
-#include "base/macros.hpp"
-
 #include "indexer/classificator.hpp"
+
+#include "base/macros.hpp"
 
 #include <array>
 #include <unordered_map>

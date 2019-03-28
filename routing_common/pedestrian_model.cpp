@@ -1,11 +1,11 @@
 #include "routing_common/pedestrian_model.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/logging.hpp"
-
-#include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 
 using namespace routing;
 using namespace std;
