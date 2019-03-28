@@ -38,8 +38,8 @@ using namespace qt::common;
 
 namespace qt
 {
-DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
-  : TBase(framework, apiOpenGLES3, parent)
+DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent)
+  : TBase(framework, apiOpenGLES3, isScreenshotMode, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -159,7 +159,11 @@ void DrawWidget::ChoosePositionModeDisable()
 
 void DrawWidget::initializeGL()
 {
-  m_framework.LoadBookmarks();
+  if (m_isScreenshotMode)
+    m_framework.GetBookmarkManager().EnableTestMode(true);
+  else
+    m_framework.LoadBookmarks();
+
   MapWidget::initializeGL();
 
   m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)

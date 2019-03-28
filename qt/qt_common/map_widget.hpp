@@ -36,7 +36,7 @@ class MapWidget : public QOpenGLWidget
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
+  MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
@@ -92,6 +92,7 @@ protected:
 
   Framework & m_framework;
   bool m_apiOpenGLES3;
+  bool m_isScreenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
   kml::MarkGroupId m_bookmarksCategoryId = 0;

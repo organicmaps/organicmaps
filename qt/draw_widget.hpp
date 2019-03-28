@@ -44,7 +44,7 @@ public Q_SLOTS:
   void OnUpdateCountryStatusByTimer();
 
 public:
-  DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
+  DrawWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent);
   ~DrawWidget();
 
   bool Search(search::EverywhereSearchParams const & params);

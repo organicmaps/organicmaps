@@ -26,10 +26,11 @@ namespace common
 {
 //#define ENABLE_AA_SWITCH
 
-MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
   , m_apiOpenGLES3(apiOpenGLES3)
+  , m_isScreenshotMode(isScreenshotMode)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
   , m_ratio(1.0)
@@ -92,6 +93,7 @@ void MapWidget::CreateEngine()
   p.m_surfaceWidth = m_ratio * width();
   p.m_surfaceHeight = m_ratio * height();
   p.m_visualScale = m_ratio;
+  p.m_hints.m_isScreenshotMode = m_isScreenshotMode;
 
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);

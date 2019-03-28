@@ -1103,7 +1103,7 @@ void Framework::ShowTrack(kml::TrackId trackId)
   ShowRect(rect);
 }
 
-void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId)
+void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
 {
   auto const & bm = GetBookmarkManager();
   if (bm.IsCategoryEmpty(categoryId))
@@ -1126,7 +1126,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId)
   double const kPaddingScale = 1.2;
   StopLocationFollow();
   rect.Scale(kPaddingScale);
-  ShowRect(rect);
+  ShowRect(rect, -1 /* maxScale */, animation);
 }
 
 void Framework::ShowFeatureByMercator(m2::PointD const & pt)

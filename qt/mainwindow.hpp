@@ -11,6 +11,7 @@
 #include <QtWidgets/QMainWindow>
 
 #include <array>
+#include <string>
 #include <memory>
 
 class Framework;
@@ -25,6 +26,16 @@ namespace qt
 {
 class DrawWidget;
 
+struct ScreenshotParams
+{
+  static uint32_t constexpr kDefaultWidth = 576;
+  static uint32_t constexpr kDefaultHeight = 720;
+
+  std::string m_path;
+  uint32_t m_width = kDefaultWidth;
+  uint32_t m_height = kDefaultHeight;
+};
+
 class MainWindow : public QMainWindow, location::LocationObserver
 {
   DrawWidget * m_pDrawWidget = nullptr;
@@ -38,6 +49,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   storage::CountryId m_lastCountry;
 
   std::unique_ptr<location::LocationService> const m_locationService;
+  std::unique_ptr<ScreenshotParams> const m_screenshotParams;
 
   QAction * m_pMyPositionAction = nullptr;
   QAction * m_pCreateFeatureAction = nullptr;
@@ -65,7 +77,8 @@ class MainWindow : public QMainWindow, location::LocationObserver
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework, bool apiOpenGLES3, QString const & mapcssFilePath = QString());
+  MainWindow(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+             QString const & mapcssFilePath = QString());
 
   static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
@@ -81,6 +94,8 @@ protected:
   void CreateNavigationBar();
   void CreateSearchBarAndPanel();
   void CreateCountryStatusControls();
+
+  void MakeScreenshots();
 
 #if defined(Q_WS_WIN)
   /// to handle menu messages

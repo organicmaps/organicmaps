@@ -307,6 +307,7 @@ private:
   bool m_blockTapEvents;
 
   bool m_choosePositionMode;
+  bool m_screenshotMode;
 
   dp::Viewport m_viewport;
   UserEventStream m_userEventStream;

@@ -359,7 +359,7 @@ public:
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(kml::TrackId trackId);
   void ShowFeatureByMercator(m2::PointD const & pt);
-  void ShowBookmarkCategory(kml::MarkGroupId categoryId);
+  void ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation = true);
 
   void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 

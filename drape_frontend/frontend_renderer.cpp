@@ -189,6 +189,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_isIsometry(false)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_choosePositionMode(false)
+  , m_screenshotMode(params.m_myPositionParams.m_hints.m_isScreenshotMode)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
@@ -1427,7 +1428,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
                                  m_frameValues);
 
-  if (m_guiRenderer != nullptr)
+  if (m_guiRenderer != nullptr && !m_screenshotMode)
   {
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
                           modelView);
@@ -2256,7 +2257,7 @@ void FrontendRenderer::OnContextCreate()
     m_postprocessRenderer->SetEffectEnabled(m_context, effect, true /* enabled */);
   m_enabledOnStartEffects.clear();
 
-  if (dp::SupportManager::Instance().IsAntialiasingEnabledByDefault())
+  if (dp::SupportManager::Instance().IsAntialiasingEnabledByDefault() || m_screenshotMode)
     m_postprocessRenderer->SetEffectEnabled(m_context, PostprocessRenderer::Antialiasing, true);
 #endif
 
