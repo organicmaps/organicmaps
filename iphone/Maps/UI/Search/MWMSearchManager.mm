@@ -241,6 +241,7 @@ using Observers = NSHashTable<Observer>;
   }];
   [self viewHidden:NO];
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
+  [self.searchTextField becomeFirstResponder];
 }
 
 - (void)changeToTableSearchState
