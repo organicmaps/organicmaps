@@ -242,8 +242,8 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
 
 void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                         UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
-                        m2::PointD const & tileCenter,m2::PointF const & symbolOffset, m2::PointF const & symbolSize,
-                        dp::Batcher & batcher)
+                        m2::PointD const & tileCenter, m2::PointF const & symbolOffset,
+                        m2::PointF const & symbolSize, dp::Batcher & batcher)
 {
   if (renderInfo.m_minTitleZoom > tileKey.m_zoomLevel)
     return;
@@ -376,7 +376,9 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       symbolSize = region.GetPixelSize();
     }
 
-    m2::PointF symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
+    m2::PointF symbolOffset = m2::PointF::Zero();
+    if (renderInfo.m_symbolIsPOI)
+      symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
 
     if (renderInfo.m_coloredSymbols != nullptr)
     {
@@ -468,9 +470,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     }
 
     if (renderInfo.m_titleDecl != nullptr)
-    {
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
-    }
 
     if (renderInfo.m_badgeNames != nullptr)
     {
@@ -479,6 +479,8 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       auto const badgeName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_badgeNames), tileKey);
       if (!badgeName.empty())
       {
+        // TODO: Badges use symbol offset. Refactor and create own "offset"-method for badges.
+        symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
         GeneratePoiSymbolShape(context, textures, renderInfo, tileKey, tileCenter, badgeName, symbolOffset, batcher);
       }
     }
