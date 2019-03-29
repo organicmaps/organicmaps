@@ -14,6 +14,7 @@ import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 
@@ -96,7 +97,16 @@ public class BookmarksDownloadManager
     for (String each : srcUri.getQueryParameterNames())
     {
       String queryParameter = srcUri.getQueryParameter(each);
-      builder.appendQueryParameter(each, URLEncoder.encode(queryParameter));
+      try
+      {
+        queryParameter = URLEncoder.encode(queryParameter, "UTF-8");
+      }
+      catch (UnsupportedEncodingException e)
+      {
+        queryParameter = srcUri.getQueryParameter(each);
+      }
+
+      builder.appendQueryParameter(each, queryParameter);
     }
     Uri dstUri = builder.build();
     return new Pair<>(srcUri, dstUri);

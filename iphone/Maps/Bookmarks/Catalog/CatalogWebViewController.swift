@@ -260,6 +260,7 @@ final class CatalogWebViewController: WebViewController {
         if MWMBookmarksManager.shared().getCatalogDownloadsCount() == 0 {
           Statistics.logEvent(kStatInappProductDelivered, withParameters: [kStatVendor: BOOKMARKS_VENDOR,
                                                                            kStatPurchase: categoryInfo.id])
+          logToPushWoosh(categoryInfo)
           MapViewController.shared().showBookmarksLoadedAlert(categoryId)
         }
       }
@@ -321,6 +322,17 @@ final class CatalogWebViewController: WebViewController {
 
   @objc private func onFwd() {
     forward()
+  }
+}
+
+private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
+  let pushManager = PushNotificationManager.push()
+  
+  if categoryInfo.productId == nil {
+    pushManager!.setTags(["Bookmarks_Guides_free_title": categoryInfo.name]);
+  } else {
+    pushManager!.setTags(["Bookmarks_Guides_paid_tier": categoryInfo.productId!]);
+    pushManager!.setTags(["Bookmarks_Guides_paid_title": categoryInfo.name]);
   }
 }
 

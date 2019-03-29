@@ -2,7 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Application;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -147,37 +146,5 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   public void onRestore(@NonNull Bundle inState)
   {
     mDownloadUrl = inState.getString(EXTRA_DOWNLOAD_URL);
-  }
-
-  private static class BookmarkPaymentDataParser implements PaymentDataParser
-  {
-    private final static String SERVER_ID = "id";
-    private final static String PRODUCT_ID = "tier";
-    private final static String NAME = "name";
-    private final static String IMG_URL = "img";
-    private final static String AUTHOR_NAME = "author_name";
-
-    @NonNull
-    @Override
-    public PaymentData parse(@NonNull String url)
-    {
-      Uri uri = Uri.parse(url);
-      String serverId = getQueryRequiredParameter(uri, SERVER_ID);
-      String productId = getQueryRequiredParameter(uri, PRODUCT_ID);
-      String name = getQueryRequiredParameter(uri, NAME);
-      String authorName = getQueryRequiredParameter(uri, AUTHOR_NAME);
-      String imgUrl = uri.getQueryParameter(IMG_URL);
-      return new PaymentData(serverId, productId, name, imgUrl, authorName);
-    }
-
-    @NonNull
-    private static String getQueryRequiredParameter(@NonNull Uri uri, @NonNull String name)
-    {
-      String parameter = uri.getQueryParameter(name);
-      if (TextUtils.isEmpty(parameter))
-        throw new AssertionError("'" + parameter + "' parameter is required!");
-
-      return parameter;
-    }
   }
 }

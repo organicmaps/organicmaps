@@ -7,7 +7,6 @@
 
 #include <array>
 #include <functional>
-#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -68,15 +67,12 @@ public:
   using DownloadFinishCallback = std::function<void(DownloadResult result,
                                                     std::string const & description,
                                                     std::string const & filePath)>;
-  void Download(std::string const & id, std::string const & name,
-                std::string const & accessToken,
-                DownloadStartCallback && startHandler,
-                DownloadFinishCallback && finishHandler);
+  void Download(std::string const & id, std::string const & accessToken,
+                DownloadStartCallback && startHandler, DownloadFinishCallback && finishHandler);
 
   bool IsDownloading(std::string const & id) const;
   bool HasDownloaded(std::string const & id) const;
   size_t GetDownloadingCount() const { return m_downloadingIds.size(); }
-  std::vector<std::string> GetDownloadingNames() const;
 
   std::string GetDownloadUrl(std::string const & serverId) const;
   std::string GetWebEditorUrl(std::string const & serverId, std::string const & language) const;
@@ -121,7 +117,7 @@ public:
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
 
 private:
-  std::map<std::string, std::string> m_downloadingIds;
+  std::set<std::string> m_downloadingIds;
   std::set<std::string> m_registeredInCatalog;
   InvalidTokenHandler m_onInvalidToken;
 };

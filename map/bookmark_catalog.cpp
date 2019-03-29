@@ -215,24 +215,14 @@ bool BookmarkCatalog::HasDownloaded(std::string const & id) const
   return m_registeredInCatalog.find(id) != m_registeredInCatalog.cend();
 }
 
-std::vector<std::string> BookmarkCatalog::GetDownloadingNames() const
-{
-  std::vector<std::string> names;
-  names.reserve(m_downloadingIds.size());
-  for (auto const & p : m_downloadingIds)
-    names.push_back(p.second);
-  return names;
-}
-
-void BookmarkCatalog::Download(std::string const & id, std::string const & name,
-                               std::string const & accessToken,
+void BookmarkCatalog::Download(std::string const & id, std::string const & accessToken,
                                DownloadStartCallback && startHandler,
                                DownloadFinishCallback && finishHandler)
 {
   if (IsDownloading(id) || HasDownloaded(id))
     return;
 
-  m_downloadingIds.insert(std::make_pair(id, name));
+  m_downloadingIds.insert(id);
 
   static uint32_t counter = 0;
   auto const path = base::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));

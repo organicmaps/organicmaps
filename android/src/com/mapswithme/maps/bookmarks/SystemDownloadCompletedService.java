@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Application;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.bookmarks.data.Error;
@@ -19,6 +21,8 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 public class SystemDownloadCompletedService extends JobIntentService
 {
@@ -42,7 +46,7 @@ public class SystemDownloadCompletedService extends JobIntentService
     if (manager == null)
       throw new IllegalStateException("Failed to get a download manager");
 
-    final OperationStatus status = doInBackground(manager, intent);
+    final OperationStatus status = calculateStatus(manager, intent);
     Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
     String tag = SystemDownloadCompletedService.class.getSimpleName();
     logger.i(tag, "Download status: " + status);
@@ -50,12 +54,11 @@ public class SystemDownloadCompletedService extends JobIntentService
   }
 
   @NonNull
-  private OperationStatus doInBackground(@NonNull DownloadManager manager,
-                                                        @NonNull Intent intent)
+  private OperationStatus calculateStatus(@NonNull DownloadManager manager, @NonNull Intent intent)
   {
     try
     {
-      return doInBackgroundInternal(manager, intent);
+      return calculateStatusInternal(manager, intent);
     }
     catch (Exception e)
     {
@@ -64,7 +67,7 @@ public class SystemDownloadCompletedService extends JobIntentService
   }
 
   @NonNull
-  private static OperationStatus doInBackgroundInternal(
+  private OperationStatus calculateStatusInternal(
       @NonNull DownloadManager manager, @NonNull Intent intent) throws IOException
   {
     Cursor cursor = null;
@@ -81,6 +84,8 @@ public class SystemDownloadCompletedService extends JobIntentService
           Error error = new Error(getHttpStatus(cursor), getErrorMessage(cursor));
           return new OperationStatus(null, error);
         }
+
+        logToPushWoosh((Application) getApplicationContext(), cursor);
 
         Result result = new Result(getFilePath(cursor), getArchiveId(cursor));
         return new OperationStatus(result, null);
@@ -128,6 +133,38 @@ public class SystemDownloadCompletedService extends JobIntentService
   private static String getErrorMessage(@NonNull Cursor cursor)
   {
     return cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+  }
+
+  private static void logToPushWoosh(@NonNull Application application, @NonNull Cursor cursor)
+  {
+    String url = getColumnValue(cursor, DownloadManager.COLUMN_URI);
+    if (TextUtils.isEmpty(url))
+      return;
+
+    String decodedUrl;
+    try
+    {
+      decodedUrl = URLDecoder.decode(url, "UTF-8");
+    }
+    catch (UnsupportedEncodingException exception)
+    {
+      decodedUrl = "";
+    }
+
+    BookmarkPaymentDataParser p = new BookmarkPaymentDataParser();
+    String productId = p.getParameter(decodedUrl, BookmarkPaymentDataParser.PRODUCT_ID);
+    String name = p.getParameter(decodedUrl, BookmarkPaymentDataParser.NAME);
+
+    MwmApplication app = (MwmApplication) application;
+    if (TextUtils.isEmpty(productId))
+    {
+      app.sendPushWooshTags("Bookmarks_Guides_free_title", new String[] {name});
+    }
+    else
+    {
+      app.sendPushWooshTags("Bookmarks_Guides_paid_tier", new String[] {productId});
+      app.sendPushWooshTags("Bookmarks_Guides_paid_title", new String[] {name});
+    }
   }
 
   private static class SendStatusTask implements Runnable

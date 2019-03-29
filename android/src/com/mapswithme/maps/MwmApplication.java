@@ -308,8 +308,7 @@ public class MwmApplication extends Application
     AppsFlyerLib.getInstance().trackEvent(this, tag, paramsMap);
   }
 
-  @SuppressWarnings("unused")
-  void sendPushWooshTags(String tag, String[] values)
+  public void sendPushWooshTags(String tag, String[] values)
   {
     getMediator().getEventLogger().sendTags(tag, values);
   }
