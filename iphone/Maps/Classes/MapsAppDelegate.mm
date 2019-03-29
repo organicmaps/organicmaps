@@ -27,7 +27,7 @@
 
 #ifdef OMIM_PRODUCTION
 
-#import <AppsFlyerTracker/AppsFlyerTracker.h>
+#import <AppsFlyerLib/AppsFlyerTracker.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
 

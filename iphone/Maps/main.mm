@@ -4,7 +4,7 @@
 #import "MapsAppDelegate.h"
 
 #ifdef OMIM_PRODUCTION
-#import <AppsFlyerTracker/AppsFlyerTracker.h>
+#import <AppsFlyerLib/AppsFlyerTracker.h>
 #include "fabric_logging.hpp"
 #endif
 
