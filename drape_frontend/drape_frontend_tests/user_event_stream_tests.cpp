@@ -40,7 +40,7 @@ public:
   void OnTouchMapAction(df::TouchEvent::ETouchType touchType, bool isMapTouch) override {}
   void OnAnimatedScaleEnded() override {}
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                            m2::PointD & gOffset) override
+                            bool needOffset, m2::PointD & gOffset) override
   {
     return false;
   }
