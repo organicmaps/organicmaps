@@ -105,7 +105,8 @@ struct ValidationResult
 };
 }  // namespace
 
-Purchase::Purchase()
+Purchase::Purchase(InvalidTokenHandler && onInvalidToken)
+  : m_onInvalidToken(std::move(onInvalidToken))
 {
   std::string id;
   if (GetPlatform().GetSecureStorage().Load(kSubscriptionId, id))
@@ -242,6 +243,9 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     }
     else if (resultCode == 403)
     {
+      if (m_onInvalidToken)
+        m_onInvalidToken();
+
       code = ValidationCode::AuthError;
     }
     else if (resultCode >= 400 && resultCode < 500)

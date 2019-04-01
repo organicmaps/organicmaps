@@ -257,6 +257,8 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
         downloadResult = DownloadResult::Success;
         break;
       case platform::RemoteFile::Status::Forbidden:
+        if (m_onInvalidToken)
+          m_onInvalidToken();
         downloadResult = DownloadResult::AuthError;
         break;
       case platform::RemoteFile::Status::NotFound:
@@ -463,7 +465,7 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [uploadData = std::move(uploadData), accessToken, fileData,
+  GetPlatform().RunTask(Platform::Thread::File, [this, uploadData = std::move(uploadData), accessToken, fileData,
                                                  pathToKmb, uploadSuccessCallback = std::move(uploadSuccessCallback),
                                                  uploadErrorCallback = std::move(uploadErrorCallback)]() mutable
   {
@@ -482,7 +484,7 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       return;
     }
 
-    GetPlatform().RunTask(Platform::Thread::Network, [uploadData = std::move(uploadData), accessToken,
+    GetPlatform().RunTask(Platform::Thread::Network, [this, uploadData = std::move(uploadData), accessToken,
                                                       pathToKmb, fileData, originalSha1,
                                                       uploadSuccessCallback = std::move(uploadSuccessCallback),
                                                       uploadErrorCallback = std::move(uploadErrorCallback)]() mutable
@@ -495,6 +497,9 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
         auto const resultCode = RequestNewServerId(accessToken, serverId, errorString);
         if (resultCode == 403)
         {
+          if (m_onInvalidToken)
+            m_onInvalidToken();
+
           if (uploadErrorCallback)
             uploadErrorCallback(UploadResult::AuthError, errorString);
           return;
@@ -570,6 +575,9 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       }
       else if (uploadCode.m_httpCode == 403)
       {
+        if (m_onInvalidToken)
+          m_onInvalidToken();
+
         if (uploadErrorCallback)
           uploadErrorCallback(UploadResult::AuthError, uploadCode.m_description);
       }
@@ -591,4 +599,9 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       FileWriter::DeleteFileX(zippedFilePath);
     });
   });
+}
+
+void BookmarkCatalog::SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken)
+{
+  m_onInvalidToken = std::move(onInvalidToken);
 }

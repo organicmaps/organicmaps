@@ -22,7 +22,9 @@ public:
 class Purchase
 {
 public:
-  Purchase();
+  using InvalidTokenHandler = std::function<void()>;
+
+  explicit Purchase(InvalidTokenHandler && onInvalidToken);
   void RegisterSubscription(SubscriptionListener * listener);
   bool IsSubscriptionActive(SubscriptionType type) const;
 
@@ -74,6 +76,7 @@ private:
 
   ValidationCallback m_validationCallback;
   StartTransactionCallback m_startTransactionCallback;
+  InvalidTokenHandler m_onInvalidToken;
 
   ThreadChecker m_threadChecker;
 };

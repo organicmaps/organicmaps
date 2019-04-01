@@ -501,6 +501,7 @@ BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
       std::bind(&BookmarkManager::OnRestoredFilesPrepared, this));
 
   m_bookmarkCloud.SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
+  m_bookmarkCatalog.SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
 }
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()
