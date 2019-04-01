@@ -1590,6 +1590,10 @@
 	<string name="unpaved_road">Unpaved road</string>
 	<string name="ferry_crossing">Ferry crossing</string>
 	<string name="operated_by">Operated by %s</string>
+	<!-- FIXME -->
+	<string name="unable_to_recalc_title">Route recalculation failed</string>
+	<!-- FIXME -->
+	<string name="unable_to_recalc_subtitle">Unfortunately we could\'t find a better route with your defined options. We will return the original version</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2703,7 +2707,4 @@
 	<string name="brand.yoshinoya">Yoshinoya</string>
 	<string name="brand.yudetaro">Yudetaro</string>
 	<string name="brand.yumean">Yumean</string>
-	<string name="unable_to_recalc_title"/>
-	<string name="unable_to_recalc_subtitle"/>
-	<string name="options"/>
 </resources>

@@ -2769,6 +2769,12 @@
 
 "operated_by" = "Operated by %s";
 
+/* FIXME */
+"unable_to_recalc_title" = "Route recalculation failed";
+
+/* FIXME */
+"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+
 
 /**********  Partners  **********/
 
