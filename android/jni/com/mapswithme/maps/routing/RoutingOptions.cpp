@@ -5,14 +5,14 @@
 
 unsigned int makeValue(jint option)
 {
-    return 1u >> option;
+    return 1u << static_cast<int>(option);
 }
 
 extern "C"
 {
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_RoutingOptions_nativeHasOption(JNIEnv * env, jclass clazz, jint option)
+Java_com_mapswithme_maps_routing_RoutingOptions_nativeHasOption(JNIEnv * env, jclass clazz, jint option)
 {
     CHECK(g_framework, ("Framework isn't created yet!"));
     routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
@@ -21,7 +21,7 @@ Java_com_mapswithme_maps_bookmarks_data_RoutingOptions_nativeHasOption(JNIEnv * 
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_RoutingOptions_nativeAddOption(JNIEnv * env, jclass clazz, jint option)
+Java_com_mapswithme_maps_routing_RoutingOptions_nativeAddOption(JNIEnv * env, jclass clazz, jint option)
 {
     CHECK(g_framework, ("Framework isn't created yet!"));
     routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
@@ -32,7 +32,7 @@ Java_com_mapswithme_maps_bookmarks_data_RoutingOptions_nativeAddOption(JNIEnv * 
 
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_RoutingOptions_nativeRemoveOption(JNIEnv * env, jclass clazz, jint option)
+Java_com_mapswithme_maps_routing_RoutingOptions_nativeRemoveOption(JNIEnv * env, jclass clazz, jint option)
 {
     CHECK(g_framework, ("Framework isn't created yet!"));
     routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();

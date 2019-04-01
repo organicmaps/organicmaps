@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:background="?attr/cardBackground"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -17,11 +18,10 @@
   </android.support.v7.widget.Toolbar>
   <TextView
     android:text="@string/driving_options_subheader"
-    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textAppearance="?android:attr/textAppearance"
     android:textColor="?colorAccent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fontFamily="@string/robotoMedium"
     android:layout_gravity="center_vertical"
     android:layout_marginTop="@dimen/margin_half_double_plus"
     android:paddingLeft="@dimen/margin_base"
@@ -41,12 +41,12 @@
     android:paddingStart="@dimen/margin_base">
     <TextView
       android:text="@string/avoid_tolls"
-      android:textAppearance="?android:attr/textAppearance"
+      android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_width="0dp"
       android:layout_weight="1"
-      android:layout_height="match_parent"
-      android:minHeight="@dimen/height_block_base"
-      android:fontFamily="@string/robotoMedium"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="?android:attr/textColorPrimary"
       tools:targetApi="jelly_bean"/>
     <Switch
       android:id="@+id/avoid_tolls_btn"
@@ -64,13 +64,13 @@
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView
-      android:text="@string/avoid_dirty_roads"
-      android:textAppearance="?android:attr/textAppearance"
+      android:text="@string/avoid_unpaved"
+      android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_width="0dp"
       android:layout_weight="1"
-      android:layout_height="match_parent"
-      android:minHeight="@dimen/height_block_base"
-      android:fontFamily="@string/robotoMedium"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="?android:attr/textColorPrimary"
       tools:targetApi="jelly_bean"/>
     <Switch
       android:id="@+id/avoid_dirty_roads_btn"
@@ -88,13 +88,13 @@
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView
-      android:text="@string/avoid_ferries"
-      android:textAppearance="?android:attr/textAppearance"
+      android:text="@string/avoid_ferry"
+      android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_width="0dp"
       android:layout_weight="1"
-      android:layout_height="match_parent"
-      android:minHeight="@dimen/height_block_base"
-      android:fontFamily="@string/robotoMedium"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="?android:attr/textColorPrimary"
       tools:targetApi="jelly_bean"/>
     <Switch
       android:id="@+id/avoid_ferries_btn"
@@ -113,12 +113,12 @@
     android:paddingStart="@dimen/margin_base">
     <TextView
       android:text="@string/avoid_motorways"
-      android:textAppearance="?android:attr/textAppearance"
+      android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_width="0dp"
       android:layout_weight="1"
-      android:layout_height="match_parent"
-      android:minHeight="@dimen/height_block_base"
-      android:fontFamily="@string/robotoMedium"
+      android:layout_gravity="center_vertical"
+      android:layout_height="wrap_content"
+      android:textColor="?android:attr/textColorPrimary"
       tools:targetApi="jelly_bean"/>
     <Switch
       android:id="@+id/avoid_motorways_btn"

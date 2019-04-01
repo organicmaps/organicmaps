@@ -121,7 +121,7 @@ RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options)
 string DebugPrint(RoutingOptions const & routingOptions)
 {
   ostringstream ss;
-  ss << "RoadType: {";
+  ss << "RoutingOptions: {";
 
   bool wasAppended = false;
   auto const append = [&](RoutingOptions::Road road) {

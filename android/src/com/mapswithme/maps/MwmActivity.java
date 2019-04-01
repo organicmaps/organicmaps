@@ -2716,7 +2716,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
         .setTitleId(R.string.unable_to_calc_alert_subtitle)
         .setMessageId(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveBtnId(R.string.options)
+        .setPositiveBtnId(R.string.settings)
         .setNegativeBtnId(R.string.cancel)
         .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)

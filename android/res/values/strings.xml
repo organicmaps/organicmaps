@@ -2703,4 +2703,7 @@
 	<string name="brand.yoshinoya">Yoshinoya</string>
 	<string name="brand.yudetaro">Yudetaro</string>
 	<string name="brand.yumean">Yumean</string>
+	<string name="unable_to_recalc_title"/>
+	<string name="unable_to_recalc_subtitle"/>
+	<string name="options"/>
 </resources>

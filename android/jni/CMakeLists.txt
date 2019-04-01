@@ -41,7 +41,6 @@ set(
   com/mapswithme/core/logging.cpp
   com/mapswithme/maps/bookmarks/data/Bookmark.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
-  com/mapswithme/maps/bookmarks/data/RoutingOptions.cpp
   com/mapswithme/maps/discovery/DiscoveryManager.cpp
   com/mapswithme/maps/discovery/Locals.cpp
   com/mapswithme/maps/DisplayedCategories.cpp
@@ -50,6 +49,7 @@ set(
   com/mapswithme/maps/editor/Editor.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/metrics/UserActionsLogger.cpp
+  com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/Framework.cpp
   com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationState.cpp

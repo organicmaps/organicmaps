@@ -14,7 +14,7 @@ import android.widget.Switch;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.bookmarks.data.RoutingOptions;
+import com.mapswithme.maps.routing.RoutingOptions;
 
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
@@ -58,25 +58,29 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 
   private void initViews(@NonNull View root)
   {
-    Switch avoidTollsBtn = root.findViewById(R.id.avoid_tolls_btn);
+    Switch tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
+    tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.TOLL));
     CompoundButton.OnCheckedChangeListener tollBtnListener =
         new ToggleRoutingOptionListener(RoadType.TOLL);
-    avoidTollsBtn.setOnCheckedChangeListener(tollBtnListener);
+    tollsBtn.setOnCheckedChangeListener(tollBtnListener);
 
-    Switch avoidMotorwaysBtn = root.findViewById(R.id.avoid_motorways_btn);
+    Switch motorwaysBtn = root.findViewById(R.id.avoid_motorways_btn);
+    motorwaysBtn.setChecked(RoutingOptions.hasOption(RoadType.MOTORWAY));
     CompoundButton.OnCheckedChangeListener motorwayBtnListener =
         new ToggleRoutingOptionListener(RoadType.MOTORWAY);
-    avoidMotorwaysBtn.setOnCheckedChangeListener(motorwayBtnListener);
+    motorwaysBtn.setOnCheckedChangeListener(motorwayBtnListener);
 
-    Switch avoidFerriesBtn = root.findViewById(R.id.avoid_ferries_btn);
+    Switch ferriesBtn = root.findViewById(R.id.avoid_ferries_btn);
+    ferriesBtn.setChecked(RoutingOptions.hasOption(RoadType.FERRY));
     CompoundButton.OnCheckedChangeListener ferryBtnListener =
         new ToggleRoutingOptionListener(RoadType.FERRY);
-    avoidFerriesBtn.setOnCheckedChangeListener(ferryBtnListener);
+    ferriesBtn.setOnCheckedChangeListener(ferryBtnListener);
 
-    Switch avoidDirtyRoadsBtn = root.findViewById(R.id.avoid_dirty_roads_btn);
+    Switch dirtyRoadsBtn = root.findViewById(R.id.avoid_dirty_roads_btn);
+    dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.DIRTY));
     CompoundButton.OnCheckedChangeListener dirtyBtnListener =
         new ToggleRoutingOptionListener(RoadType.DIRTY);
-    avoidDirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
+    dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
   }
 
   private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener
@@ -93,9 +97,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
       if (isChecked)
-        RoutingOptions.nativeAddOption(mRoadType.ordinal());
+        RoutingOptions.addOption(mRoadType);
       else
-        RoutingOptions.nativeRemoveOption(mRoadType.ordinal());
+        RoutingOptions.removeOption(mRoadType);
     }
   }
 }
