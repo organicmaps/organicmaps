@@ -469,7 +469,9 @@
     <activity
       android:name="com.mapswithme.maps.ugc.routes.EditCategoryDescriptionActivity"
       android:label="@string/description_guide"/>
-
+    <activity
+      android:name="com.mapswithme.maps.settings.DrivingOptionsActivity"
+      android:label="@string/driving_options_title"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"

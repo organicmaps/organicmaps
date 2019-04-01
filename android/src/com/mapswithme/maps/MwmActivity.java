@@ -176,6 +176,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_DISCOVERY = 2;
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
+  private static final int REQ_CODE_ERROR_CALCULATE_ROUTE = 4;
+  private static final int REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME = 5;
+  private static final String ERROR_CALCULATE_ROUTE = "error_calculate_route";
+  private static final String ERROR_CALCULATE_ROUTE_FIRST_TIME = "`error_calculate_route_first_time";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -2693,5 +2697,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().startLocationToPoint(null, false);
     }
+  }
+
+  public void showUnableCalculateRouteDialog()
+  {
+    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
+        .setTitleId(R.string.unable_to_recalc_title)
+        .setMessageId(R.string.unable_to_recalc_subtitle)
+        .setPositiveBtnId(R.string.ok)
+        .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE)
+        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
+    dialog.show(getSupportFragmentManager(), ERROR_CALCULATE_ROUTE);
+  }
+
+  public void showUnableCalculateRouteFirstTimeDialog()
+  {
+    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
+        .setTitleId(R.string.unable_to_calc_alert_subtitle)
+        .setMessageId(R.string.unable_to_calc_alert_subtitle)
+        .setPositiveBtnId(R.string.options)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
+    dialog.show(getSupportFragmentManager(), ERROR_CALCULATE_ROUTE_FIRST_TIME);
   }
 }

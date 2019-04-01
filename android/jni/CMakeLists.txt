@@ -41,6 +41,7 @@ set(
   com/mapswithme/core/logging.cpp
   com/mapswithme/maps/bookmarks/data/Bookmark.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
+  com/mapswithme/maps/bookmarks/data/RoutingOptions.cpp
   com/mapswithme/maps/discovery/DiscoveryManager.cpp
   com/mapswithme/maps/discovery/Locals.cpp
   com/mapswithme/maps/DisplayedCategories.cpp
