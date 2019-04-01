@@ -113,7 +113,8 @@ class Segment:
     def __init__(self, segment_id, golden_route, matched_route, ignored):
         if not golden_route and not ignored:
             raise NoGoldenPathError(
-                "segment {} does not have a golden route"
+                "segment {} does not have a corresponding golden route"
+                "and is not marked"
                 .format(segment_id)
             )
         self.segment_id = segment_id
@@ -156,7 +157,8 @@ def ignored_segments_number(tree, limit):
 
 def print_ignored_segments_result(descr, tree, limit):
     assessed_ignored_seg = []
-    (assessed_ignored_seg_num, assessed_ignored_seg_but_matched) = ignored_segments_number(tree, limit)
+    (assessed_ignored_seg_num, assessed_ignored_seg_but_matched) =\
+        ignored_segments_number(tree, limit)
     print()
     print(descr)
     print('{} matched segments from {} ignored segments.'.
@@ -183,7 +185,8 @@ def calculate(tree):
     result = {}
     for s in parse_segments(tree, args.limit):
         try:
-            # An ignored segment is estimated as 1 if matched_route is empty and as zero otherwise.
+            # An ignored segment is estimated as 1 if matched_route
+            # is empty and as zero otherwise.
             if s.ignored:
                 result[s.segment_id] = 1.0 if len(s.matched_route) == 0 else 0.0
             else:
