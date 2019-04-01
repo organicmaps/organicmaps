@@ -38823,3 +38823,59 @@
     zh-Hans = 在热门景点的卡片中，我们添加了来自Wikipedia.org的文章，可以离线使用
     zh-Hant = 在熱門景點的卡片中，我們添加了來自Wikipedia.org的文章，可以離線使用
     fa = ما مقالات Wikipedia.org را به صفحات جذاب‌ترین جاذبه‌های توریستی اضافه کرده‌ایم. آن‌ها به طور آفلاین دردسترس می‌باشد
+
+  [driving_options_title]
+    en = Driving options
+    ru = Настройки объезда
+
+  [driving_options_subheader]
+    en = Avoid on every route
+    ru = Избегать в каждом маршруте
+
+  [avoid_tolls]
+    en = Toll roads
+    ru = Платные дороги
+
+  [avoid_unpaved]
+    en = Unpaved roads
+    ru = Грунтовые дороги
+
+  [avoid_ferry]
+    en = Ferry crossings
+    ru = Паромные переправы
+
+  [avoid_motorways]
+    en = Motorways
+    ru = Магистрали
+
+  [unable_to_calc_alert_title]
+    en = Unable to calculate route
+    ru = Невозможно построить маршрут
+
+  [unable_to_calc_alert_subtitle]
+    en = Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.
+    ru = К сожалению, мы не смогли построить маршрут с выбранными опциями объезда. Измените настройки и повторите попытку.
+
+  [define_to_avoid_btn]
+    en = Define roads to avoid
+    ru = Настройки объезда
+
+  [change_driving_options_btn]
+    en = Change driving options
+    ru = Изменить настройки объезда
+
+  [toll_road]
+    en = Toll road
+    ru = Платная дорога
+
+  [unpaved_road]
+    en = Unpaved road
+    ru = Грунтовая дорога
+
+  [ferry_crossing]
+    en = Ferry crossing
+    ru = Паромная переправа
+
+  [operated_by]
+    en = Operated by %s
+    ru = Осуществляется оператором %s   
