@@ -2741,6 +2741,37 @@
 
 "whats_new_wiki_message" = "Pridali sme články Wikipedia.org na stránky najobľúbenejších turistických atrakcií. Sú k dispozícii offline";
 
+"driving_options_title" = "Driving options";
+
+"driving_options_subheader" = "Avoid on every route";
+
+"avoid_tolls" = "Toll roads";
+
+"avoid_unpaved" = "Unpaved roads";
+
+"avoid_ferry" = "Ferry crossings";
+
+"avoid_motorways" = "Motorways";
+
+"unable_to_calc_alert_title" = "Unable to calculate route";
+
+"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+
+"define_to_avoid_btn" = "Define roads to avoid";
+
+"change_driving_options_btn" = "Change driving options";
+
+"toll_road" = "Toll road";
+
+"unpaved_road" = "Unpaved road";
+
+"ferry_crossing" = "Ferry crossing";
+
+"operated_by" = "Operated by %s";
+
+
+/**********  Partners  **********/
+
 "sponsored_partner1_action" = "Outlets";
 
 "sponsored_partner2_action" = "Discount";

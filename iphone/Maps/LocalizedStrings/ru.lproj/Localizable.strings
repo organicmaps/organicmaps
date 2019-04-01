@@ -2741,6 +2741,37 @@
 
 "whats_new_wiki_message" = "В карточки популярных достопримечательностей мы добавили статьи из Wikipedia.org, доступные офлайн";
 
+"driving_options_title" = "Настройки объезда";
+
+"driving_options_subheader" = "Избегать в каждом маршруте";
+
+"avoid_tolls" = "Платные дороги";
+
+"avoid_unpaved" = "Грунтовые дороги";
+
+"avoid_ferry" = "Паромные переправы";
+
+"avoid_motorways" = "Магистрали";
+
+"unable_to_calc_alert_title" = "Невозможно построить маршрут";
+
+"unable_to_calc_alert_subtitle" = "К сожалению, мы не смогли построить маршрут с выбранными опциями объезда. Измените настройки и повторите попытку.";
+
+"define_to_avoid_btn" = "Настройки объезда";
+
+"change_driving_options_btn" = "Изменить настройки объезда";
+
+"toll_road" = "Платная дорога";
+
+"unpaved_road" = "Грунтовая дорога";
+
+"ferry_crossing" = "Паромная переправа";
+
+"operated_by" = "Осуществляется оператором %s";
+
+
+/**********  Partners  **********/
+
 "sponsored_partner1_action" = "Аутлеты";
 
 "sponsored_partner2_action" = "Discount";

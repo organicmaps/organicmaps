@@ -1526,6 +1526,8 @@
 	<string name="unable_upadate_error_message">Bei der Aktualisierung sind Fehler aufgetreten. Überprüfen Sie die Änderungen und versuchen Sie es noch einmal</string>
 	<string name="whats_new_wiki_title">Was ist das für ein Ort?</string>
 	<string name="whats_new_wiki_message">In die Karten berühmter Sehenswürdigkeiten haben wir Artikel aus Wikipedia.org hinzugefügt, die offline verfügbar sind</string>
+
+	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>
 
 	<!-- SECTION: Types -->

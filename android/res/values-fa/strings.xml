@@ -1455,7 +1455,7 @@
 	<string name="unable_upadate_error_title">به روز رسانی فایل ناموفق بود</string>
 	<string name="unable_upadate_error_message">هنگام به روز رسانی برخی اشتباهات رخ داده است. لطفاً تغییرات را بررسی و مجدد تلاش کنید</string>
 	<string name="whats_new_wiki_title">آن محل چیست؟</string>
-	<string name="whats_new_wiki_message">ما مقالات Wikipedia.org را به صفحات جذاب‌ترین جاذبه‌های توریستی اضافه کرده‌ایم. آن‌ها به طور آفلاین دردسترس می‌باشد[[ Partners ]]</string>
+	<string name="whats_new_wiki_message">ما مقالات Wikipedia.org را به صفحات جذاب‌ترین جاذبه‌های توریستی اضافه کرده‌ایم. آن‌ها به طور آفلاین دردسترس می‌باشد</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
