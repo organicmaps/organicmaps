@@ -38878,4 +38878,12 @@
 
   [operated_by]
     en = Operated by %s
-    ru = Осуществляется оператором %s   
+    ru = Осуществляется оператором %s
+
+  [unable_to_recalc_title]
+    comment = FIXME
+    en = Route recalculation failed
+
+  [unable_to_recalc_subtitle]
+    comment = FIXME
+    en = Unfortunately we could't find a better route with your defined options. We will return the original version
