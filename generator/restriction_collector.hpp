@@ -35,7 +35,6 @@ private:
   friend void UnitTest_RestrictionTest_ValidCase();
   friend void UnitTest_RestrictionTest_InvalidCase();
   friend void UnitTest_RestrictionTest_ParseRestrictions();
-  friend void UnitTest_RestrictionTest_ParseFeatureId2OsmIdsMapping();
 
   /// \brief Parses comma separated text file with line in following format:
   /// <type of restrictions>, <osm id 1 of the restriction>, <osm id 2>, and so on
