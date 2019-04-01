@@ -42,6 +42,7 @@ namespace feature
 
   int GetMinDrawableScale(FeatureType & ft);
   int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect);
+  int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect);
   int GetMinDrawableScaleClassifOnly(TypesHolder const & types);
 
   /// @return [-1, -1] if range is not drawable
