@@ -1,7 +1,10 @@
 package com.mapswithme.maps.purchase;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.mapswithme.maps.base.Savable;
 
 /**
  * Represents a purchase validator. The main of purpose is to validate existing purchase and inform
@@ -10,7 +13,7 @@ import android.support.annotation.Nullable;
  * <b>one-to-one</b>. If you need to validate different purchases you have to create different
  * implementations of this interface.
  */
-interface PurchaseValidator<T>
+interface PurchaseValidator<T> extends Savable<Bundle>
 {
   /**
    * Validates the purchase with specified purchase data.

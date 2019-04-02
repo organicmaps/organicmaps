@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -85,6 +86,18 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   public void removeCallback()
   {
     mCallback = null;
+  }
+
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    mValidator.onSave(outState);
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    mValidator.onRestore(inState);
   }
 
   private class ValidationCallbackImpl implements ValidationCallback

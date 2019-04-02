@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -127,6 +128,18 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   abstract void onInitialize(@NonNull Activity activity);
 
   abstract void onDestroy();
+
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    mValidator.onSave(outState);
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    mValidator.onRestore(inState);
+  }
 
   abstract class AbstractPlayStoreBillingCallback implements PlayStoreBillingCallback
   {

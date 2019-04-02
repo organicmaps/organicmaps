@@ -83,6 +83,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mPurchaseController = PurchaseFactory.createBookmarkPurchaseController(requireContext(),
                                                                            mPaymentData.getProductId(),
                                                                            mPaymentData.getServerId());
+    if (savedInstanceState != null)
+      mPurchaseController.onRestore(savedInstanceState);
     mPurchaseController.initialize(requireActivity());
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);
     TextView buyButton = root.findViewById(R.id.buy_btn);
@@ -196,6 +198,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     LOGGER.d(TAG, "onSaveInstanceState");
     outState.putInt(EXTRA_CURRENT_STATE, mState.ordinal());
     outState.putParcelable(EXTRA_PRODUCT_DETAILS, mProductDetails);
+    mPurchaseController.onSave(outState);
   }
 
   @Override

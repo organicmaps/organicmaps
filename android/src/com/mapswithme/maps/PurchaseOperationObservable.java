@@ -24,6 +24,8 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
   private final Map<String, CoreValidationObserver> mValidationObservers = new HashMap<>();
   @NonNull
   private final List<CoreStartTransactionObserver> mTransactionObservers = new ArrayList<>();
+  @NonNull
+  private final Map<String, PendingResult> mValidationPendingResults = new HashMap<>();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Logger mLogger;
@@ -56,10 +58,15 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
     String purchaseData = new String(tokenBytes);
     String orderId = PurchaseUtils.parseOrderId(purchaseData);
     CoreValidationObserver observer = mValidationObservers.get(orderId);
+    ValidationStatus status = ValidationStatus.values()[code];
     if (observer == null)
+    {
+      PendingResult result = new PendingResult(status, serverId, vendorId, purchaseData);
+      mValidationPendingResults.put(orderId, result);
       return;
+    }
 
-    observer.onValidatePurchase(ValidationStatus.values()[code], serverId, vendorId, purchaseData);
+    observer.onValidatePurchase(status, serverId, vendorId, purchaseData);
   }
 
   @Override
@@ -70,10 +77,19 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
       observer.onStartTransaction(success, serverId, vendorId);
   }
 
-  public void addValidationObserver(@NonNull String orderId, @NonNull CoreValidationObserver observer)
+  public void addValidationObserver(@NonNull String orderId,
+                                    @NonNull CoreValidationObserver observer)
   {
     mLogger.d(TAG, "Add validation observer '" + observer + "' for '" + orderId + "'");
     mValidationObservers.put(orderId, observer);
+    PendingResult result = mValidationPendingResults.remove(orderId);
+    if (result != null)
+    {
+      mLogger.d(TAG, "Post pending validation result to '" + observer + "' for '"
+                     + orderId + "'");
+      observer.onValidatePurchase(result.getStatus(), result.getServerId(), result.getVendorId(),
+                                  result.getPurchaseData());
+    }
   }
 
   public void removeValidationObserver(@NonNull String orderId)
@@ -92,5 +108,50 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
   {
     mLogger.d(TAG, "Remove transaction observer '" + observer + "'");
     mTransactionObservers.remove(observer);
+  }
+
+  private static class PendingResult
+  {
+    @NonNull
+    private final ValidationStatus mStatus;
+    @NonNull
+    private final String mServerId;
+    @NonNull
+    private final String mVendorId;
+    @NonNull
+    private final String mPurchaseData;
+
+    private PendingResult(@NonNull ValidationStatus status, @NonNull String serverId,
+                          @NonNull String vendorId, @NonNull String purchaseData)
+    {
+      mStatus = status;
+      mServerId = serverId;
+      mVendorId = vendorId;
+      mPurchaseData = purchaseData;
+    }
+
+    @NonNull
+    ValidationStatus getStatus()
+    {
+      return mStatus;
+    }
+
+    @NonNull
+    String getServerId()
+    {
+      return mServerId;
+    }
+
+    @NonNull
+    String getVendorId()
+    {
+      return mVendorId;
+    }
+
+    @NonNull
+    String getPurchaseData()
+    {
+      return mPurchaseData;
+    }
   }
 }
