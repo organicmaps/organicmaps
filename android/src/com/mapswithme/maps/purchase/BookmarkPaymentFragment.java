@@ -115,7 +115,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   {
     if (mState == BookmarkPaymentState.VALIDATION)
     {
-      Toast.makeText(requireContext(), R.string.please_wait, Toast.LENGTH_SHORT).show();
+      Toast.makeText(requireContext(), R.string.purchase_please_wait_toast, Toast.LENGTH_SHORT).show();
       return true;
     }
 
