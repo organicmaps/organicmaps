@@ -61,6 +61,14 @@ enum class LocalsStatus
   Available
 };
 
+enum class OpeningMode
+{
+  Preview = 0,
+  PreviewPlus,
+  Details,
+  Full
+};
+
 auto constexpr kIncorrectRating = kInvalidRatingValue;
 
 class Info : public osm::MapObject
@@ -152,7 +160,9 @@ public:
   std::string const & GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
   void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
   SponsoredType GetSponsoredType() const { return m_sponsoredType; }
-  bool IsPreviewExtended() const { return false; }
+
+  void SetOpeningMode(OpeningMode openingMode) { m_openingMode = openingMode; }
+  OpeningMode GetOpeningMode() const { return m_openingMode; }
 
   /// Partners
   int GetPartnerIndex() const { return m_partnerIndex; }
@@ -324,6 +334,8 @@ private:
   uint8_t m_popularity = 0;
 
   std::string m_primaryFeatureName;
+
+  OpeningMode m_openingMode = OpeningMode::Preview;
 };
 
 namespace rating

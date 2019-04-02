@@ -793,7 +793,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr(m_info.GetBookmarkData().m_description)); }
 - (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
 - (RoadWarningMarkType)roadType { return m_info.GetRoadType(); }
-- (BOOL)isPreviewExtended { return m_info.IsPreviewExtended(); }
+- (BOOL)isPreviewExtended { return m_info.GetOpeningMode() == place_page::OpeningMode::Details; }
 - (BOOL)isPartnerAppInstalled
 {
   // TODO(): Load list of registered schemas from plist.

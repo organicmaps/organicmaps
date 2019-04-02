@@ -803,6 +803,8 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   info.SetBookmarkData(bmk.GetData());
   info.SetBookmarkId(bmk.GetId());
   info.SetBookmarkCategoryId(bmk.GetGroupId());
+  info.SetOpeningMode(bmk.GetDescription().empty() ? place_page::OpeningMode::Preview
+                                                   : place_page::OpeningMode::PreviewPlus);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -812,6 +814,7 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
   info.SetBookmarkData({});
   info.SetBookmarkId(kml::kInvalidMarkId);
   info.SetBookmarkCategoryId(kml::kInvalidMarkGroupId);
+  info.SetOpeningMode(place_page::OpeningMode::Preview);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -3711,7 +3714,10 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
 
   std::string description;
   if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
+  {
     info.SetDescription(std::move(description));
+    info.SetOpeningMode(place_page::OpeningMode::PreviewPlus);
+  }
 }
 
 void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading)

@@ -39,6 +39,15 @@ public class MapObject implements Parcelable, PopularityProvider
   public static final int MY_POSITION = 3;
   public static final int SEARCH = 4;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_PLUS, OPENING_MODE_DETAILS, OPENING_MODE_FULL })
+  public @interface OpeningMode {}
+
+  public static final int OPENING_MODE_PREVIEW = 0;
+  public static final int OPENING_MODE_PREVIEW_PLUS = 1;
+  public static final int OPENING_MODE_DETAILS = 2;
+  public static final int OPENING_MODE_FULL = 3;
+
   @NonNull
   private final FeatureId mFeatureId;
   @MapObjectType
@@ -63,7 +72,8 @@ public class MapObject implements Parcelable, PopularityProvider
   private LocalAdInfo mLocalAdInfo;
   @Nullable
   private RoutePointInfo mRoutePointInfo;
-  private final boolean mExtendedView;
+  @OpeningMode
+  private final int mOpeningMode;
   private final boolean mShouldShowUGC;
   private final boolean mCanBeRated;
   private final boolean mCanBeReviewed;
@@ -83,14 +93,14 @@ public class MapObject implements Parcelable, PopularityProvider
                    double lat, double lon, String apiId, @Nullable Banner[] banners,
                    @Nullable int[] types, @Nullable String bookingSearchUrl,
                    @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
-                   boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
+                   @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
                    boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                    @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
                    @NonNull Popularity popularity, @NonNull String description)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC,
+         types, bookingSearchUrl, localAdInfo, routePointInfo, openingMode, shouldShowUGC,
          canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description);
   }
 
@@ -99,7 +109,7 @@ public class MapObject implements Parcelable, PopularityProvider
                    double lat, double lon, Metadata metadata, String apiId,
                    @Nullable Banner[] banners, @Nullable int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
+                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
                    @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType,
                    @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity,
@@ -118,7 +128,7 @@ public class MapObject implements Parcelable, PopularityProvider
     mBookingSearchUrl = bookingSearchUrl;
     mLocalAdInfo = localAdInfo;
     mRoutePointInfo = routePointInfo;
-    mExtendedView = isExtendedView;
+    mOpeningMode = openingMode;
     mShouldShowUGC = shouldShowUGC;
     mCanBeRated = canBeRated;
     mCanBeReviewed = canBeReviewed;
@@ -156,7 +166,7 @@ public class MapObject implements Parcelable, PopularityProvider
          source.readString(), // BookingSearchUrl
          source.readParcelable(LocalAdInfo.class.getClassLoader()), // LocalAdInfo
          source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
-         source.readInt() == 1, // mExtendedView
+         source.readInt(), // mOpeningMode
          source.readInt() == 1, // mShouldShowUGC
          source.readInt() == 1, // mCanBeRated;
          source.readInt() == 1, // mCanBeReviewed
@@ -178,7 +188,7 @@ public class MapObject implements Parcelable, PopularityProvider
   {
     return new MapObject(featureId, mapObjectType, title,
                          "", subtitle, "", lat, lon, "", null,
-                         null, "", null, null, false /* isExtendedView */,
+                         null, "", null, null, OPENING_MODE_PREVIEW,
                          false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
                          null /* ratings */, null /* mHotelType */,
                          PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "");
@@ -385,9 +395,10 @@ public class MapObject implements Parcelable, PopularityProvider
     return mRoutePointInfo;
   }
 
-  public boolean isExtendedView()
+  @OpeningMode
+  public int getOpeningMode()
   {
-    return mExtendedView;
+    return mOpeningMode;
   }
 
   public boolean shouldShowUGC()
@@ -456,7 +467,7 @@ public class MapObject implements Parcelable, PopularityProvider
     dest.writeString(mBookingSearchUrl);
     dest.writeParcelable(mLocalAdInfo, 0);
     dest.writeParcelable(mRoutePointInfo, 0);
-    dest.writeInt(mExtendedView ? 1 : 0);
+    dest.writeInt(mOpeningMode);
     dest.writeInt(mShouldShowUGC ? 1 : 0);
     dest.writeInt(mCanBeRated ? 1 : 0);
     dest.writeInt(mCanBeReviewed ? 1 : 0);

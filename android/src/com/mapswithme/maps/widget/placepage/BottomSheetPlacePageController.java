@@ -277,7 +277,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
       mBannerRatio = 0;
       mPlacePage.resetScroll();
 
-      if (object.isExtendedView())
+      if (object.getOpeningMode() == MapObject.OPENING_MODE_DETAILS)
       {
         mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
         return;

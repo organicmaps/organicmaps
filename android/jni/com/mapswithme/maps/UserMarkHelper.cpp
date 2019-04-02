@@ -74,17 +74,17 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         double lon, string const & address, Metadata const & metadata,
                         string const & apiId, jobjectArray jbanners, jintArray jTaxiTypes,
                         string const & bookingSearchUrl, jobject const & localAdInfo,
-                        jobject const & routingPointInfo, bool isExtendedView, bool shouldShowUGC,
-                        bool canBeRated, bool canBeReviewed, jobjectArray jratings,
-                        jobject const & hotelType, int priceRate, jobject const & popularity,
-                        string const & description)
+                        jobject const & routingPointInfo, place_page::OpeningMode openingMode,
+                        bool shouldShowUGC, bool canBeRated, bool canBeReviewed,
+                        jobjectArray jratings, jobject const & hotelType, int priceRate,
+                        jobject const & popularity, string const & description)
 {
   // public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
   //                  @Nullable String secondaryTitle, String subtitle, String address,
   //                  double lat, double lon, String apiId, @Nullable Banner[] banners,
   //                  @Nullable int[] types, @Nullable String bookingSearchUrl,
   //                  @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
-  //                  boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
+  //                  @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
   //                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
   //                  @Nullable HotelsFilter.HotelType hotelType,
   //                  @PriceFilterView.PriceDef int priceRate)
@@ -94,7 +94,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
       "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
       "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-      "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
+      "Lcom/mapswithme/maps/routing/RoutePointInfo;IZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
       "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;ILcom/mapswithme/maps/search/Popularity;"
       "Ljava/lang/String;)V");
 
@@ -117,7 +117,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       env->NewObject(g_mapObjectClazz, ctorId, jFeatureId.get(), mapObjectType, jTitle.get(),
                      jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
                      jbanners, jTaxiTypes, jBookingSearchUrl.get(), localAdInfo, routingPointInfo,
-                     static_cast<jboolean>(isExtendedView), static_cast<jboolean>(shouldShowUGC),
+                     static_cast<jint>(openingMode), static_cast<jboolean>(shouldShowUGC),
                      static_cast<jboolean>(canBeRated), static_cast<jboolean>(canBeReviewed),
                      jratings, hotelType, priceRate, popularity, jDescription.get());
 
@@ -153,7 +153,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     //                 @Nullable String subtitle, @Nullable String address, @Nullable Banner[] banners,
     //                 @Nullable int[] reachableByTaxiTypes, @Nullable String bookingSearchUrl,
     //                 @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
-    //                 boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
+    //                 @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
     //                 boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
     //                 @Nullable HotelsFilter.HotelType hotelType,
     //                 @PriceFilterView.PriceDef int priceRate,
@@ -166,7 +166,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
                               "Lcom/mapswithme/maps/routing/RoutePointInfo;"
-                              "ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
+                              "IZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
                               "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;"
                               "ILcom/mapswithme/maps/search/Popularity;Ljava/lang/String;)V");
     // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
@@ -189,7 +189,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
         static_cast<jlong>(bookmarkId), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
-        localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC(),
+        localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(), info.ShouldShowUGC(),
         info.CanBeRated(), info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
         popularity.get(), jDescription.get());
 
@@ -208,7 +208,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-                           info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(),
+                           info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(),
                            info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
                            popularity.get(), info.GetDescription());
   }
@@ -219,7 +219,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index,
         kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
-        info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(),
+        info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(),
         info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get(),
         hotelType.get(), priceRate, popularity.get(), info.GetDescription());
   }
@@ -229,7 +229,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-      info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
+      info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
       jratings.get(), hotelType.get(), priceRate, popularity.get(), info.GetDescription());
 }
 
