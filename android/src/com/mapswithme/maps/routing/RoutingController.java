@@ -78,6 +78,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     void onAddedStop();
     void onRemovedStop();
     void onBuiltRoute();
+    void onRouteWarningReceived();
     boolean isSubwayEnabled();
 
     /**
@@ -128,21 +129,32 @@ public class RoutingController implements TaxiManager.TaxiListener
       mContainsCachedResult = true;
 
       if (mLastResultCode == ResultCodesHelper.NO_ERROR
-        || mLastResultCode == ResultCodesHelper.HAS_WARNINGS
         || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
-      {
-        mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-        if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
-          mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
-        setBuildState(BuildState.BUILT);
-        mLastBuildProgress = 100;
-        if (mContainer != null)
-          mContainer.onBuiltRoute();
-      }
+        onBuiltRoute();
+      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
+        onWarningReceived();
 
       processRoutingEvent();
     }
   };
+
+  private void onWarningReceived()
+  {
+    onBuiltRoute();
+    if (mContainer != null)
+      mContainer.onRouteWarningReceived();
+  }
+
+  private void onBuiltRoute()
+  {
+    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+    if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
+      mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
+    setBuildState(BuildState.BUILT);
+    mLastBuildProgress = 100;
+    if (mContainer != null)
+      mContainer.onBuiltRoute();
+  }
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
@@ -197,15 +209,24 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
     }
 
-    if (!ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+    if (ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
     {
-      setBuildState(BuildState.ERROR);
-      mLastBuildProgress = 0;
-      updateProgress();
+      RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
+      fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
+      return;
     }
 
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
-    fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
+    setBuildState(BuildState.ERROR);
+    mLastBuildProgress = 0;
+    updateProgress();
+
+    if (RoutingOptions.hasAnyOptions())
+      showUnableCalcRouteDialog();
+  }
+
+  private void showUnableCalcRouteDialog()
+  {
+
   }
 
   private void setState(State newState)

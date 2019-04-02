@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
@@ -242,6 +243,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageController mPlacePageController;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mDrivingOptionsBtn;
 
   public interface LeftAnimationTrackListener
   {
@@ -535,6 +540,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
+    initDrivingOptionsViews();
+  }
+
+  private void initDrivingOptionsViews()
+  {
+    mDrivingOptionsBtn = findViewById(R.id.driving_options_btn);
+    mDrivingOptionsBtn.setOnClickListener(v -> {
+
+    });
   }
 
   private void initTips()
@@ -2035,6 +2049,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mNavigationController.resetSearchWheel();
+  }
+
+  @Override
+  public void onRouteWarningReceived()
+  {
+    showDrivingOptionPlate();
+  }
+
+  private void showDrivingOptionPlate()
+  {
+    UiUtils.show(mDrivingOptionsBtn);
+    View image = findViewById(R.id.driving_options_btn_img);
+    UiUtils.showIf(true, image);
+    TextView title = mDrivingOptionsBtn.findViewById(R.id.driving_options_btn_title);
+//    title.setText(true ? );
+  }
+
+  private void hideDrivingOptionsPlate()
+  {
+    UiUtils.hide(mDrivingOptionsBtn);
   }
 
   @Override

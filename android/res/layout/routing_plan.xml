@@ -150,6 +150,40 @@
 
     </android.support.v7.widget.Toolbar>
   </FrameLayout>
+
+  <FrameLayout
+    android:background="@color/light_green"
+    android:foreground="@drawable/shadow_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+      android:id="@+id/driving_options_btn"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:visibility="visible"
+      android:layout_width="match_parent"
+      android:minHeight="@dimen/height_block_base"
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/driving_options_btn_title"
+        android:layout_centerInParent="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:text="asdasdasdasdas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_half_plus_eight"
+        android:layout_marginEnd="@dimen/margin_half_plus_eight"/>
+      <ImageView
+        android:id="@+id/driving_options_btn_img"
+        android:src="@drawable/ic_error_white"
+        android:layout_centerVertical="true"
+        android:layout_width="@dimen/margin_base_plus"
+        android:layout_height="@dimen/margin_base_plus"
+        android:layout_toLeftOf="@id/driving_options_btn_title"
+        android:layout_toStartOf="@id/driving_options_btn_title"/>
+    </RelativeLayout>
+
+  </FrameLayout>
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
     android:layout_width="match_parent"
