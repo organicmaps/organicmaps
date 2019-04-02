@@ -67,10 +67,16 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
+    if (requestCode != REQ_CODE_PAY_BOOKMARK)
+      return;
+
+    if (resultCode == Activity.RESULT_OK)
     {
       mDownloadController.retryDownloadBookmark();
+      return;
     }
+
+    mFragment.requireActivity().finish();
   }
 
   private void showAuthorizationProgress()

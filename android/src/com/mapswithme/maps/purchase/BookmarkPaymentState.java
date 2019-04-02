@@ -93,6 +93,7 @@ enum BookmarkPaymentState
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
           showProgress(fragment);
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.cancel_btn);
         }
       },
   VALIDATION_FINISH
