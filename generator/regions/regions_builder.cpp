@@ -30,14 +30,10 @@ Node::Ptr ShrinkToFit(Node::Ptr p)
 }
 }  // namespace
 
-RegionsBuilder::RegionsBuilder(Regions && regions,
-                               std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
-                               size_t threadsCount)
-  : m_toStringPolicy(std::move(toStringPolicy))
-  , m_regions(std::move(regions))
+RegionsBuilder::RegionsBuilder(Regions && regions, size_t threadsCount)
+  : m_regions(std::move(regions))
   , m_threadsCount(threadsCount)
 {
-  ASSERT(m_toStringPolicy, ());
   ASSERT(m_threadsCount != 0, ());
 
   auto const isCountry = [](Region const & r) { return r.IsCountry(); };
@@ -46,9 +42,6 @@ RegionsBuilder::RegionsBuilder(Regions && regions,
   auto const cmp = [](Region const & l, Region const & r) { return l.GetArea() > r.GetArea(); };
   std::sort(std::begin(m_countries), std::end(m_countries), cmp);
 }
-
-RegionsBuilder::RegionsBuilder(Regions && regions, size_t threadsCount)
-  : RegionsBuilder(std::move(regions), std::make_unique<JsonPolicy>(), threadsCount) {}
 
 RegionsBuilder::Regions const & RegionsBuilder::GetCountries() const
 {
@@ -64,33 +57,6 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
     auto name = c.GetName();
     if (set.insert(name).second)
       result.emplace_back(std::move(name));
-  }
-
-  return result;
-}
-
-RegionsBuilder::IdStringList RegionsBuilder::ToIdStringList(Node::Ptr const & tree) const
-{
-  IdStringList result;
-  std::queue<Node::Ptr> queue;
-  queue.push(tree);
-  while (!queue.empty())
-  {
-    const auto el = queue.front();
-    queue.pop();
-    Node::PtrList nodes;
-    auto current = el;
-    while (current)
-    {
-      nodes.push_back(current);
-      current = current->GetParent();
-    }
-
-    auto string = m_toStringPolicy->ToString(nodes);
-    auto const id = nodes.front()->GetData().GetId();
-    result.emplace_back(std::make_pair(id, std::move(string)));
-    for (auto const & n : el->GetChildren())
-      queue.push(n);
   }
 
   return result;

@@ -96,6 +96,21 @@ size_t MaxDepth(Node::Ptr node)
   return depth;
 }
 
+NodePath MakeNodePath(Node::Ptr const & node)
+{
+  NodePath path;
+
+  auto current = node;
+  while (current)
+  {
+    path.push_back(current);
+    current = current->GetParent();
+  }
+  std::reverse(path.begin(), path.end());
+
+  return path;
+}
+
 void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string prefix = "",
                bool isTail = true)
 {

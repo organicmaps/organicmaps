@@ -10,10 +10,13 @@ namespace generator
 namespace regions
 {
 using Node = PlaceNode<Region>;
+using NodePath = std::vector<Node::Ptr>;
 
 size_t TreeSize(Node::Ptr node);
 
 size_t MaxDepth(Node::Ptr node);
+
+NodePath MakeNodePath(Node::Ptr const & node);
 
 void DebugPrintTree(Node::Ptr const & tree, std::ostream & stream = std::cout);
 

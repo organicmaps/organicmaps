@@ -146,13 +146,13 @@ RegionsBuilder::Regions MakeTestDataSet1(RegionInfo & collector)
   return regions;
 }
 
-class Helper : public ToStringPolicyInterface
+class StringJoinPolicy : public ToStringPolicyInterface
 {
 public:
-  std::string ToString(Node::PtrList const & nodePtrList) const override
+  std::string ToString(NodePath const & nodePath) const override
   {
     std::stringstream stream;
-    for (auto const & n : nodePtrList)
+    for (auto const & n : nodePath)
       stream << n->GetData().GetName();
 
     return stream.str();
@@ -196,20 +196,22 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
   auto const filename = MakeCollectorData();
   RegionInfo collector(filename);
   std::vector<std::string> bankOfNames;
-  RegionsBuilder builder(MakeTestDataSet1(collector), std::make_unique<Helper>());
+  RegionsBuilder builder(MakeTestDataSet1(collector));
   builder.ForEachNormalizedCountry([&](std::string const & name, Node::Ptr const & tree) {
-    auto const idStringList = builder.ToIdStringList(tree);
-    for (auto const & idString : idStringList)
-      bankOfNames.push_back(idString.second);
+    Visit(tree, [&](Node::Ptr const & node) {
+      auto path = MakeNodePath(node);
+      StringJoinPolicy stringifier;
+      bankOfNames.push_back(stringifier.ToString(path));
+    });
   });
 
   TEST(ExistsName(bankOfNames, "Country_2"), ());
-  TEST(ExistsName(bankOfNames, "Country_2_Region_8Country_2"), ());
+  TEST(ExistsName(bankOfNames, "Country_2Country_2_Region_8"), ());
 
   TEST(ExistsName(bankOfNames, "Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1_Region_3Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1_Region_4Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1_Region_5Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1_Region_5_Subregion_6Country_1_Region_5Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1_Region_5_Subregion_7Country_1_Region_5Country_1"), ());
+  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_3"), ());
+  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_4"), ());
+  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5"), ());
+  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_6"), ());
+  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_7"), ());
 }
