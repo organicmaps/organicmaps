@@ -38887,3 +38887,8 @@
   [unable_to_recalc_subtitle]
     comment = FIXME
     en = Unfortunately we could't find a better route with your defined options. We will return the original version
+
+  [purchase_please_wait_toast]
+    en = Please don't leave this screen before purchase is completed
+    ru = Пожалуйста, не покидайте экран до завершения покупки
+
