@@ -52,8 +52,8 @@ public:
     , m_verbose{verbose}
     , m_regionsInfoCollector{pathInRegionsCollector}
   {
-    LOG(LINFO, ("Start generating regions from ", m_pathInRegionsTmpMwm));
-    auto timer = base::Timer();
+    LOG(LINFO, ("Start generating regions from", m_pathInRegionsTmpMwm));
+    auto timer = base::Timer{};
     Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 
     RegionsBuilder::Regions regions = ReadAndFixData();
@@ -84,7 +84,7 @@ private:
         regionsKv << static_cast<int64_t>(s.first.GetEncodedId()) << " " << s.second << "\n";
         ++countIds;
         if (!setIds.insert(s.first).second)
-          LOG(LWARNING, ("Id alredy exists:",  s.first));
+          LOG(LWARNING, ("Id alredy exists:", s.first));
       }
     });
 
@@ -159,7 +159,7 @@ private:
 
     feature::ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
 
-    LOG(LINFO, ("Repacked regions temprory mwm saved to", m_pathOutRepackedRegionsTmpMwm));
+    LOG(LINFO, ("Repacked regions temporary mwm saved to", m_pathOutRepackedRegionsTmpMwm));
   }
 
   std::string m_pathInRegionsTmpMwm;
