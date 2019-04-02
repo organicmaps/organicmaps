@@ -39,6 +39,7 @@ set(
   # JNI sources
   com/mapswithme/core/jni_helper.cpp
   com/mapswithme/core/logging.cpp
+  com/mapswithme/maps/analytics/ExternalLibrariesMediator.cpp
   com/mapswithme/maps/bookmarks/data/Bookmark.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
   com/mapswithme/maps/discovery/DiscoveryManager.cpp
@@ -48,8 +49,6 @@ set(
   com/mapswithme/maps/editor/OpeningHours.cpp
   com/mapswithme/maps/editor/Editor.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
-  com/mapswithme/maps/metrics/UserActionsLogger.cpp
-  com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/Framework.cpp
   com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationState.cpp
@@ -57,8 +56,9 @@ set(
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
   com/mapswithme/maps/MwmApplication.cpp
-  com/mapswithme/maps/analytics/ExternalLibrariesMediator.cpp
+  com/mapswithme/maps/metrics/UserActionsLogger.cpp
   com/mapswithme/maps/PrivateVariables.cpp
+  com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/SearchEngine.cpp
   com/mapswithme/maps/SearchRecents.cpp
   com/mapswithme/maps/settings/UnitLocale.cpp

@@ -178,8 +178,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
   private static final int REQ_CODE_ERROR_CALCULATE_ROUTE = 4;
   private static final int REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME = 5;
-  private static final String ERROR_CALCULATE_ROUTE = "error_calculate_route";
-  private static final String ERROR_CALCULATE_ROUTE_FIRST_TIME = "`error_calculate_route_first_time";
+  private static final String ERROR_CALCULATE_ROUTE_TAG = "error_calculate_route";
+  private static final String ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG = "`error_calculate_route_first_time";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -2708,7 +2708,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE)
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
-    dialog.show(getSupportFragmentManager(), ERROR_CALCULATE_ROUTE);
+    dialog.show(this, ERROR_CALCULATE_ROUTE_TAG);
   }
 
   public void showUnableCalculateRouteFirstTimeDialog()
@@ -2721,6 +2721,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
-    dialog.show(getSupportFragmentManager(), ERROR_CALCULATE_ROUTE_FIRST_TIME);
+    dialog.show(this, ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
   }
 }

@@ -17,7 +17,7 @@ public class DrivingOptionsActivity extends BaseMwmFragmentActivity
     return DrivingOptionsFragment.class;
   }
 
-  public static void startOptionMenuActivity(@NonNull FragmentActivity activity)
+  public static void start(@NonNull FragmentActivity activity)
   {
     Intent intent = new Intent(activity, DrivingOptionsActivity.class)
         .putExtra(BUNDLE_REQUIRE_OPTIONS_MENU, true);

@@ -41,7 +41,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    inflater.inflate(R.menu.menu_tags_done, menu);
+    inflater.inflate(R.menu.menu_done, menu);
   }
 
   @Override
