@@ -8,8 +8,6 @@
 
 #include "partners_api/booking_api.hpp"
 
-#include "platform/platform.hpp"
-
 #include "search/result.hpp"
 
 #include "indexer/data_source.hpp"
@@ -17,6 +15,9 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "platform/platform.hpp"
+
+#include <algorithm>
 #include <set>
 #include <utility>
 
@@ -55,6 +56,21 @@ private:
   booking::Api m_api;
 };
 
+class TestBookingHotel : public TestPOI
+{
+public:
+  TestBookingHotel(m2::PointD const & center, std::string const & name, std::string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"tourism", "hotel"}, {"sponsored", "booking"}});
+  }
+
+  TestBookingHotel(m2::PointD const & center, std::string const & name)
+    : TestBookingHotel(center, name, "en")
+  {
+  }
+};
+
 void InsertResult(search::Result r, search::Results & dst)
 {
   dst.AddResult(std::move(r));
@@ -68,15 +84,15 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
 
   BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
   {
-    TestPOI hotel1(m2::PointD(1.0, 1.0), "hotel 1", "en");
+    TestBookingHotel hotel1(m2::PointD(1.0, 1.0), "hotel 1");
     hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
     builder.Add(hotel1);
 
-    TestPOI hotel2(m2::PointD(1.1, 1.1), "hotel 2", "en");
+    TestBookingHotel hotel2(m2::PointD(1.1, 1.1), "hotel 2");
     hotel2.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[1]);
     builder.Add(hotel2);
 
-    TestPOI hotel3(m2::PointD(0.9, 0.9), "hotel 3", "en");
+    TestBookingHotel hotel3(m2::PointD(0.9, 0.9), "hotel 3");
     hotel3.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[2]);
     builder.Add(hotel3);
   });
@@ -124,23 +140,23 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
 
   BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
   {
-    TestPOI hotel1(m2::PointD(0.7, 0.7), "hotel 22", "en");
+    TestBookingHotel hotel1(m2::PointD(0.7, 0.7), "hotel 22", "en");
     hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
     builder.Add(hotel1);
 
-    TestPOI hotel2(m2::PointD(0.8, 0.8), "hotel 23", "en");
+    TestBookingHotel hotel2(m2::PointD(0.8, 0.8), "hotel 23", "en");
     hotel2.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[1]);
     builder.Add(hotel2);
 
-    TestPOI hotel3(m2::PointD(0.9, 0.9), "hotel 24", "en");
+    TestBookingHotel hotel3(m2::PointD(0.9, 0.9), "hotel 24", "en");
     hotel3.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[2]);
     builder.Add(hotel3);
 
-    TestPOI hotel4(m2::PointD(1.0, 1.0), "hotel 25", "en");
+    TestBookingHotel hotel4(m2::PointD(1.0, 1.0), "hotel 25", "en");
     hotel4.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[3]);
     builder.Add(hotel4);
 
-    TestPOI hotel5(m2::PointD(1.1, 1.1), "hotel 26", "en");
+    TestBookingHotel hotel5(m2::PointD(1.1, 1.1), "hotel 26", "en");
     hotel5.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[4]);
     builder.Add(hotel5);
   });
@@ -245,5 +261,75 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   {
     TEST_EQUAL(dealsResults[i].GetFeatureID(), expectedAvailableWithDeals[i].GetFeatureID(), ());
   }
+}
+
+UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
+{
+  AvailabilityFilter filter(*this);
+
+  std::vector<std::string> const kHotelIds = {"10623", "10624", "10625"};
+
+  BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
+  {
+    TestBookingHotel hotel1(m2::PointD(1.0, 1.0), "hotel 1");
+
+    hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
+    builder.Add(hotel1);
+
+    TestBookingHotel hotel2(m2::PointD(1.1, 1.1), "hotel 2");
+    hotel2.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[1]);
+    builder.Add(hotel2);
+
+    TestBookingHotel notExpectedHotel(m2::PointD(0.9, 0.9), "hotel 900");
+    notExpectedHotel.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, "123456");
+    builder.Add(notExpectedHotel);
+
+    TestBookingHotel hotel3(m2::PointD(0.9, 0.9), "hotel 3");
+    hotel3.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[2]);
+    builder.Add(hotel3);
+
+    TestPOI notExpectedFeature(m2::PointD(0.8, 0.8), "some feature", "en");
+    builder.Add(notExpectedFeature);
+  });
+
+  m2::RectD const rect(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5));
+  search::Results results;
+  results.AddResult({"suggest for testing", "suggest for testing"});
+  std::vector<FeatureID> allFeatureIds;
+  std::vector<FeatureID> expectedFeatureIds;
+  m_dataSource.ForEachInRect(
+    [&results, &allFeatureIds, &expectedFeatureIds, &kHotelIds](FeatureType & ft) {
+      search::Result::Metadata metadata;
+      metadata.m_isSponsoredHotel = true;
+      search::Result result(ft.GetID(), ft.GetCenter(), "", "", 0, metadata);
+      auto copy = result;
+      results.AddResult(std::move(result));
+
+      allFeatureIds.push_back(ft.GetID());
+
+      auto hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+      if (kHotelIds.cend() != std::find(kHotelIds.cbegin(), kHotelIds.cend(), hotelId))
+        expectedFeatureIds.push_back(ft.GetID());
+    },
+    rect, scales::GetUpperScale());
+
+  std::sort(expectedFeatureIds.begin(), expectedFeatureIds.end());
+  std::sort(allFeatureIds.begin(), allFeatureIds.end());
+
+  ParamsRawInternal filterParams;
+  std::vector<FeatureID> filteredResults;
+  filterParams.m_apiParams = make_shared<booking::AvailabilityParams>();
+  filterParams.m_callback = [&filteredResults](std::vector<FeatureID> const & results) {
+    filteredResults = results;
+    testing::Notify();
+  };
+
+  filter.ApplyFilter(allFeatureIds, filterParams);
+
+  testing::Wait();
+
+  TEST_NOT_EQUAL(filteredResults.size(), 0, ());
+  TEST_EQUAL(filteredResults.size(), expectedFeatureIds.size(), ());
+  TEST_EQUAL(filteredResults, expectedFeatureIds, ());
 }
 }  // namespace

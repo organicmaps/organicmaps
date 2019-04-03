@@ -37,6 +37,8 @@ public:
 
   virtual void ApplyFilter(search::Results const & results,
                            ParamsInternal const & filterParams) = 0;
+  virtual void ApplyFilter(std::vector<FeatureID> const & featureIds,
+                           ParamsRawInternal const & params) = 0;
   virtual void GetFeaturesFromCache(search::Results const & results,
                                     std::vector<FeatureID> & sortedResults) = 0;
   virtual void UpdateParams(ParamsBase const & apiParams) = 0;

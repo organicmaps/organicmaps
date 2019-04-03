@@ -51,6 +51,9 @@ public:
   void ApplyFilters(search::Results const & results, TasksInternal && tasks,
                     ApplicationMode const mode);
 
+  void ApplyFilters(std::vector<FeatureID> && featureIds, TasksRawInternal && tasks,
+                    ApplicationMode const mode);
+
   void OnParamsUpdated(Type const type, std::shared_ptr<ParamsBase> const & params);
 
   void GetFeaturesFromCache(Types const & types, search::Results const & results,
@@ -61,8 +64,15 @@ public:
   Api const & GetApi() const override;
 
 private:
-  void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
-  void ApplyIndependently(search::Results const & results, TasksInternal const & tasks);
+  template <typename Source, typename TaskInternalType>
+  void ApplyFiltersInternal(Source && source, TaskInternalType && tasks,
+                            ApplicationMode const mode);
+
+  template <typename Source, typename TaskInternalType>
+  void ApplyConsecutively(Source const & source, TaskInternalType & tasks);
+  
+  template <typename Source, typename TaskInternalType>
+  void ApplyIndependently(Source const & source, TaskInternalType const & tasks);
 
   DataSource const & m_dataSource;
   Api const & m_api;

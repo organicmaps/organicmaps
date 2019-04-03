@@ -25,6 +25,7 @@ namespace filter
 using Results = platform::SafeCallback<void(std::shared_ptr<ParamsBase> const & params,
                                             std::vector<FeatureID> const & sortedFeatures)>;
 using ResultsUnsafe = std::function<void(search::Results const & results)>;
+using ResultsRawUnsafe = std::function<void(std::vector<FeatureID> const & results)>;
 
 template <typename R>
 struct ParamsImpl
@@ -44,6 +45,7 @@ struct ParamsImpl
 
 using Params = ParamsImpl<Results>;
 using ParamsInternal = ParamsImpl<ResultsUnsafe>;
+using ParamsRawInternal = ParamsImpl<ResultsRawUnsafe>;
 
 enum class Type
 {
@@ -68,6 +70,7 @@ struct TaskImpl
 
 using Task = TaskImpl<Params>;
 using TaskInternal = TaskImpl<ParamsInternal>;
+using TaskRawInternal = TaskImpl<ParamsRawInternal>;
 
 enum ApplicationMode
 {
@@ -138,5 +141,6 @@ private:
 
 using Tasks = TasksImpl<Task>;
 using TasksInternal = std::vector<TaskInternal>;
+using TasksRawInternal = std::vector<TaskRawInternal>;
 }  // namespace filter
 }  // namespace booking

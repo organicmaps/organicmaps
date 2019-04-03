@@ -3,6 +3,9 @@
 
 #include "search/result.hpp"
 
+#include <memory>
+#include <utility>
+
 namespace booking
 {
 namespace filter
@@ -17,16 +20,13 @@ FilterProcessor::FilterProcessor(DataSource const & dataSource, booking::Api con
 void FilterProcessor::ApplyFilters(search::Results const & results, TasksInternal && tasks,
                                    ApplicationMode const mode)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, results, tasks = std::move(tasks), mode]() mutable
-  {
-    CHECK(!tasks.empty(), ());
+  ApplyFiltersInternal(results, std::move(tasks), mode);
+}
 
-    switch (mode)
-    {
-    case Independent: ApplyIndependently(results, tasks); break;
-    case Consecutive: ApplyConsecutively(results, tasks); break;
-    }
-  });
+void FilterProcessor::ApplyFilters(std::vector<FeatureID> && featureIds, TasksRawInternal && tasks,
+                                   ApplicationMode const mode)
+{
+  ApplyFiltersInternal(std::move(featureIds), std::move(tasks), mode);
 }
 
 void FilterProcessor::OnParamsUpdated(Type const type,
@@ -66,33 +66,54 @@ Api const & FilterProcessor::GetApi() const
   return m_api;
 }
 
-void FilterProcessor::ApplyConsecutively(search::Results const & results, TasksInternal & tasks)
+template <typename Source, typename TaskInternalType>
+void FilterProcessor::ApplyFiltersInternal(Source && source, TaskInternalType && tasks,
+                                           ApplicationMode const mode)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this, source = std::forward<Source>(source),
+                                                 tasks = std::forward<TaskInternalType>(tasks),
+                                                 mode]() mutable
+  {
+    CHECK(!tasks.empty(), ());
+
+    switch (mode)
+    {
+    case Independent: ApplyIndependently(source, tasks); break;
+    case Consecutive: ApplyConsecutively(source, tasks); break;
+    }
+  });
+}
+
+template <typename Source, typename TaskInternalType>
+void FilterProcessor::ApplyConsecutively(Source const & source, TaskInternalType & tasks)
 {
   for (size_t i = tasks.size() - 1; i > 0; --i)
   {
     auto const & cb = tasks[i - 1].m_filterParams.m_callback;
 
     tasks[i - 1].m_filterParams.m_callback =
-      [this, cb, nextTask = std::move(tasks[i])](search::Results const & results) mutable
-      {
-        cb(results);
-        // Run the next filter with obtained results from the previous one.
-        // Post different task on the file thread to increase granularity.
-        GetPlatform().RunTask(Platform::Thread::File, [this, results, nextTask = std::move(nextTask)]()
-        {
-          m_filters.at(nextTask.m_type)->ApplyFilter(results, nextTask.m_filterParams);
-        });
+        [ this, cb, nextTask = std::move(tasks[i]) ](auto const & filterResults) mutable
+    {
+      cb(filterResults);
+      // Run the next filter with obtained results from the previous one.
+      // Post different task on the file thread to increase granularity.
+      // Note: FilterProcessor works on file thread, so all filters will
+      // be applied on the single thread.
+      GetPlatform().RunTask(
+          Platform::Thread::File, [this, filterResults, nextTask = std::move(nextTask)]() {
+            m_filters.at(nextTask.m_type)->ApplyFilter(filterResults, nextTask.m_filterParams);
+          });
       };
   }
   // Run the first filter.
-  m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_filterParams);
+  m_filters.at(tasks.front().m_type)->ApplyFilter(source, tasks.front().m_filterParams);
 }
 
-void FilterProcessor::ApplyIndependently(search::Results const & results,
-                                         TasksInternal const & tasks)
+template <typename Source, typename TaskInternalType>
+void FilterProcessor::ApplyIndependently(Source const & source, TaskInternalType const & tasks)
 {
   for (auto const & task : tasks)
-    m_filters.at(task.m_type)->ApplyFilter(results, task.m_filterParams);
+    m_filters.at(task.m_type)->ApplyFilter(source, task.m_filterParams);
 }
 }  // namespace filter
 }  // namespace booking

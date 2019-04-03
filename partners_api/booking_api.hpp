@@ -117,6 +117,7 @@ public:
   // Booking Api v2 methods:
   static bool HotelAvailability(AvailabilityParams const & params, std::string & result);
   static bool BlockAvailability(BlockParams const & params, string & result);
+  static size_t constexpr GetMaxHotelsInAvailabilityRequest() { return 300; };
 };
 
 using BlockAvailabilityCallback =
