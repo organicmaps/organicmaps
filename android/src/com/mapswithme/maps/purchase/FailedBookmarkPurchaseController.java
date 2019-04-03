@@ -47,6 +47,8 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   public void destroy()
   {
     mBillingManager.destroy();
+    mValidator.removeCallback();
+    mBillingManager.removeCallback(mBillingCallback);
   }
 
   @Override
