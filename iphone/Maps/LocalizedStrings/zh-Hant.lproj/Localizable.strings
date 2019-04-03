@@ -2775,6 +2775,8 @@
 /* FIXME */
 "unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
 
+"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+
 
 /**********  Partners  **********/
 

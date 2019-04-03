@@ -1578,6 +1578,7 @@
 	<string name="unpaved_road">Грунтовая дорога</string>
 	<string name="ferry_crossing">Паромная переправа</string>
 	<string name="operated_by">Осуществляется оператором %s</string>
+	<string name="purchase_please_wait_toast">Пожалуйста, не покидайте экран до завершения покупки</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>
