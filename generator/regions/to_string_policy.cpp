@@ -6,7 +6,6 @@
 #include <memory>
 
 #include <boost/optional.hpp>
-#include <boost/range/adaptor/reversed.hpp>
 
 #include "3party/jansson/myjansson.hpp"
 
