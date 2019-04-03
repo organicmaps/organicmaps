@@ -80,8 +80,8 @@ private:
 
       auto jsonPolicy = JsonPolicy{m_verbose};
       Visit(tree, [&](auto && node) {
-        auto id = node->GetData().GetId();
-        auto path = MakeNodePath(node);
+        auto const id = node->GetData().GetId();
+        auto const path = MakeNodePath(node);
         regionsKv << static_cast<int64_t>(id.GetEncodedId()) << " " << jsonPolicy.ToString(path) << "\n";
         ++countIds;
         if (!setIds.insert(id).second)

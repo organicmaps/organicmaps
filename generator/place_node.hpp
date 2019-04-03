@@ -47,8 +47,8 @@ private:
 template <typename Data, typename Visitor>
 void Visit(std::shared_ptr<PlaceNode<Data>> const & tree, Visitor && visitor)
 {
-  std::forward<Visitor>(visitor)(tree);
+  visitor(tree);
   for (auto const & subtree : tree->GetChildren())
-    Visit(subtree, std::forward<Visitor>(visitor));
+    Visit(subtree, visitor);
 }
 }  // namespace generator
