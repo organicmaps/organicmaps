@@ -2,31 +2,12 @@
 
 @class MWMPlacePageData;
 
-@protocol MWMActionBarSharedData<NSObject>
-
-- (BOOL)isBookmark;
-- (BOOL)isBookmarkEditable;
-- (BOOL)isOpentable;
-- (BOOL)isPartner;
-- (BOOL)isBooking;
-- (BOOL)isBookingSearch;
-- (BOOL)isApi;
-- (BOOL)isMyPosition;
-- (BOOL)isRoutePoint;
-- (NSString *)title;
-- (NSString *)subtitle;
-- (NSString *)phoneNumber;
-- (int)partnerIndex;
-- (NSURL *)sponsoredURL;
-
-@end
-
 @protocol MWMActionBarProtocol;
 
 @interface MWMPlacePageActionBar : SolidTouchView
 
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate;
-- (void)configureWithData:(id<MWMActionBarSharedData>)data;
+- (void)configureWithData:(MWMPlacePageData *)data;
 
 @property(nonatomic) BOOL isAreaNotDownloaded;
 

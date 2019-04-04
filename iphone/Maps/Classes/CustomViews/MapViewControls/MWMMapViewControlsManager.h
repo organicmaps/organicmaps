@@ -51,7 +51,7 @@ class Info;
 
 - (void)onRoutePrepare;
 - (void)onRouteRebuild;
-- (void)onRouteReady;
+- (void)onRouteReady:(BOOL)hasWarnings;
 - (void)onRouteStart;
 - (void)onRouteStop;
 

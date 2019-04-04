@@ -139,7 +139,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @protocol MWMBanner;
 
 /// ViewModel for place page.
-@interface MWMPlacePageData : NSObject<MWMActionBarSharedData>
+@interface MWMPlacePageData : NSObject
 
 @property(copy, nonatomic) MWMVoidBlock refreshPreviewCallback;
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
@@ -252,6 +252,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
 - (BOOL)isRoutePoint;
+- (RoadWarningMarkType)roadType;
 - (BOOL)isPreviewExtended;
 - (BOOL)isPartnerAppInstalled;
 

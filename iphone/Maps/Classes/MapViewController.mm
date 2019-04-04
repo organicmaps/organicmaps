@@ -253,6 +253,7 @@ BOOL gIsFirstMyPositionMode = YES;
   GetFramework().InvalidateRendering();
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
+  [MWMRouter updateRoute];
 }
 
 - (void)viewDidLoad
@@ -507,6 +508,13 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)searchText:(NSString *)text
 {
   [self.controlsManager searchText:text forInputLocale:[[AppInfo sharedInfo] languageId]];
+}
+
+- (void)openDrivingOptions
+{
+  UIStoryboard *sb = [UIStoryboard instance:MWMStoryboardDrivingOptions];// [UIStoryboard storyboardWithName:@"DrivingOptions" bundle:nil];
+  UIViewController * vc = [sb instantiateInitialViewController];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showRemoveAds

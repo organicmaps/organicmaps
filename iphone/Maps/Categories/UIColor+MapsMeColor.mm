@@ -9,6 +9,7 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"primaryDark":
       [UIColor colorWithRed:scaled(25.) green:scaled(30) blue:scaled(35.) alpha:alpha100],
   @"primary": [UIColor colorWithRed:scaled(45.) green:scaled(50.) blue:scaled(55.) alpha:alpha100],
+  @"secondary": [UIColor colorWithRed:scaled(0x25) green:scaled(0x28) blue:scaled(0x2b) alpha:alpha100],
   // Light green color
   @"primaryLight":
       [UIColor colorWithRed:scaled(65.) green:scaled(70.) blue:scaled(75.) alpha:alpha100],
@@ -59,6 +60,7 @@ NSDictionary<NSString *, UIColor *> * day = @{
       [UIColor colorWithRed:scaled(24.) green:scaled(128) blue:scaled(68.) alpha:alpha100],
   @"primary" :
       [UIColor colorWithRed:scaled(32.) green:scaled(152.) blue:scaled(82.) alpha:alpha100],
+  @"secondary" : [UIColor colorWithRed:scaled(45) green:scaled(137) blue:scaled(83) alpha:alpha100],
   // Light green color
   @"primaryLight" :
       [UIColor colorWithRed:scaled(36.) green:scaled(180.) blue:scaled(98.) alpha:alpha100],
@@ -136,6 +138,11 @@ UIColor * color(SEL cmd)
 
 // Green color
 + (UIColor *)primary
+{
+  return color(_cmd);
+}
+
++ (UIColor *)secondary
 {
   return color(_cmd);
 }

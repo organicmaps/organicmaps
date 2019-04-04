@@ -6,6 +6,7 @@
 #import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
 #import "MapViewController.h"
+#import "MWMPlacePageData.h"
 
 @interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate>
 {
@@ -16,7 +17,7 @@
 @property(nonatomic) NSLayoutConstraint * visibleConstraint;
 @property(weak, nonatomic) IBOutlet UIStackView * barButtons;
 @property(weak, nonatomic) id<MWMActionBarProtocol> delegate;
-@property(weak, nonatomic) id<MWMActionBarSharedData> data;
+@property(weak, nonatomic) MWMPlacePageData * data;
 
 @end
 
@@ -31,7 +32,7 @@
   return bar;
 }
 
-- (void)configureWithData:(id<MWMActionBarSharedData>)data
+- (void)configureWithData:(MWMPlacePageData *)data
 {
   self.data = data;
   [self configureButtons];
@@ -46,7 +47,7 @@
   [self.barButtons.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
-- (void)setFirstButton:(id<MWMActionBarSharedData>)data
+- (void)setFirstButton:(MWMPlacePageData *)data
 {
   vector<EButton> buttons;
 
@@ -90,7 +91,7 @@
   std::copy(begin, buttons.end(), std::back_inserter(m_additionalButtons));
 }
 
-- (void)setSecondButton:(id<MWMActionBarSharedData>)data
+- (void)setSecondButton:(MWMPlacePageData *)data
 {
   vector<EButton> buttons;
   BOOL const isCanAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
@@ -122,7 +123,7 @@
   }
 }
 
-- (void)addButtons2UI:(id<MWMActionBarSharedData>)data
+- (void)addButtons2UI:(MWMPlacePageData *)data
 {
   BOOL const isPartner = [data isPartner] && [data sponsoredURL] != nil;
   int const partnerIndex = isPartner ? [data partnerIndex] : -1;
@@ -142,12 +143,26 @@
 
 - (void)setSingleButton { m_visibleButtons.push_back(EButton::RouteRemoveStop); }
 
-- (void)setButtons:(id<MWMActionBarSharedData>)data
+- (void)setButtons:(MWMPlacePageData *)data
 {
-  BOOL const isRoutePoint = [data isRoutePoint];
-  if (isRoutePoint)
+  RoadWarningMarkType roadType = [data roadType];
+  if ([data isRoutePoint])
   {
     [self setSingleButton];
+  } else if (roadType != RoadWarningMarkType::Count) {
+    switch (roadType) {
+      case RoadWarningMarkType::Toll:
+        m_visibleButtons.push_back(EButton::AvoidToll);
+        break;
+      case RoadWarningMarkType::Ferry:
+        m_visibleButtons.push_back(EButton::AvoidFerry);
+        break;
+      case RoadWarningMarkType::Dirty:
+        m_visibleButtons.push_back(EButton::AvoidDirty);
+        break;
+      default:
+        break;
+    }
   }
   else
   {
@@ -227,6 +242,10 @@
   case EButton::More: [self showActionSheet]; break;
   case EButton::RouteAddStop: [delegate routeAddStop]; break;
   case EButton::RouteRemoveStop: [delegate routeRemoveStop]; break;
+  case EButton::AvoidToll: [delegate avoidToll]; break;
+  case EButton::AvoidDirty: [delegate avoidDirty]; break;
+  case EButton::AvoidFerry: [delegate avoidFerry]; break;
+  case EButton::AvoidMotorway: [delegate avoidMotorway]; break;
   case EButton::Partner: [delegate openPartner]; break;
   }
 }

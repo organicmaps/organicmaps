@@ -2,7 +2,6 @@ import UIKit
 
 @objc(MWMStoryboard)
 enum Storyboard: Int {
-
   case authorization
   case launchScreen
   case main
@@ -11,6 +10,7 @@ enum Storyboard: Int {
   case welcome
   case sharing
   case categorySettings
+  case drivingOptions
 }
 
 extension UIStoryboard {
@@ -25,6 +25,7 @@ extension UIStoryboard {
     case .welcome: name = "Welcome"
     case .sharing: name = "BookmarksSharingFlow"
     case .categorySettings: name = "CategorySettings"
+    case .drivingOptions: name = "DrivingOptions"
     }
     return UIStoryboard(name: name, bundle: nil)
   }

@@ -1,6 +1,13 @@
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
+typedef NS_ENUM(NSInteger, MWMRoadType) {
+  MWMRoadTypeToll,
+  MWMRoadTypeDirty,
+  MWMRoadTypeFerry,
+  MWMRoadTypeMotorway
+};
+
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 @interface MWMRouter : NSObject
@@ -53,6 +60,10 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)saveRouteIfNeeded;
 + (void)restoreRouteIfNeeded;
 + (BOOL)hasSavedRoute;
+
++ (void)updateRoute;
++ (BOOL)hasActiveDrivingOptions;
++ (void)avoidRoadTypeAndRebuild:(MWMRoadType)type;
 
 @end
 

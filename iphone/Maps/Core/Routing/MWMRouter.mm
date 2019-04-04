@@ -38,6 +38,7 @@ using namespace routing;
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isAPICall;
+@property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
 + (MWMRouter *)router;
 
@@ -172,6 +173,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 + (BOOL)isRouteFinished { return GetFramework().GetRoutingManager().IsRouteFinished(); }
 + (BOOL)isRouteRebuildingOnly { return GetFramework().GetRoutingManager().IsRouteRebuildingOnly(); }
 + (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsRoutingFollowing(); }
++ (BOOL)IsRouteValid { return GetFramework().GetRoutingManager().IsRouteValid(); }
 + (NSArray<MWMRoutePoint *> *)points
 {
   NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
@@ -227,6 +229,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
+    _routingOptions = [MWMRoutingOptions new];
   }
   return self;
 }
@@ -620,6 +623,23 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
 
+- (void)onRouteReady:(BOOL)hasWarnings
+{
+  self.routingOptions = [MWMRoutingOptions new];
+  GetFramework().DeactivateMapSelection(true);
+
+  auto startPoint = [MWMRouter startPoint];
+  if (!startPoint || !startPoint.isMyPosition)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [MWMRouter disableFollowMode];
+    });
+  }
+
+  [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
+  [self updateFollowingInfo];
+}
+
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesVec const &)absentCountries
 {
@@ -627,22 +647,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   switch (code)
   {
   case routing::RouterResultCode::NoError:
-  case routing::RouterResultCode::HasWarnings:
-  {
-    GetFramework().DeactivateMapSelection(true);
-
-    auto startPoint = [MWMRouter startPoint];
-    if (!startPoint || !startPoint.isMyPosition)
-    {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [MWMRouter disableFollowMode];
-      });
-    }
-
-    [mapViewControlsManager onRouteReady];
-    [self updateFollowingInfo];
+    [self onRouteReady:NO];
     break;
-  }
+  case routing::RouterResultCode::HasWarnings:
+    [self onRouteReady:YES];
+    break;
   case routing::RouterResultCode::RouteFileNotExist:
   case routing::RouterResultCode::InconsistentMWMandRoute:
   case routing::RouterResultCode::NeedMoreMaps:
@@ -650,6 +659,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   case routing::RouterResultCode::RouteNotFound:
     if ([MWMRouter isTaxi])
       return;
+    self.routingOptions = [MWMRoutingOptions new];
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
@@ -721,6 +731,16 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
           [MWMRouter rebuildWithBestRouter:NO];
         }];
   }
+  else if ([MWMRouter hasActiveDrivingOptions])
+  {
+    [activeAlertController presentDefaultAlertWithTitle:L(@"unable_to_calc_alert_title")
+                                                message:L(@"unable_to_calc_alert_subtitle")
+                                       rightButtonTitle:L(@"settings")
+                                        leftButtonTitle:L(@"cancel")
+                                      rightButtonAction:^{
+                                        [[MapViewController sharedController] openDrivingOptions];
+                                                }];
+  }
   else
   {
     [activeAlertController presentAlert:code];
@@ -761,6 +781,38 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 + (BOOL)hasSavedRoute
 {
   return GetFramework().GetRoutingManager().HasSavedRoutePoints();
+}
+
++ (void)updateRoute {
+  MWMRoutingOptions *newOptions = [MWMRoutingOptions new];
+  if ((self.isRouteBuilt || !self.IsRouteValid)
+      && ![newOptions isEqual:[self router].routingOptions]) {
+    [self rebuildWithBestRouter:YES];
+  }
+}
+
++ (BOOL)hasActiveDrivingOptions {
+  return [MWMRoutingOptions new].hasOptions;
+}
+
++ (void)avoidRoadTypeAndRebuild:(MWMRoadType)type {
+  MWMRoutingOptions *options = [MWMRoutingOptions new];
+  switch(type) {
+    case MWMRoadTypeToll:
+      options.avoidToll = YES;
+      break;
+    case MWMRoadTypeDirty:
+      options.avoidDirty = YES;
+      break;
+    case MWMRoadTypeFerry:
+      options.avoidFerry = YES;
+      break;
+    case MWMRoadTypeMotorway:
+      options.avoidMotorway = YES;
+      break;
+  }
+  [options save];
+  [self rebuildWithBestRouter:YES];
 }
 
 @end

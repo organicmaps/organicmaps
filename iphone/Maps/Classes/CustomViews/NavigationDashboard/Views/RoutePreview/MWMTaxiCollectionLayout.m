@@ -9,7 +9,7 @@
 - (UICollectionViewScrollDirection)scrollDirection { return UICollectionViewScrollDirectionHorizontal; }
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
-  auto const size = self.collectionView.bounds.size;
+  CGSize size = self.collectionView.bounds.size;
   if (newBounds.size.height == 0)
     return NO;
   
@@ -17,8 +17,8 @@
   {
     dispatch_async(dispatch_get_main_queue(), ^{
       [self invalidateLayout];
-      auto cv = static_cast<MWMTaxiCollectionView *>(self.collectionView);
-      cv.contentOffset = {};
+      MWMTaxiCollectionView * cv = (MWMTaxiCollectionView *)self.collectionView;
+      self.collectionView.contentOffset = CGPointZero;
       cv.currentPage = 0;
     });
   }

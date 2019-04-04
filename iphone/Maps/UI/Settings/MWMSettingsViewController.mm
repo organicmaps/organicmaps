@@ -44,6 +44,7 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * voiceInstructionsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * drivingOptionsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
@@ -348,6 +349,10 @@ using namespace power_management;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
           withParameters:@{kStatAction : kStatChangeLanguage}];
     [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+  }
+  else if (cell == self.drivingOptionsCell)
+  {
+    [self performSegueWithIdentifier:@"settingsToDrivingOptionsSegue" sender:nil];
   }
   else if (cell == self.helpCell)
   {

@@ -13,6 +13,8 @@
 
 #include "platform/platform.hpp"
 
+static CGFloat const kDrivingOptionsHeight = 48;
+
 @interface MWMRoutePreview ()<MWMCircularProgressProtocol>
 
 @property(nonatomic) BOOL isVisible;
@@ -23,6 +25,8 @@
 @property(weak, nonatomic) IBOutlet UIView * publicTransport;
 @property(weak, nonatomic) IBOutlet UIView * taxi;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * drivingOptionHeightConstraint;
+@property(strong, nonatomic) IBOutlet UIButton * drivingOptionsButton;
 
 @end
 
@@ -37,6 +41,7 @@
   self.translatesAutoresizingMaskIntoConstraints = NO;
   [self setupProgresses];
   [self.backButton matchInterfaceOrientation];
+  self.drivingOptionHeightConstraint.constant = -kDrivingOptionsHeight;
 }
 
 - (void)setupProgresses
@@ -101,6 +106,10 @@
   m_progresses[routerType].progress = progress;
 }
 
+- (IBAction)onDrivingOptions:(UIButton *)sender {
+  [self.delegate routePreviewDidPressDrivingOptions:self];
+}
+
 #pragma mark - MWMCircularProgressProtocol
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
@@ -153,6 +162,24 @@
 {
   [super layoutSubviews];
   [self.vehicle setNeedsLayout];
+}
+
+- (void)setDrivingOptionsState:(MWMDrivingOptionsState)state {
+  _drivingOptionsState = state;
+  [self layoutIfNeeded];
+  self.drivingOptionHeightConstraint.constant =
+    (state == MWMDrivingOptionsStateNone) ? -kDrivingOptionsHeight : 0;
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+    [self layoutIfNeeded];
+  }];
+
+  if (state == MWMDrivingOptionsStateDefine) {
+    [self.drivingOptionsButton setTitle:L(@"define_to_avoid_btn").uppercaseString
+                               forState:UIControlStateNormal];
+  } else if (state == MWMDrivingOptionsStateChange) {
+    [self.drivingOptionsButton setTitle:L(@"change_driving_options_btn").uppercaseString
+                               forState:UIControlStateNormal];
+  }
 }
 
 #pragma mark - Properties

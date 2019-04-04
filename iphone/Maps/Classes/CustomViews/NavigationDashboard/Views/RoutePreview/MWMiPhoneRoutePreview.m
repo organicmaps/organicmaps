@@ -1,6 +1,6 @@
 #import "MWMiPhoneRoutePreview.h"
+#import "MWMAvailableAreaAffectDirection.h"
 #import "MWMCommon.h"
-#import "SwiftBridge.h"
 
 @interface MWMRoutePreview ()
 
@@ -17,7 +17,7 @@
 
 - (void)setupConstraints
 {
-  auto sv = self.superview;
+  UIView * sv = self.superview;
   [self.leadingAnchor constraintEqualToAnchor:sv.leadingAnchor].active = YES;
   [self.trailingAnchor constraintEqualToAnchor:sv.trailingAnchor].active = YES;
   self.verticalConstraint = [self.bottomAnchor constraintEqualToAnchor:sv.topAnchor];
@@ -33,7 +33,7 @@
 
 - (void)setIsVisible:(BOOL)isVisible
 {
-  auto sv = self.superview;
+  UIView * sv = self.superview;
   if (!sv)
     return;
   self.verticalConstraint.active = NO;

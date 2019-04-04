@@ -20,9 +20,11 @@
 - (void)searchBookingHotels;
 
 - (void)openPartner;
-
-- (void)apiBack;
 - (void)downloadSelectedArea;
+- (void)avoidToll;
+- (void)avoidDirty;
+- (void)avoidFerry;
+- (void)avoidMotorway;
 
 @end
 

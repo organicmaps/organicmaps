@@ -4,6 +4,7 @@
 
 + (UIColor *)primaryDark;
 + (UIColor *)primary;
++ (UIColor *)secondary;
 + (UIColor *)primaryLight;
 + (UIColor *)fadeBackground;
 + (UIColor *)menuBackground;

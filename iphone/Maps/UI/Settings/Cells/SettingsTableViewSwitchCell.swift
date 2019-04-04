@@ -12,7 +12,7 @@ final class SettingsTableViewSwitchCell: MWMTableViewCell {
     }
   }
 
-  weak var delegate: SettingsTableViewSwitchCellDelegate?
+  @IBOutlet weak var delegate: SettingsTableViewSwitchCellDelegate?
 
   @objc
   var isEnabled = true {

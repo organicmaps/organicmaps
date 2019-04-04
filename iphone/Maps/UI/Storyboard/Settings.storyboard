@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -722,12 +722,50 @@
                                             <outlet property="title" destination="2v2-mU-aWi" id="Zp1-zJ-xDM"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="KrE-Sc-fI1" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1102.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KrE-Sc-fI1" id="AKJ-VB-Pzr">
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drivinig options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svw-vb-P42">
+                                                    <rect key="frame" x="16" y="12" width="329" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="driving_options_title"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wC1-f8-Br8">
+                                                    <rect key="frame" x="349" y="12" width="0.0" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wC1-f8-Br8" firstAttribute="top" secondItem="AKJ-VB-Pzr" secondAttribute="top" constant="12" id="0MT-eX-qIY"/>
+                                                <constraint firstAttribute="bottom" secondItem="Svw-vb-P42" secondAttribute="bottom" constant="12" id="5hB-kU-bbd"/>
+                                                <constraint firstItem="wC1-f8-Br8" firstAttribute="leading" secondItem="Svw-vb-P42" secondAttribute="trailing" constant="4" id="AwL-2X-aRk"/>
+                                                <constraint firstItem="Svw-vb-P42" firstAttribute="top" secondItem="AKJ-VB-Pzr" secondAttribute="top" constant="12" id="Z9g-9O-vbl"/>
+                                                <constraint firstAttribute="trailing" secondItem="wC1-f8-Br8" secondAttribute="trailing" id="hc1-xs-ciL"/>
+                                                <constraint firstItem="Svw-vb-P42" firstAttribute="leading" secondItem="AKJ-VB-Pzr" secondAttribute="leading" constant="16" id="i6J-FV-8mz"/>
+                                                <constraint firstAttribute="bottom" secondItem="wC1-f8-Br8" secondAttribute="bottom" constant="12" id="m21-5d-nGY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="info" destination="wC1-f8-Br8" id="65Q-Wq-Jze"/>
+                                            <outlet property="title" destination="Svw-vb-P42" id="V80-Qf-JuQ"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="ИНФОРМАЦИЯ" id="i4H-WV-BaS">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="JTZ-K9-RVv" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1150.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1194.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JTZ-K9-RVv" id="mHA-wn-hse">
                                             <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
@@ -762,7 +800,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Kv3-pO-jV5" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1194.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1238.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kv3-pO-jV5" id="8mJ-wm-9uJ">
                                             <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
@@ -817,6 +855,7 @@
                         <outlet property="autoZoomCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
                         <outlet property="backupBookmarksCell" destination="hbG-yu-ut3" id="Wxn-pQ-gEU"/>
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
+                        <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>
                         <outlet property="helpCell" destination="JTZ-K9-RVv" id="FcU-iF-pKx"/>
                         <outlet property="is3dCell" destination="0Lf-xU-P2U" id="obI-bL-FLh"/>
@@ -843,11 +882,12 @@
                         <segue destination="f2i-mO-skH" kind="custom" identifier="SettingsToHelp" customClass="MWMSegue" id="PSn-ic-YWl"/>
                         <segue destination="4XX-qH-r6x" kind="custom" identifier="SettingsToMobileInternetSegue" customClass="MWMSegue" id="wBF-fV-zWQ"/>
                         <segue destination="vni-Mo-vH1" kind="custom" identifier="SettingsToPowerManagementSegue" customClass="MWMSegue" id="arI-ZG-u4b"/>
+                        <segue destination="CoS-Kv-RlQ" kind="custom" identifier="settingsToDrivingOptionsSegue" customClass="MWMSegue" id="sdV-0Y-OKf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I90-hv-hTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="-339"/>
+            <point key="canvasLocation" x="919" y="-339"/>
         </scene>
         <!--Night Mode Controller-->
         <scene sceneID="f6s-C8-Bfx">
@@ -1901,6 +1941,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMV-2O-GbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-559" y="428"/>
+        </scene>
+        <!--DrivingOptions-->
+        <scene sceneID="sWS-Id-gGL">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DrivingOptions" id="CoS-Kv-RlQ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hwf-lT-jqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="430" y="578"/>
         </scene>
         <!--Mobile Internet View Controller-->
         <scene sceneID="oc3-3x-xki">

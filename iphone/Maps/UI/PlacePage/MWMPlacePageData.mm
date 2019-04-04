@@ -792,6 +792,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr(m_info.GetBookmarkData().m_description)); }
 - (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
+- (RoadWarningMarkType)roadType { return m_info.GetRoadType(); }
 - (BOOL)isPreviewExtended { return m_info.IsPreviewExtended(); }
 - (BOOL)isPartnerAppInstalled
 {

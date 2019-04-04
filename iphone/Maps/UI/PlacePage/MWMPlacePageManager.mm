@@ -543,6 +543,30 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
+- (void)avoidDirty {
+  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
+  [self closePlacePage];
+}
+
+
+- (void)avoidFerry {
+  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
+  [self closePlacePage];
+}
+
+
+- (void)avoidMotorway {
+  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeMotorway];
+  [self closePlacePage];
+}
+
+
+- (void)avoidToll {
+  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
+  [self closePlacePage];
+}
+
+
 - (void)showPhotoAtIndex:(NSInteger)index
                          referenceView:(UIView *)referenceView
     referenceViewWhenDismissingHandler:

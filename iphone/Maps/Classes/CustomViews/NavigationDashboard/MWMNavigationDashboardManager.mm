@@ -5,11 +5,7 @@
 #import "MWMSearch.h"
 #import "MapViewController.h"
 
-#import <AudioToolbox/AudioServices.h>
-#import <Crashlytics/Crashlytics.h>
 #import "SwiftBridge.h"
-
-#include "platform/platform.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 
@@ -30,7 +26,7 @@ using Observers = NSHashTable<Observer>;
 
 @end
 
-@interface MWMNavigationDashboardManager ()<MWMSearchManagerObserver>
+@interface MWMNavigationDashboardManager ()<MWMSearchManagerObserver, MWMRoutePreviewDelegate>
 
 @property(copy, nonatomic) NSDictionary * etaAttributes;
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
@@ -128,18 +124,33 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - On route updates
 
-- (void)onRoutePrepare { self.state = MWMNavigationDashboardStatePrepare; }
-- (void)onRoutePlanning { self.state = MWMNavigationDashboardStatePlanning; }
+- (void)onRoutePrepare {
+  self.state = MWMNavigationDashboardStatePrepare;
+  self.routePreview.drivingOptionsState = MWMDrivingOptionsStateNone;
+}
+
+- (void)onRoutePlanning {
+  self.state = MWMNavigationDashboardStatePlanning;
+  self.routePreview.drivingOptionsState = MWMDrivingOptionsStateNone;
+}
+
 - (void)onRouteError:(NSString *)error
 {
   self.errorMessage = error;
   self.state = MWMNavigationDashboardStateError;
+  self.routePreview.drivingOptionsState = [MWMRouter hasActiveDrivingOptions] ?
+    MWMDrivingOptionsStateChange : MWMDrivingOptionsStateNone;
 }
 
-- (void)onRouteReady
+- (void)onRouteReady:(BOOL)hasWarnings
 {
   if (self.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
     self.state = MWMNavigationDashboardStateReady;
+  if ([MWMRouter hasActiveDrivingOptions]) {
+    self.routePreview.drivingOptionsState = MWMDrivingOptionsStateChange;
+  } else {
+    self.routePreview.drivingOptionsState = hasWarnings ? MWMDrivingOptionsStateDefine : MWMDrivingOptionsStateNone;
+  }
 }
 
 - (void)onRoutePointsUpdated
@@ -412,6 +423,7 @@ using Observers = NSHashTable<Observer>;
     return;
   [_routePreview remove];
   _routePreview = routePreview;
+  _routePreview.delegate = self;
 }
 
 - (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus
@@ -459,6 +471,12 @@ using Observers = NSHashTable<Observer>;
 - (void)setMapSearch
 {
   [_navigationInfoView setMapSearch];
+}
+
+#pragma mark - MWMRoutePreviewDelegate
+
+- (void)routePreviewDidPressDrivingOptions:(MWMRoutePreview *)routePreview {
+  [[MapViewController sharedController] openDrivingOptions];
 }
 
 @end

@@ -258,10 +258,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.navigationManager onRoutePlanning];
 }
 
-- (void)onRouteReady
+- (void)onRouteReady:(BOOL)hasWarnings
 {
   self.searchManager.state = MWMSearchManagerStateHidden;
-  [self.navigationManager onRouteReady];
+  [self.navigationManager onRouteReady:hasWarnings];
 }
 
 - (void)onRouteStart

@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 - (void)onRoutePrepare;
 - (void)onRoutePlanning;
 - (void)onRouteError:(NSString *)error;
-- (void)onRouteReady;
+- (void)onRouteReady:(BOOL)hasWarnings;
 - (void)onRouteStart;
 - (void)onRouteStop;
 - (void)onRoutePointsUpdated;

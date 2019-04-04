@@ -131,6 +131,7 @@ public:
   bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
+  bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
   void BuildRoute(uint32_t timeoutSec);
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }

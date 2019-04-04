@@ -12,7 +12,11 @@ enum class EButton  // Required button's order
   RouteFrom,
   RouteRemoveStop,
   RouteTo,
-  Share
+  Share,
+  AvoidToll,
+  AvoidDirty,
+  AvoidFerry,
+  AvoidMotorway
 };
 
 NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);

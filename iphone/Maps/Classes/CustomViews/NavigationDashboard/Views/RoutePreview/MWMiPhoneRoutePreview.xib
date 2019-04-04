@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
@@ -27,8 +21,8 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="aNH-vh-DPz" customClass="MWMiPhoneRoutePreview" propertyAccessControl="all">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+        <view contentMode="scaleToFill" id="aNH-vh-DPz" customClass="MWMiPhoneRoutePreview">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-9k-ciR">
@@ -39,6 +33,29 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ib5-qh-Cmo">
+                    <rect key="frame" x="0.0" y="48" width="320" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXA-Og-q2I">
+                            <rect key="frame" x="54.5" y="7" width="211" height="34"/>
+                            <state key="normal" title="DEFINE ROADS TO AVOID"/>
+                            <connections>
+                                <action selector="onDrivingOptions:" destination="aNH-vh-DPz" eventType="touchUpInside" id="jR1-dk-nNj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZXA-Og-q2I" secondAttribute="trailing" constant="16" id="9bx-3j-h0U"/>
+                        <constraint firstItem="ZXA-Og-q2I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ib5-qh-Cmo" secondAttribute="leading" constant="16" id="IYq-Pa-Tai"/>
+                        <constraint firstItem="ZXA-Og-q2I" firstAttribute="centerX" secondItem="Ib5-qh-Cmo" secondAttribute="centerX" id="Uq2-QA-bWZ"/>
+                        <constraint firstItem="ZXA-Og-q2I" firstAttribute="centerY" secondItem="Ib5-qh-Cmo" secondAttribute="centerY" id="l5z-Dg-joz"/>
+                        <constraint firstAttribute="height" constant="48" id="l8l-Ii-g5U"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="secondary"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Yb-PmP" customClass="SolidTouchView">
@@ -154,12 +171,15 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="h9I-OO-tom" firstAttribute="bottom" secondItem="WqK-Yb-PmP" secondAttribute="bottom" id="3ce-Ld-CWk"/>
                 <constraint firstAttribute="trailing" secondItem="tRj-9k-ciR" secondAttribute="trailing" id="7jY-DP-PkA"/>
+                <constraint firstItem="h9I-OO-tom" firstAttribute="trailing" secondItem="Ib5-qh-Cmo" secondAttribute="trailing" id="BQK-qP-OHs"/>
                 <constraint firstItem="WqK-Yb-PmP" firstAttribute="top" secondItem="h9I-OO-tom" secondAttribute="top" id="DDa-WE-Bpd"/>
+                <constraint firstItem="Ib5-qh-Cmo" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="bottom" id="Oxx-fO-ZLa"/>
+                <constraint firstItem="Ib5-qh-Cmo" firstAttribute="leading" secondItem="h9I-OO-tom" secondAttribute="leading" id="UJ9-p8-11L"/>
                 <constraint firstItem="tRj-9k-ciR" firstAttribute="leading" secondItem="aNH-vh-DPz" secondAttribute="leading" id="gxu-Mc-DSI"/>
                 <constraint firstAttribute="trailing" secondItem="WqK-Yb-PmP" secondAttribute="trailing" id="hui-oa-rbV"/>
                 <constraint firstItem="WqK-Yb-PmP" firstAttribute="leading" secondItem="aNH-vh-DPz" secondAttribute="leading" id="rQB-KG-9Kg"/>
+                <constraint firstItem="h9I-OO-tom" firstAttribute="bottom" secondItem="Ib5-qh-Cmo" secondAttribute="bottom" id="wQH-cW-zFs"/>
                 <constraint firstItem="WqK-Yb-PmP" firstAttribute="top" secondItem="tRj-9k-ciR" secondAttribute="bottom" id="zoU-RG-pIh"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -169,14 +189,16 @@
                 <outlet property="backButton" destination="wpf-tw-Coz" id="33r-Ij-AuQ"/>
                 <outlet property="bicycle" destination="FuO-c6-y9C" id="UR2-pF-Amb"/>
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
+                <outlet property="drivingOptionHeightConstraint" destination="Oxx-fO-ZLa" id="JOa-ih-oHZ"/>
+                <outlet property="drivingOptionsButton" destination="ZXA-Og-q2I" id="IZf-0l-IIV"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
                 <outlet property="taxi" destination="15Q-ZN-NzE" id="RaD-7N-ZE2"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>
-            <point key="canvasLocation" x="448" y="341"/>
+            <point key="canvasLocation" x="448" y="364.7676161919041"/>
         </view>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus" propertyAccessControl="all">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7e-Ce-Flg">
@@ -441,7 +463,7 @@
             </connections>
             <point key="canvasLocation" x="448" y="521"/>
         </view>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus" propertyAccessControl="all">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uA3-5h-DWb">
