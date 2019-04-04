@@ -74,7 +74,7 @@ private:
 std::string trim(std::string && s)
 {
   s.erase(std::remove_if(s.begin(), s.end(), &isspace), s.end());
-  return s;
+  return std::move(s);
 }
 }  // namespace
 
