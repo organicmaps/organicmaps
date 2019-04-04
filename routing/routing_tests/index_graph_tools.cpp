@@ -1,4 +1,4 @@
-#include "routing/routing_tests/index_graph_tools.hpp"
+#include "routing_common/index_graph_tools.hpp"
 
 #include "testing/testing.hpp"
 
@@ -71,32 +71,6 @@ void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & fi
 {
   CHECK(m_graph != nullptr, ("Init() was not called."));
   m_starter = MakeStarter(start, finish, *m_graph);
-}
-
-// TestGeometryLoader ------------------------------------------------------------------------------
-void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
-{
-  auto it = m_roads.find(featureId);
-  if (it == m_roads.cend())
-    return;
-
-  road = it->second;
-}
-
-void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points)
-{
-  auto it = m_roads.find(featureId);
-  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
-  m_roads[featureId] = RoadGeometry(oneWay, speed, speed, points);
-  m_roads[featureId].SetPassThroughAllowedForTests(true);
-}
-
-void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed)
-{
-  auto it = m_roads.find(featureId);
-  CHECK(it != m_roads.end(), ("No feature", featureId));
-  m_roads[featureId].SetPassThroughAllowedForTests(passThroughAllowed);
 }
 
 // ZeroGeometryLoader ------------------------------------------------------------------------------
@@ -223,7 +197,7 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   AlgorithmForWorldGraph algorithm;
 
-  WorldGraphForAStar graphForAStar(*worldGraph);
+  routing_test::WorldGraphForAStar graphForAStar(*worldGraph);
 
   AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
                                                 nullptr /* prevRoute */,
@@ -353,6 +327,15 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoade
                                               estimator);
 }
 
+unique_ptr<IndexGraph> BuildIndexGraph(unique_ptr<TestGeometryLoader> geometryLoader,
+                                       shared_ptr<EdgeEstimator> estimator,
+                                       vector<Joint> const & joints)
+{
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  graph->Import(joints);
+  return graph;
+}
+
 unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> geometryLoader,
                                                     shared_ptr<EdgeEstimator> estimator,
                                                     vector<Joint> const & joints)
@@ -386,28 +369,6 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
   
   return make_unique<TransitWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
                                         move(transitLoader), estimator);
-}
-
-Joint MakeJoint(vector<RoadPoint> const & points)
-{
-  Joint joint;
-  for (auto const & point : points)
-    joint.AddPoint(point);
-
-  return joint;
-}
-
-shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache)
-{
-  auto numMwmIds = make_shared<NumMwmIds>();
-  auto stash = make_shared<TrafficStash>(trafficCache, numMwmIds);
-  return CreateEstimatorForCar(stash);
-}
-
-shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
-{
-  auto const carModel = CarModelFactory({}).GetVehicleModel();
-  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
 }
 
 AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,

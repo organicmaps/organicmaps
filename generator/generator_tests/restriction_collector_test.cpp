@@ -6,6 +6,8 @@
 
 #include "routing/restrictions_serialization.hpp"
 
+#include "indexer/classificator_loader.hpp"
+
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
@@ -16,6 +18,7 @@
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -26,109 +29,178 @@ using namespace platform::tests_support;
 
 namespace routing
 {
-std::string const kRestrictionTestDir = "test-restrictions";
+std::string const kTestDir = "test-restrictions";
+std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
-UNIT_TEST(RestrictionTest_ValidCase)
+// 2                 *
+//                ↗     ↘
+//              F5        F4
+//            ↗              ↘                             Finish
+// 1         *                 *<- F3 ->*-> F8 -> *-> F10 -> *
+//            ↖                         ↑       ↗
+//              F6                      F2   F9
+//         Start   ↖                    ↑  ↗
+// 0         *-> F7 ->*-> F0 ->*-> F1 ->*
+//          -1        0        1        2         3          4
+//
+std::unique_ptr<IndexGraph> BuildTwoCubeGraph()
 {
-  RestrictionCollector restrictionCollector;
-  // Adding feature ids.
-  restrictionCollector.AddFeatureId(30 /* featureId */, base::MakeOsmWay(3));
-  restrictionCollector.AddFeatureId(10 /* featureId */, base::MakeOsmWay(1));
-  restrictionCollector.AddFeatureId(50 /* featureId */, base::MakeOsmWay(5));
-  restrictionCollector.AddFeatureId(70 /* featureId */, base::MakeOsmWay(7));
-  restrictionCollector.AddFeatureId(20 /* featureId */, base::MakeOsmWay(2));
+  classificator::Load();
+  std::unique_ptr<TestGeometryLoader> loader = std::make_unique<TestGeometryLoader>();
+  loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
+  loader->AddRoad(1 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
+  loader->AddRoad(2 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {2.0, 1.0}}));
+  loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
+  loader->AddRoad(4 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 2.0}, {1.0, 1.0}}));
+  loader->AddRoad(5 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{-1.0, 1.0}, {0.0, 2.0}}));
+  loader->AddRoad(6 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {-1.0, 1.0}}));
+  loader->AddRoad(7 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{-1.0, 0.0}, {0.0, 0.0}}));
+  loader->AddRoad(8 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 1.0}, {3.0, 1.0}}));
+  loader->AddRoad(9 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 1.0}}));
+  loader->AddRoad(10 /* feature id */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{3.0, 1.0}, {4.0, 1.0}}));
 
-  // Adding restrictions.
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No,
-                                           {base::MakeOsmWay(1), base::MakeOsmWay(2)}),
-       ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No,
-                                           {base::MakeOsmWay(2), base::MakeOsmWay(3)}),
-       ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only,
-                                           {base::MakeOsmWay(5), base::MakeOsmWay(7)}),
-       ());
-  base::SortUnique(restrictionCollector.m_restrictions);
+  std::vector<Joint> const joints = {
+      // {{/* feature id */, /* point id */}, ... }
+      MakeJoint({{7, 0}}),                 /* joint at point (-1, 0) */
+      MakeJoint({{0, 0}, {6, 0}, {7, 1}}), /* joint at point (0, 0) */
+      MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
+      MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
+      MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
+      MakeJoint({{3, 0}, {4, 1}}),          /* joint at point (1, 1) */
+      MakeJoint({{5, 1}, {4, 0}}),          /* joint at point (0, 2) */
+      MakeJoint({{6, 1}, {5, 0}}),          /* joint at point (-1, 1) */
+      MakeJoint({{8, 1}, {9, 1}, {10, 0}}), /* joint at point (3, 1) */
+      MakeJoint({{10, 1}})                  /* joint at point (4, 1) */
+  };
 
-  // Checking the result.
-  TEST(restrictionCollector.IsValid(), ());
+  traffic::TrafficCache const trafficCache;
+  std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
-  RestrictionVec const expectedRestrictions = {{Restriction::Type::No, {10, 20}},
-                                               {Restriction::Type::No, {20, 30}},
-                                               {Restriction::Type::Only, {50, 70}}};
-  TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
+  return BuildIndexGraph(std::move(loader), estimator, joints);
 }
 
-UNIT_TEST(RestrictionTest_InvalidCase)
+std::string const kosmIdsToFeatureIdsContentForTwoCubeGraph =
+    R"(0, 0
+       1, 1
+       2, 2
+       3, 3
+       4, 4
+       5, 5
+       6, 6
+       7, 7
+       8, 8
+       9, 9
+       10, 10)";
+
+class TestRestrictionCollector
 {
-  RestrictionCollector restrictionCollector;
-  restrictionCollector.AddFeatureId(0 /* featureId */, base::MakeOsmWay(0));
-  restrictionCollector.AddFeatureId(20 /* featureId */, base::MakeOsmWay(2));
+public:
 
-  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No,
-                                            {base::MakeOsmWay(0), base::MakeOsmWay(1)}),
-       ());
+  TestRestrictionCollector()
+    : m_scopedDir(kTestDir)
+  {
+    // Creating osm ids to feature ids mapping.
+    std::string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
 
-  TEST(!restrictionCollector.HasRestrictions(), ());
-  TEST(restrictionCollector.IsValid(), ());
+    m_scopedFile = std::make_shared<ScopedFile>(mappingRelativePath, ScopedFile::Mode::Create);
+    m_osmIdsToFeatureIdFullPath = m_scopedFile->GetFullPath();
+
+    ReEncodeOsmIdsToFeatureIdsMapping(kosmIdsToFeatureIdsContentForTwoCubeGraph,
+                                      m_osmIdsToFeatureIdFullPath);
+  }
+
+  void ValidCase()
+  {
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+
+    // Adding restrictions.
+    TEST(restrictionCollector.AddRestriction(
+        {2.0, 0.0} /* coords of intersection feature with id = 1 and feature with id = 2 */,
+        Restriction::Type::No, /* restriction type */
+        {base::MakeOsmWay(1), base::MakeOsmWay(2)} /* features in format {from, (via*)?, to} */
+    ), ());
+
+    TEST(restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::Only,
+                                             {base::MakeOsmWay(2), base::MakeOsmWay(3)}), ());
+
+    TEST(restrictionCollector.AddRestriction(
+        RestrictionCollector::kNoCoords, /* no coords in case of way as via */
+        Restriction::Type::No,
+        /*      from                via                    to         */
+        {base::MakeOsmWay(0), base::MakeOsmWay(1), base::MakeOsmWay(2)}), ());
+
+    base::SortUnique(restrictionCollector.m_restrictions);
+
+    std::vector<Restriction> expectedRestrictions = {
+        {Restriction::Type::No, {1, 2}},
+        {Restriction::Type::Only, {2, 3}},
+        {Restriction::Type::No, {0, 1, 2}},
+    };
+
+    std::sort(expectedRestrictions.begin(), expectedRestrictions.end());
+
+    TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
+  }
+
+  void InvalidCase_NoSuchFeature()
+  {
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+
+    // No such feature - 2809
+    TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,
+                                              {base::MakeOsmWay(2809), base::MakeOsmWay(1)}), ());
+
+    TEST(!restrictionCollector.HasRestrictions(), ());
+  }
+
+  void InvalidCase_FeaturesNotIntersecting()
+  {
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+
+    // Fetures with id 1 and 2 do not intersect in {2.0, 1.0}
+    TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,
+                                              {base::MakeOsmWay(1), base::MakeOsmWay(2)}), ());
+
+    // No such chain of features (1 => 2 => 4),
+    // because feature with id 2 and 4 do not have common joint.
+    TEST(!restrictionCollector.AddRestriction(
+        RestrictionCollector::kNoCoords,
+        Restriction::Type::No,
+        {base::MakeOsmWay(1), base::MakeOsmWay(2), base::MakeOsmWay(4)}), ());
+
+    TEST(!restrictionCollector.HasRestrictions(), ());
+  }
+
+private:
+  ScopedDir m_scopedDir;
+  std::shared_ptr<ScopedFile> m_scopedFile;
+  std::string m_osmIdsToFeatureIdFullPath;
+};
+
+
+UNIT_CLASS_TEST(TestRestrictionCollector, ValidCase)
+{
+  TestRestrictionCollector::ValidCase();
 }
 
-UNIT_TEST(RestrictionTest_ParseRestrictions)
+UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_NoSuchFeature)
 {
-  std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  std::string const kRestrictionPath = base::JoinPath(kRestrictionTestDir, kRestrictionName);
-  std::string const kRestrictionContent = R"(No, 1, 1,
-                                        Only, 0, 2,
-                                        Only, 2, 3,
-                                        No, 38028428, 38028428
-                                        No, 4, 5,)";
-
-  ScopedDir const scopedDir(kRestrictionTestDir);
-  ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
-
-  RestrictionCollector restrictionCollector;
-
-  Platform const & platform = GetPlatform();
-
-  TEST(restrictionCollector.ParseRestrictions(
-           base::JoinPath(platform.WritableDir(), kRestrictionPath)),
-       ());
-  TEST(!restrictionCollector.HasRestrictions(), ());
+  TestRestrictionCollector::InvalidCase_NoSuchFeature();
 }
 
-UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
+UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_FeaturesNotIntersecting)
 {
-  ScopedDir scopedDir(kRestrictionTestDir);
-
-  std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  std::string const kRestrictionPath = base::JoinPath(kRestrictionTestDir, kRestrictionName);
-  std::string const kRestrictionContent = R"(No, 10, 10,
-                                        Only, 10, 20,
-                                        Only, 30, 40,)";
-  ScopedFile restrictionScopedFile(kRestrictionPath, kRestrictionContent);
-
-  std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
-  std::string const osmIdsToFeatureIdsPath =
-      base::JoinPath(kRestrictionTestDir, kOsmIdsToFeatureIdsName);
-  std::string const kOsmIdsToFeatureIdsContent = R"(10, 1,
-                                               20, 2,
-                                               30, 3,
-                                               40, 4)";
-  Platform const & platform = GetPlatform();
-  ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath, ScopedFile::Mode::Create);
-  std::string const osmIdsToFeatureIdsFullPath = mappingScopedFile.GetFullPath();
-  ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
-
-  RestrictionCollector restrictionCollector(base::JoinPath(platform.WritableDir(), kRestrictionPath),
-                                            osmIdsToFeatureIdsFullPath);
-  TEST(restrictionCollector.IsValid(), ());
-
-  RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
-  TEST(is_sorted(restrictions.cbegin(), restrictions.cend()), ());
-
-  RestrictionVec const expectedRestrictions = {{Restriction::Type::No, {1, 1}},
-                                               {Restriction::Type::Only, {1, 2}},
-                                               {Restriction::Type::Only, {3, 4}}};
-  TEST_EQUAL(restrictions, expectedRestrictions, ());
+  TestRestrictionCollector::InvalidCase_FeaturesNotIntersecting();
 }
-}  // namespace routing
+}  // namespace

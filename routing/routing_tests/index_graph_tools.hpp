@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generator/generator_tests/routing_tools.hpp"
+
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
@@ -43,6 +45,36 @@ using namespace routing;
 // It just a noticeable value to detect the source of such id while debuging unit tests.
 NumMwmId constexpr kTestNumMwmId = 777;
 
+class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
+{
+public:
+  using Vertex = AStarGraph::Vertex;
+  using Edge = AStarGraph::Edge;
+  using Weight = AStarGraph::Weight;
+
+  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
+
+  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
+  {
+    return m_graph.HeuristicCostEstimate(from, to);
+  }
+
+  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetOutgoingEdgesList(v, edges);
+  }
+
+  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  {
+    m_graph.GetIngoingEdgesList(v, edges);
+  }
+
+  ~WorldGraphForAStar() override = default;
+
+private:
+  WorldGraph & m_graph;
+};
+
 struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
@@ -55,23 +87,6 @@ struct RestrictionTest
 
   std::unique_ptr<SingleVehicleWorldGraph> m_graph;
   std::unique_ptr<IndexGraphStarter> m_starter;
-};
-
-class TestGeometryLoader final : public routing::GeometryLoader
-{
-public:
-  // GeometryLoader overrides:
-  ~TestGeometryLoader() override = default;
-
-  void Load(uint32_t featureId, routing::RoadGeometry & road) override;
-
-  void AddRoad(uint32_t featureId, bool oneWay, float speed,
-               routing::RoadGeometry::Points const & points);
-
-  void SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed);
-
-private:
-  std::unordered_map<uint32_t, routing::RoadGeometry> m_roads;
 };
 
 class ZeroGeometryLoader final : public routing::GeometryLoader
@@ -218,19 +233,12 @@ private:
   std::vector<EdgeRequest> m_edgeRequests;
 };
 
-unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
+std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
                                                     std::shared_ptr<EdgeEstimator> estimator,
                                                     std::vector<Joint> const & joints);
-unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeometryLoader> loader,
+std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeometryLoader> loader,
                                                     std::shared_ptr<EdgeEstimator> estimator,
                                                     std::vector<Joint> const & joints);
-
-routing::Joint MakeJoint(std::vector<routing::RoadPoint> const & points);
-
-shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
-    traffic::TrafficCache const & trafficCache);
-shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
-    std::shared_ptr<TrafficStash> trafficStash);
 
 AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(
     IndexGraphStarter & starter, std::vector<Segment> & roadPoints, double & timeSec);
@@ -255,7 +263,7 @@ void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
 // take arbitrary values.
 void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,
                        TestIndexGraphTopology::Vertex to, bool expectedPathFound,
-                       double const expectedWeight,
+                       double expectedWeight,
                        std::vector<TestIndexGraphTopology::Edge> const & expectedEdges);
 
 // Creates FakeEnding projected to |Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward

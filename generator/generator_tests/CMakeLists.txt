@@ -28,7 +28,6 @@ set(
   restriction_collector_test.cpp
   restriction_test.cpp
   road_access_test.cpp
-  road_access_test.cpp
   source_data.cpp
   source_data.hpp
   source_to_element_test.cpp

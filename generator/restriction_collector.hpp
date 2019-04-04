@@ -20,16 +20,14 @@
 
 namespace routing
 {
+class TestRestrictionCollector;
 /// This class collects all relations with type restriction and save feature ids of
 /// their road feature in text file for using later.
 class RestrictionCollector
 {
 public:
-  RestrictionCollector() = default;
-
-  bool PrepareOsmIdToFeatureId(std::string const & osmIdsToFeatureIdPath);
-
-  void SetIndexGraphForTest(std::unique_ptr<IndexGraph> graph) { m_indexGraph = std::move(graph); }
+  RestrictionCollector(string const & osmIdsToFeatureIdPath,
+                       std::unique_ptr<IndexGraph> && graph);
 
   bool Process(std::string const & restrictionPath);
 
@@ -39,13 +37,10 @@ public:
   std::vector<Restriction> const & GetRestrictions() const { return m_restrictions; }
 
 private:
+  friend class TestRestrictionCollector;
+
   static m2::PointD constexpr kNoCoords =
       m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
-
-  friend void UnitTest_RestrictionTest_ValidCase();
-  friend void UnitTest_RestrictionTest_InvalidCase();
-  friend void UnitTest_RestrictionTest_InvalidCase_NoSuchFeature();
-  friend void UnitTest_RestrictionTest_InvalidCase_FeaturesNotIntersecting();
 
   /// \brief Parses comma separated text file with line in following format:
   /// In case of restriction, that consists of "way(from)" -> "node(via)" -> "way(to)"

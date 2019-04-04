@@ -4,6 +4,9 @@
 
 #include "routing/index_graph_loader.hpp"
 
+#include "routing_common/car_model.cpp"
+#include "routing_common/vehicle_model.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
@@ -60,10 +63,8 @@ CreateRestrictionCollectorAndParse(
   std::unique_ptr<IndexGraph> graph
     = CreateIndexGraph(targetPath, mwmPath, country, countryParentNameGetterFn);
 
-  auto restrictionCollector = std::make_unique<RestrictionCollector>();
-  if (!restrictionCollector->PrepareOsmIdToFeatureId(osmIdsToFeatureIdsPath))
-    return {};
-
+  auto restrictionCollector =
+      std::make_unique<RestrictionCollector>(osmIdsToFeatureIdsPath, std::move(graph));
 
   if (!restrictionCollector->Process(restrictionPath))
     return {};

@@ -4,8 +4,11 @@
 
 #include "generator/gen_mwm_info.hpp"
 
+#include "routing_common/car_model.hpp"
+
 #include "coding/file_writer.hpp"
 
+#include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
@@ -39,3 +42,64 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
   osmIdsToFeatureIds.Flush(osm2ftWriter);
 }
 }  // namespace generator
+
+namespace routing
+{
+void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
+{
+  auto const it = m_roads.find(featureId);
+  if (it == m_roads.cend())
+    return;
+
+  road = it->second;
+}
+
+void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
+                                 RoadGeometry::Points const & points)
+{
+  auto const it = m_roads.find(featureId);
+  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
+  m_roads[featureId] = RoadGeometry(oneWay, speed, speed, points);
+  m_roads[featureId].SetPassThroughAllowedForTests(true);
+}
+
+void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed)
+{
+  auto const it = m_roads.find(featureId);
+  CHECK(it != m_roads.end(), ("No feature", featureId));
+  m_roads[featureId].SetPassThroughAllowedForTests(passThroughAllowed);
+}
+
+shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
+{
+  auto const carModel = CarModelFactory({}).GetVehicleModel();
+  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
+}
+
+shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache)
+{
+  auto numMwmIds = make_shared<NumMwmIds>();
+  auto stash = make_shared<TrafficStash>(trafficCache, numMwmIds);
+  return CreateEstimatorForCar(stash);
+}
+
+Joint MakeJoint(std::vector<RoadPoint> const & points)
+{
+  Joint joint;
+  for (auto const & point : points)
+    joint.AddPoint(point);
+
+  return joint;
+}
+
+std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> geometryLoader,
+                                            std::shared_ptr<EdgeEstimator> estimator,
+                                            std::vector<Joint> const & joints)
+{
+  auto graph = std::make_unique<IndexGraph>(std::make_shared<Geometry>(std::move(geometryLoader)),
+                                       estimator);
+  graph->Import(joints);
+  return graph;
+}
+}  // namespace routing
+

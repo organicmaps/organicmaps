@@ -6,7 +6,7 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/routing_session.hpp"
 
-#include "routing/routing_tests/index_graph_tools.hpp"
+#include "routing_common/index_graph_tools.hpp"
 
 #include "traffic/traffic_info.hpp"
 

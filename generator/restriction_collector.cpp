@@ -21,6 +21,8 @@
 #include <sstream>
 #include <unordered_set>
 
+#include "boost/optional.hpp"
+
 namespace
 {
 using namespace routing;
@@ -46,17 +48,13 @@ namespace routing
 {
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
-bool RestrictionCollector::PrepareOsmIdToFeatureId(string const & osmIdsToFeatureIdPath)
+RestrictionCollector::RestrictionCollector(string const & osmIdsToFeatureIdPath,
+                                           std::unique_ptr<IndexGraph> && graph)
+  : m_indexGraph(std::move(graph))
 {
-  if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId))
-  {
-    LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
-                   osmIdsToFeatureIdPath));
-    m_osmIdToFeatureId.clear();
-    return false;
-  }
-
-  return true;
+  CHECK(ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId),
+        ("An error happened while parsing feature id to "
+         "osm ids mapping from file:", osmIdsToFeatureIdPath));
 }
 
 bool RestrictionCollector::Process(std::string const & restrictionPath)

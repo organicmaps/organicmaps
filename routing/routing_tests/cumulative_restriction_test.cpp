@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests/routing_tools.hpp"
+
 #include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "routing/fake_ending.hpp"
