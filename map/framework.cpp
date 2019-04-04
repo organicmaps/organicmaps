@@ -322,8 +322,8 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_localAdsManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
 
-  if (m_viewportChanged != nullptr)
-    m_viewportChanged(screen);
+  if (m_viewportChangedFn != nullptr)
+    m_viewportChangedFn(screen);
 }
 
 bool Framework::IsEnoughSpaceForMigrate() const
@@ -1262,9 +1262,19 @@ void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::A
   m_currentModelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
 }
 
-void Framework::SetViewportListener(TViewportChanged const & fn)
+void Framework::SetViewportListener(TViewportChangedFn const & fn)
 {
-  m_viewportChanged = fn;
+  m_viewportChangedFn = fn;
+}
+
+void Framework::SetGraphicsReadyListener(TGraphicsReadyfn const & fn)
+{
+  m_graphicsReadyFn = fn;
+  m_drapeEngine->SetGraphicsReadyListener(
+    m_graphicsReadyFn == nullptr ? static_cast<TGraphicsReadyfn>(nullptr) : [this]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this](){ m_graphicsReadyFn(); });
+  });
 }
 
 void Framework::StopLocationFollow()
@@ -1908,7 +1918,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, screen](){ OnViewportChanged(screen); });
   });
-  m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo) {
+  m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo)
+  {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, tapInfo]() {
       OnTapEvent({tapInfo, TapEvent::Source::User});
     });

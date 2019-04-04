@@ -1,7 +1,5 @@
 #pragma once
 
-#include "qt/draw_widget.hpp"
-
 #include "storage/storage_defines.hpp"
 
 #include "platform/location.hpp"
@@ -25,16 +23,7 @@ namespace search { class Result; }
 namespace qt
 {
 class DrawWidget;
-
-struct ScreenshotParams
-{
-  static uint32_t constexpr kDefaultWidth = 576;
-  static uint32_t constexpr kDefaultHeight = 720;
-
-  std::string m_path;
-  uint32_t m_width = kDefaultWidth;
-  uint32_t m_height = kDefaultHeight;
-};
+struct ScreenshotParams;
 
 class MainWindow : public QMainWindow, location::LocationObserver
 {
@@ -49,7 +38,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   storage::CountryId m_lastCountry;
 
   std::unique_ptr<location::LocationService> const m_locationService;
-  std::unique_ptr<ScreenshotParams> const m_screenshotParams;
+  bool const m_screenshotMode;
 
   QAction * m_pMyPositionAction = nullptr;
   QAction * m_pCreateFeatureAction = nullptr;
@@ -94,8 +83,6 @@ protected:
   void CreateNavigationBar();
   void CreateSearchBarAndPanel();
   void CreateCountryStatusControls();
-
-  void MakeScreenshots();
 
 #if defined(Q_WS_WIN)
   /// to handle menu messages

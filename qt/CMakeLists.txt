@@ -50,6 +50,8 @@ set(
   place_page_dialog.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
+  screenshoter.cpp
+  screenshoter.hpp
   search_panel.cpp
   search_panel.hpp
   update_dialog.cpp

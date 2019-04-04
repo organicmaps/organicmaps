@@ -643,7 +643,7 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     m_shape->SetAccuracy(static_cast<float>(m_errorRadius));
     m_shape->SetRoutingMode(IsInRouting());
 
-    if (!m_hints.m_isScreenshotMode)
+    if (!m_hints.m_screenshotMode)
     {
       m_shape->RenderAccuracy(context, mng, screen, zoomLevel, frameValues);
       m_shape->RenderMyPosition(context, mng, screen, zoomLevel, frameValues);

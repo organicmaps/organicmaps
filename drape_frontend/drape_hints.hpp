@@ -6,6 +6,6 @@ struct Hints
 {
   bool m_isFirstLaunch = false;
   bool m_isLaunchByDeepLink = false;
-  bool m_isScreenshotMode = false;
+  bool m_screenshotMode = false;
 };
 }  // namespace df

@@ -336,7 +336,8 @@ void MainView::InitMapWidget()
   widget->setLayout(layout);
 
   {
-    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */, widget /* parent */);
+    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */,
+                                                 false /* screenshotMode */, widget /* parent */);
     connect(mapWidget, &qt::common::MapWidget::OnContextMenuRequested,
             [this](QPoint const & p) { AddSelectedFeature(p); });
     auto * toolBar = new QToolBar(widget /* parent */);

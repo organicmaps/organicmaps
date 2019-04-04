@@ -1,5 +1,6 @@
 #include "qt/info_dialog.hpp"
 #include "qt/mainwindow.hpp"
+#include "qt/screenshoter.hpp"
 
 #include "map/framework.hpp"
 
@@ -30,6 +31,7 @@ DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(kml_path, "", "Path to a directory with kml files to take screenshots.");
+DEFINE_string(lang, "", "Device language.");
 DEFINE_int32(width, 0, "Screenshot width");
 DEFINE_int32(height, 0, "Screenshot height");
 
@@ -164,6 +166,12 @@ int main(int argc, char * argv[])
         screenshotParams->m_width = FLAGS_width;
       if (FLAGS_height > 0)
         screenshotParams->m_height = FLAGS_height;
+
+      if (!FLAGS_lang.empty())
+        (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
+
+      //screenshotParams->m_width /= a.devicePixelRatio();
+      //screenshotParams->m_height /= a.devicePixelRatio();
     }
 #endif
     qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);

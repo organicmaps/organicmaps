@@ -78,6 +78,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::move(mpParams),
                                     m_viewport,
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
+                                    std::bind(&DrapeEngine::GraphicsReady, this),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
                                     make_ref(m_requestedTiles),
@@ -420,6 +421,12 @@ void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
     m_modelViewChanged(screen);
 }
 
+void DrapeEngine::GraphicsReady()
+{
+  if (m_graphicsReady != nullptr)
+    m_graphicsReady();
+}
+
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   settings::Set(settings::kLocationStateMode, mode);
@@ -496,6 +503,11 @@ void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, 
 void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
 {
   m_modelViewChanged = std::move(fn);
+}
+
+void DrapeEngine::SetGraphicsReadyListener(TGraphicsReadyFn && fn)
+{
+  m_graphicsReady = std::move(fn);
 }
 
 void DrapeEngine::SetTapEventInfoListener(TTapEventInfoFn && fn)

@@ -14,9 +14,9 @@
 
 #include "drape_frontend/drape_engine.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/mutex.hpp"
-#include "std/unique_ptr.hpp"
+#include <condition_variable>
+#include <memory>
+#include <mutex>
 
 #include <QtWidgets/QRubberBand>
 
@@ -29,6 +29,9 @@ namespace common
 {
 class ScaleSlider;
 }
+
+class Screenshoter;
+struct ScreenshotParams;
 
 class DrawWidget : public qt::common::MapWidget
 {
@@ -44,8 +47,9 @@ public Q_SLOTS:
   void OnUpdateCountryStatusByTimer();
 
 public:
-  DrawWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent);
-  ~DrawWidget();
+  DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+             QWidget * parent);
+  ~DrawWidget() override;
 
   bool Search(search::EverywhereSearchParams const & params);
   string GetDistance(search::Result const & res) const;
@@ -96,8 +100,9 @@ protected:
   void mouseReleaseEvent(QMouseEvent * e) override;
   void keyPressEvent(QKeyEvent * e) override;
   void keyReleaseEvent(QKeyEvent * e) override;
-  //@}
 
+  void OnViewportChanged(ScreenBase const & screen) override;
+  //@}
 private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
   void SubmitRoutingPoint(m2::PointD const & pt);
@@ -118,5 +123,7 @@ private:
   bool m_cityBoundariesSelectionMode = false;
   bool m_cityRoadsSelectionMode = false;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
+
+  std::unique_ptr<Screenshoter> m_screenshoter;
 };
 }  // namespace qt

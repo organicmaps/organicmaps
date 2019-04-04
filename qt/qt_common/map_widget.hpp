@@ -79,6 +79,8 @@ protected:
   void Build();
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
+  virtual void OnViewportChanged(ScreenBase const & screen);
+
   // QOpenGLWidget overrides:
   void initializeGL() override;
   void paintGL() override;
@@ -92,7 +94,7 @@ protected:
 
   Framework & m_framework;
   bool m_apiOpenGLES3;
-  bool m_isScreenshotMode;
+  bool m_screenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
   kml::MarkGroupId m_bookmarksCategoryId = 0;

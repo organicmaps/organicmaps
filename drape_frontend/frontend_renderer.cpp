@@ -189,9 +189,10 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_isIsometry(false)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_choosePositionMode(false)
-  , m_screenshotMode(params.m_myPositionParams.m_hints.m_isScreenshotMode)
+  , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
+  , m_graphicsReadyFn(params.m_graphicsReadyFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_requestedTiles(params.m_requestedTiles)
@@ -350,6 +351,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         DrapeMeasurer::Instance().EndScenePreparing();
 #endif
         m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
+        if (m_graphicsReadyFn)
+          m_graphicsReadyFn();
       }
       break;
     }

@@ -204,8 +204,11 @@ protected:
   ScreenBase m_currentModelView;
   m2::RectD m_visibleViewport;
 
-  using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
-  TViewportChanged m_viewportChanged;
+  using TViewportChangedFn = df::DrapeEngine::TModelViewListenerFn;
+  TViewportChangedFn m_viewportChangedFn;
+
+  using TGraphicsReadyfn = df::DrapeEngine::TGraphicsReadyFn;
+  TGraphicsReadyfn m_graphicsReadyFn;
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
@@ -636,7 +639,8 @@ public:
 
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
-  void SetViewportListener(TViewportChanged const & fn);
+  void SetViewportListener(TViewportChangedFn const & fn);
+  void SetGraphicsReadyListener(TGraphicsReadyfn const & fn);
 
   void StopLocationFollow();
 

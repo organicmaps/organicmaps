@@ -7,6 +7,7 @@
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/search_panel.hpp"
+#include "qt/screenshoter.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
@@ -38,6 +39,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
@@ -65,7 +67,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
                        QString const & mapcssFilePath /*= QString()*/)
   : m_Docks{}
   , m_locationService(CreateDesktopLocationService(*this))
-  , m_screenshotParams(std::move(screenshotParams))
+  , m_screenshotMode(screenshotParams != nullptr)
 #ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
 #endif
@@ -74,16 +76,23 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  if (m_screenshotParams != nullptr)
+  if (screenshotParams != nullptr)
   {
     QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setSizePolicy(policy);
-    QSize size(m_screenshotParams->m_width, m_screenshotParams->m_height);
+    QSize size(static_cast<int>(screenshotParams->m_width),
+               static_cast<int>(screenshotParams->m_height + statusBar()->geometry().height()));
     setMaximumSize(size);
     setMinimumSize(size);
+    screenshotParams->m_statusChangedFn = [this](std::string const & state, bool finished)
+    {
+      statusBar()->showMessage(QString::fromStdString("Screenshot mode. " + state));
+      if (finished)
+        QCoreApplication::quit();
+    };
   }
 
-  m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, m_screenshotParams != nullptr, this);
+  m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
   setCentralWidget(m_pDrawWidget);
 
   QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
@@ -442,7 +451,7 @@ void MainWindow::CreateNavigationBar()
   }
 #endif // NO_DOWNLOADER
 
-  if (m_screenshotParams != nullptr)
+  if (m_screenshotMode)
     pToolBar->setVisible(false);
 
   addToolBar(Qt::RightToolBarArea, pToolBar);
@@ -905,10 +914,5 @@ void MainWindow::OnBookmarksAction()
 void MainWindow::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
   DrawWidget::SetDefaultSurfaceFormat(apiOpenGLES3);
-}
-
-void MainWindow::MakeScreenshots()
-{
-
 }
 }  // namespace qt

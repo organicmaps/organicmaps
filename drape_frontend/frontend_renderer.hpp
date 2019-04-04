@@ -75,6 +75,7 @@ class FrontendRenderer : public BaseRenderer,
 {
 public:
   using TModelViewChanged = std::function<void(ScreenBase const & screen)>;
+  using TGraphicsReadyFn = std::function<void()>;
   using TTapEventInfoFn = std::function<void(TapInfo const &)>;
   using TUserPositionChangedFn = std::function<void(m2::PointD const & pt, bool hasPosition)>;
 
@@ -83,15 +84,16 @@ public:
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
-           TModelViewChanged const & modelViewChangedFn, TTapEventInfoFn const & tapEventFn,
-           TUserPositionChangedFn const & positionChangedFn, ref_ptr<RequestedTiles> requestedTiles,
-           OverlaysShowStatsCallback && overlaysShowStatsCallback,
+           TModelViewChanged const & modelViewChangedFn, TGraphicsReadyFn const & graphicsReayFn,
+           TTapEventInfoFn const & tapEventFn, TUserPositionChangedFn const & positionChangedFn,
+           ref_ptr<RequestedTiles> requestedTiles, OverlaysShowStatsCallback && overlaysShowStatsCallback,
            bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
            std::vector<PostprocessRenderer::Effect> && enabledEffects)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
+      , m_graphicsReadyFn(graphicsReayFn)
       , m_tapEventFn(tapEventFn)
       , m_positionChangedFn(positionChangedFn)
       , m_requestedTiles(requestedTiles)
@@ -105,6 +107,7 @@ public:
     MyPositionController::Params m_myPositionParams;
     dp::Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
+    TGraphicsReadyFn m_graphicsReadyFn;
     TTapEventInfoFn m_tapEventFn;
     TUserPositionChangedFn m_positionChangedFn;
     ref_ptr<RequestedTiles> m_requestedTiles;
@@ -312,6 +315,7 @@ private:
   dp::Viewport m_viewport;
   UserEventStream m_userEventStream;
   TModelViewChanged m_modelViewChangedFn;
+  TGraphicsReadyFn m_graphicsReadyFn;
   TTapEventInfoFn m_tapEventInfoFn;
   TUserPositionChangedFn m_userPositionChangedFn;
 

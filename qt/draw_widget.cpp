@@ -4,6 +4,7 @@
 #include "qt/place_page_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
+#include "qt/screenshoter.hpp"
 
 #include "map/framework.hpp"
 
@@ -38,8 +39,9 @@ using namespace qt::common;
 
 namespace qt
 {
-DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent)
-  : TBase(framework, apiOpenGLES3, isScreenshotMode, parent)
+DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+                       QWidget * parent)
+  : TBase(framework, apiOpenGLES3, screenshotParams != nullptr, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -61,6 +63,13 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, bool isScreensh
     UpdateCountryStatus(countryId);
   });
 
+  if (screenshotParams != nullptr)
+  {
+    QSize size(static_cast<int>(screenshotParams->m_width), static_cast<int>(screenshotParams->m_height));
+    setMaximumSize(size);
+    setMinimumSize(size);
+    m_screenshoter = std::make_unique<Screenshoter>(*screenshotParams, m_framework, this);
+  }
   QTimer * countryStatusTimer = new QTimer(this);
   VERIFY(connect(countryStatusTimer, SIGNAL(timeout()), this, SLOT(OnUpdateCountryStatusByTimer())), ());
   countryStatusTimer->setSingleShot(false);
@@ -159,7 +168,7 @@ void DrawWidget::ChoosePositionModeDisable()
 
 void DrawWidget::initializeGL()
 {
-  if (m_isScreenshotMode)
+  if (m_screenshotMode)
     m_framework.GetBookmarkManager().EnableTestMode(true);
   else
     m_framework.LoadBookmarks();
@@ -171,10 +180,16 @@ void DrawWidget::initializeGL()
     if (success)
       m_framework.GetRoutingManager().BuildRoute(0 /* timeoutSec */);
   });
+
+  if (m_screenshotMode)
+    m_screenshoter->Start();
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)
 {
+  if (m_screenshotMode)
+    return;
+
   QOpenGLWidget::mousePressEvent(e);
 
   m2::PointD const pt = GetDevicePoint(e);
@@ -212,6 +227,9 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
 
 void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 {
+  if (m_screenshotMode)
+    return;
+
   QOpenGLWidget::mouseMoveEvent(e);
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
@@ -225,6 +243,9 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 
 void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
 {
+  if (m_screenshotMode)
+    return;
+
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e) && !IsAltModifier(e))
   {
@@ -263,6 +284,9 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
 
 void DrawWidget::keyPressEvent(QKeyEvent * e)
 {
+  if (m_screenshotMode)
+    return;
+
   TBase::keyPressEvent(e);
   if (IsLeftButton(QGuiApplication::mouseButtons()) &&
       e->key() == Qt::Key_Control)
@@ -281,6 +305,9 @@ void DrawWidget::keyPressEvent(QKeyEvent * e)
 
 void DrawWidget::keyReleaseEvent(QKeyEvent * e)
 {
+  if (m_screenshotMode)
+    return;
+
   TBase::keyReleaseEvent(e);
 
   if (IsLeftButton(QGuiApplication::mouseButtons()) &&
@@ -298,6 +325,13 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
   }
   else if (e->key() == Qt::Key_Alt)
     m_emulatingLocation = false;
+}
+
+void DrawWidget::OnViewportChanged(ScreenBase const & screen)
+{
+  TBase::OnViewportChanged(screen);
+  if (m_screenshotMode)
+    m_screenshoter->OnViewportChanged();
 }
 
 bool DrawWidget::Search(search::EverywhereSearchParams const & params)
