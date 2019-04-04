@@ -27,15 +27,6 @@ namespace
 int const kNumBuckets = 256;
 double const kAnglesInBucket = 360.0 / kNumBuckets;
 
-m2::PointD PointAtSegmentM(m2::PointD const & p1, m2::PointD const & p2, double const distanceM)
-{
-  auto const v = p2 - p1;
-  auto const l = v.Length();
-  auto const L = MercatorBounds::DistanceOnEarth(p1, p2);
-  auto const delta = distanceM * l / L;
-  return PointAtSegment(p1, p2, delta);
-}
-
 uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
 {
   auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
@@ -43,65 +34,9 @@ uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
   CHECK_GREATER_OR_EQUAL(angle, 0, ("Angle should be greater than or equal to 0"));
   return base::clamp(angle / kAnglesInBucket, 0.0, 255.0);
 }
-
-// This class is used to get correct points for further bearing calculations.
-// Depending on |isLastPoint| it either calculates those points straightforwardly
-// or reverses directions and then calculates.
-class BearingPointsSelector
-{
-public:
-  BearingPointsSelector(uint32_t const bearDistM, bool const isLastPoint)
-    : m_bearDistM(bearDistM), m_isLastPoint(isLastPoint)
-  {
-  }
-
-  m2::PointD GetBearingStartPoint(Graph::Edge const & e) const
-  {
-    return m_isLastPoint ? e.GetEndPoint() : e.GetStartPoint();
-  }
-
-  m2::PointD GetBearingEndPoint(Graph::Edge const & e, double const distanceM)
-  {
-    if (distanceM < m_bearDistM && m_bearDistM <= distanceM + EdgeLength(e))
-    {
-      auto const edgeLen = EdgeLength(e);
-      auto const edgeBearDist = min(m_bearDistM - distanceM, edgeLen);
-      ASSERT_LESS_OR_EQUAL(edgeBearDist, edgeLen, ());
-      return m_isLastPoint ? PointAtSegmentM(e.GetEndPoint(), e.GetStartPoint(),
-                                             static_cast<double>(edgeBearDist))
-                           : PointAtSegmentM(e.GetStartPoint(), e.GetEndPoint(),
-                                             static_cast<double>(edgeBearDist));
-    }
-    return m_isLastPoint ? e.GetStartPoint() : e.GetEndPoint();
-  }
-
-private:
-  double m_bearDistM;
-  bool m_isLastPoint;
-};
 }  // namespace
 
 // CandidatePathsGetter::Link ----------------------------------------------------------------------
-bool CandidatePathsGetter::Link::operator<(Link const & o) const
-{
-  if (m_distanceM != o.m_distanceM)
-    return m_distanceM < o.m_distanceM;
-
-  if (m_edge != o.m_edge)
-    return m_edge < o.m_edge;
-
-  if (m_parent == o.m_parent)
-    return false;
-
-  if (m_parent && o.m_parent)
-    return *m_parent < *o.m_parent;
-
-  if (!m_parent)
-    return true;
-
-  return false;
-}
-
 Graph::Edge CandidatePathsGetter::Link::GetStartEdge() const
 {
   auto * start = this;

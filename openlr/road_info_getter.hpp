@@ -27,6 +27,7 @@ public:
     ftypes::HighwayClass m_hwClass = ftypes::HighwayClass::Undefined;
     bool m_link = false;
     bool m_oneWay = false;
+    bool m_isRoundabout = false;
   };
 
   explicit RoadInfoGetter(DataSource const & dataSource);

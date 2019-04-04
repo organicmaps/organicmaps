@@ -13,6 +13,7 @@ RoadInfoGetter::RoadInfo::RoadInfo(FeatureType & ft)
   : m_hwClass(ftypes::GetHighwayClass(feature::TypesHolder(ft)))
   , m_link(ftypes::IsLinkChecker::Instance()(ft))
   , m_oneWay(ftypes::IsOneWayChecker::Instance()(ft))
+  , m_isRoundabout(ftypes::IsRoundAboutChecker::Instance()(ft))
 {
 }
 

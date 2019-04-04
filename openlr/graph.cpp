@@ -67,11 +67,6 @@ void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
   m_graph.FindClosestEdges(point, count, vicinities);
 }
 
-void Graph::AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinities)
-{
-  m_graph.AddFakeEdges(junction, vicinities);
-}
-
 void Graph::AddIngoingFakeEdge(Edge const & e)
 {
   m_graph.AddIngoingFakeEdge(e);
@@ -80,5 +75,15 @@ void Graph::AddIngoingFakeEdge(Edge const & e)
 void Graph::AddOutgoingFakeEdge(Edge const & e)
 {
   m_graph.AddOutgoingFakeEdge(e);
+}
+
+void Graph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
+{
+  m_graph.GetFeatureTypes(featureId, types);
+}
+
+std::string Graph::GetName(FeatureID const & featureId) const
+{
+  return m_graph.GetName(featureId);
 }
 }  // namespace openlr

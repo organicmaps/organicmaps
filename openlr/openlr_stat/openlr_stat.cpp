@@ -150,9 +150,9 @@ bool ValidateVersion(char const * flagname, int32_t value)
     return false;
   }
 
-  if (value != 1 && value != 2)
+  if (value != 1 && value != 2 && value != 3)
   {
-    printf("--%s should be one of 1 or 2\n", flagname);
+    printf("--%s should be one of 1, 2 or 3\n", flagname);
     return false;
   }
 
@@ -282,7 +282,8 @@ int main(int argc, char * argv[])
   {
   case 1: decoder.DecodeV1(segments, numThreads, paths); break;
   case 2: decoder.DecodeV2(segments, numThreads, paths); break;
-  default: ASSERT(false, ("There should be no way to fall here"));
+  case 3: decoder.DecodeV3(segments, numThreads, paths); break;
+  default: CHECK(false, ("Wrong algorithm version."));
   }
 
   SaveNonMatchedIds(FLAGS_non_matched_ids, paths);

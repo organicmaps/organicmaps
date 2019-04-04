@@ -15,6 +15,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -78,6 +79,7 @@ public:
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
                         std::vector<std::pair<Edge, Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
+  std::string GetName(FeatureID const & featureId) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
   IRoadGraph::Mode GetMode() const override;
   void ClearState() override;

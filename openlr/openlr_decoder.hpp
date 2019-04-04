@@ -50,6 +50,9 @@ public:
   void DecodeV2(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
                 std::vector<DecodedPath> & paths);
 
+  void DecodeV3(std::vector<LinearSegment> const & segments, uint32_t numThreads,
+                std::vector<DecodedPath> & paths);
+
 private:
   template <typename Decoder, typename Stats>
   void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
