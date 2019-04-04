@@ -128,10 +128,9 @@ public class RoutingController implements TaxiManager.TaxiListener
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodesHelper.NO_ERROR
-        || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+      if (false)
         onBuiltRoute();
-      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
+      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS || true)
         onWarningReceived();
 
       processRoutingEvent();
@@ -411,6 +410,11 @@ public class RoutingController implements TaxiManager.TaxiListener
     Framework.nativeDeleteSavedRoutePoints();
   }
 
+  public void prepare()
+  {
+    prepare(getStartPoint(), getEndPoint(), getEndPoint() == null);
+  }
+
   public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
   {
     prepare(canUseMyPositionAsStart, endPoint, false);
@@ -431,7 +435,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    prepare(startPoint, endPoint, false);
+    prepare(startPoint == null ? LocationHelper.INSTANCE.getMyPosition() : startPoint, endPoint, false);
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint, boolean fromApi)
@@ -843,21 +847,21 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private void setPointsInternal(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    if (startPoint != null)
-    {
-      applyRemovingIntermediatePointsTransaction();
-      addRoutePoint(RoutePointInfo.ROUTE_MARK_START, startPoint);
-      if (mContainer != null)
-        mContainer.updateMenu();
-    }
+    boolean hasStart = startPoint != null;
+    boolean hasEnd = endPoint != null;
+    boolean hasOnePointAtLeast = hasStart || hasEnd;
 
-    if (endPoint != null)
-    {
+    if (hasOnePointAtLeast)
       applyRemovingIntermediatePointsTransaction();
-      addRoutePoint(RoutePointInfo.ROUTE_MARK_FINISH, endPoint);
-      if (mContainer != null)
-        mContainer.updateMenu();
-    }
+
+    if (hasStart)
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_START , startPoint);
+
+    if (hasEnd)
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_FINISH , endPoint);
+
+    if (hasOnePointAtLeast && mContainer != null)
+      mContainer.updateMenu();
   }
 
   void checkAndBuildRoute()

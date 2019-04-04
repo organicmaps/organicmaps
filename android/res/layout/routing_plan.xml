@@ -153,13 +153,14 @@
 
   <FrameLayout
     android:background="@color/light_green"
+    android:id="@+id/driving_options_btn_container"
+    android:visibility="gone"
     android:foreground="@drawable/shadow_top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
       android:id="@+id/driving_options_btn"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:visibility="visible"
       android:layout_width="match_parent"
       android:minHeight="@dimen/height_block_base"
       android:layout_height="wrap_content">
@@ -168,7 +169,6 @@
         android:layout_centerInParent="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimaryInverse"
-        android:text="asdasdasdasdas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_half_plus_eight"

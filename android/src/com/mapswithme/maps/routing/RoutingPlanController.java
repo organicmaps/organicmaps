@@ -28,7 +28,7 @@ public class RoutingPlanController extends ToolbarController
 {
   static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
 
-  protected final View mFrame;
+  private final View mFrame;
   private final RadioGroup mRouterTypes;
   @NonNull
   private final WheelProgressView mProgressVehicle;
@@ -87,6 +87,12 @@ public class RoutingPlanController extends ToolbarController
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(getActivity(), mFrame, listener);
+  }
+
+  @NonNull
+  public View getFrame()
+  {
+    return mFrame;
   }
 
   private void setupRouterButtons()

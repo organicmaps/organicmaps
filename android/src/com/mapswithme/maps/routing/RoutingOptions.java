@@ -25,7 +25,7 @@ public class RoutingOptions
   private static native void nativeRemoveOption(int option);
   private static native boolean nativeHasOption(int option);
 
-  static boolean hasAnyOptions()
+  public static boolean hasAnyOptions()
   {
     for (RoadType each : RoadType.values())
     {

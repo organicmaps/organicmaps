@@ -15,6 +15,9 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   @Nullable
   private RoutingPlanListener mRoutingPlanListener;
 
+  @Nullable
+  private Animator mAnimator;
+
   public RoutingPlanInplaceController(@NonNull MwmActivity activity,
                                       @Nullable RoutingPlanListener routingPlanListener,
                                       @Nullable RoutingBottomMenuListener listener)
@@ -25,16 +28,21 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
   public void show(final boolean show)
   {
+    if (mAnimator != null)
+    {
+      mAnimator.cancel();
+      mAnimator.removeAllListeners();
+    }
     if (show)
-      UiUtils.show(mFrame);
+      UiUtils.show(getFrame());
 
-    animateFrame(show, new Runnable()
+    mAnimator = animateFrame(show, new Runnable()
     {
       @Override
       public void run()
       {
         if (!show)
-          UiUtils.hide(mFrame);
+          UiUtils.hide(getFrame());
       }
     });
   }
@@ -49,11 +57,12 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     restoreRoutingPanelState(state);
   }
 
-  private void animateFrame(final boolean show, final @Nullable Runnable completion)
+  @Nullable
+  private ValueAnimator animateFrame(final boolean show, final @Nullable Runnable completion)
   {
     if (!checkFrameHeight())
     {
-      mFrame.post(new Runnable()
+      getFrame().post(new Runnable()
       {
         @Override
         public void run()
@@ -61,7 +70,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
           animateFrame(show, completion);
         }
       });
-      return;
+      return null;
     }
 
     if (mRoutingPlanListener != null)
@@ -74,7 +83,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        mFrame.setTranslationY((Float) animation.getAnimatedValue());
+        getFrame().setTranslationY((Float) animation.getAnimatedValue());
       }
     });
     animator.addListener(new UiUtils.SimpleAnimatorListener()
@@ -88,6 +97,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     });
     animator.setDuration(ANIM_TOGGLE);
     animator.start();
+    return animator;
   }
 
   public interface RoutingPlanListener

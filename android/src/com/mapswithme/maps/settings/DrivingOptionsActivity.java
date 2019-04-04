@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class DrivingOptionsActivity extends BaseMwmFragmentActivity
@@ -21,6 +22,6 @@ public class DrivingOptionsActivity extends BaseMwmFragmentActivity
   {
     Intent intent = new Intent(activity, DrivingOptionsActivity.class)
         .putExtra(BUNDLE_REQUIRE_OPTIONS_MENU, true);
-    activity.startActivity(intent);
+    activity.startActivityForResult(intent, MwmActivity.REQ_CODE_DRIVING_OPTIONS);
   }
 }

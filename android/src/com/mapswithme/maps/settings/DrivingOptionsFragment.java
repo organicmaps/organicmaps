@@ -1,5 +1,6 @@
 package com.mapswithme.maps.settings;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,6 +50,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     if (item.getItemId() == R.id.done)
     {
+      requireActivity().setResult(Activity.RESULT_OK);
       requireActivity().finish();
       return true;
     }

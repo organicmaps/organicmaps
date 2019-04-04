@@ -84,6 +84,7 @@ import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.routing.RoutingOptions;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.BookingFilterParams;
@@ -96,6 +97,7 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.SearchResult;
+import com.mapswithme.maps.settings.DrivingOptionsActivity;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
@@ -177,9 +179,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_DISCOVERY = 2;
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
-  private static final int REQ_CODE_ERROR_CALCULATE_ROUTE = 4;
   private static final int REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME = 5;
-  private static final String ERROR_CALCULATE_ROUTE_TAG = "error_calculate_route";
+  public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final String ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG = "`error_calculate_route_first_time";
 
   // Map tasks that we run AFTER rendering initialized
@@ -246,7 +247,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mDrivingOptionsBtn;
+  private View mDrivingOptionsBtnContainer;
 
   public interface LeftAnimationTrackListener
   {
@@ -545,10 +546,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initDrivingOptionsViews()
   {
-    mDrivingOptionsBtn = findViewById(R.id.driving_options_btn);
-    mDrivingOptionsBtn.setOnClickListener(v -> {
-
-    });
+    mDrivingOptionsBtnContainer = findViewById(R.id.driving_options_btn_container);
+    View routingPlanFrame = findViewById(R.id.routing_plan_frame);
+    DrivingOptionsLayoutChangeListener listener = new DrivingOptionsLayoutChangeListener();
+    routingPlanFrame.addOnLayoutChangeListener(listener);
+    View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
+    btn.setOnClickListener(v -> DrivingOptionsActivity.start(this));
+    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(listener);
   }
 
   private void initTips()
@@ -915,7 +919,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY:
         handleDownloadedCategoryResult(data);
         break;
+      case REQ_CODE_DRIVING_OPTIONS:
+        rebuildLastRoute();
+        break;
     }
+  }
+
+  private void rebuildLastRoute()
+  {
+    hideDrivingOptionsView();
+    RoutingController.get().attach(this);
+    RoutingController.get().prepare();
   }
 
   private void handleDownloadedCategoryResult(@NonNull Intent data)
@@ -2022,6 +2036,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.stop(this);
     updateSearchBar();
     ThemeSwitcher.restart(isMapRendererActive());
+    hideDrivingOptionsView();
   }
 
   @Override
@@ -2054,21 +2069,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRouteWarningReceived()
   {
-    showDrivingOptionPlate();
+    showDrivingOptionView();
   }
 
-  private void showDrivingOptionPlate()
+  private void showDrivingOptionView()
   {
-    UiUtils.show(mDrivingOptionsBtn);
+    UiUtils.show(mDrivingOptionsBtnContainer);
     View image = findViewById(R.id.driving_options_btn_img);
-    UiUtils.showIf(true, image);
-    TextView title = mDrivingOptionsBtn.findViewById(R.id.driving_options_btn_title);
-//    title.setText(true ? );
+    UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
+    TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
+    title.setText(RoutingOptions.hasAnyOptions() ? R.string.change_driving_options_btn
+                                                 : R.string.define_to_avoid_btn);
   }
 
-  private void hideDrivingOptionsPlate()
+  private void hideDrivingOptionsView()
   {
-    UiUtils.hide(mDrivingOptionsBtn);
+    UiUtils.hide(mDrivingOptionsBtnContainer);
   }
 
   @Override
@@ -2733,22 +2749,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public void showUnableCalculateRouteDialog()
-  {
-    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
-        .setTitleId(R.string.unable_to_recalc_title)
-        .setMessageId(R.string.unable_to_recalc_subtitle)
-        .setPositiveBtnId(R.string.ok)
-        .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE)
-        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-        .build();
-    dialog.show(this, ERROR_CALCULATE_ROUTE_TAG);
-  }
-
   public void showUnableCalculateRouteFirstTimeDialog()
   {
     com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
-        .setTitleId(R.string.unable_to_calc_alert_subtitle)
+        .setTitleId(R.string.unable_to_calc_alert_title)
         .setMessageId(R.string.unable_to_calc_alert_subtitle)
         .setPositiveBtnId(R.string.settings)
         .setNegativeBtnId(R.string.cancel)
@@ -2756,5 +2760,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
     dialog.show(this, ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
+  }
+
+  private class DrivingOptionsLayoutChangeListener implements View.OnLayoutChangeListener
+  {
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
+                               int oldTop, int oldRight, int oldBottom)
+    {
+      if (mRoutingPlanInplaceController == null)
+        return;
+
+      adjustCompassAndTraffic(mRoutingPlanInplaceController.getFrame().getHeight());
+    }
   }
 }
