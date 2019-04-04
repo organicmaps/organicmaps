@@ -1,6 +1,4 @@
-#include "routing_common/index_graph_tools.hpp"
-
-#include "testing/testing.hpp"
+#include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "testing/testing.hpp"
 
@@ -8,7 +6,7 @@
 
 #include "routing/base/routing_result.hpp"
 
-#include "routing_common/car_model.hpp"
+#include "testing/testing.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"

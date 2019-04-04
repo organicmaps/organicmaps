@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/generator_tests/routing_tools.hpp"
+#include "generator/generator_tests_support/routing_helpers.hpp"
 
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"

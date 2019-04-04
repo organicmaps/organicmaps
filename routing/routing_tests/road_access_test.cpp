@@ -3,7 +3,7 @@
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 
-#include "routing_common/index_graph_tools.hpp"
+#include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"

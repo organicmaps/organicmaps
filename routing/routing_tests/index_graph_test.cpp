@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
 
@@ -13,7 +15,6 @@
 #include "routing/vehicle_mask.hpp"
 
 #include "routing_common/car_model.hpp"
-#include "routing_common/index_graph_tools.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
