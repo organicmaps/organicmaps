@@ -7,14 +7,15 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <utility>
 #include <vector>
-
-using namespace std;
 
 namespace
 {
 using namespace routing;
-
 /// \returns if features |r1| and |r2| have a common end returns its joint id.
 /// If not, returns Joint::kInvalidId.
 /// \note It's possible that the both ends of |r1| and |r2| have common joint ids.
@@ -57,6 +58,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
     RestrictionVec restrictionsOnly;
     RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction No */,
                                        restrictionsOnly, src);
+
     ConvertRestrictionsOnlyToNoAndSort(graph, restrictionsOnly, m_restrictions);
   }
   catch (Reader::OpenException const & e)
@@ -68,34 +70,56 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
   }
 }
 
+bool RestrictionLoader::HasRestrictions() const
+{
+  return !m_restrictions.empty();
+}
+
+RestrictionVec && RestrictionLoader::StealRestrictions()
+{
+  return std::move(m_restrictions);
+}
+
 void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
-                                        RestrictionVec const & restrictionsOnly,
+                                        RestrictionVec & restrictionsOnly,
                                         RestrictionVec & restrictionsNo)
 {
-  for (Restriction const & o : restrictionsOnly)
+  for (auto & restriction : restrictionsOnly)
   {
-    if (o.m_featureIds.size() != 2)
+    if (std::any_of(restriction.begin(), restriction.end(),
+                    [&graph](auto const & item)
+                    {
+                      return !graph.IsRoad(item);
+                    }))
+    {
       continue;
+    }
 
-    if (!graph.IsRoad(o.m_featureIds[0]) || !graph.IsRoad(o.m_featureIds[1]))
-      continue;
+    CHECK_GREATER_OR_EQUAL(restriction.size(), 2, ());
+    auto const lastFeatureId     = *(restriction.end() - 1);
+    auto const prevLastFeatureId = *(restriction.end() - 2);
 
     // Looking for a joint of an intersection of |o| features.
     Joint::Id const common =
-        GetCommonEndJoint(graph.GetRoad(o.m_featureIds[0]), graph.GetRoad(o.m_featureIds[1]));
+      GetCommonEndJoint(graph.GetRoad(prevLastFeatureId), graph.GetRoad(lastFeatureId));
+
     if (common == Joint::kInvalidId)
       continue;
 
+    // Delete last feature id ("to" member).
+    restriction.pop_back();
     // Adding restriction of type No for all features of joint |common| except for
     // the second feature of restriction |o|.
     graph.ForEachPoint(common, [&](RoadPoint const & rp) {
-      if (rp.GetFeatureId() != o.m_featureIds[1 /* to */])
+      if (rp.GetFeatureId() != lastFeatureId)
       {
-        restrictionsNo.emplace_back(Restriction::Type::No,
-              vector<uint32_t>({o.m_featureIds[0 /* from */], rp.GetFeatureId()}));
+        std::vector<uint32_t> result(restriction);
+        result.emplace_back(rp.GetFeatureId());
+        restrictionsNo.emplace_back(std::move(result));
       }
     });
   }
+
   base::SortUnique(restrictionsNo);
 }
 }  // namespace routing

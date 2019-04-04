@@ -201,7 +201,7 @@ std::string DebugPrint(RestrictionWriter::ViaType const & type)
   {
   case RestrictionWriter::ViaType::Node: return RestrictionWriter::kNodeString;
   case RestrictionWriter::ViaType::Way: return RestrictionWriter::kWayString;
-  case RestrictionWriter::ViaType::Max: CHECK(false, ());
+  case RestrictionWriter::ViaType::Max: UNREACHABLE();
   }
   UNREACHABLE();
 }

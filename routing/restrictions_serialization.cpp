@@ -15,12 +15,6 @@ namespace routing
 // static
 uint32_t const Restriction::kInvalidFeatureId = numeric_limits<uint32_t>::max();
 
-bool Restriction::IsValid() const
-{
-  return !m_featureIds.empty() &&
-         find(begin(m_featureIds), end(m_featureIds), kInvalidFeatureId) == end(m_featureIds);
-}
-
 bool Restriction::operator==(Restriction const & restriction) const
 {
   return m_featureIds == restriction.m_featureIds && m_type == restriction.m_type;
@@ -33,7 +27,7 @@ bool Restriction::operator<(Restriction const & restriction) const
   return m_featureIds < restriction.m_featureIds;
 }
 
-string ToString(Restriction::Type const & type)
+string DebugPrint(Restriction::Type const & type)
 {
   switch (type)
   {
@@ -43,13 +37,17 @@ string ToString(Restriction::Type const & type)
   return "Unknown";
 }
 
-string DebugPrint(Restriction::Type const & type) { return ToString(type); }
-
 string DebugPrint(Restriction const & restriction)
 {
   ostringstream out;
-  out << "m_featureIds:[" << ::DebugPrint(restriction.m_featureIds)
-      << "] m_type:" << DebugPrint(restriction.m_type) << " ";
+  out << "[" << DebugPrint(restriction.m_type) << "]: {";
+  for (size_t i = 0; i < restriction.m_featureIds.size(); ++i)
+  {
+    out << restriction.m_featureIds[i];
+    if (i + 1 != restriction.m_featureIds.size())
+      out << ", ";
+  }
+  out << "}";
   return out.str();
 }
 }  // namespace routing

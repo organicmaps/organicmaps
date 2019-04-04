@@ -19,6 +19,9 @@
 #include <utility>
 #include <vector>
 
+#include <map>
+#include <memory>
+
 #include <boost/optional.hpp>
 
 namespace routing
