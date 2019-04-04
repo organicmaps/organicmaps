@@ -87,10 +87,10 @@ struct WayElement
 class RelationElement
 {
 public:
-  using TMembers = std::vector<std::pair<uint64_t, std::string>>;
+  using Member = std::pair<uint64_t, std::string>;
 
-  TMembers nodes;
-  TMembers ways;
+  std::vector<Member> nodes;
+  std::vector<Member> ways;
   std::map<std::string, std::string> tags;
 
   bool IsValid() const { return !(nodes.empty() && ways.empty()); }
@@ -147,7 +147,7 @@ public:
       writer.Write(str.data(), sz);
     };
 
-    auto MembersWriter = [&writer, &StringWriter](TMembers const & members)
+    auto MembersWriter = [&writer, &StringWriter](std::vector<Member> const & members)
     {
       uint64_t count = members.size();
       WriteVarUint(writer, count);
@@ -187,7 +187,7 @@ public:
       r.Read(&str[0], sz);
     };
 
-    auto MembersReader = [&r, &StringReader](TMembers & members)
+    auto MembersReader = [&r, &StringReader](std::vector<Member> & members)
     {
       uint64_t count = ReadVarUint<uint64_t>(r);
       members.resize(count);
@@ -237,7 +237,7 @@ public:
   }
 
 protected:
-  bool FindRoleImpl(TMembers const & container, uint64_t id, std::string & role) const
+  bool FindRoleImpl(std::vector<Member> const & container, uint64_t id, std::string & role) const
   {
     for (auto const & e : container)
     {
