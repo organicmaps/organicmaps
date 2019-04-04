@@ -2,6 +2,11 @@
 
 #include "generator/restriction_collector.hpp"
 
+#include "routing/index_graph_loader.hpp"
+
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
+
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 
@@ -12,28 +17,71 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <memory>
+#include <string>
+#include <vector>
+
+namespace
+{
+using namespace routing;
+std::unique_ptr<IndexGraph>
+CreateIndexGraph(std::string const & targetPath,
+                 std::string const & mwmPath,
+                 std::string const & country,
+                 CountryParentNameGetterFn const & countryParentNameGetterFn)
+{
+  shared_ptr<VehicleModelInterface> vehicleModel =
+      CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
+
+  MwmValue mwmValue(
+      platform::LocalCountryFile(targetPath, platform::CountryFile(country), 0 /* version */));
+
+  auto graph = std::make_unique<IndexGraph>(
+      std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmPath, vehicleModel)),
+      EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */));
+
+  DeserializeIndexGraph(mwmValue, VehicleType::Car, *graph);
+
+  return graph;
+}
+}  // namespace
 
 namespace routing
 {
-bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & restrictionPath,
-                           std::string const & osmIdsTofeatureIdsPath)
+std::unique_ptr<RestrictionCollector>
+CreateRestrictionCollectorAndParse(
+    std::string const & targetPath, std::string const & mwmPath, std::string const & country,
+    std::string const & restrictionPath, std::string const & osmIdsToFeatureIdsPath,
+    CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
-  LOG(LDEBUG, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
-              osmIdsTofeatureIdsPath, ");"));
-  RestrictionCollector restrictionCollector(restrictionPath, osmIdsTofeatureIdsPath);
-  if (!restrictionCollector.HasRestrictions())
+  LOG(LDEBUG, ("BuildRoadRestrictions(", targetPath, ", ", restrictionPath, ", ",
+                                         osmIdsToFeatureIdsPath, ");"));
+
+  std::unique_ptr<IndexGraph> graph
+    = CreateIndexGraph(targetPath, mwmPath, country, countryParentNameGetterFn);
+
+  auto restrictionCollector = std::make_unique<RestrictionCollector>();
+  if (!restrictionCollector->PrepareOsmIdToFeatureId(osmIdsToFeatureIdsPath))
+    return {};
+
+
+  if (!restrictionCollector->Process(restrictionPath))
+    return {};
+
+  if (!restrictionCollector->HasRestrictions())
   {
-    LOG(LINFO, ("No restrictions for", mwmPath, "It's necessary to check that",
-                   restrictionPath, "and", osmIdsTofeatureIdsPath, "are available."));
-    return false;
-  }
-  if (!restrictionCollector.IsValid())
-  {
-    LOG(LWARNING, ("Found invalid restrictions for", mwmPath, "Are osm2ft files relevant?"));
-    return false;
+    LOG(LINFO, ("No restrictions for", targetPath, "It's necessary to check that",
+                restrictionPath, "and", osmIdsToFeatureIdsPath, "are available."));
+    return {};
   }
 
-  RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
+  return restrictionCollector;
+}
+
+void SerializeRestrictions(RestrictionCollector const & restrictionCollector,
+                           std::string const & mwmPath)
+{
+  auto const & restrictions = restrictionCollector.GetRestrictions();
 
   auto const firstOnlyIt =
       std::lower_bound(restrictions.cbegin(), restrictions.cend(),
@@ -52,7 +100,23 @@ bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & rest
   header.Serialize(w);
 
   RestrictionSerializer::Serialize(header, restrictions.cbegin(), restrictions.cend(), w);
+}
 
+bool BuildRoadRestrictions(std::string const & targetPath,
+                           std::string const & mwmPath,
+                           std::string const & country,
+                           std::string const & restrictionPath,
+                           std::string const & osmIdsToFeatureIdsPath,
+                           CountryParentNameGetterFn const & countryParentNameGetterFn)
+{
+  auto const collector =
+      CreateRestrictionCollectorAndParse(targetPath, mwmPath, country, restrictionPath,
+                                         osmIdsToFeatureIdsPath, countryParentNameGetterFn);
+
+  if (!collector)
+    return false;
+
+  SerializeRestrictions(*collector, mwmPath);
   return true;
 }
 }  // namespace routing

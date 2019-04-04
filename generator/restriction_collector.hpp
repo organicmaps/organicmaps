@@ -1,11 +1,19 @@
 #pragma once
+
+#include "generator/restriction_writer.hpp"
+#include "generator/routing_index_generator.hpp"
+
+#include "routing/index_graph.hpp"
+#include "routing/joint.hpp"
 #include "routing/restrictions_serialization.hpp"
 
 #include "base/geo_object_id.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <limits>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -18,47 +26,80 @@ class RestrictionCollector
 {
 public:
   RestrictionCollector() = default;
-  /// \param restrictionPath full path to file with road restrictions in osm id terms.
-  /// \param osmIdsToFeatureIdsPath full path to file with mapping from osm ids to feature ids.
-  RestrictionCollector(std::string const & restrictionPath, std::string const & osmIdsToFeatureIdsPath);
+
+  bool PrepareOsmIdToFeatureId(std::string const & osmIdsToFeatureIdPath);
+
+  void SetIndexGraphForTest(std::unique_ptr<IndexGraph> graph) { m_indexGraph = std::move(graph); }
+
+  bool Process(std::string const & restrictionPath);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
 
-  /// \returns true if all restrictions in |m_restrictions| are valid and false otherwise.
-  /// \note Complexity of the method is linear in the size of |m_restrictions|.
-  bool IsValid() const;
-
   /// \returns Sorted vector of restrictions.
-  RestrictionVec const & GetRestrictions() const { return m_restrictions; }
+  std::vector<Restriction> const & GetRestrictions() const { return m_restrictions; }
 
 private:
+  static m2::PointD constexpr kNoCoords =
+      m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+
   friend void UnitTest_RestrictionTest_ValidCase();
   friend void UnitTest_RestrictionTest_InvalidCase();
-  friend void UnitTest_RestrictionTest_ParseRestrictions();
+  friend void UnitTest_RestrictionTest_InvalidCase_NoSuchFeature();
+  friend void UnitTest_RestrictionTest_InvalidCase_FeaturesNotIntersecting();
 
   /// \brief Parses comma separated text file with line in following format:
-  /// <type of restrictions>, <osm id 1 of the restriction>, <osm id 2>, and so on
-  /// For example:
-  /// Only, 335049632, 49356687,
-  /// No, 157616940, 157616940,
-  /// No, 157616940, 157617107,
+  /// In case of restriction, that consists of "way(from)" -> "node(via)" -> "way(to)"
+  /// RType, VType, X, Y, f1, f2
+  /// Where RType = "No" or "Only",
+  ///       VType = "node",
+  ///       f1, f2 - "from" and "to" features id,
+  ///       X, Y - coords of node.
+  ///              Needs to check, that f1 and f2 intersect at this point.
+  ///
+  /// In case of restriction, that consists of several ways as via members:
+  ///   "way(from)" -> "way(via)" -> ... -> "way(via)" -> "way(to)", next format:
+  /// RType, VType, f1, f2, f3, ..., fN
+  /// Where RType = "No" or "Only",
+  ///       VType = "way",
+  ///       f1, f2, ..., fN - "from", "via", ..., "via", "to" members.
+  /// For each neighboring features we check that they have common point.
   /// \param path path to the text file with restrictions.
   bool ParseRestrictions(std::string const & path);
 
   /// \brief Adds feature id and corresponding |osmId| to |m_osmIdToFeatureId|.
   void AddFeatureId(uint32_t featureId, base::GeoObjectId osmId);
 
+  /// \brief In case of |coords| not equal kNoCoords, searches point at |prev| with
+  /// coords equals to |coords| and checks that the |cur| is outgoes from |prev| at
+  /// this point.
+  /// In case of |coords| equals to kNoCoords, just checks, that |prev| and |cur| has common
+  /// junctions.
+  bool FeaturesAreCross(m2::PointD const & coords, uint32_t prev, uint32_t cur) const;
+
+  bool IsRestrictionValid(m2::PointD const & coords,
+                          std::vector<uint32_t> const & featureIds) const;
+
+  Joint::Id GetFirstCommonJoint(uint32_t firstFeatureId, uint32_t secondFeatureId) const;
+
+  bool FeatureHasPointWithCoords(uint32_t featureId, m2::PointD const & coords) const;
   /// \brief Adds a restriction (vector of osm id).
   /// \param type is a type of restriction
   /// \param osmIds is osm ids of restriction links
   /// \note This method should be called to add a restriction when feature ids of the restriction
   /// are unknown. The feature ids should be set later with a call of |SetFeatureId(...)| method.
   /// \returns true if restriction is add and false otherwise.
-  bool AddRestriction(Restriction::Type type, std::vector<base::GeoObjectId> const & osmIds);
+  bool AddRestriction(m2::PointD const & coords, Restriction::Type type,
+                      std::vector<base::GeoObjectId> const & osmIds);
 
-  RestrictionVec m_restrictions;
+  std::vector<Restriction> m_restrictions;
   std::map<base::GeoObjectId, uint32_t> m_osmIdToFeatureId;
+
+  std::unique_ptr<IndexGraph> m_indexGraph;
+
+  std::string m_restrictionPath;
 };
 
-bool FromString(std::string str, Restriction::Type & type);
+void FromString(std::string const & str, Restriction::Type & type);
+void FromString(std::string const & str, RestrictionWriter::ViaType & type);
+void FromString(std::string const & str, double & number);
 }  // namespace routing

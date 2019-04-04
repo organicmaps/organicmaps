@@ -22,12 +22,12 @@ public:
 
   T x, y;
 
-  Point() : x(T()), y(T()) {}
+  constexpr Point() : x(T()), y(T()) {}
 
-  Point(T x_, T y_) : x(x_), y(y_) {}
+  constexpr Point(T x_, T y_) : x(x_), y(y_) {}
 
   template <typename U>
-  explicit Point(Point<U> const & u) : x(u.x), y(u.y)
+  explicit constexpr Point(Point<U> const & u) : x(u.x), y(u.y)
   {
   }
 

@@ -49,7 +49,8 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
 
   try
   {
-    m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG));
+    m_reader =
+        std::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 

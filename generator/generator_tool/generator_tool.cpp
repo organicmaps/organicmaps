@@ -617,9 +617,10 @@ int GeneratorToolMain(int argc, char ** argv)
       string const roadAccessFilename =
           genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
-      routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
-      routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
       routing::BuildRoutingIndex(datFile, country, *countryParentGetter);
+      routing::BuildRoadRestrictions(path, datFile, country, restrictionsFilename, osmToFeatureFilename,
+                                     *countryParentGetter);
+      routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
     }
 
     if (FLAGS_make_city_roads)

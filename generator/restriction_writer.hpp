@@ -18,6 +18,8 @@ public:
   {
     Node,
     Way,
+
+    Max,
   };
 
   static std::string const kNodeString;
