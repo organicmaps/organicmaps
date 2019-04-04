@@ -43,4 +43,12 @@ private:
   PtrList m_children;
   WeakPtr m_parent;
 };
+
+template <typename Data, typename Visitor>
+void Visit(std::shared_ptr<PlaceNode<Data>> const & tree, Visitor && visitor)
+{
+  visitor(tree);
+  for (auto const & subtree : tree->GetChildren())
+    Visit(subtree, visitor);
+}
 }  // namespace generator

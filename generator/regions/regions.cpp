@@ -57,8 +57,7 @@ public:
     Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 
     RegionsBuilder::Regions regions = ReadAndFixData();
-    auto jsonPolicy = std::make_unique<JsonPolicy>(m_verbose);
-    RegionsBuilder builder{std::move(regions), std::move(jsonPolicy), threadsCount};
+    RegionsBuilder builder{std::move(regions), threadsCount};
     GenerateRegions(builder);
 
     LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
@@ -78,14 +77,16 @@ private:
         DebugPrintTree(tree);
 
       LOG(LINFO, ("Processing country", name));
-      auto const idStringList = builder.ToIdStringList(tree);
-      for (auto const & s : idStringList)
-      {
-        regionsKv << static_cast<int64_t>(s.first.GetEncodedId()) << " " << s.second << "\n";
+
+      auto jsonPolicy = JsonPolicy{m_verbose};
+      Visit(tree, [&](auto && node) {
+        auto const id = node->GetData().GetId();
+        auto const path = MakeNodePath(node);
+        regionsKv << static_cast<int64_t>(id.GetEncodedId()) << " " << jsonPolicy.ToString(path) << "\n";
         ++countIds;
-        if (!setIds.insert(s.first).second)
-          LOG(LWARNING, ("Id alredy exists:", s.first));
-      }
+        if (!setIds.insert(id).second)
+          LOG(LWARNING, ("Id alredy exists:", id));
+      });
     });
 
     LOG(LINFO, ("Regions objects key-value for", builder.GetCountryNames().size(),

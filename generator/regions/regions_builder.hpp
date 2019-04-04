@@ -25,22 +25,17 @@ public:
   using CountryTrees = std::multimap<std::string, Node::Ptr>;
   using NormalizedCountryFn = std::function<void(std::string const &, Node::Ptr const &)>;
 
-  explicit RegionsBuilder(Regions && regions,
-                          std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
-                          size_t threadsCount = 1);
   explicit RegionsBuilder(Regions && regions, size_t threadsCount = 1);
 
   Regions const & GetCountries() const;
   StringsList GetCountryNames() const;
   void ForEachNormalizedCountry(NormalizedCountryFn fn);
-  IdStringList ToIdStringList(Node::Ptr const & tree) const;
 private:
   static Node::PtrList MakeSelectedRegionsByCountry(Region const & country,
                                                     Regions const & allRegions);
   static Node::Ptr BuildCountryRegionTree(Region const & country, Regions const & allRegions);
   std::vector<Node::Ptr> BuildCountryRegionTrees(RegionsBuilder::Regions const & countries);
 
-  std::unique_ptr<ToStringPolicyInterface> m_toStringPolicy;
   Regions m_countries;
   Regions m_regions;
   size_t m_threadsCount;

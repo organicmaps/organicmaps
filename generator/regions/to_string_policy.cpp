@@ -6,7 +6,6 @@
 #include <memory>
 
 #include <boost/optional.hpp>
-#include <boost/range/adaptor/reversed.hpp>
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -14,10 +13,10 @@ namespace generator
 {
 namespace regions
 {
-std::string JsonPolicy::ToString(Node::PtrList const & nodePtrList) const
+std::string JsonPolicy::ToString(NodePath const & path) const
 {
-  auto const & main = nodePtrList.front()->GetData();
-  auto const & country = nodePtrList.back()->GetData();
+  auto const & country = path.front()->GetData();
+  auto const & main = path.back()->GetData();
 
   auto geometry = base::NewJSONObject();
   ToJSONObject(*geometry, "type", "Point");
@@ -32,7 +31,7 @@ std::string JsonPolicy::ToString(Node::PtrList const & nodePtrList) const
   auto address = base::NewJSONObject();
   auto const mainLabel = main.GetLabel();
   boost::optional<int64_t> pid;
-  for (auto const & p : boost::adaptors::reverse(nodePtrList))
+  for (auto const & p : path)
   {
 
     auto const & region = p->GetData();
