@@ -37,22 +37,49 @@ public:
 
   void Init(Segment const & startSegment, Segment const & endSegment);
 
+  m2::PointD const & GetPoint(JointSegment const & jointSegment, bool start);
   JointSegment const & GetStartJoint() const { return m_startJoint; }
   JointSegment const & GetFinishJoint() const { return m_endJoint; }
-  m2::PointD const & GetPoint(JointSegment const & jointSegment, bool start);
 
   // AStarGraph overridings
   // @{
-  RouteWeight HeuristicCostEstimate(JointSegment const & from, JointSegment const & to) override;
+  RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override;
 
-  void GetOutgoingEdgesList(JointSegment const & vertex, std::vector<JointEdge> & edges) override
+  void GetOutgoingEdgesList(Vertex const & vertex, std::vector<Edge> & edges) override
   {
     GetEdgeList(vertex, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(JointSegment const & vertex, std::vector<JointEdge> & edges) override
+  void GetIngoingEdgesList(Vertex const & vertex, std::vector<Edge> & edges) override
   {
     GetEdgeList(vertex, false /* isOutgoing */, edges);
+  }
+
+  void SetAStarParents(bool forward, std::map<Vertex, Vertex> & parents) override
+  {
+    m_graph.SetAStarParents(forward, parents);
+  }
+
+  bool AreWavesConnectible(std::map<Vertex, Vertex> & forwardParents, Vertex const & commonVertex,
+                          std::map<Vertex, Vertex> & backwardParents) override
+  {
+    auto converter = [&](JointSegment const & vertex) {
+      if (vertex.IsRealSegment())
+        return vertex.GetFeatureId();
+
+      auto const it = m_fakeJointSegments.find(vertex);
+      ASSERT(it != m_fakeJointSegments.cend(), ());
+
+      auto const & first = it->second.GetSegment(true /* start */);
+      if (first.IsRealSegment())
+        return first.GetFeatureId();
+
+      auto const & second = it->second.GetSegment(false /* start */);
+      return second.GetFeatureId();
+    };
+
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
+                                       std::move(converter));
   }
   // @}
 
@@ -388,7 +415,7 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment con
     Segment parentSegment = optional.value();
 
     std::vector<JointEdge> jointEdges;
-    m_graph.GetEdgeList(parentSegment, isOutgoing, jointEdges, parentWeights);
+    m_graph.GetEdgeList(vertex, parentSegment, isOutgoing, jointEdges, parentWeights);
     edges.insert(edges.end(), jointEdges.begin(), jointEdges.end());
 
     firstFakeId = edges.size();

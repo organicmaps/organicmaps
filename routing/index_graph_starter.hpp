@@ -18,7 +18,9 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <limits>
+#include <map>
 #include <set>
 #include <utility>
 #include <vector>
@@ -80,15 +82,17 @@ public:
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
   bool CheckLength(RouteWeight const & weight);
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing,
+  void GetEdgeList(JointSegment const & parent, Segment const & segment, bool isOutgoing,
                    std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) const
   {
-    return m_graph.GetEdgeList(segment, isOutgoing, edges, parentWeights);
+    return m_graph.GetEdgeList(parent, segment, isOutgoing, edges, parentWeights);
   }
 
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
+  // AStarGraph overridings:
+  // @{
   void GetOutgoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) override
   {
     GetEdgesList(segment, true /* isOutgoing */, edges);
@@ -105,23 +109,52 @@ public:
                                          GetPoint(to, true /* front */));
   }
 
+  void SetAStarParents(bool forward, std::map<Segment, Segment> & parents) override
+  {
+    m_graph.SetAStarParents(forward, parents);
+  }
+
+  bool AreWavesConnectible(std::map<Vertex, Vertex> & forwardParents, Vertex const & commonVertex,
+                           std::map<Vertex, Vertex> & backwardParents) override
+  {
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, nullptr);
+  }
+  // @}
+
   RouteWeight HeuristicCostEstimate(Vertex const & from, m2::PointD const & to) const
   {
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */), to);
+  }
+
+  RouteWeight CalcSegmentWeight(Segment const & segment) const;
+  double CalcSegmentETA(Segment const & segment) const;
+
+  // For compatibility with IndexGraphStarterJoints
+  // @{
+  void SetAStarParents(bool forward, std::map<JointSegment, JointSegment> & parents)
+  {
+    m_graph.SetAStarParents(forward, parents);
+  }
+
+  bool AreWavesConnectible(std::map<JointSegment, JointSegment> & forwardParents,
+                           JointSegment const & commonVertex,
+                           std::map<JointSegment, JointSegment> & backwardParents,
+                           std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+  {
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
+                                      std::move(fakeFeatureConverter));
   }
 
   bool IsJoint(Segment const & segment, bool fromStart)
   {
     return GetGraph().GetIndexGraph(segment.GetMwmId()).IsJoint(segment.GetRoadPoint(fromStart));
   }
-
-  RouteWeight CalcSegmentWeight(Segment const & segment) const;
-  double CalcSegmentETA(Segment const & segment) const;
+  // @}
 
   ~IndexGraphStarter() override = default;
 
 private:
-  // Start or finish ending information. 
+  // Start or finish ending information.
   struct Ending
   {
     bool OverlapsWithMwm(NumMwmId mwmId) const;
@@ -174,6 +207,5 @@ private:
   Ending m_finish;
   double m_startToFinishDistanceM;
   FakeGraph<Segment, FakeVertex> m_fake;
-  RoutingOptions m_avoidRoutingOptions;
 };
 }  // namespace routing

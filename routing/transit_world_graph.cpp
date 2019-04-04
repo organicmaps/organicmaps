@@ -24,7 +24,8 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
   CHECK(m_estimator, ());
 }
 
-void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+void TransitWorldGraph::GetEdgeList(JointSegment const & parentJoint,
+                                    Segment const & segment, bool isOutgoing,
                                     std::vector<JointEdge> & edges,
                                     std::vector<RouteWeight> & parentWeights)
 {

@@ -137,7 +137,10 @@ public:
       m_distanceMap[vertex] = distance;
     }
 
-    void SetParent(Vertex const & parent, Vertex const & child) { m_parents[parent] = child; }
+    void SetParent(Vertex const & parent, Vertex const & child)
+    {
+      m_parents[parent] = child;
+    }
 
     bool HasParent(Vertex const & child) const
     {
@@ -150,6 +153,8 @@ public:
       CHECK(it != m_parents.cend(), ("Can not find parent of child:", child));
       return it->second;
     }
+
+    std::map<Vertex, Vertex> & GetParents() { return m_parents; }
 
     void ReconstructPath(Vertex const & v, std::vector<Vertex> & path) const;
 
@@ -235,6 +240,7 @@ private:
     {
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
+      graph.SetAStarParents(forward, parent);
     }
 
     Weight TopDistance() const
@@ -272,6 +278,8 @@ private:
         graph.GetIngoingEdgesList(v, adj);
     }
 
+    std::map<Vertex, Vertex> & GetParents() { return parent; }
+
     bool const forward;
     Vertex const & startVertex;
     Vertex const & finalVertex;
@@ -304,11 +312,12 @@ constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kZeroDistance;
 
 template <typename Vertex, typename Edge, typename Weight>
 template <typename VisitVertex, typename AdjustEdgeWeight, typename FilterStates>
-void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(Graph & graph, Vertex const & startVertex,
-                                          VisitVertex && visitVertex,
-                                          AdjustEdgeWeight && adjustEdgeWeight,
-                                          FilterStates && filterStates,
-                                          AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
+void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
+  Graph & graph, Vertex const & startVertex,
+  VisitVertex && visitVertex,
+  AdjustEdgeWeight && adjustEdgeWeight,
+  FilterStates && filterStates,
+  AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
   context.Clear();
 
@@ -468,6 +477,9 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, graph);
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
 
+  auto & forwardParents = forward.GetParents();
+  auto & backwardParents = backward.GetParents();
+
   bool foundAnyPath = false;
   auto bestPathReducedLength = kZeroDistance;
   auto bestPathRealLength = kZeroDistance;
@@ -484,6 +496,20 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   // changing the end we are searching from.
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
+
+  auto const getResult = [&]() {
+    if (!params.m_checkLengthCallback(bestPathRealLength))
+      return Result::NoPath;
+
+    ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
+                                 result.m_path);
+    result.m_distance = bestPathRealLength;
+    CHECK(!result.m_path.empty(), ());
+    if (!cur->forward)
+      reverse(result.m_path.begin(), result.m_path.end());
+
+    return Result::OK;
+  };
 
   std::vector<Edge> adj;
 
@@ -520,18 +546,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       // different real path lengths.
 
       if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
-      {
-        if (!params.m_checkLengthCallback(bestPathRealLength))
-          return Result::NoPath;
-
-        ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
-                                     result.m_path);
-        result.m_distance = bestPathRealLength;
-        CHECK(!result.m_path.empty(), ());
-        if (!cur->forward)
-          reverse(result.m_path.begin(), result.m_path.end());
-        return Result::OK;
-      }
+        return getResult();
     }
 
     State const stateV = cur->queue.top();
@@ -547,6 +562,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), kZeroDistance);
+
       if (stateV.vertex == stateW.vertex)
         continue;
 
@@ -568,6 +584,10 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       if (itCur != cur->bestDistance.end() && newReducedDist >= itCur->second - kEpsilon)
         continue;
 
+      stateW.distance = newReducedDist;
+      cur->bestDistance[stateW.vertex] = newReducedDist;
+      cur->parent[stateW.vertex] = stateV.vertex;
+
       auto const itNxt = nxt->bestDistance.find(stateW.vertex);
       if (itNxt != nxt->bestDistance.end())
       {
@@ -576,7 +596,8 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         // find the reduced length of the path's parts in the reduced forward and backward graphs.
         auto const curPathReducedLength = newReducedDist + distW;
         // No epsilon here: it is ok to overshoot slightly.
-        if (!foundAnyPath || bestPathReducedLength > curPathReducedLength)
+        if ((!foundAnyPath || bestPathReducedLength > curPathReducedLength) &&
+            graph.AreWavesConnectible(forwardParents, stateW.vertex, backwardParents))
         {
           bestPathReducedLength = curPathReducedLength;
 
@@ -590,12 +611,13 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         }
       }
 
-      stateW.distance = newReducedDist;
-      cur->bestDistance[stateW.vertex] = newReducedDist;
-      cur->parent[stateW.vertex] = stateV.vertex;
-      cur->queue.push(stateW);
+      if (stateW.vertex != (cur->forward ? cur->finalVertex : cur->startVertex))
+        cur->queue.push(stateW);
     }
   }
+
+  if (foundAnyPath)
+    return getResult();
 
   return Result::NoPath;
 }
@@ -632,6 +654,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
   }
 
   Context context;
+  graph.SetAStarParents(true /* forward */, context.GetParents());
   PeriodicPollCancellable periodicCancellable(params.m_cancellable);
 
   auto visitVertex = [&](Vertex const & vertex) {
@@ -714,7 +737,8 @@ void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(Vertex const & v,
       break;
     cur = it->second;
   }
-  reverse(path.begin(), path.end());
+
+  std::reverse(path.begin(), path.end());
 }
 
 // static

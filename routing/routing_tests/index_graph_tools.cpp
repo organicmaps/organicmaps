@@ -2,6 +2,8 @@
 
 #include "testing/testing.hpp"
 
+#include "testing/testing.hpp"
+
 #include "routing/geometry.hpp"
 
 #include "routing/base/routing_result.hpp"
@@ -13,6 +15,8 @@
 
 #include <unordered_map>
 
+using namespace std;
+
 namespace routing_test
 {
 using namespace routing;
@@ -20,33 +24,6 @@ using namespace routing;
 namespace
 {
 double constexpr kEpsilon = 1e-6;
-
-class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
-{
-public:
-
-  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
-
-  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
-  {
-    return m_graph.HeuristicCostEstimate(from, to);
-  }
-
-  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
-  {
-    m_graph.GetOutgoingEdgesList(v, edges);
-  }
-
-  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
-  {
-    m_graph.GetIngoingEdgesList(v, edges);
-  }
-
-  ~WorldGraphForAStar() override = default;
-
-private:
-  WorldGraph & m_graph;
-};
 
 template <typename Graph>
 Graph & GetGraph(unordered_map<NumMwmId, unique_ptr<Graph>> const & graphs, NumMwmId mwmId)
@@ -197,7 +174,7 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   AlgorithmForWorldGraph algorithm;
 
-  routing_test::WorldGraphForAStar graphForAStar(*worldGraph);
+  WorldGraphForAStar graphForAStar(*worldGraph);
 
   AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
                                                 nullptr /* prevRoute */,
@@ -324,7 +301,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoade
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
   return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
-                                              estimator);
+                                                   estimator);
 }
 
 unique_ptr<IndexGraph> BuildIndexGraph(unique_ptr<TestGeometryLoader> geometryLoader,
@@ -341,11 +318,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
                                                     vector<Joint> const & joints)
 {
   auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
   return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
-                                              estimator);
+                                                   estimator);
 }
 
 unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,

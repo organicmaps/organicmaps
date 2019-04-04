@@ -53,6 +53,7 @@ public:
   using Weight = AStarGraph::Weight;
 
   explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
+  ~WorldGraphForAStar() override = default;
 
   Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
   {
@@ -68,8 +69,6 @@ public:
   {
     m_graph.GetIngoingEdgesList(v, edges);
   }
-
-  ~WorldGraphForAStar() override = default;
 
 private:
   WorldGraph & m_graph;

@@ -173,6 +173,13 @@ public:
     CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
     return GetAStarWeightZero<RouteWeight>();
   }
+  bool AreWavesConnectible(map<JointSegment, JointSegment> const & /* forwardParents */,
+                           JointSegment const & /* commonVertex */,
+                           map<JointSegment, JointSegment> const & /* backwardParents */,
+                           function<uint32_t(JointSegment const &)> && /* fakeFeatureConverter */)
+  {
+    return true;
+  }
   // @}
 
   m2::PointD const & GetPoint(Segment const & s, bool forward)
@@ -180,15 +187,21 @@ public:
     return m_graph.GetPoint(s, forward);
   }
 
-  void GetEdgesList(Segment const & from, bool isOutgoing, vector<SegmentEdge> & edges)
+  void SetAStarParents(bool /* forward */, map<JointSegment, JointSegment> & parents)
   {
-    m_graph.GetEdgeList(from, isOutgoing, edges);
+    m_AStarParents = &parents;
   }
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing,
+  void GetEdgesList(Segment const & child, bool isOutgoing, vector<SegmentEdge> & edges)
+  {
+    m_graph.GetEdgeList(child, isOutgoing, edges);
+  }
+
+  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
                    vector<JointEdge> & edges, vector<RouteWeight> & parentWeights) const
   {
-    return m_graph.GetEdgeList(segment, isOutgoing, edges, parentWeights);
+    CHECK(m_AStarParents, ());
+    return m_graph.GetEdgeList(parentJoint, parent, isOutgoing, edges, parentWeights, *m_AStarParents);
   }
 
   bool IsJoint(Segment const & segment, bool fromStart) const
@@ -203,7 +216,17 @@ public:
     return pointId == 0 || pointId + 1 == pointsNumber;
   }
 
+  template <typename Vertex>
+  RouteWeight HeuristicCostEstimate(Vertex const & /* from */, m2::PointD const & /* to */)
+  {
+    CHECK(false, ("This method should not be use, it is just for compatibility with "
+                  "IndexGraphStarterJoints."));
+
+    return GetAStarWeightZero<RouteWeight>();
+  }
+
 private:
+  map<JointSegment, JointSegment> * m_AStarParents = nullptr;
   IndexGraph & m_graph;
   Segment m_start;
 };
@@ -215,7 +238,6 @@ public:
   DijkstraWrapperJoints(IndexGraphWrapper & graph, Segment const & start)
     : IndexGraphStarterJoints<IndexGraphWrapper>(graph, start) {}
 
-    // IndexGraphStarterJoints overrides
   Weight HeuristicCostEstimate(Vertex const & /* from */, Vertex const & /* to */) override
   {
     return GetAStarWeightZero<Weight>();
@@ -454,7 +476,8 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
-    Algorithm::Context context;
+    AStarAlgorithm<JointSegment, JointEdge, RouteWeight>::Context context;
+    indexGraphWrapper.SetAStarParents(true /* forward */, context.GetParents());
     unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(wrapper, wrapper.GetStartJoint(),
                         [&](JointSegment const & vertex)
@@ -473,9 +496,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
                             visitedVertexes[vertex.GetFeatureId()].emplace_back(vertex);
                           }
 
-                          return true;
-                        } /* visitVertex */,
-                        context);
+                            return true;
+                          } /* visitVertex */,
+                          context);
 
     for (Segment const & exit : connector.GetExits())
     {
@@ -514,6 +537,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           Segment const & firstChild = jointSegment.GetSegment(true /* start */);
           uint32_t const lastPoint = exit.GetPointId(true /* front */);
 
+          static map<JointSegment, JointSegment> kEmptyParents;
           auto optionalEdge =  graph.GetJointEdgeByLastPoint(parentSegment, firstChild,
                                                              true /* isOutgoing */, lastPoint);
 

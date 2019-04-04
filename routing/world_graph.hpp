@@ -13,6 +13,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <functional>
 #include <memory>
 #include <set>
 #include <string>
@@ -46,7 +47,7 @@ public:
 
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
                            std::vector<SegmentEdge> & edges) = 0;
-  virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
+  virtual void GetEdgeList(JointSegment const & vertex, Segment const & segment, bool isOutgoing,
                            std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) = 0;
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
@@ -65,16 +66,19 @@ public:
   virtual void SetMode(WorldGraphMode mode) = 0;
   virtual WorldGraphMode GetMode() const = 0;
 
-  // Interface for AStarAlgorithm:
   virtual void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) = 0;
   virtual void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) = 0;
 
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, m2::PointD const & to) = 0;
+
   virtual RouteWeight CalcSegmentWeight(Segment const & segment) = 0;
+
   virtual RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
+
   virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
+
   virtual double CalcSegmentETA(Segment const & segment) = 0;
 
   /// \returns transitions for mwm with id |numMwmId|.
@@ -83,6 +87,19 @@ public:
   virtual bool IsRoutingOptionsGood(Segment const & /* segment */);
   virtual RoutingOptions GetRoutingOptions(Segment const & /* segment */);
   virtual void SetRoutingOptions(RoutingOptions /* routingOptions */);
+
+  using ParentSegments = std::map<Segment, Segment>;
+  using ParentJoints = std::map<JointSegment, JointSegment>;
+
+  virtual void SetAStarParents(bool forward, ParentSegments & parents);
+  virtual void SetAStarParents(bool forward, ParentJoints & parents);
+
+  virtual bool AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
+                                  ParentSegments & backwardParents,
+                                  std::function<uint32_t(Segment const &)> && fakeFeatureConverter);
+  virtual bool AreWavesConnectible(ParentJoints & forwardParents, JointSegment const & commonVertex,
+                                  ParentJoints & backwardParents,
+                                  std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter);
 
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;

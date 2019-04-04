@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "routing/index_graph.hpp"
 
 #include "routing/restrictions_serialization.hpp"
@@ -15,46 +13,12 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <iterator>
 #include <limits>
+#include <utility>
 
-namespace
-{
 using namespace base;
-using namespace routing;
 using namespace std;
-
-/*bool IsRestricted(std::vector<std::vector<uint32_t>> const & restrictions, Segment const & u, Segment const & v,
-                  bool isOutgoing)
-{
-  uint32_t const featureIdFrom = isOutgoing ? u.GetFeatureId() : v.GetFeatureId();
-  uint32_t const featureIdTo = isOutgoing ? v.GetFeatureId() : u.GetFeatureId();
-
-  if (!binary_search(restrictions.cbegin(), restrictions.cend(),
-                     std::vector<uint32_t>({featureIdFrom, featureIdTo})))
-  {
-    return false;
-  }
-
-  if (featureIdFrom != featureIdTo)
-    return true;
-
-  // @TODO(bykoianko) According to current code if a feature id is marked as a feature with
-  //   restrictricted U-turn it's restricted to make a U-turn on the both ends of the feature.
-  //   Generally speaking it's wrong. In osm there's information about the end of the feature
-  //   where the U-turn is restricted. It's necessary to pass the data to mwm and to use it here.
-  //   Please see test LineGraph_RestrictionF1F1No for details.
-  //   Another example when it's necessary to be aware about feature end participated in restriction
-  //   is
-  //          *---F1---*
-  //          |        |
-  //   *--F3--A        B--F4--*
-  //          |        |
-  //          *---F2---*
-  //   In case of restriction F1-A-F2 or F1-B-F2 of any type (No, Only) the important information
-  //   is lost.
-  return IsUTurn(u, v);
-}*/
-}  // namespace
 
 namespace routing
 {
@@ -68,7 +32,7 @@ std::map<Segment, Segment> IndexGraph::kEmptyParentsSegments = {};
 
 IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
                        RoutingOptions routingOptions)
-  : m_geometry(std::move(geometry)),
+  : m_geometry(move(geometry)),
     m_estimator(move(estimator)),
     m_avoidRoutingOptions(routingOptions)
 {
@@ -82,7 +46,7 @@ bool IndexGraph::IsJoint(RoadPoint const & roadPoint) const
 }
 
 void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges,
-                             std::map<Segment, Segment> & parents)
+                             map<Segment, Segment> & parents)
 {
   RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
@@ -142,7 +106,7 @@ void IndexGraph::GetLastPointsForJoint(vector<Segment> const & children,
 
 void IndexGraph::GetEdgeList(JointSegment const & parentJoint,
                              Segment const & parent, bool isOutgoing, vector<JointEdge> & edges,
-                             vector<RouteWeight> & parentWeights, std::map<JointSegment, JointSegment> & parents)
+                             vector<RouteWeight> & parentWeights, map<JointSegment, JointSegment> & parents)
 {
   vector<Segment> possibleChildren;
   GetSegmentCandidateForJoint(parent, isOutgoing, possibleChildren);
@@ -164,7 +128,7 @@ IndexGraph::GetJointEdgeByLastPoint(Segment const & parent, Segment const & firs
 
   vector<JointEdge> edges;
   vector<RouteWeight> parentWeights;
-  std::map<JointSegment, JointSegment> emptyParents;
+  map<JointSegment, JointSegment> emptyParents;
   ReconstructJointSegment({}, parent, possibleChilds, lastPoints,
                           isOutgoing, edges, parentWeights, emptyParents);
 
@@ -210,18 +174,6 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(roadAccess); }
 
-void IndexGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, edges);
-}
-
-void IndexGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, edges);
-}
-
 RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(
@@ -229,7 +181,7 @@ RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                                     vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents)
+                                     vector<SegmentEdge> & edges, map<Segment, Segment> & parents)
 {
   RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
 
@@ -300,7 +252,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
                                          bool isOutgoing,
                                          vector<JointEdge> & jointEdges,
                                          vector<RouteWeight> & parentWeights,
-                                         std::map<JointSegment, JointSegment> & parents)
+                                         map<JointSegment, JointSegment> & parents)
 {
   CHECK_EQUAL(firstChildren.size(), lastPointIds.size(), ());
 
@@ -324,23 +276,17 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
     if (m_roadAccess.GetPointType(parent.GetRoadPoint(isOutgoing)) == RoadAccess::Type::No)
       continue;
 
-    // Check firstChild for UTurn.
-    RoadPoint rp = parent.GetRoadPoint(isOutgoing);
-    if (IsUTurn(parent, firstChild) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
-        && !m_geometry->GetRoad(parent.GetFeatureId()).IsEndPointId(rp.GetPointId()))
-    {
+    if (IsUTurnAndRestricted(parent, firstChild, isOutgoing))
       continue;
-    }
 
-    if (parent.GetFeatureId() != firstChild.GetFeatureId() &&
-        IsRestricted(parentJoint, parent.GetFeatureId(), firstChild.GetFeatureId(),
+    if (IsRestricted(parentJoint, parent.GetFeatureId(), firstChild.GetFeatureId(),
                      isOutgoing, parents))
     {
       continue;
     }
 
     // Check current JointSegment for bad road access between segments.
-    rp = firstChild.GetRoadPoint(isOutgoing);
+    RoadPoint rp = firstChild.GetRoadPoint(isOutgoing);
     uint32_t start = currentPointId;
     bool noRoadAccess = false;
     do
@@ -386,25 +332,18 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
 }
 
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                                    vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents)
+                                    vector<SegmentEdge> & edges, map<Segment, Segment> & parents)
 {
-  // Blocking U-turns on internal feature points.
-  RoadPoint const rp = from.GetRoadPoint(isOutgoing);
-  if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
-      && !m_geometry->GetRoad(from.GetFeatureId()).IsEndPointId(rp.GetPointId()))
-  {
+  if (IsUTurnAndRestricted(from, to, isOutgoing))
     return;
-  }
 
-  if (from.GetFeatureId() != to.GetFeatureId() &&
-      IsRestricted(from, from.GetFeatureId(), to.GetFeatureId(), isOutgoing, parents))
-  {
+  if (IsRestricted(from, from.GetFeatureId(), to.GetFeatureId(), isOutgoing, parents))
     return;
-  }
 
   if (m_roadAccess.GetFeatureType(to.GetFeatureId()) == RoadAccess::Type::No)
     return;
 
+  RoadPoint const rp = from.GetRoadPoint(isOutgoing);
   if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
     return;
 
@@ -440,4 +379,32 @@ RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
 }
 
 WorldGraphMode IndexGraph::GetMode() const { return WorldGraphMode::Undefined; }
+
+bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & child,
+                                      bool isOutgoing) const
+{
+  if (!IsUTurn(parent, child))
+    return false;
+
+  RoadPoint rp = parent.GetRoadPoint(isOutgoing);
+  if (m_roadIndex.GetJointId(rp) == Joint::kInvalidId &&
+      !m_geometry->GetRoad(parent.GetFeatureId()).IsEndPointId(rp.GetPointId()))
+  {
+    return true;
+  }
+
+  uint32_t const currentFeatureId = child.GetFeatureId();
+  auto const & restrictions = isOutgoing ? m_restrictionsForward : m_restrictionsBackward;
+  auto const it = restrictions.find(currentFeatureId);
+  if (it == restrictions.cend())
+    return false;
+
+  for (vector<uint32_t> const & restriction : it->second)
+  {
+    if (restriction.size() == 1 && restriction.back() == currentFeatureId)
+      return true;
+  }
+
+  return false;
+}
 }  // namespace routing

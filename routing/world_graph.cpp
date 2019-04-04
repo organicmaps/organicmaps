@@ -1,5 +1,7 @@
 #include "routing/world_graph.hpp"
 
+#include <map>
+
 namespace routing
 {
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges)
@@ -49,6 +51,23 @@ bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
 std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const & segment)
 {
   return {};
+}
+
+void WorldGraph::SetAStarParents(bool forward, std::map<Segment, Segment> & parents) {}
+void WorldGraph::SetAStarParents(bool forward, std::map<JointSegment, JointSegment> & parents) {}
+
+bool WorldGraph::AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
+                                     ParentSegments & backwardParents,
+                                     std::function<uint32_t(Segment const &)> && fakeFeatureConverter)
+{
+  return true;
+}
+
+bool WorldGraph::AreWavesConnectible(ParentJoints & forwardParents, JointSegment const & commonVertex,
+                                     ParentJoints & backwardParents,
+                                     std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+{
+  return true;
 }
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}

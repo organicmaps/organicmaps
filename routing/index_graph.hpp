@@ -15,17 +15,19 @@
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
-#include <memory>
-#include <utility>
-#include <vector>
-
 #include <map>
 #include <memory>
+#include <memory>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
 namespace routing
 {
+bool IsUTurn(Segment const & u, Segment const & v);
+
 enum class WorldGraphMode;
 
 class IndexGraph final
@@ -36,15 +38,20 @@ public:
   using Edge = SegmentEdge;
   using Weight = RouteWeight;
 
+  using Restrictions = std::unordered_map<uint32_t, std::vector<std::vector<uint32_t>>>;
+
   IndexGraph() = default;
   IndexGraph(std::shared_ptr<Geometry> geometry, std::shared_ptr<EdgeEstimator> estimator,
              RoutingOptions routingOptions = RoutingOptions());
 
+  static std::map<Segment, Segment> kEmptyParentsSegments;
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
-  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
+                   std::map<Segment, Segment> & parents = kEmptyParentsSegments);
 
-  void GetEdgeList(Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
-                   std::vector<RouteWeight> & parentWeights);
+  void GetEdgeList(JointSegment const & parentJoint,
+                   Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
+                   std::vector<RouteWeight> & parentWeights, std::map<JointSegment, JointSegment> & parents);
 
   boost::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
                                                      bool isOutgoing, uint32_t lastPoint);
@@ -69,10 +76,6 @@ public:
 
   void SetRestrictions(RestrictionVec && restrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
-
-  // Interface for AStarAlgorithm:
-  void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges);
-  void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -101,27 +104,119 @@ public:
     return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
   }
 
+  /// \brief Check, that we can go to |currentFeatureId|.
+  /// We pass |parentFeatureId| and don't use |parent.GetFeatureId()| because
+  /// |parent| can be fake sometimes but |parentFeatureId| is almost non-fake.
+  template <typename Parent>
+  bool IsRestricted(Parent const & parent,
+                    uint32_t parentFeatureId,
+                    uint32_t currentFeatureId, bool isOutgoing,
+                    std::map<Parent, Parent> & parents) const;
+
+  bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
+private:
+
   RouteWeight CalcSegmentWeight(Segment const & segment);
 
-private:
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                           std::vector<SegmentEdge> & edges);
+                           std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                          std::vector<SegmentEdge> & edges);
+                          std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
   RouteWeight GetPenalties(Segment const & u, Segment const & v);
 
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
-  void ReconstructJointSegment(Segment const & parent, std::vector<Segment> const & firstChildren,
+  void ReconstructJointSegment(JointSegment const & parentJoint,
+                               Segment const & parent,
+                               std::vector<Segment> const & firstChildren,
                                std::vector<uint32_t> const & lastPointIds,
-                               bool isOutgoing, std::vector<JointEdge> & jointEdges,
-                               std::vector<RouteWeight> & parentWeights);
+                               bool isOutgoing,
+                               std::vector<JointEdge> & jointEdges,
+                               std::vector<RouteWeight> & parentWeights,
+                               std::map<JointSegment, JointSegment> & parents);
 
   std::shared_ptr<Geometry> m_geometry;
   std::shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
-  RestrictionVec m_restrictions;
+  Restrictions m_restrictionsForward;
+  Restrictions m_restrictionsBackward;
   RoadAccess m_roadAccess;
   RoutingOptions m_avoidRoutingOptions;
 };
+
+template <typename Parent>
+bool IndexGraph::IsRestricted(Parent const & parent,
+                              uint32_t parentFeatureId,
+                              uint32_t currentFeatureId,
+                              bool isOutgoing,
+                              std::map<Parent, Parent> & parents) const
+{
+  if (parentFeatureId == currentFeatureId)
+    return false;
+
+  auto const & restrictions = isOutgoing ? m_restrictionsForward : m_restrictionsBackward;
+  auto const it = restrictions.find(currentFeatureId);
+  if (it == restrictions.cend())
+    return false;
+
+  std::vector<Parent> parentsFromCurrent;
+  // Finds the first featureId from parents, that differ from |p.GetFeatureId()|.
+  auto const appendNextParent = [&parents](Parent const & p, auto & parentsVector)
+  {
+    uint32_t prevFeatureId = p.GetFeatureId();
+    uint32_t curFeatureId = prevFeatureId;
+
+    auto nextParent = parents.end();
+    auto * curParent = &p;
+    while (curFeatureId == prevFeatureId)
+    {
+      auto const parentIt = parents.find(*curParent);
+      if (parentIt == parents.cend())
+        return false;
+
+      curFeatureId = parentIt->second.GetFeatureId();
+      nextParent = parentIt;
+      curParent = &nextParent->second;
+    }
+
+    ASSERT(nextParent != parents.end(), ());
+    parentsVector.emplace_back(nextParent->second);
+    return true;
+  };
+
+  for (std::vector<uint32_t> const & restriction : it->second)
+  {
+    bool const prevIsParent = restriction[0] == parentFeatureId;
+    if (!prevIsParent)
+      continue;
+
+    if (restriction.size() == 1)
+      return true;
+
+    // If parents are empty we process only two feature restrictions.
+    if (parents.empty())
+      continue;
+
+    if (!appendNextParent(parent, parentsFromCurrent))
+      continue;
+
+    for (size_t i = 1; i < restriction.size(); ++i)
+    {
+      ASSERT_GREATER_OR_EQUAL(i, 1, ("Unexpected overflow."));
+      if (i - 1 == parentsFromCurrent.size()
+          && !appendNextParent(parentsFromCurrent.back(), parentsFromCurrent))
+      {
+        break;
+      }
+
+      if (parentsFromCurrent.back().GetFeatureId() != restriction[i])
+        break;
+
+      if (i + 1 == restriction.size())
+        return true;
+    }
+  }
+
+  return false;
+}
 }  // namespace routing

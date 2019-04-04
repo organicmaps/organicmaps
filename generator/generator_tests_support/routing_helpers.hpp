@@ -31,8 +31,6 @@ class TestGeometryLoader : public GeometryLoader
 {
 public:
   // GeometryLoader overrides:
-  ~TestGeometryLoader() override = default;
-
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 
   void AddRoad(uint32_t featureId, bool oneWay, float speed,
