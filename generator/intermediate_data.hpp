@@ -203,6 +203,7 @@ public:
   IntermediateDataReader(std::shared_ptr<PointStorageReaderInterface> nodes,
                          feature::GenerateInfo & info);
 
+  // TODO |GetNode()|, |lat|, |lon| is used as y, x in real.
   bool GetNode(Key id, double & lat, double & lon) const { return m_nodes->GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
   void LoadIndex();
