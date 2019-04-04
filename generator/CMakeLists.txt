@@ -117,6 +117,7 @@ set(SRC
   regions/city.hpp
   regions/collector_region_info.cpp
   regions/collector_region_info.hpp
+  regions/level_region.hpp
   regions/node.cpp
   regions/node.hpp
   regions/region.cpp

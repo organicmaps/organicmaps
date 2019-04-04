@@ -198,8 +198,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
   std::vector<std::string> bankOfNames;
   RegionsBuilder builder(MakeTestDataSet1(collector));
   builder.ForEachNormalizedCountry([&](std::string const & name, Node::Ptr const & tree) {
-    Visit(tree, [&](Node::Ptr const & node) {
-      auto const path = MakeNodePath(node);
+    ForEachLevelPath(tree, [&](NodePath const & path) {
       StringJoinPolicy stringifier;
       bankOfNames.push_back(stringifier.ToString(path));
     });

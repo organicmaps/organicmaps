@@ -30,6 +30,10 @@ public:
   Regions const & GetCountries() const;
   StringsList GetCountryNames() const;
   void ForEachNormalizedCountry(NormalizedCountryFn fn);
+
+  static PlaceLevel GetLevel(Region const & region);
+  static size_t GetWeight(Region const & region);
+
 private:
   static Node::PtrList MakeSelectedRegionsByCountry(Region const & country,
                                                     Regions const & allRegions);

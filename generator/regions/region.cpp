@@ -94,12 +94,12 @@ void Region::FillPolygon(FeatureBuilder1 const & fb)
 bool Region::IsCountry() const
 {
   static auto const kAdminLevelCountry = AdminLevel::Two;
-  return !HasPlaceType() && GetAdminLevel() == kAdminLevelCountry;
+  return GetPlaceType() == PlaceType::Unknown && GetAdminLevel() == kAdminLevelCountry;
 }
 
 bool Region::IsLocality() const
 {
-  return HasPlaceType();
+  return GetPlaceType() != PlaceType::Unknown;
 }
 
 bool Region::Contains(Region const & smaller) const

@@ -35,11 +35,12 @@ public:
 
   bool CityExistsAsRegion(City const & city)
   {
+    auto const cityType = city.GetPlaceType();
     auto const range = m_nameRegionMap.equal_range(city.GetName());
     for (auto it = range.first; it != range.second; ++it)
     {
       Region const & r = it->second;
-      if (city.GetRank() == r.GetRank() && r.Contains(city))
+      if (r.GetPlaceType() == cityType && r.Contains(city))
         return true;
     }
 
@@ -66,7 +67,7 @@ public:
     for (auto const & cityKeyValue : m_pointCitiesMap)
     {
       auto const & city = cityKeyValue.second;
-      if (!regionsChecker.CityExistsAsRegion(city) && NeedCity(city))
+      if (NeedCity(city) && !regionsChecker.CityExistsAsRegion(city))
       {
         approximatedRegions.push_back(Region(city));
         ++countOfFixedRegions;
@@ -82,7 +83,8 @@ public:
 private:
   bool NeedCity(const City & city)
   {
-    return city.HasPlaceType() && city.GetPlaceType() != PlaceType::Locality;
+    auto const placeType = city.GetPlaceType();
+    return placeType >= PlaceType::City && placeType != PlaceType::Locality;
   }
 
   RegionsBuilder::Regions m_regions;

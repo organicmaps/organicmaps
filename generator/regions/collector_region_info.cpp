@@ -35,6 +35,30 @@ PlaceType EncodePlaceType(std::string const & place)
   return it == m.end() ? PlaceType::Unknown : it->second;
 }
 
+char const * GetLabel(PlaceLevel level)
+{
+  switch (level)
+  {
+  case PlaceLevel::Country:
+    return "country";
+  case PlaceLevel::Region:
+    return "region";
+  case PlaceLevel:: Subregion:
+    return "subregion";
+  case PlaceLevel::Locality:
+    return "locality";
+  case PlaceLevel::Suburb:
+    return "suburb";
+  case PlaceLevel::Sublocality:
+    return "sublocality";
+  case PlaceLevel::Unknown:
+    return nullptr;
+  case PlaceLevel::Count:
+    UNREACHABLE();
+  }
+  UNREACHABLE();
+}
+
 CollectorRegionInfo::CollectorRegionInfo(std::string const & filename) : m_filename(filename) {}
 
 void CollectorRegionInfo::Collect(base::GeoObjectId const & osmId, OsmElement const & el)

@@ -15,9 +15,7 @@ namespace regions
 {
 std::string JsonPolicy::ToString(NodePath const & path) const
 {
-  auto const & country = path.front()->GetData();
   auto const & main = path.back()->GetData();
-
   auto geometry = base::NewJSONObject();
   ToJSONObject(*geometry, "type", "Point");
   auto coordinates = base::NewJSONArray();
@@ -29,23 +27,23 @@ std::string JsonPolicy::ToString(NodePath const & path) const
 
   auto localeEn = base::NewJSONObject();
   auto address = base::NewJSONObject();
-  auto const mainLabel = main.GetLabel();
   boost::optional<int64_t> pid;
   for (auto const & p : path)
   {
-
     auto const & region = p->GetData();
-    auto const label = region.GetLabel();
+    CHECK(region.GetLevel() != PlaceLevel::Unknown, ());
+    auto const label = GetLabel(region.GetLevel());
+    CHECK(label, ());
     ToJSONObject(*address, label, region.GetName());
     if (m_extendedOutput)
     {
-      ToJSONObject(*address, label + "_i", DebugPrint(region.GetId()));
-      ToJSONObject(*address, label + "_a", region.GetArea());
-      ToJSONObject(*address, label + "_r", region.GetRank());
+      ToJSONObject(*address, std::string{label} + "_i", DebugPrint(region.GetId()));
+      ToJSONObject(*address, std::string{label} + "_a", region.GetArea());
+      ToJSONObject(*address, std::string{label} + "_r", region.GetRank());
     }
 
     ToJSONObject(*localeEn, label, region.GetEnglishOrTransliteratedName());
-    if (label != mainLabel)
+    if (!pid && region.GetId() != main.GetId())
       pid = static_cast<int64_t>(region.GetId().GetEncodedId());
   }
 
@@ -62,6 +60,7 @@ std::string JsonPolicy::ToString(NodePath const & path) const
   else
     ToJSONObject(*properties, "pid", base::NewJSONNull());
 
+  auto const & country = path.front()->GetData();
   if (country.HasIsoCode())
     ToJSONObject(*properties, "code", country.GetIsoCode());
 

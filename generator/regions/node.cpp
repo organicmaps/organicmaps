@@ -2,6 +2,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include <array>
 #include <algorithm>
 #include <iomanip>
 #include <numeric>
@@ -96,18 +97,39 @@ size_t MaxDepth(Node::Ptr node)
   return depth;
 }
 
-NodePath MakeNodePath(Node::Ptr const & node)
+NodePath MakeLevelPath(Node::Ptr const & node)
 {
-  NodePath path;
+  CHECK(node->GetData().GetLevel() != PlaceLevel::Unknown, ());
 
-  auto current = node;
-  while (current)
+  std::array<bool, static_cast<std::size_t>(PlaceLevel::Count)> skipLevels{};
+  NodePath path{node};
+  for (auto p = node->GetParent(); p; p = p->GetParent())
   {
-    path.push_back(current);
-    current = current->GetParent();
+    auto const level = p->GetData().GetLevel();
+    if (PlaceLevel::Unknown == level)
+      continue;
+
+    auto levelIndex = static_cast<std::size_t>(level);
+    if (skipLevels.at(levelIndex))
+      continue;
+
+    skipLevels[levelIndex] = true;
+    if (PlaceLevel::Locality == level)
+    {
+      // To ignore covered locality.
+      skipLevels[static_cast<std::size_t>(PlaceLevel::Suburb)] = true;
+      skipLevels[static_cast<std::size_t>(PlaceLevel::Sublocality)] = true;
+    }
+
+    path.push_back(p);
   }
   std::reverse(path.begin(), path.end());
 
+  // Sort by level in case that megapolis (PlaceLevel::Locality) contains subregions
+  // (PlaceLevel::Subregions).
+  std::sort(path.begin(), path.end(), [] (Node::Ptr const & l, Node::Ptr const & r) {
+    return l->GetData().GetLevel() < r->GetData().GetLevel();
+  });
   return path;
 }
 
@@ -130,9 +152,10 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
   auto const & d = node->GetData();
   auto const point = d.GetCenter();
   auto const center = MercatorBounds::ToLatLon({point.get<0>(), point.get<1>()});
+  auto const label = GetLabel(d.GetLevel());
   stream << d.GetName() << "<" << d.GetEnglishOrTransliteratedName() << "> ("
          << DebugPrint(d.GetId())
-         << ";" << d.GetLabel()
+         << ";" << (label ? label : "-")
          << ";" << static_cast<size_t>(d.GetRank())
          << ";[" << std::fixed << std::setprecision(7) << center.lat << "," << center.lon << "])"
          << std::endl;

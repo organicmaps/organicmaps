@@ -44,28 +44,17 @@ protected:
 class RegionWithData
 {
 public:
-  static uint8_t constexpr kNoRank = 0;
-
   RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}
 
   base::GeoObjectId GetId() const;
   bool HasIsoCode() const;
   std::string GetIsoCode() const;
 
-  // Absolute rank values do not mean anything. But if the rank of the first object is more than the
-  // rank of the second object, then the first object is considered more nested.
-  uint8_t GetRank() const;
-  std::string GetLabel() const;
-  size_t GetWeight() const;
-
   AdminLevel GetAdminLevel() const { return m_regionData.GetAdminLevel(); }
   PlaceType GetPlaceType() const { return m_regionData.GetPlaceType(); }
 
   void SetAdminLevel(AdminLevel adminLevel) { m_regionData.SetAdminLevel(adminLevel); }
   void SetPlaceType(PlaceType placeType) { m_regionData.SetPlaceType(placeType); }
-
-  bool HasAdminLevel() const { return m_regionData.HasAdminLevel(); }
-  bool HasPlaceType() const { return m_regionData.HasPlaceType(); }
 
   RegionDataProxy const & GetRegionData() const { return m_regionData; }
 

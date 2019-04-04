@@ -79,9 +79,9 @@ private:
       LOG(LINFO, ("Processing country", name));
 
       auto jsonPolicy = JsonPolicy{m_verbose};
-      Visit(tree, [&](auto && node) {
+      ForEachLevelPath(tree, [&](auto && path) {
+        auto const & node = path.back();
         auto const id = node->GetData().GetId();
-        auto const path = MakeNodePath(node);
         regionsKv << static_cast<int64_t>(id.GetEncodedId()) << " " << jsonPolicy.ToString(path) << "\n";
         ++countIds;
         if (!setIds.insert(id).second)
@@ -136,9 +136,12 @@ private:
   void FilterRegions(RegionsBuilder::Regions & regions)
   {
     auto const pred = [](Region const & region) {
-      auto const & label = region.GetLabel();
       auto const & name = region.GetName();
-      return label.empty() || name.empty();
+      if (name.empty())
+        return false;
+
+      auto const level = RegionsBuilder::GetLevel(region);
+      return level != PlaceLevel::Unknown;
     };
 
     base::EraseIf(regions, pred);
