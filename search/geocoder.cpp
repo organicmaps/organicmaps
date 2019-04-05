@@ -947,7 +947,8 @@ void Geocoder::MatchAroundPivot(BaseContext & ctx)
 {
   TRACE(MatchAroundPivot);
 
-  auto const features = RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
+  CBV features;
+  features.SetFull();
   ViewportFilter filter(features, m_preRanker.Limit() /* threshold */);
   LimitedSearch(ctx, filter);
 }
