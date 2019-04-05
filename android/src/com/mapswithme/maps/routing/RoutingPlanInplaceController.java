@@ -77,7 +77,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       mRoutingPlanListener.onRoutingPlanStartAnimate(show);
 
     ValueAnimator animator =
-        ValueAnimator.ofFloat(show ? -mFrameHeight : 0, show ? 0 : -mFrameHeight);
+        ValueAnimator.ofFloat(show ? -getFrame().getHeight() : 0, show ? 0 : -getFrame().getHeight());
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override

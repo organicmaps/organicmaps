@@ -249,6 +249,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private View mDrivingOptionsBtnContainer;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View.OnLayoutChangeListener mDriverOptionsLayoutListener;
+
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
@@ -547,12 +551,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initDrivingOptionsViews()
   {
     mDrivingOptionsBtnContainer = findViewById(R.id.driving_options_btn_container);
-    View routingPlanFrame = findViewById(R.id.routing_plan_frame);
-    DrivingOptionsLayoutChangeListener listener = new DrivingOptionsLayoutChangeListener();
-    routingPlanFrame.addOnLayoutChangeListener(listener);
     View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(this));
-    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(listener);
+    mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
   }
 
   private void initTips()
@@ -1854,10 +1855,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    mNavAnimationController.setTopLimit(!show ? 0 : mRoutingPlanInplaceController.getHeight());
+    int totalHeight = calcFloatingViewOffset();
+
+    mNavAnimationController.setTopLimit(!show ? 0 : totalHeight);
     mNavAnimationController.setBottomLimit(!show ? 0 : getCurrentMenu().getFrame().getHeight());
     adjustCompassAndTraffic(!show ? UiUtils.getStatusBarHeight(getApplicationContext())
-                                  : mRoutingPlanInplaceController.getHeight());
+                                  : totalHeight);
   }
 
   @Override
@@ -1940,9 +1943,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int toolbarHeight = mSearchController.getToolbar().getHeight();
-    int offset = mRoutingPlanInplaceController != null
-                 && mRoutingPlanInplaceController.getHeight() > 0
-                 ? mRoutingPlanInplaceController.getHeight() : UiUtils.getStatusBarHeight(this);
+    int offset = calcFloatingViewOffset();
 
     adjustCompassAndTraffic(visible ? toolbarHeight : offset);
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
@@ -1953,6 +1954,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFilterController.show(show, true);
       mMainMenu.show(!show);
     }
+  }
+
+  private int calcFloatingViewOffset()
+  {
+    if (mRoutingPlanInplaceController == null
+        || mRoutingPlanInplaceController.getFrame().getHeight() == 0)
+      return UiUtils.getStatusBarHeight(this);
+
+    int extraOppositeOffset = mDrivingOptionsBtnContainer.getVisibility() == View.VISIBLE
+                              ? 0
+                              : mDrivingOptionsBtnContainer.getHeight();
+
+    return mRoutingPlanInplaceController.getFrame().getHeight() - extraOppositeOffset;
   }
 
   @Override
@@ -2074,6 +2088,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showDrivingOptionView()
   {
+    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
     View image = findViewById(R.id.driving_options_btn_img);
     UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
@@ -2084,6 +2099,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void hideDrivingOptionsView()
   {
+    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.hide(mDrivingOptionsBtnContainer);
   }
 
@@ -2762,7 +2778,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     dialog.show(this, ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
   }
 
-  private class DrivingOptionsLayoutChangeListener implements View.OnLayoutChangeListener
+  private class SelfTerminatedDrivingOptionsLayoutListener implements View.OnLayoutChangeListener
   {
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
@@ -2771,7 +2787,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mRoutingPlanInplaceController == null)
         return;
 
-      adjustCompassAndTraffic(mRoutingPlanInplaceController.getFrame().getHeight());
+      onRoutingPlanStartAnimate(
+          mRoutingPlanInplaceController.getFrame().getVisibility() == View.VISIBLE);
+      mDrivingOptionsBtnContainer.removeOnLayoutChangeListener(this);
     }
   }
 }

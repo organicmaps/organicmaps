@@ -305,11 +305,6 @@ public class RoutingPlanController extends ToolbarController
     mRoutingBottomMenuController.restoreRoutingPanelState(state);
   }
 
-  public int getHeight()
-  {
-    return mFrameHeight;
-  }
-
   public void showAddStartFrame()
   {
     mRoutingBottomMenuController.showAddStartFrame();
