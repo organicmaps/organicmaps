@@ -319,7 +319,7 @@ fi
 if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
   log "STATUS" "Step S1: Starting background hotels downloading"
   (
-      $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
+      $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --output "$BOOKING_FILE" --logfile="$LOG_PATH"/booking.log || true
       if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
         echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
       else
