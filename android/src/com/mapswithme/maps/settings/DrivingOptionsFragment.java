@@ -17,8 +17,20 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.routing.RoutingOptions;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
+
+  public static final String BUNDLE_ROAD_TYPES = "road_types";
+  @NonNull
+  private Set<RoadType> mRoadTypes = Collections.emptySet();
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -27,7 +39,40 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
     setHasOptionsMenu(hasBundleOptionsMenu());
+    mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
+                 ? makeRouteTypes(savedInstanceState)
+                 : RoutingOptions.getActiveRoadTypes();
     return root;
+  }
+
+  @NonNull
+  private Set<RoadType> makeRouteTypes(@NonNull Bundle bundle)
+  {
+    Set<RoadType> result = new HashSet<>();
+    List<Integer> items = Objects.requireNonNull(bundle.getIntegerArrayList(BUNDLE_ROAD_TYPES));
+    for (Integer each : items)
+    {
+      result.add(RoadType.values()[each]);
+    }
+    return result;
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    ArrayList<Integer> savedRoadTypes = new ArrayList<>();
+    for (RoadType each : mRoadTypes)
+    {
+      savedRoadTypes.add(each.ordinal());
+    }
+    outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
+  }
+
+  private boolean isSameSettingsBeforeAndAfter()
+  {
+    Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
+    return mRoadTypes.containsAll(lastActiveRoadTypes) && lastActiveRoadTypes.containsAll(mRoadTypes);
   }
 
   private boolean hasBundleOptionsMenu()
@@ -50,7 +95,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     if (item.getItemId() == R.id.done)
     {
-      requireActivity().setResult(Activity.RESULT_OK);
+      requireActivity().setResult(isSameSettingsBeforeAndAfter() ? Activity.RESULT_CANCELED
+                                                                 : Activity.RESULT_OK);
       requireActivity().finish();
       return true;
     }

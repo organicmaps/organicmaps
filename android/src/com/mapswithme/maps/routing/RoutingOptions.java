@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.settings.RoadType;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class RoutingOptions
 {
   public static void addOption(@NonNull RoadType roadType)
@@ -33,5 +36,17 @@ public class RoutingOptions
         return true;
     }
     return false;
+  }
+
+  @NonNull
+  public static Set<RoadType> getActiveRoadTypes()
+  {
+    Set<RoadType> roadTypes = new HashSet<>();
+    for (RoadType each : RoadType.values())
+    {
+      if (hasOption(each))
+        roadTypes.add(each);
+    }
+    return roadTypes;
   }
 }
