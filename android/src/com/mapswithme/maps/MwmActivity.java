@@ -1571,7 +1571,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-        if (request.mIsSearchOnMap)
+        if (request.mIsSearchOnMap && (request.mLat != 0.0 || request.mLon != 0.0))
         {
           Framework.nativeStopLocationFollow();
           Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);

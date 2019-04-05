@@ -271,10 +271,15 @@ using namespace osm_auth_ios;
 
       if (request.m_isSearchOnMap)
       {
-        ASSERT([self isDrapeEngineCreated], ());
-        [MapViewController setViewport:request.m_centerLat
-                                   lon:request.m_centerLon
-                             zoomLevel:kSearchInViewportZoom];
+        // Set viewport only when cll parameter was provided in url.
+        if (request.m_centerLat != 0.0 || request.m_centerLon != 0.0)
+        {
+          ASSERT([self isDrapeEngineCreated], ());
+          [MapViewController setViewport:request.m_centerLat
+                                     lon:request.m_centerLon
+                               zoomLevel:kSearchInViewportZoom];
+        }
+
         [manager searchTextOnMap:query forInputLocale:locale];
       }
       else
