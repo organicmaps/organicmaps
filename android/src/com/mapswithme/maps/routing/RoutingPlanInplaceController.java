@@ -12,17 +12,17 @@ import com.mapswithme.util.UiUtils;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
-  @Nullable
-  private RoutingPlanListener mRoutingPlanListener;
+  @NonNull
+  private final RoutingPlanListener mRoutingPlanListener;
 
   @Nullable
   private Animator mAnimator;
 
   public RoutingPlanInplaceController(@NonNull MwmActivity activity,
-                                      @Nullable RoutingPlanListener routingPlanListener,
-                                      @Nullable RoutingBottomMenuListener listener)
+                                      @NonNull RoutingPlanListener routingPlanListener,
+                                      @NonNull RoutingBottomMenuListener listener)
   {
-    super(activity.findViewById(R.id.routing_plan_frame), activity, listener);
+    super(activity.findViewById(R.id.routing_plan_frame), activity, routingPlanListener, listener);
     mRoutingPlanListener = routingPlanListener;
   }
 
@@ -73,8 +73,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       return null;
     }
 
-    if (mRoutingPlanListener != null)
-      mRoutingPlanListener.onRoutingPlanStartAnimate(show);
+    mRoutingPlanListener.onRoutingPlanStartAnimate(show);
 
     ValueAnimator animator =
         ValueAnimator.ofFloat(show ? -getFrame().getHeight() : 0, show ? 0 : -getFrame().getHeight());

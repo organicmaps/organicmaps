@@ -245,14 +245,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private PlacePageController mPlacePageController;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mDrivingOptionsBtnContainer;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View.OnLayoutChangeListener mDriverOptionsLayoutListener;
-
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
@@ -545,15 +537,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
-    initDrivingOptionsViews();
-  }
-
-  private void initDrivingOptionsViews()
-  {
-    mDrivingOptionsBtnContainer = findViewById(R.id.driving_options_btn_container);
-    View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
-    btn.setOnClickListener(v -> DrivingOptionsActivity.start(this));
-    mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
   }
 
   private void initTips()
@@ -928,7 +911,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void rebuildLastRoute()
   {
-    hideDrivingOptionsView();
+    if (mRoutingPlanInplaceController == null)
+      return;
+    mRoutingPlanInplaceController.hideDrivingOptionsView();
     RoutingController.get().attach(this);
     RoutingController.get().prepare();
   }
@@ -1962,9 +1947,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         || mRoutingPlanInplaceController.getFrame().getHeight() == 0)
       return UiUtils.getStatusBarHeight(this);
 
-    int extraOppositeOffset = mDrivingOptionsBtnContainer.getVisibility() == View.VISIBLE
+    View driverOptionsView = mRoutingPlanInplaceController.getDrivingOptionsBtnContainer();
+    int extraOppositeOffset = driverOptionsView.getVisibility() == View.VISIBLE
                               ? 0
-                              : mDrivingOptionsBtnContainer.getHeight();
+                              : driverOptionsView.getHeight();
 
     return mRoutingPlanInplaceController.getFrame().getHeight() - extraOppositeOffset;
   }
@@ -2050,7 +2036,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.stop(this);
     updateSearchBar();
     ThemeSwitcher.restart(isMapRendererActive());
-    hideDrivingOptionsView();
+    if (mRoutingPlanInplaceController == null)
+      return;
+
+    mRoutingPlanInplaceController.hideDrivingOptionsView();
   }
 
   @Override
@@ -2083,24 +2072,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRouteWarningReceived()
   {
-    showDrivingOptionView();
-  }
-
-  private void showDrivingOptionView()
-  {
-    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
-    UiUtils.show(mDrivingOptionsBtnContainer);
-    View image = findViewById(R.id.driving_options_btn_img);
-    UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
-    TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
-    title.setText(RoutingOptions.hasAnyOptions() ? R.string.change_driving_options_btn
-                                                 : R.string.define_to_avoid_btn);
-  }
-
-  private void hideDrivingOptionsView()
-  {
-    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
-    UiUtils.hide(mDrivingOptionsBtnContainer);
+    if (mRoutingPlanInplaceController == null)
+      return;
+    mRoutingPlanInplaceController.showDrivingOptionView();
   }
 
   @Override
@@ -2776,20 +2750,5 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
     dialog.show(this, ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
-  }
-
-  private class SelfTerminatedDrivingOptionsLayoutListener implements View.OnLayoutChangeListener
-  {
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-                               int oldTop, int oldRight, int oldBottom)
-    {
-      if (mRoutingPlanInplaceController == null)
-        return;
-
-      onRoutingPlanStartAnimate(
-          mRoutingPlanInplaceController.getFrame().getVisibility() == View.VISIBLE);
-      mDrivingOptionsBtnContainer.removeOnLayoutChangeListener(this);
-    }
   }
 }

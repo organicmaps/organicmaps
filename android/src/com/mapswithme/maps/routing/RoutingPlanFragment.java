@@ -27,7 +27,11 @@ public class RoutingPlanFragment extends BaseMwmFragment
     RoutingBottomMenuListener listener = null;
     if (getActivity() instanceof RoutingBottomMenuListener)
       listener = (RoutingBottomMenuListener) getActivity();
-    mPlanController = new RoutingPlanController(res, getActivity(), listener);
+
+
+    RoutingPlanInplaceController.RoutingPlanListener planListener =
+        (RoutingPlanInplaceController.RoutingPlanListener) requireActivity();
+    mPlanController = new RoutingPlanController(res, getActivity(), planListener, listener);
     return res;
   }
 
