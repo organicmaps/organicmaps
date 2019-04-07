@@ -128,9 +128,10 @@ public class RoutingController implements TaxiManager.TaxiListener
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (false)
+      if (mLastResultCode == ResultCodesHelper.NO_ERROR
+          || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
         onBuiltRoute();
-      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS || true)
+      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
         onWarningReceived();
 
       processRoutingEvent();
