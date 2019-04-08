@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
 
 #include "routing/cross_mwm_graph.hpp"
@@ -24,6 +25,8 @@
 #include "platform/country_file.hpp"
 
 #include "geometry/tree4d.hpp"
+
+#include "base/astar_progress.hpp"
 
 #include <functional>
 #include <memory>
@@ -86,8 +89,8 @@ private:
                                     m2::PointD const & startDirection,
                                     RouterDelegate const & delegate, Route & route);
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                     RouterDelegate const & delegate, IndexGraphStarter & graph,
-                                     std::vector<Segment> & subroute);
+                                     RouterDelegate const & delegate, AStarProgress & progress,
+                                     IndexGraphStarter & graph, std::vector<Segment> & subroute);
 
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints,
                                m2::PointD const & startDirection,
@@ -112,7 +115,7 @@ private:
   // ProcessLeaps replaces each leap with calculated route through mwm.
   RouterResultCode ProcessLeapsJoints(vector<Segment> const & input, RouterDelegate const & delegate,
                                       WorldGraphMode prevMode, IndexGraphStarter & starter,
-                                      vector<Segment> & output);
+                                      AStarProgress & progress, vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
                                 Route & route) const;

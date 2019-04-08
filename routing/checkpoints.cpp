@@ -44,6 +44,14 @@ void Checkpoints::PassNextPoint()
   CHECK(!IsFinished(), ());
   ++m_passedIdx;
 }
+double Checkpoints::GetPathLength() const
+{
+  double dist = 0.0;
+  for (size_t i = 1; i < m_points.size(); ++i)
+    dist += MercatorBounds::DistanceOnEarth(m_points[i - 1], m_points[i]);
+
+  return dist;
+}
 
 std::string DebugPrint(Checkpoints const & checkpoints)
 {
