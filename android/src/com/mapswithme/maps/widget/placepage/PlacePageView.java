@@ -67,6 +67,8 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
+import com.mapswithme.maps.settings.DrivingOptionsActivity;
+import com.mapswithme.maps.settings.RoadWarningMarkType;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
@@ -606,6 +608,9 @@ public class PlacePageView extends NestedScrollView
               RoutingController.get().removeStop(mMapObject);
             break;
 
+          case ROUTE_AVOID:
+            onAvoidBtnClicked();
+            break;
           case BOOKING:
           case OPENTABLE:
             // -----------------------------------------------------------------------------------------
@@ -638,6 +643,11 @@ public class PlacePageView extends NestedScrollView
         }
       }
     });
+  }
+
+  private void onAvoidBtnClicked()
+  {
+    DrivingOptionsActivity.start(getActivity());
   }
 
   private void initPlaceDescriptionView()
@@ -1444,6 +1454,14 @@ public class PlacePageView extends NestedScrollView
   private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
     List<PlacePageButtons.PlacePageButton> buttons = new ArrayList<>();
+
+    if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
+    {
+      buttons.add(mapObject.getRoadWarningMarkType().getPlacePageItem());
+      mButtons.setItems(buttons);
+      return;
+    }
+
     if (RoutingController.get().isRoutePoint(mapObject))
     {
       buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);

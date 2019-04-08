@@ -2716,4 +2716,7 @@
 	<string name="brand.yoshinoya">Yoshinoya</string>
 	<string name="brand.yudetaro">Yudetaro</string>
 	<string name="brand.yumean">Yumean</string>
+	<string name="avoid_ferry_crossing_placepage">avoid_ferry_crossing_placepage</string>
+	<string name="avoid_unpaved_roads_placepage">avoid_unpaved_roads_placepage</string>
+	<string name="avoid_toll_roads_placepage">avoid_toll_roads_placepage</string>
 </resources>

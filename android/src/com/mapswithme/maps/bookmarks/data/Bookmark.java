@@ -13,6 +13,7 @@ import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.PriceFilterView;
+import com.mapswithme.maps.settings.RoadWarningMarkType;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Constants;
 
@@ -39,7 +40,7 @@ public class Bookmark extends MapObject
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
           openingMode, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate,
-          popularity, description);
+          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal());
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

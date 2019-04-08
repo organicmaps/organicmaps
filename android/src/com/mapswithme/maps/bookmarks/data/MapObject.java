@@ -14,6 +14,7 @@ import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.PopularityProvider;
 import com.mapswithme.maps.search.PriceFilterView;
+import com.mapswithme.maps.settings.RoadWarningMarkType;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.UGC;
 
@@ -80,6 +81,8 @@ public class MapObject implements Parcelable, PopularityProvider
   @NonNull
   private final Popularity mPopularity;
   @NonNull
+  private final RoadWarningMarkType mRoadWarningMarkType;
+  @NonNull
   private final String mDescription;
   @Nullable
   private ArrayList<UGC.Rating> mRatings;
@@ -96,12 +99,12 @@ public class MapObject implements Parcelable, PopularityProvider
                    @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
                    boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                    @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
-                   @NonNull Popularity popularity, @NonNull String description)
+                   @NonNull Popularity popularity, @NonNull String description, int roadWarningType)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo, openingMode, shouldShowUGC,
-         canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description);
+         canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description, roadWarningType);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -113,7 +116,7 @@ public class MapObject implements Parcelable, PopularityProvider
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
                    @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType,
                    @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity,
-                   @NonNull String description)
+                   @NonNull String description, int roadWarningType)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -146,6 +149,7 @@ public class MapObject implements Parcelable, PopularityProvider
       mRatings = new ArrayList<>(Arrays.asList(ratings));
     mHotelType = hotelType;
     mPriceRate = priceRate;
+    mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -160,7 +164,7 @@ public class MapObject implements Parcelable, PopularityProvider
          source.readDouble(), // Lat
          source.readDouble(), // Lon
          source.readParcelable(Metadata.class.getClassLoader()),
-         source.readString(), // ApiId;
+         source.readString(), // ApiId;get
          null, // mBanners
          null, // mReachableByTaxiTypes
          source.readString(), // BookingSearchUrl
@@ -174,7 +178,8 @@ public class MapObject implements Parcelable, PopularityProvider
          source.readParcelable(HotelsFilter.HotelType.class.getClassLoader()), // mHotelType
          source.readInt(), // mPriceRate
          source.readParcelable(Popularity.class.getClassLoader()),
-         source.readString()
+         source.readString(),
+         source.readInt()
         );
 
     mBanners = readBanners(source);
@@ -191,7 +196,8 @@ public class MapObject implements Parcelable, PopularityProvider
                          null, "", null, null, OPENING_MODE_PREVIEW,
                          false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
                          null /* ratings */, null /* mHotelType */,
-                         PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "");
+                         PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "",
+                         RoadWarningMarkType.UNKNOWN.ordinal());
   }
 
   @Nullable
@@ -298,6 +304,12 @@ public class MapObject implements Parcelable, PopularityProvider
   public Popularity getPopularity()
   {
     return mPopularity;
+  }
+
+  @NonNull
+  public RoadWarningMarkType getRoadWarningMarkType()
+  {
+    return mRoadWarningMarkType;
   }
 
   @NonNull

@@ -56,6 +56,9 @@ public class RoutingPlanController extends ToolbarController
   @NonNull
   private final View.OnLayoutChangeListener mDriverOptionsLayoutListener;
 
+  @NonNull
+  private final View mDrivingOptionsImage;
+
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener()
@@ -102,6 +105,8 @@ public class RoutingPlanController extends ToolbarController
 
     mDrivingOptionsBtnContainer = activity.findViewById(R.id.driving_options_btn_container);
     View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
+    mDrivingOptionsImage = activity.findViewById(R.id.driving_options_btn_img);
+
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(getActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
   }
@@ -347,8 +352,7 @@ public class RoutingPlanController extends ToolbarController
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
-    View image = getActivity().findViewById(R.id.driving_options_btn_img);
-    UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
+    UiUtils.showIf(RoutingOptions.hasAnyOptions(), mDrivingOptionsImage);
     TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
     title.setText(RoutingOptions.hasAnyOptions() ? R.string.change_driving_options_btn
                                                  : R.string.define_to_avoid_btn);
