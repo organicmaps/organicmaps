@@ -1,13 +1,21 @@
 #include "generator/geo_objects/key_value_storage.hpp"
 
+#include "coding/reader.hpp"
+
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 
 namespace generator
 {
 namespace geo_objects
 {
-KeyValueStorage::KeyValueStorage(std::istream & stream, std::function<bool(KeyValue const &)> const & pred)
+KeyValueStorage::KeyValueStorage(std::string const & path,
+                                 std::function<bool(KeyValue const &)> const & pred)
 {
+  std::fstream stream{path};
+  if (!stream)
+    MYTHROW(Reader::OpenException, ("Failed to open file", path));
+
   std::string line;
   std::streamoff lineNumber = 0;
   while (std::getline(stream, line))

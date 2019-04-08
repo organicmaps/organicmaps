@@ -20,8 +20,14 @@ using KeyValue = std::pair<uint64_t, base::Json>;
 class KeyValueStorage
 {
 public:
-  explicit KeyValueStorage(std::istream & stream,
+  explicit KeyValueStorage(std::string const & kvPath,
                            std::function<bool(KeyValue const &)> const & pred = DefaultPred);
+
+  KeyValueStorage(KeyValueStorage &&) = default;
+  KeyValueStorage & operator=(KeyValueStorage &&) = default;
+
+  KeyValueStorage(KeyValueStorage const &) = delete;
+  KeyValueStorage & operator=(KeyValueStorage const &) = delete;
 
   boost::optional<base::Json> Find(uint64_t key) const;
   size_t Size() const;
