@@ -342,8 +342,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.booking_filters);
-    getToolbarController()
-        .findViewById(R.id.reset)
+    getToolbarController().getToolbar().findViewById(R.id.reset)
         .setOnClickListener(
             v ->
             {

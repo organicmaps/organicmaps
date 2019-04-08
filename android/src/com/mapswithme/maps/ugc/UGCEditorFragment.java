@@ -80,7 +80,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(getArguments().getString(ARG_TITLE));
-    View submitButton = getToolbarController().findViewById(R.id.submit);
+    View submitButton = getToolbarController().getToolbar().findViewById(R.id.submit);
     submitButton.setOnClickListener(v -> onSubmitButtonClick());
   }
 

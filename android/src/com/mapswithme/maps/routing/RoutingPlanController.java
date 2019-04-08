@@ -99,7 +99,7 @@ public class RoutingPlanController extends ToolbarController
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(getActivity(), mFrame, listener);
 
-    mDrivingOptionsBtnContainer = findViewById(R.id.driving_options_btn_container);
+    mDrivingOptionsBtnContainer = activity.findViewById(R.id.driving_options_btn_container);
     View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(getActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
@@ -346,7 +346,7 @@ public class RoutingPlanController extends ToolbarController
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
-    View image = findViewById(R.id.driving_options_btn_img);
+    View image = getToolbar().findViewById(R.id.driving_options_btn_img);
     UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
     TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
     title.setText(RoutingOptions.hasAnyOptions() ? R.string.change_driving_options_btn

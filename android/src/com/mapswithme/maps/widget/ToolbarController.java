@@ -95,11 +95,6 @@ public class ToolbarController
     return appCompatActivity.getSupportActionBar();
   }
 
-  public View findViewById(@IdRes int res)
-  {
-    return getToolbar().findViewById(res);
-  }
-
   @NonNull
   public Activity getActivity()
   {

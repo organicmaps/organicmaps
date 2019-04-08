@@ -38,7 +38,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.editor_report_problem_title);
 
-    mSave = getToolbarController().findViewById(R.id.save);
+    mSave = getToolbarController().getToolbar().findViewById(R.id.save);
     mSave.setOnClickListener(this);
     mSimpleProblems = view.findViewById(R.id.ll__problems);
     mSimpleProblems.findViewById(R.id.problem_not_exist).setOnClickListener(this);

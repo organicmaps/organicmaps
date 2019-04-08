@@ -127,7 +127,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    getToolbarController().findViewById(R.id.save).setOnClickListener(this);
+    getToolbarController().getToolbar().findViewById(R.id.save).setOnClickListener(this);
     getToolbarController().getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -193,7 +193,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMode = Mode.MAP_OBJECT;
     ((SearchToolbarController) getToolbarController()).showControls(false);
     getToolbarController().setTitle(getTitle());
-    UiUtils.show(getToolbarController().findViewById(R.id.save));
+    UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);

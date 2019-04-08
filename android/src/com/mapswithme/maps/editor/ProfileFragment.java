@@ -92,7 +92,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
 
   private void initViews(View view)
   {
-    mMore = getToolbarController().findViewById(R.id.more);
+    mMore = getToolbarController().getToolbar().findViewById(R.id.more);
     mMore.setOnClickListener(this);
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);
