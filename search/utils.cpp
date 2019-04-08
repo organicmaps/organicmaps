@@ -126,10 +126,10 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
   }
 }
 
-bool IsCategorialRequestFuzzy(string const & query, string const & categoryEn)
+bool IsCategorialRequestFuzzy(string const & query, string const & categoryName)
 {
   auto const & catHolder = GetDefaultCategories();
-  auto const types = GetCategoryTypes(categoryEn, "en", catHolder);
+  auto const types = GetCategoryTypes(categoryName, "en", catHolder);
 
   vector<QueryParams::String> queryTokens;
   SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(queryTokens),

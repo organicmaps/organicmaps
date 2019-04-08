@@ -132,5 +132,5 @@ void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> c
                           m2::RectD const & rect, FeatureIndexCallback const & fn);
 
 // Returns true iff |query| contains |categoryEn| synonym.
-bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryEn);
+bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryName);
 }  // namespace search

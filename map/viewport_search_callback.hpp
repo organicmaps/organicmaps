@@ -6,7 +6,11 @@
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 
+#include "geometry/rect2d.hpp"
+
 #include <functional>
+#include <string>
+#include <vector>
 
 namespace search
 {
@@ -30,16 +34,21 @@ public:
                                            bool clear, booking::filter::Types types) = 0;
     virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                              search::Results const & results, bool inViewport) = 0;
+    virtual void FilterAllHotelsInViewport(m2::RectD const & viewport,
+                                           booking::filter::Tasks const & filterTasks) = 0;
   };
 
   using OnResults = SearchParams::OnResults;
 
-  ViewportSearchCallback(Delegate & delegate, booking::filter::Tasks const & bookingFilterTasks,
+  ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate,
+                         booking::filter::Tasks const & bookingFilterTasks,
                          OnResults const & onResults);
 
   void operator()(Results const & results);
 
 private:
+  m2::RectD m_viewport;
+
   Delegate & m_delegate;
   OnResults m_onResults;
 

@@ -902,6 +902,8 @@ private:
 public:
   void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                    search::Results const & results, bool inViewport) override;
+  void FilterHotels(booking::filter::Tasks const & filterTasks,
+                    vector<FeatureID> && featureIds) override;
   void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
 
   booking::AvailabilityParams GetLastBookingAvailabilityParams() const;

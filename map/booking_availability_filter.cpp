@@ -129,9 +129,9 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
 void FillResults(HotelToFeatureIds && hotelToFeatureIds, std::vector<std::string> const & hotelIds,
                  availability::Cache & cache, std::vector<FeatureID> & results)
 {
-  auto const inserter = [&results](FeatureID result)
+  auto const inserter = [&results](FeatureID && result)
   {
-    results.push_back(result);
+    results.emplace_back(std::move(result));
   };
 
   FillResults(std::move(hotelToFeatureIds), hotelIds, cache, inserter);
@@ -279,7 +279,7 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
 
   ASSERT_LESS_OR_EQUAL(m_apiParams.m_hotelIds.size(), kMaxCountInRequest, ());
 
-  if (m_apiParams.m_hotelIds.empty() || m_apiParams.m_hotelIds.size() > kMaxCountInRequest)
+  if (m_apiParams.m_hotelIds.empty())
   {
     Source result;
     FillResults(std::move(hotelsToSourceValue), {} /* hotelIds */, *m_cache, result);

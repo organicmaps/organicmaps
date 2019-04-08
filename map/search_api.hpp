@@ -84,6 +84,11 @@ public:
     {
     }
 
+    virtual void FilterHotels(booking::filter::Tasks const & filterTasks,
+                              vector<FeatureID> && featureIds)
+    {
+    }
+
     virtual void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) {}
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
@@ -136,6 +141,8 @@ public:
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
   void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                    search::Results const & results, bool inViewport) override;
+  void FilterAllHotelsInViewport(m2::RectD const & viewport,
+                                 booking::filter::Tasks const & filterTasks) override;
 
   void OnBookmarksCreated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);

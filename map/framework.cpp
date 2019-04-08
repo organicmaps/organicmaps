@@ -313,6 +313,11 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
 {
+  auto const isSameViewport = m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(),
+                                          kMwmPointAccuracy, kMwmPointAccuracy);
+  if (isSameViewport)
+    return;
+
   m_currentModelView = screen;
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
@@ -3846,6 +3851,56 @@ void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
   }
 
   m_bookingFilterProcessor.ApplyFilters(results, std::move(tasksInternal), filterTasks.GetMode());
+}
+
+void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
+                             vector<FeatureID> && featureIds)
+{
+  if (featureIds.size() > booking::RawApi::GetMaxHotelsInAvailabilityRequest())
+    return;
+
+  using namespace booking::filter;
+
+  TasksRawInternal tasksInternal;
+
+  for (auto const & task : filterTasks)
+  {
+    auto const type = task.m_type;
+    auto const & apiParams = task.m_filterParams.m_apiParams;
+    auto const & cb = task.m_filterParams.m_callback;
+
+    if (apiParams->IsEmpty())
+      continue;
+
+    ParamsRawInternal paramsInternal
+      {
+        apiParams,
+        [this, type, apiParams, cb](vector<FeatureID> const & features)
+        {
+          if (features.empty())
+            return;
+
+          GetPlatform().RunTask(Platform::Thread::Gui, [this, type, features]()
+          {
+            switch (type)
+            {
+            case Type::Deals:
+              m_searchMarks.SetSales(features, true /* hasSale */);
+              break;
+            case Type::Availability:
+              m_searchMarks.SetPreparingState(features, false /* isPreparing */);
+              break;
+            }
+          });
+          cb(apiParams, features);
+        }
+      };
+
+    tasksInternal.emplace_back(type, std::move(paramsInternal));
+  }
+
+  m_bookingFilterProcessor.ApplyFilters(std::move(featureIds), std::move(tasksInternal),
+                                        filterTasks.GetMode());
 }
 
 void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks)

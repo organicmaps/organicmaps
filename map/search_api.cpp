@@ -9,6 +9,7 @@
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
 #include "search/tracer.hpp"
+#include "search/utils.hpp"
 
 #include "storage/downloader_search_params.hpp"
 
@@ -210,6 +211,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   };
 
   p.m_onResults = ViewportSearchCallback(
+      m_viewport,
       static_cast<ViewportSearchCallback::Delegate &>(*this),
       params.m_bookingFilterTasks,
       [this, params](Results const & results) {
@@ -334,6 +336,20 @@ void SearchAPI::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
                                             search::Results const & results, bool inViewport)
 {
   m_delegate.FilterResultsForHotelsQuery(filterTasks, results, inViewport);
+}
+
+void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
+                                          booking::filter::Tasks const & filterTasks)
+{
+  vector<FeatureID> featureIds;
+  auto const types = search::GetCategoryTypes("hotel", "en", GetDefaultCategories());
+  search::ForEachOfTypesInRect(m_dataSource, types, m_viewport,
+                               [&featureIds](FeatureID const & id)
+                               {
+                                 featureIds.push_back(id);
+                               });
+
+  m_delegate.FilterHotels(filterTasks, move(featureIds));
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)

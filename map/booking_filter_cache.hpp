@@ -61,9 +61,9 @@ private:
   HotelsMap m_notReadyHotels;
   // Max count of |m_hotelToStatus| container.
   // Count is unlimited when |m_maxCount| is equal to zero.
-  size_t const m_maxCount = 1000;
+  size_t const m_maxCount = 5000;
   // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.
-  size_t const m_expiryPeriodSeconds = 60;
+  size_t const m_expiryPeriodSeconds = 300;
 };
 
 std::string DebugPrint(Cache::HotelStatus status);

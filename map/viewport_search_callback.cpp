@@ -1,6 +1,7 @@
 #include "map/viewport_search_callback.hpp"
 
 #include "search/result.hpp"
+#include "search/utils.hpp"
 
 #include "base/assert.hpp"
 
@@ -31,10 +32,11 @@ booking::filter::Types FillBookingFilterTypes(search::Results const & results,
 
 namespace search
 {
-ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate,
+ViewportSearchCallback::ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate,
                                                booking::filter::Tasks const & bookingFilterTasks,
                                                OnResults const & onResults)
-  : m_delegate(delegate)
+  : m_viewport(viewport)
+  , m_delegate(delegate)
   , m_onResults(onResults)
   , m_firstCall(true)
   , m_lastResultsSize(0)
@@ -94,6 +96,9 @@ void ViewportSearchCallback::operator()(Results const & results)
   if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels &&
       !m_bookingFilterTasks.IsEmpty())
   {
+    if (m_viewport.IsValid())
+      m_delegate.FilterAllHotelsInViewport(m_viewport, m_bookingFilterTasks);
+
     m_delegate.FilterResultsForHotelsQuery(m_bookingFilterTasks, results, true /* inViewport */);
   }
 
