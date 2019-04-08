@@ -724,7 +724,7 @@ LocalAdsManager::FeaturesCache LocalAdsManager::ReadCampaignFeatures(CampaignDat
 
       LocalAdsManager::CacheEntry entry;
       entry.m_position = feature::GetCenter(ft, scales::GetUpperScale());
-      entry.m_isCustom = it->second != nullptr;
+      entry.m_isVisibleOnMap = it->second != nullptr;
       if (it->second != nullptr)
       {
         it->second->m_position = entry.m_position;
@@ -744,7 +744,7 @@ void LocalAdsManager::UpdateFeaturesCache(FeaturesCache && features)
     if (!features.empty())
       m_featuresCache.insert(features.begin(), features.end());
     for (auto const & entry : m_featuresCache)
-      customFeatures.insert(std::make_pair(entry.first, entry.second.m_isCustom));
+      customFeatures.insert(std::make_pair(entry.first, entry.second.m_isVisibleOnMap));
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetCustomFeatures, std::move(customFeatures));
 }
@@ -770,10 +770,20 @@ void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const & mwmId)
   DeleteLocalAdsMarks(mwmId);
 }
 
-bool LocalAdsManager::Contains(FeatureID const & featureId) const
+bool LocalAdsManager::HasAds(FeatureID const & featureId) const
 {
   std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
   return m_featuresCache.find(featureId) != m_featuresCache.cend();
+}
+
+bool LocalAdsManager::HasVisualization(FeatureID const & featureId) const
+{
+  std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+  auto const it = m_featuresCache.find(featureId);
+  if (it == m_featuresCache.cend())
+    return false;
+
+  return it->second.m_isVisibleOnMap;
 }
 
 bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const

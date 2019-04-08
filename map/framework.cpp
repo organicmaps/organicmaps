@@ -950,7 +950,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   if (m_localAdsManager.IsSupportedType(info.GetTypes()))
   {
     info.SetLocalAdsUrl(m_localAdsManager.GetCompanyUrl(ft.GetID()));
-    auto const status = m_localAdsManager.Contains(ft.GetID())
+    auto const status = m_localAdsManager.HasVisualization(ft.GetID())
                             ? place_page::LocalAdsStatus::Customer
                             : place_page::LocalAdsStatus::Candidate;
     info.SetLocalAdsStatus(status);
@@ -1763,7 +1763,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_metadata.m_isSponsoredHotel)
     {
-      mark->SetBookingType(isFeature && m_localAdsManager.Contains(r.GetFeatureID()) /* hasLocalAds */);
+      mark->SetBookingType(isFeature && m_localAdsManager.HasVisualization(r.GetFeatureID()) /* hasLocalAds */);
       mark->SetRating(r.m_metadata.m_hotelRating);
       mark->SetPricing(r.m_metadata.m_hotelPricing);
     }
@@ -1771,7 +1771,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     {
       auto product = GetProductInfo(r);
       auto const type = r.GetFeatureType();
-      mark->SetFromType(type, m_localAdsManager.Contains(r.GetFeatureID()));
+      mark->SetFromType(type, m_localAdsManager.HasVisualization(r.GetFeatureID()));
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
         mark->SetRating(product.m_ugcRating);
     }
@@ -1857,7 +1857,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     for (auto const & event : events)
     {
       auto const & mwmInfo = event.m_feature.m_mwmId.GetInfo();
-      if (!mwmInfo || !m_localAdsManager.Contains(event.m_feature))
+      if (!mwmInfo || !m_localAdsManager.HasAds(event.m_feature))
         continue;
 
       statEvents.emplace_back(local_ads::EventType::ShowPoint,
@@ -3591,7 +3591,7 @@ search::ProductInfo Framework::GetProductInfo(search::Result const & result) con
 
   search::ProductInfo productInfo;
 
-  productInfo.m_isLocalAdsCustomer = m_localAdsManager.Contains(result.GetFeatureID());
+  productInfo.m_isLocalAdsCustomer = m_localAdsManager.HasVisualization(result.GetFeatureID());
 
   auto const ugc = m_ugcApi->GetLoader().GetUGC(result.GetFeatureID());
   productInfo.m_ugcRating = ugc.m_totalRating;

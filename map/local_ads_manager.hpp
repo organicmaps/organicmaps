@@ -66,7 +66,6 @@ public:
 
   LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn, GetMwmIdByNameFn && getMwmIdByName,
                   ReadFeaturesFn && readFeaturesFn, GetMapObjectByIdFn && getMapObjectByIdFn);
-  LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
 
   void Startup(BookmarkManager * bmManager, bool isEnabled);
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
@@ -80,7 +79,8 @@ public:
   local_ads::Statistics & GetStatistics() { return m_statistics; }
   local_ads::Statistics const & GetStatistics() const { return m_statistics; }
     
-  bool Contains(FeatureID const & featureId) const;
+  bool HasAds(FeatureID const & featureId) const;
+  bool HasVisualization(FeatureID const & featureId) const;
   bool IsSupportedType(feature::TypesHolder const & types) const;
 
   std::string GetCompanyUrl(FeatureID const & featureId) const;
@@ -98,7 +98,7 @@ private:
 
   struct CacheEntry
   {
-    bool m_isCustom = false;
+    bool m_isVisibleOnMap = false;
     m2::PointD m_position;
   };
   using FeaturesCache = std::map<FeatureID, CacheEntry>;
