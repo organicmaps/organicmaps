@@ -33,14 +33,23 @@ void Screenshoter::Start()
   if (m_state != State::NotStarted)
     return;
 
+  if (m_screenshotParams.m_dstPath.empty())
+    m_screenshotParams.m_dstPath = base::JoinPath(m_screenshotParams.m_kmlPath, "screenshots");
+
+  if (!Platform::IsDirectory(m_screenshotParams.m_kmlPath) || !Platform::MkDirChecked(m_screenshotParams.m_dstPath))
+  {
+    ChangeState(State::FileError);
+    return;
+  }
+
   m_framework.SetGraphicsReadyListener(std::bind(&Screenshoter::OnGraphicsReady, this));
 
   Platform::FilesList files;
-  Platform::GetFilesByExt(m_screenshotParams.m_path, kKmlExtension, files);
+  Platform::GetFilesByExt(m_screenshotParams.m_kmlPath, kKmlExtension, files);
 
   for (auto const & file : files)
   {
-    auto const filePath = base::JoinPath(m_screenshotParams.m_path, file);
+    auto const filePath = base::JoinPath(m_screenshotParams.m_kmlPath, file);
     m_filesToProcess.push_back(filePath);
   }
   m_filesCount = m_filesToProcess.size();
@@ -59,8 +68,9 @@ void Screenshoter::ProcessNextKml()
   {
     auto const filePath = m_filesToProcess.front();
     m_filesToProcess.pop_front();
-    kmlData = LoadKmlFile(filePath, KmlFileType::Text);
+    m_nextScreenshotName = base::GetNameFromFullPathWithoutExt(filePath);
 
+    kmlData = LoadKmlFile(filePath, KmlFileType::Text);
     if (kmlData != nullptr && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
       kmlData.reset();
   }
@@ -73,7 +83,9 @@ void Screenshoter::ProcessNextKml()
   }
 
   kmlData->m_categoryData.m_visible = true;
-  m_nextScreenshotName = kmlData->m_serverId + kml::GetDefaultStr(kmlData->m_categoryData.m_name);
+
+  if (!kmlData->m_serverId.empty())
+    m_nextScreenshotName = kmlData->m_serverId;
 
   BookmarkManager::KMLDataCollection collection;
   collection.emplace_back("", std::move(kmlData));
@@ -124,7 +136,7 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
 {
   if (m_state != State::WaitCountries)
     return;
-  CHECK_EQUAL(m_state, State::WaitCountries, ());
+
   auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
   if (status == storage::Status::EOnDisk ||
       status == storage::Status::EDownloadFailed ||
@@ -144,7 +156,6 @@ void Screenshoter::OnViewportChanged()
   if (m_state != State::WaitPosition)
     return;
 
-  CHECK_EQUAL(m_state, State::WaitPosition, ());
   PrepareCountries();
 }
 
@@ -155,7 +166,7 @@ void Screenshoter::OnGraphicsReady()
 
   ChangeState(State::Ready);
 
-  auto const kWaitGraphicsDelay = seconds(3);
+  auto const kWaitGraphicsDelay = seconds(1);
   GetPlatform().RunDelayedTask(Platform::Thread::File, kWaitGraphicsDelay, [this]()
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this]() { SaveScreenshot(); });
@@ -166,8 +177,10 @@ void Screenshoter::SaveScreenshot()
 {
   CHECK_EQUAL(m_state, State::Ready, ());
 
-  auto pixmap = QPixmap::grabWidget(m_widget);
-  pixmap.save(QString::fromStdString(base::JoinPath(m_screenshotParams.m_path, m_nextScreenshotName + ".png")), nullptr, 100);
+  QPixmap pixmap(QSize(m_screenshotParams.m_width, m_screenshotParams.m_height));
+  m_widget->render(&pixmap, QPoint(), QRegion(m_widget->geometry()));
+  pixmap.save(QString::fromStdString(base::JoinPath(m_screenshotParams.m_dstPath, m_nextScreenshotName + ".png")),
+              nullptr, 100);
   m_nextScreenshotName.clear();
 
   ProcessNextKml();
@@ -195,6 +208,7 @@ std::string DebugPrint(Screenshoter::State state)
   case Screenshoter::State::WaitCountries: return "WaitCountries";
   case Screenshoter::State::WaitGraphics: return "WaitGraphics";
   case Screenshoter::State::Ready: return "Ready";
+  case Screenshoter::State::FileError: return "FileError";
   case Screenshoter::State::Done: return "Done";
   }
   UNREACHABLE();

@@ -91,9 +91,10 @@ void MapWidget::CreateEngine()
   Framework::DrapeCreationParams p;
 
   p.m_apiVersion = m_apiOpenGLES3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
-  p.m_surfaceWidth = m_ratio * width();
-  p.m_surfaceHeight = m_ratio * height();
-  p.m_visualScale = m_ratio;
+
+  p.m_surfaceWidth = m_screenshotMode ? width() : static_cast<int>(m_ratio * width());
+  p.m_surfaceHeight = m_screenshotMode ? height() : static_cast<int>(m_ratio * height());
+  p.m_visualScale = static_cast<float>(m_ratio);
   p.m_hints.m_screenshotMode = m_screenshotMode;
 
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
@@ -311,7 +312,8 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 void MapWidget::initializeGL()
 {
   ASSERT(m_contextFactory == nullptr, ());
-  m_ratio = devicePixelRatio();
+  if (!m_screenshotMode)
+    m_ratio = devicePixelRatio();
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();
@@ -360,8 +362,8 @@ void MapWidget::paintGL()
 
 void MapWidget::resizeGL(int width, int height)
 {
-  float w = m_ratio * width;
-  float h = m_ratio * height;
+  float w = m_screenshotMode ? width : static_cast<float>(m_ratio * width);
+  float h = m_screenshotMode ? height : static_cast<float>(m_ratio * height);
   m_framework.OnSize(w, h);
   m_framework.SetVisibleViewport(m2::RectD(0, 0, w, h));
   if (m_skin)

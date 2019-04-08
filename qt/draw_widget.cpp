@@ -65,9 +65,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
 
   if (screenshotParams != nullptr)
   {
-    QSize size(static_cast<int>(screenshotParams->m_width), static_cast<int>(screenshotParams->m_height));
-    setMaximumSize(size);
-    setMinimumSize(size);
+    m_ratio = screenshotParams->m_dpiScale;
     m_screenshoter = std::make_unique<Screenshoter>(*screenshotParams, m_framework, this);
   }
   QTimer * countryStatusTimer = new QTimer(this);

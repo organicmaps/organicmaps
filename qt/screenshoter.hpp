@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "storage/storage_defines.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -20,9 +22,11 @@ struct ScreenshotParams
 
   using TStatusChangedFn = std::function<void(std::string const & /* status */, bool finished)>;
 
-  std::string m_path;
+  std::string m_kmlPath;
+  std::string m_dstPath;
   uint32_t m_width = kDefaultWidth;
   uint32_t m_height = kDefaultHeight;
+  double m_dpiScale = df::VisualParams::kXhdpiScale;
   TStatusChangedFn m_statusChangedFn;
 };
 
@@ -46,6 +50,7 @@ private:
     WaitCountries,
     WaitGraphics,
     Ready,
+    FileError,
     Done
   };
 
