@@ -17,10 +17,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.dialog.DrivingOptionsDialogFactory;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiInfo;
@@ -40,8 +42,6 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import static com.mapswithme.maps.MwmActivity.ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG;
-import static com.mapswithme.maps.MwmActivity.REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_REMOVE;
 
@@ -228,15 +228,18 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private void showUnableCalculateRouteFirstTimeDialog()
   {
-    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
+    com.mapswithme.maps.dialog.AlertDialog dialog =
+        new com.mapswithme.maps.dialog.AlertDialog.Builder()
         .setTitleId(R.string.unable_to_calc_alert_title)
         .setMessageId(R.string.unable_to_calc_alert_subtitle)
         .setPositiveBtnId(R.string.settings)
         .setNegativeBtnId(R.string.cancel)
-        .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+        .setReqCode(MwmActivity.REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+        .setDialogFactory(new DrivingOptionsDialogFactory())
         .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
         .build();
-    dialog.show(mContainer.getActivity(), ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
+    dialog.show(mContainer.getActivity(),
+                MwmActivity.ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
   }
 
   private void setState(State newState)

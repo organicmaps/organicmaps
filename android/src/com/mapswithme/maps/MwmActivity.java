@@ -50,6 +50,7 @@ import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
@@ -156,7 +157,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  BookmarkManager.BookmarksCatalogListener,
                                  AdsRemovalPurchaseControllerProvider,
                                  AdsRemovalActivationCallback,
-                                 PlacePageController.SlideListener
+                                 PlacePageController.SlideListener,
+                                 AlertDialogCallback
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -2256,6 +2258,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onBookmarksLoadingFinished()
+  {
+    // Do nothing
+  }
+
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    if (requestCode == REQ_CODE_DRIVING_OPTIONS)
+      DrivingOptionsActivity.start(this);
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    // Do nothing
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
   {
     // Do nothing
   }

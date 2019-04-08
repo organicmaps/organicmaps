@@ -107,6 +107,11 @@ public class AlertDialog extends BaseMwmDialogFragment
     mTargetCallback = null;
   }
 
+  protected void setTargetCallback(@Nullable AlertDialogCallback targetCallback)
+  {
+    mTargetCallback = targetCallback;
+  }
+
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
