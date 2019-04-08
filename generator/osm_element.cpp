@@ -32,7 +32,7 @@ std::string DebugPrint(OsmElement::EntityType e)
 }
 
 
-void OsmElement::AddTag(std::string const & k, std::string const & v)
+void OsmElement::AddTag(std::string_view const & k, std::string_view const & v)
 {
   // Seems like source osm data has empty values. They are useless for us.
   if (k.empty() || v.empty())
@@ -65,12 +65,12 @@ void OsmElement::AddTag(std::string const & k, std::string const & v)
   SKIP_KEY("official_name");
 #undef SKIP_KEY
 
-  std::string value = v;
+  std::string value{std::string{v}};
   strings::Trim(value);
-  m_tags.emplace_back(k, value);
+  m_tags.emplace_back(std::string{k}, std::move(value));
 }
 
-bool OsmElement::HasTag(std::string const & k, std::string const & v) const
+bool OsmElement::HasTag(std::string_view const & k, std::string_view const & v) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
     return t.key == k && t.value == v;

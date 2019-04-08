@@ -1,12 +1,10 @@
 #include "generator/geo_objects/geo_objects.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/geo_objects/geo_object_info_getter.hpp"
 #include "generator/geo_objects/key_value_storage.hpp"
 #include "generator/geo_objects/region_info_getter.hpp"
-
-#include "generator/geo_objects/key_value_storage.hpp"
-
-#include "generator/feature_builder.hpp"
+#include "generator/geo_objects/streets_builder.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
 
@@ -189,7 +187,7 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
 {
   size_t countGeoObjects = 0;
   auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (IsBuilding(fb) || HasHouse(fb))
+    if (IsBuilding(fb) || HasHouse(fb) || StreetsBuilder::IsStreet(fb))
       return;
 
     auto const house = FindHousePoi(fb, geoObjectInfoGetter);
@@ -229,8 +227,11 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
   LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
 
-  std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
+  StreetsBuilder streetsBuilder{regionInfoGetter};
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
+  streetsBuilder.Build(pathInGeoObjectsTmpMwm, streamGeoObjectsKv);
+  LOG(LINFO, ("Streets was built."));
+
   BuildGeoObjectsWithAddresses(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));
 
@@ -244,6 +245,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
     return false;
 
   GeoObjectInfoGetter geoObjectInfoGetter{std::move(*geoObjectIndex), std::move(geoObjectsKv)};
+  std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   BuildGeoObjectsWithoutAddresses(geoObjectInfoGetter, pathInGeoObjectsTmpMwm,
                                   streamGeoObjectsKv, streamIdsWithoutAddress, verbose);
   LOG(LINFO, ("Geo objects without addresses were built."));

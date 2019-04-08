@@ -98,6 +98,8 @@ set(SRC
   geo_objects/key_value_storage.hpp
   geo_objects/region_info_getter.cpp
   geo_objects/region_info_getter.hpp
+  geo_objects/streets_builder.cpp
+  geo_objects/streets_builder.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp

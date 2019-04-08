@@ -2,6 +2,7 @@
 
 #include "generator/feature_maker.hpp"
 #include "generator/filter_interface.hpp"
+#include "generator/geo_objects/streets_builder.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_element_helpers.hpp"
@@ -16,12 +17,13 @@ public:
   // FilterInterface overrides:
   bool IsAccepted(OsmElement const & element) override
   {
-    return osm_element::IsBuilding(element) || osm_element::IsPoi(element);
+    return osm_element::IsBuilding(element) || osm_element::IsPoi(element) ||
+           geo_objects::StreetsBuilder::IsStreet(element);
   }
 
   bool IsAccepted(FeatureBuilder1 const & feature) override
   {
-    return feature.GetParams().IsValid() && !feature.IsLine();
+    return feature.GetParams().IsValid();
   }
 };
 }  // namespace

@@ -24,16 +24,20 @@ namespace geo_objects
 class RegionInfoGetter
 {
 public:
+  using Selector = std::function<bool(base::Json const & json)>;
+
   RegionInfoGetter(std::string const & indexPath, std::string const & kvPath);
 
   boost::optional<KeyValue> FindDeepest(m2::PointD const & point) const;
+  boost::optional<KeyValue> FindDeepest(m2::PointD const & point, Selector const & selector) const;
   KeyValueStorage const & GetStorage() const noexcept;
 
 private:
   using IndexReader = ReaderPtr<Reader>;
 
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
-  boost::optional<KeyValue> GetDeepest(std::vector<base::GeoObjectId> const & ids) const;
+  boost::optional<KeyValue> GetDeepest(std::vector<base::GeoObjectId> const & ids,
+                                       Selector const & selector) const;
   int GetRank(base::Json const & json) const;
 
   indexer::RegionsIndex<IndexReader> m_index;

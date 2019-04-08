@@ -15,8 +15,14 @@ RegionInfoGetter::RegionInfoGetter(std::string const & indexPath, std::string co
 
 boost::optional<KeyValue> RegionInfoGetter::FindDeepest(m2::PointD const & point) const
 {
+  return FindDeepest(point, [] (...) { return true; });
+}
+
+boost::optional<KeyValue> RegionInfoGetter::FindDeepest(
+    m2::PointD const & point, Selector const & selector) const
+{
   auto const ids = SearchObjectsInIndex(point);
-  return GetDeepest(ids);
+  return GetDeepest(ids, selector);
 }
 
 std::vector<base::GeoObjectId> RegionInfoGetter::SearchObjectsInIndex(m2::PointD const & point) const
@@ -27,7 +33,8 @@ std::vector<base::GeoObjectId> RegionInfoGetter::SearchObjectsInIndex(m2::PointD
   return ids;
 }
 
-boost::optional<KeyValue> RegionInfoGetter::GetDeepest(std::vector<base::GeoObjectId> const & ids) const
+boost::optional<KeyValue> RegionInfoGetter::GetDeepest(
+    std::vector<base::GeoObjectId> const & ids, Selector const & selector) const
 {
   boost::optional<KeyValue> deepest;
   int deepestRank = 0;
@@ -49,7 +56,7 @@ boost::optional<KeyValue> RegionInfoGetter::GetDeepest(std::vector<base::GeoObje
     }
 
     int tempRank = GetRank(temp);
-    if (!deepest || deepestRank < tempRank)
+    if ((!deepest || deepestRank < tempRank) && selector(temp))
     {
       deepestRank = tempRank;
       deepest = KeyValue(static_cast<int64_t>(id.GetEncodedId()), temp);
