@@ -40,6 +40,8 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+import static com.mapswithme.maps.MwmActivity.ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG;
+import static com.mapswithme.maps.MwmActivity.REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_REMOVE;
 
@@ -221,12 +223,20 @@ public class RoutingController implements TaxiManager.TaxiListener
     updateProgress();
 
     if (RoutingOptions.hasAnyOptions())
-      showUnableCalcRouteDialog();
+      showUnableCalculateRouteFirstTimeDialog();
   }
 
-  private void showUnableCalcRouteDialog()
+  private void showUnableCalculateRouteFirstTimeDialog()
   {
-
+    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
+        .setTitleId(R.string.unable_to_calc_alert_title)
+        .setMessageId(R.string.unable_to_calc_alert_subtitle)
+        .setPositiveBtnId(R.string.settings)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
+    dialog.show(mContainer.getActivity(), ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
   }
 
   private void setState(State newState)
