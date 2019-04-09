@@ -346,7 +346,7 @@ public class RoutingPlanController extends ToolbarController
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
-    View image = getToolbar().findViewById(R.id.driving_options_btn_img);
+    View image = getActivity().findViewById(R.id.driving_options_btn_img);
     UiUtils.showIf(RoutingOptions.hasAnyOptions(), image);
     TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
     title.setText(RoutingOptions.hasAnyOptions() ? R.string.change_driving_options_btn

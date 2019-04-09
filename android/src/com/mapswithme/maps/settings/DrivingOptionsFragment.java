@@ -69,7 +69,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
   }
 
-  private boolean isSameSettingsBeforeAndAfter()
+  private boolean areSettingsNotChanged()
   {
     Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
     return mRoadTypes.containsAll(lastActiveRoadTypes) && lastActiveRoadTypes.containsAll(mRoadTypes);
@@ -95,8 +95,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     if (item.getItemId() == R.id.done)
     {
-      requireActivity().setResult(isSameSettingsBeforeAndAfter() ? Activity.RESULT_CANCELED
-                                                                 : Activity.RESULT_OK);
+      requireActivity().setResult(areSettingsNotChanged() ? Activity.RESULT_CANCELED
+                                                          : Activity.RESULT_OK);
       requireActivity().finish();
       return true;
     }

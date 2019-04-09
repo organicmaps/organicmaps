@@ -449,7 +449,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    prepare(startPoint == null ? LocationHelper.INSTANCE.getMyPosition() : startPoint, endPoint, false);
+    prepare(startPoint, endPoint, false);
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint, boolean fromApi)

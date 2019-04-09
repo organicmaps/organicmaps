@@ -2266,7 +2266,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    if (requestCode == REQ_CODE_DRIVING_OPTIONS)
+    if (requestCode == REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
       DrivingOptionsActivity.start(this);
   }
 
