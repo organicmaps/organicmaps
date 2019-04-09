@@ -78,6 +78,9 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
 (defmacro irrelevant (&rest args)
   `(make-result 'irrelevant ,@args))
 
+(defmacro harmful (&rest args)
+  `(make-result 'harmful ,@args))
+
 (defclass sample ()
   ((query :initarg :query)
    (locale :initarg :locale)

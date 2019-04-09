@@ -44,6 +44,7 @@ private:
   QLabel * m_type = nullptr;
   QLabel * m_address = nullptr;
 
+  QRadioButton * m_harmful = nullptr;
   QRadioButton * m_irrelevant = nullptr;
   QRadioButton * m_relevant = nullptr;
   QRadioButton * m_vital = nullptr;

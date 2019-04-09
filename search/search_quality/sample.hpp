@@ -24,8 +24,20 @@ struct Sample
   {
     enum class Relevance
     {
+      // A result that should not be present and it's hard (for the user)
+      // to explain why it is there, i.e. it is a waste of time even
+      // to try to understand what this result is about.
+      Harmful,
+
+      // A result that is irrelevant to the query but at
+      // least it is easy to explain why it showed up.
       Irrelevant,
+
+      // A result that is relevant to the query.
       Relevant,
+
+      // A result that definetely should be present, preferably
+      // at a position close to the beginning.
       Vital
     };
 

@@ -196,12 +196,14 @@ void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance
 {
   string r;
   FromJSONObject(root, field, r);
-  if (r == "vital")
-    relevance = search::Sample::Result::Relevance::Vital;
-  else if (r == "relevant")
-    relevance = search::Sample::Result::Relevance::Relevant;
+  if (r == "harmful")
+    relevance = search::Sample::Result::Relevance::Harmful;
   else if (r == "irrelevant")
     relevance = search::Sample::Result::Relevance::Irrelevant;
+  else if (r == "relevant")
+    relevance = search::Sample::Result::Relevance::Relevant;
+  else if (r == "vital")
+    relevance = search::Sample::Result::Relevance::Vital;
   else
     CHECK(false, ("Unknown relevance:", r));
 }
@@ -213,9 +215,10 @@ void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance r
   string r;
   switch (relevance)
   {
-  case Relevance::Vital: r = "vital"; break;
-  case Relevance::Relevant: r = "relevant"; break;
+  case Relevance::Harmful: r = "harmful"; break;
   case Relevance::Irrelevant: r = "irrelevant"; break;
+  case Relevance::Relevant: r = "relevant"; break;
+  case Relevance::Vital: r = "vital"; break;
   }
 
   json_object_set_new(&root, field, json_string(r.c_str()));
@@ -255,6 +258,7 @@ string DebugPrint(Sample::Result::Relevance r)
 {
   switch (r)
   {
+  case Sample::Result::Relevance::Harmful: return "Harmful";
   case Sample::Result::Relevance::Irrelevant: return "Irrelevant";
   case Sample::Result::Relevance::Relevant: return "Relevant";
   case Sample::Result::Relevance::Vital: return "Vital";
