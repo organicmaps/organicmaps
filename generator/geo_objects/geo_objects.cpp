@@ -1,5 +1,7 @@
 #include "generator/geo_objects/geo_objects.hpp"
 
+#include "generator/geo_objects/key_value_storage.hpp"
+
 #include "generator/feature_builder.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
@@ -21,168 +23,19 @@
 #include <fstream>
 #include <functional>
 #include <future>
-#include <unordered_map>
-#include <utility>
 
 #include "platform/platform.hpp"
 
 #include <boost/optional.hpp>
 #include "3party/jansson/myjansson.hpp"
 
+namespace generator
+{
+namespace geo_objects
+{
 namespace
 {
-using KeyValue = std::pair<uint64_t, base::Json>;
 using IndexReader = ReaderPtr<Reader>;
-
-bool DefaultPred(KeyValue const &) { return true; }
-
-bool ParseKey(std::string const & line, int64_t & key)
-{
-  auto const pos = line.find(" ");
-  if (pos == std::string::npos)
-  {
-    LOG(LWARNING, ("Cannot find separator."));
-    return false;
-  }
-
-  if (!strings::to_int64(line.substr(0, pos), key))
-  {
-    LOG(LWARNING, ("Cannot parse id."));
-    return false;
-  }
-
-  return true;
-}
-
-bool ParseKeyValueLine(std::string const & line, KeyValue & res)
-{
-  auto const pos = line.find(" ");
-  if (pos == std::string::npos)
-  {
-    LOG(LWARNING, ("Cannot find separator."));
-    return false;
-  }
-
-  int64_t id;
-  if (!strings::to_int64(line.substr(0, pos), id))
-  {
-    LOG(LWARNING, ("Cannot parse id."));
-    return false;
-  }
-
-  base::Json json;
-  try
-  {
-    json = base::Json(line.substr(pos + 1));
-    if (!json.get())
-      return false;
-  }
-  catch (base::Json::Exception const &)
-  {
-    LOG(LWARNING, ("Cannot create base::Json."));
-    return false;
-  }
-
-  res = std::make_pair(static_cast<uint64_t>(id), json);
-  return true;
-}
-
-// An interface for reading key-value storage.
-class KeyValueInterface
-{
-public:
-  virtual ~KeyValueInterface() = default;
-
-  virtual boost::optional<base::Json> Find(uint64_t key) const = 0;
-  virtual size_t Size() const = 0;
-};
-
-// An implementation for reading key-value storage with loading and searching in memory.
-class KeyValueMem : public KeyValueInterface
-{
-public:
-  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred = DefaultPred)
-  {
-    std::string line;
-    KeyValue kv;
-    while (std::getline(stream, line))
-    {
-      if (!ParseKeyValueLine(line, kv) || !pred(kv))
-        continue;
-
-      m_map.insert(kv);
-    }
-
-  }
-
-  // KeyValueInterface overrides:
-  boost::optional<base::Json> Find(uint64_t key) const override
-  {
-    boost::optional<base::Json> result;
-    auto const it = m_map.find(key);
-    if (it != std::end(m_map))
-      result = it->second;
-
-    return result;
-  }
-
-  size_t Size() const override { return m_map.size(); }
-
-private:
-  std::unordered_map<uint64_t, base::Json> m_map;
-};
-
-// An implementation for reading key-value storage with loading and searching in disk.
-class KeyValueMap : public KeyValueInterface
-{
-public:
-  KeyValueMap(std::istream & stream) : m_stream(stream)
-  {
-    std::string line;
-    std::istream::pos_type pos = 0;
-    KeyValue kv;
-    while (std::getline(m_stream, line))
-    {
-      int64_t key;
-      if (!ParseKey(line, key))
-        continue;
-
-      m_map.emplace(key, pos);
-      pos = m_stream.tellg();
-    }
-
-    m_stream.clear();
-  }
-
-  // KeyValueInterface overrides:
-  boost::optional<base::Json> Find(uint64_t key) const override
-  {
-    boost::optional<base::Json> result;
-    auto const it = m_map.find(key);
-    if (it == std::end(m_map))
-      return result;
-
-    m_stream.seekg(it->second);
-    std::string line;
-    if (!std::getline(m_stream, line))
-    {
-      LOG(LERROR, ("Cannot read line."));
-      return result;
-    }
-
-    KeyValue kv;
-    if (ParseKeyValueLine(line, kv))
-      result = kv.second;
-
-    return result;
-  }
-
-  size_t Size() const override { return m_map.size(); }
-
-private:
-  std::istream & m_stream;
-  std::unordered_map<uint64_t, std::istream::pos_type> m_map;
-};
 
 bool IsBuilding(FeatureBuilder1 const & fb)
 {
@@ -230,7 +83,7 @@ int GetRankFromValue(base::Json json)
 }
 
 boost::optional<KeyValue> GetDeepestRegion(std::vector<base::GeoObjectId> const & ids,
-                                           KeyValueInterface const & regionKv)
+                                           KeyValueStorage const & regionKv)
 {
   boost::optional<KeyValue> deepest;
   int deepestRank = 0;
@@ -310,7 +163,7 @@ base::Json AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValu
 
 boost::optional<KeyValue>
 FindRegion(FeatureBuilder1 const & fb, indexer::RegionsIndex<IndexReader> const & regionIndex,
-           KeyValueInterface const & regionKv)
+           KeyValueStorage const & regionKv)
 {
   auto const ids = SearchObjectsInIndex(fb, regionIndex);
   return GetDeepestRegion(ids, regionKv);
@@ -327,7 +180,7 @@ MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyVa
 boost::optional<base::Json>
 FindHousePoi(FeatureBuilder1 const & fb,
              indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
-             KeyValueInterface const & geoObjectsKv)
+             KeyValueStorage const & geoObjectsKv)
 {
   auto const ids = SearchObjectsInIndex(fb, geoObjectsIndex);
   for (auto const & id : ids)
@@ -379,7 +232,7 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 }
 
 void BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & regionIndex,
-                                  KeyValueInterface const & regionKv,
+                                  KeyValueStorage const & regionKv,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   std::ostream & streamGeoObjectsKv, bool)
 {
@@ -404,7 +257,7 @@ void BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & reg
 
 void BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const & geoObjectsIndex,
                                      std::string const & pathInGeoObjectsTmpMwm,
-                                     KeyValueInterface const & geoObjectsKv,
+                                     KeyValueStorage const & geoObjectsKv,
                                      std::ostream & streamGeoObjectsKv,
                                      std::ostream & streamIdsWithoutAddress, bool)
 {
@@ -432,10 +285,6 @@ void BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const
 }
 }  // namespace
 
-namespace generator
-{
-namespace geo_objects
-{
 bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
                         std::string const & pathInRegionsKv,
                         std::string const & pathInGeoObjectsTmpMwm,
@@ -454,19 +303,16 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
       indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(pathInRegionsIndx);
   // Regions key-value storage is small (~150 Mb). We will load everything into memory.
   std::fstream streamRegionKv(pathInRegionsKv);
-  KeyValueMem const regionsKv(streamRegionKv);
+  KeyValueStorage const regionsKv(streamRegionKv);
   LOG(LINFO, ("Size of regions key-value storage:", regionsKv.Size()));
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
   BuildGeoObjectsWithAddresses(regionIndex, regionsKv, pathInGeoObjectsTmpMwm,
                                streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));
-  // Regions key-value storage is big (~80 Gb). We will not load the key value into memory.
-  // This can be slow.
-  // todo(maksimandrianov1): Investigate the issue of performance and if necessary improve.
   std::ifstream tempStream(pathOutGeoObjectsKv);
   auto const pred = [](KeyValue const & kv) { return HouseHasAddress(kv.second); };
-  KeyValueMem const geoObjectsKv(tempStream, pred);
+  KeyValueStorage const geoObjectsKv(tempStream, pred);
   LOG(LINFO, ("Size of geo objects key-value storage:", geoObjectsKv.Size()));
   auto const geoObjectIndex = geoObjectIndexFuture.get();
   LOG(LINFO, ("Index was built."));

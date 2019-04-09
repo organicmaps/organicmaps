@@ -5,6 +5,8 @@
 #include "base/exception.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/string_view.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -35,8 +37,7 @@ public:
   DECLARE_EXCEPTION(Exception, RootException);
 
   Json() = default;
-  explicit Json(std::string const & s) { ParseFrom(s); }
-  explicit Json(char const * s) { ParseFrom(s); }
+  explicit Json(std::string_view const & s) { ParseFrom(s); }
 
   Json GetDeepCopy() const
   {
@@ -44,11 +45,10 @@ public:
     copy.m_handle.AttachNew(get_deep_copy());
     return copy;
   }
-  void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
-  void ParseFrom(char const * s)
+  void ParseFrom(std::string_view const & s)
   {
     json_error_t jsonError;
-    m_handle.AttachNew(json_loads(s, 0, &jsonError));
+    m_handle.AttachNew(json_loadb(s.data(), s.size(), 0, &jsonError));
     if (!m_handle)
       MYTHROW(Exception, (jsonError.line, jsonError.text));
   }

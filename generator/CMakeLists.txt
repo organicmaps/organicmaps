@@ -69,6 +69,8 @@ set(SRC
   geometry_holder.hpp
   geo_objects/geo_objects.cpp
   geo_objects/geo_objects.hpp
+  geo_objects/key_value_storage.cpp
+  geo_objects/key_value_storage.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
