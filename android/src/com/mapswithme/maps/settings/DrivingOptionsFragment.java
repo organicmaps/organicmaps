@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -38,7 +35,6 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
-    setHasOptionsMenu(hasBundleOptionsMenu());
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                  ? makeRouteTypes(savedInstanceState)
                  : RoutingOptions.getActiveRoadTypes();
@@ -75,33 +71,12 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     return mRoadTypes.containsAll(lastActiveRoadTypes) && lastActiveRoadTypes.containsAll(mRoadTypes);
   }
 
-  private boolean hasBundleOptionsMenu()
-  {
-    Bundle arguments = getArguments();
-    if (arguments == null)
-      return false;
-
-    return arguments.getBoolean(DrivingOptionsActivity.BUNDLE_REQUIRE_OPTIONS_MENU, false);
-  }
-
   @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+  public boolean onBackPressed()
   {
-    inflater.inflate(R.menu.menu_done, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    if (item.getItemId() == R.id.done)
-    {
-      requireActivity().setResult(areSettingsNotChanged() ? Activity.RESULT_CANCELED
-                                                          : Activity.RESULT_OK);
-      requireActivity().finish();
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
+    requireActivity().setResult(areSettingsNotChanged() ? Activity.RESULT_CANCELED
+                                                        : Activity.RESULT_OK);
+    return super.onBackPressed();
   }
 
   private void initViews(@NonNull View root)

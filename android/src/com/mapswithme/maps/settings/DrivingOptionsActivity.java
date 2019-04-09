@@ -10,8 +10,6 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class DrivingOptionsActivity extends BaseMwmFragmentActivity
 {
-  public static final String BUNDLE_REQUIRE_OPTIONS_MENU = "require_options_menu";
-
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
@@ -20,8 +18,7 @@ public class DrivingOptionsActivity extends BaseMwmFragmentActivity
 
   public static void start(@NonNull Activity activity)
   {
-    Intent intent = new Intent(activity, DrivingOptionsActivity.class)
-        .putExtra(BUNDLE_REQUIRE_OPTIONS_MENU, true);
+    Intent intent = new Intent(activity, DrivingOptionsActivity.class);
     activity.startActivityForResult(intent, MwmActivity.REQ_CODE_DRIVING_OPTIONS);
   }
 }

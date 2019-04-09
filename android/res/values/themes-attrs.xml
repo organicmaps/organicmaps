@@ -95,6 +95,8 @@
 
     <attr name="luggageLogo" format="reference"/>
 
+    <attr name="drivingOptionsViewBg" format="color"/>
+
     <attr name="ratingButtonBackground" format="reference"/>
     <attr name="reviewButtonBackground" format="reference"/>
     <attr name="transitPedestrianBackground" format="color"/>

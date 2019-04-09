@@ -152,7 +152,7 @@
   </FrameLayout>
 
   <FrameLayout
-    android:background="@color/light_green"
+    android:background="?attr/drivingOptionsViewBg"
     android:id="@+id/driving_options_btn_container"
     android:visibility="gone"
     android:foreground="@drawable/shadow_top"

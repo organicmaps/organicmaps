@@ -18,6 +18,7 @@
   <color name="base_yellow">#FFFFC30A</color>
   <color name="base_green">#FF558B2F</color>
   <color name="light_green">#2D8953</color>
+  <color name="driving_options_bg_black">#25282B</color>
 
   <color name="black_primary">#DE000000</color>   <!-- 87% black -->
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
