@@ -1296,7 +1296,8 @@ public class PlacePageView extends NestedScrollView
 
     boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
                             LocationHelper.INSTANCE.getMyPosition() != null &&
-                            ConnectionState.isConnected();
+                            ConnectionState.isConnected()
+                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
     UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
 
     if (!showTaxiOffer)

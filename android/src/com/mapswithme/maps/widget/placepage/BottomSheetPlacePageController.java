@@ -30,6 +30,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.settings.RoadWarningMarkType;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
@@ -296,7 +297,8 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private void showBanner(@NonNull MapObject object, NetworkPolicy policy)
   {
     boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION
-                            && policy.сanUseNetwork();
+                            && policy.сanUseNetwork()
+                            && object.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
     mBannerController.updateData(canShowBanner ? object.getBanners() : null);
   }
 
