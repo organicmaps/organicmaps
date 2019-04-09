@@ -3,13 +3,14 @@
 #include "routing/road_graph.hpp"
 #include "routing/routing_tests/road_graph_builder.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <utility>
 
 namespace routing_test
 {
 
 using namespace routing;
+using namespace std;
 
 UNIT_TEST(RoadGraph_NearestEdges)
 {

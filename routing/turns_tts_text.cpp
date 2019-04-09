@@ -3,10 +3,12 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <iterator>
+#include <string>
+#include <utility>
+
+using namespace std;
 
 namespace
 {

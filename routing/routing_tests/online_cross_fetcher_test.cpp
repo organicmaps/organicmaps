@@ -5,11 +5,12 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <string>
+#include <vector>
 
 using namespace routing;
+using namespace std;
 
 namespace
 {

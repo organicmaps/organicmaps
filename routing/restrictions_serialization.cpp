@@ -1,6 +1,8 @@
 #include "routing/restrictions_serialization.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+
+using namespace std;
 
 namespace
 {

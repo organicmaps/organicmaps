@@ -14,11 +14,10 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -35,11 +34,11 @@ public:
   using Weight = RouteWeight;
 
   IndexGraph() = default;
-  IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
+  IndexGraph(std::shared_ptr<Geometry> geometry, std::shared_ptr<EdgeEstimator> estimator,
              RoutingOptions routingOptions = RoutingOptions());
 
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
-  void GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
 
   void GetEdgeList(Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
                    std::vector<RouteWeight> & parentWeights);
@@ -63,14 +62,14 @@ public:
   uint32_t GetNumPoints() const { return m_jointIndex.GetNumPoints(); }
 
   void Build(uint32_t numJoints);
-  void Import(vector<Joint> const & joints);
+  void Import(std::vector<Joint> const & joints);
 
   void SetRestrictions(RestrictionVec && restrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
 
   // Interface for AStarAlgorithm:
-  void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
-  void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+  void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges);
+  void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -80,7 +79,7 @@ public:
   template <typename F>
   void ForEachRoad(F && f) const
   {
-    m_roadIndex.ForEachRoad(forward<F>(f));
+    m_roadIndex.ForEachRoad(std::forward<F>(f));
   }
 
   template <typename F>
@@ -103,9 +102,9 @@ public:
 
 private:
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                           vector<SegmentEdge> & edges);
+                           std::vector<SegmentEdge> & edges);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                          vector<SegmentEdge> & edges);
+                          std::vector<SegmentEdge> & edges);
   RouteWeight GetPenalties(Segment const & u, Segment const & v);
 
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
@@ -114,8 +113,8 @@ private:
                                bool isOutgoing, std::vector<JointEdge> & jointEdges,
                                std::vector<RouteWeight> & parentWeights);
 
-  shared_ptr<Geometry> m_geometry;
-  shared_ptr<EdgeEstimator> m_estimator;
+  std::shared_ptr<Geometry> m_geometry;
+  std::shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
   RestrictionVec m_restrictions;

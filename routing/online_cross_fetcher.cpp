@@ -10,6 +10,8 @@
 
 #include "geometry/mercator.hpp"
 
+using namespace std;
+
 namespace
 {
 inline string LatLonToURLArgs(ms::LatLon const & point)

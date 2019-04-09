@@ -18,14 +18,14 @@
 
 #include "routing/base/astar_algorithm.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <vector>
 
 namespace
 {
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 using namespace traffic;
 
 // @TODO(bykoianko) When PR with applying restricions is merged BuildXXGraph()

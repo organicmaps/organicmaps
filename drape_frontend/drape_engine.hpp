@@ -32,6 +32,7 @@
 #include <functional>
 #include <map>
 #include <mutex>
+#include <utility>
 #include <vector>
 
 namespace dp
@@ -58,7 +59,7 @@ public:
            double vs,
            double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
-           pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
+           std::pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            location::TMyPositionModeChanged && myPositionModeChanged,
            bool allow3dBuildings,
            bool trafficEnabled,
@@ -100,7 +101,7 @@ public:
     double m_vs;
     double m_fontsScaleFactor;
     gui::TWidgetsInitInfo m_info;
-    pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
+    std::pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
     location::TMyPositionModeChanged m_myPositionModeChanged;
     bool m_allow3dBuildings;
     bool m_trafficEnabled;

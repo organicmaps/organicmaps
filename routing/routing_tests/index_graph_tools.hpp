@@ -27,14 +27,13 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/map.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace routing_test
 {
@@ -47,15 +46,15 @@ NumMwmId constexpr kTestNumMwmId = 777;
 struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
-  void Init(unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = move(graph); }
+  void Init(std::unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = std::move(graph); }
   void SetStarter(FakeEnding const & start, FakeEnding const & finish);
   void SetRestrictions(RestrictionVec && restrictions)
   {
-    m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
+    m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(std::move(restrictions));
   }
 
-  unique_ptr<SingleVehicleWorldGraph> m_graph;
-  unique_ptr<IndexGraphStarter> m_starter;
+  std::unique_ptr<SingleVehicleWorldGraph> m_graph;
+  std::unique_ptr<IndexGraphStarter> m_starter;
 };
 
 class TestGeometryLoader final : public routing::GeometryLoader
@@ -72,7 +71,7 @@ public:
   void SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed);
 
 private:
-  unordered_map<uint32_t, routing::RoadGeometry> m_roads;
+  std::unordered_map<uint32_t, routing::RoadGeometry> m_roads;
 };
 
 class ZeroGeometryLoader final : public routing::GeometryLoader
@@ -99,10 +98,10 @@ public:
 
   void Clear() override;
 
-  void AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph);
+  void AddGraph(NumMwmId mwmId, std::unique_ptr<IndexGraph> graph);
 
 private:
-  unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
+  std::unordered_map<NumMwmId, std::unique_ptr<IndexGraph>> m_graphs;
 };
 
 class TestTransitGraphLoader : public TransitGraphLoader
@@ -114,10 +113,10 @@ public:
   TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) override;
   void Clear() override;
 
-  void AddGraph(NumMwmId mwmId, unique_ptr<TransitGraph> graph);
+  void AddGraph(NumMwmId mwmId, std::unique_ptr<TransitGraph> graph);
 
 private:
-  unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
+  std::unordered_map<NumMwmId, std::unique_ptr<TransitGraph>> m_graphs;
 };
 
 // An estimator that uses the information from the supported |segmentWeights| map
@@ -129,7 +128,7 @@ class WeightedEdgeEstimator final : public EdgeEstimator
 public:
   // maxSpeedKMpH doesn't matter, but should be greater then any road speed in all tests.
   // offroadSpeedKMpH doesn't matter, but should be > 0 and <= maxSpeedKMpH.
-  explicit WeightedEdgeEstimator(map<Segment, double> const & segmentWeights)
+  explicit WeightedEdgeEstimator(std::map<Segment, double> const & segmentWeights)
     : EdgeEstimator(1e10 /* maxSpeedKMpH */, 1.0 /* offroadSpeedKMpH */)
     , m_segmentWeights(segmentWeights)
   {
@@ -143,7 +142,7 @@ public:
   double GetUTurnPenalty() const override;
 
 private:
-  map<Segment, double> m_segmentWeights;
+  std::map<Segment, double> m_segmentWeights;
 };
 
 // A simple class to test graph algorithms for the index graph
@@ -153,7 +152,7 @@ class TestIndexGraphTopology final
 {
 public:
   using Vertex = uint32_t;
-  using Edge = pair<Vertex, Vertex>;
+  using Edge = std::pair<Vertex, Vertex>;
 
   // Creates an empty graph on |numVertices| vertices.
   TestIndexGraphTopology(uint32_t numVertices);
@@ -170,7 +169,8 @@ public:
   void SetVertexAccess(Vertex v, RoadAccess::Type type);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
-  bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges) const;
+  bool FindPath(Vertex start, Vertex finish, double & pathWeight,
+                std::vector<Edge> & pathEdges) const;
 
 private:
   struct EdgeRequest
@@ -196,53 +196,54 @@ private:
   struct Builder
   {
     Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
-    unique_ptr<SingleVehicleWorldGraph> PrepareIndexGraph();
+    std::unique_ptr<SingleVehicleWorldGraph> PrepareIndexGraph();
     void BuildJoints();
-    void BuildGraphFromRequests(vector<EdgeRequest> const & requests);
+    void BuildGraphFromRequests(std::vector<EdgeRequest> const & requests);
     void BuildSegmentFromEdge(EdgeRequest const & request);
 
     uint32_t const m_numVertices;
-    map<Edge, double> m_edgeWeights;
-    map<Segment, double> m_segmentWeights;
-    map<Segment, Edge> m_segmentToEdge;
-    map<Vertex, vector<Segment>> m_outgoingSegments;
-    map<Vertex, vector<Segment>> m_ingoingSegments;
-    vector<Joint> m_joints;
+    std::map<Edge, double> m_edgeWeights;
+    std::map<Segment, double> m_segmentWeights;
+    std::map<Segment, Edge> m_segmentToEdge;
+    std::map<Vertex, std::vector<Segment>> m_outgoingSegments;
+    std::map<Vertex, std::vector<Segment>> m_ingoingSegments;
+    std::vector<Joint> m_joints;
     RoadAccess m_roadAccess;
   };
 
-  void AddDirectedEdge(vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
+  void AddDirectedEdge(std::vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
                        double weight) const;
 
   uint32_t const m_numVertices;
-  vector<EdgeRequest> m_edgeRequests;
+  std::vector<EdgeRequest> m_edgeRequests;
 };
 
-unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
-                                                    shared_ptr<EdgeEstimator> estimator,
-                                                    vector<Joint> const & joints);
-unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> loader,
-                                                    shared_ptr<EdgeEstimator> estimator,
-                                                    vector<Joint> const & joints);
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
+                                                    std::shared_ptr<EdgeEstimator> estimator,
+                                                    std::vector<Joint> const & joints);
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeometryLoader> loader,
+                                                    std::shared_ptr<EdgeEstimator> estimator,
+                                                    std::vector<Joint> const & joints);
 
-routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
+routing::Joint MakeJoint(std::vector<routing::RoadPoint> const & points);
 
 shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
     traffic::TrafficCache const & trafficCache);
-shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash);
+shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
+    std::shared_ptr<TrafficStash> trafficStash);
 
 AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(
-    IndexGraphStarter & starter, vector<Segment> & roadPoints, double & timeSec);
+    IndexGraphStarter & starter, std::vector<Segment> & roadPoints, double & timeSec);
 
 void TestRouteGeometry(
     IndexGraphStarter & starter,
     AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
-    vector<m2::PointD> const & expectedRouteGeom);
+    std::vector<m2::PointD> const & expectedRouteGeom);
 
 /// \brief Applies |restrictions| to graph in |restrictionTest| and
 /// tests the resulting route.
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
-void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
+void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
@@ -255,7 +256,7 @@ void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
 void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,
                        TestIndexGraphTopology::Vertex to, bool expectedPathFound,
                        double const expectedWeight,
-                       vector<TestIndexGraphTopology::Edge> const & expectedEdges);
+                       std::vector<TestIndexGraphTopology::Edge> const & expectedEdges);
 
 // Creates FakeEnding projected to |Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward
 // */)|.

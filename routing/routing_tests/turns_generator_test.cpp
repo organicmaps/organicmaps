@@ -13,11 +13,12 @@
 
 #include "base/macros.hpp"
 
-#include "std/cmath.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cmath>
+#include <string>
+#include <vector>
 
 using namespace routing;
+using namespace std;
 using namespace turns;
 
 namespace

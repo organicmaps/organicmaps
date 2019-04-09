@@ -8,9 +8,9 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/vector.hpp"
-
 #include "private.h"
+
+using namespace std;
 
 using platform::CountryFile;
 using platform::LocalCountryFile;

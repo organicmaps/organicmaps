@@ -5,8 +5,8 @@
 
 #include "coding/file_container.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <string>
 
 class MwmValue;
 
@@ -21,10 +21,10 @@ public:
   RestrictionVec && StealRestrictions() { return move(m_restrictions); }
 
 private:
-  unique_ptr<FilesContainerR::TReader> m_reader;
+  std::unique_ptr<FilesContainerR::TReader> m_reader;
   RestrictionHeader m_header;
   RestrictionVec m_restrictions;
-  string const m_countryFileName;
+  std::string const m_countryFileName;
 };
 
 void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,

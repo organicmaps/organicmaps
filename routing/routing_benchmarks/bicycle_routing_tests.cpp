@@ -9,14 +9,14 @@
 
 #include "geometry/mercator.hpp"
 
-#include "std/set.hpp"
-#include "std/string.hpp"
+#include <set>
+#include <string>
 
 namespace
 {
 // Test preconditions: files from the kMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
-set<string> const kMapFiles = {"Russia_Moscow"};
+std::set<std::string> const kMapFiles = {"Russia_Moscow"};
 
 class BicycleTest : public RoutingTest
 {

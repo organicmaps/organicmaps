@@ -7,6 +7,10 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <vector>
+
+using namespace std;
+
 namespace
 {
 using namespace routing;

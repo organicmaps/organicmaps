@@ -4,14 +4,14 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/routing_result.hpp"
 
-#include "std/map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <utility>
+#include <vector>
 
 namespace routing_test
 {
-
-using namespace  routing;
+using namespace routing;
+using namespace std;
 
 struct Edge
 {

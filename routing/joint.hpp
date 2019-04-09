@@ -4,9 +4,9 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
-#include "std/string.hpp"
+#include <cstdint>
+#include <limits>
+#include <string>
 
 namespace routing
 {
@@ -16,7 +16,7 @@ class Joint final
 {
 public:
   using Id = uint32_t;
-  static Id constexpr kInvalidId = numeric_limits<Id>::max();
+  static Id constexpr kInvalidId = std::numeric_limits<Id>::max();
 
   void AddPoint(RoadPoint const & rp) { m_points.emplace_back(rp); }
 
@@ -28,5 +28,5 @@ private:
   buffer_vector<RoadPoint, 2> m_points;
 };
 
-string DebugPrint(Joint const & joint);
+std::string DebugPrint(Joint const & joint);
 }  // namespace routing

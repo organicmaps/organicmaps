@@ -4,8 +4,9 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 namespace routing
 {
@@ -47,14 +48,15 @@ class Settings
 
   /// \brief m_distancesToPronounce is a list of distances in m_lengthUnits
   ///  which are ready to be pronounced.
-  vector<uint32_t> m_soundedDistancesUnits;
+  std::vector<uint32_t> m_soundedDistancesUnits;
   measurement_utils::Units m_lengthUnits;
 
   // This constructor is for testing only.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
            uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
            uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
-           uint32_t minDistToSayNotificationMeters, vector<uint32_t> const & soundedDistancesUnits,
+           uint32_t minDistToSayNotificationMeters,
+           std::vector<uint32_t> const & soundedDistancesUnits,
            measurement_utils::Units lengthUnits)
     : m_timeSeconds(notificationTimeSeconds)
     , m_minDistanceUnits(minNotificationDistanceUnits)
@@ -85,7 +87,7 @@ public:
 
   void SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                 uint32_t maxNotificationDistanceUnits,
-                vector<uint32_t> const & soundedDistancesUnits,
+                std::vector<uint32_t> const & soundedDistancesUnits,
                 measurement_utils::Units lengthUnits);
 
   /// \brief IsValid checks if Settings data is consistent.
@@ -156,8 +158,8 @@ struct Notification
 
 string DebugPrint(Notification const & turnGeom);
 
-using PairDist = pair<uint32_t, char const *>;
-using VecPairDist = vector<PairDist>;
+using PairDist = std::pair<uint32_t, char const *>;
+using VecPairDist = std::vector<PairDist>;
 
 /// @return a reference to a vector of pairs of a distance in meters and a text id.
 /// All the distances are translated in supported languages and can be pronounced.
@@ -177,9 +179,9 @@ VecPairDist const & GetAllSoundedDistFeet();
 // to convert from vector<pair<uint32_t, char const *>> to vector<uint32_t>.
 
 /// @return distance in meters which are used for turn sound generation.
-vector<uint32_t> const & GetSoundedDistMeters();
+std::vector<uint32_t> const & GetSoundedDistMeters();
 /// @return distance in feet which are used for turn sound generation.
-vector<uint32_t> const & GetSoundedDistFeet();
+std::vector<uint32_t> const & GetSoundedDistFeet();
 
 }  // namespace sound
 }  // namespace turns

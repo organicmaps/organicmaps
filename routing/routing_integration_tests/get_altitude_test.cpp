@@ -18,14 +18,16 @@
 
 #include "base/math.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace
 {
 using namespace feature;
 using namespace platform;
+using namespace std;
 
 LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
 {

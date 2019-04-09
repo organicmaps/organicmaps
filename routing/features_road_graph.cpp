@@ -14,7 +14,9 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/limits.hpp"
+#include <limits>
+
+using namespace std;
 
 namespace routing
 {

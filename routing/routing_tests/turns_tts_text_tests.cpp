@@ -3,13 +3,14 @@
 #include "routing/turns_sound_settings.hpp"
 #include "routing/turns_tts_text.hpp"
 
-#include "std/cstring.hpp"
-#include "std/string.hpp"
+#include <cstring>
+#include <string>
 
 namespace
 {
 using namespace routing::turns;
 using namespace routing::turns::sound;
+using namespace std;
 
 bool PairDistEquals(PairDist const & lhs, PairDist const & rhs)
 {

@@ -8,8 +8,8 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/shared_ptr.hpp"
+#include <algorithm>
+#include <memory>
 
 using namespace routing;
 using namespace std;

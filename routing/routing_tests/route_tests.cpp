@@ -11,12 +11,13 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "std/set.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <set>
+#include <string>
+#include <vector>
 
 using namespace routing;
 using namespace routing::turns;
+using namespace std;
 
 namespace
 {

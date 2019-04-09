@@ -4,7 +4,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/turn_candidate.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
 
 namespace routing
 {
