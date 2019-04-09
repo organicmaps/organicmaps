@@ -60,6 +60,8 @@
 		401E318F225C99A300DE7EB8 /* regions_fixer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401E318B225C99A300DE7EB8 /* regions_fixer.hpp */; };
 		401E3190225C99A300DE7EB8 /* regions_fixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401E318C225C99A300DE7EB8 /* regions_fixer.cpp */; };
 		401E3191225C99A300DE7EB8 /* region_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401E318D225C99A300DE7EB8 /* region_info.cpp */; };
+		401E3197225CEA7100DE7EB8 /* key_value_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401E3195225CEA7100DE7EB8 /* key_value_storage.hpp */; };
+		401E3198225CEA7100DE7EB8 /* key_value_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401E3196225CEA7100DE7EB8 /* key_value_storage.cpp */; };
 		40492BC82021DC53008E093A /* locality_sorter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC32021DC53008E093A /* locality_sorter.hpp */; };
 		40492BC92021DC53008E093A /* feature_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40492BC42021DC53008E093A /* feature_helpers.cpp */; };
 		40492BCA2021DC53008E093A /* feature_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC52021DC53008E093A /* feature_helpers.hpp */; };
@@ -278,6 +280,8 @@
 		401E318B225C99A300DE7EB8 /* regions_fixer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = regions_fixer.hpp; path = regions/regions_fixer.hpp; sourceTree = "<group>"; };
 		401E318C225C99A300DE7EB8 /* regions_fixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = regions_fixer.cpp; path = regions/regions_fixer.cpp; sourceTree = "<group>"; };
 		401E318D225C99A300DE7EB8 /* region_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = region_info.cpp; path = regions/region_info.cpp; sourceTree = "<group>"; };
+		401E3195225CEA7100DE7EB8 /* key_value_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = key_value_storage.hpp; path = geo_objects/key_value_storage.hpp; sourceTree = "<group>"; };
+		401E3196225CEA7100DE7EB8 /* key_value_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = key_value_storage.cpp; path = geo_objects/key_value_storage.cpp; sourceTree = "<group>"; };
 		40492BC32021DC53008E093A /* locality_sorter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locality_sorter.hpp; sourceTree = "<group>"; };
 		40492BC42021DC53008E093A /* feature_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_helpers.cpp; sourceTree = "<group>"; };
 		40492BC52021DC53008E093A /* feature_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_helpers.hpp; sourceTree = "<group>"; };
@@ -497,6 +501,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				401E3196225CEA7100DE7EB8 /* key_value_storage.cpp */,
+				401E3195225CEA7100DE7EB8 /* key_value_storage.hpp */,
 				401E318D225C99A300DE7EB8 /* region_info.cpp */,
 				401E318A225C99A300DE7EB8 /* region_info.hpp */,
 				401E318C225C99A300DE7EB8 /* regions_fixer.cpp */,
@@ -817,6 +823,7 @@
 				4003E3B92112FB2B007721B0 /* place.hpp in Headers */,
 				4088CE2421AE995D00E2702A /* brands_loader.hpp in Headers */,
 				4003E3B22112FB2B007721B0 /* emitter_interface.hpp in Headers */,
+				401E3197225CEA7100DE7EB8 /* key_value_storage.hpp in Headers */,
 				4003E3AA2112FB2B007721B0 /* factory_utils.hpp in Headers */,
 				401E317E225C971400DE7EB8 /* collector_tag.hpp in Headers */,
 				E162BD4B213EAF0A007ADEF1 /* popular_places_section_builder.hpp in Headers */,
@@ -1002,6 +1009,7 @@
 				675340601A3F2A7400A0A8C3 /* check_model.cpp in Sources */,
 				675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */,
 				9D1B3F1C2034624A00278AC8 /* node_mixer.cpp in Sources */,
+				401E3198225CEA7100DE7EB8 /* key_value_storage.cpp in Sources */,
 				44AA0AEB2133EA7800F72321 /* camera_node_processor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
