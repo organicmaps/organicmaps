@@ -13,8 +13,6 @@
 
 #include "defines.hpp"
 
-#include "std/array.hpp"
-
 namespace version
 {
 namespace

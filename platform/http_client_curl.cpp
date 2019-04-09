@@ -34,11 +34,13 @@
 #include "boost/uuid/uuid_generators.hpp"
 #include "boost/uuid/uuid_io.hpp"
 
-#include "std/array.hpp"
-#include "std/fstream.hpp"
-#include "std/iterator.hpp"
-#include "std/sstream.hpp"
-#include "std/vector.hpp"
+#include <array>
+#include <fstream>
+#include <iterator>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <cstdio>    // popen, tmpnam
 
@@ -58,7 +60,7 @@ DECLARE_EXCEPTION(PipeCallError, RootException);
 struct ScopedRemoveFile
 {
   ScopedRemoveFile() = default;
-  explicit ScopedRemoveFile(string const & fileName) : m_fileName(fileName) {}
+  explicit ScopedRemoveFile(std::string const & fileName) : m_fileName(fileName) {}
 
   ~ScopedRemoveFile()
   {
@@ -69,22 +71,22 @@ struct ScopedRemoveFile
   std::string m_fileName;
 };
 
-static string ReadFileAsString(string const & filePath)
+static std::string ReadFileAsString(std::string const & filePath)
 {
-  ifstream ifs(filePath, ifstream::in);
+  std::ifstream ifs(filePath, std::ifstream::in);
   if (!ifs.is_open())
     return {};
 
-  return {istreambuf_iterator<char>(ifs), istreambuf_iterator<char>()};
+  return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 }
 
 
-string RunCurl(string const & cmd)
+std::string RunCurl(std::string const & cmd)
 {
   FILE * pipe = ::popen(cmd.c_str(), "r");
   ASSERT(pipe, ());
-  array<char, 8 * 1024> arr;
-  string result;
+  std::array<char, 8 * 1024> arr;
+  std::string result;
   size_t read;
   do
   {
@@ -103,12 +105,12 @@ string RunCurl(string const & cmd)
   return result;
 }
 
-string GetTmpFileName()
+std::string GetTmpFileName()
 {  
   boost::uuids::random_generator gen;
   boost::uuids::uuid u = gen();
 
-  stringstream ss;
+  std::stringstream ss;
   ss << u;
 
   ASSERT(!ss.str().empty(), ());
@@ -116,29 +118,29 @@ string GetTmpFileName()
   return GetPlatform().TmpPathForFile(ss.str());
 }
 
-typedef vector<pair<string, string>> Headers;
+using Headers = std::vector<std::pair<std::string, std::string>>;
 
-Headers ParseHeaders(string const & raw)
+Headers ParseHeaders(std::string const & raw)
 {
-  istringstream stream(raw);
+  std::istringstream stream(raw);
   Headers headers;
-  string line;
+  std::string line;
   while (getline(stream, line))
   {
     auto const cr = line.rfind('\r');
-    if (cr != string::npos)
+    if (cr != std::string::npos)
       line.erase(cr);
 
     auto const delims = line.find(": ");
-    if (delims != string::npos)
+    if (delims != std::string::npos)
       headers.emplace_back(line.substr(0, delims), line.substr(delims + 2));
   }
   return headers;
 }
 
-bool WriteToFile(string const & fileName, string const & data)
+bool WriteToFile(std::string const & fileName, std::string const & data)
 {
-  ofstream ofs(fileName);
+  std::ofstream ofs(fileName);
   if(!ofs.is_open())
   {
     LOG(LERROR, ("Failed to write into a temporary file."));
@@ -180,7 +182,7 @@ bool HttpClient::RunHttpRequest()
   ScopedRemoveFile body_deleter;
   ScopedRemoveFile received_file_deleter;
 
-  string cmd = "curl -s -w '%{http_code}' -X " + m_httpMethod + " -D '" + headers_deleter.m_fileName + "' ";
+  std::string cmd = "curl -s -w '%{http_code}' -X " + m_httpMethod + " -D '" + headers_deleter.m_fileName + "' ";
 
   for (auto const & header : m_headers)
   {
@@ -208,7 +210,7 @@ bool HttpClient::RunHttpRequest()
 
   // Use temporary file to receive data from server.
   // If user has specified file name to save data, it is not temporary and is not deleted automatically.
-  string rfile = m_outputFile;
+  std::string rfile = m_outputFile;
   if (rfile.empty())
   {
     rfile = GetTmpFileName();
@@ -231,8 +233,8 @@ bool HttpClient::RunHttpRequest()
 
   m_headers.clear();
   Headers const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
-  string serverCookies;
-  string headerKey;
+  std::string serverCookies;
+  std::string headerKey;
   for (auto const & header : headers)
   {
     if (header.first == "Set-Cookie")

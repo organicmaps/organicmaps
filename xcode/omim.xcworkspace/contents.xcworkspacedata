@@ -20,9 +20,6 @@
          location = "group:../std/algorithm.hpp">
       </FileRef>
       <FileRef
-         location = "group:../std/array.hpp">
-      </FileRef>
-      <FileRef
          location = "group:../std/atomic.hpp">
       </FileRef>
       <FileRef

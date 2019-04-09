@@ -5,11 +5,12 @@
 #import "MWMTableViewCell.h"
 #import "SwiftBridge.h"
 
-#include "std/array.hpp"
+#include <array>
+#include <vector>
 
 @interface MWMPlacePageData()
 
-- (vector<place_page::MetainfoRows> &)mutableMetainfoRows;
+- (std::vector<place_page::MetainfoRows> &)mutableMetainfoRows;
 
 @end
 
@@ -59,7 +60,7 @@
 
 namespace
 {
-array<Class, 2> const kCells = {{[_MWMOHHeaderCell class], [_MWMOHSubCell class]}};
+std::array<Class, 2> const kCells = {{[_MWMOHHeaderCell class], [_MWMOHSubCell class]}};
 
 NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 {
@@ -102,7 +103,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 @interface MWMOpeningHoursLayoutHelper()
 {
-  vector<osmoh::Day> m_days;
+  std::vector<osmoh::Day> m_days;
 }
 
 @property(weak, nonatomic) UITableView * tableView;

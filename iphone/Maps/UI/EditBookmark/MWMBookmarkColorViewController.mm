@@ -3,11 +3,11 @@
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
-#include "std/array.hpp"
+#include <array>
 
 namespace
 {
-array<kml::PredefinedColor, 8> const kBookmarkColorsVariant
+std::array<kml::PredefinedColor, 8> const kBookmarkColorsVariant
 {{
   kml::PredefinedColor::Red,
   kml::PredefinedColor::Yellow,
