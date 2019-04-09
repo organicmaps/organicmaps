@@ -119,9 +119,6 @@
          location = "group:../std/numeric.hpp">
       </FileRef>
       <FileRef
-         location = "group:../std/queue.hpp">
-      </FileRef>
-      <FileRef
          location = "group:../std/set.hpp">
       </FileRef>
       <FileRef

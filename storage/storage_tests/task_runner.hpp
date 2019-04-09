@@ -2,8 +2,8 @@
 
 #include "base/thread_checker.hpp"
 
-#include "std/function.hpp"
-#include "std/queue.hpp"
+#include <functional>
+#include <queue>
 
 namespace storage
 {
@@ -17,7 +17,7 @@ namespace storage
 class TaskRunner
 {
 public:
-  using TTask = function<void()>;
+  using TTask = std::function<void()>;
 
   ~TaskRunner();
 
@@ -25,7 +25,7 @@ public:
   void PostTask(TTask const & task);
 
 private:
-  queue<TTask> m_tasks;
+  std::queue<TTask> m_tasks;
 
   ThreadChecker m_checker;
 };

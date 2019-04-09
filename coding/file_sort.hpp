@@ -1,17 +1,21 @@
 #pragma once
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+
 #include "base/base.hpp"
 #include "base/logging.hpp"
 #include "base/exception.hpp"
-#include "std/algorithm.hpp"
-#include "std/cstdlib.hpp"
-#include "std/functional.hpp"
-#include "std/queue.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
+#include <cstdlib>
+#include <exception>
+#include <functional>
+#include <memory>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 
 template <typename LessT>
 struct Sorter
@@ -20,28 +24,25 @@ struct Sorter
   Sorter(LessT lessF) : m_Less(lessF) {}
   template <typename IterT> void operator() (IterT beg, IterT end) const
   {
-    sort(beg, end, m_Less);
+    std::sort(beg, end, m_Less);
   }
 };
 
-template <
-    typename T,                                       // Item type.
-    class OutputSinkT = FileWriter,                   // Sink to output into result file.
-    typename LessT = less<T>,                         // Item comparator.
-    template <typename LessT1> class SorterT = Sorter // Item sorter.
->
+template <typename T,                                        // Item type.
+          class OutputSinkT = FileWriter,                    // Sink to output into result file.
+          typename LessT = std::less<T>,                     // Item comparator.
+          template <typename LessT1> class SorterT = Sorter  // Item sorter.
+          >
 class FileSorter
 {
 public:
-  FileSorter(size_t bufferBytes,
-             string const & tmpFileName,
-             OutputSinkT & outputSink,
-             LessT fLess = LessT()) :
-  m_TmpFileName(tmpFileName),
-  m_BufferCapacity(max(size_t(16), bufferBytes / sizeof(T))),
-  m_OutputSink(outputSink),
-  m_ItemCount(0),
-  m_Less(fLess)
+  FileSorter(size_t bufferBytes, std::string const & tmpFileName, OutputSinkT & outputSink,
+             LessT fLess = LessT())
+    : m_TmpFileName(tmpFileName)
+    , m_BufferCapacity(std::max(size_t(16), bufferBytes / sizeof(T)))
+    , m_OutputSink(outputSink)
+    , m_ItemCount(0)
+    , m_Less(fLess)
   {
     m_Buffer.reserve(m_BufferCapacity);
     m_pTmpWriter.reset(new FileWriter(tmpFileName));
@@ -65,7 +66,7 @@ public:
       m_pTmpWriter.reset();
       FileReader reader(m_TmpFileName);
       ItemIndexPairGreater fGreater(m_Less);
-      PriorityQueueType q(fGreater);
+      PriorityQueue q(fGreater);
       for (uint32_t i = 0; i < m_ItemCount; i += m_BufferCapacity)
         Push(q, i, reader);
 
@@ -104,15 +105,16 @@ private:
   struct ItemIndexPairGreater
   {
     explicit ItemIndexPairGreater(LessT fLess) : m_Less(fLess) {}
-    inline bool operator() (pair<T, uint32_t> const & a, pair<T, uint32_t> const & b) const
+    inline bool operator()(std::pair<T, uint32_t> const & a, std::pair<T, uint32_t> const & b) const
     {
       return m_Less(b.first, a.first);
     }
     LessT m_Less;
   };
 
-  typedef priority_queue<pair<T, uint32_t>, vector<pair<T, uint32_t> >, ItemIndexPairGreater>
-      PriorityQueueType;
+  using PriorityQueue =
+      std::priority_queue<std::pair<T, uint32_t>, std::vector<std::pair<T, uint32_t>>,
+                          ItemIndexPairGreater>;
 
   void FlushToTmpFile()
   {
@@ -124,18 +126,18 @@ private:
     m_Buffer.clear();
   }
 
-  void Push(PriorityQueueType & q, uint32_t i, FileReader const & reader)
+  void Push(PriorityQueue & q, uint32_t i, FileReader const & reader)
   {
     T item;
     reader.Read(static_cast<uint64_t>(i) * sizeof(T), &item, sizeof(T));
-    q.push(pair<T, uint32_t>(item, i));
+    q.push(std::pair<T, uint32_t>(item, i));
   }
 
-  string const m_TmpFileName;
+  std::string const m_TmpFileName;
   size_t const m_BufferCapacity;
   OutputSinkT & m_OutputSink;
-  unique_ptr<FileWriter> m_pTmpWriter;
-  vector<T> m_Buffer;
+  std::unique_ptr<FileWriter> m_pTmpWriter;
+  std::vector<T> m_Buffer;
   uint32_t m_ItemCount;
   LessT m_Less;
 };

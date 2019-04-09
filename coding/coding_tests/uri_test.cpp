@@ -1,11 +1,17 @@
 #include "testing/testing.hpp"
+
 #include "coding/uri.hpp"
+
 #include "base/macros.hpp"
-#include "std/bind.hpp"
-#include "std/queue.hpp"
-#include "std/utility.hpp"
+
+#include <functional>
+#include <queue>
+#include <string>
+#include <utility>
 
 using url_scheme::Uri;
+
+using namespace std;
 
 namespace
 {
@@ -28,7 +34,7 @@ public:
     TEST_EQUAL(uri.GetScheme(), m_scheme, ());
     TEST_EQUAL(uri.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !uri.IsValid(), ("Scheme is empty if and only if uri is invalid!"));
-    uri.ForEachKeyValue(bind(&TestUri::AddTestValue, this, _1, _2));
+    uri.ForEachKeyValue(bind(&TestUri::AddTestValue, this, placeholders::_1, placeholders::_2));
   }
 
 private:
