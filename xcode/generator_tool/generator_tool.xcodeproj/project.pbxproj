@@ -27,6 +27,7 @@
 		3462FDAA1DC1E32C00906FD7 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD9E1DC1E28D00906FD7 /* libsearch.a */; };
 		3462FDAB1DC1E33400906FD7 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDA01DC1E29E00906FD7 /* libsuccinct.a */; };
 		34F558571DBF3CD800A4FC11 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558561DBF3CD800A4FC11 /* libstdc++.tbd */; };
+		401E3189225C988500DE7EB8 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 401E3188225C988500DE7EB8 /* libdescriptions.a */; };
 		4491F494213D6B470011834F /* speed_cameras_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4491F490213D46380011834F /* speed_cameras_test.cpp */; };
 		4491F496213D6B8E0011834F /* osm2meta_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677E2A0B1CAAC7CB001DC42A /* osm2meta_test.cpp */; };
 		4491F497213D6BA00011834F /* tag_admixer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677E2A0C1CAAC7CB001DC42A /* tag_admixer_test.cpp */; };
@@ -220,6 +221,7 @@
 		34F558531DBF3ACC00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558541DBF3ACC00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34F558561DBF3CD800A4FC11 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		401E3188225C988500DE7EB8 /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4491F490213D46380011834F /* speed_cameras_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_test.cpp; sourceTree = "<group>"; };
 		562147261F6AA36A002D2214 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		562147281F6AA37E002D2214 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gsfdicnjgjjbizhdmwedavcucpok/Build/Products/Debug/libmwm_diff.a"; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				401E3189225C988500DE7EB8 /* libdescriptions.a in Frameworks */,
 				56EE14CD1FE803EA0036F20C /* libtransit.a in Frameworks */,
 				562D42961FD8463700A995F3 /* libsqlite3.tbd in Frameworks */,
 				562D42941FD8460500A995F3 /* libugc.a in Frameworks */,
@@ -471,6 +474,7 @@
 		34F558551DBF3CD800A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				401E3188225C988500DE7EB8 /* libdescriptions.a */,
 				671ED3CA20D40A8C00D4317E /* libminizip.a */,
 				671ED3C820D40A3E00D4317E /* libgenerator_tests_support.a */,
 				671ED3C620D40A2000D4317E /* libplatform_tests_support.a */,
