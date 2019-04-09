@@ -17,12 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.dialog.DrivingOptionsDialogFactory;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiInfo;
@@ -82,6 +80,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     void onBuiltRoute();
     void onRouteWarningReceived();
     boolean isSubwayEnabled();
+    void onBuildError(int lastResultCode, @NonNull String[] lastMissingMaps);
+    void onCalculateRouteError();
 
     /**
      * @param progress progress to be displayed.
@@ -213,8 +213,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     if (ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
     {
-      RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
-      fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
+      mContainer.onBuildError(mLastResultCode, mLastMissingMaps);
       return;
     }
 
@@ -223,23 +222,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     updateProgress();
 
     if (RoutingOptions.hasAnyOptions())
-      showUnableCalculateRouteFirstTimeDialog();
-  }
-
-  private void showUnableCalculateRouteFirstTimeDialog()
-  {
-    com.mapswithme.maps.dialog.AlertDialog dialog =
-        new com.mapswithme.maps.dialog.AlertDialog.Builder()
-        .setTitleId(R.string.unable_to_calc_alert_title)
-        .setMessageId(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveBtnId(R.string.settings)
-        .setNegativeBtnId(R.string.cancel)
-        .setReqCode(MwmActivity.REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
-        .setDialogFactory(new DrivingOptionsDialogFactory())
-        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-        .build();
-    dialog.show(mContainer.getActivity(),
-                MwmActivity.ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
+      mContainer.onCalculateRouteError();
   }
 
   private void setState(State newState)
@@ -426,7 +409,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void prepare()
   {
-    prepare(getStartPoint(), getEndPoint(), getEndPoint() == null);
+    prepare(getStartPoint(), getEndPoint(), false);
   }
 
   public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
@@ -861,9 +844,9 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private void setPointsInternal(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    boolean hasStart = startPoint != null;
-    boolean hasEnd = endPoint != null;
-    boolean hasOnePointAtLeast = hasStart || hasEnd;
+    final boolean hasStart = startPoint != null;
+    final boolean hasEnd = endPoint != null;
+    final boolean hasOnePointAtLeast = hasStart || hasEnd;
 
     if (hasOnePointAtLeast)
       applyRemovingIntermediatePointsTransaction();

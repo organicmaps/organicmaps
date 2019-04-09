@@ -8,6 +8,6 @@ public class DrivingOptionsDialogFactory implements DialogFactory
   @Override
   public AlertDialog createDialog()
   {
-    return new DrivingOptionsDialog();
+    return new ActivityCallbackAlertDialog();
   }
 }

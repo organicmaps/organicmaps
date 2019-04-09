@@ -89,8 +89,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     super.onAttach(context);
     try
     {
-      mTargetCallback = (AlertDialogCallback) (getParentFragment() == null ? getTargetFragment()
-                                                                           : getParentFragment());
+      onAttachInternal();
     }
     catch (ClassCastException e)
     {
@@ -98,6 +97,12 @@ public class AlertDialog extends BaseMwmDialogFragment
       logger.w(AlertDialog.class.getSimpleName(),
                "Caller doesn't implement AlertDialogCallback interface.");
     }
+  }
+
+  protected void onAttachInternal()
+  {
+    mTargetCallback = (AlertDialogCallback) (getParentFragment() == null ? getTargetFragment()
+                                                                         : getParentFragment());
   }
 
   @Override

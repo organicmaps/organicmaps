@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
@@ -52,6 +51,7 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.DialogUtils;
+import com.mapswithme.maps.dialog.DrivingOptionsDialogFactory;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
 import com.mapswithme.maps.discovery.ItemType;
@@ -85,7 +85,7 @@ import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.routing.RoutingOptions;
+import com.mapswithme.maps.routing.RoutingErrorDialogFragment;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.BookingFilterParams;
@@ -915,6 +915,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mRoutingPlanInplaceController == null)
       return;
+
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     RoutingController.get().attach(this);
     RoutingController.get().prepare();
@@ -1945,16 +1946,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private int calcFloatingViewOffset()
   {
+    int extraOppositeOffset;
     if (mRoutingPlanInplaceController == null
-        || mRoutingPlanInplaceController.getFrame().getHeight() == 0)
+        || (extraOppositeOffset = mRoutingPlanInplaceController.calcFloatingViewsOffset()) == 0)
       return UiUtils.getStatusBarHeight(this);
 
-    View driverOptionsView = mRoutingPlanInplaceController.getDrivingOptionsBtnContainer();
-    int extraOppositeOffset = driverOptionsView.getVisibility() == View.VISIBLE
-                              ? 0
-                              : driverOptionsView.getHeight();
-
-    return mRoutingPlanInplaceController.getFrame().getHeight() - extraOppositeOffset;
+    return extraOppositeOffset;
   }
 
   @Override
@@ -2083,6 +2080,35 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean isSubwayEnabled()
   {
     return SubwayManager.from(this).isEnabled();
+  }
+
+  @Override
+  public void onBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  {
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(lastResultCode, lastMissingMaps);
+    fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
+  }
+
+  @Override
+  public void onCalculateRouteError()
+  {
+    showUnableCalculateRouteFirstTimeDialog();
+  }
+
+  private void showUnableCalculateRouteFirstTimeDialog()
+  {
+    com.mapswithme.maps.dialog.AlertDialog dialog =
+        new com.mapswithme.maps.dialog.AlertDialog.Builder()
+            .setTitleId(R.string.unable_to_calc_alert_title)
+            .setMessageId(R.string.unable_to_calc_alert_subtitle)
+            .setPositiveBtnId(R.string.settings)
+            .setNegativeBtnId(R.string.cancel)
+            .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+            .setDialogFactory(new DrivingOptionsDialogFactory())
+            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+            .build();
+    dialog.show(this,
+                ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
   }
 
   private void updateSearchBar()

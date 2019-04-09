@@ -80,7 +80,8 @@ public class RoutingPlanController extends ToolbarController
   }
 
   RoutingPlanController(View root, Activity activity,
-                        @NonNull RoutingPlanInplaceController.RoutingPlanListener routingPlanListener, @Nullable RoutingBottomMenuListener listener)
+                        @NonNull RoutingPlanInplaceController.RoutingPlanListener routingPlanListener,
+                        @Nullable RoutingBottomMenuListener listener)
   {
     super(root, activity);
     mFrame = root;
@@ -106,13 +107,13 @@ public class RoutingPlanController extends ToolbarController
   }
 
   @NonNull
-  public View getFrame()
+  protected View getFrame()
   {
     return mFrame;
   }
 
   @NonNull
-  public View getDrivingOptionsBtnContainer()
+  private View getDrivingOptionsBtnContainer()
   {
     return mDrivingOptionsBtnContainer;
   }
@@ -359,6 +360,19 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.hide(mDrivingOptionsBtnContainer);
   }
 
+  public int calcFloatingViewsOffset()
+  {
+    int frameHeight = getFrame().getHeight();
+    if (frameHeight == 0)
+      return 0;
+
+    View driverOptionsView = getDrivingOptionsBtnContainer();
+    int extraOppositeOffset = driverOptionsView.getVisibility() == View.VISIBLE
+                              ? 0
+                              : driverOptionsView.getHeight();
+
+    return frameHeight - extraOppositeOffset;
+  }
 
   private class SelfTerminatedDrivingOptionsLayoutListener implements View.OnLayoutChangeListener
   {
