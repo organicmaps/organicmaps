@@ -96,7 +96,8 @@ public:
     RegenerateTransitScheme,
     FlushTransitScheme,
     ShowDebugInfo,
-    NotifyRenderThread
+    NotifyRenderThread,
+    NotifyGraphicsReady,
   };
 
   virtual ~Message() = default;

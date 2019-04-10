@@ -84,16 +84,15 @@ public:
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
-           TModelViewChanged const & modelViewChangedFn, TGraphicsReadyFn const & graphicsReayFn,
-           TTapEventInfoFn const & tapEventFn, TUserPositionChangedFn const & positionChangedFn,
-           ref_ptr<RequestedTiles> requestedTiles, OverlaysShowStatsCallback && overlaysShowStatsCallback,
+           TModelViewChanged const & modelViewChangedFn, TTapEventInfoFn const & tapEventFn,
+           TUserPositionChangedFn const & positionChangedFn, ref_ptr<RequestedTiles> requestedTiles,
+           OverlaysShowStatsCallback && overlaysShowStatsCallback,
            bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
            std::vector<PostprocessRenderer::Effect> && enabledEffects)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
-      , m_graphicsReadyFn(graphicsReayFn)
       , m_tapEventFn(tapEventFn)
       , m_positionChangedFn(positionChangedFn)
       , m_requestedTiles(requestedTiles)
@@ -107,7 +106,6 @@ public:
     MyPositionController::Params m_myPositionParams;
     dp::Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
-    TGraphicsReadyFn m_graphicsReadyFn;
     TTapEventInfoFn m_tapEventFn;
     TUserPositionChangedFn m_positionChangedFn;
     ref_ptr<RequestedTiles> m_requestedTiles;
@@ -191,6 +189,10 @@ private:
   void BuildOverlayTree(ScreenBase const & modelView);
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  void EmitGraphicsReady();
+#endif
 
   TTilesCollection ResolveTileKeys(ScreenBase const & screen);
   void ResolveZoomLevel(ScreenBase const & screen);
@@ -315,7 +317,6 @@ private:
   dp::Viewport m_viewport;
   UserEventStream m_userEventStream;
   TModelViewChanged m_modelViewChangedFn;
-  TGraphicsReadyFn m_graphicsReadyFn;
   TTapEventInfoFn m_tapEventInfoFn;
   TUserPositionChangedFn m_userPositionChangedFn;
 
@@ -372,6 +373,19 @@ private:
   bool m_firstTilesReady = false;
   bool m_firstLaunchAnimationTriggered = false;
   bool m_firstLaunchAnimationInterrupted = false;
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  TGraphicsReadyFn m_graphicsReadyFn;
+
+  enum class GraphicsStage
+  {
+    Unknown,
+    WaitReady,
+    WaitRendering,
+    Rendered
+  };
+  GraphicsStage m_graphicsStage = GraphicsStage::Unknown;
+#endif
 
   bool m_finishTexturesInitialization = false;
   drape_ptr<ScreenQuadRenderer> m_transitBackground;

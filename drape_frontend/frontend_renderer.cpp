@@ -192,7 +192,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
-  , m_graphicsReadyFn(params.m_graphicsReadyFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_requestedTiles(params.m_requestedTiles)
@@ -351,8 +350,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         DrapeMeasurer::Instance().EndScenePreparing();
 #endif
         m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
-        if (m_graphicsReadyFn)
-          m_graphicsReadyFn();
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+        if (m_graphicsStage == GraphicsStage::WaitReady)
+          m_graphicsStage = GraphicsStage::WaitRendering;
+#endif
       }
       break;
     }
@@ -999,6 +1001,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  case Message::Type::NotifyGraphicsReady:
+    {
+      ref_ptr<NotifyGraphicsReadyMessage> msg = message;
+      m_graphicsReadyFn = msg->GetCallback();
+      if (m_graphicsReadyFn)
+      {
+        m_graphicsStage = GraphicsStage::WaitReady;
+        InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+      }
+      break;
+    }
+#endif
+
   default:
     ASSERT(false, ());
   }
@@ -1436,6 +1452,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
                           modelView);
   }
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  if (m_graphicsStage == GraphicsStage::WaitRendering)
+    m_graphicsStage = GraphicsStage::Rendered;
+#endif
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -1714,6 +1735,9 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
   if (canSuspend)
   {
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+    EmitGraphicsReady();
+#endif
     // Process a message or wait for a message.
     // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
     // possibility of infinity waiting in ProcessSingleMessage.
@@ -2473,6 +2497,19 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 {
   m_modelViewChangedFn(modelView);
 }
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+void FrontendRenderer::EmitGraphicsReady()
+{
+  if (m_graphicsStage == GraphicsStage::Rendered)
+  {
+    if (m_graphicsReadyFn)
+      m_graphicsReadyFn();
+    m_graphicsStage = GraphicsStage::Unknown;
+    m_graphicsReadyFn = nullptr;
+  }
+}
+#endif
 
 void FrontendRenderer::OnPrepareRouteArrows(dp::DrapeID subrouteIndex, std::vector<ArrowBorders> && borders)
 {

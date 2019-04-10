@@ -78,7 +78,6 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::move(mpParams),
                                     m_viewport,
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
-                                    std::bind(&DrapeEngine::GraphicsReady, this),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
                                     make_ref(m_requestedTiles),
@@ -421,12 +420,6 @@ void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
     m_modelViewChanged(screen);
 }
 
-void DrapeEngine::GraphicsReady()
-{
-  if (m_graphicsReady != nullptr)
-    m_graphicsReady();
-}
-
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   settings::Set(settings::kLocationStateMode, mode);
@@ -505,10 +498,14 @@ void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
   m_modelViewChanged = std::move(fn);
 }
 
-void DrapeEngine::SetGraphicsReadyListener(TGraphicsReadyFn && fn)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+void DrapeEngine::NotifyGraphicsReady(TGraphicsReadyFn const & fn)
 {
-  m_graphicsReady = std::move(fn);
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<NotifyGraphicsReadyMessage>(fn),
+                                  MessagePriority::Normal);
 }
+#endif
 
 void DrapeEngine::SetTapEventInfoListener(TTapEventInfoFn && fn)
 {

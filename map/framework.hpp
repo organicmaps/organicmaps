@@ -207,9 +207,6 @@ protected:
   using TViewportChangedFn = df::DrapeEngine::TModelViewListenerFn;
   TViewportChangedFn m_viewportChangedFn;
 
-  using TGraphicsReadyfn = df::DrapeEngine::TGraphicsReadyFn;
-  TGraphicsReadyfn m_graphicsReadyFn;
-
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
   double m_startForegroundTime = 0.0;
@@ -640,7 +637,11 @@ public:
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
   void SetViewportListener(TViewportChangedFn const & fn);
-  void SetGraphicsReadyListener(TGraphicsReadyfn const & fn);
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  using TGraphicsReadyFn = df::DrapeEngine::TGraphicsReadyFn;
+  void NotifyGraphicsReady(TGraphicsReadyFn const & fn);
+#endif
 
   void StopLocationFollow();
 

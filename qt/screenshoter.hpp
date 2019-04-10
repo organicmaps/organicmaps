@@ -57,6 +57,7 @@ private:
   void ProcessNextKml();
   void PrepareCountries();
   void SaveScreenshot();
+  void WaitGraphics();
   void ChangeState(State newState);
 
   friend std::string DebugPrint(State state);

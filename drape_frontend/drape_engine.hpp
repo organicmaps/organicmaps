@@ -138,8 +138,10 @@ public:
   using TModelViewListenerFn = FrontendRenderer::TModelViewChanged;
   void SetModelViewListener(TModelViewListenerFn && fn);
 
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   using TGraphicsReadyFn = FrontendRenderer::TGraphicsReadyFn;
-  void SetGraphicsReadyListener(TGraphicsReadyFn && fn);
+  void NotifyGraphicsReady(TGraphicsReadyFn const & fn);
+#endif
 
   void ClearUserMarksGroup(kml::MarkGroupId groupId);
   void ChangeVisibilityUserMarksGroup(kml::MarkGroupId groupId, bool isVisible);
@@ -237,8 +239,6 @@ private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void PostUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);
-  void GraphicsReady();
-
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position, bool hasPosition);
@@ -263,7 +263,6 @@ private:
   dp::Viewport m_viewport;
 
   TModelViewListenerFn m_modelViewChanged;
-  TGraphicsReadyFn m_graphicsReady;
   TUserPositionChangedFn m_userPositionChanged;
   TTapEventInfoFn m_tapListener;
 

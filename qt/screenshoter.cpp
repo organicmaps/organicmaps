@@ -1,10 +1,12 @@
 #include "qt/screenshoter.hpp"
 
-#include "storage/storage.hpp"
-
 #include "map/bookmark_helpers.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
+
+#include "storage/storage.hpp"
+
+#include "platform/preferred_languages.hpp"
 
 #include "coding/file_name_utils.hpp"
 
@@ -25,7 +27,6 @@ Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework 
 {
   m_framework.GetStorage().Subscribe(std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
                                      [](storage::CountryId const &, storage::MapFilesDownloader::Progress const &) {});
-
 }
 
 void Screenshoter::Start()
@@ -41,8 +42,6 @@ void Screenshoter::Start()
     ChangeState(State::FileError);
     return;
   }
-
-  m_framework.SetGraphicsReadyListener(std::bind(&Screenshoter::OnGraphicsReady, this));
 
   Platform::FilesList files;
   Platform::GetFilesByExt(m_screenshotParams.m_kmlPath, kKmlExtension, files);
@@ -63,12 +62,13 @@ void Screenshoter::ProcessNextKml()
   CHECK_EQUAL(m_state, State::Ready, ());
   ChangeState(State::LoadKml);
 
+  std::string const prefix = languages::GetCurrentNorm() + "_";
   std::unique_ptr<kml::FileData> kmlData;
   while (kmlData == nullptr && !m_filesToProcess.empty())
   {
     auto const filePath = m_filesToProcess.front();
     m_filesToProcess.pop_front();
-    m_nextScreenshotName = base::GetNameFromFullPathWithoutExt(filePath);
+    m_nextScreenshotName = prefix + base::GetNameFromFullPathWithoutExt(filePath);
 
     kmlData = LoadKmlFile(filePath, KmlFileType::Text);
     if (kmlData != nullptr && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
@@ -78,14 +78,10 @@ void Screenshoter::ProcessNextKml()
   if (kmlData == nullptr)
   {
     ChangeState(State::Done);
-    m_framework.SetGraphicsReadyListener(nullptr);
     return;
   }
 
   kmlData->m_categoryData.m_visible = true;
-
-  if (!kmlData->m_serverId.empty())
-    m_nextScreenshotName = kmlData->m_serverId;
 
   BookmarkManager::KMLDataCollection collection;
   collection.emplace_back("", std::move(kmlData));
@@ -126,10 +122,7 @@ void Screenshoter::PrepareCountries()
   }
 
   if (m_countriesToDownload.empty())
-  {
-    ChangeState(State::WaitGraphics);
-    m_framework.InvalidateRect(m_framework.GetCurrentViewport());
-  }
+    WaitGraphics();
 }
 
 void Screenshoter::OnCountryChanged(storage::CountryId countryId)
@@ -138,16 +131,11 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
     return;
 
   auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
-  if (status == storage::Status::EOnDisk ||
-      status == storage::Status::EDownloadFailed ||
-      status == storage::Status::EOutOfMemFailed)
+  if (status == storage::Status::EOnDisk)
   {
     m_countriesToDownload.erase(countryId);
     if (m_countriesToDownload.empty())
-    {
-      ChangeState(State::WaitGraphics);
-      m_framework.InvalidateRect(m_framework.GetCurrentViewport());
-    }
+      WaitGraphics();
   }
 }
 
@@ -165,11 +153,15 @@ void Screenshoter::OnGraphicsReady()
     return;
 
   ChangeState(State::Ready);
+  SaveScreenshot();
+}
 
-  auto const kWaitGraphicsDelay = seconds(1);
-  GetPlatform().RunDelayedTask(Platform::Thread::File, kWaitGraphicsDelay, [this]()
+void Screenshoter::WaitGraphics()
+{
+  ChangeState(State::WaitGraphics);
+  m_framework.NotifyGraphicsReady([this]()
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this]() { SaveScreenshot(); });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); });
   });
 }
 

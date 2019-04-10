@@ -1267,15 +1267,13 @@ void Framework::SetViewportListener(TViewportChangedFn const & fn)
   m_viewportChangedFn = fn;
 }
 
-void Framework::SetGraphicsReadyListener(TGraphicsReadyfn const & fn)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+void Framework::NotifyGraphicsReady(TGraphicsReadyFn const & fn)
 {
-  m_graphicsReadyFn = fn;
-  m_drapeEngine->SetGraphicsReadyListener(
-    m_graphicsReadyFn == nullptr ? static_cast<TGraphicsReadyfn>(nullptr) : [this]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this](){ m_graphicsReadyFn(); });
-  });
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->NotifyGraphicsReady(fn);
 }
+#endif
 
 void Framework::StopLocationFollow()
 {

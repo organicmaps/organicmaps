@@ -936,6 +936,23 @@ private:
   RequestSymbolsSizeCallback m_callback;
 };
 
+class NotifyGraphicsReadyMessage : public Message
+{
+public:
+  using GraphicsReadyCallback = std::function<void()>;
+
+  NotifyGraphicsReadyMessage(GraphicsReadyCallback const & callback)
+    : m_callback(callback)
+  {}
+
+  Type GetType() const override { return Type::NotifyGraphicsReady; }
+
+  GraphicsReadyCallback GetCallback() { return m_callback; }
+
+private:
+  GraphicsReadyCallback m_callback;
+};
+
 class EnableTrafficMessage : public Message
 {
 public:
