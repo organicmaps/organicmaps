@@ -126,8 +126,6 @@ set(
   query_params.hpp
   query_saver.cpp
   query_saver.hpp
-  rank_table_cache.cpp
-  rank_table_cache.hpp
   ranker.cpp
   ranker.hpp
   ranking_info.cpp

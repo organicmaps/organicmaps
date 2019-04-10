@@ -9,7 +9,6 @@
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/pre_ranker.hpp"
-#include "search/rank_table_cache.hpp"
 #include "search/ranker.hpp"
 #include "search/search_params.hpp"
 #include "search/search_trie.hpp"
