@@ -92,7 +92,8 @@ dependencies {
   implementation 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
-  implementation 'com.appsflyer:af-android-sdk:4.8.7'
+  implementation 'com.appsflyer:af-android-sdk:4.9.0'
+  implementation 'com.android.installreferrer:installreferrer:1.0'
   implementation ("ru.mail:libnotify:0.1.177-notify-support-v107-sdk-26@aar") {
     transitive = true
     changing = true

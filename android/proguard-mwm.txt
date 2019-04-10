@@ -21,6 +21,7 @@
 # appsFlyer
 -keep class com.appsflyer.** { *; }
 -dontwarn com.appsflyer.**
+-dontwarn com.android.installreferrer
 
 # myTarget
 # Remove this dontwarn when MyTarget is updated to 4.6.15

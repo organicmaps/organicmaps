@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -473,6 +474,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       else
       {
         mAreResourcesDownloaded = true;
+        mMapTaskToForward = processIntent();
         showMap();
       }
     }
@@ -491,6 +493,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return null;
 
+    MwmApplication application = (MwmApplication) getApplicationContext();
+    String firstLaunchDeeplink = application.getMediator().retrieveFirstLaunchDeeplink();
+    if (!TextUtils.isEmpty(firstLaunchDeeplink))
+      intent.setData(Uri.parse(firstLaunchDeeplink));
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
+import com.appsflyer.AppsFlyerConversionListener;
 import com.appsflyer.AppsFlyerLib;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -32,6 +33,7 @@ import com.my.target.common.MyTargetPrivacy;
 import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class ExternalLibrariesMediator
 {
@@ -47,6 +49,8 @@ public class ExternalLibrariesMediator
   private boolean mEventLoggerInitialized;
   @Nullable
   private AdvertisingInfo mAdvertisingInfo;
+  @Nullable
+  private String mFirstLaunchDeepLink;
 
   public ExternalLibrariesMediator(@NonNull Application application)
   {
@@ -82,12 +86,9 @@ public class ExternalLibrariesMediator
 
   private void initAppsFlyer()
   {
-    // There is no necessary to use a conversion data listener for a while.
-    // When it's needed keep in mind that the core can't be used from the mentioned listener unless
-    // the AppsFlyer sdk initializes after core initialization.
-    AppsFlyerLib.getInstance().init(PrivateVariables.appsFlyerKey(),
-                                    null /* conversionDataListener */);
+    AppsFlyerLib.getInstance().init(PrivateVariables.appsFlyerKey(), new FirstLaunchDeeplinkListener());
     AppsFlyerLib.getInstance().setDebugLog(BuildConfig.DEBUG);
+    AppsFlyerLib.getInstance().setResolveDeepLinkURLs();
     AppsFlyerLib.getInstance().startTracking(mApplication);
   }
 
@@ -199,6 +200,60 @@ public class ExternalLibrariesMediator
       return;
 
     MyTargetPrivacy.setUserConsent(false);
+  }
+
+  @Nullable
+  public String retrieveFirstLaunchDeeplink()
+  {
+    String firstLaunchDeepLink = mFirstLaunchDeepLink;
+    mFirstLaunchDeepLink = null;
+    return firstLaunchDeepLink;
+  }
+
+  private class FirstLaunchDeeplinkListener implements AppsFlyerConversionListener
+  {
+    @Override
+    public void onInstallConversionDataLoaded(Map<String, String> conversionData)
+    {
+      if (conversionData == null || conversionData.isEmpty())
+        return;
+
+      for (String attrName : conversionData.keySet())
+      {
+        LOGGER.d(TAG, "onInstallConversion attribute: " + attrName + " = "
+                      + conversionData.get(attrName));
+      }
+
+      if (!AppsFlyerUtils.isFirstLaunch(conversionData))
+        return;
+
+      mFirstLaunchDeepLink = AppsFlyerUtils.getDeepLink(conversionData);
+    }
+
+    @Override
+    public void onInstallConversionFailure(String errorMessage)
+    {
+      LOGGER.e(TAG, "onInstallConversionFailure: " + errorMessage);
+    }
+
+    @Override
+    public void onAppOpenAttribution(Map<String, String> conversionData)
+    {
+      if (conversionData == null || conversionData.isEmpty())
+        return;
+
+      for (String attrName : conversionData.keySet())
+      {
+        LOGGER.d(TAG, "onAppOpenAttribution attribute: " + attrName + " = "
+                      + conversionData.get(attrName));
+      }
+    }
+
+    @Override
+    public void onAttributionFailure(String errorMessage)
+    {
+      LOGGER.d(TAG, "onAttributionFailure: " + errorMessage);
+    }
   }
 
   private static class GetAdInfoTask extends AsyncTask<Void, Void, AdvertisingInfo>
