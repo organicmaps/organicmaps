@@ -58,6 +58,9 @@ void SetVerticalStretch(QWidget & widget, int stretch)
 SampleView::SampleView(QWidget * parent, Framework & framework)
   : QWidget(parent), m_framework(framework)
 {
+  m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::SEARCH, true);
+  m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::COLORED, true);
+
   auto * mainLayout = BuildLayout<QVBoxLayout>(this /* parent */);
 
   // When the dock for SampleView is attached to the right side of the
@@ -242,8 +245,6 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::SEARCH, true);
-
   m_nonFoundResults->Clear();
 
   bool allDeleted = true;
@@ -343,10 +344,21 @@ void SampleView::OnRemoveNonFoundResult(int row) { m_nonFoundResultsEdits->Delet
 
 void SampleView::ShowUserPosition(m2::PointD const & position)
 {
-  m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(position));
+  // Clear the old position.
+  HideUserPosition();
+
+  auto es = m_framework.GetBookmarkManager().GetEditSession();
+  auto mark = es.CreateUserMark<ColoredMarkPoint>(position);
+  mark->SetColor(dp::Color(200, 100, 240, 255) /* purple */);
+  mark->SetRadius(8.0f);
+  m_positionMarkId = mark->GetId();
 }
 
 void SampleView::HideUserPosition()
 {
-  m_framework.OnLocationError(location::EGPSIsOff);
+  if (m_positionMarkId == kml::kInvalidMarkId)
+    return;
+
+  m_framework.GetBookmarkManager().GetEditSession().DeleteUserMark(m_positionMarkId);
+  m_positionMarkId = kml::kInvalidMarkId;
 }

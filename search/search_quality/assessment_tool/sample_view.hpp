@@ -6,6 +6,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "kml/type_utils.hpp"
+
 #include <boost/optional.hpp>
 
 #include <QtCore/QMargins>
@@ -89,6 +91,8 @@ private:
 
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;
+
+  kml::MarkId m_positionMarkId = kml::kInvalidMarkId;
 
   boost::optional<m2::PointD> m_position;
 };
