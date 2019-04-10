@@ -64,3 +64,9 @@ if git clone --depth 1 "$PRIVATE_REPO" "$TMP_REPO_DIR"; then
   rm -rf "$TMP_REPO_DIR"
   echo "Private files have been updated."
 fi
+
+git submodule update --init --recursive
+cd $BASE_PATH/3party/boost/
+./bootstrap.sh
+./b2 headers
+cd $BASE_PATH
