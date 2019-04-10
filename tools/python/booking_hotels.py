@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 LIMIT_REQUESTS_PER_MINUTE = 400
 ATTEMPTS_COUNT = 10
-MAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS = 120
+MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS = (30, 120)
 SUPPORTED_LANGUAGES = ("en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de",
                        "hu", "id", "it", "ja", "ko", "pl", "pt", "ro", "es",
                        "sv", "th", "tr", "uk", "vi", "zh", "he", "sk", "el")
@@ -40,11 +40,15 @@ class AttemptsSpentError(AppError):
     pass
 
 
+class GettingMinPriceError(AppError):
+    pass
+
+
 class BookingApi:
-    _ENDPOINTS = (
-        "countries",
-        "hotels"
-    )
+    ENDPOINTS = {
+        "countries": "list",
+        "hotels": "list"
+    }
 
     def __init__(self, login, password, version):
         major_minor = version.split(".")
@@ -54,6 +58,7 @@ class BookingApi:
 
         self._event = Event()
         self._event.set()
+        self._timeout = 5 * 60  # in seconds
         self._login = login
         self._password = password
         self._base_url = f"https://distribution-xml.booking.com/{version}/json"
@@ -67,9 +72,14 @@ class BookingApi:
             attempts = ATTEMPTS_COUNT
             while attempts:
                 attempts -= 1
-                response = requests.post(f"{self._base_url}/{endpoint}",
-                                         auth=(self._login, self._password),
-                                         params=params)
+                response = None
+                try:
+                    response = requests.get(f"{self._base_url}/{endpoint}",
+                                            auth=(self._login, self._password),
+                                            params=params, timeout=self._timeout)
+                except requests.exceptions.ReadTimeout:
+                    logging.exception("Timeout error.")
+                    continue
                 if response.status_code == 200:
                     data = response.json()
                     return data["result"]
@@ -81,44 +91,38 @@ class BookingApi:
                 self._event.set()
             raise e
 
-    def _handle_errors(self, response, ):
+    def _handle_errors(self, response):
         error_message = ""
+        data = response.json()
         try:
-            data = response.json()
             error_message = ",".join(x["message"] for x in data["errors"])
-        except:
-            pass
+        except KeyError:
+            error_message = data
+
         if response.status_code == 429:
             self._event.clear()
-            wait_seconds = randint(0, MAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS)
-            sleep(wait_seconds)
+            wait_seconds = randint(*MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS)
             logging.warning(f"Http error {response.status_code}: {error_message}. "
                             f"It waits {wait_seconds} seconds and tries again.")
+            sleep(wait_seconds)
             self._event.set()
         else:
             raise HTTPError(
                 f"Http error with code {response.status_code}: {error_message}.")
 
     def _set_endpoints(self):
-        for endpoint in BookingApi._ENDPOINTS:
+        for endpoint in BookingApi.ENDPOINTS:
             setattr(self, endpoint, partial(self.call_endpoint, endpoint))
 
 
 class BookingListApi:
     _ROWS_BY_REQUEST = 1000
-    _ENDPOINTS = (
-        "countries",
-        "hotels"
-    )
 
     def __init__(self, api):
         self.api = api
         self._set_endpoints()
 
     def call_endpoint(self, endpoint, **params):
-        return self._call_simple_endpoint(endpoint, **params)
-
-    def _call_simple_endpoint(self, endpoint, **params):
         result = []
         offset = 0
         while True:
@@ -140,8 +144,9 @@ class BookingListApi:
         return r
 
     def _set_endpoints(self):
-        for endpoint in BookingListApi._ENDPOINTS:
-            setattr(self, endpoint, partial(self.call_endpoint, endpoint))
+        for endpoint in BookingApi.ENDPOINTS:
+            if BookingApi.ENDPOINTS[endpoint] == "list":
+                setattr(self, endpoint, partial(self.call_endpoint, endpoint))
 
 
 class BookingGen:
@@ -151,24 +156,23 @@ class BookingGen:
         self.country_name = country["name"]
         logging.info(f"Download[{self.country_code}]: {self.country_name}")
 
-        extras = ["hotel_info", "hotel_description", "room_info"]
-        self.hotels = self._download_hotels(extras)
+        extras = ["hotel_info", "room_info"]
+        self.hotels = self._download_hotels(extras=extras)
         self.translations = self._download_translations()
         self.currency_medians = self._currency_medians_by_cities()
 
-    def generate_csv_rows(self, sep="\t"):
+    def generate_tsv_rows(self, sep="\t"):
         self._fix_hotels()
-        return (self._create_csv_hotel_line(hotel, sep) for hotel in self.hotels)
+        return (self._create_tsv_hotel_line(hotel, sep) for hotel in self.hotels)
 
     @staticmethod
     def _get_hotel_min_price(hotel):
         prices = (float(x["room_info"]["min_price"]) for x in hotel["room_data"])
-        flt = filter(lambda x: math.isclose(x, 0.0),
-                     prices)
+        flt = filter(lambda x: not math.isclose(x, 0.0), prices)
         try:
             return min(flt)
         except ValueError:
-            return None
+            raise GettingMinPriceError(f"Getting min price error: {prices}.")
 
     @staticmethod
     def _format_string(s):
@@ -177,15 +181,14 @@ class BookingGen:
             s = s.replace(*x)
         return s
 
-    def _download_hotels(self, extras, lang="default"):
-        return self.api.hotels(country_ids=self.country_code, language=lang,
-                               extras=extras)
+    def _download_hotels(self, **params):
+        return self.api.hotels(country_ids=self.country_code, **params)
 
     def _download_translations(self):
         extras = ["hotel_info", ]
         translations = defaultdict(dict)
         with ThreadPoolExecutor(max_workers=len(SUPPORTED_LANGUAGES)) as executor:
-            m = {executor.submit(self._download_hotels, extras, lang): lang
+            m = {executor.submit(self._download_hotels, extras=extras, language=lang): lang
                  for lang in SUPPORTED_LANGUAGES}
             for future in as_completed(m):
                 lang = m[future]
@@ -200,7 +203,9 @@ class BookingGen:
         return translations
 
     def _fix_hotels(self):
-        if self.country_code == "ch":
+        if self.country_code == "cn":
+            # Fix chinese coordinates.
+            # https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China
             for hotel in self.hotels:
                 hotel_data = hotel["hotel_data"]
                 location = hotel_data["location"]
@@ -217,9 +222,12 @@ class BookingGen:
             hotel_data = hotel["hotel_data"]
             city_id = hotel_data["city_id"]
             currency = hotel_data["currency"]
-            price = BookingGen._get_hotel_min_price(hotel)
-            if price is not None:
-                cities[city_id][currency].append(price)
+            try:
+                price = BookingGen._get_hotel_min_price(hotel)
+            except GettingMinPriceError:
+                logging.exception("Getting min price error.")
+                continue
+            cities[city_id][currency].append(price)
 
         for city in cities:
             for currency in cities[city]:
@@ -233,13 +241,17 @@ class BookingGen:
         hotel_data = hotel["hotel_data"]
         city_id = hotel_data["city_id"]
         currency = hotel_data["currency"]
-        price = BookingGen._get_hotel_min_price(hotel)
-        if price is not None:
-            avg = self.currency_medians[city_id][currency]
-            rate = 1
-            # Find a range that contains the price
-            while rate <= len(rates) and price > avg * rates[rate - 1]:
-                rate += 1
+        price = None
+        try:
+            price = BookingGen._get_hotel_min_price(hotel)
+        except GettingMinPriceError:
+            logging.exception("Getting min price error.")
+            return rate
+        avg = self.currency_medians[city_id][currency]
+        rate = 1
+        # Find a range that contains the price
+        while rate <= len(rates) and price > avg * rates[rate - 1]:
+            rate += 1
         return rate
 
     def _get_translations(self, hotel):
@@ -265,7 +277,7 @@ class BookingGen:
             tr_list.extend([tr_values[e] for e in ("name", "address")])
         return "|".join(s.replace("|", ";") for s in tr_list)
 
-    def _create_csv_hotel_line(self, hotel, sep="\t"):
+    def _create_tsv_hotel_line(self, hotel, sep="\t"):
         hotel_data = hotel["hotel_data"]
         location = hotel_data["location"]
         row = (
@@ -287,31 +299,32 @@ class BookingGen:
 
 def download_hotels_by_country(api, country):
     generator = BookingGen(api, country)
-    rows = list(generator.generate_csv_rows())
+    rows = list(generator.generate_tsv_rows())
     logging.info(f"For {country['name']} {len(rows)} lines were generated.")
     return rows
 
 
-def download(user, password, path, threads_count, bar):
+def download(country_code, user, password, path, threads_count, progress_bar):
     api = BookingApi(user, password, "2.4")
     list_api = BookingListApi(api)
     countries = list_api.countries(languages="en")
+    if country_code is not None:
+        countries = list(filter(lambda x: x["country"] in country_code, countries))
     logging.info(f"There is {len(countries)} countries.")
-    bar.total = len(countries)
+    progress_bar.total = len(countries)
     with open(path, "w") as f:
         with ThreadPool(threads_count) as pool:
             for lines in pool.imap_unordered(partial(download_hotels_by_country, list_api),
                                              countries):
                 f.writelines([f"{x}\n" for x in lines])
-                bar.update()
+                progress_bar.update()
     logging.info(f"Hotels were saved to {path}.")
 
 
 def process_options():
     parser = argparse.ArgumentParser(description="Download and process booking hotels.")
-    parser.add_argument("-v", "--verbose", action="store_true",
-                        dest="verbose")
     parser.add_argument("-q", "--quiet", action="store_false", dest="verbose")
+    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose")
     parser.add_argument("--logfile", default="",
                         help="Name and destination for log file")
     parser.add_argument("--password", required=True, dest="password",
@@ -322,6 +335,8 @@ def process_options():
                         help="The number of threads for processing countries.")
     parser.add_argument("--output", required=True, dest="output",
                         help="Name and destination for output file")
+    parser.add_argument("--country_code", default=None, action="append",
+                        help="Download hotels of this country.")
     options = parser.parse_args()
     return options
 
@@ -340,9 +355,9 @@ def main():
         print(f"Limit requests per minute is {LIMIT_REQUESTS_PER_MINUTE}.", file=sys.stdout)
     logging.basicConfig(level=logging.DEBUG, filename=logfile,
                         format="%(thread)d [%(asctime)s] %(levelname)s: %(message)s")
-    with tqdm(disable=not options.verbose) as bar:
-        download(options.user, options.password, options.output,
-                 options.threads_count, bar)
+    with tqdm(disable=not options.verbose) as progress_bar:
+        download(options.country_code, options.user, options.password,
+                 options.output, options.threads_count, progress_bar)
 
 
 if __name__ == "__main__":
