@@ -33,9 +33,9 @@ public:
     RoadWarning,
   };
 
-  enum Type: uint32_t
+  enum Type : uint32_t
   {
-    BOOKMARK, // Should always be the first one
+    BOOKMARK,  // Should always be the first one
     API,
     SEARCH,
     STATIC,
@@ -44,7 +44,8 @@ public:
     ROAD_WARNING,
     TRANSIT,
     LOCAL_ADS,
-    DEBUG_MARK,
+    DEBUG_MARK,  // Plain "DEBUG" results in a name collision.
+    COLORED,
     USER_MARK_TYPES_COUNT,
     USER_MARK_TYPES_COUNT_MAX = 1000,
   };
@@ -134,12 +135,13 @@ public:
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 };
 
-class ColoredDebugMarkPoint : public UserMark
+class ColoredMarkPoint : public UserMark
 {
 public:
-  ColoredDebugMarkPoint(m2::PointD const & ptOrg);
+  ColoredMarkPoint(m2::PointD const & ptOrg);
 
   void SetColor(dp::Color const & color);
+  void SetRadius(float radius);
   bool SymbolIsPOI() const override { return true; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
