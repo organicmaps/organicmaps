@@ -1,28 +1,32 @@
 #pragma once
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
 #include "base/macros.hpp"
 
+#include <cstdint>
 #include <map>
 #include <memory>
-#include <mutex>
+#include <string>
 
 class DataSource;
 struct FeatureID;
 
 // *NOTE* This class IS NOT thread-safe.
-class CachingPopularityLoader
+class CachingRankTableLoader
 {
 public:
-  explicit CachingPopularityLoader(DataSource const & dataSource);
+  CachingRankTableLoader(DataSource const & dataSource, std::string const & sectionName);
+
   uint8_t Get(FeatureID const & featureId) const;
   void OnMwmDeregistered(platform::LocalCountryFile const & localFile);
 
 private:
   DataSource const & m_dataSource;
+  std::string const m_sectionName;
   mutable std::map<MwmSet::MwmId, std::unique_ptr<search::RankTable const> const> m_deserializers;
 
-  DISALLOW_COPY(CachingPopularityLoader);
+  DISALLOW_COPY(CachingRankTableLoader);
 };

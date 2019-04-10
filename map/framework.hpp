@@ -41,12 +41,12 @@
 #include "editor/new_feature_categories.hpp"
 #include "editor/user_stats.hpp"
 
+#include "indexer/caching_rank_table_loader.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
-#include "indexer/popularity_loader.hpp"
 
 #include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
@@ -554,7 +554,7 @@ private:
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
 
-  CachingPopularityLoader m_popularityLoader;
+  CachingRankTableLoader m_popularityLoader;
 
   unique_ptr<descriptions::Loader> m_descriptionsLoader;
 

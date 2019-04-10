@@ -424,7 +424,7 @@ Framework::Framework(FrameworkParams const & params)
       m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_popularityLoader(m_model.GetDataSource())
+  , m_popularityLoader(m_model.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_model.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>([this] { m_user.ResetAccessToken(); }))
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))

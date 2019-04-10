@@ -1,4 +1,4 @@
-#include "indexer/popularity_loader.hpp"
+#include "indexer/caching_rank_table_loader.hpp"
 
 #include "search/dummy_rank_table.hpp"
 
@@ -9,27 +9,27 @@
 
 namespace
 {
-uint8_t const kNoPopularity = 0;
+uint8_t const kNoRank = 0;
 }  // namespace
 
-CachingPopularityLoader::CachingPopularityLoader(DataSource const & dataSource)
-  : m_dataSource(dataSource)
+CachingRankTableLoader::CachingRankTableLoader(DataSource const & dataSource,
+                                               std::string const & sectionName)
+  : m_dataSource(dataSource), m_sectionName(sectionName)
 {
 }
 
-uint8_t CachingPopularityLoader::Get(FeatureID const & featureId) const
+uint8_t CachingRankTableLoader::Get(FeatureID const & featureId) const
 {
   auto const handle = m_dataSource.GetMwmHandleById(featureId.m_mwmId);
 
   if (!handle.IsAlive())
-    return kNoPopularity;
+    return kNoRank;
 
   auto it = m_deserializers.find(featureId.m_mwmId);
 
   if (it == m_deserializers.end())
   {
-    auto rankTable =
-        search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont, POPULARITY_RANKS_FILE_TAG);
+    auto rankTable = search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont, m_sectionName);
 
     if (!rankTable)
       rankTable = std::make_unique<search::DummyRankTable>();
@@ -41,7 +41,7 @@ uint8_t CachingPopularityLoader::Get(FeatureID const & featureId) const
   return it->second->Get(featureId.m_index);
 }
 
-void CachingPopularityLoader::OnMwmDeregistered(platform::LocalCountryFile const & localFile)
+void CachingRankTableLoader::OnMwmDeregistered(platform::LocalCountryFile const & localFile)
 {
   for (auto it = m_deserializers.begin(); it != m_deserializers.end(); ++it)
   {

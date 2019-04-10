@@ -10,6 +10,8 @@ set(
   borders.hpp
   brands_holder.cpp
   brands_holder.hpp
+  caching_rank_table_loader.cpp
+  caching_rank_table_loader.hpp
   categories_holder.cpp
   categories_holder.hpp
   categories_holder_loader.cpp
@@ -99,8 +101,6 @@ set(
   map_style.hpp
   mwm_set.cpp
   mwm_set.hpp
-  popularity_loader.cpp
-  popularity_loader.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   postcodes_matcher.hpp    # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp
