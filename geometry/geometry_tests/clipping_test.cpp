@@ -2,7 +2,11 @@
 
 #include "geometry/clipping.hpp"
 
-#include "std/utility.hpp"
+#include <cstddef>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

@@ -7,7 +7,11 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <vector>
+
 // TODO: Add covering unit tests here.
+
+using namespace std;
 
 using CellId = m2::CellId<5>;
 

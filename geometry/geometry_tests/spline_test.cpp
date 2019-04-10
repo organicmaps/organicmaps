@@ -1,6 +1,11 @@
 #include "testing/testing.hpp"
+
 #include "geometry/geometry_tests/equality.hpp"
 #include "geometry/spline.hpp"
+
+#include <vector>
+
+using namespace std;
 
 using m2::Spline;
 using m2::PointD;

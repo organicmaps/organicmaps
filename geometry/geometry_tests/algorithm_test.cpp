@@ -2,7 +2,11 @@
 
 #include "geometry/algorithm.hpp"
 
-#include "std/vector.hpp"
+#include "base/assert.hpp"
+
+#include <vector>
+
+using namespace std;
 
 using m2::PointD;
 using m2::RectD;

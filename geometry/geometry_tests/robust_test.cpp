@@ -4,7 +4,7 @@
 #include "geometry/segment2d.hpp"
 #include "geometry/triangle2d.hpp"
 
-#include "std/iterator.hpp"
+#include <iterator>
 
 using namespace m2::robust;
 
@@ -16,7 +16,7 @@ template <typename TIt>
 void CheckSelfIntersections(TIt beg, TIt end, bool res)
 {
   TEST_EQUAL(CheckPolygonSelfIntersections(beg, end), res, ());
-  using TRevIt = reverse_iterator<TIt>;
+  using TRevIt = std::reverse_iterator<TIt>;
   TEST_EQUAL(CheckPolygonSelfIntersections(TRevIt(end), TRevIt(beg)), res, ());
 }
 

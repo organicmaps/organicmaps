@@ -2,7 +2,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/numeric.hpp"
+#include <numeric>
+
+using namespace std;
 
 namespace m2
 {

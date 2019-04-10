@@ -1,26 +1,30 @@
 #include "testing/testing.hpp"
 
+#include "geometry/covering_utils.hpp"
+
 #include "indexer/cell_coverer.hpp"
 #include "indexer/indexer_tests/bounds.hpp"
-
-#include "geometry/covering_utils.hpp"
 
 #include "coding/hex.hpp"
 
 #include "base/logging.hpp"
 
+#include <vector>
+
+using namespace std;
+
 // Unit test uses m2::CellId<30> for historical reasons, the actual production code uses RectId.
-typedef m2::CellId<30> CellIdT;
+using CellId = m2::CellId<30>;
 
 UNIT_TEST(CellIdToStringRecode)
 {
   char const kTest[] = "21032012203";
-  TEST_EQUAL(CellIdT::FromString(kTest).ToString(), kTest, ());
+  TEST_EQUAL(CellId::FromString(kTest).ToString(), kTest, ());
 }
 
 UNIT_TEST(GoldenCoverRect)
 {
-  vector<CellIdT> cells;
+  vector<CellId> cells;
   CoverRect<OrthoBounds>({27.43, 53.83, 27.70, 53.96}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
@@ -35,7 +39,7 @@ UNIT_TEST(ArtificialCoverRect)
 {
   typedef Bounds<0, 0, 16, 16> TestBounds;
 
-  vector<CellIdT> cells;
+  vector<CellId> cells;
   CoverRect<TestBounds>({5, 5, 11, 11}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
