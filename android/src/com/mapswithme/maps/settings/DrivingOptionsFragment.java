@@ -68,7 +68,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private boolean areSettingsNotChanged()
   {
     Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
-    return mRoadTypes.containsAll(lastActiveRoadTypes) && lastActiveRoadTypes.containsAll(mRoadTypes);
+    return mRoadTypes.equals(lastActiveRoadTypes);
   }
 
   @Override
