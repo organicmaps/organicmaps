@@ -45,7 +45,8 @@ class BookmarkPaymentDataParser implements PaymentDataParser
     String parameter = uri.getQueryParameter(name);
     if (TextUtils.isEmpty(parameter))
     {
-      CrashlyticsUtils.log(Log.ERROR, TAG, "'" + name + "' parameter is required! URI: " + uri);
+      CrashlyticsUtils.logException(
+        new IllegalArgumentException("'" + name + "' parameter is required! URI: " + uri));
       return "";
     }
 
