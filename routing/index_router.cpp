@@ -394,7 +394,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   PushPassedSubroutes(checkpoints, subroutes);
   unique_ptr<IndexGraphStarter> starter;
   AStarProgress progress;
-  double const checkpointsLength = checkpoints.GetPathLength();
+  double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
   for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
   {
@@ -539,7 +539,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     RoutingResult<JointSegment, RouteWeight> routingResult;
 
     uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastValue();
+    auto lastValue = progress.GetLastPercent();
     auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
     {
       ++visitCount;
@@ -580,7 +580,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     using Weight = IndexGraphStarter::Weight;
 
     uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastValue();
+    auto lastValue = progress.GetLastPercent();
     if (mode == WorldGraphMode::LeapsOnly)
     {
       AStarSubProgress leapsProgress(checkpoints.GetPoint(subrouteIdx),
@@ -908,17 +908,16 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
     using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
 
-    double contribCoef = static_cast<double>(end - start + 1) /
-                         static_cast<double>(input.size());
-    auto startPoint = starter.GetPoint(input[start], true /* front */);
-    auto endPoint = starter.GetPoint(input[end], true /* front */);
+    auto const contribCoef = static_cast<double>(end - start + 1) / (input.size());
+    auto const startPoint = starter.GetPoint(input[start], true /* front */);
+    auto const endPoint = starter.GetPoint(input[end], true /* front */);
     progress.AppendSubProgress({startPoint, endPoint, contribCoef});
     SCOPE_GUARD(progressGuard, [&progress]() {
       progress.EraseLastSubProgress();
     });
 
     uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastValue();
+    auto lastValue = progress.GetLastPercent();
     auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
     {
       ++visitCount;
@@ -966,7 +965,6 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       prevStart = start;
       return true;
     }
-
 
     LOG(LINFO, ("Can not find path",
       "from:",

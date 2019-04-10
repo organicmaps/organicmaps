@@ -26,8 +26,6 @@
 
 #include "geometry/tree4d.hpp"
 
-#include "base/astar_progress.hpp"
-
 #include <functional>
 #include <memory>
 #include <set>

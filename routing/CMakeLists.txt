@@ -10,6 +10,8 @@ set(
   async_router.cpp
   async_router.hpp
   base/astar_algorithm.hpp
+  base/astar_progress.cpp
+  base/astar_progress.hpp
   base/astar_weight.hpp
   base/followed_polyline.cpp
   base/followed_polyline.hpp

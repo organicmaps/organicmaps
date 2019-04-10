@@ -82,6 +82,8 @@
 		4408A63D21F1E7F0008171B8 /* index_graph_starter_joints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */; };
 		4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63A21F1E7F0008171B8 /* joint_segment.cpp */; };
 		44183280222D45BB00C70BD9 /* routing_options_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4418327F222D45BB00C70BD9 /* routing_options_tests.cpp */; };
+		44A95C71225F6A4F00C22F4F /* astar_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */; };
+		44A95C72225F6A4F00C22F4F /* astar_progress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44A95C70225F6A4F00C22F4F /* astar_progress.cpp */; };
 		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
 		44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44AE4A11214FBB8D006321F5 /* speed_camera.hpp */; };
 		44C56C0A22296498006C2A1D /* routing_options.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44C56C0822296498006C2A1D /* routing_options.hpp */; };
@@ -380,6 +382,8 @@
 		4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_graph_starter_joints.hpp; sourceTree = "<group>"; };
 		4408A63A21F1E7F0008171B8 /* joint_segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = joint_segment.cpp; sourceTree = "<group>"; };
 		4418327F222D45BB00C70BD9 /* routing_options_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_options_tests.cpp; sourceTree = "<group>"; };
+		44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = astar_graph.hpp; path = base/astar_graph.hpp; sourceTree = "<group>"; };
+		44A95C70225F6A4F00C22F4F /* astar_progress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar_progress.cpp; path = base/astar_progress.cpp; sourceTree = "<group>"; };
 		44AE4A10214FBB8D006321F5 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
 		44AE4A11214FBB8D006321F5 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 		44C56C0822296498006C2A1D /* routing_options.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_options.hpp; sourceTree = "<group>"; };
@@ -821,11 +825,12 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */,
+				44A95C70225F6A4F00C22F4F /* astar_progress.cpp */,
 				44C56C0922296498006C2A1D /* routing_options.cpp */,
 				44C56C0822296498006C2A1D /* routing_options.hpp */,
 				5610731A221ABF96008447B2 /* speed_camera_prohibition.cpp */,
 				56107319221ABF96008447B2 /* speed_camera_prohibition.hpp */,
-				4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */,
 				4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */,
 				4408A63A21F1E7F0008171B8 /* joint_segment.cpp */,
 				4408A63821F1E7F0008171B8 /* joint_segment.hpp */,
@@ -1008,6 +1013,7 @@
 				0C5FEC611DDE192A0017688C /* index_graph.hpp in Headers */,
 				40BEC0811F99FFD700E06CA4 /* transit_info.hpp in Headers */,
 				4065EA861F8260010094DEF3 /* transit_graph_loader.hpp in Headers */,
+				44A95C71225F6A4F00C22F4F /* astar_graph.hpp in Headers */,
 				6741AA9D1BF35331002C974C /* turns_notification_manager.hpp in Headers */,
 				5631B66C219B125D009F47D4 /* maxspeeds.hpp in Headers */,
 				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,
@@ -1172,6 +1178,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1285,7 +1292,6 @@
 			files = (
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
-				4408A63B21F1E7F0008171B8 /* index_graph_starter_joints.cpp in Sources */,
 				44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */,
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
@@ -1294,6 +1300,7 @@
 				349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */,
 				56FEAA6F219E8A610073DF5F /* maxspeeds_serialization.cpp in Sources */,
 				5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */,
+				44A95C72225F6A4F00C22F4F /* astar_progress.cpp in Sources */,
 				F6C3A1B621AC298F0060EEC8 /* speed_camera_manager.cpp in Sources */,
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,

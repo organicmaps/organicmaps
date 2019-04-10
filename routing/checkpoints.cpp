@@ -44,7 +44,7 @@ void Checkpoints::PassNextPoint()
   CHECK(!IsFinished(), ());
   ++m_passedIdx;
 }
-double Checkpoints::GetPathLength() const
+double Checkpoints::GetSummaryLengthBetweenPointsMeters() const
 {
   double dist = 0.0;
   for (size_t i = 1; i < m_points.size(); ++i)
