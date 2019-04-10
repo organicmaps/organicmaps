@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace coding
 {
@@ -104,7 +105,7 @@ private:
     uint64_t m_subs = 0;    // number of strings inside the block
   };
 
-  void FlushPool(vector<uint64_t> const & lengths, string const & pool)
+  void FlushPool(std::vector<uint64_t> const & lengths, std::string const & pool)
   {
     for (auto const & length : lengths)
       WriteVarUint(m_writer, length);
@@ -117,10 +118,10 @@ private:
   uint64_t m_startOffset = 0;
   uint64_t m_dataOffset = 0;
 
-  vector<Block> m_blocks;
+  std::vector<Block> m_blocks;
 
   std::string m_pool;          // concatenated strings
-  vector<uint64_t> m_lengths;  // lengths of strings inside the |m_pool|
+  std::vector<uint64_t> m_lengths;  // lengths of strings inside the |m_pool|
 };
 
 class BlockedTextStorageIndex

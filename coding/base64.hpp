@@ -1,9 +1,9 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace base64
 {
-string Encode(string const & bytesToEncode);
-string Decode(string const & base64CharsToDecode);
+std::string Encode(std::string const & bytesToEncode);
+std::string Decode(std::string const & base64CharsToDecode);
 }  // namespace base64

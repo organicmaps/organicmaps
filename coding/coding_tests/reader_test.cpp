@@ -7,9 +7,12 @@
 #include "coding/buffer_reader.hpp"
 #include "coding/reader_streambuf.hpp"
 
-#include "std/iostream.hpp"
-#include "std/cstring.hpp"
+#include <cstring>
+#include <iostream>
+#include <memory>
+#include <string>
 
+using namespace std;
 
 namespace
 {
@@ -95,14 +98,14 @@ UNIT_TEST(ReaderStreamBuf)
   {
     WriterStreamBuf buffer(new FileWriter(name));
     ostream s(&buffer);
-    s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << std::endl;
+    s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << endl;
   }
 
   {
     ReaderStreamBuf buffer(make_unique<FileReader>(name));
     istream s(&buffer);
 
-    std::string str;
+    string str;
     int i;
     double d;
     unsigned long long ull;

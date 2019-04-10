@@ -276,7 +276,7 @@ std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string
   std::string unarchievedPath;
   try
   {
-    ZipFileReader::FileListT files;
+    ZipFileReader::FileList files;
     ZipFileReader::FilesList(file, files);
     if (files.empty())
       return nullptr;

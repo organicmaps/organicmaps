@@ -1020,9 +1020,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   }
 }
 
-unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
+std::unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 {
-  return make_unique<Routine>(*this);
+  return std::make_unique<Routine>(*this);
 }
 
 void FrontendRenderer::UpdateContextDependentResources()

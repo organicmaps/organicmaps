@@ -9,7 +9,12 @@
 #include "base/thread_pool.hpp"
 #include "base/logging.hpp"
 
-#include "std/numeric.hpp"
+#include <cstdint>
+#include <memory>
+#include <numeric>
+#include <string>
+
+using namespace std;
 
 namespace
 {

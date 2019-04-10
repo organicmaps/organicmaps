@@ -95,7 +95,7 @@ private:
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
     MwmSet::MwmHandle m_mwmHandle;
-    unique_ptr<feature::AltitudeLoader> m_altitudeLoader;
+    std::unique_ptr<feature::AltitudeLoader> m_altitudeLoader;
   };
 
   bool IsOneWay(FeatureType & ft) const;

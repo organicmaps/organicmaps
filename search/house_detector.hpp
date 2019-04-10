@@ -245,7 +245,7 @@ private:
   StreetMap m_id2st;
   HouseMap m_id2house;
 
-  std::vector<pair<m2::PointD, Street *>> m_end2st;
+  std::vector<std::pair<m2::PointD, Street *>> m_end2st;
   std::vector<MergedStreet> m_streets;
 
   double m_metersToMercator;

@@ -1,12 +1,14 @@
 #include "platform/file_logging.hpp"
 
-#include "std/mutex.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/file_writer.hpp"
 
-#include "platform/platform.hpp"
+#include <memory>
+#include <mutex>
+#include <sstream>
 
-#include "std/sstream.hpp"
+using namespace std;
 
 namespace
 {

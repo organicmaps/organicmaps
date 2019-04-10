@@ -6,11 +6,11 @@
 #include "reader.hpp"
 #include "write_to_sink.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
+#include <algorithm>
+#include <memory>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 /// Disk driven vector for optimal storing small values with rare big values.
 /// Format:
@@ -32,8 +32,8 @@ template
 >
 class FixedBitsDDVector
 {
-  static_assert(is_unsigned<TSize>::value, "");
-  static_assert(is_unsigned<TValue>::value, "");
+  static_assert(std::is_unsigned<TSize>::value, "");
+  static_assert(std::is_unsigned<TValue>::value, "");
   // 16 - is the maximum bits count to get all needed bits in random access within uint32_t.
   static_assert(Bits > 0, "");
   static_assert(Bits <= 16, "");
@@ -58,7 +58,7 @@ class FixedBitsDDVector
 
   static uint64_t AlignBytesCount(uint64_t count)
   {
-    return max(count, static_cast<uint64_t>(sizeof(TBlock)));
+    return std::max(count, static_cast<uint64_t>(sizeof(TBlock)));
   }
 
   static TBlock constexpr kMask = (1 << Bits) - 1;
@@ -67,7 +67,7 @@ class FixedBitsDDVector
 
   TValue FindInVector(TSize index) const
   {
-    auto const it = lower_bound(m_vector.begin(), m_vector.end(), IndexValue{index, 0});
+    auto const it = std::lower_bound(m_vector.begin(), m_vector.end(), IndexValue{index, 0});
     ASSERT(it != m_vector.end() && it->m_index == index, ());
     return it->m_value;
   }
@@ -82,15 +82,16 @@ class FixedBitsDDVector
   }
 
 public:
-  static unique_ptr<TSelf> Create(TReader const & reader)
+  static std::unique_ptr<TSelf> Create(TReader const & reader)
   {
     TSize const size = ReadPrimitiveFromPos<TSize>(reader, 0);
 
     uint64_t const off1 = sizeof(TSize);
     uint64_t const off2 = AlignBytesCount((size * Bits + CHAR_BIT - 1) / CHAR_BIT) + off1;
-    return unique_ptr<TSelf>(new TSelf(reader.SubReader(off1, off2 - off1),
-                                       reader.SubReader(off2, reader.Size() - off2),
-                                       size));
+
+    // We can not use make_unique here because contsructor is private.
+    return std::unique_ptr<TSelf>(new TSelf(reader.SubReader(off1, off2 - off1),
+                                            reader.SubReader(off2, reader.Size() - off2), size));
   }
 
   bool Get(TSize index, TValue & value) const
@@ -115,15 +116,15 @@ public:
 
   template <class TWriter> class Builder
   {
-    using TData = vector<uint8_t>;
+    using TData = std::vector<uint8_t>;
     using TempWriter = PushBackByteSink<TData>;
     using TBits = BitWriter<TempWriter>;
 
     TData m_data;
     TempWriter m_writer;
-    unique_ptr<TBits> m_bits;
+    std::unique_ptr<TBits> m_bits;
 
-    vector<IndexValue> m_excepts;
+    std::vector<IndexValue> m_excepts;
     TSize m_count = 0;
     TSize m_optCount = 0;
 
@@ -181,6 +182,6 @@ public:
     }
 
     /// @return (number of stored as-is elements, number of all elements)
-    pair<TSize, TSize> GetCount() const { return make_pair(m_optCount, m_count); }
+    std::pair<TSize, TSize> GetCount() const { return std::make_pair(m_optCount, m_count); }
   };
 };

@@ -10,12 +10,13 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/vector.hpp"
-#include "std/ctime.hpp"
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <ctime>
+#include <vector>
 
 #include "3party/minizip/zip.h"
 
+using namespace std;
 
 namespace
 {

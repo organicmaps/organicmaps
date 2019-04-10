@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include <limits>
+#include <string>
 #include <vector>
 
 namespace feature
@@ -100,7 +101,7 @@ public:
   }
 
   template <class TSource>
-  bool Deserialize(TAltitude minAltitude, size_t pointCount, string const & countryFileName,
+  bool Deserialize(TAltitude minAltitude, size_t pointCount, std::string const & countryFileName,
                    uint32_t featureId, TSource & src)
   {
     ASSERT_NOT_EQUAL(pointCount, 0, ());

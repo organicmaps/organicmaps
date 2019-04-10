@@ -1,11 +1,13 @@
 #include "coding/uri.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/assert.hpp"
 
+using namespace std;
+
 namespace url_scheme
 {
-
 void Uri::Init()
 {
   if (!Parse())
@@ -46,7 +48,7 @@ bool Uri::Parse()
   return true;
 }
 
-bool Uri::ForEachKeyValue(TCallback const & callback) const
+bool Uri::ForEachKeyValue(Callback const & callback) const
 {
   // parse query for keys and values
   size_t const count = m_url.size();
@@ -84,5 +86,4 @@ bool Uri::ForEachKeyValue(TCallback const & callback) const
   }
   return true;
 }
-
-}
+}  // namespace url_scheme

@@ -5,6 +5,8 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_container.hpp"
 
+#include <memory>
+#include <string>
 #include <utility>
 
 namespace feature
@@ -17,8 +19,8 @@ void ForEachFromDat(ModelReaderPtr reader, ToDo && toDo)
 }
 
 template <class ToDo>
-void ForEachFromDat(string const & fPath, ToDo && toDo)
+void ForEachFromDat(std::string const & fPath, ToDo && toDo)
 {
-  ForEachFromDat(make_unique<FileReader>(fPath), std::forward<ToDo>(toDo));
+  ForEachFromDat(std::make_unique<FileReader>(fPath), std::forward<ToDo>(toDo));
 }
 }  // namespace feature

@@ -10,6 +10,8 @@
 #include "drape/graphics_context.hpp"
 #include "drape/texture_manager.hpp"
 
+#include <memory>
+
 namespace df
 {
 namespace
@@ -36,7 +38,7 @@ dp::RenderState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
 
 dp::BindingInfo const & GetCirclesPackStaticBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> s_info;
+  static std::unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
     dp::BindingFiller<CirclesPackStaticVertex> filler(1);
@@ -48,7 +50,7 @@ dp::BindingInfo const & GetCirclesPackStaticBindingInfo()
 
 dp::BindingInfo const & GetCirclesPackDynamicBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> s_info;
+  static std::unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
     dp::BindingFiller<CirclesPackDynamicVertex> filler(2, kDynamicStreamID);

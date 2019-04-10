@@ -4,9 +4,9 @@
 
 #include "base/macros.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 class MemoryRegion
 {
@@ -20,7 +20,9 @@ public:
 class MappedMemoryRegion : public MemoryRegion
 {
 public:
-  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(move(handle)) {}
+  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
+  {
+  }
 
   // MemoryRegion overrides:
   uint64_t Size() const override { return m_handle.GetSize(); }
@@ -35,16 +37,16 @@ private:
 class CopiedMemoryRegion : public MemoryRegion
 {
 public:
-  explicit CopiedMemoryRegion(vector<uint8_t> && buffer) : m_buffer(move(buffer)) {}
+  explicit CopiedMemoryRegion(std::vector<uint8_t> && buffer) : m_buffer(std::move(buffer)) {}
 
   // MemoryRegion overrides:
   uint64_t Size() const override { return m_buffer.size(); }
   uint8_t const * ImmutableData() const override { return m_buffer.data(); }
 
-  inline uint8_t * MutableData() { return m_buffer.data(); }
+  uint8_t * MutableData() { return m_buffer.data(); }
 
 private:
-  vector<uint8_t> m_buffer;
+  std::vector<uint8_t> m_buffer;
 
   DISALLOW_COPY(CopiedMemoryRegion);
 };

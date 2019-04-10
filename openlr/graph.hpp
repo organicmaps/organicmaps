@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
 class DataSource;
@@ -39,10 +40,10 @@ public:
   void GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges);
 
   void FindClosestEdges(m2::PointD const & point, uint32_t const count,
-                        std::vector<pair<Edge, Junction>> & vicinities) const;
+                        std::vector<std::pair<Edge, Junction>> & vicinities) const;
 
   void AddFakeEdges(Junction const & junction,
-                    std::vector<pair<Edge, Junction>> const & vicinities);
+                    std::vector<std::pair<Edge, Junction>> const & vicinities);
 
   void AddIngoingFakeEdge(Edge const & e);
   void AddOutgoingFakeEdge(Edge const & e);

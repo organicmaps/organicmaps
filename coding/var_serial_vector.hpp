@@ -5,9 +5,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
-
+#include <cstdint>
+#include <string>
+#include <utility>
 
 template <class WriterT> class VarSerialVectorWriter
 {
@@ -73,11 +73,11 @@ public:
   }
 
   /// Used for unit tests only. Dont't do COW in production code.
-  string Read(uint32_t i) const
+  std::string Read(uint32_t i) const
   {
-    pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
+    std::pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
 
-    string result;
+    std::string result;
     result.resize(posAsize.second);
     ReadFromPos(m_dataReader, posAsize.first, (void *)result.data(), posAsize.second);
     return result;
@@ -85,21 +85,21 @@ public:
 
   ReaderT SubReader(uint32_t i) const
   {
-    pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
+    std::pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
     return m_dataReader.SubReader(posAsize.first, posAsize.second);
   }
 
   uint64_t Size() const { return m_size; }
 
 private:
-  pair<uint32_t, uint32_t> GetPosAndSize(uint32_t i) const
+  std::pair<uint32_t, uint32_t> GetPosAndSize(uint32_t i) const
   {
     uint32_t const begin =
             i == 0 ? 0 : ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, (i - 1) * sizeof(uint32_t));
     uint32_t const end = ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, i * sizeof(uint32_t));
 
     ASSERT_LESS_OR_EQUAL(begin, end, ());
-    return make_pair(begin, end - begin);
+    return std::make_pair(begin, end - begin);
   }
 
 private:

@@ -15,6 +15,6 @@ public:
   std::string operator()(std::string const & id) const;
 
 private:
-  shared_ptr<Storage> m_storage;
+  std::shared_ptr<Storage> m_storage;
 };
 }  // namespace storage

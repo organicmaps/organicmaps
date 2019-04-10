@@ -86,9 +86,9 @@ void BackendRenderer::Teardown()
 #endif
 }
 
-unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
+std::unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 {
-  return make_unique<Routine>(*this);
+  return std::make_unique<Routine>(*this);
 }
 
 void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui)

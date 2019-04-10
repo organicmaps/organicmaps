@@ -12,6 +12,7 @@
 #include <array>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -63,7 +64,7 @@ namespace drule
     bool TestFeature(FeatureType & ft, int zoom) const;
 
     // Set runtime feature style selector
-    void SetSelector(unique_ptr<ISelector> && selector);
+    void SetSelector(std::unique_ptr<ISelector> && selector);
   };
 
   class RulesHolder

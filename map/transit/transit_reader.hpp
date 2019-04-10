@@ -14,6 +14,7 @@
 
 #include <chrono>
 #include <condition_variable>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -21,6 +22,7 @@
 #include <mutex>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 class DataSource;
@@ -53,7 +55,7 @@ private:
     {
       if (!m_loadSubset)
       {
-        itemsById.insert(make_pair(item.GetId(), item));
+        itemsById.emplace(item.GetId(), item);
       }
       else
       {
@@ -147,6 +149,6 @@ private:
   size_t m_cacheSize = 0;
   bool m_isSchemeMode = false;
   bool m_isSchemeModeBlocked = false;
-  pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
+  std::pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
   bool m_trackFirstSchemeData = false;
 };

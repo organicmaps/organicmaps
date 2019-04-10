@@ -3,13 +3,15 @@
 #include "coding/fixed_bits_ddvector.hpp"
 #include "coding/writer.hpp"
 
-#include "std/initializer_list.hpp"
-#include "std/random.hpp"
+#include <cstdint>
+#include <initializer_list>
+#include <random>
+#include <utility>
 
+using namespace std;
 
 namespace
 {
-
 template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
 {
   using TVector = FixedBitsDDVector<Bits, MemReader>;
@@ -48,7 +50,6 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
     ++i;
   }
 }
-
 } // namespace
 
 UNIT_TEST(FixedBitsDDVector_Smoke)

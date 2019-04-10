@@ -7,15 +7,20 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/future.hpp"
-#include "std/regex.hpp"
 #include "std/target_os.hpp"
+
+#include <algorithm>
+#include <future>
+#include <memory>
+#include <regex>
+#include <string>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
+
+using namespace std;
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {

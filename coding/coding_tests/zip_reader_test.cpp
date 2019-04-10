@@ -6,6 +6,11 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include <exception>
+#include <string>
+
+using namespace std;
+
 static char const zipBytes[] = "PK\003\004\n\0\0\0\0\0\222\226\342>\302\032"
 "x\372\005\0\0\0\005\0\0\0\b\0\034\0te"
 "st.txtUT\t\0\003\303>\017N\017"
@@ -34,7 +39,7 @@ UNIT_TEST(ZipReaderSmoke)
     r.ReadAsString(s);
     TEST_EQUAL(s, "Test\n", ("Invalid zip file contents"));
   }
-  catch (std::exception const & e)
+  catch (exception const & e)
   {
     noException = false;
     LOG(LERROR, (e.what()));
@@ -47,7 +52,7 @@ UNIT_TEST(ZipReaderSmoke)
   {
     ZipFileReader r("some_nonexisting_filename", "test.txt");
   }
-  catch (std::exception const &)
+  catch (exception const &)
   {
     noException = false;
   }
@@ -59,7 +64,7 @@ UNIT_TEST(ZipReaderSmoke)
   {
     ZipFileReader r(ZIPFILE, "test");
   }
-  catch (std::exception const &)
+  catch (exception const &)
   {
     noException = false;
   }
@@ -104,7 +109,7 @@ UNIT_TEST(ZipFilesList)
 
   try
   {
-    ZipFileReader::FileListT files;
+    ZipFileReader::FileList files;
     ZipFileReader::FilesList(ZIPFILE, files);
 
     TEST_EQUAL(files.size(), 3, ());
@@ -115,18 +120,18 @@ UNIT_TEST(ZipFilesList)
     TEST_EQUAL(files[2].first, "3.ttt", ());
     TEST_EQUAL(files[2].second, 2, ());
   }
-  catch (std::exception const & e)
+  catch (exception const & e)
   {
     TEST(false, ("Can't get list of files inside zip", e.what()));
   }
 
   try
   {
-    ZipFileReader::FileListT files;
+    ZipFileReader::FileList files;
     ZipFileReader::FilesList(ZIPFILE_INVALID, files);
     TEST(false, ("This test shouldn't be reached - exception should be thrown"));
   }
-  catch (std::exception const &)
+  catch (exception const &)
   {
   }
 
@@ -167,7 +172,7 @@ UNIT_TEST(ZipExtract)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  ZipFileReader::FileListT files;
+  ZipFileReader::FileList files;
   ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 
@@ -198,7 +203,7 @@ UNIT_TEST(ZipFileSizes)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  ZipFileReader::FileListT files;
+  ZipFileReader::FileList files;
   ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 

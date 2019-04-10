@@ -6,9 +6,9 @@ CountryParentGetter::CountryParentGetter(std::string const & countriesFile,
                                          std::string const & countriesDir)
 {
   if (countriesFile.empty())
-    m_storage = make_shared<Storage>();
+    m_storage = std::make_shared<Storage>();
   else
-    m_storage = make_shared<Storage>(countriesFile, countriesDir);
+    m_storage = std::make_shared<Storage>(countriesFile, countriesDir);
 }
 
 std::string CountryParentGetter::operator()(std::string const & id) const

@@ -13,6 +13,9 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <memory>
+#include <string>
+
 namespace generator
 {
 class AddressMatcher
@@ -21,7 +24,7 @@ public:
   AddressMatcher()
   {
     LoadDataSource(m_dataSource);
-    m_coder = make_unique<search::ReverseGeocoder>(m_dataSource);
+    m_coder = std::make_unique<search::ReverseGeocoder>(m_dataSource);
   }
 
   template <typename SponsoredObject>

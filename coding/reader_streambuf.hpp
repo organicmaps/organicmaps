@@ -1,8 +1,8 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/iostream.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <iostream>
+#include <memory>
 
 class Reader;
 class Writer;
@@ -18,11 +18,11 @@ public:
 
 class ReaderStreamBuf : public BaseStreamBuf
 {
-  unique_ptr<Reader> m_p;
+  std::unique_ptr<Reader> m_p;
   uint64_t m_pos, m_size;
 
 public:
-  ReaderStreamBuf(unique_ptr<Reader> && p);
+  ReaderStreamBuf(std::unique_ptr<Reader> && p);
   virtual ~ReaderStreamBuf();
 
 private:

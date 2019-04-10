@@ -2,9 +2,10 @@
 
 #include "base/base.hpp"
 
-#include "std/string.hpp"
-#include "std/type_traits.hpp"
-
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <type_traits>
 
 namespace impl
 {
@@ -12,9 +13,9 @@ namespace impl
   void FromHexRaw(void const * src, size_t size, void * dst);
 }
 
-inline string ToHex(const void * ptr, size_t size)
+inline std::string ToHex(const void * ptr, size_t size)
 {
-  string result;
+  std::string result;
   if (size == 0) return result;
 
   result.resize(size * 2);
@@ -24,12 +25,12 @@ inline string ToHex(const void * ptr, size_t size)
 }
 
 template <typename ContainerT>
-inline string ToHex(ContainerT const & container)
+inline std::string ToHex(ContainerT const & container)
 {
   static_assert(sizeof(*container.begin()) == 1, "");
 
   if (container.empty())
-    return string();
+    return {};
 
   return ToHex(&*container.begin(), container.end() - container.begin());
 }
@@ -37,9 +38,9 @@ inline string ToHex(ContainerT const & container)
 /// Conversion with specializations to avoid warnings
 /// @{
 template <typename IntT>
-inline string NumToHex(IntT n)
+inline std::string NumToHex(IntT n)
 {
-  static_assert(is_integral<IntT>::value, "");
+  static_assert(std::is_integral<IntT>::value, "");
 
   uint8_t buf[sizeof(n)];
 
@@ -53,40 +54,37 @@ inline string NumToHex(IntT n)
 }
 
 template <>
-inline string NumToHex<int8_t>(int8_t c)
+inline std::string NumToHex<int8_t>(int8_t c)
 {
   return ToHex(&c, sizeof(c));
 }
 
 template <>
-inline string NumToHex<uint8_t>(uint8_t c)
+inline std::string NumToHex<uint8_t>(uint8_t c)
 {
   return ToHex(&c, sizeof(c));
 }
 
 template <>
-inline string NumToHex<char>(char c)
+inline std::string NumToHex<char>(char c)
 {
   return ToHex(&c, sizeof(c));
 }
 /// @}
 
-inline string FromHex(void const * ptr, size_t size)
+inline std::string FromHex(void const * ptr, size_t size)
 {
-  string result;
+  std::string result;
   result.resize(size / 2);
   ::impl::FromHexRaw(ptr, size, &result[0]);
   return result;
 }
 
-inline string FromHex(string const & src)
-{
-  return FromHex(src.c_str(), src.size());
-}
+inline std::string FromHex(std::string const & src) { return FromHex(src.c_str(), src.size()); }
 
-inline string ByteToQuat(uint8_t n)
+inline std::string ByteToQuat(uint8_t n)
 {
-  string result;
+  std::string result;
   for (size_t i = 0; i < 4; ++i)
   {
     result += char(((n & 0xC0) >> 6) + '0');
@@ -96,9 +94,9 @@ inline string ByteToQuat(uint8_t n)
 }
 
 template <typename IntT>
-inline string NumToQuat(IntT n)
+inline std::string NumToQuat(IntT n)
 {
-  string result;
+  std::string result;
   for (size_t i = 0; i < sizeof(n); ++i)
   {
     uint8_t ub = n >> (sizeof(n) * 8 - 8);

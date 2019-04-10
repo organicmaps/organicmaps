@@ -190,7 +190,7 @@ public:
     if (m_params.m_cap == dp::ButtCap)
       return TBase::GetCapBindingInfo();
 
-    static unique_ptr<dp::BindingInfo> s_capInfo;
+    static std::unique_ptr<dp::BindingInfo> s_capInfo;
     if (s_capInfo == nullptr)
     {
       dp::BindingFiller<CapVertex> filler(3);
@@ -510,7 +510,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
       SimpleSolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
 
-      auto builder = make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
+      auto builder =
+          std::make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
       Construct<SimpleSolidLineBuilder>(*builder);
       m_lineShapeInfo = move(builder);
     }
@@ -518,7 +519,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     {
       SolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
-      auto builder = make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
+      auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
       Construct<SolidLineBuilder>(*builder);
       m_lineShapeInfo = move(builder);
     }
@@ -534,7 +535,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     p.m_baseGtoP = m_params.m_baseGtoPScale;
     p.m_glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
 
-    auto builder = make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
+    auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);
     m_lineShapeInfo = move(builder);
   }

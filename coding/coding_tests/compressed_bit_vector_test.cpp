@@ -3,9 +3,14 @@
 #include "coding/compressed_bit_vector.hpp"
 #include "coding/writer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/set.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <set>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

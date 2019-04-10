@@ -5,6 +5,7 @@
 #include "indexer/feature_decl.hpp"
 
 #include <map>
+#include <memory>
 #include <string>
 
 struct TransitFeatureInfo
@@ -33,4 +34,4 @@ struct TransitDisplayInfo
   TransitFeaturesInfo m_features;
 };
 
-using TransitDisplayInfos = std::map<MwmSet::MwmId, unique_ptr<TransitDisplayInfo>>;
+using TransitDisplayInfos = std::map<MwmSet::MwmId, std::unique_ptr<TransitDisplayInfo>>;

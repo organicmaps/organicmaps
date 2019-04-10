@@ -14,6 +14,8 @@
 #include "base/macros.hpp"
 
 #include <functional>
+#include <string>
+#include <utility>
 
 namespace model
 {
@@ -50,7 +52,7 @@ class FeaturesFetcher : public MwmSet::Observer
     }
 
     /// Registers a new map.
-    pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
+    std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
         platform::LocalCountryFile const & localFile);
 
     /// Deregisters a map denoted by file from internal records.

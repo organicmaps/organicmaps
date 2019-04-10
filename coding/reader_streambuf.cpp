@@ -2,8 +2,9 @@
 #include "coding/reader.hpp"
 #include "coding/file_writer.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
+using namespace std;
 
 ReaderStreamBuf::ReaderStreamBuf(unique_ptr<Reader> && p)
   : m_p(move(p)), m_pos(0), m_size(m_p->Size())
@@ -13,9 +14,9 @@ ReaderStreamBuf::ReaderStreamBuf(unique_ptr<Reader> && p)
 // Define destructor in .cpp due to using unique_ptr with incomplete type.
 ReaderStreamBuf::~ReaderStreamBuf() = default;
 
-std::streamsize ReaderStreamBuf::xsgetn(char_type * s, std::streamsize n)
+streamsize ReaderStreamBuf::xsgetn(char_type * s, streamsize n)
 {
-  std::streamsize const count = min(n, static_cast<std::streamsize>(m_size - m_pos));
+  streamsize const count = min(n, static_cast<streamsize>(m_size - m_pos));
   if (count > 0)
   {
     m_p->Read(m_pos, s, count);
@@ -26,7 +27,7 @@ std::streamsize ReaderStreamBuf::xsgetn(char_type * s, std::streamsize n)
 
 ReaderStreamBuf::int_type ReaderStreamBuf::underflow()
 {
-  std::streamsize s = xsgetn(m_buf, sizeof(m_buf));
+  streamsize s = xsgetn(m_buf, sizeof(m_buf));
   if (s > 0)
   {
     setg(m_buf, m_buf, m_buf + s);
@@ -44,7 +45,7 @@ WriterStreamBuf::~WriterStreamBuf()
   delete m_writer;
 }
 
-std::streamsize WriterStreamBuf::xsputn(char_type const * s, std::streamsize n)
+streamsize WriterStreamBuf::xsputn(char_type const * s, streamsize n)
 {
   m_writer->Write(s, n);
   return n;

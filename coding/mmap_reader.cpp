@@ -1,7 +1,8 @@
 #include "coding/mmap_reader.hpp"
 
 #include "std/target_os.hpp"
-#include "std/cstring.hpp"
+
+#include <cstring>
 
 // @TODO we don't support windows at the moment
 #ifndef OMIM_OS_WINDOWS
@@ -14,6 +15,8 @@
     #include <sys/fcntl.h>
   #endif
 #endif
+
+using namespace std;
 
 class MmapReader::MmapData
 {

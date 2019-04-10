@@ -5,7 +5,9 @@
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
 
 namespace coding
 {

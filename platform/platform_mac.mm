@@ -6,6 +6,10 @@
 
 #include "std/target_os.hpp"
 
+#include <memory>
+#include <string>
+#include <utility>
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <IOKit/IOKitLib.h>
@@ -24,8 +28,8 @@
 Platform::Platform()
 {
   // get resources directory path
-  string const resourcesPath = NSBundle.mainBundle.resourcePath.UTF8String;
-  string const bundlePath = NSBundle.mainBundle.bundlePath.UTF8String;
+  std::string const resourcesPath = NSBundle.mainBundle.resourcePath.UTF8String;
+  std::string const bundlePath = NSBundle.mainBundle.bundlePath.UTF8String;
 
   char const * envResourcesDir = ::getenv("MWM_RESOURCES_DIR");
   char const * envWritableDir = ::getenv("MWM_WRITABLE_DIR");
@@ -45,7 +49,7 @@ Platform::Platform()
     if (!IsFileExistsByFullPath(m_resourcesDir))
     {
       // Check development environment without symlink but with git repo
-      string const repoPath = bundlePath + "/../../../omim/data/";
+      std::string const repoPath = bundlePath + "/../../../omim/data/";
       if (IsFileExistsByFullPath(repoPath))
         m_resourcesDir = repoPath;
       else
@@ -104,7 +108,7 @@ Platform::Platform()
   m_tmpDir = tempDir.UTF8String;
   m_tmpDir += '/';
 
-  m_guiThread = make_unique<platform::GuiThread>();
+  m_guiThread = std::make_unique<platform::GuiThread>();
 
   LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
@@ -112,26 +116,26 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
-string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
+std::string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
-string Platform::AdvertisingId() const
+std::string Platform::AdvertisingId() const
 {
   return {};
 }
 
-string Platform::MacAddress(bool md5Decoded) const
+std::string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.
   UNUSED_VALUE(md5Decoded);
   return {};
 }
 
-string Platform::DeviceName() const
+std::string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;
 }
 
-string Platform::DeviceModel() const
+std::string Platform::DeviceModel() const
 {
   return {};
 }
@@ -180,8 +184,8 @@ uint8_t Platform::GetBatteryLevel()
   return 100;
 }
 
-void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
 {
-  m_guiThread = move(guiThread);
+  m_guiThread = std::move(guiThread);
 }
 

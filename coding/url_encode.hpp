@@ -2,13 +2,12 @@
 
 #include "coding/hex.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
-
-inline string UrlEncode(string const & rawUrl)
+inline std::string UrlEncode(std::string const & rawUrl)
 {
   size_t const count = rawUrl.size();
-  string result;
+  std::string result;
   result.reserve(count);
 
   for (size_t i = 0; i < count; ++i)
@@ -27,10 +26,10 @@ inline string UrlEncode(string const & rawUrl)
   return result;
 }
 
-inline string UrlDecode(string const & encodedUrl)
+inline std::string UrlDecode(std::string const & encodedUrl)
 {
   size_t const count = encodedUrl.size();
-  string result;
+  std::string result;
   result.reserve(count);
 
   for (size_t i = 0; i < count; ++i)

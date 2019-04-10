@@ -304,7 +304,7 @@ void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
     categoriesHolder.ForEachValue(intersector);
 
   intersector.NextStep();
-  intersector.ForEachResult(forward<ToDo>(toDo));
+  intersector.ForEachResult(std::forward<ToDo>(toDo));
 }
 
 template <typename ValueList, typename Filter, typename ToDo>

@@ -7,10 +7,12 @@
 #include "base/assert.hpp"
 #include "base/ref_counted.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace coding
 {
@@ -37,18 +39,18 @@ public:
   // routines as allocating memory and choosing strategy. They all can be called only
   // once, namely in the end, when it is needed to pack the in-memory CBV into
   // a suitable representation and pass it to the caller.
-  static unique_ptr<CompressedBitVector> Intersect(CompressedBitVector const & lhs,
-                                                   CompressedBitVector const & rhs);
+  static std::unique_ptr<CompressedBitVector> Intersect(CompressedBitVector const & lhs,
+                                                        CompressedBitVector const & rhs);
 
   // Subtracts two bit vectors.
-  static unique_ptr<CompressedBitVector> Subtract(CompressedBitVector const & lhs,
-                                                  CompressedBitVector const & rhs);
+  static std::unique_ptr<CompressedBitVector> Subtract(CompressedBitVector const & lhs,
+                                                       CompressedBitVector const & rhs);
 
   // Unites two bit vectors.
-  static unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs,
-                                               CompressedBitVector const & rhs);
+  static std::unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs,
+                                                    CompressedBitVector const & rhs);
 
-  static bool IsEmpty(unique_ptr<CompressedBitVector> const & cbv);
+  static bool IsEmpty(std::unique_ptr<CompressedBitVector> const & cbv);
 
   static bool IsEmpty(CompressedBitVector const * cbv);
 
@@ -61,7 +63,7 @@ public:
 
   // Returns a subset of the current bit vector with first
   // min(PopCount(), |n|) set bits.
-  virtual unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const = 0;
+  virtual std::unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const = 0;
 
   // Returns the strategy used when storing this bit vector.
   virtual StorageStrategy GetStorageStrategy() const = 0;
@@ -78,10 +80,10 @@ public:
   virtual void Serialize(Writer & writer) const = 0;
 
   // Copies a bit vector and returns a pointer to the copy.
-  virtual unique_ptr<CompressedBitVector> Clone() const = 0;
+  virtual std::unique_ptr<CompressedBitVector> Clone() const = 0;
 };
 
-string DebugPrint(CompressedBitVector::StorageStrategy strat);
+std::string DebugPrint(CompressedBitVector::StorageStrategy strat);
 
 class DenseCBV : public CompressedBitVector
 {
@@ -92,11 +94,11 @@ public:
   DenseCBV() = default;
 
   // Builds a dense CBV from a list of positions of set bits.
-  explicit DenseCBV(vector<uint64_t> const & setBits);
+  explicit DenseCBV(std::vector<uint64_t> const & setBits);
 
   // Not to be confused with the constructor: the semantics
   // of the array of integers is completely different.
-  static unique_ptr<DenseCBV> BuildFromBitGroups(vector<uint64_t> && bitGroups);
+  static std::unique_ptr<DenseCBV> BuildFromBitGroups(std::vector<uint64_t> && bitGroups);
 
   size_t NumBitGroups() const { return m_bitGroups.size(); }
 
@@ -119,13 +121,13 @@ public:
   // CompressedBitVector overrides:
   uint64_t PopCount() const override;
   bool GetBit(uint64_t pos) const override;
-  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
+  std::unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
-  unique_ptr<CompressedBitVector> Clone() const override;
+  std::unique_ptr<CompressedBitVector> Clone() const override;
 
 private:
-  vector<uint64_t> m_bitGroups;
+  std::vector<uint64_t> m_bitGroups;
   uint64_t m_popCount = 0;
 };
 
@@ -133,13 +135,13 @@ class SparseCBV : public CompressedBitVector
 {
 public:
   friend class CompressedBitVectorBuilder;
-  using TIterator = vector<uint64_t>::const_iterator;
+  using TIterator = std::vector<uint64_t>::const_iterator;
 
   SparseCBV() = default;
 
-  explicit SparseCBV(vector<uint64_t> const & setBits);
+  explicit SparseCBV(std::vector<uint64_t> const & setBits);
 
-  explicit SparseCBV(vector<uint64_t> && setBits);
+  explicit SparseCBV(std::vector<uint64_t> && setBits);
 
   // Returns the position of the i'th set bit.
   uint64_t Select(size_t i) const;
@@ -154,17 +156,17 @@ public:
   // CompressedBitVector overrides:
   uint64_t PopCount() const override;
   bool GetBit(uint64_t pos) const override;
-  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
+  std::unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
-  unique_ptr<CompressedBitVector> Clone() const override;
+  std::unique_ptr<CompressedBitVector> Clone() const override;
 
   inline TIterator Begin() const { return m_positions.cbegin(); }
   inline TIterator End() const { return m_positions.cend(); }
 
 private:
   // 0-based positions of the set bits.
-  vector<uint64_t> m_positions;
+  std::vector<uint64_t> m_positions;
 };
 
 class CompressedBitVectorBuilder
@@ -172,18 +174,19 @@ class CompressedBitVectorBuilder
 public:
   // Chooses a strategy to store the bit vector with bits from setBits set to one
   // and returns a pointer to a class that fits best.
-  static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> const & setBits);
-  static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> && setBits);
+  static std::unique_ptr<CompressedBitVector> FromBitPositions(
+      std::vector<uint64_t> const & setBits);
+  static std::unique_ptr<CompressedBitVector> FromBitPositions(std::vector<uint64_t> && setBits);
 
   // Chooses a strategy to store the bit vector with bits from a bitmap obtained
   // by concatenating the elements of bitGroups.
-  static unique_ptr<CompressedBitVector> FromBitGroups(vector<uint64_t> & bitGroups);
-  static unique_ptr<CompressedBitVector> FromBitGroups(vector<uint64_t> && bitGroups);
+  static std::unique_ptr<CompressedBitVector> FromBitGroups(std::vector<uint64_t> & bitGroups);
+  static std::unique_ptr<CompressedBitVector> FromBitGroups(std::vector<uint64_t> && bitGroups);
 
   // Reads a bit vector from reader which must contain a valid
   // bit vector representation (see CompressedBitVector::Serialize for the format).
   template <typename TReader>
-  static unique_ptr<CompressedBitVector> DeserializeFromReader(TReader & reader)
+  static std::unique_ptr<CompressedBitVector> DeserializeFromReader(TReader & reader)
   {
     ReaderSource<TReader> src(reader);
     return DeserializeFromSource(src);
@@ -192,7 +195,7 @@ public:
   // Reads a bit vector from source which must contain a valid
   // bit vector representation (see CompressedBitVector::Serialize for the format).
   template <typename TSource>
-  static unique_ptr<CompressedBitVector> DeserializeFromSource(TSource & src)
+  static std::unique_ptr<CompressedBitVector> DeserializeFromSource(TSource & src)
   {
     uint8_t header = ReadPrimitiveFromSource<uint8_t>(src);
     CompressedBitVector::StorageStrategy strat =
@@ -201,18 +204,18 @@ public:
     {
     case CompressedBitVector::StorageStrategy::Dense:
     {
-      vector<uint64_t> bitGroups;
+      std::vector<uint64_t> bitGroups;
       rw::ReadVectorOfPOD(src, bitGroups);
-      return DenseCBV::BuildFromBitGroups(move(bitGroups));
+      return DenseCBV::BuildFromBitGroups(std::move(bitGroups));
     }
     case CompressedBitVector::StorageStrategy::Sparse:
     {
-      vector<uint64_t> setBits;
+      std::vector<uint64_t> setBits;
       rw::ReadVectorOfPOD(src, setBits);
-      return make_unique<SparseCBV>(move(setBits));
+      return std::make_unique<SparseCBV>(std::move(setBits));
     }
     }
-    return unique_ptr<CompressedBitVector>();
+    return std::unique_ptr<CompressedBitVector>();
   }
 };
 

@@ -85,7 +85,7 @@ public:
   template <typename F>
   void ForEachPoint(Joint::Id jointId, F && f) const
   {
-    m_jointIndex.ForEachPoint(jointId, forward<F>(f));
+    m_jointIndex.ForEachPoint(jointId, std::forward<F>(f));
   }
 
   bool IsJoint(RoadPoint const & roadPoint) const;

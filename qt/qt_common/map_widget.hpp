@@ -105,9 +105,9 @@ protected:
 
   std::unique_ptr<QTimer> m_updateTimer;
 
-  unique_ptr<QOpenGLShaderProgram> m_program;
-  unique_ptr<QOpenGLVertexArrayObject> m_vao;
-  unique_ptr<QOpenGLBuffer> m_vbo;
+  std::unique_ptr<QOpenGLShaderProgram> m_program;
+  std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
+  std::unique_ptr<QOpenGLBuffer> m_vbo;
 };
 
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,

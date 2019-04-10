@@ -8,6 +8,12 @@
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
 
+#include <algorithm>
+#include <memory>
+#include <random>
+
+using namespace std;
+
 namespace
 {
   typedef model::FeaturesFetcher SourceT;

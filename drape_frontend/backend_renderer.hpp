@@ -16,6 +16,7 @@
 #include "drape/viewport.hpp"
 
 #include <functional>
+#include <memory>
 
 namespace dp
 {
@@ -69,7 +70,7 @@ public:
   void Teardown();
 
 protected:
-  unique_ptr<threads::IRoutine> CreateRoutine() override;
+  std::unique_ptr<threads::IRoutine> CreateRoutine() override;
 
   void OnContextCreate() override;
   void OnContextDestroy() override;

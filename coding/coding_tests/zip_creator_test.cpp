@@ -17,7 +17,7 @@ void CreateAndTestZip(string const & filePath, string const & zipPath)
 {
   TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
 
-  ZipFileReader::FileListT files;
+  ZipFileReader::FileList files;
   ZipFileReader::FilesList(zipPath, files);
   TEST_EQUAL(files[0].second, FileReader(filePath).Size(), ());
 

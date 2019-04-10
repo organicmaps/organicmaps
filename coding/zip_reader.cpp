@@ -1,13 +1,13 @@
 #include "coding/zip_reader.hpp"
 
-#include "base/scope_guard.hpp"
-#include "base/logging.hpp"
-
 #include "coding/constants.hpp"
 
-#include "std/bind.hpp"
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include "3party/minizip/unzip.h"
+
+using namespace std;
 
 namespace
 {
@@ -70,7 +70,7 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
   m_uncompressedFileSize = fileInfo.uncompressed_size;
 }
 
-void ZipFileReader::FilesList(string const & zipContainer, FileListT & filesList)
+void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
 {
   unzFile const zip = unzOpen64(zipContainer.c_str());
   if (!zip)

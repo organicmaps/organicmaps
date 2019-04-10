@@ -8,9 +8,13 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace traffic
 {

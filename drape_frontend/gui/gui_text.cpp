@@ -83,7 +83,7 @@ void FillMaskDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
 
 dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> info;
+  static std::unique_ptr<dp::BindingInfo> info;
 
   if (info == nullptr)
   {
@@ -248,7 +248,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
 
 dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> info;
+  static std::unique_ptr<dp::BindingInfo> info;
 
   if (info == nullptr)
   {
@@ -270,7 +270,7 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
 
 dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> info;
+  static std::unique_ptr<dp::BindingInfo> info;
 
   if (info == nullptr)
   {

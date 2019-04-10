@@ -1,10 +1,15 @@
 #pragma once
+
 #include "coding/byte_stream.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
+
 #include "base/base.hpp"
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <vector>
 
 inline uint32_t VarRecordSizeReaderVarint(ArrayByteSource & source)
 {
@@ -31,11 +36,12 @@ public:
     ASSERT_GREATER_OR_EQUAL(expectedRecordSize, 4, ());
   }
 
-  uint64_t ReadRecord(uint64_t const pos, vector<char> & buffer, uint32_t & recordOffset, uint32_t & actualSize) const
+  uint64_t ReadRecord(uint64_t const pos, std::vector<char> & buffer, uint32_t & recordOffset,
+                      uint32_t & actualSize) const
   {
     ASSERT_LESS(pos, m_ReaderSize, ());
     uint32_t const initialSize = static_cast<uint32_t>(
-        min(static_cast<uint64_t>(m_ExpectedRecordSize), m_ReaderSize - pos));
+        std::min(static_cast<uint64_t>(m_ExpectedRecordSize), m_ReaderSize - pos));
 
     if (buffer.size() < initialSize)
       buffer.resize(initialSize);
@@ -60,7 +66,7 @@ public:
   void ForEachRecord(F const & f) const
   {
     uint64_t pos = 0;
-    vector<char> buffer;
+    std::vector<char> buffer;
     while (pos < m_ReaderSize)
     {
       uint32_t offset = 0, size = 0;
@@ -72,7 +78,7 @@ public:
     ASSERT_EQUAL(pos, m_ReaderSize, ());
   }
 
-  bool IsEqual(string const & fName) const { return m_Reader.IsEqual(fName); }
+  bool IsEqual(std::string const & fName) const { return m_Reader.IsEqual(fName); }
 
 protected:
   ReaderT m_Reader;

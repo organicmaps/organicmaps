@@ -38,9 +38,8 @@
 #include <ctime>
 #include <fstream>
 #include <iomanip>
-#include <list>
-#include <memory>
 #include <sstream>
+#include <utility>
 
 using namespace std::placeholders;
 
@@ -1218,7 +1217,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
   {
     try
     {
-      ZipFileReader::FileListT files;
+      ZipFileReader::FileList files;
       ZipFileReader::FilesList(filePath, files);
       std::string kmlFileName;
       std::string ext;
@@ -1604,7 +1603,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     for (auto & trackData : fileData.m_tracksData)
     {
-      auto track = make_unique<Track>(std::move(trackData));
+      auto track = std::make_unique<Track>(std::move(trackData));
       auto * t = AddTrack(std::move(track));
       t->Attach(groupId);
       group->AttachTrack(t->GetId());
