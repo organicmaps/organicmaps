@@ -286,8 +286,6 @@ public:
   /// \brief It deletes file with saved route points if it exists.
   void DeleteSavedRoutePoints();
 
-  void UpdateRouteMarksVisibility(RoadWarningMarkType selectedType);
-
   void UpdatePreviewMode();
   void CancelPreviewMode();
 

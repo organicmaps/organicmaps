@@ -39,7 +39,6 @@ struct UserMarkRenderParams
   bool m_hasCreationAnimation = false;
   bool m_justCreated = false;
   bool m_isVisible = true;
-  int m_alwaysVisibleMinZoom = std::numeric_limits<int>::max();
   FeatureID m_featureId;
   bool m_isMarkAboveText = false;
 };

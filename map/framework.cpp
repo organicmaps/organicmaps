@@ -2303,8 +2303,6 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
                       ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
 
-  m_routingManager.UpdateRouteMarksVisibility(info.IsRoadType() ? info.GetRoadType() : RoadWarningMarkType::Count);
-
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
   else
@@ -2318,8 +2316,6 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   if (notifyUI && m_deactivateMapSelectionFn)
     m_deactivateMapSelectionFn(!somethingWasAlreadySelected);
-
-  m_routingManager.UpdateRouteMarksVisibility(RoadWarningMarkType::Count);
 
   if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
     m_drapeEngine->DeselectObject();
@@ -2545,12 +2541,7 @@ UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInf
         return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
       return tapInfo.GetDefaultSearchRect(m_currentModelView);
     },
-    [this](UserMark::Type type)
-    {
-      if (type == UserMark::Type::ROAD_WARNING)
-        return GetDrawScale() < RoadWarningMark::kAlwaysVisibleMinZoom;
-      return false;
-    });
+    [](UserMark::Type type) { return false; });
   return mark;
 }
 

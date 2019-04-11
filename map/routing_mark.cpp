@@ -621,16 +621,25 @@ RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg)
   : UserMark(ptOrg, Type::ROAD_WARNING)
 {}
 
+uint16_t RoadWarningMark::GetPriority() const
+{
+  if (m_index == 0)
+  {
+    switch (m_type)
+    {
+    case RoadWarningMarkType::Toll: return static_cast<uint16_t>(Priority::RoadWarningFirstToll);
+    case RoadWarningMarkType::Ferry: return static_cast<uint16_t>(Priority::RoadWarningFirstFerry);
+    case RoadWarningMarkType::Dirty: return static_cast<uint16_t>(Priority::RoadWarningFirstDirty);
+    case RoadWarningMarkType::Count: CHECK(false, ()); break;
+    }
+  }
+  return static_cast<uint16_t>(Priority::RoadWarning);
+}
+
 void RoadWarningMark::SetIndex(uint32_t index)
 {
   SetDirty();
   m_index = index;
-}
-
-void RoadWarningMark::SetIsVisible(bool isVisible)
-{
-  SetDirty();
-  m_isVisible = isVisible;
 }
 
 void RoadWarningMark::SetRoadWarningType(RoadWarningMarkType type)
@@ -664,13 +673,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
   return symbol;
-}
-
-drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RoadWarningMark::GetColoredSymbols() const
-{
-  auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
-  coloredSymbol->m_isSymbolStub = true;
-  return coloredSymbol;
 }
 
 // static

@@ -207,20 +207,16 @@ enum class RoadWarningMarkType : uint8_t
 class RoadWarningMark : public UserMark
 {
 public:
-  static int constexpr kAlwaysVisibleMinZoom = 13;
-
   explicit RoadWarningMark(m2::PointD const & ptOrg);
 
+  bool SymbolIsPOI() const override { return true; }
   dp::Anchor GetAnchor() const override { return dp::Anchor::Bottom; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingBottomMarkLayer; }
-  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::RoadWarning); }
+  uint16_t GetPriority() const override;
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   void SetIndex(uint32_t index);
   uint32_t GetIndex() const override { return m_index; }
-
-  void SetIsVisible(bool isVisible);
-  bool IsVisible() const override { return m_isVisible; }
 
   void SetRoadWarningType(RoadWarningMarkType type);
   RoadWarningMarkType GetRoadWarningType() const { return m_type; }
@@ -233,10 +229,6 @@ public:
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
-  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
-
-  int GetAlwaysVisibleMinZoom() const override { return kAlwaysVisibleMinZoom; }
-
   static std::string GetLocalizedRoadWarningType(RoadWarningMarkType type);
 
 private:
@@ -244,7 +236,6 @@ private:
   FeatureID m_featureId;
   uint32_t m_index = 0;
   std::string m_distance;
-  bool m_isVisible = true;
 };
 
 std::string DebugPrint(RoadWarningMarkType type);

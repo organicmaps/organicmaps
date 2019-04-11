@@ -31,6 +31,9 @@ public:
     TransitKeyStop,
     SpeedCamera,
     RoadWarning,
+    RoadWarningFirstFerry,
+    RoadWarningFirstDirty,
+    RoadWarningFirstToll,
   };
 
   enum Type : uint32_t
@@ -62,7 +65,6 @@ public:
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
   bool IsVisible() const override { return true; }
-  int GetAlwaysVisibleMinZoom() const override { return std::numeric_limits<int>::max(); }
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override { return {}; }
   dp::Anchor GetAnchor() const override { return dp::Center; }

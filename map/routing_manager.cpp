@@ -590,7 +590,6 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
         auto const & routeInfo = typeInfo.second[i];
         auto mark = es.CreateUserMark<RoadWarningMark>(routeInfo.m_startPoint);
         mark->SetIndex(static_cast<uint32_t>(i));
-        mark->SetIsVisible(i == 0);
         mark->SetRoadWarningType(type);
         mark->SetFeatureId(routeInfo.m_featureId);
         std::string distanceStr;
@@ -1494,19 +1493,4 @@ void RoutingManager::SetSubroutesVisibility(bool visible)
 bool RoutingManager::IsSpeedLimitExceeded() const
 {
   return m_routingSession.IsSpeedLimitExceeded();
-}
-
-void RoutingManager::UpdateRouteMarksVisibility(RoadWarningMarkType selectedType)
-{
-  auto const markIds = m_bmManager->GetUserMarkIds(UserMark::Type::ROAD_WARNING);
-  if (markIds.empty())
-    return;
-
-  auto es = m_bmManager->GetEditSession();
-  for (auto id : markIds)
-  {
-    auto mark = es.GetMarkForEdit<RoadWarningMark>(id);
-    auto const isVisible = mark->GetIndex() == 0 || selectedType == mark->GetRoadWarningType();
-    mark->SetIsVisible(isVisible);
-  }
 }
