@@ -59,11 +59,15 @@
 
 #include "base/timer.hpp"
 
+#include <csignal>
 #include <cstdlib>
 #include <fstream>
 #include <memory>
 #include <string>
 #include <thread>
+
+#define BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
+#include <boost/stacktrace.hpp>
 
 #include "defines.hpp"
 
@@ -213,7 +217,7 @@ int GeneratorToolMain(int argc, char ** argv)
 
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  auto threadsCount = std::thread::hardware_concurrency();
+  auto threadsCount = thread::hardware_concurrency();
   if (threadsCount == 0)
     threadsCount = 1;
 
@@ -715,26 +719,40 @@ int GeneratorToolMain(int argc, char ** argv)
   return 0;
 }
 
-
-int main(int argc, char ** argv)
+void ErrorHandler(int signum)
 {
+  // Avoid recursive calls.
+  signal(signum, SIG_DFL);
+
+  // If there was an exception, then we will print the message.
   try
   {
-    return GeneratorToolMain(argc, argv);
+    if (auto const eptr = current_exception())
+      rethrow_exception(eptr);
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Unhandled core exception:", e.Msg()));
-    return EXIT_FAILURE;
+    cerr << "Core exception: " << e.Msg() << "\n";
   }
-  catch (std::exception const & e)
+  catch (exception const & e)
   {
-    LOG(LERROR, ("Unhandled std exception:", e.what()));
-    return EXIT_FAILURE;
+    cerr << "Std exception: " << e.what() << "\n";
   }
   catch (...)
   {
-    LOG(LERROR, ("Unhandled unknown exception."));
-    return EXIT_FAILURE;
+    cerr << "Unknown exception.\n";
   }
+
+  // Print stack stack.
+  cerr << boost::stacktrace::stacktrace();
+  // We raise the signal SIGABRT, so that there would be an opportunity to make a core dump.
+  raise(SIGABRT);
+}
+
+int main(int argc, char ** argv)
+{
+  signal(SIGABRT, ErrorHandler);
+  signal(SIGSEGV, ErrorHandler);
+
+  return GeneratorToolMain(argc, argv);
 }

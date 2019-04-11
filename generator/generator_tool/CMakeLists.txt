@@ -43,6 +43,7 @@ omim_link_libraries(
   gflags
   oauthcpp
   sqlite3
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
 )
 
