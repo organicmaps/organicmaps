@@ -24,6 +24,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -45,7 +46,7 @@ public:
 private:
   std::string m_mwmPath;
   std::string m_idToWikidataPath;
-  std::map<uint32_t, base::GeoObjectId> m_featureIdToOsmId;
+  std::map<uint32_t, std::vector<base::GeoObjectId>> m_featureIdToOsmId;
   std::map<base::GeoObjectId, std::string> m_osmIdToWikidataId;
 };
 

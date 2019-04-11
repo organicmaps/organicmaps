@@ -1,6 +1,6 @@
 #include "generator/descriptions_section_builder.hpp"
 
-#include "generator/routing_helpers.hpp"
+#include "generator/utils.hpp"
 
 #include "platform/platform.hpp"
 
@@ -35,7 +35,7 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
   , m_idToWikidataPath(idToWikidataPath)
 {
   std::string const osmIdsToFeatureIdsPath = m_mwmPath + OSM2FEATURE_FILE_EXTENSION;
-  if (!routing::ParseRoadsFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
+  if (!ParseFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
     LOG(LCRITICAL, ("Error parse OsmIdToFeatureId mapping."));
 
   std::ifstream stream;
@@ -55,10 +55,11 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
 boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) const
 {
   auto const itFeatureIdToOsmId = m_featureIdToOsmId.find(featureId);
-  if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId))
+  if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId) || itFeatureIdToOsmId->second.size() == 0)
     return {};
 
-  auto const itOsmIdToWikidataId = m_osmIdToWikidataId.find(itFeatureIdToOsmId->second);
+  auto const osmId = itFeatureIdToOsmId->second[0];
+  auto const itOsmIdToWikidataId = m_osmIdToWikidataId.find(osmId);
   return itOsmIdToWikidataId == std::end(m_osmIdToWikidataId) ?
         boost::optional<std::string>() : itOsmIdToWikidataId->second;
 }
