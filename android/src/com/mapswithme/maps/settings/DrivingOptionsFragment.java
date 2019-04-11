@@ -23,7 +23,6 @@ import java.util.Set;
 
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
-
   public static final String BUNDLE_ROAD_TYPES = "road_types";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();

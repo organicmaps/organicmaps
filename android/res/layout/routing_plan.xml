@@ -168,7 +168,7 @@
         android:id="@+id/driving_options_btn_title"
         android:layout_centerInParent="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textColor="?attr/tipsPrimaryTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_half_plus_eight"

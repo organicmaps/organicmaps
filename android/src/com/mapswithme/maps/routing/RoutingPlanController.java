@@ -360,14 +360,14 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.hide(mDrivingOptionsBtnContainer);
   }
 
-  public int calcFloatingViewsOffset()
+  public int calcHeight()
   {
     int frameHeight = getFrame().getHeight();
     if (frameHeight == 0)
       return 0;
 
     View driverOptionsView = getDrivingOptionsBtnContainer();
-    int extraOppositeOffset = driverOptionsView.getVisibility() == View.VISIBLE
+    int extraOppositeOffset = UiUtils.isVisible(driverOptionsView)
                               ? 0
                               : driverOptionsView.getHeight();
 
@@ -380,8 +380,7 @@ public class RoutingPlanController extends ToolbarController
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
                                int oldTop, int oldRight, int oldBottom)
     {
-      mRoutingPlanListener.onRoutingPlanStartAnimate(
-          getFrame().getVisibility() == View.VISIBLE);
+      mRoutingPlanListener.onRoutingPlanStartAnimate(UiUtils.isVisible(getFrame()));
       mDrivingOptionsBtnContainer.removeOnLayoutChangeListener(this);
     }
   }

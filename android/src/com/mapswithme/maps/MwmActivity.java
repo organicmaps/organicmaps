@@ -1843,7 +1843,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    int totalHeight = calcFloatingViewOffset();
+    int totalHeight = calcFloatingViewsOffset();
 
     mNavAnimationController.setTopLimit(!show ? 0 : totalHeight);
     mNavAnimationController.setBottomLimit(!show ? 0 : getCurrentMenu().getFrame().getHeight());
@@ -1931,7 +1931,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int toolbarHeight = mSearchController.getToolbar().getHeight();
-    int offset = calcFloatingViewOffset();
+    int offset = calcFloatingViewsOffset();
 
     adjustCompassAndTraffic(visible ? toolbarHeight : offset);
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
@@ -1944,14 +1944,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private int calcFloatingViewOffset()
+  private int calcFloatingViewsOffset()
   {
-    int extraOppositeOffset;
+    int offset;
     if (mRoutingPlanInplaceController == null
-        || (extraOppositeOffset = mRoutingPlanInplaceController.calcFloatingViewsOffset()) == 0)
+        || (offset = mRoutingPlanInplaceController.calcHeight()) == 0)
       return UiUtils.getStatusBarHeight(this);
 
-    return extraOppositeOffset;
+    return offset;
   }
 
   @Override
