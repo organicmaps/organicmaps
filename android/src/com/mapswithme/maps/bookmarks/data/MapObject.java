@@ -164,7 +164,7 @@ public class MapObject implements Parcelable, PopularityProvider
          source.readDouble(), // Lat
          source.readDouble(), // Lon
          source.readParcelable(Metadata.class.getClassLoader()),
-         source.readString(), // ApiId;get
+         source.readString(), // ApiId;
          null, // mBanners
          null, // mReachableByTaxiTypes
          source.readString(), // BookingSearchUrl

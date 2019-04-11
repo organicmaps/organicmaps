@@ -77,7 +77,8 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         jobject const & routingPointInfo, place_page::OpeningMode openingMode,
                         bool shouldShowUGC, bool canBeRated, bool canBeReviewed,
                         jobjectArray jratings, jobject const & hotelType, int priceRate,
-                        jobject const & popularity, string const & description, RoadWarningMarkType roadWarningMarkType)
+                        jobject const & popularity, string const & description,
+                        RoadWarningMarkType roadWarningMarkType)
 {
   // public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
   //                  @Nullable String secondaryTitle, String subtitle, String address,
