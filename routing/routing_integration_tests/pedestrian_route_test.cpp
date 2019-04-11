@@ -523,3 +523,12 @@ UNIT_TEST(RussiaElbrusPriut11)
       MercatorBounds::FromLatLon(43.35254, 42.43788), {0., 0.},
       MercatorBounds::FromLatLon(43.31475, 42.46035), 5998.61 /* expectedTimeSeconds */);
 }
+
+// Test on going straight forward on primary road.
+UNIT_TEST(BudvaPrimaryRoad)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+      MercatorBounds::FromLatLon(42.2884527, 18.8456794), {0., 0.},
+      MercatorBounds::FromLatLon(42.2880575, 18.8492896), 368.85);
+}
