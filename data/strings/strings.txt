@@ -38892,6 +38892,17 @@
     en = Please don't leave this screen before purchase is completed
     ru = Пожалуйста, не покидайте экран до завершения покупки
 
+  [avoid_ferry_crossing_placepage]
+    comment = FIXME
+    en = avoid_toll_roads_placepage
+
+  [avoid_unpaved_roads_placepage]
+    comment = FIXME
+    en = avoid_toll_roads_placepage
+
+  [avoid_toll_roads_placepage]
+    comment = FIXME
+    en = avoid_toll_roads_placepage
   [whatsnew_new_catalogue_title]
     comment = FIXME
     en = whatsnew_new_catalogue_title
