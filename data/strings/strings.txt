@@ -38892,3 +38892,18 @@
     en = Please don't leave this screen before purchase is completed
     ru = Пожалуйста, не покидайте экран до завершения покупки
 
+  [whatsnew_new_catalogue_title]
+    comment = FIXME
+    en = whatsnew_new_catalogue_title
+
+  [whatsnew_new_catalogue_message]
+    comment = FIXME
+    en = whatsnew_new_catalogue_message
+
+  [whatsnew_toll_unpaved_title]
+    comment = FIXME
+    en = whatsnew_toll_unpaved_title
+
+  [whatsnew_toll_unpaved_message]
+    comment = FIXME
+    en = whatsnew_toll_unpaved_message
