@@ -39,15 +39,6 @@ namespace generator
 {
 namespace
 {
-bool ParseFeatureIdToOsmIdMapping(string const & path,
-                                  map<uint32_t, vector<base::GeoObjectId>> & mapping)
-{
-  return ForEachOsmId2FeatureId(path,
-                                [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
-                                  mapping[featureId].push_back(osmId);
-                                });
-}
-
 bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uint64_t>> & mapping)
 {
   bool success = true;

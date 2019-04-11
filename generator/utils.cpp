@@ -44,4 +44,13 @@ void LoadDataSource(DataSource & dataSource)
     }
   }
 }
+
+bool ParseFeatureIdToOsmIdMapping(std::string const & path,
+                                  std::map<uint32_t, std::vector<base::GeoObjectId>> & mapping)
+{
+  return ForEachOsmId2FeatureId(path,
+                                [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
+                                  mapping[featureId].push_back(osmId);
+                                });
+}
 }  // namespace generator

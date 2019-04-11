@@ -15,7 +15,9 @@
 #include "base/logging.hpp"
 
 #include <cstdint>
+#include <map>
 #include <string>
+#include <vector>
 
 namespace generator
 {
@@ -60,4 +62,7 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 
   return true;
 }
+
+bool ParseFeatureIdToOsmIdMapping(std::string const & path,
+                                  std::map<uint32_t, std::vector<base::GeoObjectId>> & mapping);
 }  // namespace generator
