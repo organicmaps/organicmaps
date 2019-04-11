@@ -2777,6 +2777,18 @@
 
 "purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
 
+/* FIXME */
+"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+
+/* FIXME */
+"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+
+/* FIXME */
+"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+
+/* FIXME */
+"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+
 
 /**********  Partners  **********/
 

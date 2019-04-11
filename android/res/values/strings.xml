@@ -1595,6 +1595,14 @@
 	<!-- FIXME -->
 	<string name="unable_to_recalc_subtitle">Unfortunately we could\'t find a better route with your defined options. We will return the original version</string>
 	<string name="purchase_please_wait_toast">Please don\'t leave this screen before purchase is completed</string>
+	<!-- FIXME -->
+	<string name="whatsnew_new_catalogue_title">whatsnew_new_catalogue_title</string>
+	<!-- FIXME -->
+	<string name="whatsnew_new_catalogue_message">whatsnew_new_catalogue_message</string>
+	<!-- FIXME -->
+	<string name="whatsnew_toll_unpaved_title">whatsnew_toll_unpaved_title</string>
+	<!-- FIXME -->
+	<string name="whatsnew_toll_unpaved_message">whatsnew_toll_unpaved_message</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
