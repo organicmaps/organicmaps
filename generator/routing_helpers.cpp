@@ -33,8 +33,8 @@ void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
   osmIdToFeatureId.emplace(osmId, featureId);
 }
 
-bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
+bool ParseRoadsOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
+                                       map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
 {
   return ForEachRoadFromFile(osmIdsToFeatureIdPath,
                              [&](uint32_t featureId, base::GeoObjectId osmId) {
@@ -42,8 +42,8 @@ bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
                              });
 }
 
-bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<uint32_t, base::GeoObjectId> & featureIdToOsmId)
+bool ParseRoadsFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
+                                       map<uint32_t, base::GeoObjectId> & featureIdToOsmId)
 {
   featureIdToOsmId.clear();
   bool idsAreOk = true;

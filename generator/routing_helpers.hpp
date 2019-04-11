@@ -28,8 +28,8 @@ void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
 // 137999, 5170186,
 // 138000, 5170209, 5143342,
 // 138001, 5170228,
-bool ParseOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                  std::map<base::GeoObjectId, uint32_t> & osmIdToFeatureId);
-bool ParseFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                  std::map<uint32_t, base::GeoObjectId> & featureIdToOsmId);
+bool ParseRoadsOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
+                                       std::map<base::GeoObjectId, uint32_t> & osmIdToFeatureId);
+bool ParseRoadsFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
+                                       std::map<uint32_t, base::GeoObjectId> & featureIdToOsmId);
 }  // namespace routing

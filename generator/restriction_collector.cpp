@@ -41,7 +41,7 @@ RestrictionCollector::RestrictionCollector(std::string const & restrictionPath,
     m_restrictions.clear();
   });
 
-  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId))
+  if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdPath));

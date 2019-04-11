@@ -30,7 +30,7 @@ CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
                                            std::string const & osmIdsToFeatureIdsPath)
 {
   std::map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
-  if (!routing::ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
+  if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
   {
     LOG(LCRITICAL, ("An error happened while parsing feature id to osm ids mapping from file:",
                     osmIdsToFeatureIdsPath));

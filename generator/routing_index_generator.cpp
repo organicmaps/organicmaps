@@ -267,7 +267,7 @@ void CalcCrossMwmTransitions(
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
+  CHECK(ParseRoadsFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
   ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {

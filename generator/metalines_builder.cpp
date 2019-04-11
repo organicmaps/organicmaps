@@ -202,7 +202,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
                            std::string const & osmIdsToFeatureIdsPath)
 {
   std::map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
-  if (!routing::ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
+  if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
     return false;
 
   FileReader reader(metalinesPath);

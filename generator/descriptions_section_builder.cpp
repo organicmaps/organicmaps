@@ -35,7 +35,7 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
   , m_idToWikidataPath(idToWikidataPath)
 {
   std::string const osmIdsToFeatureIdsPath = m_mwmPath + OSM2FEATURE_FILE_EXTENSION;
-  if (!routing::ParseFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
+  if (!routing::ParseRoadsFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
     LOG(LCRITICAL, ("Error parse OsmIdToFeatureId mapping."));
 
   std::ifstream stream;
