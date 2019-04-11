@@ -24,8 +24,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include <map>
 #include <memory>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -39,7 +39,8 @@ namespace generator
 {
 namespace
 {
-bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uint64_t>> & mapping)
+bool ParseFeatureIdToTestIdMapping(string const & path,
+                                   unordered_map<uint32_t, vector<uint64_t>> & mapping)
 {
   bool success = true;
   feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
@@ -106,7 +107,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
 bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table)
 {
-  using Mapping = map<uint32_t, vector<base::GeoObjectId>>;
+  using Mapping = unordered_map<uint32_t, vector<base::GeoObjectId>>;
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;
@@ -121,7 +122,7 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
 
 bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundariesTable & table)
 {
-  using Mapping = map<uint32_t, vector<uint64_t>>;
+  using Mapping = unordered_map<uint32_t, vector<uint64_t>>;
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;

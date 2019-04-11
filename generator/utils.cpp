@@ -45,8 +45,9 @@ void LoadDataSource(DataSource & dataSource)
   }
 }
 
-bool ParseFeatureIdToOsmIdMapping(std::string const & path,
-                                  std::map<uint32_t, std::vector<base::GeoObjectId>> & mapping)
+bool ParseFeatureIdToOsmIdMapping(
+    std::string const & path,
+    std::unordered_map<uint32_t, std::vector<base::GeoObjectId>> & mapping)
 {
   return ForEachOsmId2FeatureId(path,
                                 [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
