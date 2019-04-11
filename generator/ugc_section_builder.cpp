@@ -8,7 +8,6 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/ftraits.hpp"
 
 #include "base/geo_object_id.hpp"
 
@@ -34,22 +33,12 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
   std::vector<IndexUGC> content;
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
-    auto const optItem = ftraits::UGC::GetValue(feature::TypesHolder(f));
-    if (!optItem)
-      return;
-
-    if (!ftraits::UGC::IsUGCAvailable(optItem->m_mask))
-      return;
-
     auto const it = featureToOsmId.find(featureId);
     CHECK(it != featureToOsmId.cend() && it->second.size() != 0,
           ("FeatureID", featureId, "is not found in", osmToFeatureFilename));
 
     ugc::UGC result;
-    if (!translator.TranslateUGC(it->second[0], result))
-      return;
-
-    if (result.IsEmpty())
+    if (!GetUgcForFeature(it->second[0], feature::TypesHolder(f), translator, result))
       return;
 
     content.emplace_back(featureId, result);

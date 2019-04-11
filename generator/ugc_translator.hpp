@@ -1,10 +1,14 @@
 #pragma once
 
-#include "ugc_db.hpp"
+#include "generator/ugc_db.hpp"
 
 #include "ugc/types.hpp"
 
+#include "indexer/feature_data.hpp"
+
 #include "base/geo_object_id.hpp"
+
+#include <string>
 
 namespace generator
 {
@@ -22,4 +26,7 @@ public:
 private:
   UGCDB m_db;
 };
+
+bool GetUgcForFeature(base::GeoObjectId const & osmId, feature::TypesHolder const & th,
+                      UGCTranslator & translator, ugc::UGC & result);
 }  // namespace generator

@@ -1,8 +1,8 @@
 #include "generator/ugc_translator.hpp"
 
-#include "generator/ugc_db.hpp"
-
 #include "ugc/serdes_json.hpp"
+
+#include "indexer/ftraits.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -50,5 +50,21 @@ bool UGCTranslator::TranslateUGC(base::GeoObjectId const & id, ugc::UGC & ugc)
 void UGCTranslator::CreateDb(std::string const & data)
 {
   CHECK(m_db.Exec(data), ());
+}
+
+bool GetUgcForFeature(base::GeoObjectId const & osmId, feature::TypesHolder const & th,
+                      UGCTranslator & translator, ugc::UGC & result)
+{
+  auto const optItem = ftraits::UGC::GetValue(th);
+  if (!optItem)
+    return false;
+
+  if (!ftraits::UGC::IsUGCAvailable(optItem->m_mask))
+    return false;
+
+  if (!translator.TranslateUGC(osmId, result))
+    return false;
+
+  return !result.IsEmpty();
 }
 }  // namespace generator
