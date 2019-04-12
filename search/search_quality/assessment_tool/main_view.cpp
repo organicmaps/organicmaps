@@ -110,7 +110,8 @@ void MainView::OnSearchCompleted()
 }
 
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
-                          boost::optional<m2::PointD> const & position, bool hasEdits)
+                          boost::optional<m2::PointD> const & position, bool isUseless,
+                          bool hasEdits)
 {
   m_sampleLocale = sample.m_locale;
 
@@ -121,7 +122,7 @@ void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
 
   OnResultChanged(sampleIndex, ResultType::Found, Edits::Update::MakeAll());
   OnResultChanged(sampleIndex, ResultType::NonFound, Edits::Update::MakeAll());
-  OnSampleChanged(sampleIndex, hasEdits);
+  OnSampleChanged(sampleIndex, isUseless, hasEdits);
 }
 
 void MainView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
@@ -190,12 +191,13 @@ void MainView::OnResultChanged(size_t sampleIndex, ResultType type, Edits::Updat
   }
 }
 
-void MainView::OnSampleChanged(size_t sampleIndex, bool hasEdits)
+void MainView::OnSampleChanged(size_t sampleIndex, bool isUseless, bool hasEdits)
 {
   m_samplesView->OnUpdate(sampleIndex);
   if (!m_samplesView->IsSelected(sampleIndex))
     return;
-  SetSampleDockTitle(hasEdits);
+  SetSampleDockTitle(isUseless, hasEdits);
+  m_sampleView->OnUselessnessChanged(isUseless);
 }
 
 void MainView::OnSamplesChanged(bool hasEdits)
@@ -225,7 +227,7 @@ void MainView::Clear()
   SetSamplesDockTitle(false /* hasEdits */);
 
   m_sampleView->Clear();
-  SetSampleDockTitle(false /* hasEdits */);
+  SetSampleDockTitle(false /* isUseless */, false /* hasEdits */);
 
   m_skipFeatureInfoDialog = false;
   m_sampleLocale.clear();
@@ -361,6 +363,9 @@ void MainView::InitDocks()
     connect(model, &QItemSelectionModel::selectionChanged, this, &MainView::OnSampleSelected);
   }
 
+  connect(m_samplesView, &SamplesView::FlipSampleUsefulness,
+          [this](int index) { m_model->FlipSampleUsefulness(index); });
+
   m_samplesDock = CreateDock(*m_samplesView);
   addDockWidget(Qt::LeftDockWidgetArea, m_samplesDock);
   SetSamplesDockTitle(false /* hasEdits */);
@@ -393,7 +398,7 @@ void MainView::InitDocks()
   connect(m_sampleDock, &QDockWidget::dockLocationChanged,
           [this](Qt::DockWidgetArea area) { m_sampleView->OnLocationChanged(area); });
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
-  SetSampleDockTitle(false /* hasEdits */);
+  SetSampleDockTitle(false /* isUseless */, false /* hasEdits */);
 }
 
 void MainView::Open()
@@ -479,13 +484,15 @@ void MainView::SetSamplesDockTitle(bool hasEdits)
     m_samplesDock->setWindowTitle(tr("Samples"));
 }
 
-void MainView::SetSampleDockTitle(bool hasEdits)
+void MainView::SetSampleDockTitle(bool isUseless, bool hasEdits)
 {
   CHECK(m_sampleDock, ());
+  std::string title = "Sample";
   if (hasEdits)
-    m_sampleDock->setWindowTitle(tr("Sample *"));
-  else
-    m_sampleDock->setWindowTitle(tr("Sample"));
+    title += " *";
+  if (isUseless)
+    title += " (useless)";
+  m_sampleDock->setWindowTitle(tr(title.data()));
 }
 
 MainView::SaveResult MainView::TryToSaveEdits(QString const & msg)

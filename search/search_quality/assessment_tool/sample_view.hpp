@@ -44,6 +44,8 @@ public:
 
   void SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits);
 
+  void OnUselessnessChanged(bool isUseless);
+
   void Clear();
 
   ResultsView & GetFoundResultsView() { return *m_foundResults; }
@@ -80,6 +82,8 @@ private:
 
   QPushButton * m_markAllAsRelevant = nullptr;
   QPushButton * m_markAllAsIrrelevant = nullptr;
+
+  QLabel * m_uselessnessLabel = nullptr;
 
   ResultsView * m_foundResults = nullptr;
   QWidget * m_foundResultsBox = nullptr;

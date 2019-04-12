@@ -3,9 +3,15 @@
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
+#include <string>
+
+#include <QtGui/QContextMenuEvent>
 #include <QtGui/QStandardItem>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QMenu>
 
 // SamplesView::Model ------------------------------------------------------------------------------
 SamplesView::Model::Model(QWidget * parent)
@@ -54,4 +60,20 @@ SamplesView::SamplesView(QWidget * parent) : QTableView(parent)
 bool SamplesView::IsSelected(size_t index) const
 {
   return selectionModel()->isRowSelected(base::checked_cast<int>(index), QModelIndex());
+}
+
+void SamplesView::contextMenuEvent(QContextMenuEvent * event)
+{
+  QModelIndex modelIndex = selectionModel()->currentIndex();
+  if (!modelIndex.isValid())
+    return;
+
+  int const index = modelIndex.row();
+  bool const isUseless = m_model->SampleIsUseless(index);
+
+  QMenu menu(this);
+  auto const text = std::string(isUseless ? "unmark" : "mark") + " sample as useless";
+  auto const * action = menu.addAction(text.c_str());
+  connect(action, &QAction::triggered, [this, index]() { emit FlipSampleUsefulness(index); });
+  menu.exec(event->globalPos());
 }

@@ -8,10 +8,13 @@
 #include <vector>
 
 #include <QtGui/QStandardItemModel>
+#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QTableView>
 
 class SamplesView : public QTableView
 {
+  Q_OBJECT
+
 public:
   explicit SamplesView(QWidget * parent);
 
@@ -19,6 +22,12 @@ public:
   bool IsSelected(size_t index) const;
   void OnUpdate(size_t index) { m_model->OnUpdate(index); }
   void Clear() { m_model->SetSamples(ContextList::SamplesSlice{}); }
+
+  // QMainWindow overrides:
+  void contextMenuEvent(QContextMenuEvent * event) override;
+
+signals:
+  void FlipSampleUsefulness(int index);
 
 private:
   class Model : public QStandardItemModel
@@ -41,6 +50,8 @@ private:
       // Need to refresh view when some item is updated.
       emit dataChanged(ix, ix);
     }
+
+    bool SampleIsUseless(int index) const { return m_samples.IsUseless(index); }
 
     // QStandardItemModel overrides:
     QVariant data(QModelIndex const & index, int role = Qt::DisplayRole) const override;

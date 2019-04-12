@@ -35,6 +35,7 @@ public:
 
   virtual bool AlreadyInSamples(FeatureID const & id) = 0;
   virtual void AddNonFoundResult(FeatureID const & id) = 0;
+  virtual void FlipSampleUsefulness(int index) = 0;
 
 protected:
   View * m_view = nullptr;

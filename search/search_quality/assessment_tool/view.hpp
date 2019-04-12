@@ -34,7 +34,8 @@ public:
   virtual void OnSearchStarted() = 0;
   virtual void OnSearchCompleted() = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample,
-                          boost::optional<m2::PointD> const & position, bool hasEdits) = 0;
+                          boost::optional<m2::PointD> const & position, bool isUseless,
+                          bool hasEdits) = 0;
 
   virtual void AddFoundResults(search::Results::ConstIter begin,
                                search::Results::ConstIter end) = 0;
@@ -55,7 +56,7 @@ public:
   virtual void OnResultChanged(size_t sampleIndex, ResultType type,
                                Edits::Update const & update) = 0;
   virtual void SetEdits(size_t index, Edits & foundResultsEdits, Edits & nonFoundResultsEdits) = 0;
-  virtual void OnSampleChanged(size_t sampleIndex, bool hasEdits) = 0;
+  virtual void OnSampleChanged(size_t sampleIndex, bool isUseless, bool hasEdits) = 0;
   virtual void OnSamplesChanged(bool hasEdits) = 0;
 
   virtual void ShowError(std::string const & msg) = 0;

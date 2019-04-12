@@ -168,6 +168,7 @@ void Sample::DeserializeFromJSONImpl(json_t * root)
   FromJSONObject(root, "viewport", m_viewport);
   FromJSONObjectOptional(root, "results", m_results);
   FromJSONObjectOptional(root, "related_queries", m_relatedQueries);
+  FromJSONObjectOptionalField(root, "useless", m_useless);
 }
 
 void Sample::SerializeToJSONImpl(json_t & root) const
@@ -178,6 +179,8 @@ void Sample::SerializeToJSONImpl(json_t & root) const
   ToJSONObject(root, "viewport", m_viewport);
   ToJSONObject(root, "results", m_results);
   ToJSONObject(root, "related_queries", m_relatedQueries);
+  if (m_useless)
+    ToJSONObject(root, "useless", m_useless);
 }
 
 void Sample::FillSearchParams(search::SearchParams & params) const

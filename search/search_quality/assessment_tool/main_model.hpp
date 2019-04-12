@@ -47,6 +47,7 @@ public:
   bool HasChanges() override;
   bool AlreadyInSamples(FeatureID const & id) override;
   void AddNonFoundResult(FeatureID const & id) override;
+  void FlipSampleUsefulness(int index) override;
 
 private:
   static int constexpr kInvalidIndex = -1;
@@ -54,6 +55,7 @@ private:
   void InitiateForegroundSearch(size_t index);
 
   void OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update);
+  void OnSampleUpdate(size_t sampleIndex);
 
   void UpdateViewOnResults(search::Results const & results);
   void ShowMarks(Context const & context);

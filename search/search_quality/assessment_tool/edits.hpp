@@ -12,6 +12,38 @@
 
 #include <boost/optional.hpp>
 
+struct SampleEdits
+{
+  using OnUpdate = std::function<void()>;
+
+  SampleEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
+
+  void Reset(bool origUseless)
+  {
+    m_origUseless = origUseless;
+    m_currUseless = origUseless;
+  }
+
+  void FlipUsefulness()
+  {
+    m_currUseless ^= true;
+    if (m_onUpdate)
+      m_onUpdate();
+  }
+
+  void Apply() { m_origUseless = m_currUseless; }
+
+  bool HasChanges() const { return m_origUseless != m_currUseless; }
+
+  void Clear() {}
+
+  bool m_origUseless = false;
+  bool m_currUseless = false;
+
+  OnUpdate m_onUpdate;
+};
+
+// todo(@m) Rename to ResultsEdits?
 class Edits
 {
 public:

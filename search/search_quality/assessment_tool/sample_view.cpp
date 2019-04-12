@@ -101,6 +101,7 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
     auto * layout =
         BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_relatedQueriesBox);
     SetVerticalStretch(*m_relatedQueriesBox, 1 /* stretch */);
+
     layout->addWidget(new QLabel(tr("Related queries")));
 
     m_relatedQueries = new QListWidget();
@@ -119,6 +120,13 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
     connect(m_markAllAsIrrelevant, &QPushButton::clicked,
             [this]() { emit OnMarkAllAsIrrelevantClicked(); });
     layout->addWidget(m_markAllAsIrrelevant);
+  }
+
+  {
+    m_uselessnessLabel = new QLabel(this /* parent */);
+    m_uselessnessLabel->setText(tr("Sample is marked as useless"));
+    m_uselessnessLabel->hide();
+    mainLayout->addWidget(m_uselessnessLabel);
   }
 
   {
@@ -303,6 +311,25 @@ void SampleView::SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits)
   SetEdits(*m_foundResults, resultsEdits);
   SetEdits(*m_nonFoundResults, nonFoundResultsEdits);
   m_nonFoundResultsEdits = &nonFoundResultsEdits;
+}
+
+void SampleView::OnUselessnessChanged(bool isUseless)
+{
+  if (isUseless)
+  {
+    m_uselessnessLabel->show();
+    m_foundResultsBox->hide();
+    m_nonFoundResultsBox->hide();
+    m_markAllAsRelevant->hide();
+    m_markAllAsIrrelevant->hide();
+  }
+  else
+  {
+    m_uselessnessLabel->hide();
+    m_foundResultsBox->show();
+    m_markAllAsRelevant->show();
+    m_markAllAsIrrelevant->show();
+  }
 }
 
 void SampleView::Clear()

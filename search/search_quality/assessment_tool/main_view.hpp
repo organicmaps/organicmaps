@@ -33,7 +33,8 @@ public:
   void OnSearchStarted() override;
   void OnSearchCompleted() override;
   void ShowSample(size_t sampleIndex, search::Sample const & sample,
-                  boost::optional<m2::PointD> const & position, bool hasEdits) override;
+                  boost::optional<m2::PointD> const & position, bool isUseless,
+                  bool hasEdits) override;
 
   void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
@@ -53,7 +54,7 @@ public:
   void OnResultChanged(size_t sampleIndex, ResultType type, Edits::Update const & update) override;
   void SetEdits(size_t sampleIndex, Edits & foundResultsEdits,
                 Edits & nonFoundResultsEdits) override;
-  void OnSampleChanged(size_t sampleIndex, bool hasEdits) override;
+  void OnSampleChanged(size_t sampleIndex, bool isUseless, bool hasEdits) override;
   void OnSamplesChanged(bool hasEdits) override;
 
   void ShowError(std::string const & msg) override;
@@ -105,7 +106,7 @@ private:
   void InitiateBackgroundSearch();
 
   void SetSamplesDockTitle(bool hasEdits);
-  void SetSampleDockTitle(bool hasEdits);
+  void SetSampleDockTitle(bool isUseless, bool hasEdits);
   SaveResult TryToSaveEdits(QString const & msg);
 
   void AddSelectedFeature(QPoint const & p);

@@ -76,6 +76,11 @@ struct Sample
   m2::RectD m_viewport = m2::RectD(0, 0, 0, 0);
   std::vector<Result> m_results;
   std::vector<strings::UniString> m_relatedQueries;
+
+  // A useless sample is usually a result of the user exploring
+  // the search engine without a clear search intent or a sample
+  // that cannot be assessed properly using only the data it contains.
+  bool m_useless = false;
 };
 
 void FromJSONObject(json_t * root, char const * field,

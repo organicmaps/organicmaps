@@ -21,7 +21,16 @@ void Context::Clear()
   m_nonFoundResults.clear();
   m_nonFoundResultsEdits.Clear();
 
+  m_sampleEdits.Clear();
+
   m_initialized = false;
+}
+
+void Context::LoadFromSample(search::Sample const & sample)
+{
+  Clear();
+  m_sample = sample;
+  m_sampleEdits.Reset(sample.m_useless);
 }
 
 search::Sample Context::MakeSample(search::FeatureLoader & loader) const
@@ -93,6 +102,8 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     outResults.push_back(search::Sample::Result::Build(*ft, *foundEntries[i].m_currRelevance));
   }
 
+  outSample.m_useless = m_sampleEdits.m_currUseless;
+
   return outSample;
 }
 
@@ -102,12 +113,15 @@ void Context::ApplyEdits()
     return;
   m_foundResultsEdits.Apply();
   m_nonFoundResultsEdits.Apply();
+  m_sampleEdits.Apply();
 }
 
 // ContextList -------------------------------------------------------------------------------------
-ContextList::ContextList(OnUpdate onResultsUpdate, OnUpdate onNonFoundResultsUpdate)
+ContextList::ContextList(OnUpdate onResultsUpdate, OnUpdate onNonFoundResultsUpdate,
+                         OnSampleUpdate onSampleUpdate)
   : m_onResultsUpdate(onResultsUpdate)
   , m_onNonFoundResultsUpdate(onNonFoundResultsUpdate)
+  , m_onSampleUpdate(onSampleUpdate)
 {
 }
 
@@ -133,6 +147,11 @@ void ContextList::Resize(size_t size)
           OnContextUpdated(i);
           if (m_onNonFoundResultsUpdate)
             m_onNonFoundResultsUpdate(i, update);
+        },
+        [this, i]() {
+          OnContextUpdated(i);
+          if (m_onSampleUpdate)
+            m_onSampleUpdate(i);
         });
   }
 }
