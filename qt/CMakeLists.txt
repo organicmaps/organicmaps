@@ -162,6 +162,11 @@ copy_resources(
   countries-strings
   resources-default
   resources-mdpi_clear
+  resources-hdpi_clear
+  resources-xhdpi_clear
+  resources-xxhdpi_clear
+  resources-xxxhdpi_clear
+  resources-6plus_clear
   cuisine-strings
   taxi_places
   eula.html

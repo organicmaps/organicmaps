@@ -70,6 +70,7 @@ private:
   size_t m_filesCount = 0;
   std::set<storage::CountryId> m_countriesToDownload;
   std::string m_nextScreenshotName;
+  m2::RectD m_dataRect;
 };
 
 std::string DebugPrint(Screenshoter::State state);

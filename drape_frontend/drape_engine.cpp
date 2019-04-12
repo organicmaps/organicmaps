@@ -502,7 +502,7 @@ void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
 void DrapeEngine::NotifyGraphicsReady(TGraphicsReadyFn const & fn)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<NotifyGraphicsReadyMessage>(fn),
                                   MessagePriority::Normal);
 }

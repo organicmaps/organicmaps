@@ -1103,42 +1103,26 @@ void Framework::ShowBookmark(Bookmark const * mark)
 
 void Framework::ShowTrack(kml::TrackId trackId)
 {
-  double const kPaddingScale = 1.2;
-
   auto const track = GetBookmarkManager().GetTrack(trackId);
   if (track == nullptr)
     return;
 
-  StopLocationFollow();
   auto rect = track->GetLimitRect();
-  rect.Scale(kPaddingScale);
+  ExpandBookmarksRectForPreview(rect);
 
+  StopLocationFollow();
   ShowRect(rect);
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
 {
-  auto const & bm = GetBookmarkManager();
-  if (bm.IsCategoryEmpty(categoryId))
-    return;
-
-  m2::RectD rect;
-  for (auto const id : bm.GetUserMarkIds(categoryId))
-  {
-    auto const bookmark = bm.GetBookmark(id);
-    rect.Add(bookmark->GetPivot());
-  }
-  for (auto const id : bm.GetTrackIds(categoryId))
-  {
-    auto const track = bm.GetTrack(id);
-    rect.Add(track->GetLimitRect());
-  }
+  auto rect = GetBookmarkManager().GetCategoryRect(categoryId);
   if (!rect.IsValid())
     return;
 
-  double const kPaddingScale = 1.2;
+  ExpandBookmarksRectForPreview(rect);
+
   StopLocationFollow();
-  rect.Scale(kPaddingScale);
   ShowRect(rect, -1 /* maxScale */, animation);
 }
 

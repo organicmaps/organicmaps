@@ -583,6 +583,17 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  case Message::Type::NotifyGraphicsReady:
+    {
+      ref_ptr<NotifyGraphicsReadyMessage> msg = message;
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<NotifyGraphicsReadyMessage>(msg->GetCallback()),
+                                MessagePriority::Normal);
+      break;
+    }
+#endif
+
   default:
     ASSERT(false, ());
     break;

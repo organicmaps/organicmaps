@@ -853,6 +853,30 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return category->GetFileName();
 }
 
+m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+
+  m2::RectD rect;
+  if (category->IsEmpty())
+    return rect;
+
+  for (auto markId : category->GetUserMarks())
+  {
+    auto const bookmark = GetBookmark(markId);
+    rect.Add(bookmark->GetPivot());
+  }
+  for (auto trackId : category->GetUserLines())
+  {
+    auto const track = GetTrack(trackId);
+    rect.Add(track->GetLimitRect());
+  }
+
+  return rect;
+}
+
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

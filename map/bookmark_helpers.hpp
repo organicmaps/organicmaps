@@ -6,6 +6,8 @@
 
 #include "coding/reader.hpp"
 
+#include "geometry/rect2d.hpp"
+
 #include <memory>
 #include <string>
 
@@ -52,3 +54,5 @@ bool FromCatalog(kml::FileData const & kmlData);
 bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId);
 bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData);
 bool IsMyCategory(User const & user, kml::CategoryData const & categoryData);
+
+void ExpandBookmarksRectForPreview(m2::RectD & rect);

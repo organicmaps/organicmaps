@@ -81,7 +81,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   {
     screenshotParams->m_statusChangedFn = [this](std::string const & state, bool finished)
     {
-      statusBar()->showMessage(QString::fromStdString("Screenshot mode. " + state));
+      statusBar()->showMessage(QString::fromStdString(state));
       if (finished)
         QCoreApplication::quit();
     };

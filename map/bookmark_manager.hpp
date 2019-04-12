@@ -179,6 +179,7 @@ public:
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
+  m2::RectD GetCategoryRect(kml::MarkGroupId categoryId) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
 
   kml::MarkGroupId GetCategoryId(std::string const & name) const;

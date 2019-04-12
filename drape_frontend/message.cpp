@@ -96,6 +96,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::FlushTransitScheme: return "FlushTransitScheme";
   case Message::Type::ShowDebugInfo: return "ShowDebugInfo";
   case Message::Type::NotifyRenderThread: return "NotifyRenderThread";
+  case Message::Type::NotifyGraphicsReady: return "NotifyGraphicsReady";
   }
   ASSERT(false, ("Unknown message type."));
   return "Unknown type";
