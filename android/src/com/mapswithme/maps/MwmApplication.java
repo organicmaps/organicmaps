@@ -14,6 +14,7 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
@@ -24,7 +25,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
@@ -43,8 +43,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MwmApplication extends Application
 {
@@ -87,6 +85,7 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private GeofenceRegistry mGeofenceRegistry;
+  private boolean mFirstLaunch;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -100,10 +99,19 @@ public class MwmApplication extends Application
     sSelf = this;
   }
 
+  /**
+   * Use the {@link #from(Context)} method instead.
+   */
   @Deprecated
   public static MwmApplication get()
   {
     return sSelf;
+  }
+
+  @NonNull
+  public static MwmApplication from(@NonNull Context context)
+  {
+    return (MwmApplication) context.getApplicationContext();
   }
 
   /**
@@ -374,6 +382,16 @@ public class MwmApplication extends Application
   public Logger getLogger()
   {
     return mLogger;
+  }
+
+  public void setFirstLaunch(boolean isFirstLaunch)
+  {
+    mFirstLaunch = isFirstLaunch;
+  }
+
+  public boolean isFirstLaunch()
+  {
+    return mFirstLaunch;
   }
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener

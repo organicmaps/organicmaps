@@ -19,6 +19,7 @@ import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.news.WelcomeDialogFragment;
@@ -36,19 +37,16 @@ import com.mapswithme.util.statistics.PushwooshHelper;
 import com.my.tracker.MyTracker;
 
 public class SplashActivity extends AppCompatActivity
-    implements BaseNewsFragment.NewsDialogListener, BaseActivity
+    implements BaseNewsFragment.NewsDialogListener, BaseActivity,
+               WelcomeDialogFragment.PolicyAgreementListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = SplashActivity.class.getSimpleName();
-  private static final String EXTRA_CORE_INITIALIZED = "extra_core_initialized";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
-  private static final long FIRST_START_DELAY = 1000;
+  private static final long FIRST_START_DELAY = 300;
   private static final long DELAY = 100;
-
-  // The first launch of application ever - onboarding screen will be shown.
-  private static boolean sFirstStart;
 
   private View mIvLogo;
   private View mAppName;
@@ -56,6 +54,16 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
+
+  @NonNull
+  private final Runnable mWelcomeScreenDelayedTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      WelcomeDialogFragment.show(SplashActivity.this);
+    }
+  };
 
   @NonNull
   private final Runnable mPermissionsDelayedTask = new Runnable()
@@ -138,19 +146,13 @@ public class SplashActivity extends AppCompatActivity
     context.startActivity(intent);
   }
 
-  public static boolean isFirstStart()
-  {
-    boolean res = sFirstStart;
-    sFirstStart = false;
-    return res;
-  }
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
     handleUpdateMapsFragmentCorrectly(savedInstanceState);
+    UiThread.cancelDelayedTasks(mWelcomeScreenDelayedTask);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
@@ -211,6 +213,28 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     mBaseDelegate.onResume();
     mCanceled = false;
+
+    if (Counters.isMigrationNeeded())
+    {
+      Config.migrateCountersToSharedPrefs();
+      Counters.setMigrationExecuted();
+    }
+    
+    boolean isFirstLaunch = WelcomeDialogFragment.isFirstLaunch(this);
+    if (isFirstLaunch)
+      MwmApplication.from(this).setFirstLaunch(true);
+
+    if (isFirstLaunch || WelcomeDialogFragment.recreate(this))
+    {
+      UiThread.runLater(mWelcomeScreenDelayedTask, FIRST_START_DELAY);
+      return;
+    }
+
+    processPermissionGranting();
+  }
+
+  private void processPermissionGranting()
+  {
     mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
     DialogFragment storagePermissionsDialog = StoragePermissionsDialogFragment.find(this);
     DialogFragment permissionsDialog = PermissionsDialogFragment.find(this);
@@ -226,7 +250,7 @@ public class SplashActivity extends AppCompatActivity
       }
       permissionsDialog = PermissionsDialogFragment.find(this);
       if (permissionsDialog == null)
-        UiThread.runLater(mPermissionsDelayedTask, FIRST_START_DELAY);
+        UiThread.runLater(mPermissionsDelayedTask, DELAY);
 
       return;
     }
@@ -246,6 +270,7 @@ public class SplashActivity extends AppCompatActivity
     super.onPause();
     mBaseDelegate.onPause();
     mCanceled = true;
+    UiThread.cancelDelayedTasks(mWelcomeScreenDelayedTask);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
@@ -274,20 +299,6 @@ public class SplashActivity extends AppCompatActivity
     if (!app.arePlatformAndCoreInitialized())
     {
       showExternalStorageErrorDialog();
-      return;
-    }
-
-    if (Counters.isMigrationNeeded())
-    {
-      Config.migrateCountersToSharedPrefs();
-      Counters.setMigrationExecuted();
-    }
-
-    sFirstStart = WelcomeDialogFragment.showOn(this);
-    if (sFirstStart)
-    {
-      PushwooshHelper.nativeProcessFirstLaunch();
-      UiUtils.hide(mIvLogo, mAppName);
       return;
     }
 
@@ -356,6 +367,12 @@ public class SplashActivity extends AppCompatActivity
     processNavigation();
   }
 
+  @Override
+  public void onPolicyAgreementApplied()
+  {
+    processPermissionGranting();
+  }
+
   private void initView()
   {
     UiUtils.setupStatusBar(this);
@@ -366,7 +383,15 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    MwmApplication.get().initCore();
+    MwmApplication app = MwmApplication.from(this);
+    boolean success = app.initCore();
+    if (!success || !app.isFirstLaunch())
+      return;
+
+    PushwooshHelper.nativeProcessFirstLaunch();
+    LocationHelper.INSTANCE.onEnteredIntoFirstRun();
+    if (!LocationHelper.INSTANCE.isActive())
+      LocationHelper.INSTANCE.start();
   }
 
   @SuppressWarnings("unchecked")

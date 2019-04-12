@@ -198,7 +198,7 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    final boolean firstStart = SplashActivity.isFirstStart();
+    final boolean firstStart = MwmApplication.from(getActivity()).isFirstLaunch();
     if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
                             BuildConfig.VERSION_CODE))
     {

@@ -2,6 +2,7 @@ package com.mapswithme.maps.news;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,16 +21,21 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.UiUtils;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
   @Nullable
-  private BaseNewsFragment.NewsDialogListener mListener;
+  private PolicyAgreementListener mListener;
 
-  public static boolean showOn(@NonNull FragmentActivity activity)
+  public static void show(@NonNull FragmentActivity activity)
+  {
+    create(activity);
+    Counters.setFirstStartDialogSeen();
+  }
+
+  public static boolean isFirstLaunch(@NonNull FragmentActivity activity)
   {
     if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
@@ -38,14 +44,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (fm.isDestroyed())
       return false;
 
-    if (Counters.isFirstStartDialogSeen() &&
-        !recreate(activity))
-      return false;
-
-    create(activity);
-
-    Counters.setFirstStartDialogSeen();
-    return true;
+    return !Counters.isFirstStartDialogSeen();
   }
 
   private static void create(@NonNull FragmentActivity activity)
@@ -57,7 +56,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
             .commitAllowingStateLoss();
   }
 
-  private static boolean recreate(@NonNull FragmentActivity activity)
+  public static boolean recreate(@NonNull FragmentActivity activity)
   {
     FragmentManager fm = activity.getSupportFragmentManager();
     Fragment f = fm.findFragmentByTag(WelcomeDialogFragment.class.getName());
@@ -79,7 +78,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     super.onAttach(activity);
     if (activity instanceof BaseNewsFragment.NewsDialogListener)
-      mListener = (BaseNewsFragment.NewsDialogListener) activity;
+      mListener = (PolicyAgreementListener) activity;
   }
 
   @Override
@@ -99,10 +98,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
-    LocationHelper.INSTANCE.onEnteredIntoFirstRun();
-    if (!LocationHelper.INSTANCE.isActive())
-      LocationHelper.INSTANCE.start();
-
     Dialog res = super.onCreateDialog(savedInstanceState);
     res.requestWindowFeature(Window.FEATURE_NO_TITLE);
     res.setCancelable(false);
@@ -110,13 +105,13 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(content);
     content.findViewById(R.id.btn__continue).setOnClickListener(this);
-    ImageView image = (ImageView) content.findViewById(R.id.iv__image);
+    ImageView image = content.findViewById(R.id.iv__image);
     image.setImageResource(R.drawable.img_welcome);
-    TextView title = (TextView) content.findViewById(R.id.tv__title);
+    TextView title = content.findViewById(R.id.tv__title);
     title.setText(R.string.onboarding_welcome_title);
-    TextView subtitle = (TextView) content.findViewById(R.id.tv__subtitle1);
+    TextView subtitle = content.findViewById(R.id.tv__subtitle1);
     subtitle.setText(R.string.onboarding_welcome_first_subtitle);
-    TextView terms = (TextView) content.findViewById(R.id.tv__subtitle2);
+    TextView terms = content.findViewById(R.id.tv__subtitle2);
     UiUtils.show(terms);
     Resources rs = content.getResources();
     terms.setText(Html.fromHtml(rs.getString(R.string.onboarding_welcome_second_subtitle,
@@ -133,7 +128,19 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
       return;
 
     if (mListener != null)
-      mListener.onDialogDone();
+      mListener.onPolicyAgreementApplied();
     dismiss();
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    requireActivity().finish();
+  }
+
+  public interface PolicyAgreementListener
+  {
+    void onPolicyAgreementApplied();
   }
 }
