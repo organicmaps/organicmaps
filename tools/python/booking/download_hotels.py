@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf8
 import argparse
 import datetime
 import logging
@@ -10,143 +9,17 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import partial
 from multiprocessing.pool import ThreadPool
-from random import randint
-from threading import Event
-from time import sleep
 
-import eviltransform
 import math
-import requests
-from ratelimit import limits, sleep_and_retry
+from eviltransform import gcj2wgs_exact
 from tqdm import tqdm
 
-LIMIT_REQUESTS_PER_MINUTE = 400
-ATTEMPTS_COUNT = 10
-MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS = (30, 120)
+from api.booking_api import BookingApi, BookingListApi, LIMIT_REQUESTS_PER_MINUTE
+from api.exceptions import GettingMinPriceError
+
 SUPPORTED_LANGUAGES = ("en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de",
                        "hu", "id", "it", "ja", "ko", "pl", "pt", "ro", "es",
                        "sv", "th", "tr", "uk", "vi", "zh", "he", "sk", "el")
-
-
-class AppError(Exception):
-    pass
-
-
-class HTTPError(AppError):
-    pass
-
-
-class AttemptsSpentError(AppError):
-    pass
-
-
-class GettingMinPriceError(AppError):
-    pass
-
-
-class BookingApi:
-    ENDPOINTS = {
-        "countries": "list",
-        "hotels": "list"
-    }
-
-    def __init__(self, login, password, version):
-        major_minor = version.split(".")
-        assert len(major_minor) == 2
-        assert int(major_minor[0]) >= 2
-        assert 0 <= int(major_minor[1]) <= 4
-
-        self._event = Event()
-        self._event.set()
-        self._timeout = 5 * 60  # in seconds
-        self._login = login
-        self._password = password
-        self._base_url = f"https://distribution-xml.booking.com/{version}/json"
-        self._set_endpoints()
-
-    @sleep_and_retry
-    @limits(calls=LIMIT_REQUESTS_PER_MINUTE, period=60)
-    def call_endpoint(self, endpoint, **params):
-        self._event.wait()
-        try:
-            attempts = ATTEMPTS_COUNT
-            while attempts:
-                attempts -= 1
-                response = None
-                try:
-                    response = requests.get(f"{self._base_url}/{endpoint}",
-                                            auth=(self._login, self._password),
-                                            params=params, timeout=self._timeout)
-                except requests.exceptions.ReadTimeout:
-                    logging.exception("Timeout error.")
-                    continue
-                if response.status_code == 200:
-                    data = response.json()
-                    return data["result"]
-                else:
-                    self._handle_errors(response)
-            raise AttemptsSpentError(f"{ATTEMPTS_COUNT} attempts were spent.")
-        except Exception as e:
-            if not self._event.is_set():
-                self._event.set()
-            raise e
-
-    def _handle_errors(self, response):
-        error_message = ""
-        data = response.json()
-        try:
-            error_message = ",".join(x["message"] for x in data["errors"])
-        except KeyError:
-            error_message = data
-
-        if response.status_code == 429:
-            self._event.clear()
-            wait_seconds = randint(*MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS)
-            logging.warning(f"Http error {response.status_code}: {error_message}. "
-                            f"It waits {wait_seconds} seconds and tries again.")
-            sleep(wait_seconds)
-            self._event.set()
-        else:
-            raise HTTPError(
-                f"Http error with code {response.status_code}: {error_message}.")
-
-    def _set_endpoints(self):
-        for endpoint in BookingApi.ENDPOINTS:
-            setattr(self, endpoint, partial(self.call_endpoint, endpoint))
-
-
-class BookingListApi:
-    _ROWS_BY_REQUEST = 1000
-
-    def __init__(self, api):
-        self.api = api
-        self._set_endpoints()
-
-    def call_endpoint(self, endpoint, **params):
-        result = []
-        offset = 0
-        while True:
-            resp = self._call_endpoint_offset(offset, endpoint, **params)
-            result.extend(resp)
-            if len(resp) < BookingListApi._ROWS_BY_REQUEST:
-                break
-            offset += BookingListApi._ROWS_BY_REQUEST
-        return result
-
-    def _call_endpoint_offset(self, offset, endpoint, **params):
-        r = self.api.call_endpoint(endpoint, **{
-            "offset": offset,
-            "rows": BookingListApi._ROWS_BY_REQUEST,
-            **params
-        })
-        if not isinstance(r, list):
-            raise TypeError(f"Result has unexpected type {type(r)}")
-        return r
-
-    def _set_endpoints(self):
-        for endpoint in BookingApi.ENDPOINTS:
-            if BookingApi.ENDPOINTS[endpoint] == "list":
-                setattr(self, endpoint, partial(self.call_endpoint, endpoint))
 
 
 class BookingGen:
@@ -210,7 +83,7 @@ class BookingGen:
                 hotel_data = hotel["hotel_data"]
                 location = hotel_data["location"]
                 try:
-                    location["latitude"], location["longitude"] = eviltransform.gcj2wgs_exact(
+                    location["latitude"], location["longitude"] = gcj2wgs_exact(
                         float(location["latitude"]), float(location["longitude"])
                     )
                 except ValueError:
@@ -304,13 +177,15 @@ def download_hotels_by_country(api, country):
     return rows
 
 
-def download(country_code, user, password, path, threads_count, progress_bar):
+def download(country_code, user, password, path, threads_count,
+             progress_bar=tqdm(disable=True)):
     api = BookingApi(user, password, "2.4")
     list_api = BookingListApi(api)
     countries = list_api.countries(languages="en")
     if country_code is not None:
         countries = list(filter(lambda x: x["country"] in country_code, countries))
     logging.info(f"There is {len(countries)} countries.")
+    progress_bar.desc = "Countries"
     progress_bar.total = len(countries)
     with open(path, "w") as f:
         with ThreadPool(threads_count) as pool:
@@ -323,8 +198,7 @@ def download(country_code, user, password, path, threads_count, progress_bar):
 
 def process_options():
     parser = argparse.ArgumentParser(description="Download and process booking hotels.")
-    parser.add_argument("-q", "--quiet", action="store_false", dest="verbose")
-    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose")
+    parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("--logfile", default="",
                         help="Name and destination for log file")
     parser.add_argument("--password", required=True, dest="password",
