@@ -362,6 +362,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
       m_uiTitle = localizedType;
     else
       subtitle.push_back(localizedType);
+    subtitle.push_back(distance);
   }
   else if (type == RoadWarningMarkType::Dirty)
   {

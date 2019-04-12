@@ -2392,6 +2392,9 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
           kv["partner"] = info.GetPartnerName();
       }
 
+      if (info.IsRoadType())
+        kv["road_warning"] = DebugPrint(info.GetRoadType());
+
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
                                               alohalytics::Location::FromLatLon(ll.lat, ll.lon));
