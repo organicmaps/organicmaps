@@ -249,7 +249,7 @@ void SampleView::AddFoundResults(search::Results::ConstIter begin, search::Resul
 }
 
 void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
-                                     std::vector<Edits::Entry> const & entries)
+                                     std::vector<ResultsEdits::Entry> const & entries)
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
@@ -273,7 +273,7 @@ void SampleView::ShowFoundResultsMarks(search::Results::ConstIter begin, search:
 }
 
 void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                          std::vector<Edits::Entry> const & entries)
+                                          std::vector<ResultsEdits::Entry> const & entries)
 
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
@@ -306,10 +306,11 @@ void SampleView::ClearAllResults()
   ClearSearchResultMarks();
 }
 
-void SampleView::SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits)
+void SampleView::SetResultsEdits(ResultsEdits & resultsResultsEdits,
+                                 ResultsEdits & nonFoundResultsEdits)
 {
-  SetEdits(*m_foundResults, resultsEdits);
-  SetEdits(*m_nonFoundResults, nonFoundResultsEdits);
+  SetResultsEdits(*m_foundResults, resultsResultsEdits);
+  SetResultsEdits(*m_nonFoundResults, nonFoundResultsEdits);
   m_nonFoundResultsEdits = &nonFoundResultsEdits;
 }
 
@@ -359,12 +360,12 @@ void SampleView::OnLocationChanged(Qt::DockWidgetArea area)
     layout()->setContentsMargins(m_defaultMargins);
 }
 
-void SampleView::SetEdits(ResultsView & results, Edits & edits)
+void SampleView::SetResultsEdits(ResultsView & results, ResultsEdits & edits)
 {
   size_t const numRelevances = edits.GetRelevances().size();
   CHECK_EQUAL(results.Size(), numRelevances, ());
   for (size_t i = 0; i < numRelevances; ++i)
-    results.Get(i).SetEditor(Edits::Editor(edits, i));
+    results.Get(i).SetEditor(ResultsEdits::Editor(edits, i));
 }
 
 void SampleView::OnRemoveNonFoundResult(int row) { m_nonFoundResultsEdits->Delete(row); }

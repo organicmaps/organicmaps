@@ -18,23 +18,10 @@ struct SampleEdits
 
   SampleEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
 
-  void Reset(bool origUseless)
-  {
-    m_origUseless = origUseless;
-    m_currUseless = origUseless;
-  }
-
-  void FlipUsefulness()
-  {
-    m_currUseless ^= true;
-    if (m_onUpdate)
-      m_onUpdate();
-  }
-
-  void Apply() { m_origUseless = m_currUseless; }
-
+  void Reset(bool origUseless);
+  void FlipUsefulness();
+  void Apply();
   bool HasChanges() const { return m_origUseless != m_currUseless; }
-
   void Clear() {}
 
   bool m_origUseless = false;
@@ -43,8 +30,7 @@ struct SampleEdits
   OnUpdate m_onUpdate;
 };
 
-// todo(@m) Rename to ResultsEdits?
-class Edits
+class ResultsEdits
 {
 public:
   using Relevance = search::Sample::Result::Relevance;
@@ -100,7 +86,7 @@ public:
   class Editor
   {
   public:
-    Editor(Edits & parent, size_t index);
+    Editor(ResultsEdits & parent, size_t index);
 
     // Sets relevance to |relevance|. Returns true iff |relevance|
     // differs from the original one.
@@ -110,11 +96,11 @@ public:
     Entry::Type GetType() const;
 
   private:
-    Edits & m_parent;
+    ResultsEdits & m_parent;
     size_t m_index = 0;
   };
 
-  explicit Edits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
+  explicit ResultsEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
 
   void Apply();
   void Reset(std::vector<boost::optional<Relevance>> const & relevances);

@@ -31,7 +31,7 @@ void ResultsView::Add(search::Result const & result)
     m_hasResultsWithPoints = true;
 }
 
-void ResultsView::Add(search::Sample::Result const & result, Edits::Entry const & entry)
+void ResultsView::Add(search::Sample::Result const & result, ResultsEdits::Entry const & entry)
 {
   AddImpl(result, entry.m_deleted /* hidden */);
 }
@@ -48,36 +48,36 @@ ResultView const & ResultsView::Get(size_t i) const
   return *m_results[i];
 }
 
-void ResultsView::Update(Edits::Update const & update)
+void ResultsView::Update(ResultsEdits::Update const & update)
 {
   switch (update.m_type)
   {
-  case Edits::Update::Type::Single:
+  case ResultsEdits::Update::Type::Single:
   {
     CHECK_LESS(update.m_index, m_results.size(), ());
     m_results[update.m_index]->Update();
     break;
   }
-  case Edits::Update::Type::All:
+  case ResultsEdits::Update::Type::All:
   {
     for (auto * result : m_results)
       result->Update();
     break;
   }
-  case Edits::Update::Type::Add:
+  case ResultsEdits::Update::Type::Add:
   {
     CHECK_LESS(update.m_index, m_results.size(), ());
     m_results[update.m_index]->Update();
     break;
   }
-  case Edits::Update::Type::Delete:
+  case ResultsEdits::Update::Type::Delete:
   {
     auto const index = update.m_index;
     CHECK_LESS(index, Size(), ());
     item(static_cast<int>(index))->setHidden(true);
     break;
   }
-  case Edits::Update::Type::Resurrect:
+  case ResultsEdits::Update::Type::Resurrect:
     auto const index = update.m_index;
     CHECK_LESS(index, Size(), ());
     item(static_cast<int>(index))->setHidden(false);

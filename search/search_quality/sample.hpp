@@ -79,7 +79,9 @@ struct Sample
 
   // A useless sample is usually a result of the user exploring
   // the search engine without a clear search intent or a sample
-  // that cannot be assessed properly using only the data it contains.
+  // that cannot be assessed properly using only the data available
+  // to the engine (for example, related queries may help a lot but
+  // are not expected to be available).
   bool m_useless = false;
 };
 

@@ -26,8 +26,8 @@ struct Context
     Completed
   };
 
-  Context(Edits::OnUpdate onFoundResultsUpdate, Edits::OnUpdate onNonFoundResultsUpdate,
-          SampleEdits::OnUpdate onSampleUpdate)
+  Context(ResultsEdits::OnUpdate onFoundResultsUpdate,
+          ResultsEdits::OnUpdate onNonFoundResultsUpdate, SampleEdits::OnUpdate onSampleUpdate)
     : m_foundResultsEdits(onFoundResultsUpdate)
     , m_nonFoundResultsEdits(onNonFoundResultsUpdate)
     , m_sampleEdits(onSampleUpdate)
@@ -68,13 +68,13 @@ struct Context
 
   search::Sample m_sample;
   search::Results m_foundResults;
-  Edits m_foundResultsEdits;
+  ResultsEdits m_foundResultsEdits;
 
   std::vector<size_t> m_goldenMatching;
   std::vector<size_t> m_actualMatching;
 
   std::vector<search::Sample::Result> m_nonFoundResults;
-  Edits m_nonFoundResultsEdits;
+  ResultsEdits m_nonFoundResultsEdits;
 
   SampleEdits m_sampleEdits;
 
@@ -114,10 +114,10 @@ public:
     ContextList const * m_contexts = nullptr;
   };
 
-  using OnUpdate = std::function<void(size_t index, Edits::Update const & update)>;
+  using OnResultsUpdate = std::function<void(size_t index, ResultsEdits::Update const & update)>;
   using OnSampleUpdate = std::function<void(size_t index)>;
 
-  ContextList(OnUpdate onResultsUpdate, OnUpdate onNonFoundResultsUpdate,
+  ContextList(OnResultsUpdate onResultsUpdate, OnResultsUpdate onNonFoundResultsUpdate,
               OnSampleUpdate onSampleUpdate);
 
   void Resize(size_t size);
@@ -141,7 +141,7 @@ private:
   std::vector<bool> m_hasChanges;
   size_t m_numChanges = 0;
 
-  OnUpdate m_onResultsUpdate;
-  OnUpdate m_onNonFoundResultsUpdate;
+  OnResultsUpdate m_onResultsUpdate;
+  OnResultsUpdate m_onNonFoundResultsUpdate;
   OnSampleUpdate m_onSampleUpdate;
 };

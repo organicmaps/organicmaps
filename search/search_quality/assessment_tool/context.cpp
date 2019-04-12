@@ -117,7 +117,7 @@ void Context::ApplyEdits()
 }
 
 // ContextList -------------------------------------------------------------------------------------
-ContextList::ContextList(OnUpdate onResultsUpdate, OnUpdate onNonFoundResultsUpdate,
+ContextList::ContextList(OnResultsUpdate onResultsUpdate, OnResultsUpdate onNonFoundResultsUpdate,
                          OnSampleUpdate onSampleUpdate)
   : m_onResultsUpdate(onResultsUpdate)
   , m_onNonFoundResultsUpdate(onNonFoundResultsUpdate)
@@ -138,12 +138,12 @@ void ContextList::Resize(size_t size)
   for (size_t i = oldSize; i < size; ++i)
   {
     m_contexts.emplace_back(
-        [this, i](Edits::Update const & update) {
+        [this, i](ResultsEdits::Update const & update) {
           OnContextUpdated(i);
           if (m_onResultsUpdate)
             m_onResultsUpdate(i, update);
         },
-        [this, i](Edits::Update const & update) {
+        [this, i](ResultsEdits::Update const & update) {
           OnContextUpdated(i);
           if (m_onNonFoundResultsUpdate)
             m_onNonFoundResultsUpdate(i, update);

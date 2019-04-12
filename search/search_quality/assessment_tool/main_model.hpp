@@ -54,13 +54,13 @@ private:
 
   void InitiateForegroundSearch(size_t index);
 
-  void OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update);
+  void OnUpdate(View::ResultType type, size_t sampleIndex, ResultsEdits::Update const & update);
   void OnSampleUpdate(size_t sampleIndex);
 
   void UpdateViewOnResults(search::Results const & results);
   void ShowMarks(Context const & context);
 
-  void OnChangeAllRelevancesClicked(Edits::Relevance relevance);
+  void OnChangeAllRelevancesClicked(ResultsEdits::Relevance relevance);
 
   template <typename Fn>
   void ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn);

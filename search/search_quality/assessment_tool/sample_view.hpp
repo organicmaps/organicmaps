@@ -35,14 +35,15 @@ public:
 
   void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
-                           std::vector<Edits::Entry> const & entries);
+                           std::vector<ResultsEdits::Entry> const & entries);
 
   void ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                std::vector<Edits::Entry> const & entries);
+                                std::vector<ResultsEdits::Entry> const & entries);
   void ClearSearchResultMarks();
 
-  void SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits);
+  void SetResultsEdits(ResultsEdits & resultsResultsEdits,
+                       ResultsEdits & nonFoundResultsResultsEdits);
 
   void OnUselessnessChanged(bool isUseless);
 
@@ -61,7 +62,7 @@ signals:
 
 private:
   void ClearAllResults();
-  void SetEdits(ResultsView & results, Edits & edits);
+  void SetResultsEdits(ResultsView & results, ResultsEdits & edits);
   void OnRemoveNonFoundResult(int row);
 
   void ShowUserPosition(m2::PointD const & position);
@@ -91,7 +92,7 @@ private:
   ResultsView * m_nonFoundResults = nullptr;
   QWidget * m_nonFoundResultsBox = nullptr;
 
-  Edits * m_nonFoundResultsEdits = nullptr;
+  ResultsEdits * m_nonFoundResultsEdits = nullptr;
 
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;

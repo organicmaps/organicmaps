@@ -120,8 +120,8 @@ void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
   m_sampleView->SetContents(sample, position);
   m_sampleView->show();
 
-  OnResultChanged(sampleIndex, ResultType::Found, Edits::Update::MakeAll());
-  OnResultChanged(sampleIndex, ResultType::NonFound, Edits::Update::MakeAll());
+  OnResultChanged(sampleIndex, ResultType::Found, ResultsEdits::Update::MakeAll());
+  OnResultChanged(sampleIndex, ResultType::NonFound, ResultsEdits::Update::MakeAll());
   OnSampleChanged(sampleIndex, isUseless, hasEdits);
 }
 
@@ -131,7 +131,7 @@ void MainView::AddFoundResults(search::Results::ConstIter begin, search::Results
 }
 
 void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
-                                   std::vector<Edits::Entry> const & entries)
+                                   std::vector<ResultsEdits::Entry> const & entries)
 {
   m_sampleView->ShowNonFoundResults(results, entries);
 }
@@ -151,7 +151,7 @@ void MainView::ShowFoundResultsMarks(search::Results::ConstIter begin,
 }
 
 void MainView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                        std::vector<Edits::Entry> const & entries)
+                                        std::vector<ResultsEdits::Entry> const & entries)
 {
   m_sampleView->ShowNonFoundResultsMarks(results, entries);
 }
@@ -177,7 +177,8 @@ void MainView::MoveViewportToRect(m2::RectD const & rect)
   m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */);
 }
 
-void MainView::OnResultChanged(size_t sampleIndex, ResultType type, Edits::Update const & update)
+void MainView::OnResultChanged(size_t sampleIndex, ResultType type,
+                               ResultsEdits::Update const & update)
 {
   m_samplesView->OnUpdate(sampleIndex);
 
@@ -207,10 +208,11 @@ void MainView::OnSamplesChanged(bool hasEdits)
   m_saveAs->setEnabled(hasEdits);
 }
 
-void MainView::SetEdits(size_t sampleIndex, Edits & foundResultsEdits, Edits & nonFoundResultsEdits)
+void MainView::SetResultsEdits(size_t sampleIndex, ResultsEdits & foundResultsEdits,
+                               ResultsEdits & nonFoundResultsEdits)
 {
   CHECK(m_samplesView->IsSelected(sampleIndex), ());
-  m_sampleView->SetEdits(foundResultsEdits, nonFoundResultsEdits);
+  m_sampleView->SetResultsEdits(foundResultsEdits, nonFoundResultsEdits);
 }
 
 void MainView::ShowError(std::string const & msg)

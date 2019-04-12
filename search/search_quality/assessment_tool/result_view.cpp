@@ -72,9 +72,9 @@ ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
 {
 }
 
-void ResultView::SetEditor(Edits::Editor && editor)
+void ResultView::SetEditor(ResultsEdits::Editor && editor)
 {
-  m_editor = make_unique<Edits::Editor>(std::move(editor));
+  m_editor = make_unique<ResultsEdits::Editor>(std::move(editor));
 
   UpdateRelevanceRadioButtons();
 
@@ -89,7 +89,7 @@ void ResultView::Update()
     return;
   }
 
-  if (m_editor->GetType() == Edits::Entry::Type::Created)
+  if (m_editor->GetType() == ResultsEdits::Entry::Type::Created)
   {
     setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
   }
