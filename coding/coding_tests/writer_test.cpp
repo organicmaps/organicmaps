@@ -4,6 +4,12 @@
 #include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

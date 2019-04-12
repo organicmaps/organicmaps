@@ -167,9 +167,9 @@ NameScore GetNameScore(std::vector<strings::UniString> const & tokens, Slice con
       return NAME_SCORE_FULL_MATCH;
 
     if (offset == 0)
-      score = max(score, NAME_SCORE_PREFIX);
+      score = std::max(score, NAME_SCORE_PREFIX);
 
-    score = max(score, NAME_SCORE_SUBSTRING);
+    score = std::max(score, NAME_SCORE_SUBSTRING);
   }
   return score;
 }

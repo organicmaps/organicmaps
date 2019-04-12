@@ -1,13 +1,15 @@
 #pragma once
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/checked_cast.hpp"
 #include "base/exception.hpp"
-#include "std/algorithm.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/cstring.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
+#include <memory>
 
 // Generic Writer. Not thread-safe.
 class Writer
@@ -30,22 +32,16 @@ template <typename ContainerT>
 class MemWriter : public Writer
 {
 public:
-  inline explicit MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)
+  explicit MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)
   {
     static_assert(sizeof(typename ContainerT::value_type) == 1, "");
   }
 
-  inline void Seek(uint64_t pos) override
-  {
-    m_Pos = base::asserted_cast<uintptr_t>(pos);
-  }
+  void Seek(uint64_t pos) override { m_Pos = base::asserted_cast<uintptr_t>(pos); }
 
-  inline uint64_t Pos() const override
-  {
-    return m_Pos;
-  }
+  uint64_t Pos() const override { return m_Pos; }
 
-  inline void Write(void const * p, size_t size) override
+  void Write(void const * p, size_t size) override
   {
     intptr_t freeSize = m_Data.size() - m_Pos;
     if (freeSize < 0)
@@ -54,7 +50,7 @@ public:
       freeSize = size;
     }
 
-    memcpy(&m_Data[m_Pos], p, min(size, static_cast<size_t>(freeSize)));
+    memcpy(&m_Data[m_Pos], p, std::min(size, static_cast<size_t>(freeSize)));
 
     if (size > static_cast<size_t>(freeSize))
     {
@@ -76,8 +72,10 @@ template <typename WriterT>
 class SubWriter : public Writer
 {
 public:
-  inline explicit SubWriter(WriterT & writer)
-    : m_writer(writer), m_pos(0), m_maxPos(0)
+  explicit SubWriter(WriterT & writer)
+    : m_writer(writer)
+    , m_pos(0)
+    , m_maxPos(0)
 #ifdef DEBUG
     , m_offset(GetOffset())
 #endif
@@ -91,34 +89,34 @@ public:
       Seek(m_maxPos);
   }
 
-  inline void Seek(uint64_t pos) override
+  void Seek(uint64_t pos) override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     m_writer.Seek(GetOffset() + pos);
 
     m_pos = pos;
-    m_maxPos = max(m_maxPos, m_pos);
+    m_maxPos = std::max(m_maxPos, m_pos);
   }
 
-  inline uint64_t Pos() const override
+  uint64_t Pos() const override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     return m_pos;
   }
 
-  inline void Write(void const * p, size_t size) override
+  void Write(void const * p, size_t size) override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     m_writer.Write(p, size);
 
     m_pos += size;
-    m_maxPos = max(m_maxPos, m_pos);
+    m_maxPos = std::max(m_maxPos, m_pos);
   }
 
-  inline uint64_t Size() const { return m_maxPos; }
+  uint64_t Size() const { return m_maxPos; }
 
 private:
-  inline uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
+  uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
 
 private:
   WriterT & m_writer;
@@ -153,16 +151,16 @@ public:
   WriterT * GetPtr() const { return m_p.get(); }
 
 protected:
-  shared_ptr<WriterT> m_p;
+  std::shared_ptr<WriterT> m_p;
 };
 
 template <typename WriterT>
 class WriterSink
 {
 public:
-  inline explicit WriterSink(WriterT & writer) : m_writer(writer), m_pos(0) {}
+  explicit WriterSink(WriterT & writer) : m_writer(writer), m_pos(0) {}
 
-  inline void Write(void const * p, size_t size)
+  void Write(void const * p, size_t size)
   {
     m_writer.Write(p, size);
     m_pos += size;

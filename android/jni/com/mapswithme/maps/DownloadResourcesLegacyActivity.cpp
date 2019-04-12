@@ -17,6 +17,7 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -102,7 +103,7 @@ extern "C"
     std::string const path = pl.WritableDir();
 
     ReaderStreamBuf buffer(pl.GetReader(EXTERNAL_RESOURCES_FILE));
-    istream in(&buffer);
+    std::istream in(&buffer);
 
     std::string name;
     int size;

@@ -123,7 +123,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GraphicsContext> conte
   };
   ClearRenderData(removePredicate, tree, currentRenderData);
 
-  m_lastRecacheId = max(m_lastRecacheId, newRenderData.m_recacheId);
+  m_lastRecacheId = std::max(m_lastRecacheId, newRenderData.m_recacheId);
 
   // Add new render data.
   auto program = mng->GetProgram(newRenderData.m_state.GetProgram<gpu::Program>());

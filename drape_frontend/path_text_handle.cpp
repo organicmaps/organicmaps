@@ -38,7 +38,7 @@ bool RoundCorner(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const 
     return false;
   }
   m2::PointD const np1 = p2 - dir1 * std::min(kRoundStep * vs,
-                                              p1p2Length - p1p2Length / max(leftStepsCount - 1, 2));
+                                              p1p2Length - p1p2Length / std::max(leftStepsCount - 1, 2));
   p1p2Length = (p2 - np1).Length();
   double const cosCorner = m2::DotProduct(-dir1, dir2);
   double const sinCorner = fabs(m2::CrossProduct(-dir1, dir2));

@@ -7,6 +7,7 @@
 
 #include "base/logging.hpp"
 
+#include <limits>
 
 namespace feature
 {
@@ -42,7 +43,7 @@ m2::PointD GetCenter(FeatureType & f) { return GetCenter(f, FeatureType::BEST_GE
 
 double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
 {
-  double res = numeric_limits<double>::max();
+  double res = std::numeric_limits<double>::max();
   auto updateDistanceFn = [&] (m2::PointD const & p)
   {
     double const d = MercatorBounds::DistanceOnEarth(p, pt);

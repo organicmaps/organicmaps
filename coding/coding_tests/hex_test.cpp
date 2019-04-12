@@ -2,9 +2,12 @@
 
 #include "coding/hex.hpp"
 
-#include "std/random.hpp"
-#include "std/string.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <random>
+#include <string>
 
+using namespace std;
 
 UNIT_TEST(GoldenRecode)
 {

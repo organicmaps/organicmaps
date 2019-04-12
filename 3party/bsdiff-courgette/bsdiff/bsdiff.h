@@ -407,7 +407,7 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
     return CRC_ERROR;
 
   CHECK_GREATER_OR_EQUAL(kNumStreams, 6, ());
-  vector<uint32_t> stream_sizes(kNumStreams);
+  std::vector<uint32_t> stream_sizes(kNumStreams);
   for (auto & s : stream_sizes)
     s = ReadPrimitiveFromSource<uint32_t>(patch_source);
 

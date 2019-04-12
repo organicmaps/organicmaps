@@ -16,6 +16,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -31,7 +32,7 @@ namespace generator
 namespace cache
 {
 using Key = uint64_t;
-static_assert(is_integral<Key>::value, "Key must be an integral type");
+static_assert(std::is_integral<Key>::value, "Key must be an integral type");
 
 // Used to store all world nodes inside temporary index file.
 // To find node by id, just calculate offset inside index file:
@@ -199,7 +200,8 @@ protected:
 class IntermediateDataReader
 {
 public:
-  IntermediateDataReader(shared_ptr<PointStorageReaderInterface> nodes, feature::GenerateInfo & info);
+  IntermediateDataReader(std::shared_ptr<PointStorageReaderInterface> nodes,
+                         feature::GenerateInfo & info);
 
   bool GetNode(Key id, double & lat, double & lon) const { return m_nodes->GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }

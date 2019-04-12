@@ -199,7 +199,7 @@ void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
   auto const functor = [&result, &symbols](UnitValue const & v)
   {
     size_t stringSize = strlen(v.m_s);
-    result = max(result, stringSize);
+    result = std::max(result, stringSize);
     for (size_t i = 0; i < stringSize; ++i)
       symbols.insert(v.m_s[i]);
   };

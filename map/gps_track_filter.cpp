@@ -103,7 +103,7 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
       // Acceptable angle must be from 0 to 45 or from 0 to -45.
       // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
       if (cosine >= kCosine45degrees &&
-          realDistance <= max(kClosePointDistanceMeters, 2. * predictionDistance))
+          realDistance <= std::max(kClosePointDistanceMeters, 2. * predictionDistance))
       {
         outPoints.emplace_back(currInfo);
         AddLastAcceptedInfo(currInfo);

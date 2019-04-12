@@ -28,12 +28,12 @@ static int8_t kAgeOfChild = 5;
   return self;
 }
 
-- (shared_ptr<search::hotels_filter::Rule>)rules
+- (std::shared_ptr<search::hotels_filter::Rule>)rules
 {
   using namespace search::hotels_filter;
   using namespace place_page::rating;
   
-  shared_ptr<Rule> ratingRule;
+  std::shared_ptr<Rule> ratingRule;
   switch (self.rating)
   {
     case FilterRating::Any: break;
@@ -42,11 +42,11 @@ static int8_t kAgeOfChild = 5;
     case FilterRating::Excellent: ratingRule = Ge<Rating>(9.0); break;
   }
 
-  shared_ptr<Rule> priceRule;
+  std::shared_ptr<Rule> priceRule;
   if (self.price != Any)
     priceRule = Or(priceRule, Eq<PriceRate>(self.price));
   
-  shared_ptr<Rule> typeRule;
+  std::shared_ptr<Rule> typeRule;
   if (!self.types.empty())
     typeRule = OneOf(makeMask(self.types));
   
@@ -75,7 +75,7 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items
     params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
     params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
   }
-  return { make_shared<booking::AvailabilityParams>(params), {} };
+  return { std::make_shared<booking::AvailabilityParams>(params), {} };
 }
 
 @end

@@ -365,7 +365,7 @@ public:
     WriteVarUint(sink, static_cast<uint32_t>(count));
 
     std::for_each(m_buffers.begin(), m_buffers.end(),
-                  std::bind(&WriteBufferToSink<TSink>, std::placeholders::_1, ref(sink)));
+                  std::bind(&WriteBufferToSink<TSink>, std::placeholders::_1, std::ref(sink)));
   }
 };
 }  // namespace serial

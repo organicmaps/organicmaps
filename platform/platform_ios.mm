@@ -31,6 +31,7 @@
 #import <UIKit/UIKit.h>
 #import <netinet/in.h>
 
+#include <memory>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -65,7 +66,7 @@ Platform::Platform()
     m_tmpDir += "/tmp/";
   }
 
-  m_guiThread = make_unique<platform::GuiThread>();
+  m_guiThread = std::make_unique<platform::GuiThread>();
 
   UIDevice * device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
@@ -119,10 +120,10 @@ bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) 
   }
 }
 
-unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string const & searchScope) const
+std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string const & searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
-                                 READER_CHUNK_LOG_COUNT);
+  return std::make_unique<FileReader>(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
+                                      READER_CHUNK_LOG_COUNT);
 }
 
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
@@ -255,7 +256,7 @@ void Platform::SetupMeasurementSystem() const
   settings::Set(settings::kMeasurementUnits, units);
 }
 
-void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
 {
   m_guiThread = std::move(guiThread);
 }

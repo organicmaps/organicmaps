@@ -11,10 +11,14 @@
 #include "base/thread.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/regex.hpp"
+#include <memory>
+#include <regex>
+#include <string>
 
 #include <unistd.h>     // for sysconf
 #include <sys/stat.h>
+
+using namespace std;
 
 Platform::Platform()
 {
@@ -196,7 +200,7 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
   if (ZipFileReader::IsZip(directory))
   {
     // Get files list inside zip file
-    typedef ZipFileReader::FileListT FilesT;
+    typedef ZipFileReader::FileList FilesT;
     FilesT fList;
     ZipFileReader::FilesList(directory, fList);
 

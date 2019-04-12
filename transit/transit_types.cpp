@@ -245,7 +245,7 @@ void EdgeFlags::SetFlags(uint8_t flags)
   m_isShapeIdsReversed = GetBit(flags, kShapeIdIsReversedMask);
 }
 
-string DebugPrint(EdgeFlags const & f)
+std::string DebugPrint(EdgeFlags const & f)
 {
   std::ostringstream ss;
   ss << "EdgeFlags [transfer:" << f.m_transfer;
@@ -378,7 +378,7 @@ bool Network::IsValid() const
 }
 
 EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
-                       vector<ShapeId> const & shapeIds)
+                       std::vector<ShapeId> const & shapeIds)
 {
   EdgeFlags flags;
   flags.m_transfer = transfer;

@@ -25,6 +25,7 @@
 #pragma clang diagnostic pop
 #endif
 
+#include <algorithm>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -302,12 +303,12 @@ public:
     std::vector<uint8_t> variables;
 
     {
-      MemWriter<vector<uint8_t>> writer(variables);
+      MemWriter<std::vector<uint8_t>> writer(variables);
       for (size_t i = 0; i < m_values.size(); i += Map::kBlockSize)
       {
         offsets.push_back(static_cast<uint32_t>(variables.size()));
 
-        auto const endOffset = min(i + Map::kBlockSize, m_values.size());
+        auto const endOffset = std::min(i + Map::kBlockSize, m_values.size());
         CHECK_GREATER(endOffset, i, ());
         writeBlockCallback(writer, m_values.cbegin() + i, m_values.cbegin() + endOffset);
       }

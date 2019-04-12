@@ -31,6 +31,7 @@
 
 #include <array>
 #include <cstring>
+#include <limits>
 #include <sstream>
 
 using namespace base;
@@ -868,7 +869,7 @@ void LocalAdsManager::OnLocationUpdate(location::GpsInfo const & info, int zoomL
   FeatureID fid;
   {
     std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
-    double minDist = numeric_limits<double>::max();
+    double minDist = std::numeric_limits<double>::max();
     for (auto const & pair : m_featuresCache)
     {
       auto const & pos = pair.second.m_position;

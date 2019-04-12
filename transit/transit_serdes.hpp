@@ -281,7 +281,7 @@ public:
     f.SetFlags(flags);
   }
 
-  void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)
+  void operator()(std::vector<m2::PointD> & vs, char const * /* name */ = nullptr)
   {
     auto const size = ReadVarUint<uint64_t, Source>(m_source);
     m2::PointU lastDecodedPoint;
@@ -296,7 +296,7 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> & vs, char const * /* name */ = nullptr)
+  void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
   {
     auto const size = ReadVarUint<uint64_t, Source>(m_source);
     vs.resize(size);

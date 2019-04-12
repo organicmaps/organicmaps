@@ -7,14 +7,16 @@
 
 #include "base/bits.hpp"
 
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace
 {
 template <typename TCoder>
-void TestCoder(string const & name)
+void TestCoder(std::string const & name)
 {
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
   using TWriter = MemWriter<TBuffer>;
 
   uint64_t const kMask = 0xfedcba9876543210;

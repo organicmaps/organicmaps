@@ -8,12 +8,15 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cerrno.hpp"
-#include "std/cstring.hpp"
-#include "std/exception.hpp"
-#include "std/fstream.hpp"
 #include "std/target_os.hpp"
-#include "std/thread.hpp"
+
+#include <algorithm>
+#include <cerrno>
+#include <cstring>
+#include <exception>
+#include <fstream>
+#include <thread>
+#include <vector>
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
@@ -22,6 +25,8 @@
 #ifdef OMIM_OS_TIZEN
 #include "tizen/inc/FIo.hpp"
 #endif
+
+using namespace std;
 
 namespace base
 {

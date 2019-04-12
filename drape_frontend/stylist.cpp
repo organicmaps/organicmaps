@@ -145,7 +145,7 @@ private:
     else
     {
       m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
-      m_priorityModifier = min(1.0, r.SizeX() * r.SizeY() * 10000.0);
+      m_priorityModifier = std::min(1.0, r.SizeX() * r.SizeY() * 10000.0);
     }
   }
 

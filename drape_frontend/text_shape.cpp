@@ -14,6 +14,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <utility>
 
 namespace df
@@ -125,8 +126,8 @@ public:
       pivot.y -= halfHeight;
     }
 
-    return m2::RectD(min(x, pivot.x), min(y, pivot.y),
-                     max(x, pivot.x), max(y, pivot.y));
+    return m2::RectD(std::min(x, pivot.x), std::min(y, pivot.y),
+                     std::max(x, pivot.x), std::max(y, pivot.y));
   }
 
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override

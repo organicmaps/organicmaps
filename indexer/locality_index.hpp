@@ -12,6 +12,7 @@
 
 #include "base/geo_object_id.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -109,7 +110,7 @@ public:
     auto insertObject = [&] (int64_t cellNumber, uint64_t storedId) {
       auto const objectId = LocalityObject::FromStoredId(storedId).GetEncodedId();
       auto & objectWeight = objectWeights[objectId];
-      objectWeight = max(objectWeight, cellRelativeWeight(cellNumber));
+      objectWeight = std::max(objectWeight, cellRelativeWeight(cellNumber));
     };
 
     auto insertObjectWithinSizeLimit = [&](int64_t cellNumber, uint64_t storedId) {

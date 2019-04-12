@@ -9,8 +9,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <sstream>
-#include <string>
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -189,12 +189,12 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(double minLat, double minLo
 OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, double radiusInMeters) const
 {
   double const latDegreeOffset = radiusInMeters * MercatorBounds::kDegreesInMeter;
-  double const minLat = max(-90.0, lat - latDegreeOffset);
-  double const maxLat = min( 90.0, lat + latDegreeOffset);
-  double const cosL = max(cos(base::DegToRad(max(fabs(minLat), fabs(maxLat)))), 0.00001);
+  double const minLat = std::max(-90.0, lat - latDegreeOffset);
+  double const maxLat = std::min( 90.0, lat + latDegreeOffset);
+  double const cosL = std::max(cos(base::DegToRad(std::max(fabs(minLat), fabs(maxLat)))), 0.00001);
   double const lonDegreeOffset = radiusInMeters * MercatorBounds::kDegreesInMeter / cosL;
-  double const minLon = max(-180.0, lon - lonDegreeOffset);
-  double const maxLon = min( 180.0, lon + lonDegreeOffset);
+  double const minLon = std::max(-180.0, lon - lonDegreeOffset);
+  double const maxLon = std::min( 180.0, lon + lonDegreeOffset);
   return GetXmlFeaturesInRect(minLat, minLon, maxLat, maxLon);
 }
 

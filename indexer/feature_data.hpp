@@ -101,7 +101,7 @@ namespace feature
       size_t const oldSize = m_size;
 
       auto const e = std::remove_if(begin(), end(), std::forward<Fn>(fn));
-      m_size = distance(begin(), e);
+      m_size = std::distance(begin(), e);
 
       return (m_size != oldSize);
     }

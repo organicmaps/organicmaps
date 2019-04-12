@@ -1,13 +1,19 @@
 #include "testing/testing.hpp"
-#include "coding/diff.hpp"
 
 #include "coding/byte_stream.hpp"
 #include "coding/dd_vector.hpp"
+#include "coding/diff.hpp"
 #include "coding/reader.hpp"
-#include "base/rolling_hash.hpp"
-#include "std/string.hpp"
-#include "std/sstream.hpp"
 
+#include "base/rolling_hash.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <sstream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 UNIT_TEST(MyersSimpleDiff)
 {

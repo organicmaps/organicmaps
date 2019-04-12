@@ -2,6 +2,11 @@
 
 #include "base/logging.hpp"
 
+#include <queue>
+#include <utility>
+
+using namespace std;
+
 namespace coding
 {
 HuffmanCoder::~HuffmanCoder()
@@ -61,7 +66,7 @@ void HuffmanCoder::DeleteHuffmanTree(Node * root)
 
 void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
 {
-  std::priority_queue<Node *, std::vector<Node *>, NodeComparator> pq;
+  priority_queue<Node *, vector<Node *>, NodeComparator> pq;
   for (auto const & e : freqs.GetTable())
     pq.push(new Node(e.first, e.second, true /* isLeaf */));
 

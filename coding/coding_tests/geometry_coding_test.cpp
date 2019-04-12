@@ -14,7 +14,12 @@
 
 #include "base/logging.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <vector>
+
 using namespace coding;
+using namespace std;
 
 using PU = m2::PointU;
 

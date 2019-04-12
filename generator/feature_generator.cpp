@@ -38,8 +38,8 @@ FeaturesCollector::~FeaturesCollector()
 template <typename ValueT, size_t ValueSizeT = sizeof(ValueT) + 1>
 std::pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 {
-  static_assert(is_integral<ValueT>::value, "Non integral value");
-  static_assert(is_unsigned<ValueT>::value, "Non unsigned value");
+  static_assert(std::is_integral<ValueT>::value, "Non integral value");
+  static_assert(std::is_unsigned<ValueT>::value, "Non unsigned value");
 
   std::pair<char[ValueSizeT], uint8_t> res;
   res.second = 0;
@@ -71,7 +71,7 @@ void FeaturesCollector::Write(char const * src, size_t size)
     if (m_writePosition == kBufferSize)
       FlushBuffer();
 
-    size_t const part_size = min(size, kBufferSize - m_writePosition);
+    size_t const part_size = std::min(size, kBufferSize - m_writePosition);
     memcpy(&m_writeBuffer[m_writePosition], src, part_size);
     m_writePosition += part_size;
     size -= part_size;

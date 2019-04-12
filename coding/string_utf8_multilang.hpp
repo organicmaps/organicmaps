@@ -87,7 +87,7 @@ public:
   static Languages const & GetSupportedLanguages();
 
   /// @returns kUnsupportedLanguageCode if language is not recognized.
-  static int8_t GetLangIndex(string const & lang);
+  static int8_t GetLangIndex(std::string const & lang);
   /// @returns empty string if langCode is invalid.
   static char const * GetLangByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
@@ -101,8 +101,8 @@ public:
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
 
-  void AddString(int8_t lang, string const & utf8s);
-  void AddString(string const & lang, string const & utf8s)
+  void AddString(int8_t lang, std::string const & utf8s);
+  void AddString(std::string const & lang, std::string const & utf8s)
   {
     int8_t const l = GetLangIndex(lang);
     if (l >= 0)
@@ -129,8 +129,8 @@ public:
     }
   }
 
-  bool GetString(int8_t lang, string & utf8s) const;
-  bool GetString(string const & lang, string & utf8s) const
+  bool GetString(int8_t lang, std::string & utf8s) const;
+  bool GetString(std::string const & lang, std::string & utf8s) const
   {
     int8_t const l = GetLangIndex(lang);
     if (l >= 0)
@@ -141,7 +141,7 @@ public:
 
   bool HasString(int8_t lang) const;
 
-  int8_t FindString(string const & utf8s) const;
+  int8_t FindString(std::string const & utf8s) const;
   size_t CountLangs() const;
 
   template <class TSink>

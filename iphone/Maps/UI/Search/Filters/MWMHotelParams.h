@@ -1,9 +1,13 @@
 #import "MWMPlacePageData.h"
 
-#include "indexer/ftypes_matcher.hpp"
 #include "map/place_page_info.hpp"
-#include "search/hotels_filter.hpp"
 #include "map/booking_filter_params.hpp"
+
+#include "search/hotels_filter.hpp"
+
+#include "indexer/ftypes_matcher.hpp"
+
+#include <memory>
 
 typedef enum {
   Any,
@@ -22,7 +26,7 @@ typedef enum {
 
 - (instancetype)initWithPlacePageData:(MWMPlacePageData *)data;
 
-- (shared_ptr<search::hotels_filter::Rule>)rules;
+- (std::shared_ptr<search::hotels_filter::Rule>)rules;
 - (booking::filter::Params)availabilityParams;
 
 @end

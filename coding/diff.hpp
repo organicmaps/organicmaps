@@ -3,10 +3,12 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace diff
 {
@@ -95,7 +97,7 @@ TSignedWord DiffMyersSimple(TSrcVector const & A,
                             TTmpFileSink & tmpSink)
 {
   ASSERT_GREATER(maxPatchSize, 0, ());
-  vector<TSignedWord> V(2 * maxPatchSize + 1);
+  std::vector<TSignedWord> V(2 * maxPatchSize + 1);
   for (TSignedWord d = 0; d <= maxPatchSize; ++d)
   {
     for (TSignedWord k = -d; k <= d; k += 2)
@@ -145,9 +147,8 @@ public:
 // into chunks of size m_BlockSize, finds equal chunks in the destination sequence, using rolling
 // hash to find good candidates, writes info about equal chunks into patchCoder and for everything
 // between equal chunks, calls FineGrainedDiff::Diff().
-template <class FineGrainedDiffT,
-          class HasherT,
-          class HashPosMultiMapT = unordered_multimap<typename HasherT::hash_type, uint64_t> >
+template <class FineGrainedDiffT, class HasherT,
+          class HashPosMultiMapT = std::unordered_multimap<typename HasherT::hash_type, uint64_t>>
 class RollingHashDiffer
 {
 public:
@@ -176,7 +177,7 @@ public:
     hash_type h = hasher.Init(dst, m_BlockSize);
     while (dstNext != dstEnd)
     {
-      pair<HashPosMultiMapIterator, HashPosMultiMapIterator> iters = srcHashes.equal_range(h);
+      std::pair<HashPosMultiMapIterator, HashPosMultiMapIterator> iters = srcHashes.equal_range(h);
       if (iters.first != iters.second)
       {
         pos_type const srcLastDiffPos = srcLastDiff - srcBeg;
@@ -186,7 +187,7 @@ public:
               (it == srcHashes.end() || i->second < it->second))
             it = i;
         if (it != srcHashes.end() &&
-            equal(srcBeg + it->second, srcBeg + it->second + m_BlockSize, dst))
+            std::equal(srcBeg + it->second, srcBeg + it->second + m_BlockSize, dst))
         {
           pos_type srcBlockEqualPos = it->second;
           m_FineGrainedDiff.Diff(srcLastDiff, srcBeg + srcBlockEqualPos,

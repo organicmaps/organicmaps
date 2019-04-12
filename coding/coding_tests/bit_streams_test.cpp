@@ -7,9 +7,13 @@
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 
-#include "std/random.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <random>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

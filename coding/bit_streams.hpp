@@ -4,9 +4,10 @@
 #include "base/bits.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
+#include <algorithm>
+#include <climits>
+#include <cstdint>
+#include <limits>
 
 namespace
 {
@@ -72,13 +73,13 @@ public:
     }
   }
 
-#define WRITE_BYTE()               \
-  {                                \
-    Write(bits, min(kMinBits, n)); \
-    if (n <= kMinBits)             \
-      return;                      \
-    n -= kMinBits;                 \
-    bits >>= kMinBits;             \
+#define WRITE_BYTE()                    \
+  {                                     \
+    Write(bits, std::min(kMinBits, n)); \
+    if (n <= kMinBits)                  \
+      return;                           \
+    n -= kMinBits;                      \
+    bits >>= kMinBits;                  \
   }
 
   // Same as Write but accept up to 32 bits to write.
@@ -171,7 +172,8 @@ public:
 
 #define READ_BYTE(i)                                                                             \
   {                                                                                              \
-    result = result | (static_cast<decltype(result)>(Read(min(n, kMinBits))) << (i * kMinBits)); \
+    result =                                                                                     \
+        result | (static_cast<decltype(result)>(Read(std::min(n, kMinBits))) << (i * kMinBits)); \
     if (n <= kMinBits)                                                                           \
       return result;                                                                             \
     n -= kMinBits;                                                                               \

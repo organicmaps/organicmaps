@@ -41,6 +41,7 @@
 #include <chrono>
 #include <cmath>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <thread>
 #include <utility>
@@ -1235,7 +1236,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
     BuildOverlayTree(screen);
   m_overlayTree->Select(pixelRect, selectResult);
 
-  double dist = numeric_limits<double>::max();
+  double dist = std::numeric_limits<double>::max();
   FeatureID featureID;
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
@@ -1293,7 +1294,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
         BuildOverlayTree(modelView);
       m_overlayTree->Select(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> handle : selectResult)
-        offsetZ = max(offsetZ, handle->GetPivotZ());
+        offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
     m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
     if (!m_myPositionController->IsModeChangeViewport())

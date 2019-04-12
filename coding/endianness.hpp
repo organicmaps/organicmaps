@@ -2,9 +2,8 @@
 
 #include "base/base.hpp"
 
-#include "std/type_traits.hpp"
-
 #include <cstddef>
+#include <type_traits>
 
 // #define ENDIAN_IS_BIG
 
@@ -24,9 +23,10 @@ inline bool IsBigEndianMacroBased()
 #endif
 }
 
-template <typename T> T ReverseByteOrder(T t)
+template <typename T>
+T ReverseByteOrder(T t)
 {
-  static_assert(is_integral<T>::value, "Only integral types are supported.");
+  static_assert(std::is_integral<T>::value, "Only integral types are supported.");
 
   T res;
   char const * a = reinterpret_cast<char const *>(&t);
@@ -36,7 +36,8 @@ template <typename T> T ReverseByteOrder(T t)
   return res;
 }
 
-template <typename T> inline T SwapIfBigEndianMacroBased(T t)
+template <typename T>
+T SwapIfBigEndianMacroBased(T t)
 {
 #ifdef ENDIAN_IS_BIG
   return ReverseByteOrder(t);

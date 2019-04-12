@@ -51,7 +51,7 @@ public:
   void operator()(Feature & ft, uint32_t index) const
   {
     m_scalesIdx = 0;
-    uint32_t const minScaleClassif = min(
+    uint32_t const minScaleClassif = std::min(
         scales::GetUpperScale(), feature::GetMinDrawableScaleClassifOnly(feature::TypesHolder(ft)));
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.

@@ -35,7 +35,8 @@ public:
     NoSection,
   };
 
-  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
+  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
+                std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                 VehicleType vehicleType, CourntryRectFn const & countryRectFn,
                 DataSource & dataSource);

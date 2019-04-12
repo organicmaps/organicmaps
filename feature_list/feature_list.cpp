@@ -30,9 +30,16 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iostream.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <iostream>
+#include <limits>
+#include <map>
+#include <sstream>
+#include <vector>
+
+using namespace std;
 
 class ClosestPoint
 {
@@ -223,7 +230,7 @@ public:
       name = primary;
     if (name.empty())
       name = operatr;
-    string osmId = osmIt != ft2osm.cend() ? std::to_string(osmIt->second.GetEncodedId()) : "";
+    string osmId = osmIt != ft2osm.cend() ? to_string(osmIt->second.GetEncodedId()) : "";
     if (osmId.empty())
     {
       // For sponsored types, adding invented sponsored ids (booking = 00) to the id tail.

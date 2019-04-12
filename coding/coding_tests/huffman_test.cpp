@@ -6,7 +6,12 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

@@ -1,10 +1,16 @@
 #include "testing/testing.hpp"
 
-#include "coding/value_opt_string.hpp"
-
 #include "coding/reader.hpp"
+#include "coding/value_opt_string.hpp"
 #include "coding/writer.hpp"
 
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
@@ -55,7 +61,7 @@ UNIT_TEST(StringNumericOptimal_StringCoding)
 UNIT_TEST(StringNumericOptimal_LargeStringCoding)
 {
   string s;
-  std::fill_n(back_inserter(s), 10000, 'x');
+  fill_n(back_inserter(s), 10000, 'x');
 
   TestStringCodingT(&s, 1, 10006);
 }

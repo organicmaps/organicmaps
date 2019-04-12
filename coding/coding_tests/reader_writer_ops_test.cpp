@@ -6,8 +6,13 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/byte_stream.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <random>
+#include <vector>
 
+using namespace std;
 
 namespace
 {

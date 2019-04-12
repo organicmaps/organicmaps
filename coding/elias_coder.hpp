@@ -5,7 +5,7 @@
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 
-#include "std/cstdint.hpp"
+#include <cstdint>
 
 namespace coding
 {

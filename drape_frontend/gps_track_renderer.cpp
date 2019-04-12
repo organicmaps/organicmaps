@@ -174,7 +174,7 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
   double const dist = (curPoint - start.m_point).Length();
   double const td = base::clamp(dist / length, 0.0, 1.0);
 
-  double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
+  double const speed = std::max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
   dp::Color const color = GetColorBySpeed(speed);
   return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(),
                    static_cast<uint8_t>(alpha));

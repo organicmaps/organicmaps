@@ -89,7 +89,7 @@ public:
     uint64_t const off1 = sizeof(TSize);
     uint64_t const off2 = AlignBytesCount((size * Bits + CHAR_BIT - 1) / CHAR_BIT) + off1;
 
-    // We can not use make_unique here because contsructor is private.
+    // We cannot use make_unique here because contsructor is private.
     return std::unique_ptr<TSelf>(new TSelf(reader.SubReader(off1, off2 - off1),
                                             reader.SubReader(off2, reader.Size() - off2), size));
   }

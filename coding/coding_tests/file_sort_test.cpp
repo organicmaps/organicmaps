@@ -4,7 +4,13 @@
 #include "coding/write_to_sink.hpp"
 #include "coding/reader.hpp"
 
-#include "std/random.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <random>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

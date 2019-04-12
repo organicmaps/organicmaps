@@ -333,7 +333,7 @@ private:
       Joint::Id jointId;
     };
 
-    static_assert(is_integral<Joint::Id>::value, "Joint::Id should be integral type");
+    static_assert(std::is_integral<Joint::Id>::value, "Joint::Id should be integral type");
 
     IndexGraph & m_graph;
     Joint::Id m_count = 0;

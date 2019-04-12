@@ -28,10 +28,10 @@ using CoverLocality =
 
 template <class ObjectsVector, class Writer, int DEPTH_LEVELS>
 void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
-                        CoverLocality const & coverLocality, string const & tmpFilePrefix)
+                        CoverLocality const & coverLocality, std::string const & tmpFilePrefix)
 {
-  string const cellsToValueFile = tmpFilePrefix + CELL2LOCALITY_SORTED_EXT + ".all";
-  SCOPE_GUARD(cellsToValueFileGuard, bind(&FileWriter::DeleteFileX, cellsToValueFile));
+  std::string const cellsToValueFile = tmpFilePrefix + CELL2LOCALITY_SORTED_EXT + ".all";
+  SCOPE_GUARD(cellsToValueFileGuard, std::bind(&FileWriter::DeleteFileX, cellsToValueFile));
   {
     FileWriter cellsToValueWriter(cellsToValueFile);
 

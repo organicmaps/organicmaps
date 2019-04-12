@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <limits>
 #include <queue>
 #include <utility>
 
@@ -80,7 +81,7 @@ public:
     ASSERT_GREATER_OR_EQUAL(actual, 0, ());
 
     int const diff = abs(expected - actual);
-    double angle = base::DegToRad(min(diff, kNumBuckets - diff) * kAnglesInBucket);
+    double angle = base::DegToRad(std::min(diff, kNumBuckets - diff) * kAnglesInBucket);
     m_penalty += kBearingErrorCoeff * angle * kBearingDist;
   }
 
@@ -304,7 +305,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
     // max(kDistanceAccuracyM, m_distanceToNextPointM) is added here
     // to throw out quite long paths.
     if (ud > u.m_stageStartDistance + distanceToNextPointM +
-                 max(kDistanceAccuracyM, distanceToNextPointM))
+                 std::max(kDistanceAccuracyM, distanceToNextPointM))
     {
       continue;
     }
@@ -332,7 +333,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
       double const piV = GetPotential(v);
 
       Score sv = su;
-      sv.AddDistance(max(piV - piU, 0.0));
+      sv.AddDistance(std::max(piV - piU, 0.0));
       sv.AddIntermediateErrorPenalty(
           MercatorBounds::DistanceOnEarth(v.m_junction.GetPoint(), m_points[v.m_stage].m_point));
 
@@ -354,7 +355,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
 
       Score sv = su;
       double const w = GetWeight(edge);
-      sv.AddDistance(max(w + piV - piU, 0.0));
+      sv.AddDistance(std::max(w + piV - piU, 0.0));
 
       double const vd = ud + w;  // real distance to v
       if (NeedToCheckBearing(v, vd))
@@ -403,11 +404,11 @@ double Router::GetPotential(Vertex const & u) const
   auto const & pivots = m_pivots[u.m_stage];
   CHECK(!pivots.empty(), ("Empty list of pivots"));
 
-  double potential = numeric_limits<double>::max();
+  double potential = std::numeric_limits<double>::max();
 
   auto const & point = u.m_junction.GetPoint();
   for (auto const & pivot : pivots)
-    potential = min(potential, MercatorBounds::DistanceOnEarth(pivot, point));
+    potential = std::min(potential, MercatorBounds::DistanceOnEarth(pivot, point));
   return potential;
 }
 
@@ -586,8 +587,8 @@ double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It 
     double const sp = DotProduct(uv, s - u) / sqlen;
     double const tp = DotProduct(uv, t - u) / sqlen;
 
-    double const start = base::clamp(min(sp, tp), 0.0, 1.0);
-    double const finish = base::clamp(max(sp, tp), 0.0, 1.0);
+    double const start = base::clamp(std::min(sp, tp), 0.0, 1.0);
+    double const finish = base::clamp(std::max(sp, tp), 0.0, 1.0);
     covs.emplace_back(start, finish);
   }
 
@@ -604,7 +605,7 @@ double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It 
     double last = covs[i].second;
     while (j != covs.size() && covs[j].first <= last)
     {
-      last = max(last, covs[j].second);
+      last = std::max(last, covs[j].second);
       ++j;
     }
 

@@ -9,13 +9,15 @@
 #include "base/stl_helpers.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <type_traits>
 
 /// This function writes, using optimal bytes count.
 /// Pass any integral type and it will write platform-independent.
-template <typename T, typename TSink> void WriteVarUint(TSink & dst, T value)
+template <typename T, typename TSink>
+void WriteVarUint(TSink & dst, T value)
 {
-  static_assert(is_unsigned<T>::value, "");
+  static_assert(std::is_unsigned<T>::value, "");
   while (value > 127)
   {
     WriteToSink(dst, static_cast<uint8_t>((value & 127) | 128));
@@ -26,8 +28,8 @@ template <typename T, typename TSink> void WriteVarUint(TSink & dst, T value)
 
 namespace impl
 {
-
-template <typename TSource> uint32_t ReadVarUint(TSource & src, uint32_t const *)
+template <typename TSource>
+uint32_t ReadVarUint(TSource & src, uint32_t const *)
 {
   uint32_t res = 0;
 
@@ -65,7 +67,8 @@ template <typename TSource> uint32_t ReadVarUint(TSource & src, uint32_t const *
   }
 }
 
-template <typename TSource> uint64_t ReadVarUint(TSource & src, uint64_t const *)
+template <typename TSource>
+uint64_t ReadVarUint(TSource & src, uint64_t const *)
 {
   uint32_t res0 = 0;
   {
@@ -140,9 +143,10 @@ template <typename TSource> uint64_t ReadVarUint(TSource & src, uint64_t const *
 
 }
 
-template <typename T, typename TSource> T ReadVarUint(TSource & src)
+template <typename T, typename TSource>
+T ReadVarUint(TSource & src)
 {
-  static_assert((is_same<T, uint32_t>::value || is_same<T, uint64_t>::value), "");
+  static_assert((std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value), "");
   return ::impl::ReadVarUint(src, static_cast<T const *>(NULL));
 
   /* Generic code commented out.
@@ -166,15 +170,17 @@ template <typename T, typename TSource> T ReadVarUint(TSource & src)
   */
 }
 
-template <typename T, typename TSink> void WriteVarInt(TSink & dst, T value)
+template <typename T, typename TSink>
+void WriteVarInt(TSink & dst, T value)
 {
-  static_assert(is_signed<T>::value, "");
+  static_assert(std::is_signed<T>::value, "");
   WriteVarUint(dst, bits::ZigZagEncode(value));
 }
 
-template <typename T, typename TSource> T ReadVarInt(TSource & src)
+template <typename T, typename TSource>
+T ReadVarInt(TSource & src)
 {
-  static_assert(is_signed<T>::value, "");
+  static_assert(std::is_signed<T>::value, "");
   return bits::ZigZagDecode(ReadVarUint<std::make_unsigned_t<T>>(src));
 }
 
@@ -208,8 +214,8 @@ private:
 };
 
 template <typename ConverterT, typename F, class WhileConditionT>
-inline void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition,
-                                      F f, ConverterT converter)
+void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F f,
+                               ConverterT converter)
 {
   uint8_t const * const pBegChar = static_cast<uint8_t const *>(pBeg);
   uint64_t res64 = 0;
@@ -247,34 +253,34 @@ inline void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCo
 
 }
 
-template <typename F> inline
+template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 {
   return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
         pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
 }
 
-template <typename F> inline
+template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
 {
   return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
 }
 
-template <typename F> inline
+template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 {
   return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
         pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
 }
 
-template <typename F> inline
+template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
 {
   return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
 }
 
 template <class Cont, class Sink>
-inline void WriteVarUintArray(Cont const & v, Sink & sink)
+void WriteVarUintArray(Cont const & v, Sink & sink)
 {
   for (size_t i = 0; i != v.size(); ++i)
     WriteVarUint(sink, v[i]);

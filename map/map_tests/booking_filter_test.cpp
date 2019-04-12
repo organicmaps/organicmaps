@@ -18,6 +18,7 @@
 #include "platform/platform.hpp"
 
 #include <algorithm>
+#include <memory>
 #include <set>
 #include <utility>
 
@@ -113,7 +114,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
       rect, scales::GetUpperScale());
   ParamsInternal filterParams;
   search::Results filteredResults;
-  filterParams.m_apiParams = make_shared<booking::AvailabilityParams>();
+  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
   filterParams.m_callback = [&filteredResults](search::Results const & results) {
     filteredResults = results;
     testing::Notify();
@@ -199,7 +200,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   TasksInternal tasks;
   ParamsInternal availabilityParams;
   search::Results availabilityResults;
-  availabilityParams.m_apiParams = make_shared<booking::AvailabilityParams>();
+  availabilityParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
   availabilityParams.m_callback = [&availabilityResults](search::Results const & results) {
     availabilityResults = results;
   };
@@ -210,7 +211,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   search::Results dealsResults;
   booking::AvailabilityParams p;
   p.m_dealsOnly = true;
-  dealsParams.m_apiParams = make_shared<booking::AvailabilityParams>(p);
+  dealsParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(p);
   dealsParams.m_callback = [&dealsResults](search::Results const & results) {
     dealsResults = results;
     testing::Notify();
@@ -318,7 +319,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
 
   ParamsRawInternal filterParams;
   std::vector<FeatureID> filteredResults;
-  filterParams.m_apiParams = make_shared<booking::AvailabilityParams>();
+  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
   filterParams.m_callback = [&filteredResults](std::vector<FeatureID> const & results) {
     filteredResults = results;
     testing::Notify();

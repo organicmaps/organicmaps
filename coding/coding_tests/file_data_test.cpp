@@ -5,6 +5,12 @@
 
 #include "base/logging.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

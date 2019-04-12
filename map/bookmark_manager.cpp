@@ -38,6 +38,7 @@
 #include <ctime>
 #include <fstream>
 #include <iomanip>
+#include <limits>
 #include <sstream>
 #include <utility>
 
@@ -1464,7 +1465,7 @@ public:
                               BookmarkManager const * manager)
     : m_rectHolder(rectHolder)
     , m_findOnlyVisible(findOnlyVisible)
-    , m_d(numeric_limits<double>::max())
+    , m_d(std::numeric_limits<double>::max())
     , m_mark(nullptr)
     , m_manager(manager)
   {}

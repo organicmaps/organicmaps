@@ -234,7 +234,7 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       }
     }
 
-    string s = page.m_fileName + ".png";
+    std::string s = page.m_fileName + ".png";
     LOG(LINFO, ("saving skin image into: ", s));
     if (m_needColorCorrection)
       correctColors(gilImage);

@@ -4,10 +4,12 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
-#include "std/type_traits.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <type_traits>
+#include <vector>
 
 namespace rw
 {
@@ -24,7 +26,7 @@ namespace rw
   }
 
   template <class TSink>
-  void Write(TSink & sink, string const & s)
+  void Write(TSink & sink, std::string const & s)
   {
     uint32_t const count = static_cast<uint32_t>(s.size());
     WriteVarUint(sink, count);
@@ -33,7 +35,7 @@ namespace rw
   }
 
   template <class TSource>
-  void Read(TSource & src, string & s)
+  void Read(TSource & src, std::string & s)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     s.resize(count);
@@ -63,13 +65,13 @@ namespace rw
   }
 
   template <class TSink, class T>
-  void Write(TSink & sink, vector<T> const & v)
+  void Write(TSink & sink, std::vector<T> const & v)
   {
     impl::WriteCont(sink, v);
   }
 
   template <class TSource, class T>
-  void Read(TSource & src, vector<T> & v)
+  void Read(TSource & src, std::vector<T> & v)
   {
     impl::ReadCont(src, v);
   }
@@ -123,11 +125,11 @@ namespace rw
   void ReadAndWrite(ReaderT & reader, WriterT & writer, size_t bufferSize = 4*1024)
   {
     uint64_t size = reader.Size();
-    vector<char> buffer(min(bufferSize, static_cast<size_t>(size)));
+    std::vector<char> buffer(std::min(bufferSize, static_cast<size_t>(size)));
 
     while (size > 0)
     {
-      size_t const curr = min(bufferSize, static_cast<size_t>(size));
+      size_t const curr = std::min(bufferSize, static_cast<size_t>(size));
 
       reader.Read(&buffer[0], curr);
       writer.Write(&buffer[0], curr);

@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <utility>
 #include <vector>
 
 /// Following classes are supposed to be used with StringsFile. They
@@ -31,7 +32,7 @@ struct FeatureIndexValue
 
   bool operator==(FeatureIndexValue const & o) const { return m_featureId == o.m_featureId; }
 
-  void Swap(FeatureIndexValue & o) { swap(m_featureId, o.m_featureId); }
+  void Swap(FeatureIndexValue & o) { std::swap(m_featureId, o.m_featureId); }
 
   uint64_t m_featureId = 0;
 };
@@ -64,9 +65,9 @@ struct FeatureWithRankAndCenter
 
   void Swap(FeatureWithRankAndCenter & o)
   {
-    swap(m_pt, o.m_pt);
-    swap(m_featureId, o.m_featureId);
-    swap(m_rank, o.m_rank);
+    std::swap(m_pt, o.m_pt);
+    std::swap(m_featureId, o.m_featureId);
+    std::swap(m_rank, o.m_rank);
   }
 
   m2::PointD m_pt;           // Center point of the feature.

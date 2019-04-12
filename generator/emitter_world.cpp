@@ -11,8 +11,8 @@
 namespace generator
 {
 EmitterWorld::EmitterWorld(feature::GenerateInfo const & info)
-  : m_cityBoundaryProcessor(
-        std::make_shared<CityBoundaryProcessor>(make_shared<generator::OsmIdToBoundariesTable>()))
+  : m_cityBoundaryProcessor(std::make_shared<CityBoundaryProcessor>(
+        std::make_shared<generator::OsmIdToBoundariesTable>()))
   , m_worldMapper(std::make_shared<WorldMapper>(
         info.GetTmpFileName(WORLD_FILE_NAME),
         info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION),

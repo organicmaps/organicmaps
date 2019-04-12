@@ -1,12 +1,19 @@
 #include "testing/testing.hpp"
+
+#include "coding/reader.hpp"
 #include "coding/var_record_reader.hpp"
 #include "coding/varint.hpp"
-#include "coding/reader.hpp"
 #include "coding/writer.hpp"
+
 #include "base/macros.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

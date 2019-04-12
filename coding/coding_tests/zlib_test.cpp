@@ -5,14 +5,16 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/iterator.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace coding;
+using namespace std;
 
 using Deflate = ZLib::Deflate;
 using Inflate = ZLib::Inflate;

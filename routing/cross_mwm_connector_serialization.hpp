@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <array>
 #include <cstdint>
+#include <limits>
 #include <type_traits>
 #include <vector>
 
@@ -455,9 +456,9 @@ private:
   template <typename T>
   static T GetBitsPerMask()
   {
-    static_assert(
-        static_cast<size_t>(VehicleType::Count) <= static_cast<size_t>(numeric_limits<T>::max()),
-        "Can't pack VehicleType::Count into chosen type");
+    static_assert(static_cast<size_t>(VehicleType::Count) <=
+                      static_cast<size_t>(std::numeric_limits<T>::max()),
+                  "Can't pack VehicleType::Count into chosen type");
     return static_cast<T>(VehicleType::Count);
   }
 

@@ -6,9 +6,10 @@
 #include "coding/file_writer.hpp"
 #include "coding/constants.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
+using namespace std;
 
 namespace
 {

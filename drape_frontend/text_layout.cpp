@@ -264,9 +264,9 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
       if (glyph.GetOffsetY() < 0)
         yAdvance += glyph.GetOffsetY();
 
-      node.second = max(node.second, (glyph.GetPixelHeight() + yAdvance) * textRatio);
+      node.second = std::max(node.second, (glyph.GetPixelHeight() + yAdvance) * textRatio);
     }
-    maxLength = max(maxLength, node.first);
+    maxLength = std::max(maxLength, node.first);
     summaryHeight += node.second;
     if (node.second > 0.0f)
       ++rowsCount;

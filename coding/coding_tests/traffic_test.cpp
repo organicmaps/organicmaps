@@ -8,6 +8,12 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <vector>
+
+using namespace std;
+
 namespace coding
 {
 double CalculateLength(vector<TrafficGPSEncoder::DataPoint> const & path)

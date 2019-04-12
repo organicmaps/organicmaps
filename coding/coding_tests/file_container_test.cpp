@@ -7,6 +7,11 @@
 #include "base/string_utils.hpp"
 #include "base/scope_guard.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+
+using namespace std;
 
 UNIT_TEST(FilesContainer_Smoke)
 {

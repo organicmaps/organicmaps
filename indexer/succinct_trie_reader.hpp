@@ -10,6 +10,7 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -142,7 +143,7 @@ public:
   using TValue = typename TValueReader::ValueType;
   using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
 
-  SuccinctTrieIterator(TReader const & reader, shared_ptr<TCommonData> common,
+  SuccinctTrieIterator(TReader const & reader, std::shared_ptr<TCommonData> common,
                        uint32_t nodeBitPosition)
     : m_reader(reader), m_common(common), m_nodeBitPosition(nodeBitPosition), m_valuesRead(false)
   {
@@ -245,7 +246,7 @@ private:
   }
 
   TReader const & m_reader;
-  shared_ptr<TCommonData> m_common;
+  std::shared_ptr<TCommonData> m_common;
 
   // The bit with this 1-based index represents this node
   // in the external node representation of binary trie.
