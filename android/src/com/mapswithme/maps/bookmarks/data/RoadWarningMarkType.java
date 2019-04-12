@@ -1,4 +1,4 @@
-package com.mapswithme.maps.settings;
+package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -103,9 +103,9 @@ public class RoutingPlanController extends ToolbarController
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(getActivity(), mFrame, listener);
 
-    mDrivingOptionsBtnContainer = activity.findViewById(R.id.driving_options_btn_container);
+    mDrivingOptionsBtnContainer = mFrame.findViewById(R.id.driving_options_btn_container);
     View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
-    mDrivingOptionsImage = activity.findViewById(R.id.driving_options_btn_img);
+    mDrivingOptionsImage = mFrame.findViewById(R.id.driving_options_btn_img);
 
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(getActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();

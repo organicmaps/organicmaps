@@ -139,7 +139,9 @@ public final class PlacePageButtons
     ROUTE_TO,
     ROUTE_ADD,
     ROUTE_REMOVE,
-    ROUTE_AVOID,
+    ROUTE_AVOID_TOLL,
+    ROUTE_AVOID_FERRY,
+    ROUTE_AVOID_UNPAVED,
     SHARE,
     MORE,
     CALL
@@ -325,17 +327,17 @@ public final class PlacePageButtons
     ROUTE_AVOID_TOLL(
         R.string.avoid_toll_roads_placepage,
         new ImageResources(R.drawable.ic_avoid_tolls),
-        ButtonType.ROUTE_AVOID),
+        ButtonType.ROUTE_AVOID_TOLL),
 
     ROUTE_AVOID_UNPAVED(
         R.string.avoid_unpaved_roads_placepage,
         new ImageResources(R.drawable.ic_avoid_unpaved),
-        ButtonType.ROUTE_AVOID),
+        ButtonType.ROUTE_AVOID_UNPAVED),
 
     ROUTE_AVOID_FERRY(
         R.string.avoid_ferry_crossing_placepage,
         new ImageResources(R.drawable.ic_avoid_ferry),
-        ButtonType.ROUTE_AVOID),
+        ButtonType.ROUTE_AVOID_FERRY),
 
     SHARE(
         R.string.share,

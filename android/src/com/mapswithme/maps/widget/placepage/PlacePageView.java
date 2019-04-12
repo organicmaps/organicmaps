@@ -67,8 +67,8 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
-import com.mapswithme.maps.settings.DrivingOptionsActivity;
-import com.mapswithme.maps.settings.RoadWarningMarkType;
+import com.mapswithme.maps.settings.RoadType;
+import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
@@ -313,6 +313,9 @@ public class PlacePageView extends NestedScrollView
   @Nullable
   private Closable mClosable;
 
+  @Nullable
+  private RoutingModeListener mRoutingModeListener;
+
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -530,87 +533,45 @@ public class PlacePageView extends NestedScrollView
         switch (item.getType())
         {
           case BOOKMARK:
-            if (mMapObject == null)
-            {
-              LOGGER.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
-              return;
-            }
-
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
-            AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
-            toggleIsBookmark(mMapObject);
-            mPlacePageButtonsListener.onBookmarkSet(mBookmarkSet);
+            onBookmarkBtnClicked();
             break;
 
           case SHARE:
-            if (mMapObject == null)
-            {
-              LOGGER.e(TAG, "A map object cannot be shared, it's null!");
-              return;
-            }
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
-            AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-            ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
+            onShareBtnClicked();
             break;
 
           case BACK:
-            if (mMapObject == null)
-            {
-              LOGGER.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
-              getActivity().finish();
-              return;
-            }
-
-            if (ParsedMwmRequest.hasRequest())
-            {
-              ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-              if (ParsedMwmRequest.isPickPointMode())
-                request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
-
-              request.sendResponseAndFinish(getActivity(), true);
-            }
-            else
-              getActivity().finish();
+            onBackBtnClicked();
             break;
 
           case ROUTE_FROM:
-            RoutingController controller = RoutingController.get();
-            if (!controller.isPlanning())
-            {
-              controller.prepare(mMapObject, null);
-              close();
-            }
-            else if (controller.setStartPoint(mMapObject))
-            {
-              close();
-            }
+            onRouteFromBtnClicked();
             break;
 
           case ROUTE_TO:
-            if (RoutingController.get().isPlanning())
-            {
-              RoutingController.get().setEndPoint(mMapObject);
-              close();
-            }
-            else
-            {
-              getActivity().startLocationToPoint(getMapObject(), true);
-            }
+            onRouteToBtnClicked();
             break;
 
           case ROUTE_ADD:
-            if (mMapObject != null)
-              RoutingController.get().addStop(mMapObject);
+            onRouteAddBtnClicked();
             break;
 
           case ROUTE_REMOVE:
-            if (mMapObject != null)
-              RoutingController.get().removeStop(mMapObject);
+            onRouteRemoveBtnClicked();
             break;
 
-          case ROUTE_AVOID:
-            onAvoidBtnClicked();
+          case ROUTE_AVOID_TOLL:
+            onAvoidTollBtnClicked();
             break;
+
+          case ROUTE_AVOID_UNPAVED:
+            onAvoidUnpavedBtnClicked();
+            break;
+
+          case ROUTE_AVOID_FERRY:
+            onAvoidFerryBtnClicked();
+            break;
+
           case BOOKING:
           case OPENTABLE:
             // -----------------------------------------------------------------------------------------
@@ -630,24 +591,143 @@ public class PlacePageView extends NestedScrollView
             break;
 
           case BOOKING_SEARCH:
-            if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
-            {
-              Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
-              Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
-            }
+            onBookingSearchBtnClicked();
             break;
 
           case CALL:
-            Utils.callPhone(getContext(), mTvPhone.getText().toString());
+            onCallBtnClicked();
             break;
         }
       }
     });
   }
 
-  private void onAvoidBtnClicked()
+  private void onBookmarkBtnClicked()
   {
-    DrivingOptionsActivity.start(getActivity());
+    if (mMapObject == null)
+    {
+      LOGGER.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
+      return;
+    }
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
+    AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
+    toggleIsBookmark(mMapObject);
+    mPlacePageButtonsListener.onBookmarkSet(mBookmarkSet);
+  }
+
+  private void onShareBtnClicked()
+  {
+    if (mMapObject == null)
+    {
+      LOGGER.e(TAG, "A map object cannot be shared, it's null!");
+      return;
+    }
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
+    AlohaHelper.logClick(AlohaHelper.PP_SHARE);
+    ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
+  }
+
+  private void onBackBtnClicked()
+  {
+    if (mMapObject == null)
+    {
+      LOGGER.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
+      getActivity().finish();
+      return;
+    }
+
+    if (ParsedMwmRequest.hasRequest())
+    {
+      ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+      if (ParsedMwmRequest.isPickPointMode())
+        request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
+
+      request.sendResponseAndFinish(getActivity(), true);
+    }
+    else
+      getActivity().finish();
+  }
+
+  private void onRouteFromBtnClicked()
+  {
+    RoutingController controller = RoutingController.get();
+    if (!controller.isPlanning())
+    {
+      controller.prepare(mMapObject, null);
+      close();
+    }
+    else if (controller.setStartPoint(mMapObject))
+    {
+      close();
+    }
+  }
+
+  private void onRouteToBtnClicked()
+  {
+    if (RoutingController.get().isPlanning())
+    {
+      RoutingController.get().setEndPoint(mMapObject);
+      close();
+    }
+    else
+    {
+      getActivity().startLocationToPoint(getMapObject(), true);
+    }
+  }
+
+  private void onRouteAddBtnClicked()
+  {
+    if (mMapObject != null)
+      RoutingController.get().addStop(mMapObject);
+  }
+
+  private void onRouteRemoveBtnClicked()
+  {
+    if (mMapObject != null)
+      RoutingController.get().removeStop(mMapObject);
+  }
+
+  private void onCallBtnClicked()
+  {
+    Utils.callPhone(getContext(), mTvPhone.getText().toString());
+  }
+
+  private void onBookingSearchBtnClicked()
+  {
+    if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
+    {
+      Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
+      Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
+    }
+  }
+
+  public void setRoutingModeListener(@Nullable RoutingModeListener routingModeListener)
+  {
+    mRoutingModeListener = routingModeListener;
+  }
+
+  private void onAvoidUnpavedBtnClicked()
+  {
+    onAvoidBtnClicked(RoadType.DIRTY);
+  }
+
+  private void onAvoidFerryBtnClicked()
+  {
+    onAvoidBtnClicked(RoadType.FERRY);
+  }
+
+  private void onAvoidTollBtnClicked()
+  {
+    onAvoidBtnClicked(RoadType.TOLL);
+  }
+
+  private void onAvoidBtnClicked(@NonNull RoadType roadType)
+  {
+    if (mRoutingModeListener == null)
+      return;
+
+    mRoutingModeListener.toggleRouteSettings(roadType);
   }
 
   private void initPlaceDescriptionView()

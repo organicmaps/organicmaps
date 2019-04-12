@@ -14,7 +14,6 @@ import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.PopularityProvider;
 import com.mapswithme.maps.search.PriceFilterView;
-import com.mapswithme.maps.settings.RoadWarningMarkType;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.UGC;
 
@@ -487,6 +486,7 @@ public class MapObject implements Parcelable, PopularityProvider
     dest.writeInt(mPriceRate);
     dest.writeParcelable(mPopularity, 0);
     dest.writeString(mDescription);
+    dest.writeInt(getRoadWarningMarkType().ordinal());
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
     dest.writeTypedList(mBanners);

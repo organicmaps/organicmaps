@@ -86,6 +86,7 @@ import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingErrorDialogFragment;
+import com.mapswithme.maps.routing.RoutingOptions;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.BookingFilterParams;
@@ -99,6 +100,7 @@ import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
+import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
@@ -115,6 +117,7 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.BottomSheetPlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
+import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
@@ -158,7 +161,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  AdsRemovalPurchaseControllerProvider,
                                  AdsRemovalActivationCallback,
                                  PlacePageController.SlideListener,
-                                 AlertDialogCallback
+                                 AlertDialogCallback, RoutingModeListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -485,7 +488,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
-    mPlacePageController = new BottomSheetPlacePageController(this, this, this);
+    mPlacePageController = new BottomSheetPlacePageController(this, this, this,
+                                                              this);
     mPlacePageController.initialize();
 
     mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
@@ -913,13 +917,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void rebuildLastRoute()
   {
+    RoutingController.get().attach(this);
+    rebuildLastRouteInternal();
+  }
+
+  private void rebuildLastRouteInternal()
+  {
     if (mRoutingPlanInplaceController == null)
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
-    mPlacePageController.close();
-    RoutingController.get().attach(this);
     RoutingController.get().prepare();
+  }
+
+  @Override
+  public void toggleRouteSettings(@NonNull RoadType roadType)
+  {
+    mPlacePageController.close();
+    RoutingOptions.removeOption(roadType);
+    rebuildLastRouteInternal();
   }
 
   private void handleDownloadedCategoryResult(@NonNull Intent data)
