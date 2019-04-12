@@ -136,29 +136,32 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         m_updateSampleSearchState(index);
       }
 
-      if (results.IsEndedNormal() && !context.m_initialized)
+      if (results.IsEndedNormal())
       {
-        context.m_foundResultsEdits.Reset(relevances);
-        context.m_goldenMatching = goldenMatching;
-        context.m_actualMatching = actualMatching;
-
+        if (!context.m_initialized)
         {
-          vector<boost::optional<Edits::Relevance>> relevances;
+          context.m_foundResultsEdits.Reset(relevances);
+          context.m_goldenMatching = goldenMatching;
+          context.m_actualMatching = actualMatching;
 
-          auto & nonFound = context.m_nonFoundResults;
-          CHECK(nonFound.empty(), ());
-          for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
           {
-            auto const j = context.m_goldenMatching[i];
-            if (j != search::Matcher::kInvalidId)
-              continue;
-            nonFound.push_back(context.m_sample.m_results[i]);
-            relevances.emplace_back(nonFound.back().m_relevance);
-          }
-          context.m_nonFoundResultsEdits.Reset(relevances);
-        }
+            vector<boost::optional<Edits::Relevance>> relevances;
 
-        context.m_initialized = true;
+            auto & nonFound = context.m_nonFoundResults;
+            CHECK(nonFound.empty(), ());
+            for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
+            {
+              auto const j = context.m_goldenMatching[i];
+              if (j != search::Matcher::kInvalidId)
+                continue;
+              nonFound.push_back(context.m_sample.m_results[i]);
+              relevances.emplace_back(nonFound.back().m_relevance);
+            }
+            context.m_nonFoundResultsEdits.Reset(relevances);
+          }
+
+          context.m_initialized = true;
+        }
 
         if (background)
           RunNextBackgroundRequest(timestamp);
