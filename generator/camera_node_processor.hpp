@@ -1,74 +1,47 @@
 #pragma once
 
 #include "generator/collector_interface.hpp"
-#include "generator/osm_element.hpp"
-#include "generator/intermediate_data.hpp"
 
-#include "routing/base/followed_polyline.hpp"
-#include "routing/routing_helpers.hpp"
-
-#include "indexer/ftypes_matcher.hpp"
-
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/write_to_sink.hpp"
-
-#include "base/string_utils.hpp"
 
 #include <cstdint>
-#include <map>
+#include <functional>
 #include <memory>
-#include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
+namespace generator_tests
+{
+class TestCameraNodeProcessor;
+}  // namespace generator_tests
+
+struct OsmElement;
 class FeatureBuilder1;
+
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing
 {
-class CameraNodeProcessor : public generator::CollectorInterface
+class CameraProcessor
 {
 public:
-  CameraNodeProcessor() = default;
-  CameraNodeProcessor(std::string const & writerFile, std::string const & readerFile,
-                      std::string const & speedFile);
+  struct CameraInfo;
+  using Fn = std::function<void (CameraInfo const &, std::vector<uint64_t> const &)>;
 
-  void Open(std::string const & writerFile, std::string const & readerFile,
-            std::string const & speedFile);
-
-  template <typename ToDo>
-  void ForEachWayByNode(uint64_t id, ToDo && toDo)
+  struct CameraInfo
   {
-    m_cameraNodeToWays->ForEachByKey(id, std::forward<ToDo>(toDo));
-  }
-
-  // generator::CollectorInterface overrides:
-  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & p) override;
-  void Save() override {}
-
-private:
-  using Cache = generator::cache::IndexFileReader;
-
-  std::unique_ptr<FileWriter> m_fileWriter;
-  std::unique_ptr<Cache> m_cameraNodeToWays;
-  std::map<uint64_t, std::string> m_cameraToMaxSpeed;
-};
-}  // namespace routing
-
-namespace generator
-{
-class CameraNodeIntermediateDataProcessor
-{
-public:
-  explicit CameraNodeIntermediateDataProcessor(std::string const & nodesFile, std::string const & speedFile);
+    uint64_t m_id = 0;
+    double m_lon = 0.0;
+    double m_lat = 0.0;
+    std::string m_speed;
+    std::vector<uint64_t> m_ways;
+  };
 
   static size_t const kMaxSpeedSpeedStringLength;
 
-  void ProcessNode(OsmElement & em);
-
-  void ProcessWay(uint64_t id, WayElement const & way);
-
-  void SaveIndex() { m_speedCameraNodeToWays.WriteAll(); }
+  void ForEachCamera(Fn && toDo) const;
+  void ProcessNode(OsmElement const & element);
+  void ProcessWay(OsmElement const & element);
 
 private:
   /// \brief Gets text with speed, returns formatted speed string in km per hour.
@@ -78,10 +51,27 @@ private:
   ///                         "130 kmh" - means 130 km per hour.
   /// See https://wiki.openstreetmap.org/wiki/Key:maxspeed
   /// for more details about input string.
-  std::string ValidateMaxSpeedString(std::string const & maxSpeedString);
+  static std::string ValidateMaxSpeedString(std::string const & maxSpeedString);
 
-  std::set<uint64_t> m_speedCameraNodes;
-  generator::cache::IndexFileWriter m_speedCameraNodeToWays;
-  FileWriter m_maxSpeedFileWriter;
+  std::unordered_map<uint64_t, CameraInfo> m_speedCameras;
+  std::unordered_map<uint64_t, std::vector<uint64_t>> m_cameraToWays;
 };
-}  // namespace generator
+
+class CameraNodeProcessor : public generator::CollectorInterface
+{
+public:
+  friend class generator_tests::TestCameraNodeProcessor;
+
+  explicit CameraNodeProcessor(std::string const & writerFile);
+
+  // generator::CollectorInterface overrides:
+  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element) override;
+  void Save() override;
+
+private:
+  void Write(CameraProcessor::CameraInfo const & camera, std::vector<uint64_t> const & ways);
+
+  FileWriter m_fileWriter;
+  CameraProcessor m_processor;
+};
+}  // namespace routing

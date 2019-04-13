@@ -8,6 +8,7 @@
 
 #include "routing/maxspeeds_serialization.hpp"
 #include "routing/maxspeeds.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 

@@ -87,9 +87,8 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, 
   AddCollector(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   AddCollector(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME)));
   AddCollector(std::make_shared<routing::RoadAccessWriter>(info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
-  AddCollector(std::make_shared<routing::CameraNodeProcessor>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME),
-                                                              info.GetIntermediateFileName(CAMERAS_NODES_TO_WAYS_FILE),
-                                                              info.GetIntermediateFileName(CAMERAS_MAXSPEED_FILE)));
+  AddCollector(std::make_shared<routing::CameraNodeProcessor>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+
   if (info.m_genAddresses)
     AddCollector(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
 }

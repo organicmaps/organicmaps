@@ -55,6 +55,7 @@ set(SRC
   emitter_country.hpp
   emitter_factory.hpp
   emitter_interface.hpp
+  emitter_noop.hpp
   emitter_restaurants.cpp
   emitter_restaurants.hpp
   emitter_simple.cpp

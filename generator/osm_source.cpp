@@ -1,6 +1,5 @@
 #include "generator/osm_source.hpp"
 
-#include "generator/camera_node_processor.hpp"
 #include "generator/intermediate_elements.hpp"
 #include "generator/node_mixer.hpp"
 #include "generator/osm_element.hpp"
@@ -54,8 +53,7 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-void AddElementToCache(cache::IntermediateDataWriter & cache,
-                       CameraNodeIntermediateDataProcessor & cameras, OsmElement & em)
+void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
 {
   switch (em.type)
   {
@@ -63,7 +61,6 @@ void AddElementToCache(cache::IntermediateDataWriter & cache,
   {
     auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
     cache.AddNode(em.id, pt.y, pt.x);
-    cameras.ProcessNode(em);
     break;
   }
   case OsmElement::EntityType::Way:
@@ -74,10 +71,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache,
       way.nodes.push_back(nd);
 
     if (way.IsValid())
-    {
       cache.AddWay(em.id, way);
-      cameras.ProcessWay(em.id, way);
-    }
     break;
   }
   case OsmElement::EntityType::Relation:
@@ -115,12 +109,12 @@ void AddElementToCache(cache::IntermediateDataWriter & cache,
 }
 
 void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateDataWriter & cache,
-                                  TownsDumper & towns, CameraNodeIntermediateDataProcessor & cameras)
+                                  TownsDumper & towns)
 {
   XMLSource parser([&](OsmElement * e)
   {
     towns.CheckElement(*e);
-    AddElementToCache(cache, cameras, *e);
+    AddElementToCache(cache, *e);
   });
   ParseXMLSequence(stream, parser);
 }
@@ -132,11 +126,11 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
-                                  TownsDumper & towns, CameraNodeIntermediateDataProcessor & cameras)
+                                  TownsDumper & towns)
 {
-  auto processor = [&cache, &cameras, &towns](OsmElement * em) {
-    towns.CheckElement(*em);
-    AddElementToCache(cache, cameras, *em);
+  auto processor = [&](OsmElement * e) {
+    towns.CheckElement(*e);
+    AddElementToCache(cache, *e);
   };
 
   // Use only this function here, look into ProcessOsmElementsFromO5M
@@ -254,10 +248,10 @@ CacheLoader::CacheLoader(feature::GenerateInfo & info) : m_info(info) {}
 
 cache::IntermediateDataReader & CacheLoader::GetCache()
 {
-    if (!m_loader)
-      m_loader = std::make_unique<LoaderWrapper>(m_info);
+  if (!m_loader)
+    m_loader = std::make_unique<LoaderWrapper>(m_info);
 
-    return m_loader->GetReader();
+  return m_loader->GetReader();
 }
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
@@ -268,9 +262,6 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
                                                  info.GetIntermediateFileName(NODES_FILE));
     cache::IntermediateDataWriter cache(nodes, info);
     TownsDumper towns;
-    CameraNodeIntermediateDataProcessor cameras(info.GetIntermediateFileName(CAMERAS_NODES_TO_WAYS_FILE),
-                                                info.GetIntermediateFileName(CAMERAS_MAXSPEED_FILE));
-
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
 
     LOG(LINFO, ("Data source:", info.m_osmFileName));
@@ -278,15 +269,14 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
     switch (info.m_osmFileType)
     {
     case feature::GenerateInfo::OsmSourceType::XML:
-      BuildIntermediateDataFromXML(reader, cache, towns, cameras);
+      BuildIntermediateDataFromXML(reader, cache, towns);
       break;
     case feature::GenerateInfo::OsmSourceType::O5M:
-      BuildIntermediateDataFromO5M(reader, cache, towns, cameras);
+      BuildIntermediateDataFromO5M(reader, cache, towns);
       break;
     }
 
     cache.SaveIndex();
-    cameras.SaveIndex();
     towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
     LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   }

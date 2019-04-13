@@ -17,8 +17,6 @@
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
-#define CAMERAS_NODES_TO_WAYS_FILE "cameras_nodes_to_ways.dat"
-#define CAMERAS_MAXSPEED_FILE "cameras_maxspeed.bin"
 #define RELATIONS_FILE "relations.dat"
 #define TOWNS_FILE "towns.csv"
 #define OFFSET_EXT ".offs"
