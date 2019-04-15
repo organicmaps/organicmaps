@@ -165,7 +165,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                           ms::LatLon const & to) const
 {
-  return {"rto://order.rutaxi.ru/a.php?" + productId, "https://go.onelink.me/2944814706/mapsme1"};
+  return {"rto://order.rutaxi.ru/a.php?" + productId, "https://go.onelink.me/757212956/mapsmevezet"};
 }
 
 void MakeNearObject(std::string const & src, Object & dst)
