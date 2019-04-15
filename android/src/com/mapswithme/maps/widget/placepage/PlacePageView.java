@@ -1538,7 +1538,9 @@ public class PlacePageView extends NestedScrollView
 
     if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
     {
-      buttons.add(mapObject.getRoadWarningMarkType().getPlacePageItem());
+      RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
+      PlacePageButtons.Item roadType = RoadWarningTypeToRoadTypeMap.get(markType);
+      buttons.add(roadType);
       mButtons.setItems(buttons);
       return;
     }

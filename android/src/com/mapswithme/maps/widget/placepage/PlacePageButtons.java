@@ -246,7 +246,7 @@ public final class PlacePageButtons
     }
   }
 
-  public enum Item implements PlacePageButtons.PlacePageButton
+  enum Item implements PlacePageButtons.PlacePageButton
   {
     BOOKING(
         R.string.book_button,
