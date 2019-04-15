@@ -42,7 +42,7 @@ uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
   return base::clamp(angle / kAnglesInBucket, 0.0, 255.0);
 }
 
-class VertexScore final
+class RouterVertexScore final
 {
 public:
   // A weight for total length of true fake edges.
@@ -89,7 +89,7 @@ public:
   double GetPenalty() const { return m_penalty; }
   double GetScore() const { return m_distance + m_penalty; }
 
-  bool operator<(VertexScore const & rhs) const
+  bool operator<(RouterVertexScore const & rhs) const
   {
     auto const ls = GetScore();
     auto const rs = rhs.GetScore();
@@ -101,14 +101,14 @@ public:
     return m_penalty < rhs.m_penalty;
   }
 
-  bool operator>(VertexScore const & rhs) const { return rhs < *this; }
+  bool operator>(RouterVertexScore const & rhs) const { return rhs < *this; }
 
-  bool operator==(VertexScore const & rhs) const
+  bool operator==(RouterVertexScore const & rhs) const
   {
     return m_distance == rhs.m_distance && m_penalty == rhs.m_penalty;
   }
 
-  bool operator!=(VertexScore const & rhs) const { return !(*this == rhs); }
+  bool operator!=(RouterVertexScore const & rhs) const { return !(*this == rhs); }
 
 private:
   // Reduced length of path in meters.
@@ -245,18 +245,18 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
 
 bool Router::FindPath(std::vector<routing::Edge> & path)
 {
-  using State = std::pair<VertexScore, Vertex>;
+  using State = std::pair<RouterVertexScore, Vertex>;
   std::priority_queue<State, std::vector<State>, greater<State>> queue;
-  std::map<Vertex, VertexScore> scores;
+  std::map<Vertex, RouterVertexScore> scores;
   Links links;
 
-  auto pushVertex = [&queue, &scores, &links](Vertex const & u, Vertex const & v,
-                                              VertexScore const & sv, Edge const & e) {
-    if ((scores.count(v) == 0 || scores[v].GetScore() > sv.GetScore() + kEps) && u != v)
+  auto const pushVertex = [&queue, &scores, &links](Vertex const & u, Vertex const & v,
+                                                    RouterVertexScore const & rvs, Edge const & e) {
+    if ((scores.count(v) == 0 || scores[v].GetScore() > rvs.GetScore() + kEps) && u != v)
     {
-      scores[v] = sv;
+      scores[v] = rvs;
       links[v] = make_pair(u, e);
-      queue.emplace(sv, v);
+      queue.emplace(rvs, v);
     }
   };
 
@@ -264,7 +264,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
                  false /* bearingChecked */);
   CHECK(!NeedToCheckBearing(s, 0 /* distance */), ());
 
-  scores[s] = VertexScore();
+  scores[s] = RouterVertexScore();
   queue.emplace(scores[s], s);
 
   double const piS = GetPotential(s);
@@ -274,7 +274,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
     auto const p = queue.top();
     queue.pop();
 
-    VertexScore const & su = p.first;
+    RouterVertexScore const & su = p.first;
     Vertex const & u = p.second;
 
     if (su != scores[u])
@@ -314,7 +314,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
     {
       Vertex v = u;
 
-      VertexScore sv = su;
+      RouterVertexScore sv = su;
       if (u.m_junction != u.m_stageStart)
       {
         int const expected = m_points[stage].m_bearing;
@@ -332,7 +332,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
                false /* bearingChecked */);
       double const piV = GetPotential(v);
 
-      VertexScore sv = su;
+      RouterVertexScore sv = su;
       sv.AddDistance(std::max(piV - piU, 0.0));
       sv.AddIntermediateErrorPenalty(
           MercatorBounds::DistanceOnEarth(v.m_junction.GetPoint(), m_points[v.m_stage].m_point));
@@ -353,7 +353,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
 
       double const piV = GetPotential(v);
 
-      VertexScore sv = su;
+      RouterVertexScore sv = su;
       double const w = GetWeight(edge);
       sv.AddDistance(std::max(w + piV - piU, 0.0));
 

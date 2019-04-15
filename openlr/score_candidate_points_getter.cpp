@@ -15,6 +15,7 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <set>
 #include <utility>
 
@@ -46,10 +47,8 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
                              MercatorBounds::RectByCenterXYAndSizeInMeters(p, kRadius),
                              scales::GetUpperScale());
 
-  base::SortUnique(
-      pointCandidates,
-      [](ScorePoint const & a, ScorePoint const & b) { return a.m_score > b.m_score; },
-      [](ScorePoint const & a, ScorePoint const & b) { return a.m_point == b.m_point; });
+  base::SortUnique(pointCandidates);
+  std::reverse(pointCandidates.begin(), pointCandidates.end());
 
   pointCandidates.resize(min(m_maxJunctionCandidates, pointCandidates.size()));
 

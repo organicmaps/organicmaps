@@ -19,6 +19,18 @@ struct ScorePoint
   ScorePoint() = default;
   ScorePoint(Score score, m2::PointD const & point) : m_score(score), m_point(point) {}
 
+  bool operator<(ScorePoint const & o) const
+  {
+    if (m_score != o.m_score)
+      return m_score < o.m_score;
+    return m_point < o.m_point;
+  }
+
+  bool operator==(ScorePoint const & o) const
+  {
+    return m_score == o.m_score && m_point == o.m_point;
+  }
+
   Score m_score = 0;
   m2::PointD m_point;
 };
