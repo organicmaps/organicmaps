@@ -105,12 +105,12 @@ public enum TaxiType
           return "Maxim";
         }
       },
-  RUTAXI(R.string.place_page_starting_from, new LocaleDependentFormatPriceStrategy(), true)
+  TAXI_VEZET(R.string.place_page_starting_from, new LocaleDependentFormatPriceStrategy(), true)
       {
         @NonNull
         public String getPackageName()
         {
-          return "com.its.rto";
+          return "ru.rutaxi.vezet";
         }
 
         @NonNull
@@ -122,19 +122,19 @@ public enum TaxiType
         @DrawableRes
         public int getIcon()
         {
-          return R.drawable.ic_taxi_logo_rutaxi;
+          return R.drawable.ic_taxi_logo_vezet;
         }
 
         @StringRes
         public int getTitle()
         {
-          return R.string.rutaxi_title;
+          return R.string.taxi;
         }
 
         @NonNull
         public String getProviderName()
         {
-          return "Rutaxi";
+          return "Vezet";
         }
       };
 
