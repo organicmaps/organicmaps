@@ -156,7 +156,7 @@ RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
   return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
-double TransitWorldGraph::CalcSegmentETA(routing::Segment const & segment)
+double TransitWorldGraph::CalcSegmentETA(Segment const & segment)
 {
   // TODO: Separate weight and ETA of transit segments.
   if (TransitGraph::IsTransitSegment(segment))

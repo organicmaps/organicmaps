@@ -1,8 +1,12 @@
+#include "track_analyzing/track_analyzer/crossroad_checker.hpp"
+
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
 #include "routing/city_roads.hpp"
 #include "routing/geometry.hpp"
+#include "routing/index_graph.hpp"
+#include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -12,6 +16,7 @@
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/features_vector.hpp"
@@ -25,18 +30,24 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <iostream>
 #include <limits>
 #include <map>
 #include <memory>
+#include <sstream>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
+
+#include <boost/optional.hpp>
 
 #include "defines.hpp"
 
@@ -47,6 +58,7 @@ using namespace track_analyzing;
 namespace
 {
 MaxspeedType constexpr kMaxspeedTopBound = 200;
+auto constexpr kValidTrafficValue = traffic::SpeedGroup::G5;
 
 string TypeToString(uint32_t type)
 {
@@ -90,15 +102,12 @@ public:
   {
     bool operator<(Type const & rhs) const
     {
-      if (m_hwType != rhs.m_hwType)
-        return m_hwType < rhs.m_hwType;
-
-      return m_surfaceType < rhs.m_surfaceType;
+      return tie(m_hwType, m_surfaceType) < tie(rhs.m_hwType, rhs.m_surfaceType);
     }
 
     bool operator==(Type const & rhs) const
     {
-      return m_hwType == rhs.m_hwType && m_surfaceType == rhs.m_surfaceType;
+      return tie(m_hwType, m_surfaceType) == tie(rhs.m_hwType, m_surfaceType);
     }
 
     bool operator!=(Type const & rhs) const
@@ -151,10 +160,8 @@ struct RoadInfo
 {
   bool operator==(RoadInfo const & rhs) const
   {
-    return m_type == rhs.m_type &&
-           m_maxspeedKMpH == rhs.m_maxspeedKMpH &&
-           m_isCityRoad == rhs.m_isCityRoad &&
-           m_isOneWay == rhs.m_isOneWay;
+    return tie(m_type, m_maxspeedKMpH, m_isCityRoad, m_isOneWay) ==
+           tie(rhs.m_type, rhs.m_maxspeedKMpH, rhs.m_isCityRoad, rhs.m_isOneWay);
   }
 
   bool operator!=(RoadInfo const & rhs) const
@@ -164,16 +171,8 @@ struct RoadInfo
 
   bool operator<(RoadInfo const & rhs) const
   {
-    if (m_type != rhs.m_type)
-      return m_type < rhs.m_type;
-
-    if (m_maxspeedKMpH != rhs.m_maxspeedKMpH)
-      return m_maxspeedKMpH < rhs.m_maxspeedKMpH;
-
-    if (m_isCityRoad != rhs.m_isCityRoad)
-      return m_isCityRoad < rhs.m_isCityRoad;
-
-    return m_isOneWay < rhs.m_isOneWay;
+    return tie(m_type, m_maxspeedKMpH, m_isCityRoad, m_isOneWay) <
+           tie(rhs.m_type, rhs.m_maxspeedKMpH, rhs.m_isCityRoad, rhs.m_isOneWay);
   }
 
   string GetSummary() const
@@ -207,18 +206,14 @@ public:
 
   bool operator==(MoveType const & rhs) const
   {
-    return m_roadInfo == rhs.m_roadInfo && m_speedGroup == rhs.m_speedGroup && m_isDayTime == rhs.m_isDayTime;
+    return tie(m_roadInfo, m_speedGroup) == tie(rhs.m_roadInfo, rhs.m_speedGroup);
   }
 
   bool operator<(MoveType const & rhs) const
   {
-    if (m_roadInfo != rhs.m_roadInfo)
-      return m_roadInfo < rhs.m_roadInfo;
-
-    if (m_speedGroup != rhs.m_speedGroup)
-      return m_speedGroup < rhs.m_speedGroup;
-
-    return m_isDayTime < rhs.m_isDayTime;
+    auto const lhsGroup = base::Underlying(m_speedGroup);
+    auto const rhsGroup = base::Underlying(rhs.m_speedGroup);
+    return tie(m_roadInfo, lhsGroup) < tie(rhs.m_roadInfo, rhsGroup);
   }
 
   bool IsValid() const
@@ -226,7 +221,7 @@ public:
     // In order to collect cleaner data we don't use speed group lower than G5.
     return m_roadInfo.m_type.m_hwType != 0 &&
            m_roadInfo.m_type.m_surfaceType != 0 &&
-           m_speedGroup == traffic::SpeedGroup::G5;
+           m_speedGroup == kValidTrafficValue;
   }
 
   string GetSummary() const
@@ -249,30 +244,40 @@ private:
 class SpeedInfo final
 {
 public:
-  void Add(double distance, uint64_t time)
+  void Add(double distance, uint64_t time, IsCrossroadChecker::CrossroadInfo const & crossroads)
   {
     m_totalDistance += distance;
     m_totalTime += time;
+    IsCrossroadChecker::MergeCrossroads(crossroads, m_crossroads);
   }
-
-  void Add(SpeedInfo const & rhs) { Add(rhs.m_totalDistance, rhs.m_totalTime); }
 
   string GetSummary() const
   {
     ostringstream out;
-    out << m_totalDistance << "," << m_totalTime << "," << CalcSpeedKMpH(m_totalDistance, m_totalTime);
+    out << m_totalDistance << ","
+        << m_totalTime << ","
+        << CalcSpeedKMpH(m_totalDistance, m_totalTime) << ",";
+
+    for (size_t i = 1; i < m_crossroads.size(); ++i)
+    {
+      out << m_crossroads[i];
+      if (i != m_crossroads.size() - 1)
+        out << ",";
+    }
+
     return out.str();
   }
 
 private:
   double m_totalDistance = 0.0;
   uint64_t m_totalTime = 0;
+  IsCrossroadChecker::CrossroadInfo m_crossroads{};
 };
 
 class MoveTypeAggregator final
 {
 public:
-  void Add(MoveType && moveType, MatchedTrack::const_iterator begin,
+  void Add(MoveType && moveType, IsCrossroadChecker::CrossroadInfo const & crossroads, MatchedTrack::const_iterator begin,
            MatchedTrack::const_iterator end, Geometry & geometry)
   {
     if (begin + 1 >= end)
@@ -280,13 +285,7 @@ public:
 
     uint64_t const time = (end - 1)->GetDataPoint().m_timestamp - begin->GetDataPoint().m_timestamp;
     double const length = CalcSubtrackLength(begin, end, geometry);
-    m_moveInfos[moveType].Add(length, time);
-  }
-
-  void Add(MoveTypeAggregator const & rhs)
-  {
-    for (auto it : rhs.m_moveInfos)
-      m_moveInfos[it.first].Add(it.second);
+    m_moveInfos[moveType].Add(length, time, crossroads);
   }
 
   string GetSummary(string const & user, string const & mwm) const
@@ -365,10 +364,13 @@ namespace track_analyzing
 void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                   StringFilter userFilter)
 {
-  cout << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,mean speed km/h\n";
+  cout << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,"
+          "mean speed km/h,turn from smaller to bigger,turn from bigger to smaller,from link,to link,"
+          "intersection with big,intersection with small,intersection with link\n";
 
   storage::Storage storage;
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  FrozenDataSource dataSource;
   auto numMwmIds = CreateNumMwmIds(storage);
 
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
@@ -376,11 +378,29 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
       return;
 
     auto const countryName = storage.GetTopmostParentFor(mwmName);
+    auto const carModelFactory = make_shared<CarModelFactory>(VehicleModelFactory::CountryParentNameGetterFn{});
     shared_ptr<VehicleModelInterface> vehicleModel =
-        CarModelFactory({}).GetVehicleModelForCountry(mwmName);
+        carModelFactory->GetVehicleModelForCountry(mwmName);
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
     MatchedTrackPointToMoveType pointToMoveType(FilesContainerR(make_unique<FileReader>(mwmFile)), *vehicleModel);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
+    auto const vehicleType = VehicleType::Car;
+    auto const edgeEstimator = EdgeEstimator::Create(vehicleType, *vehicleModel, nullptr /* trafficStash */);
+    auto indexGraphLoader = IndexGraphLoader::Create(vehicleType, false /* loadAltitudes */, numMwmIds,
+                                                     carModelFactory, edgeEstimator, dataSource);
+
+    platform::CountryFile const countryFile(mwmName);
+    auto localCountryFile = storage.GetLatestLocalFile(countryFile);
+    CHECK(localCountryFile, ("Can't find latest country file for", countryFile.GetName()));
+    if (!dataSource.IsLoaded(countryFile))
+    {
+      auto registerResult = dataSource.Register(*localCountryFile);
+      CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success,
+                  ("Can't register mwm", countryFile.GetName()));
+    }
+
+    auto const mwmId = numMwmIds->GetId(countryFile);
+    IsCrossroadChecker checker(indexGraphLoader->GetIndexGraph(mwmId), geometry);
 
     for (auto const & kv : userToMatchedTracks)
     {
@@ -388,23 +408,36 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
       if (userFilter(user))
         continue;
 
-      for (size_t trackIdx = 0; trackIdx < kv.second.size(); ++trackIdx)
+      for (auto const & track : kv.second)
       {
-        MatchedTrack const & track = kv.second[trackIdx];
         if (track.size() <= 1)
           continue;
 
         MoveTypeAggregator aggregator;
-        for (auto subTrackBegin = track.begin(); subTrackBegin != track.end();)
+        IsCrossroadChecker::CrossroadInfo info{};
+        for (auto subtrackBegin = track.begin(); subtrackBegin != track.end();)
         {
-          auto moveType = pointToMoveType.GetMoveType(*subTrackBegin);
-          auto subTrackEnd = subTrackBegin + 1;
-          while (subTrackEnd != track.end() &&
-                 pointToMoveType.GetMoveType(*subTrackEnd) == moveType)
-            ++subTrackEnd;
+          auto moveType = pointToMoveType.GetMoveType(*subtrackBegin);
+          auto prev = subtrackBegin;
+          auto end = subtrackBegin + 1;
+          while (end != track.end() && pointToMoveType.GetMoveType(*end) == moveType)
+          {
+            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()), info);
+            prev = end;
+            ++end;
+          }
 
-          aggregator.Add(move(moveType), subTrackBegin, subTrackEnd, geometry);
-          subTrackBegin = subTrackEnd;
+          // If it's not the end of the track than it could be a crossroad.
+          IsCrossroadChecker::CrossroadInfo crossroad{};
+          if (end != track.end())
+          {
+            crossroad = checker(prev->GetSegment(), end->GetSegment());
+            IsCrossroadChecker::MergeCrossroads(crossroad, info);
+          }
+
+          aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
+          subtrackBegin = end;
+          info = move(crossroad);
         }
 
         auto const summary = aggregator.GetSummary(user, countryName);

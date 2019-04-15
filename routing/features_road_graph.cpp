@@ -57,6 +57,11 @@ SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(
   return GetVehicleModel(f.GetID())->GetSpeed(f, speedParams);
 }
 
+HighwayType FeaturesRoadGraph::CrossCountryVehicleModel::GetHighwayType(FeatureType & f) const
+{
+  return GetVehicleModel(f.GetID())->GetHighwayType(f);
+}
+
 double FeaturesRoadGraph::CrossCountryVehicleModel::GetOffroadSpeed() const
 {
   return m_offroadSpeedKMpH;

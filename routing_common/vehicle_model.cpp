@@ -114,20 +114,37 @@ SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
   return GetTypeSpeed(types, speedParams);
 }
 
+HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
+{
+  feature::TypesHolder const types(f);
+  boost::optional<HighwayType> ret;
+  for (auto const t : types)
+  {
+    ret = GetHighwayType(t);
+    if (ret)
+      break;
+
+    if (FindAdditionalRoadType(t) != m_addRoadTypes.end())
+      return static_cast<HighwayType>(classif().GetIndexForType(t));
+  }
+
+  return *ret;
+}
+
 double VehicleModel::GetMaxWeightSpeed() const
 {
   return max(m_maxModelSpeed.m_inCity.m_weight, m_maxModelSpeed.m_outCity.m_weight);
 }
 
-void VehicleModel::GetHighwayType(uint32_t type, boost::optional<HighwayType> & hwType) const
+boost::optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
 {
-  if (hwType)
-    return;
-
+  boost::optional<HighwayType> hwType;
   type = ftypes::BaseChecker::PrepareToMatch(type, 2);
   auto const it = m_roadTypes.find(type);
   if (it != m_roadTypes.cend())
     hwType = it->second.GetHighwayType();
+
+  return hwType;
 }
 
 void VehicleModel::GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const
@@ -154,7 +171,7 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad, boost:
   speed = speed ? Pick<min>(*speed, res) : res;
 }
 
-SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(boost::optional<HighwayType> const & type,
+SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
                                                       SpeedParams const & speedParams) const
 {
   CHECK(speedParams.m_maxspeed.IsValid(), ());
@@ -162,17 +179,11 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(boost::optional<HighwayTyp
   SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
   auto const maxspeedKmPH = static_cast<double>(speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward));
   SpeedKMpH speed = Pick<min>(SpeedKMpH(maxspeedKmPH, maxspeedKmPH), maxModelSpeed);
-
-  // Note. If a highway type is not found and |maxspeed| is set, |maxspeed| in kms per hour
-  // should be returned. That means |maxspeedFactor| should be 1.0.
-  if (!type)
-    return speed;
-
   // We assume that all link roads are equal to its parents and drop "_link" suffix
   // while searching for the particular factor.
   auto const maxspeedKey = GetMaxspeedKey(maxspeedKmPH);
   SpeedFactor maxspeedFactor(kInvalidModelValue, kInvalidModelValue);
-  auto const typeKey = GetHighwayTypeKey(*type);
+  auto const typeKey = GetHighwayTypeKey(type);
   auto const local = m_highwayBasedInfo.m_localFactors.find(typeKey);
   if (local != m_highwayBasedInfo.m_localFactors.cend())
   {
@@ -215,25 +226,22 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(boost::optional<HighwayTyp
   return Pick<min>(speed * maxspeedFactor, maxModelSpeed);
 }
 
-SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(boost::optional<HighwayType> const & type,
+SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
                                                          SpeedParams const & speedParams) const
 {
   CHECK(!speedParams.m_maxspeed.IsValid(), ());
   auto const isCityRoad = speedParams.m_inCity;
-  if (!type)
-    return m_maxModelSpeed.GetSpeed(isCityRoad);
-
   SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
   SpeedKMpH speed(kInvalidModelValue, kInvalidModelValue);
-  auto const local = m_highwayBasedInfo.m_localSpeeds.find(*type);
+  auto const local = m_highwayBasedInfo.m_localSpeeds.find(type);
   if (local != m_highwayBasedInfo.m_localSpeeds.cend())
     speed = local->second.GetSpeed(isCityRoad);
 
   if (speed.m_weight != kInvalidModelValue && speed.m_eta != kInvalidModelValue)
     return speed;
 
-  auto const globalIt = m_highwayBasedInfo.m_globalSpeeds.find(*type);
-  CHECK(globalIt != m_highwayBasedInfo.m_globalSpeeds.cend(), ("Can't find type in global speeds", *type));
+  auto const globalIt = m_highwayBasedInfo.m_globalSpeeds.find(type);
+  CHECK(globalIt != m_highwayBasedInfo.m_globalSpeeds.cend(), ("Can't find type in global speeds", type));
   SpeedKMpH const & global = globalIt->second.GetSpeed(isCityRoad);
   CHECK_NOT_EQUAL(global.m_weight, kInvalidModelValue, ());
   CHECK_NOT_EQUAL(global.m_eta, kInvalidModelValue, ());
@@ -255,7 +263,9 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
   boost::optional<SpeedKMpH> additionalRoadSpeed;
   for (uint32_t t : types)
   {
-    GetHighwayType(t, hwType);
+    if (!hwType)
+      hwType = GetHighwayType(t);
+
     GetSurfaceFactor(t, surfaceFactor);
     GetAdditionalRoadSpeed(t, isCityRoad, additionalRoadSpeed);
   }
@@ -263,10 +273,11 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
   if (additionalRoadSpeed)
     return *additionalRoadSpeed * surfaceFactor;
 
+  auto const resultHwType = *hwType;
   if (speedParams.m_maxspeed.IsValid())
-    return GetSpeedOnFeatureWithMaxspeed(hwType, speedParams) * surfaceFactor;
+    return GetSpeedOnFeatureWithMaxspeed(resultHwType, speedParams) * surfaceFactor;
 
-  return GetSpeedOnFeatureWithoutMaxspeed(hwType, speedParams) * surfaceFactor;
+  return GetSpeedOnFeatureWithoutMaxspeed(resultHwType, speedParams) * surfaceFactor;
 }
 
 SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f,
@@ -452,6 +463,7 @@ string DebugPrint(HighwayType type)
   case HighwayType::HighwayPlatform: return "highway-platform";
   case HighwayType::RouteShuttleTrain: return "route-shuttle_train";
   }
+
   UNREACHABLE();
 }
 }  // namespace routing

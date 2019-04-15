@@ -32,7 +32,7 @@ public:
   {
   }
 
-  template <class Sink>
+  template <typename Sink>
   void Serialize(MwmToMatchedTracks const & mwmToMatchedTracks, Sink & sink)
   {
     WriteSize(sink, mwmToMatchedTracks.size());
@@ -58,13 +58,13 @@ public:
           CHECK(!track.empty(), ());
           WriteSize(sink, track.size());
 
-          for (MatchedTrackPoint const & point : track)
-            Serialize(point.GetSegment(), sink);
-
           std::vector<DataPoint> dataPoints;
           dataPoints.reserve(track.size());
           for (MatchedTrackPoint const & point : track)
-            dataPoints.push_back(point.GetDataPoint());
+          {
+            Serialize(point.GetSegment(), sink);
+            dataPoints.emplace_back(point.GetDataPoint());
+          }
 
           std::vector<uint8_t> buffer;
           MemWriter<decltype(buffer)> memWriter(buffer);
@@ -78,7 +78,7 @@ public:
     }
   }
 
-  template <class Source>
+  template <typename Source>
   void Deserialize(MwmToMatchedTracks & mwmToMatchedTracks, Source & src)
   {
     mwmToMatchedTracks.clear();
@@ -111,8 +111,8 @@ public:
           std::vector<routing::Segment> segments;
           segments.resize(numSegments);
 
-          for (size_t iSeg = 0; iSeg < numSegments; ++iSeg)
-            Deserialize(mwmId, segments[iSeg], src);
+          for (size_t i = 0; i < numSegments; ++i)
+            Deserialize(mwmId, segments[i], src);
 
           std::vector<uint8_t> buffer;
           auto const bufferSize = ReadSize(src);
@@ -130,8 +130,8 @@ public:
           MatchedTrack & track = tracks[iTrack];
           track.reserve(numSegments);
 
-          for (size_t iPoint = 0; iPoint < numSegments; ++iPoint)
-            track.emplace_back(dataPoints[iPoint], segments[iPoint]);
+          for (size_t i = 0; i < numSegments; ++i)
+            track.emplace_back(dataPoints[i], segments[i]);
         }
       }
     }
@@ -141,19 +141,19 @@ private:
   static uint8_t constexpr kForward = 0;
   static uint8_t constexpr kBackward = 1;
 
-  template <class Sink>
+  template <typename Sink>
   static void WriteSize(Sink & sink, size_t size)
   {
     WriteVarUint(sink, base::checked_cast<uint64_t>(size));
   }
 
-  template <class Source>
+  template <typename Source>
   static size_t ReadSize(Source & src)
   {
     return base::checked_cast<size_t>(ReadVarUint<uint64_t>(src));
   }
 
-  template <class Sink>
+  template <typename Sink>
   static void Serialize(routing::Segment const & segment, Sink & sink)
   {
     WriteToSink(sink, segment.GetFeatureId());
@@ -162,7 +162,7 @@ private:
     WriteToSink(sink, direction);
   }
 
-  template <class Source>
+  template <typename Source>
   static void Deserialize(routing::NumMwmId numMwmId, routing::Segment & segment, Source & src)
   {
     auto const featureId = ReadPrimitiveFromSource<uint32_t>(src);

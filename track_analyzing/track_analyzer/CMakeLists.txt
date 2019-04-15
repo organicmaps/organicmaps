@@ -11,6 +11,8 @@ set(
   cmd_track.cpp
   cmd_tracks.cpp
   cmd_unmatched_tracks.cpp
+  crossroad_checker.cpp
+  crossroad_checker.hpp
   track_analyzer.cpp
   utils.cpp
   utils.hpp

@@ -41,7 +41,7 @@ public:
 
   struct Hash
   {
-    uint64_t operator() (RoadPoint const & roadPoint) const
+    uint64_t operator()(RoadPoint const & roadPoint) const
     {
       uint32_t featureId = roadPoint.m_featureId;
       uint32_t pointId = roadPoint.m_pointId;

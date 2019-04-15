@@ -159,6 +159,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, inCity, maxspeed});
   m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, inCity, maxspeed});
+  m_highwayType = vehicleModel.GetHighwayType(feature);
   m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
 
   feature::TypesHolder types(feature);
