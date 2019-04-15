@@ -41,7 +41,6 @@ enum class AdminLevel : uint8_t
 };
 
 // https://wiki.openstreetmap.org/wiki/Key:place
-// Warning: values are important, be careful they are used in Region::GetRank() in regions.cpp
 enum class PlaceType: uint8_t
 {
   Unknown = 0,
@@ -56,6 +55,20 @@ enum class PlaceType: uint8_t
 };
 
 PlaceType EncodePlaceType(std::string const & place);
+
+enum class PlaceLevel : uint8_t
+{
+  Unknown = 0,
+  Country = 1,
+  Region = 2,
+  Subregion = 3,
+  Locality = 4,
+  Suburb = 5,
+  Sublocality = 6,
+  Count,
+};
+
+char const * GetLabel(PlaceLevel level);
 
 // Codes for the names of countries, dependent territories, and special areas of geographical
 // interest.

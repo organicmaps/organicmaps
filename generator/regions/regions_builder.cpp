@@ -65,13 +65,14 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
 Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & country,
                                                            Regions const & allRegions)
 {
-  Regions regionsInCountry;
-  auto filterCopy = [&country] (const Region & r) { return country.ContainsRect(r); };
-  std::copy_if(std::begin(allRegions), std::end(allRegions),
-               std::back_inserter(regionsInCountry), filterCopy);
+  std::vector<LevelRegion> regionsInCountry{{PlaceLevel::Country, country}};
+  for (auto const & region : allRegions)
+  {
+    if (country.ContainsRect(region))
+      regionsInCountry.emplace_back(GetLevel(region), region);
+  }
 
-  regionsInCountry.emplace_back(country);
-  auto const comp = [](const Region & l, const Region & r) {
+  auto const comp = [](LevelRegion const & l, LevelRegion const & r) {
     auto const lArea = l.GetArea();
     auto const rArea = r.GetArea();
     return lArea != rArea ? lArea > rArea : l.GetRank() < r.GetRank();
@@ -99,7 +100,7 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & country,
     {
       auto const & currRegion = (*itCurr)->GetData();
       if (currRegion.Contains(firstRegion) ||
-          (firstRegion.GetWeight() < currRegion.GetWeight() &&
+          (GetWeight(firstRegion) < GetWeight(currRegion) &&
            currRegion.Contains(firstRegion.GetCenter()) &&
            currRegion.CalculateOverlapPercentage(firstRegion) > 50.0))
       {
@@ -151,6 +152,76 @@ std::vector<Node::Ptr> RegionsBuilder::BuildCountryRegionTrees(RegionsBuilder::R
   std::transform(std::begin(tmp), std::end(tmp),
                  std::back_inserter(res), [](auto & f) { return f.get(); });
   return res;
+}
+
+// static
+PlaceLevel RegionsBuilder::GetLevel(Region const & region)
+{
+  switch (region.GetPlaceType())
+  {
+  case PlaceType::City:
+  case PlaceType::Town:
+  case PlaceType::Village:
+  case PlaceType::Hamlet:
+    return PlaceLevel::Locality;
+  case PlaceType::Suburb:
+  case PlaceType::Neighbourhood:
+    return PlaceLevel::Suburb;
+  case PlaceType::Locality:
+  case PlaceType::IsolatedDwelling:
+    return PlaceLevel::Sublocality;
+  case PlaceType::Unknown:
+    break;
+  }
+
+  switch (region.GetAdminLevel())
+  {
+  case AdminLevel::Two:
+    return PlaceLevel::Country;
+  case AdminLevel::Four:
+    return PlaceLevel::Region;
+  case AdminLevel::Six:
+    return PlaceLevel::Subregion;
+  default:
+    break;
+  }
+
+  return PlaceLevel::Unknown;
+}
+
+// static
+size_t RegionsBuilder::GetWeight(Region const & region)
+{
+  switch (region.GetPlaceType())
+  {
+  case PlaceType::City:
+  case PlaceType::Town:
+  case PlaceType::Village:
+  case PlaceType::Hamlet:
+    return 3;
+  case PlaceType::Suburb:
+  case PlaceType::Neighbourhood:
+    return 2;
+  case PlaceType::Locality:
+  case PlaceType::IsolatedDwelling:
+    return 1;
+  case PlaceType::Unknown:
+    break;
+  }
+
+  switch (region.GetAdminLevel())
+  {
+  case AdminLevel::Two:
+    return 6;
+  case AdminLevel::Four:
+    return 5;
+  case AdminLevel::Six:
+    return 4;
+  default:
+    break;
+  }
+
+  return 0;
 }
 }  // namespace regions
 }  // namespace generator
