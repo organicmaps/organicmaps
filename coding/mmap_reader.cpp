@@ -26,7 +26,7 @@ public:
   uint8_t * m_memory;
   uint64_t m_size;
 
-  MmapData(string const & fileName)
+  explicit MmapData(string const & fileName)
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS

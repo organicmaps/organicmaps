@@ -47,7 +47,7 @@ class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
   static constexpr char const * kGoldenLineId = "goldenPath";
 
 public:
-  TrafficDrawerDelegate(Framework & framework)
+  explicit TrafficDrawerDelegate(Framework & framework)
     : m_framework(framework)
     , m_drapeApi(m_framework.GetDrapeApi())
     , m_bm(framework.GetBookmarkManager())
@@ -122,7 +122,7 @@ bool PointsMatch(m2::PointD const & a, m2::PointD const & b)
 class PointsControllerDelegate : public PointsControllerDelegateBase
 {
 public:
-  PointsControllerDelegate(Framework & framework)
+  explicit PointsControllerDelegate(Framework & framework)
     : m_framework(framework)
     , m_dataSource(framework.GetDataSource())
     , m_roadGraph(m_dataSource, routing::IRoadGraph::Mode::ObeyOnewayTag,

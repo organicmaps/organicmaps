@@ -78,7 +78,7 @@ class IntersectCheck
   bool m_isPrev, m_intersect;
 
 public:
-  IntersectCheck(m2::RectD const & r)
+  explicit IntersectCheck(m2::RectD const & r)
     : m_rect(r), m_isPrev(false), m_intersect(false)
   {
   }

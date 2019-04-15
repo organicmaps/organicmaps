@@ -37,7 +37,7 @@ namespace
 class SdfParsingDispatcher
 {
 public:
-  SdfParsingDispatcher(set<string> & symbols)
+  explicit SdfParsingDispatcher(set<string> & symbols)
       : m_symbols(symbols)
   {}
 

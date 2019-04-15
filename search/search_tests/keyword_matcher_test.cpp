@@ -62,7 +62,7 @@ class TestScore
 
 public:
   TestScore() {}
-  TestScore(Score const & score) : m_score(score) {}
+  explicit TestScore(Score const & score) : m_score(score) {}
 
   bool operator<(TestScore const & s) const
   {
@@ -92,14 +92,14 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
   {
     char const * const name = testCases[i].m_name;
     char const * const prevName = (i == 0 ? "N/A" : testCases[i-1].m_name);
-    TestScore const testScore = matcher.CalcScore(name);
+    TestScore const testScore(matcher.CalcScore(name));
 
     // Test that a newly created matcher returns the same result
     {
       KeywordMatcher freshMatcher;
       InitMatcher(query, freshMatcher);
 
-      TestScore const freshScore = freshMatcher.CalcScore(name);
+      TestScore const freshScore(freshMatcher.CalcScore(name));
       // TEST_EQUAL(testScore, freshScore, (query, name));
       TEST(!(testScore < freshScore), (query, name));
       TEST(!(freshScore < testScore), (query, name));

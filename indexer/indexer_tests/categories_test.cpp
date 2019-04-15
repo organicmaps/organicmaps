@@ -31,8 +31,8 @@ char const g_testCategoriesTxt[] =
 
 struct Checker
 {
-  size_t & m_count;
-  Checker(size_t & count) : m_count(count) {}
+  explicit Checker(size_t & count) : m_count(count) {}
+
   void operator()(CategoriesHolder::Category const & cat)
   {
     switch (m_count)
@@ -89,6 +89,8 @@ struct Checker
       TEST(false, ("Too many categories"));
     }
   }
+
+  size_t & m_count;
 };
 
 UNIT_TEST(LoadCategories)

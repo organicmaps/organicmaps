@@ -270,7 +270,7 @@ template <class IterT> class RangeIterT :
 {
   IterT m_iter;
 public:
-  RangeIterT(IterT iter) : m_iter(iter) {}
+  explicit RangeIterT(IterT iter) : m_iter(iter) {}
 
   RangeT dereference() const
   {
@@ -289,7 +289,7 @@ template <class ContT> class RangeInserter
 {
   ContT & m_cont;
 public:
-  RangeInserter(ContT & cont) : m_cont(cont) {}
+  explicit RangeInserter(ContT & cont) : m_cont(cont) {}
 
   RangeInserter & operator*() { return *this; }
   RangeInserter & operator++(int) { return *this; }

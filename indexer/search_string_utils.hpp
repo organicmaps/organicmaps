@@ -97,7 +97,7 @@ public:
   using Callback = std::function<void(strings::UniString const & token, size_t tag)>;
 
   template <typename TC>
-  StreetTokensFilter(TC && callback) : m_callback(std::forward<TC>(callback))
+  explicit StreetTokensFilter(TC && callback) : m_callback(std::forward<TC>(callback))
   {
   }
 

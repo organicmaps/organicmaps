@@ -48,7 +48,8 @@ class ClosestPoint
   double m_distance = numeric_limits<double>::max();
 
 public:
-  ClosestPoint(m2::PointD const & center) : m_center(center), m_best(0, 0) {}
+  explicit ClosestPoint(m2::PointD const & center) : m_center(center), m_best(0, 0) {}
+
   m2::PointD GetBest() const { return m_best; }
 
   void operator()(m2::PointD const & point)
@@ -182,7 +183,7 @@ class Processor
   search::LocalityFinder m_finder;
 
 public:
-  Processor(DataSource const & dataSource)
+  explicit Processor(DataSource const & dataSource)
     : m_geocoder(dataSource)
     , m_boundariesTable(dataSource)
     , m_villagesCache(m_cancellable)

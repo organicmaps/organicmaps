@@ -82,19 +82,22 @@ size_t GetSearchSources(string const & file, string const & searchScope,
 #ifdef DEBUG
 class DbgLogger
 {
-  string const & m_file;
-  SourceT m_src;
 public:
-  DbgLogger(string const & file) : m_file(file) {}
-  void SetSource(SourceT src) { m_src = src; }
+  explicit DbgLogger(string const & file) : m_file(file) {}
+
   ~DbgLogger()
   {
     LOG(LDEBUG, ("Source for file", m_file, "is", m_src));
   }
+
+  void SetSource(SourceT src) { m_src = src; }
+
+private:
+  string const & m_file;
+  SourceT m_src;
 };
 #endif
-
-}
+}  // namespace
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {

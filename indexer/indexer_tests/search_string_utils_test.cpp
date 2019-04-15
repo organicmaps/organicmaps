@@ -18,7 +18,7 @@ namespace
 class Utf8StreetTokensFilter
 {
 public:
-  Utf8StreetTokensFilter(vector<pair<string, size_t>> & cont)
+  explicit Utf8StreetTokensFilter(vector<pair<string, size_t>> & cont)
     : m_cont(cont)
     , m_filter([&](UniString const & token, size_t tag)
                {

@@ -8,7 +8,7 @@ namespace
 {
 struct Resource : public RefCounted
 {
-  Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
+  explicit Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
 
   ~Resource() override { m_destroyed = true; }
 

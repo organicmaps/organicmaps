@@ -90,7 +90,7 @@ class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
   map<string, CountryInfo> & m_file2info;
 
 public:
-  StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
+  explicit StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
   // StoreSingleMwmInterface overrides:
   Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */,
                                 string const & /* mapSha1 */, size_t /* depth */,
@@ -223,7 +223,7 @@ class StoreFile2InfoTwoComponentMwms : public StoreTwoComponentMwmInterface
   map<string, CountryInfo> & m_file2info;
 
 public:
-  StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
+  explicit StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
   // StoreTwoComponentMwmInterface overrides:
   virtual Country * Insert(string const & id, MwmSize mapSize, MwmSize /* routingSize */,
                            size_t /* depth */, CountryId const & /* parent */) override

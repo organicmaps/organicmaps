@@ -52,7 +52,7 @@ void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, std::string cons
 // }
 struct ScopedLogLevelChanger
 {
-  ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
+  explicit ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
 
   ~ScopedLogLevelChanger() { g_LogLevel = m_old; }
 
@@ -61,7 +61,7 @@ struct ScopedLogLevelChanger
 
 struct ScopedLogAbortLevelChanger
 {
-  ScopedLogAbortLevelChanger(LogLevel temporaryLogAbortLevel = LCRITICAL)
+  explicit ScopedLogAbortLevelChanger(LogLevel temporaryLogAbortLevel = LCRITICAL)
   {
     g_LogAbortLevel = temporaryLogAbortLevel;
   }

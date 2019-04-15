@@ -34,7 +34,7 @@ public:
 class CityFilter : public Filter
 {
 public:
-  CityFilter(RankTable const & ranks) : m_ranks(ranks) {}
+  explicit CityFilter(RankTable const & ranks) : m_ranks(ranks) {}
 
   // Filter overrides:
   bool IsGood(uint32_t id) const override { return m_ranks.Get(id) != 0; }

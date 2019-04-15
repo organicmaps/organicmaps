@@ -15,7 +15,7 @@ class ScopedFile;
 class ScopedMwm
 {
 public:
-  ScopedMwm(string const & relativePath);
+  explicit ScopedMwm(string const & relativePath);
 
   string const & GetFullPath() const { return m_file.GetFullPath(); }
 

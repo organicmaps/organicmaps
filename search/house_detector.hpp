@@ -212,7 +212,7 @@ public:
 
   static int const DEFAULT_OFFSET_M = 200;
 
-  HouseDetector(DataSource const & dataSource);
+  explicit HouseDetector(DataSource const & dataSource);
   ~HouseDetector();
 
   int LoadStreets(std::vector<FeatureID> const & ids);

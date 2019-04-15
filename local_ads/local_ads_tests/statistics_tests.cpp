@@ -9,7 +9,8 @@ namespace
 class StatisticsGuard
 {
 public:
-  StatisticsGuard(local_ads::Statistics & statistics) : m_statistics(statistics) {}
+  explicit StatisticsGuard(local_ads::Statistics & statistics) : m_statistics(statistics) {}
+
   ~StatisticsGuard()
   {
     m_statistics.CleanupAfterTesting();

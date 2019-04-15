@@ -15,7 +15,7 @@ public:
 class DelimitersWithExceptions
 {
 public:
-  DelimitersWithExceptions(std::vector<strings::UniChar> const & exceptions);
+  explicit DelimitersWithExceptions(std::vector<strings::UniChar> const & exceptions);
 
   bool operator()(strings::UniChar c) const;
 

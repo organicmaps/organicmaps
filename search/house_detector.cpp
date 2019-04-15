@@ -113,7 +113,7 @@ double const HN_MAX_CONNECTION_DIST_M = 300.0;
 class StreetCreator
 {
 public:
-  StreetCreator(Street * st) : m_street(st) {}
+  explicit StreetCreator(Street * st) : m_street(st) {}
   void operator () (m2::PointD const & pt) const
   {
     m_street->m_points.push_back(pt);
@@ -149,7 +149,8 @@ pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * 
 class HasSecond
 {
 public:
-  HasSecond(set<Street *> const & streets) : m_streets(streets) {}
+  explicit HasSecond(set<Street *> const & streets) : m_streets(streets) {}
+
   template <typename T>
   bool operator()(T const & t) const
   {
@@ -163,7 +164,8 @@ private:
 class HasStreet
 {
 public:
-  HasStreet(set<Street *> const & streets) : m_streets(streets) {}
+  explicit HasStreet(set<Street *> const & streets) : m_streets(streets) {}
+
   bool operator()(MergedStreet const & st) const
   {
     for (size_t i = 0; i < st.m_cont.size(); ++i)
@@ -189,7 +191,7 @@ struct ScoredHouse
 class ResultAccumulator
 {
 public:
-  ResultAccumulator(string const & houseNumber) : m_number(houseNumber) {}
+  explicit ResultAccumulator(string const & houseNumber) : m_number(houseNumber) {}
 
   string const & GetFullNumber() const { return m_number.GetNumber(); }
   bool UseOdd() const { return m_useOdd; }
@@ -340,7 +342,7 @@ struct HouseChain
     maxHouseNumber = numeric_limits<int>::max();
   }
 
-  HouseChain(HouseProjection const * h)
+  explicit HouseChain(HouseProjection const * h)
   {
     minHouseNumber = maxHouseNumber = h->m_house->GetIntNumber();
     Add(h);

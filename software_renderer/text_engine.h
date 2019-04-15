@@ -57,7 +57,7 @@ public:
 
 struct text_engine_exception : public std::runtime_error
 {
-  text_engine_exception(std::string const & s) : std::runtime_error(s) {}
+  explicit text_engine_exception(std::string const & s) : std::runtime_error(s) {}
 };
 
 class text_renderer
@@ -86,7 +86,7 @@ class text_options
   float m_ascender;
 
 public:
-  text_options(face const & f)
+  explicit text_options(face const & f)
       : m_flip_y(f.flip_y()),
         m_offset(0, 0),
         m_horizontal_align(0),
@@ -161,7 +161,7 @@ public:
   };
 
   text() {}
-  text(strings::UniString const & src) { set_text(src); }
+  explicit text(strings::UniString const & src) { set_text(src); }
 
   void swap(text & t)
   {

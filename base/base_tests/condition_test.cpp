@@ -11,7 +11,7 @@ struct ConditionThread : public threads::IRoutine
 {
   ThreadedList<int> * m_tl;
 
-  ConditionThread(ThreadedList<int> * tl) : m_tl(tl)
+  explicit ConditionThread(ThreadedList<int> * tl) : m_tl(tl)
   {}
 
   void Do()

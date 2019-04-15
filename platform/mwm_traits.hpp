@@ -41,7 +41,7 @@ public:
     Unknown
   };
 
-  MwmTraits(MwmVersion const & version);
+  explicit MwmTraits(MwmVersion const & version);
 
   SearchIndexFormat GetSearchIndexFormat() const;
 

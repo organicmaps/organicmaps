@@ -113,7 +113,7 @@ BaseContext::TokenType constexpr ScopedMarkTokens::kUnused;
 class LazyRankTable : public RankTable
 {
 public:
-  LazyRankTable(MwmValue const & value) : m_value(value) {}
+  explicit LazyRankTable(MwmValue const & value) : m_value(value) {}
 
   uint8_t Get(uint64_t i) const override
   {

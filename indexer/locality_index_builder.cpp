@@ -21,7 +21,7 @@ class LocalityVector
   DISALLOW_COPY(LocalityVector);
 
 public:
-  LocalityVector(Reader const & reader) : m_recordReader(reader, 256 /* expectedRecordSize */) {}
+  explicit LocalityVector(Reader const & reader) : m_recordReader(reader, 256 /* expectedRecordSize */) {}
 
   template <class ToDo>
   void ForEach(ToDo && toDo) const

@@ -84,7 +84,7 @@ array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSect
 
 struct LogHelper
 {
-  LogHelper(MwmSet::MwmId const & mwmId) : m_mwmId(mwmId) {}
+  explicit LogHelper(MwmSet::MwmId const & mwmId) : m_mwmId(mwmId) {}
 
   ~LogHelper()
   {

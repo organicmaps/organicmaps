@@ -20,7 +20,7 @@ namespace
 class MyProxyStyle : public ProxyStyle
 {
 public:
-  MyProxyStyle(QStyle * parent) : ProxyStyle(parent) {}
+  explicit MyProxyStyle(QStyle * parent) : ProxyStyle(parent) {}
 
   int styleHint(StyleHint hint, const QStyleOption * option, const QWidget * widget,
                 QStyleHintReturn * returnData) const override

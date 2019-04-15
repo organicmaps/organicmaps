@@ -9,7 +9,7 @@ namespace platform
 class StringStorageBase
 {
 public:
-  StringStorageBase(std::string const & path);
+  explicit StringStorageBase(std::string const & path);
   void Save() const;
   void Clear();
   bool GetValue(std::string const & key, std::string & outValue) const;

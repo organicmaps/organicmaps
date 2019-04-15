@@ -279,7 +279,7 @@ struct CopyCtorChecker
   std::string m_s;
 
   CopyCtorChecker() = default;
-  CopyCtorChecker(char const * s) : m_s(s) {}
+  explicit CopyCtorChecker(char const * s) : m_s(s) {}
   CopyCtorChecker(CopyCtorChecker const & rhs)
   {
     TEST(rhs.m_s.empty(), ("Copy ctor is called only in resize with default element"));

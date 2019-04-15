@@ -67,7 +67,7 @@ class TextCollector : public BaseCollector
 public:
   using BaseCollector::operator();
 
-  TextCollector(vector<Text> & texts) : m_texts(texts) {}
+  explicit TextCollector(vector<Text> & texts) : m_texts(texts) {}
 
   void operator()(Text const & text, char const * /* name */ = nullptr) override
   {

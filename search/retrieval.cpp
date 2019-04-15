@@ -73,7 +73,7 @@ private:
 class EditedFeaturesHolder
 {
 public:
-  EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
+  explicit EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
   {
     auto & editor = Editor::Instance();
     m_deleted = editor.GetFeaturesByStatus(id, FeatureStatus::Deleted);

@@ -35,7 +35,7 @@ namespace
 class RouteNotFoundException : public exception
 {
 public:
-  RouteNotFoundException(string const & msg) : m_msg(msg) {}
+  explicit RouteNotFoundException(string const & msg) : m_msg(msg) {}
 
   virtual ~RouteNotFoundException() noexcept = default;
 

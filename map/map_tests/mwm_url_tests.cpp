@@ -31,7 +31,7 @@ UserMark::Type const type = UserMark::Type::API;
 class ApiTest
 {
 public:
-  ApiTest(string const & uriString)
+  explicit ApiTest(string const & uriString)
     : m_fm(kFrameworkParams)
   {
     m_m = &m_fm.GetBookmarkManager();

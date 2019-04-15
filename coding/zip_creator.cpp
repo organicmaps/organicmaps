@@ -26,7 +26,7 @@ class ZipHandle
   zipFile m_zipFileHandle;
 
 public:
-  ZipHandle(string const & filePath)
+  explicit ZipHandle(string const & filePath)
   {
     m_zipFileHandle = zipOpen(filePath.c_str(), 0);
   }

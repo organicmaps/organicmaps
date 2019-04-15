@@ -90,7 +90,7 @@ class RankTableV0 : public RankTable
 public:
   RankTableV0() = default;
 
-  RankTableV0(vector<uint8_t> const & ranks) : m_coding(ranks) {}
+  explicit RankTableV0(vector<uint8_t> const & ranks) : m_coding(ranks) {}
 
   // RankTable overrides:
   uint8_t Get(uint64_t i) const override

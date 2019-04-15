@@ -14,7 +14,7 @@ class ErrorHttpRequest : public downloader::HttpRequest
 {
   string m_filePath;
 public:
-  ErrorHttpRequest(string const & filePath)
+  explicit ErrorHttpRequest(string const & filePath)
   : HttpRequest(Callback(), Callback()), m_filePath(filePath)
   {
     m_status = Status::Failed;

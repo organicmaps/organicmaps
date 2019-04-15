@@ -14,7 +14,7 @@ namespace
 class UnzipFileDelegate : public ZipFileReader::Delegate
 {
 public:
-  UnzipFileDelegate(string const & path)
+  explicit UnzipFileDelegate(string const & path)
     : m_file(make_unique<FileWriter>(path)), m_path(path), m_completed(false)
   {
   }

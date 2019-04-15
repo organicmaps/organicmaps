@@ -594,7 +594,7 @@ m2::RectD SoftwareRenderer::FrameRect() const
 template <class VertexSource> class conv_count
 {
 public:
-  conv_count(VertexSource & vs)
+  explicit conv_count(VertexSource & vs)
     : m_source(&vs)
     , m_count(0)
   {

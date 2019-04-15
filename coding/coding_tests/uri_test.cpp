@@ -19,7 +19,7 @@ namespace
 class TestUri
 {
 public:
-  TestUri(string const & uri) { m_uri = uri; }
+  explicit TestUri(string const & uri) { m_uri = uri; }
   TestUri & Scheme(string const &scheme) { m_scheme = scheme; return *this; }
   TestUri & Path(string const & path) { m_path = path; return *this; }
   TestUri & KV(string const & key, string const & value)

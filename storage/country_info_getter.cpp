@@ -33,7 +33,7 @@ struct DoFreeCacheMemory
 class DoCalcUSA
 {
 public:
-  DoCalcUSA(m2::RectD * rects) : m_rects(rects) {}
+  explicit DoCalcUSA(m2::RectD * rects) : m_rects(rects) {}
 
   void operator()(CountryDef const & c)
   {

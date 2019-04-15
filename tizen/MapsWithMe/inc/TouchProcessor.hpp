@@ -12,7 +12,7 @@ class TouchProcessor: public Tizen::Ui::ITouchEventListener
   , public Tizen::Base::Runtime::ITimerEventListener
 {
 public:
-  TouchProcessor(MapsWithMeForm * pForm);
+  explicit TouchProcessor(MapsWithMeForm * pForm);
   // ITouchEventListener
   virtual void  OnTouchFocusIn (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,

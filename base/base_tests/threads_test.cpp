@@ -13,7 +13,7 @@ static size_t const MAX_COUNT = 1000000;
 
 struct GeneratorThread : public threads::IRoutine
 {
-  GeneratorThread(Vector & vec) : m_vec(vec) {}
+  explicit GeneratorThread(Vector & vec) : m_vec(vec) {}
 
   virtual void Do()
   {
@@ -28,7 +28,7 @@ struct GeneratorThread : public threads::IRoutine
 
 struct ReaderThread : public threads::IRoutine
 {
-  ReaderThread(Vector & vec) : m_vec(vec) {}
+  explicit ReaderThread(Vector & vec) : m_vec(vec) {}
 
   virtual void Do()
   {

@@ -89,7 +89,7 @@ namespace ugc_tests
 class TestCafe : public TestPOI
 {
 public:
-  TestCafe(m2::PointD const & center) : TestPOI(center, "Cafe", "en")
+  explicit TestCafe(m2::PointD const & center) : TestPOI(center, "Cafe", "en")
   {
     SetTypes({{"amenity", "cafe"}});
   }
@@ -98,7 +98,7 @@ public:
 class TestRailway : public TestPOI
 {
 public:
-  TestRailway(m2::PointD const & center) : TestPOI(center, "Railway", "en")
+  explicit TestRailway(m2::PointD const & center) : TestPOI(center, "Railway", "en")
   {
     SetTypes({{"railway", "station"}});
   }

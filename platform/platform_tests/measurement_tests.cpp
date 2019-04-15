@@ -15,7 +15,7 @@ struct ScopedSettings
   ScopedSettings() { m_wasSet = Get(kMeasurementUnits, m_oldUnits); }
 
   /// Saves/restores previous units and sets new units for a scope.
-  ScopedSettings(Units newUnits) : ScopedSettings()
+  explicit ScopedSettings(Units newUnits) : ScopedSettings()
   {
     Set(kMeasurementUnits, newUnits);
   }

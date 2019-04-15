@@ -12,7 +12,7 @@ namespace android
 class ConfigComparator
 {
 public:
-  ConfigComparator(EGLDisplay display);
+  explicit ConfigComparator(EGLDisplay display);
 
   bool operator()(EGLConfig const & l, EGLConfig const & r) const;
   int configWeight(EGLConfig const & config) const;

@@ -141,7 +141,7 @@ class BitSource
   uint8_t m_pos;
 
 public:
-  BitSource(char const * p) : m_ptr(p), m_pos(0) {}
+  explicit BitSource(char const * p) : m_ptr(p), m_pos(0) {}
 
   uint8_t Read(uint8_t count)
   {

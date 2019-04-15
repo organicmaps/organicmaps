@@ -21,7 +21,7 @@ public:
   using TypeName = std::string;
   using TypeNames = std::vector<TypeName>;
 
-  NewFeatureCategories(editor::EditorConfig const & config);
+  explicit NewFeatureCategories(editor::EditorConfig const & config);
 
   NewFeatureCategories(NewFeatureCategories && other);
 

@@ -17,7 +17,7 @@ class VideoTimer1;
 class Framework : public noncopyable
 {
 public:
-  Framework(Tizen::Ui::Controls::Form * form);
+  explicit Framework(Tizen::Ui::Controls::Form * form);
   virtual ~Framework();
   static ::Framework * GetInstance();
   void Draw();

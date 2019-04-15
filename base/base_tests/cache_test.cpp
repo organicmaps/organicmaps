@@ -30,7 +30,7 @@ private:
 class SimpleMovableFunctor
 {
 public:
-  SimpleMovableFunctor(std::vector<char> * v) : m_v(v) {}
+  explicit SimpleMovableFunctor(std::vector<char> * v) : m_v(v) {}
 
   // movable
   SimpleMovableFunctor(SimpleMovableFunctor && other)

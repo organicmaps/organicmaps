@@ -53,7 +53,7 @@ class CheckRange
   TestResultVector const & m_results;
 
 public:
-  CheckRange(TestResultVector const & results) : m_idx(0), m_results(results) {}
+  explicit CheckRange(TestResultVector const & results) : m_idx(0), m_results(results) {}
 
   ~CheckRange() { TEST_EQUAL(m_idx, m_results.size(), ()); }
 

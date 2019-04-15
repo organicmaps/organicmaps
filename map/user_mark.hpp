@@ -132,7 +132,7 @@ private:
 class DebugMarkPoint : public UserMark
 {
 public:
-  DebugMarkPoint(m2::PointD const & ptOrg);
+  explicit DebugMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 };
@@ -140,7 +140,7 @@ public:
 class ColoredMarkPoint : public UserMark
 {
 public:
-  ColoredMarkPoint(m2::PointD const & ptOrg);
+  explicit ColoredMarkPoint(m2::PointD const & ptOrg);
 
   void SetColor(dp::Color const & color);
   void SetRadius(float radius);

@@ -18,7 +18,7 @@ public:
   vector<m2::PointD> m_path;
 
   // -1.0 means "not" initialized
-  PathInfo(double offset = -1.0) : m_fullL(-1.0), m_offset(offset) {}
+  explicit PathInfo(double offset = -1.0) : m_fullL(-1.0), m_offset(offset) {}
 
   void swap(PathInfo & r)
   {
