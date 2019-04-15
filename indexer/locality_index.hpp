@@ -40,6 +40,11 @@ public:
     m_intervalIndex = std::make_unique<IntervalIndex<Reader, uint64_t>>(reader);
   }
 
+  void ForEachAtPoint(ProcessObject const & processObject, m2::PointD const & point) const
+  {
+    ForEachInRect(processObject, m2::RectD(point, point));
+  }
+
   void ForEachInRect(ProcessObject const & processObject, m2::RectD const & rect) const
   {
     covering::CoveringGetter cov(rect, covering::CoveringMode::ViewportWithLowLevels);

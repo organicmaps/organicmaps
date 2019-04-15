@@ -91,8 +91,12 @@ set(SRC
   geometry_holder.hpp
   geo_objects/geo_objects.cpp
   geo_objects/geo_objects.hpp
+  geo_objects/geo_object_info_getter.cpp
+  geo_objects/geo_object_info_getter.hpp
   geo_objects/key_value_storage.cpp
   geo_objects/key_value_storage.hpp
+  geo_objects/region_info_getter.cpp
+  geo_objects/region_info_getter.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
