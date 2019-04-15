@@ -78,8 +78,8 @@ void AStarProgress::AppendSubProgress(AStarSubProgress const & subProgress)
 
 void AStarProgress::EraseLastSubProgress()
 {
-  ASSERT(m_subProgresses.begin() != m_subProgresses.end(), ());
-  ASSERT(m_subProgresses.begin() != std::prev(m_subProgresses.end()), ());
+  CHECK(m_subProgresses.begin() != m_subProgresses.end(), ());
+  CHECK(m_subProgresses.begin() != std::prev(m_subProgresses.end()), ());
 
   auto prevLast = std::prev(std::prev(m_subProgresses.end()));
   prevLast->Flush(m_subProgresses.back().GetMaxContribution());

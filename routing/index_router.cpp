@@ -428,9 +428,12 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
     progress.AppendSubProgress(subProgress);
+    SCOPE_GUARD(eraseProgress, [&progress]() {
+      progress.EraseLastSubProgress();
+    });
+
     auto const result = CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter,
                                           subroute);
-    progress.EraseLastSubProgress();
 
     if (result != RouterResultCode::NoError)
       return result;
@@ -614,10 +617,12 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     set<NumMwmId> const mwmIds = starter.GetMwms();
     RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
 
+    if (mode == WorldGraphMode::LeapsOnly)
+      progress.EraseLastSubProgress();
+
     if (result != RouterResultCode::NoError)
       return result;
 
-    progress.EraseLastSubProgress();
     RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate,
                                                             starter.GetGraph().GetMode(), 
                                                             starter, progress, subroute);
