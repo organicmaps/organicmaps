@@ -4,6 +4,7 @@ set(
   SRC
   altitude_test.cpp
   brands_loader_test.cpp
+  camera_collector_tests.cpp
   check_mwms.cpp
   cities_boundaries_checker_tests.cpp
   city_roads_tests.cpp

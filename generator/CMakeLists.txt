@@ -20,8 +20,6 @@ set(SRC
   brands_loader.hpp
   camera_info_collector.cpp
   camera_info_collector.hpp
-  camera_node_processor.cpp
-  camera_node_processor.hpp
   centers_table_builder.cpp
   centers_table_builder.hpp
   check_model.cpp
@@ -39,6 +37,8 @@ set(SRC
   collection_base.hpp
   collector_addresses.cpp
   collector_addresses.hpp
+  collector_camera.cpp
+  collector_camera.hpp
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp

@@ -30,8 +30,8 @@ public:
 }  // namespace
 
 TranslatorCoastline::TranslatorCoastline(std::shared_ptr<EmitterInterface> emitter,
-                                         cache::IntermediateDataReader & holder)
-  : Translator(emitter, holder, std::make_shared<FeatureMaker>(holder))
+                                         cache::IntermediateDataReader & cache)
+  : Translator(emitter, cache, std::make_shared<FeatureMaker>(cache))
 {
   AddFilter(std::make_shared<FilterPlanet>());
   AddFilter(std::make_shared<CoastlineFilter>());

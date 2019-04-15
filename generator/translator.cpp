@@ -9,22 +9,22 @@
 
 namespace generator
 {
-Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                        std::shared_ptr<FeatureMakerBase> maker, FilterCollection const & filters,
                        CollectorCollection const & collectors)
   : m_filters(filters)
   , m_collectors(collectors)
-  , m_tagsEnricher(holder)
+  , m_tagsEnricher(cache)
   , m_featureMaker(maker)
   , m_emitter(emitter)
-  , m_holder(holder)
+  , m_cache(cache)
 {
   CHECK(m_emitter, ());
 }
 
-Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                        std::shared_ptr<FeatureMakerBase> maker)
-  : Translator(emitter, holder, maker, {} /* filters */, {} /* collectors */) {}
+  : Translator(emitter, cache, maker, {} /* filters */, {} /* collectors */) {}
 
 void Translator::Emit(OsmElement & element)
 {

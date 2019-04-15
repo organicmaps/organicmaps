@@ -41,9 +41,9 @@ public:
 };
 }  // namespace
 
-TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                                    feature::GenerateInfo const & info)
-  : Translator(emitter, holder, std::make_shared<FeatureMakerSimple>(holder))
+  : Translator(emitter, cache, std::make_shared<FeatureMakerSimple>(cache))
 
 {
   AddFilter(std::make_shared<FilterRegions>());

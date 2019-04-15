@@ -111,26 +111,26 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
 void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateDataWriter & cache,
                                   TownsDumper & towns)
 {
-  XMLSource parser([&](OsmElement * e)
+  XMLSource parser([&](OsmElement * element)
   {
-    towns.CheckElement(*e);
-    AddElementToCache(cache, *e);
+    towns.CheckElement(*element);
+    AddElementToCache(cache, *element);
   });
   ParseXMLSequence(stream, parser);
 }
 
 void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  XMLSource parser([&](OsmElement * e) { processor(e); });
+  XMLSource parser([&](OsmElement * element) { processor(element); });
   ParseXMLSequence(stream, parser);
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
                                   TownsDumper & towns)
 {
-  auto processor = [&](OsmElement * e) {
-    towns.CheckElement(*e);
-    AddElementToCache(cache, *e);
+  auto processor = [&](OsmElement * element) {
+    towns.CheckElement(*element);
+    AddElementToCache(cache, *element);
   };
 
   // Use only this function here, look into ProcessOsmElementsFromO5M
@@ -207,10 +207,9 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 
 bool GenerateRaw(feature::GenerateInfo & info, TranslatorInterface & translators)
 {
-  auto const fn = [&](OsmElement * e) {
-    CHECK(e, ());
-    auto & element = *e;
-    translators.Emit(element);
+  auto const fn = [&](OsmElement * element) {
+    CHECK(element, ());
+    translators.Emit(*element);
   };
 
   SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);

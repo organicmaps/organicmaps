@@ -27,8 +27,8 @@ public:
 }  // namespace
 
 TranslatorGeoObjects::TranslatorGeoObjects(std::shared_ptr<EmitterInterface> emitter,
-                                           cache::IntermediateDataReader & holder)
-  : Translator(emitter, holder, std::make_shared<FeatureMakerSimple>(holder))
+                                           cache::IntermediateDataReader & cache)
+  : Translator(emitter, cache, std::make_shared<FeatureMakerSimple>(cache))
 
 {
   AddFilter(std::make_shared<FilterGeoObjects>());

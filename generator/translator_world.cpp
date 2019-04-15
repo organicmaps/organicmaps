@@ -14,9 +14,9 @@
 
 namespace generator
 {
-TranslatorWorld::TranslatorWorld(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+TranslatorWorld::TranslatorWorld(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                                  feature::GenerateInfo const & info)
-  : Translator(emitter, holder, std::make_shared<FeatureMaker>(holder))
+  : Translator(emitter, cache, std::make_shared<FeatureMaker>(cache))
   , m_tagAdmixer(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv"))
   , m_tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE)
   , m_osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE)

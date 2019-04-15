@@ -8,20 +8,20 @@
 
 namespace generator
 {
-FeatureMakerBase::FeatureMakerBase(cache::IntermediateDataReader & holder) : m_holder(holder) {}
+FeatureMakerBase::FeatureMakerBase(cache::IntermediateDataReader & cache) : m_cache(cache) {}
 
-bool FeatureMakerBase::Add(OsmElement & p)
+bool FeatureMakerBase::Add(OsmElement & element)
 {
   FeatureParams params;
-  ParseParams(params, p);
-  switch (p.type)
+  ParseParams(params, element);
+  switch (element.type)
   {
   case OsmElement::EntityType::Node:
-    return BuildFromNode(p, params);
+    return BuildFromNode(element, params);
   case OsmElement::EntityType::Way:
-    return BuildFromWay(p, params);
+    return BuildFromWay(element, params);
   case OsmElement::EntityType::Relation:
-    return BuildFromRelation(p, params);
+    return BuildFromRelation(element, params);
   default:
     return false;
   }

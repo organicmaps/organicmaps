@@ -1,4 +1,4 @@
-#include "generator/camera_node_processor.hpp"
+#include "generator/collector_camera.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
@@ -25,6 +25,25 @@ namespace routing
 {
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
+std::string ValidateMaxSpeedString(std::string const & maxSpeedString)
+{
+  routing::SpeedInUnits speed;
+  if (!generator::ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())
+    return std::string();
+
+  return strings::to_string(measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits()));
+}
+
+CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
+  : m_id(element.id)
+  , m_lon(element.lon)
+  , m_lat(element.lat)
+{
+  auto const maxspeed = element.GetTag("maxspeed");
+  if (!maxspeed.empty())
+    m_speed = ValidateMaxSpeedString(maxspeed);
+}
+
 void CameraProcessor::ForEachCamera(Fn && toDo) const
 {
   std::vector<uint64_t> empty;
@@ -47,34 +66,17 @@ void CameraProcessor::ProcessWay(OsmElement const & element)
   }
 }
 
-// static
-std::string CameraProcessor::ValidateMaxSpeedString(std::string const & maxSpeedString)
-{
-  routing::SpeedInUnits speed;
-  if (!generator::ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())
-    return std::string();
-
-  return strings::to_string(measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits()));
-}
-
 void CameraProcessor::ProcessNode(OsmElement const & element)
 {
-  CameraInfo camera;
-  camera.m_id = element.id;
-  camera.m_lat = element.lat;
-  camera.m_lon = element.lon;
-  auto const maxspeed = element.GetTag("maxspeed");
-  if (!maxspeed.empty())
-    camera.m_speed = ValidateMaxSpeedString(maxspeed);
-
-  CHECK_LESS(camera.m_speed.size(), kMaxSpeedSpeedStringLength, ("Too long string for speed"));
+  CameraInfo camera(element);
+  CHECK_LESS(camera.m_speed.size(), kMaxSpeedSpeedStringLength, ());
   m_speedCameras.emplace(element.id, std::move(camera));
 }
 
-CameraNodeProcessor::CameraNodeProcessor(std::string const & writerFile) :
+CameraCollector::CameraCollector(std::string const & writerFile) :
   m_fileWriter(writerFile) {}
 
-void CameraNodeProcessor::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
+void CameraCollector::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
 {
   switch (element.type)
   {
@@ -95,7 +97,7 @@ void CameraNodeProcessor::CollectFeature(FeatureBuilder1 const & feature, OsmEle
   }
 }
 
-void CameraNodeProcessor::Write(CameraProcessor::CameraInfo const & camera, std::vector<uint64_t> const & ways)
+void CameraCollector::Write(CameraProcessor::CameraInfo const & camera, std::vector<uint64_t> const & ways)
 {
   std::string maxSpeedStringKmPH = camera.m_speed;
   int32_t maxSpeedKmPH = 0;
@@ -120,9 +122,9 @@ void CameraNodeProcessor::Write(CameraProcessor::CameraInfo const & camera, std:
     WriteToSink(m_fileWriter, wayId);
 }
 
-void CameraNodeProcessor::Save()
+void CameraCollector::Save()
 {
   using namespace std::placeholders;
-  m_processor.ForEachCamera(std::bind(&CameraNodeProcessor::Write, this, _1, _2));
+  m_processor.ForEachCamera(std::bind(&CameraCollector::Write, this, _1, _2));
 }
 }  // namespace routing
