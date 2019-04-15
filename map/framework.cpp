@@ -467,6 +467,9 @@ Framework::Framework(FrameworkParams const & params)
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
 
+  InitUGC();
+  LOG(LDEBUG, ("UGC initialized"));
+
   InitSearchAPI();
   LOG(LDEBUG, ("Search API initialized"));
 
@@ -542,9 +545,6 @@ Framework::Framework(FrameworkParams const & params)
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
   m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   m_trafficManager.SetEnabled(LoadTrafficEnabled());
-
-  InitUGC();
-  LOG(LDEBUG, ("UGC initialized"));
 
   m_adsEngine = make_unique<ads::Engine>();
 

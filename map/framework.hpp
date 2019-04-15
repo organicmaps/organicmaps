@@ -197,6 +197,10 @@ protected:
 
   LocalAdsManager m_localAdsManager;
 
+  // The order matters here: ugc::Api should be destroyed after
+  // SearchAPI and notifications::NotificationManager.
+  unique_ptr<ugc::Api> m_ugcApi;
+
   unique_ptr<SearchAPI> m_searchAPI;
 
   search::QuerySaver m_searchQuerySaver;
@@ -238,9 +242,6 @@ protected:
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
-
-  unique_ptr<ugc::Api> m_ugcApi;
-
   User m_user;
 
   booking::filter::FilterProcessor m_bookingFilterProcessor;
