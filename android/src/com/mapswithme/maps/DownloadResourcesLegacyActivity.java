@@ -18,13 +18,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapswithme.maps.MwmActivity.MapTask;
-import com.mapswithme.maps.MwmActivity.OpenUrlTask;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.IntentProcessor;
+import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.ConnectionState;
@@ -441,7 +440,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
       intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK,
-                      mMapTaskToForward instanceof OpenUrlTask);
+                      mMapTaskToForward instanceof Factory.OpenUrlTask);
       mMapTaskToForward = null;
     }
 

@@ -27,6 +27,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
@@ -180,7 +181,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id));
+        intent.putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowCountryTask(item.id));
         adapter.mActivity.startActivity(intent);
 
         if (!(adapter.mActivity instanceof MwmActivity))

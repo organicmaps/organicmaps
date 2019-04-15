@@ -27,6 +27,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.Track;
+import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.ugc.routes.BaseUgcRouteActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
@@ -174,12 +175,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       case BookmarkListAdapter.TYPE_BOOKMARK:
         final Bookmark bookmark = (Bookmark) adapter.getItem(position);
         i.putExtra(MwmActivity.EXTRA_TASK,
-                   new MwmActivity.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+                   new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
         break;
       case BookmarkListAdapter.TYPE_TRACK:
         final Track track = (Track) adapter.getItem(position);
         i.putExtra(MwmActivity.EXTRA_TASK,
-                   new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+                   new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
         break;
     }
 

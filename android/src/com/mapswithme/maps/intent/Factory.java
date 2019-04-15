@@ -5,16 +5,34 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.api.ParsedRoutingData;
+import com.mapswithme.maps.api.ParsedSearchRequest;
+import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.background.NotificationCandidate;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.ugc.EditParams;
+import com.mapswithme.maps.ugc.UGC;
+import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
@@ -27,6 +45,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 
 public class Factory
 {
@@ -119,7 +138,7 @@ public class Factory
     private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     @NonNull
     @Override
-    public final MwmActivity.MapTask process(@NonNull Intent intent)
+    public final MapTask process(@NonNull Intent intent)
     {
       Uri data = intent.getData();
       if (data == null)
@@ -133,16 +152,16 @@ public class Factory
     }
 
     @NonNull
-    abstract MwmActivity.MapTask createMapTask(@NonNull String uri);
+    abstract MapTask createMapTask(@NonNull String uri);
   }
 
   private static abstract class BaseOpenUrlProcessor extends LogIntentProcessor
   {
     @NonNull
     @Override
-    MwmActivity.MapTask createMapTask(@NonNull String uri)
+    MapTask createMapTask(@NonNull String uri)
     {
-      return new MwmActivity.OpenUrlTask(uri);
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -190,12 +209,12 @@ public class Factory
 
     @NonNull
     @Override
-    public MwmActivity.MapTask process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
       final String ge0Url = "ge0:/" + data.getPath();
       org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
-      return new MwmActivity.OpenUrlTask(ge0Url);
+      return new OpenUrlTask(ge0Url);
     }
   }
 
@@ -212,7 +231,7 @@ public class Factory
 
     @NonNull
     @Override
-    public MwmActivity.MapTask process(@NonNull final Intent intent)
+    public MapTask process(@NonNull final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
@@ -225,7 +244,7 @@ public class Factory
         Statistics.INSTANCE.trackApiCall(request);
 
         if (!ParsedMwmRequest.isPickPointMode())
-          return new MwmActivity.OpenUrlTask(apiUrl);
+          return new OpenUrlTask(apiUrl);
       }
 
       throw new AssertionError("Url must be provided!");
@@ -273,9 +292,9 @@ public class Factory
 
     @NonNull
     @Override
-    MwmActivity.MapTask createMapTask(@NonNull String url)
+    MapTask createMapTask(@NonNull String url)
     {
-      return new MwmActivity.ImportBookmarkCatalogueTask(url);
+      return new ImportBookmarkCatalogueTask(url);
     }
   }
 
@@ -283,14 +302,14 @@ public class Factory
   {
     @NonNull
     @Override
-    MwmActivity.MapTask createMapTask(@NonNull String uri)
+    MapTask createMapTask(@NonNull String uri)
     {
       String url = Uri.parse(uri).buildUpon()
                       .scheme(DlinkIntentProcessor.SCHEME_HTTPS)
                       .authority(DlinkIntentProcessor.HOST)
                       .path(DlinkBookmarkCatalogueIntentProcessor.CATALOGUE)
                       .build().toString();
-      return new MwmActivity.ImportBookmarkCatalogueTask(url);
+      return new ImportBookmarkCatalogueTask(url);
     }
 
     @Override
@@ -320,7 +339,7 @@ public class Factory
 
     @NonNull
     @Override
-    protected MwmActivity.MapTask createMapTask(@NonNull String url)
+    protected MapTask createMapTask(@NonNull String url)
     {
       // Transform deeplink to the core expected format,
       // i.e https://host/path?query -> mapsme:///path?query.
@@ -328,7 +347,7 @@ public class Factory
       Uri coreUri = uri.buildUpon()
                        .scheme(SCHEME_CORE)
                        .authority("").build();
-      return new MwmActivity.OpenUrlTask(coreUri.toString());
+      return new OpenUrlTask(coreUri.toString());
     }
   }
 
@@ -366,14 +385,14 @@ public class Factory
 
     @NonNull
     @Override
-    public MwmActivity.MapTask process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       String countryId = intent.getStringExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
 
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
                                           new String[] { "autoDownload", "false" },
                                           LocationHelper.INSTANCE.getSavedLocation());
-      return new MwmActivity.ShowCountryTask(countryId);
+      return new ShowCountryTask(countryId);
     }
   }
 
@@ -399,7 +418,7 @@ public class Factory
 
     @Nullable
     @Override
-    public MwmActivity.MapTask process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       ThreadPool.getStorage().execute(() -> {
         readKmzFromIntent();
@@ -500,7 +519,7 @@ public class Factory
 
     @NonNull
     @Override
-    public MwmActivity.MapTask process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
         throw new AssertionError("Extra lat/lon must be provided!");
@@ -508,7 +527,7 @@ public class Factory
       double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
       double lon = getCoordinateFromIntent(intent, EXTRA_LON);
 
-      return  new MwmActivity.ShowPointTask(lat, lon);
+      return new ShowPointTask(lat, lon);
     }
   }
 
@@ -531,7 +550,7 @@ public class Factory
 
     @NonNull
     @Override
-    public MwmActivity.MapTask process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
         throw new AssertionError("Extra lat/lon must be provided!");
@@ -543,24 +562,24 @@ public class Factory
       boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
       boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
 
-      MwmActivity.MapTask mapTaskToForward;
+      MapTask mapTaskToForward;
       if (hasFrom && hasRouter)
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
+        mapTaskToForward = new BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
                                                            daddr, intent.getStringExtra(EXTRA_ROUTER));
       }
       else if (hasFrom)
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr,
+        mapTaskToForward = new BuildRouteTask(latTo, lonTo, saddr,
                                                            latFrom,lonFrom, daddr);
       }
       else
       {
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
+        mapTaskToForward = new BuildRouteTask(latTo, lonTo,
                                                            intent.getStringExtra(EXTRA_ROUTER));
       }
 
@@ -575,5 +594,330 @@ public class Factory
       value = intent.getFloatExtra(key, 0.0f);
 
     return value;
+  }
+
+  public static class ImportBookmarkCatalogueTask implements MapTask
+  {
+    private static final long serialVersionUID = 5363722491377575159L;
+
+    @NonNull
+    private final String mUrl;
+
+    ImportBookmarkCatalogueTask(@NonNull String url)
+    {
+      mUrl = url;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
+      return true;
+    }
+  }
+
+  public static class OpenUrlTask implements MapTask
+  {
+    private static final long serialVersionUID = -7257820771228127413L;
+    private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
+    private final String mUrl;
+
+    OpenUrlTask(String url)
+    {
+      Utils.checkNotNull(url);
+      mUrl = url;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(mUrl);
+      switch (result)
+      {
+        case ParsedUrlMwmRequest.RESULT_INCORRECT:
+          // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+          return MapFragment.nativeShowMapForUrl(mUrl);
+
+        case ParsedUrlMwmRequest.RESULT_MAP:
+          return MapFragment.nativeShowMapForUrl(mUrl);
+
+        case ParsedUrlMwmRequest.RESULT_ROUTE:
+          final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
+          RoutingController.get().setRouterType(data.mRouterType);
+          final RoutePoint from = data.mPoints[0];
+          final RoutePoint to = data.mPoints[1];
+          RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                                                    from.mName, "", from.mLat, from.mLon),
+                                          MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                                                    to.mName, "", to.mLat, to.mLon), true);
+          return true;
+        case ParsedUrlMwmRequest.RESULT_SEARCH:
+          final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
+          if (request.mIsSearchOnMap && (request.mLat != 0.0 || request.mLon != 0.0))
+          {
+            Framework.nativeStopLocationFollow();
+            Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
+          }
+          SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
+                               null, null);
+          return true;
+        case ParsedUrlMwmRequest.RESULT_LEAD:
+          return true;
+      }
+
+      return false;
+    }
+  }
+
+  public static class ShowCountryTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+    private final String mCountryId;
+
+    public ShowCountryTask(String countryId)
+    {
+      mCountryId = countryId;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      Framework.nativeShowCountry(mCountryId, false);
+      return true;
+    }
+  }
+
+  static abstract class BaseUserMarkTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+
+    final long mCategoryId;
+    final long mId;
+
+    BaseUserMarkTask(long categoryId, long id)
+    {
+      mCategoryId = categoryId;
+      mId = id;
+    }
+  }
+
+  public static class ShowBookmarkTask extends BaseUserMarkTask
+  {
+    private static final long serialVersionUID = 7582931785363515736L;
+
+    public ShowBookmarkTask(long categoryId, long bookmarkId)
+    {
+      super(categoryId, bookmarkId);
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      BookmarkManager.INSTANCE.showBookmarkOnMap(mId);
+      return true;
+    }
+  }
+
+  public static class ShowTrackTask extends BaseUserMarkTask
+  {
+    private static final long serialVersionUID = 1091286722919338991L;
+
+    public ShowTrackTask(long categoryId, long trackId)
+    {
+      super(categoryId, trackId);
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      Framework.nativeShowTrackRect(mId);
+      return true;
+    }
+  }
+
+  public static class ShowPointTask implements MapTask
+  {
+    private static final long serialVersionUID = -2467635346469323664L;
+    private final double mLat;
+    private final double mLon;
+
+    ShowPointTask(double lat, double lon)
+    {
+      mLat = lat;
+      mLon = lon;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      MapFragment.nativeShowMapForUrl(String.format(Locale.US,
+                                                    "mapsme://map?ll=%f,%f", mLat, mLon));
+      return true;
+    }
+  }
+
+  public static class BuildRouteTask implements MapTask
+  {
+    private static final long serialVersionUID = 5301468481040195957L;
+    private final double mLatTo;
+    private final double mLonTo;
+    @Nullable
+    private final Double mLatFrom;
+    @Nullable
+    private final Double mLonFrom;
+    @Nullable
+    private final String mSaddr;
+    @Nullable
+    private final String mDaddr;
+    private final String mRouter;
+
+    @NonNull
+    private static MapObject fromLatLon(double lat, double lon, @Nullable String addr)
+    {
+      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                       TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
+    }
+
+    BuildRouteTask(double latTo, double lonTo, @Nullable String router)
+    {
+      this(latTo, lonTo, null, null, null, null, router);
+    }
+
+    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr)
+    {
+      this(latTo, lonTo, saddr, latFrom, lonFrom, daddr, null);
+    }
+
+    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr,
+                   @Nullable String router)
+    {
+      mLatTo = latTo;
+      mLonTo = lonTo;
+      mLatFrom = latFrom;
+      mLonFrom = lonFrom;
+      mSaddr = saddr;
+      mDaddr = daddr;
+      mRouter = router;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      @Framework.RouterType int routerType = -1;
+      if (!TextUtils.isEmpty(mRouter))
+      {
+        switch (mRouter)
+        {
+          case "vehicle":
+            routerType = Framework.ROUTER_TYPE_VEHICLE;
+            break;
+          case "pedestrian":
+            routerType = Framework.ROUTER_TYPE_PEDESTRIAN;
+            break;
+          case "bicycle":
+            routerType = Framework.ROUTER_TYPE_BICYCLE;
+            break;
+          case "taxi":
+            routerType = Framework.ROUTER_TYPE_TAXI;
+            break;
+          case "transit":
+            routerType = Framework.ROUTER_TYPE_TRANSIT;
+            break;
+        }
+      }
+
+      if (mLatFrom != null && mLonFrom != null && routerType >= 0)
+      {
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
+                                        true /* fromApi */);
+      }
+      else if (mLatFrom != null && mLonFrom != null)
+      {
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
+      }
+      else if (routerType > 0)
+      {
+        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
+                                        true /* fromApi */);
+      }
+      else
+      {
+        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
+      }
+      return true;
+    }
+  }
+
+  public static class RestoreRouteTask implements MapTask
+  {
+    private static final long serialVersionUID = 6123893958975977040L;
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      RoutingController.get().restoreRoute();
+      return true;
+    }
+  }
+
+  public static class ShowUGCEditorTask implements MapTask
+  {
+    private static final long serialVersionUID = 1636712824900113568L;
+    // Nullable because of possible serialization from previous incompatible version of class.
+    @Nullable
+    private final NotificationCandidate.UgcReview mNotificationCandidate;
+
+    public ShowUGCEditorTask(@Nullable NotificationCandidate.UgcReview notificationCandidate)
+    {
+      mNotificationCandidate = notificationCandidate;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      if (mNotificationCandidate == null)
+        return false;
+
+      MapObject mapObject = Framework.nativeGetMapObject(mNotificationCandidate);
+
+      if (mapObject == null)
+        return false;
+
+      EditParams.Builder builder = EditParams.Builder.fromMapObject(mapObject)
+                                                     .setDefaultRating(UGC.RATING_NONE)
+                                                     .setFromNotification(true);
+      UGCEditorActivity.start(target, builder.build());
+      return true;
+    }
+  }
+
+  public static class ShowDialogTask implements MapTask
+  {
+    private static final long serialVersionUID = 1548931513812565018L;
+    @NonNull
+    private String mDialogName;
+
+    public ShowDialogTask(@NonNull String dialogName)
+    {
+      mDialogName = dialogName;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      Fragment f = target.getSupportFragmentManager().findFragmentByTag(mDialogName);
+      if (f != null)
+        return true;
+
+      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
+      fragment.show(target.getSupportFragmentManager(), mDialogName);
+      return true;
+    }
   }
 }

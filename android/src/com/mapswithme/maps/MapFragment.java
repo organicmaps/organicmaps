@@ -366,7 +366,7 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();
-  static native boolean nativeShowMapForUrl(String url);
+  public static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
   static native boolean nativeDestroySurfaceOnDetach();
   private static native boolean nativeCreateEngine(Surface surface, int density,

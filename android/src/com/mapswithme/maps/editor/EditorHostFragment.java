@@ -20,17 +20,18 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
+import com.mapswithme.maps.editor.data.NamesDataSource;
+import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
-import com.mapswithme.maps.editor.data.NamesDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -322,7 +323,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Intent intent = new Intent(parent, MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra(MwmActivity.EXTRA_TASK,
-                        new MwmActivity.ShowDialogTask(AuthDialogFragment.class.getName()));
+                        new Factory.ShowDialogTask(AuthDialogFragment.class.getName()));
         parent.startActivity(intent);
 
         if (parent instanceof MwmActivity)

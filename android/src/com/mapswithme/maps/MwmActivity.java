@@ -13,7 +13,6 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +30,6 @@ import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.api.ParsedRoutingData;
-import com.mapswithme.maps.api.ParsedSearchRequest;
-import com.mapswithme.maps.api.ParsedUrlMwmRequest;
-import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.auth.PassportAuthDialogFragment;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
@@ -42,12 +37,10 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.DialogUtils;
@@ -66,6 +59,8 @@ import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.intent.Factory;
+import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
@@ -108,9 +103,6 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.tips.TipsApi;
-import com.mapswithme.maps.ugc.EditParams;
-import com.mapswithme.maps.ugc.UGC;
-import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -134,9 +126,7 @@ import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -272,7 +262,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         .putExtra(MwmActivity.EXTRA_TASK,
-                  new MwmActivity.ShowDialogTask(PassportAuthDialogFragment.class.getName()));
+                  new Factory.ShowDialogTask(PassportAuthDialogFragment.class.getName()));
   }
 
   @NonNull
@@ -282,7 +272,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return new Intent(context, MwmActivity.class)
       .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
       .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-      .putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowUGCEditorTask(nc));
+      .putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowUGCEditorTask(nc));
   }
 
   @Override
@@ -518,7 +508,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
     {
-      addTask(new RestoreRouteTask());
+      addTask(new Factory.RestoreRouteTask());
       return;
     }
 
@@ -1543,101 +1533,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public interface MapTask extends Serializable
-  {
-    boolean run(@NonNull MwmActivity target);
-  }
 
-  public static class ImportBookmarkCatalogueTask implements MapTask
-  {
-    private static final long serialVersionUID = 5363722491377575159L;
-
-    @NonNull
-    private final String mUrl;
-
-    public ImportBookmarkCatalogueTask(@NonNull String url)
-    {
-      mUrl = url;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
-      return true;
-    }
-  }
-
-  public static class OpenUrlTask implements MapTask
-  {
-    private static final long serialVersionUID = 1L;
-    private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
-    private final String mUrl;
-
-    public OpenUrlTask(String url)
-    {
-      Utils.checkNotNull(url);
-      mUrl = url;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(mUrl);
-      switch (result)
-      {
-      case ParsedUrlMwmRequest.RESULT_INCORRECT:
-        // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
-        return MapFragment.nativeShowMapForUrl(mUrl);
-
-      case ParsedUrlMwmRequest.RESULT_MAP:
-        return MapFragment.nativeShowMapForUrl(mUrl);
-
-      case ParsedUrlMwmRequest.RESULT_ROUTE:
-        final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
-        RoutingController.get().setRouterType(data.mRouterType);
-        final RoutePoint from = data.mPoints[0];
-        final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                  from.mName, "", from.mLat, from.mLon),
-                                        MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                  to.mName, "", to.mLat, to.mLon), true);
-        return true;
-      case ParsedUrlMwmRequest.RESULT_SEARCH:
-        final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-        if (request.mIsSearchOnMap && (request.mLat != 0.0 || request.mLon != 0.0))
-        {
-          Framework.nativeStopLocationFollow();
-          Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
-        }
-        SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
-                             null, null);
-        return true;
-      case ParsedUrlMwmRequest.RESULT_LEAD:
-        return true;
-      }
-
-      return false;
-    }
-  }
-
-  public static class ShowCountryTask implements MapTask
-  {
-    private static final long serialVersionUID = 1L;
-    private final String mCountryId;
-
-    public ShowCountryTask(String countryId)
-    {
-      mCountryId = countryId;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Framework.nativeShowCountry(mCountryId, false);
-      return true;
-    }
-  }
 
   void adjustCompass(int offsetY)
   {
@@ -2350,232 +2246,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onSearchQueryClick(@Nullable String query)
   {
     showSearch(query);
-  }
-
-  public static class ShowDialogTask implements MapTask
-  {
-    @NonNull
-    private String mDialogName;
-
-    public ShowDialogTask(@NonNull String dialogName)
-    {
-      mDialogName = dialogName;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Fragment f = target.getSupportFragmentManager().findFragmentByTag(mDialogName);
-      if (f != null)
-        return true;
-
-      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
-      fragment.show(target.getSupportFragmentManager(), mDialogName);
-      return true;
-    }
-  }
-
-  public static abstract class BaseUserMarkTask implements MapTask
-  {
-    private static final long serialVersionUID = 1L;
-
-    final long mCategoryId;
-    final long mId;
-
-    BaseUserMarkTask(long categoryId, long id)
-    {
-      mCategoryId = categoryId;
-      mId = id;
-    }
-  }
-
-  public static class ShowBookmarkTask extends BaseUserMarkTask
-  {
-    public ShowBookmarkTask(long categoryId, long bookmarkId)
-    {
-      super(categoryId, bookmarkId);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      BookmarkManager.INSTANCE.showBookmarkOnMap(mId);
-      return true;
-    }
-  }
-
-  public static class ShowTrackTask extends BaseUserMarkTask
-  {
-    public ShowTrackTask(long categoryId, long trackId)
-    {
-      super(categoryId, trackId);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Framework.nativeShowTrackRect(mId);
-      return true;
-    }
-  }
-
-  public static class ShowPointTask implements MapTask
-  {
-    private final double mLat;
-    private final double mLon;
-
-    public ShowPointTask(double lat, double lon)
-    {
-      mLat = lat;
-      mLon = lon;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      MapFragment.nativeShowMapForUrl(String.format(Locale.US,
-                                                    "mapsme://map?ll=%f,%f", mLat, mLon));
-      return true;
-    }
-  }
-
-  public static class BuildRouteTask implements MapTask
-  {
-    private final double mLatTo;
-    private final double mLonTo;
-    @Nullable
-    private final Double mLatFrom;
-    @Nullable
-    private final Double mLonFrom;
-    @Nullable
-    private final String mSaddr;
-    @Nullable
-    private final String mDaddr;
-    private final String mRouter;
-
-    @NonNull
-    private static MapObject fromLatLon(double lat, double lon, @Nullable String addr)
-    {
-      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                       TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
-    }
-
-    public BuildRouteTask(double latTo, double lonTo, @Nullable String router)
-    {
-      this(latTo, lonTo, null, null, null, null, router);
-    }
-
-    public BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
-                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr)
-    {
-      this(latTo, lonTo, saddr, latFrom, lonFrom, daddr, null);
-    }
-
-    public BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
-                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr,
-                   @Nullable String router)
-    {
-      mLatTo = latTo;
-      mLonTo = lonTo;
-      mLatFrom = latFrom;
-      mLonFrom = lonFrom;
-      mSaddr = saddr;
-      mDaddr = daddr;
-      mRouter = router;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      @Framework.RouterType int routerType = -1;
-      if (!TextUtils.isEmpty(mRouter))
-      {
-        switch (mRouter)
-        {
-          case "vehicle":
-            routerType = Framework.ROUTER_TYPE_VEHICLE;
-            break;
-          case "pedestrian":
-            routerType = Framework.ROUTER_TYPE_PEDESTRIAN;
-            break;
-          case "bicycle":
-            routerType = Framework.ROUTER_TYPE_BICYCLE;
-            break;
-          case "taxi":
-            routerType = Framework.ROUTER_TYPE_TAXI;
-            break;
-          case "transit":
-            routerType = Framework.ROUTER_TYPE_TRANSIT;
-            break;
-        }
-      }
-
-      if (mLatFrom != null && mLonFrom != null && routerType >= 0)
-      {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
-                                        true /* fromApi */);
-      }
-      else if (mLatFrom != null && mLonFrom != null)
-      {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
-      }
-      else if (routerType > 0)
-      {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
-                                        true /* fromApi */);
-      }
-      else
-      {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
-      }
-      return true;
-    }
-  }
-
-  private static class RestoreRouteTask implements MapTask
-  {
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      RoutingController.get().restoreRoute();
-      return true;
-    }
-  }
-
-  public static class ShowUGCEditorTask implements MapTask
-  {
-    private static final long serialVersionUID = 1636712824900113568L;
-    // Nullable because of possible serialization from previous incompatible version of class.
-    @Nullable
-    private final NotificationCandidate.UgcReview mNotificationCandidate;
-
-    ShowUGCEditorTask(@Nullable NotificationCandidate.UgcReview notificationCandidate)
-    {
-      mNotificationCandidate = notificationCandidate;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      if (mNotificationCandidate == null)
-        return false;
-
-      MapObject mapObject = Framework.nativeGetMapObject(mNotificationCandidate);
-
-      if (mapObject == null)
-        return false;
-
-      EditParams.Builder builder = EditParams.Builder.fromMapObject(mapObject)
-                                                     .setDefaultRating(UGC.RATING_NONE)
-                                                     .setFromNotification(true);
-      UGCEditorActivity.start(target, builder.build());
-      return true;
-    }
   }
 
   private class CurrentPositionClickListener implements OnClickListener
