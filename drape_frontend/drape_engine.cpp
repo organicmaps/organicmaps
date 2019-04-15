@@ -199,14 +199,15 @@ void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool
   PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport));
 }
 
-void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim)
+void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
+                                   bool useVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim));
+  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport));
 }
 
-void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
+void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim, true /* fitInViewport */));
+  PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim, true /* fitInViewport */, useVisibleViewport));
 }
 
 void DrapeEngine::ClearUserMarksGroup(kml::MarkGroupId groupId)

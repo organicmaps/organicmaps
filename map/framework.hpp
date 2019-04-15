@@ -632,8 +632,9 @@ public:
   void SetVisibleViewport(m2::RectD const & rect);
 
   /// - Check minimal visible scale according to downloaded countries.
-  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true);
-  void ShowRect(m2::AnyRectD const & rect);
+  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true,
+                bool useVisibleViewport = false);
+  void ShowRect(m2::AnyRectD const & rect, bool useVisibleViewport = false);
 
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 

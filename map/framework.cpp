@@ -1184,7 +1184,7 @@ void Framework::LoadViewport()
   if (settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
   {
     if (m_drapeEngine != nullptr)
-      m_drapeEngine->SetModelViewAnyRect(rect, false /* isAnim */);
+      m_drapeEngine->SetModelViewAnyRect(rect, false /* isAnim */, false /* useVisibleViewport */);
   }
   else
   {
@@ -1194,8 +1194,10 @@ void Framework::LoadViewport()
 
 void Framework::ShowAll()
 {
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewAnyRect(m2::AnyRectD(m_model.GetWorldRect()), false /* isAnim */);
+  if (m_drapeEngine == nullptr)
+    return;
+  m_drapeEngine->SetModelViewAnyRect(m2::AnyRectD(m_model.GetWorldRect()), false /* isAnim */,
+                                     false /* useVisibleViewport */);
 }
 
 m2::PointD Framework::GetPixelCenter() const
@@ -1242,19 +1244,19 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   m_drapeEngine->SetVisibleViewport(rect);
 }
 
-void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation)
+void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine == nullptr)
     return;
 
-  m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */,
-                                  maxScale /* zoom */, animation);
+  m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, maxScale /* zoom */, animation,
+                                  useVisibleViewport);
 }
 
-void Framework::ShowRect(m2::AnyRectD const & rect)
+void Framework::ShowRect(m2::AnyRectD const & rect, bool useVisibleViewport)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewAnyRect(rect, true /* isAnim */);
+    m_drapeEngine->SetModelViewAnyRect(rect, true /* isAnim */, useVisibleViewport);
 }
 
 void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)

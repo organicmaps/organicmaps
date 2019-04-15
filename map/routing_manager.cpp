@@ -374,7 +374,8 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
     m2::RectD routeRect = route.GetPoly().GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
     m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
-                           true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
+                           true /* applyRotation */, -1 /* zoom */, true /* isAnim */,
+                           true /* useVisibleViewport */);
   }
 
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesVec());
@@ -1006,7 +1007,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   m2::RectD rect = ShowPreviewSegments(routePoints);
   rect.Scale(kRouteScaleMultiplier);
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
-                         -1 /* zoom */, true /* isAnim */);
+                         -1 /* zoom */, true /* isAnim */, true /* useVisibleViewport */);
 
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
 

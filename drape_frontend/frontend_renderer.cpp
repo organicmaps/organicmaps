@@ -1278,7 +1278,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.is_initialized())
     {
       AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo.get().m_startRect, true /* isAnim */,
-                                                   false /* fitInViewport */));
+                                                   false /* fitInViewport */, false /* useVisibleViewport */));
     }
     m_selectionTrackInfo.reset();
   }
@@ -2420,7 +2420,8 @@ void FrontendRenderer::ChangeModelView(double azimuth,
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect,
                                        TAnimationCreator const & parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true, kDoNotChangeZoom, true, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
+                                            false /* useVisibleViewport */, parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,

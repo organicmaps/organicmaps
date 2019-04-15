@@ -384,13 +384,14 @@ bool UserEventStream::OnMove(ref_ptr<MoveEvent> moveEvent)
 
 bool UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)
 {
-  return SetRect(anyRectEvent->GetRect(), anyRectEvent->IsAnim(), anyRectEvent->FitInViewport());
+  return SetRect(anyRectEvent->GetRect(), anyRectEvent->IsAnim(), anyRectEvent->FitInViewport(),
+                 anyRectEvent->UseVisibleViewport());
 }
 
 bool UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
 {
-  return SetRect(rectEvent->GetRect(), rectEvent->GetZoom(),
-                 rectEvent->GetApplyRotation(), rectEvent->IsAnim(),
+  return SetRect(rectEvent->GetRect(), rectEvent->GetZoom(), rectEvent->GetApplyRotation(),
+                 rectEvent->IsAnim(), rectEvent->UseVisibleViewport(),
                  rectEvent->GetParallelAnimCreator());
 }
 
@@ -476,22 +477,24 @@ bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & paralle
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
-                              TAnimationCreator const & parallelAnimCreator)
+                              bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator)
 {
   CheckMinGlobalRect(rect, kDefault3dScale);
   CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
-  return SetRect(targetRect, isAnim, true /* fitInViewport */, parallelAnimCreator);
+  return SetRect(targetRect, isAnim, true /* fitInViewport */, useVisibleViewport, parallelAnimCreator);
 }
 
 bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport,
-                              TAnimationCreator const & parallelAnimCreator)
+                              bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator)
 {
   ScreenBase tmp = GetCurrentScreen();
   if (fitInViewport)
   {
-    tmp.SetFromRects(rect, tmp.PixelRectIn3d());
-    tmp.MatchGandP3d(rect.GlobalCenter(), tmp.PixelRectIn3d().Center());
+    auto const useVisViewport = useVisibleViewport && m_visibleViewport.IsValid();
+    tmp.SetFromRects(rect, useVisViewport ? m_visibleViewport : tmp.PixelRectIn3d());
+    tmp.MatchGandP3d(rect.GlobalCenter(), useVisViewport ? m_visibleViewport.Center()
+                                                         : tmp.PixelRectIn3d().Center());
   }
   else
   {

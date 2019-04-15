@@ -189,11 +189,12 @@ class SetRectEvent : public UserEvent
 {
 public:
   SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim,
-               TAnimationCreator const & parallelAnimCreator = nullptr)
+               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
+    , m_useVisibleViewport(useVisibleViewport)
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
@@ -203,6 +204,7 @@ public:
   bool GetApplyRotation() const { return m_applyRotation; }
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
+  bool UseVisibleViewport() const { return m_useVisibleViewport; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
@@ -210,16 +212,18 @@ private:
   bool m_applyRotation; // if true, current rotation will be apply to m_rect
   int m_zoom; // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
+  bool m_useVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
 };
 
 class SetAnyRectEvent : public UserEvent
 {
 public:
-  SetAnyRectEvent(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport)
+  SetAnyRectEvent(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport)
     : m_rect(rect)
     , m_isAnim(isAnim)
     , m_fitInViewport(fitInViewport)
+    , m_useVisibleViewport(useVisibleViewport)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetAnyRect; }
@@ -227,11 +231,13 @@ public:
   m2::AnyRectD const & GetRect() const { return m_rect; }
   bool IsAnim() const { return m_isAnim; }
   bool FitInViewport() const { return m_fitInViewport; }
+  bool UseVisibleViewport() const { return m_useVisibleViewport; }
 
 private:
   m2::AnyRectD m_rect;  // destination mercator rect
   bool m_isAnim;
   bool m_fitInViewport;
+  bool m_useVisibleViewport;
 };
 
 class FollowAndRotateEvent : public UserEvent
@@ -433,9 +439,9 @@ private:
 
   bool SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
-               TAnimationCreator const & parallelAnimCreator = nullptr);
+               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport,
-               TAnimationCreator const & parallelAnimCreator = nullptr);
+               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr);
 
   bool SetScreen(ScreenBase const & screen, bool isAnim,
                  TAnimationCreator const & parallelAnimCreator = nullptr);
