@@ -81,7 +81,16 @@ struct Sample
   // the search engine without a clear search intent or a sample
   // that cannot be assessed properly using only the data available
   // to the engine (for example, related queries may help a lot but
-  // are not expected to be available).
+  // are not expected to be available, or local knowledge of the area
+  // is needed).
+  // More examples:
+  // * A sample whose requests is precisely about a particular street
+  //   in a particular city is useless if the assessor is sure that
+  //   there is no such street in this city.
+  // * On the other hand, if there is such a street (or, more often,
+  //   a building) as indicated by other data sources but the engine
+  //   still could not find it because of its absense in our
+  //   data, the sample is NOT useless.
   bool m_useless = false;
 };
 

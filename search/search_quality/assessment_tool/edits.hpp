@@ -16,7 +16,7 @@ struct SampleEdits
 {
   using OnUpdate = std::function<void()>;
 
-  SampleEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
+  explicit SampleEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
 
   void Reset(bool origUseless);
   void FlipUsefulness();
