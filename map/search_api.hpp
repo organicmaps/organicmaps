@@ -18,6 +18,7 @@
 #include "geometry/rect2d.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -85,7 +86,7 @@ public:
     }
 
     virtual void FilterHotels(booking::filter::Tasks const & filterTasks,
-                              vector<FeatureID> && featureIds)
+                              std::vector<FeatureID> && featureIds)
     {
     }
 

@@ -15,7 +15,8 @@ EverywhereSearchCallback::EverywhereSearchCallback(
 {
 }
 
-void EverywhereSearchCallback::operator()(Results const & results)
+void EverywhereSearchCallback::operator()(Results const & results,
+                                          SearchParamsBase const & /* params */)
 {
   auto const prevSize = m_productInfo.size();
   ASSERT_LESS_OR_EQUAL(prevSize, results.GetCount(), ());

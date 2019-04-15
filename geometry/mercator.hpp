@@ -118,4 +118,6 @@ struct MercatorBounds
 
   /// Calculates area of a triangle on Earth in m² by three mercator points.
   static double AreaOnEarth(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
+    /// Calculates area on Earth in m².
+  static double AreaOnEarth(m2::RectD const & mercatorRect);
 };

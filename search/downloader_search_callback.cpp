@@ -1,6 +1,7 @@
 #include "search/downloader_search_callback.hpp"
 
 #include "search/result.hpp"
+#include "search/search_params.hpp"
 
 #include "editor/editable_data_source.hpp"
 
@@ -50,7 +51,8 @@ DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
 {
 }
 
-void DownloaderSearchCallback::operator()(search::Results const & results)
+void DownloaderSearchCallback::operator()(Results const & results,
+                                          SearchParamsBase const & /* params */)
 {
   storage::DownloaderSearchResults downloaderSearchResults;
   std::set<storage::DownloaderSearchResult> uniqueResults;

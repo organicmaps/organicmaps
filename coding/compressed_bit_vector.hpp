@@ -5,6 +5,7 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/control_flow.hpp"
 #include "base/ref_counted.hpp"
 
 #include <cstddef>
@@ -102,15 +103,19 @@ public:
 
   size_t NumBitGroups() const { return m_bitGroups.size(); }
 
-  template <typename TFn>
-  void ForEach(TFn && f) const
+  template <typename Fn>
+  void ForEach(Fn && f) const
   {
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(f));
     for (size_t i = 0; i < m_bitGroups.size(); ++i)
     {
       for (size_t j = 0; j < kBlockSize; ++j)
       {
         if (((m_bitGroups[i] >> j) & 1) > 0)
-          f(kBlockSize * i + j);
+        {
+          if (wrapper(kBlockSize * i + j) == base::ControlFlow::Break)
+            return;
+        }
       }
     }
   }
@@ -146,11 +151,15 @@ public:
   // Returns the position of the i'th set bit.
   uint64_t Select(size_t i) const;
 
-  template <typename TFn>
-  void ForEach(TFn && f) const
+  template <typename Fn>
+  void ForEach(Fn && f) const
   {
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(f));
     for (auto const & position : m_positions)
-      f(position);
+    {
+      if (wrapper(position) == base::ControlFlow::Break)
+        return;
+    }
   }
 
   // CompressedBitVector overrides:
@@ -225,8 +234,8 @@ class CompressedBitVectorEnumerator
 public:
   // Executes f for each bit that is set to one using
   // the bit's 0-based position as argument.
-  template <typename TFn>
-  static void ForEach(CompressedBitVector const & cbv, TFn && f)
+  template <typename Fn>
+  static void ForEach(CompressedBitVector const & cbv, Fn && f)
   {
     CompressedBitVector::StorageStrategy strat = cbv.GetStorageStrategy();
     switch (strat)

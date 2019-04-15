@@ -151,10 +151,7 @@ bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
   if (feature::GeomType::Area != ft.GetGeomType())
     return false;
 
-  m2::RectD const rect = ft.GetLimitRect(scales::GetUpperScale());
-
-  sqM = MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.LeftBottom(), rect.RightBottom()) +
-        MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
+  sqM = MercatorBounds::AreaOnEarth(ft.GetLimitRect(scales::GetUpperScale()));
   return true;
 }
 

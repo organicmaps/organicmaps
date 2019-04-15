@@ -59,6 +59,11 @@ public:
   {
   }
 
+  void FilterAllHotelsInViewport(m2::RectD const & viewport,
+                                 booking::filter::Tasks const & filterTasks) override
+  {
+  }
+
 private:
   Stats & m_stats;
 };
@@ -71,10 +76,10 @@ public:
     : TestDelegate(stats)
     , TestSearchRequest(engine, query, "en" /* locale */, Mode::Viewport, viewport)
   {
-    SetCustomOnResults(
-        ViewportSearchCallback(static_cast<ViewportSearchCallback::Delegate &>(*this),
-                               {} /* bookingFilterTasks */,
-                               bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1)));
+    SetCustomOnResults(ViewportSearchCallback(
+        static_cast<ViewportSearchCallback::Delegate &>(*this), {} /* bookingFilterTasks */,
+        bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1,
+             search::SearchParamsBase{})));
   }
 };
 

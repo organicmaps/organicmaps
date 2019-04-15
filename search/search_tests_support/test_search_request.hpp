@@ -52,7 +52,7 @@ protected:
   void SetUpResultParams();
 
   void OnStarted();
-  void OnResults(search::Results const & results);
+  void OnResults(search::Results const & results, SearchParamsBase const &);
 
   // Overrides the default onResults callback.
   void SetCustomOnResults(SearchParams::OnResults const & onResults);

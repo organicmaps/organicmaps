@@ -89,7 +89,8 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
 
   search::SearchParams params;
   sample.FillSearchParams(params);
-  params.m_onResults = [=](search::Results const & results) {
+  params.m_onResults = [=](search::Results const & results,
+                           search::SearchParamsBase const & /* params */) {
     vector<boost::optional<ResultsEdits::Relevance>> relevances;
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;

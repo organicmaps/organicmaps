@@ -82,6 +82,7 @@
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/function.hpp"
 #include "std/list.hpp"
 #include "std/set.hpp"

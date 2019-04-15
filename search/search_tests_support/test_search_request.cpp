@@ -84,7 +84,8 @@ void TestSearchRequest::Wait()
 void TestSearchRequest::SetUpCallbacks()
 {
   m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
-  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, placeholders::_1);
+  m_params.m_onResults =
+      bind(&TestSearchRequest::OnResults, this, placeholders::_1, placeholders::_2);
 }
 
 void TestSearchRequest::SetUpResultParams()
@@ -113,7 +114,8 @@ void TestSearchRequest::OnStarted()
   m_startTime = m_timer.TimeElapsed();
 }
 
-void TestSearchRequest::OnResults(search::Results const & results)
+void TestSearchRequest::OnResults(search::Results const & results,
+                                  search::SearchParamsBase const & /* params */)
 {
   lock_guard<mutex> lock(m_mu);
   m_results.assign(results.begin(), results.end());

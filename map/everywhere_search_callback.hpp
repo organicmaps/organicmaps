@@ -5,6 +5,7 @@
 #include "map/search_product_info.hpp"
 
 #include "search/result.hpp"
+#include "search/search_params.hpp"
 
 #include <functional>
 #include <vector>
@@ -29,7 +30,7 @@ public:
                            booking::filter::Tasks const & bookingFilterTasks,
                            EverywhereSearchParams::OnResults onResults);
 
-  void operator()(Results const & results);
+  void operator()(Results const & results, SearchParamsBase const &);
 
 private:
   Delegate & m_hotelsDelegate;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/booking_filter_params.hpp"
+#include "map/viewport_search_params.hpp"
 
 #include "search/hotels_classifier.hpp"
 #include "search/result.hpp"
@@ -8,9 +9,8 @@
 
 #include "geometry/rect2d.hpp"
 
+#include <cstdint>
 #include <functional>
-#include <string>
-#include <vector>
 
 namespace search
 {
@@ -38,19 +38,14 @@ public:
                                            booking::filter::Tasks const & filterTasks) = 0;
   };
 
-  using OnResults = SearchParams::OnResults;
+  ViewportSearchCallback(Delegate & delegate, booking::filter::Tasks const & bookingFilterTasks,
+                         ViewportSearchParams::OnResults const & onResults);
 
-  ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate,
-                         booking::filter::Tasks const & bookingFilterTasks,
-                         OnResults const & onResults);
-
-  void operator()(Results const & results);
+  void operator()(Results const & results, SearchParamsBase const & params);
 
 private:
-  m2::RectD m_viewport;
-
   Delegate & m_delegate;
-  OnResults m_onResults;
+  ViewportSearchParams::OnResults m_onResults;
 
   bool m_firstCall;
   size_t m_lastResultsSize;

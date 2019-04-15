@@ -5,6 +5,8 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "partners_api/booking_api.hpp"
+
 #include "search/bookmarks/processor.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
@@ -23,6 +25,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <iterator>
 #include <map>
 #include <string>
@@ -37,6 +40,9 @@ using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
 double const kDistEqualQueryMercator = MercatorBounds::MetersToMercator(kDistEqualQueryMeters);
+
+// 200 sqared kilometers.
+auto const kMaxAreaToLoadAllHotelsInViewport = 200000000.0;
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
@@ -87,7 +93,7 @@ public:
 
   explicit BookmarksSearchCallback(OnResults const & onResults) : m_onResults(onResults) {}
 
-  void operator()(Results const & results)
+  void operator()(Results const & results, SearchParamsBase const & /* params */)
   {
     if (results.IsEndMarker())
     {
@@ -211,7 +217,6 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   };
 
   p.m_onResults = ViewportSearchCallback(
-      m_viewport,
       static_cast<ViewportSearchCallback::Delegate &>(*this),
       params.m_bookingFilterTasks,
       [this, params](Results const & results) {
@@ -341,15 +346,22 @@ void SearchAPI::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
 void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
                                           booking::filter::Tasks const & filterTasks)
 {
-  vector<FeatureID> featureIds;
-  auto const types = search::GetCategoryTypes("hotel", "en", GetDefaultCategories());
-  search::ForEachOfTypesInRect(m_dataSource, types, m_viewport,
-                               [&featureIds](FeatureID const & id)
-                               {
-                                 featureIds.push_back(id);
-                               });
+  if (MercatorBounds::AreaOnEarth(viewport) > kMaxAreaToLoadAllHotelsInViewport)
+    return;
 
-  m_delegate.FilterHotels(filterTasks, move(featureIds));
+  auto constexpr kMaxHotelFeatures = booking::RawApi::GetMaxHotelsInAvailabilityRequest();
+  vector<FeatureID> featureIds;
+  auto static const types = search::GetCategoryTypes("hotel", "en", GetDefaultCategories());
+  search::ForEachOfTypesInRect(m_dataSource, types, viewport, [&featureIds](FeatureID const & id) {
+    if (featureIds.size() > kMaxHotelFeatures)
+      return base::ControlFlow::Break;
+
+    featureIds.push_back(id);
+    return base::ControlFlow::Continue;
+  });
+
+  if (featureIds.size() <= kMaxHotelFeatures)
+    m_delegate.FilterHotels(filterTasks, move(featureIds));
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)

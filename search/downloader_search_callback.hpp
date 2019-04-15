@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/search_params.hpp"
+
 #include "storage/downloader_search_params.hpp"
 
 #include <functional>
@@ -15,6 +17,7 @@ class Storage;
 namespace search
 {
 class Results;
+struct SearchParamsBase;
 
 // An on-results callback that should be used for the search in downloader.
 //
@@ -35,7 +38,7 @@ public:
                            storage::Storage const & storage,
                            storage::DownloaderSearchParams params);
 
-  void operator()(search::Results const & results);
+  void operator()(Results const & results, SearchParamsBase const &);
 
 private:
   Delegate & m_delegate;

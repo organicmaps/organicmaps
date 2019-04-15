@@ -319,6 +319,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     return;
 
   m_currentModelView = screen;
+  auto const zoomLevel = static_cast<uint8_t>(df::GetZoomLevel(screen.GetScale()));
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
@@ -2981,10 +2982,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), name, edit.second,
                                                types.GetBestType(), smd));
     }
-    params.m_onResults(results);
+    params.m_onResults(results, params);
 
     results.SetEndMarker(false /* isCancelled */);
-    params.m_onResults(results);
+    params.m_onResults(results, params);
     return true;
   }
   else if (params.m_query == "?eclear")
@@ -3847,18 +3848,15 @@ void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
         }
       };
 
-    tasksInternal.emplace_back(type, std::move(paramsInternal));
+    tasksInternal.emplace_back(type, move(paramsInternal));
   }
 
-  m_bookingFilterProcessor.ApplyFilters(results, std::move(tasksInternal), filterTasks.GetMode());
+  m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
 }
 
 void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
                              vector<FeatureID> && featureIds)
 {
-  if (featureIds.size() > booking::RawApi::GetMaxHotelsInAvailabilityRequest())
-    return;
-
   using namespace booking::filter;
 
   TasksRawInternal tasksInternal;
@@ -3896,10 +3894,10 @@ void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
         }
       };
 
-    tasksInternal.emplace_back(type, std::move(paramsInternal));
+    tasksInternal.emplace_back(type, move(paramsInternal));
   }
 
-  m_bookingFilterProcessor.ApplyFilters(std::move(featureIds), std::move(tasksInternal),
+  m_bookingFilterProcessor.ApplyFilters(move(featureIds), move(tasksInternal),
                                         filterTasks.GetMode());
 }
 

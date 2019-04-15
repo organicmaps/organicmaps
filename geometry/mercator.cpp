@@ -50,3 +50,9 @@ double MercatorBounds::AreaOnEarth(m2::PointD const & p1, m2::PointD const & p2,
 {
   return ms::AreaOnEarth(ToLatLon(p1), ToLatLon(p2), ToLatLon(p3));
 }
+
+double MercatorBounds::AreaOnEarth(m2::RectD const & rect)
+{
+  return MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.LeftBottom(), rect.RightBottom()) +
+         MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
+}

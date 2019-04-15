@@ -119,8 +119,8 @@ public:
 
   void OnResultsDownloader(search::Results const & results)
   {
-    m_downloaderCallback(results);
-    OnResults(results);
+    m_downloaderCallback(results, {});
+    OnResults(results, {});
   }
 
   vector<storage::DownloaderSearchResult> const & GetResults() const { return m_downloaderResults; }

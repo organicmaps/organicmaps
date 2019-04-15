@@ -18,21 +18,15 @@ namespace search
 class Results;
 class Tracer;
 
-struct SearchParams
+struct SearchParamsBase
 {
   static size_t const kDefaultNumBookmarksResults = 1000;
   static size_t const kDefaultNumResultsEverywhere = 30;
   static size_t const kDefaultNumResultsInViewport = 200;
 
-  using OnStarted = std::function<void()>;
-  using OnResults = std::function<void(Results const &)>;
-
-  bool IsEqualCommon(SearchParams const & rhs) const;
+  bool IsEqualCommon(SearchParamsBase const & rhs) const;
 
   void Clear() { m_query.clear(); }
-
-  OnStarted m_onStarted;
-  OnResults m_onResults;
 
   std::string m_query;
   std::string m_inputLocale;
@@ -56,9 +50,18 @@ struct SearchParams
 
   // Needed to highlight matching parts of search result names.
   bool m_needHighlighting = false;
+};
+
+// Note: inheritance for aggregation data only, any of polymorphic usage is not supported.
+struct SearchParams : SearchParamsBase
+{
+  using OnStarted = std::function<void()>;
+  using OnResults = std::function<void(Results const &, SearchParamsBase const &)>;
+
+  OnStarted m_onStarted;
+  OnResults m_onResults;
 
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-
   std::shared_ptr<Tracer> m_tracer;
 };
 
