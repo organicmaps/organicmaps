@@ -289,6 +289,8 @@ public:
   void UpdatePreviewMode();
   void CancelPreviewMode();
 
+  routing::RouterType GetCurrentRouterType() const { return m_currentRouterType; }
+
 private:
   /// \returns true if the route has warnings.
   bool InsertRoute(routing::Route const & route);

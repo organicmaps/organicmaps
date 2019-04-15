@@ -6,8 +6,9 @@
 #include "qt/preferences_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
-#include "qt/search_panel.hpp"
+#include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
+#include "qt/search_panel.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
@@ -185,6 +186,11 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   m_pDrawWidget->UpdateAfterSettingsChanged();
 
   m_pDrawWidget->GetFramework().UploadUGC(nullptr /* onCompleteUploading */);
+  
+  if (RoutingSettings::IsCacheEnabled())
+    RoutingSettings::LoadSettings(m_pDrawWidget->GetFramework());
+  else
+    RoutingSettings::ResetSettings();
 }
 
 #if defined(Q_WS_WIN)
@@ -338,6 +344,12 @@ void MainWindow::CreateNavigationBar()
     auto clearAction = pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"),
                                            this, SLOT(OnClearRoute()));
     clearAction->setToolTip(tr("Clear route"));
+
+    auto settingsRoutingAction = pToolBar->addAction(QIcon(":/navig64/settings-routing.png"),
+                                                     tr("Routing settings"), this,
+                                                     SLOT(OnRoutingSettings()));
+    settingsRoutingAction->setToolTip(tr("Routing settings"));
+
     pToolBar->addSeparator();
 
     m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"),
@@ -907,6 +919,12 @@ void MainWindow::OnFollowRoute()
 void MainWindow::OnClearRoute()
 {
   m_pDrawWidget->ClearRoute();
+}
+
+void MainWindow::OnRoutingSettings()
+{
+  RoutingSettings dlg(this, m_pDrawWidget->GetFramework());
+  dlg.ShowModal();
 }
 
 void MainWindow::OnBookmarksAction()

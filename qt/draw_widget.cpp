@@ -4,6 +4,7 @@
 #include "qt/place_page_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
+#include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 
 #include "map/framework.hpp"
@@ -390,7 +391,9 @@ void DrawWidget::SetMapStyle(MapStyle mapStyle)
 void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 {
   m_emulatingLocation = true;
-  auto const point = m_framework.P3dtoG(pt);
+
+  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt);
+
   m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(point));
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
@@ -424,7 +427,8 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   RouteMarkData point;
   point.m_pointType = m_routePointAddMode;
   point.m_isMyPosition = false;
-  point.m_position = m_framework.P3dtoG(pt);
+  point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+
   routingManager.AddRoutePoint(std::move(point));
 
   if (routingManager.GetRoutePoints().size() >= 2)
@@ -580,5 +584,13 @@ void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleClear);
+}
+
+m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt)
+{
+  if (auto optional = RoutingSettings::GetCoords(start))
+    return MercatorBounds::FromLatLon(*optional);
+
+  return m_framework.P3dtoG(pt);
 }
 }  // namespace qt

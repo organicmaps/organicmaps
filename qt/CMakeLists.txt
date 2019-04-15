@@ -50,6 +50,8 @@ set(
   place_page_dialog.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
+  routing_settings_dialog.cpp
+  routing_settings_dialog.hpp
   screenshoter.cpp
   screenshoter.hpp
   search_panel.cpp

@@ -111,6 +111,8 @@ private:
 
   void UpdateCountryStatus(storage::CountryId const & countryId);
 
+  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
+
   QRubberBand * m_rubberBand;
   QPoint m_rubberBandOrigin;
 

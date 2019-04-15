@@ -120,6 +120,7 @@ protected Q_SLOTS:
   void OnIntermediatePointSelected();
   void OnFollowRoute();
   void OnClearRoute();
+  void OnRoutingSettings();
 
   void OnBookmarksAction();
 
