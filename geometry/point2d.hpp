@@ -106,7 +106,7 @@ public:
 
   m2::Point<T> operator/(T scale) const { return m2::Point<T>(x / scale, y / scale); }
 
-  m2::Point<T> mid(m2::Point<T> const & p) const
+  m2::Point<T> Mid(m2::Point<T> const & p) const
   {
     return m2::Point<T>((x + p.x) * 0.5, (y + p.y) * 0.5);
   }

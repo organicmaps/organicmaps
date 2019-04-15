@@ -4,6 +4,7 @@
 #include "generator/key_value_storage.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/regions/region_info_getter.hpp"
+#include "generator/streets/street_geometry.hpp"
 
 #include "coding/reader.hpp"
 
@@ -30,13 +31,16 @@ public:
 
   void AssembleStreets(std::string const & pathInStreetsTmpMwm);
   void AssembleBindings(std::string const & pathInGeoObjectsTmpMwm);
+  // Save built streets in the jsonl format with the members: "properties", "bbox" (array: left bottom
+  // latitude, left bottom longitude, right top latitude, right top longitude), "pin" (array: latitude,
+  // longitude).
   void SaveStreetsKv(std::ostream & streamStreetsKv);
 
   static bool IsStreet(OsmElement const & element);
   static bool IsStreet(feature::FeatureBuilder const & fb);
 
 private:
-  using RegionStreets = std::unordered_map<std::string, base::GeoObjectId>;
+  using RegionStreets = std::unordered_map<std::string, StreetGeometry>;
 
   void SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
                            RegionStreets const & streets);
@@ -44,11 +48,13 @@ private:
   void AddStreet(feature::FeatureBuilder & fb);
   void AddStreetBinding(std::string && streetName, feature::FeatureBuilder & fb);
   boost::optional<KeyValue> FindStreetRegionOwner(feature::FeatureBuilder & fb);
-  boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point);
-  bool InsertStreet(KeyValue const & region, std::string && streetName, base::GeoObjectId id);
-  bool InsertSurrogateStreet(KeyValue const & region, std::string && streetName);
+  boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point, bool needLocality = false);
+  void InsertStreet(KeyValue const & region, feature::FeatureBuilder & fb);
+  void InsertStreetBinding(KeyValue const & region, std::string && streetName,
+      feature::FeatureBuilder & fb);
   std::unique_ptr<char, JSONFreeDeleter> MakeStreetValue(
-      uint64_t regionId, JsonValue const & regionObject, std::string const & streetName);
+      uint64_t regionId, JsonValue const & regionObject, std::string const & streetName,
+      m2::RectD const & bbox, m2::PointD const & pinPoint);
   base::GeoObjectId NextOsmSurrogateId();
 
   std::unordered_map<uint64_t, RegionStreets> m_regions;
