@@ -38922,3 +38922,35 @@
   [vezet_taxi]
     comment = FIXME
     en = vezet_taxi
+
+  [onboarding_guide_direct_download_title]
+    en = Guide is ready for download
+    ru = Путеводитель готов к загрузке
+
+  [onboarding_guide_direct_download_subtitle]
+    en = It will be displayed on map and work offline
+    ru = Он отобразится на карте и будет работать без интернета
+
+  [onboarding_guide_direct_download_button]
+    en = Download
+    ru = Скачать
+
+  [onboarding_bydeeplink_guide_title]
+    en = Ready-to-use guides in MAPS.ME
+    ru = Готовые путеводители в MAPS.ME
+
+  [onboarding_bydeeplink_guide_subtitle]
+    en = Best places to visit displayed on map with photos and descriptions. Work offline.
+    ru = Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн
+
+  [whats_new_auto_update_bydeeplink_title]
+    en = Before you proceed to guides...
+    ru = До того, как перейти к маршрутам...
+
+  [whats_new_auto_update_bydeeplink_message]
+    en = Update maps to keep the information about objects up to date!
+    ru = Обновите карты, чтобы у вас была актуальная информация о местах вокруг!
+
+  [whats_new_auto_update_and_proceed]
+    en = Update (%s) and proceed
+    ru = Обновить (%s) и продолжить
