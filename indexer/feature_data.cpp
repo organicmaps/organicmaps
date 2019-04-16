@@ -177,7 +177,7 @@ void TypesHolder::SortBySpec()
 
   // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
-  UNUSED_VALUE(base::RemoveIfKeepValid(begin(), end(), [](uint32_t t) { return checker(t); }));
+  UNUSED_VALUE(base::RemoveIfKeepValid(begin(), end(), checker));
 }
 
 vector<string> TypesHolder::ToObjectNames() const
@@ -496,14 +496,18 @@ bool FeatureParams::FinishAddingTypes()
     newTypes.push_back(candidate);
   }
 
-  // Remove duplicated types.
-  sort(newTypes.begin(), newTypes.end());
-  newTypes.erase(unique(newTypes.begin(), newTypes.end()), newTypes.end());
+  base::SortUnique(newTypes);
+
+  if (newTypes.size() > kMaxTypesCount)
+  {
+    // Put common types to the end to leave the most important types.
+    static UselessTypesChecker checker;
+    UNUSED_VALUE(base::RemoveIfKeepValid(newTypes.begin(), newTypes.end(), checker));
+    newTypes.resize(kMaxTypesCount);
+    sort(newTypes.begin(), newTypes.end());
+  }
 
   m_types.swap(newTypes);
-
-  if (m_types.size() > kMaxTypesCount)
-    m_types.resize(kMaxTypesCount);
 
   // Patch fix that removes house number from localities.
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_types))
