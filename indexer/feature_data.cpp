@@ -65,71 +65,67 @@ namespace
 {
 class UselessTypesChecker
 {
-  vector<uint32_t> m_types;
-  size_t m_count1;
-
-  template <size_t N, size_t M>
-  void AddTypes(char const * (&arr)[N][M])
-  {
-    Classificator const & c = classif();
-
-    for (size_t i = 0; i < N; ++i)
-      m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
-  }
-
 public:
-  UselessTypesChecker()
+  static UselessTypesChecker const & Instance()
   {
-    // Fill types that will be taken into account last,
-    // when we have many types for POI.
-
-    // 1-arity
-    char const * arr1[][1] = {
-      { "building" },
-      { "building:part" },
-      { "hwtag" },
-      { "psurface" },
-      { "internet_access" },
-      { "wheelchair" },
-      { "sponsored" },
-      { "entrance" },
-      { "cuisine" },
-      { "area:highway" },
-      { "earthquake:damage" },
-    };
-
-    AddTypes(arr1);
-    m_count1 = m_types.size();
-
-    // 2-arity
-    char const * arr2[][2] = {
-      { "amenity", "atm" },
-      { "amenity", "bench" },
-      { "amenity", "shelter" },
-      { "amenity", "toilets" },
-      { "building", "address" },
-      { "building", "has_parts" },
-    };
-
-    AddTypes(arr2);
+    static UselessTypesChecker const inst;
+    return inst;
   }
 
-  bool operator() (uint32_t t) const
+  bool operator()(uint32_t t) const
   {
-    auto const end1 = m_types.begin() + m_count1;
-
-    // check 2-arity types
     ftype::TruncValue(t, 2);
-    if (find(end1, m_types.end(), t) != m_types.end())
+    if (find(m_types2.begin(), m_types2.end(), t) != m_types2.end())
       return true;
 
-    // check 1-arity types
     ftype::TruncValue(t, 1);
-    if (find(m_types.begin(), end1, t) != end1)
+    if (find(m_types1.begin(), m_types1.end(), t) != m_types1.end())
       return true;
 
     return false;
   }
+
+private:
+  UselessTypesChecker()
+  {
+    // Fill types that will be taken into account last,
+    // when we have many types for POI.
+    vector<vector<string>> const types = {
+        // 1-arity
+        {"building"},
+        {"building:part"},
+        {"hwtag"},
+        {"psurface"},
+        {"internet_access"},
+        {"wheelchair"},
+        {"sponsored"},
+        {"entrance"},
+        {"cuisine"},
+        {"area:highway"},
+        {"earthquake:damage"},
+        // 2-arity
+        {"amenity", "atm"},
+        {"amenity", "bench"},
+        {"amenity", "shelter"},
+        {"amenity", "toilets"},
+        {"building", "address"},
+        {"building", "has_parts"},
+    };
+
+    Classificator const & c = classif();
+    for (auto const & type : types)
+    {
+      if (type.size() == 1)
+        m_types1.push_back(c.GetTypeByPath(type));
+      else if (type.size() == 2)
+        m_types2.push_back(c.GetTypeByPath(type));
+      else
+        CHECK(false, ());
+    }
+  }
+
+  vector<uint32_t> m_types1;
+  vector<uint32_t> m_types2;
 };
 }  // namespace
 
@@ -176,7 +172,7 @@ void TypesHolder::SortBySpec()
     return;
 
   // Put "very common" types to the end of possible PP-description types.
-  static UselessTypesChecker checker;
+  auto const & checker = UselessTypesChecker::Instance();
   UNUSED_VALUE(base::RemoveIfKeepValid(begin(), end(), checker));
 }
 
@@ -501,7 +497,7 @@ bool FeatureParams::FinishAddingTypes()
   if (newTypes.size() > kMaxTypesCount)
   {
     // Put common types to the end to leave the most important types.
-    static UselessTypesChecker checker;
+    auto const & checker = UselessTypesChecker::Instance();
     UNUSED_VALUE(base::RemoveIfKeepValid(newTypes.begin(), newTypes.end(), checker));
     newTypes.resize(kMaxTypesCount);
     sort(newTypes.begin(), newTypes.end());
