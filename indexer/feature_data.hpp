@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdint>
 #include <iterator>
 #include <string>
 #include <utility>
@@ -30,13 +31,13 @@ namespace feature
     HEADER_HAS_ADDINFO = 1U << 7
   };
 
-  enum EHeaderTypeMask
+  enum class HeaderGeomType : uint8_t
   {
     /// Coding geometry feature type in 2 bits.
-    HEADER_GEOM_POINT = 0,          /// point feature (addinfo = rank)
-    HEADER_GEOM_LINE = 1U << 5,     /// linear feature (addinfo = ref)
-    HEADER_GEOM_AREA = 1U << 6,     /// area feature (addinfo = house)
-    HEADER_GEOM_POINT_EX = 3U << 5  /// point feature (addinfo = house)
+    Point = 0,         /// point feature (addinfo = rank)
+    Line = 1U << 5,    /// linear feature (addinfo = ref)
+    Area = 1U << 6,    /// area feature (addinfo = house)
+    PointEx = 3U << 5  /// point feature (addinfo = house)
   };
 
   static constexpr int kMaxTypesCount = HEADER_TYPE_MASK + 1;
@@ -126,7 +127,7 @@ namespace feature
 
   std::string DebugPrint(TypesHolder const & holder);
 
-  uint8_t CalculateHeader(size_t const typesCount, EHeaderTypeMask const headerGeomType,
+  uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
                           FeatureParamsBase const & params);
 }  // namespace feature
 
@@ -164,16 +165,17 @@ struct FeatureParamsBase
 
     if (header & HEADER_HAS_ADDINFO)
     {
-      switch (header & HEADER_GEOTYPE_MASK)
+      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
+      switch (headerGeomType)
       {
-      case HEADER_GEOM_POINT:
+      case HeaderGeomType::Point:
         WriteToSink(sink, rank);
         break;
-      case HEADER_GEOM_LINE:
+      case HeaderGeomType::Line:
         utils::WriteString(sink, ref);
         break;
-      case HEADER_GEOM_AREA:
-      case HEADER_GEOM_POINT_EX:
+      case HeaderGeomType::Area:
+      case HeaderGeomType::PointEx:
         house.Write(sink);
         break;
       }
@@ -193,16 +195,17 @@ struct FeatureParamsBase
 
     if (header & HEADER_HAS_ADDINFO)
     {
-      switch (header & HEADER_GEOTYPE_MASK)
+      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
+      switch (headerGeomType)
       {
-      case HEADER_GEOM_POINT:
+      case HeaderGeomType::Point:
         rank = ReadPrimitiveFromSource<uint8_t>(src);
         break;
-      case HEADER_GEOM_LINE:
+      case HeaderGeomType::Line:
         utils::ReadString(src, ref);
         break;
-      case HEADER_GEOM_AREA:
-      case HEADER_GEOM_POINT_EX:
+      case HeaderGeomType::Area:
+      case HeaderGeomType::PointEx:
         house.Read(src);
         break;
       }
@@ -214,7 +217,7 @@ class FeatureParams : public FeatureParamsBase
 {
   using Base = FeatureParamsBase;
 
-  uint8_t m_geomType;
+  feature::HeaderGeomType m_geomType = feature::HeaderGeomType::Point;
 
   feature::Metadata m_metadata;
   feature::AddressData m_addrTags;
@@ -225,7 +228,7 @@ public:
 
   bool m_reverseGeometry;
 
-  FeatureParams() : m_geomType(0xFF), m_reverseGeometry(false) {}
+  FeatureParams() : m_reverseGeometry(false) {}
 
   void ClearName();
 
@@ -317,7 +320,7 @@ public:
     using namespace feature;
 
     uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
-    m_geomType = header & HEADER_GEOTYPE_MASK;
+    m_geomType = static_cast<feature::HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
 
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)
@@ -330,7 +333,7 @@ public:
   }
 
 private:
-  uint8_t GetTypeMask() const;
+  feature::HeaderGeomType GetHeaderGeomType() const;
 
   static uint32_t GetIndexForType(uint32_t t);
   static uint32_t GetTypeForIndex(uint32_t i);

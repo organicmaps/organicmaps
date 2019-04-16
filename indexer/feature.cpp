@@ -196,7 +196,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer buffer)
 
 FeatureType::FeatureType(osm::MapObject const & emo)
 {
-  EHeaderTypeMask geomType = HEADER_GEOM_POINT;
+  HeaderGeomType headerGeomType = HeaderGeomType::Point;
   m_limitRect.MakeEmpty();
 
   switch (emo.GetGeomType())
@@ -205,18 +205,18 @@ FeatureType::FeatureType(osm::MapObject const & emo)
     // It is not possible because of FeatureType::GetFeatureType() never returns GEOM_UNDEFINED.
     UNREACHABLE();
   case feature::GEOM_POINT:
-    geomType = HEADER_GEOM_POINT;
+    headerGeomType = HeaderGeomType::Point;
     m_center = emo.GetMercator();
     m_limitRect.Add(m_center);
     break;
   case feature::GEOM_LINE:
-    geomType = HEADER_GEOM_LINE;
+    headerGeomType = HeaderGeomType::Line;
     m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
     for (auto const & p : m_points)
       m_limitRect.Add(p);
     break;
   case feature::GEOM_AREA:
-    geomType = HEADER_GEOM_AREA;
+    headerGeomType = HeaderGeomType::Area;
     m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
     for (auto const & p : m_triangles)
       m_limitRect.Add(p);
@@ -240,7 +240,7 @@ FeatureType::FeatureType(osm::MapObject const & emo)
   copy(emo.GetTypes().begin(), emo.GetTypes().end(), m_types.begin());
 
   m_parsed.m_types = true;
-  m_header = CalculateHeader(emo.GetTypes().Size(), geomType, m_params);
+  m_header = CalculateHeader(emo.GetTypes().Size(), headerGeomType, m_params);
   m_parsed.m_header2 = true;
 
   m_id = emo.GetID();
@@ -250,10 +250,11 @@ feature::EGeomType FeatureType::GetFeatureType() const
 {
   // FeatureType::FeatureType(osm::MapObject const & emo) expects
   // that GEOM_UNDEFINED is never be returned.
-  switch (m_header & HEADER_GEOTYPE_MASK)
+  auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_GEOTYPE_MASK);
+  switch (headerGeomType)
   {
-  case HEADER_GEOM_LINE: return GEOM_LINE;
-  case HEADER_GEOM_AREA: return GEOM_AREA;
+  case HeaderGeomType::Line: return GEOM_LINE;
+  case HeaderGeomType::Area: return GEOM_AREA;
   default: return GEOM_POINT;
   }
 }
@@ -337,9 +338,9 @@ void FeatureType::ParseHeader2()
 
   uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
   BitSource bitSource(m_data + m_offsets.m_header2);
-  uint8_t const typeMask = Header(m_data) & HEADER_GEOTYPE_MASK;
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
 
-  if (typeMask == HEADER_GEOM_LINE)
+  if (headerGeomType == HeaderGeomType::Line)
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
@@ -347,7 +348,7 @@ void FeatureType::ParseHeader2()
     else
       ASSERT_GREATER(ptsCount, 1, ());
   }
-  else if (typeMask == HEADER_GEOM_AREA)
+  else if (headerGeomType == HeaderGeomType::Area)
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
@@ -357,7 +358,7 @@ void FeatureType::ParseHeader2()
   ArrayByteSource src(bitSource.RoundPtr());
   serial::GeometryCodingParams const & cp = m_loadInfo->GetDefGeometryCodingParams();
 
-  if (typeMask == HEADER_GEOM_LINE)
+  if (headerGeomType == HeaderGeomType::Line)
   {
     if (ptsCount > 0)
     {
@@ -380,7 +381,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
   }
-  else if (typeMask == HEADER_GEOM_AREA)
+  else if (headerGeomType == HeaderGeomType::Area)
   {
     if (trgCount > 0)
     {
@@ -421,7 +422,8 @@ uint32_t FeatureType::ParseGeometry(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    if ((Header(m_data) & HEADER_GEOTYPE_MASK) == HEADER_GEOM_LINE)
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
+    if (headerGeomType == HeaderGeomType::Line)
     {
       size_t const count = m_points.size();
       if (count < 2)
@@ -479,7 +481,8 @@ uint32_t FeatureType::ParseTriangles(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    if ((Header(m_data) & HEADER_GEOTYPE_MASK) == HEADER_GEOM_AREA)
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
+    if (headerGeomType == HeaderGeomType::Area)
     {
       if (m_triangles.empty())
       {

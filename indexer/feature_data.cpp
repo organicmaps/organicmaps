@@ -131,7 +131,7 @@ private:
 
 namespace feature
 {
-uint8_t CalculateHeader(size_t const typesCount, EHeaderTypeMask const headerGeomType,
+uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
                         FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
@@ -143,21 +143,21 @@ uint8_t CalculateHeader(size_t const typesCount, EHeaderTypeMask const headerGeo
   if (params.layer != 0)
     header |= HEADER_HAS_LAYER;
 
-  header |= headerGeomType;
+  header |= static_cast<uint8_t>(headerGeomType);
 
   // Geometry type for additional info is only one.
   switch (headerGeomType)
   {
-  case HEADER_GEOM_POINT:
+  case HeaderGeomType::Point:
     if (params.rank != 0)
       header |= HEADER_HAS_ADDINFO;
     break;
-  case HEADER_GEOM_LINE:
+  case HeaderGeomType::Line:
     if (!params.ref.empty())
       header |= HEADER_HAS_ADDINFO;
     break;
-  case HEADER_GEOM_AREA:
-  case HEADER_GEOM_POINT_EX:
+  case HeaderGeomType::Area:
+  case HeaderGeomType::PointEx:
     if (!params.house.IsEmpty())
       header |= HEADER_HAS_ADDINFO;
     break;
@@ -385,35 +385,36 @@ void FeatureParams::SetGeomType(feature::EGeomType t)
 {
   switch (t)
   {
-  case GEOM_POINT: m_geomType = HEADER_GEOM_POINT; break;
-  case GEOM_LINE: m_geomType = HEADER_GEOM_LINE; break;
-  case GEOM_AREA: m_geomType = HEADER_GEOM_AREA; break;
+  case GEOM_POINT: m_geomType = HeaderGeomType::Point; break;
+  case GEOM_LINE: m_geomType = HeaderGeomType::Line; break;
+  case GEOM_AREA: m_geomType = HeaderGeomType::Area; break;
   default: ASSERT(false, ());
   }
 }
 
 void FeatureParams::SetGeomTypePointEx()
 {
-  ASSERT(m_geomType == HEADER_GEOM_POINT || m_geomType == HEADER_GEOM_POINT_EX, ());
+  ASSERT(m_geomType == HeaderGeomType::Point ||
+         m_geomType == HeaderGeomType::PointEx, ());
   ASSERT(!house.IsEmpty(), ());
 
-  m_geomType = HEADER_GEOM_POINT_EX;
+  m_geomType = HeaderGeomType::PointEx;
 }
 
 feature::EGeomType FeatureParams::GetGeomType() const
 {
-  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
+  CheckValid();
   switch (m_geomType)
   {
-  case HEADER_GEOM_LINE: return GEOM_LINE;
-  case HEADER_GEOM_AREA: return GEOM_AREA;
+  case HeaderGeomType::Line: return GEOM_LINE;
+  case HeaderGeomType::Area: return GEOM_AREA;
   default: return GEOM_POINT;
   }
 }
 
-uint8_t FeatureParams::GetTypeMask() const
+HeaderGeomType FeatureParams::GetHeaderGeomType() const
 {
-  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
+  CheckValid();
   return m_geomType;
 }
 
@@ -555,14 +556,13 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 bool FeatureParams::CheckValid() const
 {
   CHECK(!m_types.empty() && m_types.size() <= kMaxTypesCount, ());
-  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
 
   return FeatureParamsBase::CheckValid();
 }
 
 uint8_t FeatureParams::GetHeader() const
 {
-  return CalculateHeader(m_types.size(), static_cast<EHeaderTypeMask>(GetTypeMask()), *this);
+  return CalculateHeader(m_types.size(), GetHeaderGeomType(), *this);
 }
 
 uint32_t FeatureParams::GetIndexForType(uint32_t t)
