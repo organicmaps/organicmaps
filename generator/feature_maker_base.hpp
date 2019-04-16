@@ -19,23 +19,23 @@ class IntermediateDataReader;
 class FeatureMakerBase
 {
 public:
-  explicit FeatureMakerBase(cache::IntermediateDataReader & holder);
+  explicit FeatureMakerBase(cache::IntermediateDataReader & cache);
   virtual ~FeatureMakerBase() = default;
 
-  bool Add(OsmElement & p);
+  bool Add(OsmElement & element);
   // The function returns true when the receiving feature was successful and a false when not successful.
   bool GetNextFeature(FeatureBuilder1 & feature);
   size_t Size() const;
   bool Empty() const;
 
 protected:
-  virtual bool BuildFromNode(OsmElement & p, FeatureParams const & params) = 0;
-  virtual bool BuildFromWay(OsmElement & p, FeatureParams const & params) = 0;
-  virtual bool BuildFromRelation(OsmElement & p, FeatureParams const & params) = 0;
+  virtual bool BuildFromNode(OsmElement & element, FeatureParams const & params) = 0;
+  virtual bool BuildFromWay(OsmElement & element, FeatureParams const & params) = 0;
+  virtual bool BuildFromRelation(OsmElement & element, FeatureParams const & params) = 0;
 
-  virtual void ParseParams(FeatureParams & params, OsmElement & p) const  = 0;
+  virtual void ParseParams(FeatureParams & params, OsmElement & element) const  = 0;
 
-  cache::IntermediateDataReader & m_holder;
+  cache::IntermediateDataReader & m_cache;
   std::queue<FeatureBuilder1> m_queue;
 };
 

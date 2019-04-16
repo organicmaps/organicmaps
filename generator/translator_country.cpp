@@ -1,7 +1,7 @@
 #include "generator/translator_country.hpp"
 
-#include "generator/camera_node_processor.hpp"
 #include "generator/collector_addresses.hpp"
+#include "generator/collector_camera.hpp"
 #include "generator/collector_interface.hpp"
 #include "generator/collector_tag.hpp"
 #include "generator/feature_maker.hpp"
@@ -69,9 +69,9 @@ bool WikiDataValidator(std::string const & tagValue)
 }
 }  // namespace
 
-TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                                      feature::GenerateInfo const & info)
-  : Translator(emitter, holder, std::make_shared<FeatureMaker>(holder))
+  : Translator(emitter, cache, std::make_shared<FeatureMaker>(cache))
   , m_tagAdmixer(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv"))
   , m_tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE))
   , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE))
@@ -87,9 +87,8 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, 
   AddCollector(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   AddCollector(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME)));
   AddCollector(std::make_shared<routing::RoadAccessWriter>(info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
-  AddCollector(std::make_shared<routing::CameraNodeProcessor>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME),
-                                                              info.GetIntermediateFileName(CAMERAS_NODES_TO_WAYS_FILE),
-                                                              info.GetIntermediateFileName(CAMERAS_MAXSPEED_FILE)));
+  AddCollector(std::make_shared<routing::CameraCollector>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+
   if (info.m_genAddresses)
     AddCollector(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
 }
@@ -107,8 +106,8 @@ void TranslatorCountry::CollectFromRelations(OsmElement const & element)
 {
   RelationCollector collector(m_collectors);
   if (element.IsNode())
-    m_holder.ForEachRelationByNodeCached(element.id, collector);
+    m_cache.ForEachRelationByNodeCached(element.id, collector);
   else if (element.IsWay())
-    m_holder.ForEachRelationByWayCached(element.id, collector);
+    m_cache.ForEachRelationByWayCached(element.id, collector);
 }
 }  // namespace generator

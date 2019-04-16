@@ -28,10 +28,10 @@ class IntermediateDataReader;
 class Translator : public TranslatorInterface
 {
 public:
-  explicit Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+  explicit Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                       std::shared_ptr<FeatureMakerBase> maker, FilterCollection const & filters,
                       CollectorCollection const & collectors);
-  explicit Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+  explicit Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                       std::shared_ptr<FeatureMakerBase> maker);
 
   // TranslatorInterface overrides:
@@ -51,6 +51,6 @@ protected:
   RelationTagsEnricher m_tagsEnricher;
   std::shared_ptr<FeatureMakerBase> m_featureMaker;
   std::shared_ptr<EmitterInterface> m_emitter;
-  cache::IntermediateDataReader & m_holder;
+  cache::IntermediateDataReader & m_cache;
 };
 }  // namespace generator

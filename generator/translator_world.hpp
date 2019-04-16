@@ -22,7 +22,7 @@ namespace generator
 class TranslatorWorld : public Translator
 {
 public:
-  explicit TranslatorWorld(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & holder,
+  explicit TranslatorWorld(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
                            feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:

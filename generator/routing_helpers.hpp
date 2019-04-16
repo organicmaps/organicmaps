@@ -1,12 +1,5 @@
 #pragma once
 
-#include "generator/camera_node_processor.hpp"
-#include "generator/maxspeeds_collector.hpp"
-#include "generator/restriction_writer.hpp"
-#include "generator/road_access_generator.hpp"
-
-#include "routing/cross_mwm_ids.hpp"
-
 #include "base/geo_object_id.hpp"
 
 #include <cstdint>

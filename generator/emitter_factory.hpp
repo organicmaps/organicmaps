@@ -1,9 +1,10 @@
 #pragma once
 
+#include "generator/emitter_booking.hpp"
 #include "generator/emitter_coastline.hpp"
 #include "generator/emitter_country.hpp"
 #include "generator/emitter_interface.hpp"
-#include "generator/emitter_booking.hpp"
+#include "generator/emitter_noop.hpp"
 #include "generator/emitter_restaurants.hpp"
 #include "generator/emitter_simple.hpp"
 #include "generator/emitter_world.hpp"
@@ -23,7 +24,8 @@ enum class EmitterType
   SimpleWithPreserialize,
   Country,
   Coastline,
-  World
+  World,
+  Noop
   //  Booking
 };
 
@@ -44,6 +46,8 @@ std::shared_ptr<EmitterInterface> CreateEmitter(EmitterType type, Args&&... args
     return create<EmitterRestaurants>(std::forward<Args>(args)...);
   case EmitterType::World:
     return create<EmitterWorld>(std::forward<Args>(args)...);
+  case EmitterType::Noop:
+    return create<EmitterNoop>(std::forward<Args>(args)...);
   }
   UNREACHABLE();
 }
