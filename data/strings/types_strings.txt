@@ -162,10 +162,72 @@
     en = aeroway-terminal
 
   [type.amenity]
-    en = amenity
+    en = Amenity
+    ru = Объекты инфраструктуры
+    ar = أثر
+    cs = Prostor
+    da = Rekreative område
+    nl = Infrastructuur objecten
+    fi = Infrastruktuurikohteet
+    fr = Objets d'infrastructure
+    de = Infrastrukturobjekte
+    hu = Infrastruktúra
+    id = Ruang berfasilitas
+    it = Opera infrastrutturale
+    ja = アメニティー
+    ko = 생활 편의시설
+    nb = Rekreasjonsområde
+    pl = Obiekty infrastruktury
+    pt = Objetos de infra-estrutura
+    pt-BR = Amenidades
+    ro = Obiecte ale infrastructurii
+    es = Infraestructura
+    es-MX = Infraestructura
+    sv = Infrastrukturen
+    th = สถานที่หรือสิ่งก่อสร้างที่เป็นประโยชน์
+    tr = Tesis
+    uk = Об’єкти інфраструктури
+    vi = Công trình cơ sở hạ tầng
+    el = Εγκαταστάσεις υποδομής
+    sk = Vybavenie
+    sw = Kistawishi
+    zh-Hans = 基础设施项目
+    zh-Hant = 基礎設施項目
+    fa = زیر ساخت
 
   [type.amenity.arts_centre]
-    en = amenity-arts_centre
+    en = Art center
+    ru = Центр искусств
+    ar = مركز فن
+    cs = Umělecké centrum
+    da = Kunsthus
+    nl = Kunstcentrum
+    fi = Taidekeskus
+    fr = Centre d'art
+    de = Kunststätte
+    hu = Művészeti központ
+    id = Pusat kesenian
+    it = Centro artistico
+    ja = 芸術センター
+    ko = 예술 회관
+    nb = Kunstsenter
+    pl = Centrum sztuki
+    pt = Centro de artes
+    pt-BR = Centros de arte
+    ro = Centru de artă
+    es = Centro de arte
+    es-MX = Centro de artes
+    sv = Kulturcenter
+    th = ศูนย์งานศิลปะ
+    tr = Sanat merkezi
+    uk = Центр мистецтв
+    vi = Trung tâm nghệ thuật
+    el = Κέντρο καλών τεχνών
+    sk = Centrum umenia
+    sw = Kituo cha sanaa
+    zh-Hans = 艺术中心
+    zh-Hant = 藝術中心
+    fa = مرکز هنری
 
   [type.amenity.atm]
     en = ATM
@@ -1104,7 +1166,7 @@
     fa = ایستگاه اتش نشانی
 
   [type.amenity.food_court]
-    en = amenity-food_court
+    en = Food court
 
   [type.amenity.fountain]
     en = Fountain
@@ -2780,7 +2842,38 @@
     fa = پارکو متر
 
   [type.amenity.vending_machine.public_transport_tickets]
-    en = amenity-vending_machine-public_transport_tickets
+    en = Vending machine for public transport tickets
+    ru = Автомат по продаже билетов на общественный транспорт
+    ar = آلة بيع تذاكر النقل العام
+    cs = Prodejní automat lístků na městskou dopravu
+    da = Billetautomat for offentlig transport
+    nl = Kaartjesautomaat voor openbaar vervoer
+    fi = Julkisen liikenteen lippuautomaatti
+    fr = Distributeur de billets pour le transport en commun
+    de = Verkaufsautomat für öffentliche Verkehrsmittel
+    hu = Automata jegykiadó tömegközlekedési eszközökhöz
+    id = Mesin penjual otomatis tiket transportasi umum
+    it = Distributore automatico biglietti di trasporto
+    ja = 公共交通機関の券売機
+    ko = 대중교통표 자동판매기
+    nb = Billettmaskin for offentlig transport
+    pl = Automat biletowy do transportu publicznego
+    pt = Bilheteria de transporte público
+    pt-BR = Máquinas automáticas de venda de passagens de transporte público
+    ro = Automat de vânzare a biletelor pentru transportul public
+    es = Máquina expendedora de boletos para el transporte público
+    es-MX = Máquina expendedora de billetes de transporte público
+    sv = Biljettautomat
+    th = เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
+    tr = Toplu taşıma biletleri için otomatlar
+    uk = Автомат з продажу квитків на громадський транспорт
+    vi = Máy bán vé phương tiện công cộng tự động
+    el = Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
+    sk = Predajný automat na lístky verejnej dopravy
+    sw = Mashine ya kuuzia tiketi za usafiri wa umma
+    zh-Hans = 公共交通售票机
+    zh-Hant = 公共交通售票機
+    fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
 
   [type.amenity.veterinary]
     en = Veterinary Doctor
@@ -5770,6 +5863,7 @@
     el = Περουβιανή
     he = מטבח פרואני
     sk = Peruánska kuchyňa
+    
   [type.cuisine.pizza]
     en = Pizza
     ru = Пиццерия
@@ -6597,7 +6691,38 @@
     fa = حمل و نقل
 
   [type.highway.construction]
-    en = highway-construction
+    en = Road under construction
+    ru = Строящаяся дорога
+    ar = طريق تحت الإنشاء
+    cs = Silnice v rekonstrukci
+    da = Vej under opbygning
+    nl = Baan in aanbouw
+    fi = Rakenteilla oleva tie
+    fr = Route en construction
+    de = Die Straße im Bau
+    hu = Útépítés
+    id = Jalan sedang dibangun
+    it = Strada in costruzione
+    ja = 工事中の道路
+    ko = 공사 중 도로
+    nb = Veikonstruksjon
+    pl = Droga w trakcie budowy
+    pt = Estrada em construção
+    pt-BR = Pista em construção
+    ro = Drum în construcție
+    es = Carretera en construcción
+    es-MX = Carretera en construcción
+    sv = Väg under uppförande
+    th = ทางกำลังอยู่ในการก่อสร้าง
+    tr = Yol yapım aşamasında
+    uk = Дорога, що будується
+    vi = Đường đang thi công
+    el = Οδός υπό κατασκευή
+    sk = Cesta vo výstavbe
+    sw = Barabara inatengenezwa
+    zh-Hans = 在建道路
+    zh-Hant = 在建道路
+    fa = جاده در دست ساخت است
 
   [type.highway.cycleway]
     en = highway-cycleway
@@ -10446,7 +10571,7 @@
     en = landuse
 
   [type.landuse.allotments]
-    en = landuse-allotments
+    en = Allotments
 
   [type.landuse.basin]
     en = Water
@@ -10553,16 +10678,47 @@
     en = landuse-construction
 
   [type.landuse.farm]
-    en = landuse-farm
+    en = Farm
 
   [type.landuse.farmland]
-    en = landuse-farmland
+    en = Farmland
+    ru = Сельскохозяйственная земля
+    ar = حقل
+    cs = Orná půda
+    da = Landbrugsjord
+    nl = Landbouwgrond
+    fi = Maatalousmaa
+    fr = Terrains agricoles
+    de = Agrarland
+    hu = Termőföld
+    id = Lahan pertanian
+    it = Terreno agricolo
+    ja = 農地
+    ko = 농지
+    nb = Jordbruksområde
+    pl = Grunt rolny
+    pt = Terras agrícolas
+    pt-BR = Fazendas
+    ro = Teren arabil
+    es = Tierras agrícolas
+    es-MX = Terreno agrícola
+    sv = Jordbruksmark
+    th = พื้นที่ทำการเกษตร
+    tr = Tarım arazileri
+    uk = Сільськогосподарська земля
+    vi = Đất nông nghiệp
+    el = Αγροτική γη
+    sk = Pole
+    sw = Shamba
+    zh-Hans = 农业用地
+    zh-Hant = 農業用地
+    fa = زمین کشاورزی
 
   [type.landuse.farmyard]
-    en = landuse-farmyard
+    en = Farmyard
 
   [type.landuse.field]
-    en = landuse-field
+    en = Field
 
   [type.landuse.forest]
     en = Forest
@@ -10693,10 +10849,41 @@
     fa = جنگل
 
   [type.landuse.garages]
-    en = landuse-garages
+    en = Garages
 
   [type.landuse.grass]
-    en = landuse-grass
+    en = Lawn
+    ru = Газон
+    ar = حديقة
+    cs = Trávník
+    da = Græsplæne
+    nl = Gazon
+    fi = Ruohikko
+    fr = Gazon
+    de = Grasdecke
+    hu = Gyep
+    id = Lapangan rumput
+    it = Prato erboso
+    ja = 芝生
+    ko = 잔디
+    nb = Plen
+    pl = Trawnik
+    pt = Grama
+    pt-BR = Gramado
+    ro = Gazon
+    es = Césped
+    es-MX = Césped
+    sv = Gräsmattan
+    th = สนามหญ้า
+    tr = Çim
+    uk = Газон
+    vi = Thảm cỏ
+    el = Γκαζόν
+    sk = Trávnik
+    sw = Bustani
+    zh-Hans = 草坪
+    zh-Hant = 草坪
+    fa = چمن زار
 
   [type.landuse.greenfield]
     en = landuse-greenfield
@@ -10705,25 +10892,87 @@
     en = landuse-greenhouse_horticulture
 
   [type.landuse.industrial]
-    en = landuse-industrial
+    en = Industrial land  
 
   [type.landuse.landfill]
-    en = landuse-landfill
+    en = Landfill
+    ru = Свалка
+    ar = مكب نفايات
+    cs = Skládka
+    da = Affaldsplads
+    nl = Stortplaats
+    fi = Kaatopaikka
+    fr = Voirie
+    de = Müllhalde
+    hu = Hulladéklerakó
+    id = TPA
+    it = Luogo di scarico
+    ja = 埋立地
+    ko = 쓰레기 매립지
+    nb = Land-deponi
+    pl = Składowisko odpadów
+    pt = Aterro sanitário
+    pt-BR = Aterros
+    ro = Gunoiște
+    es = Vertedero
+    es-MX = Vertedero
+    sv = Soptippen
+    th = พื้นที่ฝังกลบ
+    tr = Çöp sahası
+    uk = Звалище
+    vi = Bãi rác
+    el = Σκουπιδότοπος
+    sk = Skládka
+    sw = Shamba la Taka
+    zh-Hans = 堆积场
+    zh-Hant = 堆積場
+    fa = دفن گاه زباله
 
   [type.landuse.meadow]
-    en = landuse-meadow
+    en = Meadow
 
   [type.landuse.military]
-    en = landuse-military
+    en = Military area
 
   [type.landuse.orchard]
-    en = landuse-orchard
+    en = Orchard
 
   [type.landuse.quarry]
-    en = landuse-quarry
+    en = Quarry
 
   [type.landuse.railway]
-    en = landuse-railway
+    en = Railway premises
+    ru = Железнодорожные сооружения
+    ar = محطة خط سكة حديد
+    cs = Areál železnice
+    da = Jernbaneanlæg
+    nl = Spoorwegfaciliteiten
+    fi = Rautatierakennukset
+    fr = Installations ferroviaires
+    de = Eisenbahnanlagen
+    hu = Vasúti helyiségek
+    id = Stasiun kereta api
+    it = Impianti ferroviari
+    ja = 鉄道施設
+    ko = 차량 기지
+    nb = Jernbaneområde
+    pl = Obiekty kolejowe
+    pt = Instalações ferroviárias
+    pt-BR = Instalações ferroviárias
+    ro = Instalații feroviare
+    es = Instalaciones ferroviarias
+    es-MX = Estructuras ferroviarias
+    sv = Järnvägsfaciliteter
+    th = ที่ก่อสร้างทางรถไฟ
+    tr = Demiryolu binası
+    uk = Залізничні споруди
+    vi = Cơ sở đường sắt
+    el = Σιδηροδρομικές εγκαταστάσεις
+    sk = Priestory železnice
+    sw = Eneo la njia ya reli
+    zh-Hans = 铁路设施
+    zh-Hant = 鐵路設施
+    fa = محدوده راه آهن
 
   [type.landuse.recreation_ground]
     en = landuse-recreation_ground
@@ -10778,7 +11027,7 @@
     en = landuse-village_green
 
   [type.landuse.vineyard]
-    en = landuse-vineyard
+    en = Vineyard
 
   [type.leisure]
     en = leisure
@@ -10789,10 +11038,36 @@
   [type.leisure.dog_park]
     en = Dog area
     ru = Место для выгула собак
-    cs = Psí hřiště
-    fi = Koirapuisto
-    de = Hundezone
-    ja = ドッグラン
+    ar = منطقة كلاب
+    cs = Místo pro psy
+    da = Hundepark
+    nl = Plaats voor hondenuitlaten
+    fi = Koirien ulkoilupaikka
+    fr = Places autorisés pour promener les chiens
+    de = Platz für Hundesauflauf
+    hu = Kutyás terület
+    id = Area untuk anjing
+    it = Area sgambamento cani
+    ja = ドッグエリア
+    ko = 애완견 지역
+    nb = Hundeområde
+    pl = Miejsce na spacer z psem
+    pt = Local para câes
+    pt-BR = Área para cachorros
+    ro = Loc de plimbare a câinilor
+    es = Parque para perros
+    es-MX = Lugar para pasear al perro
+    sv = Hundparken
+    th = สถานที่พาสุนัขเดินเล่น
+    tr = Köpek alanı
+    uk = Місце для вигулу собак
+    vi = Nơi cho chó đi dạo
+    el = Περιοχή για βόλτα σκύλων
+    sk = Oblasť pre psov
+    sw = Eneo la mbwa
+    zh-Hans = 遛狗区
+    zh-Hant = 遛狗區
+    fa = محدوده مخصوص سگ
 
   [type.leisure.dog_park.tennis]
     en = Dog area
@@ -10931,13 +11206,13 @@
     fa = زمین گلف
 
   [type.leisure.ice_rink]
-    en = leisure-ice_rink
+    en = Ice rink
 
   [type.leisure.landscape_reserve]
-    en = leisure-landscape_reserve
+    en = Landscape reserve
 
   [type.leisure.marina]
-    en = leisure-marina
+    en = Marina
 
   [type.leisure.nature_reserve]
     en = Nature reserve
@@ -10975,90 +11250,138 @@
   [type.leisure.park]
     en = Park
     ru = Парк
-    ar = حديقة
+    ar = موقف سيارات
+    cs = Park
+    da = Park
+    nl = Park
     fi = Puisto
     fr = Parc
+    de = Park
+    hu = Park
     id = Taman
     it = Parco
     ja = 公園
     ko = 공원
-    pt = Parque
+    nb = Park
+    pl = Park
+    pt = Jardim
     pt-BR = Parque
     ro = Parc
     es = Parque
+    es-MX = Parque
+    sv = Parken
     th = สวนสาธารณะ
+    tr = Park
     uk = Парк
     vi = Công viên
+    el = Πάρκο
+    sk = Park
+    sw = Hifadhi
     zh-Hans = 公园
     zh-Hant = 公園
-    el = Πάρκο
-    fa = گردشگری
+    fa = پارک
 
   [type.leisure.park.no.access]
     en = Park
     ru = Парк
-    ar = حديقة
+    ar = موقف سيارات
+    cs = Park
+    da = Park
+    nl = Park
     fi = Puisto
     fr = Parc
+    de = Park
+    hu = Park
     id = Taman
     it = Parco
     ja = 公園
     ko = 공원
-    pt = Parque
+    nb = Park
+    pl = Park
+    pt = Jardim
     pt-BR = Parque
     ro = Parc
     es = Parque
+    es-MX = Parque
+    sv = Parken
     th = สวนสาธารณะ
+    tr = Park
     uk = Парк
     vi = Công viên
+    el = Πάρκο
+    sk = Park
+    sw = Hifadhi
     zh-Hans = 公园
     zh-Hant = 公園
-    el = Πάρκο
-    fa = گردشگری
+    fa = پارک
 
   [type.leisure.park.permissive]
     en = Park
     ru = Парк
-    ar = حديقة
+    ar = موقف سيارات
+    cs = Park
+    da = Park
+    nl = Park
     fi = Puisto
     fr = Parc
+    de = Park
+    hu = Park
     id = Taman
     it = Parco
     ja = 公園
     ko = 공원
-    pt = Parque
+    nb = Park
+    pl = Park
+    pt = Jardim
     pt-BR = Parque
     ro = Parc
     es = Parque
+    es-MX = Parque
+    sv = Parken
     th = สวนสาธารณะ
+    tr = Park
     uk = Парк
     vi = Công viên
+    el = Πάρκο
+    sk = Park
+    sw = Hifadhi
     zh-Hans = 公园
     zh-Hant = 公園
-    el = Πάρκο
-    fa = گردشگری
+    fa = پارک
 
   [type.leisure.park.private]
     en = Park
     ru = Парк
-    ar = حديقة
+    ar = موقف سيارات
+    cs = Park
+    da = Park
+    nl = Park
     fi = Puisto
     fr = Parc
+    de = Park
+    hu = Park
     id = Taman
     it = Parco
     ja = 公園
     ko = 공원
-    pt = Parque
+    nb = Park
+    pl = Park
+    pt = Jardim
     pt-BR = Parque
     ro = Parc
     es = Parque
+    es-MX = Parque
+    sv = Parken
     th = สวนสาธารณะ
+    tr = Park
     uk = Парк
     vi = Công viên
+    el = Πάρκο
+    sk = Park
+    sw = Hifadhi
     zh-Hans = 公园
     zh-Hant = 公園
-    el = Πάρκο
-    fa = گردشگری
+    fa = پارک
 
   [type.leisure.pitch]
     en = Sports Ground
@@ -11195,24 +11518,40 @@
     en = leisure-playing_fields-tennis
 
   [type.leisure.recreation_ground]
-    en = leisure-recreation_ground
+    en = Recreation ground
 
   [type.leisure.sauna]
     en = Sauna
-    ru = Баня
+    ru = Сауна
     ar = ساونا
+    cs = Sauna
+    da = Sauna
+    nl = Sauna
+    fi = Sauna
+    fr = Sauna
+    de = Sauna
     hu = Szauna
+    id = Sauna
+    it = Sauna
     ja = サウナ
     ko = 사우나
-    nb = Badstu
+    nb = Badstue
+    pl = Sauna
+    pt = Sauna
+    pt-BR = Sauna
     ro = Saună
-    sv = Bastu
-    th = ซาวน่า
-    uk = Лазня
-    vi = Phòng xông hơi
+    es = Sauna
+    es-MX = Sauna
+    sv = Sauna
+    th = เซาน่า
+    tr = Sauna
+    uk = Сауна
+    vi = Sauna
+    el = Σάουνα
+    sk = Sauna
+    sw = Chumba cha mvuke
     zh-Hans = 桑拿
     zh-Hant = 桑拿
-    el = Σάουνα
     fa = سونا
 
   [type.leisure.slipway]
@@ -11806,7 +12145,7 @@
     en = natural
 
   [type.natural.bare_rock]
-    en = natural-bare_rock
+    en = Bare rock
 
   [type.natural.bay]
     en = Bay
@@ -11937,10 +12276,10 @@
     fa = ورودی غار
 
   [type.natural.cliff]
-    en = natural-cliff
+    en = Cliff
 
   [type.natural.coastline]
-    en = natural-coastline
+    en = Coastline
 
   [type.natural.geyser]
     en = Geyser
@@ -12011,10 +12350,41 @@
     fa = یخچال طبیعی
 
   [type.natural.grassland]
-    en = natural-grassland
+    en = Field
+    ru = Поле
+    ar = ملعب
+    cs = Pole
+    da = Mark
+    nl = Veld
+    fi = Pelto
+    fr = Champ
+    de = Feld
+    hu = Mező
+    id = Ladang
+    it = Campo
+    ja = 野原
+    ko = 밭
+    nb = Slette
+    pl = Pole
+    pt = Campo
+    pt-BR = Campo
+    ro = Câmp
+    es = Campo
+    es-MX = Campo
+    sv = Fältet
+    th = ทุ่งหญ้า
+    tr = Yeşillik
+    uk = Поле
+    vi = Cánh đồng
+    el = Λιβάδι
+    sk = Lúka
+    sw = Shamba
+    zh-Hans = 田野
+    zh-Hant = 田野
+    fa = کشتزار
 
   [type.natural.heath]
-    en = natural-heath
+    en = Heath
 
   [type.natural.lake]
     en = Lake
@@ -12052,10 +12422,10 @@
     en = natural-land
 
   [type.natural.meadow]
-    en = natural-meadow
+    en = Meadow
 
   [type.natural.orchard]
-    en = natural-orchard
+    en = Orchard
 
   [type.natural.peak]
     en = Peak
@@ -12122,13 +12492,44 @@
     fa = تالاب
 
   [type.natural.rock]
-    en = natural-rock
+    en = Rock
 
   [type.natural.salt_pond]
-    en = natural-salt_pond
+    en = Salt pond
 
   [type.natural.scrub]
-    en = natural-scrub
+    en = Scrub
+    ru = Заросли
+    ar = أَيْكَة
+    cs = Křoviny
+    da = Kratbevokset område
+    nl = Kreupel bos
+    fi = Tiheiköt
+    fr = Fourré
+    de = Dickicht
+    hu = Cserjés
+    id = Semak
+    it = Boscaglia
+    ja = 雑木林
+    ko = 관목지
+    nb = Myr
+    pl = Gąszcze
+    pt = Mato
+    pt-BR = Arbustos
+    ro = Boschet
+    es = Matorrales
+    es-MX = Maleza
+    sv = Ruggen
+    th = ป่าละเมาะ
+    tr = Çalılık
+    uk = Зарості
+    vi = Bụi rậm
+    el = Θαμνώδες περιοχή
+    sk = Krovie
+    sw = Eneo la Vichaka
+    zh-Hans = 丛林
+    zh-Hant = 叢林
+    fa = بوته زار
 
   [type.natural.spring]
     en = Spring
@@ -12195,10 +12596,10 @@
     fa = درخت
 
   [type.natural.tree_row]
-    en = natural-tree_row
+    en = Tree row
 
   [type.natural.vineyard]
-    en = natural-vineyard
+    en = Vineyard
 
   [type.natural.volcano]
     en = Volcano
@@ -12264,13 +12665,44 @@
     fa = اب
 
   [type.natural.wetland]
-    en = natural-wetland
+    en = Wetland area
+    ru = Болотистая местность
+    ar = منطقة رطبة
+    cs = Mokřadní oblast
+    da = Vådområde
+    nl = Moerasland
+    fi = Suoperäinen seutu
+    fr = Marais
+    de = Moorgegend
+    hu = Vizes terület
+    id = Area lahan basah
+    it = Terreno paludoso
+    ja = 湿地帯
+    ko = 습지 구역
+    nb = Våtmarksområde
+    pl = Bagno, mokradło
+    pt = Pantanoso
+    pt-BR = Áreas úmdas
+    ro = Loc mlăștinos
+    es = Terreno pantanoso
+    es-MX = Tierra pantanosa
+    sv = Sumpmarken
+    th = พื้นที่น้ำท่วมขัง
+    tr = Sulak alan
+    uk = Болотиста місцевість
+    vi = Khu vực đầm lầy
+    el = Υγρότοπος
+    sk = Oblasť mokradí
+    sw = Maeneo yenye majimaji
+    zh-Hans = 沼泽
+    zh-Hant = 沼澤
+    fa = ناحیه تالابی
 
   [type.natural.wetland.bog]
-    en = natural-wetland-bog
+    en = Wetland
 
   [type.natural.wetland.marsh]
-    en = natural-wetland-marsh
+    en = Wetland
 
   [type.natural.wood]
     en = Forest
@@ -13314,7 +13746,7 @@
     fa = محله
 
   [type.place.neighbourhood]
-    en = place-neighbourhood
+    en = Neighbourhood
 
   [type.place.ocean]
     en = Ocean
@@ -13780,20 +14212,36 @@
   [type.railway.level_crossing]
     en = Level Crossing
     ru = Железнодорожный переезд
-    cs = Železniční přejezd
-    da = Jernbaneoverskæring
-    nl = Overweg
-    fi = Tasoristeys
+    ar = مزلقان
+    cs = Přejezd
+    da = Niveauskæring
+    nl = Spoorwegovergang
+    fi = Rautatien tasoristeys
     fr = Passage à niveau
-    de = Bahnübergang
-    hu = Útátjáró
+    de = Eisenbahnüberweg
+    hu = Vasúti átjáró
+    id = Perlintasan Kereta Api
     it = Passaggio a livello
+    ja = 踏切
+    ko = 철도 건널목
+    nb = Planovergang
     pl = Przejazd kolejowy
-    pt = Passagem em nível
-    pt-BR = Passagem em nível
-    es = Paso a nivel
-    el = Ισόπεδη σιδηροδρομική διάβαση
-    fa = تقاطع هم سطح با راه اهن
+    pt = Travessia ferroviária
+    pt-BR = Cruzamento de nível
+    ro = Trecere feroviară
+    es = Cruce de ferrocarril
+    es-MX = Cruce de ferrocarril
+    sv = Järnvägskorsning
+    th = ทางรถไฟตัดผ่านถนน
+    tr = Hemzemin Geçit
+    uk = Залізничний переїзд
+    vi = Chỗ qua đường sắt
+    el = Σιδηροδρομική διέλευση
+    sk = Križovanie úrovní
+    sw = Tambuka Reli
+    zh-Hans = 铁路道口
+    zh-Hant = 鐵路道口
+    fa = تقاطع راه آهن
 
   [type.railway.light_rail]
     en = railway-light_rail
@@ -13805,7 +14253,38 @@
     en = railway-light_rail-tunnel
 
   [type.railway.monorail]
-    en = railway-monorail
+    en = Monorail
+    ru = Монорельсовая железная дорога
+    ar = اتجاه واحد
+    cs = Jednokolejná železnice
+    da = Monorail
+    nl = Monorail
+    fi = Monorail (kohorata)
+    fr = Téléphérique
+    de = Einschienenbahn
+    hu = Egysínű vasút
+    id = Monorel
+    it = Monorotaia
+    ja = モノレール
+    ko = 모노레일
+    nb = Monorail
+    pl = Kolej jednoszynowa
+    pt = Ferroviária de monotrilho
+    pt-BR = Monotrilho
+    ro = Cale ferată monoșină
+    es = Tren de monorraíl
+    es-MX = Monorraíl
+    sv = Monorail
+    th = รางรถไฟรางเดี่ยว
+    tr = Monoray
+    uk = Монорейкова залізниця
+    vi = Đường sắt một chiều
+    el = Μονοαξονικός σιδηρόδρομος
+    sk = Jednokoľajnicová dráha
+    sw = Mfumo wa reli moja
+    zh-Hans = 单轨铁路
+    zh-Hant = 單軌鐵路
+    fa = مونوریل
 
   [type.railway.monorail.bridge]
     en = railway-monorail-bridge
@@ -13838,7 +14317,38 @@
     en = railway-proposed
 
   [type.railway.rail]
-    en = railway-rail
+    en = Railway
+    ru = Железнодорожный путь
+    ar = خط سكة حديد
+    cs = Železnice
+    da = Jernbane
+    nl = Spoorlijn
+    fi = Rautatie
+    fr = Chemin de fer
+    de = Eisenbahn
+    hu = Vasút
+    id = Kereta api
+    it = Ferrovia
+    ja = 鉄道
+    ko = 철로
+    nb = Toglinje
+    pl = Kolej
+    pt = Ferrovia
+    pt-BR = Trilhos
+    ro = Cale ferată
+    es = Ferrocarril
+    es-MX = Línea de ferrocarril
+    sv = Järnväg
+    th = รถไฟ
+    tr = Demiryolu
+    uk = Залізна дорога
+    vi = Đường sắt
+    el = Σιδηρόδρομος
+    sk = Železnica
+    sw = Njia ya Reli
+    zh-Hans = 铁路
+    zh-Hant = 鐵路
+    fa = راه آهن
 
   [type.railway.rail.bridge]
     en = railway-rail-bridge
@@ -14815,36 +15325,38 @@
     en = railway-subway-yellow
 
   [type.railway.subway_entrance]
-    en = Subway
-    ru = Метро
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    nl = Metro
-    fi = Metro
-    fr = Métro
-    de = U-Bahn
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    pl = Metro
-    pt = Entrada de estação do metrô
-    pt-BR = Entrada de estação do metrô
-    ro = Metrou
-    es = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
-    el = Μετρό
-    sk = Metro
-    fa = حمل و نقل
+    en = Subway entrance
+    ru = Вход в метро
+    ar = مدخل المترو
+    cs = Vchod do podchodu
+    da = Indgang til undergrundsbane
+    nl = Metro ingang
+    fi = Metron sisäänkäynti
+    fr = Entrée du métro
+    de = U-Bahn-Eingang
+    hu = Földalatti bejárat
+    id = Pintu masuk kereta bawah tanah
+    it = Stazione metropolitana
+    ja = 地下鉄入り口
+    ko = 지하철 입구
+    nb = T-bane inngang
+    pl = Wejście do metra
+    pt = Entrada de metrô
+    pt-BR = Entrada de metrô
+    ro = Intrare în metro
+    es = Entrada al metro
+    es-MX = Entrada de metro
+    sv = Tunnelbana entré
+    th = ทางเข้ารถไฟใต้ดิน
+    tr = Metro girişi
+    uk = Вхід до метро
+    vi = Lỗi vào Metro
+    el = Είσοδος μετρό
+    sk = Vstup do metra
+    sw = Lango la kuingilia stesheni ya reli
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
+    fa = ورودی مترو
 
   [type.railway.subway_entrance.barcelona]
     en = Subway
@@ -15916,7 +16428,7 @@
     pt = Copiadora
     pt-BR = Copiadora
     ro = Centru copiere
-    es = Copistería
+    es = Centro de copiado
     sv = Kopieringsbutik
     th = ร้านถ่ายเอกสาร
     tr = Kopyalama Merkezi
@@ -17277,7 +17789,7 @@
     pt = 1,99
     pt-BR = 1,99
     ro = Magazin universal
-    es = «Todo a cien»
+    es = Tienda de Variedades
     sv = Diverseaffär
     th = ร้านค้าปลีกอิสระ
     tr = Ucuz Ürünler Mağazası
@@ -17477,17 +17989,37 @@
 
   [type.sport.athletics]
     en = Athletics
-    ru = Лёгкая атлетика
+    ru = Легкая атлетика
+    ar = العاب رياضية
+    cs = Atletika
+    da = Atletik
     nl = Atletiek
     fi = Yleisurheilu
     fr = Athlétisme
     de = Leichtathletik
     hu = Atlétika
+    id = Atletik
     it = Atletica leggera
+    ja = 運動競技
+    ko = 육상 경기장
+    nb = Friidrett
+    pl = Lekka atletyka
     pt = Atletismo
-    pt-BR = Atletismo
+    pt-BR = Atlético
+    ro = Atletica ușoară
     es = Atletismo
+    es-MX = Atletismo
+    sv = Friidrott
+    th = กรีฑา
+    tr = Atletizm
+    uk = Легка атлетика
+    vi = Điền kinh
     el = Στίβος
+    sk = Atletika
+    sw = Riadha
+    zh-Hans = 田径
+    zh-Hant = 田徑
+    fa = ورزش
 
   [type.sport.australian_football]
     en = sport-australian_football
@@ -17498,15 +18030,35 @@
   [type.sport.basketball]
     en = Basketball
     ru = Баскетбол
+    ar = كرة السلة
+    cs = Basketbal
+    da = Basketball
     nl = Basketbal
     fi = Koripallo
     fr = Basket-ball
+    de = Basketball
     hu = Kosárlabda
+    id = Bola basket
     it = Pallacanestro
-    pt = Basquetebol
+    ja = バスケットボール
+    ko = 야구
+    nb = Basketball
+    pl = Koszykówka
+    pt = Basquete
     pt-BR = Basquetebol
+    ro = Baschetbal
     es = Baloncesto
-    el = Καλαθόσφαιρα
+    es-MX = Baloncesto
+    sv = Basket
+    th = บาสเก็ตบอล
+    tr = Basketbol
+    uk = Баскетбол
+    vi = Bóng rổ
+    el = Μπάσκετ
+    sk = Basketbal
+    sw = Mpira wa kikapu
+    zh-Hans = 篮球
+    zh-Hant = 籃球
     fa = بسکتبال
 
   [type.sport.bowls]
@@ -17524,14 +18076,36 @@
   [type.sport.equestrian]
     en = Equestrian Sports
     ru = Конный спорт
-    nl = Paardensport
-    fr = Sport équestre
-    de = Pferdesport
-    hu = Lovassportok
-    pt = Esportes equestres
+    ar = رياضة الفروسية
+    cs = Koňské sporty
+    da = Ridesport
+    nl = Paardesport
+    fi = Hevosurheilu
+    fr = Sport hippique
+    de = Reiten
+    hu = Lovas sportok
+    id = Olahraga Berkuda
+    it = Equitazione
+    ja = 乗馬スポーツ
+    ko = 승마 경기장
+    nb = Hestesport
+    pl = Jeździectwo
+    pt = Hipismo
     pt-BR = Esportes equestres
-    es = Deportes ecuestres
+    ro = Sport ecvestru
+    es = Equitación
+    es-MX = Deporte hípico
+    sv = Ridsport
+    th = กีฬาแข่งม้า
+    tr = Binicilik Sporları
+    uk = Кінний спорт
+    vi = Thể thao cưỡi ngựa
     el = Ιππασία
+    sk = Jazdecké športy
+    sw = Michezo ya Farasi
+    zh-Hans = 马术运动
+    zh-Hant = 馬術運動
+    fa = ورزش های سوارکاری
 
   [type.sport.football]
     en = sport-football
@@ -17564,7 +18138,38 @@
     en = sport-swimming
 
   [type.sport.tennis]
-    en = sport-tennis
+    en = Tennis court
+    ru = Теннисный корт
+    ar = ملعب تنس
+    cs = Tenisový kurt
+    da = Tennisbane
+    nl = Tennisveld
+    fi = Tenniskenttä
+    fr = Court de tennis
+    de = Tennisspielfeld
+    hu = Teniszpálya
+    id = Lapangan tenis
+    it = Campo da tennis
+    ja = テニスコート
+    ko = 테니스 코트
+    nb = Tennisbane
+    pl = Kort tenisowy
+    pt = Quadra de tênis
+    pt-BR = Quadra de Tênis
+    ro = Teren de tenis
+    es = Cancha de tenis
+    es-MX = Cancha de tenis
+    sv = Tennisbana
+    th = คอร์ทเทนนิส
+    tr = Tenis kortu
+    uk = Тенісний корт
+    vi = Sân tenis
+    el = Γήπεδο τένις
+    sk = Tenisový kurt
+    sw = Wanja wa tenisi
+    zh-Hans = 网球场
+    zh-Hant = 網球場
+    fa = زمین تنیس
 
   [type.tourism]
     en = tourism
@@ -18838,13 +19443,106 @@
     en = wheelchair
 
   [type.wheelchair.limited]
-    en = wheelchair-limited
+    en = Limited wheelchair access
+    ru = Частично оборудовано для инвалидов
+    ar = دعم محدود لكراسي المعاقين
+    cs = Omezený vstup pro vozíčkáře
+    da = Begrænset tilgængelighed for kørestol
+    nl = Gedeeltelijk uitgerust voor gehandicapten
+    fi = Osittain varustettu vammaisille
+    fr = Partiellement équipé pour les handicapés
+    de = Teilweise für Behinderte ausgestattet
+    hu = Korlátozottan akadálymentesített
+    id = Akses kursi roda terbatas
+    it = Accessibile in parte
+    ja = 車椅子でのアクセス制限
+    ko = 휠체어 접근 제한
+    nb = Begrenset tilgang for rullestol
+    pl = Częściowo wyposażono dla osób niepełnosprawnych
+    pt = Parcialmente equipado para pessoas com deficiência física
+    pt-BR = Acesso limitado para cadeira de rodas
+    ro = Parțial utilat pentru invalizi
+    es = Parcialmente equipado para discapacitados
+    es-MX = Parcialmente equipado para discapacitados
+    sv = Delvis utrustad för handikappade
+    th = พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ
+    tr = Kısıtlı tekerlekli sandalye erişimi
+    uk = Частково обладнано для інвалідів
+    vi = Được trang bị một phần cho người khuyết tật
+    el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
+    sk = Obmedzený bezbariérový prístup
+    sw = Viti vya magurudumu vinaruhusiwa vichache
+    zh-Hans = 部分配备为残疾人专用
+    zh-Hant = 部分配備為殘疾人專用
+    fa = دسترسی محدود با صندلی چرخ دار
 
   [type.wheelchair.no]
-    en = wheelchair-no
+    en = No wheelchair access
+    ru = Не оборудовано для инвалидов
+    ar = لا يدعم لكراسي المعاقين
+    cs = Bez přístupu pro vozíčkáře
+    da = Ingen tilgængelighed for kørestol
+    nl = Niet uitgerust voor gehandicapten
+    fi = Ei varustettu vammaisille
+    fr = Non équipé pour les handicapés
+    de = Für Behinderte nicht ausgestattet
+    hu = Nem akadálymentesített
+    id = Tidak ada akses kursi roda
+    it = Non accessibile ai disabili
+    ja = 車椅子でのアクセスなし
+    ko = 휠체어 접근 금지
+    nb = Ingen tilgang for rullestol
+    pl = Nie wyposażono dla osób niepełnosprawnych
+    pt = Não equipado para pessoas com deficiência física
+    pt-BR = Sem acesso para cadeira de rodas
+    ro = Nu este utilat pentru invalizi
+    es = No equipado para discapacitados
+    es-MX = No equipado para discapacitados
+    sv = Ej utrustad för handikappade
+    th = พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ
+    tr = Tekerlekli sandalye erişimi yok
+    uk = Не обладнано для інвалідів
+    vi = Không trang bị cho người khuyết tật
+    el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
+    sk = Žiaden bezbariérový prístup
+    sw = Viti vya magurudumu haviruhusiwi
+    zh-Hans = 未配备残疾人专用
+    zh-Hant = 未配備殘疾人專用
+    fa = بدون دسترسی با صندلی چرخ دار
 
   [type.wheelchair.yes]
-    en = wheelchair-yes
+    en = Full wheelchair access
+    ru = Оборудовано для инвалидов
+    ar = دعم كامل لكراسي المعاقين
+    cs = Plný vstup pro vozíčkáře
+    da = Fuld tilgængelighed for kørestol
+    nl = Uitgerust voor gehandicapten
+    fi = Varustettu vammaisille
+    fr = Équipé pour les handicapés
+    de = Für Behinderte ausgestattet
+    hu = Teljesen akadálymentesített
+    id = Akses penuh kursi roda
+    it = Accessibile ai disabili
+    ja = 車椅子でのアクセスあり
+    ko = 휠체어 접근 가능
+    nb = Full tilgang for rullestol
+    pl = Wyposażono dla osób niepełnosprawnych
+    pt = Equipado para pessoas com deficiência física
+    pt-BR = Acesso total para cadeira de rodas
+    ro = Utilat pentru invalizi
+    es = Equipado para discapacitados
+    es-MX = Equipado para discapacitados
+    sv = Utrustad för handikappade
+    th = พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้
+    tr = Tam tekerlekli sandalye erişimi
+    uk = Обладнано для інвалідів
+    vi = Được trang bị cho người khuyết tật
+    el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
+    sk = Úplný bezbariérový prístup
+    sw = Viti vya magurudumu vinaruhusiwa kabisa
+    zh-Hans = 配备残疾人专用
+    zh-Hant = 配備殘疾人專用
+    fa = دسترسی کامل با صندلی چرخ دار
 
   [type.piste_lift]
     en = piste:lift
@@ -18893,9 +19591,40 @@
 
   [type.piste_type.sled]
     en = piste:type-sled
+<<<<<<< HEAD
+=======
 
   [type.building_part]
-    en = building:part
+    en = Building
+    ru = Здание
+    ar = مبنى
+    cs = Stavba
+    da = Bygning
+    nl = Gebouw
+    fi = Rakennus
+    fr = Bâtiment
+    de = Gebäude
+    hu = Épület
+    id = Gedung
+    it = Edificio
+    ja = 建物
+    ko = 건물
+    nb = Bygning
+    pl = Budynek
+    pt = Edifício
+    pt-BR = Edifício
+    ro = Clădire
+    es = Edificio
+    sv = Byggnad
+    th = อาคาร
+    tr = Bina
+    uk = Будівля
+    vi = Tòa nhà
+    zh-Hans = 建筑
+    zh-Hant = 建築物
+    el = Κτίριο
+    sk = Budova
+    fa = ساختما
 
   [type.earthquake_damage]
     en = earthquake:damage
@@ -18944,3 +19673,4 @@
 
   [type.area_highway.unclassified]
     en = area:highway-unclassified
+>>>>>>> 9d45071fd1338f6986eaa18121beae1f88526e0f

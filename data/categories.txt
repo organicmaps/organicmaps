@@ -6252,7 +6252,7 @@ pl:^Punkt ksero|Drukarnia
 pt:^Copiadora|Impressões
 pt-BR:^Copiadora|impressões
 ro:^Centru copiere|Imprimare
-es:^Copistería|imprenta
+es:^Copistería|imprenta|Centro de copiado|Centro de fotocopiado
 sv:^Kopieringsbutik|Tryckare
 th:^ร้านถ่ายเอกสาร|เครื่องพิมพ์
 tr:^Kopyalama Merkezi|Yazıcı
