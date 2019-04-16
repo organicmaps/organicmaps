@@ -1532,6 +1532,22 @@ public class PlacePageView extends NestedScrollView
     }
   }
 
+  @NonNull
+  private static PlacePageButtons.Item toPlacePageButton(@NonNull RoadWarningMarkType type)
+  {
+    switch (type)
+    {
+      case DIRTY:
+        return PlacePageButtons.Item.ROUTE_AVOID_UNPAVED;
+      case FERRY:
+        return PlacePageButtons.Item.ROUTE_AVOID_FERRY;
+      case TOLL:
+        return PlacePageButtons.Item.ROUTE_AVOID_TOLL;
+      default:
+        throw new AssertionError("Unsupported road warning type: " + type);
+    }
+  }
+
   private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
     List<PlacePageButtons.PlacePageButton> buttons = new ArrayList<>();
@@ -1539,7 +1555,7 @@ public class PlacePageView extends NestedScrollView
     if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
     {
       RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
-      PlacePageButtons.Item roadType = RoadWarningTypeToRoadTypeMap.get(markType);
+      PlacePageButtons.Item roadType = toPlacePageButton(markType);
       buttons.add(roadType);
       mButtons.setItems(buttons);
       return;
