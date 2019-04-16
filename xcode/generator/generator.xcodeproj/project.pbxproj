@@ -105,6 +105,8 @@
 		40492BCA2021DC53008E093A /* feature_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC52021DC53008E093A /* feature_helpers.hpp */; };
 		40492BCB2021DC53008E093A /* locality_sorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40492BC62021DC53008E093A /* locality_sorter.cpp */; };
 		40492BCC2021DC53008E093A /* geometry_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC72021DC53008E093A /* geometry_holder.hpp */; };
+		407E8A122265FEE100C6E668 /* ratings_section_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 407E8A102265FEE000C6E668 /* ratings_section_builder.hpp */; };
+		407E8A132265FEE100C6E668 /* ratings_section_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 407E8A112265FEE100C6E668 /* ratings_section_builder.cpp */; };
 		4088CE2421AE995D00E2702A /* brands_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4088CE2221AE995D00E2702A /* brands_loader.hpp */; };
 		4088CE2521AE995D00E2702A /* brands_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4088CE2321AE995D00E2702A /* brands_loader.cpp */; };
 		441DB3FC2119D72300D2F324 /* camera_node_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 441DB3F92119D72200D2F324 /* camera_node_processor.hpp */; };
@@ -357,6 +359,8 @@
 		40492BC52021DC53008E093A /* feature_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_helpers.hpp; sourceTree = "<group>"; };
 		40492BC62021DC53008E093A /* locality_sorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_sorter.cpp; sourceTree = "<group>"; };
 		40492BC72021DC53008E093A /* geometry_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geometry_holder.hpp; sourceTree = "<group>"; };
+		407E8A102265FEE000C6E668 /* ratings_section_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ratings_section_builder.hpp; sourceTree = "<group>"; };
+		407E8A112265FEE100C6E668 /* ratings_section_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ratings_section_builder.cpp; sourceTree = "<group>"; };
 		4088CE2221AE995D00E2702A /* brands_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = brands_loader.hpp; sourceTree = "<group>"; };
 		4088CE2321AE995D00E2702A /* brands_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brands_loader.cpp; sourceTree = "<group>"; };
 		441DB3F92119D72200D2F324 /* camera_node_processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = camera_node_processor.hpp; sourceTree = "<group>"; };
@@ -565,6 +569,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				407E8A112265FEE100C6E668 /* ratings_section_builder.cpp */,
+				407E8A102265FEE000C6E668 /* ratings_section_builder.hpp */,
 				4032E6F7225D151B00D33617 /* city_boundary_processor.cpp */,
 				4032E6F6225D151A00D33617 /* city_boundary_processor.hpp */,
 				4032E70D225D151C00D33617 /* collection_base.hpp */,
@@ -912,6 +918,7 @@
 				3D74EF081F86841C0081202C /* ugc_section_builder.hpp in Headers */,
 				56A1B7AE21A82C3F00246F8C /* maxspeeds_builder.hpp in Headers */,
 				56A1B7AC21A82C3F00246F8C /* maxspeeds_parser.hpp in Headers */,
+				407E8A122265FEE100C6E668 /* ratings_section_builder.hpp in Headers */,
 				4032E72B225D151D00D33617 /* feature_processing_layers.hpp in Headers */,
 				56037E51219AF97200C2193D /* filter_elements.hpp in Headers */,
 				4032E733225D151D00D33617 /* collection_base.hpp in Headers */,
@@ -1117,6 +1124,7 @@
 				675340831A3F2A7400A0A8C3 /* statistics.cpp in Sources */,
 				4032E729225D151D00D33617 /* translator_world.cpp in Sources */,
 				E162BD52213EAF2D007ADEF1 /* ways_merger.cpp in Sources */,
+				407E8A132265FEE100C6E668 /* ratings_section_builder.cpp in Sources */,
 				56FB438B2164F571002099B3 /* region_base.cpp in Sources */,
 				4088CE2521AE995D00E2702A /* brands_loader.cpp in Sources */,
 				56FB43882164F571002099B3 /* region.cpp in Sources */,

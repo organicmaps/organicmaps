@@ -42,6 +42,7 @@
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define SEARCH_RANKS_FILE_TAG "ranks"
 #define POPULARITY_RANKS_FILE_TAG "popularity"
+#define RATINGS_FILE_TAG "ratings"
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
 #define CAMERAS_INFO_FILE_TAG "speedcams"

@@ -143,6 +143,8 @@ set(SRC
   place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp
+  ratings_section_builder.cpp
+  ratings_section_builder.hpp
   relation_tags.cpp
   relation_tags.hpp
   relation_tags_enricher.cpp

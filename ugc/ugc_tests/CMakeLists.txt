@@ -6,6 +6,7 @@ option(UGC_MIGRATION "Build migration file for ugc" OFF)
 
 set(
   SRC
+  ratings_tests.cpp
   serdes_binary_tests.cpp
   serdes_tests.cpp
   storage_tests.cpp

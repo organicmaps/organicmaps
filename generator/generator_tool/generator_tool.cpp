@@ -20,6 +20,7 @@
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
 #include "generator/popularity.hpp"
+#include "generator/ratings_section_builder.hpp"
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/restriction_generator.hpp"
@@ -637,9 +638,10 @@ int GeneratorToolMain(int argc, char ** argv)
     if (!FLAGS_ugc_data.empty())
     {
       if (!BuildUgcMwmSection(FLAGS_ugc_data, datFile, osmToFeatureFilename))
-      {
         LOG(LCRITICAL, ("Error generating UGC mwm section."));
-      }
+
+      if (!BuildRatingsMwmSection(FLAGS_ugc_data, datFile, osmToFeatureFilename))
+        LOG(LCRITICAL, ("Error generating ratings mwm section."));
     }
 
     if (!FLAGS_wikipedia_pages.empty())

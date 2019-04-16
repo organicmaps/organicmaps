@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D74EF041F86840C0081202C /* loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF021F86840C0081202C /* loader.cpp */; };
 		3D74EF1E1F8B94EA0081202C /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF1A1F8B90B00081202C /* serdes.cpp */; };
+		407E8A152265FEF200C6E668 /* ratings_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 407E8A142265FEF100C6E668 /* ratings_tests.cpp */; };
 		670E7B981EF97D1000A8E9ED /* serdes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7B941EF97CE700A8E9ED /* serdes_tests.cpp */; };
 		670E7B991EF97D1600A8E9ED /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7B961EF97D0E00A8E9ED /* testingmain.cpp */; };
 		670E7B9B1EF9803C00A8E9ED /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7B9A1EF9803C00A8E9ED /* libbase.a */; };
@@ -63,6 +64,7 @@
 		3D74EF1B1F8B90B00081202C /* serdes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
 		3D74EF1C1F8B90B00081202C /* ugc_holder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ugc_holder.hpp; sourceTree = "<group>"; };
 		3D74EF1D1F8B90B00081202C /* visitors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = visitors.hpp; sourceTree = "<group>"; };
+		407E8A142265FEF100C6E668 /* ratings_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ratings_tests.cpp; sourceTree = "<group>"; };
 		670E7B7C1EF97C1000A8E9ED /* ugc_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ugc_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		670E7B941EF97CE700A8E9ED /* serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_tests.cpp; sourceTree = "<group>"; };
 		670E7B961EF97D0E00A8E9ED /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		670E7B931EF97CBA00A8E9ED /* ugc_tests */ = {
 			isa = PBXGroup;
 			children = (
+				407E8A142265FEF100C6E668 /* ratings_tests.cpp */,
 				671ED39520D4064800D4317E /* serdes_binary_tests.cpp */,
 				671ED39420D4064800D4317E /* storage_tests.cpp */,
 				671ED39220D4064800D4317E /* utils.cpp */,
@@ -356,6 +359,7 @@
 			files = (
 				F6150E221EF90040000B955D /* api.cpp in Sources */,
 				F63EE67620D3F6B40025CC27 /* utility.cpp in Sources */,
+				407E8A152265FEF200C6E668 /* ratings_tests.cpp in Sources */,
 				3D74EF1E1F8B94EA0081202C /* serdes.cpp in Sources */,
 				3D74EF041F86840C0081202C /* loader.cpp in Sources */,
 				F6150E5D1EFAAB45000B955D /* storage.cpp in Sources */,
