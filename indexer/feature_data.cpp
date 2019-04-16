@@ -131,7 +131,7 @@ private:
 
 namespace feature
 {
-uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
+uint8_t CalculateHeader(size_t const typesCount, EHeaderTypeMask const headerGeomType,
                         FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
@@ -562,7 +562,7 @@ bool FeatureParams::CheckValid() const
 
 uint8_t FeatureParams::GetHeader() const
 {
-  return CalculateHeader(m_types.size(), GetTypeMask(), *this);
+  return CalculateHeader(m_types.size(), static_cast<EHeaderTypeMask>(GetTypeMask()), *this);
 }
 
 uint32_t FeatureParams::GetIndexForType(uint32_t t)

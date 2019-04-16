@@ -126,7 +126,7 @@ namespace feature
 
   std::string DebugPrint(TypesHolder const & holder);
 
-  uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
+  uint8_t CalculateHeader(size_t const typesCount, EHeaderTypeMask const headerGeomType,
                           FeatureParamsBase const & params);
 }  // namespace feature
 

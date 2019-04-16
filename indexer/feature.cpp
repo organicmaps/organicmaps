@@ -196,21 +196,27 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer buffer)
 
 FeatureType::FeatureType(osm::MapObject const & emo)
 {
-  uint8_t const geomType = emo.GetGeomType();
+  EHeaderTypeMask geomType = HEADER_GEOM_POINT;
   m_limitRect.MakeEmpty();
 
-  switch (geomType)
+  switch (emo.GetGeomType())
   {
+  case feature::GEOM_UNDEFINED:
+    // It is not possible because of FeatureType::GetFeatureType() never returns GEOM_UNDEFINED.
+    UNREACHABLE();
   case feature::GEOM_POINT:
+    geomType = HEADER_GEOM_POINT;
     m_center = emo.GetMercator();
     m_limitRect.Add(m_center);
     break;
   case feature::GEOM_LINE:
+    geomType = HEADER_GEOM_LINE;
     m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
     for (auto const & p : m_points)
       m_limitRect.Add(p);
     break;
   case feature::GEOM_AREA:
+    geomType = HEADER_GEOM_AREA;
     m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
     for (auto const & p : m_triangles)
       m_limitRect.Add(p);
@@ -242,6 +248,8 @@ FeatureType::FeatureType(osm::MapObject const & emo)
 
 feature::EGeomType FeatureType::GetFeatureType() const
 {
+  // FeatureType::FeatureType(osm::MapObject const & emo) expects
+  // that GEOM_UNDEFINED is never be returned.
   switch (m_header & HEADER_GEOTYPE_MASK)
   {
   case HEADER_GEOM_LINE: return GEOM_LINE;
