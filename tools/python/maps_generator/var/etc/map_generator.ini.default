@@ -1,0 +1,35 @@
+[Main]
+MAIN_OUT_PATH: ~/maps_build
+DEBUG: 1
+
+
+[Developer]
+BUILD_PATH: ~/omim-build-release
+OMIM_PATH: ~/omim
+
+
+[Generator tool]
+USER_RESOURCE_PATH: ${Developer:OMIM_PATH}/data
+# auto detection
+# NODE_STORAGE: map
+
+
+[Osm tools]
+OSM_TOOLS_SRC_PATH: ${Developer:OMIM_PATH}/tools/osmctools
+OSM_TOOLS_PATH: ~/osmctools
+
+
+[Logging]
+# LOG_FILE_PATH: generation.log
+
+
+[External]
+# PLANET_URL:
+# PLANET_MD5_URL:
+# UGC_URL:
+# HOTELS_URL:
+# POPULARITY_URL:
+# SUBWAY_URL:
+# FOOD_URL:
+# FOOD_TRANSLATIONS_URL: 
+
