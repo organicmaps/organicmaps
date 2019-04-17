@@ -53,32 +53,32 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
+void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & element)
 {
-  switch (em.m_type)
+  switch (element.m_type)
   {
   case OsmElement::EntityType::Node:
   {
-    auto const pt = MercatorBounds::FromLatLon(em.m_lat, em.m_lon);
-    cache.AddNode(em.m_id, pt.y, pt.x);
+    auto const pt = MercatorBounds::FromLatLon(element.m_lat, element.m_lon);
+    cache.AddNode(element.m_id, pt.y, pt.x);
     break;
   }
   case OsmElement::EntityType::Way:
   {
     // Store way.
-    WayElement way(em.m_id);
-    for (uint64_t nd : em.Nodes())
+    WayElement way(element.m_id);
+    for (uint64_t nd : element.Nodes())
       way.nodes.push_back(nd);
 
     if (way.IsValid())
-      cache.AddWay(em.m_id, way);
+      cache.AddWay(element.m_id, way);
     break;
   }
   case OsmElement::EntityType::Relation:
   {
     // store relation
     RelationElement relation;
-    for (auto const & member : em.Members())
+    for (auto const & member : element.Members())
     {
       switch (member.m_type) {
       case OsmElement::EntityType::Node:
@@ -95,11 +95,11 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
       }
     }
 
-    for (auto const & tag : em.Tags())
+    for (auto const & tag : element.Tags())
       relation.tags.emplace(tag.m_key, tag.m_value);
 
     if (relation.IsValid())
-      cache.AddRelation(em.m_id, relation);
+      cache.AddRelation(element.m_id, relation);
 
     break;
   }
@@ -163,38 +163,38 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
   // thus first call of Nodes (Members) after Tags() will not return any results.
   // So don not reorder the "for" loops (!).
 
-  for (auto const & em : dataset)
+  for (auto const & entity : dataset)
   {
     OsmElement p;
-    p.m_id = em.id;
+    p.m_id = entity.id;
 
-    switch (em.type)
+    switch (entity.type)
     {
     case Type::Node:
     {
       p.m_type = OsmElement::EntityType::Node;
-      p.m_lat = em.lat;
-      p.m_lon = em.lon;
+      p.m_lat = entity.lat;
+      p.m_lon = entity.lon;
       break;
     }
     case Type::Way:
     {
       p.m_type = OsmElement::EntityType::Way;
-      for (uint64_t nd : em.Nodes())
+      for (uint64_t nd : entity.Nodes())
         p.AddNd(nd);
       break;
     }
     case Type::Relation:
     {
       p.m_type = OsmElement::EntityType::Relation;
-      for (auto const & member : em.Members())
+      for (auto const & member : entity.Members())
         p.AddMember(member.ref, translate(member.type), member.role);
       break;
     }
     default: break;
     }
 
-    for (auto const & tag : em.Tags())
+    for (auto const & tag : entity.Tags())
       p.AddTag(tag.key, tag.value);
 
     processor(&p);

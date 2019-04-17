@@ -7,9 +7,9 @@
 #include <cstdio>
 #include <sstream>
 
-std::string DebugPrint(OsmElement::EntityType e)
+std::string DebugPrint(OsmElement::EntityType type)
 {
-  switch (e)
+  switch (type)
   {
   case OsmElement::EntityType::Unknown:
     return "unknown";
@@ -31,14 +31,13 @@ std::string DebugPrint(OsmElement::EntityType e)
   UNREACHABLE();
 }
 
-
-void OsmElement::AddTag(std::string_view const & k, std::string_view const & v)
+void OsmElement::AddTag(std::string_view const & key, std::string_view const & value)
 {
   // Seems like source osm data has empty values. They are useless for us.
-  if (k.empty() || v.empty())
+  if (key.empty() || value.empty())
     return;
 
-#define SKIP_KEY(key) if (strncmp(k.data(), key, sizeof(key)-1) == 0) return;
+#define SKIP_KEY(skippedKey) if (strncmp(key.data(), skippedKey, sizeof(key)-1) == 0) return;
   // OSM technical info tags
   SKIP_KEY("created_by");
   SKIP_KEY("source");
@@ -52,7 +51,6 @@ void OsmElement::AddTag(std::string_view const & k, std::string_view const & v)
   SKIP_KEY("artist_name");
   SKIP_KEY("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
 
-
   // In future we can use this tags for improve our search
   SKIP_KEY("old_name");
   SKIP_KEY("alt_name");
@@ -65,22 +63,22 @@ void OsmElement::AddTag(std::string_view const & k, std::string_view const & v)
   SKIP_KEY("official_name");
 #undef SKIP_KEY
 
-  std::string value{std::string{v}};
-  strings::Trim(value);
-  m_tags.emplace_back(std::string{k}, std::move(value));
+  std::string val{std::string{value}};
+  strings::Trim(val);
+  m_tags.emplace_back(std::string{key}, std::move(val));
 }
 
 bool OsmElement::HasTag(std::string_view const & key) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
-    return t.key == key;
+    return t.m_key == key;
   });
 }
 
-bool OsmElement::HasTag(std::string_view const & k, std::string_view const & v) const
+bool OsmElement::HasTag(std::string_view const & key, std::string_view const & value) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
-    return t.m_key == k && t.m_value == v;
+    return t.m_key == key && t.m_value == value;
   });
 }
 
@@ -112,12 +110,12 @@ std::string OsmElement::ToString(std::string const & shift) const
     ss << "Nd ref: " << m_ref;
     break;
   case EntityType::Way:
-    ss << "Way: " << m_id << " nds: " << m_nds.size() << " tags: " << m_tags.size();
-    if (!m_nds.empty())
+    ss << "Way: " << m_id << " nds: " << m_nodes.size() << " tags: " << m_tags.size();
+    if (!m_nodes.empty())
     {
       std::string shift2 = shift;
       shift2 += shift2.empty() ? "\n  " : "  ";
-      for (auto const & e : m_nds)
+      for (auto const & e : m_nodes)
         ss << shift2 << e;
     }
     break;
@@ -165,14 +163,14 @@ std::string_view OsmElement::GetTagValue(std::string_view const & key,
                                          std::string_view const & defaultValue) const
 {
   auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
-                               [&key](Tag const & tag) { return tag.key == key; });
+                               [&key](Tag const & tag) { return tag.m_key == key; });
 
-  return it != m_tags.cend() ? it->value : defaultValue;
+  return it != m_tags.cend() ? it->m_value : defaultValue;
 }
 
-std::string DebugPrint(OsmElement const & e)
+std::string DebugPrint(OsmElement const & element)
 {
-  return e.ToString();
+  return element.ToString();
 }
 
 std::string DebugPrint(OsmElement::Tag const & tag)

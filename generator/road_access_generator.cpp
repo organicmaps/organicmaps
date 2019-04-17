@@ -310,15 +310,15 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
         << 0 /* wildcard segment Idx */ << endl;
 
   // Barrier tags.
-  for (size_t pointIdx = 0; pointIdx < elem.m_nds.size(); ++pointIdx)
+  for (size_t pointIdx = 0; pointIdx < elem.m_nodes.size(); ++pointIdx)
   {
-    auto const it = m_barriers.find(elem.m_nds[pointIdx]);
+    auto const it = m_barriers.find(elem.m_nodes[pointIdx]);
     if (it == m_barriers.cend())
       continue;
 
     RoadAccess::Type const roadAccessType = it->second;
     // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
-    oss << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << elem.id << " "
+    oss << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << elem.m_id << " "
         << pointIdx + 1 << endl;
   }
 }

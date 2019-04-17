@@ -56,7 +56,7 @@ void CameraProcessor::ForEachCamera(Fn && toDo) const
 
 void CameraProcessor::ProcessWay(OsmElement const & element)
 {
-  for (auto const node : element.m_nds)
+  for (auto const node : element.m_nodes)
   {
     if (m_speedCameras.find(node) == m_speedCameras.cend())
       continue;
