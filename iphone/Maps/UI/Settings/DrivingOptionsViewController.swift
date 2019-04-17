@@ -19,6 +19,20 @@ class DrivingOptionsViewController: MWMTableViewController {
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return L("driving_options_subheader")
   }
+  
+  func logChangeEvent() {
+    let viewControllers = self.navigationController?.viewControllers ?? []
+    var openFrom = kStatSettings
+    if (viewControllers.dropLast().last as? MapViewController) != nil {
+      openFrom = kStatRoute
+    }
+    Statistics.logEvent(kStatDrivingOptionsChange,
+                        withParameters: [kStatFrom: openFrom,
+                                         kStatToll: options.avoidToll ? 1 : 0,
+                                         kStatUnpaved: options.avoidDirty ? 1 : 0,
+                                         kStatFerry: options.avoidFerry ? 1 : 0,
+                                         kStatMotorway: options.avoidMotorway ? 1 : 0])
+  }
 }
 
 extension DrivingOptionsViewController: SettingsTableViewSwitchCellDelegate {
@@ -34,5 +48,6 @@ extension DrivingOptionsViewController: SettingsTableViewSwitchCellDelegate {
     }
 
     options.save()
+    logChangeEvent()
   }
 }

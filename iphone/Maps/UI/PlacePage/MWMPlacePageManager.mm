@@ -572,12 +572,16 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 }
 
 - (void)avoidDirty {
+  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
+        withParameters:@{kStatType : [kStatUnpaved capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
   [self closePlacePage];
 }
 
 
 - (void)avoidFerry {
+  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
+        withParameters:@{kStatType : [kStatFerry capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
   [self closePlacePage];
 }
@@ -590,6 +594,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 
 - (void)avoidToll {
+  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
+        withParameters:@{kStatType : [kStatToll capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
   [self closePlacePage];
 }
