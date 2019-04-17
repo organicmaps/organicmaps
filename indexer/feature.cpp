@@ -249,8 +249,8 @@ FeatureType::FeatureType(osm::MapObject const & emo)
 feature::GeomType FeatureType::GetGeomType() const
 {
   // FeatureType::FeatureType(osm::MapObject const & emo) expects
-  // that GeomType::Undefined is never be returned.
-  auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_GEOMTYPE_MASK);
+  // that GeomType::Undefined is never returned.
+  auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_MASK_GEOMTYPE);
   switch (headerGeomType)
   {
   case HeaderGeomType::Line: return GeomType::Line;
@@ -321,7 +321,7 @@ m2::PointD FeatureType::GetCenter()
 
 int8_t FeatureType::GetLayer()
 {
-  if ((m_header & feature::HEADER_HAS_LAYER) == 0)
+  if ((m_header & feature::HEADER_MASK_HAS_LAYER) == 0)
     return 0;
 
   ParseCommon();
@@ -338,7 +338,7 @@ void FeatureType::ParseHeader2()
 
   uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
   BitSource bitSource(m_data + m_offsets.m_header2);
-  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
 
   if (headerGeomType == HeaderGeomType::Line)
   {
@@ -422,7 +422,7 @@ uint32_t FeatureType::ParseGeometry(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Line)
     {
       size_t const count = m_points.size();
@@ -481,7 +481,7 @@ uint32_t FeatureType::ParseTriangles(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Area)
     {
       if (m_triangles.empty())

@@ -40,9 +40,9 @@ public:
   feature::GeomType GetGeomType() const;
   FeatureParamsBase & GetParams() { return m_params; }
 
-  uint8_t GetTypesCount() const { return (m_header & feature::HEADER_TYPE_MASK) + 1; }
+  uint8_t GetTypesCount() const { return (m_header & feature::HEADER_MASK_TYPE) + 1; }
 
-  bool HasName() const { return (m_header & feature::HEADER_HAS_NAME) != 0; }
+  bool HasName() const { return (m_header & feature::HEADER_MASK_HAS_NAME) != 0; }
   StringUtf8Multilang const & GetNames();
 
   m2::PointD GetCenter();

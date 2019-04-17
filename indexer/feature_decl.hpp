@@ -10,7 +10,6 @@ namespace feature
 enum class GeomType
 {
   Undefined = -1,
-  // Note! do not change this values. Should be equal with FeatureGeoType.
   Point = 0,
   Line = 1,
   Area = 2

@@ -138,10 +138,10 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
   uint8_t header = static_cast<uint8_t>(typesCount - 1);
 
   if (!params.name.IsEmpty())
-    header |= HEADER_HAS_NAME;
+    header |= HEADER_MASK_HAS_NAME;
 
   if (params.layer != 0)
-    header |= HEADER_HAS_LAYER;
+    header |= HEADER_MASK_HAS_LAYER;
 
   header |= static_cast<uint8_t>(headerGeomType);
 
@@ -150,16 +150,16 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
   {
   case HeaderGeomType::Point:
     if (params.rank != 0)
-      header |= HEADER_HAS_ADDINFO;
+      header |= HEADER_MASK_HAS_ADDINFO;
     break;
   case HeaderGeomType::Line:
     if (!params.ref.empty())
-      header |= HEADER_HAS_ADDINFO;
+      header |= HEADER_MASK_HAS_ADDINFO;
     break;
   case HeaderGeomType::Area:
   case HeaderGeomType::PointEx:
     if (!params.house.IsEmpty())
-      header |= HEADER_HAS_ADDINFO;
+      header |= HEADER_MASK_HAS_ADDINFO;
     break;
   }
 
@@ -206,7 +206,7 @@ bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 
 bool FeatureParamsBase::CheckValid() const
 {
-   CHECK(layer > LAYER_LOW && layer < LAYER_HIGH, ());
+   CHECK(layer > LAYER_FLAGS_LOW && layer < LAYER_FLAGS_HIGH, ());
    return true;
 }
 
