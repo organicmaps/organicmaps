@@ -495,7 +495,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     MwmApplication application = (MwmApplication) getApplicationContext();
     String firstLaunchDeeplink = application.getMediator().retrieveFirstLaunchDeeplink();
     if (!TextUtils.isEmpty(firstLaunchDeeplink))
+    {
       intent.setData(Uri.parse(firstLaunchDeeplink));
+      intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH_DEEPLINK, true);
+    }
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {

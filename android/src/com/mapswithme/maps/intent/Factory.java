@@ -49,6 +49,7 @@ import java.util.Locale;
 
 public class Factory
 {
+  public static final String EXTRA_IS_FIRST_LAUNCH_DEEPLINK = "extra_is_first_launch_deeplink";
   @NonNull
   public static IntentProcessor createBuildRouteProcessor()
   {
@@ -136,19 +137,27 @@ public class Factory
   private static abstract class LogIntentProcessor implements IntentProcessor
   {
     private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+    private boolean mFirstLaunch;
     @NonNull
     @Override
     public final MapTask process(@NonNull Intent intent)
     {
+      mFirstLaunch = intent.getBooleanExtra(Factory.EXTRA_IS_FIRST_LAUNCH_DEEPLINK, false);
       Uri data = intent.getData();
       if (data == null)
         throw new AssertionError("Data must be non-null!");
+
       final String uri = data.toString();
       String msg = this.getClass().getSimpleName() + ": incoming intent uri: " + uri;
       LOGGER.i(this.getClass().getSimpleName(), msg);
       org.alohalytics.Statistics.logEvent(msg);
       Crashlytics.log(msg);
       return createMapTask(uri);
+    }
+
+    final boolean isFirstLaunch()
+    {
+      return mFirstLaunch;
     }
 
     @NonNull
@@ -290,9 +299,17 @@ public class Factory
       return (File.separator + CATALOGUE).equals(data.getPath());
     }
 
+    @Nullable
+    @Override
+    MapTask createIntroductionTask(@NonNull String url)
+    {
+      // TODO: create task to show introduction in deeplink screen.
+      return null;
+    }
+
     @NonNull
     @Override
-    MapTask createMapTask(@NonNull String url)
+    MapTask createTargetTask(@NonNull String url)
     {
       return new ImportBookmarkCatalogueTask(url);
     }
@@ -339,7 +356,7 @@ public class Factory
 
     @NonNull
     @Override
-    protected MapTask createMapTask(@NonNull String url)
+    protected MapTask createTargetTask(@NonNull String url)
     {
       // Transform deeplink to the core expected format,
       // i.e https://host/path?query -> mapsme:///path?query.
@@ -348,6 +365,13 @@ public class Factory
                        .scheme(SCHEME_CORE)
                        .authority("").build();
       return new OpenUrlTask(coreUri.toString());
+    }
+
+    @Nullable
+    @Override
+    MapTask createIntroductionTask(@NonNull String url)
+    {
+      return null;
     }
   }
 
@@ -373,6 +397,25 @@ public class Factory
     }
 
     abstract boolean isLinkSupported(@NonNull Uri data);
+
+    @NonNull
+    @Override
+    final MapTask createMapTask(@NonNull String url)
+    {
+      if (isFirstLaunch())
+      {
+        MapTask introductionTask = createIntroductionTask(url);
+        if (introductionTask != null)
+          return introductionTask;
+      }
+
+      return createTargetTask(url);
+    }
+
+    @Nullable
+    abstract MapTask createIntroductionTask(@NonNull String url);
+    @NonNull
+    abstract MapTask createTargetTask(@NonNull String url);
   }
 
   private static class OpenCountryTaskProcessor implements IntentProcessor
