@@ -214,7 +214,7 @@ public:
   {
     int scale = GetDefaultScale();
 
-    if (types.GetGeoType() == GEOM_POINT)
+    if (types.GetGeomType() == GeomType::Point)
       for (uint32_t t : types)
         scale = min(scale, GetScaleForType(t));
 

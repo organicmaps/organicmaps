@@ -70,12 +70,12 @@ namespace
   class DrawRuleGetter
   {
     int m_scale;
-    EGeomType m_ft;
+    GeomType m_gt;
     drule::KeysT & m_keys;
 
   public:
-    DrawRuleGetter(int scale, EGeomType ft, drule::KeysT & keys)
-      : m_scale(scale), m_ft(ft), m_keys(keys)
+    DrawRuleGetter(int scale, GeomType gt, drule::KeysT & keys)
+      : m_scale(scale), m_gt(gt), m_keys(keys)
     {
     }
 
@@ -87,7 +87,7 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       res = true;
-      p->GetSuitable(min(m_scale, scales::GetUpperStyleScale()), m_ft, m_keys);
+      p->GetSuitable(min(m_scale, scales::GetUpperStyleScale()), m_gt, m_keys);
       return false;
     }
   };
@@ -99,21 +99,20 @@ pair<int, bool> GetDrawRule(TypesHolder const & types, int level,
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, types.GetGeoType(), keys);
+  DrawRuleGetter doRules(level, types.GetGeomType(), keys);
   for (uint32_t t : types)
     (void)c.ProcessObjects(t, doRules);
 
-  return make_pair(types.GetGeoType(), types.Has(c.GetCoastType()));
+  return make_pair(static_cast<int>(types.GetGeomType()), types.Has(c.GetCoastType()));
 }
 
-void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
-                 drule::KeysT & keys)
+void GetDrawRule(vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys)
 
 {
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, EGeomType(geoType), keys);
+  DrawRuleGetter doRules(level, geomType, keys);
 
   for (uint32_t t : types)
     (void)c.ProcessObjects(t, doRules);
@@ -155,11 +154,11 @@ namespace
 
   class IsDrawableLikeChecker
   {
-    EGeomType m_geomType;
+    GeomType m_geomType;
     bool m_emptyName;
 
   public:
-    IsDrawableLikeChecker(EGeomType geomType, bool emptyName = false)
+    IsDrawableLikeChecker(GeomType geomType, bool emptyName = false)
       : m_geomType(geomType), m_emptyName(emptyName)
     {
     }
@@ -181,12 +180,12 @@ namespace
   class IsDrawableRulesChecker
   {
     int m_scale;
-    EGeomType m_ft;
+    GeomType m_gt;
     bool m_arr[3];
 
   public:
-    IsDrawableRulesChecker(int scale, EGeomType ft, int rules)
-      : m_scale(scale), m_ft(ft)
+    IsDrawableRulesChecker(int scale, GeomType gt, int rules)
+      : m_scale(scale), m_gt(gt)
     {
       m_arr[0] = rules & RULE_CAPTION;
       m_arr[1] = rules & RULE_PATH_TEXT;
@@ -199,7 +198,7 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       drule::KeysT keys;
-      p->GetSuitable(m_scale, m_ft, keys);
+      p->GetSuitable(m_scale, m_gt, keys);
 
       for (auto const & k : keys)
       {
@@ -224,18 +223,18 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
-  bool TypeAlwaysExists(uint32_t type, EGeomType g = GEOM_UNDEFINED)
+  bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
   {
     if (!classif().IsTypeValid(type))
       return false;
 
     static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
 
-    if ((g == GEOM_LINE || g == GEOM_UNDEFINED) && HasRoutingExceptionType(type))
+    if ((g == GeomType::Line || g == GeomType::Undefined) && HasRoutingExceptionType(type))
       return true;
 
     ftype::TruncValue(type, 1);
-    if (g != GEOM_LINE && type == internet)
+    if (g != GeomType::Line && type == internet)
       return true;
 
     return false;
@@ -243,7 +242,7 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
-  bool IsUsefulNondrawableType(uint32_t type, EGeomType g = GEOM_UNDEFINED)
+  bool IsUsefulNondrawableType(uint32_t type, GeomType g = GeomType::Undefined)
   {
     if (!classif().IsTypeValid(type))
       return false;
@@ -263,11 +262,11 @@ namespace
     // Caching type length to exclude generic [wheelchair].
     uint8_t const typeLength = ftype::GetLevel(type);
 
-    if ((g == GEOM_LINE || g == GEOM_UNDEFINED) && type == roundabout)
+    if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
       return true;
 
     ftype::TruncValue(type, 1);
-    if (g == GEOM_LINE || g == GEOM_UNDEFINED)
+    if (g == GeomType::Line || g == GeomType::Undefined)
     {
       if (type == hwtag || type == psurface)
         return true;
@@ -279,7 +278,7 @@ namespace
     if (type == cuisine)
       return true;
 
-    if (g != GEOM_LINE && type == sponsored)
+    if (g != GeomType::Line && type == sponsored)
       return true;
 
     // Reserved for custom event processing, e.g. fc2018.
@@ -295,7 +294,7 @@ bool TypeIsUseful(uint32_t type)
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType)
+bool IsDrawableLike(vector<uint32_t> const & types, GeomType geomType)
 {
   Classificator const & c = classif();
 
@@ -329,7 +328,7 @@ bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRe
 
   static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
 
-  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()) &&
+  if (types.GetGeomType() == GeomType::Area && !types.Has(c.GetCoastType()) &&
       !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
     return false;
 
@@ -349,7 +348,7 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   return false;
 }
 
-bool IsUsefulType(uint32_t t, EGeomType geomType, bool emptyName)
+bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
 {
   Classificator const & c = classif();
 
@@ -362,9 +361,9 @@ bool IsUsefulType(uint32_t t, EGeomType geomType, bool emptyName)
 
   // IsDrawableLikeChecker checks only unique area styles,
   // so we need to take into account point styles too.
-  if (geomType == GEOM_AREA)
+  if (geomType == GeomType::Area)
   {
-    IsDrawableLikeChecker doCheck(GEOM_POINT, emptyName);
+    IsDrawableLikeChecker doCheck(GeomType::Point, emptyName);
     if (c.ProcessObjects(t, doCheck))
       return true;
   }
@@ -372,7 +371,7 @@ bool IsUsefulType(uint32_t t, EGeomType geomType, bool emptyName)
   return false;
 }
 
-bool HasUsefulType(vector<uint32_t> const & types, EGeomType geomType, bool emptyName)
+bool HasUsefulType(vector<uint32_t> const & types, GeomType geomType, bool emptyName)
 {
   if (types.empty())
     return false;
@@ -382,7 +381,7 @@ bool HasUsefulType(vector<uint32_t> const & types, EGeomType geomType, bool empt
   });
 }
 
-bool RemoveUselessTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
+bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyName)
 {
   base::EraseIf(types, [&] (uint32_t t) {
     return !IsUsefulType(t, geomType, emptyName);
@@ -496,7 +495,7 @@ namespace
   {
     Classificator const & c = classif();
 
-    IsDrawableRulesChecker doCheck(level, types.GetGeoType(), rules);
+    IsDrawableRulesChecker doCheck(level, types.GetGeomType(), rules);
     for (uint32_t t : types)
       if (c.ProcessObjects(t, doCheck))
         return true;

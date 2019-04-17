@@ -18,17 +18,17 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
       MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
 
   auto const emitter = [&fn, &rect, &mercator, toleranceInMeters](FeatureType & ft) {
-    switch (ft.GetFeatureType())
+    switch (ft.GetGeomType())
     {
-    case feature::GEOM_POINT:
+    case feature::GeomType::Point:
       if (rect.IsPointInside(ft.GetCenter()))
         fn(ft);
       break;
-    case feature::GEOM_LINE:
+    case feature::GeomType::Line:
       if (feature::GetMinDistanceMeters(ft, mercator) < kMetersToLinearFeature)
         fn(ft);
       break;
-    case feature::GEOM_AREA:
+    case feature::GeomType::Area:
     {
       auto limitRect = ft.GetLimitRect(kScale);
       // Be a little more tolerant. When used by editor mercator is given
@@ -41,7 +41,7 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
       }
     }
     break;
-    case feature::GEOM_UNDEFINED: ASSERT(false, ("case feature::GEOM_UNDEFINED")); break;
+    case feature::GeomType::Undefined: ASSERT(false, ("case feature::GeomType::Undefined")); break;
     }
   };
 

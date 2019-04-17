@@ -82,7 +82,7 @@ void TestSerializeDeserialize(openlr::Path const & path, DataSource const & data
 
 openlr::Path MakePath(FeatureType const & road, bool const forward)
 {
-  CHECK_EQUAL(road.GetFeatureType(), feature::GEOM_LINE, ());
+  CHECK_EQUAL(road.GetGeomType(), feature::GeomType::Line, ());
   CHECK_GREATER(road.GetPointsCount(), 0, ());
   openlr::Path path;
 

@@ -80,7 +80,7 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
 
-  if (ftypes::IsCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == feature::GEOM_AREA)
+  if (ftypes::IsCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == feature::GeomType::Area)
   {
     auto const & metadata = fb.GetMetadata();
     uint64_t testId;

@@ -283,9 +283,9 @@ namespace
   };
 } // namespace
 
-void ClassifObject::GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const
+void ClassifObject::GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const
 {
-  ASSERT(ft >= 0 && ft <= 2, ());
+  ASSERT(static_cast<int>(gt) >= 0 && static_cast<int>(gt) <= 2, ());
 
   // 2. Check visibility criterion for scale first.
   if (!m_visibility[scale])
@@ -293,7 +293,7 @@ void ClassifObject::GetSuitable(int scale, feature::EGeomType ft, drule::KeysT &
 
   // find rules for 'scale'
   suitable_getter rulesGetter(m_drawRule, keys);
-  rulesGetter.find(ft, scale);
+  rulesGetter.find(static_cast<int>(gt), scale);
 }
 
 bool ClassifObject::IsDrawable(int scale) const
@@ -306,9 +306,9 @@ bool ClassifObject::IsDrawableAny() const
   return (m_visibility != VisibleMask() && !m_drawRule.empty());
 }
 
-bool ClassifObject::IsDrawableLike(feature::EGeomType ft, bool emptyName) const
+bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
 {
-  ASSERT(ft >= 0 && ft <= 2, ());
+  ASSERT(static_cast<int>(gt) >= 0 && static_cast<int>(gt) <= 2, ());
 
   // check the very common criterion first
   if (!IsDrawableAny())
@@ -325,7 +325,7 @@ bool ClassifObject::IsDrawableLike(feature::EGeomType ft, bool emptyName) const
     ASSERT_LESS(k.m_type, drule::count_of_rules, ());
 
     // In case when feature name is empty we don't take into account caption drawing rules.
-    if ((visible[ft][k.m_type] == 1) &&
+    if ((visible[static_cast<int>(gt)][k.m_type] == 1) &&
         (!emptyName || (k.m_type != drule::caption && k.m_type != drule::pathtext)))
     {
       return true;

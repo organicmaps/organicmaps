@@ -102,7 +102,7 @@ public:
   feature::Metadata const & GetMetadata() const;
 
   bool IsPointType() const;
-  feature::EGeomType GetGeomType() const { return m_geomType; };
+  feature::GeomType GetGeomType() const { return m_geomType; };
   /// @returns true if object is of building type.
   bool IsBuilding() const;
 
@@ -121,7 +121,7 @@ protected:
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
 
-  feature::EGeomType m_geomType = feature::EGeomType::GEOM_UNDEFINED;
+  feature::GeomType m_geomType = feature::GeomType::Undefined;
 };
 
 /// Helper to convert internal feature::Metadata::FMD_* enum into a users-visible one.

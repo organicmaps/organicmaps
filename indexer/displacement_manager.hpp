@@ -198,7 +198,7 @@ private:
   static bool IsDisplaceable(Feature & ft)
   {
     feature::TypesHolder const types(ft);
-    return types.GetGeoType() == feature::GEOM_POINT;
+    return types.GetGeomType() == feature::GeomType::Point;
   }
 
   float CalculateDeltaForZoom(int32_t zoom) const

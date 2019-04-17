@@ -37,7 +37,7 @@ public:
   FeatureType(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
   FeatureType(osm::MapObject const & emo);
 
-  feature::EGeomType GetFeatureType() const;
+  feature::GeomType GetGeomType() const;
   FeatureParamsBase & GetParams() { return m_params; }
 
   uint8_t GetTypesCount() const { return (m_header & feature::HEADER_TYPE_MASK) + 1; }
@@ -97,7 +97,7 @@ public:
     if (m_points.empty())
     {
       // it's a point feature
-      if (GetFeatureType() == feature::GEOM_POINT)
+      if (GetGeomType() == feature::GeomType::Point)
         f(m_center);
     }
     else

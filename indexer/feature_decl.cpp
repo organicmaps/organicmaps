@@ -4,24 +4,26 @@
 
 using namespace std;
 
+namespace feature
+{
+string DebugPrint(GeomType type)
+{
+  switch (type)
+  {
+  case GeomType::Undefined: return "Undefined";
+  case GeomType::Point: return "Point";
+  case GeomType::Line: return "Line";
+  case GeomType::Area: return "Area";
+  }
+  UNREACHABLE();
+}
+}  // namespace feature
+
 string DebugPrint(FeatureID const & id)
 {
   ostringstream ss;
   ss << "{ " << DebugPrint(id.m_mwmId) << ", " << id.m_index << " }";
   return ss.str();
-}
-
-string DebugPrint(feature::EGeomType type)
-{
-  using feature::EGeomType;
-  switch (type)
-  {
-  case EGeomType::GEOM_UNDEFINED: return "GEOM_UNDEFINED";
-  case EGeomType::GEOM_POINT: return "GEOM_POINT";
-  case EGeomType::GEOM_LINE: return "GEOM_LINE";
-  case EGeomType::GEOM_AREA: return "GEOM_AREA";
-  }
-  UNREACHABLE();
 }
 
 // static

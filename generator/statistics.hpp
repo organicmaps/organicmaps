@@ -41,7 +41,7 @@ namespace stats
 
   struct MapInfo
   {
-    std::map<feature::EGeomType, GeneralInfo> m_byGeomType;
+    std::map<feature::GeomType, GeneralInfo> m_byGeomType;
     std::map<ClassifType, GeneralInfo> m_byClassifType;
     std::map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
     std::map<AreaType, GeneralInfo> m_byAreaSize;

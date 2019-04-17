@@ -146,7 +146,7 @@ public:
     };
 
     auto const pushFeaturePoints = [&pushPoint](FeatureType & ft) {
-      if (ft.GetFeatureType() != feature::GEOM_LINE)
+      if (ft.GetGeomType() != feature::GeomType::Line)
         return;
       auto const roadClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
       if (roadClass == ftypes::HighwayClass::Error ||
@@ -169,7 +169,7 @@ public:
     std::vector<FeaturePoint> points;
     m2::PointD pointOnFt;
     indexer::ForEachFeatureAtPoint(m_dataSource, [&points, &p, &pointOnFt](FeatureType & ft) {
-        if (ft.GetFeatureType() != feature::GEOM_LINE)
+        if (ft.GetGeomType() != feature::GeomType::Line)
           return;
 
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

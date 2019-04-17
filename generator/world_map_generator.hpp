@@ -297,10 +297,10 @@ public:
       if (PushFeature(fb) || !forcePushToWorld)
         return;
 
-      // We push GEOM_POINT with all the same tags, names and center instead of GEOM_WAY/GEOM_AREA
+      // We push Point with all the same tags, names and center instead of GEOM_WAY/Area
       // because we do not need geometry for invisible features (just search index and placepage
       // data) and want to avoid size checks applied to areas.
-      if (originalFeature.GetGeomType() != feature::GEOM_POINT)
+      if (originalFeature.GetGeomType() != feature::GeomType::Point)
         generator::TransformAreaToPoint(originalFeature);
 
       m_worldBucket.PushSure(originalFeature);
@@ -317,14 +317,14 @@ public:
   {
     switch (fb.GetGeomType())
     {
-    case feature::GEOM_LINE:
+    case feature::GeomType::Line:
     {
       MergedFeatureBuilder1 * p = m_typesCorrector(fb);
       if (p)
         m_merger(p);
       return false;
     }
-    case feature::GEOM_AREA:
+    case feature::GeomType::Area:
     {
       // This constant is set according to size statistics.
       // Added approx 4Mb of data to the World.mwm

@@ -75,7 +75,7 @@ namespace stats
       double len = 0.0;
       double area = 0.0;
 
-      if (f.GetFeatureType() == feature::GEOM_LINE)
+      if (f.GetGeomType() == feature::GeomType::Line)
       {
         m2::PointD lastPoint;
         bool firstPoint = true;
@@ -88,7 +88,7 @@ namespace stats
           lastPoint = pt;
         }, FeatureType::BEST_GEOMETRY);
       }
-      else if (f.GetFeatureType() == feature::GEOM_AREA)
+      else if (f.GetGeomType() == feature::GeomType::Area)
       {
         f.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
         {
@@ -96,7 +96,7 @@ namespace stats
         }, FeatureType::BEST_GEOMETRY);
       }
 
-      m_info.m_byGeomType[f.GetFeatureType()].Add(allSize, len, area);
+      m_info.m_byGeomType[f.GetGeomType()].Add(allSize, len, area);
 
       f.ForEachType([this, allSize, len, area](uint32_t type)
       {
@@ -123,12 +123,12 @@ namespace stats
     std::cout << endl;
   }
 
-  std::string GetKey(EGeomType type)
+  std::string GetKey(GeomType type)
   {
     switch (type)
     {
-    case GEOM_LINE: return "Line";
-    case GEOM_AREA: return "Area";
+    case GeomType::Line: return "Line";
+    case GeomType::Area: return "Area";
     default: return "Point";
     }
   }

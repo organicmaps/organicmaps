@@ -302,7 +302,7 @@ double IRoadGraph::GetSpeedKMpH(Edge const & edge, SpeedParams const & speedPara
 void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
 {
   if (edge.IsFake())
-    types = feature::TypesHolder(feature::GEOM_LINE);
+    types = feature::TypesHolder(feature::GeomType::Line);
   else
     GetFeatureTypes(edge.GetFeatureId(), types);
 }

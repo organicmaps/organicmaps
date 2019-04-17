@@ -401,7 +401,7 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
 
 XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
 {
-  bool const isPoint = object.GetGeomType() == feature::GEOM_POINT;
+  bool const isPoint = object.GetGeomType() == feature::GeomType::Point;
   XMLFeature toFeature(isPoint ? XMLFeature::Type::Node : XMLFeature::Type::Way);
 
   if (isPoint)

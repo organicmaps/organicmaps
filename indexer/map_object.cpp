@@ -76,12 +76,12 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
   m_featureID = ft.GetID();
-  m_geomType = ft.GetFeatureType();
-  if (m_geomType == feature::GEOM_AREA)
+  m_geomType = ft.GetGeomType();
+  if (m_geomType == feature::GeomType::Area)
   {
     m_triangles = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
   }
-  else if (m_geomType == feature::GEOM_LINE)
+  else if (m_geomType == feature::GeomType::Line)
   {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     m_points.reserve(ft.GetPointsCount());
@@ -236,7 +236,7 @@ string MapObject::GetAirportIata() const
 }
 
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }
-bool MapObject::IsPointType() const { return m_geomType == feature::EGeomType::GEOM_POINT; }
+bool MapObject::IsPointType() const { return m_geomType == feature::GeomType::Point; }
 bool MapObject::IsBuilding() const { return ftypes::IsBuildingChecker::Instance()(m_types); }
 
 }  // namespace osm

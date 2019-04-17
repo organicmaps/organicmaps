@@ -142,7 +142,7 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
   auto equalCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
     // Note! Do compare for distance when filtering linear objects.
     // Otherwise we will skip the results for different parts of the map.
-    return r1.GetGeomType() == feature::GEOM_LINE && r1.IsEqualCommon(r2) &&
+    return r1.GetGeomType() == feature::GeomType::Line && r1.IsEqualCommon(r2) &&
            PointDistance(r1.GetCenter(), r2.GetCenter()) < kDistSameStreetMeters;
   };
 

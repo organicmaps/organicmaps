@@ -81,7 +81,7 @@ public:
     if (!ft)
       return;
 
-    if (ft->GetFeatureType() != feature::GEOM_POINT)
+    if (ft->GetGeomType() != feature::GeomType::Point)
       return;
 
     using namespace ftypes;

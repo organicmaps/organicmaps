@@ -26,7 +26,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
   auto count = 0;
   forEach(
       [&fid, &count](FeatureType const & ft) {
-        if (ft.GetFeatureType() != feature::GEOM_POINT)
+        if (ft.GetGeomType() != feature::GeomType::Point)
           return;
         // TODO(mgsergio): Check that ft and xml correspond to the same feature.
         fid = ft.GetID();
@@ -64,7 +64,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
 
   forEach(
       [&fid, &geometry, &count, &bestScore](FeatureType & ft) {
-        if (ft.GetFeatureType() != feature::GEOM_AREA)
+        if (ft.GetGeomType() != feature::GeomType::Area)
           return;
         ++count;
         auto ftGeometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);

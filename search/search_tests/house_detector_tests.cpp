@@ -36,7 +36,7 @@ public:
 
   void operator()(FeatureType & f)
   {
-    if (f.GetFeatureType() == feature::GEOM_LINE)
+    if (f.GetGeomType() == feature::GeomType::Line)
     {
       string name;
       if (f.GetName(0, name) &&
@@ -78,7 +78,7 @@ class CollectStreetIDs
 public:
   void operator()(FeatureType & f)
   {
-    if (f.GetFeatureType() == feature::GEOM_LINE)
+    if (f.GetGeomType() == feature::GeomType::Line)
     {
       string name;
       if (f.GetName(0, name) && ftypes::IsWayChecker::Instance()(f))

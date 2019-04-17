@@ -69,8 +69,7 @@ bool IsMiddleTunnel(int const layer, double const depth)
 class Aggregator
 {
 public:
-  Aggregator(FeatureType & f, feature::EGeomType const type, int const zoomLevel,
-             int const keyCount)
+  Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, int const keyCount)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
     , m_auxCaptionFound(false)
@@ -140,7 +139,7 @@ private:
     if (m_depthLayer == feature::LAYER_TRANSPARENT_TUNNEL)
       m_depthLayer = feature::LAYER_EMPTY;
 
-    if (m_geomType == feature::GEOM_POINT)
+    if (m_geomType == feature::GeomType::Point)
       m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
     else
     {
@@ -150,7 +149,7 @@ private:
   }
 
   FeatureType & m_f;
-  feature::EGeomType m_geomType;
+  feature::GeomType m_geomType;
   int const m_zoomLevel;
   double m_priorityModifier;
   int m_depthLayer;
@@ -183,10 +182,10 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
-                              feature::EGeomType const type, drule::text_type_t const mainTextType,
+                              feature::GeomType const type, drule::text_type_t const mainTextType,
                               bool const auxCaptionExists)
 {
-  if (auxCaptionExists || type == feature::GEOM_LINE)
+  if (auxCaptionExists || type == feature::GeomType::Line)
     f.GetPreferredNames(true /* allowTranslit */, deviceLang, m_mainText, m_auxText);
   else
     f.GetReadableName(true /* allowTranslit */, deviceLang, m_mainText);
@@ -340,17 +339,17 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   if (geomType.second)
     s.RaiseCoastlineFlag();
 
-  auto const mainGeomType = feature::EGeomType(geomType.first);
+  auto const mainGeomType = feature::GeomType(geomType.first);
 
   switch (mainGeomType)
   {
-  case feature::GEOM_POINT:
+  case feature::GeomType::Point:
     s.RaisePointStyleFlag();
     break;
-  case feature::GEOM_LINE :
+  case feature::GeomType::Line :
     s.RaiseLineStyleFlag();
     break;
-  case feature::GEOM_AREA :
+  case feature::GeomType::Area :
     s.RaiseAreaStyleFlag();
     break;
   default:
@@ -384,7 +383,7 @@ double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
-  auto const mainGeomType = feature::EGeomType(geomType.first);
+  auto const mainGeomType = feature::GeomType(geomType.first);
 
   Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
   aggregator.AggregateKeys(keys);

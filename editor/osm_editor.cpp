@@ -46,7 +46,7 @@
 using namespace std;
 
 using namespace pugi;
-using feature::EGeomType;
+using feature::GeomType;
 using feature::Metadata;
 using editor::XMLFeature;
 
@@ -141,8 +141,9 @@ bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
 
 XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject & o)
 {
-  ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GEOM_LINE, ("Line features are not supported yet."));
-  if (o.GetGeomType() == feature::GEOM_POINT)
+  ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GeomType::Line,
+                   ("Line features are not supported yet."));
+  if (o.GetGeomType() == feature::GeomType::Point)
     return cw.GetMatchingNodeFeatureFromOSM(o.GetMercator());
 
   auto geometry = o.GetTriangesAsPoints();

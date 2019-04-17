@@ -40,7 +40,7 @@ public:
 
 struct CaptionDescription
 {
-  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel, feature::EGeomType const type,
+  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel, feature::GeomType const type,
             drule::text_type_t const mainTextType, bool const auxCaptionExists);
 
   std::string const & GetMainText() const;

@@ -54,7 +54,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 {
   if (edge.IsFake())
   {
-    types = feature::TypesHolder(feature::GEOM_LINE);
+    types = feature::TypesHolder(feature::GeomType::Line);
     return;
   }
 
@@ -67,7 +67,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
     return;
   }
 
-  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
+  ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
   types = feature::TypesHolder(*ft);
 }
 

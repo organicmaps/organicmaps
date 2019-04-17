@@ -138,7 +138,7 @@ private:
       if (!buildingFt)
         continue;
 
-      if (buildingFt->GetFeatureType() == feature::GEOM_POINT)
+      if (buildingFt->GetGeomType() == feature::GeomType::Point)
       {
         auto const center = feature::GetCenter(*buildingFt, FeatureType::WORST_GEOMETRY);
         buildingRects.emplace_back(

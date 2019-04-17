@@ -66,7 +66,7 @@ public:
 m2::PointD FindCenter(FeatureType & f)
 {
   ClosestPoint closest(f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center());
-  if (f.GetFeatureType() == feature::GEOM_AREA)
+  if (f.GetGeomType() == feature::GeomType::Area)
   {
     f.ForEachTriangle([&closest](m2::PointD const & p1, m2::PointD const & p2,
                                  m2::PointD const & p3) { closest((p1 + p2 + p3) / 3); },
@@ -208,7 +208,7 @@ public:
     string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
     if ((!f.HasName() && operatr.empty()) ||
-        (f.GetFeatureType() == feature::GEOM_LINE && category != "highway-pedestrian") ||
+        (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") ||
         category.empty())
     {
       return;

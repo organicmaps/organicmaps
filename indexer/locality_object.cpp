@@ -12,16 +12,16 @@ void LocalityObject::Deserialize(char const * data)
   ArrayByteSource src(data);
   serial::GeometryCodingParams cp = {};
   ReadPrimitiveFromSource(src, m_id);
-  uint8_t type;
+  feature::GeomType type;
   ReadPrimitiveFromSource(src, type);
 
-  if (type == feature::GEOM_POINT)
+  if (type == feature::GeomType::Point)
   {
     m_points.push_back(serial::LoadPoint(src, cp));
     return;
   }
 
-  ASSERT_EQUAL(type, feature::GEOM_AREA, ("Only supported types are GEOM_POINT and GEOM_AREA."));
+  ASSERT_EQUAL(type, feature::GeomType::Area, ("Only supported types are Point and Area."));
   uint32_t trgCount;
   ReadPrimitiveFromSource(src, trgCount);
   CHECK_GREATER(trgCount, 0, ());

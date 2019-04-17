@@ -149,11 +149,11 @@ class AccumulatorEtalon : public AccumulatorBase
     IntersectCheck check(m_rect);
 
     using namespace feature;
-    switch (f.GetFeatureType())
+    switch (f.GetGeomType())
     {
-    case GEOM_POINT: check.TestPoint(f.GetCenter()); break;
-    case GEOM_LINE: f.ForEachPoint(check, m_scale); break;
-    case GEOM_AREA: f.ForEachTriangle(check, m_scale); break;
+    case GeomType::Point: check.TestPoint(f.GetCenter()); break;
+    case GeomType::Line: f.ForEachPoint(check, m_scale); break;
+    case GeomType::Area: f.ForEachTriangle(check, m_scale); break;
     default:
       CHECK ( false, () );
     }

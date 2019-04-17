@@ -147,7 +147,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
     types.push_back(c.GetTypeByPath({ "building" }));
     types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
-    TEST(feature::RemoveUselessTypes(types, feature::GEOM_AREA), ());
+    TEST(feature::RemoveUselessTypes(types, feature::GeomType::Area), ());
     TEST_EQUAL(types.size(), 2, ());
   }
 
@@ -156,7 +156,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
     types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 
-    TEST(feature::RemoveUselessTypes(types, feature::GEOM_AREA, true /* emptyName */), ());
+    TEST(feature::RemoveUselessTypes(types, feature::GeomType::Area, true /* emptyName */), ());
     TEST_EQUAL(types.size(), 1, ());
     TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
   }

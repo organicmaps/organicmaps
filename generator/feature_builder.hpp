@@ -53,11 +53,11 @@ public:
 
   /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(Geometry const & holes);
-  void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
+  void SetArea() { m_params.SetGeomType(feature::GeomType::Area); }
 
-  bool IsPoint() const { return (GetGeomType() == feature::GEOM_POINT); }
-  bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
-  bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
+  bool IsPoint() const { return (GetGeomType() == feature::GeomType::Point); }
+  bool IsLine() const { return (GetGeomType() == feature::GeomType::Line); }
+  bool IsArea() const { return (GetGeomType() == feature::GeomType::Area); }
 
   void AddPolygon(std::vector<m2::PointD> & poly);
 
@@ -69,7 +69,7 @@ public:
   feature::Metadata & GetMetadata() { return m_params.GetMetadata(); }
   Geometry const & GetGeometry() const { return m_polygons; }
   PointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
-  feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
+  feature::GeomType GetGeomType() const { return m_params.GetGeomType(); }
 
   void AddType(uint32_t type) { m_params.AddType(type); }
   bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
@@ -138,7 +138,7 @@ public:
   template <class ToDo>
   void ForEachGeometryPointEx(ToDo & toDo) const
   {
-    if (m_params.GetGeomType() == feature::GEOM_POINT)
+    if (m_params.GetGeomType() == feature::GeomType::Point)
       toDo(m_center);
     else
     {

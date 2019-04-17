@@ -58,7 +58,7 @@ namespace feature
     using Types = std::array<uint32_t, kMaxTypesCount>;
 
     TypesHolder() = default;
-    explicit TypesHolder(EGeomType geoType) : m_geoType(geoType) {}
+    explicit TypesHolder(GeomType geomType) : m_geomType(geomType) {}
     explicit TypesHolder(FeatureType & f);
 
     void Assign(uint32_t type)
@@ -75,9 +75,7 @@ namespace feature
         m_types[m_size++] = type;
     }
 
-    /// @name Selectors.
-    //@{
-    EGeomType GetGeoType() const { return m_geoType; }
+    GeomType GetGeomType() const { return m_geomType; }
 
     size_t Size() const { return m_size; }
     bool Empty() const { return (m_size == 0); }
@@ -94,7 +92,6 @@ namespace feature
     }
 
     bool Has(uint32_t t) const { return std::find(begin(), end(), t) != end(); }
-    //@}
 
     template <typename Fn>
     bool RemoveIf(Fn && fn)
@@ -122,7 +119,7 @@ namespace feature
     Types m_types;
     size_t m_size = 0;
 
-    EGeomType m_geoType = GEOM_UNDEFINED;
+    GeomType m_geomType = GeomType::Undefined;
   };
 
   std::string DebugPrint(TypesHolder const & holder);
@@ -263,9 +260,9 @@ public:
   }
 
   bool IsValid() const { return !m_types.empty(); }
-  void SetGeomType(feature::EGeomType t);
+  void SetGeomType(feature::GeomType t);
   void SetGeomTypePointEx();
-  feature::EGeomType GetGeomType() const;
+  feature::GeomType GetGeomType() const;
 
   void AddType(uint32_t t) { m_types.push_back(t); }
 

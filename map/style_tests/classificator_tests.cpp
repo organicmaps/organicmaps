@@ -61,11 +61,11 @@ namespace
 class DoCheckStyles
 {
   Classificator const & m_c;
-  EGeomType m_geomType;
+  GeomType m_geomType;
   int m_rules;
 
 public:
-  DoCheckStyles(Classificator const & c, EGeomType geomType, int rules)
+  DoCheckStyles(Classificator const & c, GeomType geomType, int rules)
     : m_c(c), m_geomType(geomType), m_rules(rules)
   {
   }
@@ -86,8 +86,8 @@ public:
   }
 };
 
-void ForEachObject(Classificator const & c, vector<string> const & path,
-                   EGeomType geomType, int rules)
+void ForEachObject(Classificator const & c, vector<string> const & path, GeomType geomType,
+                   int rules)
 {
   uint32_t const type = c.GetTypeByPath(path);
   ClassifObject const * pObj = c.GetObject(type);
@@ -97,8 +97,7 @@ void ForEachObject(Classificator const & c, vector<string> const & path,
   pObj->ForEachObjectInTree(doCheck, type);
 }
 
-void ForEachObject(Classificator const & c, string const & name,
-                   EGeomType geomType, int rules)
+void ForEachObject(Classificator const & c, string const & name, GeomType geomType, int rules)
 {
   vector<string> path;
   strings::Tokenize(name, "-", base::MakeBackInsertFunctor(path));
@@ -107,12 +106,12 @@ void ForEachObject(Classificator const & c, string const & name,
 
 void CheckPointStyles(Classificator const & c, string const & name)
 {
-  ForEachObject(c, name, GEOM_POINT, RULE_CAPTION | RULE_SYMBOL);
+  ForEachObject(c, name, GeomType::Point, RULE_CAPTION | RULE_SYMBOL);
 }
 
 void CheckLineStyles(Classificator const & c, string const & name)
 {
-  ForEachObject(c, name, GEOM_LINE, RULE_PATH_TEXT);
+  ForEachObject(c, name, GeomType::Line, RULE_PATH_TEXT);
 }
 
 }  // namespace
@@ -154,7 +153,7 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types, drule::rule_
   pair<int, int> res(numeric_limits<int>::max(), numeric_limits<int>::min());
 
   drule::KeysT keys;
-  feature::GetDrawRule(types, level, feature::GEOM_AREA, keys);
+  feature::GetDrawRule(types, level, feature::GeomType::Area, keys);
 
   for (size_t i = 0; i < keys.size(); ++i)
   {

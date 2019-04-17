@@ -49,15 +49,15 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!feature)
     return;
 
-  bool const isStreet =
-      feature->GetFeatureType() == feature::GEOM_LINE && ftypes::IsWayChecker::Instance()(*feature);
+  bool const isStreet = feature->GetGeomType() == feature::GeomType::Line &&
+                        ftypes::IsWayChecker::Instance()(*feature);
   bool const isSquareOrSuburb = ftypes::IsSquareChecker::Instance()(*feature) ||
                                 ftypes::IsSuburbChecker::Instance()(*feature);
   if (!isStreet && !isSquareOrSuburb)
     return;
 
   vector<m2::PointD> points;
-  if (feature->GetFeatureType() == feature::GEOM_AREA)
+  if (feature->GetGeomType() == feature::GeomType::Area)
   {
     points = feature->GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
   }

@@ -652,7 +652,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       continue;
 
     auto addRegionMaps = [&](size_t maxCount, Region::Type type, size_t & count) {
-      if (count < maxCount && ft->GetFeatureType() == feature::GEOM_POINT)
+      if (count < maxCount && ft->GetGeomType() == feature::GeomType::Point)
       {
         string affiliation;
         if (!GetAffiliationName(*ft, affiliation))
@@ -680,7 +680,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     {
     case Model::TYPE_CITY:
     {
-      if (numCities < kMaxNumCities && ft->GetFeatureType() == feature::GEOM_POINT)
+      if (numCities < kMaxNumCities && ft->GetGeomType() == feature::GeomType::Point)
       {
         ++numCities;
 

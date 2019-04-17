@@ -2237,15 +2237,15 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
   bool haveBuilding = false;
   indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&](FeatureType & ft)
   {
-    switch (ft.GetFeatureType())
+    switch (ft.GetGeomType())
     {
-    case feature::GEOM_POINT:
+    case feature::GeomType::Point:
       poi = ft.GetID();
       break;
-    case feature::GEOM_LINE:
+    case feature::GeomType::Line:
       line = ft.GetID();
       break;
-    case feature::GEOM_AREA:
+    case feature::GeomType::Area:
       // Buildings have higher priority over other types.
       if (haveBuilding)
         return;
@@ -2255,8 +2255,8 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
       area = ft.GetID();
       haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
       break;
-    case feature::GEOM_UNDEFINED:
-      ASSERT(false, ("case feature::GEOM_UNDEFINED"));
+    case feature::GeomType::Undefined:
+      ASSERT(false, ("case feature::Undefined"));
       break;
     }
   }, mercator);
@@ -2446,7 +2446,7 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
     m_model.ForEachFeature(rect, [&](FeatureType & ft)
     {
       if (!featureId.IsValid() &&
-          ft.GetFeatureType() == feature::GEOM_AREA &&
+        ft.GetGeomType() == feature::GeomType::Area &&
           ftypes::IsBuildingChecker::Instance()(ft) &&
           ft.GetLimitRect(kScale).IsPointInside(mercator) &&
           feature::GetMinDistanceMeters(ft, mercator) == 0.0)
@@ -3474,7 +3474,7 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
   size_t counter = 0;
   GetDataSource().ForEachInRect(
       [this, &rect, &cityRoads, &counter](FeatureType & ft) {
-        if (ft.GetFeatureType() != feature::GEOM_LINE)
+        if (ft.GetGeomType() != feature::GeomType::Line)
           return;
 
         auto const & mwmId = ft.GetID().m_mwmId;

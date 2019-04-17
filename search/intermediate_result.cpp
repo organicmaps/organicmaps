@@ -116,7 +116,7 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   , m_types(f)
   , m_str(displayName)
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? TYPE_BUILDING : TYPE_FEATURE)
-  , m_geomType(f.GetFeatureType())
+  , m_geomType(f.GetGeomType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());

@@ -201,21 +201,21 @@ FeatureType::FeatureType(osm::MapObject const & emo)
 
   switch (emo.GetGeomType())
   {
-  case feature::GEOM_UNDEFINED:
-    // It is not possible because of FeatureType::GetFeatureType() never returns GEOM_UNDEFINED.
+  case feature::GeomType::Undefined:
+    // It is not possible because of FeatureType::GetGeomType() never returns GeomType::Undefined.
     UNREACHABLE();
-  case feature::GEOM_POINT:
+  case feature::GeomType::Point:
     headerGeomType = HeaderGeomType::Point;
     m_center = emo.GetMercator();
     m_limitRect.Add(m_center);
     break;
-  case feature::GEOM_LINE:
+  case feature::GeomType::Line:
     headerGeomType = HeaderGeomType::Line;
     m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
     for (auto const & p : m_points)
       m_limitRect.Add(p);
     break;
-  case feature::GEOM_AREA:
+  case feature::GeomType::Area:
     headerGeomType = HeaderGeomType::Area;
     m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
     for (auto const & p : m_triangles)
@@ -246,16 +246,16 @@ FeatureType::FeatureType(osm::MapObject const & emo)
   m_id = emo.GetID();
 }
 
-feature::EGeomType FeatureType::GetFeatureType() const
+feature::GeomType FeatureType::GetGeomType() const
 {
   // FeatureType::FeatureType(osm::MapObject const & emo) expects
-  // that GEOM_UNDEFINED is never be returned.
+  // that GeomType::Undefined is never be returned.
   auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_GEOTYPE_MASK);
   switch (headerGeomType)
   {
-  case HeaderGeomType::Line: return GEOM_LINE;
-  case HeaderGeomType::Area: return GEOM_AREA;
-  default: return GEOM_POINT;
+  case HeaderGeomType::Line: return GeomType::Line;
+  case HeaderGeomType::Area: return GeomType::Area;
+  default: return GeomType::Point;
   }
 }
 
@@ -302,7 +302,7 @@ void FeatureType::ParseCommon()
   uint8_t const h = Header(m_data);
   m_params.Read(source, h);
 
-  if (GetFeatureType() == GEOM_POINT)
+  if (GetGeomType() == GeomType::Point)
   {
     m_center = serial::LoadPoint(source, m_loadInfo->GetDefGeometryCodingParams());
     m_limitRect.Add(m_center);
@@ -314,7 +314,7 @@ void FeatureType::ParseCommon()
 
 m2::PointD FeatureType::GetCenter()
 {
-  ASSERT_EQUAL(GetFeatureType(), feature::GEOM_POINT, ());
+  ASSERT_EQUAL(GetGeomType(), feature::GeomType::Point, ());
   ParseCommon();
   return m_center;
 }
@@ -405,7 +405,7 @@ void FeatureType::ResetGeometry()
   m_points.clear();
   m_triangles.clear();
 
-  if (GetFeatureType() != GEOM_POINT)
+  if (GetGeomType() != GeomType::Point)
     m_limitRect = m2::RectD();
 
   m_parsed.m_header2 = m_parsed.m_points = m_parsed.m_triangles = false;
@@ -574,21 +574,21 @@ string FeatureType::DebugString(int scale)
   res += m_params.DebugString();
 
   ParseGeometryAndTriangles(scale);
-  switch (GetFeatureType())
+  switch (GetGeomType())
   {
-  case GEOM_POINT: res += (" Center:" + DebugPrint(m_center)); break;
+  case GeomType::Point: res += (" Center:" + DebugPrint(m_center)); break;
 
-  case GEOM_LINE:
+  case GeomType::Line:
     res += " Points:";
     Points2String(res, m_points);
     break;
 
-  case GEOM_AREA:
+  case GeomType::Area:
     res += " Triangles:";
     Points2String(res, m_triangles);
     break;
 
-  case GEOM_UNDEFINED:
+  case GeomType::Undefined:
     ASSERT(false, ("Assume that we have valid feature always"));
     break;
   }
@@ -600,7 +600,7 @@ m2::RectD FeatureType::GetLimitRect(int scale)
 {
   ParseGeometryAndTriangles(scale);
 
-  if (m_triangles.empty() && m_points.empty() && (GetFeatureType() != GEOM_POINT))
+  if (m_triangles.empty() && m_points.empty() && (GetGeomType() != GeomType::Point))
   {
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
@@ -615,10 +615,10 @@ bool FeatureType::IsEmptyGeometry(int scale)
 {
   ParseGeometryAndTriangles(scale);
 
-  switch (GetFeatureType())
+  switch (GetGeomType())
   {
-  case GEOM_AREA: return m_triangles.empty();
-  case GEOM_LINE: return m_points.empty();
+  case GeomType::Area: return m_triangles.empty();
+  case GeomType::Line: return m_points.empty();
   default: return false;
   }
 }

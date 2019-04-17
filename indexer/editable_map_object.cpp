@@ -411,10 +411,10 @@ void EditableMapObject::SetMercator(m2::PointD const & center) { m_mercator = ce
 
 void EditableMapObject::SetType(uint32_t featureType)
 {
-  if (m_types.GetGeoType() == feature::EGeomType::GEOM_UNDEFINED)
+  if (m_types.GetGeomType() == feature::GeomType::Undefined)
   {
     // Support only point type for newly created features.
-    m_types = feature::TypesHolder(feature::EGeomType::GEOM_POINT);
+    m_types = feature::TypesHolder(feature::GeomType::Point);
     m_types.Assign(featureType);
   }
   else
@@ -550,7 +550,7 @@ void EditableMapObject::SetOpeningHours(string const & openingHours)
   m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);
 }
 
-void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }
+void EditableMapObject::SetPointType() { m_geomType = feature::GeomType::Point; }
 
 void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
 {

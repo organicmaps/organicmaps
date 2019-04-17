@@ -59,7 +59,7 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
                                                 std::function<void(FeatureBuilder1 &)> const fn) const
 {
   // Turn a hotel into a simple building.
-  if (fb.GetGeomType() == feature::GEOM_AREA)
+  if (fb.GetGeomType() == feature::GeomType::Area)
   {
     // Remove all information about the hotel.
     auto & meta = fb.GetMetadata();

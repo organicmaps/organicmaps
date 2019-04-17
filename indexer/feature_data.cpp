@@ -36,7 +36,7 @@ string DebugPrint(TypesHolder const & holder)
   return s;
 }
 
-TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geoType(f.GetFeatureType())
+TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType())
 {
   f.ForEachType([this](uint32_t type)
   {
@@ -381,13 +381,13 @@ string FeatureParams::GetStreet() const
   return m_addrTags.Get(AddressData::STREET);
 }
 
-void FeatureParams::SetGeomType(feature::EGeomType t)
+void FeatureParams::SetGeomType(feature::GeomType t)
 {
   switch (t)
   {
-  case GEOM_POINT: m_geomType = HeaderGeomType::Point; break;
-  case GEOM_LINE: m_geomType = HeaderGeomType::Line; break;
-  case GEOM_AREA: m_geomType = HeaderGeomType::Area; break;
+  case GeomType::Point: m_geomType = HeaderGeomType::Point; break;
+  case GeomType::Line: m_geomType = HeaderGeomType::Line; break;
+  case GeomType::Area: m_geomType = HeaderGeomType::Area; break;
   default: ASSERT(false, ());
   }
 }
@@ -401,14 +401,14 @@ void FeatureParams::SetGeomTypePointEx()
   m_geomType = HeaderGeomType::PointEx;
 }
 
-feature::EGeomType FeatureParams::GetGeomType() const
+feature::GeomType FeatureParams::GetGeomType() const
 {
   CheckValid();
   switch (m_geomType)
   {
-  case HeaderGeomType::Line: return GEOM_LINE;
-  case HeaderGeomType::Area: return GEOM_AREA;
-  default: return GEOM_POINT;
+  case HeaderGeomType::Line: return GeomType::Line;
+  case HeaderGeomType::Area: return GeomType::Area;
+  default: return GeomType::Point;
   }
 }
 

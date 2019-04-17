@@ -33,11 +33,11 @@ namespace check_model
       m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
       CHECK(r.IsValid(), ());
 
-      EGeomType const type = ft.GetFeatureType();
-      if (type == GEOM_LINE)
+      GeomType const type = ft.GetGeomType();
+      if (type == GeomType::Line)
         CHECK_GREATER(ft.GetPointsCount(), 1, ());
 
-      IsDrawableLike(vTypes, ft.GetFeatureType());
+      IsDrawableLike(vTypes, ft.GetGeomType());
     });
 
     LOG(LINFO, ("OK"));

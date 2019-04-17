@@ -60,9 +60,10 @@ m2::PointD FeatureBuilder1::GetKeyPoint() const
 {
   switch (GetGeomType())
   {
-  case GEOM_POINT:
+  case GeomType::Point:
     return m_center;
-  case GEOM_LINE: case GEOM_AREA:
+  case GeomType::Line:
+  case GeomType::Area:
     return GetGeometryCenter();
   default:
     CHECK(false, ());
@@ -73,7 +74,7 @@ m2::PointD FeatureBuilder1::GetKeyPoint() const
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
   m_center = p;
-  m_params.SetGeomType(GEOM_POINT);
+  m_params.SetGeomType(GeomType::Point);
   m_limitRect.Add(p);
 }
 
@@ -102,7 +103,7 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 
 void FeatureBuilder1::SetLinear(bool reverseGeometry)
 {
-  m_params.SetGeomType(feature::GEOM_LINE);
+  m_params.SetGeomType(feature::GeomType::Line);
   m_polygons.resize(1);
 
   if (reverseGeometry)
@@ -115,7 +116,7 @@ void FeatureBuilder1::SetLinear(bool reverseGeometry)
 
 void FeatureBuilder1::SetAreaAddHoles(FeatureBuilder1::Geometry const & holes)
 {
-  m_params.SetGeomType(GEOM_AREA);
+  m_params.SetGeomType(GeomType::Area);
   m_polygons.resize(1);
 
   if (holes.empty()) return;
@@ -226,7 +227,7 @@ bool FeatureBuilder1::PreSerialize()
 
   switch (m_params.GetGeomType())
   {
-  case GEOM_POINT:
+  case GeomType::Point:
     // Store house number like HEADER_GEOM_POINT_EX.
     if (!m_params.house.IsEmpty())
     {
@@ -241,7 +242,7 @@ bool FeatureBuilder1::PreSerialize()
     m_params.ref.clear();
     break;
 
-  case GEOM_LINE:
+  case GeomType::Line:
   {
     // We need refs for road's numbers.
     if (!IsRoad())
@@ -252,7 +253,7 @@ bool FeatureBuilder1::PreSerialize()
     break;
   }
 
-  case GEOM_AREA:
+  case GeomType::Area:
     m_params.rank = 0;
     m_params.ref.clear();
     break;
@@ -325,7 +326,7 @@ bool FeatureBuilder1::operator==(FeatureBuilder1 const & fb) const
   if (m_coastCell != fb.m_coastCell)
     return false;
 
-  if (m_params.GetGeomType() == GEOM_POINT && !IsEqual(m_center, fb.m_center))
+  if (m_params.GetGeomType() == GeomType::Point && !IsEqual(m_center, fb.m_center))
     return false;
 
   if (!IsEqual(m_limitRect, fb.m_limitRect))
@@ -350,12 +351,12 @@ bool FeatureBuilder1::CheckValid() const
 {
   CHECK(m_params.CheckValid(), (*this));
 
-  EGeomType const type = m_params.GetGeomType();
+  GeomType const type = m_params.GetGeomType();
 
-  if (type == GEOM_LINE)
+  if (type == GeomType::Line)
     CHECK(GetOuterGeometry().size() >= 2, (*this));
 
-  if (type == GEOM_AREA)
+  if (type == GeomType::Area)
     for (PointSeq const & points : m_polygons)
       CHECK(points.size() >= 3, (*this));
 
@@ -369,7 +370,7 @@ void FeatureBuilder1::SerializeBase(Buffer & data, serial::GeometryCodingParams 
 
   m_params.Write(sink, saveAddInfo);
 
-  if (m_params.GetGeomType() == GEOM_POINT)
+  if (m_params.GetGeomType() == GeomType::Point)
     serial::SavePoint(sink, m_center, params);
 }
 
@@ -385,7 +386,7 @@ void FeatureBuilder1::Serialize(Buffer & data) const
 
   PushBackByteSink<Buffer> sink(data);
 
-  if (m_params.GetGeomType() != GEOM_POINT)
+  if (m_params.GetGeomType() != GeomType::Point)
   {
     WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
 
@@ -442,8 +443,8 @@ void FeatureBuilder1::Deserialize(Buffer & data)
 
   m_limitRect.MakeEmpty();
 
-  EGeomType const type = m_params.GetGeomType();
-  if (type == GEOM_POINT)
+  GeomType const type = m_params.GetGeomType();
+  if (type == GeomType::Point)
   {
     m_center = serial::LoadPoint(source, cp);
     m_limitRect.Add(m_center);
@@ -550,9 +551,9 @@ string DebugPrint(FeatureBuilder1 const & f)
 
   switch (f.GetGeomType())
   {
-  case GEOM_POINT: out << DebugPrint(f.m_center); break;
-  case GEOM_LINE: out << "line with " << f.GetPointsCount() << " points"; break;
-  case GEOM_AREA: out << "area with " << f.GetPointsCount() << " points"; break;
+  case GeomType::Point: out << DebugPrint(f.m_center); break;
+  case GeomType::Line: out << "line with " << f.GetPointsCount() << " points"; break;
+  case GeomType::Area: out << "area with " << f.GetPointsCount() << " points"; break;
   default: out << "ERROR: unknown geometry type"; break;
   }
 
@@ -591,13 +592,13 @@ string DebugPrint(FeatureBuilder2 const & f)
 bool FeatureBuilder2::PreSerializeAndRemoveUselessNames(SupportingData const & data)
 {
   // make flags actual before header serialization
-  EGeomType const geoType = m_params.GetGeomType();
-  if (geoType == GEOM_LINE)
+  GeomType const geomType = m_params.GetGeomType();
+  if (geomType == GeomType::Line)
   {
     if (data.m_ptsMask == 0 && data.m_innerPts.empty())
       return false;
   }
-  else if (geoType == GEOM_AREA)
+  else if (geomType == GeomType::Area)
   {
     if (data.m_trgMask == 0 && data.m_innerTrg.empty())
       return false;
@@ -618,13 +619,13 @@ void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const
   auto const type = m_params.GetGeomType();
   WriteToSink(sink, static_cast<uint8_t>(type));
 
-  if (type == GEOM_POINT)
+  if (type == GeomType::Point)
   {
     serial::SavePoint(sink, m_center, params);
     return;
   }
 
-  CHECK_EQUAL(type, GEOM_AREA, ("Supported types are GEOM_POINT and GEOM_AREA"));
+  CHECK_EQUAL(type, GeomType::Area, ("Supported types are Point and Area"));
 
   uint32_t trgCount = base::asserted_cast<uint32_t>(data.m_innerTrg.size());
   CHECK_GREATER(trgCount, 2, ());
@@ -652,18 +653,18 @@ void FeatureBuilder2::Serialize(SupportingData & data,
     trgCount -= 2;
   }
 
-  EGeomType const type = m_params.GetGeomType();
+  GeomType const type = m_params.GetGeomType();
 
   {
     BitWriter<PushBackByteSink<Buffer>> bitSink(sink);
 
-    if (type == GEOM_LINE)
+    if (type == GeomType::Line)
     {
       bitSink.Write(ptsCount, 4);
       if (ptsCount == 0)
         bitSink.Write(data.m_ptsMask, 4);
     }
-    else if (type == GEOM_AREA)
+    else if (type == GeomType::Area)
     {
       bitSink.Write(trgCount, 4);
       if (trgCount == 0)
@@ -671,7 +672,7 @@ void FeatureBuilder2::Serialize(SupportingData & data,
     }
   }
 
-  if (type == GEOM_LINE)
+  if (type == GeomType::Line)
   {
     if (ptsCount > 0)
     {
@@ -700,7 +701,7 @@ void FeatureBuilder2::Serialize(SupportingData & data,
       WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
-  else if (type == GEOM_AREA)
+  else if (type == GeomType::Area)
   {
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);

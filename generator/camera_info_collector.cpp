@@ -206,7 +206,7 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
 
   // Look at each segment of roads and find the closest.
   auto const updateClosestFeatureCallback = [&](FeatureType & ft) {
-    if (ft.GetFeatureType() != feature::GEOM_LINE)
+    if (ft.GetGeomType() != feature::GeomType::Line)
       return;
 
     if (!routing::IsCarRoad(feature::TypesHolder(ft)))

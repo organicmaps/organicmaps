@@ -297,7 +297,7 @@ bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoad(FeatureType & f) const
 {
-  if (f.GetFeatureType() != feature::GEOM_LINE)
+  if (f.GetGeomType() != feature::GeomType::Line)
     return false;
 
   feature::TypesHolder const types(f);

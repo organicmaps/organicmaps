@@ -99,7 +99,7 @@ void RepresentationLayer::Handle(FeatureBuilder1 & feature)
   {
     switch (geomType)
     {
-    case feature::EGeomType::GEOM_AREA:
+    case feature::GeomType::Area:
     {
       HandleArea(feature, params);
       if (CanBeLine(params))
@@ -109,7 +109,7 @@ void RepresentationLayer::Handle(FeatureBuilder1 & feature)
       }
       break;
     }
-    case feature::EGeomType::GEOM_LINE:
+    case feature::GeomType::Line:
       LayerBase::Handle(feature);
       break;
     default:
@@ -122,7 +122,7 @@ void RepresentationLayer::Handle(FeatureBuilder1 & feature)
   {
     switch (geomType)
     {
-    case feature::EGeomType::GEOM_AREA:
+    case feature::GeomType::Area:
       HandleArea(feature, params);
       break;
     default:
@@ -157,19 +157,19 @@ void RepresentationLayer::HandleArea(FeatureBuilder1 & feature, FeatureParams co
 // static
 bool RepresentationLayer::CanBeArea(FeatureParams const & params)
 {
-  return feature::IsDrawableLike(params.m_types, feature::GEOM_AREA);
+  return feature::IsDrawableLike(params.m_types, feature::GeomType::Area);
 }
 
 // static
 bool RepresentationLayer::CanBePoint(FeatureParams const & params)
 {
-  return feature::HasUsefulType(params.m_types, feature::GEOM_POINT);
+  return feature::HasUsefulType(params.m_types, feature::GeomType::Point);
 }
 
 // static
 bool RepresentationLayer::CanBeLine(FeatureParams const & params)
 {
-  return feature::HasUsefulType(params.m_types, feature::GEOM_LINE);
+  return feature::HasUsefulType(params.m_types, feature::GeomType::Line);
 }
 
 void PrepareFeatureLayer::Handle(FeatureBuilder1 & feature)
@@ -262,10 +262,10 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder1 & feature)
   {
     switch (geomType)
     {
-    case feature::EGeomType::GEOM_AREA:
+    case feature::GeomType::Area:
       LayerBase::Handle(feature);
       break;
-    case feature::EGeomType::GEOM_LINE:
+    case feature::GeomType::Line:
       LayerBase::Handle(feature);
       break;
     default:

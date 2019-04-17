@@ -100,7 +100,7 @@ public:
   Type const & GetResultType() const { return m_resultType; }
   m2::PointD GetCenter() const { return m_region.m_point; }
   double GetDistance() const { return m_distance; }
-  feature::EGeomType GetGeomType() const { return m_geomType; }
+  feature::GeomType GetGeomType() const { return m_geomType; }
   Result::Metadata GetMetadata() const { return m_metadata; }
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
@@ -140,7 +140,7 @@ private:
   double m_distance;
   Type m_resultType;
   RankingInfo m_info;
-  feature::EGeomType m_geomType;
+  feature::GeomType m_geomType;
   Result::Metadata m_metadata;
 
   // The call path in the Geocoder that leads to this result.

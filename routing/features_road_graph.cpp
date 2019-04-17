@@ -202,7 +202,7 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
   if (!ft)
     return;
 
-  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
+  ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
   types = feature::TypesHolder(*ft);
 }
 
@@ -216,7 +216,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
     if (!types.Empty())
       return;
 
-    if (ft.GetFeatureType() != feature::GEOM_POINT)
+    if (ft.GetGeomType() != feature::GeomType::Point)
       return;
 
     if (!base::AlmostEqualAbs(ft.GetCenter(), cross, routing::kPointsEqualEpsilon))
@@ -300,7 +300,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   if (!ft)
     return ri;
 
-  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
+  ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
 
   ExtractRoadInfo(featureId, *ft, GetSpeedKMpHFromFt(*ft, speedParams), ri);
   return ri;

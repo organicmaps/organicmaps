@@ -82,12 +82,12 @@ public:
 
   void ConcatChildNames(std::string & s) const;
 
-  void GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const;
+  void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
   inline std::vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
-  bool IsDrawableLike(feature::EGeomType ft, bool emptyName = false) const;
+  bool IsDrawableLike(feature::GeomType gt, bool emptyName = false) const;
 
   std::pair<int, int> GetDrawScaleRange() const;
 

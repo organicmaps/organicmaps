@@ -47,7 +47,7 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
   bool const isPOI = !name.empty() && !category.empty() &&
                      category.find("building") == std::string::npos;
 
-  if ((house.empty() && !isPOI) || fb.GetGeomType() == feature::GEOM_LINE)
+  if ((house.empty() && !isPOI) || fb.GetGeomType() == feature::GeomType::Line)
     return;
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());

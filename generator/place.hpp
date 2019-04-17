@@ -22,7 +22,7 @@ public:
   bool IsBetterThan(Place const & r) const;
 
 private:
-  bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
+  bool IsPoint() const { return (m_ft.GetGeomType() == feature::GeomType::Point); }
   static bool AreTypesEqual(uint32_t t1, uint32_t t2);
 
   FeatureBuilder1 m_ft;
