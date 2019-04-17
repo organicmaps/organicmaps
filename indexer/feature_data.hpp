@@ -42,14 +42,14 @@ namespace feature
 
   static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
 
-  enum LayerFlags
+  enum Layer
   {
-    LAYER_FLAGS_LOW = -11,
+    LAYER_LOW = -11,
 
-    LAYER_FLAGS_EMPTY = 0,
-    LAYER_FLAGS_TRANSPARENT_TUNNEL = 11,
+    LAYER_EMPTY = 0,
+    LAYER_TRANSPARENT_TUNNEL = 11,
 
-    LAYER_FLAGS_HIGH = 12
+    LAYER_HIGH = 12
   };
 
   class TypesHolder

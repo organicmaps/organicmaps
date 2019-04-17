@@ -206,7 +206,7 @@ bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 
 bool FeatureParamsBase::CheckValid() const
 {
-   CHECK(layer > LAYER_FLAGS_LOW && layer < LAYER_FLAGS_HIGH, ());
+   CHECK(layer > LAYER_LOW && layer < LAYER_HIGH, ());
    return true;
 }
 

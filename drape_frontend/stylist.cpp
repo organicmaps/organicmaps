@@ -63,7 +63,7 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
 
 bool IsMiddleTunnel(int const layer, double const depth)
 {
-  return layer != feature::LAYER_FLAGS_EMPTY && depth < 19000;
+  return layer != feature::LAYER_EMPTY && depth < 19000;
 }
 
 class Aggregator
@@ -136,8 +136,8 @@ private:
   void Init()
   {
     m_depthLayer = m_f.GetLayer();
-    if (m_depthLayer == feature::LAYER_FLAGS_TRANSPARENT_TUNNEL)
-      m_depthLayer = feature::LAYER_FLAGS_EMPTY;
+    if (m_depthLayer == feature::LAYER_TRANSPARENT_TUNNEL)
+      m_depthLayer = feature::LAYER_EMPTY;
 
     if (m_geomType == feature::GeomType::Point)
       m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
