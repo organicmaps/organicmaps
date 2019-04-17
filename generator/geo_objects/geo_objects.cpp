@@ -207,6 +207,14 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
   LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
 }
+
+void BuildStreets(RegionInfoGetter const & regionInfoGetter,
+                  std::string const & pathInGeoObjectsTmpMwm,
+                  std::ostream & streamGeoObjectsKv, bool /* verbose */)
+{
+  StreetsBuilder streetsBuilder{regionInfoGetter};
+  streetsBuilder.Build(pathInGeoObjectsTmpMwm, streamGeoObjectsKv);
+}
 }  // namespace
 
 bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
@@ -227,10 +235,9 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
   LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
 
-  StreetsBuilder streetsBuilder{regionInfoGetter};
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
-  streetsBuilder.Build(pathInGeoObjectsTmpMwm, streamGeoObjectsKv);
-  LOG(LINFO, ("Streets was built."));
+  BuildStreets(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
+  LOG(LINFO, ("Streets were built."));
 
   BuildGeoObjectsWithAddresses(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));

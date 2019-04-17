@@ -38,7 +38,7 @@ public:
 
   Json() = default;
   explicit Json(std::string_view const & s) { ParseFrom(s); }
-  explicit Json(JSONPtr const & json) : m_handle{json.get()} { }
+  explicit Json(JSONPtr && json) { m_handle.AttachNew(json.release()); }
 
   Json GetDeepCopy() const
   {
@@ -61,10 +61,10 @@ private:
   JsonHandle m_handle;
 };
 
-json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
-json_t * GetJSONOptionalField(json_t * root, char const * field);
+json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t * GetJSONOptionalField(json_t * root, std::string const & field);
+json_t * GetJSONOptionalField(json_t * root, char const * field);
 bool JSONIsNull(json_t * root);
 }  // namespace base
 

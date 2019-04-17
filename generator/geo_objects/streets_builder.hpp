@@ -9,6 +9,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <memory>
 #include <ostream>
 #include <string>
 #include <unordered_map>

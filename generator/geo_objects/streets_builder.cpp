@@ -1,6 +1,7 @@
 #include "generator/geo_objects/streets_builder.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/logging.hpp"
 
@@ -39,7 +40,11 @@ void StreetsBuilder::Build(std::string const & pathInGeoObjectsTmpMwm, std::ostr
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder1 & fb)
 {
+  if (fb.IsPoint())
+    return FindStreetRegionOwner(fb.GetKeyPoint());
+
   auto const & line = fb.GetOuterGeometry();
+  CHECK_GREATER_OR_EQUAL(line.size(), 2, ());
   auto const & startPoint = line.front();
   auto const & owner = FindStreetRegionOwner(startPoint);
   if (!owner)
@@ -103,16 +108,7 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
 // static
 bool StreetsBuilder::IsStreet(OsmElement const & element)
 {
-  if (!element.IsWay() && !element.IsRelation())
-    return false;
-
   auto const & tags = element.Tags();
-
-  auto const isHighway = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
-    return tag.key == "highway";
-  });
-  if (!isHighway)
-    return false;
 
   auto const hasName = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
     return tag.key == "name";
@@ -120,20 +116,36 @@ bool StreetsBuilder::IsStreet(OsmElement const & element)
   if (!hasName)
     return false;
 
-  return true;
+  auto const isHighway = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
+    return tag.key == "highway";
+  });
+  if (isHighway && (element.IsWay() || element.IsRelation()))
+    return true;
+
+  auto const isSquare = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
+    return tag.key == "place" && tag.value == "square";
+  });
+  if (isSquare)
+    return true;
+
+  return false;
 }
 
 // static
 bool StreetsBuilder::IsStreet(FeatureBuilder1 const & fb)
 {
-  if (!fb.IsLine() && !fb.IsArea())
+  if (fb.GetName().empty())
     return false;
 
-  static auto const highwayType = classif().GetTypeByPath({"highway"});
-  if (fb.FindType(highwayType, 1) == ftype::GetEmptyValue())
-    return false;
+  auto const & wayChecker = ftypes::IsWayChecker::Instance();
+  if (wayChecker(fb.GetTypes()) && (fb.IsLine() || fb.IsArea()))
+    return true;
 
-  return !fb.GetName().empty();
+  auto const & squareChecker = ftypes::IsSquareChecker::Instance();
+  if (squareChecker(fb.GetTypes()))
+    return true;
+
+  return false;
 }
 }  // namespace geo_objects
 }  // namespace generator
