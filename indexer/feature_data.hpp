@@ -22,12 +22,12 @@ class FeatureType;
 
 namespace feature
 {
-  enum EHeaderMask
+  enum HeaderMask
   {
     HEADER_TYPE_MASK = 7U,
     HEADER_HAS_NAME = 1U << 3,
     HEADER_HAS_LAYER = 1U << 4,
-    HEADER_GEOTYPE_MASK = 3U << 5,
+    HEADER_GEOMTYPE_MASK = 3U << 5,
     HEADER_HAS_ADDINFO = 1U << 7
   };
 
@@ -42,7 +42,7 @@ namespace feature
 
   static constexpr int kMaxTypesCount = HEADER_TYPE_MASK + 1;
 
-  enum ELayerFlags
+  enum LayerFlags
   {
     LAYER_LOW = -11,
 
@@ -162,7 +162,7 @@ struct FeatureParamsBase
 
     if (header & HEADER_HAS_ADDINFO)
     {
-      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
+      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOMTYPE_MASK);
       switch (headerGeomType)
       {
       case HeaderGeomType::Point:
@@ -192,7 +192,7 @@ struct FeatureParamsBase
 
     if (header & HEADER_HAS_ADDINFO)
     {
-      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
+      auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_GEOMTYPE_MASK);
       switch (headerGeomType)
       {
       case HeaderGeomType::Point:
@@ -317,7 +317,7 @@ public:
     using namespace feature;
 
     uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
-    m_geomType = static_cast<feature::HeaderGeomType>(header & HEADER_GEOTYPE_MASK);
+    m_geomType = static_cast<feature::HeaderGeomType>(header & HEADER_GEOMTYPE_MASK);
 
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)

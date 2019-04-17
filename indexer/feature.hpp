@@ -70,7 +70,7 @@ public:
 
   int8_t GetLayer();
 
-  std::vector<m2::PointD> GetTriangesAsPoints(int scale);
+  std::vector<m2::PointD> GetTrianglesAsPoints(int scale);
 
   void SetID(FeatureID const & id) { m_id = id; }
   FeatureID const & GetID() const { return m_id; }

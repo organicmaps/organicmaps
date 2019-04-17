@@ -250,7 +250,7 @@ feature::GeomType FeatureType::GetGeomType() const
 {
   // FeatureType::FeatureType(osm::MapObject const & emo) expects
   // that GeomType::Undefined is never be returned.
-  auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_GEOTYPE_MASK);
+  auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_GEOMTYPE_MASK);
   switch (headerGeomType)
   {
   case HeaderGeomType::Line: return GeomType::Line;
@@ -338,7 +338,7 @@ void FeatureType::ParseHeader2()
 
   uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
   BitSource bitSource(m_data + m_offsets.m_header2);
-  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
 
   if (headerGeomType == HeaderGeomType::Line)
   {
@@ -422,7 +422,7 @@ uint32_t FeatureType::ParseGeometry(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
     if (headerGeomType == HeaderGeomType::Line)
     {
       size_t const count = m_points.size();
@@ -481,7 +481,7 @@ uint32_t FeatureType::ParseTriangles(int scale)
     CHECK(m_loadInfo, ());
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOTYPE_MASK);
+    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_GEOMTYPE_MASK);
     if (headerGeomType == HeaderGeomType::Area)
     {
       if (m_triangles.empty())
@@ -636,7 +636,7 @@ m2::PointD const & FeatureType::GetPoint(size_t i) const
   return m_points[i];
 }
 
-vector<m2::PointD> FeatureType::GetTriangesAsPoints(int scale)
+vector<m2::PointD> FeatureType::GetTrianglesAsPoints(int scale)
 {
   ParseTriangles(scale);
   return {m_triangles.begin(), m_triangles.end()};

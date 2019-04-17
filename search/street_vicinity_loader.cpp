@@ -59,7 +59,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   vector<m2::PointD> points;
   if (feature->GetGeomType() == feature::GeomType::Area)
   {
-    points = feature->GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+    points = feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
   }
   else
   {

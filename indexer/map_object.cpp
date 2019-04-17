@@ -79,7 +79,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_geomType = ft.GetGeomType();
   if (m_geomType == feature::GeomType::Area)
   {
-    m_triangles = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+    m_triangles = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
   }
   else if (m_geomType == feature::GeomType::Line)
   {

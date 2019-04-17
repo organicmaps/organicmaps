@@ -67,7 +67,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
         if (ft.GetGeomType() != feature::GeomType::Area)
           return;
         ++count;
-        auto ftGeometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+        auto ftGeometry = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
 
         double score = 0.0;
         try
