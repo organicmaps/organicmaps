@@ -491,10 +491,11 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitIn
   ScreenBase tmp = GetCurrentScreen();
   if (fitInViewport)
   {
-    auto const useVisViewport = useVisibleViewport && m_visibleViewport.IsValid();
-    tmp.SetFromRects(rect, useVisViewport ? m_visibleViewport : tmp.PixelRectIn3d());
-    tmp.MatchGandP3d(rect.GlobalCenter(), useVisViewport ? m_visibleViewport.Center()
-                                                         : tmp.PixelRectIn3d().Center());
+    auto viewportRect = tmp.PixelRectIn3d();
+    if (useVisibleViewport && m_visibleViewport.IsValid())
+      viewportRect = m_visibleViewport;
+    tmp.SetFromRects(rect, viewportRect);
+    tmp.MatchGandP3d(rect.GlobalCenter(), viewportRect.Center());
   }
   else
   {

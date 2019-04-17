@@ -1253,10 +1253,10 @@ void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation, b
                                   useVisibleViewport);
 }
 
-void Framework::ShowRect(m2::AnyRectD const & rect, bool useVisibleViewport)
+void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewAnyRect(rect, true /* isAnim */, useVisibleViewport);
+    m_drapeEngine->SetModelViewAnyRect(rect, animation, useVisibleViewport);
 }
 
 void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
