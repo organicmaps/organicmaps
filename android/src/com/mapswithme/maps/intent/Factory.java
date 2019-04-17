@@ -27,6 +27,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.news.IntroductionScreenFactory;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
@@ -303,8 +304,7 @@ public class Factory
     @Override
     MapTask createIntroductionTask(@NonNull String url)
     {
-      // TODO: create task to show introduction in deeplink screen.
-      return null;
+      return new FreeGuideReadyToDownloadTask(url);
     }
 
     @NonNull
@@ -656,6 +656,25 @@ public class Factory
     {
       BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
       return true;
+    }
+  }
+
+  public static class FreeGuideReadyToDownloadTask implements MapTask
+  {
+    private static final long serialVersionUID = -6851782210156017186L;
+    @NonNull
+    private final String mUrl;
+
+    FreeGuideReadyToDownloadTask(@NonNull String url)
+    {
+      mUrl = url;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      target.showIntroductionScreenForDeeplink(mUrl, IntroductionScreenFactory.FREE_GUIDE);
+      return false;
     }
   }
 

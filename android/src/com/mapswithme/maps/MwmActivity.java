@@ -70,6 +70,8 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.news.IntroductionDialogFragment;
+import com.mapswithme.maps.news.IntroductionScreenFactory;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
@@ -2246,6 +2248,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onSearchQueryClick(@Nullable String query)
   {
     showSearch(query);
+  }
+
+  public void showIntroductionScreenForDeeplink(@NonNull String deepLink,
+                                                @NonNull IntroductionScreenFactory factory)
+  {
+    IntroductionDialogFragment.show(getSupportFragmentManager(), deepLink, factory);
   }
 
   private class CurrentPositionClickListener implements OnClickListener

@@ -86,4 +86,13 @@ public class BaseMwmDialogFragment extends DialogFragment
       throw new IllegalStateException("Before call this method make sure that the view exists");
     return view;
   }
+
+  @NonNull
+  protected Bundle getArgumentsOrThrow()
+  {
+    Bundle args = getArguments();
+    if (args == null)
+      throw new AssertionError("Arguments must be non-null!");
+    return args;
+  }
 }
