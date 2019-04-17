@@ -27,7 +27,6 @@ PlaceType EncodePlaceType(std::string const & place)
     {"suburb", PlaceType::Suburb},
     {"neighbourhood", PlaceType::Neighbourhood},
     {"hamlet", PlaceType::Hamlet},
-    {"locality", PlaceType::Locality},
     {"isolated_dwelling", PlaceType::IsolatedDwelling}
   };
 

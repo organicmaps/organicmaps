@@ -84,7 +84,7 @@ private:
   bool NeedCity(const City & city)
   {
     auto const placeType = city.GetPlaceType();
-    return placeType >= PlaceType::City && placeType != PlaceType::Locality;
+    return placeType >= PlaceType::City;
   }
 
   RegionsBuilder::Regions m_regions;

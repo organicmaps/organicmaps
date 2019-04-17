@@ -167,7 +167,6 @@ PlaceLevel RegionsBuilder::GetLevel(Region const & region)
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood:
     return PlaceLevel::Suburb;
-  case PlaceType::Locality:
   case PlaceType::IsolatedDwelling:
     return PlaceLevel::Sublocality;
   case PlaceType::Unknown:
@@ -202,7 +201,6 @@ size_t RegionsBuilder::GetWeight(Region const & region)
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood:
     return 2;
-  case PlaceType::Locality:
   case PlaceType::IsolatedDwelling:
     return 1;
   case PlaceType::Unknown:

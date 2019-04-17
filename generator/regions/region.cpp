@@ -73,7 +73,6 @@ double Region::GetRadiusByPlaceType(PlaceType place)
   case PlaceType::Neighbourhood:
   case PlaceType::IsolatedDwelling:
     return 0.0035;
-  case PlaceType::Locality:
   case PlaceType::Unknown:
     UNREACHABLE();
   }
@@ -167,7 +166,7 @@ bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & f
     return false;
 
   auto const placeType = info.GetPlaceType();
-  if (placeType == PlaceType::Locality || placeType == PlaceType::Unknown)
+  if (placeType == PlaceType::Unknown)
     return false;
 
   auto const radius = Region::GetRadiusByPlaceType(placeType);
