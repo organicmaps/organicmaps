@@ -2,9 +2,9 @@ package com.mapswithme.maps.settings;
 
 public enum RoadType
 {
-  USUAL,
-  TOLL,
-  MOTORWAY,
-  FERRY,
-  DIRTY
+  Usual,
+  Toll,
+  Motorway,
+  Ferry,
+  Dirty
 }

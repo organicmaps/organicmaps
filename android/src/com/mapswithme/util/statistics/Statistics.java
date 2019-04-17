@@ -32,6 +32,8 @@ import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.purchase.ValidationStatus;
 import com.mapswithme.maps.routing.RoutePointInfo;
+import com.mapswithme.maps.routing.RoutingOptions;
+import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -216,6 +218,43 @@ public enum Statistics
                                                      Statistics.ParamValue.SHARING_OPTIONS));
   }
 
+  public void trackDriveSettingsStatus()
+  {
+    ParameterBuilder status = getRoutingOptionsStatus();
+    trackEvent(Statistics.EventName.SETTINGS_DRIVE_OPTIONS_STATUS,
+               status);
+  }
+
+  @NonNull
+  private ParameterBuilder getRoutingOptionsStatus()
+  {
+    boolean hasToll = RoutingOptions.hasOption(RoadType.Toll);
+    boolean hasFerry = RoutingOptions.hasOption(RoadType.Ferry);
+    boolean hasMoto = RoutingOptions.hasOption(RoadType.Ferry);
+    boolean hasDirty = RoutingOptions.hasOption(RoadType.Dirty);
+
+    ParameterBuilder builder = new ParameterBuilder() ;
+    return builder.add(EventParam.TOLL, hasToll ? 1 : 0)
+                  .add(EventParam.FERRY, hasFerry ? 1 : 0)
+                  .add(EventParam.MOTORWAY, hasMoto ? 1 : 0)
+                  .add(EventParam.UNPAVED, hasDirty ? 1 : 0);
+  }
+
+  public void trackRoutingBuildError(int errorType)
+  {
+    Statistics.ParameterBuilder builder = new Statistics.ParameterBuilder();
+    trackEvent(Statistics.EventName.ROUTING_BUILD_ERROR, builder.add(EventParam.ERROR, errorType));
+  }
+
+  public void trackSettingsDriveOptionsChangeEvent(@NonNull String source)
+  {
+    ParameterBuilder parameterBuilder = getRoutingOptionsStatus();
+    parameterBuilder.add(EventParam.FROM, source);
+
+    trackEvent(EventName.SETTINGS_DRIVE_OPTIONS_CHANGE,
+               parameterBuilder);
+  }
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
   public @interface BannerState {}
@@ -283,6 +322,10 @@ public enum Statistics
     private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
     public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
     public static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
+    public static final String SETTINGS_DRIVE_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
+    public static final String SETTINGS_DRIVE_OPTIONS_STATUS = "Settings_Navigation_DrivingOptions_status";
+    public static final String ROUTING_BUILD_ERROR = "Routing_build_error";
+    public static final String PP_DRIVING_OPTIONS_ACTION = "Placepage_DrivingOptions_action";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -451,6 +494,12 @@ public enum Statistics
     public static final String TRACKS = "tracks";
     public static final String POINTS = "points";
     public static final String URL = "url";
+    public static final String TOLL = "toll";
+    public static final String UNPAVED = "unpaved";
+    public static final String FERRY = "ferry";
+    public static final String MOTORWAY = "motorway";
+    public static final String SETTINGS = "settings";
+    public static final String ROUTE = "route";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";

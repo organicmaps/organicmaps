@@ -47,6 +47,9 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_
 public class RoutingController implements TaxiManager.TaxiListener
 {
   private static final String TAG = RoutingController.class.getSimpleName();
+  private static final int ERROR_TYPE_IMPOSSIBLE_DEST = 0;
+  private static final int ERROR_TYPE_IMPOSSIBLE_OPTIONS = 1;
+  private static final int ERROR_TYPE_MISSED_MWM = 3;
 
   private enum State
   {
@@ -197,6 +200,7 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
 
     mContainsCachedResult = false;
+    Statistics.INSTANCE.trackDriveSettingsStatus();
 
     if (mLastResultCode == ResultCodesHelper.NO_ERROR || mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
     {
@@ -214,15 +218,20 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
     {
       mContainer.onBuildError(mLastResultCode, mLastMissingMaps);
+      Statistics.INSTANCE.trackRoutingBuildError(ERROR_TYPE_MISSED_MWM);
       return;
     }
 
     setBuildState(BuildState.ERROR);
     mLastBuildProgress = 0;
+    Statistics.INSTANCE.trackRoutingBuildError(ERROR_TYPE_IMPOSSIBLE_DEST);
     updateProgress();
 
     if (RoutingOptions.hasAnyOptions())
+    {
       mContainer.onCalculateRouteError();
+      Statistics.INSTANCE.trackRoutingBuildError(ERROR_TYPE_IMPOSSIBLE_OPTIONS);
+    }
   }
 
   private void setState(State newState)

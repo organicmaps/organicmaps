@@ -709,17 +709,17 @@ public class PlacePageView extends NestedScrollView
 
   private void onAvoidUnpavedBtnClicked()
   {
-    onAvoidBtnClicked(RoadType.DIRTY);
+    onAvoidBtnClicked(RoadType.Dirty);
   }
 
   private void onAvoidFerryBtnClicked()
   {
-    onAvoidBtnClicked(RoadType.FERRY);
+    onAvoidBtnClicked(RoadType.Ferry);
   }
 
   private void onAvoidTollBtnClicked()
   {
-    onAvoidBtnClicked(RoadType.TOLL);
+    onAvoidBtnClicked(RoadType.Toll);
   }
 
   private void onAvoidBtnClicked(@NonNull RoadType roadType)
@@ -728,6 +728,9 @@ public class PlacePageView extends NestedScrollView
       return;
 
     mRoutingModeListener.toggleRouteSettings(roadType);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DRIVING_OPTIONS_ACTION,
+                                   new Statistics.ParameterBuilder().add(Statistics.EventParam.TYPE,
+                                                                         roadType.name()));
   }
 
   private void initPlaceDescriptionView()
