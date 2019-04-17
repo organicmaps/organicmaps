@@ -62,13 +62,13 @@ void HolesRelation::Build(OsmElement const * p)
   // Iterate ways to get 'outer' and 'inner' geometries.
   for (auto const & e : p->Members())
   {
-    if (e.type != OsmElement::EntityType::Way)
+    if (e.m_type != OsmElement::EntityType::Way)
       continue;
 
-    if (e.role == "outer")
-      m_outer.AddWay(e.ref);
-    else if (e.role == "inner")
-      m_holes(e.ref);
+    if (e.m_role == "outer")
+      m_outer.AddWay(e.m_ref);
+    else if (e.m_role == "inner")
+      m_holes(e.m_ref);
   }
 }
 }  // namespace generator

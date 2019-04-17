@@ -26,9 +26,9 @@ UNIT_TEST(NodeMixerTests)
   int count4 = 0;
   generator::MixFakeNodes(stream4, [&](OsmElement & p) {
     count4++;
-    TEST_EQUAL(p.type, OsmElement::EntityType::Node, ());
-    TEST_EQUAL(p.lat, 10.0, ());
-    TEST_EQUAL(p.lon, -4.8, ());
+    TEST_EQUAL(p.m_type, OsmElement::EntityType::Node, ());
+    TEST_EQUAL(p.m_lat, 10.0, ());
+    TEST_EQUAL(p.m_lon, -4.8, ());
     TEST_EQUAL(p.Tags().size(), 2, ());
     TEST_EQUAL(p.GetTag("name"), "Shop", ());
   });
@@ -38,7 +38,7 @@ UNIT_TEST(NodeMixerTests)
   int count5 = 0;
   generator::MixFakeNodes(stream5, [&](OsmElement & p) {
     count5++;
-    TEST_EQUAL(p.type, OsmElement::EntityType::Node, ());
+    TEST_EQUAL(p.m_type, OsmElement::EntityType::Node, ());
     TEST_EQUAL(p.Tags().size(), 2, ());
     std::string id = p.GetTag("id");
     TEST(!id.empty(), ("No id tag when every object has it."));
@@ -50,8 +50,8 @@ UNIT_TEST(NodeMixerTests)
   int count6 = 0;
   generator::MixFakeNodes(stream6, [&](OsmElement & p) {
     count6++;
-    TEST_EQUAL(p.lat, 0.0, ());
-    TEST_EQUAL(p.lon, -4.8, ());
+    TEST_EQUAL(p.m_lat, 0.0, ());
+    TEST_EQUAL(p.m_lon, -4.8, ());
   });
   TEST_EQUAL(count6, 1, ());
 }

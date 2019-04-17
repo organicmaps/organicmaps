@@ -26,10 +26,10 @@ auto const kOsmElementCountry = MakeOsmElement(2, {{"admin_level", "2"},
 UNIT_TEST(FilterData_Ids)
 {
   FilterData fd;
-  fd.AddSkippedId(kOsmElementEmpty.id);
+  fd.AddSkippedId(kOsmElementEmpty.m_id);
 
-  TEST(fd.NeedSkipWithId(kOsmElementEmpty.id), ());
-  TEST(!fd.NeedSkipWithId(kOsmElementCity.id), ());
+  TEST(fd.NeedSkipWithId(kOsmElementEmpty.m_id), ());
+  TEST(!fd.NeedSkipWithId(kOsmElementCity.m_id), ());
 }
 
 UNIT_TEST(FilterData_Tags)

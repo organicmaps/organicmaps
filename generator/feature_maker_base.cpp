@@ -14,7 +14,7 @@ bool FeatureMakerBase::Add(OsmElement & element)
 {
   FeatureParams params;
   ParseParams(params, element);
-  switch (element.type)
+  switch (element.m_type)
   {
   case OsmElement::EntityType::Node:
     return BuildFromNode(element, params);

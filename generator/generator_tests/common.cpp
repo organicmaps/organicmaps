@@ -9,8 +9,8 @@ namespace generator_tests
 OsmElement MakeOsmElement(uint64_t id, Tags const & tags, OsmElement::EntityType t)
 {
   OsmElement el;
-  el.id = id;
-  el.type = t;
+  el.m_id = id;
+  el.m_type = t;
   for (auto const & t : tags)
     el.AddTag(t.first, t.second);
 

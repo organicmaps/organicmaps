@@ -36,8 +36,8 @@ OsmElement CreateOsmRelation(uint64_t id, std::string const & adminLevel,
                           std::string const & place = "")
 {
   OsmElement el;
-  el.id = id;
-  el.type = OsmElement::EntityType::Relation;
+  el.m_id = id;
+  el.m_type = OsmElement::EntityType::Relation;
   el.AddTag("place", place);
   el.AddTag("admin_level", adminLevel);
 

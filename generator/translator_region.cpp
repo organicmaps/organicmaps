@@ -24,10 +24,10 @@ public:
   {
     for (auto const & t : element.Tags())
     {
-      if (t.key == "place" && regions::EncodePlaceType(t.value) != regions::PlaceType::Unknown)
+      if (t.m_key == "place" && regions::EncodePlaceType(t.m_value) != regions::PlaceType::Unknown)
         return true;
 
-      if (t.key == "boundary" && t.value == "administrative")
+      if (t.m_key == "boundary" && t.m_value == "administrative")
         return true;
     }
 

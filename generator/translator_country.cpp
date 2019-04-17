@@ -104,9 +104,9 @@ void TranslatorCountry::CollectFromRelations(OsmElement const & element)
 {
   RelationCollector collector(m_collectors);
   if (element.IsNode())
-    m_cache.ForEachRelationByNodeCached(element.id, collector);
+    m_cache.ForEachRelationByNodeCached(element.m_id, collector);
   else if (element.IsWay())
-    m_cache.ForEachRelationByWayCached(element.id, collector);
+    m_cache.ForEachRelationByWayCached(element.m_id, collector);
 }
 
 TranslatorCountryWithAds::TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,

@@ -21,8 +21,8 @@ void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
   uint64_t count = 0;
   uint8_t completionFlag = 0;
   OsmElement p;
-  p.id = baseNodeId;
-  p.type = OsmElement::EntityType::Node;
+  p.m_id = baseNodeId;
+  p.m_type = OsmElement::EntityType::Node;
 
   string line;
   while (getline(stream, line))
@@ -34,8 +34,8 @@ void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
         processor(p);
         count++;
         p.Clear();
-        p.id = baseNodeId + count;
-        p.type = OsmElement::EntityType::Node;
+        p.m_id = baseNodeId + count;
+        p.m_type = OsmElement::EntityType::Node;
         completionFlag = 0;
       }
       continue;
@@ -51,12 +51,12 @@ void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
 
       if (key == "lat")
       {
-        if (strings::to_double(value, p.lat))
+        if (strings::to_double(value, p.m_lat))
           completionFlag |= kCFLat;
       }
       else if (key == "lon")
       {
-        if (strings::to_double(value, p.lon))
+        if (strings::to_double(value, p.m_lon))
           completionFlag |= kCFLon;
       }
       else

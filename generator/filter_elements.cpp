@@ -37,9 +37,9 @@ bool FilterData::IsMatch(Tags const & elementTags, Tags const & tags)
 {
   auto const fn = [&](OsmElement::Tag const & t)
   {
-    auto const pred = [&](OsmElement::Tag const & tag) { return tag.key == t.key; };
+    auto const pred = [&](OsmElement::Tag const & tag) { return tag.m_key == t.m_key; };
     auto const it = std::find_if(std::begin(elementTags), std::end(elementTags), pred);
-    return it == std::end(elementTags) ? false : t.value == "*" || it->value == t.value;
+    return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
   };
 
   return std::all_of(std::begin(tags), std::end(tags), fn);
@@ -54,7 +54,7 @@ void FilterData::AddSkippedTags(Tags const & tags)
 {
   m_rulesStorage.push_back(tags);
   for (auto const & t : tags)
-    m_skippedTags.emplace(t.key, m_rulesStorage.back());
+    m_skippedTags.emplace(t.m_key, m_rulesStorage.back());
 }
 
 bool FilterData::NeedSkipWithId(uint64_t id) const
@@ -67,7 +67,7 @@ bool FilterData::NeedSkipWithTags(Tags const & tags) const
   Set<Tags const *> s;
   for (auto const & tag : tags)
   {
-    auto const t = m_skippedTags.equal_range(tag.key);
+    auto const t = m_skippedTags.equal_range(tag.m_key);
     for (auto it = t.first; it != t.second; ++it)
     {
       Tags const & t = it->second;
@@ -167,7 +167,7 @@ bool FilterElements::IsAccepted(OsmElement const & element)
 
 bool FilterElements::NeedSkip(OsmElement const & element) const
 {
-  switch (element.type)
+  switch (element.m_type)
   {
   case OsmElement::EntityType::Node: return NeedSkip(element, m_nodes);
   case OsmElement::EntityType::Way: return NeedSkip(element, m_ways);
@@ -178,7 +178,7 @@ bool FilterElements::NeedSkip(OsmElement const & element) const
 
 bool FilterElements::NeedSkip(OsmElement const & element,  FilterData const & fdata) const
 {
-  return fdata.NeedSkipWithId(element.id) || fdata.NeedSkipWithTags(element.Tags());
+  return fdata.NeedSkipWithId(element.m_id) || fdata.NeedSkipWithTags(element.Tags());
 }
 
 bool FilterElements::ParseString(std::string const & str)

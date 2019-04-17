@@ -23,8 +23,8 @@ void FeatureMakerSimple::ParseParams(FeatureParams & params, OsmElement & p) con
 bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & params)
 {
   FeatureBuilder1 fb;
-  fb.SetCenter(MercatorBounds::FromLatLon(p.lat, p.lon));
-  fb.SetOsmId(base::MakeOsmNode(p.id));
+  fb.SetCenter(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+  fb.SetOsmId(base::MakeOsmNode(p.m_id));
   fb.SetParams(params);
   m_queue.push(std::move(fb));
   return true;
@@ -46,12 +46,12 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
     fb.AddPoint(pt);
   }
 
-  fb.SetOsmId(base::MakeOsmWay(p.id));
+  fb.SetOsmId(base::MakeOsmWay(p.m_id));
   fb.SetParams(params);
   if (fb.IsGeometryClosed())
   {
-    HolesProcessor processor(p.id, m_cache);
-    m_cache.ForEachRelationByWay(p.id, processor);
+    HolesProcessor processor(p.m_id, m_cache);
+    m_cache.ForEachRelationByWay(p.m_id, processor);
     fb.SetAreaAddHoles(processor.GetHoles());
   }
   else
@@ -79,7 +79,7 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
     for (auto const & pt : pts)
       fb.AddPoint(pt);
 
-    fb.AddOsmId(base::MakeOsmRelation(p.id));
+    fb.AddOsmId(base::MakeOsmRelation(p.m_id));
     if (!fb.IsGeometryClosed())
       return;
 

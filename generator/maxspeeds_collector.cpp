@@ -38,7 +38,7 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder1 const &, OsmElement cons
     return;
 
   ostringstream ss;
-  ss << p.id << ",";
+  ss << p.m_id << ",";
 
   auto const & tags = p.Tags();
   string maxspeedForwardStr;
@@ -47,21 +47,21 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder1 const &, OsmElement cons
 
   for (auto const & t : tags)
   {
-    if (t.key == "maxspeed")
+    if (t.m_key == "maxspeed")
     {
       SpeedInUnits dummySpeed;
-      if (!ParseMaxspeedAndWriteToStream(t.value, dummySpeed, ss))
+      if (!ParseMaxspeedAndWriteToStream(t.m_value, dummySpeed, ss))
         return;
       m_data.push_back(ss.str());
       return;
     }
 
-    if (t.key == "maxspeed:forward")
-      maxspeedForwardStr = t.value;
-    else if (t.key == "maxspeed:backward")
-      maxspeedBackwardStr = t.value;
-    else if (t.key == "oneway")
-      isReverse = (t.value == "-1");
+    if (t.m_key == "maxspeed:forward")
+      maxspeedForwardStr = t.m_value;
+    else if (t.m_key == "maxspeed:backward")
+      maxspeedBackwardStr = t.m_value;
+    else if (t.m_key == "oneway")
+      isReverse = (t.m_value == "-1");
   }
 
   // Note 1. isReverse == true means feature |p| has tag "oneway" with value "-1". Now (10.2018)

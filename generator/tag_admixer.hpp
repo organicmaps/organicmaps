@@ -108,13 +108,13 @@ public:
 
   void operator()(OsmElement & element)
   {
-    if (element.type == OsmElement::EntityType::Way && m_ways.find(element.id) != m_ways.end())
+    if (element.m_type == OsmElement::EntityType::Way && m_ways.find(element.m_id) != m_ways.end())
     {
       // Exclude ferry routes.
       if (find(element.Tags().begin(), element.Tags().end(), m_ferryTag) == element.Tags().end())
-        element.AddTag("highway", m_ways[element.id]);
+        element.AddTag("highway", m_ways[element.m_id]);
     }
-    else if (element.type == OsmElement::EntityType::Node && m_capitals.find(element.id) != m_capitals.end())
+    else if (element.m_type == OsmElement::EntityType::Node && m_capitals.find(element.m_id) != m_capitals.end())
     {
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
@@ -153,11 +153,11 @@ public:
       strings::SimpleTokenizer iter(line, " \t=,:");
       if (!iter)
         continue;
-      tag.key = *iter;
+      tag.m_key = *iter;
       ++iter;
       if (!iter)
         continue;
-      tag.value = *iter;
+      tag.m_value = *iter;
 
       values.clear();
       while (++iter)
@@ -176,8 +176,8 @@ public:
       if (it != m_entries.end())
       {
         auto const & v = it->second;
-        tag.key = v[0];
-        tag.value = v[1];
+        tag.m_key = v[0];
+        tag.m_value = v[1];
         for (size_t i = 2; i < v.size(); i += 2)
           element.AddTag(v[i], v[i + 1]);
       }
@@ -227,12 +227,12 @@ public:
 
   void operator()(OsmElement & element)
   {
-    std::pair<OsmElement::EntityType, uint64_t> elementId = {element.type, element.id};
+    std::pair<OsmElement::EntityType, uint64_t> elementId = {element.m_type, element.m_id};
     auto elements = m_elements.find(elementId);
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag tag : elements->second)
-        element.UpdateTag(tag.key, [&tag](std::string & v) { v = tag.value; });
+        element.UpdateTag(tag.m_key, [&tag](std::string & v) { v = tag.m_value; });
     }
   }
 };

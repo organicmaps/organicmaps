@@ -12,13 +12,13 @@ void RelationTagsEnricher::operator()(OsmElement & p)
 {
   if (p.IsNode())
   {
-    m_nodeRelations.Reset(p.id, &p);
-    m_cache.ForEachRelationByNodeCached(p.id, m_nodeRelations);
+    m_nodeRelations.Reset(p.m_id, &p);
+    m_cache.ForEachRelationByNodeCached(p.m_id, m_nodeRelations);
   }
   else if (p.IsWay())
   {
-    m_wayRelations.Reset(p.id, &p);
-    m_cache.ForEachRelationByWayCached(p.id, m_wayRelations);
+    m_wayRelations.Reset(p.m_id, &p);
+    m_cache.ForEachRelationByWayCached(p.m_id, m_wayRelations);
   }
 }
 }  // namespace generator

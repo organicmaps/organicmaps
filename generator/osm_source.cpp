@@ -55,23 +55,23 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 // Functions ---------------------------------------------------------------------------------------
 void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
 {
-  switch (em.type)
+  switch (em.m_type)
   {
   case OsmElement::EntityType::Node:
   {
-    auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
-    cache.AddNode(em.id, pt.y, pt.x);
+    auto const pt = MercatorBounds::FromLatLon(em.m_lat, em.m_lon);
+    cache.AddNode(em.m_id, pt.y, pt.x);
     break;
   }
   case OsmElement::EntityType::Way:
   {
     // Store way.
-    WayElement way(em.id);
+    WayElement way(em.m_id);
     for (uint64_t nd : em.Nodes())
       way.nodes.push_back(nd);
 
     if (way.IsValid())
-      cache.AddWay(em.id, way);
+      cache.AddWay(em.m_id, way);
     break;
   }
   case OsmElement::EntityType::Relation:
@@ -80,12 +80,12 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
     RelationElement relation;
     for (auto const & member : em.Members())
     {
-      switch (member.type) {
+      switch (member.m_type) {
       case OsmElement::EntityType::Node:
-        relation.nodes.emplace_back(member.ref, string(member.role));
+        relation.nodes.emplace_back(member.m_ref, string(member.m_role));
         break;
       case OsmElement::EntityType::Way:
-        relation.ways.emplace_back(member.ref, string(member.role));
+        relation.ways.emplace_back(member.m_ref, string(member.m_role));
         break;
       case OsmElement::EntityType::Relation:
         // we just ignore type == "relation"
@@ -96,10 +96,10 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & em)
     }
 
     for (auto const & tag : em.Tags())
-      relation.tags.emplace(tag.key, tag.value);
+      relation.tags.emplace(tag.m_key, tag.m_value);
 
     if (relation.IsValid())
-      cache.AddRelation(em.id, relation);
+      cache.AddRelation(em.m_id, relation);
 
     break;
   }
@@ -166,27 +166,27 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
   for (auto const & em : dataset)
   {
     OsmElement p;
-    p.id = em.id;
+    p.m_id = em.id;
 
     switch (em.type)
     {
     case Type::Node:
     {
-      p.type = OsmElement::EntityType::Node;
-      p.lat = em.lat;
-      p.lon = em.lon;
+      p.m_type = OsmElement::EntityType::Node;
+      p.m_lat = em.lat;
+      p.m_lon = em.lon;
       break;
     }
     case Type::Way:
     {
-      p.type = OsmElement::EntityType::Way;
+      p.m_type = OsmElement::EntityType::Way;
       for (uint64_t nd : em.Nodes())
         p.AddNd(nd);
       break;
     }
     case Type::Relation:
     {
-      p.type = OsmElement::EntityType::Relation;
+      p.m_type = OsmElement::EntityType::Relation;
       for (auto const & member : em.Members())
         p.AddMember(member.ref, translate(member.type), member.role);
       break;

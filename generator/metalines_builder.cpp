@@ -36,7 +36,7 @@ public:
   {
     std::string const oneway = way.GetTag("oneway");
     m_oneway = !oneway.empty() && oneway != "no";
-    int32_t const wayId = base::checked_cast<int32_t>(way.id);
+    int32_t const wayId = base::checked_cast<int32_t>(way.m_id);
     m_ways.push_back(oneway == "-1" ? -wayId : wayId);
     CHECK_GREATER_OR_EQUAL(way.Nodes().size(), 2, ());
     m_start = way.Nodes().front();

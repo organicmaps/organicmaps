@@ -78,10 +78,10 @@ Result ForEachTag(OsmElement * p, ToDo && toDo)
   Result res = {};
   for (auto & e : p->m_tags)
   {
-    if (IgnoreTag(e.key, e.value))
+    if (IgnoreTag(e.m_key, e.m_value))
       continue;
 
-    res = toDo(e.key, e.value);
+    res = toDo(e.m_key, e.m_value);
     if (res)
       return res;
   }
@@ -169,12 +169,12 @@ public:
   template <typename Function>
   struct Rule
   {
-    char const * key;
+    char const * m_key;
     // * - take any values
     // ! - take only negative values
     // ~ - take only positive values
-    char const * value;
-    function<Function> func;
+    char const * m_value;
+    function<Function> m_func;
   };
 
   template <typename Function = void()>
@@ -184,18 +184,18 @@ public:
     {
       for (auto const & rule : rules)
       {
-        if (e.key != rule.key)
+        if (e.m_key != rule.m_key)
           continue;
         bool take = false;
-        if (rule.value[0] == '*')
+        if (rule.m_value[0] == '*')
           take = true;
-        else if (rule.value[0] == '!')
-          take = IsNegative(e.value);
-        else if (rule.value[0] == '~')
-          take = !IsNegative(e.value);
+        else if (rule.m_value[0] == '!')
+          take = IsNegative(e.m_value);
+        else if (rule.m_value[0] == '~')
+          take = !IsNegative(e.m_value);
 
-        if (take || e.value == rule.value)
-          Call(rule.func, e.key, e.value);
+        if (take || e.m_value == rule.m_value)
+          Call(rule.m_func, e.m_key, e.m_value);
       }
     }
   }
@@ -445,7 +445,7 @@ string MatchCity(OsmElement const * p)
       {"wien", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
   };
 
-  m2::PointD const pt(p->lon, p->lat);
+  m2::PointD const pt(p->m_lon, p->m_lat);
 
   for (auto const & city : cities)
   {
@@ -464,13 +464,13 @@ string DetermineSurface(OsmElement * p)
 
   for (auto const & tag : p->m_tags)
   {
-    if (tag.key == "surface")
-      surface = tag.value;
-    else if (tag.key == "smoothness")
-      smoothness = tag.value;
-    else if (tag.key == "surface:grade")
-      surface_grade = tag.value;
-    else if (tag.key == "highway")
+    if (tag.m_key == "surface")
+      surface = tag.m_value;
+    else if (tag.m_key == "smoothness")
+      smoothness = tag.m_value;
+    else if (tag.m_key == "surface:grade")
+      surface_grade = tag.m_value;
+    else if (tag.m_key == "highway")
       isHighway = true;
   }
 
@@ -562,7 +562,7 @@ void PreprocessElement(OsmElement * p)
     p->AddTag("layer", layer);
 
   // Tag 'city' is needed for correct selection of metro icons.
-  if (isSubway && p->type == OsmElement::EntityType::Node)
+  if (isSubway && p->m_type == OsmElement::EntityType::Node)
   {
     string const city = MatchCity(p);
     if (!city.empty())
@@ -574,16 +574,16 @@ void PreprocessElement(OsmElement * p)
   // Convert public_transport tags to the older schema.
   for (auto const & tag : p->m_tags)
   {
-    if (tag.key == "public_transport")
+    if (tag.m_key == "public_transport")
     {
-      if (tag.value == "platform" && isBus)
+      if (tag.m_value == "platform" && isBus)
       {
-        if (p->type == OsmElement::EntityType::Node)
+        if (p->m_type == OsmElement::EntityType::Node)
           p->AddTag("highway", "bus_stop");
         else
           p->AddTag("highway", "platform");
       }
-      else if (tag.value == "stop_position" && isTram && p->type == OsmElement::EntityType::Node)
+      else if (tag.m_value == "stop_position" && isTram && p->m_type == OsmElement::EntityType::Node)
       {
         p->AddTag("railway", "tram_stop");
       }

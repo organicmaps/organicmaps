@@ -22,7 +22,7 @@ bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 {
   auto const & tags = m_current->m_tags;
   return std::any_of(std::begin(tags), std::end(tags), [&](OsmElement::Tag const & p) {
-    return p.key == key;
+    return p.m_key == key;
   });
 }
 
@@ -100,7 +100,7 @@ void RelationTagsWay::Process(RelationElement const & e)
   if (type == "building")
   {
     // If this way has "outline" role, add [building=has_parts] type.
-    if (e.GetWayRole(m_current->id) == "outline")
+    if (e.GetWayRole(m_current->m_id) == "outline")
       Base::AddCustomTag({"building", "has_parts"});
     return;
   }

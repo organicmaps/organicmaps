@@ -31,81 +31,38 @@ struct OsmElement
 
   struct Member
   {
-    uint64_t ref = 0;
-    EntityType type = EntityType::Unknown;
-    std::string role;
-
     Member() = default;
     Member(uint64_t ref, EntityType type, std::string const & role)
-      : ref(ref), type(type), role(role)
-    {}
+      : m_ref(ref), m_type(type), m_role(role) {}
 
-    bool operator == (Member const & e) const
+    bool operator==(Member const & e) const
     {
-      return ref == e.ref && type == e.type && role == e.role;
+      return m_ref == e.m_ref && m_type == e.m_type && m_role == e.m_role;
     }
+
+    uint64_t m_ref = 0;
+    EntityType m_type = EntityType::Unknown;
+    std::string m_role;
   };
 
   struct Tag
   {
-    std::string key;
-    std::string value;
-
     Tag() = default;
-    Tag(std::string const & k, std::string const & v) : key(k), value(v) {}
+    Tag(std::string const & k, std::string const & v) : m_key(k), m_value(v) {}
 
-    bool operator == (Tag const & e) const
+    bool operator==(Tag const & e) const
     {
-      return key == e.key && value == e.value;
+      return m_key == e.m_key && m_value == e.m_value;
     }
-    bool operator < (Tag const & e) const
+
+    bool operator<(Tag const & e) const
     {
-      if (key == e.key)
-        return value < e.value;
-      return key < e.key;
+      return m_key == e.m_key ?  m_value < e.m_value : m_key < e.m_key;
     }
+
+    std::string m_key;
+    std::string m_value;
   };
-
-  EntityType type = EntityType::Unknown;
-  uint64_t id = 0;
-  double lon = 0;
-  double lat = 0;
-  uint64_t ref = 0;
-  std::string k;
-  std::string v;
-  EntityType memberType = EntityType::Unknown;
-  std::string role;
-
-  std::vector<uint64_t> m_nds;
-  std::vector<Member> m_members;
-  std::vector<Tag> m_tags;
-
-  void Clear()
-  {
-    type = EntityType::Unknown;
-    id = 0;
-    lon = 0;
-    lat = 0;
-    ref = 0;
-    k.clear();
-    v.clear();
-    memberType = EntityType::Unknown;
-    role.clear();
-
-    m_nds.clear();
-    m_members.clear();
-    m_tags.clear();
-  }
-
-  std::string ToString(std::string const & shift = std::string()) const;
-
-  std::vector<uint64_t> const & Nodes() const { return m_nds; }
-  std::vector<Member> const & Members() const { return m_members; }
-  std::vector<Tag> const & Tags() const { return m_tags; }
-
-  bool IsNode() const { return type == EntityType::Node; }
-  bool IsWay() const { return type == EntityType::Way; }
-  bool IsRelation() const { return type == EntityType::Relation; }
 
   static EntityType StringToEntityType(std::string const & t)
   {
@@ -119,17 +76,44 @@ struct OsmElement
     return EntityType::Unknown;
   }
 
+  void Clear()
+  {
+    m_type = EntityType::Unknown;
+    m_id = 0;
+    m_lon = 0;
+    m_lat = 0;
+    m_ref = 0;
+    m_k.clear();
+    m_v.clear();
+    m_memberType = EntityType::Unknown;
+    m_role.clear();
+
+    m_nds.clear();
+    m_members.clear();
+    m_tags.clear();
+  }
+
+  std::string ToString(std::string const & shift = std::string()) const;
+
+  std::vector<uint64_t> const & Nodes() const { return m_nds; }
+  std::vector<Member> const & Members() const { return m_members; }
+  std::vector<Tag> const & Tags() const { return m_tags; }
+
+  bool IsNode() const { return m_type == EntityType::Node; }
+  bool IsWay() const { return m_type == EntityType::Way; }
+  bool IsRelation() const { return m_type == EntityType::Relation; }
+
   bool operator==(OsmElement const & e) const
   {
-    return type == e.type
-        && id == e.id
-        && base::AlmostEqualAbs(lon, e.lon, 1e-7)
-        && base::AlmostEqualAbs(lat, e.lat, 1e-7)
-        && ref == e.ref
-        && k == e.k
-        && v == e.v
-        && memberType == e.memberType
-        && role == e.role
+    return m_type == e.m_type
+        && m_id == e.m_id
+        && base::AlmostEqualAbs(m_lon, e.m_lon, 1e-7)
+        && base::AlmostEqualAbs(m_lat, e.m_lat, 1e-7)
+        && m_ref == e.m_ref
+        && m_k == e.m_k
+        && m_v == e.m_v
+        && m_memberType == e.m_memberType
+        && m_role == e.m_role
         && m_nds == e.m_nds
         && m_members == e.m_members
         && m_tags == e.m_tags;
@@ -151,9 +135,9 @@ struct OsmElement
   {
     for (auto & tag : m_tags)
     {
-      if (tag.key == k)
+      if (tag.m_key == k)
       {
-        fn(tag.value);
+        fn(tag.m_value);
         return;
       }
     }
@@ -166,6 +150,19 @@ struct OsmElement
 
   std::string GetTag(std::string const & key) const;
   std::string_view GetTagValue(std::string_view const & key, std::string_view const & defaultValue) const;
+  EntityType m_type = EntityType::Unknown;
+  uint64_t m_id = 0;
+  double m_lon = 0;
+  double m_lat = 0;
+  uint64_t m_ref = 0;
+  std::string m_k;
+  std::string m_v;
+  EntityType m_memberType = EntityType::Unknown;
+  std::string m_role;
+
+  std::vector<uint64_t> m_nds;
+  std::vector<Member> m_members;
+  std::vector<Tag> m_tags;
 };
 
 base::GeoObjectId GetGeoObjectId(OsmElement const & element);

@@ -23,21 +23,21 @@ public:
       return;
 
     if (key == "id")
-      CHECK(strings::to_uint64(value, m_current->id), ("Unknown element with invalid id:", value));
+      CHECK(strings::to_uint64(value, m_current->m_id), ("Unknown element with invalid id:", value));
     else if (key == "lon")
-      CHECK(strings::to_double(value, m_current->lon), ("Bad node lon:", value));
+      CHECK(strings::to_double(value, m_current->m_lon), ("Bad node lon:", value));
     else if (key == "lat")
-      CHECK(strings::to_double(value, m_current->lat), ("Bad node lat:", value));
+      CHECK(strings::to_double(value, m_current->m_lat), ("Bad node lat:", value));
     else if (key == "ref")
-      CHECK(strings::to_uint64(value, m_current->ref), ("Bad node ref in way:", value));
+      CHECK(strings::to_uint64(value, m_current->m_ref), ("Bad node ref in way:", value));
     else if (key == "k")
-      m_current->k = value;
+      m_current->m_k = value;
     else if (key == "v")
-      m_current->v = value;
+      m_current->m_v = value;
     else if (key == "type")
-      m_current->memberType = OsmElement::StringToEntityType(value);
+      m_current->m_memberType = OsmElement::StringToEntityType(value);
     else if (key == "role")
-      m_current->role = value;
+      m_current->m_role = value;
   }
 
   bool Push(std::string const & tagName)
@@ -55,11 +55,11 @@ public:
       break;
     case 2:
       m_current = &m_parent;
-      m_current->type = tagKey;
+      m_current->m_type = tagKey;
       break;
     default:
       m_current = &m_child;
-      m_current->type = tagKey;
+      m_current->m_type = tagKey;
       break;
     }
     return true;
@@ -78,16 +78,16 @@ public:
       break;
 
     default:
-      switch (m_child.type)
+      switch (m_child.m_type)
       {
       case OsmElement::EntityType::Member:
-        m_parent.AddMember(m_child.ref, m_child.memberType, m_child.role);
+        m_parent.AddMember(m_child.m_ref, m_child.m_memberType, m_child.m_role);
         break;
       case OsmElement::EntityType::Tag:
-        m_parent.AddTag(m_child.k, m_child.v);
+        m_parent.AddTag(m_child.m_k, m_child.m_v);
         break;
       case OsmElement::EntityType::Nd:
-        m_parent.AddNd(m_child.ref);
+        m_parent.AddNd(m_child.m_ref);
         break;
       default:
         break;

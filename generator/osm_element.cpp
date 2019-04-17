@@ -80,17 +80,17 @@ bool OsmElement::HasTag(std::string_view const & key) const
 bool OsmElement::HasTag(std::string_view const & k, std::string_view const & v) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
-    return t.key == k && t.value == v;
+    return t.m_key == k && t.m_value == v;
   });
 }
 
 bool OsmElement::HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const
 {
   return std::any_of(std::begin(m_tags), std::end(m_tags), [&](auto const & t) {
-    auto beginEnd = tags.equal_range(t.key);
+    auto beginEnd = tags.equal_range(t.m_key);
     for (auto it = beginEnd.first; it != beginEnd.second; ++it)
     {
-      if (it->second == t.value)
+      if (it->second == t.m_value)
         return true;
     }
 
@@ -102,17 +102,17 @@ std::string OsmElement::ToString(std::string const & shift) const
 {
   std::stringstream ss;
   ss << (shift.empty() ? "\n" : shift);
-  switch (type)
+  switch (m_type)
   {
   case EntityType::Node:
-    ss << "Node: " << id << " (" << std::fixed << std::setw(7) << lat << ", " << lon << ")"
+    ss << "Node: " << m_id << " (" << std::fixed << std::setw(7) << m_lat << ", " << m_lon << ")"
        << " tags: " << m_tags.size();
     break;
   case EntityType::Nd:
-    ss << "Nd ref: " << ref;
+    ss << "Nd ref: " << m_ref;
     break;
   case EntityType::Way:
-    ss << "Way: " << id << " nds: " << m_nds.size() << " tags: " << m_tags.size();
+    ss << "Way: " << m_id << " nds: " << m_nds.size() << " tags: " << m_tags.size();
     if (!m_nds.empty())
     {
       std::string shift2 = shift;
@@ -122,20 +122,20 @@ std::string OsmElement::ToString(std::string const & shift) const
     }
     break;
   case EntityType::Relation:
-    ss << "Relation: " << id << " members: " << m_members.size() << " tags: " << m_tags.size();
+    ss << "Relation: " << m_id << " members: " << m_members.size() << " tags: " << m_tags.size();
     if (!m_members.empty())
     {
       std::string shift2 = shift;
       shift2 += shift2.empty() ? "\n  " : "  ";
       for (auto const & e : m_members)
-        ss << shift2 << e.ref << " " << DebugPrint(e.type) << " " << e.role;
+        ss << shift2 << e.m_ref << " " << DebugPrint(e.m_type) << " " << e.m_role;
     }
     break;
   case EntityType::Tag:
-    ss << "Tag: " << k << " = " << v;
+    ss << "Tag: " << m_k << " = " << m_v;
     break;
   case EntityType::Member:
-    ss << "Member: " << ref << " type: " << DebugPrint(memberType) << " role: " << role;
+    ss << "Member: " << m_ref << " type: " << DebugPrint(m_memberType) << " role: " << m_role;
     break;
   case EntityType::Unknown:
   case EntityType::Osm:
@@ -148,7 +148,7 @@ std::string OsmElement::ToString(std::string const & shift) const
     std::string shift2 = shift;
     shift2 += shift2.empty() ? "\n  " : "  ";
     for (auto const & e : m_tags)
-      ss << shift2 << e.key << " = " << e.value;
+      ss << shift2 << e.m_key << " = " << e.m_value;
   }
   return ss.str();
 }
@@ -156,9 +156,9 @@ std::string OsmElement::ToString(std::string const & shift) const
 std::string OsmElement::GetTag(std::string const & key) const
 {
   auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
-                               [&key](Tag const & tag) { return tag.key == key; });
+                               [&key](Tag const & tag) { return tag.m_key == key; });
 
-  return it == m_tags.cend() ? std::string() : it->value;
+  return it == m_tags.cend() ? std::string() : it->m_value;
 }
 
 std::string_view OsmElement::GetTagValue(std::string_view const & key,
@@ -178,20 +178,20 @@ std::string DebugPrint(OsmElement const & e)
 std::string DebugPrint(OsmElement::Tag const & tag)
 {
   std::stringstream ss;
-  ss << tag.key << '=' << tag.value;
+  ss << tag.m_key << '=' << tag.m_value;
   return ss.str();
 }
 
 base::GeoObjectId GetGeoObjectId(OsmElement const & element)
 {
-  switch (element.type)
+  switch (element.m_type)
   {
   case OsmElement::EntityType::Node:
-    return base::MakeOsmNode(element.id);
+    return base::MakeOsmNode(element.m_id);
   case OsmElement::EntityType::Way:
-    return base::MakeOsmWay(element.id);
+    return base::MakeOsmWay(element.m_id);
   case OsmElement::EntityType::Relation:
-    return base::MakeOsmRelation(element.id);
+    return base::MakeOsmRelation(element.m_id);
   case OsmElement::EntityType::Member:
   case OsmElement::EntityType::Nd:
   case OsmElement::EntityType::Osm:

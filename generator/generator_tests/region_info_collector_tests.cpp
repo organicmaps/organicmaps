@@ -48,8 +48,8 @@ UNIT_TEST(RegionInfoCollector_Collect)
 
   RegionInfo regionInfo(filename);
   {
-    auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.id));
-    TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.id), ());
+    auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.m_id));
+    TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.m_id), ());
     TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
     TEST_EQUAL(regionData.GetPlaceType(), PlaceType::City, ());
     TEST(!regionData.HasIsoCodeAlpha2(), ());
@@ -58,8 +58,8 @@ UNIT_TEST(RegionInfoCollector_Collect)
   }
 
   {
-    auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.id));
-    TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCountry.id), ());
+    auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.m_id));
+    TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCountry.m_id), ());
     TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Two, ());
     TEST_EQUAL(regionData.GetPlaceType(), PlaceType::Unknown, ());
 
@@ -72,8 +72,8 @@ UNIT_TEST(RegionInfoCollector_Collect)
   }
 
   {
-    auto const regionDataEmpty = regionInfo.Get(MakeOsmRelation(kOsmElementEmpty.id));
-    TEST_EQUAL(regionDataEmpty.GetOsmId(), MakeOsmRelation(kOsmElementEmpty.id), ());
+    auto const regionDataEmpty = regionInfo.Get(MakeOsmRelation(kOsmElementEmpty.m_id));
+    TEST_EQUAL(regionDataEmpty.GetOsmId(), MakeOsmRelation(kOsmElementEmpty.m_id), ());
     TEST_EQUAL(regionDataEmpty.GetAdminLevel(), AdminLevel::Unknown, ());
     TEST_EQUAL(regionDataEmpty.GetPlaceType(), PlaceType::Unknown, ());
     TEST(!regionDataEmpty.HasIsoCodeAlpha2(), ());
@@ -90,8 +90,8 @@ UNIT_TEST(RegionInfoCollector_Get)
   regionInfoCollector.Save();
 
   RegionInfo regionInfo(filename);
-  auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.id));
-  TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.id), ());
+  auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.m_id));
+  TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.m_id), ());
   TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
   TEST_EQUAL(regionData.GetPlaceType(), PlaceType::City, ());
 }
@@ -106,7 +106,7 @@ UNIT_TEST(RegionInfoCollector_Exists)
 
   RegionInfo regionInfo(filename);
   {
-    auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.id));
+    auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.m_id));
     TEST(rg.HasAdminLevel(), ());
     TEST(!rg.HasPlaceType(), ());
     TEST(rg.HasIsoCodeAlpha2(), ());
@@ -115,7 +115,7 @@ UNIT_TEST(RegionInfoCollector_Exists)
   }
 
   {
-    auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCity.id));
+    auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCity.m_id));
     TEST(rg.HasAdminLevel(), ());
     TEST(rg.HasPlaceType(), ());
     TEST(!rg.HasIsoCodeAlpha2(), ());

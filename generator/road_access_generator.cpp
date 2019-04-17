@@ -292,21 +292,21 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
 {
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
-  if (elem.type == OsmElement::EntityType::Node)
+  if (elem.m_type == OsmElement::EntityType::Node)
   {
     RoadAccess::Type accessType = GetAccessType(elem);
     if (accessType != RoadAccess::Type::Yes)
-      m_barriers[elem.id] = accessType;
+      m_barriers[elem.m_id] = accessType;
     return;
   }
 
-  if (elem.type != OsmElement::EntityType::Way)
+  if (elem.m_type != OsmElement::EntityType::Way)
     return;
 
   // All feature tags.
   auto const accessType = GetAccessType(elem);
   if (accessType != RoadAccess::Type::Yes)
-    oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.id << " "
+    oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.m_id << " "
         << 0 /* wildcard segment Idx */ << endl;
 
   // Barrier tags.
