@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 #include "3party/jansson/src/jansson.h"
 
 namespace base
@@ -68,6 +70,14 @@ json_t * GetJSONOptionalField(json_t * root, char const * field);
 bool JSONIsNull(json_t * root);
 }  // namespace base
 
+template <typename T>
+T FromJSON(json_t * root)
+{
+  T result{};
+  FromJSON(root, result);
+  return result;
+}
+
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 
 void FromJSON(json_t * root, double & result);
@@ -96,6 +106,18 @@ void FromJSONObject(json_t * root, std::string const & field, T & result)
   {
     MYTHROW(base::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
   }
+}
+
+template <typename T>
+boost::optional<T> FromJSONObjectOptional(json_t * root, char const * field)
+{
+  auto * json = base::GetJSONOptionalField(root, field);
+  if (!json)
+    return {};
+
+  boost::optional<T> result{T{}};
+  FromJSON(json, *result);
+  return result;
 }
 
 template <typename T>

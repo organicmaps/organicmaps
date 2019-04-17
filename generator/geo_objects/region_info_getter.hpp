@@ -2,6 +2,7 @@
 
 #include "generator/geo_objects/key_value_storage.hpp"
 
+#include "indexer/borders.hpp"
 #include "indexer/locality_index.hpp"
 
 #include "coding/reader.hpp"
@@ -36,11 +37,14 @@ private:
   using IndexReader = ReaderPtr<Reader>;
 
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
-  boost::optional<KeyValue> GetDeepest(std::vector<base::GeoObjectId> const & ids,
+  boost::optional<KeyValue> GetDeepest(m2::PointD const & point, std::vector<base::GeoObjectId> const & ids,
                                        Selector const & selector) const;
   int GetRank(base::Json const & json) const;
+  // Get parent id of object: optional field `properties.pid` in JSON.
+  boost::optional<uint64_t> GetPid(base::Json const & json) const;
 
   indexer::RegionsIndex<IndexReader> m_index;
+  indexer::Borders m_borders;
   KeyValueStorage m_storage;
 };
 }  // namespace geo_objects

@@ -11,7 +11,9 @@ namespace geo_objects
 RegionInfoGetter::RegionInfoGetter(std::string const & indexPath, std::string const & kvPath)
     : m_index{indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(indexPath)}
     , m_storage(kvPath)
-{ }
+{
+  m_borders.Deserialize(indexPath);
+}
 
 boost::optional<KeyValue> RegionInfoGetter::FindDeepest(m2::PointD const & point) const
 {
@@ -22,7 +24,7 @@ boost::optional<KeyValue> RegionInfoGetter::FindDeepest(
     m2::PointD const & point, Selector const & selector) const
 {
   auto const ids = SearchObjectsInIndex(point);
-  return GetDeepest(ids, selector);
+  return GetDeepest(point, ids, selector);
 }
 
 std::vector<base::GeoObjectId> RegionInfoGetter::SearchObjectsInIndex(m2::PointD const & point) const
@@ -33,37 +35,41 @@ std::vector<base::GeoObjectId> RegionInfoGetter::SearchObjectsInIndex(m2::PointD
   return ids;
 }
 
-boost::optional<KeyValue> RegionInfoGetter::GetDeepest(
+boost::optional<KeyValue> RegionInfoGetter::GetDeepest(m2::PointD const & point,
     std::vector<base::GeoObjectId> const & ids, Selector const & selector) const
 {
-  boost::optional<KeyValue> deepest;
-  int deepestRank = 0;
+  // Minimize CPU consumption by minimizing the number of calls to heavy m_borders.IsPointInside().
+  std::multimap<int, KeyValue> regionsByRank;
   for (auto const & id : ids)
   {
-    base::Json temp;
-    auto const res = m_storage.Find(id.GetEncodedId());
-    if (!res)
+    auto const region = m_storage.Find(id.GetEncodedId());
+    if (!region)
     {
       LOG(LWARNING, ("Id not found in region key-value storage:", id));
       continue;
     }
 
-    temp = *res;
-    if (!json_is_object(temp.get()))
-    {
-      LOG(LWARNING, ("Value is not a json object in region key-value storage:", id));
-      continue;
-    }
-
-    int tempRank = GetRank(temp);
-    if ((!deepest || deepestRank < tempRank) && selector(temp))
-    {
-      deepestRank = tempRank;
-      deepest = KeyValue(static_cast<int64_t>(id.GetEncodedId()), temp);
-    }
+    auto rank = GetRank(*region);
+    regionsByRank.emplace(rank, KeyValue{id.GetEncodedId(), std::move(*region)});
   }
 
-  return deepest;
+  boost::optional<uint64_t> borderCheckSkipRegionId;
+  for (auto i = regionsByRank.rbegin(); i != regionsByRank.rend(); ++i)
+  {
+    auto & kv = i->second;
+    auto regionId = kv.first;
+    if (regionId != borderCheckSkipRegionId && !m_borders.IsPointInside(regionId, point))
+      continue;
+
+    if (selector(kv.second))
+      return std::move(kv);
+
+    // Skip border check for parent region.
+    if (auto pid = GetPid(kv.second))
+      borderCheckSkipRegionId = pid;
+  }
+
+  return {};
 }
 
 int RegionInfoGetter::GetRank(base::Json const & json) const
@@ -73,6 +79,15 @@ int RegionInfoGetter::GetRank(base::Json const & json) const
   int rank;
   FromJSONObject(properties, "rank", rank);
   return rank;
+}
+
+boost::optional<uint64_t> RegionInfoGetter::GetPid(base::Json const & json) const
+{
+  auto && properties = base::GetJSONObligatoryField(json.get(), "properties");
+  auto && pid = base::GetJSONOptionalField(json.get(), "pid");
+  if (!pid || base::JSONIsNull(pid))
+    return {};
+  return static_cast<uint64_t>(FromJSON<int64_t>(pid));
 }
 
 KeyValueStorage const & RegionInfoGetter::GetStorage() const noexcept
