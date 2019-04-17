@@ -35529,13 +35529,13 @@
   ru = Северный Висконсин
   ar = شمال ويسكونسن
   cs = Severní Wisconsin
-  da = North Wisconsin
+  da = Nord Wisconsin
   nl = Noord Wisconsin
   fi = Pohjois-Wisconsin
   fr = Nord du Wisconsin
   de = Nordwisconsin
   hu = Észak-Wisconsin
-  id = North Wisconsin
+  id = Wisconsin Utara
   it = Wisconsin del Nord
   ja = 北ウィスコンシン
   ko = 북 위스콘신
@@ -35546,7 +35546,7 @@
   ro = Wisconsinul de Nord
   es = Norte de Wisconsin
   es-MX = Norte de Wisconsin
-  sv = North Wisconsin
+  sv = Norra Wisconsin
   th = วิสคอนซินตอนเหนือ
   tr = Kuzey Wisconsin
   uk = Північний Вісконсін

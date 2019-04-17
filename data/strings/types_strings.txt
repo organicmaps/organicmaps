@@ -10892,7 +10892,7 @@
     en = landuse-greenhouse_horticulture
 
   [type.landuse.industrial]
-    en = Industrial land  
+    en = Industrial land
 
   [type.landuse.landfill]
     en = Landfill
@@ -17989,7 +17989,7 @@
 
   [type.sport.athletics]
     en = Athletics
-    ru = Легкая атлетика
+    ru = Лёгкая атлетика
     ar = العاب رياضية
     cs = Atletika
     da = Atletik
@@ -19591,7 +19591,7 @@
 
   [type.piste_type.sled]
     en = piste:type-sled
-<<<<<<< HEAD
+
 =======
 
   [type.building_part]
@@ -19673,4 +19673,4 @@
 
   [type.area_highway.unclassified]
     en = area:highway-unclassified
->>>>>>> 9d45071fd1338f6986eaa18121beae1f88526e0f
+

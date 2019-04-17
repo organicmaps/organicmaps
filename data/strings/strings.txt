@@ -38825,7 +38825,7 @@
     fa = ما مقالات Wikipedia.org را به صفحات جذاب‌ترین جاذبه‌های توریستی اضافه کرده‌ایم. آن‌ها به طور آفلاین دردسترس می‌باشد
 
   [driving_options_title]
-    en = Driving options
+    en = Routing options
     ru = Настройки объезда
     ar = خيارات قيادة
     cs = Možnosti řízení
@@ -39063,7 +39063,7 @@
     fa = امکان محاسبه مسیر نیست
 
   [unable_to_calc_alert_subtitle]
-    en = Unfortunately we couldn’t find a route probably because of your defined options. Please change the settings and try again
+    en = Unfortunately, we couldn't find a route, probably due to the options you have chosen. Please change the settings and try again.
     ru = К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا
     cs = Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu
@@ -39131,7 +39131,7 @@
     fa = جاده های لغو شده را تعریف نمایید
 
   [change_driving_options_btn]
-    en = Change driving options
+    en = Change routing options
     ru = Изменить настройки объезда
     ar = تغيير خيارات القيادة
     cs = Změnit možnosti řízení
@@ -39267,38 +39267,38 @@
     fa = گذرگاه جاده ای
 
   [operated_by]
-    en = Operated by %s
-    ru = Управляется %s
-    ar = تدرا بواسطة %s
-    cs = Provozován %s
-    da = Drives af %s
-    nl = Gecontroleerd door %s
-    fi = Hallinnoitu %s
-    fr = Géré par %s
-    de = Gesteuert %s
-    hu = %s működteti
-    id = Dioperasikan oleh %s
-    it = Gestita da %s
-    ja = %sで稼働
-    ko = %s 로 운용됨
-    nb = Bemannet av %s
-    pl = Zarządzany przez %s
-    pt = Operado por %s
-    pt-BR = Operado por %s
-    ro = Se gestionează %s
-    es = Operado por %s
-    es-MX = Operado por %s
-    sv = Kontrolleras %s
-    th = กำลังทำงานอยู่ที่ %s
-    tr = %s tarafından işletiliyor
-    uk = Керується %s
-    vi = Tạo được %s
-    el = Χειρίζεται από %s
-    sk = Prevádzkuje %s
-    sw = Inaongozwa na %s
-    zh-Hans = 由%s管理
-    zh-Hant = 由%s管理
-    fa = اجرا توسط %s
+    en = Operated by "%s"
+    ru = Управляется оператором "%s"
+    ar = تدرا بواسطة "%s"
+    cs = Provozován "%s"
+    da = Drives af "%s"
+    nl = Gecontroleerd door "%s"
+    fi = Hallinnoitu "%s"
+    fr = Géré par "%s"
+    de = Gesteuert "%s"
+    hu = "%s" működteti
+    id = Dioperasikan oleh "%s"
+    it = Gestita da "%s"
+    ja = "%s"で稼働
+    ko = "%s" 로 운용됨
+    nb = Bemannet av "%s"
+    pl = Zarządzany przez "%s"
+    pt = Operado por "%s"
+    pt-BR = Operado por "%s"
+    ro = Se gestionează "%s"
+    es = Operado por "%s"
+    es-MX = Operado por "%s"
+    sv = Kontrolleras "%s"
+    th = กำลังทำงานอยู่ที่ "%s"
+    tr = "%s" tarafından işletiliyor
+    uk = Керується "%s"
+    vi = Tạo được "%s"
+    el = Χειρίζεται από "%s"
+    sk = Prevádzkuje "%s"
+    sw = Inaongozwa na "%s"
+    zh-Hans = 由"%s"管理
+    zh-Hant = 由"%s"管理
+    fa = اجرا توسط "%s"
 
   [avoid_toll_roads_placepage]
     en = Avoid toll roads
@@ -39403,7 +39403,7 @@
     fa = اجتناب از گذرگاه های کشتی
 
   [cached_guides_placeholder_subtitle]
-    en = MAPS.ME offers ready-made guides to selected places with photos and descriptions that are displayed on the map and available offline.
+    en = MAPS.ME ready-made guides are select places with photos and descriptions that are displayed on the map and available offline.
     ru = Готовые путеводители в MAPS.ME – это избранные места с фотографиями и описаниями, которые отображаются на карте и доступны офлайн.
     ar = توفر MAPS.ME دلائل جاهزة لإماكن مختارة مع الصور والوصف الذي يتم عرضه على الخريطة وهو متاح بدون اتصال بالانترنت.
     cs = MAPS.ME nabízí hotové průvodce pro vybraná místa s fotografiemi a popisy, které jsou zobrazeny na mapě a jsou k dispozici offline.
@@ -39707,7 +39707,7 @@
     fa = راهنما آماده دریافت است
 
   [onboarding_guide_direct_download_subtitle]
-    en = It will be displayed on map and work offline
+    en = It will be displayed on the map and work offline
     ru = Он отобразится на карте и будет работать офлайн
     ar = سيتم عرضه على الخريطة وبدون اتصال بالانترنت
     cs = Bude zobrazen na mapě a bude pracovat offline
@@ -39809,7 +39809,7 @@
     fa = راهنماهای آماده استفاده در MAPS.ME
 
   [onboarding_bydeeplink_guide_subtitle]
-    en = Best places to visit displayed on map with photos and descriptions. Work offline.
+    en = Best places to visit are displayed on map with photos and descriptions. Works offline.
     ru = Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.
     ar = أفضل الأماكن لزيارتها معروضة على الخريطة مع الصور والوصف. يعمل بدون اتصال بالانترنت.
     cs = Nejlepší místa k navštívení zobrazená na mapě s fotografiemi a popisy. Pracujte offline.
@@ -39980,8 +39980,8 @@
     fa = مسیر عابر پیاده خیلی طولانی است
 
   [whatsnew_toll_unpaved_title]
-    en = Lay out automobile routes considering all types of roads
-    ru = Прокладывайте автомаршруты с учетом всех типов дорог
+    en = Consider road type when planning automobile routes
+    ru = Прокладывайте автомаршруты с учетом типа дороги
     ar = نسق طرق السيارات يشمل جميع أنواع الطرق
     cs = Rozmístěte automobilové trasy s ohledem na všechny typy silnic
     da = Layout for kørselsruter medtager alle typer af veje
@@ -40014,8 +40014,8 @@
     fa = مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید
   
   [whatsnew_toll_unpaved_message]
-    en = Choose detours by toll roads, dirt roads and ferry crossings
-    ru = Выбирайте пути объезда через платные, грунтовые дороги и паромные переправы
+    en = Choose to avoid toll and unpaved roads and ferry crossings
+    ru = Объезжайте платные и грунтовые дороги и паромные переправы
     ar = حدد الطرق التي تحتوي: نقط تحصيل رسوم، طرق غير ممهدة، تفاطعات العبارات
     cs = Vyberte si objížďky podle zpoplatněných silnic, prašných silnic a přejezdů trajektů
     da = Vælg omveje for at undgå vejbaner, grusveje og færgeoverfarter
@@ -40320,7 +40320,7 @@
     fa = سپس
 
   [redirect_route_alert]
-    en = Do you want to rebuild a route?
+    en = Do you want to rebuild the route?
     ru = Хотите перестроить маршрут?
     ar = هل تريد إعادة تحديد الطريق?
     cs = Chcete přestavět trasu?
@@ -40490,7 +40490,7 @@
     fa = صفحه کلید در هنگام رانندگی در دسترس نیست
 
   [dialog_routing_change_start_carplay] 
-    en = Unable to build route from your current location
+    en = Unable to build a route from your current location
     ru = Невозможно построить маршрут от текущего местоположения
     ar = لا يمكن تحديد طريق من موقعك الحالي
     cs = Od vaší aktuální polohy nelze vystavět trasu
@@ -40524,7 +40524,7 @@
     fa = امکان ایجاد مسیر از مکان فعلی شما نیست
 
   [dialog_routing_change_end_carplay]
-    en = Unable to build route to your destination. Please choose another point
+    en = Unable to build a route to your destination. Please choose another point
     ru = Невозможно построить маршрут до конечной точки. Выберите другую
     ar = لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر
     cs = Nelze vystavět trasu k vaší destinaci. Zvolte prosím další bod
@@ -40592,7 +40592,7 @@
     fa = سیگنال GPS وجود ندارد. لطفاً به فضای باز بروید
 
   [dialog_routing_unable_locate_route_carplay]
-    en = Unable to build route. Please specify another route points
+    en = Unable to build a route. Please specify other route points
     ru = Невозможно построить маршрут. Выберите другие точки маршрута
     ar = لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق
     cs = Nelze sestavit trasu. Specifikujte prosím další body trasy
@@ -40626,8 +40626,8 @@
     fa = امکان ایجاد مسیر نیست. لطفاً نقاط مسیر دیگری را مشخص کنید
 
   [dialog_routing_download_files_carplay]
-    en = Not all maps are present to build a route. Please download them on your mobile phone
-    ru = Не все карты доступны для построения маршрута. Скачайте их в приложении на телефоне
+    en = Some maps required for planning the route are not present. Please, download them on your mobile device
+    ru = Не все карты, необходимые для построения маршрута, доступны. Пожалуйста, скачайте их в приложении на мобильном устройстве
     ar = لا تتواجد جميع الخرائط من أجل تحديد طريق. يرجى تحميلهم على هاتفك المحمول
     cs = K sestavení trasy nejsou přítomny žádné mapy. Stáhněte si je prosím na váš mobilní telefon
     da = Der mangler kort for at beregne en rute. Download dem på din mobiltelefon
@@ -40660,7 +40660,7 @@
     fa = همه نقشه ها برای ایجاد یک مسیر موجود نیست. لطفا آنها را بر روی تلفن همراه خود دانلود کنید
 
   [dialog_routing_system_error_carplay]
-    en = Error occurred. Please restart the application
+    en = An error occurred. Please restart the application
     ru = Произошла ошибка. Перезапустите приложение
     ar = حدث خطأ. يرجى إعادة تشغيل التطبيق
     cs = Vyskytla se chyba. Restartujte prosím aplikaci
@@ -40694,7 +40694,7 @@
     fa = خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید
 
   [dialog_routing_rebuild_from_current_location_carplay]
-    en = Route will be rebuilt from your current location
+    en = The route will be rebuilt from your current location
     ru = Маршрут будет перестроен от вашего текущего местоположения
     ar = سيتم اعادة تحديد الطريق من موقعك الحالي
     cs = Trasa bude přestavěna od vaší aktuální polohy
@@ -40728,7 +40728,7 @@
     fa = مسیر از مکان فعلی شما بازسازی خواهد شد
 
   [dialog_routing_rebuild_for_vehicle_carplay]
-    en = Route will be modified to a car one
+    en = The route will be converted into an automobile one
     ru = Маршрут будет изменен на автомобильный
     ar = سيتم تعديل الطريق لتكون خاصة بالسيارة
     cs = Trasa bude upravena k autu jedna
@@ -40794,3 +40794,8 @@
     zh-Hans = 好的
     zh-Hant = 好的
     fa = موافقت کردن
+
+  [vezet_taxi]
+    en = Vezet
+    ru = Везет
+
