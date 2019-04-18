@@ -128,7 +128,7 @@ public enum TaxiType
         @StringRes
         public int getTitle()
         {
-          return R.string.taxi;
+          return R.string.vezet_taxi;
         }
 
         @NonNull
