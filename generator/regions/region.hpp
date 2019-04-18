@@ -13,7 +13,7 @@ class RegionDataProxy;
 
 namespace regions
 {
-class City;
+class PlacePoint;
 
 // This is a helper class that is needed to represent the region.
 // With this view, further processing is simplified.
@@ -22,13 +22,13 @@ class Region : public RegionWithName, public RegionWithData
 public:
   explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
   // Build a region and its boundary based on the heuristic.
-  explicit Region(City const & city);
+  explicit Region(PlacePoint const & place);
 
   // After calling DeletePolygon, you cannot use Contains, ContainsRect, CalculateOverlapPercentage.
   void DeletePolygon();
   bool Contains(Region const & smaller) const;
   bool ContainsRect(Region const & smaller) const;
-  bool Contains(City const & cityPoint) const;
+  bool Contains(PlacePoint const & place) const;
   bool Contains(BoostPoint const & point) const;
   double CalculateOverlapPercentage(Region const & other) const;
   BoostPoint GetCenter() const;
@@ -48,6 +48,6 @@ private:
   double m_area;
 };
 
-bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature);
+bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature);
 }  // namespace regions
 }  // namespace generator

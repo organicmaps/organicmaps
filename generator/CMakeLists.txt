@@ -145,12 +145,12 @@ set(SRC
   relation_tags_enricher.hpp
   region_meta.cpp
   region_meta.hpp
-  regions/city.hpp
   regions/collector_region_info.cpp
   regions/collector_region_info.hpp
   regions/level_region.hpp
   regions/node.cpp
   regions/node.hpp
+  regions/place_point.hpp
   regions/region.cpp
   regions/region.hpp
   regions/region_base.cpp

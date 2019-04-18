@@ -1,8 +1,8 @@
 #include "generator/regions/region.hpp"
 
 #include "generator/boost_helpers.hpp"
-#include "generator/regions/city.hpp"
 #include "generator/regions/collector_region_info.hpp"
+#include "generator/regions/place_point.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -43,13 +43,13 @@ Region::Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
   m_area = boost::geometry::area(*m_polygon);
 }
 
-Region::Region(City const & city)
-  : RegionWithName(city.GetMultilangName())
-  , RegionWithData(city.GetRegionData())
+Region::Region(PlacePoint const & place)
+  : RegionWithName(place.GetMultilangName())
+  , RegionWithData(place.GetRegionData())
   , m_polygon(std::make_shared<BoostPolygon>())
 {
-  auto const radius = GetRadiusByPlaceType(city.GetPlaceType());
-  *m_polygon = MakePolygonWithRadius(city.GetCenter(), radius);
+  auto const radius = GetRadiusByPlaceType(place.GetPlaceType());
+  *m_polygon = MakePolygonWithRadius(place.GetPosition(), radius);
   boost::geometry::envelope(*m_polygon, m_rect);
   m_area = boost::geometry::area(*m_polygon);
 }
@@ -139,11 +139,11 @@ BoostPoint Region::GetCenter() const
   return p;
 }
 
-bool Region::Contains(City const & cityPoint) const
+bool Region::Contains(PlacePoint const & place) const
 {
   CHECK(m_polygon, ());
 
-  return Contains(cityPoint.GetCenter());
+  return Contains(place.GetPosition());
 }
 
 bool Region::Contains(BoostPoint const & point) const
@@ -154,7 +154,7 @@ bool Region::Contains(BoostPoint const & point) const
       boost::geometry::covered_by(point, *m_polygon);
 }
 
-bool FeatureCityPointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature)
+bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature)
 {
   if (!feature.IsPoint())
     return false;

@@ -3,7 +3,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/regions/city.hpp"
+#include "generator/regions/place_point.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/regions/node.hpp"
 #include "generator/regions/regions_builder.hpp"
@@ -100,11 +100,11 @@ private:
     RepackTmpMwm(setIds);
   }
 
-  std::tuple<RegionsBuilder::Regions, PointCitiesMap>
+  std::tuple<RegionsBuilder::Regions, PlacePointsMap>
   ReadDatasetFromTmpMwm(std::string const & tmpMwmFilename, RegionInfo & collector)
   {
     RegionsBuilder::Regions regions;
-    PointCitiesMap pointCitiesMap;
+    PlacePointsMap placePointsMap;
     auto const toDo = [&](FeatureBuilder1 const & fb, uint64_t /* currPos */) {
       if (fb.IsArea() && fb.IsGeometryClosed())
       {
@@ -115,20 +115,20 @@ private:
       else if (fb.IsPoint())
       {
         auto const id = fb.GetMostGenericOsmId();
-        pointCitiesMap.emplace(id, City(fb, collector.Get(id)));
+        placePointsMap.emplace(id, PlacePoint{fb, collector.Get(id)});
       }
     };
 
     feature::ForEachFromDatRawFormat(tmpMwmFilename, toDo);
-    return std::make_tuple(std::move(regions), std::move(pointCitiesMap));
+    return std::make_tuple(std::move(regions), std::move(placePointsMap));
   }
 
   RegionsBuilder::Regions ReadAndFixData()
   {
     RegionsBuilder::Regions regions;
-    PointCitiesMap pointCitiesMap;
-    std::tie(regions, pointCitiesMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
-    FixRegionsWithPlacePointApproximation(pointCitiesMap, regions);
+    PlacePointsMap placePointsMap;
+    std::tie(regions, placePointsMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
+    FixRegionsWithPlacePointApproximation(placePointsMap, regions);
     FilterRegions(regions);
     return regions;
   }
@@ -152,7 +152,7 @@ private:
     feature::FeaturesCollector collector(m_pathOutRepackedRegionsTmpMwm);
     auto const toDo = [this, &collector, &ids](FeatureBuilder1 & fb, uint64_t /* currPos */) {
       if (ids.count(fb.GetMostGenericOsmId()) == 0 ||
-          (fb.IsPoint() && !FeatureCityPointToRegion(m_regionsInfoCollector, fb)))
+          (fb.IsPoint() && !FeaturePlacePointToRegion(m_regionsInfoCollector, fb)))
       {
         return;
       }
