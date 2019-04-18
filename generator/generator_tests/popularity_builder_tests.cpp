@@ -32,6 +32,7 @@ public:
   TestPopularityBuilder()
   {
     classificator::Load();
+    m_testSet = TestPopularityBuilder::GetTestSet();
   }
 
   void GetType() const
@@ -223,7 +224,7 @@ public:
     TEST_EQUAL(nameToNode.at("1_3")->GetParent(), nameToNode.at("1"), ());
   }
 
-  static void MakeNodes()
+  void MakeNodes()
   {
     std::vector<FeatureBuilder1> v = FilterArea(m_testSet);
     auto const nodes = PopularityBuilder::MakeNodes(v);
@@ -237,11 +238,10 @@ public:
     auto const filename = GetFileName();
     auto const type = m_cl.GetTypeByPath({"tourism", "museum"});
     auto const typeName = m_cl.GetReadableObjectName(type);
-    auto const testSet = AddTypes(m_testSet, {type});
 
     {
       feature::FeaturesCollector collector(filename);
-      for (auto const & feature : testSet)
+      for (auto const & feature : m_testSet)
         collector(feature);
     }
 
@@ -256,7 +256,7 @@ public:
       Platform::RemoveFileIfExists(filename);
     });
 
-    TEST_EQUAL(lines.size(), testSet.size(), ());
+    TEST_EQUAL(lines.size(), m_testSet.size(), ());
     TEST(!m.at("1").m_parent, ());
     TEST_EQUAL(m.at("1").m_type,  typeName, ());
 
@@ -293,6 +293,7 @@ private:
       feature.AddPoint(m2::PointD{10.0, 0.0});
       feature.AddPoint(firstLast);
       feature.SetArea();
+      feature.AddType(classif().GetTypeByPath({"tourism", "museum"}));
       feature.AddName("default", "1");
       v.push_back(feature);
     }
@@ -307,6 +308,7 @@ private:
       feature.AddPoint(m2::PointD{4.0, 3.0});
       feature.AddPoint(firstLast);
       feature.SetArea();
+      feature.AddType(classif().GetTypeByPath({"tourism", "museum"}));
       feature.AddName("default", "1_2");
       v.push_back(feature);
     }
@@ -321,6 +323,7 @@ private:
       feature.AddPoint(m2::PointD{10.0, 0.0});
       feature.AddPoint(firstLast);
       feature.SetArea();
+      feature.AddType(classif().GetTypeByPath({"tourism", "museum"}));
       feature.AddName("default", "1_3");
       v.push_back(feature);
     }
@@ -330,6 +333,7 @@ private:
       feature.AddOsmId(base::GeoObjectId(4));
       feature.SetCenter(m2::PointD{8.0, 2.0});
       feature.AddName("default", "1_3_4");
+      feature.AddType(classif().GetTypeByPath({"tourism", "museum"}));
       v.push_back(feature);
     }
 
@@ -338,6 +342,7 @@ private:
       feature.AddOsmId(base::GeoObjectId(5));
       feature.SetCenter(m2::PointD{7.0, 2.0});
       feature.AddName("default", "1_3_5");
+      feature.AddType(classif().GetTypeByPath({"tourism", "museum"}));
       v.push_back(feature);
     }
 
@@ -396,13 +401,9 @@ private:
     return v;
   }
 
-  static Classificator & m_cl;
-  static std::vector<FeatureBuilder1> const m_testSet;
+  Classificator const & m_cl = classif();
+  std::vector<FeatureBuilder1> m_testSet;
 };
-
-// static
-Classificator & TestPopularityBuilder::m_cl = classif();
-std::vector<FeatureBuilder1> const TestPopularityBuilder::m_testSet = TestPopularityBuilder::GetTestSet();
 }  // namespace generator_tests
 
 using namespace generator_tests;
