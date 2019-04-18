@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <ostream>
+#include <stdint.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
