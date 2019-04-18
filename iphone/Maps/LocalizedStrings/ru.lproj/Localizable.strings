@@ -2778,6 +2778,15 @@
 "purchase_please_wait_toast" = "Пожалуйста, не покидайте экран до завершения покупки";
 
 /* FIXME */
+"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
+"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
+"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
 "whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
 
 /* FIXME */
@@ -2788,6 +2797,25 @@
 
 /* FIXME */
 "whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+
+/* FIXME */
+"vezet_taxi" = "vezet_taxi";
+
+"onboarding_guide_direct_download_title" = "Путеводитель готов к загрузке";
+
+"onboarding_guide_direct_download_subtitle" = "Он отобразится на карте и будет работать без интернета";
+
+"onboarding_guide_direct_download_button" = "Скачать";
+
+"onboarding_bydeeplink_guide_title" = "Готовые путеводители в MAPS.ME";
+
+"onboarding_bydeeplink_guide_subtitle" = "Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн";
+
+"whats_new_auto_update_bydeeplink_title" = "До того, как перейти к маршрутам...";
+
+"whats_new_auto_update_bydeeplink_message" = "Обновите карты, чтобы у вас была актуальная информация о местах вокруг!";
+
+"whats_new_auto_update_and_proceed" = "Обновить (%s) и продолжить";
 
 
 /**********  Partners  **********/

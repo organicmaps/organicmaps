@@ -1611,6 +1611,14 @@
 	<string name="whatsnew_toll_unpaved_message">whatsnew_toll_unpaved_message</string>
 	<!-- FIXME -->
 	<string name="vezet_taxi">vezet_taxi</string>
+	<string name="onboarding_guide_direct_download_title">Guide is ready for download</string>
+	<string name="onboarding_guide_direct_download_subtitle">It will be displayed on map and work offline</string>
+	<string name="onboarding_guide_direct_download_button">Download</string>
+	<string name="onboarding_bydeeplink_guide_title">Ready-to-use guides in MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_subtitle">Best places to visit displayed on map with photos and descriptions. Work offline.</string>
+	<string name="whats_new_auto_update_bydeeplink_title">Before you proceed to guides...</string>
+	<string name="whats_new_auto_update_bydeeplink_message">Update maps to keep the information about objects up to date!</string>
+	<string name="whats_new_auto_update_and_proceed">Update (%s) and proceed</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

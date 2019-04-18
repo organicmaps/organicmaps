@@ -1579,6 +1579,14 @@
 	<string name="ferry_crossing">Паромная переправа</string>
 	<string name="operated_by">Осуществляется оператором %s</string>
 	<string name="purchase_please_wait_toast">Пожалуйста, не покидайте экран до завершения покупки</string>
+	<string name="onboarding_guide_direct_download_title">Путеводитель готов к загрузке</string>
+	<string name="onboarding_guide_direct_download_subtitle">Он отобразится на карте и будет работать без интернета</string>
+	<string name="onboarding_guide_direct_download_button">Скачать</string>
+	<string name="onboarding_bydeeplink_guide_title">Готовые путеводители в MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_subtitle">Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн</string>
+	<string name="whats_new_auto_update_bydeeplink_title">До того, как перейти к маршрутам...</string>
+	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты, чтобы у вас была актуальная информация о местах вокруг!</string>
+	<string name="whats_new_auto_update_and_proceed">Обновить (%s) и продолжить</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

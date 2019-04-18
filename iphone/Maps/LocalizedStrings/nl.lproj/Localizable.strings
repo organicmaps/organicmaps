@@ -2778,6 +2778,15 @@
 "purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
 
 /* FIXME */
+"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
+"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
+"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+
+/* FIXME */
 "whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
 
 /* FIXME */
@@ -2788,6 +2797,25 @@
 
 /* FIXME */
 "whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+
+/* FIXME */
+"vezet_taxi" = "vezet_taxi";
+
+"onboarding_guide_direct_download_title" = "Guide is ready for download";
+
+"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+
+"onboarding_guide_direct_download_button" = "Download";
+
+"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+
+"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+
+"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+
+"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+
+"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
 
 
 /**********  Partners  **********/
