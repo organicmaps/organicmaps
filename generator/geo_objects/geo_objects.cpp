@@ -2,6 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/geo_objects/geo_object_info_getter.hpp"
+#include "generator/geo_objects/geo_objects_filter.hpp"
 #include "generator/geo_objects/key_value_storage.hpp"
 #include "generator/geo_objects/region_info_getter.hpp"
 #include "generator/geo_objects/streets_builder.hpp"
@@ -38,17 +39,6 @@ namespace geo_objects
 namespace
 {
 using IndexReader = ReaderPtr<Reader>;
-
-bool IsBuilding(FeatureBuilder1 const & fb)
-{
-  auto const & checker = ftypes::IsBuildingChecker::Instance();
-  return checker(fb.GetTypes());
-}
-
-bool HasHouse(FeatureBuilder1 const & fb)
-{
-  return !fb.GetParams().house.IsEmpty();
-}
 
 bool HouseHasAddress(base::Json json)
 {
@@ -163,7 +153,7 @@ void BuildGeoObjectsWithAddresses(RegionInfoGetter const & regionInfoGetter,
 {
   size_t countGeoObjects = 0;
   auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (!(IsBuilding(fb) || HasHouse(fb)))
+    if (!(GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb)))
       return;
 
     auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
@@ -187,7 +177,9 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
 {
   size_t countGeoObjects = 0;
   auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (IsBuilding(fb) || HasHouse(fb) || StreetsBuilder::IsStreet(fb))
+    if (!GeoObjectsFilter::IsPoi(fb))
+      return;
+    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb) || GeoObjectsFilter::IsStreet(fb))
       return;
 
     auto const house = FindHousePoi(fb, geoObjectInfoGetter);

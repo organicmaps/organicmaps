@@ -94,6 +94,8 @@ set(SRC
   geo_objects/geo_objects.hpp
   geo_objects/geo_object_info_getter.cpp
   geo_objects/geo_object_info_getter.hpp
+  geo_objects/geo_objects_filter.cpp
+  geo_objects/geo_objects_filter.hpp
   geo_objects/key_value_storage.cpp
   geo_objects/key_value_storage.hpp
   geo_objects/region_info_getter.cpp
