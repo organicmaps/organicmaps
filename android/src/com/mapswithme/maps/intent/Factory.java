@@ -22,6 +22,7 @@ import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
@@ -85,6 +86,12 @@ public class Factory
   public static IntentProcessor createDlinkBookmarkCatalogueProcessor()
   {
     return new DlinkBookmarkCatalogueIntentProcessor();
+  }
+
+  @NonNull
+  public static IntentProcessor createDlinkBookmarkGuidesPageProcessor()
+  {
+    return new DlinkGuidesPageIntentProcessor();
   }
 
   @NonNull
@@ -304,7 +311,7 @@ public class Factory
     @Override
     MapTask createIntroductionTask(@NonNull String url)
     {
-      return new FreeGuideReadyToDownloadTask(url);
+      return new FreeGuideReadyToDownloadIntroductionTask(url);
     }
 
     @NonNull
@@ -312,6 +319,31 @@ public class Factory
     MapTask createTargetTask(@NonNull String url)
     {
       return new ImportBookmarkCatalogueTask(url);
+    }
+  }
+
+  public static class DlinkGuidesPageIntentProcessor extends DlinkIntentProcessor
+  {
+    static final String GUIDES_PAGE = "guides_page";
+
+    @Override
+    boolean isLinkSupported(@NonNull Uri data)
+    {
+      return (File.separator + GUIDES_PAGE).equals(data.getPath());
+    }
+
+    @Nullable
+    @Override
+    MapTask createIntroductionTask(@NonNull String url)
+    {
+      return new GuidesPageToOpenIntroductionTask(url);
+    }
+
+    @NonNull
+    @Override
+    MapTask createTargetTask(@NonNull String url)
+    {
+      return new GuidesPageToOpenTask(url);
     }
   }
 
@@ -642,7 +674,6 @@ public class Factory
   public static class ImportBookmarkCatalogueTask implements MapTask
   {
     private static final long serialVersionUID = 5363722491377575159L;
-
     @NonNull
     private final String mUrl;
 
@@ -659,22 +690,72 @@ public class Factory
     }
   }
 
-  public static class FreeGuideReadyToDownloadTask implements MapTask
+  public static class GuidesPageToOpenTask extends BaseUrlTask
   {
-    private static final long serialVersionUID = -6851782210156017186L;
-    @NonNull
-    private final String mUrl;
+    private static final long serialVersionUID = 8388101038319062165L;
 
-    FreeGuideReadyToDownloadTask(@NonNull String url)
+    GuidesPageToOpenTask(@NonNull String url)
     {
-      mUrl = url;
+      super(url);
     }
 
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      target.showIntroductionScreenForDeeplink(mUrl, IntroductionScreenFactory.FREE_GUIDE);
+      BookmarksCatalogActivity.startByGuidesPageDeeplink(target, getUrl());
       return false;
+    }
+  }
+
+  static class FreeGuideReadyToDownloadIntroductionTask extends BaseUrlTask
+  {
+    private static final long serialVersionUID = -6851782210156017186L;
+
+    FreeGuideReadyToDownloadIntroductionTask(@NonNull String url)
+    {
+      super(url);
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.FREE_GUIDE);
+      return true;
+    }
+  }
+
+  public static class GuidesPageToOpenIntroductionTask extends BaseUrlTask
+  {
+    private static final long serialVersionUID = 8388101038319062165L;
+
+    GuidesPageToOpenIntroductionTask(@NonNull String url)
+    {
+      super(url);
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.GUIDES_PAGE);
+      return true;
+    }
+  }
+
+  abstract static class BaseUrlTask implements MapTask
+  {
+    private static final long serialVersionUID = 9077126080900672394L;
+    @NonNull
+    private final String mUrl;
+
+    BaseUrlTask(@NonNull String url)
+    {
+      mUrl = url;
+    }
+
+    @NonNull
+    String getUrl()
+    {
+      return mUrl;
     }
   }
 

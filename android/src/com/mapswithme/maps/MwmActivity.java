@@ -2403,7 +2403,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Statistics.INSTANCE.trackToolbarMenu(getItem());
       int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
-      getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
+      String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+      getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(),
+                                                                            requestCode,
+                                                                            catalogUrl));
     }
   }
 

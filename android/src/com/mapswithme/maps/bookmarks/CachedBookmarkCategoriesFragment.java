@@ -58,7 +58,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     downloadRoutesBtn.setOnClickListener(btn -> openBookmarksCatalogScreen());
     View closeHeaderBtn = view.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
-    boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(getContext());
+    boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(requireContext());
     View header = view.findViewById(R.id.header);
     UiUtils.hideIf(isClosed, header);
     ImageView imageView = downloadRoutesBtn.findViewById(R.id.image);
@@ -78,7 +78,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   @Override
   protected CatalogBookmarkCategoriesAdapter createAdapter()
   {
-    return new CatalogBookmarkCategoriesAdapter(getContext());
+    return new CatalogBookmarkCategoriesAdapter(requireContext());
   }
 
   @Override
@@ -133,7 +133,9 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
   private void openBookmarksCatalogScreen()
   {
-    BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG);
+    String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+    BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG,
+                                            catalogUrl);
     Statistics.INSTANCE.trackOpenCatalogScreen();
   }
 
@@ -142,8 +144,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   {
     if (requestCode == BookmarksCatalogActivity.REQ_CODE_CATALOG && resultCode == Activity.RESULT_OK)
     {
-      getActivity().setResult(Activity.RESULT_OK, data);
-      getActivity().finish();
+      requireActivity().setResult(Activity.RESULT_OK, data);
+      requireActivity().finish();
     }
   }
 
@@ -174,7 +176,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     {
       View header = mPayloadContainer.findViewById(R.id.header);
       header.setVisibility(View.GONE);
-      SharedPropertiesUtils.setCatalogCategoriesHeaderClosed(getContext(), true);
+      SharedPropertiesUtils.setCatalogCategoriesHeaderClosed(requireContext(), true);
     }
   }
 
