@@ -19592,8 +19592,6 @@
   [type.piste_type.sled]
     en = piste:type-sled
 
-=======
-
   [type.building_part]
     en = Building
     ru = Здание
