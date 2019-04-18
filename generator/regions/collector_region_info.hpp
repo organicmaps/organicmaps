@@ -50,8 +50,7 @@ enum class PlaceType: uint8_t
   Hamlet = 12,
   Suburb = 13,
   Neighbourhood = 14,
-  Locality = 15,
-  IsolatedDwelling = 16,
+  IsolatedDwelling = 15,
 };
 
 PlaceType EncodePlaceType(std::string const & place);
