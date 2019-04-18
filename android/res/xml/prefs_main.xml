@@ -112,13 +112,6 @@
       android:entries="@array/power_management_scheme"
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
-    <PreferenceScreen
-      android:order="16"
-      android:title="@string/driving_options_title">
-      <intent
-        android:targetClass="com.mapswithme.maps.settings.DrivingOptionsActivity"
-        android:targetPackage="@string/app_id"/>
-    </PreferenceScreen>
   </android.support.v7.preference.PreferenceCategory>
 
   <android.support.v7.preference.PreferenceCategory
@@ -174,6 +167,13 @@
       android:entryValues="@array/speed_cameras_values"
       android:defaultValue="@string/auto_enum_value"
       android:order="5"/>
+    <PreferenceScreen
+      android:order="6"
+      android:title="@string/driving_options_title">
+      <intent
+        android:targetClass="com.mapswithme.maps.settings.DrivingOptionsActivity"
+        android:targetPackage="@string/app_id"/>
+    </PreferenceScreen>
   </android.support.v7.preference.PreferenceCategory>
   <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_information"
