@@ -218,13 +218,6 @@ public enum Statistics
                                                      Statistics.ParamValue.SHARING_OPTIONS));
   }
 
-  public void trackDriveSettingsStatus()
-  {
-    ParameterBuilder status = getRoutingOptionsStatus();
-    trackEvent(Statistics.EventName.SETTINGS_DRIVE_OPTIONS_STATUS,
-               status);
-  }
-
   @NonNull
   private ParameterBuilder getRoutingOptionsStatus()
   {
@@ -240,16 +233,10 @@ public enum Statistics
                   .add(EventParam.UNPAVED, hasDirty ? 1 : 0);
   }
 
-  public void trackRoutingBuildError(int errorType)
-  {
-    Statistics.ParameterBuilder builder = new Statistics.ParameterBuilder();
-    trackEvent(Statistics.EventName.ROUTING_BUILD_ERROR, builder.add(EventParam.ERROR, errorType));
-  }
-
-  public void trackSettingsDriveOptionsChangeEvent(@NonNull String source)
+  public void trackSettingsDriveOptionsChangeEvent()
   {
     ParameterBuilder parameterBuilder = getRoutingOptionsStatus();
-    parameterBuilder.add(EventParam.FROM, source);
+    parameterBuilder.add(EventParam.FROM, EventParam.SETTINGS);
 
     trackEvent(EventName.SETTINGS_DRIVE_OPTIONS_CHANGE,
                parameterBuilder);
@@ -323,8 +310,6 @@ public enum Statistics
     public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
     public static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
     public static final String SETTINGS_DRIVE_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
-    public static final String SETTINGS_DRIVE_OPTIONS_STATUS = "Settings_Navigation_DrivingOptions_status";
-    public static final String ROUTING_BUILD_ERROR = "Routing_build_error";
     public static final String PP_DRIVING_OPTIONS_ACTION = "Placepage_DrivingOptions_action";
 
     // search
