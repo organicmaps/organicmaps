@@ -108,24 +108,13 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
 // static
 bool StreetsBuilder::IsStreet(OsmElement const & element)
 {
-  auto const & tags = element.Tags();
-
-  auto const hasName = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
-    return tag.key == "name";
-  });
-  if (!hasName)
+  if (element.GetTagValue("name", {}).empty())
     return false;
 
-  auto const isHighway = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
-    return tag.key == "highway";
-  });
-  if (isHighway && (element.IsWay() || element.IsRelation()))
+  if (element.HasTag("highway") && (element.IsWay() || element.IsRelation()))
     return true;
 
-  auto const isSquare = std::any_of(std::cbegin(tags), std::cend(tags), [] (auto const & tag) {
-    return tag.key == "place" && tag.value == "square";
-  });
-  if (isSquare)
+  if (element.HasTag("highway", "square"))
     return true;
 
   return false;

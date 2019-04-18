@@ -142,6 +142,7 @@ struct OsmElement
   }
 
   void AddTag(std::string_view const & k, std::string_view const & v);
+  bool HasTag(std::string_view const & key) const;
   bool HasTag(std::string_view const & k, std::string_view const & v) const;
   bool HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const;
 
@@ -164,6 +165,7 @@ struct OsmElement
   }
 
   std::string GetTag(std::string const & key) const;
+  std::string_view GetTagValue(std::string_view const & key, std::string_view const & defaultValue) const;
 };
 
 base::GeoObjectId GetGeoObjectId(OsmElement const & element);

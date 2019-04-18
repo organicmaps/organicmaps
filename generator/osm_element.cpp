@@ -70,6 +70,13 @@ void OsmElement::AddTag(std::string_view const & k, std::string_view const & v)
   m_tags.emplace_back(std::string{k}, std::move(value));
 }
 
+bool OsmElement::HasTag(std::string_view const & key) const
+{
+  return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
+    return t.key == key;
+  });
+}
+
 bool OsmElement::HasTag(std::string_view const & k, std::string_view const & v) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
@@ -152,6 +159,15 @@ std::string OsmElement::GetTag(std::string const & key) const
                                [&key](Tag const & tag) { return tag.key == key; });
 
   return it == m_tags.cend() ? std::string() : it->value;
+}
+
+std::string_view OsmElement::GetTagValue(std::string_view const & key,
+                                         std::string_view const & defaultValue) const
+{
+  auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
+                               [&key](Tag const & tag) { return tag.key == key; });
+
+  return it != m_tags.cend() ? it->value : defaultValue;
 }
 
 std::string DebugPrint(OsmElement const & e)
