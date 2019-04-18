@@ -18,6 +18,8 @@ UNIT_TEST(DirectedAStarProgressCheck)
   TEST_LESS(progress.UpdateProgress(middle, finish), 50.5f, ());
   TEST_GREATER(progress.UpdateProgress(middle, finish), 49.5f, ());
   TEST_GREATER(progress.UpdateProgress(finish, finish), 99.9f, ());
+
+  progress.EraseLastSubProgress();
 }
 
 UNIT_TEST(DirectedAStarDegradationCheck)
@@ -26,15 +28,19 @@ UNIT_TEST(DirectedAStarDegradationCheck)
   m2::PointD finish = m2::PointD(0, 3);
   m2::PointD middle = m2::PointD(0, 2);
 
-  AStarProgress progress;
-  progress.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
-  auto value1 = progress.UpdateProgress(middle, finish);
-  auto value2 = progress.UpdateProgress(start, finish);
+  AStarProgress progressFirst;
+  progressFirst.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
+  auto value1 = progressFirst.UpdateProgress(middle, finish);
+  auto value2 = progressFirst.UpdateProgress(start, finish);
   TEST_LESS_OR_EQUAL(value1, value2, ());
 
-  progress.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
-  auto value3 = progress.UpdateProgress(start, finish);
+  AStarProgress progressSecond;
+  progressSecond.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
+  auto value3 = progressSecond.UpdateProgress(start, finish);
   TEST_GREATER_OR_EQUAL(value1, value3, ());
+
+  progressFirst.EraseLastSubProgress();
+  progressSecond.EraseLastSubProgress();
 }
 
 UNIT_TEST(RangeCheckTest)
@@ -49,6 +55,8 @@ UNIT_TEST(RangeCheckTest)
   TEST_EQUAL(progress.UpdateProgress(preStart, finish), 0.0, ());
   TEST_EQUAL(progress.UpdateProgress(postFinish, finish), 0.0, ());
   TEST_EQUAL(progress.UpdateProgress(finish, finish), 100.0, ());
+
+  progress.EraseLastSubProgress();
 }
 
 UNIT_TEST(BidirectedAStarProgressCheck)
@@ -64,5 +72,7 @@ UNIT_TEST(BidirectedAStarProgressCheck)
   float result = progress.UpdateProgress(bWave, start);
   TEST_GREATER(result, 49.5, ());
   TEST_LESS(result, 50.5, ());
+
+  progress.EraseLastSubProgress();
 }
 } //  namespace routing_test
