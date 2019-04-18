@@ -38918,3 +38918,7 @@
   [whatsnew_toll_unpaved_message]
     comment = FIXME
     en = whatsnew_toll_unpaved_message
+
+  [vezet_taxi]
+    comment = FIXME
+    en = vezet_taxi
