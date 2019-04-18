@@ -114,7 +114,7 @@ bool StreetsBuilder::IsStreet(OsmElement const & element)
   if (element.HasTag("highway") && (element.IsWay() || element.IsRelation()))
     return true;
 
-  if (element.HasTag("highway", "square"))
+  if (element.HasTag("place", "square"))
     return true;
 
   return false;
