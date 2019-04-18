@@ -33,6 +33,8 @@ public:
   void Process(OsmElement const & elem, std::ofstream & oss);
 
 private:
+  bool HasCarAccessTag(OsmElement const & osmElement) const;
+  bool ShouldIgnorePrivateAccess(OsmElement const & osmElement, bool hasAccessTag) const;
   RoadAccess::Type GetAccessType(OsmElement const & elem) const;
 
   VehicleType m_vehicleType;
@@ -40,7 +42,7 @@ private:
   // e.g. for car: motorcar, motorvehicle, vehicle, general access tags.
   std::vector<TagMapping const *> m_tagMappings;
   // Tag mapping for barriers. Key is barrier node osm id.
-  std::map<uint64_t, RoadAccess::Type> m_barriers;
+  std::map<uint64_t, std::pair<RoadAccess::Type, bool /* has access tag */>> m_barriers;
 };
 
 class RoadAccessWriter : public generator::CollectorInterface

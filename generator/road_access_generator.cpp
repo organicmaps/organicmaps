@@ -64,14 +64,12 @@ TagMapping const kVehicleTagMapping = {
 TagMapping const kCarBarriersTagMapping = {
     {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier", "jersey_barrier"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier", "log"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "motorcycle_barrier"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private},
+// TODO (@gmoryes) add this type
+//  {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
+//  {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private}
 };
 
 TagMapping const kPedestrianTagMapping = {
@@ -94,8 +92,6 @@ TagMapping const kBicycleTagMapping = {
 
 TagMapping const kBicycleBarriersTagMapping = {
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "turnstile"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "kissing_gate"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
 };
 
@@ -275,8 +271,9 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
   if (elem.type == OsmElement::EntityType::Node)
   {
     RoadAccess::Type accessType = GetAccessType(elem);
+    bool hasCarAccessTag = m_vehicleType == VehicleType::Car ? HasCarAccessTag(elem) : false;
     if (accessType != RoadAccess::Type::Yes)
-      m_barriers[elem.id] = accessType;
+      m_barriers[elem.id] = {accessType, hasCarAccessTag};
     return;
   }
 
@@ -296,10 +293,70 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
     if (it == m_barriers.cend())
       continue;
 
+    RoadAccess::Type roadAccessType;
+    bool hasCarAccessTag;
+    std::tie(roadAccessType, hasCarAccessTag) = it->second;
+
+    if (m_vehicleType == VehicleType::Car && ShouldIgnorePrivateAccess(elem, hasCarAccessTag))
+      return;
+
     // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
-    oss << ToString(m_vehicleType) << " " << ToString(it->second) << " " << elem.id << " "
+    oss << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << elem.id << " "
         << pointIdx + 1 << endl;
   }
+}
+
+bool RoadAccessTagProcessor::HasCarAccessTag(OsmElement const & osmElement) const
+{
+  CHECK_EQUAL(m_vehicleType, VehicleType::Car, ("HasCarAccessTag() works only for Car."));
+  CHECK_EQUAL(osmElement.type, OsmElement::EntityType::Node, ());
+
+  static std::vector<TagMapping const *> const kAccessTagsWithoutBarrier = {
+      &kMotorCarTagMapping, &kMotorVehicleTagMapping, &kVehicleTagMapping,
+      &kDefaultTagMapping
+  };
+
+  for (auto const & tagMapping : kAccessTagsWithoutBarrier)
+  {
+    for (auto const & tag : osmElement.m_tags)
+    {
+      if (tagMapping->count(tag) != 0)
+        return true;
+    }
+  }
+
+  return false;
+}
+
+bool RoadAccessTagProcessor::ShouldIgnorePrivateAccess(OsmElement const & osmElement,
+                                                       bool hasCarAccessTag) const
+{
+  CHECK_EQUAL(m_vehicleType, VehicleType::Car, ("Ignore made only for Car."));
+  CHECK_EQUAL(osmElement.type, OsmElement::EntityType::Way, ());
+
+  if (hasCarAccessTag)
+    return false;
+
+  static std::set<OsmElement::Tag> const kHighwaysWhereIgnoresPrivateAccess = {
+      {OsmElement::Tag("highway", "motorway")},
+      {OsmElement::Tag("highway", "motorway_link")},
+      {OsmElement::Tag("highway", "primary")},
+      {OsmElement::Tag("highway", "primary_link")},
+      {OsmElement::Tag("highway", "secondary")},
+      {OsmElement::Tag("highway", "secondary_link")},
+      {OsmElement::Tag("highway", "tertiary")},
+      {OsmElement::Tag("highway", "tertiary_link")},
+      {OsmElement::Tag("highway", "trunk")},
+      {OsmElement::Tag("highway", "trunk_link")}
+  };
+
+  for (auto const & tag : osmElement.m_tags)
+  {
+    if (kHighwaysWhereIgnoresPrivateAccess.count(tag) != 0)
+      return true;
+  }
+
+  return false;
 }
 
 RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) const
