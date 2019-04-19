@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "În fișierele locurilor atractive, am adăugat articole din Wikipedia.org, accesibile offline";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Setarea ocolirii";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "De evitat pe orice traseu";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Drumuri cu plată";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Drum de țară";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Trecere cu bac";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Magistrale";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Imposibil de elaborat un traseu";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Din păcate, nu reușim să elaborăm un traseu cu opțiunile alese. Modificați setările și încercați încă o dată";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Setați căile de ocolire";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "De modificat setarea ocolirii";
 
-"toll_road" = "Toll road";
+"toll_road" = "Drum cu plată";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Drum de țară";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Trecere cu bac";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Se gestionează \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "De evitat drumurile cu plată";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "De evitat drumurile de țară";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "De evitat trecerile cu bac";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "Ghiduri pregătire de MAPS.ME sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Catalogul ghidurilor";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "De trecut în catalog";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Bucătărie uzbecă";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Planifică și călătorește cu MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Salvați locurile interesante, rezervați hotele, elaborați trasee";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "Ghidul este gata pentru a fi încărcat";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Se va reflecta pe hartă și va funcționa on-line";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "De descărcat";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Ghiduri elaborate în MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Înainte de a trece la ghiduri…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Actualizați hărțile pentru a primi informație actuală despre obiecte!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "De actualizat (%s) și de continuat";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "Traseu pietonal prea lung";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Elaborați trasee auto ținând cont de toate tipurile de drumuri";
+
+"whatsnew_toll_unpaved_message" = "Selectați căile de ocolire pe drumurile cu plată, de țară și trecerile cu bacul";
+
+"whatsnew_new_catalogue_title" = "Paginile actualizate ale catalogului";
+
+"whatsnew_new_catalogue_message" = "Am adăugat informație detaliată privind ghidurile partenerilor, pentru ca selectarea traseelor să fie simplă și comodă";
+
+"purchase_please_wait_toast" = "Vă rugăm să nu părăsiți ecranul până la finalizarea cumpărăturii";
+
+"trip_start" = "Mergem";
+
+"pick_destination" = "Scop";
+
+"follow_my_position" = "Centrați";
+
+"search_results" = "Rezultatul căutării";
+
+"then_turn" = "După";
+
+"redirect_route_alert" = "Doriți să refaceți traseul?";
+
+"redirect_route_yes" = "Da";
+
+"redirect_route_no" = "Nu";
+
+"trip_finished" = "Ați sosit!";
+
+"keyboard_availability_alert" = "Tastiera nu este accesibilă în timpul deplasării";
+
+"dialog_routing_change_start_carplay" = "Este imposibil de elabora traseul de la punctul de aflare";
+
+"dialog_routing_change_end_carplay" = "Este imposibil de elaborat traseu până la punctul de sosire. Selectați altul";
+
+"dialog_routing_check_gps_carplay" = "Nu este semnal GPS. Mergeți la loc deschis";
+
+"dialog_routing_unable_locate_route_carplay" = "Este imposibil de elaborat un traseu. Selectați alte puncte ale traseului";
+
+"dialog_routing_download_files_carplay" = "Nu toate hărțile sunt accesibile pentru elaborarea traseului. Descărcați-le în aplicația de pe telefon";
+
+"dialog_routing_system_error_carplay" = "Eroare. Restartați aplicația";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Traseul se va reface de la locul actual al aflării dvs";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi modificat cu unul automobilistic";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Obiecte ale infrastructurii";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Centru de artă";
 
 "type.amenity.atm" = "Bancomat";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Unitate de pompieri";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fântână";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Parcomat";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Automat de vânzare a biletelor pentru transportul public";
 
 "type.amenity.veterinary" = "Cabinet veterinar";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Stație de autobuz";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Drum în construcție";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Apă";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Teren arabil";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Pădure";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Pădure";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Gazon";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Gunoiște";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Instalații feroviare";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Loc de plimbare a câinilor";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Teren de golf";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Rezervație naturală";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "Saună";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Golf";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Intrare peșteră";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Gheizer";
 
 "type.natural.glacier" = "Ghețar";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Câmp";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Lac";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Munte";
 
 "type.natural.pond" = "Heleșteu";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Boschet";
 
 "type.natural.spring" = "Primăvară";
 
 "type.natural.tree" = "Arbore";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Vulcan";
 
 "type.natural.water" = "Apă";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Loc mlăștinos";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Pădure";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Localitate";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Ocean";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "Trecere feroviară";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Cale ferată monoșină";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Cale ferată";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Metrou";
+"type.railway.subway_entrance" = "Intrare în metro";
 
 "type.railway.subway_entrance.barcelona" = "Metrou";
 
@@ -4509,13 +4547,13 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "Atletica ușoară";
 
 "type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "sport-baseball";
 
-"type.sport.basketball" = "Basketball";
+"type.sport.basketball" = "Baschetbal";
 
 "type.sport.bowls" = "sport-bowls";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Sport ecvestru";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Teren de tenis";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Parțial utilat pentru invalizi";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Nu este utilat pentru invalizi";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Utilat pentru invalizi";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Clădire";
 
 "type.earthquake_damage" = "earthquake:damage";
 

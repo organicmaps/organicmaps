@@ -113,5 +113,22 @@
       <string>المسارات %d</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>بناءًا على %d مراجعة</string>
+      <key>other</key>
+      <string>بناءًا على %d مراجعات</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

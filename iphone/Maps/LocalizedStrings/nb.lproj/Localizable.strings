@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "Vi har lagt Wikipedia.org artikler til sidene over de mest populære turistattraksjonene. De er tilgjengelig uten netttverksforbindelse";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Kjørealternativer";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Unngå ved hver rute";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Bompengeveier";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Uasfaltert vei";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Fergeoverganger";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Motorvei";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Kan ikke beregne rute";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Definer veier som skal unngås";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Forandre kjørealternativer";
 
-"toll_road" = "Toll road";
+"toll_road" = "Bompengevei";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Uasfaltert vei";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Fergeovergang";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Bemannet av \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Unngå bompengeveier";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Unngå uasfalterte veier";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Unngå fergeoverganger";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "MAPS.ME tilbyr ferdige guider til utvalgte steder med bilder og beskrivelser som vises på kartet og er tilgjengelig offline.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Guide katalog";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Til katalogen";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Usbekisk mat";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Planlegg og reis med MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Bokmerk interessante steder, bestill hotell, beregn ruter også offline";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "Guide er klar for nedlasting";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Det vil bli vist på kart og kan brukes offline";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Last ned";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Guider klar til bruk i MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Beste steder å besøke, vist på kart med bilder og beskrivelser. Jobb offline.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Før du fortsetter til guider…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Oppdater kart for å holde informasjonen oppdatert!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Oppdater (%s) og fortsett";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "Fotgjenger-ruten er for lang";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Legg inn bilruter som vurderer alle typer veier";
+
+"whatsnew_toll_unpaved_message" = "Velg omkjørsler med tollveier, grusveier og fergeoverganger";
+
+"whatsnew_new_catalogue_title" = "Oppdater katalogsider";
+
+"whatsnew_new_catalogue_message" = "Vi har lagt til detaljert informasjon om våre partnerguider for å gjøre det enkelt og praktisk å velge ruter";
+
+"purchase_please_wait_toast" = "Vennligst ikke forlat denne siden før kjøp er gjennomført";
+
+"trip_start" = "La oss begynne";
+
+"pick_destination" = "Destinasjon";
+
+"follow_my_position" = "Sentrer";
+
+"search_results" = "Søkeresultater";
+
+"then_turn" = "Deretter";
+
+"redirect_route_alert" = "Vil du planlegge en rute på nytt?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nei";
+
+"trip_finished" = "Du har ankommet!";
+
+"keyboard_availability_alert" = "Tastatur er ikke tilgjengelig mens en kjører";
+
+"dialog_routing_change_start_carplay" = "Kan ikke planlegge rute fra din nåværende posisjon";
+
+"dialog_routing_change_end_carplay" = "Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon";
+
+"dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Vennligst gå til et åpent område";
+
+"dialog_routing_unable_locate_route_carplay" = "Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute";
+
+"dialog_routing_download_files_carplay" = "Ikke alle kart tilgjengeliig for å planlegge rute. Vennligst last dem ned på din mobil";
+
+"dialog_routing_system_error_carplay" = "Feil oppstod. Vennligst restart appen";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil planlegges fra din nåværende posisjon";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Rekreasjonsområde";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Kunstsenter";
 
 "type.amenity.atm" = "Minibank";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Brannstasjon";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fontene";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Billettmaskin for offentlig transport";
 
 "type.amenity.veterinary" = "Veterinær";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Busstopp";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Veikonstruksjon";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Vann";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Jordbruksområde";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Skog";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Skog";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Plen";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Land-deponi";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Jernbaneområde";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Hundeområde";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Golfbane";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Reservat";
 
@@ -3785,9 +3823,9 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
-"type.leisure.sauna" = "Badstu";
+"type.leisure.sauna" = "Badstue";
 
 "type.leisure.slipway" = "leisure-slipway";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Bukt";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Grotteåpning";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Gaysir";
 
 "type.natural.glacier" = "Isbre";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Slette";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Innsjø";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Høydepunkt";
 
 "type.natural.pond" = "Dam";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Myr";
 
 "type.natural.spring" = "Vår";
 
 "type.natural.tree" = "Tre";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Vulkan";
 
 "type.natural.water" = "Vann";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Våtmarksområde";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Skog";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Hav";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "Planovergang";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Monorail";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Toglinje";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "T-bane";
+"type.railway.subway_entrance" = "T-bane inngang";
 
 "type.railway.subway_entrance.barcelona" = "T-bane";
 
@@ -4509,7 +4547,7 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "Friidrett";
 
 "type.sport.australian_football" = "sport-australian_football";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Hestesport";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Tennisbane";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Begrenset tilgang for rullestol";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Ingen tilgang for rullestol";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Full tilgang for rullestol";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Bygning";
 
 "type.earthquake_damage" = "earthquake:damage";
 

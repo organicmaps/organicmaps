@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "We hebben artikelen van Wikipedia.org toegevoegd aan de kaartjes van de populairste attracties. Ze zijn offline beschikbaar";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Omweginstellingen";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Vermijden op elke route";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Tolwegen";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Aardewegen";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Ferries";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Hoofdverkeerswegen";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Kan route niet opbouwen";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Omwegen configureren";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Wijzig omleidingsinstellingen";
 
-"toll_road" = "Toll road";
+"toll_road" = "Tolweg";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Aardeweg";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Ferry";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Gecontroleerd door \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Tolwegen vermijden";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Aardewegen vermijden";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Ferries vermijden";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "Klare reisgids op MAPS.ME bevatten geselecteerde plaatsen met foto's en beschrijvingen die op de kaart worden weergegeven en offline beschikbaar zijn.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Reisgidscatalogus";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Ga naar de catalogus";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Oezbeekse keuken";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Plan en reis met MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Slaat op interessante plaatsen, boek hotels, bouw routen offline";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "De reisgids is klaar om te downloaden";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Hij wordt weergegeven op de kaart en zal offline werken";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Downloaden";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Klare reisgids op MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Geselecteerde plaatsen met foto's en beschrijvingen worden op de kaart weergegeven en zijn offline beschikbaar.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Voordat u naar reisgids gaat…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Heerladt de kaarten op actuele informatie over objecten te krijgen!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Bijwerken (%s) en verder gaan";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "De wandelroute is te lang";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Bouw routen met inachtneming van alle soorten wegen";
+
+"whatsnew_toll_unpaved_message" = "Kies omwegen via tolwegen, aardewegen en ferries";
+
+"whatsnew_new_catalogue_title" = "Bijgewerkte cataloguspagina's";
+
+"whatsnew_new_catalogue_message" = "We hebben gedetailleerde informatie over partnerhandleidingen toegevoegd, zodat de routekeuze gemakkelijk en handig is";
+
+"purchase_please_wait_toast" = "Verlaat het scherm niet, alstublieft, voordat het aankoopproces is voltooid";
+
+"trip_start" = "Kom op";
+
+"pick_destination" = "Doel";
+
+"follow_my_position" = "Centreren";
+
+"search_results" = "Zoekresultaten";
+
+"then_turn" = "Dan";
+
+"redirect_route_alert" = "Wilt u de route wijzigen?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nee";
+
+"trip_finished" = "U bent aangekomen!";
+
+"keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";
+
+"dialog_routing_change_start_carplay" = "Kan route vanaf huidige positie niet opbouwen";
+
+"dialog_routing_change_end_carplay" = "Kan route naar het eindpunt niet opbouwen. Kies een andere punt";
+
+"dialog_routing_check_gps_carplay" = "Geen GPS-signaal. Ga naar het open veld";
+
+"dialog_routing_unable_locate_route_carplay" = "Kan route niet bouwen. Selecteer andere tussenpunten";
+
+"dialog_routing_download_files_carplay" = "Niet alle kaarten zijn beschikbaar voor het opbouwen van een route. Download ze in de applicatie op uw smartphone";
+
+"dialog_routing_system_error_carplay" = "Lets fout gegaan. Start de app opnieuw";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw opgebouwd vanaf uw huidige positie";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt gewijzigd in de autoroute";
+
+"ok" = "Goed";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Infrastructuur objecten";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Kunstcentrum";
 
 "type.amenity.atm" = "Geldautomaat";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Brandweer";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fontein";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Betaalautomaat parkeergarage";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Kaartjesautomaat voor openbaar vervoer";
 
 "type.amenity.veterinary" = "Dierenarts";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Bushalte";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Baan in aanbouw";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Water";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Landbouwgrond";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Bos";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Bos";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Gazon";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Stortplaats";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Spoorwegfaciliteiten";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Plaats voor hondenuitlaten";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Golfbaan";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Reserve";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "Sauna";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Baai";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Grotingang";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Gletsjer";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Veld";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Meer";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Top";
 
 "type.natural.pond" = "Plas";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Kreupel bos";
 
 "type.natural.spring" = "Bron";
 
 "type.natural.tree" = "Boom";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Vulkaan";
 
 "type.natural.water" = "Water";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Moerasland";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Bos";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Plaats";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Oceaan";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Overweg";
+"type.railway.level_crossing" = "Spoorwegovergang";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Monorail";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Spoorlijn";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Metro";
+"type.railway.subway_entrance" = "Metro ingang";
 
 "type.railway.subway_entrance.barcelona" = "Metro";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Paardensport";
+"type.sport.equestrian" = "Paardesport";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Tennisveld";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Gedeeltelijk uitgerust voor gehandicapten";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Niet uitgerust voor gehandicapten";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Uitgerust voor gehandicapten";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Gebouw";
 
 "type.earthquake_damage" = "earthquake:damage";
 

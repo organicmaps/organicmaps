@@ -115,5 +115,22 @@
       <string>%d Strecken</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>Basierend auf %d Bewertung</string>
+      <key>other</key>
+      <string>Basierend auf %d Bewertungen</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

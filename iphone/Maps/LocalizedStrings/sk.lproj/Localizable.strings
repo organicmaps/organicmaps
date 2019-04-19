@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "Pridali sme články Wikipedia.org na stránky najobľúbenejších turistických atrakcií. Sú k dispozícii offline";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Možnosti jazdy";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Vyhnúť sa na každej trase";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Spoplatnené cesty";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Nespevnené cesty";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Prechody trajektom";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Diaľnice";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Nepodarilo sa vypočítať trasu";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Definovať cesty, ktorým sa treba vyhnúť";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Zmena možností jazdy";
 
-"toll_road" = "Toll road";
+"toll_road" = "Spoplatnená cesta";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Nespevnená cesta";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Prechod trajektom";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Prevádzkuje \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Vyhnúť sa spoplatneným cestám";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Vyhnúť sa nespevneným cestám";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Vyhnúť sa prechodom na trajekte";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "MAPS.ME ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Katalóg sprievodcov";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Do katalógu";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Uzbecká kuchyňa";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Plánujte a cestujte s MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Pridajte si k záložkám zaujímavé miesta, zarezervujte si hotely, vypočítajte si trasy offline";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "Sprievodca je pripravený na stiahnutie";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Zobrazí sa na mape a bude pracovať v režime offline";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Stiahnuť";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Sprievodcovia pripravení na používanie v aplikácii MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Najlepšie miesta na navštívenie zobrazené na mape s fotografiami a popismi. Pracujú offline.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Skôr ako prejdete na sprievodcu…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Aktualizujte mapy, aby boli informácie o objektoch aktuálne!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Aktualizovať (%s) a pokračovať";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "Trasa pre chodcov je príliš dlhá";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Rozmiestnenie automobilových trás vzhľadom na všetky typy ciest";
+
+"whatsnew_toll_unpaved_message" = "Vyberte si obchádzky podľa spoplatnených ciest, prašných ciest a trajekty";
+
+"whatsnew_new_catalogue_title" = "Aktualizované stránky katalógu";
+
+"whatsnew_new_catalogue_message" = "Pridali sme podrobné informácie o partnerských sprievodcoch, aby sme uľahčili a spohodlnili výber trasy";
+
+"purchase_please_wait_toast" = "Pred dokončením nákupu neopúšťajte túto obrazovku";
+
+"trip_start" = "Poďme";
+
+"pick_destination" = "Cieľ";
+
+"follow_my_position" = "Vycentrovať";
+
+"search_results" = "Výsledky vyhľadávania";
+
+"then_turn" = "Potom";
+
+"redirect_route_alert" = "Chcete znova vytvoriť trasu?";
+
+"redirect_route_yes" = "Áno";
+
+"redirect_route_no" = "Nie";
+
+"trip_finished" = "Prišli ste do cieľa!";
+
+"keyboard_availability_alert" = "Počas jazdy nie je klávesnica k dispozícii";
+
+"dialog_routing_change_start_carplay" = "Z vašej aktuálnej polohy nie je možné vytvoriť trasu";
+
+"dialog_routing_change_end_carplay" = "Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod";
+
+"dialog_routing_check_gps_carplay" = "Žiaden GPS signál. Presuňte sa na otvorené priestranstvo";
+
+"dialog_routing_unable_locate_route_carplay" = "Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy";
+
+"dialog_routing_download_files_carplay" = "Nie všetky mapy sú k dispozícii pre vytvorenie trasy. Prosím stiahnite si ich na svojom mobilnom telefóne";
+
+"dialog_routing_system_error_carplay" = "Vyskytla sa chyba. Prosím reštartujte aplikáciu";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Trasa bude obnovená z vašej aktuálnej polohy";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravená na jazdu autom";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Vybavenie";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Centrum umenia";
 
 "type.amenity.atm" = "Bankomat";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Hasičská stanica";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fontána";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Automat na výdaj parkovacích lístkov";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Predajný automat na lístky verejnej dopravy";
 
 "type.amenity.veterinary" = "Veterinár";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Autobusová zastávka";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Cesta vo výstavbe";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Voda";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Pole";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Les";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Les";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Trávnik";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Skládka";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Priestory železnice";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Oblasť pre psov";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Golf";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Rezervácia";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "Sauna";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Záliv";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Vstup do jaskyne";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Ľadovec";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Lúka";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Jazero";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Hora";
 
 "type.natural.pond" = "Rybník";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Krovie";
 
 "type.natural.spring" = "Prameň";
 
 "type.natural.tree" = "Strom";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Vulkán";
 
 "type.natural.water" = "Voda";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Oblasť mokradí";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Les";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Lokalita";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Oceán";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "Križovanie úrovní";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Jednokoľajnicová dráha";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Železnica";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Metro";
+"type.railway.subway_entrance" = "Vstup do metra";
 
 "type.railway.subway_entrance.barcelona" = "Metro";
 
@@ -4509,13 +4547,13 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "Atletika";
 
 "type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "sport-baseball";
 
-"type.sport.basketball" = "Basketball";
+"type.sport.basketball" = "Basketbal";
 
 "type.sport.bowls" = "sport-bowls";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Jazdecké športy";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Tenisový kurt";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Obmedzený bezbariérový prístup";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Žiaden bezbariérový prístup";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Úplný bezbariérový prístup";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Budova";
 
 "type.earthquake_damage" = "earthquake:damage";
 

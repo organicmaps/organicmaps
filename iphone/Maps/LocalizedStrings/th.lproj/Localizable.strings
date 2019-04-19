@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "เราได้เพิ่มบทความของ Wikipedia.org ไปยังหน้าของจุดที่นักท่องเที่ยวให้ความสนใจเกือบทุกแห่ง ใช้งานได้โดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "หลีกเลี่ยงในทุกเส้นทาง";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "ถนนแบบเสียค่าผ่านทาง";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "ถนนดิน";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "เรือข้ามฟาก";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "ทางด่วน";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "เปลี่ยนเส้นทางการขับขี่";
 
-"toll_road" = "Toll road";
+"toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "ถนนดิน";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "เรือข้ามฟาก";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "กำลังทำงานอยู่ที่ \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "เลี่ยงทางที่ต้องเสียเงินทั้งหมด";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "เลี่ยงถนนดินทั้งหมด";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "MAPS.ME เสนอไกด์ที่สมบูรณ์แบบสำหรับการเลือกสถานที่พร้อมภาพ และคำบรรยายที่ปรากฏในแผนที่ และทำงานโดยไม่มีสัญญาณอินเทอร์เน็ตได้";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "ไกด์แคตตาล็อก";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "ไปที่แคตตาล็อก";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "อาหารแนวอุซเบค";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "วางแผนและท่องเที่ยวด้วย MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "บุ๊ตมาร์คสถานที่ที่น่าสนใจ จองโรงแรม และคำนวณเส้นทางแบบไม่ต้องใช้สัญญาณอินเทอร์เน็ต";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "ไกด์พร้อมให้ดาวน์โหลดแล้ว";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "ไกด์จะแสดงบนแผนที่และทำงานโดยไม่ต้องใช้สัญญาณอินเทอร์เน็ต";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "ดาวน์โหลด";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "ไกด์ใน MAPS.ME พร้อมใช้งานแล้ว";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "สถานที่ที่เหมาะกับการเยี่ยมชมนั้นปรากฎบนแผนที่พร้อมกับรูปและคำบรรยาย ทำงานโดยไม่ต้องใช้สัญญาณอินเทอร์เน็ต";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "ก่อนที่คุณจะเริ่มใช้งานไกด์…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "อัพเดตแผนที่เพื่อให้ข้อมูลเกี่ยวกับสถานที่นั้นตรงกับปัจจุบัน";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้านั้นไกลเกินไป";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "วางเส้นทางสำหรับรถยนต์โดยพิจารณาใช้ถนนทุกประเภท";
+
+"whatsnew_toll_unpaved_message" = "เลือกเส้นทางอ้อมจากถนนที่เก็บค่าผ่านทาง ถนนดิน หรือจำเป็นต้องใช้เรือข้าม";
+
+"whatsnew_new_catalogue_title" = "เพจของแคตตาล็อกที่ได้รับการอัพเดตแล้ว";
+
+"whatsnew_new_catalogue_message" = "เราเพิ่มรายละเอียดข้อมูลเพิ่มเติมเกี่ยวกับไกด์ที่คอยช่วยเหลือ ที่ทำให้การเลือกเส้นทางนั้นง่ายและสะดวกขึ้น";
+
+"purchase_please_wait_toast" = "โปรดอย่าเพิ่งออกจากหน้านี้ก่อนที่การซื้อจะเสร็จสิ้น";
+
+"trip_start" = "ไปกันเลย";
+
+"pick_destination" = "จุดหมาย";
+
+"follow_my_position" = "รีเซ็นเตอร์";
+
+"search_results" = "ผลการค้นหา";
+
+"then_turn" = "จากนั้น";
+
+"redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
+
+"redirect_route_yes" = "ใช่";
+
+"redirect_route_no" = "ไม่ใช่";
+
+"trip_finished" = "คุณมาถึงแล้ว!";
+
+"keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
+
+"dialog_routing_change_start_carplay" = "ไม่สามารถสร้างเส้นทางจากตำแหน่งปัจจุบันของคุณ";
+
+"dialog_routing_change_end_carplay" = "ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่";
+
+"dialog_routing_check_gps_carplay" = "ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ";
+
+"dialog_routing_unable_locate_route_carplay" = "ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น";
+
+"dialog_routing_download_files_carplay" = "แผนที่ที่ใช้สร้างเส้นทางยังได้รับการโหลดไม่ครบ โปรดดาวน์โหลดแผนที่เหล่านั้นจากโทรศัพท์มือถือของคุณ";
+
+"dialog_routing_system_error_carplay" = "พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน";
+
+"ok" = "โอเค";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "สถานที่หรือสิ่งก่อสร้างที่เป็นประโยชน์";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "ศูนย์งานศิลปะ";
 
 "type.amenity.atm" = "เอทีเอ็ม";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "สถานีดับเพลิง";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "น้ำพุ";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "เครื่องชำระค่าที่จอดรถอัตโนมัติ";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ";
 
 "type.amenity.veterinary" = "สัตวแพทย์";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "น้ำ";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "พื้นที่ทำการเกษตร";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "ป่า";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "ป่า";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "สนามหญ้า";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "พื้นที่ฝังกลบ";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "ที่ก่อสร้างทางรถไฟ";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "สถานที่พาสุนัขเดินเล่น";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "สนามกอล์ฟ";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
 
@@ -3785,9 +3823,9 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
-"type.leisure.sauna" = "ซาวน่า";
+"type.leisure.sauna" = "เซาน่า";
 
 "type.leisure.slipway" = "leisure-slipway";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "อ่าว";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "ทางเข้าถ้ำ";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
 "type.natural.glacier" = "ธารน้ำแข็ง";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "ทุ่งหญ้า";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "ทะเลสาบ";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "จุดสูงสุด";
 
 "type.natural.pond" = "บ่อ";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "ป่าละเมาะ";
 
 "type.natural.spring" = "ฤดูใบไม้ผลิ";
 
 "type.natural.tree" = "ต้นไม้";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "ภูเขาไฟ";
 
 "type.natural.water" = "น้ำ";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "ป่า";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "ท้องถิ่น";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "มหาสมุทร";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "ทางรถไฟตัดผ่านถนน";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "รางรถไฟรางเดี่ยว";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "รถไฟ";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "รถไฟ";
+"type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.barcelona" = "รถไฟ";
 
@@ -4509,13 +4547,13 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "กรีฑา";
 
 "type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "sport-baseball";
 
-"type.sport.basketball" = "Basketball";
+"type.sport.basketball" = "บาสเก็ตบอล";
 
 "type.sport.bowls" = "sport-bowls";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "กีฬาแข่งม้า";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "คอร์ทเทนนิส";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "อาคาร";
 
 "type.earthquake_damage" = "earthquake:damage";
 

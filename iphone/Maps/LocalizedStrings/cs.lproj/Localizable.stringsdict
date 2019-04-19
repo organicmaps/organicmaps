@@ -117,5 +117,22 @@
       <string>%d cest</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>Založeno na recenzi %d</string>
+      <key>other</key>
+      <string>Založeno na %d recenzích</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

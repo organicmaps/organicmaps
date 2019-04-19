@@ -115,5 +115,22 @@
       <string>%d tracce</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>Basato su %d recensione</string>
+      <key>other</key>
+      <string>Basato su %d recensioni</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

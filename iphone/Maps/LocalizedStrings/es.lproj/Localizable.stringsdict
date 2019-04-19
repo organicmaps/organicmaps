@@ -115,5 +115,22 @@
       <string>%d seguimientos</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>Basado en %d opinión</string>
+      <key>other</key>
+      <string>Basado en %d opiniones</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

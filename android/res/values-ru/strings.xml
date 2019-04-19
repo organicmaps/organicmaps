@@ -232,7 +232,7 @@
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились метками MAPS.ME</string>
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
@@ -1571,22 +1571,60 @@
 	<string name="avoid_ferry">Паромные переправы</string>
 	<string name="avoid_motorways">Магистрали</string>
 	<string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
-	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями объезда. Измените настройки и повторите попытку.</string>
-	<string name="define_to_avoid_btn">Настройки объезда</string>
+	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
+	<string name="define_to_avoid_btn">Настроить пути объезда</string>
 	<string name="change_driving_options_btn">Изменить настройки объезда</string>
 	<string name="toll_road">Платная дорога</string>
 	<string name="unpaved_road">Грунтовая дорога</string>
 	<string name="ferry_crossing">Паромная переправа</string>
-	<string name="operated_by">Осуществляется оператором %s</string>
-	<string name="purchase_please_wait_toast">Пожалуйста, не покидайте экран до завершения покупки</string>
+	<string name="operated_by">Управляется оператором \"%s\"</string>
+	<string name="avoid_toll_roads_placepage">Избегать платных дорог</string>
+	<string name="avoid_unpaved_roads_placepage">Избегать грунтовых дорог</string>
+	<string name="avoid_ferry_crossing_placepage">Избегать паромных переправ</string>
+	<string name="cached_guides_placeholder_subtitle">Готовые путеводители в MAPS.ME – это избранные места с фотографиями и описаниями, которые отображаются на карте и доступны офлайн.</string>
+	<string name="guides_catalogue_title">Каталог путеводителей</string>
+	<string name="download_guides_button">Перейти в каталог</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="one">На основе %d отзыва</item>
+	  <item quantity="other">На основе %d отзывов</item>
+	</plurals>
+	<string name="type.cuisine.uzbek">Узбекская кухня</string>
+	<string name="onboarding_welcome_title">Планируйте и путешествуйте с MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Сохраняйте интересные места, бронируйте отели, стройте маршруты офлайн</string>
 	<string name="onboarding_guide_direct_download_title">Путеводитель готов к загрузке</string>
-	<string name="onboarding_guide_direct_download_subtitle">Он отобразится на карте и будет работать без интернета</string>
+	<string name="onboarding_guide_direct_download_subtitle">Он отобразится на карте и будет работать офлайн</string>
 	<string name="onboarding_guide_direct_download_button">Скачать</string>
 	<string name="onboarding_bydeeplink_guide_title">Готовые путеводители в MAPS.ME</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн</string>
-	<string name="whats_new_auto_update_bydeeplink_title">До того, как перейти к маршрутам...</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты, чтобы у вас была актуальная информация о местах вокруг!</string>
-	<string name="whats_new_auto_update_and_proceed">Обновить (%s) и продолжить</string>
+	<string name="onboarding_bydeeplink_guide_subtitle">Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.</string>
+	<string name="whats_new_auto_update_bydeeplink_title">Прежде, чем перейти к путеводителям…</string>
+	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты для получения актуальной информации об объектах!</string>
+	<string name="whats_new_auto_update_button_size">Обновить (%s) и продолжить</string>
+	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
+	<string name="whatsnew_toll_unpaved_title">Прокладывайте автомаршруты с учетом типа дороги</string>
+	<string name="whatsnew_toll_unpaved_message">Объезжайте платные и грунтовые дороги и паромные переправы</string>
+	<string name="whatsnew_new_catalogue_title">Обновленные страницы каталога</string>
+	<string name="whatsnew_new_catalogue_message">Мы добавили подробную информацию о партнерских путеводителях, чтобы выбор маршрута был простым и удобным</string>
+	<string name="purchase_please_wait_toast">Пожалуйста, не покидайте экран до завершения покупки</string>
+	<string name="trip_start">Поехали</string>
+	<string name="pick_destination">Цель</string>
+	<string name="follow_my_position">Отцентровать</string>
+	<string name="search_results">Результаты поиска</string>
+	<string name="then_turn">Затем</string>
+	<string name="redirect_route_alert">Хотите перестроить маршрут?</string>
+	<string name="redirect_route_yes">Да</string>
+	<string name="redirect_route_no">Нет</string>
+	<string name="trip_finished">Вы прибыли!</string>
+	<string name="keyboard_availability_alert">Клавиатура недоступна во время движения</string>
+	<string name="dialog_routing_change_start_carplay">Невозможно построить маршрут от текущего местоположения</string>
+	<string name="dialog_routing_change_end_carplay">Невозможно построить маршрут до конечной точки. Выберите другую</string>
+	<string name="dialog_routing_check_gps_carplay">Нет сигнала GPS. Проследуйте на открытую местность</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Невозможно построить маршрут. Выберите другие точки маршрута</string>
+	<string name="dialog_routing_download_files_carplay">Не все карты, необходимые для построения маршрута, доступны. Пожалуйста, скачайте их в приложении на мобильном устройстве</string>
+	<string name="dialog_routing_system_error_carplay">Произошла ошибка. Перезапустите приложение</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут будет перестроен от вашего текущего местоположения</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменен на автомобильный</string>
+	<string name="ok">Ок</string>
+	<string name="vezet_taxi">Везет</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>
@@ -1600,6 +1638,8 @@
 	<string name="type.aeroway.aerodrome">Аэропорт</string>
 	<string name="type.aeroway.aerodrome.international">Аэропорт</string>
 	<string name="type.aeroway.helipad">Вертолётная площадка</string>
+	<string name="type.amenity">Объекты инфраструктуры</string>
+	<string name="type.amenity.arts_centre">Центр искусств</string>
 	<string name="type.amenity.atm">Банкомат</string>
 	<string name="type.amenity.bank">Банк</string>
 	<string name="type.amenity.bar">Бар</string>
@@ -1685,6 +1725,7 @@
 	<string name="type.amenity.vending_machine.cigarettes">Сигаретный автомат</string>
 	<string name="type.amenity.vending_machine.drinks">Автомат с напитками</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов на общественный транспорт</string>
 	<string name="type.amenity.veterinary">Ветеринарная клиника</string>
 	<string name="type.amenity.waste_basket">Урна</string>
 	<string name="type.amenity.waste_disposal">Мусорный контейнер</string>
@@ -1804,6 +1845,7 @@
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
 	<string name="type.entrance">Вход</string>
 	<string name="type.highway.bus_stop">Остановка</string>
+	<string name="type.highway.construction">Строящаяся дорога</string>
 	<string name="type.highway.footway">Дорожка</string>
 	<string name="type.highway.footway.alpine_hiking">Дорожка</string>
 	<string name="type.highway.footway.area">Дорожка</string>
@@ -1926,10 +1968,14 @@
 	<string name="type.landuse.basin">Водоём</string>
 	<string name="type.landuse.cemetery">Кладбище</string>
 	<string name="type.landuse.cemetery.christian">Кладбище</string>
+	<string name="type.landuse.farmland">Сельскохозяйственная земля</string>
 	<string name="type.landuse.forest">Лес</string>
 	<string name="type.landuse.forest.coniferous">Лес</string>
 	<string name="type.landuse.forest.deciduous">Лес</string>
 	<string name="type.landuse.forest.mixed">Лес</string>
+	<string name="type.landuse.grass">Газон</string>
+	<string name="type.landuse.landfill">Свалка</string>
+	<string name="type.landuse.railway">Железнодорожные сооружения</string>
 	<string name="type.landuse.reservoir">Водоём</string>
 	<string name="type.leisure.dog_park">Место для выгула собак</string>
 	<string name="type.leisure.dog_park.tennis">Место для выгула собак</string>
@@ -1946,7 +1992,7 @@
 	<string name="type.leisure.pitch.tennis">Спортплощадка</string>
 	<string name="type.leisure.playground">Детская площадка</string>
 	<string name="type.leisure.playground.tennis">Детская площадка</string>
-	<string name="type.leisure.sauna">Баня</string>
+	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>
 	<string name="type.leisure.sports_centre.climbing">Скалодром</string>
 	<string name="type.leisure.sports_centre.shooting">Тир</string>
@@ -1970,13 +2016,16 @@
 	<string name="type.natural.cave_entrance">Пещера</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
+	<string name="type.natural.grassland">Поле</string>
 	<string name="type.natural.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.pond">Пруд</string>
+	<string name="type.natural.scrub">Заросли</string>
 	<string name="type.natural.spring">Родник</string>
 	<string name="type.natural.tree">Дерево</string>
 	<string name="type.natural.volcano">Вулкан</string>
 	<string name="type.natural.water">Водоём</string>
+	<string name="type.natural.wetland">Болотистая местность</string>
 	<string name="type.natural.wood">Лес</string>
 	<string name="type.natural.wood.coniferous">Лес</string>
 	<string name="type.natural.wood.deciduous">Лес</string>
@@ -2022,6 +2071,8 @@
 	<string name="type.power.tower">Опора ЛЭП</string>
 	<string name="type.railway.halt">Ж/д станция</string>
 	<string name="type.railway.level_crossing">Железнодорожный переезд</string>
+	<string name="type.railway.monorail">Монорельсовая железная дорога</string>
+	<string name="type.railway.rail">Железнодорожный путь</string>
 	<string name="type.railway.station">Ж/д станция</string>
 	<string name="type.railway.station.light_rail">Ж/д станция</string>
 	<string name="type.railway.station.monorail">Ж/д станция</string>
@@ -2050,7 +2101,7 @@
 	<string name="type.railway.station.subway.spb">Метро</string>
 	<string name="type.railway.station.subway.violet">Метро</string>
 	<string name="type.railway.station.subway.yellow">Метро</string>
-	<string name="type.railway.subway_entrance">Метро</string>
+	<string name="type.railway.subway_entrance">Вход в метро</string>
 	<string name="type.railway.subway_entrance.barcelona">Метро</string>
 	<string name="type.railway.subway_entrance.berlin">Метро</string>
 	<string name="type.railway.subway_entrance.kiev">Метро</string>
@@ -2136,6 +2187,7 @@
 	<string name="type.sport.athletics">Лёгкая атлетика</string>
 	<string name="type.sport.basketball">Баскетбол</string>
 	<string name="type.sport.equestrian">Конный спорт</string>
+	<string name="type.sport.tennis">Теннисный корт</string>
 	<string name="type.tourism.alpine_hut">Горный отель</string>
 	<string name="type.tourism.apartment">Апартаменты</string>
 	<string name="type.tourism.artwork">Произведение искусства</string>
@@ -2177,6 +2229,10 @@
 	<string name="type.waterway.stream.intermittent">Река</string>
 	<string name="type.waterway.stream.tunnel">Река</string>
 	<string name="type.waterway.waterfall">Водопад</string>
+	<string name="type.wheelchair.limited">Частично оборудовано для инвалидов</string>
+	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
+	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
+	<string name="type.building_part">Здание</string>
 
 	<!-- SECTION: Brands -->
 	<string name="brand.baskin_robbins">Баскин Роббинс</string>

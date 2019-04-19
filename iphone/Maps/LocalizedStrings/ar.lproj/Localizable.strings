@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "لقد أضفنا مقالات Wikipedia.org إلى صفحات معظم الأماكن السياحية المشهورة. أنها متاحة بدون اتصال بالانترنت";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "خيارات قيادة";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "تجنب على كل الطرق";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "نقطة تحصيل رسوم";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "طرق غير ممهدة";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "تقاطع عبارات";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "طرق سريعة";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "حدد الطرق التي يجب تجنبها";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "تغيير خيارات القيادة";
 
-"toll_road" = "Toll road";
+"toll_road" = "نقطة تحصيل رسوم";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "طريق غير ممهدة";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "تقاطع عبارة";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "تدرا بواسطة \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "تجنب نقاط تحصيل الرسوم";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "تجنب الطرق الغير ممهدة";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "تجنب تقاطع العبارات";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "توفر MAPS.ME دلائل جاهزة لإماكن مختارة مع الصور والوصف الذي يتم عرضه على الخريطة وهو متاح بدون اتصال بالانترنت.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "قائمة الدلائل";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "إلى الفهرس";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "مطعم أوزبكي";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "خطط وسافر مع MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "ضع علامة مرجعية على الأماكن المثيرة للاهتمام، احجز الفنادق، احسب الطرق بدون اتصال بالانترنت";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "الدليل جاهز للتحميل";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "سيتم عرضه على الخريطة وبدون اتصال بالانترنت";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "تحميل";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "دلائل جاهزة للاستخدام في MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "أفضل الأماكن لزيارتها معروضة على الخريطة مع الصور والوصف. يعمل بدون اتصال بالانترنت.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "قبل الدخول إلى الدليل…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "قم بتحديث الخرائط للحصول على أحدث المعلومات!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "تحديث (%s) والمتابعة";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "طريق المشاة طويل جدًا";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "نسق طرق السيارات يشمل جميع أنواع الطرق";
+
+"whatsnew_toll_unpaved_message" = "حدد الطرق التي تحتوي: نقط تحصيل رسوم، طرق غير ممهدة، تفاطعات العبارات";
+
+"whatsnew_new_catalogue_title" = "صفحات القائمة المحدثة";
+
+"whatsnew_new_catalogue_message" = "قمنا بإضافة معلومات مفصلة حول دلائل الشركاء لجعل اختيار الطريق سهل ومناسب";
+
+"purchase_please_wait_toast" = "يرجى عدم مغادرة الصفحة قبل اكتمال عملية الشراء";
+
+"trip_start" = "هيا بنا";
+
+"pick_destination" = "جهة الوصول";
+
+"follow_my_position" = "العودة إلى الوسط";
+
+"search_results" = "نتائج البحث";
+
+"then_turn" = "ثم";
+
+"redirect_route_alert" = "هل تريد إعادة تحديد الطريق?";
+
+"redirect_route_yes" = "نعم";
+
+"redirect_route_no" = "لا";
+
+"trip_finished" = "لقد وصلت!";
+
+"keyboard_availability_alert" = "لوحة الكتابة غير متاحة أثناء القيادة";
+
+"dialog_routing_change_start_carplay" = "لا يمكن تحديد طريق من موقعك الحالي";
+
+"dialog_routing_change_end_carplay" = "لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر";
+
+"dialog_routing_check_gps_carplay" = "لا وجد إشارة GPS. يرجى التحرك لمكان مفتوح";
+
+"dialog_routing_unable_locate_route_carplay" = "لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق";
+
+"dialog_routing_download_files_carplay" = "لا تتواجد جميع الخرائط من أجل تحديد طريق. يرجى تحميلهم على هاتفك المحمول";
+
+"dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "سيتم اعادة تحديد الطريق من موقعك الحالي";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "سيتم تعديل الطريق لتكون خاصة بالسيارة";
+
+"ok" = "موافق";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "أثر";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "مركز فن";
 
 "type.amenity.atm" = "ماكينة صراف آلي";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "محطة إطفاء";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "نافورة";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "ماكينة دفع تذاكر الموقف";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
 
 "type.amenity.veterinary" = "طبيب بيطري";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "موقف حافلة";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "طريق تحت الإنشاء";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "مياه";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "حقل";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "غابة";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "غابة";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "حديقة";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "مكب نفايات";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "محطة خط سكة حديد";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "منطقة كلاب";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,21 +3795,21 @@
 
 "type.leisure.golf_course" = "ملعب جولف";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "محمية";
 
-"type.leisure.park" = "حديقة";
+"type.leisure.park" = "موقف سيارات";
 
-"type.leisure.park.no.access" = "حديقة";
+"type.leisure.park.no.access" = "موقف سيارات";
 
-"type.leisure.park.permissive" = "حديقة";
+"type.leisure.park.permissive" = "موقف سيارات";
 
-"type.leisure.park.private" = "حديقة";
+"type.leisure.park.private" = "موقف سيارات";
 
 "type.leisure.pitch" = "ملعب رياضي";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "ساونا";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "خليج";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "مدخل كهف";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "نبع ماء حار";
 
 "type.natural.glacier" = "كتلة جليدية";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "ملعب";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "بحيرة";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "قمة";
 
 "type.natural.pond" = "بركة";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "أَيْكَة";
 
 "type.natural.spring" = "ينبوع";
 
 "type.natural.tree" = "شجرة";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "بركان";
 
 "type.natural.water" = "مياه";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "منطقة رطبة";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "غابة";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "منطقة مجاورة";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "المحيط";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "مزلقان";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "اتجاه واحد";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "خط سكة حديد";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "محطة مترو";
+"type.railway.subway_entrance" = "مدخل المترو";
 
 "type.railway.subway_entrance.barcelona" = "محطة مترو";
 
@@ -4509,13 +4547,13 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "العاب رياضية";
 
 "type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "sport-baseball";
 
-"type.sport.basketball" = "Basketball";
+"type.sport.basketball" = "كرة السلة";
 
 "type.sport.bowls" = "sport-bowls";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "رياضة الفروسية";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "ملعب تنس";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "دعم محدود لكراسي المعاقين";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "لا يدعم لكراسي المعاقين";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "دعم كامل لكراسي المعاقين";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "مبنى";
 
 "type.earthquake_damage" = "earthquake:damage";
 

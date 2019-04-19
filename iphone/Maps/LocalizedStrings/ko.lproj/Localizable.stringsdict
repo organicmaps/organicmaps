@@ -113,5 +113,22 @@
       <string>%d 추적</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d 리뷰에 기반함</string>
+      <key>other</key>
+      <string>%d 리뷰들에 기반함</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

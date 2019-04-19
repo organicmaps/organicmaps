@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "Chúng tôi đã thêm các bài viết về những điểm thu hút khách du lịch phổ biến nhất từ Wikipedia.org vào các trang. Những bài viết này đều có thể truy cập ngoại tuyến";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Thiết lập đi vòng";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Tránh trên mỗi tuyến";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Đường trả phí";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Đường đất";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Bến phà";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Đường cao tốc";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Thiết lập đường đi vòng";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Thay đổi thiết lập đi vòng";
 
-"toll_road" = "Toll road";
+"toll_road" = "Đường trả phí";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Đường đất";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Bến phà";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Tạo được \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Tránh đường trả phí";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Tránh đường đất";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Tránh bến phà";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "Sách hướng dẫn sẵn có trong MAPS.ME – là những điểm được lựa chọn cùng với hình ảnh và mô tả, chúng được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Danh mục sách hướng dẫn";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Chuyển tới danh mục";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Ẩm thực của Uzbekistan";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Hãy lên kế hoạch và đi du lịch cùng với MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Hãy lưu lại những địa chỉ hấp dẫn, đặt phòng khách sạn và xây dựng lộ trình đi ngoại tuyến";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "Sác hướng dẫn đã sẵn sàng cho phép tải xuống";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Nó hiển thị trên bản đồ và sẽ hoạt động ngoại tuyến";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Tải về";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Sác hướng dẫn sẵn có trong MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Những địa điểm đã lựa chọn cùng hình ảnh và mô tả được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Trước khi chuyển sang hướng dẫn…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Hãy cập nhật bản đồ để nhận được những thông tin mới nhất về các đối tượng, chủ thể!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Cập nhận được (%s) và tiếp tục";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "Tuyến đường đi bộ quá dài";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Hãy xây dựng tuyến đường có tính đến tất cả các loại đường";
+
+"whatsnew_toll_unpaved_message" = "Hãy lựa chọn những đường vòng qua đường thu phí, đường đất và các bến phà";
+
+"whatsnew_new_catalogue_title" = "Những trang đã được cập nhật của danh sách";
+
+"whatsnew_new_catalogue_message" = "Chúng tôi đã bổ sung thông tin cụ thể về các sách hướng dẫn đồng hành để việc lựa chọn tuyến đường trở nên đơn giản và thuận tiên";
+
+"purchase_please_wait_toast" = "Vui lòng đừng rời bỏ màn hình đến khi hoàn tất việc mua";
+
+"trip_start" = "Đi nào";
+
+"pick_destination" = "Mục đích";
+
+"follow_my_position" = "Định tâm";
+
+"search_results" = "Kết quả tìm kiếm";
+
+"then_turn" = "Sau đó";
+
+"redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
+
+"redirect_route_yes" = "Có";
+
+"redirect_route_no" = "Không";
+
+"trip_finished" = "Bạn đã tới nơi!";
+
+"keyboard_availability_alert" = "Bàn phím không khả dụng trong thời gian di chuyển";
+
+"dialog_routing_change_start_carplay" = "Không thể tạo tuyến đường từ địa điểm hiển tại";
+
+"dialog_routing_change_end_carplay" = "Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác";
+
+"dialog_routing_check_gps_carplay" = "Không có tín hiệu GPS. Hãy đến vị trí có không gian mở";
+
+"dialog_routing_unable_locate_route_carplay" = "Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường";
+
+"dialog_routing_download_files_carplay" = "Không phải tất cả bản đồ đều khả dụng để tạo tuyến đường. Hãy tải ứng dụng về điện thoại của bạn";
+
+"dialog_routing_system_error_carplay" = "Đã xảy ra lỗi. Khởi động lại ứng dụng";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Công trình cơ sở hạ tầng";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Trung tâm nghệ thuật";
 
 "type.amenity.atm" = "ATM";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Trạm cứu hỏa";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Đài phun nước";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Máy trả tiền vé đậu xe";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Máy bán vé phương tiện công cộng tự động";
 
 "type.amenity.veterinary" = "Bác sĩ Thú y";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Bến xe buýt";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Đường đang thi công";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Nước";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Đất nông nghiệp";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Rừng";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Rừng";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Thảm cỏ";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Bãi rác";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Cơ sở đường sắt";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Nơi cho chó đi dạo";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Sân gôn";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Giữ chỗ";
 
@@ -3785,9 +3823,9 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
-"type.leisure.sauna" = "Phòng xông hơi";
+"type.leisure.sauna" = "Sauna";
 
 "type.leisure.slipway" = "leisure-slipway";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Vịnh";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Cửa Hang";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Suối nước nóng";
 
 "type.natural.glacier" = "Sông băng";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Cánh đồng";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Hồ";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Đỉnh";
 
 "type.natural.pond" = "Ao";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Bụi rậm";
 
 "type.natural.spring" = "Suối";
 
 "type.natural.tree" = "Cây";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Núi lửa";
 
 "type.natural.water" = "Nước";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Khu vực đầm lầy";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Rừng";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Thôn";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Đại dương";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.level_crossing" = "Chỗ qua đường sắt";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Đường sắt một chiều";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Đường sắt";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Ngầm";
+"type.railway.subway_entrance" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.barcelona" = "Ngầm";
 
@@ -4509,13 +4547,13 @@
 
 "type.sport.archery" = "sport-archery";
 
-"type.sport.athletics" = "Athletics";
+"type.sport.athletics" = "Điền kinh";
 
 "type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "sport-baseball";
 
-"type.sport.basketball" = "Basketball";
+"type.sport.basketball" = "Bóng rổ";
 
 "type.sport.bowls" = "sport-bowls";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Thể thao cưỡi ngựa";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Sân tenis";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Được trang bị một phần cho người khuyết tật";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Không trang bị cho người khuyết tật";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Được trang bị cho người khuyết tật";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Tòa nhà";
 
 "type.earthquake_damage" = "earthquake:damage";
 

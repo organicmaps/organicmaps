@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "En las tarjetas de atracciones populares, hemos agregado artículos de Wikipedia.org, disponibles sin conexión";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Configuración de desvío";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Evitar en todas las rutas";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Carreteras de pago";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Caminos sin pavimento";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Cruces de ferri";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Autopistas";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "No se puede construir una ruta";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambia la configuración y vuelve a intentarlo";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Personaliza la ruta de desvío";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Cambiar la configuración de desvío";
 
-"toll_road" = "Toll road";
+"toll_road" = "Carretera con pago de peaje";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Camino sin pavimento";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Cruce de ferri";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Operado por \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Evitar las carreteras con pago de peaje";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Evitar los caminos sin pavimento";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Evitar ferries";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "Las guías listas de MAPS.ME, son lugares seleccionados con fotos y descripciones que se muestran en el mapa y están disponibles sin conexión a internet.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Catálogo de guías";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Ir al catálogo";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Cocina uzbeka";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Planifica y viaja con MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Guarda lugares interesantes, reserva hoteles, construye rutas sin conexión a internet";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "Guía lista para descargar";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Se mostrará en el mapa y funcionará sin conexión";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Descargar";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Guías ya listas en MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Los lugares seleccionados con fotos y descripciones se muestran en el mapa y están disponibles sin conexión.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Antes de pasar a las guías…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "¡Renueva los mapas para obtener información actualizada sobre los lugares!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Renovar (%s) y continuar";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "La ruta a pie es demasiado larga";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Construye las rutas en auto teniendo en cuenta todo tipo de vías";
+
+"whatsnew_toll_unpaved_message" = "Elige rutas de desvío a través de peajes, caminos sin pavimentar y cruces de ferry";
+
+"whatsnew_new_catalogue_title" = "Páginas actualizadas del catálogo";
+
+"whatsnew_new_catalogue_message" = "Agregamos información detallada sobre las guías de socios, para que la selección de la ruta sea fácil y cómoda";
+
+"purchase_please_wait_toast" = "Por favor, no abandones la pantalla hasta que se complete la compra";
+
+"trip_start" = "Vamos";
+
+"pick_destination" = "Objetivo";
+
+"follow_my_position" = "Centrar";
+
+"search_results" = "Resultados de búsqueda";
+
+"then_turn" = "Después";
+
+"redirect_route_alert" = "¿Quieres reconstruir la ruta?";
+
+"redirect_route_yes" = "Si";
+
+"redirect_route_no" = "No";
+
+"trip_finished" = "¡Llegaste!";
+
+"keyboard_availability_alert" = "Teclado no disponible durante el movimiento";
+
+"dialog_routing_change_start_carplay" = "No se puede construir la ruta desde la ubicación actual";
+
+"dialog_routing_change_end_carplay" = "No se puede construir la ruta al punto final. Elige otra";
+
+"dialog_routing_check_gps_carplay" = "No hay señal GPS. Ve a una zona abierta";
+
+"dialog_routing_unable_locate_route_carplay" = "No se puede construir una ruta. Elige otros puntos de ruta";
+
+"dialog_routing_download_files_carplay" = "No todos los mapas están disponibles para trazar una ruta. Descárgalos en la aplicación de tu teléfono";
+
+"dialog_routing_system_error_carplay" = "Ocurrió un error. Reinicia la aplicación";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "La ruta se reconstruirá desde tu ubicación actual";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a coche";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Infraestructura";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Centro de arte";
 
 "type.amenity.atm" = "Cajero";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Parque de bomberos";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fuente";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Máquina de pago de tique de aparcamiento";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de boletos para el transporte público";
 
 "type.amenity.veterinary" = "Clínica veterinaria";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Parada de autobús";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Carretera en construcción";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Cuenca";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Tierras agrícolas";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Bosque";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Bosque";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Césped";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Vertedero";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Instalaciones ferroviarias";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Parque para perros";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Campo de golf";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Territorio reservado";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "Sauna";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Bahía";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Entrada a la cueva";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Glaciar";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Campo";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Lago";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Cima";
 
 "type.natural.pond" = "Estanque";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Matorrales";
 
 "type.natural.spring" = "Manantial";
 
 "type.natural.tree" = "Árbol";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Volcán";
 
 "type.natural.water" = "Cuenca";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Terreno pantanoso";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Bosque";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Localidad";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Océano";
 
@@ -4111,7 +4149,7 @@
 
 "type.railway.incline.tunnel" = "railway-incline-tunnel";
 
-"type.railway.level_crossing" = "Paso a nivel";
+"type.railway.level_crossing" = "Cruce de ferrocarril";
 
 "type.railway.light_rail" = "railway-light_rail";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Tren de monorraíl";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Ferrocarril";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Metro";
+"type.railway.subway_entrance" = "Entrada al metro";
 
 "type.railway.subway_entrance.barcelona" = "Metro";
 
@@ -4339,7 +4377,7 @@
 
 "type.shop.convenience" = "Tienda de barrio";
 
-"type.shop.copyshop" = "Copistería";
+"type.shop.copyshop" = "Centro de copiado";
 
 "type.shop.cosmetics" = "Productos cosméticos";
 
@@ -4425,7 +4463,7 @@
 
 "type.shop.tyres" = "Tienda de neumáticos";
 
-"type.shop.variety_store" = "«Todo a cien»";
+"type.shop.variety_store" = "Tienda de Variedades";
 
 "type.shop.video" = "Tienda";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Deportes ecuestres";
+"type.sport.equestrian" = "Equitación";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Cancha de tenis";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "No equipado para discapacitados";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Equipado para discapacitados";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Edificio";
 
 "type.earthquake_damage" = "earthquake:damage";
 

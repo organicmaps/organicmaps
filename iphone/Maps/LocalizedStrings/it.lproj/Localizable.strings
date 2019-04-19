@@ -2741,81 +2741,119 @@
 
 "whats_new_wiki_message" = "Abbiamo aggiunto articoli da Wikipedia.org alle pagine dedicate alle attrazioni turistiche più popolari. Disponibili offline";
 
-"driving_options_title" = "Driving options";
+"driving_options_title" = "Impostazioni di deviazione";
 
-"driving_options_subheader" = "Avoid on every route";
+"driving_options_subheader" = "Evitare in tutti i percorsi";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Strade a pedaggio";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Strade sterrate";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Traghetti";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Autostrade";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "Impossibile pianificare percorso";
 
-"unable_to_calc_alert_subtitle" = "Unfortunately we could't find a route probably because of your defined options. Please change the settings and try again.";
+"unable_to_calc_alert_subtitle" = "Impossibile creare percorso con modalità prescelte. Modifica impostazioni e riprova";
 
-"define_to_avoid_btn" = "Define roads to avoid";
+"define_to_avoid_btn" = "Impostare modalità di deviazione";
 
-"change_driving_options_btn" = "Change driving options";
+"change_driving_options_btn" = "Modificare impostazioni di deviazione";
 
-"toll_road" = "Toll road";
+"toll_road" = "Strada a pedaggio";
 
-"unpaved_road" = "Unpaved road";
+"unpaved_road" = "Strada sterrata";
 
-"ferry_crossing" = "Ferry crossing";
+"ferry_crossing" = "Traghetto";
 
-"operated_by" = "Operated by %s";
+"operated_by" = "Gestita da \"%s\"";
 
-/* FIXME */
-"unable_to_recalc_title" = "Route recalculation failed";
+"avoid_toll_roads_placepage" = "Evitare strade a pedaggio";
 
-/* FIXME */
-"unable_to_recalc_subtitle" = "Unfortunately we could't find a better route with your defined options. We will return the original version";
+"avoid_unpaved_roads_placepage" = "Evitare strade sterrate";
 
-"purchase_please_wait_toast" = "Please don't leave this screen before purchase is completed";
+"avoid_ferry_crossing_placepage" = "Evitare i traghetti";
 
-/* FIXME */
-"avoid_ferry_crossing_placepage" = "avoid_toll_roads_placepage";
+"cached_guides_placeholder_subtitle" = "Guide pronte su MAPS.ME sono luoghi preferiti con descrizioni e foto visualizzabili sulle mappe e disponibili offline.";
 
-/* FIXME */
-"avoid_unpaved_roads_placepage" = "avoid_toll_roads_placepage";
+"guides_catalogue_title" = "Catalogo guide";
 
-/* FIXME */
-"avoid_toll_roads_placepage" = "avoid_toll_roads_placepage";
+"download_guides_button" = "Passa al catalogo";
 
-/* FIXME */
-"whatsnew_new_catalogue_title" = "whatsnew_new_catalogue_title";
+"type.cuisine.uzbek" = "Cucina uzbeka";
 
-/* FIXME */
-"whatsnew_new_catalogue_message" = "whatsnew_new_catalogue_message";
+"onboarding_welcome_title" = "Pianifica e viaggia con MAPS.ME";
 
-/* FIXME */
-"whatsnew_toll_unpaved_title" = "whatsnew_toll_unpaved_title";
+"onboarding_welcome_first_subtitle" = "Salva i luoghi più interessanti, prenota alberghi, pianifica percorsi offline";
 
-/* FIXME */
-"whatsnew_toll_unpaved_message" = "whatsnew_toll_unpaved_message";
+"onboarding_guide_direct_download_title" = "La guida è pronta per essere scaricata";
 
-/* FIXME */
-"vezet_taxi" = "vezet_taxi";
+"onboarding_guide_direct_download_subtitle" = "Verrà visualizzata sulla mappa e funzionerà in modalità offline";
 
-"onboarding_guide_direct_download_title" = "Guide is ready for download";
+"onboarding_guide_direct_download_button" = "Scarica";
 
-"onboarding_guide_direct_download_subtitle" = "It will be displayed on map and work offline";
+"onboarding_bydeeplink_guide_title" = "Guide pronte in MAPS.ME";
 
-"onboarding_guide_direct_download_button" = "Download";
+"onboarding_bydeeplink_guide_subtitle" = "Luoghi preferiti con descrizioni e foto sono visualizzati sulla mappa e disponibili offline.";
 
-"onboarding_bydeeplink_guide_title" = "Ready-to-use guides in MAPS.ME";
+"whats_new_auto_update_bydeeplink_title" = "Prima di passare alle guide…";
 
-"onboarding_bydeeplink_guide_subtitle" = "Best places to visit displayed on map with photos and descriptions. Work offline.";
+"whats_new_auto_update_bydeeplink_message" = "Aggiorna le mappe per avere le informazioni attuali!";
 
-"whats_new_auto_update_bydeeplink_title" = "Before you proceed to guides...";
+"whats_new_auto_update_button_size" = "Aggiorna (%s) e continua";
 
-"whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
+"dialog_pedestrian_route_is_long" = "Percorso a piedi troppo lungo";
 
-"whats_new_auto_update_and_proceed" = "Update (%s) and proceed";
+"whatsnew_toll_unpaved_title" = "Pianificare percorsi in auto su tutti i tipi di strade";
+
+"whatsnew_toll_unpaved_message" = "Scegli modalità di percorso e deviazione su strade a pedaggio, strade sterrate e traghetti";
+
+"whatsnew_new_catalogue_title" = "Aggiornamento del catalogo";
+
+"whatsnew_new_catalogue_message" = "Le guide dei partner ora con le informazioni dettagliate per rendere la scelta del percorso facile e pratica";
+
+"purchase_please_wait_toast" = "Si prega di non chiudere la scheda per completare l'acquisto";
+
+"trip_start" = "Si parte";
+
+"pick_destination" = "Meta";
+
+"follow_my_position" = "Centrare";
+
+"search_results" = "Risultati di ricerca";
+
+"then_turn" = "Avanti";
+
+"redirect_route_alert" = "Vuoi modificare il percorso?";
+
+"redirect_route_yes" = "Sì";
+
+"redirect_route_no" = "No";
+
+"trip_finished" = "Sei giunto a destinazione!";
+
+"keyboard_availability_alert" = "Tastiera non disponibile in movimento";
+
+"dialog_routing_change_start_carplay" = "Impossibile creare percorso dal punto di partenza selezionato";
+
+"dialog_routing_change_end_carplay" = "Impossibile creare percorso per raggiungere la destinazione Scegli un'altra destinazione";
+
+"dialog_routing_check_gps_carplay" = "Segnale GPS assente. Procedi su terreno aperto";
+
+"dialog_routing_unable_locate_route_carplay" = "Impossibile trovare percorso. Scegli altre tappe";
+
+"dialog_routing_download_files_carplay" = "Non tutte le mappe sono disponibili per pianificare il percorso. Scaricale in App";
+
+"dialog_routing_system_error_carplay" = "Si è verificato un errore. Riavviare l'applicazione";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Il percorso verrà impostato dalla tua posizione corrente";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Il percorso verrà modificato in modalità Auto";
+
+"ok" = "Ok";
+
+"vezet_taxi" = "Vezet";
 
 
 /**********  Partners  **********/
@@ -2867,9 +2905,9 @@
 
 "type.aeroway.terminal" = "aeroway-terminal";
 
-"type.amenity" = "amenity";
+"type.amenity" = "Opera infrastrutturale";
 
-"type.amenity.arts_centre" = "amenity-arts_centre";
+"type.amenity.arts_centre" = "Centro artistico";
 
 "type.amenity.atm" = "Bancomat";
 
@@ -2933,7 +2971,7 @@
 
 "type.amenity.fire_station" = "Scuadra antincendio";
 
-"type.amenity.food_court" = "amenity-food_court";
+"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Fontana";
 
@@ -3049,7 +3087,7 @@
 
 "type.amenity.vending_machine.parking_tickets" = "Parcometro";
 
-"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Distributore automatico biglietti di trasporto";
 
 "type.amenity.veterinary" = "Veterinario";
 
@@ -3365,7 +3403,7 @@
 
 "type.highway.bus_stop" = "Fermata";
 
-"type.highway.construction" = "highway-construction";
+"type.highway.construction" = "Strada in costruzione";
 
 "type.highway.cycleway" = "highway-cycleway";
 
@@ -3671,7 +3709,7 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "landuse-allotments";
+"type.landuse.allotments" = "Allotments";
 
 "type.landuse.basin" = "Bacino";
 
@@ -3685,13 +3723,13 @@
 
 "type.landuse.construction" = "landuse-construction";
 
-"type.landuse.farm" = "landuse-farm";
+"type.landuse.farm" = "Farm";
 
-"type.landuse.farmland" = "landuse-farmland";
+"type.landuse.farmland" = "Terreno agricolo";
 
-"type.landuse.farmyard" = "landuse-farmyard";
+"type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "landuse-field";
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Foresta";
 
@@ -3701,27 +3739,27 @@
 
 "type.landuse.forest.mixed" = "Foresta";
 
-"type.landuse.garages" = "landuse-garages";
+"type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "landuse-grass";
+"type.landuse.grass" = "Prato erboso";
 
 "type.landuse.greenfield" = "landuse-greenfield";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "landuse-industrial";
+"type.landuse.industrial" = "Industrial land";
 
-"type.landuse.landfill" = "landuse-landfill";
+"type.landuse.landfill" = "Luogo di scarico";
 
-"type.landuse.meadow" = "landuse-meadow";
+"type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "landuse-military";
+"type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "landuse-orchard";
+"type.landuse.orchard" = "Orchard";
 
-"type.landuse.quarry" = "landuse-quarry";
+"type.landuse.quarry" = "Quarry";
 
-"type.landuse.railway" = "landuse-railway";
+"type.landuse.railway" = "Impianti ferroviari";
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
@@ -3739,13 +3777,13 @@
 
 "type.landuse.village_green" = "landuse-village_green";
 
-"type.landuse.vineyard" = "landuse-vineyard";
+"type.landuse.vineyard" = "Vineyard";
 
 "type.leisure" = "leisure";
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Dog area";
+"type.leisure.dog_park" = "Area sgambamento cani";
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
@@ -3757,11 +3795,11 @@
 
 "type.leisure.golf_course" = "Campo da golf";
 
-"type.leisure.ice_rink" = "leisure-ice_rink";
+"type.leisure.ice_rink" = "Ice rink";
 
-"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+"type.leisure.landscape_reserve" = "Landscape reserve";
 
-"type.leisure.marina" = "leisure-marina";
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Riserva";
 
@@ -3785,7 +3823,7 @@
 
 "type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
-"type.leisure.recreation_ground" = "leisure-recreation_ground";
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "Sauna";
 
@@ -3865,7 +3903,7 @@
 
 "type.natural" = "natural";
 
-"type.natural.bare_rock" = "natural-bare_rock";
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Baia";
 
@@ -3875,53 +3913,53 @@
 
 "type.natural.cave_entrance" = "Ingresso grotta";
 
-"type.natural.cliff" = "natural-cliff";
+"type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "natural-coastline";
+"type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Ghiacciaio";
 
-"type.natural.grassland" = "natural-grassland";
+"type.natural.grassland" = "Campo";
 
-"type.natural.heath" = "natural-heath";
+"type.natural.heath" = "Heath";
 
 "type.natural.lake" = "Lago";
 
 "type.natural.land" = "natural-land";
 
-"type.natural.meadow" = "natural-meadow";
+"type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "natural-orchard";
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Monte";
 
 "type.natural.pond" = "Stagno";
 
-"type.natural.rock" = "natural-rock";
+"type.natural.rock" = "Rock";
 
-"type.natural.salt_pond" = "natural-salt_pond";
+"type.natural.salt_pond" = "Salt pond";
 
-"type.natural.scrub" = "natural-scrub";
+"type.natural.scrub" = "Boscaglia";
 
 "type.natural.spring" = "Sorgente";
 
 "type.natural.tree" = "Albero";
 
-"type.natural.tree_row" = "natural-tree_row";
+"type.natural.tree_row" = "Tree row";
 
-"type.natural.vineyard" = "natural-vineyard";
+"type.natural.vineyard" = "Vineyard";
 
 "type.natural.volcano" = "Vulcano";
 
 "type.natural.water" = "Bacino";
 
-"type.natural.wetland" = "natural-wetland";
+"type.natural.wetland" = "Terreno paludoso";
 
-"type.natural.wetland.bog" = "natural-wetland-bog";
+"type.natural.wetland.bog" = "Wetland";
 
-"type.natural.wetland.marsh" = "natural-wetland-marsh";
+"type.natural.wetland.marsh" = "Wetland";
 
 "type.natural.wood" = "Foresta";
 
@@ -4025,7 +4063,7 @@
 
 "type.place.locality" = "Località";
 
-"type.place.neighbourhood" = "place-neighbourhood";
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Oceano";
 
@@ -4119,7 +4157,7 @@
 
 "type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
 
-"type.railway.monorail" = "railway-monorail";
+"type.railway.monorail" = "Monorotaia";
 
 "type.railway.monorail.bridge" = "railway-monorail-bridge";
 
@@ -4141,7 +4179,7 @@
 
 "type.railway.proposed" = "railway-proposed";
 
-"type.railway.rail" = "railway-rail";
+"type.railway.rail" = "Ferrovia";
 
 "type.railway.rail.bridge" = "railway-rail-bridge";
 
@@ -4251,7 +4289,7 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Metrò";
+"type.railway.subway_entrance" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.barcelona" = "Metrò";
 
@@ -4525,7 +4563,7 @@
 
 "type.sport.diving" = "sport-diving";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Equitazione";
 
 "type.sport.football" = "sport-football";
 
@@ -4547,7 +4585,7 @@
 
 "type.sport.swimming" = "sport-swimming";
 
-"type.sport.tennis" = "sport-tennis";
+"type.sport.tennis" = "Campo da tennis";
 
 "type.tourism" = "tourism";
 
@@ -4659,11 +4697,11 @@
 
 "type.wheelchair" = "wheelchair";
 
-"type.wheelchair.limited" = "wheelchair-limited";
+"type.wheelchair.limited" = "Accessibile in parte";
 
-"type.wheelchair.no" = "wheelchair-no";
+"type.wheelchair.no" = "Non accessibile ai disabili";
 
-"type.wheelchair.yes" = "wheelchair-yes";
+"type.wheelchair.yes" = "Accessibile ai disabili";
 
 "type.piste_lift" = "piste:lift";
 
@@ -4697,7 +4735,7 @@
 
 "type.piste_type.sled" = "piste:type-sled";
 
-"type.building_part" = "building:part";
+"type.building_part" = "Edificio";
 
 "type.earthquake_damage" = "earthquake:damage";
 

@@ -117,5 +117,22 @@
       <string>%d треків</string>
     </dict>
   </dict>
+
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>На основі %d відгуку</string>
+      <key>other</key>
+      <string>На основі %d відгуків</string>
+    </dict>
+  </dict>
 </dict>
 </plist>
