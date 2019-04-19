@@ -39809,7 +39809,7 @@
     fa = راهنماهای آماده استفاده در MAPS.ME
 
   [onboarding_bydeeplink_guide_subtitle]
-    en = Best places to visit are displayed on map with photos and descriptions. Works offline.
+    en = Best places to visit are displayed on the map with photos and descriptions. Works offline.
     ru = Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.
     ar = أفضل الأماكن لزيارتها معروضة على الخريطة مع الصور والوصف. يعمل بدون اتصال بالانترنت.
     cs = Nejlepší místa k navštívení zobrazená na mapě s fotografiemi a popisy. Pracujte offline.
@@ -39981,7 +39981,7 @@
 
   [whatsnew_toll_unpaved_title]
     en = Consider road type when planning automobile routes
-    ru = Прокладывайте автомаршруты с учетом типа дороги
+    ru = Прокладывайте автомобильные маршруты с учетом типа дороги
     ar = نسق طرق السيارات يشمل جميع أنواع الطرق
     cs = Rozmístěte automobilové trasy s ohledem na všechny typy silnic
     da = Layout for kørselsruter medtager alle typer af veje
