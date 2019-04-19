@@ -39,8 +39,7 @@ namespace generator
 {
 namespace
 {
-bool ParseFeatureIdToTestIdMapping(string const & path,
-                                   unordered_map<uint32_t, vector<uint64_t>> & mapping)
+bool ParseFeatureIdToTestIdMapping(string const & path, unordered_map<uint32_t, uint64_t> & mapping)
 {
   bool success = true;
   feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
@@ -53,7 +52,7 @@ bool ParseFeatureIdToTestIdMapping(string const & path,
       success = false;
       return;
     }
-    mapping[fid].push_back(tid);
+    mapping.emplace(fid, tid);
   });
   return success;
 }
@@ -86,11 +85,8 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
     auto it = mapping->find(base::asserted_cast<uint32_t>(fid));
     if (it != mapping->end())
     {
-      for (auto const & id : it->second)
-      {
-        auto const & b = table.Get(id);
-        bs.insert(bs.end(), b.begin(), b.end());
-      }
+      auto const & b = table.Get(it->second);
+      bs.insert(bs.end(), b.begin(), b.end());
     }
 
     all.emplace_back(move(bs));
@@ -107,7 +103,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
 bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, vector<base::GeoObjectId>>;
+  using Mapping = unordered_map<uint32_t, base::GeoObjectId>;
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;
@@ -122,7 +118,7 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
 
 bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, vector<uint64_t>>;
+  using Mapping = unordered_map<uint32_t, uint64_t>;
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;

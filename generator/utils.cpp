@@ -7,6 +7,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include <vector>
+
 namespace generator
 {
 // SingleMwmDataSource -----------------------------------------------------------------------------
@@ -26,7 +28,7 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 
 void LoadDataSource(DataSource & dataSource)
 {
-  vector<platform::LocalCountryFile> localFiles;
+  std::vector<platform::LocalCountryFile> localFiles;
 
   Platform & platform = GetPlatform();
   platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
@@ -45,13 +47,11 @@ void LoadDataSource(DataSource & dataSource)
   }
 }
 
-bool ParseFeatureIdToOsmIdMapping(
-    std::string const & path,
-    std::unordered_map<uint32_t, std::vector<base::GeoObjectId>> & mapping)
+bool ParseFeatureIdToOsmIdMapping(std::string const & path,
+                                  std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
 {
-  return ForEachOsmId2FeatureId(path,
-                                [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
-                                  mapping[featureId].push_back(osmId);
-                                });
+  return ForEachOsmId2FeatureId(path, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
+    CHECK(mapping.emplace(featureId, osmId).second, ("Several osm ids for feature", featureId, "in file", path));
+  });
 }
 }  // namespace generator

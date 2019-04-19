@@ -24,7 +24,7 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
 
   LOG(LINFO, ("Build UGC section"));
 
-  std::unordered_map<uint32_t, std::vector<base::GeoObjectId>> featureToOsmId;
+  std::unordered_map<uint32_t, base::GeoObjectId> featureToOsmId;
   if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFilename, featureToOsmId))
     return false;
 
@@ -34,11 +34,12 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     auto const it = featureToOsmId.find(featureId);
-    CHECK(it != featureToOsmId.cend() && it->second.size() != 0,
-          ("FeatureID", featureId, "is not found in", osmToFeatureFilename));
+    // Non-OSM features (coastlines, sponsored objects) are not used.
+    if (it == featureToOsmId.cend())
+      return;
 
     ugc::UGC result;
-    if (!GetUgcForFeature(it->second[0], feature::TypesHolder(f), translator, result))
+    if (!GetUgcForFeature(it->second, feature::TypesHolder(f), translator, result))
       return;
 
     content.emplace_back(featureId, result);

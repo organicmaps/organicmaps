@@ -24,7 +24,7 @@ bool BuildRatingsMwmSection(std::string const & srcDbFilename, std::string const
 {
   LOG(LINFO, ("Build Ratings section"));
 
-  std::unordered_map<uint32_t, std::vector<base::GeoObjectId>> featureToOsmId;
+  std::unordered_map<uint32_t, base::GeoObjectId> featureToOsmId;
   if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFilename, featureToOsmId))
     return false;
 
@@ -34,12 +34,11 @@ bool BuildRatingsMwmSection(std::string const & srcDbFilename, std::string const
   uint8_t constexpr kNoRating = 0;
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
-    auto const it = featureToOsmId.find(featureId);
-    CHECK(it != featureToOsmId.cend() && !it->second.empty(),
-          ("FeatureID", featureId, "is not found in", osmToFeatureFilename));
-
     ugc::UGC ugc;
-    if (GetUgcForFeature(it->second[0], feature::TypesHolder(f), translator, ugc))
+    auto const it = featureToOsmId.find(featureId);
+    // Non-OSM features (coastlines, sponsored objects) are not used.
+    if (it != featureToOsmId.cend() &&
+        GetUgcForFeature(it->second, feature::TypesHolder(f), translator, ugc))
     {
       content.emplace_back(ugc.GetPackedRating());
       haveUgc = true;

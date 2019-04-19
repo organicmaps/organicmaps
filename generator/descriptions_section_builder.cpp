@@ -55,10 +55,10 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
 boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) const
 {
   auto const itFeatureIdToOsmId = m_featureIdToOsmId.find(featureId);
-  if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId) || itFeatureIdToOsmId->second.size() == 0)
+  if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId))
     return {};
 
-  auto const osmId = itFeatureIdToOsmId->second[0];
+  auto const osmId = itFeatureIdToOsmId->second;
   auto const itOsmIdToWikidataId = m_osmIdToWikidataId.find(osmId);
   return itOsmIdToWikidataId == std::end(m_osmIdToWikidataId) ?
         boost::optional<std::string>() : itOsmIdToWikidataId->second;

@@ -71,7 +71,7 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
 
   LOG(LINFO, ("Build Popular Places section"));
 
-  std::unordered_map<uint32_t, std::vector<base::GeoObjectId>> featureIdToOsmId;
+  std::unordered_map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFilename, featureIdToOsmId))
     return false;
 
@@ -88,9 +88,9 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
     PopularityIndex rank = 0;
     auto const it = featureIdToOsmId.find(featureId);
     // Non-OSM features (coastlines, sponsored objects) are not used.
-    if (it != featureIdToOsmId.cend() && it->second.size() != 0)
+    if (it != featureIdToOsmId.cend())
     {
-      auto const placesIt = places.find(it->second[0]);
+      auto const placesIt = places.find(it->second);
 
       if (placesIt != places.cend())
       {
