@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
-import mwm
+
+from . import mwm
 
 if len(sys.argv) < 3:
     print('Finds an OSM object for a given feature id.')

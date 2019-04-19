@@ -1,22 +1,14 @@
 #!/usr/bin/env python2.7
-import os
-import sys
-
-# TODO: Make mwm an installable module.
-sys.path.append(
-    os.path.join(
-        os.path.dirname(__file__), '..', 'mwm'
-    )
-)
-
 import argparse
 import csv
-import mwm
-import logging
 import ctypes
-from zlib import adler32
+import logging
+import os
+import sys
 from multiprocessing import Pool, Queue, Process
+from zlib import adler32
 
+from ..mwm import mwm
 
 HEADERS = {
     'mapping': 'osmid fid mwm_id mwm_version source_type'.split(),

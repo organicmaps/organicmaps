@@ -14,8 +14,8 @@ import math
 from eviltransform import gcj2wgs_exact
 from tqdm import tqdm
 
-from api.booking_api import BookingApi, BookingListApi, LIMIT_REQUESTS_PER_MINUTE
-from api.exceptions import GettingMinPriceError
+from .api.booking_api import BookingApi, BookingListApi, LIMIT_REQUESTS_PER_MINUTE
+from .api.exceptions import GettingMinPriceError
 
 SUPPORTED_LANGUAGES = ("en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de",
                        "hu", "id", "it", "ja", "ko", "pl", "pt", "ro", "es",

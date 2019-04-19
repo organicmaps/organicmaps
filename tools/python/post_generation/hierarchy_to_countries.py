@@ -15,12 +15,15 @@
 # 3. Country ISO code (used for flags in the legacy format)
 # 4. Comma-separated list of language ISO codes for the region
 #
-import sys, json, re
-from optparse import OptionParser
-import os.path
+import base64
 import codecs
 import hashlib
-import base64
+import json
+import os.path
+import re
+import sys
+from optparse import OptionParser
+
 
 class CountryDict(dict):
   def __init__(self, *args, **kwargs):

@@ -1,7 +1,8 @@
 # MWM Reader Module
 import struct
-import math
 from datetime import datetime
+
+import math
 
 # Unprocessed sections: geomN, trgN, idx, sdx (search index), addr (search address), offs (feature offsets - succinct)
 # Routing sections: mercedes (matrix), daewoo (edge data), infinity (edge id), skoda (shortcuts), chrysler (cross context), ftseg, node2ftseg

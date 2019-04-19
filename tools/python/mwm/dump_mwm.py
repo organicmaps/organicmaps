@@ -1,7 +1,10 @@
 #!/usr/bin/python
-import sys, os.path, random
 import json
-from mwm import MWM
+import os.path
+import random
+import sys
+
+from .mwm import MWM
 
 if len(sys.argv) < 2:
     print('Dumps some MWM structures.')

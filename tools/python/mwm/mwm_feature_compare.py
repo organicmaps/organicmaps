@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from mwm import MWM
 
 import argparse
-import os
 import multiprocessing
+import os
 
+from .mwm import MWM
 
 OMIM_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..')
 

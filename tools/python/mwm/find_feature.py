@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-import sys, os.path, json
-from mwm import MWM
+import json
+import os.path
+import sys
+
+from .mwm import MWM
 
 if len(sys.argv) < 4:
     print('Finds features in an mwm file based on a query')

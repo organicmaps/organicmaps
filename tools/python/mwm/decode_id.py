@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-import sys
-import mwm
 import re
+import sys
+
+from . import mwm
 
 if len(sys.argv) < 2:
     print('This script unpacks maps.me OSM id to an OSM object link.')
