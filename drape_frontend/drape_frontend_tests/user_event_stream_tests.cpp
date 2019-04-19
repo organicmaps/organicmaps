@@ -52,7 +52,8 @@ public:
 
   void SetRect(m2::RectD const & r)
   {
-    m_stream.AddEvent(make_unique_dp<df::SetRectEvent>(r, false, -1, false /* isAnim */));
+    m_stream.AddEvent(make_unique_dp<df::SetRectEvent>(r, false /* rotate */, -1,
+                                                       false /* isAnim */, false /* useVisibleViewport */));
   }
 
   void AddExpectation(char const * action)
