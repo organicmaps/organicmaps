@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Мое местоположение";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.";
 
-"onboarding_welcome_title" = "Добро пожаловать в MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
-
 "onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"%s\">Условиями использования</a> и <a href=\"%s\">Политикой конфиденциальности</a>.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";
 
-"dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
-
 "dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
 
 "bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Путеводитель был успешно загружен";
 
 "download_guides" = "Загрузите путеводители";
-
-"cached_guides_placeholder_subtitle" = "Мы собрали каталог с подробными оффлайн маршрутами по городам мира! Теперь каждый путешественник сможет найти маршрут по своему вкусу и загрузить в MAPS.ME. Все загруженные маршруты автоматически отобразятся на карте. Для загрузки маршрута необходимо подключение к интернету.";
 
 "guides_groups_cached" = "Загруженные путеводители";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Обновите карты для получения актуальной информации об объектах!";
 
-"whats_new_auto_update_button_size" = "Обновить (%s) и продолжить";
+"whats_new_auto_update_and_proceed_button_size" = "Обновить (%s) и продолжить";
 
 "dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
 

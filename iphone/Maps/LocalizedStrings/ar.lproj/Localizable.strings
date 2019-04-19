@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "موقعي";
 
-"ok" = "موافق";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
 
-"onboarding_welcome_title" = "مرحبًا بك في MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
-
 "onboarding_welcome_second_subtitle" = "من خلال إطلاق التطبيق، فإنك توافق على <a href=\"%s\">شروط الاستخدام</a> و<a href=\"%s\">سياسة الخصوصية</a>.";
 
 "dialog_incorrect_feature_position" = "تغيير الموقع";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "احرص على تقييم ومراجعة الأماكن التي زرتها!";
 
-"dialog_pedestrian_route_is_long" = "مسار المشاة طويل جداً";
-
 "dialog_message_transit_not_found_connection" = "خطط المسار داخل شبكة عبور واحدة";
 
 "bookmarks_error_message_share_general" = "تعذرت المشاركة بسبب خطأ في التطبيق";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "تم تنزيل الدليل بنجاح";
 
 "download_guides" = "تنزيل الأدلة";
-
-"cached_guides_placeholder_subtitle" = "أدلة مفصلة بدون اتصال بالإنترنت لأي نوع من الرحلات. اختر النوع الذي يناسبك وقم بتنزيله مباشرة على الخريطة. ستحتاج إلى الاتصال بالإنترنت لتنزيل الأدلة.";
 
 "guides_groups_cached" = "الأدلة التي تم تنزيلها";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "قم بتحديث الخرائط للحصول على أحدث المعلومات!";
 
-"whats_new_auto_update_button_size" = "تحديث (%s) والمتابعة";
+"whats_new_auto_update_and_proceed_button_size" = "تحديث (%s) والمتابعة";
 
 "dialog_pedestrian_route_is_long" = "طريق المشاة طويل جدًا";
 

@@ -52,7 +52,6 @@
 	<string name="miles">ميل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">موقعي</string>
-	<string name="ok">موافق</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -797,8 +796,6 @@
 	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
 	<string name="onboarding_permissions_title">السماح لـ MAPS.ME بالوصول إلى ذاكرة التخزين والموقع</string>
 	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
-	<string name="onboarding_welcome_title">مرحبًا بك في MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
 	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على &lt;a href="%1$s">شروط الاستخدام&lt;/a> و&lt;a href="%2$s">سياسة الخصوصية&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
@@ -1154,9 +1151,6 @@
 	<string name="placepage_no_reviews">لا توجد مراجعات</string>
 	<string name="placepage_reviewed">لقد راجعت بالفعل هذا المكان</string>
 	<string name="placepage_summary_rating">ملخص التقييم</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">استنادًا إلى %d مراجعة</item>
-	</plurals>
 	<string name="placepage_rate_comment">المس لتقييم ومراجعة هذا المكان.</string>
 	<string name="placepage_rate_horrible">كريه</string>
 	<string name="placepage_rate_bad">سيء</string>
@@ -1243,7 +1237,6 @@
 	<string name="whats_new_message_hotel_filter">احجز الفنادق المتاحة في المواعيد الخاصة بك! استخدم عوامل تصفية تسجيل الوصول والمغادرة</string>
 	<string name="whats_new_title_ugc_travel">شارك تجربتك مع المسافرين الآخرين!</string>
 	<string name="whats_new_message_ugc_travel">احرص على تقييم ومراجعة الأماكن التي زرتها!</string>
-	<string name="dialog_pedestrian_route_is_long">مسار المشاة طويل جداً</string>
 	<string name="dialog_message_transit_not_found_connection">خطط المسار داخل شبكة عبور واحدة</string>
 	<string name="bookmarks_error_message_share_general">تعذرت المشاركة بسبب خطأ في التطبيق</string>
 	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
@@ -1348,7 +1341,6 @@
 	<string name="guides">الأدلّة</string>
 	<string name="guide_downloaded_title">تم تنزيل الدليل بنجاح</string>
 	<string name="download_guides">تنزيل الأدلة</string>
-	<string name="cached_guides_placeholder_subtitle">أدلة مفصلة بدون اتصال بالإنترنت لأي نوع من الرحلات. اختر النوع الذي يناسبك وقم بتنزيله مباشرة على الخريطة. ستحتاج إلى الاتصال بالإنترنت لتنزيل الأدلة.</string>
 	<string name="guides_groups_cached">الأدلة التي تم تنزيلها</string>
 	<string name="subtitle_error_downloading_guide">لم يتم تنزيل الدليل</string>
 	<string name="error_already_downloaded_guide">تم بالفعل تنزيل هذا الدليل</string>
@@ -1551,7 +1543,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">أفضل الأماكن لزيارتها معروضة على الخريطة مع الصور والوصف. يعمل بدون اتصال بالانترنت.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">قبل الدخول إلى الدليل…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">قم بتحديث الخرائط للحصول على أحدث المعلومات!</string>
-	<string name="whats_new_auto_update_button_size">تحديث (%s) والمتابعة</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">تحديث (%s) والمتابعة</string>
 	<string name="dialog_pedestrian_route_is_long">طريق المشاة طويل جدًا</string>
 	<string name="whatsnew_toll_unpaved_title">نسق طرق السيارات يشمل جميع أنواع الطرق</string>
 	<string name="whatsnew_toll_unpaved_message">حدد الطرق التي تحتوي: نقط تحصيل رسوم، طرق غير ممهدة، تفاطعات العبارات</string>

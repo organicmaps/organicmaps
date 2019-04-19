@@ -784,8 +784,6 @@
 	<string name="onboarding_location_message">Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.</string>
 	<string name="onboarding_permissions_title">Permita el acceso de MAPS.ME a los servicios de almacenamiento y ubicación</string>
 	<string name="onboarding_permissions_message">Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.</string>
-	<string name="onboarding_welcome_title">Bienvenido a MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.</string>
 	<string name="onboarding_welcome_second_subtitle">Al iniciar la aplicación, usted acepta los &lt;a href="%1$s">Términos de uso&lt;/a> y la &lt;a href="%2$s">Política de privacidad&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambiar ubicación</string>
 	<string name="message_invalid_feature_position">No se puede ubicar ningún objeto aquí</string>
@@ -1141,9 +1139,6 @@
 	<string name="placepage_no_reviews">Sin opiniones</string>
 	<string name="placepage_reviewed">Usted ya ha dejado una opinión sobre este lugar</string>
 	<string name="placepage_summary_rating">Calificación media</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Basado en %d opiniones</item>
-	</plurals>
 	<string name="placepage_rate_comment">Toque para valorar y opinar sobre este lugar.</string>
 	<string name="placepage_rate_horrible">Horrible</string>
 	<string name="placepage_rate_bad">Mal</string>
@@ -1230,7 +1225,6 @@
 	<string name="whats_new_message_hotel_filter">¡Hay hoteles disponibles para las fechas especificadas! Utilice los filtros de Entrada y Salida</string>
 	<string name="whats_new_title_ugc_travel">¡Comparta su experiencia con otros viajeros!</string>
 	<string name="whats_new_message_ugc_travel">¡Puntúe y opine sobre los lugares visitados!</string>
-	<string name="dialog_pedestrian_route_is_long">La ruta peatonal es demasiado larga</string>
 	<string name="dialog_message_transit_not_found_connection">Planea una ruta en una red de tránsito</string>
 	<string name="bookmarks_error_message_share_general">No se puede compartir debido a un error de la aplicación</string>
 	<string name="bookmarks_error_title_share_empty">Error al compartir</string>
@@ -1336,7 +1330,6 @@
 	<string name="guides">Guías</string>
 	<string name="guide_downloaded_title">Se ha descargado la guía correctamente</string>
 	<string name="download_guides">Descargar guías</string>
-	<string name="cached_guides_placeholder_subtitle">Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.</string>
 	<string name="guides_groups_cached">Guías descargadas</string>
 	<string name="subtitle_error_downloading_guide">No se ha descargado la guía</string>
 	<string name="error_already_downloaded_guide">Ya se ha descargado esta guía</string>
@@ -1539,7 +1532,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Los lugares seleccionados con fotos y descripciones se muestran en el mapa y están disponibles sin conexión.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Antes de pasar a las guías…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">¡Renueva los mapas para obtener información actualizada sobre los lugares!</string>
-	<string name="whats_new_auto_update_button_size">Renovar (%s) y continuar</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Renovar (%s) y continuar</string>
 	<string name="dialog_pedestrian_route_is_long">La ruta a pie es demasiado larga</string>
 	<string name="whatsnew_toll_unpaved_title">Construye las rutas en auto teniendo en cuenta todo tipo de vías</string>
 	<string name="whatsnew_toll_unpaved_message">Elige rutas de desvío a través de peajes, caminos sin pavimentar y cruces de ferry</string>

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Min posisjon";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Frigjør plass på enheten først for å laste ned %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.";
 
-"onboarding_welcome_title" = "Velkommen til MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Gratis, rask, detaljert og helt offline kart med rutenavigasjon.";
-
 "onboarding_welcome_second_subtitle" = "Når du starter programmet samtykker du til <a href=\"%s\">bruksvilkårene</a> og <a href=\"%s\">reglene for personvern</a>.";
 
 "dialog_incorrect_feature_position" = "Endre plassering";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Gi din vurdering og anmeldelse av steder du har reist til!";
 
-"dialog_pedestrian_route_is_long" = "Gangruten er for lang";
-
 "dialog_message_transit_not_found_connection" = "Planlegg en rute innenfor transittnettverket";
 
 "bookmarks_error_message_share_general" = "Kan ikke dele på grunn av en programfeil";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "The guide has been downloaded successfully";
 
 "download_guides" = "Download guides";
-
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
 
 "guides_groups_cached" = "Downloaded guides";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Oppdater kart for å holde informasjonen oppdatert!";
 
-"whats_new_auto_update_button_size" = "Oppdater (%s) og fortsett";
+"whats_new_auto_update_and_proceed_button_size" = "Oppdater (%s) og fortsett";
 
 "dialog_pedestrian_route_is_long" = "Fotgjenger-ruten er for lang";
 

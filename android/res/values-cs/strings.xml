@@ -798,8 +798,6 @@
 	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
 	<string name="onboarding_permissions_title">Povolte MAPS.ME přístup k úložišti a určení polohy</string>
 	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
-	<string name="onboarding_welcome_title">Vítá vás aplikace MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.</string>
 	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s &lt;a href="%1$s">Podmínkami použití&lt;/a> a &lt;a href="%2$s">Zásadami ochrany osobních údajů&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
@@ -1155,9 +1153,6 @@
 	<string name="placepage_no_reviews">Žádná hodnocení</string>
 	<string name="placepage_reviewed">Toto místo jste již hodnotili</string>
 	<string name="placepage_summary_rating">Souhrnné hodnocení</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Na základě %d hodnocení</item>
-	</plurals>
 	<string name="placepage_rate_comment">Pro ohodnocení tohoto místa a napsání recenze klepněte níže.</string>
 	<string name="placepage_rate_horrible">Hrozné</string>
 	<string name="placepage_rate_bad">Špatné</string>
@@ -1244,7 +1239,6 @@
 	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, které jsou k dispozici k vámi požadovaném datu! Použít filtry pro přihlášení a odhlášení v hotelu</string>
 	<string name="whats_new_title_ugc_travel">Podělte se o své zkušenosti s dalšími cestovateli!</string>
 	<string name="whats_new_message_ugc_travel">Ohodnoťte a napište recenzi míst, které jste navštívili!</string>
-	<string name="dialog_pedestrian_route_is_long">Trasa pro chodce je příliš dlouhá</string>
 	<string name="dialog_message_transit_not_found_connection">Naplánovat trasu s jednou tranzitní sítí</string>
 	<string name="bookmarks_error_message_share_general">Nelze sdílet kvůli chybě aplikace</string>
 	<string name="bookmarks_error_title_share_empty">Chyba sdílení</string>
@@ -1351,7 +1345,6 @@
 	<string name="guides">Průvodci</string>
 	<string name="guide_downloaded_title">Průvodce byl úspěšně stažen.</string>
 	<string name="download_guides">Stáhnout průvodce</string>
-	<string name="cached_guides_placeholder_subtitle">Podrobní offline průvodci pro každý druh cesty. Zvolte si ten, který vám nejlépe vyhovuje, a stáhněte si jej přímo na mapu. Ke stažení průvodců budete potřebovat připojení k internetu.</string>
 	<string name="guides_groups_cached">Stažení průvodci</string>
 	<string name="subtitle_error_downloading_guide">Průvodce nebyl stažen</string>
 	<string name="error_already_downloaded_guide">Tento průvodce byl již stažen</string>
@@ -1554,7 +1547,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Nejlepší místa k navštívení zobrazená na mapě s fotografiemi a popisy. Pracujte offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Předtím než přejdete k průvodcům…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Aktualizujte mapy a udržujte informace o objektech aktualizované!</string>
-	<string name="whats_new_auto_update_button_size">Aktualizujte (%s) a pokračujte</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Aktualizujte (%s) a pokračujte</string>
 	<string name="dialog_pedestrian_route_is_long">Trasa pro chodce je příliš dlouhá</string>
 	<string name="whatsnew_toll_unpaved_title">Rozmístěte automobilové trasy s ohledem na všechny typy silnic</string>
 	<string name="whatsnew_toll_unpaved_message">Vyberte si objížďky podle zpoplatněných silnic, prašných silnic a přejezdů trajektů</string>

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "나의 위치";
 
-"ok" = "승인";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "따라서 지도를 다운로드하고, 근처의 장소와 교통 상황을 보고, 네비게이션을 사용할 수 있습니다.";
 
-"onboarding_welcome_title" = "MAPS.ME입니다.";
-
-"onboarding_welcome_first_subtitle" = "턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.";
-
 "onboarding_welcome_second_subtitle" = "애플리케이션을 시작하면, <a href=\"%s\">이용 약관</a> 및 <a href=\"%s\">개인정보취급방침</a>에 동의하는 것입니다.";
 
 "dialog_incorrect_feature_position" = "위치 변경";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "방문한 장소를 평가하고 리뷰를 남기세요!";
 
-"dialog_pedestrian_route_is_long" = "보행자 루트가 너무 깁니다";
-
 "dialog_message_transit_not_found_connection" = "대중 교통망 내에서 하나의 경로를 계획하세요";
 
 "bookmarks_error_message_share_general" = "애플리케이션 오류로 인해 공유할 수 없습니다";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "안내를 성공적으로 다운로드 하였습니다.";
 
 "download_guides" = "안내 다운로드";
-
-"cached_guides_placeholder_subtitle" = "모든 여행을 위한 자세한 오프라인 안내. 여러분에게 가장 적합한 것을 골라 지도로 직접 다운로드하세요. 안내를 다운로드하려면 인터넷을 연결해야 합니다.";
 
 "guides_groups_cached" = "다운로드한 안내";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "맵들을 업데이트하셔서 최신 사항에 대한 정보를 유지하세요!";
 
-"whats_new_auto_update_button_size" = "(%s) 업데이트 그리고 진행";
+"whats_new_auto_update_and_proceed_button_size" = "(%s) 업데이트 그리고 진행";
 
 "dialog_pedestrian_route_is_long" = "보행자 루트가 너무 깁니다";
 

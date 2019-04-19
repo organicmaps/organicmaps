@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Min position";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Frigör mer utrymme på din enhet först för att kunna ladda ner %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
 
-"onboarding_welcome_title" = "Välkommen till MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
-
 "onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"%s\">användningsvillkoren</a> och <a href=\"%s\">sekretesspolicyn</a>.";
 
 "dialog_incorrect_feature_position" = "Ändra placering";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Betygsätt och recensera platser du besökt!";
 
-"dialog_pedestrian_route_is_long" = "Fotgängarrutten är för lång";
-
 "dialog_message_transit_not_found_connection" = "Planera en rutt inom ett transportnätverk";
 
 "bookmarks_error_message_share_general" = "Kunde inte delas på grund av ett applikationsfel";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Guiden har laddats ned framgångsrikt";
 
 "download_guides" = "Ladda ned guider";
-
-"cached_guides_placeholder_subtitle" = "Detaljerade offline-guider för alla former av resor. Välj den som passar dig bäst och ladda ned den direkt till kartan. Du behöver internetanslutningen för att ladda ned guider.";
 
 "guides_groups_cached" = "Nedladdade guider";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Uppdatera kartor för aktuell information om objekt!";
 
-"whats_new_auto_update_button_size" = "Uppdatera (%s) och fortsätt";
+"whats_new_auto_update_and_proceed_button_size" = "Uppdatera (%s) och fortsätt";
 
 "dialog_pedestrian_route_is_long" = "Vandringsrutten är för lång";
 

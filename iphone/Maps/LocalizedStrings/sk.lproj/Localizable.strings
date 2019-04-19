@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Moja poloha";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.";
 
-"onboarding_welcome_title" = "Vitajte v aplikácii MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.";
-
 "onboarding_welcome_second_subtitle" = "Spustením aplikácie súhlasíte s <a href=\"%s\">Podmienkami používania</a> a <a href=\"%s\">Zásadami ochrany osobných údajov</a>.";
 
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!";
 
-"dialog_pedestrian_route_is_long" = "Trasa pre chodca je príliš dlhá";
-
 "dialog_message_transit_not_found_connection" = "Naplánujte si trasu v jednej sieti verejnej dopravy";
 
 "bookmarks_error_message_share_general" = "Pre chybu aplikácie nie je zdieľanie možné";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Príručka bola úspešne stiahnutá";
 
 "download_guides" = "Stiahnite si príručky";
-
-"cached_guides_placeholder_subtitle" = "Podrobné offline príručky pre akúkoľvek cestu. Vyberte si tú, ktorá vám najviac vyhovuje a stiahnite si ju priamo k mape. Na načítanie príručiek budete potrebovať internetové pripojenie.";
 
 "guides_groups_cached" = "Stiahnuté príručky";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Aktualizujte mapy, aby boli informácie o objektoch aktuálne!";
 
-"whats_new_auto_update_button_size" = "Aktualizovať (%s) a pokračovať";
+"whats_new_auto_update_and_proceed_button_size" = "Aktualizovať (%s) a pokračovať";
 
 "dialog_pedestrian_route_is_long" = "Trasa pre chodcov je príliš dlhá";
 

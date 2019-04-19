@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "A minha posição";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Para que possa transferir mapas, ver locais e o trânsito perto e si e utilizar a navegação.";
 
-"onboarding_welcome_title" = "Bem-vindo ao MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.";
-
 "onboarding_welcome_second_subtitle" = "Ao lançar a aplicação, o utilizador concorda com os <a href=\"%s\">Termos de Utilização</a> e a <a href=\"%s\">Política de Privacidade</a>.";
 
 "dialog_incorrect_feature_position" = "Mudar local";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Classifique e avalie locais que tenha visitado!";
 
-"dialog_pedestrian_route_is_long" = "A rota pedestre é demasiado longa";
-
 "dialog_message_transit_not_found_connection" = "Planeie uma rota dentro de uma rede de tráfego";
 
 "bookmarks_error_message_share_general" = "A partilha não foi possível devido a um erro da aplicação";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "O guia foi descarregado com sucesso";
 
 "download_guides" = "Descarregue guias";
-
-"cached_guides_placeholder_subtitle" = "Guias detalhados 'offline' para qualquer tipo de viagem. Escolha o mais adequado para si e descarregue-o diretamente para o mapa. Irá precisar de ligação à Internet para descarregar os guias.";
 
 "guides_groups_cached" = "Descarregar guias";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Atualize mapas para ter informações atuais sobre objetos!";
 
-"whats_new_auto_update_button_size" = "Atualizar (%s) e continuar";
+"whats_new_auto_update_and_proceed_button_size" = "Atualizar (%s) e continuar";
 
 "dialog_pedestrian_route_is_long" = "Percurso pedestre é muito longo";
 

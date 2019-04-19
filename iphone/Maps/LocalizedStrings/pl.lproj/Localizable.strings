@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Moje położenie";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Aby pobrać %@, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.";
 
-"onboarding_welcome_title" = "Witaj w MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.";
-
 "onboarding_welcome_second_subtitle" = "Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href=\"%s\">warunki użytkowania</a> i <a href=\"%s\">politykę prywatności</a>.";
 
 "dialog_incorrect_feature_position" = "Zmień lokalizację";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Oceniaj i recenzuj odwiedzane miejsca!";
 
-"dialog_pedestrian_route_is_long" = "Trasa piesza jest zbyt długa";
-
 "dialog_message_transit_not_found_connection" = "Zaplanuj trasę w ramach jednej sieci transportowej";
 
 "bookmarks_error_message_share_general" = "Nie można udostępnić z powodu błędu aplikacji";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Przewodnik został pomyślnie pobrany";
 
 "download_guides" = "Pobierz przewodniki";
-
-"cached_guides_placeholder_subtitle" = "Szczegółowe przewodniki offline na każdy rodzaj podróży. Wybierz najlepiej Ci odpowiadający i pobierz go bezpośrednio na mapę. Do pobrania przewodników wymagane jest połączenie internetowe.";
 
 "guides_groups_cached" = "Pobrane przewodniki";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Zaktualizuj mapy, aby uzyskać aktualne informacje o obiektach!";
 
-"whats_new_auto_update_button_size" = "Zaktualizuj (%s) i kontynuuj";
+"whats_new_auto_update_and_proceed_button_size" = "Zaktualizuj (%s) i kontynuuj";
 
 "dialog_pedestrian_route_is_long" = "Trasa piesza jest zbyt długą";
 

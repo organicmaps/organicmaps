@@ -52,7 +52,6 @@
 	<string name="miles">Meilen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Mein Standort</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %s herunterzuladen.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -805,8 +804,6 @@
 	<string name="onboarding_location_message">Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.</string>
 	<string name="onboarding_permissions_title">Erlauben Sie MAPS.ME, auf Speicher und Standort zuzugreifen</string>
 	<string name="onboarding_permissions_message">So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.</string>
-	<string name="onboarding_welcome_title">Willkommen bei MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.</string>
 	<string name="onboarding_welcome_second_subtitle">Durch das Starten der Anwendung stimmen Sie den &lt;a href="%1$s">Nutzungsbedingungen&lt;/a> und der &lt;a href="%2$s">Datenschutzrichtlinie&lt;/a> zu.</string>
 	<string name="dialog_incorrect_feature_position">Standort wechseln</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
@@ -1162,9 +1159,6 @@
 	<string name="placepage_no_reviews">Keine Bewertungen</string>
 	<string name="placepage_reviewed">Sie haben bereits eine Bewertung für diesen Ort hinterlassen</string>
 	<string name="placepage_summary_rating">Zusammenfassende Bewertung</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Basierend auf %d Bewertungen</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tippen Sie, um diesen Ort zu bewerten und einen Kommentar zu hinterlassen.</string>
 	<string name="placepage_rate_horrible">Schrecklich</string>
 	<string name="placepage_rate_bad">Schlecht</string>
@@ -1251,7 +1245,6 @@
 	<string name="whats_new_message_hotel_filter">Buchen Sie Hotels, die für Ihre Termine verfügbar sind! Nutzen Sie Anreise- und Abreise-Filter</string>
 	<string name="whats_new_title_ugc_travel">Teilen Sie anderen Reisenden Ihre Erfahrungen mit!</string>
 	<string name="whats_new_message_ugc_travel">Bewerten Sie Orte, die Sie besucht haben!</string>
-	<string name="dialog_pedestrian_route_is_long">Die Fußgängerroute ist zu lang</string>
 	<string name="dialog_message_transit_not_found_connection">Eine Route innerhalb eines Transitnetzes planen</string>
 	<string name="bookmarks_error_message_share_general">Freigabe wegen eines Anwendungsfehlers nicht möglich</string>
 	<string name="bookmarks_error_title_share_empty">Fehler bei der Freigabe</string>
@@ -1357,7 +1350,6 @@
 	<string name="guides">Leitfaden</string>
 	<string name="guide_downloaded_title">Der Leitfaden wurde erfolgreich heruntergeladen</string>
 	<string name="download_guides">Leitfäden herunterladen</string>
-	<string name="cached_guides_placeholder_subtitle">Detaillierte Offline-Leitfäden für jede Art von Reise. Wählen Sie den für Sie am besten geeigneten aus und laden Sie ihn direkt auf die Karte herunter. Sie benötigen eine Internetverbindung, um Leitfäden herunterzuladen.</string>
 	<string name="guides_groups_cached">Heruntergeladene Leitfäden</string>
 	<string name="subtitle_error_downloading_guide">Der Leitfaden wurde nicht heruntergeladen</string>
 	<string name="error_already_downloaded_guide">Dieser Leitfaden wurde bereits heruntergeladen</string>
@@ -1560,7 +1552,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Ausgewählte Orte mit Fotos und Beschreibungen werden auf der Karte wiederspiegelt und sind offline zugänglich.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Bevor zu den Reiseführern überzugehen…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Erneuern Sie die Karten für das Erhalten der aktuellen Informationen über die Objekte!</string>
-	<string name="whats_new_auto_update_button_size">Erneuern (%s) und Fortsetzen</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Erneuern (%s) und Fortsetzen</string>
 	<string name="dialog_pedestrian_route_is_long">Spazierweg ist zu lang</string>
 	<string name="whatsnew_toll_unpaved_title">Bahnen Sie Routen unter Berücksichtigung aller Straßenarten</string>
 	<string name="whatsnew_toll_unpaved_message">Wählen Sie die Umwege durch Mautstraßen, Erdwege und Fährstellen</string>

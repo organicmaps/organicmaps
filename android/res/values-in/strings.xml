@@ -52,7 +52,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Posisi Saya</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -790,8 +789,6 @@
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
 	<string name="onboarding_permissions_title">Izinkan MAPS.ME mengakses penyimpanan dan lokasi</string>
 	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
-	<string name="onboarding_welcome_title">Selamat datang di MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
 	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui &lt;a href="%1$s">Syarat-Syarat Penggunaan&lt;/a> dan &lt;a href="%2$s">Kebijakan Privasi&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
@@ -1147,9 +1144,6 @@
 	<string name="placepage_no_reviews">Tidak ada ulasan</string>
 	<string name="placepage_reviewed">Anda sudah mengulas tempat ini</string>
 	<string name="placepage_summary_rating">Rangkuman peringkat</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Berdasarkan %d ulasan</item>
-	</plurals>
 	<string name="placepage_rate_comment">Ketuk untuk memberikan peringkat dan mengulas tempat ini.</string>
 	<string name="placepage_rate_horrible">Buruk sekali</string>
 	<string name="placepage_rate_bad">Buruk</string>
@@ -1236,7 +1230,6 @@
 	<string name="whats_new_message_hotel_filter">Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out</string>
 	<string name="whats_new_title_ugc_travel">Bagikan pengalaman Anda dengan musafir lain!</string>
 	<string name="whats_new_message_ugc_travel">Berikan peringkat dan ulasan untuk tempat yang telah Anda kunjungi!</string>
-	<string name="dialog_pedestrian_route_is_long">Rute pejalan kaki terlalu panjang</string>
 	<string name="dialog_message_transit_not_found_connection">Rencanakan rute dalam satu jaringan transit</string>
 	<string name="bookmarks_error_message_share_general">Tidak dapat berbagi karena kesalahan aplikasi</string>
 	<string name="bookmarks_error_title_share_empty">Kesalahan dalam membagikan</string>
@@ -1342,7 +1335,6 @@
 	<string name="guides">Panduan</string>
 	<string name="guide_downloaded_title">Panduan telah berhasil diunduh</string>
 	<string name="download_guides">Unduh panduan</string>
-	<string name="cached_guides_placeholder_subtitle">Panduan offline (luring) terperinci untuk segala jenis perjalanan. Pilih yang paling sesuai untuk Anda dan unduh langsung ke peta. Anda akan memerlukan koneksi internet untuk mengunduh panduan.</string>
 	<string name="guides_groups_cached">Panduan yang diunduh</string>
 	<string name="subtitle_error_downloading_guide">Panduan itu tidak diunduh</string>
 	<string name="error_already_downloaded_guide">Panduan ini telah diunduh</string>
@@ -1545,7 +1537,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Kunjungi tempat terbaik di peta lengkap dengan foto dan keterangan. Berfungsi offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Sebelum Anda lanjut ke panduan…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Perbarui peta agar informasi tentang obyek tetap terbaru!</string>
-	<string name="whats_new_auto_update_button_size">Perbarui (%s) dan lanjutkan</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Perbarui (%s) dan lanjutkan</string>
 	<string name="dialog_pedestrian_route_is_long">Rute pejalan kaki terlalu panjang</string>
 	<string name="whatsnew_toll_unpaved_title">Susun rute mobil dengan mempertimbangkan semua jenis jalan</string>
 	<string name="whatsnew_toll_unpaved_message">Pilih jalan memutar untuk hindari jalan tol, jalan tanah, dan penyeberangan kapal feri</string>

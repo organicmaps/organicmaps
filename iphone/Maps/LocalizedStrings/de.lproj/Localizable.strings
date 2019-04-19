@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Mein Standort";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %@ herunterzuladen.";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.";
 
-"onboarding_welcome_title" = "Willkommen bei MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.";
-
 "onboarding_welcome_second_subtitle" = "Durch das Starten der Anwendung stimmen Sie den <a href=\"%s\">Nutzungsbedingungen</a> und der <a href=\"%s\">Datenschutzrichtlinie</a> zu.";
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Bewerten Sie Orte, die Sie besucht haben!";
 
-"dialog_pedestrian_route_is_long" = "Die Fußgängerroute ist zu lang";
-
 "dialog_message_transit_not_found_connection" = "Eine Route innerhalb eines Transitnetzes planen";
 
 "bookmarks_error_message_share_general" = "Freigabe wegen eines Anwendungsfehlers nicht möglich";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Der Leitfaden wurde erfolgreich heruntergeladen";
 
 "download_guides" = "Leitfäden herunterladen";
-
-"cached_guides_placeholder_subtitle" = "Detaillierte Offline-Leitfäden für jede Art von Reise. Wählen Sie den für Sie am besten geeigneten aus und laden Sie ihn direkt auf die Karte herunter. Sie benötigen eine Internetverbindung, um Leitfäden herunterzuladen.";
 
 "guides_groups_cached" = "Heruntergeladene Leitfäden";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Erneuern Sie die Karten für das Erhalten der aktuellen Informationen über die Objekte!";
 
-"whats_new_auto_update_button_size" = "Erneuern (%s) und Fortsetzen";
+"whats_new_auto_update_and_proceed_button_size" = "Erneuern (%s) und Fortsetzen";
 
 "dialog_pedestrian_route_is_long" = "Spazierweg ist zu lang";
 

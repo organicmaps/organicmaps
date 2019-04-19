@@ -48,7 +48,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Min position</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigör mer utrymme på din enhet först för att kunna ladda ner %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -795,8 +794,6 @@
 	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
 	<string name="onboarding_permissions_title">Ge MAPS.ME åtkomst till lagring och plats</string>
 	<string name="onboarding_permissions_message">Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.</string>
-	<string name="onboarding_welcome_title">Välkommen till MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
 	<string name="onboarding_welcome_second_subtitle">Genom att starta applikationen godkänner du &lt;a href="%1$s">användningsvillkoren&lt;/a> och &lt;a href="%2$s">sekretesspolicyn&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
@@ -1152,9 +1149,6 @@
 	<string name="placepage_no_reviews">Inga omdömen</string>
 	<string name="placepage_reviewed">Du har redan lämnat ett omdöme om den här platsen</string>
 	<string name="placepage_summary_rating">Sammanfattning av omdömen</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Baserat på %d omdömen</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tryck för att betygsätta och lämna ett omdöme om den här platsen.</string>
 	<string name="placepage_rate_horrible">Hemskt</string>
 	<string name="placepage_rate_bad">Dåligt</string>
@@ -1241,7 +1235,6 @@
 	<string name="whats_new_message_hotel_filter">Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning</string>
 	<string name="whats_new_title_ugc_travel">Dela din upplevelse med andra resenärer!</string>
 	<string name="whats_new_message_ugc_travel">Betygsätt och recensera platser du besökt!</string>
-	<string name="dialog_pedestrian_route_is_long">Fotgängarrutten är för lång</string>
 	<string name="dialog_message_transit_not_found_connection">Planera en rutt inom ett transportnätverk</string>
 	<string name="bookmarks_error_message_share_general">Kunde inte delas på grund av ett applikationsfel</string>
 	<string name="bookmarks_error_title_share_empty">Delningsfel</string>
@@ -1347,7 +1340,6 @@
 	<string name="guides">Guider</string>
 	<string name="guide_downloaded_title">Guiden har laddats ned framgångsrikt</string>
 	<string name="download_guides">Ladda ned guider</string>
-	<string name="cached_guides_placeholder_subtitle">Detaljerade offline-guider för alla former av resor. Välj den som passar dig bäst och ladda ned den direkt till kartan. Du behöver internetanslutningen för att ladda ned guider.</string>
 	<string name="guides_groups_cached">Nedladdade guider</string>
 	<string name="subtitle_error_downloading_guide">Guiden laddades inte ned</string>
 	<string name="error_already_downloaded_guide">Denna guide har redan laddats ned</string>
@@ -1550,7 +1542,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Valda platser med bilder och beskrivningar visas på kartan och är tillgängliga offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Innan du går till guideböcker…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Uppdatera kartor för aktuell information om objekt!</string>
-	<string name="whats_new_auto_update_button_size">Uppdatera (%s) och fortsätt</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Uppdatera (%s) och fortsätt</string>
 	<string name="dialog_pedestrian_route_is_long">Vandringsrutten är för lång</string>
 	<string name="whatsnew_toll_unpaved_title">Bygga rutter med hänsyn till alla typer av vägar</string>
 	<string name="whatsnew_toll_unpaved_message">Välj omvägsvägar genom betalvägar, kärrvägar och färjetrafik</string>

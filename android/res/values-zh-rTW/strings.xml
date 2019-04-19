@@ -48,7 +48,6 @@
 	<string name="miles">英哩</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">我的位置</string>
-	<string name="ok">確定</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">如要下載%s ，請先釋放一些空間！</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -801,8 +800,6 @@
 	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
 	<string name="onboarding_permissions_title">允許 MAPS.ME 存儲和定位的權限</string>
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
-	<string name="onboarding_welcome_title">歡迎來到 MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
 	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 &lt;a href="%1$s">服務條款&lt;/a>和 &lt;a href="%2$s">隱私權原則&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
@@ -1158,9 +1155,6 @@
 	<string name="placepage_no_reviews">無評論</string>
 	<string name="placepage_reviewed">您已評論過這個地方</string>
 	<string name="placepage_summary_rating">評分摘要</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">根據 %d 則評論</item>
-	</plurals>
 	<string name="placepage_rate_comment">點選以為這個地點評分或評論。</string>
 	<string name="placepage_rate_horrible">很糟</string>
 	<string name="placepage_rate_bad">不好</string>
@@ -1247,7 +1241,6 @@
 	<string name="whats_new_message_hotel_filter">預訂在您所選日期有空的賓館！用入住和離店篩選</string>
 	<string name="whats_new_title_ugc_travel">和其他旅客分享您的體驗！</string>
 	<string name="whats_new_message_ugc_travel">給您訪問過的地方打分和評價！</string>
-	<string name="dialog_pedestrian_route_is_long">步行路線太長</string>
 	<string name="dialog_message_transit_not_found_connection">規劃一個交通網絡內的路線</string>
 	<string name="bookmarks_error_message_share_general">由於應用程序出錯而無法分享</string>
 	<string name="bookmarks_error_title_share_empty">分享錯誤</string>
@@ -1351,7 +1344,6 @@
 	<string name="guides">指南</string>
 	<string name="guide_downloaded_title">指南已被成功下載</string>
 	<string name="download_guides">下載指南</string>
-	<string name="cached_guides_placeholder_subtitle">適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。</string>
 	<string name="guides_groups_cached">已下載的指南</string>
 	<string name="subtitle_error_downloading_guide">該指南沒有被下載</string>
 	<string name="error_already_downloaded_guide">這個指南已被下載過了</string>
@@ -1554,7 +1546,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">帶有照片和說明的競選地點會顯示在地圖中，並且可以離線使用。</string>
 	<string name="whats_new_auto_update_bydeeplink_title">在轉到指南之前……</string>
 	<string name="whats_new_auto_update_bydeeplink_message">請更新有關對像以獲取實時信息的地圖!</string>
-	<string name="whats_new_auto_update_button_size">更新（%s）並繼續</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">更新（%s）並繼續</string>
 	<string name="dialog_pedestrian_route_is_long">步行路線太長</string>
 	<string name="whatsnew_toll_unpaved_title">考慮到所有道路類型並設立路線</string>
 	<string name="whatsnew_toll_unpaved_message">請選擇通過收費公路、土路和渡輪過境的迂迴路線</string>

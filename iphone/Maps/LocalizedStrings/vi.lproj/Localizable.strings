@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Vị trí của Tôi";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
 
-"onboarding_welcome_title" = "Chào mừng đến với MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
-
 "onboarding_welcome_second_subtitle" = "Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href=\"%s\">Điều khoản Sử dụng</a> và <a href=\"%s\">Chính sách Riêng tư</a>.";
 
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Cho điểm và đánh giá những nơi bạn đã ghé thăm!";
 
-"dialog_pedestrian_route_is_long" = "Tuyến đường dành cho người đi bộ quá dài";
-
 "dialog_message_transit_not_found_connection" = "Xây dựng lộ trình trong một mạng chuyển tiếp";
 
 "bookmarks_error_message_share_general" = "Không thể chia sẻ do lỗi ứng dụng";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Hướng dẫn đã được tải xuống thành công";
 
 "download_guides" = "Tải xuống hướng dẫn";
-
-"cached_guides_placeholder_subtitle" = "Hướng dẫn ngoại tuyến chi tiết cho mọi cuộc hành trình. Chọn hướng dẫn phù hợp với bạn nhất và tải xuống trực tiếp vào bản đồ. Bạn sẽ cần kết nối internet để tải xuống các hướng dẫn.";
 
 "guides_groups_cached" = "Đã tải xuống hướng dẫn";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Hãy cập nhật bản đồ để nhận được những thông tin mới nhất về các đối tượng, chủ thể!";
 
-"whats_new_auto_update_button_size" = "Cập nhận được (%s) và tiếp tục";
+"whats_new_auto_update_and_proceed_button_size" = "Cập nhận được (%s) và tiếp tục";
 
 "dialog_pedestrian_route_is_long" = "Tuyến đường đi bộ quá dài";
 

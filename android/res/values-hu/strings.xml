@@ -792,8 +792,6 @@
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
 	<string name="onboarding_permissions_title">Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
 	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
-	<string name="onboarding_welcome_title">Üdvözöljük a MAPS.ME alkalmazásban</string>
-	<string name="onboarding_welcome_first_subtitle">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
 	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a &lt;a href="%1$s">Felhasználási feltételeket&lt;/a> és &lt;a href="%2$s">az Adatvédelmi szabályzatot&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
@@ -1148,9 +1146,6 @@
 	<string name="placepage_no_reviews">Nincs véleményezés</string>
 	<string name="placepage_reviewed">Ezt a helyet már átnézte</string>
 	<string name="placepage_summary_rating">Összesített minősítés</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">%d értékelések alapján</item>
-	</plurals>
 	<string name="placepage_rate_comment">A hely értékeléséhez és minősítéséhez koppintson rá.</string>
 	<string name="placepage_rate_horrible">Borzalmas</string>
 	<string name="placepage_rate_bad">Rossz</string>
@@ -1237,7 +1232,6 @@
 	<string name="whats_new_message_hotel_filter">Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket</string>
 	<string name="whats_new_title_ugc_travel">Ossza meg tapasztalatait más utasokkal!</string>
 	<string name="whats_new_message_ugc_travel">Értékelje és ismertesse a meglátogatott helyeket!</string>
-	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal túl hosszú</string>
 	<string name="dialog_message_transit_not_found_connection">Útvonaltervezés egy összekötő hálózaton belül</string>
 	<string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
 	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
@@ -1343,7 +1337,6 @@
 	<string name="guides">Útmutatók</string>
 	<string name="guide_downloaded_title">Az útmutató sikeresen letöltésre került</string>
 	<string name="download_guides">Útmutatók letöltése</string>
-	<string name="cached_guides_placeholder_subtitle">Részletes offline útmutatók mindenfajta utazáshoz. Válaszd ki a te utazásodhoz legjobban illőt, és töltsd le közvetlenül a térképre. Az útmutatók letöltéséhez internetkapcsolatra van szükséged.</string>
 	<string name="guides_groups_cached">Letöltött útmutatók</string>
 	<string name="subtitle_error_downloading_guide">Az útmutató nem került letöltésre</string>
 	<string name="error_already_downloaded_guide">Ez az útmutató már letöltésre került</string>
@@ -1546,7 +1539,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">A legjobb meglátogatandó helyeket a térkép fényképekkel és leírásokkal jelöli. Offline munka.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Mielőtt továbblépnél az útmutatókhoz…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!</string>
-	<string name="whats_new_auto_update_button_size">Frissítés (%s) és folytatás</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Frissítés (%s) és folytatás</string>
 	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal túl hosszú</string>
 	<string name="whatsnew_toll_unpaved_title">Autó útvonalak elrendezése minden úttípus figyelembe vételével</string>
 	<string name="whatsnew_toll_unpaved_message">Kitérők választása fizetős utak, földutak és kompátvelők figyelembe vételével</string>

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Saját helyzet";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
 
-"onboarding_welcome_title" = "Üdvözöljük a MAPS.ME alkalmazásban";
-
-"onboarding_welcome_first_subtitle" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
-
 "onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"%s\">Felhasználási feltételeket</a> és <a href=\"%s\">az Adatvédelmi szabályzatot</a>.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Értékelje és ismertesse a meglátogatott helyeket!";
 
-"dialog_pedestrian_route_is_long" = "A gyalogos útvonal túl hosszú";
-
 "dialog_message_transit_not_found_connection" = "Útvonaltervezés egy összekötő hálózaton belül";
 
 "bookmarks_error_message_share_general" = "Nem lehet megosztani alkalmazáshiba miatt";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Az útmutató sikeresen letöltésre került";
 
 "download_guides" = "Útmutatók letöltése";
-
-"cached_guides_placeholder_subtitle" = "Részletes offline útmutatók mindenfajta utazáshoz. Válaszd ki a te utazásodhoz legjobban illőt, és töltsd le közvetlenül a térképre. Az útmutatók letöltéséhez internetkapcsolatra van szükséged.";
 
 "guides_groups_cached" = "Letöltött útmutatók";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!";
 
-"whats_new_auto_update_button_size" = "Frissítés (%s) és folytatás";
+"whats_new_auto_update_and_proceed_button_size" = "Frissítés (%s) és folytatás";
 
 "dialog_pedestrian_route_is_long" = "A gyalogos útvonal túl hosszú";
 

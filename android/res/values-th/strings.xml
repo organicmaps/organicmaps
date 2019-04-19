@@ -52,7 +52,6 @@
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">ตำแหน่งของฉัน</string>
-	<string name="ok">ตกลง</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -797,8 +796,6 @@
 	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
 	<string name="onboarding_permissions_title">อนุญาตให้ MAPS.ME เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง</string>
 	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
-	<string name="onboarding_welcome_title">ยินดีต้อนรับสู่ MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
 	<string name="onboarding_welcome_second_subtitle">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ &lt;a href="%1$s">เงื่อนไขการใช้งาน&lt;/a> และ &lt;a href="%2$s">นโยบายความเป็นส่วนตัว&lt;/a></string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
@@ -1154,9 +1151,6 @@
 	<string name="placepage_no_reviews">ไม่มีรีวิว</string>
 	<string name="placepage_reviewed">คุณได้รีวิวสถานที่นี้ไปแล้ว</string>
 	<string name="placepage_summary_rating">อันดับคะแนนสรุป</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">จาก %d รีวิว</item>
-	</plurals>
 	<string name="placepage_rate_comment">แตะเพื่อให้คะแนนและรีวิวสถานที่นี</string>
 	<string name="placepage_rate_horrible">แย่มาก</string>
 	<string name="placepage_rate_bad">แย่</string>
@@ -1243,7 +1237,6 @@
 	<string name="whats_new_message_hotel_filter">จองโรงแรมที่มีสำหรับช่วงวันที่ของคุณ! ใช้ตัวกรองเช็คอินและเช็คเอาท์</string>
 	<string name="whats_new_title_ugc_travel">แบ่งปันประสบการณ์ของคุณกับนักท่องเที่ยวคนอื่น ๆ!</string>
 	<string name="whats_new_message_ugc_travel">ให้คะแนนแล้วรีวิวสถานที่ที่คุณเคยไป!</string>
-	<string name="dialog_pedestrian_route_is_long">เส้นทางเดินเท้าไกลเกินไป</string>
 	<string name="dialog_message_transit_not_found_connection">วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว</string>
 	<string name="bookmarks_error_message_share_general">ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน</string>
 	<string name="bookmarks_error_title_share_empty">ข้อผิดพลาดในการแชร์</string>
@@ -1348,7 +1341,6 @@
 	<string name="guides">คู่มือใช้งาน</string>
 	<string name="guide_downloaded_title">ดาวน์โหลดคู่มือใช้งานนี้สำเร็จ</string>
 	<string name="download_guides">ดาวน์โหลดคู่มือใช้งาน</string>
-	<string name="cached_guides_placeholder_subtitle">คู่มือใช้งานแบบออฟไลน์อย่างละเอียดสำหรับการเดินทางไม่ว่าจะในแบบใด เลือกคู่มือใช้งานที่เข้ากับคุณมากที่สุดแล้วดาวน์โหลดโดยตรงไปยังแผนที่ คุณจะต้องมีการเชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดคู่มือใช้งาน</string>
 	<string name="guides_groups_cached">ดาวน์โหลดคู่มือใช้งานแล้ว</string>
 	<string name="subtitle_error_downloading_guide">ไม่มีการดาวน์โหลดคู่มือใช้งาน</string>
 	<string name="error_already_downloaded_guide">มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว</string>
@@ -1551,7 +1543,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">สถานที่ที่เหมาะกับการเยี่ยมชมนั้นปรากฎบนแผนที่พร้อมกับรูปและคำบรรยาย ทำงานโดยไม่ต้องใช้สัญญาณอินเทอร์เน็ต</string>
 	<string name="whats_new_auto_update_bydeeplink_title">ก่อนที่คุณจะเริ่มใช้งานไกด์…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">อัพเดตแผนที่เพื่อให้ข้อมูลเกี่ยวกับสถานที่นั้นตรงกับปัจจุบัน</string>
-	<string name="whats_new_auto_update_button_size">อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน</string>
 	<string name="dialog_pedestrian_route_is_long">เส้นทางเดินเท้านั้นไกลเกินไป</string>
 	<string name="whatsnew_toll_unpaved_title">วางเส้นทางสำหรับรถยนต์โดยพิจารณาใช้ถนนทุกประเภท</string>
 	<string name="whatsnew_toll_unpaved_message">เลือกเส้นทางอ้อมจากถนนที่เก็บค่าผ่านทาง ถนนดิน หรือจำเป็นต้องใช้เรือข้าม</string>

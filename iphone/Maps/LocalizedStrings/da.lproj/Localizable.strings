@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Min position";
 
-"ok" = "Ok";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Frigør venligst noget plads på din telefon først for at downloade %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.";
 
-"onboarding_welcome_title" = "Velkommen til MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
-
 "onboarding_welcome_second_subtitle" = "Ved at åbne appen accepterer du vores <a href=\"%s\">Vilkår for anvendelse</a> og <a href=\"%s\">Fortrolighedspolitik</a>.";
 
 "dialog_incorrect_feature_position" = "Skift lokation";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Vurder og anmeld de steder, du har besøgt!";
 
-"dialog_pedestrian_route_is_long" = "Gangstien er for lang";
-
 "dialog_message_transit_not_found_connection" = "Planlæg en rute inden for et transitnetværk";
 
 "bookmarks_error_message_share_general" = "Ikke i stand til at dele på grund af en programfejl";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Vejledningen er blevet downloadet";
 
 "download_guides" = "Download vejledninger";
-
-"cached_guides_placeholder_subtitle" = "Detaljerede offline vejledninger til alle slags rejser. Vælg den der passer dig bedst og download den direkte til dit kort. Du skal bruge en internetforbindelse til at downloade vejledninger.";
 
 "guides_groups_cached" = "Downloadede vejledninger";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Opdater kort for at holde informationen opdateret!";
 
-"whats_new_auto_update_button_size" = "Opdater (%s) og fortsæt";
+"whats_new_auto_update_and_proceed_button_size" = "Opdater (%s) og fortsæt";
 
 "dialog_pedestrian_route_is_long" = "Rute til fods er for langt";
 

@@ -790,8 +790,6 @@
 	<string name="onboarding_location_message">Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.</string>
 	<string name="onboarding_permissions_title">Consenti a MAPS.ME di accedere a memoria e posizione</string>
 	<string name="onboarding_permissions_message">Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
-	<string name="onboarding_welcome_title">Benvenuto in MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.</string>
 	<string name="onboarding_welcome_second_subtitle">Lanciando l\'applicazione, accetti i &lt;a href="%1$s">Termini di utilizzo&lt;/a> e l\'&lt;a href="%2$s">Informativa sulla privacy&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
@@ -1147,9 +1145,6 @@
 	<string name="placepage_no_reviews">Nessuna recensione</string>
 	<string name="placepage_reviewed">Hai già recensito questa località</string>
 	<string name="placepage_summary_rating">Riepilogo valutazione</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Basato su %d recensioni</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tocca per valutare e recensire questa località.</string>
 	<string name="placepage_rate_horrible">Pessimo</string>
 	<string name="placepage_rate_bad">Scarso</string>
@@ -1236,7 +1231,6 @@
 	<string name="whats_new_message_hotel_filter">Prenota gli hotel disponibili nelle tue date! Usa i filtri per check-in e check-out</string>
 	<string name="whats_new_title_ugc_travel">Condividi la tua esperienza con altri viaggiatori!</string>
 	<string name="whats_new_message_ugc_travel">Vota e recensisci i luoghi che hai visitato!</string>
-	<string name="dialog_pedestrian_route_is_long">La strada pedonale è troppo lunga</string>
 	<string name="dialog_message_transit_not_found_connection">Pianifica un percorso all\'interno di una rete di transito</string>
 	<string name="bookmarks_error_message_share_general">Impossibile condividere a causa di un errore dell\'applicazione</string>
 	<string name="bookmarks_error_title_share_empty">Errore di condivisione</string>
@@ -1342,7 +1336,6 @@
 	<string name="guides">Guide</string>
 	<string name="guide_downloaded_title">La guida è stata scaricata correttamente</string>
 	<string name="download_guides">Scarica le guide</string>
-	<string name="cached_guides_placeholder_subtitle">Guide dettagliate offline per qualsiasi tipo di viaggio. Scegli quella che preferisci e scaricala direttamente sulla mappa. Per scaricare le guide, è necessaria una connessione a Internet.</string>
 	<string name="guides_groups_cached">Guide scaricate</string>
 	<string name="subtitle_error_downloading_guide">La guida non è stata scaricata</string>
 	<string name="error_already_downloaded_guide">La guida è già stata scaricata</string>
@@ -1545,7 +1538,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Luoghi preferiti con descrizioni e foto sono visualizzati sulla mappa e disponibili offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Prima di passare alle guide…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Aggiorna le mappe per avere le informazioni attuali!</string>
-	<string name="whats_new_auto_update_button_size">Aggiorna (%s) e continua</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Aggiorna (%s) e continua</string>
 	<string name="dialog_pedestrian_route_is_long">Percorso a piedi troppo lungo</string>
 	<string name="whatsnew_toll_unpaved_title">Pianificare percorsi in auto su tutti i tipi di strade</string>
 	<string name="whatsnew_toll_unpaved_message">Scegli modalità di percorso e deviazione su strade a pedaggio, strade sterrate e traghetti</string>

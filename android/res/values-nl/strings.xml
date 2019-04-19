@@ -791,8 +791,6 @@
 	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
 	<string name="onboarding_permissions_title">MAPS.ME toegang geven tot opslag en locatie</string>
 	<string name="onboarding_permissions_message">Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.</string>
-	<string name="onboarding_welcome_title">Welkom bij MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
 	<string name="onboarding_welcome_second_subtitle">Door de toepassing te starten, gaat u akkoord met de &lt;a href="%1$s">Gebruiksvoorwaarden&lt;/a> en het &lt;a href="%2$s">Privacybeleid&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
@@ -1148,9 +1146,6 @@
 	<string name="placepage_no_reviews">Geen beoordelingen</string>
 	<string name="placepage_reviewed">U hebt deze plaats al beoordeeld</string>
 	<string name="placepage_summary_rating">Samengevatte rating</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Gebaseerd op %d beoordelingen</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tap om deze plaats te raten en te beoordelen.</string>
 	<string name="placepage_rate_horrible">Verschrikkelijk</string>
 	<string name="placepage_rate_bad">Slecht</string>
@@ -1237,7 +1232,6 @@
 	<string name="whats_new_message_hotel_filter">Boek beschikbare hotels voor uw data! Gebruik de filters inchecken en uitchecken</string>
 	<string name="whats_new_title_ugc_travel">Deel uw ervaring met andere reizigers!</string>
 	<string name="whats_new_message_ugc_travel">Rate en beoordeel bezochte plaatsen!</string>
-	<string name="dialog_pedestrian_route_is_long">De voetgangersroute is te lang</string>
 	<string name="dialog_message_transit_not_found_connection">Plan een route binnen één vervoersnetwerk</string>
 	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
@@ -1343,7 +1337,6 @@
 	<string name="guides">Handleidingen</string>
 	<string name="guide_downloaded_title">De handleiding is met succes gedownload</string>
 	<string name="download_guides">Handleidingen downloaden</string>
-	<string name="cached_guides_placeholder_subtitle">Gedetailleerde offline handleidingen voor elk type reis. Kies de handleiding die het beste bij je past en download hem direct naar de kaart. Je hebt een internetverbinding nodig om handleidingen te downloaden.</string>
 	<string name="guides_groups_cached">Gedownloade handleidingen</string>
 	<string name="subtitle_error_downloading_guide">De handleiding is niet gedownload</string>
 	<string name="error_already_downloaded_guide">De handleiding is reeds gedownload</string>
@@ -1546,7 +1539,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Geselecteerde plaatsen met foto\'s en beschrijvingen worden op de kaart weergegeven en zijn offline beschikbaar.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Voordat u naar reisgids gaat…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Heerladt de kaarten op actuele informatie over objecten te krijgen!</string>
-	<string name="whats_new_auto_update_button_size">Bijwerken (%s) en verder gaan</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Bijwerken (%s) en verder gaan</string>
 	<string name="dialog_pedestrian_route_is_long">De wandelroute is te lang</string>
 	<string name="whatsnew_toll_unpaved_title">Bouw routen met inachtneming van alle soorten wegen</string>
 	<string name="whatsnew_toll_unpaved_message">Kies omwegen via tolwegen, aardewegen en ferries</string>

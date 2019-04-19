@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Ma position";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Veuillez d'abord libérer de l'espace sur votre appareil afin de télécharger %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.";
 
-"onboarding_welcome_title" = "Bienvenue sur MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.";
-
 "onboarding_welcome_second_subtitle" = "En lançant l’application, vous acceptez les <a href=\"%s\">Conditions d’utilisation</a> et la <a href=\"%s\">Politique de confidentialité</a>.";
 
 "dialog_incorrect_feature_position" = "Modifier l'emplacement";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Notez et donnez votre avis sur les lieux que vous avez visités !";
 
-"dialog_pedestrian_route_is_long" = "La route piétonne est trop longue";
-
 "dialog_message_transit_not_found_connection" = "Planifier un itinéraire dans un réseau de transport en commun";
 
 "bookmarks_error_message_share_general" = "Impossible de partager en raison d'une erreur d'application";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Le guide a été téléchargé avec succès";
 
 "download_guides" = "Télécharger les guides";
-
-"cached_guides_placeholder_subtitle" = "Guides détaillés disponibles hors ligne pour tout type de voyage. Choisissez celui qui vous convient le mieux et téléchargez-le directement sur la carte. Vous aurez besoin d'une connexion Internet pour télécharger les guides.";
 
 "guides_groups_cached" = "Guides téléchargés";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Mettez à jour les cartes pour les informations actuelles sur les lieux !";
 
-"whats_new_auto_update_button_size" = "Mettre à jour (%s) et continuer";
+"whats_new_auto_update_and_proceed_button_size" = "Mettre à jour (%s) et continuer";
 
 "dialog_pedestrian_route_is_long" = "La randonnée est trop long";
 

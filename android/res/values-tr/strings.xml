@@ -52,7 +52,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Konumum</string>
-	<string name="ok">Tamam</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">%s indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -797,8 +796,6 @@
 	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
 	<string name="onboarding_permissions_title">MAPS.ME\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
 	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
-	<string name="onboarding_welcome_title">MAPS.ME\'ye Hoş Geldiniz</string>
-	<string name="onboarding_welcome_first_subtitle">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
 	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak &lt;a href="%1$s">Kullanım Koşullarını&lt;/a> ve &lt;a href="%2$s">Gizlilik Politikasını&lt;/a> kabul etmiş sayılırsınız.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
@@ -1154,9 +1151,6 @@
 	<string name="placepage_no_reviews">Değerlendirme yok</string>
 	<string name="placepage_reviewed">Bu yer için zaten yorum eklediniz</string>
 	<string name="placepage_summary_rating">Değerlendirme özeti</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">%d değerlendirmeye göre</item>
-	</plurals>
 	<string name="placepage_rate_comment">Bu yeri değerlendirmek ve oylamak için dokunun.</string>
 	<string name="placepage_rate_horrible">Korkunç</string>
 	<string name="placepage_rate_bad">Kötü</string>
@@ -1243,7 +1237,6 @@
 	<string name="whats_new_message_hotel_filter">İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın</string>
 	<string name="whats_new_title_ugc_travel">Deneyimlerinizi diğer gezginlerle paylaşın!</string>
 	<string name="whats_new_message_ugc_travel">Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!</string>
-	<string name="dialog_pedestrian_route_is_long">Yaya rotası çok uzun</string>
 	<string name="dialog_message_transit_not_found_connection">Tek transit bir ağda bir rota planla</string>
 	<string name="bookmarks_error_message_share_general">Bir uygulama hatasından dolayı paylaşılamıyor</string>
 	<string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
@@ -1348,7 +1341,6 @@
 	<string name="guides">El kitapları</string>
 	<string name="guide_downloaded_title">El kitabı başarılı bir şekilde indirildi</string>
 	<string name="download_guides">El kitaplarını indir</string>
-	<string name="cached_guides_placeholder_subtitle">Her çeşit yolculuk için ayrıntılı çevrimdışı el kitapları. Sana en uygun olanı seç ve doğrudan haritaya indir. El kitaplarını indirmek için internet bağlantısına ihtiyacın olacak.</string>
 	<string name="guides_groups_cached">İndirilen el kitapları</string>
 	<string name="subtitle_error_downloading_guide">El kitabı indirilmedi</string>
 	<string name="error_already_downloaded_guide">Bu el kitabı zaten indirildi</string>
@@ -1551,7 +1543,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Ziyaret edilecek en iyi yerler fotoğraf ve açıklamalarla birlikte haritada görüntülenir. Çevrimdışı kullanın.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Rehberlere geçmeden önce…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!</string>
-	<string name="whats_new_auto_update_button_size">(%s) güncelle ve devam et</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">(%s) güncelle ve devam et</string>
 	<string name="dialog_pedestrian_route_is_long">Yaya yolu çok uzun</string>
 	<string name="whatsnew_toll_unpaved_title">Her türlü yolu göz önünde bulundurarak otomobil rotalarını düzenleyin</string>
 	<string name="whatsnew_toll_unpaved_message">Paralı yollar, toprak yollar ve feribot seferlerine göre gideceğiniz dolambaçlı yolları seçin</string>

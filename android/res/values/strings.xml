@@ -53,7 +53,6 @@
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">My Position</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Please free some space on your device first in order to download %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -814,8 +813,6 @@
 	<string name="onboarding_location_message">In order for you to use navigation and the other app functions, MAPS.ME needs access to your geoposition.</string>
 	<string name="onboarding_permissions_title">Allow MAPS.ME access to storage and location</string>
 	<string name="onboarding_permissions_message">So you can download maps, see places and traffic near you and use navigation.</string>
-	<string name="onboarding_welcome_title">Welcome to MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
 	<string name="onboarding_welcome_second_subtitle">By launching the application, you agree to &lt;a href="%1$s">Terms of Use&lt;/a> and &lt;a href="%2$s">Privacy Policy&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Change location</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
@@ -1190,10 +1187,6 @@
 	<string name="placepage_no_reviews">No reviews</string>
 	<string name="placepage_reviewed">You have already reviewed this place</string>
 	<string name="placepage_summary_rating">Summary rating</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Based on %d review</item>
-	  <item quantity="other">Based on %d reviews</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tap to rate and review this place.</string>
 	<string name="placepage_rate_horrible">Horrible</string>
 	<string name="placepage_rate_bad">Bad</string>
@@ -1281,7 +1274,6 @@
 	<string name="whats_new_message_hotel_filter">Book hotels available for your dates! Use check in and check out filters</string>
 	<string name="whats_new_title_ugc_travel">Share your experience with other travellers!</string>
 	<string name="whats_new_message_ugc_travel">Rate and review places you visited!</string>
-	<string name="dialog_pedestrian_route_is_long">The pedestrian route is too long</string>
 	<string name="dialog_message_transit_not_found_connection">Plan a route within one transit network</string>
 	<string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
 	<string name="bookmarks_error_title_share_empty">Sharing error</string>
@@ -1398,7 +1390,6 @@
 	<string name="guides">Guides</string>
 	<string name="guide_downloaded_title">The guide has been downloaded successfully</string>
 	<string name="download_guides">Download guides</string>
-	<string name="cached_guides_placeholder_subtitle">Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.</string>
 	<string name="guides_groups_cached">Downloaded guides</string>
 	<string name="subtitle_error_downloading_guide">The guide was not downloaded</string>
 	<string name="error_already_downloaded_guide">This guide has already been downloaded</string>
@@ -1610,7 +1601,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Best places to visit are displayed on the map with photos and descriptions. Works offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Before you proceed to guides…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Update maps to keep the information about objects up to date!</string>
-	<string name="whats_new_auto_update_button_size">Update (%s) and proceed</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Update (%s) and proceed</string>
 	<string name="dialog_pedestrian_route_is_long">The pedestrian route is too long</string>
 	<string name="whatsnew_toll_unpaved_title">Consider road type when planning automobile routes</string>
 	<string name="whatsnew_toll_unpaved_message">Choose to avoid toll and unpaved roads and ferry crossings</string>

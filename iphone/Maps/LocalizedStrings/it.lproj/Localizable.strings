@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "La mia posizione";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.";
 
-"onboarding_welcome_title" = "Benvenuto in MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
-
 "onboarding_welcome_second_subtitle" = "Lanciando l'applicazione, accetti i <a href=\"%s\">Termini di utilizzo</a> e l'<a href=\"%s\">Informativa sulla privacy</a>.";
 
 "dialog_incorrect_feature_position" = "Cambia posizione";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Vota e recensisci i luoghi che hai visitato!";
 
-"dialog_pedestrian_route_is_long" = "La strada pedonale è troppo lunga";
-
 "dialog_message_transit_not_found_connection" = "Pianifica un percorso all'interno di una rete di transito";
 
 "bookmarks_error_message_share_general" = "Impossibile condividere a causa di un errore dell'applicazione";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "La guida è stata scaricata correttamente";
 
 "download_guides" = "Scarica le guide";
-
-"cached_guides_placeholder_subtitle" = "Guide dettagliate offline per qualsiasi tipo di viaggio. Scegli quella che preferisci e scaricala direttamente sulla mappa. Per scaricare le guide, è necessaria una connessione a Internet.";
 
 "guides_groups_cached" = "Guide scaricate";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Aggiorna le mappe per avere le informazioni attuali!";
 
-"whats_new_auto_update_button_size" = "Aggiorna (%s) e continua";
+"whats_new_auto_update_and_proceed_button_size" = "Aggiorna (%s) e continua";
 
 "dialog_pedestrian_route_is_long" = "Percorso a piedi troppo lungo";
 

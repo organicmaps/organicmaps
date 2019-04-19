@@ -50,7 +50,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Min position</string>
-	<string name="ok">Ok</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigør venligst noget plads på din telefon først for at downloade %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -795,8 +794,6 @@
 	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
 	<string name="onboarding_permissions_title">Giv MAPS.ME adgang til lager og position</string>
 	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
-	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
 	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores &lt;a href="%1$s">Vilkår for anvendelse&lt;/a> og &lt;a href="%2$s">Fortrolighedspolitik&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
@@ -1152,9 +1149,6 @@
 	<string name="placepage_no_reviews">Ingen anmeldelser</string>
 	<string name="placepage_reviewed">Du har allerede anmeldt dette sted</string>
 	<string name="placepage_summary_rating">Sammenfattende vurdering</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Baseret på %d anmeldelser</item>
-	</plurals>
 	<string name="placepage_rate_comment">Tryk for at vurdere og anmelde dette sted.</string>
 	<string name="placepage_rate_horrible">Forfærdeligt</string>
 	<string name="placepage_rate_bad">Dårligt</string>
@@ -1241,7 +1235,6 @@
 	<string name="whats_new_message_hotel_filter">Book hoteller på dine datoer! Brug filtre for check-in og check-out</string>
 	<string name="whats_new_title_ugc_travel">Del dine erfaringer med andre rejsende!</string>
 	<string name="whats_new_message_ugc_travel">Vurder og anmeld de steder, du har besøgt!</string>
-	<string name="dialog_pedestrian_route_is_long">Gangstien er for lang</string>
 	<string name="dialog_message_transit_not_found_connection">Planlæg en rute inden for et transitnetværk</string>
 	<string name="bookmarks_error_message_share_general">Ikke i stand til at dele på grund af en programfejl</string>
 	<string name="bookmarks_error_title_share_empty">Delingsfejl</string>
@@ -1347,7 +1340,6 @@
 	<string name="guides">Vejledninger</string>
 	<string name="guide_downloaded_title">Vejledningen er blevet downloadet</string>
 	<string name="download_guides">Download vejledninger</string>
-	<string name="cached_guides_placeholder_subtitle">Detaljerede offline vejledninger til alle slags rejser. Vælg den der passer dig bedst og download den direkte til dit kort. Du skal bruge en internetforbindelse til at downloade vejledninger.</string>
 	<string name="guides_groups_cached">Downloadede vejledninger</string>
 	<string name="subtitle_error_downloading_guide">Vejledningen blev ikke downloadet</string>
 	<string name="error_already_downloaded_guide">Denne vejledning er allerede blevet downloadet</string>
@@ -1550,7 +1542,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">De bedste steder at besøge er vist på kort med fotos og beskrivelser. Fungerer offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Før du fortsætter til guider…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Opdater kort for at holde informationen opdateret!</string>
-	<string name="whats_new_auto_update_button_size">Opdater (%s) og fortsæt</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Opdater (%s) og fortsæt</string>
 	<string name="dialog_pedestrian_route_is_long">Rute til fods er for langt</string>
 	<string name="whatsnew_toll_unpaved_title">Layout for kørselsruter medtager alle typer af veje</string>
 	<string name="whatsnew_toll_unpaved_message">Vælg omveje for at undgå vejbaner, grusveje og færgeoverfarter</string>

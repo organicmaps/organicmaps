@@ -48,7 +48,6 @@
 	<string name="miles">마일</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">나의 위치</string>
-	<string name="ok">승인</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -787,8 +786,6 @@
 	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
 	<string name="onboarding_permissions_title">저장소 및 위치에 대한 MAPS.ME 액세스 허용</string>
 	<string name="onboarding_permissions_message">따라서 지도를 다운로드하고, 근처의 장소와 교통 상황을 보고, 네비게이션을 사용할 수 있습니다.</string>
-	<string name="onboarding_welcome_title">MAPS.ME입니다.</string>
-	<string name="onboarding_welcome_first_subtitle">턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.</string>
 	<string name="onboarding_welcome_second_subtitle">애플리케이션을 시작하면, &lt;a href="%1$s">이용 약관&lt;/a> 및 &lt;a href="%2$s">개인정보취급방침&lt;/a>에 동의하는 것입니다.</string>
 	<string name="dialog_incorrect_feature_position">위치 변경</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
@@ -1144,9 +1141,6 @@
 	<string name="placepage_no_reviews">리뷰 없음</string>
 	<string name="placepage_reviewed">이미 이 곳을 리뷰했습니다.</string>
 	<string name="placepage_summary_rating">요약 평가</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">%d개 리뷰 기준</item>
-	</plurals>
 	<string name="placepage_rate_comment">탭하여 이곳을 평가하고 리뷰를 남기세요.</string>
 	<string name="placepage_rate_horrible">최악</string>
 	<string name="placepage_rate_bad">나쁨</string>
@@ -1233,7 +1227,6 @@
 	<string name="whats_new_message_hotel_filter">해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.</string>
 	<string name="whats_new_title_ugc_travel">다른 여행자와 함께 경험을 나누세요!</string>
 	<string name="whats_new_message_ugc_travel">방문한 장소를 평가하고 리뷰를 남기세요!</string>
-	<string name="dialog_pedestrian_route_is_long">보행자 루트가 너무 깁니다</string>
 	<string name="dialog_message_transit_not_found_connection">대중 교통망 내에서 하나의 경로를 계획하세요</string>
 	<string name="bookmarks_error_message_share_general">애플리케이션 오류로 인해 공유할 수 없습니다</string>
 	<string name="bookmarks_error_title_share_empty">공유 오류</string>
@@ -1338,7 +1331,6 @@
 	<string name="guides">안내</string>
 	<string name="guide_downloaded_title">안내를 성공적으로 다운로드 하였습니다.</string>
 	<string name="download_guides">안내 다운로드</string>
-	<string name="cached_guides_placeholder_subtitle">모든 여행을 위한 자세한 오프라인 안내. 여러분에게 가장 적합한 것을 골라 지도로 직접 다운로드하세요. 안내를 다운로드하려면 인터넷을 연결해야 합니다.</string>
 	<string name="guides_groups_cached">다운로드한 안내</string>
 	<string name="subtitle_error_downloading_guide">안내를 다운로드하지 않았습니다.</string>
 	<string name="error_already_downloaded_guide">안내를 이미 다운로드하였습니다.</string>
@@ -1541,7 +1533,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">사진과 묘사가 있는 지도에 방문하기에 최고의 장소가 표시됩니다. 오프라인으로 작동하기.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">가이드를 진행하시기 전에…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">맵들을 업데이트하셔서 최신 사항에 대한 정보를 유지하세요!</string>
-	<string name="whats_new_auto_update_button_size">(%s) 업데이트 그리고 진행</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">(%s) 업데이트 그리고 진행</string>
 	<string name="dialog_pedestrian_route_is_long">보행자 루트가 너무 깁니다</string>
 	<string name="whatsnew_toll_unpaved_title">모든 도로를 고려한 자동차 노선 배치</string>
 	<string name="whatsnew_toll_unpaved_message">유료도로, 비포장 도로, 여객선 횡단길 우회 선택</string>

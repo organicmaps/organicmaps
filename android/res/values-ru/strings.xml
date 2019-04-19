@@ -810,8 +810,6 @@
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 	<string name="onboarding_permissions_title">Предоставьте MAPS.ME доступ к памяти и местоположению.</string>
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
-	<string name="onboarding_welcome_title">Добро пожаловать в MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
 	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с &lt;a href="%1$s">Условиями использования&lt;/a> и &lt;a href="%2$s">Политикой конфиденциальности&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
@@ -1178,10 +1176,6 @@
 	<string name="placepage_no_reviews">Нет отзывов</string>
 	<string name="placepage_reviewed">Вы уже оставили отзыв</string>
 	<string name="placepage_summary_rating">Общий рейтинг</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">На основе %d отзыва</item>
-	  <item quantity="other">На основе %d отзывов</item>
-	</plurals>
 	<string name="placepage_rate_comment">Нажмите, чтобы оставить оценку и отзыв этого места.</string>
 	<string name="placepage_rate_horrible">Ужасно</string>
 	<string name="placepage_rate_bad">Плохо</string>
@@ -1270,7 +1264,6 @@
 	<string name="whats_new_message_hotel_filter">При поиске отелей используйте фильтрацию по дате заезда и выезда</string>
 	<string name="whats_new_title_ugc_travel">Делитесь вашими впечатлениями с другими путешественниками!</string>
 	<string name="whats_new_message_ugc_travel">Оценивайте и пишите отзывы о посещенных местах!</string>
-	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
 	<string name="dialog_message_transit_not_found_connection">Постройте маршрут в пределах одной транспортной сети</string>
 	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
@@ -1393,7 +1386,6 @@
 	<string name="guides">Путеводители</string>
 	<string name="guide_downloaded_title">Путеводитель был успешно загружен</string>
 	<string name="download_guides">Загрузите путеводители</string>
-	<string name="cached_guides_placeholder_subtitle">Мы собрали каталог с подробными оффлайн маршрутами по городам мира! Теперь каждый путешественник сможет найти маршрут по своему вкусу и загрузить в MAPS.ME. Все загруженные маршруты автоматически отобразятся на карте. Для загрузки маршрута необходимо подключение к интернету.</string>
 	<string name="guides_groups_cached">Загруженные путеводители</string>
 	<string name="subtitle_error_downloading_guide">Путеводитель не был загружен</string>
 	<string name="error_already_downloaded_guide">Этот путеводитель уже был загружен</string>
@@ -1598,7 +1590,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Прежде, чем перейти к путеводителям…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты для получения актуальной информации об объектах!</string>
-	<string name="whats_new_auto_update_button_size">Обновить (%s) и продолжить</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Обновить (%s) и продолжить</string>
 	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
 	<string name="whatsnew_toll_unpaved_title">Прокладывайте автомобильные маршруты с учетом типа дороги</string>
 	<string name="whatsnew_toll_unpaved_message">Объезжайте платные и грунтовые дороги и паромные переправы</string>

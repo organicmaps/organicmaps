@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Mijn Locatie";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
 
-"onboarding_welcome_title" = "Welkom bij MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
-
 "onboarding_welcome_second_subtitle" = "Door de toepassing te starten, gaat u akkoord met de <a href=\"%s\">Gebruiksvoorwaarden</a> en het <a href=\"%s\">Privacybeleid</a>.";
 
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Rate en beoordeel bezochte plaatsen!";
 
-"dialog_pedestrian_route_is_long" = "De voetgangersroute is te lang";
-
 "dialog_message_transit_not_found_connection" = "Plan een route binnen één vervoersnetwerk";
 
 "bookmarks_error_message_share_general" = "Delen is onmogelijk wegens een toepassingsfout";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "De handleiding is met succes gedownload";
 
 "download_guides" = "Handleidingen downloaden";
-
-"cached_guides_placeholder_subtitle" = "Gedetailleerde offline handleidingen voor elk type reis. Kies de handleiding die het beste bij je past en download hem direct naar de kaart. Je hebt een internetverbinding nodig om handleidingen te downloaden.";
 
 "guides_groups_cached" = "Gedownloade handleidingen";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Heerladt de kaarten op actuele informatie over objecten te krijgen!";
 
-"whats_new_auto_update_button_size" = "Bijwerken (%s) en verder gaan";
+"whats_new_auto_update_and_proceed_button_size" = "Bijwerken (%s) en verder gaan";
 
 "dialog_pedestrian_route_is_long" = "De wandelroute is te lang";
 

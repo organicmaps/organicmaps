@@ -794,8 +794,6 @@
 	<string name="onboarding_location_message">Abyś mógł korzystać z nawigacji i innych funkcji, musimy uzyskać dostęp do twojej geolokalizacji.</string>
 	<string name="onboarding_permissions_title">Zezwól MAPS.ME na dostęp do pamięci masowej i lokalizacji</string>
 	<string name="onboarding_permissions_message">Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.</string>
-	<string name="onboarding_welcome_title">Witaj w MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.</string>
 	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na &lt;a href="%1$s">warunki użytkowania&lt;/a> i &lt;a href="%2$s">politykę prywatności&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
@@ -1151,9 +1149,6 @@
 	<string name="placepage_no_reviews">Brak recenzji</string>
 	<string name="placepage_reviewed">Już wystawiono recenzję temu miejscu</string>
 	<string name="placepage_summary_rating">Łączna ocena</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Na podstawie %d recenzji</item>
-	</plurals>
 	<string name="placepage_rate_comment">Naciśnij, aby ocenić i zrecenzować miejsce.</string>
 	<string name="placepage_rate_horrible">Okropne</string>
 	<string name="placepage_rate_bad">Złe</string>
@@ -1240,7 +1235,6 @@
 	<string name="whats_new_message_hotel_filter">Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu</string>
 	<string name="whats_new_title_ugc_travel">Podziel się swoimi wrażeniami z innymi podróżnymi!</string>
 	<string name="whats_new_message_ugc_travel">Oceniaj i recenzuj odwiedzane miejsca!</string>
-	<string name="dialog_pedestrian_route_is_long">Trasa piesza jest zbyt długa</string>
 	<string name="dialog_message_transit_not_found_connection">Zaplanuj trasę w ramach jednej sieci transportowej</string>
 	<string name="bookmarks_error_message_share_general">Nie można udostępnić z powodu błędu aplikacji</string>
 	<string name="bookmarks_error_title_share_empty">Błąd udostępniania</string>
@@ -1347,7 +1341,6 @@
 	<string name="guides">Przewodniki</string>
 	<string name="guide_downloaded_title">Przewodnik został pomyślnie pobrany</string>
 	<string name="download_guides">Pobierz przewodniki</string>
-	<string name="cached_guides_placeholder_subtitle">Szczegółowe przewodniki offline na każdy rodzaj podróży. Wybierz najlepiej Ci odpowiadający i pobierz go bezpośrednio na mapę. Do pobrania przewodników wymagane jest połączenie internetowe.</string>
 	<string name="guides_groups_cached">Pobrane przewodniki</string>
 	<string name="subtitle_error_downloading_guide">Przewodnik nie został pobrany</string>
 	<string name="error_already_downloaded_guide">Ten przewodnik został już pobrany</string>
@@ -1550,7 +1543,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Wybrane miejsca ze zdjęciami i opisami są wyświetlane na mapie i są dostępne w trybie offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Zanim przejdziesz do przewodników…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Zaktualizuj mapy, aby uzyskać aktualne informacje o obiektach!</string>
-	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s) i kontynuuj</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Zaktualizuj (%s) i kontynuuj</string>
 	<string name="dialog_pedestrian_route_is_long">Trasa piesza jest zbyt długą</string>
 	<string name="whatsnew_toll_unpaved_title">Buduj trasy z uwzględnieniem wszystkich rodzajów dróg</string>
 	<string name="whatsnew_toll_unpaved_message">Wybierz trasy objazdowe przez płatne, drogi gruntowe i przeprawy promowe</string>

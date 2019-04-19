@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Konumum";
 
-"ok" = "Tamam";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "%@ indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
 
-"onboarding_welcome_title" = "MAPS.ME'ye Hoş Geldiniz";
-
-"onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
-
 "onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"%s\">Kullanım Koşullarını</a> ve <a href=\"%s\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!";
 
-"dialog_pedestrian_route_is_long" = "Yaya rotası çok uzun";
-
 "dialog_message_transit_not_found_connection" = "Tek transit bir ağda bir rota planla";
 
 "bookmarks_error_message_share_general" = "Bir uygulama hatasından dolayı paylaşılamıyor";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "El kitabı başarılı bir şekilde indirildi";
 
 "download_guides" = "El kitaplarını indir";
-
-"cached_guides_placeholder_subtitle" = "Her çeşit yolculuk için ayrıntılı çevrimdışı el kitapları. Sana en uygun olanı seç ve doğrudan haritaya indir. El kitaplarını indirmek için internet bağlantısına ihtiyacın olacak.";
 
 "guides_groups_cached" = "İndirilen el kitapları";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!";
 
-"whats_new_auto_update_button_size" = "(%s) güncelle ve devam et";
+"whats_new_auto_update_and_proceed_button_size" = "(%s) güncelle ve devam et";
 
 "dialog_pedestrian_route_is_long" = "Yaya yolu çok uzun";
 

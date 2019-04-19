@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "我的位置";
 
-"ok" = "确定";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "请在设备上先释放一些空间以便下载%@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。";
 
-"onboarding_welcome_title" = "欢迎使用 MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "免费、快速、详细且完全离线的地图，并且带有精细导航功能。";
-
 "onboarding_welcome_second_subtitle" = "启动应用程序即表明您同意<a href=\"%s\">使用条款</a>和<a href=\"%s\">隐私政策</a>。";
 
 "dialog_incorrect_feature_position" = "改变位置";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "評價您參觀過的地方！";
 
-"dialog_pedestrian_route_is_long" = "步行路线太长";
-
 "dialog_message_transit_not_found_connection" = "规划一个交通网络内的路线";
 
 "bookmarks_error_message_share_general" = "由于应用程序出错而无法分享";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "导览已被成功下载";
 
 "download_guides" = "下载导览";
-
-"cached_guides_placeholder_subtitle" = "适合任何旅行种类的详细的离线导览。选择最适合您的那个，直接下载到地图上。您需要网络连接来下载导览。";
 
 "guides_groups_cached" = "已下载的导览";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "请更新有关对象以获取实时信息的地图!";
 
-"whats_new_auto_update_button_size" = "更新（%s）并继续";
+"whats_new_auto_update_and_proceed_button_size" = "更新（%s）并继续";
 
 "dialog_pedestrian_route_is_long" = "步行路线太长";
 

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "ตำแหน่งของฉัน";
 
-"ok" = "ตกลง";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้";
 
-"onboarding_welcome_title" = "ยินดีต้อนรับสู่ MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
-
 "onboarding_welcome_second_subtitle" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href=\"%s\">เงื่อนไขการใช้งาน</a> และ <a href=\"%s\">นโยบายความเป็นส่วนตัว</a>";
 
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "ให้คะแนนแล้วรีวิวสถานที่ที่คุณเคยไป!";
 
-"dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้าไกลเกินไป";
-
 "dialog_message_transit_not_found_connection" = "วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว";
 
 "bookmarks_error_message_share_general" = "ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "ดาวน์โหลดคู่มือใช้งานนี้สำเร็จ";
 
 "download_guides" = "ดาวน์โหลดคู่มือใช้งาน";
-
-"cached_guides_placeholder_subtitle" = "คู่มือใช้งานแบบออฟไลน์อย่างละเอียดสำหรับการเดินทางไม่ว่าจะในแบบใด เลือกคู่มือใช้งานที่เข้ากับคุณมากที่สุดแล้วดาวน์โหลดโดยตรงไปยังแผนที่ คุณจะต้องมีการเชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดคู่มือใช้งาน";
 
 "guides_groups_cached" = "ดาวน์โหลดคู่มือใช้งานแล้ว";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "อัพเดตแผนที่เพื่อให้ข้อมูลเกี่ยวกับสถานที่นั้นตรงกับปัจจุบัน";
 
-"whats_new_auto_update_button_size" = "อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน";
+"whats_new_auto_update_and_proceed_button_size" = "อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน";
 
 "dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้านั้นไกลเกินไป";
 

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "مکان من";
 
-"ok" = "موافقم";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "لطفا مقداری از فضای ذخیره سازی تلفن همراهتان را جهت دانلود خالی نمایید %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.";
 
-"onboarding_welcome_title" = "به MAPS.ME خوش امدید";
-
-"onboarding_welcome_first_subtitle" = "رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.";
-
 "onboarding_welcome_second_subtitle" = "با اجرای این اپلیکیشن, شما موافقت خود را با  <a href=\"%s\">Terms of Use</a> و <a href=\"%s\">Privacy Policy</a>اعلام می کنید.";
 
 "dialog_incorrect_feature_position" = "تغییر موقعیت";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "مکانهایی را که بازدید کرده اید رتبه بندی کنید و بررسی کنید";
 
-"dialog_pedestrian_route_is_long" = "مسیر عابر پیاده خیلی طولانی است";
-
 "dialog_message_transit_not_found_connection" = "یک مسیر را در یک شبکه حمل و نقل برنامه ریزی کنید";
 
 "bookmarks_error_message_share_general" = "با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "راهنمای با موفقیت دانلود شده است";
 
 "download_guides" = "دانلود راهنما";
-
-"cached_guides_placeholder_subtitle" = "راهنماهای آفلاین مفصل برای هر نوع سفر. یکی از بهترین ها را انتخاب کنید و آن را به طور مستقیم به نقشه دانلود کنید. برای دریافت راهنماها به اتصال اینترنت نیاز دارید.";
 
 "guides_groups_cached" = "راهنما‌های دانلود شده";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "برای به روز نگه داشتن مناظر نقشه ها را به روز رسانی کنید!";
 
-"whats_new_auto_update_button_size" = "به روز رسانی (%s) و ادامه";
+"whats_new_auto_update_and_proceed_button_size" = "به روز رسانی (%s) و ادامه";
 
 "dialog_pedestrian_route_is_long" = "مسیر عابر پیاده خیلی طولانی است";
 

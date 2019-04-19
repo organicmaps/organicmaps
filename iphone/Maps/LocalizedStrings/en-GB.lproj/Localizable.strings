@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "My Position";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Please free some space on your device first in order to download %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
 "onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"%s\">Terms of Use</a> and <a href=\"%s\">Privacy Policy</a>.";
 
 "dialog_incorrect_feature_position" = "Change location";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Rate and review places you visited!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
-
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
 "bookmarks_error_message_share_general" = "Unable to share due to an application error";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "The guide has been downloaded successfully";
 
 "download_guides" = "Download guides";
-
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
 
 "guides_groups_cached" = "Downloaded guides";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Update maps to keep the information about objects up to date!";
 
-"whats_new_auto_update_button_size" = "Update (%s) and proceed";
+"whats_new_auto_update_and_proceed_button_size" = "Update (%s) and proceed";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 

@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Η θέση μου";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Please free some space on your device first in order to download %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.";
 
-"onboarding_welcome_title" = "Καλωσήρθατε στο MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
-
 "onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"%s\">τους Όρους χρήσης</a> και <a href=\"%s\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Βαθμολογήστε και αξιολογήστε τα μέρη που έχετε επισκεφτεί!";
 
-"dialog_pedestrian_route_is_long" = "Η διαδρομή πεζών είναι υπερβολικά μεγάλη";
-
 "dialog_message_transit_not_found_connection" = "Σχεδιάστε μια διαδρομή εντός δικτύου μεταφοράς";
 
 "bookmarks_error_message_share_general" = "Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Η λήψη του εγχειριδίου πραγματοποιήθηκε με επιτυχία";
 
 "download_guides" = "Κατεβάστε τα εγχειρίδια";
-
-"cached_guides_placeholder_subtitle" = "Λεπτομερή εγχειρίδια εκτός σύνδεσης για κάθε είδους ταξίδι. Επιλέξτε αυτό που σας ταιριάζει καλύτερα και μεταφορτώστε το απευθείας στον χάρτη. Θα χρειαστείτε τη σύνδεση στο διαδίκτυο για να κατεβάσετε τα εγχειρίδια.";
 
 "guides_groups_cached" = "Κατεβασμένα εγχειρίδια";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Ενημερώστε τους χάρτες για να λάβετε τις έγκυρες πληροφορίες σχετικά με τα αντικείμενα!";
 
-"whats_new_auto_update_button_size" = "Ενημέρωση (%s) και συνέχεια";
+"whats_new_auto_update_and_proceed_button_size" = "Ενημέρωση (%s) και συνέχεια";
 
 "dialog_pedestrian_route_is_long" = "Η πεζοπορική διαδρομή είναι πολύ μεγάλη";
 

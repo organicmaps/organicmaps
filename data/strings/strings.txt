@@ -824,26 +824,6 @@
     sk = Moja poloha
     fa = مکان من
 
-  [ok]
-    en = OK
-    ar = موافق
-    da = Ok
-    fi = OK
-    de = OK
-    id = OK
-    ko = 승인
-    nb = OK
-    ro = OK
-    sv = OK
-    th = ตกลง
-    tr = Tamam
-    vi = OK
-    zh-Hans = 确定
-    zh-Hant = 確定
-    el = OK
-    he = אשר
-    fa = موافقم
-
   [free_disk_space_for_country_x]
     comment = Settings/Downloader - No free space dialog message
     en = Please free some space on your device first in order to download %@
@@ -29702,41 +29682,6 @@
     zh-Hans = 評價您參觀過的地方！
     zh-Hant = 給您訪問過的地方打分和評價！
     fa = مکانهایی را که بازدید کرده اید رتبه بندی کنید و بررسی کنید
-
-  [dialog_pedestrian_route_is_long]
-    tags = ios,android
-    en = The pedestrian route is too long
-    ru = Пешеходный маршрут слишком длинный
-    ar = مسار المشاة طويل جداً
-    cs = Trasa pro chodce je příliš dlouhá
-    da = Gangstien er for lang
-    nl = De voetgangersroute is te lang
-    fi = Jalankulkureitti on liian pitkä
-    fr = La route piétonne est trop longue
-    de = Die Fußgängerroute ist zu lang
-    hu = A gyalogos útvonal túl hosszú
-    id = Rute pejalan kaki terlalu panjang
-    it = La strada pedonale è troppo lunga
-    ja = 歩行ルートが長すぎます
-    ko = 보행자 루트가 너무 깁니다
-    nb = Gangruten er for lang
-    pl = Trasa piesza jest zbyt długa
-    pt = A rota pedestre é demasiado longa
-    pt-BR = A rota de pedestres é muito longa
-    ro = Ruta pietonală este prea lungă
-    es = La ruta peatonal es demasiado larga
-    sv = Fotgängarrutten är för lång
-    th = เส้นทางเดินเท้าไกลเกินไป
-    tr = Yaya rotası çok uzun
-    uk = Пішохідний маршрут занадто довгий
-    vi = Tuyến đường dành cho người đi bộ quá dài
-    el = Η διαδρομή πεζών είναι υπερβολικά μεγάλη
-    es_MX = La ruta peatonal es demasiado larga
-    sk = Trasa pre chodca je príliš dlhá
-    sw = Njia ya waenda kwa miguu ni ndefu sana
-    zh-Hans = 步行路线太长
-    zh-Hant = 步行路線太長
-    fa = مسیر عابر پیاده خیلی طولانی است
 
   [dialog_message_transit_not_found_connection]
     tags = ios,android

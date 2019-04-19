@@ -52,7 +52,6 @@
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Min posisjon</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigjør plass på enheten først for å laste ned %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -791,8 +790,6 @@
 	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
 	<string name="onboarding_permissions_title">Tillat MAPS.ME tilgang til minnet og plasseringen</string>
 	<string name="onboarding_permissions_message">Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.</string>
-	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
 	<string name="onboarding_welcome_second_subtitle">Når du starter programmet samtykker du til &lt;a href="%1$s">bruksvilkårene&lt;/a> og &lt;a href="%2$s">reglene for personvern&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
@@ -1146,9 +1143,6 @@
 	<string name="placepage_no_reviews">Ingen vurderinger</string>
 	<string name="placepage_reviewed">Du har allerede gitt din vurdering av stedet</string>
 	<string name="placepage_summary_rating">Sammendrag av vurderinger</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Basert på %d vurderinger</item>
-	</plurals>
 	<string name="placepage_rate_comment">Trykk for å gi din vurdering av stedet.</string>
 	<string name="placepage_rate_horrible">Elendig</string>
 	<string name="placepage_rate_bad">Dårlig</string>
@@ -1235,7 +1229,6 @@
 	<string name="whats_new_message_hotel_filter">Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking</string>
 	<string name="whats_new_title_ugc_travel">Del dine opplevelser med andre reisende!</string>
 	<string name="whats_new_message_ugc_travel">Gi din vurdering og anmeldelse av steder du har reist til!</string>
-	<string name="dialog_pedestrian_route_is_long">Gangruten er for lang</string>
 	<string name="dialog_message_transit_not_found_connection">Planlegg en rute innenfor transittnettverket</string>
 	<string name="bookmarks_error_message_share_general">Kan ikke dele på grunn av en programfeil</string>
 	<string name="bookmarks_error_title_share_empty">Delingsfeil</string>
@@ -1443,7 +1436,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Beste steder å besøke, vist på kart med bilder og beskrivelser. Jobb offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Før du fortsetter til guider…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Oppdater kart for å holde informasjonen oppdatert!</string>
-	<string name="whats_new_auto_update_button_size">Oppdater (%s) og fortsett</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Oppdater (%s) og fortsett</string>
 	<string name="dialog_pedestrian_route_is_long">Fotgjenger-ruten er for lang</string>
 	<string name="whatsnew_toll_unpaved_title">Legg inn bilruter som vurderer alle typer veier</string>
 	<string name="whatsnew_toll_unpaved_message">Velg omkjørsler med tollveier, grusveier og fergeoverganger</string>

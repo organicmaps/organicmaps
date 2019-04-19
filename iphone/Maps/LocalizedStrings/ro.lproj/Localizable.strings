@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Poziția mea";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %@.";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
 
-"onboarding_welcome_title" = "Bun venit în MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
-
 "onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"%s\">Condițiile de utilizare</a> și <a href=\"%s\">Politica de confidențialitate</a>.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Evaluați și recenzați locurile pe care le-ați vizitat!";
 
-"dialog_pedestrian_route_is_long" = "Ruta pietonală este prea lungă";
-
 "dialog_message_transit_not_found_connection" = "Planifică o rută într-o singură rețea de tranzit";
 
 "bookmarks_error_message_share_general" = "Imposibil de distribuit din cauza unei erori a aplicației";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Ghidul a fost descărcat cu succes";
 
 "download_guides" = "Descarcă ghiduri";
-
-"cached_guides_placeholder_subtitle" = "Ghiduri offline detaliate pentru orice tip de călătorie. Alege-l pe cel care ți se potrivește cel mai bine și descarcă-l direct pe hartă. Vei avea nevoie de conexiune la internet pentru a descărca ghidurile.";
 
 "guides_groups_cached" = "Ghiduri descărcate";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Actualizați hărțile pentru a primi informație actuală despre obiecte!";
 
-"whats_new_auto_update_button_size" = "De actualizat (%s) și de continuat";
+"whats_new_auto_update_and_proceed_button_size" = "De actualizat (%s) și de continuat";
 
 "dialog_pedestrian_route_is_long" = "Traseu pietonal prea lung";
 

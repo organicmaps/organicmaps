@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Posisi Saya";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.";
 
-"onboarding_welcome_title" = "Selamat datang di MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.";
-
 "onboarding_welcome_second_subtitle" = "Dengan menjalankan aplikasi ini, Anda menyetujui <a href=\"%s\">Syarat-Syarat Penggunaan</a> dan <a href=\"%s\">Kebijakan Privasi</a>.";
 
 "dialog_incorrect_feature_position" = "Ubah lokasi";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Berikan peringkat dan ulasan untuk tempat yang telah Anda kunjungi!";
 
-"dialog_pedestrian_route_is_long" = "Rute pejalan kaki terlalu panjang";
-
 "dialog_message_transit_not_found_connection" = "Rencanakan rute dalam satu jaringan transit";
 
 "bookmarks_error_message_share_general" = "Tidak dapat berbagi karena kesalahan aplikasi";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Panduan telah berhasil diunduh";
 
 "download_guides" = "Unduh panduan";
-
-"cached_guides_placeholder_subtitle" = "Panduan offline (luring) terperinci untuk segala jenis perjalanan. Pilih yang paling sesuai untuk Anda dan unduh langsung ke peta. Anda akan memerlukan koneksi internet untuk mengunduh panduan.";
 
 "guides_groups_cached" = "Panduan yang diunduh";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Perbarui peta agar informasi tentang obyek tetap terbaru!";
 
-"whats_new_auto_update_button_size" = "Perbarui (%s) dan lanjutkan";
+"whats_new_auto_update_and_proceed_button_size" = "Perbarui (%s) dan lanjutkan";
 
 "dialog_pedestrian_route_is_long" = "Rute pejalan kaki terlalu panjang";
 

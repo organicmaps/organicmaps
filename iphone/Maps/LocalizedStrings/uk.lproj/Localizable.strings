@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Моє місце розташування";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.";
 
-"onboarding_welcome_title" = "Вітаємо у MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
-
 "onboarding_welcome_second_subtitle" = "Використовуючи цей додаток, ви погоджуєтеся з <a href=\"%s\">Умовами використання</a> та <a href=\"%s\">Політикою конфіденційності</a>.";
 
 "dialog_incorrect_feature_position" = "Змініть розташування";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Поставте оцінку та напишіть відгук про місця, які ви відвідали!";
 
-"dialog_pedestrian_route_is_long" = "Пішохідний маршрут занадто довгий";
-
 "dialog_message_transit_not_found_connection" = "Плануйте маршрут в межах однієї транзитної мережі";
 
 "bookmarks_error_message_share_general" = "Неможливо поділитися через помилку програми";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Путівник успішно завантажено";
 
 "download_guides" = "Завантажити путівники";
-
-"cached_guides_placeholder_subtitle" = "Детальні офлайн путівники для подорожей будь-якого типу. Виберіть путівник, що підходить вам найбільше і завантажте його прямо на карту. Для завантаження путівників вам знадобиться підключення до Інтернету.";
 
 "guides_groups_cached" = "Завантажені путівники";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Оновіть карти для отримання актуальної інформації про об’єкти!";
 
-"whats_new_auto_update_button_size" = "Оновити (%s) та продовжити";
+"whats_new_auto_update_and_proceed_button_size" = "Оновити (%s) та продовжити";
 
 "dialog_pedestrian_route_is_long" = "Пішохідний маршрут занадто довгий";
 

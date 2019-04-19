@@ -51,7 +51,6 @@
 	<string name="miles">مایل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">مکان من</string>
-	<string name="ok">موافقم</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">لطفا مقداری از فضای ذخیره سازی تلفن همراهتان را جهت دانلود خالی نمایید %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -762,8 +761,6 @@
 	<string name="onboarding_location_message">به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن MAPS.ME نیازمند دسترسی به موقعیت مکانی تان است.</string>
 	<string name="onboarding_permissions_title">به MAPS.ME اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.</string>
 	<string name="onboarding_permissions_message">خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.</string>
-	<string name="onboarding_welcome_title">به MAPS.ME خوش امدید</string>
-	<string name="onboarding_welcome_first_subtitle">رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.</string>
 	<string name="onboarding_welcome_second_subtitle">با اجرای این اپلیکیشن, شما موافقت خود را با  &lt;a href="%1$s">Terms of Use&lt;/a> و &lt;a href="%2$s">Privacy Policy&lt;/a>اعلام می کنید.</string>
 	<string name="dialog_incorrect_feature_position">تغییر موقعیت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
@@ -1098,9 +1095,6 @@
 	<string name="placepage_no_reviews">بررسی موجود نیست</string>
 	<string name="placepage_reviewed">شما در حال حاضر روی این مکان ارزیابی ثبت کرده اید</string>
 	<string name="placepage_summary_rating">خلاصه ای از ارزیابی</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">براساس %d ارزیابی</item>
-	</plurals>
 	<string name="placepage_rate_comment">برای رای دادن و ارزیابی این مکان ضربه بزنید.</string>
 	<string name="placepage_rate_horrible">ناگوار</string>
 	<string name="placepage_rate_bad">ضعیف</string>
@@ -1186,7 +1180,6 @@
 	<string name="whats_new_message_hotel_filter">رزرو هتل در دسترس برای تاریخ خود را! از چک کردن استفاده کنید و فیلتر کنید</string>
 	<string name="whats_new_title_ugc_travel">تجربه خود را با مسافران دیگر به اشتراک بگذارید!</string>
 	<string name="whats_new_message_ugc_travel">مکانهایی را که بازدید کرده اید رتبه بندی کنید و بررسی کنید</string>
-	<string name="dialog_pedestrian_route_is_long">مسیر عابر پیاده خیلی طولانی است</string>
 	<string name="dialog_message_transit_not_found_connection">یک مسیر را در یک شبکه حمل و نقل برنامه ریزی کنید</string>
 	<string name="bookmarks_error_message_share_general">با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد</string>
 	<string name="bookmarks_error_title_share_empty">خطای اشتراک</string>
@@ -1300,7 +1293,6 @@
 	<string name="guides">راهنما</string>
 	<string name="guide_downloaded_title">راهنمای با موفقیت دانلود شده است</string>
 	<string name="download_guides">دانلود راهنما</string>
-	<string name="cached_guides_placeholder_subtitle">راهنماهای آفلاین مفصل برای هر نوع سفر. یکی از بهترین ها را انتخاب کنید و آن را به طور مستقیم به نقشه دانلود کنید. برای دریافت راهنماها به اتصال اینترنت نیاز دارید.</string>
 	<string name="guides_groups_cached">راهنما‌های دانلود شده</string>
 	<string name="subtitle_error_downloading_guide">راهنما دانلود نشد</string>
 	<string name="error_already_downloaded_guide">این راهنمای قبلا دانلود شده است</string>
@@ -1490,7 +1482,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">بهترین مکان ها برای بازدید روی نقشه با عکس و توضیحات نمایش داده شده است. آفلاین اجرا می شود.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">پیش از رفتن به راهنماها…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">برای به روز نگه داشتن مناظر نقشه ها را به روز رسانی کنید!</string>
-	<string name="whats_new_auto_update_button_size">به روز رسانی (%s) و ادامه</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">به روز رسانی (%s) و ادامه</string>
 	<string name="dialog_pedestrian_route_is_long">مسیر عابر پیاده خیلی طولانی است</string>
 	<string name="whatsnew_toll_unpaved_title">مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید</string>
 	<string name="whatsnew_toll_unpaved_message">مسیرهای فرعی از طریق مسیرهای دارای عوارض، جاده های خاکی و گذرگاه های جاده ای انتخاب کنید</string>

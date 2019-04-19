@@ -795,8 +795,6 @@
 	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
 	<string name="onboarding_permissions_title">Дозволити MAPS.ME доступ до сховища та функції визначення геолокації</string>
 	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
-	<string name="onboarding_welcome_title">Вітаємо у MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
 	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з &lt;a href="%1$s">Умовами використання&lt;/a> та &lt;a href="%2$s">Політикою конфіденційності&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
@@ -1152,9 +1150,6 @@
 	<string name="placepage_no_reviews">Відгуки відсутні</string>
 	<string name="placepage_reviewed">Ви вже залишили відгук для цього місця</string>
 	<string name="placepage_summary_rating">Сумарний рейтинг</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">На основі %d відгуків(-у)</item>
-	</plurals>
 	<string name="placepage_rate_comment">Торкніться, щоб оцінити це місце та залишити свій відгук.</string>
 	<string name="placepage_rate_horrible">Жахливо</string>
 	<string name="placepage_rate_bad">Погано</string>
@@ -1241,7 +1236,6 @@
 	<string name="whats_new_message_hotel_filter">Бронюйте готелі, що доступні за вашими датами! Використовуйте фільтри в\'їзду та виїзду</string>
 	<string name="whats_new_title_ugc_travel">Поділіться вашими враженнями з іншими мандрівниками!</string>
 	<string name="whats_new_message_ugc_travel">Поставте оцінку та напишіть відгук про місця, які ви відвідали!</string>
-	<string name="dialog_pedestrian_route_is_long">Пішохідний маршрут занадто довгий</string>
 	<string name="dialog_message_transit_not_found_connection">Плануйте маршрут в межах однієї транзитної мережі</string>
 	<string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
 	<string name="bookmarks_error_title_share_empty">Помилка обміну</string>
@@ -1348,7 +1342,6 @@
 	<string name="guides">Путівники</string>
 	<string name="guide_downloaded_title">Путівник успішно завантажено</string>
 	<string name="download_guides">Завантажити путівники</string>
-	<string name="cached_guides_placeholder_subtitle">Детальні офлайн путівники для подорожей будь-якого типу. Виберіть путівник, що підходить вам найбільше і завантажте його прямо на карту. Для завантаження путівників вам знадобиться підключення до Інтернету.</string>
 	<string name="guides_groups_cached">Завантажені путівники</string>
 	<string name="subtitle_error_downloading_guide">Путівник не завантажено</string>
 	<string name="error_already_downloaded_guide">Цей путівник вже було завантажено</string>
@@ -1551,7 +1544,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Вибрані місця з фотографіями та описами відображаються на карті та доступні офлайн.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Перш ніж перейти до путівників…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Оновіть карти для отримання актуальної інформації про об’єкти!</string>
-	<string name="whats_new_auto_update_button_size">Оновити (%s) та продовжити</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Оновити (%s) та продовжити</string>
 	<string name="dialog_pedestrian_route_is_long">Пішохідний маршрут занадто довгий</string>
 	<string name="whatsnew_toll_unpaved_title">Прокладайте автомаршрути з урахуванням всіх типів доріг</string>
 	<string name="whatsnew_toll_unpaved_message">Обирайте шляхи об’їзду через платні, ґрунтові дороги й поромні переправи</string>

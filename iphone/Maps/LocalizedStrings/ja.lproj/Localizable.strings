@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "現在地";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "%@をダウンロードするため、デバイスの空き容量を確認してください";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
 
-"onboarding_welcome_title" = "MAPS.ME へようこそ";
-
-"onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
-
 "onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"%s\">利用規約</a>および<a href=\"%s\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "訪れた場所の評価やレビューを行ってください！";
 
-"dialog_pedestrian_route_is_long" = "歩行ルートが長すぎます";
-
 "dialog_message_transit_not_found_connection" = "1 つの交通ネットワーク内でルートを作成";
 
 "bookmarks_error_message_share_general" = "アプリケーションエラーのため共有できません";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "ガイドが正常にダウンロードされました";
 
 "download_guides" = "ガイドをダウンロード";
-
-"cached_guides_placeholder_subtitle" = "どんな旅にも使える詳細なオフラインガイド。最適なものを選び、マップに直接ダウンロードしてください。ガイドをダウンロードするにはインターネット接続が必要です。";
 
 "guides_groups_cached" = "ガイドをダウンロード";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "オブジェクトについての情報を最新に保つためにマップをアップデートしましょう!";
 
-"whats_new_auto_update_button_size" = "アップデート(%s) して進む";
+"whats_new_auto_update_and_proceed_button_size" = "アップデート(%s) して進む";
 
 "dialog_pedestrian_route_is_long" = "歩行ルートが長過ぎます";
 

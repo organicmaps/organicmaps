@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "我的位置";
 
-"ok" = "確定";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "如要下載%@ ，請先釋放一些空間！";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。";
 
-"onboarding_welcome_title" = "歡迎來到 MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
-
 "onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"%s\">服務條款</a>和 <a href=\"%s\">隱私權原則</a>。";
 
 "dialog_incorrect_feature_position" = "改變位置";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "給您訪問過的地方打分和評價！";
 
-"dialog_pedestrian_route_is_long" = "步行路線太長";
-
 "dialog_message_transit_not_found_connection" = "規劃一個交通網絡內的路線";
 
 "bookmarks_error_message_share_general" = "由於應用程序出錯而無法分享";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "指南已被成功下載";
 
 "download_guides" = "下載指南";
-
-"cached_guides_placeholder_subtitle" = "適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。";
 
 "guides_groups_cached" = "已下載的指南";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "請更新有關對像以獲取實時信息的地圖!";
 
-"whats_new_auto_update_button_size" = "更新（%s）並繼續";
+"whats_new_auto_update_and_proceed_button_size" = "更新（%s）並繼續";
 
 "dialog_pedestrian_route_is_long" = "步行路線太長";
 

@@ -52,7 +52,6 @@
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Poziția mea</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %s.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -788,8 +787,6 @@
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
 	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
-	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
 	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href="%1$s">Condițiile de utilizare&lt;/a> și &lt;a href="%2$s">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
@@ -1144,9 +1141,6 @@
 	<string name="placepage_no_reviews">Nicio recenzie</string>
 	<string name="placepage_reviewed">Ați recenzat deja acest loc</string>
 	<string name="placepage_summary_rating">Calificativ sumar</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Bazat pe %d recenzii</item>
-	</plurals>
 	<string name="placepage_rate_comment">Atingeți pentru a evalua și a recenza acest loc.</string>
 	<string name="placepage_rate_horrible">Oribil</string>
 	<string name="placepage_rate_bad">Rău</string>
@@ -1233,7 +1227,6 @@
 	<string name="whats_new_message_hotel_filter">Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare</string>
 	<string name="whats_new_title_ugc_travel">Comunicați-vă experiențele altor călători!</string>
 	<string name="whats_new_message_ugc_travel">Evaluați și recenzați locurile pe care le-ați vizitat!</string>
-	<string name="dialog_pedestrian_route_is_long">Ruta pietonală este prea lungă</string>
 	<string name="dialog_message_transit_not_found_connection">Planifică o rută într-o singură rețea de tranzit</string>
 	<string name="bookmarks_error_message_share_general">Imposibil de distribuit din cauza unei erori a aplicației</string>
 	<string name="bookmarks_error_title_share_empty">Eroare la distribuire</string>
@@ -1339,7 +1332,6 @@
 	<string name="guides">Ghiduri</string>
 	<string name="guide_downloaded_title">Ghidul a fost descărcat cu succes</string>
 	<string name="download_guides">Descarcă ghiduri</string>
-	<string name="cached_guides_placeholder_subtitle">Ghiduri offline detaliate pentru orice tip de călătorie. Alege-l pe cel care ți se potrivește cel mai bine și descarcă-l direct pe hartă. Vei avea nevoie de conexiune la internet pentru a descărca ghidurile.</string>
 	<string name="guides_groups_cached">Ghiduri descărcate</string>
 	<string name="subtitle_error_downloading_guide">Ghidul nu a fost descărcat</string>
 	<string name="error_already_downloaded_guide">Acest ghid a fost deja descărcat</string>
@@ -1542,7 +1534,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Înainte de a trece la ghiduri…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Actualizați hărțile pentru a primi informație actuală despre obiecte!</string>
-	<string name="whats_new_auto_update_button_size">De actualizat (%s) și de continuat</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">De actualizat (%s) și de continuat</string>
 	<string name="dialog_pedestrian_route_is_long">Traseu pietonal prea lung</string>
 	<string name="whatsnew_toll_unpaved_title">Elaborați trasee auto ținând cont de toate tipurile de drumuri</string>
 	<string name="whatsnew_toll_unpaved_message">Selectați căile de ocolire pe drumurile cu plată, de țară și trecerile cu bacul</string>

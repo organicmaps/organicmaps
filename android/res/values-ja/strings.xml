@@ -790,8 +790,6 @@
 	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
 	<string name="onboarding_permissions_title">MAPS.ME によるストレージと位置情報へのアクセスを許可する</string>
 	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
-	<string name="onboarding_welcome_title">MAPS.ME へようこそ</string>
-	<string name="onboarding_welcome_first_subtitle">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
 	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、&lt;a href="%1$s">利用規約&lt;/a>および&lt;a href="%2$s">プライバシーポリシー&lt;/a>にご同意いただいたものとみなします。</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
@@ -1147,9 +1145,6 @@
 	<string name="placepage_no_reviews">レビューなし</string>
 	<string name="placepage_reviewed">このスポットはすでにレビュー済みです</string>
 	<string name="placepage_summary_rating">評価の概要</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">%d 件のレビューに基づいています</item>
-	</plurals>
 	<string name="placepage_rate_comment">タップしてこのスポットを評価し、レビューします。</string>
 	<string name="placepage_rate_horrible">ひどい</string>
 	<string name="placepage_rate_bad">悪い</string>
@@ -1236,7 +1231,6 @@
 	<string name="whats_new_message_hotel_filter">あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。</string>
 	<string name="whats_new_title_ugc_travel">あなたの体験を他の旅行者に共有してください！</string>
 	<string name="whats_new_message_ugc_travel">訪れた場所の評価やレビューを行ってください！</string>
-	<string name="dialog_pedestrian_route_is_long">歩行ルートが長すぎます</string>
 	<string name="dialog_message_transit_not_found_connection">1 つの交通ネットワーク内でルートを作成</string>
 	<string name="bookmarks_error_message_share_general">アプリケーションエラーのため共有できません</string>
 	<string name="bookmarks_error_title_share_empty">共有エラー</string>
@@ -1341,7 +1335,6 @@
 	<string name="guides">ガイド</string>
 	<string name="guide_downloaded_title">ガイドが正常にダウンロードされました</string>
 	<string name="download_guides">ガイドをダウンロード</string>
-	<string name="cached_guides_placeholder_subtitle">どんな旅にも使える詳細なオフラインガイド。最適なものを選び、マップに直接ダウンロードしてください。ガイドをダウンロードするにはインターネット接続が必要です。</string>
 	<string name="guides_groups_cached">ガイドをダウンロード</string>
 	<string name="subtitle_error_downloading_guide">ガイドがダウンロードされませんでした</string>
 	<string name="error_already_downloaded_guide">このガイドはすでにダウンロードされています</string>
@@ -1544,7 +1537,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">写真と説明文がついたマップ上に表示された名所。オフラインでも機能します。</string>
 	<string name="whats_new_auto_update_bydeeplink_title">ガイドへ進む前に…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">オブジェクトについての情報を最新に保つためにマップをアップデートしましょう!</string>
-	<string name="whats_new_auto_update_button_size">アップデート(%s) して進む</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">アップデート(%s) して進む</string>
 	<string name="dialog_pedestrian_route_is_long">歩行ルートが長過ぎます</string>
 	<string name="whatsnew_toll_unpaved_title">全てのタイプの道を考慮に入れて自動車ルートをレイアウト</string>
 	<string name="whatsnew_toll_unpaved_message">有料道路、未舗装道路、およびフェリー航路を回避するために迂回路を選択</string>

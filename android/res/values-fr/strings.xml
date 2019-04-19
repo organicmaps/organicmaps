@@ -804,8 +804,6 @@
 	<string name="onboarding_location_message">Pour utiliser la navigation et d\'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
 	<string name="onboarding_permissions_title">Autoriser MAPS.ME à accéder au stockage et à la localisation</string>
 	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
-	<string name="onboarding_welcome_title">Bienvenue sur MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
 	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les &lt;a href="%1$s">Conditions d’utilisation&lt;/a> et la &lt;a href="%2$s">Politique de confidentialité&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
@@ -1161,9 +1159,6 @@
 	<string name="placepage_no_reviews">Aucun avis</string>
 	<string name="placepage_reviewed">Vous avez déjà donné votre avis sur ce lieu</string>
 	<string name="placepage_summary_rating">Note moyenne</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Basé sur %d revues</item>
-	</plurals>
 	<string name="placepage_rate_comment">Appuyez pour évaluer et donner votre avis sur ce lieu.</string>
 	<string name="placepage_rate_horrible">Horrible</string>
 	<string name="placepage_rate_bad">Mauvais</string>
@@ -1250,7 +1245,6 @@
 	<string name="whats_new_message_hotel_filter">Réservez des hôtels disponibles à vos dates ! Utilisez les filtres de check-in et check-out</string>
 	<string name="whats_new_title_ugc_travel">Partagez votre expérience avec d’autres voyageurs !</string>
 	<string name="whats_new_message_ugc_travel">Notez et donnez votre avis sur les lieux que vous avez visités !</string>
-	<string name="dialog_pedestrian_route_is_long">La route piétonne est trop longue</string>
 	<string name="dialog_message_transit_not_found_connection">Planifier un itinéraire dans un réseau de transport en commun</string>
 	<string name="bookmarks_error_message_share_general">Impossible de partager en raison d\'une erreur d\'application</string>
 	<string name="bookmarks_error_title_share_empty">Erreur de partage</string>
@@ -1357,7 +1351,6 @@
 	<string name="guides">Guides</string>
 	<string name="guide_downloaded_title">Le guide a été téléchargé avec succès</string>
 	<string name="download_guides">Télécharger les guides</string>
-	<string name="cached_guides_placeholder_subtitle">Guides détaillés disponibles hors ligne pour tout type de voyage. Choisissez celui qui vous convient le mieux et téléchargez-le directement sur la carte. Vous aurez besoin d\'une connexion Internet pour télécharger les guides.</string>
 	<string name="guides_groups_cached">Guides téléchargés</string>
 	<string name="subtitle_error_downloading_guide">Le guide n\'a pas été téléchargé</string>
 	<string name="error_already_downloaded_guide">Ce guide a déjà été téléchargé</string>
@@ -1560,7 +1553,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Les lieux sélectionnés avec des photos et des descriptions sont affichés sur la carte et disponibles hors connexion internet.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Avant de passer aux guides…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Mettez à jour les cartes pour les informations actuelles sur les lieux !</string>
-	<string name="whats_new_auto_update_button_size">Mettre à jour (%s) et continuer</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Mettre à jour (%s) et continuer</string>
 	<string name="dialog_pedestrian_route_is_long">La randonnée est trop long</string>
 	<string name="whatsnew_toll_unpaved_title">Frayez des itinéraires en tenant compte de tous les types de routes</string>
 	<string name="whatsnew_toll_unpaved_message">Choisissez des itinéraires de détour par péage, routes non revêtues et passages d\'un cours d\'eau</string>

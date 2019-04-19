@@ -34,7 +34,6 @@
 	<string name="miles">Μίλια</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Η θέση μου</string>
-	<string name="ok">OK</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Υπενθύμιση αργότερα</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -604,8 +603,6 @@
 	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
 	<string name="onboarding_permissions_title">Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
-	<string name="onboarding_welcome_title">Καλωσήρθατε στο MAPS.ME</string>
-	<string name="onboarding_welcome_first_subtitle">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
 	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href="%1$s">τους Όρους χρήσης&lt;/a> και &lt;a href="%2$s">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
@@ -912,9 +909,6 @@
 	<string name="placepage_no_reviews">Δεν υπάρχουν κριτικές</string>
 	<string name="placepage_reviewed">Έχετε ήδη παρέχει μια κριτική για αυτό το μέρος</string>
 	<string name="placepage_summary_rating">Σύνοψη κριτικών</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">Σύμφωνα με %d κριτικές</item>
-	</plurals>
 	<string name="placepage_rate_comment">Πατήστε για να βαθμολογήσετε και να γράψετε μια κριτική για αυτό το μέρος.</string>
 	<string name="placepage_rate_horrible">Απαίσιο</string>
 	<string name="placepage_rate_bad">Κακό</string>
@@ -1001,7 +995,6 @@
 	<string name="whats_new_message_hotel_filter">Κάντε κράτησ σε ξενοδοχεία που είναι διαθέσιμα τις ημερομηνίες σας! Χρησιμοποιήστε τα φίλτρα άφιξης και αναχώρισης</string>
 	<string name="whats_new_title_ugc_travel">Μοιραστείτε την εμπειρία σας με άλλους ταξιδιώτες!</string>
 	<string name="whats_new_message_ugc_travel">Βαθμολογήστε και αξιολογήστε τα μέρη που έχετε επισκεφτεί!</string>
-	<string name="dialog_pedestrian_route_is_long">Η διαδρομή πεζών είναι υπερβολικά μεγάλη</string>
 	<string name="dialog_message_transit_not_found_connection">Σχεδιάστε μια διαδρομή εντός δικτύου μεταφοράς</string>
 	<string name="bookmarks_error_message_share_general">Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής</string>
 	<string name="bookmarks_error_title_share_empty">Σφάλμα κοινής χρήσης</string>
@@ -1107,7 +1100,6 @@
 	<string name="guides">Εγχειρίδια</string>
 	<string name="guide_downloaded_title">Η λήψη του εγχειριδίου πραγματοποιήθηκε με επιτυχία</string>
 	<string name="download_guides">Κατεβάστε τα εγχειρίδια</string>
-	<string name="cached_guides_placeholder_subtitle">Λεπτομερή εγχειρίδια εκτός σύνδεσης για κάθε είδους ταξίδι. Επιλέξτε αυτό που σας ταιριάζει καλύτερα και μεταφορτώστε το απευθείας στον χάρτη. Θα χρειαστείτε τη σύνδεση στο διαδίκτυο για να κατεβάσετε τα εγχειρίδια.</string>
 	<string name="guides_groups_cached">Κατεβασμένα εγχειρίδια</string>
 	<string name="subtitle_error_downloading_guide">Το εγχειρίδιο δεν έχει ληφθεί</string>
 	<string name="error_already_downloaded_guide">Αυτό το εγχειρίδιο έχει ήδη ληφθεί</string>
@@ -1303,7 +1295,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Επιλεγμένα μέρη με φωτογραφίες και περιγραφές εμφανίζονται στον χάρτη και είναι διαθέσιμα εκτός σύνδεσης.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Πριν τη μετάβαση στους οδηγούς…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Ενημερώστε τους χάρτες για να λάβετε τις έγκυρες πληροφορίες σχετικά με τα αντικείμενα!</string>
-	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s) και συνέχεια</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Ενημέρωση (%s) και συνέχεια</string>
 	<string name="dialog_pedestrian_route_is_long">Η πεζοπορική διαδρομή είναι πολύ μεγάλη</string>
 	<string name="whatsnew_toll_unpaved_title">Σχεδιάστε τις διαδρομές με αυτοκίνητο λαμβάνοντας υπόψη όλους τους τύπους δρόμων</string>
 	<string name="whatsnew_toll_unpaved_message">Επιλέγετε τις διαδρομές παρακάμπτοντας δρόμους με διόδια, χωματόδρομους και πορθμεία</string>

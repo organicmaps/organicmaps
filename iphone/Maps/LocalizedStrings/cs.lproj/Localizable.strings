@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Moje poloha";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.";
 
-"onboarding_welcome_title" = "Vítá vás aplikace MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.";
-
 "onboarding_welcome_second_subtitle" = "Spuštěním aplikace souhlasíte s <a href=\"%s\">Podmínkami použití</a> a <a href=\"%s\">Zásadami ochrany osobních údajů</a>.";
 
 "dialog_incorrect_feature_position" = "Změnit umístění";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "Ohodnoťte a napište recenzi míst, které jste navštívili!";
 
-"dialog_pedestrian_route_is_long" = "Trasa pro chodce je příliš dlouhá";
-
 "dialog_message_transit_not_found_connection" = "Naplánovat trasu s jednou tranzitní sítí";
 
 "bookmarks_error_message_share_general" = "Nelze sdílet kvůli chybě aplikace";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Průvodce byl úspěšně stažen.";
 
 "download_guides" = "Stáhnout průvodce";
-
-"cached_guides_placeholder_subtitle" = "Podrobní offline průvodci pro každý druh cesty. Zvolte si ten, který vám nejlépe vyhovuje, a stáhněte si jej přímo na mapu. Ke stažení průvodců budete potřebovat připojení k internetu.";
 
 "guides_groups_cached" = "Stažení průvodci";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "Aktualizujte mapy a udržujte informace o objektech aktualizované!";
 
-"whats_new_auto_update_button_size" = "Aktualizujte (%s) a pokračujte";
+"whats_new_auto_update_and_proceed_button_size" = "Aktualizujte (%s) a pokračujte";
 
 "dialog_pedestrian_route_is_long" = "Trasa pro chodce je příliš dlouhá";
 

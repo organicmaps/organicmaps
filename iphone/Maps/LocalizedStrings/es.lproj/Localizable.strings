@@ -81,8 +81,6 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Mi posición";
 
-"ok" = "OK";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "No hay espacio suficiente para realizar la descarga %@";
 
@@ -1342,10 +1340,6 @@
 
 "onboarding_permissions_message" = "Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.";
 
-"onboarding_welcome_title" = "Bienvenido a MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.";
-
 "onboarding_welcome_second_subtitle" = "Al iniciar la aplicación, usted acepta los <a href=\"%s\">Términos de uso</a> y la <a href=\"%s\">Política de privacidad</a>.";
 
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
@@ -2195,8 +2189,6 @@
 
 "whats_new_message_ugc_travel" = "¡Puntúe y opine sobre los lugares visitados!";
 
-"dialog_pedestrian_route_is_long" = "La ruta peatonal es demasiado larga";
-
 "dialog_message_transit_not_found_connection" = "Planea una ruta en una red de tránsito";
 
 "bookmarks_error_message_share_general" = "No se puede compartir debido a un error de la aplicación";
@@ -2388,8 +2380,6 @@
 "guide_downloaded_title" = "Se ha descargado la guía correctamente";
 
 "download_guides" = "Descargar guías";
-
-"cached_guides_placeholder_subtitle" = "Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.";
 
 "guides_groups_cached" = "Guías descargadas";
 
@@ -2801,7 +2791,7 @@
 
 "whats_new_auto_update_bydeeplink_message" = "¡Renueva los mapas para obtener información actualizada sobre los lugares!";
 
-"whats_new_auto_update_button_size" = "Renovar (%s) y continuar";
+"whats_new_auto_update_and_proceed_button_size" = "Renovar (%s) y continuar";
 
 "dialog_pedestrian_route_is_long" = "La ruta a pie es demasiado larga";
 

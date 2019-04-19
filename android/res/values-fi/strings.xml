@@ -52,7 +52,6 @@
 	<string name="miles">Mailit</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Sijaintini</string>
-	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vapauta tilaa laitteellasi ladataksesi tiedoston %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -791,8 +790,6 @@
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
 	<string name="onboarding_permissions_title">Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus</string>
 	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
-	<string name="onboarding_welcome_title">Tervetuloa käyttämään MAPS.ME:tä</string>
-	<string name="onboarding_welcome_first_subtitle">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
 	<string name="onboarding_welcome_second_subtitle">Käynnistämällä sovelluksen hyväksyt &lt;a href="%1$s">käyttöehdot&lt;/a> ja &lt;a href="%2$s">tietosuojakäytännön&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
@@ -1148,9 +1145,6 @@
 	<string name="placepage_no_reviews">Ei arvosteluja</string>
 	<string name="placepage_reviewed">Olet jo arvioinut tämän paikan</string>
 	<string name="placepage_summary_rating">Yhteenvetoarvio</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="other">%d arvion perusteella</item>
-	</plurals>
 	<string name="placepage_rate_comment">Arvioi ja arvostele tämä paikka napauttamalla.</string>
 	<string name="placepage_rate_horrible">Kamala</string>
 	<string name="placepage_rate_bad">Huono</string>
@@ -1237,7 +1231,6 @@
 	<string name="whats_new_message_hotel_filter">Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia</string>
 	<string name="whats_new_title_ugc_travel">Jaa kokemuksesi muille matkailijoille!</string>
 	<string name="whats_new_message_ugc_travel">Arvioi ja kirjoita arvosteluja vierailemistasi paikoista!</string>
-	<string name="dialog_pedestrian_route_is_long">Jalankulkureitti on liian pitkä</string>
 	<string name="dialog_message_transit_not_found_connection">Suunnittele reitti yhdellä läpikulkuverkolla</string>
 	<string name="bookmarks_error_message_share_general">Ei voitu jakaa sovellusvirheen vuoksi</string>
 	<string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
@@ -1343,7 +1336,6 @@
 	<string name="guides">Oppaat</string>
 	<string name="guide_downloaded_title">Opas on onnistuneesti ladattu</string>
 	<string name="download_guides">Lataa oppaat</string>
-	<string name="cached_guides_placeholder_subtitle">Yksityiskohtaiset offline-oppaat kaikenlaisille matkoille. Valitse se, joka sopii sinulle parhaiten, ja lataa se suoraan kartalle. Tarvitset internetyhteyden oppaiden lataamiseksi.</string>
 	<string name="guides_groups_cached">Ladatut oppaat</string>
 	<string name="subtitle_error_downloading_guide">Opasta ei ladattu</string>
 	<string name="error_already_downloaded_guide">Tämä opas on jo ladattu</string>
@@ -1546,7 +1538,7 @@
 	<string name="onboarding_bydeeplink_guide_subtitle">Valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Ennen kuin siirtytään oppaille…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Päivitä kartat saadaksesi ajankohtaista tietoa kohteista!</string>
-	<string name="whats_new_auto_update_button_size">Päivitä (%s) ja jatka</string>
+	<string name="whats_new_auto_update_and_proceed_button_size">Päivitä (%s) ja jatka</string>
 	<string name="dialog_pedestrian_route_is_long">Jalankulkureitti on liian pitkä</string>
 	<string name="whatsnew_toll_unpaved_title">Luo reittejä ottaen huomioon kaikentyyppiset tiet</string>
 	<string name="whatsnew_toll_unpaved_message">Valitse kiertoreitit maksullisten teiden, päällystämättömien teiden ja lauttojen ohi</string>
