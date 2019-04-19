@@ -445,6 +445,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self.tutorialViewContoller)
     return;
 
+  [self logTutorialEvent:kStatTipsTricksShow additionalOptions:nil];
   self.hidden = NO;
   [ownerController addChildViewController:self.tutorialViewContoller];
   self.tutorialViewContoller.view.frame = ownerController.view.bounds;
@@ -453,9 +454,23 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.tutorialViewContoller didMoveToParentViewController:ownerController];
 }
 
-- (void)didPressCancel:(MWMTutorialViewController *)viewController
-{
+- (void)didPressCancel:(MWMTutorialViewController *)viewController {
+  [self logTutorialEvent:kStatTipsTricksClose additionalOptions:@{kStatOption: kStatGotIt}];
   [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventGotIt];
+  [self fadeOutTutorial:viewController];
+}
+
+- (void)didPressTarget:(MWMTutorialViewController *)viewController {
+  [self logTutorialEvent:kStatTipsTricksClick additionalOptions:nil];
+  [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventAction];
+  [self fadeOutTutorial:viewController];
+}
+
+- (void)didPressOnScreen:(MWMTutorialViewController *)viewController {
+  [self logTutorialEvent:kStatTipsTricksClose additionalOptions:@{kStatOption: kStatOffscreen}];
+}
+
+- (void)fadeOutTutorial:(MWMTutorialViewController *)viewController {
   [viewController fadeOutWithCompletion:^{
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
@@ -464,15 +479,34 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.tutorialViewContoller = nil;
 }
 
-- (void)didPressTarget:(MWMTutorialViewController *)viewController
-{
-  [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventAction];
-  [viewController fadeOutWithCompletion:^{
-    [viewController willMoveToParentViewController:nil];
-    [viewController.view removeFromSuperview];
-    [viewController removeFromParentViewController];
-  }];
-  self.tutorialViewContoller = nil;
+- (void)logTutorialEvent:(NSString *)eventName additionalOptions:(NSDictionary<NSString *, NSString *> *)options {
+  MWMTip type = self.tutorialType;
+  if (!type) return;
+  
+  NSNumber *statTutorialType;
+  switch (type)
+  {
+    case MWMTipSearch:
+      statTutorialType = @1;
+      break;
+    case MWMTipDiscovery:
+      statTutorialType = @2;
+      break;
+    case MWMTipBookmarks:
+      statTutorialType = @0;
+      break;
+    case MWMTipSubway:
+      statTutorialType = @3;
+      break;
+    case MWMTipNone:
+      return;
+  }
+  NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:statTutorialType
+                                                                   forKey:kStatType];
+  if (options != nil) {
+    [params addEntriesFromDictionary:options];
+  }
+  [Statistics logEvent:eventName withParameters:params];
 }
 
 @end
