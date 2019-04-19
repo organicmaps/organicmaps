@@ -488,7 +488,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
-- (void)book:(BOOL)isDescription
+- (void)book
 {
   auto data = self.data;
   if (!data)
@@ -509,16 +509,43 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   }
   logSponsoredEvent(data, eventName);
   
-  if (!isDescription && data.isPartnerAppInstalled)
-  {
-    [UIApplication.sharedApplication openURL:data.deepLink options:@{} completionHandler:nil];
-    return;
-  }
-  
-  NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
+  NSURL * url = data.isPartnerAppInstalled ? data.deepLink : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
   
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+}
+
+- (void)openDescriptionUrl
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  
+  logSponsoredEvent(data, kStatPlacePageHotelDetails);
+  [UIApplication.sharedApplication openURL:data.sponsoredDescriptionURL
+                                   options:@{} completionHandler:nil];
+}
+
+- (void)openMoreUrl
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  
+  logSponsoredEvent(data, kStatPlacePageHotelMore);
+  [UIApplication.sharedApplication openURL:data.sponsoredMoreURL
+                                   options:@{} completionHandler:nil];
+}
+
+- (void)openReviewUrl
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  
+  logSponsoredEvent(data, kStatPlacePageHotelReviews);
+  [UIApplication.sharedApplication openURL:data.sponsoredReviewURL
+                                   options:@{} completionHandler:nil];
 }
 
 - (void)searchBookingHotels
@@ -526,7 +553,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!data)
     return;
-  logSponsoredEvent(data, kStatPlacePageHotelSearch);
+  
+  logSponsoredEvent(data, kStatPlacePageHotelBook);
   NSURL * url = data.bookingSearchURL;
   NSAssert(url, @"Search url can't be nil!");
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];

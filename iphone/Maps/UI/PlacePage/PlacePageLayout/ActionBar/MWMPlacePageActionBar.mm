@@ -227,7 +227,7 @@
   {
   case EButton::Download: [delegate downloadSelectedArea]; break;
   case EButton::Opentable:
-  case EButton::Booking: [delegate book:NO]; break;
+  case EButton::Booking: [delegate book]; break;
   case EButton::BookingSearch: [delegate searchBookingHotels]; break;
   case EButton::Call: [delegate call]; break;
   case EButton::Bookmark:

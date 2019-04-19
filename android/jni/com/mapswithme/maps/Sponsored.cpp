@@ -68,11 +68,13 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
       "placepage/Sponsored$FacilityType;[Lcom/mapswithme/maps/review/Review;[Lcom/mapswithme/"
       "maps/widget/placepage/Sponsored$NearbyObject;J)V");
 
-  // Sponsored(String rating, String price, String urlBook, String urlDescription)
+  //  Sponsored(String rating, int impress, String price, String url, String deepLink,
+  //            String descriptionUrl, String moreUrl, String reviewUrl, int type,
+  //            int partnerIndex, String partnerName)
   g_sponsoredClassConstructor = jni::GetConstructorID(
       env, g_sponsoredClass,
       "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-      "Ljava/lang/String;IILjava/lang/String;)V");
+      "Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;)V");
   // static void onPriceReceived(final String id, final String price, final String currency)
   g_priceCallback =
       jni::GetStaticMethodID(env, g_sponsoredClass, "onPriceReceived",
@@ -136,6 +138,7 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDeepLink()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),
+                        jni::ToJavaString(env, ppInfo.GetSponsoredMoreUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredReviewUrl()),
                         static_cast<jint>(ppInfo.GetSponsoredType()),
                         static_cast<jint>(ppInfo.GetPartnerIndex()),

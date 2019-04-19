@@ -264,6 +264,7 @@ static NSString * const kStatPlacePageHotelBook = @"Placepage_Hotel_book";
 static NSString * const kStatPlacePageHotelDetails = @"Placepage_Hotel_details";
 static NSString * const kStatPlacePageHotelFacilities = @"PlacePage_Hotel_Facilities_open";
 static NSString * const kStatPlacePageHotelGallery = @"PlacePage_Hotel_Gallery_open";
+static NSString * const kStatPlacePageHotelMore = @"PlacePage_Hotel_Description_land";
 static NSString * const kStatPlacePageHotelReviews = @"PlacePage_Hotel_Reviews_land";
 static NSString * const kStatPlacePageHotelSearch = @"Search.Booking.Com";
 static NSString * const kStatPlacePageNonBuilding = @"placepage_nonbuilding";

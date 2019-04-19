@@ -562,6 +562,20 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
              : nil;
 }
 
+- (NSURL *)sponsoredMoreURL
+{
+  return m_info.IsSponsored()
+             ? [NSURL URLWithString:@(m_info.GetSponsoredMoreUrl().c_str())]
+             : nil;
+}
+
+- (NSURL *)sponsoredReviewURL
+{
+  return m_info.IsSponsored()
+             ? [NSURL URLWithString:@(m_info.GetSponsoredReviewUrl().c_str())]
+             : nil;
+}
+
 - (NSURL *)bookingSearchURL
 {
   auto const & url = m_info.GetBookingSearchUrl();

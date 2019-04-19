@@ -179,6 +179,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSURL *)sponsoredURL;
 - (NSURL *)deepLink;
 - (NSURL *)sponsoredDescriptionURL;
+- (NSURL *)sponsoredMoreURL;
+- (NSURL *)sponsoredReviewURL;
 - (NSURL *)bookingSearchURL;
 - (NSString *)sponsoredId;
 - (NSString *)hotelDescription;

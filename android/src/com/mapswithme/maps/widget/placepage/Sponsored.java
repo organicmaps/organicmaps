@@ -189,6 +189,8 @@ public final class Sponsored
   @NonNull
   private final String mDescriptionUrl;
   @NonNull
+  private final String mMoreUrl;
+  @NonNull
   private final String mReviewUrl;
   @SponsoredType
   private final int mType;
@@ -198,8 +200,8 @@ public final class Sponsored
 
   private Sponsored(@NonNull String rating, @UGC.Impress int impress, @NonNull String price,
                     @NonNull String url, @NonNull String deepLink, @NonNull String descriptionUrl,
-                    @NonNull String reviewUrl, @SponsoredType int type, int partnerIndex,
-                    @NonNull String partnerName)
+                    @NonNull String moreUrl, @NonNull String reviewUrl, @SponsoredType int type,
+                    int partnerIndex, @NonNull String partnerName)
   {
     mRating = rating;
     mImpress = impress;
@@ -207,6 +209,7 @@ public final class Sponsored
     mUrl = url;
     mDeepLink = deepLink;
     mDescriptionUrl = descriptionUrl;
+    mMoreUrl = moreUrl;
     mReviewUrl = reviewUrl;
     mType = type;
     mPartnerIndex = partnerIndex;
@@ -258,6 +261,12 @@ public final class Sponsored
   String getDescriptionUrl()
   {
     return mDescriptionUrl;
+  }
+
+  @NonNull
+  String getMoreUrl()
+  {
+    return mMoreUrl;
   }
 
   @NonNull

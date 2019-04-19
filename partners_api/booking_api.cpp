@@ -5,6 +5,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/url_encode.hpp"
+#include "coding/sha1.hpp"
 
 #include "base/get_time.hpp"
 #include "base/logging.hpp"
@@ -393,6 +394,30 @@ string ApplyAvailabilityParamsDeep(string const & url, AvailabilityParams const 
 
   return url::Make(url, p);
 }
+
+string AppendAid(string const & baseUrl)
+{
+  ASSERT(!baseUrl.empty(), ());
+  url::Params p = {{"aid", BOOKING_AFFILIATE_ID}};
+  return url::Make(baseUrl, p);
+}
+
+string ApplendLabel(string const & baseUrl, string const & labelSource)
+{
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT(!labelSource.empty(), ());
+  auto static const kDeviceIdHash =
+      coding::SHA1::CalculateForStringFormatted(GetPlatform().UniqueClientId());
+
+  url::Params const p = {{"label", labelSource + "-" + UrlEncode(kDeviceIdHash)}};
+
+  return url::Make(baseUrl, p);
+}
+
+string AppendAidAndLabel(string const & baseUrl, string const & labelSource)
+{
+  return ApplendLabel(AppendAid(baseUrl), labelSource);
+}
 }  // namespace
 
 namespace booking
@@ -436,7 +461,7 @@ bool RawApi::BlockAvailability(BlockParams const & params, string & result)
 string Api::GetBookHotelUrl(string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
-  return GetDescriptionUrl(baseUrl);
+  return AppendAidAndLabel(baseUrl, "ppActionButton");
 }
 
 string Api::GetDeepLink(string const & hotelId) const
@@ -452,34 +477,39 @@ string Api::GetDeepLink(string const & hotelId) const
 string Api::GetDescriptionUrl(string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
-  return baseUrl + string("?aid=") + BOOKING_AFFILIATE_ID;
+  return AppendAidAndLabel(baseUrl, "ppDetails");
+}
+
+string Api::GetMoreUrl(string const & baseUrl) const
+{
+  ASSERT(!baseUrl.empty(), ());
+  return AppendAidAndLabel(baseUrl, "ppMoreInfo");
 }
 
 string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
   ASSERT(!hotelId.empty(), ());
-  ostringstream os;
-  os << GetDescriptionUrl(baseUrl) << "&tab=4&label=hotel-" << hotelId << "_reviews";
-  return os.str();
+
+  url::Params const p = {{"tab", "4"}};
+  return url::Make(AppendAidAndLabel(baseUrl, "ppReviews"), p);
 }
 
 string Api::GetSearchUrl(string const & city, string const & name) const
 {
   if (city.empty() || name.empty())
-    return "";
+    return {};
 
   ostringstream paramStream;
   paramStream << city << " " << name;
 
   auto const urlEncodedParams = UrlEncode(paramStream.str());
 
-  ostringstream resultStream;
-  if (!urlEncodedParams.empty())
-    resultStream << kSearchBaseUrl << "?aid=" << BOOKING_AFFILIATE_ID << ";" << "ss="
-                 << urlEncodedParams << ";";
+  if (urlEncodedParams.empty())
+    return {};
 
-  return resultStream.str();
+  url::Params p = {{"&ss=", urlEncodedParams}};
+  return url::Make(AppendAidAndLabel(kSearchBaseUrl, "ppReviews"), p);
 }
 
 string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params) const

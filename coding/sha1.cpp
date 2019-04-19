@@ -70,6 +70,18 @@ SHA1::Hash SHA1::CalculateForString(std::string const & str)
 }
 
 // static
+std::string SHA1::CalculateForStringFormatted(std::string const & str)
+{
+  auto const hashRaw = CalculateForString(str);
+
+  std::ostringstream os;
+  for (auto const value : hashRaw)
+    os << std::hex << static_cast<int>(value);
+
+  return os.str();
+}
+
+// static
 std::string SHA1::CalculateBase64ForString(std::string const & str)
 {
   auto const sha1 = CalculateForString(str);

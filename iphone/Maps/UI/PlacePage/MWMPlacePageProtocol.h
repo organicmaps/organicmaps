@@ -16,7 +16,7 @@
 - (void)removeBookmark;
 
 - (void)call;
-- (void)book:(BOOL)isDecription;
+- (void)book;
 - (void)searchBookingHotels;
 
 - (void)openPartner;

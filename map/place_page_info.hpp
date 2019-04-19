@@ -156,6 +156,8 @@ public:
   std::string const & GetSponsoredDeepLink() const { return m_sponsoredDeepLink; }
   void SetSponsoredDescriptionUrl(std::string const & url) { m_sponsoredDescriptionUrl = url; }
   std::string const & GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
+  void SetSponsoredMoreUrl(std::string const & url) { m_sponsoredMoreUrl = url; }
+  std::string const & GetSponsoredMoreUrl() const { return m_sponsoredMoreUrl; }
   void SetSponsoredReviewUrl(std::string const & url) { m_sponsoredReviewUrl = url; }
   std::string const & GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
   void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
@@ -314,6 +316,7 @@ private:
   std::string m_sponsoredUrl;
   std::string m_sponsoredDeepLink;
   std::string m_sponsoredDescriptionUrl;
+  std::string m_sponsoredMoreUrl;
   std::string m_sponsoredReviewUrl;
 
   /// Booking

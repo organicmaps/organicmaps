@@ -885,6 +885,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetSponsoredUrl(m_bookingApi->GetBookHotelUrl(baseUrl));
     info.SetSponsoredDeepLink(m_bookingApi->GetDeepLink(hotelId));
     info.SetSponsoredDescriptionUrl(m_bookingApi->GetDescriptionUrl(baseUrl));
+    info.SetSponsoredMoreUrl(m_bookingApi->GetMoreUrl(baseUrl));
     info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
     if (!m_bookingAvailabilityParams.IsEmpty())
     {
@@ -900,6 +901,8 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
                 bind(&Info::SetSponsoredUrl, &info, _1));
       urlSetter(bind(&Info::GetSponsoredDescriptionUrl, &info),
                 bind(&Info::SetSponsoredDescriptionUrl, &info, _1));
+      urlSetter(bind(&Info::GetSponsoredMoreUrl, &info),
+                bind(&Info::SetSponsoredMoreUrl, &info, _1));
       urlSetter(bind(&Info::GetSponsoredReviewUrl, &info),
                 bind(&Info::SetSponsoredReviewUrl, &info, _1));
       urlSetter(bind(&Info::GetSponsoredDeepLink, &info),

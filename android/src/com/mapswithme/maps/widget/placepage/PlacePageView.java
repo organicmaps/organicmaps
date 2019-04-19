@@ -990,7 +990,7 @@ public class PlacePageView extends NestedScrollView
 //  TODO go to selected object on map
   }
 
-  private void onSponsoredClick(final boolean book, final boolean isMoreDetails)
+  private void onSponsoredClick(final boolean book, final boolean isDetails)
   {
     Utils.checkConnection(
         getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
@@ -1020,7 +1020,7 @@ public class PlacePageView extends NestedScrollView
                 }
                 else
                 {
-                  String event = isMoreDetails ? PP_SPONSORED_DETAILS : PP_HOTEL_DESCRIPTION_LAND;
+                  String event = isDetails ? PP_SPONSORED_DETAILS : PP_HOTEL_DESCRIPTION_LAND;
                   Statistics.INSTANCE.trackHotelEvent(event, info, mMapObject);
                 }
                 break;
@@ -1047,7 +1047,11 @@ public class PlacePageView extends NestedScrollView
               }
               else
               {
-                Utils.openUrl(getContext(), book ? info.getUrl() : info.getDescriptionUrl());
+                if (book)
+                  Utils.openUrl(getContext(), info.getUrl());
+                else
+                  Utils.openUrl(getContext(), isDetails ? info.getDescriptionUrl()
+                                                            : info.getMoreUrl());
               }
             }
             catch (ActivityNotFoundException e)
