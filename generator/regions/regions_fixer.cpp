@@ -33,14 +33,14 @@ public:
     }
   }
 
-  bool CityExistsAsRegion(City const & city)
+  bool PlaceExistsAsRegion(PlacePoint const & place)
   {
-    auto const cityType = city.GetPlaceType();
-    auto const range = m_nameRegionMap.equal_range(city.GetName());
+    auto const placeType = place.GetPlaceType();
+    auto const range = m_nameRegionMap.equal_range(place.GetName());
     for (auto it = range.first; it != range.second; ++it)
     {
-      Region const & r = it->second;
-      if (r.GetPlaceType() == cityType && r.Contains(city))
+      Region const & region = it->second;
+      if (placeType == region.GetPlaceType() && region.Contains(place))
         return true;
     }
 
@@ -55,8 +55,8 @@ class RegionsFixerWithPlacePointApproximation
 {
 public:
   explicit RegionsFixerWithPlacePointApproximation(RegionsBuilder::Regions && regions,
-                                                   PointCitiesMap const & pointCitiesMap)
-    : m_regions(std::move(regions)), m_pointCitiesMap(pointCitiesMap) {}
+                                                   PlacePointsMap const & placePointsMap)
+    : m_regions(std::move(regions)), m_placePointsMap(placePointsMap) {}
 
 
   RegionsBuilder::Regions && GetFixedRegions()
@@ -64,38 +64,38 @@ public:
     RegionLocalityChecker regionsChecker(m_regions);
     RegionsBuilder::Regions approximatedRegions;
     size_t countOfFixedRegions = 0;
-    for (auto const & cityKeyValue : m_pointCitiesMap)
+    for (auto const & placeKeyValue : m_placePointsMap)
     {
-      auto const & city = cityKeyValue.second;
-      if (NeedCity(city) && !regionsChecker.CityExistsAsRegion(city))
+      auto const & place = placeKeyValue.second;
+      if (IsApproximable(place) && !regionsChecker.PlaceExistsAsRegion(place))
       {
-        approximatedRegions.push_back(Region(city));
+        approximatedRegions.push_back(Region(place));
         ++countOfFixedRegions;
       }
     }
 
-    LOG(LINFO, ("City boundaries restored by approximation:", countOfFixedRegions));
+    LOG(LINFO, ("Place boundaries restored by approximation:", countOfFixedRegions));
     std::move(std::begin(approximatedRegions), std::end(approximatedRegions),
               std::back_inserter(m_regions));
     return std::move(m_regions);
   }
 
 private:
-  bool NeedCity(const City & city)
+  bool IsApproximable(PlacePoint const & place)
   {
-    auto const placeType = city.GetPlaceType();
+    auto const placeType = place.GetPlaceType();
     return placeType >= PlaceType::City;
   }
 
   RegionsBuilder::Regions m_regions;
-  PointCitiesMap const & m_pointCitiesMap;
+  PlacePointsMap const & m_placePointsMap;
 };
 }  // namespace
 
-void FixRegionsWithPlacePointApproximation(PointCitiesMap const & pointCitiesMap,
+void FixRegionsWithPlacePointApproximation(PlacePointsMap const & placePointsMap,
                                            RegionsBuilder::Regions & regions)
 {
-  RegionsFixerWithPlacePointApproximation fixer(std::move(regions), pointCitiesMap);
+  RegionsFixerWithPlacePointApproximation fixer(std::move(regions), placePointsMap);
   regions = fixer.GetFixedRegions();
 }
 }  // namespace regions
