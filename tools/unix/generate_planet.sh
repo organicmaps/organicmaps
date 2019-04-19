@@ -230,7 +230,7 @@ export PYTHONPATH
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/post_generation/hierarchy_to_countries.py"
 DESCRIPTIONS_MODULE="descriptions"
-LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/post_generation/localads_mwm_to_csv.py"
+POST_GENERATION_MODULE="post_generation"
 UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"
 WIKIDATA_FILE="${WIKIDATA_FILE:-$INTDIR/idToWikidata.csv}"
@@ -635,7 +635,7 @@ fi
 if [ "$MODE" == "resources" ]; then
   putmode "Step 8: Updating resource lists"
   # Update countries list
-  $PYTHON $HIERARCHY_SCRIPT --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
+  $PYTHON36 -m $POST_GENERATION_MODULE hierarchy_to_countries --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
     --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
 
   # A quick fix: chmodding to a+rw all generated files
@@ -674,7 +674,7 @@ if [ -n "${LOCALADS-}" ]; then
     LOCALADS_LOG="$LOG_PATH/localads.log"
     LOCALADS_PATH="$INTDIR/localads"
     mkdir -p "$LOCALADS_PATH"
-    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH/types.txt" --output "$LOCALADS_PATH" >> "$LOCALADS_LOG" 2>&1
+    $PYTHON36 -m "$POST_GENERATION_MODULE" localads_mwm_to_csv "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH/types.txt" --output "$LOCALADS_PATH" >> "$LOCALADS_LOG" 2>&1
     LOCALADS_ARCHIVE="localads_$COUNTRIES_VERSION.tgz"
     cd "$LOCALADS_PATH"
     tar -czf "$LOCALADS_ARCHIVE" *.csv >> "$LOCALADS_LOG" 2>&1
