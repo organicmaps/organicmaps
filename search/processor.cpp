@@ -384,7 +384,7 @@ void Processor::Search(SearchParams const & params)
     results.SetEndMarker(true /* isCancelled */);
 
     if (params.m_onResults)
-      params.m_onResults(results, params);
+      params.m_onResults(results);
     else
       LOG(LERROR, ("OnResults is not set."));
     return;
@@ -610,7 +610,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
 
 void Processor::InitEmitter(SearchParams const & searchParams)
 {
-  m_emitter.Init(searchParams);
+  m_emitter.Init(searchParams.m_onResults);
 }
 
 void Processor::ClearCaches()

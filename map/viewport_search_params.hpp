@@ -15,7 +15,7 @@ class Results;
 struct ViewportSearchParams
 {
   using OnStarted = std::function<void()>;
-  using OnResults = std::function<void(Results const & results)>;
+  using OnCompleted = std::function<void(Results const & results)>;
 
   std::string m_query;
   std::string m_inputLocale;
@@ -23,6 +23,6 @@ struct ViewportSearchParams
   booking::filter::Tasks m_bookingFilterTasks;
 
   OnStarted m_onStarted;
-  OnResults m_onCompleted;
+  OnCompleted m_onCompleted;
 };
 }  // namespace search

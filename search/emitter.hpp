@@ -17,10 +17,9 @@ struct Result;
 class Emitter
 {
 public:
-  void Init(SearchParams const & params)
+  void Init(SearchParams::OnResults onResults)
   {
-    m_params = static_cast<SearchParamsBase>(params);
-    m_onResults = params.m_onResults;
+    m_onResults = onResults;
     m_results.Clear();
   }
 
@@ -32,7 +31,7 @@ public:
   void Emit()
   {
     if (m_onResults)
-      m_onResults(m_results, m_params);
+      m_onResults(m_results);
     else
       LOG(LERROR, ("OnResults is not set."));
   }
@@ -43,13 +42,12 @@ public:
   {
     m_results.SetEndMarker(cancelled);
     if (m_onResults)
-      m_onResults(m_results, m_params);
+      m_onResults(m_results);
     else
       LOG(LERROR, ("OnResults is not set."));
   }
 
 private:
-  SearchParamsBase m_params;
   SearchParams::OnResults m_onResults;
   Results m_results;
 };

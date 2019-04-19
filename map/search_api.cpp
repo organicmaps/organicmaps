@@ -3,7 +3,6 @@
 #include "map/bookmarks_search_params.hpp"
 #include "map/discovery/discovery_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
-#include "map/viewport_search_params.hpp"
 
 #include "partners_api/booking_api.hpp"
 
@@ -93,7 +92,7 @@ public:
 
   explicit BookmarksSearchCallback(OnResults const & onResults) : m_onResults(onResults) {}
 
-  void operator()(Results const & results, SearchParamsBase const & /* params */)
+  void operator()(Results const & results)
   {
     if (results.IsEndMarker())
     {
@@ -217,7 +216,8 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   };
 
   p.m_onResults = ViewportSearchCallback(
-      static_cast<ViewportSearchCallback::Delegate &>(*this),
+    m_viewport,
+    static_cast<ViewportSearchCallback::Delegate &>(*this),
       params.m_bookingFilterTasks,
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
@@ -226,6 +226,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 
   m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
+  m_viewportParams = params;
   return Search(p, false /* forceSearch */);
 }
 
@@ -284,6 +285,14 @@ void SearchAPI::PokeSearchInViewport(bool forceSearch)
   auto params = m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params;
   SetViewportIfPossible(params);
   params.m_position = m_delegate.GetCurrentPosition();
+  params.m_onResults = ViewportSearchCallback(
+    m_viewport,
+    static_cast<ViewportSearchCallback::Delegate &>(*this),
+    m_viewportParams.m_bookingFilterTasks,
+    [this](Results const & results) {
+      if (results.IsEndMarker() && m_viewportParams.m_onCompleted)
+        RunUITask([p = m_viewportParams, results] { p.m_onCompleted(results); });
+    });
   Search(params, forceSearch);
 }
 

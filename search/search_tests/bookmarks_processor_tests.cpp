@@ -31,7 +31,7 @@ public:
 
   Ids Search(string const & query)
   {
-    m_emitter.Init({});
+    m_emitter.Init([](::search::Results const & /* results */) {} /* onResults */);
 
     vector<strings::UniString> tokens;
     auto const isPrefix =

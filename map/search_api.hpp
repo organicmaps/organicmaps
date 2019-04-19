@@ -5,6 +5,7 @@
 #include "map/everywhere_search_callback.hpp"
 #include "map/search_product_info.hpp"
 #include "map/viewport_search_callback.hpp"
+#include "map/viewport_search_params.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
@@ -33,7 +34,6 @@ namespace search
 {
 struct BookmarksSearchParams;
 struct EverywhereSearchParams;
-struct ViewportSearchParams;
 struct DiscoverySearchParams;
 }
 
@@ -179,4 +179,8 @@ private:
 
   m2::RectD m_viewport;
   bool m_isViewportInitialized = false;
+
+  // Viewport search callback should be changed every time when SearchAPI::PokeSearchInViewport
+  // is called and we need viewport search params to construct it.
+  search::ViewportSearchParams m_viewportParams;
 };

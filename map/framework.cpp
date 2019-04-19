@@ -319,7 +319,6 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     return;
 
   m_currentModelView = screen;
-  auto const zoomLevel = static_cast<uint8_t>(df::GetZoomLevel(screen.GetScale()));
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
@@ -2982,10 +2981,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), name, edit.second,
                                                types.GetBestType(), smd));
     }
-    params.m_onResults(results, params);
+    params.m_onResults(results);
 
     results.SetEndMarker(false /* isCancelled */);
-    params.m_onResults(results, params);
+    params.m_onResults(results);
     return true;
   }
   else if (params.m_query == "?eclear")

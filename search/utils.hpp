@@ -131,8 +131,6 @@ using FeatureIndexCallback = std::function<void(FeatureID const &)>;
 void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,
                           m2::RectD const & rect, FeatureIndexCallback const & fn);
 
-// Returns true iff |query| contains |categoryName| synonym.
-// |query| - search query in any language.
-// |categoryName| - name of category in English.
+// Returns true iff |query| contains |categoryEn| synonym.
 bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryName);
 }  // namespace search
