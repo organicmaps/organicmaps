@@ -17335,70 +17335,6 @@
     sw = Ili uweze kupakua ramani, kuona maeneo na trafiki karibu nawe na utumie urambazaji.
     fa = خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.
 
-  [onboarding_welcome_title]
-    en = Welcome to MAPS.ME
-    ru = Добро пожаловать в MAPS.ME
-    ar = مرحبًا بك في MAPS.ME
-    cs = Vítá vás aplikace MAPS.ME
-    da = Velkommen til MAPS.ME
-    nl = Welkom bij MAPS.ME
-    fi = Tervetuloa käyttämään MAPS.ME:tä
-    fr = Bienvenue sur MAPS.ME
-    de = Willkommen bei MAPS.ME
-    hu = Üdvözöljük a MAPS.ME alkalmazásban
-    id = Selamat datang di MAPS.ME
-    it = Benvenuto in MAPS.ME
-    ja = MAPS.ME へようこそ
-    ko = MAPS.ME입니다.
-    nb = Velkommen til MAPS.ME
-    pl = Witaj w MAPS.ME
-    pt = Bem-vindo ao MAPS.ME
-    ro = Bun venit în MAPS.ME
-    es = Bienvenido a MAPS.ME
-    sv = Välkommen till MAPS.ME
-    th = ยินดีต้อนรับสู่ MAPS.ME
-    tr = MAPS.ME'ye Hoş Geldiniz
-    uk = Вітаємо у MAPS.ME
-    vi = Chào mừng đến với MAPS.ME
-    zh-Hans = 欢迎使用 MAPS.ME
-    zh-Hant = 歡迎來到 MAPS.ME
-    el = Καλωσήρθατε στο MAPS.ME
-    sk = Vitajte v aplikácii MAPS.ME
-    sw = Karibu kwenye MAPS.ME
-    fa = به MAPS.ME خوش امدید
-
-  [onboarding_welcome_first_subtitle]
-    en = Free, fast, detailed and entirely offline maps with turn-by-turn navigation.
-    ru = Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.
-    ar = خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.
-    cs = Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.
-    da = Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.
-    nl = Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.
-    fi = Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.
-    fr = Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.
-    de = Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.
-    hu = Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.
-    id = Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.
-    it = Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.
-    ja = ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。
-    ko = 턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.
-    nb = Gratis, rask, detaljert og helt offline kart med rutenavigasjon.
-    pl = Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.
-    pt = Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.
-    ro = Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.
-    es = Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.
-    sv = Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.
-    th = แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน
-    tr = Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.
-    uk = Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.
-    vi = Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.
-    zh-Hans = 免费、快速、详细且完全离线的地图，并且带有精细导航功能。
-    zh-Hant = 免費、快速、詳盡又全面的地圖，提供逐向導航服務。
-    el = Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.
-    sk = Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.
-    sw = Ramani za bila malipo, za haraka, za kina na za nje ya mtandao kikamilifu zenye urambazaji wa kona baada ya kona.
-    fa = رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.
-
   [onboarding_welcome_second_subtitle]
     en = By launching the application, you agree to <a href="%s">Terms of Use</a> and <a href="%s">Privacy Policy</a>.
     ru = Запуская приложение, вы соглашаетесь с <a href="%s">Условиями использования</a> и <a href="%s">Политикой конфиденциальности</a>.
@@ -26932,40 +26868,6 @@
     sw = Kadirio wastani
     fa = خلاصه ای از ارزیابی
 
-  [placepage_summary_rating_description]
-    en:one = Based on %d review
-    en:other = Based on %d reviews
-    ru:one = На основе %d отзыва
-    ru:other = На основе %d отзывов
-    ar = استنادًا إلى %d مراجعة
-    cs = Na základě %d hodnocení
-    da = Baseret på %d anmeldelser
-    nl = Gebaseerd op %d beoordelingen
-    fi = %d arvion perusteella
-    fr = Basé sur %d revues
-    de = Basierend auf %d Bewertungen
-    hu = %d értékelések alapján
-    id = Berdasarkan %d ulasan
-    it = Basato su %d recensioni
-    ja = %d 件のレビューに基づいています
-    ko = %d개 리뷰 기준
-    nb = Basert på %d vurderinger
-    pl = Na podstawie %d recenzji
-    pt = Baseado em %d avaliações
-    ro = Bazat pe %d recenzii
-    es = Basado en %d opiniones
-    sv = Baserat på %d omdömen
-    th = จาก %d รีวิว
-    tr = %d değerlendirmeye göre
-    uk = На основі %d відгуків(-у)
-    vi = Dựa trên %d đánh giá
-    zh-Hans = 基于 %d 条评价
-    zh-Hant = 根據 %d 則評論
-    el = Σύμφωνα με %d κριτικές
-    sk = Na základe %d recenzií
-    sw = Kulingana na maoni %d
-    fa = براساس %d ارزیابی
-
   [placepage_rate_comment]
     en = Tap to rate and review this place.
     ru = Нажмите, чтобы оставить оценку и отзыв этого места.
@@ -33112,40 +33014,6 @@
     zh-Hans = 下载导览
     zh-Hant = 下載指南
     fa = دانلود راهنما
-
-  [cached_guides_placeholder_subtitle]
-    en = Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.
-    ru = Мы собрали каталог с подробными оффлайн маршрутами по городам мира! Теперь каждый путешественник сможет найти маршрут по своему вкусу и загрузить в MAPS.ME. Все загруженные маршруты автоматически отобразятся на карте. Для загрузки маршрута необходимо подключение к интернету.
-    ar = أدلة مفصلة بدون اتصال بالإنترنت لأي نوع من الرحلات. اختر النوع الذي يناسبك وقم بتنزيله مباشرة على الخريطة. ستحتاج إلى الاتصال بالإنترنت لتنزيل الأدلة.
-    cs = Podrobní offline průvodci pro každý druh cesty. Zvolte si ten, který vám nejlépe vyhovuje, a stáhněte si jej přímo na mapu. Ke stažení průvodců budete potřebovat připojení k internetu.
-    da = Detaljerede offline vejledninger til alle slags rejser. Vælg den der passer dig bedst og download den direkte til dit kort. Du skal bruge en internetforbindelse til at downloade vejledninger.
-    nl = Gedetailleerde offline handleidingen voor elk type reis. Kies de handleiding die het beste bij je past en download hem direct naar de kaart. Je hebt een internetverbinding nodig om handleidingen te downloaden.
-    fi = Yksityiskohtaiset offline-oppaat kaikenlaisille matkoille. Valitse se, joka sopii sinulle parhaiten, ja lataa se suoraan kartalle. Tarvitset internetyhteyden oppaiden lataamiseksi.
-    fr = Guides détaillés disponibles hors ligne pour tout type de voyage. Choisissez celui qui vous convient le mieux et téléchargez-le directement sur la carte. Vous aurez besoin d'une connexion Internet pour télécharger les guides.
-    de = Detaillierte Offline-Leitfäden für jede Art von Reise. Wählen Sie den für Sie am besten geeigneten aus und laden Sie ihn direkt auf die Karte herunter. Sie benötigen eine Internetverbindung, um Leitfäden herunterzuladen.
-    hu = Részletes offline útmutatók mindenfajta utazáshoz. Válaszd ki a te utazásodhoz legjobban illőt, és töltsd le közvetlenül a térképre. Az útmutatók letöltéséhez internetkapcsolatra van szükséged.
-    id = Panduan offline (luring) terperinci untuk segala jenis perjalanan. Pilih yang paling sesuai untuk Anda dan unduh langsung ke peta. Anda akan memerlukan koneksi internet untuk mengunduh panduan.
-    it = Guide dettagliate offline per qualsiasi tipo di viaggio. Scegli quella che preferisci e scaricala direttamente sulla mappa. Per scaricare le guide, è necessaria una connessione a Internet.
-    ja = どんな旅にも使える詳細なオフラインガイド。最適なものを選び、マップに直接ダウンロードしてください。ガイドをダウンロードするにはインターネット接続が必要です。
-    ko = 모든 여행을 위한 자세한 오프라인 안내. 여러분에게 가장 적합한 것을 골라 지도로 직접 다운로드하세요. 안내를 다운로드하려면 인터넷을 연결해야 합니다.
-    no = Detaljerte bruksanvisninger offline, for enhver form for reise. Velg den som passer best for deg, og last den ned direkte til kartet. Du trenger internettforbindelse for å laste ned bruksanvisninger.
-    pl = Szczegółowe przewodniki offline na każdy rodzaj podróży. Wybierz najlepiej Ci odpowiadający i pobierz go bezpośrednio na mapę. Do pobrania przewodników wymagane jest połączenie internetowe.
-    pt = Guias detalhados 'offline' para qualquer tipo de viagem. Escolha o mais adequado para si e descarregue-o diretamente para o mapa. Irá precisar de ligação à Internet para descarregar os guias.
-    pt-BR = Guias off-line detalhados para qualquer tipo de jornada. Escolha o melhor para você e baixe-o diretamente para o mapa. Você precisará estar conectado à internet para baixar os guias.
-    ro = Ghiduri offline detaliate pentru orice tip de călătorie. Alege-l pe cel care ți se potrivește cel mai bine și descarcă-l direct pe hartă. Vei avea nevoie de conexiune la internet pentru a descărca ghidurile.
-    es = Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.
-    es_MX = Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.
-    sv = Detaljerade offline-guider för alla former av resor. Välj den som passar dig bäst och ladda ned den direkt till kartan. Du behöver internetanslutningen för att ladda ned guider.
-    th = คู่มือใช้งานแบบออฟไลน์อย่างละเอียดสำหรับการเดินทางไม่ว่าจะในแบบใด เลือกคู่มือใช้งานที่เข้ากับคุณมากที่สุดแล้วดาวน์โหลดโดยตรงไปยังแผนที่ คุณจะต้องมีการเชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดคู่มือใช้งาน
-    tr = Her çeşit yolculuk için ayrıntılı çevrimdışı el kitapları. Sana en uygun olanı seç ve doğrudan haritaya indir. El kitaplarını indirmek için internet bağlantısına ihtiyacın olacak.
-    uk = Детальні офлайн путівники для подорожей будь-якого типу. Виберіть путівник, що підходить вам найбільше і завантажте його прямо на карту. Для завантаження путівників вам знадобиться підключення до Інтернету.
-    vi = Hướng dẫn ngoại tuyến chi tiết cho mọi cuộc hành trình. Chọn hướng dẫn phù hợp với bạn nhất và tải xuống trực tiếp vào bản đồ. Bạn sẽ cần kết nối internet để tải xuống các hướng dẫn.
-    el = Λεπτομερή εγχειρίδια εκτός σύνδεσης για κάθε είδους ταξίδι. Επιλέξτε αυτό που σας ταιριάζει καλύτερα και μεταφορτώστε το απευθείας στον χάρτη. Θα χρειαστείτε τη σύνδεση στο διαδίκτυο για να κατεβάσετε τα εγχειρίδια.
-    sk = Podrobné offline príručky pre akúkoľvek cestu. Vyberte si tú, ktorá vám najviac vyhovuje a stiahnite si ju priamo k mape. Na načítanie príručiek budete potrebovať internetové pripojenie.
-    sw = Viongozi/Miongozo ya nje ya mtandao ya aina yoyote ya safari. Chagua ule unaofaa kwako bora na uupakue moja kwa moja kwenye ramani. Utahitaji uunganisho wa intaneti ili kupakua viongozi/miongozo.
-    zh-Hans = 适合任何旅行种类的详细的离线导览。选择最适合您的那个，直接下载到地图上。您需要网络连接来下载导览。
-    zh-Hant = 適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。
-    fa = راهنماهای آفلاین مفصل برای هر نوع سفر. یکی از بهترین ها را انتخاب کنید و آن را به طور مستقیم به نقشه دانلود کنید. برای دریافت راهنماها به اتصال اینترنت نیاز دارید.
 
   [guides_groups_cached]
     en = Downloaded guides
@@ -39910,7 +39778,7 @@
     zh-Hant = 請更新有關對像以獲取實時信息的地圖!
     fa = برای به روز نگه داشتن مناظر نقشه ها را به روز رسانی کنید!
 
-  [whats_new_auto_update_button_size]
+  [whats_new_auto_update_and_proceed_button_size]
     en = Update (%s) and proceed
     ru = Обновить (%s) и продолжить
     ar = تحديث (%s) والمتابعة
