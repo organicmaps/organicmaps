@@ -23,6 +23,7 @@ set(
   serdes_json.hpp
   storage.cpp
   storage.hpp
+  types.cpp
   types.hpp
 )
 

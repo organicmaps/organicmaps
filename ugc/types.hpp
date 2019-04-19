@@ -6,6 +6,7 @@
 
 #include "coding/hex.hpp"
 
+#include "base/assert.hpp"
 #include "base/math.hpp"
 #include "base/visitor.hpp"
 
@@ -319,10 +320,23 @@ inline std::string DebugPrint(UGCUpdate const & ugcUpdate)
 
 struct UGC
 {
+  static float constexpr kMinRating = 0.0f;
+  static float constexpr kMaxRating = 10.0f;
+  // Ratings below threshold will be packed to ratings section without detalization (as single
+  // value).
+  static float constexpr kRatingDetalizationThreshold = 4.0f;
+  static_assert(kMinRating <= kRatingDetalizationThreshold &&
+                    kRatingDetalizationThreshold <= kMaxRating,
+                "");
+
   UGC() = default;
   UGC(Ratings const & records, Reviews const & reviews, float const totalRating, uint32_t basedOn)
     : m_ratings(records), m_reviews(reviews), m_totalRating(totalRating), m_basedOn(basedOn)
   {
+    float constexpr kEps = 0.01f;
+    CHECK_LESS(m_totalRating - kEps, kMaxRating, ());
+    CHECK_GREATER(m_totalRating + kEps, kMinRating, ());
+    m_totalRating = base::clamp(m_totalRating, kMinRating, kMaxRating);
   }
 
   DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_reviews, "reviews"),
@@ -362,8 +376,12 @@ struct UGC
       confidence = 3;
 
     uint8_t rating = 0;
-    if (m_totalRating > 4.0f)
-      rating = 1 + (m_totalRating - 4.0f) / 6.0f * 62.0f;
+
+    if (m_totalRating > kRatingDetalizationThreshold)
+    {
+      rating = 1 + (m_totalRating - kRatingDetalizationThreshold) /
+                       (kMaxRating - kRatingDetalizationThreshold) * 62.0f;
+    }
     rating = base::clamp(rating, static_cast<uint8_t>(0), static_cast<uint8_t>(63));
 
     return confidence << 6 | rating;
@@ -376,10 +394,13 @@ struct UGC
   {
     uint8_t const confidence = packed >> 6;
 
-    float rating = 4.0;
+    float rating = kRatingDetalizationThreshold;
     uint8_t const packedRating = packed & 63;
     if (packedRating > 0)
-      rating = 4.0f + static_cast<float>(packedRating - 1) / 62.0f * 6.0f;
+    {
+      rating = kRatingDetalizationThreshold + static_cast<float>(packedRating - 1) / 62.0f *
+                                                  (kMaxRating - kRatingDetalizationThreshold);
+    }
 
     return std::make_pair(confidence, rating);
   }
