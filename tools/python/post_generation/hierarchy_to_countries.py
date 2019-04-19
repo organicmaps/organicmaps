@@ -150,7 +150,7 @@ if options.names:
             if len(pair) == 2 and pair[0] != pair[1]:
                 try:
                     names[pair[0]] = pair[1]
-                except Error:
+                except (KeyError, IndexError):
                     sys.stderr.write(
                         'Could not read translation for {0}\n'.format(pair[0]))
 
