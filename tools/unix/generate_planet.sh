@@ -226,7 +226,7 @@ else
 fi
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
-DESCRIPTIONS_DOWNLOADER="$PYTHON_SCRIPTS_PATH/descriptions_downloader.py"
+DESCRIPTIONS_DOWNLOADER="$PYTHON_SCRIPTS_PATH/descriptions/descriptions_downloader.py"
 LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
 UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"

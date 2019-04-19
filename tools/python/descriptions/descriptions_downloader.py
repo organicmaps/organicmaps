@@ -17,6 +17,8 @@ import wikipediaapi
 from bs4 import BeautifulSoup
 from wikidata.client import Client
 
+from .exceptions import GettingError, ParseError
+
 """
 This script downloads Wikipedia pages for different languages.
 """
@@ -33,22 +35,6 @@ BAD_SECTIONS = {
     "ru": ["Литература", "Ссылки", "См. также", "Библиография", "Примечания"],
     "es": ["Vínculos de interés", "Véase también", "Enlaces externos", "Referencias"]
 }
-
-
-class MyException(Exception):
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return repr(self.value)
-
-
-class ParseError(MyException):
-    pass
-
-
-class GettingError(MyException):
-    pass
 
 
 def try_get(obj, prop, *args, **kwargs):
@@ -332,6 +318,7 @@ def main():
         download_from_wikidata_tags(wikidata_file, output_dir, langs, checker)
     else:
         log.warning(f"Wikidata ({wikidata_file}) file not set.")
+
 
 if __name__ == "__main__":
     main()
