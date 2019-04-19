@@ -1600,7 +1600,7 @@
 	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты для получения актуальной информации об объектах!</string>
 	<string name="whats_new_auto_update_button_size">Обновить (%s) и продолжить</string>
 	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
-	<string name="whatsnew_toll_unpaved_title">Прокладывайте автомаршруты с учетом типа дороги</string>
+	<string name="whatsnew_toll_unpaved_title">Прокладывайте автомобильные маршруты с учетом типа дороги</string>
 	<string name="whatsnew_toll_unpaved_message">Объезжайте платные и грунтовые дороги и паромные переправы</string>
 	<string name="whatsnew_new_catalogue_title">Обновленные страницы каталога</string>
 	<string name="whatsnew_new_catalogue_message">Мы добавили подробную информацию о партнерских путеводителях, чтобы выбор маршрута был простым и удобным</string>

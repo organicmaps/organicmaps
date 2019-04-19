@@ -2805,7 +2805,7 @@
 
 "dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
 
-"whatsnew_toll_unpaved_title" = "Прокладывайте автомаршруты с учетом типа дороги";
+"whatsnew_toll_unpaved_title" = "Прокладывайте автомобильные маршруты с учетом типа дороги";
 
 "whatsnew_toll_unpaved_message" = "Объезжайте платные и грунтовые дороги и паромные переправы";
 
