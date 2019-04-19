@@ -51,7 +51,7 @@ import java.util.Locale;
 
 public class Factory
 {
-  public static final String EXTRA_IS_FIRST_LAUNCH_DEEPLINK = "extra_is_first_launch_deeplink";
+  public static final String EXTRA_IS_FIRST_LAUNCH = "extra_is_first_launch";
   @NonNull
   public static IntentProcessor createBuildRouteProcessor()
   {
@@ -150,7 +150,7 @@ public class Factory
     @Override
     public final MapTask process(@NonNull Intent intent)
     {
-      mFirstLaunch = intent.getBooleanExtra(Factory.EXTRA_IS_FIRST_LAUNCH_DEEPLINK, false);
+      mFirstLaunch = intent.getBooleanExtra(Factory.EXTRA_IS_FIRST_LAUNCH, false);
       Uri data = intent.getData();
       if (data == null)
         throw new AssertionError("Data must be non-null!");

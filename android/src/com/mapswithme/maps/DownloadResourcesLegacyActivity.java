@@ -492,13 +492,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return null;
 
-    MwmApplication application = (MwmApplication) getApplicationContext();
-    String firstLaunchDeeplink = application.getMediator().retrieveFirstLaunchDeeplink();
-    if (!TextUtils.isEmpty(firstLaunchDeeplink))
+    MwmApplication application = MwmApplication.from(this);
+    intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, application.isFirstLaunch());
+    if (intent.getData() == null)
     {
-      intent.setData(Uri.parse(firstLaunchDeeplink));
-      intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH_DEEPLINK, true);
+      String firstLaunchDeeplink = application.getMediator().retrieveFirstLaunchDeeplink();
+      if (!TextUtils.isEmpty(firstLaunchDeeplink))
+        intent.setData(Uri.parse(firstLaunchDeeplink));
     }
+
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {
