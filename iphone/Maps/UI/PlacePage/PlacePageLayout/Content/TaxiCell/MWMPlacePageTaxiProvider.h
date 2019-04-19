@@ -3,5 +3,5 @@ typedef NS_ENUM(NSInteger, MWMPlacePageTaxiProvider) {
   MWMPlacePageTaxiProviderUber,
   MWMPlacePageTaxiProviderYandex,
   MWMPlacePageTaxiProviderMaxim,
-  MWMPlacePageTaxiProviderRutaxi
+  MWMPlacePageTaxiProviderVezet
 };

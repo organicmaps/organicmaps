@@ -361,7 +361,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   case MWMPlacePageTaxiProviderUber: providerString = kStatUber; break;
   case MWMPlacePageTaxiProviderYandex: providerString = kStatYandex; break;
   case MWMPlacePageTaxiProviderMaxim: providerString = kStatMaxim; break;
-  case MWMPlacePageTaxiProviderRutaxi: providerString = kStatRutaxi; break;
+  case MWMPlacePageTaxiProviderVezet: providerString = kStatVezet; break;
   }
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];

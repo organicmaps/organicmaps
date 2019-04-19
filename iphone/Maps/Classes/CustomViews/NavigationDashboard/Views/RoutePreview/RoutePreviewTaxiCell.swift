@@ -23,7 +23,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .uber: return #imageLiteral(resourceName: "icTaxiUber")
       case .yandex: return #imageLiteral(resourceName: "ic_taxi_logo_yandex")
       case .maxim: return #imageLiteral(resourceName: "ic_taxi_logo_maksim")
-      case .rutaxi: return #imageLiteral(resourceName: "ic_taxi_logo_rutaxi")
+      case .vezet: return #imageLiteral(resourceName: "ic_taxi_logo_vezet")
       }
     }
 
@@ -33,7 +33,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .uber: return title
       case .yandex: return L("yandex_taxi_title")
       case .maxim: return L("maxim_taxi_title")
-      case .rutaxi: return L("rutaxi_title")
+      case .vezet: return L("vezet_taxi")
       }
     }
 
@@ -43,7 +43,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .uber: return price
       case .yandex: fallthrough
       case .maxim: fallthrough
-      case .rutaxi:
+      case .vezet:
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = currency
@@ -59,7 +59,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
     let timeString = { () -> String in
       var timeValue = DateComponentsFormatter.etaString(from: TimeInterval(eta)!)!
       
-      if type == .rutaxi {
+      if type == .vezet {
         timeValue = String(coreFormat: L("place_page_starting_from"), arguments: [timeValue]);
       }
       
