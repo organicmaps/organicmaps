@@ -504,8 +504,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
-    // we haven't to try restoring the route, showing the tips, etc.
-    if (isConsumed)
+    // or it's the first launch (onboarding) we haven't to try restoring the route,
+    // showing the tips, etc.
+    if (isConsumed || MwmApplication.from(this).isFirstLaunch())
       return;
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
