@@ -47,14 +47,16 @@ def parse_mwm(mwm_name, osm2ft_name, override_version, types_name):
         for feature in mwm_file.iter_features(metadata=True):
             osm_id = ft2osm.get(feature['id'], None)
             if osm_id is None:
-                if 'metadata' in feature and 'ref:sponsored' in feature['metadata']:
+                if 'metadata' in feature and 'ref:sponsored' in feature[
+                    'metadata']:
                     for t in feature['header']['types']:
                         if t.startswith('sponsored-'):
-                            QUEUES['sponsored'].put((feature['metadata']['ref:sponsored'],
-                                                     feature['id'],
-                                                     mwm_id,
-                                                     version,
-                                                     SOURCE_TYPES[t[t.find('-') + 1:]]))
+                            QUEUES['sponsored'].put(
+                                (feature['metadata']['ref:sponsored'],
+                                 feature['id'],
+                                 mwm_id,
+                                 version,
+                                 SOURCE_TYPES[t[t.find('-') + 1:]]))
                             break
             else:
                 for t in feature['header']['types']:
@@ -83,18 +85,24 @@ def write_csv(output_dir, qtype):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%H:%M:%S')
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s',
+                        datefmt='%H:%M:%S')
     parser = argparse.ArgumentParser(
         description='Prepares CSV files for uploading to localads database from mwm files.')
     parser.add_argument('mwm', help='path to mwm files')
-    parser.add_argument('--osm2ft', help='path to osm2ft files (default is the same as mwm)')
-    parser.add_argument('--output', default='.', help='path to generated files ("." by default)')
+    parser.add_argument('--osm2ft',
+                        help='path to osm2ft files (default is the same as mwm)')
+    parser.add_argument('--output', default='.',
+                        help='path to generated files ("." by default)')
     types_default = os.path.join(os.path.dirname(sys.argv[0]),
                                  '..', '..', '..', 'data', 'types.txt')
-    parser.add_argument('--types', default=types_default, help='path to omim/data/types.txt')
-    parser.add_argument('--threads', type=int, help='number of threads to process files')
+    parser.add_argument('--types', default=types_default,
+                        help='path to omim/data/types.txt')
+    parser.add_argument('--threads', type=int,
+                        help='number of threads to process files')
     parser.add_argument('--version', type=int, help='override mwm version')
-    parser.add_argument('--debug', action='store_true', help='debug parse_mwm call')
+    parser.add_argument('--debug', action='store_true',
+                        help='debug parse_mwm call')
     args = parser.parse_args()
     if not args.osm2ft:
         args.osm2ft = args.mwm
@@ -103,18 +111,22 @@ def main():
         os.mkdir(args.output)
 
     # Create CSV writer processes for each queue and a pool of MWM readers.
-    writers = [Process(target=write_csv, args=(args.output, qtype)) for qtype in QUEUES]
+    writers = [Process(target=write_csv, args=(args.output, qtype)) for qtype in
+               QUEUES]
     for w in writers:
         w.start()
     pool = Pool(processes=args.threads)
     for mwm_name in os.listdir(args.mwm):
-        if 'World' in mwm_name or 'minsk_pass' in mwm_name or not mwm_name.endswith('.mwm'):
+        if 'World' in mwm_name or 'minsk_pass' in mwm_name or not mwm_name.endswith(
+                '.mwm'):
             continue
-        osm2ft_name = os.path.join(args.osm2ft, os.path.basename(mwm_name) + '.osm2ft')
+        osm2ft_name = os.path.join(args.osm2ft,
+                                   os.path.basename(mwm_name) + '.osm2ft')
         if not os.path.exists(osm2ft_name):
             logging.error('Cannot find %s', osm2ft_name)
             sys.exit(2)
-        parse_mwm_args = (os.path.join(args.mwm, mwm_name), osm2ft_name, args.version, args.types)
+        parse_mwm_args = (
+        os.path.join(args.mwm, mwm_name), osm2ft_name, args.version, args.types)
         if args.debug:
             parse_mwm(*parse_mwm_args)
         else:
