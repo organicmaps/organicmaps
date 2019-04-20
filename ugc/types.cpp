@@ -2,7 +2,7 @@
 
 namespace ugc
 {
-float const UGC::kMaxRating;
-float const UGC::kMinRating;
-float const UGC::kRatingDetalizationThreshold;
+float constexpr UGC::kMaxRating;
+float constexpr UGC::kMinRating;
+float constexpr UGC::kRatingDetalizationThreshold;
 }  // namespace ugc
