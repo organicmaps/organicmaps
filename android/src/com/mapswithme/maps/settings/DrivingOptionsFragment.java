@@ -124,7 +124,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       else
         RoutingOptions.removeOption(mRoadType);
 
-      Statistics.INSTANCE.trackSettingsDriveOptionsChangeEvent();
+      Statistics.INSTANCE.trackSettingsDrivingOptionsChangeEvent();
     }
   }
 }

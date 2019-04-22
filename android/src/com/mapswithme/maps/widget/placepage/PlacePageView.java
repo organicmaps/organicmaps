@@ -729,7 +729,7 @@ public class PlacePageView extends NestedScrollView
 
     mRoutingModeListener.toggleRouteSettings(roadType);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DRIVING_OPTIONS_ACTION,
-                                   new Statistics.ParameterBuilder().add(Statistics.EventParam.TYPE,
+                                   Statistics.params().add(Statistics.EventParam.TYPE,
                                                                          roadType.name()));
   }
 

@@ -218,8 +218,7 @@ public enum Statistics
                                                      Statistics.ParamValue.SHARING_OPTIONS));
   }
 
-  @NonNull
-  private ParameterBuilder getRoutingOptionsStatus()
+  public void trackSettingsDrivingOptionsChangeEvent()
   {
     boolean hasToll = RoutingOptions.hasOption(RoadType.Toll);
     boolean hasFerry = RoutingOptions.hasOption(RoadType.Ferry);
@@ -227,19 +226,13 @@ public enum Statistics
     boolean hasDirty = RoutingOptions.hasOption(RoadType.Dirty);
 
     ParameterBuilder builder = new ParameterBuilder() ;
-    return builder.add(EventParam.TOLL, hasToll ? 1 : 0)
-                  .add(EventParam.FERRY, hasFerry ? 1 : 0)
-                  .add(EventParam.MOTORWAY, hasMoto ? 1 : 0)
-                  .add(EventParam.UNPAVED, hasDirty ? 1 : 0);
-  }
-
-  public void trackSettingsDriveOptionsChangeEvent()
-  {
-    ParameterBuilder parameterBuilder = getRoutingOptionsStatus();
+    ParameterBuilder parameterBuilder = builder.add(EventParam.TOLL, hasToll ? 1 : 0)
+                                               .add(EventParam.FERRY, hasFerry ? 1 : 0)
+                                               .add(EventParam.MOTORWAY, hasMoto ? 1 : 0)
+                                               .add(EventParam.UNPAVED, hasDirty ? 1 : 0);
     parameterBuilder.add(EventParam.FROM, EventParam.SETTINGS);
 
-    trackEvent(EventName.SETTINGS_DRIVE_OPTIONS_CHANGE,
-               parameterBuilder);
+    trackEvent(EventName.SETTINGS_DRIVING_OPTIONS_CHANGE, parameterBuilder);
   }
 
   @Retention(RetentionPolicy.SOURCE)
@@ -309,7 +302,7 @@ public enum Statistics
     private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
     public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
     public static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
-    public static final String SETTINGS_DRIVE_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
+    public static final String SETTINGS_DRIVING_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
     public static final String PP_DRIVING_OPTIONS_ACTION = "Placepage_DrivingOptions_action";
 
     // search
