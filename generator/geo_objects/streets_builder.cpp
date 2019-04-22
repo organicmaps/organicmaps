@@ -20,22 +20,62 @@ StreetsBuilder::StreetsBuilder(RegionInfoGetter const & regionInfoGetter)
 void StreetsBuilder::Build(std::string const & pathInGeoObjectsTmpMwm, std::ostream & streamGeoObjectsKv)
 {
   auto const transform = [this, &streamGeoObjectsKv](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (!IsStreet(fb))
+    if (IsStreet(fb))
+    {
+      AddStreet(fb);
       return;
+    }
 
-    auto const region = FindStreetRegionOwner(fb);
-    if (!region)
-      return;
-
-    if (!InsertStreet(*region, fb))
-      return;
-
-    auto const value = MakeStreetValue(fb, *region);
-    auto const id = static_cast<int64_t>(fb.GetMostGenericOsmId().GetEncodedId());
-    streamGeoObjectsKv << id << " " << value.get() << "\n";
+    auto streetName = fb.GetParams().GetStreet();
+    if (!streetName.empty())
+      AddStreetBinding(std::move(streetName), fb);
   };
-
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, transform);
+
+  SaveStreetGeoObjects(streamGeoObjectsKv);
+}
+
+void StreetsBuilder::SaveStreetGeoObjects(std::ostream & streamGeoObjectsKv)
+{
+  for (auto const & region : m_regions)
+    SaveRegionStreetGeoObjects(streamGeoObjectsKv, region.first, region.second);
+}
+
+void StreetsBuilder::SaveRegionStreetGeoObjects(std::ostream & streamGeoObjectsKv, uint64_t regionId,
+                                                RegionStreets const & streets)
+{
+  auto const & regionsStorage = m_regionInfoGetter.GetStorage();
+  auto const && regionObject = regionsStorage.Find(regionId);
+  ASSERT(regionObject, ());
+
+  for (auto const & street : streets)
+  {
+    auto streetId = street.second;
+    if (base::GeoObjectId::Type::Invalid == streetId.GetType())
+      streetId = NextOsmSurrogateId();
+
+    auto const id = static_cast<int64_t>(streetId.GetEncodedId());
+    auto const value = MakeStreetValue(regionId, *regionObject, street.first);
+    streamGeoObjectsKv << id << " " << value.get() << "\n";
+  }
+}
+
+void StreetsBuilder::AddStreet(FeatureBuilder1 & fb)
+{
+  auto const region = FindStreetRegionOwner(fb);
+  if (!region)
+    return;
+
+  InsertStreet(*region, fb.GetName(), fb.GetMostGenericOsmId());
+}
+
+void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder1 & fb)
+{
+  auto const region = FindStreetRegionOwner(fb.GetKeyPoint());
+  if (!region)
+    return;
+
+  InsertSurrogateStreet(*region, std::move(streetName));
 }
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder1 & fb)
@@ -78,31 +118,47 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
   return m_regionInfoGetter.FindDeepest(point, isStreetAdministrator);
 }
 
-bool StreetsBuilder::InsertStreet(KeyValue const & region, FeatureBuilder1 & fb)
+bool StreetsBuilder::InsertStreet(KeyValue const & region, std::string && streetName, base::GeoObjectId id)
 {
-  auto & regionStreets = m_regionsStreets[region.first];
-  auto emplace = regionStreets.emplace(fb.GetName());
+  auto & regionStreets = m_regions[region.first];
+  auto emplace = regionStreets.emplace(std::move(streetName), id);
+
+  if (!emplace.second && base::GeoObjectId::Type::Invalid == emplace.first->second.GetType())
+    emplace.first->second = id;
+
+  return emplace.second;
+}
+
+bool StreetsBuilder::InsertSurrogateStreet(KeyValue const & region, std::string && streetName)
+{
+  auto & regionStreets = m_regions[region.first];
+  auto emplace = regionStreets.emplace(std::move(streetName), base::GeoObjectId{});
   return emplace.second;
 }
 
 std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
-    FeatureBuilder1 const & fb, KeyValue const & region)
+    uint64_t regionId, base::Json const regionObject, std::string const & streetName)
 {
-  auto const && regionProperties = base::GetJSONObligatoryField(region.second.get(), "properties");
+  auto const && regionProperties = base::GetJSONObligatoryField(regionObject.get(), "properties");
   auto const && regionAddress = base::GetJSONObligatoryField(regionProperties, "address");
   auto address = base::JSONPtr{json_deep_copy(regionAddress)};
-  ToJSONObject(*address, "street", fb.GetName());
+  ToJSONObject(*address, "street", streetName);
 
   auto properties = base::NewJSONObject();
   ToJSONObject(*properties, "address", std::move(address));
-  ToJSONObject(*properties, "name", fb.GetName());
-  ToJSONObject(*properties, "pid", region.first);
+  ToJSONObject(*properties, "name", streetName);
+  ToJSONObject(*properties, "pid", regionId);
 
   auto streetObject = base::NewJSONObject();
   ToJSONObject(*streetObject, "properties", std::move(properties));
 
   auto const value = json_dumps(streetObject.get(), JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>{value};
+}
+
+base::GeoObjectId StreetsBuilder::NextOsmSurrogateId()
+{
+  return base::GeoObjectId{base::GeoObjectId::Type::OsmSurrogate, ++m_osmSurrogateCounter};
 }
 
 // static
