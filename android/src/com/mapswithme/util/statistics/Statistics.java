@@ -88,6 +88,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_T
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_FINISH;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_START;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.TIPS_TRICKS_CLOSE;
 import static com.mapswithme.util.statistics.Statistics.EventName.TOOLBAR_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.TOOLBAR_MENU_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
@@ -119,6 +120,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.OPTION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PLACEMENT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PRODUCT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
@@ -139,6 +141,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.NO_BACKUP;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.OFFSCREEEN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PEDESTRIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
@@ -161,7 +164,7 @@ public enum Statistics
 
   public void trackSharingOptionsClick(@NonNull String value)
   {
-    ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
+    ParameterBuilder builder = new ParameterBuilder().add(OPTION, value);
     trackEvent(EventName.BM_SHARING_OPTIONS_CLICK, builder);
   }
 
@@ -186,13 +189,13 @@ public enum Statistics
 
   public void trackBookmarkListSettingsClick(@NonNull Analytics analytics)
   {
-    ParameterBuilder builder = ParameterBuilder.from(EventParam.OPTION, analytics);
+    ParameterBuilder builder = ParameterBuilder.from(OPTION, analytics);
     trackEvent(EventName.BM_BOOKMARKS_LIST_SETTINGS_CLICK, builder);
   }
 
   private void trackEditSettingsScreenOptionClick(@NonNull String value)
   {
-    ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
+    ParameterBuilder builder = new ParameterBuilder().add(OPTION, value);
     trackEvent(EventName.BM_EDIT_SETTINGS_CLICK, builder);
   }
 
@@ -214,7 +217,7 @@ public enum Statistics
   public void trackBookmarkListSharingOptions()
   {
     trackEvent(Statistics.EventName.BM_BOOKMARKS_LIST_ITEM_SETTINGS,
-               new Statistics.ParameterBuilder().add(Statistics.EventParam.OPTION,
+               new Statistics.ParameterBuilder().add(OPTION,
                                                      Statistics.ParamValue.SHARING_OPTIONS));
   }
 
@@ -442,6 +445,10 @@ public enum Statistics
     public static final String ONBOARDING_DEEPLINK_SCREEN_ACCEPT = "OnboardingDeeplinkScreen_accept";
     public static final String ONBOARDING_DEEPLINK_SCREEN_DECLINE = "OnboardingDeeplinkScreen_decline";
 
+    public static final String TIPS_TRICKS_SHOW = "TipsTricks_show";
+    public static final String TIPS_TRICKS_CLOSE = "TipsTricks_close";
+    public static final String TIPS_TRICKS_CLICK = "TipsTricks_click";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -611,6 +618,7 @@ public enum Statistics
     public static final String MAKE_INVISIBLE_ON_MAP = "make_invisible_on_map";
     public static final String LIST_SETTINGS = "list_settings";
     public static final String DELETE_GROUP = "delete_group";
+    public static final String OFFSCREEEN = "Offscreen";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1503,6 +1511,17 @@ public enum Statistics
   {
     trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor)
                                                          .add(PURCHASE, purchaseId));
+  }
+
+  public void trackTipsEvent(@NonNull String eventName, int type)
+  {
+    Statistics.INSTANCE.trackEvent(eventName, params().add(TYPE, type));
+  }
+
+  public void trackTipsClose(int type)
+  {
+    Statistics.INSTANCE.trackEvent(TIPS_TRICKS_CLOSE, params().add(TYPE, type)
+                                                              .add(OPTION, OFFSCREEEN));
   }
 
   public static ParameterBuilder params()

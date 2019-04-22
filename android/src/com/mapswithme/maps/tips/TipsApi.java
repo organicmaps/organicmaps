@@ -17,6 +17,7 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.Arrays;
@@ -147,7 +148,10 @@ public enum TipsApi
   private void onPromptStateChanged(int state)
   {
     if (state == MaterialTapTargetPrompt.STATE_DISMISSED)
+    {
       UserActionsLogger.logTipClickedEvent(TipsApi.this, TipsAction.GOT_IT_CLICKED);
+      Statistics.INSTANCE.trackTipsClose(ordinal());
+    }
   }
 
   @Nullable
