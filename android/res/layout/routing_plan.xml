@@ -162,26 +162,33 @@
       android:id="@+id/driving_options_btn"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:layout_width="match_parent"
+      android:gravity="center"
       android:minHeight="@dimen/height_block_base"
       android:layout_height="wrap_content">
-      <TextView
-        android:id="@+id/driving_options_btn_title"
-        android:layout_centerInParent="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/tips_and_triks_primary_text"
-        android:textAllCaps="true"
+      <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_half_plus_eight"
-        android:layout_marginEnd="@dimen/margin_half_plus_eight"/>
-      <ImageView
-        android:id="@+id/driving_options_btn_img"
-        android:src="@drawable/ic_error_white"
-        android:layout_centerVertical="true"
-        android:layout_width="@dimen/margin_base_plus"
-        android:layout_height="@dimen/margin_base_plus"
-        android:layout_toLeftOf="@id/driving_options_btn_title"
-        android:layout_toStartOf="@id/driving_options_btn_title"/>
+        android:layout_height="wrap_content">
+        <ImageView
+          android:id="@+id/driving_options_btn_img"
+          android:src="@drawable/ic_error_white"
+          android:layout_marginRight="@dimen/margin_half_plus_eight"
+          android:layout_marginEnd="@dimen/margin_half_plus_eight"
+          android:layout_gravity="center"
+          android:layout_width="@dimen/margin_base_plus"
+          android:layout_height="@dimen/margin_base_plus"/>
+        <TextView
+          android:id="@+id/driving_options_btn_title"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="@color/tips_and_triks_primary_text"
+          android:textAllCaps="true"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:fontFamily="@string/robotoMedium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:ignore="UnusedAttribute"/>
+      </LinearLayout>
+
     </RelativeLayout>
 
   </FrameLayout>
