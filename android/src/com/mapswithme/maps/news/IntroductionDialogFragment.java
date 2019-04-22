@@ -30,7 +30,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     fragment.show(fm, IntroductionDialogFragment.class.getName());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_SHOW,
                                    Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           factory.getStatisticalName()));
+                                                           factory.toStatisticValue()));
   }
 
   @NonNull
@@ -72,7 +72,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     factory.createButtonClickListener().onIntroductionButtonClick(requireActivity(), deepLink);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_ACCEPT,
                                    Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           factory.getStatisticalName()));
+                                                           factory.toStatisticValue()));
     dismissAllowingStateLoss();
   }
 
@@ -82,7 +82,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     super.onCancel(dialog);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_DECLINE,
                                    Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           getScreenFactory().getStatisticalName()));
+                                                           getScreenFactory().toStatisticValue()));
   }
 
   @Override

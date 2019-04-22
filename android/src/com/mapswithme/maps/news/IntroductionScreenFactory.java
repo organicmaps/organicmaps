@@ -9,15 +9,15 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
-import com.mapswithme.util.statistics.StatisticalNameProvider;
+import com.mapswithme.util.statistics.StatisticValueConverter;
 
-public enum IntroductionScreenFactory implements StatisticalNameProvider
+public enum IntroductionScreenFactory implements StatisticValueConverter<String>
 {
   FREE_GUIDE
       {
         @NonNull
         @Override
-        public String getStatisticalName()
+        public String toStatisticValue()
         {
           return "catalogue";
         }
@@ -66,7 +66,7 @@ public enum IntroductionScreenFactory implements StatisticalNameProvider
       {
         @NonNull
         @Override
-        public String getStatisticalName()
+        public String toStatisticValue()
         {
           return "guides_page";
         }
