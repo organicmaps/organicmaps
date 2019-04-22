@@ -51,7 +51,6 @@ public:
   void ResetFakes() { m_graph.ResetFakes(); }
 
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const;
-  std::string GetName(FeatureID const & featureId) const;
 
 private:
   routing::FeaturesRoadGraph m_graph;

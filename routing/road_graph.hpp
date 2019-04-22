@@ -299,7 +299,6 @@ public:
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;
-  virtual std::string GetName(FeatureID const & featureId) const = 0;
 
   /// @return Types for the specified edge
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;

@@ -206,19 +206,6 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
   types = feature::TypesHolder(*ft);
 }
 
-string FeaturesRoadGraph::GetName(FeatureID const & featureId) const
-{
-  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
-  auto ft = loader.GetFeatureByIndex(featureId.m_index);
-  if (!ft)
-    return string();
-
-  ASSERT_EQUAL(ft->GetFeatureType(), feature::GEOM_LINE, ());
-  string name;
-  ft->GetReadableName(name);
-  return name;
-}
-
 void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
 {
   types = feature::TypesHolder();

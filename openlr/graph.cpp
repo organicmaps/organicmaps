@@ -81,9 +81,4 @@ void Graph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & 
 {
   m_graph.GetFeatureTypes(featureId, types);
 }
-
-std::string Graph::GetName(FeatureID const & featureId) const
-{
-  return m_graph.GetName(featureId);
-}
 }  // namespace openlr

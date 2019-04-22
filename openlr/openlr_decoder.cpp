@@ -556,6 +556,7 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
     }
   };
 
+  base::Timer timer;
   vector<Stats> stats(numThreads);
   vector<thread> workers;
   for (size_t i = 1; i < numThreads; ++i)
@@ -570,5 +571,6 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
     allStats.Add(s);
 
   allStats.Report();
+  LOG(LINFO, ("Matching tool:", timer.ElapsedSeconds(), "seconds."));
 }
 }  // namespace openlr

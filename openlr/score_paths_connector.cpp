@@ -22,6 +22,72 @@ namespace openlr
 {
 namespace
 {
+class Uniformity
+{
+public:
+  struct Field
+  {
+    bool m_field = false;
+    bool m_isTheSame = true;
+  };
+
+  explicit Uniformity(Graph const & graph) : m_graph(graph) {}
+
+  void NextEdge(Graph::Edge const & edge)
+  {
+    CHECK(!edge.IsFake(), ());
+
+    feature::TypesHolder types;
+    m_graph.GetFeatureTypes(edge.GetFeatureId(), types);
+
+    if (m_minHwClass == ftypes::HighwayClass::Undefined)
+    {
+      m_minHwClass = ftypes::GetHighwayClass(types);
+      m_maxHwClass = m_minHwClass;
+      m_oneWay.m_field = ftypes::IsOneWayChecker::Instance()(types);
+      m_roundabout.m_field = ftypes::IsRoundAboutChecker::Instance()(types);
+      m_link.m_field = ftypes::IsLinkChecker::Instance()(types);
+    }
+    else
+    {
+      ftypes::HighwayClass const hwClass = ftypes::GetHighwayClass(types);
+      m_minHwClass = static_cast<ftypes::HighwayClass>(
+          min(static_cast<uint8_t>(m_minHwClass), static_cast<uint8_t>(hwClass)));
+      m_maxHwClass = static_cast<ftypes::HighwayClass>(
+          max(static_cast<uint8_t>(m_maxHwClass), static_cast<uint8_t>(hwClass)));
+
+      if (m_oneWay.m_isTheSame && m_oneWay.m_field != ftypes::IsOneWayChecker::Instance()(types))
+        m_oneWay.m_isTheSame = false;
+      if (m_roundabout.m_isTheSame && m_roundabout.m_field != ftypes::IsRoundAboutChecker::Instance()(types))
+        m_roundabout.m_isTheSame = false;
+      if (m_link.m_isTheSame && m_link.m_field != ftypes::IsLinkChecker::Instance()(types))
+        m_link.m_isTheSame = false;
+    }
+  }
+
+  uint8_t GetHighwayClassDiff() const
+  {
+    CHECK_NOT_EQUAL(m_minHwClass, ftypes::HighwayClass::Undefined, ());
+    CHECK_GREATER_OR_EQUAL(m_maxHwClass, m_minHwClass, ());
+
+    uint8_t const hwClassDiff = static_cast<uint8_t>(m_maxHwClass) - static_cast<uint8_t>(m_minHwClass);
+    return hwClassDiff;
+  }
+
+  bool IsOneWayTheSame() const { return m_oneWay.m_isTheSame; }
+  bool IsRoundaboutTheSame() const { return m_roundabout.m_isTheSame; }
+  bool IsLinkTheSame() const { return m_link.m_isTheSame; }
+
+private:
+  Graph const & m_graph;
+
+  ftypes::HighwayClass m_minHwClass = ftypes::HighwayClass::Undefined;
+  ftypes::HighwayClass m_maxHwClass = ftypes::HighwayClass::Undefined;
+  Field m_oneWay;
+  Field m_roundabout;
+  Field m_link;
+};
+
 /// \returns true if |path| may be used as a candidate. In that case |lenScore| is filled
 /// with score of this candidate based on length. The closer length of the |path| to
 /// |distanceToNextPoint| the more score.
@@ -180,8 +246,8 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
     if (u == to)
     {
       for (auto e = u; e != from; e = links[e])
-        path.push_back(e);
-      path.push_back(from);
+        path.emplace_back(e);
+      path.emplace_back(from);
       reverse(begin(path), end(path));
       return true;
     }
@@ -215,7 +281,6 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
                                                         FunctionalRoadClass lowestFrcToNextPoint,
                                                         double distanceToNextPoint,
                                                         Graph::EdgeVector & resultPath)
-
 {
   CHECK(!to.empty(), ());
 
@@ -228,7 +293,7 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
     return true;
   }
 
-  CHECK(from.back() != to.front(), ());
+  CHECK_NOT_EQUAL(from, to, ());
 
   Graph::EdgeVector shortestPath;
   auto const found =
@@ -248,57 +313,11 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
 
 Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
 {
-  ftypes::HighwayClass minHwClass = ftypes::HighwayClass::Undefined;
-  ftypes::HighwayClass maxHwClass = ftypes::HighwayClass::Undefined;
-  bool oneWay = false;
-  bool oneWayIsTheSame = true;
-  bool roundabout = false;
-  bool roundaboutIsTheSame = true;
-  bool link = false;
-  bool linkIsTheSame = true;
-  string name;
-  bool nameIsTheSame = true;
+  Uniformity uniformity(m_graph);
+  for (auto const & edge : path)
+    uniformity.NextEdge(edge);
 
-  for (auto const & p : path)
-  {
-    CHECK(!p.IsFake(), ());
-
-    feature::TypesHolder types;
-    m_graph.GetFeatureTypes(p.GetFeatureId(), types);
-
-    string name;
-    if (minHwClass == ftypes::HighwayClass::Undefined)
-    {
-      minHwClass = ftypes::GetHighwayClass(types);
-      maxHwClass = minHwClass;
-      oneWay = ftypes::IsOneWayChecker::Instance()(types);
-      roundabout = ftypes::IsRoundAboutChecker::Instance()(types);
-      link = ftypes::IsLinkChecker::Instance()(types);
-      name = m_graph.GetName(p.GetFeatureId());
-    }
-    else
-    {
-      ftypes::HighwayClass const hwClass = ftypes::GetHighwayClass(types);
-      minHwClass = static_cast<ftypes::HighwayClass>(
-          min(static_cast<uint8_t>(minHwClass), static_cast<uint8_t>(hwClass)));
-      maxHwClass = static_cast<ftypes::HighwayClass>(
-          max(static_cast<uint8_t>(maxHwClass), static_cast<uint8_t>(hwClass)));
-
-      if (oneWayIsTheSame && oneWay != ftypes::IsOneWayChecker::Instance()(types))
-        oneWayIsTheSame = false;
-      if (roundaboutIsTheSame && roundabout != ftypes::IsRoundAboutChecker::Instance()(types))
-        roundaboutIsTheSame = false;
-      if (linkIsTheSame && link != ftypes::IsLinkChecker::Instance()(types))
-        linkIsTheSame = false;
-      if (nameIsTheSame && name != m_graph.GetName(p.GetFeatureId()))
-        nameIsTheSame = false;
-    }
-  }
-  CHECK_NOT_EQUAL(minHwClass, ftypes::HighwayClass::Undefined, ());
-
-  uint8_t const hwClassDiff = static_cast<uint8_t>(maxHwClass) - static_cast<uint8_t>(minHwClass);
-  CHECK_GREATER_OR_EQUAL(hwClassDiff, 0, ());
-
+  auto const hwClassDiff = uniformity.GetHighwayClassDiff();
   Score constexpr kScoreForTheSameHwClass = 40;
   Score constexpr kScoreForNeighboringHwClasses = 15;
   Score const hwClassScore = hwClassDiff == 0
@@ -308,11 +327,9 @@ Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
   Score constexpr kScoreForOneWayOnly = 17;
   Score constexpr kScoreForRoundaboutOnly = 18;
   Score constexpr kScoreForLinkOnly = 10;
-  Score constexpr kScoreForTheSameName = 10;
-  Score const theSameTypeScore = (oneWayIsTheSame ? kScoreForOneWayOnly : 0) +
-                                 (roundaboutIsTheSame ? kScoreForRoundaboutOnly : 0) +
-                                 (linkIsTheSame ? kScoreForLinkOnly : 0) +
-                                 (nameIsTheSame && !name.empty() ? kScoreForTheSameName : 0);
+  Score const theSameTypeScore = (uniformity.IsOneWayTheSame() ? kScoreForOneWayOnly : 0) +
+                                 (uniformity.IsRoundaboutTheSame() ? kScoreForRoundaboutOnly : 0) +
+                                 (uniformity.IsLinkTheSame() ? kScoreForLinkOnly : 0);
 
   return hwClassScore + theSameTypeScore;
 }

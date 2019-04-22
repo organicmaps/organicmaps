@@ -41,7 +41,7 @@ struct ScoreEdge
 {
   ScoreEdge(Score score, Edge const & edge) : m_score(score), m_edge(edge) {}
 
-  Score m_score = 0;
+  Score m_score;
   Edge m_edge;
 };
 
@@ -51,7 +51,7 @@ struct ScorePath
 {
   ScorePath(Score score, EdgeVector && path) : m_score(score), m_path(move(path)) {}
 
-  Score m_score = 0;
+  Score m_score;
   EdgeVector m_path;
 };
 
