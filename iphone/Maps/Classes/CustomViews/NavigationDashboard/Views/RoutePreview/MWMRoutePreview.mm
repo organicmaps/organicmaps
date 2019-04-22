@@ -42,6 +42,31 @@ static CGFloat const kDrivingOptionsHeight = 48;
   [self setupProgresses];
   [self.backButton matchInterfaceOrientation];
   self.drivingOptionHeightConstraint.constant = -kDrivingOptionsHeight;
+  [self applyContentViewShadow];
+}
+
+- (void)applyContentViewShadow {
+  self.contentView.layer.shadowOffset = CGSizeZero;
+  self.contentView.layer.shadowRadius = 2.0;
+  self.contentView.layer.shadowOpacity = 0.7;
+  self.contentView.layer.shadowColor = UIColor.blackColor.CGColor;
+  [self resizeShadow];
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  [self.vehicle setNeedsLayout];
+  [self resizeShadow];
+}
+
+- (void)resizeShadow {
+  CGFloat shadowSize = 1.0;
+  CGRect contentFrame = self.contentView.bounds;
+  CGRect shadowFrame = CGRectMake(contentFrame.origin.x - shadowSize,
+                                  contentFrame.size.height,
+                                  contentFrame.size.width + (2 * shadowSize),
+                                  shadowSize);
+  self.contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect: shadowFrame].CGPath;
 }
 
 - (void)setupProgresses
@@ -157,12 +182,6 @@ static CGFloat const kDrivingOptionsHeight = 48;
 - (void)remove { self.isVisible = NO; }
 
 - (void)setupConstraints {}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  [self.vehicle setNeedsLayout];
-}
 
 - (void)setDrivingOptionsState:(MWMDrivingOptionsState)state {
   _drivingOptionsState = state;
