@@ -32,19 +32,17 @@ fi
 # Parameter $2 - style name (dark, light, clear, ...)
 # Parameter $3 - resource name (mdpi, hdpi, ...)
 # Parameter $4 - symbol size
-# Parameter $5 - does color correction required
-# Parameter $6 - style suffix (none, _dark, _clear)
-# Parameter $7 - symbols folder (symbols, symbols-ad)
-# Parameter $8 - symbols suffix (none, -ad)
+# Parameter $5 - style suffix (none, _dark, _clear)
+# Parameter $6 - symbols folder (symbols, symbols-ad)
+# Parameter $7 - symbols suffix (none, -ad)
 function BuildSkin() {
   styleType=$1
   styleName=$2
   resourceName=$3
   symbolSize=$4
-  colorCorrection=$5
-  suffix=$6
-  symbolsFolder=$7
-  symbolsSuffix=${8-}
+  suffix=$5
+  symbolsFolder=$6
+  symbolsSuffix=${7-}
 
   echo "Building skin for $styleName/$resourceName"
   # Set environment
@@ -52,15 +50,9 @@ function BuildSkin() {
   PNG_PATH="$STYLE_PATH/symbols$symbolsSuffix/png"
   rm -rf "$PNG_PATH" || true
   ln -s "$STYLE_PATH/$resourceName$symbolsSuffix" "$PNG_PATH"
-  # Run sking generator
-  if [ $colorCorrection = "true" ]; then
-    COLOR_CORR="--colorCorrection true"
-  else
-    COLOR_CORR=
-  fi
-
+  # Run skin generator
   "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
-      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix" $COLOR_CORR
+      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix"
   # Reset environment
   rm -r "$PNG_PATH" || true
 }
@@ -75,33 +67,33 @@ done
 
 # Build styles
 
-BuildSkin clear  night mdpi    18 false _dark symbols
-BuildSkin clear  night hdpi    27 false _dark symbols
-BuildSkin clear  night xhdpi   36 false _dark symbols
-BuildSkin clear  night xxhdpi  54 false _dark symbols
-BuildSkin clear  night 6plus   54 false _dark symbols
-BuildSkin clear  night xxxhdpi 64 false _dark symbols
+BuildSkin clear  night mdpi    18 _dark symbols
+BuildSkin clear  night hdpi    27 _dark symbols
+BuildSkin clear  night xhdpi   36 _dark symbols
+BuildSkin clear  night xxhdpi  54 _dark symbols
+BuildSkin clear  night 6plus   54 _dark symbols
+BuildSkin clear  night xxxhdpi 64 _dark symbols
 
-BuildSkin clear  clear mdpi    18 false _clear symbols
-BuildSkin clear  clear hdpi    27 false _clear symbols
-BuildSkin clear  clear xhdpi   36 false _clear symbols
-BuildSkin clear  clear xxhdpi  54 false _clear symbols
-BuildSkin clear  clear 6plus   54 false _clear symbols
-BuildSkin clear  clear xxxhdpi 64 false _clear symbols
+BuildSkin clear  clear mdpi    18 _clear symbols
+BuildSkin clear  clear hdpi    27 _clear symbols
+BuildSkin clear  clear xhdpi   36 _clear symbols
+BuildSkin clear  clear xxhdpi  54 _clear symbols
+BuildSkin clear  clear 6plus   54 _clear symbols
+BuildSkin clear  clear xxxhdpi 64 _clear symbols
 
-BuildSkin clear  night mdpi    22 false _dark symbols-ad -ad
-BuildSkin clear  night hdpi    34 false _dark symbols-ad -ad
-BuildSkin clear  night xhdpi   44 false _dark symbols-ad -ad
-BuildSkin clear  night xxhdpi  68 false _dark symbols-ad -ad
-BuildSkin clear  night 6plus   68 false _dark symbols-ad -ad
-BuildSkin clear  night xxxhdpi 78 false _dark symbols-ad -ad
+BuildSkin clear  night mdpi    22 _dark symbols-ad -ad
+BuildSkin clear  night hdpi    34 _dark symbols-ad -ad
+BuildSkin clear  night xhdpi   44 _dark symbols-ad -ad
+BuildSkin clear  night xxhdpi  68 _dark symbols-ad -ad
+BuildSkin clear  night 6plus   68 _dark symbols-ad -ad
+BuildSkin clear  night xxxhdpi 78 _dark symbols-ad -ad
 
-BuildSkin clear  clear mdpi    22 false _clear symbols-ad -ad
-BuildSkin clear  clear hdpi    34 false _clear symbols-ad -ad
-BuildSkin clear  clear xhdpi   44 false _clear symbols-ad -ad
-BuildSkin clear  clear xxhdpi  68 false _clear symbols-ad -ad
-BuildSkin clear  clear 6plus   68 false _clear symbols-ad -ad
-BuildSkin clear  clear xxxhdpi 78 false _clear symbols-ad -ad
+BuildSkin clear  clear mdpi    22 _clear symbols-ad -ad
+BuildSkin clear  clear hdpi    34 _clear symbols-ad -ad
+BuildSkin clear  clear xhdpi   44 _clear symbols-ad -ad
+BuildSkin clear  clear xxhdpi  68 _clear symbols-ad -ad
+BuildSkin clear  clear 6plus   68 _clear symbols-ad -ad
+BuildSkin clear  clear xxxhdpi 78 _clear symbols-ad -ad
 
 rm -rf "$OMIM_PATH"/data/resources-{*}
 

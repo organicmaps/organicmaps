@@ -54,8 +54,6 @@ public:
     m2::Packer m_packer;
   };
 
-  explicit SkinGenerator(bool needColorCorrection);
-
   void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
                       std::vector<QSize> const & symbolSizes,
                       std::vector<std::string> const & suffix);
@@ -63,7 +61,6 @@ public:
   bool WriteToFileNewStyle(std::string const & skinName);
 
 private:
-  bool m_needColorCorrection;
   QSvgRenderer m_svgRenderer;
   using TSkinPages = std::vector<SkinPageInfo>;
   TSkinPages m_pages;

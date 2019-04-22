@@ -25,7 +25,6 @@ DEFINE_string(searchCategories, "../../data/search-icons/categories-icons.txt", 
 DEFINE_string(searchIconsSrcPath, "../../data/search-icons/svg", "input path for search category icons");
 DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
-DEFINE_bool(colorCorrection, false, "apply color correction");
 DEFINE_int32(maxSize, 2048, "max width/height of output textures");
 
 int main(int argc, char *argv[])
@@ -41,7 +40,7 @@ int main(int argc, char *argv[])
     google::ParseCommandLineFlags(&argc, &argv, true);
     QApplication app(argc, argv);
 
-    tools::SkinGenerator gen(FLAGS_colorCorrection);
+    tools::SkinGenerator gen;
 
     std::vector<QSize> symbolSizes;
     symbolSizes.emplace_back(QSize(FLAGS_symbolWidth, FLAGS_symbolHeight));

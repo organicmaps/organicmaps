@@ -18,12 +18,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wc++11-narrowing"
 #endif
-#include <boost/gil/gil_all.hpp>
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-
-namespace gil = boost::gil;
 
 namespace tools
 {
@@ -68,29 +65,7 @@ uint32_t NextPowerOf2(uint32_t n)
 
   return n + 1;
 }
-
-void correctColors(gil::bgra8_image_t & image)
-{
-  gil::bgra8_view_t view = gil::view(image);
-  for (gil::bgra8_view_t::y_coord_t y = 0; y < view.height(); ++y)
-  {
-    for (gil::bgra8_view_t::x_coord_t x = 0; x < view.width(); ++x)
-    {
-      gil::bgra8_pixel_t pixel = view(x, y);
-      auto color = static_cast<unsigned char>(
-          base::clamp(0.07 * pixel[0] + 0.5 * pixel[1] + 0.22 * pixel[2], 0.0, 255.0));
-
-      view(x, y)[0] = color;
-      view(x, y)[1] = color;
-      view(x, y)[2] = color;
-    }
-  }
 }
-}
-
-SkinGenerator::SkinGenerator(bool needColorCorrection)
-  : m_needColorCorrection(needColorCorrection)
-{}
 
 void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
                                    std::string const & skinName,
@@ -205,9 +180,8 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
     }
     LOG(LINFO, ("Texture size =", page.m_width, "x", page.m_height));
 
-    gil::bgra8_image_t gilImage(page.m_width, page.m_height);
-    gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
-    QImage img((uchar*)&gil::view(gilImage)(0, 0), page.m_width, page.m_height, QImage::Format_ARGB32);
+    std::vector<uchar> imgData(page.m_width * page.m_height * 4, 0);
+    QImage img(imgData.data(), page.m_width, page.m_height, QImage::Format_ARGB32);
     QPainter painter(&img);
     painter.setClipping(true);
 
@@ -236,8 +210,6 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
 
     std::string s = page.m_fileName + ".png";
     LOG(LINFO, ("saving skin image into: ", s));
-    if (m_needColorCorrection)
-      correctColors(gilImage);
     img.save(s.c_str());
   }
 
