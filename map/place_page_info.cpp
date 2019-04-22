@@ -312,10 +312,7 @@ boost::optional<int> Info::GetRawApproximatePricing() const
 
 bool Info::HasBanner() const
 {
-  if (!m_adsEngine)
-    return false;
-
-  if (IsMyPosition())
+  if (!m_adsEngine || IsMyPosition() || IsRoadType())
     return false;
 
   return m_adsEngine->HasBanner(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
