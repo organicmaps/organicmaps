@@ -1,7 +1,6 @@
 #include "map/viewport_search_callback.hpp"
 
 #include "search/result.hpp"
-#include "search/utils.hpp"
 
 #include "base/assert.hpp"
 

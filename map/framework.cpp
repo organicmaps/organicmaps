@@ -313,6 +313,10 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
 {
+  // Drape engine may spuriously call OnViewportChanged. Filter out the calls that
+  // change the viewport from the drape engine's point of view but leave it almost
+  // the same from the point of view of the framework and all its subsystems such as search api.
+  // Additional filtering may be done by each subsystem.
   auto const isSameViewport = m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(),
                                           kMwmPointAccuracy, kMwmPointAccuracy);
   if (isSameViewport)

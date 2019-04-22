@@ -9,8 +9,6 @@
 #include "geometry/rect2d.hpp"
 
 #include <functional>
-#include <string>
-#include <vector>
 
 namespace search
 {

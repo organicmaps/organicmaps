@@ -40,8 +40,8 @@ using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 double const kDistEqualQueryMeters = 100.0;
 double const kDistEqualQueryMercator = MercatorBounds::MetersToMercator(kDistEqualQueryMeters);
 
-// 200 sqared kilometers.
-auto const kMaxAreaToLoadAllHotelsInViewport = 200000000.0;
+// 200 squared kilometers.
+double const kMaxAreaToLoadAllHotelsInViewport = 2e8;
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
