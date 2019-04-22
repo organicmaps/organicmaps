@@ -3,12 +3,10 @@ package com.mapswithme.maps.bookmarks;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseToolbarActivity;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public class BookmarksCatalogActivity extends BaseToolbarActivity
 {
@@ -30,11 +28,7 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
 
   public static void startByGuidesPageDeeplink(@NonNull Activity context, @NonNull String deeplink)
   {
-    String baseCatalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
-    String relativePath = Uri.parse(deeplink).getQueryParameter("url");
-    Uri.Builder builder = Uri.parse(baseCatalogUrl)
-                             .buildUpon().appendEncodedPath(relativePath);
-    BookmarksCatalogActivity.start(context, builder.toString());
+    BookmarksCatalogActivity.start(context, deeplink);
   }
 
   public static void start(@NonNull Activity context, @NonNull String catalogUrl)

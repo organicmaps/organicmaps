@@ -142,6 +142,15 @@ public class Factory
     return new MapsmeProcessor();
   }
 
+  @NonNull
+  private static String convertUrlToGuidesPageDeeplink(@NonNull String url)
+  {
+    String baseCatalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+    String relativePath = Uri.parse(url).getQueryParameter("url");
+    return Uri.parse(baseCatalogUrl)
+              .buildUpon().appendEncodedPath(relativePath).toString();
+  }
+
   private static abstract class LogIntentProcessor implements IntentProcessor
   {
     private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -702,8 +711,9 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      BookmarksCatalogActivity.startByGuidesPageDeeplink(target, getUrl());
-      return false;
+      String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
+      BookmarksCatalogActivity.startByGuidesPageDeeplink(target, deeplink);
+      return true;
     }
   }
 
@@ -736,7 +746,8 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.GUIDES_PAGE);
+      String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
+      target.showIntroductionScreenForDeeplink(deeplink, IntroductionScreenFactory.GUIDES_PAGE);
       return true;
     }
   }
