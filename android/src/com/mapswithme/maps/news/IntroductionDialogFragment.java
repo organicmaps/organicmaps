@@ -1,6 +1,7 @@
 package com.mapswithme.maps.news;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.statistics.Statistics;
 
 public class IntroductionDialogFragment extends BaseMwmDialogFragment
 {
@@ -26,6 +28,9 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     final IntroductionDialogFragment fragment = new IntroductionDialogFragment();
     fragment.setArguments(args);
     fragment.show(fm, IntroductionDialogFragment.class.getName());
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_SHOW,
+                                   Statistics.params().add(Statistics.EventParam.TYPE,
+                                                           factory.getStatisticalName()));
   }
 
   @NonNull
@@ -36,26 +41,48 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
 
     View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(content);
-    Bundle args = getArgumentsOrThrow();
-    int dataIndex = args.getInt(ARG_INTRODUCTION_FACTORY);
-    IntroductionScreenFactory data = IntroductionScreenFactory.values()[dataIndex];
+    IntroductionScreenFactory factory = getScreenFactory();
     TextView button = content.findViewById(R.id.btn__continue);
-    button.setText(data.getAction());
-    button.setOnClickListener(v -> {
-      String deepLink = args.getString(ARG_DEEPLINK);
-      if (TextUtils.isEmpty(deepLink))
-        throw new AssertionError("Deeplink must non-empty within introduction fragment!");
-      data.createButtonClickListener().onIntroductionButtonClick(requireActivity(), deepLink);
-      dismissAllowingStateLoss();
-    });
+    button.setText(factory.getAction());
+    button.setOnClickListener(v -> onAcceptClicked());
     ImageView image = content.findViewById(R.id.iv__image);
-    image.setImageResource(data.getImage());
+    image.setImageResource(factory.getImage());
     TextView title = content.findViewById(R.id.tv__title);
-    title.setText(data.getTitle());
+    title.setText(factory.getTitle());
     TextView subtitle = content.findViewById(R.id.tv__subtitle1);
-    subtitle.setText(data.getSubtitle());
+    subtitle.setText(factory.getSubtitle());
 
     return res;
+  }
+
+  @NonNull
+  private IntroductionScreenFactory getScreenFactory()
+  {
+    Bundle args = getArgumentsOrThrow();
+    int dataIndex = args.getInt(ARG_INTRODUCTION_FACTORY);
+    return IntroductionScreenFactory.values()[dataIndex];
+  }
+
+  private void onAcceptClicked()
+  {
+    String deepLink = getArgumentsOrThrow().getString(ARG_DEEPLINK);
+    if (TextUtils.isEmpty(deepLink))
+      throw new AssertionError("Deeplink must non-empty within introduction fragment!");
+    IntroductionScreenFactory factory = getScreenFactory();
+    factory.createButtonClickListener().onIntroductionButtonClick(requireActivity(), deepLink);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_ACCEPT,
+                                   Statistics.params().add(Statistics.EventParam.TYPE,
+                                                           factory.getStatisticalName()));
+    dismissAllowingStateLoss();
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_DECLINE,
+                                   Statistics.params().add(Statistics.EventParam.TYPE,
+                                                           getScreenFactory().getStatisticalName()));
   }
 
   @Override

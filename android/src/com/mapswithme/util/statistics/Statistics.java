@@ -438,6 +438,10 @@ public enum Statistics
     static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
     static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
 
+    public static final String ONBOARDING_DEEPLINK_SCREEN_SHOW = "OnboardingDeeplinkScreen_show";
+    public static final String ONBOARDING_DEEPLINK_SCREEN_ACCEPT = "OnboardingDeeplinkScreen_accept";
+    public static final String ONBOARDING_DEEPLINK_SCREEN_DECLINE = "OnboardingDeeplinkScreen_decline";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
