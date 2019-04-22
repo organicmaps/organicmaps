@@ -927,7 +927,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void toggleRouteSettings(@NonNull RoadType roadType)
   {
     mPlacePageController.close();
-    RoutingOptions.removeOption(roadType);
+    RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
   }
 
