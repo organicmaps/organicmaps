@@ -681,7 +681,7 @@ area|z15-[natural=cave_entrance]
 {icon-image: cave-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z17-[natural=cave_entrance],
 area|z17-[natural=cave_entrance]
-{icon-image: cave;text-offset: 1;font-size: 11;text-optional: true;}
+{icon-image: cave-m.svg;text-offset: 1;font-size: 11;text-optional: true;}
 
 node|z11[waterway=waterfall],
 area|z11[waterway=waterfall]
