@@ -406,9 +406,10 @@ public class RoutingController implements TaxiManager.TaxiListener
     Framework.nativeDeleteSavedRoutePoints();
   }
 
-  public void prepare()
+  public void rebuildLastRoute()
   {
     setState(State.NONE);
+    setBuildState(BuildState.NONE);
     prepare(getStartPoint(), getEndPoint(), false);
   }
 

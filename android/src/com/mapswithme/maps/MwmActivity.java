@@ -922,7 +922,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
-    RoutingController.get().prepare();
+    RoutingController.get().rebuildLastRoute();
   }
 
   @Override
