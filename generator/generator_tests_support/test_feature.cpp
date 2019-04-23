@@ -206,12 +206,12 @@ string TestVillage::ToDebugString() const
 
 // TestStreet --------------------------------------------------------------------------------------
 TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
-  : TestFeature(name, lang), m_points(points)
+  : TestFeature(name, lang), m_points(points), m_highwayType("living_street")
 {
 }
 
 TestStreet::TestStreet(vector<m2::PointD> const & points, StringUtf8Multilang const & name)
-  : TestFeature(name), m_points(points)
+  : TestFeature(name), m_points(points), m_highwayType("living_street")
 {
 }
 
@@ -220,7 +220,7 @@ void TestStreet::Serialize(FeatureBuilder1 & fb) const
   TestFeature::Serialize(fb);
 
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"highway", "living_street"}));
+  fb.SetType(classificator.GetTypeByPath({"highway", m_highwayType}));
 
   for (auto const & point : m_points)
     fb.AddPoint(point);

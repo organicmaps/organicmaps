@@ -1837,5 +1837,29 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNameLocaleTest)
     TEST(ResultsMatch("default 3", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
+{
+  string const countryName = "Wonderland";
+  string const streetName = "Октябрьский проспект";
+
+  // Distance between centers should be less than 5km.
+  TestStreet street1(vector<m2::PointD>{m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.01)},
+                     streetName, "ru");
+  street1.SetHighwayType("primary");
+  TestStreet street2(vector<m2::PointD>{m2::PointD(0.0, 0.01), m2::PointD(0.0, 0.02)},
+                     streetName, "ru");
+  street1.SetHighwayType("secondary");
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street1);
+    builder.Add(street2);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    TEST_EQUAL(GetResultsNumber(streetName, "ru"), 1, ());
+  }
+}
 }  // namespace
 }  // namespace search

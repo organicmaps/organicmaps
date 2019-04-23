@@ -64,6 +64,13 @@ bool SearchTest::ResultMatches(search::Result const & result, Rule const & rule)
   return tests_support::ResultMatches(m_dataSource, rule, result);
 }
 
+size_t SearchTest::GetResultsNumber(string const & query, string const & locale)
+{
+  tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
+  request.Run();
+  return request.Results().size();
+}
+
 unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
     string const & query, string const & locale /* = "en" */)
 {

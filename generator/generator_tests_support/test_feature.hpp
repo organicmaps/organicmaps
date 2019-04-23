@@ -122,12 +122,15 @@ public:
   TestStreet(std::vector<m2::PointD> const & points, std::string const & name, std::string const & lang);
   TestStreet(std::vector<m2::PointD> const & points, StringUtf8Multilang const & name);
 
+  void SetHighwayType(std::string const & type) { m_highwayType = type; }
+
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
   std::string ToDebugString() const override;
 
 private:
   std::vector<m2::PointD> m_points;
+  std::string m_highwayType;
 };
 
 class TestSquare : public TestFeature
