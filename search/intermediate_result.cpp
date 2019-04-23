@@ -146,7 +146,16 @@ bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, u
 
 bool RankerResult::IsEqualCommon(RankerResult const & r) const
 {
-  return m_geomType == r.m_geomType && GetBestType() == r.GetBestType() && m_str == r.m_str;
+  if ((m_geomType != r.m_geomType) || (m_str != r.m_str))
+    return false;
+
+  auto const bestType = GetBestType();
+  auto const rBestType = r.GetBestType();
+  if (bestType == rBestType)
+    return true;
+
+  auto const & checker = ftypes::IsWayChecker::Instance();
+  return checker(bestType) && checker(rBestType);
 }
 
 bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSuburbChecker::Instance()(m_types); }
