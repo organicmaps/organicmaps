@@ -1980,6 +1980,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBuiltRoute()
   {
+    if (mRoutingPlanInplaceController != null)
+      mRoutingPlanInplaceController.hideDrivingOptionsView();
+
     if (!RoutingController.get().isPlanning())
       return;
 
