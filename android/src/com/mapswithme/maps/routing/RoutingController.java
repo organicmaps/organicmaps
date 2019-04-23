@@ -87,6 +87,7 @@ public class RoutingController implements TaxiManager.TaxiListener
      * @param progress progress to be displayed.
      * */
     void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router);
+    void onStartRouteBuilding();
   }
 
   private static final int NO_WAITING_POI_PICK = -1;
@@ -337,6 +338,9 @@ public class RoutingController implements TaxiManager.TaxiListener
     }
 
     setBuildState(BuildState.BUILDING);
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
+
     updatePlan();
 
     Statistics.INSTANCE.trackRouteBuild(mLastRouterType, getStartPoint(), getEndPoint());
