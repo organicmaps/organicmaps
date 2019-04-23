@@ -427,6 +427,9 @@ public:
   vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
   MwmSet::MwmId GetMwmIdByName(string const & name) const;
 
+  // Use only for debug purposes!
+  vector<FeatureID> FindFeaturesByIndex(uint32_t featureIndex) const;
+
   void ReadFeatures(function<void(FeatureType &)> const & reader,
                     vector<FeatureID> const & features);
 
