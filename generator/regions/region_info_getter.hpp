@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/geo_objects/key_value_storage.hpp"
+#include "generator/key_value_storage.hpp"
 
 #include "indexer/borders.hpp"
 #include "indexer/locality_index.hpp"
@@ -20,7 +20,7 @@
 
 namespace generator
 {
-namespace geo_objects
+namespace regions
 {
 class RegionInfoGetter
 {
@@ -47,5 +47,5 @@ private:
   indexer::Borders m_borders;
   KeyValueStorage m_storage;
 };
-}  // namespace geo_objects
+}  // namespace regions
 }  // namespace generator

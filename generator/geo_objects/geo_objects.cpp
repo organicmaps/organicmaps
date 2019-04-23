@@ -4,11 +4,10 @@
 #include "generator/feature_generator.hpp"
 #include "generator/geo_objects/geo_object_info_getter.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
-#include "generator/geo_objects/key_value_storage.hpp"
-#include "generator/geo_objects/region_info_getter.hpp"
-#include "generator/geo_objects/streets_builder.hpp"
+#include "generator/key_value_storage.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
+#include "generator/regions/region_info_getter.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -136,7 +135,7 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 
 void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjectsTmpMwm,
                                             std::string_view const & includeCountries,
-                                            RegionInfoGetter const & regionInfoGetter)
+                                            regions::RegionInfoGetter const & regionInfoGetter)
 {
   auto const path = Platform().TmpPathForFile();
   feature::FeaturesCollector collector(path);
@@ -168,13 +167,13 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     LOG(LERROR, ("Error: Cannot rename", path, "to", pathInGeoObjectsTmpMwm));
 }
 
-void BuildGeoObjectsWithAddresses(RegionInfoGetter const & regionInfoGetter,
+void BuildGeoObjectsWithAddresses(regions::RegionInfoGetter const & regionInfoGetter,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   std::ostream & streamGeoObjectsKv, bool)
 {
   size_t countGeoObjects = 0;
   auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (!(GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb)))
+    if (!GeoObjectsFilter::IsBuilding(fb) && !GeoObjectsFilter::HasHouse(fb))
       return;
 
     auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
@@ -200,7 +199,7 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
   auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsPoi(fb))
       return;
-    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb) || GeoObjectsFilter::IsStreet(fb))
+    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
       return;
 
     auto const house = FindHousePoi(fb, geoObjectInfoGetter);
@@ -217,14 +216,6 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
   LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
 }
-
-void BuildStreets(RegionInfoGetter const & regionInfoGetter,
-                  std::string const & pathInGeoObjectsTmpMwm,
-                  std::ostream & streamGeoObjectsKv, bool /* verbose */)
-{
-  StreetsBuilder streetsBuilder{regionInfoGetter};
-  streetsBuilder.Build(pathInGeoObjectsTmpMwm, streamGeoObjectsKv);
-}
 }  // namespace
 
 bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
@@ -240,7 +231,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
     LOG(LINFO, ("Finish generating geo objects.", timer.ElapsedSeconds(), "seconds."));
   });
 
-  RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
+  regions::RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
   LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
 
   if (allowAddresslessForCountries != "*")
@@ -255,8 +246,6 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
                                          pathInGeoObjectsTmpMwm);
 
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
-  BuildStreets(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
-  LOG(LINFO, ("Streets were built."));
 
   BuildGeoObjectsWithAddresses(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));

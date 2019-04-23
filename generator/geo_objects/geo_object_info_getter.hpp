@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/geo_objects/key_value_storage.hpp"
+#include "generator/key_value_storage.hpp"
 
 #include "indexer/locality_index.hpp"
 

@@ -1,4 +1,4 @@
-#include "generator/geo_objects/region_info_getter.hpp"
+#include "generator/regions/region_info_getter.hpp"
 
 #include "coding/mmap_reader.hpp"
 
@@ -6,7 +6,7 @@
 
 namespace generator
 {
-namespace geo_objects
+namespace regions
 {
 RegionInfoGetter::RegionInfoGetter(std::string const & indexPath, std::string const & kvPath)
     : m_index{indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(indexPath)}
@@ -84,7 +84,7 @@ int RegionInfoGetter::GetRank(base::Json const & json) const
 boost::optional<uint64_t> RegionInfoGetter::GetPid(base::Json const & json) const
 {
   auto && properties = base::GetJSONObligatoryField(json.get(), "properties");
-  auto && pid = base::GetJSONOptionalField(json.get(), "pid");
+  auto && pid = base::GetJSONOptionalField(properties, "pid");
   if (!pid || base::JSONIsNull(pid))
     return {};
   return static_cast<uint64_t>(FromJSON<int64_t>(pid));
@@ -94,5 +94,5 @@ KeyValueStorage const & RegionInfoGetter::GetStorage() const noexcept
 {
   return m_storage;
 }
-}  // namespace geo_objects
+}  // namespace regions
 }  // namespace generator

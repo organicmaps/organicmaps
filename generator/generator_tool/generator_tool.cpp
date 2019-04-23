@@ -27,6 +27,7 @@
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
+#include "generator/streets/streets.hpp"
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
@@ -113,6 +114,8 @@ DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(generate_region_features, false,
             "Generate intermediate features for regions to use in regions index and borders generation.");
+DEFINE_bool(generate_streets_features, false,
+            "Generate intermediate features for streets to use in server-side forward geocoder.");
 DEFINE_bool(generate_geo_objects_features, false,
             "Generate intermediate features for geo objects to use in geo objects index.");
 DEFINE_bool(generate_geometry, false,
@@ -196,6 +199,8 @@ DEFINE_bool(generate_traffic_keys, false,
 // Generating geo objects key-value.
 DEFINE_string(regions_index, "", "Input regions index file.");
 DEFINE_string(regions_key_value, "", "Input regions key-value file.");
+DEFINE_string(streets_features, "", "Input tmp.mwm file with streets.");
+DEFINE_string(streets_key_value, "", "Output streets key-value file.");
 DEFINE_string(geo_objects_features, "", "Input tmp.mwm file with geo objects.");
 DEFINE_string(ids_without_addresses, "", "Output file with objects ids without addresses.");
 DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
@@ -293,6 +298,7 @@ int GeneratorToolMain(int argc, char ** argv)
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_city_roads || FLAGS_generate_maxspeed || FLAGS_generate_traffic_keys ||
       FLAGS_transit_path != "" || FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" ||
+      FLAGS_generate_streets_features || FLAGS_streets_key_value != "" ||
       FLAGS_generate_geo_objects_features || FLAGS_geo_objects_key_value != "" ||
       FLAGS_dump_wikipedia_urls != "" || FLAGS_wikipedia_pages != "" || FLAGS_popularity_csv != "")
   {
@@ -361,12 +367,15 @@ int GeneratorToolMain(int argc, char ** argv)
       }
     }
   }
-  else if (FLAGS_generate_region_features || FLAGS_generate_geo_objects_features)
+  else if (FLAGS_generate_region_features || FLAGS_generate_streets_features ||
+           FLAGS_generate_geo_objects_features)
   {
     CHECK(!FLAGS_generate_features && !FLAGS_make_coasts,
           ("FLAGS_generate_features and FLAGS_make_coasts should "
            "not be used with FLAGS_generate_region_features"));
-    CHECK(!(FLAGS_generate_region_features && FLAGS_generate_geo_objects_features), ());
+    CHECK((FLAGS_generate_region_features + FLAGS_generate_streets_features +
+           FLAGS_generate_geo_objects_features) == 1,
+          ("At most one features generation option is allowed simultaneously"));
 
     genInfo.m_fileName = FLAGS_output;
 
@@ -378,6 +387,12 @@ int GeneratorToolMain(int argc, char ** argv)
       translators.Append(CreateTranslator(TranslatorType::Regions, emitter, cacheLoader.GetCache(), genInfo));
     }
 
+    if (FLAGS_generate_streets_features)
+    {
+      auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
+      translators.Append(CreateTranslator(TranslatorType::Streets, emitter, cacheLoader.GetCache()));
+    }
+
     if (FLAGS_generate_geo_objects_features)
     {
       auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
@@ -386,6 +401,13 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (!GenerateRaw(genInfo, translators))
       return EXIT_FAILURE;
+  }
+
+  if (!FLAGS_streets_key_value.empty())
+  {
+    streets::GenerateStreets(FLAGS_regions_index, FLAGS_regions_key_value,
+                             FLAGS_streets_features, FLAGS_geo_objects_features,
+                             FLAGS_streets_key_value, FLAGS_verbose);
   }
 
   if (!FLAGS_geo_objects_key_value.empty())

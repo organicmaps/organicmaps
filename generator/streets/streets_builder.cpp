@@ -1,4 +1,4 @@
-#include "generator/geo_objects/streets_builder.hpp"
+#include "generator/streets/streets_builder.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -11,38 +11,38 @@
 
 namespace generator
 {
-namespace geo_objects
+namespace streets
 {
-StreetsBuilder::StreetsBuilder(RegionInfoGetter const & regionInfoGetter)
+StreetsBuilder::StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter)
     : m_regionInfoGetter{regionInfoGetter}
 { }
 
-void StreetsBuilder::Build(std::string const & pathInGeoObjectsTmpMwm, std::ostream & streamGeoObjectsKv)
+void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
 {
-  auto const transform = [this, &streamGeoObjectsKv](FeatureBuilder1 & fb, uint64_t /* currPos */) {
-    if (IsStreet(fb))
-    {
-      AddStreet(fb);
-      return;
-    }
+  auto const transform = [this](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+    AddStreet(fb);
+  };
+  feature::ForEachFromDatRawFormat(pathInStreetsTmpMwm, transform);
+}
 
+void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm)
+{
+  auto const transform = [this](FeatureBuilder1 & fb, uint64_t /* currPos */) {
     auto streetName = fb.GetParams().GetStreet();
     if (!streetName.empty())
       AddStreetBinding(std::move(streetName), fb);
   };
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, transform);
-
-  SaveStreetGeoObjects(streamGeoObjectsKv);
 }
 
-void StreetsBuilder::SaveStreetGeoObjects(std::ostream & streamGeoObjectsKv)
+void StreetsBuilder::SaveStreetsKv(std::ostream & streamStreetsKv)
 {
   for (auto const & region : m_regions)
-    SaveRegionStreetGeoObjects(streamGeoObjectsKv, region.first, region.second);
+    SaveRegionStreetsKv(streamStreetsKv, region.first, region.second);
 }
 
-void StreetsBuilder::SaveRegionStreetGeoObjects(std::ostream & streamGeoObjectsKv, uint64_t regionId,
-                                                RegionStreets const & streets)
+void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
+                                         RegionStreets const & streets)
 {
   auto const & regionsStorage = m_regionInfoGetter.GetStorage();
   auto const && regionObject = regionsStorage.Find(regionId);
@@ -56,7 +56,7 @@ void StreetsBuilder::SaveRegionStreetGeoObjects(std::ostream & streamGeoObjectsK
 
     auto const id = static_cast<int64_t>(streetId.GetEncodedId());
     auto const value = MakeStreetValue(regionId, *regionObject, street.first);
-    streamGeoObjectsKv << id << " " << value.get() << "\n";
+    streamStreetsKv << id << " " << value.get() << "\n";
   }
 }
 
@@ -192,5 +192,5 @@ bool StreetsBuilder::IsStreet(FeatureBuilder1 const & fb)
 
   return false;
 }
-}  // namespace geo_objects
+}  // namespace streets
 }  // namespace generator

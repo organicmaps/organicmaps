@@ -3,6 +3,7 @@
 #include "generator/factory_utils.hpp"
 #include "generator/translator_coastline.hpp"
 #include "generator/translator_country.hpp"
+#include "generator/translator_streets.hpp"
 #include "generator/translator_geo_objects.hpp"
 #include "generator/translator_interface.hpp"
 #include "generator/translator_region.hpp"
@@ -18,6 +19,7 @@ namespace generator
 enum class TranslatorType
 {
   Regions,
+  Streets,
   GeoObjects,
   Country,
   Coastline,
@@ -35,6 +37,8 @@ std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args&
     return create<TranslatorCountry>(std::forward<Args>(args)...);
   case TranslatorType::Regions:
     return create<TranslatorRegion>(std::forward<Args>(args)...);
+  case TranslatorType::Streets:
+    return create<TranslatorStreets>(std::forward<Args>(args)...);
   case TranslatorType::GeoObjects:
     return create<TranslatorGeoObjects>(std::forward<Args>(args)...);
   case TranslatorType::World:

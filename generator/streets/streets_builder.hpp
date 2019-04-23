@@ -1,9 +1,9 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
-#include "generator/geo_objects/key_value_storage.hpp"
-#include "generator/geo_objects/region_info_getter.hpp"
+#include "generator/key_value_storage.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/regions/region_info_getter.hpp"
 
 #include "coding/reader.hpp"
 
@@ -21,14 +21,16 @@
 
 namespace generator
 {
-namespace geo_objects
+namespace streets
 {
 class StreetsBuilder
 {
 public:
-  StreetsBuilder(RegionInfoGetter const & regionInfoGetter);
+  explicit StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter);
 
-  void Build(std::string const & pathInGeoObjectsTmpMwm, std::ostream & streamGeoObjectsKv);
+  void AssembleStreets(std::string const & pathInStreetsTmpMwm);
+  void AssembleBindings(std::string const & pathInGeoObjectsTmpMwm);
+  void SaveStreetsKv(std::ostream & streamStreetsKv);
 
   static bool IsStreet(OsmElement const & element);
   static bool IsStreet(FeatureBuilder1 const & fb);
@@ -36,9 +38,8 @@ public:
 private:
   using RegionStreets = std::unordered_map<std::string, base::GeoObjectId>;
 
-  void SaveStreetGeoObjects(std::ostream & streamGeoObjectsKv);
-  void SaveRegionStreetGeoObjects(std::ostream & streamGeoObjectsKv, uint64_t regionId,
-                                  RegionStreets const & streets);
+  void SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
+                           RegionStreets const & streets);
 
   void AddStreet(FeatureBuilder1 & fb);
   void AddStreetBinding(std::string && streetName, FeatureBuilder1 & fb);
@@ -51,8 +52,8 @@ private:
   base::GeoObjectId NextOsmSurrogateId();
 
   std::unordered_map<uint64_t, RegionStreets> m_regions;
-  RegionInfoGetter const & m_regionInfoGetter;
+  regions::RegionInfoGetter const & m_regionInfoGetter;
   uint64_t m_osmSurrogateCounter{0};
 };
-}  // namespace geo_objects
+}  // namespace streets
 }  // namespace generator

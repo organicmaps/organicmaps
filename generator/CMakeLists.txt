@@ -96,17 +96,13 @@ set(SRC
   geo_objects/geo_object_info_getter.hpp
   geo_objects/geo_objects_filter.cpp
   geo_objects/geo_objects_filter.hpp
-  geo_objects/key_value_storage.cpp
-  geo_objects/key_value_storage.hpp
-  geo_objects/region_info_getter.cpp
-  geo_objects/region_info_getter.hpp
-  geo_objects/streets_builder.cpp
-  geo_objects/streets_builder.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
   intermediate_data.hpp
   intermediate_elements.hpp
+  key_value_storage.cpp
+  key_value_storage.hpp
   locality_sorter.cpp
   locality_sorter.hpp
   maxspeeds_builder.cpp
@@ -163,6 +159,8 @@ set(SRC
   regions/region_base.hpp
   regions/region_info.cpp
   regions/region_info.hpp
+  regions/region_info_getter.cpp
+  regions/region_info_getter.hpp
   regions/regions.cpp
   regions/regions.hpp
   regions/regions_builder.cpp
@@ -195,6 +193,12 @@ set(SRC
   srtm_parser.hpp
   statistics.cpp
   statistics.hpp
+  streets/streets.cpp
+  streets/streets.hpp
+  streets/streets_builder.cpp
+  streets/streets_builder.hpp
+  streets/streets_filter.cpp
+  streets/streets_filter.hpp
   tag_admixer.hpp
   tesselator.cpp
   tesselator.hpp
@@ -218,6 +222,8 @@ set(SRC
   translator_interface.hpp
   translator_region.cpp
   translator_region.hpp
+  translator_streets.cpp
+  translator_streets.hpp
   translator_world.cpp
   translator_world.hpp
   type_helper.cpp

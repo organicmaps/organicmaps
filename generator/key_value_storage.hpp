@@ -13,8 +13,6 @@
 
 namespace generator
 {
-namespace geo_objects
-{
 using KeyValue = std::pair<uint64_t, base::Json>;
 
 class KeyValueStorage
@@ -38,5 +36,4 @@ private:
 
   std::unordered_map<uint64_t, base::Json> m_values;
 };
-}  // namespace geo_objects
 }  // namespace generator

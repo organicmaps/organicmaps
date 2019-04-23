@@ -1,4 +1,4 @@
-#include "generator/geo_objects/key_value_storage.hpp"
+#include "generator/key_value_storage.hpp"
 
 #include "coding/reader.hpp"
 
@@ -6,8 +6,6 @@
 #include "base/logging.hpp"
 
 namespace generator
-{
-namespace geo_objects
 {
 KeyValueStorage::KeyValueStorage(std::string const & path,
                                  std::function<bool(KeyValue const &)> const & pred)
@@ -77,5 +75,4 @@ size_t KeyValueStorage::Size() const
 {
   return m_values.size();
 }
-}  // namespace geo_objects
 }  // namespace generator
