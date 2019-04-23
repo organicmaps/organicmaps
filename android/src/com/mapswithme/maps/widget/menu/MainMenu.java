@@ -1,7 +1,6 @@
 package com.mapswithme.maps.widget.menu;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
@@ -422,6 +422,15 @@ public class MainMenu extends BaseMenu
 
   public void showLineFrame(boolean show)
   {
-    UiUtils.showIf(show, mFrame);
+    if (show)
+    {
+      UiUtils.hide(mFrame);
+      Animations.appearSliding(mFrame, Animations.BOTTOM, null);
+    }
+    else
+    {
+      UiUtils.show(mFrame);
+      Animations.disappearSliding(mFrame, Animations.BOTTOM, null);
+    }
   }
 }
