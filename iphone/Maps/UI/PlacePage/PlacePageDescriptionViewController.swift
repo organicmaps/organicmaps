@@ -12,8 +12,17 @@ final class PlacePageDescriptionViewController: WebViewController {
   }
   
   override func configuredHtml(withText htmlText: String) -> String {
-    var html = htmlText.replacingOccurrences(of: "<body>", with: "<body><font face=\"helvetica\" size=\"14pt\">")
-    html = html.replacingOccurrences(of: "</body>", with: "<p><b>wikipedia.org</b></p></font></body>")
+    let scale = UIScreen.main.scale
+    let styleTags = """
+      <head>
+      <style type=\"text/css\">
+        body{font-family:'-apple-system','HelveticaNeue'; font-size:\(14 * scale); line-height:1.5em;}
+      </style>
+      </head>
+      <body>
+    """
+    var html = htmlText.replacingOccurrences(of: "<body>", with: styleTags)
+    html = html.replacingOccurrences(of: "</body>", with: "<p><b>wikipedia.org</b></p></body>")
     return html
   }
 

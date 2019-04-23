@@ -13,6 +13,13 @@ extension NSAttributedString {
 }
 
 extension NSMutableAttributedString {
+  @objc convenience init?(htmlString: String, baseFont: UIFont, paragraphStyle: NSParagraphStyle?) {
+    self.init(htmlString: htmlString, baseFont: baseFont)
+    if let paragraphStyle = paragraphStyle {
+      addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, length))
+    }
+  }
+  
   @objc convenience init?(htmlString: String, baseFont: UIFont) {
     guard let data = htmlString.data(using: .utf8) else { return nil }
 
