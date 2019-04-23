@@ -509,7 +509,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
     return {};
 
   url::Params p = {{"&ss=", urlEncodedParams}};
-  return url::Make(AppendAidAndLabel(kSearchBaseUrl, "ppReviews"), p);
+  return url::Make(AppendAidAndLabel(kSearchBaseUrl, "ppActionButton"), p);
 }
 
 string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params) const
