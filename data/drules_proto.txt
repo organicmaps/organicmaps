@@ -38519,6 +38519,7 @@ cont {
   element {
     scale: 17
     symbol {
+      name: "cave-m"
       priority: 16443
     }
     caption {
@@ -38534,6 +38535,7 @@ cont {
   element {
     scale: 18
     symbol {
+      name: "cave-m"
       priority: 16443
     }
     caption {
@@ -38549,6 +38551,7 @@ cont {
   element {
     scale: 19
     symbol {
+      name: "cave-m"
       priority: 16443
     }
     caption {
