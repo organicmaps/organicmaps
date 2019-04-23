@@ -227,14 +227,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onSynchronizationFinished:)])
-        [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(base::Key(result))];
+        [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(base::Underlying(result))];
     }];
   };
   
   auto onRestoreRequested = [self](Cloud::RestoringRequestResult result, std::string const & deviceName,
                                uint64_t backupTimestampInMs)
   {
-    auto const res = static_cast<MWMRestoringRequestResult>(base::Key(result));
+    auto const res = static_cast<MWMRestoringRequestResult>(base::Underlying(result));
     NSDate * date = nil;
 
     if (result == Cloud::RestoringRequestResult::BackupExists)

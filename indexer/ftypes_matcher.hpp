@@ -287,7 +287,7 @@ public:
 
   using UnderlyingType = std::underlying_type_t<Type>;
 
-  static_assert(base::Key(Type::Count) <= CHAR_BIT * sizeof(unsigned),
+  static_assert(base::Underlying(Type::Count) <= CHAR_BIT * sizeof(unsigned),
                 "Too many types of hotels");
 
   static char const * GetHotelTypeTag(Type type);
@@ -300,7 +300,7 @@ public:
 private:
   IsHotelChecker();
 
-  std::array<std::pair<uint32_t, Type>, base::Key(Type::Count)> m_sortedTypes;
+  std::array<std::pair<uint32_t, Type>, base::Underlying(Type::Count)> m_sortedTypes;
 };
 
 // WiFi is a type in classificator.txt,
@@ -336,7 +336,7 @@ public:
 private:
   IsEatChecker();
 
-  std::array<std::pair<uint32_t, Type>, base::Key(Type::Count)> m_sortedTypes;
+  std::array<std::pair<uint32_t, Type>, base::Underlying(Type::Count)> m_sortedTypes;
 };
 
 class IsCuisineChecker : public BaseChecker

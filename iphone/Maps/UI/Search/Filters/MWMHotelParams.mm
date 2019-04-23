@@ -17,7 +17,7 @@ static int8_t kAgeOfChild = 5;
     {
       if (auto const price = data.hotelRawApproximatePricing)
       {
-        CHECK_LESS_OR_EQUAL(*price, base::Key(Price::Three), ());
+        CHECK_LESS_OR_EQUAL(*price, base::Underlying(Price::Three), ());
         _price = static_cast<Price>(*price);
       }
       

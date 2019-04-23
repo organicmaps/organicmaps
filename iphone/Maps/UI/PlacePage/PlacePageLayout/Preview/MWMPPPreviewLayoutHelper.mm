@@ -187,7 +187,7 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
   using namespace place_page;
   auto tableView = self.tableView;
   auto const row = data.previewRows[indexPath.row];
-  Class cls = kPreviewCells[base::Key(row)];
+  Class cls = kPreviewCells[base::Underlying(row)];
 
   auto * c = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   switch(row)
