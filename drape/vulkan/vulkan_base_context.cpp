@@ -207,9 +207,10 @@ bool VulkanBaseContext::BeginRendering()
 
   m_frameCounter++;
 
-  // Here we also wait no longer than kTimeoutNanoseconds. In this case we have to
-  // recreate synchronization primitives, because one of fences can be reset.
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, kTimeoutNanoseconds,
+  // FIXME: Infinite timeouts are not supported on Android for vkAcquireNextImageKHR.
+  // "vkAcquireNextImageKHR: non-infinite timeouts not yet implemented"
+  // https://android.googlesource.com/platform/frameworks/native/+/refs/heads/master/vulkan/libvulkan/swapchain.cpp
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, std::numeric_limits<uint64_t>::max() /* kTimeoutNanoseconds */,
                               m_acquireSemaphores[m_inflightFrameIndex],
                               VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_TIMEOUT)
