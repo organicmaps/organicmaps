@@ -408,6 +408,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void prepare()
   {
+    setState(State.NONE);
     prepare(getStartPoint(), getEndPoint(), false);
   }
 
