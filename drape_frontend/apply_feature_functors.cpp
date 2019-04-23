@@ -595,11 +595,14 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
                                                            : SpecialDisplacement::None;
     params.m_specialPriority = specialModePriority;
 
-    m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* text index */));
-
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(params.m_symbolName, region);
     symbolSize = region.GetPixelSize();
+
+    if (region.IsValid())
+      m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* text index */));
+    else
+      LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_id));
   }
 
   for (auto textParams : m_textParams)

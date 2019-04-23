@@ -236,6 +236,8 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
     {
       auto const it = bindings.find(texture.first);
       CHECK(it != bindings.end(), ("Texture bindings inconsistency."));
+      CHECK(texture.second != nullptr, ("Texture must be set for Vulkan rendering",
+                                        texture.first, p->GetName()));
 
       ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
       if (t == nullptr)
