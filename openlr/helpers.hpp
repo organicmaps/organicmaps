@@ -47,9 +47,9 @@ std::common_type_t<T, U> AbsDifference(T const a, U const b)
   return a >= b ? a - b : b - a;
 }
 
-bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay fow,
+bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
                        int frcThreshold, RoadInfoGetter & infoGetter);
-bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay fow,
+bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
                          RoadInfoGetter & infoGetter, Score & score);
 
 /// \returns true if edge |e| conforms Lowest Functional Road Class to Next Point.
@@ -62,7 +62,7 @@ bool ConformLfrcnpV3(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextP
 
 size_t IntersectionLen(Graph::EdgeVector a, Graph::EdgeVector b);
 
-bool PrefEqualsSuff(Graph::EdgeVector const & a, Graph::EdgeVector const & b, size_t len);
+bool SuffixEqualsPrefix(Graph::EdgeVector const & a, Graph::EdgeVector const & b, size_t len);
 
 // Returns a length of the longest suffix of |a| that matches any prefix of |b|.
 // Neither |a| nor |b| can contain several repetitions of any edge.

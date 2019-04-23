@@ -30,7 +30,7 @@ double const kRadius = 30.0;
 namespace openlr
 {
 void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p, bool isLastPoint,
-                                                            ScoreEdgeVec & EdgeCandidates)
+                                                            ScoreEdgeVec & edgeCandidates)
 {
   ScorePointVec pointCandidates;
   auto const selectCandidates = [&p, &pointCandidates, this](FeatureType & ft) {
@@ -61,12 +61,12 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
       m_graph.GetIngoingEdges(Junction(pc.m_point, 0 /* altitude */), edges);
 
     for (auto const & e : edges)
-      EdgeCandidates.emplace_back(pc.m_score, e);
+      edgeCandidates.emplace_back(pc.m_score, e);
   }
 }
 
 void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,
-                                                            ScoreEdgeVec & EdgeCandidates)
+                                                            ScoreEdgeVec & edgeCandidates)
 {
   m_graph.ResetFakes();
 
@@ -83,7 +83,7 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
     if (MercatorBounds::DistanceOnEarth(p, proj.GetPoint()) >= kRadius)
       continue;
 
-    EdgeCandidates.emplace_back(GetScoreByDistance(p, proj.GetPoint()), edge);
+    edgeCandidates.emplace_back(GetScoreByDistance(p, proj.GetPoint()), edge);
   }
 }
 

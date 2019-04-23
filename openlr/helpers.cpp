@@ -11,6 +11,8 @@
 #include <string>
 #include <type_traits>
 
+#include "boost/optional.hpp"
+
 namespace
 {
 using namespace openlr;
@@ -30,54 +32,51 @@ openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayCla
   }
 }
 
-/// \returns true if edge |e| conforms |functionalRoadClass| and false otherwise.
-/// \param score If returns true |score| are filled with an appropriate score.
-bool ConformFrc(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
-                RoadInfoGetter & infoGetter, Score & score)
+/// \returns boost::none if |e| doesn't conform to |functionalRoadClass| and score otherwise.
+boost::optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
+                                   RoadInfoGetter & infoGetter)
 {
   CHECK(!e.IsFake(), ());
   Score constexpr kMaxScoreForFrc = 25;
-  score = 0;
 
   if (functionalRoadClass == FunctionalRoadClass::NotAValue)
-    return false;
+    return boost::none;
 
   auto const hwClass = infoGetter.Get(e.GetFeatureId()).m_hwClass;
 
   switch (functionalRoadClass)
   {
   case FunctionalRoadClass::FRC0:
-    score = kMaxScoreForFrc;
-    // Note. HighwayClass::Trunk means mororway, motorway_link, trunk or trunk_link.
-    return hwClass == ftypes::HighwayClass::Trunk;
+    // Note. HighwayClass::Trunk means motorway, motorway_link, trunk or trunk_link.
+    return hwClass == ftypes::HighwayClass::Trunk ? boost::optional<Score>(kMaxScoreForFrc)
+                                                  : boost::none;
 
   case FunctionalRoadClass::FRC1:
-    score = kMaxScoreForFrc;
-    return hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary;
+    return (hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary)
+               ? boost::optional<Score>(kMaxScoreForFrc)
+               : boost::none;
 
   case FunctionalRoadClass::FRC2:
   case FunctionalRoadClass::FRC3:
     if (hwClass == ftypes::HighwayClass::Secondary || hwClass == ftypes::HighwayClass::Tertiary)
-      score = kMaxScoreForFrc;
+      return boost::optional<Score>(kMaxScoreForFrc);
 
-    return hwClass == ftypes::HighwayClass::Primary || hwClass == ftypes::HighwayClass::Secondary ||
-        hwClass == ftypes::HighwayClass::Tertiary ||
-        hwClass == ftypes::HighwayClass::LivingStreet;
+    return hwClass == ftypes::HighwayClass::Primary || hwClass == ftypes::HighwayClass::LivingStreet
+               ? boost::optional<Score>(0)
+               : boost::none;
 
   case FunctionalRoadClass::FRC4:
     if (hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service)
-      score = kMaxScoreForFrc;
+      return boost::optional<Score>(kMaxScoreForFrc);
 
-    return hwClass == ftypes::HighwayClass::Tertiary ||
-        hwClass == ftypes::HighwayClass::LivingStreet ||
-        hwClass == ftypes::HighwayClass::Service;
+    return hwClass == ftypes::HighwayClass::Tertiary ? boost::optional<Score>(0) : boost::none;
 
   case FunctionalRoadClass::FRC5:
   case FunctionalRoadClass::FRC6:
   case FunctionalRoadClass::FRC7:
-    score = kMaxScoreForFrc;
-    return hwClass == ftypes::HighwayClass::LivingStreet ||
-        hwClass == ftypes::HighwayClass::Service;
+    return hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service
+               ? boost::optional<Score>(kMaxScoreForFrc)
+               : boost::none;
 
   case FunctionalRoadClass::NotAValue:
     UNREACHABLE();
@@ -156,7 +155,7 @@ string LogAs2GisPath(Graph::EdgeVector const & path)
 
 string LogAs2GisPath(Graph::Edge const & e) { return LogAs2GisPath(Graph::EdgeVector({e})); }
 
-bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay fow,
+bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
                        int frcThreshold, RoadInfoGetter & infoGetter)
 {
   if (e.IsFake() || restriction == FunctionalRoadClass::NotAValue)
@@ -166,16 +165,18 @@ bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, F
   return static_cast<int>(frc) <= static_cast<int>(restriction) + frcThreshold;
 }
 
-bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay fow,
+bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
                          RoadInfoGetter & infoGetter, Score & score)
 {
   CHECK(!e.IsFake(), ("Edges should not be fake:", e));
-  if (!ConformFrc(e, restriction, infoGetter, score))
+  auto const frcScore = GetFrcScore(e, restriction, infoGetter);
+  if (frcScore == boost::none)
     return false;
 
-  Score constexpr kScoreForFow = 25; // Score for form of way.
-  if (fow == FormOfWay::Roundabout && infoGetter.Get(e.GetFeatureId()).m_isRoundabout)
-    score += kScoreForFow;
+  score = frcScore.get();
+  Score constexpr kScoreForFormOfWay = 25;
+  if (formOfWay == FormOfWay::Roundabout && infoGetter.Get(e.GetFeatureId()).m_isRoundabout)
+    score += kScoreForFormOfWay;
 
   return true;
 }
@@ -193,8 +194,7 @@ bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoi
 bool ConformLfrcnpV3(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
                      RoadInfoGetter & infoGetter)
 {
-  Score score;
-  return ConformFrc(e, lowestFrcToNextPoint, infoGetter, score);
+  return GetFrcScore(e, lowestFrcToNextPoint, infoGetter) != boost::none;
 }
 
 size_t IntersectionLen(Graph::EdgeVector a, Graph::EdgeVector b)
@@ -204,7 +204,7 @@ size_t IntersectionLen(Graph::EdgeVector a, Graph::EdgeVector b)
   return set_intersection(a.begin(), a.end(), b.begin(), b.end(), CounterIterator()).GetCount();
 }
 
-bool PrefEqualsSuff(Graph::EdgeVector const & a, Graph::EdgeVector const & b, size_t len)
+bool SuffixEqualsPrefix(Graph::EdgeVector const & a, Graph::EdgeVector const & b, size_t len)
 {
   CHECK_LESS_OR_EQUAL(len, a.size(), ());
   CHECK_LESS_OR_EQUAL(len, b.size(), ());
@@ -217,8 +217,9 @@ bool PrefEqualsSuff(Graph::EdgeVector const & a, Graph::EdgeVector const & b, si
 int32_t PathOverlappingLen(Graph::EdgeVector const & a, Graph::EdgeVector const & b)
 {
   auto const len = IntersectionLen(a, b);
-  if (PrefEqualsSuff(a, b, len))
+  if (SuffixEqualsPrefix(a, b, len))
     return base::checked_cast<int32_t>(len);
+
   return -1;
 }
 

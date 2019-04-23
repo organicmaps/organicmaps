@@ -182,7 +182,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
       // of the segments and form of way of the segments.
       auto const p = make_shared<Link>(u, e, u->m_distanceM + currentEdgeLen, u->m_pointScore,
                                        min(roadScore, u->m_minRoadScore));
-      q.push(p);
+      q.emplace(p);
     }
   }
 }

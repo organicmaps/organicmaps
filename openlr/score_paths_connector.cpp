@@ -110,8 +110,7 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
   if (pathDiffRatio <= kMinValidPathDiffRation && !shortPath)
     return false;
 
-  lenScore = static_cast<Score>(static_cast<double>(kMaxScoreForRouteLen) *
-                                (pathDiffRatio - kMinValidPathDiffRation) /
+  lenScore = static_cast<Score>(kMaxScoreForRouteLen * (pathDiffRatio - kMinValidPathDiffRation) /
                                 (1.0 - kMinValidPathDiffRation));
 
   return true;

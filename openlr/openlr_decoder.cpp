@@ -167,13 +167,13 @@ void ExpandFakes(DataSource const & dataSource, Graph & g, Graph::EdgeVector & p
 
 // Returns an iterator pointing to the first edge that should not be cut off.
 // Offsets denote a distance in meters one should travel from the start/end of the path
-// to some point alog that path and drop everything form the start to that point or from
+// to some point along that path and drop everything form the start to that point or from
 // that point to the end.
 template <typename InputIterator>
 InputIterator CutOffset(InputIterator start, InputIterator stop, double offset,
-                        bool keepEnds)
+                        bool keepEnd)
 {
-  if (offset == 0)
+  if (offset == 0.0)
     return start;
 
   for (double distance = 0.0; start != stop; ++start)
@@ -181,8 +181,8 @@ InputIterator CutOffset(InputIterator start, InputIterator stop, double offset,
     auto const edgeLen = EdgeLength(*start);
     if (distance <= offset && offset < distance + edgeLen)
     {
-      // Throw out this edge if (offest - distance) is greater than edgeLength / 2.
-      if (!keepEnds && 2 * (offset - distance) >= edgeLen)
+      // Throw out this edge if (offset - distance) is greater than edgeLength / 2.
+      if (!keepEnd && offset - distance >= edgeLen / 2.0)
         ++start;
       break;
     }
