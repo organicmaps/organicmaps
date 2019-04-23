@@ -12,6 +12,7 @@
 
 #include <cstdint>
 #include <string>
+#include <utility>
 
 namespace search
 {
@@ -58,6 +59,16 @@ struct PreRankingInfo
 
   // Popularity rank of the feature.
   uint8_t m_popularity = 0;
+
+  // Confidence and UGC rating.
+  // Confidence: 0 - no information
+  //             1 - based on few reviews
+  //             2 - based on average reviews number
+  //             3 - based on large number of reviews.
+  // Rating [4.0 ... 10.0]:
+  //             4.0 and lower represented as 4.0
+  //             higher ratings saved as is from UGC.
+  std::pair<uint8_t, float> m_rating = {0, 0.0f};
 
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;

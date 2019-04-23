@@ -1,5 +1,7 @@
 #include "search/ranking_info.hpp"
 
+#include "ugc/types.hpp"
+
 #include <iomanip>
 #include <limits>
 #include <sstream>
@@ -16,10 +18,13 @@ double constexpr kDistanceToPivot = -1.0000000;
 double constexpr kRank = 1.0000000;
 // todo: (@t.yan) Adjust.
 double constexpr kPopularity = 0.0500000;
+// todo: (@t.yan) Adjust.
+double constexpr kRating = 0.0500000;
 double constexpr kFalseCats = -0.3691859;
 double constexpr kErrorsMade = -0.0579812;
 double constexpr kAllTokensUsed = 0.0000000;
 double constexpr kHasName = 0.5;
+
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
   -0.7245815 /* Zero */,
   0.1853727 /* Substring */,
@@ -48,6 +53,20 @@ double TransformDistance(double distance)
 {
   return min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
+
+double TransformRating(pair<uint8_t, float> const & rating)
+{
+  double r = 0.0;
+  // From statistics.
+  double constexpr kAverageRating = 7.6;
+  if (rating.first != 0)
+  {
+    r = (static_cast<double>(rating.second) - kAverageRating) /
+        (ugc::UGC::kMaxRating - ugc::UGC::kRatingDetalizationThreshold);
+    r *= static_cast<double>(rating.first) / 3.0 /* maximal confidence */;
+  }
+  return r;
+}
 }  // namespace
 
 // static
@@ -59,6 +78,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
   os << "DistanceToPivot"
      << ",Rank"
      << ",Popularity"
+     << ",Rating"
      << ",NameScore"
      << ",ErrorsMade"
      << ",SearchType"
@@ -75,6 +95,8 @@ string DebugPrint(RankingInfo const & info)
   os << "m_distanceToPivot:" << info.m_distanceToPivot;
   os << ", m_rank:" << static_cast<int>(info.m_rank);
   os << ", m_popularity:" << static_cast<int>(info.m_popularity);
+  os << ", m_rating:[" << static_cast<int>(info.m_rating.first) << ", " << info.m_rating.second
+     << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
   os << ", m_type:" << DebugPrint(info.m_type);
@@ -93,6 +115,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_distanceToPivot << ",";
   os << static_cast<int>(m_rank) << ",";
   os << static_cast<int>(m_popularity) << ",";
+  os << TransformRating(m_rating) << ",";
   os << DebugPrint(m_nameScore) << ",";
   os << GetErrorsMade() << ",";
   os << DebugPrint(m_type) << ",";
@@ -112,6 +135,7 @@ double RankingInfo::GetLinearModelRank() const
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
   double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
+  double const rating = TransformRating(m_rating);
 
   auto nameScore = m_nameScore;
   if (m_pureCats || m_falseCats)
@@ -129,6 +153,7 @@ double RankingInfo::GetLinearModelRank() const
   result += kDistanceToPivot * distanceToPivot;
   result += kRank * rank;
   result += kPopularity * popularity;
+  result += kRating * rating;
   result += m_falseCats * kFalseCats;
   if (!m_categorialRequest)
   {

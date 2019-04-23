@@ -51,6 +51,7 @@ public:
   double GetDistance() const { return m_info.m_distanceToPivot; }
   uint8_t GetRank() const { return m_info.m_rank; }
   uint8_t GetPopularity() const { return m_info.m_popularity; }
+  std::pair<uint8_t, float> GetRating() const { return m_info.m_rating; }
   PreRankingInfo & GetInfo() { return m_info; }
   PreRankingInfo const & GetInfo() const { return m_info; }
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }

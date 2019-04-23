@@ -5,6 +5,8 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/tracer.hpp"
 
+#include "ugc/types.hpp"
+
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
@@ -77,6 +79,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   MwmSet::MwmHandle mwmHandle;
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
   unique_ptr<RankTable> popularityRanks = make_unique<DummyRankTable>();
+  unique_ptr<RankTable> ratings = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
@@ -94,16 +97,20 @@ void PreRanker::FillMissingFieldsInPreResults()
         ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont, SEARCH_RANKS_FILE_TAG);
         popularityRanks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont,
                                           POPULARITY_RANKS_FILE_TAG);
+        ratings = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont, RATINGS_FILE_TAG);
         centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue<MwmValue>());
       }
       if (!ranks)
         ranks = make_unique<DummyRankTable>();
       if (!popularityRanks)
         popularityRanks = make_unique<DummyRankTable>();
+      if (!ratings)
+        ratings = make_unique<DummyRankTable>();
     }
 
     info.m_rank = ranks->Get(id.m_index);
     info.m_popularity = popularityRanks->Get(id.m_index);
+    info.m_rating = ugc::UGC::UnpackRating(ratings->Get(id.m_index));
 
     m2::PointD center;
     if (centers && centers->Get(id.m_index, center))
