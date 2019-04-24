@@ -262,7 +262,9 @@ void RoutingSession::Reset()
 
 void RoutingSession::SetState(SessionState state)
 {
-  m_changeSessionStateCallback(m_state, state);
+  if (m_changeSessionStateCallback)
+    m_changeSessionStateCallback(m_state, state);
+
   m_state = state;
 }
 
