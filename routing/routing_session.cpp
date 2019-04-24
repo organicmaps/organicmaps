@@ -60,6 +60,8 @@ RoutingSession::RoutingSession()
   , m_passedDistanceOnRouteMeters(0.0)
   , m_lastCompletionPercent(0.0)
 {
+  // To call |m_changeSessionStateCallback| on |m_state| initialization.
+  SetState(SessionState::RoutingNotActive);
   m_speedCameraManager.SetRoute(m_route);
 }
 
@@ -256,6 +258,12 @@ void RoutingSession::Reset()
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
   m_lastCompletionPercent = 0;
+}
+
+void RoutingSession::SetState(SessionState state)
+{
+  m_changeSessionStateCallback(m_state, state);
+  m_state = state;
 }
 
 SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
@@ -586,6 +594,13 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_checkpointCallback = checkpointCallback;
+}
+
+void RoutingSession::SetChangeSessionStateCallback(
+    ChangeSessionStateCallback const & changeSessionStateCallback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_changeSessionStateCallback = changeSessionStateCallback;
 }
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)

@@ -80,7 +80,7 @@ public:
   bool IsFollowing() const;
   void Reset();
 
-  inline void SetState(SessionState state) { m_state = state; }
+  void SetState(SessionState state);
 
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
@@ -123,6 +123,7 @@ public:
                            RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
+  void SetChangeSessionStateCallback(ChangeSessionStateCallback const & changeSessionStateCallback);
 
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
@@ -212,6 +213,7 @@ private:
   RemoveRouteCallback m_removeRouteCallback;
   ProgressCallback m_progressCallback;
   CheckpointCallback m_checkpointCallback;
+  ChangeSessionStateCallback m_changeSessionStateCallback;
 
   // Statistics parameters
   // Passed distance on route including reroutes
