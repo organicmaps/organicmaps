@@ -93,7 +93,9 @@ final class CatalogWebViewController: WebViewController {
 
     progressView.tintColor = UIColor.white()
     updateProgress()
-    navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_close"), style: .plain, target: self, action: #selector(goBack))
+    navigationItem.leftBarButtonItem = nil
+    navigationItem.hidesBackButton = true
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("done"), style: .plain, target: self, action:  #selector(goBack))
   }
 
   override func viewWillAppear(_ animated: Bool) {
