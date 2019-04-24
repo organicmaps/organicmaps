@@ -40,20 +40,12 @@ namespace
 {
 using IndexReader = ReaderPtr<Reader>;
 
-bool HouseHasAddress(base::Json json)
+bool HouseHasAddress(base::Json const & json)
 {
-  auto properties = json_object_get(json.get(), "properties");
-  auto address = json_object_get(properties, "address");
-  std::string const kHouseField = "building";
-  char const * key = nullptr;
-  json_t * value = nullptr;
-  json_object_foreach(address, key, value)
-  {
-    if (key == kHouseField && !json_is_null(value))
-      return true;
-  }
-
-  return false;
+  auto && properties = base::GetJSONObligatoryField(json.get(), "properties");
+  auto && address = base::GetJSONObligatoryField(properties, "address");
+  auto && building = base::GetJSONOptionalField(address, "building");
+  return building && !base::JSONIsNull(building);
 }
 
 void UpdateCoordinates(m2::PointD const & point, base::Json json)
@@ -105,13 +97,7 @@ MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyVa
 boost::optional<base::Json>
 FindHousePoi(FeatureBuilder1 const & fb, GeoObjectInfoGetter const & geoObjectInfoGetter)
 {
-  auto const isBuilding = [](base::Json const & object) {
-    auto properties = json_object_get(object.get(), "properties");
-    auto address = json_object_get(properties, "address");
-    return json_object_get(address, "building");
-  };
-
-  return geoObjectInfoGetter.Find(fb.GetKeyPoint(), isBuilding);
+  return geoObjectInfoGetter.Find(fb.GetKeyPoint(), HouseHasAddress);
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
@@ -184,9 +170,6 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
 
     auto const house = FindHousePoi(fb, geoObjectInfoGetter);
     if (!house)
-      return;
-
-    if (!HouseHasAddress(*house))
       return;
 
     auto const value = MakeGeoObjectValueWithoutAddress(fb, *house);
