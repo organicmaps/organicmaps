@@ -481,8 +481,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)logTutorialEvent:(NSString *)eventName additionalOptions:(NSDictionary<NSString *, NSString *> *)options {
   MWMTip type = self.tutorialType;
-  if (!type) return;
-  
   NSNumber *statTutorialType;
   switch (type)
   {
