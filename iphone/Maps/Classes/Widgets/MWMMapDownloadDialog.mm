@@ -154,7 +154,7 @@ using namespace storage;
         [MWMStorage downloadNode:m_countryId
                        onSuccess:^{
                          [self showInQueue];
-                       }];
+                       } onCancel:nil];
       }
       else
       {
@@ -383,7 +383,7 @@ using namespace storage;
     [MWMStorage downloadNode:m_countryId
                    onSuccess:^{
                      [self showInQueue];
-                   }];
+                   } onCancel:nil];
   }
 }
 

@@ -350,7 +350,8 @@ using namespace storage;
             kStatFrom: kStatDownloader,
             kStatScenario: kStatUpdateAll
           }];
-    [MWMStorage updateNode:parentCountryId];
+    [MWMStorage updateNode:parentCountryId
+                  onCancel:nil];
   }
   else
   {
@@ -362,7 +363,8 @@ using namespace storage;
                            kStatScenario : kStatDownloadGroup
                            }];
     [MWMStorage downloadNode:parentCountryId
-                   onSuccess:nil];
+                   onSuccess:nil
+                    onCancel:nil];
   }
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:parentCountryId];
@@ -636,7 +638,7 @@ using namespace storage;
           kStatScenario: kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage downloadNode:countryId onSuccess:nil];
+  [MWMStorage downloadNode:countryId onSuccess:nil onCancel:nil];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }
@@ -666,7 +668,7 @@ using namespace storage;
           kStatScenario: kStatUpdate
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage updateNode:countryId];
+  [MWMStorage updateNode:countryId onCancel:nil];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }

@@ -8,7 +8,7 @@
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block;
 + (MWMAlert *)disabledLocationAlert;
-+ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock;
++ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)migrationProhibitedAlert;
 + (MWMAlert *)deleteMapProhibitedAlert;

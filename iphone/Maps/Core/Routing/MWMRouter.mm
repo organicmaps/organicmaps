@@ -725,7 +725,8 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
         }
         downloadBlock:^(storage::CountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
-                          onSuccess:onSuccess];
+                          onSuccess:onSuccess
+                           onCancel:nil];
         }
         downloadCompleteBlock:^{
           [MWMRouter rebuildWithBestRouter:NO];

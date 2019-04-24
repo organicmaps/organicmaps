@@ -17,7 +17,7 @@
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
 + (instancetype)disabledLocationAlert;
-+ (instancetype)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock;
++ (instancetype)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock;
 + (instancetype)noConnectionAlert;
 + (instancetype)migrationProhibitedAlert;
 + (instancetype)deleteMapProhibitedAlert;

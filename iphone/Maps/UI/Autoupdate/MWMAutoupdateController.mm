@@ -172,11 +172,13 @@ enum class State
   self.progressFinished = NO;
   [Statistics logEvent:kStatDownloaderOnStartScreenShow
         withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
-  auto view = static_cast<MWMAutoupdateView *>(self.view);
+  MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
   {
     [view stateDownloading];
-    [MWMStorage updateNode:RootId()];
+    [MWMStorage updateNode:RootId() onCancel:^{
+      [view stateWaiting];
+    }];
     [Statistics logEvent:kStatDownloaderOnStartScreenAutoDownload
           withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   }
@@ -196,8 +198,11 @@ enum class State
 
 - (IBAction)updateTap
 {
-  [static_cast<MWMAutoupdateView *>(self.view) stateDownloading];
-  [MWMStorage updateNode:RootId()];
+  MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
+  [view stateDownloading];
+  [MWMStorage updateNode:RootId() onCancel:^{
+    [view stateWaiting];
+  }];
   [Statistics logEvent:kStatDownloaderOnStartScreenManualDownload
         withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }

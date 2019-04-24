@@ -123,7 +123,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Editor unsaved changes on delete"];
 }
 
-+ (instancetype)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock
++ (instancetype)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock
 {
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"download_over_mobile_header")
                                                 message:L(@"download_over_mobile_message")
@@ -131,6 +131,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                         leftButtonTitle:L(@"cancel")
                                       rightButtonAction:okBlock
                                         statisticsEvent:@"No WiFi Alert"];
+  alert.leftButtonAction = cancelBlock;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }

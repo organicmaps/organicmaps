@@ -27,9 +27,9 @@
 }
 
 + (MWMAlert *)disabledLocationAlert { return [MWMDefaultAlert disabledLocationAlert]; }
-+ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock
++ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock
 {
-  return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock];
+  return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock];
 }
 
 + (MWMAlert *)noConnectionAlert { return [MWMDefaultAlert noConnectionAlert]; }

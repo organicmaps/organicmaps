@@ -167,10 +167,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly: [MWMStorage downloadNode:countryId onSuccess:nil]; break;
+  case NodeStatus::Partly: [MWMStorage downloadNode:countryId onSuccess:nil onCancel:nil]; break;
   case NodeStatus::Undefined:
   case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
-  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId onCancel:nil]; break;
   case NodeStatus::Downloading:
   case NodeStatus::Applying:
   case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;

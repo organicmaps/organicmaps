@@ -96,7 +96,7 @@ using namespace storage;
       [self setState:MWMMigrationViewState::Processing];
     else
       migrate();
-  }];
+  } cancelAction:nil];
 }
 
 - (void)showError:(NodeErrorCode)errorCode countryId:(CountryId const &)countryId

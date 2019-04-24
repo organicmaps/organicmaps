@@ -67,12 +67,14 @@
   }
 }
 
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action cancelAction:(MWMVoidBlock)cancel
 {
   switch (Platform::ConnectionStatus())
   {
     case Platform::EConnectionType::CONNECTION_NONE:
       [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+      if (cancel)
+        cancel();
       break;
     case Platform::EConnectionType::CONNECTION_WIFI:
       action();
@@ -84,7 +86,7 @@
         [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
           GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
           action();
-        }];
+        } andCancelBlock:cancel];
       }
       else
       {

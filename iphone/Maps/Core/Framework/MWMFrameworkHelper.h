@@ -8,7 +8,7 @@
 
 + (MWMDayTime)daytime;
 
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action;
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action cancelAction:(MWMVoidBlock)cancel;
 
 + (void)createFramework;
 

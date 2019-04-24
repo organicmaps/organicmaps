@@ -21,7 +21,7 @@
 - (void)presentMigrationProhibitedAlert;
 - (void)presentDeleteMapProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
-- (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock;
+- (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock andCancelBlock:(nullable MWMVoidBlock)cancelBlock;
 - (void)presentIncorrectFeauturePositionAlert;
 - (void)presentInternalErrorAlert;
 - (void)presentNotEnoughSpaceAlert;
