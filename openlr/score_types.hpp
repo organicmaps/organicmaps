@@ -5,6 +5,7 @@
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
+#include <tuple>
 #include <vector>
 
 namespace openlr
@@ -21,9 +22,7 @@ struct ScorePoint
 
   bool operator<(ScorePoint const & o) const
   {
-    if (m_score != o.m_score)
-      return m_score < o.m_score;
-    return m_point < o.m_point;
+    return std::tie(m_score, m_point) < std::tie(o.m_score, o.m_point);
   }
 
   bool operator==(ScorePoint const & o) const

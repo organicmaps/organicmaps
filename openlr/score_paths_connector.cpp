@@ -211,7 +211,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
 
     bool operator>(State const & o) const
     {
-      return make_tuple(m_score, m_edge) > make_tuple(o.m_score, o.m_edge);
+      return tie(m_score, m_edge) > tie(o.m_score, o.m_edge);
     }
 
     Graph::Edge m_edge;
@@ -287,8 +287,9 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
   {
     if (skip == -1)
       return false;
-    copy(begin(from), end(from), back_inserter(resultPath));
-    copy(begin(to) + skip, end(to), back_inserter(resultPath));
+
+    resultPath.insert(resultPath.end(), from.cbegin(), from.cend());
+    resultPath.insert(resultPath.end(), to.cbegin() + skip, to.cend());
     return true;
   }
 
@@ -302,12 +303,13 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
     return false;
 
   // Skip the last edge from |from| because it already took its place at begin(shortestPath).
-  copy(begin(from), prev(end(from)), back_inserter(resultPath));
-  copy(begin(shortestPath), end(shortestPath), back_inserter(resultPath));
-  // Skip the first edge from |to| because it already took its place at prev(end(shortestPath)).
-  copy(next(begin(to)), end(to), back_inserter(resultPath));
+  resultPath.insert(resultPath.end(), from.cbegin(), prev(from.cend()));
+  resultPath.insert(resultPath.end(), shortestPath.cbegin(), shortestPath.cend());
 
-  return found && !resultPath.empty();
+  // Skip the first edge from |to| because it already took its place at prev(end(shortestPath)).
+  resultPath.insert(resultPath.end(), next(to.begin()), to.end());
+
+  return !resultPath.empty();
 }
 
 Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
