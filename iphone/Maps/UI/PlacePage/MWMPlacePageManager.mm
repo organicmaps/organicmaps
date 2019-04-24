@@ -595,12 +595,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 }
 
 
-- (void)avoidMotorway {
-  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeMotorway];
-  [self closePlacePage];
-}
-
-
 - (void)avoidToll {
   [Statistics logEvent:kStatPlacepageDrivingOptionsAction
         withParameters:@{kStatType : [kStatToll capitalizedString]}];

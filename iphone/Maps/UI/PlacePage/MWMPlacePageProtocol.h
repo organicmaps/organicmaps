@@ -24,7 +24,6 @@
 - (void)avoidToll;
 - (void)avoidDirty;
 - (void)avoidFerry;
-- (void)avoidMotorway;
 
 @end
 

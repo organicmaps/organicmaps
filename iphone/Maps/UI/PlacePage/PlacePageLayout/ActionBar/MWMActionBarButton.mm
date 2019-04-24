@@ -27,10 +27,9 @@ NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
   case EButton::More: return L(@"placepage_more_button");
   case EButton::RouteAddStop: return L(@"placepage_add_stop");
   case EButton::RouteRemoveStop: return L(@"placepage_remove_stop");
-  case EButton::AvoidToll: return L(@"avoid_tolls");
-  case EButton::AvoidDirty: return L(@"avoid_unpaved");
-  case EButton::AvoidFerry: return L(@"avoid_ferry");
-  case EButton::AvoidMotorway: return L(@"avoid_motorways");
+  case EButton::AvoidToll: return L(@"avoid_toll_roads_placepage");
+  case EButton::AvoidDirty: return L(@"avoid_unpaved_roads_placepage");
+  case EButton::AvoidFerry: return L(@"avoid_ferry_crossing_placepage");
   case EButton::Partner: return titleForPartner(partnerIndex);
   }
 }
@@ -171,11 +170,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
     case EButton::AvoidFerry:
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_ferry"]
                    forState:UIControlStateNormal];
-      break;
-    case EButton::AvoidMotorway:
-      [self.button setImage:[UIImage imageNamed:@"ic_remove_route_point"]
-                   forState:UIControlStateNormal];
-      break;
+      break; 
   }
   self.button.enabled = !isDisabled;
 }

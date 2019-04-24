@@ -15,8 +15,7 @@ enum class EButton  // Required button's order
   Share,
   AvoidToll,
   AvoidDirty,
-  AvoidFerry,
-  AvoidMotorway
+  AvoidFerry
 };
 
 NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);

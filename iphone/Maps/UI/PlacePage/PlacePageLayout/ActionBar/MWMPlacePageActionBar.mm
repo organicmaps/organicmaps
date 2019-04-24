@@ -245,7 +245,6 @@
   case EButton::AvoidToll: [delegate avoidToll]; break;
   case EButton::AvoidDirty: [delegate avoidDirty]; break;
   case EButton::AvoidFerry: [delegate avoidFerry]; break;
-  case EButton::AvoidMotorway: [delegate avoidMotorway]; break;
   case EButton::Partner: [delegate openPartner]; break;
   }
 }
