@@ -45,34 +45,6 @@ class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficC
   friend struct UnitClass_AsyncGuiThreadTestWithRoutingSession_TestFollowRoutePercentTest;
 
 public:
-  enum State
-  {
-    RoutingNotActive,
-    RouteBuilding,     // we requested a route and wait when it will be builded
-    RouteNotReady,     // routing was not build
-    RouteNotStarted,   // route is builded but the user isn't on it
-    OnRoute,           // user follows the route
-    RouteNeedRebuild,  // user left the route
-    RouteFinished,     // destination point is reached but the session isn't closed
-    RouteNoFollowing,  // route is built but following mode has been disabled
-    RouteRebuilding,   // we requested a route rebuild and wait when it will be rebuilded
-  };
-
-  /*
-   * RoutingNotActive -> RouteBuilding    // start route building
-   * RouteBuilding -> RouteNotReady       // waiting for route in case of building a new route
-   * RouteBuilding -> RouteNotStarted     // route is builded in case of building a new route
-   * RouteRebuilding -> RouteNotReady     // waiting for route in case of rebuilding
-   * RouteRebuilding -> RouteNotStarted   // route is builded in case of rebuilding
-   * RouteNotStarted -> OnRoute           // user started following the route
-   * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
-   * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
-   * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position.
-   * OnRoute -> RouteFinished             // user reached the end of route
-   * RouteNeedRebuild -> RouteNotReady    // start rebuild route
-   * RouteFinished -> RouteNotReady       // start new route
-   */
-
   RoutingSession();
 
   void Init(RoutingStatisticsCallback const & routingStatisticsFn,
@@ -88,7 +60,7 @@ public:
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
                     NeedMoreMapsCallback const & needMoreMapsCallback,
                     RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
-                    State routeRebuildingState, bool adjustToPrevRoute);
+                    SessionState routeRebuildingState, bool adjustToPrevRoute);
 
   m2::PointD GetStartPoint() const;
   m2::PointD GetEndPoint() const;
@@ -108,7 +80,7 @@ public:
   bool IsFollowing() const;
   void Reset();
 
-  inline void SetState(State state) { m_state = state; }
+  inline void SetState(SessionState state) { m_state = state; }
 
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
@@ -122,7 +94,7 @@ public:
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
                                       feature::TAltitudes & routeAltitudesM) const;
 
-  State OnLocationPositionChanged(location::GpsInfo const & info);
+  SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
@@ -212,7 +184,7 @@ private:
 private:
   std::unique_ptr<AsyncRouter> m_router;
   std::shared_ptr<Route> m_route;
-  State m_state;
+  SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
 
@@ -253,5 +225,5 @@ private:
 
 void FormatDistance(double dist, std::string & value, std::string & suffix);
 
-std::string DebugPrint(RoutingSession::State state);
+std::string DebugPrint(SessionState state);
 }  // namespace routing

@@ -40,6 +40,34 @@ enum class RouterResultCode
   HasWarnings = 16,
 };
 
+enum class SessionState
+{
+  RoutingNotActive,
+  RouteBuilding,     // we requested a route and wait when it will be builded
+  RouteNotReady,     // routing was not build
+  RouteNotStarted,   // route is builded but the user isn't on it
+  OnRoute,           // user follows the route
+  RouteNeedRebuild,  // user left the route
+  RouteFinished,     // destination point is reached but the session isn't closed
+  RouteNoFollowing,  // route is built but following mode has been disabled
+  RouteRebuilding,   // we requested a route rebuild and wait when it will be rebuilded
+};
+
+/*
+ * RoutingNotActive -> RouteBuilding    // start route building
+ * RouteBuilding -> RouteNotReady       // waiting for route in case of building a new route
+ * RouteBuilding -> RouteNotStarted     // route is built in case of building a new route
+ * RouteRebuilding -> RouteNotReady     // waiting for route in case of rebuilding
+ * RouteRebuilding -> RouteNotStarted   // route is built in case of rebuilding
+ * RouteNotStarted -> OnRoute           // user started following the route
+ * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
+ * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
+ * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position.
+ * OnRoute -> RouteFinished             // user reached the end of route
+ * RouteNeedRebuild -> RouteNotReady    // start rebuild route
+ * RouteFinished -> RouteNotReady       // start new route
+ */
+
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
 using NeedMoreMapsCallback = std::function<void(uint64_t, std::vector<std::string> const &)>;
 using PointCheckCallback = std::function<void(m2::PointD const &)>;
@@ -48,6 +76,7 @@ using ReadyCallback = std::function<void(Route const &, RouterResultCode)>;
 using ReadyCallbackOwnership = std::function<void(std::shared_ptr<Route>, RouterResultCode)>;
 using RemoveRouteCallback = std::function<void(RouterResultCode)>;
 using RouteCallback = std::function<void(Route const &)>;
+using RouteChangeStateCallback = std::function<void(SessionState previous, SessionState current)>;
 using RoutingStatisticsCallback = std::function<void(std::map<std::string, std::string> const &)>;
 using SpeedCameraShowCallback = std::function<void(m2::PointD const & point, double cameraSpeedKmPH)>;
 using SpeedCameraClearCallback = std::function<void()>;

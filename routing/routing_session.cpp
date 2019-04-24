@@ -53,7 +53,7 @@ void FormatDistance(double dist, string & value, string & suffix)
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(make_shared<Route>(string() /* router */, 0 /* route id */))
-  , m_state(RoutingNotActive)
+  , m_state(SessionState::RoutingNotActive)
   , m_isFollowing(false)
   , m_speedCameraManager(m_turnNotificationsMgr)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))
@@ -88,14 +88,14 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
   m_routingRebuildCount = -1; // -1 for the first rebuild.
 
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback,
-               m_removeRouteCallback, timeoutSec, RouteBuilding, false /* adjust */);
+               m_removeRouteCallback, timeoutSec, SessionState::RouteBuilding, false /* adjust */);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                                   ReadyCallback const & readyCallback,
                                   NeedMoreMapsCallback const & needMoreMapsCallback,
                                   RemoveRouteCallback const & removeRouteCallback,
-                                  uint32_t timeoutSec, State routeRebuildingState,
+                                  uint32_t timeoutSec, SessionState routeRebuildingState,
                                   bool adjustToPrevRoute)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -136,7 +136,7 @@ void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> route, Router
 void RoutingSession::RemoveRoute()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  SetState(RoutingNotActive);
+  SetState(SessionState::RoutingNotActive);
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
@@ -156,17 +156,17 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
 
     switch (m_state)
     {
-    case RoutingNotActive:
-    case RouteNotReady:
-    case RouteFinished: return;
+    case SessionState::RoutingNotActive:
+    case SessionState::RouteNotReady:
+    case SessionState::RouteFinished: return;
 
-    case RouteBuilding:
-    case RouteNotStarted:
-    case RouteNoFollowing:
-    case RouteRebuilding: startPoint = m_checkpoints.GetPointFrom();
+    case SessionState::RouteBuilding:
+    case SessionState::RouteNotStarted:
+    case SessionState::RouteNoFollowing:
+    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom();
 
-    case OnRoute:
-    case RouteNeedRebuild: break;
+    case SessionState::OnRoute:
+    case SessionState::RouteNeedRebuild: break;
     }
 
     // Cancel current route building.
@@ -175,67 +175,68 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
 
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
                nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
-               routing::RoutingSession::State::RouteRebuilding, false /* adjustToPrevRoute */);
+               SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
 bool RoutingSession::IsActive() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_state != RoutingNotActive);
+  return (m_state != SessionState::RoutingNotActive);
 }
 
 bool RoutingSession::IsNavigable() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished);
+  return (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute ||
+          m_state == SessionState::RouteFinished);
 }
 
 bool RoutingSession::IsBuilt() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (IsNavigable() || m_state == RouteNeedRebuild);
+  return (IsNavigable() || m_state == SessionState::RouteNeedRebuild);
 }
 
 bool RoutingSession::IsBuilding() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_state == RouteBuilding || m_state == RouteRebuilding);
+  return (m_state == SessionState::RouteBuilding || m_state == SessionState::RouteRebuilding);
 }
 
 bool RoutingSession::IsBuildingOnly() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == RouteBuilding;
+  return m_state == SessionState::RouteBuilding;
 }
 
 bool RoutingSession::IsRebuildingOnly() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == RouteRebuilding;
+  return m_state == SessionState::RouteRebuilding;
 }
 
 bool RoutingSession::IsNotReady() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == RouteNotReady;
+  return m_state == SessionState::RouteNotReady;
 }
 
 bool RoutingSession::IsFinished() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == RouteFinished;
+  return m_state == SessionState::RouteFinished;
 }
 
 bool RoutingSession::IsNoFollowing() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == RouteNoFollowing;
+  return m_state == SessionState::RouteNoFollowing;
 }
 
 bool RoutingSession::IsOnRoute() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_state == OnRoute);
+  return (m_state == SessionState::OnRoute);
 }
 
 bool RoutingSession::IsFollowing() const
@@ -257,15 +258,15 @@ void RoutingSession::Reset()
   m_lastCompletionPercent = 0;
 }
 
-RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
+SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_state != RoutingNotActive, ());
+  ASSERT(m_state != SessionState::RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
-  if (m_state == RouteNeedRebuild || m_state == RouteFinished
-      || m_state == RouteBuilding || m_state == RouteRebuilding
-      || m_state == RouteNotReady || m_state == RouteNoFollowing)
+  if (m_state == SessionState::RouteNeedRebuild || m_state == SessionState::RouteFinished
+      || m_state == SessionState::RouteBuilding || m_state == SessionState::RouteRebuilding
+      || m_state == SessionState::RouteNotReady || m_state == SessionState::RouteNoFollowing)
     return m_state;
 
   ASSERT(m_route, ());
@@ -283,7 +284,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     if (m_checkpoints.IsFinished())
     {
       m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
-      SetState(RouteFinished);
+      SetState(SessionState::RouteFinished);
 
       alohalytics::TStringMap params = {{"router", m_route->GetRouterId()},
                                         {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
@@ -292,7 +293,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     }
     else
     {
-      SetState(OnRoute);
+      SetState(SessionState::OnRoute);
 
       m_speedCameraManager.OnLocationPositionChanged(info);
     }
@@ -316,7 +317,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
       m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
-      SetState(RouteNeedRebuild);
+      SetState(SessionState::RouteNeedRebuild);
       alohalytics::TStringMap params = {
           {"router", m_route->GetRouterId()},
           {"percent", strings::to_string(GetCompletionPercent())},
@@ -467,16 +468,16 @@ void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
   if (e != RouterResultCode::Cancelled)
   {
     if (route->IsValid())
-      SetState(RouteNotStarted);
+      SetState(SessionState::RouteNotStarted);
     else
-      SetState(RoutingNotActive);
+      SetState(SessionState::RoutingNotActive);
 
     if (e != RouterResultCode::NoError)
-      SetState(RouteNotReady);
+      SetState(SessionState::RouteNotReady);
   }
   else
   {
-    SetState(RoutingNotActive);
+    SetState(SessionState::RoutingNotActive);
   }
 
   ASSERT(m_route, ());
@@ -523,10 +524,10 @@ traffic::SpeedGroup RoutingSession::MatchTraffic(
 bool RoutingSession::DisableFollowMode()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
-  if (m_state == RouteNotStarted || m_state == OnRoute)
+  LOG(LINFO, ("Routing disables a following mode. SessionState: ", m_state));
+  if (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute)
   {
-    SetState(RouteNoFollowing);
+    SetState(SessionState::RouteNoFollowing);
     m_isFollowing = false;
     return true;
   }
@@ -536,10 +537,10 @@ bool RoutingSession::DisableFollowMode()
 bool RoutingSession::EnableFollowMode()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
-  if (m_state == RouteNotStarted || m_state == OnRoute)
+  LOG(LINFO, ("Routing enables a following mode. SessionState: ", m_state));
+  if (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute)
   {
-    SetState(OnRoute);
+    SetState(SessionState::OnRoute);
     m_isFollowing = true;
   }
   return m_isFollowing;
@@ -737,19 +738,19 @@ void RoutingSession::SetLocaleWithJsonForTesting(std::string const & json, std::
   m_turnNotificationsMgr.SetLocaleWithJsonForTesting(json, locale);
 }
 
-string DebugPrint(RoutingSession::State state)
+string DebugPrint(SessionState state)
 {
   switch (state)
   {
-  case RoutingSession::RoutingNotActive: return "RoutingNotActive";
-  case RoutingSession::RouteBuilding: return "RouteBuilding";
-  case RoutingSession::RouteNotReady: return "RouteNotReady";
-  case RoutingSession::RouteNotStarted: return "RouteNotStarted";
-  case RoutingSession::OnRoute: return "OnRoute";
-  case RoutingSession::RouteNeedRebuild: return "RouteNeedRebuild";
-  case RoutingSession::RouteFinished: return "RouteFinished";
-  case RoutingSession::RouteNoFollowing: return "RouteNoFollowing";
-  case RoutingSession::RouteRebuilding: return "RouteRebuilding";
+  case SessionState::RoutingNotActive: return "RoutingNotActive";
+  case SessionState::RouteBuilding: return "RouteBuilding";
+  case SessionState::RouteNotReady: return "RouteNotReady";
+  case SessionState::RouteNotStarted: return "RouteNotStarted";
+  case SessionState::OnRoute: return "OnRoute";
+  case SessionState::RouteNeedRebuild: return "RouteNeedRebuild";
+  case SessionState::RouteFinished: return "RouteFinished";
+  case SessionState::RouteNoFollowing: return "RouteNoFollowing";
+  case SessionState::RouteRebuilding: return "RouteRebuilding";
   }
   UNREACHABLE();
 }

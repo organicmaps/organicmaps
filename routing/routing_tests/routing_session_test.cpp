@@ -164,11 +164,11 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
     info.m_verticalAccuracy = 0.01;
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    RoutingSession::State code;
+    SessionState code;
     while (info.m_latitude < kTestRoute.back().y)
     {
       code = m_session->OnLocationPositionChanged(info);
-      TEST_EQUAL(code, RoutingSession::State::OnRoute, ());
+      TEST_EQUAL(code, SessionState::OnRoute, ());
       info.m_latitude += 0.01;
     }
 
@@ -186,13 +186,13 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, this]() {
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    RoutingSession::State code = RoutingSession::State::RoutingNotActive;
+    SessionState code = SessionState::RoutingNotActive;
     for (size_t i = 0; i < 10; ++i)
     {
       code = m_session->OnLocationPositionChanged(info);
       info.m_latitude -= 0.1;
     }
-    TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
+    TEST_EQUAL(code, SessionState::RouteNeedRebuild, ());
     checkTimedSignal.Signal();
   });
   TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),
@@ -231,13 +231,13 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignalAway, &info, this]() {
     info.m_longitude = 0.0;
     info.m_latitude = 0.0;
-    RoutingSession::State code = RoutingSession::State::RoutingNotActive;
+    SessionState code = SessionState::RoutingNotActive;
     for (size_t i = 0; i < 8; ++i)
     {
       code = m_session->OnLocationPositionChanged(info);
       info.m_latitude += 0.1;
     }
-    TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
+    TEST_EQUAL(code, SessionState::RouteNeedRebuild, ());
     checkTimedSignalAway.Signal();
   });
   TEST(checkTimedSignalAway.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),
@@ -304,20 +304,20 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     TEST(m_session->IsFollowing(), ());
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    RoutingSession::State code;
+    SessionState code;
     for (size_t i = 0; i < 10; ++i)
     {
       code = m_session->OnLocationPositionChanged(info);
       info.m_latitude -= 0.1;
     }
-    TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
+    TEST_EQUAL(code, SessionState::RouteNeedRebuild, ());
     TEST(m_session->IsFollowing(), ());
 
     m_session->RebuildRoute(
         kTestRoute.front(),
         [&rebuildTimedSignal](Route const &, RouterResultCode) { rebuildTimedSignal.Signal(); },
         nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0,
-        RoutingSession::State::RouteBuilding, false /* adjust */);
+        SessionState::RouteBuilding, false /* adjust */);
   });
   TEST(rebuildTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 

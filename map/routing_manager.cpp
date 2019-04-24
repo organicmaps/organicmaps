@@ -12,6 +12,7 @@
 #include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 
@@ -1054,14 +1055,14 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  RoutingSession::State const state = m_routingSession.OnLocationPositionChanged(info);
-  if (state == RoutingSession::RouteNeedRebuild)
+  SessionState const state = m_routingSession.OnLocationPositionChanged(info);
+  if (state == SessionState::RouteNeedRebuild)
   {
     m_routingSession.RebuildRoute(
         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
         nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
-        RoutingSession::State::RouteRebuilding, true /* adjustToPrevRoute */);
+        SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   }
 }
 
