@@ -137,6 +137,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     webSettings.setJavaScriptEnabled(true);
     webSettings.setUserAgentString(Framework.nativeGetUserAgent());
+    if (Utils.isLollipopOrLater())
+      webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
   }
 
   @NonNull
