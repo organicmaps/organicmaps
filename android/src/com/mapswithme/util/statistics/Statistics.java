@@ -225,7 +225,7 @@ public enum Statistics
   {
     boolean hasToll = RoutingOptions.hasOption(RoadType.Toll);
     boolean hasFerry = RoutingOptions.hasOption(RoadType.Ferry);
-    boolean hasMoto = RoutingOptions.hasOption(RoadType.Ferry);
+    boolean hasMoto = RoutingOptions.hasOption(RoadType.Motorway);
     boolean hasDirty = RoutingOptions.hasOption(RoadType.Dirty);
 
     ParameterBuilder builder = new ParameterBuilder() ;
