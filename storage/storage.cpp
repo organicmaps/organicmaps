@@ -1342,7 +1342,7 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
   uint64_t size;
   if (queuedCountry.GetInitOptions() == MapOptions::Diff)
   {
-    CHECK_NOT_EQUAL(m_diffManager.SizeFor(countryId, size), 0, ());
+    CHECK(m_diffManager.SizeToDownloadFor(countryId, size), ());
     return size;
   }
 
@@ -1619,7 +1619,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
           {
             RegisterCountryFiles(diffFile);
             Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
-            m_diffManager.RemoveDiffForCountry(countryId);
+            m_diffManager.MarkAsApplied(countryId);
             fn(true);
             break;
           }

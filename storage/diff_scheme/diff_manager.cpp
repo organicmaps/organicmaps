@@ -10,6 +10,19 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+namespace
+{
+bool IsDiffsAvailable(storage::diffs::NameDiffInfoMap const & diffs)
+{
+  for (auto const & d : diffs)
+  {
+    if (!d.second.m_isApplied)
+      return true;
+  }
+
+  return false;
+}
+}  // namespace
 namespace storage
 {
 namespace diffs
@@ -23,12 +36,12 @@ void Manager::Load(LocalMapsInfo && info)
   }
 
   m_workerThread.Push([this, localMapsInfo] {
-    NameDiffInfoMap const diffs = Checker::Check(localMapsInfo);
+    NameDiffInfoMap diffs = Checker::Check(localMapsInfo);
 
     std::lock_guard<std::mutex> lock(m_mutex);
 
-    m_diffs = diffs;
-    if (diffs.empty())
+    m_diffs = std::move(diffs);
+    if (m_diffs.empty())
     {
       m_status = Status::NotAvailable;
 
@@ -128,22 +141,44 @@ Status Manager::GetStatus() const
 
 bool Manager::SizeFor(storage::CountryId const & countryId, uint64_t & size) const
 {
-  return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (m_status != Status::Available)
+    return false;
+
+  auto const it = m_diffs.find(countryId);
+  if (it == m_diffs.cend())
+    return false;
+
+  size = it->second.m_size;
+  return true;
 }
 
 bool Manager::SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const
 {
-  return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
+  return WithNotAppliedDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
 }
 
-bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & version) const
+bool Manager::VersionFor(storage::CountryId const & countryId, uint64_t & v) const
 {
-  return WithDiff(countryId, [&version](DiffInfo const & info) { version = info.m_version; });
+  return WithNotAppliedDiff(countryId, [&v](DiffInfo const & info) { v = info.m_version; });
 }
 
 bool Manager::HasDiffFor(storage::CountryId const & countryId) const
 {
-  return WithDiff(countryId, [](DiffInfo const &) {});
+  return WithNotAppliedDiff(countryId, [](DiffInfo const &) {});
+}
+
+void Manager::MarkAsApplied(storage::CountryId const & countryId)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  auto const it = m_diffs.find(countryId);
+  if (it == m_diffs.end())
+    return;
+
+  it->second.m_isApplied = true;
+
+  if (!IsDiffsAvailable(m_diffs))
+    m_status = Status::NotAvailable;
 }
 
 void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
@@ -151,7 +186,7 @@ void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
   std::lock_guard<std::mutex> lock(m_mutex);
   m_diffs.erase(countryId);
 
-  if (m_diffs.empty())
+  if (m_diffs.empty() || !IsDiffsAvailable(m_diffs))
     m_status = Status::NotAvailable;
 }
 
@@ -171,7 +206,8 @@ bool Manager::IsPossibleToAutoupdate() const
 
   for (auto const & nameVersion : m_localMapsInfo.m_localMaps)
   {
-    if (m_diffs.find(nameVersion.first) == m_diffs.end())
+    auto const it = m_diffs.find(nameVersion.first);
+    if (it == m_diffs.end() || it->second.m_isApplied)
       return false;
   }
   return true;

@@ -60,6 +60,7 @@ public:
   // has been downloaded.
   bool HasDiffFor(storage::CountryId const & countryId) const;
 
+  void MarkAsApplied(storage::CountryId const & countryId);
   void RemoveDiffForCountry(storage::CountryId const & countryId);
   void AbortDiffScheme();
 
@@ -74,14 +75,14 @@ public:
 
 private:
   template <typename Fn>
-  bool WithDiff(storage::CountryId const & countryId, Fn && fn) const
+  bool WithNotAppliedDiff(storage::CountryId const & countryId, Fn && fn) const
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_status != Status::Available)
       return false;
 
     auto const it = m_diffs.find(countryId);
-    if (it == m_diffs.cend())
+    if (it == m_diffs.cend() || it->second.m_isApplied)
       return false;
 
     fn(it->second);

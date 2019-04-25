@@ -148,12 +148,12 @@ DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwm
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Could not open file when applying a patch:", e.Msg()));
+    LOG(LERROR, ("Could not open file for reading when applying a patch:", e.Msg()));
     return DiffApplicationResult::Failed;
   }
   catch (Writer::Exception const & e)
   {
-    LOG(LERROR, ("Could not open file when applying a patch:", e.Msg()));
+    LOG(LERROR, ("Could not open file for writing when applying a patch:", e.Msg()));
     return DiffApplicationResult::Failed;
   }
 

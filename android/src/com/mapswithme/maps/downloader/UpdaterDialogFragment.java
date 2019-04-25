@@ -115,7 +115,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       return;
     }
 
-    updateTotalSizes(info);
+    updateTotalSizes(info.totalSize);
 
     mAutoUpdate = false;
     mOutdatedMaps = Framework.nativeGetOutdatedCountries();
@@ -291,15 +291,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       }
       else
       {
-        final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
-        if (info == null)
-        {
-          finish();
-          return;
-        }
+        CountryItem root = new CountryItem(CountryItem.getRootId());
+        MapManager.nativeGetAttributes(root);
 
-        updateTotalSizes(info);
-        updateProgress();
+        updateTotalSizes(root.bytesToDownload);
+        setProgress(root.progress, root.downloadedBytes, root.bytesToDownload);
 
         updateProcessedMapInfo();
         setCommonStatus(mProcessedMapId, mCommonStatusResId);
@@ -407,16 +403,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mTitle.setText(status);
   }
 
-  void updateTotalSizes(@NonNull UpdateInfo info)
+  void updateTotalSizes(long totalSize)
   {
-    mTotalSize = StringUtils.getFileSizeString(info.totalSize);
-    mTotalSizeBytes = info.totalSize;
-  }
-
-  void updateProgress()
-  {
-    int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-    setProgress(progress, mTotalSizeBytes * progress / 100, mTotalSizeBytes);
+    mTotalSize = StringUtils.getFileSizeString(totalSize);
+    mTotalSizeBytes = totalSize;
   }
 
   void updateProcessedMapInfo()
@@ -567,15 +557,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onProgress(String countryId, long localSizeBytes, long remoteSizeBytes)
     {
-      if (mOutdatedMaps == null || !isFragmentAttached())
+      if (!isFragmentAttached())
         return;
 
-      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       CountryItem root = new CountryItem(CountryItem.getRootId());
       MapManager.nativeGetAttributes(root);
 
       //noinspection ConstantConditions
-      mFragment.setProgress(progress, root.downloadedBytes, root.bytesToDownload);
+      mFragment.setProgress(root.progress, root.downloadedBytes, root.bytesToDownload);
     }
 
     void attach(@NonNull UpdaterDialogFragment fragment)

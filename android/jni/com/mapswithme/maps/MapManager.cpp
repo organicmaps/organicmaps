@@ -652,7 +652,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
 
   int res = 0;
   if (progress.second)
-    res = (jint) (progress.first * kMaxProgress / progress.second);
+    res = progress.first / progress.second;
 
   return res;
 }
