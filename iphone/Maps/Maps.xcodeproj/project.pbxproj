@@ -400,6 +400,8 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
+		4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */; };
+		4797A4E22270997E00D3A984 /* DeepLinkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
 		47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */; };
@@ -412,6 +414,7 @@
 		47B9065321C7FA400079C85E /* MWMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9064A21C7FA3C0079C85E /* MWMImageCache.m */; };
 		47B9065421C7FA400079C85E /* UIImageView+WebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9064F21C7FA3E0079C85E /* UIImageView+WebImage.m */; };
 		47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9065021C7FA3F0079C85E /* NSString+MD5.m */; };
+		47C3DB582268CDDB00DF6F91 /* DeeplinkInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3DB572268CDD800DF6F91 /* DeeplinkInfoViewController.swift */; };
 		47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F9722191E15A00C2760C /* InAppBilling.swift */; };
 		47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F97421930F5300C2760C /* IInAppBilling.swift */; };
 		47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */; };
@@ -1438,6 +1441,9 @@
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
+		4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		4797A4E02270997E00D3A984 /* DeepLinkHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkHelper.h; sourceTree = "<group>"; };
+		4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkHelper.mm; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
 		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
 		47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoTrackerCore.h; sourceTree = "<group>"; };
@@ -1458,6 +1464,7 @@
 		47B9064F21C7FA3E0079C85E /* UIImageView+WebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebImage.m"; sourceTree = "<group>"; };
 		47B9065021C7FA3F0079C85E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		47B9065121C7FA400079C85E /* IMWMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMWMImageCache.h; sourceTree = "<group>"; };
+		47C3DB572268CDD800DF6F91 /* DeeplinkInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkInfoViewController.swift; sourceTree = "<group>"; };
 		47C7F9722191E15A00C2760C /* InAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBilling.swift; sourceTree = "<group>"; };
 		47C7F97421930F5300C2760C /* IInAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IInAppBilling.swift; sourceTree = "<group>"; };
 		47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMPurchaseValidation.h; sourceTree = "<group>"; };
@@ -2086,6 +2093,9 @@
 				340837101B7243B500B5C185 /* Share */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
 				34FE4C421BCC013500066718 /* Widgets */,
+				4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */,
+				4797A4E02270997E00D3A984 /* DeepLinkHelper.h */,
+				4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2963,6 +2973,7 @@
 				34D4FA651E265749003F53EF /* WhatsNewController.swift */,
 				4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */,
 				47800D1C20BEEE2E00072F42 /* TermsOfUseController.swift */,
+				47C3DB572268CDD800DF6F91 /* DeeplinkInfoViewController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -5079,6 +5090,7 @@
 				F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
 				470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
+				47C3DB582268CDDB00DF6F91 /* DeeplinkInfoViewController.swift in Sources */,
 				3404F490202898CC0090E401 /* BMCModels.swift in Sources */,
 				F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
 				3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
@@ -5124,6 +5136,7 @@
 				3404754A1E081A4600C92850 /* AppInfo.mm in Sources */,
 				3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */,
 				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
+				4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
@@ -5320,6 +5333,7 @@
 				34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
+				4797A4E22270997E00D3A984 /* DeepLinkHelper.mm in Sources */,
 				47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */,
 				3404F4952028A1B80090E401 /* BMCPermissionsCell.swift in Sources */,
 				340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,

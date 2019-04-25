@@ -25,6 +25,7 @@
 #import "FacebookNativeAdAdapter.h"
 #import "LocalNotificationManager.h"
 #import "CoreNotificationWrapper.h"
+#import "DeepLinkHelper.h"
 #import "MapViewController.h"
 #import "MWMActivityIndicator.h"
 #import "MWMActivityViewController.h"

@@ -105,10 +105,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 + (MapViewController *)sharedController { return [MapsAppDelegate theApp].mapViewController; }
 
-- (BOOL)isLaunchByDeepLink { return [(EAGLView *)self.view isLaunchByDeepLink]; }
-
-- (void)setLaunchByDeepLink:(BOOL)launchByDeepLink { [(EAGLView *)self.view setLaunchByDeepLink:launchByDeepLink]; }
-
 #pragma mark - Map Navigation
 
 - (void)dismissPlacePage { [self.controlsManager dismissPlacePage]; }
@@ -119,7 +115,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (!switchFullScreenMode)
     return;
 
-  if ([MapsAppDelegate theApp].hasApiURL)
+  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     return;
 
   BOOL const isSearchHidden = ([MWMSearchManager manager].state == MWMSearchManagerStateHidden);
@@ -259,7 +255,10 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
+
+  [(EAGLView *)self.view setLaunchByDeepLink:DeepLinkHandler.shared.isLaunchedByDeeplink];
+  [MWMRouter restoreRouteIfNeeded];
+
   self.view.clipsToBounds = YES;
   [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
@@ -272,6 +271,9 @@ BOOL gIsFirstMyPositionMode = YES;
                                              name:UIApplicationDidBecomeActiveNotification
                                            object:nil];
   [self.welcomePageController show];
+  if (!self.welcomePageController) {
+    [DeepLinkHandler.shared handleDeeplink];
+  }
 }
 
 - (void)didBecomeActive

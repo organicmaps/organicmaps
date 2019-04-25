@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## AppsFlyerFramework
 
-Copyright 2014 AppsFlyer Ltd. All rights reserved.
+Copyright 2018 AppsFlyer Ltd. All rights reserved.
 
 ## Bolts
 

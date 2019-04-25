@@ -434,7 +434,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (ownerController.navigationController.viewControllers.count > 1)
     return;
 
-  if (ownerController.isLaunchByDeepLink)
+  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     return;
 
   if (self.tutorialViewContoller != nil)

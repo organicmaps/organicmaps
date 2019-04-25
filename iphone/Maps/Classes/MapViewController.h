@@ -42,6 +42,5 @@
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
-@property(nonatomic, getter=isLaunchByDeepLink) BOOL launchByDeepLink;
 
 @end

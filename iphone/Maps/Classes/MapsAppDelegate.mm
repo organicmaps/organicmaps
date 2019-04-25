@@ -25,13 +25,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <UserNotifications/UserNotifications.h>
 
-#ifdef OMIM_PRODUCTION
-
 #import <AppsFlyerLib/AppsFlyerTracker.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
-
-#endif
 
 #include "Framework.h"
 
@@ -62,8 +58,6 @@ NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kIOSIDFA = @"IFA";
 NSString * const kBundleVersion = @"BundleVersion";
-
-auto const kSearchInViewportZoom = 16;
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -109,31 +103,11 @@ void OverrideUserAgent()
                    @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
   }];
 }
-  
-void InitMarketingTrackers()
-{
-#ifdef OMIM_PRODUCTION
-  NSString * appsFlyerDevKey = @(APPSFLYER_KEY);
-  NSString * appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
-  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0)
-  {
-    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = appsFlyerDevKey;
-    [AppsFlyerTracker sharedTracker].appleAppID = appsFlyerAppIdKey;
-  }
-#endif
-}
-
-void TrackMarketingAppLaunch()
-{
-#ifdef OMIM_PRODUCTION
-  [[AppsFlyerTracker sharedTracker] trackAppLaunch];
-#endif
-}
 }  // namespace
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, NotificationManagerDelegate>
+@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, NotificationManagerDelegate, AppsFlyerTrackerDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
@@ -143,14 +117,6 @@ using namespace osm_auth_ios;
 @end
 
 @implementation MapsAppDelegate
-{
-  NSString * m_geoURL;
-  NSString * m_mwmURL;
-  NSString * m_fileURL;
-
-  NSString * m_scheme;
-  NSString * m_sourceApplication;
-}
 
 + (MapsAppDelegate *)theApp
 {
@@ -188,133 +154,6 @@ using namespace osm_auth_ios;
 - (BOOL)isDrapeEngineCreated
 {
   return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
-}
-
-- (BOOL)hasApiURL { return m_geoURL || m_mwmURL; }
-- (void)handleURLs
-{
-  self.mapViewController.launchByDeepLink = self.hasApiURL;
-
-  if (!self.isDrapeEngineCreated)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self handleURLs];
-    });
-    return;
-  }
-
-  Framework & f = GetFramework();
-  if (m_geoURL)
-  {
-    if (f.ShowMapForURL(m_geoURL.UTF8String))
-    {
-      [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
-            withParameters:@{kStatValue : m_scheme}];
-      [self showMap];
-    }
-  }
-  else if (m_mwmURL)
-  {
-    using namespace url_scheme;
-
-    string const url = m_mwmURL.UTF8String;
-    auto const parsingType = f.ParseAndSetApiURL(url);
-    NSLog(@"Started by url: %@", m_mwmURL);
-    switch (parsingType)
-    {
-    case ParsedMapApi::ParsingResult::Incorrect:
-      LOG(LWARNING, ("Incorrect parsing result for url:", url));
-      break;
-    case ParsedMapApi::ParsingResult::Route:
-    {
-      auto const parsedData = f.GetParsedRoutingData();
-      auto const points = parsedData.m_points;
-      if (points.size() == 2)
-      {
-        auto p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
-                                                                type:MWMRoutePointTypeStart
-                                                   intermediateIndex:0];
-        auto p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
-                                                                type:MWMRoutePointTypeFinish
-                                                   intermediateIndex:0];
-        [MWMRouter buildApiRouteWithType:routerType(parsedData.m_type)
-                              startPoint:p1
-                             finishPoint:p2];
-      }
-      else
-      {
-#ifdef OMIM_PRODUCTION
-        auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                              code:5
-                                          userInfo:@{
-                                            @"Description" : @"Invalid number of route points",
-                                            @"URL" : m_mwmURL
-                                          }];
-        [[Crashlytics sharedInstance] recordError:err];
-#endif
-      }
-
-      [self showMap];
-      break;
-    }
-    case ParsedMapApi::ParsingResult::Map:
-      if (f.ShowMapForURL(url))
-        [self showMap];
-      break;
-    case ParsedMapApi::ParsingResult::Search:
-    {
-      auto const & request = f.GetParsedSearchRequest();
-      auto manager = [MWMMapViewControlsManager manager];
-
-      auto query = [@((request.m_query + " ").c_str()) stringByRemovingPercentEncoding];
-      auto locale = @(request.m_locale.c_str());
-
-      if (request.m_isSearchOnMap)
-      {
-        // Set viewport only when cll parameter was provided in url.
-        if (request.m_centerLat != 0.0 || request.m_centerLon != 0.0)
-        {
-          ASSERT([self isDrapeEngineCreated], ());
-          [MapViewController setViewport:request.m_centerLat
-                                     lon:request.m_centerLon
-                               zoomLevel:kSearchInViewportZoom];
-        }
-
-        [manager searchTextOnMap:query forInputLocale:locale];
-      }
-      else
-      {
-        [manager searchText:query forInputLocale:locale];
-      }
-
-      break;
-    }
-    case ParsedMapApi::ParsingResult::Catalogue:
-      [self.mapViewController openCatalogDeeplink:[[NSURL alloc] initWithString:m_mwmURL] animated:NO];
-      break;
-    case ParsedMapApi::ParsingResult::Lead: break;
-    }
-  }
-  else if (m_fileURL)
-  {
-    f.AddBookmarksFile(m_fileURL.UTF8String, false /* isTemporaryFile */);
-  }
-  else
-  {
-    // Take a copy of pasteboard string since it can accidentally become nil while we still use it.
-    NSString * pasteboard = [[UIPasteboard generalPasteboard].string copy];
-    if (pasteboard && pasteboard.length)
-    {
-      if (f.ShowMapForURL(pasteboard.UTF8String))
-      {
-        [self showMap];
-        [UIPasteboard generalPasteboard].string = @"";
-      }
-    }
-  }
-  m_geoURL = nil;
-  m_mwmURL = nil;
-  m_fileURL = nil;
 }
 
 - (NSURL *)convertUniversalLink:(NSURL *)universalLink
@@ -360,11 +199,12 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSLog(@"deeplinking: launchOptions %@", launchOptions);
   OverrideUserAgent();
 
   InitCrashTrackers();
   
-  InitMarketingTrackers();
+  [self initMarketingTrackers];
 
   // Initialize all 3party engines.
   [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
@@ -397,8 +237,6 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
-  [MWMRouter restoreRouteIfNeeded];
-
   [GIDSignIn sharedInstance].clientID =
       [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
 
@@ -417,7 +255,9 @@ using namespace osm_auth_ios;
 
   if ([MoPubKit shouldShowConsentDialog])
     [MoPubKit grantConsent];
-  
+
+  [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
+
   return YES;
 }
 
@@ -524,7 +364,7 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
-  self.mapViewController.launchByDeepLink = NO;
+  [DeepLinkHandler.shared reset];
   auto & f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
@@ -568,8 +408,8 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
   
-  TrackMarketingAppLaunch();
-  
+  [self trackMarketingAppLaunch];
+
   auto & f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
@@ -604,15 +444,30 @@ continueUserActivity:(NSUserActivity *)userActivity
   }
   else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb])
   {
-    auto link = userActivity.webpageURL;
-    if ([self checkLaunchURL:[self convertUniversalLink:link]])
-    {
-      [self handleURLs];
-      return YES;
-    }
+    return [DeepLinkHandler.shared applicationDidReceiveUniversalLink:userActivity.webpageURL];
   }
 
   return NO;
+}
+
+- (void)initMarketingTrackers
+{
+  NSString * appsFlyerDevKey = @(APPSFLYER_KEY);
+  NSString * appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
+  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0)
+  {
+    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = appsFlyerDevKey;
+    [AppsFlyerTracker sharedTracker].appleAppID = appsFlyerAppIdKey;
+    [AppsFlyerTracker sharedTracker].delegate = self;
+#if DEBUG
+    [AppsFlyerTracker sharedTracker].isDebug = YES;
+#endif
+  }
+}
+
+- (void)trackMarketingAppLaunch
+{
+  [[AppsFlyerTracker sharedTracker] trackAppLaunch];
 }
 
 - (BOOL)initStatistics:(UIApplication *)application
@@ -745,10 +600,8 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-  m_sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
-
   BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
-                                         sourceApplication:m_sourceApplication
+                                         sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                 annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
   if (isGoogleURL)
     return YES;
@@ -757,41 +610,7 @@ continueUserActivity:(NSUserActivity *)userActivity
   if (isFBURL)
     return YES;
 
-  for (NSString * host in @[@"dlink.maps.me", @"dlink.mapsme.devmail.ru"])
-  {
-    if ([self checkLaunchURL:(url.host.length > 0 && [url.host rangeOfString:host].location != NSNotFound)
-         ? [self convertUniversalLink:url] : url])
-    {
-      [self handleURLs];
-      return YES;
-    }
-  }
-
-  return NO;
-}
-
-- (BOOL)checkLaunchURL:(NSURL *)url
-{
-  NSString * scheme = url.scheme;
-  m_scheme = scheme;
-  if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
-  {
-    m_geoURL = [url absoluteString];
-    return YES;
-  }
-  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"] ||
-           [scheme isEqualToString:@"mapsme"])
-  {
-    m_mwmURL = [url absoluteString];
-    return YES;
-  }
-  else if ([scheme isEqualToString:@"file"])
-  {
-    m_fileURL = [url relativePath];
-    return YES;
-  }
-  NSLog(@"Scheme %@ is not supported", scheme);
-  return NO;
+  return [DeepLinkHandler.shared applicationDidOpenUrl:url];
 }
 
 - (void)showMap
@@ -983,6 +802,22 @@ continueUserActivity:(NSUserActivity *)userActivity
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
     [mapViewController showUGCAuth];
   }
+}
+
+#pragma mark - AppsFlyerTrackerDelegate
+
+-(void)onConversionDataReceived:(NSDictionary*) installData {
+  if ([installData[@"is_first_launch"] boolValue]) {
+    NSString *deeplink = installData[@"af_r"];
+    NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
+    if (deeplinkUrl != nil) {
+      [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl];
+    }
+  }
+}
+
+-(void)onConversionDataRequestFailure:(NSError *) error {
+  [Crashlytics.sharedInstance recordError:error];
 }
 
 @end

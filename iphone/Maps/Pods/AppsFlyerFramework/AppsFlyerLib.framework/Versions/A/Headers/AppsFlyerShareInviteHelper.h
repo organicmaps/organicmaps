@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "AppsFlyerLinkGenerator.h"
-
+/**
+ AppsFlyerShareInviteHelper
+ */
 @interface AppsFlyerShareInviteHelper : NSObject
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
+/**
  *  The AppsFlyerShareInviteHelper class builds the invite URL according to various setter methods 
  *  which allow passing on additional information on the click. 
  *  This information is available through `onConversionDataReceived:` when the user accepts the invite and installs the app.
@@ -22,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) generateInviteUrlWithLinkGenerator:(AppsFlyerLinkGenerator * (^)(AppsFlyerLinkGenerator *generator))generatorCreator
                           completionHandler:(void (^)(NSURL * _Nullable url))completionHandler;
 
-/*! 
+/**
  *  It is recommended to generate an in-app event after the invite is sent to track the invites from the senders' perspective. 
  *  This enables you to find the users that tend most to invite friends, and the media sources that get you these users.
  */

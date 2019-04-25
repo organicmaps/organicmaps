@@ -8,9 +8,10 @@ target 'MAPS.ME' do
 
   # Pods for MAPS.ME
 
-pod 'AppsFlyerFramework', '4.8.9'
+pod 'AppsFlyerFramework', '4.9.0'
 pod 'Pushwoosh', '5.9.0'
 pod 'ActionSheetPicker-3.0', '2.3.0'
+pod 'FBSDKCoreKit', '4.42.0'
 pod 'FBSDKLoginKit', '4.42.0'
 
 end

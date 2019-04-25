@@ -8,6 +8,7 @@
 	<array>
 		<string>applinks:dlink.maps.me</string>
 		<string>applinks:dlink.mapsme.devmail.ru</string>
+		<string>applinks:mapsme.onelink.me</string>
 	</array>
 </dict>
 </plist>

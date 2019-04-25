@@ -23,10 +23,6 @@ class WelcomeViewController: MWMViewController {
   
   class var key: String { return "" }
   
-  static func controllers(firstSession: Bool) -> [WelcomeViewController]? {
-    return firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
     configInternal()

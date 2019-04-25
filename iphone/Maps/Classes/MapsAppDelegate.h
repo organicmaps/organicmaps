@@ -4,6 +4,8 @@
 
 @class MapViewController;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MapsAppDelegate : UIResponder<UIApplicationDelegate, DownloadIndicatorProtocol>
 {
   NSInteger m_activeDownloadsCounter;
@@ -18,8 +20,6 @@
 @property(nonatomic) MWMMyTarget * myTarget;
 
 + (MapsAppDelegate *)theApp;
-
-- (BOOL)hasApiURL;
 
 - (void)enableStandby;
 - (void)disableStandby;
@@ -36,3 +36,5 @@
 - (NSUInteger)badgeNumber;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -45,7 +45,8 @@ final class WelcomePageController: UIPageViewController {
         controllersToShow.append(TermsOfUseController.controller())
         controllersToShow.append(contentsOf: FirstLaunchController.controllers())
       } else {
-        if (WhatsNewController.shouldShowWhatsNew) {
+        NSLog("deeplinking: whats new check")
+        if (WhatsNewController.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
           controllersToShow.append(contentsOf: WhatsNewController.controllers())
         }
       }
@@ -155,11 +156,27 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
     if index + 1 < controllers.count {
       nextPage()
     } else {
-      close()
+      if DeepLinkHandler.shared.isLaunchedByDeeplink {
+        let sb = UIStoryboard.instance(.welcome)
+        let vc = sb.instantiateViewController(withIdentifier: "DeeplinkInfoViewController") as! DeeplinkInfoViewController
+        vc.delegate = self
+        vc.deeplinkURL = DeepLinkHandler.shared.deeplinkURL
+        controllers.append(vc)
+        nextPage()
+      } else {
+        close()
+      }
     }
   }
   
   func welcomeViewControllerDidPressClose(_ viewContoller: WelcomeViewController) {
     close()
+  }
+}
+
+extension WelcomePageController: DeeplinkInfoViewControllerDelegate {
+  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController) {
+    close()
+    DeepLinkHandler.shared.handleDeeplink()
   }
 }
