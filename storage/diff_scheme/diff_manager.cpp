@@ -169,7 +169,7 @@ bool Manager::HasDiffFor(storage::CountryId const & countryId) const
 void Manager::MarkAsApplied(storage::CountryId const & countryId)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  auto const it = m_diffs.find(countryId);
+  auto it = m_diffs.find(countryId);
   if (it == m_diffs.end())
     return;
 
@@ -205,7 +205,7 @@ bool Manager::IsPossibleToAutoupdate() const
   for (auto const & nameVersion : m_localMapsInfo.m_localMaps)
   {
     auto const it = m_diffs.find(nameVersion.first);
-    if (it == m_diffs.end() || it->second.m_isApplied)
+    if (it == m_diffs.cend() || it->second.m_isApplied)
       return false;
   }
   return true;
