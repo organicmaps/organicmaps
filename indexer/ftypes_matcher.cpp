@@ -550,6 +550,11 @@ char const * IsHotelChecker::GetHotelTypeTag(Type type)
   UNREACHABLE();
 }
 
+IsBookingHotelChecker::IsBookingHotelChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"sponsored", "booking"}));
+}
+
 IsWifiChecker::IsWifiChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));

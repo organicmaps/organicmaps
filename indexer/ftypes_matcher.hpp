@@ -303,6 +303,14 @@ private:
   std::array<std::pair<uint32_t, Type>, base::Underlying(Type::Count)> m_sortedTypes;
 };
 
+class IsBookingHotelChecker : public BaseChecker
+{
+  IsBookingHotelChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsBookingHotelChecker);
+};
+
 // WiFi is a type in classificator.txt,
 // it should be checked for filling metadata in MapObject.
 class IsWifiChecker : public BaseChecker
