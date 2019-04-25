@@ -63,6 +63,7 @@ omim_link_libraries(
   succinct
   stats_client
   icu
+  generator_tests_support
 
   ${LIBZ}
 )
