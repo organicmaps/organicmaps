@@ -811,13 +811,17 @@ continueUserActivity:(NSUserActivity *)userActivity
     NSString *deeplink = installData[@"af_r"];
     NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
     if (deeplinkUrl != nil) {
-      [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl];
+      });
     }
   }
 }
 
 -(void)onConversionDataRequestFailure:(NSError *) error {
-  [Crashlytics.sharedInstance recordError:error];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [Crashlytics.sharedInstance recordError:error];
+  });
 }
 
 @end
