@@ -91,6 +91,9 @@ static NSInteger const kSearchInViewportZoom = 16;
     case ParsedMapApi::ParsingResult::Catalogue:
       [MapViewController.sharedController openCatalogDeeplink:url animated:NO];
       break;
+    case ParsedMapApi::ParsingResult::CataloguePath:
+      [MapViewController.sharedController openCatalogDeeplink:url animated:NO];
+      break;
     case ParsedMapApi::ParsingResult::Lead: break;
   }
 }

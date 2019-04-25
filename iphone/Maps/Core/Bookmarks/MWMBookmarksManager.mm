@@ -545,6 +545,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
+- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
+{
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl().c_str());
+  return urlString ? [NSURL URLWithString:[urlString stringByAppendingString:path]] : nil;
+}
+
 - (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
 {
   NSString * urlString = @(self.bm.GetCategoryCatalogDeeplink(groupId).c_str());

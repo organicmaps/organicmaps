@@ -59,6 +59,7 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (BOOL)areNotificationsEnabled;
 
 - (NSURL * _Nullable)catalogFrontendUrl;
+- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path;
 - (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (void)downloadItemWithId:(NSString *)itemId

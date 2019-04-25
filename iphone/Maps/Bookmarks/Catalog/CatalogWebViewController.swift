@@ -31,8 +31,20 @@ final class CatalogWebViewController: WebViewController {
   var fwdButton: UIBarButtonItem!
   var toolbar = UIToolbar()
 
-  @objc init() {
-    super.init(url: MWMBookmarksManager.shared().catalogFrontendUrl()!, title: L("guides"))!
+  @objc init(_ deeplinkURL: URL? = nil) {
+    var catalogUrl = MWMBookmarksManager.shared().catalogFrontendUrl()!
+    if let dl = deeplinkURL {
+      if dl.path == "/guides_page" {
+        if let urlComponents = URLComponents(url: dl, resolvingAgainstBaseURL: false),
+          let path = urlComponents.queryItems?.reduce(into: "", { if $1.name == "url" { $0 = $1.value } }),
+          let url = MWMBookmarksManager.shared().catalogFrontendUrlPlusPath(path) {
+          catalogUrl = url
+        }
+      } else {
+        deeplink = deeplinkURL
+      }
+    }
+    super.init(url: catalogUrl, title: L("guides"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
     fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
     backButton.tintColor = .blackSecondaryText()
@@ -43,11 +55,6 @@ final class CatalogWebViewController: WebViewController {
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  @objc convenience init(_ deeplinkURL: URL) {
-    self.init()
-    deeplink = deeplinkURL
   }
 
   override func viewDidLoad() {

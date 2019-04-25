@@ -102,6 +102,11 @@ char const * kId = "id";
 char const * kName = "name";
 }
 
+namespace cataloguePath
+{
+  char const * kUrl = "url";
+}
+
 namespace
 {
 enum class ApiURLType
@@ -111,7 +116,8 @@ enum class ApiURLType
   Route,
   Search,
   Lead,
-  Catalogue
+  Catalogue,
+  CataloguePath
 };
 
 std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
@@ -132,6 +138,8 @@ ApiURLType URLType(Uri const & uri)
     return ApiURLType::Lead;
   if (path == "catalogue")
     return ApiURLType::Catalogue;
+  if (path == "guides_page")
+    return ApiURLType::CataloguePath;
 
   return ApiURLType::Incorrect;
 }
@@ -283,6 +291,23 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 
       m_catalogItem = item;
       return ParsingResult::Catalogue;
+    }
+    case ApiURLType::CataloguePath:
+    {
+      CatalogPathItem item;
+      auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
+                                              {
+                                                return CatalogPathKeyValue(key, value, item);
+                                              });
+
+      if (!result)
+        return ParsingResult::Incorrect;
+
+      if (item.m_url.empty())
+        return ParsingResult::Incorrect;
+
+      m_catalogPathItem = item;
+      return ParsingResult::CataloguePath;
     }
   }
   UNREACHABLE();
@@ -469,6 +494,16 @@ bool ParsedMapApi::CatalogKeyValue(string const & key, string const & value, Cat
     item.m_name = value;
   else if (key == kId)
     item.m_id = value;
+
+  return true;
+}
+
+bool ParsedMapApi::CatalogPathKeyValue(string const & key, string const & value, CatalogPathItem & item) const
+{
+  using namespace cataloguePath;
+
+  if (key == kUrl)
+    item.m_url = value;
 
   return true;
 }
