@@ -271,8 +271,8 @@ void RoutingSession::SetState(SessionState state)
 SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_state != SessionState::RoutingNotActive, ());
-  ASSERT(m_router != nullptr, ());
+  ASSERT_NOT_EQUAL(m_state, SessionState::RoutingNotActive, ());
+  ASSERT(m_router, ());
 
   if (m_state == SessionState::RouteNeedRebuild || m_state == SessionState::RouteFinished
       || m_state == SessionState::RouteBuilding || m_state == SessionState::RouteRebuilding
