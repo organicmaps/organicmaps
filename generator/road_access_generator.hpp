@@ -12,7 +12,9 @@
 #include <fstream>
 #include <map>
 #include <ostream>
+#include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 struct OsmElement;
@@ -41,8 +43,11 @@ private:
   // Order of tag mappings in m_tagMappings is from more to less specific.
   // e.g. for car: motorcar, motorvehicle, vehicle, general access tags.
   std::vector<TagMapping const *> m_tagMappings;
-  // Tag mapping for barriers. Key is barrier node osm id.
-  std::map<uint64_t, std::pair<RoadAccess::Type, bool /* has access tag */>> m_barriers;
+
+  // Tag mapping for barriers.
+  // Key is barrier node osm id.
+  // Value is accessType and bool - element car access tag.
+  std::map<uint64_t, std::pair<RoadAccess::Type, bool>> m_barriers;
 };
 
 class RoadAccessWriter : public generator::CollectorInterface

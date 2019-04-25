@@ -13,6 +13,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 
+#include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -67,7 +68,7 @@ TagMapping const kCarBarriersTagMapping = {
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
-// TODO (@gmoryes) add this type
+// TODO (@gmoryes) The types below should be added.
 //  {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
 //  {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private}
 };
@@ -93,6 +94,7 @@ TagMapping const kBicycleTagMapping = {
 TagMapping const kBicycleBarriersTagMapping = {
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "kissing_gate"), RoadAccess::Type::Private},
 };
 
 // Allow everything to keep transit section empty. We'll use pedestrian section for
@@ -295,7 +297,7 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
 
     RoadAccess::Type roadAccessType;
     bool hasCarAccessTag;
-    std::tie(roadAccessType, hasCarAccessTag) = it->second;
+    tie(roadAccessType, hasCarAccessTag) = it->second;
 
     if (m_vehicleType == VehicleType::Car && ShouldIgnorePrivateAccess(elem, hasCarAccessTag))
       return;
@@ -311,7 +313,7 @@ bool RoadAccessTagProcessor::HasCarAccessTag(OsmElement const & osmElement) cons
   CHECK_EQUAL(m_vehicleType, VehicleType::Car, ("HasCarAccessTag() works only for Car."));
   CHECK_EQUAL(osmElement.type, OsmElement::EntityType::Node, ());
 
-  static std::vector<TagMapping const *> const kAccessTagsWithoutBarrier = {
+  static vector<TagMapping const *> const kAccessTagsWithoutBarrier = {
       &kMotorCarTagMapping, &kMotorVehicleTagMapping, &kVehicleTagMapping,
       &kDefaultTagMapping
   };
@@ -337,7 +339,7 @@ bool RoadAccessTagProcessor::ShouldIgnorePrivateAccess(OsmElement const & osmEle
   if (hasCarAccessTag)
     return false;
 
-  static std::set<OsmElement::Tag> const kHighwaysWhereIgnoresPrivateAccess = {
+  static set<OsmElement::Tag> const kHighwaysWhereIgnoresPrivateAccess = {
       {OsmElement::Tag("highway", "motorway")},
       {OsmElement::Tag("highway", "motorway_link")},
       {OsmElement::Tag("highway", "primary")},
@@ -371,7 +373,7 @@ RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) 
 }
 
 // RoadAccessWriter ------------------------------------------------------------
-RoadAccessWriter::RoadAccessWriter(std::string const & filePath)
+RoadAccessWriter::RoadAccessWriter(string const & filePath)
 {
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
