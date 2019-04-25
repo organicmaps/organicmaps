@@ -199,6 +199,8 @@ DEFINE_string(regions_key_value, "", "Input regions key-value file.");
 DEFINE_string(geo_objects_features, "", "Input tmp.mwm file with geo objects.");
 DEFINE_string(ids_without_addresses, "", "Output file with objects ids without addresses.");
 DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
+DEFINE_string(allow_addressless_for_countries, "*",
+              "Allow addressless buildings for only specified countries separated by commas.");
 
 DEFINE_string(regions_features, "", "Input tmp.mwm file with regions.");
 
@@ -390,7 +392,8 @@ int GeneratorToolMain(int argc, char ** argv)
   {
     if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
                                          FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
-                                         FLAGS_geo_objects_key_value, FLAGS_verbose))
+                                         FLAGS_geo_objects_key_value,
+                                         FLAGS_allow_addressless_for_countries, FLAGS_verbose))
       return EXIT_FAILURE;
   }
 

@@ -78,6 +78,13 @@ string FromJSONToString(json_t * root)
 
 namespace std
 {
+void FromJSON(json_t * root, std::string_view & result)
+{
+  if (!json_is_string(root))
+    MYTHROW(base::Json::Exception, ("The field must contain a json string."));
+  result = json_string_value(root);
+}
+
 void FromJSON(json_t * root, string & result)
 {
   if (!json_is_string(root))

@@ -272,6 +272,7 @@ struct JSONFreeDeleter
 
 namespace std
 {
+void FromJSON(json_t * root, std::string_view & result);
 void FromJSON(json_t * root, std::string & result);
 inline base::JSONPtr ToJSON(std::string const & s) { return base::NewJSONString(s); }
 }  // namespace std

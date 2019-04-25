@@ -1,6 +1,7 @@
 #include "generator/geo_objects/geo_objects.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/feature_generator.hpp"
 #include "generator/geo_objects/geo_object_info_getter.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
 #include "generator/geo_objects/key_value_storage.hpp"
@@ -133,6 +134,40 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
   return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
 }
 
+void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjectsTmpMwm,
+                                            std::string_view const & includeCountries,
+                                            RegionInfoGetter const & regionInfoGetter)
+{
+  auto const path = Platform().TmpPathForFile();
+  feature::FeaturesCollector collector(path);
+
+  auto const filteringCollector = [&](FeatureBuilder1 const & fb, uint64_t /* currPos */)
+  {
+    if (GeoObjectsFilter::HasHouse(fb))
+    {
+      collector(fb);
+      return;
+    }
+
+    auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
+    if (!regionKeyValue)
+      return;
+
+    auto && properties = base::GetJSONObligatoryField(regionKeyValue->second.get(), "properties");
+    auto && address = base::GetJSONObligatoryField(properties, "address");
+    auto && country = base::GetJSONObligatoryField(address, "country");
+    auto countryName = FromJSON<std::string_view>(country);
+    auto pos = includeCountries.find(countryName);
+    if (pos != std::string_view::npos)
+      collector(fb);
+  };
+  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);
+
+  Platform().RemoveFileIfExists(pathInGeoObjectsTmpMwm);
+  if (std::rename(path.c_str(), pathInGeoObjectsTmpMwm.c_str()) != 0)
+    LOG(LERROR, ("Error: Cannot rename", path, "to", pathInGeoObjectsTmpMwm));
+}
+
 void BuildGeoObjectsWithAddresses(RegionInfoGetter const & regionInfoGetter,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   std::ostream & streamGeoObjectsKv, bool)
@@ -196,7 +231,8 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
                         std::string const & pathInRegionsKv,
                         std::string const & pathInGeoObjectsTmpMwm,
                         std::string const & pathOutIdsWithoutAddress,
-                        std::string const & pathOutGeoObjectsKv, bool verbose)
+                        std::string const & pathOutGeoObjectsKv,
+                        std::string const & allowAddresslessForCountries, bool verbose)
 {
   LOG(LINFO, ("Start generating geo objects.."));
   auto timer = base::Timer();
@@ -204,11 +240,19 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
     LOG(LINFO, ("Finish generating geo objects.", timer.ElapsedSeconds(), "seconds."));
   });
 
-  auto geoObjectIndexFuture = std::async(std::launch::async, MakeTempGeoObjectsIndex,
-                                         pathInGeoObjectsTmpMwm);
-
   RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
   LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
+
+  if (allowAddresslessForCountries != "*")
+  {
+    FilterAddresslessByCountryAndRepackMwm(pathInGeoObjectsTmpMwm, allowAddresslessForCountries,
+                                           regionInfoGetter);
+    LOG(LINFO, ("Addressless buildings are filtered except countries",
+                allowAddresslessForCountries, "."));
+  }
+
+  auto geoObjectIndexFuture = std::async(std::launch::async, MakeTempGeoObjectsIndex,
+                                         pathInGeoObjectsTmpMwm);
 
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
   BuildStreets(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
