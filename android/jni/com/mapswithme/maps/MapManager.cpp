@@ -650,9 +650,9 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
 
   MapFilesDownloader::Progress const progress = GetStorage().GetOverallProgress(countries);
 
-  int res = 0;
+  jint res = 0;
   if (progress.second)
-    res = progress.first / progress.second;
+    res = static_cast<jint>(progress.first / progress.second);
 
   return res;
 }

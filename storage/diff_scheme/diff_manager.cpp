@@ -8,21 +8,19 @@
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
 
+#include <algorithm>
+
 #include "3party/Alohalytics/src/alohalytics.h"
 
 namespace
 {
 bool IsDiffsAvailable(storage::diffs::NameDiffInfoMap const & diffs)
 {
-  for (auto const & d : diffs)
-  {
-    if (!d.second.m_isApplied)
-      return true;
-  }
-
-  return false;
+  return std::any_of(diffs.cbegin(), diffs.cend(),
+                     [](auto const & d) { return d.second.m_isApplied == false; });
 }
 }  // namespace
+
 namespace storage
 {
 namespace diffs
