@@ -12,10 +12,6 @@ final class WhatsNewController: WelcomeViewController {
     WhatsNewConfig(image: UIImage(named: "img_whats_new_toll")!,
                    title: "whatsnew_toll_unpaved_title",
                    text: "whatsnew_toll_unpaved_message",
-                   buttonTitle: "whats_new_next_button"),
-    WhatsNewConfig(image: UIImage(named: "img_whats_new_guide_upd")!,
-                   title: "whatsnew_new_catalogue_title",
-                   text: "whatsnew_new_catalogue_message",
                    buttonTitle: "done")
     ]
   }
