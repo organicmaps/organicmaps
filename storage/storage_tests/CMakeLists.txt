@@ -28,12 +28,12 @@ omim_link_libraries(
   drape_frontend
   shaders
   map
-  traffic
   storage
   drape
   generator
   search
   routing
+  traffic
   routing_common
   ugc
   kml

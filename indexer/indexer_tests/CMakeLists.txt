@@ -66,6 +66,7 @@ omim_link_libraries(
   opening_hours
   oauthcpp
   pugixml
+  traffic
   ${LIBZ}
 )
 

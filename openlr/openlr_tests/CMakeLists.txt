@@ -32,6 +32,7 @@ omim_link_libraries(
   succinct
   protobuf
   icu
+  traffic
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )

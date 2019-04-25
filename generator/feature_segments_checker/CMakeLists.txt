@@ -16,6 +16,7 @@ omim_link_libraries(
   ${PROJECT_NAME}
   generator
   routing
+  traffic
   routing_common
   indexer
   platform

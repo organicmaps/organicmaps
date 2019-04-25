@@ -51,6 +51,7 @@ omim_link_libraries(
   succinct
   opening_hours
   oauthcpp
+  traffic
   ${LIBZ}
 )
 link_qt5_core(${PROJECT_NAME})
