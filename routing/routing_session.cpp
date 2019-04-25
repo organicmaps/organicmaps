@@ -165,7 +165,9 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     case SessionState::RouteBuilding:
     case SessionState::RouteNotStarted:
     case SessionState::RouteNoFollowing:
-    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom();
+    case SessionState::RouteRebuilding:
+      startPoint = m_checkpoints.GetPointFrom();
+      break;
 
     case SessionState::OnRoute:
     case SessionState::RouteNeedRebuild: break;
