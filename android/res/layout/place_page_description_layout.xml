@@ -19,7 +19,9 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
     android:maxLength="2000"
-    android:textAppearance="?android:attr/textAppearance"/>
+    android:textColor="?android:attr/textColorPrimary"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    tools:ignore="UnusedAttribute"/>
 
   <TextView
     android:id="@+id/more_btn"
