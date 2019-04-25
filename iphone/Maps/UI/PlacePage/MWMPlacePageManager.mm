@@ -488,6 +488,20 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
+- (void)openPartnerWithStatisticLog:(NSString *)eventName proposedUrl:(NSURL *)proposedUrl
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  
+  logSponsoredEvent(data, eventName);
+  
+  NSURL * url = data.isPartnerAppInstalled ? data.deepLink : proposedUrl;
+  NSAssert(url, @"Sponsored url can't be nil!");
+  
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+}
+
 - (void)book
 {
   auto data = self.data;
@@ -507,12 +521,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
     NSAssert(false, @"Invalid book case!");
     return;
   }
-  logSponsoredEvent(data, eventName);
   
-  NSURL * url = data.isPartnerAppInstalled ? data.deepLink : data.sponsoredURL;
-  NSAssert(url, @"Sponsored url can't be nil!");
-  
-  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+  [self openPartnerWithStatisticLog:eventName proposedUrl:data.sponsoredURL];
 }
 
 - (void)openDescriptionUrl
@@ -520,10 +530,9 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!data)
     return;
-  
-  logSponsoredEvent(data, kStatPlacePageHotelDetails);
-  [UIApplication.sharedApplication openURL:data.sponsoredDescriptionURL
-                                   options:@{} completionHandler:nil];
+ 
+ [self openPartnerWithStatisticLog:kStatPlacePageHotelDetails
+                       proposedUrl:data.sponsoredDescriptionURL];
 }
 
 - (void)openMoreUrl
@@ -531,7 +540,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!data)
     return;
-  
+
   logSponsoredEvent(data, kStatPlacePageHotelMore);
   [UIApplication.sharedApplication openURL:data.sponsoredMoreURL
                                    options:@{} completionHandler:nil];
@@ -543,9 +552,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   if (!data)
     return;
   
-  logSponsoredEvent(data, kStatPlacePageHotelReviews);
-  [UIApplication.sharedApplication openURL:data.sponsoredReviewURL
-                                   options:@{} completionHandler:nil];
+  [self openPartnerWithStatisticLog:kStatPlacePageHotelReviews
+                        proposedUrl:data.sponsoredReviewURL];
 }
 
 - (void)searchBookingHotels
