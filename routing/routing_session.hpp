@@ -123,6 +123,7 @@ public:
                            RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
+  /// \brief Sets a callback which is called every time when RoutingSession::m_state is changed.
   void SetChangeSessionStateCallback(ChangeSessionStateCallback const & changeSessionStateCallback);
 
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
