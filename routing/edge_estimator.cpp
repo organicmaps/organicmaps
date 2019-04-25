@@ -2,6 +2,7 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "traffic/speed_groups.hpp"
 #include "traffic/traffic_info.hpp"
 
 #include "indexer/feature_altitude.hpp"

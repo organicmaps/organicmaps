@@ -43,6 +43,7 @@ omim_link_libraries(
   icu
   protobuf
   oauthcpp
+  traffic
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )
