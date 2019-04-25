@@ -5,7 +5,7 @@ class DownloadedBookmarksViewController: MWMViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bottomViewTitleLabel: UILabel! {
     didSet {
-      bottomViewTitleLabel.text = L("download_guides").uppercased()
+      bottomViewTitleLabel.text = L("guides_catalogue_title").uppercased()
     }
   }
 
