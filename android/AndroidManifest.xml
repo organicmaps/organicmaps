@@ -249,7 +249,7 @@
     <activity
       android:name="com.mapswithme.maps.bookmarks.BookmarksCatalogActivity"
       android:configChanges="orientation|screenLayout|screenSize"
-      android:label="@string/guides"/>
+      android:label="@string/guides_catalogue_title"/>
 
     <activity-alias
       android:name="com.mapswithme.maps.DownloadResourcesActivity"

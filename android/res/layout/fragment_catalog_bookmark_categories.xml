@@ -99,7 +99,7 @@
         android:gravity="center_horizontal"
         android:layout_weight="1"
         mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
-        mapsme:titleDefault="@string/cached_bookmarks_placeholder_title"
+        mapsme:titleDefault="@string/guides_catalogue_title"
         mapsme:subTitleDefault="@string/cached_bookmarks_placeholder_subtitle"/>
       <Button
         android:id="@+id/download_routers_btn"

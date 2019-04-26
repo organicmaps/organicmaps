@@ -23,7 +23,7 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.bookmarks_page_my;
+          return R.string.bookmarks;
         }
       },
 
@@ -41,7 +41,7 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.downloader_downloaded_subtitle;
+          return R.string.guides;
         }
       };
 
