@@ -327,8 +327,7 @@ public class RoutingPlanController extends ToolbarController
   void saveRoutingPanelState(@NonNull Bundle outState)
   {
     mRoutingBottomMenuController.saveRoutingPanelState(outState);
-    outState.putBoolean(BUNDLE_HAS_DRIVING_OPTIONS_VIEW,
-                        mDrivingOptionsBtnContainer.getVisibility() == View.VISIBLE);
+    outState.putBoolean(BUNDLE_HAS_DRIVING_OPTIONS_VIEW, UiUtils.isVisible(mDrivingOptionsBtnContainer));
   }
 
   void restoreRoutingPanelState(@NonNull Bundle state)
