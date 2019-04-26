@@ -42,8 +42,13 @@ else
 	cert_end_timestamp=`LANG=C LC_ALL=C date --date "$mon $day $year $time $tz" +%s`
 fi
 if [[ "$MODE" == "check" ]]; then
-	if [[ "$warning_timestamp" -gt "$cert_end_timestamp" ]]; then
-		echo "Our client certificate end date of $mon $day $time $year $tz is within ${MONTHS_BEFORE_EXPIRATION_TO_BREAK} month {DAYS_WARNING_INTERVAL} days from now."
+	if [[ "$threshold_timestamp" -gt "$cert_end_timestamp" ]]; then
+		echo "Our client certificate end date of $mon $day $time $year $tz is within $MONTHS_BEFORE_EXPIRATION_TO_BREAK months from now."
+		echo "Update this certificate immediately!"
+		echo "Error"
+		exit 1
+	elif [[ "$warning_timestamp" -gt "$cert_end_timestamp" ]]; then
+		echo "Our client certificate end date of $mon $day $time $year $tz is within ${MONTHS_BEFORE_EXPIRATION_TO_BREAK} month ${DAYS_WARNING_INTERVAL} days from now."
 		echo "Update this certificate!"
 		echo "Warning"
 		exit 1
