@@ -106,7 +106,7 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
 
   // 0 <= |pathDiffRatio| <= 1. The more pathDiffRatio the closer |distanceToNextPoint| and |pathLen|.
   double const pathDiffRatio =
-      1.0 - AbsDifference(distanceToNextPoint, pathLen) / max(distanceToNextPoint, pathLen);
+      1.0 - abs(distanceToNextPoint - pathLen) / max(distanceToNextPoint, pathLen);
 
   bool const shortPath = path.size() <= 2;
   double constexpr kMinValidPathDiffRation = 0.6;
@@ -162,9 +162,9 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
         if (!ValidatePathByLength(path, distanceToNextPoint, pathLenScore))
           continue;
 
-        result.emplace_back(pathLenScore + GetScoreForUniformity(path) +
-                                fromCandidates[fromInd].m_score + toCandidates[toInd].m_score,
-                            move(path));
+        auto const score = pathLenScore + GetScoreForUniformity(path) +
+                           fromCandidates[fromInd].m_score + toCandidates[toInd].m_score;
+        result.emplace_back(score, move(path));
       }
     }
 
@@ -235,42 +235,42 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
     auto const state = q.top();
     q.pop();
 
-    auto const & u = state.m_edge;
+    auto const & stateEdge = state.m_edge;
     // TODO(mgsergio): Unify names: use either score or distance.
-    auto const us = state.m_score;
+    auto const stateScore = state.m_score;
 
-    if (us > maxPathLength + lengthToleranceM)
+    if (stateScore > maxPathLength + lengthToleranceM)
       continue;
 
-    if (us > scores[u])
+    if (stateScore > scores[stateEdge])
       continue;
 
-    if (u == to)
+    if (stateEdge == to)
     {
-      for (auto e = u; e != from; e = links[e])
-        path.emplace_back(e);
+      for (auto edge = stateEdge; edge != from; edge = links[edge])
+        path.emplace_back(edge);
       path.emplace_back(from);
       reverse(begin(path), end(path));
       return true;
     }
 
     Graph::EdgeVector edges;
-    m_graph.GetOutgoingEdges(u.GetEndJunction(), edges);
-    for (auto const & e : edges)
+    m_graph.GetOutgoingEdges(stateEdge.GetEndJunction(), edges);
+    for (auto const & edge : edges)
     {
-      if (!ConformLfrcnpV3(e, lowestFrcToNextPoint, m_infoGetter))
+      if (!ConformLfrcnpV3(edge, lowestFrcToNextPoint, m_infoGetter))
         continue;
 
-      CHECK(!u.IsFake(), ());
-      CHECK(!e.IsFake(), ());
+      CHECK(!stateEdge.IsFake(), ());
+      CHECK(!edge.IsFake(), ());
 
-      auto const it = scores.find(e);
-      auto const eScore = us + EdgeLength(e);
+      auto const it = scores.find(edge);
+      auto const eScore = stateScore + EdgeLength(edge);
       if (it == end(scores) || it->second > eScore)
       {
-        scores[e] = eScore;
-        links[e] = u;
-        q.emplace(e, eScore);
+        scores[edge] = eScore;
+        links[edge] = stateEdge;
+        q.emplace(edge, eScore);
       }
     }
   }
@@ -305,11 +305,11 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
   if (!found)
     return false;
 
-  // Skip the last edge from |from| because it already took its place at begin(shortestPath).
+  CHECK_EQUAL(from.back(), shortestPath.front(), ());
   resultPath.insert(resultPath.end(), from.cbegin(), prev(from.cend()));
   resultPath.insert(resultPath.end(), shortestPath.cbegin(), shortestPath.cend());
 
-  // Skip the first edge from |to| because it already took its place at prev(end(shortestPath)).
+  CHECK_EQUAL(to.front(), shortestPath.back(), ());
   resultPath.insert(resultPath.end(), next(to.begin()), to.end());
 
   return !resultPath.empty();

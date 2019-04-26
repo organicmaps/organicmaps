@@ -70,7 +70,7 @@ bool CandidatePathsGetter::GetLineCandidatesForPoints(
     if (i != points.size() - 1 && points[i].m_distanceToNextPoint == 0)
     {
       LOG(LINFO, ("Distance to next point is zero. Skipping the whole segment"));
-      ++m_stats.m_dnpIsZero;
+      ++m_stats.m_zeroDistToNextPointCount;
       return false;
     }
 

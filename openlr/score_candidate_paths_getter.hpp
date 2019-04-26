@@ -32,12 +32,9 @@ public:
                                   std::vector<ScorePathVec> & lineCandidates);
 
 private:
-  struct Link;
-  using LinkPtr = std::shared_ptr<Link>;
-
   struct Link
   {
-    Link(LinkPtr const & parent, Graph::Edge const & edge, double distanceM,
+    Link(std::shared_ptr<Link> const & parent, Graph::Edge const & edge, double distanceM,
          Score pointScore, Score rfcScore)
       : m_parent(parent)
       , m_edge(edge)
@@ -52,7 +49,7 @@ private:
 
     Graph::Edge GetStartEdge() const;
 
-    LinkPtr const m_parent;
+    std::shared_ptr<Link> const m_parent;
     Graph::Edge const m_edge;
     double const m_distanceM;
     Score const m_pointScore;
@@ -65,7 +62,7 @@ private:
   {
     CandidatePath() = default;
 
-    CandidatePath(LinkPtr const path, Score pointScore, Score rfcScore, Score bearingScore)
+    CandidatePath(std::shared_ptr<Link> const path, Score pointScore, Score rfcScore, Score bearingScore)
       : m_path(path)
       , m_pointScore(pointScore)
       , m_roadScore(rfcScore)
@@ -77,7 +74,7 @@ private:
 
     Score GetScore() const { return m_pointScore + m_roadScore + m_bearingScore; }
 
-    LinkPtr m_path = nullptr;
+    std::shared_ptr<Link> m_path = nullptr;
     Score m_pointScore = 0;
     Score m_roadScore = 0;
     Score m_bearingScore = 0;
@@ -100,9 +97,9 @@ private:
   /// then should be taken the member |m_parent| of the item and so on till the beginning.
   void GetAllSuitablePaths(ScoreEdgeVec const & startLines, bool isLastPoint,
                            double bearDistM, FunctionalRoadClass  functionalRoadClass,
-                           FormOfWay formOfWay, std::vector<LinkPtr> & allPaths);
+                           FormOfWay formOfWay, std::vector<std::shared_ptr<Link>> & allPaths);
 
-  void GetBestCandidatePaths(std::vector<LinkPtr> const & allPaths, bool isLastPoint,
+  void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths, bool isLastPoint,
                              uint32_t requiredBearing, double bearDistM,
                              m2::PointD const & startPoint, ScorePathVec & candidates);
 

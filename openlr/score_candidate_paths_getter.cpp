@@ -21,6 +21,7 @@
 #include <queue>
 #include <set>
 #include <tuple>
+#include <utility>
 
 using namespace routing;
 using namespace std;
@@ -42,16 +43,16 @@ double ToAngleInDeg(uint32_t angleInBuckets)
 uint32_t BearingInDeg(m2::PointD const & a, m2::PointD const & b)
 {
   auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
-  CHECK_LESS_OR_EQUAL(angle, 360.0, ("Angle should be less than or equal to 360."));
-  CHECK_GREATER_OR_EQUAL(angle, 0.0, ("Angle should be greater than or equal to 0."));
+  CHECK_LESS_OR_EQUAL(angle, 360.0, ());
+  CHECK_GREATER_OR_EQUAL(angle, 0.0, ());
   return angle;
 }
 
 double DifferenceInDeg(double a1, double a2)
 {
   auto const diff = 180.0 - abs(abs(a1 - a2) - 180.0);
-  CHECK_LESS_OR_EQUAL(diff, 180.0, ("Difference should be less than or equal to 360."));
-  CHECK_GREATER_OR_EQUAL(diff, 0.0, ("Difference should be greater than or equal to 0."));
+  CHECK_LESS_OR_EQUAL(diff, 180.0, ());
+  CHECK_GREATER_OR_EQUAL(diff, 0.0, ());
   return diff;
 }
 }  // namespace
@@ -91,7 +92,7 @@ bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
     if (i != points.size() - 1 && points[i].m_distanceToNextPoint == 0)
     {
       LOG(LINFO, ("Distance to next point is zero. Skipping the whole segment"));
-      ++m_stats.m_dnpIsZero;
+      ++m_stats.m_zeroDistToNextPointCount;
       return false;
     }
 
@@ -122,9 +123,10 @@ bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
 void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLines,
                                                     bool isLastPoint, double bearDistM,
                                                     FunctionalRoadClass functionalRoadClass,
-                                                    FormOfWay formOfWay, vector<LinkPtr> & allPaths)
+                                                    FormOfWay formOfWay,
+                                                    vector<shared_ptr<Link>> & allPaths)
 {
-  queue<LinkPtr> q;
+  queue<shared_ptr<Link>> q;
 
   for (auto const & e : startLines)
   {
@@ -132,9 +134,8 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
     if (!PassesRestrictionV3(e.m_edge, functionalRoadClass, formOfWay, m_infoGetter, roadScore))
       continue;
 
-    auto const u =
-        make_shared<Link>(nullptr /* parent */, e.m_edge, 0 /* distanceM */, e.m_score, roadScore);
-    q.push(u);
+    q.push(
+        make_shared<Link>(nullptr /* parent */, e.m_edge, 0 /* distanceM */, e.m_score, roadScore));
   }
 
   // Filling |allPaths| staring from |startLines| which have passed functional road class
@@ -150,7 +151,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
     if (u->m_distanceM + currentEdgeLen >= bearDistM)
     {
-      allPaths.push_back(u);
+      allPaths.emplace_back(move(u));
       continue;
     }
 
@@ -187,7 +188,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 }
 
 void ScoreCandidatePathsGetter::GetBestCandidatePaths(
-    vector<LinkPtr> const & allPaths, bool isLastPoint, uint32_t requiredBearing,
+    vector<shared_ptr<Link>> const & allPaths, bool isLastPoint, uint32_t requiredBearing,
     double bearDistM, m2::PointD const & startPoint, ScorePathVec & candidates)
 {
   CHECK_GREATER_OR_EQUAL(requiredBearing, 0, ());
@@ -196,9 +197,9 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(
   multiset<CandidatePath, greater<>> candidatePaths;
 
   BearingPointsSelector pointsSelector(static_cast<uint32_t>(bearDistM), isLastPoint);
-  for (auto const & l : allPaths)
+  for (auto const & link : allPaths)
   {
-    auto const bearStartPoint = pointsSelector.GetStartPoint(l->GetStartEdge());
+    auto const bearStartPoint = pointsSelector.GetStartPoint(link->GetStartEdge());
 
     // Number of edges counting from the last one to check bearing on. According to OpenLR spec
     // we have to check bearing on a point that is no longer than 25 meters traveling down the path.
@@ -213,7 +214,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(
     //                 ^ this one.
     // So we want to check them all.
     uint32_t traceBackIterationsLeft = 3;
-    for (auto part = l; part; part = part->m_parent)
+    for (auto part = link; part; part = part->m_parent)
     {
       if (traceBackIterationsLeft == 0)
         break;
@@ -274,7 +275,7 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
 
   auto const startPoint = MercatorBounds::FromLatLon(p.m_latLon);
 
-  vector<LinkPtr> allPaths;
+  vector<shared_ptr<Link>> allPaths;
   GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,
                       allPaths);
 
