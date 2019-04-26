@@ -7,6 +7,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/stl_iterator.hpp"
 
 #include <algorithm>
@@ -22,27 +23,22 @@ namespace openlr
 {
 namespace
 {
-class Uniformity
+class EdgeContainer
 {
 public:
-  struct Field
-  {
-    bool m_field = false;
-    bool m_isTheSame = true;
-  };
+  explicit EdgeContainer(Graph const & graph) : m_graph(graph) {}
 
-  explicit Uniformity(Graph const & graph) : m_graph(graph) {}
-
-  void NextEdge(Graph::Edge const & edge)
+  void ProcessEdge(Graph::Edge const & edge)
   {
     CHECK(!edge.IsFake(), ());
 
     feature::TypesHolder types;
     m_graph.GetFeatureTypes(edge.GetFeatureId(), types);
 
+    ftypes::HighwayClass const hwClass = ftypes::GetHighwayClass(types);
     if (m_minHwClass == ftypes::HighwayClass::Undefined)
     {
-      m_minHwClass = ftypes::GetHighwayClass(types);
+      m_minHwClass = hwClass;
       m_maxHwClass = m_minHwClass;
       m_oneWay.m_field = ftypes::IsOneWayChecker::Instance()(types);
       m_roundabout.m_field = ftypes::IsRoundAboutChecker::Instance()(types);
@@ -50,18 +46,19 @@ public:
     }
     else
     {
-      ftypes::HighwayClass const hwClass = ftypes::GetHighwayClass(types);
       m_minHwClass = static_cast<ftypes::HighwayClass>(
-          min(static_cast<uint8_t>(m_minHwClass), static_cast<uint8_t>(hwClass)));
+          min(base::Underlying(m_minHwClass), base::Underlying(hwClass)));
       m_maxHwClass = static_cast<ftypes::HighwayClass>(
-          max(static_cast<uint8_t>(m_maxHwClass), static_cast<uint8_t>(hwClass)));
+          max(base::Underlying(m_maxHwClass), base::Underlying(hwClass)));
 
-      if (m_oneWay.m_isTheSame && m_oneWay.m_field != ftypes::IsOneWayChecker::Instance()(types))
-        m_oneWay.m_isTheSame = false;
-      if (m_roundabout.m_isTheSame && m_roundabout.m_field != ftypes::IsRoundAboutChecker::Instance()(types))
-        m_roundabout.m_isTheSame = false;
-      if (m_link.m_isTheSame && m_link.m_field != ftypes::IsLinkChecker::Instance()(types))
-        m_link.m_isTheSame = false;
+      if (m_oneWay.m_allEqual && m_oneWay.m_field != ftypes::IsOneWayChecker::Instance()(types))
+        m_oneWay.m_allEqual = false;
+
+      if (m_roundabout.m_allEqual && m_roundabout.m_field != ftypes::IsRoundAboutChecker::Instance()(types))
+        m_roundabout.m_allEqual = false;
+
+      if (m_link.m_allEqual && m_link.m_field != ftypes::IsLinkChecker::Instance()(types))
+        m_link.m_allEqual = false;
     }
   }
 
@@ -74,11 +71,17 @@ public:
     return hwClassDiff;
   }
 
-  bool IsOneWayTheSame() const { return m_oneWay.m_isTheSame; }
-  bool IsRoundaboutTheSame() const { return m_roundabout.m_isTheSame; }
-  bool IsLinkTheSame() const { return m_link.m_isTheSame; }
+  bool AreAllOneWaysEqual() const { return m_oneWay.m_allEqual; }
+  bool AreAllRoundaboutEqual() const { return m_roundabout.m_allEqual; }
+  bool AreAllLinksEqual() const { return m_link.m_allEqual; }
 
 private:
+  struct Field
+  {
+    bool m_field = false;
+    bool m_allEqual = true;
+  };
+
   Graph const & m_graph;
 
   ftypes::HighwayClass m_minHwClass = ftypes::HighwayClass::Undefined;
@@ -314,11 +317,11 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
 
 Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
 {
-  Uniformity uniformity(m_graph);
+  EdgeContainer edgeContainer(m_graph);
   for (auto const & edge : path)
-    uniformity.NextEdge(edge);
+    edgeContainer.ProcessEdge(edge);
 
-  auto const hwClassDiff = uniformity.GetHighwayClassDiff();
+  auto const hwClassDiff = edgeContainer.GetHighwayClassDiff();
   Score constexpr kScoreForTheSameHwClass = 40;
   Score constexpr kScoreForNeighboringHwClasses = 15;
   Score const hwClassScore = hwClassDiff == 0
@@ -328,10 +331,11 @@ Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
   Score constexpr kScoreForOneWayOnly = 17;
   Score constexpr kScoreForRoundaboutOnly = 18;
   Score constexpr kScoreForLinkOnly = 10;
-  Score const theSameTypeScore = (uniformity.IsOneWayTheSame() ? kScoreForOneWayOnly : 0) +
-                                 (uniformity.IsRoundaboutTheSame() ? kScoreForRoundaboutOnly : 0) +
-                                 (uniformity.IsLinkTheSame() ? kScoreForLinkOnly : 0);
+  Score const allEqualScore =
+      (edgeContainer.AreAllOneWaysEqual() ? kScoreForOneWayOnly : 0) +
+      (edgeContainer.AreAllRoundaboutEqual() ? kScoreForRoundaboutOnly : 0) +
+      (edgeContainer.AreAllLinksEqual() ? kScoreForLinkOnly : 0);
 
-  return hwClassScore + theSameTypeScore;
+  return hwClassScore + allEqualScore;
 }
 }  // namespace openlr
