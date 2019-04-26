@@ -29,6 +29,7 @@ import com.mapswithme.util.statistics.Statistics;
 public class RoutingPlanController extends ToolbarController
 {
   static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
+  private static final String BUNDLE_HAS_DRIVING_OPTIONS_VIEW = "has_driving_options_view";
 
   private final View mFrame;
   @NonNull
@@ -326,11 +327,16 @@ public class RoutingPlanController extends ToolbarController
   void saveRoutingPanelState(@NonNull Bundle outState)
   {
     mRoutingBottomMenuController.saveRoutingPanelState(outState);
+    outState.putBoolean(BUNDLE_HAS_DRIVING_OPTIONS_VIEW,
+                        mDrivingOptionsBtnContainer.getVisibility() == View.VISIBLE);
   }
 
   void restoreRoutingPanelState(@NonNull Bundle state)
   {
     mRoutingBottomMenuController.restoreRoutingPanelState(state);
+    boolean hasView = state.getBoolean(BUNDLE_HAS_DRIVING_OPTIONS_VIEW);
+    if (hasView)
+      showDrivingOptionView();
   }
 
   public void showAddStartFrame()
