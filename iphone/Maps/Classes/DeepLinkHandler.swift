@@ -10,6 +10,11 @@ fileprivate enum DeeplinkType {
   private(set) var isLaunchedByDeeplink = false
   private(set) var deeplinkURL: URL?
 
+  var needExtraWelcomeScreen: Bool {
+    guard let host = deeplinkURL?.host else { return false }
+    return host == "catalogue" || host == "guides_page"
+  }
+
   private var canHandleLink = false
   private var deeplinkType: DeeplinkType = .common
 
@@ -36,8 +41,11 @@ fileprivate enum DeeplinkType {
     NSLog("deeplink: applicationDidOpenUrl \(url)")
     guard let dlType = deeplinkType(url) else { return false }
     deeplinkType = dlType
-    isLaunchedByDeeplink = true
     deeplinkURL = url
+    if canHandleLink || !isLaunchedByDeeplink {
+      isLaunchedByDeeplink = true
+      handleInternal()
+    }
     return true
   }
 
@@ -84,7 +92,7 @@ fileprivate enum DeeplinkType {
   }
 
   private func convertUniversalLink(_ universalLink: URL) -> URL {
-    let convertedLink = String(format: "mapsme://%@?%@", universalLink.path, universalLink.query ?? "")
+    let convertedLink = String(format: "mapsme:/%@?%@", universalLink.path, universalLink.query ?? "")
     return URL(string: convertedLink)!
   }
 

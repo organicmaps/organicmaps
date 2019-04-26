@@ -548,7 +548,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
 {
   NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl().c_str());
-  return urlString ? [NSURL URLWithString:[urlString stringByAppendingString:path]] : nil;
+  return urlString ? [NSURL URLWithString:[urlString stringByAppendingPathComponent:path]] : nil;
 }
 
 - (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId

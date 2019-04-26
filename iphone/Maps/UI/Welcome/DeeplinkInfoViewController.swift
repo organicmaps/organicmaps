@@ -14,13 +14,13 @@ class DeeplinkInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    guard let dlUrl = deeplinkURL else { return }
-    switch dlUrl.path {
-    case "/guides_page":
+    guard let dlUrl = deeplinkURL, let host = dlUrl.host else { return }
+    switch host {
+    case "guides_page":
       alertTitle.text = L("onboarding_guide_direct_download_title")
       alertText.text = L("onboarding_guide_direct_download_subtitle")
       nextPageButton.setTitle(L("onboarding_guide_direct_download_button"), for: .normal)
-    case "/catalogue":
+    case "catalogue":
       alertTitle.text = L("onboarding_bydeeplink_guide_title")
       alertText.text = L("onboarding_bydeeplink_guide_subtitle")
       nextPageButton.setTitle(L("current_location_unknown_continue_button"), for: .normal)

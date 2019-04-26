@@ -156,7 +156,7 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
     if index + 1 < controllers.count {
       nextPage()
     } else {
-      if DeepLinkHandler.shared.isLaunchedByDeeplink {
+      if DeepLinkHandler.shared.needExtraWelcomeScreen {
         let sb = UIStoryboard.instance(.welcome)
         let vc = sb.instantiateViewController(withIdentifier: "DeeplinkInfoViewController") as! DeeplinkInfoViewController
         vc.delegate = self
@@ -165,6 +165,7 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
         nextPage()
       } else {
         close()
+        DeepLinkHandler.shared.handleDeeplink()
       }
     }
   }

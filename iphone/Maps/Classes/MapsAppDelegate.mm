@@ -156,12 +156,6 @@ using namespace osm_auth_ios;
   return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
 }
 
-- (NSURL *)convertUniversalLink:(NSURL *)universalLink
-{
-  auto deeplink = [NSString stringWithFormat:@"mapsme://%@?%@", universalLink.path, universalLink.query];
-  return [NSURL URLWithString:deeplink];
-}
-
 - (void)searchText:(NSString *)searchString
 {
   if (!self.isDrapeEngineCreated)
@@ -345,6 +339,7 @@ using namespace osm_auth_ios;
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
+  [DeepLinkHandler.shared reset];
   if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
@@ -364,7 +359,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
-  [DeepLinkHandler.shared reset];
   auto & f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.

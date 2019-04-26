@@ -34,7 +34,7 @@ final class CatalogWebViewController: WebViewController {
   @objc init(_ deeplinkURL: URL? = nil) {
     var catalogUrl = MWMBookmarksManager.shared().catalogFrontendUrl()!
     if let dl = deeplinkURL {
-      if dl.path == "/guides_page" {
+      if dl.host == "guides_page" {
         if let urlComponents = URLComponents(url: dl, resolvingAgainstBaseURL: false),
           let path = urlComponents.queryItems?.reduce(into: "", { if $1.name == "url" { $0 = $1.value } }),
           let url = MWMBookmarksManager.shared().catalogFrontendUrlPlusPath(path) {
