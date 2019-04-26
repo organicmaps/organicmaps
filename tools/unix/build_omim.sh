@@ -9,8 +9,9 @@ OPT_DESIGNER=
 OPT_GCC=
 OPT_TARGET=
 OPT_PATH=
+OPT_STANDALONE=
 
-while getopts ":cdrsgtp:" opt; do
+while getopts ":cdrstagp:" opt; do
   case $opt in
     d)
       OPT_DEBUG=1
@@ -28,6 +29,9 @@ while getopts ":cdrsgtp:" opt; do
     t)
       OPT_DESIGNER=1
       ;;
+    a)
+      OPT_STANDALONE=1
+      ;;
     g)
       OPT_GCC=1
       ;;
@@ -36,13 +40,14 @@ while getopts ":cdrsgtp:" opt; do
       ;;
     *)
       echo "This tool builds omim"
-      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-g] [-p PATH] [target1 target2 ...]"
+      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-a] [-g] [-p PATH] [target1 target2 ...]"
       echo
       echo -e "-d\tBuild omim-debug"
       echo -e "-r\tBuild omim-release"
       echo -e "-c\tClean before building"
       echo -e "-s\tSkip desktop app building"
       echo -e "-t\tBuild designer tool (only for MacOS X platform)"
+      echo -e "-a\tBuild standalone desktop app (only for MacOS X platform)"
       echo -e "-g\tForce use GCC (only for MacOS X platform)"
       echo -e "-p\tDirectory for built binaries"
       echo "By default both configurations is built."
@@ -53,6 +58,10 @@ done
 
 [ -n "$OPT_DESIGNER" -a -n "$OPT_SKIP_DESKTOP" ] &&
 echo "Can't skip desktop and build designer tool simultaneously" &&
+exit 2
+
+[ -n "$OPT_STANDALONE" -a -n "$OPT_SKIP_DESKTOP" ] &&
+echo "Can't skip desktop and build standalone desktop app simultaneously" &&
 exit 2
 
 OPT_TARGET=${@:$OPTIND}
@@ -96,6 +105,8 @@ if [ "$(uname -s)" == "Darwin" ]; then
 else
   [ -n "$OPT_DESIGNER" ] \
   && echo "Designer tool supported only on MacOS X platform" && exit 2
+  [ -n "$OPT_STANDALONE" ] \
+  && echo "Standalone desktop app supported only on MacOS X platform" && exit 2
   PROCESSES=$(nproc)
 fi
 
@@ -115,7 +126,12 @@ build()
   cd "$DIRNAME"
   TMP_FILE="build_error.log"
   if [ -z "$OPT_DESIGNER" ]; then
-    "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
+    if [ -n "$OPT_STANDALONE" ]; then
+      "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
+      -DBUILD_STANDALONE:bool=True ${CMAKE_CONFIG:-}
+    else
+      "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
+    fi
     echo ""
     if ! make $OPT_TARGET -j $PROCESSES 2> "$TMP_FILE"; then
       echo '--------------------'

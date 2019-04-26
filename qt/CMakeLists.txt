@@ -289,7 +289,7 @@ if (BUILD_DESIGNER)
     foreach(BUNDLE ${BUNDLE_FOLDER} ${BUNDLES})
       execute_process(
         COMMAND \"${QT_PATH}/bin/macdeployqt\" \"\${BUNDLE}\"
-        COMMAND python \"${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py\" -q -nl \"\${BUNDLE}\" \"${QT_PATH}\"
+        COMMAND find \"\${BUNDLE}/Contents/MacOS\" -type f -exec python \"${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py\" -q -nl {} \"${QT_PATH}\" \\;
       )
     endforeach()
     foreach(BUNDLE ${BUNDLES})
@@ -305,6 +305,14 @@ if (BUILD_DESIGNER)
   set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
   set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/designer.icns)
   include(CPack)
+elseif (BUILD_STANDALONE)
+  add_custom_command(TARGET desktop POST_BUILD
+    COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
+    COMMAND python "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
+    COMMAND echo "Fixing Qt dependencies finished."
+    VERBATIM
+    COMMENT "Fixing Qt dependencies for standalone desktop app"
+  )
 endif()
 
 add_subdirectory(qt_common)
