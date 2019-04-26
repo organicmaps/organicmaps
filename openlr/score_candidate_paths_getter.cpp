@@ -198,7 +198,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(
   BearingPointsSelector pointsSelector(static_cast<uint32_t>(bearDistM), isLastPoint);
   for (auto const & l : allPaths)
   {
-    auto const bearStartPoint = pointsSelector.GetBearingStartPoint(l->GetStartEdge());
+    auto const bearStartPoint = pointsSelector.GetStartPoint(l->GetStartEdge());
 
     // Number of edges counting from the last one to check bearing on. According to OpenLR spec
     // we have to check bearing on a point that is no longer than 25 meters traveling down the path.
@@ -220,7 +220,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(
 
       --traceBackIterationsLeft;
 
-      auto const bearEndPoint = pointsSelector.GetBearingEndPoint(part->m_edge, part->m_distanceM);
+      auto const bearEndPoint = pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
 
       auto const bearingDeg = BearingInDeg(bearStartPoint, bearEndPoint);
       double const requiredBearingDeg = ToAngleInDeg(requiredBearing);
@@ -264,7 +264,7 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
                                                   ScoreEdgeVec const & edgeCandidates,
                                                   ScorePathVec & candidates)
 {
-  double const kDefaultBearDistM = 25.0;
+  double constexpr kDefaultBearDistM = 25.0;
   double const bearDistM = min(kDefaultBearDistM, distanceToNextPointM);
 
   ScoreEdgeVec const & startLines = edgeCandidates;

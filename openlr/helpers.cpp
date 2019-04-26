@@ -93,22 +93,20 @@ BearingPointsSelector::BearingPointsSelector(uint32_t bearDistM, bool isLastPoin
 {
 }
 
-m2::PointD BearingPointsSelector::GetBearingStartPoint(Graph::Edge const & e) const
+m2::PointD BearingPointsSelector::GetStartPoint(Graph::Edge const & e) const
 {
   return m_isLastPoint ? e.GetEndPoint() : e.GetStartPoint();
 }
 
-m2::PointD BearingPointsSelector::GetBearingEndPoint(Graph::Edge const & e, double const distanceM)
+m2::PointD BearingPointsSelector::GetEndPoint(Graph::Edge const & e, double distanceM)
 {
   if (distanceM < m_bearDistM && m_bearDistM <= distanceM + EdgeLength(e))
   {
     auto const edgeLen = EdgeLength(e);
     auto const edgeBearDist = min(m_bearDistM - distanceM, edgeLen);
     CHECK_LESS_OR_EQUAL(edgeBearDist, edgeLen, ());
-    return m_isLastPoint ? PointAtSegmentM(e.GetEndPoint(), e.GetStartPoint(),
-                                           static_cast<double>(edgeBearDist))
-                         : PointAtSegmentM(e.GetStartPoint(), e.GetEndPoint(),
-                                           static_cast<double>(edgeBearDist));
+    return m_isLastPoint ? PointAtSegmentM(e.GetEndPoint(), e.GetStartPoint(), edgeBearDist)
+                         : PointAtSegmentM(e.GetStartPoint(), e.GetEndPoint(), edgeBearDist);
   }
   return m_isLastPoint ? e.GetStartPoint() : e.GetEndPoint();
 }
@@ -165,11 +163,11 @@ bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, F
   return static_cast<int>(frc) <= static_cast<int>(restriction) + frcThreshold;
 }
 
-bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
-                         RoadInfoGetter & infoGetter, Score & score)
+bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
+                         FormOfWay formOfWay, RoadInfoGetter & infoGetter, Score & score)
 {
   CHECK(!e.IsFake(), ("Edges should not be fake:", e));
-  auto const frcScore = GetFrcScore(e, restriction, infoGetter);
+  auto const frcScore = GetFrcScore(e, functionalRoadClass, infoGetter);
   if (frcScore == boost::none)
     return false;
 

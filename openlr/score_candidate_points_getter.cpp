@@ -124,9 +124,9 @@ Score ScoreCandidatePointsGetter::GetScoreByDistance(m2::PointD const & point,
 
   double const distM = MercatorBounds::DistanceOnEarth(point, candidate);
   double const score =
-      (distM <= kMaxScoreDistM
-           ? kMaxScoreForDist * junctionFactor
-           : static_cast<double>(kMaxScoreForDist) * junctionFactor / (1.0 + distM - kMaxScoreDistM));
+      distM <= kMaxScoreDistM
+          ? kMaxScoreForDist * junctionFactor
+          : static_cast<double>(kMaxScoreForDist) * junctionFactor / (1.0 + distM - kMaxScoreDistM);
 
   CHECK_GREATER_OR_EQUAL(score, 0.0, ());
   CHECK_LESS_OR_EQUAL(score, static_cast<double>(kMaxScoreForDist) * junctionFactor, ());

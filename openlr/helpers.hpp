@@ -14,16 +14,14 @@ namespace openlr
 {
 class RoadInfoGetter;
 
-// This class is used to get correct points for further bearing calculations.
-// Depending on |isLastPoint| it either calculates those points straightforwardly
-// or reverses directions and then calculates.
+// This class is used to get points for further bearing calculations.
 class BearingPointsSelector
 {
 public:
   BearingPointsSelector(uint32_t bearDistM, bool isLastPoint);
 
-  m2::PointD GetBearingStartPoint(Graph::Edge const & e) const;
-  m2::PointD GetBearingEndPoint(Graph::Edge const & e, double distanceM);
+  m2::PointD GetStartPoint(Graph::Edge const & e) const;
+  m2::PointD GetEndPoint(Graph::Edge const & e, double distanceM);
 
 private:
   double m_bearDistM;
@@ -49,8 +47,10 @@ std::common_type_t<T, U> AbsDifference(T const a, U const b)
 
 bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
                        int frcThreshold, RoadInfoGetter & infoGetter);
-bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
-                         RoadInfoGetter & infoGetter, Score & score);
+/// \returns true if |e| conforms |functionalRoadClass| and |formOfWay| and false otherwise.
+/// \note If the method returns true |score| should be considered next.
+bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
+                         FormOfWay formOfWay, RoadInfoGetter & infoGetter, Score & score);
 
 /// \returns true if edge |e| conforms Lowest Functional Road Class to Next Point.
 /// \note frc means Functional Road Class. Please see openlr documentation for details:

@@ -204,8 +204,7 @@ void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator 
     from = CutOffset(start, stop, positiveOffset, keepEnds);
     // |to| points past the last edge we need to take.
     to = CutOffset(reverse_iterator<InputIterator>(stop), reverse_iterator<InputIterator>(start),
-                   negativeOffset, keepEnds)
-             .base();
+                   negativeOffset, keepEnds).base();
   }
 
   if (!keepEnds)
@@ -378,14 +377,14 @@ private:
 class SegmentsDecoderV3
 {
 public:
-  SegmentsDecoderV3(DataSource const & dataSource, unique_ptr<CarModelFactory> cmf)
-      : m_dataSource(dataSource), m_graph(dataSource, move(cmf)), m_infoGetter(dataSource)
+  SegmentsDecoderV3(DataSource const & dataSource, unique_ptr<CarModelFactory> carModelFactory)
+      : m_dataSource(dataSource), m_graph(dataSource, move(carModelFactory)), m_infoGetter(dataSource)
   {
   }
 
   bool DecodeSegment(LinearSegment const & segment, DecodedPath & path, v2::Stats & stat)
   {
-    LOG(LINFO, ("DecodeSegment(...) seg id:", segment.m_segmentId, ", point num:", segment.GetLRPs().size()));
+    LOG(LDEBUG, ("DecodeSegment(...) seg id:", segment.m_segmentId, ", point num:", segment.GetLRPs().size()));
 
     uint32_t constexpr kMaxJunctionCandidates = 10;
     uint32_t constexpr kMaxProjectionCandidates = 5;

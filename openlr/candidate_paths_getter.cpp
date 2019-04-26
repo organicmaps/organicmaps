@@ -184,7 +184,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
   BearingPointsSelector pointsSelector(bearDistM, isLastPoint);
   for (auto const & l : allPaths)
   {
-    auto const bearStartPoint = pointsSelector.GetBearingStartPoint(l->GetStartEdge());
+    auto const bearStartPoint = pointsSelector.GetStartPoint(l->GetStartEdge());
     auto const startPointsDistance = MercatorBounds::DistanceOnEarth(bearStartPoint, startPoint);
 
     // Number of edges counting from the last one to check bearing on. Accorfing to OpenLR spec
@@ -208,7 +208,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
       --traceBackIterationsLeft;
 
       auto const bearEndPoint =
-          pointsSelector.GetBearingEndPoint(part->m_edge, part->m_distanceM);
+          pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
 
       auto const bearing = Bearing(bearStartPoint, bearEndPoint);
       auto const bearingDiff = AbsDifference(bearing, requiredBearing);

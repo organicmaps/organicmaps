@@ -188,7 +188,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
     }
 
     resultPathPart = it->m_path;
-    LOG(LINFO, ("Best score:", it->m_score, "resultPathPart.size():", resultPathPart.size()));
+    LOG(LDEBUG, ("Best score:", it->m_score, "resultPathPart.size():", resultPathPart.size()));
   }
 
   CHECK_EQUAL(resultPath.size(), points.size() - 1, ());

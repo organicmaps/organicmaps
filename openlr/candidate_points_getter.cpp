@@ -12,8 +12,8 @@ using namespace routing;
 
 namespace openlr
 {
-void CandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p,
-                                                       vector<m2::PointD> & candidates)
+void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
+                                                        vector<m2::PointD> & candidates)
 {
   // TODO(mgsergio): Get optimal value using experiments on a sample.
   // Or start with small radius and scale it up when there are too few points.
