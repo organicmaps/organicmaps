@@ -500,7 +500,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (deeplinkUrl)
     catalog = [[MWMCatalogWebViewController alloc] init:deeplinkUrl];
   else
-    catalog = [[MWMCatalogWebViewController alloc] init];
+    catalog = [[MWMCatalogWebViewController alloc] init:nil];
 
   NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
   [controllers addObjectsFromArray:@[bookmarks, catalog]];
