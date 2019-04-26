@@ -785,7 +785,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)updateRoute {
   MWMRoutingOptions *newOptions = [MWMRoutingOptions new];
-  if ((self.isRouteBuilt || !self.IsRouteValid)
+  if ((self.isRoutingActive && !self.isOnRoute)
       && ![newOptions isEqual:[self router].routingOptions]) {
     [self rebuildWithBestRouter:YES];
   }

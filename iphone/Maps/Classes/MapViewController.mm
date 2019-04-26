@@ -514,7 +514,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)openDrivingOptions
 {
-  UIStoryboard *sb = [UIStoryboard instance:MWMStoryboardDrivingOptions];// [UIStoryboard storyboardWithName:@"DrivingOptions" bundle:nil];
+  UIStoryboard *sb = [UIStoryboard instance:MWMStoryboardDrivingOptions];
   UIViewController * vc = [sb instantiateInitialViewController];
   [self.navigationController pushViewController:vc animated:YES];
 }
