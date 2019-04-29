@@ -158,12 +158,30 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
 
   private func updatePublic() {
-    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("any_access_update_alert_title"),
-                                                             message: L("any_access_update_alert_message"),
-                                                             rightButtonTitle: L("any_access_update_alert_update"),
-                                                             leftButtonTitle: L("cancel")) {
-                                                              self.uploadAndPublish(update: true)
+    let updateAction = { [unowned self] in
+      self.performAfterValidation(anchor: self.uploadAndPublishCell) { [weak self] in
+        guard let self = self else { return }
+        if self.category.title.isEmpty || self.category.detailedAnnotation.isEmpty {
+          self.showMalformedDataError()
+          return
+        }
+        if (self.category.trackCount + self.category.bookmarksCount < 3) {
+          MWMAlertViewController
+            .activeAlert()
+            .presentInfoAlert(L("error_public_not_enought_title"),
+                              text: L("error_public_not_enought_subtitle"))
+          return
+        }
+        self.uploadAndPublish(update: true)
+      }
     }
+    MWMAlertViewController
+      .activeAlert()
+      .presentDefaultAlert(withTitle: L("any_access_update_alert_title"),
+                           message: L("any_access_update_alert_message"),
+                           rightButtonTitle: L("any_access_update_alert_update"),
+                           leftButtonTitle: L("cancel"),
+                           rightButtonAction: updateAction)
   }
 
   private func updateDirectLink() {
