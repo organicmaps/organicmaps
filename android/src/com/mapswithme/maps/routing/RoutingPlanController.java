@@ -366,8 +366,8 @@ public class RoutingPlanController extends ToolbarController
 
   public void hideDrivingOptionsView()
   {
-    mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.hide(mDrivingOptionsBtnContainer);
+    mRoutingPlanListener.onRoutingPlanStartAnimate(UiUtils.isVisible(getFrame()));
   }
 
   public int calcHeight()
