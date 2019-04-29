@@ -27,12 +27,12 @@ public:
 
   void GetCandidatePoints(m2::PointD const & p, std::vector<m2::PointD> & candidates)
   {
-    GetJunctionPointCandidates(p, candidates);
+    FillJunctionPointCandidates(p, candidates);
     EnrichWithProjectionPoints(p, candidates);
   }
 
 private:
-  void GetJunctionPointCandidates(m2::PointD const & p, std::vector<m2::PointD> & candidates);
+  void FillJunctionPointCandidates(m2::PointD const & p, std::vector<m2::PointD> & candidates);
   void EnrichWithProjectionPoints(m2::PointD const & p, std::vector<m2::PointD> & candidates);
 
   size_t const m_maxJunctionCandidates;

@@ -110,8 +110,8 @@ bool ValidateLimit(char const * flagname, int32_t value)
 {
   if (value < -1)
   {
-    printf("Invalid value for --%s: %d, must be greater or equal to -1\n", flagname,
-           static_cast<int>(value));
+    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value,
+                "must be greater or equal to -1."));
     return false;
   }
 
@@ -122,9 +122,8 @@ bool ValidateNumThreads(char const * flagname, int32_t value)
 {
   if (value < kMinNumThreads || value > kMaxNumThreads)
   {
-    printf("Invalid value for --%s: %d, must be between %d and %d inclusively\n", flagname,
-           static_cast<int>(value), static_cast<int>(kMinNumThreads),
-           static_cast<int>(kMaxNumThreads));
+    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value, "must be between",
+                kMinNumThreads, "and", kMaxNumThreads));
     return false;
   }
 
@@ -135,7 +134,7 @@ bool ValidateMwmPath(char const * flagname, std::string const & value)
 {
   if (value.empty())
   {
-    printf("--%s should be specified\n", flagname);
+    LOG(LINFO, ("--", std::string(flagname), "should be specified."));
     return false;
   }
 
@@ -146,13 +145,13 @@ bool ValidateVersion(char const * flagname, int32_t value)
 {
   if (value == 0)
   {
-    printf("--%s should be specified\n", flagname);
+    LOG(LINFO, ("--", std::string(flagname), "should be specified."));
     return false;
   }
 
-  if (value != 1 && value != 2)
+  if (value != 1 && value != 2 && value != 3)
   {
-    printf("--%s should be one of 1 or 2\n", flagname);
+    LOG(LINFO, ("--", std::string(flagname), "should be one of 1, 2 or 3."));
     return false;
   }
 
@@ -282,7 +281,8 @@ int main(int argc, char * argv[])
   {
   case 1: decoder.DecodeV1(segments, numThreads, paths); break;
   case 2: decoder.DecodeV2(segments, numThreads, paths); break;
-  default: ASSERT(false, ("There should be no way to fall here"));
+  case 3: decoder.DecodeV3(segments, numThreads, paths); break;
+  default: CHECK(false, ("Wrong algorithm version."));
   }
 
   SaveNonMatchedIds(FLAGS_non_matched_ids, paths);

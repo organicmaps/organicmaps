@@ -47,7 +47,6 @@ private:
     {
     }
 
-    bool operator<(Link const & o) const;
     bool IsJunctionInPath(routing::Junction const & j) const;
 
     Graph::Edge GetStartEdge() const;

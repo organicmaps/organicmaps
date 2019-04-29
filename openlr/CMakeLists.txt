@@ -29,6 +29,13 @@ set(
   road_info_getter.hpp
   router.cpp
   router.hpp
+  score_candidate_paths_getter.cpp
+  score_candidate_paths_getter.hpp
+  score_candidate_points_getter.cpp
+  score_candidate_points_getter.hpp
+  score_paths_connector.cpp
+  score_paths_connector.hpp
+  score_types.hpp
   stats.hpp
   way_point.hpp
 )

@@ -31,6 +31,47 @@ public:
 private:
   struct Vertex final
   {
+    class Score final
+    {
+    public:
+      // A weight for total length of true fake edges.
+      static const int kTrueFakeCoeff = 10;
+
+      // A weight for total length of fake edges that are parts of some
+      // real edges.
+      static constexpr double kFakeCoeff = 0.001;
+
+      // A weight for passing too far from pivot points.
+      static const int kIntermediateErrorCoeff = 3;
+
+      // A weight for excess of distance limit.
+      static const int kDistanceErrorCoeff = 3;
+
+      // A weight for deviation from bearing.
+      static const int kBearingErrorCoeff = 5;
+
+      void AddDistance(double p) { m_distance += p; }
+      void AddFakePenalty(double p, bool partOfReal);
+      void AddIntermediateErrorPenalty(double p) { m_penalty += kIntermediateErrorCoeff * p; }
+      void AddDistanceErrorPenalty(double p) { m_penalty += kDistanceErrorCoeff * p; }
+      void AddBearingPenalty(int expected, int actual);
+
+      double GetDistance() const { return m_distance; }
+      double GetPenalty() const { return m_penalty; }
+      double GetScore() const { return m_distance + m_penalty; }
+
+      bool operator<(Score const & rhs) const;
+      bool operator>(Score const & rhs) const { return rhs < *this; }
+      bool operator==(Score const & rhs) const;
+      bool operator!=(Score const & rhs) const { return !(*this == rhs); }
+
+    private:
+      // Reduced length of path in meters.
+      double m_distance = 0.0;
+
+      double m_penalty = 0.0;
+    };
+
     Vertex() = default;
     Vertex(routing::Junction const & junction, routing::Junction const & stageStart,
            double stageStartDistance, size_t stage, bool bearingChecked);

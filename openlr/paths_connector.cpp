@@ -1,4 +1,5 @@
 #include "openlr/paths_connector.hpp"
+
 #include "openlr/helpers.hpp"
 
 #include "base/checked_cast.hpp"
@@ -15,31 +16,6 @@ namespace openlr
 {
 namespace
 {
-size_t IntersectionLen(Graph::EdgeVector a, Graph::EdgeVector b)
-{
-  sort(begin(a), end(a));
-  sort(begin(b), end(b));
-  return set_intersection(begin(a), end(a), begin(b), end(b), CounterIterator()).GetCount();
-}
-
-bool PrefEqualsSuff(Graph::EdgeVector const & a, Graph::EdgeVector const & b, size_t const len)
-{
-  ASSERT_LESS_OR_EQUAL(len, a.size(), ());
-  ASSERT_LESS_OR_EQUAL(len, b.size(), ());
-  return equal(end(a) - len, end(a), begin(b));
-}
-
-// Returns a length of the longest suffix of |a| that matches any prefix of |b|.
-// Neither |a| nor |b| can contain several repetitions of any edge.
-// Returns -1 if |a| intersection |b| is not equal to some suffix of |a| and some prefix of |b|.
-int32_t PathOverlappingLen(Graph::EdgeVector const & a, Graph::EdgeVector const & b)
-{
-  auto const len = IntersectionLen(a, b);
-  if (PrefEqualsSuff(a, b, len))
-    return base::checked_cast<int32_t>(len);
-  return -1;
-}
-
 bool ValidatePath(Graph::EdgeVector const & path,
                   double const distanceToNextPoint,
                   double const pathLengthTolerance)
