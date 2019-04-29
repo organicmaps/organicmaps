@@ -198,6 +198,10 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
 
     mContainsCachedResult = false;
+    boolean hasAnyRoutingOptions = RoutingOptions.hasAnyOptions();
+    if (hasAnyRoutingOptions)
+      mContainer.onRouteWarningReceived();
+
     if (mLastResultCode == ResultCodesHelper.NO_ERROR || mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
     {
       updatePlan();
@@ -211,18 +215,17 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
     }
 
-    if (ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+    if (!ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
     {
-      mContainer.onBuildError(mLastResultCode, mLastMissingMaps);
-      return;
+      setBuildState(BuildState.ERROR);
+      mLastBuildProgress = 0;
+      updateProgress();
     }
 
-    setBuildState(BuildState.ERROR);
-    mLastBuildProgress = 0;
-    updateProgress();
-
-    if (RoutingOptions.hasAnyOptions())
+    if (hasAnyRoutingOptions)
       mContainer.onCalculateRouteError();
+    else
+      mContainer.onBuildError(mLastResultCode, mLastMissingMaps);
   }
 
   private void setState(State newState)
