@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
@@ -15,7 +16,8 @@ import java.io.UnsupportedEncodingException;
 
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
-                                    NativeBookingFilterListener
+                                    NativeBookingFilterListener,
+                                    Initializable
 {
   INSTANCE;
 
@@ -119,11 +121,6 @@ public enum SearchEngine implements NativeSearchListener,
     mHotelListeners.unregister(listener);
   }
 
-  SearchEngine()
-  {
-    nativeInit();
-  }
-
   private native void nativeInit();
 
   /**
@@ -216,6 +213,18 @@ public enum SearchEngine implements NativeSearchListener,
   {
     mQuery = "";
     nativeShowResult(index);
+  }
+
+  @Override
+  public void initialize()
+  {
+    nativeInit();
+  }
+
+  @Override
+  public void destroy()
+  {
+    // Do nothing.
   }
 
   /**

@@ -28,6 +28,7 @@ import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
+import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
@@ -270,6 +271,7 @@ public class MwmApplication extends Application
     MapManager.nativeSubscribe(mStorageCallbacks);
 
     initNativeStrings();
+    SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart(false);
