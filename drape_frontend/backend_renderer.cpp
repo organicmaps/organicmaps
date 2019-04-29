@@ -10,6 +10,7 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/route_builder.hpp"
+#include "drape_frontend/selection_shape_generator.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -597,6 +598,22 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<NotifyRenderThreadMessage> msg = message;
       msg->InvokeFunctor();
+      break;
+    }
+
+  case Message::Type::CheckSelectionGeometry:
+    {
+      ref_ptr<CheckSelectionGeometryMessage> msg = message;
+      auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(m_context, msg->GetFeature(), m_texMng,
+                                                                           make_ref(m_metalineManager),
+                                                                           m_readManager->GetMapDataProvider());
+      if (renderNode && renderNode->GetBoundingBox().IsValid())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<FlushSelectionGeometryMessage>(
+                                    std::move(renderNode), msg->GetRecacheId()),
+                                  MessagePriority::Normal);
+      }
       break;
     }
 

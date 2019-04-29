@@ -170,13 +170,15 @@ struct ShapesProgramParams
   glsl::mat4 m_pivotTransform;
   glsl::vec3 m_position;
   float m_accuracy = 0.0;
+  glsl::vec2 m_lineParams;
   float m_zScale = 1.0f;
   float m_opacity = 1.0f;
   float m_azimut = 0.0;
 
   BIND_PROGRAMS(ShapesProgramParams,
     Program::Accuracy,
-    Program::MyPosition)
+    Program::MyPosition,
+    Program::SelectionLine)
 } ALIGNMENT;
 
 struct Arrow3dProgramParams

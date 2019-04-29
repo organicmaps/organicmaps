@@ -33,6 +33,7 @@ enum class Program
   Ruler,
   Accuracy,
   MyPosition,
+  SelectionLine,
   Transit,
   TransitMarker,
   Route,
@@ -95,6 +96,7 @@ inline std::string DebugPrint(Program p)
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";
   case Program::MyPosition: return "MyPosition";
+  case Program::SelectionLine: return "SelectionLine";
   case Program::Transit: return "Transit";
   case Program::TransitMarker: return "TransitMarker";
   case Program::Route: return "Route";

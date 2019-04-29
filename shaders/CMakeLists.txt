@@ -91,6 +91,8 @@ set(
   GL/route_marker.fsh.glsl
   GL/route_marker.vsh.glsl
   GL/ruler.vsh.glsl
+  GL/selection_line.fsh.glsl
+  GL/selection_line.vsh.glsl
   GL/screen_quad.vsh.glsl
   GL/shader_index.txt
   GL/shaders_lib.glsl

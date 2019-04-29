@@ -37,6 +37,8 @@ public:
     CompassInfo,
     GpsInfo,
     SelectObject,
+    CheckSelectionGeometry,
+    FlushSelectionGeometry,
     AddSubroute,
     RemoveSubroute,
     PrepareSubrouteArrows,

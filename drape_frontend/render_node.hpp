@@ -8,6 +8,8 @@
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/pointers.hpp"
 
+#include "geometry/point2d.hpp"
+
 namespace df
 {
 class RenderNode
@@ -34,6 +36,12 @@ public:
     m_buffer->Render(context, m_state.GetDrawAsLine());
   }
 
+  void SetPivot(m2::PointD const & pivot) { m_pivot = pivot; }
+  m2::PointD const & GetPivot() const { return m_pivot; }
+
+  void SetBoundingBox(m2::RectD const & bbox) { m_boundingBox = bbox; }
+  m2::RectD const & GetBoundingBox() const { return m_boundingBox; }
+
 private:
   template <typename ParamsType>
   void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -54,5 +62,7 @@ private:
   dp::RenderState m_state;
   drape_ptr<dp::VertexArrayBuffer> m_buffer;
   bool m_isBuilt = false;
+  m2::PointD m_pivot;
+  m2::RectD m_boundingBox;
 };
 }  // namespace df

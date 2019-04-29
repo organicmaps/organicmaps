@@ -512,6 +512,25 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::Type::FlushSelectionGeometry:
+    {
+      ref_ptr<FlushSelectionGeometryMessage> msg = message;
+      if (m_selectionShape != nullptr)
+      {
+        m_selectionShape->AddSelectionGeometry(msg->AcceptRenderData(), msg->GetRecacheId());
+        if (m_selectionShape->HasSelectionGeometry())
+        {
+          auto bbox = m_selectionShape->GetSelectionGeometryBoundingBox();
+          CHECK(bbox.IsValid(), ());
+          bbox.Scale(kBoundingBoxScale);
+          AddUserEvent(make_unique_dp<SetRectEvent>(bbox, true /* rotate */, kDoNotChangeZoom,
+                                                    true /* isAnim */, true /* useVisibleViewport */,
+                                                    nullptr /* parallelAnimCreator */));
+        }
+      }
+      break;
+    }
+
   case Message::Type::FlushSubroute:
     {
       ref_ptr<FlushSubrouteMessage> msg = message;
@@ -1320,6 +1339,11 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       m_selectionShape->IsVisible(modelView, startPosition);
       m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
+
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CheckSelectionGeometryMessage>(
+                                msg->GetFeatureID(), m_selectionShape->GetRecacheId()),
+                              MessagePriority::Normal);
   }
 }
 
@@ -2098,23 +2122,36 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
   m2::RectD rect(pos, pos);
   m2::RectD targetRect(targetPos, targetPos);
-
-  if (m_overlayTree->IsNeedUpdate())
-    BuildOverlayTree(screen);
-
-  if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-        m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
-        m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+  if (m_selectionShape->HasSelectionGeometry())
   {
-    double const r = m_selectionShape->GetRadius();
-    rect.Inflate(r, r);
-    targetRect.Inflate(r, r);
+    auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
+    r.Scale(kBoundingBoxScale);
+    
+    m2::RectD pixelRect;
+    pixelRect.Add(screen.PtoP3d(screen.GtoP(r.LeftTop())));
+    pixelRect.Add(screen.PtoP3d(screen.GtoP(r.RightBottom())));
+    
+    rect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
+    targetRect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
   }
-  double const ptZ = m_selectionShape->GetPositionZ();
+  else
+  {
+    if (m_overlayTree->IsNeedUpdate())
+      BuildOverlayTree(screen);
 
-  double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
-  rect.Inflate(kOffset, kOffset);
-  targetRect.Inflate(kOffset, kOffset);
+    if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
+          m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
+          m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+    {
+      double const r = m_selectionShape->GetRadius();
+      rect.Inflate(r, r);
+      targetRect.Inflate(r, r);
+    }
+    
+    double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
+    rect.Inflate(kOffset, kOffset);
+    targetRect.Inflate(kOffset, kOffset);
+  }
 
   if (newViewport.SizeX() < rect.SizeX() || newViewport.SizeY() < rect.SizeY())
     return false;
@@ -2148,6 +2185,8 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
       m_selectionTrackInfo.get().m_snapSides.y = 1;
     }
   }
+  
+  double const ptZ = m_selectionShape->GetPositionZ();
   gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(pos, ptZ));
   return true;
 }

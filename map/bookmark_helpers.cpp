@@ -1,6 +1,8 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/user.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 
@@ -498,6 +500,5 @@ void ExpandBookmarksRectForPreview(m2::RectD & rect)
   if (!rect.IsValid())
     return;
 
-  double const kPaddingScale = 1.2;
-  rect.Scale(kPaddingScale);
+  rect.Scale(df::kBoundingBoxScale);
 }

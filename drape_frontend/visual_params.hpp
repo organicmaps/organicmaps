@@ -12,6 +12,8 @@
 
 namespace df
 {
+double constexpr kBoundingBoxScale = 1.2;
+
 class VisualParams
 {
 public:

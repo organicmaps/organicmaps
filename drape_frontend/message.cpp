@@ -36,6 +36,8 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::CompassInfo: return "CompassInfo";
   case Message::Type::GpsInfo: return "GpsInfo";
   case Message::Type::SelectObject: return "SelectObject";
+  case Message::Type::CheckSelectionGeometry: return "CheckSelectionGeometry";
+  case Message::Type::FlushSelectionGeometry: return "FlushSelectionGeometry";
   case Message::Type::AddSubroute: return "AddSubroute";
   case Message::Type::RemoveSubroute: return "RemoveSubroute";
   case Message::Type::PrepareSubrouteArrows: return "PrepareSubrouteArrows";

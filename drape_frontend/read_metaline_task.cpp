@@ -100,7 +100,7 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
     return {};
 
   return result;
-};
+}
 
 std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>> const & points,
                                     std::vector<FeatureID> const & featuresOrder)

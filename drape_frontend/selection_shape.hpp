@@ -10,9 +10,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include <vector>
+
 namespace dp
 {
-class UniformValuesStorage;
 class TextureManager;
 }  // namespace dp
 
@@ -48,6 +49,11 @@ public:
 
   ESelectedObject GetSelectedObject() const;
 
+  void AddSelectionGeometry(drape_ptr<RenderNode> && renderNode, int recacheId);
+  int GetRecacheId() const { return m_recacheId; }
+  m2::RectD GetSelectionGeometryBoundingBox() const;
+  bool HasSelectionGeometry() const { return !m_selectionGeometry.empty(); }
+
 private:
   m2::PointD m_position;
   double m_positionZ;
@@ -57,5 +63,8 @@ private:
 
   drape_ptr<RenderNode> m_renderNode;
   ValueMapping<float> m_mapping;
+
+  std::vector<drape_ptr<RenderNode>> m_selectionGeometry;
+  int m_recacheId = -1;
 };
 }  // namespace df

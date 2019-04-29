@@ -41,8 +41,7 @@ fragment float4 fsClearColor(const Fragment_T in [[stage_in]],
   return uniforms.u_color;
 }
 
-fragment Fragment_DepthOutput fsClearDepth(const Fragment_T in [[stage_in]],
-                                           constant Uniforms_T & uniforms [[buffer(0)]])
+fragment Fragment_DepthOutput fsClearDepth(const Fragment_T in [[stage_in]])
 {
   Fragment_DepthOutput out;
   out.depth = 1.0;

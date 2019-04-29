@@ -4,6 +4,7 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -534,7 +535,6 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
                          depth, geometryData);
   }
 
-  double constexpr kBoundingBoxScale = 1.2;
   geometryData.m_boundingBox.Scale(kBoundingBoxScale);
 
   BatchGeometry(context, state, make_ref(geometryData.m_geometry.data()),
@@ -606,7 +606,6 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> 
                                  gpu::Program::RouteDash : gpu::Program::Route, DepthLayer::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
-  double constexpr kBoundingBoxScale = 1.2;
   for (auto & data : geometryBufferData)
   {
     data.m_boundingBox.Scale(kBoundingBoxScale);

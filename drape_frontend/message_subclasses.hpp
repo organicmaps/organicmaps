@@ -12,6 +12,7 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
+#include "drape_frontend/render_node.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -556,6 +557,40 @@ private:
   FeatureID m_featureID;
   bool m_isAnim;
   bool m_isDismiss;
+};
+
+class CheckSelectionGeometryMessage : public Message
+{
+public:
+  CheckSelectionGeometryMessage(FeatureID const & feature, int recacheId)
+    : m_feature(feature)
+    , m_recacheId(recacheId)
+  {}
+
+  Type GetType() const override { return Type::CheckSelectionGeometry; }
+
+  FeatureID const & GetFeature() const { return m_feature; };
+  int GetRecacheId() const { return m_recacheId; }
+
+private:
+  FeatureID const m_feature;
+  int const m_recacheId;
+};
+
+using BaseFlushSelectionGeometryMessage = FlushRenderDataMessage<drape_ptr<RenderNode>,
+                                                                 Message::Type::FlushSelectionGeometry>;
+class FlushSelectionGeometryMessage : public BaseFlushSelectionGeometryMessage
+{
+public:
+  FlushSelectionGeometryMessage(drape_ptr<RenderNode> && renderNode, int recacheId)
+    : BaseFlushSelectionGeometryMessage(std::move(renderNode))
+    , m_recacheId(recacheId)
+  {}
+
+  int GetRecacheId() const { return m_recacheId; }
+
+private:
+  int const m_recacheId;
 };
 
 class AddSubrouteMessage : public Message

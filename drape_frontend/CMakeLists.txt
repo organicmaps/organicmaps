@@ -180,6 +180,8 @@ set(
   screen_quad_renderer.hpp
   selection_shape.cpp
   selection_shape.hpp
+  selection_shape_generator.cpp
+  selection_shape_generator.hpp
   shape_view_params.hpp
   stylist.cpp
   stylist.hpp

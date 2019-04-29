@@ -62,6 +62,8 @@ public:
 
   void EnableUGCRendering(bool enabled);
 
+  MapDataProvider & GetMapDataProvider() { return m_model; }
+
 private:
   void OnTaskFinished(threads::IRoutine * task);
   bool MustDropAllTiles(ScreenBase const & screen) const;

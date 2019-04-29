@@ -71,6 +71,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),  // Ruler
   ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),  // Accuracy
   ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),  // MyPosition
+  ProgramInfo("vsSelectionLine", "fsSelectionLine", {{0, 3}}),  // SelectionLine
   ProgramInfo("vsTransit", "fsTransit", {{0, 2}}),  // Transit
   ProgramInfo("vsTransitMarker", "fsTransitMarker", {{0, 2}}),  // TransitMarker
   ProgramInfo("vsRoute", "fsRoute", {{0, 3}}),  // Route
