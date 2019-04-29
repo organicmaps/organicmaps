@@ -98,6 +98,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   // There is always at least coordinate meta field.
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
+  
+  if ([self roadType] != RoadWarningMarkType::Count) { return; }
 
   auto const & taxiProviders = [self taxiProviders];
   if (!taxiProviders.empty())

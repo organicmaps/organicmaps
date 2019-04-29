@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,10 +38,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ib5-qh-Cmo">
                     <rect key="frame" x="0.0" y="48" width="320" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXA-Og-q2I">
-                            <rect key="frame" x="84.5" y="10.5" width="151" height="27"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXA-Og-q2I">
+                            <rect key="frame" x="72.5" y="12" width="175" height="24"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                            <state key="normal" title="DEFINE ROADS TO AVOID"/>
+                            <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="DEFINE ROADS TO AVOID" image="ic_options_warning"/>
                             <connections>
                                 <action selector="onDrivingOptions:" destination="aNH-vh-DPz" eventType="touchUpInside" id="jR1-dk-nNj"/>
                             </connections>
@@ -522,5 +523,6 @@
     <resources>
         <image name="ic_24px_manager" width="24" height="24"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
+        <image name="ic_options_warning" width="24" height="24"/>
     </resources>
 </document>
