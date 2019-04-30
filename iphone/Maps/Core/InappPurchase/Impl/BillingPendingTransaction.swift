@@ -11,7 +11,7 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
   }
 
   var status: TransactionStatus {
-    let routeTransactions = SKPaymentQueue.default().transactions.filter {
+    var routeTransactions = SKPaymentQueue.default().transactions.filter {
       var isOk = !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
         !Subscription.productIds.contains($0.payment.productIdentifier)
       if isOk && $0.transactionState == .purchasing {
@@ -23,23 +23,21 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
     }
 
     if routeTransactions.count > 1 {
-      return .error
+      pendingTransaction = routeTransactions.last
+      routeTransactions.prefix(routeTransactions.count - 1).forEach {
+        SKPaymentQueue.default().finishTransaction($0)
+      }
     } else if routeTransactions.count == 1 {
       pendingTransaction = routeTransactions[0]
-      switch pendingTransaction!.transactionState {
-      case .purchasing:
-        fallthrough
-      case .failed:
-        return .failed
-      case .purchased:
-        fallthrough
-      case .restored:
-        fallthrough
-      case .deferred:
-        return .paid
-      }
     } else {
       return .none
+    }
+
+    switch pendingTransaction!.transactionState {
+    case .purchasing, .failed:
+      return .failed
+    case .purchased, .restored, .deferred:
+      return .paid
     }
   }
 
