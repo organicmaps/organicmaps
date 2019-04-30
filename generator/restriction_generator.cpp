@@ -28,6 +28,7 @@
 namespace
 {
 using namespace routing;
+
 std::unique_ptr<IndexGraph>
 CreateIndexGraph(std::string const & targetPath,
                  std::string const & mwmPath,

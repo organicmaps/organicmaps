@@ -94,7 +94,7 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
       return false;
 
     Restriction::Type restrictionType;
-    auto viaType = RestrictionWriter::ViaType::Max;
+    auto viaType = RestrictionWriter::ViaType::Count;
     FromString(*iter, restrictionType);
     ++iter;
 
@@ -120,7 +120,7 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
     if (viaType == RestrictionWriter::ViaType::Node)
       CHECK_EQUAL(osmIds.size(), 2, ("Only |from| and |to| osmId."));
 
-    CHECK_NOT_EQUAL(viaType, RestrictionWriter::ViaType::Max, ());
+    CHECK_NOT_EQUAL(viaType, RestrictionWriter::ViaType::Count, ());
     AddRestriction(coords, restrictionType, osmIds);
   }
   return true;

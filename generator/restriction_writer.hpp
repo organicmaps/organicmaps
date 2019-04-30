@@ -19,7 +19,7 @@ public:
     Node,
     Way,
 
-    Max,
+    Count,
   };
 
   static std::string const kNodeString;
@@ -28,8 +28,11 @@ public:
   RestrictionWriter(std::string const & fullPath,
                     generator::cache::IntermediateDataReader const & cache);
 
+  // generator::CollectorInterface overrides:
+  // @{
   void CollectRelation(RelationElement const & relationElement) override;
   void Save() override {}
+  // @}
 
   static ViaType ConvertFromString(std::string const & str);
 
