@@ -123,6 +123,5 @@ fileprivate enum DeeplinkType {
     case .common:
       DeepLinkHelper.handleCommonUrl(url)
     }
-    reset()
   }
 }
