@@ -807,10 +807,15 @@ public class Factory
           return true;
         case ParsedUrlMwmRequest.RESULT_SEARCH:
           final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-          if (request.mIsSearchOnMap && (request.mLat != 0.0 || request.mLon != 0.0))
+          if (request.mLat != 0.0 || request.mLon != 0.0)
           {
             Framework.nativeStopLocationFollow();
-            Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
+            Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM,
+                                              false);
+            // We need to update viewport for search api manually because of drape engine
+            // will not notify subscribers when search activity is shown.
+            if (!request.mIsSearchOnMap)
+              Framework.nativeSetSearchViewport(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
                                null, null);

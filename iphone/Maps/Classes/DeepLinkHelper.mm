@@ -11,7 +11,9 @@
 #import "MWMCoreRouterType.h"
 #import "MWMMapViewControlsManager.h"
 
-static NSInteger const kSearchInViewportZoom = 16;
+#include "drape_frontend/visual_params.hpp"
+
+#include "geometry/mercator.hpp"
 
 @implementation DeepLinkHelper
 
@@ -68,19 +70,30 @@ static NSInteger const kSearchInViewportZoom = 16;
         [MapsAppDelegate.theApp showMap];
       break;
     case ParsedMapApi::ParsingResult::Search: {
+      int constexpr kSearchInViewportZoom = 16;
+      
       auto const &request = f.GetParsedSearchRequest();
 
       auto query = [@((request.m_query + " ").c_str()) stringByRemovingPercentEncoding];
       auto locale = @(request.m_locale.c_str());
 
-      if (request.m_isSearchOnMap) {
-        // Set viewport only when cll parameter was provided in url.
-        if (request.m_centerLat != 0.0 || request.m_centerLon != 0.0) {
-          [MapViewController setViewport:request.m_centerLat
-                                     lon:request.m_centerLon
-                               zoomLevel:kSearchInViewportZoom];
+      // Set viewport only when cll parameter was provided in url.
+      if (request.m_centerLat != 0.0 || request.m_centerLon != 0.0) {
+        [MapViewController setViewport:request.m_centerLat
+                                   lon:request.m_centerLon
+                             zoomLevel:kSearchInViewportZoom];
+        
+        // We need to update viewport for search api manually because of drape engine
+        // will not notify subscribers when search view is shown.
+        if (!request.m_isSearchOnMap)
+        {
+          auto const center = MercatorBounds::FromLatLon(request.m_centerLat, request.m_centerLon);
+          auto const rect = df::GetRectForDrawScale(kSearchInViewportZoom, center);
+          f.GetSearchAPI().OnViewportChanged(rect);
         }
+      }
 
+      if (request.m_isSearchOnMap) {
         [MWMMapViewControlsManager.manager searchTextOnMap:query forInputLocale:locale];
       } else {
         [MWMMapViewControlsManager.manager searchText:query forInputLocale:locale];

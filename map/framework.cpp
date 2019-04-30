@@ -1212,15 +1212,11 @@ m2::PointD const & Framework::GetViewportCenter() const
   return m_currentModelView.GetOrg();
 }
 
-void Framework::SetViewportCenter(m2::PointD const & pt)
-{
-  SetViewportCenter(pt, -1);
-}
-
-void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
+void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel /* = -1 */,
+                                  bool isAnim /* = true */)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */, false /* trackVisibleViewport */);
+    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, isAnim, false /* trackVisibleViewport */);
 }
 
 m2::RectD Framework::GetCurrentViewport() const

@@ -771,7 +771,7 @@ BOOL gIsFirstMyPositionMode = YES;
   f.StopLocationFollow();
   
   auto const center = MercatorBounds::FromLatLon(lat, lon);
-  f.SetViewportCenter(center, zoomLevel);
+  f.SetViewportCenter(center, zoomLevel, false);
 }
 
 @end

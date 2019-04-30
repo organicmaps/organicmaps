@@ -2126,16 +2126,26 @@ Java_com_mapswithme_maps_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass,
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat,
-                                                           jdouble lon, jint zoom)
+                                                           jdouble lon, jint zoom, jboolean isAnim)
 {
   auto const center = MercatorBounds::FromLatLon(static_cast<double>(lat),
                                                  static_cast<double>(lon));
-  frm()->SetViewportCenter(center, static_cast<int>(zoom));
+  frm()->SetViewportCenter(center, static_cast<int>(zoom), static_cast<bool>(isAnim));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeStopLocationFollow(JNIEnv *, jclass)
 {
   frm()->StopLocationFollow();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdouble lat,
+                                                           jdouble lon, jint zoom)
+{
+  auto const center = MercatorBounds::FromLatLon(static_cast<double>(lat),
+                                                 static_cast<double>(lon));
+  auto const rect = df::GetRectForDrawScale(static_cast<int>(zoom), center);
+  frm()->GetSearchAPI().OnViewportChanged(rect);
 }
 }  // extern "C"

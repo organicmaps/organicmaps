@@ -629,8 +629,7 @@ public:
   m2::PointD GetVisiblePixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
-  void SetViewportCenter(m2::PointD const & pt);
-  void SetViewportCenter(m2::PointD const & pt, int zoomLevel);
+  void SetViewportCenter(m2::PointD const & pt, int zoomLevel = -1, bool isAnim = true);
 
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
