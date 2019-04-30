@@ -12,18 +12,18 @@ UNIT_TEST(NonIntersectingIntervals_1)
 
   TEST(intervals.AddInterval(1, 10), ());
   TEST(intervals.AddInterval(11, 15), ());
-  // overlap with [1, 10]
+  // Overlap with [1, 10].
   TEST(!intervals.AddInterval(1, 20), ());
 
-  // overlap with [11, 15]
+  // Overlap with [11, 15].
   TEST(!intervals.AddInterval(13, 20), ());
 
-  // overlap with [1, 10] and [11, 15]
+  // Overlap with [1, 10] and [11, 15].
   TEST(!intervals.AddInterval(0, 100), ());
 
   TEST(intervals.AddInterval(100, 150), ());
 
-  // overlap with [100, 150]
+  // Overlap with [100, 150].
   TEST(!intervals.AddInterval(90, 200), ());
 }
 
@@ -32,7 +32,7 @@ UNIT_TEST(NonIntersectingIntervals_2)
   NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
-  // overlap with [1, 10]
+  // Overlap with [1, 10].
   TEST(!intervals.AddInterval(2, 9), ());
 }
 
@@ -41,7 +41,7 @@ UNIT_TEST(NonIntersectingIntervals_3)
   NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
-  // overlap with [1, 10]
+  // Overlap with [1, 10].
   TEST(!intervals.AddInterval(0, 20), ());
 }
 
@@ -50,7 +50,7 @@ UNIT_TEST(NonIntersectingIntervals_4)
   NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
-  // overlap with [1, 10]
+  // Overlap with [1, 10].
   TEST(!intervals.AddInterval(10, 20), ());
   TEST(!intervals.AddInterval(0, 1), ());
 }

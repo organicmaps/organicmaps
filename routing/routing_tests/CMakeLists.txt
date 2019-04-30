@@ -7,6 +7,7 @@ set(
   astar_progress_test.cpp
   astar_router_test.cpp
   async_router_test.cpp
+  bfs_tests.cpp
   checkpoint_predictor_test.cpp
   coding_test.cpp
   cross_mwm_connector_test.cpp
