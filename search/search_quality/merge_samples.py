@@ -5,8 +5,7 @@ import json
 
 def read_samples(path):
     with open(path, "r") as f:
-        lines = f.readlines()
-        return [json.loads(x) for x in lines]
+        return [json.loads(line) for line in f]
 
 
 def doubles_equal(a, b):
@@ -15,10 +14,7 @@ def doubles_equal(a, b):
 
 
 def points_equal(a, b):
-    for coord in ["x", "y"]:
-        if not doubles_equal(a[coord], b[coord]):
-            return False
-    return True
+    return doubles_equal(a["x"], b["x"]) and doubles_equal(a["y"], b["y"])
 
 
 def rects_equal(a, b):
@@ -38,11 +34,10 @@ def samples_equal(a, b):
             return False
 
     pos_key = "position"
-    a_has_pos = pos_key in a and a[pos_key]
-    b_has_pos = pos_key in b and b[pos_key]
-    if a_has_pos != b_has_pos:
-        return False
-    if a_has_pos and not points_equal(a[pos_key], b[pos_key]):
+    bad_point = {"x": -1, "y": -1}
+    a_pos = a[pos_key] or bad_point
+    b_pos = b[pos_key] or bad_point
+    if not points_equal(a_pos, b_pos):
         return False
 
     vp_key = "viewport"
@@ -89,6 +84,19 @@ def greedily_match_results(a, b):
 
 
 def merge_relevancies(a, b):
+    """
+    The second element of the returned tuple is True
+    iff the relevancies are compatible and can be merged.
+    Two relevancies are incompatible if one of them is a
+    "strong" one, i.e. either "harmful" or "vital", and
+    the other is "weak" and has the opposite sign ("relevant"
+    and "irrelevant" respectively).
+
+    If a and b are compatible, then the first element of the tuple is
+    the resulting relevance. The less intuitive merge results are:
+      strong, weak -> strong
+      relevant, irrelevant -> relevant
+    """
     RELEVANCIES = ["harmful", "irrelevant", "relevant", "vital"]
     id_a = RELEVANCIES.index(a)
     id_b = RELEVANCIES.index(b)
@@ -109,8 +117,8 @@ def merge_two_samples(a, b, line_number):
         raise Exception(f"Tried to merge two non-equivalent samples, line {line_number}")
 
     useless_key = "useless"
-    useless_a = useless_key in a and a[useless_key]
-    useless_b = useless_key in b and b[useless_key]
+    useless_a = a.get(useless_key, False)
+    useless_b = b.get(useless_key, False)
 
     if useless_a != useless_b:
         print(line_number, "useless:", useless_a, useless_b)
@@ -133,7 +141,6 @@ def merge_two_samples(a, b, line_number):
     c[res_key] = []
 
     for i, j in enumerate(match_to_a):
-        j = match_to_a[i]
         if j < 0:
             continue
         res = a[res_key][i]
@@ -143,12 +150,19 @@ def merge_two_samples(a, b, line_number):
         res[rel_key] = rc
         if not ok:
             print(line_number, ra, rb, a[res_key][i]["name"])
-            pass
+            continue
         c[res_key].append(res)
 
     # Add all unmatched results as is.
-    c[res_key].extend([a[res_key][i] for i in range(len(match_to_a)) if match_to_a[i] < 0])
-    c[res_key].extend([b[res_key][i] for i in range(len(match_to_b)) if match_to_b[i] < 0])
+    def add_unmatched(x, match_to_x):
+        c[res_key].extend(
+            x[res_key][i]
+            for i in range(len(match_to_x))
+            if match_to_x[i] < 0
+        )
+
+    add_unmatched(a, match_to_a)
+    add_unmatched(b, match_to_b)
 
     return c
 
