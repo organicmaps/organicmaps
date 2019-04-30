@@ -14,6 +14,59 @@
 #include <cstdint>
 #include <vector>
 
+namespace routing_test
+{
+void UndirectedGraph::AddEdge(Vertex u, Vertex v, Weight w)
+{
+  m_adjs[u].emplace_back(v, w);
+  m_adjs[v].emplace_back(u, w);
+}
+
+size_t UndirectedGraph::GetNodesNumber() const
+{
+  return m_adjs.size();
+}
+
+void UndirectedGraph::GetIngoingEdgesList(Vertex const & v, std::vector<SimpleEdge> & adj)
+{
+  GetAdjacencyList(v, adj);
+}
+
+void UndirectedGraph::GetOutgoingEdgesList(Vertex const & v, std::vector<SimpleEdge> & adj)
+{
+  GetAdjacencyList(v, adj);
+}
+
+double UndirectedGraph::HeuristicCostEstimate(Vertex const & v, Vertex const & w)
+{
+  return 0;
+}
+
+void UndirectedGraph::GetAdjacencyList(Vertex v, std::vector<Edge> & adj) const
+{
+  adj.clear();
+  auto const it = m_adjs.find(v);
+  if (it != m_adjs.cend())
+    adj = it->second;
+}
+
+void DirectedGraph::AddEdge(Vertex from, Vertex to, Weight w)
+{
+  m_outgoing[from].emplace_back(to, w);
+  m_ingoing[to].emplace_back(from, w);
+}
+
+void DirectedGraph::GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj)
+{
+  adj = m_ingoing[v];
+}
+
+void DirectedGraph::GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj)
+{
+  adj = m_outgoing[v];
+}
+}  // namespace routing_tests
+
 namespace routing
 {
 using namespace std;

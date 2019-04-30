@@ -4,6 +4,8 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/routing_result.hpp"
 
+#include "routing/routing_tests/routing_algorithm.hpp"
+
 #include <map>
 #include <utility>
 #include <vector>
@@ -13,52 +15,7 @@ namespace routing_test
 using namespace routing;
 using namespace std;
 
-struct Edge
-{
-  Edge(unsigned v, double w) : v(v), w(w) {}
-
-  unsigned GetTarget() const { return v; }
-  double GetWeight() const { return w; }
-
-  unsigned v;
-  double w;
-};
-
-class UndirectedGraph : public AStarGraph<unsigned, routing_test::Edge, double>
-{
-public:
-
-  void AddEdge(unsigned u, unsigned v, unsigned w)
-  {
-    m_adjs[u].push_back(Edge(v, w));
-    m_adjs[v].push_back(Edge(u, w));
-  }
-
-  void GetAdjacencyList(unsigned v, vector<Edge> & adj) const
-  {
-    adj.clear();
-    auto const it = m_adjs.find(v);
-    if (it != m_adjs.end())
-      adj = it->second;
-  }
-
-  void GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj) override
-  {
-    GetAdjacencyList(v, adj);
-  }
-
-  void GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj) override
-  {
-    GetAdjacencyList(v, adj);
-  }
-
-  double HeuristicCostEstimate(Vertex const & v, Vertex const & w) override { return 0; }
-
-private:
-  map<unsigned, vector<Edge>> m_adjs;
-};
-
-using Algorithm = AStarAlgorithm<unsigned, routing_test::Edge, double>;
+using Algorithm = AStarAlgorithm<uint32_t, SimpleEdge, double>;
 
 void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, double const & expectedDistance)
 {
@@ -132,7 +89,7 @@ UNIT_TEST(AdjustRoute)
   graph.AddEdge(6, 2, 1);
 
   // Each edge contains {vertexId, weight}.
-  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+  vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   Algorithm algo;
   Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
@@ -154,7 +111,7 @@ UNIT_TEST(AdjustRouteNoPath)
     graph.AddEdge(i /* from */, i + 1 /* to */, 1 /* weight */);
 
   // Each edge contains {vertexId, weight}.
-  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+  vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   Algorithm algo;
   Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
@@ -176,7 +133,7 @@ UNIT_TEST(AdjustRouteOutOfLimit)
   graph.AddEdge(6, 2, 2);
 
   // Each edge contains {vertexId, weight}.
-  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+  vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   Algorithm algo;
   Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
