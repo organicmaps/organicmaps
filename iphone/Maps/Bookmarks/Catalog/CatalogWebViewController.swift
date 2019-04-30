@@ -43,6 +43,7 @@ final class CatalogWebViewController: WebViewController {
       } else {
         deeplink = deeplinkURL
       }
+      Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom : kStatDeeplink])
     }
     super.init(url: catalogUrl, title: L("guides"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))

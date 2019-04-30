@@ -57,7 +57,7 @@ class DownloadedBookmarksViewController: MWMViewController {
                           withParameters: [kStatError : "no_internet"])
       return
     }
-    Statistics.logEvent("Bookmarks_Downloaded_Catalogue_open")
+    Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDownloaded])
     let webViewController = CatalogWebViewController()
     MapViewController.topViewController().navigationController?.pushViewController(webViewController,
                                                                                    animated: true)

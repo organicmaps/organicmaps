@@ -488,6 +488,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)openCatalogAnimated:(BOOL)animated
 {
+  [Statistics logEvent:kStatCatalogOpen withParameters:@{kStatFrom : kStatMenu}];
   [self openCatalogDeeplink:nil animated:animated];
 }
 

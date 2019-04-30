@@ -27,9 +27,13 @@ class DeeplinkInfoViewController: UIViewController {
     default:
       break
     }
+
+    Statistics.logEvent(kStatOnboardingDlShow, withParameters: [kStatType : host])
   }
 
   @IBAction func onNextButton(_ sender: UIButton) {
     delegate?.deeplinkInfoViewControllerDidFinish(self)
+    guard let dlUrl = deeplinkURL, let host = dlUrl.host else { return }
+    Statistics.logEvent(kStatOnboardingDlAccept, withParameters: [kStatType : host])
   }
 }
