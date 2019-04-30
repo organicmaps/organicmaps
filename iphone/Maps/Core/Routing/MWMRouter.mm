@@ -793,7 +793,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 }
 
 + (BOOL)hasActiveDrivingOptions {
-  return [MWMRoutingOptions new].hasOptions;
+  return [MWMRoutingOptions new].hasOptions && self.type == MWMRouterTypeVehicle;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type {
