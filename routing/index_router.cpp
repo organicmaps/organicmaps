@@ -1,6 +1,7 @@
 #include "routing/index_router.hpp"
 
 #include "routing/base/astar_progress.hpp"
+#include "routing/base/bfs.hpp"
 
 #include "routing/bicycle_directions.hpp"
 #include "routing/fake_ending.hpp"
@@ -9,6 +10,7 @@
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
+#include "routing/leaps_postprocessor.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
@@ -636,12 +638,17 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     if (result != RouterResultCode::NoError)
       return result;
 
-    RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate,
-                                                            starter.GetGraph().GetMode(), 
-                                                            starter, progress, subroute);
+    vector<Segment> subrouteWithoutPostprocessing;
+    RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, 
+                                                            starter.GetGraph().GetMode(),
+                                                            starter, progress,
+                                                            subrouteWithoutPostprocessing);
 
     if (leapsResult != RouterResultCode::NoError)
       return leapsResult;
+
+    LeapsPostProcessor leapsPostProcessor(subrouteWithoutPostprocessing, starter);
+    subroute = leapsPostProcessor.GetProcessedPath();
   }
 
   LOG(LINFO, ("Time for routing in mode:", starter.GetGraph().GetMode(), "is",
