@@ -25,6 +25,7 @@ set(
   mem_trie_test.cpp
   move_to_front_tests.cpp
   newtype_test.cpp
+  non_intersecting_intervals_tests.cpp
   observer_list_test.cpp
   range_iterator_test.cpp
   ref_counted_tests.cpp
@@ -37,9 +38,9 @@ set(
   string_utils_test.cpp
   suffix_array_tests.cpp
   sunrise_sunset_test.cpp
-  thread_pool_tests.cpp
   thread_pool_computational_tests.cpp
   thread_pool_delayed_tests.cpp
+  thread_pool_tests.cpp
   threaded_list_test.cpp
   threads_test.cpp
   timegm_test.cpp
