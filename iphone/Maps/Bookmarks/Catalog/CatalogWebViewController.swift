@@ -45,7 +45,7 @@ final class CatalogWebViewController: WebViewController {
       }
       Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom : kStatDeeplink])
     }
-    super.init(url: catalogUrl, title: L("guides"))!
+    super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
     fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
     backButton.tintColor = .blackSecondaryText()
