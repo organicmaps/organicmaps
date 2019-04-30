@@ -27,6 +27,24 @@ namespace
 {
 size_t const kMaxResults = 100;
 
+// While Result's |m_certainty| is deliberately vaguely defined,
+// current implementation is a log-prob type measure of our belief
+// that the labeling of tokens is correct, provided the labeling is
+// possible with respect to the IsParentTo relation on entries.
+// In other words, non-scaled post-probabilities are
+//   log(Prob(Country|token)) ~ 10
+//   log(Prob(Region|token)) ~ 5
+//   etc.
+// The greater their sum, the more likely it is that we guessed the
+// token types right.
+//
+// The reasoning is as follows. A naïve weighing would look how many query tokens
+// are covered with the current parse and assign this fraction to certainty.
+// Turns out, it works badly since a single matched long street in the query
+// (i.e., wrong city, wrong region, wrong locality, correct street) can shadow a more
+// relevant result (correct city, correct locality, wrong street) in the case where
+// the database does not contain an exact match. So let's make some parts of the
+// query heavier (heuristically). This turns out to work more predictable.
 double GetWeight(geocoder::Type t)
 {
   switch (t)
