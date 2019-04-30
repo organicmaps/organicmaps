@@ -1518,7 +1518,7 @@
 	<string name="unable_to_calc_alert_title">Brak możliwości zbudowania trasy</string>
 	<string name="unable_to_calc_alert_subtitle">Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie</string>
 	<string name="define_to_avoid_btn">Dostosuj ścieżkę objazdu</string>
-	<string name="change_driving_options_btn">Zmień ustawienia objazdu</string>
+	<string name="change_driving_options_btn">Ustawienia objazdu są włączone</string>
 	<string name="toll_road">Droga płatna</string>
 	<string name="unpaved_road">Droga gruntowa</string>
 	<string name="ferry_crossing">Przeprawa promowa</string>

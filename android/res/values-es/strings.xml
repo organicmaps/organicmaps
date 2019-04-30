@@ -1507,7 +1507,7 @@
 	<string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambia la configuración y vuelve a intentarlo</string>
 	<string name="define_to_avoid_btn">Personaliza la ruta de desvío</string>
-	<string name="change_driving_options_btn">Cambiar la configuración de desvío</string>
+	<string name="change_driving_options_btn">Configuración de desvío activada</string>
 	<string name="toll_road">Carretera con pago de peaje</string>
 	<string name="unpaved_road">Camino sin pavimento</string>
 	<string name="ferry_crossing">Cruce de ferri</string>

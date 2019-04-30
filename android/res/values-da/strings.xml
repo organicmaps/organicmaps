@@ -1517,7 +1517,7 @@
 	<string name="unable_to_calc_alert_title">Det er ikke muligt at beregne rute</string>
 	<string name="unable_to_calc_alert_subtitle">Desværre kunne vi ikke finde en rute med den aktuelle opsætning. Ændre opsætningen, og prøv igen</string>
 	<string name="define_to_avoid_btn">Definer veje du vil undgå</string>
-	<string name="change_driving_options_btn">Ændre kørsels valg</string>
+	<string name="change_driving_options_btn">Køre muligheder aktiveret</string>
 	<string name="toll_road">Betalingsvej</string>
 	<string name="unpaved_road">Grusvej</string>
 	<string name="ferry_crossing">Færgeoverfart</string>

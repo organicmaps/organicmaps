@@ -1518,7 +1518,7 @@
 	<string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
 	<string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>
-	<string name="change_driving_options_btn">Zmena možností jazdy</string>
+	<string name="change_driving_options_btn">Možnosti trasy povolené</string>
 	<string name="toll_road">Spoplatnená cesta</string>
 	<string name="unpaved_road">Nespevnená cesta</string>
 	<string name="ferry_crossing">Prechod trajektom</string>

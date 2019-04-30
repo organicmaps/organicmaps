@@ -1521,7 +1521,7 @@
 	<string name="unable_to_calc_alert_title">無法規劃路線</string>
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設置，然後重試</string>
 	<string name="define_to_avoid_btn">設置繞行路徑</string>
-	<string name="change_driving_options_btn">變更繞行設置</string>
+	<string name="change_driving_options_btn">绕行设置已开启</string>
 	<string name="toll_road">收費公路</string>
 	<string name="unpaved_road">土路</string>
 	<string name="ferry_crossing">輪渡</string>

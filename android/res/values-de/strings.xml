@@ -1527,7 +1527,7 @@
 	<string name="unable_to_calc_alert_title">Es ist unmöglich, eine Route zu planen</string>
 	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit ausgewählten Optionen planen. Ändern Sie die Einstellungen und versuchen Sie den Versuch erneut</string>
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
-	<string name="change_driving_options_btn">Einstellungen des Umweges ändern</string>
+	<string name="change_driving_options_btn">Einstellung des Umweges aktiv</string>
 	<string name="toll_road">Mautstraße</string>
 	<string name="unpaved_road">Erdweg</string>
 	<string name="ferry_crossing">Fährstelle</string>

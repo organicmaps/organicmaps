@@ -1518,7 +1518,7 @@
 	<string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
 	<string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
 	<string name="define_to_avoid_btn">กำหนดถนนที่ต้องการเลี่ยง</string>
-	<string name="change_driving_options_btn">เปลี่ยนเส้นทางการขับขี่</string>
+	<string name="change_driving_options_btn">เปิดใช้การค้นหาเส้นทางขับขี่แล้ว</string>
 	<string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
 	<string name="unpaved_road">ถนนดิน</string>
 	<string name="ferry_crossing">เรือข้ามฟาก</string>

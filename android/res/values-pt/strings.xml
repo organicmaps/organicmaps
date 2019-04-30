@@ -1517,7 +1517,7 @@
 	<string name="unable_to_calc_alert_title">Impossível construir percurso</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
 	<string name="define_to_avoid_btn">Personalizar o caminho do desvio</string>
-	<string name="change_driving_options_btn">Editar as configurações de desvio</string>
+	<string name="change_driving_options_btn">Configurações de desvio ativadas</string>
 	<string name="toll_road">Estrada com portagem</string>
 	<string name="unpaved_road">Estrada rural</string>
 	<string name="ferry_crossing">Ferryboat</string>

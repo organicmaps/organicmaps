@@ -1509,7 +1509,7 @@
 	<string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
 	<string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
 	<string name="define_to_avoid_btn">Thiết lập đường đi vòng</string>
-	<string name="change_driving_options_btn">Thay đổi thiết lập đi vòng</string>
+	<string name="change_driving_options_btn">Thiết lập đường đi tránh đã được bật</string>
 	<string name="toll_road">Đường trả phí</string>
 	<string name="unpaved_road">Đường đất</string>
 	<string name="ferry_crossing">Bến phà</string>

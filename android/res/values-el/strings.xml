@@ -1270,7 +1270,7 @@
 	<string name="unable_to_calc_alert_title">Δεν είναι δυνατή η δημιουργία διαδρομής</string>
 	<string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι</string>
 	<string name="define_to_avoid_btn">Ρύθμιση της διαδρομής παράκαμψης</string>
-	<string name="change_driving_options_btn">Αλλαγή ρυθμίσεων παράκαμψης</string>
+	<string name="change_driving_options_btn">Ρυθμίσεις δραστηριοποιούνται</string>
 	<string name="toll_road">Δρόμος με διόδια</string>
 	<string name="unpaved_road">Χωματόδρομος</string>
 	<string name="ferry_crossing">Πορθμείο</string>

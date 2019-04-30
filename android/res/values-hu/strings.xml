@@ -1514,7 +1514,7 @@
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-	<string name="change_driving_options_btn">Vezetési lehetőségek megváltoztatása</string>
+	<string name="change_driving_options_btn">Vezetési lehetőségek bekapcsolva</string>
 	<string name="toll_road">Fizetős utak</string>
 	<string name="unpaved_road">Kövezetlen utak</string>
 	<string name="ferry_crossing">Kompátkelők</string>

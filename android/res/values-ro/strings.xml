@@ -1509,7 +1509,7 @@
 	<string name="unable_to_calc_alert_title">Imposibil de elaborat un traseu</string>
 	<string name="unable_to_calc_alert_subtitle">Din păcate, nu reușim să elaborăm un traseu cu opțiunile alese. Modificați setările și încercați încă o dată</string>
 	<string name="define_to_avoid_btn">Setați căile de ocolire</string>
-	<string name="change_driving_options_btn">De modificat setarea ocolirii</string>
+	<string name="change_driving_options_btn">Setarea ocolirii este activată</string>
 	<string name="toll_road">Drum cu plată</string>
 	<string name="unpaved_road">Drum de țară</string>
 	<string name="ferry_crossing">Trecere cu bac</string>

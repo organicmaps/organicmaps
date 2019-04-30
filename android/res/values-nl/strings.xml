@@ -1514,7 +1514,7 @@
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
-	<string name="change_driving_options_btn">Wijzig omleidingsinstellingen</string>
+	<string name="change_driving_options_btn">Omweginstellingen ingeschakeld</string>
 	<string name="toll_road">Tolweg</string>
 	<string name="unpaved_road">Aardeweg</string>
 	<string name="ferry_crossing">Ferry</string>

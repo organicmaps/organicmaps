@@ -2749,7 +2749,7 @@
 
 "define_to_avoid_btn" = "回避するために道を設定";
 
-"change_driving_options_btn" = "運転オプションを変更";
+"change_driving_options_btn" = "運転オプションはアクティブです";
 
 "toll_road" = "有料道路";
 

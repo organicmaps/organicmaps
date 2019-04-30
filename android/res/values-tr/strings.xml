@@ -1518,7 +1518,7 @@
 	<string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
 	<string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
 	<string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
-	<string name="change_driving_options_btn">Sürüş seçeneklerini değiştir</string>
+	<string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
 	<string name="toll_road">Paralı yol</string>
 	<string name="unpaved_road">Asfaltsız yol</string>
 	<string name="ferry_crossing">Feribot geçişi</string>

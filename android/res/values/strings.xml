@@ -1576,7 +1576,7 @@
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">Unfortunately, we couldn\'t find a route, probably due to the options you have chosen. Please change the settings and try again.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>
-	<string name="change_driving_options_btn">Change routing options</string>
+	<string name="change_driving_options_btn">Routing options enabled</string>
 	<string name="toll_road">Toll road</string>
 	<string name="unpaved_road">Unpaved road</string>
 	<string name="ferry_crossing">Ferry crossing</string>

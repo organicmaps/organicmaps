@@ -1522,7 +1522,7 @@
 	<string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
 	<string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
-	<string name="change_driving_options_btn">Změnit možnosti řízení</string>
+	<string name="change_driving_options_btn">Možnosti směrování byly povoleny</string>
 	<string name="toll_road">Silnice s mýtným</string>
 	<string name="unpaved_road">Nezpevněná silnice</string>
 	<string name="ferry_crossing">Přejezd trajektů</string>

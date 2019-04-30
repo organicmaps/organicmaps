@@ -1512,7 +1512,7 @@
 	<string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
 	<string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
 	<string name="define_to_avoid_btn">Tentukan jalan yang dihindari</string>
-	<string name="change_driving_options_btn">Ubah opsi berkendara</string>
+	<string name="change_driving_options_btn">Opsi perutean diaktifkan</string>
 	<string name="toll_road">Jalan tol</string>
 	<string name="unpaved_road">Jalan tanah</string>
 	<string name="ferry_crossing">Penyeberangan kapal feri</string>

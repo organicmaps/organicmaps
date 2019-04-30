@@ -1528,7 +1528,7 @@
 	<string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
 	<string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
 	<string name="define_to_avoid_btn">Configurer la route de détour</string>
-	<string name="change_driving_options_btn">Modifier les réglages de détour</string>
+	<string name="change_driving_options_btn">Paramètres de détour activés</string>
 	<string name="toll_road">Route à péage</string>
 	<string name="unpaved_road">Routes non revêtues</string>
 	<string name="ferry_crossing">Passage d\'un cours d\'eau</string>

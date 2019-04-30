@@ -1411,7 +1411,7 @@
 	<string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
 	<string name="unable_to_calc_alert_subtitle">Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen</string>
 	<string name="define_to_avoid_btn">Definer veier som skal unngås</string>
-	<string name="change_driving_options_btn">Forandre kjørealternativer</string>
+	<string name="change_driving_options_btn">Kjørealternativer aktivert</string>
 	<string name="toll_road">Bompengevei</string>
 	<string name="unpaved_road">Uasfaltert vei</string>
 	<string name="ferry_crossing">Fergeovergang</string>

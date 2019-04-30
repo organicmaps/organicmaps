@@ -1518,7 +1518,7 @@
 	<string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
 	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا</string>
 	<string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>
-	<string name="change_driving_options_btn">تغيير خيارات القيادة</string>
+	<string name="change_driving_options_btn">تم تفعيل خيارات الطريق</string>
 	<string name="toll_road">نقطة تحصيل رسوم</string>
 	<string name="unpaved_road">طريق غير ممهدة</string>
 	<string name="ferry_crossing">تقاطع عبارة</string>

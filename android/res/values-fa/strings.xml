@@ -1457,7 +1457,7 @@
 	<string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
 	<string name="unable_to_calc_alert_subtitle">متأسفانه، احتمالاً به دلیل گزینه های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید</string>
 	<string name="define_to_avoid_btn">جاده های لغو شده را تعریف نمایید</string>
-	<string name="change_driving_options_btn">تغییر گزینه های رانندگی</string>
+	<string name="change_driving_options_btn">گزینه های مسیریابی فعال شد</string>
 	<string name="toll_road">جاده دارای عوارض</string>
 	<string name="unpaved_road">جاده آسفالت نشده</string>
 	<string name="ferry_crossing">گذرگاه جاده ای</string>

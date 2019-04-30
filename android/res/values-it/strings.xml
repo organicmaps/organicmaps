@@ -1513,7 +1513,7 @@
 	<string name="unable_to_calc_alert_title">Impossibile pianificare percorso</string>
 	<string name="unable_to_calc_alert_subtitle">Impossibile creare percorso con modalità prescelte. Modifica impostazioni e riprova</string>
 	<string name="define_to_avoid_btn">Impostare modalità di deviazione</string>
-	<string name="change_driving_options_btn">Modificare impostazioni di deviazione</string>
+	<string name="change_driving_options_btn">Impostazioni di deviazione abilitate</string>
 	<string name="toll_road">Strada a pedaggio</string>
 	<string name="unpaved_road">Strada sterrata</string>
 	<string name="ferry_crossing">Traghetto</string>

@@ -1565,7 +1565,7 @@
 	<string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
 	<string name="define_to_avoid_btn">Настроить пути объезда</string>
-	<string name="change_driving_options_btn">Изменить настройки объезда</string>
+	<string name="change_driving_options_btn">Настройки объезда включены</string>
 	<string name="toll_road">Платная дорога</string>
 	<string name="unpaved_road">Грунтовая дорога</string>
 	<string name="ferry_crossing">Паромная переправа</string>
