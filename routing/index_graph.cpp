@@ -163,10 +163,10 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
   {
     ASSERT(!restriction.empty(), ());
     auto & forward = m_restrictionsForward[restriction.back()];
-    forward.emplace_back(restriction.begin(), std::prev(restriction.end()));
-    std::reverse(forward.back().begin(), forward.back().end());
+    forward.emplace_back(restriction.begin(), prev(restriction.end()));
+    reverse(forward.back().begin(), forward.back().end());
 
-    m_restrictionsBackward[restriction.front()].emplace_back(std::next(restriction.begin()), restriction.end());
+    m_restrictionsBackward[restriction.front()].emplace_back(next(restriction.begin()), restriction.end());
   }
 
   LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedNano() / 1e6, "ms"));

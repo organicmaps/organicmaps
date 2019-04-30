@@ -48,7 +48,7 @@ namespace routing
 {
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
-RestrictionCollector::RestrictionCollector(string const & osmIdsToFeatureIdPath,
+RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
                                            std::unique_ptr<IndexGraph> && graph)
   : m_indexGraph(std::move(graph))
 {
@@ -259,8 +259,6 @@ void FromString(std::string const & str, RestrictionWriter::ViaType & type)
 
 void FromString(std::string const & str, double & number)
 {
-  std::stringstream ss;
-  ss << str;
-  ss >> number;
+  CHECK(strings::to_double(str.c_str(), number), ());
 }
 }  // namespace routing

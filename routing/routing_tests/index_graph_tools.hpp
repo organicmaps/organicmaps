@@ -233,11 +233,11 @@ private:
 };
 
 std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
-                                                    std::shared_ptr<EdgeEstimator> estimator,
-                                                    std::vector<Joint> const & joints);
+                                                         std::shared_ptr<EdgeEstimator> estimator,
+                                                         std::vector<Joint> const & joints);
 std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeometryLoader> loader,
-                                                    std::shared_ptr<EdgeEstimator> estimator,
-                                                    std::vector<Joint> const & joints);
+                                                         std::shared_ptr<EdgeEstimator> estimator,
+                                                         std::vector<Joint> const & joints);
 
 AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(
     IndexGraphStarter & starter, std::vector<Segment> & roadPoints, double & timeSec);

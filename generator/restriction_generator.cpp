@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace
@@ -33,7 +34,7 @@ CreateIndexGraph(std::string const & targetPath,
                  std::string const & country,
                  CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
-  shared_ptr<VehicleModelInterface> vehicleModel =
+  std::shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
 
   MwmValue mwmValue(
@@ -60,8 +61,8 @@ CreateRestrictionCollectorAndParse(
   LOG(LDEBUG, ("BuildRoadRestrictions(", targetPath, ", ", restrictionPath, ", ",
                                          osmIdsToFeatureIdsPath, ");"));
 
-  std::unique_ptr<IndexGraph> graph
-    = CreateIndexGraph(targetPath, mwmPath, country, countryParentNameGetterFn);
+  std::unique_ptr<IndexGraph> graph =
+      CreateIndexGraph(targetPath, mwmPath, country, countryParentNameGetterFn);
 
   auto restrictionCollector =
       std::make_unique<RestrictionCollector>(osmIdsToFeatureIdsPath, std::move(graph));

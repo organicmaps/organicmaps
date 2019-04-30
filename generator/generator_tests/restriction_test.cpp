@@ -22,6 +22,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <tuple>

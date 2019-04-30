@@ -16,6 +16,7 @@
 
 namespace routing_test
 {
+using namespace std;
 using namespace routing;
 
 //                             Finish
