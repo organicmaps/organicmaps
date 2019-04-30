@@ -201,7 +201,7 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
 
   auto imageMemoryBarrier = PreTransferBarrier(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
                                                m_textureObject.m_image);
-  vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+  vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
                        VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, 1,
                        &imageMemoryBarrier);
 
@@ -227,7 +227,7 @@ void VulkanTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
   if (m_creationStagingBuffer != nullptr)
   {
     auto imageMemoryBarrier = PreTransferBarrier(VK_IMAGE_LAYOUT_UNDEFINED, m_textureObject.m_image);
-    vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+    vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
                          VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, 1,
                          &imageMemoryBarrier);
 

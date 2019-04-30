@@ -294,6 +294,9 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
   if (m_isActiveRenderPass)
   {
+    vkCmdEndRenderPass(m_renderingCommandBuffers[m_inflightFrameIndex]);
+    m_isActiveRenderPass = false;
+
     if (m_currentFramebuffer != nullptr)
     {
       ref_ptr<Framebuffer> fb = m_currentFramebuffer;
@@ -304,9 +307,6 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
                            VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0,
                            nullptr, 0, nullptr, 1, &imageBarrier);
     }
-
-    vkCmdEndRenderPass(m_renderingCommandBuffers[m_inflightFrameIndex]);
-    m_isActiveRenderPass = false;
   }
 
   m_currentFramebuffer = framebuffer;
@@ -332,7 +332,10 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   // are changed.
   auto const ops = m_framebuffersData[m_currentFramebuffer].m_packedAttachmentOperations;
   if (ops != packedAttachmentOperations)
+  {
+    vkDeviceWaitIdle(m_device);
     DestroyRenderPassAndFramebuffer(m_currentFramebuffer);
+  }
 
   // Initialize render pass.
   auto & fbData = m_framebuffersData[m_currentFramebuffer];
