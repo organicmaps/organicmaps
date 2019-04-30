@@ -3013,7 +3013,7 @@
 
 "type.amenity.parking.underground.fee" = "پارکینگ";
 
-"type.amenity.payment_terminal" = "Payment Terminal";
+"type.amenity.payment_terminal" = "دستگاه کارتخوان";
 
 "type.amenity.pharmacy" = "داروخانه";
 
@@ -3085,7 +3085,7 @@
 
 "type.amenity.waste_disposal" = "زباله دانی";
 
-"type.amenity.water_point" = "Water Point";
+"type.amenity.water_point" = "شیر آب قابل شرب";
 
 "type.barrier" = "barrier";
 
@@ -3375,7 +3375,7 @@
 
 "type.emergency.defibrillator" = "دستگاه شوک";
 
-"type.emergency.fire_hydrant" = "شیراتش نشانی";
+"type.emergency.fire_hydrant" = "شیر آتش‌نشانی";
 
 "type.emergency.phone" = "تلفن اضطراری";
 
@@ -4385,7 +4385,7 @@
 
 "type.shop.florist" = "فروشگاه";
 
-"type.shop.funeral_directors" = "Funeral Directors";
+"type.shop.funeral_directors" = "مسئول تشییع جنازه";
 
 "type.shop.furniture" = "فروشگاه";
 
@@ -4425,7 +4425,7 @@
 
 "type.shop.outdoor" = "فروشگاه";
 
-"type.shop.pawnbroker" = "Pawnbroker";
+"type.shop.pawnbroker" = "عتیقه فروشی";
 
 "type.shop.pet" = "فروشگاه";
 
@@ -4605,7 +4605,7 @@
 
 "type.tourism.chalet" = "هتل";
 
-"type.tourism.gallery" = "گردشگری";
+"type.tourism.gallery" = "گالری";
 
 "type.tourism.guest_house" = "هتل";
 
@@ -4635,7 +4635,7 @@
 
 "type.tourism.viewpoint" = "گردشگری";
 
-"type.tourism.wilderness_hut" = "هتل";
+"type.tourism.wilderness_hut" = "کلبه‌ی صحرایی";
 
 "type.tourism.zoo" = "گردشگری";
 

@@ -1570,6 +1570,7 @@
 	<string name="type.amenity.parking.private">پارکینگ</string>
 	<string name="type.amenity.parking.underground">پارکینگ</string>
 	<string name="type.amenity.parking.underground.fee">پارکینگ</string>
+	<string name="type.amenity.payment_terminal">دستگاه کارتخوان</string>
 	<string name="type.amenity.pharmacy">داروخانه</string>
 	<string name="type.amenity.place_of_worship">گردشگری</string>
 	<string name="type.amenity.place_of_worship.buddhist">گردشگری</string>
@@ -1601,6 +1602,7 @@
 	<string name="type.amenity.veterinary">دامپزشکی</string>
 	<string name="type.amenity.waste_basket">سطل زباله</string>
 	<string name="type.amenity.waste_disposal">زباله دانی</string>
+	<string name="type.amenity.water_point">شیر آب قابل شرب</string>
 	<string name="type.barrier.block">بلوک</string>
 	<string name="type.barrier.bollard">ستون</string>
 	<string name="type.barrier.border_control">کنترل مرزی</string>
@@ -1626,7 +1628,7 @@
 	<string name="type.craft.shoemaker">کفاش</string>
 	<string name="type.craft.tailor">خیاطی</string>
 	<string name="type.emergency.defibrillator">دستگاه شوک</string>
-	<string name="type.emergency.fire_hydrant">شیراتش نشانی</string>
+	<string name="type.emergency.fire_hydrant">شیر آتش‌نشانی</string>
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.highway.bus_stop">حمل و نقل</string>
@@ -1923,6 +1925,7 @@
 	<string name="type.shop.erotic">فروشگاه</string>
 	<string name="type.shop.fabric">فروشگاه</string>
 	<string name="type.shop.florist">فروشگاه</string>
+	<string name="type.shop.funeral_directors">مسئول تشییع جنازه</string>
 	<string name="type.shop.furniture">فروشگاه</string>
 	<string name="type.shop.garden_centre">فروشگاه</string>
 	<string name="type.shop.gift">فروشگاه</string>
@@ -1942,6 +1945,7 @@
 	<string name="type.shop.newsagent">فروشگاه</string>
 	<string name="type.shop.optician">فروشگاه</string>
 	<string name="type.shop.outdoor">فروشگاه</string>
+	<string name="type.shop.pawnbroker">عتیقه فروشی</string>
 	<string name="type.shop.pet">فروشگاه</string>
 	<string name="type.shop.photo">فروشگاه</string>
 	<string name="type.shop.seafood">فروشگاه</string>
@@ -1973,7 +1977,7 @@
 	<string name="type.tourism.attraction.specified">گردشگری</string>
 	<string name="type.tourism.camp_site">محل چادر زنی</string>
 	<string name="type.tourism.chalet">هتل</string>
-	<string name="type.tourism.gallery">گردشگری</string>
+	<string name="type.tourism.gallery">گالری</string>
 	<string name="type.tourism.guest_house">هتل</string>
 	<string name="type.tourism.hostel">هتل</string>
 	<string name="type.tourism.hotel">هتل</string>
@@ -1988,7 +1992,7 @@
 	<string name="type.tourism.resort">هتل</string>
 	<string name="type.tourism.theme_park">گردشگری</string>
 	<string name="type.tourism.viewpoint">گردشگری</string>
-	<string name="type.tourism.wilderness_hut">هتل</string>
+	<string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>
 	<string name="type.tourism.zoo">گردشگری</string>
 	<string name="type.waterway.canal">کانال اب</string>
 	<string name="type.waterway.canal.tunnel">کانال اب</string>
