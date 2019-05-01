@@ -348,11 +348,13 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
 
 void AndroidVulkanContextFactory::ResetSurface(bool allowPipelineDump)
 {
-  CHECK(m_nativeWindow != nullptr, ());
   ResetVulkanSurface(allowPipelineDump);
 
-  ANativeWindow_release(m_nativeWindow);
-  m_nativeWindow = nullptr;
+  if (m_nativeWindow != nullptr)
+  {
+    ANativeWindow_release(m_nativeWindow);
+    m_nativeWindow = nullptr;
+  }
 }
 
 void AndroidVulkanContextFactory::ResetVulkanSurface(bool allowPipelineDump)
