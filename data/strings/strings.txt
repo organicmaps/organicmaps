@@ -11,7 +11,7 @@
     nl = Over
     fi = Tietoja
     fr = À propos de
-    de = Über Karten
+    de = Über MAPS.ME
     hu = A programról
     id = Tentang
     it = Informazioni

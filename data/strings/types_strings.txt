@@ -1209,7 +1209,7 @@
     nl = Tankstation
     fi = Huoltoasema
     fr = Station-service
-    de = Tankstation
+    de = Tankstelle
     hu = Benzinkút
     id = Pompa bensin
     it = Stazione di rifornimento
@@ -1680,7 +1680,7 @@
     nl = Parkeerplaats
     fi = Parkkipaikka
     fr = Stationnement
-    de = Parkplatz
+    de = Parkhaus
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1711,7 +1711,7 @@
     nl = Parkeerplaats
     fi = Parkkipaikka
     fr = Stationnement
-    de = Parkplatz
+    de = Parkhaus
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1773,7 +1773,7 @@
     nl = Parkeerplaats
     fi = Parkkipaikka
     fr = Stationnement
-    de = Parkplatz
+    de = P+R-Parkplatz
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1897,7 +1897,7 @@
     nl = Parkeerplaats
     fi = Parkkipaikka
     fr = Stationnement
-    de = Parkplatz
+    de = Tiefgarage
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1928,7 +1928,7 @@
     nl = Parkeerplaats
     fi = Parkkipaikka
     fr = Stationnement
-    de = Parkplatz
+    de = Tiefgarage
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -2391,7 +2391,7 @@
     nl = Boekenkast
     fi = Kirjahylly
     fr = Bibliothèque
-    de = Bücherregal
+    de = Bücherschrank
     hu = Nyilvános könyvespolc
     id = Rak Buku
     it = Libreria
@@ -2851,7 +2851,7 @@
     nl = Kaartjesautomaat voor openbaar vervoer
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets pour le transport en commun
-    de = Verkaufsautomat für öffentliche Verkehrsmittel
+    de = Fahrkartenautomat
     hu = Automata jegykiadó tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
     it = Distributore automatico biglietti di trasporto
@@ -3352,7 +3352,7 @@
     nl = Nationaal park
     fi = Kansallispuisto
     fr = Parc national
-    de = Naturschutzpark
+    de = Nationalpark
     hu = Nemzeti park
     id = Taman Nasional
     it = Parco nazionale
@@ -3828,7 +3828,7 @@
     nl = Schoenmaker
     fi = Suutari
     fr = Cordonnier
-    de = Schuhreparatur
+    de = Schuhmacher
     hu = Cipész
     id = Tukang sepatu
     it = Calzolaio
@@ -4883,7 +4883,7 @@
     nl = Frituur
     fi = Uppopaistettu
     fr = Friture
-    de = Friterie
+    de = Pommes
     hu = Olajban sütött ételek
     id = Gorengan
     it = Fritture
@@ -5379,7 +5379,7 @@
     nl = Kebab
     fi = Kebab
     fr = Kebab
-    de = Kebab
+    de = Kebap
     hu = Kebab
     id = Kebab
     it = Kebab
@@ -6371,7 +6371,7 @@
     nl = Thais gerechten
     fi = Thaimaalainen keittiö
     fr = Cuisine thaï
-    de = Thai-Küche
+    de = Thailändische Küche
     hu = Thai konyha
     id = Masakan thailand
     it = Cucina tailandese
@@ -6701,7 +6701,7 @@
     nl = Baan in aanbouw
     fi = Rakenteilla oleva tie
     fr = Route en construction
-    de = Die Straße im Bau
+    de = Straße im Bau
     hu = Útépítés
     id = Jalan sedang dibangun
     it = Strada in costruzione
@@ -6747,7 +6747,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6779,7 +6779,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6811,7 +6811,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6843,7 +6843,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6875,7 +6875,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Wanderweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6907,7 +6907,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Wanderweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6939,7 +6939,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Wanderweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -6971,7 +6971,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Wanderweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -7003,7 +7003,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Wanderweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -7035,7 +7035,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußweg
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -7067,7 +7067,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Fußgängertunnel
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -7102,7 +7102,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Spielstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -7134,7 +7134,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Spielstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -7166,7 +7166,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Spielstraßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -7198,7 +7198,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Autobahn
     hu = Utca
     id = Jalan
     it = Via
@@ -7230,7 +7230,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Autobahn
     hu = Utca
     id = Jalan
     it = Via
@@ -7262,7 +7262,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Autobahntunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -7324,7 +7324,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Auffahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -7356,7 +7356,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Auffahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -7388,7 +7388,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Auffahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -7769,7 +7769,7 @@
     ar = مسار
     cs = Cesta
     da = Sti
-    nl = Pad
+    nl = Tunnel
     fi = Polku
     fr = Chemin
     de = Weg
@@ -7804,7 +7804,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Fußgängerzone
     hu = Utca
     id = Jalan
     it = Via
@@ -7836,7 +7836,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Fußgängerzone
     hu = Utca
     id = Jalan
     it = Via
@@ -7868,7 +7868,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Fußgängerzone
     hu = Utca
     id = Jalan
     it = Via
@@ -7900,7 +7900,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Fußgängertunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -7935,7 +7935,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Hauptstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -7967,7 +7967,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Hauptstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -7999,7 +7999,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Hauptstraßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8162,7 +8162,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Wohnstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -8194,7 +8194,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Wohnstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -8226,7 +8226,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Wohnstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -8258,7 +8258,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Wohnstraßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8385,7 +8385,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8481,7 +8481,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8577,7 +8577,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8705,7 +8705,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Zufahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -8737,7 +8737,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Zufahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -8769,7 +8769,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Zufahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -8801,7 +8801,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Zufahrt
     hu = Utca
     id = Jalan
     it = Via
@@ -8865,7 +8865,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -8932,7 +8932,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Stufen
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -8964,7 +8964,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Stufen
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -8996,7 +8996,7 @@
     nl = Pad
     fi = Polku
     fr = Chemin
-    de = Weg
+    de = Stufen
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -9092,7 +9092,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -9188,7 +9188,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -9732,7 +9732,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -9796,7 +9796,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Schnellstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -9828,7 +9828,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Schnellstraße
     hu = Utca
     id = Jalan
     it = Via
@@ -9860,7 +9860,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Schnellstraßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -9956,7 +9956,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -10084,7 +10084,7 @@
     nl = Straat
     fi = Katu
     fr = Rue
-    de = Straße
+    de = Straßentunnel
     hu = Utca
     id = Jalan
     it = Via
@@ -10125,7 +10125,7 @@
     nl = Archeologische site
     fi = Arkeologinen kohde
     fr = Site archéologique
-    de = Ausgrabungen
+    de = Ausgrabungsstätte
     hu = Ásatás
     id = Situs arkeologi
     it = Sito archeologico
@@ -10440,7 +10440,7 @@
     nl = Toerisme
     fi = Nähtävyydet
     fr = Tourisme
-    de = Attraktion
+    de = Schiff
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -10472,7 +10472,7 @@
     nl = Toerisme
     fi = Nähtävyydet
     fr = Tourisme
-    de = Attraktion
+    de = Grabstätte
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -10763,7 +10763,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Nadelwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -10795,7 +10795,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Laubwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -10827,7 +10827,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Mischwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -10862,7 +10862,7 @@
     nl = Gazon
     fi = Ruohikko
     fr = Gazon
-    de = Grasdecke
+    de = Wiese
     hu = Gyep
     id = Lapangan rumput
     it = Prato erboso
@@ -11426,7 +11426,7 @@
     nl = Sportveld
     fi = Urheilukenttä
     fr = Terrain de sport
-    de = Sportplatz
+    de = Tennisplatz
     hu = Sportpálya
     id = Lapangan olahraga
     it = Campo sportivo
@@ -11792,7 +11792,7 @@
     nl = Waterpark
     fi = Vesipuisto
     fr = Centre aquatique
-    de = Freizeitbad
+    de = Aquapark
     hu = Aquapark
     id = Taman air
     it = Parco acquatico
@@ -11940,7 +11940,7 @@
     nl = Toren
     fi = Torni
     fr = Tour
-    de = Hochhaus
+    de = Turm
     hu = Torony
     id = Menara
     it = Torre
@@ -12360,7 +12360,7 @@
     nl = Veld
     fi = Pelto
     fr = Champ
-    de = Feld
+    de = Grasland
     hu = Mező
     id = Ladang
     it = Campo
@@ -12747,7 +12747,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Nadelwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -12779,7 +12779,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Laubwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -12811,7 +12811,7 @@
     nl = Bos
     fi = Metsä
     fr = Forêt
-    de = Wald
+    de = Mischwald
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -13355,7 +13355,7 @@
     nl = Hoofdstad
     fi = Pääkaupunki
     fr = Capitale
-    de = Hauptstadt
+    de = Kreisstadt
     hu = Főváros
     id = Ibu kota
     it = Capitale
@@ -13848,7 +13848,7 @@
     nl = Deelstaat
     fi = Lääni
     fr = État
-    de = Land
+    de = Staat
     hu = Állam
     id = Negara bagian
     it = Provincia
@@ -13880,7 +13880,7 @@
     nl = Deelstaat
     fi = Lääni
     fr = État
-    de = Land
+    de = Staat
     hu = Állam
     id = Negara bagian
     it = Provincia
@@ -15975,7 +15975,7 @@
     ar = ناشر
     cs = Knihař
     fi = Kustantaja
-    de = Buchmacher
+    de = Wettbüro
     hu = Fogadóiroda
     id = Bandar judi
     it = Centro scommesse
@@ -16228,7 +16228,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Schokoladengeschäft
     hu = Bolt
     id = Toko
     it = Negozio
@@ -16292,7 +16292,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Kaffeegeschäft
     hu = Bolt
     id = Toko
     it = Negozio
@@ -16515,7 +16515,7 @@
     nl = Ijzerhandel
     fi = Rautakauppa
     fr = Quincaillerie
-    de = Eisenwarengeschäft
+    de = Baumarkt
     hu = Vaskereskedés
     id = Toko perangkat keras
     it = Ferramenta
@@ -17115,7 +17115,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Geldverleiher
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17179,7 +17179,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Musikgeschäft
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17211,7 +17211,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Musikinstrumenteladen
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17622,7 +17622,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Teegeschäft
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17814,7 +17814,7 @@
     nl = Winkel
     fi = Kauppa
     fr = Magasin
-    de = Geschäft
+    de = Videogeschäft
     hu = Bolt
     id = Toko
     it = Negozio
@@ -18314,7 +18314,7 @@
     nl = Kunstwerk
     fi = Taideteos
     fr = Œuvre
-    de = Kunstwerk
+    de = Gemälde
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
@@ -18346,7 +18346,7 @@
     nl = Kunstwerk
     fi = Taideteos
     fr = Œuvre
-    de = Kunstwerk
+    de = Skulptur
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
@@ -18378,7 +18378,7 @@
     nl = Kunstwerk
     fi = Taideteos
     fr = Œuvre
-    de = Kunstwerk
+    de = Statue
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
@@ -18585,7 +18585,7 @@
     nl = Toerisme
     fi = Nähtävyydet
     fr = Tourisme
-    de = Attraktion
+    de = Gallerie
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -18756,7 +18756,7 @@
     nl = Toeristische informatie
     fi = Turisti-informaatio
     fr = Informations touristiques
-    de = Tourist-Information
+    de = Wegweiser
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -18953,7 +18953,7 @@
     nl = Toerisme
     fi = Huvipuisto
     fr = Parc d'attractions
-    de = Attraktion
+    de = Freizeitpark
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -18985,7 +18985,7 @@
     nl = Uitzicht
     fi = Näköalatasanne
     fr = Belvédère
-    de = Panorama
+    de = Aussichtspunkt
     hu = Kilátó
     id = Titik pandang
     it = Panorama
@@ -19257,7 +19257,7 @@
     nl = Rivier
     fi = Joki
     fr = Rivière
-    de = Fluss
+    de = Flussufer
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -19289,7 +19289,7 @@
     nl = Rivier
     fi = Joki
     fr = Rivière
-    de = Fluss
+    de = Bach
     hu = Folyó
     id = Sungai
     it = Fiume

@@ -175,7 +175,7 @@ da:Parkering
 nl:Parkeerplaats
 fi:Parkkipaikka
 fr:Stationnement
-de:Parkplatz
+de:Parkplatz|Parkhaus|Tiefgarage
 hu:Parkoló
 id:Parkir
 it:Parcheggio
@@ -699,7 +699,7 @@ cs:2pumpa
 da:3Tankstation
 nl:3Tankstation|3brandstof
 fr:Station-service|3carburant
-de:Tankstation
+de:Tankstation|Tankstelle
 hu:3Benzinkút|benzin
 id:Pompa bensin
 ja:ガスステーション|ガス|燃料|軽油|給油
@@ -2546,7 +2546,7 @@ da:Arkæologisk sted
 nl:Archeologische site|opgravingen|attractie
 fi:Arkeologinen kohde
 fr:Site archéologique
-de:Ausgrabungen
+de:Ausgrabungen|Ausgrabungsstätte
 hu:Ásatás
 id:Situs arkeologi
 it:Sito archeologico
@@ -3472,7 +3472,7 @@ ar:موقف سيارات
 da:3Parkeringsplads
 nl:3Parkeren|parkeerplaats|parking
 fr:3parking
-de:3Parkplatz|Parking
+de:3Parkplatz|Parking|Parkhaus|Tiefgarage
 ja:パーキング|コインパーキング
 pt:3Parking
 pt-BR:3Estacionamento
@@ -4477,7 +4477,7 @@ da:Gade|vej|stræde
 nl:Straat|st|str|laan|weg
 fi:Katu
 fr:Rue|avenue|av|boul|boulevard|route
-de:Straße|Boulevard|Avenue|Weg|Gasse
+de:Straße|Boulevard|Avenue|Weg|Gasse|Schnellstraße|Spielstraße|Fußweg|Hauptstraße
 hu:Utca|út|u.
 id:Jalan
 it:Via|strada|corso|vicolo
@@ -4673,7 +4673,7 @@ da:Skov|plantage
 nl:Bos|woud
 fi:Metsä
 fr:Forêt|bois
-de:Wald|Urwald
+de:Wald|Urwald|Nadelwald|Laubwald|Mischwald
 hu:Erdő
 id:Hutan
 it:Foresta
@@ -5918,7 +5918,7 @@ da:Skomager|skoreparation
 nl:Schoenmaker|schoenmakerij
 fi:Suutari
 fr:Cordonnier
-de:Schuhreparatur
+de:Schuhreparatur|Schuhmacher|Schuster
 hu:Cipész
 id:Tukang sepatu
 it:Calzolaio|Riparazione di calzature
@@ -7168,7 +7168,7 @@ da:Tårn
 nl:Toren
 fi:Torni
 fr:Tour
-de:Hochhaus
+de:Hochhaus|Turm
 hu:Torony
 id:Menara
 it:Torre
@@ -7231,7 +7231,7 @@ da:Bookmaker
 nl:Bookmaker
 fi:Kustantaja
 fr:Bookmaker
-de:Buchmacher
+de:Buchmacher|Wettbüro
 hu:Fogadóiroda
 id:Bandar judi
 it:Centro scommesse
@@ -7871,7 +7871,7 @@ da:Vandpark
 nl:Waterpark
 fi:Vesipuisto
 fr:Centre aquatique
-de:Wasserpark|Freizeitbad
+de:Wasserpark|Freizeitbad|Aquapark
 hu:Strand|Élményfürdő|Aquapark
 id:Taman air
 it:Parco acquatico
@@ -8190,7 +8190,7 @@ da:Bog udveksling
 nl:Boekenkast|Boekuitwisseling
 fi:Kirjahylly|Kirjakauppa
 fr:Bibliothèque
-de:Bücherregal|Büchertausch
+de:Bücherregal|Büchertausch|Bücherschrank
 hu:Nyilvános könyvespolc|könyvcsere
 id:Rak Buku|Bursa Buku
 it:Libreria|Scambio libri
@@ -9283,7 +9283,7 @@ ru:Национальный парк
 ar:منتزه وطني
 cs:Národní park
 da:National park
-de:Naturschutzpark
+de:Naturschutzpark|Nationalpark
 el:Εθνικό πάρκο
 es:Parque nacional
 fi:Kansallispuisto
