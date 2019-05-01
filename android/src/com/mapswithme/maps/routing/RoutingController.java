@@ -78,10 +78,10 @@ public class RoutingController implements TaxiManager.TaxiListener
     void onAddedStop();
     void onRemovedStop();
     void onBuiltRoute();
-    void onRouteWarningReceived();
+    void onDrivingOptionsWarning();
     boolean isSubwayEnabled();
-    void onBuildError(int lastResultCode, @NonNull String[] lastMissingMaps);
-    void onCalculateRouteError();
+    void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps);
+    void onDrivingOptionsBuildError();
 
     /**
      * @param progress progress to be displayed.
@@ -133,21 +133,19 @@ public class RoutingController implements TaxiManager.TaxiListener
 
       if (mLastResultCode == ResultCodesHelper.NO_ERROR
           || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+      {
         onBuiltRoute();
+      }
       else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
-        onWarningReceived();
+      {
+        onBuiltRoute();
+        if (mContainer != null)
+          mContainer.onDrivingOptionsWarning();
+      }
 
       processRoutingEvent();
     }
   };
-
-  private void onWarningReceived()
-  {
-    onBuiltRoute();
-    if (mContainer != null)
-      mContainer.onRouteWarningReceived();
-  }
-
   private void onBuiltRoute()
   {
     mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
@@ -198,9 +196,9 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
 
     mContainsCachedResult = false;
-    boolean hasAnyRoutingOptions = RoutingOptions.hasAnyOptions();
-    if (hasAnyRoutingOptions)
-      mContainer.onRouteWarningReceived();
+
+    if (isDrivingOptionsBuildError())
+      mContainer.onDrivingOptionsWarning();
 
     if (mLastResultCode == ResultCodesHelper.NO_ERROR || mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
     {
@@ -222,10 +220,15 @@ public class RoutingController implements TaxiManager.TaxiListener
       updateProgress();
     }
 
-    if (hasAnyRoutingOptions)
-      mContainer.onCalculateRouteError();
+    if (isDrivingOptionsBuildError())
+      mContainer.onDrivingOptionsBuildError();
     else
-      mContainer.onBuildError(mLastResultCode, mLastMissingMaps);
+      mContainer.onCommonBuildError(mLastResultCode, mLastMissingMaps);
+  }
+
+  private boolean isDrivingOptionsBuildError()
+  {
+    return isVehicleRouterType() && RoutingOptions.hasAnyOptions();
   }
 
   private void setState(State newState)

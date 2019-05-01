@@ -176,9 +176,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_DISCOVERY = 2;
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
-  public static final int REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME = 5;
+  public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
-  public static final String ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG = "error_calculate_route_first_time";
+  public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -1996,7 +1996,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRouteWarningReceived()
+  public void onDrivingOptionsWarning()
   {
     if (mRoutingPlanInplaceController == null)
       return;
@@ -2011,19 +2011,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(lastResultCode, lastMissingMaps);
     fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
   @Override
-  public void onCalculateRouteError()
-  {
-    showUnableCalculateRouteFirstTimeDialog();
-  }
-
-  private void showUnableCalculateRouteFirstTimeDialog()
+  public void onDrivingOptionsBuildError()
   {
     com.mapswithme.maps.dialog.AlertDialog dialog =
         new com.mapswithme.maps.dialog.AlertDialog.Builder()
@@ -2031,12 +2026,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
             .setMessageId(R.string.unable_to_calc_alert_subtitle)
             .setPositiveBtnId(R.string.settings)
             .setNegativeBtnId(R.string.cancel)
-            .setReqCode(REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+            .setReqCode(REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
             .setDialogFactory(new DrivingOptionsDialogFactory())
-            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
+                                            .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
             .build();
-    dialog.show(this,
-                ERROR_CALCULATE_ROUTE_FIRST_TIME_TAG);
+    dialog.show(this, ERROR_DRIVING_OPTIONS_DIALOG_TAG);
   }
 
   private void updateSearchBar()
@@ -2220,7 +2215,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    if (requestCode == REQ_CODE_ERROR_CALCULATE_ROUTE_FIRST_TIME)
+    if (requestCode == REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
       DrivingOptionsActivity.start(this);
   }
 
