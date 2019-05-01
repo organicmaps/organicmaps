@@ -31,6 +31,11 @@ void MessageAcceptor::DisableMessageFiltering()
   m_messageQueue.DisableMessageFiltering();
 }
 
+void MessageAcceptor::InstantMessageFilter(MessageQueue::FilterMessageFn && filter)
+{
+  m_messageQueue.InstantFilter(std::move(filter));
+}
+
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
   m_messageQueue.PushMessage(std::move(message), priority);

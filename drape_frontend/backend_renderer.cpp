@@ -350,7 +350,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SwitchMapStyle:
     {
       CHECK(m_context != nullptr, ());
-      m_texMng->OnSwitchMapStyle(m_context);
+      // For Vulkan rendering it must be done on FR.
+      if (m_context->GetApiVersion() != dp::ApiVersion::Vulkan)
+        m_texMng->OnSwitchMapStyle(m_context);
       RecacheMapShapes();
       RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
 #ifdef RENDER_DEBUG_INFO_LABELS

@@ -103,6 +103,7 @@ public:
   virtual ~Message() = default;
   virtual Type GetType() const { return Type::Unknown; }
   virtual bool IsGraphicsContextDependent() const { return false; }
+  virtual bool ContainsRenderState() const { return false; }
 };
 
 enum class MessagePriority

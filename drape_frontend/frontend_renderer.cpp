@@ -686,9 +686,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         BaseBlockingMessage::Blocker blocker;
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<InvalidateReadManagerRectMessage>(blocker),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
         blocker.Wait();
       }
+
+      // Delete all messages which can contain render states (and textures references inside).
+      InstantMessageFilter([](ref_ptr<Message> msg) { return msg->ContainsRenderState(); });
+
+      // For Vulkan rendering textures must be recreated on FR, since they can be in use until
+      // nearest call of BeginRendering.
+      if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
+        m_texMng->OnSwitchMapStyle(m_context);
 
       // Notify backend renderer and wait for completion.
       {

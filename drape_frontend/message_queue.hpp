@@ -29,6 +29,7 @@ public:
   using FilterMessageFn = std::function<bool(ref_ptr<Message>)>;
   void EnableMessageFiltering(FilterMessageFn && filter);
   void DisableMessageFiltering();
+  void InstantFilter(FilterMessageFn && filter);
 
 #ifdef DEBUG_MESSAGE_QUEUE
   bool IsEmpty() const;

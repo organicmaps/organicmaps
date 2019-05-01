@@ -132,6 +132,7 @@ public:
 
   Type GetType() const override { return Type::FlushTile; }
   bool IsGraphicsContextDependent() const override { return true; }
+  bool ContainsRenderState() const override { return true; }
 
   dp::RenderState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return std::move(m_buffer); }
@@ -149,6 +150,7 @@ public:
 
   Type GetType() const override { return MessageType; }
   bool IsGraphicsContextDependent() const override { return true; }
+  bool ContainsRenderState() const override { return true; }
 
   RenderDataType && AcceptRenderData() { return std::move(m_data); }
 
@@ -302,6 +304,7 @@ public:
 
   Type GetType() const override { return Type::GuiLayerRecached; }
   bool IsGraphicsContextDependent() const override { return true; }
+  bool ContainsRenderState() const override { return true; }
 
   drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return std::move(m_renderer); }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
@@ -1141,6 +1144,9 @@ public:
   {}
 
   Type GetType() const override { return Type::DrapeApiFlush; }
+
+  bool IsGraphicsContextDependent() const override { return true; }
+  bool ContainsRenderState() const override { return true; }
 
   TProperties && AcceptProperties() { return std::move(m_properties); }
 

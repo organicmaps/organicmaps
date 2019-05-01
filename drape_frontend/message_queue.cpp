@@ -125,6 +125,15 @@ void MessageQueue::DisableMessageFiltering()
   m_filter = nullptr;
 }
 
+void MessageQueue::InstantFilter(FilterMessageFn && filter)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  CHECK(m_filter == nullptr, ());
+  m_filter = std::move(filter);
+  FilterMessagesImpl();
+  m_filter = nullptr;
+}
+
 #ifdef DEBUG_MESSAGE_QUEUE
 bool MessageQueue::IsEmpty() const
 {

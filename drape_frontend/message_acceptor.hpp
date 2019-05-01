@@ -36,6 +36,7 @@ protected:
 
   void EnableMessageFiltering(MessageQueue::FilterMessageFn && filter);
   void DisableMessageFiltering();
+  void InstantMessageFilter(MessageQueue::FilterMessageFn && filter);
 
 private:
   friend class ThreadsCommutator;
