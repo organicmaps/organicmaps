@@ -376,9 +376,21 @@ void AndroidVulkanContextFactory::ChangeSurface(JNIEnv * env, jobject jsurface, 
     return;
 
   auto nativeWindow = ANativeWindow_fromSurface(env, jsurface);
-  CHECK(nativeWindow == m_nativeWindow, ("Native window changing is not supported."));
+  if (m_nativeWindow == nullptr)
+  {
+    CHECK(!m_windowSurfaceValid, ());
+    m_nativeWindow = nativeWindow;
+  }
+  else
+  {
+    ResetVulkanSurface(false /* allowPipelineDump */);
+    if (nativeWindow != m_nativeWindow)
+    {
+      ANativeWindow_release(m_nativeWindow);
+      m_nativeWindow = nativeWindow;
+    }
+  }
 
-  ResetVulkanSurface(false /* allowPipelineDump */);
   SetVulkanSurface();
   LOG(LINFO, ("Surface changed", m_surfaceWidth, m_surfaceHeight));
 }
