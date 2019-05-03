@@ -1,6 +1,8 @@
 #include "drape/vulkan/vulkan_pipeline.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
+#include "drape/support_manager.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -424,8 +426,20 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   pipelineCreateInfo.pStages = shaders.data();
 
   VkPipeline pipeline;
-  CHECK_VK_CALL(vkCreateGraphicsPipelines(device, m_vulkanPipelineCache, 1, &pipelineCreateInfo,
-                                          nullptr, &pipeline));
+  auto const result = vkCreateGraphicsPipelines(device, m_vulkanPipelineCache, 1,
+                                                &pipelineCreateInfo, nullptr, &pipeline);
+  if (result == VK_INCOMPLETE)
+  {
+    // Some Adreno GPUs return this not standard compliant code.
+    // https://developer.qualcomm.com/forum/qdn-forums/software/adreno-gpu-sdk/34709
+    // Now we are not able to continue using Vulkan rendering on them.
+    dp::SupportManager::Instance().ForbidVulkan();
+    CHECK(false, ("Fatal driver issue."));
+  }
+  else
+  {
+    CHECK_RESULT_VK_CALL(vkCreateGraphicsPipelines, result);
+  }
 
   m_pipelineCache.insert(std::make_pair(key, pipeline));
   m_isChanged = true;

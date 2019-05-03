@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <mutex>
+#include <string>
 
 namespace dp
 {
@@ -32,9 +33,15 @@ public:
   float GetMaxLineWidth() const { return m_maxLineWidth; }
   uint32_t GetMaxTextureSize() const { return m_maxTextureSize; }
 
+  // These functions can be used without manager initialization.
+  void ForbidVulkan();
+  bool IsVulkanForbidden() const;
+
 private:
   SupportManager() = default;
 
+  std::string m_rendererName;
+  std::string m_rendererVersion;
   bool m_isSamsungGoogleNexus = false;
   bool m_isAdreno200 = false;
   bool m_isTegra = false;

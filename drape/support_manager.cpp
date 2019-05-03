@@ -17,6 +17,7 @@
 namespace dp
 {
 char const * kSupportedAntialiasing = "Antialiasing";
+char const * kVulkanForbidden = "VulkanForbidden";
 
 void SupportManager::Init(ref_ptr<GraphicsContext> context)
 {
@@ -24,22 +25,23 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   if (m_isInitialized)
     return;
 
-  std::string const renderer = context->GetRendererName();
-  std::string const version = context->GetRendererVersion();
-  LOG(LINFO, ("Renderer =", renderer, "| Api =", context->GetApiVersion(), "| Version =", version));
+  m_rendererName = context->GetRendererName();
+  m_rendererVersion = context->GetRendererVersion();
+  LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
 
-  alohalytics::Stats::Instance().LogEvent("GPU", renderer);
+  alohalytics::Stats::Instance().LogEvent("GPU", m_rendererName);
 
-  m_isSamsungGoogleNexus = (renderer == "PowerVR SGX 540" && version.find("GOOGLENEXUS.ED945322") != string::npos);
+  m_isSamsungGoogleNexus = (m_rendererName == "PowerVR SGX 540" &&
+                            m_rendererVersion.find("GOOGLENEXUS.ED945322") != string::npos);
   if (m_isSamsungGoogleNexus)
     LOG(LINFO, ("Samsung Google Nexus detected."));
 
-  if (renderer.find("Adreno") != std::string::npos)
+  if (m_rendererName.find("Adreno") != std::string::npos)
   {
     std::vector<std::string> const models = { "200", "203", "205", "220", "225" };
     for (auto const & model : models)
     {
-      if (renderer.find(model) != std::string::npos)
+      if (m_rendererName.find(model) != std::string::npos)
       {
         LOG(LINFO, ("Adreno 200 device detected."));
         m_isAdreno200 = true;
@@ -48,7 +50,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     }
   }
 
-  m_isTegra = (renderer.find("Tegra") != std::string::npos);
+  m_isTegra = (m_rendererName.find("Tegra") != std::string::npos);
   if (m_isTegra)
     LOG(LINFO, ("NVidia Tegra device detected."));
 
@@ -82,7 +84,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 //    std::vector<std::string> const models = {"Mali-G71", "Mali-T880", "Adreno (TM) 540",
 //                                             "Adreno (TM) 530", "Adreno (TM) 430"};
 //    m_isAntialiasingEnabledByDefault =
-//        (std::find(models.begin(), models.end(), renderer) != models.end());
+//        (std::find(models.begin(), models.end(), m_rendererName) != models.end());
 //#else
 //    m_isAntialiasingEnabledByDefault = true;
 //#endif
@@ -90,6 +92,21 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 //  }
 
   m_isInitialized = true;
+}
+
+void SupportManager::ForbidVulkan()
+{
+  alohalytics::Stats::Instance().LogEvent("VulkanForbidden", {{"GPU", m_rendererName},
+                                                              {"Driver", m_rendererVersion}});
+  settings::Set(kVulkanForbidden, true);
+}
+
+bool SupportManager::IsVulkanForbidden() const
+{
+  bool forbidden;
+  if (!settings::Get(kVulkanForbidden, forbidden))
+    forbidden = false;
+  return forbidden;
 }
 
 SupportManager & SupportManager::Instance()
