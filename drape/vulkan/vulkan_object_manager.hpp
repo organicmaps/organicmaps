@@ -89,6 +89,9 @@ public:
   void CollectDescriptorSetGroups(uint32_t inflightFrameIndex);
   void CollectObjects(uint32_t inflightFrameIndex);
 
+  // Use unsafe function ONLY if an object has been just created.
+  void DestroyObjectUnsafe(VulkanObject object);
+
   VkDevice GetDevice() const { return m_device; }
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
   VkSampler GetSampler(SamplerKey const & key);

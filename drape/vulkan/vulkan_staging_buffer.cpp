@@ -10,22 +10,39 @@ namespace dp
 {
 namespace vulkan
 {
+// The most GPUs use this value, real one can be known only after buffer creation.
+uint32_t constexpr kDefaultAlignment = 64;
+
 VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager,
                                          uint32_t sizeInBytes)
   : m_objectManager(objectManager)
-  , m_sizeInBytes(VulkanMemoryManager::GetAligned(sizeInBytes, 64))
+  , m_sizeInBytes(VulkanMemoryManager::GetAligned(sizeInBytes, kDefaultAlignment))
 {
   auto constexpr kStagingBuffer = VulkanMemoryManager::ResourceType::Staging;
   VkDevice device = m_objectManager->GetDevice();
   auto const & mm = m_objectManager->GetMemoryManager();
 
-  m_object = m_objectManager->CreateBuffer(kStagingBuffer, sizeInBytes, 0 /* batcherHash */);
+  m_object = m_objectManager->CreateBuffer(kStagingBuffer, m_sizeInBytes, 0 /* batcherHash */);
   VkMemoryRequirements memReqs = {};
   vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
 
   // We must be able to map the whole range.
   m_sizeAlignment = mm.GetSizeAlignment(memReqs);
-  CHECK(HasEnoughSpace(m_sizeInBytes), ());
+  if (!HasEnoughSpace(m_sizeInBytes))
+  {
+    // This GPU uses non-standard alignment we have to recreate buffer.
+    auto const originalSize = m_sizeInBytes;
+    auto const originalAlignment = m_sizeAlignment;
+    m_sizeInBytes = VulkanMemoryManager::GetAligned(sizeInBytes, m_sizeAlignment);
+    m_objectManager->DestroyObjectUnsafe(m_object);
+    m_object = m_objectManager->CreateBuffer(kStagingBuffer, m_sizeInBytes, 0 /* batcherHash */);
+    vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
+    m_sizeAlignment = mm.GetSizeAlignment(memReqs);
+    CHECK(HasEnoughSpace(m_sizeInBytes), ("originalSize =", originalSize,
+        "originalAlignment =", originalAlignment,
+        "m_sizeInBytes =", m_sizeInBytes,
+        "m_sizeAlignment =", m_sizeAlignment));
+  }
 
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);
   m_pointer = m_objectManager->MapUnsafe(m_object);

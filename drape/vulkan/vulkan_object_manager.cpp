@@ -312,6 +312,11 @@ void VulkanObjectManager::CollectObjectsImpl(VulkanObjectArray const & objects)
   m_memoryManager.EndDeallocationSession();
 }
 
+void VulkanObjectManager::DestroyObjectUnsafe(VulkanObject object)
+{
+  CollectObjectsImpl(VulkanObjectArray{object});
+}
+
 uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
 {
   CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());

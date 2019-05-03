@@ -42,7 +42,7 @@ public:
 
 private:
   ref_ptr<VulkanObjectManager> m_objectManager;
-  uint32_t const m_sizeInBytes;
+  uint32_t m_sizeInBytes;
   VulkanObject m_object;
   uint32_t m_offsetAlignment = 0;
   uint32_t m_sizeAlignment = 0;
