@@ -7,7 +7,7 @@
 
 namespace feature
 {
-enum class GeomType
+enum class GeomType : int8_t
 {
   Undefined = -1,
   Point = 0,
