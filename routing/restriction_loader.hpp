@@ -28,6 +28,6 @@ private:
 };
 
 void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
-                                        RestrictionVec & restrictionsOnly,
+                                        RestrictionVec const & restrictionsOnly,
                                         RestrictionVec & restrictionsNo);
 }  // namespace routing

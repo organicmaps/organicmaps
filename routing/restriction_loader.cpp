@@ -80,11 +80,17 @@ RestrictionVec && RestrictionLoader::StealRestrictions()
   return std::move(m_restrictions);
 }
 
+/// \brief We store |Only| restriction in mwm, like
+/// Only, featureId_1, ... , featureId_N
+/// We convert such restriction to |No| following way:
+/// For each pair of neighbouring features (featureId_1 and featureId_2 for ex.)
+/// we forbid to go from featureId_1 to wherever except featureId_2.
+/// Then do this for featureId_2 and featureId_3 and so on.
 void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
-                                        RestrictionVec & restrictionsOnly,
+                                        RestrictionVec const & restrictionsOnly,
                                         RestrictionVec & restrictionsNo)
 {
-  for (auto & restriction : restrictionsOnly)
+  for (auto const & restriction : restrictionsOnly)
   {
     if (std::any_of(restriction.begin(), restriction.end(),
                     [&graph](auto const & item)
@@ -96,28 +102,44 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
     }
 
     CHECK_GREATER_OR_EQUAL(restriction.size(), 2, ());
-    auto const lastFeatureId     = *(restriction.end() - 1);
-    auto const prevLastFeatureId = *(restriction.end() - 2);
+    // vector of simple no_restriction - from|to.
+    std::vector<std::pair<uint32_t, uint32_t>> toAdd;
+    bool error = false;
+    for (size_t i = 1; i < restriction.size(); ++i)
+    {
+      auto const curFeatureId = restriction[i];
+      auto const prevFeatureId = restriction[i - 1];
 
-    // Looking for a joint of an intersection of |o| features.
-    Joint::Id const common =
-      GetCommonEndJoint(graph.GetRoad(prevLastFeatureId), graph.GetRoad(lastFeatureId));
+      // Looking for a joint of an intersection of prev and cur features.
+      Joint::Id const common =
+          GetCommonEndJoint(graph.GetRoad(curFeatureId), graph.GetRoad(prevFeatureId));
 
-    if (common == Joint::kInvalidId)
+      if (common == Joint::kInvalidId)
+      {
+        error = true;
+        break;
+      }
+
+      // Adding restriction of type No for all features of joint |common| except for
+      // |prevFeatureId| -> |curFeatureId|.
+      graph.ForEachPoint(common,
+                         [&](RoadPoint const & rp)
+                         {
+                           if (rp.GetFeatureId() != curFeatureId)
+                             toAdd.emplace_back(prevFeatureId, rp.GetFeatureId());
+                         });
+    }
+
+    if (error)
       continue;
 
-    // Delete last feature id ("to" member).
-    restriction.pop_back();
-    // Adding restriction of type No for all features of joint |common| except for
-    // the second feature of restriction |o|.
-    graph.ForEachPoint(common, [&](RoadPoint const & rp) {
-      if (rp.GetFeatureId() != lastFeatureId)
-      {
-        std::vector<uint32_t> result(restriction);
-        result.emplace_back(rp.GetFeatureId());
-        restrictionsNo.emplace_back(std::move(result));
-      }
-    });
+    for (auto const & fromToPair : toAdd)
+    {
+      std::vector<uint32_t> newRestriction =
+          {fromToPair.first /* from */, fromToPair.second /* to */};
+
+      restrictionsNo.emplace_back(std::move(newRestriction));
+    }
   }
 
   base::SortUnique(restrictionsNo);
