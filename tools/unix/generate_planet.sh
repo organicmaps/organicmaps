@@ -224,14 +224,17 @@ if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
 else
   PYTHON_SCRIPTS_PATH="$OMIM_PATH/tools/python"
 fi
+PYTHONPATH="${PYTHONPATH:-''}"
+PYTHONPATH="${PYTHONPATH}:$PYTHON_SCRIPTS_PATH"
+export PYTHONPATH
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/post_generation/hierarchy_to_countries.py"
-DESCRIPTIONS_DOWNLOADER="$PYTHON_SCRIPTS_PATH/descriptions/descriptions_downloader.py"
+DESCRIPTIONS_MODULE="descriptions"
 LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/post_generation/localads_mwm_to_csv.py"
 UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"
 WIKIDATA_FILE="${WIKIDATA_FILE:-$INTDIR/idToWikidata.csv}"
-BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking/download_hotels.py"
+BOOKING_MODULE="booking"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
 OPENTABLE_FILE="${OPENTABLE_FILE:-$INTDIR/restaurants.csv}"
@@ -319,7 +322,7 @@ fi
 if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
   log "STATUS" "Step S1: Starting background hotels downloading"
   (
-      $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --output "$BOOKING_FILE" --logfile="$LOG_PATH"/booking.log || true
+      $PYTHON36 -m $BOOKING_MODULE --user $BOOKING_USER --password $BOOKING_PASS --output "$BOOKING_FILE" --logfile="$LOG_PATH"/booking.log || true
       if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
         echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
       else
@@ -612,7 +615,7 @@ if [ "$MODE" == "descriptions" ]; then
 
   PARAMS="--wikipedia $URLS_PATH --wikidata $WIKIDATA_FILE --output_dir $WIKI_PAGES_PATH"
   [ -f "$POPULAR_PLACES_FILE" ] && PARAMS="$PARAMS --popularity=$POPULAR_PLACES_FILE"
-  $PYTHON36 $DESCRIPTIONS_DOWNLOADER $PARAMS --langs $LANGS 2>> $LOG
+  $PYTHON36 -m $DESCRIPTIONS_MODULE $PARAMS --langs $LANGS 2>> $LOG
 
   for file in "$TARGET"/*.mwm; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then

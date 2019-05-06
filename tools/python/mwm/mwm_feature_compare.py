@@ -1,23 +1,19 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import print_function
-
 import argparse
 import multiprocessing
 import os
 
 from .mwm import MWM
 
-OMIM_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..')
+OMIM_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")
 
 
 def count_feature(mwm_path, feature_name):
-    mwm = MWM(open(mwm_path, 'rb'))
+    mwm = MWM(open(mwm_path, "rb"))
     mwm.read_header()
-    mwm.read_types(os.path.join(OMIM_ROOT, 'data', 'types.txt'))
+    mwm.read_types(os.path.join(OMIM_ROOT, "data", "types.txt"))
     counter = 0
     for feature in mwm.iter_features():
-        if feature_name in feature['header']['types']:
+        if feature_name in feature["header"]["types"]:
             counter += 1
     return counter
 
@@ -32,7 +28,7 @@ def compare_feature_num(args_tuple):
         p_change = float(abs(delta)) / old_feature_count * 100
 
         if p_change > threshold:
-            print('In \'{0}\' number of \'{1}\' decreased by {2:.0f}% ({3} → {4})'.format(
+            print("In \"{0}\" number of \"{1}\" decreased by {2:.0f}% ({3} → {4})".format(
                 os.path.basename(new_mwm), feature_name, round(p_change), old_feature_count, new_feature_count))
             return False
     return True
@@ -40,7 +36,7 @@ def compare_feature_num(args_tuple):
 
 def compare_mwm(old_mwm_path, new_mwm_path, feature_name, threshold):
     def valid_mwm(mwm_name):
-        return mwm_name.endswith('.mwm') and not mwm_name.startswith('World')
+        return mwm_name.endswith(".mwm") and not mwm_name.startswith("World")
 
     def generate_names_dict(path):
         return dict((file_name, os.path.abspath(os.path.join(path, file_name)))
@@ -54,15 +50,3 @@ def compare_mwm(old_mwm_path, new_mwm_path, feature_name, threshold):
 
     pool = multiprocessing.Pool()
     return all(pool.imap(compare_feature_num, args))
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Script to compare feature count in \'.mwm\' files')
-    parser.add_argument('-n', '--new', help='New mwm files path', type=str, required=True)
-    parser.add_argument('-o', '--old', help='Old mwm files path', type=str, required=True)
-    parser.add_argument('-f', '--feature', help='Feature name to count', type=str, required=True)
-    parser.add_argument('-t', '--threshold', help='Threshold in percent to warn', type=int, default=20)
-
-    args = parser.parse_args()
-    if not compare_mwm(args.old, args.new, args.feature, args.threshold):
-        print('Warning: some .mwm files lost more than {}% booking hotels'.format(args.threshold))

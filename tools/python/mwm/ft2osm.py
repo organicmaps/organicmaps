@@ -1,26 +1,12 @@
-#!/usr/bin/env python
-import sys
-
 from . import mwm
 
-if len(sys.argv) < 3:
-    print('Finds an OSM object for a given feature id.')
-    print('Usage: {} <mwm.osm2ft> <ftid>'.format(sys.argv[0]))
-    sys.exit(1)
 
-with open(sys.argv[1], 'rb') as f:
-    ft2osm = mwm.read_osm2ft(f, ft2osm=True)
+def ft2osm(path, ftid):
+    with open(path, "rb") as f:
+        ft2osm = mwm.read_osm2ft(f, ft2osm=True)
 
-code = 0
-type_abbr = {'n': 'node', 'w': 'way', 'r': 'relation'}
-for ftid in sys.argv[2:]:
+    type_abbr = {"n": "node", "w": "way", "r": "relation"}
     ftid = int(ftid)
     if ftid in ft2osm:
-        print('https://www.openstreetmap.org/{}/{}'.format(
-            type_abbr[ft2osm[ftid][0]],
-            ft2osm[ftid][1]
-        ))
-    else:
-        print('Could not find osm id for feature {}'.format(ftid))
-        code = 2
-sys.exit(code)
+        return f"https://www.openstreetmap.org/{type_abbr[ft2osm[ftid][0]]}/{ft2osm[ftid][1]}"
+    return None
