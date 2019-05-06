@@ -1,5 +1,7 @@
 #include "generator/streets/streets_builder.hpp"
 
+#include "generator/streets/street_regions_tracing.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -65,11 +67,53 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
 
 void StreetsBuilder::AddStreet(FeatureBuilder & fb)
 {
-  auto const region = FindStreetRegionOwner(fb);
+  if (fb.IsArea())
+    return AddStreetArea(fb);
+
+  if (fb.IsPoint())
+    return AddStreetPoint(fb);
+
+  CHECK(fb.IsLine(), ());
+  AddStreetHighway(fb);
+}
+
+void StreetsBuilder::AddStreetHighway(FeatureBuilder & fb)
+{
+  auto streetRegionInfoGetter = [this] (auto const & pathPoint) {
+    return this->FindStreetRegionOwner(pathPoint);
+  };
+  StreetRegionsTracing regionsTracing(fb.GetOuterGeometry(), streetRegionInfoGetter);
+
+  auto && pathSegments = regionsTracing.StealPathSegments();
+  for (auto & segment : pathSegments)
+  {
+    auto && region = segment.m_region;
+    auto & street = InsertStreet(region.first, fb.GetName());
+    auto const osmId = pathSegments.size() == 1 ? fb.GetMostGenericOsmId() : NextOsmSurrogateId();
+    street.AddHighwayLine(osmId, std::move(segment.m_path));
+  }
+}
+
+void StreetsBuilder::AddStreetArea(FeatureBuilder & fb)
+{
+  auto && region = FindStreetRegionOwner(fb.GetGeometryCenter(), true);
   if (!region)
     return;
 
-  InsertStreet(*region, fb);
+  auto & street = InsertStreet(region->first, fb.GetName());
+  auto osmId = fb.GetMostGenericOsmId();
+  street.AddHighwayArea(osmId, fb.GetOuterGeometry());
+}
+
+void StreetsBuilder::AddStreetPoint(FeatureBuilder & fb)
+{
+  auto && region = FindStreetRegionOwner(fb.GetKeyPoint(), true);
+  if (!region)
+    return;
+
+  auto osmId = fb.GetMostGenericOsmId();
+  auto & street = InsertStreet(region->first, fb.GetName());
+  street.SetPin({fb.GetKeyPoint(), osmId});
 }
 
 void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb)
@@ -78,32 +122,8 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
   if (!region)
     return;
 
-  InsertStreetBinding(*region, std::move(streetName), fb);
-}
-
-boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder & fb)
-{
-  if (fb.IsPoint())
-    return FindStreetRegionOwner(fb.GetKeyPoint(), true /* needLocality */);
-  if (fb.IsArea())
-    return FindStreetRegionOwner(fb.GetGeometryCenter(), true /* needLocality */);
-
-  auto const & line = fb.GetOuterGeometry();
-  CHECK_GREATER_OR_EQUAL(line.size(), 2, ());
-  auto const & startPoint = line.front();
-  auto const & owner = FindStreetRegionOwner(startPoint);
-  if (!owner)
-    return {};
-
-  auto const & finishPoint = line.back();
-  if (startPoint != finishPoint)
-  {
-    auto const & finishPointOwner = FindStreetRegionOwner(finishPoint);
-    if (!finishPointOwner || finishPointOwner->first != owner->first)
-      LOG(LDEBUG, ("Street", fb.GetMostGenericOsmId(), fb.GetName(), "is in several regions"));
-  }
-
-  return owner;
+  auto & street = InsertStreet(region->first, std::move(streetName));
+  street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
 }
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point, bool needLocality)
@@ -126,26 +146,10 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
   return m_regionInfoGetter.FindDeepest(point, isStreetAdministrator);
 }
 
-void StreetsBuilder::InsertStreet(KeyValue const & region, FeatureBuilder & fb)
+StreetGeometry & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && streetName)
 {
-  auto & regionStreets = m_regions[region.first];
-  auto & street = regionStreets[fb.GetName()];
-  auto const osmId = fb.GetMostGenericOsmId();
-
-  if (fb.IsArea())
-    street.AddHighwayArea(osmId, fb.GetOuterGeometry());
-  else if (fb.IsLine())
-    street.AddHighwayLine(osmId, fb.GetOuterGeometry());
-  else
-    street.SetPin({fb.GetKeyPoint(), osmId});
-}
-
-void StreetsBuilder::InsertStreetBinding(KeyValue const & region, std::string && streetName,
-                                         FeatureBuilder & fb)
-{
-  auto & regionStreets = m_regions[region.first];
-  auto & street = regionStreets[std::move(streetName)];
-  street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
+  auto & regionStreets = m_regions[regionId];
+  return regionStreets[std::move(streetName)];
 }
 
 std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
