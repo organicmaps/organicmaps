@@ -384,6 +384,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
       auto gateMarkInfo = TransitMarkInfo();
       gateMarkInfo.m_point = pendingEntrance ? subroute.m_polyline.Back() : s.GetJunction().GetPoint();
       gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
+      gateMarkInfo.m_symbolName = "zero-icon";
       if (gate.m_featureId != transit::kInvalidFeatureId)
       {
         auto const fid = FeatureID(mwmId, gate.m_featureId);
@@ -397,9 +398,10 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
         }
 
         gateMarkInfo.m_featureId = fid;
-        gateMarkInfo.m_symbolName = symbolName;
+        if (!symbolName.empty())
+          gateMarkInfo.m_symbolName = symbolName;
         auto const title = m_getStringsBundleFn().GetString(pendingEntrance ? "core_entrance" : "core_exit");
-        gateMarkInfo.m_titles.push_back(TransitTitle(title, df::GetTransitTextColorName("default")));
+        gateMarkInfo.m_titles.emplace_back(title, df::GetTransitTextColorName("default"));
       }
 
       m_transitMarks.push_back(gateMarkInfo);
