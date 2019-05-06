@@ -549,7 +549,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
     result.emplace_back(fakeJoint, weight[beforeConvert]);
 
     std::vector<Segment> path = reconstructPath(beforeConvert, fromStart);
-    m_reconstructedFakeJoints[fakeJoint] = path;
+    m_reconstructedFakeJoints.emplace(fakeJoint, std::move(path));
   };
 
   auto const isEndOfSegment = [&](Segment const & fake, Segment const & segment)
