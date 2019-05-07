@@ -204,6 +204,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   func processDeeplink(_ url: URL) {
+    self.deeplink = nil
     guard let categoryInfo = parseUrl(url) else {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
                                                             text: L("subtitle_error_downloading_guide"))
