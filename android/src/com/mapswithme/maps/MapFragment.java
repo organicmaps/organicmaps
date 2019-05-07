@@ -187,6 +187,7 @@ public class MapFragment extends BaseMwmFragment
       mSurfaceCreated = true;
       mSurfaceAttached = true;
       mRequireResize = true;
+      nativeResumeSurfaceRendering();
       return;
     }
 
@@ -220,6 +221,7 @@ public class MapFragment extends BaseMwmFragment
 
     mSurfaceCreated = true;
     mSurfaceAttached = true;
+    nativeResumeSurfaceRendering();
     onRenderingInitialized();
   }
 
@@ -290,7 +292,11 @@ public class MapFragment extends BaseMwmFragment
   public void onPause()
   {
     mUiThemeOnPause = Config.getCurrentUiTheme();
-    nativePauseSurfaceRendering();
+
+    // Pause/Resume can be called without surface creation/destroy.
+    if (mSurfaceAttached)
+      nativePauseSurfaceRendering();
+
     super.onPause();
   }
 
@@ -298,7 +304,10 @@ public class MapFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    nativeResumeSurfaceRendering();
+
+    // Pause/Resume can be called without surface creation/destroy.
+    if (mSurfaceAttached)
+      nativeResumeSurfaceRendering();
   }
 
   @Override
