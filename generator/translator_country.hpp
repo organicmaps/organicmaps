@@ -40,8 +40,8 @@ class TranslatorCountryWithAds : public TranslatorCountry
 {
 public:
   explicit TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,
-                                       cache::IntermediateDataReader & cache,
-                                       feature::GenerateInfo const & info);
+                                    cache::IntermediateDataReader & cache,
+                                    feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;

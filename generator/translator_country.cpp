@@ -110,8 +110,8 @@ void TranslatorCountry::CollectFromRelations(OsmElement const & element)
 }
 
 TranslatorCountryWithAds::TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,
-                                                         cache::IntermediateDataReader & cache,
-                                                         feature::GenerateInfo const & info)
+                                                   cache::IntermediateDataReader & cache,
+                                                   feature::GenerateInfo const & info)
   : TranslatorCountry(emitter, cache, info)
   , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE)) {}
 
