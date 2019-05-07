@@ -80,7 +80,7 @@ def write_csv(output_dir, qtype):
             mapping = QUEUES[qtype].get()
 
 
-def create_csv(output, mwm_path, osm2ft_path, types, version, threads, debug=False):
+def create_csv(output, mwm_path, osm2ft_path, types, version, threads):
     if not os.path.isdir(output):
         os.mkdir(output)
 
@@ -97,10 +97,7 @@ def create_csv(output, mwm_path, osm2ft_path, types, version, threads, debug=Fal
             logging.error("Cannot find %s", osm2ft_name)
             sys.exit(2)
         parse_mwm_args = (os.path.join(mwm_path, mwm_name), osm2ft_name, version, types)
-        if debug:
-            parse_mwm(*parse_mwm_args)
-        else:
-            pool.apply_async(parse_mwm, parse_mwm_args)
+        pool.apply_async(parse_mwm, parse_mwm_args)
     pool.close()
     pool.join()
     for queue in QUEUES.values():

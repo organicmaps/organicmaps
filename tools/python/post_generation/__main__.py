@@ -9,9 +9,9 @@ from .localads_mwm_to_csv import create_csv
 class PostGeneration:
     def __init__(self):
         parser = argparse.ArgumentParser(
-            description="Post generation instruments",
+            description="Post-generation instruments",
             usage="""post_generation <command> [<args>]
-The most commonly used post_generation commands are:
+The post_generation commands are:
     localads_mwm_to_csv    Prepares CSV files for uploading to localads database from mwm files.
     hierarchy_to_countries Produces countries.txt from hierarchy.txt.
     """)
@@ -42,17 +42,16 @@ The most commonly used post_generation commands are:
                             help="path to omim/data/types.txt")
         parser.add_argument("--threads",
                             type=int,
+                            default=1,
                             help="number of threads to process files")
-        parser.add_argument("--version", type=int, help="override mwm version")
-        parser.add_argument("--debug",
-                            action="store_true",
-                            help="debug parse_mwm call")
+        parser.add_argument("--mwm_version", type=int, required=True,
+                            help="Mwm version")
         args = parser.parse_args(sys.argv[2:])
         if not args.osm2ft:
             args.osm2ft = args.mwm
 
         create_csv(args.output, args.mwm, args.osm2ft, args.types,
-                   args.version, args.threads, args.debug)
+                   args.mwm_version, args.threads)
 
     @staticmethod
     def hierarchy_to_countries():
@@ -67,15 +66,15 @@ The most commonly used post_generation commands are:
                             help="old_vs_new.csv file")
         parser.add_argument("--osm", required=True,
                             help="borders_vs_osm.csv file")
-        parser.add_argument("--version", type=int, default=151231,
-                            help="Version")
+        parser.add_argument("--mwm_version", type=int, required=True,
+                            help="Mwm version")
         parser.add_argument("-o", "--output", required=True,
                             help="Output countries.txt file (default is stdout)")
         args = parser.parse_args(sys.argv[2:])
         countries_json = hierarchy_to_countries_(args.old, args.osm,
                                                  args.hierarchy,
                                                  args.target,
-                                                 args.version)
+                                                 args.mwm_version)
         if args.output:
             with open(args.output, "w") as f:
                 f.write(countries_json)

@@ -4,7 +4,7 @@
 #
 # Sample lines:
 # Iran;Q794;ir;fa
-# Iran_South;Q794-South
+#  Iran_South;Q794-South
 #
 # Number of leading spaces mean hierarchy depth. In above case, Iran_South is inside Iran.
 # Then follows a semicolon-separated list:
@@ -12,6 +12,7 @@
 # 2. Region name template using wikidata Qxxx codes and predefined strings
 # 3. Country ISO code (used for flags in the legacy format)
 # 4. Comma-separated list of language ISO codes for the region
+
 import base64
 import hashlib
 import json
@@ -22,7 +23,7 @@ import re
 class CountryDict(dict):
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
-        self.order = ["id", "n", "f", "v", "c", "s", "sha1_base64", "rs", "g"]
+        self.order = ["id", "n", "v", "c", "s", "sha1_base64", "rs", "g"]
 
     def __iter__(self):
         for key in self.order:
@@ -37,7 +38,7 @@ class CountryDict(dict):
             yield (key, self.__getitem__(key))
 
 
-def get_hash(path, name):
+def get_mwm_hash(path, name):
     filename = os.path.join(path, f"{name}.mwm")
     h = hashlib.sha1()
     with open(filename, "rb") as f:
@@ -46,7 +47,7 @@ def get_hash(path, name):
     return str(base64.b64encode(h.digest()), "utf-8")
 
 
-def get_size(path, name):
+def get_mwm_size(path, name):
     filename = os.path.join(path, f"{name}.mwm")
     return os.path.getsize(filename)
 
@@ -82,14 +83,14 @@ def parse_old_vs_new(old_vs_new_csv_path):
     if not old_vs_new_csv_path:
         return oldvs
 
-    with open(old_vs_new_csv_path, "r") as f:
+    with open(old_vs_new_csv_path) as f:
         for line in f:
             m = re.match(r"(.+?)\t(.+)", line.strip())
-            if m:
-                if m.group(2) in oldvs:
-                    oldvs[m.group(2)].append(m.group(1))
-                else:
-                    oldvs[m.group(2)] = [m.group(1)]
+            assert m
+            if m.group(2) in oldvs:
+                oldvs[m.group(2)].append(m.group(1))
+            else:
+                oldvs[m.group(2)] = [m.group(1)]
     return oldvs
 
 
@@ -98,60 +99,60 @@ def parse_borders_vs_osm(borders_vs_osm_csv_path):
     if not borders_vs_osm_csv_path:
         return vsosm
 
-    with open(borders_vs_osm_csv_path, "r") as f:
+    with open(borders_vs_osm_csv_path) as f:
         for line in f:
-            m = re.match(r"^(.+?)\t(\d)\t(.+?)$", line.strip())
-            if m:
-                if m.group(1) in vsosm:
-                    vsosm[m.group(1)].append(m.group(3))
-                else:
-                    vsosm[m.group(1)] = [m.group(3)]
+            m = re.match(r"(.+)\t(\d)\t(.+)", line.strip())
+            assert m
+            if m.group(1) in vsosm:
+                vsosm[m.group(1)].append(m.group(3))
+            else:
+                vsosm[m.group(1)] = [m.group(3)]
     return vsosm
 
 
 def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
                            hierarchy_path, target_path, version):
+
+    def fill_last(last, stack):
+        name = last["id"]
+        last["s"] = get_mwm_size(target_path, name)
+        last["sha1_base64"] = get_mwm_hash(target_path, name)
+        if last["s"] >= 0:
+            stack[-1]["g"].append(last)
+
     oldvs = parse_old_vs_new(old_vs_new_csv_path)
     vsosm = parse_borders_vs_osm(borders_vs_osm_csv_path)
     stack = [CountryDict(v=version, nameattr="Countries", g=[])]
     last = None
-    with open(hierarchy_path, "r") as f:
+    with open(hierarchy_path) as f:
         for line in f:
-            m = re.match("( *)(.+?)\n", line)
-            if m:
-                depth = len(m.group(1))
-                if last is not None:
-                    lastd = last["d"]
-                    del last["d"]
-                    if lastd < depth:
-                        # last is a group
-                        last["g"] = []
-                        stack.append(last)
-                    else:
-                        name = last["f" if "f" in last else "id"]
-                        last["s"] = get_size(target_path, name)
-                        last["sha1_base64"] = get_hash(target_path, name)
-                        if last["s"] >= 0:
-                            stack[-1]["g"].append(last)
-                while depth < len(stack) - 1:
-                    # group ended, add it to higher group
-                    g = stack.pop()
-                    if len(g["g"]) > 0:
-                        stack[-1]["g"].append(g)
-                items = m.group(2).split(";")
-                last = CountryDict({"id": items[0], "d": depth})
-                if items[0] in oldvs:
-                    last["old"] = oldvs[items[0]]
-                if items[0] in vsosm:
-                    last["affiliations"] = vsosm[items[0]]
+            m = re.match("( *).+", line)
+            assert m
+            depth = len(m.group(1))
+            if last is not None:
+                lastd = last["d"]
+                del last["d"]
+                if lastd < depth:
+                    # last is a group
+                    last["g"] = []
+                    stack.append(last)
+                else:
+                    fill_last(last, stack)
+            while depth < len(stack) - 1:
+                # group ended, add it to higher group
+                g = stack.pop()
+                if len(g["g"]) > 0:
+                    stack[-1]["g"].append(g)
+            items = m.group(2).split(";")
+            last = CountryDict({"id": items[0], "d": depth})
+            if items[0] in oldvs:
+                last["old"] = oldvs[items[0]]
+            if items[0] in vsosm:
+                last["affiliations"] = vsosm[items[0]]
 
     # the last line is always a file
     del last["d"]
-    name = last["f" if "f" in last else "id"]
-    last["s"] = get_size(target_path, name)
-    last["sha1_base64"] = get_hash(target_path, name)
-    if last["s"] >= 0:
-        stack[-1]["g"].append(last)
+    fill_last(last, stack)
     while len(stack) > 1:
         g = stack.pop()
         if len(g["g"]) > 0:
