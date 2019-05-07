@@ -11,6 +11,7 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_collector.hpp"
 #include "generator/metalines_builder.hpp"
+#include "generator/node_mixer.hpp"
 #include "generator/restriction_writer.hpp"
 #include "generator/road_access_generator.hpp"
 
@@ -74,7 +75,6 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, 
   : Translator(emitter, cache, std::make_shared<FeatureMaker>(cache))
   , m_tagAdmixer(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv"))
   , m_tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE))
-  , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE))
 {
   AddFilter(std::make_shared<FilterPlanet>());
   AddFilter(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
@@ -97,8 +97,6 @@ void TranslatorCountry::Preprocess(OsmElement & element)
 {
   // Here we can add new tags to the elements!
   m_tagReplacer(element);
-  m_tagAdmixer(element);
-  m_osmTagMixer(element);
   CollectFromRelations(element);
 }
 
@@ -109,5 +107,25 @@ void TranslatorCountry::CollectFromRelations(OsmElement const & element)
     m_cache.ForEachRelationByNodeCached(element.id, collector);
   else if (element.IsWay())
     m_cache.ForEachRelationByWayCached(element.id, collector);
+}
+
+TranslatorCountryWithAds::TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,
+                                                         cache::IntermediateDataReader & cache,
+                                                         feature::GenerateInfo const & info)
+  : TranslatorCountry(emitter, cache, info)
+  , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE)) {}
+
+void TranslatorCountryWithAds::Preprocess(OsmElement & element)
+{
+  // Here we can add new tags to the elements!
+  m_osmTagMixer(element);
+  TranslatorCountry::Preprocess(element);
+}
+
+bool TranslatorCountryWithAds::Finish()
+{
+  MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE,
+               std::bind(&TranslatorCountryWithAds::Emit, this, std::placeholders::_1));
+  return TranslatorCountry::Finish();
 }
 }  // namespace generator

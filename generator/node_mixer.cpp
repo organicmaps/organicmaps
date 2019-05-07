@@ -7,7 +7,7 @@ using namespace std;
 
 namespace generator
 {
-void MixFakeNodes(istream & stream, function<void(OsmElement *)> processor)
+void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
 {
   if (stream.fail())
     return;
@@ -31,7 +31,7 @@ void MixFakeNodes(istream & stream, function<void(OsmElement *)> processor)
     {
       if (completionFlag == kCFAll)
       {
-        processor(&p);
+        processor(p);
         count++;
         p.Clear();
         p.id = baseNodeId + count;
@@ -69,7 +69,7 @@ void MixFakeNodes(istream & stream, function<void(OsmElement *)> processor)
 
   if (completionFlag == kCFAll)
   {
-    processor(&p);
+    processor(p);
     count++;
   }
 

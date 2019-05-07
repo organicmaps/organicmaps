@@ -33,6 +33,21 @@ private:
 
   TagAdmixer m_tagAdmixer;
   TagReplacer m_tagReplacer;
+};
+
+// The TranslatorCountryWithAds class implements translator for building countries with advertising.
+class TranslatorCountryWithAds : public TranslatorCountry
+{
+public:
+  explicit TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,
+                                       cache::IntermediateDataReader & cache,
+                                       feature::GenerateInfo const & info);
+
+  // TranslatorInterface overrides:
+  void Preprocess(OsmElement & element) override;
+  bool Finish() override;
+
+private:
   OsmTagMixer m_osmTagMixer;
 };
 }  // namespace generator

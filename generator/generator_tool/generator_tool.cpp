@@ -112,6 +112,7 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
 // Preprocessing and feature generator.
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
+DEFINE_bool(no_ads, false, "generation without ads.");
 DEFINE_bool(generate_region_features, false,
             "Generate intermediate features for regions to use in regions index and borders generation.");
 DEFINE_bool(generate_streets_features, false,
@@ -332,7 +333,8 @@ int GeneratorToolMain(int argc, char ** argv)
     if (FLAGS_generate_features)
     {
       auto emitter = CreateEmitter(EmitterType::Country, genInfo);
-      translators.Append(CreateTranslator(TranslatorType::Country, emitter, cacheLoader.GetCache(), genInfo));
+      auto const translatorType = FLAGS_no_ads ? TranslatorType::Country : TranslatorType::CountryWithAds;
+      translators.Append(CreateTranslator(translatorType, emitter, cacheLoader.GetCache(), genInfo));
     }
 
     if (FLAGS_generate_world)

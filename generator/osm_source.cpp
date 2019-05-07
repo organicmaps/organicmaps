@@ -1,7 +1,6 @@
 #include "generator/osm_source.hpp"
 
 #include "generator/intermediate_elements.hpp"
-#include "generator/node_mixer.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_xml_source.hpp"
@@ -18,6 +17,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/parse_xml.hpp"
 
+#include <fstream>
 #include <memory>
 #include <set>
 
@@ -224,7 +224,6 @@ bool GenerateRaw(feature::GenerateInfo & info, TranslatorInterface & translators
   }
 
   LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
-  MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE, fn);
   if (!translators.Finish())
     return false;
 

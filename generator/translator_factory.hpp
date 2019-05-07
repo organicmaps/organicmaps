@@ -22,6 +22,7 @@ enum class TranslatorType
   Streets,
   GeoObjects,
   Country,
+  CountryWithAds,
   Coastline,
   World
 };
@@ -35,6 +36,8 @@ std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args&
     return create<TranslatorCoastline>(std::forward<Args>(args)...);
   case TranslatorType::Country:
     return create<TranslatorCountry>(std::forward<Args>(args)...);
+  case TranslatorType::CountryWithAds:
+    return create<TranslatorCountryWithAds>(std::forward<Args>(args)...);
   case TranslatorType::Regions:
     return create<TranslatorRegion>(std::forward<Args>(args)...);
   case TranslatorType::Streets:
