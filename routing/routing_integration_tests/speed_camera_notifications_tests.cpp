@@ -52,7 +52,7 @@ void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingS
                         SpeedCameraManagerMode mode = SpeedCameraManagerMode::Auto)
 {
   TRouteResult const routeResult =
-    integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+    integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                 MercatorBounds::FromLatLon(from), m2::PointD::Zero(),
                                 MercatorBounds::FromLatLon(to));
 

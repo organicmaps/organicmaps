@@ -147,6 +147,13 @@ shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleT
   return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
 }
 
+IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
+{
+  static auto const instance = CreateAllMapsComponents(vehicleType);
+  ASSERT(instance, ());
+  return *instance;
+}
+
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                             m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint)

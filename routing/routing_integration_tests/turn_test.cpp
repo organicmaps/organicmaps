@@ -11,7 +11,7 @@ using namespace routing::turns;
 UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.67251, 37.63604), {0.01, -0.01},
                                   MercatorBounds::FromLatLon(55.67293, 37.63507));
 
@@ -32,7 +32,7 @@ UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
 UNIT_TEST(StPetersburgSideRoadPenaltyTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(59.85157, 30.28033), {0., 0.},
                                   MercatorBounds::FromLatLon(59.84268, 30.27589));
 
@@ -46,7 +46,7 @@ UNIT_TEST(StPetersburgSideRoadPenaltyTest)
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.79683, 37.5379), {0., 0.},
                                   MercatorBounds::FromLatLon(55.80212, 37.5389));
 
@@ -73,7 +73,7 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.85182, 37.39533), {0., 0.},
                                   MercatorBounds::FromLatLon(55.84386, 37.39250));
   Route const & route = *routeResult.first;
@@ -107,7 +107,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
 UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.83118, 37.40515), {0., 0.},
                                   MercatorBounds::FromLatLon(55.83384, 37.40521));
   Route const & route = *routeResult.first;
@@ -128,7 +128,7 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
 UNIT_TEST(SwedenBarlangeRoundaboutTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(60.48278, 15.42356), {0., 0.},
                                   MercatorBounds::FromLatLon(60.48462, 15.42120));
   Route const & route = *routeResult.first;
@@ -149,7 +149,7 @@ UNIT_TEST(SwedenBarlangeRoundaboutTurnTest)
 UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.80216, 37.54668), {0., 0.},
                                   MercatorBounds::FromLatLon(55.80169, 37.54915));
 
@@ -170,7 +170,7 @@ UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
 UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.84656, 37.39163), {0., 0.},
                                   MercatorBounds::FromLatLon(55.56661, 37.69254));
 
@@ -190,7 +190,7 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
 UNIT_TEST(RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.70160, 37.60632), {0., 0.},
                                   MercatorBounds::FromLatLon(55.69349, 37.62122));
 
@@ -205,7 +205,7 @@ UNIT_TEST(RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
 UNIT_TEST(RussiaMoscowTTKUTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.792848, 37.624424), {0., 0.},
                                   MercatorBounds::FromLatLon(55.792544, 37.624914));
 
@@ -223,7 +223,7 @@ UNIT_TEST(RussiaMoscowTTKUTurnTest)
 UNIT_TEST(RussiaMoscowParallelResidentalUTurnAvoiding)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.66192, 37.62852), {0., 0.},
                                   MercatorBounds::FromLatLon(55.66189, 37.63254));
 
@@ -240,7 +240,7 @@ UNIT_TEST(RussiaMoscowParallelResidentalUTurnAvoiding)
 UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.77177, 37.63556), {0., 0.},
                                   MercatorBounds::FromLatLon(55.77209, 37.63707));
 
@@ -258,7 +258,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.85305, 37.39414), {0., 0.},
                                   MercatorBounds::FromLatLon(55.85099, 37.39105));
 
@@ -273,7 +273,7 @@ UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
 UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.84104, 37.40591), {0., 0.},
                                   MercatorBounds::FromLatLon(55.83929, 37.40855));
 
@@ -287,7 +287,7 @@ UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
 UNIT_TEST(RussiaHugeRoundaboutTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.80141, 37.32581), {0., 0.},
                                   MercatorBounds::FromLatLon(55.80075, 37.32536));
 
@@ -309,7 +309,7 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
 UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(53.93642, 27.65857), {0., 0.},
                                   MercatorBounds::FromLatLon(53.93933, 27.67046));
 
@@ -326,7 +326,7 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.83636, 37.40555), {0., 0.},
                                   MercatorBounds::FromLatLon(55.83707, 37.40489));
 
@@ -343,7 +343,7 @@ UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.87961, 37.43838), {0.0, 0.0},
                                   MercatorBounds::FromLatLon(55.87854, 37.44865));
 
@@ -358,7 +358,7 @@ UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 UNIT_TEST(BelarusMKADShosseinai)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.31541, 29.43123), {0., 0.},
                                   MercatorBounds::FromLatLon(55.31656, 29.42626));
 
@@ -375,7 +375,7 @@ UNIT_TEST(BelarusMKADShosseinai)
 UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(7.91797, 98.36937), {0., 0.},
                                   MercatorBounds::FromLatLon(7.90724, 98.3679));
 
@@ -393,7 +393,7 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 UNIT_TEST(RussiaMoscowVarshavskoeShosseMKAD)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.58210, 37.59695), {0., 0.},
                                   MercatorBounds::FromLatLon(55.57514, 37.61020));
 
@@ -408,7 +408,7 @@ UNIT_TEST(RussiaMoscowVarshavskoeShosseMKAD)
 UNIT_TEST(RussiaMoscowBolshayaNikitskayaOkhotnyRyadTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.75509, 37.61067), {0., 0.},
                                   MercatorBounds::FromLatLon(55.75737, 37.61601));
 
@@ -424,7 +424,7 @@ UNIT_TEST(RussiaMoscowBolshayaNikitskayaOkhotnyRyadTest)
 UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.75765, 37.61355), {0., 0.},
                                   MercatorBounds::FromLatLon(55.75737, 37.61601));
 
@@ -439,7 +439,7 @@ UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
 UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.75574, 37.60702), {0., 0.},
                                   MercatorBounds::FromLatLon(55.75586, 37.60819));
 
@@ -455,7 +455,7 @@ UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
 UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.79231, 37.54951), {0., 0.},
                                   MercatorBounds::FromLatLon(55.79280, 37.55028));
 
@@ -470,7 +470,7 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
 UNIT_TEST(SwitzerlandSamstagernBergstrasseTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(47.19307, 8.67594), {0., 0.},
                                   MercatorBounds::FromLatLon(47.19162, 8.67590));
 
@@ -485,7 +485,7 @@ UNIT_TEST(SwitzerlandSamstagernBergstrasseTest)
 UNIT_TEST(RussiaMoscowMikoiankNoUTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.79041, 37.53770), {0., 0.},
                                   MercatorBounds::FromLatLon(55.79182, 37.53008));
 
@@ -499,7 +499,7 @@ UNIT_TEST(RussiaMoscowMikoiankNoUTurnTest)
 UNIT_TEST(RussiaMoscowLeningradskiyPrptToTTKTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.78926, 37.55706), {0., 0.},
                                   MercatorBounds::FromLatLon(55.78925, 37.57110));
 
@@ -517,7 +517,7 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTTKTest)
 UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.79059, 37.55345), {0., 0.},
                                   MercatorBounds::FromLatLon(55.78925, 37.57110));
 
@@ -533,7 +533,7 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
 UNIT_TEST(RussiaMoscowSvobodaStTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.82484, 37.45151), {0., 0.},
                                   MercatorBounds::FromLatLon(55.81941, 37.45073));
 
@@ -548,7 +548,7 @@ UNIT_TEST(RussiaMoscowSvobodaStTest)
 UNIT_TEST(RussiaTiinskTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(54.37738, 49.63878), {0., 0.},
                                   MercatorBounds::FromLatLon(54.3967, 49.64924));
 
@@ -564,7 +564,7 @@ UNIT_TEST(RussiaTiinskTest)
 UNIT_TEST(NetherlandsGorinchemBridgeTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(51.84131, 4.94825), {0., 0.},
                                   MercatorBounds::FromLatLon(51.81518, 4.93773));
 
@@ -578,7 +578,7 @@ UNIT_TEST(NetherlandsGorinchemBridgeTest)
 UNIT_TEST(RussiaVoronezhProspTrudaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(51.67205, 39.16334), {0., 0.},
                                   MercatorBounds::FromLatLon(51.67193, 39.15636));
 
@@ -595,7 +595,7 @@ UNIT_TEST(RussiaVoronezhProspTrudaTest)
 UNIT_TEST(GermanyFrankfurtAirportTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(50.07094, 8.61299), {0., 0.},
                                   MercatorBounds::FromLatLon(50.05807, 8.59542));
 
@@ -613,7 +613,7 @@ UNIT_TEST(GermanyFrankfurtAirportTest)
 UNIT_TEST(GermanyFrankfurtAirport2Test)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(50.03249, 8.50814), {0., 0.},
                                   MercatorBounds::FromLatLon(50.02079, 8.49445));
 
@@ -632,7 +632,7 @@ UNIT_TEST(GermanyFrankfurtAirport2Test)
 UNIT_TEST(RussiaKubinkaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.58533, 36.83779), {0., 0.},
                                   MercatorBounds::FromLatLon(55.58365, 36.8333));
 
@@ -651,7 +651,7 @@ UNIT_TEST(RussiaKubinkaTest)
 UNIT_TEST(AustriaKitzbuhelTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(47.46894, 12.3841), {0., 0.},
                                   MercatorBounds::FromLatLon(47.46543, 12.38599));
 
@@ -666,7 +666,7 @@ UNIT_TEST(AustriaKitzbuhelTest)
 UNIT_TEST(AustriaKitzbuhel2Test)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(47.45119, 12.3841), {0., 0.},
                                   MercatorBounds::FromLatLon(47.45021, 12.382));
 
@@ -681,7 +681,7 @@ UNIT_TEST(AustriaKitzbuhel2Test)
 UNIT_TEST(AustriaKitzbuhel3Test)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(47.45362, 12.38709), {0., 0.},
                                   MercatorBounds::FromLatLon(47.45255, 12.38498));
 
@@ -696,7 +696,7 @@ UNIT_TEST(AustriaKitzbuhel3Test)
 UNIT_TEST(AustriaBrixentalStrasseTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(47.45091, 12.33453), {0., 0.},
                                   MercatorBounds::FromLatLon(47.45038, 12.32592));
 
@@ -711,7 +711,7 @@ UNIT_TEST(AustriaBrixentalStrasseTest)
 UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.87192, 37.45772), {0., 0.},
                                   MercatorBounds::FromLatLon(55.87594, 37.45266));
 
@@ -726,7 +726,7 @@ UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
 UNIT_TEST(RussiaMoscowMKADToSvobodaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.8801, 37.43862), {0., 0.},
                                   MercatorBounds::FromLatLon(55.87583, 37.43046));
 
@@ -742,7 +742,7 @@ UNIT_TEST(RussiaMoscowMKADToSvobodaTest)
 UNIT_TEST(RussiaMoscowMKADTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(52.15866, 5.56538), {0., 0.},
                                   MercatorBounds::FromLatLon(52.16668, 5.55665));
 
@@ -756,7 +756,7 @@ UNIT_TEST(RussiaMoscowMKADTest)
 UNIT_TEST(NetherlandsBarneveldTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(52.15866, 5.56538), {0., 0.},
                                   MercatorBounds::FromLatLon(52.16667, 5.55663));
 
@@ -771,7 +771,7 @@ UNIT_TEST(NetherlandsBarneveldTest)
 UNIT_TEST(BelorussiaMinskTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(53.90991, 27.57946), {0., 0.},
                                   MercatorBounds::FromLatLon(53.91552, 27.58211));
 
@@ -792,7 +792,7 @@ UNIT_TEST(BelorussiaMinskTest)
 UNIT_TEST(EnglandLondonExitToLeftTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(51.603582, 0.266995), {0., 0.},
                                   MercatorBounds::FromLatLon(51.606785, 0.264055));
 
@@ -808,7 +808,7 @@ UNIT_TEST(EnglandLondonExitToLeftTest)
 UNIT_TEST(RussiaMoscowLeninskyProspTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.69035, 37.54948), {0., 0.},
                                   MercatorBounds::FromLatLon(55.69188, 37.55293));
 
@@ -825,7 +825,7 @@ UNIT_TEST(RussiaMoscowLeninskyProspTest)
 UNIT_TEST(RussiaMoscowTTKToLinkTest)
 {
 TRouteResult const routeResult =
-    integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+    integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                 MercatorBounds::FromLatLon(55.78594, 37.56656), {0., 0.},
                                 MercatorBounds::FromLatLon(55.78598, 37.56737));
 
@@ -841,7 +841,7 @@ TRouteResult const routeResult =
 UNIT_TEST(RussiaMoscowTTKToBegovayAlleyaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.77946, 37.55779), {0., 0.},
                                   MercatorBounds::FromLatLon(55.77956, 37.55891));
 
@@ -857,7 +857,7 @@ UNIT_TEST(RussiaMoscowTTKToBegovayAlleyaTest)
 UNIT_TEST(RussiaMoscowTTKToServiceTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.78874, 37.5704), {0., 0.},
                                   MercatorBounds::FromLatLon(55.78881, 37.57106));
 
@@ -873,7 +873,7 @@ UNIT_TEST(RussiaMoscowTTKToServiceTest)
 UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.79057, 37.57292), {0., 0.},
                                   MercatorBounds::FromLatLon(55.79132, 37.57481));
 
@@ -888,7 +888,7 @@ UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
 UNIT_TEST(RussiaMoscowComplicatedTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.68412, 37.60166), {0., 0.},
                                   MercatorBounds::FromLatLon(55.68426, 37.59854));
 
@@ -905,7 +905,7 @@ UNIT_TEST(RussiaMoscowComplicatedTurnTest)
 UNIT_TEST(USATampaTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(28.04875, -82.58292), {0., 0.},
                                   MercatorBounds::FromLatLon(28.04459, -82.58448));
 
@@ -922,7 +922,7 @@ UNIT_TEST(USATampaTest)
 UNIT_TEST(RussiaMoscowMinskia1TurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.7355, 37.48717), {0., 0.},
                                   MercatorBounds::FromLatLon(55.73694, 37.48587));
 
@@ -936,7 +936,7 @@ UNIT_TEST(RussiaMoscowMinskia1TurnTest)
 UNIT_TEST(RussiaMoscowMinskia2TurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.74244, 37.4808), {0., 0.},
                                   MercatorBounds::FromLatLon(55.74336, 37.48124));
 
@@ -953,7 +953,7 @@ UNIT_TEST(RussiaMoscowMinskia2TurnTest)
 UNIT_TEST(RussiaMoscowBarikadnaiTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.75979, 37.58502), {0., 0.},
                                   MercatorBounds::FromLatLon(55.75936, 37.58286));
 
@@ -969,7 +969,7 @@ UNIT_TEST(RussiaMoscowBarikadnaiTurnTest)
 UNIT_TEST(RussiaMoscowKomsomolskyTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.73442, 37.59391), {0., 0.},
                                   MercatorBounds::FromLatLon(55.73485, 37.59543));
 
@@ -985,7 +985,7 @@ UNIT_TEST(RussiaMoscowKomsomolskyTurnTest)
 UNIT_TEST(RussiaMoscowTTKNoGoStraightTurnTest)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.78949, 37.5711), {0., 0.},
                                   MercatorBounds::FromLatLon(55.78673, 37.56726));
 
@@ -999,7 +999,7 @@ UNIT_TEST(RussiaMoscowTTKNoGoStraightTurnTest)
 UNIT_TEST(RussiaMoscowLeninskyProsp2Test)
 {
   TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.80376, 37.52048), {0., 0.},
                                   MercatorBounds::FromLatLon(55.80442, 37.51802));
 
