@@ -423,8 +423,11 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                                       isStartSegmentStrictForward, *graph);
 
     vector<Segment> subroute;
+    static double constexpr kEpsAlmostZero = 1e-7;
     double const contributionCoef =
-        MercatorBounds::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength;
+        !base::AlmostEqualAbs(checkpointsLength, 0.0, kEpsAlmostZero) ?
+          MercatorBounds::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength :
+          kEpsAlmostZero;
 
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
     progress.AppendSubProgress(subProgress);
