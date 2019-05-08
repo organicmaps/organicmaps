@@ -7,7 +7,7 @@ using namespace std;
 namespace
 {
 template <typename T>
-string FromJSONToString(json_t * root)
+string FromJSONToString(json_t const * root)
 {
   T result;
   FromJSON(root, result);
@@ -24,6 +24,11 @@ json_t * GetJSONObligatoryField(json_t * root, std::string const & field)
 
 json_t * GetJSONObligatoryField(json_t * root, char const * field)
 {
+  return const_cast<json_t *>(GetJSONObligatoryField(const_cast<json_t const *>(root), field));
+}
+
+json_t const * GetJSONObligatoryField(json_t const * root, char const * field)
+{
   auto * value = base::GetJSONOptionalField(root, field);
   if (!value)
     MYTHROW(base::Json::Exception, ("Obligatory field", field, "is absent."));
@@ -37,29 +42,34 @@ json_t * GetJSONOptionalField(json_t * root, std::string const & field)
 
 json_t * GetJSONOptionalField(json_t * root, char const * field)
 {
+  return const_cast<json_t *>(GetJSONOptionalField(const_cast<json_t const *>(root), field));
+}
+
+json_t const * GetJSONOptionalField(json_t const * root, char const * field)
+{
   if (!json_is_object(root))
     MYTHROW(base::Json::Exception, ("Bad json object while parsing", field));
   return json_object_get(root, field);
 }
 
-bool JSONIsNull(json_t * root) { return json_is_null(root); }
+bool JSONIsNull(json_t const * root) { return json_is_null(root); }
 }  // namespace base
 
-void FromJSON(json_t * root, double & result)
+void FromJSON(json_t const * root, double & result)
 {
   if (!json_is_number(root))
     MYTHROW(base::Json::Exception, ("Object must contain a json number."));
   result = json_number_value(root);
 }
 
-void FromJSON(json_t * root, bool & result)
+void FromJSON(json_t const * root, bool & result)
 {
   if (!json_is_true(root) && !json_is_false(root) )
     MYTHROW(base::Json::Exception, ("Object must contain a boolean value."));
   result = json_is_true(root);
 }
 
-string FromJSONToString(json_t * root)
+string FromJSONToString(json_t const * root)
 {
   if (json_is_string(root))
     return FromJSONToString<string>(root);
@@ -78,14 +88,14 @@ string FromJSONToString(json_t * root)
 
 namespace std
 {
-void FromJSON(json_t * root, std::string_view & result)
+void FromJSON(json_t const * root, std::string_view & result)
 {
   if (!json_is_string(root))
     MYTHROW(base::Json::Exception, ("The field must contain a json string."));
   result = json_string_value(root);
 }
 
-void FromJSON(json_t * root, string & result)
+void FromJSON(json_t const * root, string & result)
 {
   if (!json_is_string(root))
     MYTHROW(base::Json::Exception, ("The field must contain a json string."));
@@ -95,7 +105,7 @@ void FromJSON(json_t * root, string & result)
 
 namespace strings
 {
-void FromJSON(json_t * root, UniString & result)
+void FromJSON(json_t const * root, UniString & result)
 {
   string s;
   FromJSON(root, s);

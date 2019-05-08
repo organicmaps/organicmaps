@@ -20,7 +20,7 @@ namespace base
 {
 struct JSONDecRef
 {
-  void operator()(json_t * root) const { json_decref(root); }
+  void operator()(json_t * root) const { if (root) json_decref(root); }
 };
 
 using JSONPtr = std::unique_ptr<json_t, JSONDecRef>;
@@ -65,13 +65,15 @@ private:
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t * GetJSONObligatoryField(json_t * root, char const * field);
+json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
 json_t * GetJSONOptionalField(json_t * root, std::string const & field);
 json_t * GetJSONOptionalField(json_t * root, char const * field);
-bool JSONIsNull(json_t * root);
+json_t const * GetJSONOptionalField(json_t const * root, char const * field);
+bool JSONIsNull(json_t const * root);
 }  // namespace base
 
 template <typename T>
-T FromJSON(json_t * root)
+T FromJSON(json_t const * root)
 {
   T result{};
   FromJSON(root, result);
@@ -80,19 +82,19 @@ T FromJSON(json_t * root)
 
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 
-void FromJSON(json_t * root, double & result);
-void FromJSON(json_t * root, bool & result);
+void FromJSON(json_t const * root, double & result);
+void FromJSON(json_t const * root, bool & result);
 
 template <typename T,
           typename std::enable_if<std::is_integral<T>::value, void>::type* = nullptr>
-void FromJSON(json_t * root, T & result)
+void FromJSON(json_t const * root, T & result)
 {
   if (!json_is_number(root))
     MYTHROW(base::Json::Exception, ("Object must contain a json number."));
   result = static_cast<T>(json_integer_value(root));
 }
 
-std::string FromJSONToString(json_t * root);
+std::string FromJSONToString(json_t const * root);
 
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, T & result)
@@ -109,7 +111,7 @@ void FromJSONObject(json_t * root, std::string const & field, T & result)
 }
 
 template <typename T>
-boost::optional<T> FromJSONObjectOptional(json_t * root, char const * field)
+boost::optional<T> FromJSONObjectOptional(json_t const * root, char const * field)
 {
   auto * json = base::GetJSONOptionalField(root, field);
   if (!json)
@@ -272,13 +274,13 @@ struct JSONFreeDeleter
 
 namespace std
 {
-void FromJSON(json_t * root, std::string_view & result);
-void FromJSON(json_t * root, std::string & result);
+void FromJSON(json_t const * root, std::string_view & result);
+void FromJSON(json_t const * root, std::string & result);
 inline base::JSONPtr ToJSON(std::string const & s) { return base::NewJSONString(s); }
 }  // namespace std
 
 namespace strings
 {
-void FromJSON(json_t * root, UniString & result);
+void FromJSON(json_t const * root, UniString & result);
 base::JSONPtr ToJSON(UniString const & s);
 }  // namespace strings
