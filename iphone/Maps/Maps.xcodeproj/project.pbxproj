@@ -74,7 +74,6 @@
 		3404F49A2028A20D0090E401 /* BMCCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F4982028A20D0090E401 /* BMCCategoryCell.xib */; };
 		3404F49D2028A2430090E401 /* BMCActionsCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F49B2028A2430090E401 /* BMCActionsCreateCell.swift */; };
 		3404F49E2028A2430090E401 /* BMCActionsCreateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F49C2028A2430090E401 /* BMCActionsCreateCell.xib */; };
-		34065A111F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */; };
 		3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708631F2905A500029ECC /* NavigationInfoArea.swift */; };
@@ -279,7 +278,6 @@
 		34BBD6641F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
 		34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
-		34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */; };
 		34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */; };
 		34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD011C6DB693000DC38D /* MWMViewController.mm */; };
 		34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD081C6DBCDA000DC38D /* MWMNavigationController.m */; };
@@ -570,7 +568,6 @@
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
-		EBDA7B7820B370B40054165B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */; };
 		F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
 		F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
 		F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
@@ -907,7 +904,6 @@
 		3404F49B2028A2430090E401 /* BMCActionsCreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCActionsCreateCell.swift; sourceTree = "<group>"; };
 		3404F49C2028A2430090E401 /* BMCActionsCreateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCActionsCreateCell.xib; sourceTree = "<group>"; };
 		340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMMapViewControlsCommon.h; path = APIBar/MWMMapViewControlsCommon.h; sourceTree = "<group>"; };
-		34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleFallbackBanner.swift; sourceTree = "<group>"; };
 		3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloadDialog.h; sourceTree = "<group>"; };
 		3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloadDialog.mm; sourceTree = "<group>"; };
 		3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMapDownloadDialog.xib; sourceTree = "<group>"; };
@@ -1218,7 +1214,6 @@
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
 		34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationCommon.h; sourceTree = "<group>"; };
-		34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleNativeBanner.swift; sourceTree = "<group>"; };
 		34C9BCFE1C6DB693000DC38D /* MWMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewController.h; sourceTree = "<group>"; };
 		34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMTableViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34C9BD001C6DB693000DC38D /* MWMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMViewController.h; sourceTree = "<group>"; };
@@ -1604,7 +1599,6 @@
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		BB8123D42130427E00ADE512 /* MetalContextFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContextFactory.h; sourceTree = "<group>"; };
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
-		EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = MoPubSDK/AdNetworkSupport/AdMob/SDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
 		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -1994,7 +1988,6 @@
 				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
 				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
-				EBDA7B7820B370B40054165B /* GoogleMobileAds.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
@@ -2291,7 +2284,6 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
-				EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */,
 				45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
@@ -2500,15 +2492,6 @@
 				343D7B6B202AF283007D56A8 /* Permissions */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		34065A0E1F45E7E1006684E5 /* Google */ = {
-			isa = PBXGroup;
-			children = (
-				34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */,
-				34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */,
-			);
-			path = Google;
 			sourceTree = "<group>";
 		};
 		340837101B7243B500B5C185 /* Share */ = {
@@ -3261,7 +3244,6 @@
 		34F4071C1E9E1AFF00E57AC0 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
-				34065A0E1F45E7E1006684E5 /* Google */,
 				34F4071D1E9E1AFF00E57AC0 /* Banner.swift */,
 				34F4071E1E9E1AFF00E57AC0 /* BannersCache.swift */,
 				34F4071F1E9E1AFF00E57AC0 /* BannerType.swift */,
@@ -5205,7 +5187,6 @@
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
-				34065A111F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */,
 				F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
@@ -5324,7 +5305,6 @@
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
-				34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
 				330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */,

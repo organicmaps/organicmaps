@@ -143,14 +143,6 @@ final class AdBanner: UITableViewCell {
     onRemoveAds?()
   }
 
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    switch nativeAd {
-    case let ad as GoogleFallbackBanner: updateFallbackBannerLayout(ad: ad)
-    default: break
-    }
-  }
-
   func reset() {
     state = .unset
   }
@@ -169,8 +161,6 @@ final class AdBanner: UITableViewCell {
     case let ad as FacebookBanner: configFBBanner(ad: ad.nativeAd)
     case let ad as RBBanner: configRBBanner(ad: ad)
     case let ad as MopubBanner: configMopubBanner(ad: ad)
-    case let ad as GoogleFallbackBanner: configGoogleFallbackBanner(ad: ad)
-    case let ad as GoogleNativeBanner: configGoogleNativeBanner(ad: ad)
     default: assert(false)
     }
     self.onRemoveAds = onRemoveAds
@@ -251,24 +241,6 @@ final class AdBanner: UITableViewCell {
     if let url = URL(string: ad.iconURL) {
       adIconImageView.wi_setImage(with: url)
     }
-  }
-
-  private func configGoogleFallbackBanner(ad: GoogleFallbackBanner) {
-    adType = .fallback
-    DAAImageWidth.constant = adPrivacyImage.width;
-    DAAImage.isHidden = false;
-
-    fallbackAdView.subviews.forEach { $0.removeFromSuperview() }
-    fallbackAdView.addSubview(ad)
-    updateFallbackBannerLayout(ad: ad)
-  }
-
-  private func updateFallbackBannerLayout(ad: GoogleFallbackBanner) {
-    ad.width = fallbackAdView.width
-    fallbackAdViewHeight.constant = ad.dynamicSize.height
-  }
-
-  private func configGoogleNativeBanner(ad _: GoogleNativeBanner) {
   }
 
   private func refreshBannerIfNeeded() {

@@ -15,7 +15,6 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   case ads::Banner::Type::Facebook: return MWMBannerTypeFacebook;
   case ads::Banner::Type::RB: return MWMBannerTypeRb;
   case ads::Banner::Type::Mopub: return MWMBannerTypeMopub;
-  case ads::Banner::Type::Google: return MWMBannerTypeGoogle;
   }
 }
 

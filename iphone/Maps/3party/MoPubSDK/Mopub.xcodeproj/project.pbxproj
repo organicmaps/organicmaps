@@ -184,14 +184,6 @@
 		45A37B9320B33D63005FBDBB /* FacebookRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B7320B33D63005FBDBB /* FacebookRewardedVideoCustomEvent.m */; };
 		45A37B9420B33D63005FBDBB /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B7420B33D63005FBDBB /* FacebookNativeAdAdapter.m */; };
 		45A37B9520B33D63005FBDBB /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B7920B33D63005FBDBB /* FacebookBannerCustomEvent.m */; };
-		45A37B9620B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8120B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.m */; };
-		45A37B9720B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8220B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.m */; };
-		45A37B9820B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8620B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.m */; };
-		45A37B9920B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8920B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.m */; };
-		45A37B9A20B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8C20B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.m */; };
-		45A37B9B20B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8D20B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.m */; };
-		45A37B9C20B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A37B8E20B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.m */; };
-		EBDA7B7620B35AF30054165B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDA7B7120B356270054165B /* GoogleMobileAds.framework */; };
 		EBDA7B7720B35B0E0054165B /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A37BA320B33FC1005FBDBB /* FBAudienceNetwork.framework */; };
 /* End PBXBuildFile section */
 
@@ -620,26 +612,7 @@
 		45A37B7920B33D63005FBDBB /* FacebookBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookBannerCustomEvent.m; sourceTree = "<group>"; };
 		45A37B7A20B33D63005FBDBB /* FacebookNativeAdAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdAdapter.h; sourceTree = "<group>"; };
 		45A37B7B20B33D63005FBDBB /* FacebookRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
-		45A37B7E20B33D63005FBDBB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		45A37B7F20B33D63005FBDBB /* MoPub-AdMob-Adapters.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MoPub-AdMob-Adapters.podspec"; sourceTree = "<group>"; };
-		45A37B8020B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobBannerCustomEvent.h; sourceTree = "<group>"; };
-		45A37B8120B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeAdAdapter.m; sourceTree = "<group>"; };
-		45A37B8220B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeCustomEvent.m; sourceTree = "<group>"; };
-		45A37B8320B33D63005FBDBB /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		45A37B8420B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MPGoogleAdMobAdditions.h"; sourceTree = "<group>"; };
-		45A37B8520B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeRenderer.h; sourceTree = "<group>"; };
-		45A37B8620B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
-		45A37B8720B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobInterstitialCustomEvent.h; sourceTree = "<group>"; };
-		45A37B8820B33D63005FBDBB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		45A37B8920B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobBannerCustomEvent.m; sourceTree = "<group>"; };
-		45A37B8A20B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeCustomEvent.h; sourceTree = "<group>"; };
-		45A37B8B20B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeAdAdapter.h; sourceTree = "<group>"; };
-		45A37B8C20B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeRenderer.m; sourceTree = "<group>"; };
-		45A37B8D20B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPGoogleAdMobAdditions.m"; sourceTree = "<group>"; };
-		45A37B8E20B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		45A37B8F20B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
 		45A37BA320B33FC1005FBDBB /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		EBDA7B7120B356270054165B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -648,7 +621,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBDA7B7720B35B0E0054165B /* FBAudienceNetwork.framework in Frameworks */,
-				EBDA7B7620B35AF30054165B /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,7 +686,6 @@
 		34F4075E1E9E1DA400E57AC0 /* AdNetworkSupport */ = {
 			isa = PBXGroup;
 			children = (
-				45A37B7C20B33D63005FBDBB /* AdMob */,
 				45A37B6A20B33D63005FBDBB /* FacebookAudienceNetwork */,
 			);
 			path = AdNetworkSupport;
@@ -1260,52 +1231,10 @@
 			path = "MoPub-FacebookAudienceNetwork-Podspecs";
 			sourceTree = "<group>";
 		};
-		45A37B7C20B33D63005FBDBB /* AdMob */ = {
-			isa = PBXGroup;
-			children = (
-				EBDA7B7020B356270054165B /* SDK */,
-				45A37B7D20B33D63005FBDBB /* MoPub-AdMob-PodSpecs */,
-				45A37B8020B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.h */,
-				45A37B8120B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.m */,
-				45A37B8220B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.m */,
-				45A37B8320B33D63005FBDBB /* CHANGELOG.md */,
-				45A37B8420B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.h */,
-				45A37B8520B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.h */,
-				45A37B8620B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.m */,
-				45A37B8720B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.h */,
-				45A37B8820B33D63005FBDBB /* README.md */,
-				45A37B8920B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.m */,
-				45A37B8A20B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.h */,
-				45A37B8B20B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.h */,
-				45A37B8C20B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.m */,
-				45A37B8D20B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.m */,
-				45A37B8E20B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.m */,
-				45A37B8F20B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.h */,
-			);
-			path = AdMob;
-			sourceTree = "<group>";
-		};
-		45A37B7D20B33D63005FBDBB /* MoPub-AdMob-PodSpecs */ = {
-			isa = PBXGroup;
-			children = (
-				45A37B7E20B33D63005FBDBB /* LICENSE */,
-				45A37B7F20B33D63005FBDBB /* MoPub-AdMob-Adapters.podspec */,
-			);
-			path = "MoPub-AdMob-PodSpecs";
-			sourceTree = "<group>";
-		};
 		45A37BA220B33FC1005FBDBB /* SDK */ = {
 			isa = PBXGroup;
 			children = (
 				45A37BA320B33FC1005FBDBB /* FBAudienceNetwork.framework */,
-			);
-			path = SDK;
-			sourceTree = "<group>";
-		};
-		EBDA7B7020B356270054165B /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				EBDA7B7120B356270054165B /* GoogleMobileAds.framework */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -1358,6 +1287,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 34F407431E9E1D3500E57AC0;
@@ -1414,7 +1344,6 @@
 				45A37B3D20B3395E005FBDBB /* MPAnalyticsTracker.m in Sources */,
 				45A37ACE20B3395D005FBDBB /* MPStreamAdPlacementData.m in Sources */,
 				45A37ADE20B3395D005FBDBB /* MPTableViewCellImpressionTracker.m in Sources */,
-				45A37B9620B33D63005FBDBB /* MPGoogleAdMobNativeAdAdapter.m in Sources */,
 				45A37AB420B3395D005FBDBB /* MPWebView+Viewability.m in Sources */,
 				45A37B4520B3395E005FBDBB /* NSBundle+MPAdditions.m in Sources */,
 				45A37AF920B3395D005FBDBB /* MoPub.m in Sources */,
@@ -1430,14 +1359,12 @@
 				45A37B2F20B3395D005FBDBB /* MRExpandModalViewController.m in Sources */,
 				45A37AF020B3395D005FBDBB /* MPRewardedVideoReward.m in Sources */,
 				45A37B0E20B3395D005FBDBB /* MPAdServerCommunicator.m in Sources */,
-				45A37B9C20B33D63005FBDBB /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */,
 				45A37B1720B3395D005FBDBB /* MPCountdownTimerView.m in Sources */,
 				45A37B3420B3395D005FBDBB /* MPSessionTracker.m in Sources */,
 				45A37B0C20B3395D005FBDBB /* MPAPIEndpoints.m in Sources */,
 				45A37B0620B3395D005FBDBB /* MPCoreInstanceProvider.m in Sources */,
 				45A37B9220B33D63005FBDBB /* FacebookAdvancedBidder.m in Sources */,
 				45A37B5720B3395E005FBDBB /* MPVASTInline.m in Sources */,
-				45A37B9A20B33D63005FBDBB /* MPGoogleAdMobNativeRenderer.m in Sources */,
 				45A37B9420B33D63005FBDBB /* FacebookNativeAdAdapter.m in Sources */,
 				45A37ADB20B3395D005FBDBB /* MPNativeAdSourceQueue.m in Sources */,
 				45A37B3320B3395D005FBDBB /* MPAdvancedBiddingManager.m in Sources */,
@@ -1447,11 +1374,9 @@
 				45A37AFE20B3395D005FBDBB /* MPInterstitialAdManager.m in Sources */,
 				45A37AC620B3395D005FBDBB /* MPNativeCustomEvent.m in Sources */,
 				45A37ACB20B3395D005FBDBB /* MPStaticNativeAdRendererSettings.m in Sources */,
-				45A37B9B20B33D63005FBDBB /* UIView+MPGoogleAdMobAdditions.m in Sources */,
 				45A37AE720B3395D005FBDBB /* MPNativeAd.m in Sources */,
 				45A37B1220B3395D005FBDBB /* MPLastResortDelegate.m in Sources */,
 				45A37AE420B3395D005FBDBB /* MPNativeAdRendererConfiguration.m in Sources */,
-				45A37B9820B33D63005FBDBB /* MPGoogleAdMobRewardedVideoCustomEvent.m in Sources */,
 				45A37B3B20B3395E005FBDBB /* MPReachability.m in Sources */,
 				45A37AF420B3395D005FBDBB /* MPInterstitialAdController.m in Sources */,
 				45A37B4A20B3395E005FBDBB /* UIView+MPAdditions.m in Sources */,
@@ -1476,7 +1401,6 @@
 				45A37ADA20B3395D005FBDBB /* MPAdPlacerInvocation.m in Sources */,
 				45A37B4B20B3395E005FBDBB /* NSString+MPConsentStatus.m in Sources */,
 				45A37AE920B3395D005FBDBB /* MPClientAdPositioning.m in Sources */,
-				45A37B9720B33D63005FBDBB /* MPGoogleAdMobNativeCustomEvent.m in Sources */,
 				45A37B0720B3395D005FBDBB /* MPBannerAdManager.m in Sources */,
 				45A37B4E20B3395E005FBDBB /* MPVASTAd.m in Sources */,
 				45A37ABB20B3395D005FBDBB /* MOPUBPlayerView.m in Sources */,
@@ -1554,7 +1478,6 @@
 				45A37AFD20B3395D005FBDBB /* MPInterstitialViewController.m in Sources */,
 				45A37AF520B3395D005FBDBB /* MPConsentChangedNotification.m in Sources */,
 				45A37B2B20B3395D005FBDBB /* MPMRAIDInterstitialCustomEvent.m in Sources */,
-				45A37B9920B33D63005FBDBB /* MPGoogleAdMobBannerCustomEvent.m in Sources */,
 				45A37B2620B3395D005FBDBB /* MRBridge.m in Sources */,
 				45A37B5620B3395E005FBDBB /* MPVASTIndustryIcon.m in Sources */,
 				45A37AF820B3395D005FBDBB /* MPInterstitialCustomEvent.m in Sources */,

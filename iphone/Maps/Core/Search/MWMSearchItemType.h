@@ -3,6 +3,5 @@ typedef NS_ENUM(NSUInteger, MWMSearchItemType) {
   MWMSearchItemTypeRegular,
   MWMSearchItemTypeMopub,
   MWMSearchItemTypeFacebook,
-  MWMSearchItemTypeGoogle,
   MWMSearchItemTypeSuggestion
 };

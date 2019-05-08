@@ -17,7 +17,6 @@ final class CoreBanner: NSObject, MWMBanner {
     case .facebook: type = "facebook"
     case .rb: type = "rb"
     case .mopub: type = "mopub"
-    case .google: type = "google"
     }
     return "Type: <\(type)> | id: <\(bannerID)> | query: <\(query)>"
   }
