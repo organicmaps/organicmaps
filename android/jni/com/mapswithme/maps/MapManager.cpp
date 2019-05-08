@@ -57,6 +57,7 @@ bool g_isBatched;
 
 Storage & GetStorage()
 {
+  CHECK(g_framework != nullptr, ());
   return g_framework->GetStorage();
 }
 
