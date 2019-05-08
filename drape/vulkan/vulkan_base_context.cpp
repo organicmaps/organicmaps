@@ -475,8 +475,11 @@ void VulkanBaseContext::Present()
     presentInfo.waitSemaphoreCount = 1;
 
     auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
-    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR)
+    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR &&
+        res != VK_ERROR_OUT_OF_DATE_KHR && res != VK_ERROR_DEVICE_LOST)
+    {
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
+    }
   }
 
   m_inflightFrameIndex = (m_inflightFrameIndex + 1) % kMaxInflightFrames;
