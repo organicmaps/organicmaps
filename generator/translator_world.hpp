@@ -31,6 +31,21 @@ public:
 private:
   TagAdmixer m_tagAdmixer;
   TagReplacer m_tagReplacer;
+};
+
+// The TranslatorWorldWithAds class implements translator for building the world with advertising.
+class TranslatorWorldWithAds : public TranslatorWorld
+{
+public:
+  explicit TranslatorWorldWithAds(std::shared_ptr<EmitterInterface> emitter,
+                                  cache::IntermediateDataReader & cache,
+                                  feature::GenerateInfo const & info);
+
+  // TranslatorInterface overrides:
+  void Preprocess(OsmElement & element) override;
+  bool Finish() override;
+
+private:
   OsmTagMixer m_osmTagMixer;
 };
 }  // namespace generator

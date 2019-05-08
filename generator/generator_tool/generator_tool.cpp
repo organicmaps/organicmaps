@@ -340,7 +340,8 @@ int GeneratorToolMain(int argc, char ** argv)
     if (FLAGS_generate_world)
     {
       auto emitter = CreateEmitter(EmitterType::World, genInfo);
-      translators.Append(CreateTranslator(TranslatorType::World, emitter, cacheLoader.GetCache(), genInfo));
+      auto const translatorType = FLAGS_no_ads ? TranslatorType::World : TranslatorType::WorldWithAds;
+      translators.Append(CreateTranslator(translatorType, emitter, cacheLoader.GetCache(), genInfo));
     }
 
     if (FLAGS_make_coasts)
