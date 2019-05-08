@@ -40,15 +40,15 @@ namespace
 {
 using IndexReader = ReaderPtr<Reader>;
 
-bool HouseHasAddress(base::Json const & json)
+bool HouseHasAddress(JsonValue const & json)
 {
-  auto && properties = base::GetJSONObligatoryField(json.get(), "properties");
+  auto && properties = base::GetJSONObligatoryField(json, "properties");
   auto && address = base::GetJSONObligatoryField(properties, "address");
   auto && building = base::GetJSONOptionalField(address, "building");
   return building && !base::JSONIsNull(building);
 }
 
-void UpdateCoordinates(m2::PointD const & point, base::Json json)
+void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
 {
   auto geometry = json_object_get(json.get(), "geometry");
   auto coordinates = json_object_get(geometry, "coordinates");
@@ -60,9 +60,9 @@ void UpdateCoordinates(m2::PointD const & point, base::Json json)
   }
 }
 
-base::Json AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValue)
+base::JSONPtr AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValue)
 {
-  base::Json result = regionKeyValue.second.GetDeepCopy();
+  auto result = regionKeyValue.second->MakeDeepCopyJson();
   int const kHouseOrPoiRank = 30;
   UpdateCoordinates(fb.GetKeyPoint(), result);
   auto properties = json_object_get(result.get(), "properties");
@@ -94,16 +94,16 @@ MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyVa
   return std::unique_ptr<char, JSONFreeDeleter>(cstr);
 }
 
-boost::optional<base::Json>
+std::shared_ptr<JsonValue>
 FindHousePoi(FeatureBuilder1 const & fb, GeoObjectInfoGetter const & geoObjectInfoGetter)
 {
   return geoObjectInfoGetter.Find(fb.GetKeyPoint(), HouseHasAddress);
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
-MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, base::Json json)
+MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, JsonValue const & json)
 {
-  auto const jsonWithAddress = json.GetDeepCopy();
+  auto jsonWithAddress = json.MakeDeepCopyJson();
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
   ToJSONObject(*properties, "name", fb.GetName());
   UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
@@ -152,7 +152,7 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     if (!regionKeyValue)
       return;
 
-    auto && properties = base::GetJSONObligatoryField(regionKeyValue->second.get(), "properties");
+    auto && properties = base::GetJSONObligatoryField(*regionKeyValue->second, "properties");
     auto && address = base::GetJSONObligatoryField(properties, "address");
     auto && country = base::GetJSONObligatoryField(address, "country");
     auto countryName = FromJSON<std::string>(country);
@@ -250,7 +250,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   BuildGeoObjectsWithAddresses(regionInfoGetter, pathInGeoObjectsTmpMwm, streamGeoObjectsKv, verbose);
   LOG(LINFO, ("Geo objects with addresses were built."));
 
-  auto const pred = [](KeyValue const & kv) { return HouseHasAddress(kv.second); };
+  auto const pred = [](KeyValue const & kv) { return HouseHasAddress(*kv.second); };
   KeyValueStorage geoObjectsKv(pathOutGeoObjectsKv, pred);
   LOG(LINFO, ("Size of geo objects key-value storage:", geoObjectsKv.Size()));
 

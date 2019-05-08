@@ -97,6 +97,20 @@ void FromJSON(json_t const * root, T & result)
 std::string FromJSONToString(json_t const * root);
 
 template <typename T>
+T FromJSONObject(json_t const * root, char const * field)
+{
+  auto const * json = base::GetJSONObligatoryField(root, field);
+  try
+  {
+    return FromJSON<T>(json);
+  }
+  catch (base::Json::Exception const & e)
+  {
+    MYTHROW(base::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
+  }
+}
+
+template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, T & result)
 {
   auto * json = base::GetJSONObligatoryField(root, field);

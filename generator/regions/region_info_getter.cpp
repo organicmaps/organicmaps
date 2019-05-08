@@ -50,7 +50,7 @@ boost::optional<KeyValue> RegionInfoGetter::GetDeepest(m2::PointD const & point,
     }
 
     auto rank = GetRank(*region);
-    regionsByRank.emplace(rank, KeyValue{id.GetEncodedId(), std::move(*region)});
+    regionsByRank.emplace(rank, KeyValue{id.GetEncodedId(), std::move(region)});
   }
 
   boost::optional<uint64_t> borderCheckSkipRegionId;
@@ -61,29 +61,26 @@ boost::optional<KeyValue> RegionInfoGetter::GetDeepest(m2::PointD const & point,
     if (regionId != borderCheckSkipRegionId && !m_borders.IsPointInside(regionId, point))
       continue;
 
-    if (selector(kv.second))
+    if (selector(kv))
       return std::move(kv);
 
     // Skip border check for parent region.
-    if (auto pid = GetPid(kv.second))
+    if (auto pid = GetPid(*kv.second))
       borderCheckSkipRegionId = pid;
   }
 
   return {};
 }
 
-int RegionInfoGetter::GetRank(base::Json const & json) const
+int RegionInfoGetter::GetRank(JsonValue const & json) const
 {
-  json_t * properties = nullptr;
-  FromJSONObject(json.get(), "properties", properties);
-  int rank;
-  FromJSONObject(properties, "rank", rank);
-  return rank;
+  auto && properties = base::GetJSONObligatoryField(json, "properties");
+  return FromJSONObject<int>(properties, "rank");
 }
 
-boost::optional<uint64_t> RegionInfoGetter::GetPid(base::Json const & json) const
+boost::optional<uint64_t> RegionInfoGetter::GetPid(JsonValue const & json) const
 {
-  auto && properties = base::GetJSONObligatoryField(json.get(), "properties");
+  auto && properties = base::GetJSONObligatoryField(json, "properties");
   auto && pid = base::GetJSONOptionalField(properties, "pid");
   if (!pid || base::JSONIsNull(pid))
     return {};

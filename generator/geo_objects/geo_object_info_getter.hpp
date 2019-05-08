@@ -10,6 +10,8 @@
 
 #include "base/geo_object_id.hpp"
 
+#include <functional>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -29,7 +31,7 @@ public:
   GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index, KeyValueStorage && kvStorage);
 
   template <typename Predicate>
-  boost::optional<base::Json> Find(m2::PointD const & point, Predicate && pred) const;
+  std::shared_ptr<JsonValue> Find(m2::PointD const & point, Predicate && pred) const;
 
 private:
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
@@ -39,7 +41,8 @@ private:
 };
 
 template <typename Predicate>
-boost::optional<base::Json> GeoObjectInfoGetter::Find(m2::PointD const & point, Predicate && pred) const
+std::shared_ptr<JsonValue> GeoObjectInfoGetter::Find(
+    m2::PointD const & point, Predicate && pred) const
 {
   auto const ids = SearchObjectsInIndex(point);
   for (auto const & id : ids)
@@ -48,7 +51,7 @@ boost::optional<base::Json> GeoObjectInfoGetter::Find(m2::PointD const & point, 
     if (!object)
       continue;
 
-    if (pred(*object))
+    if (pred(std::cref(*object)))
       return object;
   }
 

@@ -25,7 +25,7 @@ namespace regions
 class RegionInfoGetter
 {
 public:
-  using Selector = std::function<bool(base::Json const & json)>;
+  using Selector = std::function<bool(KeyValue const & json)>;
 
   RegionInfoGetter(std::string const & indexPath, std::string const & kvPath);
 
@@ -39,9 +39,9 @@ private:
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
   boost::optional<KeyValue> GetDeepest(m2::PointD const & point, std::vector<base::GeoObjectId> const & ids,
                                        Selector const & selector) const;
-  int GetRank(base::Json const & json) const;
+  int GetRank(JsonValue const & json) const;
   // Get parent id of object: optional field `properties.pid` in JSON.
-  boost::optional<uint64_t> GetPid(base::Json const & json) const;
+  boost::optional<uint64_t> GetPid(JsonValue const & json) const;
 
   indexer::RegionsIndex<IndexReader> m_index;
   indexer::Borders m_borders;

@@ -103,8 +103,8 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder1 
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point)
 {
-  auto const isStreetAdministrator = [] (base::Json const & region) {
-    auto const && properties = base::GetJSONObligatoryField(region.get(), "properties");
+  auto const isStreetAdministrator = [] (KeyValue const & region) {
+    auto const && properties = base::GetJSONObligatoryField(*region.second, "properties");
     auto const && address = base::GetJSONObligatoryField(properties, "address");
 
     if (base::GetJSONOptionalField(address, "suburb"))
@@ -137,11 +137,11 @@ bool StreetsBuilder::InsertSurrogateStreet(KeyValue const & region, std::string 
 }
 
 std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
-    uint64_t regionId, base::Json const regionObject, std::string const & streetName)
+    uint64_t regionId, JsonValue const & regionObject, std::string const & streetName)
 {
-  auto const && regionProperties = base::GetJSONObligatoryField(regionObject.get(), "properties");
+  auto const && regionProperties = base::GetJSONObligatoryField(regionObject, "properties");
   auto const && regionAddress = base::GetJSONObligatoryField(regionProperties, "address");
-  auto address = base::JSONPtr{json_deep_copy(regionAddress)};
+  auto address = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionAddress))};
   ToJSONObject(*address, "street", streetName);
 
   auto properties = base::NewJSONObject();

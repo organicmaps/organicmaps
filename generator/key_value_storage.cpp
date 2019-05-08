@@ -45,24 +45,20 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, KeyValue & res
     return false;
   }
 
-  base::Json json;
-  try
+  auto jsonString = std::string_view{line.c_str() + pos + 1};
+  json_error_t jsonError;
+  base::JSONPtr json{json_loadb(jsonString.data(), jsonString.size(), 0, &jsonError)};
+  if (!json)
   {
-    json = base::Json(line.c_str() + pos + 1);
-    if (!json.get())
-      return false;
-  }
-  catch (base::Json::Exception const & err)
-  {
-    LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", err.Msg()));
+    LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", jsonError.text));
     return false;
   }
 
-  res = std::make_pair(static_cast<uint64_t>(id), json);
+  res = std::make_pair(static_cast<uint64_t>(id), std::make_shared<JsonValue>(std::move(json)));
   return true;
 }
 
-boost::optional<base::Json> KeyValueStorage::Find(uint64_t key) const
+std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
 {
   auto const it = m_values.find(key);
   if (it == std::end(m_values))
