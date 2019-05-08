@@ -33,8 +33,10 @@
 
 #include <functional>
 #include <limits>
+#include <map>
 #include <memory>
 #include <sys/resource.h>
+#include <tuple>
 
 using namespace routing;
 using namespace routing_test;
@@ -149,9 +151,14 @@ shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleT
 
 IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
 {
-  static auto const instance = CreateAllMapsComponents(vehicleType);
-  ASSERT(instance, ());
-  return *instance;
+  static map<VehicleType, shared_ptr<VehicleRouterComponents>> kVehicleComponents;
+
+  auto it = kVehicleComponents.find(vehicleType);
+  if (it == kVehicleComponents.end())
+    tie(it, ignore) = kVehicleComponents.emplace(vehicleType, CreateAllMapsComponents(vehicleType));
+
+  CHECK(it->second, ());
+  return *(it->second);
 }
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
