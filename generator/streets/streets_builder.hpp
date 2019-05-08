@@ -45,6 +45,7 @@ private:
   void SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
                            RegionStreets const & streets);
 
+
   void AddStreet(feature::FeatureBuilder & fb);
   void AddStreetHighway(feature::FeatureBuilder & fb);
   void AddStreetArea(feature::FeatureBuilder & fb);
