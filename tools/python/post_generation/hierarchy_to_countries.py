@@ -126,7 +126,7 @@ def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
     last = None
     with open(hierarchy_path) as f:
         for line in f:
-            m = re.match("( *).+", line)
+            m = re.match("( *)(.+)", line)
             assert m
             depth = len(m.group(1))
             if last is not None:
