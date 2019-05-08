@@ -29,7 +29,7 @@ void TranslatorWorld::Preprocess(OsmElement & element)
 {
   // Here we can add new tags to the elements!
   m_tagReplacer(element);
-  m_tagAdmixer(element);;
+  m_tagAdmixer(element);
 }
 
 TranslatorWorldWithAds::TranslatorWorldWithAds(std::shared_ptr<EmitterInterface> emitter,
