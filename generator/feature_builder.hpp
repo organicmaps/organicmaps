@@ -7,9 +7,11 @@
 
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <functional>
 #include <list>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -256,5 +258,47 @@ void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
     toDo(fb, currPos);
     currPos = src.Pos();
   }
+}
+
+/// Parallel process features in .dat file.
+template <class ToDo>
+void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & filename,
+    ToDo && toDo)
+{
+  CHECK_GREATER_OR_EQUAL(threadsCount, 1, ());
+  if (threadsCount == 1)
+    return ForEachFromDatRawFormat(filename, std::forward<ToDo>(toDo));
+
+  FileReader reader(filename);
+  ReaderSource<FileReader> src(reader);
+
+  uint64_t currPos = 0;
+  uint64_t const fileSize = reader.Size();
+
+  std::mutex readMutex;
+  auto concurrentProcessor = [&] {
+    for (;;)
+    {
+      FeatureBuilder fb;
+      uint64_t featurePos;
+
+      {
+        std::lock_guard<std::mutex> lock(readMutex);
+
+        if (fileSize <= currPos)
+          break;
+
+        ReadFromSourceRawFormat(src, fb);
+        featurePos = currPos;
+        currPos = src.Pos();
+      }
+
+      toDo(fb, featurePos);
+    }
+  };
+
+  base::thread_pool::computational::ThreadPool threadPool{threadsCount};
+  for (size_t i = 0; i < threadsCount; ++i)
+    threadPool.Submit(concurrentProcessor);
 }
 }  // namespace feature

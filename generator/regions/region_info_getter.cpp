@@ -23,6 +23,8 @@ boost::optional<KeyValue> RegionInfoGetter::FindDeepest(m2::PointD const & point
 boost::optional<KeyValue> RegionInfoGetter::FindDeepest(
     m2::PointD const & point, Selector const & selector) const
 {
+  static_assert(std::is_base_of<ConcurrentGetProcessability, RegionInfoGetter>::value, "");
+
   auto const ids = SearchObjectsInIndex(point);
   return GetDeepest(point, ids, selector);
 }

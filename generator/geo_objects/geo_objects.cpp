@@ -26,6 +26,7 @@
 #include <fstream>
 #include <functional>
 #include <future>
+#include <mutex>
 
 #include "platform/platform.hpp"
 
@@ -137,19 +138,28 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 
 void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjectsTmpMwm,
                                             std::string const & includeCountries,
-                                            regions::RegionInfoGetter const & regionInfoGetter)
+                                            regions::RegionInfoGetter const & regionInfoGetter,
+                                            size_t threadsCount)
 {
   auto const path = Platform().TmpPathForFile();
   FeaturesCollector collector(path);
+  std::mutex collectorMutex;
+  auto concurrentCollect = [&] (FeatureBuilder const & fb) {
+    std::lock_guard<std::mutex> lock(collectorMutex);
+    collector.Collect(fb);
+  };
 
   auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */)
   {
     if (GeoObjectsFilter::HasHouse(fb))
     {
-      collector.Collect(fb);
+      concurrentCollect(fb);
       return;
     }
 
+    static_assert(std::is_base_of<regions::ConcurrentGetProcessability,
+                                  regions::RegionInfoGetter>::value,
+                  "");
     auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
     if (!regionKeyValue)
       return;
@@ -160,9 +170,10 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     auto countryName = FromJSON<std::string>(country);
     auto pos = includeCountries.find(countryName);
     if (pos != std::string::npos)
-      collector.Collect(fb);
+      concurrentCollect(fb);
   };
-  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, filteringCollector);
 
   Platform().RemoveFileIfExists(pathInGeoObjectsTmpMwm);
   if (std::rename(path.c_str(), pathInGeoObjectsTmpMwm.c_str()) != 0)
@@ -225,7 +236,8 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
                         std::string const & pathInGeoObjectsTmpMwm,
                         std::string const & pathOutIdsWithoutAddress,
                         std::string const & pathOutGeoObjectsKv,
-                        std::string const & allowAddresslessForCountries, bool verbose)
+                        std::string const & allowAddresslessForCountries,
+                        bool verbose, size_t threadsCount)
 {
   LOG(LINFO, ("Start generating geo objects.."));
   auto timer = base::Timer();
@@ -239,7 +251,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   if (allowAddresslessForCountries != "*")
   {
     FilterAddresslessByCountryAndRepackMwm(pathInGeoObjectsTmpMwm, allowAddresslessForCountries,
-                                           regionInfoGetter);
+                                           regionInfoGetter, threadsCount);
     LOG(LINFO, ("Addressless buildings are filtered except countries",
                 allowAddresslessForCountries, "."));
   }

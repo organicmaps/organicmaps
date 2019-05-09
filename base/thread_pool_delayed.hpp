@@ -111,7 +111,7 @@ private:
 
   void ProcessTasks();
 
-  std::vector<threads::SimpleThread> m_threads;
+  std::vector<::threads::SimpleThread> m_threads;
   std::mutex m_mu;
   std::condition_variable m_cv;
 

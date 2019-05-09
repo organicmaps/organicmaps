@@ -22,7 +22,11 @@ namespace generator
 {
 namespace regions
 {
-class RegionInfoGetter
+// ConcurrentGetProcessability is marker inteface: concurrent mode capability for any get operations.
+struct ConcurrentGetProcessability
+{ };
+
+class RegionInfoGetter : public ConcurrentGetProcessability
 {
 public:
   using Selector = std::function<bool(KeyValue const & json)>;

@@ -30,7 +30,7 @@ public:
   }
 
 private:
-  threads::SimpleThread m_thread;
+  ::threads::SimpleThread m_thread;
   std::mutex m_mutex;
   std::condition_variable m_cv;
   std::function<void()> m_fn;
