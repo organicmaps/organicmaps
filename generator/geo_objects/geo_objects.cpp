@@ -177,8 +177,6 @@ void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
                                   std::string const & pathInGeoObjectsTmpMwm,
                                   bool verbose, size_t threadsCount)
 {
-  size_t countGeoObjects = 0;
-
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsBuilding(fb) && !GeoObjectsFilter::HasHouse(fb))
@@ -193,14 +191,15 @@ void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
     auto json = KeyValueStorage::JsonString{json_dumps(jsonValue.get(),
         JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT)};
 
+    if (!GeoObjectsFilter::HasHouse(fb))
+      jsonValue.reset();  // no cache JSON model
+
     std::lock_guard<std::mutex> lock(updateMutex);
     geoObjectsKv.Insert(id, std::move(json), std::move(jsonValue));
-    ++countGeoObjects;
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-
-  LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
+  LOG(LINFO, ("Added ", geoObjectsKv.Size(), "geo objects with addresses."));
 }
 
 void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
@@ -209,7 +208,7 @@ void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
                                      std::ostream & streamIdsWithoutAddress,
                                      bool verbose, size_t threadsCount)
 {
-  size_t countGeoObjects = 0;
+  auto addressObjectsCount = geoObjectsKv.Size();
 
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
@@ -228,14 +227,12 @@ void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
         JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT)};
 
     std::lock_guard<std::mutex> lock(updateMutex);
-    geoObjectsKv.Insert(id, std::move(json), std::move(jsonValue));
+    geoObjectsKv.Insert(id, std::move(json));  // no cache JSON model
     streamIdsWithoutAddress << id << "\n";
-    ++countGeoObjects;
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-
-  LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
+  LOG(LINFO, ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
 }
 }  // namespace
 
@@ -268,7 +265,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
                                          pathInGeoObjectsTmpMwm);
 
   Platform().RemoveFileIfExists(pathOutGeoObjectsKv);
-  KeyValueStorage geoObjectsKv(pathOutGeoObjectsKv);
+  KeyValueStorage geoObjectsKv(pathOutGeoObjectsKv, 10'000'000);
   BuildGeoObjectsWithAddresses(geoObjectsKv, regionInfoGetter, pathInGeoObjectsTmpMwm,
                                verbose, threadsCount);
   LOG(LINFO, ("Geo objects with addresses were built."));

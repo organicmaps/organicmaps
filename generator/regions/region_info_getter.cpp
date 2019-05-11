@@ -10,7 +10,7 @@ namespace regions
 {
 RegionInfoGetter::RegionInfoGetter(std::string const & indexPath, std::string const & kvPath)
     : m_index{indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(indexPath)}
-    , m_storage(kvPath)
+    , m_storage(kvPath, 1'000'000)
 {
   m_borders.Deserialize(indexPath);
 }

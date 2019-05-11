@@ -5,11 +5,14 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
+#include <cstring>
+
 namespace generator
 {
-KeyValueStorage::KeyValueStorage(std::string const & path,
+KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCountLimit,
                                  std::function<bool(KeyValue const &)> const & pred)
   : m_storage{path, std::ios_base::in | std::ios_base::out | std::ios_base::app}
+  , m_cacheValuesCountLimit{cacheValuesCountLimit}
 {
   if (!m_storage)
     MYTHROW(Reader::OpenException, ("Failed to open file", path));
@@ -20,18 +23,34 @@ KeyValueStorage::KeyValueStorage(std::string const & path,
   {
     ++lineNumber;
 
-    KeyValue kv;
-    if (!ParseKeyValueLine(line, kv, lineNumber) || !pred(kv))
+    uint64_t key;
+    auto value = std::string{};
+    if (!ParseKeyValueLine(line, key, value, lineNumber))
       continue;
 
-    m_values.insert(kv);
+    json_error_t jsonError;
+    auto json = std::make_shared<JsonValue>(json_loads(value.c_str(), 0, &jsonError));
+    if (!json)
+    {
+      LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", jsonError.text));
+      continue;
+    }
+
+    if (!pred({key, json}))
+      continue;
+
+    if (m_cacheValuesCountLimit <= m_values.size())
+      m_values.emplace(key, CopyJsonString(value));
+    else
+      m_values.emplace(key, std::move(json));
   }
 
   m_storage.clear();
 }
 
 // static
-bool KeyValueStorage::ParseKeyValueLine(std::string const & line, KeyValue & res, std::streamoff lineNumber)
+bool KeyValueStorage::ParseKeyValueLine(std::string const & line, uint64_t & key,
+    std::string & value, std::streamoff lineNumber)
 {
   auto const pos = line.find(" ");
   if (pos == std::string::npos)
@@ -47,26 +66,24 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, KeyValue & res
     return false;
   }
 
-  auto jsonString = line.c_str() + pos + 1;
-  json_error_t jsonError;
-  base::JSONPtr json{json_loads(jsonString, 0, &jsonError)};
-  if (!json)
-  {
-    LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", jsonError.text));
-    return false;
-  }
-
-  res = std::make_pair(static_cast<uint64_t>(id), std::make_shared<JsonValue>(std::move(json)));
+  key = static_cast<uint64_t>(id);
+  value = line.c_str() + pos + 1;
   return true;
 }
 
 void KeyValueStorage::Insert(uint64_t key, JsonString && valueJson, base::JSONPtr && value)
 {
-  auto const emplace = m_values.emplace(key, std::make_shared<JsonValue>(std::move(value)));
+  CHECK(valueJson.get(), ());
+
+  auto json = valueJson.get(); // value usage after std::move(valueJson)
+
+  auto emplace = value && m_values.size() < m_cacheValuesCountLimit
+                    ? m_values.emplace(key, std::make_shared<JsonValue>(std::move(value)))
+                    : m_values.emplace(key, std::move(valueJson));
   if (!emplace.second) // it is ok for OSM relation with several outer borders
     return;
 
-  m_storage << static_cast<int64_t>(key) << " " << valueJson.get() << "\n";
+  m_storage << static_cast<int64_t>(key) << " " << json << "\n";
 }
 
 std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
@@ -75,11 +92,24 @@ std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
   if (it == std::end(m_values))
     return {};
 
-  return it->second;
+  if (auto json = boost::get<std::shared_ptr<JsonValue>>(&it->second))
+    return *json;
+
+  auto const & jsonString = boost::get<JsonString>(it->second);
+  auto json = std::make_shared<JsonValue>(json_loads(jsonString.get(), 0, nullptr));
+  CHECK(json, ());
+  return json;
 }
   
 size_t KeyValueStorage::Size() const
 {
   return m_values.size();
+}
+
+KeyValueStorage::JsonString KeyValueStorage::CopyJsonString(std::string const & value) const
+{
+  char * copy = static_cast<char *>(std::malloc(value.size() + 1));
+  std::strncpy(copy, value.data(), value.size() + 1);
+  return JsonString{copy};
 }
 }  // namespace generator
