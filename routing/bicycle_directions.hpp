@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
+#include "routing/index_road_graph.hpp"
 #include "routing/loaded_path_segment.hpp"
 #include "routing/segment.hpp"
 #include "routing/turn_candidate.hpp"
@@ -40,7 +41,7 @@ public:
 private:
   FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
-  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
+  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeVector const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
                                        SegmentRange & segmentRange,
                                        turns::TurnCandidates & outgoingTurns);
@@ -48,12 +49,12 @@ private:
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
   void FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
                                            std::vector<Junction> const & path,
-                                           IRoadGraph::TEdgeVector const & routeEdges,
+                                           IRoadGraph::EdgeVector const & routeEdges,
                                            base::Cancellable const & cancellable);
 
-  void GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
-                bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
-                IRoadGraph::TEdgeVector & ingoing);
+  void GetEdges(IndexRoadGraph const & graph, Junction const & currJunction,
+                bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
+                IRoadGraph::EdgeVector & ingoing);
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;

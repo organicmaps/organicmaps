@@ -145,10 +145,19 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
 {
   if (edge.IsFake())
+  {
+    if (edge.HasRealPart())
+    {
+      return Segment(kFakeNumMwmId, FakeFeatureIds::kIndexGraphStarterId, edge.GetFakeSegmentId(),
+                     true /* forward */);
+    }
+
     return Segment();
+  }
 
   NumMwmId const numMwmId =
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
 }  // namespace routing

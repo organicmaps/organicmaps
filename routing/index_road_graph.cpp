@@ -30,12 +30,12 @@ IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarte
   }
 }
 
-void IndexRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IndexRoadGraph::GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   GetEdges(junction, true, edges);
 }
 
-void IndexRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IndexRoadGraph::GetIngoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   GetEdges(junction, false, edges);
 }
@@ -77,7 +77,7 @@ void IndexRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesH
   types = feature::TypesHolder();
 }
 
-void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
+void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
 {
   edges.clear();
   edges.reserve(m_segments.size());
@@ -94,6 +94,7 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
         platform::CountryFile const & file = m_numMwmIds->GetFile(real.GetMwmId());
         MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
         edges.push_back(Edge::MakeFakeWithRealPart(FeatureID(mwmId, real.GetFeatureId()),
+                                                   segment.GetSegmentIdx(),
                                                    real.IsForward(), real.GetSegmentIdx(),
                                                    junctionFrom, junctionTo));
       }
@@ -117,7 +118,7 @@ void IndexRoadGraph::GetRouteSegments(std::vector<Segment> & segments) const
   segments = m_segments;
 }
 
-void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const
+void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, EdgeVector & edges) const
 {
   edges.clear();
 

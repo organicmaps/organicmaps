@@ -61,21 +61,24 @@ string DebugPrint(Junction const & r)
 Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
                     Junction const & startJunction, Junction const & endJunction)
 {
-  return {Type::Real, featureId, forward, segId, startJunction, endJunction};
+  return {Type::Real, featureId, kInvalidFakeSegmentId, forward, segId, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, bool forward, uint32_t segId,
+Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId,
+                                bool forward, uint32_t segId,
                                 Junction const & startJunction, Junction const & endJunction)
 {
-  return {Type::FakeWithRealPart, featureId, forward, segId, startJunction, endJunction};
+  return {Type::FakeWithRealPart, featureId, fakeSegmentId, forward,
+          segId, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
+Edge Edge::MakeFake(Junction const & startJunction,
+                    Junction const & endJunction)
 {
-  return {Type::FakeWithoutRealPart, FeatureID(), true /* forward */, 0 /* segmentId */,
-          startJunction, endJunction};
+  return {Type::FakeWithoutRealPart, FeatureID(), kInvalidFakeSegmentId, true /* forward */,
+          0 /* segmentId */, startJunction, endJunction};
 }
 
 // static
@@ -89,7 +92,8 @@ Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction
   return e;
 }
 
-Edge::Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
+Edge::Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId,
+           bool forward, uint32_t segId,
            Junction const & startJunction, Junction const & endJunction)
   : m_type(type)
   , m_featureId(featureId)
@@ -97,6 +101,7 @@ Edge::Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
   , m_segId(segId)
   , m_startJunction(startJunction)
   , m_endJunction(endJunction)
+  , m_fakeSegmentId(fakeSegmentId)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
   ASSERT((m_featureId.IsValid() && HasRealPart()) || (!m_featureId.IsValid() && !HasRealPart()),
@@ -197,38 +202,38 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
 }
 
 // IRoadGraph ------------------------------------------------------------------
-void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   GetFakeOutgoingEdges(junction, edges);
   GetRegularOutgoingEdges(junction, edges);
 }
 
-void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetIngoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   GetFakeIngoingEdges(junction, edges);
   GetRegularIngoingEdges(junction, edges);
 }
 
-void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   CrossOutgoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
-void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   CrossIngoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
-void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   auto const it = m_fakeOutgoingEdges.find(junction);
   if (it != m_fakeOutgoingEdges.cend())
     edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
 }
 
-void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, EdgeVector & edges) const
 {
   auto const it = m_fakeIngoingEdges.find(junction);
   if (it != m_fakeIngoingEdges.cend())
@@ -241,7 +246,7 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
-void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges)
+void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, EdgeVector> & edges)
 {
   auto & cont = edges[j];
   ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
@@ -327,7 +332,7 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
   return ri;
 }
 // RoadGraphBase ------------------------------------------------------------------
-void RoadGraphBase::GetRouteEdges(TEdgeVector & routeEdges) const
+void RoadGraphBase::GetRouteEdges(EdgeVector & routeEdges) const
 {
   NOTIMPLEMENTED()
 }

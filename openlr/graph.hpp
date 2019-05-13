@@ -25,7 +25,7 @@ class Graph
 {
 public:
   using Edge = routing::Edge;
-  using EdgeVector = routing::FeaturesRoadGraph::TEdgeVector;
+  using EdgeVector = routing::FeaturesRoadGraph::EdgeVector;
   using Junction = routing::Junction;
 
   Graph(DataSource const & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);

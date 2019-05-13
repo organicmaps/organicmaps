@@ -5,12 +5,12 @@
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
+#include "indexer/feature_altitude.hpp"
+#include "indexer/feature_data.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/string_utils.hpp"
-
-#include "indexer/feature_altitude.hpp"
-#include "indexer/feature_data.hpp"
 
 #include <initializer_list>
 #include <map>
@@ -71,8 +71,9 @@ public:
 
   static Edge MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
                        Junction const & startJunction, Junction const & endJunction);
-  static Edge MakeFakeWithRealPart(FeatureID const & featureId, bool forward, uint32_t segId,
-                                   Junction const & startJunction, Junction const & endJunctio);
+  static Edge MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId,
+                                   bool forward, uint32_t segId,
+                                   Junction const & startJunction, Junction const & endJunction);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
                        Edge const & prototype);
@@ -80,12 +81,17 @@ public:
   inline FeatureID GetFeatureId() const { return m_featureId; }
   inline bool IsForward() const { return m_forward; }
   inline uint32_t GetSegId() const { return m_segId; }
+  inline uint32_t GetFakeSegmentId() const { return m_fakeSegmentId; }
+
   inline Junction const & GetStartJunction() const { return m_startJunction; }
   inline Junction const & GetEndJunction() const { return m_endJunction; }
+
   inline m2::PointD const & GetStartPoint() const { return m_startJunction.GetPoint(); }
   inline m2::PointD const & GetEndPoint() const { return m_endJunction.GetPoint(); }
+
   inline bool IsFake() const { return  m_type != Type::Real; }
   inline bool HasRealPart() const { return m_type != Type::FakeWithoutRealPart; }
+
   inline m2::PointD GetDirection() const
   {
     return GetEndJunction().GetPoint() - GetStartJunction().GetPoint();
@@ -100,8 +106,9 @@ public:
   bool operator<(Edge const & r) const;
 
 private:
-  Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
-       Junction const & startJunction, Junction const & endJunction);
+  Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId,
+       bool forward, uint32_t segId, Junction const & startJunction,
+       Junction const & endJunction);
 
   friend string DebugPrint(Edge const & r);
 
@@ -126,18 +133,22 @@ private:
   // is less than index |m_endJunction|.
   // If |m_forward| == false index of |m_startJunction| point at the feature |m_featureId|
   // is more than index |m_endJunction|.
+
+  static auto constexpr kInvalidFakeSegmentId = std::numeric_limits<uint32_t>::max();
+  // In case of |m_type| == Type::FakeWithRealPart, save it's segmentId from IndexGraphStarter.
+  uint32_t m_fakeSegmentId;
 };
 
 class RoadGraphBase
 {
 public:
-  typedef vector<Edge> TEdgeVector;
+  using EdgeVector = std::vector<Edge>;
 
   /// Finds all nearest outgoing edges, that route to the junction.
-  virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const = 0;
+  virtual void GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const = 0;
 
   /// Finds all nearest ingoing edges, that route to the junction.
-  virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const = 0;
+  virtual void GetIngoingEdges(Junction const & junction, EdgeVector & edges) const = 0;
 
   /// Returns max speed in KM/H
   virtual double GetMaxSpeedKMpH() const = 0;
@@ -148,7 +159,7 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
-  virtual void GetRouteEdges(TEdgeVector & routeEdges) const;
+  virtual void GetRouteEdges(EdgeVector & routeEdges) const;
   virtual void GetRouteSegments(std::vector<Segment> & segments) const;
 };
 
@@ -186,7 +197,7 @@ public:
   class ICrossEdgesLoader
   {
   public:
-    ICrossEdgesLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+    ICrossEdgesLoader(Junction const & cross, IRoadGraph::Mode mode, EdgeVector & edges)
       : m_cross(cross), m_mode(mode), m_edges(edges)
     {
     }
@@ -231,13 +242,13 @@ public:
 
     Junction const m_cross;
     IRoadGraph::Mode const m_mode;
-    TEdgeVector & m_edges;
+    EdgeVector & m_edges;
   };
 
   class CrossOutgoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossOutgoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+    CrossOutgoingLoader(Junction const & cross, IRoadGraph::Mode mode, EdgeVector & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
     }
@@ -251,7 +262,7 @@ public:
   class CrossIngoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossIngoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+    CrossIngoingLoader(Junction const & cross, IRoadGraph::Mode mode, EdgeVector & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
     }
@@ -264,9 +275,9 @@ public:
 
   virtual ~IRoadGraph() = default;
 
-  void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
+  void GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const override;
 
-  void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
+  void GetIngoingEdges(Junction const & junction, EdgeVector & edges) const override;
 
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();
@@ -309,16 +320,16 @@ public:
   virtual void ClearState() {}
 
   /// \brief Finds all outgoing regular (non-fake) edges for junction.
-  void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  void GetRegularOutgoingEdges(Junction const & junction, EdgeVector & edges) const;
   /// \brief Finds all ingoing regular (non-fake) edges for junction.
-  void GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  void GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges) const;
   /// \brief Finds all outgoing fake edges for junction.
-  void GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  void GetFakeOutgoingEdges(Junction const & junction, EdgeVector & edges) const;
   /// \brief Finds all ingoing fake edges for junction.
-  void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  void GetFakeIngoingEdges(Junction const & junction, EdgeVector & edges) const;
 
 private:
-  void AddEdge(Junction const & j, Edge const & e, std::map<Junction, TEdgeVector> & edges);
+  void AddEdge(Junction const & j, Edge const & e, std::map<Junction, EdgeVector> & edges);
 
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
@@ -338,8 +349,8 @@ private:
 
   /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| map junctions to sorted vectors.
   /// Items to these maps should be inserted with AddEdge() method only.
-  std::map<Junction, TEdgeVector> m_fakeIngoingEdges;
-  std::map<Junction, TEdgeVector> m_fakeOutgoingEdges;
+  std::map<Junction, EdgeVector> m_fakeIngoingEdges;
+  std::map<Junction, EdgeVector> m_fakeOutgoingEdges;
 };
 
 string DebugPrint(IRoadGraph::Mode mode);

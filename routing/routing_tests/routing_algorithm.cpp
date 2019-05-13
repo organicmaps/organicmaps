@@ -59,7 +59,7 @@ public:
 
   void GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj) override
   {
-    IRoadGraph::TEdgeVector edges;
+    IRoadGraph::EdgeVector edges;
     m_roadGraph.GetOutgoingEdges(v, edges);
 
     adj.clear();
@@ -77,7 +77,7 @@ public:
 
   void GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj) override
   {
-    IRoadGraph::TEdgeVector edges;
+    IRoadGraph::EdgeVector edges;
     m_roadGraph.GetIngoingEdges(v, edges);
 
     adj.clear();

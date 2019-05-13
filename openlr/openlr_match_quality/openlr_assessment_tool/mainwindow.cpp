@@ -200,7 +200,7 @@ public:
 
   std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const override
   {
-    routing::FeaturesRoadGraph::TEdgeVector edges;
+    routing::FeaturesRoadGraph::EdgeVector edges;
     m_roadGraph.GetOutgoingEdges(
         routing::Junction(p, feature::kDefaultAltitudeMeters),
         edges);

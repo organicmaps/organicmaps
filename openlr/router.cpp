@@ -427,7 +427,7 @@ uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const
 template <typename Fn>
 void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn)
 {
-  routing::IRoadGraph::TEdgeVector edges;
+  routing::IRoadGraph::EdgeVector edges;
   if (outgoing)
     GetOutgoingEdges(u.m_junction, edges);
   else
@@ -440,13 +440,13 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
   }
 }
 
-void Router::GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::TEdgeVector & edges)
+void Router::GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularOutgoingEdges,
            &routing::IRoadGraph::GetFakeOutgoingEdges, m_outgoingCache, edges);
 }
 
-void Router::GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::TEdgeVector & edges)
+void Router::GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularIngoingEdges,
            &routing::IRoadGraph::GetFakeIngoingEdges, m_ingoingCache, edges);
@@ -454,8 +454,8 @@ void Router::GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::T
 
 void Router::GetEdges(routing::Junction const & u, RoadGraphEdgesGetter getRegular,
                       RoadGraphEdgesGetter getFake,
-                      std::map<routing::Junction, routing::IRoadGraph::TEdgeVector> & cache,
-                      routing::IRoadGraph::TEdgeVector & edges)
+                      std::map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
+                      routing::IRoadGraph::EdgeVector & edges)
 {
   auto const it = cache.find(u);
   if (it == cache.end())

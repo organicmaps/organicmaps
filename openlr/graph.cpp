@@ -12,7 +12,7 @@ namespace openlr
 {
 namespace
 {
-using EdgeGetter = void (IRoadGraph::*)(Junction const &, RoadGraphBase::TEdgeVector &) const;
+using EdgeGetter = void (IRoadGraph::*)(Junction const &, RoadGraphBase::EdgeVector &) const;
 
 void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
                      EdgeGetter const edgeGetter,

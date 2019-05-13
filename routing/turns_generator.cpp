@@ -569,9 +569,9 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
 }
 
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
-                                       RouterDelegate const & delegate,
-                                       vector<Junction> & junctions, Route::TTurns & turnsDir,
-                                       Route::TStreets & streets, vector<Segment> & segments)
+                                    RouterDelegate const & delegate,
+                                    vector<Junction> & junctions, Route::TTurns & turnsDir,
+                                    Route::TStreets & streets, vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 

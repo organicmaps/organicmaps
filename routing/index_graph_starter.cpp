@@ -130,6 +130,18 @@ bool IndexGraphStarter::IsRoutingOptionsGood(Segment const & segment) const
   return m_graph.IsRoutingOptionsGood(segment);
 }
 
+RoutingOptions IndexGraphStarter::GetRoutingOptions(Segment const & segment) const
+{
+  if (segment.IsRealSegment())
+    return m_graph.GetRoutingOptions(segment);
+
+  Segment real;
+  if (!m_fake.FindReal(segment, real))
+    return {};
+
+  return m_graph.GetRoutingOptions(real);
+}
+
 set<NumMwmId> IndexGraphStarter::GetMwms() const
 {
   set<NumMwmId> mwms;

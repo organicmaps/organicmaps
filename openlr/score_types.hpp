@@ -11,7 +11,7 @@
 namespace openlr
 {
 using Edge = routing::Edge;
-using EdgeVector = routing::RoadGraphBase::TEdgeVector;
+using EdgeVector = routing::RoadGraphBase::EdgeVector;
 
 using Score = uint32_t;
 

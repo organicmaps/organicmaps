@@ -87,6 +87,7 @@ public:
   }
 
   Segment const & GetSegment() const { return m_segment; }
+  Segment & GetSegment() { return m_segment; }
   Junction const & GetJunction() const { return m_junction; }
   std::string const & GetStreet() const { return m_street; }
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }

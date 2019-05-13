@@ -35,7 +35,7 @@ using namespace traffic;
 class RoutingResult : public IRoutingResult
 {
 public:
-  RoutingResult(IRoadGraph::TEdgeVector const & routeEdges,
+  RoutingResult(IRoadGraph::EdgeVector const & routeEdges,
                 BicycleDirectionsEngine::AdjacentEdgesMap const & adjacentEdges,
                 TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
@@ -88,7 +88,7 @@ public:
   }
 
 private:
-  IRoadGraph::TEdgeVector const & m_routeEdges;
+  IRoadGraph::EdgeVector const & m_routeEdges;
   BicycleDirectionsEngine::AdjacentEdgesMap const & m_adjacentEdges;
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
@@ -99,8 +99,8 @@ private:
 /// \returns false if the junction is an internal point of feature segment and can be considered as
 /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
 /// of a new LoadedPathSegment.
-bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
-             IRoadGraph::TEdgeVector const & outgoingEdges,
+bool IsJoint(IRoadGraph::EdgeVector const & ingoingEdges,
+             IRoadGraph::EdgeVector const & outgoingEdges,
              Edge const & ingoingRouteEdge,
              Edge const & outgoingRouteEdge,
              bool isCurrJunctionFinish,
@@ -184,7 +184,7 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   if (pathSize <= 1)
     return false;
 
-  IRoadGraph::TEdgeVector routeEdges;
+  IRoadGraph::EdgeVector routeEdges;
   graph.GetRouteEdges(routeEdges);
 
   if (routeEdges.empty())
@@ -245,7 +245,7 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
 }
 
 void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
-    IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & inEdge, uint32_t startSegId,
+    IRoadGraph::EdgeVector const & outgoingEdges, Edge const & inEdge, uint32_t startSegId,
     uint32_t endSegId, SegmentRange & segmentRange, TurnCandidates & outgoingTurns)
 {
   outgoingTurns.isCandidatesAngleValid = true;
@@ -298,20 +298,21 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
-void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
-                                       bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
-                                       IRoadGraph::TEdgeVector & ingoing)
+void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph, Junction const & currJunction,
+                                       bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
+                                       IRoadGraph::EdgeVector & ingoing)
 {
   // Note. If |currJunction| is a finish the outgoing edges
   // from finish are not important for turn generation.
   if (!isCurrJunctionFinish)
     graph.GetOutgoingEdges(currJunction, outgoing);
+
   graph.GetIngoingEdges(currJunction, ingoing);
 }
 
 void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     IndexRoadGraph const & graph, vector<Junction> const & path,
-    IRoadGraph::TEdgeVector const & routeEdges, base::Cancellable const & cancellable)
+    IRoadGraph::EdgeVector const & routeEdges, base::Cancellable const & cancellable)
 {
   size_t const pathSize = path.size();
   CHECK_GREATER(pathSize, 1, ());
@@ -330,8 +331,8 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     Junction const & prevJunction = path[i - 1];
     Junction const & currJunction = path[i];
 
-    IRoadGraph::TEdgeVector outgoingEdges;
-    IRoadGraph::TEdgeVector ingoingEdges;
+    IRoadGraph::EdgeVector outgoingEdges;
+    IRoadGraph::EdgeVector ingoingEdges;
     bool const isCurrJunctionFinish = (i + 1 == pathSize);
     GetEdges(graph, currJunction, isCurrJunctionFinish, outgoingEdges, ingoingEdges);
 

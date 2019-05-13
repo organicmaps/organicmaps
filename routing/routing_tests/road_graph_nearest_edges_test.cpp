@@ -58,7 +58,7 @@ UNIT_TEST(RoadGraph_NearestEdges)
   Junction const crossPos = MakeJunctionForTesting(m2::PointD(0, 0));
 
   // Expected outgoing edges.
-  IRoadGraph::TEdgeVector expectedOutgoing = {
+  IRoadGraph::EdgeVector expectedOutgoing = {
       Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 1 /* segId */,
                      MakeJunctionForTesting(m2::PointD(0, 0)),
                      MakeJunctionForTesting(m2::PointD(-1, 0))),
@@ -75,7 +75,7 @@ UNIT_TEST(RoadGraph_NearestEdges)
   sort(expectedOutgoing.begin(), expectedOutgoing.end());
 
   // Expected ingoing edges.
-  IRoadGraph::TEdgeVector expectedIngoing = {
+  IRoadGraph::EdgeVector expectedIngoing = {
       Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 1 /* segId */,
                      MakeJunctionForTesting(m2::PointD(-1, 0)),
                      MakeJunctionForTesting(m2::PointD(0, 0))),
@@ -92,13 +92,13 @@ UNIT_TEST(RoadGraph_NearestEdges)
   sort(expectedIngoing.begin(), expectedIngoing.end());
 
   // Check outgoing edges.
-  IRoadGraph::TEdgeVector actualOutgoing;
+  IRoadGraph::EdgeVector actualOutgoing;
   graph.GetOutgoingEdges(crossPos, actualOutgoing);
   sort(actualOutgoing.begin(), actualOutgoing.end());
   TEST_EQUAL(expectedOutgoing, actualOutgoing, ());
 
   // Check ingoing edges.
-  IRoadGraph::TEdgeVector actualIngoing;
+  IRoadGraph::EdgeVector actualIngoing;
   graph.GetIngoingEdges(crossPos, actualIngoing);
   sort(actualIngoing.begin(), actualIngoing.end());
   TEST_EQUAL(expectedIngoing, actualIngoing, ());

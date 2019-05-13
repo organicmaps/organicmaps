@@ -22,17 +22,17 @@ public:
                  DataSource & dataSource);
 
   // IRoadGraphBase overrides:
-  virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
-  virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
+  virtual void GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const override;
+  virtual void GetIngoingEdges(Junction const & junction, EdgeVector & edges) const override;
   virtual double GetMaxSpeedKMpH() const override;
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(Junction const & junction,
                                 feature::TypesHolder & types) const override;
-  virtual void GetRouteEdges(TEdgeVector & edges) const override;
+  virtual void GetRouteEdges(EdgeVector & edges) const override;
   virtual void GetRouteSegments(std::vector<Segment> & segments) const override;
 
 private:
-  void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
+  void GetEdges(Junction const & junction, bool isOutgoing, EdgeVector & edges) const;
   std::vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   DataSource & m_dataSource;

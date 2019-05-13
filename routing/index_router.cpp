@@ -1113,13 +1113,17 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     // to use them.
     if (m_vehicleType == VehicleType::Car)
     {
-      auto const & segment = routeSegment.GetSegment();
+      auto & segment = routeSegment.GetSegment();
+      routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
+
       if (segment.IsRealSegment())
       {
         if (!AreSpeedCamerasProhibited(m_numMwmIds->GetFile(segment.GetMwmId())))
           routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
-
-        routeSegment.SetRoadTypes(worldGraph.GetRoutingOptions(segment));
+      }
+      else
+      {
+        starter.ConvertToReal(segment);
       }
     }
   }

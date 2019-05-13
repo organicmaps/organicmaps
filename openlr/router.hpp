@@ -137,7 +137,7 @@ private:
   using Links = map<Vertex, pair<Vertex, Edge>>;
 
   using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(
-      routing::Junction const & junction, routing::IRoadGraph::TEdgeVector & edges) const;
+      routing::Junction const & junction, routing::IRoadGraph::EdgeVector & edges) const;
 
   bool Init(vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM);
   bool FindPath(vector<routing::Edge> & path);
@@ -172,12 +172,12 @@ private:
   template <typename Fn>
   void ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn);
 
-  void GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::TEdgeVector & edges);
-  void GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::TEdgeVector & edges);
+  void GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges);
+  void GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges);
   void GetEdges(routing::Junction const & u, RoadGraphEdgesGetter getRegular,
                 RoadGraphEdgesGetter getFake,
-                map<routing::Junction, routing::IRoadGraph::TEdgeVector> & cache,
-                routing::IRoadGraph::TEdgeVector & edges);
+                map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
+                routing::IRoadGraph::EdgeVector & edges);
 
   template <typename Fn>
   void ForEachNonFakeEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction,
@@ -211,8 +211,8 @@ private:
   void FindSingleEdgeApproximation(vector<Edge> const & edges, vector<routing::Edge> & path);
 
   routing::FeaturesRoadGraph & m_graph;
-  map<routing::Junction, routing::IRoadGraph::TEdgeVector> m_outgoingCache;
-  map<routing::Junction, routing::IRoadGraph::TEdgeVector> m_ingoingCache;
+  map<routing::Junction, routing::IRoadGraph::EdgeVector> m_outgoingCache;
+  map<routing::Junction, routing::IRoadGraph::EdgeVector> m_ingoingCache;
   RoadInfoGetter & m_roadInfoGetter;
 
   vector<WayPoint> m_points;
