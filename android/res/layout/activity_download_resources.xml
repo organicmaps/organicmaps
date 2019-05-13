@@ -16,9 +16,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base_plus"
-      android:drawableLeft="@drawable/ic_launcher"
+      android:drawableLeft="@mipmap/ic_launcher"
       android:drawablePadding="@dimen/margin_base"
-      android:drawableStart="@drawable/ic_launcher"
+      android:drawableStart="@mipmap/ic_launcher"
       android:padding="@dimen/margin_half"
       android:textAppearance="@style/MwmTextAppearance.Body2"
       tools:text="@string/download_resources"/>
