@@ -2311,6 +2311,8 @@ void FrontendRenderer::OnContextCreate()
 
 void FrontendRenderer::OnRenderingEnabled()
 {
+  m_overlayTree->InvalidateOnNextFrame();
+
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().Start();
 #endif
