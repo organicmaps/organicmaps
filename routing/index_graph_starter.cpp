@@ -242,7 +242,11 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
     auto const partLen = MercatorBounds::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
     auto const fullLen = MercatorBounds::DistanceOnEarth(GetPoint(real, false /* front */),
                                                          GetPoint(real, true /* front */));
-    // Note. |fullLen| == 0.0 in case of Segment(s) with the same ends.
+    // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
+    // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real);|:
+    // it's necessary to return a intance of the structure |RouteWeight| with zero wight.
+    // Theoretically it may be differ from |RouteWeight(0)| because some road access block
+    // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
     if (fullLen == 0.0)
       return 0.0 * m_graph.CalcSegmentWeight(real);
 
