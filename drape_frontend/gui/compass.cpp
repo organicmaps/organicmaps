@@ -34,8 +34,6 @@ struct CompassVertex
 class CompassHandle : public TappableHandle
 {
   using TBase = TappableHandle;
-  double const kVisibleStartAngle = base::DegToRad(5.0);
-  double const kVisibleEndAngle = base::DegToRad(355.0);
 
 public:
   CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,
@@ -53,6 +51,9 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
+    static double const kVisibleStartAngle = base::DegToRad(5.0);
+    static double const kVisibleEndAngle = base::DegToRad(355.0);
+
     auto const angle = static_cast<float>(ang::AngleIn2PI(screen.GetAngle()));
 
     bool isVisiblePrev = IsVisible();
