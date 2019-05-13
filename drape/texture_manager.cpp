@@ -489,24 +489,24 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
   // Here we need invalidate only textures which can be changed in map style switch.
+  // Now we update only symbol textures, if we need update other textures they must be added here.
+  // For Vulkan we use m_texturesToCleanup to defer textures destroying.
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
   {
     ASSERT(m_symbolTextures[i] != nullptr, ());
     ASSERT(dynamic_cast<SymbolsTexture *>(m_symbolTextures[i].get()) != nullptr, ());
     ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
-    symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
-  }
 
-  // Uncomment if static textures can be changed.
-  //ref_ptr<Texture> staticTextures[] = {make_ref(m_trafficArrowTexture),
-  //                                     make_ref(m_hatchingTexture)};
-  //for (uint32_t i = 0; i < ARRAY_SIZE(staticTextures); i++)
-  //{
-  //  ASSERT(staticTextures[i] != nullptr, ());
-  //  ASSERT(dynamic_cast<StaticTexture *>(staticTextures[i].get()) != nullptr, ());
-  //  ref_ptr<StaticTexture> t = staticTextures[i];
-  //  t->Invalidate(context, make_ref(m_textureAllocator));
-  //}
+    if (context->GetApiVersion() != dp::ApiVersion::Vulkan)
+      symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
+    else
+      symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator), m_texturesToCleanup);
+  }
+}
+
+void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures)
+{
+  std::swap(textures, m_texturesToCleanup);
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)

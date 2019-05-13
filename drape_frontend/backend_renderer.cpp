@@ -349,10 +349,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::SwitchMapStyle:
     {
+      ref_ptr<SwitchMapStyleMessage> msg = message;
+      msg->FilterDependentMessages();
+
       CHECK(m_context != nullptr, ());
-      // For Vulkan rendering it must be done on FR.
-      if (m_context->GetApiVersion() != dp::ApiVersion::Vulkan)
-        m_texMng->OnSwitchMapStyle(m_context);
+      m_texMng->OnSwitchMapStyle(m_context);
       RecacheMapShapes();
       RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
 #ifdef RENDER_DEBUG_INFO_LABELS
@@ -360,6 +361,20 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
       m_trafficGenerator->InvalidateTexturesCache();
       m_transitBuilder->RebuildSchemes(m_context, m_texMng);
+
+      // For Vulkan we initialize deferred cleaning up.
+      if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
+      {
+        std::vector<drape_ptr<dp::HWTexture>> textures;
+        m_texMng->GetTexturesToCleanup(textures);
+        if (!textures.empty())
+        {
+          m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<CleanupTexturesMessage>(std::move(textures)),
+                                    MessagePriority::Normal);
+        }
+      }
+
       break;
     }
 

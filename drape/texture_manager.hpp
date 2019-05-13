@@ -85,6 +85,7 @@ public:
 
   void Init(ref_ptr<dp::GraphicsContext> context, Params const & params);
   void OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context);
+  void GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures);
 
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
   bool HasSymbolRegion(std::string const & symbolName) const;
@@ -228,6 +229,8 @@ private:
   drape_ptr<HWTextureAllocator> m_textureAllocator;
 
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
+
+  std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 
   base::Timer m_uploadTimer;
   std::atomic_flag m_nothingToUpload;

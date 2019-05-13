@@ -691,19 +691,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Delete all messages which can contain render states (and textures references inside).
-      InstantMessageFilter([](ref_ptr<Message> msg) { return msg->ContainsRenderState(); });
-
-      // For Vulkan rendering textures must be recreated on FR, since they can be in use until
-      // nearest call of BeginRendering.
-      if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
-        m_texMng->OnSwitchMapStyle(m_context);
+      auto f = [this]()
+      {
+        InstantMessageFilter([](ref_ptr<Message> msg) { return msg->ContainsRenderState(); });
+      };
 
       // Notify backend renderer and wait for completion.
       {
         BaseBlockingMessage::Blocker blocker;
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SwitchMapStyleMessage>(blocker),
-                                  MessagePriority::High);
+                                  make_unique_dp<SwitchMapStyleMessage>(blocker, std::move(f)),
+                                  MessagePriority::Normal);
         blocker.Wait();
       }
 
@@ -993,6 +991,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FinishTexturesInitializationMessage> msg = message;
       m_finishTexturesInitialization = true;
+      break;
+    }
+
+  case Message::Type::CleanupTextures:
+    {
+      // Do nothing, just destroy message with textures.
       break;
     }
 

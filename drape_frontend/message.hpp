@@ -87,6 +87,7 @@ public:
     UpdateMetalines,
     PostUserEvent,
     FinishTexturesInitialization,
+    CleanupTextures,
     EnableUGCRendering,
     EnableDebugRectRendering,
     EnableTransitScheme,

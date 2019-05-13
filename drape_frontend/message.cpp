@@ -86,6 +86,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::UpdateMetalines: return "UpdateMetalines";
   case Message::Type::PostUserEvent: return "PostUserEvent";
   case Message::Type::FinishTexturesInitialization: return "FinishTexturesInitialization";
+  case Message::Type::CleanupTextures: return "CleanupTextures";
   case Message::Type::EnableUGCRendering: return "EnableUGCRendering";
   case Message::Type::EnableDebugRectRendering: return "EnableDebugRectRendering";
   case Message::Type::EnableTransitScheme: return "EnableTransitScheme";

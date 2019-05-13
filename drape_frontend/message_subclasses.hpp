@@ -433,6 +433,7 @@ public:
   {}
 
   Type GetType() const override { return Type::MapShapes; }
+  bool ContainsRenderState() const override { return true; }
   bool IsGraphicsContextDependent() const override { return true; }
 
   drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
@@ -719,11 +720,23 @@ private:
 class SwitchMapStyleMessage : public BaseBlockingMessage
 {
 public:
-  explicit SwitchMapStyleMessage(Blocker & blocker)
+  using FilterMessagesHandler = std::function<void()>;
+
+  SwitchMapStyleMessage(Blocker & blocker, FilterMessagesHandler && filterMessagesHandler)
     : BaseBlockingMessage(blocker)
+    , m_filterMessagesHandler(std::move(filterMessagesHandler))
   {}
 
   Type GetType() const override { return Type::SwitchMapStyle; }
+
+  void FilterDependentMessages()
+  {
+    if (m_filterMessagesHandler)
+      m_filterMessagesHandler();
+  }
+
+private:
+  FilterMessagesHandler m_filterMessagesHandler;
 };
 
 class InvalidateMessage : public Message
@@ -944,7 +957,7 @@ class NotifyGraphicsReadyMessage : public Message
 public:
   using GraphicsReadyCallback = std::function<void()>;
 
-  NotifyGraphicsReadyMessage(GraphicsReadyCallback const & callback)
+  explicit NotifyGraphicsReadyMessage(GraphicsReadyCallback const & callback)
     : m_callback(callback)
   {}
 
@@ -1294,6 +1307,19 @@ class FinishTexturesInitializationMessage : public Message
 public:
   bool IsGraphicsContextDependent() const override { return true; }
   Type GetType() const override { return Type::FinishTexturesInitialization; }
+};
+
+class CleanupTexturesMessage : public Message
+{
+public:
+  explicit CleanupTexturesMessage(std::vector<drape_ptr<dp::HWTexture>> && textures)
+    : m_textures(std::move(textures))
+  {}
+  Type GetType() const override { return Type::CleanupTextures; }
+  bool IsGraphicsContextDependent() const override { return true; }
+
+private:
+  std::vector<drape_ptr<dp::HWTexture>> m_textures;
 };
 
 class ShowDebugInfoMessage : public Message
