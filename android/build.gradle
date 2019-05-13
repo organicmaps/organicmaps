@@ -150,7 +150,6 @@ configurations.all {
     force 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-plus:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
 
