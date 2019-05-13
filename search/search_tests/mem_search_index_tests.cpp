@@ -71,7 +71,7 @@ public:
       vector<Id> curr;
       MatchFeaturesInTrie(request, m_index.GetRootIterator(),
                           [](Id const & /* id */) { return true; } /* filter */,
-                          [&curr](Id const & id) { curr.push_back(id); } /* toDo */);
+                          [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
       base::SortUnique(curr);
 
       vector<Id> intersection;

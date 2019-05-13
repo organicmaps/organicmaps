@@ -583,11 +583,11 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
     }
     else if (m_params.IsPrefixToken(i))
     {
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest).m_features;
     }
     else
     {
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]).m_features;
     }
   }
 

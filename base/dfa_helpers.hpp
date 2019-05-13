@@ -2,6 +2,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <cstddef>
 #include <string>
 
 namespace strings
@@ -27,6 +28,7 @@ public:
 
     bool Accepts() const { return m_accepts; }
     bool Rejects() const { return !Accepts() && m_it.Rejects(); }
+    size_t ErrorsMade() const { return m_it.ErrorsMade(); }
 
   private:
     friend class PrefixDFAModifier;

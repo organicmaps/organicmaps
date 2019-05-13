@@ -32,35 +32,38 @@ class Retrieval
 public:
   template<typename Value>
   using TrieRoot = trie::Iterator<ValueList<Value>>;
+  using Features = std::unique_ptr<coding::CompressedBitVector>;
+
+  struct ExtendedFeatures
+  {
+    Features m_features;
+    Features m_exactMatchingFeatures;
+  };
 
   Retrieval(MwmContext const & context, base::Cancellable const & cancellable);
 
-  // Following functions retrieve from the search index corresponding to
-  // |value| all features matching to |request|.
-  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  // Following functions retrieve all features matching to |request| from the search index.
+  ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::UniStringDFA> const & request) const;
 
-  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request) const;
 
-  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::LevenshteinDFA> const & request) const;
 
-  std::unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+  ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request) const;
 
-  // Retrieves from the search index corresponding to |value| all
-  // postcodes matching to |slice|.
-  std::unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
-      TokenSlice const & slice) const;
+  // Retrieves all postcodes matching to |slice| from the search index.
+  Features RetrievePostcodeFeatures(TokenSlice const & slice) const;
 
-  // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
-  std::unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                        int scale) const;
+  // Retrieves all features belonging to |rect| from the geometry index.
+  Features RetrieveGeometryFeatures(m2::RectD const & rect, int scale) const;
 
 private:
   template <template <typename> class R, typename... Args>
-  std::unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args) const;
+  ExtendedFeatures Retrieve(Args &&... args) const;
 
   MwmContext const & m_context;
   base::Cancellable const & m_cancellable;

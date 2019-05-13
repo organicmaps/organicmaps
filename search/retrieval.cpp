@@ -47,26 +47,38 @@ namespace
 class FeaturesCollector
 {
 public:
-  FeaturesCollector(base::Cancellable const & cancellable, vector<uint64_t> & features)
-    : m_cancellable(cancellable), m_features(features), m_counter(0)
+  FeaturesCollector(base::Cancellable const & cancellable, vector<uint64_t> & features,
+                    vector<uint64_t> & exactlyMatchedFeatures)
+    : m_cancellable(cancellable)
+    , m_features(features)
+    , m_exactlyMatchedFeatures(exactlyMatchedFeatures)
+    , m_counter(0)
   {
   }
 
   template <typename Value>
-  void operator()(Value const & value)
+  void operator()(Value const & value, bool exactMatch)
   {
     if ((++m_counter & 0xFF) == 0)
       BailIfCancelled(m_cancellable);
-    m_features.push_back(value.m_featureId);
+    m_features.emplace_back(value.m_featureId);
+    if (exactMatch)
+      m_exactlyMatchedFeatures.emplace_back(value.m_featureId);
   }
 
-  inline void operator()(uint32_t feature) { m_features.push_back(feature); }
+  void operator()(uint32_t feature) { m_features.emplace_back(feature); }
 
-  inline void operator()(uint64_t feature) { m_features.push_back(feature); }
+  void operator()(uint64_t feature, bool exactMatch)
+  {
+    m_features.emplace_back(feature);
+    if (exactMatch)
+      m_exactlyMatchedFeatures.emplace_back(feature);
+  }
 
 private:
   base::Cancellable const & m_cancellable;
   vector<uint64_t> & m_features;
+  vector<uint64_t> & m_exactlyMatchedFeatures;
   uint32_t m_counter;
 };
 
@@ -113,14 +125,18 @@ private:
   vector<uint32_t> m_created;
 };
 
-unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
+Retrieval::ExtendedFeatures SortFeaturesAndBuildCBV(vector<uint64_t> && features,
+                                                    vector<uint64_t> && exactlyMatchedFeatures)
 {
+  using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
-  return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
+  base::SortUnique(exactlyMatchedFeatures);
+  return {Builder::FromBitPositions(move(features)),
+          Builder::FromBitPositions(move(exactlyMatchedFeatures))};
 }
 
 template <typename DFA>
-bool MatchesByName(vector<UniString> const & tokens, vector<DFA> const & dfas)
+pair<bool, bool> MatchesByName(vector<UniString> const & tokens, vector<DFA> const & dfas)
 {
   for (auto const & dfa : dfas)
   {
@@ -129,18 +145,18 @@ bool MatchesByName(vector<UniString> const & tokens, vector<DFA> const & dfas)
       auto it = dfa.Begin();
       DFAMove(it, token);
       if (it.Accepts())
-        return true;
+        return {true, it.ErrorsMade() == 0};
     }
   }
 
-  return false;
+  return {false, false};
 }
 
 template <typename DFA>
-bool MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
+pair<bool, bool> MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
 {
   if (dfas.empty())
-    return false;
+    return {false, false};
 
   auto const & c = classif();
 
@@ -153,30 +169,35 @@ bool MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
       auto it = dfa.Begin();
       DFAMove(it, s);
       if (it.Accepts())
-        return true;
+        return {true, it.ErrorsMade() == 0};
     }
   }
 
-  return false;
+  return {false, false};
 }
 
 template <typename DFA>
-bool MatchFeatureByNameAndType(EditableMapObject const & emo,
-                               SearchTrieRequest<DFA> const & request)
+pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
+                                           SearchTrieRequest<DFA> const & request)
 {
   auto const & th = emo.GetTypes();
 
-  bool matched = false;
+  pair<bool, bool> matched = {false, false};
   emo.GetNameMultilang().ForEach([&](int8_t lang, string const & name) {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 
     vector<UniString> tokens;
     NormalizeAndTokenizeString(name, tokens, Delimiters());
-    if (!MatchesByName(tokens, request.m_names) && !MatchesByType(th, request.m_categories))
+    auto const matchesByName = MatchesByName(tokens, request.m_names);
+    auto const matchesByType =
+        matchesByName.second ? make_pair(false, false) : MatchesByType(th, request.m_categories);
+
+    matched = {matchesByName.first || matchesByType.first,
+               matchesByName.second || matchesByType.second};
+    if (!matched.first)
       return base::ControlFlow::Continue;
 
-    matched = true;
     return base::ControlFlow::Break;
   });
 
@@ -206,13 +227,15 @@ bool MatchFeatureByPostcode(EditableMapObject const & emo, TokenSlice const & sl
 }
 
 template <typename Value, typename DFA>
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
-    Retrieval::TrieRoot<Value> const & root, MwmContext const & context,
-    base::Cancellable const & cancellable, SearchTrieRequest<DFA> const & request)
+Retrieval::ExtendedFeatures RetrieveAddressFeaturesImpl(Retrieval::TrieRoot<Value> const & root,
+                                                        MwmContext const & context,
+                                                        base::Cancellable const & cancellable,
+                                                        SearchTrieRequest<DFA> const & request)
 {
   EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
-  FeaturesCollector collector(cancellable, features);
+  vector<uint64_t> exactlyMatchedFeatures;
+  FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchFeaturesInTrie(
       request, root,
@@ -222,21 +245,28 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
       collector);
 
   holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
-    if (MatchFeatureByNameAndType(emo, request))
-      features.push_back(index);
+    auto const matched = MatchFeatureByNameAndType(emo, request);
+    if (matched.first)
+    {
+      features.emplace_back(index);
+      if (matched.second)
+        exactlyMatchedFeatures.emplace_back(index);
+    }
   });
 
-  return SortFeaturesAndBuildCBV(move(features));
+  return SortFeaturesAndBuildCBV(move(features), move(exactlyMatchedFeatures));
 }
 
 template <typename Value>
-unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
-    Retrieval::TrieRoot<Value> const & root, MwmContext const & context,
-    base::Cancellable const & cancellable, TokenSlice const & slice)
+Retrieval::ExtendedFeatures RetrievePostcodeFeaturesImpl(Retrieval::TrieRoot<Value> const & root,
+                                                         MwmContext const & context,
+                                                         base::Cancellable const & cancellable,
+                                                         TokenSlice const & slice)
 {
   EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
-  FeaturesCollector collector(cancellable, features);
+  vector<uint64_t> exactlyMatchedFeatures;
+  FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchPostcodesInTrie(
       slice, root,
@@ -250,12 +280,12 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
       features.push_back(index);
   });
 
-  return SortFeaturesAndBuildCBV(move(features));
+  return SortFeaturesAndBuildCBV(move(features), {});
 }
 
-unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    MwmContext const & context, base::Cancellable const & cancellable, m2::RectD const & rect,
-    int scale)
+Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & context,
+                                                         base::Cancellable const & cancellable,
+                                                         m2::RectD const & rect, int scale)
 {
   EditedFeaturesHolder holder(context.GetId());
 
@@ -263,8 +293,9 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
   CoverRect(rect, scale, coverage);
 
   vector<uint64_t> features;
+  vector<uint64_t> exactlyMatchedFeatures;
 
-  FeaturesCollector collector(cancellable, features);
+  FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   context.ForEachIndex(coverage, scale, collector);
 
@@ -273,14 +304,14 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
     if (rect.IsPointInside(center))
       features.push_back(index);
   });
-  return SortFeaturesAndBuildCBV(move(features));
+  return SortFeaturesAndBuildCBV(move(features), move(exactlyMatchedFeatures));
 }
 
 template <typename T>
 struct RetrieveAddressFeaturesAdaptor
 {
   template <typename... Args>
-  unique_ptr<coding::CompressedBitVector> operator()(Args &&... args)
+  Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
     return RetrieveAddressFeaturesImpl<T>(forward<Args>(args)...);
   }
@@ -290,7 +321,7 @@ template <typename T>
 struct RetrievePostcodeFeaturesAdaptor
 {
   template <typename... Args>
-  unique_ptr<coding::CompressedBitVector> operator()(Args &&... args)
+  Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
     return RetrievePostcodeFeaturesImpl<T>(forward<Args>(args)...);
   }
@@ -327,44 +358,42 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
   }
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<UniStringDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<LevenshteinDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrievePostcodeFeatures(
-    TokenSlice const & slice) const
+Retrieval::Features Retrieval::RetrievePostcodeFeatures(TokenSlice const & slice) const
 {
-  return Retrieve<RetrievePostcodeFeaturesAdaptor>(slice);
+  return Retrieve<RetrievePostcodeFeaturesAdaptor>(slice).m_features;
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                            int scale) const
+Retrieval::Features Retrieval::RetrieveGeometryFeatures(m2::RectD const & rect, int scale) const
 {
-  return RetrieveGeometryFeaturesImpl(m_context, m_cancellable, rect, scale);
+  return RetrieveGeometryFeaturesImpl(m_context, m_cancellable, rect, scale).m_features;
 }
 
 template <template <typename> class R, typename... Args>
-unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args) const
+Retrieval::ExtendedFeatures Retrieval::Retrieve(Args &&... args) const
 {
   switch (m_format)
   {

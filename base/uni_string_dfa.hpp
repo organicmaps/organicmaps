@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstddef>
 #include <string>
 
 namespace strings
@@ -15,8 +16,9 @@ public:
   public:
     Iterator & Move(UniChar c);
 
-    inline bool Accepts() const { return !Rejects() && m_pos == m_s.size(); }
-    inline bool Rejects() const { return m_rejected; }
+    bool Accepts() const { return !Rejects() && m_pos == m_s.size(); }
+    bool Rejects() const { return m_rejected; }
+    size_t ErrorsMade() const { return 0; }
 
   private:
     friend class UniStringDFA;
