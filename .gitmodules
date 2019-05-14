@@ -22,3 +22,4 @@
 [submodule "3party/boost"]
 	path = 3party/boost
 	url = https://github.com/boostorg/boost.git
+	branch = boost-1.68.0      
