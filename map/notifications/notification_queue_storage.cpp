@@ -57,7 +57,7 @@ bool QueueStorage::Load(std::vector<int8_t> & dst)
     FileReader reader(GetFilePath());
 
     dst.clear();
-    dst.resize(reader.Size());
+    dst.resize(static_cast<size_t>(reader.Size()));
 
     reader.Read(0, dst.data(), dst.size());
   }

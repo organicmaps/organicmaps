@@ -171,7 +171,8 @@ private:
         LOG(LERROR, ("Decoded link restriction number is zero."));
         return false;
       }
-      size_t const numLinks = biasedLinkNumber + 1 /* number of link is two or more */;
+      auto const numLinks =
+          static_cast<size_t>(biasedLinkNumber + 1); /* number of link is two or more */
 
       std::vector<uint32_t> restriction(numLinks);
       auto const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);

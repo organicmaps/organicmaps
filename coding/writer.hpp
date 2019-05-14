@@ -43,14 +43,14 @@ public:
 
   void Write(void const * p, size_t size) override
   {
-    intptr_t freeSize = m_Data.size() - m_Pos;
+    auto freeSize = static_cast<intptr_t>(m_Data.size() - m_Pos);
     if (freeSize < 0)
     {
-      m_Data.resize(m_Pos + size);
+      m_Data.resize(static_cast<size_t>(m_Pos + size));
       freeSize = size;
     }
 
-    memcpy(&m_Data[m_Pos], p, std::min(size, static_cast<size_t>(freeSize)));
+    memcpy(&m_Data[static_cast<size_t>(m_Pos)], p, std::min(size, static_cast<size_t>(freeSize)));
 
     if (size > static_cast<size_t>(freeSize))
     {

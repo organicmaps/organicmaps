@@ -9,6 +9,7 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
 #include <cstdint>
@@ -60,7 +61,7 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
 {
   using generator::mwm_diff::DiffApplicationResult;
 
-  vector<uint8_t> deflatedDiff(diffFileSource.Size());
+  vector<uint8_t> deflatedDiff(base::checked_cast<size_t>(diffFileSource.Size()));
   diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
 
   using Inflate = coding::ZLib::Inflate;

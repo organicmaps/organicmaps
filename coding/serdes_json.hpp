@@ -214,8 +214,9 @@ public:
                                     Source>::type * = nullptr>
   explicit DeserializerJson(Source & source)
   {
-    std::string src(source.Size(), '\0');
-    source.Read(static_cast<void *>(&src[0]), source.Size());
+    auto const size = static_cast<size_t>(source.Size());
+    std::string src(size, '\0');
+    source.Read(static_cast<void *>(&src[0]), size);
     m_jsonObject.ParseFrom(src);
     m_json = m_jsonObject.get();
   }

@@ -167,7 +167,7 @@ public:
                            ? m_offsets.select(base + 1)
                            : m_header.m_endOffset - m_header.m_variablesOffset;
 
-      std::vector<uint8_t> data(end - start);
+      std::vector<uint8_t> data(static_cast<size_t>(end - start));
 
       m_reader.Read(m_header.m_variablesOffset + start, data.data(), data.size());
 

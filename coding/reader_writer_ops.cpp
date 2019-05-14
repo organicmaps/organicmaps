@@ -17,7 +17,7 @@ void Reverse(Reader const & src, Writer & dest)
   uint64_t pos = src.Size();
   while (pos > 0)
   {
-    size_t const sz = pos > bufSz ? bufSz : pos;
+    size_t const sz = pos > bufSz ? bufSz : static_cast<size_t>(pos);
     ASSERT_GREATER_OR_EQUAL(pos, sz, ());
 
     src.Read(pos - sz, &buffer[0], sz);

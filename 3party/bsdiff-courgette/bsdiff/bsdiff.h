@@ -392,7 +392,7 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
   if (ret != OK)
     return ret;
 
-  const size_t old_size = old_source.Size();
+  const auto old_size = static_cast<size_t>(old_source.Size());
   std::vector<uint8_t> old_buf(old_size);
   old_source.Read(old_buf.data(), old_buf.size());
 
@@ -425,7 +425,7 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader, NewSink & new_sink,
   auto & diff_bytes = patch_streams[4];
   auto & extra_bytes = patch_streams[5];
 
-  std::vector<uint8_t> extra_bytes_buf(extra_bytes.Size());
+  std::vector<uint8_t> extra_bytes_buf(static_cast<size_t>(extra_bytes.Size()));
   extra_bytes.Read(extra_bytes_buf.data(), extra_bytes_buf.size());
 
   const uint8_t* extra_start = extra_bytes_buf.data();

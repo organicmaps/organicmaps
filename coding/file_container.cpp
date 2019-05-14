@@ -188,7 +188,7 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, string const 
   if (pMap == NULL)
     MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "win last error:", GetLastError()));
 #else
-  void * pMap = mmap(0, length, PROT_READ, MAP_SHARED, m_fd, alignedOffset);
+  void * pMap = mmap(0, static_cast<size_t>(length), PROT_READ, MAP_SHARED, m_fd, alignedOffset);
   if (pMap == MAP_FAILED)
     MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "errno:", strerror(errno)));
 #endif
@@ -279,7 +279,7 @@ void FilesMappingContainer::Handle::Unmap()
     #ifdef OMIM_OS_WINDOWS
       VERIFY(UnmapViewOfFile(m_origBase), ());
     #else
-      VERIFY(0 == munmap((void*)m_origBase, m_origSize), ());
+      VERIFY(0 == munmap((void *)m_origBase, static_cast<size_t>(m_origSize)), ());
     #endif
     Reset();
   }

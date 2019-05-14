@@ -395,7 +395,7 @@ private:
     ASSERT_LESS(groupId - 1, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
     m_changesTracker.OnAddMark(markId);
-    m_userMarkLayers[groupId - 1]->AttachUserMark(markId);
+    m_userMarkLayers[static_cast<size_t>(groupId - 1)]->AttachUserMark(markId);
     return m;
   }
 

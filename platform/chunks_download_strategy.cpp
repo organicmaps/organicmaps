@@ -41,7 +41,7 @@ ChunksDownloadStrategy::GetChunk(RangeT const & range)
 
 void ChunksDownloadStrategy::InitChunks(int64_t fileSize, int64_t chunkSize, ChunkStatusT status)
 {
-  m_chunks.reserve(fileSize / chunkSize + 2);
+  m_chunks.reserve(static_cast<size_t>(fileSize / chunkSize + 2));
   for (int64_t i = 0; i < fileSize; i += chunkSize)
     m_chunks.push_back(ChunkT(i, status));
   m_chunks.push_back(ChunkT(fileSize, CHUNK_AUX));
@@ -105,7 +105,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
         // Load chunks.
         uint64_t const size = src.Size();
         int const stSize = sizeof(ChunkT);
-        size_t const count = size / stSize;
+        auto const count = static_cast<size_t>(size / stSize);
         ASSERT_EQUAL(size, stSize * count, ());
 
         m_chunks.resize(count);

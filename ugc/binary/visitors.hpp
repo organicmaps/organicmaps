@@ -162,7 +162,7 @@ public:
   void operator()(Text & text, char const * /* name */ = nullptr)
   {
     (*this)(text.m_lang, "lang");
-    text.m_text = m_texts.ExtractString(m_textsReader, m_currText);
+    text.m_text = m_texts.ExtractString(m_textsReader, static_cast<size_t>(m_currText));
     ++m_currText;
   }
 

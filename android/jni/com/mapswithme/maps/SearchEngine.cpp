@@ -293,7 +293,6 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
                      double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
-  ::Framework * fr = g_framework->NativeFramework();
 
   jni::TScopedLocalIntArrayRef ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
   jint * rawArr = env->GetIntArrayElements(ranges, nullptr);

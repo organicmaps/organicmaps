@@ -321,8 +321,8 @@ string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
         // "library" -> "libraries"
         else if (lastTwo.back() == 'y' && kVowels.find(lastTwo.front()) == string::npos)
         {
-          long const pos = ss.tellp();
-          ss.seekp(pos - 1);
+          auto const pos = static_cast<size_t>(ss.tellp());
+          ss.seekp(static_cast<typename ostringstream::pos_type>(pos - 1));
           ss << "ie";
         }
       }
@@ -351,5 +351,4 @@ string ChangesetWrapper::GetDescription() const
   }
   return result;
 }
-
 }  // namespace osm

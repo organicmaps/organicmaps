@@ -294,14 +294,16 @@ public:
 
   void operator()(std::vector<std::vector<CityBoundary>> & boundaries)
   {
-    auto const size = ReadVarUint<uint64_t>(m_source);
-    boundaries.resize(size);
+    {
+      auto const size = static_cast<size_t>(ReadVarUint<uint64_t>(m_source));
+      boundaries.resize(size);
+    }
 
     {
       BitReader<Source> reader(m_source);
       for (auto & bs : boundaries)
       {
-        auto const size = coding::GammaCoder::Decode(reader);
+        auto const size = static_cast<size_t>(coding::GammaCoder::Decode(reader));
         ASSERT_GREATER_OR_EQUAL(size, 1, ());
         bs.resize(size - 1);
       }

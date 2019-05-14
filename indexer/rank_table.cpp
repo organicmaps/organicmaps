@@ -69,7 +69,7 @@ unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rco
   if (!rcont.IsExist(tag))
     return unique_ptr<CopiedMemoryRegion>();
   FilesContainerR::TReader reader = rcont.GetReader(tag);
-  vector<uint8_t> buffer(reader.Size());
+  vector<uint8_t> buffer(static_cast<size_t>(reader.Size()));
   reader.Read(0, buffer.data(), buffer.size());
   return make_unique<CopiedMemoryRegion>(move(buffer));
 }
@@ -126,7 +126,8 @@ public:
     if (!region.get())
       return unique_ptr<RankTableV0>();
 
-    auto const result = CheckEndianness(MemReader(region->ImmutableData(), region->Size()));
+    auto const result =
+        CheckEndianness(MemReader(region->ImmutableData(), static_cast<size_t>(region->Size())));
     if (result != CheckResult::EndiannessMatch)
       return unique_ptr<RankTableV0>();
 
@@ -144,7 +145,8 @@ public:
       return unique_ptr<RankTableV0>();
 
     unique_ptr<RankTableV0> table;
-    switch (CheckEndianness(MemReader(region->ImmutableData(), region->Size())))
+    switch (
+        CheckEndianness(MemReader(region->ImmutableData(), static_cast<size_t>(region->Size()))))
     {
     case CheckResult::CorruptedHeader:
       break;

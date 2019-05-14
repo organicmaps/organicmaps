@@ -1543,7 +1543,10 @@ UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
-    return m_userMarkLayers[groupId - 1].get();
+  {
+    CHECK_GREATER(groupId, 0, ());
+    return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
+  }
 
   ASSERT(m_categories.find(groupId) != m_categories.end(), ());
   return m_categories.at(groupId).get();
@@ -1553,7 +1556,10 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
-    return m_userMarkLayers[groupId - 1].get();
+  {
+    CHECK_GREATER(groupId, 0, ());
+    return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
+  }
 
   auto const it = m_categories.find(groupId);
   return it != m_categories.end() ? it->second.get() : nullptr;

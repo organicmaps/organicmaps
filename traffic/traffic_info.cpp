@@ -110,7 +110,7 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
     if (rcont.IsExist(TRAFFIC_KEYS_FILE_TAG))
     {
       auto reader = rcont.GetReader(TRAFFIC_KEYS_FILE_TAG);
-      vector<uint8_t> buf(reader.Size());
+      vector<uint8_t> buf(static_cast<size_t>(reader.Size()));
       reader.Read(0, buf.data(), buf.size());
       LOG(LINFO, ("Reading keys for", mwmId, "from section"));
       try
@@ -318,7 +318,7 @@ void TrafficInfo::DeserializeTrafficKeys(vector<uint8_t> const & data,
     }
 
     for (size_t i = 0; i < n; ++i)
-      numSegs[i] = coding::GammaCoder::Decode(bitReader) - 1;
+      numSegs[i] = static_cast<size_t>(coding::GammaCoder::Decode(bitReader) - 1);
 
     for (size_t i = 0; i < n; ++i)
       oneWay[i] = bitReader.Read(1) > 0;

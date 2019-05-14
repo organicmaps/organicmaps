@@ -283,7 +283,7 @@ public:
 
   void operator()(std::vector<m2::PointD> & vs, char const * /* name */ = nullptr)
   {
-    auto const size = ReadVarUint<uint64_t, Source>(m_source);
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
     m2::PointU lastDecodedPoint;
     vs.resize(size);
     for (auto & p : vs)
@@ -298,7 +298,7 @@ public:
   template <typename T>
   void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
   {
-    auto const size = ReadVarUint<uint64_t, Source>(m_source);
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
     vs.resize(size);
     for (auto & v : vs)
       (*this)(v);

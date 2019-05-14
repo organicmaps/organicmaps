@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include <cstddef>
+
 namespace local_ads
 {
 void WriteCountryName(FileWriter & writer, std::string const & countryName)
@@ -22,7 +24,7 @@ void WriteZigZag(FileWriter & writer, int64_t duration)
 
 void WriteRawData(FileWriter & writer, std::vector<uint8_t> const & rawData)
 {
-  uint64_t const size = static_cast<uint64_t>(rawData.size());
+  auto const size = static_cast<size_t>(rawData.size());
   WriteToSink(writer, size);
   writer.Write(rawData.data(), size);
 }
@@ -43,9 +45,9 @@ int64_t ReadZigZag(ReaderSource<FileReader> & src)
 std::vector<uint8_t> ReadRawData(ReaderSource<FileReader> & src)
 {
   uint64_t const size = ReadPrimitiveFromSource<uint64_t>(src);
-  if (src.Size() < size)
+  if (static_cast<uint64_t>(src.Size()) < size)
     MYTHROW(Reader::SizeException, (src.Pos(), size));
-  std::vector<uint8_t> bytes(size);
+  std::vector<uint8_t> bytes(static_cast<size_t>(size));
   src.Read(bytes.data(), bytes.size());
   return bytes;
 }

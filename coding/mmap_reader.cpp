@@ -39,7 +39,8 @@ public:
       MYTHROW(OpenException, ("fstat failed for file", fileName));
     m_size = s.st_size;
 
-    m_memory = (uint8_t *)mmap(0, m_size, PROT_READ, MAP_SHARED, m_fd, 0);
+    m_memory = static_cast<uint8_t *>(
+        mmap(0, static_cast<size_t>(m_size), PROT_READ, MAP_SHARED, m_fd, 0));
     if (m_memory == MAP_FAILED)
     {
       close(m_fd);
@@ -52,7 +53,7 @@ public:
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS
-    munmap(m_memory, m_size);
+    munmap(m_memory, static_cast<size_t>(m_size));
     close(m_fd);
 #endif
   }

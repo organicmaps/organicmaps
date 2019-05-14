@@ -12,8 +12,6 @@
 
 class StringNumericOptimal
 {
-  std::string m_s;
-
 public:
   bool operator==(StringNumericOptimal const & rhs) const { return m_s == rhs.m_s; }
 
@@ -43,8 +41,8 @@ public:
   /// First uint64_t value is:
   /// - a number if low control bit is 1;
   /// - a string size-1 if low control bit is 0;
-  template <typename TSink>
-  void Write(TSink & sink) const
+  template <typename Sink>
+  void Write(Sink & sink) const
   {
     // If string is a number and we have space for control bit
     uint64_t n;
@@ -60,8 +58,8 @@ public:
     }
   }
 
-  template <typename TSource>
-  void Read(TSource & src)
+  template <typename Source>
+  void Read(Source & src)
   {
     uint64_t sz = ReadVarUint<uint64_t>(src);
 
@@ -73,9 +71,12 @@ public:
       ASSERT_LESS_OR_EQUAL(sz, std::numeric_limits<size_t>::max(),
                            ("sz is out of platform's range."));
       m_s.resize(static_cast<size_t>(sz));
-      src.Read(&m_s[0], sz);
+      src.Read(&m_s[0], static_cast<size_t>(sz));
     }
   }
+
+private:
+  std::string m_s;
 };
 
 inline std::string DebugPrint(StringNumericOptimal const & s) { return s.Get(); }

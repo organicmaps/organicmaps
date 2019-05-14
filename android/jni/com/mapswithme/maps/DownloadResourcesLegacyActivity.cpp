@@ -172,8 +172,6 @@ extern "C"
 
   static void DownloadFileProgress(std::shared_ptr<jobject> listener, HttpRequest const & req)
   {
-    FileToDownload & curFile = g_filesToDownload.back();
-
     JNIEnv * env = jni::GetEnv();
     static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
     env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().first));

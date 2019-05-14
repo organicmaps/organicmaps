@@ -333,7 +333,7 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
   vector<char> buf1, buf2;
   buf1.resize(bufSize);
   buf2.resize(bufSize);
-  size_t const fileSize = first.Size();
+  size_t const fileSize = static_cast<size_t>(first.Size());
   size_t currSize = 0;
 
   while (currSize < fileSize)

@@ -90,7 +90,7 @@ CBV CBV::Take(uint64_t n) const
     return *this;
   if (IsFull())
   {
-    vector<uint64_t> groups((n + 63) / 64, numeric_limits<uint64_t>::max());
+    vector<uint64_t> groups(static_cast<size_t>((n + 63) / 64), numeric_limits<uint64_t>::max());
     uint64_t const r = n % 64;
     if (r != 0)
     {

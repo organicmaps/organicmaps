@@ -13,7 +13,7 @@ void Reader::ReadAsString(std::string & s) const
 std::vector<uint8_t> Reader::ReadAsBytes() const
 {
   std::vector<uint8_t> contents;
-  contents.resize(Size());
+  contents.resize(static_cast<size_t>(Size()));
   Read(0 /* pos */, contents.data(), contents.size());
   return contents;
 }

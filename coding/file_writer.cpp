@@ -82,6 +82,6 @@ void FileWriter::WritePadding(uint64_t offset, uint64_t factor)
   uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
   if (!padding)
     return;
-  vector<uint8_t> buffer(padding);
+  vector<uint8_t> buffer(static_cast<size_t>(padding));
   Write(buffer.data(), buffer.size());
 }
