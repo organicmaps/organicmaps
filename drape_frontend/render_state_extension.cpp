@@ -1,9 +1,24 @@
 #include "drape_frontend/render_state_extension.hpp"
 
-#include <vector>
+#include <array>
 
 namespace df
 {
+std::array<drape_ptr<RenderStateExtension>, static_cast<size_t>(DepthLayer::LayersCount)> kStateExtensions = {
+    make_unique_dp<RenderStateExtension>(DepthLayer::GeometryLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::Geometry3dLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::UserLineLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::OverlayLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::LocalAdsMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::TransitSchemeLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::UserMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::NavigationLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::RoutingBottomMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::RoutingMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::SearchMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::GuiLayer)
+};
+
 RenderStateExtension::RenderStateExtension(DepthLayer depthLayer)
   : m_depthLayer(depthLayer)
 {}
@@ -25,14 +40,8 @@ bool RenderStateExtension::Equal(ref_ptr<dp::BaseRenderStateExtension> other) co
 // static
 ref_ptr<RenderStateExtension> RenderStateExtensionFactory::Get(DepthLayer depthLayer)
 {
-  static std::vector<drape_ptr<RenderStateExtension>> m_states;
-  if (m_states.empty())
-  {
-    m_states.reserve(static_cast<size_t>(DepthLayer::LayersCount));
-    for (size_t i = 0; i < static_cast<size_t>(DepthLayer::LayersCount); ++i)
-      m_states.emplace_back(make_unique_dp<RenderStateExtension>(static_cast<DepthLayer>(i)));
-  }
-  return make_ref(m_states[static_cast<size_t>(depthLayer)]);
+  ASSERT_LESS(static_cast<size_t>(depthLayer), kStateExtensions.size(), ());
+  return make_ref(kStateExtensions[static_cast<size_t>(depthLayer)]);
 }
 
 DepthLayer GetDepthLayer(dp::RenderState const & state)
