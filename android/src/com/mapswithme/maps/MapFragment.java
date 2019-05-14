@@ -1,6 +1,6 @@
 package com.mapswithme.maps;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -70,8 +70,11 @@ public class MapFragment extends BaseMwmFragment
   private static boolean sWasCopyrightDisplayed;
   @Nullable
   private String mUiThemeOnPause;
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private SurfaceView mSurfaceView;
+  @Nullable
+  private MapRenderingListener mMapRenderingListener;
 
   private void setupWidgets(int width, int height)
   {
@@ -96,7 +99,7 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(R.dimen.margin_base),
                       ANCHOR_LEFT_TOP);
 
-    setupCompass(UiUtils.getCompassYOffset(getContext()), false);
+    setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
   }
 
   void setupCompass(int offsetY, boolean forceRedraw)
@@ -135,30 +138,27 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void onRenderingCreated()
   {
-    final Activity activity = getActivity();
-    if (isAdded() && activity instanceof MapRenderingListener)
-      ((MapRenderingListener) activity).onRenderingCreated();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingCreated();
   }
 
   @Override
   public void onRenderingRestored()
   {
-    final Activity activity = getActivity();
-    if (isAdded() && activity instanceof MapRenderingListener)
-      ((MapRenderingListener) activity).onRenderingRestored();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingRestored();
   }
 
   @Override
   public void onRenderingInitializationFinished()
   {
-    final Activity activity = getActivity();
-    if (isAdded() && activity instanceof MapRenderingListener)
-      ((MapRenderingListener) activity).onRenderingInitializationFinished();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingInitializationFinished();
   }
 
   private void reportUnsupported()
   {
-    new AlertDialog.Builder(getActivity())
+    new AlertDialog.Builder(requireActivity())
         .setMessage(getString(R.string.unsupported_phone))
         .setCancelable(false)
         .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
@@ -166,7 +166,7 @@ public class MapFragment extends BaseMwmFragment
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            getActivity().moveTaskToBack(true);
+            requireActivity().moveTaskToBack(true);
           }
         }).show();
   }
@@ -201,10 +201,10 @@ public class MapFragment extends BaseMwmFragment
     setupWidgets(rect.width(), rect.height());
 
     final DisplayMetrics metrics = new DisplayMetrics();
-    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    final boolean firstStart = MwmApplication.from(getActivity()).isFirstLaunch();
+    final boolean firstStart = MwmApplication.from(requireActivity()).isFirstLaunch();
     if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
                             BuildConfig.VERSION_CODE))
     {
@@ -266,9 +266,23 @@ public class MapFragment extends BaseMwmFragment
     if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
       return;
 
-    nativeDetachSurface(!getActivity().isChangingConfigurations());
+    nativeDetachSurface(!requireActivity().isChangingConfigurations());
     mSurfaceCreated = !nativeDestroySurfaceOnDetach();
     mSurfaceAttached = false;
+  }
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    mMapRenderingListener = (MapRenderingListener) context;
+  }
+
+  @Override
+  public void onDetach()
+  {
+    super.onDetach();
+    mMapRenderingListener = null;
   }
 
   @Override
@@ -327,7 +341,7 @@ public class MapFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View view = inflater.inflate(R.layout.fragment_map, container, false);
-    mSurfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
+    mSurfaceView = view.findViewById(R.id.map_surfaceview);
     mSurfaceView.getHolder().addCallback(this);
     return view;
   }
@@ -404,5 +418,6 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();
   private static native void nativeCleanWidgets();
-  private static native void nativeSetRenderingInitializationFinishedListener(MapRenderingListener listener);
+  private static native void nativeSetRenderingInitializationFinishedListener(
+      @Nullable MapRenderingListener listener);
 }
