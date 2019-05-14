@@ -22,8 +22,9 @@ NSArray<MWMUGCRatingStars *> * starsRatings(ugc::Ratings const & ratings)
 
 MWMUGCRatingValueType * ratingValueType(float rating)
 {
+  NSString *value = @(rating::GetRatingFormatted(rating).c_str());
   return [[MWMUGCRatingValueType alloc]
-      initWithValue:@(rating::GetRatingFormatted(rating).c_str())
+          initWithValue:value ?: @""
                type:[MWMPlacePageData ratingValueType:rating::GetImpress(rating)]];
 }
 }  // namespace
