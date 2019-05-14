@@ -91,7 +91,7 @@ HighwayBasedMeanSpeeds const kGlobalHighwayBasedMeanSpeeds = {
   {HighwayType::HighwayTertiary, InOutCitySpeedKMpH({45.50, 38.86} /* in city */, {50.50, 44.14} /* out city */)},
   {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH({40.95, 34.97} /* in city */, {45.45, 39.73} /* out city */)},
   {HighwayType::HighwayResidential, InOutCitySpeedKMpH({20.00, 20.00} /* in city */, {25.00, 25.00} /* out city */)},
-  {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH({51.30, 51.30} /* in city */, {66.00, 66.00} /* out city */)},
+  {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH({30.00, 30.00} /* in city */, {40.00, 40.00} /* out city */)},
   {HighwayType::HighwayService, InOutCitySpeedKMpH({15.00, 15.00} /* in city */, {15.00, 15.00} /* out city */)},
   {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH({10.00, 10.00} /* in city */, {10.00, 10.00} /* out city */)},
   {HighwayType::HighwayRoad, InOutCitySpeedKMpH({10.00, 10.00} /* in city */, {10.00, 10.00} /* out city */)},
