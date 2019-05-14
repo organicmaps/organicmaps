@@ -302,6 +302,12 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
                          dummy /* best segment is almost codirectional */);
 }
 
+void IndexRouter::ClearState()
+{
+  m_roadGraph.ClearState();
+  m_directionsEngine->Clear();
+}
+
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              m2::PointD const & startDirection,
                                              bool adjustToPrevRoute,
@@ -323,6 +329,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 
   try
   {
+    SCOPE_GUARD(featureRoadGraphClear, [this]{
+      this->ClearState();
+    });
+
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges &&
         finalPoint == m_lastRoute->GetFinish())
     {

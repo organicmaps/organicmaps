@@ -19,6 +19,7 @@ public:
                 base::Cancellable const & cancellable, Route::TTurns & turns,
                 Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                 vector<Segment> & segments) override;
+  void Clear() override {}
 
 private:
   void CalculateTurns(IndexRoadGraph const & graph, std::vector<Edge> const & routeEdges,
