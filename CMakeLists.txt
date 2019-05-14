@@ -10,6 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
 include(OmimHelpers)
 include(BuildVersion)
+include(ExternalBoost)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(LINUX_DETECTED TRUE)
@@ -147,8 +148,18 @@ if (PLATFORM_MAC)
 endif()
 
 set(BOOST_VERSION 1.68)
-set(Boost_INCLUDE_DIR "${OMIM_ROOT}/3party/boost")
-set(Boost_LIBRARY_DIR "${OMIM_ROOT}/3party/boost/stage/lib/")
+set(BOOST_ROOT "${OMIM_ROOT}/3party/boost")
+set(BOOST_INCLUDEDIR "${OMIM_ROOT}/3party/boost")
+set(BOOST_BOOST_LIBRARYDIR "${OMIM_ROOT}/3party/boost/stage/lib/")
+set(Boost_NO_SYSTEM_PATHS ON)
+
+set(Boost_INCLUDE_DIR "${BOOST_INCLUDEDIR}")
+set(Boost_LIBRARY_DIR "${BOOST_BOOST_LIBRARYDIR}")
+set(Boost_USE_STATIC_LIBS ON)
+
+init_boost()
+install_boost_headers()
+
 find_package(Boost ${BOOST_VERSION} EXACT)
 
 if (PYBINDINGS)
