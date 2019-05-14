@@ -18,6 +18,8 @@
 #include <thread>
 #include <utility>
 
+#include <boost/optional.hpp>
+
 using namespace std;
 
 namespace
@@ -268,15 +270,18 @@ void Geocoder::Go(Context & ctx, Type type) const
         continue;
 
       ScopedMarkTokens mark(ctx, type, i, j + 1);
+      boost::optional<ScopedMarkTokens> streetSynonymMark;
 
       double certainty = 0;
       vector<Type> allTypes;
       for (size_t tokId = 0; tokId < ctx.GetNumTokens(); ++tokId)
       {
         auto const t = ctx.GetTokenType(tokId);
-
-        if (t == Type::Street && search::IsStreetSynonym(strings::MakeUniString(ctx.GetToken(tokId))))
-          continue;
+        if (type == Type::Street && t == Type::Count && !streetSynonymMark)
+        {
+          if (search::IsStreetSynonym(strings::MakeUniString(ctx.GetToken(tokId))))
+            streetSynonymMark.emplace(ctx, Type::Street, tokId, tokId + 1);
+        }
 
         certainty += GetWeight(t);
         if (t != Type::Count)

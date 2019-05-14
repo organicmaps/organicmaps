@@ -153,6 +153,42 @@ UNIT_TEST(Geocoder_MismatchedLocality)
   TestGeocoder(geocoder, "Moscow Krymskaya 3", {});
 }
 
+UNIT_TEST(Geocoder_StreetWithNumber)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+20 {"properties": {"address": {"locality": "Краснокамск"}}}
+
+11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+
+12 {"properties": {"address": {"locality": "Москва", "street": "4-я улица 8 Марта"}}}
+
+13 {"properties": {"address": {"locality": "Москва", "street": "8 Марта"}}}
+
+21 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 8 Марта"}}}
+25 {"properties": {"address": {"locality": "Краснокамск", "street": "Январская улица"}}}
+26 {"properties": {"address": {"locality": "Краснокамск", "street": "Январская улица", "building": "8"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  using Id = base::GeoObjectId;
+  TestGeocoder(geocoder, "Москва, улица 1905 года", {{Id{11}, 1.0}});
+  TestGeocoder(geocoder, "Москва, 1905 года", {{Id{11}, 1.0}});
+  TestGeocoder(geocoder, "Краснокамск, улица 1905 года", {});
+
+  TestGeocoder(geocoder, "Москва, 4-я улица 8 Марта", {{Id{12}, 1.0}});
+  TestGeocoder(geocoder, "Москва, 4-я 8 Марта", {{Id{12}, 1.0}});
+
+  TestGeocoder(geocoder, "Москва, 8 Марта", {{Id{13}, 1.0}});
+  TestGeocoder(geocoder, "Москва, улица 8 Марта", {{Id{13}, 1.0}});
+
+  TestGeocoder(geocoder, "Краснокамск, улица 8 Марта", {{Id{21}, 1.0}});
+  TestGeocoder(geocoder, "Краснокамск, 8 Марта", {{Id{21}, 1.0}});
+  TestGeocoder(geocoder, "Краснокамск, Январская 8", {{Id{26}, 1.0}});
+}
+
 UNIT_TEST(Geocoder_LocalityBuilding)
 {
   string const kData = R"#(
