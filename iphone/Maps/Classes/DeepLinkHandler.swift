@@ -33,12 +33,9 @@ fileprivate enum DeeplinkType {
       isLaunchedByDeeplink = true
       deeplinkURL = launchDeeplink
     }
-
-    NSLog("deeplink: applicationDidFinishLaunching \(deeplinkURL?.absoluteString ?? "nil")")
   }
 
   func applicationDidOpenUrl(_ url: URL) -> Bool {
-    NSLog("deeplink: applicationDidOpenUrl \(url)")
     guard let dlType = deeplinkType(url) else { return false }
     deeplinkType = dlType
     deeplinkURL = url
@@ -62,7 +59,6 @@ fileprivate enum DeeplinkType {
   }
 
   func applicationDidReceiveUniversalLink(_ url: URL) -> Bool {
-    NSLog("deeplink: applicationDidReceiveUniversalLink \(url)")
     var result = false
     if let host = url.host, host == "mapsme.onelink.me" {
       URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
@@ -83,6 +79,11 @@ fileprivate enum DeeplinkType {
     } else {
       canHandleLink = true
     }
+  }
+
+  func handleDeeplink(_ url: URL) {
+    deeplinkURL = url
+    handleInternal()
   }
 
   func reset() {
@@ -114,7 +115,6 @@ fileprivate enum DeeplinkType {
       assertionFailure()
       return
     }
-    NSLog("deeplink: handle deeplink \(url)")
     switch deeplinkType {
     case .geo:
       DeepLinkHelper.handleGeoUrl(url)

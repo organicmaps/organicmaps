@@ -426,18 +426,15 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-  if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
-  {
+  if ([userActivity.activityType isEqualToString:CSSearchableItemActionType]) {
     NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
     NSString * searchString = L(searchStringKey);
-    if (searchString)
-    {
+    if (searchString) {
       [self searchText:searchString];
       return YES;
     }
-  }
-  else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb])
-  {
+  } else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] &&
+             userActivity.webpageURL != nil) {
     return [DeepLinkHandler.shared applicationDidReceiveUniversalLink:userActivity.webpageURL];
   }
 
@@ -802,7 +799,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 -(void)onConversionDataReceived:(NSDictionary*) installData {
   if ([installData[@"is_first_launch"] boolValue]) {
-    NSString *deeplink = installData[@"af_r"];
+    NSString *deeplink = installData[@"af_dp"];
     NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
     if (deeplinkUrl != nil) {
       dispatch_async(dispatch_get_main_queue(), ^{

@@ -176,8 +176,9 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
 }
 
 extension WelcomePageController: DeeplinkInfoViewControllerDelegate {
-  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController) {
+  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController, deeplink: URL?) {
     close()
-    DeepLinkHandler.shared.handleDeeplink()
+    guard let dl = deeplink else { return }
+    DeepLinkHandler.shared.handleDeeplink(dl)
   }
 }

@@ -1,5 +1,5 @@
 protocol DeeplinkInfoViewControllerDelegate: AnyObject {
-  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController)
+  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController, deeplink: URL?)
 }
 
 class DeeplinkInfoViewController: UIViewController {
@@ -32,7 +32,7 @@ class DeeplinkInfoViewController: UIViewController {
   }
 
   @IBAction func onNextButton(_ sender: UIButton) {
-    delegate?.deeplinkInfoViewControllerDidFinish(self)
+    delegate?.deeplinkInfoViewControllerDidFinish(self, deeplink: deeplinkURL)
     guard let dlUrl = deeplinkURL, let host = dlUrl.host else { return }
     Statistics.logEvent(kStatOnboardingDlAccept, withParameters: [kStatType : host])
   }
