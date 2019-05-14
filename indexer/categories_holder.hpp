@@ -5,7 +5,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <deque>
+#include <cstdint>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -33,7 +33,7 @@ public:
       uint8_t m_prefixLengthToSuggest;
     };
 
-    std::deque<Name> m_synonyms;
+    std::vector<Name> m_synonyms;
 
     void Swap(Category & r)
     {
@@ -50,9 +50,8 @@ public:
   using GroupTranslations = std::unordered_map<std::string, std::vector<Category::Name>>;
 
 private:
-  using String = strings::UniString;
   using Type2CategoryCont = std::multimap<uint32_t, std::shared_ptr<Category>>;
-  using Trie = base::MemTrie<String, base::VectorValues<uint32_t>>;
+  using Trie = base::MemTrie<strings::UniString, base::VectorValues<uint32_t>>;
 
   Type2CategoryCont m_type2cat;
 
@@ -119,9 +118,9 @@ public:
   }
 
   template <class ToDo>
-  void ForEachTypeByName(int8_t locale, String const & name, ToDo && toDo) const
+  void ForEachTypeByName(int8_t locale, strings::UniString const & name, ToDo && toDo) const
   {
-    auto const localePrefix = String(1, static_cast<strings::UniChar>(locale));
+    auto const localePrefix = strings::UniString(1, static_cast<strings::UniChar>(locale));
     m_name2type.ForEachInNode(localePrefix + name, std::forward<ToDo>(toDo));
   }
 
@@ -157,7 +156,7 @@ public:
 private:
   void LoadFromStream(std::istream & s);
   void AddCategory(Category & cat, std::vector<uint32_t> & types);
-  static bool ValidKeyToken(String const & s);
+  static bool ValidKeyToken(strings::UniString const & s);
 };
 
 inline void swap(CategoriesHolder & a, CategoriesHolder & b)

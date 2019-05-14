@@ -19,23 +19,9 @@ enum State
   EParseLanguages
 };
 
-void ProcessSynonym(CategoriesHolder::Category::Name const & name,
-                    deque<CategoriesHolder::Category::Name> & synonyms)
-{
-  if (name.m_name[0] != '^')
-  {
-    synonyms.push_back(name);
-    return;
-  }
-
-  // Name which starts with '^' is readable name for UI and it should be in the beginning.
-  synonyms.push_front(name);
-  synonyms.front().m_name = name.m_name.substr(1);
-}
-
-void GroupTranslationsToSynonyms(vector<string> const & groups,
-                                 CategoriesHolder::GroupTranslations const & translations,
-                                 deque<CategoriesHolder::Category::Name> & synonyms)
+void AddGroupTranslationsToSynonyms(vector<string> const & groups,
+                                    CategoriesHolder::GroupTranslations const & translations,
+                                    vector<CategoriesHolder::Category::Name> & synonyms)
 {
   for (string const & group : groups)
   {
@@ -43,19 +29,7 @@ void GroupTranslationsToSynonyms(vector<string> const & groups,
     if (it == translations.end())
       continue;
     for (auto & synonym : it->second)
-      ProcessSynonym(synonym, synonyms);
-  }
-}
-
-void TrimGroupTranslations(CategoriesHolder::GroupTranslations & translations)
-{
-  for (auto & translation : translations)
-  {
-    for (auto & synonym : translation.second)
-    {
-      if (synonym.m_name[0] == '^')
-        synonym.m_name = synonym.m_name.substr(1);
-    }
+      synonyms.push_back(synonym);
   }
 }
 
@@ -97,7 +71,7 @@ void FillPrefixLengthToSuggest(CategoriesHolder::Category::Name & name)
 
 void ProcessName(CategoriesHolder::Category::Name name, vector<string> const & groups,
                  vector<uint32_t> const & types, CategoriesHolder::GroupTranslations & translations,
-                 deque<CategoriesHolder::Category::Name> & synonyms)
+                 vector<CategoriesHolder::Category::Name> & synonyms)
 {
   if (name.m_name.empty())
   {
@@ -111,9 +85,14 @@ void ProcessName(CategoriesHolder::Category::Name name, vector<string> const & g
     return;
 
   if (groups.size() == 1 && types.empty())
-    translations[groups[0]].push_back(name);  // not a translation, but a category group definition
+  {
+    // Not a translation, but a category group definition.
+    translations[groups[0]].push_back(name);
+  }
   else
-    ProcessSynonym(name, synonyms);
+  {
+    synonyms.push_back(name);
+  }
 }
 
 void ProcessCategory(string const & line, vector<string> & groups, vector<uint32_t> & types)
@@ -134,7 +113,7 @@ void ProcessCategory(string const & line, vector<string> & groups, vector<uint32
   uint32_t const type = classif().GetTypeByPathSafe(v);
   if (type == 0)
   {
-    LOG(LWARNING, ("Invalid type:", v, "; during parcing the line:", line));
+    LOG(LWARNING, ("Invalid type:", v, "; during parsing the line:", line));
     return;
   }
 
@@ -212,11 +191,11 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
       auto const locale = synonym.m_locale;
       ASSERT_NOT_EQUAL(locale, kUnsupportedLocaleCode, ());
 
-      auto const localePrefix = String(1, static_cast<strings::UniChar>(locale));
+      auto const localePrefix = strings::UniString(1, static_cast<strings::UniChar>(locale));
 
       auto const uniName = search::NormalizeAndSimplifyString(synonym.m_name);
 
-      vector<String> tokens;
+      vector<strings::UniString> tokens;
       SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
       for (auto const & token : tokens)
@@ -233,7 +212,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
   types.clear();
 }
 
-bool CategoriesHolder::ValidKeyToken(String const & s)
+bool CategoriesHolder::ValidKeyToken(strings::UniString const & s)
 {
   if (s.size() > 2)
     return true;
@@ -285,10 +264,8 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
       if (!types.empty() || currentGroups.size() == 1)
       {
-        // Add translations into synonyms first, it will allow to override
-        // translations for UI by concrete category translation.
-        GroupTranslationsToSynonyms(currentGroups, m_groupTranslations, cat.m_synonyms);
         state = EParseLanguages;
+        AddGroupTranslationsToSynonyms(currentGroups, m_groupTranslations, cat.m_synonyms);
       }
     }
     else if (state == EParseLanguages)
@@ -313,9 +290,8 @@ void CategoriesHolder::LoadFromStream(istream & s)
       }
     }
   }
-  // add last category
+  // Add the last category.
   AddCategory(cat, types);
-  TrimGroupTranslations(m_groupTranslations);
 }
 
 bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name) const
