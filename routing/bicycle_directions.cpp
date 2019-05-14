@@ -211,6 +211,11 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   return true;
 }
 
+void BicycleDirectionsEngine::Clear()
+{
+  m_loader.reset();
+}
+
 FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())

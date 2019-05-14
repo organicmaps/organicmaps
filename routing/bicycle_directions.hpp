@@ -35,6 +35,7 @@ public:
                 base::Cancellable const & cancellable, Route::TTurns & turns,
                 Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                 vector<Segment> & segments) override;
+  void Clear() override;
 
 private:
   FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);

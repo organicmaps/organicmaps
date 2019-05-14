@@ -27,5 +27,6 @@ public:
                         base::Cancellable const & cancellable, Route::TTurns & turns,
                         Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                         vector<Segment> & segments) = 0;
+  virtual void Clear() = 0;
 };
 }  // namespace routing
