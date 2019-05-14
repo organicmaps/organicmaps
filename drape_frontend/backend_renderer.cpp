@@ -671,7 +671,7 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 void BackendRenderer::Routine::Do()
 {
   LOG(LINFO, ("Start routine."));
-  m_renderer.OnContextCreate();
+  m_renderer.CreateContext();
   while (!IsCancelled())
   {
     RENDER_FRAME(m_renderer.RenderFrame());

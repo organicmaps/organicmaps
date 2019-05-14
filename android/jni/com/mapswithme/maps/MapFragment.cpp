@@ -11,6 +11,15 @@
 #include "platform/file_logging.hpp"
 #include "platform/settings.hpp"
 
+namespace
+{
+void OnRenderingInitializationFinished(std::shared_ptr<jobject> const & listener)
+{
+  JNIEnv * env = jni::GetEnv();
+  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener.get(),
+                      "onRenderingInitializationFinished", "()V"));
+}
+}  // namespace
 
 extern "C"
 {
@@ -125,7 +134,8 @@ Java_com_mapswithme_maps_MapFragment_nativeOnTouch(JNIEnv * env, jclass clazz, j
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeSetupWidget(JNIEnv * env, jclass clazz, jint widget, jfloat x, jfloat y, jint anchor)
+Java_com_mapswithme_maps_MapFragment_nativeSetupWidget(
+  JNIEnv * env, jclass clazz, jint widget, jfloat x, jfloat y, jint anchor)
 {
   g_framework->SetupWidget(static_cast<gui::EWidget>(widget), x, y, static_cast<dp::Anchor>(anchor));
 }
@@ -142,4 +152,18 @@ Java_com_mapswithme_maps_MapFragment_nativeCleanWidgets(JNIEnv * env, jclass cla
   g_framework->CleanWidgets();
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MapFragment_nativeSetRenderingInitializationFinishedListener(
+  JNIEnv * env, jclass clazz, jobject listener)
+{
+  if (listener)
+  {
+    g_framework->NativeFramework()->SetGraphicsContextInitializationHandler(
+      std::bind(&OnRenderingInitializationFinished, jni::make_global_ref(listener)));
+  }
+  else
+  {
+    g_framework->NativeFramework()->SetGraphicsContextInitializationHandler(nullptr);
+  }
+}
 } // extern "C"

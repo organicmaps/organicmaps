@@ -44,8 +44,9 @@ public:
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled,
-           bool simplifiedTrafficColors, TIsUGCFn && isUGCFn)
-      : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
+           bool simplifiedTrafficColors, TIsUGCFn && isUGCFn,
+           OnGraphicsContextInitialized const & onGraphicsContextInitialized)
+      : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_model(model)
       , m_updateCurrentCountryFn(updateCurrentCountryFn)
       , m_requestedTiles(requestedTiles)

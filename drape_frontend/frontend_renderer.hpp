@@ -89,8 +89,9 @@ public:
            TUserPositionChangedFn const & positionChangedFn, ref_ptr<RequestedTiles> requestedTiles,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
-           std::vector<PostprocessRenderer::Effect> && enabledEffects)
-      : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
+           std::vector<PostprocessRenderer::Effect> && enabledEffects,
+           OnGraphicsContextInitialized const & onGraphicsContextInitialized)
+      : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)

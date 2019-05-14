@@ -85,7 +85,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                     params.m_allow3dBuildings,
                                     params.m_trafficEnabled,
                                     params.m_blockTapEvents,
-                                    std::move(effects));
+                                    std::move(effects),
+                                    params.m_onGraphicsContextInitialized);
 
   m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
 
@@ -99,7 +100,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                    params.m_allow3dBuildings,
                                    params.m_trafficEnabled,
                                    params.m_simplifiedTrafficColors,
-                                   std::move(params.m_isUGCFn));
+                                   std::move(params.m_isUGCFn),
+                                   params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
 

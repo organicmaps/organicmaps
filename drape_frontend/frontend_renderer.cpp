@@ -2339,7 +2339,7 @@ void FrontendRenderer::Routine::Do()
   m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
   m_renderer.m_userEventStream.SetListener(ref_ptr<UserEventStream::Listener>(&m_renderer));
 
-  m_renderer.OnContextCreate();
+  m_renderer.CreateContext();
 
 #if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE) || defined(SCENARIO_ENABLE)
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);

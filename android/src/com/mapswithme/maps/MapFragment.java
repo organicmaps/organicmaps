@@ -26,7 +26,8 @@ import com.mapswithme.util.log.LoggerFactory;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
-                                 SurfaceHolder.Callback
+                                 SurfaceHolder.Callback,
+                                 MapRenderingListener
 {
   public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -71,12 +72,6 @@ public class MapFragment extends BaseMwmFragment
   private String mUiThemeOnPause;
   @NonNull
   private SurfaceView mSurfaceView;
-
-  interface MapRenderingListener
-  {
-    void onRenderingInitialized();
-    void onRenderingRestored();
-  }
 
   private void setupWidgets(int width, int height)
   {
@@ -137,18 +132,28 @@ public class MapFragment extends BaseMwmFragment
       nativeApplyWidgets();
   }
 
-  private void onRenderingInitialized()
+  @Override
+  public void onRenderingCreated()
   {
     final Activity activity = getActivity();
     if (isAdded() && activity instanceof MapRenderingListener)
-      ((MapRenderingListener) activity).onRenderingInitialized();
+      ((MapRenderingListener) activity).onRenderingCreated();
   }
 
-  private void onRenderingRestored()
+  @Override
+  public void onRenderingRestored()
   {
     final Activity activity = getActivity();
     if (isAdded() && activity instanceof MapRenderingListener)
       ((MapRenderingListener) activity).onRenderingRestored();
+  }
+
+  @Override
+  public void onRenderingInitializationFinished()
+  {
+    final Activity activity = getActivity();
+    if (isAdded() && activity instanceof MapRenderingListener)
+      ((MapRenderingListener) activity).onRenderingInitializationFinished();
   }
 
   private void reportUnsupported()
@@ -222,7 +227,7 @@ public class MapFragment extends BaseMwmFragment
     mSurfaceCreated = true;
     mSurfaceAttached = true;
     nativeResumeSurfaceRendering();
-    onRenderingInitialized();
+    onRenderingCreated();
   }
 
   @Override
@@ -280,7 +285,15 @@ public class MapFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
+    nativeSetRenderingInitializationFinishedListener(this);
     LOGGER.d(TAG, "onStart");
+  }
+
+  public void onStop()
+  {
+    super.onStop();
+    nativeSetRenderingInitializationFinishedListener(null);
+    LOGGER.d(TAG, "onStop");
   }
 
   private boolean isThemeChangingProcess()
@@ -391,4 +404,5 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();
   private static native void nativeCleanWidgets();
+  private static native void nativeSetRenderingInitializationFinishedListener(MapRenderingListener listener);
 }

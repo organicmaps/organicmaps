@@ -516,6 +516,8 @@ public:
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool destroySurface);
 
+  void SetGraphicsContextInitializationHandler(df::OnGraphicsContextInitialized && handler);
+
   void OnRecoverSurface(int width, int height, bool recreateContextDependentResources);
   void OnDestroySurface();
 
@@ -524,6 +526,8 @@ private:
   void SaveViewport();
   /// Depends on initialized Drape engine.
   void LoadViewport();
+
+  df::OnGraphicsContextInitialized m_onGraphicsContextInitialized;
 
 public:
   void ConnectToGpsTracker();

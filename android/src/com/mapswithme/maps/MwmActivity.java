@@ -135,7 +135,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
                                  View.OnTouchListener,
                                  OnClickListener,
-                                 MapFragment.MapRenderingListener,
+                                 MapRenderingListener,
                                  CustomNavigateUpListener,
                                  RoutingController.Container,
                                  LocationHelper.UiCallback,
@@ -278,17 +278,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRenderingInitialized()
+  public void onRenderingCreated()
   {
     checkMeasurementSystem();
     checkKitkatMigrationMove();
 
     LocationHelper.INSTANCE.attach(this);
-    runTasks();
   }
 
   @Override
   public void onRenderingRestored()
+  {
+    runTasks();
+  }
+
+  @Override
+  public void onRenderingInitializationFinished()
   {
     runTasks();
   }

@@ -5,6 +5,9 @@
 
 namespace df
 {
+// static
+std::atomic<uint8_t> BaseRenderer::m_contextCounter(0);
+
 BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params)
   : m_apiVersion(params.m_apiVersion)
   , m_commutator(params.m_commutator)
@@ -15,6 +18,7 @@ BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & pa
   , m_renderingEnablingCompletionHandler(nullptr)
   , m_wasNotified(false)
   , m_wasContextReset(false)
+  , m_onGraphicsContextInitialized(params.m_onGraphicsContextInitialized)
 {
   m_commutator->RegisterThread(m_threadName, this);
 }
@@ -103,6 +107,16 @@ bool BaseRenderer::FilterContextDependentMessage(ref_ptr<Message> msg)
   return msg->IsGraphicsContextDependent();
 }
 
+void BaseRenderer::CreateContext()
+{
+  OnContextCreate();
+
+  m_contextCounter++;
+  uint8_t constexpr kContextCount = 2;
+  if (m_contextCounter == kContextCount && m_onGraphicsContextInitialized)
+    m_onGraphicsContextInitialized();
+}
+
 void BaseRenderer::CheckRenderingEnabled()
 {
   if (!m_isEnabled)
@@ -114,6 +128,8 @@ void BaseRenderer::CheckRenderingEnabled()
       using namespace std::placeholders;
       EnableMessageFiltering(std::bind(&BaseRenderer::FilterContextDependentMessage, this, _1));
       OnContextDestroy();
+      CHECK(m_contextCounter > 0, ());
+      m_contextCounter--;
     }
     else
     {
@@ -161,7 +177,7 @@ void BaseRenderer::CheckRenderingEnabled()
     OnRenderingEnabled();
 
     if (needCreateContext)
-      OnContextCreate();
+      CreateContext();
   }
 }
 
