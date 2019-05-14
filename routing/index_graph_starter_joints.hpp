@@ -63,9 +63,9 @@ public:
   bool AreWavesConnectible(std::map<Vertex, Vertex> & forwardParents, Vertex const & commonVertex,
                           std::map<Vertex, Vertex> & backwardParents) override
   {
-    auto converter = [&](JointSegment const & vertex) {
-      if (vertex.IsRealSegment())
-        return vertex.GetFeatureId();
+    auto converter = [&](JointSegment const & vertex)
+    {
+      ASSERT(!vertex.IsRealSegment(), ());
 
       auto const it = m_fakeJointSegments.find(vertex);
       ASSERT(it != m_fakeJointSegments.cend(), ());

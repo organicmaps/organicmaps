@@ -80,31 +80,38 @@ RestrictionVec && RestrictionLoader::StealRestrictions()
   return std::move(m_restrictions);
 }
 
+bool IsRestrictionFromRoads(IndexGraph const & graph, std::vector<uint32_t> const & restriction)
+{
+  for (auto const & featureId : restriction)
+  {
+    if (!graph.IsRoad(featureId))
+      return false;
+  }
+
+  return true;
+}
+
 /// \brief We store |Only| restriction in mwm, like
 /// Only, featureId_1, ... , featureId_N
+///
 /// We convert such restriction to |No| following way:
-/// For each pair of neighbouring features (featureId_1 and featureId_2 for ex.)
-/// we forbid to go from featureId_1 to wherever except featureId_2.
-/// Then do this for featureId_2 and featureId_3 and so on.
+/// For each M, greater than 1, and M first features:
+/// featureId_1, ... , featureId_(M - 1), featureId_M, ...
+///
+/// We create restrictionNo from features:
+/// featureId_1, ... , featureId_(M - 1), featureId_K
+/// where featureId_K - has common joint with featureId_(M - 1) and featureId_M.
 void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
                                         RestrictionVec const & restrictionsOnly,
                                         RestrictionVec & restrictionsNo)
 {
-  for (auto const & restriction : restrictionsOnly)
+  for (std::vector<uint32_t> const & restriction : restrictionsOnly)
   {
-    if (std::any_of(restriction.begin(), restriction.end(),
-                    [&graph](auto const & item)
-                    {
-                      return !graph.IsRoad(item);
-                    }))
-    {
-      continue;
-    }
-
     CHECK_GREATER_OR_EQUAL(restriction.size(), 2, ());
-    // vector of simple no_restriction - from|to.
-    std::vector<std::pair<uint32_t, uint32_t>> toAdd;
-    bool error = false;
+
+    if (!IsRestrictionFromRoads(graph, restriction))
+      continue;
+
     for (size_t i = 1; i < restriction.size(); ++i)
     {
       auto const curFeatureId = restriction[i];
@@ -115,30 +122,21 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
           GetCommonEndJoint(graph.GetRoad(curFeatureId), graph.GetRoad(prevFeatureId));
 
       if (common == Joint::kInvalidId)
-      {
-        error = true;
         break;
-      }
 
-      // Adding restriction of type No for all features of joint |common| except for
-      // |prevFeatureId| -> |curFeatureId|.
+      std::vector<uint32_t> commonFeatures;
+      commonFeatures.resize(i + 1);
+      std::copy(restriction.begin(), restriction.begin() + i, commonFeatures.begin());
+
       graph.ForEachPoint(common,
                          [&](RoadPoint const & rp)
                          {
                            if (rp.GetFeatureId() != curFeatureId)
-                             toAdd.emplace_back(prevFeatureId, rp.GetFeatureId());
+                           {
+                             commonFeatures.back() = rp.GetFeatureId();
+                             restrictionsNo.emplace_back(commonFeatures);
+                           }
                          });
-    }
-
-    if (error)
-      continue;
-
-    for (auto const & fromToPair : toAdd)
-    {
-      std::vector<uint32_t> newRestriction =
-          {fromToPair.first /* from */, fromToPair.second /* to */};
-
-      restrictionsNo.emplace_back(std::move(newRestriction));
     }
   }
 

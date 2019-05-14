@@ -251,6 +251,24 @@ void SingleVehicleWorldGraph::SetAStarParents(bool forward, map<JointSegment, Jo
 }
 
 template <typename VertexType>
+NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
+{
+  NumMwmId mwmId = kFakeNumMwmId;
+  for (size_t i = 0; i < chain.size(); ++i)
+  {
+    if (chain[i].GetMwmId() == kFakeNumMwmId)
+      continue;
+
+    if (mwmId != kFakeNumMwmId && mwmId != chain[i].GetMwmId())
+      return kFakeNumMwmId;
+
+    mwmId = chain[i].GetMwmId();
+  }
+
+  return mwmId;
+}
+
+template <typename VertexType>
 bool 
 SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> const & forwardParents,
                                                  VertexType const & commonVertex,
@@ -258,7 +276,6 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
                                                  function<uint32_t(VertexType const &)> && fakeFeatureConverter)
 {
   vector<VertexType> chain;
-  NumMwmId mwmId = kFakeNumMwmId;
   auto const fillUntilNextFeatureId = [&](VertexType const & cur, map<VertexType, VertexType> const & parents)
   {
     auto startFeatureId = cur.GetFeatureId();
@@ -305,21 +322,13 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
     }
   }
 
-  map<VertexType, VertexType> parents;
-  for (size_t i = 1; i < chain.size(); ++i)
-  {
-    parents[chain[i]] = chain[i - 1];
-    if (chain[i].IsRealSegment())
-    {
-      if (mwmId != kFakeNumMwmId && mwmId != chain[i].GetMwmId())
-        return true;
-
-      mwmId = chain[i].GetMwmId();
-    }
-  }
-
+  NumMwmId mwmId = GetCommonMwmInChain(chain);
   if (mwmId == kFakeNumMwmId)
     return true;
+
+  map<VertexType, VertexType> parents;
+  for (size_t i = 1; i < chain.size(); ++i)
+    parents[chain[i]] = chain[i - 1];
 
   auto & currentIndexGraph = GetIndexGraph(mwmId);
   for (size_t i = 1; i < chain.size(); ++i)
