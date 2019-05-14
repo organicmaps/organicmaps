@@ -138,24 +138,15 @@ endif()
 
 # Find installed packages
 
-find_package(Threads)
-
-set(Boost_USE_MULTITHREADED ON)
-
-if (PLATFORM_MAC)
-  set(Boost_USE_STATIC_LIBS ON)
-  set(Boost_USE_STATIC_RUNTIME ON)
-endif()
 
 set(BOOST_VERSION 1.68)
-set(BOOST_ROOT "${OMIM_ROOT}/3party/boost")
-set(BOOST_INCLUDEDIR "${OMIM_ROOT}/3party/boost")
-set(BOOST_BOOST_LIBRARYDIR "${OMIM_ROOT}/3party/boost/stage/lib/")
-set(Boost_NO_SYSTEM_PATHS ON)
-
-set(Boost_INCLUDE_DIR "${BOOST_INCLUDEDIR}")
-set(Boost_LIBRARY_DIR "${BOOST_BOOST_LIBRARYDIR}")
+set(OMIM_BOOST_SRC "${OMIM_ROOT}/3party/boost")
+set(OMIM_BOOST_BINARY_PATH "${CMAKE_BINARY_DIR}/3party/boost/")
+set(Boost_INCLUDE_DIR "${OMIM_BOOST_SRC}")
+set(Boost_LIBRARY_DIR "${OMIM_BOOST_BINARY_PATH}/lib")
 set(Boost_USE_STATIC_LIBS ON)
+find_package(Threads)
+set(Boost_USE_MULTITHREADED ON)
 
 init_boost()
 install_boost_headers()
