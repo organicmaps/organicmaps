@@ -476,7 +476,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
   double matchedPercent = 100;
   if (address > 0)
     matchedPercent = 100.0 * (1.0 - static_cast<double>(missing) / static_cast<double>(address));
-  LOG(LINFO, ("Address: Matched percent", matchedPercent));
+  LOG(LINFO, ("Address: Matched percent", matchedPercent, "Total:", address, "Missing:", missing));
 }
 }  // namespace
 
