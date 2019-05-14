@@ -182,3 +182,6 @@ designer_version.h
 
 # Vim files
 *.sw?
+
+# Build version
+build_version.hpp

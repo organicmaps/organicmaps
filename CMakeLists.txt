@@ -9,6 +9,7 @@ get_filename_component(OMIM_ROOT . ABSOLUTE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
 include(OmimHelpers)
+include(BuildVersion)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(LINUX_DETECTED TRUE)
@@ -333,3 +334,10 @@ omim_add_test_subdirectory(qt_tstfrm)
 if (PLATFORM_ANDROID)
   add_subdirectory(android/jni)
 endif()
+
+add_custom_target(BuildVersion ALL
+  COMMAND
+  ${CMAKE_COMMAND}
+  -DOMIM_ROOT="${OMIM_ROOT}"
+  -P ${OMIM_ROOT}/cmake/BuildVersion.cmake
+)
