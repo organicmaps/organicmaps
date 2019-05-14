@@ -212,6 +212,7 @@ public:
   /// Road type
   void SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,
                    std::string const & distance);
+  void SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance);
   RoadWarningMarkType GetRoadType() const { return m_roadType; }
 
   /// CountryId

@@ -1053,20 +1053,27 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
 
 void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const
 {
-  CHECK(roadTypeMark.GetFeatureID().IsValid(), ());
-
-  FeaturesLoaderGuard const guard(m_model.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
-  auto ft = guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index);
-  if (!ft)
+  if (roadTypeMark.GetFeatureID().IsValid())
   {
-    LOG(LERROR, ("Feature can't be loaded:", roadTypeMark.GetFeatureID()));
-    return;
+    FeaturesLoaderGuard const guard(m_model.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
+    auto ft = guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index);
+    if (ft)
+    {
+      FillInfoFromFeatureType(*ft, info);
+
+      info.SetRoadType(*ft, roadTypeMark.GetRoadWarningType(),
+                       RoadWarningMark::GetLocalizedRoadWarningType(roadTypeMark.GetRoadWarningType()),
+                       roadTypeMark.GetDistance());
+      info.SetMercator(roadTypeMark.GetPivot());
+      return;
+    }
+    else
+    {
+      LOG(LERROR, ("Feature can't be loaded:", roadTypeMark.GetFeatureID()));
+    }
   }
-  FillInfoFromFeatureType(*ft, info);
 
-
-  info.SetRoadType(*ft,
-                   roadTypeMark.GetRoadWarningType(),
+  info.SetRoadType(roadTypeMark.GetRoadWarningType(),
                    RoadWarningMark::GetLocalizedRoadWarningType(roadTypeMark.GetRoadWarningType()),
                    roadTypeMark.GetDistance());
   info.SetMercator(roadTypeMark.GetPivot());

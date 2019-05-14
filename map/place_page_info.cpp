@@ -332,6 +332,13 @@ void Info::SetPartnerIndex(int index)
   m_partnerName = GetPartnerByIndex(m_partnerIndex).m_name;
 }
 
+void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
+{
+  m_roadType = type;
+  m_uiTitle = localizedType;
+  m_uiSubtitle = distance;
+}
+
 void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,
                        std::string const & distance)
 {

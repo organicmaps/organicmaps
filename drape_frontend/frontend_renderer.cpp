@@ -871,7 +871,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
       break;
-  }
+    }
 
   case Message::Type::EnableTraffic:
     {
