@@ -92,7 +92,8 @@ void ScenarioManager::ThreadRoutine()
         m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(centerViewportAction->GetCenter(),
                                                                         centerViewportAction->GetZoomLevel(),
                                                                         true /* isAnim */,
-                                                                        false /* trackVisibleViewport */));
+                                                                        false /* trackVisibleViewport */,
+                                                                        nullptr /* parallelAnimCreator */));
         break;
       }
 

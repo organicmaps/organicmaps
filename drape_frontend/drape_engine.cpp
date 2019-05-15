@@ -193,16 +193,23 @@ void DrapeEngine::Move(double factorX, double factorY, bool isAnim)
   AddUserEvent(make_unique_dp<MoveEvent>(factorX, factorY, isAnim));
 }
 
+void DrapeEngine::Rotate(double azimuth, bool isAnim)
+{
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
+}
+
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim,
                                      bool trackVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport,
+                                               nullptr /* parallelAnimCreator */));
 }
 
 void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
                                    bool useVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport));
+  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport,
+                                             nullptr /* parallelAnimCreator */ ));
 }
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport)

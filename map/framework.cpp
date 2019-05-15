@@ -1320,6 +1320,12 @@ void Framework::Move(double factorX, double factorY, bool isAnim)
     m_drapeEngine->Move(factorX, factorY, isAnim);
 }
 
+void Framework::Rotate(double azimuth, bool isAnim)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Rotate(azimuth, isAnim);
+}
+
 void Framework::TouchEvent(df::TouchEvent const & touch)
 {
   if (m_drapeEngine != nullptr)

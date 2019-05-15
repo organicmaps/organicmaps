@@ -161,7 +161,7 @@ class SetCenterEvent : public UserEvent
 public:
   SetCenterEvent(m2::PointD const & center, int zoom,
                  bool isAnim, bool trackVisibleViewport,
-                 TAnimationCreator const & parallelAnimCreator = nullptr)
+                 TAnimationCreator const & parallelAnimCreator)
     : m_center(center)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
@@ -189,7 +189,7 @@ class SetRectEvent : public UserEvent
 {
 public:
   SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim,
-               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr)
+               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
@@ -314,18 +314,21 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  explicit RotateEvent(double targetAzimut, TAnimationCreator const & parallelAnimCreator = nullptr)
-    : m_targetAzimut(targetAzimut)
+  explicit RotateEvent(double targetAzimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
+    : m_targetAzimuth(targetAzimuth)
+    , m_isAnim(isAnim)
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::Rotate; }
 
-  double GetTargetAzimuth() const { return m_targetAzimut; }
+  bool IsAnim() const { return m_isAnim; }
+  double GetTargetAzimuth() const { return m_targetAzimuth; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
-  double m_targetAzimut;
+  double m_targetAzimuth;
+  bool m_isAnim;
   TAnimationCreator m_parallelAnimCreator;
 };
 
@@ -437,7 +440,7 @@ private:
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
   bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
 
-  bool SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
                bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport,

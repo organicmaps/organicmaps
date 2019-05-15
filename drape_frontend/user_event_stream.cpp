@@ -426,7 +426,7 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 
 bool UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
 {
-  return SetAngle(rotateEvent->GetTargetAzimuth(), rotateEvent->GetParallelAnimCreator());
+  return SetAngle(rotateEvent->GetTargetAzimuth(), rotateEvent->IsAnim(), rotateEvent->GetParallelAnimCreator());
 }
 
 bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent)
@@ -455,7 +455,7 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   return false;
 }
 
-bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator)
+bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
 {
   ScreenBase screen;
   GetTargetScreen(screen);
@@ -466,14 +466,14 @@ bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & paralle
   {
     return SetFollowAndRotate(gPt, pt,
                               azimuth, kDoNotChangeZoom, kDoNotAutoZoom,
-                              true /* isAnim */, false /* isAutoScale */,
+                              isAnim, false /* isAutoScale */,
                               nullptr /* onFinishAction */,
                               parallelAnimCreator);
   }
 
   screen.SetAngle(azimuth);
   screen.MatchGandP3d(gPt, pt);
-  return SetScreen(screen, true /* isAnim */, parallelAnimCreator);
+  return SetScreen(screen, isAnim, parallelAnimCreator);
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
@@ -703,7 +703,7 @@ void UserEventStream::CheckAutoRotate()
   double const kMaxAutoRotateAngle = 25.0 * math::pi / 180.0;
   double const angle = fabs(GetCurrentScreen().GetAngle());
   if (angle < kMaxAutoRotateAngle || (math::twicePi - angle) < kMaxAutoRotateAngle)
-    SetAngle(0.0);
+    SetAngle(0.0, true /* isAnim */);
 }
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)

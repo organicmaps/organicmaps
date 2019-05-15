@@ -672,6 +672,8 @@ public:
   /// factorY = 1.5 moves the map one and a half size up.
   void Move(double factorX, double factorY, bool isAnim);
 
+  void Rotate(double azimuth, bool isAnim);
+
   void TouchEvent(df::TouchEvent const & touch);
   //@}
 

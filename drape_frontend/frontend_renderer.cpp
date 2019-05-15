@@ -824,8 +824,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           int zoom = kDoNotChangeZoom;
           if (m_currentZoomLevel < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
-          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */,
-                                                      false /* trackVisibleViewport */));
+          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */, false /* trackVisibleViewport */,
+                                                      nullptr /* parallelAnimCreator */));
         }
       }
       break;
@@ -1274,8 +1274,8 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     int zoom = kDoNotChangeZoom;
     if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
-    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */,
-                                                false /* trackVisibleViewport */));
+    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */, false /* trackVisibleViewport */,
+                                                nullptr /* parallelAnimCreator */));
   }
 }
 
@@ -2423,7 +2423,7 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
 void FrontendRenderer::ChangeModelView(double azimuth,
                                        TAnimationCreator const & parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, true /* isAnim */, parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect,
@@ -2558,7 +2558,7 @@ void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos = m_myPositionController->GetDrawablePosition();
   AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */,
-                                              false /* trackVisibleViewport */));
+                                              false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
 }
 
 void FrontendRenderer::ScheduleOverlayCollecting()
