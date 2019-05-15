@@ -26,8 +26,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
-                                 SurfaceHolder.Callback,
-                                 MapRenderingListener
+                                 SurfaceHolder.Callback
 {
   public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -135,27 +134,6 @@ public class MapFragment extends BaseMwmFragment
       nativeApplyWidgets();
   }
 
-  @Override
-  public void onRenderingCreated()
-  {
-    if (mMapRenderingListener != null)
-      mMapRenderingListener.onRenderingCreated();
-  }
-
-  @Override
-  public void onRenderingRestored()
-  {
-    if (mMapRenderingListener != null)
-      mMapRenderingListener.onRenderingRestored();
-  }
-
-  @Override
-  public void onRenderingInitializationFinished()
-  {
-    if (mMapRenderingListener != null)
-      mMapRenderingListener.onRenderingInitializationFinished();
-  }
-
   private void reportUnsupported()
   {
     new AlertDialog.Builder(requireActivity())
@@ -227,7 +205,8 @@ public class MapFragment extends BaseMwmFragment
     mSurfaceCreated = true;
     mSurfaceAttached = true;
     nativeResumeSurfaceRendering();
-    onRenderingCreated();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingCreated();
   }
 
   @Override
@@ -249,7 +228,8 @@ public class MapFragment extends BaseMwmFragment
     mRequireResize = false;
     setupWidgets(width, height);
     nativeApplyWidgets();
-    onRenderingRestored();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingRestored();
   }
 
   @Override
@@ -299,7 +279,7 @@ public class MapFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
-    nativeSetRenderingInitializationFinishedListener(this);
+    nativeSetRenderingInitializationFinishedListener(mMapRenderingListener);
     LOGGER.d(TAG, "onStart");
   }
 
