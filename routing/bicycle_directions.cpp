@@ -354,8 +354,8 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       continue;
     }
 
-    CHECK_EQUAL(prevJunctions.size(), static_cast<size_t>(
-                    abs(static_cast<int32_t>(inSegId - startSegId)) + 1), ());
+    CHECK_EQUAL(prevJunctions.size(),
+                static_cast<size_t>(abs(static_cast<int32_t>(inSegId - startSegId)) + 1), ());
 
     prevJunctions.push_back(currJunction);
 
@@ -379,12 +379,6 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     if (!segmentRange.IsEmpty())
     {
       auto const it = m_adjacentEdges.find(segmentRange);
-      // A route may be built through intermediate points. So it may contain the same |segmentRange|
-      // several times. But in that case |adjacentEdges| corresponding to |segmentRange|
-      // should be the same.
-      ASSERT(it == m_adjacentEdges.cend() || it->second.IsAlmostEqual(adjacentEdges),
-             ("segmentRange:", segmentRange, "corresponds to adjacent edges which aren't equal."));
-
       m_adjacentEdges.insert(it, make_pair(segmentRange, move(adjacentEdges)));
     }
 
