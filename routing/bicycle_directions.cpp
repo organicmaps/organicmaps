@@ -213,6 +213,8 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
 
 void BicycleDirectionsEngine::Clear()
 {
+  m_adjacentEdges.clear();
+  m_pathSegments.clear();
   m_loader.reset();
 }
 
