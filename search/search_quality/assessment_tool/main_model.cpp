@@ -45,7 +45,7 @@ MainModel::MainModel(Framework & framework)
                m_view->OnSampleChanged(index, false /* isUseless */, false /* hasEdits */);
              })
 {
-  search::CheckLocale();
+  search::search_quality::CheckLocale();
 }
 
 void MainModel::Open(string const & path)

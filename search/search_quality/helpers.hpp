@@ -1,15 +1,21 @@
 #pragma once
 
+#include "search/search_tests_support/test_search_engine.hpp"
+
 #include "geometry/rect2d.hpp"
 
+#include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <string>
+#include <vector>
 
-#include <boost/optional.hpp>
-
-#include "3party/jansson/myjansson.hpp"
+class DataSource;
+class FrozenDataSource;
 
 namespace search
+{
+namespace search_quality
 {
 // todo(@m) We should not need that much.
 size_t constexpr kMaxOpenFiles = 4000;
@@ -17,23 +23,16 @@ size_t constexpr kMaxOpenFiles = 4000;
 void ChangeMaxNumberOfOpenFiles(size_t n);
 
 void CheckLocale();
+
+void ReadStringsFromFile(std::string const & path, std::vector<std::string> & result);
+
+void SetPlatformDirs(std::string const & dataPath, std::string const & mwmPath);
+
+void InitViewport(std::string viewportName, m2::RectD & viewport);
+
+void InitDataSource(FrozenDataSource & dataSource, std::string const & mwmListPath);
+
+std::unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
+    DataSource & dataSource, std::string const & locale, size_t numThreads);
+}  // namespace search_quality
 }  // namespace search
-
-namespace m2
-{
-void FromJSONObject(json_t * root, char const * field, RectD & rect);
-void ToJSONObject(json_t & root, char const * field, RectD const & rect);
-void FromJSONObject(json_t * root, std::string const & field, RectD & rect);
-void ToJSONObject(json_t & root, std::string const & field, RectD const & rect);
-
-void FromJSONObject(json_t * root, char const * field, PointD & point);
-void FromJSONObjectOptional(json_t * root, char const * field, boost::optional<PointD> & point);
-void FromJSONObject(json_t * root, std::string const & field, PointD & point);
-void FromJSONObjectOptional(json_t * root, std::string const & field,
-                            boost::optional<PointD> & point);
-
-void ToJSONObject(json_t & root, char const * field, PointD const & point);
-void ToJSONObject(json_t & root, std::string const & field, PointD const & point);
-void ToJSONObject(json_t & root, char const * field, boost::optional<PointD> const & point);
-void ToJSONObject(json_t & root, std::string const & field, boost::optional<PointD> const & point);
-}  // namespace m2

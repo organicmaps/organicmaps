@@ -316,7 +316,7 @@ bool WillDelete(storage::CountryId const & /* countryId */,
 
 int main(int argc, char ** argv)
 {
-  search::ChangeMaxNumberOfOpenFiles(search::kMaxOpenFiles);
+  search::search_quality::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
   if (argc <= 1)
   {
     LOG(LERROR, ("Usage:", argc == 1 ? argv[0] : "feature_list",

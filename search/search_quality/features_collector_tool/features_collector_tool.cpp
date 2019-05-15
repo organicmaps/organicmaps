@@ -37,6 +37,7 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
@@ -61,17 +62,6 @@ void GetContents(istream & is, string & contents)
     contents.append(line);
     contents.push_back('\n');
   }
-}
-
-void DidDownload(CountryId const & /* countryId */,
-                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-}
-
-bool WillDelete(CountryId const & /* countryId */,
-                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-  return false;
 }
 
 void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> const & stats)
@@ -111,25 +101,14 @@ int main(int argc, char * argv[])
   google::SetUsageMessage("Features collector tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & platform = GetPlatform();
+  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 
-  string countriesFile = COUNTRIES_FILE;
-  if (!FLAGS_data_path.empty())
-  {
-    platform.SetResourceDir(FLAGS_data_path);
-    countriesFile = base::JoinPath(FLAGS_data_path, COUNTRIES_FILE);
-  }
+  classificator::Load();
 
-  if (!FLAGS_mwm_path.empty())
-    platform.SetWritableDirForTests(FLAGS_mwm_path);
+  FrozenDataSource dataSource;
+  InitDataSource(dataSource, "" /* mwmListPath */);
 
-  LOG(LINFO, ("writable dir =", platform.WritableDir()));
-  LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
-
-  Storage storage(countriesFile);
-  storage.Init(&DidDownload, &WillDelete);
-  auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
-  infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
+  auto engine = InitSearchEngine(dataSource, "en" /* locale */, 1 /* numThreads */);
 
   string lines;
   if (FLAGS_json_in.empty())
@@ -154,20 +133,6 @@ int main(int argc, char * argv[])
     return -1;
   }
 
-  classificator::Load();
-  FrozenDataSource dataSource;
-
-  vector<platform::LocalCountryFile> mwms;
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                       mwms);
-  for (auto & mwm : mwms)
-  {
-    mwm.SyncWithDisk();
-    dataSource.RegisterMap(mwm);
-  }
-
-  TestSearchEngine engine(dataSource, move(infoGetter), Engine::Params{});
-
   vector<Stats> stats(samples.size());
   FeatureLoader loader(dataSource);
   Matcher matcher(loader);
@@ -182,7 +147,7 @@ int main(int argc, char * argv[])
 
     search::SearchParams params;
     sample.FillSearchParams(params);
-    TestSearchRequest request(engine, params);
+    TestSearchRequest request(*engine, params);
     request.Run();
 
     auto const & results = request.Results();

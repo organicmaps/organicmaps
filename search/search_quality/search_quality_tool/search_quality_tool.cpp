@@ -16,7 +16,6 @@
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -24,8 +23,8 @@
 #include "storage/storage_defines.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/reader_wrapper.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -50,6 +49,7 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std::chrono;
@@ -68,17 +68,69 @@ DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, lo
 DEFINE_string(check_completeness, "", "Path to the file with completeness data");
 DEFINE_string(ranking_csv_file, "", "File ranking info will be exported to");
 
-map<string, m2::RectD> const kViewports = {
-    {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
-    {"moscow", MercatorBounds::RectByCenterLatLonAndSizeInMeters(55.7, 37.7, 5000)},
-    {"london", MercatorBounds::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
-    {"zurich", MercatorBounds::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
-
-string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
+string const kDefaultQueriesPathSuffix =
+    "/../search/search_quality/search_quality_tool/queries.txt";
 string const kEmptyResult = "<empty>";
+
+// Unlike strings::Tokenize, this function allows for empty tokens.
+void Split(string const & s, char delim, vector<string> & parts)
+{
+  istringstream iss(s);
+  string part;
+  while (getline(iss, part, delim))
+    parts.push_back(part);
+}
 
 struct CompletenessQuery
 {
+  DECLARE_EXCEPTION(MalformedQueryException, RootException);
+
+  explicit CompletenessQuery(string s)
+  {
+    s.append(" ");
+
+    vector<string> parts;
+    Split(s, ';', parts);
+    if (parts.size() != 7)
+    {
+      MYTHROW(MalformedQueryException,
+              ("Can't split", s, ", found", parts.size(), "part(s):", parts));
+    }
+
+    auto idx = parts[0].find(':');
+    if (idx == string::npos)
+      MYTHROW(MalformedQueryException, ("Could not find \':\':", s));
+
+    string mwmName = parts[0].substr(0, idx);
+    string const kMwmSuffix = ".mwm";
+    if (!strings::EndsWith(mwmName, kMwmSuffix))
+      MYTHROW(MalformedQueryException, ("Bad mwm name:", s));
+
+    string const featureIdStr = parts[0].substr(idx + 1);
+    uint64_t featureId;
+    if (!strings::to_uint64(featureIdStr, featureId))
+      MYTHROW(MalformedQueryException, ("Bad feature id:", s));
+
+    string const type = parts[1];
+    double lon, lat;
+    if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
+      MYTHROW(MalformedQueryException, ("Bad lon-lat:", s));
+
+    string const city = parts[4];
+    string const street = parts[5];
+    string const house = parts[6];
+
+    mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
+    string country = mwmName;
+    replace(country.begin(), country.end(), '_', ' ');
+
+    m_query = country + " " + city + " " + street + " " + house + " ";
+    m_mwmName = mwmName;
+    m_featureId = static_cast<uint32_t>(featureId);
+    m_lat = lat;
+    m_lon = lon;
+  }
+
   string m_query;
   unique_ptr<TestSearchRequest> m_request;
   string m_mwmName;
@@ -87,34 +139,7 @@ struct CompletenessQuery
   double m_lon = 0;
 };
 
-DECLARE_EXCEPTION(MalformedQueryException, RootException);
-
-void DidDownload(CountryId const & /* countryId */,
-                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-}
-
-bool WillDelete(CountryId const & /* countryId */,
-                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-  return false;
-}
-
 string MakePrefixFree(string const & query) { return query + " "; }
-
-void ReadStringsFromFile(string const & path, vector<string> & result)
-{
-  ifstream stream(path.c_str());
-  CHECK(stream.is_open(), ("Can't open", path));
-
-  string s;
-  while (getline(stream, s))
-  {
-    strings::Trim(s);
-    if (!s.empty())
-      result.emplace_back(s);
-  }
-}
 
 // If n == 1, prints the query and the top result separated by a tab.
 // Otherwise, prints the query on a separate line
@@ -143,27 +168,6 @@ void PrintTopResults(string const & query, vector<Result> const & results, size_
   cout << endl;
 }
 
-uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
-{
-  vector<string> specialFiles = {
-    WORLD_FILE_NAME,
-    WORLD_COASTS_FILE_NAME,
-    WORLD_COASTS_OBSOLETE_FILE_NAME
-  };
-  for (auto const & name : specialFiles)
-  {
-    if (mwm.GetCountryName() == name)
-      return mwm.GetVersion();
-  }
-
-  ModelReaderPtr reader = FilesContainerR(mwm.GetPath(MapOptions::Map)).GetReader(VERSION_FILE_TAG);
-  ReaderSrc src(reader.GetPtr());
-
-  version::MwmVersion version;
-  version::ReadVersion(src, version);
-  return version.GetVersion();
-}
-
 void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var,
                     double & stdDev)
 {
@@ -187,15 +191,6 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
   if (a.size() > 1)
     var /= n - 1;
   stdDev = sqrt(var);
-}
-
-// Unlike strings::Tokenize, this function allows for empty tokens.
-void Split(string const & s, char delim, vector<string> & parts)
-{
-  istringstream iss(s);
-  string part;
-  while (getline(iss, part, delim))
-    parts.push_back(part);
 }
 
 // Returns the position of the result that is expected to be found by geocoder completeness
@@ -231,59 +226,13 @@ int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const f
   return -1;
 }
 
-void ParseCompletenessQuery(string & s, CompletenessQuery & q)
-{
-  s.append(" ");
-
-  vector<string> parts;
-  Split(s, ';', parts);
-  if (parts.size() != 7)
-  {
-    MYTHROW(MalformedQueryException,
-            ("Can't split", s, ", found", parts.size(), "part(s):", parts));
-  }
-
-  auto idx = parts[0].find(':');
-  if (idx == string::npos)
-    MYTHROW(MalformedQueryException, ("Could not find \':\':", s));
-
-  string mwmName = parts[0].substr(0, idx);
-  string const kMwmSuffix = ".mwm";
-  if (!strings::EndsWith(mwmName, kMwmSuffix))
-    MYTHROW(MalformedQueryException, ("Bad mwm name:", s));
-
-  string const featureIdStr = parts[0].substr(idx + 1);
-  uint64_t featureId;
-  if (!strings::to_uint64(featureIdStr, featureId))
-    MYTHROW(MalformedQueryException, ("Bad feature id:", s));
-
-  string const type = parts[1];
-  double lon, lat;
-  if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
-    MYTHROW(MalformedQueryException, ("Bad lon-lat:", s));
-
-  string const city = parts[4];
-  string const street = parts[5];
-  string const house = parts[6];
-
-  mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
-  string country = mwmName;
-  replace(country.begin(), country.end(), '_', ' ');
-
-  q.m_query = country + " " + city + " " + street + " " + house + " ";
-  q.m_mwmName = mwmName;
-  q.m_featureId = static_cast<uint32_t>(featureId);
-  q.m_lat = lat;
-  q.m_lon = lon;
-}
-
 // Reads queries in the format
 //   CountryName.mwm:featureId;type;lon;lat;city;street;<housenumber or housename>
 // from |path|, executes them against the |engine| with viewport set to |viewport|
 // and reports the number of queries whose expected result is among the returned results.
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
-void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSource & dataSource,
-                       TestSearchEngine & engine)
+void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchEngine & engine,
+                       m2::RectD const & viewport, string const & locale)
 {
   base::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
 
@@ -306,13 +255,12 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSour
     ++totalQueries;
     try
     {
-      CompletenessQuery q;
-      ParseCompletenessQuery(s, q);
-      q.m_request = make_unique<TestSearchRequest>(engine, q.m_query, FLAGS_locale,
-                                                   Mode::Everywhere, viewport);
+      CompletenessQuery q(s);
+      q.m_request =
+          make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
       queries.push_back(move(q));
     }
-    catch (MalformedQueryException e)
+    catch (CompletenessQuery::MalformedQueryException & e)
     {
       LOG(LERROR, (e.what()));
       ++malformedQueries;
@@ -324,8 +272,8 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSour
     q.m_request->Run();
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
-    int pos =
-        FindResult(dataSource, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
+    int pos = FindResult(dataSource, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon,
+                         q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
@@ -333,11 +281,13 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSour
   }
 
   double const expectedResultsFoundPercentage =
-      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsFound) /
-                                  static_cast<double>(totalQueries);
+      totalQueries == 0
+          ? 0
+          : 100.0 * static_cast<double>(expectedResultsFound) / static_cast<double>(totalQueries);
   double const expectedResultsTop1Percentage =
-      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsTop1) /
-                                  static_cast<double>(totalQueries);
+      totalQueries == 0
+          ? 0
+          : 100.0 * static_cast<double>(expectedResultsTop1) / static_cast<double>(totalQueries);
 
   cout << "Time spent on checking completeness: " << timer.ElapsedSeconds() << "s." << endl;
   cout << "Total queries: " << totalQueries << endl;
@@ -348,112 +298,31 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSour
        << expectedResultsTop1Percentage << "%)." << endl;
 }
 
-int main(int argc, char * argv[])
+void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string queriesPath,
+                 string const & locale, string const & rankingCSVFile, size_t top)
 {
-  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
-  CheckLocale();
-
-  ios_base::sync_with_stdio(false);
-  Platform & platform = GetPlatform();
-
-  google::SetUsageMessage("Search quality tests.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
-
-  string countriesFile = COUNTRIES_FILE;
-  if (!FLAGS_data_path.empty())
-  {
-    platform.SetResourceDir(FLAGS_data_path);
-    countriesFile = base::JoinPath(FLAGS_data_path, COUNTRIES_FILE);
-  }
-
-  if (!FLAGS_mwm_path.empty())
-    platform.SetWritableDirForTests(FLAGS_mwm_path);
-
-  LOG(LINFO, ("writable dir =", platform.WritableDir()));
-  LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
-
-  Storage storage(countriesFile);
-  storage.Init(&DidDownload, &WillDelete);
-  auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
-  infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
-
-  classificator::Load();
-
-  Engine::Params params;
-  params.m_locale = FLAGS_locale;
-  params.m_numThreads = FLAGS_num_threads;
-
-  FrozenDataSource dataSource;
-
-  vector<platform::LocalCountryFile> mwms;
-  if (!FLAGS_mwm_list_path.empty())
-  {
-    vector<string> availableMwms;
-    ReadStringsFromFile(FLAGS_mwm_list_path, availableMwms);
-    for (auto const & countryName : availableMwms)
-      mwms.emplace_back(platform.WritableDir(), platform::CountryFile(countryName), 0);
-  }
-  else
-  {
-    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                         mwms);
-    for (auto & map : mwms)
-      map.SyncWithDisk();
-  }
-  cout << "Mwms used in all search invocations:" << endl;
-  for (auto & mwm : mwms)
-  {
-    mwm.SyncWithDisk();
-    cout << mwm.GetCountryName() << " " << ReadVersionFromHeader(mwm) << endl;
-    dataSource.RegisterMap(mwm);
-  }
-  cout << endl;
-
-  TestSearchEngine engine(dataSource, move(infoGetter), params);
-
-  m2::RectD viewport;
-  {
-    string name = FLAGS_viewport;
-    auto it = kViewports.find(name);
-    if (it == kViewports.end())
-    {
-      name = "default";
-      it = kViewports.find(name);
-    }
-    CHECK(it != kViewports.end(), ());
-    viewport = it->second;
-    cout << "Viewport used in all search invocations: " << name << " " << DebugPrint(viewport)
-         << endl
-         << endl;
-  }
-
-  if (!FLAGS_check_completeness.empty())
-  {
-    CheckCompleteness(FLAGS_check_completeness, viewport, dataSource, engine);
-    return 0;
-  }
-
   vector<string> queries;
-  string queriesPath = FLAGS_queries_path;
-  if (queriesPath.empty())
-    queriesPath = base::JoinPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
-  ReadStringsFromFile(queriesPath, queries);
+  {
+    if (queriesPath.empty())
+      queriesPath = base::JoinPath(GetPlatform().WritableDir(), kDefaultQueriesPathSuffix);
+    ReadStringsFromFile(queriesPath, queries);
+  }
 
   vector<unique_ptr<TestSearchRequest>> requests;
   for (size_t i = 0; i < queries.size(); ++i)
   {
     // todo(@m) Add a bool flag to search with prefixes?
-    requests.emplace_back(make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]),
-                                                         FLAGS_locale, Mode::Everywhere, viewport));
+    requests.emplace_back(make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]), locale,
+                                                         Mode::Everywhere, viewport));
   }
 
   ofstream csv;
   bool dumpCSV = false;
-  if (!FLAGS_ranking_csv_file.empty())
+  if (!rankingCSVFile.empty())
   {
-    csv.open(FLAGS_ranking_csv_file);
+    csv.open(rankingCSVFile);
     if (!csv.is_open())
-      LOG(LERROR, ("Can't open file for CSV dump:", FLAGS_ranking_csv_file));
+      LOG(LERROR, ("Can't open file for CSV dump:", rankingCSVFile));
     else
       dumpCSV = true;
   }
@@ -470,8 +339,7 @@ int main(int argc, char * argv[])
     requests[i]->Run();
     auto rt = duration_cast<milliseconds>(requests[i]->ResponseTime()).count();
     responseTimes[i] = static_cast<double>(rt) / 1000;
-    PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top,
-                    responseTimes[i]);
+    PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), top, responseTimes[i]);
 
     if (dumpCSV)
     {
@@ -494,6 +362,37 @@ int main(int argc, char * argv[])
   cout << "Maximum response time: " << maxTime << "s" << endl;
   cout << "Average response time: " << averageTime << "s"
        << " (std. dev. " << stdDevTime << "s)" << endl;
+}
 
+int main(int argc, char * argv[])
+{
+  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  CheckLocale();
+
+  google::SetUsageMessage("Search quality tests.");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
+  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
+
+  classificator::Load();
+
+  FrozenDataSource dataSource;
+  InitDataSource(dataSource, FLAGS_mwm_list_path);
+
+  auto engine = InitSearchEngine(dataSource, FLAGS_locale, FLAGS_num_threads);
+
+  m2::RectD viewport;
+  InitViewport(FLAGS_viewport, viewport);
+
+  ios_base::sync_with_stdio(false);
+
+  if (!FLAGS_check_completeness.empty())
+  {
+    CheckCompleteness(FLAGS_check_completeness, dataSource, *engine, viewport, FLAGS_locale);
+    return 0;
+  }
+
+  RunRequests(*engine, viewport, FLAGS_queries_path, FLAGS_locale, FLAGS_ranking_csv_file,
+              static_cast<size_t>(FLAGS_top));
   return 0;
 }

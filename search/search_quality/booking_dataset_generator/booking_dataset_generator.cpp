@@ -36,6 +36,7 @@
 
 #include "defines.hpp"
 
+using namespace search::search_quality;
 using namespace search;
 using namespace std;
 using namespace storage;
@@ -74,17 +75,12 @@ int main(int argc, char * argv[])
   google::SetUsageMessage("Booking dataset generator.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & platform = GetPlatform();
+  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 
-  string countriesFile = COUNTRIES_FILE;
-  if (!FLAGS_data_path.empty())
-  {
-    platform.SetResourceDir(FLAGS_data_path);
-    countriesFile = base::JoinPath(FLAGS_data_path, COUNTRIES_FILE);
-  }
+  classificator::Load();
 
-  if (!FLAGS_mwm_path.empty())
-    platform.SetWritableDirForTests(FLAGS_mwm_path);
+  FrozenDataSource dataSource;
+  InitDataSource(dataSource, "" /* mwmListPath */);
 
   ofstream out;
   out.open(FLAGS_out_path);
@@ -92,31 +88,6 @@ int main(int argc, char * argv[])
   {
     LOG(LERROR, ("Can't open output file", FLAGS_out_path));
     return -1;
-  }
-
-  LOG(LINFO, ("writable dir =", platform.WritableDir()));
-  LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
-
-  auto didDownload = [](CountryId const &, shared_ptr<platform::LocalCountryFile> const &) {};
-  auto willDelete = [](CountryId const &, shared_ptr<platform::LocalCountryFile> const &) {
-    return false;
-  };
-
-  Storage storage(countriesFile);
-  storage.Init(didDownload, willDelete);
-  auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
-  infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
-
-  classificator::Load();
-  FrozenDataSource dataSource;
-
-  vector<platform::LocalCountryFile> mwms;
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                       mwms);
-  for (auto & mwm : mwms)
-  {
-    mwm.SyncWithDisk();
-    dataSource.RegisterMap(mwm);
   }
 
   auto const & hotelChecker = ftypes::IsBookingHotelChecker::Instance();

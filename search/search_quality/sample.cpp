@@ -1,7 +1,7 @@
 #include "search/search_quality/sample.hpp"
 
 #include "search/search_params.hpp"
-#include "search/search_quality/helpers.hpp"
+#include "search/search_quality/helpers_json.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"

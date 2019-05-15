@@ -10,8 +10,8 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   search_tests_support
-  search
   search_quality
+  search
   storage
   editor
   indexer

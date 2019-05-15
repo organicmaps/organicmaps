@@ -1,27 +1,64 @@
 #include "search/search_quality/helpers.hpp"
 
+#include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
+
+#include "indexer/data_source.hpp"
+
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
+
+#include "coding/file_name_utils.hpp"
+#include "coding/reader.hpp"
+#include "coding/reader_wrapper.hpp"
+
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 
+#include <fstream>
+#include <limits>
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include <sys/resource.h>
+
+#include "defines.hpp"
+
+#include "3party/jansson/myjansson.hpp"
 
 using namespace std;
 
 namespace
 {
-void ParsePoint(json_t * root, m2::PointD & point)
+uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
 {
-  FromJSONObject(root, "x", point.x);
-  FromJSONObject(root, "y", point.y);
+  vector<string> specialFiles = {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME,
+                                 WORLD_COASTS_OBSOLETE_FILE_NAME};
+  for (auto const & name : specialFiles)
+  {
+    if (mwm.GetCountryName() == name)
+      return mwm.GetVersion();
+  }
+
+  ModelReaderPtr reader = FilesContainerR(mwm.GetPath(MapOptions::Map)).GetReader(VERSION_FILE_TAG);
+  ReaderSrc src(reader.GetPtr());
+
+  version::MwmVersion version;
+  version::ReadVersion(src, version);
+  return version.GetVersion();
 }
 }  // namespace
 
 namespace search
+{
+namespace search_quality
 {
 void ChangeMaxNumberOfOpenFiles(size_t n)
 {
@@ -64,97 +101,103 @@ void CheckLocale()
     CHECK_EQUAL(strings::to_string(value), kTest, (kErrorMsg));
   }
 }
-}  // namespace search
 
-namespace m2
+void ReadStringsFromFile(string const & path, vector<string> & result)
 {
-void FromJSONObject(json_t * root, char const * field, RectD & rect)
-{
-  json_t * r = base::GetJSONObligatoryField(root, field);
-  double minX, minY, maxX, maxY;
-  FromJSONObject(r, "minx", minX);
-  FromJSONObject(r, "miny", minY);
-  FromJSONObject(r, "maxx", maxX);
-  FromJSONObject(r, "maxy", maxY);
-  rect.setMinX(minX);
-  rect.setMinY(minY);
-  rect.setMaxX(maxX);
-  rect.setMaxY(maxY);
-}
+  ifstream stream(path.c_str());
+  CHECK(stream.is_open(), ("Can't open", path));
 
-void ToJSONObject(json_t & root, char const * field, RectD const & rect)
-{
-  auto json = base::NewJSONObject();
-  ToJSONObject(*json, "minx", rect.minX());
-  ToJSONObject(*json, "miny", rect.minY());
-  ToJSONObject(*json, "maxx", rect.maxX());
-  ToJSONObject(*json, "maxy", rect.maxY());
-  json_object_set_new(&root, field, json.release());
-}
-
-void FromJSONObject(json_t * root, string const & field, RectD & rect)
-{
-  FromJSONObject(root, field.c_str(), rect);
-}
-
-void ToJSONObject(json_t & root, string const & field, RectD const & rect)
-{
-  ToJSONObject(root, field.c_str(), rect);
-}
-
-void FromJSONObject(json_t * root, char const * field, PointD & point)
-{
-  json_t * p = base::GetJSONObligatoryField(root, field);
-  ParsePoint(p, point);
-}
-
-void FromJSONObject(json_t * root, string const & field, PointD & point)
-{
-  FromJSONObject(root, field.c_str(), point);
-}
-
-void FromJSONObjectOptional(json_t * root, char const * field, boost::optional<PointD> & point)
-{
-  json_t * p = base::GetJSONOptionalField(root, field);
-  if (!p || base::JSONIsNull(p))
+  string s;
+  while (getline(stream, s))
   {
-    point = boost::none;
-    return;
+    strings::Trim(s);
+    if (!s.empty())
+      result.emplace_back(s);
+  }
+}
+
+void SetPlatformDirs(string const & dataPath, string const & mwmPath)
+{
+  Platform & platform = GetPlatform();
+
+  if (!dataPath.empty())
+    platform.SetResourceDir(dataPath);
+
+  if (!mwmPath.empty())
+    platform.SetWritableDirForTests(mwmPath);
+
+  LOG(LINFO, ("writable dir =", platform.WritableDir()));
+  LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
+}
+
+void InitViewport(string viewportName, m2::RectD & viewport)
+{
+  map<string, m2::RectD> const kViewports = {
+      {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
+      {"moscow", MercatorBounds::RectByCenterLatLonAndSizeInMeters(55.7, 37.7, 5000)},
+      {"london", MercatorBounds::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
+      {"zurich", MercatorBounds::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
+
+  auto it = kViewports.find(viewportName);
+  if (it == kViewports.end())
+  {
+    LOG(LINFO, ("Unknown viewport name:", viewportName, "; setting to default"));
+    viewportName = "default";
+    it = kViewports.find(viewportName);
+  }
+  CHECK(it != kViewports.end(), ());
+  viewport = it->second;
+  LOG(LINFO, ("Viewport is set to:", viewportName, DebugPrint(viewport)));
+}
+
+void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
+{
+  vector<platform::LocalCountryFile> mwms;
+  if (!mwmListPath.empty())
+  {
+    vector<string> availableMwms;
+    ReadStringsFromFile(mwmListPath, availableMwms);
+    for (auto const & countryName : availableMwms)
+      mwms.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(countryName), 0);
+  }
+  else
+  {
+    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
+                                         mwms);
   }
 
-  PointD parsed;
-  ParsePoint(p, parsed);
-  point = move(parsed);
+  LOG(LINFO, ("Initializing the data source with the following mwms:"));
+  for (auto & mwm : mwms)
+  {
+    mwm.SyncWithDisk();
+    LOG(LINFO, (mwm.GetCountryName(), ReadVersionFromHeader(mwm)));
+    dataSource.RegisterMap(mwm);
+  }
+  LOG(LINFO, ());
 }
 
-void ToJSONObject(json_t & root, char const * field, PointD const & point)
+unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(DataSource & dataSource,
+                                                                     string const & locale,
+                                                                     size_t numThreads)
 {
-  auto json = base::NewJSONObject();
-  ToJSONObject(*json, "x", point.x);
-  ToJSONObject(*json, "y", point.y);
-  json_object_set_new(&root, field, json.release());
-}
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  {
+    auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
+    storage::Storage storage(countriesFile);
+    storage.Init([](storage::CountryId const &,
+                    shared_ptr<platform::LocalCountryFile> const &) {} /* didDownload */,
+                 [](storage::CountryId const &, shared_ptr<platform::LocalCountryFile> const &) {
+                   return false;
+                 } /* willDelete */);
 
-void FromJSONObjectOptional(json_t * root, string const & field, boost::optional<PointD> & point)
-{
-  FromJSONObjectOptional(root, field.c_str(), point);
-}
+    infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
+  }
 
-void ToJSONObject(json_t & root, string const & field, PointD const & point)
-{
-  ToJSONObject(root, field.c_str(), point);
-}
+  search::Engine::Params params;
+  params.m_locale = locale;
+  params.m_numThreads = base::checked_cast<size_t>(numThreads);
 
-void ToJSONObject(json_t & root, char const * field, boost::optional<PointD> const & point)
-{
-  if (point)
-    ToJSONObject(root, field, *point);
-  else
-    ToJSONObject(root, field, base::NewJSONNull());
+  return make_unique<search::tests_support::TestSearchEngine>(dataSource, move(infoGetter), params);
 }
-
-void ToJSONObject(json_t & root, std::string const & field, boost::optional<PointD> const & point)
-{
-  ToJSONObject(root, field.c_str(), point);
-}
-}  // namespace m2
+}  // namespace search_quality
+}  // namespace search
