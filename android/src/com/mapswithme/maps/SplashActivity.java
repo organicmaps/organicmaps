@@ -14,9 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mapswithme.maps.ads.Banner;
+import com.mapswithme.maps.analytics.AdvertisingObserver;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -54,6 +56,7 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
+  private boolean mWaitForAdvertisingInfo;
 
   @NonNull
   private final Runnable mWelcomeScreenDelayedTask = new Runnable()
@@ -88,12 +91,15 @@ public class SplashActivity extends AppCompatActivity
         return;
       }
 
-      ExternalLibrariesMediator mediator = ((MwmApplication) getApplicationContext()).getMediator();
+      ExternalLibrariesMediator mediator = MwmApplication.from(getApplicationContext()).getMediator();
       if (!mediator.isAdvertisingInfoObtained())
       {
-        UiThread.runLater(mInitCoreDelayedTask, DELAY);
+        LOGGER.i(TAG, "Advertising info not obtained yet, wait...");
+        mWaitForAdvertisingInfo = true;
         return;
       }
+
+      mWaitForAdvertisingInfo = false;
 
       if (!mediator.isLimitAdTrackingEnabled())
       {
@@ -133,6 +139,9 @@ public class SplashActivity extends AppCompatActivity
 
   @NonNull
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
+
+  @NonNull
+  private final AdvertisingInfoObserver mAdvertisingObserver = new AdvertisingInfoObserver();
 
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart,
@@ -205,6 +214,10 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStart();
     mBaseDelegate.onStart();
+    mAdvertisingObserver.attach(this);
+    ExternalLibrariesMediator mediator = MwmApplication.from(this).getMediator();
+    LOGGER.d(TAG, "Add advertising observer");
+    mediator.addAdvertisingObserver(mAdvertisingObserver);
   }
 
   @Override
@@ -261,6 +274,11 @@ public class SplashActivity extends AppCompatActivity
     if (storagePermissionsDialog != null)
       storagePermissionsDialog.dismiss();
 
+    runInitCoreTask();
+  }
+
+  private void runInitCoreTask()
+  {
     UiThread.runLater(mInitCoreDelayedTask, DELAY);
   }
 
@@ -281,6 +299,10 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStop();
     mBaseDelegate.onStop();
+    mAdvertisingObserver.detach();
+    ExternalLibrariesMediator mediator = MwmApplication.from(this).getMediator();
+    LOGGER.d(TAG, "Remove advertising observer");
+    mediator.removeAdvertisingObserver(mAdvertisingObserver);
   }
 
   @Override
@@ -433,5 +455,45 @@ public class SplashActivity extends AppCompatActivity
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
+  boolean isWaitForAdvertisingInfo()
+  {
+    return mWaitForAdvertisingInfo;
+  }
+
+  private static class AdvertisingInfoObserver implements AdvertisingObserver,
+                                                          Detachable<SplashActivity>
+  {
+    @Nullable
+    private SplashActivity mActivity;
+
+    @Override
+    public void onAdvertisingInfoObtained()
+    {
+      LOGGER.i(TAG, "Advertising info obtained");
+      if (mActivity == null)
+        return;
+
+      if (!mActivity.isWaitForAdvertisingInfo())
+      {
+        LOGGER.i(TAG, "Advertising info not waited");
+        return;
+      }
+
+      mActivity.runInitCoreTask();
+    }
+
+    @Override
+    public void attach(@NonNull SplashActivity object)
+    {
+      mActivity = object;
+    }
+
+    @Override
+    public void detach()
+    {
+      mActivity = null;
+    }
   }
 }

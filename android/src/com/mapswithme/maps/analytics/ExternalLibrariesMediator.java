@@ -33,6 +33,8 @@ import com.my.target.common.MyTargetPrivacy;
 import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ExternalLibrariesMediator
@@ -51,6 +53,8 @@ public class ExternalLibrariesMediator
   private AdvertisingInfo mAdvertisingInfo;
   @Nullable
   private String mFirstLaunchDeepLink;
+  @NonNull
+  private List<AdvertisingObserver> mAdvertisingObservers = new ArrayList<>();
 
   public ExternalLibrariesMediator(@NonNull Application application)
   {
@@ -160,9 +164,16 @@ public class ExternalLibrariesMediator
   }
 
   @UiThread
-  void setAdvertisingInfo(@NonNull AdvertisingInfo info)
+  private void setAdvertisingInfo(@NonNull AdvertisingInfo info)
   {
     mAdvertisingInfo = info;
+  }
+
+  @UiThread
+  private void notifyObservers()
+  {
+    for (AdvertisingObserver observer : mAdvertisingObservers)
+      observer.onAdvertisingInfoObtained();
   }
 
   @UiThread
@@ -208,6 +219,16 @@ public class ExternalLibrariesMediator
     String firstLaunchDeepLink = mFirstLaunchDeepLink;
     mFirstLaunchDeepLink = null;
     return firstLaunchDeepLink;
+  }
+
+  public void addAdvertisingObserver(@NonNull AdvertisingObserver observer)
+  {
+    mAdvertisingObservers.add(observer);
+  }
+
+  public void removeAdvertisingObserver(@NonNull AdvertisingObserver observer)
+  {
+    mAdvertisingObservers.remove(observer);
   }
 
   private class FirstLaunchDeeplinkListener implements AppsFlyerConversionListener
@@ -288,6 +309,7 @@ public class ExternalLibrariesMediator
     {
       super.onPostExecute(info);
       mMediator.setAdvertisingInfo(info);
+      mMediator.notifyObservers();
     }
   }
 
