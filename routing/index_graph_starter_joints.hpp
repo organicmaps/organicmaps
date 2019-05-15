@@ -159,7 +159,6 @@ private:
            jointSegment.GetStartSegmentId() != kInvalidId;
   }
 
-  // For GetEdgeList from segments.
   Graph & m_graph;
 
   // Fake start and end joints.
@@ -180,7 +179,18 @@ private:
   // So we create an invalid JointSegment (see |ToFake()| method), that
   // converts to FakeJointSegments. This std::map is converter.
   std::map<JointSegment, FakeJointSegment> m_fakeJointSegments;
-  std::map<JointSegment, std::vector<Segment>> m_reconstructedFakeJoints;
+
+  struct ReconstructedPath
+  {
+    ReconstructedPath() = default;
+    ReconstructedPath(std::vector<Segment> && path, bool fromStart)
+      : m_fromStart(fromStart), m_path(std::move(path)) {}
+
+    bool m_fromStart = true;
+    std::vector<Segment> m_path;
+  };
+
+  std::map<JointSegment, ReconstructedPath> m_reconstructedFakeJoints;
 
   // List of JointEdges that are outgoing from start.
   std::vector<JointEdge> m_startOutEdges;
@@ -227,8 +237,11 @@ void IndexGraphStarterJoints<Graph>::Init(Segment const & startSegment, Segment 
   else
     m_endJoint = CreateFakeJoint(m_graph.GetFinishSegment(), m_graph.GetFinishSegment());
 
-  m_reconstructedFakeJoints[m_startJoint] = {m_startSegment};
-  m_reconstructedFakeJoints[m_endJoint] = {m_endSegment};
+  m_reconstructedFakeJoints.emplace(m_startJoint,
+                                    ReconstructedPath({m_startSegment}, true /* fromStart */));
+
+  m_reconstructedFakeJoints.emplace(m_endJoint,
+                                    ReconstructedPath({m_endSegment}, false /* fromStart */));
 
   m_startOutEdges = FindFirstJoints(startSegment, true /* fromStart */);
   m_endOutEdges = FindFirstJoints(endSegment, false /* fromStart */);
@@ -241,20 +254,25 @@ void IndexGraphStarterJoints<Graph>::Init(Segment const & startSegment, Segment 
 }
 
 template <typename Graph>
-RouteWeight IndexGraphStarterJoints<Graph>::HeuristicCostEstimate(JointSegment const & from, JointSegment const & to)
+RouteWeight IndexGraphStarterJoints<Graph>::HeuristicCostEstimate(JointSegment const & from,
+                                                                  JointSegment const & to)
 {
-  Segment const & fromSegment =
-    from.IsFake() || IsInvisible(from) ? m_fakeJointSegments[from].GetSegment(false /* start */)
-                                       : from.GetSegment(false /* start */);
+  ASSERT(to == m_startJoint || to == m_endJoint, ("Invariant violated."));
+  bool toEnd = to == m_endJoint;
 
-  Segment const & toSegment =
-    to.IsFake() || IsInvisible(to) ? m_fakeJointSegments[to].GetSegment(false /* start */)
-                                   : to.GetSegment(false /* start */);
+  Segment fromSegment;
+  if (from.IsFake() || IsInvisible(from))
+  {
+    ASSERT_NOT_EQUAL(m_reconstructedFakeJoints.count(from), 0, ());
+    fromSegment = m_reconstructedFakeJoints[from].m_path.back();
+  }
+  else
+  {
+    fromSegment = from.GetSegment(false /* start */);
+  }
 
-  ASSERT(toSegment == m_startSegment || toSegment == m_endSegment, ("Invariant violated."));
-
-  return toSegment == m_startSegment ? m_graph.HeuristicCostEstimate(fromSegment, m_startPoint)
-                                     : m_graph.HeuristicCostEstimate(fromSegment, m_endPoint);
+  return toEnd ? m_graph.HeuristicCostEstimate(fromSegment, m_endPoint)
+               : m_graph.HeuristicCostEstimate(fromSegment, m_startPoint);
 }
 
 template <typename Graph>
@@ -281,7 +299,11 @@ std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegme
     auto const it = m_reconstructedFakeJoints.find(joint);
     CHECK(it != m_reconstructedFakeJoints.cend(), ("Can not find such fake joint"));
 
-    return it->second;
+    auto path = it->second.m_path;
+    if (path.front() == m_startSegment && path.back() == m_endSegment)
+      path.pop_back();
+
+    return path;
   }
 
   // Otherwise just reconstruct segment consequently.
@@ -345,7 +367,7 @@ boost::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(JointS
     CHECK(m_fakeJointSegments.find(vertex) != m_fakeJointSegments.end(),
           ("No such fake joint:", vertex, "in JointStarter."));
 
-    FakeJointSegment fakeJointSegment = m_fakeJointSegments[vertex];
+    FakeJointSegment const & fakeJointSegment = m_fakeJointSegments[vertex];
 
     auto const & startSegment = isOutgoing ? m_startSegment : m_endSegment;
     auto const & endSegment = isOutgoing ? m_endSegment : m_startSegment;
@@ -412,18 +434,21 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment con
     if (!optional)
       return false;
 
-    Segment parentSegment = optional.value();
-
-    std::vector<JointEdge> jointEdges;
-    m_graph.GetEdgeList(vertex, parentSegment, isOutgoing, jointEdges, parentWeights);
-    edges.insert(edges.end(), jointEdges.begin(), jointEdges.end());
+    Segment const & parentSegment = optional.value();
+    m_graph.GetEdgeList(vertex, parentSegment, isOutgoing, edges, parentWeights);
 
     firstFakeId = edges.size();
     bool const opposite = !isOutgoing;
-    for (size_t i = 0; i < jointEdges.size(); ++i)
+    for (size_t i = 0; i < firstFakeId; ++i)
     {
       size_t prevSize = edges.size();
-      AddFakeJoints(jointEdges[i].GetTarget().GetSegment(!opposite /* start */), isOutgoing, edges);
+      auto const & target = edges[i].GetTarget();
+
+      auto const & segment = target.IsFake() ? m_fakeJointSegments[target].GetSegment(!opposite)
+                                             : target.GetSegment(!opposite);
+
+      AddFakeJoints(segment, isOutgoing, edges);
+
       // If we add fake edge, we should add new parentWeight as "child[i] -> parent".
       // Because fake edge and current edge (jointEdges[i]) have the same first
       // segments (differ only the ends), so we add to |parentWeights| the same
@@ -515,14 +540,10 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
   std::map<Segment, RouteWeight> weight;
   std::vector<JointEdge> result;
 
-  auto const reconstructPath = [&parent, &startSegment, &endSegment](Segment current, bool forward)
+  auto const reconstructPath = [&parent, &startSegment](Segment current, bool forward)
   {
     std::vector<Segment> path;
-    // In case we can go from start to finish without joint (e.g. start and finish at
-    // the same long feature), we don't add the last segment to path for correctness
-    // reconstruction of the route. Otherwise last segment will repeat twice.
-    if (current != endSegment)
-      path.emplace_back(current);
+    path.emplace_back(current);
 
     if (current == startSegment)
       return path;
@@ -549,18 +570,21 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
     result.emplace_back(fakeJoint, weight[beforeConvert]);
 
     std::vector<Segment> path = reconstructPath(beforeConvert, fromStart);
-    m_reconstructedFakeJoints.emplace(fakeJoint, std::move(path));
+    m_reconstructedFakeJoints.emplace(fakeJoint,
+                                      ReconstructedPath(std::move(path), fromStart));
   };
 
-  auto const isEndOfSegment = [&](Segment const & fake, Segment const & segment)
+  auto const isEndOfSegment = [&](Segment const & fake, Segment const & segment, bool fromStart)
   {
     CHECK(!IsRealSegment(fake), ());
 
-    auto const fakeEnd = m_graph.GetPoint(fake, fake.IsForward());
-    auto const realEnd = m_graph.GetPoint(segment, segment.IsForward());
+    bool const haveSameFront =
+        m_graph.GetPoint(fake, true /* front */) == m_graph.GetPoint(segment, true);
 
-    static auto constexpr kEps = 1e-5;
-    return base::AlmostEqualAbs(fakeEnd, realEnd, kEps);
+    bool const haveSameBack =
+        m_graph.GetPoint(fake, false /* front */) == m_graph.GetPoint(segment, false);
+
+    return (fromStart && haveSameFront) || (!fromStart && haveSameBack);
   };
 
   while (!queue.empty())
@@ -571,7 +595,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
     // Either the segment is fake and it can be converted to real one with |Joint| end (RoadPoint),
     // or it's the real one and its end (RoadPoint) is |Joint|.
     if (((!IsRealSegment(segment) && m_graph.ConvertToReal(segment) &&
-          isEndOfSegment(beforeConvert, segment)) || IsRealSegment(beforeConvert)) &&
+          isEndOfSegment(beforeConvert, segment, fromStart)) || IsRealSegment(beforeConvert)) &&
         IsJoint(segment, fromStart))
     {
       addFake(segment, beforeConvert);
