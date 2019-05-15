@@ -50,7 +50,7 @@
   return [MWMDefaultAlert routingMigrationAlertWithOkBlock:okBlock];
 }
 
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::CountriesVec const &)countries
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::CountriesSet const &)countries
                                             code:(routing::RouterResultCode)code
                                      cancelBlock:(MWMVoidBlock)cancelBlock
                                    downloadBlock:(MWMDownloadBlock)downloadBlock

@@ -41,7 +41,7 @@ void OnlineAbsentCountriesFetcher::GenerateRequest(Checkpoints const & checkpoin
   m_fetcherThread->Create(move(fetcher));
 }
 
-void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries)
+void OnlineAbsentCountriesFetcher::GetAbsentCountries(set<string> & countries)
 {
   countries.clear();
   // Check whether a request was scheduled to be run on the thread.
@@ -56,11 +56,10 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
     if (name.empty() || m_countryLocalFileFn(name))
       continue;
 
-    countries.emplace_back(move(name));
+    countries.emplace(move(name));
   }
 
   m_fetcherThread.reset();
-  base::SortUnique(countries);
 }
 
 bool OnlineAbsentCountriesFetcher::AllPointsInSameMwm(Checkpoints const & checkpoints) const

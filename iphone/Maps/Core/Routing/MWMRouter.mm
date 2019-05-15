@@ -641,7 +641,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 }
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
-                       countries:(storage::CountriesVec const &)absentCountries
+                       countries:(storage::CountriesSet const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
@@ -704,7 +704,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 #pragma mark - Alerts
 
 - (void)presentDownloaderAlert:(routing::RouterResultCode)code
-                     countries:(storage::CountriesVec const &)countries
+                     countries:(storage::CountriesSet const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
   if (platform::migrate::NeedMigrate())

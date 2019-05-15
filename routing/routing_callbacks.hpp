@@ -8,8 +8,8 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
-#include <vector>
 
 namespace routing
 {
@@ -69,7 +69,7 @@ enum class SessionState
  */
 
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
-using NeedMoreMapsCallback = std::function<void(uint64_t, std::vector<std::string> const &)>;
+using NeedMoreMapsCallback = std::function<void(uint64_t, std::set<std::string> const &)>;
 using PointCheckCallback = std::function<void(m2::PointD const &)>;
 using ProgressCallback = std::function<void(float)>;
 using ReadyCallback = std::function<void(Route const &, RouterResultCode)>;

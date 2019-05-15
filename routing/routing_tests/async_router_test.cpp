@@ -29,10 +29,10 @@ namespace
 class DummyRouter : public IRouter
 {
   RouterResultCode m_result;
-  vector<string> m_absent;
+  set<string> m_absent;
 
 public:
-  DummyRouter(RouterResultCode code, vector<string> const & absent) : m_result(code), m_absent(absent) {}
+  DummyRouter(RouterResultCode code, set<string> const & absent) : m_result(code), m_absent(absent) {}
   
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
@@ -52,14 +52,14 @@ public:
 
 class DummyFetcher : public IOnlineFetcher
 {
-  vector<string> m_absent;
+  set<string> m_absent;
 
 public:
-  explicit DummyFetcher(vector<string> const & absent) : m_absent(absent) {}
+  explicit DummyFetcher(set<string> const & absent) : m_absent(absent) {}
 
   // IOnlineFetcher overrides:
   void GenerateRequest(Checkpoints const &) override {}
-  void GetAbsentCountries(vector<string> & countries) override { countries = m_absent; }
+  void GetAbsentCountries(set<string> & countries) override { countries = m_absent; }
 };
 
 void DummyStatisticsCallback(map<string, string> const &) {}
@@ -67,7 +67,7 @@ void DummyStatisticsCallback(map<string, string> const &) {}
 struct DummyRoutingCallbacks
 {
   vector<RouterResultCode> m_codes;
-  vector<vector<string>> m_absent;
+  vector<set<string>> m_absent;
   condition_variable m_cv;
   mutex m_lock;
   uint32_t const m_expected;
@@ -80,16 +80,15 @@ struct DummyRoutingCallbacks
   {
     CHECK(route, ());
     m_codes.push_back(code);
-    auto const & absent = route->GetAbsentCountries();
-    m_absent.emplace_back(absent.begin(), absent.end());
+    m_absent.emplace_back(route->GetAbsentCountries());
     TestAndNotifyReadyCallbacks();
   }
 
   // NeedMoreMapsCallback callback
-  void operator()(uint64_t routeId, vector<string> const & absent)
+  void operator()(uint64_t routeId, set<string> const & absent)
   {
     m_codes.push_back(RouterResultCode::NeedMoreMaps);
-    m_absent.emplace_back(absent.begin(), absent.end());
+    m_absent.emplace_back(absent);
     TestAndNotifyReadyCallbacks();
   }
 
@@ -113,7 +112,7 @@ struct DummyRoutingCallbacks
 
 UNIT_CLASS_TEST(AsyncGuiThreadTest, NeedMoreMapsSignalTest)
 {
-  vector<string> const absentData({"test1", "test2"});
+  set<string> const absentData({"test1", "test2"});
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
   unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));
   DummyRoutingCallbacks resultCallback(2 /* expectedCalls */);

@@ -2,9 +2,11 @@
 
 #include "routing/routing_callbacks.hpp"
 
+#include "storage/storage_defines.hpp"
+
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)downloaderAlertWithMaps:(storage::CountriesVec const &)countries
++ (instancetype)downloaderAlertWithMaps:(storage::CountriesSet const &)countries
                                    code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock

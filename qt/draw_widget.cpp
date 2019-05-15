@@ -12,9 +12,9 @@
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
-#include "storage/storage_defines.hpp"
-
 #include "routing/routing_callbacks.hpp"
+
+#include "storage/storage_defines.hpp"
 
 #include "indexer/editable_map_object.hpp"
 
@@ -51,7 +51,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
       [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
 
   m_framework.GetRoutingManager().SetRouteBuildingListener(
-      [](routing::RouterResultCode, storage::CountriesVec const &) {});
+      [](routing::RouterResultCode, storage::CountriesSet const &) {});
 
   m_framework.GetRoutingManager().SetRouteRecommendationListener(
     [this](RoutingManager::Recommendation r)

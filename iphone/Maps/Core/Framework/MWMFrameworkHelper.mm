@@ -5,8 +5,9 @@
 
 #include "Framework.h"
 
-#include "base/sunrise_sunset.hpp"
 #include "platform/network_policy_ios.h"
+
+#include "base/sunrise_sunset.hpp"
 
 @implementation MWMFrameworkHelper
 

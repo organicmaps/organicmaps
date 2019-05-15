@@ -167,15 +167,6 @@ jstring ToJavaString(JNIEnv * env, char const * s)
   return env->NewStringUTF(s);
 }
 
-jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src)
-{
-  return ToJavaArray(env, GetStringClass(env), src,
-                     [](JNIEnv * env, std::string const & item)
-                     {
-                       return ToJavaString(env, item.c_str());
-                     });
-}
-
 jclass GetStringClass(JNIEnv * env)
 {
   return env->FindClass(GetStringClassName());

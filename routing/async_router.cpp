@@ -99,7 +99,7 @@ void AsyncRouter::RouterDelegateProxy::OnReady(shared_ptr<Route> route, RouterRe
 }
 
 void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
-                                                      vector<string> const & absentCounties)
+                                                      set<string> const & absentCounties)
 {
   if (!m_onNeedMoreMaps)
     return;
@@ -425,11 +425,11 @@ void AsyncRouter::CalculateRoute()
   bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
 
   // Check online response if we have.
-  vector<string> absent;
+  set<string> absent;
   if (absentFetcher && needFetchAbsent)
     absentFetcher->GetAbsentCountries(absent);
 
-  absent.insert(absent.end(), route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
+  absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
   if (!absent.empty())
     code = RouterResultCode::NeedMoreMaps;
 

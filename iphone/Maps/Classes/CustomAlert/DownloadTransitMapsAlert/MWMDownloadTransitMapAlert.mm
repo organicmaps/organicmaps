@@ -56,7 +56,7 @@ CGFloat const kAnimationDuration = .05;
   storage::CountriesVec m_countries;
 }
 
-+ (instancetype)downloaderAlertWithMaps:(storage::CountriesVec const &)countries
++ (instancetype)downloaderAlertWithMaps:(storage::CountriesSet const &)countries
                                    code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock
@@ -90,14 +90,14 @@ CGFloat const kAnimationDuration = .05;
   return alert;
 }
 
-+ (instancetype)alertWithCountries:(storage::CountriesVec const &)countries
++ (instancetype)alertWithCountries:(storage::CountriesSet const &)countries
 {
   NSAssert(!countries.empty(), @"countries can not be empty.");
   MWMDownloadTransitMapAlert * alert =
       [NSBundle.mainBundle loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil]
           .firstObject;
 
-  alert->m_countries = countries;
+  alert->m_countries = storage::CountriesVec(countries.begin(), countries.end());
   [alert configure];
   [alert updateCountriesList];
   [MWMFrameworkListener addObserver:alert];

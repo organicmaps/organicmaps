@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <set>
 #include <string>
 #include <utility>
 
@@ -78,7 +79,7 @@ private:
                         uint32_t timeoutSec);
 
     void OnReady(std::shared_ptr<Route> route, RouterResultCode resultCode);
-    void OnNeedMoreMaps(uint64_t routeId, vector<std::string> const & absentCounties);
+    void OnNeedMoreMaps(uint64_t routeId, std::set<std::string> const & absentCounties);
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
 

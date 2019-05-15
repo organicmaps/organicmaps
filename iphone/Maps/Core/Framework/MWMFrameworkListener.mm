@@ -2,6 +2,9 @@
 
 #include "Framework.h"
 
+#include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
+
 namespace
 {
 using Observer = id<MWMFrameworkObserver>;
@@ -97,7 +100,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   Observers * observers = self.routeBuildingObservers;
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener(
-      [observers](RouterResultCode code, CountriesVec const & absentCountries) {
+      [observers](RouterResultCode code, CountriesSet const & absentCountries) {
         loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
           [observer processRouteBuilderEvent:code countries:absentCountries];
         });

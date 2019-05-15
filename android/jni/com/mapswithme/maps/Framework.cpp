@@ -17,6 +17,7 @@
 #include "partners_api/mopub_ads.hpp"
 #include "partners_api/megafon_countries.hpp"
 
+#include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/user_event_stream.hpp"
@@ -837,7 +838,7 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 extern "C"
 {
 void CallRoutingListener(shared_ptr<jobject> listener, int errorCode,
-                         vector<storage::CountryId> const & absentMaps)
+                         storage::CountriesSet const & absentMaps)
 {
   JNIEnv * env = jni::GetEnv();
   jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
@@ -1414,8 +1415,8 @@ Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass
   CHECK(g_framework, ("Framework isn't created yet!"));
   auto rf = jni::make_global_ref(listener);
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      [rf](routing::RouterResultCode e, storage::CountriesVec const & v) {
-        CallRoutingListener(rf, static_cast<int>(e), v);
+      [rf](routing::RouterResultCode e, storage::CountriesSet const & countries) {
+        CallRoutingListener(rf, static_cast<int>(e), countries);
       });
 }
 

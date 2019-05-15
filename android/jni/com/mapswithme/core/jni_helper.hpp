@@ -96,7 +96,15 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TTo
                      std::forward<TToJavaFn>(toJavaFn));
 }
 
-jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src);
+template <typename Cont>
+jobjectArray ToJavaStringArray(JNIEnv * env, Cont const & src)
+{
+  return ToJavaArray(env, GetStringClass(env), src,
+                     [](JNIEnv * env, std::string const & item)
+                     {
+                       return ToJavaString(env, item.c_str());
+                     });
+}
 
 void DumpDalvikReferenceTables();
 

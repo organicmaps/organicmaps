@@ -9,8 +9,8 @@
 
 #include <functional>
 #include <memory>
+#include <set>
 #include <string>
-#include <vector>
 
 namespace routing
 {
@@ -21,7 +21,7 @@ class IOnlineFetcher
 public:
   virtual ~IOnlineFetcher() = default;
   virtual void GenerateRequest(Checkpoints const &) = 0;
-  virtual void GetAbsentCountries(std::vector<std::string> & countries) = 0;
+  virtual void GetAbsentCountries(std::set<std::string> & countries) = 0;
 };
 
 /*!
@@ -35,7 +35,7 @@ public:
 
   // IOnlineFetcher overrides:
   void GenerateRequest(Checkpoints const &) override;
-  void GetAbsentCountries(std::vector<std::string> & countries) override;
+  void GetAbsentCountries(std::set<std::string> & countries) override;
 
 private:
   bool AllPointsInSameMwm(Checkpoints const &) const;

@@ -35,6 +35,7 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <set>
 #include <sys/resource.h>
 #include <tuple>
 
@@ -317,7 +318,7 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
   routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
   fetcher.GenerateRequest(Checkpoints(MercatorBounds::FromLatLon(startPoint),
                                       MercatorBounds::FromLatLon(finalPoint)));
-  vector<string> absent;
+  set<string> absent;
   fetcher.GetAbsentCountries(absent);
   if (expected.size() < 2)
   {

@@ -6,6 +6,7 @@
 #include "geometry/point2d.hpp"
 
 #include <algorithm>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -54,7 +55,7 @@ UNIT_TEST(OnlineAbsentFetcherSingleMwmTest)
 {
   OnlineAbsentCountriesFetcher fetcher([](m2::PointD const & p){return "A";}, [](string const &){return false;});
   fetcher.GenerateRequest(Checkpoints({1, 1}, {2, 2}));
-  vector<string> countries;
+  set<string> countries;
   fetcher.GetAbsentCountries(countries);
   TEST(countries.empty(), ());
 }
