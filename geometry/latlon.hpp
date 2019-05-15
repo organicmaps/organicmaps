@@ -15,7 +15,8 @@ public:
   static double const kMinLon;
   static double const kMaxLon;
 
-  double lat, lon;
+  double lat;
+  double lon;
 
   /// Does NOT initialize lat and lon. Allows to use it as a property of an ObjC class.
   LatLon() = default;
