@@ -2,6 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -28,9 +29,14 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
       else
         toolbar.setTitle(title);
 
-      UiUtils.showHomeUpButton(toolbar);
+      setupHomeButton(toolbar);
       displayToolbarAsActionBar();
     }
+  }
+
+  protected void setupHomeButton(@NonNull Toolbar toolbar)
+  {
+    UiUtils.showHomeUpButton(toolbar);
   }
 
   @StringRes

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 
 import com.mapswithme.maps.base.BaseToolbarActivity;
 
@@ -43,6 +44,12 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
     intent.putExtra(BookmarksCatalogFragment.EXTRA_BOOKMARKS_CATALOG_URL, catalogUrl);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     return intent;
+  }
+
+  @Override
+  protected void setupHomeButton(@NonNull Toolbar toolbar)
+  {
+
   }
 
   @Override
