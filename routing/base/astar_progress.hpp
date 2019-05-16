@@ -37,11 +37,14 @@ private:
 class AStarProgress
 {
 public:
+  static double const kMaxPercent;
+
   AStarProgress();
   ~AStarProgress();
 
   double GetLastPercent() const;
-  void EraseLastSubProgress();
+  void PushAndDropLastSubProgress();
+  void DropLastSubProgress();
   void AppendSubProgress(AStarSubProgress const & subProgress);
   double UpdateProgress(m2::PointD const & current, m2::PointD const & end);
 
@@ -52,7 +55,7 @@ private:
                             m2::PointD const & end);
 
   // This value is in range: [0, 1].
-  double m_lastValue = 0.0;
+  double m_lastPercentValue = 0.0;
 
   std::list<AStarSubProgress> m_subProgresses;
 };

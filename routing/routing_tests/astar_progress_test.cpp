@@ -14,12 +14,16 @@ UNIT_TEST(DirectedAStarProgressCheck)
 
   AStarProgress progress;
   progress.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
-  TEST_LESS(progress.UpdateProgress(start, finish), 0.1f, ());
-  TEST_LESS(progress.UpdateProgress(middle, finish), 50.5f, ());
-  TEST_GREATER(progress.UpdateProgress(middle, finish), 49.5f, ());
-  TEST_GREATER(progress.UpdateProgress(finish, finish), 99.9f, ());
+  TEST_LESS(progress.UpdateProgress(start, finish), 0.1, ());
+  TEST_LESS(progress.UpdateProgress(middle, finish), 51.0, ());
+  TEST_GREATER(progress.UpdateProgress(middle, finish), 49.0, ());
 
-  progress.EraseLastSubProgress();
+  static auto constexpr kEps = 0.001;
+  TEST_GREATER(progress.UpdateProgress(finish, finish),
+               AStarProgress::kMaxPercent - kEps,
+               ());
+
+  progress.PushAndDropLastSubProgress();
 }
 
 UNIT_TEST(DirectedAStarDegradationCheck)
@@ -39,8 +43,8 @@ UNIT_TEST(DirectedAStarDegradationCheck)
   auto value3 = progressSecond.UpdateProgress(start, finish);
   TEST_GREATER_OR_EQUAL(value1, value3, ());
 
-  progressFirst.EraseLastSubProgress();
-  progressSecond.EraseLastSubProgress();
+  progressFirst.PushAndDropLastSubProgress();
+  progressSecond.PushAndDropLastSubProgress();
 }
 
 UNIT_TEST(RangeCheckTest)
@@ -54,9 +58,9 @@ UNIT_TEST(RangeCheckTest)
   progress.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
   TEST_EQUAL(progress.UpdateProgress(preStart, finish), 0.0, ());
   TEST_EQUAL(progress.UpdateProgress(postFinish, finish), 0.0, ());
-  TEST_EQUAL(progress.UpdateProgress(finish, finish), 100.0, ());
+  TEST_EQUAL(progress.UpdateProgress(finish, finish), AStarProgress::kMaxPercent, ());
 
-  progress.EraseLastSubProgress();
+  progress.PushAndDropLastSubProgress();
 }
 
 UNIT_TEST(BidirectedAStarProgressCheck)
@@ -70,9 +74,9 @@ UNIT_TEST(BidirectedAStarProgressCheck)
   progress.AppendSubProgress({start, finish, 1.0 /* contributionCoef */});
   progress.UpdateProgress(fWave, finish);
   float result = progress.UpdateProgress(bWave, start);
-  TEST_GREATER(result, 49.5, ());
-  TEST_LESS(result, 50.5, ());
+  TEST_GREATER(result, 49.0, ());
+  TEST_LESS(result, 51.0, ());
 
-  progress.EraseLastSubProgress();
+  progress.PushAndDropLastSubProgress();
 }
 } //  namespace routing_test

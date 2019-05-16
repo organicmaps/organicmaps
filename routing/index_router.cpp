@@ -58,11 +58,11 @@ using namespace std;
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 12;
-float constexpr kProgressInterval = 2;
+double constexpr kProgressInterval = 0.5;
 uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
-double constexpr kLeapsStageContribution = 0.3;
+double constexpr kLeapsStageContribution = 0.15;
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
@@ -442,7 +442,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
     progress.AppendSubProgress(subProgress);
     SCOPE_GUARD(eraseProgress, [&progress]() {
-      progress.EraseLastSubProgress();
+      progress.PushAndDropLastSubProgress();
     });
 
     auto const result = CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter,
@@ -555,7 +555,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     RoutingResult<JointSegment, RouteWeight> routingResult;
 
     uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastPercent();
+    double lastValue = progress.GetLastPercent();
     auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
     {
       ++visitCount;
@@ -631,7 +631,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
 
     if (mode == WorldGraphMode::LeapsOnly)
-      progress.EraseLastSubProgress();
+      progress.PushAndDropLastSubProgress();
 
     if (result != RouterResultCode::NoError)
       return result;
@@ -845,7 +845,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   }
 
   SCOPE_GUARD(progressGuard, [&progress]() {
-    progress.EraseLastSubProgress();
+    progress.PushAndDropLastSubProgress();
   });
 
   progress.AppendSubProgress(AStarSubProgress(1.0 - kLeapsStageContribution));
@@ -906,6 +906,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
   set<NumMwmId> mwmIds;
   IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
+  size_t maxStart = 0;
 
   auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
                                      RoutingResult<JointSegment, RouteWeight> & routingResult)
@@ -926,12 +927,18 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
     using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
 
-    auto const contribCoef = static_cast<double>(end - start + 1) / (input.size());
+    maxStart = max(maxStart, start);
+    auto const contribCoef = static_cast<double>(end - maxStart + 1) / (input.size());
     auto const startPoint = starter.GetPoint(input[start], true /* front */);
     auto const endPoint = starter.GetPoint(input[end], true /* front */);
     progress.AppendSubProgress({startPoint, endPoint, contribCoef});
-    SCOPE_GUARD(progressGuard, [&progress]() {
-      progress.EraseLastSubProgress();
+
+    RouterResultCode resultCode = RouterResultCode::NoError;
+    SCOPE_GUARD(progressGuard, [&]() {
+      if (resultCode == RouterResultCode::NoError)
+        progress.PushAndDropLastSubProgress();
+      else
+        progress.DropLastSubProgress();
     });
 
     uint32_t visitCount = 0;
@@ -959,7 +966,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       nullptr /* prevRoute */, delegate,
       onVisitJunctionJoints, checkLength);
 
-    return FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
+    resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
+    return resultCode;
   };
 
   deque<vector<Segment>> paths;
@@ -977,7 +985,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         paths.pop_back();
 
       ASSERT(!subroute.empty(), ());
-      paths.emplace_back(vector<Segment>(dropFirstSegment ? subroute.cbegin() + 1 : subroute.cbegin(), subroute.cend()));
+      paths.emplace_back(vector<Segment>(dropFirstSegment ? subroute.cbegin() + 1
+                                                          : subroute.cbegin(), subroute.cend()));
 
       dropFirstSegment = true;
       prevStart = start;
