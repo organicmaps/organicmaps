@@ -454,12 +454,12 @@ namespace
   }
 
   // TODO (@gmoryes) uncomment this after many-via restrictions will be in mwms.
-  /*
+/*
   UNIT_TEST(SpainRestirctionOnlyMany)
   {
     integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
-      MercatorBounds::FromLatLon(43.38234, -5.67648), {0., 0.},
+      MercatorBounds::FromLatLon(43.38234, -5.67648), {0.0, 0.0},
       MercatorBounds::FromLatLon(43.38222, -5.69083), 8289.0);
   }
   
@@ -467,8 +467,8 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
-      MercatorBounds::FromLatLon(55.991578, 37.212476), {0., 0.},
+      MercatorBounds::FromLatLon(55.991578, 37.212476), {0.0, 0.0},
       MercatorBounds::FromLatLon(55.991845, 37.215312), 799.0);
   }
-   */
+*/
 }  // namespace

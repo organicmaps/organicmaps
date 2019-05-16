@@ -322,7 +322,7 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
     }
   }
 
-  NumMwmId mwmId = GetCommonMwmInChain(chain);
+  NumMwmId const mwmId = GetCommonMwmInChain(chain);
   if (mwmId == kFakeNumMwmId)
     return true;
 
