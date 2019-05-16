@@ -5,8 +5,6 @@
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/string_view.hpp"
-
 #include <exception>
 #include <functional>
 #include <iomanip>
@@ -125,9 +123,9 @@ struct OsmElement
     m_members.emplace_back(ref, type, role);
   }
 
-  void AddTag(std::string_view const & key, std::string_view const & value);
-  bool HasTag(std::string_view const & key) const;
-  bool HasTag(std::string_view const & key, std::string_view const & value) const;
+  void AddTag(std::string const & key, std::string const & value);
+  bool HasTag(std::string const & key) const;
+  bool HasTag(std::string const & key, std::string const & value) const;
   bool HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const;
 
   template <class Fn>
@@ -149,7 +147,7 @@ struct OsmElement
   }
 
   std::string GetTag(std::string const & key) const;
-  std::string_view GetTagValue(std::string_view const & key, std::string_view const & defaultValue) const;
+  std::string GetTagValue(std::string const & key, std::string const & defaultValue) const;
   EntityType m_type = EntityType::Unknown;
   uint64_t m_id = 0;
   double m_lon = 0;

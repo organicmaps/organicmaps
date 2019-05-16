@@ -134,7 +134,7 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 }
 
 void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjectsTmpMwm,
-                                            std::string_view const & includeCountries,
+                                            std::string const & includeCountries,
                                             regions::RegionInfoGetter const & regionInfoGetter)
 {
   auto const path = Platform().TmpPathForFile();
@@ -155,9 +155,9 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     auto && properties = base::GetJSONObligatoryField(regionKeyValue->second.get(), "properties");
     auto && address = base::GetJSONObligatoryField(properties, "address");
     auto && country = base::GetJSONObligatoryField(address, "country");
-    auto countryName = FromJSON<std::string_view>(country);
+    auto countryName = FromJSON<std::string>(country);
     auto pos = includeCountries.find(countryName);
-    if (pos != std::string_view::npos)
+    if (pos != std::string::npos)
       collector(fb);
   };
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);

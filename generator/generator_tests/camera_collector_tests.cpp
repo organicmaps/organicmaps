@@ -22,8 +22,6 @@
 
 #include "defines.hpp"
 
-#include "std/string_view.hpp"
-
 #include <cstdint>
 #include <set>
 #include <string>

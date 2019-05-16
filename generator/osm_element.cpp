@@ -31,7 +31,7 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
-void OsmElement::AddTag(std::string_view const & key, std::string_view const & value)
+void OsmElement::AddTag(std::string const & key, std::string const & value)
 {
   // Seems like source osm data has empty values. They are useless for us.
   if (key.empty() || value.empty())
@@ -68,14 +68,14 @@ void OsmElement::AddTag(std::string_view const & key, std::string_view const & v
   m_tags.emplace_back(std::string{key}, std::move(val));
 }
 
-bool OsmElement::HasTag(std::string_view const & key) const
+bool OsmElement::HasTag(std::string const & key) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
     return t.m_key == key;
   });
 }
 
-bool OsmElement::HasTag(std::string_view const & key, std::string_view const & value) const
+bool OsmElement::HasTag(std::string const & key, std::string const & value) const
 {
   return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
     return t.m_key == key && t.m_value == value;
@@ -159,8 +159,8 @@ std::string OsmElement::GetTag(std::string const & key) const
   return it == m_tags.cend() ? std::string() : it->m_value;
 }
 
-std::string_view OsmElement::GetTagValue(std::string_view const & key,
-                                         std::string_view const & defaultValue) const
+std::string OsmElement::GetTagValue(std::string const & key,
+                                    std::string const & defaultValue) const
 {
   auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
                                [&key](Tag const & tag) { return tag.m_key == key; });
