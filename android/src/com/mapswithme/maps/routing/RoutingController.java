@@ -228,7 +228,8 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private boolean isDrivingOptionsBuildError()
   {
-    return isVehicleRouterType() && RoutingOptions.hasAnyOptions();
+    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && isVehicleRouterType()
+           && RoutingOptions.hasAnyOptions();
   }
 
   private void setState(State newState)
