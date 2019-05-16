@@ -49,7 +49,6 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
   @Override
   protected void setupHomeButton(@NonNull Toolbar toolbar)
   {
-
   }
 
   @Override

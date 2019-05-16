@@ -183,7 +183,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    inflater.inflate(R.menu.menu_top_bookmark_categories, menu);
+    inflater.inflate(R.menu.menu_bookmark_catalog, menu);
   }
 
   @Override
