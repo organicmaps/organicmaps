@@ -11,6 +11,23 @@ namespace
 {
 using RoadType = RoutingOptions::RoadType;
 
+class RoutingOptionsTests
+{
+public:
+  RoutingOptionsTests()
+  {
+    m_savedOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  }
+
+  ~RoutingOptionsTests()
+  {
+    RoutingOptions::SaveCarOptionsToSettings(m_savedOptions);
+  }
+
+private:
+  RoutingOptions m_savedOptions;
+};
+
 RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
 {
   RoutingOptions options;
@@ -56,7 +73,7 @@ UNIT_TEST(RoutingOptionTest)
   Checker({});
 }
 
-UNIT_TEST(RoutingOption_GetSetTest)
+UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
 {
   RoutingOptions options = CreateOptions({RoutingOptions::Road::Toll,
                                           RoutingOptions::Road::Motorway,
