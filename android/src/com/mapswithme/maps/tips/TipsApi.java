@@ -1,6 +1,7 @@
 package com.mapswithme.maps.tips;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.View;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -164,8 +166,12 @@ public enum TipsApi
   public abstract ClickInterceptor createClickInterceptor();
 
   @NonNull
-  public static <T> TipsApi requestCurrent(@NonNull Class<T> requiredScreenClass)
+  public static <T> TipsApi requestCurrent(@NonNull Context context,
+                                           @NonNull Class<T> requiredScreenClass)
   {
+    if (MwmApplication.from(context).isFirstLaunch())
+      return STUB;
+
     int index = Framework.nativeGetCurrentTipsApi();
     TipsApi value = index >= 0 ? values()[index] : STUB;
     TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value

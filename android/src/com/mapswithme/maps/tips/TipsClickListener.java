@@ -23,7 +23,7 @@ public abstract class TipsClickListener implements View.OnClickListener
   @Override
   public final void onClick(View v)
   {
-    TipsApi api = TipsApi.requestCurrent(mActivity.getClass());
+    TipsApi api = TipsApi.requestCurrent(mActivity, mActivity.getClass());
     if (api == mTipsApi)
     {
       MwmActivity mwmActivity = (MwmActivity) mActivity;

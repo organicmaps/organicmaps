@@ -545,7 +545,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initTips()
   {
-    TipsApi api = TipsApi.requestCurrent(getClass());
+    TipsApi api = TipsApi.requestCurrent(this, getClass());
     if (api == TipsApi.STUB)
       return;
 
@@ -2318,7 +2318,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public final void onMenuItemClick()
     {
-      TipsApi api = TipsApi.requestCurrent(getActivity().getClass());
+      TipsApi api = TipsApi.requestCurrent(getActivity(), getActivity().getClass());
       LOGGER.d(TAG, "TipsApi = " + api);
       if (getItem() == api.getSiblingMenuItem())
       {
