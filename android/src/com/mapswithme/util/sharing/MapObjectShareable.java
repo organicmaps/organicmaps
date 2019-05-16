@@ -35,12 +35,11 @@ class MapObjectShareable extends BaseShareable
     {
       subject = activity.getString(R.string.bookmark_share_email_subject);
 
-      text = lineWithBreak(activity.getString(R.string.sharing_call_action_look)) +
-                 lineWithBreak(mapObject.getTitle()) +
-                 lineWithBreak(mapObject.getSubtitle()) +
-                 lineWithBreak(mapObject.getAddress()) +
-                 lineWithBreak(ge0Url) +
-                 lineWithBreak(httpUrl);
+      text = lineWithBreak(mapObject.getTitle()) +
+             lineWithBreak(mapObject.getSubtitle()) +
+             lineWithBreak(mapObject.getAddress()) +
+             lineWithBreak(ge0Url) +
+             lineWithBreak(httpUrl);
 
       if (sponsored != null && sponsored.getType() == Sponsored.TYPE_BOOKING)
       {
