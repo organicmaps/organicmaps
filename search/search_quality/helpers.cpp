@@ -23,9 +23,7 @@
 
 #include <fstream>
 #include <limits>
-#include <memory>
 #include <utility>
-#include <vector>
 
 #include <sys/resource.h>
 
@@ -39,9 +37,9 @@ namespace
 {
 uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
 {
-  vector<string> specialFiles = {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME,
-                                 WORLD_COASTS_OBSOLETE_FILE_NAME};
-  for (auto const & name : specialFiles)
+  vector<string> const kSpecialFiles = {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME,
+                                        WORLD_COASTS_OBSOLETE_FILE_NAME};
+  for (auto const & name : kSpecialFiles)
   {
     if (mwm.GetCountryName() == name)
       return mwm.GetVersion();

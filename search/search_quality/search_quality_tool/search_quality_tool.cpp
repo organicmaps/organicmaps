@@ -85,7 +85,7 @@ struct CompletenessQuery
 {
   DECLARE_EXCEPTION(MalformedQueryException, RootException);
 
-  explicit CompletenessQuery(string s)
+  explicit CompletenessQuery(string && s)
   {
     s.append(" ");
 
@@ -97,7 +97,7 @@ struct CompletenessQuery
               ("Can't split", s, ", found", parts.size(), "part(s):", parts));
     }
 
-    auto idx = parts[0].find(':');
+    auto const idx = parts[0].find(':');
     if (idx == string::npos)
       MYTHROW(MalformedQueryException, ("Could not find \':\':", s));
 
@@ -249,13 +249,13 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
   // todo(@m) Process the queries on the fly and do not keep them.
   vector<CompletenessQuery> queries;
 
-  string s;
-  while (getline(stream, s))
+  string line;
+  while (getline(stream, line))
   {
     ++totalQueries;
     try
     {
-      CompletenessQuery q(s);
+      CompletenessQuery q(move(line));
       q.m_request =
           make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
       queries.push_back(move(q));
