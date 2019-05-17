@@ -70,16 +70,11 @@ pugi::xml_node GetCoordinates(pugi::xml_node const & node)
 
 bool IsLocationReferenceTag(pugi::xml_node const & node)
 {
-//  if (node.select_node(".//olr:locationReference").node())
-//    return false;
-//  return node.select_node("coordinates").node();
   return node.select_node(".//olr:locationReference").node();
 }
 
 bool IsCoordinatesTag(pugi::xml_node const & node)
 {
-//  if (node.select_node(".//olr:locationReference").node())
-//    return false;
   return node.select_node("coordinates").node();
 }
 
@@ -296,8 +291,6 @@ bool CoordinatesFromXML(pugi::xml_node const & coordsNode, openlr::LinearLocatio
     return false;
   }
 
-  // @TODO Default ctor for LatLon.
-
   ms::LatLon latLonStart = ms::LatLon::Zero();
   ms::LatLon latLonEnd = ms::LatLon::Zero();
   if (!LatLonFormXML(coordsNode.child("start"), latLonStart) ||
@@ -325,10 +318,9 @@ bool ParseOpenlr(pugi::xml_document const & document, vector<LinearSegment> & se
     auto const & node = segmentXpathNode.node();
     if (!IsLocationReferenceTag(node) && !IsCoordinatesTag(node))
     {
-//      LOG(LWARNING, ("A segment with <coordinates> instead of <optionLinearLocationReference> "
-//                     "was encountered, skipping..."));
-//      continue;
-      return false;
+      LOG(LWARNING, ("A segment with a strange tag. It is not <coordinates>"
+                     " or <optionLinearLocationReference>, skipping..."));
+      continue;
     }
 
     if (!SegmentFromXML(node, segment))
