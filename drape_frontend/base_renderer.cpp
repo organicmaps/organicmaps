@@ -3,6 +3,16 @@
 
 #include <utility>
 
+#if defined(OMIM_METAL_AVAILABLE)
+namespace dp
+{
+extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
+}  // namespace dp
+#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; });
+#else
+#define RENDER_FRAME_MEDIATOR(renderFunction) renderFunction;
+#endif
+
 namespace df
 {
 // static
@@ -42,6 +52,17 @@ void BaseRenderer::StopThread()
 
   // wait for render thread completion
   m_selfThread.Join();
+}
+  
+void BaseRenderer::IterateRenderLoop()
+{
+  RENDER_FRAME_MEDIATOR(IterateRenderLoopImpl());
+}
+  
+void BaseRenderer::IterateRenderLoopImpl()
+{
+  RenderFrame();
+  CheckRenderingEnabled();
 }
 
 void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory)

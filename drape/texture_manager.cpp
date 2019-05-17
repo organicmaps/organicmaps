@@ -251,6 +251,8 @@ void TextureManager::Release()
   m_glyphManager.reset();
 
   m_glyphGenerator->FinishGeneration();
+  
+  m_isInitialized = false;
   m_nothingToUpload.test_and_set();
 }
 
@@ -272,14 +274,20 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
 
     CHECK(false, ("Unsupported API version."));
   }
+  
+  CHECK(m_isInitialized, ());
 
   m_uploadTimer.Reset();
 
+  CHECK(m_colorTexture != nullptr, ());
   m_colorTexture->UpdateState(context);
+
+  CHECK(m_stipplePenTexture != nullptr, ());
   m_stipplePenTexture->UpdateState(context);
 
   UpdateGlyphTextures(context);
 
+  CHECK(m_textureAllocator != nullptr, ());
   m_textureAllocator->Flush();
 
   return true;
@@ -294,6 +302,7 @@ void TextureManager::UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context)
 
 bool TextureManager::HasAsyncRoutines() const
 {
+  CHECK(m_glyphGenerator != nullptr, ());
   return !m_glyphGenerator->IsSuspended();
 }
 
@@ -413,6 +422,8 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text, int fi
 
 void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
+  CHECK(!m_isInitialized, ());
+  
   m_resPostfix = params.m_resPostfix;
   m_textureAllocator = CreateAllocator(context);
 
@@ -483,11 +494,14 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   uint32_t const averageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
   m_maxGlypsCount = static_cast<uint32_t>(ceil(kGlyphAreaCoverage * textureSquare / averageGlyphSquare));
 
+  m_isInitialized = true;
   m_nothingToUpload.clear();
 }
 
 void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
+  CHECK(m_isInitialized, ());
+  
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
@@ -506,11 +520,13 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 
 void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures)
 {
+  CHECK(m_isInitialized, ());
   std::swap(textures, m_texturesToCleanup);
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
 {
+  CHECK(m_isInitialized, ());
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
   {
     ASSERT(m_symbolTextures[i] != nullptr, ());
@@ -526,6 +542,7 @@ void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & r
 
 bool TextureManager::HasSymbolRegion(std::string const & symbolName) const
 {
+  CHECK(m_isInitialized, ());
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
   {
     ASSERT(m_symbolTextures[i] != nullptr, ());
@@ -538,11 +555,13 @@ bool TextureManager::HasSymbolRegion(std::string const & symbolName) const
 
 void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
 {
+  CHECK(m_isInitialized, ());
   GetRegionBase(make_ref(m_stipplePenTexture), region, StipplePenKey(pen));
 }
 
 void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
 {
+  CHECK(m_isInitialized, ());
   GetRegionBase(make_ref(m_colorTexture), region, ColorKey(color));
 }
 
@@ -585,32 +604,38 @@ uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultili
 
 bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHeight) const
 {
+  CHECK(m_isInitialized, ());
   return m_glyphManager->AreGlyphsReady(str, fixedHeight);
 }
 
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const
 {
+  CHECK(m_isInitialized, ());
   ASSERT(!m_symbolTextures.empty(), ());
   return make_ref(m_symbolTextures[kDefaultSymbolsIndex]);
 }
 
 ref_ptr<Texture> TextureManager::GetTrafficArrowTexture() const
 {
+  CHECK(m_isInitialized, ());
   return make_ref(m_trafficArrowTexture);
 }
 
 ref_ptr<Texture> TextureManager::GetHatchingTexture() const
 {
+  CHECK(m_isInitialized, ());
   return make_ref(m_hatchingTexture);
 }
 
 ref_ptr<Texture> TextureManager::GetSMAAAreaTexture() const
 {
+  CHECK(m_isInitialized, ());
   return make_ref(m_smaaAreaTexture);
 }
 
 ref_ptr<Texture> TextureManager::GetSMAASearchTexture() const
 {
+  CHECK(m_isInitialized, ());
   return make_ref(m_smaaSearchTexture);
 }
 

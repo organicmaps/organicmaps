@@ -18,4 +18,11 @@ void ProgramManager::InitForMetal(ref_ptr<dp::GraphicsContext> context)
                                   metalPool->GetSystemProgram(SystemProgram::ClearDepth),
                                   metalPool->GetSystemProgram(SystemProgram::ClearColorAndDepth));
 }
+  
+void ProgramManager::DestroyForMetal(ref_ptr<dp::GraphicsContext> context)
+{
+  ASSERT(dynamic_cast<dp::metal::MetalBaseContext *>(context.get()) != nullptr, ());
+  ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
+  metalContext->ResetPipelineStatesCache();
+}
 }  // namespace gpu

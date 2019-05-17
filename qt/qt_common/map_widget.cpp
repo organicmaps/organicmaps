@@ -326,7 +326,7 @@ void MapWidget::paintGL()
   if (m_program == nullptr)
     Build();
 
-  if (m_contextFactory->LockFrame())
+  if (m_contextFactory->AcquireFrame())
   {
     m_vao->bind();
     m_program->bind();
@@ -356,7 +356,6 @@ void MapWidget::paintGL()
     m_program->release();
     m_vao->release();
 
-    m_contextFactory->UnlockFrame();
   }
 }
 

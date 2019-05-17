@@ -118,6 +118,8 @@ public:
   uint32_t RegisterHandler(HandlerType handlerType, ContextHandler && handler);
   void UnregisterHandler(uint32_t id);
 
+  void ResetPipelineCache();
+
   struct AttachmentOp
   {
     VkAttachmentLoadOp m_loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;

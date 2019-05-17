@@ -673,10 +673,7 @@ void BackendRenderer::Routine::Do()
   LOG(LINFO, ("Start routine."));
   m_renderer.CreateContext();
   while (!IsCancelled())
-  {
-    RENDER_FRAME(m_renderer.RenderFrame());
-    m_renderer.CheckRenderingEnabled();
-  }
+    m_renderer.IterateRenderLoop();
   m_renderer.ReleaseResources();
 }
   

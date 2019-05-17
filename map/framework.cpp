@@ -2022,6 +2022,12 @@ void Framework::OnDestroySurface()
   m_trafficManager.OnDestroySurface();
 }
 
+void Framework::UpdateVisualScale(double vs)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->UpdateVisualScale(vs, m_isRenderingEnabled);
+}
+
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 {
   return make_ref(m_drapeEngine);

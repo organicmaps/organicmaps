@@ -18,6 +18,7 @@ namespace gpu
 {
 void ProgramManager::Init(ref_ptr<dp::GraphicsContext> context)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
@@ -41,9 +42,18 @@ void ProgramManager::Init(ref_ptr<dp::GraphicsContext> context)
 
 void ProgramManager::Destroy(ref_ptr<dp::GraphicsContext> context)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::Vulkan)
+  if (apiVersion == dp::ApiVersion::Metal)
+  {
+#if defined(OMIM_METAL_AVAILABLE)
+    DestroyForMetal(context);
+#endif
+  }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
     DestroyForVulkan(context);
+  }
 }
   
 void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
@@ -82,15 +92,19 @@ void ProgramManager::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
 
 void ProgramManager::DestroyForVulkan(ref_ptr<dp::GraphicsContext> context)
 {
+  ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+  vulkanContext->ResetPipelineCache();
+
   ASSERT(dynamic_cast<vulkan::VulkanProgramParamsSetter *>(m_paramsSetter.get()) != nullptr, ());
-  static_cast<vulkan::VulkanProgramParamsSetter *>(m_paramsSetter.get())->Destroy(context);
+  static_cast<vulkan::VulkanProgramParamsSetter *>(m_paramsSetter.get())->Destroy(vulkanContext);
 
   ASSERT(dynamic_cast<vulkan::VulkanProgramPool *>(m_pool.get()) != nullptr, ());
-  static_cast<vulkan::VulkanProgramPool *>(m_pool.get())->Destroy(context);
+  static_cast<vulkan::VulkanProgramPool *>(m_pool.get())->Destroy(vulkanContext);
 }
 
 ref_ptr<dp::GpuProgram> ProgramManager::GetProgram(Program program)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto & programPtr = m_programs[static_cast<size_t>(program)];
   if (programPtr)
     return make_ref(programPtr);
@@ -101,6 +115,7 @@ ref_ptr<dp::GpuProgram> ProgramManager::GetProgram(Program program)
 
 ref_ptr<ProgramParamsSetter> ProgramManager::GetParamsSetter() const
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return make_ref(m_paramsSetter);
 }
 }  // namespace gpu

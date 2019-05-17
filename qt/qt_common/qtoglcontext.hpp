@@ -7,7 +7,9 @@
 #include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
 
+#include <atomic>
 #include <memory>
+#include <mutex>
 
 namespace qt
 {
@@ -24,10 +26,9 @@ public:
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void Resize(int w, int h) override;
 
-  void LockFrame();
+  bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
-  void UnlockFrame();
 
 private:
   QOffscreenSurface * m_surface = nullptr;
@@ -35,10 +36,17 @@ private:
 
   std::unique_ptr<QOpenGLFramebufferObject> m_frontFrame;
   std::unique_ptr<QOpenGLFramebufferObject> m_backFrame;
-  QRectF m_texRect = QRectF(0.0, 0.0, 0.0, 0.0);
+  std::unique_ptr<QOpenGLFramebufferObject> m_acquiredFrame;
+  QRectF m_acquiredFrameRect = QRectF(0.0, 0.0, 0.0, 0.0);
+  QRectF m_frameRect = QRectF(0.0, 0.0, 0.0, 0.0);
+  bool m_frameUpdated = false;
 
-  mutex m_lock;
-  bool m_resizeLock = false;
+  std::atomic<bool> m_isContextAvailable;
+  int m_width = 0;
+  int m_height = 0;
+  bool m_needRecreateAcquiredFrame = false;
+
+  std::mutex m_frameMutex;
 };
 
 class QtUploadOGLContext: public dp::OGLContext

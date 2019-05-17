@@ -54,6 +54,9 @@ public:
   double GetFontScale() const;
   void SetFontScale(double fontScale);
 
+  // This method can be called ONLY if rendering is disabled.
+  void SetVisualScale(double visualScale);
+
 private:
   VisualParams();
 

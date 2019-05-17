@@ -40,7 +40,11 @@ void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram>
     
     ref_ptr<dp::metal::MetalTexture> t = texture.second->GetHardwareTexture();
     if (t == nullptr)
-      continue;
+    {
+      texture.second->UpdateState(context);
+      t = texture.second->GetHardwareTexture();
+      CHECK(t != nullptr, ());
+    }
     
     t->SetFilter(state.GetTextureFilter());
     dp::HWTexture::Params const & params = t->GetParams();

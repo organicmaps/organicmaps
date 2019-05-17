@@ -15,16 +15,6 @@
 #include <memory>
 #include <mutex>
 
-#if defined(OMIM_METAL_AVAILABLE)
-namespace dp
-{
-extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
-}  // namespace dp
-#define RENDER_FRAME(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; });
-#else
-#define RENDER_FRAME(renderFunction) renderFunction;
-#endif
-
 namespace df
 {
 using OnGraphicsContextInitialized = std::function<void()>;
@@ -54,6 +44,8 @@ public:
   BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params);
 
   bool CanReceiveMessages();
+  
+  void IterateRenderLoop();
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory);
   void SetRenderingDisabled(bool const destroySurface);
@@ -73,8 +65,10 @@ protected:
   void CreateContext();
 
   void CheckRenderingEnabled();
-
+  
   virtual std::unique_ptr<threads::IRoutine> CreateRoutine() = 0;
+  
+  virtual void RenderFrame() = 0;
 
   virtual void OnContextCreate() = 0;
   virtual void OnContextDestroy() = 0;
@@ -84,6 +78,8 @@ protected:
 
 private:
   using TCompletionHandler = std::function<void()>;
+  
+  void IterateRenderLoopImpl();
 
   threads::Thread m_selfThread;
   ThreadsCommutator::ThreadName m_threadName;

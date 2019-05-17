@@ -92,6 +92,12 @@ void VisualParams::SetFontScale(double fontScale)
   m_fontScale = fontScale;
 }
 
+void VisualParams::SetVisualScale(double visualScale)
+{
+  ASSERT_INITED;
+  m_visualScale = visualScale;
+}
+
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   ASSERT_INITED;

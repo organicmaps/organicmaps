@@ -143,6 +143,9 @@ public:
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;
+  
+  void RenderFrame() override;
+  
   void OnContextCreate() override;
   void OnContextDestroy() override;
 
@@ -180,7 +183,6 @@ private:
   void RenderSearchMarksLayer(ScreenBase const & modelView);
   void RenderTransitBackground();
   void RenderEmptyFrame();
-  void RenderFrame();
 
   bool HasTransitRouteData() const;
   bool HasRouteData() const;

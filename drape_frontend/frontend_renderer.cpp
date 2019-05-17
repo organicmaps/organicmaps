@@ -1144,28 +1144,24 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 void FrontendRenderer::OnResize(ScreenBase const & screen)
 {
   m2::RectD const viewportRect = screen.PixelRectIn3d();
-  double const kEps = 1e-5;
+  double constexpr kEps = 1e-5;
   bool const viewportChanged = !m2::IsEqualSize(m_lastReadedModelView.PixelRectIn3d(), viewportRect, kEps, kEps);
 
   m_myPositionController->OnUpdateScreen(screen);
 
+  if (viewportChanged)
+    m_myPositionController->UpdatePosition();
+
   auto const sx = static_cast<uint32_t>(viewportRect.SizeX());
   auto const sy = static_cast<uint32_t>(viewportRect.SizeY());
+  m_viewport.SetViewport(0, 0, sx, sy);
 
-  if (viewportChanged)
-  {
-    m_myPositionController->UpdatePosition();
-    m_viewport.SetViewport(0, 0, sx, sy);
-  }
-
-  if (viewportChanged || m_needRestoreSize || m_apiVersion == dp::ApiVersion::Vulkan)
-  {
-    CHECK(m_context != nullptr, ());
-    m_context->Resize(sx, sy);
-    m_buildingsFramebuffer->SetSize(m_context, sx, sy);
-    m_postprocessRenderer->Resize(m_context, sx, sy);
-    m_needRestoreSize = false;
-  }
+  CHECK(m_context != nullptr, ());
+  // All resize methods must be protected from setting up the same size.
+  m_context->Resize(sx, sy);
+  m_buildingsFramebuffer->SetSize(m_context, sx, sy);
+  m_postprocessRenderer->Resize(m_context, sx, sy);
+  m_needRestoreSize = false;
 
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
@@ -1687,7 +1683,7 @@ void FrontendRenderer::RenderFrame()
 
   ScreenBase const & modelView = ProcessEvents(m_frameData.m_modelViewChanged,
                                                m_frameData.m_viewportChanged);
-  if (m_frameData.m_viewportChanged)
+  if (m_frameData.m_viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
   if (!m_context->BeginRendering())
@@ -1699,7 +1695,8 @@ void FrontendRenderer::RenderFrame()
   if (isActiveFrame)
     PrepareScene(modelView);
 
-  isActiveFrame |= m_texMng->UpdateDynamicTextures(m_context);
+  bool const needUpdateDynamicTextures = m_texMng->UpdateDynamicTextures(m_context);
+  isActiveFrame |= needUpdateDynamicTextures;
   isActiveFrame |= m_userEventStream.IsWaitingForActionCompletion();
   isActiveFrame |= InterpolationHolder::Instance().IsActive();
 
@@ -2276,6 +2273,7 @@ void FrontendRenderer::OnContextCreate()
   m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
   m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
+  m_overlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(m_context);
@@ -2367,10 +2365,7 @@ void FrontendRenderer::Routine::Do()
   DrapeMeasurer::Instance().Start();
 #endif
   while (!IsCancelled())
-  {
-    RENDER_FRAME(m_renderer.RenderFrame());
-    m_renderer.CheckRenderingEnabled();
-  }
+    m_renderer.IterateRenderLoop();
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().Stop(true /* forceProcessRealtimeStats */);
 #endif

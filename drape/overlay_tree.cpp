@@ -93,6 +93,12 @@ OverlayTree::OverlayTree(double visualScale)
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
+void OverlayTree::SetVisualScale(double visualScale)
+{
+  m_traits.SetVisualScale(visualScale);
+  InvalidateOnNextFrame();
+}
+
 void OverlayTree::Clear()
 {
   InvalidateOnNextFrame();

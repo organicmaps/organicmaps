@@ -16,32 +16,32 @@ namespace common
 QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface)
   , m_ctx(std::make_unique<QOpenGLContext>())
+  , m_isContextAvailable(false)
 {
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);
   m_ctx->create();
-  ASSERT(m_ctx->isValid(), ());
+  CHECK(m_ctx->isValid(), ());
 }
 
 void QtRenderOGLContext::Present()
 {
-  if (!m_resizeLock)
-    LockFrame();
-
-  m_resizeLock = false;
   GLFunctions::glFinish();
 
+  std::lock_guard<std::mutex> lock(m_frameMutex);
   std::swap(m_frontFrame, m_backFrame);
-  UnlockFrame();
+  m_frameUpdated = true;
 }
 
 void QtRenderOGLContext::MakeCurrent()
 {
-  VERIFY(m_ctx->makeCurrent(m_surface), ());
+  CHECK(m_ctx->makeCurrent(m_surface), ());
+  m_isContextAvailable = true;
 }
 
 void QtRenderOGLContext::DoneCurrent()
 {
+  m_isContextAvailable = false;
   m_ctx->doneCurrent();
 }
 
@@ -55,38 +55,69 @@ void QtRenderOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer
 
 void QtRenderOGLContext::Resize(int w, int h)
 {
-  LockFrame();
-  m_resizeLock = true;
+  CHECK(m_isContextAvailable, ());
 
-  QSize size(base::NextPowOf2(w), base::NextPowOf2(h));
-  m_texRect =
-      QRectF(0.0, 0.0, w / static_cast<float>(size.width()), h / static_cast<float>(size.height()));
+  // This function can't be called inside BeginRendering - EndRendering.
+  std::lock_guard<std::mutex> lock(m_frameMutex);
 
-  m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
-  m_backFrame = std::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
+  auto const nw = base::NextPowOf2(w);
+  auto const nh = base::NextPowOf2(h);
+
+  if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
+  {
+    m_frameRect =
+      QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+    return;
+  }
+
+  m_width = nw;
+  m_height = nh;
+  m_frameRect =
+    QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+
+  m_backFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
+                                                           QOpenGLFramebufferObject::Depth);
+  m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
+                                                            QOpenGLFramebufferObject::Depth);
+  m_needRecreateAcquiredFrame = true;
 }
 
-void QtRenderOGLContext::LockFrame()
+bool QtRenderOGLContext::AcquireFrame()
 {
-  m_lock.lock();
+  if (!m_isContextAvailable)
+    return false;
+
+  std::lock_guard<std::mutex> lock(m_frameMutex);
+  // Render current acquired frame.
+  if (!m_frameUpdated)
+    return true;
+
+  // Update acquired frame.
+  if (m_needRecreateAcquiredFrame)
+  {
+    m_acquiredFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
+                                                                 QOpenGLFramebufferObject::Depth);
+    m_needRecreateAcquiredFrame = false;
+  }
+  m_acquiredFrameRect = m_frameRect;
+  std::swap(m_acquiredFrame, m_frontFrame);
+  m_frameUpdated = false;
+
+  return true;
 }
 
 QRectF const & QtRenderOGLContext::GetTexRect() const
 {
-  return m_texRect;
+  return m_acquiredFrameRect;
 }
 
 GLuint QtRenderOGLContext::GetTextureHandle() const
 {
-  if (!m_frontFrame)
+  if (!m_acquiredFrame)
     return 0;
 
-  return m_frontFrame->texture();
-}
-
-void QtRenderOGLContext::UnlockFrame()
-{
-  m_lock.unlock();
+  CHECK(!m_acquiredFrame->isBound(), ());
+  return m_acquiredFrame->texture();
 }
 
 QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
@@ -95,7 +126,7 @@ QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenS
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);
   m_ctx->create();
-  ASSERT(m_ctx->isValid(), ());
+  CHECK(m_ctx->isValid(), ());
 }
 
 void QtUploadOGLContext::MakeCurrent()

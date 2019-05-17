@@ -26,6 +26,8 @@ public:
   MetalBaseContext(id<MTLDevice> device, m2::PointU const & screenSize,
                    DrawableRequest && drawableRequest);
   
+  bool BeginRendering() override;
+  void EndRendering() override;
   void Present() override;
   void MakeCurrent() override {}
   void DoneCurrent() override {}
@@ -67,6 +69,7 @@ public:
   
   void ApplyPipelineState(id<MTLRenderPipelineState> state);
   bool HasAppliedPipelineState() const;
+  void ResetPipelineStatesCache();
   
 protected:
   void RecreateDepthTexture(m2::PointU const & screenSize);

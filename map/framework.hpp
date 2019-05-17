@@ -524,6 +524,8 @@ public:
   void OnRecoverSurface(int width, int height, bool recreateContextDependentResources);
   void OnDestroySurface();
 
+  void UpdateVisualScale(double vs);
+
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();

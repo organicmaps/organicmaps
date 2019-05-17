@@ -20,10 +20,9 @@ public:
 
   void PrepareToShutdown();
 
-  bool LockFrame();
+  bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
-  void UnlockFrame();
 
   // dp::GraphicsContextFactory overrides:
   dp::GraphicsContext * GetDrawContext() override;

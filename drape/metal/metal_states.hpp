@@ -63,6 +63,8 @@ public:
   id<MTLRenderPipelineState> GetPipelineState(id<MTLDevice> device, PipelineKey const & key);
   id<MTLSamplerState> GetSamplerState(id<MTLDevice> device, SamplerKey const & key);
   
+  void ResetPipelineStatesCache();
+  
 private:
   using DepthStencilCache = std::map<DepthStencilKey, id<MTLDepthStencilState>>;
   DepthStencilCache m_depthStencilCache;

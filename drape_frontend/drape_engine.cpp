@@ -908,4 +908,20 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   return renderInfo;
 }
 
+void DrapeEngine::UpdateVisualScale(double vs, bool needStopRendering)
+{
+  if (needStopRendering)
+    SetRenderingDisabled(true /* destroySurface */);
+
+  VisualParams::Instance().SetVisualScale(vs);
+
+  if (needStopRendering)
+    SetRenderingEnabled();
+
+  RecacheGui(false);
+  RecacheMapShapes();
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<RecoverContextDependentResourcesMessage>(),
+                                  MessagePriority::Normal);
+}
 }  // namespace df

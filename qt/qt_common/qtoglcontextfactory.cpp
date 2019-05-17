@@ -28,13 +28,12 @@ void QtOGLContextFactory::PrepareToShutdown()
   m_preparedToShutdown = true;
 }
 
-bool QtOGLContextFactory::LockFrame()
+bool QtOGLContextFactory::AcquireFrame()
 {
   if (m_preparedToShutdown || !m_drawContext)
     return false;
 
-  m_drawContext->LockFrame();
-  return true;
+  return m_drawContext->AcquireFrame();
 }
 
 QRectF const & QtOGLContextFactory::GetTexRect() const
@@ -47,12 +46,6 @@ GLuint QtOGLContextFactory::GetTextureHandle() const
 {
   ASSERT(m_drawContext != nullptr, ());
   return m_drawContext->GetTextureHandle();
-}
-
-void QtOGLContextFactory::UnlockFrame()
-{
-  ASSERT(m_drawContext != nullptr, ());
-  m_drawContext->UnlockFrame();
 }
 
 dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()

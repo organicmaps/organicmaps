@@ -516,6 +516,12 @@ void VulkanBaseContext::UnregisterHandler(uint32_t id)
   }
 }
 
+void VulkanBaseContext::ResetPipelineCache()
+{
+  if (m_pipeline)
+    m_pipeline->ResetCache(m_device);
+}
+
 void VulkanBaseContext::SetClearColor(Color const & color)
 {
   m_clearColor = color;
@@ -839,8 +845,7 @@ void VulkanBaseContext::DestroySwapchain()
 
 void VulkanBaseContext::DestroyRenderPassAndFramebuffers()
 {
-  if (m_pipeline)
-    m_pipeline->ResetCache(m_device);
+  ResetPipelineCache();
 
   for (auto & fbData : m_framebuffersData)
   {

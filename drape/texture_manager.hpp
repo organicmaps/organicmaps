@@ -195,6 +195,7 @@ private:
   template<typename TText, typename TBuffer>
   void CalcGlyphRegions(TText const & text, int fixedHeight, TBuffer & buffers)
   {
+    CHECK(m_isInitialized, ());
     size_t const hybridGroupIndex = FindHybridGlyphsGroup(text, fixedHeight);
     ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
     HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
@@ -212,6 +213,7 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
+  bool m_isInitialized = false;
   ref_ptr<GlyphGenerator> m_glyphGenerator;
   std::string m_resPostfix;
   std::vector<drape_ptr<Texture>> m_symbolTextures;

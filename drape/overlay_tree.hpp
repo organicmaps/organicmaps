@@ -62,6 +62,8 @@ public:
 
   explicit OverlayTree(double visualScale);
 
+  void SetVisualScale(double visualScale);
+
   void Clear();
   bool Frame();
   bool IsNeedUpdate() const;

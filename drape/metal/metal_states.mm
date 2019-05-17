@@ -131,7 +131,7 @@ id<MTLRenderPipelineState> MetalStates::GetPipelineState(id<MTLDevice> device, P
   m_pipelineCache.insert(std::make_pair(key, pipelineState));
   return pipelineState;
 }
-  
+
 id<MTLSamplerState> MetalStates::GetSamplerState(id<MTLDevice> device, SamplerKey const & key)
 {
   auto const it = m_samplerCache.find(key);
@@ -144,6 +144,11 @@ id<MTLSamplerState> MetalStates::GetSamplerState(id<MTLDevice> device, SamplerKe
   return samplerState;
 }
   
+void MetalStates::ResetPipelineStatesCache()
+{
+  m_pipelineCache.clear();
+}
+
 void MetalStates::DepthStencilKey::SetDepthTestEnabled(bool enabled)
 {
   m_depthEnabled = enabled;

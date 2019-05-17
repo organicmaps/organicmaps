@@ -327,11 +327,20 @@ id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, Text
   MetalStates::SamplerKey const key(filter, wrapSMode, wrapTMode);
   return m_metalStates.GetSamplerState(m_device, key);
 }
+  
+bool MetalBaseContext::BeginRendering()
+{
+  CHECK(m_currentCommandEncoder == nil, ("Current command encoder was not finished."));
+  return true;
+}
+  
+void MetalBaseContext::EndRendering()
+{
+  FinishCurrentEncoding();
+}
 
 void MetalBaseContext::Present()
 {
-  FinishCurrentEncoding();
-  
   RequestFrameDrawable();
   if (m_frameDrawable)
     [m_frameCommandBuffer presentDrawable:m_frameDrawable];
@@ -386,6 +395,11 @@ void MetalBaseContext::ApplyPipelineState(id<MTLRenderPipelineState> state)
 bool MetalBaseContext::HasAppliedPipelineState() const
 {
   return m_lastPipelineState != nil;
+}
+  
+void MetalBaseContext::ResetPipelineStatesCache()
+{
+  m_metalStates.ResetPipelineStatesCache();
 }
   
 void MetalBaseContext::DebugSynchronizeWithCPU()

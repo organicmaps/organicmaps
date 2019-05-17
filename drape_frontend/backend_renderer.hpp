@@ -72,6 +72,8 @@ public:
 
 protected:
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;
+  
+  void RenderFrame() override;
 
   void OnContextCreate() override;
   void OnContextDestroy() override;
@@ -80,8 +82,6 @@ private:
   void RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui);
   void RecacheChoosePositionMark();
   void RecacheMapShapes();
-  
-  void RenderFrame();
 
 #ifdef RENDER_DEBUG_INFO_LABELS
   void RecacheDebugLabels();
