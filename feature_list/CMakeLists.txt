@@ -10,8 +10,9 @@ omim_link_libraries(
   ${PROJECT_NAME}
   map
   traffic
+  search_quality
   search_tests_support
-  search search_quality
+  search
   storage
   ugc
   kml

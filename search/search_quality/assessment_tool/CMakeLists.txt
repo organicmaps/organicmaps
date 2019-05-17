@@ -44,8 +44,8 @@ omim_link_libraries(
   drape_frontend
   shaders
   routing
-  search_tests_support
   search_quality
+  search_tests_support
   search
   storage
   tracking
