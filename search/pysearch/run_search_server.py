@@ -1,13 +1,13 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+from http.server import BaseHTTPRequestHandler,HTTPServer
 import argparse
 import json
 import os
 import pysearch
-import urlparse
+import urllib.parse
 
 DIR = os.path.dirname(__file__)
 RESOURCE_PATH = os.path.realpath(os.path.join(DIR, '..', '..', 'data'))
@@ -17,8 +17,8 @@ PORT=8080
 
 class HTTPHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        result = urlparse.urlparse(self.path)
-        query = urlparse.parse_qs(result.query)
+        result = urllib.parse.urlparse(self.path)
+        query = urllib.parse.parse_qs(result.query)
 
         def sparam(name):
             return query[name][-1]
@@ -52,7 +52,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
-        json.dump(responses, self.wfile)
+        self.wfile.write(json.dumps(responses).encode())
 
 
 def main(args):

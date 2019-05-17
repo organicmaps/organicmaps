@@ -83,4 +83,5 @@ struct BaseContext
 };
 
 std::string DebugPrint(BaseContext::TokenType type);
+std::string ToString(BaseContext::TokenType type);
 }  // namespace search

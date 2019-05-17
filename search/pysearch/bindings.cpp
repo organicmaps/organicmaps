@@ -1,4 +1,5 @@
 #include "search/engine.hpp"
+#include "search/search_quality/helpers.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/tracer.hpp"
@@ -6,8 +7,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 
-#include "storage/country.hpp"
-#include "storage/country_info_getter.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -38,50 +38,6 @@ using namespace std;
 
 namespace
 {
-unique_ptr<storage::Affiliations> g_affiliations;
-
-string ToString(search::Tracer::Parse::TokenType type)
-{
-  using TokenType = search::Tracer::Parse::TokenType;
-
-  switch (type)
-  {
-  case TokenType::TOKEN_TYPE_POI: return "poi";
-  case TokenType::TOKEN_TYPE_BUILDING: return "building";
-  case TokenType::TOKEN_TYPE_STREET: return "street";
-  case TokenType::TOKEN_TYPE_UNCLASSIFIED: return "unclassified";
-  case TokenType::TOKEN_TYPE_VILLAGE: return "village";
-  case TokenType::TOKEN_TYPE_CITY: return "city";
-  case TokenType::TOKEN_TYPE_STATE: return "state";
-  case TokenType::TOKEN_TYPE_COUNTRY: return "country";
-  case TokenType::TOKEN_TYPE_POSTCODE: return "postcode";
-  case TokenType::TOKEN_TYPE_COUNT: return "count";
-  }
-}
-
-void Init(string const & resource_path, string const & mwm_path)
-{
-  auto & platform = GetPlatform();
-
-  string countriesFile = COUNTRIES_FILE;
-
-  if (!resource_path.empty())
-  {
-    platform.SetResourceDir(resource_path);
-    countriesFile = base::JoinPath(resource_path, COUNTRIES_FILE);
-  }
-
-  if (!mwm_path.empty())
-    platform.SetWritableDirForTests(mwm_path);
-
-  classificator::Load();
-
-  g_affiliations = make_unique<storage::Affiliations>();
-  storage::CountryTree countries;
-  auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, *g_affiliations);
-  CHECK(rv != -1, ("Can't load countries from:", countriesFile));
-}
-
 struct Mercator
 {
   Mercator() = default;
@@ -174,35 +130,14 @@ struct TraceResult
   bool m_isCategory = false;
 };
 
-unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
-{
-  CHECK(g_affiliations.get(), ("init() was not called."));
-  auto & platform = GetPlatform();
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
-  infoGetter->SetAffiliations(&*g_affiliations);
-  return infoGetter;
-}
-
-struct Context
-{
-  Context() : m_engine(m_dataSource, CreateCountryInfoGetter(), search::Engine::Params{}) {}
-  // todo(@pimenov) Choose right type for 'm_dataSource'.
-  FrozenDataSource m_dataSource;
-  search::tests_support::TestSearchEngine m_engine;
-};
-
 struct SearchEngineProxy
 {
-  SearchEngineProxy() : m_context(make_shared<Context>())
+  SearchEngineProxy()
   {
-    vector<platform::LocalCountryFile> mwms;
-    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                         mwms);
-    for (auto & mwm : mwms)
-    {
-      mwm.SyncWithDisk();
-      m_context->m_dataSource.RegisterMap(mwm);
-    }
+    search::search_quality::InitDataSource(m_dataSource, "" /* mwmListPath */);
+    search::search_quality::InitAffiliations(m_affiliations);
+    m_engine = search::search_quality::InitSearchEngine(m_dataSource, m_affiliations,
+                                                        "en" /* locale */, 1 /* numThreads */);
   }
 
   search::SearchParams MakeSearchParams(Params const & params) const
@@ -223,8 +158,8 @@ struct SearchEngineProxy
 
   boost::python::list Query(Params const & params) const
   {
-    m_context->m_engine.SetLocale(params.m_locale);
-    search::tests_support::TestSearchRequest request(m_context->m_engine, MakeSearchParams(params));
+    m_engine->SetLocale(params.m_locale);
+    search::tests_support::TestSearchRequest request(*m_engine, MakeSearchParams(params));
     request.Run();
 
     boost::python::list results;
@@ -235,13 +170,13 @@ struct SearchEngineProxy
 
   boost::python::list Trace(Params const &params) const
   {
-    m_context->m_engine.SetLocale(params.m_locale);
+    m_engine->SetLocale(params.m_locale);
 
     auto sp = MakeSearchParams(params);
     auto tracer = make_shared<search::Tracer>();
     sp.m_tracer = tracer;
 
-    search::tests_support::TestSearchRequest request(m_context->m_engine, sp);
+    search::tests_support::TestSearchRequest request(*m_engine, sp);
     request.Run();
 
     boost::python::list trs;
@@ -261,8 +196,16 @@ struct SearchEngineProxy
     return trs;
   }
 
-  shared_ptr<Context> m_context;
+  storage::Affiliations m_affiliations;
+  FrozenDataSource m_dataSource;
+  unique_ptr<search::tests_support::TestSearchEngine> m_engine;
 };
+
+void Init(string const & dataPath, string const & mwmPath)
+{
+  classificator::Load();
+  search::search_quality::SetPlatformDirs(dataPath, mwmPath);
+}
 }  // namespace
 
 BOOST_PYTHON_MODULE(pysearch)
@@ -303,7 +246,7 @@ BOOST_PYTHON_MODULE(pysearch)
       .def_readwrite("is_category", &TraceResult::m_isCategory)
       .def("__repr__", &TraceResult::ToString);
 
-  class_<SearchEngineProxy>("SearchEngine")
+  class_<SearchEngineProxy, boost::noncopyable>("SearchEngine")
       .def("query", &SearchEngineProxy::Query)
       .def("trace", &SearchEngineProxy::Trace);
 }

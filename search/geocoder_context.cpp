@@ -84,7 +84,7 @@ size_t BaseContext::NumUnusedTokenGroups() const
   return numGroups;
 }
 
-string DebugPrint(BaseContext::TokenType type)
+string ToString(BaseContext::TokenType type)
 {
   switch (type)
   {
@@ -100,5 +100,10 @@ string DebugPrint(BaseContext::TokenType type)
   case BaseContext::TOKEN_TYPE_COUNT: return "COUNT";
   }
   UNREACHABLE();
+}
+
+string DebugPrint(BaseContext::TokenType type)
+{
+  return ToString(type);
 }
 }  // namespace search

@@ -2,14 +2,13 @@ This document describes how to use this module.
 
 1. How to build?
 
-   To build the module you need Python2.7 and Boost Python.  Also, you
-   need Qt5.5 (or higher), but you need it in any case, if you're
-   planning to build the project.  On MacOS, Python2.7 should be
+   To build the module you need Python3.7 (or higher) and Boost Python. Also, you
+   need Qt5.5 (or higher), but you need it in any case if you're
+   planning to build the project. On MacOS, Python3.7 should be
    installed by default, to get Boost via Brew just type in the shell:
 
      brew update
-     brew install boost --with-python
-     brew install boost-python
+     brew install boost-python3
 
    On Debian, type in the shell:
 
@@ -24,8 +23,20 @@ This document describes how to use this module.
 
    Then, invoke cmake from the shell, for example:
 
-     cmake path-to-omim-directory -DPYBINDINGS=ON -DCMAKE_PREFIX_PATH=path-to-qt5.5
+     cmake <path-to-omim-directory>\
+        -DPYBINDINGS=ON\
+        -DPYTHON_VERSION=3.7\
+        -DPYBINDINGS_VERSION=3.7\
+        -DPYTHON_LIBRARIES=<path-to-libpython.dylib>\
+        -DPYTHON_INCLUDE_DIRS=<path-to-dir-with-Python.h>\
+        -DCMAKE_PREFIX_PATH=<path-to-qt5.5>
+
      make -k -j8 pysearch
+
+   To set the python paths correctly, refer to https://cmake.org/cmake/help/v3.0/module/FindPythonLibs.html
+   and
+
+     python-config --includes
 
 2. How to use?
 
