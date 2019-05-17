@@ -115,8 +115,7 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
   auto countryParentGetter = std::make_unique<storage::CountryParentGetter>();
   CHECK(countryParentGetter, ());
 
-  bool const loadAltitudes =
-      vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Bicycle;
+  bool const loadAltitudes = vehicleType != VehicleType::Car;
   auto indexRouter = make_unique<IndexRouter>(vehicleType, loadAltitudes,
                                               *countryParentGetter, countryFileGetter,
                                               getMwmRectByName, numMwmIds,

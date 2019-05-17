@@ -44,7 +44,7 @@ UNIT_TEST(Moscow_NoSubwayTest)
                                 MercatorBounds::FromLatLon(55.73470, 37.62617));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 604.847);
+  integration::TestRouteLength(*routeResult.first, 612.664);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayAbsent(*routeResult.first);
@@ -139,7 +139,7 @@ UNIT_TEST(Vashington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 6102.92);
+  integration::TestRouteLength(*routeResult.first, 6318.54);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
