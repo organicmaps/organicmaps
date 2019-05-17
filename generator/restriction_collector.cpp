@@ -178,10 +178,15 @@ bool RestrictionCollector::FeaturesAreCross(m2::PointD const & coords,
 bool RestrictionCollector::IsRestrictionValid(m2::PointD const & coords, 
                                               std::vector<uint32_t> const & featureIds) const
 {
+  if (featureIds.empty() || !m_indexGraph->IsRoad(featureIds[0]))
+    return false;
+
   for (size_t i = 1; i < featureIds.size(); ++i)
   {
     auto prev = featureIds[i - 1];
     auto cur = featureIds[i];
+    if (!m_indexGraph->IsRoad(cur))
+      return false;
 
     if (!FeaturesAreCross(coords, prev, cur))
       return false;
