@@ -18,6 +18,7 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
+#include "storage/country.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
@@ -379,7 +380,10 @@ int main(int argc, char * argv[])
   FrozenDataSource dataSource;
   InitDataSource(dataSource, FLAGS_mwm_list_path);
 
-  auto engine = InitSearchEngine(dataSource, FLAGS_locale, FLAGS_num_threads);
+  storage::Affiliations affiliations;
+  InitAffiliations(affiliations);
+
+  auto engine = InitSearchEngine(dataSource, affiliations, FLAGS_locale, FLAGS_num_threads);
 
   m2::RectD viewport;
   InitViewport(FLAGS_viewport, viewport);

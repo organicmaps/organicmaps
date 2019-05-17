@@ -33,17 +33,17 @@ public:
                                         CountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) = 0;
   virtual void InsertAffiliation(CountryId const & countryId, string const & affilation) = 0;
-  virtual TMappingOldMwm GetMapping() const = 0;
+  virtual OldMwmMapping GetMapping() const = 0;
 };
 
 class StoreCountriesSingleMwms : public StoreSingleMwmInterface
 {
   CountryTree & m_countries;
-  TMappingAffiliations & m_affiliations;
-  TMappingOldMwm m_idsMapping;
+  Affiliations & m_affiliations;
+  OldMwmMapping m_idsMapping;
 
 public:
-  StoreCountriesSingleMwms(CountryTree & countries, TMappingAffiliations & affiliations)
+  StoreCountriesSingleMwms(CountryTree & countries, Affiliations & affiliations)
     : m_countries(countries), m_affiliations(affiliations)
   {
   }
@@ -81,12 +81,12 @@ public:
     m_affiliations[affilation].push_back(countryId);
   }
 
-  TMappingOldMwm GetMapping() const override { return m_idsMapping; }
+  OldMwmMapping GetMapping() const override { return m_idsMapping; }
 };
 
 class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
 {
-  TMappingOldMwm m_idsMapping;
+  OldMwmMapping m_idsMapping;
   map<string, CountryInfo> & m_file2info;
 
 public:
@@ -106,7 +106,7 @@ public:
                          string const & /* affilation */) override
   {
   }
-  TMappingOldMwm GetMapping() const override
+  OldMwmMapping GetMapping() const override
   {
     ASSERT(false, ());
     return map<CountryId, CountriesSet>();
@@ -197,7 +197,7 @@ class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
   CountryTree & m_countries;
 
 public:
-  StoreCountriesTwoComponentMwms(CountryTree & countries, TMappingAffiliations & /* affiliations */)
+  StoreCountriesTwoComponentMwms(CountryTree & countries, Affiliations & /* affiliations */)
     : m_countries(countries)
   {
   }
@@ -219,7 +219,7 @@ public:
 
 class StoreFile2InfoTwoComponentMwms : public StoreTwoComponentMwmInterface
 {
-  TMappingOldMwm m_idsMapping;
+  OldMwmMapping m_idsMapping;
   map<string, CountryInfo> & m_file2info;
 
 public:
@@ -302,8 +302,8 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
 }
 
 int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries,
-                                TMappingAffiliations & affiliations,
-                                TMappingOldMwm * mapping /* = nullptr */)
+                                Affiliations & affiliations,
+                                OldMwmMapping * mapping /* = nullptr */)
 {
   countries.Clear();
   affiliations.clear();
@@ -337,7 +337,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
 }
 
 int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
-                              TMappingAffiliations & affiliations, TMappingOldMwm * mapping)
+                              Affiliations & affiliations, OldMwmMapping * mapping)
 {
   string json;
   ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);

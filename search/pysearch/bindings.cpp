@@ -38,7 +38,7 @@ using namespace std;
 
 namespace
 {
-unique_ptr<storage::TMappingAffiliations> g_affiliations;
+unique_ptr<storage::Affiliations> g_affiliations;
 
 string ToString(search::Tracer::Parse::TokenType type)
 {
@@ -76,7 +76,7 @@ void Init(string const & resource_path, string const & mwm_path)
 
   classificator::Load();
 
-  g_affiliations = make_unique<storage::TMappingAffiliations>();
+  g_affiliations = make_unique<storage::Affiliations>();
   storage::CountryTree countries;
   auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, *g_affiliations);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
@@ -179,7 +179,7 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
   CHECK(g_affiliations.get(), ("init() was not called."));
   auto & platform = GetPlatform();
   auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
-  infoGetter->InitAffiliationsInfo(&*g_affiliations);
+  infoGetter->SetAffiliations(&*g_affiliations);
   return infoGetter;
 }
 

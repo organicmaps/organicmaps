@@ -42,7 +42,7 @@ void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & c
 
 void RegionInfoGetter::LoadCountriesTree()
 {
-  storage::TMappingAffiliations affiliations;
+  storage::Affiliations affiliations;
   storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations);
 }
 

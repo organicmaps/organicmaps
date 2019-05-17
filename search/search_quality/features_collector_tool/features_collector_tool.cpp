@@ -108,7 +108,10 @@ int main(int argc, char * argv[])
   FrozenDataSource dataSource;
   InitDataSource(dataSource, "" /* mwmListPath */);
 
-  auto engine = InitSearchEngine(dataSource, "en" /* locale */, 1 /* numThreads */);
+  storage::Affiliations affiliations;
+  InitAffiliations(affiliations);
+
+  auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, 1 /* numThreads */);
 
   string lines;
   if (FLAGS_json_in.empty())

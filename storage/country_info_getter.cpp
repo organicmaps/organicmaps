@@ -191,8 +191,8 @@ void CountryInfoGetter::GetMatchedRegions(string const & affiliation, TRegionIdS
       regions.push_back(i);
   }
 }
-  
-void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations const * affiliations)
+
+void CountryInfoGetter::SetAffiliations(Affiliations const * affiliations)
 {
   m_affiliations = affiliations;
 }

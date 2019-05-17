@@ -208,7 +208,7 @@ void Storage::Migrate(CountriesVec const & existedCountries)
   Clear();
   m_countries.Clear();
 
-  TMappingOldMwm mapping;
+  OldMwmMapping mapping;
   LoadCountriesFile(COUNTRIES_FILE, m_dataDir, &mapping);
 
   vector<CountryId> prefetchedMaps;
@@ -747,7 +747,7 @@ CountryId Storage::GetCurrentDownloadingCountryId() const
 }
 
 void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
-                                TMappingOldMwm * mapping /* = nullptr */)
+                                OldMwmMapping * mapping /* = nullptr */)
 {
   m_dataDir = dataDir;
 

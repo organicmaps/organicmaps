@@ -1485,7 +1485,7 @@ void Framework::InitCountryInfoGetter()
     m_infoGetter = CountryInfoReader::CreateCountryInfoReaderObsolete(platform);
   else
     m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
-  m_infoGetter->InitAffiliationsInfo(&m_storage.GetAffiliations());
+  m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
 }
 
 void Framework::InitUGC()

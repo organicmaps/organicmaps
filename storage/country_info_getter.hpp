@@ -103,7 +103,7 @@ public:
   // Clears regions cache.
   inline void ClearCaches() const { ClearCachesImpl(); }
 
-  void InitAffiliationsInfo(TMappingAffiliations const * affiliations);
+  void SetAffiliations(Affiliations const * affiliations);
 
 protected:
   CountryInfoGetter() : CountryInfoGetterBase(true /* isSingleMwm */ ) {};
@@ -124,7 +124,7 @@ protected:
   // Maps all leaf country id (file names) to their indices in m_countries.
   std::unordered_map<CountryId, TRegionId> m_countryIndex;
 
-  TMappingAffiliations const * m_affiliations = nullptr;
+  Affiliations const * m_affiliations = nullptr;
 
   // Maps country file name without an extension to a country info.
   std::map<std::string, CountryInfo> m_id2info;

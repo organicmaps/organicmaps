@@ -25,9 +25,9 @@ class SizeUpdater;
 
 namespace storage
 {
-using TMappingOldMwm = std::map<CountryId, CountriesSet>;
+using OldMwmMapping = std::map<CountryId, CountriesSet>;
 /// Map from key affiliation words into MWM IDs (file names).
-using TMappingAffiliations = std::unordered_map<string, vector<CountryId>>;
+using Affiliations = std::unordered_map<string, vector<CountryId>>;
 
 /// This class keeps all the information about a country in country tree (CountryTree).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country
@@ -85,11 +85,9 @@ using CountryTreeNode = CountryTree::Node;
 
 /// @return version of country file or -1 if error was encountered
 int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
-                                TMappingAffiliations & affiliations,
-                                TMappingOldMwm * mapping = nullptr);
+                                Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
 int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
-                              TMappingAffiliations & affiliations,
-                              TMappingOldMwm * mapping = nullptr);
+                              Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
 
 void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
                                  std::map<std::string, CountryInfo> & id2info, bool & isSingleMwm);

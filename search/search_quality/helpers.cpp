@@ -174,26 +174,25 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   LOG(LINFO, ());
 }
 
-unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(DataSource & dataSource,
-                                                                     string const & locale,
-                                                                     size_t numThreads)
+void InitAffiliations(storage::Affiliations & affiliations)
 {
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  {
-    auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
-    storage::Storage storage(countriesFile);
-    storage.Init([](storage::CountryId const &,
-                    shared_ptr<platform::LocalCountryFile> const &) {} /* didDownload */,
-                 [](storage::CountryId const &, shared_ptr<platform::LocalCountryFile> const &) {
-                   return false;
-                 } /* willDelete */);
+  auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
 
-    infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
-  }
+  storage::CountryTree countries;
+  auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, affiliations);
+  CHECK(rv != -1, ("Can't load countries from:", countriesFile));
+}
 
+unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
+    DataSource & dataSource, storage::Affiliations const & affiliations, string const & locale,
+    size_t numThreads)
+{
   search::Engine::Params params;
   params.m_locale = locale;
   params.m_numThreads = base::checked_cast<size_t>(numThreads);
+
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  infoGetter->SetAffiliations(&affiliations);
 
   return make_unique<search::tests_support::TestSearchEngine>(dataSource, move(infoGetter), params);
 }

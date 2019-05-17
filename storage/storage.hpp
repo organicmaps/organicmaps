@@ -262,7 +262,7 @@ private:
   // It is filled with data of countries.txt (field "affiliations").
   // Once filled |m_affiliations| is not changed.
   // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
-  TMappingAffiliations m_affiliations;
+  Affiliations m_affiliations;
 
   MwmSize m_maxMwmSizeBytes;
 
@@ -279,7 +279,7 @@ private:
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(std::string const & pathToCountriesFile, std::string const & dataDir,
-                         TMappingOldMwm * mapping = nullptr);
+                         OldMwmMapping * mapping = nullptr);
 
   void ReportProgress(CountryId const & countryId, MapFilesDownloader::Progress const & p);
   void ReportProgressForHierarchy(CountryId const & countryId,
@@ -467,7 +467,7 @@ public:
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo) const;
 
-  TMappingAffiliations const & GetAffiliations() const { return m_affiliations; }
+  Affiliations const & GetAffiliations() const { return m_affiliations; }
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
