@@ -21,7 +21,7 @@ public:
   BearingPointsSelector(uint32_t bearDistM, bool isLastPoint);
 
   m2::PointD GetStartPoint(Graph::Edge const & e) const;
-  m2::PointD GetEndPoint(Graph::Edge const & e, double distanceM);
+  m2::PointD GetEndPoint(Graph::Edge const & e, double distanceM) const;
 
 private:
   double m_bearDistM;

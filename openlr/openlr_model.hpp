@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <limits>
+#include <string>
 #include <vector>
 
 namespace openlr
@@ -58,6 +59,15 @@ enum class FunctionalRoadClass
   NotAValue
 };
 
+// LinearSegment structure may be filled from olr:locationReference xml tag,
+// from coordinates tag or not valid.
+enum class LinearSegmentSource
+{
+  NotValid,
+  FromLocationReferenceTag,
+  FormCoordinatesTag,
+};
+
 struct LocationReferencePoint
 {
   // Coordinates of the point of interest.
@@ -100,6 +110,7 @@ struct LinearSegment
   std::vector<LocationReferencePoint> const & GetLRPs() const;
   std::vector<LocationReferencePoint> & GetLRPs();
 
+  LinearSegmentSource m_status = LinearSegmentSource::NotValid;
   // TODO(mgsergio): Think of using openlr::PartnerSegmentId
   uint32_t m_segmentId = kInvalidSegmentId;
   // TODO(mgsergio): Make sure that one segment cannot contain
@@ -108,4 +119,6 @@ struct LinearSegment
   uint32_t m_segmentLengthMeters = 0;
   // uint32_t m_segmentRefSpeed;  Always null in partners data. (No docs found).
 };
+
+std::string DebugPrint(LinearSegmentSource source);
 }  // namespace openlr

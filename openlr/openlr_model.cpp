@@ -2,6 +2,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
+
 using namespace std;
 
 namespace openlr
@@ -23,5 +25,16 @@ vector<LocationReferencePoint> const & LinearSegment::GetLRPs() const
 vector<LocationReferencePoint> & LinearSegment::GetLRPs()
 {
   return m_locationReference.m_points;
+}
+
+string DebugPrint(LinearSegmentSource source)
+{
+  switch (source)
+  {
+  case LinearSegmentSource::NotValid: return "NotValid";
+  case LinearSegmentSource::FromLocationReferenceTag: return "FromLocationReferenceTag";
+  case LinearSegmentSource::FormCoordinatesTag: return "FormCoordinatesTag";
+  }
+  UNREACHABLE();
 }
 }  // namespace openlr

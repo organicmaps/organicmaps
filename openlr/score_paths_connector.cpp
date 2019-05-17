@@ -127,8 +127,10 @@ ScorePathsConnector::ScorePathsConnector(Graph & graph, RoadInfoGetter & infoGet
 
 bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & points,
                                        vector<vector<ScorePath>> const & lineCandidates,
+                                       LinearSegmentSource source,
                                        vector<Graph::EdgeVector> & resultPath)
 {
+  CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
   CHECK_GREATER_OR_EQUAL(points.size(), 2, ());
 
   resultPath.resize(points.size() - 1);
@@ -152,7 +154,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
       {
         Graph::EdgeVector path;
         if (!ConnectAdjacentCandidateLines(fromCandidates[fromInd].m_path,
-                                           toCandidates[toInd].m_path, point.m_lfrcnp,
+                                           toCandidates[toInd].m_path, source, point.m_lfrcnp,
                                            distanceToNextPoint, path))
         {
           continue;
@@ -183,10 +185,12 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
         result.cbegin(), result.cend(),
         [](ScorePath const & o1, ScorePath const & o2) { return o1.m_score < o2.m_score; });
 
-    Score constexpr kMinValidScore = 240;
+    // Note. In case of source == LinearSegmentSource::FormCoordinatesTag there is less
+    // information about a open lr segment so less score is collected.
+    Score const kMinValidScore = source == LinearSegmentSource::FromLocationReferenceTag ? 240 : 165;
     if (it->m_score < kMinValidScore)
     {
-      LOG(LINFO, ("The shortest path found but it is no good."));
+      LOG(LINFO, ("The shortest path found but it is no good. The best score:", it->m_score));
       return false;
     }
 
@@ -200,6 +204,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
 }
 
 bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
+                                           LinearSegmentSource source,
                                            FunctionalRoadClass lowestFrcToNextPoint,
                                            uint32_t maxPathLength, Graph::EdgeVector & path)
 {
@@ -258,8 +263,11 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
     m_graph.GetOutgoingEdges(stateEdge.GetEndJunction(), edges);
     for (auto const & edge : edges)
     {
-      if (!ConformLfrcnpV3(edge, lowestFrcToNextPoint, m_infoGetter))
+      if (source == LinearSegmentSource::FromLocationReferenceTag &&
+          !ConformLfrcnpV3(edge, lowestFrcToNextPoint, m_infoGetter))
+      {
         continue;
+      }
 
       CHECK(!stateEdge.IsFake(), ());
       CHECK(!edge.IsFake(), ());
@@ -280,6 +288,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
 
 bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
                                                         Graph::EdgeVector const & to,
+                                                        LinearSegmentSource source,
                                                         FunctionalRoadClass lowestFrcToNextPoint,
                                                         double distanceToNextPoint,
                                                         Graph::EdgeVector & resultPath)
@@ -300,7 +309,7 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
 
   Graph::EdgeVector shortestPath;
   auto const found =
-      FindShortestPath(from.back(), to.front(), lowestFrcToNextPoint,
+      FindShortestPath(from.back(), to.front(), source, lowestFrcToNextPoint,
                        static_cast<uint32_t>(ceil(distanceToNextPoint)), shortestPath);
   if (!found)
     return false;

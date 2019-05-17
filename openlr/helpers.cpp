@@ -98,7 +98,7 @@ m2::PointD BearingPointsSelector::GetStartPoint(Graph::Edge const & e) const
   return m_isLastPoint ? e.GetEndPoint() : e.GetStartPoint();
 }
 
-m2::PointD BearingPointsSelector::GetEndPoint(Graph::Edge const & e, double distanceM)
+m2::PointD BearingPointsSelector::GetEndPoint(Graph::Edge const & e, double distanceM) const
 {
   if (distanceM < m_bearDistM && m_bearDistM <= distanceM + EdgeLength(e))
   {

@@ -401,14 +401,17 @@ public:
                                             m_dataSource, m_graph);
     ScoreCandidatePathsGetter pathsGetter(pointsGetter, m_graph, m_infoGetter, stat);
 
-    if (!pathsGetter.GetLineCandidatesForPoints(points, lineCandidates))
+    if (!pathsGetter.GetLineCandidatesForPoints(points, segment.m_status, lineCandidates))
       return false;
 
     vector<Graph::EdgeVector> resultPath;
     ScorePathsConnector connector(m_graph, m_infoGetter, stat);
-    if (!connector.FindBestPath(points, lineCandidates, resultPath))
+    if (!connector.FindBestPath(points, lineCandidates, segment.m_status, resultPath))
     {
       LOG(LINFO, ("Connections not found:", segment.m_segmentId));
+      auto const mercatorPoints = segment.GetMercatorPoints();
+      for (auto const & mercatorPoint : mercatorPoints)
+        LOG(LINFO, (MercatorBounds::ToLatLon(mercatorPoint)));
       return false;
     }
 

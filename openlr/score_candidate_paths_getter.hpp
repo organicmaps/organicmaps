@@ -1,5 +1,6 @@
 #pragma once
 
+#include "openlr/helpers.hpp"
 #include "openlr/graph.hpp"
 #include "openlr/openlr_model.hpp"
 #include "openlr/road_info_getter.hpp"
@@ -21,6 +22,12 @@ class ScoreCandidatePointsGetter;
 
 class ScoreCandidatePathsGetter
 {
+  struct Link;
+  friend bool GetBearingScore(BearingPointsSelector const & pointsSelector,
+                              ScoreCandidatePathsGetter::Link const & part,
+                              m2::PointD const & bearStartPoint, uint32_t requiredBearing,
+                              Score & score);
+
 public:
   ScoreCandidatePathsGetter(ScoreCandidatePointsGetter & pointsGetter, Graph & graph,
                             RoadInfoGetter & infoGetter, v2::Stats & stat)
@@ -29,6 +36,7 @@ public:
   }
 
   bool GetLineCandidatesForPoints(std::vector<LocationReferencePoint> const & points,
+                                  LinearSegmentSource source,
                                   std::vector<ScorePathVec> & lineCandidates);
 
 private:
@@ -95,17 +103,19 @@ private:
   /// \brief Fills |allPaths| with paths near start or finish point starting from |startLines|.
   /// To extract a path from |allPaths| a item from |allPaths| should be taken,
   /// then should be taken the member |m_parent| of the item and so on till the beginning.
-  void GetAllSuitablePaths(ScoreEdgeVec const & startLines, bool isLastPoint,
-                           double bearDistM, FunctionalRoadClass  functionalRoadClass,
-                           FormOfWay formOfWay, std::vector<std::shared_ptr<Link>> & allPaths);
+  void GetAllSuitablePaths(ScoreEdgeVec const & startLines, LinearSegmentSource source,
+                           bool isLastPoint, double bearDistM,
+                           FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                           std::vector<std::shared_ptr<Link>> & allPaths);
 
-  void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths, bool isLastPoint,
-                             uint32_t requiredBearing, double bearDistM,
-                             m2::PointD const & startPoint, ScorePathVec & candidates);
+  void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths,
+                             LinearSegmentSource source, bool isLastPoint, uint32_t requiredBearing,
+                             double bearDistM, m2::PointD const & startPoint,
+                             ScorePathVec & candidates);
 
-  void GetLineCandidates(openlr::LocationReferencePoint const & p, bool isLastPoint,
-                         double distanceToNextPointM, ScoreEdgeVec const & edgeCandidates,
-                         ScorePathVec & candidates);
+  void GetLineCandidates(openlr::LocationReferencePoint const & p, LinearSegmentSource source,
+                         bool isLastPoint, double distanceToNextPointM,
+                         ScoreEdgeVec const & edgeCandidates, ScorePathVec & candidates);
 
   ScoreCandidatePointsGetter & m_pointsGetter;
   Graph & m_graph;
