@@ -4,9 +4,11 @@
 
 #include <cstdint>
 #include <functional>
+#include <map>
 #include <memory>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -16,6 +18,9 @@ using CountryId = std::string;
 using CountriesSet = std::set<CountryId>;
 using CountriesVec = std::vector<CountryId>;
 using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
+using OldMwmMapping = std::map<CountryId, CountriesSet>;
+/// Map from key affiliation words into MWM IDs (file names).
+using Affiliations = std::unordered_map<std::string, std::vector<CountryId>>;
 
 extern const storage::CountryId kInvalidCountryId;
 

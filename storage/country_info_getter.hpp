@@ -2,6 +2,7 @@
 
 #include "storage/country.hpp"
 #include "storage/country_decl.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/platform.hpp"
 

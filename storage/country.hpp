@@ -15,20 +15,10 @@
 #include <cstdint>
 #include <map>
 #include <string>
-#include <unordered_map>
 #include <vector>
-
-namespace update
-{
-class SizeUpdater;
-}
 
 namespace storage
 {
-using OldMwmMapping = std::map<CountryId, CountriesSet>;
-/// Map from key affiliation words into MWM IDs (file names).
-using Affiliations = std::unordered_map<string, vector<CountryId>>;
-
 /// This class keeps all the information about a country in country tree (CountryTree).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country
 /// tree.
@@ -42,21 +32,6 @@ using Affiliations = std::unordered_map<string, vector<CountryId>>;
 /// So in most cases it's enough to find the first inclusion of |Country| in country tree.
 class Country
 {
-  friend class update::SizeUpdater;
-  /// Name in the country node tree. In single mwm case it's a country id.
-  CountryId m_name;
-  /// Country id of parent of m_name in country tree. m_parent == kInvalidCountryId for the root.
-  CountryId m_parent;
-  /// |m_file| is a CountryFile of mwm with id == |m_name|.
-  /// if |m_name| is node id of a group of mwms, |m_file| is empty.
-  platform::CountryFile m_file;
-  /// The number of descendant mwm files of |m_name|. Only files (leaves in tree) are counted.
-  /// If |m_name| is a mwm file name |m_childrenNumber| == 1.
-  MwmCounter m_subtreeMwmNumber;
-  /// Size of descendant mwm files of |m_name|.
-  /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
-  MwmSize m_subtreeMwmSizeBytes;
-
 public:
   Country() = default;
   explicit Country(CountryId const & name, CountryId const & parent = kInvalidCountryId)
@@ -78,6 +53,21 @@ public:
   /// If the logic will be changed, replace GetFile with ForEachFile.
   platform::CountryFile const & GetFile() const { return m_file; }
   CountryId const & Name() const { return m_name; }
+
+private:
+  /// Name in the country node tree. In single mwm case it's a country id.
+  CountryId m_name;
+  /// Country id of parent of m_name in country tree. m_parent == kInvalidCountryId for the root.
+  CountryId m_parent;
+  /// |m_file| is a CountryFile of mwm with id == |m_name|.
+  /// if |m_name| is node id of a group of mwms, |m_file| is empty.
+  platform::CountryFile m_file;
+  /// The number of descendant mwm files of |m_name|. Only files (leaves in tree) are counted.
+  /// If |m_name| is a mwm file name |m_childrenNumber| == 1.
+  MwmCounter m_subtreeMwmNumber;
+  /// Size of descendant mwm files of |m_name|.
+  /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
+  MwmSize m_subtreeMwmSizeBytes;
 };
 
 using CountryTree = CountryTree<CountryId, Country>;

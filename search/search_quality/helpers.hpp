@@ -1,7 +1,6 @@
 #pragma once
 
-#include "storage/country.hpp"
-#include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "search/search_tests_support/test_search_engine.hpp"
 
