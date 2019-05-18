@@ -104,7 +104,7 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
     return false;
   }
 
-  (*m_collector)(fb);
+  m_collector->Collect(fb);
   return true;
 }
 

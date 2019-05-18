@@ -242,7 +242,7 @@ public:
     {
       feature::FeaturesCollector collector(filename);
       for (auto const & feature : m_testSet)
-        collector(feature);
+        collector.Collect(feature);
     }
 
     PopularityBuilder builder(filename);

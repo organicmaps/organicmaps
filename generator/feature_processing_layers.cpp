@@ -336,8 +336,8 @@ EmitCoastsLayer::~EmitCoastsLayer()
     m_countryMapper->Map(fb);
     emitter.Finish();
 
-    fb.AddName("default", emitter.m_currentNames);
-    (*m_collector)(fb);
+    fb.AddName("default", emitter.GetCurrentNames());
+    m_collector->Collect(fb);
   });
 }
 
@@ -369,7 +369,7 @@ CountryMapper::Polygonizer & CountryMapper::Parent()
 
 std::vector<std::string> const & CountryMapper::GetNames() const
 {
-  return m_countries->Parent().Names();
+  return m_countries->Parent().GetNames();
 }
 
 WorldMapper::WorldMapper(std::string const & worldFilename, std::string const & rawGeometryFilename,

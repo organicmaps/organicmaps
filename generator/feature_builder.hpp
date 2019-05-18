@@ -127,16 +127,18 @@ public:
 private:
   template <class ToDo> class ToDoWrapper
   {
-    ToDo & m_toDo;
   public:
-    ToDoWrapper(ToDo & toDo) : m_toDo(toDo) {}
+    ToDoWrapper(ToDo && toDo) : m_toDo(std::forward<ToDo>(toDo)) {}
     bool operator() (m2::PointD const & p) { return m_toDo(p); }
     void EndRegion() {}
+
+  private:
+    ToDo && m_toDo;
   };
 
 public:
   template <class ToDo>
-  void ForEachGeometryPointEx(ToDo & toDo) const
+  void ForEachGeometryPointEx(ToDo && toDo) const
   {
     if (m_params.GetGeomType() == feature::GeomType::Point)
       toDo(m_center);
@@ -153,12 +155,37 @@ public:
   }
 
   template <class ToDo>
-  void ForEachGeometryPoint(ToDo & toDo) const
+  void ForEachGeometryPoint(ToDo && toDo) const
   {
-    ToDoWrapper<ToDo> wrapper(toDo);
-    ForEachGeometryPointEx(wrapper);
+    ToDoWrapper<ToDo> wrapper(std::forward<ToDo>(toDo));
+    ForEachGeometryPointEx(std::move(wrapper));
   }
   //@}
+
+  template <class ToDo>
+  bool AnyOfGeometryPointEx(ToDo && toDo) const
+  {
+    if (m_params.GetGeomType() == feature::GeomType::Point)
+      return toDo(m_center);
+    else
+    {
+      for (PointSeq const & points : m_polygons)
+      {
+        for (auto const & pt : points)
+          if (toDo(pt))
+            return true;
+        toDo.EndRegion();
+      }
+      return false;
+    }
+  }
+
+  template <class ToDo>
+  bool AnyOfGeometryPoint(ToDo && toDo) const
+  {
+    ToDoWrapper<ToDo> wrapper(std::forward<ToDo>(toDo));
+    return AnyOfGeometryPointEx(std::move(wrapper));
+  }
 
   bool PreSerialize();
 

@@ -29,10 +29,10 @@ public:
   /// and |kInvalidFeatureId| if not.
   /// \note See implementation operator() in derived class for cases when |f| cannot be
   /// serialized.
-  virtual uint32_t operator()(FeatureBuilder1 const & f);
-  virtual uint32_t operator()(FeatureBuilder1 & f)
+  virtual uint32_t Collect(FeatureBuilder1 const & f);
+  virtual uint32_t Collect(FeatureBuilder1 & f)
   {
-    return (*this)(const_cast<FeatureBuilder1 const &>(f));
+    return Collect(const_cast<FeatureBuilder1 const &>(f));
   }
   virtual void Finish() {}
 
@@ -65,7 +65,7 @@ public:
                                   std::string const & rawGeometryFileName);
   ~FeaturesAndRawGeometryCollector() override;
 
-  uint32_t operator()(FeatureBuilder1 const & f) override;
+  uint32_t Collect(FeatureBuilder1 const & f) override;
 };
 
 uint32_t CheckedFilePosCast(FileWriter const & f);

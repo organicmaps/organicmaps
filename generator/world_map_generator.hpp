@@ -243,7 +243,7 @@ class WorldMapGenerator
       return (scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale());
     }
 
-    void PushSure(FeatureBuilder1 const & fb) { m_output(fb); }
+    void PushSure(FeatureBuilder1 const & fb) { m_output.Collect(fb); }
   };
 
   EmitterImpl m_worldBucket;

@@ -11,7 +11,7 @@ EmitterSimple::EmitterSimple(feature::GenerateInfo const & info) :
 
 void EmitterSimple::GetNames(std::vector<std::string> & names) const
 {
-  names = m_regionGenerator->Parent().Names();
+  names = m_regionGenerator->Parent().GetNames();
 }
 
 void EmitterSimple::Process(FeatureBuilder1 & fb)

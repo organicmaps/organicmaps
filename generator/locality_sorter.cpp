@@ -44,7 +44,7 @@ public:
   }
 
   // FeaturesCollector overrides:
-  uint32_t operator()(FeatureBuilder1 & fb) override
+  uint32_t Collect(FeatureBuilder1 & fb) override
   {
     if (fb.IsArea())
     {
@@ -101,7 +101,7 @@ public:
     m_writer.Finish();
   }
 
-  uint32_t operator()(FeatureBuilder1 & fb1) override
+  uint32_t Collect(FeatureBuilder1 & fb1) override
   {
     auto & fb2 = static_cast<FeatureBuilder2 &>(fb1);
 
@@ -217,7 +217,7 @@ bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const
       ReadFromSourceRawFormat(src, f);
       // Emit object.
       if (needSerialize(f))
-        collector(f);
+        collector.Collect(f);
     }
 
     collector.Finish();

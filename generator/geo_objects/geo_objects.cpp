@@ -144,7 +144,7 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
   {
     if (GeoObjectsFilter::HasHouse(fb))
     {
-      collector(fb);
+      collector.Collect(fb);
       return;
     }
 
@@ -158,7 +158,7 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     auto countryName = FromJSON<std::string>(country);
     auto pos = includeCountries.find(countryName);
     if (pos != std::string::npos)
-      collector(fb);
+      collector.Collect(fb);
   };
   feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);
 

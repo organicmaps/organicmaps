@@ -47,7 +47,7 @@ bool EmitterCoastline::Finish()
   m_generator->GetFeatures(features);
   for (auto & feature : features)
   {
-    collector(feature);
+    collector.Collect(feature);
 
     ++totalFeatures;
     totalPoints += feature.GetPointsCount();

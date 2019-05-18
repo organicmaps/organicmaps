@@ -99,7 +99,7 @@ public:
   void operator()(FeatureBuilder1 const & fb1, uint64_t)
   {
     if (HasID(fb1))
-      m_collector(fb1);
+      m_collector.Collect(fb1);
   }
 
 private:

@@ -92,7 +92,7 @@ uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, Fe
   return m_featureID++;
 }
 
-uint32_t FeaturesCollector::operator()(FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::Collect(FeatureBuilder1 const & fb)
 {
   FeatureBuilder1::Buffer bytes;
   fb.Serialize(bytes);
@@ -112,9 +112,9 @@ FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
   LOG(LINFO, ("Write", m_rawGeometryCounter, "geometries into", m_rawGeometryFileStream.GetName()));
 }
 
-uint32_t FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
+uint32_t FeaturesAndRawGeometryCollector::Collect(FeatureBuilder1 const & fb)
 {
-  uint32_t const featureId = FeaturesCollector::operator()(fb);
+  uint32_t const featureId = FeaturesCollector::Collect(fb);
   FeatureBuilder1::Geometry const & geom = fb.GetGeometry();
   if (geom.empty())
     return featureId;

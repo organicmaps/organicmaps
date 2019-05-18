@@ -158,7 +158,7 @@ private:
       }
 
       CHECK(fb.IsArea(), ());
-      collector(fb);
+      collector.Collect(fb);
     };
 
     feature::ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
