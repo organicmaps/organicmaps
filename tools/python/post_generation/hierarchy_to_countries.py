@@ -115,6 +115,8 @@ def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
 
     def fill_last(last, stack):
         name = last["id"]
+        if not os.path.exists(os.path.join(target_path, f"{name}.mwm")):
+            return
         last["s"] = get_mwm_size(target_path, name)
         last["sha1_base64"] = get_mwm_hash(target_path, name)
         if last["s"] >= 0:
