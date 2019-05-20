@@ -400,10 +400,10 @@ namespace KDTree
           _M_for_each(_M_get_root(), 0, toDo);
       }
 
-      template <class ToDo> bool any_of(ToDo toDo) const
+      template <class ToDo> bool for_any(ToDo toDo) const
       {
         if (_M_get_root())
-          return _M_any_of(_M_get_root(), 0, toDo);
+          return _M_for_any(_M_get_root(), 0, toDo);
         return false;
       }
 
@@ -666,16 +666,16 @@ namespace KDTree
       }
 
       template <class ToDo>
-      bool _M_any_of(_Link_const_type N, size_type const L, ToDo toDo) const
+      bool _M_for_any(_Link_const_type N, size_type const L, ToDo toDo) const
       {
-        if (toDo.Do(_S_value(N)))
+        if (toDo.DoIfIntersects(_S_value(N)))
           return true;
 
         if (_S_left(N) && toDo.ScanLeft(L, _S_value(N)))
-          return _M_any_of(_S_left(N), L+1, toDo);
+          return _M_for_any(_S_left(N), L+1, toDo);
 
         if (_S_right(N) && toDo.ScanRight(L, _S_value(N)))
-          return _M_any_of(_S_right(N), L+1, toDo);
+          return _M_for_any(_S_right(N), L+1, toDo);
 
         return false;
       }

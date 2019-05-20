@@ -163,28 +163,28 @@ public:
   //@}
 
   template <class ToDo>
-  bool AnyOfGeometryPointEx(ToDo && toDo) const
+  bool ForAnyGeometryPointEx(ToDo && toDo) const
   {
     if (m_params.GetGeomType() == feature::GeomType::Point)
       return toDo(m_center);
-    else
+
+    for (PointSeq const & points : m_polygons)
     {
-      for (PointSeq const & points : m_polygons)
+      for (auto const & pt : points)
       {
-        for (auto const & pt : points)
-          if (toDo(pt))
-            return true;
-        toDo.EndRegion();
+        if (toDo(pt))
+          return true;
       }
-      return false;
+      toDo.EndRegion();
     }
+    return false;
   }
 
   template <class ToDo>
-  bool AnyOfGeometryPoint(ToDo && toDo) const
+  bool ForAnyGeometryPoint(ToDo && toDo) const
   {
     ToDoWrapper<ToDo> wrapper(std::forward<ToDo>(toDo));
-    return AnyOfGeometryPointEx(std::move(wrapper));
+    return ForAnyGeometryPointEx(std::move(wrapper));
   }
 
   bool PreSerialize();
