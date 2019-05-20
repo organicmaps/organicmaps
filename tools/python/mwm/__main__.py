@@ -51,7 +51,7 @@ The most commonly used mwm commands are:
         dump_mwm(args.path)
 
     @staticmethod
-    def find_method():
+    def find_feature():
         parser = argparse.ArgumentParser(
             description="Finds features in an mwm file based on a query.")
         parser.add_argument("--path", type=str, required=True,
