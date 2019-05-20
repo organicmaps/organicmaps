@@ -71,6 +71,7 @@
 #define BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
 #include <boost/stacktrace.hpp>
 
+#include "build_version.hpp"
 #include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
@@ -223,7 +224,8 @@ int GeneratorToolMain(int argc, char ** argv)
 
   google::SetUsageMessage(
         "Takes OSM XML data from stdin and creates data and index files in several passes.");
-
+  google::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
+                           omim::build_version::git::kHash);
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   auto threadsCount = thread::hardware_concurrency();
