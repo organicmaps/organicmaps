@@ -30,7 +30,6 @@
 #include "indexer/feature_processor.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
@@ -38,6 +37,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/timer.hpp"

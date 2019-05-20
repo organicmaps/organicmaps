@@ -6,12 +6,12 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/serdes_json.hpp"
 #include "coding/sha1.hpp"
 #include "coding/zip_creator.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 #include "base/visitor.hpp"

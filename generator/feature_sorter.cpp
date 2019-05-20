@@ -23,13 +23,13 @@
 #include "platform/mwm_version.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 
 #include "geometry/polygon.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"

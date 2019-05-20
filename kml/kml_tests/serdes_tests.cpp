@@ -5,7 +5,6 @@
 
 #include "indexer/classificator_loader.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
@@ -13,6 +12,7 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/writer.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include <chrono>

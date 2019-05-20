@@ -18,7 +18,6 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
@@ -30,6 +29,7 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 

@@ -9,7 +9,6 @@
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/zlib.hpp"
@@ -17,6 +16,7 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 

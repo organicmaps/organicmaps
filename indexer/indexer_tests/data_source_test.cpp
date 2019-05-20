@@ -5,13 +5,13 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"

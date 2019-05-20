@@ -9,13 +9,13 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_quality/utils.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <cstdint>

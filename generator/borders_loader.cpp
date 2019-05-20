@@ -2,8 +2,6 @@
 
 #include "generator/borders_generator.hpp"
 
-#include "defines.hpp"
-
 #include "platform/platform.hpp"
 
 #include "storage/country_polygon.hpp"
@@ -11,7 +9,6 @@
 #include "indexer/scales.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "geometry/mercator.hpp"
@@ -19,6 +16,7 @@
 #include "geometry/simplification.hpp"
 
 #include "base/exception.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -28,6 +26,8 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+
+#include "defines.hpp"
 
 using namespace std;
 

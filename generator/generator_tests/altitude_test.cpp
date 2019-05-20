@@ -14,14 +14,13 @@
 
 #include "geometry/point2d.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 

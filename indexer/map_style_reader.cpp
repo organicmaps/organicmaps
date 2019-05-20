@@ -1,9 +1,8 @@
 #include "map_style_reader.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 namespace

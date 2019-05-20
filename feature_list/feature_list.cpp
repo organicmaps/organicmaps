@@ -1,8 +1,3 @@
-#include "base/logging.hpp"
-#include "base/string_utils.hpp"
-
-#include "coding/file_name_utils.hpp"
-
 #include "generator/utils.hpp"
 
 #include "geometry/mercator.hpp"
@@ -29,6 +24,10 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
+
+#include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cstddef>

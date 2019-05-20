@@ -23,8 +23,7 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"

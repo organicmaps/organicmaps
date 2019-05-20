@@ -20,11 +20,11 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/url_encode.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/url_helpers.hpp"
 
 #include "private.h"

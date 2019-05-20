@@ -75,7 +75,6 @@
 #include "platform/socket.hpp"
 
 #include "coding/endianness.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -95,6 +94,7 @@
 #include "partners_api/opentable_api.hpp"
 #include "partners_api/partners.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"

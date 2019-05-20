@@ -16,10 +16,10 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>

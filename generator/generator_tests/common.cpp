@@ -1,8 +1,8 @@
 #include "generator/generator_tests/common.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/platform.hpp"
+
+#include "base/file_name_utils.hpp"
 
 namespace generator_tests
 {

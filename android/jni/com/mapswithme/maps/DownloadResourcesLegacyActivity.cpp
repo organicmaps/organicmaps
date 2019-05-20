@@ -2,7 +2,6 @@
 
 #include "defines.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/reader_streambuf.hpp"
 #include "coding/url_encode.hpp"
@@ -11,6 +10,7 @@
 #include "platform/http_request.hpp"
 #include "platform/servers_list.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

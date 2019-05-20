@@ -10,12 +10,12 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/sha1.hpp"
 #include "coding/zip_reader.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 

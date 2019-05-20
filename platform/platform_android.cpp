@@ -5,11 +5,11 @@
 #include "platform/settings.hpp"
 
 #include "coding/zip_reader.hpp"
-#include "coding/file_name_utils.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-#include "base/thread.hpp"
 #include "base/string_utils.hpp"
+#include "base/thread.hpp"
 
 #include <memory>
 #include <regex>

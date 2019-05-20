@@ -3,7 +3,6 @@
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-
 #include "generator/road_access_generator.hpp"
 
 #include "routing/road_access_serialization.hpp"
@@ -19,8 +18,8 @@
 #include "geometry/point2d.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

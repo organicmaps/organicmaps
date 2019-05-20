@@ -6,11 +6,10 @@
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/region_info.hpp"
 
-#include "coding/file_name_utils.hpp"
-
-#include "base/geo_object_id.hpp"
-
 #include "platform/platform.hpp"
+
+#include "base/file_name_utils.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <cstdint>
 #include <limits>

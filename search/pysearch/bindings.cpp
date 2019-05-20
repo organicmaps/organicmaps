@@ -13,12 +13,11 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 
 #include "pyhelpers/module_version.hpp"
 

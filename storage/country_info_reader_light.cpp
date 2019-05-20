@@ -6,13 +6,13 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "geometry/region2d.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

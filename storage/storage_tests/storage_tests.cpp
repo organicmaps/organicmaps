@@ -32,13 +32,11 @@
 
 #include "geometry/mercator.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
-#include "defines.hpp"
-
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
@@ -52,6 +50,8 @@
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
+
+#include "defines.hpp"
 
 using namespace platform::tests_support;
 using namespace platform;

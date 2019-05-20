@@ -10,11 +10,11 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/writer.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include "defines.hpp"

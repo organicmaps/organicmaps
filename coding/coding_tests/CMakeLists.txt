@@ -14,7 +14,6 @@ set(
   file_container_test.cpp
   file_data_test.cpp
   file_sort_test.cpp
-  file_utils_test.cpp
   fixed_bits_ddvector_test.cpp
   geometry_coding_test.cpp
   hex_test.cpp

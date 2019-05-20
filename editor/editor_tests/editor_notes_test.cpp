@@ -6,8 +6,7 @@
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 
 using namespace editor;

@@ -6,8 +6,7 @@
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <cstdlib>

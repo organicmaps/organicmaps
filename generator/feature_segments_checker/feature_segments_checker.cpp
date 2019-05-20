@@ -2,8 +2,6 @@
 
 #include "routing_common/bicycle_model.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_altitude.hpp"
@@ -16,6 +14,7 @@
 #include "platform/platform.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 

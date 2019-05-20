@@ -3,9 +3,9 @@
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/sha1.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include "std/sstream.hpp"

@@ -17,7 +17,7 @@
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/file_name_utils.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <memory>
 

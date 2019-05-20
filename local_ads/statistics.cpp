@@ -6,7 +6,6 @@
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/sha1.hpp"
@@ -18,6 +17,7 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

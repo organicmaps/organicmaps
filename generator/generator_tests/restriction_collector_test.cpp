@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests_support/routing_helpers.hpp"
-
 #include "generator/restriction_collector.hpp"
 
 #include "routing/restrictions_serialization.hpp"
@@ -13,8 +12,7 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
 

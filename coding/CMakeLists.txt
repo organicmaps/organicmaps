@@ -29,8 +29,6 @@ set(
   endianness.hpp
   file_container.cpp
   file_container.hpp
-  file_name_utils.cpp
-  file_name_utils.hpp
   file_reader.cpp
   file_reader.hpp
   file_sort.hpp

@@ -15,12 +15,8 @@
 #include "openlr/openlr_model.hpp"
 #include "openlr/openlr_model_xml.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
-
-#include "3party/gflags/src/gflags/gflags.h"
-#include "3party/pugixml/src/pugixml.hpp"
 
 #include "std/unique_ptr.hpp"
 
@@ -32,6 +28,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include "3party/gflags/src/gflags/gflags.h"
+#include "3party/pugixml/src/pugixml.hpp"
 
 DEFINE_string(input, "", "Path to OpenLR file.");
 DEFINE_string(spark_output, "", "Path to output file in spark-oriented format");

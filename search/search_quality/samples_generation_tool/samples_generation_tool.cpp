@@ -10,12 +10,11 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 

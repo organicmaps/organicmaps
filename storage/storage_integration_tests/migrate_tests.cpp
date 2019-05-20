@@ -9,8 +9,7 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"

@@ -28,7 +28,6 @@
 #include "drape/visual_scale.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
@@ -48,6 +47,7 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"

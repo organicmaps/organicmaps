@@ -9,18 +9,19 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 
 #include "geometry/mercator.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <algorithm>
 #include <atomic>
 #include <set>
 #include <string>
 #include <vector>
+
+#include "3party/jansson/myjansson.hpp"
 
 namespace
 {

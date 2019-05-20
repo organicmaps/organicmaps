@@ -26,6 +26,8 @@ set(
   exception.cpp
   exception.hpp
   fifo_cache.hpp
+  file_name_utils.cpp
+  file_name_utils.hpp
   geo_object_id.cpp
   geo_object_id.hpp
   get_time.hpp

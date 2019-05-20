@@ -7,7 +7,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
-#include "coding/file_name_utils.hpp"
+#include "base/file_name_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"

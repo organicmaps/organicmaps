@@ -9,7 +9,6 @@
 #include "indexer/feature_processor.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
@@ -20,6 +19,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"

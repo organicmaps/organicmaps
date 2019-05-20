@@ -1,6 +1,5 @@
 #include "map/cloud.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
@@ -15,14 +14,15 @@
 #include "platform/http_uploader.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include <algorithm>
 #include <chrono>
 #include <sstream>
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "private.h"
 

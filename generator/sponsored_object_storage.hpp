@@ -5,8 +5,7 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

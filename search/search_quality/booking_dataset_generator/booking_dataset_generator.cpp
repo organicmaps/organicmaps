@@ -13,14 +13,13 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 

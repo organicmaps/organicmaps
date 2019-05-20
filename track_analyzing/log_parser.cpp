@@ -7,11 +7,11 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/hex.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/timer.hpp"
 
 #include <cstdint>

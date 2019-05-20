@@ -19,13 +19,13 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <vector>

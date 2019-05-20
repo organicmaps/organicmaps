@@ -5,11 +5,12 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
-#include "coding/file_name_utils.hpp"
+#include "platform/measurement_utils.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "platform/measurement_utils.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <cstdint>
 #include <limits>

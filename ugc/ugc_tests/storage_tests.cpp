@@ -17,14 +17,15 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "coding/file_name_utils.hpp"
+#include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
+
 #include "coding/internal/file_data.hpp"
 #include "coding/writer.hpp"
 #include "coding/zlib.hpp"
 
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_file.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <chrono>
 #include <functional>

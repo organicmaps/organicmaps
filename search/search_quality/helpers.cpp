@@ -9,13 +9,13 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/reader_wrapper.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

@@ -11,11 +11,11 @@
 #include "geometry/mercator.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "coding/parse_xml.hpp"
+
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
-
-#include "coding/file_name_utils.hpp"
-#include "coding/parse_xml.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <fstream>
 #include <memory>

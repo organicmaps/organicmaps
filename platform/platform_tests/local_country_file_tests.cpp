@@ -9,10 +9,10 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 

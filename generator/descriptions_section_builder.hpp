@@ -7,11 +7,11 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 

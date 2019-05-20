@@ -3,7 +3,6 @@
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-
 #include "generator/restriction_collector.hpp"
 #include "generator/restriction_generator.hpp"
 
@@ -17,8 +16,8 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>

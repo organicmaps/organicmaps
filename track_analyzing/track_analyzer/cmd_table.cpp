@@ -19,12 +19,12 @@
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
 

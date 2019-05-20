@@ -11,8 +11,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"

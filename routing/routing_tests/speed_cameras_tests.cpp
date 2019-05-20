@@ -6,11 +6,11 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 
 #include <vector>

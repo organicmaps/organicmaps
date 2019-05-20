@@ -16,7 +16,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
 
-#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
 #include "coding/internal/file_data.hpp"
@@ -27,6 +26,7 @@
 
 #include "geometry/transformations.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 

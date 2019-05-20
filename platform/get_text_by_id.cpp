@@ -1,8 +1,7 @@
 #include "platform/get_text_by_id.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
-
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include "3party/jansson/myjansson.hpp"
