@@ -25,6 +25,7 @@ using namespace storage;
 
 // The last 5% are left for applying diffs.
 float const kMaxProgress = 95.0f;
+float const kMaxProgressWithoutDiffs = 100.0f;
 
 enum ItemCategory : uint32_t
 {
@@ -653,7 +654,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
 
   jint res = 0;
   if (progress.second)
-    res = static_cast<jint>(progress.first / progress.second);
+    res = static_cast<jint>(progress.first * kMaxProgressWithoutDiffs / progress.second);
 
   return res;
 }
