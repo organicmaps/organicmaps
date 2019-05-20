@@ -132,16 +132,10 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
   }
 }
 
-template <typename TKey, typename TValue>
+template <typename Key, typename Value>
 struct FeatureNameInserter
 {
-  SynonymsHolder * m_synonyms;
-  vector<pair<TKey, TValue>> & m_keyValuePairs;
-  TValue m_val;
-
-  bool m_hasStreetType;
-
-  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs,
+  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
                       bool hasStreetType)
     : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs), m_hasStreetType(hasStreetType)
   {
@@ -197,9 +191,14 @@ struct FeatureNameInserter
         AddToken(lang, token);
     }
   }
+
+  SynonymsHolder * m_synonyms;
+  vector<pair<Key, Value>> & m_keyValuePairs;
+  Value m_val;
+  bool m_hasStreetType = false;
 };
 
-template <typename TValue>
+template <typename Value>
 struct ValueBuilder;
 
 template <>
@@ -228,22 +227,13 @@ struct ValueBuilder<FeatureIndexValue>
   }
 };
 
-template <typename TKey, typename TValue>
+template <typename Key, typename Value>
 class FeatureInserter
 {
-  SynonymsHolder * m_synonyms;
-  vector<pair<TKey, TValue>> & m_keyValuePairs;
-
-  CategoriesHolder const & m_categories;
-
-  pair<int, int> m_scales;
-
-  ValueBuilder<TValue> const & m_valueBuilder;
-
 public:
-  FeatureInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs,
+  FeatureInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
                   CategoriesHolder const & catHolder, pair<int, int> const & scales,
-                  ValueBuilder<TValue> const & valueBuilder)
+                  ValueBuilder<Value> const & valueBuilder)
     : m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
     , m_categories(catHolder)
@@ -265,7 +255,7 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<TKey, TValue> inserter(
+    FeatureNameInserter<Key, Value> inserter(
         skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, hasStreetType);
     m_valueBuilder.MakeValue(f, index, inserter.m_val);
 
@@ -321,22 +311,32 @@ public:
     for (uint32_t t : categoryTypes)
       inserter.AddToken(kCategoriesLang, FeatureTypeToString(c.GetIndexForType(t)));
   }
+
+private:
+  SynonymsHolder * m_synonyms;
+  vector<pair<Key, Value>> & m_keyValuePairs;
+
+  CategoriesHolder const & m_categories;
+
+  pair<int, int> m_scales;
+
+  ValueBuilder<Value> const & m_valueBuilder;
 };
 
-template <typename TKey, typename TValue>
+template <typename Key, typename Value>
 void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
                               CategoriesHolder const & categoriesHolder,
-                              vector<pair<TKey, TValue>> & keyValuePairs)
+                              vector<pair<Key, Value>> & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
 
-  ValueBuilder<TValue> valueBuilder;
+  ValueBuilder<Value> valueBuilder;
 
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE)));
 
-  features.GetVector().ForEach(FeatureInserter<TKey, TValue>(
+  features.GetVector().ForEach(FeatureInserter<Key, Value>(
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 

@@ -289,7 +289,9 @@ private:
   }
 
   ParsedNumber m_number;
-  bool m_isOdd, m_sign, m_useOdd;
+  bool m_isOdd = false;
+  bool m_sign = false;
+  bool m_useOdd = false;
 
   ScoredHouse m_results[4];
 };
@@ -332,15 +334,11 @@ struct HouseChain
 {
   vector<HouseProjection const *> houses;
   set<string> chainHouses;
-  double score;
-  int minHouseNumber;
-  int maxHouseNumber;
+  double score = 0.0;
+  int minHouseNumber = -1;
+  int maxHouseNumber = numeric_limits<int>::max();
 
-  HouseChain()
-  {
-    minHouseNumber = -1;
-    maxHouseNumber = numeric_limits<int>::max();
-  }
+  HouseChain() = default;
 
   explicit HouseChain(HouseProjection const * h)
   {

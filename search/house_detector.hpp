@@ -248,9 +248,9 @@ private:
   std::vector<std::pair<m2::PointD, Street *>> m_end2st;
   std::vector<MergedStreet> m_streets;
 
-  double m_metersToMercator;
-  int m_streetNum;
-  double m_houseOffsetM;
+  double m_metersToMercator = 0.0;
+  int m_streetNum = 0;
+  double m_houseOffsetM = 0.0;
 };
 
 std::string DebugPrint(HouseProjection const & p);
