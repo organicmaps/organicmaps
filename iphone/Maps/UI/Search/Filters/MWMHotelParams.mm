@@ -18,7 +18,7 @@ static int8_t kAgeOfChild = 5;
       if (auto const price = data.hotelRawApproximatePricing)
       {
         CHECK_LESS_OR_EQUAL(*price, base::Underlying(Price::Three), ());
-        _price = static_cast<Price>(*price);
+        _price.insert(static_cast<Price>(*price));
       }
       
       self.rating = place_page::rating::GetFilterRating(data.ratingRawValue);
@@ -43,8 +43,10 @@ static int8_t kAgeOfChild = 5;
   }
 
   std::shared_ptr<Rule> priceRule;
-  if (self.price != Any)
-    priceRule = Or(priceRule, Eq<PriceRate>(self.price));
+  for (auto const filter : self.price) {
+    if (filter != Price::Any)
+      priceRule = Or(priceRule, Eq<PriceRate>(static_cast<unsigned>(filter)));
+  }
   
   std::shared_ptr<Rule> typeRule;
   if (!self.types.empty())

@@ -9,16 +9,16 @@
 
 #include <memory>
 
-typedef enum {
+enum class Price {
   Any,
   One,
   Two,
   Three
-} Price;
+};
 
 @interface MWMHotelParams : NSObject 
 
-@property (nonatomic) Price price;
+@property (nonatomic) std::unordered_set<Price> price;
 @property (nonatomic) std::unordered_set<ftypes::IsHotelChecker::Type> types;
 @property (nonatomic) place_page::rating::FilterRating rating;
 @property (nonatomic) NSDate * checkInDate;

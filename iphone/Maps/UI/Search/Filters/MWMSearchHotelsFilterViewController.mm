@@ -142,19 +142,21 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   }
 
   auto priceCell = self.price;
-  switch (params.price)
-  {
-  case Any:
-    break;
-  case One:
-    priceCell.one.selected = YES;
-    break;
-  case Two:
-    priceCell.two.selected = YES;
-    break;
-  case Three:
-    priceCell.three.selected = YES;
-    break;
+  for (auto const filter : params.price) {
+    switch (filter)
+    {
+      case Price::Any:
+        break;
+      case Price::One:
+        priceCell.one.selected = YES;
+        break;
+      case Price::Two:
+        priceCell.two.selected = YES;
+        break;
+      case Price::Three:
+        priceCell.three.selected = YES;
+        break;
+    }
   }
 }
 
@@ -235,13 +237,15 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     params.rating = FilterRating::Excellent;
   
   MWMFilterPriceCategoryCell * price = self.price;
+  std::unordered_set<Price>priceFilter;
   if (price.one.selected)
-    params.price = One;
-  else if (price.two.selected)
-    params.price = Two;
-  else if (price.three.selected)
-    params.price = Three;
-  
+    priceFilter.insert(Price::One);
+  if (price.two.selected)
+    priceFilter.insert(Price::Two);
+  if (price.three.selected)
+    priceFilter.insert(Price::Three);
+  params.price = priceFilter;
+    
   return params;
 }
 
