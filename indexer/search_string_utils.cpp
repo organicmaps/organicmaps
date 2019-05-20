@@ -236,6 +236,9 @@ public:
       // Français - French
       "rue", "avenue", "carré", "cercle", "route", "boulevard", "drive", "autoroute", "lane", "chemin",
 
+       // Italiano - Italian
+      "corso", "piazza", "strada", "via", "viale",
+
       // Nederlands - Dutch
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
 
