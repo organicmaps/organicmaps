@@ -191,6 +191,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
     if (it->m_score < kMinValidScore)
     {
       LOG(LINFO, ("The shortest path found but it is no good. The best score:", it->m_score));
+      ++m_stat.m_notEnoughScore;
       return false;
     }
 

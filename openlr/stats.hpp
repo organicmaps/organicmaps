@@ -19,6 +19,7 @@ struct alignas(kCacheLineSize) Stats
     m_routesFailed += s.m_routesFailed;
     m_noCandidateFound += s.m_noCandidateFound;
     m_noShortestPathFound += s.m_noShortestPathFound;
+    m_notEnoughScore += s.m_notEnoughScore;
     m_wrongOffsets += s.m_wrongOffsets;
     m_zeroDistToNextPointCount += s.m_zeroDistToNextPointCount;
   }
@@ -29,6 +30,7 @@ struct alignas(kCacheLineSize) Stats
     LOG(LINFO, ("Failed:", m_routesFailed));
     LOG(LINFO, ("No candidate lines:", m_noCandidateFound));
     LOG(LINFO, ("Wrong distance to next point:", m_zeroDistToNextPointCount));
+    LOG(LINFO, ("Not enough score for shortest path:", m_notEnoughScore));
     LOG(LINFO, ("Wrong offsets:", m_wrongOffsets));
     LOG(LINFO, ("No shortest path:", m_noShortestPathFound));
   }
@@ -37,6 +39,7 @@ struct alignas(kCacheLineSize) Stats
   uint32_t m_routesFailed = 0;
   uint32_t m_noCandidateFound = 0;
   uint32_t m_noShortestPathFound = 0;
+  uint32_t m_notEnoughScore = 0;
   uint32_t m_wrongOffsets = 0;
   // Number of zeroed distance-to-next point values in the input.
   uint32_t m_zeroDistToNextPointCount = 0;
