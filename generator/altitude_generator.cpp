@@ -45,7 +45,7 @@ using namespace routing;
 class SrtmGetter : public AltitudeGetter
 {
 public:
-  SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
+  explicit SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
 
   // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
@@ -74,7 +74,7 @@ public:
 
   using TFeatureAltitudes = std::vector<FeatureAltitude>;
 
-  Processor(AltitudeGetter & altitudeGetter)
+  explicit Processor(AltitudeGetter & altitudeGetter)
     : m_altitudeGetter(altitudeGetter), m_minAltitude(kInvalidAltitude)
   {
   }

@@ -49,7 +49,7 @@ class DummyColorPallete : public ColorPalette
 {
   typedef ColorPalette TBase;
 public:
-  DummyColorPallete(m2::PointU const & size)
+  explicit DummyColorPallete(m2::PointU const & size)
     : TBase(size)
   {
   }

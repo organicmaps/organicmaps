@@ -31,6 +31,7 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
     case LWARNING: pr = ANDROID_LOG_WARN; break;
     case LERROR: pr = ANDROID_LOG_ERROR; break;
     case LCRITICAL: pr = ANDROID_LOG_ERROR; break;
+    case NUM_LOG_LEVELS: break;
   }
 
   ScopedEnv env(jni::GetJVM());

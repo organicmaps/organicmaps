@@ -54,10 +54,8 @@ namespace
 {
 class SynonymsHolder
 {
-  unordered_multimap<string, string> m_map;
-
 public:
-  SynonymsHolder(string const & fPath)
+  explicit SynonymsHolder(string const & fPath)
   {
     ifstream stream(fPath.c_str());
 
@@ -80,7 +78,7 @@ public:
         {
           strings::Trim(tokens[i]);
           // synonym should not has any spaces
-          ASSERT ( tokens[i].find_first_of(" \t") == string::npos, () );
+          ASSERT(tokens[i].find_first_of(" \t") == string::npos, ());
           m_map.insert(make_pair(tokens[0], tokens[i]));
         }
       }
@@ -90,15 +88,16 @@ public:
   template <class ToDo>
   void ForEach(string const & key, ToDo toDo) const
   {
-    using TIter = unordered_multimap<string, string>::const_iterator;
-
-    pair<TIter, TIter> range = m_map.equal_range(key);
+    auto range = m_map.equal_range(key);
     while (range.first != range.second)
     {
       toDo(range.first->second);
       ++range.first;
     }
   }
+
+private:
+  unordered_multimap<string, string> m_map;
 };
 
 void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const & scaleRange,

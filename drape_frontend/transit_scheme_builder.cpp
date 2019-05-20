@@ -132,7 +132,7 @@ void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context,
 struct TitleInfo
 {
   TitleInfo() = default;
-  TitleInfo(std::string const & text)
+  explicit TitleInfo(std::string const & text)
     : m_text(text)
   {}
 

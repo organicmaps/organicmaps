@@ -65,7 +65,6 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
   diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
 
   using Inflate = coding::ZLib::Inflate;
-  vector<uint8_t> decompressedData;
   Inflate inflate(Inflate::Format::ZLib);
   vector<uint8_t> diffBuf;
   inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));

@@ -101,7 +101,6 @@ int run_all_tests()
   if (numFailedTests == 0)
   {
     return nPassedTests;
-    return 0;
   }
   else
   {

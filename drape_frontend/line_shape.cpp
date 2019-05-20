@@ -25,7 +25,7 @@ namespace
 class TextureCoordGenerator
 {
 public:
-  TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
+  explicit TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
     : m_region(region)
     , m_maskLength(static_cast<float>(m_region.GetMaskPixelLength()))
   {}

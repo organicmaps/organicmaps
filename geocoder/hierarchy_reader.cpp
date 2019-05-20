@@ -160,11 +160,10 @@ void HierarchyReader::ReadEntryMap(multimap<base::GeoObjectId, Entry> & entries,
 
   size_t const kLineBufferCapacity = 10000;
   vector<string> linesBuffer(kLineBufferCapacity);
-  size_t bufferSize = 0;
 
   while (true)
   {
-    bufferSize = 0;
+    size_t bufferSize = 0;
 
     {
       lock_guard<mutex> lock(m_mutex);
