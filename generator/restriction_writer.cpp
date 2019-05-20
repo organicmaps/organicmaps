@@ -26,11 +26,11 @@ std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes =
     {"no_left_turn", Restriction::Type::No},
     {"no_right_turn", Restriction::Type::No},
     {"no_straight_on", Restriction::Type::No},
-    {"no_u_turn", Restriction::Type::No},
+    {"no_u_turn", Restriction::Type::NoUTurn},
     {"only_left_turn", Restriction::Type::Only},
     {"only_right_turn", Restriction::Type::Only},
     {"only_straight_on", Restriction::Type::Only},
-    {"only_u_turn", Restriction::Type::Only}
+    {"only_u_turn", Restriction::Type::OnlyUTurn}
 };
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
@@ -120,6 +120,40 @@ void RestrictionWriter::Open(std::string const & fullPath)
   m_stream << std::setprecision(20);
 }
 
+bool ValidateOsmRestriction(std::vector<RelationElement::Member> & from,
+                            std::vector<RelationElement::Member> & via,
+                            std::vector<RelationElement::Member> & to,
+                            RelationElement const & relationElement)
+{
+  if (relationElement.GetType() != "restriction")
+    return false;
+
+  from = GetMembersByTag(relationElement, "from");
+  to = GetMembersByTag(relationElement, "to");
+  via = GetMembersByTag(relationElement, "via");
+
+  // TODO (@gmoryes) |from| and |to| can have size more than 1 in case of "no_entry", "no_exit"
+  if (from.size() != 1 || to.size() != 1 || via.empty())
+    return false;
+
+  // Either single node is marked as via or one or more ways are marked as via.
+  // https://wiki.openstreetmap.org/wiki/Relation:restriction#Members
+  if (via.size() != 1)
+  {
+    bool const allMembersAreWays =
+      std::all_of(via.begin(), via.end(),
+                  [&](auto const & member)
+                  {
+                    return GetType(relationElement, member.first) == OsmElement::EntityType::Way;
+                  });
+
+    if (!allMembersAreWays)
+      return false;
+  }
+
+  return true;
+}
+
 void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
 {
   if (!IsOpened())
@@ -128,34 +162,15 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
     return;
   }
 
-  if (relationElement.GetType() != "restriction")
-    return;
+  std::vector<RelationElement::Member> from;
+  std::vector<RelationElement::Member> via;
+  std::vector<RelationElement::Member> to;
 
-  auto const from = GetMembersByTag(relationElement, "from");
-  auto const to = GetMembersByTag(relationElement, "to");
-  auto const via = GetMembersByTag(relationElement, "via");
-
-  // TODO (@gmoryes) |from| and |to| can have size more than 1 in case of "no_entry", "no_exit"
-  if (from.size() != 1 || to.size() != 1 || via.empty())
+  if (!ValidateOsmRestriction(from, via, to, relationElement))
     return;
 
   uint64_t const fromOsmId = from.back().first;
   uint64_t const toOsmId = to.back().first;
-
-  // Either single node is marked as via or one or more ways are marked as via.
-  // https://wiki.openstreetmap.org/wiki/Relation:restriction#Members
-  if (via.size() != 1)
-  {
-    bool const allMembersAreWays =
-        std::all_of(via.begin(), via.end(),
-                    [&](auto const & member)
-                    {
-                      return GetType(relationElement, member.first) == OsmElement::EntityType::Way;
-                    });
-
-    if (!allMembersAreWays)
-      return;
-  }
 
   // Extracting type of restriction.
   auto const tagIt = relationElement.tags.find("restriction");
