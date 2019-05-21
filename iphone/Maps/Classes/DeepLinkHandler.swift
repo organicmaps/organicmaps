@@ -39,8 +39,7 @@ fileprivate enum DeeplinkType {
     guard let dlType = deeplinkType(url) else { return false }
     deeplinkType = dlType
     deeplinkURL = url
-    if canHandleLink || !isLaunchedByDeeplink {
-      isLaunchedByDeeplink = true
+    if canHandleLink {
       handleInternal()
     }
     return true
@@ -48,13 +47,9 @@ fileprivate enum DeeplinkType {
 
   private func setUniversalLink(_ url: URL) -> Bool {
     let dlUrl = convertUniversalLink(url)
-    guard let dlType = deeplinkType(dlUrl) else { return false }
+    guard let dlType = deeplinkType(dlUrl), deeplinkURL == nil else { return false }
     deeplinkType = dlType
     deeplinkURL = dlUrl
-    if canHandleLink || !isLaunchedByDeeplink {
-      isLaunchedByDeeplink = true
-      handleInternal()
-    }
     return true
   }
 
@@ -70,25 +65,26 @@ fileprivate enum DeeplinkType {
     } else {
       result = setUniversalLink(url)
     }
+    if canHandleLink {
+      handleInternal()
+    }
     return result
   }
 
   func handleDeeplink() {
-    if deeplinkURL != nil{
+    canHandleLink = true
+    if deeplinkURL != nil {
       handleInternal()
-    } else {
-      canHandleLink = true
     }
   }
 
   func handleDeeplink(_ url: URL) {
     deeplinkURL = url
-    handleInternal()
+    handleDeeplink()
   }
 
   func reset() {
     isLaunchedByDeeplink = false
-    canHandleLink = false
     deeplinkURL = nil
   }
 
