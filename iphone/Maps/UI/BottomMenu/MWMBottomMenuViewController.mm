@@ -28,6 +28,7 @@ CGFloat constexpr kLayoutThreshold = 420.0;
 typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellAddPlace,
   MWMBottomMenuViewCellDownloadRoutes,
+  MWMBottomMenuViewCellBookingSearch,
   MWMBottomMenuViewCellDownloadMaps,
   MWMBottomMenuViewCellSettings,
   MWMBottomMenuViewCellShare,
@@ -183,6 +184,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuViewCellDownloadRoutes:
     [cell configurePromoWithImageName:@"ic_menu_routes" label:L(@"download_guides")];
     break;
+  case MWMBottomMenuViewCellBookingSearch:
+    [cell configureWithImageName:@"ic_menu_booking_search"
+                            label:L(@"booking_button_toolbar")
+                      badgeCount:0
+                        isEnabled:YES];
+    break;
   case MWMBottomMenuViewCellDownloadMaps:
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
@@ -218,6 +225,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   {
   case MWMBottomMenuViewCellAddPlace: [self menuActionAddPlace]; break;
   case MWMBottomMenuViewCellDownloadRoutes: [self menuActionDownloadRoutes]; break;
+  case MWMBottomMenuViewCellBookingSearch: [self menuActionBookingSearch]; break;
   case MWMBottomMenuViewCellDownloadMaps: [self menuActionDownloadMaps]; break;
   case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
   case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
@@ -239,6 +247,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatDownloadGuides}];
   self.state = self.restoreState;
   [self.mapViewController openCatalogAnimated:YES];
+}
+
+- (void)menuActionBookingSearch
+{
+  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatSearch}];
+  self.state = MWMBottomMenuStateInactive;
+  [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
+                                      forInputLocale:[NSLocale currentLocale].localeIdentifier];
 }
 
 - (void)menuActionDownloadMaps
