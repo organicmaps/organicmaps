@@ -185,3 +185,6 @@ designer_version.h
 
 # Build version
 build_version.hpp
+
+# Configs
+map_generator.ini
