@@ -5640,6 +5640,37 @@
   he = צ'ילה — דָרוֹם
   sk = Čile — Juh
 
+[China]
+  en = China
+  ru = Китайская Народная Республика
+  ar = الصين
+  cs = Čína
+  da = Kina
+  nl = China
+  fi = Kiina
+  fr = Chine
+  de = China
+  hu = Kína
+  id = Tiongkok
+  it = Cina
+  ja = 中華人民共和国
+  ko = 중화인민공화국
+  nb = Kina
+  pl = Chiny
+  pt = China
+  ro = China
+  es = China
+  sv = Kina
+  th = ประเทศจีน
+  tr = Çin
+  uk = Китай
+  vi = Trung Quốc
+  zh-Hans = 中华人民共和国
+  zh-Hant = 中華人民共和國
+  el = Κίνα
+  he = הרפובליקה העממית של סין
+  sk = Čína
+
 [China_Anhui]
   en = Anhui
   ru = Аньхой
@@ -23526,37 +23557,6 @@
   el = Πενσυλβάνια
   he = פנסילבניה
   sk = Pensylvánia
-
-[People's Republic of China]
-  en = China
-  ru = Китай
-  ar = الصين
-  cs = Čína
-  da = Kina
-  nl = China
-  fi = Kiina
-  fr = Chine
-  de = China
-  hu = Kína
-  id = Tiongkok
-  it = Cina
-  ja = 中華人民共和国
-  ko = 중화인민공화국
-  nb = Kina
-  pl = Chiny
-  pt = China
-  ro = China
-  es = China
-  sv = Kina
-  th = ประเทศจีน
-  tr = Çin
-  uk = Китай
-  vi = Trung Quốc
-  zh-Hans = 中华人民共和国
-  zh-Hant = 中華人民共和國
-  el = Κίνα
-  he = הרפובליקה העממית של סין
-  sk = Čína
 
 [Peru]
   en = Peru
