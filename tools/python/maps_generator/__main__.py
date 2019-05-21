@@ -5,8 +5,8 @@ from argparse import ArgumentParser
 from .generator import settings
 from .generator.env import Env, find_last_build_dir, WORLDS_NAMES
 from .generator.exceptions import ContinueError, SkipError, ValidationError
-from .maps_generator import (start, reset_to_stage, ALL_STAGES,
-                             stage_download_production_external,
+from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
+                             ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
                              stages_as_string)
 from .utils.collections import unique
@@ -48,6 +48,11 @@ def parse_options():
         default="",
         help=f"Stage from which maps will be rebuild. Available stages: "
         f"{', '.join([s.replace('stage_', '') for s in ALL_STAGES])}.")
+    parser.add_argument(
+        "--only_coasts",
+        default=False,
+        action="store_true",
+        help="Build  WorldCoasts.raw and WorldCoasts.rawgeom files")
     parser.add_argument(
         "--production",
         default=False,
@@ -136,7 +141,10 @@ def main():
     env = Env(options)
     if env.from_stage:
         reset_to_stage(env.from_stage, env)
-    start(env)
+    if env.only_coasts:
+        generate_coasts(env)
+    else:
+        generate_maps(env)
     env.finish()
 
 

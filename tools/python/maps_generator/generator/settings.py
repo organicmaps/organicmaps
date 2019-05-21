@@ -42,6 +42,7 @@ VERSION_FILE_NAME = "version.txt"
 # External resources
 PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
 PLANET_MD5_URL = PLANET_URL + ".md5"
+PLANET_COASTS_URL = ""
 UGC_URL = ""
 HOTELS_URL = ""
 POPULARITY_URL= ""
@@ -110,6 +111,7 @@ os.makedirs(os.path.dirname(os.path.abspath(LOG_FILE_PATH)), exist_ok=True)
 
 PLANET_URL = _get_opt_path(config, "External", "PLANET_URL", PLANET_URL)
 PLANET_MD5_URL = _get_opt_path(config, "External", "PLANET_MD5_URL", PLANET_MD5_URL)
+PLANET_COASTS_URL = _get_opt_path(config, "External", "PLANET_COASTS_URL", PLANET_COASTS_URL)
 UGC_URL = _get_opt_path(config, "External", "UGC_URL", UGC_URL)
 HOTELS_URL = _get_opt_path(config, "External", "HOTELS_URL", HOTELS_URL)
 POPULARITY_URL = _get_opt_path(config, "External", "POPULARITY_URL", POPULARITY_URL)
@@ -120,6 +122,8 @@ FOOD_TRANSLATIONS_URL = _get_opt(config, "External", "FOOD_TRANSLATIONS_URL",
 
 PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
 PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
+PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest.geom")
+PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest.rawgeom")
 
 if DEBUG:
     PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"

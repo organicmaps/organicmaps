@@ -17,7 +17,7 @@ from .generator import settings
 from .generator.decorators import stage, country_stage, country_stage_log
 from .generator.env import (planet_lock_file, build_lock_file,
                             WORLD_COASTS_NAME, WORLD_NAME, WORLDS_NAMES)
-from .generator.exceptions import (ContinueError,
+from .generator.exceptions import (ContinueError, BadExitStatusError,
                                    wait_and_raise_if_fail)
 from .generator.gen_tool import run_gen_tool
 from .utils.file import is_verified, download_file
@@ -103,9 +103,22 @@ def stage_features(env):
 
 @stage
 def stage_coastline(env):
-    coastline_files = coastline.make_coastline(env)
-    for file in coastline_files:
-        shutil.copy2(file, env.intermediate_path)
+    coasts_geom = "WorldCoasts.geom"
+    coasts_rawgeom = "WorldCoasts.rawgeom"
+    try:
+        coastline.make_coastline(env)
+    except BadExitStatusError:
+        logger.info("Build costs failed. Try to download the costs...")
+        download_external({
+            settings.PLANET_COASTS_GEOM_URL:
+                os.path.join(env.coastline_path, coasts_geom),
+            settings.PLANET_COASTS_RAWGEOM_URL:
+                os.path.join(env.coastline_path, coasts_rawgeom)
+        })
+
+    for f in [coasts_geom, coasts_rawgeom]:
+        path = os.path.join(env.coastline_path, f)
+        shutil.copy2(path, env.intermediate_path)
 
 
 @country_stage
@@ -281,7 +294,7 @@ def reset_to_stage(stage_name, env):
         f.write(main_status)
 
 
-def start(env):
+def generate_maps(env):
     stage_download_external(env)
     stage_download_production_external(env)
     with FileLock(planet_lock_file(), timeout=1) as planet_lock:
@@ -295,4 +308,13 @@ def start(env):
             stage_mwm(env)
             stage_descriptions(env)
             stage_countries_txt(env)
+            stage_cleanup(env)
+
+
+def generate_coasts(env):
+    with FileLock(planet_lock_file(), timeout=1) as planet_lock:
+        stage_update_planet(env)
+        with FileLock(build_lock_file(env.out_path), timeout=1):
+            stage_coastline(env)
+            planet_lock.release()
             stage_cleanup(env)

@@ -38,11 +38,3 @@ def make_coastline(env):
                  user_resource_path=env.user_resource_path,
                  make_coasts=True,
                  fail_on_coasts=True)
-
-    prefix = "WorldCoasts"
-    coastline_files = []
-    for f in os.listdir(env.coastline_path):
-        path = os.path.join(env.coastline_path, f)
-        if os.path.isfile(path) and f.startswith(prefix):
-            coastline_files.append(path)
-    return coastline_files

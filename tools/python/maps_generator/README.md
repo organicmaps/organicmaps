@@ -63,7 +63,8 @@ OSM_TOOLS_PATH: ~/osmctools
 # PLANET_URL:
 # The url to the file with md5 sum of the planet.
 # PLANET_MD5_URL:
-
+# The url to WorldCoasts.geom and WorldCoasts.rawgeom(without file name).
+# PLANET_COASTS_URL:
 # The url to the subway file.
 # SUBWAY_URL:
 
@@ -116,6 +117,7 @@ optional arguments:
                         preprocess, features, mwm, descriptions,
                         countries_txt, cleanup, index, ugc, popularity,
                         routing, routing_transit.
+  --only_coasts         Build WorldCoasts.raw and WorldCoasts.rawgeom files
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
                         advertising.
