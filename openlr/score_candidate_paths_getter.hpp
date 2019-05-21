@@ -22,12 +22,6 @@ class ScoreCandidatePointsGetter;
 
 class ScoreCandidatePathsGetter
 {
-  struct Link;
-  friend bool GetBearingScore(BearingPointsSelector const & pointsSelector,
-                              ScoreCandidatePathsGetter::Link const & part,
-                              m2::PointD const & bearStartPoint, uint32_t requiredBearing,
-                              Score & score);
-
 public:
   ScoreCandidatePathsGetter(ScoreCandidatePointsGetter & pointsGetter, Graph & graph,
                             RoadInfoGetter & infoGetter, v2::Stats & stat)
@@ -116,6 +110,10 @@ private:
   void GetLineCandidates(openlr::LocationReferencePoint const & p, LinearSegmentSource source,
                          bool isLastPoint, double distanceToNextPointM,
                          ScoreEdgeVec const & edgeCandidates, ScorePathVec & candidates);
+
+  bool GetBearingScore(BearingPointsSelector const & pointsSelector,
+                       ScoreCandidatePathsGetter::Link const & part,
+                       m2::PointD const & bearStartPoint, uint32_t requiredBearing, Score & score);
 
   ScoreCandidatePointsGetter & m_pointsGetter;
   Graph & m_graph;

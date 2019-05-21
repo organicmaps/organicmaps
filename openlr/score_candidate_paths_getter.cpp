@@ -56,30 +56,6 @@ double DifferenceInDeg(double a1, double a2)
 }
 }  // namespace
 
-bool GetBearingScore(BearingPointsSelector const & pointsSelector,
-                     ScoreCandidatePathsGetter::Link const & part,
-                     m2::PointD const & bearStartPoint, uint32_t requiredBearing, Score & score)
-{
-  auto const bearEndPoint = pointsSelector.GetEndPoint(part.m_edge, part.m_distanceM);
-
-  auto const bearingDeg = BearingInDeg(bearStartPoint, bearEndPoint);
-  double const requiredBearingDeg = ToAngleInDeg(requiredBearing);
-  double const angleDeviationDeg = DifferenceInDeg(bearingDeg, requiredBearingDeg);
-
-  // If the bearing according to osm segments (|bearingDeg|) is significantly different
-  // from the bearing set in openlr (|requiredBearingDeg|) the candidate should be skipped.
-  double constexpr kMinAngleDeviationDeg = 50.0;
-  if (angleDeviationDeg > kMinAngleDeviationDeg)
-    return false;
-
-  double constexpr kMaxScoreForBearing = 60.0;
-  double constexpr kAngleDeviationFactor = 1.0 / 4.3;
-  score =
-      static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg * kAngleDeviationFactor));
-
-  return true;
-}
-
 // ScoreCandidatePathsGetter::Link ----------------------------------------------------------------------
 Graph::Edge ScoreCandidatePathsGetter::Link::GetStartEdge() const
 {
@@ -313,5 +289,30 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
   sort(candidates.begin(), candidates.end(),
        [](ScorePath const & s1, ScorePath const & s2) { return s1.m_score > s2.m_score; });
   LOG(LDEBUG, (candidates.size(), "Candidate paths found for point:", p.m_latLon));
+}
+
+bool ScoreCandidatePathsGetter::GetBearingScore(BearingPointsSelector const & pointsSelector,
+                                                ScoreCandidatePathsGetter::Link const & part,
+                                                m2::PointD const & bearStartPoint,
+                                                uint32_t requiredBearing, Score & score)
+{
+  auto const bearEndPoint = pointsSelector.GetEndPoint(part.m_edge, part.m_distanceM);
+
+  auto const bearingDeg = BearingInDeg(bearStartPoint, bearEndPoint);
+  double const requiredBearingDeg = ToAngleInDeg(requiredBearing);
+  double const angleDeviationDeg = DifferenceInDeg(bearingDeg, requiredBearingDeg);
+
+  // If the bearing according to osm segments (|bearingDeg|) is significantly different
+  // from the bearing set in openlr (|requiredBearingDeg|) the candidate should be skipped.
+  double constexpr kMinAngleDeviationDeg = 50.0;
+  if (angleDeviationDeg > kMinAngleDeviationDeg)
+    return false;
+
+  double constexpr kMaxScoreForBearing = 60.0;
+  double constexpr kAngleDeviationFactor = 1.0 / 4.3;
+  score =
+      static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg * kAngleDeviationFactor));
+
+  return true;
 }
 }  // namespace openlr
