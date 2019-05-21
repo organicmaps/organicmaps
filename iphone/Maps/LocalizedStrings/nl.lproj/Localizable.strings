@@ -3469,7 +3469,7 @@
 
 "type.highway.path.permissive" = "Pad";
 
-"type.highway.path.tunnel" = "Pad";
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Straat";
 

@@ -1800,7 +1800,7 @@
 	<string name="type.highway.path.horse">Pad</string>
 	<string name="type.highway.path.mountain_hiking">Pad</string>
 	<string name="type.highway.path.permissive">Pad</string>
-	<string name="type.highway.path.tunnel">Pad</string>
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Straat</string>
 	<string name="type.highway.pedestrian.area">Straat</string>
 	<string name="type.highway.pedestrian.bridge">Straat</string>
