@@ -64,6 +64,7 @@ OSM_TOOLS_PATH: ~/osmctools
 # The url to the file with md5 sum of the planet.
 # PLANET_MD5_URL:
 # The url to WorldCoasts.geom and WorldCoasts.rawgeom(without file name).
+# You can write file:///path/to/coasts/. Files latest.geom and latest.rawgeom must be on this URL.
 # PLANET_COASTS_URL:
 # The url to the subway file.
 # SUBWAY_URL:
@@ -75,6 +76,9 @@ OSM_TOOLS_PATH: ~/osmctools
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
 ```
+
+
+##### Node: In each field in which you need to specify a URL, you can specify the path to the file system using file://path/to/file
 
 ## Usage
 ```sh
