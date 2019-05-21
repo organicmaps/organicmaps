@@ -50,7 +50,7 @@ public:
       });
 
       if (need)
-        EmitFeature(countryPolygons, fb);
+        this->EmitFeature(countryPolygons, fb);
     });
   }
 
