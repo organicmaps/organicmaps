@@ -187,7 +187,7 @@ void SplitText(strings::UniString & visText, buffer_vector<size_t, 2> & delimInd
 class XLayouter
 {
 public:
-  XLayouter(dp::Anchor anchor)
+  explicit XLayouter(dp::Anchor anchor)
     : m_anchor(anchor)
   {}
 

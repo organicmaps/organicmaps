@@ -38,7 +38,7 @@ namespace
 class BordersCollector : public FeaturesCollector
 {
 public:
-  BordersCollector(string const & filename)
+  explicit BordersCollector(string const & filename)
     : FeaturesCollector(filename + EXTENSION_TMP), m_writer(filename, FileWriter::OP_WRITE_EXISTING)
   {
   }

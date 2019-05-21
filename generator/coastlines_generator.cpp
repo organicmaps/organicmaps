@@ -166,7 +166,7 @@ class DoDifference
   vector<m2::PointD> m_points;
 
 public:
-  DoDifference(RegionT const & rgn)
+  explicit DoDifference(RegionT const & rgn)
   {
     m_res.push_back(rgn);
     m_src = rgn.GetRect();

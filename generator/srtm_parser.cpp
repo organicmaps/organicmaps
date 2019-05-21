@@ -17,7 +17,7 @@ size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegre
 
 struct UnzipMemDelegate : public ZipFileReader::Delegate
 {
-  UnzipMemDelegate(std::string & buffer) : m_buffer(buffer), m_completed(false) {}
+  explicit UnzipMemDelegate(std::string & buffer) : m_buffer(buffer), m_completed(false) {}
 
   // ZipFileReader::Delegate overrides:
   void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.append(data, size); }

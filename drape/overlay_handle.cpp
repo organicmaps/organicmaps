@@ -16,7 +16,7 @@ namespace dp
 struct OverlayHandle::OffsetNodeFinder
 {
 public:
-  OffsetNodeFinder(uint8_t bufferID) : m_bufferID(bufferID) {}
+  explicit OffsetNodeFinder(uint8_t bufferID) : m_bufferID(bufferID) {}
 
   bool operator()(OverlayHandle::TOffsetNode const & node) const
   {

@@ -111,7 +111,7 @@ uint64_t FileData::Size() const
   if (size == INVALID_POS)
     MYTHROW(Reader::SizeException, (GetErrorProlog(), size));
 
-  if (fseek64(m_File, pos, SEEK_SET))
+  if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Reader::SizeException, (GetErrorProlog(), pos));
 
   ASSERT_GREATER_OR_EQUAL(size, 0, ());
@@ -130,7 +130,7 @@ void FileData::Read(uint64_t pos, void * p, size_t size)
   if (static_cast<size_t>(bytesRead) != size || IsFailed(error))
     MYTHROW(Reader::ReadException, (m_FileName, m_Op, error, bytesRead, pos, size));
 #else
-  if (fseek64(m_File, pos, SEEK_SET))
+  if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Reader::ReadException, (GetErrorProlog(), pos));
 
   size_t const bytesRead = fread(p, 1, size, m_File);
@@ -165,7 +165,7 @@ void FileData::Seek(uint64_t pos)
   if (IsFailed(error))
     MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
 #else
-  if (fseek64(m_File, pos, SEEK_SET))
+  if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Writer::SeekException, (GetErrorProlog(), pos));
 #endif
 }
@@ -202,7 +202,7 @@ void FileData::Truncate(uint64_t sz)
 #elif defined OMIM_OS_TIZEN
   result res = m_File->Truncate(sz);
 #else
-  int const res = ftruncate(fileno(m_File), sz);
+  int const res = ftruncate(fileno(m_File), static_cast<off_t>(sz));
 #endif
 
   if (res)

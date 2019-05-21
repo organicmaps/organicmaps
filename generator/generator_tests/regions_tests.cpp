@@ -163,7 +163,7 @@ public:
   }
 };
 
-bool ExistsName(std::vector<std::string> const & coll, std::string const name)
+bool NameExists(std::vector<std::string> const & coll, std::string const & name)
 {
   auto const end = std::end(coll);
   return std::find(std::begin(coll), end, name) != end;
@@ -208,13 +208,13 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
     });
   });
 
-  TEST(ExistsName(bankOfNames, "Country_2"), ());
-  TEST(ExistsName(bankOfNames, "Country_2Country_2_Region_8"), ());
+  TEST(NameExists(bankOfNames, "Country_2"), ());
+  TEST(NameExists(bankOfNames, "Country_2Country_2_Region_8"), ());
 
-  TEST(ExistsName(bankOfNames, "Country_1"), ());
-  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_3"), ());
-  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_4"), ());
-  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5"), ());
-  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_6"), ());
-  TEST(ExistsName(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_7"), ());
+  TEST(NameExists(bankOfNames, "Country_1"), ());
+  TEST(NameExists(bankOfNames, "Country_1Country_1_Region_3"), ());
+  TEST(NameExists(bankOfNames, "Country_1Country_1_Region_4"), ());
+  TEST(NameExists(bankOfNames, "Country_1Country_1_Region_5"), ());
+  TEST(NameExists(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_6"), ());
+  TEST(NameExists(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_7"), ());
 }

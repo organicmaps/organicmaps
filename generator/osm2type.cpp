@@ -111,7 +111,7 @@ Result ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
 class NamesExtractor
 {
 public:
-  NamesExtractor(FeatureParams & params) : m_params(params) {}
+  explicit NamesExtractor(FeatureParams & params) : m_params(params) {}
 
   bool GetLangByKey(string const & k, string & lang)
   {
@@ -164,7 +164,7 @@ private:
 class TagProcessor
 {
 public:
-  TagProcessor(OsmElement * elem) : m_element(elem) {}
+  explicit TagProcessor(OsmElement * elem) : m_element(elem) {}
 
   template <typename Function>
   struct Rule

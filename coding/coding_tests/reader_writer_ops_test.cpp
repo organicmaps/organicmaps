@@ -64,9 +64,8 @@ UNIT_TEST(Reverse_Smoke)
     TEST(equal(arr, arr + ARRAY_SIZE(arr), buffer.begin()), ());
   }
 
-  char const * tmpFile = "random_file.tmp";
-
   {
+    char const * tmpFile = "random_file.tmp";
     {
       FillRandFile(tmpFile, 10 * 1024 + 527);
       FileReader reader(tmpFile);

@@ -142,8 +142,6 @@ bool ParseRoadAccess(string const & roadAccessPath,
     return false;
   }
 
-  vector<uint32_t> privateRoads;
-
   unordered_map<uint32_t, RoadAccess::Type> featureType[static_cast<size_t>(VehicleType::Count)];
   unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> pointType[static_cast<size_t>(VehicleType::Count)];
 

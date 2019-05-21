@@ -90,7 +90,7 @@ struct RemoveTilePredicate
   mutable bool m_deletionMark = false;
   std::function<bool(drape_ptr<RenderGroup> const &)> const & m_predicate;
 
-  RemoveTilePredicate(std::function<bool(drape_ptr<RenderGroup> const &)> const & predicate)
+  explicit RemoveTilePredicate(std::function<bool(drape_ptr<RenderGroup> const &)> const & predicate)
     : m_predicate(predicate)
   {}
 

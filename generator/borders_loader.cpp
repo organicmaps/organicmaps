@@ -41,7 +41,7 @@ class PolygonLoader
   CountriesContainer & m_countries;
 
 public:
-  PolygonLoader(CountriesContainer & countries) : m_countries(countries) {}
+  explicit PolygonLoader(CountriesContainer & countries) : m_countries(countries) {}
 
   void operator()(string const & name, vector<m2::RegionD> const & borders)
   {

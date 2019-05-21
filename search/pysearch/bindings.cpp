@@ -42,7 +42,7 @@ struct Mercator
 {
   Mercator() = default;
   Mercator(double x, double y) : m_x(x), m_y(y) {}
-  Mercator(m2::PointD const & m): m_x(m.x), m_y(m.y) {}
+  explicit Mercator(m2::PointD const & m) : m_x(m.x), m_y(m.y) {}
 
   string ToString() const
   {
@@ -91,7 +91,7 @@ struct Result
 {
   Result() = default;
 
-  Result(search::Result const & r)
+  explicit Result(search::Result const & r)
   {
     m_name = r.GetString();
     m_address = r.GetAddress();

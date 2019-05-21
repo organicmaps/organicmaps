@@ -52,8 +52,10 @@ int32_t Coord2RoughCoord(double d)
 
 struct RoughPoint
 {
-  RoughPoint(m2::PointD const & point)
-    : x(Coord2RoughCoord(point.x)), y(Coord2RoughCoord(point.y)) {}
+  explicit RoughPoint(m2::PointD const & point)
+    : x(Coord2RoughCoord(point.x)), y(Coord2RoughCoord(point.y))
+  {
+  }
 
   int32_t x;
   int32_t y;
@@ -154,8 +156,12 @@ public:
   TAltitude m_minAltitude = kInvalidAltitude;
   TAltitude m_maxAltitude = kInvalidAltitude;
 
-  Processor(generator::SrtmTileManager & manager)
-    : m_srtmManager(manager), m_roadCount(0), m_emptyRoadCount(0), m_roadPointCount(0), m_notRoadCount(0)
+  explicit Processor(generator::SrtmTileManager & manager)
+    : m_srtmManager(manager)
+    , m_roadCount(0)
+    , m_emptyRoadCount(0)
+    , m_roadPointCount(0)
+    , m_notRoadCount(0)
   {
   }
 

@@ -72,7 +72,7 @@ class MockAltitudeGetter : public AltitudeGetter
 public:
   using TMockAltitudes = map<m2::PointI, TAltitude>;
 
-  MockAltitudeGetter(vector<TPoint3DList> const & roads)
+  explicit MockAltitudeGetter(vector<TPoint3DList> const & roads)
   {
     for (TPoint3DList const & geom3D : roads)
     {

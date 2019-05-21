@@ -19,7 +19,7 @@ namespace
 class SMAABaseRenderParams
 {
 public:
-  SMAABaseRenderParams(gpu::Program program)
+  explicit SMAABaseRenderParams(gpu::Program program)
     : m_state(CreateRenderState(program, DepthLayer::GeometryLayer))
   {
     m_state.SetDepthTestEnabled(false);

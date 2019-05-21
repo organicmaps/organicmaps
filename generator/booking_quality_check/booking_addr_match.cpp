@@ -53,12 +53,8 @@ int main(int argc, char * argv[])
 
   Platform & platform = GetPlatform();
 
-  std::string countriesFile = COUNTRIES_FILE;
   if (!FLAGS_user_resource_path.empty())
-  {
     platform.SetResourceDir(FLAGS_user_resource_path);
-    countriesFile = base::JoinPath(FLAGS_user_resource_path, COUNTRIES_FILE);
-  }
 
   if (!FLAGS_data_path.empty())
   {

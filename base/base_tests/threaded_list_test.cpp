@@ -37,8 +37,6 @@ struct ThreadedListProcessor : public threads::IRoutine
 
 UNIT_TEST(ThreadedList)
 {
-  std::list<int> l;
-
   std::mutex resMutex;
   std::list<int> res;
 
