@@ -52,7 +52,6 @@ West Virginia: WV
 Wisconsin: WI
 Wyoming: WY
 
-
 Alberta: AB
 British Columbia: BC
 Manitoba: MB
@@ -68,3 +67,8 @@ Saskatchewan: SK
 Yukon: YT
 
 Россия: РФ
+
+Китайская Народная Република: Китай, КНР
+Китай: Китайская Народная Република, КНР
+People's Republic of China: China, PRC
+China: People's Republic of China, PRC
