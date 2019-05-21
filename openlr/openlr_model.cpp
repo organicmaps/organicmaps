@@ -33,7 +33,7 @@ string DebugPrint(LinearSegmentSource source)
   {
   case LinearSegmentSource::NotValid: return "NotValid";
   case LinearSegmentSource::FromLocationReferenceTag: return "FromLocationReferenceTag";
-  case LinearSegmentSource::FormCoordinatesTag: return "FormCoordinatesTag";
+  case LinearSegmentSource::FromCoordinatesTag: return "FromCoordinatesTag";
   }
   UNREACHABLE();
 }

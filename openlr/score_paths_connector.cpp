@@ -188,12 +188,12 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
         result.cbegin(), result.cend(),
         [](ScorePath const & o1, ScorePath const & o2) { return o1.m_score < o2.m_score; });
 
-    // Note. In case of source == LinearSegmentSource::FormCoordinatesTag there is less
-    // information about a open lr segment so less score is collected.
+    // Note. In case of source == LinearSegmentSource::FromCoordinatesTag there is less
+    // information about a openlr segment so less score is collected.
     Score const kMinValidScore = source == LinearSegmentSource::FromLocationReferenceTag ? 240 : 165;
     if (it->m_score < kMinValidScore)
     {
-      LOG(LINFO, ("The shortest path found but it is no good. The best score:", it->m_score));
+      LOG(LINFO, ("The shortest path found but it is not good. The best score:", it->m_score));
       ++m_stat.m_notEnoughScore;
       return false;
     }

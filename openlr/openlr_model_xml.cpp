@@ -351,7 +351,7 @@ bool SegmentFromXML(pugi::xml_node const & segmentNode, LinearSegment & segment)
     auto const locRefNode = GetLinearLocationReference(segmentNode);
     auto const result = LinearLocationReferenceFromXML(locRefNode, segment.m_locationReference);
     if (result)
-      segment.m_status = LinearSegmentSource::FromLocationReferenceTag;
+      segment.m_source = LinearSegmentSource::FromLocationReferenceTag;
 
     return result;
   }
@@ -363,7 +363,7 @@ bool SegmentFromXML(pugi::xml_node const & segmentNode, LinearSegment & segment)
 
   CHECK_EQUAL(segment.m_locationReference.m_points.size(), 2, ());
   segment.m_locationReference.m_points[0].m_distanceToNextPoint = segment.m_segmentLengthMeters;
-  segment.m_status = LinearSegmentSource::FormCoordinatesTag;
+  segment.m_source = LinearSegmentSource::FromCoordinatesTag;
   return true;
 }
 }  // namespace openlr

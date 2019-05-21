@@ -65,7 +65,7 @@ enum class LinearSegmentSource
 {
   NotValid,
   FromLocationReferenceTag,
-  FormCoordinatesTag,
+  FromCoordinatesTag,
 };
 
 struct LocationReferencePoint
@@ -110,7 +110,7 @@ struct LinearSegment
   std::vector<LocationReferencePoint> const & GetLRPs() const;
   std::vector<LocationReferencePoint> & GetLRPs();
 
-  LinearSegmentSource m_status = LinearSegmentSource::NotValid;
+  LinearSegmentSource m_source = LinearSegmentSource::NotValid;
   // TODO(mgsergio): Think of using openlr::PartnerSegmentId
   uint32_t m_segmentId = kInvalidSegmentId;
   // TODO(mgsergio): Make sure that one segment cannot contain

@@ -73,9 +73,9 @@ bool GetBearingScore(BearingPointsSelector const & pointsSelector,
     return false;
 
   double constexpr kMaxScoreForBearing = 60.0;
-  double constexpr kAngleDeviationFactor = 4.3;
+  double constexpr kAngleDeviationFactor = 1.0 / 4.3;
   score =
-      static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg / kAngleDeviationFactor));
+      static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg * kAngleDeviationFactor));
 
   return true;
 }
@@ -257,7 +257,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
 
       --traceBackIterationsLeft;
 
-      // Note. No information about bearing if source == LinearSegmentSource::FormCoordinatesTag.
+      // Note. No information about bearing if source == LinearSegmentSource::FromCoordinatesTag.
       Score bearingScore = 0;
       if (source == LinearSegmentSource::FromLocationReferenceTag)
       {
