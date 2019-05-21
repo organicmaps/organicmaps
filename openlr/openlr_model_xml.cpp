@@ -8,6 +8,8 @@
 #include "std/cstring.hpp"
 #include "std/type_traits.hpp"
 
+#include "boost/optional.hpp"
+
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace  // Primitive utilities to handle simple OpenLR-like XML data.
@@ -23,13 +25,9 @@ bool IntegerFromXML(pugi::xml_node const & node, Value & value)
   return true;
 }
 
-bool DoubleFromXML(pugi::xml_node const & node, double & value)
+boost::optional<double> DoubleFromXML(pugi::xml_node const & node)
 {
-  if (!node)
-    return false;
-
-  value = node.text().as_double();
-  return true;
+  return node ? node.text().as_double() : boost::optional<double>();
 }
 
 bool GetLatLon(pugi::xml_node const & node, int32_t & lat, int32_t & lon)
@@ -112,17 +110,12 @@ bool FirstCoordinateFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   return true;
 }
 
-bool LatLonFormXML(pugi::xml_node const & node, ms::LatLon & latLon)
+boost::optional<ms::LatLon> LatLonFormXML(pugi::xml_node const & node)
 {
-  ms::LatLon ll = ms::LatLon::Zero();
-  if (!DoubleFromXML(node.child("latitude"), ll.lat) ||
-      !DoubleFromXML(node.child("longitude"), ll.lon))
-  {
-    return false;
-  }
+  auto const lat = DoubleFromXML(node.child("latitude"));
+  auto const lon = DoubleFromXML(node.child("longitude"));
 
-  latLon = ll;
-  return true;
+  return lat && lon ? ms::LatLon(lat.get(), lon.get()) : ms::LatLon::Zero();
 }
 
 bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord,
@@ -291,19 +284,18 @@ bool CoordinatesFromXML(pugi::xml_node const & coordsNode, openlr::LinearLocatio
     return false;
   }
 
-  ms::LatLon latLonStart = ms::LatLon::Zero();
-  ms::LatLon latLonEnd = ms::LatLon::Zero();
-  if (!LatLonFormXML(coordsNode.child("start"), latLonStart) ||
-      !LatLonFormXML(coordsNode.child("end"), latLonEnd))
+  auto const latLonStart = LatLonFormXML(coordsNode.child("start"));
+  auto const latLonEnd = LatLonFormXML(coordsNode.child("end"));
+  if (!latLonStart || !latLonEnd)
   {
     LOG(LERROR, ("Can't get <start> or <end> of <coordinates>."));
     return false;
   }
 
-  LOG(LINFO, ("from:", latLonStart, "to:", latLonEnd));
+  LOG(LINFO, ("from:", latLonStart.get(), "to:", latLonEnd.get()));
   locRef.m_points.resize(2);
-  locRef.m_points[0].m_latLon = latLonStart;
-  locRef.m_points[1].m_latLon = latLonEnd;
+  locRef.m_points[0].m_latLon = latLonStart.get();
+  locRef.m_points[1].m_latLon = latLonEnd.get();
   return true;
 }
 }  // namespace
