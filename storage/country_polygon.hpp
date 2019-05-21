@@ -7,25 +7,28 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 
+#include <cstdint>
+#include <utility>
+
 namespace storage
 {
-template <class TSource>
-void Read(TSource & src, CountryDef & p)
+template <class Source>
+void Read(Source & src, CountryDef & p)
 {
   rw::Read(src, p.m_countryId);
 
-  pair<int64_t, int64_t> r;
+  std::pair<int64_t, int64_t> r;
   r.first = ReadVarInt<int64_t>(src);
   r.second = ReadVarInt<int64_t>(src);
   p.m_rect = Int64ToRectObsolete(r, serial::GeometryCodingParams().GetCoordBits());
 }
 
-template <class TSink>
-void Write(TSink & sink, CountryDef const & p)
+template <class Sink>
+void Write(Sink & sink, CountryDef const & p)
 {
   rw::Write(sink, p.m_countryId);
 
-  pair<int64_t, int64_t> const r =
+  std::pair<int64_t, int64_t> const r =
       RectToInt64Obsolete(p.m_rect, serial::GeometryCodingParams().GetCoordBits());
 
   WriteVarInt(sink, r.first);

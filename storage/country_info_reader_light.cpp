@@ -17,7 +17,6 @@
 #include "base/string_utils.hpp"
 
 #include <chrono>
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -46,20 +45,24 @@ CountryInfoReader::CountryInfoReader()
   m_nameGetter.SetLocale(languages::GetCurrentTwine());
 }
 
-bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const
+void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const
 {
-  // Load regions from file.
+  regions.clear();
   ReaderSource<ModelReaderPtr> src(m_reader->GetReader(strings::to_string(id)));
 
   uint32_t const count = ReadVarUint<uint32_t>(src);
-  std::vector<m2::RegionD> regions;
-
   for (size_t i = 0; i < count; ++i)
   {
     std::vector<m2::PointD> points;
     serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
-    regions.emplace_back(move(points));
+    regions.emplace_back(std::move(points));
   }
+}
+
+bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const
+{
+  std::vector<m2::RegionD> regions;
+  LoadRegionsFromDisk(id, regions);
 
   for (auto const & region : regions)
   {

@@ -4,8 +4,8 @@ add_definitions("-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP")
 
 set(
   SRC
-  country_info_getter_test.cpp
-  country_name_getter_test.cpp
+  country_info_getter_tests.cpp
+  country_name_getter_tests.cpp
   fake_map_files_downloader.cpp
   fake_map_files_downloader.hpp
   helpers.cpp

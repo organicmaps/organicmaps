@@ -7,9 +7,12 @@
 #include "coding/file_container.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/region2d.hpp"
 
-#include <cstdint>
+#include <cstddef>
 #include <memory>
+#include <string>
+#include <vector>
 
 namespace lightweight
 {
@@ -27,7 +30,10 @@ public:
   Info GetMwmInfo(m2::PointD const & pt) const;
 
 protected:
-  bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+  void LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const;
+
+  // storage::CountryInfoGetterBase overrides:
+  bool BelongsToRegion(m2::PointD const & pt, size_t id) const override;
 
 private:
   std::unique_ptr<FilesContainerR> m_reader;

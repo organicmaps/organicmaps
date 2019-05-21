@@ -1,7 +1,13 @@
 #include "storage/country_decl.hpp"
 
+#include <cstddef>
 
-void storage::CountryInfo::FileName2FullName(string & fName)
+using namespace std;
+
+namespace storage
+{
+// static
+void CountryInfo::FileName2FullName(string & fName)
 {
   size_t const i = fName.find('_');
   if (i != string::npos)
@@ -12,7 +18,8 @@ void storage::CountryInfo::FileName2FullName(string & fName)
   }
 }
 
-void storage::CountryInfo::FullName2GroupAndMap(string const & fName, string & group, string & map)
+// static
+void CountryInfo::FullName2GroupAndMap(string const & fName, string & group, string & map)
 {
   size_t pos = fName.find(",");
   if (pos == string::npos)
@@ -26,3 +33,4 @@ void storage::CountryInfo::FullName2GroupAndMap(string const & fName, string & g
     group = fName.substr(0, pos);
   }
 }
+}  // namespace storage

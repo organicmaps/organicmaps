@@ -49,7 +49,7 @@ struct Region : public Locality
 
   static Model::Type ToModelType(Type type);
 
-  storage::CountryInfoGetter::TRegionIdSet m_ids;
+  storage::CountryInfoGetter::RegionIdVec m_ids;
   std::string m_defaultName;
   m2::PointD m_center;
   Type m_type;

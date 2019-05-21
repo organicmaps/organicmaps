@@ -862,11 +862,11 @@ void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
       if (isWorld)
       {
         matches = ctx.m_regions.empty() ||
-                  m_infoGetter.IsBelongToRegions(region.m_center, ctx.m_regions.back()->m_ids);
+                  m_infoGetter.BelongsToAnyRegion(region.m_center, ctx.m_regions.back()->m_ids);
       }
       else
       {
-        matches = m_infoGetter.IsBelongToRegions(fileName, region.m_ids);
+        matches = m_infoGetter.BelongsToAnyRegion(fileName, region.m_ids);
       }
 
       if (!matches)
@@ -912,7 +912,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
       BailIfCancelled();
 
       if (!ctx.m_regions.empty() &&
-          !m_infoGetter.IsBelongToRegions(city.m_rect.Center(), ctx.m_regions.back()->m_ids))
+          !m_infoGetter.BelongsToAnyRegion(city.m_rect.Center(), ctx.m_regions.back()->m_ids))
       {
         continue;
       }

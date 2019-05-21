@@ -2,8 +2,8 @@
 
 #include "storage/storage_tests/helpers.hpp"
 
-#include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
+#include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
@@ -15,11 +15,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
-
+#include <map>
+#include <memory>
+#include <random>
+#include <string>
+#include <vector>
 
 using namespace storage;
+using namespace std;
 
 namespace
 {
@@ -62,8 +65,8 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Several countries.
   m2::PointD const halfSize2 = m2::PointD(5.0, 5.0);
-  auto const countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2),
-                                                            false /* rough */);
+  auto const countries2 =
+      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), false /* rough */);
   auto const expected = vector<storage::CountryId>{
       "Belarus", "Latvia", "Lithuania", "Poland", "Russia_Central", "Russia_Northwestern",
       "Ukraine"};
@@ -125,11 +128,11 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);
 
-  LOG(LINFO, ("USA Continental: ", rects[0]));
-  LOG(LINFO, ("Alaska: ", rects[1]));
-  LOG(LINFO, ("Hawaii: ", rects[2]));
+  LOG(LINFO, ("USA Continental:", rects[0]));
+  LOG(LINFO, ("Alaska:", rects[1]));
+  LOG(LINFO, ("Hawaii:", rects[2]));
 
-  LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
+  LOG(LINFO, ("Canada:", getter->CalcLimitRect("Canada_")));
 }
 
 UNIT_TEST(CountryInfoGetter_HitsInRadius)
@@ -149,7 +152,8 @@ UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
   CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
   TEST_EQUAL(results.size(), 2, ());
-  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
+       ());
   TEST(find(results.begin(), results.end(), "Canada_Nunavut_South") != results.end(), ());
 }
 
@@ -159,7 +163,8 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
   CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
   TEST_EQUAL(results.size(), 1, ());
-  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
+       ());
 }
 
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
