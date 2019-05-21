@@ -1,5 +1,7 @@
 #pragma once
 
+#include "metrics/eye.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <functional>
@@ -39,10 +41,9 @@ public:
                                     std::string const & lang, std::string & result);
 };
 
-using AfterBookingCallback = std::function<void(std::string const & url)>;
 using CityGalleryCallback = std::function<void(CityGallery const & gallery)>;
 
-class Api
+class Api : public eye::Subscriber
 {
 public:
   class Delegate
@@ -58,16 +59,18 @@ public:
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   void OnEnterForeground();
   bool NeedToShow() const;
-  void GetCrossReferenceLinkAfterBooking(AfterBookingCallback const & cb) const;
+  std::string GetCrossReferenceLinkAfterBooking() const;
   void GetCrossReferenceCityGallery(std::string const & osmId,
                                     CityGalleryCallback const & cb) const;
-  void GetCrossReferenceCityGallery(m2::PointD const & point,
-                                    CityGalleryCallback const & cb) const;
+  void GetCrossReferenceCityGallery(m2::PointD const & point, CityGalleryCallback const & cb) const;
+
+  // eye::Subscriber overrides:
+  void OnMapObjectEvent(eye::MapObject const & poi) override;
 
 private:
   std::unique_ptr<Delegate> m_delegate;
 
   std::string m_baseUrl;
-  bool m_bookingCrossReferenceIsAwaiting = false;
+  std::string m_bookingCrossReferenceAwaitingForId;
 };
 }  // namespace cross_reference

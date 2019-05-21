@@ -267,6 +267,7 @@ struct CrossReferences
                                   visitor(m_lastTimeShownAfterBooking, "lastTimeShownAfterBooking"))
   Time m_transitionToBookingTime;
   Time m_lastTimeShownAfterBooking;
+  std::string m_lastTimeShownAfterBookingCityId;
 };
 
 using MapObjects = m4::Tree<MapObject>;

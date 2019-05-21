@@ -143,9 +143,10 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
 
 void Api::OnEnterForeground()
 {
-  settings::TryGet("BookingCrossReferenceIsAwaiting", m_bookingCrossReferenceIsAwaiting);
+  m_bookingCrossReferenceAwaitingForId.clear();
+  settings::TryGet("BookingCrossReferenceAwaitingForId", m_bookingCrossReferenceAwaitingForId);
 
-  if (!m_bookingCrossReferenceIsAwaiting)
+  if (m_bookingCrossReferenceAwaitingForId.empty())
     return;
 
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
@@ -155,74 +156,28 @@ void Api::OnEnterForeground()
   if (timeSinceLastTransitionToBooking < kMinMinutesCountAfterBooking ||
       timeSinceLastTransitionToBooking > kMaxMinutesCountAfterBooking)
   {
-    m_bookingCrossReferenceIsAwaiting = false;
-    settings::Set("BookingCrossReferenceIsAwaiting", false);
+    settings::Delete("BookingCrossReferenceAwaitingForId");
+    m_bookingCrossReferenceAwaitingForId.clear();
   }
 }
 
 bool Api::NeedToShow() const
 {
-  if (!m_bookingCrossReferenceIsAwaiting)
+  if (m_bookingCrossReferenceAwaitingForId.empty())
     return false;
 
   return NeedToShowImpl(eye::Eye::Instance().GetInfo());
 }
 
-void Api::GetCrossReferenceLinkAfterBooking(AfterBookingCallback const & cb) const
+std::string Api::GetCrossReferenceLinkAfterBooking() const
 {
-  CHECK(m_delegate, ());
-
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
 
-  if (!m_bookingCrossReferenceIsAwaiting || !NeedToShowImpl(eyeInfo))
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [cb]() { cb({}); });
-    return;
-  }
+  if (m_bookingCrossReferenceAwaitingForId.empty() || !NeedToShowImpl(eyeInfo))
+    return "";
 
-  GetPlatform().RunTask(Platform::Thread::Background, [this, eyeInfo, cb]()
-  {
-    auto const targetTime = eyeInfo->m_crossReferences.m_transitionToBookingTime;
-    m2::PointD pos;
-    auto const found =
-        eyeInfo->m_mapObjects.FindNode([&pos, targetTime](eye::MapObject const & mapObject)
-        {
-         if (mapObject.GetEvents().empty())
-           return false;
-
-          auto const typeIt = std::find(kSupportedBookingTypes.cbegin(),
-                                        kSupportedBookingTypes.cend(), mapObject.GetBestType());
-
-          if (typeIt == kSupportedBookingTypes.cend())
-            return false;
-
-          for (auto const & event : mapObject.GetEvents())
-          {
-            switch (event.m_type)
-            {
-            case eye::MapObject::Event::Type::BookingBook:
-            case eye::MapObject::Event::Type::BookingMore:
-            case eye::MapObject::Event::Type::BookingReviews:
-            case eye::MapObject::Event::Type::BookingDetails:
-            {
-              if (event.m_eventTime == targetTime)
-              {
-                pos = mapObject.GetPos();
-                return true;
-              }
-            }
-            default: continue;
-            }
-          }
-          return false;
-        });
-
-    auto const osmId = found ? m_delegate->GetCityOsmId(pos) : "";
-    auto const resultUrl =
-        osmId.empty() ? "" : MakeCityGalleryUrl(m_baseUrl, osmId, languages::GetCurrentNorm());
-
-    GetPlatform().RunTask(Platform::Thread::Gui, [cb, resultUrl]() { cb(resultUrl); });
-  });
+  return MakeCityGalleryUrl(m_baseUrl, m_bookingCrossReferenceAwaitingForId,
+                            languages::GetCurrentNorm());
 }
 
 void Api::GetCrossReferenceCityGallery(std::string const & osmId,
@@ -237,5 +192,36 @@ void Api::GetCrossReferenceCityGallery(m2::PointD const & point,
   CHECK(m_delegate, ());
 
   GetCrossReferenceCityGalleryImpl(m_baseUrl, m_delegate->GetCityOsmId(point), cb);
+}
+
+void Api::OnMapObjectEvent(eye::MapObject const & mapObject)
+{
+  CHECK(!mapObject.GetEvents().empty(), ());
+
+  auto const typeIt = std::find(kSupportedBookingTypes.cbegin(), kSupportedBookingTypes.cend(),
+                                mapObject.GetBestType());
+
+  if (typeIt == kSupportedBookingTypes.cend())
+    return;
+
+  m2::PointD pos;
+  bool found = false;
+  switch (mapObject.GetEvents().back().m_type)
+  {
+  case eye::MapObject::Event::Type::BookingBook:
+  case eye::MapObject::Event::Type::BookingMore:
+  case eye::MapObject::Event::Type::BookingReviews:
+  case eye::MapObject::Event::Type::BookingDetails:
+  {
+    pos = mapObject.GetPos();
+    found = true;
+  }
+  default: /* do nothing */;
+  }
+
+  auto const osmId = found ? m_delegate->GetCityOsmId(pos) : "";
+
+  if (!osmId.empty())
+    settings::Set("BookingCrossReferenceAwaitingForId", osmId);
 }
 }  // namespace cross_reference

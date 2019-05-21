@@ -404,22 +404,23 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
   });
 }
 
-void Eye::RegisterCrossReferenceAfterBookingShown()
+void Eye::RegisterCrossReferenceAfterBookingShown(std::string const & cityId)
 {
   auto const info = m_info.Get();
   auto editableInfo = std::make_shared<Info>(*info);
   auto const now = Clock::now();
 
   editableInfo->m_crossReferences.m_lastTimeShownAfterBooking = now;
+  editableInfo->m_crossReferences.m_lastTimeShownAfterBookingCityId = cityId;
 
   if (!Save(editableInfo))
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, now]
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, now, cityId]
   {
     for (auto subscriber : m_subscribers)
     {
-      subscriber->OnCrossReferenceAfterBookingShown(now);
+      subscriber->OnCrossReferenceAfterBookingShown(now, cityId);
     }
   });
 }
@@ -505,11 +506,11 @@ void Eye::Event::MapObjectEvent(MapObject const & mapObject, MapObject::Event::T
 }
 
 // static
-void Eye::Event::CrossReferenceAfterBookingShown()
+void Eye::Event::CrossReferenceAfterBookingShown(std::string const & cityId)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [cityId]
   {
-    Instance().RegisterCrossReferenceAfterBookingShown();
+    Instance().RegisterCrossReferenceAfterBookingShown(cityId);
   });
 }
 }  // namespace eye

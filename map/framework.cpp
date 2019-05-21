@@ -577,8 +577,9 @@ Framework::Framework(FrameworkParams const & params)
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
 
-  m_crossReferenceApi->SetDelegate(make_unique<CrossReferenceDelegate>(m_model.GetDataSource(),
-                                                                       *m_cityFinder));
+  m_crossReferenceApi->SetDelegate(
+      make_unique<CrossReferenceDelegate>(m_model.GetDataSource(), *m_cityFinder));
+  eye::Eye::Instance().Subscribe(m_crossReferenceApi.get());
 }
 
 Framework::~Framework()

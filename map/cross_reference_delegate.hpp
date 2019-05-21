@@ -10,7 +10,7 @@ class DataSource;
 
 namespace search
 {
-  class CityFinder;
+class CityFinder;
 }
 
 class CrossReferenceDelegate : public cross_reference::Api::Delegate
