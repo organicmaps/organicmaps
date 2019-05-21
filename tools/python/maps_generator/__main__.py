@@ -49,10 +49,10 @@ def parse_options():
         help=f"Stage from which maps will be rebuild. Available stages: "
         f"{', '.join([s.replace('stage_', '') for s in ALL_STAGES])}.")
     parser.add_argument(
-        "--only_coasts",
+        "--coasts",
         default=False,
         action="store_true",
-        help="Build  WorldCoasts.raw and WorldCoasts.rawgeom files")
+        help="Build WorldCoasts.raw and WorldCoasts.rawgeom files")
     parser.add_argument(
         "--production",
         default=False,
@@ -141,7 +141,7 @@ def main():
     env = Env(options)
     if env.from_stage:
         reset_to_stage(env.from_stage, env)
-    if env.only_coasts:
+    if env.coasts:
         generate_coasts(env)
     else:
         generate_maps(env)

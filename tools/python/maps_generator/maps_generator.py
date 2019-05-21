@@ -106,7 +106,6 @@ def stage_coastline(env):
     coasts_geom = "WorldCoasts.geom"
     coasts_rawgeom = "WorldCoasts.rawgeom"
     try:
-        raise BadExitStatusError()
         coastline.make_coastline(env)
     except BadExitStatusError:
         logger.info("Build costs failed. Try to download the costs...")
@@ -314,6 +313,7 @@ def generate_maps(env):
 
 def generate_coasts(env):
     with FileLock(planet_lock_file(), timeout=1) as planet_lock:
+        stage_download_and_convert_planet(env)
         stage_update_planet(env)
         with FileLock(build_lock_file(env.out_path), timeout=1):
             stage_coastline(env)

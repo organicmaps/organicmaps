@@ -63,8 +63,11 @@ OSM_TOOLS_PATH: ~/osmctools
 # PLANET_URL:
 # The url to the file with md5 sum of the planet.
 # PLANET_MD5_URL:
-# The url to WorldCoasts.geom and WorldCoasts.rawgeom(without file name).
-# You can write file:///path/to/coasts/. Files latest.geom and latest.rawgeom must be on this URL.
+# The base url to WorldCoasts.geom and WorldCoasts.rawgeom (without file name).
+# Files latest_coasts.geom and latest_coasts.rawgeom must be at this URL.
+# For example, if PLANET_COASTS_URL = https://somesite.com/download/
+# The https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
+# the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # PLANET_COASTS_URL:
 # The url to the subway file.
 # SUBWAY_URL:
@@ -78,7 +81,7 @@ OSM_TOOLS_PATH: ~/osmctools
 ```
 
 
-##### Node: In each field in which you need to specify a URL, you can specify the path to the file system using file://path/to/file
+##### Note: In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
 
 ## Usage
 ```sh
@@ -121,7 +124,7 @@ optional arguments:
                         preprocess, features, mwm, descriptions,
                         countries_txt, cleanup, index, ugc, popularity,
                         routing, routing_transit.
-  --only_coasts         Build WorldCoasts.raw and WorldCoasts.rawgeom files
+  --coasts              Build WorldCoasts.raw and WorldCoasts.rawgeom files
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
                         advertising.

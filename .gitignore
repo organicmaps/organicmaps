@@ -187,4 +187,4 @@ designer_version.h
 build_version.hpp
 
 # Configs
-map_generator.ini
+tools/python/maps_generator/var/etc/map_generator.ini
