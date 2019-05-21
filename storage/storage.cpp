@@ -364,6 +364,13 @@ Country const & Storage::CountryByCountryId(CountryId const & countryId) const
   return node->Value();
 }
 
+bool Storage::IsNode(CountryId const & countryId) const
+{
+  if (!IsCountryIdValid(countryId))
+    return false;
+  return m_countries.FindFirst(countryId) != nullptr;
+}
+
 bool Storage::IsLeaf(CountryId const & countryId) const
 {
   if (!IsCountryIdValid(countryId))

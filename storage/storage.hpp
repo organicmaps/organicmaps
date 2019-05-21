@@ -536,9 +536,13 @@ public:
 
   CountryId FindCountryIdByFile(string const & name) const;
 
-  // These two functions check whether |countryId| is a leaf
-  // or an inner node of the country tree.
+  // Returns true iff |countryId| exists as a node in the tree.
+  bool IsNode(CountryId const & countryId) const;
+
+  // Returns true iff |countryId| is a leaf of the tree.
   bool IsLeaf(CountryId const & countryId) const;
+
+  // Returns true iff |countryId| is an inner node of the tree.
   bool IsInnerNode(CountryId const & countryId) const;
 
   LocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const;
