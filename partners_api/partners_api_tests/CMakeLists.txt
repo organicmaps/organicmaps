@@ -6,6 +6,7 @@ set(
   SRC
   ads_engine_tests.cpp
   booking_tests.cpp
+  cross_reference_tests.cpp
   facebook_tests.cpp
   google_tests.cpp
   maxim_tests.cpp
@@ -23,7 +24,10 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  platform_tests_support
+  metrics_tests_support
   partners_api
+  metrics
   storage
   indexer
   platform

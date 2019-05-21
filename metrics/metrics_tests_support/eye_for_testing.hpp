@@ -26,7 +26,7 @@ class ScopedEyeForTesting
 {
 public:
   ScopedEyeForTesting() { EyeForTesting::ResetEye(); }
-  ~ScopedEyeForTesting() { EyeForTesting::ResetEye(); }
+  virtual ~ScopedEyeForTesting() { EyeForTesting::ResetEye(); }
 
 private:
   Platform::ThreadRunner m_runner;

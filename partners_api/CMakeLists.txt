@@ -16,6 +16,8 @@ set(
   booking_block_params.cpp
   booking_block_params.hpp
   booking_params_base.hpp
+  cross_reference_api.cpp
+  cross_reference_api.hpp
   facebook_ads.cpp
   facebook_ads.hpp
   google_ads.cpp

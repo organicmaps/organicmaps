@@ -20,6 +20,12 @@ public:
     m_os << DebugPrint(t);
   }
 
+  template <typename T>
+  void operator()(T const & t, T const & /* with optional value */, char const * name = nullptr)
+  {
+    operator()(t, name);
+  }
+
   std::string ToString() const { return m_name + " [" + m_os.str() + "]"; }
 
 private:

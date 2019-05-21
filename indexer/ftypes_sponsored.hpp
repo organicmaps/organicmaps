@@ -21,6 +21,7 @@ protected:
 SPONSORED_CHECKER(IsBookingChecker, "booking");
 SPONSORED_CHECKER(IsOpentableChecker, "opentable");
 SPONSORED_CHECKER(IsHolidayChecker, "holiday");
+SPONSORED_CHECKER(IsCrossReferenceCityChecker, "cross_reference");
 
 #undef SPONSORED_CHECKER
 }  // namespace ftypes

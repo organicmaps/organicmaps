@@ -24,6 +24,7 @@ public:
   virtual void OnDiscoveryItemClicked(Discovery::Event event) {}
   virtual void OnLayerShown(Layer const & layer) {}
   virtual void OnMapObjectEvent(MapObject const & poi) {}
+  virtual void OnCrossReferenceAfterBookingShown(Time const & time) {}
 };
 
 // Note This class IS thread-safe.
@@ -47,6 +48,7 @@ public:
     static void LayerShown(Layer::Type type);
     static void MapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
                                m2::PointD const & userPos);
+    static void CrossReferenceAfterBookingShown();
   };
 
   static Eye & Instance();
@@ -75,6 +77,7 @@ private:
   void RegisterLayerShown(Layer::Type type);
   void RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
                               m2::PointD const & userPos);
+  void RegisterCrossReferenceAfterBookingShown();
 
   base::AtomicSharedPtr<Info> m_info;
   std::vector<Subscriber *> m_subscribers;

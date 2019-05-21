@@ -513,3 +513,44 @@ PARTNERS_CALCULATE_BY_COORDS = """
   "PriceString": "244.00 ₽"
 }
 """
+
+CROSS_REFERENCE_GALLERY_CITY = """
+{
+    "data": [
+        {
+            "url": "bundle/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca",
+            "name": "По Виа Рипетта до мавзолея Августа и Алтаря мира",
+            "author": {
+                "key_id": "00000000-0000-0000-0000-000000000000",
+                "name": "The Village"
+            },
+            "image_url": "http://localhost:8000/images/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca.jpg",
+            "access": "public",
+            "lux_category": {
+                "name": "LUX",
+                "color": "666666"
+            },
+            "tier": "price.tier"
+        },
+        {
+            "url": "bundle/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca",
+            "name": "Полеты в метро",
+            "author": {
+                "key_id": "00000000-0000-0000-0000-000000000000",
+                "name": "Bmj"
+            },
+            "image_url": null,
+            "access": "public",
+            "lux_category": {
+                "name": null,
+                "color": "666666"
+            },
+            "tier": null
+        }
+    ],
+    "errors": [],
+    "meta": {
+        "more": "search?city=666"
+    }
+}
+"""

@@ -1,6 +1,7 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
+#include "map/cross_reference_delegate.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/ge0_parser.hpp"
@@ -575,6 +576,9 @@ Framework::Framework(FrameworkParams const & params)
 
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
+
+  m_crossReferenceApi->SetDelegate(make_unique<CrossReferenceDelegate>(m_model.GetDataSource(),
+                                                                       *m_cityFinder));
 }
 
 Framework::~Framework()
@@ -635,6 +639,15 @@ locals::Api * Framework::GetLocalsApi(platform::NetworkPolicy const & policy)
   ASSERT(m_localsApi, ());
   if (policy.CanUse())
     return m_localsApi.get();
+
+  return nullptr;
+}
+
+cross_reference::Api * Framework::GetCrossReferenceApi(platform::NetworkPolicy const & policy) const
+{
+  ASSERT(m_crossReferenceApi, ());
+  if (policy.CanUse())
+    return m_crossReferenceApi.get();
 
   return nullptr;
 }
@@ -954,6 +967,10 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
            !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
   {
     info.SetSponsoredType(place_page::SponsoredType::Holiday);
+  }
+  else if (ftypes::IsCrossReferenceCityChecker::Instance()(ft))
+  {
+    info.SetSponsoredType(SponsoredType::CrossReference);
   }
 
   FillLocalExperts(ft, info);
@@ -1481,6 +1498,8 @@ void Framework::EnterForeground()
 
   m_trafficManager.OnEnterForeground();
   m_routingManager.SetAllowSendingPoints(true);
+
+  m_crossReferenceApi->OnEnterForeground();
 }
 
 void Framework::InitCountryInfoGetter()

@@ -54,7 +54,12 @@ Info MakeDefaultInfoForTesting()
   eventInfo.m_userPos = {53.016347, 158.683327};
   eventInfo.m_type = MapObject::Event::Type::Open;
   poi.GetEditableEvents().push_back(eventInfo);
+  eventInfo.m_eventTime = Time(std::chrono::hours(100000));
+  eventInfo.m_userPos = {53.016347, 158.683327};
+  eventInfo.m_type = MapObject::Event::Type::BookingMore;
   info.m_mapObjects.Add(poi);
+
+  info.m_crossReferences.m_lastTimeShownAfterBooking = Time(std::chrono::hours(100000));
 
   return info;
 }

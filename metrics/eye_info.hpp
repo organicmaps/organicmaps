@@ -183,7 +183,11 @@ public:
       AddToBookmark,
       UgcEditorOpened,
       UgcSaved,
-      RouteToCreated
+      RouteToCreated,
+      BookingBook,
+      BookingMore,
+      BookingReviews,
+      BookingDetails,
     };
 
     DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_userPos, "user_pos"),
@@ -254,6 +258,17 @@ private:
   m2::RectD m_limitRect;
 };
 
+struct CrossReferences
+{
+  CrossReferences() = default;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CrossReferences,
+                                  visitor(m_transitionToBookingTime, "transitionToBookingTime"),
+                                  visitor(m_lastTimeShownAfterBooking, "lastTimeShownAfterBooking"))
+  Time m_transitionToBookingTime;
+  Time m_lastTimeShownAfterBooking;
+};
+
 using MapObjects = m4::Tree<MapObject>;
 
 struct InfoV0
@@ -262,7 +277,8 @@ struct InfoV0
   DECLARE_VISITOR_AND_DEBUG_PRINT(InfoV0, visitor(m_booking, "booking"),
                                   visitor(m_bookmarks, "bookmarks"),
                                   visitor(m_discovery, "discovery"), visitor(m_layers, "layers"),
-                                  visitor(m_tips, "tips"))
+                                  visitor(m_tips, "tips"),
+                                  visitor(m_crossReferences, CrossReferences(), "crossReferences"))
 
   Booking m_booking;
   Bookmarks m_bookmarks;
@@ -270,6 +286,7 @@ struct InfoV0
   Layers m_layers;
   Tips m_tips;
   MapObjects m_mapObjects;
+  CrossReferences m_crossReferences;
 };
 
 using Info = InfoV0;
@@ -330,6 +347,10 @@ inline std::string DebugPrint(MapObject::Event::Type const & type)
   case MapObject::Event::Type::UgcEditorOpened: return "UgcEditorOpened";
   case MapObject::Event::Type::UgcSaved: return "UgcSaved";
   case MapObject::Event::Type::RouteToCreated: return "RouteToCreated";
+  case MapObject::Event::Type::BookingBook: return "BookingBook";
+  case MapObject::Event::Type::BookingMore: return "BookingMore";
+  case MapObject::Event::Type::BookingReviews: return "BookingReviews";
+  case MapObject::Event::Type::BookingDetails: return "BookingDetails";
   }
 }
 }  // namespace eye

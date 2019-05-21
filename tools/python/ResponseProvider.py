@@ -147,6 +147,7 @@ class ResponseProvider:
                 "/partners/taxi_info": self.partners_yandex_taxi_info,
                 "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
                 "/partners/CalculateByCoords": self.partners_calculate_by_coords,
+                "/gallery/city/TestOsmId/": self.cross_reference_gallery_city,
             }[url]()
         except:
             return self.test_404()
@@ -238,6 +239,9 @@ class ResponseProvider:
 
     def partners_calculate_by_coords(self):
         return Payload(jsons.PARTNERS_CALCULATE_BY_COORDS)
+
+    def cross_reference_gallery_city(self):
+        return Payload(jsons.CROSS_REFERENCE_GALLERY_CITY)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")
