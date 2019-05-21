@@ -3,6 +3,7 @@ It's tool for generation maps for maps.me application.
 
 ## Setup
 You must have Python version not lower than 3.6 and complete the following steps:
+
 0. Change directory:
 ```sh
 $ cd omim/tools/python/maps_generator
@@ -126,8 +127,7 @@ To generate maps for the whole world you need 400 GB of hard disk space and a co
 ### Examples
 ####  Non-standard planet
 If I want to generate maps for Japan I must complete the following steps:
-1. Open https://download.geofabrik.de/asia/japan.html and cope urls to osm.pbf
-file and md5sum.
+1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf and md5sum files.
 2. Edit ini file:
 ```sh
 maps_generator$ vim var/etc/map_generator.ini

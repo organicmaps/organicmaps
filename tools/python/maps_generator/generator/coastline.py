@@ -2,7 +2,6 @@ import os
 import subprocess
 
 from . import settings
-from .exceptions import wait_and_raise_if_fail
 from .gen_tool import run_gen_tool
 from .osmtools import osmfilter
 
