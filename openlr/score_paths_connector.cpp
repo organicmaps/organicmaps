@@ -95,9 +95,11 @@ private:
 /// with score of this candidate based on length. The closer length of the |path| to
 /// |distanceToNextPoint| the more score.
 bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextPoint,
-                          Score & lenScore)
+                          LinearSegmentSource source, Score & lenScore)
 {
   CHECK(!path.empty(), ());
+  CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
+
   Score const kMaxScoreForRouteLen = 110;
 
   double pathLen = 0.0;
@@ -109,7 +111,8 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
       1.0 - abs(distanceToNextPoint - pathLen) / max(distanceToNextPoint, pathLen);
 
   bool const shortPath = path.size() <= 2;
-  double constexpr kMinValidPathDiffRation = 0.6;
+  double const kMinValidPathDiffRation =
+      source == LinearSegmentSource::FromLocationReferenceTag ? 0.6 : 0.25;
   if (pathDiffRatio <= kMinValidPathDiffRation && !shortPath)
     return false;
 
@@ -161,7 +164,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
         }
 
         Score pathLenScore = 0;
-        if (!ValidatePathByLength(path, distanceToNextPoint, pathLenScore))
+        if (!ValidatePathByLength(path, distanceToNextPoint, source, pathLenScore))
           continue;
 
         auto const score = pathLenScore + GetScoreForUniformity(path) +
