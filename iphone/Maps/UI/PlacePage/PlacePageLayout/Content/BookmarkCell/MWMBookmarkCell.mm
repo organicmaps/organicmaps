@@ -169,24 +169,14 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
 - (void)startSpinner
 {
   self.editButton.hidden = YES;
-  NSUInteger const animationImagesCount = 12;
-  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
-  for (NSUInteger i = 0; i < animationImagesCount; ++i)
-  {
-    UIImage * image =
-        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
-    animationImages[i] = image;
-  }
-  self.spinner.animationDuration = 0.8;
-  self.spinner.animationImages = animationImages;
-  self.spinner.hidden = NO;
-  [self.spinner startAnimating];
+  self.spinner.image = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", postfix]];
+  [self.spinner startRotation:1];
 }
 
 - (void)stopSpinner
 {
-  [self.spinner stopAnimating];
+  [self.spinner stopRotation];
   self.editButton.hidden = NO;
   self.spinner.hidden = YES;
 }

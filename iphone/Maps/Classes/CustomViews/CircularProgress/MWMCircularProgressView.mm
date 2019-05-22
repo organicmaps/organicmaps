@@ -1,5 +1,6 @@
 #import "MWMCircularProgressView.h"
 #import "MWMCommon.h"
+#import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
 #include "std/map.hpp"
@@ -164,22 +165,14 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
     self.spinner.hidden = NO;
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
   }
-  NSUInteger const animationImagesCount = 12;
-  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) ||
                                (![UIColor isNightMode] && self.isInvertColor) ||
                                _spinnerBackgroundColor
                            ? @"dark"
                            : @"light";
-  for (NSUInteger i = 0; i < animationImagesCount; ++i)
-  {
-    UIImage * image =
-        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
-    animationImages[i] = image;
-  }
-  self.spinner.animationDuration = 0.8;
-  self.spinner.animationImages = animationImages;
-  [self.spinner startAnimating];
+  UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", postfix]];
+  self.spinner.image = image;
+  [self.spinner startRotation:1];
 }
 
 - (void)stopSpinner
@@ -188,7 +181,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
     return;
   self.spinner.hidden = YES;
   self.backgroundLayer.hidden = self.progressLayer.hidden = NO;
-  [self.spinner stopAnimating];
+  [self.spinner stopRotation];
 }
 
 #pragma mark - Animation

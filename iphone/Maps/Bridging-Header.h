@@ -27,7 +27,6 @@
 #import "CoreNotificationWrapper.h"
 #import "DeepLinkHelper.h"
 #import "MapViewController.h"
-#import "MWMActivityIndicator.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationViewModel.h"

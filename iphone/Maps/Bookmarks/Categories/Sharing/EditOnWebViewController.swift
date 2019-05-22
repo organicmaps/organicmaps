@@ -6,7 +6,7 @@ final class EditOnWebViewController: MWMViewController {
   weak var delegate: EditOnWebViewControllerDelegate?
   var category: MWMCategory!
   
-  @IBOutlet weak var activityIndicator: MWMActivityIndicator! {
+  @IBOutlet weak var activityIndicator: ActivityIndicator! {
     didSet {
       activityIndicator.tintColor = UIColor.white()
     }

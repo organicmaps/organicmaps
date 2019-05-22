@@ -5,6 +5,7 @@
 #import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
@@ -84,14 +85,14 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)mwm_refreshUI
 {
   [self.sideView mwm_refreshUI];
-  [self.locationButton.imageView stopAnimating];
+  [self.locationButton.imageView stopRotation];
   [self refreshLocationButtonState:self.locationMode];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
-  [locBtn.imageView stopAnimating];
+  [locBtn.imageView stopRotation];
 
   NSArray<UIImage *> * images =
       ^NSArray<UIImage *> *(MWMMyPositionMode oldMode, MWMMyPositionMode newMode)
@@ -128,6 +129,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     locBtn.imageView.image = images.lastObject;
     [locBtn.imageView startAnimating];
   }
+  [locBtn.imageView stopRotation];
   [self refreshLocationButtonState:mode];
   self.locationMode = mode;
 }
@@ -137,7 +139,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)refreshLocationButtonState:(MWMMyPositionMode)state
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    if (self.locationButton.imageView.isAnimating)
+    if (self.locationButton.imageView.isRotating)
     {
       [self refreshLocationButtonState:state];
     }
@@ -148,12 +150,8 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
       {
       case MWMMyPositionModePendingPosition:
       {
-        NSArray<UIImage *> * images = animationImages(@"btn_pending", 12);
-        locBtn.imageView.animationDuration = 1.2;
-        locBtn.imageView.animationImages = images;
-        locBtn.imageView.animationRepeatCount = 0;
-        locBtn.imageView.image = images.lastObject;
-        [locBtn.imageView startAnimating];
+        locBtn.imageName = @"btn_pending";
+        [locBtn.imageView startRotation:1];
         break;
       }
       case MWMMyPositionModeNotFollow:

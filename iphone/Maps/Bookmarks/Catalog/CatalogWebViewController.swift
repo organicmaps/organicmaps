@@ -20,7 +20,7 @@ struct CatalogCategoryInfo {
 final class CatalogWebViewController: WebViewController {
   let progressBgView = UIVisualEffectView(effect:
     UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark))
-  let progressView = MWMActivityIndicator()
+  let progressView = ActivityIndicator()
   let numberOfTasksLabel = UILabel()
   let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
   let pendingTransactionsHandler = InAppPurchase.pendingTransactionsHandler()
