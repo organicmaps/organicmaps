@@ -1504,9 +1504,9 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 
   // Two parent case.
   auto const forEachParentDisputableTerritory = [](CountryId const & parentId,
-                                                   CountryTreeNode const & parentNode) {
+                                                   CountryTree::Node const & parentNode) {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container) {
+    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container) {
       descendants.push_back(container.Value().Name());
     });
 
@@ -1530,9 +1530,9 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 
   // One parent case.
   auto const forEachParentIndisputableTerritory = [](CountryId const & parentId,
-                                                     CountryTreeNode const & parentNode) {
+                                                     CountryTree::Node const & parentNode) {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container) {
+    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container) {
       descendants.push_back(container.Value().Name());
     });
 

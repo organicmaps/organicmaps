@@ -1,7 +1,6 @@
 #pragma once
 
 #include "storage/country_decl.hpp"
-#include "storage/country_tree.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -69,16 +68,4 @@ private:
   /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
   MwmSize m_subtreeMwmSizeBytes;
 };
-
-using CountryTree = CountryTree<CountryId, Country>;
-using CountryTreeNode = CountryTree::Node;
-
-/// @return version of country file or -1 if error was encountered
-int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
-                                Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
-int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
-                              Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
-
-void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
-                                 std::map<std::string, CountryInfo> & id2info, bool & isSingleMwm);
 }  // namespace storage

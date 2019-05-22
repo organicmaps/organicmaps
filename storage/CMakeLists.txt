@@ -5,7 +5,6 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 set(
   SRC
   app_store.hpp
-  country.cpp
   country.hpp
   country_decl.cpp
   country_decl.hpp
@@ -18,6 +17,7 @@ set(
   country_parent_getter.cpp
   country_parent_getter.hpp
   country_polygon.hpp
+  country_tree.cpp
   country_tree.hpp
   diff_scheme/diff_manager.cpp
   diff_scheme/diff_manager.hpp

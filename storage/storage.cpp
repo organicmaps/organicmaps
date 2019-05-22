@@ -69,9 +69,10 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
   localFile.DeleteFromDisk(options);
 }
 
-CountryTreeNode const & LeafNodeFromCountryId(CountryTree const & root, CountryId const & countryId)
+CountryTree::Node const & LeafNodeFromCountryId(CountryTree const & root,
+                                                CountryId const & countryId)
 {
-  CountryTreeNode const * node = root.FindFirstLeaf(countryId);
+  CountryTree::Node const * node = root.FindFirstLeaf(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
 }
@@ -359,7 +360,7 @@ Country const & Storage::CountryLeafByCountryId(CountryId const & countryId) con
 
 Country const & Storage::CountryByCountryId(CountryId const & countryId) const
 {
-  CountryTreeNode const * node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * node = m_countries.FindFirst(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree."));
   return node->Value();
 }
@@ -375,7 +376,7 @@ bool Storage::IsLeaf(CountryId const & countryId) const
 {
   if (!IsCountryIdValid(countryId))
     return false;
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   return node != nullptr && node->ChildrenCount() == 0;
 }
 
@@ -383,7 +384,7 @@ bool Storage::IsInnerNode(CountryId const & countryId) const
 {
   if (!IsCountryIdValid(countryId))
     return false;
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   return node != nullptr && node->ChildrenCount() != 0;
 }
 
@@ -624,9 +625,10 @@ void Storage::NotifyStatusChangedForHierarchy(CountryId const & countryId)
   NotifyStatusChanged(countryId);
 
   // Notification status changing for ancestors in country tree.
-  ForEachAncestorExceptForTheRoot(
-      countryId,
-      [&](CountryId const & parentId, CountryTreeNode const &) { NotifyStatusChanged(parentId); });
+  ForEachAncestorExceptForTheRoot(countryId,
+                                  [&](CountryId const & parentId, CountryTree::Node const &) {
+                                    NotifyStatusChanged(parentId);
+                                  });
 }
 
 void Storage::DownloadNextCountryFromQueue()
@@ -852,9 +854,9 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId,
   CountriesSet setQueue;
   GetQueuedCountries(m_queue, setQueue);
 
-  auto calcProgress = [&](CountryId const & parentId, CountryTreeNode const & parentNode) {
+  auto calcProgress = [&](CountryId const & parentId, CountryTree::Node const & parentNode) {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTreeNode const & container) {
+    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container) {
       descendants.push_back(container.Value().Name());
     });
 
@@ -1378,7 +1380,7 @@ void Storage::GetChildren(CountryId const & parent, CountriesVec & childIds) con
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
+  CountryTree::Node const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
   {
     ASSERT(false, ("CountryId =", parent, "not found in m_countries."));
@@ -1408,7 +1410,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
+  CountryTree::Node const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
   {
     ASSERT(false, ("CountryId =", parent, "not found in m_countries."));
@@ -1424,7 +1426,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
   CountriesVec disputedTerritoriesWithoutSiblings;
   // All disputed territories in subtree with root == |parent|.
   CountriesVec allDisputedTerritories;
-  parentNode->ForEachChild([&](CountryTreeNode const & childNode) {
+  parentNode->ForEachChild([&](CountryTree::Node const & childNode) {
     vector<pair<CountryId, NodeStatus>> disputedTerritoriesAndStatus;
     StatusAndError const childStatus = GetNodeStatusInfo(childNode, disputedTerritoriesAndStatus,
                                                          true /* isDisputedTerritoriesCounted */);
@@ -1494,7 +1496,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 
   LOG(LINFO, ("Downloading", countryId));
 
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
 
   if (!node)
     return;
@@ -1502,7 +1504,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
     return;
 
-  auto downloadAction = [this, isUpdate](CountryTreeNode const & descendantNode) {
+  auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode) {
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
       this->DownloadCountry(descendantNode.Value().Name(),
@@ -1516,12 +1518,12 @@ void Storage::DeleteNode(CountryId const & countryId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
 
   if (!node)
     return;
 
-  auto deleteAction = [this](CountryTreeNode const & descendantNode) {
+  auto deleteAction = [this](CountryTree::Node const & descendantNode) {
     bool onDisk = m_localFiles.find(descendantNode.Value().Name()) != m_localFiles.end();
     if (descendantNode.ChildrenCount() == 0 && onDisk)
       this->DeleteCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
@@ -1529,15 +1531,15 @@ void Storage::DeleteNode(CountryId const & countryId)
   node->ForEachInSubtree(deleteAction);
 }
 
-StatusAndError Storage::GetNodeStatus(CountryTreeNode const & node) const
+StatusAndError Storage::GetNodeStatus(CountryTree::Node const & node) const
 {
   vector<pair<CountryId, NodeStatus>> disputedTerritories;
   return GetNodeStatusInfo(node, disputedTerritories, false /* isDisputedTerritoriesCounted */);
 }
 
-bool Storage::IsDisputed(CountryTreeNode const & node) const
+bool Storage::IsDisputed(CountryTree::Node const & node) const
 {
-  vector<CountryTreeNode const *> found;
+  vector<CountryTree::Node const *> found;
   m_countries.Find(node.Value().Name(), found);
   return found.size() > 1;
 }
@@ -1715,7 +1717,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
   DoDeferredDownloadIfNeeded();
 }
 
-StatusAndError Storage::GetNodeStatusInfo(CountryTreeNode const & node,
+StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
                                           vector<pair<CountryId, NodeStatus>> & disputedTerritories,
                                           bool isDisputedTerritoriesCounted) const
 {
@@ -1732,7 +1734,7 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTreeNode const & node,
   NodeStatus result = NodeStatus::NotDownloaded;
   bool allOnDisk = true;
 
-  auto groupStatusCalculator = [&](CountryTreeNode const & nodeInSubtree) {
+  auto groupStatusCalculator = [&](CountryTree::Node const & nodeInSubtree) {
     StatusAndError const statusAndError =
         ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
 
@@ -1766,13 +1768,13 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  vector<CountryTreeNode const *> nodes;
+  vector<CountryTree::Node const *> nodes;
   m_countries.Find(countryId, nodes);
   CHECK(!nodes.empty(), (countryId));
   // If nodes.size() > 1 countryId corresponds to a disputed territories.
   // In that case it's guaranteed that most of attributes are equal for
   // each element of nodes. See Country class description for further details.
-  CountryTreeNode const * const node = nodes[0];
+  CountryTree::Node const * const node = nodes[0];
 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
@@ -1796,7 +1798,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   {
     CountriesVec subtree;
     node->ForEachInSubtree(
-        [&subtree](CountryTreeNode const & d) { subtree.push_back(d.Value().Name()); });
+        [&subtree](CountryTree::Node const & d) { subtree.push_back(d.Value().Name()); });
     CountryId const & downloadingMwm =
         IsDownloadInProgress() ? GetCurrentDownloadingCountryId() : kInvalidCountryId;
     MapFilesDownloader::Progress downloadingMwmProgress(0, 0);
@@ -1820,7 +1822,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   nodeAttrs.m_downloadingMwmCounter = 0;
   nodeAttrs.m_downloadingMwmSize = 0;
   CountriesSet visitedLocalNodes;
-  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTreeNode const & d) {
+  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d) {
     CountryId const countryId = d.Value().Name();
     if (visitedLocalNodes.count(countryId) != 0)
       return;
@@ -1863,7 +1865,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   // Parents country.
   nodeAttrs.m_topmostParentInfo.clear();
   ForEachAncestorExceptForTheRoot(
-      nodes, [&](CountryId const & ancestorId, CountryTreeNode const & node) {
+      nodes, [&](CountryId const & ancestorId, CountryTree::Node const & node) {
         if (node.Value().GetParent() == GetRootId())
           nodeAttrs.m_topmostParentInfo.push_back({ancestorId, m_countryNameGetter(ancestorId)});
       });
@@ -1873,7 +1875,7 @@ void Storage::GetNodeStatuses(CountryId const & countryId, NodeStatuses & nodeSt
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   CHECK(node, (countryId));
 
   StatusAndError statusAndErr = GetNodeStatus(*node);
@@ -1976,7 +1978,7 @@ void Storage::RetryDownloadNode(CountryId const & countryId)
 
 bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo) const
 {
-  auto const updateInfoAccumulator = [&updateInfo, this](CountryTreeNode const & node) {
+  auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node) {
     if (node.ChildrenCount() != 0 || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
       return;
 
@@ -1998,7 +2000,7 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
         static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);
   };
 
-  CountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   if (!node)
   {
     ASSERT(false, ());
@@ -2024,7 +2026,7 @@ void Storage::PopFromQueue(Queue::iterator it)
 
 void Storage::GetQueuedChildren(CountryId const & parent, CountriesVec & queuedChildren) const
 {
-  CountryTreeNode const * const node = m_countries.FindFirst(parent);
+  CountryTree::Node const * const node = m_countries.FindFirst(parent);
   if (!node)
   {
     ASSERT(false, ());
@@ -2032,7 +2034,7 @@ void Storage::GetQueuedChildren(CountryId const & parent, CountriesVec & queuedC
   }
 
   queuedChildren.clear();
-  node->ForEachChild([&queuedChildren, this](CountryTreeNode const & child) {
+  node->ForEachChild([&queuedChildren, this](CountryTree::Node const & child) {
     NodeStatus status = GetNodeStatus(child).status;
     ASSERT_NOT_EQUAL(status, NodeStatus::Undefined, ());
     if (status == NodeStatus::Downloading || status == NodeStatus::InQueue)
@@ -2044,7 +2046,7 @@ void Storage::GetGroupNodePathToRoot(CountryId const & groupNode, CountriesVec &
 {
   path.clear();
 
-  vector<CountryTreeNode const *> nodes;
+  vector<CountryTree::Node const *> nodes;
   m_countries.Find(groupNode, nodes);
   if (nodes.empty())
   {
@@ -2065,7 +2067,7 @@ void Storage::GetGroupNodePathToRoot(CountryId const & groupNode, CountriesVec &
   }
 
   ForEachAncestorExceptForTheRoot(
-      nodes, [&path](CountryId const & id, CountryTreeNode const &) { path.push_back(id); });
+      nodes, [&path](CountryId const & id, CountryTree::Node const &) { path.push_back(id); });
   path.push_back(m_countries.GetRoot().Value().Name());
 }
 
@@ -2074,7 +2076,7 @@ void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nod
 {
   nodes.clear();
 
-  vector<CountryTreeNode const *> treeNodes;
+  vector<CountryTree::Node const *> treeNodes;
   m_countries.Find(countryId, treeNodes);
   if (treeNodes.empty())
   {
@@ -2089,7 +2091,7 @@ void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nod
     CountriesVec path;
     ForEachAncestorExceptForTheRoot(
         {treeNodes[i]},
-        [&path](CountryId const & id, CountryTreeNode const &) { path.emplace_back(id); });
+        [&path](CountryId const & id, CountryTree::Node const &) { path.emplace_back(id); });
     if (!path.empty() && level < path.size())
       nodes[i] = path[path.size() - 1 - level];
   }
@@ -2097,7 +2099,7 @@ void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nod
 
 CountryId const Storage::GetParentIdFor(CountryId const & countryId) const
 {
-  vector<CountryTreeNode const *> nodes;
+  vector<CountryTree::Node const *> nodes;
   m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {

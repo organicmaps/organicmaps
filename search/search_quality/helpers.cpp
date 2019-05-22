@@ -1,6 +1,7 @@
 #include "search/search_quality/helpers.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/country_tree.hpp"
 #include "storage/storage.hpp"
 
 #include "indexer/data_source.hpp"

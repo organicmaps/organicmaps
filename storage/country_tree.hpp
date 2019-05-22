@@ -1,5 +1,8 @@
 #pragma once
 
+#include "storage/country.hpp"
+#include "storage/storage_defines.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -8,15 +11,14 @@
 #include <memory>
 #include <vector>
 
+namespace storage
+{
 /// \brief This class is developed for using in Storage. It's a implementation of a tree with
 /// ability
 /// of access to its nodes in expected constant time with the help of hash table.
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
 /// While filling CountryTree nodes in countries.txt should be visited in DFS order.
-/// \param TKey is a type of keys to look for |TValue| in |m_countryTreeHashTable|.
-/// \param TValue is a type of values which are saved in |m_countryTree| nodes.
-template <class TKey, class TValue>
 class CountryTree
 {
 public:
@@ -26,28 +28,13 @@ public:
   /// While filling Node nodes in countries.txt should be visited in DFS order.
   class Node
   {
-    TValue m_value;
-
-    /// \brief m_children contains all first generation descendants of the node.
-    /// Note. Once created the order of elements of |m_children| should not be changed.
-    /// See implementation of AddAtDepth and Add methods for details.
-    std::vector<std::unique_ptr<Node>> m_children;
-    Node * m_parent;
-
-    Node * Add(TValue const & value)
-    {
-      m_children.emplace_back(std::make_unique<Node>(value, this));
-      return m_children.back().get();
-    }
-
   public:
-    Node(TValue const & value = TValue(), Node * parent = nullptr)
-      : m_value(value), m_parent(parent)
-    {
-    }
+    using NodeCallback = std::function<void(Node const &)>;
 
-    TValue const & Value() const { return m_value; }
-    TValue & Value() { return m_value; }
+    Node(Country const & value, Node * parent) : m_value(value), m_parent(parent) {}
+
+    Country const & Value() const { return m_value; }
+    Country & Value() { return m_value; }
 
     /// \brief Adds a node to a tree with root == |this|.
     /// \param level is depth where a node with |value| will be add. |level| == 0 means |this|.
@@ -58,7 +45,7 @@ public:
     /// \param value is a value of node which will be added.
     /// \note This method does not let to add a node to an arbitrary place in the tree.
     /// It's posible to add children only from "right side".
-    Node * AddAtDepth(size_t level, TValue const & value)
+    Node * AddAtDepth(size_t level, Country const & value)
     {
       Node * node = this;
       while (--level > 0 && !node->m_children.empty())
@@ -85,24 +72,21 @@ public:
 
     size_t ChildrenCount() const { return m_children.size(); }
 
-    /// \brief Calls functor f for each first generation descendant of the node.
-    template <class TFunctor>
-    void ForEachChild(TFunctor && f)
+    /// \brief Calls |f| for each first generation descendant of the node.
+    void ForEachChild(NodeCallback const & f)
     {
       for (auto & child : m_children)
         f(*child);
     }
 
-    template <class TFunctor>
-    void ForEachChild(TFunctor && f) const
+    void ForEachChild(NodeCallback const & f) const
     {
       for (auto const & child : m_children)
         f(*child);
     }
 
-    /// \brief Calls functor f for all nodes (add descendant) in the tree.
-    template <class TFunctor>
-    void ForEachDescendant(TFunctor && f)
+    /// \brief Calls |f| for all nodes (add descendant) in the tree.
+    void ForEachDescendant(NodeCallback const & f)
     {
       for (auto & child : m_children)
       {
@@ -111,8 +95,7 @@ public:
       }
     }
 
-    template <class TFunctor>
-    void ForEachDescendant(TFunctor && f) const
+    void ForEachDescendant(NodeCallback const & f) const
     {
       for (auto const & child : m_children)
       {
@@ -121,24 +104,21 @@ public:
       }
     }
 
-    template <class TFunctor>
-    void ForEachInSubtree(TFunctor && f)
+    void ForEachInSubtree(NodeCallback const & f)
     {
       f(*this);
       for (auto & child : m_children)
         child->ForEachInSubtree(f);
     }
 
-    template <class TFunctor>
-    void ForEachInSubtree(TFunctor && f) const
+    void ForEachInSubtree(NodeCallback const & f) const
     {
       f(*this);
       for (auto const & child : m_children)
         child->ForEachInSubtree(f);
     }
 
-    template <class TFunctor>
-    void ForEachAncestorExceptForTheRoot(TFunctor && f)
+    void ForEachAncestorExceptForTheRoot(NodeCallback const & f)
     {
       if (m_parent == nullptr || m_parent->m_parent == nullptr)
         return;
@@ -146,20 +126,30 @@ public:
       m_parent->ForEachAncestorExceptForTheRoot(f);
     }
 
-    template <class TFunctor>
-    void ForEachAncestorExceptForTheRoot(TFunctor && f) const
+    void ForEachAncestorExceptForTheRoot(NodeCallback const & f) const
     {
       if (m_parent == nullptr || m_parent->m_parent == nullptr)
         return;
       f(*m_parent);
       m_parent->ForEachAncestorExceptForTheRoot(f);
     }
+
+  private:
+    Node * Add(Country const & value)
+    {
+      m_children.emplace_back(std::make_unique<Node>(value, this));
+      return m_children.back().get();
+    }
+
+    Country m_value;
+
+    /// \brief m_children contains all first generation descendants of the node.
+    /// Note. Once created the order of elements of |m_children| should not be changed.
+    /// See implementation of AddAtDepth and Add methods for details.
+    std::vector<std::unique_ptr<Node>> m_children;
+    Node * m_parent;
   };
 
-private:
-  using CountryTreeHashTable = std::multimap<TKey, Node *>;
-
-public:
   bool IsEmpty() const { return m_countryTree == nullptr; }
 
   Node const & GetRoot() const
@@ -174,7 +164,7 @@ public:
     return *m_countryTree;
   }
 
-  TValue & AddAtDepth(size_t level, TValue const & value)
+  Country & AddAtDepth(size_t level, Country const & value)
   {
     Node * added = nullptr;
     if (level == 0)
@@ -203,7 +193,7 @@ public:
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  void Find(TKey const & key, std::vector<Node const *> & found) const
+  void Find(CountryId const & key, std::vector<Node const *> & found) const
   {
     found.clear();
     if (IsEmpty())
@@ -222,7 +212,7 @@ public:
                   });
   }
 
-  Node const * const FindFirst(TKey const & key) const
+  Node const * const FindFirst(CountryId const & key) const
   {
     if (IsEmpty())
       return nullptr;
@@ -239,7 +229,7 @@ public:
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  Node const * const FindFirstLeaf(TKey const & key) const
+  Node const * const FindFirstLeaf(CountryId const & key) const
   {
     if (IsEmpty())
       return nullptr;
@@ -256,6 +246,18 @@ public:
   }
 
 private:
+  using CountryTreeHashTable = std::multimap<CountryId, Node *>;
+
   std::unique_ptr<Node> m_countryTree;
   CountryTreeHashTable m_countryTreeHashTable;
 };
+
+/// @return version of country file or -1 if error was encountered
+int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
+                                Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
+int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
+                              Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
+
+void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
+                                 std::map<std::string, CountryInfo> & id2info, bool & isSingleMwm);
+}  // namespace storage

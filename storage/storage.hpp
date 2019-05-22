@@ -668,11 +668,11 @@ private:
   Status CountryStatus(CountryId const & countryId) const;
 
   /// Returns status for a node (group node or not).
-  StatusAndError GetNodeStatus(CountryTreeNode const & node) const;
+  StatusAndError GetNodeStatus(CountryTree::Node const & node) const;
   /// Returns status for a node (group node or not).
   /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
   StatusAndError GetNodeStatusInfo(
-      CountryTreeNode const & node,
+      CountryTree::Node const & node,
       std::vector<std::pair<CountryId, NodeStatus>> & disputedTeritories,
       bool isDisputedTerritoriesCounted) const;
 
@@ -700,11 +700,11 @@ private:
   void PopFromQueue(Queue::iterator it);
 
   template <class ToDo>
-  void ForEachAncestorExceptForTheRoot(std::vector<CountryTreeNode const *> const & nodes,
+  void ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
                                        ToDo && toDo) const;
 
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
-  bool IsDisputed(CountryTreeNode const & node) const;
+  bool IsDisputed(CountryTree::Node const & node) const;
 
   void CalcMaxMwmSizeBytes();
 
@@ -727,13 +727,13 @@ void GetQueuedCountries(Storage::Queue const & queue, CountriesSet & resultCount
 template <class ToDo>
 void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const
 {
-  CountryTreeNode const * const rootNode = m_countries.FindFirst(root);
+  CountryTree::Node const * const rootNode = m_countries.FindFirst(root);
   if (rootNode == nullptr)
   {
     ASSERT(false, ("CountryId =", root, "not found in m_countries."));
     return;
   }
-  rootNode->ForEachInSubtree([&toDo](CountryTreeNode const & container) {
+  rootNode->ForEachInSubtree([&toDo](CountryTree::Node const & container) {
     Country const & value = container.Value();
     toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
   });
@@ -749,7 +749,7 @@ void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(CountryId const & countryId, ToDo && toDo) const
 {
-  std::vector<CountryTreeNode const *> nodes;
+  std::vector<CountryTree::Node const *> nodes;
   m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {
@@ -761,15 +761,15 @@ void Storage::ForEachAncestorExceptForTheRoot(CountryId const & countryId, ToDo 
 }
 
 template <class ToDo>
-void Storage::ForEachAncestorExceptForTheRoot(std::vector<CountryTreeNode const *> const & nodes,
+void Storage::ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
                                               ToDo && toDo) const
 {
-  std::set<CountryTreeNode const *> visitedAncestors;
+  std::set<CountryTree::Node const *> visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
-    node->ForEachAncestorExceptForTheRoot([&](CountryTreeNode const & container) {
+    node->ForEachAncestorExceptForTheRoot([&](CountryTree::Node const & container) {
       CountryId const ancestorId = container.Value().Name();
       if (visitedAncestors.find(&container) != visitedAncestors.end())
         return;  // The node was visited before because countryId is present in the tree more
