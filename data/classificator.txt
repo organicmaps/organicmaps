@@ -980,6 +980,7 @@ world  +
         partner7  -
         partner8  -
         partner9  -
+        promo_catalog  -
         {}
     sport  +
         american_football  -

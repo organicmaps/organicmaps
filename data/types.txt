@@ -1321,3 +1321,4 @@ cuisine|peruvian
 cuisine|fine_dining
 cuisine|tea
 natural|geyser
+sponsored|promo_catalog
