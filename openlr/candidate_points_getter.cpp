@@ -8,6 +8,8 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
+
 using namespace routing;
 
 namespace openlr
@@ -45,7 +47,7 @@ void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
                    },
                    [](m2::PointD const & a, m2::PointD const & b) { return a == b; });
 
-  candidates.resize(min(m_maxJunctionCandidates, candidates.size()));
+  candidates.resize(std::min(m_maxJunctionCandidates, candidates.size()));
 }
 
 void CandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,

@@ -13,6 +13,7 @@
 #include "base/cache.hpp"
 
 #include <map>
+#include <memory>
 #include <mutex>
 #include <string>
 #include <type_traits>
@@ -137,13 +138,14 @@ class CountryInfoReader : public CountryInfoGetter
 {
 public:
   /// \returns CountryInfoGetter based on countries.txt and packed_polygons.bin.
-  static unique_ptr<CountryInfoGetter> CreateCountryInfoReader(Platform const & platform);
+  static std::unique_ptr<CountryInfoGetter> CreateCountryInfoReader(Platform const & platform);
 
   /// \returns CountryInfoGetter based on countries_obsolete.txt and packed_polygons_obsolete.bin.
   /// \brief The polygons in CountryInfoGetter() returned by the method was used at the time when
   /// routing and map data were in different files.
   /// \note This method should be used before migration to single-component and for tests.
-  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderObsolete(Platform const & platform);
+  static std::unique_ptr<CountryInfoGetter> CreateCountryInfoReaderObsolete(
+      Platform const & platform);
 
 protected:
   CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);

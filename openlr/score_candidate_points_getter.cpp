@@ -50,7 +50,7 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
   base::SortUnique(pointCandidates);
   std::reverse(pointCandidates.begin(), pointCandidates.end());
 
-  pointCandidates.resize(min(m_maxJunctionCandidates, pointCandidates.size()));
+  pointCandidates.resize(std::min(m_maxJunctionCandidates, pointCandidates.size()));
 
   for (auto const & pc : pointCandidates)
   {

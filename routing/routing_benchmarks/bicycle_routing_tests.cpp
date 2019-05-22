@@ -9,6 +9,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include <memory>
 #include <set>
 #include <string>
 
@@ -25,17 +26,17 @@ public:
 
 protected:
   // RoutingTest overrides:
-  unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
-    shared_ptr<routing::NumMwmIds> numMwmIds) override
+  std::unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
+      std::shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
-    unique_ptr<routing::IDirectionsEngine> engine(new routing::BicycleDirectionsEngine(
-        m_dataSource, numMwmIds));
+    std::unique_ptr<routing::IDirectionsEngine> engine(
+        new routing::BicycleDirectionsEngine(m_dataSource, numMwmIds));
     return engine;
   }
 
-  unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
+  std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
   {
-    unique_ptr<routing::VehicleModelFactoryInterface> factory(
+    std::unique_ptr<routing::VehicleModelFactoryInterface> factory(
         new SimplifiedModelFactory<routing::BicycleModel>());
     return factory;
   }

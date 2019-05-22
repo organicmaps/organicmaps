@@ -9,6 +9,7 @@
 
 #include "platform/local_country_file.hpp"
 
+#include <cstdint>
 #include <memory>
 #include <set>
 #include <string>
@@ -46,20 +47,21 @@ typedef std::pair<std::shared_ptr<Route>, RouterResultCode> TRouteResult;
 
 namespace integration
 {
-shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles);
+std::shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(
+    std::vector<LocalCountryFile> const & localFiles);
 
-unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
+std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
-                                            storage::CountryInfoGetter const & infoGetter,
-                                            traffic::TrafficCache const & trafficCache,
-                                            vector<LocalCountryFile> const & localFiles,
-                                            VehicleType vehicleType);
+std::unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
+                                                 storage::CountryInfoGetter const & infoGetter,
+                                                 traffic::TrafficCache const & trafficCache,
+                                                 std::vector<LocalCountryFile> const & localFiles,
+                                                 VehicleType vehicleType);
 
 class IRouterComponents
 {
 public:
-  IRouterComponents(vector<LocalCountryFile> const & localFiles)
+  IRouterComponents(std::vector<LocalCountryFile> const & localFiles)
     : m_featuresFetcher(CreateFeaturesFetcher(localFiles)), m_infoGetter(CreateCountryInfoGetter())
   {
   }
@@ -71,17 +73,17 @@ public:
   storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
 
 protected:
-  shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
-  unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+  std::shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
+  std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 };
 
 class VehicleRouterComponents : public IRouterComponents
 {
 public:
-  VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
+  VehicleRouterComponents(std::vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
     : IRouterComponents(localFiles)
-    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetDataSource(), *m_infoGetter, m_trafficCache,
-                                        localFiles, vehicleType))
+    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetDataSource(), *m_infoGetter,
+                                        m_trafficCache, localFiles, vehicleType))
   {
   }
 
@@ -89,16 +91,18 @@ public:
 
 private:
   traffic::TrafficCache m_trafficCache;
-  unique_ptr<IndexRouter> m_indexRouter;
+  std::unique_ptr<IndexRouter> m_indexRouter;
 };
 
-void GetAllLocalFiles(vector<LocalCountryFile> & localFiles);
+void GetAllLocalFiles(std::vector<LocalCountryFile> & localFiles);
 void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       vector<string> const & expected, IRouterComponents & routerComponents);
+                       std::vector<std::string> const & expected,
+                       IRouterComponents & routerComponents);
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       vector<string> const & expected, IRouterComponents & routerComponents);
+                       std::vector<std::string> const & expected,
+                       IRouterComponents & routerComponents);
 
-shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
+std::shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
 IRouterComponents & GetVehicleComponents(VehicleType vehicleType);
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
@@ -166,7 +170,7 @@ public:
 /// inaccuracy is set in meters.
 TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 
-void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName);
+void TestCurrentStreetName(routing::Route const & route, std::string const & expectedStreetName);
 
-void TestNextStreetName(routing::Route const & route, string const & expectedStreetName);
+void TestNextStreetName(routing::Route const & route, std::string const & expectedStreetName);
 }  // namespace integration
