@@ -28,8 +28,8 @@ def run_gen_tool_with_recovery_country(env, *args, **kwargs):
 
 def stage_index_world(env, country, **kwargs):
     run_gen_tool(env.gen_tool,
-                 out=env.subprocess_out,
-                 err=env.subprocess_out,
+                 out=env.get_subprocess_out(country),
+                 err=env.get_subprocess_out(country),
                  data_path=env.mwm_path,
                  intermediate_data_path=env.intermediate_path,
                  user_resource_path=env.user_resource_path,
@@ -50,8 +50,8 @@ def stage_index(env, country, **kwargs):
 
 def stage_coastline_index(env, country, **kwargs):
     run_gen_tool(env.gen_tool,
-                 out=env.subprocess_out,
-                 err=env.subprocess_out,
+                 out=env.get_subprocess_out(country),
+                 err=env.get_subprocess_out(country),
                  data_path=env.mwm_path,
                  intermediate_data_path=env.intermediate_path,
                  user_resource_path=env.user_resource_path,
@@ -67,8 +67,8 @@ def stage_ugc(env, country, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
         env.gen_tool,
-        out=env.subprocess_out,
-        err=env.subprocess_out,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
         data_path=env.mwm_path,
         intermediate_data_path=env.intermediate_path,
         user_resource_path=env.user_resource_path,
@@ -82,8 +82,8 @@ def stage_popularity(env, country, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
         env.gen_tool,
-        out=env.subprocess_out,
-        err=env.subprocess_out,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
         data_path=env.mwm_path,
         intermediate_data_path=env.intermediate_path,
         user_resource_path=env.user_resource_path,
@@ -98,8 +98,8 @@ def stage_routing(env, country, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
         env.gen_tool,
-        out=env.subprocess_out,
-        err=env.subprocess_out,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
         data_path=env.mwm_path,
         intermediate_data_path=env.intermediate_path,
         user_resource_path=env.user_resource_path,
@@ -117,8 +117,8 @@ def stage_routing_transit(env, country, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
         env.gen_tool,
-        out=env.subprocess_out,
-        err=env.subprocess_out,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
         data_path=env.mwm_path,
         intermediate_data_path=env.intermediate_path,
         user_resource_path=env.user_resource_path,

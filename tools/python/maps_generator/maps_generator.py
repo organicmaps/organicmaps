@@ -85,8 +85,8 @@ def stage_features(env):
 
     run_gen_tool(
         env.gen_tool,
-        out=env.subprocess_out,
-        err=env.subprocess_out,
+        out=env.get_subprocess_out(),
+        err=env.get_subprocess_out(),
         data_path=env.data_path,
         intermediate_data_path=env.intermediate_path,
         osm_file_type="o5m",
@@ -182,8 +182,8 @@ def stage_mwm(env):
 @stage
 def stage_descriptions(env):
     run_gen_tool(env.gen_tool,
-                 out=env.subprocess_out,
-                 err=env.subprocess_out,
+                 out=env.get_subprocess_out(),
+                 err=env.get_subprocess_out(),
                  intermediate_data_path=env.intermediate_path,
                  user_resource_path=env.user_resource_path,
                  dump_wikipedia_urls=env.wiki_url_path,
@@ -201,8 +201,8 @@ def stage_descriptions(env):
         maps_stages.run_gen_tool_with_recovery_country(
             env,
             env.gen_tool,
-            out=env.subprocess_out,
-            err=env.subprocess_out,
+            out=env.get_subprocess_out(country),
+            err=env.get_subprocess_out(country),
             data_path=env.mwm_path,
             user_resource_path=env.user_resource_path,
             wikipedia_pages=env.descriptions_path,

@@ -26,13 +26,13 @@ def convert_planet(tool, in_planet, out_planet, output=subprocess.DEVNULL,
 
 def stage_download_and_convert_planet(env, **kwargs):
     if not is_verified(settings.PLANET_PBF):
-        download_planet(settings.PLANET_PBF, output=env.subprocess_out,
-                        error=env.subprocess_out)
+        download_planet(settings.PLANET_PBF, output=env.get_subprocess_out(),
+                        error=env.get_subprocess_out())
 
     convert_planet(env[settings.OSM_TOOL_CONVERT],
                    settings.PLANET_PBF, settings.PLANET_O5M,
-                   output=env.subprocess_out,
-                   error=env.subprocess_out)
+                   output=env.get_subprocess_out(),
+                   error=env.get_subprocess_out())
     os.remove(settings.PLANET_PBF)
     os.remove(md5(settings.PLANET_PBF))
 
@@ -40,8 +40,8 @@ def stage_download_and_convert_planet(env, **kwargs):
 def stage_update_planet(env, **kwargs):
     tmp = settings.PLANET_O5M + ".tmp"
     osmupdate(env[settings.OSM_TOOL_UPDATE], settings.PLANET_O5M, tmp,
-              output=env.subprocess_out,
-              error=env.subprocess_out,
+              output=env.get_subprocess_out(),
+              error=env.get_subprocess_out(),
               **kwargs)
     os.remove(settings.PLANET_O5M)
     os.rename(tmp, settings.PLANET_O5M)
@@ -50,8 +50,8 @@ def stage_update_planet(env, **kwargs):
 
 def stage_preprocess(env, **kwargs):
     run_gen_tool(env.gen_tool,
-                 out=env.subprocess_out,
-                 err=env.subprocess_out,
+                 out=env.get_subprocess_out(),
+                 err=env.get_subprocess_out(),
                  intermediate_data_path=env.intermediate_path,
                  osm_file_type="o5m",
                  osm_file_name=settings.PLANET_O5M,

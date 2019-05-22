@@ -113,7 +113,8 @@ class Env:
 
         self.coastline_tmp_path = os.path.join(self.coastline_path, "tmp")
         self._create_if_not_exist(self.coastline_tmp_path)
-        self.subprocess_out = None
+        self._subprocess_out = None
+        self._subprocess_countries_out = {}
 
         self.descriptions_path = os.path.join(self.intermediate_path,
                                               "descriptions")
@@ -206,8 +207,17 @@ class Env:
     def finish_mwm(self, mwm_name):
         self.countries_meta[mwm_name]["status"].finish()
 
-    def set_subprocess_out(self, subprocess_out):
-        self.subprocess_out = subprocess_out
+    def set_subprocess_out(self, subprocess_out, country=None):
+        if country is None:
+            self._subprocess_out = subprocess_out
+        else:
+            self._subprocess_countries_out[country] = subprocess_out
+
+    def get_subprocess_out(self, country=None):
+        if country is None:
+            return self._subprocess_out
+        else:
+            return self._subprocess_countries_out[country]
 
     @staticmethod
     def _logging_setup():

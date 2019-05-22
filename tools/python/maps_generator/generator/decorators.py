@@ -76,7 +76,7 @@ def country_stage_log(func):
         _logger.info(f"{stage_formatted}: start ...")
         t = time.time()
         with open(log_file, "a+") as l:
-            env.set_subprocess_out(l)
+            env.set_subprocess_out(l, country)
             func(env, country, *args, logger=_logger, **kwargs)
         d = time.time() - t
         _logger.info(f"{stage_formatted}: finished in "
