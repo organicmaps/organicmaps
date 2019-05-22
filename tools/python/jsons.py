@@ -514,7 +514,7 @@ PARTNERS_CALCULATE_BY_COORDS = """
 }
 """
 
-CROSS_REFERENCE_GALLERY_CITY = """
+PROMO_GALLERY_CITY = """
 {
     "data": [
         {

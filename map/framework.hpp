@@ -62,8 +62,8 @@
 
 #include "partners_api/banner.hpp"
 #include "partners_api/booking_api.hpp"
-#include "partners_api/cross_reference_api.hpp"
 #include "partners_api/locals_api.hpp"
+#include "partners_api/promo_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 
 #include "metrics/eye_info.hpp"
@@ -230,7 +230,7 @@ protected:
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
   unique_ptr<locals::Api> m_localsApi = make_unique<locals::Api>();
-  unique_ptr<cross_reference::Api> m_crossReferenceApi = make_unique<cross_reference::Api>();
+  unique_ptr<promo::Api> m_promoApi = make_unique<promo::Api>();
 
   df::DrapeApi m_drapeApi;
 
@@ -278,7 +278,7 @@ public:
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
-  cross_reference::Api * GetCrossReferenceApi(platform::NetworkPolicy const & policy) const;
+  promo::Api * GetPromoApi(platform::NetworkPolicy const & policy) const;
   ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
   ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
 

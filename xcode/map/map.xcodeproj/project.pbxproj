@@ -23,6 +23,9 @@
 		34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA1801DBE5DF40088A609 /* libtracking.a */; };
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
+		3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */; };
+		3D18DC3D22956DD100A583A6 /* promo_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */; };
+		3D18DC3E22956DD100A583A6 /* promo_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */; };
 		3D47B2931F054BC5000828D2 /* taxi_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */; };
 		3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */; };
 		3D47B2C71F20EF06000828D2 /* displayed_categories_modifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */; };
@@ -266,6 +269,9 @@
 		3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = framework_light_delegate.hpp; sourceTree = "<group>"; };
+		3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_delegate.hpp; sourceTree = "<group>"; };
+		3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_delegate.cpp; sourceTree = "<group>"; };
 		3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_delegate.cpp; sourceTree = "<group>"; };
 		3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_delegate.hpp; sourceTree = "<group>"; };
 		3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = displayed_categories_modifiers.cpp; sourceTree = "<group>"; };
@@ -793,6 +799,9 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */,
+				3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */,
+				3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */,
 				3DD692B2220AD240001C3C62 /* caching_address_getter.hpp */,
 				3DEE1AD921EE03B400054A91 /* power_management */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
@@ -946,6 +955,7 @@
 				BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
 				3DD1166821888AAC007A2ED4 /* notification_queue_storage.hpp in Headers */,
+				3D18DC3D22956DD100A583A6 /* promo_delegate.hpp in Headers */,
 				3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */,
 				F69687C8201B4A3600457650 /* discovery_search_params.hpp in Headers */,
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
@@ -954,6 +964,7 @@
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
+				3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */,
 				4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */,
 				3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */,
 				3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */,
@@ -1082,6 +1093,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1158,6 +1170,7 @@
 				BB4E5F251FCC664A00A77250 /* transit_display.cpp in Sources */,
 				3DD1166A21888AAD007A2ED4 /* notification_queue_storage.cpp in Sources */,
 				3D47B2931F054BC5000828D2 /* taxi_delegate.cpp in Sources */,
+				3D18DC3E22956DD100A583A6 /* promo_delegate.cpp in Sources */,
 				675346741A4054E800A0A8C3 /* mwm_url.cpp in Sources */,
 				3DA5714220B5CC80007BDE27 /* booking_filter_processor.cpp in Sources */,
 				347B60761DD9926D0050FA24 /* traffic_manager.cpp in Sources */,

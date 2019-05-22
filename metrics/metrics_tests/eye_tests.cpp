@@ -59,7 +59,7 @@ Info MakeDefaultInfoForTesting()
   eventInfo.m_type = MapObject::Event::Type::BookingMore;
   info.m_mapObjects.Add(poi);
 
-  info.m_crossReferences.m_lastTimeShownAfterBooking = Time(std::chrono::hours(100000));
+  info.m_promo.m_lastTimeShownAfterBooking = Time(std::chrono::hours(100000));
 
   return info;
 }

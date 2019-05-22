@@ -46,7 +46,7 @@ enum class SponsoredType
   Opentable,
   Partner,
   Holiday,
-  CrossReference,
+  PromoCatalog,
 };
 
 enum class LocalAdsStatus

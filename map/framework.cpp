@@ -1,7 +1,6 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
-#include "map/cross_reference_delegate.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/ge0_parser.hpp"
@@ -9,6 +8,7 @@
 #include "map/gps_tracker.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
 #include "map/notifications/notification_queue.hpp"
+#include "map/promo_delegate.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
@@ -577,9 +577,8 @@ Framework::Framework(FrameworkParams const & params)
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
 
-  m_crossReferenceApi->SetDelegate(
-      make_unique<CrossReferenceDelegate>(m_model.GetDataSource(), *m_cityFinder));
-  eye::Eye::Instance().Subscribe(m_crossReferenceApi.get());
+  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_model.GetDataSource(), *m_cityFinder));
+  eye::Eye::Instance().Subscribe(m_promoApi.get());
 }
 
 Framework::~Framework()
@@ -644,11 +643,11 @@ locals::Api * Framework::GetLocalsApi(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
-cross_reference::Api * Framework::GetCrossReferenceApi(platform::NetworkPolicy const & policy) const
+promo::Api * Framework::GetPromoApi(platform::NetworkPolicy const & policy) const
 {
-  ASSERT(m_crossReferenceApi, ());
+  ASSERT(m_promoApi, ());
   if (policy.CanUse())
-    return m_crossReferenceApi.get();
+    return m_promoApi.get();
 
   return nullptr;
 }
@@ -969,9 +968,9 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   {
     info.SetSponsoredType(place_page::SponsoredType::Holiday);
   }
-  else if (ftypes::IsCrossReferenceCityChecker::Instance()(ft))
+  else if (ftypes::IsPromoCatalogChecker::Instance()(ft))
   {
-    info.SetSponsoredType(SponsoredType::CrossReference);
+    info.SetSponsoredType(SponsoredType::PromoCatalog);
   }
 
   FillLocalExperts(ft, info);
@@ -1500,7 +1499,7 @@ void Framework::EnterForeground()
   m_trafficManager.OnEnterForeground();
   m_routingManager.SetAllowSendingPoints(true);
 
-  m_crossReferenceApi->OnEnterForeground();
+  m_promoApi->OnEnterForeground();
 }
 
 void Framework::InitCountryInfoGetter()

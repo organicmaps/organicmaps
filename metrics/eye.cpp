@@ -388,7 +388,7 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
       type == MapObject::Event::Type::BookingReviews ||
       type == MapObject::Event::Type::BookingDetails)
   {
-    editableInfo->m_crossReferences.m_transitionToBookingTime = eventTime;
+    editableInfo->m_promo.m_transitionToBookingTime = eventTime;
   }
 
   if (!SaveLastMapObjectEvent(result))
@@ -404,14 +404,14 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
   });
 }
 
-void Eye::RegisterCrossReferenceAfterBookingShown(std::string const & cityId)
+void Eye::RegisterPromoAfterBookingShown(std::string const & cityId)
 {
   auto const info = m_info.Get();
   auto editableInfo = std::make_shared<Info>(*info);
   auto const now = Clock::now();
 
-  editableInfo->m_crossReferences.m_lastTimeShownAfterBooking = now;
-  editableInfo->m_crossReferences.m_lastTimeShownAfterBookingCityId = cityId;
+  editableInfo->m_promo.m_lastTimeShownAfterBooking = now;
+  editableInfo->m_promo.m_lastTimeShownAfterBookingCityId = cityId;
 
   if (!Save(editableInfo))
     return;
@@ -420,7 +420,7 @@ void Eye::RegisterCrossReferenceAfterBookingShown(std::string const & cityId)
   {
     for (auto subscriber : m_subscribers)
     {
-      subscriber->OnCrossReferenceAfterBookingShown(now, cityId);
+      subscriber->OnPromoAfterBookingShown(now, cityId);
     }
   });
 }
@@ -506,11 +506,11 @@ void Eye::Event::MapObjectEvent(MapObject const & mapObject, MapObject::Event::T
 }
 
 // static
-void Eye::Event::CrossReferenceAfterBookingShown(std::string const & cityId)
+void Eye::Event::PromoAfterBookingShown(std::string const & cityId)
 {
   GetPlatform().RunTask(Platform::Thread::File, [cityId]
   {
-    Instance().RegisterCrossReferenceAfterBookingShown(cityId);
+    Instance().RegisterPromoAfterBookingShown(cityId);
   });
 }
 }  // namespace eye

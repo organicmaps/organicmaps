@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "partners_api/cross_reference_api.hpp"
+#include "partners_api/promo_api.hpp"
 
 #include "platform/settings.hpp"
 
@@ -16,7 +16,7 @@ using namespace platform::tests_support;
 
 namespace
 {
-std::string const kTestOsmId = "TestOsmId";
+std::string const kTestId = "TestId";
 
 class ScopedEyeWithAsyncGuiThread : public AsyncGuiThread
 {
@@ -32,16 +32,16 @@ public:
   }
 };
 
-class DelegateForTesting : public cross_reference::Api::Delegate
+class DelegateForTesting : public promo::Api::Delegate
 {
 public:
-  std::string GetCityOsmId(m2::PointD const &) override { return kTestOsmId; }
+  std::string GetCityId(m2::PointD const &) override { return kTestId; }
 };
 }  // namespace
 
-UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_NeedToShow)
+UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
 {
-  cross_reference::Api api;
+  promo::Api api;
   Info info;
   {
     MapObject poi;
@@ -69,9 +69,9 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_NeedToShow)
   }
 
   EyeForTesting::SetInfo(info);
-  settings::Set("BookingCrossReferenceAwaitingForId", kTestOsmId);
+  settings::Set("BookingPromoAwaitingForId", kTestId);
   api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShow(), false, ());
+  TEST_EQUAL(api.NeedToShowAfterBooking(), false, ());
 
   {
     MapObject poi;
@@ -92,11 +92,11 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_NeedToShow)
     info.m_mapObjects.Add(poi);
   }
 
-  info.m_crossReferences.m_transitionToBookingTime = Clock::now() - std::chrono::hours(2);
+  info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::hours(2);
   EyeForTesting::SetInfo(info);
-  settings::Set("BookingCrossReferenceAwaitingForId", kTestOsmId);
+  settings::Set("BookingPromoAwaitingForId", kTestId);
   api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShow(), false, ());
+  TEST_EQUAL(api.NeedToShowAfterBooking(), false, ());
 
   {
     MapObject poi;
@@ -127,21 +127,21 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_NeedToShow)
     info.m_mapObjects.Add(poi);
   }
 
-  info.m_crossReferences.m_transitionToBookingTime = Clock::now() - std::chrono::minutes(6);
+  info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::minutes(6);
   EyeForTesting::SetInfo(info);
-  settings::Set("BookingCrossReferenceAwaitingForId", kTestOsmId);
+  settings::Set("BookingPromoAwaitingForId", kTestId);
   api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShow(), true, ());
+  TEST_EQUAL(api.NeedToShowAfterBooking(), true, ());
 }
 
-UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_GetCrossReferenceCityGallery)
+UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
 {
-  cross_reference::Api api("http://localhost:34568/gallery/city/");
+  promo::Api api("http://localhost:34568/gallery/city/");
   api.SetDelegate(std::make_unique<DelegateForTesting>());
 
   {
-    cross_reference::CityGallery result{};
-    api.GetCrossReferenceCityGallery(kTestOsmId, [&result](cross_reference::CityGallery const & gallery)
+    promo::CityGallery result{};
+    api.GetCityGallery(kTestId, [&result](promo::CityGallery const & gallery)
     {
       result = gallery;
       testing::Notify();
@@ -151,9 +151,9 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, CrossReference_GetCrossReferenceCit
     TEST_EQUAL(result.size(), 2, ());
   }
   {
-    cross_reference::CityGallery result{};
+    promo::CityGallery result{};
     m2::PointD pt;
-    api.GetCrossReferenceCityGallery(pt, [&result](cross_reference::CityGallery const & gallery)
+    api.GetCityGallery(pt, [&result](promo::CityGallery const & gallery)
     {
       result = gallery;
       testing::Notify();

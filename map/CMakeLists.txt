@@ -16,8 +16,8 @@ set(
   benchmark_tools.cpp
   booking_availability_filter.cpp
   booking_availability_filter.hpp
-  cross_reference_delegate.cpp
-  cross_reference_delegate.hpp
+  promo_delegate.cpp
+  promo_delegate.hpp
   booking_filter.hpp
   booking_filter_cache.cpp
   booking_filter_cache.hpp

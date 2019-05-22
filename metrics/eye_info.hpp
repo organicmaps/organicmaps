@@ -258,11 +258,11 @@ private:
   m2::RectD m_limitRect;
 };
 
-struct CrossReferences
+struct Promo
 {
-  CrossReferences() = default;
+  Promo() = default;
 
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CrossReferences,
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Promo,
                                   visitor(m_transitionToBookingTime, "transitionToBookingTime"),
                                   visitor(m_lastTimeShownAfterBooking, "lastTimeShownAfterBooking"))
   Time m_transitionToBookingTime;
@@ -278,8 +278,7 @@ struct InfoV0
   DECLARE_VISITOR_AND_DEBUG_PRINT(InfoV0, visitor(m_booking, "booking"),
                                   visitor(m_bookmarks, "bookmarks"),
                                   visitor(m_discovery, "discovery"), visitor(m_layers, "layers"),
-                                  visitor(m_tips, "tips"),
-                                  visitor(m_crossReferences, CrossReferences(), "crossReferences"))
+                                  visitor(m_tips, "tips"), visitor(m_promo, Promo(), "promo"))
 
   Booking m_booking;
   Bookmarks m_bookmarks;
@@ -287,7 +286,7 @@ struct InfoV0
   Layers m_layers;
   Tips m_tips;
   MapObjects m_mapObjects;
-  CrossReferences m_crossReferences;
+  Promo m_promo;
 };
 
 using Info = InfoV0;

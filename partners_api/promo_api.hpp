@@ -7,8 +7,9 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <vector>
 
-namespace cross_reference
+namespace promo
 {
 struct Author
 {
@@ -37,8 +38,8 @@ using CityGallery = std::vector<CityGalleryItem>;
 class WebApi
 {
 public:
-  static bool GetCityGalleryByOsmId(std::string const & baseUrl, std::string const & osmId,
-                                    std::string const & lang, std::string & result);
+  static bool GetCityGalleryById(std::string const & baseUrl, std::string const & id,
+                                 std::string const & lang, std::string & result);
 };
 
 using CityGalleryCallback = std::function<void(CityGallery const & gallery)>;
@@ -51,18 +52,17 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual std::string GetCityOsmId(m2::PointD const & point) = 0;
+    virtual std::string GetCityId(m2::PointD const & point) = 0;
   };
 
   explicit Api(std::string const & baseUrl = "https://routes.maps.me/gallery/v1/city/");
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   void OnEnterForeground();
-  bool NeedToShow() const;
-  std::string GetCrossReferenceLinkAfterBooking() const;
-  void GetCrossReferenceCityGallery(std::string const & osmId,
-                                    CityGalleryCallback const & cb) const;
-  void GetCrossReferenceCityGallery(m2::PointD const & point, CityGalleryCallback const & cb) const;
+  bool NeedToShowAfterBooking() const;
+  std::string GetPromoLinkAfterBooking() const;
+  void GetCityGallery(std::string const & id, CityGalleryCallback const & cb) const;
+  void GetCityGallery(m2::PointD const & point, CityGalleryCallback const & cb) const;
 
   // eye::Subscriber overrides:
   void OnMapObjectEvent(eye::MapObject const & poi) override;
@@ -70,7 +70,7 @@ public:
 private:
   std::unique_ptr<Delegate> m_delegate;
 
-  std::string m_baseUrl;
-  std::string m_bookingCrossReferenceAwaitingForId;
+  std::string const m_baseUrl;
+  std::string m_bookingPromoAwaitingForId;
 };
-}  // namespace cross_reference
+}  // namespace promo
