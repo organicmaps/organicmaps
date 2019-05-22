@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace feature
@@ -30,7 +31,12 @@ public:
     {
       // Insert fake country polygon equal to whole world to
       // create only one output file which contains all features.
-      m_countries.Add(borders::CountryPolygons(info.m_fileName), MercatorBounds::FullRect());
+      auto const rect = MercatorBounds::FullRect();
+      auto countries = borders::CountryPolygons(info.m_fileName);
+      std::vector<m2::PointD> points {rect.LeftBottom(), rect.LeftTop(), rect.RightTop(),
+            rect.RightBottom(), rect.LeftBottom()};
+      countries.m_regions.Add(m2::RegionD(std::move(points)), rect);
+      m_countries.Add(std::move(countries), rect);
     }
   }
 
