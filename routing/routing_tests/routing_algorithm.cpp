@@ -39,7 +39,7 @@ void UndirectedGraph::GetOutgoingEdgesList(Vertex const & v, std::vector<SimpleE
 
 double UndirectedGraph::HeuristicCostEstimate(Vertex const & v, Vertex const & w)
 {
-  return 0;
+  return 0.0;
 }
 
 void UndirectedGraph::GetAdjacencyList(Vertex v, std::vector<Edge> & adj) const
@@ -56,12 +56,12 @@ void DirectedGraph::AddEdge(Vertex from, Vertex to, Weight w)
   m_ingoing[to].emplace_back(from, w);
 }
 
-void DirectedGraph::GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj)
+void DirectedGraph::GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & adj)
 {
   adj = m_ingoing[v];
 }
 
-void DirectedGraph::GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj)
+void DirectedGraph::GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & adj)
 {
   adj = m_outgoing[v];
 }
@@ -110,7 +110,7 @@ public:
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 
-  void GetOutgoingEdgesList(Vertex const & v, vector<Edge> & adj) override
+  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & adj) override
   {
     IRoadGraph::EdgeVector edges;
     m_roadGraph.GetOutgoingEdges(v, edges);
@@ -128,7 +128,7 @@ public:
     }
   }
 
-  void GetIngoingEdgesList(Vertex const & v, vector<Edge> & adj) override
+  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & adj) override
   {
     IRoadGraph::EdgeVector edges;
     m_roadGraph.GetIngoingEdges(v, edges);

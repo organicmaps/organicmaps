@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <set>
+#include <vector>
 
 namespace
 {
