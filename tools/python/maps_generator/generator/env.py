@@ -142,6 +142,10 @@ class Env:
         return stage_name not in self._skipped_stages
 
     @property
+    def external_resources_path(self):
+        return os.path.join(self.mwm_path, "external_resources.txt")
+
+    @property
     def id_to_wikidata_path(self):
         return os.path.join(self.intermediate_path, "id_to_wikidata.csv")
 

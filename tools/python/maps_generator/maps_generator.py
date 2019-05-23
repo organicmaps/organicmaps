@@ -228,6 +228,28 @@ def stage_countries_txt(env):
 
 
 @stage
+def stage_external_resources(env):
+    resources = [os.path.join(file, env.user_resource_path)
+                 for file in os.listdir(env.user_resource_path)
+                 if file.endswith(".ttf")]
+    for ttf_file in resources:
+        shutil.copy2(ttf_file, env.intermediate_path)
+
+    shutil.copy2(os.path.join(env.user_resource_path, "WorldCoasts_obsolete.mwm"),
+                 env.mwm_path)
+
+    for file in os.listdir(env.mwm_path):
+        if file.startswith(WORLD_NAME) and file.endswith(".mwm"):
+            resources.append(os.path.join(env.mwm_path, file))
+
+    resources.sort()
+    with open(env.external_resources_path, "w") as f:
+        for resource in resources:
+            fd = os.open(resource, os.O_RDONLY)
+            f.write(f"{os.path.basename(resource)} {os.fstat(fd).st_size}")
+
+
+@stage
 def stage_cleanup(env):
     osm2ft_path = os.path.join(env.out_path, "osm2ft")
     os.makedirs(osm2ft_path, exist_ok=True)
@@ -250,7 +272,8 @@ STAGES = [s.__name__ for s in
           (stage_download_external, stage_download_production_external,
            stage_download_and_convert_planet, stage_update_planet,
            stage_coastline, stage_preprocess, stage_features, stage_mwm,
-           stage_descriptions, stage_countries_txt, stage_cleanup)]
+           stage_descriptions, stage_countries_txt, stage_external_resources,
+           stage_cleanup)]
 
 ALL_STAGES = STAGES + COUNTRIES_STAGES
 
@@ -308,6 +331,7 @@ def generate_maps(env):
             stage_mwm(env)
             stage_descriptions(env)
             stage_countries_txt(env)
+            stage_external_resources(env)
             stage_cleanup(env)
 
 
