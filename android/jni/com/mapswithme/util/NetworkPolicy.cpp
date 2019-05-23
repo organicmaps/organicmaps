@@ -5,7 +5,7 @@ namespace network_policy
 bool GetNetworkPolicyStatus(JNIEnv * env, jobject obj)
 {
   static jmethodID const networkPolicyCanUseMethod =
-      jni::GetMethodID(env, obj, "сanUseNetwork", "()Z");
+      jni::GetMethodID(env, obj, "canUseNetwork", "()Z");
   return env->CallBooleanMethod(obj, networkPolicyCanUseMethod);
 }
 

@@ -20,6 +20,10 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.adapter.AdapterPositionConverter;
+import com.mapswithme.maps.adapter.DefaultPositionConverter;
+import com.mapswithme.maps.adapter.OnItemClickListener;
+import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -40,6 +44,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Arrays;
 
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
 import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
@@ -75,6 +81,22 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         requestDiscoveryInfoAndInitAdapters();
     }
   };
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RecyclerView mCatalogPromoRecycler;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mCatalogPromoPlaceholderCard;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CatalogPromoAdapter mCatalogPromoAdapter;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mCatalogPromoProgress;
 
   @Override
   public void onAttach(Context context)
@@ -176,14 +198,36 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     initFoodGallery();
     initLocalExpertsGallery();
     initSearchBasedAdapters();
+    initCrossTrafficGallery(view);
     requestDiscoveryInfoAndInitAdapters();
+  }
+
+  private void initCrossTrafficGallery(@NonNull View root)
+  {
+    mCatalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
+    mCatalogPromoPlaceholderCard = root.findViewById(R.id.catalog_promo_placeholder_card);
+    mCatalogPromoProgress = mCatalogPromoPlaceholderCard.findViewById(R.id.progress);
+    mCatalogPromoAdapter = new CatalogPromoAdapter();
+
+    MoreAdapter moreAdapter = new MoreAdapter(new CatalogPromoMoreClickListener());
+    setLayoutManagerAndItemDecoration(requireContext(), mCatalogPromoRecycler);
+
+    AdapterPositionConverter converter =
+        new DefaultPositionConverter(Arrays.asList(mCatalogPromoAdapter, moreAdapter));
+    RecyclerCompositeAdapter compositeAdapter = new RecyclerCompositeAdapter(converter,
+                                                                             mCatalogPromoAdapter,
+                                                                             moreAdapter);
+
+    AdapterDataObserverWrapper observer = new AdapterDataObserverWrapper(compositeAdapter);
+    mCatalogPromoAdapter.registerAdapterDataObserver(observer);
+    mCatalogPromoRecycler.setAdapter(compositeAdapter);
   }
 
   private void requestDiscoveryInfoAndInitAdapters()
   {
     NetworkPolicy.checkNetworkPolicy(getFragmentManager(), policy ->
     {
-      mOnlineMode = policy.сanUseNetwork();
+      mOnlineMode = policy.canUseNetwork();
       initNetworkBasedAdapters();
       requestDiscoveryInfo();
     });
@@ -487,5 +531,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     void onShowDiscoveredObject(@NonNull MapObject object);
     void onShowFilter();
     void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
+  }
+
+  private static class CatalogPromoMoreClickListener implements OnItemClickListener<String>
+  {
+    @Override
+    public void onItemClick(@NonNull View v, @NonNull String item)
+    {
+
+    }
   }
 }

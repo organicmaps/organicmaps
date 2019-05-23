@@ -132,7 +132,7 @@ public final class NetworkPolicy
     mCanUseNetwork = canUse;
   }
 
-  public boolean сanUseNetwork()
+  public boolean canUseNetwork()
   {
     return mCanUseNetwork;
   }

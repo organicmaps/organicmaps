@@ -302,7 +302,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   private void showBanner(@NonNull MapObject object, NetworkPolicy policy)
   {
     boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION
-                            && policy.сanUseNetwork()
+                            && policy.canUseNetwork()
                             && object.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
     mBannerController.updateData(canShowBanner ? object.getBanners() : null);
   }

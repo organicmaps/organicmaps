@@ -14,7 +14,7 @@ public final class DefaultPositionConverter extends RecyclerCompositeAdapter.Abs
   @NonNull
   private final List<AdapterIndexAndViewType> mIndexAndViewTypes;
 
-  public DefaultPositionConverter(@NonNull List<RecyclerView.Adapter<RecyclerView.ViewHolder>> adapters)
+  public DefaultPositionConverter(@NonNull List<RecyclerView.Adapter<? extends RecyclerView.ViewHolder>> adapters)
   {
     Pair<List<AdapterIndexAndPosition>, List<AdapterIndexAndViewType>> pair = makeDataSet(adapters);
     mIndexAndPositions = pair.first;
@@ -22,13 +22,13 @@ public final class DefaultPositionConverter extends RecyclerCompositeAdapter.Abs
   }
 
   @NonNull
-  private static Pair<List<AdapterIndexAndPosition>, List<AdapterIndexAndViewType>> makeDataSet(@NonNull List<RecyclerView.Adapter<RecyclerView.ViewHolder>> adapters)
+  private static Pair<List<AdapterIndexAndPosition>, List<AdapterIndexAndViewType>> makeDataSet(@NonNull List<RecyclerView.Adapter<? extends RecyclerView.ViewHolder>> adapters)
   {
     List<AdapterIndexAndPosition> indexAndPositions = new ArrayList<>();
     List<AdapterIndexAndViewType> indexAndViewTypes = new ArrayList<>();
     for (int j = 0; j < adapters.size(); j++)
     {
-      RecyclerView.Adapter<RecyclerView.ViewHolder> each = adapters.get(j);
+      RecyclerView.Adapter<? extends RecyclerView.ViewHolder> each = adapters.get(j);
       int itemCount = each.getItemCount();
       for (int i = 0; i < itemCount ; i++)
       {

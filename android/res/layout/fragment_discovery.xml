@@ -90,6 +90,7 @@
         android:id="@+id/localGuides"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+      <include layout="@layout/catalog_promo_container"/>
     </LinearLayout>
     <com.mapswithme.maps.widget.PlaceholderView
       android:id="@+id/placeholder"
