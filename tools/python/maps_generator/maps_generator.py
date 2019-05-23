@@ -231,7 +231,7 @@ def stage_countries_txt(env):
 
 @stage
 def stage_external_resources(env):
-    resources = [os.path.join(file, env.user_resource_path)
+    resources = [os.path.join(env.user_resource_path, file)
                  for file in os.listdir(env.user_resource_path)
                  if file.endswith(".ttf")]
     for ttf_file in resources:
