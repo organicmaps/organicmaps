@@ -50,16 +50,13 @@ UNIT_TEST(CountriesNamesTest)
 
   // todo: (@t.yan) fix names for countries which have separate mwms.
   set<string> const kIgnoreList = {"American Samoa",
-                                   "Sāmoa",
                                    "Pitcairn",
-                                   "South Georgia and South Sandwich Islands",
                                    "Lesotho",
                                    "Eswatini",
                                    "Republic of the Congo",
                                    "Democratic Republic of the Congo",
                                    "Aruba",
                                    "Sint Maarten",
-                                   "Bahamas",
                                    "Cabo Verde",
                                    "Ivory Coast",
                                    "Palestinian Territories",
@@ -70,7 +67,6 @@ UNIT_TEST(CountriesNamesTest)
                                    "Kosovo",
                                    "Czechia",
                                    "Transnistria",
-                                   "Republic of Belarus",
                                    "Hong Kong",
                                    "Guam",
                                    // MAPSME-10611
