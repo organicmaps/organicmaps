@@ -8,7 +8,7 @@ from .generator.exceptions import ContinueError, SkipError, ValidationError
 from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
-                             stages_as_string)
+                             stage_localads, stages_as_string)
 from .utils.collections import unique
 
 logger = logging.getLogger("maps_generator")
@@ -133,7 +133,8 @@ def main():
     if not options["production"]:
         options["skip"] += stages_as_string(stage_download_production_external,
                                             stage_ugc, stage_popularity,
-                                            stage_descriptions)
+                                            stage_descriptions,
+                                            stage_localads)
     if not all(s in ALL_STAGES for s in options["skip"]):
         raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
                         f"not found.")

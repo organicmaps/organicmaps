@@ -3,12 +3,14 @@ import os
 import shutil
 from functools import partial
 from multiprocessing.pool import ThreadPool
+import multiprocessing
 
 from descriptions.descriptions_downloader import (check_and_get_checker,
                                                   download_from_wikipedia_tags,
                                                   download_from_wikidata_tags)
 from filelock import FileLock
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
+from post_generation.localads_mwm_to_csv import create_csv
 
 from .generator import basic_stages
 from .generator import coastline
@@ -20,7 +22,7 @@ from .generator.env import (planet_lock_file, build_lock_file,
 from .generator.exceptions import (ContinueError, BadExitStatusError,
                                    wait_and_raise_if_fail)
 from .generator.gen_tool import run_gen_tool
-from .utils.file import is_verified, download_file
+from .utils.file import is_verified, download_file, make_tarfile
 
 logger = logging.getLogger("maps_generator")
 
@@ -250,6 +252,13 @@ def stage_external_resources(env):
 
 
 @stage
+def stage_localads(env):
+    create_csv(env.localads_path, env.mwm_path, env.mwm_path, env.types_path,
+               env.mwm_version, multiprocessing.cpu_count())
+    make_tarfile(f"{env.localads_path}.tar.gz", env.localads_path)
+
+
+@stage
 def stage_cleanup(env):
     osm2ft_path = os.path.join(env.out_path, "osm2ft")
     os.makedirs(osm2ft_path, exist_ok=True)
@@ -273,7 +282,7 @@ STAGES = [s.__name__ for s in
            stage_download_and_convert_planet, stage_update_planet,
            stage_coastline, stage_preprocess, stage_features, stage_mwm,
            stage_descriptions, stage_countries_txt, stage_external_resources,
-           stage_cleanup)]
+           stage_localads, stage_cleanup)]
 
 ALL_STAGES = STAGES + COUNTRIES_STAGES
 
@@ -332,6 +341,7 @@ def generate_maps(env):
             stage_descriptions(env)
             stage_countries_txt(env)
             stage_external_resources(env)
+            stage_localads(env)
             stage_cleanup(env)
 
 

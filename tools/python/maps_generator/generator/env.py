@@ -142,6 +142,16 @@ class Env:
         return stage_name not in self._skipped_stages
 
     @property
+    def localads_path(self):
+        path = os.path.join(self.out_path, f"localads_{self.mwm_version}")
+        self._create_if_not_exist(path)
+        return path
+
+    @property
+    def types_path(self):
+        return os.path.join(self.user_resource_path, "types.txt")
+
+    @property
     def external_resources_path(self):
         return os.path.join(self.mwm_path, "external_resources.txt")
 
@@ -226,9 +236,8 @@ class Env:
     @staticmethod
     def _logging_setup():
         def exception_handler(type, value, tb):
-            logger.exception(
-                f"Uncaught exception: {str(value)}",
-                exc_info=(type, value, tb))
+            logger.exception(f"Uncaught exception: {str(value)}",
+                             exc_info=(type, value, tb))
 
         logging.config.dictConfig(settings.LOGGING)
         sys.excepthook = exception_handler
