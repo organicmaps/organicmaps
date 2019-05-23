@@ -6,6 +6,7 @@
 
 #include "routing/routing_tests/routing_algorithm.hpp"
 
+#include <cstdint>
 #include <map>
 #include <utility>
 #include <vector>

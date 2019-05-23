@@ -15,6 +15,21 @@
 
 namespace routing
 {
+/// \brief After LeapsOnly mode we can have Loops in the path, like this:
+/// Path through features: {f0, f1, ..., f9}.
+/// *-f0->*-f1->*-f2->*-f3->  *  -f6->*-f7->*-f8->*-f9->
+///                         |   ↑
+///                        f4  f5
+///                         ↓   |
+///                           *   <------- intermediate point.
+///
+/// As you can see, we can go from f3 to f6 but because of heuristic searching of intermediate
+/// points in LeapsOnly routing algorithm, we build route through this point and received next path:
+/// {..., f3, f4, f5, f6, ... } - this is Loop.
+/// So next class provides local optimization and relax such paths:
+/// (... f3 -> f4 -> f5 -> f6 ...) to (... f3 -> f6 ...).
+///
+/// Works for: O(N). Where N it is path's length.
 class LeapsPostProcessor
 {
 public:

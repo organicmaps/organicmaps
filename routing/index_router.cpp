@@ -647,8 +647,15 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     if (leapsResult != RouterResultCode::NoError)
       return leapsResult;
 
-    LeapsPostProcessor leapsPostProcessor(subrouteWithoutPostprocessing, starter);
-    subroute = leapsPostProcessor.GetProcessedPath();
+    if (mode == WorldGraphMode::LeapsOnly)
+    {
+      LeapsPostProcessor leapsPostProcessor(subrouteWithoutPostprocessing, starter);
+      subroute = leapsPostProcessor.GetProcessedPath();
+    }
+    else
+    {
+      subroute = move(subrouteWithoutPostprocessing);
+    }
   }
 
   LOG(LINFO, ("Time for routing in mode:", starter.GetGraph().GetMode(), "is",
