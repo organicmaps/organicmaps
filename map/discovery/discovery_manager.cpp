@@ -16,6 +16,7 @@ std::string GetQuery(discovery::ItemType const type)
   case discovery::ItemType::Attractions: return "attractions ";
   case discovery::ItemType::Cafes: return "cafe ";
   case discovery::ItemType::LocalExperts: return "";
+  case discovery::ItemType::Promo: return "";
   }
 
   UNREACHABLE();
@@ -27,6 +28,7 @@ namespace discovery
 Manager::Manager(DataSource const & dataSource, APIs const & apis)
   : m_dataSource(dataSource)
   , m_searchApi(apis.m_search)
+  , m_promoApi(apis.m_promo)
   , m_localsApi(apis.m_locals)
 {
 }

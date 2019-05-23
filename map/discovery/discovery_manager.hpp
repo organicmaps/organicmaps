@@ -8,6 +8,7 @@
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
+#include "partners_api/promo_api.hpp"
 
 #include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
@@ -32,12 +33,13 @@ class Manager final
 public:
   struct APIs
   {
-    APIs(SearchAPI & search, locals::Api & locals)
-      : m_search(search), m_locals(locals)
+    APIs(SearchAPI & search, promo::Api & promo, locals::Api & locals)
+      : m_search(search), m_promo(promo), m_locals(locals)
     {
     }
 
     SearchAPI & m_search;
+    promo::Api & m_promo;
     locals::Api & m_locals;
   };
 
@@ -109,6 +111,19 @@ public:
             });
         break;
       }
+      case ItemType::Promo:
+      {
+        m_promoApi.GetCityGallery(params.m_viewportCenter, [this, requestId, onResult, onError, type](promo::CityGallery const & cityGallery)
+        {
+          CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+          if (cityGallery.empty())
+            onError(requestId, type);
+          else
+            onResult(requestId, cityGallery);
+        });
+        break;
+      }
       }
     }
     return requestId;
@@ -121,6 +136,7 @@ private:
 
   DataSource const & m_dataSource;
   SearchAPI & m_searchApi;
+  promo::Api & m_promoApi;
   locals::Api & m_localsApi;
   uint32_t m_requestCounter = 0;
   ThreadChecker m_threadChecker;

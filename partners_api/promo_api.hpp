@@ -2,9 +2,10 @@
 
 #include "metrics/eye.hpp"
 
+#include "platform/safe_callback.hpp"
+
 #include "geometry/point2d.hpp"
 
-#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
@@ -42,7 +43,7 @@ public:
                                  std::string const & lang, std::string & result);
 };
 
-using CityGalleryCallback = std::function<void(CityGallery const & gallery)>;
+using CityGalleryCallback = platform::SafeCallback<void(CityGallery const & gallery)>;
 
 class Api : public eye::Subscriber
 {

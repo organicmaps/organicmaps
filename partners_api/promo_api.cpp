@@ -96,17 +96,11 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
   ASSERT(!baseUrl.empty(), ());
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  if (id.empty())
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [cb]() { cb({}); });
-    return;
-  }
-
   CityGallery result;
   std::string httpResult;
-  if (!WebApi::GetCityGalleryById(baseUrl, id, languages::GetCurrentNorm(), httpResult))
+  if (id.empty() || !WebApi::GetCityGalleryById(baseUrl, id, languages::GetCurrentNorm(), httpResult))
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [cb]() { cb({}); });
+    cb({});
     return;
   }
 
@@ -120,7 +114,7 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
     result.clear();
   }
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [ cb, result = move(result) ]() { cb(result); });
+  cb(std::move(result));
 }
 }  // namespace
 

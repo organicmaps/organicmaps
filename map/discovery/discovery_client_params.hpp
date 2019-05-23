@@ -12,7 +12,8 @@ enum class ItemType
   Attractions,
   Cafes,
   Hotels,
-  LocalExperts
+  LocalExperts,
+  Promo
 };
 
 using ItemTypes = std::vector<ItemType>;
