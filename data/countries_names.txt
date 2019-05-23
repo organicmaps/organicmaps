@@ -23379,7 +23379,7 @@
   cs = Palestinská autonomní území
   da = Palæstinensiske områder
   nl = Palestijnse Gebieden
-  fi = Palestiinalaisalueet
+  fi = Palestiinalaisalueilla
   fr = Territoires Palestiniens
   de = Palästinensische Autonomiegebiete
   hu = Palesztin Autonóm Területek
@@ -23388,7 +23388,7 @@
   ja = パレスチナ領土
   ko = 팔레스타인 영토
   nb = Palestinske områder
-  pl = Państwo Palestyna
+  pl = Terytoria palestyńskie
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
@@ -23410,7 +23410,7 @@
   cs = Palestinská autonomní území
   da = Palæstinensiske områder
   nl = Palestijnse Gebieden
-  fi = Palestiinalaisalueet
+  fi = Palestiinalaisalueilla
   fr = Territoires Palestiniens
   de = Palästinensische Autonomiegebiete
   hu = Palesztin Autonóm Területek
@@ -23419,7 +23419,7 @@
   ja = パレスチナ領土
   ko = 팔레스타인 영토
   nb = Palestinske områder
-  pl = Państwo Palestyna
+  pl = Terytoria palestyńskie
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
