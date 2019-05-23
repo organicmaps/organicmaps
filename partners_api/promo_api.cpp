@@ -26,8 +26,14 @@ constexpr minutes kMinMinutesAfterBooking = minutes(5);
 constexpr minutes kMaxMinutesAfterBooking = minutes(60);
 constexpr hours kShowPromoNotRaterThan = hours(24);
 
-bool NeedToShowImpl(eye::Eye::InfoType const & eyeInfo)
+bool NeedToShowImpl(std::string const & bookingPromoAwaitingForId, eye::Eye::InfoType const & eyeInfo)
 {
+  if (bookingPromoAwaitingForId.empty() ||
+      bookingPromoAwaitingForId == eyeInfo->m_promo.m_lastTimeShownAfterBookingCityId)
+  {
+    return false;
+  }
+
   auto const timeSinceLastShown = eye::Clock::now() - eyeInfo->m_promo.m_lastTimeShownAfterBooking;
   auto const timeSinceLastTransitionToBooking =
       eye::Clock::now() - eyeInfo->m_promo.m_transitionToBookingTime;
@@ -158,17 +164,14 @@ void Api::OnEnterForeground()
 
 bool Api::NeedToShowAfterBooking() const
 {
-  if (m_bookingPromoAwaitingForId.empty())
-    return false;
-
-  return NeedToShowImpl(eye::Eye::Instance().GetInfo());
+  return NeedToShowImpl(m_bookingPromoAwaitingForId, eye::Eye::Instance().GetInfo());
 }
 
 std::string Api::GetPromoLinkAfterBooking() const
 {
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
 
-  if (m_bookingPromoAwaitingForId.empty() || !NeedToShowImpl(eyeInfo))
+  if (!NeedToShowImpl(m_bookingPromoAwaitingForId, eyeInfo))
     return "";
 
   return MakeCityGalleryUrl(m_baseUrl, m_bookingPromoAwaitingForId, languages::GetCurrentNorm());
