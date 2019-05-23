@@ -43,6 +43,10 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.adapter.AdapterPositionConverter;
+import com.mapswithme.maps.adapter.DefaultPositionConverter;
+import com.mapswithme.maps.adapter.OnItemClickListener;
+import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
@@ -52,6 +56,11 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
+import com.mapswithme.maps.discovery.AdapterDataObserverWrapper;
+import com.mapswithme.maps.discovery.CatalogPromoAdapter;
+import com.mapswithme.maps.discovery.CatalogPromoItem;
+import com.mapswithme.maps.discovery.MoreAdapter;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -68,7 +77,6 @@ import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.settings.RoadType;
-import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
@@ -316,6 +324,22 @@ public class PlacePageView extends NestedScrollView
   @Nullable
   private RoutingModeListener mRoutingModeListener;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CatalogPromoAdapter mCatalogPromoAdapter;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RecyclerView mCatalogPromoRecycler;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mCatalogPromoPlaceholderCard;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mCatalogPromoProgress;
+
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -455,6 +479,7 @@ public class PlacePageView extends NestedScrollView
     initHotelGalleryView();
     initHotelNearbyView();
     initHotelRatingView();
+    initCatalogPromoView();
 
     mUgcController = new UGCController(this);
 
@@ -806,6 +831,32 @@ public class PlacePageView extends NestedScrollView
     mRvHotelGallery.addItemDecoration(decor);
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
+  }
+
+  private void initCatalogPromoView()
+  {
+    mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
+    mCatalogPromoPlaceholderCard = findViewById(R.id.catalog_promo_placeholder_card);
+    mCatalogPromoProgress = mCatalogPromoPlaceholderCard.findViewById(R.id.progress);
+    mCatalogPromoAdapter = new CatalogPromoAdapter();
+
+    MoreAdapter moreAdapter = new MoreAdapter(new MoreClickListener());
+    mCatalogPromoRecycler.setNestedScrollingEnabled(false);
+    mCatalogPromoRecycler.setLayoutManager(new LinearLayoutManager(getContext(),
+                                                                   LinearLayoutManager.HORIZONTAL,
+                                                                   false));
+    mCatalogPromoRecycler.addItemDecoration(
+        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(),
+                                                             LinearLayoutManager.HORIZONTAL));
+    AdapterPositionConverter converter =
+        new DefaultPositionConverter(Arrays.asList(mCatalogPromoAdapter, moreAdapter));
+    RecyclerCompositeAdapter compositeAdapter = new RecyclerCompositeAdapter(converter,
+                                                                             mCatalogPromoAdapter,
+                                                                             moreAdapter);
+
+    AdapterDataObserverWrapper observer = new AdapterDataObserverWrapper(compositeAdapter);
+    mCatalogPromoAdapter.registerAdapterDataObserver(observer);
+    mCatalogPromoRecycler.setAdapter(compositeAdapter);
   }
 
   private void initHotelFacilitiesView()
@@ -1362,7 +1413,7 @@ public class PlacePageView extends NestedScrollView
     }
 
     boolean isConnected = ConnectionState.isConnected();
-    if (isConnected && policy.сanUseNetwork())
+    if (isConnected && policy.canUseNetwork())
       showHotelDetailViews();
     else
       hideHotelDetailViews();
@@ -2041,6 +2092,15 @@ public class PlacePageView extends NestedScrollView
   int getPreviewHeight()
   {
     return mPreview.getHeight();
+  }
+
+  private static class MoreClickListener implements OnItemClickListener<String>
+  {
+    @Override
+    public void onItemClick(@NonNull View v, @NonNull String item)
+    {
+
+    }
   }
 
   private class EditBookmarkClickListener implements OnClickListener

@@ -36,6 +36,8 @@
         android:layout_marginBottom="@dimen/margin_half"
         tools:visibility="gone"/>
 
+      <include layout="@layout/catalog_promo_container"/>
+
       <include layout="@layout/place_page_hotel_gallery"/>
 
       <include layout="@layout/place_page_hotel_description"/>
