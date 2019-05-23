@@ -255,7 +255,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (BOOL)isMyPosition;
 - (BOOL)isRoutePoint;
 - (RoadWarningMarkType)roadType;
-- (BOOL)isPreviewExtended;
+- (BOOL)isPreviewPlus;
 - (BOOL)isPartnerAppInstalled;
 
 + (MWMRatingSummaryViewValueType)ratingValueType:(place_page::rating::Impress)impress;

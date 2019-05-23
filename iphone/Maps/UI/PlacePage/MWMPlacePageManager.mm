@@ -239,7 +239,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 - (void)destroyLayout { self.layout = nil; }
 - (void)closePlacePage { GetFramework().DeactivateMapSelection(true); }
-- (BOOL)isExpandedOnShow { return self.data.isPreviewExtended; }
+- (BOOL)isPreviewPlus { return self.data.isPreviewPlus; }
 - (void)onExpanded
 {
   if (self.isSponsoredOpenLogged)

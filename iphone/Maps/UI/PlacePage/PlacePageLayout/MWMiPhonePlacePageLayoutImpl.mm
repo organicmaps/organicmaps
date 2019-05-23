@@ -5,18 +5,6 @@
 
 namespace
 {
-enum class ScrollDirection
-{
-  Up,
-  Down
-};
-
-enum class State
-{
-  Bottom,
-  Top,
-  Expanded
-};
 
 CGFloat const kTopPlacePageStopValue = 0.7;
 CGFloat const kExpandedPlacePageStopValue = 0.5;
@@ -26,12 +14,23 @@ CGFloat const kLuftDraggingOffset = 30;
 CGFloat const kMinOffset = 1;
 }  // namespace
 
+typedef NS_ENUM(NSUInteger, MWMOffsetState) {
+  MWMOffsetStatePreview,
+  MWMOffsetStatePreviewPlus,
+  MWMOffsetStateOpen
+};
+
+typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
+  MWMScrollDirectionUp,
+  MWMScrollDirectionDown
+};
+
 @interface MWMiPhonePlacePageLayoutImpl ()<UIScrollViewDelegate, UITableViewDelegate,
                                            MWMPPPreviewLayoutHelperDelegate>
 
 @property(nonatomic) MWMPPScrollView * scrollView;
-@property(nonatomic) ScrollDirection direction;
-@property(nonatomic) State state;
+@property(nonatomic) MWMScrollDirection direction;
+@property(nonatomic) MWMOffsetState state;
 
 @property(nonatomic) CGFloat lastContentOffset;
 @property(weak, nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
@@ -50,12 +49,10 @@ CGFloat const kMinOffset = 1;
 
 - (instancetype)initOwnerView:(UIView *)ownerView
                 placePageView:(MWMPPView *)placePageView
-                     delegate:(id<MWMPlacePageLayoutDelegate>)delegate
-{
+                     delegate:(id<MWMPlacePageLayoutDelegate>)delegate {
   self = [super init];
-  if (self)
-  {
-    auto const & size = ownerView.size;
+  if (self) {
+    CGSize size = ownerView.size;
     _ownerView = ownerView;
     _availableArea = ownerView.frame;
     _placePageView = placePageView;
@@ -68,9 +65,8 @@ CGFloat const kMinOffset = 1;
   return self;
 }
 
-- (void)onShow
-{
-  self.state = [self.delegate isExpandedOnShow] ? State::Expanded : State::Bottom;
+- (void)onShow {
+  self.state = [self.delegate isPreviewPlus] ? MWMOffsetStatePreviewPlus : MWMOffsetStatePreview;
   auto scrollView = self.scrollView;
   
   [scrollView setContentOffset:{ 0., kMinOffset }];
@@ -79,14 +75,13 @@ CGFloat const kMinOffset = 1;
     place_page_layout::animate(^{
       [self.actionBar setVisible:YES];
       auto const targetOffset =
-          self.state == State::Expanded ? self.expandedContentOffset : self.bottomContentOffset;
+          self.state == MWMOffsetStatePreviewPlus ? self.previewPlusContentOffset : self.previewContentOffset;
       [self setAnimatedContentOffset:targetOffset];
     });
   });
 }
 
-- (void)onClose
-{
+- (void)onClose {
   self.actionBar = nil;
   place_page_layout::animate(^{
     [self setAnimatedContentOffset:0];
@@ -99,8 +94,7 @@ CGFloat const kMinOffset = 1;
   });
 }
 
-- (void)updateAvailableArea:(CGRect)frame
-{
+- (void)updateAvailableArea:(CGRect)frame {
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
   self.availableArea = frame;
@@ -109,78 +103,77 @@ CGFloat const kMinOffset = 1;
   sv.delegate = nil;
   sv.frame = frame;
   sv.delegate = self;
-  auto const size = frame.size;
+  CGSize size = frame.size;
   self.placePageView.minY = size.height;
-  [self.delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
-  [self setAnimatedContentOffset:self.state == State::Top ? self.topContentOffset
-                                                          : self.bottomContentOffset];
+  id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
+  if (delegate == nil) { return; }
+  [delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
+  CGFloat previewOffset = [delegate isPreviewPlus] ? self.previewPlusContentOffset : self.previewContentOffset;
+  [self setAnimatedContentOffset:self.state == MWMOffsetStateOpen ? self.topContentOffset : previewOffset];
 }
 
-- (void)updateContentLayout
-{
+- (void)updateContentLayout {
   auto const & size = self.availableArea.size;
   self.scrollView.contentSize = {size.width, size.height + self.placePageView.height};
 }
 
-- (void)setPreviewLayoutHelper:(MWMPPPreviewLayoutHelper *)previewLayoutHelper
-{
+- (void)setPreviewLayoutHelper:(MWMPPPreviewLayoutHelper *)previewLayoutHelper {
   previewLayoutHelper.delegate = self;
   _previewLayoutHelper = previewLayoutHelper;
 }
 
 #pragma mark - MWMPPPreviewLayoutHelperDelegate
 
-- (void)heightWasChanged
-{
+- (void)heightWasChanged {
   dispatch_async(dispatch_get_main_queue(), ^{
-    if (self.state == State::Bottom)
-      [self setAnimatedContentOffset:self.bottomContentOffset];
+    if (self.state == MWMOffsetStatePreview)
+      [self setAnimatedContentOffset:self.previewContentOffset];
+    if (self.state == MWMOffsetStatePreviewPlus)
+      [self setAnimatedContentOffset:self.previewPlusContentOffset];
   });
 }
 
 #pragma mark - UIScrollViewDelegate
 
-- (BOOL)isPortrait
-{
-  auto const & s = self.ownerView.size;
-  return s.height > s.width;
+- (BOOL)isPortrait {
+  CGSize size = self.ownerView.size;
+  return size.height > size.width;
 }
 
-- (CGFloat)openContentOffset
-{
-  auto const & size = self.ownerView.size;
-  auto const offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
+- (CGFloat)openContentOffset {
+  CGSize size = self.ownerView.size;
+  CGFloat offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
   return offset * kTopPlacePageStopValue;
 }
 
-- (CGFloat)topContentOffset
-{
-  auto const target = self.openContentOffset;
-  auto const ppViewMaxY = self.placePageView.tableView.maxY;
+- (CGFloat)topContentOffset {
+  CGFloat target = self.openContentOffset;
+  CGFloat ppViewMaxY = self.placePageView.tableView.maxY;
   return MIN(target, ppViewMaxY);
 }
 
-- (CGFloat)expandedContentOffset
-{
-  auto const & size = self.ownerView.size;
-  auto const offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
-  return offset * kExpandedPlacePageStopValue;
+- (CGFloat)previewPlusContentOffset {
+  CGSize size = self.ownerView.size;
+  CGFloat offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
+  CGFloat previewPlusOffset = offset * kExpandedPlacePageStopValue;
+  CGFloat previewOffset = [self previewContentOffset];
+  if (previewPlusOffset < previewOffset + kLuftDraggingOffset) {
+    return previewOffset + kLuftDraggingOffset;
+  }
+  return previewPlusOffset;
 }
 
-- (CGFloat)bottomContentOffset
-{
+- (CGFloat)previewContentOffset {
   return self.previewLayoutHelper.height + self.actionBar.height - self.placePageView.top.height;
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
   dispatch_async(dispatch_get_main_queue(), ^{
     self.isOffsetAnimated = NO;
   });
 }
 
-- (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView {
   if (self.isOffsetAnimated)
     return;
   auto ppView = self.placePageView;
@@ -189,90 +182,108 @@ CGFloat const kMinOffset = 1;
 
   auto const & offsetY = scrollView.contentOffset.y;
   id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
-  if (offsetY <= 0)
-  {
+  if (offsetY <= 0) {
     [delegate onPlacePageTopBoundChanged:0];
     [delegate closePlacePage];
     return;
   }
 
   auto const bounded = ppView.height + kLuftDraggingOffset;
-  if (offsetY > bounded)
-  {
+  if (offsetY > bounded) {
     [scrollView setContentOffset:{0, bounded}];
     [delegate onPlacePageTopBoundChanged:bounded];
-  }
-  else
-  {
+  } else {
     [delegate onPlacePageTopBoundChanged:offsetY];
   }
 
-  self.direction = self.lastContentOffset < offsetY ? ScrollDirection::Up : ScrollDirection::Down;
+  self.direction = self.lastContentOffset < offsetY ? MWMScrollDirectionUp : MWMScrollDirectionDown;
   self.lastContentOffset = offsetY;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
-              targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-  auto const actualOffset = scrollView.contentOffset.y;
-  auto const openOffset = self.openContentOffset;
-  auto const targetOffset = (*targetContentOffset).y;
-
-  if (actualOffset > self.bottomContentOffset && actualOffset < openOffset)
-  {
-    auto const isDirectionUp = self.direction == ScrollDirection::Up;
-    self.state = isDirectionUp ? State::Top : State::Bottom;
-    (*targetContentOffset).y = isDirectionUp ? openOffset : self.bottomContentOffset;
-  }
-  else if (actualOffset > openOffset && targetOffset < openOffset)
-  {
-    self.state = State::Top;
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
+  CGFloat actualOffset = scrollView.contentOffset.y;
+  CGFloat openOffset = self.openContentOffset;
+  CGFloat targetOffset = (*targetContentOffset).y;
+  CGFloat previewOffset = self.previewContentOffset;
+  CGFloat previewPlusOffset = self.previewPlusContentOffset;
+  BOOL isPreviewPlus = [self.delegate isPreviewPlus];
+  
+  if (actualOffset > previewPlusOffset && actualOffset < openOffset) {
+    if (self.direction == MWMScrollDirectionUp) {
+      self.state = MWMOffsetStateOpen;
+      (*targetContentOffset).y = openOffset;
+    } else {
+      self.state = isPreviewPlus ? MWMOffsetStatePreviewPlus : MWMOffsetStatePreview;
+      (*targetContentOffset).y = isPreviewPlus ? previewPlusOffset : previewOffset;
+    }
+  } else if (actualOffset > previewOffset && actualOffset < previewPlusOffset) {
+    if (self.direction == MWMScrollDirectionUp) {
+      self.state = isPreviewPlus ? MWMOffsetStatePreviewPlus : MWMOffsetStateOpen;
+      (*targetContentOffset).y = isPreviewPlus ? previewPlusOffset : openOffset;
+    } else {
+      self.state = MWMOffsetStatePreview;
+      (*targetContentOffset).y = previewOffset;
+    }
+  } else if (actualOffset > openOffset && targetOffset < openOffset) {
+    self.state = MWMOffsetStateOpen;
     (*targetContentOffset).y = openOffset;
-  }
-  else if (actualOffset < self.bottomContentOffset)
-  {
+  } else if (actualOffset < previewOffset) {
     (*targetContentOffset).y = 0;
-  }
-  else
-  {
-    self.state = State::Top;
+  } else {
+    self.state = MWMOffsetStateOpen;
   }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate {
   if (decelerate)
     return;
 
-  auto const actualOffset = scrollView.contentOffset.y;
-  auto const openOffset = self.openContentOffset;
+  CGFloat actualOffset = scrollView.contentOffset.y;
+  CGFloat openOffset = self.openContentOffset;
+  CGFloat previewOffset = self.previewContentOffset;
+  CGFloat previewPlusOffset = self.previewPlusContentOffset;
+  BOOL isPreviewPlus = [self.delegate isPreviewPlus];
 
-  if (actualOffset < self.bottomContentOffset + kLuftDraggingOffset)
-  {
-    self.state = State::Bottom;
+  if (actualOffset < previewOffset + kLuftDraggingOffset) {
+    self.state = MWMOffsetStatePreview;
     place_page_layout::animate(^{
-      [self setAnimatedContentOffset:self.bottomContentOffset];
+      [self setAnimatedContentOffset:previewOffset];
     });
-  }
-  else if (actualOffset < openOffset)
-  {
-    auto const isDirectionUp = self.direction == ScrollDirection::Up;
-    self.state = isDirectionUp ? State::Top : State::Bottom;
-    place_page_layout::animate(^{
-      [self setAnimatedContentOffset:isDirectionUp ? openOffset : self.bottomContentOffset];
-    });
-  }
-  else
-  {
-    self.state = State::Top;
+  } else if (actualOffset < previewPlusOffset) {
+    if (self.direction == MWMScrollDirectionUp) {
+      self.state = isPreviewPlus ? MWMOffsetStatePreviewPlus : MWMOffsetStateOpen;
+      place_page_layout::animate(^{
+        [self setAnimatedContentOffset:isPreviewPlus ? previewPlusOffset : openOffset];
+      });
+    } else {
+      self.state = MWMOffsetStatePreview;
+      place_page_layout::animate(^{
+        [self setAnimatedContentOffset:previewOffset];
+      });
+    }
+  } else if (actualOffset < openOffset) {
+    if (self.direction == MWMScrollDirectionUp) {
+      self.state = MWMOffsetStateOpen;
+      place_page_layout::animate(^{
+        [self setAnimatedContentOffset:openOffset];
+      });
+    } else {
+      self.state = isPreviewPlus ? MWMOffsetStatePreviewPlus : MWMOffsetStatePreview;
+      place_page_layout::animate(^{
+        [self setAnimatedContentOffset:isPreviewPlus ? previewPlusOffset : previewOffset];
+      });
+    }
+  } else {
+    self.state = MWMOffsetStateOpen;
   }
 }
 
-- (void)setState:(State)state
-{
+- (void)setState:(MWMOffsetState)state {
   _state = state;
-  BOOL const isTop = state == State::Top;
+  BOOL isTop = state == MWMOffsetStateOpen;
   self.placePageView.anchorImage.transform = isTop ? CGAffineTransformMakeRotation(M_PI)
   : CGAffineTransformIdentity;
   [self.previewLayoutHelper layoutInOpenState:isTop];
@@ -282,26 +293,22 @@ CGFloat const kMinOffset = 1;
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section != 0)
     return;
 
-  auto cell = [tableView cellForRowAtIndexPath:indexPath];
-  if ([cell isKindOfClass:[MWMAdBanner class]])
-  {
+  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+  if ([cell isKindOfClass:[MWMAdBanner class]]) {
     return;
   }
 
   CGFloat offset = 0;
-  if (self.state == State::Top)
-  {
-    self.state = State::Bottom;
-    offset = self.bottomContentOffset;
-  }
-  else
-  {
-    self.state = State::Top;
+  if (self.state == MWMOffsetStateOpen) {
+    BOOL isPreviewPlus = [self.delegate isPreviewPlus];
+    self.state = isPreviewPlus ? MWMOffsetStatePreviewPlus : MWMOffsetStatePreview;
+    offset = isPreviewPlus ? self.previewPlusContentOffset : self.previewContentOffset;
+  } else {
+    self.state = MWMOffsetStateOpen;
     offset = self.topContentOffset;
   }
 
@@ -312,22 +319,17 @@ CGFloat const kMinOffset = 1;
 
 #pragma mark - Properties
 
-- (void)setAnimatedContentOffset:(CGFloat)offset
-{
+- (void)setAnimatedContentOffset:(CGFloat)offset {
   self.isOffsetAnimated = YES;
   [self.scrollView setContentOffset:{0, offset} animated:YES];
 }
 
-- (void)setScrollView:(MWMPPScrollView *)scrollView
-{
-  if (scrollView)
-  {
+- (void)setScrollView:(MWMPPScrollView *)scrollView {
+  if (scrollView) {
     scrollView.delegate = self;
     [scrollView addSubview:self.placePageView];
     [self.ownerView addSubview:scrollView];
-  }
-  else
-  {
+  } else {
     _scrollView.delegate = nil;
     [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_scrollView removeFromSuperview];
@@ -335,16 +337,13 @@ CGFloat const kMinOffset = 1;
   _scrollView = scrollView;
 }
 
-- (void)setActionBar:(MWMPlacePageActionBar *)actionBar
-{
-  if (actionBar)
-  {
-    auto superview = self.ownerView;
+- (void)setActionBar:(MWMPlacePageActionBar *)actionBar {
+  if (actionBar) {
+    UIView *superview = self.ownerView;
     [superview addSubview:actionBar];
     NSLayoutXAxisAnchor * leadingAnchor = superview.leadingAnchor;
     NSLayoutXAxisAnchor * trailingAnchor = superview.trailingAnchor;
-    if (@available(iOS 11.0, *))
-    {
+    if (@available(iOS 11.0, *)) {
       UILayoutGuide * safeAreaLayoutGuide = superview.safeAreaLayoutGuide;
       leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
       trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
@@ -352,9 +351,7 @@ CGFloat const kMinOffset = 1;
     [actionBar.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
     [actionBar.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
     [actionBar setVisible:NO];
-  }
-  else
-  {
+  } else {
     [_actionBar removeFromSuperview];
   }
   _actionBar = actionBar;

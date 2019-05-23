@@ -69,7 +69,7 @@ final class AdBanner: UITableViewCell {
 
   @objc var onRemoveAds: MWMVoidBlock?
 
-  @objc static let detailedBannerExcessHeight: Float = 36
+  @objc static let detailedBannerExcessHeight: Float = 52
 
   enum AdType {
     case native

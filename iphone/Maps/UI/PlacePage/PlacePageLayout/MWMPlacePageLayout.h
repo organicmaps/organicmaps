@@ -9,7 +9,8 @@ enum class NodeStatus;
 - (void)destroyLayout;
 - (void)closePlacePage;
 
-- (BOOL)isExpandedOnShow;
+- (BOOL)isPreviewPlus;
+
 - (void)onExpanded;
 
 @end
