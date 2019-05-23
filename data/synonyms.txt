@@ -69,6 +69,6 @@ Yukon: YT
 Россия: РФ
 
 Китайская Народная Република: Китай, КНР
-Китай: Китайская Народная Република, КНР
+Китай: КНР
 People's Republic of China: China, PRC
-China: People's Republic of China, PRC
+China: PRC

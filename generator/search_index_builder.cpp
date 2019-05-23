@@ -77,8 +77,10 @@ public:
         for (size_t i = 1; i < tokens.size(); ++i)
         {
           strings::Trim(tokens[i]);
-          // synonym should not has any spaces
-          ASSERT(tokens[i].find_first_of(" \t") == string::npos, ());
+          // For consistency, synonyms should not have any spaces.
+          // For example, the hypothetical "Russia" -> "Russian Federation" mapping
+          // would have the feature with name "Russia" match the request "federation". It would be wrong.
+          CHECK(tokens[i].find_first_of(" \t") == string::npos, ());
           m_map.insert(make_pair(tokens[0], tokens[i]));
         }
       }
