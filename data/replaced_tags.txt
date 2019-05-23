@@ -4,17 +4,29 @@ shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
 hotel=yes : tourism=hotel
+ford=yes : highway=ford
+ruins=yes : historic=ruins
 building=entrance : entrance=yes
 
 natural=marsh : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
+natural = forest : natural = wood
+# TODO
+# natural = ridge + cliff=yes -> natural=cliff
+
 office=travel_agent : shop=travel_agency
+office=notary : office=lawyer
+office=administrative : office=government
+
 shop=tailor : craft=tailor
 shop=estate_agent : office=estate_agent
+
 amenity=swimming_pool : leisure=swimming_pool
-building=garages : building=garage
 amenity=gym : leisure=fitness_centre
 amenity=sauna : leisure=sauna
+amenity=monastery : amenity=place_of_worship
+
+power = transformer : power = substation
 
 diet:vegetarian=yes : cuisine=vegetarian
 diet:vegetarian=only : cuisine=vegetarian
@@ -24,3 +36,23 @@ diet:vegan=only : cuisine=vegan
 diet=vegan : cuisine=vegan
 
 aerodrome:type=international : aerodrome=international
+
+amenity=parking_entrance : amenity=parking
+amenity=parking_space : amenity=parking
+amenity=garages : building=garage
+amenity=garage : building=garage
+building=garages : building=garage
+
+historic=cannon : historic=memorial
+historic=technical_monument : historic=memorial
+historic=shield : historic=memorial
+historic=war_memorial : historic=memorial
+
+# OSM recommends leisure=resort instead of tourism=resort
+# but we already have the type for tourism and don't have one for leisure.
+leisure=resort : tourism=resort
+leisure=summer_camp : tourism=resort
+
+place=allotments : place=neighbourhood
+
+crossing=traffic_signals : highway=traffic_signals
