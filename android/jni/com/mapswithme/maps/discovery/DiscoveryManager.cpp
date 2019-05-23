@@ -6,9 +6,12 @@
 #include "map/discovery/discovery_manager.hpp"
 #include "map/search_product_info.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "search/result.hpp"
+
+#include "partners_api/locals_api.hpp"
+#include "partners_api/promo_api.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "platform/preferred_languages.hpp"
 
@@ -88,6 +91,14 @@ struct DiscoveryCallback
     env->CallVoidMethod(discoveryManagerInstance, g_onLocalExpertsReceivedMethod, jLocals.get());
 
     jni::HandleJavaException(env);
+  }
+
+  void operator()(uint32_t const requestId, promo::CityGallery const & cityGallery) const
+  {
+    if (g_lastRequestId != requestId)
+      return;
+
+    // Dummy. Please add code here.
   }
 };
 

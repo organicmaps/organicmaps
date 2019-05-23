@@ -1558,7 +1558,7 @@ void Framework::InitDiscoveryManager()
   CHECK(m_searchAPI.get(), ("InitDiscoveryManager() must be called after InitSearchApi()"));
   CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
 
-  discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_localsApi.get());
+  discovery::Manager::APIs const apis(*m_searchAPI, *m_promoApi, *m_localsApi);
   m_discoveryManager = make_unique<discovery::Manager>(m_model.GetDataSource(), apis);
 }
 

@@ -47,6 +47,8 @@ public:
     case ItemType::Cafes: return m_cafes.m_results.GetCount();
     case ItemType::Hotels: return m_hotels.m_results.GetCount();
     case ItemType::LocalExperts: return m_experts.size();
+    // TODO: Add correct value here.
+    case ItemType::Promo: return 0;
     }
   }
 

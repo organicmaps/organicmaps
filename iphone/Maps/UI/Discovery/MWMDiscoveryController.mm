@@ -16,9 +16,10 @@
 #include "map/discovery/discovery_client_params.hpp"
 #include "map/search_product_info.hpp"
 
-#include "partners_api/locals_api.hpp"
-
 #include "search/result.hpp"
+
+#include "partners_api/locals_api.hpp"
+#include "partners_api/promo_api.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
@@ -55,6 +56,11 @@ struct Callback
     CHECK(m_refreshSection, ());
     m_setLocalExperts(experts);
     m_refreshSection(ItemType::LocalExperts);
+  }
+  
+  void operator()(uint32_t const requestId, promo::CityGallery const & experts) const
+  {
+    // TODO: Please add correct implementation here.
   }
 
   using SetSearchResults =
@@ -264,6 +270,8 @@ struct Callback
   case ItemType::LocalExperts:
     CHECK(false, ("Attempt to route to item with type:", static_cast<int>(type)));
     break;
+  // TODO: Add correct code here.
+  case ItemType::Promo: break;
   }
 
   MWMRoutePoint * pt = [[MWMRoutePoint alloc] initWithPoint:point

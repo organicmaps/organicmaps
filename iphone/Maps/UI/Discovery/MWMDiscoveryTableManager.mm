@@ -38,6 +38,8 @@ NSString * StatProvider(ItemType const type)
   case ItemType::Attractions: return kStatSearchAttractions;
   case ItemType::Cafes: return kStatSearchRestaurants;
   case ItemType::Hotels: return kStatBooking;
+  // TODO: Add correct stat key here.
+  case ItemType::Promo: return @"";
   }
 }
 
@@ -302,6 +304,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     return [self searchCollectionHolderCell:indexPath];
   }
   case ItemType::Hotels: return [self bookingCollectionHolderCell:indexPath];
+  // TODO: Add correct value here.
+  case ItemType::Promo: return 0;
   }
 }
 
@@ -443,6 +447,15 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                  onBuildRoute:^{
                    [self.delegate routeToItem:type atIndex:indexPath.row];
                  }];
+    return cell;
+  }
+  case ItemType::Promo:
+  {
+    // TODO: Add correct implementation here.
+    auto cls = [MWMDiscoveryMoreCell class];
+    auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
+                                                     dequeueReusableCellWithCellClass:cls
+                                                     indexPath:indexPath]);
     return cell;
   }
   }
