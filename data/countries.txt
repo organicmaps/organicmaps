@@ -244,6 +244,10 @@
     "Caribisch Nederland", 
     "Nederland", 
     "Venezuela"
+   ],
+   "country_name_synonyms": [
+     "Aruba",
+     "Curacao"
    ]
   }, 
   {
@@ -360,6 +364,9 @@
     "Anguilla", 
     "France", 
     "Nederland"
+   ],
+   "country_name_synonyms": [
+     "Sint Maarten"
    ]
   }, 
   {
@@ -998,6 +1005,9 @@
   }, 
   {
    "id": "Belarus", 
+   "country_name_synonyms": [
+     "Belaruś"
+   ],
    "g": [
     {
      "id": "Belarus_Vitebsk Region", 
@@ -2606,6 +2616,9 @@
    ], 
    "affiliations": [
     "Cabo Verde"
+   ],
+   "country_name_synonyms": [
+     "Cabo Verde"
    ]
   }, 
   {
@@ -2787,10 +2800,16 @@
     "Pointe-Noire", 
     "Pool", 
     "Sangha"
+   ],
+   "country_name_synonyms": [
+     "Republic of the Congo"
    ]
   }, 
   {
    "id": "Congo-Kinshasa", 
+   "country_name_synonyms": [
+     "Democratic Republic of the Congo"
+   ],
    "g": [
     {
      "id": "Congo-Kinshasa_West", 
@@ -2940,6 +2959,9 @@
   }, 
   {
    "id": "Czech Republic", 
+   "country_name_synonyms": [
+     "Czechia"
+   ],
    "g": [
     {
      "id": "Czech_Praha", 
@@ -3146,6 +3168,10 @@
     "Vall\u00e9e du Bandama", 
     "Woroba", 
     "Yamoussoukro"
+   ],
+   "country_name_synonyms": [
+     "Côte d'Ivoire",
+     "Ivory Coast"
    ]
   }, 
   {
@@ -7011,6 +7037,9 @@
       "Lazio", 
       "Palmarola", 
       "Ventotene"
+     ],
+     "country_name_synonyms": [
+       "Vatican City"
      ]
     }, 
     {
@@ -8347,6 +8376,9 @@
    ], 
    "affiliations": [
     "Lesotho"
+   ],
+   "country_name_synonyms": [
+     "Lesotho"
    ]
   }, 
   {
@@ -8613,6 +8645,9 @@
     "\u0408\u0443\u0433\u043e\u0438\u0441\u0442\u043e\u0447\u0435\u043d \u0420\u0435\u0433\u0438\u043e\u043d", 
     "\u041f\u0435\u043b\u0430\u0433\u043e\u043d\u0438\u0441\u043a\u0438 \u0420\u0435\u0433\u0438\u043e\u043d", 
     "\u0421\u0435\u0432\u0435\u0440\u043e\u0438\u0441\u0442\u043e\u0447\u0435\u043d \u0420\u0435\u0433\u0438\u043e\u043d"
+   ],
+   "country_name_synonyms": [
+     "North Macedonia"
    ]
   }, 
   {
@@ -9722,6 +9757,9 @@
   }, 
   {
    "id": "People's Republic of China", 
+   "country_name_synonyms": [
+     "China"
+   ],
    "g": [
     {
      "id": "China_Anhui", 
@@ -9782,6 +9820,9 @@
       "\u4e2d\u56fd", 
       "\u5e7f\u4e1c\u7701", 
       "\u6d77\u5357\u7701"
+     ],
+     "country_name_synonyms": [
+      "Hong Kong"
      ]
     }, 
     {
@@ -10339,6 +10380,9 @@
    ], 
    "affiliations": [
     "Pitcairn Islands"
+   ],
+   "country_name_synonyms": [
+     "Pitcairn"
    ]
   }, 
   {
@@ -10659,6 +10703,9 @@
    ], 
    "affiliations": [
     "Republika e Kosov\u00ebs"
+   ],
+   "country_name_synonyms": [
+     "Kosovo"
    ]
   }, 
   {
@@ -12054,6 +12101,10 @@
     "AS", 
     "S\u0101moa", 
     "United States of America"
+   ],
+   "country_name_synonyms": [
+     "American Samoa",
+     "Sāmoa"
    ]
   }, 
   {
@@ -12479,6 +12530,9 @@
    "affiliations": [
     "Freezland Rock", 
     "South Georgia and South Sandwich Islands"
+   ],
+   "country_name_synonyms": [
+     "South Georgia and South Sandwich Islands"
    ]
   }, 
   {
@@ -12855,6 +12909,9 @@
       "Area C"
      ]
     }
+   ],
+   "country_name_synonyms": [
+     "Palestinian Territories"
    ]
   }, 
   {
@@ -12963,6 +13020,9 @@
     "Sifundza seManzini", 
     "Sifundza seShiselweni", 
     "Swatini"
+   ],
+   "country_name_synonyms": [
+     "Eswatini"
    ]
   }, 
   {
@@ -13425,6 +13485,9 @@
    "affiliations": [
     "Ciego de \u00c1vila", 
     "The Bahamas"
+   ],
+   "country_name_synonyms": [
+     "Bahamas"
    ]
   }, 
   {
@@ -15204,6 +15267,9 @@
       "Northern Mariana Islands", 
       "MP", 
       "United States of America"
+     ],
+     "country_name_synonyms": [
+      "Guam"
      ]
     }, 
     {

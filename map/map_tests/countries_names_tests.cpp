@@ -32,6 +32,7 @@ UNIT_TEST(CountriesNamesTest)
 {
   Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
   auto & storage = f.GetStorage();
+  auto const & synonyms = storage.GetCountryNameSynonyms();
 
   auto handle = search::FindWorld(f.GetDataSource());
   TEST(handle.IsAlive(), ());
@@ -48,32 +49,9 @@ UNIT_TEST(CountriesNamesTest)
                                       StringUtf8Multilang::kDefaultCode,
                                       StringUtf8Multilang::kInternationalCode};
 
-  // todo: (@t.yan) fix names for countries which have separate mwms.
-  set<string> const kIgnoreList = {"China",
-                                   "American Samoa",
-                                   "Sāmoa",
-                                   "Pitcairn",
-                                   "South Georgia and South Sandwich Islands",
-                                   "Lesotho",
-                                   "Eswatini",
-                                   "Republic of the Congo",
-                                   "Democratic Republic of the Congo",
-                                   "Aruba",
-                                   "Sint Maarten",
-                                   "Bahamas",
-                                   "Cabo Verde",
-                                   "Ivory Coast",
-                                   "Palestinian Territories",
-                                   "Turkish Republic Of Northern Cyprus",
-                                   "Nagorno-Karabakh Republic",
-                                   "Vatican City",
-                                   "North Macedonia",
-                                   "Kosovo",
-                                   "Czechia",
+  set<string> const kIgnoreList = {"Turkish Republic Of Northern Cyprus",
                                    "Transnistria",
-                                   "Republic of Belarus",
-                                   "Hong Kong",
-                                   "Guam",
+                                   "Nagorno-Karabakh Republic",
                                    // MAPSME-10611
                                    "Mayorca Residencial",
                                    "Magnolias Residencial"};
@@ -92,7 +70,10 @@ UNIT_TEST(CountriesNamesTest)
                   string name;
                   if (!ft->GetName(langIndex, name))
                     return false;
-                  return storage.IsNode(name) || kIgnoreList.count(name) != 0;
+                  auto const it = synonyms.find(name);
+                  if (it == synonyms.end())
+                    return storage.IsNode(name) || kIgnoreList.count(name) != 0;
+                  return storage.IsNode(it->second);
                 }),
          ("Cannot find countries.txt record for country feature:",
           ft->DebugString(FeatureType::BEST_GEOMETRY)));
