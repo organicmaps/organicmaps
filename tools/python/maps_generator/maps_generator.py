@@ -3,7 +3,10 @@ import os
 import shutil
 from functools import partial
 from multiprocessing.pool import ThreadPool
+from collections import defaultdict
 import multiprocessing
+import json
+import datetime
 
 from descriptions.descriptions_downloader import (check_and_get_checker,
                                                   download_from_wikipedia_tags,
@@ -22,6 +25,7 @@ from .generator.env import (planet_lock_file, build_lock_file,
 from .generator.exceptions import (ContinueError, BadExitStatusError,
                                    wait_and_raise_if_fail)
 from .generator.gen_tool import run_gen_tool
+from .generator.statistics import make_stats, get_stages_info
 from .utils.file import is_verified, download_file, make_tarfile
 
 logger = logging.getLogger("maps_generator")
@@ -238,8 +242,9 @@ def stage_external_resources(env):
     for ttf_file in resources:
         shutil.copy2(ttf_file, env.intermediate_path)
 
-    shutil.copy2(os.path.join(env.user_resource_path, "WorldCoasts_obsolete.mwm"),
-                 env.mwm_path)
+    shutil.copy2(
+        os.path.join(env.user_resource_path, "WorldCoasts_obsolete.mwm"),
+        env.mwm_path)
 
     for file in os.listdir(env.mwm_path):
         if file.startswith(WORLD_NAME) and file.endswith(".mwm"):
@@ -257,6 +262,46 @@ def stage_localads(env):
     create_csv(env.localads_path, env.mwm_path, env.mwm_path, env.types_path,
                env.mwm_version, multiprocessing.cpu_count())
     make_tarfile(f"{env.localads_path}.tar.gz", env.localads_path)
+
+
+@stage
+def stage_statistics(env):
+    result = defaultdict(lambda: defaultdict(dict))
+
+    @country_stage_log
+    def stage_mwm_statistics(env, country, **kwargs):
+        stats_tmp = os.path.join(env.draft_path, f"{country}.stat")
+        with open(stats_tmp, "w") as f:
+            maps_stages.run_gen_tool_with_recovery_country(
+                env,
+                env.gen_tool,
+                out=f,
+                err=env.get_subprocess_out(country),
+                data_path=env.mwm_path,
+                user_resource_path=env.user_resource_path,
+                type_statistics=True,
+                output=country,
+                **kwargs
+            )
+        result["countries"][country]["types"] = \
+            make_stats(settings.STATS_TYPES_CONFIG, stats_tmp)
+
+    mwms = env.get_mwm_names()
+    countries = filter(lambda x: x not in WORLDS_NAMES, mwms)
+    with ThreadPool() as pool:
+        pool.map(partial(stage_mwm_statistics, env), countries)
+    stages_info = get_stages_info(env.log_path)
+    result["stages"] = stages_info["stages"]
+    for c in stages_info["countries"]:
+        result["countries"][c]["stages"] = stages_info["countries"][c]
+
+    def default(o):
+        if isinstance(o, datetime.timedelta):
+            return str(o)
+
+    with open(os.path.join(env.stats_path, "stats.json"), "w") as f:
+        json.dump(result, f, ensure_ascii=False, sort_keys=True,
+                  indent=2, default=default)
 
 
 @stage
@@ -283,7 +328,7 @@ STAGES = [s.__name__ for s in
            stage_download_and_convert_planet, stage_update_planet,
            stage_coastline, stage_preprocess, stage_features, stage_mwm,
            stage_descriptions, stage_countries_txt, stage_external_resources,
-           stage_localads, stage_cleanup)]
+           stage_localads, stage_statistics, stage_cleanup)]
 
 ALL_STAGES = STAGES + COUNTRIES_STAGES
 
@@ -343,6 +388,7 @@ def generate_maps(env):
             stage_countries_txt(env)
             stage_external_resources(env)
             stage_localads(env)
+            stage_statistics(env)
             stage_cleanup(env)
 
 

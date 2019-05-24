@@ -1,0 +1,59 @@
+barrier-(fence|gate);len;Заборы
+building;cnt;Здания
+(amenity|shop|historic)-.*;cnt;POI
+(amenity|shop|historic)-.*;cnt_names;POI c именами
+amenity-(cafe|restaurant|fast_food).*;cnt;Кафе и рестораны
+amenity-(pub|bar);cnt;Бары и пабы
+amenity-kindergarten;cnt;Детские сады
+amenity-(school|university|college);cnt;Школы и университеты
+amenity-parking.*;cnt;Автостоянки
+amenity-parking.*;area;Автостоянки
+amenity-pharmacy;cnt;Аптеки
+amenity-place_of_worship.*;cnt;Храмы
+amenity-(hospital|doctors);cnt;Больницы и поликлиники
+amenity-toilets;cnt;Туалеты
+amenity-(waste_disposal|recycling);cnt;Мусорные баки
+highway-(motorway|trunk|primary|secondary|tertiary|residential|unclassified|service|track|living_street)(_link)?(-.*)?;len;Автодорожная сеть
+highway-(footway|path|pedestrian|steps).*;len;Пешеходные дорожки
+highway-.*-bridge;len;Мосты
+highway-.*-tunnel;len;Туннели
+highway-(footway|path|steps)-bridge;len;Пешеходные мосты
+highway-(footway|path|steps)-tunnel;len;Пешеходные туннели
+highway-steps.*;len;Лестницы
+highway-speed_camera;cnt;Камеры контроля скорости
+internet_access-wlan;cnt;Точки доступа Wi-Fi
+leisure-(pitch|stadium|playing_fields|track|sports_centre).*;cnt;Спортплощадки и комплексы
+leisure-playground;cnt;Детские площадки
+man_made-lighthouse;cnt;Маяки
+man_made-windmill;cnt;Ветряные мельницы
+man_made-pipeline.*;len;Трубопроводы
+natural-beach;cnt;Пляжи
+natural-tree;cnt;Отдельностоящие деревья
+natural-waterfall;cnt;Водопады
+piste:type.*;len;Лыжни
+place-(city.*|town|village|hamlet);cnt;Населённые пункты
+place-island;cnt;Острова
+power-(minor_)?line.*;len;Линии электропередачи
+power-(pole|tower);cnt;Опоры ЛЭП
+railway-(rail|monorail|light_rail|narrow_gauge|preserved|siding|spur|yard|disused|incline).*;len;Железные дороги
+railway-.*-(bridge|tunnel);len;Железнодорожные мосты и туннели
+railway-(razed|abandoned).*;len;Снятые ветки ж/д
+railway-narrow_gauge.*;len;Узкоколейные ж/д
+railway-tram(-.*)?;len;Трамвайные пути
+railway-(halt|station);cnt;Станции железной дороги
+railway-subway.*;len;Линии метро
+highway-bus_stop|railway-tram_stop;cnt;Остановки наземного транспорта
+shop-bakery;cnt;Пекарни
+shop-books;cnt;Книжные магазины
+shop-clothes;cnt;Магазины одежды
+shop-shoes;cnt;Магазины обуви
+shop-(convenience|supermarket);cnt;Продуктовые магазины
+shop-florist;cnt;Цветочные салоны
+shop-(hairdresser|beauty);cnt;Парикмахерские и салоны красоты
+tourism-(guest_house|hos?tel|motel);cnt;Гостиницы и хостелы
+tourism-(attraction|viewpoint);cnt;Достопримечательности и точки обзора
+waterway-(canal|river|stream)(-.*)?;len;Реки, каналы и ручьи
+landuse-cemetery.*;area;Кладбища
+leisure-park.*;area;Парки
+natural-beach;area;Пляжи
+sponsored-booking;cnt;Booking отели

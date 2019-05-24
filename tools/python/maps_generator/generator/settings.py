@@ -50,6 +50,8 @@ SUBWAY_URL = ""
 FOOD_URL = ""
 FOOD_TRANSLATIONS_URL = ""
 
+STATS_TYPES_CONFIG = ""
+
 PLANET = "planet"
 
 GEN_TOOL = "generator_tool"
@@ -119,6 +121,9 @@ SUBWAY_URL = _get_opt(config, "External", "SUBWAY_URL", SUBWAY_URL)
 FOOD_URL = _get_opt(config, "External", "FOOD_URL", FOOD_URL)
 FOOD_TRANSLATIONS_URL = _get_opt(config, "External", "FOOD_TRANSLATIONS_URL", 
                                  FOOD_TRANSLATIONS_URL)
+
+STATS_TYPES_CONFIG = _get_opt_path(config, "Stats", "STATS_TYPES_CONFIG",
+                                   STATS_TYPES_CONFIG)
 
 PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
 PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")

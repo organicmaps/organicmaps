@@ -8,7 +8,8 @@ from .generator.exceptions import ContinueError, SkipError, ValidationError
 from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
-                             stage_localads, stages_as_string)
+                             stage_localads, stage_statistics,
+                             stages_as_string)
 from .utils.collections import unique
 
 logger = logging.getLogger("maps_generator")
@@ -25,16 +26,16 @@ def parse_options():
         nargs="?",
         type=str,
         help="Continue the last build or specified in CONTINUE from the "
-        "last stopped stage.")
+             "last stopped stage.")
     parser.add_argument(
         "--countries",
         type=str,
         default="",
         help="List of regions, separated by a comma or a semicolon, or path to "
-        "file with regions, separated by a line break, for which maps"
-        " will be built. The names of the regions can be seen "
-        "in omim/data/borders. It is necessary to set names without "
-        "any extension.")
+             "file with regions, separated by a line break, for which maps"
+             " will be built. The names of the regions can be seen "
+             "in omim/data/borders. It is necessary to set names without "
+             "any extension.")
     parser.add_argument(
         "--skip",
         type=str,
@@ -58,7 +59,7 @@ def parse_options():
         default=False,
         action="store_true",
         help="Build production maps. In another case, 'osm only maps' are built"
-        " - maps without additional data and advertising.")
+             " - maps without additional data and advertising.")
     return vars(parser.parse_args())
 
 
@@ -131,10 +132,13 @@ def main():
         ]
     options["skip"] = options_skip
     if not options["production"]:
-        options["skip"] += stages_as_string(stage_download_production_external,
-                                            stage_ugc, stage_popularity,
-                                            stage_descriptions,
-                                            stage_localads)
+        options["skip"] += stages_as_string(
+            stage_download_production_external,
+            stage_ugc, stage_popularity,
+            stage_descriptions,
+            stage_localads,
+            stage_statistics
+        )
     if not all(s in ALL_STAGES for s in options["skip"]):
         raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
                         f"not found.")

@@ -37,6 +37,7 @@ class GenTool:
         "no_ads": bool,
         "preprocess": bool,
         "split_by_polygons": bool,
+        "type_statistics": bool,
         "planet_version": int,
         "booking_data": str,
         "brands_data": str,

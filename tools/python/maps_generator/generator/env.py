@@ -153,6 +153,12 @@ class Env:
         return path
 
     @property
+    def stats_path(self):
+        path = os.path.join(self.out_path, "stats")
+        self._create_if_not_exist(path)
+        return path
+
+    @property
     def types_path(self):
         return os.path.join(self.user_resource_path, "types.txt")
 

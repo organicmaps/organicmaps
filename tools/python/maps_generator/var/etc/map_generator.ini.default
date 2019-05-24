@@ -32,5 +32,8 @@ OSM_TOOLS_PATH: ~/osmctools
 # POPULARITY_URL:
 # SUBWAY_URL:
 # FOOD_URL:
-# FOOD_TRANSLATIONS_URL: 
+# FOOD_TRANSLATIONS_URL:
+
+[Stats]
+STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt
 
