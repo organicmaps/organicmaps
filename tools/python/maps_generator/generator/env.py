@@ -123,8 +123,13 @@ class Env:
         _write_version(self.out_path, self.planet_version)
 
         self._skipped_stages = set(self.skip)
-        logger.info(
-            f"The following maps will build: {', '.join(self.countries)}.")
+
+        printed_countries = ", ".join(self.countries)
+        if len(self.countries) > 50:
+            printed_countries = (f"{', '.join(self.countries[:25])}, ..., "
+                                 f"{', '.join(self.countries[-25:])}")
+        logger.info(f"The following {len(self.countries)} maps will build: "
+                    f"{printed_countries}.")
         logger.info("Finish setup")
 
     def get_mwm_names(self):

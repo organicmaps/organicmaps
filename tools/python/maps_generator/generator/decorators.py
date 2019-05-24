@@ -16,7 +16,10 @@ def stage(func):
     def wrap(env: Env, *args, **kwargs):
         func_name = func.__name__
         stage_formatted = " ".join(func_name.split("_")).capitalize()
+        logfile = os.path.join(env.log_path, f"{func_name}.log")
+        log_handler = logging.FileHandler(logfile)
         if not env.is_accepted_stage(func_name):
+            logger.addHandler(log_handler)
             logger.info(f"{stage_formatted} was not accepted.")
             return
         main_status = env.main_status
@@ -27,12 +30,13 @@ def stage(func):
         main_status.update_status()
         logger.info(f"{stage_formatted}: start ...")
         t = time.time()
-        with open(os.path.join(env.log_path, f"{func_name}.log"), "w") as l:
+        with open(logfile, "w") as l:
             env.set_subprocess_out(l)
             func(env, *args, **kwargs)
         d = time.time() - t
         logger.info(f"{stage_formatted}: finished in "
                     f"{str(datetime.timedelta(seconds=d))}")
+        logger.removeHandler(log_handler)
 
     return wrap
 
