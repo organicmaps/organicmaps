@@ -49,7 +49,8 @@ UNIT_TEST(CountriesNamesTest)
                                       StringUtf8Multilang::kInternationalCode};
 
   // todo: (@t.yan) fix names for countries which have separate mwms.
-  set<string> const kIgnoreList = {"American Samoa",
+  set<string> const kIgnoreList = {"China",
+                                   "American Samoa",
                                    "Sāmoa",
                                    "Pitcairn",
                                    "South Georgia and South Sandwich Islands",
