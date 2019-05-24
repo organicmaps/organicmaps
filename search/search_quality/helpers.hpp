@@ -34,7 +34,8 @@ void InitViewport(std::string viewportName, m2::RectD & viewport);
 
 void InitDataSource(FrozenDataSource & dataSource, std::string const & mwmListPath);
 
-void InitAffiliations(storage::Affiliations & affiliations);
+void InitStorageData(storage::Affiliations & affiliations,
+                     storage::CountryNameSynonyms & countryNameSynonyms);
 
 std::unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
     DataSource & dataSource, storage::Affiliations const & affiliations, std::string const & locale,

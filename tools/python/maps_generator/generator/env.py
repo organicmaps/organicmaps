@@ -209,6 +209,10 @@ class Env:
         return os.path.join(self.user_resource_path, "borders_vs_osm.csv")
 
     @property
+    def countries_synonyms_path(self):
+        return os.path.join(self.user_resource_path, "countries_synonyms.csv")
+
+    @property
     def counties_txt_path(self):
         return os.path.join(self.mwm_path, "countries.txt")
 

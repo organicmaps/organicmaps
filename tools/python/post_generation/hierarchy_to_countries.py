@@ -109,9 +109,24 @@ def parse_borders_vs_osm(borders_vs_osm_csv_path):
                 vsosm[m.group(1)] = [m.group(3)]
     return vsosm
 
+def parse_countries_synonyms(countries_synonyms_csv_path):
+    countries_synonyms = {}
+    if not countries_synonyms_csv_path:
+        return countries_synonyms
+
+    with open(countries_synonyms_csv_path) as f:
+        for line in f:
+            m = re.match(r"(.+)\t(.+)", line.strip())
+            assert m
+            if m.group(1) in countries_synonyms:
+                countries_synonyms[m.group(1)].append(m.group(2))
+            else:
+                countries_synonyms[m.group(1)] = [m.group(2)]
+    return countries_synonyms
 
 def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
-                           hierarchy_path, target_path, version):
+                           countries_synonyms_csv_path, hierarchy_path,
+                           target_path, version):
 
     def fill_last(last, stack):
         name = last["id"]
@@ -124,6 +139,7 @@ def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
 
     oldvs = parse_old_vs_new(old_vs_new_csv_path)
     vsosm = parse_borders_vs_osm(borders_vs_osm_csv_path)
+    countries_synonyms = parse_countries_synonyms(countries_synonyms_csv_path)
     stack = [CountryDict(v=version, nameattr="Countries", g=[])]
     last = None
     with open(hierarchy_path) as f:
@@ -151,6 +167,8 @@ def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
                 last["old"] = oldvs[items[0]]
             if items[0] in vsosm:
                 last["affiliations"] = vsosm[items[0]]
+            if items[0] in countries_synonyms:
+                last["country_name_synonyms"] = countries_synonyms[items[0]]
 
     # the last line is always a file
     del last["d"]

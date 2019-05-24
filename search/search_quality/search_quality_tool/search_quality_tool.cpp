@@ -380,7 +380,8 @@ int main(int argc, char * argv[])
   InitDataSource(dataSource, FLAGS_mwm_list_path);
 
   storage::Affiliations affiliations;
-  InitAffiliations(affiliations);
+  storage::CountryNameSynonyms countryNameSynonyms;
+  InitStorageData(affiliations, countryNameSynonyms);
 
   auto engine = InitSearchEngine(dataSource, affiliations, FLAGS_locale, FLAGS_num_threads);
 

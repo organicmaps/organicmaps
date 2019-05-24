@@ -254,9 +254,13 @@ private:
 
 /// @return version of country file or -1 if error was encountered
 int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
-                                Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
+                                Affiliations & affiliations,
+                                CountryNameSynonyms & countryNameSynonyms,
+                                OldMwmMapping * mapping = nullptr);
 int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
-                              Affiliations & affiliations, OldMwmMapping * mapping = nullptr);
+                              Affiliations & affiliations,
+                              CountryNameSynonyms & countryNameSynonyms,
+                              OldMwmMapping * mapping = nullptr);
 
 void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
                                  std::map<std::string, CountryInfo> & id2info, bool & isSingleMwm);

@@ -43,7 +43,8 @@ void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & c
 void RegionInfoGetter::LoadCountriesTree()
 {
   storage::Affiliations affiliations;
-  storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations);
+  storage::CountryNameSynonyms countryNameSynonyms;
+  storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms);
 }
 
 void RegionInfoGetter::SetLocale(string const & locale)

@@ -19,8 +19,10 @@ using CountriesSet = std::set<CountryId>;
 using CountriesVec = std::vector<CountryId>;
 using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
 using OldMwmMapping = std::map<CountryId, CountriesSet>;
-/// Map from key affiliation words into MWM IDs (file names).
+/// Map from key affiliation words into CountryIds.
 using Affiliations = std::unordered_map<std::string, std::vector<CountryId>>;
+/// Map from country name synonyms and old names into CountryId.
+using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
 
 extern const storage::CountryId kInvalidCountryId;
 

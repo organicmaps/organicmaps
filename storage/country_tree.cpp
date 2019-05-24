@@ -33,6 +33,7 @@ public:
                                         CountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) = 0;
   virtual void InsertAffiliation(CountryId const & countryId, string const & affilation) = 0;
+  virtual void InsertCountryNameSynonym(CountryId const & countryId, string const & synonym) = 0;
   virtual OldMwmMapping GetMapping() const = 0;
 };
 
@@ -40,11 +41,15 @@ class StoreCountriesSingleMwms : public StoreSingleMwmInterface
 {
   CountryTree & m_countries;
   Affiliations & m_affiliations;
+  CountryNameSynonyms & m_countryNameSynonyms;
   OldMwmMapping m_idsMapping;
 
 public:
-  StoreCountriesSingleMwms(CountryTree & countries, Affiliations & affiliations)
-    : m_countries(countries), m_affiliations(affiliations)
+  StoreCountriesSingleMwms(CountryTree & countries, Affiliations & affiliations,
+                           CountryNameSynonyms & countryNameSynonyms)
+    : m_countries(countries)
+    , m_affiliations(affiliations)
+    , m_countryNameSynonyms(countryNameSynonyms)
   {
   }
   ~StoreCountriesSingleMwms()
@@ -81,6 +86,17 @@ public:
     m_affiliations[affilation].push_back(countryId);
   }
 
+  void InsertCountryNameSynonym(CountryId const & countryId, string const & synonym) override
+  {
+    ASSERT(!synonym.empty(), ());
+    ASSERT(!countryId.empty(), ());
+    ASSERT(m_countryNameSynonyms.find(synonym) == m_countryNameSynonyms.end(),
+           ("Synonym must identify CountryTree node where the country is located. Country cannot be "
+            "located at multiple nodes."));
+
+    m_countryNameSynonyms[synonym] = countryId;
+  }
+
   OldMwmMapping GetMapping() const override { return m_idsMapping; }
 };
 
@@ -104,10 +120,17 @@ public:
   }
 
   void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override {}
+
   void InsertAffiliation(CountryId const & /* countryId */,
                          string const & /* affilation */) override
   {
   }
+
+  void InsertCountryNameSynonym(CountryId const & /* countryId */,
+                                string const & /* synonym */) override
+  {
+  }
+
   OldMwmMapping GetMapping() const override
   {
     ASSERT(false, ());
@@ -121,6 +144,11 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId 
 {
   CountryId id;
   FromJSONObject(node, "id", id);
+
+  vector<string> countryNameSynonyms;
+  FromJSONObjectOptionalField(node, "country_name_synonyms", countryNameSynonyms);
+  for (auto const & synonym : countryNameSynonyms)
+    store.InsertCountryNameSynonym(id, synonym);
 
   // Mapping two component (big) mwms to one componenst (small) ones.
   vector<string> oldIds;
@@ -199,7 +227,8 @@ class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
   CountryTree & m_countries;
 
 public:
-  StoreCountriesTwoComponentMwms(CountryTree & countries, Affiliations & /* affiliations */)
+  StoreCountriesTwoComponentMwms(CountryTree & countries, Affiliations & /* affiliations */,
+                                 CountryNameSynonyms & /* countryNameSynonyms */)
     : m_countries(countries)
   {
   }
@@ -308,6 +337,7 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
 
 int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries,
                                 Affiliations & affiliations,
+                                CountryNameSynonyms & countryNameSynonyms,
                                 OldMwmMapping * mapping /* = nullptr */)
 {
   countries.Clear();
@@ -321,7 +351,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
 
     if (version::IsSingleMwm(version))
     {
-      StoreCountriesSingleMwms store(countries, affiliations);
+      StoreCountriesSingleMwms store(countries, affiliations, countryNameSynonyms);
       if (!LoadCountriesSingleMwmsImpl(jsonBuffer, store))
         return -1;
       if (mapping)
@@ -329,7 +359,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
     }
     else
     {
-      StoreCountriesTwoComponentMwms store(countries, affiliations);
+      StoreCountriesTwoComponentMwms store(countries, affiliations, countryNameSynonyms);
       if (!LoadCountriesTwoComponentMwmsImpl(jsonBuffer, store))
         return -1;
     }
@@ -342,11 +372,12 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
 }
 
 int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
-                              Affiliations & affiliations, OldMwmMapping * mapping)
+                              Affiliations & affiliations,
+                              CountryNameSynonyms & countryNameSynonyms, OldMwmMapping * mapping)
 {
   string json;
   ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);
-  return LoadCountriesFromBuffer(json, countries, affiliations, mapping);
+  return LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms, mapping);
 }
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info,

@@ -66,12 +66,15 @@ The post_generation commands are:
                             help="old_vs_new.csv file")
         parser.add_argument("--osm", required=True,
                             help="borders_vs_osm.csv file")
+        parser.add_argument("--countries_synonyms", required=True,
+                            help="countries_synonyms.csv file")
         parser.add_argument("--mwm_version", type=int, required=True,
                             help="Mwm version")
         parser.add_argument("-o", "--output", required=True,
                             help="Output countries.txt file (default is stdout)")
         args = parser.parse_args(sys.argv[2:])
         countries_json = hierarchy_to_countries_(args.old, args.osm,
+                                                 args.countries_synonyms,
                                                  args.hierarchy,
                                                  args.target,
                                                  args.mwm_version)

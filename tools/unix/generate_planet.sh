@@ -636,7 +636,7 @@ if [ "$MODE" == "resources" ]; then
   putmode "Step 8: Updating resource lists"
   # Update countries list
   $PYTHON36 -m $POST_GENERATION_MODULE hierarchy_to_countries --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --mwm_version "$COUNTRIES_VERSION" \
-    --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
+    --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --countries_synonyms "$DATA_PATH/countries_synonyms.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
 
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do

@@ -108,7 +108,8 @@ int main(int argc, char * argv[])
   InitDataSource(dataSource, "" /* mwmListPath */);
 
   storage::Affiliations affiliations;
-  InitAffiliations(affiliations);
+  storage::CountryNameSynonyms countryNameSynonyms;
+  InitStorageData(affiliations, countryNameSynonyms);
 
   auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, 1 /* numThreads */);
 

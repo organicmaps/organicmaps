@@ -175,12 +175,14 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   LOG(LINFO, ());
 }
 
-void InitAffiliations(storage::Affiliations & affiliations)
+void InitStorageData(storage::Affiliations & affiliations,
+                     storage::CountryNameSynonyms & countryNameSynonyms)
 {
   auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
 
   storage::CountryTree countries;
-  auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, affiliations);
+  auto const rv =
+      storage::LoadCountriesFromFile(countriesFile, countries, affiliations, countryNameSynonyms);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
 }
 
