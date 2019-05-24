@@ -57,7 +57,7 @@ public:
   std::vector<Segment> GetProcessedPath();
 
 private:
-  static size_t constexpr kMaxStep = 5;
+  static size_t const kMaxStep;
 
   struct SegmentData
   {

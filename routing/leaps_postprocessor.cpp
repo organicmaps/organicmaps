@@ -38,6 +38,9 @@ private:
 
 namespace routing
 {
+// static
+size_t const LeapsPostProcessor::kMaxStep = 5;
+
 LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path, IndexGraphStarter & starter)
   : m_path(path),
     m_starter(starter),
