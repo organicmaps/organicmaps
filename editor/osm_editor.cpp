@@ -1291,5 +1291,6 @@ string DebugPrint(Editor::SaveResult const saveResult)
     case Editor::SaveResult::NoUnderlyingMapError: return "NoUnderlyingMapError";
     case Editor::SaveResult::SavingError: return "SavingError";
   }
+  UNREACHABLE();
 }
 }  // namespace osm

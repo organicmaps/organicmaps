@@ -455,5 +455,6 @@ string DebugPrint(HighwayType type)
   case HighwayType::HighwayPlatform: return "highway-platform";
   case HighwayType::RouteShuttleTrain: return "route-shuttle_train";
   }
+  UNREACHABLE();
 }
 }  // namespace routing

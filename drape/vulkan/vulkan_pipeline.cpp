@@ -47,7 +47,7 @@ VkCompareOp DecodeTestFunction(uint8_t testFunctionByte)
   case TestFunction::GreaterOrEqual: return VK_COMPARE_OP_GREATER_OR_EQUAL;
   case TestFunction::Always: return VK_COMPARE_OP_ALWAYS;
   }
-  ASSERT(false, ());
+  UNREACHABLE();
 }
 
 VkStencilOp DecodeStencilAction(uint8_t stencilActionByte)
@@ -63,7 +63,7 @@ VkStencilOp DecodeStencilAction(uint8_t stencilActionByte)
   case StencilAction::DecrementWrap: return VK_STENCIL_OP_DECREMENT_AND_WRAP;
   case StencilAction::Invert: return VK_STENCIL_OP_INVERT;
   }
-  ASSERT(false, ());
+  UNREACHABLE();
 }
 
 VkFormat GetAttributeFormat(uint8_t componentCount, glConst componentType)

@@ -75,7 +75,7 @@ struct QueueV0
   static Version GetVersion() { return Version::V0; }
 
   DECLARE_VISITOR(visitor(m_candidates, "queue"),
-                  visitor(m_lastNotificationProvidedTime, "last_notification"));
+                  visitor(m_lastNotificationProvidedTime, "last_notification"))
 
   Time m_lastNotificationProvidedTime;
   Candidates m_candidates;
@@ -90,5 +90,6 @@ inline std::string DebugPrint(NotificationCandidate::Type type)
   case NotificationCandidate::Type::UgcAuth: return "UgcAuth";
   case NotificationCandidate::Type::UgcReview: return "UgcReview";
   }
+  UNREACHABLE();
 }
 }  // namespace notifications

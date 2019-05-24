@@ -1528,7 +1528,7 @@ void Framework::InitUGC()
   });
 
   bool ugcStorageValidationExecuted = false;
-  UNUSED_VALUE(settings::Get("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted));
+  settings::TryGet("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted);
 
   if (!ugcStorageValidationExecuted)
   {
@@ -1711,19 +1711,16 @@ size_t Framework::ShowSearchResults(search::Results const & results)
   using namespace search;
 
   size_t count = results.GetCount();
-  switch (count)
+  if (count == 0)
+    return 0;
+
+  if (count == 1)
   {
-  case 1:
-    {
-      Result const & r = results[0];
-      if (!r.IsSuggest())
-        ShowSearchResult(r);
-      else
-        count = 0;
-      // do not put break here
-    }
-  case 0:
-    return count;
+    Result const & r = results[0];
+    if (!r.IsSuggest())
+      ShowSearchResult(r);
+    else
+      return 0;
   }
 
   FillSearchResultsMarks(true /* clear */, results);
@@ -2592,7 +2589,7 @@ UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInf
         return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
       return tapInfo.GetDefaultSearchRect(m_currentModelView);
     },
-    [](UserMark::Type type) { return false; });
+    [](UserMark::Type) { return false; });
   return mark;
 }
 
@@ -3066,7 +3063,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
   return false;
 }
 
-bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
+bool Framework::ParseRoutingDebugCommand(search::SearchParams const &)
 {
   // This is an example.
   /*
@@ -3625,7 +3622,7 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
       if (!id.IsValid())
         return;
 
-      for (auto const filterResult : filtersResults)
+      for (auto const & filterResult : filtersResults)
       {
         auto const found = std::binary_search(filterResult.m_featuresSorted.cbegin(),
                                               filterResult.m_featuresSorted.cend(), id);

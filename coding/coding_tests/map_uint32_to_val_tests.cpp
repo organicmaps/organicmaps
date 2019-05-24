@@ -17,8 +17,8 @@ UNIT_TEST(MapUint32ValTest)
   vector<pair<uint32_t, uint32_t>> data;
   size_t const dataSize = 227;
   data.resize(dataSize);
-  for (auto i = 0; i < data.size(); ++i)
-    data[i] = make_pair(i, i);
+  for (size_t i = 0; i < data.size(); ++i)
+    data[i] = make_pair(static_cast<uint32_t>(i), static_cast<uint32_t>(i));
 
   Buffer buffer;
   {

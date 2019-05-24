@@ -7,6 +7,7 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include <memory>
@@ -16,7 +17,8 @@ namespace eye
 // static
 void EyeForTesting::ResetEye()
 {
-  UNUSED_VALUE(GetPlatform().MkDirChecked(Storage::GetEyeDir()));
+  if(!GetPlatform().MkDirChecked(Storage::GetEyeDir()))
+    LOG(LWARNING, ("Path", Storage::GetEyeDir(), "was not created."));
 
   SetInfo({});
 

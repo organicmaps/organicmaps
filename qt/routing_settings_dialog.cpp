@@ -69,8 +69,7 @@ boost::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string con
 boost::optional<ms::LatLon> RoutingSettings::GetCoords(bool start)
 {
   std::string input;
-  UNUSED_VALUE(settings::Get(start ? kStartCoordsCachedSettings
-                                   : kFinishCoordsCachedSettings, input));
+  settings::TryGet(start ? kStartCoordsCachedSettings : kFinishCoordsCachedSettings, input);
   return GetCoordsFromString(input);
 }
 
@@ -78,7 +77,7 @@ boost::optional<ms::LatLon> RoutingSettings::GetCoords(bool start)
 void RoutingSettings::LoadSettings(Framework & framework)
 {
   int routerType = 0;
-  UNUSED_VALUE(settings::Get(kRouterTypeCachedSettings, routerType));
+  settings::TryGet(kRouterTypeCachedSettings, routerType);
 
   framework.GetRoutingManager().SetRouterImpl(static_cast<routing::RouterType>(routerType));
 }
@@ -111,7 +110,7 @@ void RoutingSettings::AddLineEdit(std::string const & title, QLineEdit * lineEdi
     bool const isStart = lineEdit == m_startInput;
     std::string const settingsName = isStart ? kStartCoordsCachedSettings.c_str()
                                              : kFinishCoordsCachedSettings.c_str();
-    UNUSED_VALUE(settings::Get(settingsName, defaultText));
+    settings::TryGet(settingsName, defaultText);
   }
 
   lineEdit->setText(defaultText.c_str());
@@ -182,21 +181,21 @@ void RoutingSettings::SaveSettings()
 void RoutingSettings::LoadSettings()
 {
   std::string startCoordsText;
-  UNUSED_VALUE(settings::Get(kStartCoordsCachedSettings, startCoordsText));
+  settings::TryGet(kStartCoordsCachedSettings, startCoordsText);
   m_startInput->setText(startCoordsText.c_str());
 
   std::string finishCoordsText;
-  UNUSED_VALUE(settings::Get(kFinishCoordsCachedSettings, finishCoordsText));
+  settings::TryGet(kFinishCoordsCachedSettings, finishCoordsText);
   m_finishInput->setText(finishCoordsText.c_str());
 
   int routerType = 0;
-  UNUSED_VALUE(settings::Get(kRouterTypeCachedSettings, routerType));
+  settings::TryGet(kRouterTypeCachedSettings, routerType);
   m_routerType->setCurrentIndex(routerType);
 
   m_framework.GetRoutingManager().SetRouterImpl(static_cast<routing::RouterType>(routerType));
 
   bool setChecked = false;
-  UNUSED_VALUE(settings::Get(kUseCachedRoutingSettings, setChecked));
+  settings::TryGet(kUseCachedRoutingSettings, setChecked);
   m_alwaysCheckbox->setChecked(setChecked);
 }
 

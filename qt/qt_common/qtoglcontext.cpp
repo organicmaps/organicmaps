@@ -56,12 +56,14 @@ void QtRenderOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer
 void QtRenderOGLContext::Resize(int w, int h)
 {
   CHECK(m_isContextAvailable, ());
+  CHECK_GREATER_OR_EQUAL(w, 0, ());
+  CHECK_GREATER_OR_EQUAL(h, 0, ());
 
   // This function can't be called inside BeginRendering - EndRendering.
   std::lock_guard<std::mutex> lock(m_frameMutex);
 
-  auto const nw = base::NextPowOf2(w);
-  auto const nh = base::NextPowOf2(h);
+  auto const nw = static_cast<int>(base::NextPowOf2(static_cast<uint32_t>(w)));
+  auto const nh = static_cast<int>(base::NextPowOf2(static_cast<uint32_t>(h)));
 
   if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
   {

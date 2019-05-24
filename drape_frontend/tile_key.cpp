@@ -16,7 +16,7 @@ namespace
 uint64_t constexpr GetMask(uint32_t bitsCount)
 {
   uint64_t r = 0;
-  for (auto i = 0; i < bitsCount; ++i)
+  for (uint32_t i = 0; i < bitsCount; ++i)
     r |= (static_cast<uint64_t>(1) << i);
   return r;
 }

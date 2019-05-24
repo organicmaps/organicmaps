@@ -20,7 +20,7 @@ glConst DecodeTestFunction(TestFunction depthFunction)
   case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
   case TestFunction::Always: return gl_const::GLAlways;
   }
-  ASSERT(false, ());
+  UNREACHABLE();
 }
 
 glConst DecodeStencilFace(StencilFace stencilFace)
@@ -31,7 +31,7 @@ glConst DecodeStencilFace(StencilFace stencilFace)
   case StencilFace::Back: return gl_const::GLBack;
   case StencilFace::FrontAndBack: return gl_const::GLFrontAndBack;
   }
-  ASSERT(false, ());
+  UNREACHABLE();
 }
 
 glConst DecodeStencilAction(StencilAction stencilAction)
@@ -47,7 +47,7 @@ glConst DecodeStencilAction(StencilAction stencilAction)
   case StencilAction::DecrementWrap: return gl_const::GLDecrWrap;
   case StencilAction::Invert: return gl_const::GLInvert;
   }
-  ASSERT(false, ());
+  UNREACHABLE();
 }
 }  // namespace
 

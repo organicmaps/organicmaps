@@ -104,6 +104,7 @@ std::string DebugPrint(Facility const facility)
   case Facility::AdsDownloading: return "AdsDownloading";
   case Facility::Count: return "Count";
   }
+  UNREACHABLE();
 }
 
 std::string DebugPrint(Scheme const scheme)
@@ -116,5 +117,6 @@ std::string DebugPrint(Scheme const scheme)
   case Scheme::EconomyMaximum: return "EconomyMaximum";
   case Scheme::Auto: return "Auto";
   }
+  UNREACHABLE();
 }
 }  // namespace power_management

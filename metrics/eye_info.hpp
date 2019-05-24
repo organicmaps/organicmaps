@@ -6,6 +6,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "base/assert.hpp"
 #include "base/visitor.hpp"
 
 #include <array>
@@ -244,7 +245,7 @@ public:
 
   DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
                   visitor(m_readableName, "readable_name"), visitor(m_defaultName, "default_name"),
-                  visitor(m_events, "events"));
+                  visitor(m_events, "events"))
 
 private:
   std::string m_bestType;
@@ -301,6 +302,7 @@ inline std::string DebugPrint(Tip::Type const & type)
   case Tip::Type::PublicTransport: return "PublicTransport";
   case Tip::Type::Count: return "Count";
   }
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(Tip::Event const & type)
@@ -311,6 +313,7 @@ inline std::string DebugPrint(Tip::Event const & type)
   case Tip::Event::GotitClicked: return "GotitClicked";
   case Tip::Event::Count: return "Count";
   }
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(Layer::Type const & type)
@@ -320,6 +323,7 @@ inline std::string DebugPrint(Layer::Type const & type)
   case Layer::Type::TrafficJams: return "TrafficJams";
   case Layer::Type::PublicTransport: return "PublicTransport";
   }
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(Discovery::Event const & event)
@@ -336,6 +340,7 @@ inline std::string DebugPrint(Discovery::Event const & event)
     case Discovery::Event::MoreLocalsClicked: return "MoreLocalsClicked";
     case Discovery::Event::Count: return "Count";
   }
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(MapObject::Event::Type const & type)
@@ -352,5 +357,6 @@ inline std::string DebugPrint(MapObject::Event::Type const & type)
   case MapObject::Event::Type::BookingReviews: return "BookingReviews";
   case MapObject::Event::Type::BookingDetails: return "BookingDetails";
   }
+  UNREACHABLE();
 }
 }  // namespace eye

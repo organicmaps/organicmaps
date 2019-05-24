@@ -27,7 +27,7 @@ VkPrimitiveTopology GetPrimitiveType(MeshObject::DrawPrimitive primitive)
     case MeshObject::DrawPrimitive::TriangleStrip: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP;
     case MeshObject::DrawPrimitive::LineStrip: return VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
   }
-  CHECK(false, ("Unsupported type"));
+  UNREACHABLE();
 }
 }  // namespace
 

@@ -26,7 +26,7 @@ void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
   cout << "Top results:" << endl;
   for (size_t i = 0; i < results.size(); ++i)
   {
-    if (FLAGS_top >= 0 && i >= FLAGS_top)
+    if (FLAGS_top >= 0 && static_cast<int32_t>(i) >= FLAGS_top)
       break;
     cout << "  " << DebugPrint(results[i]);
     if (auto const && e = hierarchy.GetEntryForOsmId(results[i].m_osmId))

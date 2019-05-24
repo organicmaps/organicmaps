@@ -119,7 +119,7 @@ VkFormat VulkanFormatUnpacker::Unpack(TextureFormat format)
     CHECK(false, ());
     return VK_FORMAT_UNDEFINED;
   }
-  CHECK(false, ());
+  UNREACHABLE();
 }
 
 SamplerKey::SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)

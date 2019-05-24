@@ -7,6 +7,8 @@
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "base/assert.hpp"
+
 namespace
 {
 glConst GetGLDrawPrimitive(dp::MeshObject::DrawPrimitive drawPrimitive)
@@ -17,6 +19,7 @@ glConst GetGLDrawPrimitive(dp::MeshObject::DrawPrimitive drawPrimitive)
   case dp::MeshObject::DrawPrimitive::TriangleStrip: return gl_const::GLTriangleStrip;
   case dp::MeshObject::DrawPrimitive::LineStrip: return gl_const::GLLineStrip;
   }
+  UNREACHABLE();
 }
 }  // namespace
 
