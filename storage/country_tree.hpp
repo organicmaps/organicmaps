@@ -4,7 +4,6 @@
 #include "storage/storage_defines.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -180,7 +179,7 @@ public:
     }
 
     ASSERT(added, ());
-    m_countryTreeHashTable.insert(make_pair(Normalize(value.Name()), added));
+    m_countryTreeHashTable.insert(make_pair(value.Name(), added));
     return added->Value();
   }
 
@@ -200,11 +199,10 @@ public:
     if (IsEmpty())
       return;
 
-    auto const normalizedKey = Normalize(key);
-    if (normalizedKey == Normalize(m_countryTree->Value().Name()))
+    if (key == m_countryTree->Value().Name())
       found.push_back(m_countryTree.get());
 
-    auto const range = m_countryTreeHashTable.equal_range(normalizedKey);
+    auto const range = m_countryTreeHashTable.equal_range(key);
     if (range.first == range.second)
       return;
 
@@ -220,7 +218,6 @@ public:
       return nullptr;
 
     std::vector<Node const *> found;
-    // |key| will be normalized inside Find.
     Find(key, found);
     if (found.empty())
       return nullptr;
@@ -238,7 +235,6 @@ public:
       return nullptr;
 
     std::vector<Node const *> found;
-    // |key| will be normalized inside Find.
     Find(key, found);
 
     for (auto node : found)
@@ -251,18 +247,6 @@ public:
 
 private:
   using CountryTreeHashTable = std::multimap<CountryId, Node *>;
-
-  static CountryId Normalize(CountryId const & id)
-  {
-    auto normalized = strings::Normalize(id);
-    strings::MakeLowerCaseInplace(normalized);
-    if (strings::StartsWith(normalized, "the "))
-      normalized.erase(0, 4);
-    size_t pos = 0;
-    while ((pos = normalized.find(" the "), pos) != std::string::npos)
-      normalized.erase(pos, 4);
-    return normalized;
-  }
 
   std::unique_ptr<Node> m_countryTree;
   CountryTreeHashTable m_countryTreeHashTable;
