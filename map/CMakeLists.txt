@@ -16,8 +16,6 @@ set(
   benchmark_tools.cpp
   booking_availability_filter.cpp
   booking_availability_filter.hpp
-  promo_delegate.cpp
-  promo_delegate.hpp
   booking_filter.hpp
   booking_filter_cache.cpp
   booking_filter_cache.hpp
@@ -97,6 +95,8 @@ set(
   power_management/power_manager.hpp
   power_management/power_management_schemas.cpp
   power_management/power_management_schemas.hpp
+  promo_delegate.cpp
+  promo_delegate.hpp
   purchase.cpp
   purchase.hpp
   reachable_by_taxi_checker.cpp

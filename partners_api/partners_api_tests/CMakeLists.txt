@@ -6,12 +6,12 @@ set(
   SRC
   ads_engine_tests.cpp
   booking_tests.cpp
-  promo_tests.cpp
   facebook_tests.cpp
   google_tests.cpp
   maxim_tests.cpp
   megafon_countries_tests.cpp
   mopub_tests.cpp
+  promo_tests.cpp
   rb_tests.cpp
   rutaxi_tests.cpp
   taxi_engine_tests.cpp

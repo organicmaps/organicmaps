@@ -42,6 +42,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   @Nullable
   private CountryItem mCurrentCountry;
 
+  @Nullable
+  private DownloaderPromoBanner mPromoBanner;
+
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -237,7 +240,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
      });
 
     mFrame.findViewById(R.id.banner_button).setOnClickListener(v -> {
-      Utils.openUrl(mActivity, Framework.nativeGetMegafonDownloaderBannerUrl());
+      if (mPromoBanner != null && mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
+        Utils.openUrl(mActivity, mPromoBanner.getUrl());
     });
   }
 
@@ -246,14 +250,23 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     if (mCurrentCountry == null || TextUtils.isEmpty(mCurrentCountry.id))
       return;
 
-    if (!Framework.nativeHasMegafonDownloaderBanner(mCurrentCountry.id))
+    mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
+    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
       return;
 
-    boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
-    boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
-    boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
+    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON)
+    {
+      boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
+      boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
+      boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
 
-    UiUtils.showIf(enqueued || progress || applying, mFrame, R.id.banner);
+      UiUtils.showIf(enqueued || progress || applying, mFrame, R.id.banner);
+    }
+    else
+    {
+      // TODO: implement me.
+      throw new RuntimeException("Not implemented yet");
+    }
   }
 
   @Override

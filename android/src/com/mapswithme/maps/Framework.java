@@ -19,6 +19,7 @@ import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.DownloaderPromoBanner;
 import com.mapswithme.maps.gdpr.UserBindingListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
@@ -477,10 +478,8 @@ public class Framework
   @NonNull
   public static native String nativeMoPubInitializationBannerId();
 
-  public static native boolean nativeHasMegafonDownloaderBanner(@NonNull String mwmId);
-
   @NonNull
-  public static native String nativeGetMegafonDownloaderBannerUrl();
+  public static native DownloaderPromoBanner nativeGetDownloaderPromoBanner(@NonNull String mwmId);
 
   public static native boolean nativeHasMegafonCategoryBanner();
 

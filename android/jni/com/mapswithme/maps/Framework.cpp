@@ -14,6 +14,7 @@
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
 #include "partners_api/booking_block_params.hpp"
+#include "partners_api/downloader_promo.hpp"
 #include "partners_api/mopub_ads.hpp"
 #include "partners_api/megafon_countries.hpp"
 
@@ -1919,16 +1920,27 @@ Java_com_mapswithme_maps_Framework_nativeMoPubInitializationBannerId(JNIEnv * en
   return jni::ToJavaString(env, ads::Mopub::InitializationBannerId());
 }
 
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env, jclass,
-                                                                    jstring mwmId)
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDownloaderPromoBanner(JNIEnv * env, jclass,
+                                                                  jstring mwmId)
 {
+  static jclass const downloaderPromoBannerClass = jni::GetGlobalClassRef(env,
+      "com/mapswithme/maps/downloader/DownloaderPromoBanner");
+  // Java signature : DownloaderPromoBanner(@DownloaderPromoType int type, @NonNull String url)
+  static jmethodID const downloaderPromoBannerConstructor = jni::GetConstructorID(env,
+      downloaderPromoBannerClass, "(ILjava/lang/String;)V");
+
   auto const & purchase = frm()->GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return static_cast<jboolean>(false);
-  return static_cast<jboolean>(ads::HasMegafonDownloaderBanner(frm()->GetStorage(),
-                                                               jni::ToNativeString(env, mwmId),
-                                                               languages::GetCurrentNorm()));
+  bool const hasSubscription = purchase != nullptr &&
+                               purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+  auto const banner = promo::DownloaderPromo::GetBanner(frm()->GetStorage(),
+                                                        jni::ToNativeString(env, mwmId),
+                                                        languages::GetCurrentNorm(),
+                                                        hasSubscription);
+
+  jni::TScopedLocalRef const url(env, jni::ToJavaString(env, banner.m_url));
+  return env->NewObject(downloaderPromoBannerClass, downloaderPromoBannerConstructor,
+                        static_cast<jint>(banner.m_type), url.get());
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1946,12 +1958,6 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonCategoryBanner(JNIEnv * env, 
   return static_cast<jboolean>(ads::HasMegafonCategoryBanner(frm()->GetStorage(),
                                                              frm()->GetTopmostCountries(latLon),
                                                              languages::GetCurrentNorm()));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetMegafonDownloaderBannerUrl(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, ads::GetMegafonDownloaderBannerUrl());
 }
 
 JNIEXPORT jstring JNICALL

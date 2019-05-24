@@ -16,8 +16,8 @@ set(
   booking_block_params.cpp
   booking_block_params.hpp
   booking_params_base.hpp
-  promo_api.cpp
-  promo_api.hpp
+  downloader_promo.cpp
+  downloader_promo.hpp
   facebook_ads.cpp
   facebook_ads.hpp
   google_ads.cpp
@@ -34,6 +34,8 @@ set(
   opentable_api.hpp
   partners.cpp
   partners.hpp
+  promo_api.cpp
+  promo_api.hpp
   rb_ads.cpp
   rb_ads.hpp
   rutaxi_api.cpp

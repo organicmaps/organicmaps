@@ -66,6 +66,8 @@
 		4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */; };
 		4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566605220D920000085E8C1 /* megafon_countries_tests.cpp */; };
 		4566605520D920220085E8C1 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566605420D920220085E8C1 /* libstorage.a */; };
+		45BABC33229812830060FA53 /* downloader_promo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45BABC31229812820060FA53 /* downloader_promo.cpp */; };
+		45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BABC32229812830060FA53 /* downloader_promo.hpp */; };
 		45C380772094C5B400C18D81 /* partners.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C380752094C5B400C18D81 /* partners.cpp */; };
 		45C380782094C5B400C18D81 /* partners.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C380762094C5B400C18D81 /* partners.hpp */; };
 		BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1956E41F543D7B003ECE6C /* locals_api.cpp */; };
@@ -158,6 +160,8 @@
 		4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = megafon_countries.hpp; sourceTree = "<group>"; };
 		4566605220D920000085E8C1 /* megafon_countries_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries_tests.cpp; sourceTree = "<group>"; };
 		4566605420D920220085E8C1 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		45BABC31229812820060FA53 /* downloader_promo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_promo.cpp; sourceTree = "<group>"; };
+		45BABC32229812830060FA53 /* downloader_promo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_promo.hpp; sourceTree = "<group>"; };
 		45C380752094C5B400C18D81 /* partners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = partners.cpp; sourceTree = "<group>"; };
 		45C380762094C5B400C18D81 /* partners.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = partners.hpp; sourceTree = "<group>"; };
 		BB1956E41F543D7B003ECE6C /* locals_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locals_api.cpp; sourceTree = "<group>"; };
@@ -241,13 +245,6 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
-				3D18DC4022956DFA00A583A6 /* promo_api.cpp */,
-				3D18DC3F22956DFA00A583A6 /* promo_api.hpp */,
-				3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */,
-				3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */,
-				3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */,
-				3DCD415120DAB33700143533 /* booking_block_params.cpp */,
-				3DCD415220DAB33700143533 /* booking_block_params.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
 				346E88901E9D087400D4CE9B /* ads_base.hpp */,
 				346E88911E9D087400D4CE9B /* ads_engine.cpp */,
@@ -257,7 +254,11 @@
 				F6B5363D1DA520E40067EEA5 /* booking_api.hpp */,
 				3D4E997B1FB439260025B48C /* booking_availability_params.cpp */,
 				3D4E997A1FB439260025B48C /* booking_availability_params.hpp */,
+				3DCD415120DAB33700143533 /* booking_block_params.cpp */,
+				3DCD415220DAB33700143533 /* booking_block_params.hpp */,
 				3DA5713320B57358007BDE27 /* booking_params_base.hpp */,
+				45BABC31229812820060FA53 /* downloader_promo.cpp */,
+				45BABC32229812830060FA53 /* downloader_promo.hpp */,
 				3DBC1C521E4B14920016897F /* facebook_ads.cpp */,
 				3DBC1C531E4B14920016897F /* facebook_ads.hpp */,
 				3D452AF11EE6D20D009EAB9B /* google_ads.cpp */,
@@ -274,10 +275,15 @@
 				F67E75241DB8F06F00D6741F /* opentable_api.hpp */,
 				45C380752094C5B400C18D81 /* partners.cpp */,
 				45C380762094C5B400C18D81 /* partners.hpp */,
+				3D18DC4022956DFA00A583A6 /* promo_api.cpp */,
+				3D18DC3F22956DFA00A583A6 /* promo_api.hpp */,
 				346E88941E9D087400D4CE9B /* rb_ads.cpp */,
 				346E88951E9D087400D4CE9B /* rb_ads.hpp */,
+				3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */,
+				3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */,
 				3D47B2961F054C89000828D2 /* taxi_base.cpp */,
 				3DFEBF941EFBFC1500317D5C /* taxi_base.hpp */,
+				3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */,
 				3DFEBF951EFBFC1500317D5C /* taxi_engine.cpp */,
 				3DFEBF961EFBFC1500317D5C /* taxi_engine.hpp */,
 				3DF9C21A207CAC3B00DA0793 /* taxi_places_loader.cpp */,
@@ -373,6 +379,7 @@
 				45C380782094C5B400C18D81 /* partners.hpp in Headers */,
 				3DFEBF861EF82BEA00317D5C /* viator_api.hpp in Headers */,
 				346E889C1E9D087400D4CE9B /* rb_ads.hpp in Headers */,
+				45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */,
 				3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */,
 				3DFEBF9A1EFBFC1500317D5C /* taxi_base.hpp in Headers */,
 				346E889A1E9D087400D4CE9B /* banner.hpp in Headers */,
@@ -504,6 +511,7 @@
 				3D452AF31EE6D20D009EAB9B /* google_ads.cpp in Sources */,
 				346E88981E9D087400D4CE9B /* ads_engine.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
+				45BABC33229812830060FA53 /* downloader_promo.cpp in Sources */,
 				3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */,
 				BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */,
 				3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */,

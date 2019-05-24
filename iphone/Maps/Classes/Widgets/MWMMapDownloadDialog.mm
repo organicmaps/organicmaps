@@ -20,7 +20,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 
-#include "partners_api/megafon_countries.hpp"
+#include "partners_api/downloader_promo.hpp"
 
 namespace
 {
@@ -41,17 +41,12 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
   return !platform::migrate::NeedMigrate();
 }
 
-BOOL shouldShowBanner(std::string const & mwmId)
+promo::DownloaderPromoBanner getPromoBanner(std::string const & mwmId)
 {
   auto const & purchase = GetFramework().GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return NO;
-  return ads::HasMegafonDownloaderBanner(GetFramework().GetStorage(), mwmId, languages::GetCurrentNorm());
-}
-
-NSString * getBannerURL()
-{
-  return @(ads::GetMegafonDownloaderBannerUrl().c_str());
+  bool const hasRemoveAdsSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+  return promo::DownloaderPromo::GetBanner(GetFramework().GetStorage(), mwmId, languages::GetCurrentNorm(),
+                                           hasRemoveAdsSubscription);
 }
 }  // namespace
 
@@ -82,6 +77,7 @@ using namespace storage;
 {
   CountryId m_countryId;
   CountryId m_autoDownloadCountryId;
+  promo::DownloaderPromoBanner m_promoBanner;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller
@@ -289,7 +285,9 @@ using namespace storage;
 
 - (void)showBannerIfNeeded
 {
-  if (shouldShowBanner(m_countryId) && self.bannerView.hidden)
+  m_promoBanner = getPromoBanner(m_countryId);
+  // TODO: implement other banner types.
+  if (m_promoBanner.m_type == promo::DownloaderPromoType::Megafon && self.bannerView.hidden)
   {
     [self layoutIfNeeded];
     self.bannerVisibleConstraint.priority = UILayoutPriorityDefaultHigh;
@@ -358,7 +356,10 @@ using namespace storage;
 
 - (IBAction)bannerAction
 {
-  NSURL * bannerURL = [NSURL URLWithString:getBannerURL()];
+  if (m_promoBanner.m_url.empty())
+    return;
+  
+  NSURL * bannerURL = [NSURL URLWithString:@(m_promoBanner.m_url.c_str())];
   SFSafariViewController * safari = [[SFSafariViewController alloc] initWithURL:bannerURL];
   [self.controller presentViewController:safari animated:YES completion:nil];
 }
