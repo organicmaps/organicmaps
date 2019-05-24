@@ -34,7 +34,11 @@ struct CityGalleryItem
   LuxCategory m_luxCategory;
 };
 
-using CityGallery = std::vector<CityGalleryItem>;
+struct CityGallery
+{
+  std::string m_moreUrl;
+  std::vector<CityGalleryItem> m_items;
+};
 
 class WebApi
 {

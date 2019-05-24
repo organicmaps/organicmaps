@@ -148,7 +148,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
     });
 
     testing::Wait();
-    TEST_EQUAL(result.size(), 2, ());
+    TEST_EQUAL(result.m_items.size(), 2, ());
   }
   {
     promo::CityGallery result{};
@@ -160,6 +160,6 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
     });
 
     testing::Wait();
-    TEST_EQUAL(result.size(), 2, ());
+    TEST_EQUAL(result.m_items.size(), 2, ());
   }
 }

@@ -50,7 +50,7 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
 
   auto const size = json_array_size(dataArray);
 
-  result.reserve(size);
+  result.m_items.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
     promo::CityGalleryItem item;
@@ -73,15 +73,20 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
     FromJSONObject(authorObj, "name", item.m_author.m_name);
 
     auto const luxCategoryObj = json_object_get(obj, "lux_category");
+    if (!json_is_null(luxCategoryObj))
+    {
+      auto const luxCategoryNameobj = json_object_get(luxCategoryObj, "name");
+      if (!json_is_null(luxCategoryNameobj))
+        FromJSON(luxCategoryNameobj, item.m_luxCategory.m_name);
 
-    auto const luxCategoryNameobj = json_object_get(luxCategoryObj, "name");
-    if (!json_is_null(luxCategoryNameobj))
-      FromJSON(luxCategoryNameobj, item.m_luxCategory.m_name);
+      FromJSONObject(luxCategoryObj, "color", item.m_luxCategory.m_color);
+    }
 
-    FromJSONObject(luxCategoryObj, "color", item.m_luxCategory.m_color);
-
-    result.emplace_back(std::move(item));
+    result.m_items.emplace_back(std::move(item));
   }
+
+  auto const meta = json_object_get(root.get(), "meta");
+  FromJSONObject(meta, "more", result.m_moreUrl);
 }
 
 std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & id,
@@ -111,7 +116,7 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
   catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
-    result.clear();
+    result.m_items.clear();
   }
 
   cb(std::move(result));

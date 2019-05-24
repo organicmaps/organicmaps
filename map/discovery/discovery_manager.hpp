@@ -113,11 +113,13 @@ public:
       }
       case ItemType::Promo:
       {
-        m_promoApi.GetCityGallery(params.m_viewportCenter, [this, requestId, onResult, onError, type](promo::CityGallery const & cityGallery)
+        m_promoApi.GetCityGallery(
+            params.m_viewportCenter,
+            [this, requestId, onResult, onError, type](promo::CityGallery const & cityGallery)
         {
           CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-          if (cityGallery.empty())
+          if (cityGallery.m_items.empty())
             onError(requestId, type);
           else
             onResult(requestId, cityGallery);
