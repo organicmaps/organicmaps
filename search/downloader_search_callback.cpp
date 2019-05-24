@@ -20,6 +20,7 @@ namespace
 bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType & ft,
                                   std::string & name)
 {
+  auto const & synonyms = storage.GetCountryNameSynonyms();
   int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode,
                                 StringUtf8Multilang::kDefaultCode,
                                 StringUtf8Multilang::kInternationalCode};
@@ -30,6 +31,13 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
       continue;
     if (storage.IsInnerNode(name))
       return true;
+    auto const it = synonyms.find(name);
+    if (it == synonyms.end())
+      continue;
+    if (!storage.IsInnerNode(it->second))
+      continue;
+    name = it->second;
+    return true;
   }
   return false;
 }
