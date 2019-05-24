@@ -726,7 +726,7 @@ Palau;Q695;pw;en
 Panama;Q804;pa
 Papua New Guinea;Q691;pg;en,ho
 Paraguay;Q733;py;es,gn
-China;Q148;cn;zh
+People's Republic of China;Q148;cn;zh
  China_Anhui;Q40956
  China_Chongqing;Q11725
  China_Fujian;Q41705
