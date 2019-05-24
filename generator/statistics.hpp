@@ -10,9 +10,6 @@ namespace stats
 {
   struct GeneralInfo
   {
-    uint64_t m_count, m_size, m_names;
-    double m_length, m_area;
-
     GeneralInfo() : m_count(0), m_size(0), m_names(0), m_length(0), m_area(0) {}
 
     void Add(uint64_t szBytes, double len = 0, double area = 0, bool hasName = false)
@@ -27,6 +24,12 @@ namespace stats
           ++m_names;
       }
     }
+
+    uint64_t m_count;
+    uint64_t m_size;
+    uint64_t m_names;
+    double m_length;
+    double m_area;
   };
 
   template <class T, int Tag>

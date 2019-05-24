@@ -96,7 +96,7 @@ namespace stats
         }, FeatureType::BEST_GEOMETRY);
       }
 
-      bool hasName = f.GetNames().CountLangs() != 0;
+      auto const hasName = f.GetNames().CountLangs() != 0;
 
       m_info.m_byGeomType[f.GetGeomType()].Add(allSize, len, area, hasName);
 
