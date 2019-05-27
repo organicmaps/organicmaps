@@ -1010,3 +1010,37 @@ UNIT_TEST(RussiaMoscowLeninskyProsp2Test)
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
+
+/*
+UNIT_TEST(RussiaMoscow_OnlyUTurnTest_1)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  MercatorBounds::FromLatLon(55.90382, 37.40219), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.90278, 37.40354));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestRouteLength(route, 3854.44);
+}
+
+UNIT_TEST(RussiaMoscow_OnlyUTurnTest_1_WithDirection)
+{
+  auto const startDir = MercatorBounds::FromLatLon(55.90423, 37.40176);
+  auto const endDir = MercatorBounds::FromLatLon(55.90218, 37.40433);
+  auto const direction = endDir - startDir;
+
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  MercatorBounds::FromLatLon(55.90382, 37.40219), direction,
+                                  MercatorBounds::FromLatLon(55.90278, 37.40354));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::UTurnLeft);
+}
+*/
