@@ -74,6 +74,7 @@ public:
   void Import(std::vector<Joint> const & joints);
 
   void SetRestrictions(RestrictionVec && restrictions);
+  void SetUTurnRestrictions(std::vector<RestrictionUTurn> && noUTurnRestrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
@@ -137,8 +138,23 @@ private:
   std::shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
+
   Restrictions m_restrictionsForward;
   Restrictions m_restrictionsBackward;
+
+  // u_turn can be in both sides of feature.
+  struct UTurnEnding
+  {
+    bool m_atTheBegin = false;
+    bool m_atTheEnd = false;
+  };
+  // Stored featureId and it's UTurnEnding, which shows where is
+  // u_turn restriction is placed - at the beginning or at the ending of feature.
+  //
+  // If m_noUTurnRestrictions.count(featureId) == 0, that means, that there are no any
+  // no_u_turn restriction at the feature with id = featureId.
+  std::unordered_map<uint32_t, UTurnEnding> m_noUTurnRestrictions;
+
   RoadAccess m_roadAccess;
   RoutingOptions m_avoidRoutingOptions;
 };

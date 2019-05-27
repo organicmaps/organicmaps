@@ -153,8 +153,6 @@ void IndexGraph::Import(vector<Joint> const & joints)
 
 void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
 {
-  ASSERT(is_sorted(restrictions.cbegin(), restrictions.cend()), ());
-
   m_restrictionsForward.clear();
   m_restrictionsBackward.clear();
 
@@ -162,6 +160,7 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
   for (auto const & restriction : restrictions)
   {
     ASSERT(!restriction.empty(), ());
+
     auto & forward = m_restrictionsForward[restriction.back()];
     forward.emplace_back(restriction.begin(), prev(restriction.end()));
     reverse(forward.back().begin(), forward.back().end());
@@ -170,6 +169,17 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
   }
 
   LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedNano() / 1e6, "ms"));
+}
+
+void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestrictions)
+{
+  for (auto const & noUTurn : noUTurnRestrictions)
+  {
+    if (noUTurn.m_viaIsFirstPoint)
+      m_noUTurnRestrictions[noUTurn.m_featureId].m_atTheBegin = true;
+    else
+      m_noUTurnRestrictions[noUTurn.m_featureId].m_atTheEnd = true;
+  }
 }
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(roadAccess); }
@@ -243,7 +253,7 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
 /// \param |lastPointIds| - vector of the end numbers of road points for |firstChildren|.
 /// \param |jointEdges| - the result vector with JointEdges.
 /// \param |parentWeights| - see |IndexGraphStarterJoints::GetEdgeList| method about this argument.
-///                          Shotly - in case of |isOutgoing| == false, method saves here the weights
+///                          Shortly - in case of |isOutgoing| == false, method saves here the weights
 ///                                   from parent to firstChildren.
 void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
                                          Segment const & parent,
@@ -276,7 +286,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
     if (m_roadAccess.GetPointType(parent.GetRoadPoint(isOutgoing)) == RoadAccess::Type::No)
       continue;
 
-    if (IsUTurnAndRestricted(parent, firstChild, isOutgoing))
+    if (IsUTurn(parent, firstChild) && IsUTurnAndRestricted(parent, firstChild, isOutgoing))
       continue;
 
     if (IsRestricted(parentJoint, parent.GetFeatureId(), firstChild.GetFeatureId(),
@@ -334,7 +344,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                                     vector<SegmentEdge> & edges, map<Segment, Segment> & parents)
 {
-  if (IsUTurnAndRestricted(from, to, isOutgoing))
+  if (IsUTurn(from, to) && IsUTurnAndRestricted(from, to, isOutgoing))
     return;
 
   if (IsRestricted(from, from.GetFeatureId(), to.GetFeatureId(), isOutgoing, parents))
@@ -383,28 +393,26 @@ WorldGraphMode IndexGraph::GetMode() const { return WorldGraphMode::Undefined; }
 bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & child,
                                       bool isOutgoing) const
 {
-  if (!IsUTurn(parent, child))
-    return false;
+  ASSERT(IsUTurn(parent, child), ());
 
-  RoadPoint rp = parent.GetRoadPoint(isOutgoing);
-  if (m_roadIndex.GetJointId(rp) == Joint::kInvalidId &&
-      !m_geometry->GetRoad(parent.GetFeatureId()).IsEndPointId(rp.GetPointId()))
-  {
+  uint32_t const featureId = parent.GetFeatureId();
+  uint32_t const turnPoint = parent.GetPointId(isOutgoing);
+  auto const & roadGeometry = m_geometry->GetRoad(featureId);
+
+  RoadPoint const rp = parent.GetRoadPoint(isOutgoing);
+  if (m_roadIndex.GetJointId(rp) == Joint::kInvalidId && !roadGeometry.IsEndPointId(turnPoint))
     return true;
-  }
 
-  uint32_t const currentFeatureId = child.GetFeatureId();
-  auto const & restrictions = isOutgoing ? m_restrictionsForward : m_restrictionsBackward;
-  auto const it = restrictions.find(currentFeatureId);
-  if (it == restrictions.cend())
+  auto const it = m_noUTurnRestrictions.find(featureId);
+  if (it == m_noUTurnRestrictions.cend())
     return false;
 
-  for (vector<uint32_t> const & restriction : it->second)
-  {
-    if (restriction.size() == 1 && restriction.back() == currentFeatureId)
-      return true;
-  }
+  auto const & uTurn = it->second;
+  if (uTurn.m_atTheBegin && turnPoint == 0)
+    return true;
 
-  return false;
+  uint32_t const n = roadGeometry.GetPointsCount();
+  ASSERT_GREATER_OR_EQUAL(n, 1, ());
+  return uTurn.m_atTheEnd && turnPoint == n - 1;
 }
 }  // namespace routing

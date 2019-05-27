@@ -256,7 +256,10 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, I
   IndexGraphSerializer::Deserialize(graph, src, GetVehicleMask(vehicleType));
   RestrictionLoader restrictionLoader(mwmValue, graph);
   if (restrictionLoader.HasRestrictions())
+  {
     graph.SetRestrictions(restrictionLoader.StealRestrictions());
+    graph.SetUTurnRestrictions(restrictionLoader.StealNoUTurnRestrictions());
+  }
 
   RoadAccess roadAccess;
   if (ReadRoadAccessFromMwm(mwmValue, vehicleType, roadAccess))
