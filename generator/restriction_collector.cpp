@@ -29,6 +29,8 @@ using namespace routing;
 
 char const kNo[] = "No";
 char const kOnly[] = "Only";
+char const kNoUTurn[] = "NoUTurn";
+char const kOnlyUTurn[] = "OnlyUTurn";
 char const kDelim[] = ", \t\r\n";
 
 bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<base::GeoObjectId> & numbers)
@@ -155,11 +157,12 @@ bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId,
                                                      m2::PointD const & coords) const
 {
   CHECK(m_indexGraph, ());
-  auto & roadGeometry = m_indexGraph->GetGeometry().GetRoad(featureId);
+  auto const & roadGeometry = m_indexGraph->GetGeometry().GetRoad(featureId);
   uint32_t const pointsCount = roadGeometry.GetPointsCount();
   for (uint32_t i = 0; i < pointsCount; ++i)
   {
-    if (base::AlmostEqualAbs(roadGeometry.GetPoint(i), coords, kPointsEqualEpsilon))
+    static double constexpr kEps = 1e-5;
+    if (base::AlmostEqualAbs(roadGeometry.GetPoint(i), coords, kEps))
       return true;
   }
 
@@ -175,8 +178,109 @@ bool RestrictionCollector::FeaturesAreCross(m2::PointD const & coords,
   return FeatureHasPointWithCoords(prev, coords) && FeatureHasPointWithCoords(cur, coords);
 }
 
-bool RestrictionCollector::IsRestrictionValid(m2::PointD const & coords, 
-                                              std::vector<uint32_t> const & featureIds) const
+Restriction::Type ConvertUTurnToSimpleRestriction(Restriction::Type type)
+{
+  CHECK(IsUTurnType(type), ());
+
+  // Some people create no_u_turn not in the way we expect.
+  // For example: https://www.openstreetmap.org/relation/9511182
+  //              https://www.openstreetmap.org/relation/2532732
+  //              https://www.openstreetmap.org/relation/7606104
+  // OsmId of |from| member is differ from |to| member.
+  // So we "convert" such no_u_turn to any no_* restriction.
+  // And we do the same thing with only_u_turn.
+  return type == Restriction::Type::NoUTurn ? Restriction::Type::No
+                                            : Restriction::Type::Only;
+}
+
+void ConvertToUTurnIfPossible(Restriction::Type & type, m2::PointD const & coords,
+                              std::vector<uint32_t> const & featureIds)
+{
+  if (IsUTurnType(type))
+    return;
+
+  // Some people create u_turn not in the way we expect.
+  // For example:
+  // At 31.05.2019 there is no_left_turn by url:
+  // https://www.openstreetmap.org/relation/1431150
+  // with the same |from| and |to| member with node as |via|):
+  //
+  // So we "convert" such relations to no_u_turn or only_u_turn restrictions.
+  if (featureIds.size() == 2 &&
+      featureIds.front() == featureIds.back() &&
+      coords != RestrictionCollector::kNoCoords)
+  {
+    type = type == Restriction::Type::No ? Restriction::Type::NoUTurn
+                                         : Restriction::Type::OnlyUTurn;
+  }
+}
+
+bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionType,
+                                                m2::PointD const & coords,
+                                                std::vector<uint32_t> & featureIds) const
+{
+  CHECK(IsUTurnType(restrictionType), ());
+
+  // UTurn with via as way.
+  if (coords == kNoCoords)
+  {
+    // featureIds = {from, via_1, ..., via_N, to}, size must be greater or equal 3.
+    CHECK_GREATER_OR_EQUAL(featureIds.size(), 3, ());
+    restrictionType = ConvertUTurnToSimpleRestriction(restrictionType);
+    return true;
+  }
+
+  // Only |from| and |to| member must be here, because via is node.
+  if (featureIds.size() != 2)
+    return false;
+
+  // Typical no_u_turn with node as via, for example:
+  // {
+  //  from(featureId = 123),
+  //  via (node at feature 123 = 2),
+  //  to(featureId = 123)
+  // }
+  if (featureIds[0] == featureIds[1])
+  {
+    featureIds.pop_back();
+    CHECK_EQUAL(featureIds.size(), 1, ());
+
+    uint32_t & featureId = featureIds.back();
+
+    auto const & road = m_indexGraph->GetGeometry().GetRoad(featureId);
+    // Can not do UTurn from feature to the same feature if it is one way.
+    if (road.IsOneWay())
+      return false;
+
+    uint32_t const n = road.GetPointsCount();
+
+    // According to the wiki: via must be at the end or at the beginning of feature.
+    // https://wiki.openstreetmap.org/wiki/Relation:restriction
+    static auto constexpr kEps = 1e-5;
+    bool const viaIsFirstNode = base::AlmostEqualAbs(coords, road.GetPoint(0), kEps);
+    bool const viaIsLastNode = base::AlmostEqualAbs(coords, road.GetPoint(n - 1), kEps);
+
+    if (viaIsFirstNode)
+    {
+      featureId |= RestrictionSerializer::kUTurnAtTheBeginMask;
+    }
+    else if (viaIsLastNode)
+    {
+      CHECK_EQUAL(featureId & RestrictionSerializer::kUTurnAtTheBeginMask, 0,
+                  ("The first bit of featureId must be zero, too big value "
+                   "of featureId, invariant violated."));
+    }
+
+    return viaIsFirstNode || viaIsLastNode;
+  }
+
+  restrictionType = ConvertUTurnToSimpleRestriction(restrictionType);
+  return true;
+}
+
+bool RestrictionCollector::IsRestrictionValid(Restriction::Type & restrictionType,
+                                              m2::PointD const & coords,
+                                              std::vector<uint32_t> & featureIds) const
 {
   if (featureIds.empty() || !m_indexGraph->IsRoad(featureIds[0]))
     return false;
@@ -192,7 +296,12 @@ bool RestrictionCollector::IsRestrictionValid(m2::PointD const & coords,
       return false;
   }
 
-  return true;
+  ConvertToUTurnIfPossible(restrictionType, coords, featureIds);
+
+  if (!IsUTurnType(restrictionType))
+    return true;
+
+  return CheckAndProcessUTurn(restrictionType, coords, featureIds);
 }
 
 bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
@@ -214,7 +323,7 @@ bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
     featureIds[i] = result->second;
   }
 
-  if (!IsRestrictionValid(coords, featureIds))
+  if (!IsRestrictionValid(restrictionType, coords, featureIds))
     return false;
 
   m_restrictions.emplace_back(restrictionType, featureIds);
@@ -240,7 +349,20 @@ void FromString(std::string const & str, Restriction::Type & type)
     return;
   }
 
-  CHECK(false, ("Invalid line:", str, "expected:", kNo, "or", kOnly));
+  if (str == kNoUTurn)
+  {
+    type = Restriction::Type::NoUTurn;
+    return;
+  }
+
+  if (str == kOnlyUTurn)
+  {
+    type = Restriction::Type::OnlyUTurn;
+    return;
+  }
+
+  CHECK(false,
+        ("Invalid line:", str, "expected:", kNo, "or", kOnly, "or", kNoUTurn, "or", kOnlyUTurnrouting/restrictions_serialization.hpp));
   UNREACHABLE();
 }
 

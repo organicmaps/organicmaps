@@ -26,6 +26,9 @@ class TestRestrictionCollector;
 class RestrictionCollector
 {
 public:
+  static m2::PointD constexpr kNoCoords =
+      m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+
   RestrictionCollector(string const & osmIdsToFeatureIdPath,
                        std::unique_ptr<IndexGraph> && graph);
 
@@ -34,13 +37,10 @@ public:
   bool HasRestrictions() const { return !m_restrictions.empty(); }
 
   /// \returns Sorted vector of restrictions.
-  std::vector<Restriction> const & GetRestrictions() const { return m_restrictions; }
+  std::vector<Restriction> && StealRestrictions() { return std::move(m_restrictions); }
 
 private:
   friend class TestRestrictionCollector;
-
-  static m2::PointD constexpr kNoCoords =
-      m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
 
   /// \brief Parses comma separated text file with line in following format:
   /// In case of restriction, that consists of "way(from)" -> "node(via)" -> "way(to)"
@@ -71,8 +71,12 @@ private:
   /// junctions.
   bool FeaturesAreCross(m2::PointD const & coords, uint32_t prev, uint32_t cur) const;
 
-  bool IsRestrictionValid(m2::PointD const & coords,
-                          std::vector<uint32_t> const & featureIds) const;
+  bool IsRestrictionValid(Restriction::Type & restrictionType,
+                          m2::PointD const & coords,
+                          std::vector<uint32_t> & featureIds) const;
+
+  bool CheckAndProcessUTurn(Restriction::Type & restrictionType, m2::PointD const & coords,
+                            std::vector<uint32_t> & featureIds) const;
 
   Joint::Id GetFirstCommonJoint(uint32_t firstFeatureId, uint32_t secondFeatureId) const;
 
