@@ -42,7 +42,7 @@ Joint::Id GetCommonEndJoint(RoadJointIds const & r1, RoadJointIds const & r2)
 
 namespace routing
 {
-RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const & graph)
+RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph & graph)
   : m_countryFileName(mwmValue.GetCountryFileName())
 {
   if (!mwmValue.m_cont.IsExist(RESTRICTIONS_FILE_TAG))
@@ -56,10 +56,16 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
     m_header.Deserialize(src);
 
     RestrictionVec restrictionsOnly;
-    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction No */,
-                                       restrictionsOnly, src);
+    std::vector<RestrictionUTurn> restrictionsOnlyUTurn;
+    RestrictionSerializer::Deserialize(m_header,
+                                       m_restrictions /* restriction No, without no_u_turn */,
+                                       restrictionsOnly,
+                                       m_noUTurnRestrictions,
+                                       restrictionsOnlyUTurn,
+                                       src);
 
-    ConvertRestrictionsOnlyToNoAndSort(graph, restrictionsOnly, m_restrictions);
+    ConvertRestrictionsOnlyToNo(graph, restrictionsOnly, m_restrictions);
+    ConvertRestrictionsOnlyUTurnToNo(graph, restrictionsOnlyUTurn, m_restrictions);
   }
   catch (Reader::OpenException const & e)
   {
@@ -78,6 +84,11 @@ bool RestrictionLoader::HasRestrictions() const
 RestrictionVec && RestrictionLoader::StealRestrictions()
 {
   return std::move(m_restrictions);
+}
+
+std::vector<RestrictionUTurn> && RestrictionLoader::StealNoUTurnRestrictions()
+{
+  return std::move(m_noUTurnRestrictions);
 }
 
 bool IsRestrictionFromRoads(IndexGraph const & graph, std::vector<uint32_t> const & restriction)
@@ -101,9 +112,9 @@ bool IsRestrictionFromRoads(IndexGraph const & graph, std::vector<uint32_t> cons
 /// We create restrictionNo from features:
 /// featureId_1, ... , featureId_(M - 1), featureId_K
 /// where featureId_K - has common joint with featureId_(M - 1) and featureId_M.
-void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
-                                        RestrictionVec const & restrictionsOnly,
-                                        RestrictionVec & restrictionsNo)
+void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
+                                 RestrictionVec const & restrictionsOnly,
+                                 RestrictionVec & restrictionsNo)
 {
   for (std::vector<uint32_t> const & restriction : restrictionsOnly)
   {
@@ -139,7 +150,35 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
                          });
     }
   }
+}
 
-  base::SortUnique(restrictionsNo);
+void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
+                                      std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
+                                      RestrictionVec & restrictionsNo)
+{
+  for (auto const & uTurnRestriction : restrictionsOnlyUTurn)
+  {
+    auto const featureId = uTurnRestriction.m_featureId;
+    if (!graph.IsRoad(featureId))
+      continue;
+
+    uint32_t const n = graph.GetGeometry().GetRoad(featureId).GetPointsCount();
+    RoadJointIds const & joints = graph.GetRoad(uTurnRestriction.m_featureId);
+    Joint::Id const joint = uTurnRestriction.m_viaIsFirstPoint ? joints.GetJointId(0)
+                                                               : joints.GetJointId(n - 1);
+
+    if (joint == Joint::kInvalidId)
+      continue;
+
+    graph.ForEachPoint(joint,
+                       [&](RoadPoint const & rp)
+                       {
+                         if (rp.GetFeatureId() != featureId)
+                         {
+                           std::vector<uint32_t> fromToRestriction = {featureId, rp.GetFeatureId()};
+                           restrictionsNo.emplace_back(std::move(fromToRestriction));
+                         }
+                       });
+  }
 }
 }  // namespace routing

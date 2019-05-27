@@ -14,7 +14,7 @@ CreateRestrictionCollectorAndParse(
     std::string const & restrictionPath, std::string const & osmIdsToFeatureIdsPath,
     CountryParentNameGetterFn const & countryParentNameGetterFn);
 
-void SerializeRestrictions(RestrictionCollector const & restrictionCollector,
+void SerializeRestrictions(RestrictionCollector & restrictionCollector,
                            std::string const & mwmPath);
 // This function is the generator tool's interface to building the mwm
 // section which contains road restrictions. (See https://wiki.openstreetmap.org/wiki/Restriction)

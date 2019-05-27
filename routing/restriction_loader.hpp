@@ -15,19 +15,25 @@ namespace routing
 class RestrictionLoader
 {
 public:
-  explicit RestrictionLoader(MwmValue const & mwmValue, IndexGraph const & graph);
+  explicit RestrictionLoader(MwmValue const & mwmValue, IndexGraph & graph);
 
   bool HasRestrictions() const;
   RestrictionVec && StealRestrictions();
+  std::vector<RestrictionUTurn> && StealNoUTurnRestrictions();
 
 private:
   std::unique_ptr<FilesContainerR::TReader> m_reader;
   RestrictionHeader m_header;
   RestrictionVec m_restrictions;
+  std::vector<RestrictionUTurn> m_noUTurnRestrictions;
   std::string const m_countryFileName;
 };
 
-void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
-                                        RestrictionVec const & restrictionsOnly,
-                                        RestrictionVec & restrictionsNo);
+void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
+                                 RestrictionVec const & restrictionsOnly,
+                                 RestrictionVec & restrictionsNo);
+
+void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
+                                      std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
+                                      RestrictionVec & restrictionsNo);
 }  // namespace routing
