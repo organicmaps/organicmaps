@@ -98,6 +98,14 @@ class Env:
         symlink_force(self.temp_borders_path,
                       os.path.join(self.draft_path, "borders"))
 
+        self.osm2ft_path = os.path.join(self.out_path, "osm2ft")
+        if os.path.isdir(self.osm2ft_path):
+            for x in os.listdir(self.osm2ft_path):
+                p = os.path.join(self.osm2ft_path, x)
+                if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
+                    shutil.move(p, os.path.join(self.mwm_path, x))
+        self._create_if_not_exist(self.osm2ft_path)
+
         self.node_storage = settings.NODE_STORAGE
         self.user_resource_path = settings.USER_RESOURCE_PATH
 
@@ -115,10 +123,6 @@ class Env:
         self._create_if_not_exist(self.coastline_tmp_path)
         self._subprocess_out = None
         self._subprocess_countries_out = {}
-
-        self.descriptions_path = os.path.join(self.intermediate_path,
-                                              "descriptions")
-        self._create_if_not_exist(self.descriptions_path)
 
         _write_version(self.out_path, self.planet_version)
 
@@ -145,6 +149,12 @@ class Env:
 
     def is_accepted_stage(self, stage_name):
         return stage_name not in self._skipped_stages
+
+    @property
+    def descriptions_path(self):
+        path = os.path.join(self.intermediate_path, "descriptions")
+        self._create_if_not_exist(self.descriptions_path)
+        return path
 
     @property
     def localads_path(self):

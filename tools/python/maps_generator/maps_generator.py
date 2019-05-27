@@ -306,14 +306,12 @@ def stage_statistics(env):
 
 @stage
 def stage_cleanup(env):
-    osm2ft_path = os.path.join(env.out_path, "osm2ft")
-    os.makedirs(osm2ft_path, exist_ok=True)
     logger.info(f"osm2ft files will be moved from {env.out_path} "
-                f"to {osm2ft_path}.")
+                f"to {env.osm2ft_path}.")
     for x in os.listdir(env.mwm_path):
         p = os.path.join(env.mwm_path, x)
         if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
-            shutil.move(p, os.path.join(osm2ft_path, x))
+            shutil.move(p, os.path.join(env.osm2ft_path, x))
 
     logger.info(f"{env.draft_path} will be removed.")
     shutil.rmtree(env.draft_path)
