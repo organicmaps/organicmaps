@@ -27,7 +27,7 @@ struct Geometry
     for (auto const & p : from)
     {
       auto const ll = MercatorBounds::ToLatLon(p);
-      m_coordinates.push_back({ll.lon, ll.lat});
+      m_coordinates.push_back({ll.m_lon, ll.m_lat});
     }
 
     m_type = "LineString";

@@ -29,7 +29,7 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   for (auto const & p : geometry)
   {
     auto const latLon = MercatorBounds::ToLatLon(p);
-    rect.Add({latLon.lon, latLon.lat});
+    rect.Add({latLon.m_lon, latLon.m_lat});
   }
   return rect;
 }
@@ -132,7 +132,7 @@ ChangesetWrapper::~ChangesetWrapper()
 void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc,
                                       double radiusInMeters)
 {
-  auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon, radiusInMeters);
+  auto const response = m_api.GetXmlFeaturesAtLatLon(ll.m_lat, ll.m_lon, radiusInMeters);
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesAtLatLon", ll));
 
@@ -145,7 +145,7 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document 
 void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const & max,
                                       pugi::xml_document & doc)
 {
-  auto const response = m_api.GetXmlFeaturesInRect(min.lat, min.lon, max.lat, max.lon);
+  auto const response = m_api.GetXmlFeaturesInRect(min.m_lat, min.m_lon, max.m_lat, max.m_lon);
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesInRect", min, max));
 

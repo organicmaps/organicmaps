@@ -69,7 +69,7 @@ string PrintBuilder(FeatureBuilder1 const & fb)
     s << "Address: " << address << '\t';
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-  s << "lat: " << center.lat << " lon: " << center.lon << '\t';
+  s << "lat: " << center.m_lat << " lon: " << center.m_lon << '\t';
 
   if (fb.GetGeomType() == feature::GeomType::Point)
     s << "GeomType: Point";
@@ -229,8 +229,8 @@ void GenerateFactors(Dataset const & dataset,
     ost << "# " << PrintBuilder(feature) << endl;
     ost << "# " << object << endl;
     ost << "# URL: https://www.openstreetmap.org/?mlat="
-        << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon << "#map=18/"
-        << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
+        << object.m_latLon.m_lat << "&mlon=" << object.m_latLon.m_lon << "#map=18/"
+        << object.m_latLon.m_lat << "/" << object.m_latLon.m_lon << endl;
   }
 }
 
@@ -281,8 +281,8 @@ void GenerateSample(Dataset const & dataset,
       outStream << "# " << PrintBuilder(fb) << endl;
       outStream << "# " << object << endl;
       outStream << "# URL: https://www.openstreetmap.org/?mlat="
-                << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon
-                << "#map=18/" << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
+                << object.m_latLon.m_lat << "&mlon=" << object.m_latLon.m_lon
+                << "#map=18/" << object.m_latLon.m_lat << "/" << object.m_latLon.m_lon << endl;
     }
     if (!sponsoredIndexes.empty())
       outStream << endl << endl;

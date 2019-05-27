@@ -54,12 +54,12 @@ boost::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string con
   if (!iter)
     return {};
 
-  if (!strings::to_double(*iter, coords.lat))
+  if (!strings::to_double(*iter, coords.m_lat))
     return {};
 
   ++iter;
 
-  if (!strings::to_double(*iter, coords.lon))
+  if (!strings::to_double(*iter, coords.m_lon))
     return {};
 
   return {coords};

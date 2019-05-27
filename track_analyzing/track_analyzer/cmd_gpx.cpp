@@ -50,9 +50,9 @@ void CmdGPX(string const & logFile, string const & outputDirName, string const &
       for (auto const & point : track.second)
       {
         ofs << "<wpt lat=\""
-            << point.m_latLon.lat
+            << point.m_latLon.m_lat
             << "\" lon=\""
-            << point.m_latLon.lon << "\">"
+            << point.m_latLon.m_lon << "\">"
             << "</wpt>\n";
       }
 

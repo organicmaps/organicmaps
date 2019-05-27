@@ -34,15 +34,15 @@ bool IsForwardFromXML(pugi::xml_node const & node)
 void LatLonToXML(ms::LatLon const & latLon, pugi::xml_node & node)
 {
   auto const kDigitsAfterComma = 5;
-  node.append_child("lat").text() = strings::to_string_dac(latLon.lat, kDigitsAfterComma).data();
-  node.append_child("lon").text() = strings::to_string_dac(latLon.lon, kDigitsAfterComma).data();
+  node.append_child("lat").text() = strings::to_string_dac(latLon.m_lat, kDigitsAfterComma).data();
+  node.append_child("lon").text() = strings::to_string_dac(latLon.m_lon, kDigitsAfterComma).data();
 }
 
 void LatLonFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
 {
   THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse latLon"));
-  latLon.lat = node.child("lat").text().as_double();
-  latLon.lon = node.child("lon").text().as_double();
+  latLon.m_lat = node.child("lat").text().as_double();
+  latLon.m_lon = node.child("lon").text().as_double();
 }
 
 void FeatureIdFromXML(pugi::xml_node const & node, DataSource const & dataSource, FeatureID & fid)

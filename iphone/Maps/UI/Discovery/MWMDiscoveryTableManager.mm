@@ -62,7 +62,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   string distance;
   auto const f = MercatorBounds::ToLatLon(from);
   auto const t = MercatorBounds::ToLatLon(to);
-  measurement_utils::FormatDistance(ms::DistanceOnEarth(f.lat, f.lon, t.lat, t.lon), distance);
+  measurement_utils::FormatDistance(ms::DistanceOnEarth(f.m_lat, f.m_lon, t.m_lat, t.m_lon), distance);
   return distance;
 }
 }  // namespace

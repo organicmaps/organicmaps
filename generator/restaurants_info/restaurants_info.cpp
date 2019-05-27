@@ -62,7 +62,7 @@ void DumpRestaurants(std::vector<FeatureBuilder1> const & features, std::ostream
     auto const center = MercatorBounds::ToLatLon(f.GetKeyPoint());
 
     out << defaultName << '\t' << strings::JoinStrings(translations, '|') << '\t'
-        << center.lat << ' ' << center.lon << '\t' << DebugPrint(f.GetGeomType()) << "\n";
+        << center.m_lat << ' ' << center.m_lon << '\t' << DebugPrint(f.GetGeomType()) << "\n";
   }
 }
 }  // namespace

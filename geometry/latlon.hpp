@@ -14,15 +14,15 @@ public:
   static double const kMaxLat;
   static double const kMinLon;
   static double const kMaxLon;
+  static LatLon const kInvalidValue;
 
-  double lat;
-  double lon;
+  double m_lat = kInvalidValue.m_lat;
+  double m_lon = kInvalidValue.m_lon;
 
-  /// Does NOT initialize lat and lon. Allows to use it as a property of an ObjC class.
   LatLon() = default;
-  LatLon(double lat, double lon) : lat(lat), lon(lon) {}
+  LatLon(double lat, double lon) : m_lat(lat), m_lon(lon) {}
 
-  static LatLon Zero() { return LatLon(0., 0.); }
+  static LatLon Zero() { return LatLon(0.0, 0.0); }
 
   bool operator==(ms::LatLon const & p) const;
 
@@ -30,7 +30,7 @@ public:
 
   struct Hash
   {
-    size_t operator()(ms::LatLon const & p) const { return base::Hash(p.lat, p.lon); }
+    size_t operator()(ms::LatLon const & p) const { return base::Hash(p.m_lat, p.m_lon); }
   };
 };
 

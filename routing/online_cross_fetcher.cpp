@@ -16,7 +16,7 @@ namespace
 {
 inline string LatLonToURLArgs(ms::LatLon const & point)
 {
-  return strings::to_string(point.lat) + ','+ strings::to_string(point.lon);
+  return strings::to_string(point.m_lat) + ','+ strings::to_string(point.m_lon);
 }
 }  // namespace
 

@@ -51,7 +51,7 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
   {
     auto * label = new QLabel("lat lon:");
     auto const ll = mapObject.GetLatLon();
-    auto const ss = strings::to_string_dac(ll.lat, 5) + " " + strings::to_string_dac(ll.lon, 5);
+    auto const ss = strings::to_string_dac(ll.m_lat, 5) + " " + strings::to_string_dac(ll.m_lon, 5);
     auto * content = MakeSelectableLabel(ss);
 
     AddRow(*layout, label, content);

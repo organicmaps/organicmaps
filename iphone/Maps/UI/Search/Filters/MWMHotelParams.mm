@@ -11,7 +11,7 @@ static int8_t kAgeOfChild = 5;
   if (self)
   {
     _types.insert(ftypes::IsHotelChecker::Type::Hotel);
-    CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.lat, data.latLon.lon));
+    CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.m_lat, data.latLon.m_lon));
     
     if (data.isBooking)
     {

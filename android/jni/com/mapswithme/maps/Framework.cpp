@@ -1317,7 +1317,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
       jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
       jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
-      info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes,
+      info.m_pedestrianDirectionPos.m_lat, info.m_pedestrianDirectionPos.m_lon, info.m_exitNum, info.m_time, jLanes,
       static_cast<jboolean>(isSpeedLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;

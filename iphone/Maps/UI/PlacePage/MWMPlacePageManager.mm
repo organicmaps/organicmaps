@@ -43,25 +43,25 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   {
     stat[kStatProvider] = kStatBooking;
     stat[kStatHotel] = data.sponsoredId;
-    stat[kStatHotelLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
+    stat[kStatHotelLocation] = makeLocationEventValue(latLon.m_lat, latLon.m_lon);
   }
   else if (data.isOpentable)
   {
     stat[kStatProvider] = kStatOpentable;
     stat[kStatRestaurant] = data.sponsoredId;
-    stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
+    stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.m_lat, latLon.m_lon);
   }
   else if (data.isPartner)
   {
     stat[kStatProvider] = data.partnerName;
     stat[kStatCategory] = @(data.ratingRawValue);
-    stat[kStatObjectLat] = @(latLon.lat);
-    stat[kStatObjectLon] = @(latLon.lon);
+    stat[kStatObjectLat] = @(latLon.m_lat);
+    stat[kStatObjectLon] = @(latLon.m_lon);
   }
   else
   {
     stat[kStatProvider] = kStatPlacePageHotelSearch;
-    stat[kStatHotelLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
+    stat[kStatHotelLocation] = makeLocationEventValue(latLon.m_lat, latLon.m_lon);
   }
 
   [Statistics logEvent:eventName withParameters:stat atLocation:[MWMLocationManager lastLocation]];
@@ -188,7 +188,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   CLLocationCoordinate2D const & coord = lastLocation.coordinate;
   ms::LatLon const & target = data.latLon;
   measurement_utils::FormatDistance(
-      ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
+      ms::DistanceOnEarth(coord.latitude, coord.longitude, target.m_lat, target.m_lon), distance);
   return @(distance.c_str());
 }
 

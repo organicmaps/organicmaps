@@ -104,8 +104,8 @@ bool FirstCoordinateFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   if (!GetLatLon(node.child("olr:coordinate"), lat, lon))
     return false;
 
-  latLon.lat = ((lat - base::Sign(lat) * 0.5) * 360) / (1 << 24);
-  latLon.lon = ((lon - base::Sign(lon) * 0.5) * 360) / (1 << 24);
+  latLon.m_lat = ((lat - base::Sign(lat) * 0.5) * 360) / (1 << 24);
+  latLon.m_lon = ((lon - base::Sign(lon) * 0.5) * 360) / (1 << 24);
 
   return true;
 }
@@ -129,8 +129,8 @@ bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord
   // with no special meaning and is used as a factor to store doubles as ints.
   auto const kOpenlrDeltaFactor = 100000;
 
-  latLon.lat = prevCoord.lat + static_cast<double>(lat) / kOpenlrDeltaFactor;
-  latLon.lon = prevCoord.lon + static_cast<double>(lon) / kOpenlrDeltaFactor;
+  latLon.m_lat = prevCoord.m_lat + static_cast<double>(lat) / kOpenlrDeltaFactor;
+  latLon.m_lon = prevCoord.m_lon + static_cast<double>(lon) / kOpenlrDeltaFactor;
 
   return true;
 }

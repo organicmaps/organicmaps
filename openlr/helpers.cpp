@@ -137,16 +137,16 @@ string LogAs2GisPath(Graph::EdgeVector const & path)
   ost << "https://2gis.ru/moscow?queryState=";
 
   auto ll = MercatorBounds::ToLatLon(path.front().GetStartPoint());
-  ost << "center%2F" << ll.lon << "%2C" << ll.lat << "%2F";
+  ost << "center%2F" << ll.m_lon << "%2C" << ll.m_lat << "%2F";
   ost << "zoom%2F" << 17 << "%2F";
   ost << "ruler%2Fpoints%2F";
   for (auto const & e : path)
   {
     ll = MercatorBounds::ToLatLon(e.GetStartPoint());
-    ost << ll.lon << "%20" << ll.lat << "%2C";
+    ost << ll.m_lon << "%20" << ll.m_lat << "%2C";
   }
   ll = MercatorBounds::ToLatLon(path.back().GetEndPoint());
-  ost << ll.lon << "%20" << ll.lat;
+  ost << ll.m_lon << "%20" << ll.m_lat;
 
   return ost.str();
 }

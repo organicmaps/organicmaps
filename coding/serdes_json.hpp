@@ -165,8 +165,8 @@ public:
   void operator()(ms::LatLon const & ll, char const * name = nullptr)
   {
     NewScopeWith(base::NewJSONObject(), name, [this, &ll] {
-      (*this)(ll.lat, "lat");
-      (*this)(ll.lon, "lon");
+      (*this)(ll.m_lat, "lat");
+      (*this)(ll.m_lon, "lon");
     });
   }
 
@@ -374,8 +374,8 @@ public:
   void operator()(ms::LatLon & ll, char const * name = nullptr)
   {
     json_t * outerContext = SaveContext(name);
-    (*this)(ll.lat, "lat");
-    (*this)(ll.lon, "lon");
+    (*this)(ll.m_lat, "lat");
+    (*this)(ll.m_lon, "lon");
     RestoreContext(outerContext);
   }
 

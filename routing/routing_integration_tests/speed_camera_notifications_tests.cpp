@@ -37,15 +37,15 @@ location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
   location::GpsInfo info;
   info.m_horizontalAccuracy = kGpsAccuracy;
   info.m_verticalAccuracy = kGpsAccuracy;
-  info.m_latitude = coords.lat;
-  info.m_longitude = coords.lon;
+  info.m_latitude = coords.m_lat;
+  info.m_longitude = coords.m_lon;
   info.m_speedMpS = speed;
   return info;
 }
 
 void ChangePosition(ms::LatLon const & coords, double speedKmPH, RoutingSession & routingSession)
 {
-  routingSession.OnLocationPositionChanged(MoveTo({coords.lat, coords.lon}, KMPH2MPS(speedKmPH)));
+  routingSession.OnLocationPositionChanged(MoveTo({coords.m_lat, coords.m_lon}, KMPH2MPS(speedKmPH)));
 }
 
 void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingSession & routingSession,

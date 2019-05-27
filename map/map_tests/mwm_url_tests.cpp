@@ -65,7 +65,7 @@ public:
   bool TestLatLon(int index, double lat, double lon) const
   {
     ms::LatLon const ll = GetMark(index)->GetLatLon();
-    return base::AlmostEqualULPs(ll.lat, lat) && base::AlmostEqualULPs(ll.lon, lon);
+    return base::AlmostEqualULPs(ll.m_lat, lat) && base::AlmostEqualULPs(ll.m_lon, lon);
   }
 
   bool TestRoutePoint(int index, double lat, double lon, string const & name)

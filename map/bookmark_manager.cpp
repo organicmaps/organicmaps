@@ -572,8 +572,8 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
   auto const latLon = MercatorBounds::ToLatLon(bm.m_point);
   alohalytics::TStringMap details{
     {"action", "create"},
-    {"lat", strings::to_string(latLon.lat)},
-    {"lon", strings::to_string(latLon.lon)},
+    {"lat", strings::to_string(latLon.m_lat)},
+    {"lon", strings::to_string(latLon.m_lon)},
     {"tags", ss.str()}};
   alohalytics::Stats::Instance().LogEvent("Bookmarks_Bookmark_action", details);
 

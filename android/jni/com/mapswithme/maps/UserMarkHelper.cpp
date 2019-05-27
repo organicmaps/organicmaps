@@ -207,7 +207,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   {
     return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
                            info.GetID().m_index, kMyPosition, info.GetTitle(),
-                           info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+                           info.GetSecondaryTitle(), info.GetSubtitle(), ll.m_lat, ll.m_lon,
                            info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
                            info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(),
@@ -219,7 +219,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   {
     return CreateMapObject(
         env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index,
-        kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+        kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.m_lat, ll.m_lon,
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(),
         info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get(),
@@ -228,7 +228,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   return CreateMapObject(
       env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index, kPoi,
-      info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+      info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.m_lat, ll.m_lon,
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
       info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),

@@ -263,7 +263,7 @@ void UnpackBorders(string const & baseDir, string const & targetDir)
       for (auto p : points)
       {
         ms::LatLon const ll = MercatorBounds::ToLatLon(p);
-        poly << "    " << scientific << ll.lon << "    " << ll.lat << endl;
+        poly << "    " << scientific << ll.m_lon << "    " << ll.m_lat << endl;
       }
       poly << "END" << endl;
     }

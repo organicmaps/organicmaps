@@ -40,12 +40,12 @@ pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)
 {
   ms::LatLon ll;
-  if (!strings::to_double(node.attribute("lat").value(), ll.lat))
+  if (!strings::to_double(node.attribute("lat").value(), ll.m_lat))
   {
     MYTHROW(editor::NoLatLon,
             ("Can't parse lat attribute:", string(node.attribute("lat").value())));
   }
-  if (!strings::to_double(node.attribute("lon").value(), ll.lon))
+  if (!strings::to_double(node.attribute("lon").value(), ll.m_lon))
   {
     MYTHROW(editor::NoLatLon,
             ("Can't parse lon attribute:", string(node.attribute("lon").value())));
@@ -203,8 +203,8 @@ ms::LatLon XMLFeature::GetCenter() const
 void XMLFeature::SetCenter(ms::LatLon const & ll)
 {
   ASSERT_EQUAL(GetType(), Type::Node, ());
-  SetAttribute("lat", strings::to_string_dac(ll.lat, kLatLonTolerance));
-  SetAttribute("lon", strings::to_string_dac(ll.lon, kLatLonTolerance));
+  SetAttribute("lat", strings::to_string_dac(ll.m_lat, kLatLonTolerance));
+  SetAttribute("lon", strings::to_string_dac(ll.m_lon, kLatLonTolerance));
 }
 
 void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)

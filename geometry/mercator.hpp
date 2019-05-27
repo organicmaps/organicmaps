@@ -87,7 +87,7 @@ struct MercatorBounds
 
   static m2::PointD FromLatLon(ms::LatLon const & point)
   {
-    return FromLatLon(point.lat, point.lon);
+    return FromLatLon(point.m_lat, point.m_lon);
   }
 
   static m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)

@@ -15,8 +15,8 @@ void MoveRoute(Route & route, ms::LatLon const & coords)
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
   info.m_verticalAccuracy = 0.01;
-  info.m_longitude = coords.lon;
-  info.m_latitude = coords.lat;
+  info.m_longitude = coords.m_lon;
+  info.m_latitude = coords.m_lat;
   route.MoveIterator(info);
 }
 

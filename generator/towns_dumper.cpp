@@ -108,6 +108,6 @@ void TownsDumper::Dump(std::string const & filePath)
   for (auto const & record : m_records)
   {
     std::string const isCapital = record.capital ? "t" : "f";
-    stream << record.point.lat << ";" << record.point.lon << ";" << record.id << ";" << isCapital <<  std::endl;
+    stream << record.point.m_lat << ";" << record.point.m_lon << ";" << record.id << ";" << isCapital <<  std::endl;
   }
 }

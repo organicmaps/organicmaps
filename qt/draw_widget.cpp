@@ -345,7 +345,7 @@ string DrawWidget::GetDistance(search::Result const & res) const
   {
     auto const ll = MercatorBounds::ToLatLon(*position);
     double dummy;
-    (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.lat, ll.lon, -1.0, dist,
+    (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.m_lat, ll.m_lon, -1.0, dist,
                                            dummy);
   }
   return dist;

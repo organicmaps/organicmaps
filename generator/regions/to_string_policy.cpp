@@ -21,8 +21,8 @@ std::string JsonPolicy::ToString(NodePath const & path) const
   auto coordinates = base::NewJSONArray();
   auto const tmpCenter = main.GetCenter();
   auto const center = MercatorBounds::ToLatLon({tmpCenter.get<0>(), tmpCenter.get<1>()});
-  ToJSONArray(*coordinates, center.lat);
-  ToJSONArray(*coordinates, center.lon);
+  ToJSONArray(*coordinates, center.m_lat);
+  ToJSONArray(*coordinates, center.m_lon);
   ToJSONObject(*geometry, "coordinates", coordinates);
 
   auto localeEn = base::NewJSONObject();

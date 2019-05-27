@@ -382,7 +382,7 @@ void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double spe
     {"distance", to_string(distToCameraMeters)},
     {"speed", to_string(measurement_utils::MpsToKmph(speedMpS))},
     {"speedlimit", camera.NoSpeed() ? "0" : to_string(camera.m_maxSpeedKmH)},
-    {"coord", "(" + to_string(latlon.lat) + "," + to_string(latlon.lon) + ")"}
+    {"coord", "(" + to_string(latlon.m_lat) + "," + to_string(latlon.m_lon) + ")"}
   };
 
   alohalytics::LogEvent("SpeedCameras_enter_zone", params);

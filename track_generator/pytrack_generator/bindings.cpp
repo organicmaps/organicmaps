@@ -142,8 +142,8 @@ BOOST_PYTHON_MODULE(pytrack_generator)
 
   class_<ms::LatLon>("LatLon", init<double, double>())
       .def("__str__", &ms::DebugPrint)
-      .def_readonly("lat", &ms::LatLon::lat)
-      .def_readonly("lon", &ms::LatLon::lon);
+      .def_readonly("lat", &ms::LatLon::m_lat)
+      .def_readonly("lon", &ms::LatLon::m_lon);
 
   class_<vector<ms::LatLon>>("LatLonList")
       .def(vector_indexing_suite<vector<ms::LatLon>>());

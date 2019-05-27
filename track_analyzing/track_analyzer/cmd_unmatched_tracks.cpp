@@ -34,7 +34,7 @@ void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv)
     {
       ofs << numMwmIds->GetFile(kv.first).GetName() << sep << idTrack.first;
       for (auto const & pnt : idTrack.second)
-        ofs << sep << pnt.m_timestamp << sep << pnt.m_latLon.lat << sep << pnt.m_latLon.lon;
+        ofs << sep << pnt.m_timestamp << sep << pnt.m_latLon.m_lat << sep << pnt.m_latLon.m_lon;
       ofs << "\n";
     }
   }

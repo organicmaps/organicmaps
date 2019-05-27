@@ -52,8 +52,8 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   auto coordinates = base::NewJSONArray();
-  ToJSONArray(*coordinates, std::round(center.lon * kRoundDigits) / kRoundDigits);
-  ToJSONArray(*coordinates, std::round(center.lat * kRoundDigits) / kRoundDigits);
+  ToJSONArray(*coordinates, std::round(center.m_lon * kRoundDigits) / kRoundDigits);
+  ToJSONArray(*coordinates, std::round(center.m_lat * kRoundDigits) / kRoundDigits);
   auto geometry = base::NewJSONObject();
   ToJSONObject(*geometry, "type", "Point");
   ToJSONObject(*geometry, "coordinates", coordinates);

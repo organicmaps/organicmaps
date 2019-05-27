@@ -39,11 +39,11 @@ bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes
 
     auto const node = xNode.node();
     auto const lat = node.attribute("lat");
-    if (!lat || !strings::to_double(lat.value(), latLon.lat))
+    if (!lat || !strings::to_double(lat.value(), latLon.m_lat))
       continue;
 
     auto const lon = node.attribute("lon");
-    if (!lon || !strings::to_double(lon.value(), latLon.lon))
+    if (!lon || !strings::to_double(lon.value(), latLon.m_lon))
       continue;
 
     auto const text = node.attribute("text");
@@ -66,9 +66,9 @@ void SaveToXml(std::list<editor::Note> const & notes, pugi::xml_document & xml,
     auto node = root.append_child("note");
 
     node.append_attribute("lat") =
-        strings::to_string_dac(note.m_point.lat, kDigitsAfterComma).data();
+        strings::to_string_dac(note.m_point.m_lat, kDigitsAfterComma).data();
     node.append_attribute("lon") =
-        strings::to_string_dac(note.m_point.lon, kDigitsAfterComma).data();
+        strings::to_string_dac(note.m_point.m_lon, kDigitsAfterComma).data();
     node.append_attribute("text") = note.m_note.data();
   }
 }
@@ -144,7 +144,7 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
     return;
   }
 
-  if (!MercatorBounds::ValidLat(latLon.lat) || !MercatorBounds::ValidLon(latLon.lon))
+  if (!MercatorBounds::ValidLat(latLon.m_lat) || !MercatorBounds::ValidLon(latLon.m_lon))
   {
     LOG(LWARNING, ("A note attached to a wrong latLon", latLon));
     return;

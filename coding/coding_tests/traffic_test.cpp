@@ -21,8 +21,8 @@ double CalculateLength(vector<TrafficGPSEncoder::DataPoint> const & path)
   double res = 0;
   for (size_t i = 1; i < path.size(); ++i)
   {
-    auto p1 = MercatorBounds::FromLatLon(path[i - 1].m_latLon.lat, path[i - 1].m_latLon.lon);
-    auto p2 = MercatorBounds::FromLatLon(path[i].m_latLon.lat, path[i].m_latLon.lon);
+    auto p1 = MercatorBounds::FromLatLon(path[i - 1].m_latLon.m_lat, path[i - 1].m_latLon.m_lon);
+    auto p2 = MercatorBounds::FromLatLon(path[i].m_latLon.m_lat, path[i].m_latLon.m_lon);
     res += MercatorBounds::DistanceOnEarth(p1, p2);
   }
   return res;
@@ -48,10 +48,10 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
     {
       TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp,
                  (points[i].m_timestamp, result[i].m_timestamp));
-      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.lat, result[i].m_latLon.lat, kEps),
-           (points[i].m_latLon.lat, result[i].m_latLon.lat));
-      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.lon, result[i].m_latLon.lon, kEps),
-           (points[i].m_latLon.lon, result[i].m_latLon.lon));
+      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.m_lat, result[i].m_latLon.m_lat, kEps),
+           (points[i].m_latLon.m_lat, result[i].m_latLon.m_lat));
+      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.m_lon, result[i].m_latLon.m_lon, kEps),
+           (points[i].m_latLon.m_lon, result[i].m_latLon.m_lon));
     }
 
     if (version == TrafficGPSEncoder::kLatestVersion)

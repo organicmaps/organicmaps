@@ -25,8 +25,8 @@ BookingHotel::BookingHotel(std::string const & src)
 
   CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
   // TODO(mgsergio): Use ms::LatLon.
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.m_lat), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.m_lon), ());
 
   m_name = rec[FieldIndex(Fields::Name)];
   m_address = rec[FieldIndex(Fields::Address)];
@@ -87,7 +87,7 @@ void BookingDataset::BuildObject(Object const & hotel,
 {
   FeatureBuilder1 fb;
 
-  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.lat, hotel.m_latLon.lon));
+  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.m_lat, hotel.m_latLon.m_lon));
 
   auto & metadata = fb.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));

@@ -24,7 +24,7 @@ void CmdCppTrack(string const & trackFile, string const & mwmName, string const 
   cout.precision(8);
   for (MatchedTrackPoint const & point : track)
   {
-    cout << "  {" << point.GetDataPoint().m_latLon.lat << ", " << point.GetDataPoint().m_latLon.lon
+    cout << "  {" << point.GetDataPoint().m_latLon.m_lat << ", " << point.GetDataPoint().m_latLon.m_lon
          << "}," << endl;
   }
   cout.precision(backupPrecision);

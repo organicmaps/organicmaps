@@ -275,7 +275,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
     auto const latLon = m_mapObject.GetLatLon();
     NSMutableDictionary * noteInfo = [info mutableCopy];
     noteInfo[kStatProblem] = self.note;
-    CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.m_lat longitude:latLon.m_lon];
     [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo atLocation:location];
     f.CreateNote(m_mapObject, osm::Editor::NoteProblemType::General, self.note.UTF8String);
   }
@@ -948,7 +948,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 {
   auto const & fid = m_mapObject.GetID();
   auto const latLon = m_mapObject.GetLatLon();
-  CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
+  CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.m_lat longitude:latLon.m_lon];
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
   [self.tableView reloadRowsAtIndexPaths:@[ ip ] withRowAnimation:UITableViewRowAnimationFade];

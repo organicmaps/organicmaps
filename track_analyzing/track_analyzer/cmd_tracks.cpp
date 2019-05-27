@@ -185,8 +185,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
                << ", departure: " << base::SecondsSinceEpochToString(start.m_timestamp)
                << ", arrival: " << base::SecondsSinceEpochToString(finish.m_timestamp)
                << setprecision(numeric_limits<double>::max_digits10)
-               << ", start: " << start.m_latLon.lat << ", " << start.m_latLon.lon
-               << ", finish: " << finish.m_latLon.lat << ", " << finish.m_latLon.lon << endl;
+               << ", start: " << start.m_latLon.m_lat << ", " << start.m_latLon.m_lon
+               << ", finish: " << finish.m_latLon.m_lat << ", " << finish.m_latLon.m_lon << endl;
         }
 
         mwmStats.AddTracks(1);

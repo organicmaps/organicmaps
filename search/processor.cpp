@@ -471,7 +471,7 @@ void Processor::SearchPlusCode()
     if (!m_position)
       return;
     ms::LatLon const latLon = MercatorBounds::ToLatLon(*m_position);
-    code = openlocationcode::RecoverNearest(query, {latLon.lat, latLon.lon});
+    code = openlocationcode::RecoverNearest(query, {latLon.m_lat, latLon.m_lon});
   }
 
   if (code.empty())

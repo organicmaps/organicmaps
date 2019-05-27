@@ -88,9 +88,9 @@ private:
     if (!points.empty())
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
-      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat,
+      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.m_lat, ms::LatLon::kMinLat,
                                                ms::LatLon::kMaxLat, kCoordBits);
-      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon,
+      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.m_lon, ms::LatLon::kMinLon,
                                                ms::LatLon::kMaxLon, kCoordBits);
       WriteVarUint(writer, firstTimestamp);
       WriteVarUint(writer, firstLat);
@@ -102,9 +102,9 @@ private:
       ASSERT_LESS_OR_EQUAL(points[i - 1].m_timestamp, points[i].m_timestamp, ());
 
       uint64_t const deltaTimestamp = points[i].m_timestamp - points[i - 1].m_timestamp;
-      uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.lat - points[i - 1].m_latLon.lat,
+      uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.m_lat - points[i - 1].m_latLon.m_lat,
                                          kMinDeltaLat, kMaxDeltaLat, kCoordBits);
-      uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.lon - points[i - 1].m_latLon.lon,
+      uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.m_lon - points[i - 1].m_latLon.m_lon,
                                          kMinDeltaLon, kMaxDeltaLon, kCoordBits);
 
       WriteVarUint(writer, deltaTimestamp);
@@ -125,9 +125,9 @@ private:
     if (!points.empty())
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
-      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat,
+      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.m_lat, ms::LatLon::kMinLat,
                                                ms::LatLon::kMaxLat, kCoordBits);
-      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon,
+      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.m_lon, ms::LatLon::kMinLon,
                                                ms::LatLon::kMaxLon, kCoordBits);
       uint32_t const traffic = points[0].m_traffic;
       WriteVarUint(writer, firstTimestamp);
@@ -141,9 +141,9 @@ private:
       ASSERT_LESS_OR_EQUAL(points[i - 1].m_timestamp, points[i].m_timestamp, ());
 
       uint64_t const deltaTimestamp = points[i].m_timestamp - points[i - 1].m_timestamp;
-      uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.lat - points[i - 1].m_latLon.lat,
+      uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.m_lat - points[i - 1].m_latLon.m_lat,
                                          kMinDeltaLat, kMaxDeltaLat, kCoordBits);
-      uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.lon - points[i - 1].m_latLon.lon,
+      uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.m_lon - points[i - 1].m_latLon.m_lon,
                                          kMinDeltaLon, kMaxDeltaLon, kCoordBits);
 
       uint32_t const traffic = points[i - 1].m_traffic;

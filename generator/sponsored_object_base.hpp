@@ -45,7 +45,7 @@ inline std::ostream & operator<<(std::ostream & s, SponsoredObjectBase const & h
 {
   s << std::fixed << std::setprecision(7);
   s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
-    << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
+    << "\t lat: " << h.m_latLon.m_lat << " lon: " << h.m_latLon.m_lon;
   return s;
 }
 }  // namespace generator

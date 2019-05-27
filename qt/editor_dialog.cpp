@@ -32,8 +32,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     ms::LatLon const ll = emo.GetLatLon();
     grid->addWidget(new QLabel("Latitude/Longitude:"), row, 0);
     QHBoxLayout * coords = new QHBoxLayout();
-    coords->addWidget(new QLabel(QString::fromStdString(strings::to_string_dac(ll.lat, 7) + " " +
-                                                        strings::to_string_dac(ll.lon, 7))));
+    coords->addWidget(new QLabel(QString::fromStdString(strings::to_string_dac(ll.m_lat, 7) + " " +
+                                                        strings::to_string_dac(ll.m_lon, 7))));
     grid->addLayout(coords, row++, 1);
   }
 

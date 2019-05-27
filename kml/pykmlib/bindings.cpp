@@ -262,7 +262,7 @@ void VectorAdapter<m2::PointD>::Set(std::vector<m2::PointD> & v, boost::python::
   auto const latLon = python_list_to_std_vector<ms::LatLon>(iterable);
   v.reserve(latLon.size());
   for (size_t i = 0; i < latLon.size(); ++i)
-    v.emplace_back(MercatorBounds::LonToX(latLon[i].lon), MercatorBounds::LatToY(latLon[i].lat));
+    v.emplace_back(MercatorBounds::LonToX(latLon[i].m_lon), MercatorBounds::LatToY(latLon[i].m_lat));
 }
 
 std::string LatLonToString(ms::LatLon const & latLon);
@@ -362,8 +362,8 @@ std::string LatLonToString(ms::LatLon const & latLon)
 {
   std::ostringstream out;
   out << "["
-      << "lat:" << latLon.lat << ", "
-      << "lon:" << latLon.lon
+      << "lat:" << latLon.m_lat << ", "
+      << "lon:" << latLon.m_lon
       << "]";
   return out.str();
 }
@@ -503,7 +503,7 @@ struct LatLonConverter
   static void construct(PyObject * objPtr, converter::rvalue_from_python_stage1_data * data)
   {
     ms::LatLon latLon = extract<ms::LatLon>(objPtr);
-    m2::PointD pt(MercatorBounds::LonToX(latLon.lon), MercatorBounds::LatToY(latLon.lat));
+    m2::PointD pt(MercatorBounds::LonToX(latLon.m_lon), MercatorBounds::LatToY(latLon.m_lat));
     void * storage =
       reinterpret_cast<converter::rvalue_from_python_storage<m2::PointD> *>(data)->storage.bytes;
     new (storage) m2::PointD(pt);
@@ -730,8 +730,8 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__str__", &VectorAdapter<uint8_t>::ToString);
 
   class_<ms::LatLon>("LatLon", init<double, double>())
-    .def_readwrite("lat", &ms::LatLon::lat)
-    .def_readwrite("lon", &ms::LatLon::lon)
+    .def_readwrite("lat", &ms::LatLon::m_lat)
+    .def_readwrite("lon", &ms::LatLon::m_lon)
     .def("__str__", &LatLonToString);
 
   class_<m2::PointD>("PointD");

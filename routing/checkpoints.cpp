@@ -61,7 +61,7 @@ std::string DebugPrint(Checkpoints const & checkpoints)
   for (auto const & point : checkpoints.GetPoints())
   {
     auto const latlon = MercatorBounds::ToLatLon(point);
-    out << latlon.lat << ", " << latlon.lon << "; ";
+    out << latlon.m_lat << ", " << latlon.m_lon << "; ";
   }
   out << "passed: " << checkpoints.GetPassedIdx() << ")";
   return out.str();

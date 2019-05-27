@@ -157,7 +157,7 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
          << DebugPrint(d.GetId())
          << ";" << (label ? label : "-")
          << ";" << static_cast<size_t>(d.GetRank())
-         << ";[" << std::fixed << std::setprecision(7) << center.lat << "," << center.lon << "])"
+         << ";[" << std::fixed << std::setprecision(7) << center.m_lat << "," << center.m_lon << "])"
          << std::endl;
   for (size_t i = 0, size = children.size(); i < size; ++i)
     PrintTree(children[i], stream, prefix, i == size - 1);

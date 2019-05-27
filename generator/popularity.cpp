@@ -302,7 +302,7 @@ void WriteLines(std::vector<PopularityLine> const & lines, std::string const & o
       stream << *line.m_parent;
 
     auto const center = MercatorBounds::ToLatLon(line.m_center);
-    stream << ";" << center.lat << ";" << center.lon << ";"
+    stream << ";" << center.m_lat << ";" << center.m_lon << ";"
            << line.m_type << ";" << line.m_name << "\n";
   }
 }

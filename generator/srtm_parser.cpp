@@ -89,10 +89,10 @@ feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord)
   if (!IsValid())
     return feature::kInvalidAltitude;
 
-  double ln = coord.lon - static_cast<int>(coord.lon);
+  double ln = coord.m_lon - static_cast<int>(coord.m_lon);
   if (ln < 0)
     ln += 1;
-  double lt = coord.lat - static_cast<int>(coord.lat);
+  double lt = coord.m_lat - static_cast<int>(coord.m_lat);
   if (lt < 0)
     lt += 1;
   lt = 1 - lt;  // from North to South
@@ -110,29 +110,29 @@ feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord)
 std::string SrtmTile::GetBase(ms::LatLon coord)
 {
   std::ostringstream ss;
-  if (coord.lat < 0)
+  if (coord.m_lat < 0)
   {
     ss << "S";
-    coord.lat *= -1;
-    coord.lat += 1;
+    coord.m_lat *= -1;
+    coord.m_lat += 1;
   }
   else
   {
     ss << "N";
   }
-  ss << std::setw(2) << std::setfill('0') << static_cast<int>(coord.lat);
+  ss << std::setw(2) << std::setfill('0') << static_cast<int>(coord.m_lat);
 
-  if (coord.lon < 0)
+  if (coord.m_lon < 0)
   {
     ss << "W";
-    coord.lon *= -1;
-    coord.lon += 1;
+    coord.m_lon *= -1;
+    coord.m_lon += 1;
   }
   else
   {
     ss << "E";
   }
-  ss << std::setw(3) << static_cast<int>(coord.lon);
+  ss << std::setw(3) << static_cast<int>(coord.m_lon);
   return ss.str();
 }
 

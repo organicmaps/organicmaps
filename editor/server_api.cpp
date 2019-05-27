@@ -122,8 +122,8 @@ void ServerApi06::CloseChangeSet(uint64_t changesetId) const
 uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & message) const
 {
   CHECK(!message.empty(), ("Note content should not be empty."));
-  std::string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) +
-                             "&lon=" + strings::to_string_dac(ll.lon, 7) +
+  std::string const params = "?lat=" + strings::to_string_dac(ll.m_lat, 7) +
+                             "&lon=" + strings::to_string_dac(ll.m_lon, 7) +
                              "&text=" + UrlEncode(message + " #mapsme");
   OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
@@ -200,7 +200,7 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, d
 
 OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(ms::LatLon const & ll, double radiusInMeters) const
 {
-  return GetXmlFeaturesAtLatLon(ll.lat, ll.lon, radiusInMeters);
+  return GetXmlFeaturesAtLatLon(ll.m_lat, ll.m_lon, radiusInMeters);
 }
 
 } // namespace osm

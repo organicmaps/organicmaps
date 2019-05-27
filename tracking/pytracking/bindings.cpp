@@ -26,8 +26,8 @@ BOOST_PYTHON_MODULE(pytracking)
       .def(vector_indexing_suite<Protocol::DataElementsVec>());
 
   class_<ms::LatLon>("LatLon")
-      .def_readwrite("lat", &ms::LatLon::lat)
-      .def_readwrite("lon", &ms::LatLon::lon);
+      .def_readwrite("lat", &ms::LatLon::m_lat)
+      .def_readwrite("lon", &ms::LatLon::m_lon);
 
   class_<coding::TrafficGPSEncoder::DataPoint>("DataPoint")
       .def(init<uint64_t, ms::LatLon const &, uint8_t>())

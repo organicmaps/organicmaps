@@ -54,7 +54,7 @@ bool RawApi::GetNearObject(ms::LatLon const & pos, std::string const & city, std
                            std::string const & baseUrl /* = kTaxiInfoUrl */)
 {
   std::ostringstream data;
-  data << R"({"latitude": )" << pos.lat << R"(, "longitude": )" << pos.lon << R"(, "city": ")"
+  data << R"({"latitude": )" << pos.m_lat << R"(, "longitude": )" << pos.m_lon << R"(, "city": ")"
        << city << R"("})";
 
   return RunSimpleHttpRequest(baseUrl + "near/", data.str(), result);

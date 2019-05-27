@@ -22,8 +22,8 @@ location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
   location::GpsInfo info;
   info.m_timestamp = timestamp;
   info.m_speedMpS = speed;
-  info.m_latitude = ll.lat;
-  info.m_longitude = ll.lon;
+  info.m_latitude = ll.m_lat;
+  info.m_longitude = ll.m_lon;
   info.m_source = location::EAndroidNative;
   return info;
 }

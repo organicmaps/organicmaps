@@ -124,8 +124,8 @@ public:
     for (auto const & item : m_objects)
     {
       auto const & object = item.second;
-      Box b(Point(object.m_latLon.lat, object.m_latLon.lon),
-            Point(object.m_latLon.lat, object.m_latLon.lon));
+      Box b(Point(object.m_latLon.m_lat, object.m_latLon.m_lon),
+            Point(object.m_latLon.m_lat, object.m_latLon.m_lon));
       m_rtree.insert(make_pair(b, object.m_id));
     }
   }
@@ -149,7 +149,7 @@ public:
     namespace bgi = boost::geometry::index;
 
     std::vector<ObjectId> indexes;
-    for_each(bgi::qbegin(m_rtree, bgi::nearest(Point(latLon.lat, latLon.lon),
+    for_each(bgi::qbegin(m_rtree, bgi::nearest(Point(latLon.m_lat, latLon.m_lon),
                                                static_cast<unsigned>(m_maxSelectedElements))),
              bgi::qend(m_rtree), [this, &latLon, &indexes](Value const & v) {
                auto const & object = GetObjectById(v.second);

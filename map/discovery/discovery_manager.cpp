@@ -48,7 +48,7 @@ std::string Manager::GetLocalExpertsUrl(m2::PointD const & point) const
 {
   ms::LatLon const ll(MercatorBounds::ToLatLon(point));
   std::ostringstream os;
-  os << locals::Api::GetLocalsPageUrl() << "?lat=" << ll.lat << "&lon=" << ll.lon;
+  os << locals::Api::GetLocalsPageUrl() << "?lat=" << ll.m_lat << "&lon=" << ll.m_lon;
   return os.str();
 }
 }  // namespace discovery

@@ -98,7 +98,7 @@ public:
         auto const latLon = MercatorBounds::ToLatLon(params.m_viewportCenter);
         auto constexpr pageNumber = 1;
         m_localsApi.GetLocals(
-            latLon.lat, latLon.lon, params.m_lang, params.m_itemsCount, pageNumber,
+            latLon.m_lat, latLon.m_lon, params.m_lang, params.m_itemsCount, pageNumber,
             [this, requestId, onResult](uint64_t id, std::vector<locals::LocalExpert> const & locals,
                                         size_t /* pageNumber */, size_t /* countPerPage */,
                                         bool /* hasPreviousPage */, bool /* hasNextPage */) {

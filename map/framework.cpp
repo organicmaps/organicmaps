@@ -1478,7 +1478,7 @@ void Framework::EnterBackground()
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
                                            static_cast<int>(m_startBackgroundTime - m_startForegroundTime))}},
-                                          alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+                                          alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
   // TODO(AlexZ): Use onStart/onStop on Android to correctly detect app background and remove #ifndef.
@@ -2442,7 +2442,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
 
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
-                                              alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+                                              alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
 
       if (info.GetSponsoredType() == SponsoredType::Booking)
       {
@@ -2644,7 +2644,7 @@ string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
   if (!res.empty())
   {
     ms::LatLon const ll = point.GetLatLon();
-    res += "pin?ll=" + strings::to_string(ll.lat) + "," + strings::to_string(ll.lon);
+    res += "pin?ll=" + strings::to_string(ll.m_lat) + "," + strings::to_string(ll.m_lon);
     if (!point.GetName().empty())
       res += "&n=" + UrlEncode(point.GetName());
     if (!point.GetApiID().empty())

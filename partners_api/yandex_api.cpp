@@ -60,7 +60,7 @@ bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::st
 {
   std::ostringstream url;
   url << std::fixed << std::setprecision(6) << baseUrl << "/taxi_info?clid=" << YANDEX_CLIENT_ID
-      << "&rll=" << from.lon << "," << from.lat << "~" << to.lon << "," << to.lat
+      << "&rll=" << from.m_lon << "," << from.m_lat << "~" << to.m_lon << "," << to.m_lat
       << "&class=econom";
 
   return RunSimpleHttpRequest(url.str(), result);
@@ -118,13 +118,13 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
   std::ostringstream deepLink;
 
 #if defined(OMIM_OS_IPHONE)
-  deepLink << "https://3.redirect.appmetrica.yandex.com/route?start-lat=" << from.lat
-           << "&start-lon=" << from.lon << "&end-lat=" << to.lat << "&end-lon=" << to.lon
+  deepLink << "https://3.redirect.appmetrica.yandex.com/route?start-lat=" << from.m_lat
+           << "&start-lon=" << from.m_lon << "&end-lat=" << to.m_lat << "&end-lon=" << to.m_lon
            << "&utm_source=mapsme&appmetrica_tracking_id=" << YANDEX_TRACKING_ID
            << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
 #elif defined(OMIM_OS_ANDROID)
   deepLink << "https://redirect.appmetrica.yandex.com/serve/" << YANDEX_TRACKING_ID << "?startlat="
-           << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon
+           << from.m_lat << "&startlon=" << from.m_lon << "&endlat=" << to.m_lat << "&endlon=" << to.m_lon
            << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
 #endif
 

@@ -814,7 +814,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
                {"our", ourDebugFeatureString},
                {"mwm", fti.m_object.GetID().GetMwmName()},
                {"mwm_version", strings::to_string(fti.m_object.GetID().GetMwmVersion())}},
-              alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+              alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
         }
 
         GetPlatform().RunTask(Platform::Thread::Gui,

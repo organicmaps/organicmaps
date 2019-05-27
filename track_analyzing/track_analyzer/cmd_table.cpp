@@ -202,7 +202,7 @@ public:
   MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup, DataPoint const & dataPoint)
     : m_roadInfo(roadType), m_speedGroup(speedGroup), m_latLon(dataPoint.m_latLon)
   {
-    m_isDayTime = DayTimeToBool(GetDayTime(dataPoint.m_timestamp, m_latLon.lat, m_latLon.lon));
+    m_isDayTime = DayTimeToBool(GetDayTime(dataPoint.m_timestamp, m_latLon.m_lat, m_latLon.m_lon));
   }
 
   bool operator==(MoveType const & rhs) const
@@ -234,7 +234,7 @@ public:
     ostringstream out;
     out << m_roadInfo.GetSummary() << ","
         << m_isDayTime << ","
-        << m_latLon.lat << " " << m_latLon.lon;
+        << m_latLon.m_lat << " " << m_latLon.m_lon;
 
     return out.str();
   }

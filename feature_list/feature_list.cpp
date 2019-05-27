@@ -124,8 +124,8 @@ bool HasAtm(FeatureType & f)
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
-  ss << strings::to_string_with_digits_after_comma(coords.lat, 6) << ','
-     << strings::to_string_with_digits_after_comma(coords.lon, 6) << ',' << name;
+  ss << strings::to_string_with_digits_after_comma(coords.m_lat, 6) << ','
+     << strings::to_string_with_digits_after_comma(coords.m_lon, 6) << ',' << name;
   uint32_t hash = 0;
   for (char const c : ss.str())
     hash = hash * 101 + c;
@@ -238,8 +238,8 @@ public:
         osmId = f.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID) + "00";
     }
     string const & uid = BuildUniqueId(ll, name);
-    string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
-    string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
+    string const & lat = strings::to_string_with_digits_after_comma(ll.m_lat, 6);
+    string const & lon = strings::to_string_with_digits_after_comma(ll.m_lon, 6);
     search::ReverseGeocoder::Address addr;
     string addrStreet = "";
     string addrHouse = "";

@@ -50,7 +50,7 @@ string LatLonsToString(vector<ms::LatLon> const & coords)
   for (size_t i = 0; i < size; ++i)
   {
     auto const & ll = coords[i];
-    oss << ll.lon << "," << ll.lat;
+    oss << ll.m_lon << "," << ll.m_lat;
     if (i + 1 != size)
       oss << ";";
   }

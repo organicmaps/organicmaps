@@ -31,10 +31,10 @@ double DistanceOnSphere(double lat1Deg, double lon1Deg, double lat2Deg, double l
 double AreaOnSphere(ms::LatLon const & ll1, ms::LatLon const & ll2, ms::LatLon const & ll3)
 {
   // Todo: proper area on sphere (not needed for now)
-  double const avgLat = base::DegToRad((ll1.lat + ll2.lat + ll3.lat) / 3);
+  double const avgLat = base::DegToRad((ll1.m_lat + ll2.m_lat + ll3.m_lat) / 3);
   return cos(avgLat) * 0.5 *
-         fabs((ll2.lon - ll1.lon) * (ll3.lat - ll1.lat) -
-              (ll3.lon - ll1.lon) * (ll2.lat - ll1.lat));
+         fabs((ll2.m_lon - ll1.m_lon) * (ll3.m_lat - ll1.m_lat) -
+              (ll3.m_lon - ll1.m_lon) * (ll2.m_lat - ll1.m_lat));
 }
 
 double DistanceOnEarth(double lat1Deg, double lon1Deg, double lat2Deg, double lon2Deg)
@@ -44,7 +44,7 @@ double DistanceOnEarth(double lat1Deg, double lon1Deg, double lat2Deg, double lo
 
 double DistanceOnEarth(LatLon const & ll1, LatLon const & ll2)
 {
-  return DistanceOnEarth(ll1.lat, ll1.lon, ll2.lat, ll2.lon);
+  return DistanceOnEarth(ll1.m_lat, ll1.m_lon, ll2.m_lat, ll2.m_lon);
 }
 
 double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
