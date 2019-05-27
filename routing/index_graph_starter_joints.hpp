@@ -237,11 +237,8 @@ void IndexGraphStarterJoints<Graph>::Init(Segment const & startSegment, Segment 
   else
     m_endJoint = CreateFakeJoint(m_graph.GetFinishSegment(), m_graph.GetFinishSegment());
 
-  m_reconstructedFakeJoints.emplace(m_startJoint,
-                                    ReconstructedPath({m_startSegment}, true /* fromStart */));
-
-  m_reconstructedFakeJoints.emplace(m_endJoint,
-                                    ReconstructedPath({m_endSegment}, false /* fromStart */));
+  m_reconstructedFakeJoints[m_startJoint] = ReconstructedPath({m_startSegment}, true /* fromStart */);
+  m_reconstructedFakeJoints[m_endJoint] = ReconstructedPath({m_endSegment}, false /* fromStart */);
 
   m_startOutEdges = FindFirstJoints(startSegment, true /* fromStart */);
   m_endOutEdges = FindFirstJoints(endSegment, false /* fromStart */);
@@ -300,6 +297,7 @@ std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegme
     CHECK(it != m_reconstructedFakeJoints.cend(), ("Can not find such fake joint"));
 
     auto path = it->second.m_path;
+    ASSERT(!path.empty(), ());
     if (path.front() == m_startSegment && path.back() == m_endSegment)
       path.pop_back();
 
@@ -578,13 +576,13 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
   {
     CHECK(!IsRealSegment(fake), ());
 
-    bool const haveSameFront =
+    bool const hasSameFront =
         m_graph.GetPoint(fake, true /* front */) == m_graph.GetPoint(segment, true);
 
-    bool const haveSameBack =
+    bool const hasSameBack =
         m_graph.GetPoint(fake, false /* front */) == m_graph.GetPoint(segment, false);
 
-    return (fromStart && haveSameFront) || (!fromStart && haveSameBack);
+    return (fromStart && hasSameFront) || (!fromStart && hasSameBack);
   };
 
   while (!queue.empty())

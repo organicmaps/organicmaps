@@ -474,6 +474,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   IndexGraphStarter::CheckValidRoute(segments);
 
+  // TODO (@gmoryes) https://jira.mail.ru/browse/MAPSME-10694
+  //  We should do RedressRoute for each subroute separately.
   auto redressResult = RedressRoute(segments, delegate, *starter, route);
   if (redressResult != RouterResultCode::NoError)
     return redressResult;

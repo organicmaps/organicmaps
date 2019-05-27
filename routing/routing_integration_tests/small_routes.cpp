@@ -1,8 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "routing/vehicle_mask.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "base/logging.hpp"
+
+#include <tuple>
+#include <vector>
 
 using namespace routing;
 
@@ -11,7 +18,7 @@ namespace
 // This is set of small routes was received from users' crashes.
 // It crashed into astar_algorithm.hpp in CHECK() about A* invariant
 // for bidirectional algo.
-// These tests should run without any errors.
+// These tests should just passed without any crash.
 UNIT_TEST(SmallRoutes_JustNoError)
 {
   // Do not touch the coords here! It's must be written in this format.
