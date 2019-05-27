@@ -1439,7 +1439,7 @@ public class PlacePageView extends NestedScrollView
   {
     LocalAdInfo localAdInfo = mapObject.getLocalAdInfo();
     boolean isLocalAdAvailable = localAdInfo != null && localAdInfo.isAvailable();
-    if (isLocalAdAvailable && !TextUtils.isEmpty(localAdInfo.getUrl()))
+    if (isLocalAdAvailable && !TextUtils.isEmpty(localAdInfo.getUrl()) && !localAdInfo.isHidden())
     {
       mTvLocalAd.setText(localAdInfo.isCustomer() ? R.string.view_campaign_button
                                                   : R.string.create_campaign_button);

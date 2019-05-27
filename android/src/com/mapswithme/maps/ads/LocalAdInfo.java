@@ -11,13 +11,14 @@ import java.lang.annotation.RetentionPolicy;
 public class LocalAdInfo implements Parcelable
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ STATUS_NOT_AVAILABLE, STATUS_CANDIDATE, STATUS_CUSTOMER})
+  @IntDef({ STATUS_NOT_AVAILABLE, STATUS_CANDIDATE, STATUS_CUSTOMER, STATUS_HIDDEN})
 
   public @interface Status {}
 
   private static final int STATUS_NOT_AVAILABLE = 0;
   private static final int STATUS_CANDIDATE = 1;
   private static final int STATUS_CUSTOMER = 2;
+  private static final int STATUS_HIDDEN = 3;
 
   @Status
   private final int mStatus;
@@ -38,6 +39,11 @@ public class LocalAdInfo implements Parcelable
   public boolean isCustomer()
   {
     return mStatus == STATUS_CUSTOMER;
+  }
+
+  public boolean isHidden()
+  {
+    return mStatus == STATUS_HIDDEN;
   }
 
   @Nullable

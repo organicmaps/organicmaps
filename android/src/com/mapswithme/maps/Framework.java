@@ -197,7 +197,7 @@ public class Framework
                                       @NonNull MapObject mapObject)
   {
     LocalAdInfo info = mapObject.getLocalAdInfo();
-    if (info == null || !info.isCustomer())
+    if (info == null || (!info.isCustomer() && !info.isHidden()))
       return;
 
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();

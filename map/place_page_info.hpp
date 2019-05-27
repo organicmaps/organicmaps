@@ -53,7 +53,8 @@ enum class LocalAdsStatus
 {
   NotAvailable,
   Candidate,
-  Customer
+  Customer,
+  Hidden
 };
 
 enum class LocalsStatus

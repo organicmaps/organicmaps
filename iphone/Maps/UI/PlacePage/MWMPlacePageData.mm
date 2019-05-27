@@ -321,6 +321,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     m_metainfoRows.push_back(MetainfoRows::LocalAdsCustomer);
     [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
     break;
+  case place_page::LocalAdsStatus::Hidden:
+    [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
+    break;
   }
 }
 
@@ -734,7 +737,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
 - (void)logLocalAdsEvent:(local_ads::EventType)type
 {
-  if (m_info.GetLocalAdsStatus() != place_page::LocalAdsStatus::Customer)
+  auto const status = m_info.GetLocalAdsStatus();
+  if (status != place_page::LocalAdsStatus::Customer && status != place_page::LocalAdsStatus::Hidden)
     return;
   auto const featureID = m_info.GetID();
   auto const & mwmInfo = featureID.m_mwmId.GetInfo();

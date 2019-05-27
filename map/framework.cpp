@@ -985,9 +985,10 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   if (m_localAdsManager.IsSupportedType(info.GetTypes()))
   {
     info.SetLocalAdsUrl(m_localAdsManager.GetCompanyUrl(ft.GetID()));
-    auto const status = m_localAdsManager.HasVisualization(ft.GetID())
-                            ? place_page::LocalAdsStatus::Customer
-                            : place_page::LocalAdsStatus::Candidate;
+    auto status = m_localAdsManager.HasAds(ft.GetID()) ? place_page::LocalAdsStatus::Customer
+                                                       : place_page::LocalAdsStatus::Candidate;
+    if (status == place_page::LocalAdsStatus::Customer && !m_localAdsManager.HasVisualization(ft.GetID()))
+      status = place_page::LocalAdsStatus::Hidden;
     info.SetLocalAdsStatus(status);
   }
   else
