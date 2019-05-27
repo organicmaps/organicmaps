@@ -1,4 +1,5 @@
 #include "search/categories_cache.hpp"
+#include "search/house_numbers_matcher.hpp"
 #include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_quality/helpers.hpp"
@@ -38,15 +39,24 @@ using namespace search::search_quality;
 using namespace search;
 using namespace std;
 
-DEFINE_string(data_path, "", "Path to data directory (resources dir)");
-DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
-DEFINE_string(out_buildings_path, "buildings.json", "Path to output file for buildings samples");
-DEFINE_string(out_cafes_path, "cafes.json", "Path to output file for cafes samples");
-
 double constexpr kMaxDistanceToObjectM = 7500.0;
 double constexpr kMinViewportSizeM = 100.0;
 double constexpr kMaxViewportSizeM = 5000.0;
 size_t constexpr kMaxSamplesPerMwm = 20;
+
+DEFINE_string(data_path, "", "Path to data directory (resources dir).");
+DEFINE_string(mwm_path, "", "Path to mwm files (writable dir).");
+DEFINE_string(out_buildings_path, "buildings.json", "Path to output file for buildings samples.");
+DEFINE_string(out_cafes_path, "cafes.json", "Path to output file for cafes samples.");
+DEFINE_double(max_distance_to_object, kMaxDistanceToObjectM,
+              "Maximal distance from user position to object (meters).");
+DEFINE_double(min_viewport_size, kMinViewportSizeM, "Minimal size of viewport (meters).");
+DEFINE_double(max_viewport_size, kMaxViewportSizeM, "Maximal size of viewport (meters).");
+DEFINE_uint64(max_samples_per_mwm, kMaxSamplesPerMwm,
+              "Maximal number of samples of each type (buildings/cafes) per mwm.");
+DEFINE_bool(add_misprints, false, "Add random misprints.");
+DEFINE_bool(add_cafe_address, false, "Add address.");
+DEFINE_bool(add_cafe_type, false, "Add cafe type (restaurant/cafe/bar) in local language.");
 
 std::random_device g_rd;
 mt19937 g_rng(g_rd());
@@ -95,6 +105,9 @@ void AddRandomMisprint(strings::UniString & str)
 
 void AddMisprints(string & str)
 {
+  if (!FLAGS_add_misprints)
+    return;
+
   auto tokens = strings::Tokenize(str, " -&");
   str.clear();
   for (size_t i = 0; i < tokens.size(); ++i)
@@ -192,20 +205,25 @@ void ModifyHouse(uint8_t lang, string & str)
 
 m2::PointD GenerateNearbyPosition(m2::PointD const & point)
 {
-  uniform_real_distribution<double> dis(-kMaxDistanceToObjectM, kMaxDistanceToObjectM);
+  auto const maxDistance = FLAGS_max_distance_to_object;
+  uniform_real_distribution<double> dis(-maxDistance, maxDistance);
   return MercatorBounds::GetSmPoint(point, dis(g_rng) /* dX */, dis(g_rng) /* dY */);
 }
 
 m2::RectD GenerateNearbyViewport(m2::PointD const & point)
 {
-  uniform_real_distribution<double> dis(kMinViewportSizeM, kMaxViewportSizeM);
+  uniform_real_distribution<double> dis(FLAGS_min_viewport_size, FLAGS_max_viewport_size);
   return MercatorBounds::RectByCenterXYAndSizeInMeters(GenerateNearbyPosition(point), dis(g_rng));
 }
 
 bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street)
 {
-  if (ft.GetHouseNumber().empty())
+  auto const houseNumber = ft.GetHouseNumber();
+  if (houseNumber.empty() ||
+      !search::house_numbers::LooksLikeHouseNumber(houseNumber, false /* prefix */))
+  {
     return false;
+  }
 
   street = coder.GetFeatureStreetName(ft);
   if (street.empty())
@@ -262,7 +280,7 @@ string CombineRandomly(string const & mandatory, string const & optional)
 
 void ModifyCafe(string const & name, string const & type, string & out)
 {
-  out = CombineRandomly(name, type);
+  out = FLAGS_add_cafe_type ? CombineRandomly(name, type) : name;
   AddMisprints(out);
 }
 
@@ -312,7 +330,9 @@ boost::optional<Sample> GenerateRequest(
   auto const house = ft.GetHouseNumber();
   auto const featureCenter = feature::GetCenter(ft);
   auto const address = ModifyAddress(street, house, lang);
-  auto const query = cafeStr.empty() ? address : CombineRandomly(cafeStr, address);
+  auto query = address;
+  if (!cafeStr.empty())
+    query = FLAGS_add_cafe_address ? CombineRandomly(cafeStr, address) : cafeStr;
 
   Sample sample;
   sample.m_query = strings::MakeUniString(query);
@@ -430,7 +450,7 @@ int main(int argc, char * argv[])
       size_t numSamples = 0;
       for (auto const fid : fids)
       {
-        if (numSamples >= kMaxSamplesPerMwm)
+        if (numSamples >= FLAGS_max_samples_per_mwm)
           break;
 
         auto ft = g.GetFeatureByIndex(fid);

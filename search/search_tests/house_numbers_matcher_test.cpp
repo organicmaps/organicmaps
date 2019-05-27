@@ -65,11 +65,6 @@ bool CheckParser(string const & utf8s, string const & expected)
 
   return true;
 }
-
-bool LooksLikeHouseNumber(string const & s, bool isPrefix)
-{
-  return house_numbers::LooksLikeHouseNumber(MakeUniString(s), isPrefix);
-}
 }  // namespace
 
 UNIT_TEST(HouseNumberTokenizer_Smoke)

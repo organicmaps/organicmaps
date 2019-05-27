@@ -567,6 +567,11 @@ bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
   return classifier.LooksGood(s, isPrefix);
 }
 
+bool LooksLikeHouseNumber(string const & s, bool isPrefix)
+{
+  return LooksLikeHouseNumber(strings::MakeUniString(s), isPrefix);
+}
+
 string DebugPrint(Token::Type type)
 {
   switch (type)
