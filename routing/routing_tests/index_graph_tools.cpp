@@ -41,11 +41,66 @@ void AddGraph(unordered_map<NumMwmId, unique_ptr<Graph>> & graphs, NumMwmId mwmI
 }
 }  // namespace
 
-// RestrictionTest
+// RestrictionTest ---------------------------------------------------------------------------------
 void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & finish)
 {
   CHECK(m_graph != nullptr, ("Init() was not called."));
   m_starter = MakeStarter(start, finish, *m_graph);
+}
+
+void RestrictionTest::SetRestrictions(RestrictionVec && restrictions)
+{
+  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
+}
+
+void RestrictionTest::SetUTurnRestrictions(vector<RestrictionUTurn> && restrictions)
+{
+  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetUTurnRestrictions(move(restrictions));
+}
+
+// NoUTurnRestrictionTest --------------------------------------------------------------------------
+void NoUTurnRestrictionTest::Init(unique_ptr<SingleVehicleWorldGraph> graph)
+{
+  m_graph = make_unique<WorldGraphForAStar>(move(graph));
+}
+
+void NoUTurnRestrictionTest::SetRestrictions(RestrictionVec && restrictions)
+{
+  auto & indexGraph = m_graph->GetWorldGraph().GetIndexGraph(kTestNumMwmId);
+  indexGraph.SetRestrictions(move(restrictions));
+}
+
+void NoUTurnRestrictionTest::SetNoUTurnRestrictions(vector<RestrictionUTurn> && restrictions)
+{
+  auto & indexGraph = m_graph->GetWorldGraph().GetIndexGraph(kTestNumMwmId);
+  indexGraph.SetUTurnRestrictions(move(restrictions));
+}
+
+void NoUTurnRestrictionTest::TestRouteGeom(Segment const & start, Segment const & finish,
+                                           AlgorithmForWorldGraph::Result expectedRouteResult,
+                                           vector<m2::PointD> const & expectedRouteGeom)
+{
+  AlgorithmForWorldGraph algorithm;
+  AlgorithmForWorldGraph::ParamsForTests params(*m_graph, start, finish,
+                                                nullptr /* prevRoute */,
+                                                {} /* checkLengthCallback */);
+
+  RoutingResult<Segment, RouteWeight> routingResult;
+  auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
+
+  TEST_EQUAL(resultCode, expectedRouteResult, ());
+  for (size_t i = 0; i < routingResult.m_path.size(); ++i)
+  {
+    static auto constexpr kEps = 1e-3;
+    auto const point = m_graph->GetWorldGraph().GetPoint(routingResult.m_path[i], true /* forward */);
+    if (!base::AlmostEqualAbs(point,
+                              expectedRouteGeom[i],
+                              kEps))
+    {
+      TEST(false, ("Coords missmated at index:", i, "expected:", expectedRouteGeom[i],
+                   "received:", point));
+    }
+  }
 }
 
 // ZeroGeometryLoader ------------------------------------------------------------------------------
@@ -133,8 +188,6 @@ void TestIndexGraphTopology::SetVertexAccess(Vertex v, RoadAccess::Type type)
   CHECK(found, ("Cannot set access for vertex that is not in the graph", v));
 }
 
-using AlgorithmForWorldGraph = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
-
 bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
                                       vector<Edge> & pathEdges) const
 {
@@ -167,12 +220,12 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   Builder builder(m_numVertices);
   builder.BuildGraphFromRequests(edgeRequests);
-  auto const worldGraph = builder.PrepareIndexGraph();
+  auto worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
   AlgorithmForWorldGraph algorithm;
 
-  WorldGraphForAStar graphForAStar(*worldGraph);
+  WorldGraphForAStar graphForAStar(move(worldGraph));
 
   AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
                                                 nullptr /* prevRoute */,
@@ -406,19 +459,67 @@ void TestRouteGeometry(IndexGraphStarter & starter,
   for (size_t i = 0; i < geom.size(); ++i)
   {
     static double constexpr kEps = 1e-8;
-    TEST(base::AlmostEqualAbs(geom[i], expectedRouteGeom[i], kEps),
-         ("geom:", geom, "expectedRouteGeom:", expectedRouteGeom));
+    if (!base::AlmostEqualAbs(geom[i], expectedRouteGeom[i], kEps))
+    {
+      for (size_t j = 0; j < geom.size(); ++j)
+        LOG(LINFO, (j, "=>", geom[j], "vs", expectedRouteGeom[j]));
+
+      TEST(false, ("Point with number:", i, "doesn't equal to expected."));
+    }
   }
+}
+
+void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
+                       AlgorithmForWorldGraph::Result expectedRouteResult,
+                       FakeEnding const & start, FakeEnding const & finish,
+                       RestrictionVec && restrictions,
+                       RestrictionTest & restrictionTest)
+{
+  restrictionTest.SetRestrictions(move(restrictions));
+  restrictionTest.SetStarter(start, finish);
+  TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       AlgorithmForWorldGraph::Result expectedRouteResult,
                       FakeEnding const & start, FakeEnding const & finish,
+                      RestrictionVec && restrictions,
+                      vector<RestrictionUTurn> && restrictionsNoUTurn,
+                      RestrictionTest & restrictionTest)
+{
+  restrictionTest.SetRestrictions(move(restrictions));
+  restrictionTest.SetUTurnRestrictions(move(restrictionsNoUTurn));
+
+  restrictionTest.SetStarter(start, finish);
+  TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
+}
+
+void TestRestrictions(double expectedLength,
+                      FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {
   restrictionTest.SetRestrictions(move(restrictions));
   restrictionTest.SetStarter(start, finish);
-  TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
+
+  auto & starter = *restrictionTest.m_starter;
+
+  double timeSec = 0.0;
+  vector<Segment> segments;
+  auto const resultCode = CalculateRoute(starter, segments, timeSec);
+  TEST_EQUAL(resultCode, AlgorithmForWorldGraph::Result::OK, ());
+
+  double length = 0.0;
+  for (auto const & segment : segments)
+  {
+    auto const back = starter.GetPoint(segment, false /* front */);
+    auto const front = starter.GetPoint(segment, true /* front */);
+
+    length += back.Length(front);
+  }
+
+  static auto constexpr kEps = 1e-3;
+  TEST(base::AlmostEqualAbs(expectedLength, length, kEps),
+       ("Length expected:", expectedLength, "has:", length));
 }
 
 void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,

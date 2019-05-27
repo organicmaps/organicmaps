@@ -42,8 +42,10 @@ namespace routing_test
 using namespace routing;
 
 // The value doesn't matter, it doesn't associated with any real mwm id.
-// It just a noticeable value to detect the source of such id while debuging unit tests.
+// It just a noticeable value to detect the source of such id while debugging unit tests.
 NumMwmId constexpr kTestNumMwmId = 777;
+
+using AlgorithmForWorldGraph = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
 
 class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
@@ -52,26 +54,31 @@ public:
   using Edge = AStarGraph::Edge;
   using Weight = AStarGraph::Weight;
 
-  explicit WorldGraphForAStar(WorldGraph & graph) : m_graph(graph) {}
+  explicit WorldGraphForAStar(std::unique_ptr<SingleVehicleWorldGraph> graph) : m_graph(std::move(graph)) {}
   ~WorldGraphForAStar() override = default;
 
+  // AStarGraph overrides:
+  // @{
   Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
   {
-    return m_graph.HeuristicCostEstimate(from, to);
+    return m_graph->HeuristicCostEstimate(from, to);
   }
 
   void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
   {
-    m_graph.GetOutgoingEdgesList(v, edges);
+    m_graph->GetOutgoingEdgesList(v, edges);
   }
 
   void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
   {
-    m_graph.GetIngoingEdgesList(v, edges);
+    m_graph->GetIngoingEdgesList(v, edges);
   }
+  // @}
+
+  WorldGraph & GetWorldGraph() { return *m_graph; }
 
 private:
-  WorldGraph & m_graph;
+  std::unique_ptr<SingleVehicleWorldGraph> m_graph;
 };
 
 struct RestrictionTest
@@ -79,13 +86,26 @@ struct RestrictionTest
   RestrictionTest() { classificator::Load(); }
   void Init(std::unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = std::move(graph); }
   void SetStarter(FakeEnding const & start, FakeEnding const & finish);
-  void SetRestrictions(RestrictionVec && restrictions)
-  {
-    m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(std::move(restrictions));
-  }
+  void SetRestrictions(RestrictionVec && restrictions);
+  void SetUTurnRestrictions(std::vector<RestrictionUTurn> && restrictions);
 
   std::unique_ptr<SingleVehicleWorldGraph> m_graph;
   std::unique_ptr<IndexGraphStarter> m_starter;
+};
+
+struct NoUTurnRestrictionTest
+{
+  NoUTurnRestrictionTest() { classificator::Load(); }
+  void Init(std::unique_ptr<SingleVehicleWorldGraph> graph);
+
+  void SetRestrictions(RestrictionVec && restrictions);
+  void SetNoUTurnRestrictions(std::vector<RestrictionUTurn> && restrictions);
+
+  void TestRouteGeom(Segment const & start, Segment const & finish,
+                     AlgorithmForWorldGraph::Result expectedRouteResult,
+                     std::vector<m2::PointD> const & expectedRouteGeom);
+
+  std::unique_ptr<WorldGraphForAStar> m_graph;
 };
 
 class ZeroGeometryLoader final : public routing::GeometryLoader
@@ -252,6 +272,17 @@ void TestRouteGeometry(
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
 void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                      FakeEnding const & start, FakeEnding const & finish,
+                      RestrictionVec && restrictions, RestrictionTest & restrictionTest);
+
+void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
+                      AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                      FakeEnding const & start, FakeEnding const & finish,
+                      RestrictionVec && restrictions,
+                      std::vector<RestrictionUTurn> && restrictionsNoUTurn,
+                      RestrictionTest & restrictionTest);
+
+void TestRestrictions(double timeExpected,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
 

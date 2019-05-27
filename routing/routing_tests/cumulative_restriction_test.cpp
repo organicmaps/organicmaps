@@ -94,8 +94,8 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF1F3Only)
     {1 /* feature from */, 3 /* feature to */}
   };
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
@@ -104,7 +104,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF1F3Only)
       MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
 }
 
-// Route through XY graph with one restriciton (type only) from F3 to F5.
+// Route through XY graph with one restriction (type only) from F3 to F5.
 UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5Only)
 {
   Init(BuildXYGraph());
@@ -112,8 +112,8 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5Only)
     {3 /* feature from */, 5 /* feature to */}
   };
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
@@ -132,8 +132,8 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyF1F3Only)
     {3 /* feature from */, 5 /* feature to */}
   };
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
@@ -155,8 +155,8 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyAndF0F2No)
   RestrictionVec restrictionsOnly = {
     {3 /* feature from */, 5 /* feature to */}
   };
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
@@ -177,8 +177,8 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
   RestrictionVec restrictionsOnly = {
     {3 /* feature from */, 5 /* feature to */}
   };
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   TestRestrictions(
       {} /* expectedGeom */, Algorithm::Result::NoPath,
@@ -318,8 +318,8 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3OnlyAndF3F6Only)
     {1 /* feature from */, 3 /* feature to */},
     {3 /* feature from */, 6 /* feature to */}
   };
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRestrictions(
@@ -359,8 +359,8 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F6O
     {8 /* feature from */, 4 /* feature to */}
   };
 
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRestrictions(
@@ -387,8 +387,8 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
     {0 /* feature from */, 2 /* feature to */},
   };
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                                     restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
+                              restrictionsNo);
 
   // Check that without restrictions we can find path better.
   test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish, finish}, move(restrictionsNo));
