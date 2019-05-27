@@ -78,6 +78,10 @@ OSM_TOOLS_PATH: ~/osmctools
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
+
+[Stats]
+# Path to rules for calculating statistics by type
+STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt
 ```
 
 
@@ -114,16 +118,18 @@ optional arguments:
                         download_production_external,
                         download_and_convert_planet, update_planet, coastline,
                         preprocess, features, mwm, descriptions,
-                        countries_txt, external_resources, localads, cleanup,
-                        index, ugc, popularity, routing, routing_transit.
+                        countries_txt, external_resources, localads,
+                        statistics, cleanup, index, ugc, popularity, routing,
+                        routing_transit.
   --from_stage FROM_STAGE
                         Stage from which maps will be rebuild. Available
                         stages: download_external,
                         download_production_external,
                         download_and_convert_planet, update_planet, coastline,
                         preprocess, features, mwm, descriptions,
-                        countries_txt, external_resources, localads, cleanup,
-                        index, ugc, popularity, routing, routing_transit.
+                        countries_txt, external_resources, localads,
+                        statistics, cleanup, index, ugc, popularity, routing,
+                        routing_transit.
   --coasts              Build WorldCoasts.raw and WorldCoasts.rawgeom files
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
