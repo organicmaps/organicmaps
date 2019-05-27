@@ -36,6 +36,8 @@ set(
   turns_generator_test.cpp
   turns_sound_test.cpp
   turns_tts_text_tests.cpp
+  uturn_restriction_tests.cpp
+  world_graph_builder.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
