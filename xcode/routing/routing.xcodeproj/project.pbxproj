@@ -91,6 +91,8 @@
 		44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44AE4A11214FBB8D006321F5 /* speed_camera.hpp */; };
 		44C56C0A22296498006C2A1D /* routing_options.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44C56C0822296498006C2A1D /* routing_options.hpp */; };
 		44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44C56C0922296498006C2A1D /* routing_options.cpp */; };
+		44D1C419229C59A3001A3CD2 /* small_routes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44D1C418229C59A3001A3CD2 /* small_routes.cpp */; };
+		44D1C41B229C59B8001A3CD2 /* transit_route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44D1C41A229C59B8001A3CD2 /* transit_route_test.cpp */; };
 		44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */; };
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44EB88C4214007AD004E2863 /* speed_camera_notification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */; };
@@ -394,6 +396,8 @@
 		44AE4A11214FBB8D006321F5 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 		44C56C0822296498006C2A1D /* routing_options.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_options.hpp; sourceTree = "<group>"; };
 		44C56C0922296498006C2A1D /* routing_options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_options.cpp; sourceTree = "<group>"; };
+		44D1C418229C59A3001A3CD2 /* small_routes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = small_routes.cpp; sourceTree = "<group>"; };
+		44D1C41A229C59B8001A3CD2 /* transit_route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_route_test.cpp; sourceTree = "<group>"; };
 		44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_ser_des.hpp; sourceTree = "<group>"; };
 		44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_ser_des.cpp; sourceTree = "<group>"; };
 		44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_notification.cpp; sourceTree = "<group>"; };
@@ -979,6 +983,8 @@
 		67BD35961C69F03E003AA26F /* routing_integration_tests */ = {
 			isa = PBXGroup;
 			children = (
+				44D1C41A229C59B8001A3CD2 /* transit_route_test.cpp */,
+				44D1C418229C59A3001A3CD2 /* small_routes.cpp */,
 				44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */,
 				567E9F7A1F58506B0064CB96 /* street_names_test.cpp */,
 				567E9F701F5850460064CB96 /* route_test.cpp */,
@@ -1331,6 +1337,7 @@
 				4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */,
 				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
 				0C5F5D251E798B3800307B98 /* cross_mwm_connector_test.cpp in Sources */,
+				44D1C419229C59A3001A3CD2 /* small_routes.cpp in Sources */,
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
 				5694CECE1EBA25F7004576D3 /* vehicle_mask.cpp in Sources */,
 				0C45D7391F2F75500065C3ED /* routing_settings.cpp in Sources */,
@@ -1351,6 +1358,7 @@
 				67AB92E61B7B3E6E00AB5194 /* turns_tts_text.cpp in Sources */,
 				0C5FEC601DDE192A0017688C /* index_graph.cpp in Sources */,
 				0C5FEC6D1DDE19A40017688C /* index_graph_test.cpp in Sources */,
+				44D1C41B229C59B8001A3CD2 /* transit_route_test.cpp in Sources */,
 				568194751F03A32400450EC3 /* road_access_test.cpp in Sources */,
 				56CA09E41E30E73B00D05C9A /* cumulative_restriction_test.cpp in Sources */,
 				568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */,
