@@ -3,12 +3,10 @@
 #include "storage/country.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "base/assert.hpp"
-
-#include <algorithm>
 #include <functional>
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace storage
@@ -45,101 +43,38 @@ public:
     /// \param value is a value of node which will be added.
     /// \note This method does not let to add a node to an arbitrary place in the tree.
     /// It's posible to add children only from "right side".
-    Node * AddAtDepth(size_t level, Country const & value)
-    {
-      Node * node = this;
-      while (--level > 0 && !node->m_children.empty())
-        node = node->m_children.back().get();
-      ASSERT_EQUAL(level, 0, ());
-      return node->Add(value);
-    }
+    Node * AddAtDepth(size_t level, Country const & value);
 
     bool HasParent() const { return m_parent != nullptr; }
 
     bool IsRoot() const { return !HasParent(); }
 
-    Node const & Parent() const
-    {
-      CHECK(HasParent(), ());
-      return *m_parent;
-    }
+    Node const & Parent() const;
 
-    Node const & Child(size_t index) const
-    {
-      ASSERT_LESS(index, m_children.size(), ());
-      return *m_children[index];
-    }
+    Node const & Child(size_t index) const;
 
     size_t ChildrenCount() const { return m_children.size(); }
 
     /// \brief Calls |f| for each first generation descendant of the node.
-    void ForEachChild(NodeCallback const & f)
-    {
-      for (auto & child : m_children)
-        f(*child);
-    }
+    void ForEachChild(NodeCallback const & f);
 
-    void ForEachChild(NodeCallback const & f) const
-    {
-      for (auto const & child : m_children)
-        f(*child);
-    }
+    void ForEachChild(NodeCallback const & f) const;
 
     /// \brief Calls |f| for all nodes (add descendant) in the tree.
-    void ForEachDescendant(NodeCallback const & f)
-    {
-      for (auto & child : m_children)
-      {
-        f(*child);
-        child->ForEachDescendant(f);
-      }
-    }
+    void ForEachDescendant(NodeCallback const & f);
 
-    void ForEachDescendant(NodeCallback const & f) const
-    {
-      for (auto const & child : m_children)
-      {
-        f(*child);
-        child->ForEachDescendant(f);
-      }
-    }
+    void ForEachDescendant(NodeCallback const & f) const;
 
-    void ForEachInSubtree(NodeCallback const & f)
-    {
-      f(*this);
-      for (auto & child : m_children)
-        child->ForEachInSubtree(f);
-    }
+    void ForEachInSubtree(NodeCallback const & f);
 
-    void ForEachInSubtree(NodeCallback const & f) const
-    {
-      f(*this);
-      for (auto const & child : m_children)
-        child->ForEachInSubtree(f);
-    }
+    void ForEachInSubtree(NodeCallback const & f) const;
 
-    void ForEachAncestorExceptForTheRoot(NodeCallback const & f)
-    {
-      if (m_parent == nullptr || m_parent->m_parent == nullptr)
-        return;
-      f(*m_parent);
-      m_parent->ForEachAncestorExceptForTheRoot(f);
-    }
+    void ForEachAncestorExceptForTheRoot(NodeCallback const & f);
 
-    void ForEachAncestorExceptForTheRoot(NodeCallback const & f) const
-    {
-      if (m_parent == nullptr || m_parent->m_parent == nullptr)
-        return;
-      f(*m_parent);
-      m_parent->ForEachAncestorExceptForTheRoot(f);
-    }
+    void ForEachAncestorExceptForTheRoot(NodeCallback const & f) const;
 
   private:
-    Node * Add(Country const & value)
-    {
-      m_children.emplace_back(std::make_unique<Node>(value, this));
-      return m_children.back().get();
-    }
+    Node * Add(Country const & value);
 
     Country m_value;
 
@@ -152,104 +87,32 @@ public:
 
   bool IsEmpty() const { return m_countryTree == nullptr; }
 
-  Node const & GetRoot() const
-  {
-    CHECK(m_countryTree, ());
-    return *m_countryTree;
-  }
+  Node const & GetRoot() const;
 
-  Node & GetRoot()
-  {
-    CHECK(m_countryTree, ());
-    return *m_countryTree;
-  }
+  Node & GetRoot();
 
-  Country & AddAtDepth(size_t level, Country const & value)
-  {
-    Node * added = nullptr;
-    if (level == 0)
-    {
-      ASSERT(IsEmpty(), ());
-      m_countryTree = std::make_unique<Node>(value, nullptr);  // Creating the root node.
-      added = m_countryTree.get();
-    }
-    else
-    {
-      added = m_countryTree->AddAtDepth(level, value);
-    }
-
-    ASSERT(added, ());
-    m_countryTreeHashTable.insert(make_pair(value.Name(), added));
-    return added->Value();
-  }
+  Country & AddAtDepth(size_t level, Country const & value);
 
   /// Deletes all children and makes tree empty
-  void Clear()
-  {
-    m_countryTree.reset();
-    m_countryTreeHashTable.clear();
-  }
+  void Clear();
 
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  void Find(CountryId const & key, std::vector<Node const *> & found) const
-  {
-    found.clear();
-    if (IsEmpty())
-      return;
+  void Find(CountryId const & key, std::vector<Node const *> & found) const;
 
-    if (key == m_countryTree->Value().Name())
-      found.push_back(m_countryTree.get());
-
-    auto const range = m_countryTreeHashTable.equal_range(key);
-    if (range.first == range.second)
-      return;
-
-    std::for_each(range.first, range.second,
-                  [&found](typename CountryTreeHashTable::value_type const & node) {
-                    found.push_back(node.second);
-                  });
-  }
-
-  Node const * const FindFirst(CountryId const & key) const
-  {
-    if (IsEmpty())
-      return nullptr;
-
-    std::vector<Node const *> found;
-    Find(key, found);
-    if (found.empty())
-      return nullptr;
-    return found[0];
-  }
+  Node const * const FindFirst(CountryId const & key) const;
 
   /// \brief Find only leaves.
   /// \note It's a termprary fucntion for compatablity with old countries.txt.
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  Node const * const FindFirstLeaf(CountryId const & key) const
-  {
-    if (IsEmpty())
-      return nullptr;
-
-    std::vector<Node const *> found;
-    Find(key, found);
-
-    for (auto node : found)
-    {
-      if (node->ChildrenCount() == 0)
-        return node;
-    }
-    return nullptr;
-  }
+  Node const * const FindFirstLeaf(CountryId const & key) const;
 
 private:
-  using CountryTreeHashTable = std::multimap<CountryId, Node *>;
-
   std::unique_ptr<Node> m_countryTree;
-  CountryTreeHashTable m_countryTreeHashTable;
+  std::multimap<CountryId, Node *> m_countryTreeMap;
 };
 
 /// @return version of country file or -1 if error was encountered

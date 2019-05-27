@@ -5,12 +5,14 @@
 
 #include "coding/reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "3party/jansson/myjansson.hpp"
-
+#include <algorithm>
 #include <utility>
+
+#include "3party/jansson/myjansson.hpp"
 
 using namespace std;
 using platform::CountryFile;
@@ -20,7 +22,7 @@ namespace storage
 // Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
-using TMwmSubtreeAttrs = pair<MwmCounter, MwmSize>;
+using MwmSubtreeAttrs = pair<MwmCounter, MwmSize>;
 
 namespace
 {
@@ -139,8 +141,179 @@ public:
 };
 }  // namespace
 
-TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId const & parent,
-                                         StoreSingleMwmInterface & store)
+// CountryTree::Node -------------------------------------------------------------------------------
+
+CountryTree::Node * CountryTree::Node::AddAtDepth(size_t level, Country const & value)
+{
+  Node * node = this;
+  while (--level > 0 && !node->m_children.empty())
+    node = node->m_children.back().get();
+  ASSERT_EQUAL(level, 0, ());
+  return node->Add(value);
+}
+
+CountryTree::Node const & CountryTree::Node::Parent() const
+{
+  CHECK(HasParent(), ());
+  return *m_parent;
+}
+
+CountryTree::Node const & CountryTree::Node::Child(size_t index) const
+{
+  ASSERT_LESS(index, m_children.size(), ());
+  return *m_children[index];
+}
+
+void CountryTree::Node::ForEachChild(CountryTree::Node::NodeCallback const & f)
+{
+  for (auto & child : m_children)
+    f(*child);
+}
+
+void CountryTree::Node::ForEachChild(CountryTree::Node::NodeCallback const & f) const
+{
+  for (auto const & child : m_children)
+    f(*child);
+}
+
+void CountryTree::Node::ForEachDescendant(CountryTree::Node::NodeCallback const & f)
+{
+  for (auto & child : m_children)
+  {
+    f(*child);
+    child->ForEachDescendant(f);
+  }
+}
+
+void CountryTree::Node::ForEachDescendant(CountryTree::Node::NodeCallback const & f) const
+{
+  for (auto const & child : m_children)
+  {
+    f(*child);
+    child->ForEachDescendant(f);
+  }
+}
+
+void CountryTree::Node::ForEachInSubtree(CountryTree::Node::NodeCallback const & f)
+{
+  f(*this);
+  for (auto & child : m_children)
+    child->ForEachInSubtree(f);
+}
+
+void CountryTree::Node::ForEachInSubtree(CountryTree::Node::NodeCallback const & f) const
+{
+  f(*this);
+  for (auto const & child : m_children)
+    child->ForEachInSubtree(f);
+}
+
+void CountryTree::Node::ForEachAncestorExceptForTheRoot(CountryTree::Node::NodeCallback const & f)
+{
+  if (m_parent == nullptr || m_parent->m_parent == nullptr)
+    return;
+  f(*m_parent);
+  m_parent->ForEachAncestorExceptForTheRoot(f);
+}
+
+void CountryTree::Node::ForEachAncestorExceptForTheRoot(
+    CountryTree::Node::NodeCallback const & f) const
+{
+  if (m_parent == nullptr || m_parent->m_parent == nullptr)
+    return;
+  f(*m_parent);
+  m_parent->ForEachAncestorExceptForTheRoot(f);
+}
+
+CountryTree::Node * CountryTree::Node::Add(Country const & value)
+{
+  m_children.emplace_back(std::make_unique<Node>(value, this));
+  return m_children.back().get();
+}
+
+// CountryTree -------------------------------------------------------------------------------------
+
+CountryTree::Node const & CountryTree::GetRoot() const
+{
+  CHECK(m_countryTree, ());
+  return *m_countryTree;
+}
+
+CountryTree::Node & CountryTree::GetRoot()
+{
+  CHECK(m_countryTree, ());
+  return *m_countryTree;
+}
+
+Country & CountryTree::AddAtDepth(size_t level, Country const & value)
+{
+  Node * added = nullptr;
+  if (level == 0)
+  {
+    ASSERT(IsEmpty(), ());
+    m_countryTree = std::make_unique<Node>(value, nullptr);  // Creating the root node.
+    added = m_countryTree.get();
+  }
+  else
+  {
+    added = m_countryTree->AddAtDepth(level, value);
+  }
+
+  ASSERT(added, ());
+  m_countryTreeMap.insert(make_pair(value.Name(), added));
+  return added->Value();
+}
+
+void CountryTree::Clear()
+{
+  m_countryTree.reset();
+  m_countryTreeMap.clear();
+}
+
+void CountryTree::Find(CountryId const & key, vector<Node const *> & found) const
+{
+  found.clear();
+  if (IsEmpty())
+    return;
+
+  if (key == m_countryTree->Value().Name())
+    found.push_back(m_countryTree.get());
+
+  auto const range = m_countryTreeMap.equal_range(key);
+  for (auto it = range.first; it != range.second; ++it)
+    found.push_back(it->second);
+}
+
+CountryTree::Node const * const CountryTree::FindFirst(CountryId const & key) const
+{
+  if (IsEmpty())
+    return nullptr;
+
+  vector<Node const *> found;
+  Find(key, found);
+  if (found.empty())
+    return nullptr;
+  return found[0];
+}
+
+CountryTree::Node const * const CountryTree::FindFirstLeaf(CountryId const & key) const
+{
+  if (IsEmpty())
+    return nullptr;
+
+  vector<Node const *> found;
+  Find(key, found);
+
+  for (auto node : found)
+  {
+    if (node->ChildrenCount() == 0)
+      return node;
+  }
+  return nullptr;
+}
+
+MwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId const & parent,
+                                        StoreSingleMwmInterface & store)
 {
   CountryId id;
   FromJSONObject(node, "id", id);
@@ -185,7 +358,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId 
   {
     for (json_t * child : children)
     {
-      TMwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, child, id, store);
+      MwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, child, id, store);
       mwmCounter += childAttr.first;
       mwmSize += childAttr.second;
     }
@@ -272,9 +445,8 @@ public:
 };
 }  // namespace
 
-TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node,
-                                               CountryId const & parent,
-                                               StoreTwoComponentMwmInterface & store)
+MwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, CountryId const & parent,
+                                              StoreTwoComponentMwmInterface & store)
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
@@ -306,7 +478,7 @@ TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node,
   {
     for (json_t * child : children)
     {
-      TMwmSubtreeAttrs const childAttr =
+      MwmSubtreeAttrs const childAttr =
           LoadGroupTwoComponentMwmsImpl(depth + 1, child, file, store);
       countryCounter += childAttr.first;
       countrySize += childAttr.second;
