@@ -28,7 +28,7 @@
           android:scaleType="centerCrop"
           android:layout_marginTop="@dimen/margin_half_plus"/>
         <TextView
-          android:id="@+id/name"
+          android:id="@+id/title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"

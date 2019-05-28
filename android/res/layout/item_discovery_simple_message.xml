@@ -2,7 +2,7 @@
 <TextView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/message"
+  android:id="@+id/title"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:layout_marginTop="@dimen/margin_base"

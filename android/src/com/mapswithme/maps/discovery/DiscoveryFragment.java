@@ -20,16 +20,13 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
-import com.mapswithme.maps.adapter.AdapterPositionConverter;
-import com.mapswithme.maps.adapter.DefaultPositionConverter;
-import com.mapswithme.maps.adapter.OnItemClickListener;
-import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -44,8 +41,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Arrays;
 
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
 import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
@@ -85,18 +80,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView mCatalogPromoRecycler;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mCatalogPromoPlaceholderCard;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private CatalogPromoAdapter mCatalogPromoAdapter;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mCatalogPromoProgress;
 
   @Override
   public void onAttach(Context context)
@@ -205,22 +188,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   private void initCrossTrafficGallery(@NonNull View root)
   {
     mCatalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
-    mCatalogPromoPlaceholderCard = root.findViewById(R.id.catalog_promo_placeholder_card);
-    mCatalogPromoProgress = mCatalogPromoPlaceholderCard.findViewById(R.id.progress);
-    mCatalogPromoAdapter = new CatalogPromoAdapter();
-
-    MoreAdapter moreAdapter = new MoreAdapter(new CatalogPromoMoreClickListener());
     setLayoutManagerAndItemDecoration(requireContext(), mCatalogPromoRecycler);
-
-    AdapterPositionConverter converter =
-        new DefaultPositionConverter(Arrays.asList(mCatalogPromoAdapter, moreAdapter));
-    RecyclerCompositeAdapter compositeAdapter = new RecyclerCompositeAdapter(converter,
-                                                                             mCatalogPromoAdapter,
-                                                                             moreAdapter);
-
-    AdapterDataObserverWrapper observer = new AdapterDataObserverWrapper(compositeAdapter);
-    mCatalogPromoAdapter.registerAdapterDataObserver(observer);
-    mCatalogPromoRecycler.setAdapter(compositeAdapter);
+    View titleView = root.findViewById(R.id.catalog_promo_title);
+    titleView.setVisibility(View.VISIBLE);
+    mCatalogPromoRecycler.setVisibility(View.VISIBLE);
+    mCatalogPromoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
   }
 
   private void requestDiscoveryInfoAndInitAdapters()
@@ -284,7 +256,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                                                               ItemType.ATTRACTIONS);
     RecyclerView gallery = getGallery(R.id.attractions);
     GalleryAdapter adapter = Factory.createSearchBasedAdapter(results, listener, SEARCH_ATTRACTIONS,
-                                                              DISCOVERY, new Items.MoreSearchItem());
+                                                              DISCOVERY,
+                                                              new Items.MoreSearchItem());
     gallery.setAdapter(adapter);
   }
 
@@ -325,6 +298,16 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     RecyclerView gallery = getGallery(R.id.localGuides);
     GalleryAdapter adapter = Factory.createLocalExpertsAdapter(experts, url, listener, DISCOVERY);
     gallery.setAdapter(adapter);
+  }
+
+  public void initCatalogPromoRecycler(@NonNull RegularAdapterStrategy.Item[] experts)
+  {
+    updateViewsVisibility(experts, R.id.catalog_promo_title, R.id.catalog_promo_recycler);
+    String url = "";
+
+    ItemSelectedListener<RegularAdapterStrategy.Item> listener = new CatalogPromoSelectedListener();
+    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(experts, url, listener, DISCOVERY);
+    mCatalogPromoRecycler.setAdapter(adapter);
   }
 
   @Override
@@ -444,7 +427,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       @Override
       public void onItemSelectedInternal(@NonNull I item, int position)
       {
-        Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position, EXTERNAL);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position,
+                                                            EXTERNAL);
       }
 
       @Override
@@ -533,10 +517,22 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
   }
 
-  private static class CatalogPromoMoreClickListener implements OnItemClickListener<String>
+  private static class CatalogPromoSelectedListener implements ItemSelectedListener<RegularAdapterStrategy.Item>
   {
     @Override
-    public void onItemClick(@NonNull View v, @NonNull String item)
+    public void onItemSelected(@NonNull RegularAdapterStrategy.Item item, int position)
+    {
+
+    }
+
+    @Override
+    public void onMoreItemSelected(@NonNull RegularAdapterStrategy.Item item)
+    {
+
+    }
+
+    @Override
+    public void onActionButtonSelected(@NonNull RegularAdapterStrategy.Item item, int position)
     {
 
     }

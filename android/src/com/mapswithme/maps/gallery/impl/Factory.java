@@ -7,11 +7,14 @@ import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Arrays;
 
 import static com.mapswithme.util.statistics.GalleryState.OFFLINE;
 import static com.mapswithme.util.statistics.GalleryState.ONLINE;
@@ -75,6 +78,30 @@ public class Factory
   public static GalleryAdapter createLocalExpertsErrorAdapter()
   {
     return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(), null);
+  }
+
+  @NonNull
+  public static GalleryAdapter createCatalogPromoAdapter(@NonNull RegularAdapterStrategy.Item[] items,
+                                                         @Nullable String url,
+                                                         @Nullable ItemSelectedListener<RegularAdapterStrategy.Item> listener,
+                                                         @NonNull GalleryPlacement placement)
+  {
+    Items.LocalExpertMoreItem item = new Items.LocalExpertMoreItem(url);
+    CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(Arrays.asList(items),
+                                                                           item);
+    return new GalleryAdapter<>(strategy, listener);
+  }
+
+  @NonNull
+  public static GalleryAdapter createCatalogPromoLoadingAdapter()
+  {
+    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(), null);
+  }
+
+  @NonNull
+  public static GalleryAdapter createCatalogPromoErrorAdapter()
+  {
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(), null);
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,

@@ -27,7 +27,7 @@ public class Items
                            @Nullable String url, @Nullable String photoUrl, double price,
                            @NonNull String currency, double rating)
     {
-      super(viewType, title, url, null);
+      super(viewType, title, null, url);
       mPhotoUrl = photoUrl;
       mPrice = price;
       mCurrency = currency;
@@ -74,7 +74,7 @@ public class Items
 
     public SearchItem(@NonNull SearchResult result)
     {
-      super(TYPE_PRODUCT, result.name, null, result.description.featureType);
+      super(TYPE_PRODUCT, result.name, result.description.featureType, null);
       mResult = result;
     }
 

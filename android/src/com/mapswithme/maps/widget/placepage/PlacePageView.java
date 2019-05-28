@@ -43,10 +43,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.adapter.AdapterPositionConverter;
-import com.mapswithme.maps.adapter.DefaultPositionConverter;
 import com.mapswithme.maps.adapter.OnItemClickListener;
-import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
@@ -57,10 +54,6 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
-import com.mapswithme.maps.discovery.AdapterDataObserverWrapper;
-import com.mapswithme.maps.discovery.CatalogPromoAdapter;
-import com.mapswithme.maps.discovery.CatalogPromoItem;
-import com.mapswithme.maps.discovery.MoreAdapter;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -70,6 +63,7 @@ import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
+import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
@@ -326,19 +320,7 @@ public class PlacePageView extends NestedScrollView
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private CatalogPromoAdapter mCatalogPromoAdapter;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private RecyclerView mCatalogPromoRecycler;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mCatalogPromoPlaceholderCard;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mCatalogPromoProgress;
 
   void setScrollable(boolean scrollable)
   {
@@ -836,27 +818,19 @@ public class PlacePageView extends NestedScrollView
   private void initCatalogPromoView()
   {
     mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
-    mCatalogPromoPlaceholderCard = findViewById(R.id.catalog_promo_placeholder_card);
-    mCatalogPromoProgress = mCatalogPromoPlaceholderCard.findViewById(R.id.progress);
-    mCatalogPromoAdapter = new CatalogPromoAdapter();
-
-    MoreAdapter moreAdapter = new MoreAdapter(new MoreClickListener());
+    mCatalogPromoRecycler.setVisibility(VISIBLE);
+    View titleView = findViewById(R.id.catalog_promo_title);
+    titleView.setVisibility(VISIBLE);
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoLoadingAdapter();
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
-    mCatalogPromoRecycler.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                                   LinearLayoutManager.HORIZONTAL,
-                                                                   false));
-    mCatalogPromoRecycler.addItemDecoration(
-        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(),
-                                                             LinearLayoutManager.HORIZONTAL));
-    AdapterPositionConverter converter =
-        new DefaultPositionConverter(Arrays.asList(mCatalogPromoAdapter, moreAdapter));
-    RecyclerCompositeAdapter compositeAdapter = new RecyclerCompositeAdapter(converter,
-                                                                             mCatalogPromoAdapter,
-                                                                             moreAdapter);
-
-    AdapterDataObserverWrapper observer = new AdapterDataObserverWrapper(compositeAdapter);
-    mCatalogPromoAdapter.registerAdapterDataObserver(observer);
-    mCatalogPromoRecycler.setAdapter(compositeAdapter);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                                                                LinearLayoutManager.HORIZONTAL,
+                                                                false);
+    mCatalogPromoRecycler.setLayoutManager(layoutManager);
+    RecyclerView.ItemDecoration decor =
+        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL);
+    mCatalogPromoRecycler.addItemDecoration(decor);
+    mCatalogPromoRecycler.setAdapter(adapter);
   }
 
   private void initHotelFacilitiesView()

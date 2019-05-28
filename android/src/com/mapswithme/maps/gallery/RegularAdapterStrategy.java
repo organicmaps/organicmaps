@@ -70,8 +70,8 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
     @Constants.ViewType
     private final int mType;
 
-    protected Item(@Constants.ViewType int type, @NonNull String title,
-                   @Nullable String url, @Nullable String subtitle)
+    public Item(@Constants.ViewType int type, @NonNull String title,
+                @Nullable String subtitle, @Nullable String url)
     {
       super(title, url, subtitle);
       mType = type;

@@ -38,13 +38,13 @@ public class Holders
     public GenericMoreHolder(@NonNull View itemView, @NonNull List<T> items, @NonNull GalleryAdapter<?, T>
         adapter)
     {
-      super(itemView, items, adapter);
+      super(itemView, items, adapter.getListener());
     }
 
     @Override
     protected void onItemSelected(@NonNull T item, int position)
     {
-      ItemSelectedListener<T> listener = mAdapter.getListener();
+      ItemSelectedListener<T> listener = getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
@@ -64,7 +64,7 @@ public class Holders
     @Override
     protected void onItemSelected(@NonNull Items.SearchItem item, int position)
     {
-      ItemSelectedListener<Items.SearchItem> listener = mAdapter.getListener();
+      ItemSelectedListener<Items.SearchItem> listener = getListener();
       if (listener != null)
         listener.onMoreItemSelected(item);
     }
@@ -82,8 +82,7 @@ public class Holders
     public LocalExpertViewHolder(@NonNull View itemView, @NonNull List<Items.LocalExpertItem> items,
                                  @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
     {
-      super(itemView, items, adapter);
-      mTitle = (TextView) itemView.findViewById(R.id.name);
+      super(itemView, items, adapter.getListener());
       mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
       mRating = (RatingView) itemView.findViewById(R.id.ratingView);
       mButton = (TextView) itemView.findViewById(R.id.button);
@@ -137,10 +136,9 @@ public class Holders
     @NonNull
     private final TextView mButton;
 
-    ActionButtonViewHolder(@NonNull View itemView, @NonNull List<T> items, @NonNull
-        GalleryAdapter<?, T> adapter)
+    ActionButtonViewHolder(@NonNull View itemView, @NonNull List<T> items, @NonNull GalleryAdapter<?, T> adapter)
     {
-      super(itemView, items, adapter);
+      super(itemView, items, adapter.getListener());
       mButton = itemView.findViewById(R.id.button);
       mButton.setOnClickListener(this);
       itemView.findViewById(R.id.infoLayout).setOnClickListener(this);
@@ -154,7 +152,7 @@ public class Holders
       if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
         return;
 
-      ItemSelectedListener<T> listener = mAdapter.getListener();
+      ItemSelectedListener<T> listener = getListener();
       if (listener == null)
         return;
 
@@ -186,7 +184,6 @@ public class Holders
                             @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
     {
       super(itemView, items, adapter);
-      mTitle = itemView.findViewById(R.id.title);
       mSubtitle = itemView.findViewById(R.id.subtitle);
       mDistance = itemView.findViewById(R.id.distance);
       mNumberRating = itemView.findViewById(R.id.counter_rating_view);
@@ -202,7 +199,7 @@ public class Holders
       String localizedType = Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
       String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
 
-      UiUtils.setTextAndHideIfEmpty(mTitle, title);
+      UiUtils.setTextAndHideIfEmpty(getTitle(), title);
       UiUtils.setTextAndHideIfEmpty(mSubtitle, localizedType);
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
       UiUtils.showIf(item.getPopularity().getType() == Popularity.Type.POPULAR, mPopularTagRating);
@@ -278,20 +275,20 @@ public class Holders
       implements View.OnClickListener
   {
     @NonNull
-    TextView mTitle;
+    private final TextView mTitle;
+    @Nullable
+    private final ItemSelectedListener<I> mListener;
     @NonNull
     protected final List<I> mItems;
-    @NonNull
-    final GalleryAdapter<?, I> mAdapter;
 
-    BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
-                             @NonNull GalleryAdapter<?, I> adapter)
+    public BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
+                          @Nullable ItemSelectedListener<I> listener)
     {
       super(itemView);
-      mTitle = itemView.findViewById(R.id.tv__title);
+      mTitle = itemView.findViewById(R.id.title);
+      mListener = listener;
       itemView.setOnClickListener(this);
       mItems = items;
-      mAdapter = adapter;
     }
 
     public void bind(@NonNull I item)
@@ -309,13 +306,25 @@ public class Holders
       onItemSelected(mItems.get(position), position);
     }
 
+    @NonNull
+    protected TextView getTitle()
+    {
+      return mTitle;
+    }
+
     protected void onItemSelected(@NonNull I item, int position)
     {
-      ItemSelectedListener<I> listener = mAdapter.getListener();
+      ItemSelectedListener<I> listener = getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
       listener.onItemSelected(item, position);
+    }
+
+    @Nullable
+    protected ItemSelectedListener<I> getListener()
+    {
+      return mListener;
     }
   }
 
@@ -332,7 +341,7 @@ public class Holders
     LoadingViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                       @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
-      super(itemView, items, adapter);
+      super(itemView, items, adapter.getListener());
       mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
       mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
       mMore = (TextView) itemView.findViewById(R.id.button);
@@ -359,10 +368,10 @@ public class Holders
     @Override
     protected void onItemSelected(@NonNull Items.Item item, int position)
     {
-      if (mAdapter.getListener() == null || TextUtils.isEmpty(item.getUrl()))
+      if (getListener() == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      mAdapter.getListener().onActionButtonSelected(item, position);
+      getListener().onActionButtonSelected(item, position);
     }
   }
 
@@ -371,8 +380,7 @@ public class Holders
     public SimpleViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                             @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
-      super(itemView, items, adapter);
-      mTitle = (TextView) itemView.findViewById(R.id.message);
+      super(itemView, items, adapter.getListener());
     }
   }
 
@@ -407,10 +415,11 @@ public class Holders
     @Override
     protected void onItemSelected(@NonNull Items.Item item, int position)
     {
-      if (mAdapter.getListener() == null)
+      ItemSelectedListener<Items.Item> listener = getListener();
+      if (listener == null)
         return;
 
-      mAdapter.getListener().onActionButtonSelected(item, position);
+      listener.onActionButtonSelected(item, position);
     }
   }
 }
