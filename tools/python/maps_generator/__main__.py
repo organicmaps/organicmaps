@@ -1,6 +1,6 @@
 import logging
 import os
-from argparse import ArgumentParser
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from .generator import settings
 from .generator.env import Env, find_last_build_dir, WORLDS_NAMES
@@ -15,9 +15,41 @@ from .utils.collections import unique
 logger = logging.getLogger("maps_generator")
 
 
+examples = """Examples:
+1) Non-standard planet
+    If you want to generate maps for Japan you must complete the following steps:
+    1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf
+     and md5sum files.
+    2. Edit the ini file:
+    maps_generator$ vim var/etc/map_generator.ini
+
+    ...
+    [Main]
+    ...
+    DEBUG: 0
+    ...
+    [External]
+    PLANET_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf
+    PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
+    ...
+    
+    3. Run
+    python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*" --skip="update_planet"
+
+    You must skip the step of updating the planet, because it is a non-standard planet.
+2) Rebuild stages:
+    For example, you changed routing code in omim project and want to regenerate maps.
+    You must have previous generation. You may regenerate from stage routing only for two mwms:
+    
+    python$ python3.6 -m maps_generator -c --from_stage="routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
+"""
+
+
 def parse_options():
     parser = ArgumentParser(description="Tool for generation maps for maps.me "
                                         "application.",
+                            epilog=examples,
+                            formatter_class=RawDescriptionHelpFormatter,
                             parents=[settings.parser])
     parser.add_argument(
         "-c",
@@ -134,7 +166,8 @@ def main():
     if not options["production"]:
         options["skip"] += stages_as_string(
             stage_download_production_external,
-            stage_ugc, stage_popularity,
+            stage_ugc,
+            stage_popularity,
             stage_descriptions,
             stage_localads,
             stage_statistics

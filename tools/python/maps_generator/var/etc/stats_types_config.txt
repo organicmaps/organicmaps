@@ -1,59 +1,76 @@
-barrier-(fence|gate);len;Заборы
-building;cnt;Здания
+# This file is used to calculate statistics by type.
+# File format:
+# Regular expression of type;metric type;statistic name
+#
+# Regular expression of type
+#   Types you can find in omim/data/mapcss-mapping.csv.
+#   You must replace the character '|' with the '_' character.
+#
+# Metric type
+#   There can be three types of metrics:
+#   1) cnt - to count the number of objects
+#   2) line - to calculate the total length of objects
+#   3) area - to calculate the total area of ​​objects
+#
+# Statistic name
+#   The name of the statistics will be written to the resulting file.
+
+barrier-(fence|gate);len;Fences
+building;cnt;Building
 (amenity|shop|historic)-.*;cnt;POI
-(amenity|shop|historic)-.*;cnt_names;POI c именами
-amenity-(cafe|restaurant|fast_food).*;cnt;Кафе и рестораны
-amenity-(pub|bar);cnt;Бары и пабы
-amenity-kindergarten;cnt;Детские сады
-amenity-(school|university|college);cnt;Школы и университеты
-amenity-parking.*;cnt;Автостоянки
-amenity-parking.*;area;Автостоянки
-amenity-pharmacy;cnt;Аптеки
-amenity-place_of_worship.*;cnt;Храмы
-amenity-(hospital|doctors);cnt;Больницы и поликлиники
-amenity-toilets;cnt;Туалеты
-amenity-(waste_disposal|recycling);cnt;Мусорные баки
-highway-(motorway|trunk|primary|secondary|tertiary|residential|unclassified|service|track|living_street)(_link)?(-.*)?;len;Автодорожная сеть
-highway-(footway|path|pedestrian|steps).*;len;Пешеходные дорожки
-highway-.*-bridge;len;Мосты
-highway-.*-tunnel;len;Туннели
-highway-(footway|path|steps)-bridge;len;Пешеходные мосты
-highway-(footway|path|steps)-tunnel;len;Пешеходные туннели
-highway-steps.*;len;Лестницы
-highway-speed_camera;cnt;Камеры контроля скорости
-internet_access-wlan;cnt;Точки доступа Wi-Fi
-leisure-(pitch|stadium|playing_fields|track|sports_centre).*;cnt;Спортплощадки и комплексы
-leisure-playground;cnt;Детские площадки
-man_made-lighthouse;cnt;Маяки
-man_made-windmill;cnt;Ветряные мельницы
-man_made-pipeline.*;len;Трубопроводы
-natural-beach;cnt;Пляжи
-natural-tree;cnt;Отдельностоящие деревья
-natural-waterfall;cnt;Водопады
-piste:type.*;len;Лыжни
-place-(city.*|town|village|hamlet);cnt;Населённые пункты
-place-island;cnt;Острова
-power-(minor_)?line.*;len;Линии электропередачи
-power-(pole|tower);cnt;Опоры ЛЭП
-railway-(rail|monorail|light_rail|narrow_gauge|preserved|siding|spur|yard|disused|incline).*;len;Железные дороги
-railway-.*-(bridge|tunnel);len;Железнодорожные мосты и туннели
-railway-(razed|abandoned).*;len;Снятые ветки ж/д
-railway-narrow_gauge.*;len;Узкоколейные ж/д
-railway-tram(-.*)?;len;Трамвайные пути
-railway-(halt|station);cnt;Станции железной дороги
-railway-subway.*;len;Линии метро
-highway-bus_stop|railway-tram_stop;cnt;Остановки наземного транспорта
-shop-bakery;cnt;Пекарни
-shop-books;cnt;Книжные магазины
-shop-clothes;cnt;Магазины одежды
-shop-shoes;cnt;Магазины обуви
-shop-(convenience|supermarket);cnt;Продуктовые магазины
-shop-florist;cnt;Цветочные салоны
-shop-(hairdresser|beauty);cnt;Парикмахерские и салоны красоты
-tourism-(guest_house|hos?tel|motel);cnt;Гостиницы и хостелы
-tourism-(attraction|viewpoint);cnt;Достопримечательности и точки обзора
-waterway-(canal|river|stream)(-.*)?;len;Реки, каналы и ручьи
-landuse-cemetery.*;area;Кладбища
-leisure-park.*;area;Парки
-natural-beach;area;Пляжи
-sponsored-booking;cnt;Booking отели
+(amenity|shop|historic)-.*;cnt_names;POI with names
+amenity-(cafe|restaurant|fast_food).*;cnt;Cafes and restaurants
+amenity-(pub|bar);cnt;Bars and pubs
+amenity-kindergarten;cnt;Kindergartens
+amenity-(school|university|college);cnt;Schools and universities
+amenity-parking.*;cnt;Parking lots
+amenity-parking.*;area;Parking lots
+amenity-pharmacy;cnt;Pharmacies
+amenity-place_of_worship.*;cnt;Temples
+amenity-(hospital|doctors);cnt;Hospitals and clinics
+amenity-toilets;cnt;Toilets
+amenity-(waste_disposal|recycling);cnt;Garbage bins
+highway-(motorway|trunk|primary|secondary|tertiary|residential|unclassified|service|track|living_street)(_link)?(-.*)?;len;Road network
+highway-(footway|path|pedestrian|steps).*;len;Footpaths
+highway-.*-bridge;len;Bridges
+highway-.*-tunnel;len;Tunnels
+highway-(footway|path|steps)-bridge;len;Pedestrian bridges
+highway-(footway|path|steps)-tunnel;len;Pedestrian tunnels
+highway-steps.*;len;Stairs
+highway-speed_camera;cnt;Speed ​​cameras
+internet_access-wlan;cnt;Wi-Fi access points
+leisure-(pitch|stadium|playing_fields|track|sports_centre).*;cnt;Sports grounds and complexes
+leisure-playground;cnt;Playgrounds
+man_made-lighthouse;cnt;Lighthouses
+man_made-windmill;cnt;Windmills
+man_made-pipeline.*;len;Pipelines
+natural-beach;cnt;Beaches
+natural-tree;cnt;Trees
+natural-waterfall;cnt;Waterfalls
+piste:type.*;len;Ski trails
+place-(city.*|town|village|hamlet);cnt;Settlements
+place-island;cnt;Islands
+power-(minor_)?line.*;len;Power lines
+power-(pole|tower);cnt;Power Line Supports
+railway-(rail|monorail|light_rail|narrow_gauge|preserved|siding|spur|yard|disused|incline).*;len;Railways
+railway-.*-(bridge|tunnel);len;Railway bridges and tunnels
+railway-(razed|abandoned).*;len;Abandoned railways
+railway-narrow_gauge.*;len;Narrow gauge railways
+railway-tram(-.*)?;len;Tram rails
+railway-(halt|station);cnt;Railway stations
+railway-subway.*;len;Subway lines
+highway-bus_stop|railway-tram_stop;cnt;Ground Transportation Stops
+shop-bakery;cnt;Bakeries
+shop-books;cnt;Book stores
+shop-clothes;cnt;Clothing stores
+shop-shoes;cnt;Shoe stores
+shop-(convenience|supermarket);cnt;Grocery stores
+shop-florist;cnt;Flower shops
+shop-(hairdresser|beauty);cnt;Hairdressers and beauty salons
+tourism-(guest_house|hos?tel|motel);cnt;Hotels and hostels
+tourism-(attraction|viewpoint);cnt;Attractions and viewpoints
+waterway-(canal|river|stream)(-.*)?;len;Rivers, canals and streams
+landuse-cemetery.*;area;Cemeteries
+leisure-park.*;area;Parks
+natural-beach;area;Beaches
+sponsored-booking;cnt;Booking hotels

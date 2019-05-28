@@ -3,6 +3,8 @@ import os
 import datetime
 from collections import defaultdict
 
+from .exceptions import ParseError
+
 
 RE_STAT = re.compile(r"(?:\d+\. )?([\w:|-]+?)\|: "
                      r"size = \d+; "
@@ -37,7 +39,10 @@ def read_stat(f):
 def read_config(f):
     config = []
     for line in f:
-        columns = [c.strip() for c in line.split(";", 2)]
+        l = line.strip()
+        if l.startswith("#") or not l:
+            continue
+        columns = [c.strip() for c in l.split(";", 2)]
         columns[0] = re.compile(columns[0])
         columns[1] = columns[1].lower()
         config.append(columns)
@@ -48,27 +53,31 @@ def process_stat(config, stats):
     result = {}
     for param in config:
         res = 0
-        for typ in stats:
-            if param[0].match(typ["name"]):
+        for t in stats:
+            if param[0].match(t["name"]):
                 if param[1] == "len":
-                    res += typ["len"]
+                    res += t["len"]
                 elif param[1] == "area":
-                    res += typ["area"]
+                    res += t["area"]
                 elif param[1] == "cnt_names":
-                    res += typ["names"]
+                    res += t["names"]
                 else:
-                    res += typ["cnt"]
+                    res += t["cnt"]
         result[str(param[0]) + param[1]] = res
     return result
 
 
-def format_res(res, typ):
-    if typ == "len":
-        unit = "м"
-    elif typ == "area":
-        unit = "м²"
+def format_res(res, t):
+    unit = None
+    if t == "len":
+        unit = "m"
+    elif t == "area":
+        unit = "m²"
+    elif t == "cnt" or t == "cnt_names":
+        unit = "pc"
     else:
-        unit = "шт."
+        raise ParseError(f"Unknown type {t}.")
+
     return res, unit
 
 

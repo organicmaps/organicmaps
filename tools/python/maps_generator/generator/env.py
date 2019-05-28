@@ -99,12 +99,11 @@ class Env:
                       os.path.join(self.draft_path, "borders"))
 
         self.osm2ft_path = os.path.join(self.out_path, "osm2ft")
-        if os.path.isdir(self.osm2ft_path):
-            for x in os.listdir(self.osm2ft_path):
-                p = os.path.join(self.osm2ft_path, x)
-                if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
-                    shutil.move(p, os.path.join(self.mwm_path, x))
         self._create_if_not_exist(self.osm2ft_path)
+        for x in os.listdir(self.osm2ft_path):
+            p = os.path.join(self.osm2ft_path, x)
+            if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
+                shutil.move(p, os.path.join(self.mwm_path, x))
 
         self.node_storage = settings.NODE_STORAGE
         self.user_resource_path = settings.USER_RESOURCE_PATH

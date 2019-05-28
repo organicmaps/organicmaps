@@ -141,7 +141,7 @@ If you are not from the maps.me team, then you do not need the option --producti
 To generate maps for the whole world you need 400 GB of hard disk space and a computer with more than 64 GB.
 ### Examples
 ####  Non-standard planet
-If I want to generate maps for Japan I must complete the following steps:
+If you want to generate maps for Japan you must complete the following steps:
 1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf and md5sum files.
 2. Edit ini file:
 ```sh
@@ -161,10 +161,10 @@ PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
 
 3. Run
 ```sh
-python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*" --skip_stage="update_planet"
+python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*" --skip="update_planet"
 
 ```
-We must skip the step of updating the planet, because it is a non-standard planet.
+You must skip the step of updating the planet, because it is a non-standard planet.
 ####  Rebuild stages:
 For example, you changed routing code in omim project and want to regenerate maps.
 You must have previous generation. You may regenerate from stage routing only for two mwms:
