@@ -13,12 +13,16 @@ namespace search
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {{"highway", "bus_stop"},
+  base::StringIL arr[] = {{"building", "train_station"},
+                          {"highway", "bus_stop"},
+                          {"highway", "ford"},
                           {"highway", "speed_camera"},
                           {"waterway", "waterfall"},
                           {"natural", "volcano"},
                           {"natural", "cave_entrance"},
                           {"natural", "beach"},
+                          {"natural", "spring"},
+                          {"natural", "geyser"},
                           {"emergency", "defibrillator"},
                           {"emergency", "fire_hydrant"}};
 

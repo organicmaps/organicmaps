@@ -9440,3 +9440,7 @@ vi:Sông băng
 zh-Hans:冰川
 zh-Hant:冰川
 fa:یخچال طبیعی
+
+highway-ford
+en:Ford
+ru:Брод
