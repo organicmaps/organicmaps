@@ -5,13 +5,13 @@
 namespace promo
 {
 // static
-DownloaderPromoBanner DownloaderPromo::GetBanner(storage::Storage const & storage,
-                                                 std::string const & mwmId,
-                                                 std::string const & currentLocale,
-                                                 bool hasRemoveAdsSubscription)
+DownloaderPromo::Banner DownloaderPromo::GetBanner(storage::Storage const & storage,
+                                                   std::string const & mwmId,
+                                                   std::string const & currentLocale,
+                                                   bool hasRemoveAdsSubscription)
 {
   if (!hasRemoveAdsSubscription && ads::HasMegafonDownloaderBanner(storage, mwmId, currentLocale))
-    return {DownloaderPromoType::Megafon, ads::GetMegafonDownloaderBannerUrl()};
+    return {DownloaderPromo::Type::Megafon, ads::GetMegafonDownloaderBannerUrl()};
 
   // TODO: add bookmark catalog banner.
 

@@ -41,7 +41,7 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
   return !platform::migrate::NeedMigrate();
 }
 
-promo::DownloaderPromoBanner getPromoBanner(std::string const & mwmId)
+promo::DownloaderPromo::Banner getPromoBanner(std::string const & mwmId)
 {
   auto const & purchase = GetFramework().GetPurchase();
   bool const hasRemoveAdsSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
@@ -77,7 +77,7 @@ using namespace storage;
 {
   CountryId m_countryId;
   CountryId m_autoDownloadCountryId;
-  promo::DownloaderPromoBanner m_promoBanner;
+  promo::DownloaderPromo::Banner m_promoBanner;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller
@@ -287,7 +287,7 @@ using namespace storage;
 {
   m_promoBanner = getPromoBanner(m_countryId);
   // TODO: implement other banner types.
-  if (m_promoBanner.m_type == promo::DownloaderPromoType::Megafon && self.bannerView.hidden)
+  if (m_promoBanner.m_type == promo::DownloaderPromo::Type::Megafon && self.bannerView.hidden)
   {
     [self layoutIfNeeded];
     self.bannerVisibleConstraint.priority = UILayoutPriorityDefaultHigh;
