@@ -21,6 +21,8 @@
 		39711407229D7C40003915E5 /* country_name_getter_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39711403229D7C3D003915E5 /* country_name_getter_tests.cpp */; };
 		39711408229D7C53003915E5 /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678338D21C723B1A00FD6263 /* helpers.cpp */; };
 		3971140A229D7C6D003915E5 /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 678338D31C723B1A00FD6263 /* helpers.hpp */; };
+		3971141C229D8983003915E5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141B229D8983003915E5 /* CoreLocation.framework */; };
+		3971141E229D89F4003915E5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141D229D89F4003915E5 /* Security.framework */; };
 		3DCD414620D80C0900143533 /* country_info_reader_light.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCD414420D80C0800143533 /* country_info_reader_light.hpp */; };
 		3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414520D80C0900143533 /* country_info_reader_light.cpp */; };
 		3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */; };
@@ -207,6 +209,9 @@
 		34F5584B1DBF2FC000A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		39711402229D7C3D003915E5 /* country_info_getter_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter_tests.cpp; sourceTree = "<group>"; };
 		39711403229D7C3D003915E5 /* country_name_getter_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_name_getter_tests.cpp; sourceTree = "<group>"; };
+		39711419229D7F75003915E5 /* libMopub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMopub.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3971141B229D8983003915E5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3971141D229D89F4003915E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DCD414420D80C0800143533 /* country_info_reader_light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_reader_light.hpp; sourceTree = "<group>"; };
 		3DCD414520D80C0900143533 /* country_info_reader_light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_reader_light.cpp; sourceTree = "<group>"; };
 		3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightweight_matching_tests.cpp; sourceTree = "<group>"; };
@@ -348,6 +353,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3971141E229D89F4003915E5 /* Security.framework in Frameworks */,
+				3971141C229D8983003915E5 /* CoreLocation.framework in Frameworks */,
 				56EE14E11FE813FC0036F20C /* libbsdiff.a in Frameworks */,
 				56EE14DF1FE813D00036F20C /* libmwm_diff.a in Frameworks */,
 				F66D569A1EAE36510081E883 /* librouting_common.a in Frameworks */,
@@ -441,6 +448,9 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3971141D229D89F4003915E5 /* Security.framework */,
+				3971141B229D8983003915E5 /* CoreLocation.framework */,
+				39711419229D7F75003915E5 /* libMopub.a */,
 				56FB43702164A8A1002099B3 /* libkml.a */,
 				56FB436E2164A848002099B3 /* libshaders.a */,
 				56FB436C2164A801002099B3 /* libmetrics.a */,
