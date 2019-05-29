@@ -188,6 +188,7 @@ copy_resources(
   packed_polygons.bin
   packed_polygons_obsolete.bin
   patterns.txt
+  transit_colors.txt
   types.txt
   unicode_blocks.txt
   World.mwm
