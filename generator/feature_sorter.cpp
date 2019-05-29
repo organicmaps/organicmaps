@@ -1,6 +1,6 @@
 #include "generator/feature_sorter.hpp"
 
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/gen_mwm_info.hpp"

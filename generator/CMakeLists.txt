@@ -12,10 +12,8 @@ set(SRC
   booking_dataset.hpp
   booking_scoring.cpp
   boost_helpers.hpp
-  borders_generator.cpp
-  borders_generator.hpp
-  borders_loader.cpp
-  borders_loader.hpp
+  borders.cpp
+  borders.hpp  
   brands_loader.cpp
   brands_loader.hpp
   camera_info_collector.cpp

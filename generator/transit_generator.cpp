@@ -1,7 +1,6 @@
 #include "generator/transit_generator.hpp"
 
-#include "generator/borders_generator.hpp"
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 #include "generator/utils.hpp"
 
 #include "routing/index_router.hpp"
@@ -47,7 +46,7 @@ void LoadBorders(string const & dir, CountryId const & countryId, vector<m2::Reg
 {
   string const polyFile = base::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
   borders.clear();
-  osm::LoadBorders(polyFile, borders);
+  borders::LoadBorders(polyFile, borders);
 }
 
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & mapping)

@@ -1,6 +1,6 @@
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 
-#include "generator/borders_generator.hpp"
+#include "generator/borders.hpp"
 
 #include "platform/platform.hpp"
 
@@ -32,6 +32,8 @@
 using namespace std;
 
 namespace borders
+{
+namespace
 {
 class PolygonLoader
 {
@@ -81,27 +83,13 @@ void ForEachCountry(string const & baseDir, ToDo & toDo)
   for (string file : files)
   {
     vector<m2::RegionD> borders;
-    if (osm::LoadBorders(bordersDir + file, borders))
+    if (LoadBorders(bordersDir + file, borders))
     {
       base::GetNameWithoutExt(file);
       toDo(file, borders);
       toDo.Finish();
     }
   }
-}
-
-bool LoadCountriesList(string const & baseDir, CountriesContainer & countries)
-{
-  countries.Clear();
-
-  LOG(LINFO, ("Loading countries."));
-
-  PolygonLoader loader(countries);
-  ForEachCountry(baseDir, loader);
-
-  LOG(LINFO, ("Countries loaded:", countries.GetSize()));
-
-  return !countries.IsEmpty();
 }
 
 class PackedBordersGenerator
@@ -155,6 +143,94 @@ private:
 
   vector<storage::CountryDef> m_polys;
 };
+}  // namespace
+
+bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const & filename)
+{
+  std::string line, name;
+  double lon, lat;
+
+  // read ring id, fail if it's empty
+  std::getline(stream, name);
+  if (name.empty() || name == "END")
+    return false;
+
+  while (stream.good())
+  {
+    std::getline(stream, line);
+    strings::Trim(line);
+
+    if (line.empty())
+      continue;
+
+    if (line == "END")
+      break;
+
+    std::istringstream iss(line);
+    iss >> lon >> lat;
+    CHECK(!iss.fail(), ("Incorrect data in", filename));
+
+    region.AddPoint(MercatorBounds::FromLatLon(lat, lon));
+  }
+
+  // drop inner rings
+  return name[0] != '!';
+}
+
+bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outBorders)
+{
+  std::ifstream stream(borderFile);
+  std::string line;
+  if (!std::getline(stream, line).good())  // skip title
+  {
+    LOG(LERROR, ("Polygon file is empty:", borderFile));
+    return false;
+  }
+
+  m2::RegionD currentRegion;
+  while (ReadPolygon(stream, currentRegion, borderFile))
+  {
+    CHECK(currentRegion.IsValid(), ("Invalid region in", borderFile));
+    outBorders.push_back(currentRegion);
+    currentRegion = m2::RegionD();
+  }
+
+  CHECK(!outBorders.empty(), ("No borders were loaded from", borderFile));
+  return true;
+}
+
+bool GetBordersRect(std::string const & baseDir, std::string const & country,
+                    m2::RectD & bordersRect)
+{
+  auto const bordersFile = base::JoinPath(baseDir, BORDERS_DIR, country + BORDERS_EXTENSION);
+  if (!Platform::IsFileExistsByFullPath(bordersFile))
+  {
+    LOG(LWARNING, ("File with borders does not exist:", bordersFile));
+    return false;
+  }
+
+  std::vector<m2::RegionD> borders;
+  CHECK(LoadBorders(bordersFile, borders), ());
+  bordersRect.MakeEmpty();
+  for (auto const & border : borders)
+    bordersRect.Add(border.GetRect());
+
+  return true;
+}
+
+bool LoadCountriesList(string const & baseDir, CountriesContainer & countries)
+{
+  countries.Clear();
+
+  LOG(LINFO, ("Loading countries."));
+
+  PolygonLoader loader(countries);
+  ForEachCountry(baseDir, loader);
+
+  LOG(LINFO, ("Countries loaded:", countries.GetSize()));
+
+  return !countries.IsEmpty();
+}
 
 void GeneratePackedBorders(string const & baseDir)
 {
@@ -194,23 +270,5 @@ void UnpackBorders(string const & baseDir, string const & targetDir)
     poly << "END" << endl;
     poly.close();
   }
-}
-
-bool GetBordersRect(string const & baseDir, string const & country, m2::RectD & bordersRect)
-{
-  string const bordersFile = base::JoinPath(baseDir, BORDERS_DIR, country + BORDERS_EXTENSION);
-  if (!Platform::IsFileExistsByFullPath(bordersFile))
-  {
-    LOG(LWARNING, ("File with borders does not exist:", bordersFile));
-    return false;
-  }
-
-  vector<m2::RegionD> borders;
-  CHECK(osm::LoadBorders(bordersFile, borders), ());
-  bordersRect.MakeEmpty();
-  for (auto const & border : borders)
-    bordersRect.Add(border.GetRect());
-
-  return true;
 }
 }  // namespace borders

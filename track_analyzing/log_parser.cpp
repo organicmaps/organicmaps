@@ -2,8 +2,7 @@
 
 #include "track_analyzing/exceptions.hpp"
 
-#include "generator/borders_generator.hpp"
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 
 #include "platform/platform.hpp"
 
@@ -44,7 +43,7 @@ public:
     numMwmIds.ForEachId([&](routing::NumMwmId numMwmId) {
       string const & mwmName = numMwmIds.GetFile(numMwmId).GetName();
       string const polyFile = base::JoinPath(dataDir, BORDERS_DIR, mwmName + BORDERS_EXTENSION);
-      osm::LoadBorders(polyFile, m_borders[numMwmId]);
+      borders::LoadBorders(polyFile, m_borders[numMwmId]);
     });
   }
 

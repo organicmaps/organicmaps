@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
 

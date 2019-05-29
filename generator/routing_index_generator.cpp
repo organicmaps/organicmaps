@@ -1,7 +1,6 @@
 #include "generator/routing_index_generator.hpp"
 
-#include "generator/borders_generator.hpp"
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
@@ -399,7 +398,7 @@ void CalcCrossMwmConnectors(
   base::Timer timer;
   string const polyFile = base::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
   vector<m2::RegionD> borders;
-  osm::LoadBorders(polyFile, borders);
+  borders::LoadBorders(polyFile, borders);
 
   // Note 1. CalcCrossMwmTransitions() method fills vector |transitions|.
   // There are two implementation of the method for |connector::OsmId| and for |connector::TransitId|.

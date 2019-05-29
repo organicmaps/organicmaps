@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
-#include "generator/borders_loader.hpp"
+#include "generator/borders.hpp"
 
 #include "storage/country_decl.hpp"
 
