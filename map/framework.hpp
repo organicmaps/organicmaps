@@ -372,6 +372,7 @@ public:
   BookmarkManager const & GetBookmarkManager() const;
 
   // Utilities
+  void VisualizeMwmsBordersInRect(m2::RectD const & rect);
   void VisualizeRoadsInRect(m2::RectD const & rect);
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
   void VisualizeCityRoadsInRect(m2::RectD const & rect);

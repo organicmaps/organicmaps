@@ -49,6 +49,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QAction * m_bookmarksAction = nullptr;
   QAction * m_selectionCityBoundariesMode = nullptr;
   QAction * m_selectionCityRoadsMode = nullptr;
+  QAction * m_selectionMwmsBordersMode = nullptr;
   QToolButton * m_routePointsToolButton = nullptr;
   QAction * m_selectStartRoutePoint = nullptr;
   QAction * m_selectFinishRoutePoint = nullptr;
@@ -112,6 +113,7 @@ protected Q_SLOTS:
   void OnSwitchSelectionMode();
   void OnSwitchCityBoundariesSelectionMode();
   void OnSwitchCityRoadsSelectionMode();
+  void OnSwitchMwmsBordersSelectionMode();
   void OnClearSelection();
 
   void OnTrafficEnabled();

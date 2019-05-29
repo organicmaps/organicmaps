@@ -3470,9 +3470,9 @@ void DrawLine(Box const & box, dp::Color const & color, df::DrapeApi & drapeApi,
   drapeApi.AddLine(id, df::DrapeApiLineData(points, color).Width(3.0f).ShowPoints(true).ShowId());
 }
 
-void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeApi & drapeApi,
-                            size_t & counter)
+void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeApi & drapeApi)
 {
+  static uint64_t counter = 0;
   bool allPointsOutside = true;
   vector<m2::PointD> points;
   ft.ForEachPoint([&points, &rect, &allPointsOutside](m2::PointD const & pt)
@@ -3497,13 +3497,59 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 }
 }  // namespace
 
+void VisualizeMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName)
+{
+  static std::string const kPathToBorders =
+      base::JoinPath(GetPlatform().ResourcesDir(), "borders");
+
+  std::string const path = base::JoinPath(kPathToBorders, mwmName + ".poly");
+
+  std::vector<m2::PointD> points;
+  std::ifstream input(path);
+  std::string line;
+
+  std::getline(input, line);
+  std::getline(input, line);
+
+  double lon = 0.0;
+  double lat = 0.0;
+  while (std::getline(input, line))
+  {
+    if (line == "END")
+      break;
+
+    strings::SimpleTokenizer iter(line, "\t");
+
+    if (!strings::to_double(*iter, lon))
+      return;
+    ++iter;
+
+    if (!strings::to_double(*iter, lat))
+      return;
+
+    points.emplace_back(MercatorBounds::FromLatLon(lat, lon));
+  }
+
+  static uint32_t kColorCounter = 0;
+  drapeApi.AddLine(mwmName,
+                   df::DrapeApiLineData(points, colorList[kColorCounter]).Width(3.0f).ShowId());
+
+  kColorCounter = (kColorCounter + 1) % colorList.size();
+}
+
+void Framework::VisualizeMwmsBordersInRect(m2::RectD const & rect)
+{
+  auto mwmNames = m_infoGetter->GetRegionsCountryIdByRect(rect, false /* rough */);
+  for (auto const & mwmName : mwmNames)
+    VisualizeMwmBorder(m_drapeApi, mwmName);
+}
+
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
 {
-  size_t counter = 0;
-  m_model.ForEachFeature(rect, [this, &counter, &rect](FeatureType & ft)
+  m_model.ForEachFeature(rect, [this, &rect](FeatureType & ft)
   {
     if (routing::IsRoad(feature::TypesHolder(ft)))
-      VisualizeFeatureInRect(rect, ft, m_drapeApi, counter);
+      VisualizeFeatureInRect(rect, ft, m_drapeApi);
   }, scales::GetUpperScale());
 }
 
@@ -3548,9 +3594,8 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
 void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
 {
   map<MwmSet::MwmId, unique_ptr<CityRoads>> cityRoads;
-  size_t counter = 0;
   GetDataSource().ForEachInRect(
-      [this, &rect, &cityRoads, &counter](FeatureType & ft) {
+      [this, &rect, &cityRoads](FeatureType & ft) {
         if (ft.GetGeomType() != feature::GeomType::Line)
           return;
 
@@ -3568,7 +3613,7 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
         if (!cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))
           return;  // ft is not a city road.
 
-        VisualizeFeatureInRect(rect, ft, m_drapeApi, counter);
+        VisualizeFeatureInRect(rect, ft, m_drapeApi);
       },
       rect, scales::GetUpperScale());
 }

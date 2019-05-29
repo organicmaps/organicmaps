@@ -208,7 +208,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!(m_selectionMode || m_cityBoundariesSelectionMode || m_cityRoadsSelectionMode) ||
+    else if (!(IsSelectionModeEnabled()) ||
              IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
@@ -233,7 +233,7 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if ((m_selectionMode || m_cityBoundariesSelectionMode || m_cityRoadsSelectionMode) &&
+  if ((IsSelectionModeEnabled()) &&
       m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
@@ -250,7 +250,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if ((m_selectionMode || m_cityBoundariesSelectionMode || m_cityRoadsSelectionMode) &&
+  else if ((IsSelectionModeEnabled()) &&
            IsRightButton(e) && m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     QPoint const lt = m_rubberBand->geometry().topLeft();
@@ -262,19 +262,33 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
     {
       CHECK(!m_cityBoundariesSelectionMode, ());
       CHECK(!m_cityRoadsSelectionMode, ());
+      CHECK(!m_mwmsBordersSelectionMode, ());
       m_framework.VisualizeRoadsInRect(rect);
     }
     else if (m_cityBoundariesSelectionMode)
     {
-      CHECK(!m_selectionMode, ());
       CHECK(!m_cityRoadsSelectionMode, ());
+      CHECK(!m_mwmsBordersSelectionMode, ());
+      CHECK(!m_selectionMode, ());
       m_framework.VisualizeCityBoundariesInRect(rect);
     }
-    else // m_cityRoadsSelectionMode
+    else if (m_cityRoadsSelectionMode)
     {
-      CHECK(!m_selectionMode, ());
       CHECK(!m_cityBoundariesSelectionMode, ());
+      CHECK(!m_mwmsBordersSelectionMode, ());
+      CHECK(!m_selectionMode, ());
       m_framework.VisualizeCityRoadsInRect(rect);
+    }
+    else if (m_mwmsBordersSelectionMode)
+    {
+      CHECK(!m_cityBoundariesSelectionMode, ());
+      CHECK(!m_cityRoadsSelectionMode, ());
+      CHECK(!m_selectionMode, ());
+      m_framework.VisualizeMwmsBordersInRect(rect);
+    }
+    else
+    {
+      UNREACHABLE();
     }
 
     m_rubberBand->hide();
@@ -554,6 +568,11 @@ void DrawWidget::SetCityRoadsSelectionMode(bool mode)
   m_cityRoadsSelectionMode = mode;
 }
 
+void DrawWidget::SetMwmsBordersSelectionMode(bool mode)
+{
+  m_mwmsBordersSelectionMode = mode;
+}
+
 // static
 void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
@@ -592,5 +611,13 @@ m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD cons
     return MercatorBounds::FromLatLon(*optional);
 
   return m_framework.P3dtoG(pt);
+}
+
+bool DrawWidget::IsSelectionModeEnabled() const
+{
+  return m_selectionMode ||
+         m_cityBoundariesSelectionMode ||
+         m_cityRoadsSelectionMode ||
+         m_mwmsBordersSelectionMode;
 }
 }  // namespace qt

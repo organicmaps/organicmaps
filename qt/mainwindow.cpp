@@ -375,6 +375,11 @@ void MainWindow::CreateNavigationBar()
                             this, SLOT(OnSwitchCityRoadsSelectionMode()));
     m_selectionCityRoadsMode->setCheckable(true);
 
+    m_selectionMwmsBordersMode =
+      pToolBar->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"),
+                          this, SLOT(OnSwitchMwmsBordersSelectionMode()));
+    m_selectionMwmsBordersMode->setCheckable(true);
+
     m_clearSelection = pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"),
                                            this, SLOT(OnClearSelection()));
     m_clearSelection->setToolTip(tr("Clear selection"));
@@ -608,6 +613,9 @@ void MainWindow::OnSwitchSelectionMode()
   m_selectionCityRoadsMode->setChecked(false);
   m_pDrawWidget->SetCityRoadsSelectionMode(false);
 
+  m_selectionMwmsBordersMode->setChecked(false);
+  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
+
   m_pDrawWidget->SetSelectionMode(m_selectionMode->isChecked());
 }
 
@@ -618,6 +626,9 @@ void MainWindow::OnSwitchCityBoundariesSelectionMode()
 
   m_selectionCityRoadsMode->setChecked(false);
   m_pDrawWidget->SetCityRoadsSelectionMode(false);
+
+  m_selectionMwmsBordersMode->setChecked(false);
+  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
 
   m_pDrawWidget->SetCityBoundariesSelectionMode(m_selectionCityBoundariesMode->isChecked());
 }
@@ -630,7 +641,24 @@ void MainWindow::OnSwitchCityRoadsSelectionMode()
   m_selectionCityBoundariesMode->setChecked(false);
   m_pDrawWidget->SetCityBoundariesSelectionMode(false);
 
+  m_selectionMwmsBordersMode->setChecked(false);
+  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
+
   m_pDrawWidget->SetCityRoadsSelectionMode(m_selectionCityRoadsMode->isChecked());
+}
+
+void MainWindow::OnSwitchMwmsBordersSelectionMode()
+{
+  m_selectionMode->setChecked(false);
+  m_pDrawWidget->SetSelectionMode(false);
+
+  m_selectionCityBoundariesMode->setChecked(false);
+  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
+
+  m_selectionCityRoadsMode->setChecked(false);
+  m_pDrawWidget->SetCityRoadsSelectionMode(false);
+
+  m_pDrawWidget->SetMwmsBordersSelectionMode(m_selectionMwmsBordersMode->isChecked());
 }
 
 void MainWindow::OnClearSelection()
