@@ -26,6 +26,9 @@ IncludeBlocks: Regroup
 IncludeCategories:
 # Tests --------------------------------------------------------------------------------------------
   - Regex:           '^"track_analyzing/track_analyzing_tests/'
+    Priority:        4730
+
+  - Regex:           '^"poly_borders/poly_borders_tests/'
     Priority:        4740
 
   - Regex:           '^"generator/generator_integration_tests/'
@@ -190,6 +193,9 @@ IncludeCategories:
     Priority:        20000
 
 # Libraries ----------------------------------------------------------------------------------------
+
+  - Regex:           '^"poly_borders/'
+    Priority:        46700
 
   - Regex:           '^"track_analyzing/'
     Priority:        46800

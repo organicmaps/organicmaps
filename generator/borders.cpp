@@ -216,6 +216,8 @@ void DumpBorderToPolyFile(std::string const & targetDir, storage::CountryId cons
   std::ofstream poly(filePath);
   CHECK(poly.good(), ());
 
+  poly << std::setprecision(20) << std::fixed;
+
   poly << mwmName << std::endl;
   size_t polygonId = 1;
   for (auto const & points : polygons)
