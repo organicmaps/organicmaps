@@ -21,7 +21,6 @@ update downloads set country_from='Micronesia'                   where country_f
 update downloads set country_from='United States Virgin Islands' where country_from='U.S. Virgin Islands';
 update downloads set country_from='Congo-Kinshasa'               where country_from='Congo';
 update downloads set country_from='Congo-Brazzaville'            where country_from='Republic of the Congo';
-update downloads set country_from='Italy'                        where country_from='Vatican City';
 update downloads set country_from='Saint Martin'                 where country_from='Sint Maarten';
 update downloads set country_from='Netherlands Antilles'         where country_from='Bonaire';
 

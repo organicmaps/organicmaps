@@ -220,6 +220,20 @@ std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderObs
   return std::unique_ptr<CountryInfoReader>();
 }
 
+void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const
+{
+  regions.clear();
+  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(id)));
+
+  uint32_t const count = ReadVarUint<uint32_t>(src);
+  for (size_t i = 0; i < count; ++i)
+  {
+    std::vector<m2::PointD> points;
+    serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
+    regions.emplace_back(std::move(points));
+  }
+}
+
 CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
   : CountryInfoGetter(true), m_reader(polyR), m_cache(3 /* logCacheSize */)
 
@@ -257,20 +271,6 @@ std::result_of_t<Fn(std::vector<m2::RegionD>)> CountryInfoReader::WithRegion(siz
     LoadRegionsFromDisk(id, regions);
 
   return fn(regions);
-}
-
-void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const
-{
-  regions.clear();
-  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(id)));
-
-  uint32_t const count = ReadVarUint<uint32_t>(src);
-  for (size_t i = 0; i < count; ++i)
-  {
-    std::vector<m2::PointD> points;
-    serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
-    regions.emplace_back(std::move(points));
-  }
 }
 
 bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const

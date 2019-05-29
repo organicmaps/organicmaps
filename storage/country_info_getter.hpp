@@ -48,6 +48,8 @@ public:
   // Returns true if there's at least one region with id equal to |countryId|.
   bool BelongsToAnyRegion(CountryId const & countryId, RegionIdVec const & regions) const;
 
+  std::vector<CountryDef> const & GetCountries() const { return m_countries; }
+
 protected:
   // Returns identifier of the first country containing |pt| or |kInvalidId| if there is none.
   RegionId FindFirstCountry(m2::PointD const & pt) const;
@@ -150,6 +152,9 @@ public:
   static std::unique_ptr<CountryInfoGetter> CreateCountryInfoReaderObsolete(
       Platform const & platform);
 
+  // Loads all regions for country number |id| from |m_reader|.
+  void LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const;
+
 protected:
   CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);
 
@@ -161,8 +166,6 @@ protected:
 
   template <typename Fn>
   std::result_of_t<Fn(std::vector<m2::RegionD>)> WithRegion(size_t id, Fn && fn) const;
-
-  void LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const;
 
   FilesContainerR m_reader;
   mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_cache;

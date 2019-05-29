@@ -8,8 +8,8 @@ namespace storage
 {
 class CountryInfoGetter;
 
+unique_ptr<CountryInfoGetter> CreateCountryInfoGetterObsolete();
 unique_ptr<CountryInfoGetter> CreateCountryInfoGetter();
-unique_ptr<CountryInfoGetter> CreateCountryInfoGetterMigrate();
 
 bool AlmostEqualRectsAbs(const m2::RectD & r1, const m2::RectD & r2);
 } // namespace storage

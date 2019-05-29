@@ -3,6 +3,7 @@
 #include "storage/storage_tests/helpers.hpp"
 
 #include "storage/country.hpp"
+#include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
@@ -13,6 +14,7 @@
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <map>
@@ -36,7 +38,7 @@ bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 {
-  auto const getter = CreateCountryInfoGetter();
+  auto const getter = CreateCountryInfoGetterObsolete();
 
   CountryInfo info;
 
@@ -53,7 +55,7 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 
 UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 {
-  auto const getter = CreateCountryInfoGetter();
+  auto const getter = CreateCountryInfoGetterObsolete();
 
   m2::PointD const p = MercatorBounds::FromLatLon(53.9022651, 27.5618818);
 
@@ -123,7 +125,7 @@ UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
 
 UNIT_TEST(CountryInfoGetter_SomeRects)
 {
-  auto const getter = CreateCountryInfoGetter();
+  auto const getter = CreateCountryInfoGetterObsolete();
 
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);
@@ -137,7 +139,7 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
 
 UNIT_TEST(CountryInfoGetter_HitsInRadius)
 {
-  auto const getter = CreateCountryInfoGetterMigrate();
+  auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(56.1702, 28.1505), results);
   TEST_EQUAL(results.size(), 3, ());
@@ -148,7 +150,7 @@ UNIT_TEST(CountryInfoGetter_HitsInRadius)
 
 UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
 {
-  auto const getter = CreateCountryInfoGetterMigrate();
+  auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
   TEST_EQUAL(results.size(), 2, ());
@@ -159,7 +161,7 @@ UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
 
 UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 {
-  auto const getter = CreateCountryInfoGetterMigrate();
+  auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
   getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
   TEST_EQUAL(results.size(), 1, ());
@@ -169,7 +171,7 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 {
-  auto const getter = CreateCountryInfoGetterMigrate();
+  auto const getter = CreateCountryInfoGetter();
   Storage storage(COUNTRIES_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
@@ -183,7 +185,7 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafTwoComponentMwm)
 {
-  auto const getter = CreateCountryInfoGetter();
+  auto const getter = CreateCountryInfoGetterObsolete();
   Storage storage(COUNTRIES_FILE);
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
@@ -193,4 +195,65 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafTwoComponentMwm)
                                          24.08212 /* maxX */, -4.393187 /* maxY */};
 
   TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
+}
+
+UNIT_TEST(CountryInfoGetter_RegionRects)
+{
+  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(getterRaw != nullptr, ());
+  CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
+
+  Storage storage(COUNTRIES_FILE);
+
+  auto const & countries = getter->GetCountries();
+
+  for (size_t i = 0; i < countries.size(); ++i)
+  {
+    vector<m2::RegionD> regions;
+    getter->LoadRegionsFromDisk(i, regions);
+
+    m2::RectD rect;
+    for (auto const & region : regions)
+      region.ForEachPoint([&](m2::PointD const & point) { rect.Add(point); });
+
+    TEST(AlmostEqualRectsAbs(rect, countries[i].m_rect), (rect, countries[i].m_rect));
+  }
+}
+
+// This is a test for consistency between data/countries.txt and data/packed_polygons.bin.
+UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
+{
+  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(getterRaw != nullptr, ());
+  CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
+
+  Storage storage(COUNTRIES_FILE);
+
+  double const kRectSize = 10;
+
+  auto const & countries = getter->GetCountries();
+
+  // Set is used here because disputed territories may occur as leaves several times.
+  set<CountryId> storageLeaves;
+  storage.ForEachInSubtree(storage.GetRootId(), [&](CountryId const & countryId, bool groupNode) {
+    if (!groupNode)
+      storageLeaves.insert(countryId);
+  });
+
+  TEST_EQUAL(countries.size(), storageLeaves.size(), ());
+
+  for (size_t defId = 0; defId < countries.size(); ++defId)
+  {
+    auto const & countryDef = countries[defId];
+    TEST_GREATER(storageLeaves.count(countryDef.m_countryId), 0, (countryDef.m_countryId));
+
+    auto const & p = countryDef.m_rect.Center();
+    auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(p.x, p.y, kRectSize, kRectSize);
+    auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+    for (auto const & countryId : vec)
+    {
+      // This call fails a CHECK if |countryId| is not found.
+      storage.GetCountryFile(countryId);
+    }
+  }
 }

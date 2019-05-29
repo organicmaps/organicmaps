@@ -1187,8 +1187,8 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 UNIT_CLASS_TEST(StorageTest, IsPointCoveredByDownloadedMaps)
 {
   bool const isSingleMwm = version::IsSingleMwm(storage.GetCurrentDataVersion());
-  auto const countryInfoGetter = isSingleMwm ? CreateCountryInfoGetterMigrate()
-                                             : CreateCountryInfoGetter();
+  auto const countryInfoGetter =
+      isSingleMwm ? CreateCountryInfoGetter() : CreateCountryInfoGetterObsolete();
   ASSERT(countryInfoGetter, ());
   string const uruguayId = string("Uruguay");
   m2::PointD const montevideoUruguay = MercatorBounds::FromLatLon(-34.8094, -56.1558);
@@ -1554,7 +1554,7 @@ UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
-  auto const countryInfoGetter = CreateCountryInfoGetterMigrate();
+  auto const countryInfoGetter = CreateCountryInfoGetter();
   ASSERT(countryInfoGetter, ());
 
   m2::RectD const boundingBox = storage::CalcLimitRect("Algeria", storage, *countryInfoGetter);

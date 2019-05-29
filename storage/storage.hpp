@@ -736,8 +736,8 @@ void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const
     ASSERT(false, ("CountryId =", root, "not found in m_countries."));
     return;
   }
-  rootNode->ForEachInSubtree([&toDo](CountryTree::Node const & container) {
-    Country const & value = container.Value();
+  rootNode->ForEachInSubtree([&toDo](CountryTree::Node const & node) {
+    Country const & value = node.Value();
     toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
   });
 }
@@ -772,13 +772,13 @@ void Storage::ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node cons
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
-    node->ForEachAncestorExceptForTheRoot([&](CountryTree::Node const & container) {
-      CountryId const ancestorId = container.Value().Name();
-      if (visitedAncestors.find(&container) != visitedAncestors.end())
+    node->ForEachAncestorExceptForTheRoot([&](CountryTree::Node const & node) {
+      CountryId const ancestorId = node.Value().Name();
+      if (visitedAncestors.find(&node) != visitedAncestors.end())
         return;  // The node was visited before because countryId is present in the tree more
                  // than once.
-      visitedAncestors.insert(&container);
-      toDo(ancestorId, container);
+      visitedAncestors.insert(&node);
+      toDo(ancestorId, node);
     });
   }
 }
