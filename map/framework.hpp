@@ -397,6 +397,8 @@ public:
   double GetMinDistanceBetweenResults() const override;
 
 private:
+  void VisualizeMwmBorderByPolyFiles(std::string const & mwmName);
+
   void ActivateMapSelection(bool needAnimation,
                             df::SelectionShape::ESelectedObject selectionType,
                             place_page::Info const & info);
@@ -406,6 +408,8 @@ public:
   void DeactivateMapSelection(bool notifyUI);
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection();
+
+  void DrawMwmBorder(std::vector<m2::PointD> const & points, std::string const & mwmName);
 
   /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
   using TActivateMapSelectionFn = function<void (place_page::Info const &)>;

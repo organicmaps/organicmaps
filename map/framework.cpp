@@ -3497,7 +3497,7 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 }
 }  // namespace
 
-void VisualizeMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName)
+void Framework::VisualizeMwmBorderByPolyFiles(std::string const & mwmName)
 {
   static std::string const kPathToBorders =
       base::JoinPath(GetPlatform().ResourcesDir(), "borders");
@@ -3513,35 +3513,50 @@ void VisualizeMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName)
 
   double lon = 0.0;
   double lat = 0.0;
+  uint32_t mwmNameNumber = 0;
   while (std::getline(input, line))
   {
     if (line == "END")
-      break;
+    {
+      DrawMwmBorder(points,
+                    mwmName + (mwmNameNumber ? "_" + std::to_string(mwmNameNumber) : ""));
+      ++mwmNameNumber;
+      points.clear();
+      continue;
+    }
 
     strings::SimpleTokenizer iter(line, "\t");
 
-    if (!strings::to_double(*iter, lon))
-      return;
+    if (!iter || !strings::to_double(*iter, lon))
+      continue;
     ++iter;
 
-    if (!strings::to_double(*iter, lat))
-      return;
+    if (!iter || !strings::to_double(*iter, lat))
+      continue;
 
     points.emplace_back(MercatorBounds::FromLatLon(lat, lon));
   }
+}
+
+void Framework::DrawMwmBorder(std::vector<m2::PointD> const & points,
+                              std::string const & mwmName)
+{
+  if (points.empty())
+    return;
 
   static uint32_t kColorCounter = 0;
-  drapeApi.AddLine(mwmName,
-                   df::DrapeApiLineData(points, colorList[kColorCounter]).Width(3.0f).ShowId());
+  m_drapeApi.AddLine(mwmName,
+                     df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId());
 
   kColorCounter = (kColorCounter + 1) % colorList.size();
 }
+
 
 void Framework::VisualizeMwmsBordersInRect(m2::RectD const & rect)
 {
   auto mwmNames = m_infoGetter->GetRegionsCountryIdByRect(rect, false /* rough */);
   for (auto const & mwmName : mwmNames)
-    VisualizeMwmBorder(m_drapeApi, mwmName);
+    VisualizeMwmBorderByPolyFiles(mwmName);
 }
 
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
