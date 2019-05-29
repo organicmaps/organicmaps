@@ -27,7 +27,7 @@ FAKE_FEATURE_ID = 100111000
 
 
 def generate_id_from_name_and_version(name, version):
-    return ctypes.c_long((adler32(name) << 32) | version).value
+    return ctypes.c_long((adler32(bytes(name, "utf-8")) << 32) | version).value
 
 
 def parse_mwm(mwm_name, osm2ft_name, override_version, types_name):
@@ -88,6 +88,7 @@ def create_csv(output, mwm_path, osm2ft_path, types, version, threads):
     writers = [Process(target=write_csv, args=(output, qtype)) for qtype in QUEUES]
     for w in writers:
         w.start()
+
     pool = Pool(processes=threads)
     for mwm_name in os.listdir(mwm_path):
         if "World" in mwm_name or "minsk_pass" in mwm_name or not mwm_name.endswith(".mwm"):
@@ -96,7 +97,7 @@ def create_csv(output, mwm_path, osm2ft_path, types, version, threads):
         if not os.path.exists(osm2ft_name):
             logging.error("Cannot find %s", osm2ft_name)
             sys.exit(2)
-        parse_mwm_args = (os.path.join(mwm_path, mwm_name), osm2ft_name, version, types)
+        parse_mwm_args = (os.path.join(mwm_path, mwm_name), osm2ft_name, int(version), types)
         pool.apply_async(parse_mwm, parse_mwm_args)
     pool.close()
     pool.join()
