@@ -5,6 +5,8 @@
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace
 {
 uint32_t constexpr kSocketTimeoutMs = 10000;
@@ -25,6 +27,8 @@ Connection::Connection(unique_ptr<platform::Socket> socket, string const & host,
 // TODO: implement handshake
 bool Connection::Reconnect()
 {
+  alohalytics::Stats::Instance().LogEvent("TrafficTrack_reconnect");
+
   if (!m_socket)
     return false;
 
