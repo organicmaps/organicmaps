@@ -2,8 +2,9 @@
 
 @protocol MWMDiscoveryTapDelegate<NSObject>
 
-- (void)tapOnItem:(discovery::ItemType const)type atIndex:(size_t const)index;
-- (void)routeToItem:(discovery::ItemType const)type atIndex:(size_t const)index;
+- (void)tapOnItem:(discovery::ItemType const)type atIndex:(NSInteger)index;
+- (void)routeToItem:(discovery::ItemType const)type atIndex:(NSInteger)index;
+- (void)openURLForItem:(discovery::ItemType const)type atIndex:(NSInteger)index;
 - (void)openURLForItem:(discovery::ItemType const)type;
 
 @end

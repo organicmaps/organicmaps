@@ -1,9 +1,11 @@
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
+#import "MWMDiscoveryControllerViewModel.h"
+#import "MWMDiscoveryHotelViewModel.h"
+#import "MWMDiscoverySearchViewModel.h"
+#import "MWMDiscoveryGuideViewModel.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-#include "DiscoveryControllerViewModel.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -32,40 +34,17 @@ namespace discovery
 {
 NSString * StatProvider(ItemType const type)
 {
-  switch (type)
-  {
-  case ItemType::LocalExperts: return kStatLocalsProvider;
-  case ItemType::Attractions: return kStatSearchAttractions;
-  case ItemType::Cafes: return kStatSearchRestaurants;
-  case ItemType::Hotels: return kStatBooking;
-  // TODO: Add correct stat key here.
-  case ItemType::Promo: return @"";
+  switch (type) {
+    case ItemType::Attractions: return kStatSearchAttractions;
+    case ItemType::Cafes: return kStatSearchRestaurants;
+    case ItemType::Hotels: return kStatBooking;
+    case ItemType::Promo: return kStatMapsmeGuides;
+    case ItemType::LocalExperts: return @"";
   }
 }
-
-pair<NSString *, MWMRatingSummaryViewValueType> FormattedRating(float const rawValue)
-{
-  auto const str = place_page::rating::GetRatingFormatted(rawValue);
-  auto const impress = static_cast<MWMRatingSummaryViewValueType>(place_page::rating::GetImpress(rawValue));
-  return {@(str.c_str()), impress};
-};
 }  // namespace discovery
 
 using namespace discovery;
-
-namespace
-{
-auto const kDefaultRowAnimation = UITableViewRowAnimationFade;
-
-string GetDistance(m2::PointD const & from, m2::PointD const & to)
-{
-  string distance;
-  auto const f = MercatorBounds::ToLatLon(from);
-  auto const t = MercatorBounds::ToLatLon(to);
-  measurement_utils::FormatDistance(ms::DistanceOnEarth(f.m_lat, f.m_lon, t.m_lat, t.m_lon), distance);
-  return distance;
-}
-}  // namespace
 
 @interface MWMDiscoveryCollectionView : UICollectionView
 @property(nonatomic) ItemType itemType;
@@ -83,8 +62,9 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 }
 
 @property(weak, nonatomic) UITableView * tableView;
-@property(nonatomic) GetModelCallback model;
+@property(nonatomic) MWMGetModelCallback model;
 @property(weak, nonatomic) id<MWMDiscoveryTapDelegate> delegate;
+@property(nonatomic) BOOL canUseNetwork;
 
 @end
 
@@ -93,15 +73,15 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 #pragma mark - Public
 
 - (instancetype)initWithTableView:(UITableView *)tableView
+                    canUseNetwork:(BOOL)canUseNetwork
                          delegate:(id<MWMDiscoveryTapDelegate>)delegate
-                            model:(GetModelCallback &&)modelCallback
-{
+                            model:(MWMGetModelCallback)modelCallback {
   self = [super init];
-  if (self)
-  {
+  if (self) {
     _tableView = tableView;
     _delegate = delegate;
-    _model = move(modelCallback);
+    _model = modelCallback;
+    _canUseNetwork = canUseNetwork;
     tableView.dataSource = self;
     tableView.rowHeight = UITableViewAutomaticDimension;
     tableView.estimatedRowHeight = 218;
@@ -112,28 +92,29 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return self;
 }
 
-- (void)loadItems:(vector<ItemType> const &)types
-{
+- (MWMDiscoveryControllerViewModel *)viewModel {
+  return self.model();
+}
+
+- (void)loadItems:(vector<ItemType> const &)types {
   m_types = types;
   m_loadingTypes = types;
   [self.tableView reloadData];
 }
 
-- (void)reloadItem:(ItemType const)type
-{
-  if (self.model().GetItemsCount(type) == 0)
-  {
+- (void)reloadItem:(ItemType const)type {
+  if ([self.viewModel itemsCountForType:type] == 0) {
     [self removeItem:type];
     return;
   }
+  
 
-  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
-                       m_loadingTypes.end());
-  m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type),
-                      m_failedTypes.end());
-  auto const position = [self position:type];
-  [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:position]]
-                        withRowAnimation:kDefaultRowAnimation];
+  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type), m_loadingTypes.end());
+  m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type), m_failedTypes.end());
+  
+  NSInteger position = [self position:type];
+  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
+                withRowAnimation:UITableViewRowAnimationFade];
 
   [Statistics logEvent:kStatPlacepageSponsoredShow
         withParameters:@{
@@ -143,77 +124,68 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
         }];
 }
 
-- (void)errorAtItem:(ItemType const)type
-{
-  CHECK(type == ItemType::LocalExperts,
+- (void)errorAtItem:(ItemType const)type {
+  CHECK(type == ItemType::Promo,
         ("Error on item with type:", static_cast<int>(type)));
-  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
-                       m_loadingTypes.end());
+  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type), m_loadingTypes.end());
   m_failedTypes.push_back(type);
-  auto const position = [self position:type];
+  NSInteger position = [self position:type];
 
   [Statistics logEvent:kStatPlacepageSponsoredError
-        withParameters:@{kStatProvider: StatProvider(type), kStatPlacement: kStatDiscovery}];
+        withParameters:@{kStatProvider: StatProvider(type),
+                         kStatPlacement: kStatDiscovery}];
 
   [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
-                withRowAnimation:kDefaultRowAnimation];
+                withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Private
 
-- (BOOL)hasOnlineSections
-{
-  return find(m_types.begin(), m_types.end(), ItemType::LocalExperts) != m_types.end();
+- (BOOL)hasOnlineSections {
+  return find(m_types.begin(), m_types.end(), ItemType::Promo) != m_types.end();
 }
 
-- (void)removeItem:(ItemType const)type
-{
-  auto const position = [self position:type];
+- (void)removeItem:(ItemType const)type {
+  NSInteger position = [self position:type];
   m_types.erase(remove(m_types.begin(), m_types.end(), type), m_types.end());
-  m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type),
-                      m_failedTypes.end());
-  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
-                       m_loadingTypes.end());
+  m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type), m_failedTypes.end());
+  m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type), m_loadingTypes.end());
 
   auto indexSet = [NSIndexSet indexSetWithIndex:position];
   auto tv = self.tableView;
   if (m_types.empty())
-    [tv reloadSections:indexSet withRowAnimation:kDefaultRowAnimation];
+    [tv reloadData];
   else
-    [tv deleteSections:indexSet withRowAnimation:kDefaultRowAnimation];
+    [tv deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (void)registerCells
-{
+- (void)registerCells {
   auto tv = self.tableView;
   [tv registerWithCellClass:[MWMDiscoverySpinnerCell class]];
   [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
   [tv registerWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryLocalExpertCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoveryGuideCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryBookingCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
 }
 
-- (NSInteger)position:(ItemType const)type
-{
+- (NSInteger)position:(ItemType const)type {
   auto const it = find(m_types.begin(), m_types.end(), type);
   if (it == m_types.end())
     CHECK(false, ("Incorrect item type:", static_cast<int>(type)));
-
+  
   return distance(m_types.begin(), it);
 }
 
-- (MWMDiscoverySearchCollectionHolderCell *)searchCollectionHolderCell:(NSIndexPath *)indexPath
-{
+- (MWMDiscoverySearchCollectionHolderCell *)searchCollectionHolderCell:(NSIndexPath *)indexPath {
   Class cls = [MWMDiscoverySearchCollectionHolderCell class];
-  auto const type = m_types[indexPath.section];
-  auto cell = static_cast<MWMDiscoverySearchCollectionHolderCell *>(
-      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
-  switch (type)
-  {
-  case ItemType::Attractions: [cell configAttractionsCell]; break;
-  case ItemType::Cafes: [cell configCafesCell]; break;
+  ItemType const type = m_types[indexPath.section];
+  MWMDiscoverySearchCollectionHolderCell *cell = (MWMDiscoverySearchCollectionHolderCell *)
+      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+  MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
+  switch (type) {
+    case ItemType::Attractions: [cell configAttractionsCell]; break;
+    case ItemType::Cafes: [cell configCafesCell]; break;
   default: NSAssert(false, @""); return nil;
   }
   collection.delegate = self;
@@ -222,26 +194,11 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return cell;
 }
 
-- (MWMDiscoveryLocalExpertCollectionHolderCell *)localExpertsCollectionHolderCell:
-    (NSIndexPath *)indexPath
-{
-  Class cls = [MWMDiscoveryLocalExpertCollectionHolderCell class];
-  auto cell = static_cast<MWMDiscoveryLocalExpertCollectionHolderCell *>(
-      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
-  [cell config];
-  collection.delegate = self;
-  collection.dataSource = self;
-  collection.itemType = ItemType::LocalExperts;
-  return cell;
-}
-
-- (MWMDiscoveryBookingCollectionHolderCell *)bookingCollectionHolderCell:(NSIndexPath *)indexPath
-{
+- (MWMDiscoveryBookingCollectionHolderCell *)bookingCollectionHolderCell:(NSIndexPath *)indexPath {
   Class cls = [MWMDiscoveryBookingCollectionHolderCell class];
-  auto cell = static_cast<MWMDiscoveryBookingCollectionHolderCell *>(
-      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
+  MWMDiscoveryBookingCollectionHolderCell *cell = (MWMDiscoveryBookingCollectionHolderCell *)
+      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+  MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
   [cell config];
   collection.delegate = self;
   collection.dataSource = self;
@@ -249,69 +206,87 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return cell;
 }
 
+- (MWMDiscoveryGuideCollectionHolderCell *)guideCollectionHolderCell:(NSIndexPath *)indexPath {
+  Class cls = [MWMDiscoveryGuideCollectionHolderCell class];
+  MWMDiscoveryGuideCollectionHolderCell *cell = (MWMDiscoveryGuideCollectionHolderCell *)
+  [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+  MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
+  [cell config];
+  collection.delegate = self;
+  collection.dataSource = self;
+  collection.itemType = ItemType::Promo;
+  return cell;
+}
+
+- (MWMDiscoverySpinnerCell *)spinnerCell:(NSIndexPath *)indexPath {
+  Class cls = [MWMDiscoverySpinnerCell class];
+  return (MWMDiscoverySpinnerCell *)[self.tableView dequeueReusableCellWithCellClass:cls
+                                                                           indexPath:indexPath];
+}
+
+- (MWMDiscoveryOnlineTemplateCell *)onlineTemplateCell:(NSIndexPath *)indexPath {
+  Class cls = [MWMDiscoveryOnlineTemplateCell class];
+  return (MWMDiscoveryOnlineTemplateCell *)[self.tableView dequeueReusableCellWithCellClass:cls
+                                                                                  indexPath:indexPath];
+}
+
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-  auto constexpr kNumberOfRows = 1;
-  return kNumberOfRows;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return static_cast<NSInteger>(MAX(m_types.size(), 1));
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  if (m_types.empty()) {
+    return 1;
+  }
+  ItemType const type = m_types[section];
+  switch (type) {
+    case ItemType::Attractions:
+    case ItemType::Cafes:
+    case ItemType::Hotels:
+    case ItemType::Promo:
+      return 1;
+    case ItemType::LocalExperts:
+      return 0;
+  }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if (m_types.empty())
-  {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (m_types.empty()) {
     Class cls = [MWMDiscoveryNoResultsCell class];
-    return static_cast<MWMDiscoveryNoResultsCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    return (MWMDiscoveryNoResultsCell *)[tableView dequeueReusableCellWithCellClass:cls
+                                                                          indexPath:indexPath];
   }
+  
+  ItemType const type = m_types[indexPath.section];
+  BOOL isFailed = find(m_failedTypes.begin(), m_failedTypes.end(), type) != m_failedTypes.end();
+  BOOL isLoading = find(m_loadingTypes.begin(), m_loadingTypes.end(), type) != m_loadingTypes.end();
 
-  auto const type = m_types[indexPath.section];
-  bool const isFailed =
-      find(m_failedTypes.begin(), m_failedTypes.end(), type) != m_failedTypes.end();
-  bool const isLoading =
-      find(m_loadingTypes.begin(), m_loadingTypes.end(), type) != m_loadingTypes.end();
-
-  switch (type)
-  {
-  case ItemType::LocalExperts:
-  {
-    if (isLoading || isFailed)
-    {
-      Class cls = [MWMDiscoveryOnlineTemplateCell class];
-      auto cell = static_cast<MWMDiscoveryOnlineTemplateCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [cell configWithType:MWMDiscoveryOnlineTemplateTypeLocals
-               needSpinner:isLoading
-                       tap:^{
-                         [self.delegate openURLForItem:type];
-                       }];
-      return cell;
+  switch (type) {
+    case ItemType::Attractions:
+    case ItemType::Cafes:
+      return isLoading ? [self spinnerCell:indexPath] : [self searchCollectionHolderCell:indexPath];
+    case ItemType::Hotels:
+      return isLoading ? [self spinnerCell:indexPath] : [self bookingCollectionHolderCell:indexPath];
+    case ItemType::Promo: {
+      if (isLoading || isFailed) {
+        MWMDiscoveryOnlineTemplateCell *cell = [self onlineTemplateCell:indexPath];
+        __weak __typeof__(self) weakSelf = self;
+        [cell configWithType:MWMDiscoveryOnlineTemplateTypePromo
+                 needSpinner:isLoading
+               canUseNetwork: self.canUseNetwork
+                         tap:^{
+                           [weakSelf.delegate openURLForItem:type];
+                         }];
+        return cell;
+      }
+      return [self guideCollectionHolderCell: indexPath];
     }
-    return [self localExpertsCollectionHolderCell:indexPath];
+    case ItemType::LocalExperts:
+      return [[UITableViewCell alloc] init];
   }
-  case ItemType::Attractions:
-  case ItemType::Cafes:
-  {
-    if (isLoading)
-    {
-      Class cls = [MWMDiscoverySpinnerCell class];
-      auto cell = static_cast<MWMDiscoverySpinnerCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      return cell;
-    }
-    return [self searchCollectionHolderCell:indexPath];
-  }
-  case ItemType::Hotels: return [self bookingCollectionHolderCell:indexPath];
-  // TODO: Add correct value here.
-  case ItemType::Promo: return 0;
-  }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return static_cast<NSInteger>(MAX(m_types.size(), 1));
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -327,137 +302,76 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 - (NSInteger)collectionView:(MWMDiscoveryCollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-  auto const count = self.model().GetItemsCount(collectionView.itemType);
+  NSInteger count = [self.viewModel itemsCountForType:collectionView.itemType];
   return count > 0 ? count + 1 : 0;
 }
 
 - (UICollectionViewCell *)collectionView:(MWMDiscoveryCollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  auto const type = collectionView.itemType;
-  auto const & model = self.model();
-  NSString * ratingValue;
-  MWMRatingSummaryViewValueType ratingType;
-  switch (type)
-  {
-  case ItemType::Attractions:
-  case ItemType::Cafes:
-  {
-    if (indexPath.row == model.GetItemsCount(type))
-    {
-      Class cls = [MWMDiscoveryMoreCell class];
-      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
-                                                       dequeueReusableCellWithCellClass:cls
-                                                       indexPath:indexPath]);
-      return cell;
-    }
-    Class cls = [MWMDiscoverySearchCell class];
-    auto cell = static_cast<MWMDiscoverySearchCell *>(
-        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const & sr = type == ItemType::Attractions ? model.GetAttractionAt(indexPath.row)
-                                                    : model.GetCafeAt(indexPath.row);
-    auto const & pt = type == ItemType::Attractions ? model.GetAttractionReferencePoint()
-                                                    : model.GetCafeReferencePoint();
-    auto const & pi = type == ItemType::Attractions ? model.GetAttractionProductInfoAt(indexPath.row)
-                                                    : model.GetCafeProductInfoAt(indexPath.row);
-    tie(ratingValue, ratingType) = FormattedRating(pi.m_ugcRating);
-
-    auto const readableType = classif().GetReadableObjectName(sr.GetFeatureType());
-    auto const subtitle = platform::GetLocalizedTypeName(readableType);
-
-    [cell configWithTitle:sr.GetString().empty() ? @(subtitle.c_str()) : @(sr.GetString().c_str())
-                 subtitle:@(subtitle.c_str())
-                 distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
-                  popular:sr.GetRankingInfo().m_popularity > 0
-              ratingValue:ratingValue
-               ratingType:ratingType
-                      tap:^{
-                        [self.delegate routeToItem:type atIndex:indexPath.row];
-                      }];
+  ItemType const type = collectionView.itemType;
+  
+  if (indexPath.row == [self.viewModel itemsCountForType:type]) {
+    Class cls = [MWMDiscoveryMoreCell class];
+    MWMDiscoveryMoreCell *cell = (MWMDiscoveryMoreCell *)[collectionView
+                                                          dequeueReusableCellWithCellClass:cls
+                                                          indexPath:indexPath];
     return cell;
   }
-  case ItemType::LocalExperts:
-  {
-    if (indexPath.row == model.GetItemsCount(type))
-    {
-      Class cls = [MWMDiscoveryMoreCell class];
-      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
-                                                       dequeueReusableCellWithCellClass:cls
-                                                       indexPath:indexPath]);
+  
+  switch (type) {
+    case ItemType::Attractions:
+    case ItemType::Cafes: {
+      Class cls = [MWMDiscoverySearchCell class];
+      MWMDiscoverySearchCell *cell = (MWMDiscoverySearchCell *)
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+      MWMDiscoverySearchViewModel *objectVM = type == ItemType::Attractions ? [self.viewModel attractionAtIndex:indexPath.item] : [self.viewModel cafeAtIndex:indexPath.item];
+      __weak __typeof__(self) weakSelf = self;
+      [cell configWithTitle:objectVM.title
+                   subtitle:objectVM.subtitle
+                   distance:objectVM.distance
+                    popular:objectVM.isPopular
+                ratingValue:objectVM.ratingValue
+                 ratingType:objectVM.ratingType
+                        tap:^{
+                          [weakSelf.delegate routeToItem:type atIndex:indexPath.row];
+                        }];
       return cell;
     }
-
-    Class cls = [MWMDiscoveryLocalExpertCell class];
-    auto cell = static_cast<MWMDiscoveryLocalExpertCell *>(
-        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const & expert = model.GetExpertAt(indexPath.row);
-    tie(ratingValue, ratingType) = FormattedRating(expert.m_rating);
-
-    [cell configWithAvatarURL:@(expert.m_photoUrl.c_str())
-                         name:@(expert.m_name.c_str())
-                  ratingValue:ratingValue
-                   ratingType:ratingType
-                        price:expert.m_pricePerHour
-                     currency:@(expert.m_currency.c_str())
-                          tap:^{
-                            [self.delegate tapOnItem:type atIndex:indexPath.row];
+    case ItemType::Hotels: {
+      Class cls = [MWMDiscoveryBookingCell class];
+      MWMDiscoveryBookingCell *cell = (MWMDiscoveryBookingCell *)
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+      MWMDiscoveryHotelViewModel *objectVM = [self.viewModel hotelAtIndex:indexPath.item];
+      __weak __typeof__(self) weakSelf = self;
+      [cell configWithAvatarURL:nil
+                          title:objectVM.title
+                       subtitle:objectVM.subtitle
+                          price:objectVM.price
+                    ratingValue:objectVM.ratingValue
+                     ratingType:objectVM.ratingType
+                       distance:objectVM.distance
+                   onBuildRoute:^{
+                     [weakSelf.delegate routeToItem:type atIndex:indexPath.row];
+                   }];
+      return cell;
+    }
+    case ItemType::Promo: {
+      Class cls = [MWMDiscoveryGuideCell class];
+      MWMDiscoveryGuideCell *cell = (MWMDiscoveryGuideCell *)
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+      MWMDiscoveryGuideViewModel *objectVM = [self.viewModel guideAtIndex:indexPath.item];
+      __weak __typeof__(self) weakSelf = self;
+      [cell configWithAvatarURL:objectVM.imagePath
+                          title:objectVM.title
+                       subtitle:objectVM.subtitle
+                          label:objectVM.label onDetails:^{
+                            [weakSelf.delegate openURLForItem:ItemType::Promo atIndex:indexPath.row];
                           }];
-    return cell;
-  }
-  case ItemType::Hotels:
-  {
-    if (indexPath.row == model.GetItemsCount(type))
-    {
-      Class cls = [MWMDiscoveryMoreCell class];
-      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
-                                                       dequeueReusableCellWithCellClass:cls
-                                                       indexPath:indexPath]);
       return cell;
     }
-
-    Class cls = [MWMDiscoveryBookingCell class];
-    auto cell = static_cast<MWMDiscoveryBookingCell *>(
-        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const & sr = model.GetHotelAt(indexPath.row);
-    auto const & pt = model.GetHotelReferencePoint();
-
-    NSMutableString * subtitle = nil;
-    auto starsCount = sr.GetStarsCount();
-    if (starsCount == 0)
-    {
-      auto const readableType = classif().GetReadableObjectName(sr.GetFeatureType());
-      subtitle = [@(platform::GetLocalizedTypeName(readableType).c_str()) mutableCopy];
-    }
-    else
-    {
-      subtitle = [@"" mutableCopy];
-      for (int i = 0; i < starsCount; ++i)
-        [subtitle appendString:@"★"];
-    }
-
-    tie(ratingValue, ratingType) = FormattedRating(sr.GetHotelRating());
-
-    [cell configWithAvatarURL:nil
-                        title:sr.GetString().empty() ? [subtitle copy] : @(sr.GetString().c_str())
-                     subtitle:[subtitle copy]
-                        price:@(sr.GetHotelApproximatePricing().c_str())
-                  ratingValue:ratingValue
-                   ratingType:ratingType
-                     distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
-                 onBuildRoute:^{
-                   [self.delegate routeToItem:type atIndex:indexPath.row];
-                 }];
-    return cell;
-  }
-  case ItemType::Promo:
-  {
-    // TODO: Add correct implementation here.
-    auto cls = [MWMDiscoveryMoreCell class];
-    auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
-                                                     dequeueReusableCellWithCellClass:cls
-                                                     indexPath:indexPath]);
-    return cell;
-  }
+    case ItemType::LocalExperts:
+      return [[UICollectionViewCell alloc] init];
   }
 }
 

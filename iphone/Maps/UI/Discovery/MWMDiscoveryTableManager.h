@@ -5,20 +5,21 @@
 
 namespace discovery
 {
-class DiscoveryControllerViewModel;
-
 NSString * StatProvider(ItemType const type);
 }  // namespace discovery
 
-using GetModelCallback = std::function<discovery::DiscoveryControllerViewModel const &()>;
+@class MWMDiscoveryControllerViewModel;
+
+typedef MWMDiscoveryControllerViewModel *(^MWMGetModelCallback)(void);
 
 @protocol MWMDiscoveryTapDelegate;
 
 @interface MWMDiscoveryTableManager : NSObject
 
 - (instancetype)initWithTableView:(UITableView *)tableView
+                    canUseNetwork:(BOOL)canUseNetwork
                          delegate:(id<MWMDiscoveryTapDelegate>)delegate
-                            model:(GetModelCallback &&)modelCallback;
+                            model:(MWMGetModelCallback)modelCallback;
 
 - (void)loadItems:(std::vector<discovery::ItemType> const &)types;
 - (void)reloadItem:(discovery::ItemType const)type;

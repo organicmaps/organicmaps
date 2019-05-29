@@ -3,15 +3,6 @@ class DiscoveryCollectionHolder: UITableViewCell {
   @IBOutlet fileprivate weak var header: UILabel!
 }
 
-@objc(MWMDiscoveryLocalExpertCollectionHolderCell)
-final class DiscoveryLocalExpertCollectionHolderCell: DiscoveryCollectionHolder {
-  @objc func config() {
-    header.text = L("discovery_button_subtitle_local_guides").uppercased()
-    collectionView.register(cellClass: DiscoveryLocalExpertCell.self)
-    collectionView.register(cellClass: DiscoveryMoreCell.self)
-  }
-}
-
 @objc(MWMDiscoverySearchCollectionHolderCell)
 final class DiscoverySearchCollectionHolderCell: DiscoveryCollectionHolder {
   @objc func configAttractionsCell() {
@@ -34,6 +25,15 @@ final class DiscoveryBookingCollectionHolderCell: DiscoveryCollectionHolder {
   @objc func config() {
     header.text = L("discovery_button_subtitle_book_hotels").uppercased()
     collectionView.register(cellClass: DiscoveryBookingCell.self)
+    collectionView.register(cellClass: DiscoveryMoreCell.self)
+  }
+}
+
+@objc(MWMDiscoveryGuideCollectionHolderCell)
+final class DiscoveryGuideCollectionHolderCell: DiscoveryCollectionHolder {
+  @objc func config() {
+    header.text = L("discovery_button_subtitle_guides").uppercased()
+    collectionView.register(cellClass: DiscoveryGuideCell.self)
     collectionView.register(cellClass: DiscoveryMoreCell.self)
   }
 }
