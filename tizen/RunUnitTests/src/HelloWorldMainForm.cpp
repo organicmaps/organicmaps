@@ -14,88 +14,83 @@ using namespace Tizen::Ui::Scenes;
 
 using namespace std;
 
-static bool g_bLastTestOK = true;
+static bool g_lastTestOK = true;
 
 int run_all_tests()
 {
   AppLog("Running all tests");
 
-  vector<string> testNames;
+  vector<string> testnames;
   vector<bool> testResults;
   int numFailedTests = 0;
 
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
+  for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
   {
-    string fileName(pTest->m_FileName);
-    string testName(pTest->m_TestName);
-    {
-      int iFirstSlash = static_cast<int>(fileName.size()) - 1;
-      while (iFirstSlash >= 0 && fileName[iFirstSlash] != '\\' && fileName[iFirstSlash] != '/')
-        --iFirstSlash;
-      if (iFirstSlash >= 0)
-        fileName.erase(0, iFirstSlash + 1);
-    }
+    string filename(test->m_filename);
+    string testname(test->m_testname);
 
-    testNames.push_back(fileName + "::" + testName);
+    // Retrieve fine file name.
+    auto const lastSlash = filename.find_last_of("\\/");
+    if (lastSlash != string::npos)
+      filename.erase(0, lastSlash + 1);
+
+    testnames.push_back(filename + "::" + testname);
     testResults.push_back(true);
   }
 
-  int iTest = 0;
+  int testIndex = 0;
   int nPassedTests = 0;
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
+  for (TestRegister *test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
   {
-    string s = testNames[iTest];
+    string s = testnames[testIndex];
     AppLog("////////////////////////////////////////////////////////////////////////");
     s = "Running test " + s;
     AppLog(s.c_str());
     AppLog("////////////////////////////////////////////////////////////////////////");
 
-    if (!g_bLastTestOK)
+    if (!g_lastTestOK)
     {
-      AppLog("g_bLastTestOK - false");
+      AppLog("g_lastTestOK - false");
       return 5;
     }
     try
     {
       // Run the test.
-      pTest->m_Fn();
+      test->m_fn();
       AppLog("Passed");
 
       nPassedTests++;
-      if (g_bLastTestOK)
+      if (g_lastTestOK)
       {
       }
       else
       {
-        // You can set Break here if test failed,
-        // but it is already set in OnTestFail - to fail immediately.
-        testResults[iTest] = false;
+        testResults[testIndex] = false;
         ++numFailedTests;
         std::ostringstream os;
-        os << "Failed test " << testNames[iTest];
+        os << "Failed test " << testnames[testIndex];
         AppLogException(os.str().c_str());
       }
-
     }
 
     catch (std::exception const & ex)
     {
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
       std::ostringstream os;
-      os << "Failed test with std exception "<< ex.what() << " in test " << testNames[iTest];
+      os << "Failed test with std exception " << ex.what() << " in test " << testnames[testIndex];
       AppLogException(os.str().c_str());
 
     }
     catch (...)
     {
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
       std::ostringstream os;
-      os << "Failed test with exception " << testNames[iTest];
+      os << "Failed test with exception " << testnames[testIndex];
       AppLogException(os.str().c_str());
     }
-    g_bLastTestOK = true;
+    g_lastTestOK = true;
   }
 
   if (numFailedTests == 0)
@@ -104,7 +99,7 @@ int run_all_tests()
   }
   else
   {
-    for (size_t i = 0; i < testNames.size(); ++i)
+    for (size_t i = 0; i < testnames.size(); ++i)
     {
     }
     return numFailedTests * 10000 + nPassedTests;

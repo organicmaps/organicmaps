@@ -6,14 +6,16 @@
 #include "base/timer.hpp"
 #include "base/waiter.hpp"
 
-#include "std/chrono.hpp"
-#include "std/cstring.hpp"
-#include "std/iomanip.hpp"
-#include "std/iostream.hpp"
-#include "std/regex.hpp"
-#include "std/string.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
+#include <iomanip>
+#include <iostream>
+#include <regex>
+#include <string>
+#include <vector>
+
 #include "std/target_os.hpp"
-#include "std/vector.hpp"
 
 #ifdef TARGET_OS_IPHONE
 # include <CoreFoundation/CoreFoundation.h>
@@ -34,10 +36,13 @@
   #endif
 #endif
 
+using namespace std;
+
 namespace
 {
 base::Waiter g_waiter;
 }  // namespace
+
 namespace testing
 {
 
@@ -69,11 +74,11 @@ void Notify()
 {
   g_waiter.Notify();
 }
-} //  namespace testing
+}  // namespace testing
 
 namespace
 {
-bool g_bLastTestOK = true;
+bool g_lastTestOK = true;
 CommandLineOptions g_testingOptions;
 
 int const kOptionFieldWidth = 32;
@@ -158,7 +163,7 @@ int main(int argc, char * argv[])
   base::SetLogMessageFn(base::LogMessageTests);
 #endif
 
-  vector<string> testNames;
+  vector<string> testnames;
   vector<bool> testResults;
   int numFailedTests = 0;
 
@@ -187,44 +192,44 @@ int main(int argc, char * argv[])
     pl.SetResourceDir(options.m_resourcePath);
 #endif
 
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
+  for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
   {
-    string fileName(pTest->m_FileName);
-    string testName(pTest->m_TestName);
+    string filename(test->m_filename);
+    string testname(test->m_testname);
 
-    // Retrieve fine file name
-    auto const lastSlash = fileName.find_last_of("\\/");
+    // Retrieve fine file name.
+    auto const lastSlash = filename.find_last_of("\\/");
     if (lastSlash != string::npos)
-      fileName.erase(0, lastSlash + 1);
+      filename.erase(0, lastSlash + 1);
 
-    testNames.push_back(fileName + "::" + testName);
+    testnames.push_back(filename + "::" + testname);
     testResults.push_back(true);
   }
 
   if (GetTestingOptions().m_listTests)
   {
-    for (auto const & name : testNames)
+    for (auto const & name : testnames)
       cout << name << endl;
     return 0;
   }
 
-  int iTest = 0;
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
+  int testIndex = 0;
+  for (TestRegister *test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
   {
-    auto const & testName = testNames[iTest];
+    auto const & testname = testnames[testIndex];
     if (g_testingOptions.m_filterRegExp &&
-        !regex_search(testName.begin(), testName.end(), filterRegExp))
+        !regex_search(testname.begin(), testname.end(), filterRegExp))
     {
       continue;
     }
     if (g_testingOptions.m_suppressRegExp &&
-        regex_search(testName.begin(), testName.end(), suppressRegExp))
+        regex_search(testname.begin(), testname.end(), suppressRegExp))
     {
       continue;
     }
 
-    LOG(LINFO, ("Running", testName));
-    if (!g_bLastTestOK)
+    LOG(LINFO, ("Running", testname));
+    if (!g_lastTestOK)
     {
       // Somewhere else global variables have been reset.
       LOG(LERROR, ("\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!"));
@@ -236,39 +241,36 @@ int main(int argc, char * argv[])
     try
     {
       // Run the test.
-      pTest->m_Fn();
+      test->m_fn();
 
-      if (g_bLastTestOK)
+      if (g_lastTestOK)
       {
         LOG(LINFO, ("OK"));
       }
       else
       {
-        // You can set Break here if test failed,
-        // but it is already set in OnTestFail - to fail immediately.
-        testResults[iTest] = false;
+        testResults[testIndex] = false;
         ++numFailedTests;
       }
-
     }
     catch (TestFailureException const & )
     {
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
     catch (std::exception const & ex)
     {
       LOG(LERROR, ("FAILED", "<<<Exception thrown [", ex.what(), "].>>>"));
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
     catch (...)
     {
       LOG(LERROR, ("FAILED<<<Unknown exception thrown.>>>"));
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
-    g_bLastTestOK = true;
+    g_lastTestOK = true;
 
     uint64_t const elapsed = timer.ElapsedNano();
     LOG(LINFO, ("Test took", elapsed / 1000000, "ms\n"));
@@ -277,10 +279,10 @@ int main(int argc, char * argv[])
   if (numFailedTests != 0)
   {
     LOG(LINFO, (numFailedTests, " tests failed:"));
-    for (size_t i = 0; i < testNames.size(); ++i)
+    for (size_t i = 0; i < testnames.size(); ++i)
     {
       if (!testResults[i])
-        LOG(LINFO, (testNames[i]));
+        LOG(LINFO, (testnames[i]));
     }
     LOG(LINFO, ("Some tests FAILED."));
     return STATUS_FAILED;

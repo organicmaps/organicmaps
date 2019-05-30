@@ -25,7 +25,7 @@
   #endif
 #endif
 
-static bool g_bLastTestOK = true;
+static bool g_lastTestOK = true;
 
 int main(int argc, char * argv[])
 {
@@ -43,32 +43,29 @@ int main(int argc, char * argv[])
 
   SCOPE_GUARD(GLMockScope, std::bind(&emul::GLMockFunctions::Teardown));
 
-  std::vector<std::string> testNames;
+  std::vector<std::string> testnames;
   std::vector<bool> testResults;
   int numFailedTests = 0;
 
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
+  for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
   {
-    std::string fileName(pTest->m_FileName);
-    std::string testName(pTest->m_TestName);
-    // Retrieve fine file name
-    {
-      int iFirstSlash = static_cast<int>(fileName.size()) - 1;
-      while (iFirstSlash >= 0 && fileName[iFirstSlash] != '\\'  && fileName[iFirstSlash] != '/')
-        --iFirstSlash;
-      if (iFirstSlash >= 0)
-        fileName.erase(0, iFirstSlash + 1);
-    }
+    std::string filename(test->m_filename);
+    std::string testname(test->m_testname);
 
-    testNames.push_back(fileName + "::" + testName);
+    // Retrieve fine file name.
+    auto const lastSlash = filename.find_last_of("\\/");
+    if (lastSlash != std::string::npos)
+      filename.erase(0, lastSlash + 1);
+
+    testnames.push_back(filename + "::" + testname);
     testResults.push_back(true);
   }
 
-  int iTest = 0;
-  for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
+  int testIndex = 0;
+  for (TestRegister *test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
   {
-    std::cerr << "Running " << testNames[iTest] << std::endl << std::flush;
-    if (!g_bLastTestOK)
+    std::cerr << "Running " << testnames[testIndex] << std::endl << std::flush;
+    if (!g_lastTestOK)
     {
       // Somewhere else global variables have been reset.
       std::cerr << "\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!" << std::endl;
@@ -77,40 +74,37 @@ int main(int argc, char * argv[])
     try
     {
       // Run the test.
-      pTest->m_Fn();
+      test->m_fn();
       emul::GLMockFunctions::ValidateAndClear();
 
-      if (g_bLastTestOK)
+      if (g_lastTestOK)
       {
         std::cerr << "OK" << std::endl;
       }
       else
       {
-        // You can set Break here if test failed,
-        // but it is already set in OnTestFail - to fail immediately.
-        testResults[iTest] = false;
+        testResults[testIndex] = false;
         ++numFailedTests;
       }
-
     }
     catch (TestFailureException const &)
     {
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
     catch (std::exception const & ex)
     {
       std::cerr << "FAILED" << std::endl << "<<<Exception thrown [" << ex.what() << "].>>>" << std::endl;
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
     catch (...)
     {
       std::cerr << "FAILED" << std::endl << "<<<Unknown exception thrown.>>>" << std::endl;
-      testResults[iTest] = false;
+      testResults[testIndex] = false;
       ++numFailedTests;
     }
-    g_bLastTestOK = true;
+    g_lastTestOK = true;
   }
 
   if (numFailedTests == 0)
@@ -121,10 +115,10 @@ int main(int argc, char * argv[])
   else
   {
     std::cerr << std::endl << numFailedTests << " tests failed:" << std::endl;
-    for (size_t i = 0; i < testNames.size(); ++i)
+    for (size_t i = 0; i < testnames.size(); ++i)
     {
       if (!testResults[i])
-        std::cerr << testNames[i] << std::endl;
+        std::cerr << testnames[i] << std::endl;
     }
     std::cerr << "Some tests FAILED." << std::endl << std::flush;
     return 1;

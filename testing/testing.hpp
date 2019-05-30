@@ -11,7 +11,7 @@
 
 #define UNIT_TEST(name)                                                  \
   void UnitTest_##name();                                                \
-  TestRegister g_TestRegister_##name(#name, __FILE__, &UnitTest_##name); \
+  TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
   void UnitTest_##name()
 
 #define UNIT_CLASS_TEST(CLASS, NAME)               \
