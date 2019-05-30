@@ -20,8 +20,9 @@ using namespace std;
 
 namespace
 {
-double const kCertaintyEps = 1e-6;
+using Id = base::GeoObjectId;
 
+double const kCertaintyEps = 1e-6;
 string const kRegionsData = R"#(
 -4611686018427080071 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.1142033187951, 21.55511095]}, "properties": {"name": "Cuba", "rank": 2, "address": {"country": "Cuba"}}}
 -4611686018425533273 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.7260117405499, 21.74300205]}, "properties": {"name": "Ciego de Ávila", "rank": 4, "address": {"region": "Ciego de Ávila", "country": "Cuba"}}}
@@ -153,42 +154,108 @@ UNIT_TEST(Geocoder_MismatchedLocality)
   TestGeocoder(geocoder, "Moscow Krymskaya 3", {});
 }
 
-UNIT_TEST(Geocoder_StreetWithNumber)
+// Geocoder_StreetWithNumber* ----------------------------------------------------------------------
+UNIT_TEST(Geocoder_StreetWithNumberInCity)
 {
   string const kData = R"#(
 10 {"properties": {"address": {"locality": "Москва"}}}
-20 {"properties": {"address": {"locality": "Краснокамск"}}}
-
 11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
 
-12 {"properties": {"address": {"locality": "Москва", "street": "4-я улица 8 Марта"}}}
-
-13 {"properties": {"address": {"locality": "Москва", "street": "8 Марта"}}}
-
-21 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 8 Марта"}}}
-25 {"properties": {"address": {"locality": "Краснокамск", "street": "Январская улица"}}}
-26 {"properties": {"address": {"locality": "Краснокамск", "street": "Январская улица", "building": "8"}}}
+20 {"properties": {"address": {"locality": "Краснокамск"}}}
+28 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  using Id = base::GeoObjectId;
   TestGeocoder(geocoder, "Москва, улица 1905 года", {{Id{11}, 1.0}});
-  TestGeocoder(geocoder, "Москва, 1905 года", {{Id{11}, 1.0}});
-  TestGeocoder(geocoder, "Краснокамск, улица 1905 года", {});
-
-  TestGeocoder(geocoder, "Москва, 4-я улица 8 Марта", {{Id{12}, 1.0}});
-  TestGeocoder(geocoder, "Москва, 4-я 8 Марта", {{Id{12}, 1.0}});
-
-  TestGeocoder(geocoder, "Москва, 8 Марта", {{Id{13}, 1.0}});
-  TestGeocoder(geocoder, "Москва, улица 8 Марта", {{Id{13}, 1.0}});
-
-  TestGeocoder(geocoder, "Краснокамск, улица 8 Марта", {{Id{21}, 1.0}});
-  TestGeocoder(geocoder, "Краснокамск, 8 Марта", {{Id{21}, 1.0}});
-  TestGeocoder(geocoder, "Краснокамск, Январская 8", {{Id{26}, 1.0}});
 }
 
+UNIT_TEST(Geocoder_StreetWithNumberInClassifiedCity)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "город Москва, улица 1905 года", {{Id{11}, 1.0}});
+}
+
+UNIT_TEST(Geocoder_StreetWithNumberInAnyCity)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+
+20 {"properties": {"address": {"locality": "Краснокамск"}}}
+28 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "улица 1905 года", {{Id{11}, 1.0}, {Id{28}, 1.0}});
+}
+
+UNIT_TEST(Geocoder_StreetWithNumberAndWithoutStreetSynonym)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Москва, 1905 года", {{Id{11}, 1.0}});
+}
+
+UNIT_TEST(Geocoder_UntypedStreetWithNumberAndStreetSynonym)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+13 {"properties": {"address": {"locality": "Москва", "street": "8 Марта"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Москва, улица 8 Марта", {{Id{13}, 1.0}});
+}
+
+UNIT_TEST(Geocoder_StreetWithTwoNumbers)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+12 {"properties": {"address": {"locality": "Москва", "street": "4-я улица 8 Марта"}}}
+
+13 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Москва, 4-я улица 8 Марта", {{Id{12}, 1.0}});
+}
+
+UNIT_TEST(Geocoder_BuildingOnStreetWithNumber)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Москва"}}}
+13 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}
+15 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта", "building": "4"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Москва, улица 8 Марта, 4", {{Id{15}, 1.0}});
+}
+
+//--------------------------------------------------------------------------------------------------
 UNIT_TEST(Geocoder_LocalityBuilding)
 {
   string const kData = R"#(

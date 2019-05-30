@@ -11,6 +11,7 @@
 #include "base/string_utils.hpp"
 
 #include <cstddef>
+#include <set>
 #include <string>
 #include <thread>
 #include <unordered_map>
@@ -53,19 +54,20 @@ public:
   public:
     struct BeamKey
     {
-      BeamKey(base::GeoObjectId osmId, Type type, std::vector<Type> const & allTypes, bool allTokensUsed)
+      BeamKey(base::GeoObjectId osmId, Type type, std::vector<size_t> const & tokenIds,
+              std::vector<Type> const & allTypes)
         : m_osmId(osmId)
         , m_type(type)
+        , m_tokenIds{tokenIds}
         , m_allTypes(allTypes)
-        , m_allTokensUsed(allTokensUsed)
       {
         base::SortUnique(m_allTypes);
       }
 
       base::GeoObjectId m_osmId;
       Type m_type;
+      std::vector<size_t> m_tokenIds;
       std::vector<Type> m_allTypes;
-      bool m_allTokensUsed;
     };
 
     Context(std::string const & query);
@@ -89,7 +91,7 @@ public:
     bool AllTokensUsed() const;
 
     void AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                   std::vector<Type> const & allTypes, bool allTokensUsed);
+                   std::vector<size_t> const & tokenIds, std::vector<Type> const & allTypes);
 
     void FillResults(std::vector<Result> & results) const;
 
@@ -97,20 +99,25 @@ public:
 
     std::vector<Layer> const & GetLayers() const;
 
-    void SetHouseNumberBit() { m_surelyGotHouseNumber = true; }
+    void MarkHouseNumberPositionsInQuery(std::vector<size_t> const & tokenIds);
 
   private:
+    bool IsGoodForPotentialHouseNumberAt(BeamKey const & beamKey, std::set<size_t> const & tokenIds) const;
+    bool IsBuildingWithAddress(BeamKey const & beamKey) const;
+    bool HasLocalityOrRegion(BeamKey const & beamKey) const;
+    bool ContainsTokenIds(BeamKey const & beamKey, std::set<size_t> const & needTokenIds) const;
+
     Tokens m_tokens;
     std::vector<Type> m_tokenTypes;
 
     size_t m_numUsedTokens = 0;
 
-    // Sticky bit that records a heuristic check whether
-    // the current query contains a house number.
+    // |m_houseNumberPositionsInQuery| has indexes of query tokens which are placed on
+    // context-dependent positions of house number.
     // The rationale is that we must only emit buildings in this case
     // and implement a fallback to a more powerful geocoder if we
     // could not find a building.
-    bool m_surelyGotHouseNumber = false;
+    std::set<size_t> m_houseNumberPositionsInQuery;
 
     // The highest value of certainty for a fixed amount of
     // the most relevant retrieved osm ids.
@@ -133,8 +140,8 @@ private:
 
   void Go(Context & ctx, Type type) const;
 
-  void FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer & curLayer) const;
-
+  void FillBuildingsLayer(Context & ctx, Tokens const & subquery, std::vector<size_t> const & subqueryTokenIds,
+                          Layer & curLayer) const;
   void FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
                         Layer & curLayer) const;
 

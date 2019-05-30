@@ -14,6 +14,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <numeric>
 #include <set>
 #include <thread>
 #include <utility>
@@ -138,9 +139,9 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
 void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                                  vector<Type> const & allTypes, bool allTokensUsed)
+                                  vector<size_t> const & tokenIds, vector<Type> const & allTypes)
 {
-  m_beam.Add(BeamKey(osmId, type, allTypes, allTokensUsed), certainty);
+  m_beam.Add(BeamKey(osmId, type, tokenIds, allTypes), certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
@@ -149,30 +150,13 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
   results.reserve(m_beam.GetEntries().size());
 
   set<base::GeoObjectId> seen;
+  bool const hasPotentialHouseNumber = !m_houseNumberPositionsInQuery.empty();
   for (auto const & e : m_beam.GetEntries())
   {
     if (!seen.insert(e.m_key.m_osmId).second)
       continue;
 
-    bool isGoodHouseHumber = false;
-    if (e.m_key.m_type == Type::Building)
-    {
-      bool gotLocality = false;
-      bool gotStreet = false;
-      bool gotBuilding = false;
-      for (Type t : e.m_key.m_allTypes)
-      {
-        if (t == Type::Region || t == Type::Subregion || t == Type::Locality)
-          gotLocality = true;
-        if (t == Type::Street)
-          gotStreet = true;
-        if (t == Type::Building)
-          gotBuilding = true;
-      }
-      isGoodHouseHumber = gotLocality && gotStreet && gotBuilding;
-    }
-
-    if (m_surelyGotHouseNumber && !isGoodHouseHumber && !e.m_key.m_allTokensUsed)
+    if (hasPotentialHouseNumber && !IsGoodForPotentialHouseNumberAt(e.m_key, m_houseNumberPositionsInQuery))
       continue;
 
     results.emplace_back(e.m_key.m_osmId, e.m_value /* certainty */);
@@ -196,6 +180,64 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
 vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
 
 vector<Geocoder::Layer> const & Geocoder::Context::GetLayers() const { return m_layers; }
+
+void Geocoder::Context::MarkHouseNumberPositionsInQuery(vector<size_t> const & tokenIds)
+{
+  m_houseNumberPositionsInQuery.insert(tokenIds.begin(), tokenIds.end());
+}
+
+bool Geocoder::Context::IsGoodForPotentialHouseNumberAt(BeamKey const & beamKey,
+                                                        set<size_t> const & tokenIds) const
+{
+  if (beamKey.m_tokenIds.size() == m_tokens.size())
+    return true;
+
+  if (IsBuildingWithAddress(beamKey))
+    return true;
+
+  // Pass street, locality or region with number in query address parts.
+  if (HasLocalityOrRegion(beamKey) && ContainsTokenIds(beamKey, tokenIds))
+    return true;
+
+  return false;
+}
+
+bool Geocoder::Context::IsBuildingWithAddress(BeamKey const & beamKey) const
+{
+  if (beamKey.m_type != Type::Building)
+    return false;
+
+  bool gotLocality = false;
+  bool gotStreet = false;
+  bool gotBuilding = false;
+  for (Type t : beamKey.m_allTypes)
+  {
+    if (t == Type::Region || t == Type::Subregion || t == Type::Locality)
+      gotLocality = true;
+    if (t == Type::Street)
+      gotStreet = true;
+    if (t == Type::Building)
+      gotBuilding = true;
+  }
+  return gotLocality && gotStreet && gotBuilding;
+}
+
+bool Geocoder::Context::HasLocalityOrRegion(BeamKey const & beamKey) const
+{
+  for (Type t : beamKey.m_allTypes)
+  {
+    if (t == Type::Region || t == Type::Subregion || t == Type::Locality)
+      return true;
+  }
+
+  return false;
+}
+
+bool Geocoder::Context::ContainsTokenIds(BeamKey const & beamKey, set<size_t> const & needTokenIds) const
+{
+  auto const & keyTokenIds = beamKey.m_tokenIds;
+  return base::Includes(keyTokenIds.begin(), keyTokenIds.end(), needTokenIds.begin(), needTokenIds.end());
+}
 
 // Geocoder ----------------------------------------------------------------------------------------
 Geocoder::Geocoder(string const & pathToJsonHierarchy, unsigned int loadThreadsCount)
@@ -243,15 +285,18 @@ void Geocoder::Go(Context & ctx, Type type) const
     return;
 
   Tokens subquery;
+  vector<size_t> subqueryTokenIds;
   for (size_t i = 0; i < ctx.GetNumTokens(); ++i)
   {
     subquery.clear();
+    subqueryTokenIds.clear();
     for (size_t j = i; j < ctx.GetNumTokens(); ++j)
     {
       if (ctx.IsTokenUsed(j))
         break;
 
       subquery.push_back(ctx.GetToken(j));
+      subqueryTokenIds.push_back(j);
 
       Layer curLayer;
       curLayer.m_type = type;
@@ -259,7 +304,7 @@ void Geocoder::Go(Context & ctx, Type type) const
       // Buildings are indexed separately.
       if (type == Type::Building)
       {
-        FillBuildingsLayer(ctx, subquery, curLayer);
+        FillBuildingsLayer(ctx, subquery, subqueryTokenIds, curLayer);
       }
       else
       {
@@ -273,6 +318,7 @@ void Geocoder::Go(Context & ctx, Type type) const
       boost::optional<ScopedMarkTokens> streetSynonymMark;
 
       double certainty = 0;
+      vector<size_t> tokenIds;
       vector<Type> allTypes;
       for (size_t tokId = 0; tokId < ctx.GetNumTokens(); ++tokId)
       {
@@ -285,11 +331,14 @@ void Geocoder::Go(Context & ctx, Type type) const
 
         certainty += GetWeight(t);
         if (t != Type::Count)
+        {
+          tokenIds.push_back(tokId);
           allTypes.push_back(t);
+        }
       }
 
       for (auto const & docId : curLayer.m_entries)
-        ctx.AddResult(m_index.GetDoc(docId).m_osmId, certainty, type, allTypes, ctx.AllTokensUsed());
+        ctx.AddResult(m_index.GetDoc(docId).m_osmId, certainty, type, tokenIds, allTypes);
 
       ctx.GetLayers().emplace_back(move(curLayer));
       SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
@@ -301,7 +350,8 @@ void Geocoder::Go(Context & ctx, Type type) const
   Go(ctx, NextType(type));
 }
 
-void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer & curLayer) const
+void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, vector<size_t> const & subqueryTokenIds,
+                                  Layer & curLayer) const
 {
   if (ctx.GetLayers().empty())
     return;
@@ -317,8 +367,8 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
 
     // We've already filled a street/location layer and now see something that resembles
     // a house number. While it still can be something else (a zip code, for example)
-    // let's stay on the safer side and set the house number bit.
-    ctx.SetHouseNumberBit();
+    // let's stay on the safer side and mark the tokens as potential house number.
+    ctx.MarkHouseNumberPositionsInQuery(subqueryTokenIds);
 
     for (auto const & docId : layer.m_entries)
     {
