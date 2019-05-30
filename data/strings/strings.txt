@@ -40612,3 +40612,7 @@
     en = Vezet
     ru = Везет
 
+  [booking_button_toolbar]
+    en = Search 2 million accommodations
+    ru = Поиск по 2 миллионам гостиниц
+
