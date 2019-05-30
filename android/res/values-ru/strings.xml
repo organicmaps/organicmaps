@@ -1617,6 +1617,7 @@
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменен на автомобильный</string>
 	<string name="ok">Ок</string>
 	<string name="vezet_taxi">Везет</string>
+	<string name="booking_button_toolbar">Поиск по 2 миллионам гостиниц</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>
