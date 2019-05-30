@@ -364,7 +364,9 @@
     "Nederland"
    ],
    "country_name_synonyms": [
-    "Sint Maarten"
+    "Sint Maarten",
+    "Saint Martin (Dutch part)",
+    "Sint Maarten (Netherlands)"
    ],
    "s": 1939957,
    "sha1_base64": "+IyOIpxWW9XvMiGsNpjWe7X6B+8="
