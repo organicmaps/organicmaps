@@ -4,7 +4,6 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
-  app_store.hpp
   country.hpp
   country_decl.cpp
   country_decl.hpp
