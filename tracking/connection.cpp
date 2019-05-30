@@ -27,11 +27,10 @@ Connection::Connection(unique_ptr<platform::Socket> socket, string const & host,
 // TODO: implement handshake
 bool Connection::Reconnect()
 {
-  alohalytics::Stats::Instance().LogEvent("TrafficTrack_reconnect");
-
   if (!m_socket)
     return false;
 
+  alohalytics::Stats::Instance().LogEvent("TrafficTrack_reconnect");
   m_socket->Close();
 
   if (!m_socket->Open(m_host, m_port))
