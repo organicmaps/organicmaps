@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.discovery.LocalExpert;
-import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.Holders;
+import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 
@@ -20,30 +20,31 @@ import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
 
 public class LocalExpertsAdapterStrategy extends RegularAdapterStrategy<Items.LocalExpertItem>
 {
-  LocalExpertsAdapterStrategy(@NonNull LocalExpert[] experts, @Nullable String moreUrl)
+  LocalExpertsAdapterStrategy(@NonNull LocalExpert[] experts, @Nullable String moreUrl,
+                              @Nullable ItemSelectedListener<Items.LocalExpertItem> listener)
   {
-    super(convertItems(experts), new Items.LocalExpertMoreItem(moreUrl));
+    super(convertItems(experts), new Items.LocalExpertMoreItem(moreUrl), listener);
   }
 
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.LocalExpertItem> createProductViewHolder
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+      (@NonNull ViewGroup parent, int viewType)
   {
     View view = LayoutInflater.from(parent.getContext())
                               .inflate(R.layout.item_discovery_expert, parent,
                                        false);
-    return new Holders.LocalExpertViewHolder(view, mItems, adapter);
+    return new Holders.LocalExpertViewHolder(view, mItems, getListener());
   }
 
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.LocalExpertItem> createMoreProductsViewHolder
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+      (@NonNull ViewGroup parent, int viewType)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viator_more, parent,
                                                                  false);
-    return new Holders.GenericMoreHolder<>(view, mItems, adapter);
+    return new Holders.GenericMoreHolder<>(view, mItems, getListener());
   }
 
   @NonNull

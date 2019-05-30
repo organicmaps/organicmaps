@@ -14,8 +14,10 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
 {
   private static final int MAX_ITEMS = 5;
 
-  public RegularAdapterStrategy(@NonNull List<T> items, @Nullable T moreItem)
+  public RegularAdapterStrategy(@NonNull List<T> items, @Nullable T moreItem,
+                                @Nullable ItemSelectedListener<T> listener)
   {
+    super(listener);
     boolean showMoreItem = moreItem != null && items.size() >= MAX_ITEMS;
     int size = showMoreItem ? MAX_ITEMS : items.size();
     for (int i = 0; i < size; i++)
@@ -35,9 +37,9 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
     switch (viewType)
     {
       case TYPE_PRODUCT:
-        return createProductViewHolder(parent, viewType, adapter);
+        return createProductViewHolder(parent, viewType);
       case TYPE_MORE:
-        return createMoreProductsViewHolder(parent, viewType, adapter);
+        return createMoreProductsViewHolder(parent, viewType);
       default:
         throw new UnsupportedOperationException("This strategy doesn't support specified view type: "
                                                 + viewType);
@@ -58,12 +60,10 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
 
   @NonNull
   protected abstract Holders.BaseViewHolder<T> createProductViewHolder(@NonNull ViewGroup parent,
-                                                                       int viewType,
-                                                                       @NonNull GalleryAdapter<?, T> adapter);
+                                                                       int viewType);
   @NonNull
   protected abstract Holders.BaseViewHolder<T> createMoreProductsViewHolder(@NonNull ViewGroup parent,
-                                                                            int viewType,
-                                                                            @NonNull GalleryAdapter<?, T> adapter);
+                                                                            int viewType);
 
   public static class Item extends Items.Item
   {

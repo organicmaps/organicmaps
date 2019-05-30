@@ -15,8 +15,10 @@ import com.mapswithme.maps.R;
 abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.Item>>
     extends AdapterStrategy<T, Items.Item>
 {
-  SingleItemAdapterStrategy(@Nullable String url)
+  SingleItemAdapterStrategy(@Nullable String url,
+                            @Nullable ItemSelectedListener<Items.Item> listener)
   {
+    super(listener);
     buildItem(url);
   }
 
@@ -45,11 +47,10 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
     TextView button = (TextView) itemView.findViewById(R.id.button);
     button.setText(getLabelForDetailsView());
-    return createViewHolder(itemView, adapter);
+    return createViewHolder(itemView);
   }
 
-  protected abstract T createViewHolder(@NonNull View itemView,
-                                        @NonNull GalleryAdapter<?, Items.Item> adapter);
+  protected abstract T createViewHolder(@NonNull View itemView);
 
   @StringRes
   protected abstract int getLabelForDetailsView();

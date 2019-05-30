@@ -10,20 +10,10 @@ public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Item
 {
   @NonNull
   private final AdapterStrategy<VH, I> mStrategy;
-  @Nullable
-  private final ItemSelectedListener<I> mListener;
 
-  public GalleryAdapter(@NonNull AdapterStrategy<VH, I> strategy,
-                        @Nullable ItemSelectedListener<I> listener)
+  public GalleryAdapter(@NonNull AdapterStrategy<VH, I> strategy)
   {
     mStrategy = strategy;
-    mListener = listener;
-  }
-
-  @Nullable
-  public ItemSelectedListener<I> getListener()
-  {
-    return mListener;
   }
 
   @Override

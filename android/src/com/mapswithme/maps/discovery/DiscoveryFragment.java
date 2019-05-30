@@ -181,18 +181,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     initFoodGallery();
     initLocalExpertsGallery();
     initSearchBasedAdapters();
-    initCrossTrafficGallery(view);
+    initCatalogPromoGallery(view);
     requestDiscoveryInfoAndInitAdapters();
-  }
-
-  private void initCrossTrafficGallery(@NonNull View root)
-  {
-    mCatalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
-    setLayoutManagerAndItemDecoration(requireContext(), mCatalogPromoRecycler);
-    View titleView = root.findViewById(R.id.catalog_promo_title);
-    titleView.setVisibility(View.VISIBLE);
-    mCatalogPromoRecycler.setVisibility(View.VISIBLE);
-    mCatalogPromoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
   }
 
   private void requestDiscoveryInfoAndInitAdapters()
@@ -219,6 +209,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     {
       RecyclerView localGuides = getGallery(R.id.localGuides);
       localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
+      RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
+      promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
       return;
     }
 
@@ -226,6 +218,16 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     // should be hidden in this case.
     UiUtils.showIf(ConnectionState.isMobileConnected(), getView(), R.id.localGuidesTitle,
                    R.id.localGuides);
+  }
+
+
+  private void initCatalogPromoGallery(@NonNull View root)
+  {
+    RecyclerView catalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
+    setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
+    View titleView = root.findViewById(R.id.catalog_promo_title);
+    titleView.setVisibility(View.VISIBLE);
+    catalogPromoRecycler.setVisibility(View.VISIBLE);
   }
 
   private void requestDiscoveryInfo()
@@ -300,14 +302,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     gallery.setAdapter(adapter);
   }
 
-  public void initCatalogPromoRecycler(@NonNull RegularAdapterStrategy.Item[] experts)
+  public void onCatalogPromoReceived(@NonNull RegularAdapterStrategy.Item[] experts)
   {
     updateViewsVisibility(experts, R.id.catalog_promo_title, R.id.catalog_promo_recycler);
     String url = "";
 
     ItemSelectedListener<RegularAdapterStrategy.Item> listener = new CatalogPromoSelectedListener();
     GalleryAdapter adapter = Factory.createCatalogPromoAdapter(experts, url, listener, DISCOVERY);
-    mCatalogPromoRecycler.setAdapter(adapter);
+    RecyclerView recycler = getGallery(R.id.catalog_promo_recycler);
+    recycler.setAdapter(adapter);
   }
 
   @Override

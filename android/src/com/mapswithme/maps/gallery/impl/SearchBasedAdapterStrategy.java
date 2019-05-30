@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.Holders;
+import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.search.SearchResult;
@@ -18,35 +18,37 @@ import java.util.List;
 
 class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem>
 {
-  SearchBasedAdapterStrategy(@NonNull SearchResult[] results, @Nullable Items.SearchItem moreItem)
+  SearchBasedAdapterStrategy(@NonNull SearchResult[] results, @Nullable Items.SearchItem moreItem,
+                             @Nullable ItemSelectedListener<Items.SearchItem> listener)
   {
-    this(convertItems(results), moreItem);
+    this(convertItems(results), moreItem, listener);
   }
 
   private SearchBasedAdapterStrategy(@NonNull List<Items.SearchItem> items,
-                                     @Nullable Items.SearchItem moreItem)
+                                     @Nullable Items.SearchItem moreItem,
+                                     @Nullable ItemSelectedListener<Items.SearchItem> listener)
   {
-    super(items, moreItem);
+    super(items, moreItem, listener);
   }
 
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.SearchItem> createProductViewHolder
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
+      (@NonNull ViewGroup parent, int viewType)
   {
     View view = LayoutInflater.from(parent.getContext())
                               .inflate(R.layout.item_discovery_search, parent, false);
-    return new Holders.SearchViewHolder(view, mItems, adapter);
+    return new Holders.SearchViewHolder(view, mItems, getListener());
   }
 
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.SearchItem> createMoreProductsViewHolder(
-      @NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
+      @NonNull ViewGroup parent, int viewType)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_more, parent,
                                                                  false);
-    return new Holders.SearchMoreHolder(view, mItems, adapter);
+    return new Holders.SearchMoreHolder(view, mItems, getListener());
   }
 
   @NonNull

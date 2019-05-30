@@ -31,19 +31,19 @@ public class Factory
                                                         @Nullable Items.MoreSearchItem item)
   {
     trackProductGalleryShownOrError(results, type, OFFLINE, placement);
-    return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results, item), listener);
+    return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results, item, listener));
   }
 
   @NonNull
   public static GalleryAdapter createSearchBasedLoadingAdapter()
   {
-    return new GalleryAdapter<>(new SimpleLoadingAdapterStrategy(), null);
+    return new GalleryAdapter<>(new SimpleLoadingAdapterStrategy(null));
   }
 
   @NonNull
   public static GalleryAdapter createSearchBasedErrorAdapter()
   {
-    return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(), null);
+    return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(null));
   }
 
   @NonNull
@@ -54,7 +54,7 @@ public class Factory
                                                   @NonNull GalleryPlacement placement)
   {
     trackProductGalleryShownOrError(results, type, OFFLINE, placement);
-    return new GalleryAdapter<>(new HotelAdapterStrategy(results), listener);
+    return new GalleryAdapter<>(new HotelAdapterStrategy(results, listener));
   }
 
   @NonNull
@@ -65,19 +65,19 @@ public class Factory
                                                          @NonNull GalleryPlacement placement)
   {
     trackProductGalleryShownOrError(experts, LOCAL_EXPERTS, ONLINE, placement);
-    return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl), listener);
+    return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl, listener));
   }
 
   @NonNull
   public static GalleryAdapter createLocalExpertsLoadingAdapter()
   {
-    return new GalleryAdapter<>(new LocalExpertsLoadingAdapterStrategy(), null);
+    return new GalleryAdapter<>(new LocalExpertsLoadingAdapterStrategy(null));
   }
 
   @NonNull
   public static GalleryAdapter createLocalExpertsErrorAdapter()
   {
-    return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(), null);
+    return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(null));
   }
 
   @NonNull
@@ -88,20 +88,21 @@ public class Factory
   {
     Items.LocalExpertMoreItem item = new Items.LocalExpertMoreItem(url);
     CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(Arrays.asList(items),
-                                                                           item);
-    return new GalleryAdapter<>(strategy, listener);
+                                                                           item,
+                                                                           listener);
+    return new GalleryAdapter<>(strategy);
   }
 
   @NonNull
   public static GalleryAdapter createCatalogPromoLoadingAdapter()
   {
-    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(), null);
+    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(null));
   }
 
   @NonNull
   public static GalleryAdapter createCatalogPromoErrorAdapter()
   {
-    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(), null);
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(null));
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,

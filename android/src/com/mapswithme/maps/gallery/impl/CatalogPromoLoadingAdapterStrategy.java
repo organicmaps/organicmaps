@@ -1,20 +1,23 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.Holders;
+import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-
-import java.util.List;
 
 class CatalogPromoLoadingAdapterStrategy extends SimpleLoadingAdapterStrategy
 {
+  CatalogPromoLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
+  {
+    super(listener);
+  }
+
   @NonNull
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
@@ -23,19 +26,8 @@ class CatalogPromoLoadingAdapterStrategy extends SimpleLoadingAdapterStrategy
   }
 
   @Override
-  protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView, @NonNull GalleryAdapter<?, Items.Item> adapter)
+  protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView)
   {
-    return new CrossPromoLoadingHolder(itemView, mItems, adapter);
-  }
-
-  private class CrossPromoLoadingHolder extends Holders.SimpleViewHolder
-  {
-    CrossPromoLoadingHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
-                            @NonNull GalleryAdapter<?, Items.Item> adapter)
-    {
-      super(itemView, items, adapter);
-      TextView subtitle = itemView.findViewById(R.id.subtitle);
-      subtitle.setText("");
-    }
+    return new Holders.CrossPromoLoadingHolder(itemView, mItems, getListener());
   }
 }

@@ -12,9 +12,9 @@ import com.mapswithme.maps.MwmApplication;
 public abstract class SimpleSingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.Item>>
     extends SingleItemAdapterStrategy<T>
 {
-  protected SimpleSingleItemAdapterStrategy()
+  protected SimpleSingleItemAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(null);
+    super(null, listener);
   }
 
   @Override
@@ -30,7 +30,7 @@ public abstract class SimpleSingleItemAdapterStrategy<T extends Holders.BaseView
                                @NonNull GalleryAdapter<?, Items.Item> adapter)
   {
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
-    return createViewHolder(itemView, adapter);
+    return createViewHolder(itemView);
   }
 
   @Override
