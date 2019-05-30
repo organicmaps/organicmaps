@@ -1004,7 +1004,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
-    mSearchController.setQuery(TextUtils.isEmpty(query) ? getString(R.string.hotel) : query);
+    mSearchController.setQuery(TextUtils.isEmpty(query) ? getString(R.string.hotel) + " " : query);
+  }
+
+  private void runHotelCategorySearchOnMap()
+  {
+    if (mSearchController == null || mFilterController == null)
+      return;
+
+    mSearchController.setQuery(getActivity().getString(R.string.hotel) + " ");
+    runSearch();
+
+    mSearchController.refreshToolbar();
+    mFilterController.updateFilterButtonVisibility(true);
+    mFilterController.show(true, true);
   }
 
   @Override
@@ -2356,7 +2369,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static class AddPlaceDelegate extends AbstractClickMenuDelegate
+  public static class AddPlaceDelegate extends StatisticClickMenuDelegate
   {
     public AddPlaceDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2364,9 +2377,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
       getActivity().closePlacePage();
       if (getActivity().mIsTabletLayout)
         getActivity().closeSidePanel();
@@ -2390,7 +2402,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static class SettingsDelegate extends AbstractClickMenuDelegate
+  public static class SettingsDelegate extends StatisticClickMenuDelegate
   {
     public SettingsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2398,15 +2410,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
       Intent intent = new Intent(getActivity(), SettingsActivity.class);
       getActivity().closeMenu(() -> getActivity().startActivity(intent));
     }
   }
 
-  public static class DownloadGuidesDelegate extends AbstractClickMenuDelegate
+  public static class DownloadGuidesDelegate extends StatisticClickMenuDelegate
   {
     public DownloadGuidesDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2414,9 +2425,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
       int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
       String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
       getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(),
@@ -2425,7 +2435,40 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static class DownloadMapsDelegate extends AbstractClickMenuDelegate
+  public static class HotelSearchDelegate extends StatisticClickMenuDelegate
+  {
+    public HotelSearchDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
+    }
+
+    @Override
+    void onPostStatisticMenuItemClick()
+    {
+      getActivity().closeMenu(() -> {
+        getActivity().runHotelCategorySearchOnMap();
+      });
+    }
+  }
+
+  public abstract static class StatisticClickMenuDelegate extends AbstractClickMenuDelegate
+  {
+    StatisticClickMenuDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
+    }
+
+    @Override
+    public void onMenuItemClickInternal()
+    {
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      onPostStatisticMenuItemClick();
+    }
+
+    abstract void onPostStatisticMenuItemClick();
+  }
+
+  public static class DownloadMapsDelegate extends StatisticClickMenuDelegate
   {
     public DownloadMapsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2433,15 +2476,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
       RoutingController.get().cancel();
       getActivity().closeMenu(() -> getActivity().showDownloader(false));
     }
   }
 
-  public static class BookmarksDelegate extends AbstractClickMenuDelegate
+  public static class BookmarksDelegate extends StatisticClickMenuDelegate
   {
     public BookmarksDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2449,14 +2491,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().closeMenu(getActivity()::showBookmarks);
     }
   }
 
-  public static class ShareMyLocationDelegate extends AbstractClickMenuDelegate
+  public static class ShareMyLocationDelegate extends StatisticClickMenuDelegate
   {
     public ShareMyLocationDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2464,14 +2505,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
       getActivity().closeMenu(getActivity()::shareMyLocation);
     }
   }
 
-  public static class DiscoveryDelegate extends AbstractClickMenuDelegate
+  public static class DiscoveryDelegate extends StatisticClickMenuDelegate
   {
     public DiscoveryDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2479,14 +2519,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().showDiscovery();
     }
   }
 
-  public static class PointToPointDelegate extends AbstractClickMenuDelegate
+  public static class PointToPointDelegate extends StatisticClickMenuDelegate
   {
     public PointToPointDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
@@ -2494,9 +2533,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onMenuItemClickInternal()
+    void onPostStatisticMenuItemClick()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().startLocationToPoint(null, false);
     }
   }

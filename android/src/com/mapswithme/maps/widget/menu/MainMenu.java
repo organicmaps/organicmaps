@@ -15,10 +15,12 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.StatisticValueConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainMenu extends BaseMenu
@@ -120,7 +122,7 @@ public class MainMenu extends BaseMenu
     }
   };
 
-  public enum Item implements BaseMenu.Item
+  public enum Item implements BaseMenu.Item, StatisticValueConverter<String>
   {
     MENU(R.id.toggle)
         {
@@ -150,6 +152,23 @@ public class MainMenu extends BaseMenu
                                                        @NonNull Item item)
           {
             return new MwmActivity.DownloadGuidesDelegate(activity, item);
+          }
+        },
+    HOTEL_SEARCH(R.id.hotel_search)
+        {
+          @NonNull
+          @Override
+          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                       @NonNull Item item)
+          {
+            return new MwmActivity.HotelSearchDelegate(activity, item);
+          }
+
+          @NonNull
+          @Override
+          public String toStatisticValue()
+          {
+            return "booking.com";
           }
         },
     SEARCH(R.id.search)
@@ -245,6 +264,13 @@ public class MainMenu extends BaseMenu
     @NonNull
     public abstract ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                           @NonNull Item item);
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return name().toLowerCase(Locale.ENGLISH);
+    }
   }
 
   @Override
@@ -318,6 +344,7 @@ public class MainMenu extends BaseMenu
   {
     mapItem(Item.ADD_PLACE);
     mapItem(Item.DOWNLOAD_GUIDES);
+    mapItem(Item.HOTEL_SEARCH);
     mapItem(Item.SEARCH);
     mapItem(Item.POINT_TO_POINT);
     mapItem(Item.DISCOVERY);

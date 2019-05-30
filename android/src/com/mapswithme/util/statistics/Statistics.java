@@ -1439,7 +1439,7 @@ public enum Statistics
   @NonNull
   private static ParameterBuilder getToolbarParams(@NonNull MainMenu.Item button)
   {
-    return params().add(BUTTON, button.name().toLowerCase());
+    return params().add(BUTTON, button.toStatisticValue());
   }
 
   public void trackPPBannerClose(@BannerState int state, boolean isCross)
