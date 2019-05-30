@@ -4,7 +4,7 @@
 
 #include "platform/platform.hpp"
 
-#include "storage/country_polygon.hpp"
+#include "storage/country_decl.hpp"
 
 #include "indexer/scales.hpp"
 

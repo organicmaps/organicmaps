@@ -16,7 +16,6 @@ set(
   country_info_reader_light.hpp
   country_parent_getter.cpp
   country_parent_getter.hpp
-  country_polygon.hpp
   country_tree.cpp
   country_tree.hpp
   diff_scheme/diff_manager.cpp

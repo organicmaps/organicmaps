@@ -1,7 +1,6 @@
 #include "storage/country_info_reader_light.hpp"
 
 #include "storage/country_decl.hpp"
-#include "storage/country_polygon.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"

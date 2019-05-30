@@ -1,6 +1,6 @@
 #include "storage/country_info_getter.hpp"
 
-#include "storage/country_polygon.hpp"
+#include "storage/country_decl.hpp"
 #include "storage/country_tree.hpp"
 
 #include "platform/local_country_file_utils.hpp"
