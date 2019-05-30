@@ -542,7 +542,7 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
 FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point,
                           WorldGraph & graph)
 {
-  return MakeFakeEnding(Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward */), point,
+  return MakeFakeEnding({Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward */)}, point,
                         graph);
 }
 unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish,

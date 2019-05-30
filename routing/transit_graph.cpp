@@ -319,7 +319,7 @@ void MakeGateEndings(vector<transit::Gate> const & gates, NumMwmId mwmId,
 
     Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
                        gateSegment.GetForward());
-    gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
+    gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding({real}, gate.GetPoint(), indexGraph));
   }
 }
 }  // namespace routing

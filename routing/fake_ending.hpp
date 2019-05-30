@@ -38,6 +38,7 @@ struct FakeEnding final
   std::vector<Projection> m_projections;
 };
 
-FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, WorldGraph & graph);
+FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD const & point,
+                          WorldGraph & graph);
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph);
 }  // namespace routing

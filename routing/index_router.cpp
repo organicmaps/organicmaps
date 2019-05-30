@@ -32,12 +32,13 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/mwm_traits.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
-#include "geometry/point2d.hpp"
+#include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -49,8 +50,8 @@
 #include <cstdlib>
 #include <deque>
 #include <iterator>
+#include <limits>
 #include <map>
-#include <utility>
 
 #include "defines.hpp"
 
@@ -206,6 +207,13 @@ bool GetLastRealOrPart(IndexGraphStarter const & starter, vector<Segment> const 
   }
   return false;
 }
+
+// Returns true if seg1 and seg2 have the same geometry.
+bool IsTheSameSegments(m2::PointD const & seg1From, m2::PointD const & seg1To,
+                       m2::PointD const & seg2From, m2::PointD const & seg2To)
+{
+  return (seg1From == seg2From && seg1To == seg2To) || (seg1From == seg2To && seg1To == seg2From);
+}
 }  // namespace
 
 namespace routing
@@ -295,13 +303,13 @@ unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
-                                  bool isOutgoing, WorldGraph & worldGraph,
-                                  Segment & bestSegment)
+bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
+                                   bool isOutgoing, WorldGraph & worldGraph,
+                                   vector<Segment> & bestSegments)
 {
   bool dummy;
-  return FindBestSegment(point, direction, isOutgoing, worldGraph, bestSegment,
-                         dummy /* best segment is almost codirectional */);
+  return FindBestSegments(point, direction, isOutgoing, worldGraph, bestSegments,
+                          dummy /* best segment is almost codirectional */);
 }
 
 void IndexRouter::ClearState()
@@ -393,10 +401,10 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   vector<Segment> segments;
 
-  Segment startSegment;
+  vector<Segment> startSegments;
   bool startSegmentIsAlmostCodirectionalDirection = false;
-  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
-                       startSegment, startSegmentIsAlmostCodirectionalDirection))
+  if (!FindBestSegments(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
+                        startSegments, startSegmentIsAlmostCodirectionalDirection))
   {
     return RouterResultCode::StartPointNotFound;
   }
@@ -415,11 +423,11 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     auto const & startCheckpoint = checkpoints.GetPoint(i);
     auto const & finishCheckpoint = checkpoints.GetPoint(i + 1);
 
-    Segment finishSegment;
+    vector<Segment> finishSegments;
     bool dummy = false;
-    if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero() /* direction */,
-                         false /* isOutgoing */, *graph, finishSegment,
-                         dummy /* bestSegmentIsAlmostCodirectional */))
+    if (!FindBestSegments(finishCheckpoint, m2::PointD::Zero() /* direction */,
+                          false /* isOutgoing */, *graph, finishSegments,
+                          dummy /* bestSegmentIsAlmostCodirectional */))
     {
       return isLastSubroute ? RouterResultCode::EndPointNotFound
                             : RouterResultCode::IntermediatePointNotFound;
@@ -429,8 +437,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     if (isFirstSubroute)
       isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
 
-    IndexGraphStarter subrouteStarter(MakeFakeEnding(startSegment, startCheckpoint, *graph),
-                                      MakeFakeEnding(finishSegment, finishCheckpoint, *graph),
+    IndexGraphStarter subrouteStarter(MakeFakeEnding(startSegments, startCheckpoint, *graph),
+                                      MakeFakeEnding(finishSegments, finishCheckpoint, *graph),
                                       starter ? starter->GetNumFakeSegments() : 0,
                                       isStartSegmentStrictForward, *graph);
 
@@ -461,7 +469,10 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     subroutes.emplace_back(subrouteStarter.GetStartJunction(), subrouteStarter.GetFinishJunction(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
-    bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegment);
+    // For every subroute except for the first one the last real segment is used  as a start segment.
+    // It's implemented this way to prevent jumping from one road to another one using a via point.
+    startSegments.resize(1);
+    bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegments[0]);
     CHECK(hasRealOrPart, ("No real or part of real segments in route."));
     if (!starter)
       starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
@@ -675,11 +686,11 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   auto graph = MakeWorldGraph();
   graph->SetMode(WorldGraphMode::NoLeaps);
 
-  Segment startSegment;
+  vector<Segment> startSegments;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
   bool bestSegmentIsAlmostCodirectional = false;
-  if (!FindBestSegment(pointFrom, startDirection, true /* isOutgoing */, *graph, startSegment,
-                       bestSegmentIsAlmostCodirectional))
+  if (!FindBestSegments(pointFrom, startDirection, true /* isOutgoing */, *graph, startSegments,
+                        bestSegmentIsAlmostCodirectional))
   {
     return RouterResultCode::StartPointNotFound;
   }
@@ -692,7 +703,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   CHECK(!steps.empty(), ());
 
   FakeEnding dummy;
-  IndexGraphStarter starter(MakeFakeEnding(startSegment, pointFrom, *graph), dummy,
+  IndexGraphStarter starter(MakeFakeEnding(startSegments, pointFrom, *graph), dummy,
                             m_lastFakeEdges->GetNumFakeEdges(), bestSegmentIsAlmostCodirectional,
                             *graph);
 
@@ -803,9 +814,80 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
                                         move(transitGraphLoader), m_estimator);
 }
 
-bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
-                                  bool isOutgoing, WorldGraph & worldGraph, Segment & bestSegment,
-                                  bool & bestSegmentIsAlmostCodirectional) const
+bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> const & edgeProjection,
+    vector<IRoadGraph::JunctionVec> const & fences) const
+{
+  auto const & edge = edgeProjection.first;
+  auto const & projPoint = edgeProjection.second.GetPoint();
+
+  for (auto const & featureGeom : fences)
+  {
+    for (size_t i = 1; i < featureGeom.size(); ++i)
+    {
+      auto const & fencePointFrom = featureGeom[i - 1];
+      auto const & fencePointTo = featureGeom[i];
+      if (IsTheSameSegments(fencePointFrom.GetPoint(), fencePointTo.GetPoint(),
+                            edge.GetStartPoint(), edge.GetEndPoint()))
+      {
+        continue;
+      }
+
+      if (m2::SegmentsIntersect(point, projPoint, fencePointFrom.GetPoint(), fencePointTo.GetPoint()))
+        return true;
+    }
+  }
+  return false;
+}
+
+void IndexRouter::FetchRoadGeom(m2::RectD const & rect,
+    vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const
+{
+  auto const roadFetcher = [this, &roadFeatureGeoms](FeatureType & ft)
+  {
+    if (!m_roadGraph.IsRoad(ft))
+      return;
+
+    // Skipping all the features of zero or one point.
+    auto roadGeom = m_roadGraph.GetRoadGeom(ft);
+    if (roadGeom.size() < 2)
+      return;
+
+    roadFeatureGeoms.emplace_back(move(roadGeom));
+  };
+
+  m_dataSource.ForEachInRect(roadFetcher, rect, scales::GetUpperScale());
+}
+
+bool IndexRouter::FindClosetCodirectianalEdge(BestEdgeComparator const & bestEdgeComparator,
+                                              vector<pair<Edge, Junction>> const & candidates,
+                                              Edge & closetCodirectianalEdge) const
+{
+  double constexpr kInvalidDist = numeric_limits<double>::max();
+  double squareDistToClosetCodirectianalEdgeM = kInvalidDist;
+
+  if (bestEdgeComparator.IsDirectionValid())
+  {
+    for (auto const & c : candidates)
+    {
+      auto const & edge = c.first;
+      if (bestEdgeComparator.IsAlmostCodirectional(edge))
+      {
+        double const distM = bestEdgeComparator.GetSquaredDist(edge);
+        if (distM < squareDistToClosetCodirectianalEdgeM)
+        {
+          closetCodirectianalEdge = edge;
+          squareDistToClosetCodirectianalEdgeM = distM;
+        }
+      }
+    }
+  }
+  return squareDistToClosetCodirectianalEdgeM != kInvalidDist;
+}
+
+bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
+                                   bool isOutgoing, WorldGraph & worldGraph,
+                                   vector<Segment> & bestSegments,
+                                   bool & bestSegmentIsAlmostCodirectional) const
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
   MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
@@ -822,7 +904,7 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
     return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
   };
 
-  // Getting rid of knowingly bad candidates.
+  // Getting rid of candidates which lead to a dead ends.
   base::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
     Edge const & edge = p.first;
     return edge.GetFeatureId().m_mwmId != mwmId ||
@@ -832,18 +914,40 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   if (candidates.empty())
     return false;
 
+  // Removing all candidates which are fenced off by the road graph from |point|.
+  vector<IRoadGraph::JunctionVec> roadFeatureGeoms;
+  FetchRoadGeom(MercatorBounds::RectByCenterXYAndSizeInMeters(point,
+      FeaturesRoadGraph::kClosestEdgesRadiusM), roadFeatureGeoms);
+
+  base::EraseIf(candidates, [&](pair<Edge, Junction> const & candidate) {
+    return IsFencedOff(point, candidate, roadFeatureGeoms);
+  });
+
+  if (candidates.empty())
+    return false;
+
+  // Looking for the closest codirectional edge. If it's not found add all good candidates.
+  Edge closetCodirectianalEdge;
   BestEdgeComparator bestEdgeComparator(point, direction);
-  Edge bestEdge = candidates[0].first;
-  for (size_t i = 1; i < candidates.size(); ++i)
+  bestSegmentIsAlmostCodirectional =
+      FindClosetCodirectianalEdge(bestEdgeComparator, candidates, closetCodirectianalEdge);
+
+  if (bestSegmentIsAlmostCodirectional)
   {
-    Edge const & edge = candidates[i].first;
-    if (bestEdgeComparator.Compare(edge, bestEdge) < 0)
-      bestEdge = edge;
+    bestSegments = {getSegmentByEdge(closetCodirectianalEdge)};
+  }
+  else
+  {
+    bestSegments.clear();
+    // Sorting from better candidates to worse ones.
+    sort(candidates.begin(), candidates.end(),
+        [&bestEdgeComparator](pair<Edge, Junction> const & lhs, pair<Edge, Junction> const & rhs){
+            return bestEdgeComparator.Compare(lhs.first, rhs.first) < 0;
+    });
+    for (auto const & c : candidates)
+      bestSegments.emplace_back(getSegmentByEdge(c.first));
   }
 
-  bestSegmentIsAlmostCodirectional =
-      bestEdgeComparator.IsDirectionValid() && bestEdgeComparator.IsAlmostCodirectional(bestEdge);
-  bestSegment = getSegmentByEdge(bestEdge);
   return true;
 }
 

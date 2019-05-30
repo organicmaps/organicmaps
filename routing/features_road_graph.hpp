@@ -66,6 +66,8 @@ private:
   };
 
 public:
+  static double constexpr kClosestEdgesRadiusM = 100.0;
+
   FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
                     std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
@@ -85,6 +87,7 @@ public:
   void ClearState() override;
 
   bool IsRoad(FeatureType & ft) const;
+  IRoadGraph::JunctionVec GetRoadGeom(FeatureType & ft) const;
 
 private:
   friend class CrossFeaturesLoader;

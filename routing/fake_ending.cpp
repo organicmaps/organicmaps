@@ -33,35 +33,45 @@ Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
                                                   distBeginToProjection / distBeginToEnd;
   return Junction(projectedPoint, altitude);
 }
-
-FakeEnding MakeFakeEndingImpl(Junction const & segmentBack, Junction const & segmentFront,
-                              Segment const & segment, m2::PointD const & point, bool oneWay)
-{
-  auto const & projectedJunction = CalcProjectionToSegment(segmentBack, segmentFront, point);
-
-  FakeEnding ending;
-  ending.m_originJunction = Junction(point, projectedJunction.GetAltitude());
-  ending.m_projections.emplace_back(segment, oneWay, segmentFront, segmentBack, projectedJunction);
-  return ending;
-}
 }  // namespace
 
 namespace routing
 {
+FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & point,
+                          WorldGraph & graph)
+{
+  FakeEnding ending;
+  double averageAltitude = 0.0;
+
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    auto const & segment = segments[i];
+
+    bool const oneWay = graph.IsOneWay(segment.GetMwmId(), segment.GetFeatureId());
+    auto const & frontJunction = graph.GetJunction(segment, true /* front */);
+    auto const & backJunction = graph.GetJunction(segment, false /* front */);
+    auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
+
+    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
+
+    averageAltitude = (i * averageAltitude + projectedJunction.GetAltitude()) / (i + 1);
+  }
+
+  ending.m_originJunction = Junction(point, static_cast<feature::TAltitude>(averageAltitude));
+  return ending;
+}
+
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph)
 {
   auto const & road = graph.GetGeometry().GetRoad(segment.GetFeatureId());
   bool const oneWay = road.IsOneWay();
   auto const & frontJunction = road.GetJunction(segment.GetPointId(true /* front */));
   auto const & backJunction = road.GetJunction(segment.GetPointId(false /* front */));
-  return MakeFakeEndingImpl(backJunction, frontJunction, segment, point, oneWay);
-}
+  auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
-FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, WorldGraph & graph)
-{
-  bool const oneWay = graph.IsOneWay(segment.GetMwmId(), segment.GetFeatureId());
-  auto const & frontJunction = graph.GetJunction(segment, true /* front */);
-  auto const & backJunction = graph.GetJunction(segment, false /* front */);
-  return MakeFakeEndingImpl(backJunction, frontJunction, segment, point, oneWay);
+  FakeEnding ending;
+  ending.m_originJunction = Junction(point, projectedJunction.GetAltitude());
+  ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
+  return ending;
 }
 }  // namespace routing

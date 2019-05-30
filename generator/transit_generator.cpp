@@ -103,17 +103,22 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
     auto const & gate = gates[i];
     if (countryFileGetter(gate.GetPoint()) != countryId)
       continue;
-    // Note. For pedestrian routing all the segments are considered as twoway segments so
-    // IndexRouter.FindBestSegment() method finds the same segment for |isOutgoing| == true
+    // Note. For pedestrian routing all the segments are considered as two way segments so
+    // IndexRouter::FindBestSegments() method finds the same segments for |isOutgoing| == true
     // and |isOutgoing| == false.
-    Segment bestSegment;
+    vector<Segment> bestSegments;
     try
     {
       if (countryFileGetter(gate.GetPoint()) != countryId)
         continue;
-      if (indexRouter.FindBestSegment(gate.GetPoint(), m2::PointD::Zero() /* direction */,
-                                      true /* isOutgoing */, *worldGraph, bestSegment))
+      if (indexRouter.FindBestSegments(gate.GetPoint(), m2::PointD::Zero() /* direction */,
+                                       true /* isOutgoing */, *worldGraph, bestSegments))
       {
+        // IndexRouter::FindBestSegments() returns a few good segments but the best one is the first.
+        // @TODO It should be considered to change the format of transit section to keep all
+        // candidates for every gate.
+        CHECK(!bestSegments.empty(), ());
+        auto const & bestSegment = bestSegments.front();
         CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
         graphData.SetGateBestPedestrianSegment(i, SingleMwmSegment(
             bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));

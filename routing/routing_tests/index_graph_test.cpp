@@ -428,9 +428,9 @@ UNIT_TEST(OneSegmentWay)
   {
     for (auto const finishIsForward : tf)
     {
-      auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, startIsForward),
+      auto const start = MakeFakeEnding({Segment(kTestNumMwmId, 0, 0, startIsForward)},
                                         m2::PointD(1.0, 0.0), *worldGraph);
-      auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, finishIsForward),
+      auto const finish = MakeFakeEnding({Segment(kTestNumMwmId, 0, 0, finishIsForward)},
                                          m2::PointD(2.0, 0.0), *worldGraph);
 
       auto const expectedWeight =
@@ -502,9 +502,9 @@ UNIT_TEST(FakeSegmentCoordinates)
   {
     for (auto const finishIsForward : tf)
     {
-      auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, startIsForward),
+      auto const start = MakeFakeEnding({Segment(kTestNumMwmId, 0, 0, startIsForward)},
                                         m2::PointD(1, 0), *worldGraph);
-      auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, finishIsForward),
+      auto const finish = MakeFakeEnding({Segment(kTestNumMwmId, 1, 0, finishIsForward)},
                                          m2::PointD(3, 0), *worldGraph);
 
       auto starter = MakeStarter(start, finish, *worldGraph);
@@ -843,9 +843,9 @@ UNIT_TEST(FinishNearZeroEdge)
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
+  auto const start = MakeFakeEnding({Segment(kTestNumMwmId, 0, 0, true /* forward */)},
                                     m2::PointD(1.0, 0.0), *worldGraph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, false /* forward */),
+  auto const finish = MakeFakeEnding({Segment(kTestNumMwmId, 1, 0, false /* forward */)},
                                      m2::PointD(5.0, 0.0), *worldGraph);
   auto starter = MakeStarter(start, finish, *worldGraph);
 

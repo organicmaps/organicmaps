@@ -25,7 +25,9 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
   {
-    /// @todo Probably, we need to get exact projection distance in meters.
+    // @todo Probably, we need to get exact projection distance in meters.
+    // @TODO All the calculations below should be done after the closest point is found.
+    // Otherway we do unnecessary calculation significant number of times.
     m2::ParametrizedSegment<m2::PointD> segment(junctions[i - 1].GetPoint(),
                                                 junctions[i].GetPoint());
 

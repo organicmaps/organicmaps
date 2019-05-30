@@ -27,8 +27,6 @@ uint32_t constexpr kPowOfTwoForFeatureCacheSize = 10; // cache contains 2 ^ kPow
 
 double constexpr kMwmRoadCrossingRadiusMeters = 2.0;
 
-double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
-
 auto constexpr kInvalidSpeedKMPH = numeric_limits<double>::max();
 }  // namespace
 
@@ -194,7 +192,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
   };
 
   m_dataSource.ForEachInRect(
-      f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kMwmCrossingNodeEqualityRadiusMeters),
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kClosestEdgesRadiusM),
       GetStreetReadScale());
 
   finder.MakeResult(vicinities, count);
@@ -249,6 +247,14 @@ void FeaturesRoadGraph::ClearState()
 }
 
 bool FeaturesRoadGraph::IsRoad(FeatureType & ft) const { return m_vehicleModel.IsRoad(ft); }
+
+IRoadGraph::JunctionVec FeaturesRoadGraph::GetRoadGeom(FeatureType & ft) const
+{
+  FeatureID const & featureId = ft.GetID();
+  IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
+  CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
+  return roadInfo.m_junctions;
+}
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType & ft) const { return m_vehicleModel.IsOneWay(ft); }
 
