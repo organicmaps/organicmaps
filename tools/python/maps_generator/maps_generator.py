@@ -227,7 +227,7 @@ def stage_descriptions(env):
 def stage_countries_txt(env):
     countries = hierarchy_to_countries(env.old_to_new_path,
                                        env.borders_to_osm_path,
-                                       env.country_synonyms_path,
+                                       env.countries_synonyms_path,
                                        env.hierarchy_path, env.mwm_path,
                                        env.mwm_version)
     with open(env.counties_txt_path, "w") as f:
