@@ -85,9 +85,8 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
 
   if (!m_altitudeAvailability[featureId])
   {
-    LOG(LDEBUG, ("Feature Id", featureId, "of", m_countryFileName,
-                 "does not contain any altitude information."));
-    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
+    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude)))
+        .first->second;
   }
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
