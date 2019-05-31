@@ -41,8 +41,7 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
 
   @NonNull
   @Override
-  protected T createViewHolder(@NonNull ViewGroup parent, int viewType,
-                               @NonNull GalleryAdapter<?, Items.Item> adapter)
+  protected T createViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
     TextView button = (TextView) itemView.findViewById(R.id.button);

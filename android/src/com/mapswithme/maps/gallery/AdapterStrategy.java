@@ -21,8 +21,7 @@ public abstract class AdapterStrategy<VH extends Holders.BaseViewHolder<I>, I ex
   }
 
   @NonNull
-  abstract VH createViewHolder(@NonNull ViewGroup parent, int viewType,
-                               @NonNull GalleryAdapter<?, I> adapter);
+  abstract VH createViewHolder(@NonNull ViewGroup parent, int viewType);
 
   protected abstract void onBindViewHolder(Holders.BaseViewHolder<I> holder, int position);
 

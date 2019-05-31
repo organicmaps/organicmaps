@@ -77,10 +77,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     }
   };
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView mCatalogPromoRecycler;
-
   @Override
   public void onAttach(Context context)
   {

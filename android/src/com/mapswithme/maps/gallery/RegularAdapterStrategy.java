@@ -31,8 +31,7 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
 
   @NonNull
   @Override
-  Holders.BaseViewHolder<T> createViewHolder(@NonNull ViewGroup parent, int viewType,
-                                             @NonNull GalleryAdapter<?, T> adapter)
+  Holders.BaseViewHolder<T> createViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     switch (viewType)
     {
