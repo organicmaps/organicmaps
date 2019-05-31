@@ -12,6 +12,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/macros.hpp"
+
 #include <algorithm>
 #include <memory>
 #include <utility>
@@ -277,6 +279,7 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
   HotelsMapping<SourceValue> hotelsToSourceValue;
   PrepareData(GetDelegate().GetDataSource(), source, hotelsToSourceValue, *m_cache, m_apiParams);
 
+  UNUSED_VALUE(kMaxCountInRequest);
   ASSERT_LESS_OR_EQUAL(m_apiParams.m_hotelIds.size(), kMaxCountInRequest, ());
 
   if (m_apiParams.m_hotelIds.empty())
