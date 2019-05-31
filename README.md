@@ -54,7 +54,7 @@ format description, instructions on building a style and some links.
 You would need Qt 5 for development, most other libraries are included into the
 repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
-[coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md).
+[c++ coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md) and [Objective-C coding style](https://github.com/mapsme/omim/blob/master/docs/OBJC_STYLE.md).
 
 See [CONTRIBUTING.md](https://github.com/mapsme/omim/blob/master/docs/CONTRIBUTING.md)
 for the repository initialization process, the description of all the directories
