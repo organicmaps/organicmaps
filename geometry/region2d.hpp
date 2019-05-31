@@ -4,9 +4,11 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <random>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -299,6 +301,49 @@ public:
   bool AtBorder(Point const & pt, double const delta) const
   {
     return AtBorder(pt, delta, typename Traits::EqualType());
+  }
+
+  double CalculateArea() const
+  {
+    double area = 0.0;
+
+    if (m_points.empty())
+      return area;
+
+    size_t const numPoints = m_points.size();
+    Point prev = m_points[numPoints - 1];
+    for (size_t i = 0; i < numPoints; ++i)
+    {
+      Point const curr = m_points[i];
+      area += CrossProduct(prev, curr);
+      prev = curr;
+    }
+    area = 0.5 * std::fabs(area);
+
+    return area;
+  }
+
+  template <typename Engine>
+  Point GetRandomPoint(Engine & engine) const
+  {
+    CHECK(m_rect.IsValid(), ());
+    CHECK(!m_rect.IsEmptyInterior(), ());
+
+    std::uniform_real_distribution<> distrX(m_rect.minX(), m_rect.maxX());
+    std::uniform_real_distribution<> distrY(m_rect.minY(), m_rect.maxY());
+
+    size_t const kMaxIterations = 1000;
+    for (size_t it = 0; it < kMaxIterations; ++it)
+    {
+      auto const x = distrX(engine);
+      auto const y = distrY(engine);
+      Point const pt(x, y);
+      if (Contains(pt))
+        return pt;
+    }
+
+    LOG(LWARNING, ("Could not sample a random point from m2::Region"));
+    return m_points[0];
   }
 
 private:

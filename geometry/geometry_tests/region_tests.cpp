@@ -2,7 +2,16 @@
 
 #include "base/macros.hpp"
 
+#include "geometry/convex_hull.hpp"
+#include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
+
+#include <cstddef>
+#include <iostream>
+#include <random>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
@@ -213,7 +222,7 @@ UNIT_TEST(Region_Contains_double)
 
 UNIT_TEST(Region_ForEachPoint)
 {
-  typedef m2::PointF P;
+  using P = m2::PointF;
   P const points[] = {P(0.0, 1.0), P(1.0, 2.0), P(10.5, 11.5)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
@@ -225,7 +234,7 @@ UNIT_TEST(Region_ForEachPoint)
 
 UNIT_TEST(Region_point_at_border_test)
 {
-  typedef m2::PointF P;
+  using P = m2::PointF;
   P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
@@ -244,7 +253,7 @@ UNIT_TEST(Region_point_at_border_test)
 
 UNIT_TEST(Region_border_intersecion_Test)
 {
-  typedef m2::PointF P;
+  using P = m2::PointF;
   P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
@@ -261,4 +270,85 @@ UNIT_TEST(Region_border_intersecion_Test)
 
   TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection),
        ("This case has no intersection"));
+}
+
+UNIT_TEST(Region_Area)
+{
+  using P = m2::PointD;
+
+  {
+    m2::Region<P> region;
+    TEST_EQUAL(region.CalculateArea(), 0.0, ());
+  }
+  {
+    // Counterclockwise.
+    P const points[] = {P(0.0, 0.0), P(1.0, 0.0), P(1.0, 1.0), P(0.0, 1.0)};
+    m2::Region<P> region(points, points + ARRAY_SIZE(points));
+    TEST_EQUAL(region.CalculateArea(), 1.0, ());
+  }
+  {
+    // Clockwise.
+    P const points[] = {P(0.0, 0.0), P(0.0, 1.0), P(1.0, 1.0), P(1.0, 0.0)};
+    m2::Region<P> region(points, points + ARRAY_SIZE(points));
+    TEST_EQUAL(region.CalculateArea(), 1.0, ());
+  }
+  {
+    // Non-convex.
+    P const points[] = {P(0.0, 0.0), P(1.0, 0.0), P(1.0, 1.0), P(0.5, 0.5), P(0.0, 1.0)};
+    m2::Region<P> region(points, points + ARRAY_SIZE(points));
+    TEST_EQUAL(region.CalculateArea(), 0.75, ());
+  }
+}
+
+UNIT_TEST(Region_GetRandomPoint)
+{
+  using P = m2::PointD;
+
+  // Run several iterations of Monte-Carlo and check that areas are similar.
+  size_t const kNumIterations = 1000;
+  bool const kNeedPlot = true;
+
+  auto testConvexRegion = [&](m2::Region<P> const & region) {
+    minstd_rand rng(0);
+    vector<P> points;
+    points.reserve(kNumIterations);
+    for (size_t i = 0; i < kNumIterations; ++i)
+      points.emplace_back(region.GetRandomPoint(rng));
+    m2::ConvexHull const hull(points, 1e-9 /* eps */);
+    auto const hullRegion = m2::Region<P>(hull.Points().begin(), hull.Points().end());
+    LOG(LINFO, (hullRegion.CalculateArea()));
+    TEST(base::AlmostEqualRel(region.CalculateArea(), hullRegion.CalculateArea(), 0.05), ());
+
+    if (kNeedPlot)
+    {
+      cout << "import matplotlib.pyplot as plt" << endl;
+      cout << endl;
+
+      cout << "x = [";
+      for (size_t i = 0; i < points.size(); i++)
+        cout << points[i].x << ",";
+      cout << "]" << endl;
+
+      cout << "y = [";
+      for (size_t i = 0; i < points.size(); i++)
+        cout << points[i].y << ",";
+      cout << "]" << endl;
+
+      cout << endl;
+      cout << "plt.scatter(x, y)" << endl;
+      cout << "plt.show()" << endl;
+    }
+  };
+
+  {
+    P const points[] = {P(0.0, 0.0), P(1.0, 0.0), P(1.0, 1.0), P(0.0, 1.0)};
+    m2::Region<P> region(points, points + ARRAY_SIZE(points));
+    testConvexRegion(region);
+  }
+
+  {
+    P const points[] = {P(0.0, -1.0), P(1.0, 0.0), P(0.0, 1.0), P(-1.0, 0.0)};
+    m2::Region<P> region(points, points + ARRAY_SIZE(points));
+    testConvexRegion(region);
+  }
 }

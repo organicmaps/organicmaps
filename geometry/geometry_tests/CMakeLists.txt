@@ -29,7 +29,7 @@ set(
   polygon_test.cpp
   rect_test.cpp
   region2d_binary_op_test.cpp
-  region_test.cpp
+  region_tests.cpp
   robust_test.cpp
   screen_test.cpp
   segments_intersect_test.cpp

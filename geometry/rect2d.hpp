@@ -160,6 +160,7 @@ public:
   Point<T> Center() const { return Point<T>((m_minX + m_maxX) / 2.0, (m_minY + m_maxY) / 2.0); }
   T SizeX() const { return std::max(static_cast<T>(0), m_maxX - m_minX); }
   T SizeY() const { return std::max(static_cast<T>(0), m_maxY - m_minY); }
+  T Area() const { return SizeX() * SizeY(); }
 
   void DivideByGreaterSize(Rect & r1, Rect & r2) const
   {

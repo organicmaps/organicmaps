@@ -1,3 +1,4 @@
+#include "testing/benchmark.hpp"
 #include "testing/testing.hpp"
 
 #include "storage/storage_tests/helpers.hpp"
@@ -16,11 +17,14 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stats.hpp"
+#include "base/timer.hpp"
 
 #include <map>
 #include <memory>
 #include <random>
 #include <string>
+#include <utility>
 #include <vector>
 
 using namespace storage;
@@ -34,6 +38,50 @@ bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
   TEST(it != id2info.end(), ());
   return it->second.m_name.empty();
 }
+
+// A helper class to sample random points from mwms uniformly.
+class RandomPointGenerator
+{
+public:
+  explicit RandomPointGenerator(mt19937 & randomEngine,
+                                vector<vector<m2::RegionD>> const & allRegions)
+    : m_randomEngine(randomEngine), m_allRegions(allRegions)
+  {
+    size_t const n = m_allRegions.size();
+    vector<vector<double>> allAreas(n);
+    vector<double> aggregateAreas(n);
+    for (size_t i = 0; i < n; ++i)
+    {
+      allAreas[i].resize(allRegions[i].size());
+      for (size_t j = 0; j < allRegions[i].size(); ++j)
+      {
+        double const area = allRegions[i][j].CalculateArea();
+        allAreas[i][j] = area;
+        aggregateAreas[i] += area;
+      }
+    }
+
+    m_distrAll = discrete_distribution<size_t>(aggregateAreas.begin(), aggregateAreas.end());
+    m_distrPerMwm.resize(n);
+    for (size_t i = 0; i < n; ++i)
+      m_distrPerMwm[i] = discrete_distribution<size_t>(allAreas[i].begin(), allAreas[i].end());
+  }
+
+  m2::PointD operator()()
+  {
+    CHECK(!m_allRegions.empty(), ());
+    auto const i = m_distrAll(m_randomEngine);
+    auto const j = m_distrPerMwm[i](m_randomEngine);
+    return m_allRegions[i][j].GetRandomPoint(m_randomEngine);
+  }
+
+private:
+  mt19937 m_randomEngine;
+
+  vector<vector<m2::RegionD>> m_allRegions;
+  discrete_distribution<size_t> m_distrAll;
+  vector<discrete_distribution<size_t>> m_distrPerMwm;
+};
 }  // namespace
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
@@ -255,5 +303,149 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
       // This call fails a CHECK if |countryId| is not found.
       storage.GetCountryFile(countryId);
     }
+  }
+}
+
+BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
+{
+  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CountryInfoReader * getter = static_cast<CountryInfoReader *>(getterRaw.get());
+
+  Storage storage(COUNTRIES_FILE);
+
+  auto const & countryDefs = getter->GetCountries();
+
+  base::Timer timer;
+
+  double const kRectSize = 10;
+
+  mt19937 rng(0);
+
+  vector<vector<m2::RegionD>> allRegions;
+  allRegions.reserve(countryDefs.size());
+  for (size_t i = 0; i < countryDefs.size(); ++i)
+  {
+    vector<m2::RegionD> regions;
+    getter->LoadRegionsFromDisk(i, regions);
+    allRegions.emplace_back(move(regions));
+  }
+
+  size_t totalPoints = 0;
+  for (auto const & regs : allRegions)
+  {
+    for (auto const & reg : regs)
+      totalPoints += reg.Size();
+  }
+  LOG(LINFO, ("Total points:", totalPoints));
+
+  {
+    size_t const kNumIterations = 1000;
+
+    double const t0 = timer.ElapsedSeconds();
+
+    // Antarctica's rect is too large and skews the random point generation.
+    vector<vector<m2::RegionD>> regionsWithoutAnarctica;
+    for (size_t i = 0; i < allRegions.size(); ++i)
+    {
+      if (countryDefs[i].m_countryId == "Antarctica")
+        continue;
+
+      regionsWithoutAnarctica.emplace_back(allRegions[i]);
+    }
+
+    RandomPointGenerator pointGen(rng, regionsWithoutAnarctica);
+    vector<m2::PointD> points;
+    for (size_t i = 0; i < kNumIterations; i++)
+      points.emplace_back(pointGen());
+
+    map<CountryId, int> hits;
+    for (auto const & pt : points)
+    {
+      auto const rect =
+          MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+      auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+      for (auto const & countryId : vec)
+        ++hits[countryId];
+    }
+    double const t1 = timer.ElapsedSeconds();
+
+    LOG(LINFO, ("hits:", hits.size(), "/", countryDefs.size(), t1 - t0));
+  }
+
+  {
+    map<CountryId, vector<double>> timesByCountry;
+    map<CountryId, double> avgTimeByCountry;
+    size_t kNumPointsPerCountry = 1;
+    CountryId longest;
+    for (size_t countryDefId = 0; countryDefId < countryDefs.size(); ++countryDefId)
+    {
+      RandomPointGenerator pointGen(rng, {allRegions[countryDefId]});
+      auto const & countryId = countryDefs[countryDefId].m_countryId;
+
+      vector<double> & times = timesByCountry[countryId];
+      times.resize(kNumPointsPerCountry);
+      for (size_t i = 0; i < times.size(); ++i)
+      {
+        auto const pt = pointGen();
+        auto const rect =
+            MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+        double const t0 = timer.ElapsedSeconds();
+        auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+        double const t1 = timer.ElapsedSeconds();
+        times[i] = t1 - t0;
+      }
+
+      avgTimeByCountry[countryId] =
+          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+
+      if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
+        longest = countryId;
+    }
+
+    LOG(LINFO, ("Slowest country for CountryInfoGetter (random point)", longest,
+                avgTimeByCountry[longest]));
+  }
+
+  {
+    map<CountryId, vector<double>> timesByCountry;
+    map<CountryId, double> avgTimeByCountry;
+    size_t kNumSidesPerCountry = 1;
+    CountryId longest;
+    for (size_t countryDefId = 0; countryDefId < countryDefs.size(); ++countryDefId)
+    {
+      auto const & countryId = countryDefs[countryDefId].m_countryId;
+
+      vector<pair<m2::PointD, m2::PointD>> sides;
+      for (auto const & region : allRegions[countryDefId])
+      {
+        auto const & points = region.Data();
+        for (size_t i = 0; i < points.size(); ++i)
+          sides.emplace_back(points[i], points[(i + 1) % points.size()]);
+      }
+
+      CHECK(!sides.empty(), ());
+      uniform_int_distribution<size_t> distr(0, sides.size() - 1);
+      vector<double> & times = timesByCountry[countryId];
+      times.resize(kNumSidesPerCountry);
+      for (size_t i = 0; i < times.size(); ++i)
+      {
+        auto const & side = sides[distr(rng)];
+        auto const pt = side.first.mid(side.second);
+        auto const rect =
+            MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+        double const t0 = timer.ElapsedSeconds();
+        auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+        double const t1 = timer.ElapsedSeconds();
+        times[i] = t1 - t0;
+      }
+
+      avgTimeByCountry[countryId] =
+          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+
+      if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
+        longest = countryId;
+    }
+    LOG(LINFO, ("Slowest country for CountryInfoGetter (point on a random side)", longest,
+                avgTimeByCountry[longest]));
   }
 }
