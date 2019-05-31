@@ -1,7 +1,10 @@
 #pragma once
 
 struct OsmElement;
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -12,6 +15,6 @@ public:
   virtual ~FilterInterface() = default;
 
   virtual bool IsAccepted(OsmElement const &) { return true; }
-  virtual bool IsAccepted(FeatureBuilder1 const &) { return true; }
+  virtual bool IsAccepted(feature::FeatureBuilder const &) { return true; }
 };
 }  // namespace generator

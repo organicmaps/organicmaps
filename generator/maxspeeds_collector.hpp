@@ -18,7 +18,7 @@ public:
   explicit MaxspeedsCollector(std::string const & filePath) : m_filePath(filePath) {}
 
   // CollectorInterface overrides:
-  void CollectFeature(FeatureBuilder1 const &, OsmElement const & p) override;
+  void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
   void Save() override;
 
 private:

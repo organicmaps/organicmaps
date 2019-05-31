@@ -33,6 +33,7 @@
 #include <string>
 #include <vector>
 
+using namespace feature;
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace std;
@@ -60,13 +61,13 @@ public:
   }
 
   // TestPOI overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
     TestPOI::Serialize(fb);
 
     auto & metadata = fb.GetMetadata();
-    metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(m_rating));
-    metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(m_priceRate));
+    metadata.Set(Metadata::FMD_RATING, strings::to_string(m_rating));
+    metadata.Set(Metadata::FMD_PRICE_RATE, strings::to_string(m_priceRate));
   }
 
 private:
@@ -83,12 +84,12 @@ public:
   }
 
   // TestPOI overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
     TestCafe::Serialize(fb);
 
     auto & metadata = fb.GetMetadata();
-    metadata.Set(feature::Metadata::FMD_CUISINE, m_cuisine);
+    metadata.Set(Metadata::FMD_CUISINE, m_cuisine);
   }
 
 private:
@@ -105,12 +106,12 @@ public:
   }
 
   // TestPOI overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
     TestPOI::Serialize(fb);
 
     auto & metadata = fb.GetMetadata();
-    metadata.Set(feature::Metadata::FMD_AIRPORT_IATA, m_iata);
+    metadata.Set(Metadata::FMD_AIRPORT_IATA, m_iata);
   }
 
 private:
@@ -127,12 +128,12 @@ public:
   }
 
   // TestPOI overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
     TestPOI::Serialize(fb);
 
     auto & metadata = fb.GetMetadata();
-    metadata.Set(feature::Metadata::FMD_OPERATOR, m_operator);
+    metadata.Set(Metadata::FMD_OPERATOR, m_operator);
   }
 
 private:
@@ -148,12 +149,12 @@ public:
   }
 
   // TestPOI overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
     TestCafe::Serialize(fb);
 
     auto & metadata = fb.GetMetadata();
-    metadata.Set(feature::Metadata::FMD_BRAND, m_brand);
+    metadata.Set(Metadata::FMD_BRAND, m_brand);
   }
 
 private:

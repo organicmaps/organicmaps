@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+using namespace feature;
+
 namespace generator
 {
 bool FilterCollection::IsAccepted(OsmElement const & element)
@@ -14,7 +16,7 @@ bool FilterCollection::IsAccepted(OsmElement const & element)
   });
 }
 
-bool FilterCollection::IsAccepted(FeatureBuilder1 const & feature)
+bool FilterCollection::IsAccepted(FeatureBuilder const & feature)
 {
   return std::all_of(std::begin(m_collection), std::end(m_collection), [&] (auto & filter) {
     return filter->IsAccepted(feature);

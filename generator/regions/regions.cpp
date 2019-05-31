@@ -34,6 +34,8 @@
 
 #include "defines.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace regions
@@ -105,7 +107,7 @@ private:
   {
     RegionsBuilder::Regions regions;
     PlacePointsMap placePointsMap;
-    auto const toDo = [&](FeatureBuilder1 const & fb, uint64_t /* currPos */) {
+    auto const toDo = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
       if (fb.IsArea() && fb.IsGeometryClosed())
       {
         auto const id = fb.GetMostGenericOsmId();
@@ -119,7 +121,7 @@ private:
       }
     };
 
-    feature::ForEachFromDatRawFormat(tmpMwmFilename, toDo);
+    ForEachFromDatRawFormat(tmpMwmFilename, toDo);
     return std::make_tuple(std::move(regions), std::move(placePointsMap));
   }
 
@@ -149,8 +151,8 @@ private:
 
   void RepackTmpMwm(std::set<base::GeoObjectId> const & ids)
   {
-    feature::FeaturesCollector collector(m_pathOutRepackedRegionsTmpMwm);
-    auto const toDo = [this, &collector, &ids](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+    FeaturesCollector collector(m_pathOutRepackedRegionsTmpMwm);
+    auto const toDo = [this, &collector, &ids](FeatureBuilder & fb, uint64_t /* currPos */) {
       if (ids.count(fb.GetMostGenericOsmId()) == 0 ||
           (fb.IsPoint() && !FeaturePlacePointToRegion(m_regionsInfoCollector, fb)))
       {
@@ -161,7 +163,7 @@ private:
       collector.Collect(fb);
     };
 
-    feature::ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
+    ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
 
     LOG(LINFO, ("Repacked regions temporary mwm saved to", m_pathOutRepackedRegionsTmpMwm));
   }

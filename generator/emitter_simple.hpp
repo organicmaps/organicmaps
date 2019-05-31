@@ -20,7 +20,7 @@ public:
 
   // EmitterInterface overrides:
   void GetNames(std::vector<std::string> & names) const override;
-  void Process(FeatureBuilder1 & fb) override;
+  void Process(feature::FeatureBuilder & fb) override;
   bool Finish() override { return true; }
 
 private:
@@ -35,6 +35,6 @@ public:
   using EmitterSimple::EmitterSimple;
 
   // EmitterInterface overrides:
-  void Process(FeatureBuilder1 & fb) override;
+  void Process(feature::FeatureBuilder & fb) override;
 };
 }  // namespace generator

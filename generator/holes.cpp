@@ -5,6 +5,8 @@
 
 #include <utility>
 
+using namespace feature;
+
 namespace generator
 {
 HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & cache) :
@@ -12,10 +14,10 @@ HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & cache) :
 {
 }
 
-FeatureBuilder1::Geometry & HolesAccumulator::GetHoles()
+FeatureBuilder::Geometry & HolesAccumulator::GetHoles()
 {
   ASSERT(m_holes.empty(), ("It is allowed to call only once."));
-  m_merger.ForEachArea(false, [this](FeatureBuilder1::PointSeq const & v,
+  m_merger.ForEachArea(false, [this](FeatureBuilder::PointSeq const & v,
                        std::vector<uint64_t> const & /* way osm ids */)
   {
     m_holes.push_back(std::move(v));

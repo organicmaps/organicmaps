@@ -13,6 +13,8 @@
 
 #include <boost/geometry.hpp>
 
+using namespace feature;
+
 namespace generator
 {
 namespace regions
@@ -33,7 +35,7 @@ BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size
   CHECK_EQUAL(result.size(), 1, ());
   return std::move(result.front());
 }
-Region::Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
+Region::Region(FeatureBuilder const & fb, RegionDataProxy const & rd)
   : RegionWithName(fb.GetParams().name)
   , RegionWithData(rd)
   , m_polygon(std::make_shared<BoostPolygon>())
@@ -84,7 +86,7 @@ void Region::DeletePolygon()
   m_polygon = nullptr;
 }
 
-void Region::FillPolygon(FeatureBuilder1 const & fb)
+void Region::FillPolygon(FeatureBuilder const & fb)
 {
   CHECK(m_polygon, ());
   boost_helpers::FillPolygon(*m_polygon, fb);
@@ -154,7 +156,7 @@ bool Region::Contains(BoostPoint const & point) const
       boost::geometry::covered_by(point, *m_polygon);
 }
 
-bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature)
+bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder & feature)
 {
   if (!feature.IsPoint())
     return false;
@@ -172,14 +174,14 @@ bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & 
   auto const radius = Region::GetRadiusByPlaceType(placeType);
   polygon = MakePolygonWithRadius({center.x, center.y}, radius);
   auto const & outer = polygon.outer();
-  FeatureBuilder1::PointSeq seq;
+  FeatureBuilder::PointSeq seq;
   std::transform(std::begin(outer), std::end(outer), std::back_inserter(seq), [](BoostPoint const & p) {
     return m2::PointD(p.get<0>(), p.get<1>());
   });
   feature.ResetGeometry();
   feature.AddPolygon(seq);
-  feature.SetAreaAddHoles({});
   feature.SetRank(0);
+  feature.SetArea();
   return true;
 }
 }  // namespace regions

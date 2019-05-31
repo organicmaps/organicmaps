@@ -13,9 +13,9 @@ class StreetsFilter : public FilterInterface
 public:
   // FilterInterface overrides:
   bool IsAccepted(OsmElement const & element) override;
-  bool IsAccepted(FeatureBuilder1 const & feature) override;
+  bool IsAccepted(feature::FeatureBuilder const & feature) override;
 
-  static bool IsStreet(FeatureBuilder1 const & fb);
+  static bool IsStreet(feature::FeatureBuilder const & fb);
 };
 }  // namespace streets
 }  // namespace generator

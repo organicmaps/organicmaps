@@ -6,11 +6,11 @@
 #include <string>
 #include <vector>
 
-class FeatureBuilder1;
 class CoastlineFeaturesGenerator;
 namespace feature
 {
 struct GenerateInfo;
+class FeatureBuilder;
 }  // namespace feature
 
 namespace generator
@@ -25,7 +25,7 @@ public:
   explicit EmitterCoastline(feature::GenerateInfo const & info);
 
   // EmitterInterface overrides:
-  void Process(FeatureBuilder1 & feature) override;
+  void Process(feature::FeatureBuilder & feature) override;
   bool Finish() override;
   void GetNames(std::vector<std::string> & names) const override;
 

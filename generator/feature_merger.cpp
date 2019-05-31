@@ -6,8 +6,10 @@
 
 #include "coding/point_coding.hpp"
 
-MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
-  : FeatureBuilder1(fb), m_isRound(false)
+using namespace feature;
+
+MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder const & fb)
+  : FeatureBuilder(fb), m_isRound(false)
 {
   m_params.FinishAddingTypes();
 }
@@ -128,7 +130,7 @@ FeatureMergeProcessor::FeatureMergeProcessor(uint32_t coordBits)
 {
 }
 
-void FeatureMergeProcessor::operator() (FeatureBuilder1 const & fb)
+void FeatureMergeProcessor::operator() (FeatureBuilder const & fb)
 {
   this->operator() (new MergedFeatureBuilder1(fb));
 }
@@ -302,7 +304,7 @@ void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * a
   m_mapping[GetType(arr1, 2)] = GetType(arr2, 2);
 }
 
-MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
+MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder const & fb)
 {
   MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb);
 
@@ -355,7 +357,7 @@ public:
   }
 };
 
-bool PreprocessForWorldMap(FeatureBuilder1 & fb)
+bool PreprocessForWorldMap(FeatureBuilder & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
@@ -367,7 +369,7 @@ bool PreprocessForWorldMap(FeatureBuilder1 & fb)
   return true;
 }
 
-bool PreprocessForCountryMap(FeatureBuilder1 & fb)
+bool PreprocessForCountryMap(FeatureBuilder & fb)
 {
   if (fb.RemoveTypesIf(IsInvisibleFn(scales::GetUpperWorldScale() + 1,
                                      scales::GetUpperStyleScale(),

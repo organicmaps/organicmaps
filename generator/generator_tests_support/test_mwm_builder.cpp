@@ -27,6 +27,7 @@
 #include <memory>
 
 using namespace std;
+using namespace feature;
 
 namespace
 {
@@ -35,7 +36,7 @@ bool WriteRegionDataForTests(string const & path, vector<string> const & languag
   try
   {
     FilesContainerW writer(path, FileWriter::OP_WRITE_EXISTING);
-    feature::RegionData regionData;
+    RegionData regionData;
     regionData.SetLanguages(languages);
     FileWriter w = writer.GetWriter(REGION_INFO_FILE_TAG);
     regionData.Serialize(w);
@@ -53,12 +54,12 @@ namespace generator
 {
 namespace tests_support
 {
-TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type,
+TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::MapType type,
                                uint32_t version)
   : m_file(file)
   , m_type(type)
   , m_collector(
-        make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
+        make_unique<FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
   , m_version(version)
 {
 }
@@ -71,20 +72,20 @@ TestMwmBuilder::~TestMwmBuilder()
 
 void TestMwmBuilder::Add(TestFeature const & feature)
 {
-  FeatureBuilder1 fb;
+  FeatureBuilder fb;
   feature.Serialize(fb);
   CHECK(Add(fb), (fb));
 }
 
-bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
+bool TestMwmBuilder::Add(FeatureBuilder & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
 
-  if (ftypes::IsCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == feature::GeomType::Area)
+  if (ftypes::IsCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == GeomType::Area)
   {
     auto const & metadata = fb.GetMetadata();
     uint64_t testId;
-    CHECK(strings::to_uint64(metadata.Get(feature::Metadata::FMD_TEST_ID), testId), ());
+    CHECK(strings::to_uint64(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
     auto const center = fb.GetGeometryCenter();
@@ -92,7 +93,7 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
     fb.SetCenter(center);
   }
 
-  if (!fb.PreSerializeAndRemoveUselessNames())
+  if (!fb.PreSerializeAndRemoveUselessNamesForTmpMwm())
   {
     LOG(LWARNING, ("Can't pre-serialize feature."));
     return false;
@@ -120,7 +121,7 @@ void TestMwmBuilder::Finish()
   CHECK(m_collector, ("Finish() already was called."));
   m_collector.reset();
 
-  feature::GenerateInfo info;
+  GenerateInfo info;
   info.m_targetDir = m_file.GetDirectory();
   info.m_tmpDir = m_file.GetDirectory();
   info.m_versionDate = static_cast<uint32_t>(base::YYMMDDToSecondsSinceEpoch(m_version));
@@ -132,14 +133,14 @@ void TestMwmBuilder::Finish()
   string const path = m_file.GetPath(MapOptions::Map);
   (void)base::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
 
-  CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
+  CHECK(BuildOffsetsTable(path), ("Can't build feature offsets table."));
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
 
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */, 1 /* threadsCount */),
         ("Can't build search index."));
 
-  if (m_type == feature::DataHeader::world)
+  if (m_type == DataHeader::world)
     CHECK(generator::BuildCitiesBoundariesForTesting(path, m_boundariesTable), ());
 
   CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),

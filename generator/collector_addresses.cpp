@@ -4,12 +4,14 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 CollectorAddresses::CollectorAddresses(std::string const & filename)
   : m_addrWriter(std::make_unique<FileWriter>(filename)) {}
 
-void CollectorAddresses::CollectFeature(FeatureBuilder1 const & feature, OsmElement const &)
+void CollectorAddresses::CollectFeature(FeatureBuilder const & feature, OsmElement const &)
 {
   std::string addr;
   auto const & checker = ftypes::IsBuildingChecker::Instance();

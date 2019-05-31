@@ -17,7 +17,11 @@ class TestCameraCollector;
 }  // namespace generator_tests
 
 struct OsmElement;
-class FeatureBuilder1;
+
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing
@@ -69,7 +73,7 @@ public:
   // generator::CollectorInterface overrides:
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
-  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element) override;
+  void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 
 private:

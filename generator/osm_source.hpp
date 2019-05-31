@@ -13,7 +13,6 @@
 #include <vector>
 
 struct OsmElement;
-class FeatureBuilder1;
 class FeatureParams;
 
 namespace generator

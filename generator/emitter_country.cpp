@@ -11,6 +11,8 @@
 
 #include "defines.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 EmitterCountry::EmitterCountry(feature::GenerateInfo const & info)
@@ -33,7 +35,7 @@ EmitterCountry::EmitterCountry(feature::GenerateInfo const & info)
   }
 }
 
-void EmitterCountry::Process(FeatureBuilder1 & feature)
+void EmitterCountry::Process(FeatureBuilder & feature)
 {
   m_processingChain->Handle(feature);
 }

@@ -4,6 +4,8 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace geo_objects
@@ -13,7 +15,7 @@ bool GeoObjectsFilter::IsAccepted(OsmElement const & element)
   return osm_element::IsBuilding(element) || osm_element::HasHouse(element) || osm_element::IsPoi(element);
 }
 
-bool GeoObjectsFilter::IsAccepted(FeatureBuilder1 const & feature)
+bool GeoObjectsFilter::IsAccepted(FeatureBuilder const & feature)
 {
   if (!feature.GetParams().IsValid())
     return false;
@@ -22,20 +24,20 @@ bool GeoObjectsFilter::IsAccepted(FeatureBuilder1 const & feature)
 }
 
 // static
-bool GeoObjectsFilter::IsBuilding(FeatureBuilder1 const & fb)
+bool GeoObjectsFilter::IsBuilding(FeatureBuilder const & fb)
 {
   auto const & checker = ftypes::IsBuildingChecker::Instance();
   return checker(fb.GetTypes());
 }
 
 // static
-bool GeoObjectsFilter::HasHouse(FeatureBuilder1 const & fb)
+bool GeoObjectsFilter::HasHouse(FeatureBuilder const & fb)
 {
   return !fb.GetParams().house.IsEmpty();
 }
 
 // static
-bool GeoObjectsFilter::IsPoi(FeatureBuilder1 const & fb)
+bool GeoObjectsFilter::IsPoi(FeatureBuilder const & fb)
 {
   auto const & poiChecker = ftypes::IsPoiChecker::Instance();
   return poiChecker(fb.GetTypes());

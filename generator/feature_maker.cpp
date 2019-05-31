@@ -11,6 +11,8 @@
 
 #include <utility>
 
+using namespace feature;
+
 namespace generator
 {
 void FeatureMakerSimple::ParseParams(FeatureParams & params, OsmElement & p) const
@@ -22,7 +24,7 @@ void FeatureMakerSimple::ParseParams(FeatureParams & params, OsmElement & p) con
 
 bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & params)
 {
-  FeatureBuilder1 fb;
+  FeatureBuilder fb;
   fb.SetCenter(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
   fb.SetOsmId(base::MakeOsmNode(p.m_id));
   fb.SetParams(params);
@@ -36,7 +38,7 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   if (nodes.size() < 2)
     return false;
 
-  FeatureBuilder1 fb;
+  FeatureBuilder fb;
   m2::PointD pt;
   for (uint64_t ref : nodes)
   {
@@ -52,7 +54,8 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   {
     HolesProcessor processor(p.m_id, m_cache);
     m_cache.ForEachRelationByWay(p.m_id, processor);
-    fb.SetAreaAddHoles(processor.GetHoles());
+    fb.AddHoles(processor.GetHoles());
+    fb.SetArea();
   }
   else
   {
@@ -70,9 +73,9 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
   auto const & holesGeometry = helper.GetHoles();
   auto & outer = helper.GetOuter();
   auto const size = m_queue.size();
-  auto const func = [&](FeatureBuilder1::PointSeq const & pts, std::vector<uint64_t> const & ids)
+  auto const func = [&](FeatureBuilder::PointSeq const & pts, std::vector<uint64_t> const & ids)
   {
-    FeatureBuilder1 fb;
+    FeatureBuilder fb;
     for (uint64_t id : ids)
       fb.AddOsmId(base::MakeOsmWay(id));
 
@@ -83,8 +86,9 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
     if (!fb.IsGeometryClosed())
       return;
 
-    fb.SetAreaAddHoles(holesGeometry);
+    fb.AddHoles(holesGeometry);
     fb.SetParams(params);
+    fb.SetArea();
     m_queue.push(std::move(fb));
   };
 

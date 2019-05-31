@@ -8,7 +8,11 @@
 #include "geometry/region2d.hpp"
 
 
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
+
 
 class CoastlineFeaturesGenerator
 {
@@ -22,11 +26,11 @@ class CoastlineFeaturesGenerator
 public:
   CoastlineFeaturesGenerator(uint32_t coastType);
 
-  void AddRegionToTree(FeatureBuilder1 const & fb);
+  void AddRegionToTree(feature::FeatureBuilder const & fb);
 
-  void Process(FeatureBuilder1 const & fb);
+  void Process(feature::FeatureBuilder const & fb);
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish();
 
-  void GetFeatures(vector<FeatureBuilder1> & vecFb);
+  void GetFeatures(vector<feature::FeatureBuilder> & vecFb);
 };

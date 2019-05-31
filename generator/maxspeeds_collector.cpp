@@ -16,6 +16,7 @@
 using namespace base;
 using namespace generator;
 using namespace routing;
+using namespace feature;
 using namespace std;
 
 namespace
@@ -32,7 +33,7 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
 
 namespace generator
 {
-void MaxspeedsCollector::CollectFeature(FeatureBuilder1 const &, OsmElement const & p)
+void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const & p)
 {
   if (!p.IsWay())
     return;

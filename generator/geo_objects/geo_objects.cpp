@@ -32,6 +32,8 @@
 #include <boost/optional.hpp>
 #include "3party/jansson/myjansson.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace geo_objects
@@ -60,7 +62,7 @@ void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
   }
 }
 
-base::JSONPtr AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyValue)
+base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyValue)
 {
   auto result = regionKeyValue.second->MakeDeepCopyJson();
   int const kHouseOrPoiRank = 30;
@@ -87,7 +89,7 @@ base::JSONPtr AddAddress(FeatureBuilder1 const & fb, KeyValue const & regionKeyV
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
-MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyValue)
+MakeGeoObjectValueWithAddress(FeatureBuilder const & fb, KeyValue const & keyValue)
 {
   auto const jsonWithAddress = AddAddress(fb, keyValue);
   auto const cstr = json_dumps(jsonWithAddress.get(), JSON_COMPACT);
@@ -95,13 +97,13 @@ MakeGeoObjectValueWithAddress(FeatureBuilder1 const & fb, KeyValue const & keyVa
 }
 
 std::shared_ptr<JsonValue>
-FindHousePoi(FeatureBuilder1 const & fb, GeoObjectInfoGetter const & geoObjectInfoGetter)
+FindHousePoi(FeatureBuilder const & fb, GeoObjectInfoGetter const & geoObjectInfoGetter)
 {
   return geoObjectInfoGetter.Find(fb.GetKeyPoint(), HouseHasAddress);
 }
 
 std::unique_ptr<char, JSONFreeDeleter>
-MakeGeoObjectValueWithoutAddress(FeatureBuilder1 const & fb, JsonValue const & json)
+MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonValue const & json)
 {
   auto jsonWithAddress = json.MakeDeepCopyJson();
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
@@ -116,7 +118,7 @@ MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
 {
   auto const dataFile = Platform().TmpPathForFile();
   SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
-  if (!feature::GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
+  if (!GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
   {
     LOG(LCRITICAL, ("Error generating geo objects data."));
     return {};
@@ -138,9 +140,9 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
                                             regions::RegionInfoGetter const & regionInfoGetter)
 {
   auto const path = Platform().TmpPathForFile();
-  feature::FeaturesCollector collector(path);
+  FeaturesCollector collector(path);
 
-  auto const filteringCollector = [&](FeatureBuilder1 const & fb, uint64_t /* currPos */)
+  auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */)
   {
     if (GeoObjectsFilter::HasHouse(fb))
     {
@@ -160,7 +162,7 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     if (pos != std::string::npos)
       collector.Collect(fb);
   };
-  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);
+  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, filteringCollector);
 
   Platform().RemoveFileIfExists(pathInGeoObjectsTmpMwm);
   if (std::rename(path.c_str(), pathInGeoObjectsTmpMwm.c_str()) != 0)
@@ -172,7 +174,7 @@ void BuildGeoObjectsWithAddresses(regions::RegionInfoGetter const & regionInfoGe
                                   std::ostream & streamGeoObjectsKv, bool)
 {
   size_t countGeoObjects = 0;
-  auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+  auto const fn = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsBuilding(fb) && !GeoObjectsFilter::HasHouse(fb))
       return;
 
@@ -186,7 +188,7 @@ void BuildGeoObjectsWithAddresses(regions::RegionInfoGetter const & regionInfoGe
     ++countGeoObjects;
   };
 
-  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
   LOG(LINFO, ("Added ", countGeoObjects, "geo objects with addresses."));
 }
 
@@ -196,7 +198,7 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
                                      std::ostream & streamIdsWithoutAddress, bool)
 {
   size_t countGeoObjects = 0;
-  auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+  auto const fn  = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsPoi(fb))
       return;
     if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
@@ -213,7 +215,7 @@ void BuildGeoObjectsWithoutAddresses(GeoObjectInfoGetter const & geoObjectInfoGe
     ++countGeoObjects;
   };
 
-  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
+  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, fn);
   LOG(LINFO, ("Added ", countGeoObjects, "geo objects without addresses."));
 }
 }  // namespace

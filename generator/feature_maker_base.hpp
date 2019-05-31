@@ -24,7 +24,7 @@ public:
 
   bool Add(OsmElement & element);
   // The function returns true when the receiving feature was successful and a false when not successful.
-  bool GetNextFeature(FeatureBuilder1 & feature);
+  bool GetNextFeature(feature::FeatureBuilder & feature);
   size_t Size() const;
   bool Empty() const;
 
@@ -36,12 +36,12 @@ protected:
   virtual void ParseParams(FeatureParams & params, OsmElement & element) const  = 0;
 
   cache::IntermediateDataReader & m_cache;
-  std::queue<FeatureBuilder1> m_queue;
+  std::queue<feature::FeatureBuilder> m_queue;
 };
 
-void TransformAreaToPoint(FeatureBuilder1 & feature);
-void TransformAreaToLine(FeatureBuilder1 & feature);
+void TransformAreaToPoint(feature::FeatureBuilder & feature);
+void TransformAreaToLine(feature::FeatureBuilder & feature);
 
-FeatureBuilder1 MakePointFromArea(FeatureBuilder1 const & feature);
-FeatureBuilder1 MakeLineFromArea(FeatureBuilder1 const & feature);
+feature::FeatureBuilder MakePointFromArea(feature::FeatureBuilder const & feature);
+feature::FeatureBuilder MakeLineFromArea(feature::FeatureBuilder const & feature);
 }  // namespace generator

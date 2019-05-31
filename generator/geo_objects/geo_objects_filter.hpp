@@ -13,11 +13,11 @@ class GeoObjectsFilter : public FilterInterface
 public:
   // FilterInterface overrides:
   bool IsAccepted(OsmElement const & element) override;
-  bool IsAccepted(FeatureBuilder1 const & feature) override;
+  bool IsAccepted(feature::FeatureBuilder const & feature) override;
 
-  static bool IsBuilding(FeatureBuilder1 const & fb);
-  static bool HasHouse(FeatureBuilder1 const & fb);
-  static bool IsPoi(FeatureBuilder1 const & fb);
+  static bool IsBuilding(feature::FeatureBuilder const & fb);
+  static bool HasHouse(feature::FeatureBuilder const & fb);
+  static bool IsPoi(feature::FeatureBuilder const & fb);
 };
 }  // namespace geo_objects
 }  // namespace generator

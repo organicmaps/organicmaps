@@ -14,11 +14,13 @@
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace
 {
-void FixLandType(FeatureBuilder1 & feature)
+void FixLandType(FeatureBuilder & feature)
 {
   auto const & types = feature.GetTypes();
   auto const & isIslandChecker = ftypes::IsIslandChecker::Instance();
@@ -41,7 +43,7 @@ std::string LogBuffer::GetAsString() const
   return m_buffer.str();
 }
 
-void LayerBase::Handle(FeatureBuilder1 & feature)
+void LayerBase::Handle(FeatureBuilder & feature)
 {
   if (m_next)
     m_next->Handle(feature);
@@ -83,7 +85,7 @@ std::string LayerBase::GetAsStringRecursive() const
 RepresentationLayer::RepresentationLayer(std::shared_ptr<CityBoundaryProcessor> processor)
   : m_processor(processor) {}
 
-void RepresentationLayer::Handle(FeatureBuilder1 & feature)
+void RepresentationLayer::Handle(FeatureBuilder & feature)
 {
   auto const sourceType = feature.GetMostGenericOsmId().GetType();
   auto const geomType = feature.GetGeomType();
@@ -137,7 +139,7 @@ void RepresentationLayer::Handle(FeatureBuilder1 & feature)
   }
 }
 
-void RepresentationLayer::HandleArea(FeatureBuilder1 & feature, FeatureParams const & params)
+void RepresentationLayer::HandleArea(FeatureBuilder & feature, FeatureParams const & params)
 {
   if (ftypes::IsCityTownOrVillage(params.m_types))
     m_processor->Add(feature);
@@ -172,7 +174,7 @@ bool RepresentationLayer::CanBeLine(FeatureParams const & params)
   return feature::HasUsefulType(params.m_types, feature::GeomType::Line);
 }
 
-void PrepareFeatureLayer::Handle(FeatureBuilder1 & feature)
+void PrepareFeatureLayer::Handle(FeatureBuilder & feature)
 {
   auto const type = feature.GetGeomType();
   auto const & types = feature.GetParams().m_types;
@@ -181,7 +183,7 @@ void PrepareFeatureLayer::Handle(FeatureBuilder1 & feature)
 
   auto & params = feature.GetParams();
   feature::RemoveUselessTypes(params.m_types, type);
-  feature.PreSerializeAndRemoveUselessNames();
+  feature.PreSerializeAndRemoveUselessNamesForTmpMwm();
   FixLandType(feature);
   LayerBase::Handle(feature);
 }
@@ -189,7 +191,7 @@ void PrepareFeatureLayer::Handle(FeatureBuilder1 & feature)
 CityBoundaryLayer::CityBoundaryLayer(std::shared_ptr<CityBoundaryProcessor> processor)
   : m_processor(processor) {}
 
-void CityBoundaryLayer::Handle(FeatureBuilder1 & feature)
+void CityBoundaryLayer::Handle(FeatureBuilder & feature)
 {
   auto const type = GetPlaceType(feature);
   if (type != ftype::GetEmptyValue() && !feature.GetName().empty())
@@ -200,7 +202,7 @@ void CityBoundaryLayer::Handle(FeatureBuilder1 & feature)
 
 BookingLayer::~BookingLayer()
 {
-  m_dataset.BuildOsmObjects([&] (FeatureBuilder1 & feature) {
+  m_dataset.BuildOsmObjects([&] (FeatureBuilder & feature) {
     m_countryMapper->RemoveInvalidTypesAndMap(feature);
   });
 }
@@ -208,7 +210,7 @@ BookingLayer::~BookingLayer()
 BookingLayer::BookingLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper)
   : m_dataset(filename), m_countryMapper(countryMapper) {}
 
-void BookingLayer::Handle(FeatureBuilder1 & feature)
+void BookingLayer::Handle(FeatureBuilder & feature)
 {
   auto const id = m_dataset.FindMatchingObjectId(feature);
   if (id == BookingHotel::InvalidObjectId())
@@ -217,7 +219,7 @@ void BookingLayer::Handle(FeatureBuilder1 & feature)
     return;
   }
 
-  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder1 & newFeature) {
+  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder & newFeature) {
     AppendLine("BOOKING", DebugPrint(newFeature.GetMostGenericOsmId()), DebugPrint(id));
     m_countryMapper->RemoveInvalidTypesAndMap(newFeature);
   });
@@ -226,7 +228,7 @@ void BookingLayer::Handle(FeatureBuilder1 & feature)
 OpentableLayer::OpentableLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper)
   : m_dataset(filename), m_countryMapper(countryMapper) {}
 
-void OpentableLayer::Handle(FeatureBuilder1 & feature)
+void OpentableLayer::Handle(FeatureBuilder & feature)
 {
   auto const id = m_dataset.FindMatchingObjectId(feature);
   if (id == OpentableRestaurant::InvalidObjectId())
@@ -235,7 +237,7 @@ void OpentableLayer::Handle(FeatureBuilder1 & feature)
     return;
   }
 
-  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder1 & newFeature) {
+  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder & newFeature) {
     AppendLine("OPENTABLE", DebugPrint(newFeature.GetMostGenericOsmId()), DebugPrint(id));
     m_countryMapper->RemoveInvalidTypesAndMap(newFeature);
   });
@@ -244,13 +246,13 @@ void OpentableLayer::Handle(FeatureBuilder1 & feature)
 CountryMapperLayer::CountryMapperLayer(std::shared_ptr<CountryMapper> countryMapper)
   : m_countryMapper(countryMapper) {}
 
-void CountryMapperLayer::Handle(FeatureBuilder1 & feature)
+void CountryMapperLayer::Handle(FeatureBuilder & feature)
 {
   m_countryMapper->RemoveInvalidTypesAndMap(feature);
   LayerBase::Handle(feature);
 }
 
-void RepresentationCoastlineLayer::Handle(FeatureBuilder1 & feature)
+void RepresentationCoastlineLayer::Handle(FeatureBuilder & feature)
 {
   auto const sourceType = feature.GetMostGenericOsmId().GetType();
   auto const geomType = feature.GetGeomType();
@@ -282,7 +284,7 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder1 & feature)
   }
 }
 
-void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder1 & feature)
+void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & feature)
 {
   if (feature.IsArea())
   {
@@ -290,14 +292,14 @@ void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder1 & feature)
     feature::RemoveUselessTypes(params.m_types, feature.GetGeomType());
   }
 
-  feature.PreSerializeAndRemoveUselessNames();
+  feature.PreSerializeAndRemoveUselessNamesForTmpMwm();
   LayerBase::Handle(feature);
 }
 
 CoastlineMapperLayer::CoastlineMapperLayer(std::shared_ptr<CoastlineFeaturesGenerator> coastlineMapper)
   : m_coastlineGenerator(coastlineMapper) {}
 
-void CoastlineMapperLayer::Handle(FeatureBuilder1 & feature)
+void CoastlineMapperLayer::Handle(FeatureBuilder & feature)
 {
   auto const & isCoastlineChecker = ftypes::IsCoastlineChecker::Instance();
   auto const kCoastType = isCoastlineChecker.GetCoastlineType();
@@ -315,7 +317,7 @@ WorldAreaLayer::~WorldAreaLayer()
   m_mapper->Merge();
 }
 
-void WorldAreaLayer::Handle(FeatureBuilder1 & feature)
+void WorldAreaLayer::Handle(FeatureBuilder & feature)
 {
   m_mapper->RemoveInvalidTypesAndMap(feature);
   LayerBase::Handle(feature);
@@ -329,7 +331,7 @@ EmitCoastsLayer::EmitCoastsLayer(std::string const & worldCoastsFilename, std::s
 
 EmitCoastsLayer::~EmitCoastsLayer()
 {
-  feature::ForEachFromDatRawFormat(m_geometryFilename, [&](FeatureBuilder1 fb, uint64_t)
+  feature::ForEachFromDatRawFormat(m_geometryFilename, [&](FeatureBuilder fb, uint64_t)
   {
     auto & emitter = m_countryMapper->Parent();
     emitter.Start();
@@ -341,7 +343,7 @@ EmitCoastsLayer::~EmitCoastsLayer()
   });
 }
 
-void EmitCoastsLayer::Handle(FeatureBuilder1 & feature)
+void EmitCoastsLayer::Handle(FeatureBuilder & feature)
 {
   LayerBase::Handle(feature);
 }
@@ -349,12 +351,12 @@ void EmitCoastsLayer::Handle(FeatureBuilder1 & feature)
 CountryMapper::CountryMapper(feature::GenerateInfo const & info)
   : m_countries(std::make_unique<CountriesGenerator>(info)) {}
 
-void CountryMapper::Map(FeatureBuilder1 & feature)
+void CountryMapper::Map(FeatureBuilder & feature)
 {
   m_countries->Process(feature);
 }
 
-void CountryMapper::RemoveInvalidTypesAndMap(FeatureBuilder1 & feature)
+void CountryMapper::RemoveInvalidTypesAndMap(FeatureBuilder & feature)
 {
   if (!feature.RemoveInvalidTypes())
     return;
@@ -376,12 +378,12 @@ WorldMapper::WorldMapper(std::string const & worldFilename, std::string const & 
                          std::string const & popularPlacesFilename)
   : m_world(std::make_unique<WorldGenerator>(worldFilename, rawGeometryFilename, popularPlacesFilename)) {}
 
-void WorldMapper::Map(FeatureBuilder1 & feature)
+void WorldMapper::Map(FeatureBuilder & feature)
 {
   m_world->Process(feature);
 }
 
-void WorldMapper::RemoveInvalidTypesAndMap(FeatureBuilder1 & feature)
+void WorldMapper::RemoveInvalidTypesAndMap(FeatureBuilder & feature)
 {
   if (!feature.RemoveInvalidTypes())
     return;

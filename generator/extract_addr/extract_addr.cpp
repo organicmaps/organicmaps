@@ -19,9 +19,11 @@
 #include <set>
 #include <string>
 
+using namespace feature;
+
 constexpr int32_t kRoundDigits = 1e6;
 
-std::string GetReadableType(FeatureBuilder1 const & f)
+std::string GetReadableType(FeatureBuilder const & f)
 {
   auto const isPoiOrBuilding = [](uint32_t type) {
     auto const & poiChecker = ftypes::IsPoiChecker::Instance();
@@ -38,7 +40,7 @@ std::string GetReadableType(FeatureBuilder1 const & f)
   return result;
 }
 
-void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
+void PrintFeature(FeatureBuilder const & fb, uint64_t)
 {
   std::string const & category = GetReadableType(fb);
   std::string const & name = fb.GetName();
@@ -47,7 +49,7 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
   bool const isPOI = !name.empty() && !category.empty() &&
                      category.find("building") == std::string::npos;
 
-  if ((house.empty() && !isPOI) || fb.GetGeomType() == feature::GeomType::Line)
+  if ((house.empty() && !isPOI) || fb.GetGeomType() == GeomType::Line)
     return;
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
@@ -94,7 +96,7 @@ int main(int argc, char * argv[])
     pl.SetResourceDir(argv[2]);
   classificator::Load();
 
-  feature::ForEachFromDatRawFormat(argv[1], PrintFeature);
+  ForEachFromDatRawFormat(argv[1], PrintFeature);
 
   return 0;
 }

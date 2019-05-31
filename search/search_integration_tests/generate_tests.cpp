@@ -21,6 +21,7 @@
 #include <string>
 #include <utility>
 
+using namespace feature;
 using namespace generator::tests_support;
 using namespace std;
 
@@ -39,10 +40,10 @@ public:
     ftype::GetNameAndType(&e, params);
     params.AddName("en", "xxx");
 
-    FeatureBuilder1 fb;
+    FeatureBuilder fb;
     fb.SetParams(params);
     fb.SetCenter(pt);
-    fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
+    fb.GetMetadata().Set(Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
     ++m_lastId;
 
     TEST(builder.Add(fb), (fb));
@@ -57,7 +58,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   auto file = platform::LocalCountryFile::MakeForTesting("testCountry");
 
   {
-    TestMwmBuilder builder(file, feature::DataHeader::country);
+    TestMwmBuilder builder(file, DataHeader::country);
 
     // Deprecated types.
     MakeFeature(builder, {"office", "travel_agent"}, {0, 0});

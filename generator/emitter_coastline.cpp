@@ -13,6 +13,8 @@
 
 #include "defines.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 EmitterCoastline::EmitterCoastline(feature::GenerateInfo const & info)
@@ -25,7 +27,7 @@ EmitterCoastline::EmitterCoastline(feature::GenerateInfo const & info)
   m_processingChain->Add(std::make_shared<CoastlineMapperLayer>(m_generator));
 }
 
-void EmitterCoastline::Process(FeatureBuilder1 & feature)
+void EmitterCoastline::Process(FeatureBuilder & feature)
 {
   m_processingChain->Handle(feature);
 }
@@ -43,7 +45,7 @@ bool EmitterCoastline::Finish()
   size_t totalPoints = 0;
   size_t totalPolygons = 0;
 
-  vector<FeatureBuilder1> features;
+  vector<FeatureBuilder> features;
   m_generator->GetFeatures(features);
   for (auto & feature : features)
   {

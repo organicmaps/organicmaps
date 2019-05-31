@@ -19,6 +19,7 @@
 #include <vector>
 
 using namespace std;
+using namespace feature;
 
 namespace
 {
@@ -30,7 +31,7 @@ public:
   explicit ProcessCoastsBase(vector<string> const & vID) : m_vID(vID) {}
 
 protected:
-  bool HasID(FeatureBuilder1 const & fb) const
+  bool HasID(FeatureBuilder const & fb) const
   {
     TEST(fb.IsCoastCell(), ());
     return (find(m_vID.begin(), m_vID.end(), fb.GetName()) != m_vID.end());
@@ -45,38 +46,36 @@ class DoPrintCoasts : public ProcessCoastsBase
 public:
   explicit DoPrintCoasts(vector<string> const & vID) : ProcessCoastsBase(vID) {}
 
-  void operator()(FeatureBuilder1 const & fb1, uint64_t)
+  void operator()(FeatureBuilder const & fb, uint64_t)
   {
-    if (HasID(fb1))
+    if (HasID(fb))
     {
-      FeatureBuilder2 const & fb2 = reinterpret_cast<FeatureBuilder2 const &>(fb1);
-
       // Check common params.
-      TEST(fb2.IsArea(), ());
+      TEST(fb.IsArea(), ());
       int const upperScale = scales::GetUpperScale();
-      TEST(fb2.IsDrawableInRange(0, upperScale), ());
+      TEST(fb.IsDrawableInRange(0, upperScale), ());
 
-      m2::RectD const rect = fb2.GetLimitRect();
-      LOG(LINFO, ("ID =", fb1.GetName(), "Rect =", rect, "Polygons =", fb2.GetGeometry()));
+      m2::RectD const rect = fb.GetLimitRect();
+      LOG(LINFO, ("ID =", fb.GetName(), "Rect =", rect, "Polygons =", fb.GetGeometry()));
 
       // Make bound rect inflated a little.
-      feature::DistanceToSegmentWithRectBounds distFn(rect);
+      DistanceToSegmentWithRectBounds distFn(rect);
       m2::RectD const boundRect = m2::Inflate(rect, distFn.GetEpsilon(), distFn.GetEpsilon());
 
       using Points = vector<m2::PointD>;
       using Polygons = list<Points>;
 
-      Polygons const & poly = fb2.GetGeometry();
+      Polygons const & poly = fb.GetGeometry();
 
       // Check that all simplifications are inside bound rect.
       for (int level = 0; level <= upperScale; ++level)
       {
-        TEST(fb2.IsDrawableInRange(level, level), ());
+        TEST(fb.IsDrawableInRange(level, level), ());
 
         for (auto const & rawPts : poly)
         {
           Points pts;
-          feature::SimplifyPoints(distFn, level, rawPts, pts);
+          SimplifyPoints(distFn, level, rawPts, pts);
 
           LOG(LINFO, ("Simplified. Level =", level, "Points =", pts));
 
@@ -96,14 +95,14 @@ public:
   {
   }
 
-  void operator()(FeatureBuilder1 const & fb1, uint64_t)
+  void operator()(FeatureBuilder const & fb1, uint64_t)
   {
     if (HasID(fb1))
       m_collector.Collect(fb1);
   }
 
 private:
-  feature::FeaturesCollector m_collector;
+  FeaturesCollector m_collector;
 };
 }  // namespace
 
@@ -206,6 +205,6 @@ UNIT_TEST(WorldCoasts_CheckBounds)
 
   //DoPrintCoasts doProcess(vID);
   DoCopyCoasts doProcess("/Users/alena/omim/omim/data/WorldCoasts.mwm.tmp", vID);
-  feature::ForEachFromDatRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
+  ForEachFromDatRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
 }
 */

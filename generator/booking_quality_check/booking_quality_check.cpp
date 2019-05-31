@@ -43,10 +43,11 @@ DEFINE_uint64(selection_size, 1000, "Selection size");
 DEFINE_bool(generate, false, "Generate unmarked sample");
 
 using namespace generator;
+using namespace feature;
 
 namespace
 {
-string PrintBuilder(FeatureBuilder1 const & fb)
+string PrintBuilder(FeatureBuilder const & fb)
 {
   ostringstream s;
 
@@ -71,9 +72,9 @@ string PrintBuilder(FeatureBuilder1 const & fb)
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   s << "lat: " << center.m_lat << " lon: " << center.m_lon << '\t';
 
-  if (fb.GetGeomType() == feature::GeomType::Point)
+  if (fb.GetGeomType() == GeomType::Point)
     s << "GeomType: Point";
-  else if (fb.GetGeomType() == feature::GeomType::Area)
+  else if (fb.GetGeomType() == GeomType::Area)
     s << "GeomType: Area";
   else
     CHECK(false, ());
@@ -103,9 +104,9 @@ base::GeoObjectId ReadDebuggedPrintedOsmId(string const & str)
   MYTHROW(ParseError, ("Can't make osmId from string", str));
 }
 
-feature::GenerateInfo GetGenerateInfo()
+GenerateInfo GetGenerateInfo()
 {
-  feature::GenerateInfo info;
+  GenerateInfo info;
   info.m_bookingDatafileName = FLAGS_booking;
   info.m_opentableDatafileName = FLAGS_opentable;
   info.m_osmFileName = FLAGS_osm;
@@ -203,7 +204,7 @@ vector<SampleItem<Object>> ReadSampleFromFile(string const & name)
 
 template <typename Dataset, typename Object = typename Dataset::Object>
 void GenerateFactors(Dataset const & dataset,
-                     map<base::GeoObjectId, FeatureBuilder1> const & features,
+                     map<base::GeoObjectId, FeatureBuilder> const & features,
                      vector<SampleItem<Object>> const & sampleItems, ostream & ost)
 {
   for (auto const & item : sampleItems)
@@ -242,7 +243,7 @@ enum class DatasetType
 
 template <typename Dataset, typename Object = typename Dataset::Object>
 void GenerateSample(Dataset const & dataset,
-                    map<base::GeoObjectId, FeatureBuilder1> const & features, ostream & ost)
+                    map<base::GeoObjectId, FeatureBuilder> const & features, ostream & ost)
 {
   LOG_SHORT(LINFO, ("Num of elements:", features.size()));
   vector<base::GeoObjectId> elementIndexes(features.size());
@@ -303,28 +304,28 @@ void GenerateSample(Dataset const & dataset,
 }
 
 template <typename Dataset>
-string GetDatasetFilePath(feature::GenerateInfo const & info);
+string GetDatasetFilePath(GenerateInfo const & info);
 
 template <>
-string GetDatasetFilePath<BookingDataset>(feature::GenerateInfo const & info)
+string GetDatasetFilePath<BookingDataset>(GenerateInfo const & info)
 {
   return info.m_bookingDatafileName;
 }
 
 template <>
-string GetDatasetFilePath<OpentableDataset>(feature::GenerateInfo const & info)
+string GetDatasetFilePath<OpentableDataset>(GenerateInfo const & info)
 {
   return info.m_opentableDatafileName;
 }
 
 template <typename Dataset, typename Object = typename Dataset::Object>
-void RunImpl(feature::GenerateInfo & info)
+void RunImpl(GenerateInfo & info)
 {
   auto const & dataSetFilePath = GetDatasetFilePath<Dataset>(info);
   Dataset dataset(dataSetFilePath);
   LOG_SHORT(LINFO, (dataset.GetStorage().Size(), "objects are loaded from a file:", dataSetFilePath));
 
-  map<base::GeoObjectId, FeatureBuilder1> features;
+  map<base::GeoObjectId, FeatureBuilder> features;
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
 
   CacheLoader cacheLoader(info);
@@ -348,7 +349,7 @@ void RunImpl(feature::GenerateInfo & info)
   }
 }
 
-void Run(DatasetType const datasetType, feature::GenerateInfo & info)
+void Run(DatasetType const datasetType, GenerateInfo & info)
 {
   switch (datasetType)
   {

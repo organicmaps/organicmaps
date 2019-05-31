@@ -10,11 +10,11 @@
 #include <sstream>
 #include <string>
 
-class FeatureBuilder1;
 class CoastlineFeaturesGenerator;
 
 namespace feature
 {
+class FeatureBuilder;
 struct GenerateInfo;
 }  // namespace feature
 
@@ -60,7 +60,7 @@ public:
   virtual ~LayerBase() = default;
 
   // The function works in linear time from the number of layers that exist after that.
-  virtual void Handle(FeatureBuilder1 & feature);
+  virtual void Handle(feature::FeatureBuilder & feature);
 
   void SetNext(std::shared_ptr<LayerBase> next);
   std::shared_ptr<LayerBase> Add(std::shared_ptr<LayerBase> next);
@@ -92,14 +92,14 @@ public:
   explicit RepresentationLayer(std::shared_ptr<CityBoundaryProcessor> processor);
 
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   static bool CanBeArea(FeatureParams const & params);
   static bool CanBePoint(FeatureParams const & params);
   static bool CanBeLine(FeatureParams const & params);
 
-  void HandleArea(FeatureBuilder1 & feature, FeatureParams const & params);
+  void HandleArea(feature::FeatureBuilder & feature, FeatureParams const & params);
 
   std::shared_ptr<CityBoundaryProcessor> m_processor;
 };
@@ -110,7 +110,7 @@ class PrepareFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 };
 
 // Responsibility of class CityBoundaryLayer - transfering control to the CityBoundaryProcessor
@@ -121,7 +121,7 @@ public:
   explicit CityBoundaryLayer(std::shared_ptr<CityBoundaryProcessor> processor);
 
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   std::shared_ptr<CityBoundaryProcessor> m_processor;
@@ -137,7 +137,7 @@ public:
   // LayerBase overrides:
   ~BookingLayer() override;
 
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   BookingDataset m_dataset;
@@ -152,7 +152,7 @@ public:
   explicit OpentableLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper);
 
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   OpentableDataset m_dataset;
@@ -166,7 +166,7 @@ public:
   explicit CountryMapperLayer(std::shared_ptr<CountryMapper> countryMapper);
 
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   std::shared_ptr<CountryMapper> m_countryMapper;
@@ -182,7 +182,7 @@ public:
   // LayerBase overrides:
   ~EmitCoastsLayer() override;
 
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   std::shared_ptr<feature::FeaturesCollector> m_collector;
@@ -196,7 +196,7 @@ class RepresentationCoastlineLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 };
 
 // Responsibility of class PrepareCoastlineFeatureLayer is the removal of unused types and names,
@@ -205,7 +205,7 @@ class PrepareCoastlineFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 };
 
 // Responsibility of class CoastlineMapperLayer - mapping of features on coastline.
@@ -215,7 +215,7 @@ public:
   explicit CoastlineMapperLayer(std::shared_ptr<CoastlineFeaturesGenerator> coastlineMapper);
 
   // LayerBase overrides:
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   std::shared_ptr<CoastlineFeaturesGenerator> m_coastlineGenerator;
@@ -232,7 +232,7 @@ public:
   // LayerBase overrides:
   ~WorldAreaLayer() override;
 
-  void Handle(FeatureBuilder1 & feature) override;
+  void Handle(feature::FeatureBuilder & feature) override;
 
 private:
   std::shared_ptr<WorldMapper> m_mapper;
@@ -247,8 +247,8 @@ public:
 
   explicit CountryMapper(feature::GenerateInfo const & info);
 
-  void Map(FeatureBuilder1 & feature);
-  void RemoveInvalidTypesAndMap(FeatureBuilder1 & feature);
+  void Map(feature::FeatureBuilder & feature);
+  void RemoveInvalidTypesAndMap(feature::FeatureBuilder & feature);
   Polygonizer & Parent();
   std::vector<std::string> const & GetNames() const;
 
@@ -265,8 +265,8 @@ public:
   explicit WorldMapper(std::string const & worldFilename, std::string const & rawGeometryFilename,
                        std::string const & popularPlacesFilename);
 
-  void Map(FeatureBuilder1 & feature);
-  void RemoveInvalidTypesAndMap(FeatureBuilder1 & feature);
+  void Map(feature::FeatureBuilder & feature);
+  void RemoveInvalidTypesAndMap(feature::FeatureBuilder & feature);
   void Merge();
 
 private:

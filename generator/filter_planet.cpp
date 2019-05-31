@@ -11,6 +11,8 @@
 
 #include <algorithm>
 
+using namespace feature;
+
 namespace generator
 {
 bool FilterPlanet::IsAccepted(OsmElement const & element)
@@ -23,7 +25,7 @@ bool FilterPlanet::IsAccepted(OsmElement const & element)
   return true;
 }
 
-bool FilterPlanet::IsAccepted(FeatureBuilder1 const & feature)
+bool FilterPlanet::IsAccepted(FeatureBuilder const & feature)
 {
   auto const & params = feature.GetParams();
   return params.IsValid();

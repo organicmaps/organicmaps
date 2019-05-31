@@ -15,6 +15,7 @@
 #include <utility>
 
 using namespace std;
+using namespace feature;
 
 using RegionT = m2::RegionI;
 using PointT = m2::PointI;
@@ -78,7 +79,7 @@ namespace
   };
 }  // namespace
 
-void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
+void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder const & fb)
 {
   ASSERT ( fb.IsGeometryClosed(), () );
 
@@ -86,7 +87,7 @@ void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
   fb.ForEachGeometryPointEx(createRgn);
 }
 
-void CoastlineFeaturesGenerator::Process(FeatureBuilder1 const & fb)
+void CoastlineFeaturesGenerator::Process(FeatureBuilder const & fb)
 {
   if (fb.IsGeometryClosed())
     AddRegionToTree(fb);
@@ -106,7 +107,7 @@ namespace
     explicit DoAddToTree(CoastlineFeaturesGenerator & rMain)
       : m_rMain(rMain), m_notMergedCoastsCount(0), m_totalNotMergedCoastsPoints(0) {}
 
-    virtual void operator() (FeatureBuilder1 const & fb)
+    virtual void operator() (FeatureBuilder const & fb)
     {
       if (fb.IsGeometryClosed())
         m_rMain.AddRegionToTree(fb);
@@ -196,7 +197,7 @@ public:
     return count;
   }
 
-  void AssignGeometry(FeatureBuilder1 & fb)
+  void AssignGeometry(FeatureBuilder & fb)
   {
     for (size_t i = 0; i < m_res.size(); ++i)
     {
@@ -317,7 +318,7 @@ public:
   }
 };
 
-void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder1> & features)
+void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder> & features)
 {
   size_t const maxThreads = thread::hardware_concurrency();
   CHECK_GREATER(maxThreads, 0, ("Not supported platform"));
@@ -327,7 +328,7 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder1> & features)
       maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
       [&features, &featuresMutex, this](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
       {
-        FeatureBuilder1 fb;
+        FeatureBuilder fb;
         fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));
 
         cellData.AssignGeometry(fb);

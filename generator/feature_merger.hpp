@@ -9,7 +9,7 @@
 #include <vector>
 
 /// Feature builder class that used while feature type processing and merging.
-class MergedFeatureBuilder1 : public FeatureBuilder1
+class MergedFeatureBuilder1 : public feature::FeatureBuilder
 {
   bool m_isRound;
 
@@ -17,7 +17,7 @@ class MergedFeatureBuilder1 : public FeatureBuilder1
 
 public:
   MergedFeatureBuilder1() : m_isRound(false) {}
-  MergedFeatureBuilder1(FeatureBuilder1 const & fb);
+  MergedFeatureBuilder1(feature::FeatureBuilder const & fb);
 
   void SetRound();
   bool IsRound() const { return m_isRound; }
@@ -80,7 +80,7 @@ class FeatureMergeProcessor
 public:
   FeatureMergeProcessor(uint32_t coordBits);
 
-  void operator() (FeatureBuilder1 const & fb);
+  void operator() (feature::FeatureBuilder const & fb);
   void operator() (MergedFeatureBuilder1 * p);
 
   void DoMerge(FeatureEmitterIFace & emitter);
@@ -115,14 +115,14 @@ public:
     m_dontNormalize.insert(GetType(arr, N));
   }
 
-  MergedFeatureBuilder1 * operator() (FeatureBuilder1 const & fb);
+  MergedFeatureBuilder1 * operator() (feature::FeatureBuilder const & fb);
 };
 
 namespace feature
 {
   /// @return false If fb became invalid (no any suitable types).
   //@{
-  bool PreprocessForWorldMap(FeatureBuilder1 & fb);
-  bool PreprocessForCountryMap(FeatureBuilder1 & fb);
+  bool PreprocessForWorldMap(FeatureBuilder & fb);
+  bool PreprocessForCountryMap(FeatureBuilder & fb);
   //@}
 }

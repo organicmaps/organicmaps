@@ -18,7 +18,7 @@ namespace generator
 {
 namespace regions
 {
-using Point = FeatureBuilder1::PointSeq::value_type;
+using Point = feature::FeatureBuilder::PointSeq::value_type;
 using BoostPoint = boost::geometry::model::point<double, 2, boost::geometry::cs::cartesian>;
 using BoostPolygon = boost::geometry::model::polygon<BoostPoint>;
 using BoostRect = boost::geometry::model::box<BoostPoint>;

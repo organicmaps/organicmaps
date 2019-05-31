@@ -9,10 +9,10 @@ namespace generator
 class EmitterRestaurants : public EmitterInterface
 {
 public:
-  EmitterRestaurants(std::vector<FeatureBuilder1> & features);
+  EmitterRestaurants(std::vector<feature::FeatureBuilder> & features);
 
   // EmitterInterface overrides:
-  void Process(FeatureBuilder1 & fb) override;
+  void Process(feature::FeatureBuilder & fb) override;
   void GetNames(std::vector<std::string> & names) const override;
   bool Finish() override;
 
@@ -25,7 +25,7 @@ private:
     uint32_t m_unexpectedFeatures = 0;
   };
 
-  std::vector<FeatureBuilder1> & m_features;
+  std::vector<feature::FeatureBuilder> & m_features;
   Stats m_stats;
 };
 }  // namespace generator

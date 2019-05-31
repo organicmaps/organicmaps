@@ -20,10 +20,10 @@
 #include <utility>
 #include <vector>
 
-class FeatureBuilder1;
-
 namespace feature
 {
+class FeatureBuilder;
+
 class CalculateMidPoints
 {
 public:
@@ -33,7 +33,7 @@ public:
   CalculateMidPoints();
   CalculateMidPoints(MinDrawableScalePolicy const & minDrawableScalePolicy);
 
-  void operator()(FeatureBuilder1 const & ft, uint64_t pos);
+  void operator()(FeatureBuilder const & ft, uint64_t pos);
   bool operator()(m2::PointD const & p);
 
   m2::PointD GetCenter() const;

@@ -16,9 +16,11 @@
 #include <utility>
 #include <vector>
 
-class FeatureBuilder1;
 class FeatureType;
-
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 namespace osm
 {
 class Editor;
@@ -47,7 +49,7 @@ public:
 
   feature::Metadata & GetMetadata() { return m_metadata; }
 
-  virtual void Serialize(FeatureBuilder1 & fb) const;
+  virtual void Serialize(feature::FeatureBuilder & fb) const;
   virtual std::string ToDebugString() const = 0;
 
 protected:
@@ -83,7 +85,7 @@ public:
   TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 };
 
@@ -96,7 +98,7 @@ public:
            std::string const & lang, uint8_t rank);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -109,7 +111,7 @@ public:
   TestVillage(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -125,7 +127,7 @@ public:
   void SetHighwayType(std::string const & type) { m_highwayType = type; }
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -139,7 +141,7 @@ public:
   TestSquare(m2::RectD const & rect, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -157,7 +159,7 @@ public:
                                                      m2::PointD const & pt);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
   feature::TypesHolder GetTypes() const;
@@ -177,7 +179,7 @@ public:
   TestMultilingualPOI(m2::PointD const & center, std::string const & defaultName,
                       std::map<std::string, std::string> const & multilingualNames);
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -196,7 +198,7 @@ public:
                std::string const & lang);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
   void AddType(std::vector<std::string> const & path) { m_types.push_back(path); }
@@ -215,7 +217,7 @@ public:
   TestPark(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:
@@ -228,7 +230,7 @@ public:
   TestRoad(std::vector<m2::PointD> const & points, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override;
+  void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
 private:

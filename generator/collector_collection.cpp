@@ -4,6 +4,8 @@
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_element.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 void CollectorCollection::Collect(OsmElement const & element)
@@ -18,7 +20,7 @@ void CollectorCollection::CollectRelation(RelationElement const & element)
     c->CollectRelation(element);
 }
 
-void CollectorCollection::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
+void CollectorCollection::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
 {
   for (auto & c : m_collection)
     c->CollectFeature(feature, element);

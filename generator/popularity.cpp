@@ -19,11 +19,13 @@
 #include <limits>
 #include <memory>
 
+using namespace feature;
+
 namespace generator
 {
 namespace popularity
 {
-PopularityGeomPlace::PopularityGeomPlace(FeatureBuilder1 const & feature)
+PopularityGeomPlace::PopularityGeomPlace(FeatureBuilder const & feature)
   : m_id(feature.GetMostGenericOsmId())
   , m_feature(feature)
   , m_polygon(std::make_unique<BoostPolygon>())
@@ -55,10 +57,10 @@ PopularityBuilder::PopularityBuilder(std::string const & dataFilename)
 
 std::vector<PopularityLine> PopularityBuilder::Build() const
 {
-  std::vector<FeatureBuilder1> pointObjs;
-  std::vector<FeatureBuilder1> geomObjs;
+  std::vector<FeatureBuilder> pointObjs;
+  std::vector<FeatureBuilder> geomObjs;
   auto const & checker = ftypes::IsPopularityPlaceChecker::Instance();
-  feature::ForEachFromDatRawFormat(m_dataFilename, [&](FeatureBuilder1 const & fb, uint64_t /* currPos */) {
+  ForEachFromDatRawFormat(m_dataFilename, [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
     if (!checker(fb.GetTypesHolder()) || GetFeatureName(fb).empty())
       return;
 
@@ -80,7 +82,7 @@ std::vector<PopularityLine> PopularityBuilder::Build() const
 }
 
 // static
-std::string PopularityBuilder::GetType(FeatureBuilder1 const & feature)
+std::string PopularityBuilder::GetType(FeatureBuilder const & feature)
 {
   auto const & c = classif();
   auto const & checker = ftypes::IsPopularityPlaceChecker::Instance();
@@ -90,19 +92,19 @@ std::string PopularityBuilder::GetType(FeatureBuilder1 const & feature)
 }
 
 // static
-std::string PopularityBuilder::GetFeatureName(FeatureBuilder1 const & feature)
+std::string PopularityBuilder::GetFeatureName(FeatureBuilder const & feature)
 {
   auto const & str = feature.GetParams().name;
   auto const deviceLang = StringUtf8Multilang::GetLangIndex("ru");
   std::string result;
-  feature::GetReadableName({}, str, deviceLang, false /* allowTranslit */, result);
+  GetReadableName({}, str, deviceLang, false /* allowTranslit */, result);
   std::replace(std::begin(result), std::end(result), ';', ',');
   std::replace(std::begin(result), std::end(result), '\n', ',');
   return result;
 }
 
 // static
-void PopularityBuilder::FillLinesFromPointObjects(std::vector<FeatureBuilder1> const & pointObjs,
+void PopularityBuilder::FillLinesFromPointObjects(std::vector<FeatureBuilder> const & pointObjs,
                                                   MapIdToNode const & m, Tree4d const & tree,
                                                   std::vector<PopularityLine> & lines)
 {
@@ -246,11 +248,11 @@ void PopularityBuilder::LinkGeomPlaces(MapIdToNode const & m, Tree4d const & tre
 
 // static
 PopularityBuilder::Node::PtrList
-PopularityBuilder::MakeNodes(std::vector<FeatureBuilder1> const & features)
+PopularityBuilder::MakeNodes(std::vector<FeatureBuilder> const & features)
 {
   Node::PtrList nodes;
   nodes.reserve(features.size());
-  std::transform(std::begin(features), std::end(features), std::back_inserter(nodes), [](FeatureBuilder1 const & f) {
+  std::transform(std::begin(features), std::end(features), std::back_inserter(nodes), [](FeatureBuilder const & f) {
     return std::make_shared<Node>(PopularityGeomPlace(f));
   });
 

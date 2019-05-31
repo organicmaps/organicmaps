@@ -10,7 +10,7 @@ uint32_t GetPlaceType(FeatureParams const & params)
   return params.FindType(placeType, 1 /* level */);
 }
 
-uint32_t GetPlaceType(FeatureBuilder1 const & feature)
+uint32_t GetPlaceType(feature::FeatureBuilder const & feature)
 {
   return GetPlaceType(feature.GetParams());
 }

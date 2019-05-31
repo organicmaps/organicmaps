@@ -22,7 +22,7 @@ using PlacePointsMap = std::unordered_map<base::GeoObjectId, PlacePoint>;
 class PlacePoint : public RegionWithName, public RegionWithData
 {
 public:
-  explicit PlacePoint(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
+  explicit PlacePoint(feature::FeatureBuilder const & fb, RegionDataProxy const & rd)
     : RegionWithName(fb.GetParams().name),
       RegionWithData(rd)
   {

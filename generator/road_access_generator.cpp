@@ -28,6 +28,7 @@
 
 #include "boost/optional.hpp"
 
+using namespace feature;
 using namespace routing;
 using namespace std;
 
@@ -379,7 +380,7 @@ void RoadAccessWriter::Open(string const & filePath)
     LOG(LINFO, ("Cannot open file", filePath));
 }
 
-void RoadAccessWriter::CollectFeature(FeatureBuilder1 const &, OsmElement const & elem)
+void RoadAccessWriter::CollectFeature(FeatureBuilder const &, OsmElement const & elem)
 {
   if (!IsOpened())
   {

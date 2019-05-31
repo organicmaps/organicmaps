@@ -87,7 +87,7 @@ public:
     LOG_SHORT(LINFO, ("Load", total, "water geometries"));
   }
 
-  bool IsBoundaries(FeatureBuilder1 const & fb)
+  bool IsBoundaries(feature::FeatureBuilder const & fb)
   {
     ++m_totalFeatures;
 
@@ -106,14 +106,14 @@ public:
     Earth
   };
 
-  void ProcessBoundary(FeatureBuilder1 const & boundary, std::vector<FeatureBuilder1> & parts)
+  void ProcessBoundary(feature::FeatureBuilder const & boundary, std::vector<feature::FeatureBuilder> & parts)
   {
     auto const & line = boundary.GetGeometry().front();
 
     double constexpr kExtension = 0.01;
     ProcessState state = ProcessState::Initial;
 
-    FeatureBuilder1::PointSeq points;
+    feature::FeatureBuilder::PointSeq points;
 
     for (size_t i = 0; i < line.size(); ++i)
     {
@@ -223,7 +223,7 @@ class WorldMapGenerator
     }
 
     /// This function is called after merging linear features.
-    void operator()(FeatureBuilder1 const & fb) override
+    void operator()(feature::FeatureBuilder const & fb) override
     {
       // do additional check for suitable size of feature
       if (NeedPushToWorld(fb) &&
@@ -231,19 +231,19 @@ class WorldMapGenerator
         PushSure(fb);
     }
 
-    void CalcStatistics(FeatureBuilder1 const & fb)
+    void CalcStatistics(feature::FeatureBuilder const & fb)
     {
       for (uint32_t type : fb.GetTypes())
         ++m_mapTypes[type];
     }
 
-    bool NeedPushToWorld(FeatureBuilder1 const & fb) const
+    bool NeedPushToWorld(feature::FeatureBuilder const & fb) const
     {
       // GetMinFeatureDrawScale also checks suitable size for AREA features
       return (scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale());
     }
 
-    void PushSure(FeatureBuilder1 const & fb) { m_output.Collect(fb); }
+    void PushSure(feature::FeatureBuilder const & fb) { m_output.Collect(fb); }
   };
 
   EmitterImpl m_worldBucket;
@@ -277,7 +277,7 @@ public:
       LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
   }
 
-  void Process(FeatureBuilder1 & fb)
+  void Process(feature::FeatureBuilder & fb)
   {
     auto const isPopularAttraction = IsPopularAttraction(fb);
     auto const isInternationalAirport =
@@ -292,7 +292,7 @@ public:
     if (!m_boundaryChecker.IsBoundaries(fb))
     {
       // Save original feature iff we need to force push it before PushFeature(fb) modifies fb.
-      auto originalFeature = forcePushToWorld ? fb : FeatureBuilder1();
+      auto originalFeature = forcePushToWorld ? fb : feature::FeatureBuilder();
 
       if (PushFeature(fb) || !forcePushToWorld)
         return;
@@ -307,13 +307,13 @@ public:
       return;
     }
 
-    std::vector<FeatureBuilder1> boundaryParts;
+    std::vector<feature::FeatureBuilder> boundaryParts;
     m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
     for (auto & f : boundaryParts)
       PushFeature(f);
   }
 
-  bool PushFeature(FeatureBuilder1 & fb)
+  bool PushFeature(feature::FeatureBuilder & fb)
   {
     switch (fb.GetGeomType())
     {
@@ -348,7 +348,7 @@ public:
   void DoMerge() { m_merger.DoMerge(m_worldBucket); }
 
 private:
-  bool IsPopularAttraction(FeatureBuilder1 const & fb) const
+  bool IsPopularAttraction(feature::FeatureBuilder const & fb) const
   {
     if (fb.GetName().empty())
       return false;
@@ -384,7 +384,7 @@ class SimpleCountryMapGenerator
 public:
   SimpleCountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
 
-  void operator()(FeatureBuilder1 & fb)
+  void operator()(feature::FeatureBuilder & fb)
   {
       m_bucket(fb);
   }
@@ -402,7 +402,7 @@ public:
   CountryMapGenerator(feature::GenerateInfo const & info) :
     SimpleCountryMapGenerator<FeatureOut>(info) {}
 
-  void Process(FeatureBuilder1 fb)
+  void Process(feature::FeatureBuilder fb)
   {
     if (feature::PreprocessForCountryMap(fb))
       SimpleCountryMapGenerator<FeatureOut>::operator()(fb);

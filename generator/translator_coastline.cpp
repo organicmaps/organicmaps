@@ -14,6 +14,8 @@
 
 #include "defines.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace
@@ -21,7 +23,7 @@ namespace
 class CoastlineFilter : public FilterInterface
 {
 public:
-  bool IsAccepted(FeatureBuilder1 const & feature)
+  bool IsAccepted(FeatureBuilder const & feature)
   {
     auto const & checker = ftypes::IsCoastlineChecker::Instance();
     return checker(feature.GetTypes());

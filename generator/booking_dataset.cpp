@@ -13,6 +13,8 @@
 
 #include "boost/algorithm/string/replace.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 // BookingHotel ------------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ BookingHotel::BookingHotel(std::string const & src)
 
 // BookingDataset ----------------------------------------------------------------------------------
 template <>
-bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const
+bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder const & fb) const
 {
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
     return false;
@@ -55,17 +57,17 @@ bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb)
 }
 
 template <>
-void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
-                                                std::function<void(FeatureBuilder1 &)> const fn) const
+void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder & fb,
+                                                std::function<void(FeatureBuilder &)> const fn) const
 {
   // Turn a hotel into a simple building.
-  if (fb.GetGeomType() == feature::GeomType::Area)
+  if (fb.GetGeomType() == GeomType::Area)
   {
     // Remove all information about the hotel.
     auto & meta = fb.GetMetadata();
-    meta.Drop(feature::Metadata::EType::FMD_STARS);
-    meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
-    meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
+    meta.Drop(Metadata::EType::FMD_STARS);
+    meta.Drop(Metadata::EType::FMD_WEBSITE);
+    meta.Drop(Metadata::EType::FMD_PHONE_NUMBER);
 
     auto & params = fb.GetParams();
     params.ClearName();
@@ -83,18 +85,18 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
 
 template <>
 void BookingDataset::BuildObject(Object const & hotel,
-                                 std::function<void(FeatureBuilder1 &)> const & fn) const
+                                 std::function<void(FeatureBuilder &)> const & fn) const
 {
-  FeatureBuilder1 fb;
+  FeatureBuilder fb;
 
   fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.m_lat, hotel.m_latLon.m_lon));
 
   auto & metadata = fb.GetMetadata();
-  metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
-  metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.m_descUrl);
-  metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.m_ratingUser));
-  metadata.Set(feature::Metadata::FMD_STARS, strings::to_string(hotel.m_stars));
-  metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(hotel.m_priceCategory));
+  metadata.Set(Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
+  metadata.Set(Metadata::FMD_WEBSITE, hotel.m_descUrl);
+  metadata.Set(Metadata::FMD_RATING, strings::to_string(hotel.m_ratingUser));
+  metadata.Set(Metadata::FMD_STARS, strings::to_string(hotel.m_stars));
+  metadata.Set(Metadata::FMD_PRICE_RATE, strings::to_string(hotel.m_priceCategory));
 
   auto & params = fb.GetParams();
   // params.AddAddress(hotel.address);
@@ -179,7 +181,7 @@ void BookingDataset::BuildObject(Object const & hotel,
 }
 
 template <>
-BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const
+BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder const & fb) const
 {
   auto const name = fb.GetName(StringUtf8Multilang::kDefaultCode);
 

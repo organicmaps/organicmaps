@@ -16,12 +16,14 @@
 
 #include <limits>
 
+using namespace feature;
+
 using namespace generator::tests_support;
 using namespace tests;
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
 {
-  FeatureBuilder1 fb1;
+  FeatureBuilder fb1;
   FeatureParams params;
 
   char const * arr1[][1] = {
@@ -49,23 +51,23 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   fb1.SetCenter(m2::PointD(0, 0));
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  TEST(fb1.CheckValid(), ());
+  Check(fb1);
 
-  FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
-  fb1.Serialize(buffer);
+  FeatureBuilder::Buffer buffer;
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
+  fb1.SerializeForTmpMwm(buffer);
 
-  FeatureBuilder1 fb2;
-  fb2.Deserialize(buffer);
+  FeatureBuilder fb2;
+  fb2.DeserializeForTmpMwm(buffer);
 
-  TEST(fb2.CheckValid(), ());
+  Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 6, ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 {
-  FeatureBuilder1 fb1;
+  FeatureBuilder fb1;
   FeatureParams params;
 
   char const * arr2[][2] = {
@@ -85,23 +87,23 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  TEST(fb1.CheckValid(), ());
+  Check(fb1);
 
-  FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
-  fb1.Serialize(buffer);
+  FeatureBuilder::Buffer buffer;
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
+  fb1.SerializeForTmpMwm(buffer);
 
-  FeatureBuilder1 fb2;
-  fb2.Deserialize(buffer);
+  FeatureBuilder fb2;
+  fb2.DeserializeForTmpMwm(buffer);
 
-  TEST(fb2.CheckValid(), ());
+  Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 5, ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 {
-  FeatureBuilder1 fb1;
+  FeatureBuilder fb1;
   FeatureParams params;
 
   char const * arr[][2] = {{"waterway", "waterfall"}};
@@ -112,23 +114,23 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   fb1.SetCenter(m2::PointD(1, 1));
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  TEST(fb1.CheckValid(), ());
+  Check(fb1);
 
-  FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
-  fb1.Serialize(buffer);
+  FeatureBuilder::Buffer buffer;
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
+  fb1.SerializeForTmpMwm(buffer);
 
-  FeatureBuilder1 fb2;
-  fb2.Deserialize(buffer);
+  FeatureBuilder fb2;
+  fb2.DeserializeForTmpMwm(buffer);
 
-  TEST(fb2.CheckValid(), ());
+  Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 1, ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
 {
-  FeatureBuilder1 fb;
+  FeatureBuilder fb;
 
   fb.AddOsmId(base::MakeOsmNode(1));
   TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmNode(1), ());
@@ -152,7 +154,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
     types.push_back(c.GetTypeByPath({ "building" }));
     types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
-    TEST(feature::RemoveUselessTypes(types, feature::GeomType::Area), ());
+    TEST(RemoveUselessTypes(types, GeomType::Area), ());
     TEST_EQUAL(types.size(), 2, ());
   }
 
@@ -161,7 +163,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
     types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 
-    TEST(feature::RemoveUselessTypes(types, feature::GeomType::Area, true /* emptyName */), ());
+    TEST(RemoveUselessTypes(types, GeomType::Area, true /* emptyName */), ());
     TEST_EQUAL(types.size(), 1, ());
     TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
   }
@@ -180,7 +182,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   params.AddName("default", "Name");
   params.AddName("ru", "Имя");
 
-  FeatureBuilder1 fb1;
+  FeatureBuilder fb1;
   fb1.SetParams(params);
 
   fb1.AddPoint(m2::PointD(0, 0));
@@ -195,7 +197,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.GetName(0).empty(), ());
   TEST(fb1.GetName(8).empty(), ());
 
-  TEST(fb1.CheckValid(), ());
+  Check(fb1);
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)

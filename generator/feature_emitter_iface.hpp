@@ -1,10 +1,13 @@
 #pragma once
 
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 class FeatureEmitterIFace
 {
 public:
   virtual ~FeatureEmitterIFace() {}
-  virtual void operator() (FeatureBuilder1 const &) = 0;
+  virtual void operator() (feature::FeatureBuilder const &) = 0;
 };

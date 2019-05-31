@@ -20,7 +20,7 @@ CalculateMidPoints::CalculateMidPoints(MinDrawableScalePolicy const & minDrawabl
   : m_minDrawableScalePolicy{minDrawableScalePolicy}
 { }
 
-void CalculateMidPoints::operator()(FeatureBuilder1 const & ft, uint64_t pos)
+void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)
 {
   // Reset state.
   m_midLoc = m2::PointD::Zero();;

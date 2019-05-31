@@ -9,6 +9,8 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace streets
@@ -19,20 +21,20 @@ StreetsBuilder::StreetsBuilder(regions::RegionInfoGetter const & regionInfoGette
 
 void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
 {
-  auto const transform = [this](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+  auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) {
     AddStreet(fb);
   };
-  feature::ForEachFromDatRawFormat(pathInStreetsTmpMwm, transform);
+  ForEachFromDatRawFormat(pathInStreetsTmpMwm, transform);
 }
 
 void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm)
 {
-  auto const transform = [this](FeatureBuilder1 & fb, uint64_t /* currPos */) {
+  auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) {
     auto streetName = fb.GetParams().GetStreet();
     if (!streetName.empty())
       AddStreetBinding(std::move(streetName), fb);
   };
-  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, transform);
+  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, transform);
 }
 
 void StreetsBuilder::SaveStreetsKv(std::ostream & streamStreetsKv)
@@ -60,7 +62,7 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
   }
 }
 
-void StreetsBuilder::AddStreet(FeatureBuilder1 & fb)
+void StreetsBuilder::AddStreet(FeatureBuilder & fb)
 {
   auto const region = FindStreetRegionOwner(fb);
   if (!region)
@@ -69,7 +71,7 @@ void StreetsBuilder::AddStreet(FeatureBuilder1 & fb)
   InsertStreet(*region, fb.GetName(), fb.GetMostGenericOsmId());
 }
 
-void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder1 & fb)
+void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb)
 {
   auto const region = FindStreetRegionOwner(fb.GetKeyPoint());
   if (!region)
@@ -78,7 +80,7 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder1
   InsertSurrogateStreet(*region, std::move(streetName));
 }
 
-boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder1 & fb)
+boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder & fb)
 {
   if (fb.IsPoint())
     return FindStreetRegionOwner(fb.GetKeyPoint());
@@ -177,7 +179,7 @@ bool StreetsBuilder::IsStreet(OsmElement const & element)
 }
 
 // static
-bool StreetsBuilder::IsStreet(FeatureBuilder1 const & fb)
+bool StreetsBuilder::IsStreet(FeatureBuilder const & fb)
 {
   if (fb.GetName().empty())
     return false;

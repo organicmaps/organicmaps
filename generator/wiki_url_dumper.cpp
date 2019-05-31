@@ -14,6 +14,8 @@
 #include <sstream>
 #include <utility>
 
+using namespace feature;
+
 namespace generator
 {
 WikiUrlDumper::WikiUrlDumper(std::string const & path, std::vector<std::string> const & dataFiles)
@@ -54,7 +56,7 @@ void WikiUrlDumper::Dump(size_t cpuCount) const
 void WikiUrlDumper::DumpOne(std::string const & path, std::ostream & stream)
 {
   auto const & needWikiUrl = ftypes::WikiChecker::Instance();
-  feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder1 const & feature, uint64_t /* pos */) {
+  feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder const & feature, uint64_t /* pos */) {
     if (!needWikiUrl(feature.GetTypesHolder()))
       return;
 
@@ -87,7 +89,7 @@ void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjec
                                std::ostream & stream)
 {
   auto const & needWikiUrl = ftypes::WikiChecker::Instance();
-  feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder1 const & feature, uint64_t /* pos */) {
+  feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder const & feature, uint64_t /* pos */) {
     if (!needWikiUrl(feature.GetTypesHolder()))
       return;
 

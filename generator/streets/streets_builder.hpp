@@ -33,7 +33,7 @@ public:
   void SaveStreetsKv(std::ostream & streamStreetsKv);
 
   static bool IsStreet(OsmElement const & element);
-  static bool IsStreet(FeatureBuilder1 const & fb);
+  static bool IsStreet(feature::FeatureBuilder const & fb);
 
 private:
   using RegionStreets = std::unordered_map<std::string, base::GeoObjectId>;
@@ -41,9 +41,9 @@ private:
   void SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
                            RegionStreets const & streets);
 
-  void AddStreet(FeatureBuilder1 & fb);
-  void AddStreetBinding(std::string && streetName, FeatureBuilder1 & fb);
-  boost::optional<KeyValue> FindStreetRegionOwner(FeatureBuilder1 & fb);
+  void AddStreet(feature::FeatureBuilder & fb);
+  void AddStreetBinding(std::string && streetName, feature::FeatureBuilder & fb);
+  boost::optional<KeyValue> FindStreetRegionOwner(feature::FeatureBuilder & fb);
   boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point);
   bool InsertStreet(KeyValue const & region, std::string && streetName, base::GeoObjectId id);
   bool InsertSurrogateStreet(KeyValue const & region, std::string && streetName);

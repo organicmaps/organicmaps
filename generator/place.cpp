@@ -5,9 +5,11 @@
 
 #include "geometry/mercator.hpp"
 
+using namespace feature;
+
 namespace generator
 {
-Place::Place(FeatureBuilder1 const & ft, uint32_t type, bool saveParams) :
+Place::Place(FeatureBuilder const & ft, uint32_t type, bool saveParams) :
   m_ft(ft),
   m_pt(ft.GetKeyPoint()),
   m_type(type)

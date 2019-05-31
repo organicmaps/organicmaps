@@ -3,14 +3,16 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "generator/feature_builder.hpp"
 
+using namespace feature;
+
 namespace generator
 {
-EmitterRestaurants::EmitterRestaurants(std::vector<FeatureBuilder1> & features)
+EmitterRestaurants::EmitterRestaurants(std::vector<FeatureBuilder> & features)
   : m_features(features)
 {
 }
 
-void EmitterRestaurants::Process(FeatureBuilder1 & fb)
+void EmitterRestaurants::Process(FeatureBuilder & fb)
 {
   if (!ftypes::IsEatChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
   {

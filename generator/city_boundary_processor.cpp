@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 namespace
@@ -32,9 +34,9 @@ void CityBoundaryProcessor::UnionEqualPlacesIds(Place const & place)
   });
 }
 
-std::vector<FeatureBuilder1> CityBoundaryProcessor::GetFeatures() const
+std::vector<FeatureBuilder> CityBoundaryProcessor::GetFeatures() const
 {
-  std::vector<FeatureBuilder1> result;
+  std::vector<FeatureBuilder> result;
   m_places.ForEach([&result](Place const & p) {
     result.emplace_back(p.GetFeature());
   });
@@ -42,7 +44,7 @@ std::vector<FeatureBuilder1> CityBoundaryProcessor::GetFeatures() const
   return result;
 }
 
-void CityBoundaryProcessor::Add(FeatureBuilder1 const & fb)
+void CityBoundaryProcessor::Add(FeatureBuilder const & fb)
 {
   auto const type = GetPlaceType(fb);
   if (type == ftype::GetEmptyValue())
@@ -53,7 +55,7 @@ void CityBoundaryProcessor::Add(FeatureBuilder1 const & fb)
   UnionEqualPlacesIds(Place(fb, type, false /* saveParams */));
 }
 
-void CityBoundaryProcessor::Replace(FeatureBuilder1 const & fb)
+void CityBoundaryProcessor::Replace(FeatureBuilder const & fb)
 {
   auto const type = GetPlaceType(fb);
   Place const place(fb, type);

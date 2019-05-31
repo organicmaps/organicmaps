@@ -26,11 +26,13 @@
 DEFINE_string(osm, "", "Input .o5m file");
 DEFINE_string(out, "", "Output file path");
 
+using namespace feature;
+
 namespace
 {
-feature::GenerateInfo GetGenerateInfo()
+GenerateInfo GetGenerateInfo()
 {
-  feature::GenerateInfo info;
+  GenerateInfo info;
   info.m_osmFileName = FLAGS_osm;
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
@@ -42,7 +44,7 @@ feature::GenerateInfo GetGenerateInfo()
   return info;
 }
 
-void DumpRestaurants(std::vector<FeatureBuilder1> const & features, std::ostream & out)
+void DumpRestaurants(std::vector<FeatureBuilder> const & features, std::ostream & out)
 {
   for (auto const & f : features)
   {
@@ -88,7 +90,7 @@ int main(int argc, char * argv[])
   generator::GenerateIntermediateData(info);
 
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
-  std::vector<FeatureBuilder1> features;
+  std::vector<FeatureBuilder> features;
   generator::CacheLoader cacheLoader(info);
   generator::TranslatorCollection translators;
   auto emitter = generator::CreateEmitter(generator::EmitterType::Restaurants, features);

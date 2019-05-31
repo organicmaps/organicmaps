@@ -12,6 +12,8 @@
 #include <set>
 #include <string>
 
+using namespace feature;
+
 namespace generator
 {
 namespace
@@ -34,7 +36,7 @@ public:
     return false;
   }
 
-  bool IsAccepted(FeatureBuilder1 const & feature) override
+  bool IsAccepted(FeatureBuilder const & feature) override
   {
     return feature.GetParams().IsValid() && !feature.IsLine();
   }
@@ -42,7 +44,7 @@ public:
 }  // namespace
 
 TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
-                                   feature::GenerateInfo const & info)
+                                   GenerateInfo const & info)
   : Translator(emitter, cache, std::make_shared<FeatureMakerSimple>(cache))
 
 {

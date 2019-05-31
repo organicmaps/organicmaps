@@ -45,7 +45,7 @@ public:
     Finish();
   }
 
-  void operator()(FeatureBuilder1 & fb)
+  void operator()(FeatureBuilder & fb)
   {
     m_countries.ForEachInRect(fb.GetLimitRect(), [&](auto const & countryPolygons) {
       auto const need = fb.ForAnyGeometryPoint([&](auto const & point) {
@@ -69,7 +69,7 @@ public:
   {
   }
 
-  void EmitFeature(borders::CountryPolygons const & countryPolygons, FeatureBuilder1 const & fb)
+  void EmitFeature(borders::CountryPolygons const & countryPolygons, FeatureBuilder const & fb)
   {
     if (countryPolygons.m_index == -1)
     {

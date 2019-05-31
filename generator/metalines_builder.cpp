@@ -140,7 +140,7 @@ public:
 };
 
 // MetalinesBuilder --------------------------------------------------------------------------------
-void MetalinesBuilder::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
+void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
 {
   if (!feature.IsLine())
     return;

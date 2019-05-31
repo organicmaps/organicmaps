@@ -19,7 +19,7 @@ void FillBoostGeometry(BoostGeometry & geometry, FbGeometry const & fbGeometry)
 }
 
 template <typename BoostPolygon>
-void FillPolygon(BoostPolygon & polygon, FeatureBuilder1 const & fb)
+void FillPolygon(BoostPolygon & polygon, feature::FeatureBuilder const & fb)
 {
   using BoostPoint = typename BoostPolygon::point_type;
   auto const & fbGeometry = fb.GetGeometry();

@@ -7,6 +7,8 @@
 
 #include "base/assert.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
@@ -35,7 +37,7 @@ void Translator::Emit(OsmElement & element)
   m_tagsEnricher(element);
   m_collectors.Collect(element);
   m_featureMaker->Add(element);
-  FeatureBuilder1 feature;
+  FeatureBuilder feature;
   while (m_featureMaker->GetNextFeature(feature))
   {
     if (!m_filters.IsAccepted(feature))

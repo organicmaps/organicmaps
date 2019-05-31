@@ -16,7 +16,7 @@ public:
   CollectorAddresses(std::string const & filename);
 
   // CollectorInterface overrides:
-  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const &) override;
+  void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Save() override {}
 
 private:

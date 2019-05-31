@@ -7,7 +7,10 @@
 #include <functional>
 #include <string>
 
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -25,24 +28,24 @@ public:
 
   /// @return true if |fb| satisfies some necessary conditions to match one or serveral
   /// objects from dataset.
-  bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const;
-  ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const;
+  bool NecessaryMatchingConditionHolds(feature::FeatureBuilder const & fb) const;
+  ObjectId FindMatchingObjectId(feature::FeatureBuilder const & e) const;
 
   // Applies changes to a given osm object (for example, remove hotel type)
   // and passes the result to |fn|.
-  void PreprocessMatchedOsmObject(ObjectId matchedObjId, FeatureBuilder1 & fb,
-                                  std::function<void(FeatureBuilder1 &)> const fn) const;
+  void PreprocessMatchedOsmObject(ObjectId matchedObjId, feature::FeatureBuilder & fb,
+                                  std::function<void(feature::FeatureBuilder &)> const fn) const;
   // Creates objects and adds them to the map (MWM) via |fn|.
-  void BuildOsmObjects(std::function<void(FeatureBuilder1 &)> const & fn) const;
+  void BuildOsmObjects(std::function<void(feature::FeatureBuilder &)> const & fn) const;
 
   SponsoredObjectStorage<Object> const & GetStorage() const { return m_storage; }
 
 private:
   void BuildObject(Object const & object,
-                   std::function<void(FeatureBuilder1 &)> const & fn) const;
+                   std::function<void(feature::FeatureBuilder &)> const & fn) const;
 
   /// @return an id of a matched object or kInvalidObjectId on failure.
-  ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const;
+  ObjectId FindMatchingObjectIdImpl(feature::FeatureBuilder const & fb) const;
 
   SponsoredObjectStorage<Object> m_storage;
 };

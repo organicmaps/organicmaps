@@ -7,7 +7,11 @@
 
 struct OsmElement;
 class RelationElement;
-class FeatureBuilder1;
+
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -18,7 +22,7 @@ public:
   // CollectorInterface overrides:
   void Collect(OsmElement const & element) override;
   void CollectRelation(RelationElement const & element) override;
-  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element) override;
+  void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 };
 }  // namespace generator

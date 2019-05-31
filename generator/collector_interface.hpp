@@ -3,8 +3,11 @@
 #include <string>
 
 struct OsmElement;
-class FeatureBuilder1;
 class RelationElement;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 namespace base
 {
 class GeoObjectId;
@@ -21,7 +24,7 @@ public:
 
   virtual void Collect(OsmElement const &) {}
   virtual void CollectRelation(RelationElement const &) {}
-  virtual void CollectFeature(FeatureBuilder1 const &, OsmElement const &) {}
+  virtual void CollectFeature(feature::FeatureBuilder const &, OsmElement const &) {}
   virtual void Save() = 0;
 };
 }  // namespace generator

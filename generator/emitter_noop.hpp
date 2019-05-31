@@ -5,8 +5,12 @@
 #include <string>
 #include <vector>
 
-class FeatureBuilder1;
 class FeatureParams;
+
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -14,7 +18,7 @@ class EmitterNoop : public EmitterInterface
 {
 public:
   // EmitterInterface overrides:
-  void Process(FeatureBuilder1 &) override  {}
+  void Process(feature::FeatureBuilder &) override  {}
   bool Finish() override { return true; }
   void GetNames(std::vector<std::string> &) const override {}
 };

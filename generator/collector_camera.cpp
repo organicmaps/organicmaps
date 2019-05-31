@@ -21,6 +21,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+using namespace feature;
+
 namespace routing
 {
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
@@ -76,7 +78,7 @@ void CameraProcessor::ProcessNode(OsmElement const & element)
 CameraCollector::CameraCollector(std::string const & writerFile) :
   m_fileWriter(writerFile) {}
 
-void CameraCollector::CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element)
+void CameraCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
 {
   switch (element.m_type)
   {

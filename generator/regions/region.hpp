@@ -5,7 +5,10 @@
 
 #include <memory>
 
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -20,7 +23,7 @@ class PlacePoint;
 class Region : public RegionWithName, public RegionWithData
 {
 public:
-  explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
+  explicit Region(feature::FeatureBuilder const & fb, RegionDataProxy const & rd);
   // Build a region and its boundary based on the heuristic.
   explicit Region(PlacePoint const & place);
 
@@ -41,13 +44,13 @@ public:
   static double GetRadiusByPlaceType(PlaceType place);
 
 private:
-  void FillPolygon(FeatureBuilder1 const & fb);
+  void FillPolygon(feature::FeatureBuilder const & fb);
 
   std::shared_ptr<BoostPolygon> m_polygon;
   BoostRect m_rect;
   double m_area;
 };
 
-bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder1 & feature);
+bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, feature::FeatureBuilder & feature);
 }  // namespace regions
 }  // namespace generator

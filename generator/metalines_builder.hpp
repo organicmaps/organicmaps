@@ -21,7 +21,7 @@ public:
 
   // CollectorInterface overrides:
   /// Add a highway segment to the collection of metalines.
-  void CollectFeature(FeatureBuilder1 const & feature, OsmElement const & element) override;
+  void CollectFeature(FeatureBuilder const & feature, OsmElement const & element) override;
 
   void Save() override;
 

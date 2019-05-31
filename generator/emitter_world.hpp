@@ -6,10 +6,9 @@
 #include <string>
 #include <vector>
 
-class FeatureBuilder1;
-
 namespace feature
 {
+class FeatureBuilder;
 struct GenerateInfo;
 }  // namespace feature
 
@@ -26,7 +25,7 @@ public:
   explicit EmitterWorld(feature::GenerateInfo const & info);
 
   // EmitterInterface overrides:
-  void Process(FeatureBuilder1 & feature) override;
+  void Process(feature::FeatureBuilder & feature) override;
   bool Finish() override;
   void GetNames(std::vector<std::string> & names) const override;
 

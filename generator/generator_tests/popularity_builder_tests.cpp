@@ -23,6 +23,7 @@
 
 using namespace generator;
 using namespace generator::popularity;
+using namespace feature;
 
 namespace generator_tests
 {
@@ -38,7 +39,7 @@ public:
   void GetType() const
   {
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       auto const type = m_cl.GetTypeByPath({"tourism", "museum"});
       auto const checkableType =  m_cl.GetReadableObjectName(type);
       fb.AddType(m_cl.GetTypeByPath({"building"}));
@@ -47,13 +48,13 @@ public:
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       fb.AddType(m_cl.GetTypeByPath({"building"}));
       TEST_EQUAL(PopularityBuilder::GetType(fb), "", ());
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       TEST_EQUAL(PopularityBuilder::GetType(fb), "", ());
     }
   }
@@ -61,7 +62,7 @@ public:
   static void GetFeatureName()
   {
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       std::string checkableName = "Фича";
       fb.AddName("ru", checkableName);
       fb.AddName("en", "Feature");
@@ -69,7 +70,7 @@ public:
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       std::string checkableName = "Feature";
       fb.AddName("en", checkableName);
       fb.AddName("default", "Fonctionnalité");
@@ -77,20 +78,20 @@ public:
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       std::string checkableName = "Fonctionnalité";
       fb.AddName("default", checkableName);
       TEST_EQUAL(PopularityBuilder::GetFeatureName(fb), checkableName, ());
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       fb.AddName("fr", "Fonctionnalité");
       TEST_EQUAL(PopularityBuilder::GetFeatureName(fb), "", ());
     }
 
     {
-      FeatureBuilder1 fb;
+      FeatureBuilder fb;
       TEST_EQUAL(PopularityBuilder::GetFeatureName(fb), "", ());
     }
   }
@@ -98,7 +99,7 @@ public:
   void FindPointParent() const
   {
     auto const filtered = FilterPoint(m_testSet);
-    std::map<std::string, FeatureBuilder1> pointMap;
+    std::map<std::string, FeatureBuilder> pointMap;
     for (auto const & f : filtered)
       pointMap.emplace(f.GetName(), f);
 
@@ -226,7 +227,7 @@ public:
 
   void MakeNodes()
   {
-    std::vector<FeatureBuilder1> v = FilterArea(m_testSet);
+    std::vector<FeatureBuilder> v = FilterArea(m_testSet);
     auto const nodes = PopularityBuilder::MakeNodes(v);
     TEST_EQUAL(nodes.size(), v.size(), ());
     for (size_t i = 0; i < v.size(); ++i)
@@ -240,7 +241,7 @@ public:
     auto const typeName = m_cl.GetReadableObjectName(type);
 
     {
-      feature::FeaturesCollector collector(filename);
+      FeaturesCollector collector(filename);
       for (auto const & feature : m_testSet)
         collector.Collect(feature);
     }
@@ -278,13 +279,13 @@ public:
   }
 
 private:
-  static std::vector<FeatureBuilder1> GetTestSet()
+  static std::vector<FeatureBuilder> GetTestSet()
   {
-    std::vector<FeatureBuilder1> v;
+    std::vector<FeatureBuilder> v;
     v.reserve(5);
 
     {
-      FeatureBuilder1 feature;
+      FeatureBuilder feature;
       feature.AddOsmId(base::GeoObjectId(1));
       auto const firstLast = m2::PointD{0.0, 0.0};
       feature.AddPoint(firstLast);
@@ -299,7 +300,7 @@ private:
     }
 
     {
-      FeatureBuilder1 feature;
+      FeatureBuilder feature;
       feature.AddOsmId(base::GeoObjectId(2));
       auto const firstLast = m2::PointD{2.0, 3.0};
       feature.AddPoint(firstLast);
@@ -314,7 +315,7 @@ private:
     }
 
     {
-      FeatureBuilder1 feature;
+      FeatureBuilder feature;
       feature.AddOsmId(base::GeoObjectId(3));
       auto const firstLast = m2::PointD{6.0, 0.0};
       feature.AddPoint(firstLast);
@@ -329,7 +330,7 @@ private:
     }
 
     {
-      FeatureBuilder1 feature;
+      FeatureBuilder feature;
       feature.AddOsmId(base::GeoObjectId(4));
       feature.SetCenter(m2::PointD{8.0, 2.0});
       feature.AddName("default", "1_3_4");
@@ -338,7 +339,7 @@ private:
     }
 
     {
-      FeatureBuilder1 feature;
+      FeatureBuilder feature;
       feature.AddOsmId(base::GeoObjectId(5));
       feature.SetCenter(m2::PointD{7.0, 2.0});
       feature.AddName("default", "1_3_5");
@@ -349,9 +350,9 @@ private:
     return v;
   }
 
-  static std::vector<FeatureBuilder1> FilterArea(std::vector<FeatureBuilder1> const & v)
+  static std::vector<FeatureBuilder> FilterArea(std::vector<FeatureBuilder> const & v)
   {
-    std::vector<FeatureBuilder1> filtered;
+    std::vector<FeatureBuilder> filtered;
     std::copy_if(std::begin(v), std::end(v), std::back_inserter(filtered), [](auto const & feature) {
       return feature.IsArea() && feature.IsGeometryClosed();
     });
@@ -359,9 +360,9 @@ private:
     return filtered;
   }
 
-  static std::vector<FeatureBuilder1> FilterPoint(std::vector<FeatureBuilder1> const & v)
+  static std::vector<FeatureBuilder> FilterPoint(std::vector<FeatureBuilder> const & v)
   {
-    std::vector<FeatureBuilder1> filtered;
+    std::vector<FeatureBuilder> filtered;
     std::copy_if(std::begin(v), std::end(v), std::back_inserter(filtered), [](auto const & feature) {
       return feature.IsPoint();
     });
@@ -379,18 +380,18 @@ private:
     return nameToNode;
   }
 
-  static PopularityBuilder::Node::PtrList MakePopularityGeomPlaces(std::vector<FeatureBuilder1> const & v)
+  static PopularityBuilder::Node::PtrList MakePopularityGeomPlaces(std::vector<FeatureBuilder> const & v)
   {
     PopularityBuilder::Node::PtrList nodes;
     nodes.reserve(v.size());
-    std::transform(std::begin(v), std::end(v), std::back_inserter(nodes), [](FeatureBuilder1 const & f) {
+    std::transform(std::begin(v), std::end(v), std::back_inserter(nodes), [](FeatureBuilder const & f) {
       return std::make_shared<PopularityBuilder::Node>(PopularityGeomPlace(f));
     });
 
     return nodes;
   }
 
-  static std::vector<FeatureBuilder1> AddTypes(std::vector<FeatureBuilder1> v, std::vector<uint32_t> const & types)
+  static std::vector<FeatureBuilder> AddTypes(std::vector<FeatureBuilder> v, std::vector<uint32_t> const & types)
   {
     for (auto & feature : v)
     {
@@ -402,7 +403,7 @@ private:
   }
 
   Classificator const & m_cl = classif();
-  std::vector<FeatureBuilder1> m_testSet;
+  std::vector<FeatureBuilder> m_testSet;
 };
 }  // namespace generator_tests
 

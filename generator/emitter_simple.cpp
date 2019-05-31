@@ -4,6 +4,8 @@
 
 #include "base/macros.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 EmitterSimple::EmitterSimple(feature::GenerateInfo const & info) :
@@ -14,7 +16,7 @@ void EmitterSimple::GetNames(std::vector<std::string> & names) const
   names = m_regionGenerator->Parent().GetNames();
 }
 
-void EmitterSimple::Process(FeatureBuilder1 & fb)
+void EmitterSimple::Process(FeatureBuilder & fb)
 {
   auto & polygonizer = m_regionGenerator->Parent();
   // Emit each feature independently: clear current country names (see Polygonizer::GetCurrentNames()).
@@ -23,7 +25,7 @@ void EmitterSimple::Process(FeatureBuilder1 & fb)
   polygonizer.Finish();
 }
 
-void EmitterPreserialize::Process(FeatureBuilder1 & fb)
+void EmitterPreserialize::Process(FeatureBuilder & fb)
 {
   UNUSED_VALUE(fb.PreSerialize());
   EmitterSimple::Process(fb);

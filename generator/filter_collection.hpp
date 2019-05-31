@@ -6,7 +6,11 @@
 #include <memory>
 
 struct OsmElement;
-class FeatureBuilder1;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
+
 namespace generator
 {
 // This class allows you to work with a group of filters as with one.
@@ -15,6 +19,6 @@ class FilterCollection : public CollectionBase<std::shared_ptr<FilterInterface>>
 public:
   // FilterInterface overrides:
   bool IsAccepted(OsmElement const & element) override;
-  bool IsAccepted(FeatureBuilder1 const & feature) override;
+  bool IsAccepted(feature::FeatureBuilder const & feature) override;
 };
 }  // namespace generator

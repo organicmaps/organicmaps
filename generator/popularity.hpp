@@ -48,11 +48,11 @@ void BuildPopularitySrcFromAllData(std::vector<std::string> const & dataFilename
 class PopularityGeomPlace
 {
 public:
-  explicit PopularityGeomPlace(FeatureBuilder1 const & feature);
+  explicit PopularityGeomPlace(feature::FeatureBuilder const & feature);
 
   bool Contains(PopularityGeomPlace const & smaller) const;
   bool Contains(m2::PointD const & point) const;
-  FeatureBuilder1 const & GetFeature() const { return m_feature; }
+  feature::FeatureBuilder const & GetFeature() const { return m_feature; }
   void DeletePolygon() { m_polygon = nullptr; }
   double GetArea() const { return m_area; }
   base::GeoObjectId GetId() const { return m_id; }
@@ -62,7 +62,7 @@ private:
   using BoostPolygon = boost::geometry::model::polygon<BoostPoint>;
 
   base::GeoObjectId m_id;
-  std::reference_wrapper<FeatureBuilder1 const> m_feature;
+  std::reference_wrapper<feature::FeatureBuilder const> m_feature;
   std::unique_ptr<BoostPolygon> m_polygon;
   double m_area;
 };
@@ -90,9 +90,9 @@ private:
   using Tree4d = m4::Tree<base::GeoObjectId>;
   using MapIdToNode = std::unordered_map<base::GeoObjectId, Node::Ptr>;
 
-  static std::string GetType(FeatureBuilder1 const & feature);
-  static std::string GetFeatureName(FeatureBuilder1 const & feature);
-  static void FillLinesFromPointObjects(std::vector<FeatureBuilder1> const & pointObjs, MapIdToNode const & m,
+  static std::string GetType(feature::FeatureBuilder const & feature);
+  static std::string GetFeatureName(feature::FeatureBuilder const & feature);
+  static void FillLinesFromPointObjects(std::vector<feature::FeatureBuilder> const & pointObjs, MapIdToNode const & m,
                                         Tree4d const & tree, std::vector<PopularityLine> & lines);
   static boost::optional<base::GeoObjectId>
   FindPointParent(m2::PointD const & point, MapIdToNode const & m, Tree4d const & tree);
@@ -105,7 +105,7 @@ private:
   static void FillLinesFromGeomObjectPtrs(Node::PtrList const & nodes,
                                           std::vector<PopularityLine> & lines);
   static void LinkGeomPlaces(MapIdToNode const & m, Tree4d const & tree, Node::PtrList & nodes);
-  static Node::PtrList MakeNodes(std::vector<FeatureBuilder1> const & features);
+  static Node::PtrList MakeNodes(std::vector<feature::FeatureBuilder> const & features);
 
   std::string m_dataFilename;
 };

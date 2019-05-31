@@ -112,7 +112,7 @@ public:
   CollectorRegionInfo(std::string const & filename);
 
   // CollectorInterface overrides:
-  void CollectFeature(FeatureBuilder1 const &, OsmElement const & el) override;
+  void CollectFeature(feature::FeatureBuilder const &, OsmElement const & el) override;
   void Save() override;
 
 private:

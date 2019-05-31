@@ -79,7 +79,7 @@ void FeaturesCollector::Write(char const * src, size_t size)
   } while (size > 0);
 }
 
-uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder const & fb)
 {
   size_t const sz = bytes.size();
   CHECK(sz != 0, ("Empty feature not allowed here!"));
@@ -92,10 +92,10 @@ uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, Fe
   return m_featureID++;
 }
 
-uint32_t FeaturesCollector::Collect(FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::Collect(FeatureBuilder const & fb)
 {
-  FeatureBuilder1::Buffer bytes;
-  fb.Serialize(bytes);
+  FeatureBuilder::Buffer bytes;
+  fb.SerializeForTmpMwm(bytes);
   uint32_t const featureId = WriteFeatureBase(bytes, fb);
   CHECK_LESS(0, m_featureID, ());
   return featureId;
@@ -112,10 +112,10 @@ FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
   LOG(LINFO, ("Write", m_rawGeometryCounter, "geometries into", m_rawGeometryFileStream.GetName()));
 }
 
-uint32_t FeaturesAndRawGeometryCollector::Collect(FeatureBuilder1 const & fb)
+uint32_t FeaturesAndRawGeometryCollector::Collect(FeatureBuilder const & fb)
 {
   uint32_t const featureId = FeaturesCollector::Collect(fb);
-  FeatureBuilder1::Geometry const & geom = fb.GetGeometry();
+  FeatureBuilder::Geometry const & geom = fb.GetGeometry();
   if (geom.empty())
     return featureId;
 
@@ -123,12 +123,12 @@ uint32_t FeaturesAndRawGeometryCollector::Collect(FeatureBuilder1 const & fb)
 
   uint64_t numGeometries = geom.size();
   m_rawGeometryFileStream.Write(&numGeometries, sizeof(numGeometries));
-  for (FeatureBuilder1::PointSeq const & points : geom)
+  for (FeatureBuilder::PointSeq const & points : geom)
   {
     uint64_t numPoints = points.size();
     m_rawGeometryFileStream.Write(&numPoints, sizeof(numPoints));
     m_rawGeometryFileStream.Write(points.data(),
-                                  sizeof(FeatureBuilder1::PointSeq::value_type) * points.size());
+                                  sizeof(FeatureBuilder::PointSeq::value_type) * points.size());
   }
   return featureId;
 }

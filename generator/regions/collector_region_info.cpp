@@ -11,6 +11,8 @@
 
 #include <map>
 
+using namespace feature;
+
 namespace generator
 {
 namespace regions
@@ -60,7 +62,7 @@ char const * GetLabel(PlaceLevel level)
 
 CollectorRegionInfo::CollectorRegionInfo(std::string const & filename) : m_filename(filename) {}
 
-void CollectorRegionInfo::CollectFeature(const FeatureBuilder1 &, OsmElement const & el)
+void CollectorRegionInfo::CollectFeature(const FeatureBuilder &, OsmElement const & el)
 {
   base::GeoObjectId const osmId = GetGeoObjectId(el);
   RegionData regionData;

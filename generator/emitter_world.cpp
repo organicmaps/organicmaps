@@ -8,6 +8,8 @@
 
 #include "defines.hpp"
 
+using namespace feature;
+
 namespace generator
 {
 EmitterWorld::EmitterWorld(feature::GenerateInfo const & info)
@@ -24,7 +26,7 @@ EmitterWorld::EmitterWorld(feature::GenerateInfo const & info)
   m_processingChain->Add(std::make_shared<WorldAreaLayer>(m_worldMapper));
 }
 
-void EmitterWorld::Process(FeatureBuilder1 & feature)
+void EmitterWorld::Process(FeatureBuilder & feature)
 {
   m_processingChain->Handle(feature);
 }

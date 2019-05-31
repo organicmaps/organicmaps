@@ -13,13 +13,12 @@
 namespace feature
 {
 class FeaturesCollector;
+class FeatureBuilder;
 }
 namespace platform
 {
 class LocalCountryFile;
 }
-class FeatureBuilder1;
-
 namespace generator
 {
 namespace tests_support
@@ -35,7 +34,7 @@ public:
   ~TestMwmBuilder();
 
   void Add(TestFeature const & feature);
-  bool Add(FeatureBuilder1 & fb);
+  bool Add(feature::FeatureBuilder & fb);
   void SetMwmLanguages(std::vector<std::string> const & languages);
 
   void Finish();

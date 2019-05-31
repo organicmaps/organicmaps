@@ -23,6 +23,7 @@
 #include <sstream>
 
 using namespace std;
+using namespace feature;
 
 namespace generator
 {
@@ -77,18 +78,18 @@ TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & nam
 
 void TestFeature::Init()
 {
-  m_metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+  m_metadata.Set(Metadata::FMD_TEST_ID, strings::to_string(m_id));
 }
 
 bool TestFeature::Matches(FeatureType & feature) const
 {
-  istringstream is(feature.GetMetadata().Get(feature::Metadata::FMD_TEST_ID));
+  istringstream is(feature.GetMetadata().Get(Metadata::FMD_TEST_ID));
   uint64_t id;
   is >> id;
   return id == m_id;
 }
 
-void TestFeature::Serialize(FeatureBuilder1 & fb) const
+void TestFeature::Serialize(FeatureBuilder & fb) const
 {
   using feature::Metadata;
   // Metadata::EType::FMD_CUISINE is the first enum value.
@@ -139,7 +140,7 @@ TestCountry::TestCountry(m2::PointD const & center, string const & name, string 
 {
 }
 
-void TestCountry::Serialize(FeatureBuilder1 & fb) const
+void TestCountry::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
@@ -166,7 +167,7 @@ TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, str
 {
 }
 
-void TestCity::Serialize(FeatureBuilder1 & fb) const
+void TestCity::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
@@ -189,7 +190,7 @@ TestVillage::TestVillage(m2::PointD const & center, string const & name, string 
 {
 }
 
-void TestVillage::Serialize(FeatureBuilder1 & fb) const
+void TestVillage::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
@@ -215,7 +216,7 @@ TestStreet::TestStreet(vector<m2::PointD> const & points, StringUtf8Multilang co
 {
 }
 
-void TestStreet::Serialize(FeatureBuilder1 & fb) const
+void TestStreet::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
@@ -240,7 +241,7 @@ TestSquare::TestSquare(m2::RectD const & rect, string const & name, string const
 {
 }
 
-void TestSquare::Serialize(FeatureBuilder1 & fb) const
+void TestSquare::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
@@ -287,7 +288,7 @@ pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::Mw
   return {poi, emo.GetID()};
 }
 
-void TestPOI::Serialize(FeatureBuilder1 & fb) const
+void TestPOI::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
@@ -313,9 +314,9 @@ string TestPOI::ToDebugString() const
   return os.str();
 }
 
-feature::TypesHolder TestPOI::GetTypes() const
+TypesHolder TestPOI::GetTypes() const
 {
-  feature::TypesHolder types;
+  TypesHolder types;
   for (auto const path : m_types)
     types.Add(classif().GetTypeByPath(path));
   return types;
@@ -328,7 +329,7 @@ TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const
 {
 }
 
-void TestMultilingualPOI::Serialize(FeatureBuilder1 & fb) const
+void TestMultilingualPOI::Serialize(FeatureBuilder & fb) const
 {
   TestPOI::Serialize(fb);
 
@@ -376,7 +377,7 @@ TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & n
 {
 }
 
-void TestBuilding::Serialize(FeatureBuilder1 & fb) const
+void TestBuilding::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
@@ -404,7 +405,7 @@ TestPark::TestPark(vector<m2::PointD> const & boundary, string const & name, str
 {
 }
 
-void TestPark::Serialize(FeatureBuilder1 & fb) const
+void TestPark::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   for (auto const & point : m_boundary)
@@ -429,7 +430,7 @@ TestRoad::TestRoad(vector<m2::PointD> const & points, string const & name, strin
 {
 }
 
-void TestRoad::Serialize(FeatureBuilder1 & fb) const
+void TestRoad::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 

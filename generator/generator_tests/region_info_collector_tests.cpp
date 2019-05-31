@@ -19,6 +19,7 @@
 
 using namespace generator_tests;
 using namespace generator::regions;
+using namespace feature;
 using namespace base;
 
 namespace
@@ -33,7 +34,7 @@ auto const kOsmElementCountry = MakeOsmElement(2, {{"admin_level", "2"},
                                                    {"ISO3166-1:alpha3", "RUS"},
                                                    {"ISO3166-1:numeric", "643"}},
                                                OsmElement::EntityType::Relation);
-FeatureBuilder1 const kEmptyFeature;
+FeatureBuilder const kEmptyFeature;
 }  // namespace
 
 UNIT_TEST(RegionInfoCollector_Collect)

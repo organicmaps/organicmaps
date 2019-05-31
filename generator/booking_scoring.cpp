@@ -3,6 +3,8 @@
 #include "generator/booking_dataset.hpp"
 #include "generator/feature_builder.hpp"
 
+using namespace feature;
+
 namespace
 {
 // Calculated with tools/python/booking_hotels_quality.py.
@@ -28,7 +30,7 @@ bool MatchStats<BookingHotel>::IsMatched() const
 
 // TODO(mgsergio): Do I need to specialize this method?
 template <>
-MatchStats<BookingHotel> Match(BookingHotel const & h, FeatureBuilder1 const & fb)
+MatchStats<BookingHotel> Match(BookingHotel const & h, FeatureBuilder const & fb)
 {
   MatchStats<BookingHotel> score;
 

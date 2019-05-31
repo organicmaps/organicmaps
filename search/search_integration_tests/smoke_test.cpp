@@ -18,6 +18,7 @@
 
 #include <string>
 
+using namespace feature;
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace std;
@@ -35,9 +36,9 @@ public:
   }
 
   // TestFeature overrides:
-  void Serialize(FeatureBuilder1 & fb) const override
+  void Serialize(FeatureBuilder & fb) const override
   {
-    fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+    fb.GetMetadata().Set(Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
     m_names.ForEach([&](int8_t langCode, string const & name) {
@@ -102,7 +103,7 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
   AlcoShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
   AlcoShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(wineShop);
     builder.Add(tequilaShop);
     builder.Add(brandyShop);
@@ -132,7 +133,7 @@ UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
   SubwayStation redStation(m2::PointD(0, 0), "red", "en");
   SubwayStationMoscow blueStation(m2::PointD(1, 1), "blue", "en");
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(redStation);
     builder.Add(blueStation);
   });
@@ -225,7 +226,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
     poi.SetTypes({strings::Tokenize(classif().GetFullObjectName(type), "|")});
 
-    auto id = BuildMwm(countryName, feature::DataHeader::country,
+    auto id = BuildMwm(countryName, DataHeader::country,
                        [&](TestMwmBuilder & builder) { builder.Add(poi); });
 
     SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
@@ -244,7 +245,7 @@ UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
 {
   char const kCountryName[] = "ATown";
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(TestPOI(m2::PointD(0, 0), "a", "en"));
     builder.Add(TestPOI(m2::PointD(0, 1), "aa", "en"));
     builder.Add(TestPOI(m2::PointD(1, 1), "aa", "en"));
@@ -293,7 +294,7 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
   cafe.SetStreetName(mainStreet.GetName("en"));
   cafe.SetHouseNumber("27");
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(mainStreet);
     builder.Add(cafe);
   });

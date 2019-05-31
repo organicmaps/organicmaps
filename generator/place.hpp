@@ -13,9 +13,9 @@ namespace generator
 class Place
 {
 public:
-  Place(FeatureBuilder1 const & ft, uint32_t type, bool saveParams = true);
+  Place(feature::FeatureBuilder const & ft, uint32_t type, bool saveParams = true);
 
-  FeatureBuilder1 const & GetFeature() const { return m_ft; }
+  feature::FeatureBuilder const & GetFeature() const { return m_ft; }
   m2::RectD GetLimitRect() const;
   bool IsEqual(Place const & r) const;
   /// Check whether we need to replace place @r with place @this.
@@ -25,7 +25,7 @@ private:
   bool IsPoint() const { return (m_ft.GetGeomType() == feature::GeomType::Point); }
   static bool AreTypesEqual(uint32_t t1, uint32_t t2);
 
-  FeatureBuilder1 m_ft;
+  feature::FeatureBuilder m_ft;
   m2::PointD m_pt;
   uint32_t m_type;
   double m_thresholdM;

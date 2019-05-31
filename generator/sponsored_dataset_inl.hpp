@@ -50,7 +50,7 @@ SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath
 }
 
 template <typename SponsoredObject>
-void SponsoredDataset<SponsoredObject>::BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const
+void SponsoredDataset<SponsoredObject>::BuildOsmObjects(function<void(feature::FeatureBuilder &)> const & fn) const
 {
   for (auto const & item : m_storage.GetObjects())
     BuildObject(item.second, fn);
@@ -58,7 +58,7 @@ void SponsoredDataset<SponsoredObject>::BuildOsmObjects(function<void(FeatureBui
 
 template <typename SponsoredObject>
 typename SponsoredDataset<SponsoredObject>::ObjectId
-SponsoredDataset<SponsoredObject>::FindMatchingObjectId(FeatureBuilder1 const & fb) const
+SponsoredDataset<SponsoredObject>::FindMatchingObjectId(feature::FeatureBuilder const & fb) const
 {
   if (NecessaryMatchingConditionHolds(fb))
     return FindMatchingObjectIdImpl(fb);

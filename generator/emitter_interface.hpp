@@ -3,8 +3,11 @@
 #include <string>
 #include <vector>
 
-class FeatureBuilder1;
 class FeatureParams;
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace generator
 {
@@ -15,7 +18,7 @@ public:
   virtual ~EmitterInterface() = default;
 
   // This method is used by OsmTranslator to pass |fb| to Emitter for further processing.
-  virtual void Process(FeatureBuilder1 & fb) = 0;
+  virtual void Process(feature::FeatureBuilder & fb) = 0;
   // Finish is used in GenerateFeatureImpl to make whatever work is needed after all OsmElements
   // are processed.
   virtual bool Finish() = 0;
