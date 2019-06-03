@@ -86,6 +86,7 @@ def stage_features(env):
         extra["no_ads"] = True
     if any(x not in WORLDS_NAMES for x in env.countries):
         extra["split_by_polygons"] = True
+        extra["generate_packed_borders"] = True
     if any(x == WORLD_NAME for x in env.countries):
         extra["generate_world"] = True
 
@@ -105,6 +106,9 @@ def stage_features(env):
         emit_coasts=True,
         **extra
     )
+
+    if os.path.exists(env.packed_polygons_path):
+        shutil.copy2(env.packed_polygons_path, env.mwm_path)
 
 
 @stage

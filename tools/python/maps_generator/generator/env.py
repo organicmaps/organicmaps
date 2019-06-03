@@ -156,6 +156,10 @@ class Env:
         return path
 
     @property
+    def packed_polygons_path(self):
+        return os.path.join(self.intermediate_path, "packed_polygons.bin")
+
+    @property
     def localads_path(self):
         path = os.path.join(self.out_path, f"localads_{self.mwm_version}")
         self._create_if_not_exist(path)
