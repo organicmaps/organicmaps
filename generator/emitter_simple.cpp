@@ -16,7 +16,11 @@ void EmitterSimple::GetNames(std::vector<std::string> & names) const
 
 void EmitterSimple::Process(FeatureBuilder1 & fb)
 {
+  auto & polygonizer = m_regionGenerator->Parent();
+  // Emit each feature independently: clear current country names (see Polygonizer::GetCurrentNames()).
+  polygonizer.Start();
   (*m_regionGenerator)(fb);
+  polygonizer.Finish();
 }
 
 void EmitterPreserialize::Process(FeatureBuilder1 & fb)
