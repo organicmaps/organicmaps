@@ -4,10 +4,12 @@
 
 struct OsmElement;
 class RelationElement;
+
 namespace feature
 {
 class FeatureBuilder;
 }  // namespace feature
+
 namespace base
 {
 class GeoObjectId;

@@ -54,7 +54,7 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   {
     HolesProcessor processor(p.m_id, m_cache);
     m_cache.ForEachRelationByWay(p.m_id, processor);
-    fb.AddHoles(processor.GetHoles());
+    fb.SetHoles(processor.GetHoles());
     fb.SetArea();
   }
   else
@@ -86,7 +86,7 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
     if (!fb.IsGeometryClosed())
       return;
 
-    fb.AddHoles(holesGeometry);
+    fb.SetHoles(holesGeometry);
     fb.SetParams(params);
     fb.SetArea();
     m_queue.push(std::move(fb));

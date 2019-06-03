@@ -138,7 +138,7 @@ void FeatureBuilder::SetLinear(bool reverseGeometry)
   }
 }
 
-void FeatureBuilder::AddHoles(FeatureBuilder::Geometry const & holes)
+void FeatureBuilder::SetHoles(FeatureBuilder::Geometry const & holes)
 {
   m_polygons.resize(1);
 
@@ -256,7 +256,7 @@ bool FeatureBuilder::PreSerialize()
   return true;
 }
 
-bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForTmpMwm()
+bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForIntermediate()
 {
   if (!PreSerialize())
     return false;
@@ -348,7 +348,7 @@ void FeatureBuilder::SerializeBase(Buffer & data, serial::GeometryCodingParams c
     serial::SavePoint(sink, m_center, params);
 }
 
-void FeatureBuilder::SerializeForTmpMwm(Buffer & data) const
+void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
 {
   Check(*this);
 
@@ -377,12 +377,12 @@ void FeatureBuilder::SerializeForTmpMwm(Buffer & data) const
 #ifdef DEBUG
   Buffer tmp(data);
   FeatureBuilder fb;
-  fb.Deserialize(tmp);
+  fb.DeserializeFromIntermediate(tmp);
   ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
 #endif
 }
 
-void FeatureBuilder::SerializeBorderForTmpMwm(serial::GeometryCodingParams const & params,
+void FeatureBuilder::SerializeBorderForIntermediate(serial::GeometryCodingParams const & params,
                                               Buffer & data) const
 {
   data.clear();
@@ -408,7 +408,7 @@ void FeatureBuilder::SerializeBorderForTmpMwm(serial::GeometryCodingParams const
   }
 }
 
-void FeatureBuilder::DeserializeForTmpMwm(Buffer & data)
+void FeatureBuilder::DeserializeFromIntermediate(Buffer & data)
 {
   serial::GeometryCodingParams cp;
 
@@ -550,7 +550,7 @@ bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForMwm(SupportingData cons
   }
 
   // we don't need empty features without geometry
-  return PreSerializeAndRemoveUselessNamesForTmpMwm();
+  return PreSerializeAndRemoveUselessNamesForIntermediate();
 }
 
 void FeatureBuilder::SerializeLocalityObject(serial::GeometryCodingParams const & params,
@@ -668,8 +668,10 @@ void Check(FeatureBuilder const fb)
     CHECK(fb.GetOuterGeometry().size() >= 2, (fb));
 
   if (fb.IsArea())
+  {
     for (auto const & points : fb.GetGeometry())
       CHECK(points.size() >= 3, (fb));
+  }
 }
 
 string DebugPrint(FeatureBuilder const & fb)

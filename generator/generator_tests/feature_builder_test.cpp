@@ -54,11 +54,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   Check(fb1);
 
   FeatureBuilder::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
-  fb1.SerializeForTmpMwm(buffer);
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  fb1.SerializeForIntermediate(buffer);
 
   FeatureBuilder fb2;
-  fb2.DeserializeForTmpMwm(buffer);
+  fb2.DeserializeFromIntermediate(buffer);
 
   Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
@@ -90,11 +90,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   Check(fb1);
 
   FeatureBuilder::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
-  fb1.SerializeForTmpMwm(buffer);
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  fb1.SerializeForIntermediate(buffer);
 
   FeatureBuilder fb2;
-  fb2.DeserializeForTmpMwm(buffer);
+  fb2.DeserializeFromIntermediate(buffer);
 
   Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
@@ -117,11 +117,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   Check(fb1);
 
   FeatureBuilder::Buffer buffer;
-  TEST(fb1.PreSerializeAndRemoveUselessNamesForTmpMwm(), ());
-  fb1.SerializeForTmpMwm(buffer);
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  fb1.SerializeForIntermediate(buffer);
 
   FeatureBuilder fb2;
-  fb2.DeserializeForTmpMwm(buffer);
+  fb2.DeserializeFromIntermediate(buffer);
 
   Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
@@ -233,7 +233,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
 
 UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder12_SerializeLocalityObjectForBuildingPoint)
 {
-  FeatureBuilder1 fb1;
+  FeatureBuilder fb;
   FeatureParams params;
 
   char const * arr1[][1] = {
@@ -246,23 +246,21 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder12_SerializeLocalityObjectF
   params.AddHouseName("Best House");
   params.AddName("default", "Name");
 
-  fb1.AddOsmId(base::MakeOsmNode(1));
-  fb1.SetParams(params);
-  fb1.SetCenter(m2::PointD(10.1, 15.8));
+  fb.AddOsmId(base::MakeOsmNode(1));
+  fb.SetParams(params);
+  fb.SetCenter(m2::PointD(10.1, 15.8));
 
-  TEST(fb1.RemoveInvalidTypes(), ());
-  TEST(fb1.CheckValid(), ());
-
-  auto & fb2 = static_cast<FeatureBuilder2 &>(fb1);
+  TEST(fb.RemoveInvalidTypes(), ());
+  Check(fb);
 
   feature::DataHeader header;
   header.SetGeometryCodingParams(serial::GeometryCodingParams());
   header.SetScales({scales::GetUpperScale()});
-  feature::GeometryHolder holder(fb2, header, std::numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
+  feature::GeometryHolder holder(fb, header, std::numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
 
   auto & buffer = holder.GetBuffer();
-  TEST(fb2.PreSerializeAndRemoveUselessNames(buffer), ());
-  fb2.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
+  TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());
+  fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 
   using indexer::LocalityObject;
   LocalityObject object;

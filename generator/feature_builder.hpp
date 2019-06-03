@@ -45,7 +45,7 @@ public:
 
   // To work with geometry.
   void AddPoint(m2::PointD const & p);
-  void AddHoles(Geometry const & holes);
+  void SetHoles(Geometry const & holes);
   void AddPolygon(std::vector<m2::PointD> & poly);
   void ResetGeometry();
   m2::RectD const & GetLimitRect() const { return m_limitRect; }
@@ -124,12 +124,14 @@ public:
   void SetType(uint32_t type) { m_params.SetType(type); }
   void AddType(uint32_t type) { m_params.AddType(type); }
   bool PopExactType(uint32_t type) { return m_params.PopExactType(type); }
-  template <class FnT>
-  bool RemoveTypesIf(FnT fn)
+
+  template <class Fn>
+  bool RemoveTypesIf(Fn && fn)
   {
-    base::EraseIf(m_params.m_types, fn);
+    base::EraseIf(m_params.m_types, std::forward<Fn>(fn));
     return m_params.m_types.empty();
   }
+
   bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
   uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
   FeatureParams::Types const & GetTypes() const { return m_params.m_types; }
@@ -168,10 +170,10 @@ public:
   void SerializeBase(Buffer & data, serial::GeometryCodingParams const & params,
                      bool saveAddInfo) const;
 
-  bool PreSerializeAndRemoveUselessNamesForTmpMwm();
-  void SerializeForTmpMwm(Buffer & data) const;
-  void SerializeBorderForTmpMwm(serial::GeometryCodingParams const & params, Buffer & data) const;
-  void DeserializeForTmpMwm(Buffer & data);
+  bool PreSerializeAndRemoveUselessNamesForIntermediate();
+  void SerializeForIntermediate(Buffer & data) const;
+  void SerializeBorderForIntermediate(serial::GeometryCodingParams const & params, Buffer & data) const;
+  void DeserializeFromIntermediate(Buffer & data);
 
   bool PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data);
   void SerializeLocalityObject(serial::GeometryCodingParams const & params,
@@ -181,7 +183,7 @@ public:
   // Get common parameters of feature.
   TypesHolder GetTypesHolder() const;
 
-  // TO work with osm ids.
+  // To work with osm ids.
   void AddOsmId(base::GeoObjectId id);
   void SetOsmId(base::GeoObjectId id);
   base::GeoObjectId GetFirstOsmId() const;
@@ -196,8 +198,9 @@ public:
   void SetCoastCell(int64_t iCell) { m_coastCell = iCell; }
   bool IsCoastCell() const { return (m_coastCell != -1); }
 
-protected:
-  template <class ToDo> class ToDoWrapper
+ protected:
+  template <class ToDo>
+  class ToDoWrapper
   {
   public:
     ToDoWrapper(ToDo && toDo) : m_toDo(std::forward<ToDo>(toDo)) {}
@@ -226,27 +229,27 @@ void Check(FeatureBuilder const fb);
 std::string DebugPrint(FeatureBuilder const & fb);
 
 // Read feature from feature source.
-template <class TSource>
-void ReadFromSourceRawFormat(TSource & src, FeatureBuilder & fb)
+template <class Source>
+void ReadFromSourceRawFormat(Source & src, FeatureBuilder & fb)
 {
   uint32_t const sz = ReadVarUint<uint32_t>(src);
   typename FeatureBuilder::Buffer buffer(sz);
   src.Read(&buffer[0], sz);
-  fb.DeserializeForTmpMwm(buffer);
+  fb.DeserializeFromIntermediate(buffer);
 }
 
 // Process features in .dat file.
 template <class ToDo>
-void ForEachFromDatRawFormat(std::string const & fName, ToDo && toDo)
+void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
 {
-  FileReader reader(fName);
+  FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
 
   uint64_t currPos = 0;
-  uint64_t const fSize = reader.Size();
+  uint64_t const fileSize = reader.Size();
 
   // read features one by one
-  while (currPos < fSize)
+  while (currPos < fileSize)
   {
     FeatureBuilder fb;
     ReadFromSourceRawFormat(src, fb);

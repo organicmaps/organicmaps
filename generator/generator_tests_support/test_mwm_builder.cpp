@@ -93,7 +93,7 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     fb.SetCenter(center);
   }
 
-  if (!fb.PreSerializeAndRemoveUselessNamesForTmpMwm())
+  if (!fb.PreSerializeAndRemoveUselessNamesForIntermediate())
   {
     LOG(LWARNING, ("Can't pre-serialize feature."));
     return false;

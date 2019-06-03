@@ -49,7 +49,7 @@ public:
     if (fb.IsArea())
     {
       FeatureBuilder::Buffer buffer;
-      fb.SerializeBorderForTmpMwm(serial::GeometryCodingParams(), buffer);
+      fb.SerializeBorderForIntermediate(serial::GeometryCodingParams(), buffer);
       WriteFeatureBase(buffer, fb);
     }
     return 0;

@@ -183,7 +183,7 @@ void PrepareFeatureLayer::Handle(FeatureBuilder & feature)
 
   auto & params = feature.GetParams();
   feature::RemoveUselessTypes(params.m_types, type);
-  feature.PreSerializeAndRemoveUselessNamesForTmpMwm();
+  feature.PreSerializeAndRemoveUselessNamesForIntermediate();
   FixLandType(feature);
   LayerBase::Handle(feature);
 }
@@ -292,7 +292,7 @@ void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & feature)
     feature::RemoveUselessTypes(params.m_types, feature.GetGeomType());
   }
 
-  feature.PreSerializeAndRemoveUselessNamesForTmpMwm();
+  feature.PreSerializeAndRemoveUselessNamesForIntermediate();
   LayerBase::Handle(feature);
 }
 
