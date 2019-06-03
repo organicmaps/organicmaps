@@ -45,9 +45,9 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, KeyValue & res
     return false;
   }
 
-  auto jsonString = std::string_view{line.c_str() + pos + 1};
+  auto jsonString = line.c_str() + pos + 1;
   json_error_t jsonError;
-  base::JSONPtr json{json_loadb(jsonString.data(), jsonString.size(), 0, &jsonError)};
+  base::JSONPtr json{json_loads(jsonString, 0, &jsonError)};
   if (!json)
   {
     LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", jsonError.text));
