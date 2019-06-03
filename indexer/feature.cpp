@@ -402,6 +402,10 @@ void FeatureType::ParseHeader2()
 
 void FeatureType::ResetGeometry()
 {
+  // Do not reset geometry for features created from MapObjects.
+  if (!m_loadInfo)
+    return;
+
   m_points.clear();
   m_triangles.clear();
 
