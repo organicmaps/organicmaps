@@ -686,10 +686,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     Retrieval retrieval(context, cancellable);
     auto features = retrieval.RetrievePostcodeFeatures(
         TokenSlice(params, TokenRange(0, params.GetNumTokens())));
-    TEST_EQUAL(1, features->PopCount(), ());
+    TEST_EQUAL(1, features.PopCount(), ());
 
     uint64_t index = 0;
-    while (!features->GetBit(index))
+    while (!features.HasBit(index))
       ++index;
 
     FeaturesLoaderGuard loader(m_dataSource, countryId);
@@ -1860,6 +1860,60 @@ UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
     TEST_EQUAL(GetResultsNumber(streetName, "ru"), 1, ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
+{
+  string const countryName = "Wonderland";
+
+  TestCafe lermontov(m2::PointD(1, 1), "Лермонтовъ", "ru");
+
+  TestCity lermontovo(m2::PointD(-1, -1), "Лермонтово", "ru", 0 /* rank */);
+  TestCafe cafe(m2::PointD(-1.01, -1.01), "", "ru");
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(lermontovo); });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(cafe);
+    builder.Add(lermontov);
+  });
+
+  {
+    auto request = MakeRequest("cafe лермонтовъ ");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
+    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, lermontov)}), ());
+    TEST(results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(!results[1].GetRankingInfo().m_exactMatch, ());
+  }
+
+  {
+    auto request = MakeRequest("cafe лермонтово ");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
+    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, cafe)}), ());
+    TEST(results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(!results[1].GetRankingInfo().m_exactMatch, ());
+  }
+
+  {
+    auto request = MakeRequest("cafe лермонтов ");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
+    TEST(!results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(!results[1].GetRankingInfo().m_exactMatch, ());
   }
 }
 }  // namespace

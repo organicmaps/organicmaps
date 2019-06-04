@@ -59,10 +59,10 @@ private:
   // combination of ranks and number of matched tokens.
   void LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities) const;
 
-  // Selects at most |limitUniqueIds| best features by query norm and
+  // Selects at most |limitUniqueIds| best features by exact match, query norm and
   // rank, and then leaves only localities corresponding to those
   // features in |els|.
-  void LeaveTopByNormAndRank(size_t limitUniqueIds, std::vector<ExLocality> & els) const;
+  void LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds, std::vector<ExLocality> & els) const;
 
   // Leaves at most |limit| unique best localities by similarity to
   // the query and rank.

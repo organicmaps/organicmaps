@@ -15,7 +15,6 @@
 #include <vector>
 
 class FeatureType;
-class CategoriesHolder;
 
 namespace storage
 {

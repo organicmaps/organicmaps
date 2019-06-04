@@ -301,6 +301,7 @@ class RankerResultMaker
     info.m_rating = preInfo.m_rating;
     info.m_type = preInfo.m_type;
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
+    info.m_exactMatch = preInfo.m_exactMatch;
     info.m_categorialRequest = m_params.IsCategorialRequest();
     info.m_hasName = ft.HasName();
 

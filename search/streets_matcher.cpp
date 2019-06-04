@@ -126,7 +126,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
 
     StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
                               {
-                                auto buffer = streets.Intersect(ctx.m_features[tag]);
+                                auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
                                 if (tag < curToken)
                                 {
                                   // This is the case for delayed
@@ -134,7 +134,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
                                   // |streets| is temporarily in the
                                   // incomplete state.
                                   streets = buffer;
-                                  all = all.Intersect(ctx.m_features[tag]);
+                                  all = all.Intersect(ctx.m_features[tag].m_features);
                                   emptyIntersection = false;
 
                                   incomplete = true;
@@ -149,7 +149,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
                                   emit();
 
                                 streets = buffer;
-                                all = all.Intersect(ctx.m_features[tag]);
+                                all = all.Intersect(ctx.m_features[tag].m_features);
                                 emptyIntersection = false;
                                 incomplete = false;
                               });

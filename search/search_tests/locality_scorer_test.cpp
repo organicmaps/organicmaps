@@ -93,7 +93,7 @@ public:
       });
 
       base::SortUnique(ids);
-      ctx.m_features.emplace_back(coding::CompressedBitVectorBuilder::FromBitPositions(ids));
+      ctx.m_features.emplace_back(CBV(coding::CompressedBitVectorBuilder::FromBitPositions(ids)));
     }
 
     CBV filter;

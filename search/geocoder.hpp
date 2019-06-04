@@ -225,11 +225,11 @@ private:
   // Forms result and feeds it to |m_preRanker|.
   void EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId, Model::Type type,
                   TokenRange const & tokenRange, IntersectionResult const * geoParts,
-                  bool allTokensUsed);
+                  bool allTokensUsed, bool exactMatch);
   void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
-                  bool allTokensUsed);
+                  bool allTokensUsed, bool exactMatch);
   void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange,
-                  bool allTokensUsed);
+                  bool allTokensUsed, bool exactMatch);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all

@@ -52,7 +52,7 @@ CBV CategoriesCache::Load(MwmContext const & context) const
   });
 
   Retrieval retrieval(context, m_cancellable);
-  return CBV(retrieval.RetrieveAddressFeatures(request).m_features);
+  return retrieval.RetrieveAddressFeatures(request).m_features;
 }
 
 // StreetsCache ------------------------------------------------------------------------------------

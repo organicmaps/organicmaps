@@ -54,6 +54,9 @@ struct PreRankingInfo
   // were used when retrieving the feature.
   bool m_allTokensUsed = true;
 
+  // True iff all tokens retrieved from search index were matched without misprints.
+  bool m_exactMatch = true;
+
   // Rank of the feature.
   uint8_t m_rank = 0;
 

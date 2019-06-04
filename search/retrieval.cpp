@@ -31,8 +31,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <cstdint>
-#include <utility>
 #include <vector>
 
 using namespace std;
@@ -125,14 +123,23 @@ private:
   vector<uint32_t> m_created;
 };
 
-Retrieval::ExtendedFeatures SortFeaturesAndBuildCBV(vector<uint64_t> && features,
-                                                    vector<uint64_t> && exactlyMatchedFeatures)
+Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features,
+                                                       vector<uint64_t> && exactlyMatchedFeatures)
 {
   using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
   base::SortUnique(exactlyMatchedFeatures);
-  return {Builder::FromBitPositions(move(features)),
-          Builder::FromBitPositions(move(exactlyMatchedFeatures))};
+  auto featuresCBV = CBV(Builder::FromBitPositions(move(features)));
+  auto exactlyMatchedFeaturesCBV = CBV(Builder::FromBitPositions(move(exactlyMatchedFeatures)));
+  return Retrieval::ExtendedFeatures(move(featuresCBV), move(exactlyMatchedFeaturesCBV));
+}
+
+Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features)
+{
+  using Builder = coding::CompressedBitVectorBuilder;
+  base::SortUnique(features);
+  auto const featuresCBV = CBV(Builder::FromBitPositions(move(features)));
+  return Retrieval::ExtendedFeatures(featuresCBV);
 }
 
 template <typename DFA>
@@ -254,7 +261,7 @@ Retrieval::ExtendedFeatures RetrieveAddressFeaturesImpl(Retrieval::TrieRoot<Valu
     }
   });
 
-  return SortFeaturesAndBuildCBV(move(features), move(exactlyMatchedFeatures));
+  return SortFeaturesAndBuildResult(move(features), move(exactlyMatchedFeatures));
 }
 
 template <typename Value>
@@ -280,7 +287,7 @@ Retrieval::ExtendedFeatures RetrievePostcodeFeaturesImpl(Retrieval::TrieRoot<Val
       features.push_back(index);
   });
 
-  return SortFeaturesAndBuildCBV(move(features), {});
+  return SortFeaturesAndBuildResult(move(features));
 }
 
 Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & context,
@@ -304,7 +311,7 @@ Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & cont
     if (rect.IsPointInside(center))
       features.push_back(index);
   });
-  return SortFeaturesAndBuildCBV(move(features), move(exactlyMatchedFeatures));
+  return SortFeaturesAndBuildResult(move(features), move(exactlyMatchedFeatures));
 }
 
 template <typename T>
