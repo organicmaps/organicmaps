@@ -818,9 +818,9 @@ public class PlacePageView extends NestedScrollView
   private void initCatalogPromoView()
   {
     mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
-    mCatalogPromoRecycler.setVisibility(VISIBLE);
+    mCatalogPromoRecycler.setVisibility(GONE);
     View titleView = findViewById(R.id.catalog_promo_title);
-    titleView.setVisibility(VISIBLE);
+    titleView.setVisibility(GONE);
     com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoLoadingAdapter();
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
