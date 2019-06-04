@@ -43,45 +43,38 @@ bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 class RandomPointGenerator
 {
 public:
-  explicit RandomPointGenerator(mt19937 & randomEngine,
-                                vector<vector<m2::RegionD>> const & allRegions)
-    : m_randomEngine(randomEngine), m_allRegions(allRegions)
+  explicit RandomPointGenerator(mt19937 & randomEngine, vector<m2::RegionD> const & regions)
+    : m_randomEngine(randomEngine), m_regions(regions)
   {
-    size_t const n = m_allRegions.size();
-    vector<vector<double>> allAreas(n);
-    vector<double> aggregateAreas(n);
-    for (size_t i = 0; i < n; ++i)
-    {
-      allAreas[i].resize(allRegions[i].size());
-      for (size_t j = 0; j < allRegions[i].size(); ++j)
-      {
-        double const area = allRegions[i][j].CalculateArea();
-        allAreas[i][j] = area;
-        aggregateAreas[i] += area;
-      }
-    }
+    CHECK(!m_regions.empty(), ());
+    vector<double> areas(m_regions.size());
+    for (size_t i = 0; i < m_regions.size(); ++i)
+      areas[i] = m_regions[i].CalculateArea();
 
-    m_distrAll = discrete_distribution<size_t>(aggregateAreas.begin(), aggregateAreas.end());
-    m_distrPerMwm.resize(n);
-    for (size_t i = 0; i < n; ++i)
-      m_distrPerMwm[i] = discrete_distribution<size_t>(allAreas[i].begin(), allAreas[i].end());
+    m_distr = discrete_distribution<size_t>(areas.begin(), areas.end());
   }
 
   m2::PointD operator()()
   {
-    CHECK(!m_allRegions.empty(), ());
-    auto const i = m_distrAll(m_randomEngine);
-    auto const j = m_distrPerMwm[i](m_randomEngine);
-    return m_allRegions[i][j].GetRandomPoint(m_randomEngine);
+    auto const i = m_distr(m_randomEngine);
+    return m_regions[i].GetRandomPoint(m_randomEngine);
   }
 
 private:
   mt19937 m_randomEngine;
 
-  vector<vector<m2::RegionD>> m_allRegions;
-  discrete_distribution<size_t> m_distrAll;
-  vector<discrete_distribution<size_t>> m_distrPerMwm;
+  vector<m2::RegionD> m_regions;
+  discrete_distribution<size_t> m_distr;
 };
+
+template <typename Cont>
+Cont Flatten(vector<Cont> const & cs)
+{
+  Cont res;
+  for (auto const & c : cs)
+    res.insert(res.end(), c.begin(), c.end());
+  return res;
+}
 }  // namespace
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
@@ -353,7 +346,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
       regionsWithoutAnarctica.emplace_back(allRegions[i]);
     }
 
-    RandomPointGenerator pointGen(rng, regionsWithoutAnarctica);
+    RandomPointGenerator pointGen(rng, Flatten(regionsWithoutAnarctica));
     vector<m2::PointD> points;
     for (size_t i = 0; i < kNumIterations; i++)
       points.emplace_back(pointGen());
@@ -379,7 +372,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
     CountryId longest;
     for (size_t countryDefId = 0; countryDefId < countryDefs.size(); ++countryDefId)
     {
-      RandomPointGenerator pointGen(rng, {allRegions[countryDefId]});
+      RandomPointGenerator pointGen(rng, allRegions[countryDefId]);
       auto const & countryId = countryDefs[countryDefId].m_countryId;
 
       vector<double> & times = timesByCountry[countryId];
