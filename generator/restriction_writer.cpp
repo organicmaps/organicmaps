@@ -170,10 +170,13 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
       GetType(relationElement, via.back().first) == OsmElement::EntityType::Node ? ViaType::Node
                                                                                  : ViaType::Way;
 
-  m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
+  auto const printHeader = [&]() { 
+    m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
+  };
 
   if (viaType == ViaType::Way)
   {
+    printHeader();
     m_stream << fromOsmId << ",";
     for (auto const & viaMember : via)
       m_stream << viaMember.first << ",";
@@ -186,6 +189,7 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
     if (!m_cache.GetNode(viaNodeOsmId, y, x))
       return;
 
+    printHeader();
     m_stream << x << "," << y << ",";
     m_stream << fromOsmId << ",";
   }
