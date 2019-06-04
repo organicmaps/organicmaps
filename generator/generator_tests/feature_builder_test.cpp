@@ -4,12 +4,17 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
+#include "generator/geometry_holder.hpp"
 #include "generator/osm2type.hpp"
 
+#include "indexer/data_header.cpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/locality_object.hpp"
 
 #include "base/geo_object_id.hpp"
+
+#include <limits>
 
 using namespace generator::tests_support;
 using namespace tests;
@@ -222,4 +227,47 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
     TEST(params.AddHouseNumber("000000"), ());
     TEST_EQUAL(params.house.Get(), "0", ());
   }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder12_SerializeLocalityObjectForBuildingPoint)
+{
+  FeatureBuilder1 fb1;
+  FeatureParams params;
+
+  char const * arr1[][1] = {
+    { "building" },
+  };
+  AddTypes(params, arr1);
+
+  params.FinishAddingTypes();
+  params.AddHouseNumber("75");
+  params.AddHouseName("Best House");
+  params.AddName("default", "Name");
+
+  fb1.AddOsmId(base::MakeOsmNode(1));
+  fb1.SetParams(params);
+  fb1.SetCenter(m2::PointD(10.1, 15.8));
+
+  TEST(fb1.RemoveInvalidTypes(), ());
+  TEST(fb1.CheckValid(), ());
+
+  auto & fb2 = static_cast<FeatureBuilder2 &>(fb1);
+
+  feature::DataHeader header;
+  header.SetGeometryCodingParams(serial::GeometryCodingParams());
+  header.SetScales({scales::GetUpperScale()});
+  feature::GeometryHolder holder(fb2, header, std::numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
+
+  auto & buffer = holder.GetBuffer();
+  TEST(fb2.PreSerializeAndRemoveUselessNames(buffer), ());
+  fb2.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
+
+  using indexer::LocalityObject;
+  LocalityObject object;
+  object.Deserialize(buffer.m_buffer.data());
+
+  TEST_EQUAL(LocalityObject::FromStoredId(object.GetStoredId()), base::MakeOsmNode(1), ());
+  object.ForEachPoint([] (auto && point) {
+    TEST(base::AlmostEqualAbs(point, m2::PointD(10.1, 15.8), 1e-7), ());
+  });
 }
