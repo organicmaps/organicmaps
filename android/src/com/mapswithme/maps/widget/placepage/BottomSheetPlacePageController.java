@@ -27,10 +27,10 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
-import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
@@ -47,6 +47,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                                                        Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
+  private static final float PREVIEW_PLUS_RATIO = 0.5f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
   private static final String EXTRA_MAP_OBJECT = "extra_map_object";
@@ -330,7 +331,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     if (mBannerRatio > 0)
       return;
 
-    final int peekHeight = getPeekHeight();
+    final int peekHeight = calculatePeekHeight();
     if (peekHeight == mPlacePageBehavior.getPeekHeight())
       return;
 
@@ -393,9 +394,23 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePageBehavior.setAnchorOffset((int) (parent.getHeight() * ANCHOR_RATIO));
   }
 
-  private int getPeekHeight()
+  private int calculatePeekHeight()
   {
-    return mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
+    final int organicPeekHeight = mPlacePage.getPreviewHeight() + mButtonsLayout.getHeight();
+    final MapObject object = mPlacePage.getMapObject();
+    if (object != null)
+    {
+      @MapObject.OpeningMode
+      int mode = object.getOpeningMode();
+      if (mode == MapObject.OPENING_MODE_PREVIEW_PLUS)
+      {
+        View parent = (View) mPlacePage.getParent();
+        int promoPeekHeight = (int) (parent.getHeight() * PREVIEW_PLUS_RATIO);
+        return promoPeekHeight <= organicPeekHeight ? organicPeekHeight : promoPeekHeight;
+      }
+    }
+
+    return organicPeekHeight;
   }
 
   @Override
