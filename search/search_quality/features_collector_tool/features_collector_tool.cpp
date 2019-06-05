@@ -177,7 +177,8 @@ int main(int argc, char * argv[])
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
       if (goldenMatching[j] == Matcher::kInvalidId &&
-          sample.m_results[j].m_relevance != Sample::Result::Relevance::Irrelevant)
+          sample.m_results[j].m_relevance != Sample::Result::Relevance::Irrelevant &&
+          sample.m_results[j].m_relevance != Sample::Result::Relevance::Harmful)
       {
         s.m_notFound.push_back(j);
       }
