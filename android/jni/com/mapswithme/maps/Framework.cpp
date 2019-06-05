@@ -801,6 +801,16 @@ uint64_t Framework::GetLocals(JNIEnv * env, jobject policy, double lat, double l
   return api->GetLocals(lat, lon, langStr, kResultsOnPage, kPageNumber, successFn, errorFn);
 }
 
+void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
+                                    promo::CityGalleryCallback const & onSuccess,
+                                    promo::OnError const & onError)
+{
+  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
+  if (api == nullptr)
+    return;
+
+}
+
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
 {
   auto const & info = g_framework->GetPlacePageInfo();

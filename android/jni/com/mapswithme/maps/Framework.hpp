@@ -19,6 +19,7 @@
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
+#include "partners_api/promo_api.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -218,6 +219,9 @@ namespace android
     uint64_t GetLocals(JNIEnv * env, jobject policy, double lat, double lon,
                        locals::LocalsSuccessCallback const & successFn,
                        locals::LocalsErrorCallback const & errorFn);
+    void GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
+                             promo::CityGalleryCallback const & onSuccess,
+                             promo::OnError const & onError);
 
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 

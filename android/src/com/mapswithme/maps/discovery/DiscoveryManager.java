@@ -5,6 +5,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -54,6 +55,7 @@ enum DiscoveryManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   private void onLocalExpertsReceived(@NonNull final LocalExpert[] experts)
   {
@@ -62,6 +64,15 @@ enum DiscoveryManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  private void onPromoCityGalleryReceived(@NonNull PromoCityGallery gallery)
+  {
+    // Dummy.
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   private void onError(@DiscoveryParams.ItemType int type)
   {

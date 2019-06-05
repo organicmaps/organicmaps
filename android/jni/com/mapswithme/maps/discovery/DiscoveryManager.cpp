@@ -1,7 +1,8 @@
 #include "com/mapswithme/core/jni_helper.hpp"
-#include "com/mapswithme/maps/discovery/Locals.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/maps/SearchEngine.hpp"
+#include "com/mapswithme/maps/discovery/Locals.hpp"
+#include "com/mapswithme/maps/promo/CityGallery.hpp"
 
 #include "map/discovery/discovery_manager.hpp"
 #include "map/search_product_info.hpp"
@@ -27,6 +28,7 @@ jclass g_discoveryManagerClass = nullptr;
 jfieldID g_discoveryManagerInstanceField;
 jmethodID g_onResultReceivedMethod;
 jmethodID g_onLocalExpertsReceivedMethod;
+jmethodID g_onCityGalleryReceivedMethod;
 jmethodID g_onErrorMethod;
 uint32_t g_lastRequestId = 0;
 
@@ -49,7 +51,9 @@ void PrepareClassRefs(JNIEnv * env)
   g_onLocalExpertsReceivedMethod = jni::GetMethodID(env, discoveryManagerInstance,
                                                     "onLocalExpertsReceived",
                                                     "([Lcom/mapswithme/maps/discovery/LocalExpert;)V");
-
+  g_onCityGalleryReceivedMethod = jni::GetMethodID(env, discoveryManagerInstance,
+                                                   "onPromoCityGalleryReceived",
+                                                   "(Lcom/mapswithme/maps/promo/PromoCityGallery;)V");
   g_onErrorMethod = jni::GetMethodID(env, discoveryManagerInstance, "onError", "(I)V");
 }
 
@@ -98,7 +102,15 @@ struct DiscoveryCallback
     if (g_lastRequestId != requestId)
       return;
 
-    // Dummy. Please add code here.
+    ASSERT(g_discoveryManagerClass != nullptr, ());
+    JNIEnv * env = jni::GetEnv();
+
+    jni::TScopedLocalRef gallery(env, promo::MakeCityGallery(env, cityGallery));
+    jobject discoveryManagerInstance =
+        env->GetStaticObjectField(g_discoveryManagerClass, g_discoveryManagerInstanceField);
+    env->CallVoidMethod(discoveryManagerInstance, g_onCityGalleryReceivedMethod, gallery.get());
+
+    jni::HandleJavaException(env);
   }
 };
 
