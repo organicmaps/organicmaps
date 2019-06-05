@@ -28,8 +28,6 @@ struct DownloaderSearchResult
   }
 
   CountryId m_countryId;
-  /// \brief |m_matchedName| is a name of found feature in case of searching in World.mwm
-  /// and is a local name of mwm (group or leaf) in case of searching in country tree.
   std::string m_matchedName;
 };
 
@@ -39,8 +37,7 @@ struct DownloaderSearchResults
 
   std::vector<DownloaderSearchResult> m_results;
   std::string m_query;
-  /// \brief |m_endMarker| == true if it's the last call of TOnResults callback for the search.
-  /// Otherwise |m_endMarker| == false.
+  // |m_endMarker| is true iff it's the last call of OnResults callback for the search.
   bool m_endMarker;
 };
 

@@ -1,14 +1,18 @@
 #include "qt/update_dialog.hpp"
 #include "qt/info_dialog.hpp"
 
+#include "storage/downloader_search_params.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
+#include <algorithm>
+#include <functional>
+#include <utility>
 
 #include <QtCore/QDateTime>
 #include <QtWidgets/QHBoxLayout>
@@ -21,11 +25,7 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 
-#define CHECK_FOR_UPDATE "Check for update"
-#define LAST_UPDATE_CHECK "Last update check: "
-/// used in settings
-#define LAST_CHECK_TIME_KEY "LastUpdateCheckTime"
-
+using namespace std;
 using namespace storage;
 
 enum
@@ -55,6 +55,11 @@ bool DeleteNotUploadedEditsConfirmation()
   msb.setDefaultButton(QMessageBox::Cancel);
   return QMessageBox::Yes == msb.exec();
 }
+
+bool Matches(CountryId const & countryId, vector<CountryId> const & filter)
+{
+  return binary_search(filter.begin(), filter.end(), countryId);
+}
 }  // namespace
 
 namespace qt
@@ -81,11 +86,26 @@ namespace qt
     horizontalLayout->addStretch();
     horizontalLayout->addWidget(closeButton);
 
-    QLineEdit * edit = new QLineEdit(this);
-    connect(edit, SIGNAL(textChanged(QString const &)), this , SLOT(OnTextChanged(QString const &)));
+    QLabel * localeLabel = new QLabel(tr("locale:"));
+    QLineEdit * localeEdit = new QLineEdit(this);
+    localeEdit->setText(m_locale.c_str());
+    connect(localeEdit, SIGNAL(textChanged(QString const &)), this,
+            SLOT(OnLocaleTextChanged(QString const &)));
+
+    QLabel * queryLabel = new QLabel(tr("search query:"));
+    QLineEdit * queryEdit = new QLineEdit(this);
+    connect(queryEdit, SIGNAL(textChanged(QString const &)), this,
+            SLOT(OnQueryTextChanged(QString const &)));
+
+    QGridLayout * inputLayout = new QGridLayout();
+    // widget, row, column
+    inputLayout->addWidget(localeLabel, 0, 0);
+    inputLayout->addWidget(localeEdit, 0, 1);
+    inputLayout->addWidget(queryLabel, 1, 0);
+    inputLayout->addWidget(queryEdit, 1, 1);
 
     QVBoxLayout * verticalLayout = new QVBoxLayout();
-    verticalLayout->addWidget(edit);
+    verticalLayout->addLayout(inputLayout);
     verticalLayout->addWidget(m_tree);
     verticalLayout->addLayout(horizontalLayout);
     setLayout(verticalLayout);
@@ -94,6 +114,7 @@ namespace qt
     resize(700, 600);
 
     // We want to receive all download progress and result events.
+    using namespace std::placeholders;
     m_observerSlotId = GetStorage().Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
                                               bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
@@ -196,13 +217,124 @@ namespace qt
     done(0);
   }
 
-  void UpdateDialog::OnTextChanged(QString const & text)
+  void UpdateDialog::OnLocaleTextChanged(QString const & text)
+  {
+    string locale(text.toUtf8().constData());
+    strings::Trim(locale);
+    m_locale = std::move(locale);
+
+    RefillTree();
+  }
+
+  void UpdateDialog::OnQueryTextChanged(QString const & text)
+  {
+    m_query = string(text.toUtf8().constData());
+
+    RefillTree();
+  }
+
+  void UpdateDialog::RefillTree()
   {
     m_tree->clear();
     m_treeItemByCountryId.clear();
 
-    string const filter = text.toUtf8().constData();
-    FillTree(filter);
+    ++m_fillTreeTimestamp;
+
+    string trimmed = m_query;
+    strings::Trim(trimmed);
+
+    if (trimmed.empty())
+      FillTree({} /* filter */, m_fillTreeTimestamp);
+    else
+      StartSearchInDownloader();
+  }
+
+  void UpdateDialog::StartSearchInDownloader()
+  {
+    CHECK(!m_query.empty(), ());
+
+    auto const timestamp = m_fillTreeTimestamp;
+
+    DownloaderSearchParams params;
+    params.m_query = m_query;
+    params.m_inputLocale = m_locale;
+
+    params.m_onResults = [this, timestamp](DownloaderSearchResults const & results) {
+      vector<CountryId> filter;
+      for (auto const & res : results.m_results)
+        filter.push_back(res.m_countryId);
+
+      base::SortUnique(filter);
+      FillTree(filter, timestamp);
+    };
+
+    m_framework.SearchInDownloader(params);
+  }
+
+  void UpdateDialog::FillTree(boost::optional<vector<CountryId>> const & filter, uint64_t timestamp)
+  {
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+    if (m_fillTreeTimestamp != timestamp)
+      return;
+
+    m_tree->setSortingEnabled(false);
+    m_tree->clear();
+
+    auto const rootId = m_framework.GetStorage().GetRootId();
+    FillTreeImpl(nullptr /* parent */, rootId, filter);
+
+    // Expand the root.
+    ASSERT_EQUAL(m_tree->topLevelItemCount(), 1, ());
+    m_tree->topLevelItem(0)->setExpanded(true);
+
+    // Note. Sorting does not correspond to the ranking of search results and
+    // we do not show the matched name in the qt app. So far it's been
+    // enough to look at the log output when any of these features were needed.
+    m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
+    m_tree->setSortingEnabled(true);
+    m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+  }
+
+  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId,
+                                  boost::optional<vector<CountryId>> const & filter)
+  {
+    CountriesVec children;
+    GetStorage().GetChildren(countryId, children);
+
+    if (children.empty())
+    {
+      if (filter && !Matches(countryId, *filter))
+        return;
+
+      QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+      UpdateRowWithCountryInfo(item, countryId);
+      return;
+    }
+
+    QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+    UpdateRowWithCountryInfo(item, countryId);
+
+    if (filter && Matches(countryId, *filter))
+    {
+      // Filter matches to the group name, do not filter the group.
+      for (auto const & child : children)
+        FillTreeImpl(item, child, vector<CountryId>());
+
+      return;
+    }
+
+    // Filter does not match to the group, but children can.
+    for (auto const & child : children)
+      FillTreeImpl(item, child, filter);
+
+    // Drop the item if it has no children.
+    if (filter && item->childCount() == 0 && parent != nullptr)
+    {
+      parent->removeChild(item);
+      item = nullptr;
+    }
   }
 
   /// Changes row's text color
@@ -308,10 +440,10 @@ namespace qt
     //    SetRowColor(*item, rowColor);
   }
 
-  QString UpdateDialog::GetNodeName(storage::CountryId const & countryId)
+  QString UpdateDialog::GetNodeName(CountryId const & countryId)
   {
     // QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str()); // ???
-    storage::NodeAttrs attrs;
+    NodeAttrs attrs;
     GetStorage().GetNodeAttrs(countryId, attrs);
     return attrs.m_nodeLocalName.c_str();
   }
@@ -323,7 +455,7 @@ namespace qt
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
     item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(countryId.c_str()));
 
-    if (parent == 0)
+    if (parent == nullptr)
       m_tree->addTopLevelItem(item);
 
     m_treeItemByCountryId.insert(make_pair(countryId, item));
@@ -340,79 +472,9 @@ namespace qt
     return res;
   }
 
-  storage::CountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
+  CountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
   {
     return item->data(KColumnIndexCountry, Qt::UserRole).toString().toUtf8().constData();
-  }
-
-  bool Matches(string countryId, string filter)
-  {
-    transform(filter.begin(), filter.end(), filter.begin(), toupper);
-    transform(countryId.begin(), countryId.end(), countryId.begin(), toupper);
-    return countryId.find(filter) != string::npos;
-  }
-
-  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId,
-                                  string const & filter)
-  {
-    CountriesVec children;
-    GetStorage().GetChildren(countryId, children);
-
-    if (children.empty())
-    {
-      // Filter leafs by matching.
-      if (!filter.empty() && !Matches(countryId, filter))
-        return;
-
-      QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
-      UpdateRowWithCountryInfo(item, countryId);
-    }
-    else
-    {
-      if (!filter.empty() && Matches(countryId, filter))
-      {
-        // Filter matches to the group name, do not filter the group.
-        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
-        UpdateRowWithCountryInfo(item, countryId);
-
-        for (auto const & child : children)
-          FillTreeImpl(item, child, string()); // Do no filter children.
-      }
-      else
-      {
-        // Filter does not match to the group, but children can do.
-        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
-        UpdateRowWithCountryInfo(item, countryId);
-
-        for (auto const & child : children)
-          FillTreeImpl(item, child, filter);
-
-        // But if item has no children, then drop it.
-        if (!filter.empty() && 0 == item->childCount() && parent != nullptr)
-        {
-          parent->removeChild(item);
-          item = nullptr;
-        }
-      }
-    }
-  }
-
-  void UpdateDialog::FillTree(string const & filter)
-  {
-    m_tree->setSortingEnabled(false);
-    m_tree->clear();
-
-    CountryId const rootId = m_framework.GetStorage().GetRootId();
-    FillTreeImpl(nullptr /* parent */, rootId, filter);
-
-    // Expand the root.
-    ASSERT_EQUAL(1, m_tree->topLevelItemCount(), ());
-    m_tree->topLevelItem(0)->setExpanded(true);
-
-    m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
-    m_tree->setSortingEnabled(true);
-    m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
-    m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
   }
 
   void UpdateDialog::OnCountryChanged(CountryId const & countryId)
@@ -438,10 +500,10 @@ namespace qt
 
   void UpdateDialog::ShowModal()
   {
-    // If called for first time.
+    // If called for the first time.
     if (!m_tree->topLevelItemCount())
-      FillTree(string());
+      FillTree({} /* filter */, m_fillTreeTimestamp);
 
     exec();
   }
-}
+}  // namespace qt

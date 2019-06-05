@@ -189,8 +189,8 @@ void Processor::SetInputLocale(string const & locale)
   if (locale.empty())
     return;
 
-  LOG(LDEBUG, ("New input locale:", locale));
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
+  LOG(LDEBUG, ("New input locale:", locale, "locale code:", code));
   m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_INPUT, {code});
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
