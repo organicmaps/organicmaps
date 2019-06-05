@@ -53,7 +53,7 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
   result.m_items.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
-    promo::CityGalleryItem item;
+    promo::CityGallery::Item item;
     auto const obj = json_array_get(dataArray, i);
     FromJSONObject(obj, "name", item.m_name);
     FromJSONObject(obj, "url", item.m_url);
@@ -96,30 +96,42 @@ std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & 
 }
 
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
-                             CityGalleryCallback const & cb)
+                             CityGalleryCallback const & onSuccess, OnError const & onError)
 {
   ASSERT(!baseUrl.empty(), ());
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  CityGallery result;
-  std::string httpResult;
-  if (id.empty() || !WebApi::GetCityGalleryById(baseUrl, id, languages::GetCurrentNorm(), httpResult))
+  if (id.empty())
   {
-    cb({});
+    onSuccess({});
     return;
   }
 
-  try
+  GetPlatform().RunTask(Platform::Thread::Network, [baseUrl, id, onSuccess, onError]()
   {
-    ParseCityGallery(httpResult, result);
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    result.m_items.clear();
-  }
+    ASSERT(!id.empty(), ());
 
-  cb(std::move(result));
+    CityGallery result;
+    std::string httpResult;
+    if (!WebApi::GetCityGalleryById(baseUrl, id, languages::GetCurrentNorm(), httpResult))
+    {
+      onError();
+      return;
+    }
+
+    try
+    {
+      ParseCityGallery(httpResult, result);
+    }
+    catch (base::Json::Exception const & e)
+    {
+      LOG(LERROR, (e.Msg()));
+      onError();
+      return;
+    }
+
+    onSuccess(std::move(result));
+  });
 }
 }  // namespace
 
@@ -176,16 +188,18 @@ std::string Api::GetPromoLinkAfterBooking() const
   return MakeCityGalleryUrl(m_baseUrl, m_bookingPromoAwaitingForId, languages::GetCurrentNorm());
 }
 
-void Api::GetCityGallery(std::string const & id, CityGalleryCallback const & cb) const
+void Api::GetCityGallery(std::string const & id, CityGalleryCallback const & onSuccess,
+                         OnError const & onError) const
 {
-  GetPromoCityGalleryImpl(m_baseUrl, id, cb);
+  GetPromoCityGalleryImpl(m_baseUrl, id, onSuccess, onError);
 }
 
-void Api::GetCityGallery(m2::PointD const & point, CityGalleryCallback const & cb) const
+void Api::GetCityGallery(m2::PointD const & point, CityGalleryCallback const & onSuccess,
+                         OnError const & onError) const
 {
   CHECK(m_delegate, ());
 
-  GetPromoCityGalleryImpl(m_baseUrl, m_delegate->GetCityId(point), cb);
+  GetPromoCityGalleryImpl(m_baseUrl, m_delegate->GetCityId(point), onSuccess, onError);
 }
 
 void Api::OnMapObjectEvent(eye::MapObject const & mapObject)

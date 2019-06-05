@@ -145,6 +145,10 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
     {
       result = gallery;
       testing::Notify();
+    },
+    []
+    {
+      testing::Notify();
     });
 
     testing::Wait();
@@ -156,6 +160,10 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
     api.GetCityGallery(pt, [&result](promo::CityGallery const & gallery)
     {
       result = gallery;
+      testing::Notify();
+    },
+    []
+    {
       testing::Notify();
     });
 

@@ -115,15 +115,14 @@ public:
       {
         m_promoApi.GetCityGallery(
             params.m_viewportCenter,
-            [this, requestId, onResult, onError, type](promo::CityGallery const & cityGallery)
-        {
-          CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-          if (cityGallery.m_items.empty())
-            onError(requestId, type);
-          else
-            onResult(requestId, cityGallery);
-        });
+            [this, requestId, onResult, type](promo::CityGallery const & cityGallery) {
+              CHECK_THREAD_CHECKER(m_threadChecker, ());
+              onResult(requestId, cityGallery);
+            },
+            [this, requestId, onError, type]() {
+              CHECK_THREAD_CHECKER(m_threadChecker, ());
+              onError(requestId, type);
+            });
         break;
       }
       }

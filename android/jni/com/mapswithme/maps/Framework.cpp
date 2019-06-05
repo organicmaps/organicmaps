@@ -809,6 +809,7 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
   if (api == nullptr)
     return;
 
+  api->GetCityGallery(jni::ToNativeString(env, id), onSuccess, onError);
 }
 
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)

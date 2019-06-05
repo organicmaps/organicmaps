@@ -23,21 +23,21 @@ struct LuxCategory
   std::string m_color;
 };
 
-struct CityGalleryItem
-{
-  std::string m_name;
-  std::string m_url;
-  std::string m_imageUrl;
-  std::string m_access;
-  std::string m_tier;
-  Author m_author;
-  LuxCategory m_luxCategory;
-};
-
 struct CityGallery
 {
+  struct Item
+  {
+    std::string m_name;
+    std::string m_url;
+    std::string m_imageUrl;
+    std::string m_access;
+    std::string m_tier;
+    Author m_author;
+    LuxCategory m_luxCategory;
+  };
+
   std::string m_moreUrl;
-  std::vector<CityGalleryItem> m_items;
+  std::vector<Item> m_items;
 };
 
 class WebApi
@@ -48,6 +48,7 @@ public:
 };
 
 using CityGalleryCallback = platform::SafeCallback<void(CityGallery const & gallery)>;
+using OnError = platform::SafeCallback<void()>;
 
 class Api : public eye::Subscriber
 {
@@ -66,8 +67,10 @@ public:
   void OnEnterForeground();
   bool NeedToShowAfterBooking() const;
   std::string GetPromoLinkAfterBooking() const;
-  void GetCityGallery(std::string const & id, CityGalleryCallback const & cb) const;
-  void GetCityGallery(m2::PointD const & point, CityGalleryCallback const & cb) const;
+  void GetCityGallery(std::string const & id, CityGalleryCallback const & onSuccess,
+                      OnError const & onError) const;
+  void GetCityGallery(m2::PointD const & point, CityGalleryCallback const & onSuccess,
+                      OnError const & onError) const;
 
   // eye::Subscriber overrides:
   void OnMapObjectEvent(eye::MapObject const & poi) override;
