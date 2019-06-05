@@ -27,17 +27,15 @@ public:
   // Build a region and its boundary based on the heuristic.
   explicit Region(PlacePoint const & place);
 
-  // After calling DeletePolygon, you cannot use Contains, ContainsRect, CalculateOverlapPercentage.
-  void DeletePolygon();
   bool Contains(Region const & smaller) const;
   bool ContainsRect(Region const & smaller) const;
   bool Contains(PlacePoint const & place) const;
   bool Contains(BoostPoint const & point) const;
   double CalculateOverlapPercentage(Region const & other) const;
   BoostPoint GetCenter() const;
-  bool IsCountry() const;
   bool IsLocality() const;
   BoostRect const & GetRect() const { return m_rect; }
+  std::shared_ptr<BoostPolygon> const & GetPolygon() const noexcept { return m_polygon; }
   double GetArea() const { return m_area; }
   // This function uses heuristics and assigns a radius according to the tag place.
   // The radius will be returned in mercator units.
@@ -51,6 +49,6 @@ private:
   double m_area;
 };
 
-bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, feature::FeatureBuilder & feature);
+std::string GetRegionNotation(Region const & region);
 }  // namespace regions
 }  // namespace generator

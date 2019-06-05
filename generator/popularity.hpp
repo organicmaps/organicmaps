@@ -53,7 +53,6 @@ public:
   bool Contains(PopularityGeomPlace const & smaller) const;
   bool Contains(m2::PointD const & point) const;
   feature::FeatureBuilder const & GetFeature() const { return m_feature; }
-  void DeletePolygon() { m_polygon = nullptr; }
   double GetArea() const { return m_area; }
   base::GeoObjectId GetId() const { return m_id; }
 

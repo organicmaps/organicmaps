@@ -185,7 +185,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountryNames)
   auto const filename = MakeCollectorData();
   RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector));
-  auto const countryNames = builder.GetCountryNames();
+  auto const & countryNames = builder.GetCountryNames();
   TEST_EQUAL(countryNames.size(), 2, ());
   TEST(std::count(std::begin(countryNames), std::end(countryNames), "Country_1"), ());
   TEST(std::count(std::begin(countryNames), std::end(countryNames), "Country_2"), ());
@@ -196,7 +196,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountries)
   auto const filename = MakeCollectorData();
   RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector));
-  auto const countries = builder.GetCountries();
+  auto const & countries = builder.GetCountriesOuters();
   TEST_EQUAL(countries.size(), 3, ());
   TEST_EQUAL(std::count_if(std::begin(countries), std::end(countries),
                            [](const Region & r) {return r.GetName() == "Country_1"; }), 1, ());
@@ -210,11 +210,14 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
   RegionInfo collector(filename);
   std::vector<std::string> bankOfNames;
   RegionsBuilder builder(MakeTestDataSet1(collector));
-  builder.ForEachNormalizedCountry([&](std::string const & name, Node::Ptr const & tree) {
-    ForEachLevelPath(tree, [&](NodePath const & path) {
-      StringJoinPolicy stringifier;
-      bankOfNames.push_back(stringifier.ToString(path));
-    });
+  builder.ForEachCountry([&](std::string const & name, Node::PtrList const & outers) {
+    for (auto const & tree : outers)
+    {
+      ForEachLevelPath(tree, [&](NodePath const & path) {
+        StringJoinPolicy stringifier;
+        bankOfNames.push_back(stringifier.ToString(path));
+      });
+    }
   });
 
   TEST(NameExists(bankOfNames, "Country_2"), ());

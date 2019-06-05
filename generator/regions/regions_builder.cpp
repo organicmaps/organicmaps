@@ -18,43 +18,49 @@ namespace generator
 {
 namespace regions
 {
-namespace
-{
-Node::Ptr ShrinkToFit(Node::Ptr p)
-{
-  p->ShrinkToFitChildren();
-  for (auto ptr : p->GetChildren())
-    ShrinkToFit(ptr);
-
-  return p;
-}
-}  // namespace
-
 RegionsBuilder::RegionsBuilder(Regions && regions, size_t threadsCount)
-  : m_regions(std::move(regions))
-  , m_threadsCount(threadsCount)
+  : m_threadsCount(threadsCount)
 {
   ASSERT(m_threadsCount != 0, ());
 
-  auto const isCountry = [](Region const & r) { return r.IsCountry(); };
-  std::copy_if(std::begin(m_regions), std::end(m_regions), std::back_inserter(m_countries), isCountry);
-  base::EraseIf(m_regions, isCountry);
-  auto const cmp = [](Region const & l, Region const & r) { return l.GetArea() > r.GetArea(); };
-  std::sort(std::begin(m_countries), std::end(m_countries), cmp);
+  m_regionsInAreaOrder = FormRegionsInAreaOrder(std::move(regions));
+  m_countriesOuters = ExtractCountriesOuters(m_regionsInAreaOrder);
 }
 
-RegionsBuilder::Regions const & RegionsBuilder::GetCountries() const
+RegionsBuilder::Regions RegionsBuilder::FormRegionsInAreaOrder(Regions && regions)
 {
-  return m_countries;
+  auto const cmp = [](Region const & l, Region const & r) { return l.GetArea() > r.GetArea(); };
+  std::sort(std::begin(regions), std::end(regions), cmp);
+  return std::move(regions);
+}
+
+RegionsBuilder::Regions RegionsBuilder::ExtractCountriesOuters(Regions & regions)
+{
+  Regions countriesOuters;
+
+  auto const isCountry = [](Region const & region) {
+    return AdminLevel::Two == region.GetAdminLevel();
+  };
+  std::copy_if(std::begin(regions), std::end(regions), std::back_inserter(countriesOuters),
+      isCountry);
+
+  base::EraseIf(regions, isCountry);
+
+  return countriesOuters;
+}
+
+RegionsBuilder::Regions const & RegionsBuilder::GetCountriesOuters() const
+{
+  return m_countriesOuters;
 }
 
 RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
 {
   StringsList result;
   std::unordered_set<std::string> set;
-  for (auto const & c : GetCountries())
+  for (auto const & c : GetCountriesOuters())
   {
-    auto name = c.GetName();
+    auto const & name = c.GetName();
     if (set.insert(name).second)
       result.emplace_back(std::move(name));
   }
@@ -62,13 +68,13 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
   return result;
 }
 
-Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & country,
+Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & outer,
                                                            Regions const & allRegions)
 {
-  std::vector<LevelRegion> regionsInCountry{{PlaceLevel::Country, country}};
+  std::vector<LevelRegion> regionsInCountry{{PlaceLevel::Country, outer}};
   for (auto const & region : allRegions)
   {
-    if (country.ContainsRect(region))
+    if (outer.ContainsRect(region))
       regionsInCountry.emplace_back(GetLevel(region), region);
   }
 
@@ -87,10 +93,10 @@ Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & countr
   return nodes;
 }
 
-Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & country,
+Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
                                                  Regions const & allRegions)
 {
-  auto nodes = MakeSelectedRegionsByCountry(country, allRegions);
+  auto nodes = MakeSelectedRegionsByCountry(outer, allRegions);
   while (nodes.size() > 1)
   {
     auto itFirstNode = std::rbegin(nodes);
@@ -106,52 +112,47 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & country,
       {
         (*itFirstNode)->SetParent(*itCurr);
         (*itCurr)->AddChild(*itFirstNode);
-        // We want to free up memory.
-        firstRegion.DeletePolygon();
-        nodes.pop_back();
         break;
       }
     }
 
-    if (itCurr == std::rend(nodes))
-      nodes.pop_back();
+    nodes.pop_back();
   }
 
-  return nodes.empty() ? std::shared_ptr<Node>() : ShrinkToFit(nodes.front());
+  return nodes.front();
 }
 
-void RegionsBuilder::ForEachNormalizedCountry(NormalizedCountryFn fn)
+void RegionsBuilder::ForEachCountry(CountryFn fn)
 {
   for (auto const & countryName : GetCountryNames())
   {
-    RegionsBuilder::Regions country;
-    auto const & countries = GetCountries();
-    auto const pred = [&](const Region & r) { return countryName == r.GetName(); };
-    std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(country), pred);
-    auto const countryTrees = BuildCountryRegionTrees(country);
-    auto mergedTree = std::accumulate(std::begin(countryTrees), std::end(countryTrees),
-                                      Node::Ptr(), MergeTree);
-    NormalizeTree(mergedTree);
-    fn(countryName, mergedTree);
+    Regions outers;
+    auto const & countries = GetCountriesOuters();
+    auto const pred = [&](Region const & country) { return countryName == country.GetName(); };
+    std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
+    auto countryTrees = BuildCountryRegionTrees(outers);
+
+    fn(countryName, countryTrees);
   }
 }
 
-std::vector<Node::Ptr> RegionsBuilder::BuildCountryRegionTrees(RegionsBuilder::Regions const & countries)
+Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers)
 {
-  std::vector<std::future<Node::Ptr>> tmp;
+  std::vector<std::future<Node::Ptr>> buildingTasks;
   {
     base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
-    for (auto const & country : countries)
+    for (auto const & outer : outers)
     {
-      auto result = threadPool.Submit(&RegionsBuilder::BuildCountryRegionTree, country, m_regions);
-      tmp.emplace_back(std::move(result));
+      auto result = threadPool.Submit(
+          &RegionsBuilder::BuildCountryRegionTree, std::cref(outer), std::cref(m_regionsInAreaOrder));
+      buildingTasks.emplace_back(std::move(result));
     }
   }
-  std::vector<Node::Ptr> res;
-  res.reserve(tmp.size());
-  std::transform(std::begin(tmp), std::end(tmp),
-                 std::back_inserter(res), [](auto & f) { return f.get(); });
-  return res;
+  std::vector<Node::Ptr> trees;
+  trees.reserve(buildingTasks.size());
+  std::transform(std::begin(buildingTasks), std::end(buildingTasks),
+                 std::back_inserter(trees), [](auto & f) { return f.get(); });
+  return trees;
 }
 
 // static
