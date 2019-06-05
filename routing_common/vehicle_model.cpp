@@ -373,14 +373,11 @@ shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModelForCountry
   {
     auto it = m_models.find(parent);
     if (it != m_models.end())
-    {
-      LOG(LDEBUG, ("Vehicle model for", country, " was found:", parent));
       return it->second;
-    }
+
     parent = GetParent(parent);
   }
 
-  LOG(LDEBUG, ("Vehicle model wasn't found, default model is used instead:", country));
   return GetVehicleModel();
 }
 
