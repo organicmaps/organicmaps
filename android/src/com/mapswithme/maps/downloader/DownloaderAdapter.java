@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -964,6 +965,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   /**
    * Loads banner if:
    * <ul>
+   *   <li>There is not active ads removal subscription</li>
    *   <li>Not in `my maps` mode;</li>
    *   <li>Currently at root level;</li>
    *   <li>Day mode is active;</li>
@@ -973,6 +975,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void loadAds()
   {
     mShowAds = false;
+
+    if (Framework.nativeHasActiveRemoveAdsSubscription())
+      return;
+
     if (mAdsLoading)
       return;
 
