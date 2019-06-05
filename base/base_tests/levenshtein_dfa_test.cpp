@@ -203,4 +203,75 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
     TEST_EQUAL(GetResult(dfa, "кафер"), Result(Status::Accepts, 1 /* errorsMade */), ());
   }
 }
+
+UNIT_TEST(LevenshteinDFA_PrefixDFAModifier)
+{
+  {
+    PrefixDFAModifier<LevenshteinDFA> dfa(LevenshteinDFA("abcde", 2 /* maxErrors */));
+
+    auto it = dfa.Begin();
+    DFAMove(it, "ab");
+
+    TEST(!it.Accepts(), ());
+    TEST(!it.Rejects(), ());
+
+    DFAMove(it, "c");
+    TEST(it.Accepts(), ());
+    TEST(!it.Rejects(), ());
+    TEST_EQUAL(it.ErrorsMade(), 2, ());
+
+    DFAMove(it, "d");
+    TEST(it.Accepts(), ());
+    TEST(!it.Rejects(), ());
+    TEST_EQUAL(it.ErrorsMade(), 1, ());
+
+    DFAMove(it, "e");
+    TEST(it.Accepts(), ());
+    TEST(!it.Rejects(), ());
+    TEST_EQUAL(it.ErrorsMade(), 0, ());
+
+    DFAMove(it, "fghijklmn");
+    TEST(it.Accepts(), ());
+    TEST(!it.Rejects(), ());
+    TEST_EQUAL(it.ErrorsMade(), 0, ());
+  }
+}
+
+UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
+{
+  vector<char> const kAlphabet = {'a', 'b', 'c'};
+  vector<string> sources;
+  vector<string> queries;
+  auto generate = [](vector<char> const & alphabet, size_t size, vector<string> & result)
+  {
+    result.clear();
+    result.resize(pow(alphabet.size(), size));
+    for (size_t letterNumber = 0;  letterNumber < size; ++letterNumber)
+    {
+      for (size_t i = 0; i < result.size(); ++i)
+      {
+        auto const letterIndex =
+            static_cast<size_t>(i / pow(alphabet.size(), size - letterNumber - 1)) %
+            alphabet.size();
+        result[i].push_back(alphabet[letterIndex]);
+      }
+    }
+  };
+  {
+    generate(kAlphabet, 4, sources);
+    generate(kAlphabet, 2, queries);
+
+    for (auto const & source : sources)
+    {
+      for (auto const & query : queries)
+      {
+        LOG(LINFO, (source, query));
+        PrefixDFAModifier<LevenshteinDFA> dfa(LevenshteinDFA(source, 2 /* maxErrors */));
+        auto it = dfa.Begin();
+        for (auto const c : query)
+          DFAMove(it, strings::MakeUniString({c}));
+      }
+    }
+  }
+}
 }  // namespace

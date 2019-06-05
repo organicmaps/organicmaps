@@ -16,8 +16,41 @@ public:
   public:
     Iterator & Move(strings::UniChar c)
     {
-      if (Accepts() || Rejects())
+      if (Rejects())
         return *this;
+
+      if (Accepts())
+      {
+        auto currentIt = m_it;
+        currentIt.Move(c);
+
+        // While moving m_it, errors number decreases while matching unmatched symbols:
+        // source:  a b c d e f
+        // query:   a b c d e f
+        // errors:  5 4 3 2 1 0
+        //
+        // After a misprinted symbol errors number remains the same:
+        // source:  a b c d e f
+        // query:   a b z d e f
+        // errors:  5 4 3 3 2 1
+        //
+        // source:  a b c d e f
+        // query:   a b d c e f
+        // errors:  5 4 3 3 2 1
+        //
+        // source:  a b c d e f
+        // query:   a b d e f
+        // errors:  5 4 3 3 2
+        //
+        // source:  a b c d e f
+        // query:   a b c z d e f
+        // errors:  5 4 3 3 3 2 1
+        //
+        // Errors number cannot decrease after it has increased once.
+
+        if (currentIt.ErrorsMade() > ErrorsMade())
+          return *this;
+      }
 
       m_it.Move(c);
       if (m_it.Accepts())

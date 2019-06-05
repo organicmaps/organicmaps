@@ -1915,6 +1915,30 @@ UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
     TEST(!results[0].GetRankingInfo().m_exactMatch, ());
     TEST(!results[1].GetRankingInfo().m_exactMatch, ());
   }
+
+  {
+    auto request = MakeRequest("cafe лермонтов");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
+    TEST(results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(results[1].GetRankingInfo().m_exactMatch, ());
+  }
+
+  {
+    auto request = MakeRequest("cafe лер");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
+    TEST(results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(results[1].GetRankingInfo().m_exactMatch, ());
+  }
 }
 }  // namespace
 }  // namespace search
