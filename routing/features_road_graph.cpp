@@ -29,6 +29,7 @@ double constexpr kMwmRoadCrossingRadiusMeters = 2.0;
 
 double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
+auto constexpr kInvalidSpeedKMPH = numeric_limits<double>::max();
 }  // namespace
 
 double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
@@ -132,9 +133,9 @@ public:
 
     FeatureID const featureId = ft.GetID();
 
-    auto constexpr invalidSpeed = numeric_limits<double>::max();
-    IRoadGraph::RoadInfo const & roadInfo = m_graph.GetCachedRoadInfo(featureId, ft, invalidSpeed);
-    CHECK_EQUAL(roadInfo.m_speedKMPH, invalidSpeed, ());
+    IRoadGraph::RoadInfo const & roadInfo =
+        m_graph.GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
+    CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
 
     m_edgesLoader(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
   }
@@ -181,9 +182,8 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 
     FeatureID const featureId = ft.GetID();
 
-    auto constexpr invalidSpeed = numeric_limits<double>::max();
-    IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, invalidSpeed);
-    CHECK_EQUAL(roadInfo.m_speedKMPH, invalidSpeed, ());
+    IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
+    CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
 
     finder.AddInformationSource(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
   };
@@ -277,7 +277,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   }
 
   CHECK_EQUAL(altitudes.size(), pointsCount,
-              ("altitudeLoader->GetAltitudes(", featureId.m_index, "...) returns wrong alititudes:",
+              ("altitudeLoader->GetAltitudes(", featureId.m_index, "...) returns wrong altitudes:",
                altitudes));
 
   ri.m_junctions.resize(pointsCount);
