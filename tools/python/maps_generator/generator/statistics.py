@@ -106,9 +106,7 @@ def parse_time(time_str):
     return datetime.timedelta(**time_params)
 
 
-def get_stages_info(log_path, ignored_stages=None):
-    if ignored_stages is None:
-        ignored_stages = set()
+def get_stages_info(log_path, ignored_stages=frozenset()):
     result = defaultdict(lambda: defaultdict(dict))
     for file in os.listdir(log_path):
         path = os.path.join(log_path, file)
