@@ -14,6 +14,8 @@
 #include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "generator/borders.hpp"
+
 #include "defines.hpp"
 #include "private.h"
 
@@ -3497,66 +3499,36 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 }
 }  // namespace
 
-void Framework::VisualizeMwmBorderByPolyFiles(std::string const & mwmName)
+void Framework::DrawMwmBorder(std::string const & mwmName,
+                              std::vector<m2::RegionD> const & polygons, bool withPoints)
 {
-  static std::string const kPathToBorders =
-      base::JoinPath(GetPlatform().ResourcesDir(), "borders");
-
-  std::string const path = base::JoinPath(kPathToBorders, mwmName + ".poly");
-
-  std::vector<m2::PointD> points;
-  std::ifstream input(path);
-  std::string line;
-
-  std::getline(input, line);
-  std::getline(input, line);
-
-  double lon = 0.0;
-  double lat = 0.0;
-  uint32_t mwmNameNumber = 0;
-  while (std::getline(input, line))
+  for (auto const & region : polygons)
   {
-    if (line == "END")
+    auto const points = region.Data();
+    if (points.empty())
+      return;
+
+    static uint32_t kColorCounter = 0;
+    if (withPoints)
     {
-      DrawMwmBorder(points,
-                    mwmName + (mwmNameNumber ? "_" + std::to_string(mwmNameNumber) : ""));
-      ++mwmNameNumber;
-      points.clear();
-      continue;
+      m_drapeApi.AddLine(mwmName, df::DrapeApiLineData(points, colorList[kColorCounter])
+          .Width(4.0f)
+          .ShowId()
+          .ShowPoints(true));
+    }
+    else
+    {
+      m_drapeApi.AddLine(
+          mwmName, df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId());
     }
 
-    strings::SimpleTokenizer iter(line, "\t");
-
-    if (!iter || !strings::to_double(*iter, lon))
-      continue;
-    ++iter;
-
-    if (!iter || !strings::to_double(*iter, lat))
-      continue;
-
-    points.emplace_back(MercatorBounds::FromLatLon(lat, lon));
+    kColorCounter = (kColorCounter + 1) % colorList.size();
   }
 }
 
-void Framework::DrawMwmBorder(std::vector<m2::PointD> const & points,
-                              std::string const & mwmName)
+std::vector<std::string> Framework::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
 {
-  if (points.empty())
-    return;
-
-  static uint32_t kColorCounter = 0;
-  m_drapeApi.AddLine(mwmName,
-                     df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId());
-
-  kColorCounter = (kColorCounter + 1) % colorList.size();
-}
-
-
-void Framework::VisualizeMwmsBordersInRect(m2::RectD const & rect)
-{
-  auto mwmNames = m_infoGetter->GetRegionsCountryIdByRect(rect, false /* rough */);
-  for (auto const & mwmName : mwmNames)
-    VisualizeMwmBorderByPolyFiles(mwmName);
+  return m_infoGetter->GetRegionsCountryIdByRect(rect, rough);
 }
 
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)

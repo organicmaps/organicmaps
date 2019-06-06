@@ -2,6 +2,7 @@
 #include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/mainwindow.hpp"
+#include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
 #include "qt/preferences_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
@@ -12,6 +13,8 @@
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
+
+#include "base/assert.hpp"
 
 #include "defines.hpp"
 
@@ -608,57 +611,60 @@ void MainWindow::OnCreateFeatureClicked()
 void MainWindow::OnSwitchSelectionMode()
 {
   m_selectionCityBoundariesMode->setChecked(false);
-  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
-
   m_selectionCityRoadsMode->setChecked(false);
-  m_pDrawWidget->SetCityRoadsSelectionMode(false);
-
   m_selectionMwmsBordersMode->setChecked(false);
-  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
 
-  m_pDrawWidget->SetSelectionMode(m_selectionMode->isChecked());
+  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::Features);
 }
 
 void MainWindow::OnSwitchCityBoundariesSelectionMode()
 {
   m_selectionMode->setChecked(false);
-  m_pDrawWidget->SetSelectionMode(false);
-
   m_selectionCityRoadsMode->setChecked(false);
-  m_pDrawWidget->SetCityRoadsSelectionMode(false);
-
   m_selectionMwmsBordersMode->setChecked(false);
-  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
 
-  m_pDrawWidget->SetCityBoundariesSelectionMode(m_selectionCityBoundariesMode->isChecked());
+  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::CityBoundaries);
 }
 
 void MainWindow::OnSwitchCityRoadsSelectionMode()
 {
   m_selectionMode->setChecked(false);
-  m_pDrawWidget->SetSelectionMode(false);
-
   m_selectionCityBoundariesMode->setChecked(false);
-  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
-
   m_selectionMwmsBordersMode->setChecked(false);
-  m_pDrawWidget->SetMwmsBordersSelectionMode(false);
 
-  m_pDrawWidget->SetCityRoadsSelectionMode(m_selectionCityRoadsMode->isChecked());
+  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::CityRoads);
 }
 
 void MainWindow::OnSwitchMwmsBordersSelectionMode()
 {
+  MwmsBordersSelection dlg(this);
+  auto const response = dlg.ShowModal();
+  if (response == MwmsBordersSelection::Response::Canceled)
+  {
+    if (m_pDrawWidget->SelectionModeIsSet() &&
+        (m_pDrawWidget->GetSelectionMode() == DrawWidget::SelectionMode::MwmsBordersWithPoints ||
+         m_pDrawWidget->GetSelectionMode() == DrawWidget::SelectionMode::MwmsBorders))
+    {
+      m_pDrawWidget->DropSelectionMode();
+    }
+
+    m_selectionMwmsBordersMode->setChecked(false);
+    return;
+  }
+
+  CHECK(response == MwmsBordersSelection::Response::JustBorders ||
+        response == MwmsBordersSelection::Response::WithPointsAndBorders, ());
+
   m_selectionMode->setChecked(false);
-  m_pDrawWidget->SetSelectionMode(false);
-
   m_selectionCityBoundariesMode->setChecked(false);
-  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
-
   m_selectionCityRoadsMode->setChecked(false);
-  m_pDrawWidget->SetCityRoadsSelectionMode(false);
 
-  m_pDrawWidget->SetMwmsBordersSelectionMode(m_selectionMwmsBordersMode->isChecked());
+  m_selectionMwmsBordersMode->setChecked(true);
+
+  if (response == MwmsBordersSelection::Response::WithPointsAndBorders)
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPoints);
+  else
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBorders);
 }
 
 void MainWindow::OnClearSelection()

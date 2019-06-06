@@ -9,6 +9,8 @@
 
 #include "map/framework.hpp"
 
+#include "generator/borders.hpp"
+
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
@@ -23,6 +25,7 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QGuiApplication>
@@ -35,6 +38,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
+#include <base/file_name_utils.hpp>
 
 using namespace qt::common;
 
@@ -208,7 +212,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!(IsSelectionModeEnabled()) ||
+    else if (!(m_currentSelectionMode) ||
              IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
@@ -233,10 +237,27 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if ((IsSelectionModeEnabled()) &&
+  if ((m_currentSelectionMode) &&
       m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
+  }
+}
+
+void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints)
+{
+  static std::string const kPathToBorders =
+    base::JoinPath(GetPlatform().ResourcesDir(), "borders");
+
+  auto const mwmNames = m_framework.GetRegionsCountryIdByRect(rect, false /* rough */);
+
+  for (auto const & mwmName : mwmNames)
+  {
+    std::string const path = base::JoinPath(kPathToBorders, mwmName + ".poly");
+    std::vector<m2::RegionD> polygons;
+    borders::LoadBorders(path, polygons);
+
+    m_framework.DrawMwmBorder(mwmName, polygons, withPoints);
   }
 }
 
@@ -250,7 +271,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if ((IsSelectionModeEnabled()) &&
+  else if ((m_currentSelectionMode) &&
            IsRightButton(e) && m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     QPoint const lt = m_rubberBand->geometry().topLeft();
@@ -258,36 +279,34 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
     m2::RectD rect;
     rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
     rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
-    if (m_selectionMode)
+    switch (*m_currentSelectionMode)
     {
-      CHECK(!m_cityBoundariesSelectionMode, ());
-      CHECK(!m_cityRoadsSelectionMode, ());
-      CHECK(!m_mwmsBordersSelectionMode, ());
+    case SelectionMode::Features:
+    {
       m_framework.VisualizeRoadsInRect(rect);
+      break;
     }
-    else if (m_cityBoundariesSelectionMode)
+    case SelectionMode::CityBoundaries:
     {
-      CHECK(!m_cityRoadsSelectionMode, ());
-      CHECK(!m_mwmsBordersSelectionMode, ());
-      CHECK(!m_selectionMode, ());
       m_framework.VisualizeCityBoundariesInRect(rect);
+      break;
     }
-    else if (m_cityRoadsSelectionMode)
+    case SelectionMode::CityRoads:
     {
-      CHECK(!m_cityBoundariesSelectionMode, ());
-      CHECK(!m_mwmsBordersSelectionMode, ());
-      CHECK(!m_selectionMode, ());
       m_framework.VisualizeCityRoadsInRect(rect);
+      break;
     }
-    else if (m_mwmsBordersSelectionMode)
+    case SelectionMode::MwmsBorders:
     {
-      CHECK(!m_cityBoundariesSelectionMode, ());
-      CHECK(!m_cityRoadsSelectionMode, ());
-      CHECK(!m_selectionMode, ());
-      m_framework.VisualizeMwmsBordersInRect(rect);
+      VisualizeMwmsBordersInRect(rect, false /* withPoints */);
+      break;
     }
-    else
+    case SelectionMode::MwmsBordersWithPoints:
     {
+      VisualizeMwmsBordersInRect(rect, true /* withPoints */);
+      break;
+    }
+    default:
       UNREACHABLE();
     }
 
@@ -556,23 +575,6 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
   m_framework.GetRoutingManager().SetRouter(routerType);
 }
 
-void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
-
-void DrawWidget::SetCityBoundariesSelectionMode(bool mode)
-{
-  m_cityBoundariesSelectionMode = mode;
-}
-
-void DrawWidget::SetCityRoadsSelectionMode(bool mode)
-{
-  m_cityRoadsSelectionMode = mode;
-}
-
-void DrawWidget::SetMwmsBordersSelectionMode(bool mode)
-{
-  m_mwmsBordersSelectionMode = mode;
-}
-
 // static
 void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
@@ -611,13 +613,5 @@ m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD cons
     return MercatorBounds::FromLatLon(*optional);
 
   return m_framework.P3dtoG(pt);
-}
-
-bool DrawWidget::IsSelectionModeEnabled() const
-{
-  return m_selectionMode ||
-         m_cityBoundariesSelectionMode ||
-         m_cityRoadsSelectionMode ||
-         m_mwmsBordersSelectionMode;
 }
 }  // namespace qt

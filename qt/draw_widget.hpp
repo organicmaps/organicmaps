@@ -18,6 +18,8 @@
 #include <memory>
 #include <mutex>
 
+#include "boost/optional.hpp"
+
 #include <QtWidgets/QRubberBand>
 
 class Framework;
@@ -76,11 +78,6 @@ public:
   void DownloadCountry(storage::CountryId const & countryId);
   void RetryToDownloadCountry(storage::CountryId const & countryId);
 
-  void SetSelectionMode(bool mode);
-  void SetCityBoundariesSelectionMode(bool mode);
-  void SetCityRoadsSelectionMode(bool mode);
-  void SetMwmsBordersSelectionMode(bool mode);
-
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
   void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
   void FollowRoute();
@@ -110,9 +107,9 @@ private:
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage(place_page::Info const & info);
 
-  bool IsSelectionModeEnabled() const;
-
   void UpdateCountryStatus(storage::CountryId const & countryId);
+
+  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints);
 
   m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
 
@@ -124,10 +121,23 @@ private:
   TCurrentCountryChanged m_currentCountryChanged;
   storage::CountryId m_countryId;
 
-  bool m_selectionMode = false;
-  bool m_cityBoundariesSelectionMode = false;
-  bool m_cityRoadsSelectionMode = false;
-  bool m_mwmsBordersSelectionMode = false;
+public:
+  enum class SelectionMode
+  {
+    Features,
+    CityBoundaries,
+    CityRoads,
+    MwmsBorders,
+    MwmsBordersWithPoints
+  };
+
+  void SetSelectionMode(SelectionMode mode) { m_currentSelectionMode = {mode}; }
+  void DropSelectionMode() { m_currentSelectionMode = {}; }
+  bool SelectionModeIsSet() { return static_cast<bool>(m_currentSelectionMode); }
+  SelectionMode GetSelectionMode() const { return *m_currentSelectionMode; }
+
+private:
+  boost::optional<SelectionMode> m_currentSelectionMode;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 
   std::unique_ptr<Screenshoter> m_screenshoter;

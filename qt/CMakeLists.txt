@@ -44,6 +44,8 @@ set(
   main.cpp
   mainwindow.cpp
   mainwindow.hpp
+  mwms_borders_selection.cpp
+  mwms_borders_selection.hpp
   osm_auth_dialog.cpp
   osm_auth_dialog.hpp
   place_page_dialog.cpp
@@ -68,6 +70,7 @@ omim_link_libraries(
   map
   drape_frontend
   shaders
+  generator
   routing
   search
   storage
