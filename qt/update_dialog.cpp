@@ -227,16 +227,15 @@ namespace qt
 
   void UpdateDialog::OnLocaleTextChanged(QString const & text)
   {
-    string locale(text.toUtf8().constData());
-    strings::Trim(locale);
-    m_locale = std::move(locale);
+    m_locale.assign(text.toUtf8().constData());
+    strings::Trim(m_locale);
 
     RefillTree();
   }
 
   void UpdateDialog::OnQueryTextChanged(QString const & text)
   {
-    m_query = string(text.toUtf8().constData());
+    m_query.assign(text.toUtf8().constData());
 
     RefillTree();
   }
