@@ -42,7 +42,7 @@ bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2)
   return IsPointOnSegmentEps(pt, p1, p2, kEps);
 }
 
-bool AreSegmentsIntersected(PointD const & a, PointD const & b, PointD const & c, PointD const & d)
+bool SegmentsIntersect(PointD const & a, PointD const & b, PointD const & c, PointD const & d)
 {
   return max(a.x, b.x) >= min(c.x, d.x) && min(a.x, b.x) <= max(c.x, d.x) &&
       max(a.y, b.y) >= min(c.y, d.y) && min(a.y, b.y) <= max(c.y, d.y) &&
@@ -52,7 +52,7 @@ bool AreSegmentsIntersected(PointD const & a, PointD const & b, PointD const & c
 
 IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, double eps)
 {
-  if (!AreSegmentsIntersected(seg1.m_u, seg1.m_v, seg2.m_u, seg2.m_v))
+  if (!SegmentsIntersect(seg1.m_u, seg1.m_v, seg2.m_u, seg2.m_v))
     return IntersectionResult(IntersectionResult::Type::Zero);
 
   Line2D const line1(seg1);

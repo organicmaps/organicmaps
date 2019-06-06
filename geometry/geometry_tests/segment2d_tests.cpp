@@ -18,14 +18,14 @@ void TestIntersectionResult(IntersectionResult const & result, IntersectionResul
 
 bool TestSegmentsIntersect(PointD a, PointD b, PointD c, PointD d)
 {
-  bool const res = AreSegmentsIntersected(a, b, c, d);
-  TEST_EQUAL(res, AreSegmentsIntersected(a, b, d, c), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(b, a, c, d), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(b, a, d, c), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(c, d, a, b), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(c, d, b, a), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(d, c, a, b), (a, b, c, d));
-  TEST_EQUAL(res, AreSegmentsIntersected(d, c, b, a), (a, b, c, d));
+  bool const res = SegmentsIntersect(a, b, c, d);
+  TEST_EQUAL(res, SegmentsIntersect(a, b, d, c), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(b, a, c, d), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(b, a, d, c), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(c, d, a, b), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(c, d, b, a), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(d, c, a, b), (a, b, c, d));
+  TEST_EQUAL(res, SegmentsIntersect(d, c, b, a), (a, b, c, d));
   return res;
 }
 
@@ -74,7 +74,7 @@ UNIT_TEST(SegmentIntersection_NoIntersectionPoint)
 
 UNIT_TEST(SegmentIntersection_OneIntersectionPoint)
 {
-  // Two intersected segments. The intersection point is at the middle of both of them.
+  // Two intersected segments. The intersection point is in the middle of both of them.
   {
     auto const result =
         Intersect(Segment2D({-1.0, -1.0}, {1.0, 1.0}), Segment2D({-1.0, 0.0}, {1.0, 0.0}), kEps);
@@ -87,7 +87,7 @@ UNIT_TEST(SegmentIntersection_OneIntersectionPoint)
     TestIntersectionResult(result, IntersectionResult::Type::One, {5.0, 5.0});
   }
 
-  // Two intersected segments. The intersection point is at an end of both of them.
+  // Two intersected segments. The intersection point is in an end of both of them.
   {
     auto const result =
         Intersect(Segment2D({-1.0, -1.0}, {0.0, 0.0}), Segment2D({0.0, 0.0}, {11.0, 0.0}), kEps);
