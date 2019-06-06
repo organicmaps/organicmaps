@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -36,6 +38,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
+
+  @NonNull
+  private final View mCatalogCallToActionContainer;
+  @NonNull
+  private final View mPromoContentDivider;
 
   private int mStorageSubscriptionSlot;
 
@@ -243,6 +250,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mPromoBanner != null && mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
         Utils.openUrl(mActivity, mPromoBanner.getUrl());
     });
+
+    View downloadGuidesBtn = mFrame.findViewById(R.id.catalog_call_to_action_btn);
+    mCatalogCallToActionContainer = mFrame.findViewById(R.id.catalog_call_to_action_container);
+    downloadGuidesBtn.setOnClickListener(new CatalogCallToActionListener());
+    mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
   }
 
   private void updateBannerVisibility()
@@ -251,22 +263,21 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       return;
 
     mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
-    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
+    boolean isPromoNotFound = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO;
+
+    boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
+    boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
+    boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
+    boolean hasDialog = enqueued || progress || applying;
+    mPromoContentDivider.setVisibility(isPromoNotFound || !hasDialog ? View.GONE : View.VISIBLE);
+
+    if (isPromoNotFound)
       return;
 
-    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON)
-    {
-      boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
-      boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
-      boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
+    boolean hasPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON;
 
-      UiUtils.showIf(enqueued || progress || applying, mFrame, R.id.banner);
-    }
-    else
-    {
-      // TODO: implement me.
-      throw new RuntimeException("Not implemented yet");
-    }
+    UiUtils.showIf(hasDialog && hasPromo, mFrame, R.id.banner);
+    UiUtils.showIf(hasDialog && !hasPromo, mCatalogCallToActionContainer);
   }
 
   @Override
@@ -305,5 +316,17 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   public static void setAutodownloadLocked(boolean locked)
   {
     sAutodownloadLocked = locked;
+  }
+
+  private class CatalogCallToActionListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      if (mPromoBanner == null)
+        return;
+
+      BookmarksCatalogActivity.start(mActivity, mPromoBanner.getUrl());
+    }
   }
 }

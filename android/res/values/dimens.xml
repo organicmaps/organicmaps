@@ -261,4 +261,5 @@
   <dimen name="sharing_options_img_size">18dp</dimen>
   <dimen name="bookmark_purchase_img_height">258dp</dimen>
   <dimen name="bookmark_purchase_img_width">280dp</dimen>
+  <dimen name="square_block_size">168dp</dimen>
 </resources>

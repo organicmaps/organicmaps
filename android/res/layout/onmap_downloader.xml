@@ -63,6 +63,12 @@
         android:visibility="visible"
         tools:visibility="visible"/>
     </FrameLayout>
+
+    <View
+      android:id="@+id/onmap_downloader_divider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      android:background="?android:listDivider"/>
     <LinearLayout
       android:id="@+id/banner"
       android:layout_marginTop="@dimen/margin_half"
@@ -71,11 +77,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:visibility="visible">
-      <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="?android:listDivider"/>
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,6 +114,41 @@
         android:text="@string/banner_megafon_banner_button"
         android:background="@drawable/button_megafon"
         style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/white_primary"
+        tools:targetApi="jelly_bean"/>
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/catalog_call_to_action_container"
+      android:layout_marginTop="@dimen/margin_half"
+      android:orientation="vertical"
+      android:visibility="gone"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:visibility="visible">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="Some title"/>
+      <Button
+        android:id="@+id/catalog_call_to_action_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_half"
+        android:paddingStart="@dimen/margin_half"
+        android:paddingRight="@dimen/margin_half"
+        android:paddingEnd="@dimen/margin_half"
+        style="@style/MwmWidget.Button.Primary"
+        android:paddingTop="@dimen/margin_quarter_plus"
+        android:paddingBottom="@dimen/margin_quarter_plus"
+        android:layout_marginTop="@dimen/margin_base"
+        android:fontFamily="@string/robotoMedium"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_size_body_3"
+        android:text="@string/download_guides"
         android:textColor="@color/white_primary"
         tools:targetApi="jelly_bean"/>
     </LinearLayout>
