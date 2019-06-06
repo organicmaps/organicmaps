@@ -1,8 +1,10 @@
 #include "geometry/segment2d.hpp"
 
+#include "geometry/line2d.hpp"
 #include "geometry/robust_orientation.hpp"
 
 #include <algorithm>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -40,8 +42,53 @@ bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2)
   return IsPointOnSegmentEps(pt, p1, p2, kEps);
 }
 
+IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, double eps)
+{
+  if (!robust::SegmentsIntersect(seg1.m_u, seg1.m_v, seg2.m_u, seg2.m_v))
+    return IntersectionResult(IntersectionResult::Type::Zero);
+
+  Line2D const line1(seg1);
+  Line2D const line2(seg2);
+  auto const lineIntersection = Intersect(line1, line2, eps);
+  if (lineIntersection.m_type != IntersectionResult::Type::One)
+    return lineIntersection;
+
+  if (IsPointOnSegmentEps(lineIntersection.m_point, seg1.m_u, seg1.m_v, eps) &&
+      IsPointOnSegmentEps(lineIntersection.m_point, seg2.m_u, seg2.m_v, eps))
+  {
+    return lineIntersection;
+  }
+
+  return IntersectionResult(IntersectionResult::Type::Zero);
+}
+
 std::string DebugPrint(Segment2D const & segment)
 {
   return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
+}
+
+string DebugPrint(IntersectionResult::Type type)
+{
+  using Type = IntersectionResult::Type;
+
+  switch (type)
+  {
+  case Type::Zero: return "Zero";
+  case Type::One: return "One";
+  case Type::Infinity: return "Infinity";
+  }
+  UNREACHABLE();
+}
+
+string DebugPrint(IntersectionResult const & result)
+{
+  ostringstream os;
+  os << "Result [";
+  if (result.m_type == IntersectionResult::Type::One)
+    os << DebugPrint(result.m_point);
+  else
+    os << DebugPrint(result.m_type);
+  os << "]";
+  return os.str();
 }
 }  // namespace m2

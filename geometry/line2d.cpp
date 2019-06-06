@@ -48,29 +48,4 @@ IntersectionResult Intersect(Line2D const & lhs, Line2D const & rhs, double eps)
 
   return IntersectionResult(a + ab * scale);
 }
-
-string DebugPrint(IntersectionResult::Type type)
-{
-  using Type = IntersectionResult::Type;
-
-  switch (type)
-  {
-  case Type::Zero: return "Zero";
-  case Type::One: return "One";
-  case Type::Infinity: return "Infinity";
-  }
-  UNREACHABLE();
-}
-
-string DebugPrint(IntersectionResult const & result)
-{
-  ostringstream os;
-  os << "Result [";
-  if (result.m_type == IntersectionResult::Type::One)
-    os << DebugPrint(result.m_point);
-  else
-    os << DebugPrint(result.m_type);
-  os << "]";
-  return os.str();
-}
 }  // namespace m2

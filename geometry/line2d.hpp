@@ -9,21 +9,6 @@
 
 namespace m2
 {
-struct IntersectionResult
-{
-  enum class Type
-  {
-    Zero,
-    One,
-    Infinity
-  };
-
-  explicit IntersectionResult(Type type) : m_type(type) { ASSERT_NOT_EQUAL(m_type, Type::One, ()); }
-  explicit IntersectionResult(PointD const & point) : m_point(point), m_type(Type::One) {}
-
-  PointD m_point;
-  Type m_type;
-};
 
 struct Line2D
 {
@@ -40,6 +25,4 @@ struct Line2D
 IntersectionResult Intersect(Line2D const & lhs, Line2D const & rhs, double eps);
 
 std::string DebugPrint(Line2D const & line);
-std::string DebugPrint(IntersectionResult::Type type);
-std::string DebugPrint(IntersectionResult const & result);
 }  // namespace m2
