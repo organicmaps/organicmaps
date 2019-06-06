@@ -152,7 +152,7 @@ class Env:
     @property
     def descriptions_path(self):
         path = os.path.join(self.intermediate_path, "descriptions")
-        self._create_if_not_exist(self.descriptions_path)
+        self._create_if_not_exist(path)
         return path
 
     @property
