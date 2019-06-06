@@ -423,7 +423,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
       for (size_t i = 0; i < times.size(); ++i)
       {
         auto const & side = sides[distr(rng)];
-        auto const pt = side.first.mid(side.second);
+        auto const pt = side.first.Mid(side.second);
         auto const rect =
             MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
         double const t0 = timer.ElapsedSeconds();

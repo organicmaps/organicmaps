@@ -3,6 +3,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/logging.hpp"
 
 #include <utility>
@@ -52,12 +54,11 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
 
   for (auto const & street : streets)
   {
-    auto streetId = street.second;
-    if (base::GeoObjectId::Type::Invalid == streetId.GetType())
-      streetId = NextOsmSurrogateId();
+    auto const & bbox = street.second.GetBbox();
+    auto const & pin = street.second.GetOrChoosePin();
 
-    auto const id = static_cast<int64_t>(streetId.GetEncodedId());
-    auto const value = MakeStreetValue(regionId, *regionObject, street.first);
+    auto const id = static_cast<int64_t>(pin.m_osmId.GetEncodedId());
+    auto const value = MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
     streamStreetsKv << id << " " << value.get() << "\n";
   }
 }
@@ -68,7 +69,7 @@ void StreetsBuilder::AddStreet(FeatureBuilder & fb)
   if (!region)
     return;
 
-  InsertStreet(*region, fb.GetName(), fb.GetMostGenericOsmId());
+  InsertStreet(*region, fb);
 }
 
 void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb)
@@ -77,13 +78,15 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
   if (!region)
     return;
 
-  InsertSurrogateStreet(*region, std::move(streetName));
+  InsertStreetBinding(*region, std::move(streetName), fb);
 }
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder & fb)
 {
   if (fb.IsPoint())
-    return FindStreetRegionOwner(fb.GetKeyPoint());
+    return FindStreetRegionOwner(fb.GetKeyPoint(), true /* needLocality */);
+  if (fb.IsArea())
+    return FindStreetRegionOwner(fb.GetGeometryCenter(), true /* needLocality */);
 
   auto const & line = fb.GetOuterGeometry();
   CHECK_GREATER_OR_EQUAL(line.size(), 2, ());
@@ -103,9 +106,9 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(FeatureBuilder &
   return owner;
 }
 
-boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point)
+boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point, bool needLocality)
 {
-  auto const isStreetAdministrator = [] (KeyValue const & region) {
+  auto const isStreetAdministrator = [needLocality] (KeyValue const & region) {
     auto const && properties = base::GetJSONObligatoryField(*region.second, "properties");
     auto const && address = base::GetJSONObligatoryField(properties, "address");
 
@@ -114,33 +117,43 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
     if (base::GetJSONOptionalField(address, "sublocality"))
       return false;
 
+    if (needLocality && !base::GetJSONOptionalField(address, "locality"))
+      return false;
+
     return true;
   };
 
   return m_regionInfoGetter.FindDeepest(point, isStreetAdministrator);
 }
 
-bool StreetsBuilder::InsertStreet(KeyValue const & region, std::string && streetName, base::GeoObjectId id)
+void StreetsBuilder::InsertStreet(KeyValue const & region, FeatureBuilder & fb)
 {
   auto & regionStreets = m_regions[region.first];
-  auto emplace = regionStreets.emplace(std::move(streetName), id);
+  auto & street = regionStreets[fb.GetName()];
+  auto const osmId = fb.GetMostGenericOsmId();
 
-  if (!emplace.second && base::GeoObjectId::Type::Invalid == emplace.first->second.GetType())
-    emplace.first->second = id;
-
-  return emplace.second;
+  if (fb.IsArea())
+    street.AddHighwayArea(osmId, fb.GetOuterGeometry());
+  else if (fb.IsLine())
+    street.AddHighwayLine(osmId, fb.GetOuterGeometry());
+  else
+    street.SetPin({fb.GetKeyPoint(), osmId});
 }
 
-bool StreetsBuilder::InsertSurrogateStreet(KeyValue const & region, std::string && streetName)
+void StreetsBuilder::InsertStreetBinding(KeyValue const & region, std::string && streetName,
+                                         FeatureBuilder & fb)
 {
   auto & regionStreets = m_regions[region.first];
-  auto emplace = regionStreets.emplace(std::move(streetName), base::GeoObjectId{});
-  return emplace.second;
+  auto & street = regionStreets[std::move(streetName)];
+  street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
 }
 
 std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
-    uint64_t regionId, JsonValue const & regionObject, std::string const & streetName)
+    uint64_t regionId, JsonValue const & regionObject, std::string const & streetName,
+    m2::RectD const & bbox, m2::PointD const & pinPoint)
 {
+  auto streetObject = base::NewJSONObject();
+
   auto const && regionProperties = base::GetJSONObligatoryField(regionObject, "properties");
   auto const && regionAddress = base::GetJSONObligatoryField(regionProperties, "address");
   auto address = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionAddress))};
@@ -150,9 +163,17 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
   ToJSONObject(*properties, "address", std::move(address));
   ToJSONObject(*properties, "name", streetName);
   ToJSONObject(*properties, "pid", regionId);
-
-  auto streetObject = base::NewJSONObject();
   ToJSONObject(*streetObject, "properties", std::move(properties));
+
+  auto const & leftBottom = MercatorBounds::ToLatLon(bbox.LeftBottom());
+  auto const & rightTop = MercatorBounds::ToLatLon(bbox.RightTop());
+  auto const & bboxArray = std::vector<double>{
+      leftBottom.m_lat, leftBottom.m_lon, rightTop.m_lat, rightTop.m_lon};
+  ToJSONObject(*streetObject, "bbox", std::move(bboxArray));
+
+  auto const & pinLatLon  = MercatorBounds::ToLatLon(pinPoint);
+  auto const & pinArray = std::vector<double>{pinLatLon.m_lat, pinLatLon.m_lon};
+  ToJSONObject(*streetObject, "pin", std::move(pinArray));
 
   auto const value = json_dumps(streetObject.get(), JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>{value};

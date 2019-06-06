@@ -191,6 +191,8 @@ set(SRC
   srtm_parser.hpp
   statistics.cpp
   statistics.hpp
+  streets/street_geometry.cpp
+  streets/street_geometry.hpp
   streets/streets.cpp
   streets/streets.hpp
   streets/streets_builder.cpp
