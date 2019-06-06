@@ -106,7 +106,9 @@ def parse_time(time_str):
     return datetime.timedelta(**time_params)
 
 
-def get_stages_info(log_path):
+def get_stages_info(log_path, ignored_stages=None):
+    if ignored_stages is None:
+        ignored_stages = set()
     result = defaultdict(lambda: defaultdict(dict))
     for file in os.listdir(log_path):
         path = os.path.join(log_path, file)
@@ -117,7 +119,7 @@ def get_stages_info(log_path):
                     continue
                 stage_name = m.group(2)
                 dt = parse_time(m.group(3))
-                if file.startswith("stage_"):
+                if file.startswith("stage_") and stage_name not in ignored_stages:
                     result["stages"][stage_name] = dt
                 else:
                     country = file.split(".")[0]

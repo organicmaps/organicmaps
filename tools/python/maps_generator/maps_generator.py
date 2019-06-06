@@ -290,7 +290,7 @@ def stage_statistics(env):
     countries = filter(lambda x: x not in WORLDS_NAMES, mwms)
     with ThreadPool() as pool:
         pool.map(partial(stage_mwm_statistics, env), countries)
-    stages_info = get_stages_info(env.log_path)
+    stages_info = get_stages_info(env.log_path, {"statistics"})
     result["stages"] = stages_info["stages"]
     for c in stages_info["countries"]:
         result["countries"][c]["stages"] = stages_info["countries"][c]

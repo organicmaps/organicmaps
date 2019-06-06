@@ -30,7 +30,7 @@ def stage(func):
         main_status.update_status()
         logger.info(f"{stage_formatted}: start ...")
         t = time.time()
-        with open(logfile, "w") as l:
+        with open(logfile, "a+") as l:
             env.set_subprocess_out(l)
             func(env, *args, **kwargs)
         d = time.time() - t
