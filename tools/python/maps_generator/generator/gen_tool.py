@@ -38,6 +38,7 @@ class GenTool:
         "preprocess": bool,
         "split_by_polygons": bool,
         "type_statistics": bool,
+        "version": bool,
         "planet_version": int,
         "booking_data": str,
         "brands_data": str,
@@ -103,7 +104,8 @@ class GenTool:
         self.subprocess = subprocess.Popen(cmd, stdout=self.output,
                                            stderr=self.error, env=os.environ)
 
-        self.logger.info(f"Run command  {' '.join(cmd)}")
+        self.logger.info(f"Run generator tool [{self.get_build_version()}]:"
+                         f" {' '.join(cmd)} ")
         return self
 
     def wait(self):
@@ -120,6 +122,14 @@ class GenTool:
         c.options = copy.deepcopy(self.options)
         return c
 
+    def get_build_version(self):
+        p = subprocess.Popen([self.name_executable, "--version"],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             env=os.environ)
+        wait_and_raise_if_fail(p)
+        out, err = p.communicate()
+        return out.decode("utf-8").replace("\n", " ").strip()
+
     def _collect_cmd(self):
         options = ["".join(["--", k, "=", str(v)]) for k, v in
                    self.options.items()]
@@ -128,3 +138,4 @@ class GenTool:
 
 def run_gen_tool(*args, **kwargs):
     GenTool(*args, **kwargs).run()
+
