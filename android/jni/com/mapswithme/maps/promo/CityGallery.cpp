@@ -10,14 +10,14 @@ using namespace std::placeholders;
 
 namespace
 {
-jclass m_galleryClass = nullptr;
-jclass m_itemClass = nullptr;
-jclass m_authorClass = nullptr;
-jclass m_categoryClass = nullptr;
-jmethodID m_galleryConstructor = nullptr;
-jmethodID m_itemConstructor = nullptr;
-jmethodID m_authorConstructor = nullptr;
-jmethodID m_categoryConstructor = nullptr;
+jclass g_galleryClass = nullptr;
+jclass g_itemClass = nullptr;
+jclass g_authorClass = nullptr;
+jclass g_categoryClass = nullptr;
+jmethodID g_galleryConstructor = nullptr;
+jmethodID g_itemConstructor = nullptr;
+jmethodID g_authorConstructor = nullptr;
+jmethodID g_categoryConstructor = nullptr;
 jclass g_promoClass = nullptr;
 jfieldID g_promoInstanceField = nullptr;
 jobject g_promoInstance = nullptr;
@@ -27,29 +27,29 @@ uint64_t g_lastRequestId = 0;
 
 void PrepareClassRefs(JNIEnv * env)
 {
-  if (m_galleryClass != nullptr)
+  if (g_galleryClass != nullptr)
     return;
 
-  m_galleryClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery");
-  m_galleryConstructor =
-      jni::GetConstructorID(env, m_galleryClass,
+  g_galleryClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery");
+  g_galleryConstructor =
+      jni::GetConstructorID(env, g_galleryClass,
                             "([Lcom/mapswithme/maps/discovery/PromoCityGallery$Item;"
                             "Ljava/lang/String;)V");
-  m_itemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$Item");
-  m_itemConstructor =
-      jni::GetConstructorID(env, m_itemClass,
+  g_itemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$Item");
+  g_itemConstructor =
+      jni::GetConstructorID(env, g_itemClass,
                             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                             "Ljava/lang/String;Ljava/lang/String;"
                             "Lcom/mapswithme/maps/discovery/PromoCityGallery$Author;"
                             "Lcom/mapswithme/maps/discovery/PromoCityGallery$LuxCategory;)V");
-  m_authorClass =
+  g_authorClass =
       jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$Author");
-  m_authorConstructor =
-      jni::GetConstructorID(env, m_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
-  m_categoryClass =
+  g_authorConstructor =
+      jni::GetConstructorID(env, g_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+  g_categoryClass =
       jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$LuxCategory");
-  m_categoryConstructor =
-      jni::GetConstructorID(env, m_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+  g_categoryConstructor =
+      jni::GetConstructorID(env, g_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_promoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/Promo");
 
   g_promoInstanceField =
@@ -103,19 +103,19 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
     jni::TScopedLocalRef luxCategoryColor(env, jni::ToJavaString(env, item.m_luxCategory.m_color));
 
     jni::TScopedLocalRef author(
-        env, env->NewObject(m_authorClass, m_authorConstructor, authorId.get(), authorName.get()));
+        env, env->NewObject(g_authorClass, g_authorConstructor, authorId.get(), authorName.get()));
     jni::TScopedLocalRef luxCategory(
-        env, env->NewObject(m_categoryClass, m_categoryConstructor, luxCategoryName.get(),
+        env, env->NewObject(g_categoryClass, g_categoryConstructor, luxCategoryName.get(),
                             luxCategoryColor.get()));
 
-    return env->NewObject(m_itemClass, m_itemConstructor, name.get(), url.get(), imageUrl.get(),
+    return env->NewObject(g_itemClass, g_itemConstructor, name.get(), url.get(), imageUrl.get(),
                           access.get(), tier.get(), author.get(), luxCategory.get());
   };
 
-  jni::TScopedLocalRef items(env, jni::ToJavaArray(env, m_itemClass, gallery.m_items, itemBuilder));
+  jni::TScopedLocalRef items(env, jni::ToJavaArray(env, g_itemClass, gallery.m_items, itemBuilder));
   jni::TScopedLocalRef moreUrl(env, jni::ToJavaString(env, gallery.m_moreUrl));
 
-  return env->NewObject(m_galleryClass, m_galleryConstructor, items.get(), moreUrl.get());
+  return env->NewObject(g_galleryClass, g_galleryConstructor, items.get(), moreUrl.get());
 }
 }
 

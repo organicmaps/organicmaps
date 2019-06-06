@@ -115,7 +115,7 @@ public:
       {
         m_promoApi.GetCityGallery(
             params.m_viewportCenter,
-            [this, requestId, onResult, type](promo::CityGallery const & cityGallery) {
+            [this, requestId, onResult](promo::CityGallery const & cityGallery) {
               CHECK_THREAD_CHECKER(m_threadChecker, ());
               onResult(requestId, cityGallery);
             },

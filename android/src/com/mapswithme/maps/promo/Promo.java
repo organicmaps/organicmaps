@@ -7,19 +7,18 @@ import android.support.annotation.Nullable;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.concurrency.UiThread;
 
-public final class Promo
+public enum Promo
 {
+  INSTANCE;
+
   public interface Listener
   {
     void onCityGalleryReceived(@NonNull PromoCityGallery gallery);
     void onErrorReceived();
   }
-  public static final Promo INSTANCE = new Promo();
 
   @Nullable
   private Promo.Listener mListener;
-
-  private Promo() {}
 
   public void setListener(@Nullable Promo.Listener listener)
   {

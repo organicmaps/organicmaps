@@ -1,5 +1,7 @@
 package com.mapswithme.maps.promo;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
 public final class PromoCityGallery
@@ -58,13 +60,20 @@ public final class PromoCityGallery
   {
     @NonNull
     private String mName;
-    @NonNull
-    private String mColor;
+    @ColorInt
+    private int mColor;
 
     LuxCategory(@NonNull String name, @NonNull String color)
     {
       mName = name;
-      mColor = color;
+      try
+      {
+        mColor = Color.parseColor("#" + color);
+      }
+      catch (IllegalArgumentException exception)
+      {
+        mColor = 0;
+      }
     }
   }
 
