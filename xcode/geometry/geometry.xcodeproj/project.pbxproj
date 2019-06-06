@@ -38,6 +38,7 @@
 		56D5456B1C74A46D00E3719C /* algorithm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D545691C74A46D00E3719C /* algorithm.hpp */; };
 		56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */; };
 		56EB1ED11C6B6DF30022D831 /* segment2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */; };
+		56F395EF22A925B20065EE94 /* segment2D_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F395EE22A925B20065EE94 /* segment2D_tests.cpp */; };
 		670F29801BA9D42E00F2ABF4 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */; };
 		670F29831BA9D46F00F2ABF4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F29811BA9D46F00F2ABF4 /* libbase.a */; };
 		670F29841BA9D46F00F2ABF4 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F29821BA9D46F00F2ABF4 /* libindexer.a */; };
@@ -145,6 +146,7 @@
 		56D545691C74A46D00E3719C /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
 		56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment2d.cpp; sourceTree = "<group>"; };
 		56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segment2d.hpp; sourceTree = "<group>"; };
+		56F395EE22A925B20065EE94 /* segment2D_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment2D_tests.cpp; sourceTree = "<group>"; };
 		670F29221BA9D2E700F2ABF4 /* angle_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = angle_test.cpp; sourceTree = "<group>"; };
 		670F29231BA9D2E700F2ABF4 /* anyrect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anyrect_test.cpp; sourceTree = "<group>"; };
 		670F29241BA9D2E700F2ABF4 /* cellid_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cellid_test.cpp; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				3946DDE922A668D500A3A37D /* region_tests.cpp */,
+				56F395EE22A925B20065EE94 /* segment2D_tests.cpp */,
 				39396ECD210B2FB30054AC20 /* parametrized_segment_tests.cpp */,
 				395D1A99207BCD8A001164A5 /* convex_hull_tests.cpp */,
 				45A2D9C51F7526FE003310A0 /* bounding_box_tests.cpp */,
@@ -473,6 +476,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 675344881A3F684600A0A8C3;
@@ -532,6 +536,7 @@
 				675344C31A3F687400A0A8C3 /* distance_on_sphere.cpp in Sources */,
 				675344CF1A3F687400A0A8C3 /* robust_orientation.cpp in Sources */,
 				56D5456A1C74A46D00E3719C /* algorithm.cpp in Sources */,
+				56F395EF22A925B20065EE94 /* segment2D_tests.cpp in Sources */,
 				675344D41A3F687400A0A8C3 /* spline.cpp in Sources */,
 				45A2D9C41F7526E6003310A0 /* line2d.cpp in Sources */,
 				675344D11A3F687400A0A8C3 /* screenbase.cpp in Sources */,
