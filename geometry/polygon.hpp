@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/robust_orientation.hpp"
+#include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/base.hpp"
@@ -113,7 +114,7 @@ bool IsDiagonalVisible(IterT beg, IterT end, IterT i0, IterT i1)
     return false;
 
   for (IterT j0 = beg, j1 = base::PrevIterInCycle(beg, beg, end); j0 != end; j1 = j0++)
-    if (j0 != i0 && j0 != i1 && j1 != i0 && j1 != i1 && m2::robust::SegmentsIntersect(*i0, *i1, *j0, *j1))
+    if (j0 != i0 && j0 != i1 && j1 != i0 && j1 != i1 && m2::AreSegmentsIntersected(*i0, *i1, *j0, *j1))
       return false;
 
   return true;

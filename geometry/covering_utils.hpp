@@ -1,7 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
-#include "geometry/robust_orientation.hpp"
+#include "geometry/segment2d.hpp"
 #include "geometry/triangle2d.hpp"
 
 #include "base/assert.hpp"
@@ -38,7 +38,7 @@ CellObjectIntersection IntersectCellWithLine(CellId const cell, m2::PointD const
       m2::PointD(xy.first + r, xy.second + r), m2::PointD(xy.first + r, xy.second - r)};
   for (int i = 0; i < 4; ++i)
   {
-    if (m2::robust::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
+    if (m2::AreSegmentsIntersected(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
       return CELL_OBJECT_INTERSECT;
   }
   if (xy.first - r <= a.x && a.x <= xy.first + r && xy.second - r <= a.y && a.y <= xy.second + r)

@@ -63,13 +63,5 @@ bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev,
     return OrientedS(v, vPrev, v1) < 0.0 || OrientedS(v, vNext, v1) > 0.0;
   }
 }
-
-bool SegmentsIntersect(PointD const & a, PointD const & b, PointD const & c, PointD const & d)
-{
-  return max(a.x, b.x) >= min(c.x, d.x) && min(a.x, b.x) <= max(c.x, d.x) &&
-         max(a.y, b.y) >= min(c.y, d.y) && min(a.y, b.y) <= max(c.y, d.y) &&
-         OrientedS(a, b, c) * OrientedS(a, b, d) <= 0.0 &&
-         OrientedS(c, d, a) * OrientedS(c, d, b) <= 0.0;
-}
 }  // namespace robust
 }  // namespace m2

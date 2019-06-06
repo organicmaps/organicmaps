@@ -23,8 +23,6 @@ double OrientedS(PointD const & p1, PointD const & p2, PointD const & p);
 bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev,
                      PointD const & vNext);
 
-bool SegmentsIntersect(PointD const & p1, PointD const & p2, PointD const & p3, PointD const & p4);
-
 template <typename T>
 bool Between(T a, T b, T c)
 {

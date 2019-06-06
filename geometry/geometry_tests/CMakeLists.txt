@@ -32,8 +32,7 @@ set(
   region_tests.cpp
   robust_test.cpp
   screen_test.cpp
-  segments_intersect_test.cpp
-  segment2D_tests.cpp
+  segment2d_tests.cpp
   simplification_test.cpp
   spline_test.cpp
   test_regions.hpp
