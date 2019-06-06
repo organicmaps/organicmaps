@@ -1,5 +1,9 @@
 #pragma once
 
+#include "storage/storage_defines.hpp"
+
+#include "coding/geometry_coding.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
@@ -62,5 +66,23 @@ bool GetBordersRect(std::string const & baseDir, std::string const & country,
 bool LoadCountriesList(std::string const & baseDir, CountriesContainer & countries);
 
 void GeneratePackedBorders(std::string const & baseDir);
+
+template <typename Source>
+std::vector<std::vector<m2::PointD>> ReadPolygonsOfOneBorder(Source & src)
+{
+  auto const count = ReadVarUint<uint32_t>(src);
+  std::vector<std::vector<m2::PointD>> result(count);
+  for (size_t i = 0; i < count; ++i)
+  {
+    std::vector<m2::PointD> points;
+    serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
+    result[i] = std::move(points);
+  }
+
+  return result;
+}
+
+void DumpBorderToPolyFile(std::string const & filePath, storage::CountryId const & mwmName,
+                          std::vector<std::vector<m2::PointD>> const & polygons);
 void UnpackBorders(std::string const & baseDir, std::string const & targetDir);
 }  // namespace borders
