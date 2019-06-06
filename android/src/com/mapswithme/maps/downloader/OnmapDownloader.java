@@ -263,21 +263,22 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       return;
 
     mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
-    boolean isPromoNotFound = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO;
+    boolean isPromoFound = mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO;
 
     boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
     boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
     boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
-    boolean hasDialog = enqueued || progress || applying;
-    mPromoContentDivider.setVisibility(isPromoNotFound || !hasDialog ? View.GONE : View.VISIBLE);
+    boolean isDownloading = enqueued || progress || applying;
+    UiUtils.showIf(isPromoFound && isDownloading, mPromoContentDivider);
 
-    if (isPromoNotFound)
+    if (!isPromoFound)
       return;
 
-    boolean hasPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON;
+    boolean hasMegafonPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON;
+    boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_BOOKMARK_CATALOG;
 
-    UiUtils.showIf(hasDialog && hasPromo, mFrame, R.id.banner);
-    UiUtils.showIf(hasDialog && !hasPromo, mCatalogCallToActionContainer);
+    UiUtils.showIf(isDownloading && hasMegafonPromo, mFrame, R.id.banner);
+    UiUtils.showIf(isDownloading && hasCatalogPromo, mCatalogCallToActionContainer);
   }
 
   @Override
