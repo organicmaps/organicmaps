@@ -61,8 +61,8 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
     for (size_t i = 0; i < lines.size(); ++i)
     {
       auto const j = (i + 1) % lines.size();
-      auto result = LineIntersector::Intersect(lines[i], lines[j], CalipersBox::kEps);
-      if (result.m_type == LineIntersector::Result::Type::One)
+      auto result = Intersect(lines[i], lines[j], CalipersBox::kEps);
+      if (result.m_type == IntersectionResult::Type::One)
         corners.push_back(result.m_point);
     }
 

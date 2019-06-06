@@ -25,9 +25,7 @@ string DebugPrint(Line2D const & line)
   return os.str();
 }
 
-// static
-LineIntersector::Result LineIntersector::Intersect(Line2D const & lhs, Line2D const & rhs,
-                                                   double eps)
+IntersectionResult Intersect(Line2D const & lhs, Line2D const & rhs, double eps)
 {
   auto const & a = lhs.m_point;
   auto const & ab = lhs.m_direction;
@@ -38,8 +36,8 @@ LineIntersector::Result LineIntersector::Intersect(Line2D const & lhs, Line2D co
   if (Collinear(ab, cd, eps))
   {
     if (Collinear(c - a, cd, eps))
-      return Result(Result::Type::Infinity);
-    return Result(Result::Type::Zero);
+      return IntersectionResult(IntersectionResult::Type::Infinity);
+    return IntersectionResult(IntersectionResult::Type::Zero);
   }
 
   auto const ac = c - a;
@@ -48,12 +46,12 @@ LineIntersector::Result LineIntersector::Intersect(Line2D const & lhs, Line2D co
   auto const d = CrossProduct(ab, cd);
   auto const scale = n / d;
 
-  return Result(a + ab * scale);
+  return IntersectionResult(a + ab * scale);
 }
 
-string DebugPrint(LineIntersector::Result::Type type)
+string DebugPrint(IntersectionResult::Type type)
 {
-  using Type = LineIntersector::Result::Type;
+  using Type = IntersectionResult::Type;
 
   switch (type)
   {
@@ -64,11 +62,11 @@ string DebugPrint(LineIntersector::Result::Type type)
   UNREACHABLE();
 }
 
-string DebugPrint(LineIntersector::Result const & result)
+string DebugPrint(IntersectionResult const & result)
 {
   ostringstream os;
   os << "Result [";
-  if (result.m_type == LineIntersector::Result::Type::One)
+  if (result.m_type == IntersectionResult::Type::One)
     os << DebugPrint(result.m_point);
   else
     os << DebugPrint(result.m_type);

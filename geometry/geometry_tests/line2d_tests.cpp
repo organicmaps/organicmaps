@@ -2,6 +2,7 @@
 
 #include "geometry/line2d.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/segment2d.hpp"
 
 using namespace m2;
 
@@ -9,15 +10,15 @@ namespace
 {
 double const kEps = 1e-12;
 
-using Result = LineIntersector::Result;
+using Result = IntersectionResult;
 using Type = Result::Type;
 
 Result Intersect(Line2D const & lhs, Line2D const & rhs)
 {
-  return LineIntersector::Intersect(lhs, rhs, kEps);
+  return Intersect(lhs, rhs, kEps);
 }
 
-UNIT_TEST(LineIntersector_Smoke)
+UNIT_TEST(LineIntersection_Smoke)
 {
   {
     Line2D const line(Segment2D(PointD(0, 0), PointD(1, 0)));
