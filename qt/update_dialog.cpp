@@ -7,12 +7,11 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <functional>
-#include <utility>
+#include <limits>
 
 #include <QtCore/QDateTime>
 #include <QtWidgets/QHBoxLayout>
@@ -30,10 +29,12 @@ using namespace storage;
 
 enum
 {
-//  KItemIndexFlag = 0,
+  //  KItemIndexFlag = 0,
   KColumnIndexCountry,
   KColumnIndexStatus,
   KColumnIndexSize,
+  KColumnIndexMatchedBy,
+  KColumnIndexPositionInRanking,
   KNumberOfColumns
 };
 
@@ -47,6 +48,9 @@ enum
 
 namespace
 {
+size_t const kInvalidPos = numeric_limits<int32_t>::max();
+size_t const kIrrelevantPos = numeric_limits<int32_t>::max() - 1;
+
 bool DeleteNotUploadedEditsConfirmation()
 {
   QMessageBox msb;
@@ -54,11 +58,6 @@ bool DeleteNotUploadedEditsConfirmation()
   msb.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
   msb.setDefaultButton(QMessageBox::Cancel);
   return QMessageBox::Yes == msb.exec();
-}
-
-bool Matches(CountryId const & countryId, vector<CountryId> const & filter)
-{
-  return binary_search(filter.begin(), filter.end(), countryId);
 }
 }  // namespace
 
@@ -78,8 +77,17 @@ namespace qt
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
     QStringList columnLabels;
-    columnLabels << tr("Country") << tr("Status") << tr("Size");
+    columnLabels << tr("Country") << tr("Status") << tr("Size") << tr("Matched by") << tr("Rank");
     m_tree->setHeaderLabels(columnLabels);
+
+    m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
+
+    m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexMatchedBy, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexPositionInRanking,
+                                           QHeaderView::ResizeToContents);
+
     connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
@@ -111,7 +119,7 @@ namespace qt
     setLayout(verticalLayout);
 
     setWindowTitle(tr("Geographical Regions"));
-    resize(700, 600);
+    resize(900, 600);
 
     // We want to receive all download progress and result events.
     using namespace std::placeholders;
@@ -258,20 +266,25 @@ namespace qt
     DownloaderSearchParams params;
     params.m_query = m_query;
     params.m_inputLocale = m_locale;
+    auto const query = m_query;
 
-    params.m_onResults = [this, timestamp](DownloaderSearchResults const & results) {
-      vector<CountryId> filter;
-      for (auto const & res : results.m_results)
-        filter.push_back(res.m_countryId);
+    params.m_onResults = [this, timestamp, query](DownloaderSearchResults const & results) {
+      Filter filter;
+      for (size_t i = 0; i < results.m_results.size(); ++i)
+      {
+        auto const & res = results.m_results[i];
+        auto const added = filter.emplace(res.m_countryId, make_pair(i + 1, res.m_matchedName));
+        if (!added.second)
+          LOG(LWARNING, ("Duplicate CountryId in results for query:", query));
+      }
 
-      base::SortUnique(filter);
       FillTree(filter, timestamp);
     };
 
     m_framework.SearchInDownloader(params);
   }
 
-  void UpdateDialog::FillTree(boost::optional<vector<CountryId>> const & filter, uint64_t timestamp)
+  void UpdateDialog::FillTree(boost::optional<Filter> const & filter, uint64_t timestamp)
   {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -288,39 +301,50 @@ namespace qt
     ASSERT_EQUAL(m_tree->topLevelItemCount(), 1, ());
     m_tree->topLevelItem(0)->setExpanded(true);
 
-    // Note. Sorting does not correspond to the ranking of search results and
-    // we do not show the matched name in the qt app. So far it's been
-    // enough to look at the log output when any of these features were needed.
-    m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
+    m_tree->sortItems(KColumnIndexPositionInRanking, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
-    m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
-    m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
   }
 
   void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId,
-                                  boost::optional<vector<CountryId>> const & filter)
+                                  boost::optional<Filter> const & filter)
   {
     CountriesVec children;
     GetStorage().GetChildren(countryId, children);
 
+    size_t posInRanking = kInvalidPos;
+    string matchedBy;
+    if (filter)
+    {
+      auto const it = filter->find(countryId);
+      if (it != filter->end())
+      {
+        posInRanking = it->second.first;
+        matchedBy = it->second.second;
+      }
+    }
+    else
+    {
+      posInRanking = kIrrelevantPos;
+    }
+
     if (children.empty())
     {
-      if (filter && !Matches(countryId, *filter))
+      if (filter && posInRanking == kInvalidPos)
         return;
 
-      QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+      QTreeWidgetItem * item = CreateTreeItem(countryId, posInRanking, matchedBy, parent);
       UpdateRowWithCountryInfo(item, countryId);
       return;
     }
 
-    QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+    QTreeWidgetItem * item = CreateTreeItem(countryId, posInRanking, matchedBy, parent);
     UpdateRowWithCountryInfo(item, countryId);
 
-    if (filter && Matches(countryId, *filter))
+    if (filter && posInRanking != kInvalidPos)
     {
       // Filter matches to the group name, do not filter the group.
       for (auto const & child : children)
-        FillTreeImpl(item, child, vector<CountryId>());
+        FillTreeImpl(item, child, {} /* filter */);
 
       return;
     }
@@ -431,8 +455,7 @@ namespace qt
             uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
       }
 
-      // Needed for column sorting.
-      item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
+      item->setData(KColumnIndexSize, Qt::UserRole, QVariant(static_cast<qint64>(size.second)));
     }
 
     // Commented out because it looks terrible on black backgrounds.
@@ -448,12 +471,18 @@ namespace qt
     return attrs.m_nodeLocalName.c_str();
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId,
-                                                 QTreeWidgetItem * parent)
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId, size_t posInRanking,
+                                                 string matchedBy, QTreeWidgetItem * parent)
   {
     QString const text = GetNodeName(countryId);
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
     item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(countryId.c_str()));
+
+    auto const pos = QVariant(static_cast<qint64>(posInRanking));
+    item->setData(KColumnIndexPositionInRanking, Qt::DisplayRole, pos);
+
+    auto const matched = QVariant(matchedBy.c_str());
+    item->setData(KColumnIndexMatchedBy, Qt::DisplayRole, matched);
 
     if (parent == nullptr)
       m_tree->addTopLevelItem(item);

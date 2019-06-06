@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -47,22 +48,24 @@ namespace qt
     void OnQueryTextChanged(QString const & text);
 
   private:
+    // CountryId to its ranking position and matched string (assuming no duplicates).
+    using Filter = std::unordered_map<storage::CountryId, std::pair<size_t, std::string>>;
+
     void RefillTree();
     void StartSearchInDownloader();
 
     // Adds only those countries present in |filter|.
     // Calls whose timestamp is not the latest are discarded.
-    void FillTree(boost::optional<std::vector<storage::CountryId>> const & filter,
-                  uint64_t timestamp);
+    void FillTree(boost::optional<Filter> const & filter, uint64_t timestamp);
     void FillTreeImpl(QTreeWidgetItem * parent, storage::CountryId const & countryId,
-                      boost::optional<std::vector<storage::CountryId>> const & filter);
+                      boost::optional<Filter> const & filter);
 
     void UpdateRowWithCountryInfo(storage::CountryId const & countryId);
     void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::CountryId const & countryId);
     QString GetNodeName(storage::CountryId const & countryId);
 
-    QTreeWidgetItem * CreateTreeItem(storage::CountryId const & countryId,
-                                     QTreeWidgetItem * parent);
+    QTreeWidgetItem * CreateTreeItem(storage::CountryId const & countryId, size_t posInRanking,
+                                     std::string matchedBy, QTreeWidgetItem * parent);
     std::vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::CountryId const & countryId);
     storage::CountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
 
@@ -81,4 +84,4 @@ namespace qt
 
     DECLARE_THREAD_CHECKER(m_threadChecker);
   };
-  }  // namespace qt
+}  // namespace qt
