@@ -2367,7 +2367,7 @@
 
 "error_already_downloaded" = "This list has already been downloaded";
 
-"popular_place" = "TOP";
+"popular_place" = "Popular";
 
 "download_routes" = "Download routes";
 
@@ -2846,6 +2846,33 @@
 "vezet_taxi" = "Vezet";
 
 "booking_button_toolbar" = "Search 2 million accommodations";
+
+/* FIXME */
+"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+
+/* FIXME */
+"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+
+/* FIXME */
+"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+
+/* FIXME */
+"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+
+/* FIXME */
+"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+
+/* FIXME */
+"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+
+/* FIXME */
+"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+
+/* FIXME */
+"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+
+/* FIXME */
+"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
 
 
 /**********  Partners  **********/

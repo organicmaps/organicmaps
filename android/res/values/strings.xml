@@ -1629,6 +1629,24 @@
 	<string name="ok">Ok</string>
 	<string name="vezet_taxi">Vezet</string>
 	<string name="booking_button_toolbar">Search 2 million accommodations</string>
+	<!-- FIXME -->
+	<string name="popup_booking_download_guides_title">popup_booking_download_guides_title</string>
+	<!-- FIXME -->
+	<string name="popup_booking_download_guides_message">popup_booking_download_guides_message</string>
+	<!-- FIXME -->
+	<string name="popup_booking_download_guides_cta">popup_booking_download_guides_cta</string>
+	<!-- FIXME -->
+	<string name="popup_mwm_download_guides_title">popup_mwm_download_guides_title</string>
+	<!-- FIXME -->
+	<string name="popup_mwm_download_guides_cta">popup_mwm_download_guides_cta</string>
+	<!-- FIXME -->
+	<string name="gallery_pp_download_guides_offline_title">gallery_pp_download_guides_offline_title</string>
+	<!-- FIXME -->
+	<string name="gallery_pp_download_guides_offline_subtitle">gallery_pp_download_guides_offline_subtitle</string>
+	<!-- FIXME -->
+	<string name="gallery_pp_download_guides_offline_cta">gallery_pp_download_guides_offline_cta</string>
+	<!-- FIXME -->
+	<string name="gallery_pp_download_guides_title">gallery_pp_download_guides_title</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
