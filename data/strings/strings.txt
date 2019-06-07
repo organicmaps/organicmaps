@@ -40616,3 +40616,38 @@
     en = Search 2 million accommodations
     ru = Поиск по 2 миллионам гостиниц
 
+  [popup_booking_download_guides_title]
+    comment = FIXME
+    en = popup_booking_download_guides_title
+
+  [popup_booking_download_guides_message]
+    comment = FIXME
+    en = popup_booking_download_guides_message
+
+  [popup_booking_download_guides_cta]
+    comment = FIXME
+    en = popup_booking_download_guides_cta
+
+  [popup_mwm_download_guides_title]
+    comment = FIXME
+    en = popup_mwm_download_guides_title
+
+  [popup_mwm_download_guides_cta]
+    comment = FIXME
+    en = popup_mwm_download_guides_cta
+
+  [gallery_pp_download_guides_offline_title]
+    comment = FIXME
+    en = gallery_pp_download_guides_offline_title
+
+  [gallery_pp_download_guides_offline_subtitle]
+    comment = FIXME
+    en = gallery_pp_download_guides_offline_subtitle
+
+  [gallery_pp_download_guides_offline_cta]
+    comment = FIXME
+    en = gallery_pp_download_guides_offline_cta
+
+  [gallery_pp_download_guides_title]
+    comment = FIXME
+    en = gallery_pp_download_guides_title
