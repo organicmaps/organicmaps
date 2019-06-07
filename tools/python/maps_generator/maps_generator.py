@@ -13,6 +13,7 @@ from descriptions.descriptions_downloader import (check_and_get_checker,
                                                   download_from_wikidata_tags)
 from filelock import FileLock
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
+from post_generation.inject_promo_cities import inject_promo_cities
 from post_generation.localads_mwm_to_csv import create_csv
 
 from .generator import basic_stages
@@ -236,8 +237,11 @@ def stage_countries_txt(env):
                                        env.countries_synonyms_path,
                                        env.hierarchy_path, env.mwm_path,
                                        env.mwm_version)
+    countries_json = json.loads(countries)
+    inject_promo_cities(countries_json, env.promo_catalog_cities_path,
+                        env.mwm_path, env.types_path, env.mwm_path)
     with open(env.counties_txt_path, "w") as f:
-        f.write(countries)
+        json.dump(countries_json, f, indent=1)
 
 
 @stage

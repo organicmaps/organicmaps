@@ -1,8 +1,10 @@
 import argparse
+import json
 import os
 import sys
 
 from .hierarchy_to_countries import hierarchy_to_countries as hierarchy_to_countries_
+from .inject_promo_cities import inject_promo_cities
 from .localads_mwm_to_csv import create_csv
 
 
@@ -14,6 +16,7 @@ class PostGeneration:
 The post_generation commands are:
     localads_mwm_to_csv    Prepares CSV files for uploading to localads database from mwm files.
     hierarchy_to_countries Produces countries.txt from hierarchy.txt.
+    inject_promo_cities    Injects promo cities osm ids into countries.txt
     """)
         parser.add_argument("command", help="Subcommand to run")
         args = parser.parse_args(sys.argv[1:2])
@@ -83,6 +86,39 @@ The post_generation commands are:
                 f.write(countries_json)
         else:
             print(countries_json)
+
+    @staticmethod
+    def inject_promo_cities():
+        parser = argparse.ArgumentParser(
+            description="Injects promo cities osm ids into countries.txt")
+        parser.add_argument("--mwm", required=True, help="path to mwm files")
+        parser.add_argument("--types", required=True,
+                            help="path to omim/data/types.txt")
+        parser.add_argument("--promo_cities", required=True,
+                            help="Path to promo cities file")
+        parser.add_argument("--osm2ft",
+                            help="path to osm2ft files (default is the same as mwm)")
+        parser.add_argument("--countries",
+                            help="path to countries.txt file (default is countries.txt file into mwm directory)")
+        parser.add_argument("--output",
+                            help="Output countries.txt file (default is countries.txt file into mwm directory)")
+        args = parser.parse_args(sys.argv[2:])
+
+        if not args.osm2ft:
+            args.osm2ft = args.mwm
+        if not args.countries:
+            args.countries = os.path.join(args.mwm, "countries.txt")
+        if not args.output:
+            args.output = os.path.join(args.mwm, "countries.txt")
+
+        with open(args.countries, "r") as f:
+            countries = json.load(f)
+
+        inject_promo_cities(countries, args.promo_cities, args.mwm, args.types,
+                            args.osm2ft)
+
+        with open(args.output, "w") as f:
+            json.dump(countries, f, indent=1)
 
 
 PostGeneration()
