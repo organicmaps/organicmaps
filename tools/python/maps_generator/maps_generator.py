@@ -1,12 +1,12 @@
+import datetime
+import json
 import logging
+import multiprocessing
 import os
 import shutil
+from collections import defaultdict
 from functools import partial
 from multiprocessing.pool import ThreadPool
-from collections import defaultdict
-import multiprocessing
-import json
-import datetime
 
 from descriptions.descriptions_downloader import (check_and_get_checker,
                                                   download_from_wikipedia_tags,
@@ -61,9 +61,10 @@ def stage_download_production_external(env, **kwargs):
     download_external({
         settings.UGC_URL: env.ugc_path,
         settings.HOTELS_URL: env.hotels_path,
+        settings.PROMO_CATALOG_CITIES_URL: env.promo_catalog_cities_path,
         settings.POPULARITY_URL: env.popularity_path,
         settings.FOOD_URL: env.food_paths,
-        settings.FOOD_TRANSLATIONS_URL: env.food_translations_path
+        settings.FOOD_TRANSLATIONS_URL: env.food_translations_path,
     })
 
 
@@ -79,6 +80,7 @@ def stage_features(env):
         extra["idToWikidata"] = env.id_to_wikidata_path
     if env.is_accepted_stage(stage_download_production_external.__name__):
         extra["booking_data"] = env.hotels_path
+        extra["promo_catalog_cities"] = env.promo_catalog_cities_path
         extra["popular_places_data"] = env.popularity_path
         extra["brands_data"] = env.food_paths
         extra["brands_translations_data"] = env.food_translations_path

@@ -44,8 +44,9 @@ struct GenerateInfo
   OsmSourceType m_osmFileType;
   std::string m_osmFileName;
 
-  std::string m_bookingDatafileName;
-  std::string m_opentableDatafileName;
+  std::string m_bookingDataFilename;
+  std::string m_opentableDataFilename;
+  std::string m_promoCatalogCitiesFilename;
 
   std::string m_brandsFilename;
   std::string m_brandsTranslationsFilename;

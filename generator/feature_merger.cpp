@@ -4,6 +4,8 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include "indexer/ftypes_sponsored.hpp"
+
 #include "coding/point_coding.hpp"
 
 using namespace feature;
@@ -327,14 +329,18 @@ MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder const 
 namespace feature
 {
 
-class IsInvisibleFn
+class RemoveSolver
 {
   int m_lowScale, m_upScale;
-  bool m_leaveSpecialTypes;
+  bool m_doNotRemoveSpecialTypes;
+  bool m_doNotRemoveSponsoredTypes;
 
 public:
-  IsInvisibleFn(int lowScale, int upScale, bool leaveSpecialTypes)
-    : m_lowScale(lowScale), m_upScale(upScale), m_leaveSpecialTypes(leaveSpecialTypes)
+  RemoveSolver(int lowScale, int upScale, bool leaveSpecialTypes, bool leaveSponsoredTypes = true)
+    : m_lowScale(lowScale),
+    m_upScale(upScale),
+    m_doNotRemoveSpecialTypes(leaveSpecialTypes),
+    m_doNotRemoveSponsoredTypes(leaveSponsoredTypes)
   {
   }
 
@@ -342,17 +348,20 @@ public:
   {
     std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
 
+    if (m_doNotRemoveSponsoredTypes && ftypes::IsSponsoredChecker::Instance()(type))
+      return false;
     // We have feature types without any drawing rules.
     // This case was processed before:
     // - feature::TypeAlwaysExists;
     // - FeatureBuilder::RemoveInvalidTypes;
     // Don't delete them here.
-    if (m_leaveSpecialTypes && range.first == -1)
+    if (m_doNotRemoveSpecialTypes && range.first == -1)
     {
       ASSERT(range.second == -1, ());
       return false;
     }
 
+    // Remove when |type| is invisible.
     return (range.first == -1 || (range.first > m_upScale || range.second < m_lowScale));
   }
 };
@@ -361,7 +370,7 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  if (fb.RemoveTypesIf(IsInvisibleFn(0, upperScale, false)))
+  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false)))
     return false;
 
   fb.RemoveNameIfInvisible(0, upperScale);
@@ -371,14 +380,11 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
 
 bool PreprocessForCountryMap(FeatureBuilder & fb)
 {
-  if (fb.RemoveTypesIf(IsInvisibleFn(scales::GetUpperWorldScale() + 1,
-                                     scales::GetUpperStyleScale(),
-                                     true)))
-  {
+  using namespace scales;
+
+  if (fb.RemoveTypesIf(RemoveSolver(GetUpperWorldScale() + 1, GetUpperStyleScale(), true)))
     return false;
-  }
 
   return true;
 }
-
 }

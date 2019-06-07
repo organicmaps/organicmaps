@@ -543,14 +543,14 @@ PROMO_GALLERY_CITY = """
             "access": "public",
             "lux_category": {
                 "name": null,
-                "color": "666666"
+                "color": "000000"
             },
             "tier": null
         }
     ],
     "errors": [],
     "meta": {
-        "more": "search?city=666"
+        "more": "search?city=888"
     }
 }
 """

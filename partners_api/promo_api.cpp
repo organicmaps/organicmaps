@@ -8,10 +8,13 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "base/string_utils.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>
 #include <chrono>
+#include <cstdint>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -87,12 +90,16 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
 
   auto const meta = json_object_get(root.get(), "meta");
   FromJSONObject(meta, "more", result.m_moreUrl);
+  result.m_moreUrl.insert(0, BOOKMARKS_CATALOG_FRONT_URL);
 }
 
 std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & id,
                                std::string const & lang)
 {
-  return baseUrl + id + "/?lang=" + lang;
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT_EQUAL(baseUrl.back(), '/', ());
+
+  return baseUrl + "gallery/v1/city/" + id + "/?lang=" + lang;
 }
 
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
@@ -143,7 +150,7 @@ bool WebApi::GetCityGalleryById(std::string const & baseUrl, std::string const &
   return request.RunHttpRequest(result);
 }
 
-Api::Api(std::string const & baseUrl /* = "https://routes.maps.me/gallery/v1/city/" */)
+Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */)
   : m_baseUrl(baseUrl)
 {
 }

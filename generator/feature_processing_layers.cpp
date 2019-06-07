@@ -8,6 +8,7 @@
 #include "generator/emitter_interface.hpp"
 #include "generator/type_helper.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -241,6 +242,32 @@ void OpentableLayer::Handle(FeatureBuilder & feature)
     AppendLine("OPENTABLE", DebugPrint(newFeature.GetMostGenericOsmId()), DebugPrint(id));
     m_countryMapper->RemoveInvalidTypesAndMap(newFeature);
   });
+}
+
+
+PromoCatalogLayer::PromoCatalogLayer(std::string const & filename)
+  : m_cities(promo::LoadCities(filename))
+{
+}
+
+void PromoCatalogLayer::Handle(FeatureBuilder & feature)
+{
+  if (ftypes::IsCityTownOrVillage(feature.GetTypes()))
+  {
+    auto const & ids = feature.GetOsmIds();
+
+    auto const found = std::any_of(ids.cbegin(), ids.cend(), [this](auto const & id)
+    {
+      return m_cities.find(id) != m_cities.cend();
+    });
+
+    if (!found)
+      return;
+
+    FeatureParams & params = feature.GetParams();
+    params.AddType(classif().GetTypeByPath({"sponsored", "promo_catalog"}));
+  }
+  LayerBase::Handle(feature);
 }
 
 CountryMapperLayer::CountryMapperLayer(std::shared_ptr<CountryMapper> countryMapper)

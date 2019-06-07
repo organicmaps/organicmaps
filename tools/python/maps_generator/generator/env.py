@@ -196,6 +196,10 @@ class Env:
         return os.path.join(self.intermediate_path, "hotels.csv")
 
     @property
+    def promo_catalog_cities_path(self):
+        return os.path.join(self.intermediate_path, "promo_catalog_cities.json")
+
+    @property
     def popularity_path(self):
         return os.path.join(self.intermediate_path, "popular_places.csv")
 

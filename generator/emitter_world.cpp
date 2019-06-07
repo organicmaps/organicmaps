@@ -22,6 +22,7 @@ EmitterWorld::EmitterWorld(feature::GenerateInfo const & info)
 {
   m_processingChain = std::make_shared<RepresentationLayer>(m_cityBoundaryProcessor);
   m_processingChain->Add(std::make_shared<PrepareFeatureLayer>());
+  m_processingChain->Add(std::make_shared<PromoCatalogLayer>(info.m_promoCatalogCitiesFilename));
   m_processingChain->Add(std::make_shared<CityBoundaryLayer>(m_cityBoundaryProcessor));
   m_processingChain->Add(std::make_shared<WorldAreaLayer>(m_worldMapper));
 }

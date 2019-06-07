@@ -75,6 +75,7 @@ OSM_TOOLS_PATH: ~/osmctools
 # Urls for production maps generation.
 # UGC_URL:
 # HOTELS_URL:
+# PROMO_CATALOG_CITIES:
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:

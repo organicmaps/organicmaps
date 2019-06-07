@@ -107,8 +107,8 @@ base::GeoObjectId ReadDebuggedPrintedOsmId(string const & str)
 GenerateInfo GetGenerateInfo()
 {
   GenerateInfo info;
-  info.m_bookingDatafileName = FLAGS_booking;
-  info.m_opentableDatafileName = FLAGS_opentable;
+  info.m_bookingDataFilename = FLAGS_booking;
+  info.m_opentableDataFilename = FLAGS_opentable;
   info.m_osmFileName = FLAGS_osm;
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
@@ -309,13 +309,13 @@ string GetDatasetFilePath(GenerateInfo const & info);
 template <>
 string GetDatasetFilePath<BookingDataset>(GenerateInfo const & info)
 {
-  return info.m_bookingDatafileName;
+  return info.m_bookingDataFilename;
 }
 
 template <>
 string GetDatasetFilePath<OpentableDataset>(GenerateInfo const & info)
 {
-  return info.m_opentableDatafileName;
+  return info.m_opentableDataFilename;
 }
 
 template <typename Dataset, typename Object = typename Dataset::Object>

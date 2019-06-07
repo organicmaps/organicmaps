@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include "private.h"
+
 namespace promo
 {
 struct Author
@@ -61,7 +63,7 @@ public:
     virtual std::string GetCityId(m2::PointD const & point) = 0;
   };
 
-  explicit Api(std::string const & baseUrl = "https://routes.maps.me/gallery/v1/city/");
+  explicit Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL);
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   void OnEnterForeground();

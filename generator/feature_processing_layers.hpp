@@ -4,6 +4,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/opentable_dataset.hpp"
 #include "generator/polygonizer.hpp"
+#include "generator/promo_catalog_cities.hpp"
 #include "generator/world_map_generator.hpp"
 
 #include <memory>
@@ -157,6 +158,18 @@ public:
 private:
   OpentableDataset m_dataset;
   std::shared_ptr<CountryMapper> m_countryMapper;
+};
+
+class PromoCatalogLayer : public LayerBase
+{
+public:
+  explicit PromoCatalogLayer(std::string const & filename);
+
+  // LayerBase overrides:
+  void Handle(feature::FeatureBuilder & feature) override;
+
+private:
+  promo::Cities m_cities;
 };
 
 // Responsibility of class CountryMapperLayer - mapping of features to countries.

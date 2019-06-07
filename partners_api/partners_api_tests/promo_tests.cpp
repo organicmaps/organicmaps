@@ -136,7 +136,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
 
 UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
 {
-  promo::Api api("http://localhost:34568/gallery/city/");
+  promo::Api api("http://localhost:34568/");
   api.SetDelegate(std::make_unique<DelegateForTesting>());
 
   {

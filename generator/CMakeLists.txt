@@ -137,6 +137,7 @@ set(SRC
   place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp
+  promo_catalog_cities.hpp
   ratings_section_builder.cpp
   ratings_section_builder.hpp
   relation_tags.cpp

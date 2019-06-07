@@ -42,6 +42,7 @@ class GenTool:
         "version": bool,
         "planet_version": int,
         "booking_data": str,
+        "promo_catalog_cities": str,
         "brands_data": str,
         "brands_translations_data": str,
         "cities_boundaries_data": str,

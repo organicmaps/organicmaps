@@ -12,6 +12,15 @@ protected:
   explicit BaseSponsoredChecker(std::string const & sponsoredType);
 };
 
+class IsSponsoredChecker : public BaseChecker
+{
+private:
+  IsSponsoredChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsSponsoredChecker);
+};
+
 #define SPONSORED_CHECKER(ClassName, Category) \
   class ClassName : public BaseSponsoredChecker { \
   ClassName() : BaseSponsoredChecker(Category) {} \

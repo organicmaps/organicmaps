@@ -22,7 +22,9 @@ omim_link_libraries(
   search
   storage
   editor
+  partners_api
   indexer
+  metrics
   platform
   geometry
   coding
