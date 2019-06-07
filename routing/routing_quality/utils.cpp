@@ -76,17 +76,17 @@ private:
 
     classificator::Load();
     vector<platform::LocalCountryFile> localFiles;
-    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), localFiles);
 
+    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), localFiles);
     for (auto const & localFile : localFiles)
     {
       UNUSED_VALUE(m_dataSource.RegisterMap(localFile));
       auto const & countryFile = localFile.GetCountryFile();
       auto const mwmId = m_dataSource.GetMwmIdByCountryFile(countryFile);
       CHECK(mwmId.IsAlive(), ());
-      // We have to exclude minsk-pass because we can't register mwm which is not from
-      // countries.txt.
-      if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
+
+      // Only maps from countries.txt should be used for tests.
+      if (m_cpg->GetStorageForTesting().IsLeaf(countryFile.GetName()))
         m_numMwmIds->RegisterFile(countryFile);
     }
   }

@@ -18,6 +18,7 @@
 #include "indexer/data_source.hpp"
 
 #include "storage/country_parent_getter.hpp"
+#include "storage/storage.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -102,13 +103,14 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
     return infoGetter.GetLimitRectForLeaf(countryId);
   };
 
+  storage::Storage storage;
   auto numMwmIds = make_shared<NumMwmIds>();
   for (auto const & f : localFiles)
   {
     auto const & countryFile = f.GetCountryFile();
     auto const mwmId = dataSource.GetMwmIdByCountryFile(countryFile);
     CHECK(mwmId.IsAlive(), ());
-    if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
+    if (storage.IsLeaf(countryFile.GetName()))
       numMwmIds->RegisterFile(countryFile);
   }
 
