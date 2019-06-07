@@ -149,6 +149,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/popup_mwm_download_guides_cta"
           android:gravity="center"
           android:textAppearance="?android:attr/textAppearanceLarge"
           tools:text="very very very loooooooooooooooooong text"/>
@@ -167,7 +168,7 @@
           android:fontFamily="@string/robotoMedium"
           android:textAllCaps="false"
           android:textSize="@dimen/text_size_body_3"
-          android:text="@string/download_guides"
+          android:text="@string/popup_mwm_download_guides_cta"
           android:textColor="@color/white_primary"
           android:lines="1"
           tools:targetApi="jelly_bean"/>
