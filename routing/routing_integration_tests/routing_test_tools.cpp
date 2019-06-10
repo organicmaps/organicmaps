@@ -18,7 +18,6 @@
 #include "indexer/data_source.hpp"
 
 #include "storage/country_parent_getter.hpp"
-#include "storage/storage.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -103,19 +102,18 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
     return infoGetter.GetLimitRectForLeaf(countryId);
   };
 
-  storage::Storage storage;
+  auto countryParentGetter = std::make_unique<storage::CountryParentGetter>();
+  CHECK(countryParentGetter, ());
+
   auto numMwmIds = make_shared<NumMwmIds>();
   for (auto const & f : localFiles)
   {
     auto const & countryFile = f.GetCountryFile();
     auto const mwmId = dataSource.GetMwmIdByCountryFile(countryFile);
     CHECK(mwmId.IsAlive(), ());
-    if (storage.IsLeaf(countryFile.GetName()))
+    if (countryParentGetter->GetStorageForTesting().IsLeaf(countryFile.GetName()))
       numMwmIds->RegisterFile(countryFile);
   }
-
-  auto countryParentGetter = std::make_unique<storage::CountryParentGetter>();
-  CHECK(countryParentGetter, ());
 
   bool const loadAltitudes = vehicleType != VehicleType::Car;
   auto indexRouter = make_unique<IndexRouter>(vehicleType, loadAltitudes,

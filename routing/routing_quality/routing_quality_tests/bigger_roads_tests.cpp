@@ -17,7 +17,7 @@ UNIT_TEST(RoutingQuality_RussiaMoscowTushino)
 
 UNIT_TEST(RoutingQuality_TurkeyIzmirArea)
 {
-  TEST(CheckCarRoute({38.80146, 26.97696} /* start */, {39.06835, 26.88686} /* finish */,
+  TEST(CheckCarRoute({38.80146, 26.97696} /* start */, {39.0837, 26.90977} /* finish */,
                      {{{39.08146, 27.11798}}} /* reference track */),
        ());
 }
