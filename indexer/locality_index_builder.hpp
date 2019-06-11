@@ -28,7 +28,8 @@ using CoverLocality =
 
 template <class ObjectsVector, class Writer, int DEPTH_LEVELS>
 void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
-                        CoverLocality const & coverLocality, std::string const & tmpFilePrefix)
+                        CoverLocality const & coverLocality, std::string const & tmpFilePrefix,
+                        IntervalIndexVersion version = IntervalIndexVersion::V1)
 {
   std::string const cellsToValueFile = tmpFilePrefix + CELL2LOCALITY_SORTED_EXT + ".all";
   SCOPE_GUARD(cellsToValueFileGuard, std::bind(&FileWriter::DeleteFileX, cellsToValueFile));
@@ -51,7 +52,7 @@ void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
   DDVector<CellValuePair<uint64_t>, FileReader, uint64_t> cellsToValue(reader);
 
   {
-    BuildIntervalIndex(cellsToValue.begin(), cellsToValue.end(), writer, DEPTH_LEVELS * 2 + 1);
+    BuildIntervalIndex(cellsToValue.begin(), cellsToValue.end(), writer, DEPTH_LEVELS * 2 + 1, version);
   }
 }
 }  // namespace covering
