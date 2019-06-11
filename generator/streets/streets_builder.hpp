@@ -32,8 +32,8 @@ public:
   void AssembleStreets(std::string const & pathInStreetsTmpMwm);
   void AssembleBindings(std::string const & pathInGeoObjectsTmpMwm);
   // Save built streets in the jsonl format with the members: "properties", "bbox" (array: left bottom
-  // latitude, left bottom longitude, right top latitude, right top longitude), "pin" (array: latitude,
-  // longitude).
+  // longitude, left bottom latitude, right top longitude, right top latitude), "pin" (array: longitude,
+  // latitude).
   void SaveStreetsKv(std::ostream & streamStreetsKv);
 
   static bool IsStreet(OsmElement const & element);

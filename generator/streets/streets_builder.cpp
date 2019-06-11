@@ -168,11 +168,11 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
   auto const & leftBottom = MercatorBounds::ToLatLon(bbox.LeftBottom());
   auto const & rightTop = MercatorBounds::ToLatLon(bbox.RightTop());
   auto const & bboxArray = std::vector<double>{
-      leftBottom.m_lat, leftBottom.m_lon, rightTop.m_lat, rightTop.m_lon};
+      leftBottom.m_lon, leftBottom.m_lat, rightTop.m_lon, rightTop.m_lat};
   ToJSONObject(*streetObject, "bbox", std::move(bboxArray));
 
   auto const & pinLatLon  = MercatorBounds::ToLatLon(pinPoint);
-  auto const & pinArray = std::vector<double>{pinLatLon.m_lat, pinLatLon.m_lon};
+  auto const & pinArray = std::vector<double>{pinLatLon.m_lon, pinLatLon.m_lat};
   ToJSONObject(*streetObject, "pin", std::move(pinArray));
 
   auto const value = json_dumps(streetObject.get(), JSON_COMPACT);
