@@ -809,7 +809,8 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
   if (api == nullptr)
     return;
 
-  api->GetCityGallery(jni::ToNativeString(env, id), onSuccess, onError);
+  api->GetCityGallery(jni::ToNativeString(env, id), languages::GetCurrentNorm(), onSuccess,
+                      onError);
 }
 
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
@@ -1944,10 +1945,17 @@ Java_com_mapswithme_maps_Framework_nativeGetDownloaderPromoBanner(JNIEnv * env, 
   auto const & purchase = frm()->GetPurchase();
   bool const hasSubscription = purchase != nullptr &&
                                purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-  auto const banner = promo::DownloaderPromo::GetBanner(frm()->GetStorage(),
-                                                        jni::ToNativeString(env, mwmId),
-                                                        languages::GetCurrentNorm(),
-                                                        hasSubscription);
+
+  promo::DownloaderPromo::Banner banner;
+  auto const policy = platform::GetCurrentNetworkPolicy();
+  if (policy.CanUse())
+  {
+    auto const * promoApi = frm()->GetPromoApi(policy);
+    CHECK(promoApi != nullptr, ());
+    banner = promo::DownloaderPromo::GetBanner(frm()->GetStorage(), *promoApi,
+                                               jni::ToNativeString(env, mwmId),
+                                               languages::GetCurrentNorm(), hasSubscription);
+  }
 
   jni::TScopedLocalRef const url(env, jni::ToJavaString(env, banner.m_url));
   return env->NewObject(downloaderPromoBannerClass, downloaderPromoBannerConstructor,

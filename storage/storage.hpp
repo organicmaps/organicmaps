@@ -264,6 +264,7 @@ private:
   // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
   Affiliations m_affiliations;
   CountryNameSynonyms m_countryNameSynonyms;
+  PromoCatalogCities m_promoCatalogCities;
 
   MwmSize m_maxMwmSizeBytes;
 
@@ -471,6 +472,8 @@ public:
   Affiliations const & GetAffiliations() const { return m_affiliations; }
 
   CountryNameSynonyms const & GetCountryNameSynonyms() const { return m_countryNameSynonyms; }
+
+  PromoCatalogCities const & GetPromoCatalogCities() const { return m_promoCatalogCities; }
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including

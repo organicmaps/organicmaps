@@ -68,11 +68,12 @@ public:
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   void OnEnterForeground();
   bool NeedToShowAfterBooking() const;
-  std::string GetPromoLinkAfterBooking() const;
-  void GetCityGallery(std::string const & id, CityGalleryCallback const & onSuccess,
-                      OnError const & onError) const;
-  void GetCityGallery(m2::PointD const & point, CityGalleryCallback const & onSuccess,
-                      OnError const & onError) const;
+  std::string GetPromoLinkAfterBooking(std::string const & lang) const;
+  std::string GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const;
+  void GetCityGallery(std::string const & id, std::string const & lang,
+                      CityGalleryCallback const & onSuccess, OnError const & onError) const;
+  void GetCityGallery(m2::PointD const & point, std::string const & lang,
+                      CityGalleryCallback const & onSuccess, OnError const & onError) const;
 
   // eye::Subscriber overrides:
   void OnMapObjectEvent(eye::MapObject const & poi) override;

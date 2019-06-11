@@ -44,7 +44,9 @@ void RegionInfoGetter::LoadCountriesTree()
 {
   storage::Affiliations affiliations;
   storage::CountryNameSynonyms countryNameSynonyms;
-  storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms);
+  storage::PromoCatalogCities promoCatalogCities;
+  storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms,
+                                 promoCatalogCities);
 }
 
 void RegionInfoGetter::SetLocale(string const & locale)

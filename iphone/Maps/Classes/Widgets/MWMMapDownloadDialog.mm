@@ -16,11 +16,15 @@
 
 #include "Framework.h"
 
+#include "partners_api/downloader_promo.hpp"
+
 #include "storage/country_info_getter.hpp"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/network_policy.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "partners_api/downloader_promo.hpp"
+#include "base/assert.hpp"
 
 namespace
 {
@@ -45,7 +49,12 @@ promo::DownloaderPromo::Banner getPromoBanner(std::string const & mwmId)
 {
   auto const & purchase = GetFramework().GetPurchase();
   bool const hasRemoveAdsSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-  return promo::DownloaderPromo::GetBanner(GetFramework().GetStorage(), mwmId, languages::GetCurrentNorm(),
+  auto const policy = platform::GetCurrentNetworkPolicy();
+  if (!policy.CanUse())
+    return {};
+  auto const * promoApi = GetFramework().GetPromoApi(policy);
+  CHECK(promoApi != nullptr, ());
+  return promo::DownloaderPromo::GetBanner(GetFramework().GetStorage(), *promoApi, mwmId, languages::GetCurrentNorm(),
                                            hasRemoveAdsSubscription);
 }
 }  // namespace

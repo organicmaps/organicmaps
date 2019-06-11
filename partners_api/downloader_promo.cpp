@@ -1,19 +1,31 @@
 #include "partners_api/downloader_promo.hpp"
 
 #include "partners_api/megafon_countries.hpp"
+#include "partners_api/promo_api.hpp"
+
+#include "storage/storage.hpp"
+
+#include "base/string_utils.hpp"
 
 namespace promo
 {
 // static
 DownloaderPromo::Banner DownloaderPromo::GetBanner(storage::Storage const & storage,
-                                                   std::string const & mwmId,
+                                                   Api const & promoApi, std::string const & mwmId,
                                                    std::string const & currentLocale,
                                                    bool hasRemoveAdsSubscription)
 {
   if (!hasRemoveAdsSubscription && ads::HasMegafonDownloaderBanner(storage, mwmId, currentLocale))
-    return {DownloaderPromo::Type::Megafon, ads::GetMegafonDownloaderBannerUrl()};
+    return {Type::Megafon, ads::GetMegafonDownloaderBannerUrl()};
 
-  // TODO: add bookmark catalog banner.
+  auto const & cities = storage.GetPromoCatalogCities();
+  auto const it = cities.find(mwmId);
+
+  if (it != cities.cend())
+  {
+    auto const id = strings::to_string(it->second.GetEncodedId());
+    return {Type::BookmarkCatalog, promoApi.GetPromoLinkForDownloader(id, currentLocale)};
+  }
 
   return {};
 }

@@ -1,12 +1,17 @@
 #pragma once
 
-#include "storage/storage.hpp"
-
 #include <cstdint>
 #include <string>
 
+namespace storage
+{
+class Storage;
+}
+
 namespace promo
 {
+class Api;
+
 class DownloaderPromo
 {
 public:
@@ -30,7 +35,8 @@ public:
     std::string m_url;
   };
 
-  static Banner GetBanner(storage::Storage const & storage, std::string const & mwmId,
-                          std::string const & currentLocale, bool hasRemoveAdsSubscription);
+  static Banner GetBanner(storage::Storage const & storage, Api const & promoApi,
+                          std::string const & mwmId, std::string const & currentLocale,
+                          bool hasRemoveAdsSubscription);
 };
 }  // namespace promo
