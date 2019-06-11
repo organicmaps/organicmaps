@@ -18,7 +18,7 @@ DownloaderPromo::Banner DownloaderPromo::GetBanner(storage::Storage const & stor
   if (!hasRemoveAdsSubscription && ads::HasMegafonDownloaderBanner(storage, mwmId, currentLocale))
     return {Type::Megafon, ads::GetMegafonDownloaderBannerUrl()};
 
-  auto const & cities = storage.GetPromoCatalogCities();
+  auto const & cities = storage.GetMwmTopCityGeoIds();
   auto const it = cities.find(mwmId);
 
   if (it != cities.cend())

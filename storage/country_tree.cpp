@@ -37,7 +37,7 @@ public:
   virtual void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) = 0;
   virtual void InsertAffiliation(CountryId const & countryId, string const & affilation) = 0;
   virtual void InsertCountryNameSynonym(CountryId const & countryId, string const & synonym) = 0;
-  virtual void InsertPromoCatalogCity(CountryId const & countryId, uint64_t const & geoObjectId) {}
+  virtual void InsertMwmTopCityGeoId(CountryId const & countryId, uint64_t const & geoObjectId) {}
   virtual OldMwmMapping GetMapping() const = 0;
 };
 
@@ -46,17 +46,17 @@ class StoreCountriesSingleMwms : public StoreSingleMwmInterface
   CountryTree & m_countries;
   Affiliations & m_affiliations;
   CountryNameSynonyms & m_countryNameSynonyms;
-  PromoCatalogCities & m_promoCatalogCities;
+  MwmTopCityGeoIds & m_mwmTopCityGeoIds;
   OldMwmMapping m_idsMapping;
 
 public:
   StoreCountriesSingleMwms(CountryTree & countries, Affiliations & affiliations,
                            CountryNameSynonyms & countryNameSynonyms,
-                           PromoCatalogCities & promoCatalogCities)
+                           MwmTopCityGeoIds & mwmTopCityGeoIds)
     : m_countries(countries)
     , m_affiliations(affiliations)
     , m_countryNameSynonyms(countryNameSynonyms)
-    , m_promoCatalogCities(promoCatalogCities)
+    , m_mwmTopCityGeoIds(mwmTopCityGeoIds)
   {
   }
   ~StoreCountriesSingleMwms()
@@ -104,12 +104,12 @@ public:
     m_countryNameSynonyms[synonym] = countryId;
   }
 
-  void InsertPromoCatalogCity(CountryId const & countryId, uint64_t const & geoObjectId) override
+  void InsertMwmTopCityGeoId(CountryId const & countryId, uint64_t const & geoObjectId) override
   {
     ASSERT(!countryId.empty(), ());
     ASSERT_NOT_EQUAL(geoObjectId, 0, ());
     base::GeoObjectId id(geoObjectId);
-    m_promoCatalogCities.emplace(countryId, move(id));
+    m_mwmTopCityGeoIds.emplace(countryId, move(id));
   }
 
   OldMwmMapping GetMapping() const override { return m_idsMapping; }
@@ -349,9 +349,9 @@ MwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, CountryId c
     store.InsertAffiliation(id, affilationValue);
 
   uint64_t geoObjectId = 0;
-  FromJSONObjectOptionalField(node, "pc", geoObjectId);
+  FromJSONObjectOptionalField(node, "top_city_geo_id", geoObjectId);
   if (geoObjectId != 0)
-    store.InsertPromoCatalogCity(id, geoObjectId);
+    store.InsertMwmTopCityGeoId(id, geoObjectId);
 
   int nodeSize;
   FromJSONObjectOptionalField(node, "s", nodeSize);
@@ -528,7 +528,7 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
 int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries,
                                 Affiliations & affiliations,
                                 CountryNameSynonyms & countryNameSynonyms,
-                                PromoCatalogCities & promoCatalogCities,
+                                MwmTopCityGeoIds & mwmTopCityGeoIds,
                                 OldMwmMapping * mapping /* = nullptr */)
 {
   countries.Clear();
@@ -543,7 +543,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
     if (version::IsSingleMwm(version))
     {
       StoreCountriesSingleMwms store(countries, affiliations, countryNameSynonyms,
-                                     promoCatalogCities);
+                                     mwmTopCityGeoIds);
       if (!LoadCountriesSingleMwmsImpl(jsonBuffer, store))
         return -1;
       if (mapping)
@@ -566,12 +566,12 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
 int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               Affiliations & affiliations,
                               CountryNameSynonyms & countryNameSynonyms,
-                              PromoCatalogCities & promoCatalogCities, OldMwmMapping * mapping)
+                              MwmTopCityGeoIds & mwmTopCityGeoIds, OldMwmMapping * mapping)
 {
   string json;
   ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);
   return LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
-                                 promoCatalogCities, mapping);
+                                 mwmTopCityGeoIds, mapping);
 }
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info,

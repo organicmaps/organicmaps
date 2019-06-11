@@ -25,8 +25,8 @@ using OldMwmMapping = std::map<CountryId, CountriesSet>;
 using Affiliations = std::unordered_map<std::string, std::vector<CountryId>>;
 /// Map from country name synonyms and old names into CountryId.
 using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
-/// Map from CountryId into promo catalog cities GeoObject id.
-using PromoCatalogCities = std::unordered_map<CountryId, base::GeoObjectId>;
+/// Map from CountryId into city GeoObject id.
+using MwmTopCityGeoIds = std::unordered_map<CountryId, base::GeoObjectId>;
 
 extern const storage::CountryId kInvalidCountryId;
 

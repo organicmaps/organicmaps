@@ -119,12 +119,12 @@ private:
 int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
                                 Affiliations & affiliations,
                                 CountryNameSynonyms & countryNameSynonyms,
-                                PromoCatalogCities & promoCatalogCities,
+                                MwmTopCityGeoIds & mwmTopCityGeoIds,
                                 OldMwmMapping * mapping = nullptr);
 int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
                               Affiliations & affiliations,
                               CountryNameSynonyms & countryNameSynonyms,
-                              PromoCatalogCities & promoCatalogCities,
+                              MwmTopCityGeoIds & mwmTopCityGeoIds,
                               OldMwmMapping * mapping = nullptr);
 
 void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,

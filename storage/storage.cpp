@@ -143,7 +143,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
 {
   m_currentVersion =
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations,
-                              m_countryNameSynonyms, m_promoCatalogCities);
+                              m_countryNameSynonyms, m_mwmTopCityGeoIds);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalcMaxMwmSizeBytes();
 }
@@ -764,7 +764,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const
   if (m_countries.IsEmpty())
   {
     m_currentVersion = LoadCountriesFromFile(pathToCountriesFile, m_countries, m_affiliations,
-                                             m_countryNameSynonyms, m_promoCatalogCities, mapping);
+                                             m_countryNameSynonyms, m_mwmTopCityGeoIds, mapping);
     LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));
