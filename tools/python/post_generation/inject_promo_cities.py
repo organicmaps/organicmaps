@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import re
 import sys
 
 from mwm import mwm
@@ -14,7 +15,7 @@ class PromoCities(object):
         self.osm2ft_path = osm2ft_path
 
     def find(self, leaf_id):
-        result = list()
+        result = []
         ft2osm = load_osm2ft(self.osm2ft_path, leaf_id)
         with open(os.path.join(self.mwm_path, leaf_id + ".mwm"), "rb") as f:
             mwm_file = mwm.MWM(f)
@@ -30,7 +31,7 @@ class PromoCities(object):
                 city = {
                     "id": osm_id,
                     "count_of_guides": self.cities[osm_id],
-                    "types": list()
+                    "types": []
                 }
 
                 for t in types:
@@ -38,8 +39,8 @@ class PromoCities(object):
                         city["types"].append(t)
 
                 if not city["types"]:
-                    logging.error("Incorrect types for sponsored-promo_catalog "
-                                  "feature osm_id %s", osm_id)
+                    logging.error(f"Incorrect types for sponsored-promo_catalog "
+                                  f"feature osm_id {osm_id}")
                     sys.exit(3)
 
                 result.append(city)
@@ -51,10 +52,7 @@ class PromoCities(object):
         def key_compare(city):
             return city["count_of_guides"], score_types(city["types"])
 
-        result = sorted(proposed_cities, key=key_compare, reverse=True)
-        # Debug
-        print(result)
-        return result[0]
+        return max(proposed_cities, key=key_compare)
 
 
 def place_type_to_int(t):
@@ -62,41 +60,24 @@ def place_type_to_int(t):
         return 1
     if t == "place-city":
         return 2
-    if t == "place-city-capital-11":
-        return 3
-    if t == "place-city-capital-10":
-        return 4
-    if t == "place-city-capital-9":
-        return 5
-    if t == "place-city-capital-8":
-        return 6
-    if t == "place-city-capital-7":
-        return 7
-    if t == "place-city-capital-6":
-        return 8
-    if t == "place-city-capital-5":
-        return 9
-    if t == "place-city-capital-4":
-        return 10
-    if t == "place-city-capital-3":
-        return 11
-    if t == "place-city-capital-2":
-        return 12
-    if t == "place-city-capital":
-        return 13
+
+    m = re.match(r"^place-city-capital?(-(?P<admin_level>\d+)|)$", t)
+    if m:
+        admin_level = int(m.groupdict("1")["admin_level"])
+        if 1 <= admin_level <= 12:
+            return 14 - admin_level
     return 0
 
 
 def score_types(types):
-    ranked = sorted([place_type_to_int(t) for t in types], reverse=True)
-    return ranked[0]
+    return max([place_type_to_int(t) for t in types])
 
 
 def load_cities(path):
-    with open(path, "r") as f:
+    with open(path) as f:
         cities_list = json.load(f)
 
-    cities = dict()
+    cities = {}
     for city in cities_list["data"]:
         cities[city["osmid"]] = city["paid_bundles_count"]
 
@@ -106,7 +87,7 @@ def load_cities(path):
 def load_osm2ft(osm2ft_path, mwm_id):
     osm2ft_name = os.path.join(osm2ft_path, mwm_id + ".mwm.osm2ft")
     if not os.path.exists(osm2ft_name):
-        logging.error("Cannot find %s", osm2ft_name)
+        logging.error(f"Cannot find {osm2ft_name}")
         sys.exit(3)
     with open(osm2ft_name, "rb") as f:
         return mwm.read_osm2ft(f, ft2osm=True, tuples=False)
@@ -125,9 +106,9 @@ def inject_into_leafs(node, cities):
         best_city = cities.choose_best_city(proposed_cities)
 
         if best_city["id"] < 0:
-            node["pc"] = best_city["id"] + (1 << 64)
+            node["top_city_geo_id"] = best_city["id"] + (1 << 64)
         else:
-            node["pc"] = best_city["id"]
+            node["top_city_geo_id"] = best_city["id"]
 
 
 def inject_promo_cities(countries_json, promo_cities_path, mwm_path, types_path,

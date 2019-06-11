@@ -111,7 +111,7 @@ The post_generation commands are:
         if not args.output:
             args.output = os.path.join(args.mwm, "countries.txt")
 
-        with open(args.countries, "r") as f:
+        with open(args.countries) as f:
             countries = json.load(f)
 
         inject_promo_cities(countries, args.promo_cities, args.mwm, args.types,

@@ -245,8 +245,8 @@ void OpentableLayer::Handle(FeatureBuilder & feature)
 }
 
 
-PromoCatalogLayer::PromoCatalogLayer(std::string const & filename)
-  : m_cities(promo::LoadCities(filename))
+PromoCatalogLayer::PromoCatalogLayer(std::string const & citiesFinename)
+  : m_cities(promo::LoadCities(citiesFinename))
 {
 }
 
@@ -254,18 +254,12 @@ void PromoCatalogLayer::Handle(FeatureBuilder & feature)
 {
   if (ftypes::IsCityTownOrVillage(feature.GetTypes()))
   {
-    auto const & ids = feature.GetOsmIds();
-
-    auto const found = std::any_of(ids.cbegin(), ids.cend(), [this](auto const & id)
-    {
-      return m_cities.find(id) != m_cities.cend();
-    });
-
-    if (!found)
+    if (m_cities.find(feature.GetMostGenericOsmId()) == m_cities.cend())
       return;
 
+    auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
     FeatureParams & params = feature.GetParams();
-    params.AddType(classif().GetTypeByPath({"sponsored", "promo_catalog"}));
+    params.AddType(kPromoType);
   }
   LayerBase::Handle(feature);
 }

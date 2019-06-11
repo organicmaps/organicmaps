@@ -163,7 +163,7 @@ private:
 class PromoCatalogLayer : public LayerBase
 {
 public:
-  explicit PromoCatalogLayer(std::string const & filename);
+  explicit PromoCatalogLayer(std::string const & citiesFinename);
 
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & feature) override;

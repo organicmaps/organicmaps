@@ -336,20 +336,20 @@ class RemoveSolver
   bool m_doNotRemoveSponsoredTypes;
 
 public:
-  RemoveSolver(int lowScale, int upScale, bool leaveSpecialTypes, bool leaveSponsoredTypes = true)
-    : m_lowScale(lowScale),
-    m_upScale(upScale),
-    m_doNotRemoveSpecialTypes(leaveSpecialTypes),
-    m_doNotRemoveSponsoredTypes(leaveSponsoredTypes)
+  RemoveSolver(int lowScale, int upScale, bool doNotRemoveSpecialTypes, bool doNotRemoveSponsoredTypes)
+    : m_lowScale(lowScale)
+    , m_upScale(upScale)
+    , m_doNotRemoveSpecialTypes(doNotRemoveSpecialTypes)
+    , m_doNotRemoveSponsoredTypes(doNotRemoveSponsoredTypes)
   {
   }
 
   bool operator() (uint32_t type) const
   {
-    std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
-
     if (m_doNotRemoveSponsoredTypes && ftypes::IsSponsoredChecker::Instance()(type))
       return false;
+
+    std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
     // We have feature types without any drawing rules.
     // This case was processed before:
     // - feature::TypeAlwaysExists;
@@ -370,8 +370,11 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false)))
+  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false /* doNotRemoveSpecialTypes */,
+                                    true /* doNotRemoveSponsoredTypes */)))
+  {
     return false;
+  }
 
   fb.RemoveNameIfInvisible(0, upperScale);
 
@@ -382,8 +385,12 @@ bool PreprocessForCountryMap(FeatureBuilder & fb)
 {
   using namespace scales;
 
-  if (fb.RemoveTypesIf(RemoveSolver(GetUpperWorldScale() + 1, GetUpperStyleScale(), true)))
+  if (fb.RemoveTypesIf(RemoveSolver(GetUpperWorldScale() + 1, GetUpperStyleScale(),
+                                    true /* doNotRemoveSpecialTypes */,
+                                    true /* doNotRemoveSponsoredTypes */)))
+  {
     return false;
+  }
 
   return true;
 }

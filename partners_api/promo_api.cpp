@@ -8,8 +8,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "base/string_utils.hpp"
-
 #include "base/assert.hpp"
 
 #include <algorithm>
