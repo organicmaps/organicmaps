@@ -194,6 +194,8 @@ set(SRC
   statistics.hpp
   streets/street_geometry.cpp
   streets/street_geometry.hpp
+  streets/street_regions_tracing.cpp
+  streets/street_regions_tracing.hpp
   streets/streets.cpp
   streets/streets.hpp
   streets/streets_builder.cpp

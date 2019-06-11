@@ -29,6 +29,7 @@ set(
   line2d.hpp
   mercator.cpp
   mercator.hpp
+  meter.hpp
   nearby_points_sweeper.cpp
   nearby_points_sweeper.hpp
   packer.cpp

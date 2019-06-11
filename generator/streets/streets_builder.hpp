@@ -46,12 +46,12 @@ private:
                            RegionStreets const & streets);
 
   void AddStreet(feature::FeatureBuilder & fb);
+  void AddStreetHighway(feature::FeatureBuilder & fb);
+  void AddStreetArea(feature::FeatureBuilder & fb);
+  void AddStreetPoint(feature::FeatureBuilder & fb);
   void AddStreetBinding(std::string && streetName, feature::FeatureBuilder & fb);
-  boost::optional<KeyValue> FindStreetRegionOwner(feature::FeatureBuilder & fb);
   boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point, bool needLocality = false);
-  void InsertStreet(KeyValue const & region, feature::FeatureBuilder & fb);
-  void InsertStreetBinding(KeyValue const & region, std::string && streetName,
-      feature::FeatureBuilder & fb);
+  StreetGeometry & InsertStreet(uint64_t regionId, std::string && streetName);
   std::unique_ptr<char, JSONFreeDeleter> MakeStreetValue(
       uint64_t regionId, JsonValue const & regionObject, std::string const & streetName,
       m2::RectD const & bbox, m2::PointD const & pinPoint);
