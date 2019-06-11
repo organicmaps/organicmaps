@@ -57,6 +57,14 @@
 		670F887A1CE4CA9C003F68BA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F88781CE4CA81003F68BA /* libopening_hours.a */; };
 		6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
+		671C2D8122AFDAB4008B2B8B /* street_geometry_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D7A22AFDAB4008B2B8B /* street_geometry_tests.cpp */; };
+		671C2D8222AFDAB4008B2B8B /* descriptions_section_builder_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D7B22AFDAB4008B2B8B /* descriptions_section_builder_tests.cpp */; };
+		671C2D8322AFDAB4008B2B8B /* camera_collector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D7C22AFDAB4008B2B8B /* camera_collector_tests.cpp */; };
+		671C2D8522AFDAB4008B2B8B /* popularity_builder_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D7E22AFDAB4008B2B8B /* popularity_builder_tests.cpp */; };
+		671C2D8622AFDAB4008B2B8B /* brands_loader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D7F22AFDAB4008B2B8B /* brands_loader_test.cpp */; };
+		671C2D8722AFDAB4008B2B8B /* street_regions_tracing_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C2D8022AFDAB4008B2B8B /* street_regions_tracing_tests.cpp */; };
+		671C2D8922AFE250008B2B8B /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C2D8822AFE250008B2B8B /* libtraffic.a */; };
+		671C2D8B22AFE2F7008B2B8B /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C2D8A22AFE2F7008B2B8B /* libdescriptions.a */; };
 		671ED3BF20D4098100D4317E /* node_mixer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED3B720D4098000D4317E /* node_mixer_test.cpp */; };
 		671ED3C020D4098100D4317E /* restriction_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED3B820D4098000D4317E /* restriction_test.cpp */; };
 		671ED3C120D4098100D4317E /* srtm_parser_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED3B920D4098000D4317E /* srtm_parser_test.cpp */; };
@@ -243,6 +251,14 @@
 		670E7BC61EF992F600A8E9ED /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		670F88781CE4CA81003F68BA /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Release/libopening_hours.a"; sourceTree = "<group>"; };
 		6719DD5D1B95AB0F0018166F /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
+		671C2D7A22AFDAB4008B2B8B /* street_geometry_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = street_geometry_tests.cpp; sourceTree = "<group>"; };
+		671C2D7B22AFDAB4008B2B8B /* descriptions_section_builder_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = descriptions_section_builder_tests.cpp; sourceTree = "<group>"; };
+		671C2D7C22AFDAB4008B2B8B /* camera_collector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera_collector_tests.cpp; sourceTree = "<group>"; };
+		671C2D7E22AFDAB4008B2B8B /* popularity_builder_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = popularity_builder_tests.cpp; sourceTree = "<group>"; };
+		671C2D7F22AFDAB4008B2B8B /* brands_loader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brands_loader_test.cpp; sourceTree = "<group>"; };
+		671C2D8022AFDAB4008B2B8B /* street_regions_tracing_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = street_regions_tracing_tests.cpp; sourceTree = "<group>"; };
+		671C2D8822AFE250008B2B8B /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671C2D8A22AFE2F7008B2B8B /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671ED3B720D4098000D4317E /* node_mixer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node_mixer_test.cpp; sourceTree = "<group>"; };
 		671ED3B820D4098000D4317E /* restriction_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = restriction_test.cpp; sourceTree = "<group>"; };
 		671ED3B920D4098000D4317E /* srtm_parser_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srtm_parser_test.cpp; sourceTree = "<group>"; };
@@ -318,6 +334,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671C2D8B22AFE2F7008B2B8B /* libdescriptions.a in Frameworks */,
+				671C2D8922AFE250008B2B8B /* libtraffic.a in Frameworks */,
 				671ED3CB20D40A8C00D4317E /* libminizip.a in Frameworks */,
 				677E2A0A1CAAC771001DC42A /* libz.tbd in Frameworks */,
 				671ED3C920D40A3E00D4317E /* libgenerator_tests_support.a in Frameworks */,
@@ -474,6 +492,8 @@
 		34F558551DBF3CD800A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				671C2D8A22AFE2F7008B2B8B /* libdescriptions.a */,
+				671C2D8822AFE250008B2B8B /* libtraffic.a */,
 				401E3188225C988500DE7EB8 /* libdescriptions.a */,
 				671ED3CA20D40A8C00D4317E /* libminizip.a */,
 				671ED3C820D40A3E00D4317E /* libgenerator_tests_support.a */,
@@ -504,6 +524,12 @@
 		6726C1D71A4C27A5005EEA39 /* generator_tests */ = {
 			isa = PBXGroup;
 			children = (
+				671C2D7F22AFDAB4008B2B8B /* brands_loader_test.cpp */,
+				671C2D7C22AFDAB4008B2B8B /* camera_collector_tests.cpp */,
+				671C2D7B22AFDAB4008B2B8B /* descriptions_section_builder_tests.cpp */,
+				671C2D7E22AFDAB4008B2B8B /* popularity_builder_tests.cpp */,
+				671C2D7A22AFDAB4008B2B8B /* street_geometry_tests.cpp */,
+				671C2D8022AFDAB4008B2B8B /* street_regions_tracing_tests.cpp */,
 				56A1B7A321A82BF700246F8C /* maxspeeds_tests.cpp */,
 				56A6C3CF219AFDEE00A52855 /* common.cpp */,
 				56A6C3CE219AFDED00A52855 /* common.hpp */,
@@ -726,6 +752,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 6753414F1A3F54D800A0A8C3;
@@ -764,9 +791,13 @@
 				56A6C3D2219AFDEE00A52855 /* filter_elements_tests.cpp in Sources */,
 				670E7BC51EF9860100A8E9ED /* ugc_test.cpp in Sources */,
 				56A1B7A421A82BF700246F8C /* maxspeeds_tests.cpp in Sources */,
+				671C2D8522AFDAB4008B2B8B /* popularity_builder_tests.cpp in Sources */,
 				67AB92D21B75156B00AB5194 /* feature_merger_test.cpp in Sources */,
+				671C2D8722AFDAB4008B2B8B /* street_regions_tracing_tests.cpp in Sources */,
 				67AB92C31B73C29000AB5194 /* source_to_element_test.cpp in Sources */,
+				671C2D8622AFDAB4008B2B8B /* brands_loader_test.cpp in Sources */,
 				671ED3C520D4098100D4317E /* sponsored_storage_tests.cpp in Sources */,
+				671C2D8222AFDAB4008B2B8B /* descriptions_section_builder_tests.cpp in Sources */,
 				671ED3C120D4098100D4317E /* srtm_parser_test.cpp in Sources */,
 				671ED3C220D4098100D4317E /* restriction_collector_test.cpp in Sources */,
 				677792521C1B2E9700EC9499 /* metadata_parser_test.cpp in Sources */,
@@ -776,6 +807,8 @@
 				67AB92D11B75156700AB5194 /* feature_builder_test.cpp in Sources */,
 				671ED3C320D4098100D4317E /* altitude_test.cpp in Sources */,
 				671ED3C020D4098100D4317E /* restriction_test.cpp in Sources */,
+				671C2D8122AFDAB4008B2B8B /* street_geometry_tests.cpp in Sources */,
+				671C2D8322AFDAB4008B2B8B /* camera_collector_tests.cpp in Sources */,
 				67AB92C21B73C27300AB5194 /* source_data.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -811,6 +844,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					DEBUG,
+					_DEBUG,
+					HAVE_PTHREAD,
+					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";

@@ -63,6 +63,7 @@
 		670F299C1BAABDA600F2ABF4 /* transformations_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */; };
 		670F299D1BAABDA600F2ABF4 /* tree_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */; };
 		670F299E1BAABDA600F2ABF4 /* vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */; };
+		671C2D5522AFD905008B2B8B /* meter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C2D5422AFD904008B2B8B /* meter.hpp */; };
 		6741AAA01BF35476002C974C /* latlon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6741AA9E1BF35476002C974C /* latlon.cpp */; };
 		6741AAA11BF35476002C974C /* latlon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6741AA9F1BF35476002C974C /* latlon.hpp */; };
 		675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753449F1A3F687400A0A8C3 /* angles.cpp */; };
@@ -170,6 +171,7 @@
 		670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		670F29811BA9D46F00F2ABF4 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		670F29821BA9D46F00F2ABF4 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
+		671C2D5422AFD904008B2B8B /* meter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = meter.hpp; sourceTree = "<group>"; };
 		6741AA9E1BF35476002C974C /* latlon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon.cpp; sourceTree = "<group>"; };
 		6741AA9F1BF35476002C974C /* latlon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon.hpp; sourceTree = "<group>"; };
 		675344911A3F684600A0A8C3 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +304,7 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				671C2D5422AFD904008B2B8B /* meter.hpp */,
 				39396ECB210B2E590054AC20 /* parametrized_segment.hpp */,
 				39B2B9721FB4681400AB85A1 /* line2d.hpp */,
 				39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */,
@@ -376,6 +379,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671C2D5522AFD905008B2B8B /* meter.hpp in Headers */,
 				675344BD1A3F687400A0A8C3 /* angles.hpp in Headers */,
 				675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */,
 				39B2B9731FB4681400AB85A1 /* line2d.hpp in Headers */,
@@ -473,6 +477,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 675344881A3F684600A0A8C3;
