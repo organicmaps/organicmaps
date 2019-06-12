@@ -241,7 +241,7 @@ void GeneratePackedBorders(std::string const & baseDir)
 }
 
 void DumpBorderToPolyFile(std::string const & targetDir, storage::CountryId const & mwmName,
-                          std::vector<std::vector<m2::PointD>> const & polygons)
+                          std::vector<m2::RegionD> const & polygons)
 {
   CHECK(!polygons.empty(), ());
 
@@ -255,7 +255,7 @@ void DumpBorderToPolyFile(std::string const & targetDir, storage::CountryId cons
   {
     poly << polygonId << std::endl;
     ++polygonId;
-    for (auto const & point : points)
+    for (auto const & point : points.Data())
     {
       ms::LatLon const ll = MercatorBounds::ToLatLon(point);
       poly << "    " << std::scientific << ll.m_lon << "    " << ll.m_lat << std::endl;

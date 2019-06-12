@@ -1,11 +1,12 @@
 #pragma once
 
+#include <string>
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QRadioButton>
-
-#include <string>
 
 class Framework;
 
@@ -18,18 +19,25 @@ public:
 
   enum class Response
   {
-    JustBorders,
-    WithPointsAndBorders,
+    JustBordersByPolyFiles,
+    WithPointsAndBordersByPolyFiles,
 
-    Canceled
+    JustBordersByPackedPolygon,
+    WithPointsAndBordersByPackedPolygon,
+
+    Cancelled
   };
 
   Response ShowModal();
 
 private:
-  void AddButtonBox();
+  QGroupBox * CreateSourceChoosingGroup();
+  QGroupBox * CreateViewTypeGroup();
+  QGroupBox * CreateButtonBoxGroup();
 
-  QFormLayout m_form;
+  QRadioButton * m_radioBordersFromPackedPolygon;
+  QRadioButton * m_radioBordersFromData;
+
   QRadioButton * m_radioWithPoints;
   QRadioButton * m_radioJustBorders;
 };

@@ -1,5 +1,6 @@
-#include "qt/create_feature_dialog.hpp"
 #include "qt/draw_widget.hpp"
+
+#include "qt/create_feature_dialog.hpp"
 #include "qt/editor_dialog.hpp"
 #include "qt/place_page_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
@@ -16,6 +17,7 @@
 
 #include "routing/routing_callbacks.hpp"
 
+#include "storage/country_decl.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "indexer/editable_map_object.hpp"
@@ -24,8 +26,13 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/reader.hpp"
+
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+
+#include <string>
+#include <vector>
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QGuiApplication>
@@ -38,7 +45,8 @@
 #include <QtCore/QLocale>
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
-#include <base/file_name_utils.hpp>
+
+#include "defines.hpp"
 
 using namespace qt::common;
 
@@ -212,8 +220,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!(m_currentSelectionMode) ||
-             IsCommandModifier(e))
+    else if (!m_currentSelectionMode || IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
     }
@@ -237,26 +244,53 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if ((m_currentSelectionMode) &&
-      m_rubberBand != nullptr && m_rubberBand->isVisible())
+  if (m_currentSelectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
   }
 }
 
-void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints)
+void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints,
+                                            bool fromPackedPolygon)
 {
-  static std::string const kPathToBorders =
-    base::JoinPath(GetPlatform().ResourcesDir(), "borders");
+  auto const getPolygons = [&](std::string const & mwmName)
+  {
+    if (fromPackedPolygon)
+    {
+      std::vector<storage::CountryDef> countries;
+      FilesContainerR reader(base::JoinPath(GetPlatform().ResourcesDir(), PACKED_POLYGONS_FILE));
+      ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
+      rw::Read(src, countries);
+
+      for (size_t id = 0; id < countries.size(); ++id)
+      {
+        if (countries[id].m_countryId != mwmName)
+          continue;
+
+        src = reader.GetReader(std::to_string(id));
+        return borders::ReadPolygonsOfOneBorder(src);
+      }
+
+      UNREACHABLE();
+    }
+    else
+    {
+      std::string const bordersDir =
+          base::JoinPath(GetPlatform().ResourcesDir(), BORDERS_DIR);
+
+      std::string const path = base::JoinPath(bordersDir, mwmName + BORDERS_EXTENSION);
+      std::vector<m2::RegionD> polygons;
+      borders::LoadBorders(path, polygons);
+
+      return polygons;
+    }
+  };
 
   auto const mwmNames = m_framework.GetRegionsCountryIdByRect(rect, false /* rough */);
 
   for (auto const & mwmName : mwmNames)
   {
-    std::string const path = base::JoinPath(kPathToBorders, mwmName + ".poly");
-    std::vector<m2::RegionD> polygons;
-    borders::LoadBorders(path, polygons);
-
+    auto const polygons = getPolygons(mwmName);
     m_framework.DrawMwmBorder(mwmName, polygons, withPoints);
   }
 }
@@ -271,8 +305,8 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if ((m_currentSelectionMode) &&
-           IsRightButton(e) && m_rubberBand != nullptr && m_rubberBand->isVisible())
+  else if (m_currentSelectionMode && IsRightButton(e) &&
+           m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     QPoint const lt = m_rubberBand->geometry().topLeft();
     QPoint const rb = m_rubberBand->geometry().bottomRight();
@@ -296,14 +330,24 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
       m_framework.VisualizeCityRoadsInRect(rect);
       break;
     }
-    case SelectionMode::MwmsBorders:
+    case SelectionMode::MwmsBordersByPolyFiles:
     {
-      VisualizeMwmsBordersInRect(rect, false /* withPoints */);
+      VisualizeMwmsBordersInRect(rect, false /* withPoints */, false /* fromPackedPolygon */);
       break;
     }
-    case SelectionMode::MwmsBordersWithPoints:
+    case SelectionMode::MwmsBordersWithPointsByPolyFiles:
     {
-      VisualizeMwmsBordersInRect(rect, true /* withPoints */);
+      VisualizeMwmsBordersInRect(rect, true /* withPoints */, false /* fromPackedPolygon */);
+      break;
+    }
+    case SelectionMode::MwmsBordersByPackedPolygon:
+    {
+      VisualizeMwmsBordersInRect(rect, false /* withPoints */, true /* fromPackedPolygon */);
+      break;
+    }
+    case SelectionMode::MwmsBordersWithPointsByPackedPolygon:
+    {
+      VisualizeMwmsBordersInRect(rect, true /* withPoints */, true /* fromPackedPolygon */);
       break;
     }
     default:

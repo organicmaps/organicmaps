@@ -271,6 +271,14 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
     units = "B";
   }
 }
+
+bool IsMwmsBordersSelectionMode(DrawWidget::SelectionMode mode)
+{
+  return mode == DrawWidget::SelectionMode::MwmsBordersByPolyFiles ||
+         mode == DrawWidget::SelectionMode::MwmsBordersWithPointsByPolyFiles ||
+         mode == DrawWidget::SelectionMode::MwmsBordersByPackedPolygon ||
+         mode == DrawWidget::SelectionMode::MwmsBordersWithPointsByPackedPolygon;
+}
 }  // namespace
 
 void MainWindow::CreateNavigationBar()
@@ -639,11 +647,10 @@ void MainWindow::OnSwitchMwmsBordersSelectionMode()
 {
   MwmsBordersSelection dlg(this);
   auto const response = dlg.ShowModal();
-  if (response == MwmsBordersSelection::Response::Canceled)
+  if (response == MwmsBordersSelection::Response::Cancelled)
   {
     if (m_pDrawWidget->SelectionModeIsSet() &&
-        (m_pDrawWidget->GetSelectionMode() == DrawWidget::SelectionMode::MwmsBordersWithPoints ||
-         m_pDrawWidget->GetSelectionMode() == DrawWidget::SelectionMode::MwmsBorders))
+        IsMwmsBordersSelectionMode(m_pDrawWidget->GetSelectionMode()))
     {
       m_pDrawWidget->DropSelectionMode();
     }
@@ -652,8 +659,10 @@ void MainWindow::OnSwitchMwmsBordersSelectionMode()
     return;
   }
 
-  CHECK(response == MwmsBordersSelection::Response::JustBorders ||
-        response == MwmsBordersSelection::Response::WithPointsAndBorders, ());
+  CHECK(response == MwmsBordersSelection::Response::JustBordersByPolyFiles ||
+        response == MwmsBordersSelection::Response::WithPointsAndBordersByPolyFiles ||
+        response == MwmsBordersSelection::Response::JustBordersByPackedPolygon ||
+        response == MwmsBordersSelection::Response::WithPointsAndBordersByPackedPolygon, ());
 
   m_selectionMode->setChecked(false);
   m_selectionCityBoundariesMode->setChecked(false);
@@ -661,10 +670,31 @@ void MainWindow::OnSwitchMwmsBordersSelectionMode()
 
   m_selectionMwmsBordersMode->setChecked(true);
 
-  if (response == MwmsBordersSelection::Response::WithPointsAndBorders)
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPoints);
-  else
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBorders);
+  switch (response)
+  {
+  case MwmsBordersSelection::Response::JustBordersByPolyFiles:
+  {
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersByPolyFiles);
+    break;
+  }
+  case MwmsBordersSelection::Response::WithPointsAndBordersByPolyFiles:
+  {
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPointsByPolyFiles);
+    break;
+  }
+  case MwmsBordersSelection::Response::JustBordersByPackedPolygon:
+  {
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersByPackedPolygon);
+    break;
+  }
+  case MwmsBordersSelection::Response::WithPointsAndBordersByPackedPolygon:
+  {
+    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPointsByPackedPolygon);
+    break;
+  }
+  default:
+    UNREACHABLE();
+  }
 }
 
 void MainWindow::OnClearSelection()

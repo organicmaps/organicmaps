@@ -109,7 +109,7 @@ private:
 
   void UpdateCountryStatus(storage::CountryId const & countryId);
 
-  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints);
+  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints, bool fromPackedPolygon);
 
   m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
 
@@ -127,8 +127,10 @@ public:
     Features,
     CityBoundaries,
     CityRoads,
-    MwmsBorders,
-    MwmsBordersWithPoints
+    MwmsBordersByPolyFiles,
+    MwmsBordersWithPointsByPolyFiles,
+    MwmsBordersByPackedPolygon,
+    MwmsBordersWithPointsByPackedPolygon
   };
 
   void SetSelectionMode(SelectionMode mode) { m_currentSelectionMode = {mode}; }
