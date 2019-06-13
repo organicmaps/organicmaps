@@ -20,7 +20,6 @@ jmethodID g_authorConstructor = nullptr;
 jmethodID g_categoryConstructor = nullptr;
 jclass g_promoClass = nullptr;
 jfieldID g_promoInstanceField = nullptr;
-jobject g_promoInstance = nullptr;
 jmethodID g_onGalleryReceived = nullptr;
 jmethodID g_onErrorReceived = nullptr;
 uint64_t g_lastRequestId = 0;
@@ -30,34 +29,34 @@ void PrepareClassRefs(JNIEnv * env)
   if (g_galleryClass != nullptr)
     return;
 
-  g_galleryClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery");
+  g_galleryClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery");
   g_galleryConstructor =
       jni::GetConstructorID(env, g_galleryClass,
-                            "([Lcom/mapswithme/maps/discovery/PromoCityGallery$Item;"
+                            "([Lcom/mapswithme/maps/promo/PromoCityGallery$Item;"
                             "Ljava/lang/String;)V");
-  g_itemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$Item");
+  g_itemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery$Item");
   g_itemConstructor =
       jni::GetConstructorID(env, g_itemClass,
                             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                             "Ljava/lang/String;Ljava/lang/String;"
-                            "Lcom/mapswithme/maps/discovery/PromoCityGallery$Author;"
-                            "Lcom/mapswithme/maps/discovery/PromoCityGallery$LuxCategory;)V");
+                            "Lcom/mapswithme/maps/promo/PromoCityGallery$Author;"
+                            "Lcom/mapswithme/maps/promo/PromoCityGallery$LuxCategory;)V");
   g_authorClass =
-      jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$Author");
+      jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery$Author");
   g_authorConstructor =
       jni::GetConstructorID(env, g_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_categoryClass =
-      jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/PromoCityGallery$LuxCategory");
+      jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery$LuxCategory");
   g_categoryConstructor =
       jni::GetConstructorID(env, g_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
-  g_promoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/Promo");
 
+  g_promoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/Promo");
   g_promoInstanceField =
       jni::GetStaticFieldID(env, g_promoClass, "INSTANCE", "Lcom/mapswithme/maps/promo/Promo;");
-  g_promoInstance = env->GetStaticObjectField(g_promoClass, g_promoInstanceField);
-  g_onGalleryReceived = jni::GetMethodID(env, g_promoInstance, "onCityGalleryReceived",
+  jobject promoInstance = env->GetStaticObjectField(g_promoClass, g_promoInstanceField);
+  g_onGalleryReceived = jni::GetMethodID(env, promoInstance, "onCityGalleryReceived",
                                          "(Lcom/mapswithme/maps/promo/PromoCityGallery;)V");
-  g_onErrorReceived = jni::GetMethodID(env, g_promoInstance, "onErrorReceived", "()V");
+  g_onErrorReceived = jni::GetMethodID(env, promoInstance, "onErrorReceived", "()V");
 }
 
 void OnSuccess(uint64_t requestId, promo::CityGallery const & gallery)
@@ -67,7 +66,8 @@ void OnSuccess(uint64_t requestId, promo::CityGallery const & gallery)
 
   JNIEnv * env = jni::GetEnv();
   jni::TScopedLocalRef cityGallery(env, promo::MakeCityGallery(env, gallery));
-  env->CallVoidMethod(g_promoInstance, g_onGalleryReceived, cityGallery.get());
+  jobject promoInstance = env->GetStaticObjectField(g_promoClass, g_promoInstanceField);
+  env->CallVoidMethod(promoInstance, g_onGalleryReceived, cityGallery.get());
 
   jni::HandleJavaException(env);
 }
@@ -78,7 +78,8 @@ void OnError(uint64_t requestId)
     return;
 
   JNIEnv * env = jni::GetEnv();
-  env->CallVoidMethod(g_promoInstance, g_onErrorReceived);
+  jobject promoInstance = env->GetStaticObjectField(g_promoClass, g_promoInstanceField);
+  env->CallVoidMethod(promoInstance, g_onErrorReceived);
 
   jni::HandleJavaException(env);
 }
@@ -112,7 +113,8 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
                           access.get(), tier.get(), author.get(), luxCategory.get());
   };
 
-  jni::TScopedLocalRef items(env, jni::ToJavaArray(env, g_itemClass, gallery.m_items, itemBuilder));
+  jni::TScopedLocalObjectArrayRef items(env, jni::ToJavaArray(env, g_itemClass, gallery.m_items,
+                                        itemBuilder));
   jni::TScopedLocalRef moreUrl(env, jni::ToJavaString(env, gallery.m_moreUrl));
 
   return env->NewObject(g_galleryClass, g_galleryConstructor, items.get(), moreUrl.get());
