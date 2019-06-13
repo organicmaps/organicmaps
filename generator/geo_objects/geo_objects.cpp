@@ -57,8 +57,8 @@ void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
   if (json_array_size(coordinates) == 2)
   {
     auto const latLon = MercatorBounds::ToLatLon(point);
-    json_array_set_new(coordinates, 0, ToJSON(latLon.m_lat).release());
-    json_array_set_new(coordinates, 1, ToJSON(latLon.m_lon).release());
+    json_array_set_new(coordinates, 0, ToJSON(latLon.m_lon).release());
+    json_array_set_new(coordinates, 1, ToJSON(latLon.m_lat).release());
   }
 }
 
