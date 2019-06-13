@@ -1,25 +1,26 @@
 [submodule "tools/osmctools"]
-	path = tools/osmctools
-	url = git://github.com/mapsme/osmctools.git
+  path = tools/osmctools
+  url = git://github.com/mapsme/osmctools.git
 [submodule "tools/kothic"]
-	path = tools/kothic
-	url = git://github.com/mapsme/kothic.git
+  path = tools/kothic
+  url = git://github.com/mapsme/kothic.git
 [submodule "3party/Alohalytics"]
-	path = 3party/Alohalytics
-	url = git://github.com/mapsme/Alohalytics.git
+  path = 3party/Alohalytics
+  url = git://github.com/mapsme/Alohalytics.git
 [submodule "tools/macdeployqtfix"]
-	path = tools/macdeployqtfix
-	url = git://github.com/aurelien-rainone/macdeployqtfix.git
+  path = tools/macdeployqtfix
+  url = git://github.com/aurelien-rainone/macdeployqtfix.git
 [submodule "3party/protobuf/protobuf"]
-	path = 3party/protobuf/protobuf
-	url = git://github.com/mapsme/protobuf.git
+  path = 3party/protobuf/protobuf
+  url = git://github.com/mapsme/protobuf.git
 [submodule "tools/twine"]
-	path = tools/twine
-	url = https://github.com/mapsme/twine.git
+  path = tools/twine
+  url = https://github.com/mapsme/twine.git
 [submodule "3party/Vulkan-Headers"]
-	path = 3party/Vulkan-Headers
-	url = https://github.com/KhronosGroup/Vulkan-Headers.git
+  path = 3party/Vulkan-Headers
+  url = https://github.com/KhronosGroup/Vulkan-Headers.git
 [submodule "3party/boost"]
-	path = 3party/boost
-	url = https://github.com/boostorg/boost.git
-	branch = boost-1.68.0      
+  path = 3party/boost
+  url = https://github.com/boostorg/boost.git
+  branch = boost-1.68.0
+  ignore = dirty
