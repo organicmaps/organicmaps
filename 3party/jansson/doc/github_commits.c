@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2016 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -51,15 +51,20 @@ static size_t write_response(void *ptr, size_t size, size_t nmemb, void *stream)
 
 static char *request(const char *url)
 {
-    CURL *curl;
+    CURL *curl = NULL;
     CURLcode status;
-    char *data;
+    struct curl_slist *headers = NULL;
+    char *data = NULL;
     long code;
 
+    curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
+    if(!curl)
+        goto error;
+
     data = malloc(BUFFER_SIZE);
-    if(!curl || !data)
-        return NULL;
+    if(!data)
+        goto error;
 
     struct write_result write_result = {
         .data = data,
@@ -67,6 +72,11 @@ static char *request(const char *url)
     };
 
     curl_easy_setopt(curl, CURLOPT_URL, url);
+
+    /* GitHub commits API v3 requires a User-Agent header */
+    headers = curl_slist_append(headers, "User-Agent: Jansson-Tutorial");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_response);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &write_result);
 
@@ -75,23 +85,34 @@ static char *request(const char *url)
     {
         fprintf(stderr, "error: unable to request data from %s:\n", url);
         fprintf(stderr, "%s\n", curl_easy_strerror(status));
-        return NULL;
+        goto error;
     }
 
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &code);
     if(code != 200)
     {
         fprintf(stderr, "error: server responded with code %ld\n", code);
-        return NULL;
+        goto error;
     }
 
     curl_easy_cleanup(curl);
+    curl_slist_free_all(headers);
     curl_global_cleanup();
 
     /* zero-terminate the result */
     data[write_result.pos] = '\0';
 
     return data;
+
+error:
+    if(data)
+        free(data);
+    if(curl)
+        curl_easy_cleanup(curl);
+    if(headers)
+        curl_slist_free_all(headers);
+    curl_global_cleanup();
+    return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -128,6 +149,7 @@ int main(int argc, char *argv[])
     if(!json_is_array(root))
     {
         fprintf(stderr, "error: root is not an array\n");
+        json_decref(root);
         return 1;
     }
 
@@ -139,28 +161,31 @@ int main(int argc, char *argv[])
         data = json_array_get(root, i);
         if(!json_is_object(data))
         {
-            fprintf(stderr, "error: commit data %d is not an object\n", i + 1);
+            fprintf(stderr, "error: commit data %d is not an object\n", (int)(i + 1));
+            json_decref(root);
             return 1;
         }
 
         sha = json_object_get(data, "sha");
         if(!json_is_string(sha))
         {
-            fprintf(stderr, "error: commit %d: sha is not a string\n", i + 1);
+            fprintf(stderr, "error: commit %d: sha is not a string\n", (int)(i + 1));
             return 1;
         }
 
         commit = json_object_get(data, "commit");
         if(!json_is_object(commit))
         {
-            fprintf(stderr, "error: commit %d: commit is not an object\n", i + 1);
+            fprintf(stderr, "error: commit %d: commit is not an object\n", (int)(i + 1));
+            json_decref(root);
             return 1;
         }
 
         message = json_object_get(commit, "message");
         if(!json_is_string(message))
         {
-            fprintf(stderr, "error: commit %d: message is not a string\n", i + 1);
+            fprintf(stderr, "error: commit %d: message is not a string\n", (int)(i + 1));
+            json_decref(root);
             return 1;
         }
 

@@ -15,7 +15,7 @@ grep 'json_' $top_srcdir/src/jansson.def \
 nm -D $SOFILE >/dev/null >$test_log/symbols 2>/dev/null \
     || exit 77  # Skip if "nm -D" doesn't seem to work
 
-grep ' [DT] ' $test_log/symbols | cut -d' ' -f3 | sort >$test_log/output
+grep ' [DT] ' $test_log/symbols | cut -d' ' -f3 | grep -v '^_' | sort >$test_log/output
 
 if ! cmp -s $test_log/exports $test_log/output; then
     diff -u $test_log/exports $test_log/output >&2

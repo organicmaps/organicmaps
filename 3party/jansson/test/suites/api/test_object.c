@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2016 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -94,7 +94,7 @@ static void test_update()
     /* perform the same update again */
 
     if(json_object_update(object, other))
-        fail("unable to update an empty object");
+        fail("unable to update a non-empty object");
 
     if(json_object_size(object) != 5)
         fail("invalid size after update");
@@ -137,6 +137,32 @@ static void test_update()
     json_decref(ten);
     json_decref(other);
     json_decref(object);
+}
+
+static void test_set_many_keys()
+{
+    json_t *object, *value;
+    const char *keys = "abcdefghijklmnopqrstuvwxyz";
+    char buf[2];
+    size_t i;
+
+    object = json_object();
+    if (!object)
+        fail("unable to create object");
+
+    value = json_string("a");
+    if (!value)
+        fail("unable to create string");
+
+    buf[1] = '\0';
+    for (i = 0; i < strlen(keys); i++) {
+        buf[0] = keys[i];
+        if (json_object_set(object, buf, value))
+            fail("unable to set object key");
+    }
+
+    json_decref(object);
+    json_decref(value);
 }
 
 static void test_conditional_updates()
@@ -262,7 +288,7 @@ static void test_iterators()
     foo = json_string("foo");
     bar = json_string("bar");
     baz = json_string("baz");
-    if(!object || !foo || !bar || !bar)
+    if(!object || !foo || !bar || !baz)
         fail("unable to create values");
 
     if(json_object_iter_next(object, NULL))
@@ -276,26 +302,26 @@ static void test_iterators()
     iter = json_object_iter(object);
     if(!iter)
         fail("unable to get iterator");
-    if(strcmp(json_object_iter_key(iter), "a"))
-        fail("iterating failed: wrong key");
-    if(json_object_iter_value(iter) != foo)
-        fail("iterating failed: wrong value");
+    if (strcmp(json_object_iter_key(iter), "a") != 0)
+        fail("iterating doesn't yield keys in order");
+    if (json_object_iter_value(iter) != foo)
+        fail("iterating doesn't yield values in order");
 
     iter = json_object_iter_next(object, iter);
     if(!iter)
         fail("unable to increment iterator");
-    if(strcmp(json_object_iter_key(iter), "b"))
-        fail("iterating failed: wrong key");
-    if(json_object_iter_value(iter) != bar)
-        fail("iterating failed: wrong value");
+    if (strcmp(json_object_iter_key(iter), "b") != 0)
+        fail("iterating doesn't yield keys in order");
+    if (json_object_iter_value(iter) != bar)
+        fail("iterating doesn't yield values in order");
 
     iter = json_object_iter_next(object, iter);
     if(!iter)
         fail("unable to increment iterator");
-    if(strcmp(json_object_iter_key(iter), "c"))
-        fail("iterating failed: wrong key");
-    if(json_object_iter_value(iter) != baz)
-        fail("iterating failed: wrong value");
+    if (strcmp(json_object_iter_key(iter), "c") != 0)
+        fail("iterating doesn't yield keys in order");
+    if (json_object_iter_value(iter) != baz)
+        fail("iterating doesn't yield values in order");
 
     if(json_object_iter_next(object, iter) != NULL)
         fail("able to iterate over the end");
@@ -312,22 +338,14 @@ static void test_iterators()
     if(json_object_iter_value(iter) != bar)
         fail("iterating failed: wrong value");
 
-    iter = json_object_iter_next(object, iter);
-    if(!iter)
-        fail("unable to increment iterator");
-    if(strcmp(json_object_iter_key(iter), "c"))
-        fail("iterating failed: wrong key");
-    if(json_object_iter_value(iter) != baz)
-        fail("iterating failed: wrong value");
-
-    if(json_object_iter_set(object, iter, bar))
+    if(json_object_iter_set(object, iter, baz))
         fail("unable to set value at iterator");
 
-    if(strcmp(json_object_iter_key(iter), "c"))
+    if(strcmp(json_object_iter_key(iter), "b"))
         fail("json_object_iter_key() fails after json_object_iter_set()");
-    if(json_object_iter_value(iter) != bar)
+    if(json_object_iter_value(iter) != baz)
         fail("json_object_iter_value() fails after json_object_iter_set()");
-    if(json_object_get(object, "c") != bar)
+    if(json_object_get(object, "b") != baz)
         fail("json_object_get() fails after json_object_iter_set()");
 
     json_decref(object);
@@ -357,6 +375,12 @@ static void test_misc()
 
     if(!json_object_set(object, NULL, string))
         fail("able to set NULL key");
+
+    if(json_object_del(object, "a"))
+        fail("unable to del the only key");
+
+    if(json_object_set(object, "a", string))
+        fail("unable to set value");
 
     if(!json_object_set(object, "a", NULL))
         fail("able to set NULL value");
@@ -479,7 +503,7 @@ static void test_preserve_order()
     json_decref(object);
 }
 
-static void test_foreach()
+static void test_object_foreach()
 {
     const char *key;
     json_t *object1, *object2, *value;
@@ -497,15 +521,157 @@ static void test_foreach()
     json_decref(object2);
 }
 
+static void test_object_foreach_safe()
+{
+    const char *key;
+    void *tmp;
+    json_t *object, *value;
+
+    object = json_pack("{sisisi}", "foo", 1, "bar", 2, "baz", 3);
+
+    json_object_foreach_safe(object, tmp, key, value) {
+        json_object_del(object, key);
+    }
+
+    if(json_object_size(object) != 0)
+        fail("json_object_foreach_safe failed to iterate all key-value pairs");
+
+    json_decref(object);
+}
+
+static void test_bad_args(void)
+{
+    json_t *obj = json_object();
+    json_t *num = json_integer(1);
+    void *iter;
+
+    if (!obj || !num)
+        fail("failed to allocate test objects");
+
+    if (json_object_set(obj, "testkey", json_null()))
+        fail("failed to set testkey on object");
+
+    iter = json_object_iter(obj);
+    if (!iter)
+        fail("failed to retrieve test iterator");
+
+    if(json_object_size(NULL) != 0)
+        fail("json_object_size with non-object argument returned non-zero");
+    if(json_object_size(num) != 0)
+        fail("json_object_size with non-object argument returned non-zero");
+
+    if(json_object_get(NULL, "test") != NULL)
+        fail("json_object_get with non-object argument returned non-NULL");
+    if(json_object_get(num, "test") != NULL)
+        fail("json_object_get with non-object argument returned non-NULL");
+    if(json_object_get(obj, NULL) != NULL)
+        fail("json_object_get with NULL key returned non-NULL");
+
+    if(!json_object_set_new_nocheck(NULL, "test", json_null()))
+        fail("json_object_set_new_nocheck with non-object argument did not return error");
+    if(!json_object_set_new_nocheck(num, "test", json_null()))
+        fail("json_object_set_new_nocheck with non-object argument did not return error");
+    if(!json_object_set_new_nocheck(obj, "test", json_incref(obj)))
+        fail("json_object_set_new_nocheck with object == value did not return error");
+    if(!json_object_set_new_nocheck(obj, NULL, json_object()))
+        fail("json_object_set_new_nocheck with NULL key did not return error");
+
+    if(!json_object_del(NULL, "test"))
+        fail("json_object_del with non-object argument did not return error");
+    if(!json_object_del(num, "test"))
+        fail("json_object_del with non-object argument did not return error");
+    if(!json_object_del(obj, NULL))
+        fail("json_object_del with NULL key did not return error");
+
+    if(!json_object_clear(NULL))
+        fail("json_object_clear with non-object argument did not return error");
+    if(!json_object_clear(num))
+        fail("json_object_clear with non-object argument did not return error");
+
+    if(!json_object_update(NULL, obj))
+        fail("json_object_update with non-object first argument did not return error");
+    if(!json_object_update(num, obj))
+        fail("json_object_update with non-object first argument did not return error");
+    if(!json_object_update(obj, NULL))
+        fail("json_object_update with non-object second argument did not return error");
+    if(!json_object_update(obj, num))
+        fail("json_object_update with non-object second argument did not return error");
+
+    if(!json_object_update_existing(NULL, obj))
+        fail("json_object_update_existing with non-object first argument did not return error");
+    if(!json_object_update_existing(num, obj))
+        fail("json_object_update_existing with non-object first argument did not return error");
+    if(!json_object_update_existing(obj, NULL))
+        fail("json_object_update_existing with non-object second argument did not return error");
+    if(!json_object_update_existing(obj, num))
+        fail("json_object_update_existing with non-object second argument did not return error");
+
+    if(!json_object_update_missing(NULL, obj))
+        fail("json_object_update_missing with non-object first argument did not return error");
+    if(!json_object_update_missing(num, obj))
+        fail("json_object_update_missing with non-object first argument did not return error");
+    if(!json_object_update_missing(obj, NULL))
+        fail("json_object_update_missing with non-object second argument did not return error");
+    if(!json_object_update_missing(obj, num))
+        fail("json_object_update_missing with non-object second argument did not return error");
+
+    if(json_object_iter(NULL) != NULL)
+        fail("json_object_iter with non-object argument returned non-NULL");
+    if(json_object_iter(num) != NULL)
+        fail("json_object_iter with non-object argument returned non-NULL");
+
+    if(json_object_iter_at(NULL, "test") != NULL)
+        fail("json_object_iter_at with non-object argument returned non-NULL");
+    if(json_object_iter_at(num, "test") != NULL)
+        fail("json_object_iter_at with non-object argument returned non-NULL");
+    if(json_object_iter_at(obj, NULL) != NULL)
+        fail("json_object_iter_at with NULL iter returned non-NULL");
+
+    if(json_object_iter_next(obj, NULL) != NULL)
+        fail("json_object_iter_next with NULL iter returned non-NULL");
+    if(json_object_iter_next(num, iter) != NULL)
+        fail("json_object_iter_next with non-object argument returned non-NULL");
+
+    if(json_object_iter_key(NULL) != NULL)
+        fail("json_object_iter_key with NULL iter returned non-NULL");
+
+    if(json_object_key_to_iter(NULL) != NULL)
+        fail("json_object_key_to_iter with NULL iter returned non-NULL");
+
+    if(json_object_iter_value(NULL) != NULL)
+        fail("json_object_iter_value with NULL iter returned non-NULL");
+
+    if(!json_object_iter_set_new(NULL, iter, json_incref(num)))
+        fail("json_object_iter_set_new with non-object argument did not return error");
+    if(!json_object_iter_set_new(num, iter, json_incref(num)))
+        fail("json_object_iter_set_new with non-object argument did not return error");
+    if(!json_object_iter_set_new(obj, NULL, json_incref(num)))
+        fail("json_object_iter_set_new with NULL iter did not return error");
+    if(!json_object_iter_set_new(obj, iter, NULL))
+        fail("json_object_iter_set_new with NULL value did not return error");
+
+    if (obj->refcount != 1)
+        fail("unexpected reference count for obj");
+
+    if (num->refcount != 1)
+        fail("unexpected reference count for num");
+
+    json_decref(obj);
+    json_decref(num);
+}
+
 static void run_tests()
 {
     test_misc();
     test_clear();
     test_update();
+    test_set_many_keys();
     test_conditional_updates();
     test_circular();
     test_set_nocheck();
     test_iterators();
     test_preserve_order();
-    test_foreach();
+    test_object_foreach();
+    test_object_foreach_safe();
+    test_bad_args();
 }

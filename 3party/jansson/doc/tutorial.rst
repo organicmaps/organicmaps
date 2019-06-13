@@ -10,7 +10,7 @@ In this tutorial, we create a program that fetches the latest commits
 of a repository in GitHub_ over the web. `GitHub API`_ uses JSON, so
 the result can be parsed using Jansson.
 
-To stick to the the scope of this tutorial, we will only cover the the
+To stick to the scope of this tutorial, we will only cover the
 parts of the program related to handling JSON data. For the best user
 experience, the full source code is available:
 :download:`github_commits.c`. To compile it (on Unix-like systems with
@@ -178,6 +178,7 @@ We check that the returned value really is an array::
     if(!json_is_array(root))
     {
         fprintf(stderr, "error: root is not an array\n");
+        json_decref(root);
         return 1;
     }
 
@@ -192,6 +193,7 @@ Then we proceed to loop over all the commits in the array::
         if(!json_is_object(data))
         {
             fprintf(stderr, "error: commit data %d is not an object\n", i + 1);
+            json_decref(root);
             return 1;
         }
     ...
@@ -209,6 +211,7 @@ object. We also do proper type checks::
         if(!json_is_string(sha))
         {
             fprintf(stderr, "error: commit %d: sha is not a string\n", i + 1);
+            json_decref(root);
             return 1;
         }
 
@@ -216,6 +219,7 @@ object. We also do proper type checks::
         if(!json_is_object(commit))
         {
             fprintf(stderr, "error: commit %d: commit is not an object\n", i + 1);
+            json_decref(root);
             return 1;
         }
 
@@ -223,6 +227,7 @@ object. We also do proper type checks::
         if(!json_is_string(message))
         {
             fprintf(stderr, "error: commit %d: message is not a string\n", i + 1);
+            json_decref(root);
             return 1;
         }
     ...
@@ -233,7 +238,7 @@ from a JSON string using :func:`json_string_value()`::
 
         message_text = json_string_value(message);
         printf("%.8s %.*s\n",
-               json_string_value(id),
+               json_string_value(sha),
                newline_offset(message_text),
                message_text);
     }
@@ -251,7 +256,9 @@ For a detailed explanation of reference counting in Jansson, see
 :ref:`apiref-reference-count` in :ref:`apiref`.
 
 The program's ready, let's test it and view the latest commits in
-Jansson's repository::
+Jansson's repository:
+
+.. code-block:: shell
 
     $ ./github_commits akheron jansson
     1581f26a Merge branch '2.3'

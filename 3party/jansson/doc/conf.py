@@ -41,14 +41,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Jansson'
-copyright = u'2009-2012, Petri Lehtinen'
+copyright = u'2009-2016, Petri Lehtinen'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '2.4'
+version = '2.12'
 # The full version, including alpha/beta/rc tags.
 release = version
 

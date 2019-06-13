@@ -30,8 +30,7 @@ compiling and installing is extremely simple::
 
 To change the destination directory (``/usr/local`` by default), use
 the ``--prefix=DIR`` argument to ``./configure``. See ``./configure
---help`` for the list of all possible installation options. (There are
-no options to customize the resulting Jansson binary.)
+--help`` for the list of all possible configuration options.
 
 The command ``make check`` runs the test suite distributed with
 Jansson. This step is not strictly necessary, but it may find possible
@@ -44,7 +43,7 @@ version control. To create the script, the build system needs to be
 bootstrapped. There are many ways to do this, but the easiest one is
 to use ``autoreconf``::
 
-    autoreconf -vi
+    autoreconf -fi
 
 This command creates the ``./configure`` script, which can then be
 used as described above.
@@ -54,12 +53,128 @@ used as described above.
 .. _libtool: http://www.gnu.org/software/libtool/
 
 
-Windows
+.. _build-cmake:
+
+CMake (various platforms, including Windows)
+--------------------------------------------
+
+Jansson can be built using CMake_. Create a build directory for an
+out-of-tree build, change to that directory, and run ``cmake`` (or ``ccmake``,
+``cmake-gui``, or similar) to configure the project.
+
+See the examples below for more detailed information.
+
+.. note:: In the below examples ``..`` is used as an argument for ``cmake``.
+          This is simply the path to the jansson project root directory.
+          In the example it is assumed you've created a sub-directory ``build``
+          and are using that. You could use any path you want.
+
+.. _build-cmake-unix:
+
+Unix (Make files)
+^^^^^^^^^^^^^^^^^
+Generating make files on unix:
+
+.. parsed-literal::
+
+    bunzip2 -c jansson-|release|.tar.bz2 | tar xf -
+    cd jansson-|release|
+
+    mkdir build
+    cd build
+    cmake .. # or ccmake .. for a GUI.
+
+Then to build::
+
+    make
+    make check
+    make install
+
+Windows (Visual Studio)
+^^^^^^^^^^^^^^^^^^^^^^^
+Creating Visual Studio project files from the command line:
+
+.. parsed-literal::
+
+    <unpack>
+    cd jansson-|release|
+
+    md build
+    cd build
+    cmake -G "Visual Studio 15 2017" ..
+
+.. note::
+
+   You should replace the name of the generator (``-G`` flag) matching
+   the Visual Studio version installed on your system. Currently, the
+   following versions are supported:
+
+   - ``Visual Studio 9 2008``
+   - ``Visual Studio 10 2010``
+   - ``Visual Studio 11 2012``
+   - ``Visual Studio 12 2013``
+   - ``Visual Studio 14 2015``
+   - ``Visual Studio 15 2017``
+
+   Any later version should also work.
+
+You will now have a *Visual Studio Solution* in your build directory.
+To run the unit tests build the ``RUN_TESTS`` project.
+
+If you prefer a GUI the ``cmake`` line in the above example can
+be replaced with::
+
+    cmake-gui ..
+
+For command line help (including a list of available generators)
+for CMake_ simply run::
+
+    cmake
+
+To list available CMake_ settings (and what they are currently set to)
+for the project, run::
+
+    cmake -LH ..
+
+Mac OSX (Xcode)
+^^^^^^^^^^^^^^^
+If you prefer using Xcode instead of make files on OSX,
+do the following. (Use the same steps as
+for :ref:`Unix <build-cmake-unix>`)::
+
+    ...
+    cmake -G "Xcode" ..
+
+Additional CMake settings
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Shared library
+""""""""""""""
+By default the CMake_ project will generate build files for building the
+static library. To build the shared version use::
+
+    ...
+    cmake -DJANSSON_BUILD_SHARED_LIBS=1 ..
+
+Changing install directory (same as autoconf --prefix)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Just as with the autoconf_ project you can change the destination directory
+for ``make install``. The equivalent for autoconfs ``./configure --prefix``
+in CMake_ is::
+
+    ...
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/some/other/path ..
+    make install
+
+.. _CMake: http://www.cmake.org
+
+
+Android
 -------
 
-Jansson can be built with Visual Studio 2010 (and probably newer
-versions, too). The solution and project files are in the
-``win32/vs2010/`` directory in the source distribution.
+Jansson can be built for Android platforms. Android.mk is in the
+source root directory. The configuration header file is located in the
+``android`` directory in the source distribution.
 
 
 Other Systems
@@ -119,7 +234,9 @@ link the program as follows::
 
     cc -o prog prog.c -ljansson
 
-Starting from version 1.2, there's also support for pkg-config_::
+Starting from version 1.2, there's also support for pkg-config_:
+
+.. code-block:: shell
 
     cc -o prog prog.c `pkg-config --cflags --libs jansson`
 

@@ -27,6 +27,8 @@
 		675344811A3F676C00A0A8C3 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344711A3F676C00A0A8C3 /* utf.c */; };
 		675344821A3F676C00A0A8C3 /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = 675344721A3F676C00A0A8C3 /* utf.h */; };
 		675344831A3F676C00A0A8C3 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344731A3F676C00A0A8C3 /* value.c */; };
+		E10342CF22A97A0C0073F984 /* lookup3.h in Headers */ = {isa = PBXBuildFile; fileRef = E10342CD22A97A0C0073F984 /* lookup3.h */; };
+		E10342D022A97A0C0073F984 /* hashtable_seed.c in Sources */ = {isa = PBXBuildFile; fileRef = E10342CE22A97A0C0073F984 /* hashtable_seed.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		675344711A3F676C00A0A8C3 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
 		675344721A3F676C00A0A8C3 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		675344731A3F676C00A0A8C3 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		E10342CD22A97A0C0073F984 /* lookup3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookup3.h; sourceTree = "<group>"; };
+		E10342CE22A97A0C0073F984 /* hashtable_seed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable_seed.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				675344641A3F676C00A0A8C3 /* dump.c */,
+				E10342CE22A97A0C0073F984 /* hashtable_seed.c */,
+				E10342CD22A97A0C0073F984 /* lookup3.h */,
 				675344651A3F676C00A0A8C3 /* error.c */,
 				675344661A3F676C00A0A8C3 /* hashtable.c */,
 				675344671A3F676C00A0A8C3 /* hashtable.h */,
@@ -131,6 +137,7 @@
 				675344791A3F676C00A0A8C3 /* jansson_private.h in Headers */,
 				675344821A3F676C00A0A8C3 /* utf.h in Headers */,
 				675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */,
+				E10342CF22A97A0C0073F984 /* lookup3.h in Headers */,
 				6753447F1A3F676C00A0A8C3 /* strbuffer.h in Headers */,
 				6753447A1A3F676C00A0A8C3 /* jansson.h in Headers */,
 				675344771A3F676C00A0A8C3 /* hashtable.h in Headers */,
@@ -195,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6753447B1A3F676C00A0A8C3 /* load.c in Sources */,
+				E10342D022A97A0C0073F984 /* hashtable_seed.c in Sources */,
 				675344801A3F676C00A0A8C3 /* strconv.c in Sources */,
 				6753447D1A3F676C00A0A8C3 /* pack_unpack.c in Sources */,
 				675344761A3F676C00A0A8C3 /* hashtable.c in Sources */,
