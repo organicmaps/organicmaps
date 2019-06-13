@@ -213,7 +213,9 @@ bool VulkanBaseContext::BeginRendering()
   res = vkAcquireNextImageKHR(m_device, m_swapchain, std::numeric_limits<uint64_t>::max() /* kTimeoutNanoseconds */,
                               m_acquireSemaphores[m_inflightFrameIndex],
                               VK_NULL_HANDLE, &m_imageIndex);
-  if (res == VK_TIMEOUT)
+  // VK_ERROR_SURFACE_LOST_KHR appears sometimes after getting foreground. We suppose rendering can be recovered
+  // next frame.
+  if (res == VK_TIMEOUT || res == VK_ERROR_SURFACE_LOST_KHR)
   {
     vkDeviceWaitIdle(m_device);
     DestroySyncPrimitives();
