@@ -34,7 +34,8 @@ public final class PromoCityGallery
                                          each.getName(),
                                          each.getAuthor().getName(),
                                          each.getUrl(),
-                                         each.getLuxCategory());
+                                         each.getLuxCategory(),
+                                         each.getImageUrl());
       items.add(item);
     }
     return items;
@@ -117,6 +118,7 @@ public final class PromoCityGallery
     {
       return mAuthor;
     }
+
     @NonNull
     public LuxCategory getLuxCategory()
     {

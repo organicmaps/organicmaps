@@ -3,6 +3,8 @@ package com.mapswithme.maps.gallery;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -442,22 +444,55 @@ public class Holders
     @NonNull
     private final ImageView mImage;
 
+    @NonNull
+    private final TextView mSubTitle;
+
+    @NonNull
+    private final TextView mProLabel;
+
     public CatalogPromoHolder(@NonNull View itemView,
                               @NonNull List<PromoEntity> items,
                               @Nullable ItemSelectedListener<PromoEntity> listener)
     {
       super(itemView, items, listener);
       mImage = itemView.findViewById(R.id.image);
+      mSubTitle = itemView.findViewById(R.id.subtitle);
+      mProLabel = itemView.findViewById(R.id.label);
     }
 
     @Override
     public void bind(@NonNull PromoEntity item)
     {
       super.bind(item);
+
+      bindProLabel(item);
+      bindSubTitle(item);
+      bindImage(item);
+    }
+
+    private void bindSubTitle(@NonNull PromoEntity item)
+    {
+      mSubTitle.setText(item.getSubtitle());
+    }
+
+    private void bindImage(@NonNull PromoEntity item)
+    {
       Glide.with(itemView.getContext())
-           .load(Uri.parse(item.getUrl()))
+           .load(Uri.parse(item.getImageUrl()))
            .placeholder(R.drawable.img_guides_gallery_placeholder)
            .into(mImage);
+    }
+
+    private void bindProLabel(@NonNull PromoEntity item)
+    {
+      mProLabel.setVisibility(item.getCategory() == null ? View.GONE : View.VISIBLE);
+      if (item.getCategory() == null)
+        return;
+
+      mProLabel.setText(item.getCategory().getName());
+      ShapeDrawable shapeDrawable = new ShapeDrawable(new RectShape());
+      shapeDrawable.getPaint().setColor(item.getCategory().getColor());
+      mProLabel.setBackgroundDrawable(shapeDrawable);
     }
   }
 }

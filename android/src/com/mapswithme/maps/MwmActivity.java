@@ -488,6 +488,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController = new BottomSheetPlacePageController(this, this, this,
                                                               this);
     mPlacePageController.initialize();
+    mPlacePageController.onActivityCreated(this, savedInstanceState);
 
     mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews();

@@ -91,8 +91,8 @@ public class Factory
                                                          @NonNull GalleryPlacement placement)
   {
     PromoEntity item = new PromoEntity(Constants.TYPE_MORE,
-                                 context.getString(R.string.placepage_more_button),
-                                 null, url, null);
+                                       context.getString(R.string.placepage_more_button),
+                                       null, url, null, null);
     CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(items,
                                                                            item,
                                                                            listener);
