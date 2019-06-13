@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
@@ -334,11 +335,11 @@ public class Holders
       implements View.OnClickListener
   {
     @NonNull
-    ProgressBar mProgressBar;
+    final ProgressBar mProgressBar;
     @NonNull
-    TextView mSubtitle;
+    final TextView mSubtitle;
     @NonNull
-    TextView mMore;
+    final TextView mMore;
 
     LoadingViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                       @Nullable ItemSelectedListener<Items.Item> listener)
@@ -436,21 +437,21 @@ public class Holders
     }
   }
 
-  public static class CatalogPromoHolder extends BaseViewHolder<RegularAdapterStrategy.Item>
+  public static class CatalogPromoHolder extends BaseViewHolder<PromoEntity>
   {
     @NonNull
     private final ImageView mImage;
 
     public CatalogPromoHolder(@NonNull View itemView,
-                              @NonNull List<RegularAdapterStrategy.Item> items,
-                              @Nullable ItemSelectedListener<RegularAdapterStrategy.Item> listener)
+                              @NonNull List<PromoEntity> items,
+                              @Nullable ItemSelectedListener<PromoEntity> listener)
     {
       super(itemView, items, listener);
       mImage = itemView.findViewById(R.id.image);
     }
 
     @Override
-    public void bind(@NonNull RegularAdapterStrategy.Item item)
+    public void bind(@NonNull PromoEntity item)
     {
       super.bind(item);
       Glide.with(itemView.getContext())

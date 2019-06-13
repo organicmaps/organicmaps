@@ -1,20 +1,23 @@
 package com.mapswithme.maps.gallery.impl;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.discovery.LocalExpert;
+import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.RegularAdapterStrategy;
+import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static com.mapswithme.util.statistics.GalleryState.OFFLINE;
 import static com.mapswithme.util.statistics.GalleryState.ONLINE;
@@ -81,28 +84,31 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoAdapter(@NonNull RegularAdapterStrategy.Item[] items,
+  public static GalleryAdapter createCatalogPromoAdapter(@NonNull Context context,
+                                                         @NonNull List<PromoEntity> items,
                                                          @Nullable String url,
-                                                         @Nullable ItemSelectedListener<RegularAdapterStrategy.Item> listener,
+                                                         @Nullable ItemSelectedListener<PromoEntity> listener,
                                                          @NonNull GalleryPlacement placement)
   {
-    Items.LocalExpertMoreItem item = new Items.LocalExpertMoreItem(url);
-    CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(Arrays.asList(items),
+    PromoEntity item = new PromoEntity(Constants.TYPE_MORE,
+                                 context.getString(R.string.placepage_more_button),
+                                 null, url, null);
+    CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(items,
                                                                            item,
                                                                            listener);
     return new GalleryAdapter<>(strategy);
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoLoadingAdapter()
+  public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
   {
-    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(null));
+    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(listener));
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoErrorAdapter()
+  public static GalleryAdapter createCatalogPromoErrorAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
   {
-    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(null));
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener));
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,

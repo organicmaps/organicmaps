@@ -26,13 +26,16 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
+import com.mapswithme.maps.promo.PromoCityGallery;
+import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.maps.widget.placepage.LoadingCatalogPromoListener;
+import com.mapswithme.maps.widget.placepage.RegularCatalogPromoListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -41,6 +44,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.List;
 
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
 import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
@@ -76,6 +81,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         requestDiscoveryInfoAndInitAdapters();
     }
   };
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mTitleView;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RecyclerView mCatalogPromoRecycler;
 
   @Override
   public void onAttach(Context context)
@@ -206,7 +219,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       RecyclerView localGuides = getGallery(R.id.localGuides);
       localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
       RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-      promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
+      LoadingCatalogPromoListener<Items.Item> listener = new LoadingCatalogPromoListener<>(requireActivity());
+      promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
       return;
     }
 
@@ -219,11 +233,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
   private void initCatalogPromoGallery(@NonNull View root)
   {
-    RecyclerView catalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
-    setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
-    View titleView = root.findViewById(R.id.catalog_promo_title);
-    titleView.setVisibility(View.VISIBLE);
-    catalogPromoRecycler.setVisibility(View.VISIBLE);
+    mCatalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
+    setLayoutManagerAndItemDecoration(requireContext(), mCatalogPromoRecycler);
+    mTitleView = root.findViewById(R.id.catalog_promo_title);
+    mTitleView.setVisibility(View.VISIBLE);
+    mCatalogPromoRecycler.setVisibility(View.VISIBLE);
   }
 
   private void requestDiscoveryInfo()
@@ -298,13 +312,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     gallery.setAdapter(adapter);
   }
 
-  public void onCatalogPromoReceived(@NonNull RegularAdapterStrategy.Item[] experts)
+  public void onCatalogPromoReceived(@NonNull PromoCityGallery experts)
   {
-    updateViewsVisibility(experts, R.id.catalog_promo_title, R.id.catalog_promo_recycler);
-    String url = "";
+    UiUtils.hideIf(experts.getItems().isEmpty(), mCatalogPromoRecycler, mTitleView);
+    String url = experts.getMoreUrl();
 
-    ItemSelectedListener<RegularAdapterStrategy.Item> listener = new CatalogPromoSelectedListener();
-    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(experts, url, listener, DISCOVERY);
+    ItemSelectedListener<PromoEntity> listener = new RegularCatalogPromoListener(requireActivity());
+    List<PromoEntity> data = PromoCityGallery.toEntities(experts);
+    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), data, url, listener, DISCOVERY);
     RecyclerView recycler = getGallery(R.id.catalog_promo_recycler);
     recycler.setAdapter(adapter);
   }
@@ -514,26 +529,5 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     void onShowDiscoveredObject(@NonNull MapObject object);
     void onShowFilter();
     void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
-  }
-
-  private static class CatalogPromoSelectedListener implements ItemSelectedListener<RegularAdapterStrategy.Item>
-  {
-    @Override
-    public void onItemSelected(@NonNull RegularAdapterStrategy.Item item, int position)
-    {
-
-    }
-
-    @Override
-    public void onMoreItemSelected(@NonNull RegularAdapterStrategy.Item item)
-    {
-
-    }
-
-    @Override
-    public void onActionButtonSelected(@NonNull RegularAdapterStrategy.Item item, int position)
-    {
-
-    }
   }
 }

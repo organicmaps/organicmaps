@@ -10,20 +10,21 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.gallery.Holders;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.RegularAdapterStrategy;
+import com.mapswithme.maps.promo.PromoEntity;
 
 import java.util.List;
 
-class CatalogPromoAdapterStrategy extends RegularAdapterStrategy<RegularAdapterStrategy.Item>
+class CatalogPromoAdapterStrategy extends RegularAdapterStrategy<PromoEntity>
 {
-  CatalogPromoAdapterStrategy(@NonNull List<Item> items, @Nullable Item moreItem,
-                              @Nullable ItemSelectedListener<Item> listener)
+  CatalogPromoAdapterStrategy(@NonNull List<PromoEntity> items, @Nullable PromoEntity moreItem,
+                              @Nullable ItemSelectedListener<PromoEntity> listener)
   {
     super(items, moreItem, listener);
   }
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Item> createProductViewHolder(@NonNull ViewGroup parent,
+  protected Holders.BaseViewHolder<PromoEntity> createProductViewHolder(@NonNull ViewGroup parent,
                                                                  int viewType)
   {
     View view = LayoutInflater.from(parent.getContext())
@@ -35,7 +36,7 @@ class CatalogPromoAdapterStrategy extends RegularAdapterStrategy<RegularAdapterS
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Item> createMoreProductsViewHolder(@NonNull ViewGroup parent,
+  protected Holders.BaseViewHolder<PromoEntity> createMoreProductsViewHolder(@NonNull ViewGroup parent,
                                                                       int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
