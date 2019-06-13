@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <fstream>
 #include <numeric>
+#include <map>
 #include <memory>
 #include <queue>
 #include <set>
@@ -53,6 +54,7 @@ public:
     , m_pathOutRepackedRegionsTmpMwm{pathOutRepackedRegionsTmpMwm}
     , m_verbose{verbose}
     , m_regionsInfoCollector{pathInRegionsCollector}
+    , m_regionsKv{pathOutRegionsKv, std::ofstream::out}
   {
     LOG(LINFO, ("Start generating regions from", m_pathInRegionsTmpMwm));
     auto timer = base::Timer{};
@@ -68,38 +70,62 @@ public:
 private:
   void GenerateRegions(RegionsBuilder & builder)
   {
-    std::ofstream regionsKv{m_pathOutRegionsKv, std::ofstream::out};
-    std::set<base::GeoObjectId> setIds;
-    size_t countIds = 0;
-    builder.ForEachNormalizedCountry([&](std::string const & name, Node::Ptr const & tree) {
-      if (!tree)
-        return;
-
-      if (m_verbose)
-        DebugPrintTree(tree);
-
-      LOG(LINFO, ("Processing country", name));
-
-      auto jsonPolicy = JsonPolicy{m_verbose};
-      ForEachLevelPath(tree, [&](auto && path) {
-        auto const & node = path.back();
-        auto const id = node->GetData().GetId();
-        regionsKv << static_cast<int64_t>(id.GetEncodedId()) << " " << jsonPolicy.ToString(path) << "\n";
-        ++countIds;
-        if (!setIds.insert(id).second)
-          LOG(LWARNING, ("Id alredy exists:", id));
-      });
+    builder.ForEachCountry([&](std::string const & name, Node::PtrList const & outers) {
+      auto const & countryPlace = outers.front()->GetData();
+      auto const & countryName = countryPlace.GetEnglishOrTransliteratedName();
+      GenerateKv(countryName, outers);
     });
 
     LOG(LINFO, ("Regions objects key-value for", builder.GetCountryNames().size(),
                 "countries storage saved to", m_pathOutRegionsKv));
-    LOG(LINFO, (countIds, "total ids.", setIds.size(), "unique ids."));
+    LOG(LINFO, (m_objectsRegions.size(), "total regions.",
+                m_regionsCountries.size(), "total objects."));
 
-    // todo(maksimandrianov1): Perhaps this is not the best solution. This is a hot fix. Perhaps it
-    // is better to transfer this to index generation(function GenerateRegionsData),
-    // or to combine index generation and key-value storage generation in
-    // generator_tool(generator_tool.cpp).
-    RepackTmpMwm(setIds);
+    RepackTmpMwm();
+  }
+
+  void GenerateKv(std::string const & countryName, Node::PtrList const & outers)
+  {
+    LOG(LINFO, ("Generate country", countryName));
+
+    auto country = std::make_shared<std::string>(countryName);
+    size_t countryRegionsCount = 0;
+    size_t countryObjectCount = 0;
+
+    auto jsonPolicy = std::make_unique<JsonPolicy>(m_verbose);
+    for (auto const & tree : outers)
+    {
+      if (m_verbose)
+        DebugPrintTree(tree);
+
+      ForEachLevelPath(tree, [&] (NodePath const & path) {
+        auto const & node = path.back();
+        auto const & region = node->GetData();
+        auto const & objectId = region.GetId();
+        auto const & regionCountryEmplace = m_regionsCountries.emplace(objectId, country);
+        if (!regionCountryEmplace.second && regionCountryEmplace.first->second != country)
+        {
+          LOG(LWARNING, ("Failed to place", GetLabel(region.GetLevel()), "region", objectId,
+                         "(", GetRegionNotation(region), ")",
+                         "into", *country,
+                         ": region already exists in", *regionCountryEmplace.first->second));
+          return;
+        }
+
+        m_objectsRegions.emplace(objectId, node);
+        ++countryRegionsCount;
+
+        if (regionCountryEmplace.second)
+        {
+          m_regionsKv << static_cast<int64_t>(objectId.GetEncodedId()) << " " << jsonPolicy->ToString(path)
+                      << "\n";
+          ++countryObjectCount;
+        }
+      });
+    }
+
+    LOG(LINFO, ("Country regions of", *country, "has built:", countryRegionsCount, "total regions.",
+                countryObjectCount, "objects."));
   }
 
   std::tuple<RegionsBuilder::Regions, PlacePointsMap>
@@ -112,12 +138,25 @@ private:
       {
         auto const id = fb.GetMostGenericOsmId();
         auto region = Region(fb, collector.Get(id));
+
+        auto const & name = region.GetName();
+        auto const level = RegionsBuilder::GetLevel(region);
+        if (name.empty() || level == PlaceLevel::Unknown)
+          return;
+
         regions.emplace_back(std::move(region));
       }
       else if (fb.IsPoint())
       {
         auto const id = fb.GetMostGenericOsmId();
-        placePointsMap.emplace(id, PlacePoint{fb, collector.Get(id)});
+        auto place = PlacePoint{fb, collector.Get(id)};
+
+        auto const & name = place.GetName();
+        auto const placeType = place.GetPlaceType();
+        if (name.empty() || placeType == PlaceType::Unknown)
+          return;
+
+        placePointsMap.emplace(id, std::move(place));
       }
     };
 
@@ -131,41 +170,61 @@ private:
     PlacePointsMap placePointsMap;
     std::tie(regions, placePointsMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
     FixRegionsWithPlacePointApproximation(placePointsMap, regions);
-    FilterRegions(regions);
     return regions;
   }
 
-  void FilterRegions(RegionsBuilder::Regions & regions)
+  void RepackTmpMwm()
   {
-    auto const pred = [](Region const & region) {
-      auto const & name = region.GetName();
-      if (name.empty())
-        return false;
+    feature::FeaturesCollector featuresCollector{m_pathOutRepackedRegionsTmpMwm};
+    std::set<base::GeoObjectId> processedObjects;
+    auto const toDo = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
+      auto const id = fb.GetMostGenericOsmId();
+      auto objectRegions = m_objectsRegions.equal_range(id);
+      if (objectRegions.first == objectRegions.second)
+        return;
+      if (!processedObjects.insert(id).second)
+        return;
 
-      auto const level = RegionsBuilder::GetLevel(region);
-      return level != PlaceLevel::Unknown;
+      for (auto item = objectRegions.first; item != objectRegions.second; ++item)
+      {
+        auto const & region = item->second->GetData();
+        ResetGeometry(fb, region);
+        fb.SetOsmId(region.GetId());
+        fb.SetRank(0);
+        featuresCollector.Collect(fb);
+      }
     };
 
-    base::EraseIf(regions, pred);
+    LOG(LINFO, ("Start regions repacking from", m_pathInRegionsTmpMwm));
+    feature::ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
+    LOG(LINFO, ("Repacked regions temporary mwm saved to", m_pathOutRepackedRegionsTmpMwm));
   }
 
-  void RepackTmpMwm(std::set<base::GeoObjectId> const & ids)
+  void ResetGeometry(FeatureBuilder & fb, Region const & region)
   {
-    FeaturesCollector collector(m_pathOutRepackedRegionsTmpMwm);
-    auto const toDo = [this, &collector, &ids](FeatureBuilder & fb, uint64_t /* currPos */) {
-      if (ids.count(fb.GetMostGenericOsmId()) == 0 ||
-          (fb.IsPoint() && !FeaturePlacePointToRegion(m_regionsInfoCollector, fb)))
-      {
-        return;
-      }
+    fb.ResetGeometry();
 
-      CHECK(fb.IsArea(), ());
-      collector.Collect(fb);
-    };
+    auto const & polygon = region.GetPolygon();
+    auto outer = GetPointSeq(polygon->outer());
+    fb.AddPolygon(outer);
+    FeatureBuilder::Geometry holes;
+    auto const & inners = polygon->inners();
+    std::transform(std::begin(inners), std::end(inners), std::back_inserter(holes),
+                   [this](auto && polygon) { return this->GetPointSeq(polygon); });
+    fb.SetHoles(std::move(holes));
+    fb.SetArea();
 
-    ForEachFromDatRawFormat(m_pathInRegionsTmpMwm, toDo);
+    CHECK(fb.IsArea(), ());
+    CHECK(fb.IsGeometryClosed(), ());
+  }
 
-    LOG(LINFO, ("Repacked regions temporary mwm saved to", m_pathOutRepackedRegionsTmpMwm));
+  template <typename Polygon>
+  FeatureBuilder::PointSeq GetPointSeq(Polygon const & polygon)
+  {
+    FeatureBuilder::PointSeq seq;
+    std::transform(std::begin(polygon), std::end(polygon), std::back_inserter(seq),
+                   [] (BoostPoint const & p) { return m2::PointD(p.get<0>(), p.get<1>()); });
+    return seq;
   }
 
   std::string m_pathInRegionsTmpMwm;
@@ -175,6 +234,11 @@ private:
   bool m_verbose{false};
 
   RegionInfo m_regionsInfoCollector;
+
+  std::ofstream m_regionsKv;
+
+  std::multimap<base::GeoObjectId, Node::Ptr> m_objectsRegions;
+  std::map<base::GeoObjectId, std::shared_ptr<std::string>> m_regionsCountries;
 };
 }  // namespace
 

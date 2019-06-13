@@ -21,27 +21,27 @@ class RegionsBuilder
 public:
   using Regions = std::vector<Region>;
   using StringsList = std::vector<std::string>;
-  using IdStringList = std::vector<std::pair<base::GeoObjectId, std::string>>;
-  using CountryTrees = std::multimap<std::string, Node::Ptr>;
-  using NormalizedCountryFn = std::function<void(std::string const &, Node::Ptr const &)>;
+  using CountryFn = std::function<void(std::string const &, Node::PtrList const &)>;
 
   explicit RegionsBuilder(Regions && regions, size_t threadsCount = 1);
 
-  Regions const & GetCountries() const;
+  Regions const & GetCountriesOuters() const;
   StringsList GetCountryNames() const;
-  void ForEachNormalizedCountry(NormalizedCountryFn fn);
+  void ForEachCountry(CountryFn fn);
 
   static PlaceLevel GetLevel(Region const & region);
   static size_t GetWeight(Region const & region);
 
 private:
-  static Node::PtrList MakeSelectedRegionsByCountry(Region const & country,
+  Regions FormRegionsInAreaOrder(Regions && regions);
+  Regions ExtractCountriesOuters(Regions & regions);
+  Node::PtrList BuildCountryRegionTrees(Regions const & outers);
+  static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & allRegions);
+  static Node::PtrList MakeSelectedRegionsByCountry(Region const & outer,
                                                     Regions const & allRegions);
-  static Node::Ptr BuildCountryRegionTree(Region const & country, Regions const & allRegions);
-  std::vector<Node::Ptr> BuildCountryRegionTrees(RegionsBuilder::Regions const & countries);
 
-  Regions m_countries;
-  Regions m_regions;
+  Regions m_countriesOuters;
+  Regions m_regionsInAreaOrder;
   size_t m_threadsCount;
 };
 }  // namespace regions

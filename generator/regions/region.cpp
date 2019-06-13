@@ -19,7 +19,6 @@ namespace generator
 {
 namespace regions
 {
-
 BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size_t numPoints  = 16)
 {
   boost::geometry::strategy::buffer::point_circle point_strategy(numPoints);
@@ -35,6 +34,7 @@ BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size
   CHECK_EQUAL(result.size(), 1, ());
   return std::move(result.front());
 }
+
 Region::Region(FeatureBuilder const & fb, RegionDataProxy const & rd)
   : RegionWithName(fb.GetParams().name)
   , RegionWithData(rd)
@@ -81,26 +81,15 @@ double Region::GetRadiusByPlaceType(PlaceType place)
   UNREACHABLE();
 }
 
-void Region::DeletePolygon()
-{
-  m_polygon = nullptr;
-}
-
 void Region::FillPolygon(FeatureBuilder const & fb)
 {
   CHECK(m_polygon, ());
   boost_helpers::FillPolygon(*m_polygon, fb);
 }
 
-bool Region::IsCountry() const
-{
-  static auto const kAdminLevelCountry = AdminLevel::Two;
-  return GetPlaceType() == PlaceType::Unknown && GetAdminLevel() == kAdminLevelCountry;
-}
-
 bool Region::IsLocality() const
 {
-  return GetPlaceType() != PlaceType::Unknown;
+  return GetPlaceType() >= PlaceType::City;
 }
 
 bool Region::Contains(Region const & smaller) const
@@ -156,33 +145,15 @@ bool Region::Contains(BoostPoint const & point) const
       boost::geometry::covered_by(point, *m_polygon);
 }
 
-bool FeaturePlacePointToRegion(RegionInfo const & regionInfo, FeatureBuilder & feature)
+std::string GetRegionNotation(Region const & region)
 {
-  if (!feature.IsPoint())
-    return false;
+  auto notation = region.GetEnglishOrTransliteratedName();
+  if (notation.empty())
+    return region.GetName();
 
-  auto const center = feature.GetKeyPoint();
-  BoostPolygon polygon;
-  auto info = regionInfo.Get(feature.GetMostGenericOsmId());
-  if (!info.HasPlaceType())
-    return false;
-
-  auto const placeType = info.GetPlaceType();
-  if (placeType == PlaceType::Unknown)
-    return false;
-
-  auto const radius = Region::GetRadiusByPlaceType(placeType);
-  polygon = MakePolygonWithRadius({center.x, center.y}, radius);
-  auto const & outer = polygon.outer();
-  FeatureBuilder::PointSeq seq;
-  std::transform(std::begin(outer), std::end(outer), std::back_inserter(seq), [](BoostPoint const & p) {
-    return m2::PointD(p.get<0>(), p.get<1>());
-  });
-  feature.ResetGeometry();
-  feature.AddPolygon(seq);
-  feature.SetRank(0);
-  feature.SetArea();
-  return true;
+  if (notation != region.GetName())
+    notation += " / " + region.GetName();
+  return notation;
 }
 }  // namespace regions
 }  // namespace generator
