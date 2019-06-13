@@ -237,11 +237,14 @@ def stage_countries_txt(env):
                                        env.countries_synonyms_path,
                                        env.hierarchy_path, env.mwm_path,
                                        env.mwm_version)
-    countries_json = json.loads(countries)
-    inject_promo_cities(countries_json, env.promo_catalog_cities_path,
-                        env.mwm_path, env.types_path, env.mwm_path)
+    if env.is_accepted_stage(stage_download_production_external.__name__):
+        countries_json = json.loads(countries)
+        inject_promo_cities(countries_json, env.promo_catalog_cities_path,
+                            env.mwm_path, env.types_path, env.mwm_path)
+        countries = json.dumps(countries_json, ensure_ascii=True, indent=1)
+
     with open(env.counties_txt_path, "w") as f:
-        json.dump(countries_json, f, indent=1)
+        f.write(countries)
 
 
 @stage
