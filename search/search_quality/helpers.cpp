@@ -181,8 +181,9 @@ void InitStorageData(storage::Affiliations & affiliations,
   auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
 
   storage::CountryTree countries;
-  auto const rv =
-      storage::LoadCountriesFromFile(countriesFile, countries, affiliations, countryNameSynonyms);
+  storage::MwmTopCityGeoIds mwmTopCityGeoIds;
+  auto const rv = storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations,
+                                                 countryNameSynonyms, mwmTopCityGeoIds);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
 }
 
