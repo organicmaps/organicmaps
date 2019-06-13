@@ -357,6 +357,13 @@ android {
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
     }
+
+    huawei {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-Huawei'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@maps.me"'
+      android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
+    }
   }
 
   variantFilter { variant ->
