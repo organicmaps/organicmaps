@@ -394,6 +394,14 @@ void SearchAPI::OnBookmarksDeleted(vector<kml::MarkId> const & marks)
   m_engine.OnBookmarksDeleted(data);
 }
 
+void SearchAPI::OnBookmarksAttached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks)
+{
+}
+
+void SearchAPI::OnBookmarksDetached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks)
+{
+}
+
 bool SearchAPI::Search(SearchParams const & params, bool forceSearch)
 {
   if (m_delegate.ParseSearchQueryCommand(params))

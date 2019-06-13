@@ -148,6 +148,8 @@ public:
   void OnBookmarksCreated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);
+  void OnBookmarksAttached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks);
+  void OnBookmarksDetached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks);
 
 private:
   struct SearchIntent

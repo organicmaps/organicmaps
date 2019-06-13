@@ -494,7 +494,13 @@ Framework::Framework(FrameworkParams const & params)
       [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksUpdated(marks);
       },
-      [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); }));
+      [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
+      [this](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks) {
+        GetSearchAPI().OnBookmarksAttached(marks);
+      },
+      [this](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks) {
+        GetSearchAPI().OnBookmarksDetached(marks);
+      }));
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());

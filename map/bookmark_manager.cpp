@@ -584,6 +584,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
   bookmark->Attach(groupId);
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
+  m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
   group->SetIsVisible(true);
 
   SetLastEditedBmCategory(groupId);
@@ -613,30 +614,35 @@ Bookmark * BookmarkManager::GetBookmarkForEdit(kml::MarkId markId)
   return it->second.get();
 }
 
-void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catID)
+void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetBookmarkForEdit(bmId)->Attach(catID);
-  GetGroup(catID)->AttachUserMark(bmId);
+  GetBookmarkForEdit(bmId)->Attach(catId);
+  GetGroup(catId)->AttachUserMark(bmId);
+  m_changesTracker.OnAttachBookmark(bmId, catId);
 }
 
-void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catID)
+void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Detach();
-  GetGroup(catID)->DetachUserMark(bmId);
+  GetGroup(catId)->DetachUserMark(bmId);
+  m_changesTracker.OnDetachBookmark(bmId, catId);
 }
 
 void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmark(bmId), ());
-  auto groupIt = m_bookmarks.find(bmId);
-  auto const groupId = groupIt->second->GetGroupId();
-  if (groupId)
+  auto const it = m_bookmarks.find(bmId);
+  auto const groupId = it->second->GetGroupId();
+  if (groupId != kml::kInvalidMarkGroupId)
+  {
     GetGroup(groupId)->DetachUserMark(bmId);
+    m_changesTracker.OnDetachBookmark(bmId, groupId);
+  }
   m_changesTracker.OnDeleteMark(bmId);
-  m_bookmarks.erase(groupIt);
+  m_bookmarks.erase(it);
 }
 
 Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
@@ -1357,41 +1363,72 @@ void BookmarkManager::SendBookmarksChanges()
 {
   if (m_callbacks.m_createdBookmarksCallback != nullptr)
   {
-    std::vector<std::pair<kml::MarkId, kml::BookmarkData>> marksInfo;
-    GetBookmarksData(m_changesTracker.GetCreatedMarkIds(), marksInfo);
-    m_callbacks.m_createdBookmarksCallback(marksInfo);
+    std::vector<std::pair<kml::MarkId, kml::BookmarkData>> bookmarksData;
+    auto const & createdIds = m_changesTracker.GetCreatedMarkIds();
+    bookmarksData.reserve(createdIds.size());
+    for (auto markId : createdIds)
+    {
+      if (IsBookmark(markId))
+        bookmarksData.emplace_back(markId, GetBookmark(markId)->GetData());
+    }
+    if (!bookmarksData.empty())
+      m_callbacks.m_createdBookmarksCallback(bookmarksData);
   }
+
   if (m_callbacks.m_updatedBookmarksCallback != nullptr)
   {
-    std::vector<std::pair<kml::MarkId, kml::BookmarkData>> marksInfo;
-    GetBookmarksData(m_changesTracker.GetUpdatedMarkIds(), marksInfo);
-    m_callbacks.m_updatedBookmarksCallback(marksInfo);
+    std::vector<std::pair<kml::MarkId, kml::BookmarkData>> bookmarksData;
+    auto const & updatedIds = m_changesTracker.GetUpdatedMarkIds();
+    bookmarksData.reserve(updatedIds.size());
+    for (auto markId : updatedIds)
+    {
+      if (IsBookmark(markId))
+        bookmarksData.emplace_back(markId, GetBookmark(markId)->GetData());
+    }
+    if (!bookmarksData.empty())
+      m_callbacks.m_updatedBookmarksCallback(bookmarksData);
   }
+
   if (m_callbacks.m_deletedBookmarksCallback != nullptr)
   {
-    kml::MarkIdCollection idCollection;
+    kml::MarkIdCollection bookmarkIds;
     auto const & removedIds = m_changesTracker.GetRemovedMarkIds();
-    idCollection.reserve(removedIds.size());
+    bookmarkIds.reserve(removedIds.size());
     for (auto markId : removedIds)
     {
       if (IsBookmark(markId))
-        idCollection.push_back(markId);
+        bookmarkIds.push_back(markId);
     }
-    m_callbacks.m_deletedBookmarksCallback(idCollection);
+    if (!bookmarkIds.empty())
+      m_callbacks.m_deletedBookmarksCallback(bookmarkIds);
   }
-}
 
-void BookmarkManager::GetBookmarksData(kml::MarkIdSet const & markIds,
-                                       std::vector<std::pair<kml::MarkId, kml::BookmarkData>> & data) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  data.clear();
-  data.reserve(markIds.size());
-  for (auto markId : markIds)
+  if (m_callbacks.m_attachedBookmarksCallback != nullptr)
   {
-    auto const * bookmark = GetBookmark(markId);
-    if (bookmark)
-      data.emplace_back(markId, bookmark->GetData());
+    std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> groupMarksCollection;
+    auto const & attachedBookmarks = m_changesTracker.GetAttachedBookmarks();
+    groupMarksCollection.reserve(attachedBookmarks.size());
+    for (auto const & groupMarks : attachedBookmarks)
+    {
+      groupMarksCollection.emplace_back(groupMarks.first, kml::MarkIdCollection(groupMarks.second.begin(),
+                                                                                groupMarks.second.end()));
+    }
+    if (!groupMarksCollection.empty())
+      m_callbacks.m_attachedBookmarksCallback(groupMarksCollection);
+  }
+
+  if (m_callbacks.m_detachedBookmarksCallback != nullptr)
+  {
+    std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> groupMarksCollection;
+    auto const & detachedBookmarks = m_changesTracker.GetDetachedBookmarks();
+    groupMarksCollection.reserve(detachedBookmarks.size());
+    for (auto const & groupMarks : detachedBookmarks)
+    {
+      groupMarksCollection.emplace_back(groupMarks.first, kml::MarkIdCollection(groupMarks.second.begin(),
+                                                                                groupMarks.second.end()));
+    }
+    if (!groupMarksCollection.empty())
+      m_callbacks.m_detachedBookmarksCallback(groupMarksCollection);
   }
 }
 
@@ -1631,6 +1668,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       auto * bm = CreateBookmark(std::move(bmData));
       bm->Attach(groupId);
       group->AttachUserMark(bm->GetId());
+      m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
     }
     for (auto & trackData : fileData.m_tracksData)
     {
@@ -2509,6 +2547,40 @@ void BookmarkManager::MarksChangesTracker::OnUpdateMark(kml::MarkId markId)
     m_updatedMarks.insert(markId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId)
+{
+  auto const itCat = m_detachedBookmarks.find(catId);
+  if (itCat != m_detachedBookmarks.end())
+  {
+    auto const it = itCat->second.find(markId);
+    if (it != itCat->second.end())
+    {
+      itCat->second.erase(it);
+      if (itCat->second.empty())
+        m_detachedBookmarks.erase(itCat);
+      return;
+    }
+  }
+  m_attachedBookmarks[catId].insert(markId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnDetachBookmark(kml::MarkId markId, kml::MarkGroupId catId)
+{
+  auto const itCat = m_attachedBookmarks.find(catId);
+  if (itCat != m_attachedBookmarks.end())
+  {
+    auto const it = itCat->second.find(markId);
+    if (it != itCat->second.end())
+    {
+      itCat->second.erase(it);
+      if (itCat->second.empty())
+        m_attachedBookmarks.erase(itCat);
+      return;
+    }
+  }
+  m_detachedBookmarks[catId].insert(markId);
+}
+
 void BookmarkManager::MarksChangesTracker::OnAddLine(kml::TrackId lineId)
 {
   m_createdLines.insert(lineId);
@@ -2561,6 +2633,9 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
 
   m_createdLines.clear();
   m_removedLines.clear();
+
+  m_attachedBookmarks.clear();
+  m_detachedBookmarks.clear();
 }
 
 // static

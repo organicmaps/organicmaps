@@ -22,6 +22,7 @@
 
 #include <array>
 #include <fstream>
+#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -143,7 +144,10 @@ BookmarkManager::Callbacks const bmCallbacks(
   },
   static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
-  static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr));
+  static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),
+  static_cast<BookmarkManager::Callbacks::AttachedBookmarksCallback>(nullptr),
+  static_cast<BookmarkManager::Callbacks::DetachedBookmarksCallback>(nullptr)
+);
 
 void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 {
@@ -808,40 +812,52 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 {
-  set<kml::MarkId> createdMarksResult;
-  set<kml::MarkId> updatedMarksResult;
-  set<kml::MarkId> deletedMarksResult;
-  set<kml::MarkId> createdMarks;
-  set<kml::MarkId> updatedMarks;
-  set<kml::MarkId> deletedMarks;
+  struct Changes
+  {
+    set<kml::MarkId> m_createdMarks;
+    set<kml::MarkId> m_updatedMarks;
+    set<kml::MarkId> m_deletedMarks;
+    map<kml::MarkGroupId, kml::MarkIdSet> m_attachedMarks;
+    map<kml::MarkGroupId, kml::MarkIdSet> m_detachedMarks;
+  };
+
+  Changes expectedChanges;
+  Changes resultChanges;
 
   auto const checkNotifications = [&]()
   {
-    TEST_EQUAL(createdMarks, createdMarksResult, ());
-    TEST_EQUAL(updatedMarks, updatedMarksResult, ());
-    TEST_EQUAL(deletedMarks, deletedMarksResult, ());
-
-    createdMarksResult.clear();
-    updatedMarksResult.clear();
-    deletedMarksResult.clear();
-    createdMarks.clear();
-    updatedMarks.clear();
-    deletedMarks.clear();
+    TEST_EQUAL(expectedChanges.m_createdMarks, resultChanges.m_createdMarks, ());
+    TEST_EQUAL(expectedChanges.m_updatedMarks, resultChanges.m_updatedMarks, ());
+    TEST_EQUAL(expectedChanges.m_deletedMarks, resultChanges.m_deletedMarks, ());
+    TEST_EQUAL(expectedChanges.m_attachedMarks, resultChanges.m_attachedMarks, ());
+    TEST_EQUAL(expectedChanges.m_detachedMarks, resultChanges.m_detachedMarks, ());
+    expectedChanges = Changes();
+    resultChanges = Changes();
   };
 
-  auto const onCreate = [&createdMarksResult](std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &marks)
+  auto const onCreate = [&resultChanges](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
   {
     for (auto const & markPair : marks)
-      createdMarksResult.insert(markPair.first);
+      resultChanges.m_createdMarks.insert(markPair.first);
   };
-  auto const onUpdate = [&updatedMarksResult](std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &marks)
+  auto const onUpdate = [&resultChanges](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
   {
     for (auto const & markPair : marks)
-      updatedMarksResult.insert(markPair.first);
+      resultChanges.m_updatedMarks.insert(markPair.first);
   };
-  auto const onDelete = [&deletedMarksResult](std::vector<kml::MarkId> const &marks)
+  auto const onDelete = [&resultChanges](vector<kml::MarkId> const & marks)
   {
-    deletedMarksResult.insert(marks.begin(), marks.end());
+    resultChanges.m_deletedMarks.insert(marks.begin(), marks.end());
+  };
+  auto const onAttach = [&resultChanges](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & groupMarksCollection)
+  {
+    for (auto const & groupMarks : groupMarksCollection)
+      resultChanges.m_attachedMarks[groupMarks.first].insert(groupMarks.second.begin(), groupMarks.second.end());
+  };
+  auto const onDetach = [&resultChanges](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & groupMarksCollection)
+  {
+    for (auto const & groupMarks : groupMarksCollection)
+      resultChanges.m_detachedMarks[groupMarks.first].insert(groupMarks.second.begin(), groupMarks.second.end());
   };
 
   BookmarkManager::Callbacks callbacks(
@@ -850,9 +866,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
       static StringsBundle dummyBundle;
       return dummyBundle;
     },
-    onCreate,
-    onUpdate,
-    onDelete);
+    onCreate, onUpdate, onDelete, onAttach, onDetach);
 
   User user;
   BookmarkManager bmManager(user, std::move(callbacks));
@@ -867,22 +881,21 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     data0.m_point = m2::PointD(0.0, 0.0);
     auto * bookmark0 = editSession.CreateBookmark(std::move(data0));
     editSession.AttachBookmark(bookmark0->GetId(), catId);
-    createdMarks.insert(bookmark0->GetId());
+    expectedChanges.m_createdMarks.insert(bookmark0->GetId());
+    expectedChanges.m_attachedMarks[catId].insert(bookmark0->GetId());
 
     kml::BookmarkData data1;
     kml::SetDefaultStr(data1.m_name, "name 1");
     auto * bookmark1 = editSession.CreateBookmark(std::move(data1));
     editSession.AttachBookmark(bookmark1->GetId(), catId);
-    createdMarks.insert(bookmark1->GetId());
 
-    createdMarks.erase(bookmark1->GetId());
     editSession.DeleteBookmark(bookmark1->GetId());
   }
   checkNotifications();
 
   auto const markId0 = *bmManager.GetUserMarkIds(catId).begin();
   bmManager.GetEditSession().GetBookmarkForEdit(markId0)->SetName("name 3", kml::kDefaultLangCode);
-  updatedMarks.insert(markId0);
+  expectedChanges.m_updatedMarks.insert(markId0);
 
   checkNotifications();
 
@@ -890,13 +903,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     auto editSession = bmManager.GetEditSession();
     editSession.GetBookmarkForEdit(markId0)->SetName("name 4", kml::kDefaultLangCode);
     editSession.DeleteBookmark(markId0);
-    deletedMarks.insert(markId0);
+    expectedChanges.m_deletedMarks.insert(markId0);
+    expectedChanges.m_detachedMarks[catId].insert(markId0);
 
     kml::BookmarkData data;
     kml::SetDefaultStr(data.m_name, "name 5");
     data.m_point = m2::PointD(0.0, 0.0);
     auto * bookmark1 = editSession.CreateBookmark(std::move(data));
-    createdMarks.insert(bookmark1->GetId());
+    expectedChanges.m_createdMarks.insert(bookmark1->GetId());
   }
   checkNotifications();
 }

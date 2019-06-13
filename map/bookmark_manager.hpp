@@ -61,20 +61,30 @@ public:
     using CreatedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &)>;
     using UpdatedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
+    using AttachedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkGroupId,
+                                                                               kml::MarkIdCollection>> const &)>;
+    using DetachedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkGroupId,
+                                                                               kml::MarkIdCollection>> const &)>;
 
-    template <typename StringsBundleGetter, typename CreateListener, typename UpdateListener, typename DeleteListener>
+    template <typename StringsBundleGetter, typename CreateListener, typename UpdateListener, typename DeleteListener,
+      typename AttachListener, typename DetachListener>
     Callbacks(StringsBundleGetter && stringsBundleGetter, CreateListener && createListener,
-              UpdateListener && updateListener, DeleteListener && deleteListener)
+              UpdateListener && updateListener, DeleteListener && deleteListener, AttachListener && attachListener,
+              DetachListener && detachListener)
         : m_getStringsBundle(std::forward<StringsBundleGetter>(stringsBundleGetter))
         , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
         , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
         , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
+        , m_attachedBookmarksCallback(std::forward<AttachListener>(attachListener))
+        , m_detachedBookmarksCallback(std::forward<DetachListener>(detachListener))
     {}
 
     GetStringsBundleFn m_getStringsBundle;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;
+    AttachedBookmarksCallback m_attachedBookmarksCallback;
+    DetachedBookmarksCallback m_detachedBookmarksCallback;
   };
 
   class EditSession
@@ -349,8 +359,15 @@ private:
     void OnAddGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
 
+    void OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
+    void OnDetachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
+
     bool CheckChanges();
     void ResetChanges();
+
+    using GroupMarkIdSet = std::map<kml::MarkGroupId, kml::MarkIdSet>;
+    GroupMarkIdSet const & GetAttachedBookmarks() const { return m_attachedBookmarks; }
+    GroupMarkIdSet const & GetDetachedBookmarks() const { return m_detachedBookmarks; }
 
     // UserMarksProvider
     kml::GroupIdSet GetAllGroupIds() const override;
@@ -380,6 +397,9 @@ private:
     kml::GroupIdSet m_dirtyGroups;
     kml::GroupIdSet m_createdGroups;
     kml::GroupIdSet m_removedGroups;
+
+    GroupMarkIdSet m_attachedBookmarks;
+    GroupMarkIdSet m_detachedBookmarks;
   };
 
   template <typename UserMarkT>
@@ -487,8 +507,6 @@ private:
   void UpdateBmGroupIdList();
 
   void SendBookmarksChanges();
-  void GetBookmarksData(kml::MarkIdSet const & markIds,
-                        std::vector<std::pair<kml::MarkId, kml::BookmarkData>> & data) const;
   kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
 
