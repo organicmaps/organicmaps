@@ -1,5 +1,5 @@
+#include "generator/regions/to_string_policy.hpp"
 #include "generator/streets/streets_builder.hpp"
-
 #include "generator/streets/street_regions_tracing.hpp"
 
 #include "indexer/classificator.hpp"
@@ -188,7 +188,8 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
   auto const & pinArray = std::vector<double>{pinLatLon.m_lon, pinLatLon.m_lat};
   ToJSONObject(*streetObject, "pin", std::move(pinArray));
 
-  auto const value = json_dumps(streetObject.get(), JSON_COMPACT);
+  auto const value = json_dumps(streetObject.get(),
+      JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>{value};
 }
 

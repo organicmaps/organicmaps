@@ -8,6 +8,7 @@
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
 #include "generator/regions/region_info_getter.hpp"
+#include "generator/regions/to_string_policy.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -93,7 +94,8 @@ std::unique_ptr<char, JSONFreeDeleter>
 MakeGeoObjectValueWithAddress(FeatureBuilder const & fb, KeyValue const & keyValue)
 {
   auto const jsonWithAddress = AddAddress(fb, keyValue);
-  auto const cstr = json_dumps(jsonWithAddress.get(), JSON_COMPACT);
+  auto const cstr = json_dumps(jsonWithAddress.get(),
+      JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>(cstr);
 }
 
@@ -110,7 +112,8 @@ MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonValue const & js
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
   ToJSONObject(*properties, "name", fb.GetName());
   UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
-  auto const cstr = json_dumps(jsonWithAddress.get(), JSON_COMPACT);
+  auto const cstr = json_dumps(jsonWithAddress.get(),
+      JSON_REAL_PRECISION(generator::regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
   return std::unique_ptr<char, JSONFreeDeleter>(cstr);
 }
 

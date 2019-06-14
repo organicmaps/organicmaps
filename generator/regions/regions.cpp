@@ -93,6 +93,8 @@ private:
     size_t countryObjectCount = 0;
 
     auto jsonPolicy = std::make_unique<JsonPolicy>(m_verbose);
+    jsonPolicy->SetRealPrecision(JsonPolicy::kDefaultPrecision);
+
     for (auto const & tree : outers)
     {
       if (m_verbose)

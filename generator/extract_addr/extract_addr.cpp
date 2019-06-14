@@ -1,4 +1,5 @@
 #include "generator/feature_builder.hpp"
+#include "generator/regions/to_string_policy.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -79,7 +80,8 @@ void PrintFeature(FeatureBuilder const & fb, uint64_t)
   ToJSONObject(*feature, "geometry", geometry);
   ToJSONObject(*feature, "properties", properties);
 
-  std::cout << json_dumps(feature.release(), JSON_COMPACT) << std::endl;
+  std::cout << json_dumps(feature.release(),
+      JSON_REAL_PRECISION(generator::regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT) << std::endl;
 }
 
 int main(int argc, char * argv[])

@@ -2,6 +2,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
+
 #include <cstdint>
 #include <memory>
 
@@ -13,6 +15,14 @@ namespace generator
 {
 namespace regions
 {
+
+JsonPolicy & JsonPolicy::SetRealPrecision(int32_t precision)
+{
+  CHECK_LESS(precision, 32, ());
+  m_precision = precision;
+  return *this;
+}
+
 std::string JsonPolicy::ToString(NodePath const & path) const
 {
   auto const & main = path.back()->GetData();
@@ -69,7 +79,11 @@ std::string JsonPolicy::ToString(NodePath const & path) const
   ToJSONObject(*feature, "geometry", geometry);
   ToJSONObject(*feature, "properties", properties);
 
-  auto const cstr = json_dumps(feature.get(), JSON_COMPACT);
+  uint32_t jsonFlags = JSON_COMPACT;
+  if (m_precision >= 0)
+    jsonFlags |= JSON_REAL_PRECISION(m_precision);
+
+  auto const cstr = json_dumps(feature.get(), jsonFlags);
   std::unique_ptr<char, JSONFreeDeleter> buffer(cstr);
   return buffer.get();
 }
