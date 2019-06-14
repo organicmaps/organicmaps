@@ -30,15 +30,20 @@ public:
   void ForEachCountry(CountryFn fn);
 
   static PlaceLevel GetLevel(Region const & region);
-  static size_t GetWeight(Region const & region);
 
 private:
+  static constexpr double kAreaRelativeErrorPercent = 0.1;
+
   Regions FormRegionsInAreaOrder(Regions && regions);
   Regions ExtractCountriesOuters(Regions & regions);
   Node::PtrList BuildCountryRegionTrees(Regions const & outers);
   static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & allRegions);
   static Node::PtrList MakeSelectedRegionsByCountry(Region const & outer,
                                                     Regions const & allRegions);
+  // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
+  static int Compare(LevelRegion const & l, LevelRegion const & r);
+  static bool IsAreaLess(Region const & l, Region const & r);
+  static int RelateByWeight(LevelRegion const & l, LevelRegion const & r);
 
   Regions m_countriesOuters;
   Regions m_regionsInAreaOrder;

@@ -23,10 +23,17 @@ uint8_t const CollectorRegionInfo::kVersion = 0;
 PlaceType EncodePlaceType(std::string const & place)
 {
   static std::map<std::string, PlaceType> const m = {
+    {"country", PlaceType::Country},
+    {"state", PlaceType::State},
+    {"province", PlaceType::Province},
+    {"district", PlaceType::District},
+    {"county", PlaceType::County},
+    {"municipality", PlaceType::Municipality},
     {"city", PlaceType::City},
     {"town", PlaceType::Town},
     {"village", PlaceType::Village},
     {"suburb", PlaceType::Suburb},
+    {"quarter", PlaceType::Quarter},
     {"neighbourhood", PlaceType::Neighbourhood},
     {"hamlet", PlaceType::Hamlet},
     {"isolated_dwelling", PlaceType::IsolatedDwelling}

@@ -26,7 +26,6 @@ namespace regions
 enum class AdminLevel : uint8_t
 {
   Unknown = 0,
-  One = 1,
   Two = 2,
   Three = 3,
   Four = 4,
@@ -44,13 +43,20 @@ enum class AdminLevel : uint8_t
 enum class PlaceType: uint8_t
 {
   Unknown = 0,
-  City = 9,
-  Town = 10,
-  Village = 11,
-  Hamlet = 12,
-  Suburb = 13,
-  Neighbourhood = 14,
-  IsolatedDwelling = 15,
+  Country = 1,
+  State = 2,
+  Province = 3,
+  District = 4,
+  County = 5,
+  Municipality = 6,
+  City = 7,
+  Town = 8,
+  Village = 9,
+  Hamlet = 10,
+  Suburb = 11,
+  Quarter = 12,
+  Neighbourhood = 13,
+  IsolatedDwelling = 14,
 };
 
 PlaceType EncodePlaceType(std::string const & place);

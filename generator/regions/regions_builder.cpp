@@ -105,10 +105,12 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
     for (; itCurr != std::rend(nodes); ++itCurr)
     {
       auto const & currRegion = (*itCurr)->GetData();
-      if (currRegion.Contains(firstRegion) ||
-          (GetWeight(firstRegion) < GetWeight(currRegion) &&
-           currRegion.Contains(firstRegion.GetCenter()) &&
-           currRegion.CalculateOverlapPercentage(firstRegion) > 50.0))
+
+      if (!currRegion.ContainsRect(firstRegion) && !currRegion.Contains(firstRegion.GetCenter()))
+        continue;
+
+      auto const c = Compare(currRegion, firstRegion);
+      if (c == 1)
       {
         (*itFirstNode)->SetParent(*itCurr);
         (*itCurr)->AddChild(*itFirstNode);
@@ -120,6 +122,81 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
   }
 
   return nodes.front();
+}
+
+// static
+int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r)
+{
+  if (IsAreaLess(r, l) && l.Contains(r))
+    return 1;
+  if (IsAreaLess(l, r) && r.Contains(l))
+    return -1;
+
+  if (l.CalculateOverlapPercentage(r) < 50.0)
+    return 0;
+
+  auto const lArea = l.GetArea();
+  auto const rArea = r.GetArea();
+  if (0.5 * lArea >= rArea)
+  {
+    LOG(LDEBUG, ("Region", l.GetId(), GetRegionNotation(l), "contains partly",
+                 r.GetId(), GetRegionNotation(r)));
+    return 1;
+  }
+  if (0.5 * rArea >= lArea)
+  {
+    LOG(LDEBUG, ("Region", r.GetId(), GetRegionNotation(r), "contains partly",
+                 l.GetId(), GetRegionNotation(l)));
+    return -1;
+  }
+
+  return RelateByWeight(l, r);
+}
+
+// static
+bool RegionsBuilder::IsAreaLess(Region const & l, Region const & r)
+{
+  constexpr auto lAreaRation = 1. + kAreaRelativeErrorPercent / 100.;
+  return lAreaRation * l.GetArea() < r.GetArea();
+}
+
+// static
+int RegionsBuilder::RelateByWeight(LevelRegion const & l, LevelRegion const & r)
+{
+  if (l.GetLevel() != PlaceLevel::Unknown && r.GetLevel() != PlaceLevel::Unknown)
+  {
+    if (l.GetLevel() > r.GetLevel())
+      return -1;
+    if (l.GetLevel() < r.GetLevel())
+      return 1;
+  }
+
+  auto const lPlaceType = l.GetPlaceType();
+  auto const rPlaceType = r.GetPlaceType();
+  if (lPlaceType != PlaceType::Unknown && rPlaceType != PlaceType::Unknown)
+  {
+    if (lPlaceType > rPlaceType)
+      return -1;
+    if (lPlaceType < rPlaceType)
+      return 1;
+    // Check by admin level (administrative city (district + city) > city).
+  }
+
+  auto const lAdminLevel = l.GetAdminLevel();
+  auto const rAdminLevel = r.GetAdminLevel();
+  if (lAdminLevel != AdminLevel::Unknown && rAdminLevel != AdminLevel::Unknown)
+  {
+    if (lAdminLevel > rAdminLevel)
+      return -1;
+    if (lAdminLevel < rAdminLevel)
+      return 1;
+  }
+  if (lAdminLevel != AdminLevel::Unknown)
+    return 1;
+  if (rAdminLevel != AdminLevel::Unknown)
+    return -1;
+
+  return 0;
 }
 
 void RegionsBuilder::ForEachCountry(CountryFn fn)
@@ -160,67 +237,35 @@ PlaceLevel RegionsBuilder::GetLevel(Region const & region)
 {
   switch (region.GetPlaceType())
   {
+  case PlaceType::Country:
+    return PlaceLevel::Country;
+  case PlaceType::State:
+  case PlaceType::Province:
+    return PlaceLevel::Region;
+  case PlaceType::District:
+  case PlaceType::County:
+  case PlaceType::Municipality:
+    return PlaceLevel::Subregion;
   case PlaceType::City:
   case PlaceType::Town:
   case PlaceType::Village:
   case PlaceType::Hamlet:
     return PlaceLevel::Locality;
   case PlaceType::Suburb:
-  case PlaceType::Neighbourhood:
     return PlaceLevel::Suburb;
+  case PlaceType::Quarter:
+  case PlaceType::Neighbourhood:
+    return PlaceLevel::Sublocality;
   case PlaceType::IsolatedDwelling:
     return PlaceLevel::Sublocality;
   case PlaceType::Unknown:
     break;
   }
 
-  switch (region.GetAdminLevel())
-  {
-  case AdminLevel::Two:
+  if (region.GetAdminLevel() == AdminLevel::Two)
     return PlaceLevel::Country;
-  case AdminLevel::Four:
-    return PlaceLevel::Region;
-  case AdminLevel::Six:
-    return PlaceLevel::Subregion;
-  default:
-    break;
-  }
 
   return PlaceLevel::Unknown;
-}
-
-// static
-size_t RegionsBuilder::GetWeight(Region const & region)
-{
-  switch (region.GetPlaceType())
-  {
-  case PlaceType::City:
-  case PlaceType::Town:
-  case PlaceType::Village:
-  case PlaceType::Hamlet:
-    return 3;
-  case PlaceType::Suburb:
-  case PlaceType::Neighbourhood:
-    return 2;
-  case PlaceType::IsolatedDwelling:
-    return 1;
-  case PlaceType::Unknown:
-    break;
-  }
-
-  switch (region.GetAdminLevel())
-  {
-  case AdminLevel::Two:
-    return 6;
-  case AdminLevel::Four:
-    return 5;
-  case AdminLevel::Six:
-    return 4;
-  default:
-    break;
-  }
-
-  return 0;
 }
 }  // namespace regions
 }  // namespace generator

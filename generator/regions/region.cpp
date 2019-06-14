@@ -72,10 +72,12 @@ double Region::GetRadiusByPlaceType(PlaceType place)
     return 0.0067;
   case PlaceType::Suburb:
     return 0.016;
+  case PlaceType::Quarter:
   case PlaceType::Neighbourhood:
   case PlaceType::IsolatedDwelling:
     return 0.0035;
   case PlaceType::Unknown:
+  default:
     UNREACHABLE();
   }
   UNREACHABLE();
