@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2016 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -8,6 +8,7 @@
 #ifndef JANSSON_PRIVATE_H
 #define JANSSON_PRIVATE_H
 
+#include "jansson_private_config.h"
 #include <stddef.h>
 #include "jansson.h"
 #include "hashtable.h"
@@ -34,8 +35,6 @@
 typedef struct {
     json_t json;
     hashtable_t hashtable;
-    size_t serial;
-    int visited;
 } json_object_t;
 
 typedef struct {
@@ -43,12 +42,12 @@ typedef struct {
     size_t size;
     size_t entries;
     json_t **table;
-    int visited;
 } json_array_t;
 
 typedef struct {
     json_t json;
     char *value;
+    size_t length;
 } json_string_t;
 
 typedef struct {
@@ -64,29 +63,47 @@ typedef struct {
 #define json_to_object(json_)  container_of(json_, json_object_t, json)
 #define json_to_array(json_)   container_of(json_, json_array_t, json)
 #define json_to_string(json_)  container_of(json_, json_string_t, json)
-#define json_to_real(json_)   container_of(json_, json_real_t, json)
+#define json_to_real(json_)    container_of(json_, json_real_t, json)
 #define json_to_integer(json_) container_of(json_, json_integer_t, json)
 
+/* Create a string by taking ownership of an existing buffer */
+json_t *jsonp_stringn_nocheck_own(const char *value, size_t len);
+
+/* Error message formatting */
 void jsonp_error_init(json_error_t *error, const char *source);
 void jsonp_error_set_source(json_error_t *error, const char *source);
 void jsonp_error_set(json_error_t *error, int line, int column,
-                     size_t position, const char *msg, ...);
+                     size_t position, enum json_error_code code,
+                     const char *msg, ...);
 void jsonp_error_vset(json_error_t *error, int line, int column,
-                      size_t position, const char *msg, va_list ap);
+                      size_t position, enum json_error_code code,
+                      const char *msg, va_list ap);
 
 /* Locale independent string<->double conversions */
 int jsonp_strtod(strbuffer_t *strbuffer, double *out);
-int jsonp_dtostr(char *buffer, size_t size, double value);
+int jsonp_dtostr(char *buffer, size_t size, double value, int prec);
 
 /* Wrappers for custom memory functions */
-void* jsonp_malloc(size_t size);
+void* jsonp_malloc(size_t size) JANSSON_ATTRS(warn_unused_result);
 void jsonp_free(void *ptr);
-char *jsonp_strdup(const char *str);
+char *jsonp_strndup(const char *str, size_t length) JANSSON_ATTRS(warn_unused_result);
+char *jsonp_strdup(const char *str) JANSSON_ATTRS(warn_unused_result);
+char *jsonp_strndup(const char *str, size_t len) JANSSON_ATTRS(warn_unused_result);
+
 
 /* Windows compatibility */
-#ifdef _WIN32
-#define snprintf _snprintf
-#define vsnprintf _vsnprintf
+#if defined(_WIN32) || defined(WIN32)
+#  if defined(_MSC_VER)  /* MS compiller */
+#    if (_MSC_VER < 1900) && !defined(snprintf)  /* snprintf not defined yet & not introduced */
+#      define snprintf _snprintf
+#    endif
+#    if (_MSC_VER < 1500) && !defined(vsnprintf)  /* vsnprintf not defined yet & not introduced */
+#      define vsnprintf(b,c,f,a) _vsnprintf(b,c,f,a)
+#    endif
+#  else  /* Other Windows compiller, old definition */
+#    define snprintf _snprintf
+#    define vsnprintf _vsnprintf
+#  endif
 #endif
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2016 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -11,7 +11,7 @@
 static void test_misc(void)
 {
     json_t *array, *five, *seven, *value;
-    int i;
+    size_t i;
 
     array = json_array();
     five = json_integer(5);
@@ -206,6 +206,7 @@ static void test_insert(void)
 static void test_remove(void)
 {
     json_t *array, *five, *seven;
+    int i;
 
     array = json_array();
     five = json_integer(5);
@@ -252,6 +253,19 @@ static void test_remove(void)
        json_array_get(array, 1) != seven ||
        json_array_get(array, 2) != seven)
         fail("remove works incorrectly");
+
+    json_decref(array);
+
+    array = json_array();
+    for(i = 0; i < 4; i++) {
+        json_array_append(array, five);
+        json_array_append(array, seven);
+    }
+    if(json_array_size(array) != 8)
+        fail("unable to append 8 items to array");
+
+    /* Remove an element from a "full" array. */
+    json_array_remove(array, 5);
 
     json_decref(five);
     json_decref(seven);
@@ -386,6 +400,97 @@ static void test_circular()
     json_decref(array1);
 }
 
+static void test_array_foreach()
+{
+    size_t index;
+    json_t *array1, *array2, *value;
+
+    array1 = json_pack("[sisisi]", "foo", 1, "bar", 2, "baz", 3);
+    array2 = json_array();
+
+    json_array_foreach(array1, index, value) {
+        json_array_append(array2, value);
+    }
+    
+    if(!json_equal(array1, array2))
+        fail("json_array_foreach failed to iterate all elements");
+
+    json_decref(array1);
+    json_decref(array2);
+}
+
+static void test_bad_args(void)
+{
+    json_t *arr = json_array();
+    json_t *num = json_integer(1);
+
+    if(!arr || !num)
+        fail("failed to create required objects");
+
+    if(json_array_size(NULL) != 0)
+        fail("NULL array has nonzero size");
+    if(json_array_size(num) != 0)
+        fail("non-array has nonzero array size");
+
+    if(json_array_get(NULL, 0))
+        fail("json_array_get did not return NULL for non-array");
+    if(json_array_get(num, 0))
+        fail("json_array_get did not return NULL for non-array");
+
+    if(!json_array_set_new(NULL, 0, json_incref(num)))
+        fail("json_array_set_new did not return error for non-array");
+    if(!json_array_set_new(num, 0, json_incref(num)))
+        fail("json_array_set_new did not return error for non-array");
+    if(!json_array_set_new(arr, 0, NULL))
+        fail("json_array_set_new did not return error for NULL value");
+    if(!json_array_set_new(arr, 0, json_incref(arr)))
+        fail("json_array_set_new did not return error for value == array");
+
+    if(!json_array_remove(NULL, 0))
+        fail("json_array_remove did not return error for non-array");
+    if(!json_array_remove(num, 0))
+        fail("json_array_remove did not return error for non-array");
+
+    if(!json_array_clear(NULL))
+        fail("json_array_clear did not return error for non-array");
+    if(!json_array_clear(num))
+        fail("json_array_clear did not return error for non-array");
+
+    if(!json_array_append_new(NULL, json_incref(num)))
+        fail("json_array_append_new did not return error for non-array");
+    if(!json_array_append_new(num, json_incref(num)))
+        fail("json_array_append_new did not return error for non-array");
+    if(!json_array_append_new(arr, NULL))
+        fail("json_array_append_new did not return error for NULL value");
+    if(!json_array_append_new(arr, json_incref(arr)))
+        fail("json_array_append_new did not return error for value == array");
+
+    if(!json_array_insert_new(NULL, 0, json_incref(num)))
+        fail("json_array_insert_new did not return error for non-array");
+    if(!json_array_insert_new(num, 0, json_incref(num)))
+        fail("json_array_insert_new did not return error for non-array");
+    if(!json_array_insert_new(arr, 0, NULL))
+        fail("json_array_insert_new did not return error for NULL value");
+    if(!json_array_insert_new(arr, 0, json_incref(arr)))
+        fail("json_array_insert_new did not return error for value == array");
+
+    if(!json_array_extend(NULL, arr))
+        fail("json_array_extend did not return error for first argument non-array");
+    if(!json_array_extend(num, arr))
+        fail("json_array_extend did not return error for first argument non-array");
+    if(!json_array_extend(arr, NULL))
+        fail("json_array_extend did not return error for second arguemnt non-array");
+    if(!json_array_extend(arr, num))
+        fail("json_array_extend did not return error for second arguemnt non-array");
+
+    if(num->refcount != 1)
+        fail("unexpected reference count on num");
+    if(arr->refcount != 1)
+        fail("unexpected reference count on arr");
+
+    json_decref(num);
+    json_decref(arr);
+}
 
 static void run_tests()
 {
@@ -395,4 +500,6 @@ static void run_tests()
     test_clear();
     test_extend();
     test_circular();
+    test_array_foreach();
+    test_bad_args();
 }

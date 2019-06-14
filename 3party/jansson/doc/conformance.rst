@@ -19,15 +19,11 @@ Strings
 =======
 
 JSON strings are mapped to C-style null-terminated character arrays,
-and UTF-8 encoding is used internally. Strings may not contain
-embedded null characters, not even escaped ones.
+and UTF-8 encoding is used internally.
 
-For example, trying to decode the following JSON text leads to a parse
-error::
-
-    ["this string contains the null character: \u0000"]
-
-All other Unicode codepoints U+0001 through U+10FFFF are allowed.
+All Unicode codepoints U+0000 through U+10FFFF are allowed in string
+values. However, U+0000 is not allowed in object keys because of API
+restrictions.
 
 Unicode normalization or any other transformation is never performed
 on any strings (string values or object keys). When checking for
@@ -37,6 +33,8 @@ strings.
 
 Numbers
 =======
+
+.. _real-vs-integer:
 
 Real vs. Integer
 ----------------
@@ -51,7 +49,8 @@ A JSON number is considered to be a real number if its lexical
 representation includes one of ``e``, ``E``, or ``.``; regardless if
 its actual numeric value is a true integer (e.g., all of ``1E6``,
 ``3.0``, ``400E-2``, and ``3.14E3`` are mathematical integers, but
-will be treated as real values).
+will be treated as real values). With the ``JSON_DECODE_INT_AS_REAL``
+decoder flag set all numbers are interpreted as real.
 
 All other JSON numbers are considered integers.
 
@@ -109,3 +108,13 @@ types, ``long double``, etc. Obviously, shorter types like ``short``,
 are implicitly handled via the ordinary C type coercion rules (subject
 to overflow semantics). Also, no support or hooks are provided for any
 supplemental "bignum" type add-on packages.
+
+Depth of nested values
+----------------------
+
+To avoid stack exhaustion, Jansson currently limits the nesting depth
+for arrays and objects to a certain value (default: 2048), defined as
+a macro ``JSON_PARSER_MAX_DEPTH`` within ``jansson_config.h``.
+
+The limit is allowed to be set by the RFC; there is no recommended value
+or required minimum depth to be supported.

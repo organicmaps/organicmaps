@@ -25,26 +25,28 @@ void jsonp_error_set_source(json_error_t *error, const char *source)
 
     length = strlen(source);
     if(length < JSON_ERROR_SOURCE_LENGTH)
-        strcpy(error->source, source);
+        strncpy(error->source, source, length + 1);
     else {
         size_t extra = length - JSON_ERROR_SOURCE_LENGTH + 4;
-        strcpy(error->source, "...");
-        strcpy(error->source + 3, source + extra);
+        memcpy(error->source, "...", 3);
+        strncpy(error->source + 3, source + extra, length - extra + 1);
     }
 }
 
 void jsonp_error_set(json_error_t *error, int line, int column,
-                     size_t position, const char *msg, ...)
+                     size_t position, enum json_error_code code,
+                     const char *msg, ...)
 {
     va_list ap;
 
     va_start(ap, msg);
-    jsonp_error_vset(error, line, column, position, msg, ap);
+    jsonp_error_vset(error, line, column, position, code, msg, ap);
     va_end(ap);
 }
 
 void jsonp_error_vset(json_error_t *error, int line, int column,
-                      size_t position, const char *msg, va_list ap)
+                      size_t position, enum json_error_code code,
+                      const char *msg, va_list ap)
 {
     if(!error)
         return;
@@ -56,8 +58,9 @@ void jsonp_error_vset(json_error_t *error, int line, int column,
 
     error->line = line;
     error->column = column;
-    error->position = position;
+    error->position = (int)position;
 
-    vsnprintf(error->text, JSON_ERROR_TEXT_LENGTH, msg, ap);
-    error->text[JSON_ERROR_TEXT_LENGTH - 1] = '\0';
+    vsnprintf(error->text, JSON_ERROR_TEXT_LENGTH - 1, msg, ap);
+    error->text[JSON_ERROR_TEXT_LENGTH - 2] = '\0';
+    error->text[JSON_ERROR_TEXT_LENGTH - 1] = code;
 }

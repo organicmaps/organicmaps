@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+# Copyright (c) 2009-2016 Petri Lehtinen <petri@digip.org>
 #
 # Jansson is free software; you can redistribute it and/or modify
 # it under the terms of the MIT license. See LICENSE for details.
@@ -10,7 +10,7 @@ is_test() {
 }
 
 run_test() {
-    $json_process <$test_path/input >$test_log/stdout 2>$test_log/stderr
+    $json_process --env <$test_path/input >$test_log/stdout 2>$test_log/stderr
     valgrind_check $test_log/stderr || return 1
     cmp -s $test_path/error $test_log/stderr
 }
