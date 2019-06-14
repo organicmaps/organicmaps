@@ -362,7 +362,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Huawei'
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@maps.me"'
-      android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.huawei.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
   }
 
