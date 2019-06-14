@@ -19,7 +19,10 @@ bool GeoObjectsFilter::IsAccepted(FeatureBuilder const & feature)
 {
   if (!feature.GetParams().IsValid())
     return false;
-  
+
+  if (feature.IsLine())
+    return false;
+
   return IsBuilding(feature) || HasHouse(feature) || IsPoi(feature);
 }
 
