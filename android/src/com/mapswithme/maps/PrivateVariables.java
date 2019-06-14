@@ -36,6 +36,8 @@ public class PrivateVariables
   @NonNull
   public static native String bookmarksVendor();
   @NonNull
+  public static native String[] bookmarkInAppIds();
+  @NonNull
   public static native String bookmarksSubscriptionServerId();
   @NonNull
   public static native String bookmarksSubscriptionVendor();

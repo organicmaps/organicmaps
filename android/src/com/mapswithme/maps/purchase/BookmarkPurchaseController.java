@@ -83,7 +83,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     }
 
     @Override
-    public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
+    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
       if (getUiCallback() != null)
         getUiCallback().onProductDetailsLoaded(details);

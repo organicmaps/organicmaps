@@ -58,6 +58,6 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
 
     LOGGER.i(TAG, "Purchase details obtained: " + skuDetails);
     if (getCallback() != null)
-      getCallback().onPurchaseDetailsLoaded(skuDetails);
+      getCallback().onProductDetailsLoaded(skuDetails);
   }
 }

@@ -131,7 +131,7 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
   {
     @Override
-    public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
+    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
       // Do nothing by default.
     }

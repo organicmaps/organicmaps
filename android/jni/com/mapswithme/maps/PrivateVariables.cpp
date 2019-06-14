@@ -137,4 +137,11 @@ extern "C"
     std::vector<std::string> items = BOOKMARKS_SUBSCRIPTION_NOT_USED_LIST;
     return jni::ToJavaStringArray(env, items);
   }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarkInAppIds(JNIEnv * env, jclass clazz)
+  {
+    std::vector<std::string> items = BOOKMARK_INAPP_IDS;
+    return jni::ToJavaStringArray(env, items);
+  }
 }

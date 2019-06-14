@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PlayStoreBillingCallback
 {
-  void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details);
+  void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPurchaseSuccessful(@NonNull List<Purchase> purchases);
   void onPurchaseFailure(@BillingClient.BillingResponse int error);
   void onPurchaseDetailsFailure();
