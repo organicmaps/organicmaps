@@ -69,13 +69,16 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
 }
 
 Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & outer,
-                                                           Regions const & allRegions)
+    Regions const & allRegions, CountrySpecifier const & countrySpecifier)
 {
   std::vector<LevelRegion> regionsInCountry{{PlaceLevel::Country, outer}};
   for (auto const & region : allRegions)
   {
     if (outer.ContainsRect(region))
-      regionsInCountry.emplace_back(GetLevel(region), region);
+    {
+      auto const level = countrySpecifier.GetLevel(region);
+      regionsInCountry.emplace_back(level, region);
+    }
   }
 
   auto const comp = [](LevelRegion const & l, LevelRegion const & r) {
@@ -94,9 +97,9 @@ Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & outer,
 }
 
 Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
-                                                 Regions const & allRegions)
+    Regions const & allRegions, CountrySpecifier const & countrySpecifier)
 {
-  auto nodes = MakeSelectedRegionsByCountry(outer, allRegions);
+  auto nodes = MakeSelectedRegionsByCountry(outer, allRegions, countrySpecifier);
   while (nodes.size() > 1)
   {
     auto itFirstNode = std::rbegin(nodes);
@@ -109,7 +112,7 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
       if (!currRegion.ContainsRect(firstRegion) && !currRegion.Contains(firstRegion.GetCenter()))
         continue;
 
-      auto const c = Compare(currRegion, firstRegion);
+      auto const c = Compare(currRegion, firstRegion, countrySpecifier);
       if (c == 1)
       {
         (*itFirstNode)->SetParent(*itCurr);
@@ -125,7 +128,8 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
 }
 
 // static
-int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r)
+int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r,
+    CountrySpecifier const & countrySpecifier)
 {
   if (IsAreaLess(r, l) && l.Contains(r))
     return 1;
@@ -150,7 +154,7 @@ int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r)
     return -1;
   }
 
-  return RelateByWeight(l, r);
+  return countrySpecifier.RelateByWeight(l, r);
 }
 
 // static
@@ -160,60 +164,24 @@ bool RegionsBuilder::IsAreaLess(Region const & l, Region const & r)
   return lAreaRation * l.GetArea() < r.GetArea();
 }
 
-// static
-int RegionsBuilder::RelateByWeight(LevelRegion const & l, LevelRegion const & r)
-{
-  if (l.GetLevel() != PlaceLevel::Unknown && r.GetLevel() != PlaceLevel::Unknown)
-  {
-    if (l.GetLevel() > r.GetLevel())
-      return -1;
-    if (l.GetLevel() < r.GetLevel())
-      return 1;
-  }
-
-  auto const lPlaceType = l.GetPlaceType();
-  auto const rPlaceType = r.GetPlaceType();
-  if (lPlaceType != PlaceType::Unknown && rPlaceType != PlaceType::Unknown)
-  {
-    if (lPlaceType > rPlaceType)
-      return -1;
-    if (lPlaceType < rPlaceType)
-      return 1;
-    // Check by admin level (administrative city (district + city) > city).
-  }
-
-  auto const lAdminLevel = l.GetAdminLevel();
-  auto const rAdminLevel = r.GetAdminLevel();
-  if (lAdminLevel != AdminLevel::Unknown && rAdminLevel != AdminLevel::Unknown)
-  {
-    if (lAdminLevel > rAdminLevel)
-      return -1;
-    if (lAdminLevel < rAdminLevel)
-      return 1;
-  }
-  if (lAdminLevel != AdminLevel::Unknown)
-    return 1;
-  if (rAdminLevel != AdminLevel::Unknown)
-    return -1;
-
-  return 0;
-}
-
 void RegionsBuilder::ForEachCountry(CountryFn fn)
 {
   for (auto const & countryName : GetCountryNames())
   {
+    auto countrySpecifier = GetCountrySpecifier(countryName);
+
     Regions outers;
     auto const & countries = GetCountriesOuters();
     auto const pred = [&](Region const & country) { return countryName == country.GetName(); };
     std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
-    auto countryTrees = BuildCountryRegionTrees(outers);
+    auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
 
     fn(countryName, countryTrees);
   }
 }
 
-Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers)
+Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers,
+    CountrySpecifier const & countrySpecifier)
 {
   std::vector<std::future<Node::Ptr>> buildingTasks;
   {
@@ -221,7 +189,8 @@ Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers)
     for (auto const & outer : outers)
     {
       auto result = threadPool.Submit(
-          &RegionsBuilder::BuildCountryRegionTree, std::cref(outer), std::cref(m_regionsInAreaOrder));
+          &RegionsBuilder::BuildCountryRegionTree,
+          std::cref(outer), std::cref(m_regionsInAreaOrder), std::cref(countrySpecifier));
       buildingTasks.emplace_back(std::move(result));
     }
   }
@@ -232,40 +201,9 @@ Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers)
   return trees;
 }
 
-// static
-PlaceLevel RegionsBuilder::GetLevel(Region const & region)
+std::unique_ptr<CountrySpecifier> RegionsBuilder::GetCountrySpecifier(std::string const & countryName)
 {
-  switch (region.GetPlaceType())
-  {
-  case PlaceType::Country:
-    return PlaceLevel::Country;
-  case PlaceType::State:
-  case PlaceType::Province:
-    return PlaceLevel::Region;
-  case PlaceType::District:
-  case PlaceType::County:
-  case PlaceType::Municipality:
-    return PlaceLevel::Subregion;
-  case PlaceType::City:
-  case PlaceType::Town:
-  case PlaceType::Village:
-  case PlaceType::Hamlet:
-    return PlaceLevel::Locality;
-  case PlaceType::Suburb:
-    return PlaceLevel::Suburb;
-  case PlaceType::Quarter:
-  case PlaceType::Neighbourhood:
-    return PlaceLevel::Sublocality;
-  case PlaceType::IsolatedDwelling:
-    return PlaceLevel::Sublocality;
-  case PlaceType::Unknown:
-    break;
-  }
-
-  if (region.GetAdminLevel() == AdminLevel::Two)
-    return PlaceLevel::Country;
-
-  return PlaceLevel::Unknown;
+  return std::make_unique<CountrySpecifier>();
 }
 }  // namespace regions
 }  // namespace generator

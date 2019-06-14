@@ -142,8 +142,7 @@ private:
         auto region = Region(fb, collector.Get(id));
 
         auto const & name = region.GetName();
-        auto const level = RegionsBuilder::GetLevel(region);
-        if (name.empty() || level == PlaceLevel::Unknown)
+        if (name.empty())
           return;
 
         regions.emplace_back(std::move(region));
