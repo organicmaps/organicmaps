@@ -25,7 +25,7 @@ class NearestEdgeFinder
 {
   struct Candidate
   {
-    double m_dist = std::numeric_limits<double>::max();
+    double m_squaredDist = std::numeric_limits<double>::max();
     uint32_t m_segId = 0;
     Junction m_segStart;
     Junction m_segEnd;

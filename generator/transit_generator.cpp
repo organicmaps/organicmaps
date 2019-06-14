@@ -114,7 +114,8 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
       if (indexRouter.FindBestSegments(gate.GetPoint(), m2::PointD::Zero() /* direction */,
                                        true /* isOutgoing */, *worldGraph, bestSegments))
       {
-        // IndexRouter::FindBestSegments() returns a few good segments but the best one is the first.
+        // IndexRouter::FindBestSegments() returns a few good segments but the best one is the
+        // first.
         // @TODO It should be considered to change the format of transit section to keep all
         // candidates for every gate.
         CHECK(!bestSegments.empty(), ());

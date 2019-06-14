@@ -16,7 +16,7 @@ namespace
 {
 UNIT_TEST(RoutingQuality_NoLoop_MoscowToKazan)
 {
-  TEST(!CheckCarRoute({55.63113, 37.63054} /* start */, {55.68213, 52.37379} /* finish */,
+  TEST(!CheckCarRoute({55.63113, 37.63054} /* start */, {55.67914, 52.37389} /* finish */,
                       {{{55.80643, 37.83981}}} /* reference point */),
        ());
 }

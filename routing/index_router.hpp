@@ -32,8 +32,8 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 class DataSource;
 
@@ -76,9 +76,8 @@ public:
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
-  bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
-                        bool isOutgoing, WorldGraph & worldGraph,
-                        std::vector<Segment> & bestSegments);
+  bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
+                        WorldGraph & worldGraph, std::vector<Segment> & bestSegments);
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -104,18 +103,18 @@ private:
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
   /// in |fences| except for a one which has the same geometry with |edgeProjection.first|.
   bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
-      std::vector<IRoadGraph::JunctionVec> const & fences) const;
+                   std::vector<IRoadGraph::JunctionVec> const & fences) const;
 
   /// \brief Filling |roadFeatureGeoms| with geometry of road features which lies in |rect|.
   /// \note Some additional road features which lies near |rect| may be added to |roadFeatureGeoms|.
   void FetchRoadGeom(m2::RectD const & rect,
-      vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const;
+                     vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const;
 
-  /// \brief Fills |closetCodirectianalEdge| with a codirectianal edge which is closet to
+  /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
   /// |BestEdgeComparator::point| and returns true if there's any. If not returns false.
-  bool FindClosetCodirectianalEdge(BestEdgeComparator const & bestEdgeComparator,
-      std::vector<std::pair<Edge, Junction>> const & candidates,
-      Edge & closetCodirectianalEdge) const;
+  bool FindClosestCodirectionalEdge(BestEdgeComparator const & bestEdgeComparator,
+                                    std::vector<std::pair<Edge, Junction>> const & candidates,
+                                    Edge & closestCodirectionalEdge) const;
 
   /// \brief Finds the best segments (edges) which may be considered as starts or finishes
   /// of the route. According to current implementation the closest to |point| segment which

@@ -469,8 +469,9 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     subroutes.emplace_back(subrouteStarter.GetStartJunction(), subrouteStarter.GetFinishJunction(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
-    // For every subroute except for the first one the last real segment is used  as a start segment.
-    // It's implemented this way to prevent jumping from one road to another one using a via point.
+    // For every subroute except for the first one the last real segment is used  as a start
+    // segment. It's implemented this way to prevent jumping from one road to another one using a
+    // via point.
     startSegments.resize(1);
     bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegments[0]);
     CHECK(hasRealOrPart, ("No real or part of real segments in route."));
@@ -815,7 +816,7 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 }
 
 bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> const & edgeProjection,
-    vector<IRoadGraph::JunctionVec> const & fences) const
+                              vector<IRoadGraph::JunctionVec> const & fences) const
 {
   auto const & edge = edgeProjection.first;
   auto const & projPoint = edgeProjection.second.GetPoint();
@@ -832,7 +833,8 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
         continue;
       }
 
-      if (m2::SegmentsIntersect(point, projPoint, fencePointFrom.GetPoint(), fencePointTo.GetPoint()))
+      if (m2::SegmentsIntersect(point, projPoint, fencePointFrom.GetPoint(),
+                                fencePointTo.GetPoint()))
         return true;
     }
   }
@@ -840,17 +842,15 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 }
 
 void IndexRouter::FetchRoadGeom(m2::RectD const & rect,
-    vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const
+                                vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const
 {
-  auto const roadFetcher = [this, &roadFeatureGeoms](FeatureType & ft)
-  {
+  auto const roadFetcher = [this, &roadFeatureGeoms](FeatureType & ft) {
     if (!m_roadGraph.IsRoad(ft))
       return;
 
-    // Skipping all the features of zero or one point.
     auto roadGeom = m_roadGraph.GetRoadGeom(ft);
-    if (roadGeom.size() < 2)
-      return;
+
+    CHECK_GREATER_OR_EQUAL(roadGeom.size(), 2, ());
 
     roadFeatureGeoms.emplace_back(move(roadGeom));
   };
@@ -858,30 +858,31 @@ void IndexRouter::FetchRoadGeom(m2::RectD const & rect,
   m_dataSource.ForEachInRect(roadFetcher, rect, scales::GetUpperScale());
 }
 
-bool IndexRouter::FindClosetCodirectianalEdge(BestEdgeComparator const & bestEdgeComparator,
-                                              vector<pair<Edge, Junction>> const & candidates,
-                                              Edge & closetCodirectianalEdge) const
+bool IndexRouter::FindClosestCodirectionalEdge(BestEdgeComparator const & bestEdgeComparator,
+                                               vector<pair<Edge, Junction>> const & candidates,
+                                               Edge & closestCodirectionalEdge) const
 {
   double constexpr kInvalidDist = numeric_limits<double>::max();
-  double squareDistToClosetCodirectianalEdgeM = kInvalidDist;
+  double squareDistToClosestCodirectionalEdgeM = kInvalidDist;
 
-  if (bestEdgeComparator.IsDirectionValid())
+  if (!bestEdgeComparator.IsDirectionValid())
+    return false;
+
+  for (auto const & c : candidates)
   {
-    for (auto const & c : candidates)
-    {
-      auto const & edge = c.first;
-      if (bestEdgeComparator.IsAlmostCodirectional(edge))
-      {
-        double const distM = bestEdgeComparator.GetSquaredDist(edge);
-        if (distM < squareDistToClosetCodirectianalEdgeM)
-        {
-          closetCodirectianalEdge = edge;
-          squareDistToClosetCodirectianalEdgeM = distM;
-        }
-      }
-    }
+    auto const & edge = c.first;
+    if (!bestEdgeComparator.IsAlmostCodirectional(edge))
+      continue;
+
+    double const distM = bestEdgeComparator.GetSquaredDist(edge);
+    if (distM >= squareDistToClosestCodirectionalEdgeM)
+      continue;
+
+    closestCodirectionalEdge = edge;
+    squareDistToClosestCodirectionalEdgeM = distM;
   }
-  return squareDistToClosetCodirectianalEdgeM != kInvalidDist;
+
+  return squareDistToClosestCodirectionalEdgeM != kInvalidDist;
 }
 
 bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
@@ -900,6 +901,15 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
+  // Removing all candidates which are far from |point|.
+  base::EraseIf(candidates, [&point](pair<Edge, Junction> const & p) {
+    auto const dist = MercatorBounds::DistanceOnEarth(point, p.second.GetPoint());
+    return dist > FeaturesRoadGraph::kClosestEdgesRadiusM;
+  });
+
+  if (candidates.empty())
+    return false;
+
   auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
     return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
   };
@@ -916,8 +926,9 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
 
   // Removing all candidates which are fenced off by the road graph from |point|.
   vector<IRoadGraph::JunctionVec> roadFeatureGeoms;
-  FetchRoadGeom(MercatorBounds::RectByCenterXYAndSizeInMeters(point,
-      FeaturesRoadGraph::kClosestEdgesRadiusM), roadFeatureGeoms);
+  FetchRoadGeom(
+      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
+      roadFeatureGeoms);
 
   base::EraseIf(candidates, [&](pair<Edge, Junction> const & candidate) {
     return IsFencedOff(point, candidate, roadFeatureGeoms);
@@ -927,23 +938,23 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
     return false;
 
   // Looking for the closest codirectional edge. If it's not found add all good candidates.
-  Edge closetCodirectianalEdge;
+  Edge closestCodirectionalEdge;
   BestEdgeComparator bestEdgeComparator(point, direction);
   bestSegmentIsAlmostCodirectional =
-      FindClosetCodirectianalEdge(bestEdgeComparator, candidates, closetCodirectianalEdge);
+      FindClosestCodirectionalEdge(bestEdgeComparator, candidates, closestCodirectionalEdge);
 
   if (bestSegmentIsAlmostCodirectional)
   {
-    bestSegments = {getSegmentByEdge(closetCodirectianalEdge)};
+    bestSegments = {getSegmentByEdge(closestCodirectionalEdge)};
   }
   else
   {
     bestSegments.clear();
     // Sorting from better candidates to worse ones.
     sort(candidates.begin(), candidates.end(),
-        [&bestEdgeComparator](pair<Edge, Junction> const & lhs, pair<Edge, Junction> const & rhs){
-            return bestEdgeComparator.Compare(lhs.first, rhs.first) < 0;
-    });
+         [&bestEdgeComparator](pair<Edge, Junction> const & lhs, pair<Edge, Junction> const & rhs) {
+           return bestEdgeComparator.Compare(lhs.first, rhs.first) < 0;
+         });
     for (auto const & c : candidates)
       bestSegments.emplace_back(getSegmentByEdge(c.first));
   }

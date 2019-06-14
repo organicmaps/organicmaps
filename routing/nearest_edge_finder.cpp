@@ -25,15 +25,14 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
   {
-    // @todo Probably, we need to get exact projection distance in meters.
     // @TODO All the calculations below should be done after the closest point is found.
     // Otherway we do unnecessary calculation significant number of times.
     m2::ParametrizedSegment<m2::PointD> segment(junctions[i - 1].GetPoint(),
                                                 junctions[i].GetPoint());
 
     m2::PointD const pt = segment.ClosestPointTo(m_point);
-    double const d = m_point.SquaredLength(pt);
-    if (d < res.m_dist)
+    double const squaredDist = m_point.SquaredLength(pt);
+    if (squaredDist < res.m_squaredDist)
     {
       Junction const & segStart = junctions[i - 1];
       Junction const & segEnd = junctions[i];
@@ -53,7 +52,7 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
         projPointAlt = startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
       }
 
-      res.m_dist = d;
+      res.m_squaredDist = squaredDist;
       res.m_fid = featureId;
       res.m_segId = static_cast<uint32_t>(i - 1);
       res.m_segStart = segStart;
@@ -75,7 +74,7 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t co
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
-    return (r1.m_dist < r2.m_dist);
+    return (r1.m_squaredDist < r2.m_squaredDist);
   });
 
   res.clear();

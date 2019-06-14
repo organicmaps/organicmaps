@@ -52,7 +52,8 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
     auto const & backJunction = graph.GetJunction(segment, false /* front */);
     auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
-    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
+    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
+                                      projectedJunction);
 
     averageAltitude = (i * averageAltitude + projectedJunction.GetAltitude()) / (i + 1);
   }
@@ -71,7 +72,8 @@ FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, Ind
 
   FakeEnding ending;
   ending.m_originJunction = Junction(point, projectedJunction.GetAltitude());
-  ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
+  ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
+                                    projectedJunction);
   return ending;
 }
 }  // namespace routing
