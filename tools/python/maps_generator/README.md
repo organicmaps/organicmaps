@@ -79,6 +79,7 @@ OSM_TOOLS_PATH: ~/osmctools
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
+# SRTM_PATH:
 
 [Stats]
 # Path to rules for calculating statistics by type

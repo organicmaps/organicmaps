@@ -34,6 +34,7 @@ OSM_TOOLS_PATH: ~/osmctools
 # SUBWAY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
+# SRTM_PATH:
 
 [Stats]
 STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt

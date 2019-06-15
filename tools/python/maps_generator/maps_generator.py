@@ -155,6 +155,11 @@ def stage_popularity(env, country, **kwargs):
 
 
 @country_stage
+def stage_srtm(env, country, **kwargs):
+    maps_stages.stage_srtm(env, country, **kwargs)
+
+
+@country_stage
 def stage_routing(env, country, **kwargs):
     maps_stages.stage_routing(env, country, **kwargs)
 
@@ -170,6 +175,7 @@ def stage_mwm(env):
         stage_index(env, country)
         stage_ugc(env, country)
         stage_popularity(env, country)
+        stage_srtm(env, country)
         stage_routing(env, country)
         stage_routing_transit(env, country)
         env.finish_mwm(country)

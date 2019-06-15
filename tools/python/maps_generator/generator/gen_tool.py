@@ -62,6 +62,7 @@ class GenTool:
         "regions_features": str,
         "regions_index": str,
         "regions_key_value": str,
+        "srtm_path": str,
         "transit_path": str,
         "ugc_data": str,
         "user_resource_path": str,

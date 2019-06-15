@@ -120,6 +120,8 @@ class Env:
 
         self.coastline_tmp_path = os.path.join(self.coastline_path, "tmp")
         self._create_if_not_exist(self.coastline_tmp_path)
+        self.srtm_path = settings.SRTM_PATH
+
         self._subprocess_out = None
         self._subprocess_countries_out = {}
 

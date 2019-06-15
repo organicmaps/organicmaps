@@ -94,6 +94,21 @@ def stage_popularity(env, country, **kwargs):
     )
 
 
+def stage_srtm(env, country, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.mwm_path,
+        intermediate_data_path=env.intermediate_path,
+        user_resource_path=env.user_resource_path,
+        srtm_path=env.srtm_path,
+        output=country,
+        **kwargs
+    )
+
+
 def stage_routing(env, country, **kwargs):
     run_gen_tool_with_recovery_country(
         env,

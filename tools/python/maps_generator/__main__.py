@@ -8,7 +8,7 @@ from .generator.exceptions import ContinueError, SkipError, ValidationError
 from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
-                             stage_localads, stage_statistics,
+                             stage_localads, stage_statistics, stage_srtm,
                              stages_as_string)
 from .utils.collections import unique
 
@@ -168,6 +168,7 @@ def main():
             stage_download_production_external,
             stage_ugc,
             stage_popularity,
+            stage_srtm,
             stage_descriptions,
             stage_localads,
             stage_statistics
