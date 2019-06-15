@@ -64,6 +64,45 @@ namespace
 {
 using namespace qt;
 
+struct button_t
+{
+  QString name;
+  char const * icon;
+  char const * slot;
+};
+
+void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
+{
+  for (size_t i = 0; i < count; ++i)
+  {
+    if (buttons[i].icon)
+      pBar->addAction(QIcon(buttons[i].icon), buttons[i].name, pReceiver, buttons[i].slot);
+    else
+      pBar->addSeparator();
+  }
+}
+
+void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
+{
+  int const mbInBytes = 1024 * 1024;
+  int const kbInBytes = 1024;
+  if (sizeInBytes > mbInBytes)
+  {
+    sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
+    units = "MB";
+  }
+  else if (sizeInBytes > kbInBytes)
+  {
+    sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
+    units = "KB";
+  }
+  else
+  {
+    sizeToDownload = sizeInBytes;
+    units = "B";
+  }
+}
+
 DrawWidget::SelectionMode ConvertFromMwmsBordersSelection(qt::MwmsBordersSelection::Response mode)
 {
   switch (mode)
@@ -95,6 +134,14 @@ DrawWidget::SelectionMode ConvertFromMwmsBordersSelection(qt::MwmsBordersSelecti
   default:
     UNREACHABLE();
   }
+}
+
+bool IsMwmsBordersSelectionMode(DrawWidget::SelectionMode mode)
+{
+  return mode == DrawWidget::SelectionMode::MwmsBordersByPolyFiles ||
+         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles ||
+         mode == DrawWidget::SelectionMode::MwmsBordersByPackedPolygon ||
+         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
 }
 }  // namespace
 
@@ -268,56 +315,6 @@ void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
   m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
   m_pMyPositionAction->setToolTip(tr("My Position"));
 }
-
-namespace
-{
-struct button_t
-{
-  QString name;
-  char const * icon;
-  char const * slot;
-};
-
-void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
-{
-  for (size_t i = 0; i < count; ++i)
-  {
-    if (buttons[i].icon)
-      pBar->addAction(QIcon(buttons[i].icon), buttons[i].name, pReceiver, buttons[i].slot);
-    else
-      pBar->addSeparator();
-  }
-}
-
-void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
-{
-  int const mbInBytes = 1024 * 1024;
-  int const kbInBytes = 1024;
-  if (sizeInBytes > mbInBytes)
-  {
-    sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
-    units = "MB";
-  }
-  else if (sizeInBytes > kbInBytes)
-  {
-    sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
-    units = "KB";
-  }
-  else
-  {
-    sizeToDownload = sizeInBytes;
-    units = "B";
-  }
-}
-
-bool IsMwmsBordersSelectionMode(DrawWidget::SelectionMode mode)
-{
-  return mode == DrawWidget::SelectionMode::MwmsBordersByPolyFiles ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles ||
-         mode == DrawWidget::SelectionMode::MwmsBordersByPackedPolygon ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
-}
-}  // namespace
 
 void MainWindow::CreateNavigationBar()
 {
