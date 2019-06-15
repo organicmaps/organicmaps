@@ -250,10 +250,10 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   }
 }
 
-void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints,
-                                            bool fromPackedPolygon)
+void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
+                                            bool fromPackedPolygon, bool boundingBox)
 {
-  auto const getPolygons = [&](std::string const & mwmName)
+  auto const getRegions = [&](std::string const & mwmName)
   {
     if (fromPackedPolygon)
     {
@@ -286,12 +286,26 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoi
     }
   };
 
-  auto const mwmNames = m_framework.GetRegionsCountryIdByRect(rect, false /* rough */);
+  auto mwmNames = m_framework.GetRegionsCountryIdByRect(rect, false /* rough */);
 
-  for (auto const & mwmName : mwmNames)
+  for (auto & mwmName : mwmNames)
   {
-    auto const polygons = getPolygons(mwmName);
-    m_framework.DrawMwmBorder(mwmName, polygons, withPoints);
+    auto regions = getRegions(mwmName);
+    mwmName += fromPackedPolygon ? ".bin" : ".poly";
+    if (boundingBox)
+    {
+      std::vector<m2::RegionD> boxes;
+      for (auto const & region : regions)
+      {
+        auto const r = region.GetRect();
+        boxes.emplace_back(std::vector<m2::PointD>({r.LeftBottom(), r.LeftTop(), r.RightTop(),
+                                                    r.RightBottom(), r.LeftBottom()}));
+      }
+
+      regions = std::move(boxes);
+      mwmName += ".box";
+    }
+    m_framework.DrawMwmBorder(mwmName, regions, withVertices);
   }
 }
 
@@ -308,54 +322,76 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   else if (m_currentSelectionMode && IsRightButton(e) &&
            m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
-    QPoint const lt = m_rubberBand->geometry().topLeft();
-    QPoint const rb = m_rubberBand->geometry().bottomRight();
-    m2::RectD rect;
-    rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
-    rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
-    switch (*m_currentSelectionMode)
-    {
-    case SelectionMode::Features:
-    {
-      m_framework.VisualizeRoadsInRect(rect);
-      break;
-    }
-    case SelectionMode::CityBoundaries:
-    {
-      m_framework.VisualizeCityBoundariesInRect(rect);
-      break;
-    }
-    case SelectionMode::CityRoads:
-    {
-      m_framework.VisualizeCityRoadsInRect(rect);
-      break;
-    }
-    case SelectionMode::MwmsBordersByPolyFiles:
-    {
-      VisualizeMwmsBordersInRect(rect, false /* withPoints */, false /* fromPackedPolygon */);
-      break;
-    }
-    case SelectionMode::MwmsBordersWithPointsByPolyFiles:
-    {
-      VisualizeMwmsBordersInRect(rect, true /* withPoints */, false /* fromPackedPolygon */);
-      break;
-    }
-    case SelectionMode::MwmsBordersByPackedPolygon:
-    {
-      VisualizeMwmsBordersInRect(rect, false /* withPoints */, true /* fromPackedPolygon */);
-      break;
-    }
-    case SelectionMode::MwmsBordersWithPointsByPackedPolygon:
-    {
-      VisualizeMwmsBordersInRect(rect, true /* withPoints */, true /* fromPackedPolygon */);
-      break;
-    }
-    default:
-      UNREACHABLE();
-    }
-
-    m_rubberBand->hide();
+    ProcessSelectionMode();
   }
+}
+
+void DrawWidget::ProcessSelectionMode()
+{
+  QPoint const lt = m_rubberBand->geometry().topLeft();
+  QPoint const rb = m_rubberBand->geometry().bottomRight();
+  m2::RectD rect;
+  rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
+  rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
+
+  switch (*m_currentSelectionMode)
+  {
+  case SelectionMode::Features:
+  {
+    m_framework.VisualizeRoadsInRect(rect);
+    break;
+  }
+  case SelectionMode::CityBoundaries:
+  {
+    m_framework.VisualizeCityBoundariesInRect(rect);
+    break;
+  }
+  case SelectionMode::CityRoads:
+  {
+    m_framework.VisualizeCityRoadsInRect(rect);
+    break;
+  }
+  case SelectionMode::MwmsBordersByPolyFiles:
+  {
+    VisualizeMwmsBordersInRect(rect, false /* withVertices */, false /* fromPackedPolygon */,
+                               false /* boundingBox */);
+    break;
+  }
+  case SelectionMode::MwmsBordersWithVerticesByPolyFiles:
+  {
+    VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
+                               false /* boundingBox */);
+    break;
+  }
+  case SelectionMode::MwmsBordersByPackedPolygon:
+  {
+    VisualizeMwmsBordersInRect(rect, false /* withVertices */, true /* fromPackedPolygon */,
+                               false /* boundingBox */);
+    break;
+  }
+  case SelectionMode::MwmsBordersWithVerticesByPackedPolygon:
+  {
+    VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
+                               false /* boundingBox */);
+    break;
+  }
+  case SelectionMode::BoundingBoxByPolyFiles:
+  {
+    VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
+                               true /* boundingBox */);
+    break;
+  }
+  case SelectionMode::BoundingBoxByPackedPolygon:
+  {
+    VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
+                               true /* boundingBox */);
+    break;
+  }
+  default:
+    UNREACHABLE();
+  }
+
+  m_rubberBand->hide();
 }
 
 void DrawWidget::keyPressEvent(QKeyEvent * e)

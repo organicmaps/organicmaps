@@ -3500,27 +3500,21 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 }  // namespace
 
 void Framework::DrawMwmBorder(std::string const & mwmName,
-                              std::vector<m2::RegionD> const & polygons, bool withPoints)
+                              std::vector<m2::RegionD> const & regions, bool withVertices)
 {
-  for (auto const & region : polygons)
+  for (auto const & region : regions)
   {
     auto const points = region.Data();
     if (points.empty())
       return;
 
     static uint32_t kColorCounter = 0;
-    if (withPoints)
-    {
-      m_drapeApi.AddLine(mwmName, df::DrapeApiLineData(points, colorList[kColorCounter])
-          .Width(4.0f)
-          .ShowId()
-          .ShowPoints(true));
-    }
-    else
-    {
-      m_drapeApi.AddLine(
-          mwmName, df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId());
-    }
+
+    auto lineData = df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId();
+    if (withVertices)
+      lineData.ShowPoints(true /* markPoints */);
+
+    m_drapeApi.AddLine(mwmName, lineData);
 
     kColorCounter = (kColorCounter + 1) % colorList.size();
   }

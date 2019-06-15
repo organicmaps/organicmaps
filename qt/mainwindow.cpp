@@ -60,6 +60,44 @@
 
 #endif // NO_DOWNLOADER
 
+namespace
+{
+using namespace qt;
+
+DrawWidget::SelectionMode ConvertFromMwmsBordersSelection(qt::MwmsBordersSelection::Response mode)
+{
+  switch (mode)
+  {
+  case MwmsBordersSelection::Response::MwmsBordersByPolyFiles:
+  {
+    return DrawWidget::SelectionMode::MwmsBordersByPolyFiles;
+  }
+  case MwmsBordersSelection::Response::MwmsBordersWithVerticesByPolyFiles:
+  {
+    return DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles;
+  }
+  case MwmsBordersSelection::Response::MwmsBordersByPackedPolygon:
+  {
+    return DrawWidget::SelectionMode::MwmsBordersByPackedPolygon;
+  }
+  case MwmsBordersSelection::Response::MwmsBordersWithVerticesByPackedPolygon:
+  {
+    return DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
+  }
+  case MwmsBordersSelection::Response::BoundingBoxByPolyFiles:
+  {
+    return DrawWidget::SelectionMode::BoundingBoxByPolyFiles;
+  }
+  case MwmsBordersSelection::Response::BoundingBoxByPackedPolygon:
+  {
+    return DrawWidget::SelectionMode::BoundingBoxByPackedPolygon;
+  }
+  default:
+    UNREACHABLE();
+  }
+}
+}  // namespace
+
 namespace qt
 {
 // Defined in osm_auth_dialog.cpp.
@@ -275,9 +313,9 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
 bool IsMwmsBordersSelectionMode(DrawWidget::SelectionMode mode)
 {
   return mode == DrawWidget::SelectionMode::MwmsBordersByPolyFiles ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithPointsByPolyFiles ||
+         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles ||
          mode == DrawWidget::SelectionMode::MwmsBordersByPackedPolygon ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithPointsByPackedPolygon;
+         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
 }
 }  // namespace
 
@@ -659,42 +697,13 @@ void MainWindow::OnSwitchMwmsBordersSelectionMode()
     return;
   }
 
-  CHECK(response == MwmsBordersSelection::Response::JustBordersByPolyFiles ||
-        response == MwmsBordersSelection::Response::WithPointsAndBordersByPolyFiles ||
-        response == MwmsBordersSelection::Response::JustBordersByPackedPolygon ||
-        response == MwmsBordersSelection::Response::WithPointsAndBordersByPackedPolygon, ());
-
   m_selectionMode->setChecked(false);
   m_selectionCityBoundariesMode->setChecked(false);
   m_selectionCityRoadsMode->setChecked(false);
 
   m_selectionMwmsBordersMode->setChecked(true);
 
-  switch (response)
-  {
-  case MwmsBordersSelection::Response::JustBordersByPolyFiles:
-  {
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersByPolyFiles);
-    break;
-  }
-  case MwmsBordersSelection::Response::WithPointsAndBordersByPolyFiles:
-  {
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPointsByPolyFiles);
-    break;
-  }
-  case MwmsBordersSelection::Response::JustBordersByPackedPolygon:
-  {
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersByPackedPolygon);
-    break;
-  }
-  case MwmsBordersSelection::Response::WithPointsAndBordersByPackedPolygon:
-  {
-    m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::MwmsBordersWithPointsByPackedPolygon);
-    break;
-  }
-  default:
-    UNREACHABLE();
-  }
+  m_pDrawWidget->SetSelectionMode(ConvertFromMwmsBordersSelection(response));
 }
 
 void MainWindow::OnClearSelection()

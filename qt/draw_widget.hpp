@@ -109,7 +109,8 @@ private:
 
   void UpdateCountryStatus(storage::CountryId const & countryId);
 
-  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withPoints, bool fromPackedPolygon);
+  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
+                                  bool fromPackedPolygon, bool boundingBox);
 
   m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
 
@@ -128,9 +129,11 @@ public:
     CityBoundaries,
     CityRoads,
     MwmsBordersByPolyFiles,
-    MwmsBordersWithPointsByPolyFiles,
+    MwmsBordersWithVerticesByPolyFiles,
     MwmsBordersByPackedPolygon,
-    MwmsBordersWithPointsByPackedPolygon
+    MwmsBordersWithVerticesByPackedPolygon,
+    BoundingBoxByPolyFiles,
+    BoundingBoxByPackedPolygon,
   };
 
   void SetSelectionMode(SelectionMode mode) { m_currentSelectionMode = {mode}; }
@@ -139,6 +142,7 @@ public:
   SelectionMode GetSelectionMode() const { return *m_currentSelectionMode; }
 
 private:
+  void ProcessSelectionMode();
   boost::optional<SelectionMode> m_currentSelectionMode;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 

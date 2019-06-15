@@ -407,8 +407,8 @@ public:
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection();
 
-  void DrawMwmBorder(std::string const & mwmName, std::vector<m2::RegionD> const & points,
-                     bool withPoints);
+  void DrawMwmBorder(std::string const & mwmName, std::vector<m2::RegionD> const & regions,
+                     bool withVertices);
 
   /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
   using TActivateMapSelectionFn = function<void (place_page::Info const &)>;

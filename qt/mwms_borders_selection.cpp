@@ -49,10 +49,13 @@ MwmsBordersSelection::Response MwmsBordersSelection::ShowModal()
   if (m_radioBordersFromData->isChecked())
   {
     if (m_radioJustBorders->isChecked())
-      return Response::JustBordersByPolyFiles;
+      return Response::MwmsBordersByPolyFiles;
 
     if (m_radioWithPoints->isChecked())
-      return Response::WithPointsAndBordersByPolyFiles;
+      return Response::MwmsBordersWithVerticesByPolyFiles;
+
+    if (m_radioBoundingBox->isChecked())
+      return Response::BoundingBoxByPolyFiles;
 
     UNREACHABLE();
   }
@@ -60,10 +63,13 @@ MwmsBordersSelection::Response MwmsBordersSelection::ShowModal()
   if (m_radioBordersFromPackedPolygon->isChecked())
   {
     if (m_radioJustBorders->isChecked())
-      return Response::JustBordersByPackedPolygon;
+      return Response::MwmsBordersByPackedPolygon;
 
     if (m_radioWithPoints->isChecked())
-      return Response::WithPointsAndBordersByPackedPolygon;
+      return Response::MwmsBordersWithVerticesByPackedPolygon;
+
+    if (m_radioBoundingBox->isChecked())
+      return Response::BoundingBoxByPackedPolygon;
 
     UNREACHABLE();
   }
@@ -75,8 +81,8 @@ QGroupBox * MwmsBordersSelection::CreateSourceChoosingGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  m_radioBordersFromPackedPolygon = new QRadioButton(tr("Show borders from packed_polygon.bin."));
-  m_radioBordersFromData = new QRadioButton(tr("Show borders from *.poly files."));
+  m_radioBordersFromPackedPolygon = new QRadioButton(tr("Get borders from packed_polygon.bin"));
+  m_radioBordersFromData = new QRadioButton(tr("Get borders from *.poly files"));
 
   m_radioBordersFromPackedPolygon->setChecked(true);
 
@@ -93,8 +99,9 @@ QGroupBox * MwmsBordersSelection::CreateViewTypeGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  m_radioWithPoints = new QRadioButton(tr("Show borders with points."));
-  m_radioJustBorders = new QRadioButton(tr("Show just borders."));
+  m_radioWithPoints = new QRadioButton(tr("Show borders with vertices"));
+  m_radioJustBorders = new QRadioButton(tr("Show just borders"));
+  m_radioBoundingBox = new QRadioButton(tr("Show bounding box"));
 
   m_radioWithPoints->setChecked(true);
 
@@ -102,6 +109,7 @@ QGroupBox * MwmsBordersSelection::CreateViewTypeGroup()
 
   vbox->addWidget(m_radioWithPoints);
   vbox->addWidget(m_radioJustBorders);
+  vbox->addWidget(m_radioBoundingBox);
   groupBox->setLayout(vbox);
 
   return groupBox;

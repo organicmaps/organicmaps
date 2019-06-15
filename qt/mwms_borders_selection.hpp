@@ -19,11 +19,14 @@ public:
 
   enum class Response
   {
-    JustBordersByPolyFiles,
-    WithPointsAndBordersByPolyFiles,
+    MwmsBordersByPolyFiles,
+    MwmsBordersWithVerticesByPolyFiles,
 
-    JustBordersByPackedPolygon,
-    WithPointsAndBordersByPackedPolygon,
+    MwmsBordersByPackedPolygon,
+    MwmsBordersWithVerticesByPackedPolygon,
+
+    BoundingBoxByPolyFiles,
+    BoundingBoxByPackedPolygon,
 
     Cancelled
   };
@@ -40,5 +43,6 @@ private:
 
   QRadioButton * m_radioWithPoints;
   QRadioButton * m_radioJustBorders;
+  QRadioButton * m_radioBoundingBox;
 };
 }  // namespace qt
