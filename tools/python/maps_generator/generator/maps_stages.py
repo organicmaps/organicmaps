@@ -38,8 +38,8 @@ def stage_index_world(env, country, **kwargs):
                  generate_geometry=True,
                  generate_index=True,
                  generate_search_index=True,
+                 generate_cities_boundaries=True,
                  cities_boundaries_data=env.cities_boundaries_path,
-                 make_city_roads=True,
                  output=country,
                  **kwargs)
 

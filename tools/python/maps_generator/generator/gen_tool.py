@@ -16,6 +16,7 @@ class GenTool:
         "emit_coasts": bool,
         "fail_on_coasts": bool,
         "generate_cameras": bool,
+        "generate_cities_boundaries": bool,
         "generate_features": bool,
         "generate_geometry": bool,
         "generate_geo_objects_features": bool,
