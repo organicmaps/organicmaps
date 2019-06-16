@@ -140,7 +140,7 @@ def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
     oldvs = parse_old_vs_new(old_vs_new_csv_path)
     vsosm = parse_borders_vs_osm(borders_vs_osm_csv_path)
     countries_synonyms = parse_countries_synonyms(countries_synonyms_csv_path)
-    stack = [CountryDict(v=version, id="Countries", g=[])]
+    stack = [CountryDict(v=int(version), id="Countries", g=[])]
     last = None
     with open(hierarchy_path) as f:
         for line in f:
