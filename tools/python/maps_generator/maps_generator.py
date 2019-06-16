@@ -338,8 +338,8 @@ def stage_cleanup(env):
 
 MWM_STAGE = stage_mwm.__name__
 COUNTRIES_STAGES = [s.__name__ for s in
-                    (stage_index, stage_ugc, stage_popularity, stage_routing,
-                     stage_routing_transit)]
+                    (stage_index, stage_ugc, stage_popularity, stage_srtm,
+                     stage_routing, stage_routing_transit)]
 STAGES = [s.__name__ for s in
           (stage_download_external, stage_download_production_external,
            stage_download_and_convert_planet, stage_update_planet,
