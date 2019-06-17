@@ -10,26 +10,16 @@
   <android.support.v7.widget.CardView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <RelativeLayout
+    <LinearLayout
       android:foreground="?clickableBackground"
       android:orientation="vertical"
       android:layout_width="@dimen/gallery_product_width"
       android:layout_height="wrap_content"
       android:minHeight="@dimen/discovery_expert_item_min_height">
-      <TextView
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
-        style="@style/MwmWidget.Discovery.Item.Button"
-        android:layout_gravity="bottom"
-        android:text="@string/details"/>
       <LinearLayout
-        android:layout_above="@id/button"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
           android:id="@+id/image"
@@ -62,20 +52,29 @@
           tools:text="★ ★ ★ ★ ★"/>
       </LinearLayout>
       <TextView
-        android:id="@+id/label"
-        android:text="PRO"
-        android:paddingTop="@dimen/margin_eighth"
-        android:paddingBottom="@dimen/margin_eighth"
-        android:paddingLeft="@dimen/margin_half_plus"
-        android:paddingRight="@dimen/margin_half_plus"
-        android:paddingEnd="@dimen/margin_half_plus"
-        android:layout_marginTop="@dimen/height_block_base"
-        android:textColor="@android:color/white"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        app:fontFamily="@string/robotoMedium"
-        android:layout_width="wrap_content"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/margin_half_plus"/>
-    </RelativeLayout>
+        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
+        style="@style/MwmWidget.Discovery.Item.Button"
+        android:layout_gravity="bottom"
+        android:text="@string/details"/>
+    </LinearLayout>
+    <TextView
+      android:id="@+id/label"
+      android:text="PRO"
+      android:layout_gravity="top"
+      android:paddingTop="@dimen/margin_eighth"
+      android:paddingBottom="@dimen/margin_eighth"
+      android:paddingLeft="@dimen/margin_half_plus"
+      android:paddingRight="@dimen/margin_half_plus"
+      android:paddingEnd="@dimen/margin_half_plus"
+      android:layout_marginTop="@dimen/height_block_base"
+      android:textColor="@android:color/white"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      app:fontFamily="@string/robotoMedium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/margin_half_plus"/>
   </android.support.v7.widget.CardView>
 </FrameLayout>

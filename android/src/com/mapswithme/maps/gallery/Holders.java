@@ -340,8 +340,6 @@ public class Holders
     final ProgressBar mProgressBar;
     @NonNull
     final TextView mSubtitle;
-    @NonNull
-    final TextView mMore;
 
     LoadingViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                       @Nullable ItemSelectedListener<Items.Item> listener)
@@ -349,7 +347,6 @@ public class Holders
       super(itemView, items, listener);
       mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
       mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
-      mMore = (TextView) itemView.findViewById(R.id.button);
     }
 
     @CallSuper
@@ -428,7 +425,27 @@ public class Holders
     }
   }
 
-  public static class CrossPromoLoadingHolder extends SimpleViewHolder
+  public static class BaseEmptyCatalogHolder extends SimpleViewHolder
+  {
+
+    public BaseEmptyCatalogHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                                  @Nullable ItemSelectedListener<Items.Item> listener)
+    {
+      super(itemView, items, listener);
+    }
+
+    @Override
+    protected void onItemSelected(@NonNull Items.Item item, int position)
+    {
+      ItemSelectedListener<Items.Item> listener = getListener();
+      if (listener == null)
+        return;
+
+      listener.onItemSelected(item, position);
+    }
+  }
+
+  public static class CrossPromoLoadingHolder extends BaseEmptyCatalogHolder
   {
     public CrossPromoLoadingHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                                    @Nullable ItemSelectedListener<Items.Item> listener)

@@ -90,6 +90,7 @@ public class Factory
                                                          @Nullable ItemSelectedListener<PromoEntity> listener,
                                                          @NonNull GalleryPlacement placement)
   {
+    @SuppressWarnings("ConstantConditions")
     PromoEntity item = new PromoEntity(Constants.TYPE_MORE,
                                        context.getString(R.string.placepage_more_button),
                                        null, url, null, null);

@@ -31,7 +31,6 @@ import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.promo.Promo;
-import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
@@ -555,13 +554,13 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   @Override
   public void onActivityCreated(Activity activity, Bundle savedInstanceState)
   {
-    Promo.INSTANCE.setListener(new LoadingCatalogPromoListener(mPlacePage));
   }
 
   @Override
   public void onActivityStarted(Activity activity)
   {
     mBannerController.attach();
+    mPlacePage.attach(null);
   }
 
   @Override
@@ -580,6 +579,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onActivityStopped(Activity activity)
   {
     mBannerController.detach();
+    mPlacePage.detach();
   }
 
   @Override
@@ -669,29 +669,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void closePlacePage()
   {
     close();
-  }
-
-  private static class LoadingCatalogPromoListener implements Promo.Listener
-  {
-    @NonNull
-    private final PlacePageView mPlacePage;
-
-    LoadingCatalogPromoListener(@NonNull PlacePageView placePage)
-    {
-      mPlacePage = placePage;
-    }
-
-    @Override
-    public void onCityGalleryReceived(@NonNull PromoCityGallery gallery)
-    {
-      mPlacePage.setCatalogPromoGallery(gallery);
-    }
-
-    @Override
-    public void onErrorReceived()
-    {
-      mPlacePage.setCatalogPromoGalleryError();
-    }
   }
 
   private class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener

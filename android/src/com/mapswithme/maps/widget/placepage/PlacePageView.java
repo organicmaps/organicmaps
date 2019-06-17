@@ -45,6 +45,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -60,6 +61,7 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Items;
@@ -123,7 +125,7 @@ public class PlacePageView extends NestedScrollView
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
-               EditBookmarkFragment.EditBookmarkListener
+               EditBookmarkFragment.EditBookmarkListener, Detachable<Void>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -356,6 +358,18 @@ public class PlacePageView extends NestedScrollView
   public boolean onInterceptTouchEvent(MotionEvent event)
   {
     return mScrollable && super.onInterceptTouchEvent(event);
+  }
+
+  @Override
+  public void attach(@NonNull Void object)
+  {
+    Promo.INSTANCE.setListener(new CatalogPromoListener(this));
+  }
+
+  @Override
+  public void detach()
+  {
+    Promo.INSTANCE.setListener(null);
   }
 
   public interface SetMapObjectListener
@@ -1193,8 +1207,6 @@ public class PlacePageView extends NestedScrollView
       if (country != null && !RoutingController.get().isNavigating())
         attachCountry(country);
     }
-
-//    Promo.INSTANCE.nativeRequestCityGallery(policy, "");
     boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
     toggleCatalogPromoGallery(hasPromoGallery);
     refreshViews(policy);
@@ -1202,12 +1214,12 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
+//    Promo.INSTANCE.nativeRequestCityGallery(policy);
     if (mSponsored == null || mMapObject == null)
       return;
 
     mSponsored.updateId(mMapObject);
     mSponsoredPrice = mSponsored.getPrice();
-
     String currencyCode = Utils.getCurrencyCode();
 
     if (mSponsored.getId() == null || TextUtils.isEmpty(currencyCode))
@@ -2088,14 +2100,14 @@ public class PlacePageView extends NestedScrollView
 
   public void toggleCatalogPromoGallery(boolean enabled)
   {
-    mCatalogPromoRecycler.setVisibility(enabled ? VISIBLE : GONE);
-    mCatalogPromoTitleView.setVisibility(enabled ? VISIBLE : GONE);
+    UiUtils.showIf(enabled, mCatalogPromoRecycler);
+    UiUtils.showIf(enabled, mCatalogPromoTitleView);
   }
 
   public void setCatalogPromoGallery(@NonNull PromoCityGallery gallery)
   {
     String url = gallery.getMoreUrl();
-    List<PromoEntity> items = PromoCityGallery.toEntities(gallery);
+    List<PromoEntity> items = toEntities(gallery);
     RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(getActivity());
     com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoAdapter(getContext(),
                                                                                            items,
@@ -2103,6 +2115,23 @@ public class PlacePageView extends NestedScrollView
                                                                                            promoListener,
                                                                                            GalleryPlacement.PLACEPAGE);
     mCatalogPromoRecycler.setAdapter(adapter);
+  }
+
+  @NonNull
+  public static List<PromoEntity> toEntities(@NonNull PromoCityGallery gallery)
+  {
+    List<PromoEntity> items = new ArrayList<>();
+    for (PromoCityGallery.Item each : gallery.getItems())
+    {
+      PromoEntity item = new PromoEntity(Constants.TYPE_PRODUCT,
+                                         each.getName(),
+                                         each.getAuthor().getName(),
+                                         each.getUrl(),
+                                         each.getLuxCategory(),
+                                         each.getImageUrl());
+      items.add(item);
+    }
+    return items;
   }
 
   public void setCatalogPromoGalleryError()

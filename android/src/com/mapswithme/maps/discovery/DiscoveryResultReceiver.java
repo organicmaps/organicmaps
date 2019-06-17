@@ -3,6 +3,7 @@ package com.mapswithme.maps.discovery;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.search.SearchResult;
 
 public interface DiscoveryResultReceiver
@@ -17,6 +18,8 @@ public interface DiscoveryResultReceiver
   void onLocalExpertsReceived(@NonNull LocalExpert[] experts);
   @MainThread
   void onError(@NonNull ItemType type);
+  @MainThread
+  void onCatalogPromoReceived(@NonNull PromoCityGallery promoCityGallery);
   @MainThread
   void onNotFound();
 }

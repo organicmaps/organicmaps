@@ -4,45 +4,21 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
-import com.mapswithme.maps.gallery.Constants;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public final class PromoCityGallery
 {
   @NonNull
-  private final List<Item> mItems;
+  private final Item[] mItems;
   @NonNull
   private final String mMoreUrl;
 
   PromoCityGallery(@NonNull Item[] items, @NonNull String moreUrl)
   {
-    mItems = Collections.unmodifiableList(Arrays.asList(items));
+    mItems = items;
     mMoreUrl = moreUrl;
   }
 
   @NonNull
-  public static List<PromoEntity> toEntities(@NonNull PromoCityGallery gallery)
-  {
-    List<PromoEntity> items = new ArrayList<>();
-    for (PromoCityGallery.Item each : gallery.getItems())
-    {
-      PromoEntity item = new PromoEntity(Constants.TYPE_PRODUCT,
-                                         each.getName(),
-                                         each.getAuthor().getName(),
-                                         each.getUrl(),
-                                         each.getLuxCategory(),
-                                         each.getImageUrl());
-      items.add(item);
-    }
-    return items;
-  }
-
-  @NonNull
-  public List<Item> getItems()
+  public Item[] getItems()
   {
     return mItems;
   }
