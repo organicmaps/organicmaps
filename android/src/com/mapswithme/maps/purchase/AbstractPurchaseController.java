@@ -172,7 +172,7 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     }
 
     @Override
-    public void onPurchaseDetailsFailure()
+    public void onProductDetailsFailure()
     {
       if (getUiCallback() != null)
         getUiCallback().onProductDetailsFailure();

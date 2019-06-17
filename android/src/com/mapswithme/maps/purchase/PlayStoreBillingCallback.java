@@ -13,7 +13,7 @@ public interface PlayStoreBillingCallback
   void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPurchaseSuccessful(@NonNull List<Purchase> purchases);
   void onPurchaseFailure(@BillingClient.BillingResponse int error);
-  void onPurchaseDetailsFailure();
+  void onProductDetailsFailure();
   void onStoreConnectionFailed();
   void onPurchasesLoaded(@NonNull List<Purchase> purchases);
   void onConsumptionSuccess();

@@ -11,6 +11,8 @@ public abstract class AbstractProductDetailsLoadingCallback implements PlayStore
 {
   public abstract void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
 
+  public abstract void onProductDetailsFailure();
+
   @Override
   public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
   {
@@ -19,12 +21,6 @@ public abstract class AbstractProductDetailsLoadingCallback implements PlayStore
 
   @Override
   public void onPurchaseFailure(int error)
-  {
-    // Do nothing.
-  }
-
-  @Override
-  public void onPurchaseDetailsFailure()
   {
     // Do nothing.
   }

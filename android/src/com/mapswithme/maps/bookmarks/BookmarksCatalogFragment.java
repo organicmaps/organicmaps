@@ -387,5 +387,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       LOGGER.i(TAG, "Product details for web catalog loaded: " + details);
       loadCatalog(PurchaseUtils.toProductDetailsBundle(details));
     }
+
+    @Override
+    public void onProductDetailsFailure()
+    {
+      LOGGER.e(TAG, "Failed to load product details for web catalog");
+      loadCatalog(null);
+    }
   }
 }

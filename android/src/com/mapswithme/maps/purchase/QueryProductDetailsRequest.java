@@ -44,7 +44,7 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
     {
       LOGGER.w(TAG, "Unsuccessful request");
       if (getCallback() != null)
-        getCallback().onPurchaseDetailsFailure();
+        getCallback().onProductDetailsFailure();
       return;
     }
 
@@ -52,7 +52,7 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
     {
       LOGGER.w(TAG, "Purchase details not found");
       if (getCallback() != null)
-        getCallback().onPurchaseDetailsFailure();
+        getCallback().onProductDetailsFailure();
       return;
     }
 

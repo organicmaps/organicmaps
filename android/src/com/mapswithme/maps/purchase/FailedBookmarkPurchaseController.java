@@ -149,7 +149,7 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
     }
 
     @Override
-    public void onPurchaseDetailsFailure()
+    public void onProductDetailsFailure()
     {
       // Do nothing by default.
     }
