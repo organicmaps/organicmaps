@@ -362,7 +362,7 @@ void FromString(std::string const & str, Restriction::Type & type)
   }
 
   CHECK(false,
-        ("Invalid line:", str, "expected:", kNo, "or", kOnly, "or", kNoUTurn, "or", kOnlyUTurnrouting));
+        ("Invalid line:", str, "expected:", kNo, "or", kOnly, "or", kNoUTurn, "or", kOnlyUTurn));
   UNREACHABLE();
 }
 
