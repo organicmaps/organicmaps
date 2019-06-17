@@ -19,8 +19,9 @@ namespace generator
 {
 namespace streets
 {
-StreetsBuilder::StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter)
-    : m_regionInfoGetter{regionInfoGetter}
+StreetsBuilder::StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter,
+                               size_t threadsCount)
+  : m_regionInfoGetter{regionInfoGetter}, m_threadsCount{threadsCount}
 { }
 
 void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
@@ -28,7 +29,7 @@ void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
   auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) {
     AddStreet(fb);
   };
-  ForEachFromDatRawFormat(pathInStreetsTmpMwm, transform);
+  ForEachParallelFromDatRawFormat(m_threadsCount, pathInStreetsTmpMwm, transform);
 }
 
 void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm)
@@ -38,7 +39,7 @@ void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm
     if (!streetName.empty())
       AddStreetBinding(std::move(streetName), fb);
   };
-  ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, transform);
+  ForEachParallelFromDatRawFormat(m_threadsCount, pathInGeoObjectsTmpMwm, transform);
 }
 
 void StreetsBuilder::SaveStreetsKv(std::ostream & streamStreetsKv)
@@ -84,6 +85,8 @@ void StreetsBuilder::AddStreetHighway(FeatureBuilder & fb)
   };
   StreetRegionsTracing regionsTracing(fb.GetOuterGeometry(), streetRegionInfoGetter);
 
+  std::lock_guard<std::mutex> lock{m_updateMutex};
+
   auto && pathSegments = regionsTracing.StealPathSegments();
   for (auto & segment : pathSegments)
   {
@@ -100,6 +103,8 @@ void StreetsBuilder::AddStreetArea(FeatureBuilder & fb)
   if (!region)
     return;
 
+  std::lock_guard<std::mutex> lock{m_updateMutex};
+
   auto & street = InsertStreet(region->first, fb.GetName());
   auto osmId = fb.GetMostGenericOsmId();
   street.AddHighwayArea(osmId, fb.GetOuterGeometry());
@@ -111,6 +116,8 @@ void StreetsBuilder::AddStreetPoint(FeatureBuilder & fb)
   if (!region)
     return;
 
+  std::lock_guard<std::mutex> lock{m_updateMutex};
+
   auto osmId = fb.GetMostGenericOsmId();
   auto & street = InsertStreet(region->first, fb.GetName());
   street.SetPin({fb.GetKeyPoint(), osmId});
@@ -121,6 +128,8 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
   auto const region = FindStreetRegionOwner(fb.GetKeyPoint());
   if (!region)
     return;
+
+  std::lock_guard<std::mutex> lock{m_updateMutex};
 
   auto & street = InsertStreet(region->first, std::move(streetName));
   street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());

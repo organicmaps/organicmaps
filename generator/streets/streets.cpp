@@ -16,7 +16,8 @@ namespace streets
 void GenerateStreets(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv,
                      std::string const & pathInStreetsTmpMwm,
                      std::string const & pathInGeoObjectsTmpMwm,
-                     std::string const & pathOutStreetsKv, bool verbose)
+                     std::string const & pathOutStreetsKv,
+                     bool verbose, size_t threadsCount)
 {
   LOG(LINFO, ("Start generating streets..."));
   auto timer = base::Timer();
@@ -27,7 +28,7 @@ void GenerateStreets(std::string const & pathInRegionsIndex, std::string const &
   regions::RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
   LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
 
-  StreetsBuilder streetsBuilder{regionInfoGetter};
+  StreetsBuilder streetsBuilder{regionInfoGetter, threadsCount};
 
   streetsBuilder.AssembleStreets(pathInStreetsTmpMwm);
   LOG(LINFO, ("Streets were built."));

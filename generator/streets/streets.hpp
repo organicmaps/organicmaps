@@ -12,6 +12,7 @@ namespace streets
 void GenerateStreets(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv,
                      std::string const & pathInStreetsTmpMwm,
                      std::string const & pathInGeoObjectsTmpMwm,
-                     std::string const & pathOutStreetsKv, bool verbose);
+                     std::string const & pathOutStreetsKv,
+                     bool verbose, size_t threadsCount);
 }  // namespace streets
 }  // namespace generator
