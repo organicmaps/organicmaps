@@ -147,3 +147,50 @@ UNIT_TEST(MultilangString_HasString)
   TEST(!s.HasString(1), ());
   TEST(!s.HasString(32), ());
 }
+
+UNIT_TEST(MultilangString_ForEachLanguage)
+{
+  using Translations = vector<pair<string, string>>;
+  StringUtf8Multilang s;
+  Translations const scotlandTranslations = {
+      {"be", "Шатландыя"},  {"cs", "Skotsko"},   {"cy", "Yr Alban"},  {"da", "Skotland"},
+      {"de", "Schottland"}, {"eo", "Skotlando"}, {"es", "Escocia"},   {"eu", "Eskozia"},
+      {"fi", "Skotlanti"},  {"fr", "Écosse"},    {"ga", "Albain"},    {"gd", "Alba"},
+      {"hr", "Škotska"},    {"ia", "Scotia"},    {"io", "Skotia"},    {"ja", "スコットランド"},
+      {"ku", "Skotland"},   {"lfn", "Scotland"}, {"nl", "Schotland"}, {"pl", "Szkocja"},
+      {"ru", "Шотландия"},  {"sco", "Scotland"}, {"sk", "Škótsko"},   {"sr", "Шкотска"},
+      {"sv", "Skottland"},  {"tok", "Sukosi"},   {"tzl", "Escot"},    {"uk", "Шотландія"},
+      {"vo", "Skotän"},     {"zh", "苏格兰"}};
+
+  Translations const usedTranslations = {
+      {"be", "Шатландыя"}, {"cs", "Skotsko"}, {"eu", "Eskozia"}, {"zh", "苏格兰"}};
+
+  for (auto const & langAndTranslation : scotlandTranslations)
+  {
+    s.AddString(langAndTranslation.first, langAndTranslation.second);
+  }
+
+  set<string> testAccumulator;
+  vector<string> const preferredLanguages = {"cs", "eu", "be", "zh"};
+  vector<string> const preferredTranslations = {"Skotsko", "Eskozia", "Шатландыя", "苏格兰"};
+
+  auto const fn = [&testAccumulator, &usedTranslations](int8_t code, string const & name) {
+    testAccumulator.insert(name);
+    if (usedTranslations.size() > testAccumulator.size())
+      return base::ControlFlow::Continue;
+    return base::ControlFlow::Break;
+  };
+
+  TEST(s.ForEachLanguage(preferredLanguages, fn), ());
+  TEST_EQUAL(testAccumulator.size(), preferredTranslations.size(), ());
+
+  for (string const & translation : preferredTranslations)
+  {
+    TEST(testAccumulator.find(translation) != testAccumulator.end(), ());
+  }
+
+  testAccumulator.clear();
+  vector<string> const corruptedLanguages = {"Матерный", "Детский", "BirdLanguage"};
+  TEST(!s.ForEachLanguage(corruptedLanguages, fn), ());
+  TEST_EQUAL(testAccumulator.size(), 0, ());
+}

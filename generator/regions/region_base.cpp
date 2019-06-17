@@ -4,11 +4,22 @@
 
 #include "base/assert.hpp"
 #include "base/control_flow.hpp"
+#include "base/string_utils.hpp"
 
 namespace generator
 {
 namespace regions
 {
+namespace
+{
+// Languages in order for better transliterations for Russian. This is kind
+// of workaround before real made translations.
+const std::vector<std::string> kRuPreferredLanguagesForTransliterate = {
+    "en" /*English*/,
+    "ru" /*Русский*/,
+};
+}  // namespace
+
 std::string RegionWithName::GetName(int8_t lang) const
 {
   std::string s;
@@ -19,12 +30,16 @@ std::string RegionWithName::GetName(int8_t lang) const
 std::string RegionWithName::GetEnglishOrTransliteratedName() const
 {
   std::string s = GetName(StringUtf8Multilang::kEnglishCode);
-  if (!s.empty())
+  if (!s.empty() && strings::IsASCIIString(s))
+    return s;
+
+  s = GetName(StringUtf8Multilang::kInternationalCode);
+  if (!s.empty() && strings::IsASCIIString(s))
     return s;
 
   auto const fn = [&s](int8_t code, std::string const & name) {
     if (code != StringUtf8Multilang::kDefaultCode &&
-        Transliteration::Instance().Transliterate(name, code, s))
+        Transliteration::Instance().Transliterate(name, code, s) && strings::IsASCIIString(s))
     {
       return base::ControlFlow::Break;
     }
@@ -32,33 +47,20 @@ std::string RegionWithName::GetEnglishOrTransliteratedName() const
     return base::ControlFlow::Continue;
   };
 
-  m_name.ForEach(fn);
+  if (!m_name.ForEachLanguage(kRuPreferredLanguagesForTransliterate, fn))
+    m_name.ForEach(fn);
+
   return s;
 }
 
-StringUtf8Multilang const & RegionWithName::GetMultilangName() const
-{
-  return m_name;
-}
+StringUtf8Multilang const & RegionWithName::GetMultilangName() const { return m_name; }
 
-void RegionWithName::SetMultilangName(StringUtf8Multilang const & name)
-{
-  m_name = name;
-}
+void RegionWithName::SetMultilangName(StringUtf8Multilang const & name) { m_name = name; }
 
-base::GeoObjectId RegionWithData::GetId() const
-{
-  return m_regionData.GetOsmId();
-}
+base::GeoObjectId RegionWithData::GetId() const { return m_regionData.GetOsmId(); }
 
-bool RegionWithData::HasIsoCode() const
-{
-  return m_regionData.HasIsoCodeAlpha2();
-}
+bool RegionWithData::HasIsoCode() const { return m_regionData.HasIsoCodeAlpha2(); }
 
-std::string RegionWithData::GetIsoCode() const
-{
-  return m_regionData.GetIsoCodeAlpha2();
-}
+std::string RegionWithData::GetIsoCode() const { return m_regionData.GetIsoCodeAlpha2(); }
 }  // namespace regions
 }  // namespace generator

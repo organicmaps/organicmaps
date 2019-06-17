@@ -73,6 +73,14 @@ public:
     char const * m_transliteratorId;
   };
 
+  struct Position
+  {
+    size_t m_begin = 0;
+    size_t m_length = 0;
+  };
+
+  using TranslationPositions = std::map<int8_t, Position>;
+
   static int8_t constexpr kUnsupportedLanguageCode = -1;
   static int8_t constexpr kDefaultCode = 0;
   static int8_t constexpr kEnglishCode = 1;
@@ -129,6 +137,33 @@ public:
     }
   }
 
+  /// Used for ordered languages, if you want to do something with priority of that order.
+  /// \param languages ordered languages names.
+  /// \param fn function or functor, using base::ControlFlow as return value.
+  /// \return true if ForEachLanguage was stopped by base::ControlFlow::Break, false otherwise.
+  template <typename Fn>
+  bool ForEachLanguage(std::vector<std::string> const & languages, Fn && fn) const
+  {
+    auto const & translationPositions = GenerateTranslationPositions();
+
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+    for (std::string const & language : languages)
+    {
+      int8_t const languageCode = GetLangIndex(language);
+      if (GetLangByCode(languageCode) != kReservedLang)
+      {
+        auto const & translationPositionsIt = translationPositions.find(languageCode);
+        if (translationPositionsIt != translationPositions.end() &&
+            wrapper(languageCode, GetTranslation(translationPositionsIt->second)) ==
+                base::ControlFlow::Break)
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
   bool GetString(int8_t lang, std::string & utf8s) const;
   bool GetString(std::string const & lang, std::string & utf8s) const
   {
@@ -157,6 +192,9 @@ public:
   }
 
 private:
+  TranslationPositions GenerateTranslationPositions() const;
+  std::string GetTranslation(Position const & position) const;
+
   size_t GetNextIndex(size_t i) const;
 
   std::string m_s;
