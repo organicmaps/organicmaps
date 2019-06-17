@@ -1,7 +1,10 @@
 #pragma once
 
-#include "routing/routing_quality/utils.hpp"
+#include "routing/routes_builder/routes_builder.hpp"
+
 #include "routing/vehicle_mask.hpp"
+
+#include "routing/base/followed_polyline.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -9,29 +12,31 @@
 
 namespace routing_quality
 {
-struct RouteParams;
+using Params = routing::routes_builder::RoutesBuilder::Params;
 
-struct ReferenceRoute
-{
-  /// \brief Waypoints which the route passes through.
-  Coordinates m_waypoints;
-  /// \brief Value in range (0.0; 1.0] which indicates how desirable the route is.
-  double m_factor = 1.0;
-};
+using Waypoints = std::vector<ms::LatLon>;
 
 /// \brief There can be more than one reference route.
-using ReferenceRoutes = std::vector<ReferenceRoute>;
+using ReferenceRoutes = std::vector<Waypoints>;
 
+// Value in range: [0, 1]
 using Similarity = double;
+
+namespace metrics
+{
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
+                                             Waypoints const & waypoints);
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & polyline,
+                                             ReferenceRoutes && candidates);
+}  // namespace metrics
 
 /// \brief Checks how many reference waypoints the route contains.
 /// \returns normalized value in range [0.0; 1.0].
-Similarity CheckWaypoints(RouteParams && params, ReferenceRoutes && candidates);
+Similarity CheckWaypoints(Params const & params, ReferenceRoutes && referenceRoutes);
 
 /// \returns true if route from |start| to |finish| fully conforms one of |candidates|
 /// and false otherwise.
-bool CheckRoute(routing::VehicleType type, ms::LatLon const & start, ms::LatLon const & finish,
-                std::vector<Coordinates> && referenceTracks);
+bool CheckRoute(Params const & params, ReferenceRoutes && referenceRoutes);
 bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
-                   std::vector<Coordinates> && referenceTracks);
+                   ReferenceRoutes && referenceRoutes);
 }  // namespace routing_quality

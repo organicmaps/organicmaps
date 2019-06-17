@@ -2,7 +2,6 @@
 
 #include "routing/vehicle_mask.hpp"
 
-#include "routing/routing_quality/utils.hpp"
 #include "routing/routing_quality/waypoints.hpp"
 
 #include <utility>

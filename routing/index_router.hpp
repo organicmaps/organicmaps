@@ -92,6 +92,8 @@ public:
                                   bool adjustToPrevRoute, RouterDelegate const & delegate,
                                   Route & route) override;
 
+  VehicleType GetVehicleType() const { return m_vehicleType; }
+
 private:
   RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints,
                                     m2::PointD const & startDirection,

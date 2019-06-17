@@ -1,21 +1,20 @@
-project(routing_quality_tests)
+project(routes_builder_tool)
+
+include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(
   SRC
-  bigger_roads_tests.cpp
-  ferry_tests.cpp
-  is_built_tests.cpp
-  leaps_postprocessing_tests.cpp
-  passby_roads_tests.cpp
-  waypoints_tests.cpp
+  routes_builder_tool.cpp
+  utils.cpp
+  utils.hpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
   routes_builder
-  routing_quality
+  routing_api
   routing
   traffic
   routing_common
@@ -33,6 +32,7 @@ omim_link_libraries(
   oauthcpp
   protobuf
   stats_client
+  gflags
   ${LIBZ}
 )
 

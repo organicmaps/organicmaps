@@ -96,6 +96,13 @@ using ::base::NUM_LOG_LEVELS;
       ::base::LogMessage(level, base::SrcPoint(), ::base::Message msg); \
   } while (false)
 
+// Provides logging despite of |g_LogLevel|.
+#define LOG_FORCE(level, msg)                                         \
+  do                                                                  \
+  {                                                                   \
+    ::base::LogMessage(level, SRC(), ::base::Message msg);            \
+  } while (false)                                                     \
+
 // Conditional log. Logs @msg with level @level in case when @X returns false.
 #define CLOG(level, X, msg)                                     \
   do                                                            \

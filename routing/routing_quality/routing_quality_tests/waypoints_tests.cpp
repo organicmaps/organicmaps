@@ -2,7 +2,6 @@
 
 #include "routing/vehicle_mask.hpp"
 
-#include "routing/routing_quality/utils.hpp"
 #include "routing/routing_quality/waypoints.hpp"
 
 #include <utility>
@@ -28,19 +27,13 @@ UNIT_TEST(RoutingQuality_CompareSmoke)
 UNIT_TEST(RoutingQuality_Sokol2Mayakovskaya)
 {
   // From Sokol to Mayakovskaya through Leningradsky Avenue but not through its alternate.
-  RouteParams params;
-  params.m_waypoints = {{55.80432, 37.51603},
-                        {55.77019, 37.59558}};
+  Params params(VehicleType::Car, {55.80432, 37.51603} /* start */, {55.77019, 37.59558} /* finish */);
 
-  ReferenceRoutes candidates;
-  ReferenceRoute first;
   // All points lie on the alternate so the result should be 0.
-  first.m_waypoints = {{55.79599, 37.54114},
-                       {55.78142, 37.57364},
-                       {55.77863, 37.57989}};
-  first.m_factor = 1.0;
-  candidates.emplace_back(move(first));
+  ReferenceRoutes waypoints = {{
+    {55.79599, 37.54114}, {55.78142, 37.57364}, {55.77863, 37.57989}
+  }};
 
-  TEST_EQUAL(CheckWaypoints(move(params), move(candidates)), 0.0, ());
+  TEST_EQUAL(CheckWaypoints(params, move(waypoints)), 0.0, ());
 }
 }  // namespace

@@ -4,8 +4,9 @@ include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(
   SRC
-  parse_input_params.hpp
   routing_quality_tool.cpp
+  utils.cpp
+  utils.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
@@ -13,8 +14,11 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   routing_quality
+  routing_api
+  routes_builder
   generator
   routing
+  platform
   traffic
   routing_common
   transit
@@ -23,6 +27,7 @@ omim_link_libraries(
   platform
   mwm_diff
   bsdiff
+  kml
   geometry
   coding
   base

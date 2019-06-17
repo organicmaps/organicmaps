@@ -161,6 +161,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(routing_quality)
+  add_subdirectory(routes_builder)
 endif()
 
 omim_add_test_subdirectory(routing_benchmarks)

@@ -1,82 +1,242 @@
-#include "routing/routing_quality/routing_quality_tool/parse_input_params.hpp"
+#include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
-#include "routing/routing_quality/mapbox/api.hpp"
-#include "routing/routing_quality/utils.hpp"
+#include "routing/routing_quality/api/api.hpp"
+
 #include "routing/routing_quality/waypoints.hpp"
 
-#include "base/assert.hpp"
+#include "routing/routes_builder/routes_builder.hpp"
+
+#include "platform/platform.hpp"
+
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include <string>
+#include <algorithm>
+#include <exception>
+#include <limits>
+#include <utility>
+#include <vector>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
-DEFINE_string(cmd, "", "command:\n"
-                       "generate - generate route waypoints for testing.");
+DEFINE_string(mapsme_old_results, "", "Path to directory with previous mapsme router results.");
+DEFINE_string(mapsme_results, "", "Path to directory with mapsme router results.");
+DEFINE_string(api_results, "", "Path to directory with api router results.");
 
-DEFINE_string(routeParamsFile, "", "File contains two or more route points listed as latitude and longitude "
-                                   "separated by comma. Each coordinate should be separated by semicolon. "
-                                   "Last symbol is a numeric value of routing::VehicleType enum. "
-                                   "At least two points and vehicle type are required. "
-                                   "All points and vehicle type will be serialized into routing_quality::RouteParams.");
+DEFINE_string(save_result, "", "The directory where results of tool will be saved.");
 
-DEFINE_string(routeWaypoints, "", "Two or more route points listed as latitude and longitude "
-                                  "separated by comma. Each coordinate should be separated by semicolon.");
+DEFINE_double(kml_percent, 0.0, "The percent of routes for which kml file will be generated."
+                                "With kml files you can make screenshots with desktop app of MAPS.ME");
 
-DEFINE_int32(vehicleType, 2, "Numeric value of routing::VehicleType enum.");
-
-DEFINE_string(mapboxAccessToken, "", "Access token for mapbox api.");
-
-DEFINE_bool(showHelp, false, "Show help on all flags.");
-
-using namespace std;
-using namespace routing_quality;
-using namespace mapbox;
-
-int main(int argc, char ** argv)
+namespace
 {
-  google::SetUsageMessage("The tool is used to generate points by mapbox route engine and then "
-                          "use these points as referenced waypoints. The usage could be as following: "
-                          "-cmd=generate "
-                          "-routeWaypoints=55.8840156,37.4403484;55.4173592,37.895966 "
-                          "-mapboxAccessToken=accessToken. "
-                          "You can use the access token from confluence or just get your own. "
-                          "The tool will generate the representation of waypoints which you can use directly in code "
-                          "as a vector's initializer list.");
+static std::string const kPythonDistribution = "show_distribution.py";
+double constexpr kBadETADiffPercent = std::numeric_limits<double>::max();
+} // namespace
 
-  if (argc == 1 || FLAGS_showHelp)
+using namespace routing;
+using namespace routes_builder;
+using namespace routing_quality;
+using namespace routing_quality_tool;
+
+void PrintResults(std::vector<Result> && results, RoutesSaver & routesSaver)
+{
+  double sumSimilarity = 0.0;
+  double sumETADiffPercent = 0.0;
+  double goodETANumber = 0.0;
+  for (auto const & result : results)
   {
-    google::ShowUsageWithFlags(argv[0]);
-    exit(0);
+    sumSimilarity += result.m_similarity;
+    if (result.m_etaDiffPercent != kBadETADiffPercent)
+    {
+      sumETADiffPercent += result.m_etaDiffPercent;
+      goodETANumber += 1;
+    }
   }
 
-  google::ParseCommandLineFlags(&argc, &argv, true /* remove_flags */);
+  LOG(LINFO, ("Matched routes:", results.size()));
+  LOG(LINFO, ("Average similarity:", sumSimilarity / results.size()));
+  LOG(LINFO, ("Average eta difference by fullmathed routes:", sumETADiffPercent / goodETANumber, "%"));
 
-  auto const & cmd = FLAGS_cmd;
-  CHECK(!cmd.empty(), ("cmd parameter is empty"));
+  CreatePythonScriptForDistribution(FLAGS_save_result, kPythonDistribution, results);
 
-  if (cmd != "generate")
+  SimilarityCounter similarityCounter(routesSaver);
+
+  std::sort(results.begin(), results.end());
+  for (auto const & result : results)
+    similarityCounter.Push(result);
+
+  similarityCounter.CreateKmlFiles(FLAGS_kml_percent, results);
+}
+
+bool IsMapsmeVsApi()
+{
+  return !FLAGS_mapsme_results.empty() && !FLAGS_api_results.empty();
+}
+
+bool IsMapsmeVsMapsme()
+{
+  return !FLAGS_mapsme_results.empty() && !FLAGS_mapsme_old_results.empty();
+}
+
+void CheckDirExistence(std::string const & dir)
+{
+  CHECK(Platform::IsDirectory(dir), ("Can not find directory:", dir));
+}
+
+template <typename AnotherResult>
+void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeResults,
+                   std::vector<std::pair<AnotherResult, std::string>> && anotherResults)
+{
+  ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi
+                                        : ComparisonType::MapsmeVsMapsme;
+  RoutesSaver routesSaver(FLAGS_save_result, type);
+  std::vector<Result> results;
+  size_t apiErrors = 0;
+
+  for (size_t i = 0; i < mapsmeResults.size(); ++i)
   {
-    CHECK(false, ("Incorrect command", cmd));
-    return 1;
+    auto const & mapsmeResult = mapsmeResults[i].first;
+    auto const & mapsmeFile = mapsmeResults[i].second;
+
+    std::pair<AnotherResult, std::string> anotherResultPair;
+    if (!FindAnotherResponse(mapsmeResult, anotherResults, anotherResultPair))
+    {
+      LOG(LDEBUG, ("Can not find pair for:", i));
+      continue;
+    }
+
+    auto const & anotherResult = anotherResultPair.first;
+    auto const & anotherFile = anotherResultPair.second;
+
+    auto const & startLatLon = MercatorBounds::ToLatLon(anotherResult.GetStartPoint());
+    auto const & finishLatLon = MercatorBounds::ToLatLon(anotherResult.GetFinishPoint());
+
+    if (!mapsmeResult.IsCodeOK() && anotherResult.IsCodeOK())
+    {
+      routesSaver.PushError(mapsmeResult.m_code, startLatLon, finishLatLon);
+      continue;
+    }
+
+    if (anotherResult.GetRoutes().empty())
+    {
+      routesSaver.PushRivalError(startLatLon, finishLatLon);
+      ++apiErrors;
+      continue;
+    }
+
+    auto maxSimilarity = std::numeric_limits<Similarity>::min();
+    double etaDiff = kBadETADiffPercent;
+    auto const & mapsmeRoute = mapsmeResult.GetRoutes().back();
+    for (auto const & route : anotherResult.GetRoutes())
+    {
+      auto const similarity =
+          metrics::CompareByNumberOfMatchedWaypoints(mapsmeRoute.m_followedPolyline,
+                                                     route.GetWaypoints());
+
+      if (maxSimilarity < similarity)
+      {
+        maxSimilarity = similarity;
+        if (maxSimilarity == 1.0)
+        {
+          etaDiff = 100.0 * std::abs(route.GetETA() - mapsmeRoute.GetETA()) /
+                            std::max(route.GetETA(), mapsmeRoute.GetETA());
+        }
+      }
+    }
+
+    results.emplace_back(mapsmeFile, anotherFile, startLatLon, finishLatLon, maxSimilarity, etaDiff);
   }
 
-  CHECK(!FLAGS_mapboxAccessToken.empty(), ());
+  std::string const anotherSourceName = IsMapsmeVsMapsme() ? "old mapsme," : "api,";
+  LOG(LINFO, (apiErrors, "routes can not build via", anotherSourceName, "but mapsme do built them."));
 
-  RouteParams params;
-  if (FLAGS_routeParamsFile.empty())
+  PrintResults(std::move(results), routesSaver);
+}
+
+int Main(int argc, char ** argv)
+{
+  google::SetUsageMessage("This tool takes two paths to directory with routes, that were dumped"
+                          "by routes_builder_tool and calculate some metrics.");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
+  CHECK(IsMapsmeVsApi() || IsMapsmeVsMapsme(),
+        ("\n\n"
+         "\t--mapsme_results and --api_results are required\n"
+         "\tor\n"
+         "\t--mapsme_results and --mapsme_old_results are required",
+         "\n\tFLAGS_mapsme_results.empty():", FLAGS_mapsme_results.empty(),
+         "\n\tFLAGS_api_results.empty():", FLAGS_api_results.empty(),
+         "\n\tFLAGS_mapsme_old_results.empty():", FLAGS_mapsme_old_results.empty(),
+         "\n\nType --help for usage."));
+
+  CHECK(!FLAGS_save_result.empty(),
+        ("\n\n\t--save_result is required. Tool will save results there.",
+         "\n\nType --help for usage."));
+
+  if (Platform::IsFileExistsByFullPath(FLAGS_save_result))
+    CheckDirExistence(FLAGS_save_result);
+  else
+    CHECK_EQUAL(Platform::MkDir(FLAGS_save_result), Platform::EError::ERR_OK,());
+
+  CheckDirExistence(FLAGS_mapsme_results);
+
+  if (IsMapsmeVsApi())
+    CheckDirExistence(FLAGS_api_results);
+  else if (IsMapsmeVsMapsme())
+    CheckDirExistence(FLAGS_mapsme_old_results);
+  else
+    UNREACHABLE();
+
+  CHECK(0.0 <= FLAGS_kml_percent && FLAGS_kml_percent <= 100.0,
+        ("--kml_percent should be in interval: [0.0, 100.0]."));
+
+  LOG(LINFO, ("Start loading mapsme results."));
+  auto mapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_results);
+  LOG(LINFO, ("Receive:", mapsmeResults.size(), "routes from --mapsme_results."));
+
+  if (IsMapsmeVsApi())
   {
-    CHECK(!FLAGS_routeWaypoints.empty(), ("At least two waypoints are necessary"));
-    params = SerializeRouteParamsFromString(FLAGS_routeWaypoints, FLAGS_vehicleType);
+    LOG(LINFO, ("Start loading api results."));
+    auto apiResults = LoadResults<api::Response>(FLAGS_api_results);
+    LOG(LINFO, ("Receive:", apiResults.size(), "routes from --api_results."));
+    RunComparison(std::move(mapsmeResults), std::move(apiResults));
+  }
+  else if (IsMapsmeVsMapsme())
+  {
+    LOG(LINFO, ("Start loading another mapsme results."));
+    auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
+    LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
+    RunComparison(std::move(mapsmeResults), std::move(oldMapsmeResults));
   }
   else
   {
-    params = SerializeRouteParamsFromFile(FLAGS_routeParamsFile);
+    UNREACHABLE();
   }
 
-  Api const api(FLAGS_mapboxAccessToken);
-  auto const generatedWaypoints = Api::GenerateWaypointsBasedOn(api.MakeDirectionsRequest(params));
+  return 0;
+}
 
-  LOG(LINFO, ("Result waypoints", generatedWaypoints));
+int main(int argc, char ** argv)
+{
+  try
+  {
+    return Main(argc, argv);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Core exception:", e.Msg()));
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LCRITICAL, ("Std exception:", e.what()));
+  }
+  catch (...)
+  {
+    LOG(LCRITICAL, ("Unknown exception."));
+  }
+
+  LOG(LINFO, ("Done."));
+
   return 0;
 }
