@@ -39,6 +39,8 @@ using KeyValue = std::pair<uint64_t, std::shared_ptr<JsonValue>>;
 class KeyValueStorage
 {
 public:
+  using JsonString = std::unique_ptr<char, JSONFreeDeleter>;
+
   explicit KeyValueStorage(std::string const & kvPath,
                            std::function<bool(KeyValue const &)> const & pred = DefaultPred);
 
@@ -48,6 +50,7 @@ public:
   KeyValueStorage(KeyValueStorage const &) = delete;
   KeyValueStorage & operator=(KeyValueStorage const &) = delete;
 
+  void Insert(uint64_t key, JsonString && valueJson, base::JSONPtr && value);
   std::shared_ptr<JsonValue> Find(uint64_t key) const;
   size_t Size() const;
 
@@ -55,6 +58,7 @@ private:
   static bool DefaultPred(KeyValue const &) { return true; }
   static bool ParseKeyValueLine(std::string const & line, KeyValue & res, std::streamoff lineNumber);
 
+  std::fstream m_storage;
   std::unordered_map<uint64_t, std::shared_ptr<JsonValue>> m_values;
 };
 }  // namespace generator

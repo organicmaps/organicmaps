@@ -9,14 +9,14 @@ namespace generator
 {
 KeyValueStorage::KeyValueStorage(std::string const & path,
                                  std::function<bool(KeyValue const &)> const & pred)
+  : m_storage{path, std::ios_base::in | std::ios_base::out | std::ios_base::app}
 {
-  std::fstream stream{path};
-  if (!stream)
+  if (!m_storage)
     MYTHROW(Reader::OpenException, ("Failed to open file", path));
 
   std::string line;
   std::streamoff lineNumber = 0;
-  while (std::getline(stream, line))
+  while (std::getline(m_storage, line))
   {
     ++lineNumber;
 
@@ -26,6 +26,8 @@ KeyValueStorage::KeyValueStorage(std::string const & path,
 
     m_values.insert(kv);
   }
+
+  m_storage.clear();
 }
 
 // static
@@ -56,6 +58,15 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, KeyValue & res
 
   res = std::make_pair(static_cast<uint64_t>(id), std::make_shared<JsonValue>(std::move(json)));
   return true;
+}
+
+void KeyValueStorage::Insert(uint64_t key, JsonString && valueJson, base::JSONPtr && value)
+{
+  auto const emplace = m_values.emplace(key, std::make_shared<JsonValue>(std::move(value)));
+  if (!emplace.second) // it is ok for OSM relation with several outer borders
+    return;
+
+  m_storage << static_cast<int64_t>(key) << " " << valueJson.get() << "\n";
 }
 
 std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const

@@ -28,7 +28,7 @@ class GeoObjectInfoGetter
 public:
   using IndexReader = ReaderPtr<Reader>;
 
-  GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index, KeyValueStorage && kvStorage);
+  GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index, KeyValueStorage const & kvStorage);
 
   template <typename Predicate>
   std::shared_ptr<JsonValue> Find(m2::PointD const & point, Predicate && pred) const;
@@ -37,7 +37,7 @@ private:
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
 
   indexer::GeoObjectsIndex<IndexReader> m_index;
-  KeyValueStorage m_storage;
+  KeyValueStorage const & m_storage;
 };
 
 template <typename Predicate>

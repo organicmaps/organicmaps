@@ -7,8 +7,8 @@ namespace generator
 namespace geo_objects
 {
 GeoObjectInfoGetter::GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index,
-                                         KeyValueStorage && kvStorage)
-    : m_index{std::move(index)}, m_storage{std::move(kvStorage)}
+                                         KeyValueStorage const & kvStorage)
+    : m_index{std::move(index)}, m_storage{kvStorage}
 { }
 
 std::vector<base::GeoObjectId> GeoObjectInfoGetter::SearchObjectsInIndex(m2::PointD const & point) const
