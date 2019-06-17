@@ -13,6 +13,7 @@
 #include "base/geo_object_id.hpp"
 
 #include <memory>
+#include <mutex>
 #include <ostream>
 #include <stdint.h>
 #include <string>
@@ -27,7 +28,8 @@ namespace streets
 class StreetsBuilder
 {
 public:
-  explicit StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter);
+  explicit StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter,
+                          size_t threadsCount);
 
   void AssembleStreets(std::string const & pathInStreetsTmpMwm);
   void AssembleBindings(std::string const & pathInGeoObjectsTmpMwm);
@@ -60,6 +62,8 @@ private:
   std::unordered_map<uint64_t, RegionStreets> m_regions;
   regions::RegionInfoGetter const & m_regionInfoGetter;
   uint64_t m_osmSurrogateCounter{0};
+  size_t m_threadsCount;
+  std::mutex m_updateMutex;
 };
 }  // namespace streets
 }  // namespace generator

@@ -414,7 +414,8 @@ int GeneratorToolMain(int argc, char ** argv)
   {
     streets::GenerateStreets(FLAGS_regions_index, FLAGS_regions_key_value,
                              FLAGS_streets_features, FLAGS_geo_objects_features,
-                             FLAGS_streets_key_value, FLAGS_verbose);
+                             FLAGS_streets_key_value,
+                             FLAGS_verbose, threadsCount);
   }
 
   if (!FLAGS_geo_objects_key_value.empty())
