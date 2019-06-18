@@ -42,6 +42,16 @@
   return [result copy];
 }
 
++ (NSArray<NSString *> *)bookmarkInappIds
+{
+  auto pidVec = std::vector<std::string>(BOOKMARK_INAPP_IDS);
+  NSMutableArray *result = [NSMutableArray array];
+  for (auto const & s : pidVec)
+    [result addObject:@(s.c_str())];
+
+  return [result copy];
+}
+
 + (MWMPurchaseManager *)sharedManager
 {
   static MWMPurchaseManager *instance;

@@ -4,6 +4,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^WebViewControllerWillLoadBlock)(BOOL, NSDictionary<NSString *, NSString *> * _Nullable);
+
 @interface WebViewController : MWMViewController <WKNavigationDelegate>
 
 @property (nonatomic) NSURL * _Nullable m_url;
@@ -19,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype _Nullable)initWithAuthURL:(NSURL *)url
                             onSuccessAuth:(MWMStringBlock _Nullable)success
                                 onFailure:(MWMVoidBlock _Nullable)failure;
-- (void)willLoadUrl:(MWMBoolBlock)decisionHandler;
+- (void)willLoadUrl:(WebViewControllerWillLoadBlock)decisionHandler;
 - (BOOL)shouldAddAccessToken;
 - (void)forward;
 - (void)back;

@@ -30,6 +30,7 @@ final class CatalogWebViewController: WebViewController {
   var backButton: UIBarButtonItem!
   var fwdButton: UIBarButtonItem!
   var toolbar = UIToolbar()
+  var billing = InAppPurchase.inAppBilling()
 
   @objc init(_ deeplinkURL: URL? = nil) {
     var catalogUrl = MWMBookmarksManager.shared().catalogFrontendUrl()!
@@ -120,8 +121,10 @@ final class CatalogWebViewController: WebViewController {
     }
   }
 
-  override func willLoadUrl(_ decisionHandler: @escaping (Bool) -> Void) {
-    handlePendingTransactions { decisionHandler($0) }
+  override func willLoadUrl(_ decisionHandler: @escaping (Bool, Dictionary<String, String>?) -> Void) {
+    buildHeaders { [weak self] (headers) in
+      self?.handlePendingTransactions { decisionHandler($0, headers) }
+    }
   }
 
   override func shouldAddAccessToken() -> Bool {
@@ -163,6 +166,30 @@ final class CatalogWebViewController: WebViewController {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
     loadingIndicator.stopAnimating()
+  }
+
+  private func buildHeaders(completion: @escaping ([String : String]?) -> Void) {
+    billing.requestProducts(Set(MWMPurchaseManager.bookmarkInappIds()), completion: { (products, error) in
+      var productsInfo: [String : [String: String]] = [:]
+      if let products = products {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        for product in products {
+          formatter.locale = product.priceLocale
+          let formattedPrice = formatter.string(from: product.price) ?? ""
+          let pd: [String: String] = ["price_string": formattedPrice]
+          productsInfo[product.productId] = pd
+        }
+      }
+      guard let jsonData = try? JSONSerialization.data(withJSONObject: productsInfo, options: []),
+        let jsonString = String(data: jsonData, encoding: .utf8),
+        let encodedString = jsonString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+          completion(nil)
+          return
+      }
+      
+      completion(["X-Mapsme-Bundle-Tiers" : encodedString])
+    })
   }
 
   private func handlePendingTransactions(completion: @escaping (Bool) -> Void) {

@@ -94,7 +94,7 @@
   self.webView.allowsLinkPreview = NO;
 
   __weak __typeof(self) ws = self;
-  [self willLoadUrl:^(BOOL load) {
+  [self willLoadUrl:^(BOOL load, NSDictionary<NSString *, NSString *> *headers) {
     __typeof(self) self = ws;
     if (load) {
       if (self.m_htmlText)
@@ -104,6 +104,10 @@
       else
       {
         auto request = [NSMutableURLRequest requestWithURL:self.m_url];
+        for (NSString *header in headers.allKeys) {
+          [request setValue:headers[header] forHTTPHeaderField:header];
+        }
+
         [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
         if (self.shouldAddAccessToken)
         {
@@ -117,9 +121,9 @@
   }];
 }
 
-- (void)willLoadUrl:(MWMBoolBlock)decisionHandler
+- (void)willLoadUrl:(WebViewControllerWillLoadBlock)decisionHandler
 {
-  decisionHandler(YES);
+  decisionHandler(YES, nil);
 }
 
 - (BOOL)shouldAddAccessToken

@@ -21,4 +21,8 @@ final class InAppPurchase: NSObject {
     let pendingTransaction = BillingPendingTransaction()
     return PendingTransactionsHandler(validation: validation, pendingTransaction: pendingTransaction)
   }
+
+  static func inAppBilling() -> IInAppBilling {
+    return InAppBilling()
+  }
 }
