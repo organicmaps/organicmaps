@@ -2060,22 +2060,23 @@ Java_com_mapswithme_maps_Framework_nativeStartPurchaseTransactionListener(JNIEnv
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasActiveRemoveAdsSubscription(JNIEnv *, jclass)
+Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass, jint type)
 {
   auto const & purchase = frm()->GetPurchase();
   return purchase != nullptr ?
-         static_cast<jboolean>(purchase->IsSubscriptionActive(SubscriptionType::RemoveAds)) :
-         static_cast<jboolean>(false);
+    static_cast<jboolean>(purchase->IsSubscriptionActive(static_cast<SubscriptionType>(type))) :
+    static_cast<jboolean>(false);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetActiveRemoveAdsSubscription(JNIEnv *, jclass,
-                                                                        jboolean isActive)
+Java_com_mapswithme_maps_Framework_nativeSetActiveSubscription(JNIEnv *, jclass, jint type,
+                                                               jboolean isActive)
 {
   auto const & purchase = frm()->GetPurchase();
   if (purchase == nullptr)
     return;
-  purchase->SetSubscriptionEnabled(SubscriptionType::RemoveAds, static_cast<bool>(isActive));
+  purchase->SetSubscriptionEnabled(static_cast<SubscriptionType>(type),
+                                   static_cast<bool>(isActive));
 }
 
 JNIEXPORT jint JNICALL

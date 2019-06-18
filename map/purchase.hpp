@@ -3,13 +3,17 @@
 #include "base/thread_checker.hpp"
 
 #include <atomic>
+#include <cstdint>
 #include <functional>
 #include <string>
 #include <vector>
 
-enum class SubscriptionType
+enum class SubscriptionType : uint8_t
 {
-  RemoveAds
+  RemoveAds = 0,
+  BookmarkCatalog,
+
+  Count
 };
 
 class SubscriptionListener
@@ -65,12 +69,14 @@ private:
                     std::string const & accessToken, bool startTransaction,
                     uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
 
-  struct RemoveAdsSubscriptionData
+  struct SubscriptionData
   {
     std::atomic<bool> m_isActive;
     std::string m_subscriptionId;
+
+    SubscriptionData() : m_isActive(false) {}
   };
-  RemoveAdsSubscriptionData m_removeAdsSubscriptionData;
+  std::map<SubscriptionType, SubscriptionData> m_subscriptionData;
 
   std::vector<SubscriptionListener *> m_listeners;
 

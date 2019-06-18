@@ -60,7 +60,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
                                                          status);
 
       final boolean shouldActivateSubscription = status != ValidationStatus.NOT_VERIFIED;
-      final boolean hasActiveSubscription = Framework.nativeHasActiveRemoveAdsSubscription();
+      final boolean hasActiveSubscription = Framework.nativeHasActiveSubscription(
+        Framework.SUBSCRIPTION_TYPE_REMOVE_ADS);
       if (!hasActiveSubscription && shouldActivateSubscription)
       {
         LOGGER.i(TAG, "Ads removal subscription activated");
@@ -72,7 +73,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
         LOGGER.i(TAG, "Ads removal subscription deactivated");
       }
 
-      Framework.nativeSetActiveRemoveAdsSubscription(shouldActivateSubscription);
+      Framework.nativeSetActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS,
+                                            shouldActivateSubscription);
 
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(shouldActivateSubscription);
@@ -103,10 +105,10 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
       if (TextUtils.isEmpty(purchaseData))
       {
         LOGGER.i(TAG, "Existing purchase data for 'ads removal' not found");
-        if (Framework.nativeHasActiveRemoveAdsSubscription())
+        if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
         {
           LOGGER.i(TAG, "Ads removal subscription deactivated");
-          Framework.nativeSetActiveRemoveAdsSubscription(false);
+          Framework.nativeSetActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS, false);
         }
         return;
       }

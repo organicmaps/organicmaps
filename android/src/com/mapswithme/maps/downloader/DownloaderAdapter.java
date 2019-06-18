@@ -976,7 +976,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     mShowAds = false;
 
-    if (Framework.nativeHasActiveRemoveAdsSubscription())
+    if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
       return;
 
     if (mAdsLoading)

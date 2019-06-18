@@ -104,6 +104,12 @@ public class Framework
   public static final int PURCHASE_VALIDATION_SERVER_ERROR = 2;
   public static final int PURCHASE_VALIDATION_AUTH_ERROR = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ SUBSCRIPTION_TYPE_REMOVE_ADS, SUBSCRIPTION_TYPE_BOOKMARK_CATALOG })
+  public @interface SubscriptionType {}
+  public static final int SUBSCRIPTION_TYPE_REMOVE_ADS = 0;
+  public static final int SUBSCRIPTION_TYPE_BOOKMARK_CATALOG = 1;
+
   @SuppressWarnings("unused")
   public interface MapObjectListener
   {
@@ -499,8 +505,9 @@ public class Framework
   public static native void nativeSetPurchaseValidationListener(@Nullable
     PurchaseValidationListener listener);
 
-  public static native boolean nativeHasActiveRemoveAdsSubscription();
-  public static native void nativeSetActiveRemoveAdsSubscription(boolean isActive);
+  public static native boolean nativeHasActiveSubscription(@SubscriptionType int type);
+  public static native void nativeSetActiveSubscription(@SubscriptionType int type,
+                                                        boolean isActive);
 
   public static native int nativeGetCurrentTipsApi();
 

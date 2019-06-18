@@ -104,4 +104,37 @@ extern "C"
   {
     return env->NewStringUTF(BOOKMARKS_VENDOR);
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionServerId(JNIEnv * env, jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_SERVER_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionVendor(JNIEnv * env, jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_VENDOR);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionYearlyProductId(JNIEnv * env,
+    jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionMonthlyProductId(JNIEnv * env,
+    jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionNotUsedList(JNIEnv * env, jclass)
+  {
+    std::vector<std::string> items = BOOKMARKS_SUBSCRIPTION_NOT_USED_LIST;
+    return jni::ToJavaStringArray(env, items);
+  }
 }

@@ -432,7 +432,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    if (Framework.nativeHasActiveRemoveAdsSubscription())
+    if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
     {
       removePreference(getString(R.string.pref_settings_general), pref);
       return;

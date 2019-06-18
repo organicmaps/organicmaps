@@ -29,23 +29,30 @@ std::string const kReceiptType = "google";
 std::string const kReceiptType {};
 #endif
 
+std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kSubscriptionSuffix =
+{
+  "",  // RemoveAds (empty string for back compatibility)
+  "_BookmarkCatalog",  // BookmarkCatalog
+};
+
 uint32_t constexpr kFirstWaitingTimeInSec = 1;
 uint32_t constexpr kWaitingTimeScaleFactor = 2;
 uint8_t constexpr kMaxAttemptIndex = 2;
 
-std::string GetClientIdHash()
+std::string GetSubscriptionId(SubscriptionType type)
 {
-  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
-}
-
-std::string GetSubscriptionId()
-{
-  return GetClientIdHash();
+  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId() +
+    kSubscriptionSuffix[static_cast<size_t>(type)]);
 }
 
 std::string GetDeviceId()
 {
-  return GetClientIdHash();
+  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
+}
+
+std::string GetSubscriptionKey(SubscriptionType type)
+{
+  return kSubscriptionId + kSubscriptionSuffix[static_cast<size_t>(type)];
 }
 
 std::string ValidationUrl()
@@ -108,12 +115,16 @@ struct ValidationResult
 Purchase::Purchase(InvalidTokenHandler && onInvalidToken)
   : m_onInvalidToken(std::move(onInvalidToken))
 {
-  std::string id;
-  if (GetPlatform().GetSecureStorage().Load(kSubscriptionId, id))
-    m_removeAdsSubscriptionData.m_subscriptionId = id;
+  for (size_t i = 0; i < static_cast<size_t>(SubscriptionType::Count); ++i)
+  {
+    auto const t = static_cast<SubscriptionType>(i);
+    std::string id;
+    if (GetPlatform().GetSecureStorage().Load(GetSubscriptionKey(t), id))
+      m_subscriptionData[t].m_subscriptionId = id;
 
-  m_removeAdsSubscriptionData.m_isActive =
-    (GetSubscriptionId() == m_removeAdsSubscriptionData.m_subscriptionId);
+    m_subscriptionData[t].m_isActive =
+      (GetSubscriptionId(t) == m_subscriptionData[t].m_subscriptionId);
+  }
 }
 
 void Purchase::RegisterSubscription(SubscriptionListener * listener)
@@ -137,32 +148,24 @@ void Purchase::SetStartTransactionCallback(StartTransactionCallback && callback)
 
 bool Purchase::IsSubscriptionActive(SubscriptionType type) const
 {
-  switch (type)
-  {
-  case SubscriptionType::RemoveAds: return m_removeAdsSubscriptionData.m_isActive;
-  }
-  UNREACHABLE();
+  CHECK(type != SubscriptionType::Count, ());
+  auto const it = m_subscriptionData.find(type);
+  return it != m_subscriptionData.end() && it->second.m_isActive;
 }
 
 void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
 {
-  switch (type)
+  CHECK(type != SubscriptionType::Count, ());
+  m_subscriptionData[type].m_isActive = isEnabled;
+  if (isEnabled)
   {
-  case SubscriptionType::RemoveAds:
-  {
-    m_removeAdsSubscriptionData.m_isActive = isEnabled;
-    if (isEnabled)
-    {
-      m_removeAdsSubscriptionData.m_subscriptionId = GetSubscriptionId();
-      GetPlatform().GetSecureStorage().Save(kSubscriptionId,
-                                            m_removeAdsSubscriptionData.m_subscriptionId);
-    }
-    else
-    {
-      GetPlatform().GetSecureStorage().Remove(kSubscriptionId);
-    }
-    break;
+    auto const id = GetSubscriptionId(type);
+    m_subscriptionData[type].m_subscriptionId = id;
+    GetPlatform().GetSecureStorage().Save(GetSubscriptionKey(type), id);
   }
+  else
+  {
+    GetPlatform().GetSecureStorage().Remove(GetSubscriptionKey(type));
   }
 
   for (auto & listener : m_listeners)
