@@ -78,6 +78,9 @@ public:
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
   bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
                         WorldGraph & worldGraph, std::vector<Segment> & bestSegments);
+  bool FindBestEdges(m2::PointD const & point, platform::CountryFile const & pointCountryFile,
+                     m2::PointD const & direction, bool isOutgoing, WorldGraph & worldGraph,
+                     std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional) const;
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -110,8 +113,8 @@ private:
   vector<IRoadGraph::JunctionVec> FetchRoadGeom(m2::RectD const & rect) const;
 
   /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
-  /// |BestEdgeComparator::point| and returns true if there's any. If not returns false.
-  bool FindClosestCodirectionalEdge(BestEdgeComparator const & bestEdgeComparator,
+  /// |point| and returns true if there's any. If not returns false.
+  bool FindClosestCodirectionalEdge(m2::PointD const & point, m2::PointD const & direction,
                                     std::vector<std::pair<Edge, Junction>> const & candidates,
                                     Edge & closestCodirectionalEdge) const;
 

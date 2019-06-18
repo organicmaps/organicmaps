@@ -4,6 +4,7 @@
 #include "generator/utils.hpp"
 
 #include "routing/index_router.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -20,6 +21,7 @@
 
 #include "coding/file_writer.hpp"
 
+#include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
@@ -27,6 +29,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <vector>
 
 #include "defines.hpp"
@@ -103,26 +106,39 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
     auto const & gate = gates[i];
     if (countryFileGetter(gate.GetPoint()) != countryId)
       continue;
+
     // Note. For pedestrian routing all the segments are considered as two way segments so
     // IndexRouter::FindBestSegments() method finds the same segments for |isOutgoing| == true
     // and |isOutgoing| == false.
-    vector<Segment> bestSegments;
+    vector<routing::Edge> bestEdges;
     try
     {
       if (countryFileGetter(gate.GetPoint()) != countryId)
         continue;
-      if (indexRouter.FindBestSegments(gate.GetPoint(), m2::PointD::Zero() /* direction */,
-                                       true /* isOutgoing */, *worldGraph, bestSegments))
+
+      bool dummy = false;
+      if (indexRouter.FindBestEdges(gate.GetPoint(), platform::CountryFile(countryId),
+                                    m2::PointD::Zero() /* direction */, true /* isOutgoing */,
+                                    *worldGraph, bestEdges, dummy))
       {
-        // IndexRouter::FindBestSegments() returns a few good segments but the best one is the
-        // first.
+        CHECK(!bestEdges.empty(), ());
+        IndexRouter::BestEdgeComparator bestEdgeComparator(gate.GetPoint(),
+                                                           m2::PointD::Zero() /* direction */);
+        // Looking for the edge which is the closest to |gate.GetPoint()|.
         // @TODO It should be considered to change the format of transit section to keep all
         // candidates for every gate.
-        CHECK(!bestSegments.empty(), ());
-        auto const & bestSegment = bestSegments.front();
-        CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
+        auto const bestEdgeIt = min_element(
+            bestEdges.cbegin(), bestEdges.cend(),
+            [&bestEdgeComparator](routing::Edge const & lhs, routing::Edge const & rhs) {
+              return bestEdgeComparator.Compare(lhs, rhs) < 0;
+            });
+
+        auto const & bestEdge = *bestEdgeIt;
+        CHECK(bestEdge.GetFeatureId().IsValid(), ());
+
+
         graphData.SetGateBestPedestrianSegment(i, SingleMwmSegment(
-            bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
+            bestEdge.GetFeatureId().m_index, bestEdge.GetSegId(), bestEdge.IsForward()));
       }
     }
     catch (MwmIsNotAliveException const & e)

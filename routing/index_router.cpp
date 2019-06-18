@@ -859,13 +859,14 @@ vector<IRoadGraph::JunctionVec> IndexRouter::FetchRoadGeom(m2::RectD const & rec
   return roadFeatureGeoms;
 }
 
-bool IndexRouter::FindClosestCodirectionalEdge(BestEdgeComparator const & bestEdgeComparator,
+bool IndexRouter::FindClosestCodirectionalEdge(m2::PointD const & point, m2::PointD const & direction,
                                                vector<pair<Edge, Junction>> const & candidates,
                                                Edge & closestCodirectionalEdge) const
 {
   double constexpr kInvalidDist = numeric_limits<double>::max();
   double squareDistToClosestCodirectionalEdgeM = kInvalidDist;
 
+  BestEdgeComparator bestEdgeComparator(point, direction);
   if (!bestEdgeComparator.IsDirectionValid())
     return false;
 
@@ -892,12 +893,38 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
                                    bool & bestSegmentIsAlmostCodirectional) const
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
+
+  std::vector<Edge> bestEdges;
+  if (!FindBestEdges(point, file, direction, isOutgoing, worldGraph, bestEdges,
+                     bestSegmentIsAlmostCodirectional))
+  {
+    return false;
+  }
+
+  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
+  bestSegments.clear();
+
+  auto const getSegmentByEdge = [numMwmId](Edge const & edge) {
+    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  };
+
+  for (auto const & edge : bestEdges)
+    bestSegments.emplace_back(getSegmentByEdge(edge));
+
+  return true;
+}
+
+bool IndexRouter::FindBestEdges(m2::PointD const & point, platform::CountryFile const & pointCountryFile,
+                                m2::PointD const & direction, bool isOutgoing,
+                                WorldGraph & worldGraph, std::vector<Edge> & bestEdges,
+                                bool & bestSegmentIsAlmostCodirectional) const
+{
+
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(pointCountryFile);
   if (!handle.IsAlive())
-    MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", file));
+    MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
-  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
 
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
@@ -911,16 +938,21 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
   if (candidates.empty())
     return false;
 
-  auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
-    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
-  };
 
-  // Getting rid of candidates which lead to a dead ends.
-  base::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
-    Edge const & edge = p.first;
-    return edge.GetFeatureId().m_mwmId != mwmId ||
-           IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
-  });
+  if (m_numMwmIds->ContainsFile(pointCountryFile))
+  {
+    auto const numMwmId = m_numMwmIds->GetId(pointCountryFile);
+    auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
+      return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+    };
+
+    // Getting rid of candidates which lead to a dead ends.
+    base::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
+      Edge const & edge = p.first;
+      return edge.GetFeatureId().m_mwmId != mwmId ||
+             IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
+    });
+  }
 
   if (candidates.empty())
     return false;
@@ -941,22 +973,17 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
   Edge closestCodirectionalEdge;
   BestEdgeComparator bestEdgeComparator(point, direction);
   bestSegmentIsAlmostCodirectional =
-      FindClosestCodirectionalEdge(bestEdgeComparator, candidates, closestCodirectionalEdge);
+      FindClosestCodirectionalEdge(point, direction, candidates, closestCodirectionalEdge);
 
   if (bestSegmentIsAlmostCodirectional)
   {
-    bestSegments = {getSegmentByEdge(closestCodirectionalEdge)};
+    bestEdges = {closestCodirectionalEdge};
   }
   else
   {
-    bestSegments.clear();
-    // Sorting from better candidates to worse ones.
-    sort(candidates.begin(), candidates.end(),
-         [&bestEdgeComparator](pair<Edge, Junction> const & lhs, pair<Edge, Junction> const & rhs) {
-           return bestEdgeComparator.Compare(lhs.first, rhs.first) < 0;
-         });
+    bestEdges.clear();
     for (auto const & c : candidates)
-      bestSegments.emplace_back(getSegmentByEdge(c.first));
+      bestEdges.emplace_back(c.first);
   }
 
   return true;
