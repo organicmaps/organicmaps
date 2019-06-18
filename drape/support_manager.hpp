@@ -5,6 +5,7 @@
 
 #include "base/macros.hpp"
 
+#include <array>
 #include <cstdint>
 #include <mutex>
 #include <string>
@@ -35,7 +36,11 @@ public:
 
   // These functions can be used without manager initialization.
   void ForbidVulkan();
+
+  using Version = std::array<uint32_t, 3>;
   bool IsVulkanForbidden() const;
+  bool IsVulkanForbidden(std::string const & deviceName,
+                         Version apiVersion, Version driverVersion) const;
 
 private:
   SupportManager() = default;

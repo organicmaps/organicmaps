@@ -109,6 +109,33 @@ bool SupportManager::IsVulkanForbidden() const
   return forbidden;
 }
 
+bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
+                                       Version apiVersion, Version driverVersion) const
+{
+  // On these configurations we've detected fatal driver-specific Vulkan errors.
+  struct Configuration
+  {
+    std::string m_deviceName;
+    Version m_apiVersion;
+    Version m_driverVersion;
+  };
+  static std::vector<Configuration> const kBannedConfigurations = {
+    {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
+    {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
+    {"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
+  };
+
+  for (auto const & c : kBannedConfigurations)
+  {
+    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion &&
+        c.m_driverVersion == driverVersion)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 SupportManager & SupportManager::Instance()
 {
   static SupportManager manager;

@@ -3,6 +3,7 @@
 #include "com/mapswithme/platform/Platform.hpp"
 
 #include "drape/drape_diagnostics.hpp"
+#include "drape/support_manager.hpp"
 #include "drape/vulkan/vulkan_pipeline.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
@@ -141,6 +142,20 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
   }
   m_gpu = tmpGpus[0];
 
+  VkPhysicalDeviceProperties gpuProperties;
+  vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
+  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName,
+                                                       {VK_VERSION_MAJOR(gpuProperties.apiVersion),
+                                                        VK_VERSION_MINOR(gpuProperties.apiVersion),
+                                                        VK_VERSION_PATCH(gpuProperties.apiVersion)},
+                                                       {VK_VERSION_MAJOR(gpuProperties.driverVersion),
+                                                        VK_VERSION_MINOR(gpuProperties.driverVersion),
+                                                        VK_VERSION_PATCH(gpuProperties.driverVersion)}))
+  {
+    LOG_ERROR_VK("GPU/Driver configuration is not supported.");
+    return;
+  }
+
   uint32_t queueFamilyCount;
   vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount, nullptr);
   if (queueFamilyCount == 0)
@@ -204,8 +219,6 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
     return;
   }
 
-  VkPhysicalDeviceProperties gpuProperties;
-  vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
   VkPhysicalDeviceMemoryProperties memoryProperties;
   vkGetPhysicalDeviceMemoryProperties(m_gpu, &memoryProperties);
   m_objectManager = make_unique_dp<dp::vulkan::VulkanObjectManager>(m_device, gpuProperties.limits,
