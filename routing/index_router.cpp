@@ -841,9 +841,9 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
   return false;
 }
 
-void IndexRouter::FetchRoadGeom(m2::RectD const & rect,
-                                vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const
+vector<IRoadGraph::JunctionVec> IndexRouter::FetchRoadGeom(m2::RectD const & rect) const
 {
+  vector<IRoadGraph::JunctionVec> roadFeatureGeoms;
   auto const roadFetcher = [this, &roadFeatureGeoms](FeatureType & ft) {
     if (!m_roadGraph.IsRoad(ft))
       return;
@@ -856,6 +856,7 @@ void IndexRouter::FetchRoadGeom(m2::RectD const & rect,
   };
 
   m_dataSource.ForEachInRect(roadFetcher, rect, scales::GetUpperScale());
+  return roadFeatureGeoms;
 }
 
 bool IndexRouter::FindClosestCodirectionalEdge(BestEdgeComparator const & bestEdgeComparator,
@@ -925,10 +926,9 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
     return false;
 
   // Removing all candidates which are fenced off by the road graph from |point|.
-  vector<IRoadGraph::JunctionVec> roadFeatureGeoms;
-  FetchRoadGeom(
-      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
-      roadFeatureGeoms);
+  auto const rect =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM);
+  auto const roadFeatureGeoms = FetchRoadGeom(rect);
 
   base::EraseIf(candidates, [&](pair<Edge, Junction> const & candidate) {
     return IsFencedOff(point, candidate, roadFeatureGeoms);

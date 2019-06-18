@@ -105,10 +105,9 @@ private:
   bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
                    std::vector<IRoadGraph::JunctionVec> const & fences) const;
 
-  /// \brief Filling |roadFeatureGeoms| with geometry of road features which lies in |rect|.
-  /// \note Some additional road features which lies near |rect| may be added to |roadFeatureGeoms|.
-  void FetchRoadGeom(m2::RectD const & rect,
-                     vector<IRoadGraph::JunctionVec> & roadFeatureGeoms) const;
+  /// \returns geometry of road features which lie in |rect|.
+  /// \note Some additional road features which lie near |rect| may be added to |roadFeatureGeoms|.
+  vector<IRoadGraph::JunctionVec> FetchRoadGeom(m2::RectD const & rect) const;
 
   /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
   /// |BestEdgeComparator::point| and returns true if there's any. If not returns false.
