@@ -119,6 +119,7 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
     Version m_apiVersion;
     Version m_driverVersion;
   };
+
   static std::vector<Configuration> const kBannedConfigurations = {
     {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
     {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},

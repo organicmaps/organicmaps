@@ -124,8 +124,7 @@ inline dp::ApiVersion ApiVersionFromString(std::string const & str)
 #if defined(OMIM_METAL_AVAILABLE)
   return dp::ApiVersion::Metal;
 #elif defined(OMIM_OS_ANDROID)
-  //TODO(@rokuz,@darina): Uncomment on full laucnch of Vulkan.
-  return dp::ApiVersion::OpenGLES3; //dp::ApiVersion::Vulkan;
+  return dp::ApiVersion::Vulkan;
 #else
   return dp::ApiVersion::OpenGLES3;
 #endif
