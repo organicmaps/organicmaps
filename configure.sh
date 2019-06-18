@@ -4,7 +4,7 @@
 # Stop on the first error.
 set -e -u
 
-BASE_PATH=`dirname "$0"`
+BASE_PATH=$(cd "$(dirname "$0")"; pwd)
 
 PRIVATE_HEADER="$BASE_PATH/private.h"
 DEFAULT_PRIVATE_HEADER="$BASE_PATH/private_default.h"
