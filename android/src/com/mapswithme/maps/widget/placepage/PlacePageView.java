@@ -1207,14 +1207,15 @@ public class PlacePageView extends NestedScrollView
       if (country != null && !RoutingController.get().isNavigating())
         attachCountry(country);
     }
-    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
-    toggleCatalogPromoGallery(hasPromoGallery);
     refreshViews(policy);
   }
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
 //    Promo.INSTANCE.nativeRequestCityGallery(policy);
+    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
+    toggleCatalogPromoGallery(hasPromoGallery);
+
     if (mSponsored == null || mMapObject == null)
       return;
 
