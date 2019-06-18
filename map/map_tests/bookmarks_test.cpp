@@ -835,29 +835,29 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     resultChanges = Changes();
   };
 
-  auto const onCreate = [&resultChanges](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
+  auto const onCreate = [&resultChanges](vector<BookmarkInfo> const & marks)
   {
-    for (auto const & markPair : marks)
-      resultChanges.m_createdMarks.insert(markPair.first);
+    for (auto const & mark : marks)
+      resultChanges.m_createdMarks.insert(mark.m_bookmarkId);
   };
-  auto const onUpdate = [&resultChanges](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
+  auto const onUpdate = [&resultChanges](vector<BookmarkInfo> const & marks)
   {
-    for (auto const & markPair : marks)
-      resultChanges.m_updatedMarks.insert(markPair.first);
+    for (auto const & mark : marks)
+      resultChanges.m_updatedMarks.insert(mark.m_bookmarkId);
   };
   auto const onDelete = [&resultChanges](vector<kml::MarkId> const & marks)
   {
     resultChanges.m_deletedMarks.insert(marks.begin(), marks.end());
   };
-  auto const onAttach = [&resultChanges](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & groupMarksCollection)
+  auto const onAttach = [&resultChanges](vector<BookmarkGroupInfo> const & groupMarksCollection)
   {
-    for (auto const & groupMarks : groupMarksCollection)
-      resultChanges.m_attachedMarks[groupMarks.first].insert(groupMarks.second.begin(), groupMarks.second.end());
+    for (auto const & group : groupMarksCollection)
+      resultChanges.m_attachedMarks[group.m_groupId].insert(group.m_bookmarkIds.begin(), group.m_bookmarkIds.end());
   };
-  auto const onDetach = [&resultChanges](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & groupMarksCollection)
+  auto const onDetach = [&resultChanges](vector<BookmarkGroupInfo> const & groupMarksCollection)
   {
-    for (auto const & groupMarks : groupMarksCollection)
-      resultChanges.m_detachedMarks[groupMarks.first].insert(groupMarks.second.begin(), groupMarks.second.end());
+    for (auto const & group : groupMarksCollection)
+      resultChanges.m_detachedMarks[group.m_groupId].insert(group.m_bookmarkIds.begin(), group.m_bookmarkIds.end());
   };
 
   BookmarkManager::Callbacks callbacks(

@@ -488,19 +488,11 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
-      [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
-        GetSearchAPI().OnBookmarksCreated(marks);
-      },
-      [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
-        GetSearchAPI().OnBookmarksUpdated(marks);
-      },
+      [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
+      [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
-      [this](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks) {
-        GetSearchAPI().OnBookmarksAttached(marks);
-      },
-      [this](vector<pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks) {
-        GetSearchAPI().OnBookmarksDetached(marks);
-      }));
+      [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksAttached(marks); },
+      [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksDetached(marks); }));
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());

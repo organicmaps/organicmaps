@@ -58,13 +58,11 @@ public:
   struct Callbacks
   {
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
-    using CreatedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &)>;
-    using UpdatedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &)>;
+    using CreatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
+    using UpdatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
-    using AttachedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkGroupId,
-                                                                               kml::MarkIdCollection>> const &)>;
-    using DetachedBookmarksCallback = std::function<void(std::vector<std::pair<kml::MarkGroupId,
-                                                                               kml::MarkIdCollection>> const &)>;
+    using AttachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
+    using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
     template <typename StringsBundleGetter, typename CreateListener, typename UpdateListener, typename DeleteListener,
       typename AttachListener, typename DetachListener>
@@ -385,6 +383,9 @@ private:
     df::UserLineMark const * GetUserLineMark(kml::TrackId lineId) const override;
 
   private:
+    void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
+                        GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
+
     BookmarkManager & m_bmManager;
 
     kml::MarkIdSet m_createdMarks;
@@ -507,6 +508,10 @@ private:
   void UpdateBmGroupIdList();
 
   void SendBookmarksChanges();
+  void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks);
+  void GetBookmarkGroupsInfo(MarksChangesTracker::GroupMarkIdSet const & groups,
+                             std::vector<BookmarkGroupInfo> & groupsInfo);
+
   kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
 

@@ -11,6 +11,30 @@
 #include <memory>
 #include <string>
 
+struct BookmarkInfo
+{
+  BookmarkInfo() = default;
+  BookmarkInfo(kml::MarkId id, kml::BookmarkData const & data)
+    : m_bookmarkId(id)
+    , m_bookmarkData(data)
+  {}
+
+  kml::MarkId m_bookmarkId;
+  kml::BookmarkData m_bookmarkData;
+};
+
+struct BookmarkGroupInfo
+{
+  BookmarkGroupInfo() = default;
+  BookmarkGroupInfo(kml::MarkGroupId id, kml::MarkIdCollection && marks)
+    : m_groupId(id)
+    , m_bookmarkIds(std::move(marks))
+  {}
+
+  kml::MarkGroupId m_groupId;
+  kml::MarkIdCollection m_bookmarkIds;
+};
+
 extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;

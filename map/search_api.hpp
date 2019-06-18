@@ -2,6 +2,7 @@
 
 #include "map/booking_filter_params.hpp"
 #include "map/bookmark.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/everywhere_search_callback.hpp"
 #include "map/search_product_info.hpp"
 #include "map/viewport_search_callback.hpp"
@@ -12,8 +13,6 @@
 #include "search/mode.hpp"
 #include "search/result.hpp"
 #include "search/search_params.hpp"
-
-#include "kml/type_utils.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -145,11 +144,11 @@ public:
   void FilterAllHotelsInViewport(m2::RectD const & viewport,
                                  booking::filter::Tasks const & filterTasks) override;
 
-  void OnBookmarksCreated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
-  void OnBookmarksUpdated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
+  void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
+  void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);
-  void OnBookmarksAttached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks);
-  void OnBookmarksDetached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks);
+  void OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & marks);
+  void OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & marks);
 
 private:
   struct SearchIntent

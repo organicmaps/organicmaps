@@ -132,7 +132,7 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 
 UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 {
-  vector<pair<kml::MarkId, kml::BookmarkData>> marks;
+  vector<BookmarkInfo> marks;
 
   kml::BookmarkData data;
   kml::SetDefaultStr(data.m_name, "R&R dinner");

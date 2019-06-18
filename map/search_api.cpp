@@ -66,17 +66,13 @@ bookmarks::Id MarkIDToBookmarkId(kml::MarkId id)
 
 kml::MarkId BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
 
-void AppendBookmarkIdDocs(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks,
+void AppendBookmarkIdDocs(vector<BookmarkInfo> const & marks,
                           vector<BookmarkIdDoc> & result)
 {
   result.reserve(result.size() + marks.size());
 
   for (auto const & mark : marks)
-  {
-    auto const & id = mark.first;
-    auto const & data = mark.second;
-    result.emplace_back(MarkIDToBookmarkId(id), bookmarks::Doc(data));
-  }
+    result.emplace_back(MarkIDToBookmarkId(mark.m_bookmarkId), bookmarks::Doc(mark.m_bookmarkData));
 }
 
 void AppendBookmarkIds(vector<kml::MarkId> const & marks, vector<bookmarks::Id> & result)
@@ -373,14 +369,14 @@ void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
     m_delegate.FilterHotels(filterTasks, move(featureIds));
 }
 
-void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksCreated(vector<BookmarkInfo> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);
   m_engine.OnBookmarksCreated(data);
 }
 
-void SearchAPI::OnBookmarksUpdated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksUpdated(vector<BookmarkInfo> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);
@@ -394,11 +390,11 @@ void SearchAPI::OnBookmarksDeleted(vector<kml::MarkId> const & marks)
   m_engine.OnBookmarksDeleted(data);
 }
 
-void SearchAPI::OnBookmarksAttached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks)
+void SearchAPI::OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & marks)
 {
 }
 
-void SearchAPI::OnBookmarksDetached(std::vector<std::pair<kml::MarkGroupId, kml::MarkIdCollection>> const & marks)
+void SearchAPI::OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & marks)
 {
 }
 
