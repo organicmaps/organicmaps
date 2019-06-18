@@ -39,6 +39,7 @@ import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -46,7 +47,9 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -385,7 +388,26 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       }
 
       LOGGER.i(TAG, "Product details for web catalog loaded: " + details);
-      loadCatalog(PurchaseUtils.toProductDetailsBundle(details));
+      loadCatalog(toDetailsBundle(details));
+    }
+
+    @Nullable
+    private String toDetailsBundle(@NonNull List<SkuDetails> details)
+    {
+      String bundle = PurchaseUtils.toProductDetailsBundle(details);
+      String encodedBundle = null;
+      try
+      {
+        encodedBundle = URLEncoder.encode(bundle, "UTF-8");
+      }
+      catch (UnsupportedEncodingException e)
+      {
+        String msg = "Failed to encode details bundle '" + bundle + "': ";
+        LOGGER.e(TAG, msg, e);
+        CrashlyticsUtils.logException(new RuntimeException(msg, e));
+      }
+
+      return encodedBundle;
     }
 
     @Override

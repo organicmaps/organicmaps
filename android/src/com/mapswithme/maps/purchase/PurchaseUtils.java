@@ -71,7 +71,7 @@ public class PurchaseUtils
         priceJson.put("price_string", Utils.formatCurrencyString(price, currencyCode));
         bundleJson.put(details.getSku(), priceJson);
       }
-      catch (JSONException e)
+      catch (Exception e)
       {
         Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
         String tag = PurchaseUtils.class.getSimpleName();
