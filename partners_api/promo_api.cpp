@@ -76,11 +76,13 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
     auto const luxCategoryObj = json_object_get(obj, "lux_category");
     if (!json_is_null(luxCategoryObj))
     {
-      auto const luxCategoryNameobj = json_object_get(luxCategoryObj, "name");
-      if (!json_is_null(luxCategoryNameobj))
-        FromJSON(luxCategoryNameobj, item.m_luxCategory.m_name);
+      auto const luxCategoryName = json_object_get(luxCategoryObj, "name");
+      if (!json_is_null(luxCategoryName))
+        FromJSON(luxCategoryName, item.m_luxCategory.m_name);
 
-      FromJSONObject(luxCategoryObj, "color", item.m_luxCategory.m_color);
+      auto const luxCategoryColor = json_object_get(luxCategoryObj, "color");
+      if (!json_is_null(luxCategoryColor))
+        FromJSON(luxCategoryColor, item.m_luxCategory.m_color);
     }
 
     result.m_items.emplace_back(std::move(item));
