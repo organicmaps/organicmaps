@@ -51,7 +51,8 @@ enum class Sections
   Buttons,
   UGCRating,
   UGCAddReview,
-  UGCReviews
+  UGCReviews,
+  PromoCatalog
 };
 
 enum class PreviewRows
@@ -128,6 +129,13 @@ enum class OpeningHours
   Closed,
   Unknown
 };
+  
+enum class PromoCatalogRow
+{
+  Guides,
+  GuidesNoInternetError,
+  GuidesRequestError
+};
 
 using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
 }  // namespace place_page
@@ -136,6 +144,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @class MWMUGCViewModel;
 @class MWMUGCReviewModel;
 @class MWMUGCRatingValueType;
+@class MWMDiscoveryCityGalleryObjects;
+@class MWMDiscoveryGuideViewModel;
 @protocol MWMBanner;
 
 /// ViewModel for place page.
@@ -145,7 +155,9 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bookingDataUpdatedCallback;
+@property(copy, nonatomic) MWMVoidBlock refreshPromoCallback;
 @property(nonatomic, readonly) MWMUGCViewModel * ugc;
+@property(nonatomic, readonly) MWMDiscoveryCityGalleryObjects *promoGallery;
 @property(nonatomic, readonly) NSInteger bookingDiscount;
 @property(nonatomic, readonly) BOOL isSmartDeal;
 @property(nonatomic, readonly) BOOL isPopular;
@@ -228,6 +240,10 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSString *)localAdsURL;
 - (void)logLocalAdsEvent:(local_ads::EventType)type;
 
+// Promo Catalog
+- (void)fillPromoCatalogSection;
+- (MWMDiscoveryGuideViewModel *)guideAtIndex:(NSUInteger)index;
+
 // Table view's data
 - (std::vector<place_page::Sections> const &)sections;
 - (std::vector<place_page::PreviewRows> const &)previewRows;
@@ -238,6 +254,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (std::vector<place_page::MetainfoRows> const &)metainfoRows;
 - (std::vector<place_page::AdRows> const &)adRows;
 - (std::vector<place_page::ButtonsRows> const &)buttonsRows;
+- (std::vector<place_page::PromoCatalogRow> const &)promoCatalogRows;
 
 // Table view metainfo rows
 - (NSString *)stringForRow:(place_page::MetainfoRows)row;
@@ -250,6 +267,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (BOOL)isOpentable;
 - (BOOL)isPartner;
 - (BOOL)isHolidayObject;
+- (BOOL)isPromoCatalog;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;

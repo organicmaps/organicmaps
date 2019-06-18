@@ -768,4 +768,15 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [data setUGCUpdateFrom:model resultHandler:resultHandler];
 }
 
+#pragma mark - MWMPlacePagePromoProtocol
+
+- (void)openCatalogForURL:(NSURL *)url {
+  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
+  bookmarks.activeTab = ActiveTabCatalog;
+  MWMCatalogWebViewController *catalog = [[MWMCatalogWebViewController alloc] init:url];
+  NSMutableArray<UIViewController *> * controllers = [self.ownerViewController.navigationController.viewControllers mutableCopy];
+  [controllers addObjectsFromArray:@[bookmarks, catalog]];
+  [self.ownerViewController.navigationController setViewControllers:controllers animated:YES];
+}
+
 @end

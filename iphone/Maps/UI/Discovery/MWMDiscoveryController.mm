@@ -311,17 +311,14 @@ struct Callback
     case ItemType::LocalExperts:
       break;
     case ItemType::Promo:
-      auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
-      bookmarks.activeTab = ActiveTabCatalog;
       promo::CityGallery::Item const &item = [self.viewModel.guides galleryItemAtIndex:index];
       NSString *itemPath = @(item.m_url.c_str());
       if (!itemPath || itemPath.length == 0) {
         return;
       }
-      MWMCatalogWebViewController *catalog = [[MWMCatalogWebViewController alloc] init:[NSURL URLWithString:itemPath]];
-      NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
-      [controllers addObjectsFromArray:@[bookmarks, catalog]];
-      [self.navigationController setViewControllers:controllers animated:YES];
+      NSURL *url = [NSURL URLWithString:itemPath];
+      [self openCatalogForURL:url];
+      
       [self logEvent:kStatPlacepageSponsoredItemSelected
                 type:type
                index:index
@@ -338,15 +335,19 @@ struct Callback
     case ItemType::LocalExperts:
       break;
     case ItemType::Promo:
-      auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
-      bookmarks.activeTab = ActiveTabCatalog;
       NSURL *url = [self.viewModel.guides moreURL];
-      MWMCatalogWebViewController *catalog = [[MWMCatalogWebViewController alloc] init:url];
-      NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
-      [controllers addObjectsFromArray:@[bookmarks, catalog]];
-      [self.navigationController setViewControllers:controllers animated:YES];
+      [self openCatalogForURL:url];
       break;
   }
+}
+
+- (void)openCatalogForURL:(NSURL *)url {
+  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
+  bookmarks.activeTab = ActiveTabCatalog;
+  MWMCatalogWebViewController *catalog = [[MWMCatalogWebViewController alloc] init:url];
+  NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
+  [controllers addObjectsFromArray:@[bookmarks, catalog]];
+  [self.navigationController setViewControllers:controllers animated:YES];
 }
 
 @end

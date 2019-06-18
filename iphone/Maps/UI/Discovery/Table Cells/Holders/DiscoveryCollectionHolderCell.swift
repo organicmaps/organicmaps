@@ -32,7 +32,7 @@ final class DiscoveryBookingCollectionHolderCell: DiscoveryCollectionHolder {
 @objc(MWMDiscoveryGuideCollectionHolderCell)
 final class DiscoveryGuideCollectionHolderCell: DiscoveryCollectionHolder {
   @objc func config() {
-    header.text = L("discovery_button_subtitle_guides").uppercased()
+    header.text = L("gallery_pp_download_guides_title").uppercased()
     collectionView.register(cellClass: DiscoveryGuideCell.self)
     collectionView.register(cellClass: DiscoveryMoreCell.self)
   }

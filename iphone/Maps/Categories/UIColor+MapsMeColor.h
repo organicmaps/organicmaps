@@ -50,6 +50,7 @@
 + (UIColor *)border;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
++ (UIColor *)colorFromHexString:(NSString *)hexString;
 
 + (void)setNightMode:(BOOL)mode;
 + (BOOL)isNightMode;

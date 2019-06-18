@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="160" height="194"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PVI-wd-HVI">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PVI-wd-HVI">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="80"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="kmH-tC-wJm"/>
@@ -36,6 +36,9 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="detailsAction" destination="gTV-IL-0wX" eventType="touchUpInside" id="LKy-hf-jCB"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eA-bJ-coY">
                         <rect key="frame" x="12" y="94" width="136" height="21"/>
@@ -99,9 +102,9 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="avatar" destination="PVI-wd-HVI" id="zzN-X5-o2N"/>
-                <outlet property="detailsButton" destination="yJV-Vb-Cna" id="UE3-4n-7dC"/>
+                <outlet property="detailsButton" destination="yJV-Vb-Cna" id="59U-jr-7vt"/>
                 <outlet property="proContainer" destination="C9b-m0-Yo8" id="gUI-wn-gtQ"/>
-                <outlet property="proLabel" destination="vHm-DF-mQY" id="31b-6G-yvb"/>
+                <outlet property="proLabel" destination="vHm-DF-mQY" id="wIY-CW-Bgr"/>
                 <outlet property="subtitleLabel" destination="fEh-1z-Iwj" id="anX-gC-URG"/>
                 <outlet property="titleLabel" destination="7eA-bJ-coY" id="hpL-Ce-BRw"/>
             </connections>

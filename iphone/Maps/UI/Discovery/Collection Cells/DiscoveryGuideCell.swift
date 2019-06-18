@@ -26,11 +26,7 @@ final class DiscoveryGuideCell: UICollectionViewCell {
     }
   }
   
-  @IBOutlet var proContainer: UIView! {
-    didSet {
-      proLabel.backgroundColor = UIColor.ratingRed()
-    }
-  }
+  @IBOutlet var proContainer: UIView!
   
   @IBOutlet var detailsButton: UIButton! {
     didSet {
@@ -81,6 +77,7 @@ final class DiscoveryGuideCell: UICollectionViewCell {
                     title: String,
                     subtitle: String,
                     label: String?,
+                    labelHexColor: String?,
                     onDetails: @escaping OnDetails) {
     setAvatar(avatarURL)
     titleLabel.text = title
@@ -91,6 +88,11 @@ final class DiscoveryGuideCell: UICollectionViewCell {
       return
     }
     proLabel.text = label
+    if let labelHexColor = labelHexColor, labelHexColor.count == 6 {
+      proContainer.backgroundColor = UIColor(fromHexString: labelHexColor) ?? UIColor.ratingRed()
+    } else {
+      proContainer.backgroundColor = UIColor.ratingRed()
+    }
     proContainer.isHidden = false
   }
   

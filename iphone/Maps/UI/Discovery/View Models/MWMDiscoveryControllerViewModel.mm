@@ -159,6 +159,7 @@ using namespace discovery;
   return [[MWMDiscoveryGuideViewModel alloc] initWithTitle:@(item.m_name.c_str())
                                                   subtitle:@(item.m_author.m_name.c_str())
                                                      label:@(item.m_luxCategory.m_name.c_str())
+                                             labelHexColor:@(item.m_luxCategory.m_color.c_str())
                                                   imageURL:@(item.m_imageUrl.c_str())];
 }
 

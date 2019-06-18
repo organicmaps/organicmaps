@@ -568,6 +568,7 @@
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
+		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
 		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
 		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
 		CD96C71122A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */; };
@@ -1604,6 +1605,8 @@
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		BB8123D42130427E00ADE512 /* MetalContextFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContextFactory.h; sourceTree = "<group>"; };
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
+		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
+		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
 		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
 		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
 		CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCollectionHolderCell.xib; sourceTree = "<group>"; };
@@ -4395,6 +4398,8 @@
 				CDB92CED229E9CF900EC757C /* MWMDiscoveryMapObjects.mm */,
 				CD96C71522A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.h */,
 				CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */,
+				CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */,
+				CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -5385,6 +5390,7 @@
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
+				CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,

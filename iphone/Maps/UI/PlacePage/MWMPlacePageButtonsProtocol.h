@@ -34,4 +34,6 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 
 - (void)showPlaceDescription:(NSString * _Nonnull)htmlString;
 
+- (void)openCatalogForURL:(NSURL * _Nullable)url;
+
 @end

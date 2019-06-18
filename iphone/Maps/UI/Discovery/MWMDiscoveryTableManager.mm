@@ -1,5 +1,6 @@
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
+#import "MWMDiscoveryCollectionView.h"
 #import "MWMDiscoveryControllerViewModel.h"
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
@@ -45,13 +46,6 @@ NSString * StatProvider(ItemType const type)
 }  // namespace discovery
 
 using namespace discovery;
-
-@interface MWMDiscoveryCollectionView : UICollectionView
-@property(nonatomic) ItemType itemType;
-@end
-
-@implementation MWMDiscoveryCollectionView
-@end
 
 @interface MWMDiscoveryTableManager ()<UITableViewDataSource, UICollectionViewDelegate,
                                        UICollectionViewDataSource>
@@ -365,7 +359,9 @@ using namespace discovery;
       [cell configWithAvatarURL:objectVM.imagePath
                           title:objectVM.title
                        subtitle:objectVM.subtitle
-                          label:objectVM.label onDetails:^{
+                          label:objectVM.label
+                  labelHexColor:objectVM.labelHexColor
+                      onDetails:^{
                             [weakSelf.delegate openURLForItem:ItemType::Promo atIndex:indexPath.row];
                           }];
       return cell;

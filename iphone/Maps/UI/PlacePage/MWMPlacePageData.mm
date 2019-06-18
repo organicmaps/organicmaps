@@ -1,6 +1,8 @@
 #import "MWMPlacePageData.h"
 #import "AppInfo.h"
 #import "LocaleTranslator.h"
+#import "MWMDiscoveryCityGalleryObjects.h"
+#import "MWMDiscoveryGuideViewModel.h"
 #import "MWMBannerHelpers.h"
 #import "MWMBookmarksManager.h"
 #import "MWMNetworkPolicy.h"
@@ -18,6 +20,7 @@
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/booking_block_params.hpp"
+#include "partners_api/promo_api.hpp"
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -38,6 +41,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 @property(copy, nonatomic) NSArray<MWMGalleryItemModel *> * photos;
 @property(nonatomic) NSNumberFormatter * currencyFormatter;
 @property(nonatomic, readwrite) MWMUGCViewModel * ugc;
+@property(nonatomic, readwrite) MWMDiscoveryCityGalleryObjects *promoGallery;
 @property(nonatomic) NSInteger bookingDiscount;
 @property(nonatomic) BOOL isSmartDeal;
 
@@ -56,6 +60,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   std::vector<HotelDescriptionRow> m_hotelDescriptionRows;
   std::vector<HotelFacilitiesRow> m_hotelFacilitiesRows;
   std::vector<HotelReviewsRow> m_hotelReviewsRows;
+  std::vector<PromoCatalogRow> m_promoCatalogRows;
 
   booking::HotelInfo m_hotelInfo;
 }
@@ -87,6 +92,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   m_sections.push_back(Sections::Preview);
   [self fillPreviewSection];
+  
+  if (self.isPromoCatalog) {
+    m_sections.push_back(Sections::PromoCatalog);
+  }
 
   if ([[self placeDescription] length] && ![[self bookmarkDescription] length])
     m_sections.push_back(Sections::Description);
@@ -798,6 +807,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
                  .c_str());
   }
 }
+- (std::vector<place_page::PromoCatalogRow> const &)promoCatalogRows { return m_promoCatalogRows; }
 
 #pragma mark - Helpers
 
@@ -808,6 +818,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
 - (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
+- (BOOL)isPromoCatalog { return m_info.GetSponsoredType() == SponsoredType::PromoCatalog; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr(m_info.GetBookmarkData().m_description)); }
@@ -852,6 +863,46 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   for (auto const & s : m_info.GetRawTypes())
     [result addObject:@(s.c_str())];
   return [result componentsJoinedByString:@", "];
+}
+
+#pragma mark - Promo Gallery
+
+- (void)fillPromoCatalogSection {
+  if (!self.isPromoCatalog) {
+    return;
+  }
+  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
+    auto const api = GetFramework().GetPromoApi(canUseNetwork);
+    if (!api)
+      return;
+    auto const row = canUseNetwork.CanUse() ? PromoCatalogRow::GuidesRequestError : PromoCatalogRow::GuidesNoInternetError;
+    auto const resultHandler = [self](promo::CityGallery const & cityGallery) {
+      self.promoGallery = [[MWMDiscoveryCityGalleryObjects alloc] initWithGalleryResults:cityGallery];
+      m_promoCatalogRows.push_back(PromoCatalogRow::Guides);
+      if (self.refreshPromoCallback) {
+        self.refreshPromoCallback();
+      }
+    };
+    
+    auto const errorHandler = [self, row]() {
+      m_promoCatalogRows.push_back(row);
+      if (self.refreshPromoCallback) {
+        self.refreshPromoCallback();
+      }
+    };
+    auto appInfo = AppInfo.sharedInfo;
+    auto locale = appInfo.twoLetterLanguageId.UTF8String;
+    api->GetCityGallery("", locale, resultHandler, errorHandler);
+  });
+}
+
+- (MWMDiscoveryGuideViewModel *)guideAtIndex:(NSUInteger)index {
+  promo::CityGallery::Item const &item = [self.promoGallery galleryItemAtIndex:index];
+  return [[MWMDiscoveryGuideViewModel alloc] initWithTitle:@(item.m_name.c_str())
+                                                  subtitle:@(item.m_author.m_name.c_str())
+                                                     label:@(item.m_luxCategory.m_name.c_str())
+                                             labelHexColor:@(item.m_luxCategory.m_color.c_str())
+                                                  imageURL:@(item.m_imageUrl.c_str())];
 }
 
 @end
