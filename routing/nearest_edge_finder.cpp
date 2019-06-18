@@ -19,55 +19,65 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
                                              IRoadGraph::JunctionVec const & junctions,
                                              bool bidirectional)
 {
+  if (!featureId.IsValid())
+    return;
+
   Candidate res;
 
   size_t const count = junctions.size();
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
   {
-    // @TODO All the calculations below should be done after the closest point is found.
-    // Otherway we do unnecessary calculation significant number of times.
     m2::ParametrizedSegment<m2::PointD> segment(junctions[i - 1].GetPoint(),
                                                 junctions[i].GetPoint());
 
-    m2::PointD const pt = segment.ClosestPointTo(m_point);
-    double const squaredDist = m_point.SquaredLength(pt);
+    m2::PointD const closestPoint = segment.ClosestPointTo(m_point);
+    double const squaredDist = m_point.SquaredLength(closestPoint);
+
     if (squaredDist < res.m_squaredDist)
     {
-      Junction const & segStart = junctions[i - 1];
-      Junction const & segEnd = junctions[i];
-      feature::TAltitude const startAlt = segStart.GetAltitude();
-      feature::TAltitude const endAlt = segEnd.GetAltitude();
-
-      double const segLenM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
-      feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
-      if (segLenM == 0.0)
-      {
-        projPointAlt = startAlt;
-      }
-      else
-      {
-        double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), pt);
-        ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
-        projPointAlt = startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
-      }
-
-      res.m_squaredDist = squaredDist;
-      res.m_fid = featureId;
       res.m_segId = static_cast<uint32_t>(i - 1);
-      res.m_segStart = segStart;
-      res.m_segEnd = segEnd;
-      res.m_bidirectional = bidirectional;
-
-      ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude() , feature::kInvalidAltitude, ());
-      ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
-
-      res.m_projPoint = Junction(pt, projPointAlt);
+      res.m_squaredDist = squaredDist;
     }
   }
 
-  if (res.m_fid.IsValid())
-    m_candidates.push_back(res);
+  if (res.m_segId == Candidate::kInvalidSegmentId)
+    return;
+
+  // Closest point to |this->m_point| found. It has index |res.m_segId + 1| in |junctions|.
+  size_t const idx = res.m_segId + 1;
+  Junction const & segStart = junctions[idx - 1];
+  Junction const & segEnd = junctions[idx];
+  feature::TAltitude const startAlt = segStart.GetAltitude();
+  feature::TAltitude const endAlt = segEnd.GetAltitude();
+  m2::ParametrizedSegment<m2::PointD> segment(junctions[idx - 1].GetPoint(),
+                                              junctions[idx].GetPoint());
+  m2::PointD const closestPoint = segment.ClosestPointTo(m_point);
+
+  double const segLenM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
+  feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
+  if (segLenM == 0.0)
+  {
+    projPointAlt = startAlt;
+  }
+  else
+  {
+    double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), closestPoint);
+    ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
+    projPointAlt =
+        startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+  }
+
+  res.m_fid = featureId;
+  res.m_segStart = segStart;
+  res.m_segEnd = segEnd;
+  res.m_bidirectional = bidirectional;
+
+  ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude(), feature::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
+  res.m_projPoint = Junction(closestPoint, projPointAlt);
+
+  m_candidates.push_back(res);
 }
 
 void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t const maxCountFeatures)

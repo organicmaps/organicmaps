@@ -25,8 +25,10 @@ class NearestEdgeFinder
 {
   struct Candidate
   {
+    static uint32_t constexpr kInvalidSegmentId = std::numeric_limits<uint32_t>::max();
+
     double m_squaredDist = std::numeric_limits<double>::max();
-    uint32_t m_segId = 0;
+    uint32_t m_segId = kInvalidSegmentId;
     Junction m_segStart;
     Junction m_segEnd;
     Junction m_projPoint;
