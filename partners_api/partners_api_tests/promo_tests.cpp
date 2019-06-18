@@ -16,7 +16,9 @@ using namespace platform::tests_support;
 
 namespace
 {
-std::string const kTestId = "TestId";
+// It should be compatible with test id on test server side at tools/python/ResponseProvider.py:150.
+// On server side this value is negative because of the prod server does not support unsigned values.
+std::string const kTestId = "13835058055282357840";
 
 class ScopedEyeWithAsyncGuiThread : public AsyncGuiThread
 {

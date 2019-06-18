@@ -9,6 +9,7 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -93,13 +94,22 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
   result.m_moreUrl.insert(0, BOOKMARKS_CATALOG_FRONT_URL);
 }
 
+std::string ToSignedId(std::string const & id)
+{
+  uint64_t unsignedId;
+  if (!strings::to_uint64(id, unsignedId))
+    unsignedId = 0;
+
+  return strings::to_string(static_cast<int64_t>(unsignedId));
+}
+
 std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & id,
                                std::string const & lang)
 {
   ASSERT(!baseUrl.empty(), ());
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  return baseUrl + "gallery/v1/city/" + id + "/?lang=" + lang;
+  return baseUrl + "gallery/v1/city/" + ToSignedId(id) + "/?lang=" + lang;
 }
 
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
@@ -199,6 +209,14 @@ std::string Api::GetPromoLinkAfterBooking(std::string const & lang) const
 std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const
 {
   return MakeCityGalleryUrl(m_baseUrl, id, lang);
+}
+
+std::string Api::GetMoreUrl(std::string const & id) const
+{
+  ASSERT(!m_baseUrl.empty(), ());
+  ASSERT_EQUAL(m_baseUrl.back(), '/', ());
+
+  return m_baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
 }
 
 void Api::GetCityGallery(std::string const & id, std::string const & lang,
