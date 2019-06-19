@@ -168,6 +168,8 @@ set(SRC
   regions/regions_builder.hpp
   regions/regions_fixer.cpp
   regions/regions_fixer.hpp
+  regions/specs/rus.cpp
+  regions/specs/rus.hpp
   restriction_collector.cpp
   restriction_collector.hpp
   restriction_generator.cpp

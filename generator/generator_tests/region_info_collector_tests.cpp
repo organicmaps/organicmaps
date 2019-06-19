@@ -41,9 +41,9 @@ UNIT_TEST(RegionInfoCollector_Collect)
 {
   auto const filename = GetFileName();
   CollectorRegionInfo regionInfoCollector(filename);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementCity);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementCountry);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementEmpty);
+  regionInfoCollector.Collect(kOsmElementCity);
+  regionInfoCollector.Collect(kOsmElementCountry);
+  regionInfoCollector.Collect(kOsmElementEmpty);
   regionInfoCollector.Save();
 
   RegionInfo regionInfo(filename);
@@ -86,7 +86,7 @@ UNIT_TEST(RegionInfoCollector_Get)
 {
   auto const filename = GetFileName();
   CollectorRegionInfo regionInfoCollector(filename);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementCity);
+  regionInfoCollector.Collect(kOsmElementCity);
   regionInfoCollector.Save();
 
   RegionInfo regionInfo(filename);
@@ -100,8 +100,8 @@ UNIT_TEST(RegionInfoCollector_Exists)
 {
   auto const filename = GetFileName();
   CollectorRegionInfo regionInfoCollector(filename);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementCity);
-  regionInfoCollector.CollectFeature(kEmptyFeature, kOsmElementCountry);
+  regionInfoCollector.Collect(kOsmElementCity);
+  regionInfoCollector.Collect(kOsmElementCountry);
   regionInfoCollector.Save();
 
   RegionInfo regionInfo(filename);

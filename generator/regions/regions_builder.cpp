@@ -1,5 +1,7 @@
 #include "generator/regions/regions_builder.hpp"
 
+#include "generator/regions/specs/rus.hpp"
+
 #include "base/assert.hpp"
 #include "base/thread_pool_computational.hpp"
 #include "base/stl_helpers.hpp"
@@ -181,6 +183,8 @@ void RegionsBuilder::ForEachCountry(CountryFn fn)
     std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
     auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
 
+    countrySpecifier->AdjustRegionsLevel(countryTrees);
+
     fn(countryName, countryTrees);
   }
 }
@@ -208,6 +212,9 @@ Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers,
 
 std::unique_ptr<CountrySpecifier> RegionsBuilder::GetCountrySpecifier(std::string const & countryName)
 {
+  if (countryName == u8"Россия" || countryName == u8"Российская Федерация" || countryName == u8"РФ")
+    return std::make_unique<specs::RusSpecifier>();
+
   return std::make_unique<CountrySpecifier>();
 }
 }  // namespace regions
