@@ -92,6 +92,11 @@ def parse_options():
         action="store_true",
         help="Build production maps. In another case, 'osm only maps' are built"
              " - maps without additional data and advertising.")
+    parser.add_argument(
+        "--order",
+        type=str,
+        default="",
+        help="Mwm generation order.")
     return vars(parser.parse_args())
 
 
@@ -155,6 +160,20 @@ def main():
     if diff:
         raise ValidationError(f"Bad input countries {', '.join(diff)}")
     options["countries"] = countries if countries else all_countries
+
+    if options["order"]:
+        ordered_countries = []
+        countries = set(options["countries"])
+        with open(options["order"]) as file:
+            for c in file:
+                c = c.strip()
+                if c in countries:
+                    ordered_countries.append(c)
+                    countries.remove(c)
+            if countries:
+                raise ValueError(f"{options['order']} does not have an order "
+                                 f"for {countries}.")
+        options["countries"] = ordered_countries
 
     options_skip = []
     if options["skip"]:
