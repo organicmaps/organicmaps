@@ -37,6 +37,7 @@ struct NameScores
 {
   NameScore m_nameScore = NAME_SCORE_ZERO;
   ErrorsMade m_errorsMade;
+  size_t m_matchedLength = 0;
 };
 
 template <typename Slice>
@@ -59,8 +60,14 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 {
   NameScores bestScores;
 
-  TokenSlice slice(params, range);
-  TokenSliceNoCategories sliceNoCategories(params, range);
+  TokenSlice const slice(params, range);
+  TokenSliceNoCategories const sliceNoCategories(params, range);
+
+  if (type != Model::Type::TYPE_COUNT)
+  {
+    for (size_t i = 0; i < slice.Size(); ++i)
+      bestScores.m_matchedLength += slice.Get(i).GetOriginal().size();
+  }
 
   for (auto const lang : params.GetLangs())
   {
@@ -100,12 +107,14 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
   return bestScores;
 }
 
-ErrorsMade GetErrorsMade(FeatureType & ft, Geocoder::Params const & params,
-                         TokenRange const & range, Model::Type type)
+pair<ErrorsMade, size_t> MatchTokenRange(FeatureType & ft, Geocoder::Params const & params,
+                                         TokenRange const & range, Model::Type type)
 {
-  auto errorsMade = GetNameScores(ft, params, range, type).m_errorsMade;
+  auto const nameScores = GetNameScores(ft, params, range, type);
+  auto errorsMade = nameScores.m_errorsMade;
+  auto matchedLength = nameScores.m_matchedLength;
   if (errorsMade.IsValid())
-    return errorsMade;
+    return make_pair(errorsMade, matchedLength);
 
   for (auto const token : range)
   {
@@ -114,9 +123,10 @@ ErrorsMade GetErrorsMade(FeatureType & ft, Geocoder::Params const & params,
       tokenErrors = ErrorsMade::Max(tokenErrors, ErrorsMade{GetMaxErrorsForToken(s)});
     });
     errorsMade += tokenErrors;
+    matchedLength += params.GetToken(token).GetOriginal().size();
   }
 
-  return errorsMade;
+  return make_pair(errorsMade, matchedLength);
 }
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
@@ -313,6 +323,7 @@ class RankerResultMaker
 
       auto nameScore = nameScores.m_nameScore;
       auto errorsMade = nameScores.m_errorsMade;
+      auto matchedLength = nameScores.m_matchedLength;
 
       if (info.m_type != Model::TYPE_STREET &&
           preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
@@ -327,6 +338,7 @@ class RankerResultMaker
 
           nameScore = min(nameScore, nameScores.m_nameScore);
           errorsMade += nameScores.m_errorsMade;
+          matchedLength += nameScores.m_matchedLength;
         }
       }
 
@@ -337,12 +349,21 @@ class RankerResultMaker
         {
           auto const type = Model::TYPE_CITY;
           auto const & range = preInfo.m_tokenRange[type];
-          errorsMade += GetErrorsMade(*city, m_params, range, type);
+          auto const matchingResult = MatchTokenRange(*city, m_params, range, type);
+          errorsMade += matchingResult.first;
+          matchedLength += matchingResult.second;
         }
       }
 
+      size_t totalLength = 0;
+      for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+        totalLength += m_params.GetToken(i).GetOriginal().size();
+
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
+      info.m_matchedFraction =
+          totalLength == 0 ? 1.0
+                           : static_cast<double>(matchedLength) / static_cast<double>(totalLength);
     }
 
     CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),

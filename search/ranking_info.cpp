@@ -22,6 +22,8 @@ double constexpr kPopularity = 0.0500000;
 double constexpr kRating = 0.0500000;
 double constexpr kFalseCats = -0.3691859;
 double constexpr kErrorsMade = -0.0579812;
+// todo: (@t.yan) Adjust.
+double constexpr kMatchedFraction = 0.3;
 double constexpr kAllTokensUsed = 0.0000000;
 double constexpr kHasName = 0.5;
 
@@ -81,10 +83,13 @@ void RankingInfo::PrintCSVHeader(ostream & os)
      << ",Rating"
      << ",NameScore"
      << ",ErrorsMade"
+     << ",MatchedFraction"
      << ",SearchType"
      << ",PureCats"
      << ",FalseCats"
-     << ",AllTokensUsed";
+     << ",AllTokensUsed"
+     << ",IsCategorialRequest"
+     << ",HasName";
 }
 
 string DebugPrint(RankingInfo const & info)
@@ -99,6 +104,7 @@ string DebugPrint(RankingInfo const & info)
      << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
+  os << ", m_matchedFraction:" << info.m_matchedFraction;
   os << ", m_type:" << DebugPrint(info.m_type);
   os << ", m_pureCats:" << info.m_pureCats;
   os << ", m_falseCats:" << info.m_falseCats;
@@ -118,6 +124,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << TransformRating(m_rating) << ",";
   os << DebugPrint(m_nameScore) << ",";
   os << GetErrorsMade() << ",";
+  os << m_matchedFraction << ",";
   os << DebugPrint(m_type) << ",";
   os << m_pureCats << ",";
   os << m_falseCats << ",";
@@ -160,6 +167,7 @@ double RankingInfo::GetLinearModelRank() const
     result += kType[m_type];
     result += kNameScore[nameScore];
     result += kErrorsMade * GetErrorsMade();
+    result += kMatchedFraction * m_matchedFraction;
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
   }
   else

@@ -46,6 +46,9 @@ struct RankingInfo
   // Number of typos.
   ErrorsMade m_errorsMade;
 
+  // Fraction of characters from original query matched to feature.
+  double m_matchedFraction = 0.0;
+
   // True iff all tokens that are not stop-words
   // were used when retrieving the feature.
   bool m_allTokensUsed = true;
