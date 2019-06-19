@@ -200,6 +200,7 @@ public:
   {
     bool m_isSuccessful = false;
     std::string m_hash;
+    bool m_needSkip = false;
   };
 
   using InvalidTokenHandler = std::function<void()>;
@@ -325,7 +326,8 @@ private:
 
   // This function always returns path to a temporary file or the empty string
   // in case of a disk error.
-  std::string PrepareFileToUploading(std::string const & fileName, std::string & hash);
+  std::string PrepareFileToUploading(std::string const & fileName, std::string & hash,
+                                     bool & needSkip);
 
   RequestResult CreateSnapshot(std::vector<std::string> const & files) const;
   RequestResult FinishSnapshot() const;

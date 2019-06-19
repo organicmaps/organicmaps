@@ -682,13 +682,18 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
     }
 
     // Prepare file to uploading.
+    bool needSkip;
     std::string hash;
-    auto const uploadedName = PrepareFileToUploading(entryName, hash);
+    auto const uploadedName = PrepareFileToUploading(entryName, hash, needSkip);
     auto deleteAfterUploading = [uploadedName]() {
       if (!uploadedName.empty())
         base::DeleteFileX(uploadedName);
     };
     SCOPE_GUARD(deleteAfterUploadingGuard, deleteAfterUploading);
+
+    // This file must be skipped by some reason.
+    if (needSkip)
+      return;
 
     if (uploadedName.empty())
     {
@@ -810,7 +815,8 @@ void Cloud::FinishUploadingOnRequestError(Cloud::RequestResult const & result)
   }
 }
 
-std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::string & hash)
+std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::string & hash,
+                                          bool & needSkip)
 {
   // 1. Get path to the original uploading file.
   std::string filePath;
@@ -849,6 +855,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
   // 5. Convert temporary file and save to output path.
   CHECK(m_params.m_backupConverter, ());
   auto const convertionResult = m_params.m_backupConverter(tmpPath, outputPath);
+  needSkip = convertionResult.m_needSkip;
   hash = convertionResult.m_hash;
   if (convertionResult.m_isSuccessful)
     return outputPath;
@@ -1478,6 +1485,11 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
       auto const fn = f.m_fileName + ".converted";
       auto const convertedFile = base::JoinPath(dirPath, fn);
       auto const convertionResult = m_params.m_restoreConverter(restoringFile, convertedFile);
+
+      // This file must be skipped by some reason.
+      if (convertionResult.m_needSkip)
+        continue;
+
       if (!convertionResult.m_isSuccessful)
       {
         FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");

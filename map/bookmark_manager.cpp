@@ -172,6 +172,14 @@ Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
   if (kmlData == nullptr)
     return {};
 
+  // Skip paid bookmarks.
+  if (kmlData->m_categoryData.m_accessRules == kml::AccessRules::Paid)
+  {
+    Cloud::ConvertionResult r;
+    r.m_needSkip = true;
+    return r;
+  }
+
   if (!SaveKmlFile(*kmlData, tmpFilePath, KmlFileType::Text))
     return {};
 
@@ -189,6 +197,14 @@ Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
   auto kmlData = LoadKmzFile(filePath, hash);
   if (kmlData == nullptr)
     return {};
+
+  // Skip paid bookmarks.
+  if (kmlData->m_categoryData.m_accessRules == kml::AccessRules::Paid)
+  {
+    Cloud::ConvertionResult r;
+    r.m_needSkip = true;
+    return r;
+  }
   
   Cloud::ConvertionResult result;
   result.m_hash = hash;
