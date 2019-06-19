@@ -37,7 +37,8 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
     uint8_t const rank = results[i].GetInfo().m_rank;
     uint8_t const popularity = results[i].GetInfo().m_popularity;
     uint8_t const prevCount = prevEmit.count(results[i].GetId()) ? 1 : 0;
-    uint8_t const priority = max({rank, prevCount, popularity});
+    uint8_t const exactMatch = results[i].GetInfo().m_exactMatch ? 1 : 0;
+    uint8_t const priority = max({rank, prevCount, popularity, exactMatch});
     sweeper.Add(p.x, p.y, i, priority);
   }
 
@@ -214,6 +215,10 @@ void PreRanker::Filter(bool viewportSearch)
     {
       nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(),
                   &PreRankerResult::LessRankAndPopularity);
+      filtered.insert(m_results.begin(), m_results.begin() + numResults);
+      nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(),
+                  &PreRankerResult::LessByExactMatch);
+      filtered.insert(m_results.begin(), m_results.begin() + numResults);
     }
     else
     {
@@ -226,9 +231,8 @@ void PreRanker::Filter(bool viewportSearch)
                                        m_params.m_viewport.RightBottom()) < 2 * kPedestrianRadiusMeters;
       comparator.m_viewport = m_params.m_viewport;
       nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(), comparator);
+      filtered.insert(m_results.begin(), m_results.begin() + numResults);
     }
-
-    filtered.insert(m_results.begin(), m_results.begin() + numResults);
   }
 
   m_results.assign(filtered.begin(), filtered.end());

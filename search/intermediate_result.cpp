@@ -74,21 +74,33 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
 }
 
 // static
-bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2)
+bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs,
+                                            PreRankerResult const & rhs)
 {
-  if (r1.m_info.m_rank != r2.m_info.m_rank)
-    return r1.m_info.m_rank > r2.m_info.m_rank;
-  if (r1.m_info.m_popularity != r2.m_info.m_popularity)
-    return r1.m_info.m_popularity > r2.m_info.m_popularity;
-  return r1.m_info.m_distanceToPivot < r2.m_info.m_distanceToPivot;
+  if (lhs.m_info.m_rank != rhs.m_info.m_rank)
+    return lhs.m_info.m_rank > rhs.m_info.m_rank;
+  if (lhs.m_info.m_popularity != rhs.m_info.m_popularity)
+    return lhs.m_info.m_popularity > rhs.m_info.m_popularity;
+  return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
-bool PreRankerResult::LessDistance(PreRankerResult const & r1, PreRankerResult const & r2)
+bool PreRankerResult::LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
-  if (r1.m_info.m_distanceToPivot != r2.m_info.m_distanceToPivot)
-    return r1.m_info.m_distanceToPivot < r2.m_info.m_distanceToPivot;
-  return r1.m_info.m_rank > r2.m_info.m_rank;
+  if (lhs.m_info.m_distanceToPivot != rhs.m_info.m_distanceToPivot)
+    return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
+  return lhs.m_info.m_rank > rhs.m_info.m_rank;
+}
+
+// static
+bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerResult const & rhs)
+{
+  auto const lhsScore = lhs.m_info.m_exactMatch && lhs.m_info.m_allTokensUsed;
+  auto const rhsScore = rhs.m_info.m_exactMatch && rhs.m_info.m_allTokensUsed;
+  if (lhsScore != rhsScore)
+    return lhsScore;
+
+  return LessDistance(lhs, rhs);
 }
 
 bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,

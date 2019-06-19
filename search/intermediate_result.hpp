@@ -34,8 +34,9 @@ public:
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                   std::vector<ResultTracer::Branch> const & provenance);
 
-  static bool LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2);
-  static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
+  static bool LessRankAndPopularity(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  static bool LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  static bool LessByExactMatch(PreRankerResult const & lhs, PreRankerResult const & rhs);
 
   struct CategoriesComparator
   {
