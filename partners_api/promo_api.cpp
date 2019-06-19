@@ -59,31 +59,19 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
     auto const obj = json_array_get(dataArray, i);
     FromJSONObject(obj, "name", item.m_name);
     FromJSONObject(obj, "url", item.m_url);
-
-    auto const imageUrlObj = json_object_get(obj, "image_url");
-    if (!json_is_null(imageUrlObj))
-      FromJSON(imageUrlObj, item.m_imageUrl);
-
     FromJSONObject(obj, "access", item.m_access);
-
-    auto const tierObj = json_object_get(obj, "tier");
-    if (!json_is_null(tierObj))
-      FromJSON(tierObj, item.m_tier);
+    FromJSONObjectOptionalField(obj, "image_url", item.m_imageUrl);
+    FromJSONObjectOptionalField(obj, "tier", item.m_tier);
 
     auto const authorObj = json_object_get(obj, "author");
     FromJSONObject(authorObj, "key_id", item.m_author.m_id);
     FromJSONObject(authorObj, "name", item.m_author.m_name);
 
     auto const luxCategoryObj = json_object_get(obj, "lux_category");
-    if (!json_is_null(luxCategoryObj))
+    if (json_is_object(luxCategoryObj))
     {
-      auto const luxCategoryName = json_object_get(luxCategoryObj, "name");
-      if (!json_is_null(luxCategoryName))
-        FromJSON(luxCategoryName, item.m_luxCategory.m_name);
-
-      auto const luxCategoryColor = json_object_get(luxCategoryObj, "color");
-      if (!json_is_null(luxCategoryColor))
-        FromJSON(luxCategoryColor, item.m_luxCategory.m_color);
+      FromJSONObjectOptionalField(luxCategoryObj, "name", item.m_luxCategory.m_name);
+      FromJSONObjectOptionalField(luxCategoryObj, "color", item.m_luxCategory.m_color);
     }
 
     result.m_items.emplace_back(std::move(item));

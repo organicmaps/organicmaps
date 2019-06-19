@@ -539,13 +539,10 @@ PROMO_GALLERY_CITY = """
                 "key_id": "00000000-0000-0000-0000-000000000000",
                 "name": "Bmj"
             },
-            "image_url": null,
             "access": "public",
             "lux_category": {
-                "name": null,
                 "color": "000000"
-            },
-            "tier": null
+            }
         }
     ],
     "errors": [],
