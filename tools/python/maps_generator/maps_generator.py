@@ -23,8 +23,7 @@ from .generator import settings
 from .generator.decorators import stage, country_stage, country_stage_log
 from .generator.env import (planet_lock_file, build_lock_file,
                             WORLD_COASTS_NAME, WORLD_NAME, WORLDS_NAMES)
-from .generator.exceptions import (ContinueError, BadExitStatusError,
-                                   wait_and_raise_if_fail)
+from .generator.exceptions import ContinueError, BadExitStatusError
 from .generator.gen_tool import run_gen_tool
 from .generator.statistics import make_stats, get_stages_info
 from .utils.file import is_verified, download_file, make_tarfile
@@ -33,9 +32,8 @@ logger = logging.getLogger("maps_generator")
 
 
 def download_external(url_to_path: dict):
-    ps = [download_file(k, v) for k, v in url_to_path.items()]
-    for p in ps:
-        wait_and_raise_if_fail(p)
+    for k, v in url_to_path.items():
+        download_file(k, v)
 
 
 @stage

@@ -6,16 +6,11 @@ from ..utils.md5 import write_md5sum, md5
 from . import settings
 from .gen_tool import run_gen_tool
 from .osmtools import osmconvert, osmupdate
-from .exceptions import wait_and_raise_if_fail
 
 
-def download_planet(planet, output=subprocess.DEVNULL,
-                    error=subprocess.DEVNULL):
-    p = download_file(settings.PLANET_URL, planet, output=output, error=error)
-    m = download_file(settings.PLANET_MD5_URL, md5(planet), output=output,
-                      error=error)
-    wait_and_raise_if_fail(p)
-    wait_and_raise_if_fail(m)
+def download_planet(planet):
+    download_file(settings.PLANET_URL, planet)
+    download_file(settings.PLANET_MD5_URL, md5(planet))
 
 
 def convert_planet(tool, in_planet, out_planet, output=subprocess.DEVNULL,
@@ -26,8 +21,7 @@ def convert_planet(tool, in_planet, out_planet, output=subprocess.DEVNULL,
 
 def stage_download_and_convert_planet(env, **kwargs):
     if not is_verified(settings.PLANET_PBF):
-        download_planet(settings.PLANET_PBF, output=env.get_subprocess_out(),
-                        error=env.get_subprocess_out())
+        download_planet(settings.PLANET_PBF)
 
     convert_planet(env[settings.OSM_TOOL_CONVERT],
                    settings.PLANET_PBF, settings.PLANET_O5M,

@@ -1,12 +1,15 @@
 import errno
 import functools
 import glob
+import logging
 import os
 import shutil
-import subprocess
 import tarfile
+import urllib.request
 
 from .md5 import md5, check_md5
+
+logger = logging.getLogger("maps_generator")
 
 
 def is_executable(fpath):
@@ -27,10 +30,10 @@ def find_executable(path, exe=None):
     raise FileNotFoundError(f"{exe} not found in {path}")
 
 
-def download_file(url, name, output=subprocess.DEVNULL,
-                  error=subprocess.DEVNULL):
-    return subprocess.Popen(["curl", "-s", "-L", "-o" + name, url],
-                            stdout=output, stderr=error)
+def download_file(url, name):
+    logger.info(f"Trying to download {name} from {url}.")
+    urllib.request.urlretrieve(url, name)
+    logger.info(f"File {name} was downloaded from {url}.")
 
 
 def is_exists_file_and_md5(name):
