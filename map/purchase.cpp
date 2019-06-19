@@ -9,6 +9,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/visitor.hpp"
 
 #include "std/target_os.hpp"
@@ -42,7 +43,7 @@ uint8_t constexpr kMaxAttemptIndex = 2;
 std::string GetSubscriptionId(SubscriptionType type)
 {
   return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId() +
-    kSubscriptionSuffix[static_cast<size_t>(type)]);
+    kSubscriptionSuffix[base::Underlying(type)]);
 }
 
 std::string GetDeviceId()
@@ -52,7 +53,7 @@ std::string GetDeviceId()
 
 std::string GetSubscriptionKey(SubscriptionType type)
 {
-  return kSubscriptionId + kSubscriptionSuffix[static_cast<size_t>(type)];
+  return kSubscriptionId + kSubscriptionSuffix[base::Underlying(type)];
 }
 
 std::string ValidationUrl()
@@ -115,16 +116,17 @@ struct ValidationResult
 Purchase::Purchase(InvalidTokenHandler && onInvalidToken)
   : m_onInvalidToken(std::move(onInvalidToken))
 {
-  for (size_t i = 0; i < static_cast<size_t>(SubscriptionType::Count); ++i)
+  for (size_t i = 0; i < base::Underlying(SubscriptionType::Count); ++i)
   {
     auto const t = static_cast<SubscriptionType>(i);
-    std::string id;
-    if (GetPlatform().GetSecureStorage().Load(GetSubscriptionKey(t), id))
-      m_subscriptionData[t].m_subscriptionId = id;
 
-    m_subscriptionData[t].m_isActive =
-      (GetSubscriptionId(t) == m_subscriptionData[t].m_subscriptionId);
+    std::string id;
+    UNUSED_VALUE(GetPlatform().GetSecureStorage().Load(GetSubscriptionKey(t), id));
+
+    auto const sid = GetSubscriptionId(t);
+    m_subscriptionData.emplace_back(std::make_unique<SubscriptionData>(id == sid, sid));
   }
+  CHECK_EQUAL(m_subscriptionData.size(), base::Underlying(SubscriptionType::Count), ());
 }
 
 void Purchase::RegisterSubscription(SubscriptionListener * listener)
@@ -149,24 +151,19 @@ void Purchase::SetStartTransactionCallback(StartTransactionCallback && callback)
 bool Purchase::IsSubscriptionActive(SubscriptionType type) const
 {
   CHECK(type != SubscriptionType::Count, ());
-  auto const it = m_subscriptionData.find(type);
-  return it != m_subscriptionData.end() && it->second.m_isActive;
+  return m_subscriptionData[base::Underlying(type)]->m_isActive;
 }
 
 void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
 {
   CHECK(type != SubscriptionType::Count, ());
-  m_subscriptionData[type].m_isActive = isEnabled;
+
+  auto & data = m_subscriptionData[base::Underlying(type)];
+  data->m_isActive = isEnabled;
   if (isEnabled)
-  {
-    auto const id = GetSubscriptionId(type);
-    m_subscriptionData[type].m_subscriptionId = id;
-    GetPlatform().GetSecureStorage().Save(GetSubscriptionKey(type), id);
-  }
+    GetPlatform().GetSecureStorage().Save(GetSubscriptionKey(type), data->m_subscriptionId);
   else
-  {
     GetPlatform().GetSecureStorage().Remove(GetSubscriptionKey(type));
-  }
 
   for (auto & listener : m_listeners)
     listener->OnSubscriptionChanged(type, isEnabled);

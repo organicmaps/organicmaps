@@ -5,6 +5,7 @@
 #include <atomic>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -69,14 +70,18 @@ private:
                     std::string const & accessToken, bool startTransaction,
                     uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
 
+  // This structure is used in multithreading environment, so
+  // fields must be either constant or atomic.
   struct SubscriptionData
   {
     std::atomic<bool> m_isActive;
-    std::string m_subscriptionId;
+    std::string const m_subscriptionId;
 
-    SubscriptionData() : m_isActive(false) {}
+    SubscriptionData(bool isActive, std::string const & id)
+      : m_isActive(isActive), m_subscriptionId(id)
+    {}
   };
-  std::map<SubscriptionType, SubscriptionData> m_subscriptionData;
+  std::vector<std::unique_ptr<SubscriptionData>> m_subscriptionData;
 
   std::vector<SubscriptionListener *> m_listeners;
 
