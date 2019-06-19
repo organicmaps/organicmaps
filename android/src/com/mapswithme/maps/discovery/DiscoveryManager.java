@@ -12,7 +12,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.EnumSet;
 
-enum DiscoveryManager
+public enum DiscoveryManager
 {
   INSTANCE;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);

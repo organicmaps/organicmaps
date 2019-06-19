@@ -12,9 +12,15 @@ import com.mapswithme.maps.MwmApplication;
 public abstract class SimpleSingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.Item>>
     extends SingleItemAdapterStrategy<T>
 {
+  protected SimpleSingleItemAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
+                                            @Nullable String url)
+  {
+    super(url, listener);
+  }
+
   protected SimpleSingleItemAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(null, listener);
+    this(listener, null);
   }
 
   @Override

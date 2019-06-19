@@ -560,7 +560,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onActivityStarted(Activity activity)
   {
     mBannerController.attach();
-    mPlacePage.attach(null);
+    mPlacePage.attach(activity);
   }
 
   @Override

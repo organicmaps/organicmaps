@@ -417,35 +417,11 @@ public class Holders
     @Override
     protected void onItemSelected(@NonNull Items.Item item, int position)
     {
-      ItemSelectedListener<Items.Item> listener = getListener();
-      if (listener == null)
-        return;
 
-      listener.onActionButtonSelected(item, position);
     }
   }
 
-  public static class BaseEmptyCatalogHolder extends SimpleViewHolder
-  {
-
-    public BaseEmptyCatalogHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
-                                  @Nullable ItemSelectedListener<Items.Item> listener)
-    {
-      super(itemView, items, listener);
-    }
-
-    @Override
-    protected void onItemSelected(@NonNull Items.Item item, int position)
-    {
-      ItemSelectedListener<Items.Item> listener = getListener();
-      if (listener == null)
-        return;
-
-      listener.onItemSelected(item, position);
-    }
-  }
-
-  public static class CrossPromoLoadingHolder extends BaseEmptyCatalogHolder
+  public static class CrossPromoLoadingHolder extends SimpleViewHolder
   {
     public CrossPromoLoadingHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                                    @Nullable ItemSelectedListener<Items.Item> listener)
@@ -510,6 +486,30 @@ public class Holders
       ShapeDrawable shapeDrawable = new ShapeDrawable(new RectShape());
       shapeDrawable.getPaint().setColor(item.getCategory().getColor());
       mProLabel.setBackgroundDrawable(shapeDrawable);
+    }
+  }
+
+  public static class CatalogErrorHolder extends SimpleViewHolder
+  {
+
+    public CatalogErrorHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                              @Nullable ItemSelectedListener<Items.Item> listener)
+    {
+      super(itemView, items, listener);
+      View progress = itemView.findViewById(R.id.progress);
+      UiUtils.invisible(progress);
+      TextView subtitle = itemView.findViewById(R.id.subtitle);
+      subtitle.setText("");
+    }
+
+    @Override
+    protected void onItemSelected(@NonNull Items.Item item, int position)
+    {
+      ItemSelectedListener<Items.Item> listener = getListener();
+      if (listener == null)
+        return;
+
+      listener.onItemSelected(item, position);
     }
   }
 }

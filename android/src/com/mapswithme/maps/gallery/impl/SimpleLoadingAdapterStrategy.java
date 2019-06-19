@@ -17,7 +17,13 @@ public class SimpleLoadingAdapterStrategy
 {
   SimpleLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(listener);
+    this(listener, null);
+  }
+
+  public SimpleLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
+                                      @Nullable String url)
+  {
+    super(listener, url);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.gallery.impl;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;

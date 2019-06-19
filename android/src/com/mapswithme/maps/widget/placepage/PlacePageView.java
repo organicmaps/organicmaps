@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +55,7 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
+import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -65,7 +67,9 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
+import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoCityGallery;
@@ -125,7 +129,9 @@ public class PlacePageView extends NestedScrollView
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
-               EditBookmarkFragment.EditBookmarkListener, Detachable<Void>
+               EditBookmarkFragment.EditBookmarkListener,
+               Detachable<Activity>,
+               Promo.Listener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -361,15 +367,37 @@ public class PlacePageView extends NestedScrollView
   }
 
   @Override
-  public void attach(@NonNull Void object)
+  public void attach(@NonNull Activity object)
   {
-    Promo.INSTANCE.setListener(new CatalogPromoListener(this));
+    Promo.INSTANCE.setListener(this);
   }
 
   @Override
   public void detach()
   {
     Promo.INSTANCE.setListener(null);
+  }
+
+  @Override
+  public void onCityGalleryReceived(@NonNull PromoCityGallery gallery)
+  {
+    String url = gallery.getMoreUrl();
+    List<PromoEntity> items = toEntities(gallery);
+    RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(getActivity());
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoAdapter(getContext(),
+                                                                                           items,
+                                                                                           url,
+                                                                                           promoListener,
+                                                                                           GalleryPlacement.PLACEPAGE);
+    mCatalogPromoRecycler.setAdapter(adapter);
+  }
+
+  @Override
+  public void onErrorReceived()
+  {
+    ErrorCatalogPromoListener<Items.Item> listener = new ErrorCatalogPromoListener<>(getActivity());
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
+    mCatalogPromoRecycler.setAdapter(adapter);
   }
 
   public interface SetMapObjectListener
@@ -840,11 +868,9 @@ public class PlacePageView extends NestedScrollView
   private void initCatalogPromoView()
   {
     mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
-    mCatalogPromoRecycler.setVisibility(VISIBLE);
     mCatalogPromoTitleView = findViewById(R.id.catalog_promo_title);
-    mCatalogPromoTitleView.setVisibility(VISIBLE);
-    LoadingCatalogPromoListener<Items.Item> listener =
-        new LoadingCatalogPromoListener<>(getActivity());
+    BaseItemSelectedListener<Items.Item> listener =
+        new BaseItemSelectedListener<>(getActivity(), /* FIXME */ ItemType.CAFES);
     com.mapswithme.maps.gallery.GalleryAdapter adapter =
         Factory.createCatalogPromoLoadingAdapter(listener);
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
@@ -2105,19 +2131,6 @@ public class PlacePageView extends NestedScrollView
     UiUtils.showIf(enabled, mCatalogPromoTitleView);
   }
 
-  public void setCatalogPromoGallery(@NonNull PromoCityGallery gallery)
-  {
-    String url = gallery.getMoreUrl();
-    List<PromoEntity> items = toEntities(gallery);
-    RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(getActivity());
-    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoAdapter(getContext(),
-                                                                                           items,
-                                                                                           url,
-                                                                                           promoListener,
-                                                                                           GalleryPlacement.PLACEPAGE);
-    mCatalogPromoRecycler.setAdapter(adapter);
-  }
-
   @NonNull
   public static List<PromoEntity> toEntities(@NonNull PromoCityGallery gallery)
   {
@@ -2133,13 +2146,6 @@ public class PlacePageView extends NestedScrollView
       items.add(item);
     }
     return items;
-  }
-
-  public void setCatalogPromoGalleryError()
-  {
-    ErrorCatalogPromoListener<Items.Item> listener = new ErrorCatalogPromoListener<>(getActivity());
-    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
-    mCatalogPromoRecycler.setAdapter(adapter);
   }
 
   private class EditBookmarkClickListener implements OnClickListener

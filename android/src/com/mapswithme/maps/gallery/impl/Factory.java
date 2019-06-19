@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.discovery.DiscoveryManager;
 import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
@@ -103,7 +104,9 @@ public class Factory
   @NonNull
   public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
   {
-    return new GalleryAdapter<>(new CatalogPromoLoadingAdapterStrategy(listener));
+    CatalogPromoLoadingAdapterStrategy strategy =
+        new CatalogPromoLoadingAdapterStrategy(listener, DiscoveryManager.nativeGetLocalExpertsUrl());
+    return new GalleryAdapter<>(strategy);
   }
 
   @NonNull

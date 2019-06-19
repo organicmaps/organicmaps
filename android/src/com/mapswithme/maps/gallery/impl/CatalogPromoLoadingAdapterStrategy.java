@@ -13,9 +13,10 @@ import com.mapswithme.maps.gallery.Items;
 
 class CatalogPromoLoadingAdapterStrategy extends SimpleLoadingAdapterStrategy
 {
-  CatalogPromoLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
+  CatalogPromoLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
+                                     @NonNull String url)
   {
-    super(listener);
+    super(listener, url);
   }
 
   @NonNull

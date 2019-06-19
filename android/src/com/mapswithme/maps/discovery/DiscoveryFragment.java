@@ -26,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -34,9 +35,8 @@ import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
-import com.mapswithme.maps.widget.placepage.LoadingCatalogPromoListener;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
-import com.mapswithme.maps.widget.placepage.RegularCatalogPromoListener;
+import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -128,6 +128,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.food));
   }
 
+  private void initCatalogPromoGallery()
+  {
+    RecyclerView catalogPromoRecycler = getGallery(R.id.catalog_promo_recycler);
+    setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
+  }
+
   private void initLocalExpertsGallery()
   {
     setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.localGuides));
@@ -212,7 +218,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       RecyclerView localGuides = getGallery(R.id.localGuides);
       localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
       RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-      LoadingCatalogPromoListener<Items.Item> listener = new LoadingCatalogPromoListener<>(requireActivity());
+      BaseItemSelectedListener<Items.Item> listener = new BaseItemSelectedListener<>(requireActivity(), /* FIXME */ItemType.CAFES);
       promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
       return;
     }
@@ -221,17 +227,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     // should be hidden in this case.
     UiUtils.showIf(ConnectionState.isMobileConnected(), getView(), R.id.localGuidesTitle,
                    R.id.localGuides);
-  }
-
-
-  private void initCatalogPromoGallery()
-  {
-    View root = getRootView();
-    RecyclerView catalogPromoRecycler = root.findViewById(R.id.catalog_promo_recycler);
-    setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
-    View titleView = root.findViewById(R.id.catalog_promo_title);
-    UiUtils.show(titleView);
-    UiUtils.show(catalogPromoRecycler);
   }
 
   private void requestDiscoveryInfo()
