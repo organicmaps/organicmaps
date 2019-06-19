@@ -72,8 +72,8 @@ public:
 
     Locales m_categoryLocales;
 
-    // Default batch size. Override if needed.
-    size_t m_batchSize = 10;
+    // The maximum number of results in a single emit.
+    size_t m_batchSize = 0;
 
     // The maximum total number of results to be emitted in all batches.
     size_t m_limit = 0;

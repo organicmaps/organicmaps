@@ -590,6 +590,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   if (viewportSearch)
     params.m_viewport = GetViewport();
 
+  params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = m_position ? *m_position : GetViewport().Center();
   params.m_pivotRegion = GetPivotRegion();

@@ -21,6 +21,7 @@ class Tracer;
 struct SearchParams
 {
   static size_t const kDefaultNumBookmarksResults = 1000;
+  static size_t const kDefaultBatchSizeEverywhere = 10;
   static size_t const kDefaultNumResultsEverywhere = 30;
   static size_t const kDefaultNumResultsInViewport = 200;
 
@@ -40,6 +41,7 @@ struct SearchParams
   boost::optional<m2::PointD> m_position;
   m2::RectD m_viewport;
 
+  size_t m_batchSize = kDefaultBatchSizeEverywhere;
   size_t m_maxNumResults = kDefaultNumResultsEverywhere;
 
   // Minimal distance between search results in mercators, needed for

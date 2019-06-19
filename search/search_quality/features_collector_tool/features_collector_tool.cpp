@@ -150,6 +150,8 @@ int main(int argc, char * argv[])
 
     search::SearchParams params;
     sample.FillSearchParams(params);
+    params.m_batchSize = 100;
+    params.m_maxNumResults = 300;
     TestSearchRequest request(*engine, params);
     request.Run();
 
@@ -163,25 +165,28 @@ int main(int argc, char * argv[])
     {
       if (results[j].GetResultType() != Result::Type::Feature)
         continue;
+      if (actualMatching[j] == Matcher::kInvalidId)
+        continue;
+
       auto const & info = results[j].GetRankingInfo();
       cout << i << ",";
       info.ToCSV(cout);
 
-      auto relevance = Sample::Result::Relevance::Irrelevant;
-      if (actualMatching[j] != Matcher::kInvalidId)
-        relevance = sample.m_results[actualMatching[j]].m_relevance;
+      auto const relevance = sample.m_results[actualMatching[j]].m_relevance;
       cout << "," << DebugPrint(relevance) << endl;
     }
 
     auto & s = stats[i];
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
-      if (goldenMatching[j] == Matcher::kInvalidId &&
-          sample.m_results[j].m_relevance != Sample::Result::Relevance::Irrelevant &&
-          sample.m_results[j].m_relevance != Sample::Result::Relevance::Harmful)
-      {
+      auto const wasNotFound =
+          goldenMatching[j] == Matcher::kInvalidId ||
+          goldenMatching[j] >= search::SearchParams::kDefaultNumResultsEverywhere;
+      auto const isRelevant =
+          sample.m_results[j].m_relevance == Sample::Result::Relevance::Relevant ||
+          sample.m_results[j].m_relevance == Sample::Result::Relevance::Vital;
+      if (wasNotFound && isRelevant)
         s.m_notFound.push_back(j);
-      }
     }
   }
 
