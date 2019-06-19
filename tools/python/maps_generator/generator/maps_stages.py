@@ -26,7 +26,7 @@ def run_gen_tool_with_recovery_country(env, *args, **kwargs):
     kwargs["data_path"] = prev_data_path
 
 
-def stage_index_world(env, country, **kwargs):
+def _generate_common_index(env, country, **kwargs):
     run_gen_tool(env.gen_tool,
                  out=env.get_subprocess_out(country),
                  err=env.get_subprocess_out(country),
@@ -37,30 +37,29 @@ def stage_index_world(env, country, **kwargs):
                  planet_version=env.planet_version,
                  generate_geometry=True,
                  generate_index=True,
-                 generate_search_index=True,
-                 generate_cities_boundaries=True,
-                 cities_boundaries_data=env.cities_boundaries_path,
                  output=country,
                  **kwargs)
+
+
+def stage_index_world(env, country, **kwargs):
+    _generate_common_index(env, country,
+                           generate_search_index=True,
+                           cities_boundaries_data=env.cities_boundaries_path,
+                           generate_cities_boundaries=True,
+                           **kwargs)
 
 
 def stage_index(env, country, **kwargs):
-    stage_index_world(env, country, generate_maxspeed=True, **kwargs)
+    _generate_common_index(env, country,
+                           generate_search_index=True,
+                           cities_boundaries_data=env.cities_boundaries_path,
+                           generate_maxspeed=True,
+                           make_city_roads=True,
+                           **kwargs)
 
 
 def stage_coastline_index(env, country, **kwargs):
-    run_gen_tool(env.gen_tool,
-                 out=env.get_subprocess_out(country),
-                 err=env.get_subprocess_out(country),
-                 data_path=env.mwm_path,
-                 intermediate_data_path=env.intermediate_path,
-                 user_resource_path=env.user_resource_path,
-                 node_storage=env.node_storage,
-                 planet_version=env.planet_version,
-                 generate_geometry=True,
-                 generate_index=True,
-                 output=country,
-                 **kwargs)
+    _generate_common_index(env, country, **kwargs)
 
 
 def stage_ugc(env, country, **kwargs):
