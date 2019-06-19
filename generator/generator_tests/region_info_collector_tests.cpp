@@ -52,9 +52,9 @@ UNIT_TEST(RegionInfoCollector_Collect)
     TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.m_id), ());
     TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
     TEST_EQUAL(regionData.GetPlaceType(), PlaceType::City, ());
-    TEST(!regionData.HasIsoCodeAlpha2(), ());
-    TEST(!regionData.HasIsoCodeAlpha3(), ());
-    TEST(!regionData.HasIsoCodeAlphaNumeric(), ());
+    TEST(!regionData.GetIsoCodeAlpha2(), ());
+    TEST(!regionData.GetIsoCodeAlpha3(), ());
+    TEST(!regionData.GetIsoCodeAlphaNumeric(), ());
   }
 
   {
@@ -63,12 +63,12 @@ UNIT_TEST(RegionInfoCollector_Collect)
     TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Two, ());
     TEST_EQUAL(regionData.GetPlaceType(), PlaceType::Unknown, ());
 
-    TEST(regionData.HasIsoCodeAlpha2(), ());
-    TEST(regionData.HasIsoCodeAlpha3(), ());
-    TEST(regionData.HasIsoCodeAlphaNumeric(), ());
-    TEST_EQUAL(regionData.GetIsoCodeAlpha2(), "RU", ());
-    TEST_EQUAL(regionData.GetIsoCodeAlpha3(), "RUS", ());
-    TEST_EQUAL(regionData.GetIsoCodeAlphaNumeric(), "643", ());
+    TEST(regionData.GetIsoCodeAlpha2(), ());
+    TEST(regionData.GetIsoCodeAlpha3(), ());
+    TEST(regionData.GetIsoCodeAlphaNumeric(), ());
+    TEST_EQUAL(*regionData.GetIsoCodeAlpha2(), "RU", ());
+    TEST_EQUAL(*regionData.GetIsoCodeAlpha3(), "RUS", ());
+    TEST_EQUAL(*regionData.GetIsoCodeAlphaNumeric(), "643", ());
   }
 
   {
@@ -76,9 +76,9 @@ UNIT_TEST(RegionInfoCollector_Collect)
     TEST_EQUAL(regionDataEmpty.GetOsmId(), MakeOsmRelation(kOsmElementEmpty.m_id), ());
     TEST_EQUAL(regionDataEmpty.GetAdminLevel(), AdminLevel::Unknown, ());
     TEST_EQUAL(regionDataEmpty.GetPlaceType(), PlaceType::Unknown, ());
-    TEST(!regionDataEmpty.HasIsoCodeAlpha2(), ());
-    TEST(!regionDataEmpty.HasIsoCodeAlpha3(), ());
-    TEST(!regionDataEmpty.HasIsoCodeAlphaNumeric(), ());
+    TEST(!regionDataEmpty.GetIsoCodeAlpha2(), ());
+    TEST(!regionDataEmpty.GetIsoCodeAlpha3(), ());
+    TEST(!regionDataEmpty.GetIsoCodeAlphaNumeric(), ());
   }
 }
 
@@ -107,28 +107,28 @@ UNIT_TEST(RegionInfoCollector_Exists)
   RegionInfo regionInfo(filename);
   {
     auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.m_id));
-    TEST(rg.HasAdminLevel(), ());
-    TEST(!rg.HasPlaceType(), ());
-    TEST(rg.HasIsoCodeAlpha2(), ());
-    TEST(rg.HasIsoCodeAlpha3(), ());
-    TEST(rg.HasIsoCodeAlphaNumeric(), ());
+    TEST_NOT_EQUAL(rg.GetAdminLevel(), AdminLevel::Unknown, ());
+    TEST_EQUAL(rg.GetPlaceType(), PlaceType::Unknown, ());
+    TEST(rg.GetIsoCodeAlpha2(), ());
+    TEST(rg.GetIsoCodeAlpha3(), ());
+    TEST(rg.GetIsoCodeAlphaNumeric(), ());
   }
 
   {
     auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCity.m_id));
-    TEST(rg.HasAdminLevel(), ());
-    TEST(rg.HasPlaceType(), ());
-    TEST(!rg.HasIsoCodeAlpha2(), ());
-    TEST(!rg.HasIsoCodeAlpha3(), ());
-    TEST(!rg.HasIsoCodeAlphaNumeric(), ());
+    TEST_NOT_EQUAL(rg.GetAdminLevel(), AdminLevel::Unknown, ());
+    TEST_NOT_EQUAL(rg.GetPlaceType(), PlaceType::Unknown, ());
+    TEST(!rg.GetIsoCodeAlpha2(), ());
+    TEST(!rg.GetIsoCodeAlpha3(), ());
+    TEST(!rg.GetIsoCodeAlphaNumeric(), ());
   }
 
   {
     auto const rg = regionInfo.Get(MakeOsmRelation(kNotExistingId));
-    TEST(!rg.HasAdminLevel(), ());
-    TEST(!rg.HasPlaceType(), ());
-    TEST(!rg.HasIsoCodeAlpha2(), ());
-    TEST(!rg.HasIsoCodeAlpha3(), ());
-    TEST(!rg.HasIsoCodeAlphaNumeric(), ());
+    TEST_EQUAL(rg.GetAdminLevel(), AdminLevel::Unknown, ());
+    TEST_EQUAL(rg.GetPlaceType(), PlaceType::Unknown, ());
+    TEST(!rg.GetIsoCodeAlpha2(), ());
+    TEST(!rg.GetIsoCodeAlpha3(), ());
+    TEST(!rg.GetIsoCodeAlphaNumeric(), ());
   }
 }

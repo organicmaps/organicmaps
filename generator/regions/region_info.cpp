@@ -95,69 +95,62 @@ base::GeoObjectId const & BaseRegionDataProxy<T>::GetOsmId() const
 template <typename T>
 AdminLevel BaseRegionDataProxy<T>::GetAdminLevel() const
 {
-  return GetMapRegionData().at(m_osmId).m_adminLevel;
+  auto const & regionDataMap = GetMapRegionData();
+  auto const regionData = regionDataMap.find(m_osmId);
+  if (regionData == end(regionDataMap))
+    return AdminLevel::Unknown;
+
+  return regionData->second.m_adminLevel;
 }
 
 template <typename T>
 PlaceType BaseRegionDataProxy<T>::GetPlaceType() const
 {
-  return GetMapRegionData().at(m_osmId).m_place;
+  auto const & regionDataMap = GetMapRegionData();
+  auto const regionData = regionDataMap.find(m_osmId);
+  if (regionData == end(regionDataMap))
+    return PlaceType::Unknown;
+
+  return regionData->second.m_place;
 }
 
 template <typename T>
-bool BaseRegionDataProxy<T>::HasAdminLevel() const
+boost::optional<std::string> BaseRegionDataProxy<T>::GetIsoCodeAlpha2() const
 {
-  return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_adminLevel != AdminLevel::Unknown);
+  auto const & codesMap = GetMapIsoCode();
+  auto const code = codesMap.find(m_osmId);
+  if (code == end(codesMap))
+    return {};
+
+  if (!code->second.HasAlpha2())
+    return {};
+  return code->second.GetAlpha2();
 }
 
 template <typename T>
-bool BaseRegionDataProxy<T>::HasPlaceType() const
+boost::optional<std::string> BaseRegionDataProxy<T>::GetIsoCodeAlpha3() const
 {
-  return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_place != PlaceType::Unknown);
+  auto const & codesMap = GetMapIsoCode();
+  auto const code = codesMap.find(m_osmId);
+  if (code == end(codesMap))
+    return {};
+
+  if (!code->second.HasAlpha3())
+    return {};
+  return code->second.GetAlpha3();
 }
 
 template <typename T>
-bool BaseRegionDataProxy<T>::HasIsoCode() const
+boost::optional<std::string> BaseRegionDataProxy<T>::GetIsoCodeAlphaNumeric() const
 {
-  return GetMapIsoCode().count(m_osmId) != 0;
-}
+  auto const & codesMap = GetMapIsoCode();
+  auto const code = codesMap.find(m_osmId);
+  if (code == end(codesMap))
+    return {};
 
-template <typename T>
-bool BaseRegionDataProxy<T>::HasIsoCodeAlpha2() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha2();
-}
-
-template <typename T>
-bool BaseRegionDataProxy<T>::HasIsoCodeAlpha3() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha3();
-}
-
-template <typename T>
-bool BaseRegionDataProxy<T>::HasIsoCodeAlphaNumeric() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasNumeric();
-}
-
-template <typename T>
-std::string BaseRegionDataProxy<T>::GetIsoCodeAlpha2() const
-{
-  return GetMapIsoCode().at(m_osmId).GetAlpha2();
-}
-
-template <typename T>
-std::string BaseRegionDataProxy<T>::GetIsoCodeAlpha3() const
-{
-  return GetMapIsoCode().at(m_osmId).GetAlpha3();
-}
-
-template <typename T>
-std::string BaseRegionDataProxy<T>::GetIsoCodeAlphaNumeric() const
-{
-  return GetMapIsoCode().at(m_osmId).GetNumeric();
+  if (!code->second.HasNumeric())
+    return {};
+  return code->second.GetNumeric();
 }
 
 template class BaseRegionDataProxy<RegionInfo>;

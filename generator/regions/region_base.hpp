@@ -13,6 +13,7 @@
 #include <string>
 
 #include <boost/geometry.hpp>
+#include <boost/optional.hpp>
 
 namespace generator
 {
@@ -47,8 +48,7 @@ public:
   RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}
 
   base::GeoObjectId GetId() const;
-  bool HasIsoCode() const;
-  std::string GetIsoCode() const;
+  boost::optional<std::string> GetIsoCode() const;
 
   AdminLevel GetAdminLevel() const { return m_regionData.GetAdminLevel(); }
   PlaceType GetPlaceType() const { return m_regionData.GetPlaceType(); }

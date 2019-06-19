@@ -71,8 +71,8 @@ std::string JsonPolicy::ToString(NodePath const & path) const
     ToJSONObject(*properties, "pid", base::NewJSONNull());
 
   auto const & country = path.front()->GetData();
-  if (country.HasIsoCode())
-    ToJSONObject(*properties, "code", country.GetIsoCode());
+  if (auto && isoCode = country.GetIsoCode())
+    ToJSONObject(*properties, "code", *isoCode);
 
   auto feature = base::NewJSONObject();
   ToJSONObject(*feature, "type", "Feature");

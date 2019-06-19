@@ -59,8 +59,9 @@ void RegionWithName::SetMultilangName(StringUtf8Multilang const & name) { m_name
 
 base::GeoObjectId RegionWithData::GetId() const { return m_regionData.GetOsmId(); }
 
-bool RegionWithData::HasIsoCode() const { return m_regionData.HasIsoCodeAlpha2(); }
-
-std::string RegionWithData::GetIsoCode() const { return m_regionData.GetIsoCodeAlpha2(); }
+boost::optional<std::string> RegionWithData::GetIsoCode() const
+{
+  return m_regionData.GetIsoCodeAlpha2();
+}
 }  // namespace regions
 }  // namespace generator
