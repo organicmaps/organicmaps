@@ -253,9 +253,10 @@ def stage_countries_txt(env):
 
 @stage
 def stage_external_resources(env):
+    black_list = {"00_roboto_regular.ttf"}
     resources = [os.path.join(env.user_resource_path, file)
                  for file in os.listdir(env.user_resource_path)
-                 if file.endswith(".ttf")]
+                 if file.endswith(".ttf") and file not in black_list]
     for ttf_file in resources:
         shutil.copy2(ttf_file, env.intermediate_path)
 
@@ -271,7 +272,7 @@ def stage_external_resources(env):
     with open(env.external_resources_path, "w") as f:
         for resource in resources:
             fd = os.open(resource, os.O_RDONLY)
-            f.write(f"{os.path.basename(resource)} {os.fstat(fd).st_size}")
+            f.write(f"{os.path.basename(resource)} {os.fstat(fd).st_size}\n")
 
 
 @stage
