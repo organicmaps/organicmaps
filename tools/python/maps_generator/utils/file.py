@@ -4,7 +4,6 @@ import glob
 import logging
 import os
 import shutil
-import tarfile
 import urllib.request
 
 from .md5 import md5, check_md5
@@ -59,8 +58,3 @@ def symlink_force(target, link_name):
             os.symlink(target, link_name)
         else:
             raise e
-
-
-def make_tarfile(output_filename, source_dir):
-    with tarfile.open(output_filename, "w:gz") as tar:
-        tar.add(source_dir, arcname=os.path.basename(source_dir))

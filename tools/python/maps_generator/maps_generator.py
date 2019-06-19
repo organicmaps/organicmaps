@@ -4,6 +4,7 @@ import logging
 import multiprocessing
 import os
 import shutil
+import tarfile
 from collections import defaultdict
 from functools import partial
 from multiprocessing.pool import ThreadPool
@@ -26,7 +27,7 @@ from .generator.env import (planet_lock_file, build_lock_file,
 from .generator.exceptions import ContinueError, BadExitStatusError
 from .generator.gen_tool import run_gen_tool
 from .generator.statistics import make_stats, get_stages_info
-from .utils.file import is_verified, download_file, make_tarfile
+from .utils.file import is_verified, download_file
 
 logger = logging.getLogger("maps_generator")
 
@@ -279,8 +280,9 @@ def stage_external_resources(env):
 def stage_localads(env):
     create_csv(env.localads_path, env.mwm_path, env.mwm_path, env.types_path,
                env.mwm_version, multiprocessing.cpu_count())
-    make_tarfile(f"{env.localads_path}.tar.gz", env.localads_path)
-
+    with tarfile.open(f"{env.localads_path}.tar.gz", "w:gz") as tar:
+        for filename in os.listdir(env.localads_path):
+            tar.add(os.path.join(env.localads_path, filename), arcname=filename)
 
 @stage
 def stage_statistics(env):
