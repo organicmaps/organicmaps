@@ -20,8 +20,8 @@ MAX_POPULARITY = 255
 RELEVANCES = {'Harmful': -3, 'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
-FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'Rating', 'FalseCats', 'ErrorsMade', 'AllTokensUsed',
-            'CategorialRequest', 'HasName'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'Rating', 'FalseCats', 'ErrorsMade',
+            'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
 
 BOOTSTRAP_ITERATIONS = 10000
 
@@ -272,6 +272,12 @@ def get_normalized_coefs(clf):
 
 def main(args):
     data = pd.read_csv(sys.stdin)
+
+    # Drop categorial requests cause we use different ranking model for them.
+    data.drop(data[data['IsCategorialRequest'] == 1].index, inplace=True)
+    data.reset_index(inplace=True, drop=True)
+    data.drop(columns=['IsCategorialRequest', 'HasName'], inplace=True)
+
     normalize_data(data)
 
     ndcgs = compute_ndcgs_without_ws(data);
