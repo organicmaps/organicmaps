@@ -85,14 +85,32 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
       MercatorBounds::FromLatLon(55.68927, 37.70356), 7075.0);
 }
 
-// No pass through service road in Russia
-UNIT_TEST(RussiaMoscowNoServicePassThrough)
+// Passing through living_street and service are allowed in Russia
+UNIT_TEST(RussiaMoscowServicePassThrough1)
 {
   TRouteResult route =
         integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
                                     MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
                                     MercatorBounds::FromLatLon(55.68895, 37.70286));
-  TEST_EQUAL(route.second, RouterResultCode::RouteNotFound, ());
+  TEST_EQUAL(route.second, RouterResultCode::NoError, ());
+}
+
+UNIT_TEST(RussiaMoscowServicePassThrough2)
+{
+  TRouteResult route =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  MercatorBounds::FromLatLon(55.69038, 37.70015), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.69123, 37.6953));
+  TEST_EQUAL(route.second, RouterResultCode::NoError, ());
+}
+
+UNIT_TEST(RussiaMoscowServicePassThrough3)
+{
+  TRouteResult route =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  MercatorBounds::FromLatLon(55.79649, 37.53738), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.79618, 37.54071));
+  TEST_EQUAL(route.second, RouterResultCode::NoError, ());
 }
 
 // TODO: This test doesn't pass because routing::RouteWeight::operator<
