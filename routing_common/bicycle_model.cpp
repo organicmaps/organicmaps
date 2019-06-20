@@ -313,29 +313,12 @@ VehicleModel::LimitsInitList const kBicycleOptionsPoland = kBicycleOptionsNoTrun
 VehicleModel::LimitsInitList const kBicycleOptionsRomania = kBicycleOptionsNoTrunk;
 
 // Russian Federation
-VehicleModel::LimitsInitList const kBicycleOptionsRussia = {
-    // Footway and pedestrian are allowed
-    // No pass through service and living_street
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, false},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, false},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+// Footway and pedestrian are allowed
+// Note. Despite the fact that according to
+// https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
+// passing through service and living_street with a bicycle is prohibited
+// it's allowed according to Russian traffic rules.
+VehicleModel::LimitsInitList const kBicycleOptionsRussia = kBicycleOptionsBelarus;
 
 // Slovakia
 VehicleModel::LimitsInitList const kBicycleOptionsSlovakia = kBicycleOptionsNoTrunk;
@@ -352,7 +335,7 @@ VehicleModel::LimitsInitList const kBicycleOptionsTurkey = kBicycleOptionsDefaul
 // Ukraine
 VehicleModel::LimitsInitList const kBicycleOptionsUkraine = {
     // No trunk
-    // Footway and perestrian are allowed
+    // Footway and pedestrian are allowed
     // No pass through living_street and service
     {{"highway", "primary"}, true},
     {{"highway", "primary_link"}, true},
