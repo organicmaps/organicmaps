@@ -30,6 +30,7 @@
 #define SEARCH_INDEX_FILE_TAG "sdx"
 #define SEARCH_ADDRESS_FILE_TAG "addr"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"
+#define CITIES_FID_BIMAP_FILE_TAG "cities_fid_bimap"
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 #define METADATA_FILE_TAG "meta"

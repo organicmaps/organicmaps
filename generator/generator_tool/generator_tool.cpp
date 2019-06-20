@@ -4,6 +4,7 @@
 #include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
+#include "generator/cities_fid_bimap_builder.hpp"
 #include "generator/city_roads_generator.hpp"
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
@@ -133,6 +134,8 @@ DEFINE_bool(generate_regions_kv, false,
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
 DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
+
+DEFINE_bool(generate_cities_fid_bimap, false, "Generate cities fid bimap, todo(@m)");
 
 DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
@@ -587,6 +590,13 @@ int GeneratorToolMain(int argc, char ** argv)
         LOG(LCRITICAL, ("Error deserializing boundaries table"));
       if (!generator::BuildCitiesBoundaries(datFile, osmToFeatureFilename, table))
         LOG(LCRITICAL, ("Error generating cities boundaries."));
+    }
+
+    if (FLAGS_generate_cities_fid_bimap)
+    {
+      LOG(LINFO, ("Generating cities fid bimap for", datFile));
+      if (!generator::BuildCitiesFidBimap(datFile, osmToFeatureFilename))
+        LOG(LCRITICAL, ("Error generating cities fid bimap."));
     }
 
     if (!FLAGS_srtm_path.empty())

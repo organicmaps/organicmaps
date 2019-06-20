@@ -8,6 +8,7 @@ set(
   base.cpp
   base.hpp
   beam.hpp
+  bidirectional_map.hpp
   bits.hpp
   buffer_vector.hpp
   bwt.cpp

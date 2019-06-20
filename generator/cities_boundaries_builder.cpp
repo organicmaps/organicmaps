@@ -63,9 +63,9 @@ CBV GetLocalities(string const & dataPath)
   auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 
-  search::MwmContext context(dataSource.GetMwmHandleById(result.first));
+  MwmContext context(dataSource.GetMwmHandleById(result.first));
   ::base::Cancellable const cancellable;
-  return search::CategoriesCache(LocalitiesSource{}, cancellable).Get(context);
+  return CategoriesCache(LocalitiesSource{}, cancellable).Get(context);
 }
 
 template <typename BoundariesTable, typename MappingReader>
@@ -107,6 +107,7 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;
+    // todo(@m) Use osmToFeaturePath?
     if (!ParseFeatureIdToOsmIdMapping(dataPath + OSM2FEATURE_FILE_EXTENSION, mapping))
     {
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));

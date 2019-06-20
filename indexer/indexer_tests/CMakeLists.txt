@@ -19,6 +19,7 @@ set(
   feature_names_test.cpp
   features_offsets_table_test.cpp
   features_vector_test.cpp
+  fid_bimap_tests.cpp
   index_builder_test.cpp
   interval_index_test.cpp
   locality_index_test.cpp

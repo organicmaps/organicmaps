@@ -5,7 +5,8 @@ include_directories(
   ${OMIM_ROOT}/3party/jansson/src
 )
 
-set(SRC
+set(
+  SRC
   altitude_generator.cpp
   altitude_generator.hpp
   booking_dataset.cpp
@@ -26,6 +27,8 @@ set(SRC
   cities_boundaries_builder.hpp
   cities_boundaries_checker.cpp
   cities_boundaries_checker.hpp
+  cities_fid_bimap_builder.cpp
+  cities_fid_bimap_builder.hpp
   city_boundary_processor.cpp
   city_boundary_processor.hpp
   city_roads_generator.cpp
@@ -87,13 +90,13 @@ set(SRC
   filter_planet.hpp
   gen_mwm_info.hpp
   generate_info.hpp
-  geometry_holder.hpp
-  geo_objects/geo_objects.cpp
-  geo_objects/geo_objects.hpp
   geo_objects/geo_object_info_getter.cpp
   geo_objects/geo_object_info_getter.hpp
+  geo_objects/geo_objects.cpp
+  geo_objects/geo_objects.hpp
   geo_objects/geo_objects_filter.cpp
   geo_objects/geo_objects_filter.hpp
+  geometry_holder.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
@@ -127,23 +130,19 @@ set(SRC
   osm_o5m_source.hpp
   osm_source.cpp
   osm_xml_source.hpp
-  polygonizer.hpp
-  popularity.cpp
-  popularity.hpp
-  popular_places_section_builder.cpp
-  popular_places_section_builder.hpp
-  place.hpp
   place.cpp
+  place.hpp
   place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp
+  polygonizer.hpp
+  popular_places_section_builder.cpp
+  popular_places_section_builder.hpp
+  popularity.cpp
+  popularity.hpp
   promo_catalog_cities.hpp
   ratings_section_builder.cpp
   ratings_section_builder.hpp
-  relation_tags.cpp
-  relation_tags.hpp
-  relation_tags_enricher.cpp
-  relation_tags_enricher.hpp
   region_meta.cpp
   region_meta.hpp
   regions/collector_region_info.cpp
@@ -170,6 +169,10 @@ set(SRC
   regions/regions_fixer.hpp
   regions/specs/rus.cpp
   regions/specs/rus.hpp
+  relation_tags.cpp
+  relation_tags.hpp
+  relation_tags_enricher.cpp
+  relation_tags_enricher.hpp
   restriction_collector.cpp
   restriction_collector.hpp
   restriction_generator.cpp
@@ -243,8 +246,8 @@ set(SRC
   unpack_mwm.hpp
   utils.cpp
   utils.hpp
-  ways_merger.hpp
   ways_merger.cpp
+  ways_merger.hpp
   wiki_url_dumper.cpp
   wiki_url_dumper.hpp
   world_map_generator.hpp

@@ -29,6 +29,8 @@
 		39711416229D7E01003915E5 /* key_value_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3971140F229D7E01003915E5 /* key_value_storage.hpp */; };
 		39711417229D7E01003915E5 /* translator_streets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39711410229D7E01003915E5 /* translator_streets.cpp */; };
 		39711418229D7E01003915E5 /* translator_streets.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39711411229D7E01003915E5 /* translator_streets.hpp */; };
+		397DC51B22BB8F13007126DB /* cities_fid_bimap_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397DC51922BB8F13007126DB /* cities_fid_bimap_builder.hpp */; };
+		397DC51C22BB8F13007126DB /* cities_fid_bimap_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397DC51A22BB8F13007126DB /* cities_fid_bimap_builder.cpp */; };
 		39B2B9781FB468CC00AB85A1 /* cities_boundaries_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */; };
 		39B2B9791FB468CC00AB85A1 /* cities_boundaries_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */; };
 		39F7E3AA20E1023400DA7A14 /* test_with_classificator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F7E3A520E1022E00DA7A14 /* test_with_classificator.cpp */; };
@@ -292,6 +294,8 @@
 		3971140F229D7E01003915E5 /* key_value_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = key_value_storage.hpp; sourceTree = "<group>"; };
 		39711410229D7E01003915E5 /* translator_streets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translator_streets.cpp; sourceTree = "<group>"; };
 		39711411229D7E01003915E5 /* translator_streets.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = translator_streets.hpp; sourceTree = "<group>"; };
+		397DC51922BB8F13007126DB /* cities_fid_bimap_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_fid_bimap_builder.hpp; sourceTree = "<group>"; };
+		397DC51A22BB8F13007126DB /* cities_fid_bimap_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_fid_bimap_builder.cpp; sourceTree = "<group>"; };
 		39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_builder.cpp; sourceTree = "<group>"; };
 		39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_builder.hpp; sourceTree = "<group>"; };
 		39F7E3A220E1022E00DA7A14 /* test_with_custom_mwms.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_custom_mwms.hpp; sourceTree = "<group>"; };
@@ -605,6 +609,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				397DC51A22BB8F13007126DB /* cities_fid_bimap_builder.cpp */,
+				397DC51922BB8F13007126DB /* cities_fid_bimap_builder.hpp */,
 				671C2D7522AFD995008B2B8B /* geo_object_info_getter.cpp */,
 				671C2D7322AFD994008B2B8B /* geo_object_info_getter.hpp */,
 				671C2D7422AFD994008B2B8B /* geo_objects_filter.cpp */,
@@ -900,6 +906,7 @@
 				675340881A3F2A7400A0A8C3 /* unpack_mwm.hpp in Headers */,
 				56037E4E219AF97200C2193D /* osm_element_helpers.hpp in Headers */,
 				E1EC1456211C5F9100B53061 /* emitter_interface.hpp in Headers */,
+				397DC51B22BB8F13007126DB /* cities_fid_bimap_builder.hpp in Headers */,
 				6753407F1A3F2A7400A0A8C3 /* osm2type.hpp in Headers */,
 				67C79BB21E2CEEAB00C40034 /* restriction_generator.hpp in Headers */,
 				401E3187225C97D100DE7EB8 /* boost_helpers.hpp in Headers */,
@@ -1203,6 +1210,7 @@
 				4032E735225D151D00D33617 /* feature_maker_base.cpp in Sources */,
 				56A1B7B021A82C3F00246F8C /* maxspeeds_parser.cpp in Sources */,
 				4032E72E225D151D00D33617 /* filter_collection.cpp in Sources */,
+				397DC51C22BB8F13007126DB /* cities_fid_bimap_builder.cpp in Sources */,
 				670E7BB51EF9812B00A8E9ED /* road_access_generator.cpp in Sources */,
 				671C2D6A22AFD983008B2B8B /* streets_builder.cpp in Sources */,
 				34F558871DBF4C9600A4FC11 /* opentable_dataset.cpp in Sources */,

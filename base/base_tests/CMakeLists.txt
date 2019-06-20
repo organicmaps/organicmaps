@@ -6,6 +6,7 @@ set(
   SRC
   assert_test.cpp
   beam_tests.cpp
+  bidirectional_map_tests.cpp
   bits_test.cpp
   buffer_vector_test.cpp
   bwt_tests.cpp

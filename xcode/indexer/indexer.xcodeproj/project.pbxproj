@@ -38,6 +38,9 @@
 		3496ABAC1DC1FA9E00C5DDBA /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA71DC1FA9E00C5DDBA /* countries_obsolete.txt */; };
 		3496ABAD1DC1FA9E00C5DDBA /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA81DC1FA9E00C5DDBA /* countries.txt */; };
 		3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */; };
+		397DC51522BB8EEC007126DB /* fid_bimap.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397DC51322BB8EEC007126DB /* fid_bimap.hpp */; };
+		397DC51622BB8EEC007126DB /* fid_bimap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397DC51422BB8EEC007126DB /* fid_bimap.cpp */; };
+		397DC51822BB8EF7007126DB /* fid_bimap_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397DC51722BB8EF7007126DB /* fid_bimap_tests.cpp */; };
 		39F376C0207D32450058E8E0 /* cities_boundaries_serdes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F376BE207D32410058E8E0 /* cities_boundaries_serdes_tests.cpp */; };
 		39F376C3207D32510058E8E0 /* scale_index_reading_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F376C1207D324E0058E8E0 /* scale_index_reading_tests.cpp */; };
 		3D12E3D72111B4BE0015A9A9 /* caching_rank_table_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D12E3D52111B4BD0015A9A9 /* caching_rank_table_loader.cpp */; };
@@ -261,6 +264,9 @@
 		3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "minsk-pass.mwm"; path = "../../data/minsk-pass.mwm"; sourceTree = "<group>"; };
 		34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87D21DBE540700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		397DC51322BB8EEC007126DB /* fid_bimap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fid_bimap.hpp; sourceTree = "<group>"; };
+		397DC51422BB8EEC007126DB /* fid_bimap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fid_bimap.cpp; sourceTree = "<group>"; };
+		397DC51722BB8EF7007126DB /* fid_bimap_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fid_bimap_tests.cpp; sourceTree = "<group>"; };
 		39F376BE207D32410058E8E0 /* cities_boundaries_serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_serdes_tests.cpp; sourceTree = "<group>"; };
 		39F376C1207D324E0058E8E0 /* scale_index_reading_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scale_index_reading_tests.cpp; sourceTree = "<group>"; };
 		3D12E3D52111B4BD0015A9A9 /* caching_rank_table_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = caching_rank_table_loader.cpp; sourceTree = "<group>"; };
@@ -564,6 +570,7 @@
 		670C60F81AB0657700C38A8C /* indexer_tests */ = {
 			isa = PBXGroup;
 			children = (
+				397DC51722BB8EF7007126DB /* fid_bimap_tests.cpp */,
 				406970A121AEF2F10024DDB2 /* brands_tests.cpp */,
 				406B37F6207FBAC7000F3648 /* borders_test.cpp */,
 				40C3C090205BF9F400CED188 /* bounds.hpp */,
@@ -632,6 +639,8 @@
 		6753409C1A3F53CB00A0A8C3 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				397DC51422BB8EEC007126DB /* fid_bimap.cpp */,
+				397DC51322BB8EEC007126DB /* fid_bimap.hpp */,
 				3D12E3D52111B4BD0015A9A9 /* caching_rank_table_loader.cpp */,
 				3D12E3D62111B4BD0015A9A9 /* caching_rank_table_loader.hpp */,
 				34664CEE1D49FEC1003D7096 /* altitude_loader.cpp */,
@@ -827,6 +836,7 @@
 				40009065201F5CB000963E18 /* locality_object.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
 				6753412F1A3F540F00A0A8C3 /* index_builder.hpp in Headers */,
+				397DC51522BB8EEC007126DB /* fid_bimap.hpp in Headers */,
 				456E1B1A1F90E5B7009C32E1 /* ftypes_sponsored.hpp in Headers */,
 				675B562420D25C9800A521D2 /* feature_source.hpp in Headers */,
 				4088CE2021AE993F00E2702A /* brands_holder.hpp in Headers */,
@@ -1004,6 +1014,7 @@
 				6758AED31BB4413000C26E27 /* drules_selector.cpp in Sources */,
 				6753411A1A3F540F00A0A8C3 /* feature_impl.cpp in Sources */,
 				56C74C1C1C749E4700B71B9F /* categories_holder_loader.cpp in Sources */,
+				397DC51822BB8EF7007126DB /* fid_bimap_tests.cpp in Sources */,
 				3D74EF241F8F559D0081202C /* ugc_types_test.cpp in Sources */,
 				406B37F4207FBABB000F3648 /* borders.cpp in Sources */,
 				40DF582D2174979200E4E0FC /* classificator_tests.cpp in Sources */,
@@ -1047,6 +1058,7 @@
 				675341141A3F540F00A0A8C3 /* feature_covering.cpp in Sources */,
 				4088CE2121AE993F00E2702A /* brands_holder.cpp in Sources */,
 				406970A221AEF2F20024DDB2 /* brands_tests.cpp in Sources */,
+				397DC51622BB8EEC007126DB /* fid_bimap.cpp in Sources */,
 				56C74C1D1C749E4700B71B9F /* categories_holder.cpp in Sources */,
 				675341371A3F540F00A0A8C3 /* mwm_set.cpp in Sources */,
 				675341181A3F540F00A0A8C3 /* feature_decl.cpp in Sources */,

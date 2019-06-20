@@ -25,9 +25,9 @@ set(
   cities_boundaries_serdes.hpp
   city_boundary.hpp
   classificator.cpp
+  classificator.hpp
   classificator_loader.cpp
   classificator_loader.hpp
-  classificator.hpp
   cuisines.cpp
   cuisines.hpp
   data_factory.cpp
@@ -43,16 +43,18 @@ set(
   drawing_rules.cpp
   drawing_rules.hpp
   drules_include.hpp
-  drules_selector_parser.cpp
-  drules_selector_parser.hpp
   drules_selector.cpp
   drules_selector.hpp
+  drules_selector_parser.cpp
+  drules_selector_parser.hpp
   drules_struct.pb.cc
   drules_struct.pb.h
   editable_map_object.cpp
   editable_map_object.hpp
   fake_feature_ids.cpp
   fake_feature_ids.hpp
+  feature.cpp
+  feature.hpp
   feature_algo.cpp
   feature_algo.hpp
   feature_altitude.hpp
@@ -73,12 +75,12 @@ set(
   feature_utils.hpp
   feature_visibility.cpp
   feature_visibility.hpp
-  feature.cpp
-  feature.hpp
   features_offsets_table.cpp
   features_offsets_table.hpp
   features_vector.cpp
   features_vector.hpp
+  fid_bimap.cpp
+  fid_bimap.hpp
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
@@ -86,19 +88,19 @@ set(
   ftypes_sponsored.hpp
   index_builder.cpp
   index_builder.hpp
-  interval_index_builder.hpp
   interval_index.hpp
+  interval_index_builder.hpp
   locality_index.hpp
-  locality_index_builder.hpp
   locality_index_builder.cpp
-  locality_object.hpp
+  locality_index_builder.hpp
   locality_object.cpp
+  locality_object.hpp
   map_object.cpp
   map_object.hpp
-  map_style_reader.cpp
-  map_style_reader.hpp
   map_style.cpp
   map_style.hpp
+  map_style_reader.cpp
+  map_style_reader.hpp
   mwm_set.cpp
   mwm_set.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
@@ -107,8 +109,8 @@ set(
   rank_table.hpp
   road_shields_parser.cpp
   road_shields_parser.hpp
-  scale_index_builder.hpp
   scale_index.hpp
+  scale_index_builder.hpp
   scales.cpp
   scales.hpp
   scales_patch.hpp
@@ -124,9 +126,9 @@ set(
   succinct_trie_builder.hpp
   succinct_trie_reader.hpp
   tree_structure.hpp
+  trie.hpp
   trie_builder.hpp
   trie_reader.hpp
-  trie.hpp
   types_mapping.cpp
   types_mapping.hpp
   unique_index.hpp
