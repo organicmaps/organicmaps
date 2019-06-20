@@ -68,7 +68,8 @@ public enum DiscoveryManager
   @MainThread
   private void onPromoCityGalleryReceived(@NonNull PromoCityGallery gallery)
   {
-    // Dummy.
+    notifyUiWithCheck(gallery.getItems(), ItemType.PROMO,
+                      callback -> callback.onCatalogPromoResultReceived(gallery));
   }
 
   // Called from JNI.

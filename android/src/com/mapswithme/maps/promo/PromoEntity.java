@@ -7,14 +7,14 @@ import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 
 public class PromoEntity extends RegularAdapterStrategy.Item
 {
-  @NonNull
+  @Nullable
   private final PromoCityGallery.LuxCategory mCategory;
 
   @NonNull
   private final String mImageUrl;
 
   public PromoEntity(int type, @NonNull String title, @Nullable String subtitle,
-                     @Nullable String url, @NonNull PromoCityGallery.LuxCategory category,
+                     @Nullable String url, @Nullable PromoCityGallery.LuxCategory category,
                      @NonNull String imageUrl)
   {
     super(type, title, subtitle, url);
@@ -22,7 +22,7 @@ public class PromoEntity extends RegularAdapterStrategy.Item
     mImageUrl = imageUrl;
   }
 
-  @NonNull
+  @Nullable
   public PromoCityGallery.LuxCategory getCategory()
   {
     return mCategory;

@@ -19,7 +19,7 @@ public interface DiscoveryResultReceiver
   @MainThread
   void onError(@NonNull ItemType type);
   @MainThread
-  void onCatalogPromoReceived(@NonNull PromoCityGallery promoCityGallery);
+  void onCatalogPromoResultReceived(@NonNull PromoCityGallery promoCityGallery);
   @MainThread
   void onNotFound();
 }

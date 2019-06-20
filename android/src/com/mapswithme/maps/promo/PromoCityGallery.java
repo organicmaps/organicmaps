@@ -3,6 +3,7 @@ package com.mapswithme.maps.promo;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public final class PromoCityGallery
 {
@@ -43,12 +44,12 @@ public final class PromoCityGallery
     private final String mTier;
     @NonNull
     private final Author mAuthor;
-    @NonNull
+    @Nullable
     private final LuxCategory mLuxCategory;
 
     public Item(@NonNull String name, @NonNull String url, @NonNull String imageUrl,
                 @NonNull String access, @NonNull String tier, @NonNull Author author,
-                @NonNull LuxCategory luxCategory)
+                @Nullable LuxCategory luxCategory)
     {
       mName = name;
       mUrl = url;
@@ -95,7 +96,7 @@ public final class PromoCityGallery
       return mAuthor;
     }
 
-    @NonNull
+    @Nullable
     public LuxCategory getLuxCategory()
     {
       return mLuxCategory;

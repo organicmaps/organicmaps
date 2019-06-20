@@ -16,9 +16,11 @@ public final class DiscoveryParams {
     public static final int ITEM_TYPE_CAFES = 1;
     public static final int ITEM_TYPE_HOTELS = 2;
     public static final int ITEM_TYPE_LOCAL_EXPERTS = 3;
+    public static final int ITEM_TYPE_PROMO = 4;
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ ITEM_TYPE_ATTRACTIONS, ITEM_TYPE_CAFES, ITEM_TYPE_HOTELS, ITEM_TYPE_LOCAL_EXPERTS })
+    @IntDef({ ITEM_TYPE_ATTRACTIONS, ITEM_TYPE_CAFES, ITEM_TYPE_HOTELS, ITEM_TYPE_LOCAL_EXPERTS,
+              ITEM_TYPE_PROMO })
 
     @interface ItemType {}
 

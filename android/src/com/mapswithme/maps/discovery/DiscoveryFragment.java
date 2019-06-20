@@ -35,6 +35,7 @@ import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.maps.widget.placepage.ErrorCatalogPromoListener;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -63,7 +64,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_HOTELS,
                                             DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
                                             DiscoveryParams.ITEM_TYPE_CAFES,
-                                            DiscoveryParams.ITEM_TYPE_LOCAL_EXPERTS };
+                                            DiscoveryParams.ITEM_TYPE_LOCAL_EXPERTS,
+                                            DiscoveryParams.ITEM_TYPE_PROMO};
   private boolean mOnlineMode;
   @Nullable
   private CustomNavigateUpListener mNavigateUpListener;
@@ -240,7 +242,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     else
     {
       params = new DiscoveryParams(Utils.getCurrencyCode(), Language.getDefaultLocale(),
-                                   ITEMS_COUNT, DiscoveryParams.ITEM_TYPE_HOTELS,
+                                   ITEMS_COUNT,
+                                   DiscoveryParams.ITEM_TYPE_HOTELS,
                                    DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
                                    DiscoveryParams.ITEM_TYPE_CAFES);
     }
@@ -302,11 +305,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   }
 
   @Override
-  public void onCatalogPromoReceived(@NonNull PromoCityGallery promoCityGallery)
+  public void onCatalogPromoResultReceived(@NonNull PromoCityGallery promoCityGallery)
   {
-    updateViewsVisibility(promoCityGallery.getItems(), R.id.catalog_promo_recycler, R.id.catalog_promo_title);
-    String url = promoCityGallery.getMoreUrl();
+    updateViewsVisibility(promoCityGallery.getItems(), R.id.catalog_promo_recycler,
+                          R.id.catalog_promo_title);
+    if (promoCityGallery.getItems().length == 0)
+      return;
 
+    String url = promoCityGallery.getMoreUrl();
     ItemSelectedListener<PromoEntity> listener = new RegularCatalogPromoListener(requireActivity());
     List<PromoEntity> data = PlacePageView.toEntities(promoCityGallery);
     GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), data, url, listener, DISCOVERY);
@@ -334,6 +340,13 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       case LOCAL_EXPERTS:
         getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter());
         Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
+        break;
+      case PROMO:
+        ErrorCatalogPromoListener<Items.Item> listener =
+            new ErrorCatalogPromoListener<>(requireActivity());
+        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
+        RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
+        gallery.setAdapter(adapter);
         break;
       default:
         throw new AssertionError("Unknown item type: " + type);

@@ -67,7 +67,9 @@ public enum ItemType
         {
           throw new UnsupportedOperationException("Unsupported.");
         }
-      };
+      },
+
+  PROMO(UiUtils.NO_ID, DiscoveryUserEvent.STUB, DiscoveryUserEvent.STUB);
 
   @StringRes
   private final int mSearchCategory;
