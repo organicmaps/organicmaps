@@ -57,7 +57,7 @@ bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::Ge
 {
   if (fid.m_mwmId != m_mwmId)
   {
-    LOG(LWARNING, ("Wrong mwm: feature has", fid.m_mwmId, "expected:", m_mwmId));
+    LOG(LERROR, ("Wrong mwm: feature has", fid.m_mwmId, "expected:", m_mwmId));
     return false;
   }
 
