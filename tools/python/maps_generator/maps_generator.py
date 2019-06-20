@@ -194,7 +194,8 @@ def stage_mwm(env):
 
     mwms = env.get_mwm_names()
     with ThreadPool() as pool:
-        pool.map(lambda c: specific[c](c) if c in specific else build(c), mwms)
+        pool.map(lambda c: specific[c](c) if c in specific else build(c), mwms,
+                 chunksize=1)
 
 
 @stage

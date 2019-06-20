@@ -140,14 +140,14 @@ class Env:
 
     def get_mwm_names(self):
         tmp_ext = ".mwm.tmp"
-        mwm_names = []
+        existed_names = set()
         for f in os.listdir(self.intermediate_tmp_path):
             path = os.path.join(self.intermediate_tmp_path, f)
             if f.endswith(tmp_ext) and os.path.isfile(path):
                 name = f.replace(tmp_ext, "")
                 if name in self.countries:
-                    mwm_names.append(name)
-        return mwm_names
+                    existed_names.add(name)
+        return [c for c in self.countries if c in existed_names]
 
     def is_accepted_stage(self, stage_name):
         return stage_name not in self._skipped_stages
