@@ -76,7 +76,7 @@ void CollectorRegionInfo::CollectFeature(const FeatureBuilder &, OsmElement cons
   FillRegionData(osmId, el, regionData);
   m_mapRegionData.emplace(osmId, regionData);
   // If the region is a country.
-  if (regionData.m_adminLevel == AdminLevel::Two)
+  if (regionData.m_place == PlaceType::Country || regionData.m_adminLevel == AdminLevel::Two)
   {
     IsoCode isoCode;
     FillIsoCode(osmId, el, isoCode);
