@@ -313,10 +313,20 @@ class RankerResultMaker
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_exactMatch = preInfo.m_exactMatch;
     info.m_categorialRequest = m_params.IsCategorialRequest();
-    info.m_hasName = ft.HasName();
 
-    // We do not compare result name and request for categorial requests.
-    if (!m_params.IsCategorialRequest())
+    // We do not compare result name and request for categorial requests but we prefer named
+    // features.
+    if (m_params.IsCategorialRequest())
+    {
+      info.m_hasName = ft.HasName();
+      if (!info.m_hasName)
+      {
+        auto const & meta = ft.GetMetadata();
+        info.m_hasName =
+            meta.Has(feature::Metadata::FMD_OPERATOR) || meta.Has(feature::Metadata::FMD_BRAND);
+      }
+    }
+    else
     {
       auto const nameScores =
           GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
