@@ -25,7 +25,7 @@ KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCou
 
     uint64_t key;
     auto value = std::string{};
-    if (!ParseKeyValueLine(line, key, value, lineNumber))
+    if (!ParseKeyValueLine(line, lineNumber, key, value))
       continue;
 
     json_error_t jsonError;
@@ -49,8 +49,8 @@ KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCou
 }
 
 // static
-bool KeyValueStorage::ParseKeyValueLine(std::string const & line, uint64_t & key,
-    std::string & value, std::streamoff lineNumber)
+bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff lineNumber,
+    uint64_t & key, std::string & value)
 {
   auto const pos = line.find(" ");
   if (pos == std::string::npos)

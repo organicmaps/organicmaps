@@ -59,8 +59,8 @@ private:
   using Value = boost::variant<std::shared_ptr<JsonValue>, JsonString>;
 
   static bool DefaultPred(KeyValue const &) { return true; }
-  static bool ParseKeyValueLine(std::string const & line, uint64_t & key, std::string & value,
-                                std::streamoff lineNumber);
+  static bool ParseKeyValueLine(std::string const & line, std::streamoff lineNumber,
+                                uint64_t & key, std::string & value);
   JsonString CopyJsonString(std::string const & value) const;
 
   std::fstream m_storage;
