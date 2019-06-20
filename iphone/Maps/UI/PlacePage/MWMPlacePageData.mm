@@ -892,7 +892,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     };
     auto appInfo = AppInfo.sharedInfo;
     auto locale = appInfo.twoLetterLanguageId.UTF8String;
-    api->GetCityGallery("", locale, resultHandler, errorHandler);
+    api->GetCityGallery(self.mercator, locale, resultHandler, errorHandler);
   });
 }
 

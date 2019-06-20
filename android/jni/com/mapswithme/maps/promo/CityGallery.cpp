@@ -4,6 +4,8 @@
 
 #include "partners_api/promo_api.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <utility>
 
 using namespace std::placeholders;
@@ -124,11 +126,13 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
 extern "C" {
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_promo_Promo_nativeRequestCityGallery(JNIEnv * env, jclass,
-                                                              jobject policy, jstring id)
+                                                              jobject policy, jdouble lat,
+                                                              jdouble lon)
 {
   PrepareClassRefs(env);
+  auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   ++g_lastRequestId;
-  g_framework->GetPromoCityGallery(env, policy, id, std::bind(OnSuccess, g_lastRequestId, _1),
+  g_framework->GetPromoCityGallery(env, policy, point, std::bind(OnSuccess, g_lastRequestId, _1),
                                    std::bind(OnError, g_lastRequestId));
 }
 }  // extern "C"

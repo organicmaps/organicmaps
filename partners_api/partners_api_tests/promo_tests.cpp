@@ -144,7 +144,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
 
   {
     promo::CityGallery result{};
-    api.GetCityGallery(kTestId, lang, [&result](promo::CityGallery const & gallery)
+    api.GetCityGallery({}, lang, [&result](promo::CityGallery const & gallery)
     {
       result = gallery;
       testing::Notify();

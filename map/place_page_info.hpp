@@ -18,7 +18,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
-#include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 

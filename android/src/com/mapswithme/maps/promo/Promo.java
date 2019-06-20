@@ -49,5 +49,5 @@ public enum Promo
       mListener.onErrorReceived();
   }
 
-  public native void nativeRequestCityGallery(@NonNull NetworkPolicy policy, @NonNull String id);
+  public native void nativeRequestCityGallery(@NonNull NetworkPolicy policy, double lat, double lon);
 }

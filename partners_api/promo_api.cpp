@@ -207,12 +207,6 @@ std::string Api::GetMoreUrl(std::string const & id) const
   return m_baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
 }
 
-void Api::GetCityGallery(std::string const & id, std::string const & lang,
-                         CityGalleryCallback const & onSuccess, OnError const & onError) const
-{
-  GetPromoCityGalleryImpl(m_baseUrl, id, lang, onSuccess, onError);
-}
-
 void Api::GetCityGallery(m2::PointD const & point, std::string const & lang,
                          CityGalleryCallback const & onSuccess, OnError const & onError) const
 {
