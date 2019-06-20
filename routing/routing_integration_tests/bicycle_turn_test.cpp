@@ -117,12 +117,12 @@ UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
 
   integration::TestTurnCount(route, 4 /* expectedTurnCount */);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
 
-  integration::TestRouteLength(route, 675.0);
+  integration::TestRouteLength(route, 333.0);
 }
 
 UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
