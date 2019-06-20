@@ -62,10 +62,12 @@ public:
     auto timer = base::Timer{};
     Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 
-    RegionsBuilder::Regions regions = ReadAndFixData();
-    RegionsBuilder builder{std::move(regions), threadsCount};
-    GenerateRegions(builder);
+    RegionsBuilder::Regions regions;
+    PlacePointsMap placePointsMap;
+    std::tie(regions, placePointsMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
+    RegionsBuilder builder{std::move(regions), std::move(placePointsMap), threadsCount};
 
+    GenerateRegions(builder);
     LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
   }
 
@@ -220,16 +222,6 @@ private:
 
     ForEachFromDatRawFormat(tmpMwmFilename, toDo);
     return std::make_tuple(std::move(regions), std::move(placePointsMap));
-  }
-
-  RegionsBuilder::Regions ReadAndFixData()
-  {
-    RegionsBuilder::Regions regions;
-    PlacePointsMap placePointsMap;
-    std::tie(regions, placePointsMap) =
-        ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
-    FixRegionsWithPlacePointApproximation(placePointsMap, regions);
-    return regions;
   }
 
   void RepackTmpMwm()

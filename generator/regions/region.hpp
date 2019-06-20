@@ -2,6 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/regions/region_base.hpp"
+#include "generator/regions/place_point.hpp"
 
 #include <memory>
 
@@ -16,16 +17,26 @@ class RegionDataProxy;
 
 namespace regions
 {
-class PlacePoint;
-
 // This is a helper class that is needed to represent the region.
 // With this view, further processing is simplified.
-class Region : public RegionWithName, public RegionWithData
+class Region : protected RegionWithName, protected RegionWithData
 {
 public:
   explicit Region(feature::FeatureBuilder const & fb, RegionDataProxy const & rd);
   // Build a region and its boundary based on the heuristic.
   explicit Region(PlacePoint const & place);
+
+  // See RegionWithName::GetEnglishOrTransliteratedName().
+  std::string GetEnglishOrTransliteratedName() const;
+  std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
+
+  base::GeoObjectId GetId() const;
+  using RegionWithData::GetAdminLevel;
+  PlaceType GetPlaceType() const;
+  boost::optional<std::string> GetIsoCode() const;
+
+  using RegionWithData::GetLabelOsmId;
+  void SetLabel(PlacePoint const & place);
 
   bool Contains(Region const & smaller) const;
   bool ContainsRect(Region const & smaller) const;
@@ -44,6 +55,7 @@ public:
 private:
   void FillPolygon(feature::FeatureBuilder const & fb);
 
+  boost::optional<PlacePoint> m_placeLabel;
   std::shared_ptr<BoostPolygon> m_polygon;
   BoostRect m_rect;
   double m_area;

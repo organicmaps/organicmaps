@@ -50,10 +50,61 @@ Region::Region(PlacePoint const & place)
   , RegionWithData(place.GetRegionData())
   , m_polygon(std::make_shared<BoostPolygon>())
 {
+  CHECK_NOT_EQUAL(place.GetPlaceType(), PlaceType::Unknown, ());
+
   auto const radius = GetRadiusByPlaceType(place.GetPlaceType());
   *m_polygon = MakePolygonWithRadius(place.GetPosition(), radius);
   boost::geometry::envelope(*m_polygon, m_rect);
   m_area = boost::geometry::area(*m_polygon);
+}
+
+std::string Region::GetEnglishOrTransliteratedName() const
+{
+  if (m_placeLabel)
+    return m_placeLabel->GetEnglishOrTransliteratedName();
+
+  return RegionWithName::GetEnglishOrTransliteratedName();
+}
+
+std::string Region::GetName(int8_t lang) const
+{
+  if (m_placeLabel)
+    return m_placeLabel->GetName();
+
+  return RegionWithName::GetName();
+}
+
+base::GeoObjectId Region::GetId() const
+{
+  if (m_placeLabel)
+    return m_placeLabel->GetId();
+
+  return RegionWithData::GetId();
+}
+
+PlaceType Region::GetPlaceType() const
+{
+  if (m_placeLabel)
+    return m_placeLabel->GetPlaceType();
+
+  return RegionWithData::GetPlaceType();
+}
+
+boost::optional<std::string> Region::GetIsoCode() const
+{
+  if (m_placeLabel)
+  {
+    if (auto && isoCode = m_placeLabel->GetIsoCode())
+      return isoCode;
+  }
+
+  return RegionWithData::GetIsoCode();
+}
+
+void Region::SetLabel(PlacePoint const & place)
+{
+  CHECK(!m_placeLabel, ());
+  m_placeLabel = place;
 }
 
 // static
@@ -127,6 +178,9 @@ bool Region::ContainsRect(Region const & smaller) const
 
 BoostPoint Region::GetCenter() const
 {
+  if (m_placeLabel)
+    return m_placeLabel->GetPosition();
+
   BoostPoint p;
   boost::geometry::centroid(m_rect, p);
   return p;

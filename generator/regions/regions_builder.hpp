@@ -23,7 +23,8 @@ public:
   using StringsList = std::vector<std::string>;
   using CountryFn = std::function<void(std::string const &, Node::PtrList const &)>;
 
-  explicit RegionsBuilder(Regions && regions, size_t threadsCount = 1);
+  explicit RegionsBuilder(Regions && regions, PlacePointsMap && placePointsMap,
+                          size_t threadsCount = 1);
 
   Regions const & GetCountriesOuters() const;
   StringsList GetCountryNames() const;
@@ -32,6 +33,7 @@ public:
 private:
   static constexpr double kAreaRelativeErrorPercent = 0.1;
 
+  void MoveLabelPlacePoints(PlacePointsMap & placePointsMap, Regions & regions);
   Regions FormRegionsInAreaOrder(Regions && regions);
   Regions ExtractCountriesOuters(Regions & regions);
   Node::PtrList BuildCountryRegionTrees(Regions const & outers,

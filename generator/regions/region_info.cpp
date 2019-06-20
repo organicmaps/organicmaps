@@ -115,6 +115,16 @@ PlaceType BaseRegionDataProxy<T>::GetPlaceType() const
 }
 
 template <typename T>
+boost::optional<base::GeoObjectId> BaseRegionDataProxy<T>::GetLabelOsmId() const
+{
+  auto const & labelId = GetMapRegionData().at(m_osmId).m_labelOsmId;
+  if (!labelId.GetEncodedId())
+    return {};
+
+  return labelId;
+}
+
+template <typename T>
 boost::optional<std::string> BaseRegionDataProxy<T>::GetIsoCodeAlpha2() const
 {
   auto const & codesMap = GetMapIsoCode();

@@ -1,5 +1,6 @@
 #include "generator/regions/regions_builder.hpp"
 
+#include "generator/regions/regions_fixer.hpp"
 #include "generator/regions/specs/rus.hpp"
 
 #include "base/assert.hpp"
@@ -20,13 +21,33 @@ namespace generator
 {
 namespace regions
 {
-RegionsBuilder::RegionsBuilder(Regions && regions, size_t threadsCount)
+RegionsBuilder::RegionsBuilder(Regions && regions, PlacePointsMap && placePointsMap,
+                               size_t threadsCount)
   : m_threadsCount(threadsCount)
 {
   ASSERT(m_threadsCount != 0, ());
 
+  MoveLabelPlacePoints(placePointsMap, regions);
+  FixRegionsWithPlacePointApproximation(placePointsMap, regions);
+
   m_regionsInAreaOrder = FormRegionsInAreaOrder(std::move(regions));
   m_countriesOuters = ExtractCountriesOuters(m_regionsInAreaOrder);
+}
+
+void RegionsBuilder::MoveLabelPlacePoints(PlacePointsMap & placePointsMap, Regions & regions)
+{
+  for (auto & region : regions)
+  {
+    if (auto labelOsmId = region.GetLabelOsmId())
+    {
+      auto label = placePointsMap.find(*labelOsmId);
+      if (label != placePointsMap.end())
+      {
+        region.SetLabel(label->second);
+        placePointsMap.erase(label);
+      }
+    }
+  }
 }
 
 RegionsBuilder::Regions RegionsBuilder::FormRegionsInAreaOrder(Regions && regions)

@@ -69,6 +69,7 @@ public:
   base::GeoObjectId const & GetOsmId() const;
   AdminLevel GetAdminLevel() const;
   PlaceType GetPlaceType() const;
+  boost::optional<base::GeoObjectId> GetLabelOsmId() const;
 
   boost::optional<std::string> GetIsoCodeAlpha2() const;
   boost::optional<std::string> GetIsoCodeAlpha3() const;

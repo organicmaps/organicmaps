@@ -63,5 +63,10 @@ boost::optional<std::string> RegionWithData::GetIsoCode() const
 {
   return m_regionData.GetIsoCodeAlpha2();
 }
+
+boost::optional<base::GeoObjectId> RegionWithData::GetLabelOsmId() const
+{
+  return m_regionData.GetLabelOsmId();
+}
 }  // namespace regions
 }  // namespace generator
