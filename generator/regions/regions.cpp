@@ -8,7 +8,6 @@
 #include "generator/regions/place_point.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/regions/regions_builder.hpp"
-#include "generator/regions/regions_fixer.hpp"
 
 #include "geometry/mercator.hpp"
 #include "platform/platform.hpp"

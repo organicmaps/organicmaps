@@ -1,6 +1,5 @@
 #include "generator/regions/regions_builder.hpp"
 
-#include "generator/regions/regions_fixer.hpp"
 #include "generator/regions/specs/rus.hpp"
 
 #include "base/assert.hpp"
