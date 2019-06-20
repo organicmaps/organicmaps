@@ -1,13 +1,13 @@
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
 #include "search/search_quality/sample.hpp"
-#include "search/utils.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
@@ -97,7 +97,7 @@ int main(int argc, char * argv[])
   double constexpr kDistanceToHotelM = 1e5;
   std::set<FeatureID> hotelsNextToAirport;
   {
-    auto const handle = FindWorld(dataSource);
+    auto const handle = indexer::FindWorld(dataSource);
     if (!handle.IsAlive())
     {
       LOG(LERROR, ("Cannot find World.mwm"));

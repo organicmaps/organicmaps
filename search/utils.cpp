@@ -70,28 +70,6 @@ vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
   return types;
 }
 
-MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
-                            vector<shared_ptr<MwmInfo>> const & infos)
-{
-  MwmSet::MwmHandle handle;
-  for (auto const & info : infos)
-  {
-    if (info->GetType() == MwmInfo::WORLD)
-    {
-      handle = dataSource.GetMwmHandleById(MwmSet::MwmId(info));
-      break;
-    }
-  }
-  return handle;
-}
-
-MwmSet::MwmHandle FindWorld(DataSource const & dataSource)
-{
-  vector<shared_ptr<MwmInfo>> infos;
-  dataSource.GetMwmsInfo(infos);
-  return FindWorld(dataSource, infos);
-}
-
 void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const & types,
                           m2::RectD const & pivot, FeatureIndexCallback const & fn)
 {

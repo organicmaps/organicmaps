@@ -122,10 +122,6 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
 std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
                                        CategoriesHolder const & categories);
 
-MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
-                            std::vector<std::shared_ptr<MwmInfo>> const & infos);
-MwmSet::MwmHandle FindWorld(DataSource const & dataSource);
-
 using FeatureIndexCallback = std::function<void(FeatureID const &)>;
 // Applies |fn| to each feature index of type from |types| in |rect|.
 void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,

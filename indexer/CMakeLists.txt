@@ -132,6 +132,8 @@ set(
   types_mapping.cpp
   types_mapping.hpp
   unique_index.hpp
+  utils.cpp
+  utils.hpp
 )
 
 set(

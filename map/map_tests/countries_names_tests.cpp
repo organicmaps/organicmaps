@@ -5,13 +5,13 @@
 #include "search/categories_cache.hpp"
 #include "search/downloader_search_callback.hpp"
 #include "search/mwm_context.hpp"
-#include "search/utils.hpp"
 
 #include "storage/storage.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/utils.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -34,7 +34,7 @@ UNIT_TEST(CountriesNamesTest)
   auto & storage = f.GetStorage();
   auto const & synonyms = storage.GetCountryNameSynonyms();
 
-  auto handle = search::FindWorld(f.GetDataSource());
+  auto handle = indexer::FindWorld(f.GetDataSource());
   TEST(handle.IsAlive(), ());
 
   FeaturesLoaderGuard g(f.GetDataSource(), handle.GetId());

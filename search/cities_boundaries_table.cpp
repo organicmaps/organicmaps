@@ -3,10 +3,10 @@
 #include "search/categories_cache.hpp"
 #include "search/localities_source.hpp"
 #include "search/mwm_context.hpp"
-#include "search/utils.hpp"
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/utils.hpp"
 
 #include "coding/reader.hpp"
 

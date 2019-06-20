@@ -1,9 +1,8 @@
 #include "indexer/fid_bimap.hpp"
 
-#include "search/utils.hpp"
-
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/utils.hpp"
 
 #include "coding/reader.hpp"
 
@@ -20,7 +19,7 @@ FeatureIdToGeoObjectIdBimap::FeatureIdToGeoObjectIdBimap(DataSource const & data
 
 bool FeatureIdToGeoObjectIdBimap::Load()
 {
-  auto handle = search::FindWorld(m_dataSource);
+  auto handle = indexer::FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Can't find World map file."));
