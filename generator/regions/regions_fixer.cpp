@@ -83,8 +83,19 @@ public:
 private:
   bool IsApproximable(PlacePoint const & place)
   {
-    auto const placeType = place.GetPlaceType();
-    return placeType >= PlaceType::City;
+    switch (place.GetPlaceType())
+    {
+    case PlaceType::City:
+    case PlaceType::Town:
+    case PlaceType::Village:
+    case PlaceType::Hamlet:
+    case PlaceType::IsolatedDwelling:
+      return true;
+    default:
+      break;
+    }
+
+    return false;
   }
 
   RegionsBuilder::Regions m_regions;
