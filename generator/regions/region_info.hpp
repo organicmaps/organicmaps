@@ -13,6 +13,8 @@
 #include <string>
 #include <utility>
 
+#include <boost/optional.hpp>
+
 namespace generator
 {
 namespace regions
@@ -68,19 +70,11 @@ public:
   AdminLevel GetAdminLevel() const;
   PlaceType GetPlaceType() const;
 
-  bool HasAdminLevel() const;
-  bool HasPlaceType() const;
-
-  bool HasIsoCodeAlpha2() const;
-  bool HasIsoCodeAlpha3() const;
-  bool HasIsoCodeAlphaNumeric() const;
-
-  std::string GetIsoCodeAlpha2() const;
-  std::string GetIsoCodeAlpha3() const;
-  std::string GetIsoCodeAlphaNumeric() const;
+  boost::optional<std::string> GetIsoCodeAlpha2() const;
+  boost::optional<std::string> GetIsoCodeAlpha3() const;
+  boost::optional<std::string> GetIsoCodeAlphaNumeric() const;
 
 protected:
-  bool HasIsoCode() const;
   RegionInfo const & GetCollector() const;
   MapRegionData const & GetMapRegionData() const;
   MapIsoCode const & GetMapIsoCode() const;
