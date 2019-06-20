@@ -65,6 +65,9 @@ public enum BookmarkManager
 
   @NonNull
   private final List<BookmarksCatalogListener> mCatalogListeners = new ArrayList<>();
+
+  @NonNull
+  private final List<BookmarksCatalogPingListener> mCatalogPingListeners = new ArrayList<>();
   
   static
   {
@@ -312,6 +315,15 @@ public enum BookmarkManager
     {
       listener.onUploadFinished(result, description, originCategoryId, resultCategoryId);
     }
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onPingFinished(boolean serviceIsAvailable)
+  {
+    for (BookmarksCatalogPingListener listener : mCatalogPingListeners)
+      listener.onPingFinished(serviceIsAvailable);
   }
 
   public boolean isVisible(long catId)
@@ -643,6 +655,11 @@ public enum BookmarkManager
     nativeRequestCatalogCustomProperties();
   }
 
+  public void pingBookmarkCatalog()
+  {
+    nativePingBookmarkCatalog();
+  }
+
   public boolean isCategoryFromCatalog(long catId)
   {
     return nativeIsCategoryFromCatalog(catId);
@@ -785,6 +802,8 @@ public enum BookmarkManager
 
   private static native void nativeRequestCatalogCustomProperties();
 
+  private static native void nativePingBookmarkCatalog();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -838,6 +857,11 @@ public enum BookmarkManager
      * callback the restoring process can not be cancelled.
      */
     void onRestoredFilesPrepared();
+  }
+
+  public interface BookmarksCatalogPingListener
+  {
+    void onPingFinished(boolean serviceIsAvailable);
   }
 
   public interface BookmarksCatalogListener

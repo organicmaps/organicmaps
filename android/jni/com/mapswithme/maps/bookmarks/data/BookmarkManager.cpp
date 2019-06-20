@@ -46,6 +46,8 @@ jmethodID g_catalogCustomPropertyOptionConstructor;
 jclass g_catalogCustomPropertyClass;
 jmethodID g_catalogCustomPropertyConstructor;
 
+jmethodID g_onPingFinishedMethod;
+
 void PrepareClassRefs(JNIEnv * env)
 {
   if (g_bookmarkManagerClass)
@@ -94,6 +96,8 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onUploadStarted", "(J)V");
   g_onUploadFinishedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onUploadFinished", "(ILjava/lang/String;JJ)V");
+
+  g_onPingFinishedMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPingFinished", "(Z)V");
 
   g_bookmarkCategoryClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkCategory");
@@ -348,6 +352,17 @@ void OnCustomPropertiesReceived(JNIEnv * env, bool successful,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onCustomPropertiesReceivedMethod,
                       static_cast<jboolean>(successful), propsRef.get());
+  jni::HandleJavaException(env);
+}
+
+void OnPingFinished(JNIEnv * env, bool isSuccessful)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onPingFinishedMethod,
+                      static_cast<jboolean>(isSuccessful));
   jni::HandleJavaException(env);
 }
 
@@ -905,6 +920,17 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeRequestCatalogCust
     [env](bool successful, BookmarkCatalog::CustomProperties const & properties)
   {
     OnCustomPropertiesReceived(env, successful, properties);
+  });
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePingBookmarkCatalog(
+  JNIEnv * env, jobject)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  bm.GetCatalog().Ping([env](bool isSuccessful)
+  {
+    OnPingFinished(env, isSuccessful);
   });
 }
 

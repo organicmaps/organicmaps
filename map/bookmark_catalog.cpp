@@ -70,6 +70,13 @@ std::string BuildWebEditorUrl(std::string const & serverId, std::string const & 
   return kCatalogEditorServer + "webeditor/" + language + "/edit/" + serverId;
 }
 
+std::string BuildPingUrl()
+{
+  if (kCatalogFrontendServer.empty())
+    return {};
+  return kCatalogFrontendServer + "storage/ping";
+}
+
 struct SubtagData
 {
   std::string m_name;
@@ -588,6 +595,34 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       }
       FileWriter::DeleteFileX(zippedFilePath);
     });
+  });
+}
+
+void BookmarkCatalog::Ping(PingCallback && callback) const
+{
+  auto const url = BuildPingUrl();
+  if (url.empty())
+  {
+    if (callback)
+      callback(false /* isSuccessful */);
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [url, callback = std::move(callback)]()
+  {
+    platform::HttpClient request(url);
+    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+    uint32_t constexpr kPingTimeoutInSec = 15;
+    request.SetTimeout(kPingTimeoutInSec);
+    if (request.RunHttpRequest())
+    {
+      static std::string const kExpectedResponse = "pong";
+      auto const resultCode = request.ErrorCode();
+      if (callback && resultCode >= 200 && resultCode < 300 && request.ServerResponse() == kExpectedResponse)
+        callback(true /* isSuccessful */);
+    }
+    if (callback)
+      callback(false /* isSuccessful */);
   });
 }
 

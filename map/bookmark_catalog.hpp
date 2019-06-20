@@ -113,6 +113,9 @@ public:
               UploadSuccessCallback && uploadSuccessCallback,
               UploadErrorCallback && uploadErrorCallback);
 
+  using PingCallback = platform::SafeCallback<void(bool isSuccessful)>;
+  void Ping(PingCallback && callback) const;
+
   // Handler can be called from non-UI thread.
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
 
