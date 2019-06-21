@@ -21,8 +21,14 @@ public:
   static std::vector<AdditionalRoadTags> const & GetAdditionalTags();
   static VehicleModel::SurfaceInitList const & GetSurfaces();
 
+protected:
+  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
+
 private:
-  void InitAdditionalRoadTypes();
+  void Init();
+
+  uint32_t m_noCarType = 0;
+  uint32_t m_yesCarType = 0;
 };
 
 class CarModelFactory : public VehicleModelFactory

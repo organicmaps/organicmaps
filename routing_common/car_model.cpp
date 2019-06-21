@@ -2,6 +2,7 @@
 #include "routing_common/car_model_coefs.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
 
 #include "base/macros.hpp"
 
@@ -199,20 +200,34 @@ CarModel::CarModel()
   : VehicleModel(classif(), kCarOptionsDefault, kCarSurface,
                  {kGlobalHighwayBasedMeanSpeeds, kGlobalHighwayBasedFactors})
 {
-  InitAdditionalRoadTypes();
+  Init();
 }
 
 CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBasedInfo const & info)
   : VehicleModel(classif(), roadLimits, kCarSurface, info)
 {
-  InitAdditionalRoadTypes();
+  Init();
 }
 
 double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
-void CarModel::InitAdditionalRoadTypes()
+void CarModel::Init()
 {
+  m_noCarType = classif().GetTypeByPath({"hwtag", "nocar"});
+  m_yesCarType = classif().GetTypeByPath({"hwtag", "yescar"});
+
   SetAdditionalRoadTypes(classif(), kAdditionalTags);
+}
+
+VehicleModelInterface::RoadAvailability CarModel::GetRoadAvailability(feature::TypesHolder const & types) const
+{
+  if (types.Has(m_yesCarType))
+    return RoadAvailability::Available;
+
+  if (types.Has(m_noCarType))
+    return RoadAvailability::NotAvailable;
+
+  return RoadAvailability::Unknown;
 }
 
 // static

@@ -413,8 +413,8 @@ void BicycleModel::Init()
 {
   initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
-  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
+  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
   vector<AdditionalRoadTags> const additionalTags = {
