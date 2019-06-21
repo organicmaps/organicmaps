@@ -41,15 +41,57 @@ namespace routing
 // static
 size_t const LeapsPostProcessor::kMaxStep = 5;
 
-LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path, IndexGraphStarter & starter)
-  : m_path(path),
-    m_starter(starter),
-    m_bfs(starter),
-    m_prefixSumETA(path.size(), 0.0)
+LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path,
+                                       IndexGraphStarter & starter)
+  : m_starter(starter),
+    m_bfs(starter)
 {
-  for (size_t i = 1; i < path.size(); ++i)
+  std::map<size_t, size_t> jumps;
+  std::map<Segment, size_t> segmentToIndex;
+
+  for (size_t i = 0; i < path.size(); ++i)
   {
-    auto const & segment = path[i];
+    auto const it = segmentToIndex.find(path[i]);
+    if (it == segmentToIndex.cend())
+    {
+      segmentToIndex[path[i]] = i;
+      continue;
+    }
+
+    auto const prevIndex = it->second;
+    jumps[prevIndex] = i;
+    it->second = i;
+  }
+
+  for (size_t i = 0; i < path.size(); ++i)
+  {
+    auto it = jumps.find(i);
+    if (it == jumps.end())
+    {
+      m_path.emplace_back(path[i]);
+      continue;
+    }
+
+    while (it != jumps.end())
+    {
+      i = it->second;
+      it = jumps.find(i);
+    }
+
+    CHECK_LESS(i, path.size(), ());
+    m_path.emplace_back(path[i]);
+  }
+
+  Init(starter);
+}
+
+void LeapsPostProcessor::Init(IndexGraphStarter & starter)
+{
+  m_prefixSumETA = std::vector<double>(m_path.size(), 0.0);
+
+  for (size_t i = 1; i < m_path.size(); ++i)
+  {
+    auto const & segment = m_path[i];
     m_prefixSumETA[i] = m_prefixSumETA[i - 1] + starter.CalcSegmentETA(segment);
 
     CHECK_EQUAL(m_segmentToIndex.count(segment), 0, ());

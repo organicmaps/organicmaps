@@ -67,10 +67,12 @@ private:
     double m_summaryETA = 0.0;
   };
 
+  void Init(IndexGraphStarter & starter);
+
   std::set<PathInterval, PathInterval::GreaterByWeight> CalculateIntervalsToRelax();
   void FillIngoingPaths(Segment const & start, std::map<Segment, SegmentData> & segmentsData);
 
-  std::vector<Segment> const & m_path;
+  std::vector<Segment> m_path;
   IndexGraphStarter & m_starter;
 
   BFS<IndexGraphStarter> m_bfs;
