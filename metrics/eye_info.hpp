@@ -37,13 +37,13 @@ using is_enum_with_count = decltype(impl::is_enum_with_count_checker<T>(0));
 }  // namespace traits
 
 template <typename T>
-using EnableIfIsEnumWithCount = std::enable_if_t<traits::is_enum_with_count<T>::value>;
+using EnableIfEnumWithCount = std::enable_if_t<traits::is_enum_with_count<T>::value>;
 
 template <typename T, typename R, typename Enable = void>
 class Counters;
 
 template <typename T, typename R>
-class Counters<T, R, EnableIfIsEnumWithCount<T>>
+class Counters<T, R, EnableIfEnumWithCount<T>>
 {
 public:
   void Increment(T const key)
@@ -57,7 +57,24 @@ public:
     return m_counters[static_cast<size_t>(key)];
   }
 
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Counters, visitor(m_counters, "counters"))
+  template <typename Visitor>
+  void Visit(Visitor & visitor)
+  {
+    // We need it to support appending additional counters
+    // without any version increasing and migration.
+    std::vector<R> loader;
+    visitor(loader, "counters");
+    CHECK_LESS_OR_EQUAL(loader.size(), m_counters.size(), ());
+    std::copy_n(loader.cbegin(), m_counters.size(), m_counters.begin());
+  }
+
+  template <typename Visitor>
+  void Visit(Visitor & visitor) const
+  {
+    visitor(m_counters, "counters");
+  }
+
+  DECLARE_DEBUG_PRINT(Counters)
 
 private:
   std::array<R, static_cast<size_t>(T::Count)> m_counters = {};
@@ -98,6 +115,8 @@ struct Bookmarks
 
 struct Discovery
 {
+  // The order is important.
+  // New types must be added before Type::Count item.
   enum class Event
   {
     HotelsClicked,
@@ -157,6 +176,8 @@ struct Tip
     Count
   };
 
+  // The order is important.
+  // New types must be added before Type::Count item.
   enum class Event : uint8_t
   {
     ActionClicked,
