@@ -69,7 +69,7 @@ public enum ItemType
         }
       },
 
-  PROMO(UiUtils.NO_ID, DiscoveryUserEvent.STUB, DiscoveryUserEvent.STUB);
+  PROMO(UiUtils.NO_ID, DiscoveryUserEvent.MORE_PROMO_CLICKED, DiscoveryUserEvent.PROMO_CLICKED);
 
   @StringRes
   private final int mSearchCategory;

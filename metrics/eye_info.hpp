@@ -110,6 +110,9 @@ struct Discovery
     MoreCafesClicked,
     MoreLocalsClicked,
 
+    PromoClicked,
+    MorePromoClicked,
+
     Count
   };
 
@@ -334,10 +337,12 @@ inline std::string DebugPrint(Discovery::Event const & event)
     case Discovery::Event::AttractionsClicked: return "AttractionsClicked";
     case Discovery::Event::CafesClicked: return "CafesClicked";
     case Discovery::Event::LocalsClicked: return "LocalsClicked";
+    case Discovery::Event::PromoClicked: return "PromoClicked";
     case Discovery::Event::MoreHotelsClicked: return "MoreHotelsClicked";
     case Discovery::Event::MoreAttractionsClicked: return "MoreAttractionsClicked";
     case Discovery::Event::MoreCafesClicked: return "MoreCafesClicked";
     case Discovery::Event::MoreLocalsClicked: return "MoreLocalsClicked";
+    case Discovery::Event::MorePromoClicked: return "MorePromoClicked";
     case Discovery::Event::Count: return "Count";
   }
   UNREACHABLE();

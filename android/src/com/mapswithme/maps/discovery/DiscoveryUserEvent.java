@@ -14,6 +14,9 @@ public enum DiscoveryUserEvent
   MORE_CAFES_CLICKED,
   MORE_LOCALS_CLICKED,
 
+  PROMO_CLICKED,
+  MORE_PROMO_CLICKED,
+
   /* Must be last */
   STUB
       {
