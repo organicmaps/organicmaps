@@ -55,7 +55,6 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
-import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -870,7 +869,7 @@ public class PlacePageView extends NestedScrollView
     mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
     mCatalogPromoTitleView = findViewById(R.id.catalog_promo_title);
     BaseItemSelectedListener<Items.Item> listener =
-        new BaseItemSelectedListener<>(getActivity(), /* FIXME */ ItemType.CAFES);
+        new BaseItemSelectedListener<>(getActivity());
     com.mapswithme.maps.gallery.GalleryAdapter adapter =
         Factory.createCatalogPromoLoadingAdapter(listener);
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
@@ -1238,13 +1237,13 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
-//    Promo.INSTANCE.nativeRequestCityGallery(policy);
     boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
     toggleCatalogPromoGallery(hasPromoGallery);
 
     if (mSponsored == null || mMapObject == null)
       return;
 
+    Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon());
     mSponsored.updateId(mMapObject);
     mSponsoredPrice = mSponsored.getPrice();
     String currencyCode = Utils.getCurrencyCode();

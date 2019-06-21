@@ -149,7 +149,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/popup_mwm_download_guides_cta"
+          android:text="@string/popup_mwm_download_guides_title"
           android:gravity="center"
           android:textAppearance="?android:attr/textAppearanceLarge"
           tools:text="very very very loooooooooooooooooong text"/>

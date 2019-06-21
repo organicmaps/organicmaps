@@ -421,17 +421,6 @@ public class Holders
     }
   }
 
-  public static class CrossPromoLoadingHolder extends SimpleViewHolder
-  {
-    public CrossPromoLoadingHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
-                                   @Nullable ItemSelectedListener<Items.Item> listener)
-    {
-      super(itemView, items, listener);
-      TextView subtitle = itemView.findViewById(R.id.subtitle);
-      subtitle.setText("");
-    }
-  }
-
   public static class CatalogPromoHolder extends BaseViewHolder<PromoEntity>
   {
     @NonNull
@@ -489,17 +478,52 @@ public class Holders
     }
   }
 
-  public static class CatalogErrorHolder extends SimpleViewHolder
+  public static class CrossPromoLoadingHolder extends SimpleViewHolder
   {
+    @NonNull
+    private final TextView mSubTitle;
 
+    @NonNull
+    private final TextView mButton;
+
+    public CrossPromoLoadingHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                                   @Nullable ItemSelectedListener<Items.Item> listener)
+    {
+      super(itemView, items, listener);
+      mSubTitle = itemView.findViewById(R.id.subtitle);
+      mButton = itemView.findViewById(R.id.button);
+    }
+
+    @NonNull
+    protected TextView getButton()
+    {
+      return mButton;
+    }
+
+    @Override
+    public void bind(@NonNull Items.Item item)
+    {
+      super.bind(item);
+      getTitle().setText(R.string.gallery_pp_download_guides_offline_title);
+      mSubTitle.setText(R.string.gallery_pp_download_guides_offline_subtitle);
+    }
+  }
+
+  public static class CatalogErrorHolder extends CrossPromoLoadingHolder
+  {
     public CatalogErrorHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
                               @Nullable ItemSelectedListener<Items.Item> listener)
     {
       super(itemView, items, listener);
       View progress = itemView.findViewById(R.id.progress);
       UiUtils.invisible(progress);
-      TextView subtitle = itemView.findViewById(R.id.subtitle);
-      subtitle.setText("");
+    }
+
+    @Override
+    public void bind(@NonNull Items.Item item)
+    {
+      super.bind(item);
+      getButton().setText(R.string.gallery_pp_download_guides_offline_cta);
     }
 
     @Override

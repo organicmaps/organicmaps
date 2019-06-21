@@ -1,5 +1,6 @@
 package com.mapswithme.maps.discovery;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -220,7 +221,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       RecyclerView localGuides = getGallery(R.id.localGuides);
       localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
       RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-      BaseItemSelectedListener<Items.Item> listener = new BaseItemSelectedListener<>(requireActivity(), /* FIXME */ItemType.CAFES);
+      BaseItemSelectedListener<Items.Item> listener = new CatalogPromoSelectedListener(requireActivity());
       promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
       return;
     }
@@ -532,5 +533,24 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     void onShowDiscoveredObject(@NonNull MapObject object);
     void onShowFilter();
     void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
+  }
+
+
+  private static class CatalogPromoSelectedListener extends LoggableItemSelectedListener<Items.Item>
+  {
+    public CatalogPromoSelectedListener(@NonNull Activity activity)
+    {
+      super(activity, ItemType.PROMO);
+    }
+
+    @Override
+    protected void onMoreItemSelectedInternal(@NonNull Items.Item item)
+    {
+    }
+
+    @Override
+    protected void onItemSelectedInternal(@NonNull Items.Item item, int position)
+    {
+    }
   }
 }

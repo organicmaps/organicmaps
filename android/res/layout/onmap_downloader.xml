@@ -131,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
         android:gravity="center"
+        android:text="@string/popup_mwm_download_guides_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="Some title"/>
       <Button
