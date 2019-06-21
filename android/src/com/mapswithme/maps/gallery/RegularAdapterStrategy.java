@@ -12,14 +12,20 @@ import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
 public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.Item>
     extends AdapterStrategy<Holders.BaseViewHolder<T>, T>
 {
-  private static final int MAX_ITEMS = 5;
+  private static final int MAX_ITEMS_BY_DEFAULT = 5;
 
   public RegularAdapterStrategy(@NonNull List<T> items, @Nullable T moreItem,
                                 @Nullable ItemSelectedListener<T> listener)
   {
+    this(items, moreItem, listener, MAX_ITEMS_BY_DEFAULT);
+  }
+
+  public RegularAdapterStrategy(@NonNull List<T> items, @Nullable T moreItem,
+                                @Nullable ItemSelectedListener<T> listener, int maxItems)
+  {
     super(listener);
-    boolean showMoreItem = moreItem != null && items.size() >= MAX_ITEMS;
-    int size = showMoreItem ? MAX_ITEMS : items.size();
+    boolean showMoreItem = moreItem != null && items.size() >= maxItems;
+    int size = showMoreItem ? maxItems : items.size();
     for (int i = 0; i < size; i++)
     {
       T product = items.get(i);

@@ -16,10 +16,12 @@ import java.util.List;
 
 class CatalogPromoAdapterStrategy extends RegularAdapterStrategy<PromoEntity>
 {
+  private static final int MAX_ITEMS = 4;
+
   CatalogPromoAdapterStrategy(@NonNull List<PromoEntity> items, @Nullable PromoEntity moreItem,
                               @Nullable ItemSelectedListener<PromoEntity> listener)
   {
-    super(items, moreItem, listener);
+    super(items, moreItem, listener, MAX_ITEMS);
   }
 
   @NonNull
