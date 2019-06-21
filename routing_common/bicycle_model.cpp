@@ -168,6 +168,29 @@ VehicleModel::LimitsInitList const kBicycleOptionsBridlewayAllowed = {
     {{"highway", "steps"}, true},
     {{"highway", "platform"}, true}};
 
+// Same as defaults except pedestrian and footway are allowed
+VehicleModel::LimitsInitList const kBicycleOptionsPedestrianFootwayAllowed = {
+    {{"highway", "trunk"}, true},
+    {{"highway", "trunk_link"}, true},
+    {{"highway", "primary"}, true},
+    {{"highway", "primary_link"}, true},
+    {{"highway", "secondary"}, true},
+    {{"highway", "secondary_link"}, true},
+    {{"highway", "tertiary"}, true},
+    {{"highway", "tertiary_link"}, true},
+    {{"highway", "service"}, true},
+    {{"highway", "unclassified"}, true},
+    {{"highway", "road"}, true},
+    {{"highway", "track"}, true},
+    {{"highway", "path"}, true},
+    {{"highway", "cycleway"}, true},
+    {{"highway", "residential"}, true},
+    {{"highway", "living_street"}, true},
+    {{"highway", "steps"}, true},
+    {{"highway", "pedestrian"}, true},
+    {{"highway", "footway"}, true},
+    {{"highway", "platform"}, true}};
+
 // Australia
 VehicleModel::LimitsInitList const kBicycleOptionsAustralia = kBicycleOptionsAll;
 
@@ -191,28 +214,7 @@ VehicleModel::LimitsInitList const kBicycleOptionsAustria = {
     {{"highway", "platform"}, true}};
 
 // Belarus
-VehicleModel::LimitsInitList const kBicycleOptionsBelarus = {
-    // Footway and pedestrian are allowed
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+VehicleModel::LimitsInitList const kBicycleOptionsBelarus = kBicycleOptionsPedestrianFootwayAllowed;
 
 // Belgium
 VehicleModel::LimitsInitList const kBicycleOptionsBelgium = {
@@ -318,7 +320,7 @@ VehicleModel::LimitsInitList const kBicycleOptionsRomania = kBicycleOptionsNoTru
 // https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
 // passing through service and living_street with a bicycle is prohibited
 // it's allowed according to Russian traffic rules.
-VehicleModel::LimitsInitList const kBicycleOptionsRussia = kBicycleOptionsBelarus;
+VehicleModel::LimitsInitList const kBicycleOptionsRussia = kBicycleOptionsPedestrianFootwayAllowed;
 
 // Slovakia
 VehicleModel::LimitsInitList const kBicycleOptionsSlovakia = kBicycleOptionsNoTrunk;
