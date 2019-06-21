@@ -82,17 +82,17 @@ LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path,
     m_path.emplace_back(path[i]);
   }
 
-  Init(starter);
+  Init();
 }
 
-void LeapsPostProcessor::Init(IndexGraphStarter & starter)
+void LeapsPostProcessor::Init()
 {
   m_prefixSumETA = std::vector<double>(m_path.size(), 0.0);
 
   for (size_t i = 1; i < m_path.size(); ++i)
   {
     auto const & segment = m_path[i];
-    m_prefixSumETA[i] = m_prefixSumETA[i - 1] + starter.CalcSegmentETA(segment);
+    m_prefixSumETA[i] = m_prefixSumETA[i - 1] + m_starter.CalcSegmentETA(segment);
 
     CHECK_EQUAL(m_segmentToIndex.count(segment), 0, ());
     m_segmentToIndex[segment] = i;
