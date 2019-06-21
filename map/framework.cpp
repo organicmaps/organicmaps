@@ -2026,6 +2026,12 @@ void Framework::UpdateVisualScale(double vs)
     m_drapeEngine->UpdateVisualScale(vs, m_isRenderingEnabled);
 }
 
+void Framework::UpdateMyPositionRoutingOffset(bool useDefault, int offsetY)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->UpdateMyPositionRoutingOffset(useDefault, offsetY);
+}
+
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 {
   return make_ref(m_drapeEngine);

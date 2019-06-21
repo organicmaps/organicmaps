@@ -531,6 +531,10 @@ public:
 
   void UpdateVisualScale(double vs);
 
+  /// Sets the distance between the bottom edge of the arrow and the bottom edge of the visible viewport
+  /// in follow routing mode or resets it to the default value.
+  void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
+
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();

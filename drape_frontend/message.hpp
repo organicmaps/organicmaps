@@ -30,6 +30,7 @@ public:
     GuiLayerRecached,
     GuiRecache,
     GuiLayerLayout,
+    UpdateMyPositionRoutingOffset,
     MapShapesRecache,
     MapShapes,
     ChangeMyPositionMode,

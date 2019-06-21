@@ -70,6 +70,13 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
   m_shadowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */, kComponentsInVertex);
 }
 
+// static
+double Arrow3d::GetMaxBottomSize()
+{
+  double const kBottomSize = 1.0;
+  return kBottomSize * kArrowSize * kArrow3dScaleMax * kOutlineScale;
+}
+
 void Arrow3d::SetPosition(const m2::PointD & position)
 {
   m_position = position;

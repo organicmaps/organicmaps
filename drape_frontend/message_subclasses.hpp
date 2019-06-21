@@ -359,6 +359,24 @@ private:
   gui::TWidgetsLayoutInfo m_layoutInfo;
 };
 
+class UpdateMyPositionRoutingOffsetMessage: public Message
+{
+public:
+  UpdateMyPositionRoutingOffsetMessage(bool useDefault, int offsetY)
+    : m_useDefault(useDefault)
+    , m_offsetY(offsetY)
+  {}
+
+  Type GetType() const override { return Type::UpdateMyPositionRoutingOffset; }
+
+  bool UseDefault() const { return m_useDefault; }
+  int GetOffsetY() const { return m_offsetY; }
+
+private:
+  bool m_useDefault;
+  int m_offsetY;
+};
+
 class ShowChoosePositionMarkMessage : public Message
 {
 public:

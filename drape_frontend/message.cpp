@@ -29,6 +29,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::GuiLayerRecached: return "GuiLayerRecached";
   case Message::Type::GuiRecache: return "GuiRecache";
   case Message::Type::GuiLayerLayout: return "GuiLayerLayout";
+  case Message::Type::UpdateMyPositionRoutingOffset: return "UpdateMyPositionRoutingOffset";
   case Message::Type::MapShapesRecache: return "MapShapesRecache";
   case Message::Type::MapShapes: return "MapShapes";
   case Message::Type::ChangeMyPositionMode: return "ChangeMyPositionMode";

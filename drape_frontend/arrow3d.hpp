@@ -30,6 +30,8 @@ class Arrow3d
 public:
   explicit Arrow3d(ref_ptr<dp::GraphicsContext> context);
 
+  static double GetMaxBottomSize();
+
   void SetPosition(m2::PointD const & position);
   void SetAzimuth(double azimuth);
   void SetTexture(ref_ptr<dp::TextureManager> texMng);

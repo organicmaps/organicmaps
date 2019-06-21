@@ -25,8 +25,7 @@ namespace df
 {
 namespace
 {
-int const kPositionOffsetY = 104;
-int const kPositionOffsetYIn3D = 104;
+int const kPositionRoutingOffsetY = 104;
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMinSpeedThresholdMps = 1.0;
 
@@ -152,7 +151,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionYOffset(kPositionOffsetY)
+  , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -195,7 +194,6 @@ void MyPositionController::UpdatePosition()
 void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
 {
   m_pixelRect = screen.PixelRectIn3d();
-  m_positionYOffset = screen.isPerspective() ? kPositionOffsetYIn3D : kPositionOffsetY;
   if (m_visiblePixelRect.IsEmptyInterior())
     m_visiblePixelRect = m_pixelRect;
 }
@@ -800,7 +798,12 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
   return {m_visiblePixelRect.Center().x,
-          m_visiblePixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale()};
+          m_visiblePixelRect.maxY() - m_positionRoutingOffsetY * VisualParams::Instance().GetVisualScale()};
+}
+
+void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
+{
+  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY : offsetY + Arrow3d::GetMaxBottomSize();
 }
 
 m2::PointD MyPositionController::GetDrawablePosition()

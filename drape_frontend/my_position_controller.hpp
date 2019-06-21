@@ -130,6 +130,7 @@ public:
 
   bool IsWaitingForLocation() const;
   m2::PointD GetDrawablePosition();
+  void UpdateRoutingOffsetY(bool useDefault, int offsetY);
 
 private:
   void ChangeMode(location::EMyPositionMode newMode);
@@ -195,7 +196,7 @@ private:
 
   m2::RectD m_pixelRect;
   m2::RectD m_visiblePixelRect;
-  double m_positionYOffset;
+  double m_positionRoutingOffsetY;
 
   bool m_isDirtyViewport;
   bool m_isDirtyAutoZoom;

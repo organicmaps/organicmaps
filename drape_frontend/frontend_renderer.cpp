@@ -423,6 +423,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::Type::UpdateMyPositionRoutingOffset:
+    {
+      ref_ptr<UpdateMyPositionRoutingOffsetMessage> msg = message;
+      m_myPositionController->UpdateRoutingOffsetY(msg->UseDefault(), msg->GetOffsetY());
+      m_myPositionController->UpdatePosition();
+      break;
+    }
+
   case Message::Type::MapShapes:
     {
       ref_ptr<MapShapesMessage> msg = message;
@@ -435,8 +443,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_selectObjectMessage.reset();
         AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
       }
+      break;
     }
-    break;
 
   case Message::Type::ChangeMyPositionMode:
     {

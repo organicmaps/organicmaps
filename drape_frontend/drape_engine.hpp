@@ -241,6 +241,7 @@ public:
   void ShowDebugInfo(bool shown);
 
   void UpdateVisualScale(double vs, bool needStopRendering);
+  void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
