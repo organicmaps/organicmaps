@@ -219,7 +219,7 @@ namespace android
     uint64_t GetLocals(JNIEnv * env, jobject policy, double lat, double lon,
                        locals::LocalsSuccessCallback const & successFn,
                        locals::LocalsErrorCallback const & errorFn);
-    void GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
+    void GetPromoCityGallery(JNIEnv * env, jobject policy, m2::PointD const & point,
                              promo::CityGalleryCallback const & onSuccess,
                              promo::OnError const & onError);
 

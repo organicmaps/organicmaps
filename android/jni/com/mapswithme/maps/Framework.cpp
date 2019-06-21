@@ -801,7 +801,7 @@ uint64_t Framework::GetLocals(JNIEnv * env, jobject policy, double lat, double l
   return api->GetLocals(lat, lon, langStr, kResultsOnPage, kPageNumber, successFn, errorFn);
 }
 
-void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
+void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, m2::PointD const & point,
                                     promo::CityGalleryCallback const & onSuccess,
                                     promo::OnError const & onError)
 {
@@ -809,7 +809,7 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy, jstring id,
   if (api == nullptr)
     return;
 
-  api->GetCityGallery(jni::ToNativeString(env, id), languages::GetCurrentNorm(), onSuccess,
+  api->GetCityGallery(point, languages::GetCurrentNorm(), onSuccess,
                       onError);
 }
 
