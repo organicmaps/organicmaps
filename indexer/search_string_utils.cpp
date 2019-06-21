@@ -361,7 +361,9 @@ void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, si
       m_delayedTag = tag;
       return;
     }
-    if (m_numSynonyms == 2)
+
+    // Do not emit delayed token for incomplete street synonym.
+    if ((!isPrefix || IsStreetSynonym(token)) && m_numSynonyms == 2)
       EmitToken(m_delayedToken, m_delayedTag);
   }
   EmitToken(token, tag);

@@ -1940,5 +1940,29 @@ UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
     TEST(results[1].GetRankingInfo().m_exactMatch, ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
+{
+  string const countryName = "Wonderland";
+
+  // Est is a prefix of "estrada".
+  TestStreet street(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)},
+                    "Boulevard Maloney Est", "en");
+
+  TestPOI house(m2::PointD(1.0, 1.0), "", "en");
+  house.SetHouseNumber("3");
+  house.SetStreetName(street.GetName("en"));
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(house);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    Rules rules = {ExactMatch(countryId, house)};
+    TEST(ResultsMatch("3 Boulevard Maloney Est", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
