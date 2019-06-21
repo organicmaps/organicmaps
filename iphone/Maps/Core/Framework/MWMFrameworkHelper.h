@@ -16,6 +16,8 @@
 
 + (BOOL)isNetworkConnected;
 
++ (BOOL)isWiFiConnected;
+
 + (MWMMarkGroupID)invalidCategoryId;
 
 @end

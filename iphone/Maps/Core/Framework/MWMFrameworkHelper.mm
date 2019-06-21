@@ -110,6 +110,11 @@
   return GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE;
 }
 
++ (BOOL)isWiFiConnected
+{
+  return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
+}
+
 + (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
 
 @end
