@@ -39,7 +39,12 @@ RegionsBuilder::Regions RegionsBuilder::ExtractCountriesOuters(Regions & regions
   Regions countriesOuters;
 
   auto const isCountry = [](Region const & region) {
-    return AdminLevel::Two == region.GetAdminLevel();
+    auto const placeType = region.GetPlaceType();
+    if (placeType == PlaceType::Country)
+      return true;
+
+    auto const adminLevel = region.GetAdminLevel();
+    return adminLevel == AdminLevel::Two && placeType == PlaceType::Unknown;
   };
   std::copy_if(std::begin(regions), std::end(regions), std::back_inserter(countriesOuters),
       isCountry);

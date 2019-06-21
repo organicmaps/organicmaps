@@ -6,12 +6,16 @@ namespace regions
 {
 PlaceLevel CountrySpecifier::GetLevel(Region const & region) const
 {
-  auto const placeLevel = GetLevel(region.GetPlaceType());
+  auto const placeType = region.GetPlaceType();
+  auto const placeLevel = GetLevel(placeType);
   if (placeLevel != PlaceLevel::Unknown)
     return placeLevel;
 
-  if (region.GetAdminLevel() == AdminLevel::Two)
+  if (region.GetAdminLevel() == AdminLevel::Two &&
+      (placeType == PlaceType::Country || placeType == PlaceType::Unknown))
+  {
     return PlaceLevel::Country;
+  }
 
   return PlaceLevel::Unknown;
 }
