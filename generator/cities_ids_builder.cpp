@@ -1,4 +1,4 @@
-#include "generator/cities_fid_bimap_builder.hpp"
+#include "generator/cities_ids_builder.hpp"
 
 #include "generator/utils.hpp"
 
@@ -37,7 +37,7 @@ search::CBV GetLocalities(std::string const & dataPath)
 namespace generator
 {
 // todo(@m) This should be built only for World.mwm.
-bool BuildCitiesFidBimap(std::string const & dataPath, std::string const & osmToFeaturePath)
+bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeaturePath)
 {
   classificator::Load();
 
@@ -58,7 +58,7 @@ bool BuildCitiesFidBimap(std::string const & dataPath, std::string const & osmTo
   });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter sink = container.GetWriter(CITIES_FID_BIMAP_FILE_TAG);
+  FileWriter sink = container.GetWriter(CITIES_IDS_FILE_TAG);
   auto const pos0 = sink.Pos();
   builder.Serialize(sink);
   auto const pos1 = sink.Pos();

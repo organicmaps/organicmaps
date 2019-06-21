@@ -71,6 +71,8 @@ set(
   feature_processor.hpp
   feature_source.cpp
   feature_source.hpp
+  feature_to_osm.cpp
+  feature_to_osm.hpp
   feature_utils.cpp
   feature_utils.hpp
   feature_visibility.cpp
@@ -79,8 +81,6 @@ set(
   features_offsets_table.hpp
   features_vector.cpp
   features_vector.hpp
-  fid_bimap.cpp
-  fid_bimap.hpp
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp

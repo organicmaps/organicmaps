@@ -4,7 +4,7 @@
 #include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
-#include "generator/cities_fid_bimap_builder.hpp"
+#include "generator/cities_ids_builder.hpp"
 #include "generator/city_roads_generator.hpp"
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
@@ -595,7 +595,7 @@ int GeneratorToolMain(int argc, char ** argv)
     if (FLAGS_generate_cities_fid_bimap)
     {
       LOG(LINFO, ("Generating cities fid bimap for", datFile));
-      if (!generator::BuildCitiesFidBimap(datFile, osmToFeatureFilename))
+      if (!generator::BuildCitiesIds(datFile, osmToFeatureFilename))
         LOG(LCRITICAL, ("Error generating cities fid bimap."));
     }
 

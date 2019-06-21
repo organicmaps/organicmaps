@@ -27,8 +27,8 @@ set(
   cities_boundaries_builder.hpp
   cities_boundaries_checker.cpp
   cities_boundaries_checker.hpp
-  cities_fid_bimap_builder.cpp
-  cities_fid_bimap_builder.hpp
+  cities_ids_builder.cpp
+  cities_ids_builder.hpp
   city_boundary_processor.cpp
   city_boundary_processor.hpp
   city_roads_generator.cpp

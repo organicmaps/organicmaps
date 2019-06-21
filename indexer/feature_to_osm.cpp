@@ -1,4 +1,4 @@
-#include "indexer/fid_bimap.hpp"
+#include "indexer/feature_to_osm.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
@@ -31,7 +31,7 @@ bool FeatureIdToGeoObjectIdBimap::Load()
 
   auto const & cont = handle.GetValue<MwmValue>()->m_cont;
 
-  if (!cont.IsExist(CITIES_FID_BIMAP_FILE_TAG))
+  if (!cont.IsExist(CITIES_IDS_FILE_TAG))
   {
     LOG(LWARNING, ("No cities fid bimap in the world map."));
     return false;
@@ -39,7 +39,7 @@ bool FeatureIdToGeoObjectIdBimap::Load()
 
   try
   {
-    auto reader = cont.GetReader(CITIES_FID_BIMAP_FILE_TAG);
+    auto reader = cont.GetReader(CITIES_IDS_FILE_TAG);
     ReaderSource<ReaderPtr<ModelReader>> source(reader);
     Deserialize(source);
   }

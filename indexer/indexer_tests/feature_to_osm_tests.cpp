@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/fid_bimap.hpp"
+#include "indexer/feature_to_osm.hpp"
 
 #include "platform/mwm_version.hpp"
 
