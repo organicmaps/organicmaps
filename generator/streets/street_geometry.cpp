@@ -185,19 +185,56 @@ bool HighwayGeometry::MultiLine::Recombine(Line && line)
 
 // HighwayGeometry::Line -------------------------------------------------------------------------------------
 
-bool HighwayGeometry::Line::Concatenate(Line && line)
+bool HighwayGeometry::Line::Concatenate(Line && other)
 {
-  auto const initialSize = line.m_segments.size();
+  // Ignore self-addition.
+  if (&other == this)
+    return false;
 
-  while (!line.m_segments.empty() && Add(std::move(line.m_segments.front())))
-    line.m_segments.pop_front();
-  CHECK(line.m_segments.empty() || line.m_segments.size() == initialSize, ());
+  CHECK(!m_segments.empty(), ());
+  CHECK(!m_segments.front().m_points.empty() && !m_segments.back().m_points.empty(), ());
+  auto const & thisStart = m_segments.front().m_points.front();
+  auto const & thisEnd = m_segments.back().m_points.back();
 
-  while (!line.m_segments.empty() && Add(std::move(line.m_segments.back())))
-    line.m_segments.pop_back();
-  CHECK(line.m_segments.empty() || line.m_segments.size() == initialSize, ());
+  CHECK(!other.m_segments.empty(), ());
+  CHECK(!other.m_segments.front().m_points.empty() && !other.m_segments.back().m_points.empty(), ());
+  auto const & otherStart = other.m_segments.front().m_points.front();
+  auto const & otherEnd = other.m_segments.back().m_points.back();
 
-  return line.m_segments.empty();
+  if (AlmostEqualAbs(thisEnd, otherStart, kCoordEqualityEps))
+  {
+    m_segments.splice(m_segments.end(), std::move(other.m_segments));
+    return true;
+  }
+
+  if (AlmostEqualAbs(thisStart, otherEnd, kCoordEqualityEps))
+  {
+    m_segments.splice(m_segments.begin(), std::move(other.m_segments));
+    return true;
+  }
+
+  if (AlmostEqualAbs(thisStart, otherStart, kCoordEqualityEps))
+  {
+    other.Reverse();
+    m_segments.splice(m_segments.begin(), std::move(other.m_segments));
+    return true;
+  }
+
+  if (AlmostEqualAbs(thisEnd, otherEnd, kCoordEqualityEps))
+  {
+    other.Reverse();
+    m_segments.splice(m_segments.end(), std::move(other.m_segments));
+    return true;
+  }
+
+  return false;
+}
+
+void HighwayGeometry::Line::Reverse()
+{
+  for (auto & segment : m_segments)
+    std::reverse(segment.m_points.begin(), segment.m_points.end());
+  std::reverse(m_segments.begin(), m_segments.end());
 }
 
 bool HighwayGeometry::Line::Add(LineSegment && segment)
@@ -218,26 +255,26 @@ bool HighwayGeometry::Line::Add(LineSegment && segment)
   auto const & segmentStart = segment.m_points.front();
   auto const & segmentEnd = segment.m_points.back();
 
-  if (lineEnd == segmentStart)
+  if (AlmostEqualAbs(lineEnd, segmentStart, kCoordEqualityEps))
   {
     m_segments.push_back(std::move(segment));
     return true;
   }
 
-  if (lineEnd == segmentEnd)
+  if (AlmostEqualAbs(lineEnd, segmentEnd, kCoordEqualityEps))
   {
     std::reverse(segment.m_points.begin(), segment.m_points.end());
     m_segments.push_back(std::move(segment));
     return true;
   }
 
-  if (lineStart == segmentEnd)
+  if (AlmostEqualAbs(lineStart, segmentEnd, kCoordEqualityEps))
   {
     m_segments.push_front(std::move(segment));
     return true;
   }
 
-  if (lineStart == segmentStart)
+  if (AlmostEqualAbs(lineStart, segmentStart, kCoordEqualityEps))
   {
     std::reverse(segment.m_points.begin(), segment.m_points.end());
     m_segments.push_front(std::move(segment));
