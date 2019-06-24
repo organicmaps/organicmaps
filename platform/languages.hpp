@@ -34,7 +34,7 @@ std::array<std::pair<std::string, std::string>, 31> const kLanguageList =
   {"sk", "Slovenčina"},
   {"fi", "Suomi"},
   {"sv", "Svenska"},
-  {"vi", "Tiếng Việt"}
+  {"vi", "Tiếng Việt"},
   {"tr", "Türkçe"},
   {"el", "Ελληνικά"},
   {"uk", "Українська"},
