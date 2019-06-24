@@ -385,7 +385,8 @@ using namespace power_management;
         case MWMValidationResultNotValid:
           alertText = L(@"restore_no_subscription_alert");
           break;
-        case MWMValidationResultError:
+        case MWMValidationResultServerError:
+        case MWMValidationResultAuthError:
           alertText = L(@"restore_error_alert");
           break;
       }

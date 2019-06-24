@@ -107,6 +107,7 @@
       [self serverError];
       break;
     }
+    GetFramework().GetPurchase()->SetValidationCallback(nullptr);
   });
   Purchase::ValidationInfo vi;
   vi.m_receiptData = [receiptData base64EncodedStringWithOptions:0].UTF8String;
@@ -149,13 +150,19 @@
 - (void)serverError
 {
   if (self.callback)
-    self.callback(self.serverId, MWMValidationResultError);
+    self.callback(self.serverId, MWMValidationResultServerError);
+}
+
+- (void)authError
+{
+  if (self.callback)
+    self.callback(self.serverId, MWMValidationResultAuthError);
 }
 
 - (void)appstoreError:(NSError *)error
 {
   if (self.callback)
-    self.callback(self.serverId, MWMValidationResultError);
+    self.callback(self.serverId, MWMValidationResultServerError);
 }
 
 - (void)setAdsDisabled:(BOOL)disabled

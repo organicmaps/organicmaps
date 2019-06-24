@@ -67,28 +67,33 @@ class SubscriptionManager: NSObject {
   private func validate(_ refreshReceipt: Bool) {
     MWMPurchaseManager.shared()
       .validateReceipt(MWMPurchaseManager.adsRemovalServerId(),
-                       refreshReceipt: refreshReceipt) { (serverId, validationResult) in
-        if validationResult == .error {
-          Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2])
-          self.restorationCallback?(.error)
-          self.restorationCallback = nil
-          return
-        } else {
-          if validationResult == .valid {
-            Statistics.logEvent(kStatInappValidationSuccess)
-            Statistics.logEvent(kStatInappProductDelivered,
-                                withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId()])
-          } else {
-            Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0])
-          }
+                       refreshReceipt: refreshReceipt) { (_, validationResult) in
+        self.logEvents(validationResult)
+        if validationResult == .valid || validationResult == .notValid {
           MWMPurchaseManager.shared().setAdsDisabled(validationResult == .valid)
           self.paymentQueue.transactions
             .filter { Subscription.productIds.contains($0.payment.productIdentifier) &&
               ($0.transactionState == .purchased || $0.transactionState == .restored) }
             .forEach { self.paymentQueue.finishTransaction($0) }
-          self.restorationCallback?(validationResult)
-          self.restorationCallback = nil
         }
+
+        self.restorationCallback?(validationResult)
+        self.restorationCallback = nil
+    }
+  }
+
+  private func logEvents(_ validationResult: MWMValidationResult) {
+    switch validationResult {
+    case .valid:
+      Statistics.logEvent(kStatInappValidationSuccess)
+      Statistics.logEvent(kStatInappProductDelivered,
+                          withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId()])
+    case .notValid:
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0])
+    case .serverError:
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2])
+    case .authError:
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 1])
     }
   }
 }

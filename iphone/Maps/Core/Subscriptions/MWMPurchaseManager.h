@@ -6,7 +6,8 @@ typedef NS_ENUM(NSUInteger, MWMValidationResult)
 {
   MWMValidationResultValid,
   MWMValidationResultNotValid,
-  MWMValidationResultError,
+  MWMValidationResultServerError,
+  MWMValidationResultAuthError
 };
 
 typedef void (^ValidateReceiptCallback)(NSString * serverId, MWMValidationResult validationResult);
