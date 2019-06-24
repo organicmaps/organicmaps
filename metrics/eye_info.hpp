@@ -65,7 +65,7 @@ public:
     std::vector<R> loader;
     visitor(loader, "counters");
     CHECK_LESS_OR_EQUAL(loader.size(), m_counters.size(), ());
-    std::copy_n(loader.cbegin(), m_counters.size(), m_counters.begin());
+    std::copy(loader.cbegin(), loader.cend(), m_counters.begin());
   }
 
   template <typename Visitor>

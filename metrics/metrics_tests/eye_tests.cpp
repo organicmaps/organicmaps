@@ -7,6 +7,11 @@
 
 #include "metrics/metrics_tests_support/eye_for_testing.hpp"
 
+#include "coding/reader.hpp"
+#include "coding/serdes_json.hpp"
+#include "coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <utility>
@@ -696,5 +701,102 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 
       TEST(found, ());
     }
+  }
+}
+
+namespace
+{
+enum class First : uint8_t
+{
+  One,
+  Two,
+
+  Count
+};
+
+enum class Second : uint8_t
+{
+  One,
+  Two,
+  Three,
+  Four,
+
+  Count
+};
+
+std::string DebugPrint(First first)
+{
+  switch (first)
+  {
+    case First::One: return "One";
+    case First::Two: return "Two";
+    case First::Count: return "Count";
+  }
+}
+
+std::string DebugPrint(Second second)
+{
+  switch (second)
+  {
+    case Second::One: return "One";
+    case Second::Two: return "Two";
+    case Second::Three: return "Three";
+    case Second::Four: return "Four";
+    case Second::Count: return "Count";
+  }
+}
+}  // namespace
+
+UNIT_TEST(EyeInfo_CountersSerdes)
+{
+  std::vector<int8_t> data;
+
+  eye::Counters<First, uint32_t> counters;
+  counters.Increment(First::One);
+  counters.Increment(First::Two);
+
+  TEST_EQUAL(counters.Get(First::One), 1, ());
+  TEST_EQUAL(counters.Get(First::Two), 1, ());
+
+  {
+    using Sink = MemWriter<std::vector<int8_t>>;
+    Sink writer(data);
+
+    coding::SerializerJson<Sink> ser(writer);
+    ser(counters);
+  }
+
+  {
+    eye::Counters<First, uint32_t> result;
+    TEST_EQUAL(result.Get(First::One), 0, ());
+    TEST_EQUAL(result.Get(First::Two), 0, ());
+
+    MemReader reader(data.data(), data.size());
+    NonOwningReaderSource source(reader);
+
+    coding::DeserializerJson des(source);
+    des(result);
+
+    TEST_EQUAL(counters.Get(First::One), result.Get(First::One), ());
+    TEST_EQUAL(counters.Get(First::Two), result.Get(First::Two), ());
+  }
+
+  {
+    eye::Counters<Second, uint32_t> result;
+    TEST_EQUAL(result.Get(Second::One), 0, ());
+    TEST_EQUAL(result.Get(Second::Two), 0, ());
+    TEST_EQUAL(result.Get(Second::Three), 0, ());
+    TEST_EQUAL(result.Get(Second::Four), 0, ());
+
+    MemReader reader(data.data(), data.size());
+    NonOwningReaderSource source(reader);
+
+    coding::DeserializerJson des(source);
+    des(result);
+
+    TEST_EQUAL(result.Get(Second::One), counters.Get(First::One), ());
+    TEST_EQUAL(result.Get(Second::Two), counters.Get(First::Two), ());
+    TEST_EQUAL(result.Get(Second::Three), 0, ());
+    TEST_EQUAL(result.Get(Second::Four), 0, ());
   }
 }
