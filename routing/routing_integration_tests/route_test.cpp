@@ -471,4 +471,27 @@ namespace
       MercatorBounds::FromLatLon(55.991845, 37.215312), 799.0);
   }
 */
+
+  // Test that fake segments are not built from start to roads with hwtag=nocar for car routing.
+  UNIT_TEST(SpainBilbaoAirportNoCarTest)
+  {
+    TRouteResult routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                    MercatorBounds::FromLatLon(43.29969, -2.91312), {0., 0.},
+                                    MercatorBounds::FromLatLon(43.29904, -2.9108));
+    TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+
+    CHECK(routeResult.first, ());
+    Route const & route = *(routeResult.first);
+    std::vector<RouteSegment> const & routeSegments = route.GetRouteSegments();
+    TEST_GREATER(routeSegments.size(), 2, ());
+
+    // Note. routeSegments[0] is a start segment(point). routeSegments[1] is a fake segment
+    // which goes from the route start to a segment of the road graph.
+    // routeSegments[1].GetDistFromBeginningMeters() is the length of the first fake segment.
+    // Start point is located near a road with hwtag=no.
+    // So if routeSegments[1].GetDistFromBeginningMeters() is long enough the segment
+    // with hwtag=no is no used.
+    TEST_GREATER(routeSegments[1].GetDistFromBeginningMeters(), 20.0, ());
+  }
 }  // namespace
