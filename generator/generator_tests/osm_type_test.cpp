@@ -64,6 +64,14 @@ namespace
     }
     TEST(params.IsTypeExist(GetType({"psurface", value})), ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value, "Got:", psurface));
   }
+
+  void GetFeatureParams(char const * arr[][2], size_t count, FeatureParams & params)
+  {
+    OsmElement e;
+    FillXmlElement(arr, count, &e);
+
+    ftype::GetNameAndType(&e, params);
+  }
 }  // namespace
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
@@ -625,6 +633,52 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   type = GetType({"hwtag", "yescar"});
   TEST(params.IsTypeExist(type), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
+{
+  routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
+
+  {
+    char const* arr[][2] = {
+        {"highway", "secondary"},
+    };
+
+    FeatureParams params;
+    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
+    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+  }
+
+  {
+    char const* arr[][2] = {
+        {"highway", "cycleway"},
+        {"motorcar", "yes"},
+    };
+
+    FeatureParams params;
+    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
+    TEST(params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+  }
+
+  {
+    char const* arr[][2] = {
+        {"highway", "secondary"},
+        {"motor_vehicle", "no"},
+    };
+
+    FeatureParams params;
+    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
+    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
