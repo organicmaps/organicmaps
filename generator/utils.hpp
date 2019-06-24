@@ -2,6 +2,8 @@
 
 #include "generator/gen_mwm_info.hpp"
 
+#include "search/cbv.hpp"
+
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -64,4 +66,6 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 
 bool ParseFeatureIdToOsmIdMapping(std::string const & path,
                                   std::unordered_map<uint32_t, base::GeoObjectId> & mapping);
+
+search::CBV GetLocalities(std::string const & dataPath);
 }  // namespace generator

@@ -9,9 +9,11 @@
 #include "coding/writer.hpp"
 
 #include "base/geo_object_id.hpp"
+#include "base/macros.hpp"
 
 #include <algorithm>
 #include <cstddef>
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>

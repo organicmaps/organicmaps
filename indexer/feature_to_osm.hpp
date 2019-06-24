@@ -48,22 +48,7 @@ private:
   base::BidirectionalMap<uint32_t, base::GeoObjectId> m_map;
 };
 
-class FeatureIdToGeoObjectIdBimapBuilder
-{
-public:
-  void Add(uint32_t fid, base::GeoObjectId const & gid) { m_map.Add(fid, gid); }
-
-  size_t Size() const { return m_map.Size(); }
-
-  template <typename Fn>
-  void ForEachEntry(Fn && fn) const
-  {
-    m_map.ForEachEntry(std::forward<Fn>(fn));
-  }
-
-private:
-  base::BidirectionalMap<uint32_t, base::GeoObjectId> m_map;
-};
+using FeatureIdToGeoObjectIdBimapBuilder = base::BidirectionalMap<uint32_t, base::GeoObjectId>;
 
 class FeatureIdToGeoObjectIdSerDes
 {

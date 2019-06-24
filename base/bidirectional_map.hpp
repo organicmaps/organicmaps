@@ -1,12 +1,12 @@
 #pragma once
 
-#include "base/logging.hpp"
-
 #include <cstddef>
 #include <unordered_map>
 
 namespace base
 {
+// A bidirectional map to store a one-to-one correspondence between
+// keys and values.
 template <typename K, typename V>
 class BidirectionalMap
 {
@@ -20,21 +20,14 @@ public:
     m_vToK.clear();
   }
 
-  void Add(K const & k, V const & v)
+  bool Add(K const & k, V const & v)
   {
-    auto const resKV = m_kToV.emplace(k, v);
-    if (!resKV.second)
-    {
-      LOG(LWARNING,
-          ("Duplicate key in a BidirectionalMap:", k, "old value:", m_kToV.at(k), "new value:", v));
-    }
+    if (m_kToV.find(k) != m_kToV.end() || m_vToK.find(v) != m_vToK.end())
+      return false;
 
-    auto const resVK = m_vToK.emplace(v, k);
-    if (!resVK.second)
-    {
-      LOG(LWARNING,
-          ("Duplicate value in a BidirectionalMap:", v, "old key:", m_vToK.at(v), "new key:", k));
-    }
+    m_kToV.emplace(k, v);
+    m_vToK.emplace(v, k);
+    return true;
   }
 
   template <typename Fn>

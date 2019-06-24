@@ -19,7 +19,7 @@ FeatureIdToGeoObjectIdBimap::FeatureIdToGeoObjectIdBimap(DataSource const & data
 
 bool FeatureIdToGeoObjectIdBimap::Load()
 {
-  auto handle = indexer::FindWorld(m_dataSource);
+  auto const handle = indexer::FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Can't find World map file."));
@@ -66,7 +66,11 @@ bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::Ge
 
 bool FeatureIdToGeoObjectIdBimap::GetFeatureID(base::GeoObjectId const & id, FeatureID & fid)
 {
-  NOTIMPLEMENTED();
-  return false;
+  uint32_t index;
+  if (!m_map.GetKey(id, index))
+    return false;
+
+  fid = FeatureID(m_mwmId, index);
+  return true;
 }
 }  // namespace indexer

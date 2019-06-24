@@ -57,17 +57,6 @@ bool ParseFeatureIdToTestIdMapping(string const & path, unordered_map<uint32_t, 
   return success;
 }
 
-CBV GetLocalities(string const & dataPath)
-{
-  FrozenDataSource dataSource;
-  auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
-  CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
-
-  MwmContext context(dataSource.GetMwmHandleById(result.first));
-  ::base::Cancellable const cancellable;
-  return CategoriesCache(LocalitiesSource{}, cancellable).Get(context);
-}
-
 template <typename BoundariesTable, typename MappingReader>
 bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
                            MappingReader && reader)

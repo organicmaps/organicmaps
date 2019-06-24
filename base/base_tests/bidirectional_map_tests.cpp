@@ -23,4 +23,9 @@ UNIT_TEST(BidirectionalMap_Smoke)
     TEST(m.GetKey("a", key), ());
     TEST_EQUAL(key, 1, ());
   }
+
+  TEST(!m.Add(1, "b"), ());
+  TEST(!m.Add(2, "a"), ());
+  TEST(m.Add(2, "b"), ());
+  TEST(!m.Add(2, "b"), ());
 }

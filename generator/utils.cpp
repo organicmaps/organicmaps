@@ -1,10 +1,15 @@
 #include "generator/utils.hpp"
 
+#include "search/categories_cache.hpp"
+#include "search/localities_source.hpp"
+#include "search/mwm_context.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/cancellable.hpp"
 #include "base/logging.hpp"
 
 #include <vector>
@@ -53,5 +58,16 @@ bool ParseFeatureIdToOsmIdMapping(std::string const & path,
   return ForEachOsmId2FeatureId(path, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
     CHECK(mapping.emplace(featureId, osmId).second, ("Several osm ids for feature", featureId, "in file", path));
   });
+}
+
+search::CBV GetLocalities(std::string const & dataPath)
+{
+  FrozenDataSource dataSource;
+  auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
+  CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
+
+  search::MwmContext context(dataSource.GetMwmHandleById(result.first));
+  base::Cancellable const cancellable;
+  return search::CategoriesCache(search::LocalitiesSource{}, cancellable).Get(context);
 }
 }  // namespace generator
