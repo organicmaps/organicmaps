@@ -50,7 +50,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_categoryClass =
       jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery$LuxCategory");
   g_categoryConstructor =
-      jni::GetConstructorID(env, g_authorClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+      jni::GetConstructorID(env, g_categoryClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
   g_promoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/Promo");
   g_promoInstanceField =
