@@ -1,5 +1,5 @@
 #include "generator/feature_builder.hpp"
-#include "generator/regions/to_string_policy.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -47,8 +47,8 @@ void PrintFeature(FeatureBuilder const & fb, uint64_t)
   std::string const & name = fb.GetName();
   std::string const & street = fb.GetParams().GetStreet();
   std::string const & house = fb.GetParams().house.Get();
-  bool const isPOI = !name.empty() && !category.empty() &&
-                     category.find("building") == std::string::npos;
+  bool const isPOI =
+      !name.empty() && !category.empty() && category.find("building") == std::string::npos;
 
   if ((house.empty() && !isPOI) || fb.GetGeomType() == GeomType::Line)
     return;
@@ -80,16 +80,17 @@ void PrintFeature(FeatureBuilder const & fb, uint64_t)
   ToJSONObject(*feature, "geometry", geometry);
   ToJSONObject(*feature, "properties", properties);
 
-  std::cout << json_dumps(feature.release(),
-      JSON_REAL_PRECISION(generator::regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT) << std::endl;
+  std::cout << base::DumpToString(
+                   feature, JSON_REAL_PRECISION(generator::regions::JsonPolicy::kDefaultPrecision) |
+                                JSON_COMPACT)
+            << std::endl;
 }
 
 int main(int argc, char * argv[])
 {
   if (argc <= 1)
   {
-    LOG(LERROR, ("Usage:", argc == 1 ? argv[0] : "extract_addr",
-                 "<mwm_tmp_name> [<data_path>]"));
+    LOG(LERROR, ("Usage:", argc == 1 ? argv[0] : "extract_addr", "<mwm_tmp_name> [<data_path>]"));
     return 1;
   }
 

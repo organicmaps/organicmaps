@@ -1,6 +1,6 @@
 #include "generator/key_value_storage.hpp"
-
 #include "coding/reader.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -28,11 +28,14 @@ KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCou
     if (!ParseKeyValueLine(line, lineNumber, key, value))
       continue;
 
-    json_error_t jsonError;
-    auto json = std::make_shared<JsonValue>(json_loads(value.c_str(), 0, &jsonError));
-    if (!json)
+    std::shared_ptr<JsonValue> json;
+    try
     {
-      LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", jsonError.text));
+      json = std::make_shared<JsonValue>(base::LoadFromString(value));
+    }
+    catch (base::Json::Exception const & e)
+    {
+      LOG(LWARNING, ("Cannot create base::Json in line", lineNumber, ":", e.Msg()));
       continue;
     }
 
@@ -40,7 +43,7 @@ KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCou
       continue;
 
     if (m_cacheValuesCountLimit <= m_values.size())
-      m_values.emplace(key, CopyJsonString(value));
+      m_values.emplace(key, std::move(value));
     else
       m_values.emplace(key, std::move(json));
   }
@@ -50,7 +53,7 @@ KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCou
 
 // static
 bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff lineNumber,
-    uint64_t & key, std::string & value)
+                                        uint64_t & key, std::string & value)
 {
   auto const pos = line.find(" ");
   if (pos == std::string::npos)
@@ -62,7 +65,7 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff
   int64_t id;
   if (!strings::to_int64(line.substr(0, pos), id))
   {
-    LOG(LWARNING, ("Cannot parse id", line.substr(0, pos) , "in line", lineNumber));
+    LOG(LWARNING, ("Cannot parse id", line.substr(0, pos), "in line", lineNumber));
     return false;
   }
 
@@ -71,19 +74,21 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff
   return true;
 }
 
-void KeyValueStorage::Insert(uint64_t key, JsonString && valueJson, base::JSONPtr && value)
+void KeyValueStorage::Insert(uint64_t key, JsonValue && value)
 {
-  CHECK(valueJson.get(), ());
+  auto json =
+      base::DumpToString(value, JSON_REAL_PRECISION(JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
 
-  auto json = valueJson.get(); // value usage after std::move(valueJson)
+  CHECK(!json.empty(), ());
 
-  auto emplace = value && m_values.size() < m_cacheValuesCountLimit
-                    ? m_values.emplace(key, std::make_shared<JsonValue>(std::move(value)))
-                    : m_values.emplace(key, std::move(valueJson));
-  if (!emplace.second) // it is ok for OSM relation with several outer borders
+  auto emplaceResult = m_values.emplace(key, std::move(json));
+
+  if (!emplaceResult.second)  // it is ok for OSM relation with several outer borders
     return;
 
-  m_storage << static_cast<int64_t>(key) << " " << json << "\n";
+  auto const & emplaceIterator = emplaceResult.first;
+  auto const & result = boost::get<std::string>(emplaceIterator->second);
+  m_storage << static_cast<int64_t>(key) << " " << result << "\n";
 }
 
 std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
@@ -95,21 +100,12 @@ std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
   if (auto json = boost::get<std::shared_ptr<JsonValue>>(&it->second))
     return *json;
 
-  auto const & jsonString = boost::get<JsonString>(it->second);
-  auto json = std::make_shared<JsonValue>(json_loads(jsonString.get(), 0, nullptr));
+  auto const & jsonString = boost::get<std::string>(it->second);
+
+  auto json = std::make_shared<JsonValue>(base::LoadFromString(jsonString));
   CHECK(json, ());
   return json;
 }
-  
-size_t KeyValueStorage::Size() const
-{
-  return m_values.size();
-}
 
-KeyValueStorage::JsonString KeyValueStorage::CopyJsonString(std::string const & value) const
-{
-  char * copy = static_cast<char *>(std::malloc(value.size() + 1));
-  std::strncpy(copy, value.data(), value.size() + 1);
-  return JsonString{copy};
-}
+size_t KeyValueStorage::Size() const { return m_values.size(); }
 }  // namespace generator

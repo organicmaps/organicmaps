@@ -1,6 +1,6 @@
-#include "generator/regions/to_string_policy.hpp"
 #include "generator/streets/streets_builder.hpp"
 #include "generator/streets/street_regions_tracing.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -22,13 +22,12 @@ namespace streets
 StreetsBuilder::StreetsBuilder(regions::RegionInfoGetter const & regionInfoGetter,
                                size_t threadsCount)
   : m_regionInfoGetter{regionInfoGetter}, m_threadsCount{threadsCount}
-{ }
+{
+}
 
 void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
 {
-  auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) {
-    AddStreet(fb);
-  };
+  auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) { AddStreet(fb); };
   ForEachParallelFromDatRawFormat(m_threadsCount, pathInStreetsTmpMwm, transform);
 }
 
@@ -61,8 +60,9 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
     auto const & pin = street.second.GetOrChoosePin();
 
     auto const id = static_cast<int64_t>(pin.m_osmId.GetEncodedId());
-    auto const value = MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
-    streamStreetsKv << id << " " << value.get() << "\n";
+    auto const & value =
+        MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
+    streamStreetsKv << id << " " << value << "\n";
   }
 }
 
@@ -80,7 +80,7 @@ void StreetsBuilder::AddStreet(FeatureBuilder & fb)
 
 void StreetsBuilder::AddStreetHighway(FeatureBuilder & fb)
 {
-  auto streetRegionInfoGetter = [this] (auto const & pathPoint) {
+  auto streetRegionInfoGetter = [this](auto const & pathPoint) {
     return this->FindStreetRegionOwner(pathPoint);
   };
   StreetRegionsTracing regionsTracing(fb.GetOuterGeometry(), streetRegionInfoGetter);
@@ -135,9 +135,10 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
   street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
 }
 
-boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point, bool needLocality)
+boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point,
+                                                                bool needLocality)
 {
-  auto const isStreetAdministrator = [needLocality] (KeyValue const & region) {
+  auto const isStreetAdministrator = [needLocality](KeyValue const & region) {
     auto const && properties = base::GetJSONObligatoryField(*region.second, "properties");
     auto const && address = base::GetJSONObligatoryField(properties, "address");
 
@@ -161,9 +162,9 @@ StreetGeometry & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && 
   return regionStreets[std::move(streetName)];
 }
 
-std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
-    uint64_t regionId, JsonValue const & regionObject, std::string const & streetName,
-    m2::RectD const & bbox, m2::PointD const & pinPoint)
+std::string StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
+                                            std::string const & streetName, m2::RectD const & bbox,
+                                            m2::PointD const & pinPoint)
 {
   auto streetObject = base::NewJSONObject();
 
@@ -180,17 +181,16 @@ std::unique_ptr<char, JSONFreeDeleter> StreetsBuilder::MakeStreetValue(
 
   auto const & leftBottom = MercatorBounds::ToLatLon(bbox.LeftBottom());
   auto const & rightTop = MercatorBounds::ToLatLon(bbox.RightTop());
-  auto const & bboxArray = std::vector<double>{
-      leftBottom.m_lon, leftBottom.m_lat, rightTop.m_lon, rightTop.m_lat};
+  auto const & bboxArray =
+      std::vector<double>{leftBottom.m_lon, leftBottom.m_lat, rightTop.m_lon, rightTop.m_lat};
   ToJSONObject(*streetObject, "bbox", std::move(bboxArray));
 
-  auto const & pinLatLon  = MercatorBounds::ToLatLon(pinPoint);
+  auto const & pinLatLon = MercatorBounds::ToLatLon(pinPoint);
   auto const & pinArray = std::vector<double>{pinLatLon.m_lon, pinLatLon.m_lat};
   ToJSONObject(*streetObject, "pin", std::move(pinArray));
 
-  auto const value = json_dumps(streetObject.get(),
-      JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
-  return std::unique_ptr<char, JSONFreeDeleter>{value};
+  return base::DumpToString(streetObject,
+                            JSON_REAL_PRECISION(JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
 }
 
 base::GeoObjectId StreetsBuilder::NextOsmSurrogateId()

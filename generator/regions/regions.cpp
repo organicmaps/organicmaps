@@ -3,12 +3,12 @@
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/regions/node.hpp"
 #include "generator/regions/place_point.hpp"
 #include "generator/regions/regions.hpp"
-#include "generator/regions/node.hpp"
 #include "generator/regions/regions_builder.hpp"
 #include "generator/regions/regions_fixer.hpp"
-#include "generator/regions/to_string_policy.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include "platform/platform.hpp"
 
@@ -22,9 +22,9 @@
 
 #include <algorithm>
 #include <fstream>
-#include <numeric>
 #include <map>
 #include <memory>
+#include <numeric>
 #include <queue>
 #include <set>
 #include <thread>
@@ -46,9 +46,10 @@ namespace
 class RegionsGenerator
 {
 public:
-  RegionsGenerator(std::string const & pathInRegionsTmpMwm, std::string const & pathInRegionsCollector,
-                   std::string const & pathOutRegionsKv, std::string const & pathOutRepackedRegionsTmpMwm,
-                   bool verbose, size_t threadsCount)
+  RegionsGenerator(std::string const & pathInRegionsTmpMwm,
+                   std::string const & pathInRegionsCollector, std::string const & pathOutRegionsKv,
+                   std::string const & pathOutRepackedRegionsTmpMwm, bool verbose,
+                   size_t threadsCount)
     : m_pathInRegionsTmpMwm{pathInRegionsTmpMwm}
     , m_pathOutRegionsKv{pathOutRegionsKv}
     , m_pathOutRepackedRegionsTmpMwm{pathOutRepackedRegionsTmpMwm}
@@ -78,8 +79,8 @@ private:
 
     LOG(LINFO, ("Regions objects key-value for", builder.GetCountryNames().size(),
                 "countries storage saved to", m_pathOutRegionsKv));
-    LOG(LINFO, (m_objectsRegions.size(), "total regions.",
-                m_regionsCountries.size(), "total objects."));
+    LOG(LINFO,
+        (m_objectsRegions.size(), "total regions.", m_regionsCountries.size(), "total objects."));
 
     RepackTmpMwm();
   }
@@ -100,16 +101,15 @@ private:
       if (m_verbose)
         DebugPrintTree(tree);
 
-      ForEachLevelPath(tree, [&] (NodePath const & path) {
+      ForEachLevelPath(tree, [&](NodePath const & path) {
         auto const & node = path.back();
         auto const & region = node->GetData();
         auto const & objectId = region.GetId();
         auto const & regionCountryEmplace = m_regionsCountries.emplace(objectId, country);
         if (!regionCountryEmplace.second && regionCountryEmplace.first->second != country)
         {
-          LOG(LWARNING, ("Failed to place", GetLabel(region.GetLevel()), "region", objectId,
-                         "(", GetRegionNotation(region), ")",
-                         "into", *country,
+          LOG(LWARNING, ("Failed to place", GetLabel(region.GetLevel()), "region", objectId, "(",
+                         GetRegionNotation(region), ")", "into", *country,
                          ": region already exists in", *regionCountryEmplace.first->second));
           return;
         }
@@ -119,8 +119,8 @@ private:
 
         if (regionCountryEmplace.second)
         {
-          m_regionsKv << static_cast<int64_t>(objectId.GetEncodedId()) << " " << jsonPolicy->ToString(path)
-                      << "\n";
+          m_regionsKv << static_cast<int64_t>(objectId.GetEncodedId()) << " "
+                      << jsonPolicy->ToString(path) << "\n";
           ++countryObjectCount;
         }
       });
@@ -130,8 +130,8 @@ private:
                 countryObjectCount, "objects."));
   }
 
-  std::tuple<RegionsBuilder::Regions, PlacePointsMap>
-  ReadDatasetFromTmpMwm(std::string const & tmpMwmFilename, RegionInfo & collector)
+  std::tuple<RegionsBuilder::Regions, PlacePointsMap> ReadDatasetFromTmpMwm(
+      std::string const & tmpMwmFilename, RegionInfo & collector)
   {
     RegionsBuilder::Regions regions;
     PlacePointsMap placePointsMap;
@@ -169,7 +169,8 @@ private:
   {
     RegionsBuilder::Regions regions;
     PlacePointsMap placePointsMap;
-    std::tie(regions, placePointsMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
+    std::tie(regions, placePointsMap) =
+        ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
     FixRegionsWithPlacePointApproximation(placePointsMap, regions);
     return regions;
   }
@@ -224,7 +225,7 @@ private:
   {
     FeatureBuilder::PointSeq seq;
     std::transform(std::begin(polygon), std::end(polygon), std::back_inserter(seq),
-                   [] (BoostPoint const & p) { return m2::PointD(p.get<0>(), p.get<1>()); });
+                   [](BoostPoint const & p) { return m2::PointD(p.get<0>(), p.get<1>()); });
     return seq;
   }
 
@@ -246,13 +247,11 @@ private:
 void GenerateRegions(std::string const & pathInRegionsTmpMwm,
                      std::string const & pathInRegionsCollector,
                      std::string const & pathOutRegionsKv,
-                     std::string const & pathOutRepackedRegionsTmpMwm,
-                     bool verbose,
+                     std::string const & pathOutRepackedRegionsTmpMwm, bool verbose,
                      size_t threadsCount)
 {
-  RegionsGenerator(pathInRegionsTmpMwm, pathInRegionsCollector,
-                   pathOutRegionsKv, pathOutRepackedRegionsTmpMwm,
-                   verbose, threadsCount);
+  RegionsGenerator(pathInRegionsTmpMwm, pathInRegionsCollector, pathOutRegionsKv,
+                   pathOutRepackedRegionsTmpMwm, verbose, threadsCount);
 }
 }  // namespace regions
 }  // namespace generator

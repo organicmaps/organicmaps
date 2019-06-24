@@ -8,7 +8,6 @@
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
 #include "generator/regions/region_info_getter.hpp"
-#include "generator/regions/to_string_policy.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -91,8 +90,8 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
   return result;
 }
 
-std::shared_ptr<JsonValue>
-FindHousePoi(FeatureBuilder const & fb, GeoObjectInfoGetter const & geoObjectInfoGetter)
+std::shared_ptr<JsonValue> FindHousePoi(FeatureBuilder const & fb,
+                                        GeoObjectInfoGetter const & geoObjectInfoGetter)
 {
   return geoObjectInfoGetter.Find(fb.GetKeyPoint(), HouseHasAddress);
 }
@@ -106,8 +105,8 @@ base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonVa
   return jsonWithAddress;
 }
 
-boost::optional<indexer::GeoObjectsIndex<IndexReader>>
-MakeTempGeoObjectsIndex(std::string const & pathToGeoObjectsTmpMwm)
+boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
+    std::string const & pathToGeoObjectsTmpMwm)
 {
   auto const dataFile = Platform().TmpPathForFile();
   SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
@@ -136,22 +135,21 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
   auto const path = Platform().TmpPathForFile();
   FeaturesCollector collector(path);
   std::mutex collectorMutex;
-  auto concurrentCollect = [&] (FeatureBuilder const & fb) {
+  auto concurrentCollect = [&](FeatureBuilder const & fb) {
     std::lock_guard<std::mutex> lock(collectorMutex);
     collector.Collect(fb);
   };
 
-  auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */)
-  {
+  auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
     if (GeoObjectsFilter::HasHouse(fb))
     {
       concurrentCollect(fb);
       return;
     }
 
-    static_assert(std::is_base_of<regions::ConcurrentGetProcessability,
-                                  regions::RegionInfoGetter>::value,
-                  "");
+    static_assert(
+        std::is_base_of<regions::ConcurrentGetProcessability, regions::RegionInfoGetter>::value,
+        "");
     auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
     if (!regionKeyValue)
       return;
@@ -174,8 +172,8 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
 
 void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
                                   regions::RegionInfoGetter const & regionInfoGetter,
-                                  std::string const & pathInGeoObjectsTmpMwm,
-                                  bool verbose, size_t threadsCount)
+                                  std::string const & pathInGeoObjectsTmpMwm, bool verbose,
+                                  size_t threadsCount)
 {
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
@@ -188,11 +186,9 @@ void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
 
     auto const id = fb.GetMostGenericOsmId().GetEncodedId();
     auto jsonValue = AddAddress(fb, *regionKeyValue);
-    auto json = KeyValueStorage::JsonString{json_dumps(jsonValue.get(),
-        JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT)};
 
     std::lock_guard<std::mutex> lock(updateMutex);
-    geoObjectsKv.Insert(id, std::move(json));  // no cache JSON model
+    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
@@ -202,8 +198,8 @@ void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
 void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
                                      GeoObjectInfoGetter const & geoObjectInfoGetter,
                                      std::string const & pathInGeoObjectsTmpMwm,
-                                     std::ostream & streamIdsWithoutAddress,
-                                     bool verbose, size_t threadsCount)
+                                     std::ostream & streamIdsWithoutAddress, bool verbose,
+                                     size_t threadsCount)
 {
   auto addressObjectsCount = geoObjectsKv.Size();
 
@@ -220,26 +216,24 @@ void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
 
     auto const id = static_cast<int64_t>(fb.GetMostGenericOsmId().GetEncodedId());
     auto jsonValue = MakeGeoObjectValueWithoutAddress(fb, *house);
-    auto json = KeyValueStorage::JsonString{json_dumps(jsonValue.get(),
-        JSON_REAL_PRECISION(regions::JsonPolicy::kDefaultPrecision) | JSON_COMPACT)};
 
     std::lock_guard<std::mutex> lock(updateMutex);
-    geoObjectsKv.Insert(id, std::move(json));  // no cache JSON model
+    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
     streamIdsWithoutAddress << id << "\n";
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-  LOG(LINFO, ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
+  LOG(LINFO,
+      ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
 }
 }  // namespace
 
-bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
-                        std::string const & pathInRegionsKv,
+bool GenerateGeoObjects(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv,
                         std::string const & pathInGeoObjectsTmpMwm,
                         std::string const & pathOutIdsWithoutAddress,
                         std::string const & pathOutGeoObjectsKv,
-                        std::string const & allowAddresslessForCountries,
-                        bool verbose, size_t threadsCount)
+                        std::string const & allowAddresslessForCountries, bool verbose,
+                        size_t threadsCount)
 {
   LOG(LINFO, ("Start generating geo objects.."));
   auto timer = base::Timer();
@@ -254,17 +248,17 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   {
     FilterAddresslessByCountryAndRepackMwm(pathInGeoObjectsTmpMwm, allowAddresslessForCountries,
                                            regionInfoGetter, threadsCount);
-    LOG(LINFO, ("Addressless buildings are filtered except countries",
-                allowAddresslessForCountries, "."));
+    LOG(LINFO,
+        ("Addressless buildings are filtered except countries", allowAddresslessForCountries, "."));
   }
 
-  auto geoObjectIndexFuture = std::async(std::launch::async, MakeTempGeoObjectsIndex,
-                                         pathInGeoObjectsTmpMwm);
+  auto geoObjectIndexFuture =
+      std::async(std::launch::async, MakeTempGeoObjectsIndex, pathInGeoObjectsTmpMwm);
 
   Platform().RemoveFileIfExists(pathOutGeoObjectsKv);
   KeyValueStorage geoObjectsKv(pathOutGeoObjectsKv, 0 /* cacheValuesCountLimit */);
-  BuildGeoObjectsWithAddresses(geoObjectsKv, regionInfoGetter, pathInGeoObjectsTmpMwm,
-                               verbose, threadsCount);
+  BuildGeoObjectsWithAddresses(geoObjectsKv, regionInfoGetter, pathInGeoObjectsTmpMwm, verbose,
+                               threadsCount);
   LOG(LINFO, ("Geo objects with addresses were built."));
 
   auto geoObjectIndex = geoObjectIndexFuture.get();
@@ -275,10 +269,9 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndex,
   GeoObjectInfoGetter geoObjectInfoGetter{std::move(*geoObjectIndex), geoObjectsKv};
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   BuildGeoObjectsWithoutAddresses(geoObjectsKv, geoObjectInfoGetter, pathInGeoObjectsTmpMwm,
-                                  streamIdsWithoutAddress,
-                                  verbose, threadsCount);
+                                  streamIdsWithoutAddress, verbose, threadsCount);
   LOG(LINFO, ("Geo objects without addresses were built."));
-  LOG(LINFO, ("Geo objects key-value storage saved to",  pathOutGeoObjectsKv));
+  LOG(LINFO, ("Geo objects key-value storage saved to", pathOutGeoObjectsKv));
   LOG(LINFO, ("Ids of POIs without addresses saved to", pathOutIdsWithoutAddress));
   return true;
 }

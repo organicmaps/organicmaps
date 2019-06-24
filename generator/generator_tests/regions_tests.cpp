@@ -6,7 +6,7 @@
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/regions/regions_builder.hpp"
-#include "generator/regions/to_string_policy.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include "platform/platform.hpp"
 
@@ -52,12 +52,18 @@ std::string MakeCollectorData()
   CollectorRegionInfo collector(filename);
   collector.CollectFeature(kEmptyFeature, CreateOsmRelation(1 /* id */, "2" /* adminLevel */));
   collector.CollectFeature(kEmptyFeature, CreateOsmRelation(2 /* id */, "2" /* adminLevel */));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(3 /* id */, "4" /* adminLevel */, "state"));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(4 /* id */, "4" /* adminLevel */, "state"));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(5 /* id */, "4" /* adminLevel */, "state"));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(6 /* id */, "6" /* adminLevel */, "district"));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(7 /* id */, "6" /* adminLevel */, "district"));
-  collector.CollectFeature(kEmptyFeature, CreateOsmRelation(8 /* id */, "4" /* adminLevel */, "state"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(3 /* id */, "4" /* adminLevel */, "state"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(4 /* id */, "4" /* adminLevel */, "state"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(5 /* id */, "4" /* adminLevel */, "state"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(6 /* id */, "6" /* adminLevel */, "district"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(7 /* id */, "6" /* adminLevel */, "district"));
+  collector.CollectFeature(kEmptyFeature,
+                           CreateOsmRelation(8 /* id */, "4" /* adminLevel */, "state"));
   collector.Save();
   return filename;
 }

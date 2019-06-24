@@ -18,7 +18,11 @@ namespace base
 {
 struct JSONDecRef
 {
-  void operator()(json_t * root) const { if (root) json_decref(root); }
+  void operator()(json_t * root) const
+  {
+    if (root)
+      json_decref(root);
+  }
 };
 
 using JSONPtr = std::unique_ptr<json_t, JSONDecRef>;
@@ -63,6 +67,9 @@ private:
   JsonHandle m_handle;
 };
 
+JSONPtr LoadFromString(std::string const & str);
+std::string DumpToString(JSONPtr const & json, size_t flags = 0);
+
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
@@ -85,8 +92,7 @@ inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 void FromJSON(json_t const * root, double & result);
 void FromJSON(json_t const * root, bool & result);
 
-template <typename T,
-          typename std::enable_if<std::is_integral<T>::value, void>::type* = nullptr>
+template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
 void FromJSON(json_t const * root, T & result)
 {
   if (!json_is_number(root))
@@ -148,9 +154,11 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, T & r
   FromJSON(json, result);
 }
 
-template <typename T,
-          typename std::enable_if<std::is_integral<T>::value, void>::type* = nullptr>
-inline base::JSONPtr ToJSON(T value) { return base::NewJSONInt(value); }
+template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
+inline base::JSONPtr ToJSON(T value)
+{
+  return base::NewJSONInt(value);
+}
 inline base::JSONPtr ToJSON(double value) { return base::NewJSONReal(value); }
 inline base::JSONPtr ToJSON(bool value) { return base::NewJSONBool(value); }
 inline base::JSONPtr ToJSON(char const * s) { return base::NewJSONString(s); }
@@ -166,10 +174,7 @@ inline void ToJSONArray(json_t & parent, base::JSONPtr & child)
   json_array_append_new(&parent, child.release());
 }
 
-inline void ToJSONArray(json_t & parent, json_t & child)
-{
-  json_array_append_new(&parent, &child);
-}
+inline void ToJSONArray(json_t & parent, json_t & child) { json_array_append_new(&parent, &child); }
 
 template <typename T>
 void ToJSONObject(json_t & root, char const * field, T const & value)

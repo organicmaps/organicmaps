@@ -13,7 +13,7 @@ set(SRC
   booking_scoring.cpp
   boost_helpers.hpp
   borders.cpp
-  borders.hpp  
+  borders.hpp
   brands_loader.cpp
   brands_loader.hpp
   camera_info_collector.cpp
@@ -168,8 +168,8 @@ set(SRC
   regions/regions_builder.hpp
   regions/regions_fixer.cpp
   regions/regions_fixer.hpp
-  regions/to_string_policy.cpp
-  regions/to_string_policy.hpp
+  to_string_policy.cpp
+  to_string_policy.hpp
   restriction_collector.cpp
   restriction_collector.hpp
   restriction_generator.cpp

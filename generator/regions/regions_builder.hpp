@@ -3,7 +3,7 @@
 #include "generator/regions/country_specifier.hpp"
 #include "generator/regions/node.hpp"
 #include "generator/regions/region.hpp"
-#include "generator/regions/to_string_policy.hpp"
+#include "generator/to_string_policy.hpp"
 
 #include <functional>
 #include <map>
@@ -36,14 +36,15 @@ private:
   Regions FormRegionsInAreaOrder(Regions && regions);
   Regions ExtractCountriesOuters(Regions & regions);
   Node::PtrList BuildCountryRegionTrees(Regions const & outers,
-      CountrySpecifier const & countrySpecifier);
+                                        CountrySpecifier const & countrySpecifier);
   static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & allRegions,
-      CountrySpecifier const & countrySpecifier);
+                                          CountrySpecifier const & countrySpecifier);
   static Node::PtrList MakeSelectedRegionsByCountry(Region const & outer,
-      Regions const & allRegions, CountrySpecifier const & countrySpecifier);
+                                                    Regions const & allRegions,
+                                                    CountrySpecifier const & countrySpecifier);
   // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
   static int Compare(LevelRegion const & l, LevelRegion const & r,
-      CountrySpecifier const & countrySpecifier);
+                     CountrySpecifier const & countrySpecifier);
   static bool IsAreaLess(Region const & l, Region const & r);
   std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName);
 

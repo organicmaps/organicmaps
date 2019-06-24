@@ -1,8 +1,7 @@
-#include "generator/regions/to_string_policy.hpp"
-
-#include "geometry/mercator.hpp"
+#include "to_string_policy.hpp"
 
 #include "base/assert.hpp"
+#include "geometry/mercator.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -13,9 +12,6 @@
 
 namespace generator
 {
-namespace regions
-{
-
 JsonPolicy & JsonPolicy::SetRealPrecision(int32_t precision)
 {
   CHECK_LESS(precision, 32, ());
@@ -23,7 +19,7 @@ JsonPolicy & JsonPolicy::SetRealPrecision(int32_t precision)
   return *this;
 }
 
-std::string JsonPolicy::ToString(NodePath const & path) const
+std::string JsonPolicy::ToString(regions::NodePath const & path) const
 {
   auto const & main = path.back()->GetData();
   auto geometry = base::NewJSONObject();
@@ -41,7 +37,7 @@ std::string JsonPolicy::ToString(NodePath const & path) const
   for (auto const & p : path)
   {
     auto const & region = p->GetData();
-    CHECK(region.GetLevel() != PlaceLevel::Unknown, ());
+    CHECK(region.GetLevel() != regions::PlaceLevel::Unknown, ());
     auto const label = GetLabel(region.GetLevel());
     CHECK(label, ());
     ToJSONObject(*address, label, region.GetName());
@@ -83,9 +79,6 @@ std::string JsonPolicy::ToString(NodePath const & path) const
   if (m_precision >= 0)
     jsonFlags |= JSON_REAL_PRECISION(m_precision);
 
-  auto const cstr = json_dumps(feature.get(), jsonFlags);
-  std::unique_ptr<char, JSONFreeDeleter> buffer(cstr);
-  return buffer.get();
+  return base::DumpToString(feature, jsonFlags);
 }
-}  // namespace regions
 }  // namespace generator
