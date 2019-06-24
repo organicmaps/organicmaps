@@ -40,19 +40,19 @@ UNIT_TEST(FeatureIdToGeoObjectIdBimap_Smoke)
   FrozenDataSource dataSource;
 
   FeatureIdToGeoObjectIdBimapBuilder origM;
-  origM.Add(FeatureID(), base::MakeOsmWay(123));
+  origM.Add(0, base::MakeOsmWay(123));
 
   vector<uint8_t> buf;
   {
     MemWriter<decltype(buf)> writer(buf);
-    origM.Serialize(writer);
+    FeatureIdToGeoObjectIdSerDes::Serialize(writer, origM);
   }
 
   FeatureIdToGeoObjectIdBimap deserM(dataSource);
   {
     MemReader reader(buf.data(), buf.size());
     ReaderSource<MemReader> src(reader);
-    deserM.Deserialize(src);
+    FeatureIdToGeoObjectIdSerDes::Deserialize(src, deserM);
   }
 
   Entries expectedEntries = GetEntries(origM);

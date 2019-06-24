@@ -41,7 +41,7 @@ bool FeatureIdToGeoObjectIdBimap::Load()
   {
     auto reader = cont.GetReader(CITIES_IDS_FILE_TAG);
     ReaderSource<ReaderPtr<ModelReader>> source(reader);
-    Deserialize(source);
+    FeatureIdToGeoObjectIdSerDes::Deserialize(source, *this);
   }
   catch (Reader::Exception const & e)
   {

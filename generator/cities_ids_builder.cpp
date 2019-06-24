@@ -60,7 +60,7 @@ bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeatu
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter sink = container.GetWriter(CITIES_IDS_FILE_TAG);
   auto const pos0 = sink.Pos();
-  builder.Serialize(sink);
+  indexer::FeatureIdToGeoObjectIdSerDes::Serialize(sink, builder);
   auto const pos1 = sink.Pos();
 
   LOG(LINFO,

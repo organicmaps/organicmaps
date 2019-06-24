@@ -16,15 +16,19 @@ class DataSource;
 
 namespace indexer
 {
-// A serializable bidirectional map of FeatureIds from a single
+// A serializable bidirectional read-only map of FeatureIds from a single
 // mwm of a fixed version to GeoObjectIds.
 // Currently, only World.mwm of the latest version is supported.
 class FeatureIdToGeoObjectIdBimap
 {
 public:
+  friend class FeatureIdToGeoObjectIdSerDes;
+
   explicit FeatureIdToGeoObjectIdBimap(DataSource const & dataSource);
 
   bool Load();
+
+  size_t Size() const { return m_map.Size(); }
 
   bool GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id);
 
@@ -37,19 +41,6 @@ public:
     m_map.ForEachEntry(std::forward<Fn>(fn));
   }
 
-  template <typename Source>
-  void Deserialize(Source & src)
-  {
-    m_map.Clear();
-    auto const numEntries = ReadPrimitiveFromSource<uint32_t>(src);
-    for (size_t i = 0; i < numEntries; ++i)
-    {
-      auto const fid = ReadVarUint<uint32_t>(src);
-      auto const gid = ReadVarUint<uint64_t>(src);
-      m_map.Add(fid, base::GeoObjectId(gid));
-    }
-  }
-
 private:
   DataSource const & m_dataSource;
   MwmSet::MwmId m_mwmId;
@@ -60,19 +51,7 @@ private:
 class FeatureIdToGeoObjectIdBimapBuilder
 {
 public:
-  void Add(FeatureID const & fid, base::GeoObjectId const & gid) { m_map.Add(fid.m_index, gid); }
-
   void Add(uint32_t fid, base::GeoObjectId const & gid) { m_map.Add(fid, gid); }
-
-  template <typename Sink>
-  void Serialize(Sink & sink)
-  {
-    WriteToSink(sink, base::checked_cast<uint32_t>(m_map.Size()));
-    m_map.ForEachEntry([&sink](uint32_t const fid, base::GeoObjectId gid) {
-      WriteVarUint(sink, fid);
-      WriteVarUint(sink, gid.GetEncodedId());
-    });
-  }
 
   size_t Size() const { return m_map.Size(); }
 
@@ -84,5 +63,32 @@ public:
 
 private:
   base::BidirectionalMap<uint32_t, base::GeoObjectId> m_map;
+};
+
+class FeatureIdToGeoObjectIdSerDes
+{
+public:
+  template <typename Sink>
+  static void Serialize(Sink & sink, FeatureIdToGeoObjectIdBimapBuilder const & map)
+  {
+    WriteToSink(sink, base::checked_cast<uint32_t>(map.Size()));
+    map.ForEachEntry([&sink](uint32_t const fid, base::GeoObjectId gid) {
+      WriteVarUint(sink, fid);
+      WriteVarUint(sink, gid.GetEncodedId());
+    });
+  }
+
+  template <typename Source>
+  static void Deserialize(Source & src, FeatureIdToGeoObjectIdBimap & map)
+  {
+    map.m_map.Clear();
+    auto const numEntries = ReadPrimitiveFromSource<uint32_t>(src);
+    for (size_t i = 0; i < numEntries; ++i)
+    {
+      auto const fid = ReadVarUint<uint32_t>(src);
+      auto const gid = ReadVarUint<uint64_t>(src);
+      map.m_map.Add(fid, base::GeoObjectId(gid));
+    }
+  }
 };
 }  // namespace indexer
