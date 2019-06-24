@@ -121,8 +121,8 @@ optional arguments:
                         download_and_convert_planet, update_planet, coastline,
                         preprocess, features, mwm, descriptions,
                         countries_txt, external_resources, localads,
-                        statistics, cleanup, index, ugc, popularity, routing,
-                        routing_transit.
+                        statistics, cleanup, index, ugc, popularity, srtm,
+                        routing, routing_transit.
   --from_stage FROM_STAGE
                         Stage from which maps will be rebuild. Available
                         stages: download_external,
@@ -130,17 +130,27 @@ optional arguments:
                         download_and_convert_planet, update_planet, coastline,
                         preprocess, features, mwm, descriptions,
                         countries_txt, external_resources, localads,
-                        statistics, cleanup, index, ugc, popularity, routing,
-                        routing_transit.
+                        statistics, cleanup, index, ugc, popularity, srtm,
+                        routing, routing_transit.
   --coasts              Build WorldCoasts.raw and WorldCoasts.rawgeom files
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
                         advertising.
+  --order ORDER         Mwm generation order.
 ```
 
 If you are not from the maps.me team, then you do not need the option --production when generating maps.
 
 To generate maps for the whole world you need 400 GB of hard disk space and a computer with more than 64 GB.
+
+
+If you want to generate a lot of maps, then it may be important for you to order the generation of maps.
+Because different maps take different amounts of time to generate.
+Using a list with maps order can reduce build time on a multi-core computer.
+The order from: var/etc/mwm_generation_order.txt is used by default.
+You can override this behavior with the option --order=/path/to/mwm_generation_order.txt
+You can calculate this list yourself from the statistics, which is calculated with each generation.
+
 ### Examples
 ####  Non-standard planet
 If you want to generate maps for Japan you must complete the following steps:

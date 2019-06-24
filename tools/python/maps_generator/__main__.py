@@ -95,7 +95,8 @@ def parse_options():
     parser.add_argument(
         "--order",
         type=str,
-        default="",
+        default=os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "var/etc/file_generation_order.txt"),
         help="Mwm generation order.")
     return vars(parser.parse_args())
 
@@ -166,7 +167,9 @@ def main():
         countries = set(options["countries"])
         with open(options["order"]) as file:
             for c in file:
-                c = c.strip()
+                if c.strip().startswith("#"):
+                    continue
+                c = c.split("\t")[0].strip()
                 if c in countries:
                     ordered_countries.append(c)
                     countries.remove(c)

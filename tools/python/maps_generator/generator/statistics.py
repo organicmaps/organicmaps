@@ -19,7 +19,7 @@ RE_TIME_DELTA = re.compile(r'^(?:(?P<days>-?\d+) (days?, )?)?'
                            r'(?P<seconds>-?\d+)'
                            r'(?:\.(?P<microseconds>\d{1,6})\d{0,6})?$')
 
-RE_FINISH_STAGE = re.compile(r"(.*)Stage ([A-Za-z ]+): finished in (.+)$")
+RE_FINISH_STAGE = re.compile(r"(.*)Stage (.+): finished in (.+)$")
 
 
 def read_stat(f):
