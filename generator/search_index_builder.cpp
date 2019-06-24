@@ -153,6 +153,29 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
+  void AddStrasseNames(signed char lang, search::QueryTokens const & tokens) const
+  {
+    auto static const kStrasse = strings::MakeUniString("strasse");
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+      auto const & token = tokens[i];
+
+      if (!strings::EndsWith(token, kStrasse))
+        continue;
+
+      if (token == kStrasse)
+      {
+        if (i != 0)
+          AddToken(lang, tokens[i - 1] + kStrasse);
+      }
+      else
+      {
+        auto const name = strings::UniString(token.begin(), token.end() - kStrasse.size());
+        AddToken(lang, name);
+      }
+    }
+  }
+
   void operator()(signed char lang, string const & name) const
   {
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
@@ -186,6 +209,8 @@ struct FeatureNameInserter
                                         });
       for (auto const & token : tokens)
         filter.Put(token, false /* isPrefix */, 0 /* tag */);
+
+      AddStrasseNames(lang, tokens);
     }
     else
     {

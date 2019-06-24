@@ -1964,5 +1964,38 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
     TEST(ResultsMatch("3 Boulevard Maloney Est", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StrasseIndexing)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet s1(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)}, "abcdstraße",
+                "en");
+  TestStreet s2(vector<m2::PointD>{m2::PointD(1.0, -1.0), m2::PointD(-1.0, 1.0)}, "xyz strasse",
+                "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(s1);
+    builder.Add(s2);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    Rules rules = {ExactMatch(countryId, s1)};
+    TEST(ResultsMatch("abcdstrasse", rules), ());
+    TEST(ResultsMatch("abcdstraße", rules), ());
+    TEST(ResultsMatch("abcd strasse", rules), ());
+    TEST(ResultsMatch("abcd straße", rules), ());
+    TEST(ResultsMatch("abcd", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, s2)};
+    TEST(ResultsMatch("xyzstrasse", rules), ());
+    TEST(ResultsMatch("xyzstraße", rules), ());
+    TEST(ResultsMatch("xyz strasse", rules), ());
+    TEST(ResultsMatch("xyz straße", rules), ());
+    TEST(ResultsMatch("xyz", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
