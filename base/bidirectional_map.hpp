@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/exception.hpp"
 #include "base/logging.hpp"
 
 #include <cstddef>
@@ -12,10 +11,6 @@ template <typename K, typename V>
 class BidirectionalMap
 {
 public:
-  DECLARE_EXCEPTION(Exception, RootException);
-  DECLARE_EXCEPTION(NoKeyForValueException, Exception);
-  DECLARE_EXCEPTION(NoValueForKeyException, Exception);
-
   BidirectionalMap() = default;
 
   size_t Size() const { return m_kToV.size(); }
@@ -65,22 +60,6 @@ public:
       return false;
     key = it->second;
     return true;
-  }
-
-  V MustGetValue(K const & key) const
-  {
-    V result;
-    if (!GetValue(key, result))
-      MYTHROW(NoValueForKeyException, (key));
-    return result;
-  }
-
-  K MustGetKey(V const & value) const
-  {
-    K result;
-    if (!GetKey(value, result))
-      MYTHROW(NoKeyForValueException, (value));
-    return result;
   }
 
 private:
