@@ -359,8 +359,8 @@ void OnPingFinished(JNIEnv * env, bool isSuccessful)
 {
   ASSERT(g_bookmarkManagerClass, ());
 
-  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
-                                                              g_bookmarkManagerInstanceField);
+  auto bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                           g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onPingFinishedMethod,
                       static_cast<jboolean>(isSuccessful));
   jni::HandleJavaException(env);

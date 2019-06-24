@@ -616,10 +616,14 @@ void BookmarkCatalog::Ping(PingCallback && callback) const
     request.SetTimeout(kPingTimeoutInSec);
     if (request.RunHttpRequest())
     {
-      static std::string const kExpectedResponse = "pong";
+      auto constexpr kExpectedResponse = "pong";
       auto const resultCode = request.ErrorCode();
-      if (callback && resultCode >= 200 && resultCode < 300 && request.ServerResponse() == kExpectedResponse)
+      if (callback && resultCode >= 200 && resultCode < 300 &&
+          request.ServerResponse() == kExpectedResponse)
+      {
         callback(true /* isSuccessful */);
+        return;
+      }
     }
     if (callback)
       callback(false /* isSuccessful */);

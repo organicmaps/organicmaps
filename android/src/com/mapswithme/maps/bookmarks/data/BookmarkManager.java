@@ -320,10 +320,10 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onPingFinished(boolean serviceIsAvailable)
+  public void onPingFinished(boolean isServiceAvailable)
   {
     for (BookmarksCatalogPingListener listener : mCatalogPingListeners)
-      listener.onPingFinished(serviceIsAvailable);
+      listener.onPingFinished(isServiceAvailable);
   }
 
   public boolean isVisible(long catId)
@@ -861,7 +861,7 @@ public enum BookmarkManager
 
   public interface BookmarksCatalogPingListener
   {
-    void onPingFinished(boolean serviceIsAvailable);
+    void onPingFinished(boolean isServiceAvailable);
   }
 
   public interface BookmarksCatalogListener
