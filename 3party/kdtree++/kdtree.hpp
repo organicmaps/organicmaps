@@ -402,11 +402,10 @@ namespace KDTree
 
       template <class ToDo> bool for_any(ToDo toDo) const
       {
-        bool wasСalled = false;
         if (_M_get_root())
-           _M_for_any(_M_get_root(), 0, toDo, wasСalled);
+          return _M_for_any(_M_get_root(), 0, toDo);
 
-        return wasСalled;
+        return false;
       }
 
       // compares via equality
@@ -668,22 +667,18 @@ namespace KDTree
       }
 
       template <class ToDo>
-      void _M_for_any(_Link_const_type N, size_type const L, ToDo toDo, bool & wasСalled) const
+      bool _M_for_any(_Link_const_type N, size_type const L, ToDo toDo) const
       {
-        if (wasСalled)
-          return;
-
         if (toDo.DoIfIntersects(_S_value(N)))
-        {
-          wasСalled = true;
-          return;
-        }
+          return true;
 
-        if (_S_left(N) && toDo.ScanLeft(L, _S_value(N)))
-          _M_for_any(_S_left(N), L+1, toDo, wasСalled);
+        if (_S_left(N) && toDo.ScanLeft(L, _S_value(N)) && _M_for_any(_S_left(N), L+1, toDo))
+          return true;
 
-        if (_S_right(N) && toDo.ScanRight(L, _S_value(N)))
-          _M_for_any(_S_right(N), L+1, toDo, wasСalled);
+        if (_S_right(N) && toDo.ScanRight(L, _S_value(N)) && _M_for_any(_S_right(N), L+1, toDo))
+          return true;
+
+        return false;
       }
 
       _Link_type

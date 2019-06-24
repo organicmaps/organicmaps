@@ -62,6 +62,21 @@ UNIT_TEST(Tree4D_Smoke)
   TEST_EQUAL(1, test.size(), ());
 }
 
+UNIT_TEST(Tree4D_ForAnyInRect)
+{
+  Tree theTree;
+
+  R arr[] = {R(0, 0, 1, 1), R(0, 0, 5, 5), R(1, 1, 2, 2),
+             R(1, 1, 6.5, 6.5), R(2, 2, 3, 3), R(2, 2, 7, 7)};
+  for (auto const & r : arr)
+    theTree.Add(r);
+
+  TEST(theTree.ForAnyInRect(R(0, 0, 100, 100), [](R const & rect) { return rect.maxX() > 4; }), ());
+  TEST(theTree.ForAnyInRect(R(0, 0, 100, 100), [](R const & rect) { return rect.maxX() > 5; }), ());
+  TEST(theTree.ForAnyInRect(R(0, 0, 100, 100), [](R const & rect) { return rect.maxX() > 0; }), ());
+  TEST(!theTree.ForAnyInRect(R(0, 0, 100, 100), [](R const & rect) { return rect.maxX() > 10; }), ());
+}
+
 UNIT_TEST(Tree4D_ReplaceAllInRect)
 {
   Tree theTree;
