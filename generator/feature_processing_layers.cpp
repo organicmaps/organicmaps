@@ -252,11 +252,9 @@ PromoCatalogLayer::PromoCatalogLayer(std::string const & citiesFinename)
 
 void PromoCatalogLayer::Handle(FeatureBuilder & feature)
 {
-  if (ftypes::IsCityTownOrVillage(feature.GetTypes()))
+  if (ftypes::IsCityTownOrVillage(feature.GetTypes()) &&
+      m_cities.find(feature.GetMostGenericOsmId()) != m_cities.cend())
   {
-    if (m_cities.find(feature.GetMostGenericOsmId()) == m_cities.cend())
-      return;
-
     auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
     FeatureParams & params = feature.GetParams();
     params.AddType(kPromoType);
