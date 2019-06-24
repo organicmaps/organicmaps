@@ -549,16 +549,29 @@ UNIT_TEST(StartsWith)
 UNIT_TEST(EndsWith)
 {
   using namespace strings;
-  TEST(EndsWith(std::string(), ""), ());
-
-  std::string s("xyz");
-  TEST(EndsWith(s, ""), ());
-  TEST(EndsWith(s, "z"), ());
-  TEST(EndsWith(s, "yz"), ());
-  TEST(EndsWith(s, "xyz"), ());
-  TEST(!EndsWith(s, "abcxyz"), ());
-  TEST(!EndsWith(s, "ayz"), ());
-  TEST(!EndsWith(s, "axyz"), ());
+  {
+    TEST(EndsWith(std::string(), ""), ());
+  }
+  {
+    std::string const s("xyz");
+    TEST(EndsWith(s, ""), ());
+    TEST(EndsWith(s, "z"), ());
+    TEST(EndsWith(s, "yz"), ());
+    TEST(EndsWith(s, "xyz"), ());
+    TEST(!EndsWith(s, "abcxyz"), ());
+    TEST(!EndsWith(s, "ayz"), ());
+    TEST(!EndsWith(s, "axyz"), ());
+  }
+  {
+    auto const s = MakeUniString("zюя");
+    TEST(EndsWith(s, MakeUniString("")), ());
+    TEST(EndsWith(s, MakeUniString("я")), ());
+    TEST(EndsWith(s, MakeUniString("юя")), ());
+    TEST(EndsWith(s, MakeUniString("zюя")), ());
+    TEST(!EndsWith(s, MakeUniString("абвгдzюя")), ());
+    TEST(!EndsWith(s, MakeUniString("aюя")), ());
+    TEST(!EndsWith(s, MakeUniString("1zюя")), ());
+  }
 }
 
 UNIT_TEST(UniString_LessAndEqualsAndNotEquals)

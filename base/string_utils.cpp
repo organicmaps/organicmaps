@@ -280,6 +280,14 @@ bool StartsWith(std::string const & s1, char const * s2) { return (s1.compare(0,
 
 bool StartsWith(std::string const & s1, std::string const & s2) { return (s1.compare(0, s2.length(), s2) == 0); }
 
+bool EndsWith(UniString const & s1, UniString const & s2)
+{
+  if (s1.size() < s2.size())
+    return false;
+
+  return std::equal(s1.end() - s2.size(), s1.end(), s2.begin());
+}
+
 bool EndsWith(std::string const & s1, char const * s2)
 {
   size_t const n = s1.size();
