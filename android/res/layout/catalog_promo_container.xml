@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
   <TextView
     android:id="@+id/catalog_promo_title"
-    android:text="@string/discovery_button_subtitle_local_guides"
+    android:text="@string/gallery_pp_download_guides_title"
     android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
     style="@style/MwmWidget.Discovery.Subtitle"
     android:layout_marginTop="@dimen/margin_base_plus"
