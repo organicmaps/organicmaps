@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cstdio>
+#include <cstring>
 #include <sstream>
 
 std::string DebugPrint(OsmElement::EntityType type)
@@ -33,35 +34,38 @@ std::string DebugPrint(OsmElement::EntityType type)
 
 void OsmElement::AddTag(char const * key, char const * value)
 {
+  ASSERT(key, ());
+  ASSERT(value, ());
+
   // Seems like source osm data has empty values. They are useless for us.
   if (key[0] == '\0' || value[0] == '\0')
     return;
 
-#define SKIP_KEY(skippedKey) if (strncmp(key, skippedKey, sizeof(skippedKey)-1) == 0) return;
+#define SKIP_KEY_BY_PREFIX(skippedKey) if (std::strncmp(key, skippedKey, sizeof(skippedKey)-1) == 0) return;
   // OSM technical info tags
-  SKIP_KEY("created_by");
-  SKIP_KEY("source");
-  SKIP_KEY("odbl");
-  SKIP_KEY("note");
-  SKIP_KEY("fixme");
-  SKIP_KEY("iemv");
+  SKIP_KEY_BY_PREFIX("created_by");
+  SKIP_KEY_BY_PREFIX("source");
+  SKIP_KEY_BY_PREFIX("odbl");
+  SKIP_KEY_BY_PREFIX("note");
+  SKIP_KEY_BY_PREFIX("fixme");
+  SKIP_KEY_BY_PREFIX("iemv");
 
   // Skip tags for speedup, now we don't use it
-  SKIP_KEY("not:");
-  SKIP_KEY("artist_name");
-  SKIP_KEY("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
+  SKIP_KEY_BY_PREFIX("not:");
+  SKIP_KEY_BY_PREFIX("artist_name");
+  SKIP_KEY_BY_PREFIX("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
 
   // In future we can use this tags for improve our search
-  SKIP_KEY("old_name");
-  SKIP_KEY("alt_name");
-  SKIP_KEY("nat_name");
-  SKIP_KEY("reg_name");
-  SKIP_KEY("loc_name");
-  SKIP_KEY("lock_name");
-  SKIP_KEY("local_name");
-  SKIP_KEY("short_name");
-  SKIP_KEY("official_name");
-#undef SKIP_KEY
+  SKIP_KEY_BY_PREFIX("old_name");
+  SKIP_KEY_BY_PREFIX("alt_name");
+  SKIP_KEY_BY_PREFIX("nat_name");
+  SKIP_KEY_BY_PREFIX("reg_name");
+  SKIP_KEY_BY_PREFIX("loc_name");
+  SKIP_KEY_BY_PREFIX("lock_name");
+  SKIP_KEY_BY_PREFIX("local_name");
+  SKIP_KEY_BY_PREFIX("short_name");
+  SKIP_KEY_BY_PREFIX("official_name");
+#undef SKIP_KEY_BY_PREFIX
 
   std::string val{value};
   strings::Trim(val);

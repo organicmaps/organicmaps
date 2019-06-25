@@ -89,6 +89,7 @@ set(
   thread_pool_computational.hpp
   thread_pool_delayed.cpp
   thread_pool_delayed.hpp
+  thread_safe_queue.hpp
   thread_utils.hpp
   threaded_container.cpp
   threaded_container.hpp

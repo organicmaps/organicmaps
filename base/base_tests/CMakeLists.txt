@@ -41,6 +41,7 @@ set(
   thread_pool_computational_tests.cpp
   thread_pool_delayed_tests.cpp
   thread_pool_tests.cpp
+  thread_safe_queue_tests.cpp
   threaded_list_test.cpp
   threads_test.cpp
   timegm_test.cpp

@@ -543,13 +543,7 @@ bool FeatureParams::IsTypeExist(uint32_t t) const
 
 bool FeatureParams::IsTypeExist(uint32_t comp, uint8_t level) const
 {
-  for (uint32_t type : m_types)
-  {
-    ftype::TruncValue(type, level);
-    if (type == comp)
-      return true;
-  }
-  return false;
+  return FindType(comp, level) != ftype::GetEmptyValue();
 }
 
 uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
