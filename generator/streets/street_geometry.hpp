@@ -68,8 +68,11 @@ private:
 
   struct Line
   {
+    static constexpr double kCoordEqualityEps = 1e-5;
+
     // Try to append |line| to front or to back of |this| line.
-    bool Concatenate(Line && line);
+    bool Concatenate(Line && other);
+    void Reverse();
     // The function does not check addition of line segment to ring line.
     // Line configuration depends on addition sequences.
     // |segment| will not modify if the function returns false.
