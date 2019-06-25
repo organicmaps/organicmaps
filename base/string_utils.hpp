@@ -110,6 +110,8 @@ void Trim(std::string & s, char const * anyOf);
 // to - A substitute string
 bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to);
 
+bool ReplaceLast(std::string & str, std::string const & from, std::string const & to);
+
 void MakeLowerCaseInplace(std::string & s);
 std::string MakeLowerCase(std::string const & s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);

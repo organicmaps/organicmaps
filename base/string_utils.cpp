@@ -235,6 +235,16 @@ bool ReplaceFirst(std::string & str, std::string const & from, std::string const
   return true;
 }
 
+bool ReplaceLast(std::string & str, std::string const & from, std::string const & to)
+{
+  auto const pos = str.rfind(from);
+  if (pos == std::string::npos)
+    return false;
+
+  str.replace(pos, from.length(), to);
+  return true;
+}
+
 bool EqualNoCase(std::string const & s1, std::string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);
