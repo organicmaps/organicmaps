@@ -304,7 +304,6 @@ void Framework::DetachSurface(bool destroySurface)
   {
     LOG(LINFO, ("Destroy surface."));
     m_isSurfaceDestroyed = true;
-    m_work.EnterBackground();
     m_work.OnDestroySurface();
   }
 
@@ -378,8 +377,6 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
     bool const recreateContextDependentResources = (m_vulkanContextFactory == nullptr);
     m_work.OnRecoverSurface(w, h, recreateContextDependentResources);
     m_isSurfaceDestroyed = false;
-
-    m_work.EnterForeground();
   }
 
   LOG(LINFO, ("Attach surface finished."));

@@ -45,4 +45,13 @@ extern "C"
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MwmApplication_nativeOnTransit(JNIEnv *, jclass, jboolean foreground)
+  {
+    if (static_cast<bool>(foreground))
+      g_framework->NativeFramework()->EnterForeground();
+    else
+      g_framework->NativeFramework()->EnterBackground();
+  }
 }

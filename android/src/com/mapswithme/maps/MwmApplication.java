@@ -45,7 +45,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.HashMap;
 import java.util.List;
 
-public class MwmApplication extends Application
+public class MwmApplication extends Application implements AppBackgroundTracker.OnTransitionListener
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -280,6 +280,7 @@ public class MwmApplication extends Application
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
     mPurchaseOperationObservable.initialize();
+    mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;
   }
 
@@ -379,6 +380,7 @@ public class MwmApplication extends Application
   private static native void nativeInitFramework();
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
+  private static native void nativeOnTransit(boolean foreground);
 
   @NonNull
   public Logger getLogger()
@@ -394,6 +396,12 @@ public class MwmApplication extends Application
   public boolean isFirstLaunch()
   {
     return mFirstLaunch;
+  }
+
+  @Override
+  public void onTransit(boolean foreground)
+  {
+    nativeOnTransit(foreground);
   }
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
