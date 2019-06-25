@@ -31,13 +31,13 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
-void OsmElement::AddTag(std::string const & key, std::string const & value)
+void OsmElement::AddTag(char const * key, char const * value)
 {
   // Seems like source osm data has empty values. They are useless for us.
-  if (key.empty() || value.empty())
+  if (key[0] == '\0' || value[0] == '\0')
     return;
 
-#define SKIP_KEY(skippedKey) if (strncmp(key.data(), skippedKey, sizeof(key)-1) == 0) return;
+#define SKIP_KEY(skippedKey) if (strncmp(key, skippedKey, sizeof(skippedKey)-1) == 0) return;
   // OSM technical info tags
   SKIP_KEY("created_by");
   SKIP_KEY("source");
@@ -63,9 +63,14 @@ void OsmElement::AddTag(std::string const & key, std::string const & value)
   SKIP_KEY("official_name");
 #undef SKIP_KEY
 
-  std::string val{std::string{value}};
+  std::string val{value};
   strings::Trim(val);
-  m_tags.emplace_back(std::string{key}, std::move(val));
+  m_tags.emplace_back(key, std::move(val));
+}
+
+void OsmElement::AddTag(std::string const & key, std::string const & value)
+{
+  AddTag(key.data(), value.data());
 }
 
 bool OsmElement::HasTag(std::string const & key) const
