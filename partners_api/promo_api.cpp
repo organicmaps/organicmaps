@@ -100,6 +100,14 @@ std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & 
   return baseUrl + "gallery/v1/city/" + ToSignedId(id) + "/?lang=" + lang;
 }
 
+std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
+{
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT_EQUAL(baseUrl.back(), '/', ());
+
+  return baseUrl + "geoobjects/" + ToSignedId(id) + "/1/512.png";
+}
+
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
                              std::string const & lang, CityGalleryCallback const & onSuccess,
                              OnError const & onError)
@@ -149,8 +157,10 @@ bool WebApi::GetCityGalleryById(std::string const & baseUrl, std::string const &
   return request.RunHttpRequest(result);
 }
 
-Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */)
+Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */,
+         std::string const & basePicturesUrl /* = PICTURES_URL */)
   : m_baseUrl(baseUrl)
+  , m_basePicturesUrl(basePicturesUrl)
 {
 }
 
@@ -184,14 +194,15 @@ bool Api::NeedToShowAfterBooking() const
   return NeedToShowImpl(m_bookingPromoAwaitingForId, eye::Eye::Instance().GetInfo());
 }
 
-std::string Api::GetPromoLinkAfterBooking(std::string const & lang) const
+AfterBooking Api::GetAfterBooking(std::string const & lang) const
 {
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
 
   if (!NeedToShowImpl(m_bookingPromoAwaitingForId, eyeInfo))
-    return "";
+    return {"", ""};
 
-  return MakeCityGalleryUrl(m_baseUrl, m_bookingPromoAwaitingForId, lang);
+  return {MakeCityGalleryUrl(m_baseUrl, m_bookingPromoAwaitingForId, lang),
+          GetPictureUrl(m_basePicturesUrl, m_bookingPromoAwaitingForId)};
 }
 
 std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const

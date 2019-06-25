@@ -42,6 +42,12 @@ struct CityGallery
   std::vector<Item> m_items;
 };
 
+struct AfterBooking
+{
+  std::string m_promoUrl;
+  std::string m_pictureUrl;
+};
+
 class WebApi
 {
 public:
@@ -63,12 +69,13 @@ public:
     virtual std::string GetCityId(m2::PointD const & point) = 0;
   };
 
-  explicit Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL);
+  Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL,
+      std::string const & basePicturesUrl = PICTURES_URL);
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   void OnEnterForeground();
   bool NeedToShowAfterBooking() const;
-  std::string GetPromoLinkAfterBooking(std::string const & lang) const;
+  AfterBooking GetAfterBooking(std::string const & lang) const;
   std::string GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const;
   std::string GetMoreUrl(std::string const & id) const;
   void GetCityGallery(m2::PointD const & point, std::string const & lang,
@@ -81,6 +88,7 @@ private:
   std::unique_ptr<Delegate> m_delegate;
 
   std::string const m_baseUrl;
+  std::string const m_basePicturesUrl;
   std::string m_bookingPromoAwaitingForId;
 };
 }  // namespace promo
