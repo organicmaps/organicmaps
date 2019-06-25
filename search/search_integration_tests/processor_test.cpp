@@ -1965,7 +1965,7 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, StrasseIndexing)
+UNIT_CLASS_TEST(ProcessorTest, Strasse)
 {
   string const countryName = "Wonderland";
 
@@ -1979,22 +1979,43 @@ UNIT_CLASS_TEST(ProcessorTest, StrasseIndexing)
     builder.Add(s2);
   });
 
+  auto checkNoErrors = [&](string const & query, Rules const & rules) {
+    auto request = MakeRequest(query, "en");
+    auto const & results = request->Results();
+
+    TEST(ResultsMatch(results, rules), (query));
+    TEST_EQUAL(results.size(), 1, (query));
+    TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, ErrorsMade(0), (query));
+    auto const nameScore = results[0].GetRankingInfo().m_nameScore;
+    TEST(nameScore == NAME_SCORE_FULL_MATCH || nameScore == NAME_SCORE_PREFIX, (query));
+  };
+
   SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
   {
     Rules rules = {ExactMatch(countryId, s1)};
-    TEST(ResultsMatch("abcdstrasse", rules), ());
-    TEST(ResultsMatch("abcdstraße", rules), ());
-    TEST(ResultsMatch("abcd strasse", rules), ());
-    TEST(ResultsMatch("abcd straße", rules), ());
-    TEST(ResultsMatch("abcd", rules), ());
+    checkNoErrors("abcdstrasse ", rules);
+    checkNoErrors("abcdstrasse", rules);
+    checkNoErrors("abcdstraße ", rules);
+    checkNoErrors("abcdstraße", rules);
+    checkNoErrors("abcd strasse ", rules);
+    checkNoErrors("abcd strasse", rules);
+    checkNoErrors("abcd straße ", rules);
+    checkNoErrors("abcd straße", rules);
+    checkNoErrors("abcd ", rules);
+    checkNoErrors("abcd", rules);
   }
   {
     Rules rules = {ExactMatch(countryId, s2)};
-    TEST(ResultsMatch("xyzstrasse", rules), ());
-    TEST(ResultsMatch("xyzstraße", rules), ());
-    TEST(ResultsMatch("xyz strasse", rules), ());
-    TEST(ResultsMatch("xyz straße", rules), ());
-    TEST(ResultsMatch("xyz", rules), ());
+    checkNoErrors("xyzstrasse ", rules);
+    checkNoErrors("xyzstrasse", rules);
+    checkNoErrors("xyzstraße ", rules);
+    checkNoErrors("xyzstraße", rules);
+    checkNoErrors("xyz strasse ", rules);
+    checkNoErrors("xyz strasse", rules);
+    checkNoErrors("xyz straße ", rules);
+    checkNoErrors("xyz straße", rules);
+    checkNoErrors("xyz ", rules);
+    checkNoErrors("xyz", rules);
   }
 }
 }  // namespace

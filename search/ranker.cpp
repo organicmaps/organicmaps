@@ -55,6 +55,37 @@ void UpdateNameScores(vector<strings::UniString> const & tokens, Slice const & s
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
 }
 
+// This function assumes that at most one token in |streetTokens| ends with "strasse".
+bool ModifyStrasse(vector<strings::UniString> & streetTokens)
+{
+  auto static const kStrasse = strings::MakeUniString("strasse");
+  for (size_t i = 0; i < streetTokens.size(); ++i)
+  {
+    auto & token = streetTokens[i];
+    if (strings::EndsWith(token, kStrasse))
+    {
+      if (token == kStrasse)
+      {
+        if (i != 0)
+        {
+          streetTokens[i - 1] = streetTokens[i - 1] + kStrasse;
+          streetTokens.erase(streetTokens.begin() + i);
+          return true;
+        }
+      }
+      else
+      {
+        streetTokens[i] =
+            strings::UniString(streetTokens[i].begin(), streetTokens[i].end() - kStrasse.size());
+        streetTokens.insert(streetTokens.begin() + i + 1, kStrasse);
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
                          TokenRange const & range, Model::Type type)
 {
@@ -79,6 +110,12 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
     UpdateNameScores(tokens, slice, bestScores);
     UpdateNameScores(tokens, sliceNoCategories, bestScores);
+
+    if (type == Model::TYPE_STREET && ModifyStrasse(tokens))
+    {
+      UpdateNameScores(tokens, slice, bestScores);
+      UpdateNameScores(tokens, sliceNoCategories, bestScores);
+    }
   }
 
   if (type == Model::TYPE_BUILDING)
