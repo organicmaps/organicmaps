@@ -41,6 +41,17 @@ namespace routing
 // static
 size_t const LeapsPostProcessor::kMaxStep = 5;
 
+/// \brief It is assumed that there in no cycles in path.
+/// But sometimes it's wrong (because of heuristic searching of intermediate
+/// points (mwms' exists) in LeapsOnly routing algorithm).
+/// Look here for screenshots of such problem: https://github.com/mapsme/omim/pull/11091
+/// This code removes cycles from path before |Init()|.
+/// The algorithm saves jumps between the same segments, so if we have such loop:
+/// s1, s2, ... , s10, s1, s11, s12, ... , s100, where "s3" means segment number 3.
+/// ^------------------^ <--- loop (from s1 to s1).
+/// Thus if we look at the first s1, we will find out that a jump to second s1 exists
+/// and we will skip all segments between first and second s1 and the result path will be:
+/// s1, s11, s12, ... , s100
 LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path,
                                        IndexGraphStarter & starter)
   : m_starter(starter),
