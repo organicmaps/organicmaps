@@ -6453,8 +6453,8 @@ sk:Autoumývareň
 fa:کارواش
 
 amenity-veterinary
-en:Veterinary Doctor
-ru:Ветеринарная клиника
+en:Veterinary Doctor|veterinary
+ru:Ветеринарная клиника|ветеринар
 ar:طبيب بيطري
 cs:Veterinář
 da:Dyrlæge
