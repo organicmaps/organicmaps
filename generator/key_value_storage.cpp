@@ -1,9 +1,7 @@
 #include "generator/key_value_storage.hpp"
-#include "coding/reader.hpp"
-#include "generator/to_string_policy.hpp"
-
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "coding/reader.hpp"
 
 #include <cstring>
 
@@ -76,8 +74,7 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff
 
 void KeyValueStorage::Insert(uint64_t key, JsonValue && value)
 {
-  auto json =
-      base::DumpToString(value, JSON_REAL_PRECISION(JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
+  auto json = Serialize(value);
 
   CHECK(!json.empty(), ());
 

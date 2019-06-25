@@ -6,7 +6,6 @@
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/regions/regions_builder.hpp"
-#include "generator/to_string_policy.hpp"
 
 #include "platform/platform.hpp"
 
@@ -24,6 +23,7 @@
 #include <vector>
 
 using namespace generator_tests;
+using namespace generator;
 using namespace generator::regions;
 using namespace feature;
 using namespace base;
@@ -169,10 +169,10 @@ RegionsBuilder::Regions MakeTestDataSet1(RegionInfo & collector)
   return regions;
 }
 
-class StringJoinPolicy : public ToStringPolicyInterface
+class StringJoinPolicy
 {
 public:
-  std::string ToString(NodePath const & nodePath) const override
+  std::string ToString(NodePath const & nodePath) const
   {
     std::stringstream stream;
     for (auto const & n : nodePath)

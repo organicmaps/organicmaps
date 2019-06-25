@@ -83,7 +83,7 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
   else
     ToJSONObject(*address, "building", base::NewJSONNull());
 
-  ToJSONObject(*properties, "pid", regionKeyValue.first);
+  ToJSONObject(*properties, "dref", regionKeyValue.first);
   // auto locales = json_object_get(result.get(), "locales");
   // auto en = json_object_get(result.get(), "en");
   // todo(maksimandrianov): Add en locales.

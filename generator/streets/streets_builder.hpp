@@ -54,9 +54,9 @@ private:
   boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point,
                                                   bool needLocality = false);
   StreetGeometry & InsertStreet(uint64_t regionId, std::string && streetName);
-  std::string MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
-                              std::string const & streetName, m2::RectD const & bbox,
-                              m2::PointD const & pinPoint);
+  base::JSONPtr MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
+                                std::string const & streetName, m2::RectD const & bbox,
+                                m2::PointD const & pinPoint);
   base::GeoObjectId NextOsmSurrogateId();
 
   std::unordered_map<uint64_t, RegionStreets> m_regions;

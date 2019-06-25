@@ -3,7 +3,6 @@
 #include "generator/regions/country_specifier.hpp"
 #include "generator/regions/node.hpp"
 #include "generator/regions/region.hpp"
-#include "generator/to_string_policy.hpp"
 
 #include <functional>
 #include <map>

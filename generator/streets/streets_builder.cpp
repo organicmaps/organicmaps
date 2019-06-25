@@ -1,7 +1,6 @@
 #include "generator/streets/streets_builder.hpp"
+#include "generator/key_value_storage.hpp"
 #include "generator/streets/street_regions_tracing.hpp"
-#include "generator/to_string_policy.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -62,7 +61,7 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
     auto const id = static_cast<int64_t>(pin.m_osmId.GetEncodedId());
     auto const & value =
         MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
-    streamStreetsKv << id << " " << value << "\n";
+    streamStreetsKv << id << " " << KeyValueStorage::Serialize(value) << "\n";
   }
 }
 
@@ -162,9 +161,9 @@ StreetGeometry & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && 
   return regionStreets[std::move(streetName)];
 }
 
-std::string StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
-                                            std::string const & streetName, m2::RectD const & bbox,
-                                            m2::PointD const & pinPoint)
+base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
+                                              std::string const & streetName,
+                                              m2::RectD const & bbox, m2::PointD const & pinPoint)
 {
   auto streetObject = base::NewJSONObject();
 
@@ -176,7 +175,7 @@ std::string StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const &
   auto properties = base::NewJSONObject();
   ToJSONObject(*properties, "address", std::move(address));
   ToJSONObject(*properties, "name", streetName);
-  ToJSONObject(*properties, "pid", regionId);
+  ToJSONObject(*properties, "dref", regionId);
   ToJSONObject(*streetObject, "properties", std::move(properties));
 
   auto const & leftBottom = MercatorBounds::ToLatLon(bbox.LeftBottom());
@@ -189,8 +188,7 @@ std::string StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const &
   auto const & pinArray = std::vector<double>{pinLatLon.m_lon, pinLatLon.m_lat};
   ToJSONObject(*streetObject, "pin", std::move(pinArray));
 
-  return base::DumpToString(streetObject,
-                            JSON_REAL_PRECISION(JsonPolicy::kDefaultPrecision) | JSON_COMPACT);
+  return streetObject;
 }
 
 base::GeoObjectId StreetsBuilder::NextOsmSurrogateId()
