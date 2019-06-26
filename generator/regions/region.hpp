@@ -23,8 +23,8 @@ class Region : protected RegionWithName, protected RegionWithData
 {
 public:
   explicit Region(feature::FeatureBuilder const & fb, RegionDataProxy const & rd);
-  // Build a region and its boundary based on the heuristic.
-  explicit Region(PlacePoint const & place);
+  Region(StringUtf8Multilang const & name, RegionDataProxy const & rd,
+         std::shared_ptr<BoostPolygon> const & polygon);
 
   // See RegionWithName::GetTranslatedOrTransliteratedName().
   std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
@@ -36,6 +36,7 @@ public:
   boost::optional<std::string> GetIsoCode() const;
 
   using RegionWithData::GetLabelOsmId;
+  boost::optional<PlacePoint> const & GetLabel() const noexcept;
   void SetLabel(PlacePoint const & place);
 
   bool Contains(Region const & smaller) const;
@@ -47,10 +48,8 @@ public:
   bool IsLocality() const;
   BoostRect const & GetRect() const { return m_rect; }
   std::shared_ptr<BoostPolygon> const & GetPolygon() const noexcept { return m_polygon; }
+  void SetPolygon(std::shared_ptr<BoostPolygon> const & polygon);
   double GetArea() const { return m_area; }
-  // This function uses heuristics and assigns a radius according to the tag place.
-  // The radius will be returned in mercator units.
-  static double GetRadiusByPlaceType(PlaceType place);
 
 private:
   void FillPolygon(feature::FeatureBuilder const & fb);
@@ -60,7 +59,5 @@ private:
   BoostRect m_rect;
   double m_area;
 };
-
-std::string GetRegionNotation(Region const & region);
 }  // namespace regions
 }  // namespace generator

@@ -21,8 +21,7 @@ public:
   // Non-transitive.
   virtual int RelateByWeight(LevelRegion const & l, LevelRegion const & r) const;
 
-protected:
-  PlaceLevel GetLevel(PlaceType placeType) const;
+  static PlaceLevel GetLevel(PlaceType placeType);
 };
 }  // namespace regions
 }  // namespace generator

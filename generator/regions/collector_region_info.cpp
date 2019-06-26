@@ -32,15 +32,54 @@ PlaceType EncodePlaceType(std::string const & place)
     {"city", PlaceType::City},
     {"town", PlaceType::Town},
     {"village", PlaceType::Village},
+    {"hamlet", PlaceType::Hamlet},
+    {"isolated_dwelling", PlaceType::IsolatedDwelling},
     {"suburb", PlaceType::Suburb},
     {"quarter", PlaceType::Quarter},
     {"neighbourhood", PlaceType::Neighbourhood},
-    {"hamlet", PlaceType::Hamlet},
-    {"isolated_dwelling", PlaceType::IsolatedDwelling}
   };
 
   auto const it = m.find(place);
   return it == m.end() ? PlaceType::Unknown : it->second;
+}
+
+char const * StringifyPlaceType(PlaceType placeType)
+{
+  switch (placeType)
+  {
+  case PlaceType::Country:
+    return "country";
+  case PlaceType::State:
+    return "state";
+  case PlaceType::Province:
+    return "province";
+  case PlaceType::District:
+    return "district";
+  case PlaceType::County:
+    return "county";
+  case PlaceType::Municipality:
+    return "municipality";
+  case PlaceType::City:
+    return "city";
+  case PlaceType::Town:
+    return "town";
+  case PlaceType::Village:
+    return "village";
+  case PlaceType::Hamlet:
+    return "hamlet";
+  case PlaceType::IsolatedDwelling:
+    return "isolated_dwelling";
+  case PlaceType::Suburb:
+    return "suburb";
+  case PlaceType::Quarter:
+    return "quarter";
+  case PlaceType::Neighbourhood:
+    return "neighbourhood";
+  case PlaceType::Unknown:
+    return "unknown";
+  };
+
+  UNREACHABLE();
 }
 
 char const * GetLabel(PlaceLevel level)

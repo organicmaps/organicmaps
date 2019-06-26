@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/regions/country_specifier.hpp"
+#include "generator/regions/level_region.hpp"
 #include "generator/regions/node.hpp"
 #include "generator/regions/region.hpp"
 
@@ -30,6 +31,12 @@ public:
   StringsList GetCountryNames() const;
   void ForEachCountry(CountryFn fn);
 
+  static void InsertIntoSubtree(Node::Ptr & subtree, LevelRegion && region,
+                                CountrySpecifier const & countrySpecifier);
+  // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
+  static int CompareAffiliation(LevelRegion const & l, LevelRegion const & r,
+                                CountrySpecifier const & countrySpecifier);
+
 private:
   static constexpr double kAreaRelativeErrorPercent = 0.1;
 
@@ -39,7 +46,7 @@ private:
   Node::PtrList BuildCountry(std::string const & countryName) const;
   Node::PtrList BuildCountryRegionTrees(Regions const & outers,
                                         CountrySpecifier const & countrySpecifier) const;
-  Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & regionsInAreaOrder,
+  Node::Ptr BuildCountryRegionTree(Region const & outer,
                                    CountrySpecifier const & countrySpecifier) const;
   std::vector<Node::Ptr> MakeCountryNodesInAreaOrder(
       Region const & countryOuter, Regions const & regionsInAreaOrder,
@@ -50,14 +57,14 @@ private:
   std::vector<Node::Ptr>::const_reverse_iterator FindAreaLowerBoundRely(
       std::vector<Node::Ptr> const & nodesInAreaOrder,
       std::vector<Node::Ptr>::const_reverse_iterator forItem) const;
-  // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
-  static int Compare(LevelRegion const & l, LevelRegion const & r,
-                     CountrySpecifier const & countrySpecifier);
-  static bool IsAreaLessRely(Region const & l, Region const & r);
   std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName) const;
+  static void InsertIntoSubtree(Node::Ptr & subtree, Node::Ptr && newNode,
+                                CountrySpecifier const & countrySpecifier);
+  static bool IsAreaLessRely(Region const & l, Region const & r);
 
   Regions m_countriesOuters;
   Regions m_regionsInAreaOrder;
+  PlacePointsMap m_placePointsMap;
   size_t m_threadsCount;
 };
 }  // namespace regions

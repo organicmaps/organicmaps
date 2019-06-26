@@ -57,24 +57,23 @@ struct TagValue
 {
   std::string m_key;
   std::string m_value;
+};
 
-  TagValue(std::string key, std::string value = {})
-    : m_key{std::move(key)}, m_value{std::move(value)}
-  {
-  }
-
+struct Tag
+{
   TagValue operator=(std::string const & value) const
   {
-    CHECK(m_value.empty(), ());
-    return {m_key, value};
+    return {m_name, value};
   }
+
+  std::string m_name;
 };
 
 struct OsmElementData
 {
   uint64_t m_id;
   std::vector<TagValue> m_tags;
-  std::vector<m2::PointD> m_polygon;
+  std::vector<m2::PointI> m_polygon;
   std::vector<OsmElement::Member> m_members;
 };
 
@@ -114,14 +113,18 @@ void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder:
     CHECK(elementData.m_polygon.size() == 1 || elementData.m_polygon.size() == 2, ());
     if (elementData.m_polygon.size() == 1)
     {
-      fb.SetCenter(elementData.m_polygon[0]);
+      fb.SetCenter({double{elementData.m_polygon[0].x}, double{elementData.m_polygon[0].y}});
     }
     else if (elementData.m_polygon.size() == 2)
     {
       auto const & p1 = elementData.m_polygon[0];
       auto const & p2 = elementData.m_polygon[1];
       vector<m2::PointD> poly = {
-          {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.x}};
+          {double{p1.x}, double{p1.y}},
+          {double{p1.x}, double{p2.y}},
+          {double{p2.x}, double{p2.y}},
+          {double{p2.x}, double{p1.y}},
+          {double{p1.x}, double{p1.x}}};
       fb.AddPolygon(poly);
       fb.SetHoles({});
       fb.SetArea();
@@ -143,7 +146,7 @@ void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder:
   }
 }
 
-std::string ToLabelingString(vector<Node::Ptr> const & path)
+std::string ToLabelingString(vector<Node::Ptr> const & path, bool withGeometry)
 {
   CHECK(!path.empty(), ());
   std::stringstream stream;
@@ -153,12 +156,28 @@ std::string ToLabelingString(vector<Node::Ptr> const & path)
   stream << (*i)->GetData().GetName();
   ++i;
   for (; i != path.end(); ++i)
-    stream << ", " << GetLabel((*i)->GetData().GetLevel()) << ": " << (*i)->GetData().GetName();
+  {
+    auto const & region = (*i)->GetData();
+    stream << ", " << GetLabel(region.GetLevel()) << ": " << region.GetName();
+
+    if (withGeometry)
+    {
+      stream << " [";
+
+      auto const & rect = region.GetRect();
+      stream << std::fixed << std::setprecision(0);
+      stream << "(" << rect.min_corner().get<0>() << ", " << rect.min_corner().get<1>() << "), ";
+      stream << "(" << rect.max_corner().get<0>() << ", " << rect.max_corner().get<1>() << ")";
+
+      stream << "]";
+    }
+  }
 
   return stream.str();
 }
 
-std::vector<std::string> GenerateTestRegions(std::vector<OsmElementData> const & testData)
+std::vector<std::string> GenerateTestRegions(std::vector<OsmElementData> const & testData,
+    bool withGeometry = false)
 {
   classificator::Load();
 
@@ -170,13 +189,13 @@ std::vector<std::string> GenerateTestRegions(std::vector<OsmElementData> const &
   RegionInfo collector(filename);
   BuildTestData(testData, regions, placePointsMap, collector);
 
-  RegionsBuilder builder(std::move(regions), {});
+  RegionsBuilder builder(std::move(regions), std::move(placePointsMap));
   std::vector<std::string> kvRegions;
   builder.ForEachCountry([&](std::string const & name, Node::PtrList const & outers) {
     for (auto const & tree : outers)
     {
       ForEachLevelPath(tree, [&](std::vector<Node::Ptr> const & path) {
-        kvRegions.push_back(ToLabelingString(path));
+        kvRegions.push_back(ToLabelingString(path, withGeometry));
       });
     }
   });
@@ -387,58 +406,152 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
   TEST(NameExists(bankOfNames, "Country_1Country_1_Region_5Country_1_Region_5_Subregion_7"), ());
 }
 
+
+// City generation tests ---------------------------------------------------------------------------
+UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByAround)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+      {
+        {1, {name = u8"Nederland", admin = "2", ba}, {{0, 0}, {50, 50}}},
+        {2, {name = u8"Nederland", admin = "3", ba}, {{10, 10}, {20, 20}}},
+        {3, {name = u8"Noord-Holland", admin = "4", ba}, {{12, 12}, {18, 18}}},
+        {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{15, 15}}},
+      },
+      true /* withGeometry */);
+
+  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(15, 15), (15, 15)]"), ());
+}
+
+UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatching)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+      {
+        {1, {name = u8"Nederland", admin = "2", ba}, {{0, 0}, {50, 50}}},
+        {2, {name = u8"Nederland", admin = "3", ba}, {{10, 10}, {20, 20}}},
+        {3, {name = u8"Noord-Holland", admin = "4", ba}, {{12, 12}, {18, 18}}},
+        {4, {name = u8"Amsterdam", admin = "8", ba}, {{14, 14}, {17, 17}}},
+        {5, {name = u8"Amsterdam", admin = "10", ba}, {{14, 14}, {16, 16}}},
+        {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{15, 15}}},
+      },
+      true /* withGeometry */);
+
+  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(14, 14), (16, 16)]"), ());
+}
+
+UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByEnglishNameMatching)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+      {
+        {1, {name = u8"België / Belgique / Belgien", admin = "2", ba}, {{0, 0}, {50, 50}}},
+        {3, {name = u8"Ville de Bruxelles - Stad Brussel", admin = "8", ba}, {{12, 12}, {18, 18}}},
+        {4, {name = u8"Bruxelles / Brussel", {"name:en", "Brussels"}, admin = "9", ba}, {{12, 12}, {17, 17}}},
+        {5, {name = u8"Bruxelles - Brussel", {"name:en", "Brussels"}, place = "city"}, {{15, 15}}},
+      },
+      true /* withGeometry */);
+
+  TEST(HasName(regions, u8"België / Belgique / Belgien, locality: Bruxelles - Brussel [(12, 12), (17, 17)]"), ());
+}
+
+UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPrefix)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+    {
+      {1, {name = u8"United Kingdom", admin = "2", ba}, {{0, 0}, {50, 50}}},
+      {3, {name = u8"Scotland", admin = "4", ba}, {{12, 12}, {18, 18}}},
+      {4, {name = u8"City of Edinburgh", admin = "6", ba}, {{12, 12}, {17, 17}}},
+      {5, {name = u8"Edinburgh", place = "city"}, {{15, 15}}},
+    },
+    true /* withGeometry */);
+
+  TEST(HasName(regions, u8"United Kingdom, locality: Edinburgh [(12, 12), (17, 17)]"), ());
+}
+
+UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfix)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+      {
+        {1, {name = u8"United Kingdom", admin = "2", ba}, {{0, 0}, {50, 50}}},
+        {3, {name = u8"Scotland", admin = "4", ba}, {{12, 12}, {18, 18}}},
+        {4, {name = u8"Edinburgh (city)", admin = "6", ba}, {{12, 12}, {17, 17}}},
+        {5, {name = u8"Edinburgh", place = "city"}, {{15, 15}}},
+      },
+      true /* withGeometry */);
+
+  TEST(HasName(regions, u8"United Kingdom, locality: Edinburgh [(12, 12), (17, 17)]"), ());
+}
+
 // Russia regions tests ----------------------------------------------------------------------------
 UNIT_TEST(RegionsBuilderTest_GenerateRusCitySuburb)
 {
-  TagValue const admin{"admin_level"};
-  TagValue const place{"place"};
-  TagValue const name{"name"};
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({
-      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
-      {2, {name = u8"Сибирский федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
-      {3, {name = u8"Омская область", admin = "4", ba}, {{12, 12}, {18, 18}}},
-      {4, {name = u8"Омск", place = "city"}, {{14, 14}, {16, 16}}},
-      {5,
-       {name = u8"городской округ Омск", admin = "6", ba},
-       {{14, 14}, {16, 16}},
-       {{6, NodeEntry, "admin_centre"}}},
-      {6, {name = u8"Омск", place = "city"}, {{14.5, 14.5}}},
-      {7, {name = u8"Кировский административный округ", admin = "9", ba}, {{14, 14}, {15, 15}}},
+    {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+    {2, {name = u8"Сибирский федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+    {3, {name = u8"Омская область", admin = "4", ba}, {{12, 12}, {18, 18}}},
+    {4, {name = u8"Омск", place = "city"}, {{14, 14}, {16, 16}}},
+    {5, {name = u8"городской округ Омск", admin = "6", ba}, {{14, 14}, {16, 16}},
+      {{6, NodeEntry, "admin_centre"}}},
+    {6, {name = u8"Омск", place = "city"}, {{15, 15}}},
+    {7, {name = u8"Кировский административный округ", admin = "9", ba}, {{14, 14}, {15, 15}}},
   });
 
-  /*
-    TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
-                          u8"locality: Омск"),
-         ());
-    TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
-                          u8"locality: Омск, suburb: Кировский административный округ"),
-         ());
+  TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
+                        u8"locality: Омск"),
+       ());
+  /* FIXME:
+  TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
+                        u8"locality: Омск, suburb: Кировский административный округ"),
+       ());
   */
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
 {
-  TagValue const admin{"admin_level"};
-  TagValue const place{"place"};
-  TagValue const name{"name"};
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({
-      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
-      {2, {name = u8"Центральный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
-      {3, {name = u8"Москва", admin = "4", ba}, {{12, 12}, {18, 18}}},
-      {4, {name = u8"Москва", place = "city"}, {{12, 12}, {17, 17}}},
-      {5, {name = u8"Западный административный округ", admin = "5", ba}, {{14, 14}, {16, 16}}},
-      {6,
-       {name = u8"район Раменки", admin = "8", ba},
-       {{14, 14}, {15, 15}},
-       {{7, NodeEntry, "label"}}},
-      {7, {name = u8"Раменки", place = "suburb"}, {{14.5, 14.5}}},    // label
-      {8, {name = u8"Тропарёво", place = "suburb"}, {{15.1, 15.1}}},  // no label
-      {9, {name = u8"Воробъёвы горы", place = "suburb"}, {{14.5, 14.5}, {14.6, 14.6}}},
-      {10, {name = u8"Центр", place = "suburb"}, {{15, 15}, {15.5, 15.5}}},
+    {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+    {2, {name = u8"Центральный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+    {3, {name = u8"Москва", admin = "4", ba}, {{12, 12}, {20, 20}}},
+    {4, {name = u8"Москва", place = "city"}, {{12, 12}, {19, 19}}},
+    {5, {name = u8"Западный административный округ", admin = "5", ba}, {{12, 12}, {18, 18}}},
+    {6, {name = u8"район Раменки", admin = "8", ba}, {{12, 12}, {15, 15}}, {{7, NodeEntry, "label"}}},
+    {7, {name = u8"Раменки", place = "suburb"}, {{13, 13}}}, // label
+    {8, {name = u8"Тропарёво", place = "suburb"}, {{16, 16}}}, // no label
+    {9, {name = u8"Воробъёвы горы", place = "suburb"}, {{12, 12}, {14, 14}}},
+    {10, {name = u8"Центр", place = "suburb"}, {{15, 15}, {16, 16}}},
   });
 
   TEST(HasName(regions, u8"Россия, region: Москва"), ());
@@ -463,9 +576,9 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
 
 UNIT_TEST(RegionsBuilderTest_GenerateRusSPetersburgSuburb)
 {
-  TagValue const admin{"admin_level"};
-  TagValue const place{"place"};
-  TagValue const name{"name"};
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({

@@ -60,13 +60,14 @@ enum class PlaceType: uint8_t
   Town = 8,
   Village = 9,
   Hamlet = 10,
-  Suburb = 11,
-  Quarter = 12,
-  Neighbourhood = 13,
-  IsolatedDwelling = 14,
+  IsolatedDwelling = 11,
+  Suburb = 12,
+  Quarter = 13,
+  Neighbourhood = 14,
 };
 
 PlaceType EncodePlaceType(std::string const & place);
+char const * StringifyPlaceType(PlaceType placeType);
 
 enum class PlaceLevel : uint8_t
 {

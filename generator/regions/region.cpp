@@ -19,22 +19,6 @@ namespace generator
 {
 namespace regions
 {
-BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size_t numPoints = 16)
-{
-  boost::geometry::strategy::buffer::point_circle point_strategy(numPoints);
-  boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(radius);
-
-  static boost::geometry::strategy::buffer::join_round const join_strategy;
-  static boost::geometry::strategy::buffer::end_round const end_strategy;
-  static boost::geometry::strategy::buffer::side_straight const side_strategy;
-
-  boost::geometry::model::multi_polygon<BoostPolygon> result;
-  boost::geometry::buffer(point, result, distance_strategy, side_strategy, join_strategy,
-                          end_strategy, point_strategy);
-  CHECK_EQUAL(result.size(), 1, ());
-  return std::move(result.front());
-}
-
 Region::Region(FeatureBuilder const & fb, RegionDataProxy const & rd)
   : RegionWithName(fb.GetParams().name)
   , RegionWithData(rd)
@@ -43,19 +27,15 @@ Region::Region(FeatureBuilder const & fb, RegionDataProxy const & rd)
   FillPolygon(fb);
   boost::geometry::envelope(*m_polygon, m_rect);
   m_area = boost::geometry::area(*m_polygon);
+  CHECK_GREATER_OR_EQUAL(m_area, 0.0, ());
 }
 
-Region::Region(PlacePoint const & place)
-  : RegionWithName(place.GetMultilangName())
-  , RegionWithData(place.GetRegionData())
-  , m_polygon(std::make_shared<BoostPolygon>())
+Region::Region(StringUtf8Multilang const & name, RegionDataProxy const & rd,
+               std::shared_ptr<BoostPolygon> const & polygon)
+  : RegionWithName(name)
+  , RegionWithData(rd)
 {
-  CHECK_NOT_EQUAL(place.GetPlaceType(), PlaceType::Unknown, ());
-
-  auto const radius = GetRadiusByPlaceType(place.GetPlaceType());
-  *m_polygon = MakePolygonWithRadius(place.GetPosition(), radius);
-  boost::geometry::envelope(*m_polygon, m_rect);
-  m_area = boost::geometry::area(*m_polygon);
+  SetPolygon(polygon);
 }
 
 std::string Region::GetTranslatedOrTransliteratedName(LanguageCode languageCode) const
@@ -70,9 +50,9 @@ std::string Region::GetTranslatedOrTransliteratedName(LanguageCode languageCode)
 std::string Region::GetName(int8_t lang) const
 {
   if (m_placeLabel)
-    return m_placeLabel->GetName();
+    return m_placeLabel->GetName(lang);
 
-  return RegionWithName::GetName();
+  return RegionWithName::GetName(lang);
 }
 
 base::GeoObjectId Region::GetId() const
@@ -102,30 +82,15 @@ boost::optional<std::string> Region::GetIsoCode() const
   return RegionWithData::GetIsoCode();
 }
 
+boost::optional<PlacePoint> const & Region::GetLabel() const noexcept
+{
+  return m_placeLabel;
+}
+
 void Region::SetLabel(PlacePoint const & place)
 {
   CHECK(!m_placeLabel, ());
   m_placeLabel = place;
-}
-
-// static
-double Region::GetRadiusByPlaceType(PlaceType place)
-{
-  // Based on average radiuses of OSM place polygons.
-  switch (place)
-  {
-  case PlaceType::City: return 0.078;
-  case PlaceType::Town: return 0.033;
-  case PlaceType::Village: return 0.013;
-  case PlaceType::Hamlet: return 0.0067;
-  case PlaceType::Suburb: return 0.016;
-  case PlaceType::Quarter:
-  case PlaceType::Neighbourhood:
-  case PlaceType::IsolatedDwelling: return 0.0035;
-  case PlaceType::Unknown:
-  default: UNREACHABLE();
-  }
-  UNREACHABLE();
 }
 
 void Region::FillPolygon(FeatureBuilder const & fb)
@@ -135,6 +100,15 @@ void Region::FillPolygon(FeatureBuilder const & fb)
 }
 
 bool Region::IsLocality() const { return GetPlaceType() >= PlaceType::City; }
+
+void Region::SetPolygon(std::shared_ptr<BoostPolygon> const & polygon)
+{
+  m_polygon = polygon;
+  m_rect = {};
+  boost::geometry::envelope(*m_polygon, m_rect);
+  m_area = boost::geometry::area(*m_polygon);
+  CHECK_GREATER_OR_EQUAL(m_area, 0.0, ());
+}
 
 bool Region::Contains(Region const & smaller) const
 {
@@ -190,17 +164,6 @@ bool Region::Contains(BoostPoint const & point) const
 
   return boost::geometry::covered_by(point, m_rect) &&
          boost::geometry::covered_by(point, *m_polygon);
-}
-
-std::string GetRegionNotation(Region const & region)
-{
-  auto notation = region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
-  if (notation.empty())
-    return region.GetName();
-
-  if (notation != region.GetName())
-    notation += " / " + region.GetName();
-  return notation;
 }
 }  // namespace regions
 }  // namespace generator

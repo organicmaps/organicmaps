@@ -150,9 +150,13 @@ set(
   regions/country_specifier.cpp
   regions/country_specifier.hpp
   regions/level_region.hpp
+  regions/locality_point_integrator.cpp
+  regions/locality_point_integrator.hpp
   regions/node.cpp
   regions/node.hpp
   regions/place_point.hpp
+  regions/place_points_integrator.cpp
+  regions/place_points_integrator.hpp
   regions/region.cpp
   regions/region.hpp
   regions/region_base.cpp
@@ -165,8 +169,6 @@ set(
   regions/regions.hpp
   regions/regions_builder.cpp
   regions/regions_builder.hpp
-  regions/regions_fixer.cpp
-  regions/regions_fixer.hpp
   regions/specs/rus.cpp
   regions/specs/rus.hpp
   relation_tags.cpp

@@ -23,7 +23,8 @@ PlaceLevel CountrySpecifier::GetLevel(Region const & region) const
   return PlaceLevel::Unknown;
 }
 
-PlaceLevel CountrySpecifier::GetLevel(PlaceType placeType) const
+// static
+PlaceLevel CountrySpecifier::GetLevel(PlaceType placeType)
 {
   switch (placeType)
   {
@@ -40,13 +41,13 @@ PlaceLevel CountrySpecifier::GetLevel(PlaceType placeType) const
   case PlaceType::Town:
   case PlaceType::Village:
   case PlaceType::Hamlet:
+  case PlaceType::IsolatedDwelling:
     return PlaceLevel::Locality;
   case PlaceType::Suburb:
     return PlaceLevel::Suburb;
   case PlaceType::Quarter:
   case PlaceType::Neighbourhood:
     return PlaceLevel::Sublocality;
-  case PlaceType::IsolatedDwelling:
     return PlaceLevel::Sublocality;
   case PlaceType::Unknown:
     break;

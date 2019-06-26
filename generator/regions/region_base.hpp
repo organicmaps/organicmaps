@@ -60,5 +60,17 @@ public:
 protected:
   RegionDataProxy m_regionData;
 };
+
+template <typename Place>
+std::string GetRegionNotation(Place const & place)
+{
+  auto notation = place.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
+  if (notation.empty())
+    return place.GetName();
+
+  if (notation != place.GetName())
+    notation += " / " + place.GetName();
+  return notation;
+}
 }  // namespace regions
 }  // namespace generator
