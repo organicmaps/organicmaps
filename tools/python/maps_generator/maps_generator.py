@@ -17,9 +17,8 @@ from post_generation.hierarchy_to_countries import hierarchy_to_countries
 from post_generation.inject_promo_cities import inject_promo_cities
 from post_generation.localads_mwm_to_csv import create_csv
 
-from .generator import basic_stages
+from .generator import stages
 from .generator import coastline
-from .generator import maps_stages
 from .generator import settings
 from .generator.decorators import stage, country_stage, country_stage_log
 from .generator.env import (planet_lock_file, build_lock_file,
@@ -40,24 +39,24 @@ def download_external(url_to_path: dict):
 @stage
 def stage_download_and_convert_planet(env, **kwargs):
     if not is_verified(settings.PLANET_O5M):
-        basic_stages.stage_download_and_convert_planet(env, **kwargs)
+        stages.stage_download_and_convert_planet(env, **kwargs)
 
 
 @stage
 def stage_update_planet(env, **kwargs):
     if not settings.DEBUG:
-        basic_stages.stage_update_planet(env, **kwargs)
+        stages.stage_update_planet(env, **kwargs)
 
 
 @stage
-def stage_download_external(env, **kwargs):
+def stage_download_external(env):
     download_external({
         settings.SUBWAY_URL: env.subway_path,
     })
 
 
 @stage
-def stage_download_production_external(env, **kwargs):
+def stage_download_production_external(env):
     download_external({
         settings.UGC_URL: env.ugc_path,
         settings.HOTELS_URL: env.hotels_path,
@@ -70,7 +69,7 @@ def stage_download_production_external(env, **kwargs):
 
 @stage
 def stage_preprocess(env, **kwargs):
-    basic_stages.stage_preprocess(env, **kwargs)
+    stages.stage_preprocess(env, **kwargs)
 
 
 @stage
@@ -84,31 +83,8 @@ def stage_features(env):
         extra["popular_places_data"] = env.popularity_path
         extra["brands_data"] = env.food_paths
         extra["brands_translations_data"] = env.food_translations_path
-    if not env.production:
-        extra["no_ads"] = True
-    if any(x not in WORLDS_NAMES for x in env.countries):
-        extra["split_by_polygons"] = True
-        extra["generate_packed_borders"] = True
-    if any(x == WORLD_NAME for x in env.countries):
-        extra["generate_world"] = True
-
-    run_gen_tool(
-        env.gen_tool,
-        out=env.get_subprocess_out(),
-        err=env.get_subprocess_out(),
-        data_path=env.data_path,
-        intermediate_data_path=env.intermediate_path,
-        osm_file_type="o5m",
-        osm_file_name=settings.PLANET_O5M,
-        node_storage=env.node_storage,
-        user_resource_path=env.user_resource_path,
-        dump_cities_boundaries=True,
-        cities_boundaries_data=env.cities_boundaries_path,
-        generate_features=True,
-        emit_coasts=True,
-        **extra
-    )
-
+        
+    stages.stage_features(env, **extra)
     if os.path.exists(env.packed_polygons_path):
         shutil.copy2(env.packed_polygons_path, env.mwm_path)
 
@@ -136,36 +112,36 @@ def stage_coastline(env):
 @country_stage
 def stage_index(env, country, **kwargs):
     if country == WORLD_NAME:
-        maps_stages.stage_index_world(env, country, **kwargs)
+        stages.stage_index_world(env, country, **kwargs)
     elif country == WORLD_COASTS_NAME:
-        maps_stages.stage_coastline_index(env, country, **kwargs)
+        stages.stage_coastline_index(env, country, **kwargs)
     else:
-        maps_stages.stage_index(env, country, **kwargs)
+        stages.stage_index(env, country, **kwargs)
 
 
 @country_stage
 def stage_ugc(env, country, **kwargs):
-    maps_stages.stage_ugc(env, country, **kwargs)
+    stages.stage_ugc(env, country, **kwargs)
 
 
 @country_stage
 def stage_popularity(env, country, **kwargs):
-    maps_stages.stage_popularity(env, country, **kwargs)
+    stages.stage_popularity(env, country, **kwargs)
 
 
 @country_stage
 def stage_srtm(env, country, **kwargs):
-    maps_stages.stage_srtm(env, country, **kwargs)
+    stages.stage_srtm(env, country, **kwargs)
 
 
 @country_stage
 def stage_routing(env, country, **kwargs):
-    maps_stages.stage_routing(env, country, **kwargs)
+    stages.stage_routing(env, country, **kwargs)
 
 
 @country_stage
 def stage_routing_transit(env, country, **kwargs):
-    maps_stages.stage_routing_transit(env, country, **kwargs)
+    stages.stage_routing_transit(env, country, **kwargs)
 
 
 @stage
@@ -217,7 +193,7 @@ def stage_descriptions(env):
 
     @country_stage_log
     def stage_write_descriptions(env, country, **kwargs):
-        maps_stages.run_gen_tool_with_recovery_country(
+        stages.run_gen_tool_with_recovery_country(
             env,
             env.gen_tool,
             out=env.get_subprocess_out(country),
@@ -285,6 +261,7 @@ def stage_localads(env):
         for filename in os.listdir(env.localads_path):
             tar.add(os.path.join(env.localads_path, filename), arcname=filename)
 
+
 @stage
 def stage_statistics(env):
     result = defaultdict(lambda: defaultdict(dict))
@@ -293,7 +270,7 @@ def stage_statistics(env):
     def stage_mwm_statistics(env, country, **kwargs):
         stats_tmp = os.path.join(env.draft_path, f"{country}.stat")
         with open(stats_tmp, "w") as f:
-            maps_stages.run_gen_tool_with_recovery_country(
+            stages.run_gen_tool_with_recovery_country(
                 env,
                 env.gen_tool,
                 out=f,
