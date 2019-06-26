@@ -10,6 +10,7 @@ Further we will call them world and coastlines.
 
 ## Setup
 You must have Python version not lower than 3.6 and complete the following steps:
+
 0. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
 1. Change directory:
 ```sh
