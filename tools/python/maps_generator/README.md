@@ -15,7 +15,7 @@ You must have Python version not lower than 3.6 and complete the following steps
 ```sh
 $ cd omim/tools/python/maps_generator
 ```
-1. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md)
+1. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
 2. Install dependencies:
 ```sh
 maps_generator$ pip3 install -r requirements.txt
