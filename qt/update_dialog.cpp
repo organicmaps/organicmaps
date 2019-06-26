@@ -277,6 +277,10 @@ namespace qt
           LOG(LWARNING, ("Duplicate CountryId in results for query:", query));
       }
 
+      // Clear the tree to avoid creating duplicate nodes for countries
+      // that appear in more than one onResults call.
+      m_tree->clear();
+      m_treeItemByCountryId.clear();
       FillTree(filter, timestamp);
     };
 
