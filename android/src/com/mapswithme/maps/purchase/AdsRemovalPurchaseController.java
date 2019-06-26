@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.android.billingclient.api.Purchase;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -23,12 +22,16 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   private final ValidationCallback mValidationCallback = new AdValidationCallbackImpl();
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
+  @NonNull
+  private final SubscriptionType mType;
 
   AdsRemovalPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
                                @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
+                               @NonNull SubscriptionType subscriptionType,
                                @NonNull String... productIds)
   {
     super(validator, billingManager, productIds);
+    mType = subscriptionType;
   }
 
   @Override
@@ -50,31 +53,27 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     @Override
     public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
     {
-      LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
+      LOGGER.i(TAG, "Validation status of '" + mType + "': " + status);
       if (status == ValidationStatus.VERIFIED)
         Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName
                                                    .INAPP_PURCHASE_VALIDATION_SUCCESS,
-                                               PrivateVariables.adsRemovalServerId());
+                                               mType.getServerId());
       else
-        Statistics.INSTANCE.trackPurchaseValidationError(PrivateVariables.adsRemovalServerId(),
-                                                         status);
+        Statistics.INSTANCE.trackPurchaseValidationError(mType.getServerId(), status);
 
       final boolean shouldActivateSubscription = status != ValidationStatus.NOT_VERIFIED;
-      final boolean hasActiveSubscription = Framework.nativeHasActiveSubscription(
-        Framework.SUBSCRIPTION_TYPE_REMOVE_ADS);
+      final boolean hasActiveSubscription = Framework.nativeHasActiveSubscription(mType.ordinal());
       if (!hasActiveSubscription && shouldActivateSubscription)
       {
         LOGGER.i(TAG, "Ads removal subscription activated");
-        Statistics.INSTANCE.trackPurchaseProductDelivered(PrivateVariables.adsRemovalServerId(),
-                                                          PrivateVariables.adsRemovalVendor());
+        Statistics.INSTANCE.trackPurchaseProductDelivered(mType.getServerId(), mType.getVendor());
       }
       else if (hasActiveSubscription && !shouldActivateSubscription)
       {
         LOGGER.i(TAG, "Ads removal subscription deactivated");
       }
 
-      Framework.nativeSetActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS,
-                                            shouldActivateSubscription);
+      Framework.nativeSetActiveSubscription(mType.ordinal(), shouldActivateSubscription);
 
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(shouldActivateSubscription);
@@ -86,8 +85,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     @Override
     void validate(@NonNull String purchaseData)
     {
-      getValidator().validate(PrivateVariables.adsRemovalServerId(),
-                              PrivateVariables.adsRemovalVendor(), purchaseData);
+      getValidator().validate(mType.getServerId(), mType.getVendor(), purchaseData);
     }
 
     @Override
@@ -104,11 +102,11 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
 
       if (TextUtils.isEmpty(purchaseData))
       {
-        LOGGER.i(TAG, "Existing purchase data for 'ads removal' not found");
-        if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
+        LOGGER.i(TAG, "Existing purchase data for '" + mType + "' not found");
+        if (Framework.nativeHasActiveSubscription(mType.ordinal()))
         {
-          LOGGER.i(TAG, "Ads removal subscription deactivated");
-          Framework.nativeSetActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS, false);
+          LOGGER.i(TAG, "'" + mType + "' subscription deactivated");
+          Framework.nativeSetActiveSubscription(mType.ordinal(), false);
         }
         return;
       }
@@ -120,8 +118,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
       }
 
       LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
-      getValidator().validate(PrivateVariables.adsRemovalServerId(),
-                              PrivateVariables.adsRemovalVendor(), purchaseData);
+      getValidator().validate(mType.getServerId(), mType.getVendor(), purchaseData);
     }
   }
 }
