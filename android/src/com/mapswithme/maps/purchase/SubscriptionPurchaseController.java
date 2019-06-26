@@ -13,11 +13,11 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
-class AdsRemovalPurchaseController extends AbstractPurchaseController<ValidationCallback,
+class SubscriptionPurchaseController extends AbstractPurchaseController<ValidationCallback,
     PlayStoreBillingCallback, PurchaseCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
-  private static final String TAG = AdsRemovalPurchaseController.class.getSimpleName();
+  private static final String TAG = SubscriptionPurchaseController.class.getSimpleName();
   @NonNull
   private final ValidationCallback mValidationCallback = new AdValidationCallbackImpl();
   @NonNull
@@ -25,10 +25,10 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   @NonNull
   private final SubscriptionType mType;
 
-  AdsRemovalPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
-                               @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
-                               @NonNull SubscriptionType subscriptionType,
-                               @NonNull String... productIds)
+  SubscriptionPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
+                                 @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
+                                 @NonNull SubscriptionType subscriptionType,
+                                 @NonNull String... productIds)
   {
     super(validator, billingManager, productIds);
     mType = subscriptionType;

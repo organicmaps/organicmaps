@@ -29,8 +29,8 @@ public class PurchaseFactory
     String weeklyProduct = PrivateVariables.adsRemovalWeeklyProductId();
     String[] productIds = Utils.concatArrays(PrivateVariables.adsRemovalNotUsedList(),
                                              yearlyProduct, monthlyProduct, weeklyProduct);
-    return new AdsRemovalPurchaseController(validator, billingManager,
-                                            SubscriptionType.ADS_REMOVAL, productIds);
+    return new SubscriptionPurchaseController(validator, billingManager,
+                                              SubscriptionType.ADS_REMOVAL, productIds);
   }
 
   @NonNull
