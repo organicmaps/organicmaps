@@ -10,12 +10,11 @@ Further we will call them world and coastlines.
 
 ## Setup
 You must have Python version not lower than 3.6 and complete the following steps:
-
-0. Change directory:
+0. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
+1. Change directory:
 ```sh
 $ cd omim/tools/python/maps_generator
 ```
-1. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
 2. Install dependencies:
 ```sh
 maps_generator$ pip3 install -r requirements.txt
@@ -139,7 +138,8 @@ optional arguments:
                         countries_txt, external_resources, localads,
                         statistics, cleanup, index, ugc, popularity, srtm,
                         routing, routing_transit.
-  --coasts              Build WorldCoasts.raw and WorldCoasts.rawgeom files
+  --coasts              Build only WorldCoasts.raw and WorldCoasts.rawgeom
+                        files
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
                         advertising.

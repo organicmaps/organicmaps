@@ -17,7 +17,7 @@ logger = logging.getLogger("maps_generator")
 
 
 examples = """Examples:
-1) Non-standard planet
+1) Non-standard planet with coastlines
     If you want to generate maps for Japan you must complete the following steps:
     1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf
      and md5sum files.
@@ -35,7 +35,7 @@ examples = """Examples:
     ...
     
     3. Run
-    python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*" --skip="update_planet"
+    python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*"
 
     You must skip the step of updating the planet, because it is a non-standard planet.
 2) Rebuild stages:
@@ -43,6 +43,26 @@ examples = """Examples:
     You must have previous generation. You may regenerate from stage routing only for two mwms:
     
     python$ python3.6 -m maps_generator -c --from_stage="routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
+    
+    Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
+
+3) Non-standard planet without coastlines
+    If you want to generate maps for Moscow you must complete the following steps:
+    1. Open https://download.geofabrik.de/russia/central-fed-district.html and copy url of osm.pbf and md5sum files.
+    2. Edit ini file:
+    maps_generator$ vim var/etc/map_generator.ini
+    ...
+    [Main]
+    ...
+    DEBUG: 0
+    ...
+    [External]
+    PLANET_URL: https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf
+    PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf.md5
+    ...
+    
+    3. Run
+    python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
 """
 
 
