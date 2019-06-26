@@ -18,7 +18,7 @@ def stage(func):
         stage_formatted = " ".join(func_name.split("_")).capitalize()
         logfile = os.path.join(env.log_path, f"{func_name}.log")
         log_handler = logging.FileHandler(logfile)
-        if not env.is_accepted_stage(func_name):
+        if not env.is_accepted_stage(func):
             logger.addHandler(log_handler)
             logger.info(f"{stage_formatted} was not accepted.")
             return
@@ -50,7 +50,7 @@ def country_stage_status(func):
         if "logger" in countries_meta[country]:
             _logger = countries_meta[country]["logger"]
         stage_formatted = " ".join(func_name.split("_")).capitalize()
-        if not env.is_accepted_stage(func_name):
+        if not env.is_accepted_stage(func):
             _logger.info(f"{stage_formatted} was not accepted.")
             return
         if "status" not in countries_meta[country]:

@@ -83,7 +83,6 @@ def stage_features(env, **kwargs):
         dump_cities_boundaries=True,
         cities_boundaries_data=env.cities_boundaries_path,
         generate_features=True,
-        emit_coasts=True,
         **extra,
         **kwargs
     )

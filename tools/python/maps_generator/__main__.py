@@ -9,7 +9,7 @@ from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
                              stage_localads, stage_statistics, stage_srtm,
-                             stages_as_string)
+                             stages_as_string, stage_coastline)
 from .utils.collections import unique
 
 logger = logging.getLogger("maps_generator")
@@ -85,7 +85,7 @@ def parse_options():
         "--coasts",
         default=False,
         action="store_true",
-        help="Build WorldCoasts.raw and WorldCoasts.rawgeom files")
+        help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files")
     parser.add_argument(
         "--production",
         default=False,
@@ -198,6 +198,12 @@ def main():
     if not all(s in ALL_STAGES for s in options["skip"]):
         raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
                         f"not found.")
+
+    if not (set(stages_as_string(stage_coastline)) - set(options["skip"])):
+        countries = [x for x in options["countries"] if x in WORLDS_NAMES]
+        if countries:
+            raise SkipError(f"Skipped stage {stages_as_string(stage_coastline)}"
+                            f" and countries {countries} are not compatible.")
 
     env = Env(options)
     if env.from_stage:

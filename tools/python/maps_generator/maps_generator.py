@@ -75,14 +75,16 @@ def stage_preprocess(env, **kwargs):
 @stage
 def stage_features(env):
     extra = {}
-    if env.is_accepted_stage(stage_descriptions.__name__):
+    if env.is_accepted_stage(stage_descriptions):
         extra["idToWikidata"] = env.id_to_wikidata_path
-    if env.is_accepted_stage(stage_download_production_external.__name__):
+    if env.is_accepted_stage(stage_download_production_external):
         extra["booking_data"] = env.hotels_path
         extra["promo_catalog_cities"] = env.promo_catalog_cities_path
         extra["popular_places_data"] = env.popularity_path
         extra["brands_data"] = env.food_paths
         extra["brands_translations_data"] = env.food_translations_path
+    if env.is_accepted_stage(stage_coastline):
+        extra["emit_coasts"]=True
         
     stages.stage_features(env, **extra)
     if os.path.exists(env.packed_polygons_path):
@@ -219,7 +221,7 @@ def stage_countries_txt(env):
                                        env.countries_synonyms_path,
                                        env.hierarchy_path, env.mwm_path,
                                        env.mwm_version)
-    if env.is_accepted_stage(stage_download_production_external.__name__):
+    if env.is_accepted_stage(stage_download_production_external):
         countries_json = json.loads(countries)
         inject_promo_cities(countries_json, env.promo_catalog_cities_path,
                             env.mwm_path, env.types_path, env.mwm_path)

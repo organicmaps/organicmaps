@@ -149,8 +149,8 @@ class Env:
                     existing_names.add(name)
         return [c for c in self.countries if c in existing_names]
 
-    def is_accepted_stage(self, stage_name):
-        return stage_name not in self._skipped_stages
+    def is_accepted_stage(self, stage):
+        return stage.__name__ not in self._skipped_stages
 
     @property
     def descriptions_path(self):
