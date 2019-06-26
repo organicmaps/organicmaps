@@ -182,7 +182,7 @@ PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
 ```sh
 python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*"
 ```
-You must skip the step of updating the planet, because it is a non-standard planet.
+
 ####  Rebuild stages:
 For example, you changed routing code in omim project and want to regenerate maps.
 You must have previous generation. You may regenerate from stage routing only for two mwms:
@@ -215,4 +215,3 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 ```sh
 python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
 ```
-You must skip the step of updating the planet, because it is a non-standard planet
