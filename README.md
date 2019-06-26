@@ -30,10 +30,7 @@ and Dropbox: [release](http://maps.me/release), [debug](http://maps.me/debug).
 
 ## Building maps
 
-To create one or many map files, first build the project, then use `generate_mwm.sh` script from
-`tools/unix` to create a single mwm file from pbf/o5m/bz2 source, or `generate_planet.sh`
-to generate multiple countries at once from a planet o5m file. See detailed instructions
-in [MAPS.md](https://github.com/mapsme/omim/tree/master/docs/MAPS.md).
+To create one or many map files, first build the project, then use python module [maps_generator](https://github.com/mapsme/omim/tree/master/tools/python/maps_generator).
 
 ## Map styles
 
