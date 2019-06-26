@@ -2,6 +2,7 @@
 
 #include "indexer/search_delimiters.hpp"
 
+#include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -12,6 +13,10 @@
 
 namespace search
 {
+size_t GetMaxErrorsForToken(strings::UniString const & token);
+
+strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
+
 // This function should be used for all search strings normalization.
 // It does some magic text transformation which greatly helps us to improve our search.
 strings::UniString NormalizeAndSimplifyString(std::string const & s);
@@ -80,6 +85,8 @@ strings::UniString GetStreetNameAsKey(std::string const & name, bool ignoreStree
 // *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);
 bool IsStreetSynonymPrefix(strings::UniString const & s);
+bool IsStreetSynonymWithMisprints(strings::UniString const & s);
+bool IsStreetSynonymPrefixWithMisprints(strings::UniString const & s);
 
 /// Normalizes both str and substr, and then returns true if substr is found in str.
 /// Used in native platform code for search in localized strings (cuisines, categories, strings etc.).

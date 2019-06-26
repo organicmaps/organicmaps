@@ -28,10 +28,6 @@ class MwmInfo;
 
 namespace search
 {
-size_t GetMaxErrorsForToken(strings::UniString const & token);
-
-strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
-
 template <typename ToDo>
 void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales,
                          CategoriesHolder const & categories, ToDo && todo)

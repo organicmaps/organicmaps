@@ -10,6 +10,8 @@
 #include "search/query_params.hpp"
 #include "search/utils.hpp"
 
+#include "indexer/search_string_utils.hpp"
+
 #include <cstdint>
 #include <unordered_map>
 #include <utility>
