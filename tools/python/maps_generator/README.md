@@ -1,6 +1,13 @@
 # maps_generator
 It's tool for generation maps for maps.me application.
 
+##  What are maps for maps.me?
+Maps for maps.me are data with special meta information for drawing, quick searching and routing and for other.
+Files from [omim/data/borders](https://github.com/mapsme/omim/tree/master/data/borders) define map boundaries.
+Further we will call it countries or simply maps.
+But there are two special maps: World and WorldCoasts. They are used when other maps have not been downloaded.
+Further we will call them world and coastlines.
+
 ## Setup
 You must have Python version not lower than 3.6 and complete the following steps:
 
@@ -8,7 +15,7 @@ You must have Python version not lower than 3.6 and complete the following steps
 ```sh
 $ cd omim/tools/python/maps_generator
 ```
-1. [Install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md)
+1. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md)
 2. Install dependencies:
 ```sh
 maps_generator$ pip3 install -r requirements.txt
@@ -70,7 +77,7 @@ OSM_TOOLS_PATH: ~/osmctools
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # PLANET_COASTS_URL:
 # The url to the subway file.
-# SUBWAY_URL:
+SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 
 # Urls for production maps generation.
 # UGC_URL:
@@ -141,7 +148,7 @@ optional arguments:
 
 If you are not from the maps.me team, then you do not need the option --production when generating maps.
 
-To generate maps for the whole world you need 400 GB of hard disk space and a computer with more than 64 GB.
+To generate maps for the whole planet you need 400 GB of hard disk space and a computer with more than 64 GB.
 
 
 If you want to generate a lot of maps, then it may be important for you to order the generation of maps.
@@ -173,7 +180,7 @@ PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
 
 3. Run
 ```sh
-python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*" --skip="update_planet"
+python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*"
 ```
 You must skip the step of updating the planet, because it is a non-standard planet.
 ####  Rebuild stages:
@@ -183,7 +190,7 @@ You must have previous generation. You may regenerate from stage routing only fo
 ```sh
 python$ python3.6 -m maps_generator -c --from_stage="routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
 ```
-##### Note: To generate maps with the coastline, you need more time and you need the original piece of the map to contain a continuous coastline.
+##### Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
 
 ####  Non-standard planet without coastlines
 If you want to generate maps for Moscow you must complete the following steps:
@@ -206,6 +213,6 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 
 3. Run
 ```sh
-python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="update_planet, coastline"
+python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
 ```
 You must skip the step of updating the planet, because it is a non-standard planet

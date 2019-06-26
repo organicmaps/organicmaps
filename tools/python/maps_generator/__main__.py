@@ -3,13 +3,14 @@ import os
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from .generator import settings
-from .generator.env import Env, find_last_build_dir, WORLDS_NAMES
+from .generator.env import (Env, find_last_build_dir, WORLDS_NAMES,
+                            WORLD_NAME, WORLD_COASTS_NAME)
 from .generator.exceptions import ContinueError, SkipError, ValidationError
 from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
                              stage_localads, stage_statistics, stage_srtm,
-                             stages_as_string, stage_coastline)
+                             stages_as_string, stage_as_string, stage_coastline)
 from .utils.collections import unique
 
 logger = logging.getLogger("maps_generator")
@@ -199,11 +200,14 @@ def main():
         raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
                         f"not found.")
 
-    if not (set(stages_as_string(stage_coastline)) - set(options["skip"])):
-        countries = [x for x in options["countries"] if x in WORLDS_NAMES]
-        if countries:
-            raise SkipError(f"Skipped stage {stages_as_string(stage_coastline)}"
-                            f" and countries {countries} are not compatible.")
+    if WORLD_NAME in options["countries"] and WORLD_COASTS_NAME not in options["countries"]:
+        raise ValidationError(f"{WORLD_NAME} depends on {WORLD_COASTS_NAME}.")
+
+    if stage_as_string(stage_coastline) in options["skip"]:
+        worlds_names = [x for x in options["countries"] if x in WORLDS_NAMES]
+        if worlds_names:
+            raise SkipError(f"You can not skip {stages_as_string(stage_coastline)}"
+                            f" if you want to generate {countries}")
 
     env = Env(options)
     if env.from_stage:

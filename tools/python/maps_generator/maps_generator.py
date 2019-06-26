@@ -335,6 +335,10 @@ def stages_as_string(*args):
     return [x.__name__ for x in args]
 
 
+def stage_as_string(stage):
+    return stage.__name__
+
+
 def reset_to_stage(stage_name, env):
     def set_countries_stage(n):
         statuses = [os.path.join(env.status_path, f)
