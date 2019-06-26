@@ -34,6 +34,22 @@ public class PurchaseFactory
   }
 
   @NonNull
+  public static PurchaseController<PurchaseCallback> createBookmarksSubscriptionPurchaseController(
+      @NonNull Context context)
+  {
+    BillingManager<PlayStoreBillingCallback> billingManager
+        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
+    String yearlyProduct = PrivateVariables.bookmarksSubscriptionYearlyProductId();
+    String monthlyProduct = PrivateVariables.bookmarksSubscriptionMonthlyProductId();
+    String[] productIds = Utils.concatArrays(PrivateVariables.bookmarksSubscriptionNotUsedList(),
+                                             yearlyProduct, monthlyProduct);
+    return new SubscriptionPurchaseController(validator, billingManager,
+                                              SubscriptionType.BOOKMARKS, productIds);
+  }
+
+  @NonNull
   public static PurchaseController<PurchaseCallback> createBookmarkPurchaseController(
       @NonNull Context context, @Nullable String productId, @Nullable String serverId)
   {
