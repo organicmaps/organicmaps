@@ -94,7 +94,7 @@ boost::optional<std::string> Region::GetIsoCode() const
 {
   if (m_placeLabel)
   {
-    if (auto && isoCode = m_placeLabel->GetIsoCode())
+    if (auto isoCode = m_placeLabel->GetIsoCode())
       return isoCode;
   }
 
