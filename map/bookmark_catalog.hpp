@@ -1,5 +1,7 @@
 #pragma once
 
+#include "partners_api/utm.hpp"
+
 #include "kml/types.hpp"
 
 #include "platform/remote_file.hpp"
@@ -76,7 +78,7 @@ public:
 
   std::string GetDownloadUrl(std::string const & serverId) const;
   std::string GetWebEditorUrl(std::string const & serverId, std::string const & language) const;
-  std::string GetFrontendUrl() const;
+  std::string GetFrontendUrl(UTM utm) const;
 
   void RequestTagGroups(std::string const & language, TagGroupsCallback && callback) const;
 

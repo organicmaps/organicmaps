@@ -19,6 +19,7 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 #import "MWMLocationModeListener.h"
+#import "MWMUTM.h"
 
 #include "Framework.h"
 
@@ -503,22 +504,22 @@ BOOL gIsFirstMyPositionMode = YES;
       [[MWMToast toastWithText:L(@"guide_downloaded_title")] show];
 }
 
-- (void)openCatalogAnimated:(BOOL)animated
+- (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm
 {
   [Statistics logEvent:kStatCatalogOpen withParameters:@{kStatFrom : kStatMenu}];
-  [self openCatalogDeeplink:nil animated:animated];
+  [self openCatalogDeeplink:nil animated:animated utm:utm];
 }
 
-- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated
+- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
   auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
   bookmarks.activeTab = ActiveTabCatalog;
   MWMCatalogWebViewController *catalog;
   if (deeplinkUrl)
-    catalog = [[MWMCatalogWebViewController alloc] init:deeplinkUrl];
+    catalog = [[MWMCatalogWebViewController alloc] init:deeplinkUrl utm:utm];
   else
-    catalog = [[MWMCatalogWebViewController alloc] init:nil];
+    catalog = [[MWMCatalogWebViewController alloc] init:nil utm:utm];
 
   NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
   [controllers addObjectsFromArray:@[bookmarks, catalog]];

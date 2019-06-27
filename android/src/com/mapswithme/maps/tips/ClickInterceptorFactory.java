@@ -8,6 +8,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.util.UTM;
 
 class ClickInterceptorFactory
 {
@@ -45,7 +46,7 @@ class ClickInterceptorFactory
     @Override
     public void onInterceptClickInternal(@NonNull MwmActivity activity)
     {
-      String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+      String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_TIPS_AND_TRICKS);
       BookmarksCatalogActivity.startForResult(activity,
                                               BookmarkCategoriesActivity
                                                   .REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, catalogUrl);

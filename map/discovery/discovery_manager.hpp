@@ -114,7 +114,7 @@ public:
       case ItemType::Promo:
       {
         m_promoApi.GetCityGallery(
-            params.m_viewportCenter, params.m_lang,
+            params.m_viewportCenter, params.m_lang, UTM::DiscoveryPageGallery,
             [this, requestId, onResult](promo::CityGallery const & cityGallery) {
               CHECK_THREAD_CHECKER(m_threadChecker, ());
               onResult(requestId, cityGallery);

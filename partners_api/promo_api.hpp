@@ -1,5 +1,7 @@
 #pragma once
 
+#include "partners_api/utm.hpp"
+
 #include "metrics/eye.hpp"
 
 #include "platform/safe_callback.hpp"
@@ -69,6 +71,7 @@ public:
     virtual std::string GetCityId(m2::PointD const & point) = 0;
   };
 
+
   Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL,
       std::string const & basePicturesUrl = PICTURES_URL);
 
@@ -78,7 +81,7 @@ public:
   AfterBooking GetAfterBooking(std::string const & lang) const;
   std::string GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const;
   std::string GetMoreUrl(std::string const & id) const;
-  void GetCityGallery(m2::PointD const & point, std::string const & lang,
+  void GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,
                       CityGalleryCallback const & onSuccess, OnError const & onError) const;
 
   // eye::Subscriber overrides:

@@ -117,6 +117,7 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -2429,7 +2430,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onPostStatisticMenuItemClick()
     {
       int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
-      String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+      String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_TOOLBAR_BUTTON);
       getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(),
                                                                             requestCode,
                                                                             catalogUrl));

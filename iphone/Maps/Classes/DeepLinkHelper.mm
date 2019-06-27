@@ -102,10 +102,10 @@
       break;
     }
     case ParsedMapApi::ParsingResult::Catalogue:
-      [MapViewController.sharedController openCatalogDeeplink:url animated:NO];
+      [MapViewController.sharedController openCatalogDeeplink:url animated:NO utm:MWMUTMNone];
       break;
     case ParsedMapApi::ParsingResult::CataloguePath:
-      [MapViewController.sharedController openCatalogDeeplink:url animated:NO];
+      [MapViewController.sharedController openCatalogDeeplink:url animated:NO utm:MWMUTMNone];
       break;
     case ParsedMapApi::ParsingResult::Lead: break;
   }

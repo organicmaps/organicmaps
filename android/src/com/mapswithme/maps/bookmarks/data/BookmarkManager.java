@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.metrics.UserActionsLogger;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -640,9 +641,9 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public String getCatalogFrontendUrl()
+  public String getCatalogFrontendUrl(@UTM.UTMType int utm)
   {
-    return nativeGetCatalogFrontendUrl();
+    return nativeGetCatalogFrontendUrl(utm);
   }
 
   public void requestRouteTags()
@@ -794,7 +795,7 @@ public enum BookmarkManager
   private static native String nativeGetWebEditorUrl(@NonNull String serverId);
 
   @NonNull
-  private static native String nativeGetCatalogFrontendUrl();
+  private static native String nativeGetCatalogFrontendUrl(@UTM.UTMType int utm);
 
   private static native boolean nativeIsCategoryFromCatalog(long catId);
 

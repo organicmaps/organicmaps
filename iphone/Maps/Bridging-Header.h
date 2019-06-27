@@ -97,3 +97,4 @@
 #import "MWMRouterResultCode.h"
 #import "MWMLocationModeListener.h"
 #import "MWMSpeedCameraManagerMode.h"
+#import "MWMUTM.h"

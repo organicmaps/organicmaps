@@ -93,6 +93,7 @@ import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -1243,7 +1244,8 @@ public class PlacePageView extends NestedScrollView
     if (mSponsored == null || mMapObject == null)
       return;
 
-    Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon());
+    Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
+                                            UTM.UTM_PLACEPAGE_GALLERY);
     mSponsored.updateId(mMapObject);
     mSponsoredPrice = mSponsored.getPrice();
     String currencyCode = Utils.getCurrencyCode();

@@ -246,7 +246,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatDownloadGuides}];
   self.state = self.restoreState;
-  [self.mapViewController openCatalogAnimated:YES];
+  [self.mapViewController openCatalogAnimated:YES utm:MWMUTMToolbarButton];
 }
 
 - (void)menuActionBookingSearch

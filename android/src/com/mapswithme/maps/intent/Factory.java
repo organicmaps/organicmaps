@@ -37,6 +37,7 @@ import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.log.Logger;
@@ -145,7 +146,7 @@ public class Factory
   @NonNull
   private static String convertUrlToGuidesPageDeeplink(@NonNull String url)
   {
-    String baseCatalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+    String baseCatalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE);
     String relativePath = Uri.parse(url).getQueryParameter("url");
     return Uri.parse(baseCatalogUrl)
               .buildUpon().appendEncodedPath(relativePath).toString();

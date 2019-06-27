@@ -17,6 +17,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -133,7 +134,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
   private void openBookmarksCatalogScreen()
   {
-    String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl();
+    String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(
+        UTM.UTM_BOOKMARKS_PAGE_CATALOG_BUTTON);
     BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG,
                                             catalogUrl);
     Statistics.INSTANCE.trackOpenCatalogScreen();

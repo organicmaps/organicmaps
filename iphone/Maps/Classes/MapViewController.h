@@ -1,6 +1,7 @@
 #import "MWMMapDownloaderMode.h"
 #import "MWMViewController.h"
 #import "MWMMyPositionMode.h"
+#import "MWMUTM.h"
 
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
@@ -32,8 +33,10 @@
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString;
 - (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
-- (void)openCatalogAnimated:(BOOL)animated;
-- (void)openCatalogDeeplink:(NSURL * _Nullable)deeplinkUrl animated:(BOOL)animated;
+- (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm;
+- (void)openCatalogDeeplink:(NSURL * _Nullable)deeplinkUrl
+                   animated:(BOOL)animated
+                        utm:(MWMUTM)utm;
 - (void)searchText:(NSString *)text;
 - (void)openDrivingOptions;
 

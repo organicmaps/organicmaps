@@ -127,12 +127,13 @@ extern "C" {
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_promo_Promo_nativeRequestCityGallery(JNIEnv * env, jclass,
                                                               jobject policy, jdouble lat,
-                                                              jdouble lon)
+                                                              jdouble lon, jint utm)
 {
   PrepareClassRefs(env);
   auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   ++g_lastRequestId;
-  g_framework->GetPromoCityGallery(env, policy, point, std::bind(OnSuccess, g_lastRequestId, _1),
+  g_framework->GetPromoCityGallery(env, policy, point, static_cast<UTM>(utm),
+                                   std::bind(OnSuccess, g_lastRequestId, _1),
                                    std::bind(OnError, g_lastRequestId));
 }
 }  // extern "C"

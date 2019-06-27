@@ -1,6 +1,7 @@
 #import "MWMBookmarksObserver.h"
 #import "MWMTypes.h"
 #import "MWMCatalogCommon.h"
+#import "MWMUTM.h"
 
 @class MWMCategory;
 @class MWMCarPlayBookmarkObject;
@@ -60,8 +61,9 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)setNotificationsEnabled:(BOOL)enabled;
 - (BOOL)areNotificationsEnabled;
 
-- (NSURL * _Nullable)catalogFrontendUrl;
-- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path;
+- (NSURL * _Nullable)catalogFrontendUrl:(MWMUTM)utm;
+- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
+                                            utm:(MWMUTM)utm;
 - (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (void)downloadItemWithId:(NSString *)itemId

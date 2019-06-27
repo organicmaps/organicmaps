@@ -1408,6 +1408,7 @@
 		4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4598438921394D7700F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		45AC339022C4F57C004DC574 /* MWMUTM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUTM.h; sourceTree = "<group>"; };
 		45CBCCBB20590AAB006B55C2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
@@ -3581,6 +3582,7 @@
 				47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */,
 				470F5A592181DE7400754295 /* PaidRouteViewController.swift */,
 				470F5A5A2181DE7400754295 /* PaidRouteViewController.xib */,
+				45AC339022C4F57C004DC574 /* MWMUTM.h */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";

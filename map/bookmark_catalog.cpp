@@ -289,9 +289,9 @@ std::string BookmarkCatalog::GetWebEditorUrl(std::string const & serverId,
   return BuildWebEditorUrl(serverId, language);
 }
 
-std::string BookmarkCatalog::GetFrontendUrl() const
+std::string BookmarkCatalog::GetFrontendUrl(UTM utm) const
 {
-  return kCatalogFrontendServer + languages::GetCurrentNorm() + "/v2/mobilefront/";
+  return InjectUTM(kCatalogFrontendServer + languages::GetCurrentNorm() + "/v2/mobilefront/", utm);
 }
 
 void BookmarkCatalog::RequestTagGroups(std::string const & language,

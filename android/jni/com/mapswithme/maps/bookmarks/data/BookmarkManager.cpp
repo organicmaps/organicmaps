@@ -5,6 +5,8 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
 
+#include "partners_api/utm.hpp"
+
 #include "coding/zip_creator.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -885,10 +887,10 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetWebEditorUrl(
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontendUrl(
-        JNIEnv * env, jobject)
+        JNIEnv * env, jobject, jint utm)
 {
   auto & bm = frm()->GetBookmarkManager();
-  return ToJavaString(env, bm.GetCatalog().GetFrontendUrl());
+  return ToJavaString(env, bm.GetCatalog().GetFrontendUrl(static_cast<UTM>(utm)));
 }
 
 JNIEXPORT jboolean JNICALL

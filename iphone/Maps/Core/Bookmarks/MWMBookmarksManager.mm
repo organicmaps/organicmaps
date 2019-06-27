@@ -10,6 +10,8 @@
 
 #include "Framework.h"
 
+#include "partners_api/utm.hpp"
+
 #include "coding/internal/file_data.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -554,15 +556,16 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 #pragma mark - Catalog
 
-- (NSURL *)catalogFrontendUrl
+- (NSURL *)catalogFrontendUrl:(MWMUTM)utm
 {
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl().c_str());
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl((UTM)utm).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
+                                            utm:(MWMUTM)utm
 {
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl().c_str());
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl((UTM)utm).c_str());
   return urlString ? [NSURL URLWithString:[urlString stringByAppendingPathComponent:path]] : nil;
 }
 

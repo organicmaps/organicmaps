@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <sstream>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -45,7 +46,7 @@ bool NeedToShowImpl(std::string const & bookingPromoAwaitingForId, eye::Eye::Inf
          timeSinceLastShown > kShowPromoNotRaterThan;
 }
 
-void ParseCityGallery(std::string const & src, promo::CityGallery & result)
+void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & result)
 {
   base::Json root(src.c_str());
   auto const dataArray = json_object_get(root.get(), "data");
@@ -80,6 +81,7 @@ void ParseCityGallery(std::string const & src, promo::CityGallery & result)
   auto const meta = json_object_get(root.get(), "meta");
   FromJSONObject(meta, "more", result.m_moreUrl);
   result.m_moreUrl.insert(0, BOOKMARKS_CATALOG_FRONT_URL);
+  result.m_moreUrl = InjectUTM(result.m_moreUrl, utm);
 }
 
 std::string ToSignedId(std::string const & id)
@@ -109,7 +111,8 @@ std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
 }
 
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
-                             std::string const & lang, CityGalleryCallback const & onSuccess,
+                             std::string const & lang, UTM utm,
+                             CityGalleryCallback const & onSuccess,
                              OnError const & onError)
 {
   ASSERT(!baseUrl.empty(), ());
@@ -121,7 +124,7 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [baseUrl, id, lang, onSuccess, onError]()
+  GetPlatform().RunTask(Platform::Thread::Network, [baseUrl, id, lang, utm, onSuccess, onError]()
   {
     ASSERT(!id.empty(), ());
 
@@ -135,7 +138,7 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
 
     try
     {
-      ParseCityGallery(httpResult, result);
+      ParseCityGallery(httpResult, utm, result);
     }
     catch (base::Json::Exception const & e)
     {
@@ -207,7 +210,7 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
 
 std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const
 {
-  return MakeCityGalleryUrl(m_baseUrl, id, lang);
+  return InjectUTM(MakeCityGalleryUrl(m_baseUrl, id, lang), UTM::DownloadMwmBanner);
 }
 
 std::string Api::GetMoreUrl(std::string const & id) const
@@ -218,12 +221,12 @@ std::string Api::GetMoreUrl(std::string const & id) const
   return m_baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
 }
 
-void Api::GetCityGallery(m2::PointD const & point, std::string const & lang,
+void Api::GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,
                          CityGalleryCallback const & onSuccess, OnError const & onError) const
 {
   CHECK(m_delegate, ());
 
-  GetPromoCityGalleryImpl(m_baseUrl, m_delegate->GetCityId(point), lang, onSuccess, onError);
+  GetPromoCityGalleryImpl(m_baseUrl, m_delegate->GetCityId(point), lang, utm, onSuccess, onError);
 }
 
 void Api::OnMapObjectEvent(eye::MapObject const & mapObject)

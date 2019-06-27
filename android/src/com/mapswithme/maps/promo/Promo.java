@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.concurrency.UiThread;
 
 public enum Promo
@@ -49,5 +50,6 @@ public enum Promo
       mListener.onErrorReceived();
   }
 
-  public native void nativeRequestCityGallery(@NonNull NetworkPolicy policy, double lat, double lon);
+  public native void nativeRequestCityGallery(@NonNull NetworkPolicy policy,
+                                              double lat, double lon, @UTM.UTMType int utm);
 }

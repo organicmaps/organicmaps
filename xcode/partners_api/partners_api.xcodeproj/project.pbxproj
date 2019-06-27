@@ -66,6 +66,7 @@
 		4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */; };
 		4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566605220D920000085E8C1 /* megafon_countries_tests.cpp */; };
 		4566605520D920220085E8C1 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566605420D920220085E8C1 /* libstorage.a */; };
+		45AC338F22C4F449004DC574 /* utm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45AC338E22C4F448004DC574 /* utm.hpp */; };
 		45BABC33229812830060FA53 /* downloader_promo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45BABC31229812820060FA53 /* downloader_promo.cpp */; };
 		45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BABC32229812830060FA53 /* downloader_promo.hpp */; };
 		45C380772094C5B400C18D81 /* partners.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C380752094C5B400C18D81 /* partners.cpp */; };
@@ -160,6 +161,7 @@
 		4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = megafon_countries.hpp; sourceTree = "<group>"; };
 		4566605220D920000085E8C1 /* megafon_countries_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries_tests.cpp; sourceTree = "<group>"; };
 		4566605420D920220085E8C1 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		45AC338E22C4F448004DC574 /* utm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utm.hpp; sourceTree = "<group>"; };
 		45BABC31229812820060FA53 /* downloader_promo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_promo.cpp; sourceTree = "<group>"; };
 		45BABC32229812830060FA53 /* downloader_promo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_promo.hpp; sourceTree = "<group>"; };
 		45C380752094C5B400C18D81 /* partners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = partners.cpp; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				F6B5363F1DA520E40067EEA5 /* uber_api.hpp */,
 				3D4E997E1FB439300025B48C /* utils.cpp */,
 				3D47B2B01F14FA14000828D2 /* utils.hpp */,
+				45AC338E22C4F448004DC574 /* utm.hpp */,
 				3DFEBF831EF82BEA00317D5C /* viator_api.cpp */,
 				3DFEBF841EF82BEA00317D5C /* viator_api.hpp */,
 				3DFEBF981EFBFC1500317D5C /* yandex_api.cpp */,
@@ -389,6 +392,7 @@
 				349CFD0A2045720000569949 /* maxim_api.hpp in Headers */,
 				3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */,
 				3DFEBF9C1EFBFC1500317D5C /* taxi_engine.hpp in Headers */,
+				45AC338F22C4F449004DC574 /* utm.hpp in Headers */,
 				4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */,
 				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
 				3DBC1C551E4B14920016897F /* facebook_ads.hpp in Headers */,

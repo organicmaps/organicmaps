@@ -124,7 +124,7 @@ extension TutorialViewController {
   private static func bookmarksTutorialBlur() -> TutorialViewController {
     let result = TutorialViewController(nibName: "BookmarksTutorialBlur", bundle: nil)
     result.customAction = {
-      MapViewController.shared().openCatalog(animated: true)
+      MapViewController.shared().openCatalog(animated: true, utm: .tipsAndTricks)
     }
     return result
   }
