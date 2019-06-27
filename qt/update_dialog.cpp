@@ -242,9 +242,6 @@ namespace qt
 
   void UpdateDialog::RefillTree()
   {
-    m_tree->clear();
-    m_treeItemByCountryId.clear();
-
     ++m_fillTreeTimestamp;
 
     string trimmed = m_query;
@@ -277,10 +274,6 @@ namespace qt
           LOG(LWARNING, ("Duplicate CountryId in results for query:", query));
       }
 
-      // Clear the tree to avoid creating duplicate nodes for countries
-      // that appear in more than one onResults call.
-      m_tree->clear();
-      m_treeItemByCountryId.clear();
       FillTree(filter, timestamp);
     };
 
@@ -296,6 +289,7 @@ namespace qt
 
     m_tree->setSortingEnabled(false);
     m_tree->clear();
+    m_treeItemByCountryId.clear();
 
     auto const rootId = m_framework.GetStorage().GetRootId();
     FillTreeImpl(nullptr /* parent */, rootId, filter);
