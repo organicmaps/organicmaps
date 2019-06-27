@@ -202,5 +202,6 @@
   <color name="tips_and_triks_secondary_text_night">@color/dark_gray</color>
   <color name="turquoise">#d0f6ff</color>
   <color name="bookmark_subscription_subtitle">#c6152b1c</color>
+  <color name="sale_view_bg">#a335f4</color>
 
 </resources>

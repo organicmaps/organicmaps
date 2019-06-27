@@ -55,13 +55,18 @@
           android:textColor="@color/bookmark_subscription_subtitle"
           android:textAppearance="?android:attr/textAppearanceMedium"
           tools:ignore="UnusedAttribute"/>
-        <LinearLayout
+        <FrameLayout
           android:layout_marginTop="@dimen/margin_base"
           android:layout_width="match_parent"
           android:gravity="center"
           android:layout_height="wrap_content">
-          <include layout="@layout/subscription_offer_card"/>
-        </LinearLayout>
+          <include
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/margin_base_plus"
+            layout="@layout/subscription_offer_card"/>
+          <include layout="@layout/subscription_offer_sale"/>
+        </FrameLayout>
 
         <FrameLayout
           android:layout_width="wrap_content"
