@@ -2,6 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/regions/region_info.hpp"
+#include "generator/translation.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -27,9 +28,6 @@ using BoostRect = boost::geometry::model::box<BoostPoint>;
 class RegionWithName
 {
 public:
-  using LanguageCode = int8_t;
-  using PreferredLanguages = std::vector<std::string>;
-
   RegionWithName(StringUtf8Multilang const & name) : m_name(name) {}
 
   /// This function will take the following steps:

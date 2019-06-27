@@ -212,6 +212,8 @@ set(
   tesselator.hpp
   towns_dumper.cpp
   towns_dumper.hpp
+  translation.hpp
+  translation.cpp
   traffic_generator.cpp
   traffic_generator.hpp
   transit_generator.cpp
