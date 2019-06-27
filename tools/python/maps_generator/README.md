@@ -94,7 +94,9 @@ STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/s
 ```
 
 
-##### Note: In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
+##### Note 1: In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
+
+##### Note 2: You can manually generate subway layer file for SUBWAY_URL parameter. See [instructions](https://github.com/mapsme/omim/tree/master/docs/SUBWAY_GENERATION.md).
 
 ## Usage
 ```sh
