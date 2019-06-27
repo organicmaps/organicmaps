@@ -10,7 +10,8 @@ from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
                              ALL_STAGES, stage_download_production_external,
                              stage_descriptions, stage_ugc, stage_popularity,
                              stage_localads, stage_statistics, stage_srtm,
-                             stages_as_string, stage_as_string, stage_coastline)
+                             stages_as_string, stage_as_string, stage_coastline,
+                             stage_update_planet)
 from .utils.collections import unique
 
 logger = logging.getLogger("maps_generator")
@@ -219,6 +220,9 @@ def main():
     if not all(s in ALL_STAGES for s in options["skip"]):
         raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
                         f"not found.")
+
+    if settings.PLANET_URL != settings.DEFAULT_PLANET_URL:
+        options["skip"] += stages_as_string(stage_update_planet)
 
     if WORLD_NAME in options["countries"] and WORLD_COASTS_NAME not in options["countries"]:
         raise ValidationError(f"{WORLD_NAME} depends on {WORLD_COASTS_NAME}.")

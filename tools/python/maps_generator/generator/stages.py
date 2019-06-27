@@ -25,8 +25,8 @@ def convert_planet(tool, in_planet, out_planet, output=subprocess.DEVNULL,
     write_md5sum(out_planet, md5(out_planet))
 
 
-def stage_download_and_convert_planet(env, **kwargs):
-    if not is_verified(settings.PLANET_PBF):
+def stage_download_and_convert_planet(env, force_download, **kwargs):
+    if force_download or not is_verified(settings.PLANET_PBF):
         download_planet(settings.PLANET_PBF)
 
     convert_planet(env[settings.OSM_TOOL_CONVERT],

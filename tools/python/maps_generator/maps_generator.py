@@ -38,8 +38,10 @@ def download_external(url_to_path: dict):
 
 @stage
 def stage_download_and_convert_planet(env, **kwargs):
-    if not is_verified(settings.PLANET_O5M):
-        stages.stage_download_and_convert_planet(env, **kwargs)
+    force_download = not env.is_accepted_stage(stage_update_planet)
+    if force_download or not is_verified(settings.PLANET_O5M):
+        stages.stage_download_and_convert_planet(env, force_download=force_download,
+                                                 **kwargs)
 
 
 @stage

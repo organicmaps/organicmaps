@@ -40,8 +40,8 @@ MAIN_OUT_PATH = os.path.join(WORK_PATH, "generation")
 VERSION_FILE_NAME = "version.txt"
 
 # External resources
-PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
-PLANET_MD5_URL = PLANET_URL + ".md5"
+DEFAULT_PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
+DEFAULT_PLANET_MD5_URL = DEFAULT_PLANET_URL + ".md5"
 PLANET_COASTS_URL = ""
 UGC_URL = ""
 HOTELS_URL = ""
@@ -113,8 +113,8 @@ OSM_TOOLS_PATH = _get_opt_path(config, "Osm tools", "OSM_TOOLS_PATH", OSM_TOOLS_
 LOG_FILE_PATH = _get_opt_path(config, "Logging", "MAIN_LOG", LOG_FILE_PATH)
 os.makedirs(os.path.dirname(os.path.abspath(LOG_FILE_PATH)), exist_ok=True)
 
-PLANET_URL = _get_opt_path(config, "External", "PLANET_URL", PLANET_URL)
-PLANET_MD5_URL = _get_opt_path(config, "External", "PLANET_MD5_URL", PLANET_MD5_URL)
+PLANET_URL = _get_opt_path(config, "External", "PLANET_URL", DEFAULT_PLANET_URL)
+PLANET_MD5_URL = _get_opt_path(config, "External", "PLANET_MD5_URL", DEFAULT_PLANET_MD5_URL)
 PLANET_COASTS_URL = _get_opt_path(config, "External", "PLANET_COASTS_URL", PLANET_COASTS_URL)
 UGC_URL = _get_opt_path(config, "External", "UGC_URL", UGC_URL)
 HOTELS_URL = _get_opt_path(config, "External", "HOTELS_URL", HOTELS_URL)
