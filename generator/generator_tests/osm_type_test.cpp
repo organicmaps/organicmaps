@@ -65,12 +65,14 @@ namespace
     TEST(params.IsTypeExist(GetType({"psurface", value})), ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value, "Got:", psurface));
   }
 
-  void GetFeatureParams(char const * arr[][2], size_t count, FeatureParams & params)
+FeatureParams GetFeatureParams(char const * arr[][2], size_t count)
   {
     OsmElement e;
     FillXmlElement(arr, count, &e);
+    FeatureParams params;
 
     ftype::GetNameAndType(&e, params);
+    return params;
   }
 }  // namespace
 
@@ -83,8 +85,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
     { "ref", "E51" }
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST_EQUAL(params.m_types[0], GetType(arr[1]), ());
@@ -135,8 +136,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
     { "name", "Гимназия 15" }
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 2, (params));
   TEST(params.IsTypeExist(GetType(arr[3])), ());
@@ -161,8 +161,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     { "uir_adr:ADRESA_KOD", "21717036" }
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"building", "address"})), ());
@@ -184,8 +183,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
     { "ref", "CA" }
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
@@ -286,8 +284,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
       { "atm", "yes" }
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "atm"})), ());
@@ -301,8 +298,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
       { "atm", "no" }
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"building"})), ());
@@ -318,8 +314,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
       { "place", "city" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "6"})), ());
@@ -332,8 +327,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
       { "place", "city" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city"})), ());
@@ -348,8 +342,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
       { "place", "city" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), ());
@@ -365,8 +358,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Route)
       { "ref", "I 95" }
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
@@ -383,8 +375,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
       { "layer", "2" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "motorway", "bridge"})), ());
@@ -398,8 +389,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
       { "layer", "-1" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "trunk", "tunnel"})), ());
@@ -412,8 +402,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
       { "bridge", "yes" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "secondary", "bridge"})), ());
@@ -426,8 +415,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
       { "tunnel", "yes" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary", "tunnel"})), ());
@@ -439,8 +427,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
       { "highway", "living_street" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
@@ -456,8 +443,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Amenity)
       { "fuel", "wood" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
@@ -478,8 +464,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
       { "oneway", "true" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
@@ -496,8 +481,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
         {"oneway:bicycle", "no"},
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 6, (params));
     TEST(params.IsTypeExist(GetType(arr[1])), ());
@@ -513,8 +497,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
         {"foot", "yes"}, {"cycleway", "lane"}, {"highway", "primary"},
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType(arr[2])), ());
@@ -554,8 +537,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     { "route", "ferry" },
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 3, (params));
 
@@ -584,8 +566,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
         {"highway", "secondary"},
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
@@ -598,8 +579,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
         {"motorcar", "yes"},
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
@@ -612,8 +592,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
         {"motor_vehicle", "no"},
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
@@ -630,8 +609,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
     { "boundary", "administrative" },
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 2, (params));
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
@@ -652,8 +630,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
     { "website", "http://www.hotelvishal.in" },
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
@@ -673,8 +650,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
       { "transport", "subway" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "moscow"})), (params));
@@ -689,8 +665,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
       { "route", "subway" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "newyork"})), (params));
@@ -706,8 +681,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
       { "station", "light_rail" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "light_rail"})), (params));
@@ -725,8 +699,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
       { "transport", "monorail" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "monorail"})), (params));
@@ -741,8 +714,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
       { "railway", "station" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "london"})), (params));
@@ -756,8 +728,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
       { "building", "hospital" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"building"})), (params));
@@ -769,8 +740,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
       { "amenity", "hospital" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"building"})), (params));
@@ -825,8 +795,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Moscow)
       { "wikipedia", "ru:Москва" },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
@@ -847,8 +816,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
     { "population", "2243833" }
   };
 
-  FeatureParams params;
-  GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+  FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), ());
@@ -870,8 +838,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
       { "cuisine", "indian ; steak,coffee  shop " },
     };
 
-    FeatureParams params;
-    GetFeatureParams(arr, ARRAY_SIZE(arr), params);
+    FeatureParams const params = GetFeatureParams(arr, ARRAY_SIZE(arr));
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"cuisine", "indian"})), (params));
