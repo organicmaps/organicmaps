@@ -46,5 +46,5 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
   return s;
 }
 
-Languages & Localizator::LocaleLanguages() { return kLocalelanguages; }
+Languages const & Localizator::LocaleLanguages() const { return kLocalelanguages; }
 }  // namespace generator

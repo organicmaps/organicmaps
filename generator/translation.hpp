@@ -64,9 +64,8 @@ private:
   };
   using LocalesWithLanguages = std::vector<LocaleWithLanguage>;
 
-  std::vector<std::string> & LocaleLanguages();
+  std::vector<std::string> const & LocaleLanguages() const;
 
   LocalesWithLanguages m_localesWithLanguages;
 };
-
 }  // namespace generator

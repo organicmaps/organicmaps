@@ -121,7 +121,7 @@ private:
         ToJSONObject(*address, std::string{label} + "_r", region.GetRank());
       }
 
-      localizator.AddLocale([&label, region](std::string language) {
+      localizator.AddLocale([&label, &region](std::string const & language) {
         return Localizator::LabelAndTranslition{
             label,
             region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language))};
