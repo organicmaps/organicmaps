@@ -27,12 +27,18 @@ using BoostRect = boost::geometry::model::box<BoostPoint>;
 class RegionWithName
 {
 public:
+  using LanguageCode = int8_t;
+  using PreferredLanguages = std::vector<std::string>;
+
   RegionWithName(StringUtf8Multilang const & name) : m_name(name) {}
 
-  // This function will take the following steps:
-  // 1. Return the english name if it exists.
-  // 2. Return transliteration if it succeeds.
-  // 3. Otherwise, return empty string.
+  /// This function will take the following steps:
+  /// 1. Return the |languageCode| name if it exists.
+  /// 2. Return transliteration trying to use kPrefferedLanguages first, then any, if it succeeds.
+  /// 3. Otherwise, return empty string.
+  std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
+
+  /// GetTranslatedOrTransliteratedName for English
   std::string GetEnglishOrTransliteratedName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const;

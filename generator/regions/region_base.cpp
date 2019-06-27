@@ -12,12 +12,13 @@ namespace regions
 {
 namespace
 {
-// Languages in order for better transliterations for Russian. This is kind
+// Languages in order for better transliterations. This is kind
 // of workaround before real made translations.
-const std::vector<std::string> kRuPreferredLanguagesForTransliterate = {
-    "en" /*English*/,
-    "ru" /*Русский*/,
-};
+const std::unordered_map<RegionWithName::LanguageCode, RegionWithName::PreferredLanguages>
+    kPreferredLanguagesForTransliterate = {
+        {StringUtf8Multilang::GetLangIndex("ru"), {"en" /*English*/, "ru" /*Русский*/}},
+        {StringUtf8Multilang::GetLangIndex("en"), {"en" /*English*/, "ru" /*Русский*/}}};
+
 }  // namespace
 
 std::string RegionWithName::GetName(int8_t lang) const
@@ -27,9 +28,10 @@ std::string RegionWithName::GetName(int8_t lang) const
   return s;
 }
 
-std::string RegionWithName::GetEnglishOrTransliteratedName() const
+std::string RegionWithName::GetTranslatedOrTransliteratedName(
+    RegionWithName::LanguageCode languageCode) const
 {
-  std::string s = GetName(StringUtf8Multilang::kEnglishCode);
+  std::string s = GetName(languageCode);
   if (!s.empty() && strings::IsASCIIString(s))
     return s;
 
@@ -47,10 +49,16 @@ std::string RegionWithName::GetEnglishOrTransliteratedName() const
     return base::ControlFlow::Continue;
   };
 
-  if (!m_name.ForEachLanguage(kRuPreferredLanguagesForTransliterate, fn))
+  if (kPreferredLanguagesForTransliterate.count(languageCode) &&
+      m_name.ForEachLanguage(kPreferredLanguagesForTransliterate.at(languageCode), fn))
     m_name.ForEach(fn);
 
   return s;
+}
+
+std::string RegionWithName::GetEnglishOrTransliteratedName() const
+{
+  return GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
 }
 
 StringUtf8Multilang const & RegionWithName::GetMultilangName() const { return m_name; }
