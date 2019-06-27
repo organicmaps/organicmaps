@@ -342,7 +342,7 @@ void Tokenize(std::string const & str, char const * delims, TFunctor && f)
   }
 }
 
-template <template <typename ...> class Collection = std::vector>
+template <template <typename...> class Collection = std::vector>
 Collection<std::string> Tokenize(std::string const & str, char const * delims)
 {
   Collection<std::string> c;
@@ -361,7 +361,7 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
 UniChar LastUniChar(std::string const & s);
 
 template <class T, size_t N, class TT>
-bool IsInArray(T(&arr)[N], TT const & t)
+bool IsInArray(T (&arr)[N], TT const & t)
 {
   for (size_t i = 0; i < N; ++i)
     if (arr[i] == t)
@@ -373,7 +373,7 @@ bool IsInArray(T(&arr)[N], TT const & t)
 //@{
 WARN_UNUSED_RESULT bool to_int(char const * s, int & i, int base = 10);
 WARN_UNUSED_RESULT bool to_uint(char const * s, unsigned int & i, int base = 10);
-WARN_UNUSED_RESULT bool to_uint64(char const * s, uint64_t & i);
+WARN_UNUSED_RESULT bool to_uint64(char const * s, uint64_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_int64(char const * s, int64_t & i);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
@@ -384,16 +384,31 @@ WARN_UNUSED_RESULT inline bool is_number(std::string const & s)
   return to_int64(s.c_str(), dummy);
 }
 
-WARN_UNUSED_RESULT inline bool to_int(std::string const & s, int & i, int base = 10) { return to_int(s.c_str(), i, base); }
+WARN_UNUSED_RESULT inline bool to_int(std::string const & s, int & i, int base = 10)
+{
+  return to_int(s.c_str(), i, base);
+}
 WARN_UNUSED_RESULT inline bool to_uint(std::string const & s, unsigned int & i, int base = 10)
 {
   return to_uint(s.c_str(), i, base);
 }
 
-WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
-WARN_UNUSED_RESULT inline bool to_int64(std::string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
-WARN_UNUSED_RESULT inline bool to_float(std::string const & s, float & f) { return to_float(s.c_str(), f); }
-WARN_UNUSED_RESULT inline bool to_double(std::string const & s, double & d) { return to_double(s.c_str(), d); }
+WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i, int base = 10)
+{
+  return to_uint64(s.c_str(), i, base);
+}
+WARN_UNUSED_RESULT inline bool to_int64(std::string const & s, int64_t & i)
+{
+  return to_int64(s.c_str(), i);
+}
+WARN_UNUSED_RESULT inline bool to_float(std::string const & s, float & f)
+{
+  return to_float(s.c_str(), f);
+}
+WARN_UNUSED_RESULT inline bool to_double(std::string const & s, double & d)
+{
+  return to_double(s.c_str(), d);
+}
 //@}
 
 /// @name From numeric to string.
@@ -409,8 +424,14 @@ std::string to_string(T t)
 }
 
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int & i) { return to_int(s, i); }
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, unsigned int & i) { return to_uint(s, i); }
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i) { return to_uint64(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, unsigned int & i)
+{
+  return to_uint(s, i);
+}
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i)
+{
+  return to_uint64(s, i);
+}
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i) { return to_int64(s, i); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
@@ -476,7 +497,7 @@ std::string to_string_unsigned(T i)
   char * beg = to_string_digits(end, i);
   return std::string(beg, end - beg);
 }
-}
+}  // namespace impl
 
 inline std::string to_string(int32_t i) { return impl::to_string_signed(i); }
 inline std::string to_string(int64_t i) { return impl::to_string_signed(i); }
@@ -484,7 +505,10 @@ inline std::string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 std::string to_string_dac(double d, int dac);
-inline std::string to_string_with_digits_after_comma(double d, int dac) { return to_string_dac(d, dac); }
+inline std::string to_string_with_digits_after_comma(double d, int dac)
+{
+  return to_string_dac(d, dac);
+}
 //@}
 
 template <typename IterT1, typename IterT2>
