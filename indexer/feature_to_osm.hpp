@@ -16,14 +16,15 @@ class DataSource;
 
 namespace indexer
 {
+// An in-memory implementation of the data structure behind the FeatureIdToGeoObjectIdBimap.
+using FeatureIdToGeoObjectIdBimapMem = base::BidirectionalMap<uint32_t, base::GeoObjectId>;
+
 // A serializable bidirectional read-only map of FeatureIds from a single
 // mwm of a fixed version to GeoObjectIds.
 // Currently, only World.mwm of the latest version is supported.
 class FeatureIdToGeoObjectIdBimap
 {
 public:
-  friend class FeatureIdToGeoObjectIdSerDes;
-
   explicit FeatureIdToGeoObjectIdBimap(DataSource const & dataSource);
 
   bool Load();
@@ -45,16 +46,14 @@ private:
   DataSource const & m_dataSource;
   MwmSet::MwmId m_mwmId;
 
-  base::BidirectionalMap<uint32_t, base::GeoObjectId> m_map;
+  FeatureIdToGeoObjectIdBimapMem m_map;
 };
-
-using FeatureIdToGeoObjectIdBimapBuilder = base::BidirectionalMap<uint32_t, base::GeoObjectId>;
 
 class FeatureIdToGeoObjectIdSerDes
 {
 public:
   template <typename Sink>
-  static void Serialize(Sink & sink, FeatureIdToGeoObjectIdBimapBuilder const & map)
+  static void Serialize(Sink & sink, FeatureIdToGeoObjectIdBimapMem const & map)
   {
     WriteToSink(sink, base::checked_cast<uint32_t>(map.Size()));
     map.ForEachEntry([&sink](uint32_t const fid, base::GeoObjectId gid) {
@@ -64,15 +63,15 @@ public:
   }
 
   template <typename Source>
-  static void Deserialize(Source & src, FeatureIdToGeoObjectIdBimap & map)
+  static void Deserialize(Source & src, FeatureIdToGeoObjectIdBimapMem & map)
   {
-    map.m_map.Clear();
+    map.Clear();
     auto const numEntries = ReadPrimitiveFromSource<uint32_t>(src);
     for (size_t i = 0; i < numEntries; ++i)
     {
       auto const fid = ReadVarUint<uint32_t>(src);
       auto const gid = ReadVarUint<uint64_t>(src);
-      map.m_map.Add(fid, base::GeoObjectId(gid));
+      map.Add(fid, base::GeoObjectId(gid));
     }
   }
 };

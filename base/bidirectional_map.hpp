@@ -22,7 +22,7 @@ public:
 
   bool Add(K const & k, V const & v)
   {
-    if (m_kToV.find(k) != m_kToV.end() || m_vToK.find(v) != m_vToK.end())
+    if (m_kToV.find(k) != m_kToV.cend() || m_vToK.find(v) != m_vToK.cend())
       return false;
 
     m_kToV.emplace(k, v);
@@ -40,7 +40,7 @@ public:
   bool GetValue(K const & key, V & value) const
   {
     auto const it = m_kToV.find(key);
-    if (it == m_kToV.end())
+    if (it == m_kToV.cend())
       return false;
     value = it->second;
     return true;
@@ -49,7 +49,7 @@ public:
   bool GetKey(V const & value, K & key) const
   {
     auto const it = m_vToK.find(value);
-    if (it == m_vToK.end())
+    if (it == m_vToK.cend())
       return false;
     key = it->second;
     return true;

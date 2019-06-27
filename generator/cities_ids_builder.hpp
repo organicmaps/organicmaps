@@ -1,7 +1,5 @@
 #pragma once
 
-#include "indexer/feature_to_osm.hpp"
-
 #include <string>
 
 namespace generator

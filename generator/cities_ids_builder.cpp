@@ -3,6 +3,7 @@
 #include "generator/utils.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/feature_to_osm.hpp"
 
 #include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
@@ -14,6 +15,7 @@
 
 #include "base/cancellable.hpp"
 #include "base/checked_cast.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
 #include <cstdint>
@@ -35,22 +37,22 @@ bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeatu
     return false;
   }
 
-  indexer::FeatureIdToGeoObjectIdBimapBuilder builder;
+  indexer::FeatureIdToGeoObjectIdBimapMem map;
 
   auto const localities = GetLocalities(dataPath);
   localities.ForEach([&](uint64_t fid64) {
     auto const fid = base::checked_cast<uint32_t>(fid64);
-    auto it = mapping.find(fid);
+    auto const it = mapping.find(fid);
     if (it == mapping.end())
       return;
 
     auto const osmId = it->second;
-    if (!builder.Add(fid, osmId))
+    if (!map.Add(fid, osmId))
     {
       uint32_t oldFid;
       base::GeoObjectId oldOsmId;
-      auto const hasOldOsmId = builder.GetValue(fid, oldOsmId);
-      auto const hasOldFid = builder.GetKey(osmId, oldFid);
+      auto const hasOldOsmId = map.GetValue(fid, oldOsmId);
+      auto const hasOldFid = map.GetKey(osmId, oldFid);
 
       LOG(LWARNING,
           ("Could not add the pair (", fid, osmId,
@@ -62,11 +64,11 @@ bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeatu
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter sink = container.GetWriter(CITIES_IDS_FILE_TAG);
   auto const pos0 = sink.Pos();
-  indexer::FeatureIdToGeoObjectIdSerDes::Serialize(sink, builder);
+  indexer::FeatureIdToGeoObjectIdSerDes::Serialize(sink, map);
   auto const pos1 = sink.Pos();
 
   LOG(LINFO,
-      ("Serialized cities ids. Number of entries:", builder.Size(), "Size in bytes:", pos1 - pos0));
+      ("Serialized cities ids. Number of entries:", map.Size(), "Size in bytes:", pos1 - pos0));
 
   return true;
 }
