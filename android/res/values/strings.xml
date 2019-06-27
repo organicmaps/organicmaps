@@ -1647,6 +1647,26 @@
 	<string name="gallery_pp_download_guides_offline_cta">gallery_pp_download_guides_offline_cta</string>
 	<!-- FIXME -->
 	<string name="gallery_pp_download_guides_title">gallery_pp_download_guides_title</string>
+	<string name="native_screen_subscription_title">Unlimited access to 5000+ guides!</string>
+	<string name="native_screen_subscription_message">Every kind of journey. Whether alone or with friends, hiking or sunbathing</string>
+	<string name="annual_subscription_title">Annual</string>
+	<string name="montly_subscription_title">Monthly</string>
+	<string name="annual_subscription_message">12 month of unlimited downloads</string>
+	<string name="montly_subscription_message">1 month of unlimited downloads</string>
+	<string name="annual_save_component">Save %s$</string>
+	<string name="subscription_success_dialog_title">Woohoo!</string>
+	<string name="subscription_success_dialog_message">You\'ve got a subscription!</string>
+	<string name="renewal_screen_title">Your subscription has expired</string>
+	<string name="renewal_screen_message">All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?</string>
+	<string name="renewal_screen_button_restore">Yes, renew</string>
+	<string name="renewal_screen_button_cancel">No, delete guides</string>
+	<string name="subscription_error_ping_title">Purchase has failed</string>
+	<string name="subscription_error_message">The service is currently unavailable in your region. Please try again later.</string>
+	<string name="subscription_error_button">Got it!</string>
+	<string name="timeout_error_title">Oops, time is up!</string>
+	<string name="timeout_error_message">Our servers don\'t respond. Please check the internet connection and try again.</string>
+	<string name="per_month">mo</string>
+	<string name="per_year">year</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

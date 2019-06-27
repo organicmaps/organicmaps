@@ -2874,6 +2874,46 @@
 /* FIXME */
 "gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
 
+"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+
+"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+
+"annual_subscription_title" = "Annual";
+
+"montly_subscription_title" = "Monthly";
+
+"annual_subscription_message" = "12 month of unlimited downloads";
+
+"montly_subscription_message" = "1 month of unlimited downloads";
+
+"annual_save_component" = "Save %s$";
+
+"subscription_success_dialog_title" = "Woohoo!";
+
+"subscription_success_dialog_message" = "You've got a subscription!";
+
+"renewal_screen_title" = "Your subscription has expired";
+
+"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+
+"renewal_screen_button_restore" = "Yes, renew";
+
+"renewal_screen_button_cancel" = "No, delete guides";
+
+"subscription_error_ping_title" = "Purchase has failed";
+
+"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+
+"subscription_error_button" = "Got it!";
+
+"timeout_error_title" = "Oops, time is up!";
+
+"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+
+"per_month" = "mo";
+
+"per_year" = "year";
+
 
 /**********  Partners  **********/
 
