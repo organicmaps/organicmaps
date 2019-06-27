@@ -224,9 +224,6 @@ def main():
     if settings.PLANET_URL != settings.DEFAULT_PLANET_URL:
         options["skip"] += stages_as_string(stage_update_planet)
 
-    if WORLD_NAME in options["countries"] and WORLD_COASTS_NAME not in options["countries"]:
-        raise ValidationError(f"{WORLD_NAME} depends on {WORLD_COASTS_NAME}.")
-
     if stage_as_string(stage_coastline) in options["skip"]:
         worlds_names = [x for x in options["countries"] if x in WORLDS_NAMES]
         if worlds_names:
