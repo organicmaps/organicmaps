@@ -472,8 +472,10 @@
     <activity
       android:name="com.mapswithme.maps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
-    <activity android:name="com.mapswithme.maps.bookmarks.BookmarkSubscriptionActivity"
-              android:configChanges="keyboardHidden|orientation|screenSize" />
+    <activity
+      android:name="com.mapswithme.maps.bookmarks.BookmarkSubscriptionActivity"
+      android:screenOrientation="portrait"
+      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"

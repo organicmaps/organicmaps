@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.discovery.DiscoveryManager;
 
 public class BookmarkSubscriptionFragment extends BaseMwmFragment
 {
@@ -61,11 +60,9 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
 
   private static Spanned makeRestorePurchaseHtml(@NonNull Context context)
   {
-    final String restorePurchaseSrc = context.getString(R.string.download);
     final String restorePurchaseLink = "";
     return Html.fromHtml(context.getString(R.string.restore_purchase_link,
-                                           restorePurchaseLink,
-                                           restorePurchaseSrc));
+                                           restorePurchaseLink));
   }
 
   private class AnnualCardClickListener implements View.OnClickListener
