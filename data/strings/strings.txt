@@ -40651,3 +40651,63 @@
   [gallery_pp_download_guides_title]
     comment = FIXME
     en = gallery_pp_download_guides_title
+
+  [native_screen_subscription_title]
+    en = Unlimited access to 5000+ guides!
+
+  [native_screen_subscription_message]
+    en = Every kind of journey. Whether alone or with friends, hiking or sunbathing
+
+  [annual_subscription_title]
+    en = Annual
+
+  [montly_subscription_title]
+    en = Monthly
+
+  [annual_subscription_message]
+    en = 12 month of unlimited downloads
+
+  [montly_subscription_message]
+    en = 1 month of unlimited downloads
+
+  [annual_save_component]
+    en = Save %s$
+
+  [subscription_success_dialog_title]
+    en = Woohoo!
+
+  [subscription_success_dialog_message]
+    en = You've got a subscription!
+
+  [renewal_screen_title]
+    en = Your subscription has expired
+
+  [renewal_screen_message]
+    en = All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?
+
+  [renewal_screen_button_restore]
+    en = Yes, renew
+
+  [renewal_screen_button_cancel]
+    en = No, delete guides
+
+  [subscription_error_ping_title]
+    en = Purchase has failed
+
+  [subscription_error_message]
+    en = The service is currently unavailable in your region. Please try again later.
+
+  [subscription_error_button]
+    en = Got it!
+
+  [timeout_error_title]
+    en = Oops, time is up!
+
+  [timeout_error_message]
+    en = Our servers don't respond. Please check the internet connection and try again.
+
+  [per_month]
+    en = mo
+
+  [per_year]
+    en = year
