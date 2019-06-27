@@ -7,12 +7,13 @@ namespace
 {
 // Languages in order for better transliterations. This is kind
 // of workaround before real made translations.
-using PreferredLanguages = std::vector<std::string>;
+using Languages = std::vector<std::string>;
 
-const std::unordered_map<generator::LanguageCode, PreferredLanguages>
-    kPreferredLanguagesForTransliterate = {
-        {StringUtf8Multilang::GetLangIndex("ru"), {"en" /*English*/, "ru" /*Русский*/}},
-        {StringUtf8Multilang::GetLangIndex("en"), {"en" /*English*/, "ru" /*Русский*/}}};
+const std::unordered_map<generator::LanguageCode, Languages> kPreferredLanguagesForTransliterate = {
+    {StringUtf8Multilang::GetLangIndex("ru"), {"en" /*English*/, "ru" /*Русский*/}},
+    {StringUtf8Multilang::GetLangIndex("en"), {"en" /*English*/, "ru" /*Русский*/}}};
+
+Languages kLocalelanguages = {"en", "ru"};
 }  // namespace
 
 namespace generator
@@ -45,4 +46,5 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
   return s;
 }
 
+Languages & Localizator::LocaleLanguages() { return kLocalelanguages; }
 }  // namespace generator

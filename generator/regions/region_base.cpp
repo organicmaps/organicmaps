@@ -19,8 +19,6 @@ std::string RegionWithName::GetTranslatedOrTransliteratedName(LanguageCode langu
 
 StringUtf8Multilang const & RegionWithName::GetMultilangName() const { return m_name; }
 
-void RegionWithName::SetMultilangName(StringUtf8Multilang const & name) { m_name = name; }
-
 base::GeoObjectId RegionWithData::GetId() const { return m_regionData.GetOsmId(); }
 
 boost::optional<std::string> RegionWithData::GetIsoCode() const

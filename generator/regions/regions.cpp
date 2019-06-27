@@ -44,14 +44,6 @@ namespace regions
 {
 namespace
 {
-std::vector<std::string> kLocalelanguages = {"en", "ru"};
-struct LocaleWithLanguage
-{
-  base::JSONPtr m_locale;
-  std::string m_language;
-};
-using LocalesWithLanguages = std::vector<LocaleWithLanguage>;
-
 class RegionsGenerator
 {
 public:
@@ -113,7 +105,7 @@ private:
     auto address = base::NewJSONObject();
     boost::optional<int64_t> pid;
 
-    LocalesWithLanguages localesWithLanguages;
+    Localizator localizator;
 
     for (auto const & p : path)
     {
@@ -129,26 +121,21 @@ private:
         ToJSONObject(*address, std::string{label} + "_r", region.GetRank());
       }
 
-      for (auto const & language : kLocalelanguages)
-      {
-        localesWithLanguages.emplace_back(LocaleWithLanguage{base::NewJSONObject(), language});
-        ToJSONObject(
-            *localesWithLanguages.back().m_locale, label,
-            region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language)));
-      }
+      localizator.AddLocale([&label, region](std::string language) {
+        return Localizator::LabelAndTranslition{
+            label,
+            region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language))};
+      });
+
       if (!pid && region.GetId() != main.GetId())
         pid = static_cast<int64_t>(region.GetId().GetEncodedId());
     }
-
-    auto locales = base::NewJSONObject();
-    for (auto & localeWithLanguage : localesWithLanguages)
-      ToJSONObject(*locales, localeWithLanguage.m_language, localeWithLanguage.m_locale);
 
     auto properties = base::NewJSONObject();
     ToJSONObject(*properties, "name", main.GetName());
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
-    ToJSONObject(*properties, "locales", locales);
+    ToJSONObject(*properties, "locales", localizator.BuildLocales());
     if (pid)
       ToJSONObject(*properties, "dref", *pid);
     else

@@ -28,17 +28,12 @@ using BoostRect = boost::geometry::model::box<BoostPoint>;
 class RegionWithName
 {
 public:
-  RegionWithName(StringUtf8Multilang const & name) : m_name(name) {}
+  explicit RegionWithName(StringUtf8Multilang name) : m_name(std::move(name)) {}
 
-  /// This function will take the following steps:
-  /// 1. Return the |languageCode| name if it exists.
-  /// 2. Return transliteration trying to use kPrefferedLanguages first, then any, if it succeeds.
-  /// 3. Otherwise, return empty string.
   std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
 
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const;
-  void SetMultilangName(StringUtf8Multilang const & name);
 
 protected:
   StringUtf8Multilang m_name;
@@ -47,7 +42,7 @@ protected:
 class RegionWithData
 {
 public:
-  RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}
+  explicit RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}
 
   base::GeoObjectId GetId() const;
   boost::optional<std::string> GetIsoCode() const;
