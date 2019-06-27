@@ -23,8 +23,8 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
-#include <string>
 #include <sstream>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -60,7 +60,8 @@ struct TagValue
 
   TagValue(std::string key, std::string value = {})
     : m_key{std::move(key)}, m_value{std::move(value)}
-  { }
+  {
+  }
 
   TagValue operator=(std::string const & value) const
   {
@@ -102,9 +103,8 @@ void CollectRegionInfo(std::string const & filename, std::vector<OsmElementData>
   collector.Save();
 }
 
-void BuildTestData(std::vector<OsmElementData> const & testData,
-                   RegionsBuilder::Regions & regions, PlacePointsMap & placePointsMap,
-                   RegionInfo & collector)
+void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder::Regions & regions,
+                   PlacePointsMap & placePointsMap, RegionInfo & collector)
 {
   for (auto const & elementData : testData)
   {
@@ -120,7 +120,8 @@ void BuildTestData(std::vector<OsmElementData> const & testData,
     {
       auto const & p1 = elementData.m_polygon[0];
       auto const & p2 = elementData.m_polygon[1];
-      vector<m2::PointD> poly = {{p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.x}};
+      vector<m2::PointD> poly = {
+          {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.x}};
       fb.AddPolygon(poly);
       fb.SetHoles({});
       fb.SetArea();
@@ -131,9 +132,7 @@ void BuildTestData(std::vector<OsmElementData> const & testData,
     fb.SetOsmId(osmId);
 
     FeatureParams params;
-    ftype::GetNameAndType(&el, params, [] (uint32_t type) {
-      return classif().IsTypeValid(type);
-    });
+    ftype::GetNameAndType(&el, params, [](uint32_t type) { return classif().IsTypeValid(type); });
     fb.SetParams(params);
 
     auto const id = fb.GetMostGenericOsmId();
@@ -176,7 +175,7 @@ std::vector<std::string> GenerateTestRegions(std::vector<OsmElementData> const &
   builder.ForEachCountry([&](std::string const & name, Node::PtrList const & outers) {
     for (auto const & tree : outers)
     {
-      ForEachLevelPath(tree, [&] (std::vector<Node::Ptr> const & path) {
+      ForEachLevelPath(tree, [&](std::vector<Node::Ptr> const & path) {
         kvRegions.push_back(ToLabelingString(path));
       });
     }
@@ -194,7 +193,7 @@ bool HasName(std::vector<string> const & coll, std::string const & name)
 bool ContainsSubname(std::vector<string> const & coll, std::string const & name)
 {
   auto const end = std::end(coll);
-  auto hasSubname = [&name] (std::string const & item) { return item.find(name) != string::npos; };
+  auto hasSubname = [&name](std::string const & item) { return item.find(name) != string::npos; };
   return std::find_if(std::begin(coll), end, hasSubname) != end;
 }
 
@@ -397,24 +396,26 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusCitySuburb)
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({
-    {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
-    {2, {name = u8"Сибирский федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
-    {3, {name = u8"Омская область", admin = "4", ba}, {{12, 12}, {18, 18}}},
-    {4, {name = u8"Омск", place = "city"}, {{14, 14}, {16, 16}}},
-    {5, {name = u8"городской округ Омск", admin = "6", ba}, {{14, 14}, {16, 16}},
-      {{6, NodeEntry, "admin_centre"}}},
-    {6, {name = u8"Омск", place = "city"}, {{14.5, 14.5}}},
-    {7, {name = u8"Кировский административный округ", admin = "9", ba}, {{14, 14}, {15, 15}}},
+      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+      {2, {name = u8"Сибирский федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+      {3, {name = u8"Омская область", admin = "4", ba}, {{12, 12}, {18, 18}}},
+      {4, {name = u8"Омск", place = "city"}, {{14, 14}, {16, 16}}},
+      {5,
+       {name = u8"городской округ Омск", admin = "6", ba},
+       {{14, 14}, {16, 16}},
+       {{6, NodeEntry, "admin_centre"}}},
+      {6, {name = u8"Омск", place = "city"}, {{14.5, 14.5}}},
+      {7, {name = u8"Кировский административный округ", admin = "9", ba}, {{14, 14}, {15, 15}}},
   });
 
-/*
-  TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
-                        u8"locality: Омск"),
-       ());
-  TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
-                        u8"locality: Омск, suburb: Кировский административный округ"),
-       ());
-*/
+  /*
+    TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
+                          u8"locality: Омск"),
+         ());
+    TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
+                          u8"locality: Омск, suburb: Кировский административный округ"),
+         ());
+  */
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
@@ -425,21 +426,25 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({
-    {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
-    {2, {name = u8"Центральный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
-    {3, {name = u8"Москва", admin = "4", ba}, {{12, 12}, {18, 18}}},
-    {4, {name = u8"Москва", place = "city"}, {{12, 12}, {17, 17}}},
-    {5, {name = u8"Западный административный округ", admin = "5", ba}, {{14, 14}, {16, 16}}},
-    {6, {name = u8"район Раменки", admin = "8", ba}, {{14, 14}, {15, 15}}, {{7, NodeEntry, "label"}}},
-    {7, {name = u8"Раменки", place = "suburb"}, {{14.5, 14.5}}}, // label
-    {8, {name = u8"Тропарёво", place = "suburb"}, {{15.1, 15.1}}}, // no label
-    {9, {name = u8"Воробъёвы горы", place = "suburb"}, {{14.5, 14.5}, {14.6, 14.6}}},
-    {10, {name = u8"Центр", place = "suburb"}, {{15, 15}, {15.5, 15.5}}},
+      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+      {2, {name = u8"Центральный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+      {3, {name = u8"Москва", admin = "4", ba}, {{12, 12}, {18, 18}}},
+      {4, {name = u8"Москва", place = "city"}, {{12, 12}, {17, 17}}},
+      {5, {name = u8"Западный административный округ", admin = "5", ba}, {{14, 14}, {16, 16}}},
+      {6,
+       {name = u8"район Раменки", admin = "8", ba},
+       {{14, 14}, {15, 15}},
+       {{7, NodeEntry, "label"}}},
+      {7, {name = u8"Раменки", place = "suburb"}, {{14.5, 14.5}}},    // label
+      {8, {name = u8"Тропарёво", place = "suburb"}, {{15.1, 15.1}}},  // no label
+      {9, {name = u8"Воробъёвы горы", place = "suburb"}, {{14.5, 14.5}, {14.6, 14.6}}},
+      {10, {name = u8"Центр", place = "suburb"}, {{15, 15}, {15.5, 15.5}}},
   });
 
   TEST(HasName(regions, u8"Россия, region: Москва"), ());
-  TEST(HasName(regions, u8"Россия, region: Москва, subregion: Западный административный округ, "
-                        u8"locality: Москва"),
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, subregion: Западный административный округ, "
+               u8"locality: Москва"),
        ());
   /* FIXME:
   TEST(HasName(regions, u8"Россия, region: Москва, subregion: Западный административный округ, "
@@ -449,8 +454,9 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
                         u8"locality: Москва, suburb: Раменки, sublocality: Воробъёвы горы"),
        ());
   */
-  TEST(HasName(regions, u8"Россия, region: Москва, subregion: Западный административный округ, "
-                        u8"locality: Москва, sublocality: Центр"),
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, subregion: Западный административный округ, "
+               u8"locality: Москва, sublocality: Центр"),
        ());
   TEST(!ContainsSubname(regions, u8"Тропарёво"), ());
 }
@@ -463,12 +469,12 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusSPetersburgSuburb)
   TagValue const ba{"boundary", "administrative"};
 
   auto regions = GenerateTestRegions({
-    {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
-    {2, {name = u8"Северо-Западный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
-    {3, {name = u8"Санкт-Петербург", admin = "4", ba}, {{12, 12}, {18, 18}}},
-    {4, {name = u8"Санкт-Петербург", place = "city"}, {{12, 12}, {17, 17}}},
-    {5, {name = u8"Центральный район", admin = "5", ba}, {{14, 14}, {16, 16}}},
-    {6, {name = u8"Дворцовый округ", admin = "8", ba}, {{14, 14}, {15, 15}}},
+      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+      {2, {name = u8"Северо-Западный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+      {3, {name = u8"Санкт-Петербург", admin = "4", ba}, {{12, 12}, {18, 18}}},
+      {4, {name = u8"Санкт-Петербург", place = "city"}, {{12, 12}, {17, 17}}},
+      {5, {name = u8"Центральный район", admin = "5", ba}, {{14, 14}, {16, 16}}},
+      {6, {name = u8"Дворцовый округ", admin = "8", ba}, {{14, 14}, {15, 15}}},
   });
 
   TEST(HasName(regions, u8"Россия, region: Санкт-Петербург, locality: Санкт-Петербург"), ());
@@ -493,7 +499,8 @@ bool TestTransliteration(Translations const & translations,
     regionName.AddString(langAndTranslation.first, langAndTranslation.second);
   }
   RegionWithName region(regionName);
-  return region.GetEnglishOrTransliteratedName() == expectedTransliteration;
+  return region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en")) ==
+         expectedTransliteration;
 }
 
 UNIT_TEST(RegionTransliteration)

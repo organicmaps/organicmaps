@@ -50,15 +50,10 @@ std::string RegionWithName::GetTranslatedOrTransliteratedName(
   };
 
   if (kPreferredLanguagesForTransliterate.count(languageCode) &&
-      m_name.ForEachLanguage(kPreferredLanguagesForTransliterate.at(languageCode), fn))
+      !m_name.ForEachLanguage(kPreferredLanguagesForTransliterate.at(languageCode), fn))
     m_name.ForEach(fn);
 
   return s;
-}
-
-std::string RegionWithName::GetEnglishOrTransliteratedName() const
-{
-  return GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
 }
 
 StringUtf8Multilang const & RegionWithName::GetMultilangName() const { return m_name; }

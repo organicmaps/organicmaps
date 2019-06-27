@@ -38,8 +38,6 @@ public:
   /// 3. Otherwise, return empty string.
   std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
 
-  /// GetTranslatedOrTransliteratedName for English
-  std::string GetEnglishOrTransliteratedName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const;
   void SetMultilangName(StringUtf8Multilang const & name);

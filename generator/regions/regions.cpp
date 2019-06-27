@@ -44,6 +44,14 @@ namespace regions
 {
 namespace
 {
+std::vector<std::string> kLocalelanguages = {"en", "ru"};
+struct LocaleWithLanguage
+{
+  base::JSONPtr m_locale;
+  std::string m_language;
+};
+using LocalesWithLanguages = std::vector<LocaleWithLanguage>;
+
 class RegionsGenerator
 {
 public:
@@ -64,7 +72,8 @@ public:
 
     RegionsBuilder::Regions regions;
     PlacePointsMap placePointsMap;
-    std::tie(regions, placePointsMap) = ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
+    std::tie(regions, placePointsMap) =
+        ReadDatasetFromTmpMwm(m_pathInRegionsTmpMwm, m_regionsInfoCollector);
     RegionsBuilder builder{std::move(regions), std::move(placePointsMap), threadsCount};
 
     GenerateRegions(builder);
@@ -76,7 +85,8 @@ private:
   {
     builder.ForEachCountry([&](std::string const & name, Node::PtrList const & outers) {
       auto const & countryPlace = outers.front()->GetData();
-      auto const & countryName = countryPlace.GetEnglishOrTransliteratedName();
+      auto const & countryName =
+          countryPlace.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
       GenerateKv(countryName, outers);
     });
 
@@ -100,9 +110,11 @@ private:
     ToJSONArray(*coordinates, center.m_lat);
     ToJSONObject(*geometry, "coordinates", coordinates);
 
-    auto localeEn = base::NewJSONObject();
     auto address = base::NewJSONObject();
     boost::optional<int64_t> pid;
+
+    LocalesWithLanguages localesWithLanguages;
+
     for (auto const & p : path)
     {
       auto const & region = p->GetData();
@@ -117,13 +129,20 @@ private:
         ToJSONObject(*address, std::string{label} + "_r", region.GetRank());
       }
 
-      ToJSONObject(*localeEn, label, region.GetEnglishOrTransliteratedName());
+      for (auto const & language : kLocalelanguages)
+      {
+        localesWithLanguages.emplace_back(LocaleWithLanguage{base::NewJSONObject(), language});
+        ToJSONObject(
+            *localesWithLanguages.back().m_locale, label,
+            region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language)));
+      }
       if (!pid && region.GetId() != main.GetId())
         pid = static_cast<int64_t>(region.GetId().GetEncodedId());
     }
 
     auto locales = base::NewJSONObject();
-    ToJSONObject(*locales, "en", localeEn);
+    for (auto & localeWithLanguage : localesWithLanguages)
+      ToJSONObject(*locales, localeWithLanguage.m_language, localeWithLanguage.m_locale);
 
     auto properties = base::NewJSONObject();
     ToJSONObject(*properties, "name", main.GetName());

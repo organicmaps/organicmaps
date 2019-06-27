@@ -2,8 +2,8 @@
 
 #include "geometry/mercator.hpp"
 
-#include <array>
 #include <algorithm>
+#include <array>
 #include <iomanip>
 #include <numeric>
 
@@ -65,7 +65,7 @@ NodePath MakeLevelPath(Node::Ptr const & node)
 
   // Sort by level in case that megapolis (PlaceLevel::Locality) contains subregions
   // (PlaceLevel::Subregions).
-  std::sort(path.begin(), path.end(), [] (Node::Ptr const & l, Node::Ptr const & r) {
+  std::sort(path.begin(), path.end(), [](Node::Ptr const & l, Node::Ptr const & r) {
     return l->GetData().GetLevel() < r->GetData().GetLevel();
   });
   return path;
@@ -91,12 +91,11 @@ void PrintTree(Node::Ptr const & node, std::ostream & stream = std::cout, std::s
   auto const point = d.GetCenter();
   auto const center = MercatorBounds::ToLatLon({point.get<0>(), point.get<1>()});
   auto const label = GetLabel(d.GetLevel());
-  stream << d.GetName() << "<" << d.GetEnglishOrTransliteratedName() << "> ("
-         << DebugPrint(d.GetId())
-         << ";" << (label ? label : "-")
-         << ";" << static_cast<size_t>(d.GetRank())
-         << ";[" << std::fixed << std::setprecision(7) << center.m_lat << "," << center.m_lon << "])"
-         << std::endl;
+  stream << d.GetName() << "<"
+         << d.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en")) << "> ("
+         << DebugPrint(d.GetId()) << ";" << (label ? label : "-") << ";"
+         << static_cast<size_t>(d.GetRank()) << ";[" << std::fixed << std::setprecision(7)
+         << center.m_lat << "," << center.m_lon << "])" << std::endl;
   for (size_t i = 0, size = children.size(); i < size; ++i)
     PrintTree(children[i], stream, prefix, i == size - 1);
 }
@@ -104,8 +103,8 @@ void PrintTree(Node::Ptr const & node, std::ostream & stream = std::cout, std::s
 void DebugPrintTree(Node::Ptr const & tree, std::ostream & stream)
 {
   stream << "ROOT NAME: " << tree->GetData().GetName() << std::endl;
-  stream << "MAX DEPTH: " <<  MaxDepth(tree) << std::endl;
-  stream << "TREE SIZE: " <<  TreeSize(tree) << std::endl;
+  stream << "MAX DEPTH: " << MaxDepth(tree) << std::endl;
+  stream << "TREE SIZE: " << TreeSize(tree) << std::endl;
   PrintTree(tree, stream);
   stream << std::endl;
 }

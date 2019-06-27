@@ -1,8 +1,8 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
-#include "generator/regions/region_base.hpp"
 #include "generator/regions/place_point.hpp"
+#include "generator/regions/region_base.hpp"
 
 #include <memory>
 
@@ -26,8 +26,8 @@ public:
   // Build a region and its boundary based on the heuristic.
   explicit Region(PlacePoint const & place);
 
-  // See RegionWithName::GetEnglishOrTransliteratedName().
-  std::string GetEnglishOrTransliteratedName() const;
+  // See RegionWithName::GetTranslatedOrTransliteratedName().
+  std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
 
   base::GeoObjectId GetId() const;

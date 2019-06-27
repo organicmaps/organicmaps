@@ -19,7 +19,7 @@ namespace generator
 {
 namespace regions
 {
-BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size_t numPoints  = 16)
+BoostPolygon MakePolygonWithRadius(BoostPoint const & point, double radius, size_t numPoints = 16)
 {
   boost::geometry::strategy::buffer::point_circle point_strategy(numPoints);
   boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(radius);
@@ -58,12 +58,12 @@ Region::Region(PlacePoint const & place)
   m_area = boost::geometry::area(*m_polygon);
 }
 
-std::string Region::GetEnglishOrTransliteratedName() const
+std::string Region::GetTranslatedOrTransliteratedName(LanguageCode languageCode) const
 {
   if (m_placeLabel)
-    return m_placeLabel->GetEnglishOrTransliteratedName();
+    return m_placeLabel->GetTranslatedOrTransliteratedName(languageCode);
 
-  return RegionWithName::GetEnglishOrTransliteratedName();
+  return RegionWithName::GetTranslatedOrTransliteratedName(languageCode);
 }
 
 std::string Region::GetName(int8_t lang) const
@@ -113,23 +113,16 @@ double Region::GetRadiusByPlaceType(PlaceType place)
   // Based on average radiuses of OSM place polygons.
   switch (place)
   {
-  case PlaceType::City:
-    return 0.078;
-  case PlaceType::Town:
-    return 0.033;
-  case PlaceType::Village:
-    return 0.013;
-  case PlaceType::Hamlet:
-    return 0.0067;
-  case PlaceType::Suburb:
-    return 0.016;
+  case PlaceType::City: return 0.078;
+  case PlaceType::Town: return 0.033;
+  case PlaceType::Village: return 0.013;
+  case PlaceType::Hamlet: return 0.0067;
+  case PlaceType::Suburb: return 0.016;
   case PlaceType::Quarter:
   case PlaceType::Neighbourhood:
-  case PlaceType::IsolatedDwelling:
-    return 0.0035;
+  case PlaceType::IsolatedDwelling: return 0.0035;
   case PlaceType::Unknown:
-  default:
-    UNREACHABLE();
+  default: UNREACHABLE();
   }
   UNREACHABLE();
 }
@@ -140,10 +133,7 @@ void Region::FillPolygon(FeatureBuilder const & fb)
   boost_helpers::FillPolygon(*m_polygon, fb);
 }
 
-bool Region::IsLocality() const
-{
-  return GetPlaceType() >= PlaceType::City;
-}
+bool Region::IsLocality() const { return GetPlaceType() >= PlaceType::City; }
 
 bool Region::Contains(Region const & smaller) const
 {
@@ -151,7 +141,7 @@ bool Region::Contains(Region const & smaller) const
   CHECK(smaller.m_polygon, ());
 
   return boost::geometry::covered_by(smaller.m_rect, m_rect) &&
-      boost::geometry::covered_by(*smaller.m_polygon, *m_polygon);
+         boost::geometry::covered_by(*smaller.m_polygon, *m_polygon);
 }
 
 double Region::CalculateOverlapPercentage(Region const & other) const
@@ -164,8 +154,8 @@ double Region::CalculateOverlapPercentage(Region const & other) const
 
   std::vector<BoostPolygon> coll;
   boost::geometry::intersection(*other.m_polygon, *m_polygon, coll);
-  auto const min = std::min(boost::geometry::area(*other.m_polygon),
-                            boost::geometry::area(*m_polygon));
+  auto const min =
+      std::min(boost::geometry::area(*other.m_polygon), boost::geometry::area(*m_polygon));
   auto const binOp = [](double x, BoostPolygon const & y) { return x + boost::geometry::area(y); };
   auto const sum = std::accumulate(std::begin(coll), std::end(coll), 0., binOp);
   return (sum / min) * 100;
@@ -198,12 +188,12 @@ bool Region::Contains(BoostPoint const & point) const
   CHECK(m_polygon, ());
 
   return boost::geometry::covered_by(point, m_rect) &&
-      boost::geometry::covered_by(point, *m_polygon);
+         boost::geometry::covered_by(point, *m_polygon);
 }
 
 std::string GetRegionNotation(Region const & region)
 {
-  auto notation = region.GetEnglishOrTransliteratedName();
+  auto notation = region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex("en"));
   if (notation.empty())
     return region.GetName();
 
