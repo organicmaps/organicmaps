@@ -40711,3 +40711,6 @@
 
   [per_year]
     en = year
+
+  [restore_purchase_link]
+    en = <a href="%s">Restore purchase</a>
