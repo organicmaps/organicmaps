@@ -240,7 +240,7 @@ def stage_external_resources(env):
                  for file in os.listdir(env.user_resource_path)
                  if file.endswith(".ttf") and file not in black_list]
     for ttf_file in resources:
-        shutil.copy2(ttf_file, env.intermediate_path)
+        shutil.copy2(ttf_file, env.mwm_path)
 
     shutil.copy2(
         os.path.join(env.user_resource_path, "WorldCoasts_obsolete.mwm"),
