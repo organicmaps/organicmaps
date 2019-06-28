@@ -67,9 +67,6 @@ private:
   };
 
 public:
-  // The radius which is used for looking for edges in some cases.
-  // Note. In case of looking for closest to start and finish segments in routing
-  // another algorith is using.
   static double constexpr kClosestEdgesRadiusM = 150.0;
 
   FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
