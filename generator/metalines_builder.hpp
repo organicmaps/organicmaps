@@ -5,10 +5,12 @@
 #include "generator/osm_element.hpp"
 
 #include <cstdlib>
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace generator
 {
@@ -48,9 +50,12 @@ public:
   using LinePtr = std::shared_ptr<LineString>;
   using InputData = std::unordered_multimap<size_t, LinePtr>;
   using OutputData = std::map<size_t, std::vector<LinePtr>>;
-  using Buffer = std::unordered_map<uint64_t, LinePtr>;
 
   static OutputData Merge(InputData const & data);
+
+private:
+  using Buffer = std::unordered_map<uint64_t, LinePtr>;
+
   static bool TryMerge(LinePtr const & lineString, Buffer & buffer);
   static bool TryMergeOne(LinePtr const & lineString, Buffer & buffer);
   static OutputData OrderData(InputData const & data);
@@ -70,8 +75,8 @@ public:
   void CollectFeature(FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 
-  void Merge(generator::CollectorInterface const * collector) override;
-  void MergeInto(MetalinesBuilder * collector) const override;
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(MetalinesBuilder & collector) const override;
 
 private:
   std::unordered_multimap<size_t, std::shared_ptr<LineString>> m_data;

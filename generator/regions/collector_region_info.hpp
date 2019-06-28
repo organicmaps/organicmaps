@@ -132,8 +132,8 @@ public:
 
   void Save() override;
 
-  void Merge(CollectorInterface const * collector) override;
-  void MergeInto(CollectorRegionInfo * collector) const override;
+  void Merge(CollectorInterface const & collector) override;
+  void MergeInto(CollectorRegionInfo & collector) const override;
 
 private:
   template <typename Sink, typename Map>

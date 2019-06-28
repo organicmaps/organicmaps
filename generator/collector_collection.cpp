@@ -13,7 +13,7 @@ CollectorCollection::Clone(std::shared_ptr<cache::IntermediateDataReader> const 
 {
   auto p = std::make_shared<CollectorCollection>();
   for (auto const & c : m_collection)
-   p->Append(c->Clone(cache));
+    p->Append(c->Clone(cache));
   return p;
 }
 
@@ -41,20 +41,16 @@ void CollectorCollection::Save()
     c->Save();
 }
 
-void CollectorCollection::Merge(CollectorInterface const * collector)
+void CollectorCollection::Merge(CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CollectorCollection *>(this));
+  collector.MergeInto(*this);
 }
 
-void CollectorCollection::MergeInto(CollectorCollection * collector) const
+void CollectorCollection::MergeInto(CollectorCollection & collector) const
 {
-  CHECK(collector, ());
-
-  auto & otherCollection = collector->m_collection;
+  auto & otherCollection = collector.m_collection;
   CHECK_EQUAL(m_collection.size(), otherCollection.size(), ());
   for (size_t i = 0; i < m_collection.size(); ++i)
-    otherCollection[i]->Merge(m_collection[i].get());
+    otherCollection[i]->Merge(*m_collection[i]);
 }
 }  // namespace generator

@@ -12,10 +12,12 @@
 #include <cstdint>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <ostream>
 #include <set>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 struct OsmElement;
@@ -69,7 +71,7 @@ private:
 class RoadAccessWriter : public generator::CollectorInterface
 {
 public:
-  RoadAccessWriter(std::string const & filename);
+  explicit RoadAccessWriter(std::string const & filename);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
@@ -78,8 +80,9 @@ public:
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
   void Save() override;
 
-  void Merge(generator::CollectorInterface const * collector) override;
-  void MergeInto(RoadAccessWriter * collector) const override;
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(RoadAccessWriter & collector) const override;
+
 private:
   std::ofstream m_stream;
   std::vector<RoadAccessTagProcessor> m_tagProcessors;

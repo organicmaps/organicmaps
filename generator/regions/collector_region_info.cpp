@@ -100,19 +100,15 @@ void CollectorRegionInfo::Save()
   WriteMap(writer, m_mapIsoCode);
 }
 
-void CollectorRegionInfo::Merge(CollectorInterface const * collector)
+void CollectorRegionInfo::Merge(CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CollectorRegionInfo *>(this));
+  collector.MergeInto(*this);
 }
 
-void CollectorRegionInfo::MergeInto(CollectorRegionInfo * collector) const
+void CollectorRegionInfo::MergeInto(CollectorRegionInfo & collector) const
 {
-  CHECK(collector, ());
-
-  collector->m_mapRegionData.insert(std::begin(m_mapRegionData), std::end(m_mapRegionData));
-  collector->m_mapIsoCode.insert(std::begin(m_mapIsoCode), std::end(m_mapIsoCode));
+  collector.m_mapRegionData.insert(std::begin(m_mapRegionData), std::end(m_mapRegionData));
+  collector.m_mapIsoCode.insert(std::begin(m_mapIsoCode), std::end(m_mapIsoCode));
 }
 
 void CollectorRegionInfo::FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el,

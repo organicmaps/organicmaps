@@ -420,18 +420,14 @@ void RoadAccessWriter::Save()
   out << stream.str();
 }
 
-void RoadAccessWriter::Merge(generator::CollectorInterface const * collector)
+void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<RoadAccessWriter *>(this));
+  collector.MergeInto(*this);
 }
 
-void RoadAccessWriter::MergeInto(RoadAccessWriter * collector) const
+void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
 {
-  CHECK(collector, ());
-
-  auto & otherProcessors = collector->m_tagProcessors;
+  auto & otherProcessors = collector.m_tagProcessors;
   CHECK_EQUAL(m_tagProcessors.size(), otherProcessors.size(), ());
 
   for (size_t i = 0; i < otherProcessors.size(); ++i)

@@ -16,11 +16,12 @@
 #include "defines.hpp"
 
 #include <cstdint>
+#include <limits>
 #include <map>
 
 namespace
 {
-uint8_t const kMetaLinesSectionVersion = 1;
+uint8_t constexpr kMetaLinesSectionVersion = 1;
 }  // namespace
 
 namespace feature
@@ -212,17 +213,14 @@ void MetalinesBuilder::Save()
                     "ways] with OSM IDs for the entire planet to", GetFilename()));
 }
 
-void MetalinesBuilder::Merge(generator::CollectorInterface const * collector)
+void MetalinesBuilder::Merge(generator::CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<MetalinesBuilder *>(this));
+  collector.MergeInto(*this);
 }
 
-void MetalinesBuilder::MergeInto(MetalinesBuilder * collector) const
+void MetalinesBuilder::MergeInto(MetalinesBuilder & collector) const
 {
-  CHECK(collector, ());
-  collector->m_data.insert(std::begin(m_data), std::end(m_data));
+  collector.m_data.insert(std::begin(m_data), std::end(m_data));
 }
 
 // Functions --------------------------------------------------------------------------------

@@ -37,18 +37,14 @@ void CityBoundaryCollector::Save()
   }
 }
 
-void CityBoundaryCollector::Merge(generator::CollectorInterface const * collector)
+void CityBoundaryCollector::Merge(generator::CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CityBoundaryCollector *>(this));
+  collector.MergeInto(*this);
 }
 
-void CityBoundaryCollector::MergeInto(CityBoundaryCollector * collector) const
+void CityBoundaryCollector::MergeInto(CityBoundaryCollector & collector) const
 {
-  CHECK(collector, ());
-
   std::copy(std::begin(m_boundaries), std::end(m_boundaries),
-            std::back_inserter(collector->m_boundaries));
+            std::back_inserter(collector.m_boundaries));
 }
 }  // namespace generator

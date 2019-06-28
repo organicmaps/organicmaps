@@ -40,10 +40,7 @@ public:
   void GetNames(std::vector<std::string> & names) const override;
 
   void AddCollector(std::shared_ptr<CollectorInterface> collector);
-  void AddCollectorCollection(CollectorCollection const & collectors);
-
   void AddFilter(std::shared_ptr<FilterInterface> filter);
-  void AddFilterCollection(FilterCollection const & filters);
 
 protected:
   FilterCollection m_filters;

@@ -6,9 +6,9 @@
 #include "generator/collector_interface.hpp"
 #include "generator/collector_tag.hpp"
 
-#include "base/geo_object_id.hpp"
-
 #include "platform/platform.hpp"
+
+#include "base/geo_object_id.hpp"
 
 #include <fstream>
 #include <memory>
@@ -38,7 +38,7 @@ UNIT_TEST(MergeCollector_Case1)
   collector2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
   collector2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
 
-  collector1->Merge(collector2.get());
+  collector1->Merge(*collector2);
   collector1->Save();
 
   std::vector<std::string> const answers = {
@@ -72,7 +72,7 @@ UNIT_TEST(MergeCollector_Case2)
   collection2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
   collection2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
 
-  collection1->Merge(collection2.get());
+  collection1->Merge(*collection2);
   collection1->Save();
 
   std::vector<std::string> const answers = {

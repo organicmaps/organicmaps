@@ -38,8 +38,8 @@ public:
   void Collect(OsmElement const & el) override;
   void Save() override;
 
-  void Merge(CollectorInterface const * collector) override;
-  void MergeInto(CollectorTag * collector) const override;
+  void Merge(CollectorInterface const & collector) override;
+  void MergeInto(CollectorTag & collector) const override;
 private:
   std::stringstream m_stream;
   std::string m_tagKey;

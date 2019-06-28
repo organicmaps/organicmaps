@@ -33,7 +33,7 @@ public:
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 
-  void Merge(CollectorInterface const * collector) override;
-  void MergeInto(CollectorCollection * collector) const override;
+  void Merge(CollectorInterface const & collector) override;
+  void MergeInto(CollectorCollection & collector) const override;
 };
 }  // namespace generator

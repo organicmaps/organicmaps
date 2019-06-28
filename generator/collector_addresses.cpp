@@ -36,17 +36,13 @@ void CollectorAddresses::Save()
   stream << m_stringStream.str();
 }
 
-void CollectorAddresses::Merge(CollectorInterface const * collector)
+void CollectorAddresses::Merge(CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CollectorAddresses *>(this));
+  collector.MergeInto(*this);
 }
 
-void CollectorAddresses::MergeInto(CollectorAddresses * collector) const
+void CollectorAddresses::MergeInto(CollectorAddresses & collector) const
 {
-  CHECK(collector, ());
-
-  collector->m_stringStream << m_stringStream.str();
+  collector.m_stringStream << m_stringStream.str();
 }
 }  // namespace generator

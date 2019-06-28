@@ -25,8 +25,8 @@ public:
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Save() override;
 
-  void Merge(generator::CollectorInterface const * collector) override;
-  void MergeInto(CityBoundaryCollector * collector) const override;
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(CityBoundaryCollector & collector) const override;
 
 private:
   std::vector<feature::FeatureBuilder> m_boundaries;

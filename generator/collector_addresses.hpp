@@ -16,7 +16,7 @@ class IntermediateDataReader;
 class CollectorAddresses : public CollectorInterface
 {
 public:
-  CollectorAddresses(std::string const & filename);
+  explicit CollectorAddresses(std::string const & filename);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
@@ -25,8 +25,8 @@ public:
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Save() override;
 
-  void Merge(CollectorInterface const * collector) override;
-  void MergeInto(CollectorAddresses * collector) const override;
+  void Merge(CollectorInterface const & collector) override;
+  void MergeInto(CollectorAddresses & collector) const override;
 
 private:
   std::stringstream m_stringStream;

@@ -44,8 +44,8 @@ public:
   void CollectRelation(RelationElement const & relationElement) override;
   void Save() override;
 
-  void Merge(generator::CollectorInterface const * collector) override;
-  void MergeInto(RestrictionWriter * collector) const override;
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(RestrictionWriter & collector) const override;
 
   static ViaType ConvertFromString(std::string const & str);
 

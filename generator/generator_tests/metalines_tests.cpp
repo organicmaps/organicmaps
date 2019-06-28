@@ -14,7 +14,8 @@ using namespace feature;
 
 namespace
 {
-OsmElement MakeHighway(uint64_t id, std::string const & name, std::vector<uint64_t> const & nodes, bool isOneway = false)
+OsmElement MakeHighway(uint64_t id, std::string const & name, std::vector<uint64_t> const & nodes,
+                       bool isOneway = false)
 {
   OsmElement element;
   element.m_id = id;
@@ -44,7 +45,7 @@ LineStringMerger::InputData MakeInputData(std::vector<OsmElement> const & elemen
   return inputData;
 };
 
-bool IsEquil(LineStringMerger::LinePtr const & lineString, std::vector<int32_t> const & ways)
+bool IsEqual(LineStringMerger::LinePtr const & lineString, std::vector<int32_t> const & ways)
 {
   auto const & w = lineString->GetWays();
   return w == ways;
@@ -83,7 +84,7 @@ UNIT_TEST(MetalinesTest_Case1)
   auto const key = MakeKey(w1);
   TEST_EQUAL(outputData.size(), 1 /* unique names roads count */, ());
   TEST_EQUAL(outputData.at(key)[0]->GetWays().size(), 2 /* merged way size */, ());
-  TEST(IsEquil(outputData.at(key)[0], {1, 2}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[0], {1, 2}) /* merged way */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case2)
@@ -94,7 +95,7 @@ UNIT_TEST(MetalinesTest_Case2)
   auto const key = MakeKey(w1);
   TEST_EQUAL(outputData.size(), 1 /* unique names roads count */, ());
   TEST_EQUAL(outputData.at(key)[0]->GetWays().size(), 3 /* merged way size */, ());
-  TEST(IsEquil(outputData.at(key)[0], {1, 2, 3}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[0], {1, 2, 3}) /* merged way */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case3)
@@ -107,10 +108,10 @@ UNIT_TEST(MetalinesTest_Case3)
   TEST_EQUAL(outputData.at(key).size(), 2 /* ways count */, ());
 
   TEST_EQUAL(outputData.at(key)[0]->GetWays().size(), 2 /* merged way size  */, ());
-  TEST(IsEquil(outputData.at(key)[0], {1, 2}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[0], {1, 2}) /* merged way */, ());
 
   TEST_EQUAL(outputData.at(key)[1]->GetWays().size(), 2 /* merged way size  */, ());
-  TEST(IsEquil(outputData.at(key)[1], {4, 5}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[1], {4, 5}) /* merged way */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case4)
@@ -121,7 +122,7 @@ UNIT_TEST(MetalinesTest_Case4)
   auto const key = MakeKey(w1);
   TEST_EQUAL(outputData.size(), 1 /* unique names roads count */, ());
   TEST_EQUAL(outputData.at(key).size(), 1 /* ways count */, ());
-  TEST(IsEquil(outputData.at(key)[0], {6, -1}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[0], {6, -1}) /* merged way */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case5)
@@ -132,7 +133,7 @@ UNIT_TEST(MetalinesTest_Case5)
   auto const key = MakeKey(w1);
   TEST_EQUAL(outputData.size(), 1 /* unique names roads count */, ());
   TEST_EQUAL(outputData.at(key).size(), 1 /* ways count */, ());
-  TEST(IsEquil(outputData.at(key)[0], {1, 2}) /* merged way */, ());
+  TEST(IsEqual(outputData.at(key)[0], {1, 2}) /* merged way */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case6)

@@ -155,24 +155,21 @@ void CameraCollector::Write(FileWriter & writer, CameraProcessor::CameraInfo con
 
 void CameraCollector::Save()
 {
-  LOG(LINFO, ("void CameraCollector::Save()"));
   using namespace std::placeholders;
   m_processor.FillCameraInWays();
   FileWriter writer(GetFilename());
-  m_processor.ForEachCamera(std::bind(&CameraCollector::Write, this, std::ref(writer), _1, _2));
+  m_processor.ForEachCamera([&](auto const & camera, auto const & ways) {
+    Write(writer, camera, ways);
+  });
 }
 
-void CameraCollector::Merge(generator::CollectorInterface const * collector)
+void CameraCollector::Merge(generator::CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CameraCollector *>(this));
+  collector.MergeInto(*this);
 }
 
-void CameraCollector::MergeInto(CameraCollector * collector) const
+void CameraCollector::MergeInto(CameraCollector & collector) const
 {
-  CHECK(collector, ());
-
-  collector->m_processor.Merge(this->m_processor);
+  collector.m_processor.Merge(this->m_processor);
 }
 }  // namespace routing

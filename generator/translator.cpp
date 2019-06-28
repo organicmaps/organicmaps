@@ -64,18 +64,8 @@ void Translator::AddCollector(std::shared_ptr<CollectorInterface> collector)
   m_collectors.Append(collector);
 }
 
-void Translator::AddCollectorCollection(CollectorCollection const & collectors)
-{
-  m_collectors.AddCollection(collectors);
-}
-
 void Translator::AddFilter(std::shared_ptr<FilterInterface> filter)
 {
   m_filters.Append(filter);
-}
-
-void Translator::AddFilterCollection(FilterCollection const & filters)
-{
-  m_filters.AddCollection(filters);
 }
 }  // namespace generator

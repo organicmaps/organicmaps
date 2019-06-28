@@ -50,17 +50,13 @@ void CollectorTag::Save()
   }
 }
 
-void CollectorTag::Merge(CollectorInterface const * collector)
+void CollectorTag::Merge(CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<CollectorTag *>(this));
+  collector.MergeInto(*this);
 }
 
-void CollectorTag::MergeInto(CollectorTag * collector) const
+void CollectorTag::MergeInto(CollectorTag & collector) const
 {
-  CHECK(collector, ());
-
-  collector->m_stream << this->m_stream.str();
+  collector.m_stream << m_stream.str();
 }
 }  // namespace generator

@@ -102,7 +102,6 @@ RestrictionWriter::RestrictionWriter(std::string const & filename,
 std::shared_ptr<generator::CollectorInterface>
 RestrictionWriter::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & cache) const
 {
-//  auto c = cache ? cache : m_cache;
   return std::make_shared<RestrictionWriter>(GetFilename(), *cache);
 }
 
@@ -212,18 +211,14 @@ void RestrictionWriter::Save()
   stream << m_stream.str();
 }
 
-void RestrictionWriter::Merge(generator::CollectorInterface const * collector)
+void RestrictionWriter::Merge(generator::CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<RestrictionWriter *>(this));
+  collector.MergeInto(*this);
 }
 
-void RestrictionWriter::MergeInto(RestrictionWriter * collector) const
+void RestrictionWriter::MergeInto(RestrictionWriter & collector) const
 {
-  CHECK(collector, ());
-
-  collector->m_stream << m_stream.str();
+  collector.m_stream << m_stream.str();
 }
 
 std::string DebugPrint(RestrictionWriter::ViaType const & type)

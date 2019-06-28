@@ -90,14 +90,13 @@ public:
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 
-  void Merge(generator::CollectorInterface const * collector) override;
-  void MergeInto(CameraCollector * collector) const override;
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(CameraCollector & collector) const override;
 
 private:
   void Write(FileWriter & writer, CameraProcessor::CameraInfo const & camera,
              std::vector<uint64_t> const & ways);
 
-  std::vector<uint8_t> m_buffer;
   CameraProcessor m_processor;
 };
 }  // namespace routing

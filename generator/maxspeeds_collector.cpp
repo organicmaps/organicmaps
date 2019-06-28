@@ -39,10 +39,10 @@ MaxspeedsCollector::MaxspeedsCollector(string const & filename)
   : CollectorInterface(filename) {}
 
 
-std::shared_ptr<CollectorInterface>
-MaxspeedsCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
+shared_ptr<CollectorInterface>
+MaxspeedsCollector::Clone(shared_ptr<cache::IntermediateDataReader> const &) const
 {
-  return std::make_shared<MaxspeedsCollector>(GetFilename());
+  return make_shared<MaxspeedsCollector>(GetFilename());
 }
 
 void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const & p)
@@ -125,17 +125,13 @@ void MaxspeedsCollector::Save()
   LOG(LINFO, ("Wrote", m_data.size(), "maxspeed tags to", GetFilename()));
 }
 
-void MaxspeedsCollector::Merge(CollectorInterface const * collector)
+void MaxspeedsCollector::Merge(CollectorInterface const & collector)
 {
-  CHECK(collector, ());
-
-  collector->MergeInto(const_cast<MaxspeedsCollector *>(this));
+  collector.MergeInto(*this);
 }
 
-void MaxspeedsCollector::MergeInto(MaxspeedsCollector * collector) const
+void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {
-  CHECK(collector, ());
-
-  copy(begin(m_data), end(m_data), back_inserter(collector->m_data));
+  copy(begin(m_data), end(m_data), back_inserter(collector.m_data));
 }
 }  // namespace generator

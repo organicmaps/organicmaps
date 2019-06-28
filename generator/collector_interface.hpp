@@ -59,23 +59,23 @@ public:
   virtual void CollectFeature(feature::FeatureBuilder const &, OsmElement const &) {}
   virtual void Save() = 0;
 
-  virtual void Merge(CollectorInterface const *) = 0;
+  virtual void Merge(CollectorInterface const &) = 0;
 
-  virtual void MergeInto(CityBoundaryCollector *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(routing::CameraCollector *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(routing::RestrictionWriter *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(routing::RoadAccessWriter *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(CollectorAddresses *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(CollectorTag *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(MaxspeedsCollector *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(feature::MetalinesBuilder *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(regions::CollectorRegionInfo *) const { FailIfMethodUnsuppirted(); }
-  virtual void MergeInto(CollectorCollection *) const { FailIfMethodUnsuppirted(); }
+  virtual void MergeInto(CityBoundaryCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing::RestrictionWriter &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(CollectorAddresses &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(CollectorTag &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(MaxspeedsCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(feature::MetalinesBuilder &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(regions::CollectorRegionInfo &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
 
   std::string const & GetFilename() const { return m_filename; }
 
 private:
-  void FailIfMethodUnsuppirted() const { CHECK(false, ("This method is unsupported.")); }
+  void FailIfMethodUnsupported() const { CHECK(false, ("This method is unsupported.")); }
 
   std::string m_filename;
 };
