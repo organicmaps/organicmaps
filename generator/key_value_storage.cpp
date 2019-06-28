@@ -1,12 +1,15 @@
 #include "generator/key_value_storage.hpp"
-#include <boost/algorithm/string.hpp>
+
+#include "coding/reader.hpp"
+
+#include "base/exception.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <cstring>
 #include <iomanip>
-#include "base/exception.hpp"
-#include "base/logging.hpp"
-#include "coding/reader.hpp"
+
+#include <boost/algorithm/string.hpp>
 namespace generator
 {
 KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCountLimit,
@@ -63,15 +66,13 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff
   }
 
   std::string idStr = line.substr(0, pos);
-  boost::to_lower(idStr);
-  uint64_t id = 0;
-  if (!strings::to_uint64(idStr, id, 16))
+
+  if (!strings::to_uint64(idStr, key, 16))
   {
     LOG(LWARNING, ("Cannot parse id", line.substr(0, pos), "in line", lineNumber));
     return false;
   }
 
-  key = id;
   value = line.c_str() + pos + 1;
   return true;
 }
@@ -90,7 +91,7 @@ void KeyValueStorage::Insert(uint64_t key, JsonValue && value)
   auto const & emplaceIterator = emplaceResult.first;
   auto const & result = boost::get<std::string>(emplaceIterator->second);
 
-  m_storage << Serialize(key) << " " << result << "\n";
+  m_storage << SerializeDref(key) << " " << result << "\n";
 }
 
 std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
@@ -109,7 +110,7 @@ std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
   return json;
 }
 
-std::string KeyValueStorage::Serialize(uint64_t number)
+std::string KeyValueStorage::SerializeDref(uint64_t number)
 {
   std::stringstream stream;
   stream << std::setw(16) << std::setfill('0') << std::hex << number;

@@ -253,6 +253,10 @@ UNIT_TEST(to_uint64)
   TEST(strings::to_uint64(s, i), ());
   TEST_EQUAL(123456789101112ULL, i, ());
 
+  s = "AF";
+  TEST(strings::to_uint64(s, i, 16), ());
+  TEST_EQUAL(175, i, ());
+
   s = "labuda";
   TEST(!strings::to_uint64(s, i), ());
 }

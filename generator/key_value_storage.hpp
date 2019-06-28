@@ -62,7 +62,7 @@ public:
     return base::DumpToString(ptr, JSON_COMPACT | JSON_REAL_PRECISION(kDefaultPrecision));
   }
 
-  static std::string Serialize(uint64_t number);
+  static std::string SerializeDref(uint64_t number);
 
 private:
   using Value = boost::variant<std::shared_ptr<JsonValue>, std::string>;

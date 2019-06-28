@@ -135,6 +135,7 @@ private:
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
     ToJSONObject(*properties, "locales", localizator.BuildLocales());
+
     if (dref)
       ToJSONObject(*properties, "dref", *dref);
     else
@@ -183,7 +184,7 @@ private:
 
         if (regionCountryEmplace.second)
         {
-          m_regionsKv << KeyValueStorage::Serialize(objectId.GetEncodedId()) << " "
+          m_regionsKv << KeyValueStorage::SerializeDref(objectId.GetEncodedId()) << " "
                       << KeyValueStorage::Serialize(BuildRegionValue(path)) << "\n";
           ++countryObjectCount;
         }
