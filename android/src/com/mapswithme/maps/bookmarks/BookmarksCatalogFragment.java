@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -247,6 +249,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
   {
+    private static final String SUBSCRIBE_PATH_SEGMENT = "subscribe";
     private final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
     private final String TAG = WebViewBookmarksCatalogClient.class.getSimpleName();
 
@@ -269,6 +272,33 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         return false;
 
       return fragment.downloadBookmark(url);
+    }
+
+    @Nullable
+    @Override
+    public WebResourceResponse shouldInterceptRequest(WebView view, String url)
+    {
+      WebResourceResponse webResourceResponse = super.shouldInterceptRequest(view, url);
+      Uri uri = Uri.parse(url);
+      List<String> pathSegments = uri.getPathSegments();
+      for (String each : pathSegments)
+      {
+        if (TextUtils.equals(each, SUBSCRIBE_PATH_SEGMENT))
+        {
+          openSubscriptionScreen();
+          return webResourceResponse;
+        }
+      }
+      return webResourceResponse;
+    }
+
+    private void openSubscriptionScreen()
+    {
+      BookmarksCatalogFragment frag = mReference.get();
+      if (frag == null || frag.getActivity() == null)
+        return;
+
+      frag.startActivity(new Intent(frag.requireContext(), BookmarkSubscriptionActivity.class));
     }
 
     @Override
