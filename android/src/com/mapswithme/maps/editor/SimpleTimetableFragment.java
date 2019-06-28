@@ -3,7 +3,6 @@ package com.mapswithme.maps.editor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,14 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.editor.data.HoursMinutes;
-import com.mapswithme.maps.editor.data.Timetable;
 
 public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimetableAdapter>
-                                  implements TimetableFragment.TimetableProvider,
+                                  implements TimetableProvider,
                                              HoursMinutesPickerFragment.OnPickListener
 {
   private SimpleTimetableAdapter mAdapter;
-  private Timetable[] mInitTts;
+  @Nullable
+  private String mInitTimetables;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -31,8 +30,7 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimet
   protected SimpleTimetableAdapter createAdapter()
   {
     mAdapter = new SimpleTimetableAdapter(this);
-    if (mInitTts != null)
-      mAdapter.setTimetables(mInitTts);
+    mAdapter.setTimetables(mInitTimetables);
     return mAdapter;
   }
 
@@ -56,15 +54,14 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimet
   }
 
   @Override
+  public void setTimetables(String timetables)
+  {
+    mInitTimetables = timetables;
+  }
+
+  @Override
   public void onHoursMinutesPicked(HoursMinutes from, HoursMinutes to, int id)
   {
     mAdapter.onHoursMinutesPicked(from, to, id);
-  }
-
-  public void setTimetables(String ttsString)
-  {
-    if (ttsString == null)
-      return;
-    mInitTts = OpeningHours.nativeTimetablesFromString(ttsString);
   }
 }

@@ -207,8 +207,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editTimetable()
   {
     final Bundle args = new Bundle();
-    args.putString(TimetableFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
-    editWithFragment(Mode.OPENING_HOURS, R.string.editor_time_title, args, TimetableFragment.class, false);
+    args.putString(TimetableContainerFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
+    editWithFragment(Mode.OPENING_HOURS, R.string.editor_time_title, args, TimetableContainerFragment.class, false);
   }
 
   protected void editStreet()
@@ -268,7 +268,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       switch (mMode)
       {
       case OPENING_HOURS:
-        final String timetables = ((TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName())).getTimetable();
+        final String timetables = ((TimetableContainerFragment) getChildFragmentManager().findFragmentByTag(TimetableContainerFragment.class.getName())).getTimetable();
         if (OpeningHours.nativeIsTimetableStringValid(timetables))
         {
           Editor.nativeSetOpeningHours(timetables);

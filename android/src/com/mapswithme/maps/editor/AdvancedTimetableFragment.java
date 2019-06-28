@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,23 +20,24 @@ import com.mapswithme.util.UiUtils;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment
                                     implements View.OnClickListener,
-                                               TimetableFragment.TimetableProvider
+                                               TimetableProvider
 {
   private boolean mIsExampleShown;
   private EditText mInput;
   private WebView mExample;
-  private Timetable[] mInitTimetables;
+  @Nullable
+  private String mInitTimetables;
   private TextView mExamplesTitle;
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_timetable_advanced, container, false);
   }
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     initViews(view);
@@ -97,15 +99,16 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     return mInput.getText().toString();
   }
 
-  public void setTimetables(String timetables)
+  @Override
+  public void setTimetables(@Nullable String timetables)
   {
-    mInitTimetables = OpeningHours.nativeTimetablesFromString(timetables);
+    mInitTimetables = timetables;
     refreshTimetables();
   }
 
   private void refreshTimetables()
   {
     if (mInput != null && mInitTimetables != null)
-      mInput.setText(OpeningHours.nativeTimetablesToString(mInitTimetables));
+      mInput.setText(mInitTimetables);
   }
 }

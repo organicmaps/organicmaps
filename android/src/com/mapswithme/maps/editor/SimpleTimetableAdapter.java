@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -29,7 +30,7 @@ import java.util.List;
 
 class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter.BaseTimetableViewHolder>
                           implements HoursMinutesPickerFragment.OnPickListener,
-                                     TimetableFragment.TimetableProvider
+                                     TimetableProvider
 {
   private static final int TYPE_TIMETABLE = 0;
   private static final int TYPE_ADD_TIMETABLE = 1;
@@ -52,9 +53,15 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     refreshComplement();
   }
 
-  void setTimetables(Timetable[] tts)
+  @Override
+  public void setTimetables(@Nullable String timetables)
   {
-    mItems = new ArrayList<>(Arrays.asList(tts));
+    if (timetables == null)
+      return;
+    Timetable[] items = OpeningHours.nativeTimetablesFromString(timetables);
+    if (items == null)
+      return;
+    mItems = new ArrayList<>(Arrays.asList(items));
     refreshComplement();
     notifyDataSetChanged();
   }
