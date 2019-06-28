@@ -127,7 +127,7 @@ private:
       });
 
       if (!dref && region.GetId() != main.GetId())
-        dref = KeyValueStorage::Serialize(region.GetId().GetEncodedId());
+        dref = KeyValueStorage::SerializeDref(region.GetId().GetEncodedId());
     }
 
     auto properties = base::NewJSONObject();
