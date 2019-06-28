@@ -1667,6 +1667,7 @@
 	<string name="timeout_error_message">Our servers don\'t respond. Please check the internet connection and try again.</string>
 	<string name="per_month">mo</string>
 	<string name="per_year">year</string>
+	<string name="restore_purchase_link">&lt;a href="%s">Restore purchase&lt;/a></string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

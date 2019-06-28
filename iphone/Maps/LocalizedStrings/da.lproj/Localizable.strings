@@ -2914,6 +2914,8 @@
 
 "per_year" = "year";
 
+"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+
 
 /**********  Partners  **********/
 
