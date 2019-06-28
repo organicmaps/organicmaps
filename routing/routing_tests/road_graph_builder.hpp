@@ -26,9 +26,6 @@ public:
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgeLoader) const override;
-  void FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                        routing::IsGoodFeatureFn const & isGoodFeature,
-                        std::vector<std::pair<Edge, routing::Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(routing::Junction const & junction, feature::TypesHolder & types) const override;
   routing::IRoadGraph::Mode GetMode() const override;

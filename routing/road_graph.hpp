@@ -307,12 +307,12 @@ public:
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             ICrossEdgesLoader & edgesLoader) const = 0;
 
-  /// Finds the closest edges to the point.
+  /// Finds the closest edges to the center of |rect|.
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
   virtual void FindClosestEdges(m2::RectD const & rect, uint32_t count,
                                 IsGoodFeatureFn const & isGoodFeature,
-                                std::vector<std::pair<Edge, Junction>> & vicinities) const = 0;
+                                std::vector<std::pair<Edge, Junction>> & vicinities) const {};
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;

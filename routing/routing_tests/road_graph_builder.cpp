@@ -95,12 +95,6 @@ void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cro
   }
 }
 
-void RoadGraphMockSource::FindClosestEdges(m2::RectD const &, uint32_t,
-                                           routing::IsGoodFeatureFn const &,
-                                           std::vector<std::pair<Edge, Junction>> &) const
-{
-}
-
 void RoadGraphMockSource::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   UNUSED_VALUE(featureId);
