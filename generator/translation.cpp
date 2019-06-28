@@ -1,7 +1,10 @@
 #include "translation.hpp"
 
 #include "base/string_utils.hpp"
+
 #include "coding/transliteration.hpp"
+
+#include <unordered_map>
 
 namespace
 {

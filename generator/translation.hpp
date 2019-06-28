@@ -1,13 +1,17 @@
 #pragma once
 
-#include "3party/jansson/myjansson.hpp"
 #include "coding/string_utf8_multilang.hpp"
+
+#include "3party/jansson/myjansson.hpp"
+
+#include <string>
+#include <vector>
 
 namespace generator
 {
 using LanguageCode = int8_t;
 
-inline std::string GetName(StringUtf8Multilang const & name, int8_t lang)
+inline std::string GetName(StringUtf8Multilang const & name, LanguageCode lang)
 {
   std::string s;
   VERIFY(name.GetString(lang, s) != s.empty(), ());
@@ -15,8 +19,9 @@ inline std::string GetName(StringUtf8Multilang const & name, int8_t lang)
 }
 
 /// This function will take the following steps:
-/// 1. Return the |languageCode| name if it exists.
-/// 2. Return transliteration trying to use kPreferredLanguagesForTransliterate
+/// 1. Return the |languageCode| name if it exists and is ASCII.
+/// 2. Try to get International name
+/// 3. Return transliteration trying to use kPreferredLanguagesForTransliterate
 /// first, then any, if it succeeds.
 /// 3. Otherwise, return empty string.
 std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
