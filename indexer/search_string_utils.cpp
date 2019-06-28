@@ -435,7 +435,14 @@ bool ContainsNormalized(string const & str, string const & substr)
 // StreetTokensFilter ------------------------------------------------------------------------------
 void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, size_t tag)
 {
-  if ((isPrefix && IsStreetSynonymPrefix(token)) || (!isPrefix && IsStreetSynonym(token)))
+  using IsStreetChecker = std::function<bool(strings::UniString const &)>;
+
+  IsStreetChecker isStreet = m_withMisprints ? IsStreetSynonymWithMisprints : IsStreetSynonym;
+  IsStreetChecker isStreetPrefix =
+      m_withMisprints ? IsStreetSynonymPrefixWithMisprints : IsStreetSynonymPrefix;
+
+  auto const isStreetSynonym = isStreet(token);
+  if ((isPrefix && isStreetPrefix(token)) || (!isPrefix && isStreetSynonym))
   {
     ++m_numSynonyms;
     if (m_numSynonyms == 1)
@@ -446,7 +453,7 @@ void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, si
     }
 
     // Do not emit delayed token for incomplete street synonym.
-    if ((!isPrefix || IsStreetSynonym(token)) && m_numSynonyms == 2)
+    if ((!isPrefix || isStreetSynonym) && m_numSynonyms == 2)
       EmitToken(m_delayedToken, m_delayedTag);
   }
   EmitToken(token, tag);

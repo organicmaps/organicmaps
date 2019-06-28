@@ -124,48 +124,55 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
       }
     };
 
-    StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
-                              {
-                                auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
-                                if (tag < curToken)
+    auto findStreets = [&](bool withMisprints)
+    {
+      StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
                                 {
-                                  // This is the case for delayed
-                                  // street synonym.  Therefore,
-                                  // |streets| is temporarily in the
-                                  // incomplete state.
+                                  auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
+                                  if (tag < curToken)
+                                  {
+                                    // This is the case for delayed
+                                    // street synonym.  Therefore,
+                                    // |streets| is temporarily in the
+                                    // incomplete state.
+                                    streets = buffer;
+                                    all = all.Intersect(ctx.m_features[tag].m_features);
+                                    emptyIntersection = false;
+
+                                    incomplete = true;
+                                    return;
+                                  }
+                                  ASSERT_EQUAL(tag, curToken, ());
+
+                                  // |streets| will become empty after
+                                  // the intersection. Therefore we need
+                                  // to create streets layer right now.
+                                  if (buffer.IsEmpty())
+                                    emit();
+
                                   streets = buffer;
                                   all = all.Intersect(ctx.m_features[tag].m_features);
                                   emptyIntersection = false;
+                                  incomplete = false;
+                                },
+                                withMisprints);
 
-                                  incomplete = true;
-                                  return;
-                                }
-                                ASSERT_EQUAL(tag, curToken, ());
+      for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty();
+           ++curToken)
+      {
+        auto const & token = params.GetToken(curToken).GetOriginal();
+        bool const isPrefix = params.IsPrefixToken(curToken);
 
-                                // |streets| will become empty after
-                                // the intersection. Therefore we need
-                                // to create streets layer right now.
-                                if (buffer.IsEmpty())
-                                  emit();
+        if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
+          emit();
 
-                                streets = buffer;
-                                all = all.Intersect(ctx.m_features[tag].m_features);
-                                emptyIntersection = false;
-                                incomplete = false;
-                              });
+        filter.Put(token, isPrefix, curToken);
+      }
+      emit();
+    };
 
-    for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty();
-         ++curToken)
-    {
-      auto const & token = params.GetToken(curToken).GetOriginal();
-      bool const isPrefix = params.IsPrefixToken(curToken);
-
-      if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
-        emit();
-
-      filter.Put(token, isPrefix, curToken);
-    }
-    emit();
+    findStreets(false /* withMisprints */);
+    findStreets(true /* withMisprints */);
   }
 }
 }  // namespace search

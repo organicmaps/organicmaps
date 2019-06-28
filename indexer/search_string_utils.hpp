@@ -103,8 +103,9 @@ class StreetTokensFilter
 public:
   using Callback = std::function<void(strings::UniString const & token, size_t tag)>;
 
-  template <typename TC>
-  explicit StreetTokensFilter(TC && callback) : m_callback(std::forward<TC>(callback))
+  template <typename C>
+  StreetTokensFilter(C && callback, bool withMisprints)
+    : m_callback(std::forward<C>(callback)), m_withMisprints(withMisprints)
   {
   }
 
@@ -125,5 +126,6 @@ private:
   size_t m_numSynonyms = 0;
 
   Callback m_callback;
+  bool m_withMisprints = false;
 };
 }  // namespace search

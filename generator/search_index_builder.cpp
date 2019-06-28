@@ -203,10 +203,9 @@ struct FeatureNameInserter
 
     if (m_hasStreetType)
     {
-      search::StreetTokensFilter filter([&](strings::UniString const & token, size_t /* tag */)
-                                        {
-                                          AddToken(lang, token);
-                                        });
+      search::StreetTokensFilter filter(
+          [&](strings::UniString const & token, size_t /* tag */) { AddToken(lang, token); },
+          false /* withMisprints */);
       for (auto const & token : tokens)
         filter.Put(token, false /* isPrefix */, 0 /* tag */);
 

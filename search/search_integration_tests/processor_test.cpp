@@ -2018,5 +2018,41 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     checkNoErrors("xyz", rules);
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet leninsky(vector<m2::PointD>{m2::PointD(0.0, -1.0), m2::PointD(0.0, 1.0)},
+                      "Ленинский проспект", "ru");
+  TestStreet nabrezhnaya(vector<m2::PointD>{m2::PointD(1.0, -1.0), m2::PointD(1.0, 1.0)},
+                         "улица набрежная", "ru");
+  TestStreet naberezhnaya(vector<m2::PointD>{m2::PointD(2.0, -1.0), m2::PointD(2.0, 1.0)},
+                          "улица набережная", "ru");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(leninsky);
+    builder.Add(nabrezhnaya);
+    builder.Add(naberezhnaya);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, -1.0), m2::PointD(2.0, 1.0)));
+  {
+    Rules rules = {ExactMatch(countryId, leninsky)};
+    TEST(ResultsMatch("ленинский проспект", rules), ());
+    TEST(ResultsMatch("ленинский пропект", rules), ());
+    TEST(ResultsMatch("ленинский", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, nabrezhnaya), ExactMatch(countryId, naberezhnaya)};
+    TEST(ResultsMatch("улица набрежная", rules), ());
+    TEST(ResultsMatch("набрежная", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, naberezhnaya)};
+    TEST(ResultsMatch("улица набережная", rules), ());
+  }
+}
+
 }  // namespace
 }  // namespace search
