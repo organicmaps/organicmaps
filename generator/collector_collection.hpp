@@ -15,14 +15,25 @@ class FeatureBuilder;
 
 namespace generator
 {
+namespace cache
+{
+class IntermediateDataReader;
+}  // namespace cache
+
 // This class allows you to work with a group of collectors as with one.
 class CollectorCollection : public CollectionBase<std::shared_ptr<CollectorInterface>>, public CollectorInterface
 {
 public:
   // CollectorInterface overrides:
+  std::shared_ptr<CollectorInterface>
+  Clone(std::shared_ptr<cache::IntermediateDataReader> const & cache = {}) const override;
+
   void Collect(OsmElement const & element) override;
   void CollectRelation(RelationElement const & element) override;
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
+
+  void Merge(CollectorInterface const * collector) override;
+  void MergeInto(CollectorCollection * collector) const override;
 };
 }  // namespace generator

@@ -15,6 +15,13 @@ namespace generator_tests
 {
 class TestCameraCollector;
 }  // namespace generator_tests
+namespace generator
+{
+namespace cache
+{
+class IntermediateDataReader;
+}  // namespace cache
+}  // namespace generator
 
 struct OsmElement;
 
@@ -58,7 +65,12 @@ public:
   void ProcessNode(OsmElement const & element);
   void ProcessWay(OsmElement const & element);
 
+  void FillCameraInWays();
+
+  void Merge(CameraProcessor const & cameraProcessor);
+
 private:
+  std::unordered_map<uint64_t, std::vector<uint64_t>> m_ways;
   std::unordered_map<uint64_t, CameraInfo> m_speedCameras;
   std::unordered_map<uint64_t, std::vector<uint64_t>> m_cameraToWays;
 };
@@ -68,18 +80,24 @@ class CameraCollector : public generator::CollectorInterface
 public:
   friend class generator_tests::TestCameraCollector;
 
-  explicit CameraCollector(std::string const & writerFile);
+  explicit CameraCollector(std::string const & filename);
 
   // generator::CollectorInterface overrides:
+  std::shared_ptr<CollectorInterface>
+  Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & = {}) const override;
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Save() override;
 
-private:
-  void Write(CameraProcessor::CameraInfo const & camera, std::vector<uint64_t> const & ways);
+  void Merge(generator::CollectorInterface const * collector) override;
+  void MergeInto(CameraCollector * collector) const override;
 
-  FileWriter m_fileWriter;
+private:
+  void Write(FileWriter & writer, CameraProcessor::CameraInfo const & camera,
+             std::vector<uint64_t> const & ways);
+
+  std::vector<uint8_t> m_buffer;
   CameraProcessor m_processor;
 };
 }  // namespace routing

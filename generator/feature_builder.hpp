@@ -135,6 +135,7 @@ public:
   }
 
   bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
+  bool HasType(uint32_t t, uint8_t level) const { return m_params.IsTypeExist(t, level); }
   uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
   FeatureParams::Types const & GetTypes() const { return m_params.m_types; }
 

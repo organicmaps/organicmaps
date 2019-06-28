@@ -1,9 +1,11 @@
 #include "generator/road_access_generator.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
@@ -39,68 +41,68 @@ char constexpr kDelim[] = " \t\r\n";
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
 TagMapping const kMotorCarTagMapping = {
-    {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar", "designated"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("motorcar", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("motorcar", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motorcar", "designated"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motorcar", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motorcar", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("motorcar", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("motorcar", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kMotorVehicleTagMapping = {
-    {OsmElement::Tag("motor_vehicle", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle", "designated"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("motor_vehicle", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("motor_vehicle", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("motor_vehicle", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motor_vehicle", "designated"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motor_vehicle", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("motor_vehicle", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("motor_vehicle", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("motor_vehicle", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kVehicleTagMapping = {
-    {OsmElement::Tag("vehicle", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle", "designated"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("vehicle", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("vehicle", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("vehicle", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("vehicle", "designated"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("vehicle", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("vehicle", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("vehicle", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kCarBarriersTagMapping = {
-    {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
-// TODO (@gmoryes) The types below should be added.
-//  {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
-//  {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private}
-//  {OsmElement::Tag("barrier", "log"), RoadAccess::Type::No},
-//  {OsmElement::Tag("barrier", "motorcycle_barrier"), RoadAccess::Type::No},
+  {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
+  {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
+  {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
+  {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
+  {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
+  // TODO (@gmoryes) The types below should be added.
+  //  {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
+  //  {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private}
+  //  {OsmElement::Tag("barrier", "log"), RoadAccess::Type::No},
+  //  {OsmElement::Tag("barrier", "motorcycle_barrier"), RoadAccess::Type::No},
 };
 
 TagMapping const kPedestrianTagMapping = {
-    {OsmElement::Tag("foot", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot", "designated"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("foot", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("foot", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("foot", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("foot", "designated"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("foot", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("foot", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("foot", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kBicycleTagMapping = {
-    {OsmElement::Tag("bicycle", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle", "designated"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("bicycle", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("bicycle", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("bicycle", "designated"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("bicycle", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("bicycle", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kBicycleBarriersTagMapping = {
-    {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
-// TODO (@gmoryes) The types below should be added.
-//  {OsmElement::Tag("barrier", "kissing_gate"), RoadAccess::Type::Private},
+  {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
+  {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
+  // TODO (@gmoryes) The types below should be added.
+  //  {OsmElement::Tag("barrier", "kissing_gate"), RoadAccess::Type::Private},
 };
 
 // Allow everything to keep transit section empty. We'll use pedestrian section for
@@ -109,24 +111,24 @@ TagMapping const kBicycleBarriersTagMapping = {
 TagMapping const kTransitTagMapping = {};
 
 TagMapping const kDefaultTagMapping = {
-    {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
+  {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
+  {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+  {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
+  {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
 };
 
 set<OsmElement::Tag> const kHighwaysWhereIgnorePrivateAccessForCar = {
-    {OsmElement::Tag("highway", "motorway")},
-    {OsmElement::Tag("highway", "motorway_link")},
-    {OsmElement::Tag("highway", "primary")},
-    {OsmElement::Tag("highway", "primary_link")},
-    {OsmElement::Tag("highway", "secondary")},
-    {OsmElement::Tag("highway", "secondary_link")},
-    {OsmElement::Tag("highway", "tertiary")},
-    {OsmElement::Tag("highway", "tertiary_link")},
-    {OsmElement::Tag("highway", "trunk")},
-    {OsmElement::Tag("highway", "trunk_link")}
+  {OsmElement::Tag("highway", "motorway")},
+  {OsmElement::Tag("highway", "motorway_link")},
+  {OsmElement::Tag("highway", "primary")},
+  {OsmElement::Tag("highway", "primary_link")},
+  {OsmElement::Tag("highway", "secondary")},
+  {OsmElement::Tag("highway", "secondary_link")},
+  {OsmElement::Tag("highway", "tertiary")},
+  {OsmElement::Tag("highway", "tertiary_link")},
+  {OsmElement::Tag("highway", "trunk")},
+  {OsmElement::Tag("highway", "trunk_link")}
 };
 
 set<OsmElement::Tag> const kHighwaysWhereIgnorePrivateAccessEmpty = {};
@@ -147,7 +149,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
   unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> pointType[static_cast<size_t>(VehicleType::Count)];
 
   auto addFeature = [&](uint32_t featureId, VehicleType vehicleType,
-                        RoadAccess::Type roadAccessType, uint64_t osmId) {
+      RoadAccess::Type roadAccessType, uint64_t osmId) {
     auto & m = featureType[static_cast<size_t>(vehicleType)];
     auto const emplaceRes = m.emplace(featureId, roadAccessType);
     if (!emplaceRes.second && emplaceRes.first->second != roadAccessType)
@@ -158,7 +160,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
   };
 
   auto addPoint = [&](RoadPoint const & point, VehicleType vehicleType,
-                      RoadAccess::Type roadAccessType) {
+      RoadAccess::Type roadAccessType) {
     auto & m = pointType[static_cast<size_t>(vehicleType)];
     auto const emplaceRes = m.emplace(point, roadAccessType);
     if (!emplaceRes.second && emplaceRes.first->second != roadAccessType)
@@ -287,7 +289,7 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
   }
 }
 
-void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
+void RoadAccessTagProcessor::Process(FeatureBuilder const & fb, OsmElement const & elem)
 {
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
@@ -295,31 +297,56 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
   {
     RoadAccess::Type accessType = GetAccessType(elem);
     if (accessType != RoadAccess::Type::Yes)
-      m_barriers[elem.m_id] = accessType;
+      m_barriers.emplace(elem.m_id, accessType);
     return;
   }
 
   if (elem.m_type != OsmElement::EntityType::Way)
     return;
 
-  // All feature tags.
   auto const accessType = GetAccessType(elem);
   if (accessType != RoadAccess::Type::Yes)
-    oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.m_id << " "
-        << 0 /* wildcard segment Idx */ << endl;
+    m_wayToAccess.emplace(elem.m_id, accessType);
+
+  if (!routing::IsRoad(fb.GetTypes()))
+    return;
+
+  m_roads.emplace(elem.m_id, elem.m_nodes);
+}
+
+void RoadAccessTagProcessor::Write(std::stringstream & stream)
+{
+  // All feature tags.
+  for (auto const & i : m_wayToAccess)
+  {
+    stream << ToString(m_vehicleType) << " " << ToString(i.second) << " " << i.first << " "
+           << 0 /* wildcard segment Idx */ << endl;
+  }
 
   // Barrier tags.
-  for (size_t pointIdx = 0; pointIdx < elem.m_nodes.size(); ++pointIdx)
+  for (auto const & i : m_roads)
   {
-    auto const it = m_barriers.find(elem.m_nodes[pointIdx]);
-    if (it == m_barriers.cend())
-      continue;
+    for (size_t pointIdx = 0; pointIdx < i.second.size(); ++pointIdx)
+    {
+      auto const it = m_barriers.find(i.second[pointIdx]);
+      if (it == m_barriers.cend())
+        continue;
 
-    RoadAccess::Type const roadAccessType = it->second;
-    // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
-    oss << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << elem.m_id << " "
-        << pointIdx + 1 << endl;
+      RoadAccess::Type const roadAccessType = it->second;
+      // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
+      stream << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << i.first << " "
+             << pointIdx + 1 << endl;
+    }
   }
+}
+
+void RoadAccessTagProcessor::Merge(RoadAccessTagProcessor const & other)
+{
+  CHECK_EQUAL(m_vehicleType, other.m_vehicleType, ());
+
+  m_barriers.insert(std::begin(other.m_barriers), std::end(other.m_barriers));
+  m_wayToAccess.insert(std::begin(other.m_wayToAccess), std::end(other.m_wayToAccess));
+  m_roads.insert(std::begin(other.m_roads), std::end(other.m_roads));
 }
 
 bool RoadAccessTagProcessor::ShouldIgnoreBarrierWithoutAccess(OsmElement const & osmElement) const
@@ -362,37 +389,54 @@ RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) 
 }
 
 // RoadAccessWriter ------------------------------------------------------------
-RoadAccessWriter::RoadAccessWriter(string const & filePath)
+RoadAccessWriter::RoadAccessWriter(string const & filename)
+  : generator::CollectorInterface(filename)
 {
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
-
-  Open(filePath);
 }
 
-void RoadAccessWriter::Open(string const & filePath)
+std::shared_ptr<generator::CollectorInterface>
+RoadAccessWriter::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const &) const
 {
-  LOG(LINFO,
-      ("Saving information about barriers and road access classes in osm id terms to", filePath));
-  m_stream.open(filePath, ofstream::out);
-
-  if (!IsOpened())
-    LOG(LINFO, ("Cannot open file", filePath));
+  return std::make_shared<RoadAccessWriter>(GetFilename());
 }
 
-void RoadAccessWriter::CollectFeature(FeatureBuilder const &, OsmElement const & elem)
+void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
-  if (!IsOpened())
-  {
-    LOG(LWARNING, ("Tried to write to a closed barriers writer"));
-    return;
-  }
-
   for (auto & p : m_tagProcessors)
-    p.Process(elem, m_stream);
+    p.Process(fb, elem);
 }
 
-bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open(); }
+void RoadAccessWriter::Save()
+{
+  std::stringstream stream;
+  for (auto & p : m_tagProcessors)
+    p.Write(stream);
+
+  std::ofstream out;
+  out.exceptions(std::fstream::failbit | std::fstream::badbit);
+  out.open(GetFilename());
+  out << stream.str();
+}
+
+void RoadAccessWriter::Merge(generator::CollectorInterface const * collector)
+{
+  CHECK(collector, ());
+
+  collector->MergeInto(const_cast<RoadAccessWriter *>(this));
+}
+
+void RoadAccessWriter::MergeInto(RoadAccessWriter * collector) const
+{
+  CHECK(collector, ());
+
+  auto & otherProcessors = collector->m_tagProcessors;
+  CHECK_EQUAL(m_tagProcessors.size(), otherProcessors.size(), ());
+
+  for (size_t i = 0; i < otherProcessors.size(); ++i)
+    otherProcessors[i].Merge(m_tagProcessors[i]);
+}
 
 // RoadAccessCollector ----------------------------------------------------------
 RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,

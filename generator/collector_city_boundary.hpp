@@ -1,22 +1,22 @@
 #pragma once
 
 #include "generator/collector_interface.hpp"
+#include "generator/feature_builder.hpp"
 
 #include <memory>
-#include <sstream>
-#include <string>
+#include <vector>
 
 namespace generator
 {
 namespace cache
 {
 class IntermediateDataReader;
-}
-// The class CollectorAddresses is responsible for the collecting addresses to the file.
-class CollectorAddresses : public CollectorInterface
+}  // namespace cache
+
+class CityBoundaryCollector : public CollectorInterface
 {
 public:
-  CollectorAddresses(std::string const & filename);
+  explicit CityBoundaryCollector(std::string const & filename);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
@@ -25,10 +25,10 @@ public:
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Save() override;
 
-  void Merge(CollectorInterface const * collector) override;
-  void MergeInto(CollectorAddresses * collector) const override;
+  void Merge(generator::CollectorInterface const * collector) override;
+  void MergeInto(CityBoundaryCollector * collector) const override;
 
 private:
-  std::stringstream m_stringStream;
+  std::vector<feature::FeatureBuilder> m_boundaries;
 };
 }  // namespace generator

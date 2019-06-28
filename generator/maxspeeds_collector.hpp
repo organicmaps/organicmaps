@@ -1,13 +1,20 @@
 #pragma once
 
 #include "generator/collector_interface.hpp"
+#include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
 
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace generator
 {
+namespace cache
+{
+class IntermediateDataReader;
+}  // namespace cache
+
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
 /// Every line describes maxspeed, maxspeed:forward and maxspeed:backward
 /// tags of features. The format of the lines is described below.
@@ -15,15 +22,19 @@ class MaxspeedsCollector : public CollectorInterface
 {
 public:
   /// \param filePath path to csv file.
-  explicit MaxspeedsCollector(std::string const & filePath) : m_filePath(filePath) {}
+  explicit MaxspeedsCollector(std::string const & filename);
 
   // CollectorInterface overrides:
+  std::shared_ptr<CollectorInterface>
+  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+
   void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
   void Save() override;
 
-private:
-  void Flush();
+  void Merge(CollectorInterface const * collector) override;
+  void MergeInto(MaxspeedsCollector * collector) const override;
 
+private:
   // |m_data| contains strings with maxspeed tags value for corresponding features in one of the
   // following formats
   // 1. osm id,units kmh or mph,maxspeed value
@@ -47,6 +58,5 @@ private:
   // are converted to an appropriate speed value and macro "none" and "walk" are converted
   // to |kNoneMaxSpeed| and |kWalkMaxSpeed|.
   std::vector<std::string> m_data;
-  std::string m_filePath;
 };
 }  // namespace generator

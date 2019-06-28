@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/collector_interface.hpp"
+#include "generator/feature_builder.hpp"
 
 #include "platform/platform.hpp"
 
@@ -10,6 +11,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -20,6 +22,11 @@ class FileWriter;
 
 namespace generator
 {
+namespace cache
+{
+class IntermediateDataReader;
+}  // namespace cache
+
 namespace regions
 {
 // https://wiki.openstreetmap.org/wiki/Tag:boundary=administrative
@@ -120,7 +127,13 @@ public:
 
   // CollectorInterface overrides:
   void Collect(OsmElement const & el) override;
+  std::shared_ptr<CollectorInterface>
+  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+
   void Save() override;
+
+  void Merge(CollectorInterface const * collector) override;
+  void MergeInto(CollectorRegionInfo * collector) const override;
 
 private:
   template <typename Sink, typename Map>
@@ -136,7 +149,6 @@ private:
   void FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el, RegionData & rd);
   void FillIsoCode(base::GeoObjectId const & osmId, OsmElement const & el, IsoCode & rd);
 
-  std::string m_filename;
   MapRegionData m_mapRegionData;
   MapIsoCode m_mapIsoCode;
 };
