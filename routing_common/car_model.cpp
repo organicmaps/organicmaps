@@ -177,7 +177,7 @@ VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.5, 0.5}},
-  {{"psurface", "unpaved_good"}, {0.8, 0.8}},
+  {{"psurface", "unpaved_good"}, {0.5, 0.8}},
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
 };
 

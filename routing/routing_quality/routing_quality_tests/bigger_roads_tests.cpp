@@ -122,4 +122,11 @@ UNIT_TEST(RoutingQuality_MosOblBadPaving)
                      {{{55.92321, 36.04630}}} /* reference track */),
        ());
 }
+
+UNIT_TEST(RoutingQuality_LatviaUnpaved)
+{
+  TEST(CheckCarRoute({56.62992, 25.77175} /* start */, {56.61453, 25.78400} /* finish */,
+                     {{{56.62377, 25.81015}, {56.61755, 25.80894}}} /* reference track */),
+       ());
+}
 }  // namespace
