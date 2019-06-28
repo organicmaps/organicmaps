@@ -119,6 +119,7 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
       bool dummy = false;
       if (indexRouter.FindBestEdges(gate.GetPoint(), platform::CountryFile(countryId),
                                     m2::PointD::Zero() /* direction */, true /* isOutgoing */,
+                                    FeaturesRoadGraph::kClosestEdgesRadiusM,
                                     *worldGraph, bestEdges, dummy))
       {
         CHECK(!bestEdges.empty(), ());

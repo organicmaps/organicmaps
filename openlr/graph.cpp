@@ -1,5 +1,7 @@
 #include "openlr/graph.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <map>
 #include <memory>
 #include <utility>
@@ -64,7 +66,9 @@ void Graph::GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges
 void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
                              vector<pair<Edge, Junction>> & vicinities) const
 {
-  m_graph.FindClosestEdges(point, count, vicinities);
+  m_graph.FindClosestEdges(
+      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
+      count, nullptr, vicinities);
 }
 
 void Graph::AddIngoingFakeEdge(Edge const & e)

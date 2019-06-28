@@ -15,7 +15,6 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/segment.hpp"
 #include "routing/segmented_route.hpp"
-#include "routing/world_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
@@ -78,9 +77,12 @@ public:
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
   bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
                         WorldGraph & worldGraph, std::vector<Segment> & bestSegments);
-  bool FindBestEdges(m2::PointD const & point, platform::CountryFile const & pointCountryFile,
-                     m2::PointD const & direction, bool isOutgoing, WorldGraph & worldGraph,
-                     std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional) const;
+  bool FindBestEdges(m2::PointD const & point,
+                     platform::CountryFile const & pointCountryFile,
+                     m2::PointD const & direction, bool isOutgoing,
+                     double closestEdgesRadiusM, WorldGraph & worldGraph,
+                     std::vector<Edge> & bestEdges,
+                     bool & bestSegmentIsAlmostCodirectional) const;
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -108,9 +110,18 @@ private:
   bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
                    std::vector<IRoadGraph::JunctionVec> const & fences) const;
 
-  /// \returns geometry of road features which lie in |rect|.
-  /// \note Some additional road features which lie near |rect| may be added to |roadFeatureGeoms|.
-  vector<IRoadGraph::JunctionVec> FetchRoadGeom(m2::RectD const & rect) const;
+  /// \brief Fills |roadGeom| geometry of not dead-end road features which lie in |rect|,
+  /// and |deadEnds| with FeatureIDs which goes to dead ends.
+  /// \note Some additional road features which lie near |rect| may be added to |roadGeom|
+  /// and to |deadEnds|.
+  void FetchRoadInfo(m2::RectD const & rect, WorldGraph & worldGraph,
+                     vector<IRoadGraph::JunctionVec> & roadGeom,
+                     std::set<FeatureID> & deadEnds) const;
+
+  Segment GetSegmentByEdge(Edge const & edge) const;
+
+  /// \returns true if it's impossible to go from |edge| far enough.
+  bool IsDeadEnd(Edge const & edge, bool isOutgoing, WorldGraph & worldGraph) const;
 
   /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
   /// |point| and returns true if there's any. If not returns false.

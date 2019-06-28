@@ -80,7 +80,7 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
   m_candidates.push_back(res);
 }
 
-void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t const maxCountFeatures)
+void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
@@ -92,20 +92,29 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t co
   
   for (Candidate const & candidate : m_candidates)
   {
-    res.emplace_back(Edge::MakeReal(candidate.m_fid, true /* forward */, candidate.m_segId,
-                                    candidate.m_segStart, candidate.m_segEnd),
+    CandidateToResult(candidate, maxCountFeatures, res);
+    if (res.size() >= maxCountFeatures)
+      return;
+  }
+}
+
+void NearestEdgeFinder::CandidateToResult(Candidate const & candidate,
+                                          size_t maxCountFeatures,
+                                          vector<pair<Edge, Junction>> & res) const
+{
+  res.emplace_back(Edge::MakeReal(candidate.m_fid, true /* forward */, candidate.m_segId,
+                                  candidate.m_segStart, candidate.m_segEnd),
+                   candidate.m_projPoint);
+  if (res.size() >= maxCountFeatures)
+    return;
+
+  if (candidate.m_bidirectional)
+  {
+    res.emplace_back(Edge::MakeReal(candidate.m_fid, false /* forward */, candidate.m_segId,
+                                    candidate.m_segEnd, candidate.m_segStart),
                      candidate.m_projPoint);
     if (res.size() >= maxCountFeatures)
       return;
-
-    if (candidate.m_bidirectional)
-    {
-      res.emplace_back(Edge::MakeReal(candidate.m_fid, false /* forward */, candidate.m_segId,
-                                      candidate.m_segEnd, candidate.m_segStart),
-                       candidate.m_projPoint);
-      if (res.size() >= maxCountFeatures)
-        return;
-    }
   }
 }
 }  // namespace routing

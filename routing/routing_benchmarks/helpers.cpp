@@ -15,6 +15,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/polyline2d.hpp"
 
 #include "base/logging.hpp"
@@ -139,7 +140,9 @@ void RoutingTest::GetNearestEdges(m2::PointD const & pt,
                                   vector<pair<routing::Edge, routing::Junction>> & edges)
 {
   routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
-  graph.FindClosestEdges(pt, 1 /* count */, edges);
+  graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(
+                             pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+                         1 /* count */, nullptr, edges);
 }
 
 void TestRouter(routing::IRouter & router, m2::PointD const & startPos,

@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -44,10 +45,13 @@ public:
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
-  void AddInformationSource(FeatureID const & featureId,
-                            IRoadGraph::JunctionVec const & junctions,
-                            bool bidirectiona);
+  void AddInformationSource(FeatureID const & featureId, IRoadGraph::JunctionVec const & junctions,
+                            bool bidirectional);
 
-  void MakeResult(std::vector<std::pair<Edge, Junction>> & res, size_t const maxCountFeatures);
+  void MakeResult(std::vector<std::pair<Edge, Junction>> & res, size_t maxCountFeatures);
+
+private:
+  void CandidateToResult(Candidate const & candidate, size_t maxCountFeatures,
+                         std::vector<std::pair<Edge, Junction>> & res) const;
 };
 }  // namespace routing

@@ -173,17 +173,20 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
   m_dataSource.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
-void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
+void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
+                                         IsGoodFeatureFn const & isGoodFeature,
                                          vector<pair<Edge, Junction>> & vicinities) const
 {
-  NearestEdgeFinder finder(point);
+  NearestEdgeFinder finder(rect.Center());
 
-  auto const f = [&finder, this](FeatureType & ft)
+  auto const f = [&finder, &isGoodFeature, this](FeatureType & ft)
   {
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
     FeatureID const featureId = ft.GetID();
+    if (isGoodFeature && !isGoodFeature(featureId))
+      return;
 
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
     CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
@@ -191,9 +194,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
     finder.AddInformationSource(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
   };
 
-  m_dataSource.ForEachInRect(
-      f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kClosestEdgesRadiusM),
-      GetStreetReadScale());
+  m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());
 
   finder.MakeResult(vicinities, count);
 }

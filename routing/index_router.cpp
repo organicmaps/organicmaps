@@ -60,7 +60,7 @@ using namespace std;
 
 namespace
 {
-size_t constexpr kMaxRoadCandidates = 12;
+size_t constexpr kMaxRoadCandidates = 10;
 double constexpr kProgressInterval = 0.5;
 uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
@@ -142,25 +142,6 @@ shared_ptr<TrafficStash> CreateTrafficStash(VehicleType vehicleType, shared_ptr<
   return make_shared<TrafficStash>(trafficCache, numMwmIds);
 }
 
-bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
-{
-  size_t constexpr kDeadEndTestLimit = 50;
-
-  auto const getVertexByEdgeFn = [](SegmentEdge const & edge) {
-    return edge.GetTarget();
-  };
-
-  // Note. If |isOutgoing| == true outgoing edges are looked for.
-  // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
-  auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
-                                               vector<SegmentEdge> & edges) {
-    graph.GetEdgeList(u, isOutgoing, edges);
-  };
-
-  return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
-                                 getVertexByEdgeFn, getOutgoingEdgesFn);
-}
-
 /// \returns true if the mwm is ready for index graph routing and cross mwm index graph routing.
 /// It means the mwm contains routing and cross_mwm sections. In terms of production mwms
 /// the method returns false for mwms 170328 and earlier, and returns true for mwms 170428 and
@@ -213,6 +194,26 @@ bool IsTheSameSegments(m2::PointD const & seg1From, m2::PointD const & seg1To,
                        m2::PointD const & seg2From, m2::PointD const & seg2To)
 {
   return (seg1From == seg2From && seg1To == seg2To) || (seg1From == seg2To && seg1To == seg2From);
+}
+
+bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
+{
+  // Maximum size (in Segment) of an island in road graph which may be found by the method.
+  size_t constexpr kDeadEndTestLimit = 250;
+
+  auto const getVertexByEdgeFn = [](SegmentEdge const & edge) {
+    return edge.GetTarget();
+  };
+
+  // Note. If |isOutgoing| == true outgoing edges are looked for.
+  // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
+  auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
+                                               vector<SegmentEdge> & edges) {
+    graph.GetEdgeList(u, isOutgoing, edges);
+  };
+
+  return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
+                                 getVertexByEdgeFn, getOutgoingEdgesFn);
 }
 }  // namespace
 
@@ -834,29 +835,60 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
       }
 
       if (m2::SegmentsIntersect(point, projPoint, fencePointFrom.GetPoint(),
+                                fencePointTo.GetPoint()) &&
+                                !m2::IsPointOnSegment(projPoint, fencePointFrom.GetPoint(),
                                 fencePointTo.GetPoint()))
+      {
         return true;
+      }
     }
   }
   return false;
 }
 
-vector<IRoadGraph::JunctionVec> IndexRouter::FetchRoadGeom(m2::RectD const & rect) const
+void IndexRouter::FetchRoadInfo(m2::RectD const & rect, WorldGraph & worldGraph,
+                                vector<IRoadGraph::JunctionVec> & roadGeom,
+                                set<FeatureID> & deadEnds) const
 {
-  vector<IRoadGraph::JunctionVec> roadFeatureGeoms;
-  auto const roadFetcher = [this, &roadFeatureGeoms](FeatureType & ft) {
+  auto const roadFetcher = [this, &worldGraph, &roadGeom, &deadEnds](FeatureType & ft) {
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     if (!m_roadGraph.IsRoad(ft))
       return;
 
-    auto roadGeom = m_roadGraph.GetRoadGeom(ft);
+    auto const info = ft.GetID().m_mwmId.GetInfo();
+    CHECK(info, ());
+    if (!m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile()))
+      return;
 
-    CHECK_GREATER_OR_EQUAL(roadGeom.size(), 2, ());
+    CHECK_GREATER_OR_EQUAL(ft.GetPointsCount(), 2, ());
+    // Note. Checking if an edge goes to a dead end is a time consumption process.
+    // So the number of checked edges should be minimized as possible.
+    // Below a heuristic is used. If a first segment of a feature is forward direction is a dead end
+    // all segments of the feature is considered as dead ends.
+    if (IsDeadEnd(Edge::MakeReal(ft.GetID(), true /* forward */, 0 /* segment id */,
+        Junction(ft.GetPoint(0), 0), Junction(ft.GetPoint(1), 0)), true /* isOutgoing */, worldGraph))
+    {
+      deadEnds.emplace(ft.GetID());
+      return;
+    }
 
-    roadFeatureGeoms.emplace_back(move(roadGeom));
+    roadGeom.emplace_back(m_roadGraph.GetRoadGeom(ft));
   };
 
   m_dataSource.ForEachInRect(roadFetcher, rect, scales::GetUpperScale());
-  return roadFeatureGeoms;
+}
+
+Segment IndexRouter::GetSegmentByEdge(Edge const & edge) const
+{
+  auto const info = edge.GetFeatureId().m_mwmId.GetInfo();
+  CHECK(info, ());
+  auto const numMwmId = m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
+  return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+}
+
+bool IndexRouter::IsDeadEnd(Edge const & edge, bool isOutgoing, WorldGraph & worldGraph) const
+{
+  return ::IsDeadEnd(GetSegmentByEdge(edge), isOutgoing, worldGraph);
 }
 
 bool IndexRouter::FindClosestCodirectionalEdge(m2::PointD const & point, m2::PointD const & direction,
@@ -894,76 +926,65 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
 
-  std::vector<Edge> bestEdges;
-  if (!FindBestEdges(point, file, direction, isOutgoing, worldGraph, bestEdges,
-                     bestSegmentIsAlmostCodirectional))
+  vector<Edge> bestEdges;
+  if (!FindBestEdges(point, file, direction, isOutgoing, 20.0 /* closestEdgesRadiusM */,
+                     worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
   {
-    return false;
+    if (!FindBestEdges(point, file, direction, isOutgoing, 300.0 /* closestEdgesRadiusM */,
+                       worldGraph, bestEdges, bestSegmentIsAlmostCodirectional) &&
+                       bestEdges.size() < kMaxRoadCandidates)
+    {
+      if (!FindBestEdges(point, file, direction, isOutgoing, 1500.0 /* closestEdgesRadiusM */,
+                         worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
+      {
+        return false;
+      }
+    }
   }
 
-  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
   bestSegments.clear();
-
-  auto const getSegmentByEdge = [numMwmId](Edge const & edge) {
-    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
-  };
-
   for (auto const & edge : bestEdges)
-    bestSegments.emplace_back(getSegmentByEdge(edge));
+    bestSegments.emplace_back(GetSegmentByEdge(edge));
 
   return true;
 }
 
-bool IndexRouter::FindBestEdges(m2::PointD const & point, platform::CountryFile const & pointCountryFile,
+bool IndexRouter::FindBestEdges(m2::PointD const & point,
+                                platform::CountryFile const & pointCountryFile,
                                 m2::PointD const & direction, bool isOutgoing,
-                                WorldGraph & worldGraph, std::vector<Edge> & bestEdges,
+                                double closestEdgesRadiusM, WorldGraph & worldGraph,
+                                vector<Edge> & bestEdges,
                                 bool & bestSegmentIsAlmostCodirectional) const
 {
-
+  CHECK(m_vehicleModelFactory, ());
   MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(pointCountryFile);
   if (!handle.IsAlive())
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
-  auto const mwmId = MwmSet::MwmId(handle.GetInfo());
+  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, closestEdgesRadiusM);
+  vector<IRoadGraph::JunctionVec> roadGeom;
+  set<FeatureID> deadEnds;
+  FetchRoadInfo(rect, worldGraph, roadGeom, deadEnds);
 
+  auto const isGoodFeature = [this, &deadEnds](FeatureID const & fid) {
+    auto const & info = fid.m_mwmId.GetInfo();
+    if (!m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile()))
+      return false;
+
+    return deadEnds.count(fid) == 0;
+  };
+
+  // @TODO(bykoianko) The geometry is parsed twice. Once in |FetchRoadInfo()| and once in
+  // |m_roadGraph.FindClosestEdges()|. Consider gathering them to parse geometry only once.
   vector<pair<Edge, Junction>> candidates;
-  m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
-
-  // Removing all candidates which are far from |point|.
-  base::EraseIf(candidates, [&point](pair<Edge, Junction> const & p) {
-    auto const dist = MercatorBounds::DistanceOnEarth(point, p.second.GetPoint());
-    return dist > FeaturesRoadGraph::kClosestEdgesRadiusM;
-  });
-
-  if (candidates.empty())
-    return false;
-
-
-  if (m_numMwmIds->ContainsFile(pointCountryFile))
-  {
-    auto const numMwmId = m_numMwmIds->GetId(pointCountryFile);
-    auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
-      return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
-    };
-
-    // Getting rid of candidates which lead to a dead ends.
-    base::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
-      Edge const & edge = p.first;
-      return edge.GetFeatureId().m_mwmId != mwmId ||
-             IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
-    });
-  }
-
-  if (candidates.empty())
-    return false;
+  m_roadGraph.FindClosestEdges(rect, kMaxRoadCandidates, isGoodFeature, candidates);
 
   // Removing all candidates which are fenced off by the road graph from |point|.
-  auto const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM);
-  auto const roadFeatureGeoms = FetchRoadGeom(rect);
-
-  base::EraseIf(candidates, [&](pair<Edge, Junction> const & candidate) {
-    return IsFencedOff(point, candidate, roadFeatureGeoms);
+  // It's better to perform this step after |candidates| are found:
+  // * by performance reasons
+  // * the closest edge(s) is not separated from |point| by other edges.
+  base::EraseIf(candidates, [&point, &roadGeom, this](pair<Edge, Junction> const & candidate) {
+    return IsFencedOff(point, candidate, roadGeom);
   });
 
   if (candidates.empty())

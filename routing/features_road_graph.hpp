@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/road_graph.hpp"
+#include "routing/routing_callbacks.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
@@ -66,7 +67,10 @@ private:
   };
 
 public:
-  static double constexpr kClosestEdgesRadiusM = 100.0;
+  // The radius which is used for looking for edges in some cases.
+  // Note. In case of looking for closest to start and finish segments in routing
+  // another algorith is using.
+  static double constexpr kClosestEdgesRadiusM = 150.0;
 
   FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
                     std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
@@ -79,7 +83,7 @@ public:
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
-  void FindClosestEdges(m2::PointD const & point, uint32_t count,
+  void FindClosestEdges(m2::RectD const & rect, uint32_t count, IsGoodFeatureFn const & isGoodFeature,
                         std::vector<std::pair<Edge, Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;

@@ -9,15 +9,20 @@
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/string_utils.hpp"
 
+#include <functional>
 #include <initializer_list>
 #include <map>
+#include <set>
 #include <vector>
 
 namespace routing
 {
+using IsGoodFeatureFn = std::function<bool(FeatureID const &)>;
+
 double constexpr kPointsEqualEpsilon = 1e-6;
 
 /// The Junction class represents a node description on a road network graph
@@ -305,7 +310,8 @@ public:
   /// Finds the closest edges to the point.
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
-  virtual void FindClosestEdges(m2::PointD const & point, uint32_t count,
+  virtual void FindClosestEdges(m2::RectD const & rect, uint32_t count,
+                                IsGoodFeatureFn const & isGoodFeature,
                                 std::vector<std::pair<Edge, Junction>> & vicinities) const = 0;
 
   /// @return Types for the specified feature

@@ -8,6 +8,7 @@
 #include "platform/location.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
@@ -172,7 +173,10 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
     auto & ps = m_pivots.back();
 
     std::vector<std::pair<routing::Edge, routing::Junction>> vicinity;
-    m_graph.FindClosestEdges(m_points[i].m_point, kMaxRoadCandidates, vicinity);
+    m_graph.FindClosestEdges(
+        MercatorBounds::RectByCenterXYAndSizeInMeters(
+            m_points[i].m_point, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+        kMaxRoadCandidates, nullptr, vicinity);
     for (auto const & v : vicinity)
     {
       auto const & e = v.first;
@@ -190,14 +194,20 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
   {
     m_sourceJunction = routing::Junction(m_points.front().m_point, 0 /* altitude */);
     std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
-    m_graph.FindClosestEdges(m_sourceJunction.GetPoint(), kMaxRoadCandidates, sourceVicinity);
+    m_graph.FindClosestEdges(
+        MercatorBounds::RectByCenterXYAndSizeInMeters(
+            m_sourceJunction.GetPoint(), routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+        kMaxRoadCandidates, nullptr, sourceVicinity);
     m_graph.AddFakeEdges(m_sourceJunction, sourceVicinity);
   }
 
   {
     m_targetJunction = routing::Junction(m_points.back().m_point, 0 /* altitude */);
     std::vector<std::pair<routing::Edge, routing::Junction>> targetVicinity;
-    m_graph.FindClosestEdges(m_targetJunction.GetPoint(), kMaxRoadCandidates, targetVicinity);
+    m_graph.FindClosestEdges(
+        MercatorBounds::RectByCenterXYAndSizeInMeters(
+            m_targetJunction.GetPoint(), routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+        kMaxRoadCandidates, nullptr, targetVicinity);
     m_graph.AddFakeEdges(m_targetJunction, targetVicinity);
   }
 
@@ -487,7 +497,10 @@ void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass con
                                        Fn && fn)
 {
   std::vector<std::pair<routing::Edge, routing::Junction>> vicinity;
-  m_graph.FindClosestEdges(u.m_junction.GetPoint(), kMaxRoadCandidates, vicinity);
+  m_graph.FindClosestEdges(
+      MercatorBounds::RectByCenterXYAndSizeInMeters(
+          u.m_junction.GetPoint(), routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+      kMaxRoadCandidates, nullptr, vicinity);
 
   for (auto const & p : vicinity)
   {
