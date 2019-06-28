@@ -38,7 +38,7 @@ UNIT_TEST(Zgrad924aToFilaretovskyChurch)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(55.9844, 37.1808), {0., 0.},
-      MercatorBounds::FromLatLon(55.9915, 37.1808), 1220.);
+      MercatorBounds::FromLatLon(55.9915, 37.1808), 1109.0);
 }
 
 UNIT_TEST(Zgrad924aTo1145)
@@ -46,7 +46,7 @@ UNIT_TEST(Zgrad924aTo1145)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(55.9844, 37.1808), {0., 0.},
-      MercatorBounds::FromLatLon(55.9924, 37.1853), 1400.);
+      MercatorBounds::FromLatLon(55.9924, 37.1853), 1193.0);
 }
 
 UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
@@ -54,7 +54,7 @@ UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(55.7348, 37.606), {0., 0.},
-      MercatorBounds::FromLatLon(55.724, 37.5956), 1617.);
+      MercatorBounds::FromLatLon(55.724, 37.5956), 1767.0);
 }
 
 /*
@@ -91,7 +91,7 @@ UNIT_TEST(AustraliaMelburn_AvoidMotorway)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(-37.7936, 144.985), {0., 0.},
-      MercatorBounds::FromLatLon(-37.7896, 145.025), 5015.);
+      MercatorBounds::FromLatLon(-37.7896, 145.025), 4659.5);
 }
 
 UNIT_TEST(AustriaWein_AvoidTrunk)
@@ -203,7 +203,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToTruseE)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
-      MercatorBounds::FromLatLon(47.2048, 38.9441), 7994.0);
+      MercatorBounds::FromLatLon(47.2048, 38.9441), 7144.6);
 }
 
 UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
@@ -291,7 +291,7 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(59.9241, 30.323), {0., 0.},
-      MercatorBounds::FromLatLon(59.939, 30.3159), 2454.);
+      MercatorBounds::FromLatLon(59.939, 30.3159), 2247.0);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)

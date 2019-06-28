@@ -78,8 +78,8 @@ UNIT_TEST(Vatikan_NotEnoughGraphDataAtThenEnd)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
-                                MercatorBounds::FromLatLon(41.90052, 12.42642), {0.0, 0.0},
-                                MercatorBounds::FromLatLon(41.90253, 12.45574));
+                                MercatorBounds::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
+                                MercatorBounds::FromLatLon(41.89203, 12.46263));
 
   // TODO (@gmoryes) here must be RouteNotFound.
   TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());

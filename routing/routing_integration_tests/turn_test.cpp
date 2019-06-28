@@ -54,18 +54,15 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestDirection(CarDirection::TurnRight);
+      .TestDirection(CarDirection::UTurnLeft);
   integration::GetNthTurn(route, 1)
       .TestValid()
-      .TestDirection(CarDirection::UTurnLeft);
-  integration::GetNthTurn(route, 2)
-      .TestValid()
       .TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
 
   integration::TestRouteLength(route, 2050.);
 }
@@ -150,7 +147,7 @@ UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  MercatorBounds::FromLatLon(55.80216, 37.54668), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.80215, 37.54663), {0., 0.},
                                   MercatorBounds::FromLatLon(55.80169, 37.54915));
 
   Route const & route = *routeResult.first;
@@ -242,7 +239,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.77177, 37.63556), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.77209, 37.63707));
+                                  MercatorBounds::FromLatLon(55.77217, 37.63678));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -251,7 +248,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 
   vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  // It's not possible to get destination with less nubber of turns due to oneway roads.
+  // It's not possible to get destination with less number of turns due to oneway roads.
   TEST_GREATER_OR_EQUAL(t.size(), 5, ());
 }
 
@@ -518,7 +515,7 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  MercatorBounds::FromLatLon(55.79059, 37.55345), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.79054, 37.55335), {0., 0.},
                                   MercatorBounds::FromLatLon(55.78925, 37.57110));
 
   Route const & route = *routeResult.first;
@@ -858,8 +855,8 @@ UNIT_TEST(RussiaMoscowTTKToServiceTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  MercatorBounds::FromLatLon(55.78874, 37.5704), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.78881, 37.57106));
+                                  MercatorBounds::FromLatLon(55.78856, 37.57017), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.78869, 37.57133));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;

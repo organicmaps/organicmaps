@@ -2,6 +2,7 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -42,7 +43,9 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
                           make_shared<CarModelFactory>(CountryParentNameGetterFn()));
   Junction const j(m2::PointD(MercatorBounds::FromLatLon(50.73208, -1.21279)), feature::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
-  graph.FindClosestEdges(j.GetPoint(), 20 /* count */, sourceVicinity);
+  graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(
+                             j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
+                         20 /* count */, {} /* ignoredFeatures */, sourceVicinity);
   // In case of the combinatorial explosion mentioned above all the memory was consumed for
   // FeaturesRoadGraph::m_fakeIngoingEdges and FeaturesRoadGraph::m_fakeOutgoingEdges fields.
   graph.AddFakeEdges(j, sourceVicinity);

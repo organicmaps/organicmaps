@@ -54,7 +54,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
-                                  MercatorBounds::FromLatLon(55.85836, 37.36773), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.85854, 37.36795), {0.0, 0.0},
                                   MercatorBounds::FromLatLon(55.85364, 37.37318));
 
   Route const & route = *routeResult.first;
@@ -72,7 +72,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
-                                  MercatorBounds::FromLatLon(55.85839, 37.3677), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.85854, 37.36795), {0.0, 0.0},
                                   MercatorBounds::FromLatLon(55.85765, 37.36793));
 
   Route const & route = *routeResult.first;
@@ -108,8 +108,8 @@ UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
-                                  MercatorBounds::FromLatLon(55.71566, 37.61569), {0.0, 0.0},
-                                  MercatorBounds::FromLatLon(55.71532, 37.61571));
+                                  MercatorBounds::FromLatLon(55.71566, 37.61568), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.71519, 37.61566));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -122,7 +122,7 @@ UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
 
-  integration::TestRouteLength(route, 333.0);
+  integration::TestRouteLength(route, 320.0);
 }
 
 UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)

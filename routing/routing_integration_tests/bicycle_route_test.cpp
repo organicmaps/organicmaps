@@ -51,7 +51,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleNo)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Bicycle),
       MercatorBounds::FromLatLon(52.32716, 5.05932), {0., 0.},
-      MercatorBounds::FromLatLon(52.32587, 5.06121), 363.4);
+      MercatorBounds::FromLatLon(52.32587, 5.06121), 338.0);
 }
 
 UNIT_TEST(NetherlandsAmsterdamBicycleYes)

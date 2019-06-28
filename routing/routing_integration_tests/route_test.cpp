@@ -26,7 +26,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         MercatorBounds::FromLatLon(55.66216, 37.63259), {0., 0.},
-        MercatorBounds::FromLatLon(55.66237, 37.63560), 2320.);
+        MercatorBounds::FromLatLon(55.66237, 37.63560), 1502.0);
   }
 
   UNIT_TEST(MoscowToSVOAirport)
@@ -38,7 +38,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
-        MercatorBounds::FromLatLon(55.75100, 37.61790), 39449.);
+        MercatorBounds::FromLatLon(55.75100, 37.61790), 33717.0);
   }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.
@@ -46,8 +46,8 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
-        MercatorBounds::FromLatLon(55.77397, 37.68465), {0., 0.},
-        MercatorBounds::FromLatLon(55.77198, 37.68782), 1032.);
+        MercatorBounds::FromLatLon(55.77398, 37.68469), {0., 0.},
+        MercatorBounds::FromLatLon(55.77201, 37.68789), 1032.);
   }
 
   UNIT_TEST(RestrictionTestNearMetroShodnenskaya)
@@ -273,7 +273,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         MercatorBounds::FromLatLon(48.85458, 2.36291), {0., 0.},
-        MercatorBounds::FromLatLon(49.85015, 2.24296), 137009.0);
+        MercatorBounds::FromLatLon(49.85027, 2.24283), 137009.0);
   }
 
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
