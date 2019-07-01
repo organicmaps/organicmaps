@@ -114,8 +114,8 @@ std::string KeyValueStorage::SerializeDref(uint64_t number)
 {
   std::stringstream stream;
   stream << std::setw(16) << std::setfill('0') << std::hex << std::uppercase << number;
-  std::string result = stream.str();
-  return result;
+
+  return stream.str();
 }
 
 size_t KeyValueStorage::Size() const { return m_values.size(); }
