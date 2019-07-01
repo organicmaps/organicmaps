@@ -38,9 +38,9 @@ public interface PurchaseController<T> extends Savable<Bundle>
   void launchPurchaseFlow(@NonNull String productId);
 
   /**
-   * Queries purchase details. They will be delivered to the caller through callback {@link T}.
+   * Queries product details. They will be delivered to the caller through callback {@link T}.
    */
-  void queryPurchaseDetails();
+  void queryProductDetails();
 
   /**
    * Validates existing purchase. A validation result will be delivered through callback {@link T}.

@@ -48,7 +48,7 @@ enum BookmarkPaymentState
         {
           UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
           AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(BookmarkPaymentFragment.REQ_CODE_START_TRANSACTION_FAILURE)
+              .setReqCode(PurchaseUtils.REQ_CODE_START_TRANSACTION_FAILURE)
               .setTitleId(R.string.error_server_title)
               .setMessageId(R.string.error_server_message)
               .setPositiveBtnId(R.string.ok)
@@ -78,13 +78,7 @@ enum BookmarkPaymentState
         @Override
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
-          AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(BookmarkPaymentFragment.REQ_CODE_PAYMENT_FAILURE)
-              .setTitleId(R.string.bookmarks_convert_error_title)
-              .setMessageId(R.string.purchase_error_subtitle)
-              .setPositiveBtnId(R.string.back)
-              .build();
-          alertDialog.show(fragment, name());
+          PurchaseUtils.showPaymentFailureDialog(fragment, name());
         }
       },
   VALIDATION
@@ -110,13 +104,7 @@ enum BookmarkPaymentState
         @Override
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
-          AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(BookmarkPaymentFragment.REQ_CODE_PRODUCT_DETAILS_FAILURE)
-              .setTitleId(R.string.bookmarks_convert_error_title)
-              .setMessageId(R.string.discovery_button_other_error_message)
-              .setPositiveBtnId(R.string.ok)
-              .build();
-          alertDialog.show(fragment, name());
+          PurchaseUtils.showProductDetailsFailureDialog(fragment, name());
         }
       };
 

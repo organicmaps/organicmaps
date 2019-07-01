@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -89,14 +88,7 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-
-          AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PAYMENT_FAILURE)
-              .setTitleId(R.string.bookmarks_convert_error_title)
-              .setMessageId(R.string.purchase_error_subtitle)
-              .setPositiveBtnId(R.string.back)
-              .build();
-          alertDialog.show(dialog, name());
+          PurchaseUtils.showPaymentFailureDialog(dialog, name());
         }
       },
   PRODUCT_DETAILS_FAILURE
@@ -104,13 +96,7 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PRODUCT_DETAILS_FAILURE)
-              .setTitleId(R.string.bookmarks_convert_error_title)
-              .setMessageId(R.string.discovery_button_other_error_message)
-              .setPositiveBtnId(R.string.ok)
-              .build();
-          alertDialog.show(dialog, name());
+          PurchaseUtils.showProductDetailsFailureDialog(dialog, name());
         }
       },
   VALIDATION_FINISH

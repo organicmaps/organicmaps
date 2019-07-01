@@ -1,9 +1,14 @@
 package com.mapswithme.maps.purchase;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -15,6 +20,15 @@ import java.util.List;
 
 public class PurchaseUtils
 {
+  final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
+  final static int REQ_CODE_PAYMENT_FAILURE = 2;
+  final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
+  final static int REQ_CODE_START_TRANSACTION_FAILURE = 4;
+  final static int WEEKS_IN_YEAR = 52;
+  final static int MONTHS_IN_YEAR = 12;
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+  private static final String TAG = PurchaseUtils.class.getSimpleName();
+
   private PurchaseUtils()
   {
     // Utility class.
@@ -88,5 +102,61 @@ public class PurchaseUtils
   private static float normalizePrice(long priceMicros)
   {
     return priceMicros / 1000000f;
+  }
+
+  static boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
+  {
+    for (SkuDetails each : skuDetails)
+    {
+      if (Period.getInstance(each.getSubscriptionPeriod()) == null)
+      {
+        String msg = "Unsupported subscription period: '" + each.getSubscriptionPeriod() + "'";
+        CrashlyticsUtils.logException(new IllegalStateException(msg));
+        LOGGER.e(TAG, msg);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static void showPaymentFailureDialog(@NonNull Fragment fragment, @Nullable String tag)
+  {
+    AlertDialog alertDialog = new AlertDialog.Builder()
+        .setReqCode(PurchaseUtils.REQ_CODE_PAYMENT_FAILURE)
+        .setTitleId(R.string.bookmarks_convert_error_title)
+        .setMessageId(R.string.purchase_error_subtitle)
+        .setPositiveBtnId(R.string.back)
+        .build();
+    alertDialog.show(fragment, tag);
+  }
+
+  static void showProductDetailsFailureDialog(@NonNull Fragment fragment, @NonNull String tag)
+  {
+    AlertDialog alertDialog = new AlertDialog.Builder()
+        .setReqCode(PurchaseUtils.REQ_CODE_PRODUCT_DETAILS_FAILURE)
+        .setTitleId(R.string.bookmarks_convert_error_title)
+        .setMessageId(R.string.discovery_button_other_error_message)
+        .setPositiveBtnId(R.string.ok)
+        .build();
+    alertDialog.show(fragment, tag);
+  }
+
+  enum Period
+  {
+    // Order is important.
+    P1Y,
+    P1M,
+    P1W;
+
+    @Nullable
+    static Period getInstance(@Nullable String subscriptionPeriod)
+    {
+      for (Period each : values())
+      {
+        if (TextUtils.equals(each.name(), subscriptionPeriod))
+          return each;
+      }
+      return null;
+    }
   }
 }

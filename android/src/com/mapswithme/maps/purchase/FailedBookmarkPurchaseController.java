@@ -66,7 +66,7 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   }
 
   @Override
-  public void queryPurchaseDetails()
+  public void queryProductDetails()
   {
     throw new UnsupportedOperationException("This purchase controller doesn't support " +
                                             "querying purchase details");

@@ -35,14 +35,11 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     implements AlertDialogCallback, PurchaseStateActivator<BookmarkPaymentState>
 {
   static final String ARG_PAYMENT_DATA = "arg_payment_data";
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarkPaymentFragment.class.getSimpleName();
   private static final String EXTRA_CURRENT_STATE = "extra_current_state";
   private static final String EXTRA_PRODUCT_DETAILS = "extra_product_details";
   private static final String EXTRA_VALIDATION_RESULT = "extra_validation_result";
-  final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
-  final static int REQ_CODE_PAYMENT_FAILURE = 2;
-  final static int REQ_CODE_START_TRANSACTION_FAILURE = 3;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -148,7 +145,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     }
 
     activateState(BookmarkPaymentState.PRODUCT_DETAILS_LOADING);
-    mPurchaseController.queryPurchaseDetails();
+    mPurchaseController.queryProductDetails();
   }
 
   @Override
@@ -268,11 +265,11 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   {
     switch (requestCode)
     {
-      case REQ_CODE_PRODUCT_DETAILS_FAILURE:
+      case PurchaseUtils.REQ_CODE_PRODUCT_DETAILS_FAILURE:
         requireActivity().finish();
         break;
-      case REQ_CODE_START_TRANSACTION_FAILURE:
-      case REQ_CODE_PAYMENT_FAILURE:
+      case PurchaseUtils.REQ_CODE_START_TRANSACTION_FAILURE:
+      case PurchaseUtils.REQ_CODE_PAYMENT_FAILURE:
         activateState(BookmarkPaymentState.PRODUCT_DETAILS_LOADED);
         break;
     }

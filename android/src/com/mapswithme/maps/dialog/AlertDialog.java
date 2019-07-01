@@ -41,14 +41,13 @@ public class AlertDialog extends BaseMwmDialogFragment
   @Nullable
   private AlertDialogCallback mTargetCallback;
 
-  @SuppressWarnings("NullableProblems")
   @NonNull
   private ResolveFragmentManagerStrategy mFragmentManagerStrategy = new ChildFragmentManagerStrategy();
 
   @NonNull
   private ResolveDialogViewStrategy mDialogViewStrategy = new AlertDialogStrategy();
 
-  public void show(@NonNull Fragment parent, @NonNull String tag)
+  public void show(@NonNull Fragment parent, @Nullable String tag)
   {
     FragmentManager fm = mFragmentManagerStrategy.resolve(parent);
     if (fm.findFragmentByTag(tag) != null)
@@ -57,7 +56,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     showInternal(tag, fm);
   }
 
-  public void show(@NonNull FragmentActivity activity, @NonNull String tag)
+  public void show(@NonNull FragmentActivity activity, @Nullable String tag)
   {
     FragmentManager fm = mFragmentManagerStrategy.resolve(activity);
     if (fm.findFragmentByTag(tag) != null)
@@ -66,7 +65,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     showInternal(tag, fm);
   }
 
-  private void showInternal(@NonNull String tag, @NonNull FragmentManager fm)
+  private void showInternal(@Nullable String tag, @NonNull FragmentManager fm)
   {
     FragmentTransaction transaction = fm.beginTransaction();
     transaction.add(this, tag);

@@ -84,7 +84,7 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   }
 
   @Override
-  public void queryPurchaseDetails()
+  public void queryProductDetails()
   {
     if (mProductIds == null)
       throw new IllegalStateException("Product ids must be non-null!");

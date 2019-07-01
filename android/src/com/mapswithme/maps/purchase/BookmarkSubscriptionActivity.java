@@ -1,9 +1,11 @@
 package com.mapswithme.maps.purchase;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.purchase.BookmarkSubscriptionFragment;
 
 public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
 {
@@ -17,5 +19,11 @@ public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
   protected boolean useTransparentStatusBar()
   {
     return false;
+  }
+
+  public static void start(@NonNull Context context)
+  {
+    Intent intent = new Intent(context, BookmarkSubscriptionActivity.class);
+    context.startActivity(intent);
   }
 }

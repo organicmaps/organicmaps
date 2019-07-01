@@ -41,8 +41,9 @@ public class PurchaseFactory
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
     PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
-    String yearlyProduct = PrivateVariables.bookmarksSubscriptionYearlyProductId();
-    String monthlyProduct = PrivateVariables.bookmarksSubscriptionMonthlyProductId();
+    // TODO: replace with bookmark subscription when they are ready.
+    String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
+    String monthlyProduct = PrivateVariables.adsRemovalMonthlyProductId();
     String[] productIds = Utils.concatArrays(PrivateVariables.bookmarksSubscriptionNotUsedList(),
                                              yearlyProduct, monthlyProduct);
     return new SubscriptionPurchaseController(validator, billingManager,
