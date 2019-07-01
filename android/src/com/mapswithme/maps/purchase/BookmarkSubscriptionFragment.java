@@ -1,5 +1,6 @@
 package com.mapswithme.maps.purchase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
   private BookmarkSubscriptionPaymentState mState = BookmarkSubscriptionPaymentState.NONE;
   @Nullable
   private ProductDetails[] mProductDetails;
+  private boolean mValidationResult;
 
   @Nullable
   @Override
@@ -62,12 +64,31 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
                                                                                 annualPriceCard);
     monthlyPriceCard.setOnClickListener(monthlyCardListener);
     annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
-    TextView restorePurchasesLink = root.findViewById(R.id.restore_purchase_btn);
 
+    TextView restorePurchasesLink = root.findViewById(R.id.restore_purchase_btn);
     final Spanned html = makeRestorePurchaseHtml(requireContext());
     restorePurchasesLink.setText(html);
     restorePurchasesLink.setMovementMethod(LinkMovementMethod.getInstance());
+    restorePurchasesLink.setOnClickListener(v -> openSubscriptionManagementSettings());
+
+    View continueBtn = root.findViewById(R.id.continue_btn);
+    continueBtn.setOnClickListener(v -> onContinueButtonClicked());
     return root;
+  }
+
+  private void openSubscriptionManagementSettings()
+  {
+    Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
+  }
+
+  private void onContinueButtonClicked()
+  {
+    //TODO: insert ping logic here.
+    CardView annualCard = getViewOrThrow().findViewById(R.id.annual_price_card);
+    PurchaseUtils.Period period = annualCard.getCardElevation() > 0 ? PurchaseUtils.Period.P1Y
+                                                                    : PurchaseUtils.Period.P1M;
+    ProductDetails details = getProductDetailsForPeriod(period);
+    mPurchaseController.launchPurchaseFlow(details.getProductId());
   }
 
   @Override
@@ -198,6 +219,19 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     // TODO: coming soon.
   }
 
+  private void handleActivationResult(boolean result)
+  {
+    mValidationResult = result;
+  }
+
+  void finishValidation()
+  {
+    if (mValidationResult)
+      requireActivity().setResult(Activity.RESULT_OK);
+
+    requireActivity().finish();
+  }
+
   private class AnnualCardClickListener implements View.OnClickListener
   {
     @NonNull
@@ -250,6 +284,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
   {
     @Nullable
     private List<SkuDetails> mPendingDetails;
+    private Boolean mPendingActivationResult;
 
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
@@ -288,13 +323,18 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @Override
     public void onValidationStarted()
     {
-      // TODO: coming soon.
+      activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION);
     }
 
     @Override
     public void onValidationFinish(boolean success)
     {
-      // TODO: coming soon.
+      if (getUiObject() == null)
+        mPendingActivationResult = success;
+      else
+        getUiObject().handleActivationResult(success);
+
+      activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION_FINISH);
     }
   }
 }

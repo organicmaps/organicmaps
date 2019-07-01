@@ -56,7 +56,6 @@ public enum  BookmarkSubscriptionPaymentState
         {
           hideProgress(fragment);
           fragment.updatePaymentButtons();
-
         }
       },
   VALIDATION
@@ -64,15 +63,8 @@ public enum  BookmarkSubscriptionPaymentState
         @Override
         void activate(@NonNull BookmarkSubscriptionFragment fragment)
         {
-          // TODO: coming soon.
-        }
-      },
-  VALIDATION_STARTED
-      {
-        @Override
-        void activate(@NonNull BookmarkSubscriptionFragment fragment)
-        {
-          // TODO: coming soon.
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.continue_btn);
+          UiUtils.show(fragment.getViewOrThrow(), R.id.progress);
         }
       },
   VALIDATION_FINISH
@@ -80,7 +72,9 @@ public enum  BookmarkSubscriptionPaymentState
         @Override
         void activate(@NonNull BookmarkSubscriptionFragment fragment)
         {
-          // TODO: coming soon.
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
+          UiUtils.show(fragment.getViewOrThrow(), R.id.continue_btn);
+          fragment.finishValidation();
         }
       };
 
