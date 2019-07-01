@@ -1,8 +1,9 @@
-package com.mapswithme.maps.bookmarks;
+package com.mapswithme.maps.purchase;
 
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.purchase.BookmarkSubscriptionFragment;
 
 public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
 {

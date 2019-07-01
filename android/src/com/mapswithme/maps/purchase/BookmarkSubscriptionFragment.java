@@ -1,4 +1,4 @@
-package com.mapswithme.maps.bookmarks;
+package com.mapswithme.maps.purchase;
 
 import android.content.Context;
 import android.os.Bundle;

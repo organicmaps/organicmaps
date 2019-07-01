@@ -473,7 +473,7 @@
       android:name="com.mapswithme.maps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
     <activity
-      android:name="com.mapswithme.maps.bookmarks.BookmarkSubscriptionActivity"
+      android:name="com.mapswithme.maps.purchase.BookmarkSubscriptionActivity"
       android:screenOrientation="portrait"
       android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <service
