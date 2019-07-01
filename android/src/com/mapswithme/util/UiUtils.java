@@ -280,6 +280,12 @@ public final class UiUtils
     showIf(!TextUtils.isEmpty(text), tv);
   }
 
+  public static void clearTextAndHide(TextView tv)
+  {
+    tv.setText("");
+    hide(tv);
+  }
+
   public static void showHomeUpButton(Toolbar toolbar)
   {
     toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
