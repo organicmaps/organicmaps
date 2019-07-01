@@ -58,7 +58,7 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
     auto const & bbox = street.second.GetBbox();
     auto const & pin = street.second.GetOrChoosePin();
 
-    auto const id = static_cast<int64_t>(pin.m_osmId.GetEncodedId());
+    auto const id = KeyValueStorage::SerializeDref(pin.m_osmId.GetEncodedId());
     auto const & value =
         MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
     streamStreetsKv << id << " " << KeyValueStorage::Serialize(value) << "\n";
@@ -175,7 +175,7 @@ base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const
   auto properties = base::NewJSONObject();
   ToJSONObject(*properties, "address", std::move(address));
   ToJSONObject(*properties, "name", streetName);
-  ToJSONObject(*properties, "dref", regionId);
+  ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionId));
   ToJSONObject(*streetObject, "properties", std::move(properties));
 
   auto const & leftBottom = MercatorBounds::ToLatLon(bbox.LeftBottom());

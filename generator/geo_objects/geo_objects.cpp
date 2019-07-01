@@ -83,7 +83,7 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
   else
     ToJSONObject(*address, "building", base::NewJSONNull());
 
-  ToJSONObject(*properties, "dref", regionKeyValue.first);
+  ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionKeyValue.first));
   // auto locales = json_object_get(result.get(), "locales");
   // auto en = json_object_get(result.get(), "en");
   // todo(maksimandrianov): Add en locales.
@@ -214,7 +214,7 @@ void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
     if (!house)
       return;
 
-    auto const id = static_cast<int64_t>(fb.GetMostGenericOsmId().GetEncodedId());
+    auto const id = fb.GetMostGenericOsmId().GetEncodedId();
     auto jsonValue = MakeGeoObjectValueWithoutAddress(fb, *house);
 
     std::lock_guard<std::mutex> lock(updateMutex);

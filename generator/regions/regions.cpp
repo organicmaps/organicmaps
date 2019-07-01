@@ -103,9 +103,8 @@ private:
     ToJSONObject(*geometry, "coordinates", coordinates);
 
     auto address = base::NewJSONObject();
-    boost::optional<int64_t> pid;
-
     Localizator localizator;
+    boost::optional<std::string> dref;
 
     for (auto const & p : path)
     {
@@ -127,8 +126,8 @@ private:
             region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language))};
       });
 
-      if (!pid && region.GetId() != main.GetId())
-        pid = static_cast<int64_t>(region.GetId().GetEncodedId());
+      if (!dref && region.GetId() != main.GetId())
+        dref = KeyValueStorage::SerializeDref(region.GetId().GetEncodedId());
     }
 
     auto properties = base::NewJSONObject();
@@ -136,8 +135,9 @@ private:
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
     ToJSONObject(*properties, "locales", localizator.BuildLocales());
-    if (pid)
-      ToJSONObject(*properties, "dref", *pid);
+
+    if (dref)
+      ToJSONObject(*properties, "dref", *dref);
     else
       ToJSONObject(*properties, "dref", base::NewJSONNull());
 
@@ -184,7 +184,7 @@ private:
 
         if (regionCountryEmplace.second)
         {
-          m_regionsKv << static_cast<int64_t>(objectId.GetEncodedId()) << " "
+          m_regionsKv << KeyValueStorage::SerializeDref(objectId.GetEncodedId()) << " "
                       << KeyValueStorage::Serialize(BuildRegionValue(path)) << "\n";
           ++countryObjectCount;
         }
