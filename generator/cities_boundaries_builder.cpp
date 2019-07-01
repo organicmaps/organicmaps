@@ -39,24 +39,6 @@ namespace generator
 {
 namespace
 {
-bool ParseFeatureIdToTestIdMapping(string const & path, unordered_map<uint32_t, uint64_t> & mapping)
-{
-  bool success = true;
-  feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
-    auto const & metatada = feature.GetMetadata();
-    auto const sid = metatada.Get(feature::Metadata::FMD_TEST_ID);
-    uint64_t tid;
-    if (!strings::to_uint64(sid, tid))
-    {
-      LOG(LERROR, ("Can't parse test id from:", sid, "for a feature", fid));
-      success = false;
-      return;
-    }
-    mapping.emplace(fid, tid);
-  });
-  return success;
-}
-
 template <typename BoundariesTable, typename MappingReader>
 bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
                            MappingReader && reader)

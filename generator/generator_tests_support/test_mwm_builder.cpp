@@ -1,6 +1,7 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "generator/centers_table_builder.hpp"
+#include "generator/cities_ids_builder.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
@@ -116,9 +117,9 @@ void TestMwmBuilder::SetMwmLanguages(vector<string> const & languages)
 
 void TestMwmBuilder::Finish()
 {
-  string const tmpFilePath = m_collector->GetFilePath();
-
   CHECK(m_collector, ("Finish() already was called."));
+
+  string const tmpFilePath = m_collector->GetFilePath();
   m_collector.reset();
 
   GenerateInfo info;
@@ -141,7 +142,10 @@ void TestMwmBuilder::Finish()
         ("Can't build search index."));
 
   if (m_type == DataHeader::world)
+  {
     CHECK(generator::BuildCitiesBoundariesForTesting(path, m_boundariesTable), ());
+    CHECK(generator::BuildCitiesIdsForTesting(path), ());
+  }
 
   CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
         ("Can't build centers table."));

@@ -66,6 +66,8 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 
 bool ParseFeatureIdToOsmIdMapping(std::string const & path,
                                   std::unordered_map<uint32_t, base::GeoObjectId> & mapping);
+bool ParseFeatureIdToTestIdMapping(std::string const & path,
+                                   std::unordered_map<uint32_t, uint64_t> & mapping);
 
 search::CBV GetLocalities(std::string const & dataPath);
 }  // namespace generator

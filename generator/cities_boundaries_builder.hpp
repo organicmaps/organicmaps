@@ -10,6 +10,7 @@
 
 namespace generator
 {
+// todo(@m) Make test ids a new source in base::GeoObjectId?
 using OsmIdToBoundariesTable =
     base::ClusteringMap<base::GeoObjectId, indexer::CityBoundary>;
 using TestIdToBoundariesTable = base::ClusteringMap<uint64_t, indexer::CityBoundary>;

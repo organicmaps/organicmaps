@@ -3,6 +3,7 @@
 #include "generator/utils.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_header.hpp"
 #include "indexer/feature_to_osm.hpp"
 
 #include "search/categories_cache.hpp"
@@ -23,23 +24,26 @@
 
 #include "defines.hpp"
 
-namespace generator
+namespace
 {
-// todo(@m) This should be built only for World.mwm.
-bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeaturePath)
+bool IsWorldMwm(std::string const & dataPath)
 {
-  classificator::Load();
-
-  std::unordered_map<uint32_t, base::GeoObjectId> mapping;
-  if (!ParseFeatureIdToOsmIdMapping(osmToFeaturePath, mapping))
+  try
   {
-    LOG(LERROR, ("Can't parse feature id to osm id mapping."));
+    feature::DataHeader const header(dataPath);
+    return header.GetType() == feature::DataHeader::world;
+  }
+  catch (Reader::OpenException const & e)
+  {
     return false;
   }
+}
 
+void WriteCitiesIdsSectionToFile(std::string const & dataPath,
+                                 std::unordered_map<uint32_t, base::GeoObjectId> const & mapping)
+{
   indexer::FeatureIdToGeoObjectIdBimapMem map;
-
-  auto const localities = GetLocalities(dataPath);
+  auto const localities = generator::GetLocalities(dataPath);
   localities.ForEach([&](uint64_t fid64) {
     auto const fid = base::checked_cast<uint32_t>(fid64);
     auto const it = mapping.find(fid);
@@ -55,7 +59,7 @@ bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeatu
       auto const hasOldFid = map.GetKey(osmId, oldFid);
 
       LOG(LWARNING,
-          ("Could not add the pair (", fid, osmId,
+          ("Could not add the pair (", fid, ",", osmId,
            ") to the cities ids section; old fid:", (hasOldFid ? DebugPrint(oldFid) : "none"),
            "old osmId:", (hasOldOsmId ? DebugPrint(oldOsmId) : "none")));
     }
@@ -69,7 +73,47 @@ bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeatu
 
   LOG(LINFO,
       ("Serialized cities ids. Number of entries:", map.Size(), "Size in bytes:", pos1 - pos0));
+}
+}  // namespace
 
+namespace generator
+{
+bool BuildCitiesIds(std::string const & dataPath, std::string const & osmToFeaturePath)
+{
+  if (!IsWorldMwm(dataPath))
+  {
+    LOG(LINFO, ("Skipping generation of cities ids for the non-world mwm file at", dataPath));
+    return false;
+  }
+
+  classificator::Load();
+
+  std::unordered_map<uint32_t, base::GeoObjectId> mapping;
+  if (!ParseFeatureIdToOsmIdMapping(osmToFeaturePath, mapping))
+  {
+    LOG(LERROR, ("Can't parse feature id to osm id mapping."));
+    return false;
+  }
+
+  WriteCitiesIdsSectionToFile(dataPath, mapping);
+  return true;
+}
+
+bool BuildCitiesIdsForTesting(std::string const & dataPath)
+{
+  CHECK(IsWorldMwm(dataPath), ());
+
+  std::unordered_map<uint32_t, uint64_t> mapping;
+  if (!ParseFeatureIdToTestIdMapping(dataPath, mapping))
+    return false;
+
+  std::unordered_map<uint32_t, base::GeoObjectId> mappingToGeoObjects;
+  for (auto const & entry : mapping)
+  {
+    // todo(@m) Make test ids a new source in base::GeoObjectId?
+    mappingToGeoObjects.emplace(entry.first, base::MakeOsmNode(entry.second));
+  }
+  WriteCitiesIdsSectionToFile(dataPath, mappingToGeoObjects);
   return true;
 }
 }  // namespace generator

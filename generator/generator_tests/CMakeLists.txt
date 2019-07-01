@@ -7,6 +7,7 @@ set(
   camera_collector_tests.cpp
   check_mwms.cpp
   cities_boundaries_checker_tests.cpp
+  cities_ids_tests.cpp
   city_roads_tests.cpp
   coasts_test.cpp
   common.cpp

@@ -4,6 +4,8 @@
 #include "search/localities_source.hpp"
 #include "search/mwm_context.hpp"
 
+#include "indexer/feature_processor.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -58,6 +60,25 @@ bool ParseFeatureIdToOsmIdMapping(std::string const & path,
   return ForEachOsmId2FeatureId(path, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
     CHECK(mapping.emplace(featureId, osmId).second, ("Several osm ids for feature", featureId, "in file", path));
   });
+}
+
+bool ParseFeatureIdToTestIdMapping(std::string const & path,
+                                   std::unordered_map<uint32_t, uint64_t> & mapping)
+{
+  bool success = true;
+  feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
+    auto const & metatada = feature.GetMetadata();
+    auto const sid = metatada.Get(feature::Metadata::FMD_TEST_ID);
+    uint64_t tid;
+    if (!strings::to_uint64(sid, tid))
+    {
+      LOG(LERROR, ("Can't parse test id from:", sid, "for the feature", fid));
+      success = false;
+      return;
+    }
+    mapping.emplace(fid, tid);
+  });
+  return success;
 }
 
 search::CBV GetLocalities(std::string const & dataPath)
