@@ -4,6 +4,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_with_custom_mwms.hpp"
+#include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
@@ -16,7 +17,9 @@
 #include "platform/local_country_file.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
+
+#include "base/assert.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <cstddef>
 #include <sstream>
@@ -73,8 +76,13 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
     builder.Add(marCaribe);
   });
 
+  auto const worldMwmPath = testWorldId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
+
   indexer::FeatureIdToGeoObjectIdBimap bimap(GetDataSource());
   TEST(bimap.Load(), ());
+
+  std::unordered_map<uint32_t, uint64_t> originalMapping;
+  CHECK(ParseFeatureIdToTestIdMapping(worldMwmPath, originalMapping), ());
 
   {
     size_t numFeatures = 0;
@@ -94,9 +102,12 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
       ++numLocalities;
       TEST_EQUAL(bimap.GetFeatureID(gid, receivedFid), mustExist, (index));
       TEST_EQUAL(receivedFid, fid, ());
+
+      CHECK(originalMapping.find(index) != originalMapping.end(), ());
+      TEST_EQUAL(originalMapping[index], gid.GetSerialId(), ());
     };
 
-    feature::ForEachFromDat(testWorldId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map), test);
+    feature::ForEachFromDat(worldMwmPath, test);
 
     TEST_EQUAL(numFeatures, 3, ());
     TEST_EQUAL(numLocalities, 2, ());

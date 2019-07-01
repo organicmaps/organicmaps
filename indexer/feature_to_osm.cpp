@@ -31,7 +31,7 @@ bool FeatureIdToGeoObjectIdBimap::Load()
 
   auto const & cont = handle.GetValue<MwmValue>()->m_cont;
 
-  if (!cont.IsExist(CITIES_IDS_FILE_TAG))
+  if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
   {
     LOG(LWARNING, ("No cities fid bimap in the world map."));
     return false;
@@ -39,7 +39,7 @@ bool FeatureIdToGeoObjectIdBimap::Load()
 
   try
   {
-    auto reader = cont.GetReader(CITIES_IDS_FILE_TAG);
+    auto reader = cont.GetReader(FEATURE_TO_OSM_FILE_TAG);
     ReaderSource<ReaderPtr<ModelReader>> source(reader);
     FeatureIdToGeoObjectIdSerDes::Deserialize(source, m_map);
   }
