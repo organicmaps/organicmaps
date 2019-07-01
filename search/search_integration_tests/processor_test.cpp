@@ -728,12 +728,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   }
 
   {
-    string const kQueries[] = {"london WC2H 7BX", "london WC2H 7", "london WC2H ", "london WC"};
-    for (auto const & query : kQueries)
-    {
-      Rules rules{ExactMatch(countryId, building1)};
-      TEST(ResultsMatch(query, rules), (query));
-    }
+    Rules rules{ExactMatch(countryId, building1)};
+    TEST(ResultsMatch("london WC2H 7BX", rules), ());
+    TEST(!ResultsMatch("london WC2H 7", rules), ());
+    TEST(!ResultsMatch("london WC", rules), ());
   }
 }
 

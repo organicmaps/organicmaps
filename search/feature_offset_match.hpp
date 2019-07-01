@@ -329,18 +329,13 @@ void MatchPostcodesInTrie(TokenSlice const & slice, trie::Iterator<ValueList> co
   impl::OffsetIntersector<Filter, Value> intersector(filter);
   for (size_t i = 0; i < slice.Size(); ++i)
   {
-    if (slice.IsPrefix(i))
-    {
-      std::vector<PrefixDFAModifier<UniStringDFA>> dfas;
-      slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(UniStringDFA(s)); });
-      MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
-    }
-    else
-    {
-      std::vector<UniStringDFA> dfas;
-      slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(s); });
-      MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
-    }
+    // Full match required even for prefix token. Reasons:
+    // 1. For postcode every symbol is important, partial matching can lead to wrong results.
+    // 2. For prefix match query like "streetname 40" where |streetname| is located in 40xxx
+    // postcode zone will give all street vicinity as the result which is wrong.
+    std::vector<UniStringDFA> dfas;
+    slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(s); });
+    MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
 
     intersector.NextStep();
   }
