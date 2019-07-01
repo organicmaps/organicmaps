@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="horizontal"
+  android:gravity="center"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
 
@@ -18,89 +19,113 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/turquoise"
-    app:cardCornerRadius="@dimen/margin_quarter"
+    app:cardCornerRadius="@dimen/margin_half_plus_eight"
     android:layout_marginRight="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half">
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/margin_half_double_plus">
-
-    <ImageView
-      android:src="@drawable/img_annual_subscription_offer"
-      android:layout_margin="@dimen/margin_eighth"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-    <TextView
+    <RelativeLayout
+      android:gravity="center_horizontal"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:textSize="@dimen/text_size_toolbar"
-      android:textStyle="bold"
-      android:fontFamily="@string/robotoMedium"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:gravity="center"
-      android:lines="1"
-      android:text="@string/annual_subscription_title"
-      tools:text="Annual"
-      tools:ignore="UnusedAttribute"/>
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus"
-      android:textAppearance="?android:attr/textAppearance"
-      android:fontFamily="@string/robotoRegular"
-      android:textStyle="normal"
-      android:textColor="?android:attr/textColorSecondary"
-      android:text="@string/annual_subscription_message"
-      tools:text="1 month unlimited guides"
-      tools:ignore="UnusedAttribute"/>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:layout_marginTop="@dimen/primary_button_min_height"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus">
-      <TextView
-        android:id="@+id/annual_price"
+      android:layout_height="wrap_content">
+      <LinearLayout
+        android:id="@+id/annual_price_card_payload"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_toolbar"
-        android:textStyle="bold"
-        android:fontFamily="@string/robotoMedium"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:lines="1"
-        android:text="3.99$"
-        tools:text="3.99$"
-        tools:ignore="UnusedAttribute"/>
-      <TextView
+        android:paddingBottom="@dimen/margin_half_double_plus">
+
+        <ImageView
+          android:src="@drawable/img_annual_subscription_offer"
+          android:layout_gravity="top"
+          android:layout_marginEnd="@dimen/margin_eighth"
+          android:layout_marginRight="@dimen/margin_eighth"
+          android:layout_marginLeft="@dimen/margin_eighth"
+          android:layout_marginStart="@dimen/margin_eighth"
+          android:scaleType="fitCenter"
+          android:adjustViewBounds="true"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_base"
+          android:textSize="@dimen/text_size_toolbar"
+          android:textStyle="bold"
+          android:fontFamily="@string/robotoMedium"
+          android:layout_marginRight="@dimen/margin_half_double_plus"
+          android:layout_marginStart="@dimen/margin_half_double_plus"
+          android:layout_marginEnd="@dimen/margin_half_double_plus"
+          android:layout_marginLeft="@dimen/margin_half_double_plus"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:gravity="center"
+          android:lines="1"
+          android:text="@string/annual_subscription_title"
+          tools:text="Annual"
+          tools:ignore="UnusedAttribute"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="@dimen/margin_half_double_plus"
+          android:layout_marginStart="@dimen/margin_half_double_plus"
+          android:layout_marginEnd="@dimen/margin_half_double_plus"
+          android:layout_marginLeft="@dimen/margin_half_double_plus"
+          android:textAppearance="?android:attr/textAppearance"
+          android:fontFamily="@string/robotoRegular"
+          android:textStyle="normal"
+          android:textColor="?android:attr/textColorSecondary"
+          android:text="@string/annual_subscription_message"
+          tools:text="1 month unlimited guides"
+          tools:ignore="UnusedAttribute"/>
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:layout_marginTop="@dimen/primary_button_min_height"
+          android:layout_marginRight="@dimen/margin_half_double_plus"
+          android:layout_marginStart="@dimen/margin_half_double_plus"
+          android:layout_marginEnd="@dimen/margin_half_double_plus"
+          android:layout_marginLeft="@dimen/margin_half_double_plus">
+          <TextView
+            android:id="@+id/annual_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_toolbar"
+            android:textStyle="bold"
+            android:fontFamily="@string/robotoMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:lines="1"
+            android:text="3.99$"
+            tools:text="3.99$"
+            tools:ignore="UnusedAttribute"/>
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearance"
+            android:fontFamily="@string/robotoRegular"
+            android:textStyle="normal"
+            android:lines="1"
+            android:textColor="?android:attr/textColorSecondary"
+            android:text="@string/per_year"
+            tools:text="/ mo"
+            tools:ignore="UnusedAttribute"
+            android:layout_marginStart="@dimen/margin_quarter"
+            android:layout_marginLeft="@dimen/margin_quarter"/>
+        </LinearLayout>
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/annual_price_card_edge"
+        android:background="?attr/bookmarkSubscriptionAnnualCardEdge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearance"
-        android:fontFamily="@string/robotoRegular"
-        android:textStyle="normal"
-        android:lines="1"
-        android:textColor="?android:attr/textColorSecondary"
-        android:text="@string/per_year"
-        tools:text="/ mo"
-        tools:ignore="UnusedAttribute"
-        android:layout_marginStart="@dimen/margin_quarter"
-        android:layout_marginLeft="@dimen/margin_quarter"/>
-    </LinearLayout>
-  </LinearLayout>
+        android:layout_alignBottom="@id/annual_price_card_payload"
+        android:layout_alignTop="@id/annual_price_card_payload"
+        android:layout_alignRight="@id/annual_price_card_payload"
+        android:layout_alignEnd="@id/annual_price_card_payload"
+        android:layout_alignStart="@id/annual_price_card_payload"
+        android:layout_alignLeft="@id/annual_price_card_payload"/>
+    </RelativeLayout>
   </android.support.v7.widget.CardView>
   <android.support.v7.widget.CardView
     android:id="@+id/monthly_price_card"
@@ -112,91 +137,112 @@
     android:orientation="vertical"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:background="?attr/cardBackground"
-    app:cardCornerRadius="@dimen/margin_quarter"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_half"
-    android:focusable="true">
+    app:cardBackgroundColor="?attr/cardBackground"
+    app:cardCornerRadius="@dimen/margin_half_plus_eight"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_marginLeft="@dimen/margin_quarter">
+    <RelativeLayout
+      android:gravity="center_horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
     <LinearLayout
+      android:id="@+id/monthly_price_card_payload"
       android:orientation="vertical"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingBottom="@dimen/margin_half_double_plus">
-    <ImageView
-      android:src="@drawable/img_monthly_subscription_offer"
-      android:layout_margin="@dimen/margin_eighth"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:textSize="@dimen/text_size_toolbar"
-      android:textStyle="bold"
-      android:fontFamily="@string/robotoMedium"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:gravity="center"
-      android:lines="1"
-      android:text="@string/montly_subscription_title"
-      tools:text="Annual"
-      tools:ignore="UnusedAttribute"/>
+      <ImageView
+        android:src="@drawable/img_monthly_subscription_offer"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginStart="1dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus"
-      android:textAppearance="?android:attr/textAppearance"
-      android:fontFamily="@string/robotoRegular"
-      android:textStyle="normal"
-      android:textColor="?android:attr/textColorSecondary"
-      android:text="@string/montly_subscription_message"
-      tools:text="1 month unlimited guides"
-      tools:ignore="UnusedAttribute"/>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:layout_marginTop="@dimen/primary_button_min_height"
-      android:layout_marginRight="@dimen/margin_half_double_plus"
-      android:layout_marginStart="@dimen/margin_half_double_plus"
-      android:layout_marginEnd="@dimen/margin_half_double_plus"
-      android:layout_marginLeft="@dimen/margin_half_double_plus">
       <TextView
-        android:id="@+id/monthly_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
         android:textSize="@dimen/text_size_toolbar"
         android:textStyle="bold"
         android:fontFamily="@string/robotoMedium"
+        android:layout_marginRight="@dimen/margin_half_double_plus"
+        android:layout_marginStart="@dimen/margin_half_double_plus"
+        android:layout_marginEnd="@dimen/margin_half_double_plus"
+        android:layout_marginLeft="@dimen/margin_half_double_plus"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
         android:lines="1"
-        android:text="3.99$"
-        tools:text="3.99$"
+        android:text="@string/montly_subscription_title"
+        tools:text="Annual"
         tools:ignore="UnusedAttribute"/>
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_half_double_plus"
+        android:layout_marginStart="@dimen/margin_half_double_plus"
+        android:layout_marginEnd="@dimen/margin_half_double_plus"
+        android:layout_marginLeft="@dimen/margin_half_double_plus"
         android:textAppearance="?android:attr/textAppearance"
         android:fontFamily="@string/robotoRegular"
         android:textStyle="normal"
-        android:lines="1"
         android:textColor="?android:attr/textColorSecondary"
-        android:text="@string/per_month"
-        tools:text="/ mo"
-        tools:ignore="UnusedAttribute"
-        android:layout_marginStart="@dimen/margin_quarter"
-        android:layout_marginLeft="@dimen/margin_quarter"/>
+        android:text="@string/montly_subscription_message"
+        tools:text="1 month unlimited guides"
+        tools:ignore="UnusedAttribute"/>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/primary_button_min_height"
+        android:layout_marginRight="@dimen/margin_half_double_plus"
+        android:layout_marginStart="@dimen/margin_half_double_plus"
+        android:layout_marginEnd="@dimen/margin_half_double_plus"
+        android:layout_marginLeft="@dimen/margin_half_double_plus">
+        <TextView
+          android:id="@+id/monthly_price"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_toolbar"
+          android:textStyle="bold"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:gravity="center"
+          android:lines="1"
+          android:text="3.99$"
+          tools:text="3.99$"
+          tools:ignore="UnusedAttribute"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearance"
+          android:fontFamily="@string/robotoRegular"
+          android:textStyle="normal"
+          android:lines="1"
+          android:textColor="?android:attr/textColorSecondary"
+          android:text="@string/per_month"
+          tools:text="/ mo"
+          tools:ignore="UnusedAttribute"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:layout_marginLeft="@dimen/margin_quarter"/>
+      </LinearLayout>
     </LinearLayout>
-  </LinearLayout>
+      <FrameLayout
+        android:id="@+id/monthly_price_card_edge"
+        android:background="?attr/bookmarkSubscriptionMonthlyCardEdge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/monthly_price_card_payload"
+        android:layout_alignTop="@id/monthly_price_card_payload"
+        android:layout_alignRight="@id/monthly_price_card_payload"
+        android:layout_alignEnd="@id/monthly_price_card_payload"
+        android:layout_alignStart="@id/monthly_price_card_payload"
+        android:layout_alignLeft="@id/monthly_price_card_payload"/>
+    </RelativeLayout>
   </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -18,6 +18,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -57,11 +58,17 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     View root = inflater.inflate(R.layout.bookmark_subscription_fragment, container, false);
     CardView annualPriceCard = root.findViewById(R.id.annual_price_card);
     CardView monthlyPriceCard = root.findViewById(R.id.monthly_price_card);
+    View annualCardEdge = root.findViewById(R.id.annual_price_card_edge);
+    View monthlyCardEdge = root.findViewById(R.id.monthly_price_card_edge);
     AnnualCardClickListener annualCardListener = new AnnualCardClickListener(monthlyPriceCard,
-                                                                             annualPriceCard);
+                                                                             annualPriceCard,
+                                                                             annualCardEdge,
+                                                                             monthlyCardEdge);
     annualPriceCard.setOnClickListener(annualCardListener);
     MonthlyCardClickListener monthlyCardListener = new MonthlyCardClickListener(monthlyPriceCard,
-                                                                                annualPriceCard);
+                                                                                annualPriceCard,
+                                                                                annualCardEdge,
+                                                                                monthlyCardEdge);
     monthlyPriceCard.setOnClickListener(monthlyCardListener);
     annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
@@ -240,11 +247,21 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @NonNull
     private final CardView mAnnualPriceCard;
 
+    @NonNull
+    private final View mAnnualCardFrame;
+
+    @NonNull
+    private final View mMonthlyCardFrame;
+
     AnnualCardClickListener(@NonNull CardView monthlyPriceCard,
-                            @NonNull CardView annualPriceCard)
+                            @NonNull CardView annualPriceCard,
+                            @NonNull View annualCardFrame,
+                            @NonNull View monthlyCardFrame)
     {
       mMonthlyPriceCard = monthlyPriceCard;
       mAnnualPriceCard = annualPriceCard;
+      mAnnualCardFrame = annualCardFrame;
+      mMonthlyCardFrame = monthlyCardFrame;
     }
 
     @Override
@@ -252,6 +269,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     {
       mMonthlyPriceCard.setCardElevation(DEF_ELEVATION);
       mAnnualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
+      UiUtils.show(mAnnualCardFrame, mMonthlyCardFrame);
     }
   }
 
@@ -263,11 +281,21 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @NonNull
     private final CardView mAnnualPriceCard;
 
+    @NonNull
+    private final View mAnnualCardFrame;
+
+    @NonNull
+    private final View mMonthlyCardFrame;
+
     MonthlyCardClickListener(@NonNull CardView monthlyPriceCard,
-                             @NonNull CardView annualPriceCard)
+                             @NonNull CardView annualPriceCard,
+                             @NonNull View annualCardFrame,
+                             @NonNull View monthlyCardFrame)
     {
       mMonthlyPriceCard = monthlyPriceCard;
       mAnnualPriceCard = annualPriceCard;
+      mAnnualCardFrame = annualCardFrame;
+      mMonthlyCardFrame = monthlyCardFrame;
     }
 
     @Override
@@ -275,6 +303,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     {
       mMonthlyPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
       mAnnualPriceCard.setCardElevation(DEF_ELEVATION);
+      UiUtils.hide(mAnnualCardFrame, mMonthlyCardFrame);
     }
   }
 

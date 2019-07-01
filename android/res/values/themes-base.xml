@@ -147,6 +147,8 @@
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
     <item name="drivingOptionsViewBg">@color/light_green</item>
     <item name="bookmarkSubscriptionScreenBg">@drawable/bookmark_subscription_screen_bg</item>
+    <item name="bookmarkSubscriptionAnnualCardEdge">@drawable/annual_card_edge</item>
+    <item name="bookmarkSubscriptionMonthlyCardEdge">@drawable/monthly_card_edge</item>
   </style>
 
   <!-- Night theme -->
@@ -297,5 +299,7 @@
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
     <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
     <item name="bookmarkSubscriptionScreenBg">@drawable/bookmark_subscription_screen_bg_night</item>
+    <item name="bookmarkSubscriptionAnnualCardEdge">@drawable/annual_card_edge_night</item>
+    <item name="bookmarkSubscriptionMonthlyCardEdge">@drawable/monthly_card_edge_night</item>
   </style>
 </resources>
