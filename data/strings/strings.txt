@@ -40671,7 +40671,7 @@
     en = 1 month of unlimited downloads
 
   [annual_save_component]
-    en = Save %s$
+    en = Save %s
 
   [subscription_success_dialog_title]
     en = Woohoo!
@@ -40707,10 +40707,10 @@
     en = Our servers don't respond. Please check the internet connection and try again.
 
   [per_month]
-    en = mo
+    en = / mo
 
   [per_year]
-    en = year
+    en = / year
 
   [restore_purchase_link]
     en = <a href="%s">Restore purchase</a>
