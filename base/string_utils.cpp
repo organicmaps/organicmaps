@@ -1,5 +1,5 @@
-#include "base/string_utils.hpp"
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 

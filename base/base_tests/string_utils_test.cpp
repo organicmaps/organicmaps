@@ -83,10 +83,12 @@ UNIT_TEST(LowerUniChar)
       break;
     }
     default:
+    {
       m[uc] = us;
       ++fCount;
       TEST_EQUAL(type, " F", ());
       break;
+    }
     }
   }
   LOG(LINFO, ("Loaded", cCount, "common foldings and", fCount, "full foldings"));

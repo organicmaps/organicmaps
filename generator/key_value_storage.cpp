@@ -9,7 +9,7 @@
 #include <cstring>
 #include <iomanip>
 
-#include <boost/algorithm/string.hpp>
+
 namespace generator
 {
 KeyValueStorage::KeyValueStorage(std::string const & path, size_t cacheValuesCountLimit,
@@ -113,9 +113,8 @@ std::shared_ptr<JsonValue> KeyValueStorage::Find(uint64_t key) const
 std::string KeyValueStorage::SerializeDref(uint64_t number)
 {
   std::stringstream stream;
-  stream << std::setw(16) << std::setfill('0') << std::hex << number;
+  stream << std::setw(16) << std::setfill('0') << std::hex << std::uppercase << number;
   std::string result = stream.str();
-  boost::to_upper(result);
   return result;
 }
 
