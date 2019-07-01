@@ -8,30 +8,10 @@
 #include <string>
 #include <vector>
 
-
 namespace feature
 {
 class MetadataBase
 {
-protected:
-  // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
-  void Set(uint8_t type, std::string const & value)
-  {
-    auto found = m_metadata.find(type);
-    if (found == m_metadata.end())
-    {
-      if (!value.empty())
-        m_metadata[type] = value;
-    }
-    else
-    {
-      if (value.empty())
-        m_metadata.erase(found);
-      else
-        found->second = value;
-    }
-  }
-
 public:
   bool Has(uint8_t type) const
   {
@@ -43,6 +23,15 @@ public:
   {
     auto const it = m_metadata.find(type);
     return (it == m_metadata.end()) ? std::string() : it->second;
+  }
+
+  bool Get(uint8_t type, std::string & value) const
+  {
+    auto const it = m_metadata.find(type);
+    if (it == m_metadata.end())
+      return false;
+    value = it->second;
+    return true;
   }
 
   std::vector<uint8_t> GetPresentTypes() const
@@ -88,6 +77,24 @@ public:
   }
 
 protected:
+  // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
+  void Set(uint8_t type, std::string const & value)
+  {
+    auto found = m_metadata.find(type);
+    if (found == m_metadata.end())
+    {
+      if (!value.empty())
+        m_metadata[type] = value;
+    }
+    else
+    {
+      if (value.empty())
+        m_metadata.erase(found);
+      else
+        found->second = value;
+    }
+  }
+
   std::map<uint8_t, std::string> m_metadata;
 };
 
@@ -224,8 +231,10 @@ public:
   void AddPublicHoliday(int8_t month, int8_t offset);
   // No public holidays getters until we know what to do with these.
 };
-}  // namespace feature
 
 // Prints types in osm-friendly format.
 std::string ToString(feature::Metadata::EType type);
 inline std::string DebugPrint(feature::Metadata::EType type) { return ToString(type); }
+
+std::string DebugPrint(feature::Metadata const & metadata);
+}  // namespace feature

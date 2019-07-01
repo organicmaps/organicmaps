@@ -2,6 +2,8 @@
 
 #include "std/target_os.hpp"
 
+#include <sstream>
+
 using namespace std;
 
 namespace feature
@@ -156,12 +158,10 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
   value.push_back(offset);
   Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, value);
 }
-}  // namespace feature
 
 // Warning: exact osm tag keys should be returned for valid enum values.
-string ToString(feature::Metadata::EType type)
+string ToString(Metadata::EType type)
 {
-  using feature::Metadata;
   switch (type)
   {
   case Metadata::FMD_CUISINE: return "cuisine";
@@ -198,3 +198,26 @@ string ToString(feature::Metadata::EType type)
 
   return string();
 }
+
+string DebugPrint(Metadata const & metadata)
+{
+  ostringstream oss;
+  bool first = true;
+  oss << "Metadata [";
+  for (uint8_t i = 0; i < static_cast<uint8_t>(Metadata::FMD_COUNT); ++i)
+  {
+    auto const t = static_cast<Metadata::EType>(i);
+    string s;
+    if (metadata.Get(t, s))
+    {
+      if (!first)
+        oss << "; ";
+      first = false;
+
+      oss << DebugPrint(t) << "=" << s;
+    }
+  }
+  oss << "]";
+  return oss.str();
+}
+}  // namespace feature
