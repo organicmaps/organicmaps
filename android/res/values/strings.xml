@@ -1653,7 +1653,7 @@
 	<string name="montly_subscription_title">Monthly</string>
 	<string name="annual_subscription_message">12 month of unlimited downloads</string>
 	<string name="montly_subscription_message">1 month of unlimited downloads</string>
-	<string name="annual_save_component">Save %s$</string>
+	<string name="annual_save_component">Save %s</string>
 	<string name="subscription_success_dialog_title">Woohoo!</string>
 	<string name="subscription_success_dialog_message">You\'ve got a subscription!</string>
 	<string name="renewal_screen_title">Your subscription has expired</string>
@@ -1665,8 +1665,8 @@
 	<string name="subscription_error_button">Got it!</string>
 	<string name="timeout_error_title">Oops, time is up!</string>
 	<string name="timeout_error_message">Our servers don\'t respond. Please check the internet connection and try again.</string>
-	<string name="per_month">mo</string>
-	<string name="per_year">year</string>
+	<string name="per_month">/ mo</string>
+	<string name="per_year">/ year</string>
 	<string name="restore_purchase_link">&lt;a href="%s">Restore purchase&lt;/a></string>
 
 	<!-- SECTION:  Partners  -->

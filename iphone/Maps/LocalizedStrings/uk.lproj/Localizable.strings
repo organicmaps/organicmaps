@@ -2886,7 +2886,7 @@
 
 "montly_subscription_message" = "1 month of unlimited downloads";
 
-"annual_save_component" = "Save %s$";
+"annual_save_component" = "Save %s";
 
 "subscription_success_dialog_title" = "Woohoo!";
 
@@ -2910,9 +2910,9 @@
 
 "timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
 
-"per_month" = "mo";
+"per_month" = "/ mo";
 
-"per_year" = "year";
+"per_year" = "/ year";
 
 "restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
 
