@@ -25,6 +25,22 @@ namespace rw
     i = ReadVarUint<uint32_t>(src);
   }
 
+  template <class TSink, class T>
+  void WritePOD(TSink & sink, T const & value)
+  {
+    static_assert(std::is_trivially_copyable<T>::value, "");
+
+    sink.Write(&value, sizeof(T));
+  }
+
+  template <class TSource, class T>
+  void ReadPOD(TSource & src, T & value)
+  {
+    static_assert(std::is_trivially_copyable<T>::value, "");
+
+    src.Read(&value, sizeof(T));
+  }
+
   template <class TSink>
   void Write(TSink & sink, std::string const & s)
   {
