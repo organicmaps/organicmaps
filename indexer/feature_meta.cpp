@@ -210,9 +210,10 @@ string DebugPrint(Metadata const & metadata)
     string s;
     if (metadata.Get(t, s))
     {
-      if (!first)
+      if (first)
+        first = false;
+      else
         oss << "; ";
-      first = false;
 
       oss << DebugPrint(t) << "=" << s;
     }

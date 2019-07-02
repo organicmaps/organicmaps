@@ -27,11 +27,8 @@ public:
 
   bool Get(uint8_t type, std::string & value) const
   {
-    auto const it = m_metadata.find(type);
-    if (it == m_metadata.end())
-      return false;
-    value = it->second;
-    return true;
+    value = Get(type);
+    return !value.empty();
   }
 
   std::vector<uint8_t> GetPresentTypes() const

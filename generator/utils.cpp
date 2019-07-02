@@ -68,15 +68,15 @@ bool ParseFeatureIdToTestIdMapping(std::string const & path,
   bool success = true;
   feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
     auto const & metatada = feature.GetMetadata();
-    auto const sid = metatada.Get(feature::Metadata::FMD_TEST_ID);
-    uint64_t tid;
-    if (!strings::to_uint64(sid, tid))
+    auto const testIdStr = metatada.Get(feature::Metadata::FMD_TEST_ID);
+    uint64_t testId;
+    if (!strings::to_uint64(testIdStr, testId))
     {
-      LOG(LERROR, ("Can't parse test id from:", sid, "for the feature", fid));
+      LOG(LERROR, ("Can't parse test id from:", testIdStr, "for the feature", fid));
       success = false;
       return;
     }
-    mapping.emplace(fid, tid);
+    mapping.emplace(fid, testId);
   });
   return success;
 }

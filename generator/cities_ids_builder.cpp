@@ -26,11 +26,11 @@
 
 namespace
 {
-bool IsWorldMwm(std::string const & dataPath)
+bool IsWorldMwm(std::string const & path)
 {
   try
   {
-    feature::DataHeader const header(dataPath);
+    feature::DataHeader const header(path);
     return header.GetType() == feature::DataHeader::world;
   }
   catch (Reader::OpenException const & e)
