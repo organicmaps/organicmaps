@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMMegafonBannerViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="103"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="ic_brand_megafon_green" translatesAutoresizingMaskIntoConstraints="NO" id="LUI-uL-qXa">
+                    <rect key="frame" x="16" y="19.5" width="24" height="24"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Скажи международному роумингу гудбай!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnc-Lj-kiV">
+                    <rect key="frame" x="48" y="10" width="136" height="43"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="0.0" alpha="0.87165560789999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="banner_megafon_banner_message"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pol-d8-Kul">
+                    <rect key="frame" x="16" y="65" width="168" height="28"/>
+                    <color key="backgroundColor" red="0.34136284719999999" green="0.10091145830000001" blue="0.55075412329999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="f1I-WT-YKE"/>
+                        <constraint firstAttribute="width" constant="168" id="rwA-i2-tVJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                    <state key="normal" title="Гудбай!">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="banner_megafon_banner_button"/>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="rwA-i2-tVJ"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact">
+                        <mask key="constraints">
+                            <include reference="rwA-i2-tVJ"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="C3W-Yk-ooB"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="lnc-Lj-kiV" firstAttribute="leading" secondItem="LUI-uL-qXa" secondAttribute="trailing" constant="8" id="20Q-Z8-aux"/>
+                <constraint firstAttribute="leading" secondItem="LUI-uL-qXa" secondAttribute="leading" constant="-16" id="HRA-cj-9jo"/>
+                <constraint firstItem="pol-d8-Kul" firstAttribute="top" secondItem="lnc-Lj-kiV" secondAttribute="bottom" constant="12" id="KeN-qf-VmB"/>
+                <constraint firstItem="lnc-Lj-kiV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="NtB-3i-Yil"/>
+                <constraint firstItem="LUI-uL-qXa" firstAttribute="centerY" secondItem="lnc-Lj-kiV" secondAttribute="centerY" id="SDm-lH-kkw"/>
+                <constraint firstAttribute="trailing" secondItem="lnc-Lj-kiV" secondAttribute="trailing" constant="16" id="VHQ-vi-3kA"/>
+                <constraint firstAttribute="bottom" secondItem="pol-d8-Kul" secondAttribute="bottom" constant="10" id="gLK-GX-h2s"/>
+                <constraint firstAttribute="trailing" secondItem="pol-d8-Kul" secondAttribute="trailing" constant="16" id="rpZ-kT-rIj"/>
+                <constraint firstAttribute="leading" secondItem="pol-d8-Kul" secondAttribute="leading" constant="-16" id="tMm-rQ-ee1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="28.985507246376812" y="68.638392857142847"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_brand_megafon_green" width="24" height="24"/>
+    </resources>
+</document>

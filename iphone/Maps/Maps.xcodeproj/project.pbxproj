@@ -408,6 +408,11 @@
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
 		4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */; };
 		4797A4E22270997E00D3A984 /* DeepLinkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */; };
+		479D305722C627CB00D18278 /* MWMMegafonBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */; };
+		479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */; };
+		479D306122C6634900D18278 /* MWMMegafonBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D305F22C6634900D18278 /* MWMMegafonBannerViewController.m */; };
+		479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */; };
+		479D306822C66C8F00D18278 /* MWMBookmarksBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */; };
 		479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
@@ -1487,6 +1492,14 @@
 		4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		4797A4E02270997E00D3A984 /* DeepLinkHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkHelper.h; sourceTree = "<group>"; };
 		4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkHelper.mm; sourceTree = "<group>"; };
+		479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMMegafonBannerViewController.xib; sourceTree = "<group>"; };
+		479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBookmarksBannerViewController.xib; sourceTree = "<group>"; };
+		479D305E22C6634900D18278 /* MWMMegafonBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMegafonBannerViewController.h; sourceTree = "<group>"; };
+		479D305F22C6634900D18278 /* MWMMegafonBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMMegafonBannerViewController.m; sourceTree = "<group>"; };
+		479D306322C664CE00D18278 /* MWMDownloadBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDownloadBannerViewController.h; sourceTree = "<group>"; };
+		479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDownloadBannerViewController.m; sourceTree = "<group>"; };
+		479D306622C66C8F00D18278 /* MWMBookmarksBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksBannerViewController.h; sourceTree = "<group>"; };
+		479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarksBannerViewController.m; sourceTree = "<group>"; };
 		479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = CustomViews/ActivityIndicator.swift; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
 		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
@@ -3420,6 +3433,14 @@
 				3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */,
 				3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */,
 				3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */,
+				479D306622C66C8F00D18278 /* MWMBookmarksBannerViewController.h */,
+				479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */,
+				479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */,
+				479D305E22C6634900D18278 /* MWMMegafonBannerViewController.h */,
+				479D305F22C6634900D18278 /* MWMMegafonBannerViewController.m */,
+				479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */,
+				479D306322C664CE00D18278 /* MWMDownloadBannerViewController.h */,
+				479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -4807,6 +4828,7 @@
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
+				479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				3404F49A2028A20D0090E401 /* BMCCategoryCell.xib in Resources */,
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
@@ -4924,6 +4946,7 @@
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
+				479D305722C627CB00D18278 /* MWMMegafonBannerViewController.xib in Resources */,
 				337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
@@ -5242,6 +5265,7 @@
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
+				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				33F8BA4421998BFA00ECA8EE /* MWMTagGroup.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
@@ -5313,6 +5337,7 @@
 				3DD1A20B22D8D93500B158F4 /* MWMPromoAfterBooking.mm in Sources */,
 				F6E2FD771E097BA00083EBEC /* MWMMapDownloaderDataSource.mm in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
+				479D306822C66C8F00D18278 /* MWMBookmarksBannerViewController.m in Sources */,
 				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
 				349D1AD81E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
@@ -5442,6 +5467,7 @@
 				3454D7C81E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
 				33F8BA4A2199AA1300ECA8EE /* MWMTagGroup+Convenience.mm in Sources */,
+				479D306122C6634900D18278 /* MWMMegafonBannerViewController.m in Sources */,
 				3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */,
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
