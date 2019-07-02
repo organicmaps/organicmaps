@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +15,22 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.UiUtils;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment
-                                    implements View.OnClickListener,
-                                               TimetableProvider
+                                       implements View.OnClickListener, TimetableProvider
 {
   private boolean mIsExampleShown;
   private EditText mInput;
   private WebView mExample;
+  private TextView mExamplesTitle;
   @Nullable
   private String mInitTimetables;
-  private TextView mExamplesTitle;
+  @Nullable
+  TimetableChangedListener mListener;
 
   @Nullable
   @Override
@@ -60,6 +63,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     mExample.loadUrl(Constants.Url.OPENING_HOURS_MANUAL);
     mExamplesTitle = (TextView) view.findViewById(R.id.tv__examples_title);
     setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
+    setTextChangedListener(mInput, mListener);
   }
 
   private void showExample(boolean show)
@@ -93,6 +97,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     }
   }
 
+  @Nullable
   @Override
   public String getTimetables()
   {
@@ -108,7 +113,39 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
 
   private void refreshTimetables()
   {
-    if (mInput != null && mInitTimetables != null)
-      mInput.setText(mInitTimetables);
+    if (mInput == null || mInitTimetables == null)
+      return;
+
+    mInput.setText(mInitTimetables);
+    mInput.requestFocus();
+    InputUtils.showKeyboard(mInput);
+  }
+
+  void setTimetableChangedListener(@NonNull TimetableChangedListener listener)
+  {
+    mListener = listener;
+    setTextChangedListener(mInput, mListener);
+  }
+
+  private static void setTextChangedListener(@Nullable EditText input,
+                                             @Nullable TimetableChangedListener listener)
+  {
+    if (input == null || listener == null)
+      return;
+
+    input.addTextChangedListener(new TextWatcher()
+    {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+      @Override
+      public void afterTextChanged(Editable s)
+      {
+        listener.onTimetableChanged(s.toString());
+      }
+    });
   }
 }

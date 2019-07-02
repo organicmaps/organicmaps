@@ -47,6 +47,7 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimet
     super.onViewCreated(view, savedInstanceState);
   }
 
+  @Nullable
   @Override
   public String getTimetables()
   {
@@ -54,7 +55,7 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimet
   }
 
   @Override
-  public void setTimetables(String timetables)
+  public void setTimetables(@Nullable String timetables)
   {
     mInitTimetables = timetables;
   }

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +12,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.UiUtils;
 
-public class TimetableContainerFragment extends BaseMwmFragment implements OnBackPressListener
+public class TimetableContainerFragment extends BaseMwmFragment implements OnBackPressListener,
+                                                                           TimetableChangedListener
 {
   public static final String EXTRA_TIME = "Time";
 
@@ -36,12 +40,27 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
       String getFragmentClassname() { return AdvancedTimetableFragment.class.getName(); }
       @StringRes
       int getSwitchButtonLabel() { return R.string.editor_time_simple; }
+
+      void setTimetableChangedListener(@NonNull Fragment fragment,
+                                       @NonNull TimetableChangedListener listener)
+      {
+        ((AdvancedTimetableFragment) fragment).setTimetableChangedListener(listener);
+      }
     };
 
     @NonNull
     abstract String getFragmentClassname();
     @StringRes
     abstract int getSwitchButtonLabel();
+    void setTimetableChangedListener(@NonNull Fragment fragment,
+                                     @NonNull TimetableChangedListener listener)
+    {
+    }
+    @NonNull
+    static TimetableProvider getTimetableProvider(@NonNull Fragment fragment)
+    {
+      return (TimetableProvider) fragment;
+    }
   }
 
   @NonNull
@@ -67,13 +86,22 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   {
     super.onViewCreated(view, savedInstanceState);
 
+    Activity activity = getActivity();
+    if (activity != null)
+      activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
     initViews(view);
-    mMode = Mode.ADVANCED;
-    switchMode();
 
     final Bundle args = getArguments();
-    if (args != null && mTimetableProvider != null && !TextUtils.isEmpty(args.getString(EXTRA_TIME)))
-      mTimetableProvider.setTimetables(args.getString(EXTRA_TIME));
+    String time = null;
+    if (args != null)
+      time = args.getString(EXTRA_TIME);
+
+    // Show Simple fragment when opening hours can be represented by UI.
+    if (TextUtils.isEmpty(time) || OpeningHours.nativeTimetablesFromString(time) != null)
+      setMode(Mode.SIMPLE, time);
+    else
+      setMode(Mode.ADVANCED, time);
   }
 
   @Nullable
@@ -85,10 +113,12 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
     return mTimetableProvider.getTimetables();
   }
 
-  private void initViews(View root)
+  @Override
+  public void onTimetableChanged(@Nullable String timetable)
   {
-    mSwitchMode = root.findViewById(R.id.tv__mode_switch);
-    mSwitchMode.setOnClickListener(v -> switchMode());
+    UiUtils.showIf(TextUtils.isEmpty(timetable)
+                           || OpeningHours.nativeTimetablesFromString(timetable) != null,
+                   mSwitchMode);
   }
 
   @Override
@@ -97,24 +127,18 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
     return false;
   }
 
-  private void switchMode()
+  private void initViews(@NonNull View root)
   {
-    switch (mMode)
-    {
-      case SIMPLE:
-        setMode(Mode.ADVANCED);
-        break;
-      case ADVANCED:
-        setMode(Mode.SIMPLE);
-        break;
-    }
+    mSwitchMode = root.findViewById(R.id.tv__mode_switch);
+    mSwitchMode.setOnClickListener(v -> switchMode());
   }
 
-  private void setMode(Mode mode)
+  private void switchMode()
   {
     final String filledTimetables = mTimetableProvider != null ? mTimetableProvider.getTimetables()
-                                                               : OpeningHours.nativeTimetablesToString(OpeningHours.nativeGetDefaultTimetables());
-    if (!OpeningHours.nativeIsTimetableStringValid(filledTimetables))
+                                                               : null;
+
+    if (filledTimetables != null && !OpeningHours.nativeIsTimetableStringValid(filledTimetables))
     {
       FragmentActivity activity = getActivity();
       if (activity == null)
@@ -127,6 +151,19 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
       return;
     }
 
+    switch (mMode)
+    {
+      case SIMPLE:
+        setMode(Mode.ADVANCED, filledTimetables);
+        break;
+      case ADVANCED:
+        setMode(Mode.SIMPLE, filledTimetables);
+        break;
+    }
+  }
+
+  private void setMode(@NonNull Mode mode, @Nullable String timetables)
+  {
     mMode = mode;
     mSwitchMode.setText(mMode.getSwitchButtonLabel());
 
@@ -134,8 +171,8 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
       mFragments[mMode.ordinal()] = Fragment.instantiate(getActivity(), mMode.getFragmentClassname());
     Fragment fragment = mFragments[mMode.ordinal()];
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-    mTimetableProvider = (TimetableProvider) fragment;
-    mTimetableProvider.setTimetables(filledTimetables);
+    mMode.setTimetableChangedListener(fragment, this);
+    mTimetableProvider = Mode.getTimetableProvider(fragment);
+    mTimetableProvider.setTimetables(timetables);
   }
 }

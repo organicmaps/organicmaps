@@ -66,6 +66,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     notifyDataSetChanged();
   }
 
+  @Nullable
   @Override
   public String getTimetables()
   {

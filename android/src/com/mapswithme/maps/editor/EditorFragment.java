@@ -337,16 +337,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshOpeningTime()
   {
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.nativeGetOpeningHours());
-    if (timetables == null)
+    final String openingHours = Editor.nativeGetOpeningHours();
+    if (TextUtils.isEmpty(openingHours) || !OpeningHours.nativeIsTimetableStringValid(openingHours))
     {
       UiUtils.show(mEmptyOpeningHours);
       UiUtils.hide(mOpeningHours, mEditOpeningHours);
     }
     else
     {
+      final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(openingHours);
+      String content = timetables == null ? openingHours
+                                          : TimeFormatUtils.formatTimetables(timetables);
       UiUtils.hide(mEmptyOpeningHours);
-      UiUtils.setTextAndShow(mOpeningHours, TimeFormatUtils.formatTimetables(timetables));
+      UiUtils.setTextAndShow(mOpeningHours, content);
       UiUtils.show(mEditOpeningHours);
     }
   }
