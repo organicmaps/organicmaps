@@ -3,6 +3,7 @@ project(generator_tests)
 set(
   SRC
   altitude_test.cpp
+  booking_tests.cpp
   brands_loader_test.cpp
   camera_collector_tests.cpp
   check_mwms.cpp
