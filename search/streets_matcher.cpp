@@ -16,10 +16,42 @@ namespace search
 {
 namespace
 {
-bool LessByHash(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Prediction const & rhs)
+bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs,
+                        StreetsMatcher::Prediction const & rhs)
 {
   if (lhs.m_hash != rhs.m_hash)
     return lhs.m_hash < rhs.m_hash;
+
+  if (lhs.GetNumTokens() != rhs.GetNumTokens())
+    return lhs.GetNumTokens() > rhs.GetNumTokens();
+
+  if (lhs.m_tokenRange.Begin() != rhs.m_tokenRange.Begin())
+    return lhs.m_tokenRange.Begin() < rhs.m_tokenRange.Begin();
+
+  if (lhs.m_prob != rhs.m_prob)
+    return lhs.m_prob > rhs.m_prob;
+
+  if (lhs.m_withMisprints != rhs.m_withMisprints)
+    return rhs.m_withMisprints;
+
+  return false;
+}
+
+bool EqualsByHashAndRange(StreetsMatcher::Prediction const & lhs,
+                          StreetsMatcher::Prediction const & rhs)
+{
+  return lhs.GetNumTokens() == rhs.GetNumTokens() &&
+         lhs.m_tokenRange.Begin() == rhs.m_tokenRange.Begin() && lhs.m_hash == rhs.m_hash;
+}
+
+bool LessByHashAndMisprints(StreetsMatcher::Prediction const & lhs,
+                            StreetsMatcher::Prediction const & rhs)
+{
+  if (lhs.m_hash != rhs.m_hash)
+    return lhs.m_hash < rhs.m_hash;
+
+  if (lhs.m_withMisprints != rhs.m_withMisprints)
+    return rhs.m_withMisprints;
 
   if (lhs.m_prob != rhs.m_prob)
     return lhs.m_prob > rhs.m_prob;
@@ -28,6 +60,12 @@ bool LessByHash(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Predicti
     return lhs.GetNumTokens() > rhs.GetNumTokens();
 
   return lhs.m_tokenRange.Begin() < rhs.m_tokenRange.Begin();
+}
+
+bool EqualsByHashAndMisprints(StreetsMatcher::Prediction const & lhs,
+                              StreetsMatcher::Prediction const & rhs)
+{
+  return lhs.m_withMisprints == rhs.m_withMisprints && lhs.m_hash == rhs.m_hash;
 }
 }  // namespace
 
@@ -44,10 +82,25 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
   if (predictions.empty())
     return;
 
-  sort(predictions.begin(), predictions.end(), &LessByHash);
-  predictions.erase(
-      unique(predictions.begin(), predictions.end(), base::EqualsBy(&Prediction::m_hash)),
-      predictions.end());
+  // Remove predictions with the same m_hash (features) and token range.
+  sort(predictions.begin(), predictions.end(), &LessByHashAndRange);
+  predictions.erase(unique(predictions.begin(), predictions.end(), &EqualsByHashAndRange),
+                    predictions.end());
+
+  // Leave the most probable and longest prediction for predictions with the same m_hash (features)
+  // and m_withMisprints.
+  // We will still distinguish parses with the same m_hash (features) but different range and m_withMisprints.
+  // For example, for "Paramount dive" we will have two parses:
+  // STREET      UNUSED (can be matched to poi later)
+  // Paramount   dive
+  //
+  // STREET       STREET ("drive" with misprints)
+  // Paramount    dive
+  //
+  // The parses will have the same features and hash but we need both of them.
+  sort(predictions.begin(), predictions.end(), &LessByHashAndMisprints);
+  predictions.erase(unique(predictions.begin(), predictions.end(), &EqualsByHashAndMisprints),
+                    predictions.end());
 
   sort(predictions.rbegin(), predictions.rend(), base::LessBy(&Prediction::m_prob));
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
@@ -66,33 +119,8 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
     if (ctx.IsTokenUsed(startToken))
       continue;
 
-    // Here we try to match as many tokens as possible while
-    // intersection is a non-empty bit vector of streets. Single
-    // tokens that are synonyms to streets are ignored.  Moreover,
-    // each time a token that looks like a beginning of a house number
-    // is met, we try to use current intersection of tokens as a
-    // street layer and try to match BUILDINGs or POIs.
-    CBV streets(ctx.m_streets);
-
-    CBV all;
-    all.SetFull();
-
-    size_t curToken = startToken;
-
-    // This variable is used for prevention of duplicate calls to
-    // CreateStreetsLayerAndMatchLowerLayers() with the same
-    // arguments.
-    size_t lastToken = startToken;
-
-    // When true, no bit vectors were intersected with |streets| at all.
-    bool emptyIntersection = true;
-
-    // When true, |streets| is in the incomplete state and can't be
-    // used for creation of street layers.
-    bool incomplete = false;
-
-    auto emit = [&]()
-    {
+    auto emit = [&](CBV const & streets, CBV const & all, size_t curToken, size_t lastToken,
+                    bool emptyIntersection, bool incomplete, bool withMisprints) {
       if (!streets.IsEmpty() && !emptyIntersection && !incomplete && lastToken != curToken)
       {
         CBV fs(streets);
@@ -121,11 +149,36 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
 
         prediction.m_features = move(fs);
         prediction.m_hash = prediction.m_features.Hash();
+        prediction.m_withMisprints = withMisprints;
       }
     };
 
-    auto findStreets = [&](bool withMisprints)
-    {
+    auto findStreets = [&](bool withMisprints) {
+      // Here we try to match as many tokens as possible while
+      // intersection is a non-empty bit vector of streets. Single
+      // tokens that are synonyms to streets are ignored.  Moreover,
+      // each time a token that looks like a beginning of a house number
+      // is met, we try to use current intersection of tokens as a
+      // street layer and try to match BUILDINGs or POIs.
+      CBV streets(ctx.m_streets);
+
+      CBV all;
+      all.SetFull();
+
+      size_t curToken = startToken;
+
+      // This variable is used for prevention of duplicate calls to
+      // CreateStreetsLayerAndMatchLowerLayers() with the same
+      // arguments.
+      size_t lastToken = startToken;
+
+      // When true, no bit vectors were intersected with |streets| at all.
+      bool emptyIntersection = true;
+
+      // When true, |streets| is in the incomplete state and can't be
+      // used for creation of street layers.
+      bool incomplete = false;
+
       StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
                                 {
                                   auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
@@ -148,7 +201,8 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
                                   // the intersection. Therefore we need
                                   // to create streets layer right now.
                                   if (buffer.IsEmpty())
-                                    emit();
+                                    emit(streets, all, curToken, lastToken, emptyIntersection,
+                                         incomplete, withMisprints);
 
                                   streets = buffer;
                                   all = all.Intersect(ctx.m_features[tag].m_features);
@@ -164,11 +218,11 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
         bool const isPrefix = params.IsPrefixToken(curToken);
 
         if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
-          emit();
+          emit(streets, all, curToken, lastToken, emptyIntersection, incomplete, withMisprints);
 
         filter.Put(token, isPrefix, curToken);
       }
-      emit();
+      emit(streets, all, curToken, lastToken, emptyIntersection, incomplete, withMisprints);
     };
 
     findStreets(false /* withMisprints */);

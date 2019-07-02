@@ -560,9 +560,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("трактир лермонтов", ErrorsMade(2));
   checkErrors("кафе", ErrorsMade());
 
-  checkErrors("Yesenina cafe", ErrorsMade(0));
-  checkErrors("Esenina cafe", ErrorsMade(1));
-  checkErrors("Jesenina cafe", ErrorsMade(1));
+  checkErrors("Cafe Yesenina", ErrorsMade(0));
+  checkErrors("Cafe Esenina", ErrorsMade(1));
+  checkErrors("Cafe Jesenina", ErrorsMade(1));
 
   checkErrors("Островского кафе", ErrorsMade(0));
   checkErrors("Астровского кафе", ErrorsMade(1));
@@ -2052,5 +2052,106 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet tverskoi(vector<m2::PointD>{m2::PointD(1.0, -1.0), m2::PointD(1.0, 1.0)},
+                      "Tverskoi Boulevard", "en");
+  TestStreet leninsky(vector<m2::PointD>{m2::PointD(0.0, -1.0), m2::PointD(0.0, 1.0)},
+                      "Leninsky Avenue", "en");
+  TestStreet mira(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(-1.0, 1.0)},
+                  "Проспект Мира", "ru");
+
+  TestPOI houseTverskoi(m2::PointD(1.0, 0.0), "", "en");
+  houseTverskoi.SetHouseNumber("3");
+  houseTverskoi.SetStreetName(tverskoi.GetName("en"));
+
+  TestPOI houseLeninsky(m2::PointD(0.0, 0.0), "", "en");
+  houseLeninsky.SetHouseNumber("5");
+  houseLeninsky.SetStreetName(leninsky.GetName("en"));
+
+  TestPOI houseMira(m2::PointD(-1.0, 0.0), "", "en");
+  houseMira.SetHouseNumber("7");
+  houseMira.SetStreetName(mira.GetName("ru"));
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(tverskoi);
+    builder.Add(leninsky);
+    builder.Add(mira);
+    builder.Add(houseTverskoi);
+    builder.Add(houseLeninsky);
+    builder.Add(houseMira);
+  });
+
+  auto alternativeMatch = [this](string const & query, Rules const & rules1, Rules const & rules2) {
+    TestSearchRequest request(m_engine, query, "en", Mode::Everywhere, m_viewport);
+    request.Run();
+    return MatchResults(m_dataSource, rules1, request.Results()) ||
+           MatchResults(m_dataSource, rules2, request.Results());
+  };
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  {
+    Rules rules = {ExactMatch(countryId, houseTverskoi)};
+    Rules rulesWithStreet = {ExactMatch(countryId, houseTverskoi), ExactMatch(countryId, tverskoi)};
+    TEST(alternativeMatch("tverskoi 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi boulevard 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi bulevard 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi blvd 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi blvrd 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi boulevrd 3", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("tverskoi bolevard 3", rules, rulesWithStreet), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, houseLeninsky)};
+    Rules rulesWithStreet = {ExactMatch(countryId, houseLeninsky), ExactMatch(countryId, leninsky)};
+    TEST(alternativeMatch("leninsky 5", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("leninsky avenue 5", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("leninsky avenu 5", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("leninsky avneue 5", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("leninsky av 5", rules, rulesWithStreet), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, houseMira)};
+    Rules rulesWithStreet = {ExactMatch(countryId, houseMira), ExactMatch(countryId, mira)};
+    TEST(alternativeMatch("мира 7", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("проспект мира 7", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("пропект мира 7", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("прсопект мира 7", rules, rulesWithStreet), ());
+    TEST(alternativeMatch("пр-т мира 7", rules, rulesWithStreet), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefixMatch)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet yesenina(
+      vector<m2::PointD>{m2::PointD(0.5, -0.5), m2::PointD(0, 0), m2::PointD(-0.5, 0.5)},
+      "Yesenina street", "en");
+
+  TestPOI cafe(m2::PointD(0, 0), "", "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(yesenina);
+    builder.Add(cafe);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules = {ExactMatch(countryId, cafe)};
+    TEST(ResultsMatch("Yesenina cafe ", rules), ());
+    TEST(ResultsMatch("Cafe Yesenina ", rules), ());
+    TEST(ResultsMatch("Cafe Yesenina", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, cafe), ExactMatch(countryId, yesenina)};
+    // Prefix match with misprints to street synonym gives street as additional result
+    // but we still can find the cafe.
+    TEST(ResultsMatch("Yesenina cafe", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

@@ -22,6 +22,7 @@ public:
 
     CBV m_features;
     TokenRange m_tokenRange;
+    bool m_withMisprints = false;
     double m_prob = 0.0;
     uint64_t m_hash = 0;
   };
