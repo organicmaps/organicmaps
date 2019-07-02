@@ -25,7 +25,7 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
                                               LanguageCode languageCode)
 {
   std::string s = GetName(name, languageCode);
-  if (!s.empty() && strings::IsASCIIString(s))
+  if (!s.empty())
     return s;
 
   s = GetName(name, StringUtf8Multilang::kInternationalCode);
