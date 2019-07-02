@@ -73,6 +73,9 @@ public:
     });
   }
 
+  // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
+  mutable int32_t m_index = -1;
+
 private:
   std::string m_name;
   RegionsContainer m_regions;
@@ -99,6 +102,13 @@ public:
   bool HasRegionByName(std::string const & name) const
   {
     return m_regions.count(name) != 0;
+  }
+
+    // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
+  void Add(CountryPolygons const & country, m2::RectD const & rect)
+  {
+    m_regions.emplace(country.GetName(), country);
+    m_regionsTree.Add(country, rect);
   }
 
   CountryPolygons const & GetRegionByName(std::string const & name) const
