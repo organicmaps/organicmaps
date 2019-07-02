@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 
 #include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -134,6 +135,12 @@ public:
     return m_params.m_types.empty();
   }
 
+  template <class FnT>
+  bool HasTypesIf(FnT fn) const
+  {
+    return std::any_of(std::begin(m_params.m_types), std::end(m_params.m_types), fn);
+  }
+
   bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
   bool HasType(uint32_t t, uint8_t level) const { return m_params.IsTypeExist(t, level); }
   uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
@@ -180,6 +187,10 @@ public:
                                       Buffer & data) const;
   void DeserializeFromIntermediate(Buffer & data);
 
+  // These methods use geometry without loss of accuracy.
+  void SerializeAccuratelyForIntermediate(Buffer & data) const;
+  void DeserializeAccuratelyFromIntermediate(Buffer & data);
+
   bool PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data);
   void SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                SupportingData & data) const;
@@ -197,6 +208,7 @@ public:
   // area's one if there is no relation, and relation id otherwise.
   base::GeoObjectId GetMostGenericOsmId() const;
   bool HasOsmId(base::GeoObjectId const & id) const;
+  bool HasOsmIds() const { return !m_osmIds.empty(); }
   std::vector<base::GeoObjectId> const & GetOsmIds() const { return m_osmIds; }
 
   // To work with coasts.
@@ -233,38 +245,97 @@ protected:
 void Check(FeatureBuilder const fb);
 std::string DebugPrint(FeatureBuilder const & fb);
 
+// SerializePolicy serialization and deserialization.
+namespace serialization_policy
+{
+enum class SerializationVersion : uint32_t
+{
+  Undef,
+  MinSize,
+  MaxAccuracy
+};
+
+using TypeSerializationVersion = typename std::underlying_type<SerializationVersion>::type;
+
+struct MinSize
+{
+  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+
+  static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
+  {
+    fb.SerializeForIntermediate(data);
+  }
+
+  static void Deserialize(FeatureBuilder & fb, FeatureBuilder::Buffer & data)
+  {
+    fb.DeserializeFromIntermediate(data);
+  }
+};
+
+struct MaxAccuracy
+{
+  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+
+  static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
+  {
+    fb.SerializeAccuratelyForIntermediate(data);
+  }
+
+  static void Deserialize(FeatureBuilder & fb, FeatureBuilder::Buffer & data)
+  {
+    fb.DeserializeAccuratelyFromIntermediate(data);
+  }
+};
+}  // namespace serialization_policy
+
+// TODO(maksimandrianov): I would like to support the verification of serialization versions,
+// but this requires reworking of FeatureCollector class and its derived classes. It is in future plans
+
+//template <class SerializePolicy, class Source>
+//void TryReadAndCheckVersion(Source & src)
+//{
+//  if (src.Size() - src.Pos() >= sizeof(serialization_policy::TypeSerializationVersion))
+//  {
+//    auto const type = ReadVarUint<serialization_policy::TypeSerializationVersion>(src);
+//    CHECK_EQUAL(type, SerializePolicy::kSerializationVersion, ());
+//  }
+//  else
+//  {
+//    LOG(LWARNING, ("Unable to read file version."))
+//  }
+//}
+
 // Read feature from feature source.
-template <class Source>
+template <class SerializePolicy = serialization_policy::MinSize, class Source>
 void ReadFromSourceRawFormat(Source & src, FeatureBuilder & fb)
 {
   uint32_t const sz = ReadVarUint<uint32_t>(src);
   typename FeatureBuilder::Buffer buffer(sz);
   src.Read(&buffer[0], sz);
-  fb.DeserializeFromIntermediate(buffer);
+  SerializePolicy::Deserialize(fb, buffer);
 }
 
 // Process features in .dat file.
-template <class ToDo>
+template <class SerializePolicy = serialization_policy::MinSize, class ToDo>
 void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
 {
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
-
-  uint64_t currPos = 0;
-  uint64_t const fileSize = reader.Size();
-
+//  TryReadAndCheckVersion<SerializePolicy>(src);
+  auto const fileSize = reader.Size();
+  uint64_t currPos = src.Pos();
   // read features one by one
   while (currPos < fileSize)
   {
     FeatureBuilder fb;
-    ReadFromSourceRawFormat(src, fb);
+    ReadFromSourceRawFormat<SerializePolicy>(src, fb);
     toDo(fb, currPos);
     currPos = src.Pos();
   }
 }
 
 /// Parallel process features in .dat file.
-template <class ToDo>
+template <class SerializePolicy = serialization_policy::MinSize, class ToDo>
 void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & filename,
                                      ToDo && toDo)
 {
@@ -274,10 +345,9 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
 
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
-
-  uint64_t currPos = 0;
-  uint64_t const fileSize = reader.Size();
-
+//  TryReadAndCheckVersion<SerializePolicy>(src);
+  auto const fileSize = reader.Size();
+  uint64_t currPos = src.Pos();
   std::mutex readMutex;
   auto concurrentProcessor = [&] {
     for (;;)
@@ -291,7 +361,7 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
         if (fileSize <= currPos)
           break;
 
-        ReadFromSourceRawFormat(src, fb);
+        ReadFromSourceRawFormat<SerializePolicy>(src, fb);
         featurePos = currPos;
         currPos = src.Pos();
       }
@@ -304,4 +374,35 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
   for (size_t i = 0; i < threadsCount; ++i)
     threadPool.Submit(concurrentProcessor);
 }
+template <class SerializePolicy = serialization_policy::MinSize>
+std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
+{
+  std::vector<FeatureBuilder> fbs;
+  ForEachFromDatRawFormat<SerializePolicy>(fileName, [&](auto && fb, auto const &) {
+    fbs.emplace_back(std::move(fb));
+  });
+  return fbs;
+}
+
+template <class SerializePolicy = serialization_policy::MinSize, class Writer = FileWriter>
+class FeatureBuilderWriter
+{
+public:
+  FeatureBuilderWriter(std::string const & filename, FileWriter::Op op = FileWriter::Op::OP_WRITE_TRUNCATE)
+    : m_writer(filename, op)
+  {
+//    WriteVarUint(m_writer, static_cast<serialization_policy::TypeSerializationVersion>(SerializePolicy::kSerializationVersion));
+  }
+
+  void Write(FeatureBuilder const & fb)
+  {
+    FeatureBuilder::Buffer buffer;
+    SerializePolicy::Serialize(fb, buffer);
+    WriteVarUint(m_writer, static_cast<uint32_t>(buffer.size()));
+    m_writer.Write(buffer.data(), buffer.size() * sizeof(FeatureBuilder::Buffer::value_type));
+  }
+
+private:
+  Writer m_writer;
+};
 }  // namespace feature

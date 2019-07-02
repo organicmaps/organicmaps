@@ -444,6 +444,66 @@ void FeatureBuilder::DeserializeFromIntermediate(Buffer & data)
   Check(*this);
 }
 
+void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
+{
+  Check(*this);
+  data.clear();
+  PushBackByteSink<Buffer> sink(data);
+  m_params.Write(sink, true /* store additional info from FeatureParams */);
+  if (IsPoint())
+  {
+    rw::WritePOD(sink, m_center);
+  }
+  else
+  {
+    WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
+    for (PointSeq const & points : m_polygons)
+      rw::WriteVectorOfPOD(sink, points);
+
+    WriteVarInt(sink, m_coastCell);
+  }
+
+  // save OSM IDs to link meta information with sorted features later
+  rw::WriteVectorOfPOD(sink, m_osmIds);
+  // check for correct serialization
+#ifdef DEBUG
+  Buffer tmp(data);
+  FeatureBuilder fb;
+  fb.DeserializeAccuratelyFromIntermediate(tmp);
+  ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
+#endif
+
+}
+
+void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
+{
+  ArrayByteSource source(&data[0]);
+  m_params.Read(source);
+  m_limitRect.MakeEmpty();
+  if (IsPoint())
+  {
+    rw::ReadPOD(source, m_center);
+    m_limitRect.Add(m_center);
+  }
+  else
+  {
+    m_polygons.clear();
+    uint32_t const count = ReadVarUint<uint32_t>(source);
+    ASSERT_GREATER (count, 0, (*this));
+    for (uint32_t i = 0; i < count; ++i)
+    {
+      m_polygons.push_back(PointSeq());
+      rw::ReadVectorOfPOD(source, m_polygons.back());
+      CalcRect(m_polygons.back(), m_limitRect);
+    }
+
+    m_coastCell = ReadVarInt<int64_t>(source);
+  }
+
+  rw::ReadVectorOfPOD(source, m_osmIds);
+  Check(*this);
+}
+
 void FeatureBuilder::AddOsmId(base::GeoObjectId id) { m_osmIds.push_back(id); }
 
 void FeatureBuilder::SetOsmId(base::GeoObjectId id) { m_osmIds.assign(1, id); }
@@ -691,4 +751,12 @@ string DebugPrint(FeatureBuilder const & fb)
       << " " << ::DebugPrint(fb.GetOsmIds());
   return out.str();
 }
+
+namespace serialization_policy
+{
+// static
+TypeSerializationVersion const MinSize::kSerializationVersion;
+// static
+TypeSerializationVersion const MaxAccuracy::kSerializationVersion;
+}  // namespace serialization_policy
 }  // namespace feature
