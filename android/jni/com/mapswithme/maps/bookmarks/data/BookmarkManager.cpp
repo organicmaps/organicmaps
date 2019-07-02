@@ -50,6 +50,8 @@ jmethodID g_catalogCustomPropertyConstructor;
 
 jmethodID g_onPingFinishedMethod;
 
+jmethodID g_onCheckInvalidCategoriesMethod;
+
 void PrepareClassRefs(JNIEnv * env)
 {
   if (g_bookmarkManagerClass)
@@ -100,6 +102,9 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onUploadFinished", "(ILjava/lang/String;JJ)V");
 
   g_onPingFinishedMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPingFinished", "(Z)V");
+
+  g_onCheckInvalidCategoriesMethod = jni::GetMethodID(env, bookmarkManagerInstance,
+                                                      "onCheckInvalidCategories", "(Z)V");
 
   g_bookmarkCategoryClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkCategory");
@@ -365,6 +370,17 @@ void OnPingFinished(JNIEnv * env, bool isSuccessful)
                                                            g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onPingFinishedMethod,
                       static_cast<jboolean>(isSuccessful));
+  jni::HandleJavaException(env);
+}
+
+void OnCheckInvalidCategories(JNIEnv * env, bool hasInvalidCategories)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+
+  auto bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                           g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onCheckInvalidCategoriesMethod,
+                      static_cast<jboolean>(hasInvalidCategories));
   jni::HandleJavaException(env);
 }
 
@@ -936,8 +952,34 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePingBookmarkCatalo
   });
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckInvalidCategories(JNIEnv * env,
+  jobject)
+{
+  frm()->GetBookmarkManager().CheckInvalidCategories(Purchase::GetDeviceId(),
+    [env](bool hasInvalidCategories)
+  {
+    OnCheckInvalidCategories(env, hasInvalidCategories);
+  });
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteInvalidCategories(JNIEnv * env,
+  jobject)
+{
+  frm()->GetBookmarkManager().DeleteInvalidCategories();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeResetInvalidCategories(JNIEnv * env,
+  jobject)
+{
+  frm()->GetBookmarkManager().ResetInvalidCategories();
+}
+
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(JNIEnv *env, jobject thiz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(JNIEnv *env,
+  jobject thiz)
 {
   auto const & bm = frm()->GetBookmarkManager();
   kml::GroupIdCollection const & categories = bm.GetBmGroupsIdList();

@@ -1995,6 +1995,19 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
   }
 }
 
+std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::vector<std::string> ids;
+  for (auto const & category : m_categories)
+  {
+    if (category.second->GetCategoryData().m_accessRules != kml::AccessRules::Paid)
+      continue;
+    ids.emplace_back(category.second->GetServerId());
+  }
+  return ids;
+}
+
 bool BookmarkManager::CanConvert() const
 {
   // The conversion available only after successful migration.
@@ -2239,9 +2252,10 @@ void BookmarkManager::SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCa
   m_onCatalogUploadFinishedHandler = std::move(onCatalogUploadFinishedHandler);
 }
 
-void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & name)
+void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & deviceId,
+                                                   std::string const & name)
 {
-  m_bookmarkCatalog.Download(id, m_user.GetAccessToken(), [this, id]()
+  m_bookmarkCatalog.Download(id, m_user.GetAccessToken(), deviceId, [this, id]()
   {
     if (m_onCatalogDownloadStarted)
       m_onCatalogDownloadStarted(id);
@@ -2502,6 +2516,47 @@ void BookmarkManager::EnableTestMode(bool enable)
 {
   UserMarkIdStorage::Instance().EnableSaving(!enable);
   m_testModeEnabled = enable;
+}
+
+void BookmarkManager::CheckInvalidCategories(std::string const & deviceId,
+                                             CheckInvalidCategoriesHandler && handler)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_bookmarkCatalog.RequestBookmarksToDelete(m_user.GetAccessToken(), m_user.GetUserId(), deviceId,
+                                             GetAllPaidCategoriesIds(),
+                                             [this, handler = std::move(handler)](
+                                               std::vector<std::string> const & serverIds)
+  {
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+    m_invalidCategories.clear();
+    for (auto const & s : serverIds)
+    {
+      for (auto const & category : m_categories)
+      {
+        if (category.second->GetServerId() == s)
+          m_invalidCategories.emplace_back(category.first);
+      }
+    }
+    if (handler)
+      handler(!m_invalidCategories.empty());
+  });
+}
+
+void BookmarkManager::DeleteInvalidCategories()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_invalidCategories.empty())
+    return;
+
+  auto session = GetEditSession();
+  for (auto const markGroupId : m_invalidCategories)
+    session.DeleteBmCategory(markGroupId);
+}
+
+void BookmarkManager::ResetInvalidCategories()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_invalidCategories.clear();
 }
 
 kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const

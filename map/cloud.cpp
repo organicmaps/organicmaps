@@ -1397,7 +1397,8 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
 
       platform::RemoteFile remoteFile(useFallbackUrl ? result.m_response.m_fallbackUrl
                                                      : result.m_response.m_url,
-                                      {} /* accessToken */, false /* allowRedirection */);
+                                      {} /* accessToken */, {} /* deviceId */,
+                                      false /* allowRedirection */);
       auto const downloadResult = remoteFile.Download(filePath);
 
       if (downloadResult.m_status == platform::RemoteFile::Status::Ok)

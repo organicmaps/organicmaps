@@ -69,7 +69,7 @@ public:
   using DownloadFinishCallback = std::function<void(DownloadResult result,
                                                     std::string const & description,
                                                     std::string const & filePath)>;
-  void Download(std::string const & id, std::string const & accessToken,
+  void Download(std::string const & id, std::string const & accessToken, std::string const & deviceId,
                 DownloadStartCallback && startHandler, DownloadFinishCallback && finishHandler);
 
   bool IsDownloading(std::string const & id) const;
@@ -120,6 +120,11 @@ public:
 
   // Handler can be called from non-UI thread.
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
+
+  using BookmarksToDeleteCallback = platform::SafeCallback<void(std::vector<std::string> const & serverIds)>;
+  void RequestBookmarksToDelete(std::string const & accessToken, std::string const & userId,
+                                std::string const & deviceId, std::vector<std::string> const & serverIds,
+                                BookmarksToDeleteCallback && callback) const;
 
 private:
   std::set<std::string> m_downloadingIds;

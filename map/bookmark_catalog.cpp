@@ -77,6 +77,13 @@ std::string BuildPingUrl()
   return kCatalogFrontendServer + "storage/ping";
 }
 
+std::string BuildDeleteRequestUrl()
+{
+  if (kCatalogFrontendServer.empty())
+    return {};
+  return kCatalogFrontendServer + "storage/kmls_to_delete";
+}
+
 struct SubtagData
 {
   std::string m_name;
@@ -157,6 +164,31 @@ struct HashResponseData
   DECLARE_VISITOR(visitor(m_hash, "hash"))
 };
 
+struct DeleteRequestData
+{
+  DeleteRequestData(std::string const & deviceId, std::string const & userId,
+                    std::vector<std::string> const & serverIds)
+    : m_deviceId(deviceId)
+    , m_userId(userId)
+    , m_serverIds(serverIds)
+  {}
+
+  std::string m_deviceId;
+  std::string m_userId;
+  std::vector<std::string> m_serverIds;
+
+  DECLARE_VISITOR(visitor(m_deviceId, "server_id"),
+                  visitor(m_userId, "user_id"),
+                  visitor(m_serverIds, "server_ids"))
+};
+
+struct DeleteRequestResponseData
+{
+  std::vector<std::string> m_serverIds;
+
+  DECLARE_VISITOR(visitor(m_serverIds))
+};
+
 int constexpr kInvalidHash = -1;
 
 int RequestNewServerId(std::string const & accessToken,
@@ -223,7 +255,7 @@ bool BookmarkCatalog::HasDownloaded(std::string const & id) const
 }
 
 void BookmarkCatalog::Download(std::string const & id, std::string const & accessToken,
-                               DownloadStartCallback && startHandler,
+                               std::string const & deviceId, DownloadStartCallback && startHandler,
                                DownloadFinishCallback && finishHandler)
 {
   if (IsDownloading(id) || HasDownloaded(id))
@@ -234,7 +266,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & acces
   static uint32_t counter = 0;
   auto const path = base::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));
 
-  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken);
+  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken, deviceId);
   remoteFile.DownloadAsync(path, [startHandler = std::move(startHandler)](std::string const &)
   {
     if (startHandler)
@@ -627,6 +659,67 @@ void BookmarkCatalog::Ping(PingCallback && callback) const
     }
     if (callback)
       callback(false /* isSuccessful */);
+  });
+}
+
+void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, std::string const & userId,
+                                               std::string const & deviceId, std::vector<std::string> const & serverIds,
+                                               BookmarksToDeleteCallback && callback) const
+{
+  auto const url = BuildDeleteRequestUrl();
+  if (url.empty())
+  {
+    if (callback)
+      callback({});
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [url, accessToken, userId, deviceId, serverIds, callback = std::move(callback)]()
+  {
+    platform::HttpClient request(url);
+    request.SetRawHeader("Accept", "application/json");
+    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+    if (!accessToken.empty())
+      request.SetRawHeader("Authorization", "Bearer " + accessToken);
+    request.SetHttpMethod("POST");
+
+    std::string jsonStr;
+    {
+      using Sink = MemWriter<std::string>;
+      Sink sink(jsonStr);
+      coding::SerializerJson<Sink> serializer(sink);
+      serializer(DeleteRequestData(deviceId, userId, serverIds));
+    }
+    request.SetBodyData(std::move(jsonStr), "application/json");
+
+    uint32_t constexpr kTimeoutInSec = 5;
+    request.SetTimeout(kTimeoutInSec);
+    if (request.RunHttpRequest())
+    {
+      auto const resultCode = request.ErrorCode();
+      if (callback && resultCode >= 200 && resultCode < 300)
+      {
+        DeleteRequestResponseData responseData;
+        try
+        {
+          coding::DeserializerJson des(request.ServerResponse());
+          des(responseData);
+        }
+        catch (coding::DeserializerJson::Exception const & ex)
+        {
+          LOG(LWARNING, ("Bookmarks-to-delete request deserialization error:", ex.Msg()));
+          if (callback)
+            callback({});
+          return;
+        }
+
+        callback(responseData.m_serverIds);
+        return;
+      }
+    }
+    if (callback)
+      callback({});
   });
 }
 

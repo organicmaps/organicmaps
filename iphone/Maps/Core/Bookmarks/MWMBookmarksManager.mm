@@ -10,6 +10,8 @@
 
 #include "Framework.h"
 
+#include "map/purchase.hpp"
+
 #include "partners_api/utm.hpp"
 
 #include "coding/internal/file_data.hpp"
@@ -592,7 +594,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   observer.progressBlock = progress;
   observer.downloadCompletionBlock = completion;
   [self.catalogObservers setObject:observer forKey:itemId];
-  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
+  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, Purchase::GetDeviceId(), name.UTF8String);
 }
 
 - (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId

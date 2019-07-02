@@ -46,11 +46,6 @@ std::string GetSubscriptionId(SubscriptionType type)
     kSubscriptionSuffix[base::Underlying(type)]);
 }
 
-std::string GetDeviceId()
-{
-  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
-}
-
 std::string GetSubscriptionKey(SubscriptionType type)
 {
   return kSubscriptionId + kSubscriptionSuffix[base::Underlying(type)];
@@ -308,4 +303,10 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
       }
     });
   }
+}
+
+// static
+std::string Purchase::GetDeviceId()
+{
+  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
 }

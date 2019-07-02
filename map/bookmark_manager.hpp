@@ -319,7 +319,8 @@ public:
                           OnCatalogImportFinishedHandler && onCatalogImportFinished,
                           OnCatalogUploadStartedHandler && onCatalogUploadStartedHandler,
                           OnCatalogUploadFinishedHandler && onCatalogUploadFinishedHandler);
-  void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
+  void DownloadFromCatalogAndImport(std::string const & id, std::string const & deviceId,
+                                    std::string const & name);
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
   void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
@@ -328,6 +329,11 @@ public:
   BookmarkCatalog const & GetCatalog() const;
 
   bool IsMyCategory(kml::MarkGroupId categoryId) const;
+
+  using CheckInvalidCategoriesHandler = std::function<void(bool hasInvalidCategories)>;
+  void CheckInvalidCategories(std::string const & deviceId, CheckInvalidCategoriesHandler && handler);
+  void DeleteInvalidCategories();
+  void ResetInvalidCategories();
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
@@ -531,6 +537,9 @@ private:
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
+
+  std::vector<std::string> GetAllPaidCategoriesIds() const;
+
   ThreadChecker m_threadChecker;
 
   User & m_user;
@@ -596,6 +605,8 @@ private:
     kml::AccessRules m_accessRules;
   };
   std::map<std::string, RestoringCache> m_restoringCache;
+
+  std::vector<kml::MarkGroupId> m_invalidCategories;
 
   bool m_testModeEnabled = false;
 

@@ -69,6 +69,9 @@ public enum BookmarkManager
 
   @NonNull
   private final List<BookmarksCatalogPingListener> mCatalogPingListeners = new ArrayList<>();
+
+  @NonNull
+  private final List<BookmarksInvalidCategoriesListener> mInvalidCategoriesListeners = new ArrayList<>();
   
   static
   {
@@ -325,6 +328,15 @@ public enum BookmarkManager
   {
     for (BookmarksCatalogPingListener listener : mCatalogPingListeners)
       listener.onPingFinished(isServiceAvailable);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onCheckInvalidCategories(boolean hasInvalidCategories)
+  {
+    for (BookmarksInvalidCategoriesListener listener : mInvalidCategoriesListeners)
+      listener.onCheckInvalidCategories(hasInvalidCategories);
   }
 
   public boolean isVisible(long catId)
@@ -661,6 +673,21 @@ public enum BookmarkManager
     nativePingBookmarkCatalog();
   }
 
+  public void checkInvalidCategories()
+  {
+    nativeCheckInvalidCategories();
+  }
+
+  public void deleteInvalidCategories()
+  {
+    nativeDeleteInvalidCategories();
+  }
+
+  public void resetInvalidCategories()
+  {
+    nativeResetInvalidCategories();
+  }
+
   public boolean isCategoryFromCatalog(long catId)
   {
     return nativeIsCategoryFromCatalog(catId);
@@ -805,6 +832,10 @@ public enum BookmarkManager
 
   private static native void nativePingBookmarkCatalog();
 
+  private static native void nativeCheckInvalidCategories();
+  private static native void nativeDeleteInvalidCategories();
+  private static native void nativeResetInvalidCategories();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -863,6 +894,11 @@ public enum BookmarkManager
   public interface BookmarksCatalogPingListener
   {
     void onPingFinished(boolean isServiceAvailable);
+  }
+
+  public interface BookmarksInvalidCategoriesListener
+  {
+    void onCheckInvalidCategories(boolean hasInvalidCategories);
   }
 
   public interface BookmarksCatalogListener
