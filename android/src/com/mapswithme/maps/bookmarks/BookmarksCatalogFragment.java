@@ -271,14 +271,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (fragment == null)
         return false;
 
-      return fragment.downloadBookmark(url);
-    }
+      boolean result = fragment.downloadBookmark(url);
 
-    @Nullable
-    @Override
-    public WebResourceResponse shouldInterceptRequest(WebView view, String url)
-    {
-      WebResourceResponse webResourceResponse = super.shouldInterceptRequest(view, url);
       Uri uri = Uri.parse(url);
       List<String> pathSegments = uri.getPathSegments();
       for (String each : pathSegments)
@@ -286,10 +280,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         if (TextUtils.equals(each, SUBSCRIBE_PATH_SEGMENT))
         {
           openSubscriptionScreen();
-          return webResourceResponse;
+          return true;
         }
       }
-      return webResourceResponse;
+      return result;
     }
 
     private void openSubscriptionScreen()
