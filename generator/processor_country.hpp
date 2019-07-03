@@ -21,14 +21,13 @@ class ProcessorCountry : public FeatureProcessorInterface
 public:
   explicit ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const & queue,
                             std::string const & bordersPath, std::string const & layerLogFilename,
-                            bool isMwmsForWholeWorld);
+                            bool haveBordersForWholeWorld);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
 
   void Process(feature::FeatureBuilder & feature) override;
   void Flush() override;
-  bool Finish() override;
 
   void Merge(FeatureProcessorInterface const & other) override;
   void MergeInto(ProcessorCountry & other) const override;
@@ -40,7 +39,7 @@ private:
   std::string m_layerLogFilename;
   std::shared_ptr<AffilationsFeatureLayer<>> m_affilationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
-  bool m_isMwmsForWholeWorld;
   std::shared_ptr<LayerBase> m_processingChain;
+  bool m_haveBordersForWholeWorld;
 };
 }  // namespace generator

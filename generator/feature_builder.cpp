@@ -13,6 +13,8 @@
 #include "coding/bit_streams.hpp"
 #include "coding/byte_stream.hpp"
 #include "coding/geometry_coding.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/reader.hpp"
 
 #include "geometry/region2d.hpp"
 
@@ -50,6 +52,22 @@ bool IsEqual(vector<m2::PointD> const & v1, vector<m2::PointD> const & v2)
 {
   return equal(cbegin(v1), cend(v1), cbegin(v2), cend(v2),
                [](m2::PointD const & p1, m2::PointD const & p2) { return IsEqual(p1, p2); });
+}
+
+template <class Sink, class T>
+void WritePOD(Sink & sink, T const & value)
+{
+  static_assert(std::is_trivially_copyable<T>::value, "");
+
+  sink.Write(&value, sizeof(T));
+}
+
+template <class Sink, class T>
+void ReadPOD(Sink & src, T & value)
+{
+  static_assert(std::is_trivially_copyable<T>::value, "");
+
+  src.Read(&value, sizeof(T));
 }
 }  // namespace
 
@@ -337,6 +355,16 @@ bool FeatureBuilder::operator==(FeatureBuilder const & fb) const
   return true;
 }
 
+bool FeatureBuilder::IsExactEq(FeatureBuilder const & fb) const
+{
+  return m_center == fb.m_center &&
+      m_polygons == fb.m_polygons &&
+      m_limitRect == fb.m_limitRect &&
+      m_osmIds == fb.m_osmIds &&
+      m_params == fb.m_params &&
+      m_coastCell == fb.m_coastCell;
+}
+
 void FeatureBuilder::SerializeBase(Buffer & data, serial::GeometryCodingParams const & params,
                                    bool saveAddInfo) const
 {
@@ -370,10 +398,10 @@ void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
     WriteVarInt(sink, m_coastCell);
   }
 
-  // save OSM IDs to link meta information with sorted features later
+  // Save OSM IDs to link meta information with sorted features later.
   rw::WriteVectorOfPOD(sink, m_osmIds);
 
-  // check for correct serialization
+  // Check for correct serialization.
 #ifdef DEBUG
   Buffer tmp(data);
   FeatureBuilder fb;
@@ -383,7 +411,7 @@ void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
 }
 
 void FeatureBuilder::SerializeBorderForIntermediate(serial::GeometryCodingParams const & params,
-                                              Buffer & data) const
+                                                    Buffer & data) const
 {
   data.clear();
 
@@ -427,7 +455,7 @@ void FeatureBuilder::DeserializeFromIntermediate(Buffer & data)
   {
     m_polygons.clear();
     uint32_t const count = ReadVarUint<uint32_t>(source);
-    ASSERT_GREATER ( count, 0, (*this) );
+    ASSERT_GREATER( count, 0, (*this) );
 
     for (uint32_t i = 0; i < count; ++i)
     {
@@ -452,7 +480,7 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
   m_params.Write(sink, true /* store additional info from FeatureParams */);
   if (IsPoint())
   {
-    rw::WritePOD(sink, m_center);
+    WritePOD(sink, m_center);
   }
   else
   {
@@ -463,9 +491,9 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
     WriteVarInt(sink, m_coastCell);
   }
 
-  // save OSM IDs to link meta information with sorted features later
+  // Save OSM IDs to link meta information with sorted features later.
   rw::WriteVectorOfPOD(sink, m_osmIds);
-  // check for correct serialization
+  // Check for correct serialization.
 #ifdef DEBUG
   Buffer tmp(data);
   FeatureBuilder fb;
@@ -482,14 +510,14 @@ void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
   m_limitRect.MakeEmpty();
   if (IsPoint())
   {
-    rw::ReadPOD(source, m_center);
+    ReadPOD(source, m_center);
     m_limitRect.Add(m_center);
   }
   else
   {
     m_polygons.clear();
     uint32_t const count = ReadVarUint<uint32_t>(source);
-    ASSERT_GREATER (count, 0, (*this));
+    ASSERT_GREATER(count, 0, (*this));
     for (uint32_t i = 0; i < count; ++i)
     {
       m_polygons.push_back(PointSeq());

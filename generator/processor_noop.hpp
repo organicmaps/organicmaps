@@ -4,8 +4,6 @@
 #include "generator/processor_interface.hpp"
 
 #include <memory>
-#include <string>
-#include <vector>
 
 class FeatureParams;
 
@@ -22,8 +20,6 @@ public:
 
   void Process(feature::FeatureBuilder &) override {}
   void Flush() override {}
-  bool Finish() override { return true; }
-
 
   void Merge(FeatureProcessorInterface const &) override {}
   void MergeInto(ProcessorNoop &) const override {}

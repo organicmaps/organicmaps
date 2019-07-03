@@ -125,7 +125,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 
   Check(fb2);
   TEST_EQUAL(fb1, fb2, ());
-  TEST_EQUAL(fb2.GetTypesCount(), 1, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 1, ());;
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
@@ -270,4 +270,41 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder12_SerializeLocalityObjectF
   object.ForEachPoint([] (auto && point) {
     TEST(base::AlmostEqualAbs(point, m2::PointD(10.1, 15.8), 1e-7), ());
   });
+}
+
+UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
+{
+  FeatureBuilder fb1;
+  FeatureParams params;
+
+  char const * arr2[][2] = {
+    { "railway", "rail" },
+    { "highway", "motorway" },
+    { "hwtag", "oneway" },
+    { "psurface", "paved_good" },
+    { "junction", "roundabout" },
+  };
+
+  AddTypes(params, arr2);
+  params.FinishAddingTypes();
+  fb1.SetParams(params);
+
+  auto const diff = 0.33333333334567;
+  for (size_t i = 0; i < 100; ++i)
+      fb1.AddPoint(m2::PointD(i + diff, i + 1 + diff));
+
+  fb1.SetLinear();
+
+  TEST(fb1.RemoveInvalidTypes(), ());
+  Check(fb1);
+
+  FeatureBuilder::Buffer buffer;
+  TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  fb1.SerializeAccuratelyForIntermediate(buffer);
+
+  FeatureBuilder fb2;
+  fb2.DeserializeAccuratelyFromIntermediate(buffer);
+
+  Check(fb2);
+  TEST(fb1.IsExactEq(fb2), ());
 }

@@ -8,19 +8,19 @@
 namespace generator
 {
 ProcessorSimple::ProcessorSimple(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                                 std::string const & filename)
-  : m_filename(filename)
+                                 std::string const & name)
+  : m_name(name)
   , m_queue(queue)
 {
   m_processingChain->Add(std::make_shared<PreserializeLayer>());
-  auto affilation = std::make_shared<feature::OneFileAffiliation>(filename);
+  auto affilation = std::make_shared<feature::SingleAffiliation>(name);
   m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<feature::serialization_policy::MinSize>>(kAffilationsBufferSize, affilation);
   m_processingChain->Add(m_affilationsLayer);
 }
 
 std::shared_ptr<FeatureProcessorInterface>ProcessorSimple::Clone() const
 {
-  return std::make_shared<ProcessorSimple>(m_queue, m_filename);
+  return std::make_shared<ProcessorSimple>(m_queue, m_name);
 }
 
 void ProcessorSimple::Process(feature::FeatureBuilder & fb)
@@ -32,11 +32,6 @@ void ProcessorSimple::Process(feature::FeatureBuilder & fb)
 void ProcessorSimple::Flush()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
-}
-
-bool ProcessorSimple::Finish()
-{
-  return true;
 }
 
 void ProcessorSimple::Merge(FeatureProcessorInterface const & other)

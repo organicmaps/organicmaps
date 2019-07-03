@@ -1,14 +1,13 @@
 #pragma once
 
+#include "generator/factory_utils.hpp"
 #include "generator/processor_booking.hpp"
 #include "generator/processor_coastline.hpp"
 #include "generator/processor_country.hpp"
 #include "generator/processor_interface.hpp"
 #include "generator/processor_noop.hpp"
-#include "generator/processor_restaurants.hpp"
 #include "generator/processor_simple.hpp"
 #include "generator/processor_world.hpp"
-#include "generator/factory_utils.hpp"
 
 #include "base/assert.hpp"
 
@@ -19,7 +18,6 @@ namespace generator
 {
 enum class ProcessorType
 {
-  Restaurants,
   Simple,
   Country,
   Coastline,
@@ -39,8 +37,6 @@ std::shared_ptr<FeatureProcessorInterface> CreateProcessor(ProcessorType type, A
     return create<ProcessorCountry>(std::forward<Args>(args)...);
   case ProcessorType::Simple:
     return create<ProcessorSimple>(std::forward<Args>(args)...);
-  case ProcessorType::Restaurants:
-    return create<ProcessorRestaurants>(std::forward<Args>(args)...);
   case ProcessorType::World:
     return create<ProcessorWorld>(std::forward<Args>(args)...);
   case ProcessorType::Noop:

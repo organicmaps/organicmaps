@@ -9,8 +9,6 @@
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
 
-#include <string>
-
 #include <memory>
 #include <mutex>
 #include <string>
@@ -46,9 +44,9 @@ class CountryPolygons
 {
 public:
   CountryPolygons() = default;
-  explicit CountryPolygons( std::string const & name, RegionsContainer const & regions)
-      : m_name(name)
-      , m_regions(regions)
+  explicit CountryPolygons(std::string const & name, RegionsContainer const & regions)
+    : m_name(name)
+    , m_regions(regions)
   {
   }
 
@@ -88,9 +86,6 @@ public:
   explicit CountriesContainer(m4::Tree<CountryPolygons> const & tree)
     : m_regionsTree(tree)
   {
-    tree.ForEach([&](auto const & region) {
-      m_regions.emplace(region.GetName(), region);
-    });
   }
 
   template <typename ToDo>
@@ -101,24 +96,37 @@ public:
 
   bool HasRegionByName(std::string const & name) const
   {
-    return m_regions.count(name) != 0;
+    return m_regionsTree.FindNode([&](auto const & countryPolygons) {
+      return countryPolygons.GetName() == name;
+    });
   }
 
-    // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
+  // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
   void Add(CountryPolygons const & country, m2::RectD const & rect)
   {
-    m_regions.emplace(country.GetName(), country);
     m_regionsTree.Add(country, rect);
   }
 
   CountryPolygons const & GetRegionByName(std::string const & name) const
   {
-    return m_regions.at(name);
+    ASSERT(HasRegionByName(name), ());
+
+    CountryPolygons const * country = nullptr;
+    m_regionsTree.FindNode([&](auto const & countryPolygons) {
+      if (countryPolygons.GetName() == name)
+      {
+        country = &countryPolygons;
+        return true;
+      }
+
+      return false;
+    });
+
+    return *country;
   }
 
 private:
   m4::Tree<CountryPolygons> m_regionsTree;
-  std::unordered_map<std::string, CountryPolygons> m_regions;
 };
 
 /// @return false if borderFile can't be opened

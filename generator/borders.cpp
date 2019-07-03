@@ -304,12 +304,13 @@ std::unordered_map<std::string, CountriesContainer> PackedBorders::m_countries;
 CountriesContainer const & PackedBorders::GetOrCreate(std::string const & name)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_countries.count(name) != 0)
-    return m_countries[name];
+  auto const it = m_countries.find(name);
+  if (it != m_countries.cend())
+    return it->second;
 
   CountriesContainer countries;
   CHECK(LoadCountriesList(name, countries), ("Error loading country polygons files."));
-  m_countries.emplace(name, countries);
-  return m_countries[name];
+  auto const eIt = m_countries.emplace(name, countries);
+  return eIt.first->second;
 }
 }  // namespace borders

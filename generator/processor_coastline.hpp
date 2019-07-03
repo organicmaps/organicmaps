@@ -5,23 +5,20 @@
 #include "generator/processor_interface.hpp"
 
 #include <memory>
-#include <string>
-#include <vector>
 
 namespace generator
 {
-// This class is implementation oft FeatureProcessorInterface for coastlines.
+// This class is implementation of the FeatureProcessorInterface for coastlines.
 class ProcessorCoastline : public FeatureProcessorInterface
 {
 public:
   explicit ProcessorCoastline(std::shared_ptr<FeatureProcessorQueue> const & queue);
 
-  // EmitterInterface overrides:
+  // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
 
   void Process(feature::FeatureBuilder & feature) override;
   void Flush() override;
-  bool Finish() override;
 
   void Merge(FeatureProcessorInterface const & other) override;
   void MergeInto(ProcessorCoastline & other) const override;

@@ -7,22 +7,20 @@
 
 #include <fstream>
 
-#include "defines.hpp"
-
 namespace generator
 {
 ProcessorCountry::ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const & queue,
                                    std::string const & bordersPath, std::string const & layerLogFilename,
-                                   bool isMwmsForWholeWorld)
+                                   bool haveBordersForWholeWorld)
   : m_bordersPath(bordersPath)
   , m_layerLogFilename(layerLogFilename)
   , m_queue(queue)
-  , m_isMwmsForWholeWorld(isMwmsForWholeWorld)
+  , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
 {
   m_processingChain = std::make_shared<RepresentationLayer>();
   m_processingChain->Add(std::make_shared<PrepareFeatureLayer>());
   m_processingChain->Add(std::make_shared<CountryLayer>());
-  auto affilation = std::make_shared<feature::CountriesFilesAffiliation>(bordersPath, isMwmsForWholeWorld);
+  auto affilation = std::make_shared<feature::CountriesFilesAffiliation>(bordersPath, haveBordersForWholeWorld);
   m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<>>(kAffilationsBufferSize, affilation);
   m_processingChain->Add(m_affilationsLayer);
 }
@@ -30,7 +28,7 @@ ProcessorCountry::ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const 
 
 std::shared_ptr<FeatureProcessorInterface> ProcessorCountry::Clone() const
 {
-  return std::make_shared<ProcessorCountry>(m_queue, m_bordersPath, m_layerLogFilename, m_isMwmsForWholeWorld);
+  return std::make_shared<ProcessorCountry>(m_queue, m_bordersPath, m_layerLogFilename, m_haveBordersForWholeWorld);
 }
 
 void ProcessorCountry::Process(feature::FeatureBuilder & feature)
@@ -42,12 +40,6 @@ void ProcessorCountry::Process(feature::FeatureBuilder & feature)
 void ProcessorCountry::Flush()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
-}
-
-bool ProcessorCountry::Finish()
-{
-  //  WriteDump();
-  return true;
 }
 
 void ProcessorCountry::WriteDump()

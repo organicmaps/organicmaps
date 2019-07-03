@@ -19,7 +19,7 @@ ProcessorCoastline::ProcessorCoastline(std::shared_ptr<FeatureProcessorQueue> co
 {
   m_processingChain = std::make_shared<RepresentationCoastlineLayer>();
   m_processingChain->Add(std::make_shared<PrepareCoastlineFeatureLayer>());
-  auto affilation = std::make_shared<feature::OneFileAffiliation>(WORLD_COASTS_FILE_NAME);
+  auto affilation = std::make_shared<feature::SingleAffiliation>(WORLD_COASTS_FILE_NAME);
   m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<>>(kAffilationsBufferSize, affilation);
   m_processingChain->Add(m_affilationsLayer);
 }
@@ -38,11 +38,6 @@ void ProcessorCoastline::Process(feature::FeatureBuilder & feature)
 void ProcessorCoastline::Flush()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
-}
-
-bool ProcessorCoastline::Finish()
-{
-  return true;
 }
 
 void ProcessorCoastline::Merge(FeatureProcessorInterface const & other)

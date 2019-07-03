@@ -16,7 +16,6 @@ namespace generator
 class ProcessorCoastline;
 class ProcessorCountry;
 class ProcessorNoop;
-class ProcessorRestaurants;
 class ProcessorSimple;
 class ProcessorWorld;
 
@@ -31,16 +30,12 @@ public:
   // This method is used by OsmTranslator to pass |fb| to Processor for further processing.
   virtual void Process(feature::FeatureBuilder & fb) = 0;
   virtual void Flush() = 0;
-  // Finish is used in GenerateFeatureImpl to make whatever work is needed after all OsmElements
-  // are processed.
-  virtual bool Finish() = 0;
 
   virtual void Merge(FeatureProcessorInterface const &) = 0;
 
   virtual void MergeInto(ProcessorCoastline &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorCountry &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorNoop &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(ProcessorRestaurants &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorSimple &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorWorld &) const { FailIfMethodUnsupported(); }
 

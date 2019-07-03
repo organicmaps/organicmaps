@@ -7,7 +7,6 @@
 
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace feature
 {
@@ -16,19 +15,18 @@ struct GenerateInfo;
 
 namespace generator
 {
-// This class is implementation of EmitterInterface for the world.
+// This class is implementation of FeatureProcessorInterface for the world.
 class ProcessorWorld : public FeatureProcessorInterface
 {
 public:
   explicit ProcessorWorld(std::shared_ptr<FeatureProcessorQueue> const & queue,
                           std::string const & popularityFilename);
 
-  // EmitterInterface overrides:
+  // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
 
   void Process(feature::FeatureBuilder & feature) override;
   void Flush() override;
-  bool Finish() override;
 
   void Merge(FeatureProcessorInterface const & other) override;
   void MergeInto(ProcessorWorld & other) const override;

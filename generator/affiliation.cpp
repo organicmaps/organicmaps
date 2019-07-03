@@ -2,9 +2,9 @@
 
 namespace feature
 {
-CountriesFilesAffiliation::CountriesFilesAffiliation(std::string const & borderPath, bool isMwmsForWholeWorld)
+CountriesFilesAffiliation::CountriesFilesAffiliation(std::string const & borderPath, bool haveBordersForWholeWorld)
   : m_countries(borders::PackedBorders::GetOrCreate(borderPath))
-  , m_isMwmsForWholeWorld(isMwmsForWholeWorld)
+  , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
 {
 }
 
@@ -16,25 +16,23 @@ std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuild
     countriesContainer.emplace_back(countryPolygons);
   });
 
-  if (m_isMwmsForWholeWorld && countriesContainer.size() == 1)
+  // todo(m.andrianov): We need to explore this optimization better. There is a hypothesis: some
+  // elements belong to a rectangle, but do not belong to the exact boundary.
+  if (m_haveBordersForWholeWorld && countriesContainer.size() == 1)
   {
-    borders::CountryPolygons const & countryPolygons= countriesContainer.front();
+    borders::CountryPolygons const & countryPolygons = countriesContainer.front();
     countries.emplace_back(countryPolygons.GetName());
     return countries;
   }
 
-  if (!countriesContainer.empty())
+  for (borders::CountryPolygons const & countryPolygons : countriesContainer)
   {
-    for (borders::CountryPolygons const & countryPolygons : countriesContainer)
-    {
-      auto const need = fb.ForAnyGeometryPoint([&](auto const & point) {
-        return countryPolygons.Contains(point);
-      });
+    auto const need = fb.ForAnyGeometryPoint([&](auto const & point) {
+      return countryPolygons.Contains(point);
+    });
 
-      if (need)
-        countries.emplace_back(countryPolygons.GetName());
-    }
-    return countries;
+    if (need)
+      countries.emplace_back(countryPolygons.GetName());
   }
 
   return countries;
@@ -45,17 +43,17 @@ bool CountriesFilesAffiliation::HasRegionByName(std::string const & name) const
   return m_countries.HasRegionByName(name);
 }
 
-OneFileAffiliation::OneFileAffiliation(std::string const & filename)
+SingleAffiliation::SingleAffiliation(std::string const & filename)
   : m_filename(filename)
 {
 }
 
-std::vector<std::string> OneFileAffiliation::GetAffiliations(FeatureBuilder const &) const
+std::vector<std::string> SingleAffiliation::GetAffiliations(FeatureBuilder const &) const
 {
   return {m_filename};
 }
 
-bool OneFileAffiliation::HasRegionByName(std::string const & name) const
+bool SingleAffiliation::HasRegionByName(std::string const & name) const
 {
   return name == m_filename;
 }

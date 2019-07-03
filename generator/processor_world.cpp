@@ -16,14 +16,14 @@ ProcessorWorld::ProcessorWorld(std::shared_ptr<FeatureProcessorQueue> const & qu
   m_processingChain = std::make_shared<RepresentationLayer>();
   m_processingChain->Add(std::make_shared<PrepareFeatureLayer>());
   m_processingChain->Add(std::make_shared<WorldLayer>(popularityFilename));
-  auto affilation = std::make_shared<feature::OneFileAffiliation>(WORLD_FILE_NAME);
+  auto affilation = std::make_shared<feature::SingleAffiliation>(WORLD_FILE_NAME);
   m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<>>(kAffilationsBufferSize, affilation);
   m_processingChain->Add(m_affilationsLayer);
 }
 
 std::shared_ptr<FeatureProcessorInterface> ProcessorWorld::Clone() const
 {
-   return std::make_shared<ProcessorWorld>(m_queue, m_popularityFilename);
+  return std::make_shared<ProcessorWorld>(m_queue, m_popularityFilename);
 }
 
 void ProcessorWorld::Process(feature::FeatureBuilder & feature)
@@ -35,11 +35,6 @@ void ProcessorWorld::Process(feature::FeatureBuilder & feature)
 void ProcessorWorld::Flush()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
-}
-
-bool ProcessorWorld::Finish()
-{
-  return true;
 }
 
 void ProcessorWorld::Merge(FeatureProcessorInterface const & other)
