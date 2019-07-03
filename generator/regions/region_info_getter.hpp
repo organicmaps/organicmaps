@@ -44,8 +44,8 @@ private:
   boost::optional<KeyValue> GetDeepest(m2::PointD const & point, std::vector<base::GeoObjectId> const & ids,
                                        Selector const & selector) const;
   int GetRank(JsonValue const & json) const;
-  // Get parent id of object: optional field `properties.pid` in JSON.
-  boost::optional<uint64_t> GetPid(JsonValue const & json) const;
+  // Get parent id of object: optional field `properties.dref` in JSON.
+  boost::optional<uint64_t> GetDref(JsonValue const & json) const;
 
   indexer::RegionsIndex<IndexReader> m_index;
   indexer::Borders m_borders;
