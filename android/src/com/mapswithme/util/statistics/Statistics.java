@@ -152,6 +152,8 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.TRAFFIC;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.TRANSIT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME_GUIDES;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.PARTNER;
 
 public enum Statistics
 {
@@ -619,6 +621,8 @@ public enum Statistics
     public static final String LIST_SETTINGS = "list_settings";
     public static final String DELETE_GROUP = "delete_group";
     public static final String OFFSCREEEN = "Offscreen";
+    static final String MAPSME_GUIDES = "MapsMeGuides";
+    static final String PARTNER = "Partner";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1130,6 +1134,10 @@ public enum Statistics
         return OPENTABLE;
       case Sponsored.TYPE_HOLIDAY:
         return HOLIDAY;
+      case Sponsored.TYPE_PARTNER:
+        return PARTNER;
+      case Sponsored.TYPE_PROMO_CATALOG:
+        return MAPSME_GUIDES;
       case Sponsored.TYPE_NONE:
         return "N/A";
       default:

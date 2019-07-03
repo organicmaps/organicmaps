@@ -31,7 +31,7 @@ public final class Sponsored
   public static final int TYPE_PROMO_CATALOG = 5;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_PARTNER, TYPE_PROMO_CATALOG })
+  @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_PARTNER, TYPE_HOLIDAY, TYPE_PROMO_CATALOG })
   public @interface SponsoredType {}
 
   static class FacilityType
