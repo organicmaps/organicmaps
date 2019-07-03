@@ -75,4 +75,28 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeUgcSaved(JNIEnv *, jcla
 {
   RegisterEventIfPossible(eye::MapObject::Event::Type::UgcSaved);
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingBookClicked(JNIEnv *, jclass)
+{
+  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingBook);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingMoreClicked(JNIEnv *, jclass)
+{
+  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingMore);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingReviewsClicked(JNIEnv *, jclass)
+{
+  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingReviews);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingDetailsClicked(JNIEnv *, jclass)
+{
+  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingDetails);
+}
 }

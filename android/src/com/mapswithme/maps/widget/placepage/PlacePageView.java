@@ -70,6 +70,7 @@ import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
@@ -1096,12 +1097,18 @@ public class PlacePageView extends NestedScrollView
                 if (book)
                 {
                   partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
+                  UserActionsLogger.logBookingBookClicked();
                   Statistics.INSTANCE.trackBookHotelEvent(info, mMapObject);
+                }
+                else if (isDetails)
+                {
+                  UserActionsLogger.logBookingDetailsClicked();
+                  Statistics.INSTANCE.trackHotelEvent(PP_SPONSORED_DETAILS, info, mMapObject);
                 }
                 else
                 {
-                  String event = isDetails ? PP_SPONSORED_DETAILS : PP_HOTEL_DESCRIPTION_LAND;
-                  Statistics.INSTANCE.trackHotelEvent(event, info, mMapObject);
+                  UserActionsLogger.logBookingMoreClicked();
+                  Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_DESCRIPTION_LAND, info, mMapObject);
                 }
                 break;
               case Sponsored.TYPE_OPENTABLE:
@@ -1897,6 +1904,7 @@ public class PlacePageView extends NestedScrollView
           //null checking is done in 'isSponsored' method
           //noinspection ConstantConditions
           Utils.openUrl(getContext(), mSponsored.getReviewUrl());
+          UserActionsLogger.logBookingReviewsClicked();
           if (mMapObject != null)
             Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_REVIEWS_LAND, mSponsored, mMapObject);
         }
