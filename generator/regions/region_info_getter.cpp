@@ -67,8 +67,8 @@ boost::optional<KeyValue> RegionInfoGetter::GetDeepest(m2::PointD const & point,
       return std::move(kv);
 
     // Skip border check for parent region.
-    if (auto pid = GetPid(*kv.second))
-      borderCheckSkipRegionId = pid;
+    if (auto dref = GetDref(*kv.second))
+      borderCheckSkipRegionId = dref;
   }
 
   return {};
@@ -80,13 +80,19 @@ int RegionInfoGetter::GetRank(JsonValue const & json) const
   return FromJSONObject<int>(properties, "rank");
 }
 
-boost::optional<uint64_t> RegionInfoGetter::GetPid(JsonValue const & json) const
+boost::optional<uint64_t> RegionInfoGetter::GetDref(JsonValue const & json) const
 {
   auto && properties = base::GetJSONObligatoryField(json, "properties");
-  auto && pid = base::GetJSONOptionalField(properties, "pid");
-  if (!pid || base::JSONIsNull(pid))
+  auto && drefField = base::GetJSONOptionalField(properties, "dref");
+  if (!drefField || base::JSONIsNull(drefField))
     return {};
-  return static_cast<uint64_t>(FromJSON<int64_t>(pid));
+
+  std::string drefStr = FromJSON<std::string>(drefField);
+  uint64_t dref = 0;
+
+  CHECK(strings::to_uint64(drefStr, dref, 16), ());
+
+  return dref;
 }
 
 KeyValueStorage const & RegionInfoGetter::GetStorage() const noexcept
