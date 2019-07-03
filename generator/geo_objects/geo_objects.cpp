@@ -46,8 +46,9 @@ using IndexReader = ReaderPtr<Reader>;
 
 bool HouseHasAddress(JsonValue const & json)
 {
-  auto && properties = base::GetJSONObligatoryField(json, "properties");
-  auto && address = base::GetJSONObligatoryField(properties, "address");
+  auto && address =
+      base::GetJSONObligatoryFieldByPath(json, "properties", "locales", "default", "address");
+
   auto && building = base::GetJSONOptionalField(address, "building");
   return building && !base::JSONIsNull(building);
 }
@@ -154,9 +155,8 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     if (!regionKeyValue)
       return;
 
-    auto && properties = base::GetJSONObligatoryField(*regionKeyValue->second, "properties");
-    auto && address = base::GetJSONObligatoryField(properties, "address");
-    auto && country = base::GetJSONObligatoryField(address, "country");
+    auto && country = base::GetJSONObligatoryFieldByPath(
+        *regionKeyValue->second, "properties", "locales", "default", "address", "country");
     auto countryName = FromJSON<std::string>(country);
     auto pos = includeCountries.find(countryName);
     if (pos != std::string::npos)

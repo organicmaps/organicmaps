@@ -138,8 +138,8 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
                                                                 bool needLocality)
 {
   auto const isStreetAdministrator = [needLocality](KeyValue const & region) {
-    auto const && properties = base::GetJSONObligatoryField(*region.second, "properties");
-    auto const && address = base::GetJSONObligatoryField(properties, "address");
+    auto && address = base::GetJSONObligatoryFieldByPath(*region.second, "properties", "locales",
+                                                         "default", "address");
 
     if (base::GetJSONOptionalField(address, "suburb"))
       return false;
@@ -166,9 +166,9 @@ base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const
                                               m2::RectD const & bbox, m2::PointD const & pinPoint)
 {
   auto streetObject = base::NewJSONObject();
+  auto && regionAddress = base::GetJSONObligatoryFieldByPath(regionObject, "properties", "locales",
+                                                             "default", "address");
 
-  auto const && regionProperties = base::GetJSONObligatoryField(regionObject, "properties");
-  auto const && regionAddress = base::GetJSONObligatoryField(regionProperties, "address");
   auto address = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionAddress))};
   ToJSONObject(*address, "street", streetName);
 
