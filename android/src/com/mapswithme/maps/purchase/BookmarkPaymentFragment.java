@@ -23,6 +23,7 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -62,7 +63,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private PlayStoreBillingCallback mProductDetailsLoadingCallback;
+  private ProductDetailsCallback mProductDetailsLoadingCallback;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -101,7 +102,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
     mProductDetailsLoadingManager = PurchaseFactory.createSubscriptionBillingManager();
     mProductDetailsLoadingManager.initialize(requireActivity());
-    mProductDetailsLoadingCallback = new ProductDetailsCallback();
+    mProductDetailsLoadingCallback = new ProductDetailsCallback(this);
     mPurchaseController.initialize(requireActivity());
     List<String> productIds =
         Collections.singletonList(PrivateVariables.adsRemovalMonthlyProductId());
@@ -112,7 +113,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mBuySubscriptionButton = root.findViewById(R.id.buy_btn);
     mBuySubscriptionButton.setOnClickListener(v -> onBuySubscriptionClicked());
     TextView cancelButton = root.findViewById(R.id.cancel_btn);
-    cancelButton.setOnClickListener(v -> onBuySingleRouteClicked());
+    cancelButton.setOnClickListener(v -> onBuySingleBookmarkClicked());
     return root;
   }
 
@@ -121,7 +122,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     BookmarkSubscriptionActivity.start(requireActivity());
   }
 
-  private void onBuySingleRouteClicked()
+  private void onBuySingleBookmarkClicked()
   {
     Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
                                                    mPaymentData.getProductId());
@@ -177,6 +178,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   {
     super.onDestroyView();
     mPurchaseController.destroy();
+    mProductDetailsLoadingManager.destroy();
   }
 
   private void startPurchaseTransaction()
@@ -200,6 +202,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     observable.addTransactionObserver(mPurchaseCallback);
     mPurchaseController.addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
+    mProductDetailsLoadingCallback.attach(this);
   }
 
   @Override
@@ -210,14 +213,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     observable.removeTransactionObserver(mPurchaseCallback);
     mPurchaseController.removeCallback();
     mPurchaseCallback.detach();
-    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    super.onDestroy();
-    mProductDetailsLoadingManager.destroy();
+    mProductDetailsLoadingCallback.detach();
+    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
   }
 
   @Override
@@ -330,17 +327,16 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onLoadPriceFailed()
   {
-    mProgress.setVisibility(View.GONE);
-    mBuySubscriptionButton.setVisibility(View.GONE);
-    BookmarkPaymentState.PRODUCT_DETAILS_FAILURE.activate(this);
+    UiUtils.hide(mProgress, mBuySubscriptionButton);
+    activateState(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
   }
 
   private void onLoadPriceSucceeded(@NonNull ProductDetails productDetails)
   {
-    String curRepresentation = Utils.formatCurrencyString(productDetails.getPrice(),
-                                                          productDetails.getCurrencyCode());
-    mProgress.setVisibility(View.GONE);
-    mBuySubscriptionButton.setText(getString(R.string.buy_btn_for_subscription, curRepresentation));
+    String formattedPrice = Utils.formatCurrencyString(productDetails.getPrice(),
+                                                       productDetails.getCurrencyCode());
+    UiUtils.hide(mProgress);
+    mBuySubscriptionButton.setText(getString(R.string.buy_btn_for_subscription, formattedPrice));
   }
 
   private static class BookmarkPurchaseCallback
@@ -435,25 +431,51 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     }
   }
 
-  private class ProductDetailsCallback extends AbstractProductDetailsLoadingCallback
+  private static class ProductDetailsCallback extends AbstractProductDetailsLoadingCallback implements Detachable<BookmarkPaymentFragment>
   {
+    @Nullable
+    private BookmarkPaymentFragment mFragment;
+
+    public ProductDetailsCallback(@NonNull BookmarkPaymentFragment fragment)
+    {
+      mFragment = fragment;
+    }
+
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
+      if (mFragment == null)
+        return;
+
       if (details.isEmpty())
       {
-        onLoadPriceFailed();
+        mFragment.onLoadPriceFailed();
         return;
       }
 
       ProductDetails productDetails = PurchaseUtils.toProductDetails(details.iterator().next());
-      onLoadPriceSucceeded(productDetails);
+      mFragment.onLoadPriceSucceeded(productDetails);
     }
 
     @Override
     public void onProductDetailsFailure()
     {
-      onLoadPriceFailed();
+      if (mFragment == null)
+        return;
+
+      mFragment.onLoadPriceFailed();
+    }
+
+    @Override
+    public void attach(@NonNull BookmarkPaymentFragment object)
+    {
+      mFragment = object;
+    }
+
+    @Override
+    public void detach()
+    {
+      mFragment = null;
     }
   }
 }
