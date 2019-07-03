@@ -106,18 +106,36 @@ enum BookmarkPaymentState
         {
           PurchaseUtils.showProductDetailsFailureDialog(fragment, name());
         }
-      };
+      },
+  SUBS_PRODUCT_DETAILS_FAILURE
+      {
+        @Override
+        void activate(@NonNull BookmarkPaymentFragment fragment)
+        {
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.buy_subs_container);
+          PurchaseUtils.showProductDetailsFailureDialog(fragment, name());
+        }
+      },
+  SUBS_PRODUCT_DETAILS_LOADED
+      {
+        @Override
+        void activate(@NonNull BookmarkPaymentFragment fragment)
+        {
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
+          fragment.updateSubsProductDetails();
+        }
+      };;
 
   private static void showProgress(@NonNull BookmarkPaymentFragment fragment)
   {
     UiUtils.show(fragment.getViewOrThrow(), R.id.progress);
-    UiUtils.hide(fragment.getViewOrThrow(), R.id.buy_btn);
+    UiUtils.hide(fragment.getViewOrThrow(), R.id.buy_subs_btn);
   }
 
   private static void hideProgress(@NonNull BookmarkPaymentFragment fragment)
   {
     UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
-    UiUtils.show(fragment.getViewOrThrow(), R.id.buy_btn);
+    UiUtils.show(fragment.getViewOrThrow(), R.id.buy_subs_btn);
   }
 
   abstract void activate(@NonNull BookmarkPaymentFragment fragment);
