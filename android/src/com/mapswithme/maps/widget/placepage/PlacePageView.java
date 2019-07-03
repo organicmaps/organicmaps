@@ -1251,8 +1251,12 @@ public class PlacePageView extends NestedScrollView
     if (mSponsored == null || mMapObject == null)
       return;
 
-    Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
-                                            UTM.UTM_PLACEPAGE_GALLERY);
+    if (hasPromoGallery)
+    {
+      Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
+                                              UTM.UTM_PLACEPAGE_GALLERY);
+    }
+
     mSponsored.updateId(mMapObject);
     mSponsoredPrice = mSponsored.getPrice();
     String currencyCode = Utils.getCurrencyCode();
