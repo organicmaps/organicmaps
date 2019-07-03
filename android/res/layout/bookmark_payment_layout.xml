@@ -51,22 +51,34 @@
         android:layout_height="match_parent"
         tools:text="BUY FOR $1.99"/>
       <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/subs_progress"
         android:layout_width="@dimen/primary_button_min_height"
         android:layout_height="@dimen/primary_button_min_height"
         android:layout_gravity="center"
         android:visibility="visible"
         tools:visibility="visible"/>
     </FrameLayout>
-    <TextView
-      android:id="@+id/buy_inapp_btn"
-      android:textAppearance="?android:textAppearance"
-      android:background="?clickableBackground"
+    <FrameLayout
+      android:id="@+id/buy_inap_container"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="@dimen/margin_half_plus_eight"
-      android:textColor="?colorAccent"
-      android:gravity="center"
-      android:textAllCaps="true"/>
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/buy_inapp_btn"
+        android:textAppearance="?android:textAppearance"
+        android:background="?clickableBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half_plus_eight"
+        android:textColor="?colorAccent"
+        android:gravity="center"
+        android:textAllCaps="true"/>
+      <ProgressBar
+        android:id="@+id/inapp_progress"
+        android:layout_width="@dimen/primary_button_min_height"
+        android:layout_height="@dimen/primary_button_min_height"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        tools:visibility="visible"/>
+    </FrameLayout>
   </LinearLayout>
 </LinearLayout>

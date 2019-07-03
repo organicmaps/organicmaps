@@ -121,21 +121,21 @@ enum BookmarkPaymentState
         @Override
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
-          UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.subs_progress);
           fragment.updateSubsProductDetails();
         }
       };;
 
   private static void showProgress(@NonNull BookmarkPaymentFragment fragment)
   {
-    UiUtils.show(fragment.getViewOrThrow(), R.id.progress);
-    UiUtils.hide(fragment.getViewOrThrow(), R.id.buy_subs_btn);
+    UiUtils.show(fragment.getViewOrThrow(), R.id.inapp_progress);
+    UiUtils.hide(fragment.getViewOrThrow(), R.id.buy_inapp_btn);
   }
 
   private static void hideProgress(@NonNull BookmarkPaymentFragment fragment)
   {
-    UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
-    UiUtils.show(fragment.getViewOrThrow(), R.id.buy_subs_btn);
+    UiUtils.hide(fragment.getViewOrThrow(), R.id.inapp_progress);
+    UiUtils.show(fragment.getViewOrThrow(), R.id.buy_inapp_btn);
   }
 
   abstract void activate(@NonNull BookmarkPaymentFragment fragment);
