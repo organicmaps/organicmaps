@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
@@ -21,7 +19,6 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.PurchaseOperationObservable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.Utils;
@@ -257,7 +254,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     author.setText(mPaymentData.getAuthorName());
   }
 
-  private void handleProductDetails(@NonNull List<SkuDetails> details)
+  void handleProductDetails(@NonNull List<SkuDetails> details)
   {
     if (details.isEmpty())
       return;
@@ -266,7 +263,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mProductDetails = PurchaseUtils.toProductDetails(skuDetails);
   }
 
-  private void handleSubsProductDetails(@NonNull List<SkuDetails> details)
+  void handleSubsProductDetails(@NonNull List<SkuDetails> details)
   {
     if (details.isEmpty())
       return;
@@ -275,7 +272,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mSubsProductDetails = PurchaseUtils.toProductDetails(skuDetails);
   }
 
-  private void handleValidationResult(boolean validationResult)
+  void handleValidationResult(boolean validationResult)
   {
     mValidationResult = validationResult;
   }
@@ -342,175 +339,5 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       requireActivity().setResult(Activity.RESULT_OK);
 
     requireActivity().finish();
-  }
-
-  private static class BookmarkPurchaseCallback
-      extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
-      implements PurchaseCallback, Detachable<BookmarkPaymentFragment>, CoreStartTransactionObserver
-  {
-    @Nullable
-    private List<SkuDetails> mPendingDetails;
-    private Boolean mPendingValidationResult;
-    @NonNull
-    private final String mServerId;
-
-    private BookmarkPurchaseCallback(@NonNull String serverId)
-    {
-      mServerId = serverId;
-    }
-
-    @Override
-    public void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String
-        vendorId)
-    {
-      if (!success)
-      {
-        activateStateSafely(BookmarkPaymentState.TRANSACTION_FAILURE);
-        return;
-      }
-
-      activateStateSafely(BookmarkPaymentState.TRANSACTION_STARTED);
-    }
-
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (getUiObject() == null)
-        mPendingDetails = Collections.unmodifiableList(details);
-      else
-        getUiObject().handleProductDetails(details);
-      activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_LOADED);
-    }
-
-    @Override
-    public void onPaymentFailure(@BillingClient.BillingResponse int error)
-    {
-      activateStateSafely(BookmarkPaymentState.PAYMENT_FAILURE);
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onValidationStarted()
-    {
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             mServerId);
-      activateStateSafely(BookmarkPaymentState.VALIDATION);
-    }
-
-    @Override
-    public void onValidationFinish(boolean success)
-    {
-      if (getUiObject() == null)
-        mPendingValidationResult = success;
-      else
-        getUiObject().handleValidationResult(success);
-
-      activateStateSafely(BookmarkPaymentState.VALIDATION_FINISH);
-    }
-
-    @Override
-    void onAttach(@NonNull BookmarkPaymentFragment uiObject)
-    {
-      if (mPendingDetails != null)
-      {
-        uiObject.handleProductDetails(mPendingDetails);
-        mPendingDetails = null;
-      }
-
-      if (mPendingValidationResult != null)
-      {
-        uiObject.handleValidationResult(mPendingValidationResult);
-        mPendingValidationResult = null;
-      }
-    }
-  }
-
-  private static class SubsProductDetailsCallback
-      extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
-      implements PlayStoreBillingCallback
-  {
-    @Nullable
-    private List<SkuDetails> mPendingDetails;
-
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (PurchaseUtils.hasIncorrectSkuDetails(details))
-      {
-        activateStateSafely(BookmarkPaymentState.SUBS_PRODUCT_DETAILS_FAILURE);
-        return;
-      }
-
-      if (getUiObject() == null)
-        mPendingDetails = Collections.unmodifiableList(details);
-      else
-        getUiObject().handleSubsProductDetails(details);
-
-      activateStateSafely(BookmarkPaymentState.SUBS_PRODUCT_DETAILS_LOADED);
-    }
-
-
-    @Override
-    void onAttach(@NonNull BookmarkPaymentFragment bookmarkPaymentFragment)
-    {
-      if (mPendingDetails != null)
-      {
-        bookmarkPaymentFragment.handleProductDetails(mPendingDetails);
-        mPendingDetails = null;
-      }
-    }
-
-    @Override
-    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
-    {
-      // Do nothing.
-    }
-
-    @Override
-    public void onPurchaseFailure(int error)
-    {
-      // Do nothing.
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      activateStateSafely(BookmarkPaymentState.SUBS_PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      // Do nothing.
-    }
-
-    @Override
-    public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
-    {
-      // Do nothing.
-    }
-
-    @Override
-    public void onConsumptionSuccess()
-    {
-      throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void onConsumptionFailure()
-    {
-      throw new UnsupportedOperationException();
-    }
   }
 }
