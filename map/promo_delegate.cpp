@@ -5,9 +5,12 @@
 #include "indexer/data_source.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 
+#include "base/string_utils.hpp"
+
 PromoDelegate::PromoDelegate(DataSource const & dataSource, search::CityFinder & cityFinder)
-  : m_dataSource(dataSource), m_cityFinder(cityFinder)
+  : m_dataSource(dataSource), m_cityFinder(cityFinder), m_cities(dataSource)
 {
+  m_cities.Load();
 }
 
 std::string PromoDelegate::GetCityId(m2::PointD const & point)
@@ -22,8 +25,12 @@ std::string PromoDelegate::GetCityId(m2::PointD const & point)
   if (!feature)
     return {};
 
-  if (ftypes::IsPromoCatalogChecker::Instance()(*feature))
-    return feature->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+  base::GeoObjectId id;
+  if (ftypes::IsPromoCatalogChecker::Instance()(*feature) &&
+      m_cities.GetGeoObjectId(feature->GetID(), id))
+  {
+    return strings::to_string(id);
+  }
 
   return {};
 }

@@ -2,6 +2,8 @@
 
 #include "partners_api/promo_api.hpp"
 
+#include "indexer/feature_to_osm.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <string>
@@ -23,4 +25,5 @@ public:
 private:
   DataSource const & m_dataSource;
   search::CityFinder & m_cityFinder;
+  indexer::FeatureIdToGeoObjectIdBimap m_cities;
 };
