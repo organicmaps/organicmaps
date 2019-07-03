@@ -313,7 +313,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
   {
     @Nullable
     private List<SkuDetails> mPendingDetails;
-    private Boolean mPendingActivationResult;
+    private Boolean mPendingValidationResult;
 
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
@@ -359,11 +359,27 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     public void onValidationFinish(boolean success)
     {
       if (getUiObject() == null)
-        mPendingActivationResult = success;
+        mPendingValidationResult = success;
       else
         getUiObject().handleActivationResult(success);
 
       activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION_FINISH);
+    }
+
+    @Override
+    void onAttach(@NonNull BookmarkSubscriptionFragment bookmarkSubscriptionFragment)
+    {
+      if (mPendingDetails != null)
+      {
+        bookmarkSubscriptionFragment.handleProductDetails(mPendingDetails);
+        mPendingDetails = null;
+      }
+
+      if (mPendingValidationResult != null)
+      {
+        bookmarkSubscriptionFragment.handleActivationResult(mPendingValidationResult);
+        mPendingValidationResult = null;
+      }
     }
   }
 }

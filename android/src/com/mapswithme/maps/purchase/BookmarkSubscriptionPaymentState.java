@@ -24,15 +24,6 @@ public enum  BookmarkSubscriptionPaymentState
           fragment.queryProductDetails();
         }
       },
-  PRODUCT_DETAILS_LOADED
-      {
-        @Override
-        void activate(@NonNull BookmarkSubscriptionFragment fragment)
-        {
-          hideProgress(fragment);
-          // TODO: coming soon.
-        }
-      },
   PRODUCT_DETAILS_FAILURE
       {
         @Override
