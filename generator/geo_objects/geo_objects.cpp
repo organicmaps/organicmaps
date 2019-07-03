@@ -101,7 +101,8 @@ base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonVa
 {
   auto jsonWithAddress = json.MakeDeepCopyJson();
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
-  ToJSONObject(*properties, "name", fb.GetName());
+  Localizator localizator(*properties);
+  localizator.AddLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
   UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
   return jsonWithAddress;
 }

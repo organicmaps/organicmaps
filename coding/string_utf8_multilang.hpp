@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <utility>
 
@@ -63,6 +64,14 @@ void ReadString(TSource & src, std::string & s)
 class StringUtf8Multilang
 {
 public:
+  struct Hash
+  {
+    std::size_t operator()(StringUtf8Multilang const & s) const noexcept
+    {
+      return std::hash<std::string>{}(s.m_s);
+    }
+  };
+
   struct Lang
   {
     /// OSM language code (e.g. for name:en it's "en" part).

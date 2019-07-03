@@ -102,7 +102,9 @@ private:
     ToJSONArray(*coordinates, center.m_lat);
     ToJSONObject(*geometry, "coordinates", coordinates);
 
-    Localizator localizator;
+    auto properties = base::NewJSONObject();
+
+    Localizator localizator(*properties);
     boost::optional<std::string> dref;
 
     for (auto const & p : path)
@@ -128,12 +130,7 @@ private:
     }
 
     localizator.AddLocale("name", main);
-
-    auto properties = base::NewJSONObject();
-    auto locales = localizator.BuildLocales();
-
     ToJSONObject(*properties, "rank", main.GetRank());
-    ToJSONObject(*properties, "locales", locales);
 
     if (dref)
       ToJSONObject(*properties, "dref", *dref);

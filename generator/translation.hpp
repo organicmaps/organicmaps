@@ -31,8 +31,28 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
 class Localizator
 {
 public:
+  class EasyObjectWithTranslation
+  {
+  public:
+    explicit EasyObjectWithTranslation(StringUtf8Multilang const & name) : m_name(name) {}
+    std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const
+    {
+      return ::generator::GetTranslatedOrTransliteratedName(m_name, languageCode);
+    }
+
+    std::string GetName(LanguageCode languageCode = StringUtf8Multilang::kDefaultCode) const
+    {
+      return ::generator::GetName(m_name, languageCode);
+    }
+
+  private:
+    StringUtf8Multilang const m_name;
+  };
+
+  explicit Localizator(json_t & node) : m_node(GetOrCreateNode("locales", node)) {}
+
   template <class Object>
-  void AddLocale(std::string const & label, Object objectWithName,
+  void AddLocale(std::string const & label, Object const & objectWithName,
                  std::string const & level = std::string())
   {
     AddLocale(DefaultLocaleName(), level, objectWithName.GetName(), label);
@@ -53,30 +73,20 @@ public:
   template <class Verboser>
   void AddVerbose(Verboser && verboser, std::string const & level)
   {
-    json_t & locale = GetLocale(DefaultLocaleName());
-    json_t & node = GetLevel(level, locale);
+    json_t & locale = GetOrCreateNode(DefaultLocaleName(), m_node);
+    json_t & node = GetOrCreateNode(level, locale);
     verboser(node);
-  }
-
-  base::JSONPtr BuildLocales()
-  {
-    auto locales = base::NewJSONObject();
-    for (auto & localeWithLanguage : m_localesByLanguages)
-      ToJSONObject(*locales, localeWithLanguage.first, *localeWithLanguage.second);
-
-    m_localesByLanguages.clear();
-    return locales;
   }
 
 private:
   void AddLocale(std::string const & language, std::string const & level, std::string const & name,
                  std::string const & label)
   {
-    json_t & locale = GetLocale(language);
+    json_t & locale = GetOrCreateNode(language, m_node);
 
     if (!level.empty())
     {
-      json_t & levelNode = GetLevel(level, locale);
+      json_t & levelNode = GetOrCreateNode(level, locale);
       ToJSONObject(levelNode, label, name);
     }
     else
@@ -90,29 +100,19 @@ private:
     return kDefaultLocaleName;
   }
 
-  json_t & GetLocale(std::string const & language)
+  static json_t & GetOrCreateNode(std::string const & nodeName, json_t & root)
   {
-    if (m_localesByLanguages.find(language) == m_localesByLanguages.end())
-      m_localesByLanguages[language] = json_object();
-
-    return *m_localesByLanguages.at(language);
-  }
-
-  static json_t & GetLevel(std::string const & level, json_t & locale)
-  {
-    json_t * levelNode = base::GetJSONOptionalField(&locale, level);
-
-    if (!levelNode)
+    json_t * node = base::GetJSONOptionalField(&root, nodeName);
+    if (!node || base::JSONIsNull(node))
     {
-      levelNode = json_object();
-      ToJSONObject(locale, level, *levelNode);
+      node = json_object();
+      ToJSONObject(root, nodeName, *node);
     }
 
-    return *levelNode;
+    return *node;
   }
-  std::vector<std::string> const & LocaleLanguages() const;
 
-  using LocalesByLanguages = std::map<std::string, json_t *>;
-  LocalesByLanguages m_localesByLanguages;
+  std::vector<std::string> const & LocaleLanguages() const;
+  json_t & m_node;
 };
 }  // namespace generator

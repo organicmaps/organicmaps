@@ -150,6 +150,7 @@ public:
   FeatureParams const & GetParams() const { return m_params; }
   FeatureParams & GetParams() { return m_params; }
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
+  StringUtf8Multilang GetMultilangName() const { return m_params.name; }
   uint8_t GetRank() const { return m_params.rank; }
   bool FormatFullAddress(std::string & res) const;
   AddressData const & GetAddressData() const { return m_params.GetAddressData(); }
@@ -175,7 +176,8 @@ public:
 
   bool PreSerializeAndRemoveUselessNamesForIntermediate();
   void SerializeForIntermediate(Buffer & data) const;
-  void SerializeBorderForIntermediate(serial::GeometryCodingParams const & params, Buffer & data) const;
+  void SerializeBorderForIntermediate(serial::GeometryCodingParams const & params,
+                                      Buffer & data) const;
   void DeserializeFromIntermediate(Buffer & data);
 
   bool PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data);
@@ -201,13 +203,13 @@ public:
   void SetCoastCell(int64_t iCell) { m_coastCell = iCell; }
   bool IsCoastCell() const { return (m_coastCell != -1); }
 
- protected:
+protected:
   template <class ToDo>
   class ToDoWrapper
   {
   public:
     ToDoWrapper(ToDo && toDo) : m_toDo(std::forward<ToDo>(toDo)) {}
-    bool operator() (m2::PointD const & p) { return m_toDo(p); }
+    bool operator()(m2::PointD const & p) { return m_toDo(p); }
     void EndRegion() {}
 
   private:
@@ -218,9 +220,9 @@ public:
   // - point in point-feature
   // - origin point of text [future] in line-feature
   // - origin point of text or symbol in area-feature
-  m2::PointD m_center;    // Check  HEADER_HAS_POINT
+  m2::PointD m_center;  // Check  HEADER_HAS_POINT
   // List of geometry polygons.
-  Geometry m_polygons; // Check HEADER_IS_AREA
+  Geometry m_polygons;  // Check HEADER_IS_AREA
   m2::RectD m_limitRect;
   std::vector<base::GeoObjectId> m_osmIds;
   FeatureParams m_params;
@@ -264,7 +266,7 @@ void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
 /// Parallel process features in .dat file.
 template <class ToDo>
 void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & filename,
-    ToDo && toDo)
+                                     ToDo && toDo)
 {
   CHECK_GREATER_OR_EQUAL(threadsCount, 1, ());
   if (threadsCount == 1)

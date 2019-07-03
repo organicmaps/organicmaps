@@ -15,8 +15,7 @@ using namespace generator;
 // Transliteration tests ---------------------------------------------------------------------------
 using Translations = std::vector<std::pair<std::string, std::string>>;
 bool TestTransliteration(Translations const & translations,
-                         std::string const & expectedTransliteration,
-                         std::string const & lang)
+                         std::string const & expectedTransliteration, std::string const & lang)
 {
   StringUtf8Multilang name;
   for (auto const & langAndTranslation : translations)

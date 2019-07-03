@@ -37,7 +37,8 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
     return s;
 
   auto const fn = [&s](int8_t code, std::string const & name) {
-    if (strings::IsASCIIString(name)) {
+    if (strings::IsASCIIString(name))
+    {
       s = name;
       return base::ControlFlow::Break;
     }
