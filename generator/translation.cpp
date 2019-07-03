@@ -13,8 +13,8 @@ namespace
 using Languages = std::vector<std::string>;
 
 const std::unordered_map<generator::LanguageCode, Languages> kPreferredLanguagesForTransliterate = {
-    {StringUtf8Multilang::GetLangIndex("ru"), {"en" /*English*/, "ru" /*Русский*/}},
-    {StringUtf8Multilang::GetLangIndex("en"), {"en" /*English*/, "ru" /*Русский*/}}};
+    {StringUtf8Multilang::GetLangIndex("ru"), {"ru", "uk", "be"}},
+    {StringUtf8Multilang::GetLangIndex("en"), {"en", "da", "es", "fr"}}};
 
 Languages kLocalelanguages = {"en", "ru"};
 }  // namespace
@@ -32,7 +32,16 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
   if (!s.empty() && strings::IsASCIIString(s))
     return s;
 
+  s = GetName(name, StringUtf8Multilang::kDefaultCode);
+  if (!s.empty() && strings::IsASCIIString(s))
+    return s;
+
   auto const fn = [&s](int8_t code, std::string const & name) {
+    if (strings::IsASCIIString(name)) {
+      s = name;
+      return base::ControlFlow::Break;
+    }
+
     if (code != StringUtf8Multilang::kDefaultCode &&
         Transliteration::Instance().Transliterate(name, code, s) && strings::IsASCIIString(s))
     {

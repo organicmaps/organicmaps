@@ -20,10 +20,11 @@ inline std::string GetName(StringUtf8Multilang const & name, LanguageCode lang)
 
 /// This function will take the following steps:
 /// 1. Return the |languageCode| name if it exists.
-/// 2. Try to get International name
-/// 3. Return transliteration trying to use kPreferredLanguagesForTransliterate
+/// 2. Try to get international name.
+/// 3. Try to check if default name is ASCII and return it if succeeds.
+/// 4. Return transliteration trying to use kPreferredLanguagesForTransliterate
 /// first, then any, if it succeeds.
-/// 3. Otherwise, return empty string.
+/// 5. Otherwise, return empty string.
 std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
                                               LanguageCode languageCode);
 
