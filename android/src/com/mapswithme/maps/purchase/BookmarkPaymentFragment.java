@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
@@ -61,9 +62,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   @NonNull
   private BillingManager<PlayStoreBillingCallback> mProductDetailsLoadingManager;
 
-  @SuppressWarnings("NullableProblems")
   @NonNull
-  private ProductDetailsCallback mProductDetailsLoadingCallback;
+  private final SubsProductDetailsCallback mSubsProductDetailsCallback
+      = new SubsProductDetailsCallback();
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -100,20 +101,22 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
 
+    mPurchaseController.initialize(requireActivity());
+
     mProductDetailsLoadingManager = PurchaseFactory.createSubscriptionBillingManager();
     mProductDetailsLoadingManager.initialize(requireActivity());
-    mProductDetailsLoadingCallback = new ProductDetailsCallback(this);
-    mPurchaseController.initialize(requireActivity());
     List<String> productIds =
-        Collections.singletonList(PrivateVariables.adsRemovalMonthlyProductId());
-    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
+        Collections.singletonList(PrivateVariables.bookmarksSubscriptionMonthlyProductId());
+    mSubsProductDetailsCallback.attach(this);
+    mProductDetailsLoadingManager.addCallback(mSubsProductDetailsCallback);
     mProductDetailsLoadingManager.queryProductDetails(productIds);
+
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);
     mProgress = root.findViewById(R.id.progress);
     mBuySubscriptionButton = root.findViewById(R.id.buy_btn);
     mBuySubscriptionButton.setOnClickListener(v -> onBuySubscriptionClicked());
-    TextView cancelButton = root.findViewById(R.id.cancel_btn);
-    cancelButton.setOnClickListener(v -> onBuySingleBookmarkClicked());
+    TextView buyInappBtn = root.findViewById(R.id.buy_inapp_btn);
+    buyInappBtn.setOnClickListener(v -> onBuyInappClicked());
     return root;
   }
 
@@ -122,7 +125,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     BookmarkSubscriptionActivity.start(requireActivity());
   }
 
-  private void onBuySingleBookmarkClicked()
+  private void onBuyInappClicked()
   {
     Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
                                                    mPaymentData.getProductId());
@@ -178,6 +181,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   {
     super.onDestroyView();
     mPurchaseController.destroy();
+    mProductDetailsLoadingManager.removeCallback(mSubsProductDetailsCallback);
+    mSubsProductDetailsCallback.detach();
     mProductDetailsLoadingManager.destroy();
   }
 
@@ -202,7 +207,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     observable.addTransactionObserver(mPurchaseCallback);
     mPurchaseController.addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
-    mProductDetailsLoadingCallback.attach(this);
   }
 
   @Override
@@ -213,8 +217,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     observable.removeTransactionObserver(mPurchaseCallback);
     mPurchaseController.removeCallback();
     mPurchaseCallback.detach();
-    mProductDetailsLoadingCallback.detach();
-    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
   }
 
   @Override
@@ -325,13 +327,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     requireActivity().finish();
   }
 
-  private void onLoadPriceFailed()
-  {
-    UiUtils.hide(mProgress, mBuySubscriptionButton);
-    activateState(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
-  }
-
-  private void onLoadPriceSucceeded(@NonNull ProductDetails productDetails)
+  private void onProductDetailsLoaded(@NonNull ProductDetails productDetails)
   {
     String formattedPrice = Utils.formatCurrencyString(productDetails.getPrice(),
                                                        productDetails.getCurrencyCode());
@@ -431,51 +427,89 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     }
   }
 
-  private static class ProductDetailsCallback extends AbstractProductDetailsLoadingCallback implements Detachable<BookmarkPaymentFragment>
+  private static class SubsProductDetailsCallback
+      extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
+      implements PlayStoreBillingCallback
   {
     @Nullable
-    private BookmarkPaymentFragment mFragment;
-
-    public ProductDetailsCallback(@NonNull BookmarkPaymentFragment fragment)
-    {
-      mFragment = fragment;
-    }
+    private List<SkuDetails> mPendingDetails;
 
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      if (mFragment == null)
-        return;
-
-      if (details.isEmpty())
+      if (details.isEmpty() || PurchaseUtils.hasIncorrectSkuDetails(details))
       {
-        mFragment.onLoadPriceFailed();
+        activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
         return;
       }
 
-      ProductDetails productDetails = PurchaseUtils.toProductDetails(details.iterator().next());
-      mFragment.onLoadPriceSucceeded(productDetails);
+      if (getUiObject() == null)
+      {
+        mPendingDetails = Collections.unmodifiableList(details);
+        return;
+      }
+
+      handleProductDetails(getUiObject(), details);
     }
+
+    private static void handleProductDetails(@NonNull BookmarkPaymentFragment uiObject,
+                                      @NonNull List<SkuDetails> details)
+    {
+      ProductDetails productDetails = PurchaseUtils.toProductDetails(details.get(0));
+      uiObject.onProductDetailsLoaded(productDetails);
+    }
+
+    @Override
+    void onAttach(@NonNull BookmarkPaymentFragment bookmarkPaymentFragment)
+    {
+      if (mPendingDetails == null)
+        return;
+
+      handleProductDetails(bookmarkPaymentFragment, mPendingDetails);
+      mPendingDetails = null;
+    }
+
+    @Override
+    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
+    {
+      // Do nothing.
+    }
+
+    @Override
+    public void onPurchaseFailure(int error)
+    {
+      // Do nothing.
+    }
+
 
     @Override
     public void onProductDetailsFailure()
     {
-      if (mFragment == null)
-        return;
-
-      mFragment.onLoadPriceFailed();
+      // Do nothing.
     }
 
     @Override
-    public void attach(@NonNull BookmarkPaymentFragment object)
+    public void onStoreConnectionFailed()
     {
-      mFragment = object;
+      // Do nothing.
     }
 
     @Override
-    public void detach()
+    public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
     {
-      mFragment = null;
+      // Do nothing.
+    }
+
+    @Override
+    public void onConsumptionSuccess()
+    {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onConsumptionFailure()
+    {
+      throw new UnsupportedOperationException();
     }
   }
 }

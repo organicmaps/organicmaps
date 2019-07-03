@@ -58,7 +58,7 @@
         tools:visibility="visible"/>
     </FrameLayout>
     <TextView
-      android:id="@+id/cancel_btn"
+      android:id="@+id/buy_inapp_btn"
       android:textAppearance="?android:textAppearance"
       android:background="?clickableBackground"
       android:layout_width="match_parent"
