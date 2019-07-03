@@ -64,6 +64,13 @@ bool SearchTest::ResultMatches(search::Result const & result, Rule const & rule)
   return tests_support::ResultMatches(m_dataSource, rule, result);
 }
 
+bool SearchTest::AlternativeMatch(string const & query, vector<Rules> const & rulesList)
+{
+  tests_support::TestSearchRequest request(m_engine, query, "en", Mode::Everywhere, m_viewport);
+  request.Run();
+  return tests_support::AlternativeMatch(m_dataSource, rulesList, request.Results());
+}
+
 size_t SearchTest::GetResultsNumber(string const & query, string const & locale)
 {
   tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);

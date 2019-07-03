@@ -2084,42 +2084,35 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
     builder.Add(houseMira);
   });
 
-  auto alternativeMatch = [this](string const & query, Rules const & rules1, Rules const & rules2) {
-    TestSearchRequest request(m_engine, query, "en", Mode::Everywhere, m_viewport);
-    request.Run();
-    return MatchResults(m_dataSource, rules1, request.Results()) ||
-           MatchResults(m_dataSource, rules2, request.Results());
-  };
-
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
   {
     Rules rules = {ExactMatch(countryId, houseTverskoi)};
     Rules rulesWithStreet = {ExactMatch(countryId, houseTverskoi), ExactMatch(countryId, tverskoi)};
-    TEST(alternativeMatch("tverskoi 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi boulevard 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi bulevard 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi blvd 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi blvrd 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi boulevrd 3", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("tverskoi bolevard 3", rules, rulesWithStreet), ());
+    TEST(AlternativeMatch("tverskoi 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi boulevard 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi bulevard 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi blvd 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi blvrd 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi boulevrd 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskoi bolevard 3", {rules, rulesWithStreet}), ());
   }
   {
     Rules rules = {ExactMatch(countryId, houseLeninsky)};
     Rules rulesWithStreet = {ExactMatch(countryId, houseLeninsky), ExactMatch(countryId, leninsky)};
-    TEST(alternativeMatch("leninsky 5", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("leninsky avenue 5", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("leninsky avenu 5", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("leninsky avneue 5", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("leninsky av 5", rules, rulesWithStreet), ());
+    TEST(AlternativeMatch("leninsky 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninsky avenue 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninsky avenu 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninsky avneue 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninsky av 5", {rules, rulesWithStreet}), ());
   }
   {
     Rules rules = {ExactMatch(countryId, houseMira)};
     Rules rulesWithStreet = {ExactMatch(countryId, houseMira), ExactMatch(countryId, mira)};
-    TEST(alternativeMatch("мира 7", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("проспект мира 7", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("пропект мира 7", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("прсопект мира 7", rules, rulesWithStreet), ());
-    TEST(alternativeMatch("пр-т мира 7", rules, rulesWithStreet), ());
+    TEST(AlternativeMatch("мира 7", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("проспект мира 7", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("пропект мира 7", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("прсопект мира 7", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("пр-т мира 7", {rules, rulesWithStreet}), ());
   }
 }
 

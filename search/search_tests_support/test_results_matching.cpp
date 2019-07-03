@@ -5,6 +5,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
 
+#include <algorithm>
 #include <sstream>
 
 using namespace std;
@@ -114,6 +115,16 @@ bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule,
   dataSource.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); },
                          result.GetFeatureID());
   return matches;
+}
+
+bool AlternativeMatch(DataSource const & dataSource,
+                      vector<vector<shared_ptr<MatchingRule>>> rulesList,
+                      std::vector<search::Result> const & results)
+{
+  return any_of(rulesList.begin(), rulesList.end(),
+                [&](vector<shared_ptr<MatchingRule>> const & rules) {
+                  return MatchResults(dataSource, rules, results);
+                });
 }
 
 string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }

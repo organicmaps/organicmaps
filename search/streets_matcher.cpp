@@ -83,9 +83,7 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
     return;
 
   // Remove predictions with the same m_hash (features) and token range.
-  sort(predictions.begin(), predictions.end(), &LessByHashAndRange);
-  predictions.erase(unique(predictions.begin(), predictions.end(), &EqualsByHashAndRange),
-                    predictions.end());
+  base::SortUnique(predictions, &LessByHashAndRange, &EqualsByHashAndRange);
 
   // Leave the most probable and longest prediction for predictions with the same m_hash (features)
   // and m_withMisprints.
@@ -98,9 +96,7 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
   // Paramount    dive
   //
   // The parses will have the same features and hash but we need both of them.
-  sort(predictions.begin(), predictions.end(), &LessByHashAndMisprints);
-  predictions.erase(unique(predictions.begin(), predictions.end(), &EqualsByHashAndMisprints),
-                    predictions.end());
+  base::SortUnique(predictions, &LessByHashAndMisprints, &EqualsByHashAndMisprints);
 
   sort(predictions.rbegin(), predictions.rend(), base::LessBy(&Prediction::m_prob));
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
