@@ -85,4 +85,10 @@ public class PurchaseFactory
   {
     return new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
   }
+
+  @NonNull
+  public static BillingManager<PlayStoreBillingCallback> createSubscriptionBillingManager()
+  {
+    return new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+  }
 }

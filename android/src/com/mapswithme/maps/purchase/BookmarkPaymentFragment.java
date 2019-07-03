@@ -56,6 +56,22 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   @NonNull
   private BookmarkPaymentState mState = BookmarkPaymentState.NONE;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BillingManager<PlayStoreBillingCallback> mProductDetailsLoadingManager;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private PlayStoreBillingCallback mProductDetailsLoadingCallback;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mProgress;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mBuySubscriptionButton;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -82,16 +98,30 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
                                                                            mPaymentData.getServerId());
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
+
+    mProductDetailsLoadingManager = PurchaseFactory.createSubscriptionBillingManager();
+    mProductDetailsLoadingManager.initialize(requireActivity());
+    mProductDetailsLoadingCallback = new ProductDetailsCallback();
     mPurchaseController.initialize(requireActivity());
+    List<String> productIds =
+        Collections.singletonList(PrivateVariables.adsRemovalMonthlyProductId());
+    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
+    mProductDetailsLoadingManager.queryProductDetails(productIds);
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);
-    TextView buyButton = root.findViewById(R.id.buy_btn);
-    buyButton.setOnClickListener(v -> onBuyClicked());
+    mProgress = root.findViewById(R.id.progress);
+    mBuySubscriptionButton = root.findViewById(R.id.buy_btn);
+    mBuySubscriptionButton.setOnClickListener(v -> onBuySubscriptionClicked());
     TextView cancelButton = root.findViewById(R.id.cancel_btn);
-    cancelButton.setOnClickListener(v -> onCancelClicked());
+    cancelButton.setOnClickListener(v -> onBuySingleRouteClicked());
     return root;
   }
 
-  private void onBuyClicked()
+  private void onBuySubscriptionClicked()
+  {
+    BookmarkSubscriptionActivity.start(requireActivity());
+  }
+
+  private void onBuySingleRouteClicked()
   {
     Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
                                                    mPaymentData.getProductId());
@@ -100,19 +130,13 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     startPurchaseTransaction();
   }
 
-  private void onCancelClicked()
-  {
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           mPaymentData.getServerId());
-    requireActivity().finish();
-  }
-
   @Override
   public boolean onBackPressed()
   {
     if (mState == BookmarkPaymentState.VALIDATION)
     {
-      Toast.makeText(requireContext(), R.string.purchase_please_wait_toast, Toast.LENGTH_SHORT).show();
+      Toast.makeText(requireContext(), R.string.purchase_please_wait_toast, Toast.LENGTH_SHORT)
+           .show();
       return true;
     }
 
@@ -186,6 +210,14 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     observable.removeTransactionObserver(mPurchaseCallback);
     mPurchaseController.removeCallback();
     mPurchaseCallback.detach();
+    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    super.onDestroy();
+    mProductDetailsLoadingManager.destroy();
   }
 
   @Override
@@ -280,8 +312,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     if (mProductDetails == null)
       throw new AssertionError("Product details must be obtained at this moment!");
 
-    TextView buyButton = getViewOrThrow().findViewById(R.id.buy_btn);
-    String price = Utils.formatCurrencyString(mProductDetails.getPrice(), mProductDetails.getCurrencyCode());
+    TextView buyButton = getViewOrThrow().findViewById(R.id.cancel_btn);
+    String price = Utils.formatCurrencyString(mProductDetails.getPrice(),
+                                              mProductDetails.getCurrencyCode());
     buyButton.setText(getString(R.string.buy_btn, price));
     TextView storeName = getViewOrThrow().findViewById(R.id.product_store_name);
     storeName.setText(mProductDetails.getTitle());
@@ -293,6 +326,21 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       requireActivity().setResult(Activity.RESULT_OK);
 
     requireActivity().finish();
+  }
+
+  private void onLoadPriceFailed()
+  {
+    mProgress.setVisibility(View.GONE);
+    mBuySubscriptionButton.setVisibility(View.GONE);
+    BookmarkPaymentState.PRODUCT_DETAILS_FAILURE.activate(this);
+  }
+
+  private void onLoadPriceSucceeded(@NonNull ProductDetails productDetails)
+  {
+    String curRepresentation = Utils.formatCurrencyString(productDetails.getPrice(),
+                                                          productDetails.getCurrencyCode());
+    mProgress.setVisibility(View.GONE);
+    mBuySubscriptionButton.setText(getString(R.string.buy_btn_for_subscription, curRepresentation));
   }
 
   private static class BookmarkPurchaseCallback
@@ -384,6 +432,28 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
         uiObject.handleValidationResult(mPendingValidationResult);
         mPendingValidationResult = null;
       }
+    }
+  }
+
+  private class ProductDetailsCallback extends AbstractProductDetailsLoadingCallback
+  {
+    @Override
+    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
+    {
+      if (details.isEmpty())
+      {
+        onLoadPriceFailed();
+        return;
+      }
+
+      ProductDetails productDetails = PurchaseUtils.toProductDetails(details.iterator().next());
+      onLoadPriceSucceeded(productDetails);
+    }
+
+    @Override
+    public void onProductDetailsFailure()
+    {
+      onLoadPriceFailed();
     }
   }
 }

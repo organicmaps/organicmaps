@@ -65,7 +65,6 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_plus_eight"
       android:textColor="?colorAccent"
-      android:text="@string/cancel"
       android:gravity="center"
       android:textAllCaps="true"/>
   </LinearLayout>
