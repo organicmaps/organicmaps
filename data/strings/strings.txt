@@ -40714,3 +40714,6 @@
 
   [restore_purchase_link]
     en = <a href="%s">Restore purchase</a>
+
+  [buy_btn_for_subscription]
+    en = Unlimited guides from %s
