@@ -96,72 +96,111 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
   return result;
 }
 
-Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & outer,
-    Regions const & allRegions, CountrySpecifier const & countrySpecifier)
+// static
+Node::Ptr RegionsBuilder::BuildCountryRegionTree(
+    Region const & outer, Regions const & regionsInAreaOrder,
+    CountrySpecifier const & countrySpecifier)
 {
-  std::vector<LevelRegion> regionsInCountry{{PlaceLevel::Country, outer}};
-  for (auto const & region : allRegions)
+  auto nodes = MakeCountryNodesInAreaOrder(outer, regionsInAreaOrder, countrySpecifier);
+
+  for (auto i = std::crbegin(nodes), end = std::crend(nodes); i != end; ++i)
   {
-    if (outer.ContainsRect(region))
+    if (auto parent = ChooseParent(nodes, i, countrySpecifier))
     {
-      auto const level = countrySpecifier.GetLevel(region);
-      regionsInCountry.emplace_back(level, region);
+      (*i)->SetParent(parent);
+      parent->AddChild(*i);
     }
-  }
-
-  auto const comp = [](LevelRegion const & l, LevelRegion const & r) {
-    auto const lArea = l.GetArea();
-    auto const rArea = r.GetArea();
-    return lArea != rArea ? lArea > rArea : l.GetRank() < r.GetRank();
-  };
-  std::sort(std::begin(regionsInCountry), std::end(regionsInCountry), comp);
-
-  Node::PtrList nodes;
-  nodes.reserve(regionsInCountry.size());
-  for (auto && region : regionsInCountry)
-    nodes.emplace_back(std::make_shared<Node>(std::move(region)));
-
-  return nodes;
-}
-
-Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
-    Regions const & allRegions, CountrySpecifier const & countrySpecifier)
-{
-  auto nodes = MakeSelectedRegionsByCountry(outer, allRegions, countrySpecifier);
-  while (nodes.size() > 1)
-  {
-    auto itFirstNode = std::rbegin(nodes);
-    auto & firstRegion = (*itFirstNode)->GetData();
-    auto itCurr = itFirstNode + 1;
-    for (; itCurr != std::rend(nodes); ++itCurr)
-    {
-      auto const & currRegion = (*itCurr)->GetData();
-
-      if (!currRegion.ContainsRect(firstRegion) && !currRegion.Contains(firstRegion.GetCenter()))
-        continue;
-
-      auto const c = Compare(currRegion, firstRegion, countrySpecifier);
-      if (c == 1)
-      {
-        (*itFirstNode)->SetParent(*itCurr);
-        (*itCurr)->AddChild(*itFirstNode);
-        break;
-      }
-    }
-
-    nodes.pop_back();
   }
 
   return nodes.front();
 }
 
 // static
+std::vector<Node::Ptr> RegionsBuilder::MakeCountryNodesInAreaOrder(
+    Region const & countryOuter, Regions const & regionsInAreaOrder,
+    CountrySpecifier const & countrySpecifier)
+{
+  std::vector<Node::Ptr> nodes{std::make_shared<Node>(LevelRegion{PlaceLevel::Country,
+                                                                  countryOuter})};
+  for (auto const & region : regionsInAreaOrder)
+  {
+    if (countryOuter.ContainsRect(region))
+    {
+      auto level = countrySpecifier.GetLevel(region);
+      auto node = std::make_shared<Node>(LevelRegion{level, region});
+      nodes.emplace_back(std::move(node));
+    }
+  }
+
+  return nodes;
+}
+
+// static
+Node::Ptr RegionsBuilder::ChooseParent(
+    std::vector<Node::Ptr> const & nodesInAreaOrder,
+    std::vector<Node::Ptr>::const_reverse_iterator forItem,
+    CountrySpecifier const & countrySpecifier)
+{
+  auto const & node = *forItem;
+  auto const & region = node->GetData();
+
+  auto const from = FindAreaLowerBoundRely(nodesInAreaOrder, forItem);
+  CHECK(from <= forItem, ());
+
+  Node::Ptr parent;
+  for (auto i = from, end = std::crend(nodesInAreaOrder); i != end; ++i)
+  {
+    auto const & candidate = *i;
+    auto const & candidateRegion = candidate->GetData();
+
+    if (parent)
+    {
+      auto const & parentRegion = parent->GetData();
+      if (IsAreaLessRely(parentRegion, candidateRegion))
+        break;
+    }
+
+    if (!candidateRegion.ContainsRect(region) && !candidateRegion.Contains(region.GetCenter()))
+      continue;
+
+    if (i == forItem)
+      continue;
+
+    auto const c = Compare(candidateRegion, region, countrySpecifier);
+    if (c == 1)
+    {
+      if (parent && 0 <= Compare(candidateRegion, parent->GetData(), countrySpecifier))
+        continue;
+
+      parent = candidate;
+    }
+  }
+
+  return parent;
+}
+
+// static
+std::vector<Node::Ptr>::const_reverse_iterator RegionsBuilder::FindAreaLowerBoundRely(
+    std::vector<Node::Ptr> const & nodesInAreaOrder,
+    std::vector<Node::Ptr>::const_reverse_iterator forItem)
+{
+  auto const & region = (*forItem)->GetData();
+
+  auto areaLessRely = [](Node::Ptr const & element, Region const & region) {
+    auto const & elementRegion = element->GetData();
+    return IsAreaLessRely(elementRegion, region);
+  };
+
+  return std::lower_bound(std::crbegin(nodesInAreaOrder), forItem, region, areaLessRely);
+}
+
+// static
 int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r,
     CountrySpecifier const & countrySpecifier)
 {
-  if (IsAreaLess(r, l) && l.Contains(r))
+  if (IsAreaLessRely(r, l) && l.Contains(r))
     return 1;
-  if (IsAreaLess(l, r) && r.Contains(l))
+  if (IsAreaLessRely(l, r) && r.Contains(l))
     return -1;
 
   if (l.CalculateOverlapPercentage(r) < 50.0)
@@ -186,7 +225,7 @@ int RegionsBuilder::Compare(LevelRegion const & l, LevelRegion const & r,
 }
 
 // static
-bool RegionsBuilder::IsAreaLess(Region const & l, Region const & r)
+bool RegionsBuilder::IsAreaLessRely(Region const & l, Region const & r)
 {
   constexpr auto lAreaRation = 1. + kAreaRelativeErrorPercent / 100.;
   return lAreaRation * l.GetArea() < r.GetArea();

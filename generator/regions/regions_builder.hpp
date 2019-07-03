@@ -38,15 +38,21 @@ private:
   Regions ExtractCountriesOuters(Regions & regions);
   Node::PtrList BuildCountryRegionTrees(Regions const & outers,
                                         CountrySpecifier const & countrySpecifier);
-  static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & allRegions,
+  static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & regionsInAreaOrder,
                                           CountrySpecifier const & countrySpecifier);
-  static Node::PtrList MakeSelectedRegionsByCountry(Region const & outer,
-                                                    Regions const & allRegions,
-                                                    CountrySpecifier const & countrySpecifier);
+  static std::vector<Node::Ptr> MakeCountryNodesInAreaOrder(
+      Region const & countryOuter, Regions const & regionsInAreaOrder,
+      CountrySpecifier const & countrySpecifier);
+  static Node::Ptr ChooseParent(std::vector<Node::Ptr> const & nodesInAreaOrder,
+                                std::vector<Node::Ptr>::const_reverse_iterator forItem,
+                                CountrySpecifier const & countrySpecifier);
+  static std::vector<Node::Ptr>::const_reverse_iterator FindAreaLowerBoundRely(
+      std::vector<Node::Ptr> const & nodesInAreaOrder,
+      std::vector<Node::Ptr>::const_reverse_iterator forItem);
   // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
   static int Compare(LevelRegion const & l, LevelRegion const & r,
                      CountrySpecifier const & countrySpecifier);
-  static bool IsAreaLess(Region const & l, Region const & r);
+  static bool IsAreaLessRely(Region const & l, Region const & r);
   std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName);
 
   Regions m_countriesOuters;
