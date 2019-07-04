@@ -77,17 +77,18 @@ json_t * GetJSONOptionalField(json_t * root, std::string const & field);
 json_t * GetJSONOptionalField(json_t * root, char const * field);
 json_t const * GetJSONOptionalField(json_t const * root, char const * field);
 
-template <class First, class... Paths>
-inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First path, Paths... paths)
+template <class First>
+inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path)
 {
-  json_t const * newRoot = GetJSONObligatoryFieldByPath(root, path);
-  return GetJSONObligatoryFieldByPath(newRoot, paths...);
+  return GetJSONObligatoryField(root, std::forward<First>(path));
 }
 
-template <>
-inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, char const * path)
+template <class First, class... Paths>
+inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path,
+                                                   Paths &&... paths)
 {
-  return GetJSONObligatoryField(root, path);
+  json_t const * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
+  return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
 }
 
 bool JSONIsNull(json_t const * root);
