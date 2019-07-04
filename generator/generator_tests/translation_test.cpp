@@ -15,8 +15,7 @@ using namespace generator;
 // Transliteration tests ---------------------------------------------------------------------------
 using Translations = std::vector<std::pair<std::string, std::string>>;
 bool TestTransliteration(Translations const & translations,
-                         std::string const & expectedTransliteration,
-                         std::string const & lang)
+                         std::string const & expectedTransliteration, std::string const & lang)
 {
   StringUtf8Multilang name;
   for (auto const & langAndTranslation : translations)
@@ -51,8 +50,8 @@ UNIT_TEST(Transliteration)
       {"sr", "Мичиген"},       {"ta", "மிச்சிகன்"},    {"th", "รัฐมิชิแกน"},   {"tl", "Misigan"},
       {"uk", "Мічиган"},       {"yi", "מישיגן"},     {"zh", "密歇根州"}};
 
-  TEST(TestTransliteration(scotlandTranslations, "Shotlandiya", "en"), ());
+  TEST(TestTransliteration(scotlandTranslations, "Scotland", "en"), ());
   TEST(TestTransliteration(michiganTranslations, "Michigan", "en"), ());
-  TEST(TestTransliteration(scotlandTranslations, "Shotlandiya", "ru"), ());
-  TEST(TestTransliteration(michiganTranslations, "Michigan", "ru"), ());
+  TEST(TestTransliteration(scotlandTranslations, "Шотландия", "ru"), ());
+  TEST(TestTransliteration(michiganTranslations, "Мичиган", "ru"), ());
 }

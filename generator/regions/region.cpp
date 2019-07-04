@@ -60,10 +60,11 @@ Region::Region(PlacePoint const & place)
 
 std::string Region::GetTranslatedOrTransliteratedName(LanguageCode languageCode) const
 {
-  if (m_placeLabel)
-    return m_placeLabel->GetTranslatedOrTransliteratedName(languageCode);
+  if (!m_placeLabel)
+    return RegionWithName::GetTranslatedOrTransliteratedName(languageCode);
 
-  return RegionWithName::GetTranslatedOrTransliteratedName(languageCode);
+  std::string const & name = m_placeLabel->GetTranslatedOrTransliteratedName(languageCode);
+  return name.empty() ? RegionWithName::GetTranslatedOrTransliteratedName(languageCode) : name;
 }
 
 std::string Region::GetName(int8_t lang) const

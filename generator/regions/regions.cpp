@@ -102,8 +102,9 @@ private:
     ToJSONArray(*coordinates, center.m_lat);
     ToJSONObject(*geometry, "coordinates", coordinates);
 
-    auto address = base::NewJSONObject();
-    Localizator localizator;
+    auto properties = base::NewJSONObject();
+
+    Localizator localizator(*properties);
     boost::optional<std::string> dref;
 
     for (auto const & p : path)
@@ -112,29 +113,24 @@ private:
       CHECK(region.GetLevel() != regions::PlaceLevel::Unknown, ());
       auto const label = GetLabel(region.GetLevel());
       CHECK(label, ());
-      ToJSONObject(*address, label, region.GetName());
+      localizator.AddLocale(label, region, "address");
       if (m_verbose)
       {
-        ToJSONObject(*address, std::string{label} + "_i", DebugPrint(region.GetId()));
-        ToJSONObject(*address, std::string{label} + "_a", region.GetArea());
-        ToJSONObject(*address, std::string{label} + "_r", region.GetRank());
+        localizator.AddVerbose(
+            [&label, &region](auto & node) {
+              ToJSONObject(node, std::string{label} + "_i", DebugPrint(region.GetId()));
+              ToJSONObject(node, std::string{label} + "_a", region.GetArea());
+              ToJSONObject(node, std::string{label} + "_r", region.GetRank());
+            },
+            "address");
       }
-
-      localizator.AddLocale([&label, &region](std::string const & language) {
-        return Localizator::LabelAndTranslition{
-            label,
-            region.GetTranslatedOrTransliteratedName(StringUtf8Multilang::GetLangIndex(language))};
-      });
 
       if (!dref && region.GetId() != main.GetId())
         dref = KeyValueStorage::SerializeDref(region.GetId().GetEncodedId());
     }
 
-    auto properties = base::NewJSONObject();
-    ToJSONObject(*properties, "name", main.GetName());
+    localizator.AddLocale("name", main);
     ToJSONObject(*properties, "rank", main.GetRank());
-    ToJSONObject(*properties, "address", address);
-    ToJSONObject(*properties, "locales", localizator.BuildLocales());
 
     if (dref)
       ToJSONObject(*properties, "dref", *dref);

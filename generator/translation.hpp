@@ -19,58 +19,103 @@ inline std::string GetName(StringUtf8Multilang const & name, LanguageCode lang)
 }
 
 /// This function will take the following steps:
-/// 1. Return the |languageCode| name if it exists and is ASCII.
-/// 2. Try to get International name
-/// 3. Return transliteration trying to use kPreferredLanguagesForTransliterate
+/// 1. Return the |languageCode| name if it exists.
+/// 1.1 Next steps only for english locale
+/// 2. Try to get international name.
+/// 3. Try to check if default name is ASCII and return it if succeeds.
+/// 4. Return transliteration trying to use kPreferredLanguagesForTransliterate
 /// first, then any, if it succeeds.
-/// 3. Otherwise, return empty string.
+/// 5. Otherwise, return empty string.
 std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
                                               LanguageCode languageCode);
 
 class Localizator
 {
 public:
-  struct LabelAndTranslition
+  class EasyObjectWithTranslation
   {
-    std::string m_label;
-    std::string m_translation;
+  public:
+    explicit EasyObjectWithTranslation(StringUtf8Multilang const & name) : m_name(name) {}
+    std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const
+    {
+      return ::generator::GetTranslatedOrTransliteratedName(m_name, languageCode);
+    }
+
+    std::string GetName(LanguageCode languageCode = StringUtf8Multilang::kDefaultCode) const
+    {
+      return ::generator::GetName(m_name, languageCode);
+    }
+
+  private:
+    StringUtf8Multilang const m_name;
   };
 
-  template <class Fn>
-  void AddLocale(Fn && translator)
+  explicit Localizator(json_t & node) : m_node(GetOrCreateNode("locales", node)) {}
+
+  template <class Object>
+  void AddLocale(std::string const & label, Object const & objectWithName,
+                 std::string const & level = std::string())
   {
+    AddLocale(DefaultLocaleName(), level, objectWithName.GetName(), label);
+
     auto const & languages = LocaleLanguages();
-    for (auto const & language : languages)
+    for (std::string const & language : languages)
     {
-      m_localesWithLanguages.emplace_back(LocaleWithLanguage{base::NewJSONObject(), language});
-      std::string label;
-      std::string translation;
-      LabelAndTranslition labelAndTranslation{translator(language)};
-      ToJSONObject(*m_localesWithLanguages.back().m_locale, labelAndTranslation.m_label,
-                   labelAndTranslation.m_translation);
+      std::string const & translation = objectWithName.GetTranslatedOrTransliteratedName(
+          StringUtf8Multilang::GetLangIndex(language));
+
+      if (translation.empty())
+        continue;
+
+      AddLocale(language, level, translation, label);
     }
   }
 
-  base::JSONPtr BuildLocales()
+  template <class Verboser>
+  void AddVerbose(Verboser && verboser, std::string const & level)
   {
-    auto locales = base::NewJSONObject();
-    for (auto & localeWithLanguage : m_localesWithLanguages)
-      ToJSONObject(*locales, localeWithLanguage.m_language, localeWithLanguage.m_locale);
-
-    m_localesWithLanguages.clear();
-    return locales;
+    json_t & locale = GetOrCreateNode(DefaultLocaleName(), m_node);
+    json_t & node = GetOrCreateNode(level, locale);
+    verboser(node);
   }
 
 private:
-  struct LocaleWithLanguage
+  void AddLocale(std::string const & language, std::string const & level, std::string const & name,
+                 std::string const & label)
   {
-    base::JSONPtr m_locale;
-    std::string m_language;
-  };
-  using LocalesWithLanguages = std::vector<LocaleWithLanguage>;
+    json_t & locale = GetOrCreateNode(language, m_node);
+
+    if (!level.empty())
+    {
+      json_t & levelNode = GetOrCreateNode(level, locale);
+      ToJSONObject(levelNode, label, name);
+    }
+    else
+    {
+      ToJSONObject(locale, label, name);
+    }
+  }
+
+  static std::string const & DefaultLocaleName()
+  {
+    static std::string const kDefaultLocaleName = "default";
+    return kDefaultLocaleName;
+  }
+
+  static json_t & GetOrCreateNode(std::string const & nodeName, json_t & root)
+  {
+    json_t * node = base::GetJSONOptionalField(&root, nodeName);
+    if (!node || base::JSONIsNull(node))
+    {
+      node = json_object();
+      ToJSONObject(root, nodeName, *node);
+    }
+
+    return *node;
+  }
 
   std::vector<std::string> const & LocaleLanguages() const;
 
-  LocalesWithLanguages m_localesWithLanguages;
+  json_t & m_node;
 };
 }  // namespace generator

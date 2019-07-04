@@ -1,6 +1,8 @@
 #include "generator/streets/streets_builder.hpp"
 #include "generator/key_value_storage.hpp"
 #include "generator/streets/street_regions_tracing.hpp"
+#include "generator/translation.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -33,9 +35,14 @@ void StreetsBuilder::AssembleStreets(std::string const & pathInStreetsTmpMwm)
 void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm)
 {
   auto const transform = [this](FeatureBuilder & fb, uint64_t /* currPos */) {
-    auto streetName = fb.GetParams().GetStreet();
+    std::string streetName = fb.GetParams().GetStreet();
     if (!streetName.empty())
-      AddStreetBinding(std::move(streetName), fb);
+    {
+      // TODO maybe (lagrunge): add localizations on street:lang tags
+      StringUtf8Multilang multilangName;
+      multilangName.AddString(StringUtf8Multilang::kDefaultCode, streetName);
+      AddStreetBinding(std::move(streetName), fb, multilangName);
+    }
   };
   ForEachParallelFromDatRawFormat(m_threadsCount, pathInGeoObjectsTmpMwm, transform);
 }
@@ -55,12 +62,12 @@ void StreetsBuilder::SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_
 
   for (auto const & street : streets)
   {
-    auto const & bbox = street.second.GetBbox();
-    auto const & pin = street.second.GetOrChoosePin();
+    auto const & bbox = street.second.m_geometry.GetBbox();
+    auto const & pin = street.second.m_geometry.GetOrChoosePin();
 
     auto const id = KeyValueStorage::SerializeDref(pin.m_osmId.GetEncodedId());
     auto const & value =
-        MakeStreetValue(regionId, *regionObject, street.first, bbox, pin.m_position);
+        MakeStreetValue(regionId, *regionObject, street.second.m_name, bbox, pin.m_position);
     streamStreetsKv << id << " " << KeyValueStorage::Serialize(value) << "\n";
   }
 }
@@ -90,9 +97,9 @@ void StreetsBuilder::AddStreetHighway(FeatureBuilder & fb)
   for (auto & segment : pathSegments)
   {
     auto && region = segment.m_region;
-    auto & street = InsertStreet(region.first, fb.GetName());
+    auto & street = InsertStreet(region.first, fb.GetName(), fb.GetMultilangName());
     auto const osmId = pathSegments.size() == 1 ? fb.GetMostGenericOsmId() : NextOsmSurrogateId();
-    street.AddHighwayLine(osmId, std::move(segment.m_path));
+    street.m_geometry.AddHighwayLine(osmId, std::move(segment.m_path));
   }
 }
 
@@ -104,9 +111,9 @@ void StreetsBuilder::AddStreetArea(FeatureBuilder & fb)
 
   std::lock_guard<std::mutex> lock{m_updateMutex};
 
-  auto & street = InsertStreet(region->first, fb.GetName());
+  auto & street = InsertStreet(region->first, fb.GetName(), fb.GetMultilangName());
   auto osmId = fb.GetMostGenericOsmId();
-  street.AddHighwayArea(osmId, fb.GetOuterGeometry());
+  street.m_geometry.AddHighwayArea(osmId, fb.GetOuterGeometry());
 }
 
 void StreetsBuilder::AddStreetPoint(FeatureBuilder & fb)
@@ -118,11 +125,12 @@ void StreetsBuilder::AddStreetPoint(FeatureBuilder & fb)
   std::lock_guard<std::mutex> lock{m_updateMutex};
 
   auto osmId = fb.GetMostGenericOsmId();
-  auto & street = InsertStreet(region->first, fb.GetName());
-  street.SetPin({fb.GetKeyPoint(), osmId});
+  auto & street = InsertStreet(region->first, fb.GetName(), fb.GetMultilangName());
+  street.m_geometry.SetPin({fb.GetKeyPoint(), osmId});
 }
 
-void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb)
+void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb,
+                                      StringUtf8Multilang const & multiLangName)
 {
   auto const region = FindStreetRegionOwner(fb.GetKeyPoint());
   if (!region)
@@ -130,16 +138,16 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
 
   std::lock_guard<std::mutex> lock{m_updateMutex};
 
-  auto & street = InsertStreet(region->first, std::move(streetName));
-  street.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
+  auto & street = InsertStreet(region->first, std::move(streetName), multiLangName);
+  street.m_geometry.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
 }
 
 boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const & point,
                                                                 bool needLocality)
 {
   auto const isStreetAdministrator = [needLocality](KeyValue const & region) {
-    auto const && properties = base::GetJSONObligatoryField(*region.second, "properties");
-    auto const && address = base::GetJSONObligatoryField(properties, "address");
+    auto && address = base::GetJSONObligatoryFieldByPath(*region.second, "properties", "locales",
+                                                         "default", "address");
 
     if (base::GetJSONOptionalField(address, "suburb"))
       return false;
@@ -155,26 +163,45 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
   return m_regionInfoGetter.FindDeepest(point, isStreetAdministrator);
 }
 
-StreetGeometry & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && streetName)
+StringUtf8Multilang MergeNames(const StringUtf8Multilang & first,
+                               const StringUtf8Multilang & second)
+{
+  StringUtf8Multilang result;
+
+  auto const fn = [&result](int8_t code, std::string const & name) {
+    result.AddString(code, name);
+  };
+  first.ForEach(fn);
+  second.ForEach(fn);
+  return result;
+}
+
+StreetsBuilder::Street & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && streetName,
+                                                      StringUtf8Multilang const & multilangName)
 {
   auto & regionStreets = m_regions[regionId];
-  return regionStreets[std::move(streetName)];
+  StreetsBuilder::Street & street = regionStreets[std::move(streetName)];
+  street.m_name = MergeNames(multilangName, street.m_name);
+  return street;
 }
 
 base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
-                                              std::string const & streetName,
+                                              StringUtf8Multilang const & streetName,
                                               m2::RectD const & bbox, m2::PointD const & pinPoint)
 {
   auto streetObject = base::NewJSONObject();
+  auto && regionLocales = base::GetJSONObligatoryFieldByPath(regionObject, "properties", "locales");
 
-  auto const && regionProperties = base::GetJSONObligatoryField(regionObject, "properties");
-  auto const && regionAddress = base::GetJSONObligatoryField(regionProperties, "address");
-  auto address = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionAddress))};
-  ToJSONObject(*address, "street", streetName);
+  auto locales = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionLocales))};
 
   auto properties = base::NewJSONObject();
-  ToJSONObject(*properties, "address", std::move(address));
-  ToJSONObject(*properties, "name", streetName);
+  ToJSONObject(*properties, "locales", std::move(locales));
+
+  Localizator localizator(*properties);
+  auto const & localizee = Localizator::EasyObjectWithTranslation(streetName);
+  localizator.AddLocale("name", localizee);
+  localizator.AddLocale("street", localizee, "address");
+
   ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionId));
   ToJSONObject(*streetObject, "properties", std::move(properties));
 

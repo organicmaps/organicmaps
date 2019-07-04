@@ -46,8 +46,9 @@ using IndexReader = ReaderPtr<Reader>;
 
 bool HouseHasAddress(JsonValue const & json)
 {
-  auto && properties = base::GetJSONObligatoryField(json, "properties");
-  auto && address = base::GetJSONObligatoryField(properties, "address");
+  auto && address =
+      base::GetJSONObligatoryFieldByPath(json, "properties", "locales", "default", "address");
+
   auto && building = base::GetJSONOptionalField(address, "building");
   return building && !base::JSONIsNull(building);
 }
@@ -100,7 +101,8 @@ base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonVa
 {
   auto jsonWithAddress = json.MakeDeepCopyJson();
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
-  ToJSONObject(*properties, "name", fb.GetName());
+  Localizator localizator(*properties);
+  localizator.AddLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
   UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
   return jsonWithAddress;
 }
@@ -154,9 +156,8 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
     if (!regionKeyValue)
       return;
 
-    auto && properties = base::GetJSONObligatoryField(*regionKeyValue->second, "properties");
-    auto && address = base::GetJSONObligatoryField(properties, "address");
-    auto && country = base::GetJSONObligatoryField(address, "country");
+    auto && country = base::GetJSONObligatoryFieldByPath(
+        *regionKeyValue->second, "properties", "locales", "default", "address", "country");
     auto countryName = FromJSON<std::string>(country);
     auto pos = includeCountries.find(countryName);
     if (pos != std::string::npos)
