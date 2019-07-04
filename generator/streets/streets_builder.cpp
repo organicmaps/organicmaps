@@ -41,7 +41,7 @@ void StreetsBuilder::AssembleBindings(std::string const & pathInGeoObjectsTmpMwm
       // TODO maybe (lagrunge): add localizations on street:lang tags
       StringUtf8Multilang multilangName;
       multilangName.AddString(StringUtf8Multilang::kDefaultCode, streetName);
-      AddStreetBinding(std::move(streetName), fb, std::move(multilangName));
+      AddStreetBinding(std::move(streetName), fb, multilangName);
     }
   };
   ForEachParallelFromDatRawFormat(m_threadsCount, pathInGeoObjectsTmpMwm, transform);
@@ -130,7 +130,7 @@ void StreetsBuilder::AddStreetPoint(FeatureBuilder & fb)
 }
 
 void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder & fb,
-                                      StringUtf8Multilang && multiLangName)
+                                      StringUtf8Multilang const & multiLangName)
 {
   auto const region = FindStreetRegionOwner(fb.GetKeyPoint());
   if (!region)
@@ -138,7 +138,7 @@ void StreetsBuilder::AddStreetBinding(std::string && streetName, FeatureBuilder 
 
   std::lock_guard<std::mutex> lock{m_updateMutex};
 
-  auto & street = InsertStreet(region->first, std::move(streetName), std::move(multiLangName));
+  auto & street = InsertStreet(region->first, std::move(streetName), multiLangName);
   street.m_geometry.AddBinding(NextOsmSurrogateId(), fb.GetKeyPoint());
 }
 
@@ -163,7 +163,8 @@ boost::optional<KeyValue> StreetsBuilder::FindStreetRegionOwner(m2::PointD const
   return m_regionInfoGetter.FindDeepest(point, isStreetAdministrator);
 }
 
-StringUtf8Multilang MergeNames(StringUtf8Multilang && first, StringUtf8Multilang && second)
+StringUtf8Multilang MergeNames(const StringUtf8Multilang & first,
+                               const StringUtf8Multilang & second)
 {
   StringUtf8Multilang result;
 
@@ -176,10 +177,12 @@ StringUtf8Multilang MergeNames(StringUtf8Multilang && first, StringUtf8Multilang
 }
 
 StreetsBuilder::Street & StreetsBuilder::InsertStreet(uint64_t regionId, std::string && streetName,
-                                                      StringUtf8Multilang && multilangName)
+                                                      StringUtf8Multilang const & multilangName)
 {
   auto & regionStreets = m_regions[regionId];
-  return regionStreets[std::move(streetName)];
+  StreetsBuilder::Street & street = regionStreets[std::move(streetName)];
+  street.m_name = MergeNames(multilangName, street.m_name);
+  return street;
 }
 
 base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,

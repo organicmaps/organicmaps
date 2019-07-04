@@ -150,7 +150,7 @@ public:
   FeatureParams const & GetParams() const { return m_params; }
   FeatureParams & GetParams() { return m_params; }
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
-  StringUtf8Multilang GetMultilangName() const { return m_params.name; }
+  StringUtf8Multilang const & GetMultilangName() const { return m_params.name; }
   uint8_t GetRank() const { return m_params.rank; }
   bool FormatFullAddress(std::string & res) const;
   AddressData const & GetAddressData() const { return m_params.GetAddressData(); }

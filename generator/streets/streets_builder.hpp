@@ -56,11 +56,11 @@ private:
   void AddStreetArea(feature::FeatureBuilder & fb);
   void AddStreetPoint(feature::FeatureBuilder & fb);
   void AddStreetBinding(std::string && streetName, feature::FeatureBuilder & fb,
-                        StringUtf8Multilang && multiLangName);
+                        StringUtf8Multilang const & multiLangName);
   boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point,
                                                   bool needLocality = false);
   Street & InsertStreet(uint64_t regionId, std::string && streetName,
-                        StringUtf8Multilang && multilangName);
+                        StringUtf8Multilang const & multilangName);
   base::JSONPtr MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
                                 const StringUtf8Multilang & streetName, m2::RectD const & bbox,
                                 m2::PointD const & pinPoint);

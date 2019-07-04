@@ -189,7 +189,7 @@ private:
 
     LOG(LINFO, ("Country regions of", *country, "has built:", countryRegionsCount, "total regions.",
                 countryObjectCount, "objects."));
-  }  //
+  }
 
   std::tuple<RegionsBuilder::Regions, PlacePointsMap> ReadDatasetFromTmpMwm(
       std::string const & tmpMwmFilename, RegionInfo & collector)
