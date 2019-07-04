@@ -52,4 +52,6 @@ public enum Promo
 
   public native void nativeRequestCityGallery(@NonNull NetworkPolicy policy,
                                               double lat, double lon, @UTM.UTMType int utm);
+  @Nullable
+  public static native PromoAfterBooking nativeGetPromoAfterBooking(@NonNull NetworkPolicy policy);
 }

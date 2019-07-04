@@ -224,6 +224,7 @@ namespace android
                              m2::PointD const & point, UTM utm,
                              promo::CityGalleryCallback const & onSuccess,
                              promo::OnError const & onError);
+    promo::AfterBooking GetPromoAfterBooking(JNIEnv * env, jobject policy);
 
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 

@@ -46,6 +46,11 @@ struct CityGallery
 
 struct AfterBooking
 {
+  bool IsEmpty() const
+  {
+    return m_promoUrl.empty() || m_pictureUrl.empty();
+  }
+
   std::string m_promoUrl;
   std::string m_pictureUrl;
 };

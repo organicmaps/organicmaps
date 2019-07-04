@@ -24,6 +24,8 @@ jclass g_promoClass = nullptr;
 jfieldID g_promoInstanceField = nullptr;
 jmethodID g_onGalleryReceived = nullptr;
 jmethodID g_onErrorReceived = nullptr;
+jclass g_afterBooking = nullptr;
+jmethodID g_afterBookingConstructor = nullptr;
 uint64_t g_lastRequestId = 0;
 
 void PrepareClassRefs(JNIEnv * env)
@@ -59,6 +61,9 @@ void PrepareClassRefs(JNIEnv * env)
   g_onGalleryReceived = jni::GetMethodID(env, promoInstance, "onCityGalleryReceived",
                                          "(Lcom/mapswithme/maps/promo/PromoCityGallery;)V");
   g_onErrorReceived = jni::GetMethodID(env, promoInstance, "onErrorReceived", "()V");
+  g_afterBooking = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoAfterBooking");
+  g_afterBookingConstructor = jni::GetConstructorID(env, g_afterBooking,
+                                                    "(Ljava/lang/String;Ljava/lang/String;)V");
 }
 
 void OnSuccess(uint64_t requestId, promo::CityGallery const & gallery)
@@ -135,5 +140,22 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestCityGallery(JNIEnv * env, jcla
   g_framework->GetPromoCityGallery(env, policy, point, static_cast<UTM>(utm),
                                    std::bind(OnSuccess, g_lastRequestId, _1),
                                    std::bind(OnError, g_lastRequestId));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_promo_Promo_nativeGetPromoAfterBooking(JNIEnv * env, jclass,
+                                                                jobject policy)
+{
+  PrepareClassRefs(env);
+
+  auto const result = g_framework->GetPromoAfterBooking(env, policy);
+
+  if (result.IsEmpty())
+    return nullptr;
+
+  jni::TScopedLocalRef promoUrl(env, jni::ToJavaString(env, result.m_promoUrl));
+  jni::TScopedLocalRef pictureUrl(env, jni::ToJavaString(env, result.m_pictureUrl));
+  jni::TScopedLocalRef author(env,
+      env->NewObject(g_afterBooking, g_afterBookingConstructor, promoUrl.get(), pictureUrl.get()));
 }
 }  // extern "C"

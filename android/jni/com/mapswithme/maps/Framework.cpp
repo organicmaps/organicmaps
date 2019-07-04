@@ -810,6 +810,15 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy,
   api->GetCityGallery(point, languages::GetCurrentNorm(), utm, onSuccess, onError);
 }
 
+promo::AfterBooking Framework::GetPromoAfterBooking(JNIEnv * env, jobject policy)
+{
+  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
+  if (api == nullptr)
+    return {};
+
+  return api->GetAfterBooking(languages::GetCurrentNorm());
+}
+
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
 {
   auto const & info = g_framework->GetPlacePageInfo();
