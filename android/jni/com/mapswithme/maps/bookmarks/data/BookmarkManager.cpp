@@ -954,7 +954,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePingBookmarkCatalo
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckInvalidCategories(JNIEnv * env,
-  jobject)
+                                                                                     jobject)
 {
   frm()->GetBookmarkManager().CheckInvalidCategories(Purchase::GetDeviceId(),
     [env](bool hasInvalidCategories)
@@ -965,14 +965,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckInvalidCatego
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteInvalidCategories(JNIEnv * env,
-  jobject)
+                                                                                      jobject)
 {
   frm()->GetBookmarkManager().DeleteInvalidCategories();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeResetInvalidCategories(JNIEnv * env,
-  jobject)
+                                                                                     jobject)
 {
   frm()->GetBookmarkManager().ResetInvalidCategories();
 }

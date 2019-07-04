@@ -2522,10 +2522,8 @@ void BookmarkManager::CheckInvalidCategories(std::string const & deviceId,
                                              CheckInvalidCategoriesHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m_bookmarkCatalog.RequestBookmarksToDelete(m_user.GetAccessToken(), m_user.GetUserId(), deviceId,
-                                             GetAllPaidCategoriesIds(),
-                                             [this, handler = std::move(handler)](
-                                               std::vector<std::string> const & serverIds)
+
+  auto f = [this, handler = std::move(handler)](std::vector<std::string> const & serverIds)
   {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
     m_invalidCategories.clear();
@@ -2539,7 +2537,10 @@ void BookmarkManager::CheckInvalidCategories(std::string const & deviceId,
     }
     if (handler)
       handler(!m_invalidCategories.empty());
-  });
+  };
+
+  m_bookmarkCatalog.RequestBookmarksToDelete(m_user.GetAccessToken(), m_user.GetUserId(),
+                                             deviceId, GetAllPaidCategoriesIds(), f);
 }
 
 void BookmarkManager::DeleteInvalidCategories()

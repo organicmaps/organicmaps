@@ -330,8 +330,14 @@ public:
 
   bool IsMyCategory(kml::MarkGroupId categoryId) const;
 
+  // CheckInvalidCategories checks invalid categories asynchronously, it prepares a state for following
+  // functions calls.
   using CheckInvalidCategoriesHandler = std::function<void(bool hasInvalidCategories)>;
   void CheckInvalidCategories(std::string const & deviceId, CheckInvalidCategoriesHandler && handler);
+
+  // The following 2 functions allow to delete invalid categories or forget about them.
+  // These functions are stateful, so they must be called after finishing CheckInvalidCategoriesHandler.
+  // ResetInvalidCategories resets internal state.
   void DeleteInvalidCategories();
   void ResetInvalidCategories();
 

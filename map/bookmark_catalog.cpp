@@ -698,7 +698,7 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
     if (request.RunHttpRequest())
     {
       auto const resultCode = request.ErrorCode();
-      if (callback && resultCode >= 200 && resultCode < 300)
+      if (resultCode >= 200 && resultCode < 300)
       {
         DeleteRequestResponseData responseData;
         try
@@ -708,9 +708,8 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
         }
         catch (coding::DeserializerJson::Exception const & ex)
         {
-          LOG(LWARNING, ("Bookmarks-to-delete request deserialization error:", ex.Msg()));
-          if (callback)
-            callback({});
+          LOG(LERROR, ("Bookmarks-to-delete request deserialization error:", ex.Msg()));
+          callback({});
           return;
         }
 
@@ -718,8 +717,7 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
         return;
       }
     }
-    if (callback)
-      callback({});
+    callback({});
   });
 }
 
