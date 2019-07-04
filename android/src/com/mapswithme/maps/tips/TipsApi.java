@@ -172,7 +172,7 @@ public enum TipsApi
     if (MwmApplication.from(context).isFirstLaunch())
       return STUB;
 
-    int index = Framework.nativeGetCurrentTipsApi();
+    int index = Framework.nativeGetCurrentTipIndex();
     TipsApi value = index >= 0 ? values()[index] : STUB;
     TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
                                                                                   : STUB;

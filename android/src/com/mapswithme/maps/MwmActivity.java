@@ -31,6 +31,7 @@ import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.auth.PassportAuthDialogFragment;
+import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -72,6 +73,8 @@ import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.news.IntroductionDialogFragment;
 import com.mapswithme.maps.news.IntroductionScreenFactory;
+import com.mapswithme.maps.promo.Promo;
+import com.mapswithme.maps.promo.PromoAfterBooking;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
@@ -114,6 +117,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
@@ -154,7 +158,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  AdsRemovalPurchaseControllerProvider,
                                  AdsRemovalActivationCallback,
                                  PlacePageController.SlideListener,
-                                 AlertDialogCallback, RoutingModeListener
+                                 AlertDialogCallback, RoutingModeListener,
+                                 AppBackgroundTracker.OnTransitionListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -222,7 +227,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFullscreen;
   private boolean mIsFullscreenAnimating;
   private boolean mIsAppearMenuLater;
-  private boolean mIsLaunchByDeepLink;
 
   private FloatingSearchToolbarController mSearchController;
 
@@ -491,8 +495,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.initialize();
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
-    mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
-    initViews();
+    boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
+    initViews(isLaunchByDeepLink);
 
     Statistics.INSTANCE.trackConnectionState();
 
@@ -522,12 +526,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    initTips();
+    tryToShowAdditionalViewOnTop();
   }
 
-  private void initViews()
+  private void initViews(boolean isLaunchByDeeplink)
   {
-    initMap();
+    initMap(isLaunchByDeeplink);
     initNavigationButtons();
 
     if (!mIsTabletLayout)
@@ -543,17 +547,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
-  }
-
-  private void initTips()
-  {
-    TipsApi api = TipsApi.requestCurrent(this, getClass());
-    if (api == TipsApi.STUB)
-      return;
-
-    api.showTutorial(getActivity());
-
-    Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW, api.ordinal());
   }
 
   private void initFilterViews()
@@ -645,7 +638,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(false);
   }
 
-  private void initMap()
+  private void initMap(boolean isLaunchByDeepLink)
   {
     mFadeView = findViewById(R.id.fade_view);
     mFadeView.setListener(new FadeView.Listener()
@@ -661,7 +654,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mMapFragment == null)
     {
       Bundle args = new Bundle();
-      args.putBoolean(MapFragment.ARG_LAUNCH_BY_DEEP_LINK, mIsLaunchByDeepLink);
+      args.putBoolean(MapFragment.ARG_LAUNCH_BY_DEEP_LINK, isLaunchByDeepLink);
       mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), args);
       getSupportFragmentManager()
           .beginTransaction()
@@ -1277,6 +1270,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
+    MwmApplication.backgroundTracker(getActivity()).addListener(this);
   }
 
   @Override
@@ -1290,6 +1284,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     mPlacePageController.onActivityStopped(this);
+    MwmApplication.backgroundTracker(getActivity()).removeListener(this);
   }
 
   @CallSuper
@@ -2196,6 +2191,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
+  private boolean tryToShowTips()
+  {
+    TipsApi api = TipsApi.requestCurrent(this, getClass());
+    if (api == TipsApi.STUB)
+      return false;
+
+    api.showTutorial(getActivity());
+
+    Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW, api.ordinal());
+    return true;
+  }
+
+  private boolean tryToShowPromoAfterBooking()
+  {
+    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
+    PromoAfterBooking promo = Promo.nativeGetPromoAfterBooking(policy);
+    if (promo == null)
+      return false;
+
+    // Will be implemented in the next pr.
+    return true;
+  }
+
+  private void tryToShowAdditionalViewOnTop()
+  {
+    if (tryToShowPromoAfterBooking())
+      return;
+
+    tryToShowTips();
+  }
+
+  @Override
+  public void onTransit(boolean foreground)
+  {
+    if (foreground)
+      tryToShowAdditionalViewOnTop();
+  }
+
   @Override
   public void onUseMyPositionAsStart()
   {
@@ -2230,7 +2263,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // Do nothing
   }
-
 
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)

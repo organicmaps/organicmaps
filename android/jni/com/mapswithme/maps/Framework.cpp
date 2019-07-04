@@ -2086,7 +2086,7 @@ Java_com_mapswithme_maps_Framework_nativeSetActiveSubscription(JNIEnv *, jclass,
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetCurrentTipsApi(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeGetCurrentTipIndex(JNIEnv * env, jclass)
 {
   auto const & tipsApi = frm()->GetTipsApi();
   auto const tip = tipsApi.GetTip();

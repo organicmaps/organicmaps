@@ -509,7 +509,7 @@ public class Framework
   public static native void nativeSetActiveSubscription(@SubscriptionType int type,
                                                         boolean isActive);
 
-  public static native int nativeGetCurrentTipsApi();
+  public static native int nativeGetCurrentTipIndex();
 
   private static native void nativeDisableAdProvider(int provider, int bannerPlace);
 
