@@ -1480,12 +1480,20 @@ public enum Statistics
       return;
 
     int errorCode;
-    if (status == ValidationStatus.NOT_VERIFIED)
-      errorCode = 0;
-    else if (status == ValidationStatus.SERVER_ERROR)
-      errorCode = 2;
-    else
-      return;
+    switch (status)
+    {
+      case NOT_VERIFIED:
+        errorCode = 0;
+        break;
+      case AUTH_ERROR:
+        errorCode = 1;
+        break;
+      case SERVER_ERROR:
+        errorCode = 2;
+        break;
+      default:
+        throw new UnsupportedOperationException("Unsupported status: " + status);
+    }
 
     trackEvent(INAPP_PURCHASE_VALIDATION_ERROR, params().add(ERROR_CODE, errorCode)
                                                         .add(PURCHASE, purchaseId));
