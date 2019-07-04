@@ -95,6 +95,7 @@ private:
       ToJSONObject(locale, label, name);
     }
   }
+
   static std::string const & DefaultLocaleName()
   {
     static std::string const kDefaultLocaleName = "default";
