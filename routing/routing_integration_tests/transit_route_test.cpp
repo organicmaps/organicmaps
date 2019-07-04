@@ -130,7 +130,7 @@ UNIT_TEST(London_DeptfordBridgeToCyprus)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Vashington_FoggyToShaw)
+UNIT_TEST(Washington_FoggyToShaw)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -139,7 +139,7 @@ UNIT_TEST(Vashington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 6318.54);
+  integration::TestRouteLength(*routeResult.first, 6180.54);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
