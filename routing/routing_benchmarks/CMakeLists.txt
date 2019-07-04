@@ -5,6 +5,7 @@ set(
   ../routing_integration_tests/routing_test_tools.cpp
   ../routing_integration_tests/routing_test_tools.hpp
   bicycle_routing_tests.cpp
+  car_routing_tests.cpp
   helpers.cpp
   helpers.hpp
   pedestrian_routing_tests.cpp

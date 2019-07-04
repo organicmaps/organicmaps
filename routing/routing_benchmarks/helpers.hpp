@@ -2,6 +2,7 @@
 
 #include "routing/index_router.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -26,7 +27,8 @@
 class RoutingTest
 {
 public:
-  RoutingTest(routing::IRoadGraph::Mode mode, std::set<std::string> const & neededMaps);
+  RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
+              std::set<std::string> const & neededMaps);
 
   virtual ~RoutingTest() = default;
 
@@ -43,6 +45,7 @@ protected:
                        std::vector<std::pair<routing::Edge, routing::Junction>> & edges);
 
   routing::IRoadGraph::Mode const m_mode;
+  routing::VehicleType m_type;
   FrozenDataSource m_dataSource;
   traffic::TrafficCache m_trafficCache;
 
@@ -94,3 +97,6 @@ public:
 private:
   std::shared_ptr<SimplifiedModel> const m_model;
 };
+
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
+                m2::PointD const & finalPos, routing::Route & route);

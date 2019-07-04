@@ -38,7 +38,11 @@ set<string> const kMapFiles =
 class PedestrianTest : public RoutingTest
 {
 public:
-  PedestrianTest() : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, kMapFiles) {}
+  PedestrianTest()
+    : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian,
+                  kMapFiles)
+  {
+  }
 
 protected:
   // RoutingTest overrides:

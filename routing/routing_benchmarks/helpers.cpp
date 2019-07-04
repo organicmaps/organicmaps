@@ -4,7 +4,6 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/features_road_graph.hpp"
-#include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
 #include "routing_integration_tests/routing_test_tools.hpp"
@@ -29,26 +28,6 @@ using namespace std;
 
 namespace
 {
-void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
-                m2::PointD const & finalPos, routing::Route & route)
-{
-  routing::RouterDelegate delegate;
-  LOG(LINFO, ("Calculating routing ...", router.GetName()));
-  base::Timer timer;
-  auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
-                                                m2::PointD::Zero() /* startDirection */,
-                                                false /* adjust */, delegate, route);
-  double const elapsedSec = timer.ElapsedSeconds();
-  TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
-  TEST(route.IsValid(), ());
-  m2::PolylineD const & poly = route.GetPoly();
-  TEST(base::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
-  TEST(base::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
-  LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
-  LOG(LINFO, ("Route distance, meters:", route.GetTotalDistanceMeters()));
-  LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
-}
-
 m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 {
   if (posAlong <= 0.0)
@@ -60,8 +39,9 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 }
 }  // namespace
 
-RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
-  : m_mode(mode) , m_neededMaps(neededMaps) , m_numMwmIds(make_unique<routing::NumMwmIds>())
+RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
+                         set<string> const & neededMaps)
+  : m_mode(mode), m_type(type), m_neededMaps(neededMaps), m_numMwmIds(make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 
@@ -151,7 +131,7 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
   }
 
   unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
-      m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, routing::VehicleType::Pedestrian);
+      m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, m_type);
   return router;
 }
 
@@ -160,4 +140,24 @@ void RoutingTest::GetNearestEdges(m2::PointD const & pt,
 {
   routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
   graph.FindClosestEdges(pt, 1 /* count */, edges);
+}
+
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
+                m2::PointD const & finalPos, routing::Route & route)
+{
+  routing::RouterDelegate delegate;
+  LOG(LINFO, ("Calculating routing ...", router.GetName()));
+  base::Timer timer;
+  auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
+                                                m2::PointD::Zero() /* startDirection */,
+                                                false /* adjust */, delegate, route);
+  double const elapsedSec = timer.ElapsedSeconds();
+  TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
+  TEST(route.IsValid(), ());
+  m2::PolylineD const & poly = route.GetPoly();
+  TEST(base::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
+  TEST(base::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
+  LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
+  LOG(LINFO, ("Route distance, meters:", route.GetTotalDistanceMeters()));
+  LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
 }

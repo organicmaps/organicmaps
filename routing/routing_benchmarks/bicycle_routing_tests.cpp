@@ -22,7 +22,10 @@ std::set<std::string> const kMapFiles = {"Russia_Moscow"};
 class BicycleTest : public RoutingTest
 {
 public:
-  BicycleTest() : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, kMapFiles) {}
+  BicycleTest()
+    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kMapFiles)
+  {
+  }
 
 protected:
   // RoutingTest overrides:
