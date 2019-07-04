@@ -113,6 +113,7 @@ private:
   }
 
   std::vector<std::string> const & LocaleLanguages() const;
+
   json_t & m_node;
 };
 }  // namespace generator

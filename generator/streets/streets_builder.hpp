@@ -41,8 +41,12 @@ public:
   static bool IsStreet(feature::FeatureBuilder const & fb);
 
 private:
-  using RegionStreets =
-      std::unordered_map<StringUtf8Multilang, StreetGeometry, StringUtf8Multilang::Hash>;
+  struct Street
+  {
+    StringUtf8Multilang m_name;
+    StreetGeometry m_geometry;
+  };
+  using RegionStreets = std::unordered_map<std::string, Street>;
 
   void SaveRegionStreetsKv(std::ostream & streamStreetsKv, uint64_t regionId,
                            RegionStreets const & streets);
@@ -51,10 +55,12 @@ private:
   void AddStreetHighway(feature::FeatureBuilder & fb);
   void AddStreetArea(feature::FeatureBuilder & fb);
   void AddStreetPoint(feature::FeatureBuilder & fb);
-  void AddStreetBinding(StringUtf8Multilang && streetName, feature::FeatureBuilder & fb);
+  void AddStreetBinding(std::string && streetName, feature::FeatureBuilder & fb,
+                        StringUtf8Multilang && multiLangName);
   boost::optional<KeyValue> FindStreetRegionOwner(m2::PointD const & point,
                                                   bool needLocality = false);
-  StreetGeometry & InsertStreet(uint64_t regionId, StringUtf8Multilang && streetName);
+  Street & InsertStreet(uint64_t regionId, std::string && streetName,
+                        StringUtf8Multilang && multilangName);
   base::JSONPtr MakeStreetValue(uint64_t regionId, JsonValue const & regionObject,
                                 const StringUtf8Multilang & streetName, m2::RectD const & bbox,
                                 m2::PointD const & pinPoint);
