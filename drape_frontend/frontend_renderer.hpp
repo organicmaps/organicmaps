@@ -75,18 +75,21 @@ class FrontendRenderer : public BaseRenderer,
                          public UserEventStream::Listener
 {
 public:
-  using TModelViewChanged = std::function<void(ScreenBase const & screen)>;
-  using TGraphicsReadyFn = std::function<void()>;
-  using TTapEventInfoFn = std::function<void(TapInfo const &)>;
-  using TUserPositionChangedFn = std::function<void(m2::PointD const & pt, bool hasPosition)>;
+  using ModelViewChangedHandler = std::function<void(ScreenBase const & screen)>;
+  using GraphicsReadyHandler = std::function<void()>;
+  using TapEventInfoHandler = std::function<void(TapInfo const &)>;
+  using UserPositionChangedHandler = std::function<void(m2::PointD const & pt, bool hasPosition)>;
+  using UserPositionPendingTimeoutHandler = std::function<void()>;
 
   struct Params : BaseRenderer::Params
   {
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
-           TModelViewChanged const & modelViewChangedFn, TTapEventInfoFn const & tapEventFn,
-           TUserPositionChangedFn const & positionChangedFn, ref_ptr<RequestedTiles> requestedTiles,
+           ModelViewChangedHandler && modelViewChangedHandler, TapEventInfoHandler && tapEventHandler,
+           UserPositionChangedHandler && positionChangedHandler,
+           UserPositionPendingTimeoutHandler && userPositionPendingTimeoutHandler,
+           ref_ptr<RequestedTiles> requestedTiles,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
            std::vector<PostprocessRenderer::Effect> && enabledEffects,
@@ -94,9 +97,10 @@ public:
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
-      , m_modelViewChangedFn(modelViewChangedFn)
-      , m_tapEventFn(tapEventFn)
-      , m_positionChangedFn(positionChangedFn)
+      , m_modelViewChangedHandler(std::move(modelViewChangedHandler))
+      , m_tapEventHandler(std::move(tapEventHandler))
+      , m_positionChangedHandler(std::move(positionChangedHandler))
+      , m_userPositionPendingTimeoutHandler(std::move(userPositionPendingTimeoutHandler))
       , m_requestedTiles(requestedTiles)
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_allow3dBuildings(allow3dBuildings)
@@ -107,9 +111,10 @@ public:
 
     MyPositionController::Params m_myPositionParams;
     dp::Viewport m_viewport;
-    TModelViewChanged m_modelViewChangedFn;
-    TTapEventInfoFn m_tapEventFn;
-    TUserPositionChangedFn m_positionChangedFn;
+    ModelViewChangedHandler m_modelViewChangedHandler;
+    TapEventInfoHandler m_tapEventHandler;
+    UserPositionChangedHandler m_positionChangedHandler;
+    UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
     ref_ptr<RequestedTiles> m_requestedTiles;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     bool m_allow3dBuildings;
@@ -118,7 +123,7 @@ public:
     std::vector<PostprocessRenderer::Effect> m_enabledEffects;
   };
 
-  FrontendRenderer(Params && params);
+  explicit FrontendRenderer(Params && params);
   ~FrontendRenderer() override;
 
   void Teardown();
@@ -127,6 +132,7 @@ public:
 
   // MyPositionController::Listener
   void PositionChanged(m2::PointD const & position, bool hasPosition) override;
+  void PositionPendingTimeout() override;
   void ChangeModelView(m2::PointD const & center, int zoomLevel,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
@@ -320,9 +326,10 @@ private:
 
   dp::Viewport m_viewport;
   UserEventStream m_userEventStream;
-  TModelViewChanged m_modelViewChangedFn;
-  TTapEventInfoFn m_tapEventInfoFn;
-  TUserPositionChangedFn m_userPositionChangedFn;
+  ModelViewChangedHandler m_modelViewChangedHandler;
+  TapEventInfoHandler m_tapEventInfoHandler;
+  UserPositionChangedHandler m_userPositionChangedHandler;
+  UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
 
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
@@ -379,7 +386,7 @@ private:
   bool m_firstLaunchAnimationInterrupted = false;
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-  TGraphicsReadyFn m_graphicsReadyFn;
+  GraphicsReadyHandler m_graphicsReadyFn;
 
   enum class GraphicsStage
   {

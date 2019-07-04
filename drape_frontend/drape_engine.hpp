@@ -140,12 +140,12 @@ public:
                         bool useVisibleViewport);
   void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport);
 
-  using TModelViewListenerFn = FrontendRenderer::TModelViewChanged;
-  void SetModelViewListener(TModelViewListenerFn && fn);
+  using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
+  void SetModelViewListener(ModelViewChangedHandler && fn);
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-  using TGraphicsReadyFn = FrontendRenderer::TGraphicsReadyFn;
-  void NotifyGraphicsReady(TGraphicsReadyFn const & fn);
+  using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
+  void NotifyGraphicsReady(GraphicsReadyHandler const & fn);
 #endif
 
   void ClearUserMarksGroup(kml::MarkGroupId groupId);
@@ -165,10 +165,12 @@ public:
   void LoseLocation();
   void StopLocationFollow();
 
-  using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;
-  void SetTapEventInfoListener(TTapEventInfoFn && fn);
-  using TUserPositionChangedFn = FrontendRenderer::TUserPositionChangedFn;
-  void SetUserPositionListener(TUserPositionChangedFn && fn);
+  using TapEventInfoHandler = FrontendRenderer::TapEventInfoHandler;
+  void SetTapEventInfoListener(TapEventInfoHandler && fn);
+  using UserPositionChangedHandler = FrontendRenderer::UserPositionChangedHandler;
+  void SetUserPositionListener(UserPositionChangedHandler && fn);
+  using UserPositionPendingTimeoutHandler = FrontendRenderer::UserPositionPendingTimeoutHandler;
+  void SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn);
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim);
@@ -250,6 +252,7 @@ private:
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position, bool hasPosition);
+  void UserPositionPendingTimeout();
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);
@@ -270,9 +273,10 @@ private:
 
   dp::Viewport m_viewport;
 
-  TModelViewListenerFn m_modelViewChanged;
-  TUserPositionChangedFn m_userPositionChanged;
-  TTapEventInfoFn m_tapListener;
+  ModelViewChangedHandler m_modelViewChangedHandler;
+  TapEventInfoHandler m_tapEventInfoHandler;
+  UserPositionChangedHandler m_userPositionChangedHandler;
+  UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
 
   gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsLayoutInfo m_widgetsLayout;

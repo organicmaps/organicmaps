@@ -192,9 +192,10 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_choosePositionMode(false)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
   , m_viewport(params.m_viewport)
-  , m_modelViewChangedFn(params.m_modelViewChangedFn)
-  , m_tapEventInfoFn(params.m_tapEventFn)
-  , m_userPositionChangedFn(params.m_positionChangedFn)
+  , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
+  , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
+  , m_userPositionChangedHandler(std::move(params.m_positionChangedHandler))
+  , m_userPositionPendingTimeoutHandler(std::move(params.m_userPositionPendingTimeoutHandler))
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_maxUserMarksGeneration(0)
@@ -215,8 +216,10 @@ FrontendRenderer::FrontendRenderer(Params && params)
   m_isTeardowned = false;
 #endif
 
-  ASSERT(m_tapEventInfoFn, ());
-  ASSERT(m_userPositionChangedFn, ());
+  ASSERT(m_modelViewChangedHandler, ());
+  ASSERT(m_tapEventInfoHandler, ());
+  ASSERT(m_userPositionChangedHandler, ());
+  ASSERT(m_userPositionPendingTimeoutHandler, ());
 
   m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](uint32_t pointsCount)
   {
@@ -1982,8 +1985,8 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
       mercator = m_myPositionController->Position();
   }
 
-  ASSERT(m_tapEventInfoFn != nullptr, ());
-  m_tapEventInfoFn({mercator, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
+  ASSERT(m_tapEventInfoHandler != nullptr, ());
+  m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
 }
 
 void FrontendRenderer::OnForceTap(m2::PointD const & pt)
@@ -2457,7 +2460,12 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  m_userPositionChangedFn(position, hasPosition);
+  m_userPositionChangedHandler(position, hasPosition);
+}
+
+void FrontendRenderer::PositionPendingTimeout()
+{
+  m_userPositionPendingTimeoutHandler();
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
@@ -2554,7 +2562,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 {
-  m_modelViewChangedFn(modelView);
+  m_modelViewChangedHandler(modelView);
 }
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)

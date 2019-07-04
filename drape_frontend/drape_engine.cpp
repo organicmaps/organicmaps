@@ -80,6 +80,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
+                                    std::bind(&DrapeEngine::UserPositionPendingTimeout, this),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,
@@ -426,8 +427,8 @@ void DrapeEngine::AddUserEvent(drape_ptr<UserEvent> && e)
 
 void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
 {
-  if (m_modelViewChanged != nullptr)
-    m_modelViewChanged(screen);
+  if (m_modelViewChangedHandler != nullptr)
+    m_modelViewChangedHandler(screen);
 }
 
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
@@ -439,14 +440,20 @@ void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool rou
 
 void DrapeEngine::TapEvent(TapInfo const & tapInfo)
 {
-  if (m_tapListener != nullptr)
-    m_tapListener(tapInfo);
+  if (m_tapEventInfoHandler != nullptr)
+    m_tapEventInfoHandler(tapInfo);
 }
 
 void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  if (m_userPositionChanged != nullptr)
-    m_userPositionChanged(position, hasPosition);
+  if (m_userPositionChangedHandler != nullptr)
+    m_userPositionChangedHandler(position, hasPosition);
+}
+
+void DrapeEngine::UserPositionPendingTimeout()
+{
+  if (m_userPositionPendingTimeoutHandler != nullptr)
+    m_userPositionPendingTimeoutHandler();
 }
 
 void DrapeEngine::ResizeImpl(int w, int h)
@@ -503,13 +510,13 @@ void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, 
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
+void DrapeEngine::SetModelViewListener(ModelViewChangedHandler && fn)
 {
-  m_modelViewChanged = std::move(fn);
+  m_modelViewChangedHandler = std::move(fn);
 }
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-void DrapeEngine::NotifyGraphicsReady(TGraphicsReadyFn const & fn)
+void DrapeEngine::NotifyGraphicsReady(GraphicsReadyHandler const & fn)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<NotifyGraphicsReadyMessage>(fn),
@@ -517,14 +524,19 @@ void DrapeEngine::NotifyGraphicsReady(TGraphicsReadyFn const & fn)
 }
 #endif
 
-void DrapeEngine::SetTapEventInfoListener(TTapEventInfoFn && fn)
+void DrapeEngine::SetTapEventInfoListener(TapEventInfoHandler && fn)
 {
-  m_tapListener = std::move(fn);
+  m_tapEventInfoHandler = std::move(fn);
 }
 
-void DrapeEngine::SetUserPositionListener(TUserPositionChangedFn && fn)
+void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 {
-  m_userPositionChanged = std::move(fn);
+  m_userPositionChangedHandler = std::move(fn);
+}
+
+void DrapeEngine::SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn)
+{
+  m_userPositionPendingTimeoutHandler = std::move(fn);
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,

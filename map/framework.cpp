@@ -293,6 +293,11 @@ void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
   m_myPositionListener = move(fn);
 }
 
+void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn)
+{
+  m_myPositionPendingTimeoutListener = move(fn);
+}
+
 TrafficManager & Framework::GetTrafficManager()
 {
   return m_trafficManager;
@@ -1962,6 +1967,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, position, hasPosition](){
       OnUserPositionChanged(position, hasPosition);
+    });
+  });
+  m_drapeEngine->SetUserPositionPendingTimeoutListener([this]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this](){
+      if (m_myPositionPendingTimeoutListener)
+        m_myPositionPendingTimeoutListener();
     });
   });
 
