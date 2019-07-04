@@ -32,16 +32,12 @@ protected:
   std::unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
       std::shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
-    std::unique_ptr<routing::IDirectionsEngine> engine(
-        new routing::BicycleDirectionsEngine(m_dataSource, numMwmIds));
-    return engine;
+    return std::make_unique<routing::BicycleDirectionsEngine>(m_dataSource, numMwmIds);
   }
 
   std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
   {
-    std::unique_ptr<routing::VehicleModelFactoryInterface> factory(
-        new SimplifiedModelFactory<routing::BicycleModel>());
-    return factory;
+    return std::make_unique<SimplifiedModelFactory<routing::BicycleModel>>();
   }
 };
 

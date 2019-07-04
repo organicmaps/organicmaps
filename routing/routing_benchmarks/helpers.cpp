@@ -155,6 +155,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
   TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
   TEST(route.IsValid(), ());
   m2::PolylineD const & poly = route.GetPoly();
+  TEST_GREATER(poly.GetSize(), 0, ());
   TEST(base::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
   TEST(base::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
