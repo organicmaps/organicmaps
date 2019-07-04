@@ -1,5 +1,6 @@
 #include "generator/locality_sorter.hpp"
 
+#include "generator/geo_objects/geo_objects_filter.hpp"
 #include "generator/geometry_holder.hpp"
 #include "generator/utils.hpp"
 
@@ -242,8 +243,18 @@ bool GenerateGeoObjectsData(string const & featuresFile, string const & nodesFil
     return false;
 
   auto const needSerialize = [&nodeIds](FeatureBuilder & fb) {
-    return fb.IsPoint() || fb.IsArea() ||
-        (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId()) != 0);
+    if (!fb.IsPoint() && !fb.IsArea())
+      return false;
+
+    using generator::geo_objects::GeoObjectsFilter;
+
+    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
+      return true;
+
+    if (GeoObjectsFilter::IsPoi(fb))
+      return nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId());
+
+    return false;
   };
 
   DataHeader header;
