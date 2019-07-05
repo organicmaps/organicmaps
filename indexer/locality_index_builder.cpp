@@ -72,7 +72,7 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile,
       FileWriter writer(idxFileName);
 
       covering::BuildLocalityIndex<LocalityVector<ModelReaderPtr>, FileWriter, DEPTH_LEVELS>(
-          localities.GetVector(), writer, coverLocality, outFileName, IntervalIndexVersion::V2);
+          localities.GetVector(), writer, coverLocality, outFileName, IntervalIndexVersion::V1);
     }
 
     FilesContainerW(outFileName, FileWriter::OP_WRITE_TRUNCATE)
