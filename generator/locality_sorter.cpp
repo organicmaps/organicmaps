@@ -252,7 +252,7 @@ bool GenerateGeoObjectsData(string const & featuresFile, string const & nodesFil
       return true;
 
     if (GeoObjectsFilter::IsPoi(fb))
-      return nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId());
+      return 0 != nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId());
 
     return false;
   };
