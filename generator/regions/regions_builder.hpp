@@ -36,24 +36,25 @@ private:
   void MoveLabelPlacePoints(PlacePointsMap & placePointsMap, Regions & regions);
   Regions FormRegionsInAreaOrder(Regions && regions);
   Regions ExtractCountriesOuters(Regions & regions);
+  Node::PtrList BuildCountry(std::string const & countryName) const;
   Node::PtrList BuildCountryRegionTrees(Regions const & outers,
-                                        CountrySpecifier const & countrySpecifier);
-  static Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & regionsInAreaOrder,
-                                          CountrySpecifier const & countrySpecifier);
-  static std::vector<Node::Ptr> MakeCountryNodesInAreaOrder(
+                                        CountrySpecifier const & countrySpecifier) const;
+  Node::Ptr BuildCountryRegionTree(Region const & outer, Regions const & regionsInAreaOrder,
+                                   CountrySpecifier const & countrySpecifier) const;
+  std::vector<Node::Ptr> MakeCountryNodesInAreaOrder(
       Region const & countryOuter, Regions const & regionsInAreaOrder,
-      CountrySpecifier const & countrySpecifier);
-  static Node::Ptr ChooseParent(std::vector<Node::Ptr> const & nodesInAreaOrder,
-                                std::vector<Node::Ptr>::const_reverse_iterator forItem,
-                                CountrySpecifier const & countrySpecifier);
-  static std::vector<Node::Ptr>::const_reverse_iterator FindAreaLowerBoundRely(
+      CountrySpecifier const & countrySpecifier) const;
+  Node::Ptr ChooseParent(std::vector<Node::Ptr> const & nodesInAreaOrder,
+                         std::vector<Node::Ptr>::const_reverse_iterator forItem,
+                         CountrySpecifier const & countrySpecifier) const;
+  std::vector<Node::Ptr>::const_reverse_iterator FindAreaLowerBoundRely(
       std::vector<Node::Ptr> const & nodesInAreaOrder,
-      std::vector<Node::Ptr>::const_reverse_iterator forItem);
+      std::vector<Node::Ptr>::const_reverse_iterator forItem) const;
   // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
   static int Compare(LevelRegion const & l, LevelRegion const & r,
                      CountrySpecifier const & countrySpecifier);
   static bool IsAreaLessRely(Region const & l, Region const & r);
-  std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName);
+  std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName) const;
 
   Regions m_countriesOuters;
   Regions m_regionsInAreaOrder;
