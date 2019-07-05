@@ -78,7 +78,7 @@ if ! grep "DEFAULT_URLS_JSON" "$OMIM_PATH/private.h" >/dev/null 2>/dev/null; the
   exit 2
 fi
 
-DEVTOOLSET_PATH=/opt/rh/devtoolset-6
+DEVTOOLSET_PATH=/opt/rh/devtoolset-7
 if [ -d "$DEVTOOLSET_PATH" ]; then
   export MANPATH=
   source "$DEVTOOLSET_PATH/enable"
