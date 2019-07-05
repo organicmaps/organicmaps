@@ -11,13 +11,13 @@ namespace
 UNIT_TEST(RoutingQuality_BilbauAirport)
 {
   // From Bilbau Airport.
-  TEST(CheckCarRoute({43.3017, -2.9151} /* start */, {43.2805, -2.87853} /* finish */,
-                     {{{43.282, -2.88333}}} /* reference track */),
+  TEST(CheckCarRoute({43.3017, -2.9151} /* start */, {43.27637, -2.86924} /* finish */,
+                     {{{43.27759, -2.87367}}} /* reference track */),
        ());
 
   // To Bilbau Airport.
-  TEST(CheckCarRoute({43.28069, -2.87835} /* start */, {43.2805, -2.87853} /* finish */,
-                     {{{43.28242, -2.88414}}} /* reference track */),
+  TEST(CheckCarRoute({43.27651, -2.86918} /* start */, {43.2805, -2.87853} /* finish */,
+                     {{{43.27788, -2.87385}}} /* reference track */),
        ());
 }
 

@@ -139,7 +139,7 @@ UNIT_TEST(Washington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 6180.54);
+  integration::TestRouteLength(*routeResult.first, 5971.0);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -154,7 +154,7 @@ UNIT_TEST(NewYork_GrassmereToPleasantPlains)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 17409.7);
+  integration::TestRouteLength(*routeResult.first, 17224.5);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);

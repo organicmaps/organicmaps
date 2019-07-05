@@ -22,7 +22,7 @@ UNIT_TEST(Zgrad424aTo1207)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(55.9963, 37.2036), {0., 0.},
-      MercatorBounds::FromLatLon(55.9955, 37.1948), 683.);
+      MercatorBounds::FromLatLon(55.9955, 37.1948), 623.2);
 }
 
 UNIT_TEST(Zgrad924aTo418)
@@ -130,8 +130,8 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
-      MercatorBounds::FromLatLon(59.32046, 18.06924), {0., 0.},
-      MercatorBounds::FromLatLon(59.32728, 18.09078), 3442.);
+      MercatorBounds::FromLatLon(59.32046, 18.06924), {0.0, 0.0},
+      MercatorBounds::FromLatLon(59.32751, 18.09092), 3442.0);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)

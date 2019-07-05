@@ -148,7 +148,7 @@ UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.80215, 37.54663), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.80169, 37.54915));
+                                  MercatorBounds::FromLatLon(55.80186, 37.5496));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -161,7 +161,7 @@ UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnRight);
 
-  integration::TestRouteLength(route, 454.);
+  integration::TestRouteLength(route, 418.0);
 }
 
 UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
@@ -239,7 +239,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   MercatorBounds::FromLatLon(55.77177, 37.63556), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.77217, 37.63678));
+                                  MercatorBounds::FromLatLon(55.77224, 37.63748));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
