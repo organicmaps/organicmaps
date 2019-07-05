@@ -56,12 +56,13 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 /// world graph.
 template <typename Graph, typename GetVertexByEdgeFn, typename GetOutgoingEdgesFn>
 bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, Graph & graph,
-                            GetVertexByEdgeFn && getVertexByEdgeFn, GetOutgoingEdgesFn && getOutgoingEdgesFn)
+                            std::set<typename Graph::Vertex> & marked,
+                            GetVertexByEdgeFn && getVertexByEdgeFn,
+                            GetOutgoingEdgesFn && getOutgoingEdgesFn)
 {
   std::queue<typename Graph::Vertex> q;
   q.push(start);
 
-  std::set<typename Graph::Vertex> marked;
   marked.insert(start);
 
   std::vector<typename Graph::Edge> edges;

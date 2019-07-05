@@ -304,6 +304,12 @@ double IRoadGraph::GetSpeedKMpH(Edge const & edge, SpeedParams const & speedPara
   return speedKMpH;
 }
 
+vector<pair<FeatureID, IRoadGraph::RoadInfo>> IRoadGraph::FindRoads(
+    m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const
+{
+  return {};
+}
+
 void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
 {
   if (edge.IsFake())

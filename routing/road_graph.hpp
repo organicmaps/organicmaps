@@ -17,6 +17,7 @@
 #include <initializer_list>
 #include <map>
 #include <set>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -313,6 +314,13 @@ public:
   virtual void FindClosestEdges(m2::RectD const & rect, uint32_t count,
                                 IsGoodFeatureFn const & isGoodFeature,
                                 std::vector<std::pair<Edge, Junction>> & vicinities) const {};
+
+  /// \returns Vector of pairs FeatureID and corresponing RoadInfo for road features
+  /// lying in |rect|.
+  /// \note |RoadInfo::m_speedKMPH| is set to |kInvalidSpeedKMPH|.
+  /// \note Some roads returned by this method my lie outside |rect| but close to it.
+  virtual std::vector<std::pair<FeatureID, RoadInfo>> FindRoads(
+      m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const;
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;

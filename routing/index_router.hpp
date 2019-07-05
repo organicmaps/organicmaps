@@ -105,23 +105,20 @@ private:
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();
 
+  /// \brief Removes all roads from |roads| which goes to dead ends.
+  void EraseIfDeadEnd(WorldGraph & worldGraph,
+                      std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> & roads) const;
+
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
   /// in |fences| except for a one which has the same geometry with |edgeProjection.first|.
   bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
-                   std::vector<IRoadGraph::JunctionVec> const & fences) const;
+                   std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> const & fences) const;
 
-  /// \brief Fills |roadGeom| geometry of not dead-end road features which lie in |rect|,
-  /// and |deadEnds| with FeatureIDs which goes to dead ends.
-  /// \note Some additional road features which lie near |rect| may be added to |roadGeom|
-  /// and to |deadEnds|.
-  void FetchRoadInfo(m2::RectD const & rect, WorldGraph & worldGraph,
-                     vector<IRoadGraph::JunctionVec> & roadGeom,
-                     std::set<FeatureID> & deadEnds) const;
+  void RoadsToNearestEdges(m2::PointD const & point,
+                           std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> const & roads,
+                           uint32_t count, std::vector<std::pair<Edge, Junction>> & edgeProj) const;
 
   Segment GetSegmentByEdge(Edge const & edge) const;
-
-  /// \returns true if it's impossible to go from |edge| far enough.
-  bool IsDeadEnd(Edge const & edge, bool isOutgoing, WorldGraph & worldGraph) const;
 
   /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
   /// |point| and returns true if there's any. If not returns false.
