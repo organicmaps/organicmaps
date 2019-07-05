@@ -96,10 +96,9 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
   return result;
 }
 
-// static
 Node::Ptr RegionsBuilder::BuildCountryRegionTree(
     Region const & outer, Regions const & regionsInAreaOrder,
-    CountrySpecifier const & countrySpecifier)
+    CountrySpecifier const & countrySpecifier) const
 {
   auto nodes = MakeCountryNodesInAreaOrder(outer, regionsInAreaOrder, countrySpecifier);
 
@@ -115,10 +114,9 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(
   return nodes.front();
 }
 
-// static
 std::vector<Node::Ptr> RegionsBuilder::MakeCountryNodesInAreaOrder(
     Region const & countryOuter, Regions const & regionsInAreaOrder,
-    CountrySpecifier const & countrySpecifier)
+    CountrySpecifier const & countrySpecifier) const
 {
   std::vector<Node::Ptr> nodes{std::make_shared<Node>(LevelRegion{PlaceLevel::Country,
                                                                   countryOuter})};
@@ -135,11 +133,10 @@ std::vector<Node::Ptr> RegionsBuilder::MakeCountryNodesInAreaOrder(
   return nodes;
 }
 
-// static
 Node::Ptr RegionsBuilder::ChooseParent(
     std::vector<Node::Ptr> const & nodesInAreaOrder,
     std::vector<Node::Ptr>::const_reverse_iterator forItem,
-    CountrySpecifier const & countrySpecifier)
+    CountrySpecifier const & countrySpecifier) const
 {
   auto const & node = *forItem;
   auto const & region = node->GetData();
@@ -179,10 +176,9 @@ Node::Ptr RegionsBuilder::ChooseParent(
   return parent;
 }
 
-// static
 std::vector<Node::Ptr>::const_reverse_iterator RegionsBuilder::FindAreaLowerBoundRely(
     std::vector<Node::Ptr> const & nodesInAreaOrder,
-    std::vector<Node::Ptr>::const_reverse_iterator forItem)
+    std::vector<Node::Ptr>::const_reverse_iterator forItem) const
 {
   auto const & region = (*forItem)->GetData();
 
@@ -233,44 +229,59 @@ bool RegionsBuilder::IsAreaLessRely(Region const & l, Region const & r)
 
 void RegionsBuilder::ForEachCountry(CountryFn fn)
 {
-  for (auto const & countryName : GetCountryNames())
+  std::vector<std::future<Node::PtrList>> buildingTasks;
+
   {
-    auto countrySpecifier = GetCountrySpecifier(countryName);
+    base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
 
-    Regions outers;
-    auto const & countries = GetCountriesOuters();
-    auto const pred = [&](Region const & country) { return countryName == country.GetName(); };
-    std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
-    auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
+    for (auto const & countryName : GetCountryNames())
+    {
+      auto result = threadPool.Submit([this, countryName](){
+        return BuildCountry(countryName);
+      });
+      buildingTasks.emplace_back(std::move(result));
+    }
+  }
 
-    countrySpecifier->AdjustRegionsLevel(countryTrees);
-
+  for (auto && task : buildingTasks)
+  {
+    auto countryTrees = task.get();
+    CHECK(!countryTrees.empty(), ());
+    auto && countryName = countryTrees.front()->GetData().GetName();
     fn(countryName, countryTrees);
   }
 }
 
-Node::PtrList RegionsBuilder::BuildCountryRegionTrees(Regions const & outers,
-    CountrySpecifier const & countrySpecifier)
+Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) const
 {
-  std::vector<std::future<Node::Ptr>> buildingTasks;
+  auto countrySpecifier = GetCountrySpecifier(countryName);
+
+  Regions outers;
+  auto const & countries = GetCountriesOuters();
+  auto const pred = [&](Region const & country) { return countryName == country.GetName(); };
+  std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
+  auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
+
+  countrySpecifier->AdjustRegionsLevel(countryTrees);
+
+  return countryTrees;
+}
+
+Node::PtrList RegionsBuilder::BuildCountryRegionTrees(
+    Regions const & outers, CountrySpecifier const & countrySpecifier) const
+{
+  Node::PtrList trees;
+  for (auto const & outer : outers)
   {
-    base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
-    for (auto const & outer : outers)
-    {
-      auto result = threadPool.Submit(
-          &RegionsBuilder::BuildCountryRegionTree,
-          std::cref(outer), std::cref(m_regionsInAreaOrder), std::cref(countrySpecifier));
-      buildingTasks.emplace_back(std::move(result));
-    }
+    auto tree = BuildCountryRegionTree(outer, m_regionsInAreaOrder, countrySpecifier);
+    trees.push_back(std::move(tree));
   }
-  std::vector<Node::Ptr> trees;
-  trees.reserve(buildingTasks.size());
-  std::transform(std::begin(buildingTasks), std::end(buildingTasks),
-                 std::back_inserter(trees), [](auto & f) { return f.get(); });
+
   return trees;
 }
 
-std::unique_ptr<CountrySpecifier> RegionsBuilder::GetCountrySpecifier(std::string const & countryName)
+std::unique_ptr<CountrySpecifier> RegionsBuilder::GetCountrySpecifier(
+    std::string const & countryName) const
 {
   if (countryName == u8"Россия" || countryName == u8"Российская Федерация" || countryName == u8"РФ")
     return std::make_unique<specs::RusSpecifier>();
