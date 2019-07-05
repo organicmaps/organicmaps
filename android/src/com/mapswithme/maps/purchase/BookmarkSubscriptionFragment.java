@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -41,10 +42,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
   @NonNull
   private final BookmarkSubscriptionCallback mPurchaseCallback = new BookmarkSubscriptionCallback();
   @NonNull
+  private final PingCallback mPingCallback = new PingCallback();
+  @NonNull
   private BookmarkSubscriptionPaymentState mState = BookmarkSubscriptionPaymentState.NONE;
   @Nullable
   private ProductDetails[] mProductDetails;
   private boolean mValidationResult;
+  private boolean mPingingResult;
 
   @Nullable
   @Override
@@ -55,6 +59,8 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
     mPurchaseController.initialize(requireActivity());
+    mPingCallback.attach(this);
+    BookmarkManager.INSTANCE.addCatalogPingListener(mPingCallback);
     View root = inflater.inflate(R.layout.bookmark_subscription_fragment, container, false);
     CardView annualPriceCard = root.findViewById(R.id.annual_price_card);
     CardView monthlyPriceCard = root.findViewById(R.id.monthly_price_card);
@@ -83,6 +89,14 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     return root;
   }
 
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    mPingCallback.detach();
+    BookmarkManager.INSTANCE.removeCatalogPingListener(mPingCallback);
+  }
+
   private void openSubscriptionManagementSettings()
   {
     Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
@@ -90,12 +104,8 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
 
   private void onContinueButtonClicked()
   {
-    //TODO: insert ping logic here.
-    CardView annualCard = getViewOrThrow().findViewById(R.id.annual_price_card);
-    PurchaseUtils.Period period = annualCard.getCardElevation() > 0 ? PurchaseUtils.Period.P1Y
-                                                                    : PurchaseUtils.Period.P1M;
-    ProductDetails details = getProductDetailsForPeriod(period);
-    mPurchaseController.launchPurchaseFlow(details.getProductId());
+    BookmarkManager.INSTANCE.pingBookmarkCatalog();
+    activateState(BookmarkSubscriptionPaymentState.PINGING);
   }
 
   @Override
@@ -231,12 +241,37 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     mValidationResult = result;
   }
 
+  private void handlePingingResult(boolean result)
+  {
+    mPingingResult = result;
+  }
+
   void finishValidation()
   {
     if (mValidationResult)
       requireActivity().setResult(Activity.RESULT_OK);
 
     requireActivity().finish();
+  }
+
+  public void finishPinging()
+  {
+    if (mPingingResult)
+    {
+      launchPurchaseFlow();
+      return;
+    }
+
+    PurchaseUtils.showPingFailureDialog(this);
+  }
+
+  private void launchPurchaseFlow()
+  {
+    CardView annualCard = getViewOrThrow().findViewById(R.id.annual_price_card);
+    PurchaseUtils.Period period = annualCard.getCardElevation() > 0 ? PurchaseUtils.Period.P1Y
+                                                                    : PurchaseUtils.Period.P1M;
+    ProductDetails details = getProductDetailsForPeriod(period);
+    mPurchaseController.launchPurchaseFlow(details.getProductId());
   }
 
   private class AnnualCardClickListener implements View.OnClickListener
@@ -379,6 +414,35 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
       {
         bookmarkSubscriptionFragment.handleActivationResult(mPendingValidationResult);
         mPendingValidationResult = null;
+      }
+    }
+  }
+
+  private static class PingCallback
+      extends StatefulPurchaseCallback<BookmarkSubscriptionPaymentState,
+      BookmarkSubscriptionFragment> implements BookmarkManager.BookmarksCatalogPingListener
+
+  {
+    private Boolean mPendingPingingResult;
+
+    @Override
+    public void onPingFinished(boolean isServiceAvailable)
+    {
+      if (getUiObject() == null)
+        mPendingPingingResult = isServiceAvailable;
+      else
+        getUiObject().handlePingingResult(isServiceAvailable);
+
+      activateStateSafely(BookmarkSubscriptionPaymentState.PINGING_FINISH);
+    }
+
+    @Override
+    void onAttach(@NonNull BookmarkSubscriptionFragment fragment)
+    {
+      if (mPendingPingingResult != null)
+      {
+        fragment.handlePingingResult(mPendingPingingResult);
+        mPendingPingingResult = null;
       }
     }
   }

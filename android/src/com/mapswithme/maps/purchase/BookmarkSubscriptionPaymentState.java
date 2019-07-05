@@ -54,8 +54,7 @@ public enum  BookmarkSubscriptionPaymentState
         @Override
         void activate(@NonNull BookmarkSubscriptionFragment fragment)
         {
-          UiUtils.hide(fragment.getViewOrThrow(), R.id.continue_btn);
-          UiUtils.show(fragment.getViewOrThrow(), R.id.progress);
+          showButtonProgress(fragment);
         }
       },
   VALIDATION_FINISH
@@ -63,9 +62,25 @@ public enum  BookmarkSubscriptionPaymentState
         @Override
         void activate(@NonNull BookmarkSubscriptionFragment fragment)
         {
-          UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
-          UiUtils.show(fragment.getViewOrThrow(), R.id.continue_btn);
+          hideButtonProgress(fragment);
           fragment.finishValidation();
+        }
+      },
+  PINGING
+      {
+        @Override
+        void activate(@NonNull BookmarkSubscriptionFragment fragment)
+        {
+          showButtonProgress(fragment);
+        }
+      },
+  PINGING_FINISH
+      {
+        @Override
+        void activate(@NonNull BookmarkSubscriptionFragment fragment)
+        {
+          BookmarkSubscriptionPaymentState.hideButtonProgress(fragment);
+          fragment.finishPinging();
         }
       };
 
@@ -79,6 +94,18 @@ public enum  BookmarkSubscriptionPaymentState
   {
     UiUtils.hide(fragment.getViewOrThrow(), R.id.root_screen_progress);
     UiUtils.show(fragment.getViewOrThrow(), R.id.content_view);
+  }
+
+  private static void showButtonProgress(@NonNull BookmarkSubscriptionFragment fragment)
+  {
+    UiUtils.hide(fragment.getViewOrThrow(), R.id.continue_btn);
+    UiUtils.show(fragment.getViewOrThrow(), R.id.progress);
+  }
+
+  private static void hideButtonProgress(@NonNull BookmarkSubscriptionFragment fragment)
+  {
+    UiUtils.hide(fragment.getViewOrThrow(), R.id.progress);
+    UiUtils.show(fragment.getViewOrThrow(), R.id.continue_btn);
   }
 
   abstract void activate(@NonNull BookmarkSubscriptionFragment fragment);

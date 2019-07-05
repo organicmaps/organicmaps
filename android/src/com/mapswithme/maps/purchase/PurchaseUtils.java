@@ -24,6 +24,7 @@ public class PurchaseUtils
   final static int REQ_CODE_PAYMENT_FAILURE = 2;
   final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
   final static int REQ_CODE_START_TRANSACTION_FAILURE = 4;
+  final static int REQ_CODE_PING_FAILURE = 5;
   final static int WEEKS_IN_YEAR = 52;
   final static int MONTHS_IN_YEAR = 12;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
@@ -139,6 +140,17 @@ public class PurchaseUtils
         .setPositiveBtnId(R.string.ok)
         .build();
     alertDialog.show(fragment, tag);
+  }
+
+  static void showPingFailureDialog(@NonNull Fragment fragment)
+  {
+    AlertDialog alertDialog = new AlertDialog.Builder()
+        .setReqCode(PurchaseUtils.REQ_CODE_PING_FAILURE)
+        .setTitleId(R.string.subscription_error_ping_title)
+        .setMessageId(R.string.subscription_error_message)
+        .setPositiveBtnId(R.string.ok)
+        .build();
+    alertDialog.show(fragment, null);
   }
 
   enum Period

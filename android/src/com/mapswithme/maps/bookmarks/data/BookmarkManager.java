@@ -161,6 +161,16 @@ public enum BookmarkManager
     mCatalogListeners.remove(listener);
   }
 
+  public void addCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
+  {
+    mCatalogPingListeners.add(listener);
+  }
+
+  public void removeCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
+  {
+    mCatalogPingListeners.remove(listener);
+  }
+
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
