@@ -16,7 +16,6 @@
 #include <functional>
 #include <initializer_list>
 #include <map>
-#include <set>
 #include <utility>
 #include <vector>
 
@@ -320,7 +319,7 @@ public:
   /// \note |RoadInfo::m_speedKMPH| is set to |kInvalidSpeedKMPH|.
   /// \note Some roads returned by this method my lie outside |rect| but close to it.
   virtual std::vector<std::pair<FeatureID, RoadInfo>> FindRoads(
-      m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const;
+      m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const { return {}; }
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;

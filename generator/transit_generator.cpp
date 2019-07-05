@@ -128,15 +128,13 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
         // Looking for the edge which is the closest to |gate.GetPoint()|.
         // @TODO It should be considered to change the format of transit section to keep all
         // candidates for every gate.
-        auto const bestEdgeIt = min_element(
+        auto const & bestEdge = *min_element(
             bestEdges.cbegin(), bestEdges.cend(),
             [&bestEdgeComparator](routing::Edge const & lhs, routing::Edge const & rhs) {
               return bestEdgeComparator.Compare(lhs, rhs) < 0;
             });
 
-        auto const & bestEdge = *bestEdgeIt;
         CHECK(bestEdge.GetFeatureId().IsValid(), ());
-
 
         graphData.SetGateBestPedestrianSegment(i, SingleMwmSegment(
             bestEdge.GetFeatureId().m_index, bestEdge.GetSegId(), bestEdge.IsForward()));

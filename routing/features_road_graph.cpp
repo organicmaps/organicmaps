@@ -134,7 +134,7 @@ public:
     if (!m_graph.IsRoad(ft))
       return;
 
-    FeatureID const featureId = ft.GetID();
+    FeatureID const & featureId = ft.GetID();
 
     IRoadGraph::RoadInfo const & roadInfo =
         m_graph.GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
@@ -184,7 +184,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
-    FeatureID const featureId = ft.GetID();
+    FeatureID const & featureId = ft.GetID();
     if (isGoodFeature && !isGoodFeature(featureId))
       return;
 
@@ -207,7 +207,7 @@ vector<pair<FeatureID, IRoadGraph::RoadInfo>> FeaturesRoadGraph::FindRoads(
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
-    FeatureID const featureId = ft.GetID();
+    FeatureID const & featureId = ft.GetID();
     if (isGoodFeature && !isGoodFeature(featureId))
       return;
 

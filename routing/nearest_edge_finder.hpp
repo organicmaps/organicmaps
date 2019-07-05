@@ -13,7 +13,6 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
-#include <set>
 #include <utility>
 #include <vector>
 
@@ -26,7 +25,7 @@ class NearestEdgeFinder
 {
   struct Candidate
   {
-    static uint32_t constexpr kInvalidSegmentId = std::numeric_limits<uint32_t>::max();
+    static auto constexpr kInvalidSegmentId = std::numeric_limits<uint32_t>::max();
 
     double m_squaredDist = std::numeric_limits<double>::max();
     uint32_t m_segId = kInvalidSegmentId;

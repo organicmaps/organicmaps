@@ -77,14 +77,14 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
   ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
   res.m_projPoint = Junction(closestPoint, projPointAlt);
 
-  m_candidates.push_back(res);
+  m_candidates.emplace_back(res);
 }
 
 void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
-    return (r1.m_squaredDist < r2.m_squaredDist);
+    return r1.m_squaredDist < r2.m_squaredDist;
   });
 
   res.clear();
