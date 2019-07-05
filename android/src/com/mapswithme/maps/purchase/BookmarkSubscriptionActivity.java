@@ -26,4 +26,11 @@ public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
     Intent intent = new Intent(context, BookmarkSubscriptionActivity.class);
     context.startActivity(intent);
   }
+
+  public static void startForResult(@NonNull Fragment fragment, int requestCode)
+  {
+    Intent intent = new Intent(fragment.getActivity(), BookmarkSubscriptionActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    fragment.startActivityForResult(intent, requestCode);
+  }
 }

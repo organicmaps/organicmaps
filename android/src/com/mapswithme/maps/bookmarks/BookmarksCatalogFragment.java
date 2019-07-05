@@ -2,8 +2,8 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -66,6 +66,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private static final String FAILED_PURCHASE_DIALOG_TAG = "failed_purchase_dialog_tag";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
+  static final int REQ_CODE_PAY_SUBSCRIPTION = 1;
+  static final int REQ_CODE_PAY_BOOKMARK = 2;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private WebViewBookmarksCatalogClient mWebViewClient;
@@ -160,7 +162,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private void onRetryClick()
   {
     mWebViewClient.retry();
-    UiUtils.hide(mRetryBtn);
+    UiUtils.hide(mRetryBtn, mWebView);
     UiUtils.show(mProgressView);
     mFailedPurchaseController.validateExistingPurchases();
   }
@@ -211,6 +213,14 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onActivityResult(requestCode, resultCode, data);
     mDelegate.onActivityResult(requestCode, resultCode, data);
+
+    if (resultCode != Activity.RESULT_OK)
+      return;
+
+    if (requestCode != REQ_CODE_PAY_SUBSCRIPTION)
+      return;
+
+    onRetryClick();
   }
 
   @Override
@@ -318,7 +328,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (frag == null || frag.getActivity() == null)
         return;
 
-      frag.startActivity(new Intent(frag.requireContext(), BookmarkSubscriptionActivity.class));
+      BookmarkSubscriptionActivity.startForResult(frag, REQ_CODE_PAY_SUBSCRIPTION);
     }
 
     @Override

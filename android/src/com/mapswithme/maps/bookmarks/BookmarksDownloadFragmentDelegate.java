@@ -25,7 +25,6 @@ import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
 {
-  public static final int REQ_CODE_SUBSCRIPTION_ACTIVITY = 301;
   private final static int REQ_CODE_PAY_BOOKMARK = 1;
   private static final int REQ_CODE_CHECK_INVALID_SUBS_DIALOG = 300;
   private static final String CHECK_INVALID_SUBS_DIALOG_TAG = "check_invalid_subs_dialog_tag";
@@ -95,8 +94,11 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_SUBSCRIPTION_ACTIVITY)
+    if (resultCode == Activity.RESULT_OK && requestCode == BookmarksCatalogFragment.REQ_CODE_PAY_SUBSCRIPTION)
       BookmarkManager.INSTANCE.resetInvalidCategories();
+
+    if (requestCode != BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK)
+      return;
 
     if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
       mDownloadController.retryDownloadBookmark();
@@ -165,7 +167,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Override
   public void onPaymentRequired(@NonNull PaymentData data)
   {
-    BookmarkPaymentActivity.startForResult(mFragment, data, REQ_CODE_PAY_BOOKMARK);
+    BookmarkPaymentActivity.startForResult(mFragment, data, BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
   }
 
   @Override
