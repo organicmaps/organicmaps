@@ -145,6 +145,8 @@ set(
   ratings_section_builder.hpp
   region_meta.cpp
   region_meta.hpp
+  regions/admin_suburbs_marker.cpp
+  regions/admin_suburbs_marker.hpp
   regions/collector_region_info.cpp
   regions/collector_region_info.hpp
   regions/country_specifier.cpp

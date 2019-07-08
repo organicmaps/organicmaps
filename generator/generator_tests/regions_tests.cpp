@@ -528,11 +528,9 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusCitySuburb)
   TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
                         u8"locality: Омск"),
        ());
-  /* FIXME:
   TEST(HasName(regions, u8"Россия, region: Омская область, subregion: городской округ Омск, "
                         u8"locality: Омск, suburb: Кировский административный округ"),
        ());
-  */
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
@@ -560,14 +558,12 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
                u8"Россия, region: Москва, subregion: Западный административный округ, "
                u8"locality: Москва"),
        ());
-  /* FIXME:
   TEST(HasName(regions, u8"Россия, region: Москва, subregion: Западный административный округ, "
                         u8"locality: Москва, suburb: Раменки"),
        ());
   TEST(HasName(regions, u8"Россия, region: Москва, subregion: Западный административный округ, "
                         u8"locality: Москва, suburb: Раменки, sublocality: Воробъёвы горы"),
        ());
-  */
   TEST(HasName(regions,
                u8"Россия, region: Москва, subregion: Западный административный округ, "
                u8"locality: Москва, sublocality: Центр"),
@@ -592,12 +588,10 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusSPetersburgSuburb)
   });
 
   TEST(HasName(regions, u8"Россия, region: Санкт-Петербург, locality: Санкт-Петербург"), ());
-  /* FIXME:
   TEST(HasName(regions, u8"Россия, region: Санкт-Петербург, locality: Санкт-Петербург, "
                         u8"suburb: Центральный район"),
        ());
   TEST(HasName(regions, u8"Россия, region: Санкт-Петербург, locality: Санкт-Петербург, "
                         u8"suburb: Центральный район, sublocality: Дворцовый округ"),
        ());
-  */
 }
