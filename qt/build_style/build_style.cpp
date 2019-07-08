@@ -68,6 +68,33 @@ void BuildAndApply(QString const & mapcssFile)
   }
 }
 
+void BuildIfNecessaryAndApply(QString const & mapcssFile)
+{
+  if (!QFile(mapcssFile).exists())
+    throw std::runtime_error("mapcss files does not exist");
+
+  QDir const projectDir = QFileInfo(mapcssFile).absoluteDir();
+  QString const styleDir = projectDir.absolutePath() + QDir::separator();
+  QString const outputDir = styleDir + "out" + QDir::separator();
+
+  if (QDir(outputDir).exists())
+  {
+    try
+    {
+      ApplyDrawingRules(outputDir);
+      ApplySkins(outputDir);
+    }
+    catch (std::exception const & ex)
+    {
+      BuildAndApply(mapcssFile);
+    }
+  }
+  else
+  {
+    BuildAndApply(mapcssFile);
+  }
+}
+
 void RunRecalculationGeometryScript(QString const & mapcssFile)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();

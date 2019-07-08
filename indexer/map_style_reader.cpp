@@ -101,7 +101,12 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
   if (GetPlatform().IsFileExistsByFullPath(overriddenRulesFile))
     rulesFile = overriddenRulesFile;
 
+#ifdef BUILD_DESIGNER
+  // For Designer tool we have to look first into the resource folder.
+  return GetPlatform().GetReader(rulesFile, "rwf");
+#else
   return GetPlatform().GetReader(rulesFile);
+#endif
 }
 
 ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
@@ -115,7 +120,12 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
   if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
     resFile = overriddenResFile;
 
+#ifdef BUILD_DESIGNER
+  // For Designer tool we have to look first into the resource folder.
+  return GetPlatform().GetReader(resFile, "rwf");
+#else
   return GetPlatform().GetReader(resFile);
+#endif
 }
 
 ReaderPtr<Reader> StyleReader::GetDefaultResourceReader(std::string const & file) const

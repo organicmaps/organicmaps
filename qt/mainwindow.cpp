@@ -761,7 +761,7 @@ void MainWindow::OnBuildStyle()
   try
   {
     build_style::BuildAndApply(m_mapcssFilePath);
-    // m_pDrawWidget->RefreshDrawingRules();
+    m_pDrawWidget->RefreshDrawingRules();
 
     bool enabled;
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
