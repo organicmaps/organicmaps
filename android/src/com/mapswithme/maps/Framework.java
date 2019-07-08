@@ -328,6 +328,8 @@ public class Framework
 
   public static native String nativeGetUserAgent();
 
+  public static native String nativeGetDeviceId();
+
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 

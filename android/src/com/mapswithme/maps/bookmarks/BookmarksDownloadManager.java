@@ -55,6 +55,7 @@ public class BookmarksDownloadManager
         .Request(dstUri)
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
         .addRequestHeader(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent())
+        .addRequestHeader(HttpClient.HEADER_DEVICE_ID, Framework.nativeGetDeviceId())
         .setDestinationInExternalFilesDir(mContext, null, dstUri.getLastPathSegment());
 
     String accessToken = Framework.nativeGetAccessToken();

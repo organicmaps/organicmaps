@@ -10,6 +10,7 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/notifications/notification_queue.hpp"
 #include "map/user_mark.hpp"
+#include "map/purchase.hpp"
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
@@ -1252,6 +1253,12 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetUserAgent(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().GetAppUserAgent());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDeviceId(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, Purchase::GetDeviceId());
 }
 
 JNIEXPORT jobjectArray JNICALL
