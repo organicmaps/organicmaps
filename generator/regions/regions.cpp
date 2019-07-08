@@ -104,7 +104,6 @@ private:
     auto properties = base::NewJSONObject();
 
     Localizator localizator(*properties);
-    boost::optional<std::string> dref;
 
     for (auto const & p : path)
     {
@@ -123,18 +122,21 @@ private:
             },
             "address");
       }
-
-      if (!dref && region.GetId() != main.GetId())
-        dref = KeyValueStorage::SerializeDref(region.GetId().GetEncodedId());
     }
 
     localizator.AddLocale("name", main);
     ToJSONObject(*properties, "rank", main.GetRank());
 
-    if (dref)
-      ToJSONObject(*properties, "dref", *dref);
+    if (path.size() > 1)
+    {
+      auto const & parent = (*(path.rbegin() + 1))->GetData();
+      auto const parentId = parent.GetId().GetEncodedId();
+      ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(parentId));
+    }
     else
+    {
       ToJSONObject(*properties, "dref", base::NewJSONNull());
+    }
 
     auto const & country = path.front()->GetData();
     if (auto && isoCode = country.GetIsoCode())
