@@ -153,6 +153,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mProgressView = root.findViewById(R.id.progress);
     initWebView();
     mRetryBtn.setOnClickListener(v -> onRetryClick());
+    mDelegate.onCreateView(savedInstanceState);
     return root;
   }
 

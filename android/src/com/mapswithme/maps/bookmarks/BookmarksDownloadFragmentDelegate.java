@@ -58,14 +58,6 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
                                                                 new CatalogListenerDecorator(mFragment));
     if (savedInstanceState != null)
       mDownloadController.onRestore(savedInstanceState);
-
-    checkInvalidCategories();
-  }
-
-  private void checkInvalidCategories()
-  {
-    BookmarkManager.INSTANCE.addInvalidCategoriesListener(mInvalidCategoriesListener);
-    BookmarkManager.INSTANCE.checkInvalidCategories();
   }
 
   void onStart()
@@ -80,6 +72,15 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     mAuthorizer.detach();
     mDownloadController.detach();
     mInvalidCategoriesListener.detach();
+  }
+
+  void onCreateView(@Nullable Bundle savedInstanceState)
+  {
+    BookmarkManager.INSTANCE.addInvalidCategoriesListener(mInvalidCategoriesListener);
+    if (savedInstanceState != null)
+      return;
+
+    BookmarkManager.INSTANCE.checkInvalidCategories();
   }
 
   void onDestroyView()
@@ -199,6 +200,8 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   {
     @Nullable
     private Fragment mFrag;
+    @Nullable
+    private Boolean mPendingInvalidCategoriesResult;
 
     public InvalidCategoriesListener(@NonNull Fragment fragment)
     {
@@ -209,7 +212,22 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     public void onCheckInvalidCategories(boolean hasInvalidCategories)
     {
       BookmarkManager.INSTANCE.removeInvalidCategoriesListener(this);
-      if (mFrag == null || !hasInvalidCategories)
+
+      if (mFrag == null)
+      {
+        mPendingInvalidCategoriesResult = hasInvalidCategories;
+        return;
+      }
+
+      if (!hasInvalidCategories)
+        return;
+
+      showDialog();
+    }
+
+    private void showDialog()
+    {
+      if (mFrag == null)
         return;
 
       AlertDialog dialog = new AlertDialog.Builder()
@@ -225,6 +243,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
           .setNegativeBtnTextColor(R.color.rating_horrible)
           .build();
 
+      dialog.setCancelable(false);
       dialog.setTargetFragment(mFrag, REQ_CODE_CHECK_INVALID_SUBS_DIALOG);
       dialog.show(mFrag, CHECK_INVALID_SUBS_DIALOG_TAG);
     }
@@ -233,6 +252,11 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     public void attach(@NonNull Fragment object)
     {
       mFrag = object;
+      if (Boolean.TRUE.equals(mPendingInvalidCategoriesResult))
+      {
+        showDialog();
+        mPendingInvalidCategoriesResult = null;
+      }
     }
 
     @Override

@@ -87,7 +87,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     viewPager.setCurrentItem(saveAndGetInitialPage());
     tabLayout.setupWithViewPager(viewPager);
     viewPager.addOnPageChangeListener(new PageChangeListener());
-
+    mDelegate.onCreateView(savedInstanceState);
     return root;
   }
 
