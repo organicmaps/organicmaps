@@ -7,6 +7,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
 {
@@ -27,6 +29,9 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
+    Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+    String tag = InvalidSubscriptionAlertDialogCallback.class.getSimpleName();
+    logger.i(tag, "Delete invalid categories, user didn't continue subscription...");
     BookmarkManager.INSTANCE.deleteInvalidCategories();
   }
 

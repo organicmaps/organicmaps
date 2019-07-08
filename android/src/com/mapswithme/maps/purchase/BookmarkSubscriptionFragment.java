@@ -428,6 +428,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @Override
     public void onPingFinished(boolean isServiceAvailable)
     {
+      LOGGER.i(TAG, "Ping finished, isServiceAvailable: " + isServiceAvailable);
       if (getUiObject() == null)
         mPendingPingingResult = isServiceAvailable;
       else

@@ -22,11 +22,14 @@ import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
 {
-
+  private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
+  private final static String TAG = BookmarksDownloadFragmentDelegate.class.getSimpleName();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Authorizer mAuthorizer;
@@ -77,6 +80,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     if (savedInstanceState != null)
       return;
 
+    LOGGER.i(TAG, "Check invalid bookmark categories...");
     BookmarkManager.INSTANCE.checkInvalidCategories();
   }
 
@@ -211,6 +215,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     @Override
     public void onCheckInvalidCategories(boolean hasInvalidCategories)
     {
+      LOGGER.i(TAG, "Has invalid categories: " + hasInvalidCategories);
       BookmarkManager.INSTANCE.removeInvalidCategoriesListener(this);
 
       if (mFrag == null)
