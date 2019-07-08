@@ -113,18 +113,19 @@ void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder:
     CHECK(elementData.m_polygon.size() == 1 || elementData.m_polygon.size() == 2, ());
     if (elementData.m_polygon.size() == 1)
     {
-      fb.SetCenter({double{elementData.m_polygon[0].x}, double{elementData.m_polygon[0].y}});
+      fb.SetCenter({static_cast<double>(elementData.m_polygon[0].x),
+                    static_cast<double>(elementData.m_polygon[0].y)});
     }
     else if (elementData.m_polygon.size() == 2)
     {
       auto const & p1 = elementData.m_polygon[0];
       auto const & p2 = elementData.m_polygon[1];
       vector<m2::PointD> poly = {
-          {double{p1.x}, double{p1.y}},
-          {double{p1.x}, double{p2.y}},
-          {double{p2.x}, double{p2.y}},
-          {double{p2.x}, double{p1.y}},
-          {double{p1.x}, double{p1.x}}};
+          {static_cast<double>(p1.x), static_cast<double>(p1.y)},
+          {static_cast<double>(p1.x), static_cast<double>(p2.y)},
+          {static_cast<double>(p2.x), static_cast<double>(p2.y)},
+          {static_cast<double>(p2.x), static_cast<double>(p1.y)},
+          {static_cast<double>(p1.x), static_cast<double>(p1.y)}};
       fb.AddPolygon(poly);
       fb.SetHoles({});
       fb.SetArea();
