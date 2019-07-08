@@ -25,6 +25,14 @@ public class PurchaseUtils
   final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
   final static int REQ_CODE_START_TRANSACTION_FAILURE = 4;
   final static int REQ_CODE_PING_FAILURE = 5;
+  public static final int REQ_CODE_CHECK_INVALID_SUBS_DIALOG = 6;
+  public static final int REQ_CODE_BMK_SUBS_SUCCESS_DIALOG = 7;
+  public final static int REQ_CODE_PAY_CONTINUE_SUBSCRIPTION = 8;
+  public final static int REQ_CODE_PAY_BOOKMARK = 9;
+  public final static int REQ_CODE_PAY_SUBSCRIPTION = 10;
+  public static final String DIALOG_TAG_CHECK_INVALID_SUBS = "check_invalid_subs";
+  public static final String DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS = "bmk_subscription_success";
+
   final static int WEEKS_IN_YEAR = 52;
   final static int MONTHS_IN_YEAR = 12;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);

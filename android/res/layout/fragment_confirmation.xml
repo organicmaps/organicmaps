@@ -3,25 +3,27 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:orientation="vertical"
-  android:layout_width="wrap_content"
+  android:layout_width="match_parent"
+  android:minWidth="@dimen/dialog_min_width"
   android:layout_height="wrap_content"
   android:gravity="center_horizontal"
   android:padding="@dimen/margin_base">
   <LinearLayout
     android:orientation="horizontal"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
       android:id="@+id/title"
       android:textAppearance="?android:attr/textAppearanceLarge"
-      android:gravity="center|start"
-      android:fontFamily="@string/robotoMedium"
+      android:gravity="start"
       android:layout_gravity="center_vertical"
+      android:fontFamily="@string/robotoMedium"
       android:textStyle="bold"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:layout_width="0dp"
       tools:ignore="UnusedAttribute"
+      tools:text="Woohoo!"
       android:layout_marginRight="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"/>
     <ImageView

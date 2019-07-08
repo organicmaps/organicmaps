@@ -21,13 +21,11 @@ import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
+import com.mapswithme.maps.purchase.PurchaseUtils;
 
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
 {
-  private final static int REQ_CODE_PAY_BOOKMARK = 1;
-  private static final int REQ_CODE_CHECK_INVALID_SUBS_DIALOG = 300;
-  private static final String CHECK_INVALID_SUBS_DIALOG_TAG = "check_invalid_subs_dialog_tag";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -94,15 +92,15 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (resultCode == Activity.RESULT_OK && requestCode == BookmarksCatalogFragment.REQ_CODE_PAY_SUBSCRIPTION)
+    if (resultCode == Activity.RESULT_OK && requestCode == PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION)
       BookmarkManager.INSTANCE.resetInvalidCategories();
 
-    if (requestCode != BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK)
+    if (requestCode != PurchaseUtils.REQ_CODE_PAY_BOOKMARK)
       return;
 
-    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
+    if (resultCode == Activity.RESULT_OK)
       mDownloadController.retryDownloadBookmark();
-    else if (requestCode == REQ_CODE_PAY_BOOKMARK)
+    else
       mFragment.requireActivity().finish();
   }
 
@@ -167,7 +165,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Override
   public void onPaymentRequired(@NonNull PaymentData data)
   {
-    BookmarkPaymentActivity.startForResult(mFragment, data, BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
+    BookmarkPaymentActivity.startForResult(mFragment, data, PurchaseUtils.REQ_CODE_PAY_BOOKMARK);
   }
 
   @Override
@@ -224,10 +222,10 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
       if (!hasInvalidCategories)
         return;
 
-      showDialog();
+      showInvalidBookmarksDialog();
     }
 
-    private void showDialog()
+    private void showInvalidBookmarksDialog()
     {
       if (mFrag == null)
         return;
@@ -237,7 +235,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
           .setMessageId(R.string.renewal_screen_message)
           .setPositiveBtnId(R.string.renewal_screen_button_restore)
           .setNegativeBtnId(R.string.renewal_screen_button_cancel)
-          .setReqCode(REQ_CODE_CHECK_INVALID_SUBS_DIALOG)
+          .setReqCode(PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG)
           .setImageResId(R.drawable.ic_error_red)
           .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
           .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
@@ -246,8 +244,8 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
           .build();
 
       dialog.setCancelable(false);
-      dialog.setTargetFragment(mFrag, REQ_CODE_CHECK_INVALID_SUBS_DIALOG);
-      dialog.show(mFrag, CHECK_INVALID_SUBS_DIALOG_TAG);
+      dialog.setTargetFragment(mFrag, PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG);
+      dialog.show(mFrag, PurchaseUtils.DIALOG_TAG_CHECK_INVALID_SUBS);
     }
 
     @Override
@@ -256,7 +254,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
       mFrag = object;
       if (Boolean.TRUE.equals(mPendingInvalidCategoriesResult))
       {
-        showDialog();
+        showInvalidBookmarksDialog();
         mPendingInvalidCategoriesResult = null;
       }
     }

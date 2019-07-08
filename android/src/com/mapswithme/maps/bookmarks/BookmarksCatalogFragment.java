@@ -66,8 +66,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private static final String FAILED_PURCHASE_DIALOG_TAG = "failed_purchase_dialog_tag";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
-  static final int REQ_CODE_PAY_SUBSCRIPTION = 1;
-  static final int REQ_CODE_PAY_BOOKMARK = 2;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private WebViewBookmarksCatalogClient mWebViewClient;
@@ -97,7 +95,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private BookmarksDownloadFragmentDelegate mDelegate;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private AlertDialogCallback mDialogClickDelegate;
+  private AlertDialogCallback mInvalidSubsDialogDelegate;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -105,7 +103,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onCreate(savedInstanceState);
     mDelegate = new BookmarksDownloadFragmentDelegate(this);
     mDelegate.onCreate(savedInstanceState);
-    mDialogClickDelegate = new InvalidSubscriptionAlertDialogCallback(this);
+    mInvalidSubsDialogDelegate = new InvalidSubscriptionAlertDialogCallback(this);
   }
 
   @Override
@@ -217,10 +215,25 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (resultCode != Activity.RESULT_OK)
       return;
 
-    if (requestCode != REQ_CODE_PAY_SUBSCRIPTION)
+    if (requestCode != PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION)
       return;
 
-    onRetryClick();
+    showSubscriptionSuccessDialog();
+  }
+
+  private void showSubscriptionSuccessDialog()
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.subscription_success_dialog_title)
+        .setMessageId(R.string.subscription_success_dialog_message)
+        .setPositiveBtnId(R.string.subscription_error_button)
+        .setReqCode(PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+        .setDialogFactory(new ConfirmationDialogFactory())
+        .build();
+    dialog.setTargetFragment(this, PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG);
+    dialog.show(this, PurchaseUtils.DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS);
   }
 
   @Override
@@ -268,19 +281,38 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode, which);
+    switch (requestCode)
+    {
+      case PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG:
+        mInvalidSubsDialogDelegate.onAlertDialogPositiveClick(requestCode, which);
+        break;
+      case PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG:
+        onRetryClick();
+        break;
+    }
   }
 
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode,which);
+    if (requestCode == PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG)
+    {
+      mInvalidSubsDialogDelegate.onAlertDialogNegativeClick(requestCode, which);
+    }
   }
 
   @Override
   public void onAlertDialogCancel(int requestCode)
   {
-    mDialogClickDelegate.onAlertDialogCancel(requestCode);
+    switch (requestCode)
+    {
+      case PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG:
+        mInvalidSubsDialogDelegate.onAlertDialogCancel(requestCode);
+        break;
+      case PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG:
+        onRetryClick();
+        break;
+    }
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
@@ -328,7 +360,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (frag == null || frag.getActivity() == null)
         return;
 
-      BookmarkSubscriptionActivity.startForResult(frag, REQ_CODE_PAY_SUBSCRIPTION);
+      BookmarkSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
     }
 
     @Override

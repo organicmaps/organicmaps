@@ -420,9 +420,17 @@ public class AlertDialog extends BaseMwmDialogFragment
       View root = inflater.inflate(fragment.getLayoutId(), null, false);
 
       TextView declineBtn = root.findViewById(R.id.decline_btn);
-      declineBtn.setText(args.getInt(ARG_NEGATIVE_BUTTON_ID));
-      declineBtn.setOnClickListener(
-          v -> fragment.onNegativeClicked(DialogInterface.BUTTON_NEGATIVE));
+      int declineBtnTextId = args.getInt(ARG_NEGATIVE_BUTTON_ID);
+      if (declineBtnTextId != INVALID_ID)
+      {
+        declineBtn.setText(args.getInt(ARG_NEGATIVE_BUTTON_ID));
+        declineBtn.setOnClickListener(
+            v -> fragment.onNegativeClicked(DialogInterface.BUTTON_NEGATIVE));
+      }
+      else
+      {
+        UiUtils.hide(declineBtn);
+      }
 
       TextView acceptBtn = root.findViewById(R.id.accept_btn);
       acceptBtn.setText(args.getInt(ARG_POSITIVE_BUTTON_ID));
