@@ -39,7 +39,7 @@ NameScore GetScore(string const & name, string const & query, TokenRange const &
     params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 
-  return GetNameScore(name, TokenSlice(params, tokenRange));
+  return GetNameScores(name, TokenSlice(params, tokenRange)).m_nameScore;
 }
 
 UNIT_TEST(NameTest_Smoke)
@@ -49,11 +49,15 @@ UNIT_TEST(NameTest_Smoke)
   TEST_EQUAL(GetScore("New York", "York", TokenRange(0, 1)), NAME_SCORE_SUBSTRING, ());
   TEST_EQUAL(GetScore("Moscow", "Red Square Mosc", TokenRange(2, 3)), NAME_SCORE_PREFIX, ());
   TEST_EQUAL(GetScore("Moscow", "Red Square Moscow", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH, ());
+  TEST_EQUAL(GetScore("Moscow", "Red Square Moscw", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH, ());
   TEST_EQUAL(GetScore("San Francisco", "Fran", TokenRange(0, 1)), NAME_SCORE_SUBSTRING, ());
   TEST_EQUAL(GetScore("San Francisco", "Fran ", TokenRange(0, 1)), NAME_SCORE_ZERO, ());
   TEST_EQUAL(GetScore("San Francisco", "Sa", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
   TEST_EQUAL(GetScore("San Francisco", "San ", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермон", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтово", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
   TEST_EQUAL(GetScore("фото на документы", "фото", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
   TEST_EQUAL(GetScore("фотоателье", "фото", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
 }

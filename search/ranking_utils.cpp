@@ -1,4 +1,5 @@
 #include "search/ranking_utils.hpp"
+
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
@@ -25,6 +26,18 @@ struct TokenInfo
   bool m_inFeatureTypes = false;
 };
 }  // namespace
+
+// static
+NameScores NameScores::BestScores(NameScores const & lhs, NameScores const & rhs)
+{
+  if (lhs.m_nameScore != rhs.m_nameScore)
+    return lhs.m_nameScore > rhs.m_nameScore ? lhs : rhs;
+
+  NameScores result = lhs;
+  result.m_errorsMade = ErrorsMade::Min(lhs.m_errorsMade, rhs.m_errorsMade);
+
+  return result;
+}
 
 // CategoriesInfo ----------------------------------------------------------------------------------
 CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
@@ -68,30 +81,32 @@ string DebugPrint(ErrorsMade const & errorsMade)
 
 namespace impl
 {
-bool FullMatch(QueryParams::Token const & token, UniString const & text)
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
 {
-  return token.AnyOfSynonyms([&text](UniString const & s) { return s == text; });
-}
-
-bool PrefixMatch(QueryParams::Token const & token, UniString const & text)
-{
-  return token.AnyOfSynonyms([&text](UniString const & s) { return StartsWith(text, s); });
-}
-
-ErrorsMade GetMinErrorsMade(vector<strings::UniString> const & tokens,
-                            strings::UniString const & text)
-{
+  ErrorsMade errorsMade;
   auto const dfa = BuildLevenshteinDFA(text);
 
-  ErrorsMade errorsMade;
-
-  for (auto const & token : tokens)
-  {
+  token.ForEachSynonym([&](strings::UniString const & s) {
     auto it = dfa.Begin();
-    strings::DFAMove(it, token.begin(), token.end());
+    strings::DFAMove(it, s.begin(), s.end());
     if (it.Accepts())
       errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.ErrorsMade()));
-  }
+  });
+
+  return errorsMade;
+}
+
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+{
+  ErrorsMade errorsMade;
+  auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(text));
+
+  token.ForEachSynonym([&](strings::UniString const & s) {
+    auto it = dfa.Begin();
+    strings::DFAMove(it, s.begin(), s.end());
+    if (!it.Rejects())
+      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.ErrorsMade()));
+  });
 
   return errorsMade;
 }

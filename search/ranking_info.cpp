@@ -14,32 +14,32 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double constexpr kDistanceToPivot = -0.4639722;
+double constexpr kDistanceToPivot = -0.8175524;
 double constexpr kRank = 1.0000000;
 // todo: (@t.yan) Adjust.
 double constexpr kPopularity = 0.0500000;
 // todo: (@t.yan) Adjust.
 double constexpr kRating = 0.0500000;
-double constexpr kFalseCats = -1.0000000;
-double constexpr kErrorsMade = -0.0221024;
-double constexpr kMatchedFraction = 0.3817912;
-double constexpr kAllTokensUsed = 0.6343994;
+double constexpr kFalseCats = -0.3745520;
+double constexpr kErrorsMade = -0.1090870;
+double constexpr kMatchedFraction = 0.7859737;
+double constexpr kAllTokensUsed = 1.0000000;
 double constexpr kHasName = 0.5;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
-  -0.2330337 /* Zero */,
-  0.0413221 /* Substring */,
-  0.0578796 /* Prefix */,
-  0.1338319 /* Full Match */
+  -0.1752510 /* Zero */,
+  0.0309111 /* Substring */,
+  0.0127291 /* Prefix */,
+  0.1316108 /* Full Match */
 };
 double constexpr kType[Model::TYPE_COUNT] = {
-  -0.1252380 /* POI */,
-  -0.1252380 /* Building */,
-  -0.1197951 /* Street */,
-  -0.1371600 /* Unclassified */,
-  -0.0394436 /* Village */,
-  0.1370968 /* City */,
-  -0.0810345 /* State */,
-  0.3655743 /* Country */
+  -0.1554708 /* POI */,
+  -0.1554708 /* Building */,
+  -0.1052415 /* Street */,
+  -0.1650949 /* Unclassified */,
+  -0.1556262 /* Village */,
+  0.1771632 /* City */,
+  0.0604687 /* State */,
+  0.3438015 /* Country */
 };
 
 // Coeffs sanity checks.
@@ -102,6 +102,7 @@ string DebugPrint(RankingInfo const & info)
      << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
+  os << ", m_maxErrorsMade:" << info.m_maxErrorsMade;
   os << ", m_matchedFraction:" << info.m_matchedFraction;
   os << ", m_type:" << DebugPrint(info.m_type);
   os << ", m_pureCats:" << info.m_pureCats;
@@ -175,8 +176,14 @@ double RankingInfo::GetLinearModelRank() const
   return result;
 }
 
-size_t RankingInfo::GetErrorsMade() const
+double RankingInfo::GetErrorsMade() const
 {
-  return m_errorsMade.IsValid() ? m_errorsMade.m_errorsMade : 0;
+  if (!m_errorsMade.IsValid())
+    return 1.0;
+
+  if (m_maxErrorsMade == 0)
+    return 0.0;
+
+  return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_maxErrorsMade);
 }
 }  // namespace search

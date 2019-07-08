@@ -93,19 +93,15 @@ struct ErrorsMade
   size_t m_errorsMade = kInfiniteErrors;
 };
 
-string DebugPrint(ErrorsMade const & errorsMade);
+std::string DebugPrint(ErrorsMade const & errorsMade);
 
 namespace impl
 {
-bool FullMatch(QueryParams::Token const & token, strings::UniString const & text);
-
-bool PrefixMatch(QueryParams::Token const & token, strings::UniString const & text);
-
 // Returns the minimum number of errors needed to match |text| with
 // any of the |tokens|.  If it's not possible in accordance with
 // GetMaxErrorsForToken(|text|), returns kInfiniteErrors.
-ErrorsMade GetMinErrorsMade(std::vector<strings::UniString> const & tokens,
-                            strings::UniString const & text);
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
 }  // namespace impl
 
 // The order and numeric values are important here.  Please, check all
@@ -120,6 +116,14 @@ enum NameScore
   NAME_SCORE_COUNT
 };
 
+struct NameScores
+{
+  static NameScores BestScores(NameScores const & lhs, NameScores const & rhs);
+
+  NameScore m_nameScore = NAME_SCORE_ZERO;
+  ErrorsMade m_errorsMade;
+};
+
 // Returns true when |s| is a stop-word and may be removed from a query.
 bool IsStopWord(strings::UniString const & s);
 
@@ -127,78 +131,66 @@ bool IsStopWord(strings::UniString const & s);
 void PrepareStringForMatching(std::string const & name, std::vector<strings::UniString> & tokens);
 
 template <typename Slice>
-NameScore GetNameScore(std::string const & name, Slice const & slice)
+NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice const & slice)
 {
   if (slice.Empty())
-    return NAME_SCORE_ZERO;
-
-  std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens), Delimiters());
-  return GetNameScore(tokens, slice);
-}
-
-template <typename Slice>
-NameScore GetNameScore(std::vector<strings::UniString> const & tokens, Slice const & slice)
-{
-  if (slice.Empty())
-    return NAME_SCORE_ZERO;
+    return {};
 
   size_t const n = tokens.size();
   size_t const m = slice.Size();
 
   bool const lastTokenIsPrefix = slice.IsPrefix(m - 1);
 
-  NameScore score = NAME_SCORE_ZERO;
+  NameScores scores;
   for (size_t offset = 0; offset + m <= n; ++offset)
   {
+    ErrorsMade totalErrorsMade;
     bool match = true;
     for (size_t i = 0; i < m - 1 && match; ++i)
-      match = match && impl::FullMatch(slice.Get(i), tokens[offset + i]);
+    {
+      auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[offset + i]);
+      match = match && errorsMade.IsValid();
+      totalErrorsMade += errorsMade;
+    }
+
     if (!match)
       continue;
 
-    bool const fullMatch = impl::FullMatch(slice.Get(m - 1), tokens[offset + m - 1]);
-    bool const prefixMatch =
-        lastTokenIsPrefix && impl::PrefixMatch(slice.Get(m - 1), tokens[offset + m - 1]);
-    if (!fullMatch && !prefixMatch)
+    auto const prefixErrorsMade =
+        impl::GetPrefixErrorsMade(slice.Get(m - 1), tokens[offset + m - 1]);
+    auto const fullErrorsMade = impl::GetErrorsMade(slice.Get(m - 1), tokens[offset + m - 1]);
+    if (!fullErrorsMade.IsValid() && !(prefixErrorsMade.IsValid() && lastTokenIsPrefix))
       continue;
 
-    if (m == n && fullMatch)
-      return NAME_SCORE_FULL_MATCH;
+    if (m == n && fullErrorsMade.IsValid())
+    {
+      scores.m_nameScore = NAME_SCORE_FULL_MATCH;
+      scores.m_errorsMade = totalErrorsMade + fullErrorsMade;
+      return scores;
+    }
 
     if (offset == 0)
-      score = std::max(score, NAME_SCORE_PREFIX);
-
-    score = std::max(score, NAME_SCORE_SUBSTRING);
+    {
+      scores.m_nameScore = std::max(scores.m_nameScore, NAME_SCORE_PREFIX);
+      scores.m_errorsMade = totalErrorsMade + prefixErrorsMade;
+    }
+    else
+    {
+      scores.m_nameScore = std::max(scores.m_nameScore, NAME_SCORE_SUBSTRING);
+      scores.m_errorsMade = totalErrorsMade + prefixErrorsMade;
+    }
   }
-  return score;
-}
-
-string DebugPrint(NameScore score);
-
-// Returns total number of errors that were made during matching
-// feature |tokens| by a query - query tokens are in |slice|.
-template <typename Slice>
-ErrorsMade GetErrorsMade(std::vector<strings::UniString> const & tokens, Slice const & slice)
-{
-  ErrorsMade totalErrorsMade;
-
-  for (size_t i = 0; i < slice.Size(); ++i)
-  {
-    ErrorsMade errorsMade;
-    slice.Get(i).ForEachSynonym([&](strings::UniString const & s) {
-      errorsMade = ErrorsMade::Min(errorsMade, impl::GetMinErrorsMade(tokens, s));
-    });
-
-    totalErrorsMade += errorsMade;
-  }
-
-  return totalErrorsMade;
+  return scores;
 }
 
 template <typename Slice>
-ErrorsMade GetErrorsMade(std::string const & s, Slice const & slice)
+NameScores GetNameScores(std::string const & name, Slice const & slice)
 {
-  return GetErrorsMade({strings::MakeUniString(s)}, slice);
+  std::vector<strings::UniString> tokens;
+  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
+                 Delimiters());
+  return GetNameScores(tokens, slice);
 }
+
+std::string DebugPrint(NameScore score);
 }  // namespace search

@@ -26,7 +26,7 @@ struct RankingInfo
   // correspond to important features.
   double GetLinearModelRank() const;
 
-  size_t GetErrorsMade() const;
+  double GetErrorsMade() const;
 
   // Distance from the feature to the pivot point.
   double m_distanceToPivot = kMaxDistMeters;
@@ -43,8 +43,10 @@ struct RankingInfo
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
 
-  // Number of typos.
+  // Number of misprints.
   ErrorsMade m_errorsMade;
+  // Maximal number of allowed misprints for query.
+  size_t m_maxErrorsMade;
 
   // Fraction of characters from original query matched to feature.
   double m_matchedFraction = 0.0;

@@ -561,8 +561,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("кафе", ErrorsMade());
 
   checkErrors("Cafe Yesenina", ErrorsMade(0));
-  checkErrors("Cafe Esenina", ErrorsMade(1));
   checkErrors("Cafe Jesenina", ErrorsMade(1));
+  // We allow only Y->{E, J, I, U} misprints for the first letter.
+  checkErrors("Cafe Esenina", ErrorsMade(2));
 
   checkErrors("Островского кафе", ErrorsMade(0));
   checkErrors("Астровского кафе", ErrorsMade(1));
@@ -1897,9 +1898,9 @@ UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
-    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, cafe)}), ());
-    TEST(results[0].GetRankingInfo().m_exactMatch, ());
-    TEST(!results[1].GetRankingInfo().m_exactMatch, ());
+    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, lermontov)}), ());
+    TEST(!results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(results[1].GetRankingInfo().m_exactMatch, ());
   }
 
   {

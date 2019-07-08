@@ -33,26 +33,33 @@ namespace search
 {
 namespace
 {
-struct NameScores
+size_t GetMaxNumberOfErros(Geocoder::Params const & params)
 {
-  NameScore m_nameScore = NAME_SCORE_ZERO;
-  ErrorsMade m_errorsMade;
+  size_t result = 0;
+  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+    result += GetMaxErrorsForToken(params.GetToken(i).GetOriginal());
+
+  return result;
+}
+
+struct NameScoresEx : public NameScores
+{
   size_t m_matchedLength = 0;
 };
 
 template <typename Slice>
 void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
-  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(name, slice));
-  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(name, slice));
+  auto const newScores = GetNameScores(name, slice);
+  bestScores = NameScores::BestScores(newScores, bestScores);
 }
 
 template <typename Slice>
 void UpdateNameScores(vector<strings::UniString> const & tokens, Slice const & slice,
                       NameScores & bestScores)
 {
-  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(tokens, slice));
-  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
+  auto const newScores = GetNameScores(tokens, slice);
+  bestScores = NameScores::BestScores(newScores, bestScores);
 }
 
 // This function supports only street names like "abcdstrasse"/"abcd strasse".
@@ -94,10 +101,10 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
   return result;
 }
 
-NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
-                         TokenRange const & range, Model::Type type)
+NameScoresEx GetNameScores(FeatureType & ft, Geocoder::Params const & params,
+                           TokenRange const & range, Model::Type type)
 {
-  NameScores bestScores;
+  NameScoresEx bestScores;
 
   TokenSlice const slice(params, range);
   TokenSliceNoCategories const sliceNoCategories(params, range);
@@ -420,6 +427,7 @@ class RankerResultMaker
 
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
+      info.m_maxErrorsMade = GetMaxNumberOfErros(m_params);
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);
