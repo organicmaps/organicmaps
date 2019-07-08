@@ -59,7 +59,7 @@ std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
       !name.ForEachLanguage(kPreferredLanguagesForTransliterate.at(languageCode), fn))
     name.ForEach(fn);
 
-  return s;
+  return std::string();
 }
 
 Languages const & Localizator::LocaleLanguages() const { return kLocalelanguages; }
