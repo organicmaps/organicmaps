@@ -148,14 +148,16 @@ void LocalityPointIntegrator::EmboundBy(LevelRegion const & region)
       continue;
 
     // Skip error in boost::geometry::intersection(): there are A and B when
-    // intersection(A, B) != null and intersection(A, intersection(A, B)) == null.
-    auto checkPolygon = boost::geometry::model::multi_polygon<BoostPolygon>{};
-    boost::geometry::intersection(regionPolygon, polygon, checkPolygon);
-    if (checkPolygon.empty())
-      continue;
-
-    m_localityRegion.SetPolygon(std::make_shared<BoostPolygon>(std::move(polygon)));
-    return;
+    // intersection(A, B) != null but intersection(A, B) != intersection(A, intersection(A, B))
+    // or !covered_by(intersection(A, B), A).
+    auto checkLocalityRegion = m_localityRegion;
+    checkLocalityRegion.SetPolygon(std::make_shared<BoostPolygon>(std::move(polygon)));
+    if (0 < RegionsBuilder::CompareAffiliation(region, checkLocalityRegion,
+                                               m_countrySpecifier))
+    {
+      m_localityRegion = checkLocalityRegion;
+      return;
+    }
   }
 
   LOG(LWARNING, ("Failed to embound",
