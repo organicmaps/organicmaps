@@ -71,9 +71,11 @@ JSONPtr LoadFromString(std::string const & str);
 std::string DumpToString(JSONPtr const & json, size_t flags = 0);
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
+json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field);
 json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
 json_t * GetJSONOptionalField(json_t * root, std::string const & field);
+json_t const * GetJSONOptionalField(json_t const * root, std::string const & field);
 json_t * GetJSONOptionalField(json_t * root, char const * field);
 json_t const * GetJSONOptionalField(json_t const * root, char const * field);
 
@@ -103,6 +105,7 @@ T FromJSON(json_t const * root)
 }
 
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
+inline void FromJSON(json_t const * root, json_t const *& value) { value = root; }
 
 void FromJSON(json_t const * root, double & result);
 void FromJSON(json_t const * root, bool & result);
@@ -158,7 +161,7 @@ boost::optional<T> FromJSONObjectOptional(json_t const * root, char const * fiel
 }
 
 template <typename T>
-void FromJSONObjectOptionalField(json_t * root, std::string const & field, T & result)
+void FromJSONObjectOptionalField(json_t const * root, std::string const & field, T & result)
 {
   auto * json = base::GetJSONOptionalField(root, field);
   if (!json)
@@ -287,7 +290,13 @@ void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  json_t * arr = base::GetJSONOptionalField(root, field);
+  FromJSONObjectOptionalField(const_cast<json_t *>(root), field, result);
+}
+
+template <typename T>
+void FromJSONObjectOptionalField(json_t const * root, std::string const & field, std::vector<T> & result)
+{
+  json_t const * arr = base::GetJSONOptionalField(root, field);
   if (!arr)
   {
     result.clear();

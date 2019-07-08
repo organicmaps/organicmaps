@@ -34,6 +34,7 @@ private:
 
   void DeserializeEntryMap(std::vector<std::string> const & linesBuffer, std::size_t const bufferSize,
                            std::multimap<base::GeoObjectId, Entry> & entries, ParsingStats & stats);
+  bool DeserializeId(std::string const & str, uint64_t & id);
 
   std::vector<Entry> MergeEntries(std::vector<std::multimap<base::GeoObjectId, Entry>> & entryParts);
   void CheckDuplicateOsmIds(std::vector<Entry> const & entries, ParsingStats & stats);
