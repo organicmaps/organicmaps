@@ -14,14 +14,22 @@ import android.widget.Toast;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
+import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
+import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
 {
+  public static final int REQ_CODE_SUBSCRIPTION_ACTIVITY = 301;
   private final static int REQ_CODE_PAY_BOOKMARK = 1;
+  private static final int REQ_CODE_CHECK_INVALID_SUBS_DIALOG = 300;
+  private static final String CHECK_INVALID_SUBS_DIALOG_TAG = "check_invalid_subs_dialog_tag";
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Authorizer mAuthorizer;
@@ -33,9 +41,13 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Nullable
   private Runnable mAuthCompletionRunnable;
 
+  @NonNull
+  private final InvalidCategoriesListener mInvalidCategoriesListener;
+
    BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment)
   {
     mFragment = fragment;
+    mInvalidCategoriesListener = new InvalidCategoriesListener(fragment);
   }
 
   void onCreate(@Nullable Bundle savedInstanceState)
@@ -46,18 +58,33 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
                                                                 new CatalogListenerDecorator(mFragment));
     if (savedInstanceState != null)
       mDownloadController.onRestore(savedInstanceState);
+
+    checkInvalidCategories();
+  }
+
+  private void checkInvalidCategories()
+  {
+    BookmarkManager.INSTANCE.addInvalidCategoriesListener(mInvalidCategoriesListener);
+    BookmarkManager.INSTANCE.checkInvalidCategories();
   }
 
   void onStart()
   {
     mAuthorizer.attach(this);
     mDownloadController.attach(this);
+    mInvalidCategoriesListener.attach(mFragment);
   }
 
   void onStop()
   {
     mAuthorizer.detach();
     mDownloadController.detach();
+    mInvalidCategoriesListener.detach();
+  }
+
+  void onDestroyView()
+  {
+    BookmarkManager.INSTANCE.removeInvalidCategoriesListener(mInvalidCategoriesListener);
   }
 
   void onSaveInstanceState(@NonNull Bundle outState)
@@ -67,16 +94,13 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (requestCode != REQ_CODE_PAY_BOOKMARK)
-      return;
+    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_SUBSCRIPTION_ACTIVITY)
+      BookmarkManager.INSTANCE.resetInvalidCategories();
 
-    if (resultCode == Activity.RESULT_OK)
-    {
+    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
       mDownloadController.retryDownloadBookmark();
-      return;
-    }
-
-    mFragment.requireActivity().finish();
+    else if (requestCode == REQ_CODE_PAY_BOOKMARK)
+      mFragment.requireActivity().finish();
   }
 
   private void showAuthorizationProgress()
@@ -169,5 +193,52 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   {
     mAuthCompletionRunnable = completionRunnable;
     mAuthorizer.authorize();
+  }
+
+  private static class InvalidCategoriesListener implements BookmarkManager.BookmarksInvalidCategoriesListener, Detachable<Fragment>
+  {
+    @Nullable
+    private Fragment mFrag;
+
+    public InvalidCategoriesListener(@NonNull Fragment fragment)
+    {
+      mFrag = fragment;
+    }
+
+    @Override
+    public void onCheckInvalidCategories(boolean hasInvalidCategories)
+    {
+      BookmarkManager.INSTANCE.removeInvalidCategoriesListener(this);
+      if (mFrag == null || !hasInvalidCategories)
+        return;
+
+      AlertDialog dialog = new AlertDialog.Builder()
+          .setTitleId(R.string.renewal_screen_title)
+          .setMessageId(R.string.renewal_screen_message)
+          .setPositiveBtnId(R.string.renewal_screen_button_restore)
+          .setNegativeBtnId(R.string.renewal_screen_button_cancel)
+          .setReqCode(REQ_CODE_CHECK_INVALID_SUBS_DIALOG)
+          .setImageResId(R.drawable.ic_error_red)
+          .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+          .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+          .setDialogFactory(new ConfirmationDialogFactory())
+          .setNegativeBtnTextColor(R.color.rating_horrible)
+          .build();
+
+      dialog.setTargetFragment(mFrag, REQ_CODE_CHECK_INVALID_SUBS_DIALOG);
+      dialog.show(mFrag, CHECK_INVALID_SUBS_DIALOG_TAG);
+    }
+
+    @Override
+    public void attach(@NonNull Fragment object)
+    {
+      mFrag = object;
+    }
+
+    @Override
+    public void detach()
+    {
+      mFrag = null;
+    }
   }
 }

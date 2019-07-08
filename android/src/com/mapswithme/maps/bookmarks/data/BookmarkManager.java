@@ -161,6 +161,16 @@ public enum BookmarkManager
     mCatalogListeners.remove(listener);
   }
 
+  public void addInvalidCategoriesListener(@NonNull BookmarksInvalidCategoriesListener listener)
+  {
+    mInvalidCategoriesListeners.add(listener);
+  }
+
+  public void removeInvalidCategoriesListener(@NonNull BookmarksInvalidCategoriesListener listener)
+  {
+    mInvalidCategoriesListeners.remove(listener);
+  }
+
   public void addCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
   {
     mCatalogPingListeners.add(listener);

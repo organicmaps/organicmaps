@@ -32,6 +32,7 @@ public class AlertDialog extends BaseMwmDialogFragment
   private static final String ARG_POSITIVE_BUTTON_ID = "arg_positive_button_id";
   private static final String ARG_NEGATIVE_BUTTON_ID = "arg_negative_button_id";
   private static final String ARG_IMAGE_RES_ID = "arg_image_res_id";
+  private static final String ARG_NEGATIVE_BTN_TEXT_COLOR_RES_ID = "arg_neg_btn_text_color_res_id";
   private static final String ARG_REQ_CODE = "arg_req_code";
   private static final String ARG_FRAGMENT_MANAGER_STRATEGY_INDEX = "arg_fragment_manager_strategy_index";
   private static final String ARG_DIALOG_VIEW_STRATEGY_INDEX = "arg_dialog_view_strategy_index";
@@ -169,6 +170,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     args.putInt(ARG_NEGATIVE_BUTTON_ID, builder.getNegativeBtnId());
     args.putInt(ARG_REQ_CODE, builder.getReqCode());
     args.putInt(ARG_IMAGE_RES_ID, builder.getImageResId());
+    args.putInt(ARG_NEGATIVE_BTN_TEXT_COLOR_RES_ID, builder.getNegativeBtnTextColor());
 
     FragManagerStrategyType fragManagerStrategyType = builder.getFragManagerStrategyType();
     args.putInt(ARG_FRAGMENT_MANAGER_STRATEGY_INDEX, fragManagerStrategyType.ordinal());
@@ -214,10 +216,19 @@ public class AlertDialog extends BaseMwmDialogFragment
     @NonNull
     private DialogFactory mDialogFactory = new DefaultDialogFactory();
 
+    private int mNegativeBtnTextColor = INVALID_ID;
+
     @NonNull
     public Builder setReqCode(int reqCode)
     {
       mReqCode = reqCode;
+      return this;
+    }
+
+    @NonNull
+    public Builder setNegativeBtnTextColor(int negativeBtnTextColor)
+    {
+      mNegativeBtnTextColor = negativeBtnTextColor;
       return this;
     }
 
@@ -276,6 +287,11 @@ public class AlertDialog extends BaseMwmDialogFragment
     int getNegativeBtnId()
     {
       return mNegativeBtn;
+    }
+
+    int getNegativeBtnTextColor()
+    {
+      return mNegativeBtnTextColor;
     }
 
     @NonNull
@@ -425,6 +441,13 @@ public class AlertDialog extends BaseMwmDialogFragment
 
       imageView.setImageDrawable(hasImage ? fragment.getResources().getDrawable(imageResId)
                                           : null);
+
+      int negativeBtnTextColor = args.getInt(ARG_NEGATIVE_BTN_TEXT_COLOR_RES_ID);
+      boolean hasNegativeBtnCustomColor = negativeBtnTextColor != INVALID_ID;
+
+      if (hasNegativeBtnCustomColor)
+        declineBtn.setTextColor(fragment.getResources().getColor(negativeBtnTextColor));
+
       UiUtils.showIf(hasImage, imageView);
       appCompatDialog.setContentView(root);
       return appCompatDialog;

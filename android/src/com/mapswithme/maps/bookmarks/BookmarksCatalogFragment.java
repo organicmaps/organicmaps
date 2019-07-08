@@ -31,6 +31,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AbstractProductDetailsLoadingCallback;
 import com.mapswithme.maps.purchase.BillingManager;
@@ -58,7 +60,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
-    implements TargetFragmentCallback
+    implements TargetFragmentCallback, AlertDialogCallback
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
   private static final String FAILED_PURCHASE_DIALOG_TAG = "failed_purchase_dialog_tag";
@@ -91,6 +93,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarksDownloadFragmentDelegate mDelegate;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private AlertDialogCallback mDialogClickDelegate;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -98,6 +103,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onCreate(savedInstanceState);
     mDelegate = new BookmarksDownloadFragmentDelegate(this);
     mDelegate.onCreate(savedInstanceState);
+    mDialogClickDelegate = new InvalidSubscriptionAlertDialogCallback(this);
   }
 
   @Override
@@ -122,6 +128,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onDestroyView()
   {
     super.onDestroyView();
+    mDelegate.onDestroyView();
     mWebViewClient.clear();
     mFailedPurchaseController.destroy();
     mProductDetailsLoadingManager.destroy();
@@ -245,6 +252,24 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
     mWebView.loadUrl(getCatalogUrlOrThrow(), headers);
     UserActionsLogger.logBookmarksCatalogShownEvent();
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode, which);
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode,which);
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    mDialogClickDelegate.onAlertDialogCancel(requestCode);
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient

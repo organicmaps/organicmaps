@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -22,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
-    implements TargetFragmentCallback
+    implements TargetFragmentCallback, AlertDialogCallback
 {
   final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
   final static String ARG_CATALOG_DEEPLINK = "arg_catalog_deeplink";
@@ -37,6 +38,10 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @NonNull
   private BookmarksDownloadFragmentDelegate mDelegate;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private AlertDialogCallback mDialogClickDelegate;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -49,6 +54,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
       return;
 
     mCatalogDeeplink = args.getString(ARG_CATALOG_DEEPLINK);
+    mDialogClickDelegate = new InvalidSubscriptionAlertDialogCallback(this);
   }
 
   @Override
@@ -104,6 +110,13 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     mDelegate.onStop();
   }
 
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    mDelegate.onDestroyView();
+  }
+
   private int saveAndGetInitialPage()
   {
     Bundle args = getArguments();
@@ -133,6 +146,24 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public boolean isTargetAdded()
   {
     return mDelegate.isTargetAdded();
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode, which);
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode,which);
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    mDialogClickDelegate.onAlertDialogCancel(requestCode);
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener
