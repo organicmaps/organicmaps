@@ -70,12 +70,12 @@ namespace impl
 {
 bool FullMatch(QueryParams::Token const & token, UniString const & text)
 {
-  return token.AnyOf([&text](UniString const & s) { return s == text; });
+  return token.AnyOfSynonyms([&text](UniString const & s) { return s == text; });
 }
 
 bool PrefixMatch(QueryParams::Token const & token, UniString const & text)
 {
-  return token.AnyOf([&text](UniString const & s) { return StartsWith(text, s); });
+  return token.AnyOfSynonyms([&text](UniString const & s) { return StartsWith(text, s); });
 }
 
 ErrorsMade GetMinErrorsMade(vector<strings::UniString> const & tokens,

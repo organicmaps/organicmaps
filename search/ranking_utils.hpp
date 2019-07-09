@@ -186,7 +186,7 @@ ErrorsMade GetErrorsMade(std::vector<strings::UniString> const & tokens, Slice c
   for (size_t i = 0; i < slice.Size(); ++i)
   {
     ErrorsMade errorsMade;
-    slice.Get(i).ForEach([&](strings::UniString const & s) {
+    slice.Get(i).ForEachSynonym([&](strings::UniString const & s) {
       errorsMade = ErrorsMade::Min(errorsMade, impl::GetMinErrorsMade(tokens, s));
     });
 

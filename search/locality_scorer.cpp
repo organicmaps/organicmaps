@@ -103,7 +103,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     auto const df = intersections.back().m_features.PopCount();
     if (df != 0)
     {
-      m_params.GetToken(i).ForEach([&tokensToDf, &df](UniString const & s) {
+      m_params.GetToken(i).ForEachSynonym([&tokensToDf, &df](UniString const & s) {
         tokensToDf.emplace_back(BuildLevenshteinDFA(s), df);
       });
     }
@@ -116,7 +116,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     auto const prefixDf = intersections.back().m_features.PopCount();
     if (prefixDf != 0)
     {
-      m_params.GetToken(count).ForEach([&prefixToDf, &prefixDf](UniString const & s) {
+      m_params.GetToken(count).ForEachSynonym([&prefixToDf, &prefixDf](UniString const & s) {
         prefixToDf.emplace_back(PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s)),
                                 prefixDf);
       });

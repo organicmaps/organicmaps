@@ -103,7 +103,7 @@ bool QueryParams::IsNumberTokens(TokenRange const & range) const
   for (size_t i : range)
   {
     bool number = false;
-    GetToken(i).ForEach([&number](String const & s) {
+    GetToken(i).ForEachSynonym([&number](String const & s) {
       if (feature::IsNumber(s))
       {
         number = true;

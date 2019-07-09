@@ -366,7 +366,7 @@ void Geocoder::SetParams(Params const & params)
     {
       m_tokenRequests.emplace_back();
       auto & request = m_tokenRequests.back();
-      m_params.GetToken(i).ForEach([&request](UniString const & s) {
+      m_params.GetToken(i).ForEachSynonym([&request](UniString const & s) {
         request.m_names.emplace_back(BuildLevenshteinDFA(s));
       });
       for (auto const & index : m_params.GetTypeIndices(i))
@@ -376,7 +376,7 @@ void Geocoder::SetParams(Params const & params)
     else
     {
       auto & request = m_prefixTokenRequest;
-      m_params.GetToken(i).ForEach([&request](UniString const & s) {
+      m_params.GetToken(i).ForEachSynonym([&request](UniString const & s) {
         request.m_names.emplace_back(BuildLevenshteinDFA(s));
       });
       for (auto const & index : m_params.GetTypeIndices(i))

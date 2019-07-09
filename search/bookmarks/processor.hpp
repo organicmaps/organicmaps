@@ -51,15 +51,14 @@ private:
   void Retrieve(QueryParams::Token const & token, Fn && fn) const
   {
     SearchTrieRequest<DFA> request;
-    token.ForEach([&request](strings::UniString const & s)
-                  {
-                    request.m_names.emplace_back(BuildLevenshteinDFA(s));
-                  });
+    token.ForEachSynonym([&request](strings::UniString const & s) {
+      request.m_names.emplace_back(BuildLevenshteinDFA(s));
+    });
     request.m_langs.insert(StringUtf8Multilang::kDefaultCode);
 
-    MatchFeaturesInTrie(request, m_index.GetRootIterator(),
-                        [](Id const & /* id */) { return true; } /* filter */,
-                        std::forward<Fn>(fn));
+    MatchFeaturesInTrie(
+        request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
+        std::forward<Fn>(fn));
   }
 
   QueryVec GetQueryVec(IdfMap & idfs, QueryParams const & params) const;
