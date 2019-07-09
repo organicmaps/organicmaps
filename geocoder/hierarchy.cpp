@@ -40,19 +40,15 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
     MYTHROW(base::Json::Exception, ("Not a json object."));
   }
 
-  json_t * properties = nullptr;
-  FromJSONObject(root, "properties", properties);
-  json_t * address = nullptr;
-  FromJSONObject(properties, "address", address);
-
+  auto const defaultLocale = base::GetJSONObligatoryFieldByPath(root, "properties", "locales",
+                                                                "default");
+  auto const address = base::GetJSONObligatoryField(defaultLocale, "address");
   bool hasDuplicateAddress = false;
-
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
   {
     Type const type = static_cast<Type>(i);
     string const & levelKey = ToString(type);
-    json_t * levelJson = nullptr;
-    FromJSONObjectOptionalField(address, levelKey, levelJson);
+    auto const levelJson = base::GetJSONOptionalField(address, levelKey);
     if (!levelJson)
       continue;
 
@@ -90,7 +86,7 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   }
 
   m_nameTokens.clear();
-  FromJSONObjectOptionalField(properties, "name", m_name);
+  FromJSONObjectOptionalField(defaultLocale, "name", m_name);
   search::NormalizeAndTokenizeAsUtf8(m_name, m_nameTokens);
 
   if (m_name.empty())

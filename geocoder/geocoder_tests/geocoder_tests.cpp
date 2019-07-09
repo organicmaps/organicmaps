@@ -12,6 +12,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <iomanip>
 #include <string>
 #include <vector>
 
@@ -24,9 +25,9 @@ using Id = base::GeoObjectId;
 
 double const kCertaintyEps = 1e-6;
 string const kRegionsData = R"#(
--4611686018427080071 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.1142033187951, 21.55511095]}, "properties": {"name": "Cuba", "rank": 2, "address": {"country": "Cuba"}}}
--4611686018425533273 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.7260117405499, 21.74300205]}, "properties": {"name": "Ciego de Ávila", "rank": 4, "address": {"region": "Ciego de Ávila", "country": "Cuba"}}}
--4611686018421500235 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.9263054493181, 22.08185765]}, "properties": {"name": "Florencia", "rank": 6, "address": {"subregion": "Florencia", "region": "Ciego de Ávila", "country": "Cuba"}}}
+C00000000004B279 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.1142033187951, 21.55511095]}, "properties": {"locales": {"default": {"name": "Cuba", "address": {"country": "Cuba"}}}, "rank": 2}}
+C0000000001C4CA7 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.7260117405499, 21.74300205]}, "properties": {"locales": {"default": {"name": "Ciego de Ávila", "address": {"region": "Ciego de Ávila", "country": "Cuba"}}}, "rank": 4}}
+C00000000059D6B5 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.9263054493181, 22.08185765]}, "properties": {"locales": {"default": {"name": "Florencia", "address": {"subregion": "Florencia", "region": "Ciego de Ávila", "country": "Cuba"}}}, "rank": 6}}
 )#";
 
 geocoder::Tokens Split(string const & s)
@@ -88,27 +89,27 @@ UNIT_TEST(Geocoder_Hierarchy)
 UNIT_TEST(Geocoder_OnlyBuildings)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Some Locality"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Some Locality"}}}}}
 
-21 {"properties": {"address": {"street": "Good", "locality": "Some Locality"}}}
-22 {"properties": {"address": {"building": "5", "street": "Good", "locality": "Some Locality"}}}
+21 {"properties": {"locales": {"default": {"address": {"street": "Good", "locality": "Some Locality"}}}}}
+22 {"properties": {"locales": {"default": {"address": {"building": "5", "street": "Good", "locality": "Some Locality"}}}}}
 
-31 {"properties": {"address": {"street": "Bad", "locality": "Some Locality"}}}
-32 {"properties": {"address": {"building": "10", "street": "Bad", "locality": "Some Locality"}}}
+31 {"properties": {"locales": {"default": {"address": {"street": "Bad", "locality": "Some Locality"}}}}}
+32 {"properties": {"locales": {"default": {"address": {"building": "10", "street": "Bad", "locality": "Some Locality"}}}}}
 
-40 {"properties": {"address": {"street": "MaybeNumbered", "locality": "Some Locality"}}}
-41 {"properties": {"address": {"street": "MaybeNumbered-3", "locality": "Some Locality"}}}
-42 {"properties": {"address": {"building": "3", "street": "MaybeNumbered", "locality": "Some Locality"}}}
+40 {"properties": {"locales": {"default": {"address": {"street": "MaybeNumbered", "locality": "Some Locality"}}}}}
+41 {"properties": {"locales": {"default": {"address": {"street": "MaybeNumbered-3", "locality": "Some Locality"}}}}}
+42 {"properties": {"locales": {"default": {"address": {"building": "3", "street": "MaybeNumbered", "locality": "Some Locality"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  base::GeoObjectId const localityId(10);
-  base::GeoObjectId const goodStreetId(21);
-  base::GeoObjectId const badStreetId(31);
-  base::GeoObjectId const building5(22);
-  base::GeoObjectId const building10(32);
+  base::GeoObjectId const localityId(0x10);
+  base::GeoObjectId const goodStreetId(0x21);
+  base::GeoObjectId const badStreetId(0x31);
+  base::GeoObjectId const building5(0x22);
+  base::GeoObjectId const building10(0x32);
 
   TestGeocoder(geocoder, "some locality", {{localityId, 1.0}});
   TestGeocoder(geocoder, "some locality good", {{goodStreetId, 1.0}, {localityId, 0.857143}});
@@ -124,8 +125,8 @@ UNIT_TEST(Geocoder_OnlyBuildings)
 
   // Sometimes we may still emit a non-building.
   // In this case it happens because all query tokens are used.
-  base::GeoObjectId const numberedStreet(41);
-  base::GeoObjectId const houseOnANonNumberedStreet(42);
+  base::GeoObjectId const numberedStreet(0x41);
+  base::GeoObjectId const houseOnANonNumberedStreet(0x42);
   TestGeocoder(geocoder, "some locality maybenumbered 3",
                {{numberedStreet, 1.0}, {houseOnANonNumberedStreet, 0.8875}});
 }
@@ -133,20 +134,20 @@ UNIT_TEST(Geocoder_OnlyBuildings)
 UNIT_TEST(Geocoder_MismatchedLocality)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Moscow"}}}
-11 {"properties": {"address": {"locality": "Paris"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Moscow"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Paris"}}}}}
 
-21 {"properties": {"address": {"street": "Krymskaya", "locality": "Moscow"}}}
-22 {"properties": {"address": {"building": "2", "street": "Krymskaya", "locality": "Moscow"}}}
+21 {"properties": {"locales": {"default": {"address": {"street": "Krymskaya", "locality": "Moscow"}}}}}
+22 {"properties": {"locales": {"default": {"address": {"building": "2", "street": "Krymskaya", "locality": "Moscow"}}}}}
 
-31 {"properties": {"address": {"street": "Krymskaya", "locality": "Paris"}}}
-32 {"properties": {"address": {"building": "3", "street": "Krymskaya", "locality": "Paris"}}}
+31 {"properties": {"locales": {"default": {"address": {"street": "Krymskaya", "locality": "Paris"}}}}}
+32 {"properties": {"locales": {"default": {"address": {"building": "3", "street": "Krymskaya", "locality": "Paris"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  base::GeoObjectId const building2(22);
+  base::GeoObjectId const building2(0x22);
 
   TestGeocoder(geocoder, "Moscow Krymskaya 2", {{building2, 1.0}});
 
@@ -158,119 +159,119 @@ UNIT_TEST(Geocoder_MismatchedLocality)
 UNIT_TEST(Geocoder_StreetWithNumberInCity)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}}}
 
-20 {"properties": {"address": {"locality": "Краснокамск"}}}
-28 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}
+20 {"properties": {"locales": {"default": {"address": {"locality": "Краснокамск"}}}}}
+28 {"properties": {"locales": {"default": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "Москва, улица 1905 года", {{Id{11}, 1.0}});
+  TestGeocoder(geocoder, "Москва, улица 1905 года", {{Id{0x11}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_StreetWithNumberInClassifiedCity)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "город Москва, улица 1905 года", {{Id{11}, 1.0}});
+  TestGeocoder(geocoder, "город Москва, улица 1905 года", {{Id{0x11}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_StreetWithNumberInAnyCity)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}}}
 
-20 {"properties": {"address": {"locality": "Краснокамск"}}}
-28 {"properties": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}
+20 {"properties": {"locales": {"default": {"address": {"locality": "Краснокамск"}}}}}
+28 {"properties": {"locales": {"default": {"address": {"locality": "Краснокамск", "street": "улица 1905 года"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "улица 1905 года", {{Id{11}, 1.0}, {Id{28}, 1.0}});
+  TestGeocoder(geocoder, "улица 1905 года", {{Id{0x11}, 1.0}, {Id{0x28}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_StreetWithNumberAndWithoutStreetSynonym)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-11 {"properties": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 1905 года"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "Москва, 1905 года", {{Id{11}, 1.0}});
+  TestGeocoder(geocoder, "Москва, 1905 года", {{Id{0x11}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_UntypedStreetWithNumberAndStreetSynonym)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-13 {"properties": {"address": {"locality": "Москва", "street": "8 Марта"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+13 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "8 Марта"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "Москва, улица 8 Марта", {{Id{13}, 1.0}});
+  TestGeocoder(geocoder, "Москва, улица 8 Марта", {{Id{0x13}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_StreetWithTwoNumbers)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-12 {"properties": {"address": {"locality": "Москва", "street": "4-я улица 8 Марта"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+12 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "4-я улица 8 Марта"}}}}}
 
-13 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}
+13 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "Москва, 4-я улица 8 Марта", {{Id{12}, 1.0}});
+  TestGeocoder(geocoder, "Москва, 4-я улица 8 Марта", {{Id{0x12}, 1.0}});
 }
 
 UNIT_TEST(Geocoder_BuildingOnStreetWithNumber)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Москва"}}}
-13 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}
-15 {"properties": {"address": {"locality": "Москва", "street": "улица 8 Марта", "building": "4"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}}}}
+13 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 8 Марта"}}}}}
+15 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица 8 Марта", "building": "4"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "Москва, улица 8 Марта, 4", {{Id{15}, 1.0}});
+  TestGeocoder(geocoder, "Москва, улица 8 Марта, 4", {{Id{0x15}, 1.0}});
 }
 
 //--------------------------------------------------------------------------------------------------
 UNIT_TEST(Geocoder_LocalityBuilding)
 {
   string const kData = R"#(
-10 {"properties": {"address": {"locality": "Zelenograd"}}}
+10 {"properties": {"locales": {"default": {"address": {"locality": "Zelenograd"}}}}}
 
-22 {"properties": {"address": {"building": "2", "locality": "Zelenograd"}}}
+22 {"properties": {"locales": {"default": {"address": {"building": "2", "locality": "Zelenograd"}}}}}
 
-31 {"properties": {"address": {"street": "Krymskaya", "locality": "Zelenograd"}}}
-32 {"properties": {"address": {"building": "2", "street": "Krymskaya", "locality": "Zelenograd"}}}
+31 {"properties": {"locales": {"default": {"address": {"street": "Krymskaya", "locality": "Zelenograd"}}}}}
+32 {"properties": {"locales": {"default": {"address": {"building": "2", "street": "Krymskaya", "locality": "Zelenograd"}}}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  base::GeoObjectId const building2(22);
+  base::GeoObjectId const building2(0x22);
 
   TestGeocoder(geocoder, "Zelenograd 2", {{building2, 1.0}});
 }
@@ -290,11 +291,12 @@ UNIT_TEST(Geocoder_BigFileConcurrentRead)
   stringstream s;
   for (int i = 0; i < kEntryCount; ++i)
   {
-    s << i << " "
+    s << setw(16) << setfill('0') << hex << uppercase << i << " "
       << "{"
       << R"("type": "Feature",)"
       << R"("geometry": {"type": "Point", "coordinates": [0, 0]},)"
-      << R"("properties": {"name": ")" << i << R"(", "rank": 2, "address": {"country": ")" << i << R"("}})"
+      << R"("properties": {"locales": {"default": {)"
+      << R"("name": ")" << i << R"(", "address": {"country": ")" << i << R"("}}}, "rank": 2})"
       << "}\n";
   }
 

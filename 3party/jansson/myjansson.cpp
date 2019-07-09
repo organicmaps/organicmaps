@@ -27,6 +27,11 @@ json_t * GetJSONObligatoryField(json_t * root, char const * field)
   return const_cast<json_t *>(GetJSONObligatoryField(const_cast<json_t const *>(root), field));
 }
 
+json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field)
+{
+  return GetJSONObligatoryField(root, field.c_str());
+}
+
 json_t const * GetJSONObligatoryField(json_t const * root, char const * field)
 {
   auto * value = base::GetJSONOptionalField(root, field);
@@ -43,6 +48,11 @@ json_t * GetJSONOptionalField(json_t * root, std::string const & field)
 json_t * GetJSONOptionalField(json_t * root, char const * field)
 {
   return const_cast<json_t *>(GetJSONOptionalField(const_cast<json_t const *>(root), field));
+}
+
+json_t const * GetJSONOptionalField(json_t const * root, std::string const & field)
+{
+  return GetJSONOptionalField(root, field.c_str());
 }
 
 json_t const * GetJSONOptionalField(json_t const * root, char const * field)

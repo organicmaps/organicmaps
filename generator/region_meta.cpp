@@ -33,7 +33,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     reader->ReadAsString(buffer);
     base::Json root(buffer.data());
 
-    json_t * jsonData = nullptr;
+    json_t const * jsonData = nullptr;
     FromJSONObjectOptionalField(root.get(), countryName, jsonData);
     if (!jsonData)
       return false;

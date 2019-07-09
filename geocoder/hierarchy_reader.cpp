@@ -195,8 +195,8 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, si
       continue;
 
     auto const p = line.find(' ');
-    int64_t encodedId;
-    if (p == string::npos || !strings::to_any(line.substr(0, p), encodedId))
+    uint64_t encodedId;
+    if (p == string::npos || !DeserializeId(line.substr(0, p), encodedId))
     {
       LOG(LWARNING, ("Cannot read osm id. Line:", line));
       ++stats.m_badOsmIds;
@@ -205,8 +205,7 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, si
     auto json = line.substr(p + 1);
 
     Entry entry;
-    // TODO: (@m) We should really write uints as uints.
-    auto const osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
+    auto const osmId = base::GeoObjectId(encodedId);
     entry.m_osmId = osmId;
 
     if (!entry.DeserializeFromJSON(json, stats))
@@ -223,5 +222,10 @@ void HierarchyReader::DeserializeEntryMap(vector<string> const & linesBuffer, si
 
     entries.emplace(osmId, move(entry));
   }
+}
+
+bool HierarchyReader::DeserializeId(std::string const & str, uint64_t & id)
+{
+  return strings::to_uint64(str, id, 16 /* base */);
 }
 }  // namespace geocoder
