@@ -21,7 +21,7 @@ void AdminSuburbsMarker::MarkSuburbs(Node::Ptr & tree)
 
 void AdminSuburbsMarker::MarkLocality(Node::Ptr & tree)
 {
-  ASSERT_EQUAL(tree->GetData().GetLevel(), PlaceLevel::Locality, ());
+  ASSERT(tree->GetData().GetLevel() == PlaceLevel::Locality, ());
   for (auto & subtree : tree->GetChildren())
     MarkSuburbsInLocality(subtree);
 }
