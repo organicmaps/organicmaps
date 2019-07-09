@@ -145,10 +145,15 @@
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
+    <item name="android:textAppearanceInverse">@style/TextAppearance.Inverse</item>
+    <item name="android:textAppearanceSmallInverse">@style/TextAppearance.Small.Inverse</item>
+    <item name="android:textAppearanceMediumInverse">@style/TextAppearance.Medium.Inverse</item>
+    <item name="android:textAppearanceLargeInverse">@style/TextAppearance.Large.Inverse</item>
     <item name="drivingOptionsViewBg">@color/light_green</item>
     <item name="bookmarkSubscriptionScreenBg">@drawable/bookmark_subscription_screen_bg</item>
     <item name="bookmarkSubscriptionAnnualCardEdge">@drawable/annual_card_edge</item>
     <item name="bookmarkSubscriptionMonthlyCardEdge">@drawable/monthly_card_edge</item>
+    <item name="imgPromoBookingTitle">@drawable/img_booking_popup_pholder_light</item>
   </style>
 
   <!-- Night theme -->
@@ -301,5 +306,6 @@
     <item name="bookmarkSubscriptionScreenBg">@drawable/bookmark_subscription_screen_bg_night</item>
     <item name="bookmarkSubscriptionAnnualCardEdge">@drawable/annual_card_edge_night</item>
     <item name="bookmarkSubscriptionMonthlyCardEdge">@drawable/monthly_card_edge_night</item>
+    <item name="imgPromoBookingTitle">@drawable/img_booking_popup_pholder_night</item>
   </style>
 </resources>

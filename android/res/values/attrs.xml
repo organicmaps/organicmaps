@@ -79,6 +79,7 @@
   <attr name="bookmarkSubscriptionScreenBg" format="reference"/>
   <attr name="bookmarkSubscriptionAnnualCardEdge" format="reference"/>
   <attr name="bookmarkSubscriptionMonthlyCardEdge" format="reference"/>
+  <attr name="imgPromoBookingTitle" format="reference"/>
 
   <declare-styleable name="AnchorBottomSheetBehavior_Layout">
     <attr name="behavior_anchorOffset" format="dimension" />

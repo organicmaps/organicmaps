@@ -13,6 +13,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -75,6 +76,7 @@ import com.mapswithme.maps.news.IntroductionDialogFragment;
 import com.mapswithme.maps.news.IntroductionScreenFactory;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoAfterBooking;
+import com.mapswithme.maps.promo.PromoBookingDialogFragment;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
@@ -526,7 +528,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    tryToShowAdditionalViewOnTop();
+    if (savedInstanceState == null)
+      tryToShowAdditionalViewOnTop();
   }
 
   private void initViews(boolean isLaunchByDeeplink)
@@ -2210,7 +2213,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (promo == null)
       return false;
 
-    // Will be implemented in the next pr.
+    String dialogName = PromoBookingDialogFragment.class.getName();
+    if (getSupportFragmentManager().findFragmentByTag(dialogName) != null)
+      return true;
+
+    final Bundle args = new Bundle();
+    args.putString(PromoBookingDialogFragment.EXTRA_CITY_GUIDES_URL, promo.getGuidesUrl());
+    args.putString(PromoBookingDialogFragment.EXTRA_CITY_IMAGE_URL, promo.getImageUrl());
+
+    final DialogFragment fragment = (DialogFragment) Fragment.instantiate(this, dialogName, args);
+    fragment.show(getSupportFragmentManager(), dialogName);
+
     return true;
   }
 

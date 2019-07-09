@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+  <RelativeLayout
+    android:layout_width="@dimen/promo_after_booking_width"
+    android:layout_height="wrap_content">
+    <ImageView
+      android:id="@+id/city_picture"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?imgPromoBookingTitle">
+    </ImageView>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/city_picture"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base">
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:text="@string/popup_booking_download_guides_title"
+        tools:text="Booked a hotel?"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:textAppearance="?android:textAppearance"
+        android:text="@string/popup_booking_download_guides_message"
+        tools:text="Take a look at ready-made trips around the place!"/>
+      <Button
+        android:id="@+id/city_guides"
+        style="@style/MwmWidget.Button.Accent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/primary_button_min_height"
+        android:layout_marginTop="@dimen/margin_base_plus_quarter"
+        android:textAppearance="?android:textAppearanceInverse"
+        android:text="@string/popup_mwm_download_guides_cta"
+        tools:text="Choose one"/>
+      <Button
+        android:id="@+id/cancel"
+        style="@style/MwmWidget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/primary_button_min_height"
+        android:layout_marginTop="@dimen/margin_half_double_plus"
+        android:textAppearance="?android:textAppearance"
+        android:text="@string/cancel"/>
+    </LinearLayout>
+  </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -1499,8 +1499,6 @@ void Framework::EnterForeground()
 
   m_trafficManager.OnEnterForeground();
   m_routingManager.SetAllowSendingPoints(true);
-
-  m_promoApi->OnEnterForeground();
 }
 
 void Framework::InitCountryInfoGetter()

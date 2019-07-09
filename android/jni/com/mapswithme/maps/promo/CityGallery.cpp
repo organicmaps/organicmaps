@@ -153,9 +153,9 @@ Java_com_mapswithme_maps_promo_Promo_nativeGetPromoAfterBooking(JNIEnv * env, jc
   if (result.IsEmpty())
     return nullptr;
 
-  jni::TScopedLocalRef promoUrl(env, jni::ToJavaString(env, result.m_promoUrl));
-  jni::TScopedLocalRef pictureUrl(env, jni::ToJavaString(env, result.m_pictureUrl));
-  jni::TScopedLocalRef author(env,
-      env->NewObject(g_afterBooking, g_afterBookingConstructor, promoUrl.get(), pictureUrl.get()));
+  auto const promoUrl = jni::ToJavaString(env, result.m_promoUrl);
+  auto const pictureUrl = jni::ToJavaString(env, result.m_pictureUrl);
+
+  return env->NewObject(g_afterBooking, g_afterBookingConstructor, promoUrl, pictureUrl);
 }
 }  // extern "C"

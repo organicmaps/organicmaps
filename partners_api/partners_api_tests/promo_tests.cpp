@@ -45,6 +45,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
 {
   promo::Api api;
   Info info;
+  std::string lang = "en";
   {
     MapObject poi;
     poi.SetBestType("tourism-hotel");
@@ -72,8 +73,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
 
   EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShowAfterBooking(), false, ());
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), false, ());
 
   {
     MapObject poi;
@@ -97,8 +97,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
   info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::hours(2);
   EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShowAfterBooking(), false, ());
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), false, ());
 
   {
     MapObject poi;
@@ -132,8 +131,7 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
   info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::minutes(6);
   EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  api.OnEnterForeground();
-  TEST_EQUAL(api.NeedToShowAfterBooking(), true, ());
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), true, ());
 }
 
 UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)

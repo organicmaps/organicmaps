@@ -107,8 +107,17 @@ std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
   ASSERT(!baseUrl.empty(), ());
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  return baseUrl + "geoobjects/" + ToSignedId(id) + "/1/512.png";
+  return baseUrl + "bookmarks_catalogue/city/" + ToSignedId(id) + ".jpg";
 }
+
+std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const & id)
+{
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT_EQUAL(baseUrl.back(), '/', ());
+
+  return baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
+}
+
 
 void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id,
                              std::string const & lang, UTM utm,
@@ -150,6 +159,27 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
     onSuccess(std::move(result));
   });
 }
+
+std::string LoadPromoIdForBooking(eye::Eye::InfoType const & eyeInfo)
+{
+  std::string bookingPromoAwaitingForId;
+  settings::TryGet("BookingPromoAwaitingForId", bookingPromoAwaitingForId);
+
+  if (bookingPromoAwaitingForId.empty())
+    return bookingPromoAwaitingForId;
+
+  auto const timeSinceLastTransitionToBooking =
+    eye::Clock::now() - eyeInfo->m_promo.m_transitionToBookingTime;
+
+  if (timeSinceLastTransitionToBooking < kMinMinutesAfterBooking ||
+      timeSinceLastTransitionToBooking > kMaxMinutesAfterBooking)
+  {
+    settings::Delete("BookingPromoAwaitingForId");
+    bookingPromoAwaitingForId.clear();
+  }
+
+  return bookingPromoAwaitingForId;
+}
 }  // namespace
 
 // static
@@ -172,40 +202,17 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
   m_delegate = std::move(delegate);
 }
 
-void Api::OnEnterForeground()
-{
-  m_bookingPromoAwaitingForId.clear();
-  settings::TryGet("BookingPromoAwaitingForId", m_bookingPromoAwaitingForId);
-
-  if (m_bookingPromoAwaitingForId.empty())
-    return;
-
-  auto const eyeInfo = eye::Eye::Instance().GetInfo();
-  auto const timeSinceLastTransitionToBooking =
-      eye::Clock::now() - eyeInfo->m_promo.m_transitionToBookingTime;
-
-  if (timeSinceLastTransitionToBooking < kMinMinutesAfterBooking ||
-      timeSinceLastTransitionToBooking > kMaxMinutesAfterBooking)
-  {
-    settings::Delete("BookingPromoAwaitingForId");
-    m_bookingPromoAwaitingForId.clear();
-  }
-}
-
-bool Api::NeedToShowAfterBooking() const
-{
-  return NeedToShowImpl(m_bookingPromoAwaitingForId, eye::Eye::Instance().GetInfo());
-}
-
 AfterBooking Api::GetAfterBooking(std::string const & lang) const
 {
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
 
-  if (!NeedToShowImpl(m_bookingPromoAwaitingForId, eyeInfo))
+  auto const promoId = LoadPromoIdForBooking(eyeInfo);
+
+  if (!NeedToShowImpl(promoId, eyeInfo))
     return {"", ""};
 
-  return {MakeCityGalleryUrl(m_baseUrl, m_bookingPromoAwaitingForId, lang),
-          GetPictureUrl(m_basePicturesUrl, m_bookingPromoAwaitingForId)};
+  return {GetCityCatalogueUrl(m_baseUrl, promoId),
+          GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 
 std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const
@@ -215,10 +222,7 @@ std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string c
 
 std::string Api::GetMoreUrl(std::string const & id) const
 {
-  ASSERT(!m_baseUrl.empty(), ());
-  ASSERT_EQUAL(m_baseUrl.back(), '/', ());
-
-  return m_baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
+  return GetCityCatalogueUrl(m_baseUrl, id);
 }
 
 void Api::GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,

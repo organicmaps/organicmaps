@@ -81,8 +81,6 @@ public:
       std::string const & basePicturesUrl = PICTURES_URL);
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
-  void OnEnterForeground();
-  bool NeedToShowAfterBooking() const;
   AfterBooking GetAfterBooking(std::string const & lang) const;
   std::string GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const;
   std::string GetMoreUrl(std::string const & id) const;
@@ -97,6 +95,5 @@ private:
 
   std::string const m_baseUrl;
   std::string const m_basePicturesUrl;
-  std::string m_bookingPromoAwaitingForId;
 };
 }  // namespace promo
