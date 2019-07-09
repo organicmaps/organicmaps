@@ -59,9 +59,6 @@ Info MakeDefaultInfoForTesting()
   eventInfo.m_userPos = {53.016347, 158.683327};
   eventInfo.m_type = MapObject::Event::Type::Open;
   poi.GetEditableEvents().push_back(eventInfo);
-  eventInfo.m_eventTime = Time(std::chrono::hours(100000));
-  eventInfo.m_userPos = {53.016347, 158.683327};
-  eventInfo.m_type = MapObject::Event::Type::BookingMore;
   info.m_mapObjects.Add(poi);
 
   info.m_promo.m_lastTimeShownAfterBooking = Time(std::chrono::hours(100000));
@@ -731,18 +728,6 @@ std::string DebugPrint(First first)
     case First::One: return "One";
     case First::Two: return "Two";
     case First::Count: return "Count";
-  }
-}
-
-std::string DebugPrint(Second second)
-{
-  switch (second)
-  {
-    case Second::One: return "One";
-    case Second::Two: return "Two";
-    case Second::Three: return "Three";
-    case Second::Four: return "Four";
-    case Second::Count: return "Count";
   }
 }
 }  // namespace

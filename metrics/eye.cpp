@@ -23,14 +23,10 @@ namespace
 auto constexpr kMapObjectEventsExpirePeriod = std::chrono::hours(24 * 30 * 3);
 auto constexpr kEventCooldown = std::chrono::seconds(2);
 
-std::array<std::string, 16> const kMapEventSupportedTypes = {{"amenity-bar", "amenity-cafe",
+std::array<std::string, 7> const kMapEventSupportedTypes = {{"amenity-bar", "amenity-cafe",
                                                              "amenity-pub", "amenity-restaurant",
                                                              "amenity-fast_food", "amenity-biergarden",
-                                                             "shop-bakery", "tourism-hotel",
-                                                             "tourism-apartment", "tourism-camp_site",
-                                                             "tourism-chalet", "tourism-guest_house",
-                                                             "tourism-hostel", "tourism-motel",
-                                                             "tourism-resort", "sponsored-booking"}};
+                                                             "shop-bakery"}};
 
 void Load(Info & info)
 {
@@ -347,10 +343,9 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
 
   MapObject result = mapObject;
   MapObject::Event event;
-  auto const eventTime = Clock::now();
   event.m_type = type;
   event.m_userPos = userPos;
-  event.m_eventTime = eventTime;
+  event.m_eventTime = Clock::now();
 
   bool found = false;
   bool duplication = false;
@@ -383,14 +378,6 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
     mapObjects.Add(result);
   }
 
-  if (type == MapObject::Event::Type::BookingBook ||
-      type == MapObject::Event::Type::BookingMore ||
-      type == MapObject::Event::Type::BookingReviews ||
-      type == MapObject::Event::Type::BookingDetails)
-  {
-    editableInfo->m_promo.m_transitionToBookingTime = eventTime;
-  }
-
   if (!SaveLastMapObjectEvent(result))
     return;
 
@@ -400,6 +387,24 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
     for (auto subscriber : m_subscribers)
     {
       subscriber->OnMapObjectEvent(result);
+    }
+  });
+}
+
+void Eye::RegisterTransitionToBooking(m2::PointD const & hotelPos)
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+
+  editableInfo->m_promo.m_transitionToBookingTime = Clock::now();
+  if (!Save(editableInfo))
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, hotelPos]
+  {
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnTransitionToBooking(hotelPos);
     }
   });
 }
@@ -502,6 +507,15 @@ void Eye::Event::MapObjectEvent(MapObject const & mapObject, MapObject::Event::T
   GetPlatform().RunTask(Platform::Thread::File, [type, mapObject, userPos]
   {
     Instance().RegisterMapObjectEvent(mapObject, type, userPos);
+  });
+}
+
+// static
+void Eye::Event::TransitionToBooking(m2::PointD const & hotelPos)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [hotelPos]
+  {
+    Instance().RegisterTransitionToBooking(hotelPos);
   });
 }
 

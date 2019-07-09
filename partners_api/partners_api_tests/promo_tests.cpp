@@ -41,97 +41,24 @@ public:
 };
 }  // namespace
 
-UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_NeedToShowAfterBooking)
+UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetAfterBooking)
 {
   promo::Api api;
-  Info info;
   std::string lang = "en";
-  {
-    MapObject poi;
-    poi.SetBestType("tourism-hotel");
-    poi.SetPos({53.652007, 108.143443});
-    MapObject::Event eventInfo;
 
-    eventInfo.m_eventTime = Clock::now() - std::chrono::hours((24 * 30 * 3) + 1);
-    eventInfo.m_userPos = {72.045507, 81.408095};
-    eventInfo.m_type = MapObject::Event::Type::Open;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime =
-        Clock::now() - (std::chrono::hours(24 * 30 * 3) + std::chrono::seconds(1));
-    eventInfo.m_userPos = {72.045400, 81.408200};
-    eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
-    eventInfo.m_userPos = {72.045450, 81.408201};
-    eventInfo.m_type = MapObject::Event::Type::RouteToCreated;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    info.m_mapObjects.Add(poi);
-  }
-
-  EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), false, ());
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), true, ());
 
-  {
-    MapObject poi;
-    poi.SetBestType("tourism-hotel");
-    poi.SetPos({53.652005, 108.143448});
-    MapObject::Event eventInfo;
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::Open;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(2);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::BookingBook;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    info.m_mapObjects.Add(poi);
-  }
-
+  Info info;
   info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::hours(2);
   EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), false, ());
-
-  {
-    MapObject poi;
-    poi.SetBestType("tourism-hotel");
-    poi.SetPos({53.653005, 108.143548});
-    MapObject::Event eventInfo;
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 20 * 3);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::Open;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::minutes(6);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::BookingReviews;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::minutes(3);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::Open;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    eventInfo.m_eventTime = Clock::now() - std::chrono::minutes(1);
-    eventInfo.m_userPos = {53.016347, 158.683327};
-    eventInfo.m_type = MapObject::Event::Type::RouteToCreated;
-    poi.GetEditableEvents().emplace_back(eventInfo);
-
-    info.m_mapObjects.Add(poi);
-  }
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), true, ());
 
   info.m_promo.m_transitionToBookingTime = Clock::now() - std::chrono::minutes(6);
   EyeForTesting::SetInfo(info);
   settings::Set("BookingPromoAwaitingForId", kTestId);
-  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), true, ());
+  TEST_EQUAL(api.GetAfterBooking(lang).IsEmpty(), false, ());
 }
 
 UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)

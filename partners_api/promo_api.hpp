@@ -91,7 +91,7 @@ public:
                       CityGalleryCallback const & onSuccess, OnError const & onError) const;
 
   // eye::Subscriber overrides:
-  void OnMapObjectEvent(eye::MapObject const & poi) override;
+  void OnTransitionToBooking(m2::PointD const & hotelPos) override;
 
 private:
   std::unique_ptr<Delegate> m_delegate;

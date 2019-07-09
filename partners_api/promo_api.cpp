@@ -233,34 +233,9 @@ void Api::GetCityGallery(m2::PointD const & point, std::string const & lang, UTM
   GetPromoCityGalleryImpl(m_baseUrl, m_delegate->GetCityId(point), lang, utm, onSuccess, onError);
 }
 
-void Api::OnMapObjectEvent(eye::MapObject const & mapObject)
+void Api::OnTransitionToBooking(m2::PointD const & hotelPos)
 {
-  CHECK(!mapObject.GetEvents().empty(), ());
-
-  auto const bestType = classif().GetTypeByReadableObjectName(mapObject.GetBestType());
-
-  if (!ftypes::IsHotelChecker::Instance()(bestType) &&
-      !ftypes::IsBookingHotelChecker::Instance()(bestType))
-  {
-    return;
-  }
-
-  m2::PointD pos;
-  bool found = false;
-  switch (mapObject.GetEvents().back().m_type)
-  {
-  case eye::MapObject::Event::Type::BookingBook:
-  case eye::MapObject::Event::Type::BookingMore:
-  case eye::MapObject::Event::Type::BookingReviews:
-  case eye::MapObject::Event::Type::BookingDetails:
-  {
-    pos = mapObject.GetPos();
-    found = true;
-  }
-  default: /* do nothing */;
-  }
-
-  auto const id = found ? m_delegate->GetCityId(pos) : "";
+  auto const id = m_delegate->GetCityId(hotelPos);
 
   if (!id.empty())
     settings::Set("BookingPromoAwaitingForId", id);

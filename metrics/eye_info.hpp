@@ -209,10 +209,6 @@ public:
       UgcEditorOpened,
       UgcSaved,
       RouteToCreated,
-      BookingBook,
-      BookingMore,
-      BookingReviews,
-      BookingDetails,
     };
 
     DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_userPos, "user_pos"),
@@ -289,7 +285,9 @@ struct Promo
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Promo,
                                   visitor(m_transitionToBookingTime, "transitionToBookingTime"),
-                                  visitor(m_lastTimeShownAfterBooking, "lastTimeShownAfterBooking"))
+                                  visitor(m_lastTimeShownAfterBooking, "lastTimeShownAfterBooking"),
+                                  visitor(m_lastTimeShownAfterBookingCityId,
+                                          "lastTimeShownAfterBookingCityId"))
   Time m_transitionToBookingTime;
   Time m_lastTimeShownAfterBooking;
   std::string m_lastTimeShownAfterBookingCityId;
@@ -378,10 +376,6 @@ inline std::string DebugPrint(MapObject::Event::Type const & type)
   case MapObject::Event::Type::UgcEditorOpened: return "UgcEditorOpened";
   case MapObject::Event::Type::UgcSaved: return "UgcSaved";
   case MapObject::Event::Type::RouteToCreated: return "RouteToCreated";
-  case MapObject::Event::Type::BookingBook: return "BookingBook";
-  case MapObject::Event::Type::BookingMore: return "BookingMore";
-  case MapObject::Event::Type::BookingReviews: return "BookingReviews";
-  case MapObject::Event::Type::BookingDetails: return "BookingDetails";
   }
   UNREACHABLE();
 }

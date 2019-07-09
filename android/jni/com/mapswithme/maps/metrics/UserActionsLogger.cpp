@@ -18,6 +18,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
   utils::RegisterEyeEventIfPossible(type, userPos, info);
 }
+
+void RegisterTransitionToBooking()
+{
+  auto & info = g_framework->GetPlacePageInfo();
+  eye::Eye::Event::TransitionToBooking(info.GetMercator());
+}
 }  // namespace
 
 extern "C"
@@ -79,25 +85,25 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeUgcSaved(JNIEnv *, jcla
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingBookClicked(JNIEnv *, jclass)
 {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingBook);
+  RegisterTransitionToBooking();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingMoreClicked(JNIEnv *, jclass)
 {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingMore);
+  RegisterTransitionToBooking();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingReviewsClicked(JNIEnv *, jclass)
 {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingReviews);
+  RegisterTransitionToBooking();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingDetailsClicked(JNIEnv *, jclass)
 {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::BookingDetails);
+  RegisterTransitionToBooking();
 }
 
 JNIEXPORT void JNICALL

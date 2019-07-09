@@ -5,6 +5,8 @@
 #include "base/atomic_shared_ptr.hpp"
 #include "base/macros.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <chrono>
 #include <string>
 #include <vector>
@@ -25,6 +27,7 @@ public:
   virtual void OnLayerShown(Layer const & layer) {}
   virtual void OnMapObjectEvent(MapObject const & poi) {}
   virtual void OnPromoAfterBookingShown(Time const & time, std::string const & cityId) {}
+  virtual void OnTransitionToBooking(m2::PointD const & hotelPos) {}
 };
 
 // Note This class IS thread-safe.
@@ -48,6 +51,7 @@ public:
     static void LayerShown(Layer::Type type);
     static void MapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
                                m2::PointD const & userPos);
+    static void TransitionToBooking(m2::PointD const & hotelPos);
     static void PromoAfterBookingShown(std::string const & cityId);
   };
 
@@ -77,6 +81,7 @@ private:
   void RegisterLayerShown(Layer::Type type);
   void RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
                               m2::PointD const & userPos);
+  void RegisterTransitionToBooking(m2::PointD const & hotelPos);
   void RegisterPromoAfterBookingShown(std::string const & cityId);
 
   base::AtomicSharedPtr<Info> m_info;
