@@ -70,8 +70,8 @@ dependencies {
   implementation 'com.facebook.android:facebook-android-sdk:4.40.0'
   implementation 'com.facebook.android:audience-network-sdk:4.28.2'
   implementation 'com.google.code.gson:gson:2.6.1'
-  implementation 'com.pushwoosh:pushwoosh:5.9.0'
-  implementation 'com.pushwoosh:pushwoosh-gcm:5.9.0'
+  implementation 'com.pushwoosh:pushwoosh:5.17.0'
+  implementation 'com.pushwoosh:pushwoosh-gcm:5.12.1'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
   implementation ('com.my.target:mytarget-sdk:5.2.2') {
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
