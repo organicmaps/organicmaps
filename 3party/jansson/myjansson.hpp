@@ -290,7 +290,7 @@ void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  FromJSONObjectOptionalField(const_cast<json_t *>(root), field, result);
+  FromJSONObjectOptionalField(const_cast<json_t const *>(root), field, result);
 }
 
 template <typename T>
