@@ -15,7 +15,6 @@
     android:layout_height="wrap_content"
     android:textColor="?attr/routingButtonHint"
     android:lineSpacingExtra="2sp"
-    android:text="Save 38$"
     tools:text="Save 38$"
     tools:ignore="UnusedAttribute"
     android:background="@drawable/sale_view_bg"
