@@ -243,7 +243,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
   @Nullable
-  private PurchaseController<FailedPurchaseChecker> mBookmarkPurchaseController;
+  private PurchaseController<FailedPurchaseChecker> mBookmarkInappPurchaseController;
+  @Nullable
+  private PurchaseController<PurchaseCallback> mBookmarksSubscriptionController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
   @SuppressWarnings("NullableProblems")
@@ -508,13 +510,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize();
 
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
-    mAdsRemovalPurchaseController.initialize(this);
-    mAdsRemovalPurchaseController.validateExistingPurchases();
-
-    mBookmarkPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
-    mBookmarkPurchaseController.initialize(this);
-    mBookmarkPurchaseController.validateExistingPurchases();
+    initControllersAndValidatePurchases(savedInstanceState);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
@@ -531,6 +527,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null)
       tryToShowAdditionalViewOnTop();
+  }
+
+  private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
+  {
+    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
+    mAdsRemovalPurchaseController.initialize(this);
+
+    mBookmarkInappPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
+    mBookmarkInappPurchaseController.initialize(this);
+
+    mBookmarksSubscriptionController
+        = PurchaseFactory.createBookmarksSubscriptionPurchaseController(this);
+    mBookmarksSubscriptionController.initialize(this);
+
+    // To reduce number of parasite validation requests during orientation change.
+    if (savedInstanceState == null)
+    {
+      mAdsRemovalPurchaseController.validateExistingPurchases();
+      mBookmarkInappPurchaseController.validateExistingPurchases();
+      mBookmarksSubscriptionController.validateExistingPurchases();
+    }
   }
 
   private void initViews(boolean isLaunchByDeeplink)
@@ -1298,8 +1315,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeDestroy();
     if (mAdsRemovalPurchaseController != null)
       mAdsRemovalPurchaseController.destroy();
-    if (mBookmarkPurchaseController != null)
-      mBookmarkPurchaseController.destroy();
+    if (mBookmarkInappPurchaseController != null)
+      mBookmarkInappPurchaseController.destroy();
+    if (mBookmarksSubscriptionController != null)
+      mBookmarksSubscriptionController.destroy();
 
     mNavigationController.destroy();
     mToggleMapLayerController.detachCore();
