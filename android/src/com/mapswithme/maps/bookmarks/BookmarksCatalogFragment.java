@@ -275,6 +275,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (!TextUtils.isEmpty(productDetailsBundle))
       headers.put(HttpClient.HEADER_BUNDLE_TIERS, productDetailsBundle);
 
+    String deviceId = Framework.nativeGetDeviceId();
+    if (!TextUtils.isEmpty(deviceId))
+      headers.put(HttpClient.HEADER_DEVICE_ID, deviceId);
+
     mWebView.loadUrl(getCatalogUrlOrThrow(), headers);
     UserActionsLogger.logBookmarksCatalogShownEvent();
   }
