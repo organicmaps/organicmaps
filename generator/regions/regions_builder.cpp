@@ -1,5 +1,6 @@
 #include "generator/regions/regions_builder.hpp"
 
+#include "generator/regions/admin_suburbs_marker.hpp"
 #include "generator/regions/place_points_integrator.hpp"
 #include "generator/regions/specs/rus.hpp"
 
@@ -302,7 +303,13 @@ Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) cons
   LOG(LINFO, ("Start integrate place points for", countryName));
   pointsIntegrator.ApplyTo(countryTrees);
   LOG(LINFO, ("Finish integrate place points for", countryName));
-  
+
+  AdminSuburbsMarker suburbsMarker;
+  LOG(LINFO, ("Start mark admin suburbs for", countryName));
+  for (auto & tree : countryTrees)
+    suburbsMarker.MarkSuburbs(tree);
+  LOG(LINFO, ("Finish mark admin suburbs for", countryName));
+
   countrySpecifier->AdjustRegionsLevel(countryTrees);
 
   return countryTrees;
