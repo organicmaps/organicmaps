@@ -19,7 +19,7 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = SubscriptionPurchaseController.class.getSimpleName();
   @NonNull
-  private final ValidationCallback mValidationCallback = new AdValidationCallbackImpl();
+  private final ValidationCallback mValidationCallback = new ValidationCallbackImpl();
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
   @NonNull
@@ -48,7 +48,7 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
     getBillingManager().removeCallback(mBillingCallback);
   }
 
-  private class AdValidationCallbackImpl implements ValidationCallback
+  private class ValidationCallbackImpl implements ValidationCallback
   {
     @Override
     public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
@@ -65,12 +65,12 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
       final boolean hasActiveSubscription = Framework.nativeHasActiveSubscription(mType.ordinal());
       if (!hasActiveSubscription && shouldActivateSubscription)
       {
-        LOGGER.i(TAG, "Ads removal subscription activated");
+        LOGGER.i(TAG, "'" + mType + "' subscription activated");
         Statistics.INSTANCE.trackPurchaseProductDelivered(mType.getServerId(), mType.getVendor());
       }
       else if (hasActiveSubscription && !shouldActivateSubscription)
       {
-        LOGGER.i(TAG, "Ads removal subscription deactivated");
+        LOGGER.i(TAG, "'" + mType + "' subscription deactivated");
       }
 
       Framework.nativeSetActiveSubscription(mType.ordinal(), shouldActivateSubscription);
