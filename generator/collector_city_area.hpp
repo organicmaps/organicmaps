@@ -13,10 +13,10 @@ namespace cache
 class IntermediateDataReader;
 }  // namespace cache
 
-class CityBoundaryCollector : public CollectorInterface
+class CityAreaCollector : public CollectorInterface
 {
 public:
-  explicit CityBoundaryCollector(std::string const & filename);
+  explicit CityAreaCollector(std::string const & filename);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
@@ -26,7 +26,7 @@ public:
   void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(CityBoundaryCollector & collector) const override;
+  void MergeInto(CityAreaCollector & collector) const override;
 
 private:
   std::vector<feature::FeatureBuilder> m_boundaries;

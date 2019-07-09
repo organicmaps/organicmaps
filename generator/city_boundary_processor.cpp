@@ -55,7 +55,7 @@ void CityBoundaryProcessor::Add(FeatureBuilder const & fb)
   UnionEqualPlacesIds(Place(fb, type, false /* saveParams */));
 }
 
-void CityBoundaryProcessor::Replace(FeatureBuilder const & fb)
+void CityBoundaryProcessor::TryUpdate(FeatureBuilder const & fb)
 {
   auto const type = GetPlaceType(fb);
   Place const place(fb, type);

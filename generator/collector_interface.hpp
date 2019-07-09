@@ -33,7 +33,7 @@ class CollectorAddresses;
 class CollectorCollection;
 class CollectorTag;
 class MaxspeedsCollector;
-class CityBoundaryCollector;
+class CityAreaCollector;
 namespace cache
 {
 class IntermediateDataReader;
@@ -61,7 +61,7 @@ public:
 
   virtual void Merge(CollectorInterface const &) = 0;
 
-  virtual void MergeInto(CityBoundaryCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RestrictionWriter &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RoadAccessWriter &) const { FailIfMethodUnsupported(); }

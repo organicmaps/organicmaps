@@ -4,108 +4,111 @@
 #include "generator/feature_generator.hpp"
 #include "generator/world_map_generator.hpp"
 
+#include <cstddef>
+#include <cstdint>
 #include <string>
 
 namespace generator
 {
-enum class FinalProcessorPriority : unsigned char
+enum class FinalProcessorPriority : uint8_t
 {
-  COUNTRIES_OR_WORLD = 1,
-  WORLDCOASTS = 2
+  CountriesOrWorld = 1,
+  WorldCoasts = 2
 };
 
 // Classes that inherit this interface implement the final stage of intermediate mwm processing.
 // For example, attempt to merge the coastline or adding external elements.
 // Each derived class has a priority. This is done to comply with the order of processing intermediate mwm,
 // taking into account the dependencies between them. For example, before adding a coastline to
-// a country, we must build it.
-class FinalProcessorIntermediateMwmInteface
+// a country, we must build coastline. Processors with higher priority will be called first.
+// Processors with the same priority can run in parallel.
+class FinalProcessorIntermediateMwmInterface
 {
 public:
-  FinalProcessorIntermediateMwmInteface(FinalProcessorPriority priority) : m_priority(priority) {}
-  virtual ~FinalProcessorIntermediateMwmInteface() = default;
+  explicit FinalProcessorIntermediateMwmInterface(FinalProcessorPriority priority);
+  virtual ~FinalProcessorIntermediateMwmInterface() = default;
 
   virtual bool Process() = 0;
 
-  bool operator<(FinalProcessorIntermediateMwmInteface const & other) const;
-  bool operator==(FinalProcessorIntermediateMwmInteface const & other) const;
-  bool operator!=(FinalProcessorIntermediateMwmInteface const & other) const;
+  bool operator<(FinalProcessorIntermediateMwmInterface const & other) const;
+  bool operator==(FinalProcessorIntermediateMwmInterface const & other) const;
+  bool operator!=(FinalProcessorIntermediateMwmInterface const & other) const;
 
 protected:
   FinalProcessorPriority m_priority;
 };
 
-class CountryFinalProcessor : public FinalProcessorIntermediateMwmInteface
+class CountryFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
   explicit CountryFinalProcessor(std::string const & borderPath,
-                                 std::string const & temproryMwmPath,
+                                 std::string const & temporaryMwmPath,
                                  bool haveBordersForWholeWorld,
                                  size_t threadsCount);
 
-  void NeedBookig(std::string const & filename);
-  void UseCityBoundaries(std::string const & filename);
+  void SetBooking(std::string const & filename);
+  void SetCitiesAreas(std::string const & filename);
   void SetPromoCatalog(std::string const & filename);
-  void DumpCityBoundaries(std::string const & filename);
-  void AddCoastlines(std::string const & coastlineGeomFilename,
+  void SetCoastlines(std::string const & coastlineGeomFilename,
                      std::string const & worldCoastsFilename);
 
-  // FinalProcessorIntermediateMwmInteface overrides:
+  void DumpCitiesBoundaries(std::string const & filename);
+
+  // FinalProcessorIntermediateMwmInterface overrides:
   bool Process() override;
 
 private:
   bool ProcessBooking();
   bool ProcessCities();
-  bool ProcessCoasline();
-  bool CleanUp();
+  bool ProcessCoastline();
+  bool Finish();
 
   std::string m_borderPath;
-  std::string m_temproryMwmPath;
-  std::string m_cityBoundariesTmpFilename;
+  std::string m_temporaryMwmPath;
+  std::string m_citiesAreasTmpFilename;
   std::string m_citiesBoundariesFilename;
-  std::string m_hotelsPath;
+  std::string m_hotelsFilename;
   std::string m_coastlineGeomFilename;
   std::string m_worldCoastsFilename;
-  std::string m_citiesFinename;
+  std::string m_citiesFilename;
   bool m_haveBordersForWholeWorld;
   size_t m_threadsCount;
 };
 
-class WorldFinalProcessor : public FinalProcessorIntermediateMwmInteface
+class WorldFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
   using WorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
 
-  explicit WorldFinalProcessor(std::string const & temproryMwmPath,
-                               std::string const & coastlineGeomFilename,
-                               std::string const & popularPlacesFilename);
+  explicit WorldFinalProcessor(std::string const & temporaryMwmPath,
+                               std::string const & coastlineGeomFilename);
 
-  void UseCityBoundaries(std::string const & filename);
+  void SetPopularPlaces(std::string const & filename);
+  void SetCitiesAreas(std::string const & filename);
   void SetPromoCatalog(std::string const & filename);
 
-  // FinalProcessorIntermediateMwmInteface overrides:
+  // FinalProcessorIntermediateMwmInterface overrides:
   bool Process() override;
 
 private:
   bool ProcessCities();
 
-  std::string m_temproryMwmPath;
+  std::string m_temporaryMwmPath;
   std::string m_worldTmpFilename;
   std::string m_coastlineGeomFilename;
   std::string m_popularPlacesFilename;
-  std::string m_cityBoundariesTmpFilename;
-  std::string m_citiesFinename;
+  std::string m_citiesAreasTmpFilename;
+  std::string m_citiesFilename;
 };
 
-class CoastlineFinalProcessor : public FinalProcessorIntermediateMwmInteface
+class CoastlineFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
   explicit CoastlineFinalProcessor(std::string const & filename);
 
-  void SetCoastlineGeomFilename(std::string const & filename);
-  void SetCoastlineRawGeomFilename(std::string const & filename);
+  void SetCoastlinesFilenames(std::string const & geomFilename, std::string const & rawGeomFilename);
 
-  // FinalProcessorIntermediateMwmInteface overrides:
+  // FinalProcessorIntermediateMwmInterface overrides:
   bool Process() override;
 
 private:

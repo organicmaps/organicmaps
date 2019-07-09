@@ -18,7 +18,7 @@ public:
   CityBoundaryProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable);
 
   void Add(feature::FeatureBuilder const & fb);
-  void Replace(feature::FeatureBuilder const & fb);
+  void TryUpdate(feature::FeatureBuilder const & fb);
   std::vector<feature::FeatureBuilder> GetFeatures() const;
 
 private:

@@ -12,22 +12,22 @@ using namespace feature;
 
 namespace generator
 {
-CityBoundaryCollector::CityBoundaryCollector(std::string const & filename)
+CityAreaCollector::CityAreaCollector(std::string const & filename)
   : CollectorInterface(filename) {}
 
 std::shared_ptr<CollectorInterface>
-CityBoundaryCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
+CityAreaCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
 {
-  return std::make_shared<CityBoundaryCollector>(GetFilename());
+  return std::make_shared<CityAreaCollector>(GetFilename());
 }
 
-void CityBoundaryCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const &)
+void CityAreaCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const &)
 {
   if (feature.IsArea() && ftypes::IsCityTownOrVillage(feature.GetTypes()))
     m_boundaries.emplace_back(feature);
 }
 
-void CityBoundaryCollector::Save()
+void CityAreaCollector::Save()
 {
   FeatureBuilderWriter<serialization_policy::MaxAccuracy> collector(GetFilename());
   for (auto & boundary : m_boundaries)
@@ -37,12 +37,12 @@ void CityBoundaryCollector::Save()
   }
 }
 
-void CityBoundaryCollector::Merge(generator::CollectorInterface const & collector)
+void CityAreaCollector::Merge(generator::CollectorInterface const & collector)
 {
   collector.MergeInto(*this);
 }
 
-void CityBoundaryCollector::MergeInto(CityBoundaryCollector & collector) const
+void CityAreaCollector::MergeInto(CityAreaCollector & collector) const
 {
   std::copy(std::begin(m_boundaries), std::end(m_boundaries),
             std::back_inserter(collector.m_boundaries));

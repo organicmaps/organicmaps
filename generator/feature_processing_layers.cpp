@@ -196,7 +196,7 @@ void CityBoundaryLayer::Handle(FeatureBuilder & feature)
 {
   auto const type = GetPlaceType(feature);
   if (type != ftype::GetEmptyValue() && !feature.GetName().empty())
-    m_processor->Replace(feature);
+    m_processor->TryUpdate(feature);
   else
     LayerBase::Handle(feature);
 }
