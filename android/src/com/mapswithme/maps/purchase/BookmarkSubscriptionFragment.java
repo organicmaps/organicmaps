@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -23,6 +24,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Collections;
 import java.util.List;
@@ -86,6 +88,10 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
 
     View continueBtn = root.findViewById(R.id.continue_btn);
     continueBtn.setOnClickListener(v -> onContinueButtonClicked());
+
+    Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.bookmarksSubscriptionServerId(),
+                                                 PrivateVariables.bookmarksSubscriptionVendor(),
+                                                 PrivateVariables.bookmarksSubscriptionYearlyProductId());
     return root;
   }
 
@@ -100,12 +106,17 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
   private void openSubscriptionManagementSettings()
   {
     Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
+                                           PrivateVariables.bookmarksSubscriptionServerId());
   }
 
   private void onContinueButtonClicked()
   {
     BookmarkManager.INSTANCE.pingBookmarkCatalog();
     activateState(BookmarkSubscriptionPaymentState.PINGING);
+
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
+                                           PrivateVariables.bookmarksSubscriptionServerId());
   }
 
   @Override
@@ -265,6 +276,14 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     PurchaseUtils.showPingFailureDialog(this);
   }
 
+  @Override
+  public boolean onBackPressed()
+  {
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
+                                           PrivateVariables.bookmarksSubscriptionServerId());
+    return super.onBackPressed();
+  }
+
   private void launchPurchaseFlow()
   {
     CardView annualCard = getViewOrThrow().findViewById(R.id.annual_price_card);
@@ -305,6 +324,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
       mMonthlyPriceCard.setCardElevation(DEF_ELEVATION);
       mAnnualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
       UiUtils.show(mAnnualCardFrame, mMonthlyCardFrame);
+
+      if (!mAnnualCardFrame.isSelected())
+        Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
+                                                       PrivateVariables.bookmarksSubscriptionYearlyProductId());
+
+      mMonthlyPriceCard.setSelected(false);
+      mAnnualCardFrame.setSelected(true);
     }
   }
 
@@ -339,6 +365,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
       mMonthlyPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
       mAnnualPriceCard.setCardElevation(DEF_ELEVATION);
       UiUtils.hide(mAnnualCardFrame, mMonthlyCardFrame);
+
+      if (!mMonthlyPriceCard.isSelected())
+        Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
+                                                       PrivateVariables.bookmarksSubscriptionMonthlyProductId());
+
+      mMonthlyPriceCard.setSelected(true);
+      mAnnualCardFrame.setSelected(false);
     }
   }
 
@@ -369,6 +402,8 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @Override
     public void onPaymentFailure(int error)
     {
+      Statistics.INSTANCE.trackPurchaseStoreError(PrivateVariables.bookmarksSubscriptionServerId(),
+                                                  error);
       activateStateSafely(BookmarkSubscriptionPaymentState.PAYMENT_FAILURE);
     }
 
@@ -387,6 +422,8 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @Override
     public void onValidationStarted()
     {
+      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
+                                             PrivateVariables.bookmarksSubscriptionServerId());
       activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION);
     }
 

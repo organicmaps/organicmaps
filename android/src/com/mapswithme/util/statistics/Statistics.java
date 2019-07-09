@@ -437,6 +437,8 @@ public enum Statistics
     static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
     public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
     public static final String INAPP_PURCHASE_PREVIEW_CANCEL = "InAppPurchase_Preview_cancel";
+    public static final String INAPP_PURCHASE_PREVIEW_RESTORE = "InAppPurchase_Preview_restore";
+
     public static final String INAPP_PURCHASE_STORE_SUCCESS  = "InAppPurchase_Store_success";
     static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
     public static final String INAPP_PURCHASE_VALIDATION_SUCCESS  = "InAppPurchase_Validation_success";
@@ -1472,7 +1474,7 @@ public enum Statistics
   public void trackPurchasePreviewSelect(@NonNull String purchaseId, @NonNull String productId)
   {
     trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params().add(PRODUCT, productId)
-                                                      .add(PURCHASE, productId));
+                                                      .add(PURCHASE, purchaseId));
   }
 
   public void trackPurchaseStoreError(@NonNull String purchaseId,
