@@ -71,7 +71,7 @@ option(USE_PCH "Use precompiled headers" OFF)
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
     CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
-  message(FATAL_ERROR "Minimum supported g++ version is 7.0")
+  message(FATAL_ERROR "Minimum supported g++ version is 7.0 yours is ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
