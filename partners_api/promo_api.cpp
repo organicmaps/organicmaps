@@ -209,9 +209,9 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
   auto const promoId = LoadPromoIdForBooking(eyeInfo);
 
   if (!NeedToShowImpl(promoId, eyeInfo))
-    return {"", ""};
+    return {};
 
-  return {GetCityCatalogueUrl(m_baseUrl, promoId),
+  return {promoId, GetCityCatalogueUrl(m_baseUrl, promoId),
           GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 

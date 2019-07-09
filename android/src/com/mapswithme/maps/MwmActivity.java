@@ -72,6 +72,7 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.news.IntroductionDialogFragment;
 import com.mapswithme.maps.news.IntroductionScreenFactory;
 import com.mapswithme.maps.promo.Promo;
@@ -2223,6 +2224,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     final DialogFragment fragment = (DialogFragment) Fragment.instantiate(this, dialogName, args);
     fragment.show(getSupportFragmentManager(), dialogName);
+
+    UserActionsLogger.logPromoAfterBookingShown(promo.getId());
 
     return true;
   }

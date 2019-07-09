@@ -99,4 +99,11 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingDetailsClicked(J
 {
   RegisterEventIfPossible(eye::MapObject::Event::Type::BookingDetails);
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativePromoAfterBookingShown(JNIEnv * env,
+                                                                                jclass, jstring id)
+{
+  eye::Eye::Event::PromoAfterBookingShown(jni::ToNativeString(env, id));
+}
 }
