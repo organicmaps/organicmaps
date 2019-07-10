@@ -42,11 +42,6 @@ size_t GetMaxNumberOfErrors(Geocoder::Params const & params)
   return result;
 }
 
-struct NameScoresEx : public NameScores
-{
-  size_t m_matchedLength = 0;
-};
-
 template <typename Slice>
 void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
@@ -99,18 +94,19 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
   return result;
 }
 
-NameScoresEx GetNameScores(FeatureType & ft, Geocoder::Params const & params,
-                           TokenRange const & range, Model::Type type)
+pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const & params,
+                                       TokenRange const & range, Model::Type type)
 {
-  NameScoresEx bestScores;
+  NameScores bestScores;
 
   TokenSlice const slice(params, range);
   TokenSliceNoCategories const sliceNoCategories(params, range);
 
+  size_t matchedLength = 0;
   if (type != Model::Type::TYPE_COUNT)
   {
     for (size_t i = 0; i < slice.Size(); ++i)
-      bestScores.m_matchedLength += slice.Get(i).GetOriginal().size();
+      matchedLength += slice.Get(i).GetOriginal().size();
   }
 
   for (auto const lang : params.GetLangs())
@@ -158,15 +154,15 @@ NameScoresEx GetNameScores(FeatureType & ft, Geocoder::Params const & params,
     });
   }
 
-  return bestScores;
+  return make_pair(bestScores, matchedLength);
 }
 
 pair<ErrorsMade, size_t> MatchTokenRange(FeatureType & ft, Geocoder::Params const & params,
                                          TokenRange const & range, Model::Type type)
 {
-  auto const nameScores = GetNameScores(ft, params, range, type);
-  auto errorsMade = nameScores.m_errorsMade;
-  auto matchedLength = nameScores.m_matchedLength;
+  auto const scores = GetNameScores(ft, params, range, type);
+  auto errorsMade = scores.first.m_errorsMade;
+  auto matchedLength = scores.second;
   if (errorsMade.IsValid())
     return make_pair(errorsMade, matchedLength);
 
@@ -382,12 +378,11 @@ class RankerResultMaker
     }
     else
     {
-      auto const nameScores =
-          GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+      auto const scores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
 
-      auto nameScore = nameScores.m_nameScore;
-      auto errorsMade = nameScores.m_errorsMade;
-      auto matchedLength = nameScores.m_matchedLength;
+      auto nameScore = scores.first.m_nameScore;
+      auto errorsMade = scores.first.m_errorsMade;
+      auto matchedLength = scores.second;
 
       if (info.m_type != Model::TYPE_STREET &&
           preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
@@ -398,11 +393,11 @@ class RankerResultMaker
         {
           auto const type = Model::TYPE_STREET;
           auto const & range = preInfo.m_tokenRange[type];
-          auto const nameScores = GetNameScores(*street, m_params, range, type);
+          auto const streetScores = GetNameScores(*street, m_params, range, type);
 
-          nameScore = min(nameScore, nameScores.m_nameScore);
-          errorsMade += nameScores.m_errorsMade;
-          matchedLength += nameScores.m_matchedLength;
+          nameScore = min(nameScore, streetScores.first.m_nameScore);
+          errorsMade += streetScores.first.m_errorsMade;
+          matchedLength += streetScores.second;
         }
       }
 
