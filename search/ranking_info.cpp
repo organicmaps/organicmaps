@@ -184,6 +184,7 @@ double RankingInfo::GetErrorsMade() const
   if (m_maxErrorsMade == 0)
     return 0.0;
 
+  CHECK_GREATER_OR_EQUAL(m_maxErrorsMade, m_errorsMade.m_errorsMade, ());
   return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_maxErrorsMade);
 }
 }  // namespace search

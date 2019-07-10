@@ -556,7 +556,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
     TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, errorsMade, (query));
   };
 
-  checkErrors("кафе лермонтов", ErrorsMade(1));
+  // Prefix match "лермонтов" -> "Лермонтовъ" without errors.
+  checkErrors("кафе лермонтов", ErrorsMade(0));
+  checkErrors("кафе лермнтовъ", ErrorsMade(1));
+  // Full match.
   checkErrors("трактир лермонтов", ErrorsMade(2));
   checkErrors("кафе", ErrorsMade());
 
@@ -572,9 +575,14 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("пушкенская кафе", ErrorsMade(1));
   checkErrors("пушкинская трактиръ лермонтовъ", ErrorsMade(0));
 
-  checkErrors("лермонтовъ чехов", ErrorsMade(1));
+  // Prefix match "чехов" -> "Чеховъ" without errors.
+  checkErrors("лермонтовъ чехов", ErrorsMade(0));
+  checkErrors("лермонтовъ чехов ", ErrorsMade(1));
   checkErrors("лермонтовъ чеховъ", ErrorsMade(0));
-  checkErrors("лермонтов чехов", ErrorsMade(2));
+
+  // Prefix match "чехов" -> "Чеховъ" without errors.
+  checkErrors("лермонтов чехов", ErrorsMade(1));
+  checkErrors("лермонтов чехов ", ErrorsMade(2));
   checkErrors("лермонтов чеховъ", ErrorsMade(1));
 
   checkErrors("лермонтов чеховъ антон павлович", ErrorsMade(3));

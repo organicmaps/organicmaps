@@ -27,18 +27,6 @@ struct TokenInfo
 };
 }  // namespace
 
-// static
-NameScores NameScores::BestScores(NameScores const & lhs, NameScores const & rhs)
-{
-  if (lhs.m_nameScore != rhs.m_nameScore)
-    return lhs.m_nameScore > rhs.m_nameScore ? lhs : rhs;
-
-  NameScores result = lhs;
-  result.m_errorsMade = ErrorsMade::Min(lhs.m_errorsMade, rhs.m_errorsMade);
-
-  return result;
-}
-
 // CategoriesInfo ----------------------------------------------------------------------------------
 CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
                                Locales const & locales, CategoriesHolder const & categories)
@@ -105,7 +93,7 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
     auto it = dfa.Begin();
     strings::DFAMove(it, s.begin(), s.end());
     if (!it.Rejects())
-      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.ErrorsMade()));
+      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.PrefixErrorsMade()));
   });
 
   return errorsMade;
@@ -146,5 +134,12 @@ string DebugPrint(NameScore score)
   case NAME_SCORE_COUNT: return "Count";
   }
   return "Unknown";
+}
+
+string DebugPrint(NameScores scores)
+{
+  ostringstream os;
+  os << "[ " << DebugPrint(scores.m_nameScore) << ", " << DebugPrint(scores.m_errorsMade) << " ]";
+  return os.str();
 }
 }  // namespace search

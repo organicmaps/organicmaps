@@ -21,7 +21,7 @@ using namespace strings;
 
 namespace
 {
-NameScore GetScore(string const & name, string const & query, TokenRange const & tokenRange)
+NameScores GetScore(string const & name, string const & query, TokenRange const & tokenRange)
 {
   search::Delimiters delims;
   QueryParams params;
@@ -39,26 +39,33 @@ NameScore GetScore(string const & name, string const & query, TokenRange const &
     params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 
-  return GetNameScores(name, TokenSlice(params, tokenRange)).m_nameScore;
+  return GetNameScores(name, TokenSlice(params, tokenRange));
 }
 
 UNIT_TEST(NameTest_Smoke)
 {
-  TEST_EQUAL(GetScore("New York", "Central Park, New York, US", TokenRange(2, 4)),
-             NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("New York", "York", TokenRange(0, 1)), NAME_SCORE_SUBSTRING, ());
-  TEST_EQUAL(GetScore("Moscow", "Red Square Mosc", TokenRange(2, 3)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("Moscow", "Red Square Moscow", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("Moscow", "Red Square Moscw", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("San Francisco", "Fran", TokenRange(0, 1)), NAME_SCORE_SUBSTRING, ());
-  TEST_EQUAL(GetScore("San Francisco", "Fran ", TokenRange(0, 1)), NAME_SCORE_ZERO, ());
-  TEST_EQUAL(GetScore("San Francisco", "Sa", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("San Francisco", "San ", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермон", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтово", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("фото на документы", "фото", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
-  TEST_EQUAL(GetScore("фотоателье", "фото", TokenRange(0, 1)), NAME_SCORE_PREFIX, ());
+  auto const test = [](string const & name, string const & query, TokenRange const & tokenRange,
+                       NameScore nameScore, size_t errorsMade) {
+    TEST_EQUAL(
+        GetScore(name, query, tokenRange),
+        NameScores(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade)),
+        (name, query, tokenRange));
+  };
+
+  test("New York", "Central Park, New York, US", TokenRange(2, 4), NAME_SCORE_FULL_MATCH, 0);
+  test("New York", "York", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0);
+  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NAME_SCORE_PREFIX, 0);
+  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 0);
+  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 1);
+  test("San Francisco", "Fran", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0);
+  test("San Francisco", "Fran ", TokenRange(0, 1), NAME_SCORE_ZERO, 0);
+  test("San Francisco", "Sa", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+  test("San Francisco", "San ", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
+  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
+  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
+  test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+  test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
 }
 }  // namespace

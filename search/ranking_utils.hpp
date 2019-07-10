@@ -97,9 +97,8 @@ std::string DebugPrint(ErrorsMade const & errorsMade);
 
 namespace impl
 {
-// Returns the minimum number of errors needed to match |text| with
-// any of the |tokens|.  If it's not possible in accordance with
-// GetMaxErrorsForToken(|text|), returns kInfiniteErrors.
+// Returns the minimum number of errors needed to match |text| with |token|.
+// If it's not possible in accordance with GetMaxErrorsForToken(|text|), returns kInfiniteErrors.
 ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
 ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
 }  // namespace impl
@@ -118,7 +117,28 @@ enum NameScore
 
 struct NameScores
 {
-  static NameScores BestScores(NameScores const & lhs, NameScores const & rhs);
+  NameScores() = default;
+  NameScores(NameScore nameScore, ErrorsMade const & errorsMade)
+    : m_nameScore(nameScore), m_errorsMade(errorsMade)
+  {
+  }
+
+  void UpdateIfBetter(NameScores const & rhs)
+  {
+    if (rhs.m_nameScore > m_nameScore)
+    {
+      m_nameScore = rhs.m_nameScore;
+      m_errorsMade = rhs.m_errorsMade;
+      return;
+    }
+    if (rhs.m_nameScore == m_nameScore)
+      m_errorsMade = ErrorsMade::Min(m_errorsMade, rhs.m_errorsMade);
+  }
+
+  bool operator==(NameScores const & rhs)
+  {
+    return m_nameScore == rhs.m_nameScore && m_errorsMade == rhs.m_errorsMade;
+  }
 
   NameScore m_nameScore = NAME_SCORE_ZERO;
   ErrorsMade m_errorsMade;
@@ -157,7 +177,8 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice c
       continue;
 
     auto const prefixErrorsMade =
-        impl::GetPrefixErrorsMade(slice.Get(m - 1), tokens[offset + m - 1]);
+        lastTokenIsPrefix ? impl::GetPrefixErrorsMade(slice.Get(m - 1), tokens[offset + m - 1])
+                          : ErrorsMade{};
     auto const fullErrorsMade = impl::GetErrorsMade(slice.Get(m - 1), tokens[offset + m - 1]);
     if (!fullErrorsMade.IsValid() && !(prefixErrorsMade.IsValid() && lastTokenIsPrefix))
       continue;
@@ -169,16 +190,13 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice c
       return scores;
     }
 
+    auto const newErrors =
+        lastTokenIsPrefix ? ErrorsMade::Min(fullErrorsMade, prefixErrorsMade) : fullErrorsMade;
+
     if (offset == 0)
-    {
-      scores.m_nameScore = std::max(scores.m_nameScore, NAME_SCORE_PREFIX);
-      scores.m_errorsMade = totalErrorsMade + prefixErrorsMade;
-    }
-    else
-    {
-      scores.m_nameScore = std::max(scores.m_nameScore, NAME_SCORE_SUBSTRING);
-      scores.m_errorsMade = totalErrorsMade + prefixErrorsMade;
-    }
+      scores.UpdateIfBetter(NameScores(NAME_SCORE_PREFIX, totalErrorsMade + newErrors));
+
+    scores.UpdateIfBetter(NameScores(NAME_SCORE_SUBSTRING, totalErrorsMade + newErrors));
   }
   return scores;
 }
@@ -193,4 +211,5 @@ NameScores GetNameScores(std::string const & name, Slice const & slice)
 }
 
 std::string DebugPrint(NameScore score);
+std::string DebugPrint(NameScores scores);
 }  // namespace search

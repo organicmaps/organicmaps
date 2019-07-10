@@ -33,7 +33,7 @@ namespace search
 {
 namespace
 {
-size_t GetMaxNumberOfErros(Geocoder::Params const & params)
+size_t GetMaxNumberOfErrors(Geocoder::Params const & params)
 {
   size_t result = 0;
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
@@ -50,16 +50,14 @@ struct NameScoresEx : public NameScores
 template <typename Slice>
 void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
-  auto const newScores = GetNameScores(name, slice);
-  bestScores = NameScores::BestScores(newScores, bestScores);
+  bestScores.UpdateIfBetter(GetNameScores(name, slice););
 }
 
 template <typename Slice>
 void UpdateNameScores(vector<strings::UniString> const & tokens, Slice const & slice,
                       NameScores & bestScores)
 {
-  auto const newScores = GetNameScores(tokens, slice);
-  bestScores = NameScores::BestScores(newScores, bestScores);
+  bestScores.UpdateIfBetter(GetNameScores(tokens, slice));
 }
 
 // This function supports only street names like "abcdstrasse"/"abcd strasse".
@@ -427,7 +425,7 @@ class RankerResultMaker
 
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
-      info.m_maxErrorsMade = GetMaxNumberOfErros(m_params);
+      info.m_maxErrorsMade = GetMaxNumberOfErrors(m_params);
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);
