@@ -82,6 +82,7 @@ public:
     bool Rejects() const { return m_dfa.IsRejecting(m_s); }
 
     size_t ErrorsMade() const { return m_dfa.ErrorsMade(m_s); }
+    size_t PrefixErrorsMade() const { return m_dfa.PrefixErrorsMade(m_s); }
 
   private:
     friend class LevenshteinDFA;
@@ -126,6 +127,10 @@ private:
   size_t ErrorsMade(State const & s) const;
   size_t ErrorsMade(size_t s) const { return m_errorsMade[s]; }
 
+  // Returns minimum number of errors already made. This number cannot decrease.
+  size_t PrefixErrorsMade(State const & s) const;
+  size_t PrefixErrorsMade(size_t s) const { return m_prefixErrorsMade[s]; }
+
   size_t Move(size_t s, UniChar c) const;
 
   size_t const m_size;
@@ -136,6 +141,7 @@ private:
   std::vector<std::vector<size_t>> m_transitions;
   std::vector<bool> m_accepting;
   std::vector<size_t> m_errorsMade;
+  std::vector<size_t> m_prefixErrorsMade;
 };
 
 std::string DebugPrint(LevenshteinDFA::Position const & p);

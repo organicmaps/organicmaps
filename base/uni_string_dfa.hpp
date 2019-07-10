@@ -19,6 +19,7 @@ public:
     bool Accepts() const { return !Rejects() && m_pos == m_s.size(); }
     bool Rejects() const { return m_rejected; }
     size_t ErrorsMade() const { return 0; }
+    size_t PrefixErrorsMade() const { return 0; }
 
   private:
     friend class UniStringDFA;

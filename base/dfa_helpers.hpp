@@ -62,6 +62,7 @@ public:
     bool Accepts() const { return m_accepts; }
     bool Rejects() const { return !Accepts() && m_it.Rejects(); }
     size_t ErrorsMade() const { return m_it.ErrorsMade(); }
+    size_t PrefixErrorsMade() const { return m_it.PrefixErrorsMade(); }
 
   private:
     friend class PrefixDFAModifier;

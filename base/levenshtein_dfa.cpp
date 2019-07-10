@@ -237,6 +237,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
     m_transitions.emplace_back(m_alphabet.size());
     m_accepting.push_back(false);
     m_errorsMade.push_back(ErrorsMade(state));
+    m_prefixErrorsMade.push_back(PrefixErrorsMade(state));
   };
 
   pushState(MakeStart(), kStartingState);
@@ -348,6 +349,14 @@ size_t LevenshteinDFA::ErrorsMade(State const & s) const
     auto const errorsLeft = p.m_errorsLeft - (m_size - p.m_offset);
     errorsMade = std::min(errorsMade, m_maxErrors - errorsLeft);
   }
+  return errorsMade;
+}
+
+size_t LevenshteinDFA::PrefixErrorsMade(State const & s) const
+{
+  size_t errorsMade = m_maxErrors;
+  for (auto const & p : s.m_positions)
+    errorsMade = std::min(errorsMade, m_maxErrors - p.m_errorsLeft);
   return errorsMade;
 }
 

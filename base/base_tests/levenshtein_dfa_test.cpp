@@ -22,16 +22,21 @@ enum class Status
 struct Result
 {
   Result() = default;
-  Result(Status status, size_t errorsMade = 0) : m_status(status), m_errorsMade(errorsMade) {}
+  Result(Status status, size_t errorsMade = 0, size_t prefixErrorsMade = 0)
+    : m_status(status), m_errorsMade(errorsMade), m_prefixErrorsMade(prefixErrorsMade)
+  {
+  }
 
   bool operator==(Result const & rhs) const
   {
     return m_status == rhs.m_status &&
-           (m_errorsMade == rhs.m_errorsMade || m_status == Status::Rejects);
+           (m_errorsMade == rhs.m_errorsMade || m_status == Status::Rejects) &&
+           (m_prefixErrorsMade == rhs.m_prefixErrorsMade || m_status == Status::Rejects);
   }
 
   Status m_status = Status::Accepts;
   size_t m_errorsMade = 0;
+  size_t m_prefixErrorsMade = 0;
 };
 
 string DebugPrint(Status status)
@@ -50,7 +55,8 @@ string DebugPrint(Result const & result)
   ostringstream os;
   os << "Result [ ";
   os << "status: " << DebugPrint(result.m_status) << ", ";
-  os << "errorsMade: " << result.m_errorsMade << " ]";
+  os << "errorsMade: " << result.m_errorsMade << ", ";
+  os << "prefixErrorsMade: " << result.m_prefixErrorsMade << " ]";
   return os.str();
 }
 
@@ -59,10 +65,10 @@ Result GetResult(LevenshteinDFA const & dfa, std::string const & s)
   auto it = dfa.Begin();
   DFAMove(it, s);
   if (it.Accepts())
-    return Result(Status::Accepts, it.ErrorsMade());
+    return Result(Status::Accepts, it.ErrorsMade(), it.PrefixErrorsMade());
   if (it.Rejects())
-    return Result(Status::Rejects, it.ErrorsMade());
-  return Result(Status::Intermediate, it.ErrorsMade());
+    return Result(Status::Rejects, it.ErrorsMade(), it.PrefixErrorsMade());
+  return Result(Status::Intermediate, it.ErrorsMade(), it.PrefixErrorsMade());
 }
 
 bool Accepts(LevenshteinDFA const & dfa, std::string const & s)
@@ -154,29 +160,39 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
   {
     LevenshteinDFA dfa("москва", 1 /* prefixSize */, 2 /* maxErrors */);
 
-    TEST_EQUAL(GetResult(dfa, "москва"), Result(Status::Accepts, 0 /* errorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "москв"), Result(Status::Accepts, 1 /* errorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "моск"), Result(Status::Accepts, 2 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "москва"),
+               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "москв"),
+               Result(Status::Accepts, 1 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "моск"),
+               Result(Status::Accepts, 2 /* errorsMade */, 0 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "мос").m_status, Status::Intermediate, ());
+    TEST_EQUAL(GetResult(dfa, "мос").m_prefixErrorsMade, 0, ());
 
-    TEST_EQUAL(GetResult(dfa, "моксав"), Result(Status::Accepts, 2 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "моксав"),
+               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "максав").m_status, Status::Rejects, ());
 
     TEST_EQUAL(GetResult(dfa, "мсовк").m_status, Status::Intermediate, ());
-    TEST_EQUAL(GetResult(dfa, "мсовка"), Result(Status::Accepts, 2 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "мсовк").m_prefixErrorsMade, 2, ());
+    TEST_EQUAL(GetResult(dfa, "мсовка"),
+               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "мсовкб").m_status, Status::Rejects, ());
   }
 
   {
     LevenshteinDFA dfa("aa", 0 /* prefixSize */, 2 /* maxErrors */);
-    TEST_EQUAL(GetResult(dfa, "abab"), Result(Status::Accepts, 2 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "abab"),
+               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
   }
 
   {
     LevenshteinDFA dfa("mississippi", 0 /* prefixSize */, 0 /* maxErrors */);
     TEST_EQUAL(GetResult(dfa, "misisipi").m_status, Status::Rejects, ());
     TEST_EQUAL(GetResult(dfa, "mississipp").m_status, Status::Intermediate, ());
-    TEST_EQUAL(GetResult(dfa, "mississippi"), Result(Status::Accepts, 0 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "mississipp").m_prefixErrorsMade, 0, ());
+    TEST_EQUAL(GetResult(dfa, "mississippi"),
+               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
   }
 
   {
@@ -185,9 +201,9 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
     size_t const maxErrors = 1;
     string const str = "yekaterinburg";
     vector<pair<string, Result>> const queries = {
-        {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */)},
-        {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */)},
-        {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */)},
+        {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */)},
+        {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
+        {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
         {"iekaterinburg", Result(Status::Rejects)}};
 
     for (auto const & q : queries)
@@ -199,8 +215,10 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
 
   {
     LevenshteinDFA dfa("кафе", 1 /* prefixSize */, 1 /* maxErrors */);
-    TEST_EQUAL(GetResult(dfa, "кафе"), Result(Status::Accepts, 0 /* errorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "кафер"), Result(Status::Accepts, 1 /* errorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "кафе"),
+               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "кафер"),
+               Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */), ());
   }
 }
 
@@ -214,26 +232,33 @@ UNIT_TEST(LevenshteinDFA_PrefixDFAModifier)
 
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
+    TEST_EQUAL(it.PrefixErrorsMade(), 0, ());
+    // |maxErrors| for all non-accepting states.
+    TEST_EQUAL(it.ErrorsMade(), 2, ());
 
     DFAMove(it, "c");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
     TEST_EQUAL(it.ErrorsMade(), 2, ());
+    TEST_EQUAL(it.PrefixErrorsMade(), 0, ());
 
     DFAMove(it, "d");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
     TEST_EQUAL(it.ErrorsMade(), 1, ());
+    TEST_EQUAL(it.PrefixErrorsMade(), 0, ());
 
     DFAMove(it, "e");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
     TEST_EQUAL(it.ErrorsMade(), 0, ());
+    TEST_EQUAL(it.PrefixErrorsMade(), 0, ());
 
     DFAMove(it, "fghijklmn");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
     TEST_EQUAL(it.ErrorsMade(), 0, ());
+    TEST_EQUAL(it.PrefixErrorsMade(), 0, ());
   }
 }
 
