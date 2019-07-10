@@ -76,6 +76,7 @@
       <TextView
         android:id="@+id/localGuidesTitle"
         android:text="@string/discovery_button_subtitle_local_guides"
+        android:visibility="gone"
         android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
         style="@style/MwmWidget.Discovery.Subtitle"
         android:layout_marginTop="@dimen/margin_base_plus"
@@ -88,6 +89,7 @@
         android:layout_height="wrap_content"/>
       <android.support.v7.widget.RecyclerView
         android:id="@+id/localGuides"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
       <include layout="@layout/catalog_promo_container"/>

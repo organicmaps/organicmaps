@@ -65,7 +65,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_HOTELS,
                                             DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
                                             DiscoveryParams.ITEM_TYPE_CAFES,
-                                            DiscoveryParams.ITEM_TYPE_LOCAL_EXPERTS,
                                             DiscoveryParams.ITEM_TYPE_PROMO};
   private boolean mOnlineMode;
   @Nullable
@@ -137,11 +136,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
   }
 
-  private void initLocalExpertsGallery()
-  {
-    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.localGuides));
-  }
-
   private static void setLayoutManagerAndItemDecoration(@NonNull Context context,
                                                         @NonNull RecyclerView rv)
   {
@@ -190,7 +184,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     initHotelGallery();
     initAttractionsGallery();
     initFoodGallery();
-    initLocalExpertsGallery();
     initSearchBasedAdapters();
     initCatalogPromoGallery();
     requestDiscoveryInfoAndInitAdapters();
@@ -215,21 +208,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
   private void initNetworkBasedAdapters()
   {
-    UiUtils.showIf(mOnlineMode, getRootView(), R.id.localGuidesTitle, R.id.localGuides);
-    if (mOnlineMode)
-    {
-      RecyclerView localGuides = getGallery(R.id.localGuides);
-      localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
-      RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-      BaseItemSelectedListener<Items.Item> listener = new CatalogPromoSelectedListener(requireActivity());
-      promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
+    if (!mOnlineMode)
       return;
-    }
 
-    // It means that the user doesn't permit mobile network usage, so network based galleries UI
-    // should be hidden in this case.
-    UiUtils.showIf(ConnectionState.isMobileConnected(), getView(), R.id.localGuidesTitle,
-                   R.id.localGuides);
+    RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
+    BaseItemSelectedListener<Items.Item> listener = new CatalogPromoSelectedListener(requireActivity());
+    promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
   }
 
   private void requestDiscoveryInfo()
