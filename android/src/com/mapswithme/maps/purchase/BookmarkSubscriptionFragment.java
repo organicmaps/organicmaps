@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,11 +79,8 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     monthlyPriceCard.setOnClickListener(monthlyCardListener);
     annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
-    TextView restorePurchasesLink = root.findViewById(R.id.restore_purchase_btn);
-    final Spanned html = makeRestorePurchaseHtml(requireContext());
-    restorePurchasesLink.setText(html);
-    restorePurchasesLink.setMovementMethod(LinkMovementMethod.getInstance());
-    restorePurchasesLink.setOnClickListener(v -> openSubscriptionManagementSettings());
+    TextView restorePurchasesBtn = root.findViewById(R.id.restore_purchase_btn);
+    restorePurchasesBtn.setOnClickListener(v -> openSubscriptionManagementSettings());
 
     View continueBtn = root.findViewById(R.id.continue_btn);
     continueBtn.setOnClickListener(v -> onContinueButtonClicked());
