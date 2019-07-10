@@ -202,8 +202,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     TextView priceView = getViewOrThrow().findViewById(R.id.annual_price);
     priceView.setText(price);
     TextView savingView = getViewOrThrow().findViewById(R.id.sale);
-    String saving = Utils.formatCurrencyString(calculateYearlySaving(), details.getCurrencyCode());
-    savingView.setText(getString(R.string.annual_save_component, saving));
+    savingView.setText(getString(R.string.annual_save_component, calculateYearlySaving()));
   }
 
   private void updateMonthlyButton()
@@ -214,11 +213,11 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     priceView.setText(price);
   }
 
-  private float calculateYearlySaving()
+  private int calculateYearlySaving()
   {
     float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
     float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();
-    return pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR - pricePerYear;
+    return (int) (100 * (1 - pricePerYear / (pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR)));
   }
 
   @NonNull
