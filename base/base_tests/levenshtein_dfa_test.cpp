@@ -290,7 +290,6 @@ UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
     {
       for (auto const & query : queries)
       {
-        LOG(LINFO, (source, query));
         PrefixDFAModifier<LevenshteinDFA> dfa(LevenshteinDFA(source, 2 /* maxErrors */));
         auto it = dfa.Begin();
         for (auto const c : query)
