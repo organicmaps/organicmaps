@@ -1,13 +1,10 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,13 +152,6 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     super.onStop();
     mPurchaseController.removeCallback();
     mPurchaseCallback.detach();
-  }
-
-  private static Spanned makeRestorePurchaseHtml(@NonNull Context context)
-  {
-    final String restorePurchaseLink = "";
-    return Html.fromHtml(context.getString(R.string.restore_purchase_link,
-                                           restorePurchaseLink));
   }
 
   @Override
