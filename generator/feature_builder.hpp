@@ -8,7 +8,7 @@
 
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/thread_pool_computational.hpp"
+#include "base/thread_pool_delayed.hpp"
 
 #include <functional>
 #include <list>
@@ -368,9 +368,9 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
     }
   };
 
-  base::thread_pool::computational::ThreadPool threadPool{threadsCount};
+  base::thread_pool::delayed::ThreadPool threadPool{threadsCount};
   for (size_t i = 0; i < threadsCount; ++i)
-    threadPool.Submit(concurrentProcessor);
+    threadPool.Push(concurrentProcessor);
 }
 template <class SerializationPolicy = serialization_policy::MinSize>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
