@@ -289,7 +289,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)didBecomeActive
 {
   if (!self.welcomePageController)
-    [self.controlsManager showTutorialIfNeeded];
+    [self.controlsManager showAdditionalViewsIfNeeded];
 }
 
 - (void)viewDidLayoutSubviews

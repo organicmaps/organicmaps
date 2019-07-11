@@ -518,6 +518,9 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   NSAssert(url, @"Sponsored url can't be nil!");
   
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+
+  if (data.isBooking)
+    [MWMEye transitionToBookingWithPos:CGPointMake(data.mercator.x, data.mercator.y)];
 }
 
 - (void)book

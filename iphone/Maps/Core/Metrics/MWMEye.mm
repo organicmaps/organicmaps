@@ -36,4 +36,13 @@
   eye::Eye::Event::DiscoveryItemClicked((eye::Discovery::Event)event);
 }
 
++ (void)transitionToBookingWithPos:(CGPoint)pos
+{
+   eye::Eye::Event::TransitionToBooking({pos.x, pos.y});
+}
+
++ (void)promoAfterBookingShownWithCityId:(NSString *)cityId
+{
+  eye::Eye::Event::PromoAfterBookingShown(cityId.UTF8String);
+}
 @end

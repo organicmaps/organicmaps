@@ -70,6 +70,6 @@ class Info;
 
 - (id<MWMBookingInfoHolder>)bookingInfoHolder;
 
-- (void)showTutorialIfNeeded;
+- (void)showAdditionalViewsIfNeeded;
 
 @end

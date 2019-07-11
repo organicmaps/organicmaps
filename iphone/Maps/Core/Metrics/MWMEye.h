@@ -33,5 +33,7 @@ typedef NS_ENUM(NSUInteger, MWMEyeDiscoveryEvent)
 + (void)boomarksCatalogShown;
 + (void)discoveryShown;
 + (void)discoveryItemClickedWithEvent:(MWMEyeDiscoveryEvent)event;
++ (void)transitionToBookingWithPos:(CGPoint)pos;
++ (void)promoAfterBookingShownWithCityId:(NSString *)cityId;
 
 @end
