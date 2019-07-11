@@ -290,16 +290,18 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   }
 
   @Override
-  public void onCatalogPromoResultReceived(@NonNull PromoCityGallery promoCityGallery)
+  public void onCatalogPromoResultReceived(@NonNull PromoCityGallery gallery)
   {
-    updateViewsVisibility(promoCityGallery.getItems(), R.id.catalog_promo_recycler,
+    updateViewsVisibility(gallery.getItems(), R.id.catalog_promo_recycler,
                           R.id.catalog_promo_title);
-    if (promoCityGallery.getItems().length == 0)
+    if (gallery.getItems().length == 0)
       return;
 
-    String url = promoCityGallery.getMoreUrl();
-    ItemSelectedListener<PromoEntity> listener = new RegularCatalogPromoListener(requireActivity(), DISCOVERY);
-    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), promoCityGallery, url, listener, DISCOVERY);
+    String url = gallery.getMoreUrl();
+    ItemSelectedListener<PromoEntity> listener =
+        new RegularCatalogPromoListener(requireActivity(), DISCOVERY);
+    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), gallery, url,
+                                                               listener, DISCOVERY);
     RecyclerView recycler = getGallery(R.id.catalog_promo_recycler);
     recycler.setAdapter(adapter);
   }

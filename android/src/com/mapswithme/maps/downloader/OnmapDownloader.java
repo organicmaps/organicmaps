@@ -286,7 +286,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
 
     Statistics.ParameterBuilder builder =
-        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getStatsProvider().getValue());
+        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.toStatisticValue());
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }

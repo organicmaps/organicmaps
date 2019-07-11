@@ -46,7 +46,7 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     View cancel = view.findViewById(R.id.cancel);
-    cancel.setOnClickListener(new CloseClickListener());
+    cancel.setOnClickListener(new CancelClickListener());
 
     if (!readArguments())
       return;
@@ -94,7 +94,7 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
     Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_CLICKED, builder);
   }
 
-  private void trackCloseStats(@NonNull String value)
+  private static void trackCancelStats(@NonNull String value)
   {
     Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder()
         .add(Statistics.EventParam.OPTION, value);
@@ -106,16 +106,16 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    trackCloseStats(Statistics.ParamValue.OFFSCREEEN);
+    trackCancelStats(Statistics.ParamValue.OFFSCREEEN);
   }
 
-  private class CloseClickListener implements View.OnClickListener
+  private class CancelClickListener implements View.OnClickListener
   {
     @Override
     public void onClick(View v)
     {
       dismissAllowingStateLoss();
-      trackCloseStats(Statistics.ParamValue.CANCEL);
+      trackCancelStats(Statistics.ParamValue.CANCEL);
     }
   }
 }

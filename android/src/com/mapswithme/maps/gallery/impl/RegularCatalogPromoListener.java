@@ -2,6 +2,7 @@ package com.mapswithme.maps.gallery.impl;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
@@ -27,6 +28,9 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
   @Override
   public void onItemSelected(@NonNull PromoEntity item, int position)
   {
+    if (TextUtils.isEmpty(item.getUrl()))
+      return;
+
     BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
     Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, mPlacement, position,
                                                         Destination.CATALOGUE);
@@ -35,6 +39,10 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
   @Override
   public void onMoreItemSelected(@NonNull PromoEntity item)
   {
+
+    if (TextUtils.isEmpty(item.getUrl()))
+      return;
+
     BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
     Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                           GalleryType.PROMO,
@@ -44,6 +52,9 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
   @Override
   public void onActionButtonSelected(@NonNull PromoEntity item, int position)
   {
+    if (TextUtils.isEmpty(item.getUrl()))
+      return;
+
     BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
   }
 }
