@@ -93,6 +93,20 @@ inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First &&
   return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
 }
 
+template <class First>
+inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path)
+{
+  return GetJSONObligatoryField(root, std::forward<First>(path));
+}
+
+template <class First, class... Paths>
+inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path,
+                                                   Paths &&... paths)
+{
+  json_t * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
+  return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
+}
+
 bool JSONIsNull(json_t const * root);
 }  // namespace base
 

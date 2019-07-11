@@ -70,8 +70,8 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
   auto result = regionKeyValue.second->MakeDeepCopyJson();
   int const kHouseOrPoiRank = 30;
   UpdateCoordinates(fb.GetKeyPoint(), result);
-  auto properties = json_object_get(result.get(), "properties");
-  auto address = json_object_get(properties, "address");
+  auto properties = base::GetJSONObligatoryField(result.get(), "properties");
+  auto address = base::GetJSONObligatoryFieldByPath(properties, "locales", "default", "address");
   ToJSONObject(*properties, "rank", kHouseOrPoiRank);
   auto const street = fb.GetParams().GetStreet();
   if (!street.empty())
