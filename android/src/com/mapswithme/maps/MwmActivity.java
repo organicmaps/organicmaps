@@ -2245,7 +2245,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     fragment.show(getSupportFragmentManager(), dialogName);
 
     UserActionsLogger.logPromoAfterBookingShown(promo.getId());
-
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_SHOWN,
+                                   Statistics.makeInAppSuggestionParamBuilder());
     return true;
   }
 

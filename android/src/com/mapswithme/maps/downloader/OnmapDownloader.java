@@ -249,6 +249,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     mFrame.findViewById(R.id.banner_button).setOnClickListener(v -> {
       if (mPromoBanner != null && mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
         Utils.openUrl(mActivity, mPromoBanner.getUrl());
+
+      Statistics.ParameterBuilder builder =
+          Statistics.makeDownloaderBannerParamBuilder(Statistics.ParamValue.MEGAFON);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
     });
 
     View downloadGuidesBtn = mFrame.findViewById(R.id.catalog_call_to_action_btn);
@@ -279,6 +283,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
     UiUtils.showIf(isDownloading && hasMegafonPromo, mFrame, R.id.banner);
     UiUtils.showIf(isDownloading && hasCatalogPromo, mCatalogCallToActionContainer);
+
+
+    Statistics.ParameterBuilder builder =
+        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getStatsProvider().getValue());
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
 
   @Override
@@ -328,6 +338,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         return;
 
       BookmarksCatalogActivity.start(mActivity, mPromoBanner.getUrl());
+      Statistics.ParameterBuilder builder =
+          Statistics.makeDownloaderBannerParamBuilder(Statistics.ParamValue.MAPSME_GUIDES);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
     }
   }
 }

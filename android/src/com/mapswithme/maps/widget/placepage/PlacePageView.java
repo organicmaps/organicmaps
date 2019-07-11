@@ -383,10 +383,10 @@ public class PlacePageView extends NestedScrollView
   public void onCityGalleryReceived(@NonNull PromoCityGallery gallery)
   {
     String url = gallery.getMoreUrl();
-    List<PromoEntity> items = toEntities(gallery);
-    RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(getActivity());
+    RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(getActivity(),
+                                                                                GalleryPlacement.PLACEPAGE);
     com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoAdapter(getContext(),
-                                                                                           items,
+                                                                                           gallery,
                                                                                            url,
                                                                                            promoListener,
                                                                                            GalleryPlacement.PLACEPAGE);

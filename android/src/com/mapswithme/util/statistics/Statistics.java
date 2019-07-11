@@ -159,6 +159,22 @@ public enum Statistics
 {
   INSTANCE;
 
+  @NonNull
+  public static ParameterBuilder makeInAppSuggestionParamBuilder()
+  {
+    return new ParameterBuilder()
+        .add(EventParam.SCENARIO, BOOKING_COM)
+        .add(PROVIDER, MAPSME_GUIDES);
+  }
+
+  @NonNull
+  public static ParameterBuilder makeDownloaderBannerParamBuilder(@NonNull String provider)
+  {
+    return new ParameterBuilder()
+            .add(EventParam.FROM, ParamValue.MAP)
+            .add(PROVIDER, provider);
+  }
+
   public void trackCategoryDescChanged()
   {
     trackEditSettingsScreenOptionClick(ParamValue.ADD_DESC);
@@ -273,6 +289,8 @@ public enum Statistics
     public static final String PLACEPAGE_DESCRIPTION_MORE = "Placepage_Description_more";
     public static final String PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK = "Placepage_Description_Outbound_click";
     public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
+    public static final String DOWNLOADER_BANNER_SHOW = "Downloader_Banner_show";
+    public static final String DOWNLOADER_BANNER_CLICK = "Downloader_Banner_click";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
@@ -453,6 +471,10 @@ public enum Statistics
     public static final String TIPS_TRICKS_CLOSE = "TipsTricks_close";
     public static final String TIPS_TRICKS_CLICK = "TipsTricks_click";
 
+    public static final String INAPP_SUGGESTION_SHOWN = "MapsMe_InAppSuggestion_shown";
+    public static final String INAPP_SUGGESTION_CLICKED = "MapsMe_InAppSuggestion_clicked";
+    public static final String INAPP_SUGGESTION_CLOSED = "MapsMe_InAppSuggestion_closed";
+    
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -493,6 +515,7 @@ public enum Statistics
     public static final String MOTORWAY = "motorway";
     public static final String SETTINGS = "settings";
     public static final String ROUTE = "route";
+    public static final String SCENARIO = "scenario";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
@@ -572,6 +595,9 @@ public enum Statistics
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
     public static final String COPY_LINK = "copy_link";
+    public static final String CANCEL = "Cancel";
+    public static final String MEGAFON = "Megafon";
+    public static final String MAP = "map";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
@@ -623,7 +649,7 @@ public enum Statistics
     public static final String LIST_SETTINGS = "list_settings";
     public static final String DELETE_GROUP = "delete_group";
     public static final String OFFSCREEEN = "Offscreen";
-    static final String MAPSME_GUIDES = "MapsMeGuides";
+    public static final String MAPSME_GUIDES = "MapsMeGuides";
     static final String PARTNER = "Partner";
   }
 

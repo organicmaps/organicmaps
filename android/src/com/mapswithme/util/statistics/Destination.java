@@ -5,5 +5,6 @@ public enum Destination
   ROUTING,
   PLACEPAGE,
   SEARCH,
-  EXTERNAL;
+  EXTERNAL,
+  CATALOGUE
 }

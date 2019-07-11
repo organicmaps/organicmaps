@@ -39,6 +39,15 @@ public enum GalleryType
         {
           return Statistics.ParamValue.BOOKING_COM;
         }
+      },
+  PROMO
+      {
+        @NonNull
+        @Override
+        public String getProvider()
+        {
+          return Statistics.ParamValue.MAPSME_GUIDES;
+        }
       };
 
   @NonNull

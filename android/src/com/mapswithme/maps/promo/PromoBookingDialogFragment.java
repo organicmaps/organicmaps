@@ -1,9 +1,9 @@
 package com.mapswithme.maps.promo;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
+import com.mapswithme.util.statistics.Statistics;
 
 public class PromoBookingDialogFragment extends BaseMwmDialogFragment
 {
@@ -45,7 +46,7 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     View cancel = view.findViewById(R.id.cancel);
-    cancel.setOnClickListener(v -> dismissAllowingStateLoss());
+    cancel.setOnClickListener(new CloseClickListener());
 
     if (!readArguments())
       return;
@@ -83,11 +84,38 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
 
   private void onCityGuidesClick()
   {
-    FragmentActivity activity = getActivity();
-    if (activity == null || mCityGuidesUrl == null)
+    if (mCityGuidesUrl == null)
       return;
 
-    BookmarksCatalogActivity.start(activity, mCityGuidesUrl);
+    BookmarksCatalogActivity.start(requireActivity(), mCityGuidesUrl);
     dismissAllowingStateLoss();
+
+    Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_CLICKED, builder);
+  }
+
+  private void trackCloseStats(@NonNull String value)
+  {
+    Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder()
+        .add(Statistics.EventParam.OPTION, value);
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_CLOSED, builder);
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    trackCloseStats(Statistics.ParamValue.OFFSCREEEN);
+  }
+
+  private class CloseClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      dismissAllowingStateLoss();
+      trackCloseStats(Statistics.ParamValue.CANCEL);
+    }
   }
 }

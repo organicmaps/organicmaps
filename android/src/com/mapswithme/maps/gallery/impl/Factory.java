@@ -11,8 +11,10 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
+import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
@@ -86,7 +88,7 @@ public class Factory
 
   @NonNull
   public static GalleryAdapter createCatalogPromoAdapter(@NonNull Context context,
-                                                         @NonNull List<PromoEntity> items,
+                                                         @NonNull PromoCityGallery gallery,
                                                          @Nullable String url,
                                                          @Nullable ItemSelectedListener<PromoEntity> listener,
                                                          @NonNull GalleryPlacement placement)
@@ -95,9 +97,11 @@ public class Factory
     PromoEntity item = new PromoEntity(Constants.TYPE_MORE,
                                        context.getString(R.string.placepage_more_button),
                                        null, url, null, null);
-    CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(items,
+    List<PromoEntity> entities = PlacePageView.toEntities(gallery);
+    CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(entities,
                                                                            item,
                                                                            listener);
+    trackProductGalleryShownOrError(gallery.getItems(), GalleryType.PROMO, ONLINE, placement);
     return new GalleryAdapter<>(strategy);
   }
 

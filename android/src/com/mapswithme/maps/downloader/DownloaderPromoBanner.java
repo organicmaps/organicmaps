@@ -38,4 +38,10 @@ public final class DownloaderPromoBanner
 
   @NonNull
   public String getUrl() { return mUrl; }
+
+  @NonNull
+  public DownloaderPromoBannerStats getStatsProvider()
+  {
+    return DownloaderPromoBannerStats.values()[getType()];
+  }
 }

@@ -298,9 +298,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       return;
 
     String url = promoCityGallery.getMoreUrl();
-    ItemSelectedListener<PromoEntity> listener = new RegularCatalogPromoListener(requireActivity());
-    List<PromoEntity> data = PlacePageView.toEntities(promoCityGallery);
-    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), data, url, listener, DISCOVERY);
+    ItemSelectedListener<PromoEntity> listener = new RegularCatalogPromoListener(requireActivity(), DISCOVERY);
+    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), promoCityGallery, url, listener, DISCOVERY);
     RecyclerView recycler = getGallery(R.id.catalog_promo_recycler);
     recycler.setAdapter(adapter);
   }
