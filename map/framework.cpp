@@ -1359,7 +1359,10 @@ void Framework::TouchEvent(df::TouchEvent const & touch)
 
 int Framework::GetDrawScale() const
 {
-  return df::GetDrawTileScale(m_currentModelView);
+  if (m_drapeEngine != nullptr)
+    return df::GetDrawTileScale(m_currentModelView);
+  
+  return 0;
 }
 
 void Framework::RunFirstLaunchAnimation()
