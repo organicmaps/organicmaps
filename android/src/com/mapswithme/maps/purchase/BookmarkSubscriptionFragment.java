@@ -16,7 +16,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -185,9 +184,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     TextView priceView = getViewOrThrow().findViewById(R.id.annual_price);
     priceView.setText(price);
     TextView savingView = getViewOrThrow().findViewById(R.id.sale);
-    String text = getString(R.string.annual_save_component,
-                            String.valueOf(calculateYearlySavingInPercents()))
-                  + PlacePageView.DISCOUNT_SUFFIX;
+    String text = getString(R.string.annual_save_component, calculateYearlySaving());
     savingView.setText(text);
   }
 
@@ -199,7 +196,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     priceView.setText(price);
   }
 
-  private int calculateYearlySavingInPercents()
+  private int calculateYearlySaving()
   {
     float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
     float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();

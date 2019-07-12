@@ -266,4 +266,6 @@
 
   <!-- Promo-->
   <dimen name="promo_after_booking_width">288dp</dimen>
+  <dimen name="subs_card_min_height">226dp</dimen>
+  <dimen name="subs_card_min_width">164dp</dimen>
 </resources>
