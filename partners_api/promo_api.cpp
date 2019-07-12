@@ -216,13 +216,18 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
           GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 
-std::string Api::GetPromoLinkForDownloader(std::string const & id, std::string const & lang) const
+std::string Api::GetLinkForDownloader(std::string const & id, std::string const & lang) const
 {
   return InjectUTM(MakeCityGalleryUrl(m_baseUrl, id, lang), UTM::DownloadMwmBanner);
 }
 
-std::string Api::GetMoreUrl(std::string const & id) const
+std::string Api::GetCityUrl(m2::PointD const & point) const
 {
+  auto const id = m_delegate->GetCityId(point);
+
+  if (id.empty())
+    return {};
+
   return GetCityCatalogueUrl(m_baseUrl, id);
 }
 

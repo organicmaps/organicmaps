@@ -11,10 +11,12 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
@@ -108,8 +110,9 @@ public class Factory
   @NonNull
   public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
   {
+    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
     CatalogPromoLoadingAdapterStrategy strategy =
-        new CatalogPromoLoadingAdapterStrategy(listener, DiscoveryManager.nativeGetLocalExpertsUrl());
+        new CatalogPromoLoadingAdapterStrategy(listener, Promo.nativeGetCityUrl(policy));
     return new GalleryAdapter<>(strategy);
   }
 

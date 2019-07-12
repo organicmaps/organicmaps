@@ -1,4 +1,4 @@
-#include "com/mapswithme/maps/promo/CityGallery.hpp"
+#include "com/mapswithme/maps/promo/Promo.hpp"
 
 #include "com/mapswithme/maps/Framework.hpp"
 
@@ -160,5 +160,19 @@ Java_com_mapswithme_maps_promo_Promo_nativeGetPromoAfterBooking(JNIEnv * env, jc
 
 
   return env->NewObject(g_afterBooking, g_afterBookingConstructor, id, promoUrl, pictureUrl);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_promo_Promo_nativeGetCityUrl(JNIEnv * env, jclass, jobject policy,
+                                                      jdouble lat, jdouble lon)
+{
+  PrepareClassRefs(env);
+
+  auto const cityUrl = g_framework->GetPromoCityUrl(env, policy, lat, lon);
+
+  if (cityUrl.empty())
+    return nullptr;
+
+  return jni::ToJavaString(env, cityUrl);
 }
 }  // extern "C"

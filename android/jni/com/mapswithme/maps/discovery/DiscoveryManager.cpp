@@ -2,7 +2,7 @@
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/maps/SearchEngine.hpp"
 #include "com/mapswithme/maps/discovery/Locals.hpp"
-#include "com/mapswithme/maps/promo/CityGallery.hpp"
+#include "com/mapswithme/maps/promo/Promo.hpp"
 
 #include "map/discovery/discovery_manager.hpp"
 #include "map/search_product_info.hpp"

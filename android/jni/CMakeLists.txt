@@ -28,7 +28,7 @@ set(
   com/mapswithme/core/ScopedLocalRef.hpp
   com/mapswithme/maps/discovery/Locals.hpp
   com/mapswithme/maps/Framework.hpp
-  com/mapswithme/maps/promo/CityGallery.hpp
+  com/mapswithme/maps/promo/Promo.hpp
   com/mapswithme/maps/SearchEngine.hpp
   com/mapswithme/opengl/android_gl_utils.hpp
   com/mapswithme/opengl/androidoglcontext.hpp
@@ -59,7 +59,7 @@ set(
   com/mapswithme/maps/MwmApplication.cpp
   com/mapswithme/maps/metrics/UserActionsLogger.cpp
   com/mapswithme/maps/PrivateVariables.cpp
-  com/mapswithme/maps/promo/CityGallery.cpp
+  com/mapswithme/maps/promo/Promo.cpp
   com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/SearchEngine.cpp
   com/mapswithme/maps/SearchRecents.cpp

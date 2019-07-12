@@ -820,6 +820,15 @@ promo::AfterBooking Framework::GetPromoAfterBooking(JNIEnv * env, jobject policy
   return api->GetAfterBooking(languages::GetCurrentNorm());
 }
 
+std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon)
+{
+  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
+  if (api == nullptr)
+    return {};
+  auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
+  return api->GetCityUrl(point);
+}
+
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
 {
   auto const & info = g_framework->GetPlacePageInfo();

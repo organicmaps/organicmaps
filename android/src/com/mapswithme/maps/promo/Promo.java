@@ -54,4 +54,7 @@ public enum Promo
                                               double lat, double lon, @UTM.UTMType int utm);
   @Nullable
   public static native PromoAfterBooking nativeGetPromoAfterBooking(@NonNull NetworkPolicy policy);
+
+  @Nullable
+  public static native String nativeGetCityUrl(@NonNull NetworkPolicy policy);
 }

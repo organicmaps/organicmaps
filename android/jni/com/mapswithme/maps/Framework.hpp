@@ -225,6 +225,7 @@ namespace android
                              promo::CityGalleryCallback const & onSuccess,
                              promo::OnError const & onError);
     promo::AfterBooking GetPromoAfterBooking(JNIEnv * env, jobject policy);
+    std::string GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon);
 
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 
