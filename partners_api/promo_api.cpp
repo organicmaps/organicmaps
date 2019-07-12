@@ -10,6 +10,7 @@
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
+#include "base/url_helpers.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -60,6 +61,7 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
     auto const obj = json_array_get(dataArray, i);
     FromJSONObject(obj, "name", item.m_name);
     FromJSONObject(obj, "url", item.m_url);
+    item.m_url = base::url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url);
     FromJSONObject(obj, "access", item.m_access);
     FromJSONObjectOptionalField(obj, "image_url", item.m_imageUrl);
     FromJSONObjectOptionalField(obj, "tier", item.m_tier);
@@ -80,7 +82,7 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
 
   auto const meta = json_object_get(root.get(), "meta");
   FromJSONObject(meta, "more", result.m_moreUrl);
-  result.m_moreUrl.insert(0, BOOKMARKS_CATALOG_FRONT_URL);
+  result.m_moreUrl = base::url::Join(BOOKMARKS_CATALOG_FRONT_URL, result.m_moreUrl);
   result.m_moreUrl = InjectUTM(result.m_moreUrl, utm);
 }
 
