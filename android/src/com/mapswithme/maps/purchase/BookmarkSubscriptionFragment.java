@@ -16,7 +16,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -62,25 +62,22 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     View root = inflater.inflate(R.layout.bookmark_subscription_fragment, container, false);
     CardView annualPriceCard = root.findViewById(R.id.annual_price_card);
     CardView monthlyPriceCard = root.findViewById(R.id.monthly_price_card);
-    View annualCardEdge = root.findViewById(R.id.annual_price_card_edge);
-    View monthlyCardEdge = root.findViewById(R.id.monthly_price_card_edge);
     AnnualCardClickListener annualCardListener = new AnnualCardClickListener(monthlyPriceCard,
-                                                                             annualPriceCard,
-                                                                             annualCardEdge,
-                                                                             monthlyCardEdge);
+                                                                             annualPriceCard);
     annualPriceCard.setOnClickListener(annualCardListener);
     MonthlyCardClickListener monthlyCardListener = new MonthlyCardClickListener(monthlyPriceCard,
-                                                                                annualPriceCard,
-                                                                                annualCardEdge,
-                                                                                monthlyCardEdge);
+                                                                                annualPriceCard);
     monthlyPriceCard.setOnClickListener(monthlyCardListener);
-    annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
     TextView restorePurchasesBtn = root.findViewById(R.id.restore_purchase_btn);
     restorePurchasesBtn.setOnClickListener(v -> openSubscriptionManagementSettings());
 
     View continueBtn = root.findViewById(R.id.continue_btn);
     continueBtn.setOnClickListener(v -> onContinueButtonClicked());
+
+    annualPriceCard.setSelected(true);
+    monthlyPriceCard.setSelected(false);
+    annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
     Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.bookmarksSubscriptionServerId(),
                                                  PrivateVariables.bookmarksSubscriptionVendor(),
@@ -188,7 +185,10 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     TextView priceView = getViewOrThrow().findViewById(R.id.annual_price);
     priceView.setText(price);
     TextView savingView = getViewOrThrow().findViewById(R.id.sale);
-    savingView.setText(getString(R.string.annual_save_component, calculateYearlySaving()));
+    String text = getString(R.string.annual_save_component,
+                            String.valueOf(calculateYearlySavingInPercents()))
+                  + PlacePageView.DISCOUNT_SUFFIX;
+    savingView.setText(text);
   }
 
   private void updateMonthlyButton()
@@ -199,7 +199,7 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     priceView.setText(price);
   }
 
-  private int calculateYearlySaving()
+  private int calculateYearlySavingInPercents()
   {
     float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
     float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();
@@ -286,21 +286,11 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @NonNull
     private final CardView mAnnualPriceCard;
 
-    @NonNull
-    private final View mAnnualCardFrame;
-
-    @NonNull
-    private final View mMonthlyCardFrame;
-
     AnnualCardClickListener(@NonNull CardView monthlyPriceCard,
-                            @NonNull CardView annualPriceCard,
-                            @NonNull View annualCardFrame,
-                            @NonNull View monthlyCardFrame)
+                            @NonNull CardView annualPriceCard)
     {
       mMonthlyPriceCard = monthlyPriceCard;
       mAnnualPriceCard = annualPriceCard;
-      mAnnualCardFrame = annualCardFrame;
-      mMonthlyCardFrame = monthlyCardFrame;
     }
 
     @Override
@@ -308,14 +298,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     {
       mMonthlyPriceCard.setCardElevation(DEF_ELEVATION);
       mAnnualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
-      UiUtils.show(mAnnualCardFrame, mMonthlyCardFrame);
 
-      if (!mAnnualCardFrame.isSelected())
+      if (!mAnnualPriceCard.isSelected())
         Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
                                                        PrivateVariables.bookmarksSubscriptionYearlyProductId());
 
       mMonthlyPriceCard.setSelected(false);
-      mAnnualCardFrame.setSelected(true);
+      mAnnualPriceCard.setSelected(true);
     }
   }
 
@@ -327,21 +316,11 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     @NonNull
     private final CardView mAnnualPriceCard;
 
-    @NonNull
-    private final View mAnnualCardFrame;
-
-    @NonNull
-    private final View mMonthlyCardFrame;
-
     MonthlyCardClickListener(@NonNull CardView monthlyPriceCard,
-                             @NonNull CardView annualPriceCard,
-                             @NonNull View annualCardFrame,
-                             @NonNull View monthlyCardFrame)
+                             @NonNull CardView annualPriceCard)
     {
       mMonthlyPriceCard = monthlyPriceCard;
       mAnnualPriceCard = annualPriceCard;
-      mAnnualCardFrame = annualCardFrame;
-      mMonthlyCardFrame = monthlyCardFrame;
     }
 
     @Override
@@ -349,14 +328,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
     {
       mMonthlyPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
       mAnnualPriceCard.setCardElevation(DEF_ELEVATION);
-      UiUtils.hide(mAnnualCardFrame, mMonthlyCardFrame);
 
       if (!mMonthlyPriceCard.isSelected())
         Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
                                                        PrivateVariables.bookmarksSubscriptionMonthlyProductId());
 
       mMonthlyPriceCard.setSelected(true);
-      mAnnualCardFrame.setSelected(false);
+      mAnnualPriceCard.setSelected(false);
     }
   }
 

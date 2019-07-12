@@ -77,8 +77,9 @@
   <attr name="adsRemovalOptionsDivider" format="color"/>
   <attr name="icClearRounded" format="reference"/>
   <attr name="bookmarkSubscriptionScreenBg" format="reference"/>
-  <attr name="bookmarkSubscriptionAnnualCardEdge" format="reference"/>
-  <attr name="bookmarkSubscriptionMonthlyCardEdge" format="reference"/>
+  <attr name="bookmarkSubscriptionCardEdge" format="reference"/>
+  <attr name="bookmarkSubscriptionCardBg" format="color"/>
+
   <attr name="imgPromoBookingTitle" format="reference"/>
 
   <declare-styleable name="AnchorBottomSheetBehavior_Layout">

@@ -138,7 +138,7 @@ public class PlacePageView extends NestedScrollView
   private static final String TAG = PlacePageView.class.getSimpleName();
   private static final String PREF_USE_DMS = "use_dms";
   private static final String DISCOUNT_PREFIX = "-";
-  private static final String DISCOUNT_SUFFIX = "%";
+  public static final String DISCOUNT_SUFFIX = "%";
 
   private boolean mIsDocked;
   private boolean mIsFloating;
