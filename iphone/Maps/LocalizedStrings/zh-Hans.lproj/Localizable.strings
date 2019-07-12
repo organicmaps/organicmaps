@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "没有有效订阅";
 
-"subscription_terms" = "确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。";
-
 "subscriptions_title" = "订购";
 
 "manage_subscription" = "管理订购";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "该文件已损坏，无法上传。请上传其他文件。";
 
-"buy_btn" = "购买%s";
+"buy_btn" = "购买%s的旅行指南";
 
 "download_guide_progress" = "指南正在加载......";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "在地图上选择酒店";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "已预订酒店？";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "和MAPS.ME一起规划行程吧";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "旅行规划👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "选择";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "查看";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "和 MAPS.ME一起规划你的假期吧！";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "不要错过资深驴友提供线路中最重要的内容";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "开启网络";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "旅行指南";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "2000+ 旅行指南向您完全开放！";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "令人回味无穷的旅行，和新旅伴探索新世界";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "按年订阅";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "按月订阅";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12个月内无限使用";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1个月内无限使用";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "谢谢订阅！";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "您现在已经可以无限使用旅行指南目录了";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "订阅有效期已结束";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "所有通过订阅下载的旅行指南将被删除。希望恢复订阅并保存它们？";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "是的，恢复";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "不，删除旅行指南";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "未能成功购买";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "无法在您所在的地区使用。请稍后再试";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "明白";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "糟糕，时间到了！";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "我们的服务器无法响应。请检查网络连接状况并重试。";
 
-"per_month" = "/ mo";
+"per_month" = "/月";
 
-"per_year" = "/ year";
+"per_year" = "/年";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "%s起可自由访问";
+
+"buy_btn_for_subscription_1" = "在%s内购买全部旅行指南";
+
+"buy_btn_for_subscription_ios_only_mo" = "%s/月起可自由访问";
+
+"buy_btn_for_subscription_ios_only_year" = "%s/年起可自由访问";
+
+"subscription_terms_guides" = "在确认购买后，将通过您的 iTunes账户完成付款。如果在当前使用期限结束前的24小时内未关闭自动延长功能，则订阅将自动更新。在当前使用期限结束前的24小时内，将根据您所选择的套餐计划，从您的账户中扣除相应金额。您可在购买后的任意时间内，在Apple ID的账户设置中调节或关闭自动延长功能。 您只能在订阅有效期内使用通过订阅下载的旅行指南。在订阅结束后的30天内，旅行指南和全部书签将被自动删除。";
+
+"subscription_terms" = "确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。";
 
 
 /**********  Partners  **********/

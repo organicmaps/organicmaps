@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "활성화 된 구독이 없습니다";
 
-"subscription_terms" = "결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.";
-
 "subscriptions_title" = "구독";
 
 "manage_subscription" = "구독 관리";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "파일이 망가져서 업로드를 할 수 없습니다. 다른 파일을 업로드하세요.";
 
-"buy_btn" = "%s 구매";
+"buy_btn" = "%s 에 이 것을 구매하기";
 
 "download_guide_progress" = "당신의 가이드를 다운로드 중…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "지도에서 호텔을 고르세요";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "호텔을 예약하셨나요?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "귀하의 루트를 MAPS.ME의 준비된 가이드들로 계획해보세요";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "귀하의 휴가를 위한 아이디어들👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "하나를 고르세요";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "살펴보세요";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "휴가를 MAPS.ME와 함께 계획해보세요!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "경험 많은 여행자들이 만든 가이드의 모든 것을 놓치지 마세요";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "인터넷 키기";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "가이드들";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "2000개가 넘는 여행 가이드에 무제한 액세스!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "누구와 어딜가든 기억에 남는 여행";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "매년";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "매월";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12개월의 무제한 액세스";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "한달 무제한 액세스";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "구독에 감사드립니다!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "이제 모든 가이드 카탈로그에 무제한으로 액세스하실 수 있습니다";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "구독이 만료되었습니다";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "구독으로 다운로드된 모든 가이드들이 지워집니다. 구독을 유지하시고 가이드들을 보관하시겠습니까?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "네, 유지합니다";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "아니오, 제거합니다";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "구매가 실패했습니다";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "이 서비스는 현재 귀하의 지역에서 사용할 수 없습니다. 후에 다시 시도하세요";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "알겠습니다";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "이런, 시간이 지났습니다!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "서버가 응답하지 않습니다. 인터넷 연결 확인 후 다시 시도해보세요.";
 
-"per_month" = "/ mo";
+"per_month" = "/달";
 
-"per_year" = "/ year";
+"per_year" = "/년";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "%s 로 무제한 액세스";
+
+"buy_btn_for_subscription_1" = "%s 으로 모든 가이드 구매하기";
+
+"buy_btn_for_subscription_ios_only_mo" = "%s/달 으로 무제한 액세스";
+
+"buy_btn_for_subscription_ios_only_year" = "%s/년 으로 무제한 액세스";
+
+"subscription_terms_guides" = "구매 확인 후 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 기한 종료 전 적어도 24시간 전에 자동 갱신 기능이 꺼져있어야 합니다. 그렇지 않으면 구독은 자동 갱신됩니다. 현재 기한 종료 후 24시간 이내에 갱신에 대한 귀하의 계획에 따라 계정에 비용이 청구됩니다. 귀하가 구매 시 아무 때나 귀하의 Apple ID 계정에서 자동 갱신 기능을 끄거나 관리할 수 있습니다. 구독 만료 기간까지만 구독 시 다운로드한 가이드를 사용할 수 있습니다. 구독 만료일에서 30일이 지나면 북마크와 가이드는 자동으로 삭제됩니다.";
+
+"subscription_terms" = "결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.";
 
 
 /**********  Partners  **********/

@@ -1379,7 +1379,6 @@
 	<string name="restore_success_alert">تم استعادة الاشتراك بنجاح</string>
 	<string name="restore_error_alert">حدث خطأ أثناء استعادة الاشتراك</string>
 	<string name="restore_no_subscription_alert">لا توجد اشتراكات نشطة</string>
-	<string name="subscription_terms">سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.</string>
 	<string name="subscriptions_title">الاشتراكات</string>
 	<string name="manage_subscription">إدارة الاشتراك</string>
 	<string name="sharing_options">خيارات المشاركة</string>
@@ -1411,7 +1410,7 @@
 	<string name="unable_upload_errorr_title">فشل تحميل الملف</string>
 	<string name="unable_upload_error_subtitle_edited">تم تحرير هذا الملف عبر تطبيق الويب</string>
 	<string name="unable_upload_error_subtitle_broken">هذا الملف تالف ولا يمكن تحميله. يرجى تحميل ملف آخر.</string>
-	<string name="buy_btn">شراء لـ%s</string>
+	<string name="buy_btn">اشتري مقابل %s</string>
 	<string name="download_guide_progress">تحميل الدليل الخاص بك…</string>
 	<string name="price_error_title">لا يمكن الحصول على السعر</string>
 	<string name="price_error_subtitle">يرجى المحاولة مرة أخرى في بضع دقائق</string>
@@ -1569,6 +1568,41 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">سيتم اعادة تحديد الطريق من موقعك الحالي</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">سيتم تعديل الطريق لتكون خاصة بالسيارة</string>
 	<string name="ok">موافق</string>
+	<string name="booking_button_toolbar">اختر فندقًا على الخريطة</string>
+	<string name="popup_booking_download_guides_title">هل حجزت فندقًا؟</string>
+	<string name="popup_booking_download_guides_message">خطط لوجهتك باستخدام دلائل جاهزة من MAPS.ME</string>
+	<string name="popup_mwm_download_guides_title">أفكار لعطلتك👇🏻</string>
+	<string name="popup_mwm_download_guides_cta">اختر واحدة</string>
+	<string name="popup_mwm_download_guides_cta_1">الق نظرة</string>
+	<string name="gallery_pp_download_guides_offline_title">خطط لعطلتك مع MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_subtitle">لا تفوت أي شىء مع دلائل تم اعدادها بواسطة خبراء السفر</string>
+	<string name="gallery_pp_download_guides_offline_cta">فعل الانترنت</string>
+	<string name="gallery_pp_download_guides_title">الدلائل</string>
+	<string name="native_screen_subscription_title">وصول غير محدود لأكثر من 2000 دليل سفر!</string>
+	<string name="native_screen_subscription_message">ذكرى مميزة لعطلتك في أي مكان وبصحبة أي شخص</string>
+	<string name="annual_subscription_title">سنوي</string>
+	<string name="montly_subscription_title">شهري</string>
+	<string name="annual_subscription_message">12 شهرًا من الوصول الغير محدود</string>
+	<string name="montly_subscription_message">شهرًا واحدًا من الوصول الغير محدود</string>
+	<string name="subscription_success_dialog_title">شكرًا لاشتراكك!</string>
+	<string name="subscription_success_dialog_message">تمتلك الآن وصولًا غير محدود لكل الدلائل</string>
+	<string name="renewal_screen_title">انتهت فترة صلاحية اشتراكك</string>
+	<string name="renewal_screen_message">سيتم حذف جميع الدلائل التي تم تحميلها بواسطة الاشتراك. هل تريد اعادة الاشتراك والاحتفاظ بهم؟</string>
+	<string name="renewal_screen_button_restore">نعم، جدد الاشتراك</string>
+	<string name="renewal_screen_button_cancel">لا، احذف الدلائل</string>
+	<string name="subscription_error_ping_title">فشل عملية الشراء</string>
+	<string name="subscription_error_message">الخدمة غير متوفرة حاليا فى منطقتك. يرجى المحاولة في وقت لاحق</string>
+	<string name="subscription_error_button">حسنًا</string>
+	<string name="timeout_error_title">آسف، انتهى الوقت!</string>
+	<string name="timeout_error_message">خوادمنا لا تستجيب. يرجى التحقق من اتصال الانترنت والمحاولة مجددًا.</string>
+	<string name="per_month">شهر/</string>
+	<string name="per_year">سنة/</string>
+	<string name="buy_btn_for_subscription">وصول غير محدود من %s</string>
+	<string name="buy_btn_for_subscription_1">اشتري جميع الدلائل مقابل %s</string>
+	<string name="buy_btn_for_subscription_ios_only_mo">وصول غير محدود %s/شهر</string>
+	<string name="buy_btn_for_subscription_ios_only_year">وصول غير محدود %s/سنة</string>
+	<string name="subscription_terms_guides">سيتم خصم المدفوعات من حساب iTunes الخاص بك مع تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائيًا ما لم يتم تعطيل خاصية التجديد التلقائي قبل 24 ساعة من انتهاء فترة الاشتراك الحالية. سيتم خصم قيمة الاشتراك طبقًا لخطة الاشتراك الخاصة بك للتجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك ادارة أو تعطيل خاصية التجديد التلقائي في حساب Apple ID الخاص بك في أي وقت بعد شرائك. يمكنك استخدام الدلائل التي تم تحميلها فقط عن طريق اشتراكك حتى تاريخ انتهاء الاشتراك  سيتم حذف الدلائل والعلامات المميزة عليها تلقائيًا بعد 30 يومًا من انتهاء فترة الاشتراك.</string>
+	<string name="subscription_terms">سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Neexistuje žádné aktivní předplatné";
 
-"subscription_terms" = "Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.";
-
 "subscriptions_title" = "Předplatné";
 
 "manage_subscription" = "Spravovat předplatné";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Soubor je poškozen a nemůže být nahrán. Nahrajte prosím jiný soubor.";
 
-"buy_btn" = "Koupit za %s";
+"buy_btn" = "Kupte tento za %s";
 
 "download_guide_progress" = "Průvodce se načítá…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Vyberte si hotel na mapě";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Zamluvili jste si hotel?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Naplánujte si trasu pomocí ready-made průvodců z MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Nápady na vaši dovolenou👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Zvolte jedno";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Podívejte se";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Plánujte svou dovolenou s MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Nenechte si ujít nic s průvodci od zkušených cestovatelů";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Zapněte Internetové";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Průvodce";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Neomezený přístup k více než 2000 cestovních průvodců!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Nezapomenutelná dovolená, kdekoli a s kýmkoli cestujete";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Roční";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Měsíční";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 měsíců neomezeného přístupu";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 měsíc neomezeného přístupu";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Děkujeme za předplacení!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Nyní máte neomezený přístup k celému katalogu průvodců";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Vaše předplatné vypršelo";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Všichni průvodci stažení s předplatným budou smazáni. Chcete pokračovat v předplatném a udržet si je?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Ano, obnovit";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Ne, smazat průvodce";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Koupě selhala";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Služba je aktuálně ve vašem kraji nedostupná. Zkuste to prosím později";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Získat";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Ejhle, čas vypršel!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Naše servery neodpovídají. Zkontrolujte prosím internetové připojení a zkuste to později.";
 
-"per_month" = "/ mo";
+"per_month" = "/měs";
 
-"per_year" = "/ year";
+"per_year" = "/rok";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Neomezený přístup od %s";
+
+"buy_btn_for_subscription_1" = "Kupte VŠECHNY průvodce za %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Neomezený přístup za %s/měs";
+
+"buy_btn_for_subscription_ios_only_year" = "Neomezený přístup za %s/rok";
+
+"subscription_terms_guides" = "Platba bude účtována na účet iTunes po potvrzení nákupu. Předplatné se automaticky obnoví, pokud není funkce automatického obnovení vypnuta alespoň 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle vašeho plánu pro obnovení do 24 hodin před koncem aktuálního období. Funkci automatického obnovení můžete v nastavení účtu Apple ID kdykoli spravovat nebo vypnout. Průvodce stažené podle předplatného můžete používat pouze do data expirace. Po 30 dnech od data vypršení předplatného budou automaticky odstraněni průvodci se záložkami.";
+
+"subscription_terms" = "Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.";
 
 
 /**********  Partners  **********/

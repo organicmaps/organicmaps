@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Er zijn geen actieve abonnementen";
 
-"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
-
 "subscriptions_title" = "Subscriptions";
 
 "manage_subscription" = "Manage subscription";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Dit bestand is beschadigd en kon niet worden geüpload. Gelieve een ander bestand te uploaden.";
 
-"buy_btn" = "Kopen voor %s";
+"buy_btn" = "Een gids kopen voor %s";
 
 "download_guide_progress" = "Uw gids aan het downloaden…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Een hotel op de kaart zoeken";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Hebt u een hotel geboekt?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Plan uw route met kant-en-klare reisgidsen van MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Ideeën voor reisen👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Kiezen";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Kijken";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Plan uw vakantie met MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Pas op voor de belangrijkste routes van ervaren reizigers";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Schakel internet in";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Gidsen";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Volledige toegang tot 2000+ gidsen!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Een onvergetelijke vakantie, ongeacht waar en met wie u reist";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Jaarlijks";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Maandelijks";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 maanden onbeperkte toegang";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 maand onbeperkte toegang";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Bedankt voor uw aanmelden!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "U hebt nu onbeperkte toegang tot de catalogus met gidsen";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Abonnement verlopen";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Alle door abonnementen gedownloade gidsen worden verwijderd. Wilt u uw abonnement herstellen en ze opslaan?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Ja, herstel";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nee, verwijder de gidsen";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Mislukt te kopen";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Nu is de service niet beschikbaar in uw regio. Probeer het later opnieuw";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Klaar";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Oeps, de tijd is om!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Onze servers reageren niet. Controleer uw internetverbinding, alstublieft, en probeer het opnieuw.";
 
-"per_month" = "/ mo";
+"per_month" = "/maand.";
 
-"per_year" = "/ year";
+"per_year" = "/jaar";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Volledige toegang vanaf %s";
+
+"buy_btn_for_subscription_1" = "ALLE gidsen kopen voor %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Volledige toegang voor %s/maand";
+
+"buy_btn_for_subscription_ios_only_year" = "Volledige toegang voor %s/jaar";
+
+"subscription_terms_guides" = "De betaling wordt gedaan vanaf uw iTunes-account na bevestiging van de aankoop. Abonnement wordt automatisch verlengd tenzij automatisch vernieuwen is uitgeschakeld ten minste 24 uur vóór het einde van de huidige periode. Het geld wordt binnen 24 uur na afloop van de lopende periode van uw rekening afgeschreven volgens uw verlengingsplan. Je kunt automatische verlenging beheren of uitschakelen in de instellingen van je Apple ID-account op elk moment na aankoop. U kunt de gidsen die u via abonnement hebt gedownload alleen gebruiken tijdens de abonnementsperiode. Na 30 dagen na het einde van het abonnement worden gidsen met alle bladwijzers automatisch verwijderd.";
+
+"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
 
 /**********  Partners  **********/

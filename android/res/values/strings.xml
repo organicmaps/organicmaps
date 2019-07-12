@@ -1429,7 +1429,6 @@
 	<string name="restore_success_alert">The subscription has been successfully restored</string>
 	<string name="restore_error_alert">An error occurred while restoring the subscription</string>
 	<string name="restore_no_subscription_alert">There are no active subscriptions</string>
-	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
 	<string name="subscriptions_title">Subscriptions</string>
 	<string name="manage_subscription">Manage subscription</string>
 	<string name="taxi">Taxi</string>
@@ -1468,7 +1467,7 @@
 	<string name="unable_upload_errorr_title">File upload failed</string>
 	<string name="unable_upload_error_subtitle_edited">This file has been edited via the web app</string>
 	<string name="unable_upload_error_subtitle_broken">This file is damaged and couldn\'t be uploaded. Please upload another file.</string>
-	<string name="buy_btn">Buy for %s</string>
+	<string name="buy_btn">Buy this one for %s</string>
 	<string name="download_guide_progress">Downloading your guide…</string>
 	<string name="price_error_title">Could not get a price</string>
 	<string name="price_error_subtitle">Please try again in a few minutes</string>
@@ -1628,47 +1627,42 @@
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">The route will be converted into an automobile one</string>
 	<string name="ok">Ok</string>
 	<string name="vezet_taxi">Vezet</string>
-	<string name="booking_button_toolbar">Search 2 million accommodations</string>
-	<!-- FIXME -->
-	<string name="popup_booking_download_guides_title">popup_booking_download_guides_title</string>
-	<!-- FIXME -->
-	<string name="popup_booking_download_guides_message">popup_booking_download_guides_message</string>
-	<!-- FIXME -->
-	<string name="popup_booking_download_guides_cta">popup_booking_download_guides_cta</string>
-	<!-- FIXME -->
-	<string name="popup_mwm_download_guides_title">popup_mwm_download_guides_title</string>
-	<!-- FIXME -->
-	<string name="popup_mwm_download_guides_cta">popup_mwm_download_guides_cta</string>
-	<!-- FIXME -->
-	<string name="gallery_pp_download_guides_offline_title">gallery_pp_download_guides_offline_title</string>
-	<!-- FIXME -->
-	<string name="gallery_pp_download_guides_offline_subtitle">gallery_pp_download_guides_offline_subtitle</string>
-	<!-- FIXME -->
-	<string name="gallery_pp_download_guides_offline_cta">gallery_pp_download_guides_offline_cta</string>
-	<!-- FIXME -->
-	<string name="gallery_pp_download_guides_title">gallery_pp_download_guides_title</string>
-	<string name="native_screen_subscription_title">Unlimited access to 5000+ guides!</string>
-	<string name="native_screen_subscription_message">Every kind of journey. Whether alone or with friends, hiking or sunbathing</string>
+	<string name="booking_button_toolbar">Pick a hotel on the map</string>
+	<string name="popup_booking_download_guides_title">Booked a hotel?</string>
+	<string name="popup_booking_download_guides_message">Plan your route with ready-made guides from MAPS.ME</string>
+	<string name="popup_mwm_download_guides_title">Ideas for your vacation👇🏻</string>
+	<string name="popup_mwm_download_guides_cta">Choose one</string>
+	<string name="popup_mwm_download_guides_cta_1">Take a look</string>
+	<string name="gallery_pp_download_guides_offline_title">Plan your vacation with MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_subtitle">Don\'t miss anything with guides made by experienced travellers</string>
+	<string name="gallery_pp_download_guides_offline_cta">Turn on the Internet</string>
+	<string name="gallery_pp_download_guides_title">Guides</string>
+	<string name="native_screen_subscription_title">Unlimited access to 2000+ travel guides!</string>
+	<string name="native_screen_subscription_message">A great vacation wherever you travel and whoever goes with you</string>
 	<string name="annual_subscription_title">Annual</string>
 	<string name="montly_subscription_title">Monthly</string>
-	<string name="annual_subscription_message">12 month of unlimited downloads</string>
-	<string name="montly_subscription_message">1 month of unlimited downloads</string>
-	<string name="annual_save_component">Save %s</string>
-	<string name="subscription_success_dialog_title">Woohoo!</string>
-	<string name="subscription_success_dialog_message">You\'ve got a subscription!</string>
+	<string name="annual_subscription_message">12 months of unlimited access</string>
+	<string name="montly_subscription_message">1 month of unlimited access</string>
+	<string name="annual_save_component">- %d%%</string>
+	<string name="subscription_success_dialog_title">Thanks for subscribing!</string>
+	<string name="subscription_success_dialog_message">Now you have unlimited access to the whole guides catalog</string>
 	<string name="renewal_screen_title">Your subscription has expired</string>
-	<string name="renewal_screen_message">All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?</string>
+	<string name="renewal_screen_message">All the guides downloaded by subscription are going to be deleted. Do you want to resume the subscription and keep them?</string>
 	<string name="renewal_screen_button_restore">Yes, renew</string>
 	<string name="renewal_screen_button_cancel">No, delete guides</string>
 	<string name="subscription_error_ping_title">Purchase has failed</string>
-	<string name="subscription_error_message">The service is currently unavailable in your region. Please try again later.</string>
-	<string name="subscription_error_button">Got it!</string>
+	<string name="subscription_error_message">The service is currently unavailable in your region. Please try again later</string>
+	<string name="subscription_error_button">Got it</string>
 	<string name="timeout_error_title">Oops, time is up!</string>
 	<string name="timeout_error_message">Our servers don\'t respond. Please check the internet connection and try again.</string>
-	<string name="per_month">/ mo</string>
-	<string name="per_year">/ year</string>
-	<string name="restore_purchase_link">&lt;a href="%s">Restore purchase&lt;/a></string>
-	<string name="buy_btn_for_subscription">Unlimited guides from %s</string>
+	<string name="per_month">/mo</string>
+	<string name="per_year">/year</string>
+	<string name="buy_btn_for_subscription">Unlimited access from %s</string>
+	<string name="buy_btn_for_subscription_1">Buy ALL guides for %s</string>
+	<string name="buy_btn_for_subscription_ios_only_mo">Unlimited access for %s/mo</string>
+	<string name="buy_btn_for_subscription_ios_only_year">Unlimited access for %s/year</string>
+	<string name="subscription_terms_guides">Payment will be charged to your iTunes account after purchase confirmation. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off the auto-renew feature in your Apple ID account settings at any time of your purchase. You can only use guides downloaded by subscription until its expiration date. After 30 days from the subscription expiry date guides with bookmarks will be automatically deleted.</string>
+	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

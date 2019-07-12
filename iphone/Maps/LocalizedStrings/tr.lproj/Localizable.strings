@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Aktif abonelik yok";
 
-"subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
-
 "subscriptions_title" = "Abonelikler";
 
 "manage_subscription" = "Aboneliği yönet";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Bu dosya bozuk olduğundan yüklenemedi. Lütfen başka bir dosya yükleyin.";
 
-"buy_btn" = "%s 'ye satın alın";
+"buy_btn" = "Bunu %s karşılığında satın alın";
 
 "download_guide_progress" = "Kılavuzunuz indiriliyor…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Haritada bir otel seçin";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Otel rezervasyonu yaptırdınız mı?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "MAPS.ME adresinden, hazır rehberler ile rotanızı planlayın";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Tatiliniz için fikirler👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Birini seçin";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Bir göz atın";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Tatilinizi MAPS.ME ile planlayın!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Deneyimli gezginler tarafından yapılan rehberlerle, hiçbir şeyi kaçırmayın";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "İnterneti aç";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Rehberler";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "2000+ seyahat rehberine sınırsız erişim!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Nerede ve kiminle seyahat ediyorsanız, unutulmaz bir tatil fırsatı";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Yıllık";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Aylık";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 aylık sınırsız erişim";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 aylık sınırsız erişim";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Abone olduğun için teşekkürler!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Artık, tüm rehber kataloguna sınırsız erişim hakkınız var";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Aboneliğinizin süresi doldu";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Abonelik süresince indirilen tüm rehberler silinecek. Aboneliği devam ettirmek ve saklamak ister misiniz?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Evet, yenile";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Hayır, rehberleri sil";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Satın alma başarısız oldu";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Hizmet şu anda bölgenizde kullanılamıyor. Lütfen, daha sonra tekrar deneyiniz";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Anladım";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Hata! Zaman doldu!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Sunucularımız cevap vermiyor. Lütfen, internet bağlantısını kontrol edip tekrar deneyin.";
 
-"per_month" = "/ mo";
+"per_month" = "/ay";
 
-"per_year" = "/ year";
+"per_year" = "/yıl";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "%s üzerinden sınırsız erişim";
+
+"buy_btn_for_subscription_1" = "%s için TÜM rehberleri satın al";
+
+"buy_btn_for_subscription_ios_only_mo" = "%s/ay için sınırsız erişim";
+
+"buy_btn_for_subscription_ios_only_year" = "%s/yıl için sınırsız erişim";
+
+"subscription_terms_guides" = "Satın alma onayından sonra, ödeme iTunes hesabınızdan ücretlendirilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça, abonelik otomatik olarak yenilenecektir. Hesabınız cari dönem sonundan önce, 24 saat içinde yenileme planınıza göre tahsil edilecektir. Apple ID hesap ayarlarınızdaki otomatik yenileme özelliğini, satın aldığınız her an, yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberleri yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik bitiminden 30 gün sonra, son kullanma tarihi geçmiş yer imleri olan rehberler, otomatik olarak silinir.";
+
+"subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
 
 
 /**********  Partners  **********/

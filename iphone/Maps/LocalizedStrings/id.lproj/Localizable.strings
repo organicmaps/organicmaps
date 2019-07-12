@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Tidak ada langganan yang aktif";
 
-"subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
-
 "subscriptions_title" = "Langganan";
 
 "manage_subscription" = "Kelola langganan";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "File rusak dan tidak dapat diunggah. Silakan unggah file lain.";
 
-"buy_btn" = "Beli seharga %s";
+"buy_btn" = "Beli dengan harga %s";
 
 "download_guide_progress" = "Mengunduh panduan Anda…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Pilih hotel yang ada di peta";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Pesan kamar hotel?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Rencanakan rute perjalanan anda bersama panduan dari MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Ide liburan anda👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Pilih salah satu";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Lihat";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Rencanakan liburan anda bersama MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Jangan lewatkan panduan panduan yang telah dibuat oleh para pelancong";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Hidupkan internet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Panduan";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Akses tak terbatas ke 2000 lebih panduan perjalanan!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Liburan tak terlupakan dengan siapa pun dan kapan pun dimana saja";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Tahunan";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Bulanan";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 bulan akses tanpa batas";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 bulan akses tanpa batas";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Terima kasih telah berlangganan!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Kini anda mendapatkan akses tanpa batas ke seluruh katalog panduan";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Masa berlangganan anda telah berakhir";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Semua panduan yang telah diunduh pada masa berlangganan akan dihapus. Apakah anda ingin memperbaharui langganan dan menyimpan panduannya?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Iya, perbaharui";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Tidak, hapus panduan";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Pembayaran gagal";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Layanan ini saat ini tidak tersedia di wilayah anda. Silakan coba lagi";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Mengerti";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Oops, waktu habis!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Server kami tidak merespon. Mohon periksa sambungan internetnya dan silakan coba lagi.";
 
-"per_month" = "/ mo";
+"per_month" = "/bln";
 
-"per_year" = "/ year";
+"per_year" = "/thn";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Akses tanpa batas dari %s";
+
+"buy_btn_for_subscription_1" = "Beli SEMUA panduan seharga %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Akses tanpa batas seharga %s/bln";
+
+"buy_btn_for_subscription_ios_only_year" = "Akses tanpa batas seharga %s/tahun";
+
+"subscription_terms_guides" = "Pembayaran akan dibebankan pada akun iTunes anda setelah dilakukan pembelian. Program berlangganan akan diperbarui secara otomatis selama fitur pembaruan otomatis tetap menyala dalam waktu 24 jam sebelum waktu berlangganan berakhir. Anda akan dikenai biaya sesuai dengan program berlangganan anda yang baru dalam waktu 24 jam sebelum masa berlangganan yang lama berakhir. Anda setiap waktu bisa mengatur atau mematikan fitur perbarui otomatis di pengaturan akun Apple ID anda. Anda hanya bisa menggunakan panduan yang telah diunduh lewat program berlangganan sampai masa berlangganan tersebut habis. Setelah 30 hari dari habisnya masa berlangganan, panduan dengan bookmark akan dihapus secara otomatis.";
+
+"subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
 
 
 /**********  Partners  **********/

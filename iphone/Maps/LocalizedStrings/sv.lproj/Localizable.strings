@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Det finns inga aktiva prenumerationer";
 
-"subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
-
 "subscriptions_title" = "Prenumerationer";
 
 "manage_subscription" = "Hantera prenumeration";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Filen är skadad och kan inte laddas upp. Var vänlig ladda upp en annan fil.";
 
-"buy_btn" = "Köp för %s";
+"buy_btn" = "Köpa guide för %s";
 
 "download_guide_progress" = "Reseguiden laddar…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Välja ett hotell på kartan";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Har bokat ett hotell?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Planera din rutt med färdiga reseguider MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Idéer för resor👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Välja";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Se";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Planera din semester med MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Missa inte det viktigaste med rutter från erfarna resenärer";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Aktivera Internet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Reseguider";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Full tillgång till 2000+ guider!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "En minnesvärd rekreation på resan vart som helst och med vem som helst";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Årlig";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Månatlig";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 månaders obegränsad tillgång";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 månads obegränsad tillgång";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Tack för prenumerationen!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Nu har du obegränsad tillgång till guidekatalogen";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Prenumerationen har gått ut";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Alla guider nedladdade genom prenumerationen kommer att raderas. Vill du återställa prenumerationen och spara dem?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Ja, återställa";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nej, radera guider";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Misslyckades med att köpa";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Nu är tjänsten inte tillgänglig i din region. Vänligen försök igen senare";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Klart";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Hoppsan, tiden är slut!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Våra servrar svarar inte. Vänligen kontrollera din internetanslutning och försök igen.";
 
-"per_month" = "/ mo";
+"per_month" = "/mån.";
 
-"per_year" = "/ year";
+"per_year" = "/år";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Full tillgång från %s";
+
+"buy_btn_for_subscription_1" = "Köpa ALLA guider för %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Full tillgång för %s/mån.";
+
+"buy_btn_for_subscription_ios_only_year" = "Full tillgång för %s/år";
+
+"subscription_terms_guides" = "Betalning kommer att genomföras från ditt iTunes-konto vid inköpsbekräftelse. Prenumerationen kommer att förnyas automatiskt om automatisk förnyelse är inte avstängd minst 24 timmar före slutet av den aktuella perioden. Pengarna kommer att dras från ditt konto enligt din förnyelseprisplan inom 24 timmar från slutet av den aktuella perioden. Du kan hantera automatisk förnyelse eller inaktivera den i dina Apple ID-kontoinställningar när som helst efter inköpet. Du kommer att kunna använda guiderna nedladdade genom prenumerationen endast under dess giltighetsperiod. Efter 30 dagar från prenumerationens slut kommer guider med alla bokmärken att raderas automatiskt.";
+
+"subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
 
 
 /**********  Partners  **********/

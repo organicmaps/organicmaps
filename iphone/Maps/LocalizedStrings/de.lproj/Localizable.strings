@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Es gibt keine aktiven Abonnements";
 
-"subscription_terms" = "Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.";
-
 "subscriptions_title" = "Abonnements";
 
 "manage_subscription" = "Abonnements verwalten";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Datei ist beschädigt und kann nicht geladen werden. Bitte laden Sie eine andere Datei.";
 
-"buy_btn" = "Für %s kaufen";
+"buy_btn" = "Reiseführer für %s kaufen";
 
 "download_guide_progress" = "Reiseführer wird geladen…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Hotel auf der Karte suchen";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Hotel gebucht?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Planen Sie die Route mit fertigen Reiseführern von MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Ideen für Reisen👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Auswählen";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Anschauen";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Planen Sie Ihren Urlaub mit MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Verpassen Sie das wichtigste mit den Routen von erfahrenen Reisenden nicht";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Internet ein";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Reiseführer";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Uneingeschränkter Zugriff auf 2000+ Reiseführer!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Unvergesslicher Urlaub, wohin und mit wem würden Sie nicht reisen";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Jährliche";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Monatliche";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 Monate uneingeschränkten Zugriffs";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 Monat uneingeschränkten Zugriffs";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Danke für die Subskription!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Jetzt haben sie einen uneingeschränkten Zugriff auf den Reiseführer-Katalog";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Die Subskriptionfrist ist abgelaufen";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Alle Reiseführer, die in Subskription heruntergeladen wurden, werden gelöscht. Möchten Sie die Subskription erneuern und sie behalten?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Ja, erneuern";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nein, Reiseführer löschen";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Der Erwerb war nicht erfolgreich";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Der Service ist momentan in Ihrer Region nicht verfügbar. Bitte, versuchen Sie es später noch einmal";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "OK";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Ups, die Session ist abgelaufen!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Unsere Server antworten nicht. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es noch einmal.";
 
-"per_month" = "/ mo";
+"per_month" = "/Monat";
 
-"per_year" = "/ year";
+"per_year" = "/Jahr";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Uneingeschränkter Zugriff ab %s";
+
+"buy_btn_for_subscription_1" = "ALLE Reiseführer für %s kaufen";
+
+"buy_btn_for_subscription_ios_only_mo" = "Uneingeschränkter Zugriff für %s/Monat";
+
+"buy_btn_for_subscription_ios_only_year" = "Uneingeschränkter Zugriff für %s/Jahr";
+
+"subscription_terms_guides" = "Der Betrag wird von Ihrem iTunes-Konto bei der Kaufbestätigung abgebucht. Die Subskription wird automatisch erneuert, wenn die automatische Erneuerung wenigstens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wird. Der Betrag wird von ihrem Konto gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung in den Kontoeinstellungen Apple ID jederzeit nach dem Kauf aktivieren oder deaktivieren. Sie können Reiseführer, die in Subskription heruntergeladen wurden, nur innerhalb der Subskriptionfrist benutzen. Nach 30 Tagen ab dem Ablaufdatum der Subskription werden die Reiseführer mit allen Lesezeichen automatisch gelöscht.";
+
+"subscription_terms" = "Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.";
 
 
 /**********  Partners  **********/

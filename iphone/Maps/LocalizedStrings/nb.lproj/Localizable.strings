@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "There are no active subscriptions";
 
-"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
-
 "subscriptions_title" = "Subscriptions";
 
 "manage_subscription" = "Manage subscription";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Denne filen er skadet og kan ikke lastes opp. Vennligst last opp en annen fil.";
 
-"buy_btn" = "Kjøp for %s";
+"buy_btn" = "Kjøpe en guide for %s";
 
 "download_guide_progress" = "Laster ned guiden din…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Finne en hotell på kortet";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Du har booket en hotell?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Planlegg en rute ved hjelp av ferdige guider fra MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Idéer for reiser👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Velge";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Se";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Planlegg din ferie sammen med MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Ikke gå glipp av det viktigste og bruk ruter laget av erfarte reisende";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Koble til Internett";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Guider";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Full adgang til flere enn 2000 guider!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "En minneverdig ferie uavhengig av hvor du reiser og hvem du tar med";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Årlig";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Månedlig";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 måneder av ubegrenset tilgang";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 måned av ubegrenset tilgang";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Takk for abonnementet!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Nå har du fått ubegrenset tilgang til guider";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Abonnementet er utløpt";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Alle guidene som ble lastet ned med abonnementet vil bli fjernet. Ville du gjenopprette abonnementet og lagre dem?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Ja, forny";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nei, slett guider";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Det oppsto en feil under kjøpet";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Tjenesten er for tiden ikke tilgjengelig i din region. Vennligst prøv igjen senere";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Klart";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Oops, tiden har utløpt!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Våre servere svar ikke. Vennligst sjekk din Internett-tilkobling og prøv igjen.";
 
-"per_month" = "/ mo";
+"per_month" = "/måned";
 
-"per_year" = "/ year";
+"per_year" = "/år";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Full adgang fra %s";
+
+"buy_btn_for_subscription_1" = "Kjøpe ALLE guider for %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Full adgang for %s pr. måned";
+
+"buy_btn_for_subscription_ios_only_year" = "Full adgang for %s pr. år";
+
+"subscription_terms_guides" = "Betalingen vil belastes iTunes-kontoen din ved kjøpsbekreftelsen. Abonnementet vil automatisk fornyes med mindre automatisk fornyelse slås av minst 24 timer før slutten av den inneværende perioden. Kontoen din vil belastes i henhold til avtalen din for fornyelse 24 timer innen slutten av den inneværende perioden. Du kan når som helst etter kjøpet administrere eller slå av automatisk fornyelse i Apple ID-kontoinnstillingene dine. Du kan bruke guider som ble lastet ned med abonnementet kun i løpet av dets gyldighetsperiode. Guidene med alle bokmerker vil bli fjernet automatisk om 30 dager etter slutten av abonnementet.";
+
+"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
 
 /**********  Partners  **********/

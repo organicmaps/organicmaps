@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "У вас нет активных подписок";
 
-"subscription_terms" = "Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.";
-
 "subscriptions_title" = "Подписки";
 
 "manage_subscription" = "Управление подпиской";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.";
 
-"buy_btn" = "Купить за %s";
+"buy_btn" = "Купить путеводитель за %s";
 
 "download_guide_progress" = "Путеводитель загружается…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Везет";
 
-"booking_button_toolbar" = "Поиск по 2 миллионам гостиниц";
+"booking_button_toolbar" = "Подобрать отель на карте";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Забронирован отель?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Спланируйте маршрут с готовыми путеводителями MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Идеи для путешествий👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Выбрать";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Посмотреть";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Планируйте свой отдых с MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Не упустите самое важное с маршрутами от опытных путешественников";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Включить Интернет";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Путеводители";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Полный доступ к 2000+ путеводителям!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Запоминающийся отдых, куда бы и с кем бы вы ни путешествовали";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Годовая";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Месячная";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 месяцев безлимитного доступа";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 месяц безлимитного доступа";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Спасибо за подписку!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Теперь у вас неограниченный доступ к каталогу путеводителей";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Срок действия подписки истек";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Все путеводители, скачанные по подписке, будут удалены. Хотите восстановить подписку и сохранить их?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Да, восстановить";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Нет, удалить путеводители";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Не удалось совершить покупку";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Сейчас сервис недоступен в вашем регионе. Пожалуйста, попробуйте позже";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Понятно";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Упс, время вышло!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Наши серверы не отвечают. Пожалуйста, проверьте интернет-соединение и повторите попытку.";
 
-"per_month" = "/ mo";
+"per_month" = "/мес.";
 
-"per_year" = "/ year";
+"per_year" = "/год";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Полный доступ от %s";
+
+"buy_btn_for_subscription_1" = "Купить ВСЕ путеводители за %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Полный доступ за %s/мес.";
+
+"buy_btn_for_subscription_ios_only_year" = "Полный доступ за %s/год";
+
+"subscription_terms_guides" = "Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.";
+
+"subscription_terms" = "Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.";
 
 
 /**********  Partners  **********/

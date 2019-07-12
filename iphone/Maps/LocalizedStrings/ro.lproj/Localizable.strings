@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Nu există abonamente active";
 
-"subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
-
 "subscriptions_title" = "Abonamente";
 
 "manage_subscription" = "Administrare abonament";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Fișierul a fost deteriorat și nu poate fi încărcat. Vă rugăm, alegeți alt fișier.";
 
-"buy_btn" = "Cumpărați pentru %s";
+"buy_btn" = "Cumpără un ghid la preț de %s";
 
 "download_guide_progress" = "Ghidul de călătorie se încarcă…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Selectează hotel pe hartă";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Rezervare hotel?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Planificați traseul cu ghidurile MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Idei pentru călătorii👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Selectează";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Privește";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Planifică odihna ta cu MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Nu ratați cel mai important cu traseele de la călători experimentați";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Conectare Internet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Ghiduri";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Acces la 2000+ghiduri!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "O călătorie de neuitat, oriunde și cu oricine ai călători";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Anual";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Lunar";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 luni de acces nelimitat";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 lună de acces nelimitat";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Vă mulțumim pentru abonare!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Acum aveți un acces nelimitat la catalogul de ghiduri";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Termenul de valabilitate a abonării a expirat";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Toate ghidurile, descărcate la abonare vor fi eliminate. Doriți să restabiliți abonarea și să le păstrați?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Da, restabilire";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nu, eliminare ghiduri";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Nu a fost posibil de făcut cumpărătura";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Acum serviciul nu este disponibil în regiunea dvs. Vă rugăm să încercați mai târziu";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Clar";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Ups, timpul a expirat!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Server-ul nostru nu răspunde. Vă rugăm să verificați conectarea la Internet și să încercați din nou.";
 
-"per_month" = "/ mo";
+"per_month" = "/lună";
 
-"per_year" = "/ year";
+"per_year" = "/an";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Acces complet de la %s";
+
+"buy_btn_for_subscription_1" = "Cumpără toate ghidurile la preț de %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Acces complet de %s/lună";
+
+"buy_btn_for_subscription_ios_only_year" = "Acces complet de %s/an";
+
+"subscription_terms_guides" = "Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.";
+
+"subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
 
 
 /**********  Partners  **********/

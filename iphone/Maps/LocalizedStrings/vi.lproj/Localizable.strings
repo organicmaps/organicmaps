@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Không có đăng ký đang hoạt động";
 
-"subscription_terms" = "Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.";
-
 "subscriptions_title" = "Đăng ký";
 
 "manage_subscription" = "Quản lý đăng ký";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Tập tin này bị hỏng và không thể tải lên được. Vui lòng tải lên một tập tin khác.";
 
-"buy_btn" = "Mua với %s";
+"buy_btn" = "Mua sách hướng dẫn với %s";
 
 "download_guide_progress" = "Đang tải xuống hướng dẫn của bạn…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Lựa chọn khách sạn trên bản đồ";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Đặt phòng khách sạn?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Ý tưởng cho chuyến du lịch👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Lựa chọn";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Xem";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Lên kết hoạch nghỉ ngơi cùng MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Đừng bỏ lỡ những thứ quan trọng cùng với các tuyến được những du khách có kinh nghiệm đề xuất";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Bật kết nối Internet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Sách hướng dẫn";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Truy cập đầy đủ tới 2000+ sách hướng dẫn!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Một kỳ nghỉ đáng nhớ, ở đâu và cùng với ai bạn sẽ không đi du lịch";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Một năm";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Một tháng";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 tháng truy cập không giới hạn";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 tháng truy cập không giới hạn";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Cảm ơn vì đã đăng ký!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Giờ thì bạn đã có thể truy cập không giới hạn vào danh mục sách hướng dẫn";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Thời hạn đăng ký đã hết";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Tất cả những sách hướng dẫn đã tải về khi đăng ký sẽ bị xóa hết. Bạn có muốn khôi phục việc đăng ký và lưu chúng lại không?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Có, khôi phục";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Không, xóa sách hướng dẫn";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Mua không thành công";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Hiện tại server không khả dụng tại khu vực của bạn. Xin vui lòng thử lại sau";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Đã hiểu";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Rất tiếc, đã hết giờ!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Máy chủ của chúng tôi không hồi đáp. Xin vui lòng kiểm tra lại kết nối internet và thử lại.";
 
-"per_month" = "/ mo";
+"per_month" = "/tháng.";
 
-"per_year" = "/ year";
+"per_year" = "/năm";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Truy cập toàn bộ từ %s";
+
+"buy_btn_for_subscription_1" = "Mua TẤT CẢ sách hướng dẫn với %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Truy cập toàn với %s/tháng";
+
+"buy_btn_for_subscription_ios_only_year" = "Truy cập toàn với %s/năm";
+
+"subscription_terms_guides" = "Thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ tự động gia hạn nếu như tự động gia hạn không bị tắt ít nhất 24h trước khi kết thúc kỳ đăng ký hiện tại. Tiền sẽ được trừ từ tài khoản của bạn tương ứng với gói dịch vụ bạn chọn và kéo dài trong 24h đồng hồ đến khi kết thúc kỳ đăng ký hiện tại. Bạn cũng có thể điều chỉnh việc tự động gia hạn hoặc tắt nó đi trong phần cài đặt tài khoản Apple ID vào bất cứ thời gian nào sau khi mua. Bạn chỉ có thể sử dụng các sách hướng dẫn đã tải khi đăng ký trong thời gian chúng có hiệu lực. Sau thời hạn 30 ngày kể từ khi kết thúc việc đăng ký, các sách hướng dẫn cùng với phần đánh dấu trang sẽ được xóa một cách tự động.";
+
+"subscription_terms" = "Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.";
 
 
 /**********  Partners  **********/

@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Aktiivisia tilauksia ei ole";
 
-"subscription_terms" = "Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.";
-
 "subscriptions_title" = "Tilaukset";
 
 "manage_subscription" = "Hallitse tilausta";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Tiedosto on vioittunut eikä sitä voi ladata. Ole hyvä, lataa toinen tiedosto.";
 
-"buy_btn" = "Osta %s:sta";
+"buy_btn" = "Osta opas hintaan %s";
 
 "download_guide_progress" = "Matkaopas latautuu…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Etsi hotelli kartalla";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Onko hotellin jo varattu?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Suunnittele reittisi valmiilla MAPS.ME -matkaoppailla";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Matkustusideoita👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Valitse";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Katso";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Suunnittele lomasi MAPS.ME:n kanssa!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Älä missaa tärkeimpiä reittejä kokeneilta matkustajilta";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Ota Internet käyttöön";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Matkaoppaat";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Täysimääräinen pääsy 2000+ matkaoppaaseen!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Vietä ikimuistoista vapaa-aikaa missä tahansa ja kenen tahansa kanssa";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Yhden vuoden";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Yhden kuukauden";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 kuukautta rajoittamatonta pääsyä";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 kuukausi rajoittamatonta pääsyä";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Kiitos tilauksesta!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Nyt sinulla on rajoittamaton pääsy matkaoppaiden luetteloon";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Tilauksen voimassaoloaika on umpeutunut";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Kaikki tilauksen puitteissa ladatut matkaoppaat poistetaan. Haluatko palauttaa tilauksesi ja pitää ne?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Kyllä, palauta";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Ei, poista matkaoppaat";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Oston suorittaminen epäonnistui";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Nyt palvelu ei ole käytettävissä omalla alueellasi. Ole hyvä, yritä myöhemmin uudelleen";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Selvä";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Hups, aika on ohi!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "Palvelimemme eivät vastaa. Ole hyvä ja tarkista Internet-yhteys ja yritä uudelleen.";
 
-"per_month" = "/ mo";
+"per_month" = "/kuukausi";
 
-"per_year" = "/ year";
+"per_year" = "/vuosi";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Rajoittamaton pääsy alkaen %s";
+
+"buy_btn_for_subscription_1" = "Osta KAIKKI matkaoppaat hintaan %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Rajoittamaton pääsy hintaan %s/kuu.";
+
+"buy_btn_for_subscription_ios_only_year" = "Rajoittamaton pääsy hintaan %s/vuosi";
+
+"subscription_terms_guides" = "Maksu suoritetaan iTunes-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Apple ID -tili-asetuksissa milloin tahansa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.";
+
+"subscription_terms" = "Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.";
 
 
 /**********  Partners  **********/

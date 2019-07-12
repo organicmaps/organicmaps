@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "لا توجد اشتراكات نشطة";
 
-"subscription_terms" = "سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.";
-
 "subscriptions_title" = "الاشتراكات";
 
 "manage_subscription" = "إدارة الاشتراك";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "هذا الملف تالف ولا يمكن تحميله. يرجى تحميل ملف آخر.";
 
-"buy_btn" = "شراء لـ%s";
+"buy_btn" = "اشتري مقابل %s";
 
 "download_guide_progress" = "تحميل الدليل الخاص بك…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "اختر فندقًا على الخريطة";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "هل حجزت فندقًا؟";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "خطط لوجهتك باستخدام دلائل جاهزة من MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "أفكار لعطلتك👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "اختر واحدة";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "الق نظرة";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "خطط لعطلتك مع MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "لا تفوت أي شىء مع دلائل تم اعدادها بواسطة خبراء السفر";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "فعل الانترنت";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "الدلائل";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "وصول غير محدود لأكثر من 2000 دليل سفر!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "ذكرى مميزة لعطلتك في أي مكان وبصحبة أي شخص";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "سنوي";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "شهري";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 شهرًا من الوصول الغير محدود";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "شهرًا واحدًا من الوصول الغير محدود";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "شكرًا لاشتراكك!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "تمتلك الآن وصولًا غير محدود لكل الدلائل";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "انتهت فترة صلاحية اشتراكك";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "سيتم حذف جميع الدلائل التي تم تحميلها بواسطة الاشتراك. هل تريد اعادة الاشتراك والاحتفاظ بهم؟";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "نعم، جدد الاشتراك";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "لا، احذف الدلائل";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "فشل عملية الشراء";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "الخدمة غير متوفرة حاليا فى منطقتك. يرجى المحاولة في وقت لاحق";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "حسنًا";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "آسف، انتهى الوقت!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "خوادمنا لا تستجيب. يرجى التحقق من اتصال الانترنت والمحاولة مجددًا.";
 
-"per_month" = "/ mo";
+"per_month" = "شهر/";
 
-"per_year" = "/ year";
+"per_year" = "سنة/";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "وصول غير محدود من %s";
+
+"buy_btn_for_subscription_1" = "اشتري جميع الدلائل مقابل %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "وصول غير محدود %s/شهر";
+
+"buy_btn_for_subscription_ios_only_year" = "وصول غير محدود %s/سنة";
+
+"subscription_terms_guides" = "سيتم خصم المدفوعات من حساب iTunes الخاص بك مع تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائيًا ما لم يتم تعطيل خاصية التجديد التلقائي قبل 24 ساعة من انتهاء فترة الاشتراك الحالية. سيتم خصم قيمة الاشتراك طبقًا لخطة الاشتراك الخاصة بك للتجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك ادارة أو تعطيل خاصية التجديد التلقائي في حساب Apple ID الخاص بك في أي وقت بعد شرائك. يمكنك استخدام الدلائل التي تم تحميلها فقط عن طريق اشتراكك حتى تاريخ انتهاء الاشتراك  سيتم حذف الدلائل والعلامات المميزة عليها تلقائيًا بعد 30 يومًا من انتهاء فترة الاشتراك.";
+
+"subscription_terms" = "سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.";
 
 
 /**********  Partners  **********/

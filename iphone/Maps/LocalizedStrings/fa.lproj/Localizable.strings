@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "There are no active subscriptions";
 
-"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
-
 "subscriptions_title" = "Subscriptions";
 
 "manage_subscription" = "Manage subscription";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "این فایل آسیب دیده است و امکان بارگذاری آن وجود ندارد. لطفا فایل دیگری را بارگذاری نمایید.";
 
-"buy_btn" = "با s% خرید نمایید";
+"buy_btn" = "این را با %s بخرید";
 
 "download_guide_progress" = "Downloading your guide…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "یک هتل را بر روی نقشه انتخاب کنید";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "هتل رزرو کرده‌اید؟";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "مسیر خود را با راهنماهای آماده MAPS.ME برنامه ریزی کنید";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "ایده هایی برای تعطیلات👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "یکی را انتخاب کنید";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "نگاهی کنید";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "تعطیلات خود را با MAPS.ME برنامه ریزی کنید!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "با استفاده از راهنماهای تهیه شده توسط مسافران با تجربه، هیچ چیز را از دست ندهید";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "اینترنت را متصل کنید";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "راهنماها";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "دسترسی نامحدود به بیش از 2000 راهنمای سفر!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "تعطیلات به یاد ماندنی در هر کجا و با هر کسی که سفر می کنید";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "سالانه";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "ماهانه";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 ماه دسترسی نامحدود";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 ماه دسترسی نامحدود";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "با تشکر برای اشتراک!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "اکنون شما به تمام کاتالوگ راهنما دسترسی نامحدود دارید";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "اشتراک شما به پایان رسیده است";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "تمام راهنماهای دانلود شده با اشتراک حذف خواهند شد. آیا تمایل به ادامه اشتراک و حفظ آنها دارید؟";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "بله، تمدید کن";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "نه، حذف راهنماها";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "خرید ناموفق بود";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "این سرویس در حال حاضر در منطقه شما در دسترس نیست. لطفا بعداً دوباره امتحان کنید";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "متوجه شدم";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "اوه، زمان به پایان رسید!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "سرورهای ما پاسخ نمی دهند. لطفا اتصال اینترنت را بررسی و دوباره امتحان کنید.";
 
-"per_month" = "/ mo";
+"per_month" = "ماه/";
 
-"per_year" = "/ year";
+"per_year" = "سال/";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "دسترسی نامحدود از %s";
+
+"buy_btn_for_subscription_1" = "تمامی راهنماها را با %s بخرید";
+
+"buy_btn_for_subscription_ios_only_mo" = "دسترسی نامحدود %s\ماه";
+
+"buy_btn_for_subscription_ios_only_year" = "دسترسی نامحدود %s\سال";
+
+"subscription_terms_guides" = "پس از تأیید خرید پرداخت از طریق حساب iTunes انجام خواهد شد. اشتراک به صورت خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی غیر فعال شود. با توجه به طرح تمدیدی شما، 24 ساعت پیش از اتمام دوره اشتراک، هزینه از حساب شما کسر می شود. شما می توانید در هر زمانی ویژگی تمدید خودکار را در تنظیمات حساب Apple ID خود مدیریت یا غیر فعال کنید. شما می توانید راهنماهای دانلود شده توسط اشتراک را تنها تا تاریخ انقضا استفاده کنید. 30 روز پس از تاریخ اتمام اشتراک، راهنما ها با بوک مارک ها به طور خودکار حذف خواهند شد.";
+
+"subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
 
 /**********  Partners  **********/

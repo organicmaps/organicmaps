@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "有効なサブスクリプションはありません";
 
-"subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
-
 "subscriptions_title" = "サブスクリプション";
 
 "manage_subscription" = "サブスクリプション管理";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "このファイルは損傷しており、アップロードできませんでした。別のファイルをアップロードしてください。";
 
-"buy_btn" = "%sで購入";
+"buy_btn" = "%sでこれを購入";
 
 "download_guide_progress" = "ガイドをダウンロードしています…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "マップ上のホテルを選択";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "ホテルを予約しましたか？";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "MAPS.MEのレディメイドなガイドでルートを計画しましょう";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "あなたの休暇のためのアイディア👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "1つ選択してください";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "ご覧ください";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "MAPS.MEで休暇の計画をたてましょう!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "熟練の旅行者が作ったガイドをお見逃しなく";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "インターネットを起動";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "ガイド";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "2000旅行ガイドへの無制限のアクセス！";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "誰とでも何処へ行くにしても忘れられない休暇にしましょう";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "年ごと";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "月ごと";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12ケ月の無制限アクセス";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1ケ月の無制限アクセス";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "ご登録ありがとうございます！";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "これで全てのガイドカタログにアクセスできるようになりました";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "サブスクリプションの期限が切れました";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "サブスクリプションでダウンロードされた全てのガイドが削除されます。サブスクリプションを継続してガイドを維持しますか？";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "はい、更新します";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "いいえ、ガイドを削除します";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "購入できませんでした";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "このサービスはあなたの地域では現在利用できません。後ほどもう一度お試しください";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "分かりました";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "おっと、時間切れです！";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "当社のサービスが応答しません。インターネット接続を確認して、もう一度お試しください。";
 
-"per_month" = "/ mo";
+"per_month" = "/月";
 
-"per_year" = "/ year";
+"per_year" = "/年";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "%sから無制限のアクセス";
+
+"buy_btn_for_subscription_1" = "%sで全てのガイドを購入";
+
+"buy_btn_for_subscription_ios_only_mo" = "%s/月で無制限のアクセス";
+
+"buy_btn_for_subscription_ios_only_year" = "%s/年で無制限のアクセス";
+
+"subscription_terms_guides" = "支払いは購入の確認後にiTunesのアカウントに請求されます。サブスクリプションは、現在の有効期限が失効する24時間前までに自動更新機能を無効にしていない限り、自動的に更新されます。あなたのアカウントは現在の有効期限が失効する24時間前までの更新計画に基づいて請求されます。自動更新機能はApple IDのアカウント設定からにいつでも無効化する事ができます。ダウンロードしたガイドはサブスクリプションの失効日までしか利用できません。サブスクリプションの消失から30日でブックマークの付いたガイドは自動的に削除されます。";
+
+"subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
 
 
 /**********  Partners  **********/

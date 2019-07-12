@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Non vi sono abbonamenti attivi";
 
-"subscription_terms" = "Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell'acquisto. L'abbonamento verrà rinnovato automaticamente a meno che l'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell'attuale periodo di fatturazione. L'addebito sull'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell'account Apple ID in qualsiasi momento.";
-
 "subscriptions_title" = "Abbonamenti";
 
 "manage_subscription" = "Gestisci abbonamento";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "Il file è danneggiato e non può essere caricato. Si prega di caricare un altro file.";
 
-"buy_btn" = "Acquistare a %s";
+"buy_btn" = "Acquista la guida a %s";
 
 "download_guide_progress" = "La guida si sta caricando…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Scegliere un albergo sulla mappa";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Hai prenotato un albergo?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Pianificare il viaggio con le Guide pronte di MAPS.ME";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Idee di viaggio👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Scegliere";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Scopri";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Pianifica il viaggio con MAPS.ME!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Non perdere i consigli più importanti da viaggiatori esperti";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Accedi a internet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Guide";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Accesso illimitato a più di 2000 guide!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Una vacanza indimenticabile ovunque tu sia e con chiunque tu stia";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Annuale";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Mensile";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 mesi di accesso illimitato";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 mese di accesso illimitato";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Grazie per esserti abbonato!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Ora hai accesso illimitato al catalogo delle guide";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Abbonamento scaduto";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Tutte le guide scaricate con l'abbonamento verranno eliminate. Vuoi riprendere l'abbonamento e salvarle?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Riprendere";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "No, eliminare le guide";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Acquisto non riuscito";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "Il servizio non disponibile nella regione scelta. Si prega di riprovare più tardi";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Ho capito";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Oops! Tempo scaduto";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "I nostri server non rispondono. Si prega di controllare la connessione internet e riprovare.";
 
-"per_month" = "/ mo";
+"per_month" = "/mese";
 
-"per_year" = "/ year";
+"per_year" = "/anno";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Pieno accesso a %s";
+
+"buy_btn_for_subscription_1" = "Acquista TUTTE le guide a %s";
+
+"buy_btn_for_subscription_ios_only_mo" = "Pieno accesso a %s/mese";
+
+"buy_btn_for_subscription_ios_only_year" = "Pieno accesso a %s/anno";
+
+"subscription_terms_guides" = "Il pagamento verrà effettuato dal vostro account iTunes dopo la conferma dell'acquisto. Abbonamento verrà rinnovato automaticamente. Puoi disdire il rinnovo automatico almeno 24 ore prima dello scadere dell'abbonamento corrente. I costi verranno addebitati a seconda della tariffa prescelta per il rinnovo 24 ore prima dello scadere dell'abbonamento corrente. Per cambiare o disattivare la funzione del rinnovo automatico accedi al tuo account Apple ID in qualsiasi momento dopo l'acquisto. Puoi utilizzare le guide scaricate con l'abbonamento solo fino alla scadenza di esso. Tutte le guide ed i relativi segnalibri verranno eliminati automaticamente dopo 30 giorni dalla data di scadenza dell'abbonamento.";
+
+"subscription_terms" = "Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell'acquisto. L'abbonamento verrà rinnovato automaticamente a meno che l'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell'attuale periodo di fatturazione. L'addebito sull'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell'account Apple ID in qualsiasi momento.";
 
 
 /**********  Partners  **********/

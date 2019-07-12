@@ -2459,8 +2459,6 @@
 
 "restore_no_subscription_alert" = "Nincs aktív előfizetés";
 
-"subscription_terms" = "A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.";
-
 "subscriptions_title" = "Előfizetések";
 
 "manage_subscription" = "Előfizetés kezelése";
@@ -2534,7 +2532,7 @@
 
 "unable_upload_error_subtitle_broken" = "A fájl sérült és nem lehet feltölteni. Kérjük, más fájlt töltsön fel.";
 
-"buy_btn" = "%s- ért vásárolni";
+"buy_btn" = "Vedd meg ezt ennyiért: %s";
 
 "download_guide_progress" = "Az útikalauz töltődik…";
 
@@ -2845,76 +2843,77 @@
 
 "vezet_taxi" = "Vezet";
 
-"booking_button_toolbar" = "Search 2 million accommodations";
+"booking_button_toolbar" = "Válassz egy hotelt a térképeb";
 
-/* FIXME */
-"popup_booking_download_guides_title" = "popup_booking_download_guides_title";
+"popup_booking_download_guides_title" = "Foglaltál egy hotelben?";
 
-/* FIXME */
-"popup_booking_download_guides_message" = "popup_booking_download_guides_message";
+"popup_booking_download_guides_message" = "Tervezd meg az útvonaladat a naprakész útikönyvekkel a MAPS.ME-től";
 
-/* FIXME */
-"popup_booking_download_guides_cta" = "popup_booking_download_guides_cta";
+"popup_mwm_download_guides_title" = "Ötletek a nyaralásodhoz👇🏻";
 
-/* FIXME */
-"popup_mwm_download_guides_title" = "popup_mwm_download_guides_title";
+"popup_mwm_download_guides_cta" = "Válassz egyet";
 
-/* FIXME */
-"popup_mwm_download_guides_cta" = "popup_mwm_download_guides_cta";
+"popup_mwm_download_guides_cta_1" = "Vess rá egy pillantást";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_title" = "gallery_pp_download_guides_offline_title";
+"gallery_pp_download_guides_offline_title" = "Tervezd meg a nyaralásodat MAPS.ME-vel!";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_subtitle" = "gallery_pp_download_guides_offline_subtitle";
+"gallery_pp_download_guides_offline_subtitle" = "Ne mulassz el semmit az útikönyvekkel, amiket tapasztalt utazók készítettek";
 
-/* FIXME */
-"gallery_pp_download_guides_offline_cta" = "gallery_pp_download_guides_offline_cta";
+"gallery_pp_download_guides_offline_cta" = "Kapcsold be az internetet";
 
-/* FIXME */
-"gallery_pp_download_guides_title" = "gallery_pp_download_guides_title";
+"gallery_pp_download_guides_title" = "Útikönyvek";
 
-"native_screen_subscription_title" = "Unlimited access to 5000+ guides!";
+"native_screen_subscription_title" = "Korlátlan hozzáférés 2000+ utazási útikönyvhöz!";
 
-"native_screen_subscription_message" = "Every kind of journey. Whether alone or with friends, hiking or sunbathing";
+"native_screen_subscription_message" = "Egy emlékezetes nyaralás, bármivel és bárkivel is utazol";
 
-"annual_subscription_title" = "Annual";
+"annual_subscription_title" = "Éves";
 
-"montly_subscription_title" = "Monthly";
+"montly_subscription_title" = "Havi";
 
-"annual_subscription_message" = "12 month of unlimited downloads";
+"annual_subscription_message" = "12 hónap korlátlan hozzáférés";
 
-"montly_subscription_message" = "1 month of unlimited downloads";
+"montly_subscription_message" = "1 hónap korlátlan hozzáférés";
 
-"annual_save_component" = "Save %s";
+"annual_save_component" = "- %d%";
 
-"subscription_success_dialog_title" = "Woohoo!";
+"subscription_success_dialog_title" = "Köszönjük az előfizetést!";
 
-"subscription_success_dialog_message" = "You've got a subscription!";
+"subscription_success_dialog_message" = "Most már korlátlan hozzáférésed van a teljes útikönyv katalógushoz";
 
-"renewal_screen_title" = "Your subscription has expired";
+"renewal_screen_title" = "Az előfizetésed lejárt";
 
-"renewal_screen_message" = "All the guides downloaded by subscription are going to be deleted. Want to resume the subscription and keep them?";
+"renewal_screen_message" = "Minden, az előfizetéssel letöltött útikönyv törölve lesz. Szeretnéd folytatni az előfizetést és megtartani őket?";
 
-"renewal_screen_button_restore" = "Yes, renew";
+"renewal_screen_button_restore" = "Igen, megújítás";
 
-"renewal_screen_button_cancel" = "No, delete guides";
+"renewal_screen_button_cancel" = "Nem, útikönyvek törlése";
 
-"subscription_error_ping_title" = "Purchase has failed";
+"subscription_error_ping_title" = "Vásárlás sikertelen";
 
-"subscription_error_message" = "The service is currently unavailable in your region. Please try again later.";
+"subscription_error_message" = "A szolgáltatás jelenleg nem elérhető a régiódban. Kérjük próbálja újra később";
 
-"subscription_error_button" = "Got it!";
+"subscription_error_button" = "Értem";
 
-"timeout_error_title" = "Oops, time is up!";
+"timeout_error_title" = "Hoppá, lejárt az idő!";
 
-"timeout_error_message" = "Our servers don't respond. Please check the internet connection and try again.";
+"timeout_error_message" = "A szervereink nem válaszolnak. Kérjük ellenírizd az internetkapcsolatot és próbáld újra.";
 
-"per_month" = "/ mo";
+"per_month" = "/hó";
 
-"per_year" = "/ year";
+"per_year" = "/év";
 
-"restore_purchase_link" = "<a href=\"%s\">Restore purchase</a>";
+"buy_btn_for_subscription" = "Korlátlan hozzáférés %s-től";
+
+"buy_btn_for_subscription_1" = "Az ÖSSZES útikönyv megvásárlása %s-ért";
+
+"buy_btn_for_subscription_ios_only_mo" = "Korlátlan hozzáférés %s/hó-ért";
+
+"buy_btn_for_subscription_ios_only_year" = "Korlátlan hozzáférés %s/év-ért";
+
+"subscription_terms_guides" = "A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.";
+
+"subscription_terms" = "A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.";
 
 
 /**********  Partners  **********/
