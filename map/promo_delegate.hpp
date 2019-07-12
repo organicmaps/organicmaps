@@ -6,6 +6,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <memory>
 #include <string>
 
 class DataSource;
@@ -25,5 +26,5 @@ public:
 private:
   DataSource const & m_dataSource;
   search::CityFinder & m_cityFinder;
-  indexer::FeatureIdToGeoObjectIdBimap m_cities;
+  std::unique_ptr<indexer::FeatureIdToGeoObjectIdBimap> m_cities;
 };

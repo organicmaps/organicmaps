@@ -8,9 +8,8 @@
 #include "base/string_utils.hpp"
 
 PromoDelegate::PromoDelegate(DataSource const & dataSource, search::CityFinder & cityFinder)
-  : m_dataSource(dataSource), m_cityFinder(cityFinder), m_cities(dataSource)
+  : m_dataSource(dataSource), m_cityFinder(cityFinder)
 {
-  m_cities.Load();
 }
 
 std::string PromoDelegate::GetCityId(m2::PointD const & point)
@@ -25,12 +24,18 @@ std::string PromoDelegate::GetCityId(m2::PointD const & point)
   if (!feature)
     return {};
 
-  base::GeoObjectId id;
-  if (ftypes::IsPromoCatalogChecker::Instance()(*feature) &&
-      m_cities.GetGeoObjectId(feature->GetID(), id))
+  if (!ftypes::IsPromoCatalogChecker::Instance()(*feature))
+    return {};
+
+  if (!m_cities)
   {
-    return strings::to_string(id);
+    m_cities = std::make_unique<indexer::FeatureIdToGeoObjectIdBimap>(m_dataSource);
+    m_cities->Load();
   }
+
+  base::GeoObjectId id;
+  if (m_cities->GetGeoObjectId(feature->GetID(), id))
+    return strings::to_string(id);
 
   return {};
 }
