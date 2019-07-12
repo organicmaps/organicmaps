@@ -58,7 +58,7 @@ class DownloadedBookmarksViewController: MWMViewController {
       return
     }
     Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDownloaded])
-    let webViewController = CatalogWebViewController(nil, utm: .bookmarksPageCatalogButton)
+    let webViewController = CatalogWebViewController.catalogFromAbsoluteUrl(nil, utm: .bookmarksPageCatalogButton)
     MapViewController.topViewController().navigationController?.pushViewController(webViewController,
                                                                                    animated: true)
   }

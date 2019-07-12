@@ -34,9 +34,8 @@
 - (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 - (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)openCatalogDeeplink:(NSURL * _Nullable)deeplinkUrl
-                   animated:(BOOL)animated
-                        utm:(MWMUTM)utm;
+- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm;
+- (void)openCatalogAbsoluteUrl:(NSURL *)url animated:(BOOL)animated utm:(MWMUTM)utm;
 - (void)searchText:(NSString *)text;
 - (void)openDrivingOptions;
 

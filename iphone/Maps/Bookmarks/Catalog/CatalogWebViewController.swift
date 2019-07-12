@@ -32,19 +32,31 @@ final class CatalogWebViewController: WebViewController {
   var toolbar = UIToolbar()
   var billing = InAppPurchase.inAppBilling()
 
-  @objc init(_ deeplinkURL: URL? = nil, utm: MWMUTM = .none) {
+  @objc static func catalogFromAbsoluteUrl(_ url: URL? = nil, utm: MWMUTM = .none) -> CatalogWebViewController {
+    return CatalogWebViewController(url, utm:utm, isAbsoluteUrl:true)
+  }
+  
+  @objc static func catalogFromDeeplink(_ url: URL, utm: MWMUTM = .none) -> CatalogWebViewController {
+    return CatalogWebViewController(url, utm:utm)
+  }
+
+  private init(_ url: URL? = nil, utm: MWMUTM = .none, isAbsoluteUrl: Bool = false) {
     var catalogUrl = MWMBookmarksManager.shared().catalogFrontendUrl(utm)!
-    if let dl = deeplinkURL {
-      if dl.host == "guides_page" {
-        if let urlComponents = URLComponents(url: dl, resolvingAgainstBaseURL: false),
-          let path = urlComponents.queryItems?.reduce(into: "", { if $1.name == "url" { $0 = $1.value } }),
-          let url = MWMBookmarksManager.shared().catalogFrontendUrlPlusPath(path, utm: utm) {
-          catalogUrl = url
-        }
+    if let u = url {
+      if isAbsoluteUrl {
+        catalogUrl = u
       } else {
-        deeplink = deeplinkURL
+        if u.host == "guides_page" {
+          if let urlComponents = URLComponents(url: u, resolvingAgainstBaseURL: false),
+            let path = urlComponents.queryItems?.reduce(into: "", { if $1.name == "url" { $0 = $1.value } }),
+            let calculatedUrl = MWMBookmarksManager.shared().catalogFrontendUrlPlusPath(path, utm: utm) {
+            catalogUrl = calculatedUrl
+          }
+        } else {
+          deeplink = url
+        }
+        Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom : kStatDeeplink])
       }
-      Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom : kStatDeeplink])
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
