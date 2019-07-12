@@ -2,6 +2,7 @@ package com.mapswithme.maps.analytics;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 public class ExternalLibrariesMediator
 {
@@ -279,12 +281,47 @@ public class ExternalLibrariesMediator
 
   private static class GetAdInfoTask extends AsyncTask<Void, Void, AdvertisingInfo>
   {
+    private final static long ADS_INFO_GETTING_TIMEOUT_MS = 10000;
+    private final static long ADS_INFO_GETTING_CHECK_INTERVAL_MS = 1000;
     @NonNull
     private final ExternalLibrariesMediator mMediator;
+    @NonNull
+    private final CountDownTimer mTimer = new CountDownTimer(ADS_INFO_GETTING_TIMEOUT_MS,
+                                                             ADS_INFO_GETTING_CHECK_INTERVAL_MS)
+    {
+      @Override
+      public void onTick(long millisUntilFinished)
+      {
+        if (getStatus() == Status.FINISHED)
+        {
+          LOGGER.i(TAG, "Timer could be cancelled, advertising id already obtained");
+          cancel();
+        }
+      }
+
+      @Override
+      public void onFinish()
+      {
+        if (getStatus() == Status.FINISHED)
+          return;
+
+        LOGGER.w(TAG, "Cancel getting advertising id request, timeout exceeded.");
+        GetAdInfoTask.this.cancel(true);
+        mMediator.setAdvertisingInfo(new AdvertisingInfo(null));
+        mMediator.notifyObservers();
+      }
+    };
 
     private GetAdInfoTask(@NonNull ExternalLibrariesMediator mediator)
     {
       mMediator = mediator;
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+      super.onPreExecute();
+      mTimer.start();
     }
 
     @Override
@@ -293,10 +330,19 @@ public class ExternalLibrariesMediator
       try
       {
         Application application = mMediator.getApplication();
+        LOGGER.i(TAG, "Start of getting advertising info");
         AdvertisingIdClient.Info info = AdvertisingIdClient.getAdvertisingIdInfo(application);
+        if (isCancelled())
+        {
+          String msg = "Advertising id wasn't obtained within " + ADS_INFO_GETTING_TIMEOUT_MS + " ms";
+          LOGGER.w(TAG, msg);
+          throw new TimeoutException(msg);
+        }
+        LOGGER.i(TAG, "End of getting advertising info");
         return new AdvertisingInfo(info);
       }
-      catch (GooglePlayServicesNotAvailableException | IOException | GooglePlayServicesRepairableException e)
+      catch (GooglePlayServicesNotAvailableException | IOException
+          | GooglePlayServicesRepairableException | TimeoutException e)
       {
         LOGGER.e(TAG, "Failed to obtain advertising id: ", e);
         CrashlyticsUtils.logException(e);
@@ -307,9 +353,17 @@ public class ExternalLibrariesMediator
     @Override
     protected void onPostExecute(@NonNull AdvertisingInfo info)
     {
+      LOGGER.i(TAG, "onPostExecute, info: " + info);
       super.onPostExecute(info);
       mMediator.setAdvertisingInfo(info);
       mMediator.notifyObservers();
+    }
+
+    @Override
+    protected void onCancelled()
+    {
+      LOGGER.i(TAG, "onCancelled");
+      super.onCancelled();
     }
   }
 
@@ -327,6 +381,14 @@ public class ExternalLibrariesMediator
     boolean isLimitAdTrackingEnabled()
     {
       return mInfo != null && mInfo.isLimitAdTrackingEnabled();
+    }
+
+    @Override
+    public String toString()
+    {
+      return "AdvertisingInfo{" +
+             "mInfo=" + mInfo +
+             '}';
     }
   }
 
