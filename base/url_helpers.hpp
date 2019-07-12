@@ -20,5 +20,19 @@ using Params = std::vector<Param>;
 
 // Make URL by using base url and vector of params.
 std::string Make(std::string const & baseUrl, Params const & params);
+
+// Joins URL, appends/removes slashes if needed.
+std::string Join(std::string const & lhs, std::string const & rhs);
+
+template <typename... Args>
+std::string Join(std::string const & lhs, std::string const & rhs, Args &&... args)
+{
+  if (lhs.empty())
+    return Join(rhs, std::forward<Args>(args)...);
+  if (rhs.empty())
+    return Join(lhs, std::forward<Args>(args)...);
+
+  return Join(Join(lhs, rhs), std::forward<Args>(args)...);
+}
 }  // namespace url
 }  // namespace base

@@ -31,5 +31,21 @@ string Make(string const & baseUrl, Params const & params)
 
   return os.str();
 }
+
+std::string Join(std::string const & lhs, std::string const & rhs)
+{
+  if (lhs.empty())
+    return rhs;
+  if (rhs.empty())
+    return lhs;
+
+  if (lhs.back() == '/' && rhs.front() == '/')
+    return lhs + rhs.substr(1);
+
+  if (lhs.back() != '/' && rhs.front() != '/')
+    return lhs + '/' + rhs;
+
+  return lhs + rhs;
+}
 }  // namespace url
 }  // namespace base
