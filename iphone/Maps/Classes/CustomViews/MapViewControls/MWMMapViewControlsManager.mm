@@ -5,6 +5,8 @@
 #import "MWMNetworkPolicy.h"
 #import "MWMPlacePageManager.h"
 #import "MWMPlacePageProtocol.h"
+#import "MWMPromoAfterBooking.h"
+#import "MWMPromoApi.h"
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMTrafficButtonViewController.h"
@@ -16,7 +18,6 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -444,30 +445,26 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 - (BOOL)showPromoBookingIfNeeded {
-  auto policy = platform::GetCurrentNetworkPolicy();
-  auto promoApi = GetFramework().GetPromoApi(policy);
-  if (promoApi == nullptr)
+  MWMPromoAfterBooking *afterBooking = [MWMPromoApi afterBooking];
+  
+  if (!afterBooking)
     return NO;
 
-  auto const promoAfterBooking = promoApi->GetAfterBooking(languages::GetCurrentNorm());
-
-  if (promoAfterBooking.IsEmpty())
-    return NO;
-
-  auto const ok = ^{
-    auto urlString = @(promoAfterBooking.m_promoUrl.c_str());
+  MWMVoidBlock ok = ^{
+    auto urlString = afterBooking.promoUrl;
     auto url = [NSURL URLWithString:urlString];
-    [MapViewController.sharedController openCatalogDeeplink:url animated:YES utm:MWMUTMNone];
+    [MapViewController.sharedController openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMNone];
 
     [self.ownerController dismissViewControllerAnimated:YES completion:nil];
   };
-  auto cancel = ^{
+  MWMVoidBlock cancel = ^{
     [self.ownerController dismissViewControllerAnimated:YES completion:nil];
   };
-  auto cityImageUrl = @(promoAfterBooking.m_pictureUrl.c_str());
-  auto alert = [[PromoAfterBookingViewController alloc] initWithCityImageUrl:cityImageUrl ok:ok cancel:cancel];
+  NSString *cityImageUrl = afterBooking.pictureUrl;
+  PromoAfterBookingViewController *alert;
+  alert = [[PromoAfterBookingViewController alloc] initWithCityImageUrl:cityImageUrl okClosure:ok cancelClosure:cancel];
   [self.ownerController presentViewController:alert animated:YES completion:nil];
-  [MWMEye promoAfterBookingShownWithCityId:@(promoAfterBooking.m_id.c_str())];
+  [MWMEye promoAfterBookingShownWithCityId:afterBooking.promoId];
   return YES;
 }
 

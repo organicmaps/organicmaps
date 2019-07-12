@@ -2,15 +2,15 @@
 class PromoAfterBookingViewController: UIViewController {
   private let transitioning = FadeTransitioning<AlertPresentationController>()
   private var cityImageUrl: String
-  private var ok: MWMVoidBlock
-  private var cancel: MWMVoidBlock
+  private var okClosure: MWMVoidBlock
+  private var cancelClosure: MWMVoidBlock
   
   @IBOutlet weak var cityImageView: UIImageView!
   
-  @objc init(cityImageUrl: String, ok: @escaping MWMVoidBlock, cancel: @escaping MWMVoidBlock) {
+  @objc init(cityImageUrl: String, okClosure: @escaping MWMVoidBlock, cancelClosure: @escaping MWMVoidBlock) {
     self.cityImageUrl = cityImageUrl
-    self.ok = ok
-    self.cancel = cancel
+    self.okClosure = okClosure
+    self.cancelClosure = cancelClosure
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -32,11 +32,11 @@ class PromoAfterBookingViewController: UIViewController {
   }
   
   @IBAction func onOk() {
-    ok()
+    okClosure()
   }
   
   @IBAction func onCancel() {
-    cancel()
+    cancelClosure()
   }
   
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {

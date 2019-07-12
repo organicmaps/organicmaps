@@ -340,6 +340,8 @@
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DB1C57122D5DDA60097EC4C /* PromoAfterBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */; };
+		3DD1A20B22D8D93500B158F4 /* MWMPromoAfterBooking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1A20A22D8D93500B158F4 /* MWMPromoAfterBooking.mm */; };
+		3DD1A20F22D8DD1100B158F4 /* MWMPromoApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1A20E22D8DD1100B158F4 /* MWMPromoApi.mm */; };
 		3DE1762422D614B8000214FF /* PromoAfterBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */; };
 		3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */; };
 		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
@@ -1391,6 +1393,10 @@
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
 		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromoAfterBookingViewController.xib; sourceTree = "<group>"; };
+		3DD1A20A22D8D93500B158F4 /* MWMPromoAfterBooking.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPromoAfterBooking.mm; sourceTree = "<group>"; };
+		3DD1A20C22D8DB0B00B158F4 /* MWMPromoAfterBooking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPromoAfterBooking.h; sourceTree = "<group>"; };
+		3DD1A20D22D8DCF400B158F4 /* MWMPromoApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPromoApi.h; sourceTree = "<group>"; };
+		3DD1A20E22D8DD1100B158F4 /* MWMPromoApi.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPromoApi.mm; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoAfterBookingViewController.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
@@ -3413,6 +3419,10 @@
 			children = (
 				3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */,
 				3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */,
+				3DD1A20A22D8D93500B158F4 /* MWMPromoAfterBooking.mm */,
+				3DD1A20C22D8DB0B00B158F4 /* MWMPromoAfterBooking.h */,
+				3DD1A20D22D8DCF400B158F4 /* MWMPromoApi.h */,
+				3DD1A20E22D8DD1100B158F4 /* MWMPromoApi.mm */,
 			);
 			path = Promo;
 			sourceTree = "<group>";
@@ -5287,6 +5297,7 @@
 				34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */,
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
 				34AB664D1FC5AA330078E451 /* RouteManagerFooterView.swift in Sources */,
+				3DD1A20B22D8D93500B158F4 /* MWMPromoAfterBooking.mm in Sources */,
 				F6E2FD771E097BA00083EBEC /* MWMMapDownloaderDataSource.mm in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
 				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
@@ -5378,6 +5389,7 @@
 				CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
+				3DD1A20F22D8DD1100B158F4 /* MWMPromoApi.mm in Sources */,
 				3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
