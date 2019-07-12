@@ -154,6 +154,7 @@
     <item name="bookmarkSubscriptionCardEdge">@drawable/subscription_card_edge</item>
     <item name="bookmarkSubscriptionCardBg">@color/subscription_card_bg</item>
     <item name="imgPromoBookingTitle">@drawable/img_booking_popup_pholder_light</item>
+    <item name="bookmarkSubscriptionCardTextColor">@color/subscription_card_color</item>
   </style>
 
   <!-- Night theme -->
@@ -307,5 +308,6 @@
     <item name="bookmarkSubscriptionCardEdge">@drawable/subscription_card_edge</item>
     <item name="bookmarkSubscriptionCardBg">@color/subscription_card_bg_night</item>
     <item name="imgPromoBookingTitle">@drawable/img_booking_popup_pholder_night</item>
+    <item name="bookmarkSubscriptionCardTextColor">@color/subscription_card_color_night</item>
   </style>
 </resources>

@@ -79,6 +79,7 @@
   <attr name="bookmarkSubscriptionScreenBg" format="reference"/>
   <attr name="bookmarkSubscriptionCardEdge" format="reference"/>
   <attr name="bookmarkSubscriptionCardBg" format="color"/>
+  <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
 
   <attr name="imgPromoBookingTitle" format="reference"/>
 
