@@ -153,9 +153,13 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
+  // Adds search tokens for different ways of writing strasse:
+  // Hauptstrasse -> Haupt strasse, Hauptstr.
+  // Haupt strasse  -> Hauptstrasse, Hauptstr.
   void AddStrasseNames(signed char lang, search::QueryTokens const & tokens) const
   {
     auto static const kStrasse = strings::MakeUniString("strasse");
+    auto static const kStr = strings::MakeUniString("str");
     for (size_t i = 0; i < tokens.size(); ++i)
     {
       auto const & token = tokens[i];
@@ -166,12 +170,16 @@ struct FeatureNameInserter
       if (token == kStrasse)
       {
         if (i != 0)
+        {
           AddToken(lang, tokens[i - 1] + kStrasse);
+          AddToken(lang, tokens[i - 1] + kStr);
+        }
       }
       else
       {
         auto const name = strings::UniString(token.begin(), token.end() - kStrasse.size());
         AddToken(lang, name);
+        AddToken(lang, name + kStr);
       }
     }
   }

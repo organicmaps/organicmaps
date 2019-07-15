@@ -1993,6 +1993,8 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     Rules rules = {ExactMatch(countryId, s1)};
     checkNoErrors("abcdstrasse ", rules);
     checkNoErrors("abcdstrasse", rules);
+    checkNoErrors("abcdstr ", rules);
+    checkNoErrors("abcdstr", rules);
     checkNoErrors("abcdstraße ", rules);
     checkNoErrors("abcdstraße", rules);
     checkNoErrors("abcd strasse ", rules);
@@ -2006,6 +2008,8 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     Rules rules = {ExactMatch(countryId, s2)};
     checkNoErrors("xyzstrasse ", rules);
     checkNoErrors("xyzstrasse", rules);
+    checkNoErrors("xyzstr ", rules);
+    checkNoErrors("xyzstr", rules);
     checkNoErrors("xyzstraße ", rules);
     checkNoErrors("xyzstraße", rules);
     checkNoErrors("xyz strasse ", rules);
