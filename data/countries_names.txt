@@ -5393,35 +5393,38 @@
   sk = Malé Antily
 
 [Caribisch Nederland]
-  en = Caribbean Netherlands
-  ru = Бонэйр, Синт-Эстатиус и Саба
-  ar = الجزر الكاريبية الهولندية
-  cs = Karibské Nizozemsko
-  da = Nederlandske Antiller
-  nl = Caribisch Nederland
-  fi = Karibian Alankomaat
-  fr = Pays-Bas caribéens
-  de = Karibische Niederlande
-  hu = Karibi Hollandia
-  id = Kepulauan BES
-  it = Isole BES
-  ja = ボネール、シント・ユースタティウスおよびサバ
-  ko = 네덜란드령 카리브 해 지역
-  nb = Karibisk Nederland
-  pl = Niderlandy Karaibskie
-  pt = Países Baixos Caribenhos
-  ro = Regatul Țărilor de Jos - regiunile insulare din Caraibe
-  es = Caribe Neerlandés
-  sv = Karibiska Nederländerna
-  th = แคริเบียน เนเธอร์แลนด์
-  tr = Hollanda Karayipleri
-  uk = Нідерландські Карибські острови
-  vi = Caribe Hà Lan
-  zh-Hans = 荷兰加勒比区
-  zh-Hant = 荷蘭加勒比區
-  el = Ολλανδία Καραϊβικής
-  he =
-  sk = Karibské Holandsko
+  en = Aruba, Curaçao and Caribbean Netherlands
+  ru = Аруба, Кюрасао и Карибские Нидерланды
+  ar = أروبا، وكوراساو، والجزر الكاريبية الهولندية
+  cs = Aruba, Curaçao a Karibik Nizozemsko
+  da = Aruba, Curaçao og Caribisk Nederlande
+  nl = Aruba, Curaçao en Caribisch Nederland
+  fi = Aruba, Curaçao ja Alankomaiden Karibia
+  fr = Aruba, Curaçao et Pays-Bas Caribéens
+  de = Aruba, Curacao und Karibische Niederlande
+  hu = Aruba, Curaçao és Karib-Hollandia
+  id = Aruba, Curaçao dan Belanda Kariba
+  it = Aruba, Curaçao e Paesi Bassi caraibici
+  ja = アルバ、キュラソー、およびカリブ海オランダ領
+  ko = 아루바, 퀴라소, 그리고 카리브 네덜란드
+  nb = Aruba, Curacao og Karibiske Nederland
+  pl = Aruba, Curaçao i Holandia Karaibska
+  pt = Aruba, Curaçao e Países Baixos das Caraíbas
+  pt-BR = Aruba, Curação and Países Baixos Caribenhos
+  ro = Aruba, Curacao și Caraibe Olanda
+  es = Aruba, Curazao y las Antillas Neerlandesas
+  es-MX = Aruba, Curazao y las Antillas Holandesas
+  sv = Aruba, Curaçao och Karibiska Nederländerna
+  th = อารูบา คูราเซา และหมู่เกาะแคริบเบียนเนเธอร์แลนด์
+  tr = Aruba, Curaçao ve Karayip Hollandası
+  uk = Аруба, Кюрасао та Карибські Нідерланди
+  vi = Argentina, Curacao và Caribe thuộc Hà Lan
+  el = Αρούμπα, Κουρασάο και νησιά BES
+  sk = Aruba, Curaçao a Karibské Holandsko
+  sw =Aruba, Kurakao na Uholanzi ya Karibiani
+  zh-Hans = 阿鲁巴，库拉索和荷兰加勒比区
+  zh-Hant = 阿魯巴，庫拉索和荷蘭加勒比區
+  fa = آروبا، کوراسائو و جزایر کارائیب هلند
 
 [Cayman Islands]
   en = Cayman Islands
@@ -42504,7 +42507,9 @@
   uk = Ла-Пас
   el = Λα Παζ, Σάντα Κρουζ ντε λα Σιέρα, Ελ Άλτο
   he = לה פאס
-
+  zh-Hans = 拉巴斯、圣克鲁斯、埃尔阿尔托
+  zh-Hant = 拉巴斯、聖克魯斯、埃爾阿爾托
+  
 [Bolivia_South Description]
   en = Sucre, Cochabamba, Tupiza
   ru = Сукре, Кочабамба, Туписа
@@ -42522,6 +42527,8 @@
   uk = Сукре
   el = Σούκρε, Κοτσαμπάμπα, Τουπίζα
   he = סוקרה
+  zh-Hans = 苏克雷、科恰班巴、突尼斯
+  zh-Hant = 蘇克雷、科恰班巴、突尼斯
 
 [Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina Description]
   en = Brčko, Dubrave, Rašljani
