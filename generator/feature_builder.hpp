@@ -14,6 +14,7 @@
 #include <list>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace serial
@@ -368,9 +369,11 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
     }
   };
 
-  base::thread_pool::delayed::ThreadPool threadPool{threadsCount};
+  std::vector<std::thread> workers;
   for (size_t i = 0; i < threadsCount; ++i)
-    threadPool.Push(concurrentProcessor);
+    workers.emplace_back(concurrentProcessor);
+  for (auto & thread : workers)
+    thread.join();
 }
 template <class SerializationPolicy = serialization_policy::MinSize>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
