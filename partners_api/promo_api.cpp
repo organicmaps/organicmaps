@@ -61,7 +61,7 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
     auto const obj = json_array_get(dataArray, i);
     FromJSONObject(obj, "name", item.m_name);
     FromJSONObject(obj, "url", item.m_url);
-    item.m_url = base::url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url);
+    item.m_url = InjectUTM(base::url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url), utm);
     FromJSONObject(obj, "access", item.m_access);
     FromJSONObjectOptionalField(obj, "image_url", item.m_imageUrl);
     FromJSONObjectOptionalField(obj, "tier", item.m_tier);
@@ -212,7 +212,7 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
   if (!NeedToShowImpl(promoId, eyeInfo))
     return {};
 
-  return {promoId, GetCityCatalogueUrl(m_baseUrl, promoId),
+  return {promoId, InjectUTM(GetCityCatalogueUrl(m_baseUrl, promoId), UTM::BookingPromo),
           GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 

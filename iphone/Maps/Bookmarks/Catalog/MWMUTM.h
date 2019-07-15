@@ -6,5 +6,6 @@ typedef NS_ENUM(NSInteger, MWMUTM) {
   MWMUTMDownloadMwmBanner,
   MWMUTMPlacepageGallery,
   MWMUTMDiscoveryPageGallery,
-  MWMUTMTipsAndTricks
+  MWMUTMTipsAndTricks,
+  MWMUTMBookingPromo
 };

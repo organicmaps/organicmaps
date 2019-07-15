@@ -13,7 +13,8 @@ enum class UTM : uint8_t
   DownloadMwmBanner,
   PlacepageGallery,
   DiscoveryPageGallery,
-  TipsAndTricks
+  TipsAndTricks,
+  BookingPromo
 };
 
 inline std::string InjectUTM(std::string const & url, UTM utm)
@@ -45,6 +46,10 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   case UTM::TipsAndTricks:
     params.emplace_back("utm_medium", "button");
     params.emplace_back("utm_campaign", "tips_and_tricks");
+    break;
+  case UTM::BookingPromo:
+    params.emplace_back("utm_medium", "popup");
+    params.emplace_back("utm_campaign", "bookingcom");
     break;
   case UTM::None:
     return url;
