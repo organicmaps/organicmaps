@@ -68,7 +68,7 @@ void RussiaSpecifier::AdjustMoscowCitySuburbs(Node::Ptr const & tree)
   if (region.GetPlaceType() == PlaceType::City && region.GetName() == u8"Москва")
   {
     for (auto & subtree : tree->GetChildren())
-      MarkMoscowSuburbsByAdministrativeDistrics(subtree);
+      MarkMoscowSuburbsByAdministrativeDistricts(subtree);
     return;
   }
 
@@ -79,12 +79,12 @@ void RussiaSpecifier::AdjustMoscowCitySuburbs(Node::Ptr const & tree)
     AdjustMoscowCitySuburbs(subtree);
 }
 
-void RussiaSpecifier::MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree)
+void RussiaSpecifier::MarkMoscowSuburbsByAdministrativeDistricts(Node::Ptr & tree)
 {
   auto & region = tree->GetData();
   if (AdminLevel::Eight == region.GetAdminLevel())
   {
-    MarkMoscowAdministrativeDistric(tree);
+    MarkMoscowAdministrativeDistrict(tree);
     return;
   }
 
@@ -92,10 +92,10 @@ void RussiaSpecifier::MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree
     region.SetLevel(PlaceLevel::Sublocality);
 
   for (auto & subtree : tree->GetChildren())
-    MarkMoscowSuburbsByAdministrativeDistrics(subtree);
+    MarkMoscowSuburbsByAdministrativeDistricts(subtree);
 }
 
-void RussiaSpecifier::MarkMoscowAdministrativeDistric(Node::Ptr & node)
+void RussiaSpecifier::MarkMoscowAdministrativeDistrict(Node::Ptr & node)
 {
   auto & region = node->GetData();
   region.SetLevel(PlaceLevel::Suburb);

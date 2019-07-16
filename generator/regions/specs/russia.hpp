@@ -26,8 +26,8 @@ private:
   void MarkMoscowSubregionsByAdministrativeOkrugs(Node::Ptr & node);
 
   void AdjustMoscowCitySuburbs(Node::Ptr const & tree);
-  void MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree);
-  void MarkMoscowAdministrativeDistric(Node::Ptr & node);
+  void MarkMoscowSuburbsByAdministrativeDistricts(Node::Ptr & tree);
+  void MarkMoscowAdministrativeDistrict(Node::Ptr & node);
   void MarkAllSuburbsToSublocalities(Node::Ptr & tree);
 
   bool m_moscowRegionWasProcessed{false};
