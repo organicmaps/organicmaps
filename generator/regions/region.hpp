@@ -28,6 +28,7 @@ public:
 
   // See RegionWithName::GetTranslatedOrTransliteratedName().
   std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
+  std::string GetInternationalName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
 
   base::GeoObjectId GetId() const;

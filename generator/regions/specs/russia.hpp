@@ -11,7 +11,7 @@ namespace regions
 {
 namespace specs
 {
-class RusSpecifier final : public CountrySpecifier
+class RussiaSpecifier final : public CountrySpecifier
 {
 public:
   // CountrySpecifier overrides:

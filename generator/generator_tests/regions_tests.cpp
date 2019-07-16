@@ -359,7 +359,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountryNames)
   auto const filename = MakeCollectorData();
   RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector), {} /* placePointsMap */);
-  auto const & countryNames = builder.GetCountryNames();
+  auto const & countryNames = builder.GetCountryInternationalNames();
   TEST_EQUAL(countryNames.size(), 2, ());
   TEST(std::count(std::begin(countryNames), std::end(countryNames), "Country_1"), ());
   TEST(std::count(std::begin(countryNames), std::end(countryNames), "Country_2"), ());

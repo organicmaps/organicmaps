@@ -3,7 +3,7 @@
 #include "generator/regions/admin_suburbs_marker.hpp"
 #include "generator/regions/country_specifier_builder.hpp"
 #include "generator/regions/place_points_integrator.hpp"
-#include "generator/regions/specs/rus.hpp"
+#include "generator/regions/specs/russia.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -89,8 +89,7 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryInternationalNames() const
   std::unordered_set<std::string> set;
   for (auto const & c : GetCountriesOuters())
   {
-    auto const & name =
-        c.GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
+    auto const & name = c.GetInternationalName();
     if (set.insert(name).second)
       result.emplace_back(std::move(name));
   }
@@ -284,7 +283,7 @@ void RegionsBuilder::ForEachCountry(CountryFn fn)
   {
     auto countryTrees = task.get();
     CHECK(!countryTrees.empty(), ());
-    auto && countryName = countryTrees.front()->GetData().GetName();
+    auto && countryName = countryTrees.front()->GetData().GetInternationalName();
     fn(countryName, countryTrees);
   }
 }
@@ -294,8 +293,7 @@ Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) cons
   Regions outers;
   auto const & countries = GetCountriesOuters();
   auto const pred = [&](Region const & country) {
-    return countryName ==
-           country.GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
+    return countryName == country.GetInternationalName();
   };
   std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
 

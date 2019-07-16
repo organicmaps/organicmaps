@@ -1,4 +1,4 @@
-#include "generator/regions/specs/rus.hpp"
+#include "generator/regions/specs/russia.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -8,12 +8,12 @@ namespace regions
 {
 namespace specs
 {
-void RusSpecifier::AdjustRegionsLevel(Node::PtrList & outers)
+void RussiaSpecifier::AdjustRegionsLevel(Node::PtrList & outers)
 {
   AdjustMoscowAdministrativeDivisions(outers);
 }
 
-void RusSpecifier::AdjustMoscowAdministrativeDivisions(Node::PtrList & outers)
+void RussiaSpecifier::AdjustMoscowAdministrativeDivisions(Node::PtrList & outers)
 {
   for (auto const & tree : outers)
     AdjustMoscowAdministrativeDivisions(tree);
@@ -24,7 +24,7 @@ void RusSpecifier::AdjustMoscowAdministrativeDivisions(Node::PtrList & outers)
     LOG(LWARNING, ("Failed to find Moscow city"));
 }
 
-void RusSpecifier::AdjustMoscowAdministrativeDivisions(Node::Ptr const & tree)
+void RussiaSpecifier::AdjustMoscowAdministrativeDivisions(Node::Ptr const & tree)
 {
   auto const & region = tree->GetData();
   if (region.GetAdminLevel() == AdminLevel::Four && region.GetName() == u8"Москва")
@@ -44,7 +44,7 @@ void RusSpecifier::AdjustMoscowAdministrativeDivisions(Node::Ptr const & tree)
     AdjustMoscowAdministrativeDivisions(subtree);
 }
 
-void RusSpecifier::MarkMoscowSubregionsByAdministrativeOkrugs(Node::Ptr & tree)
+void RussiaSpecifier::MarkMoscowSubregionsByAdministrativeOkrugs(Node::Ptr & tree)
 {
   auto & region = tree->GetData();
   auto const adminLevel = region.GetAdminLevel();
@@ -62,7 +62,7 @@ void RusSpecifier::MarkMoscowSubregionsByAdministrativeOkrugs(Node::Ptr & tree)
     MarkMoscowSubregionsByAdministrativeOkrugs(subtree);
 }
 
-void RusSpecifier::AdjustMoscowCitySuburbs(Node::Ptr const & tree)
+void RussiaSpecifier::AdjustMoscowCitySuburbs(Node::Ptr const & tree)
 {
   auto & region = tree->GetData();
   if (region.GetPlaceType() == PlaceType::City && region.GetName() == u8"Москва")
@@ -79,7 +79,7 @@ void RusSpecifier::AdjustMoscowCitySuburbs(Node::Ptr const & tree)
     AdjustMoscowCitySuburbs(subtree);
 }
 
-void RusSpecifier::MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree)
+void RussiaSpecifier::MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree)
 {
   auto & region = tree->GetData();
   if (AdminLevel::Eight == region.GetAdminLevel())
@@ -95,7 +95,7 @@ void RusSpecifier::MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree)
     MarkMoscowSuburbsByAdministrativeDistrics(subtree);
 }
 
-void RusSpecifier::MarkMoscowAdministrativeDistric(Node::Ptr & node)
+void RussiaSpecifier::MarkMoscowAdministrativeDistric(Node::Ptr & node)
 {
   auto & region = node->GetData();
   region.SetLevel(PlaceLevel::Suburb);
@@ -105,7 +105,7 @@ void RusSpecifier::MarkMoscowAdministrativeDistric(Node::Ptr & node)
     MarkAllSuburbsToSublocalities(subtree);
 }
 
-void RusSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
+void RussiaSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
 {
   auto & region = tree->GetData();
   auto const level = region.GetLevel();
@@ -119,7 +119,7 @@ void RusSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
     MarkAllSuburbsToSublocalities(subtree);
 }
 
-PlaceLevel RusSpecifier::GetSpecificCountryLevel(Region const & region) const
+PlaceLevel RussiaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();
   switch (adminLevel)
