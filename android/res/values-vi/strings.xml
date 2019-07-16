@@ -1594,6 +1594,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Truy cập toàn với %s/năm</string>
 	<string name="subscription_terms_guides">Thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ tự động gia hạn nếu như tự động gia hạn không bị tắt ít nhất 24h trước khi kết thúc kỳ đăng ký hiện tại. Tiền sẽ được trừ từ tài khoản của bạn tương ứng với gói dịch vụ bạn chọn và kéo dài trong 24h đồng hồ đến khi kết thúc kỳ đăng ký hiện tại. Bạn cũng có thể điều chỉnh việc tự động gia hạn hoặc tắt nó đi trong phần cài đặt tài khoản Apple ID vào bất cứ thời gian nào sau khi mua. Bạn chỉ có thể sử dụng các sách hướng dẫn đã tải khi đăng ký trong thời gian chúng có hiệu lực. Sau thời hạn 30 ngày kể từ khi kết thúc việc đăng ký, các sách hướng dẫn cùng với phần đánh dấu trang sẽ được xóa một cách tự động.</string>
 	<string name="subscription_terms">Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.</string>
+	<string name="whatsnew_carplay_title">Điều hướng tự động MAPS.ME trong CarPlay!</string>
+	<string name="whatsnew_carplay_message">Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet</string>
+	<string name="whatsnew_subscription_title">Hãy mở cánh cửa thế giới bằng cách đăng ký!</string>
+	<string name="whatsnew_subscription_message">Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Cập nhận định hướng</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

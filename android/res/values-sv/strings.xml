@@ -1602,6 +1602,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Full tillgång för %s/år</string>
 	<string name="subscription_terms_guides">Betalning kommer att genomföras från ditt iTunes-konto vid inköpsbekräftelse. Prenumerationen kommer att förnyas automatiskt om automatisk förnyelse är inte avstängd minst 24 timmar före slutet av den aktuella perioden. Pengarna kommer att dras från ditt konto enligt din förnyelseprisplan inom 24 timmar från slutet av den aktuella perioden. Du kan hantera automatisk förnyelse eller inaktivera den i dina Apple ID-kontoinställningar när som helst efter inköpet. Du kommer att kunna använda guiderna nedladdade genom prenumerationen endast under dess giltighetsperiod. Efter 30 dagar från prenumerationens slut kommer guider med alla bokmärken att raderas automatiskt.</string>
 	<string name="subscription_terms">Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.</string>
+	<string name="whatsnew_carplay_title">MAPS.ME autonavigering i CarPlay!</string>
+	<string name="whatsnew_carplay_message">Bokmärken, sök, hastighetskameror och omvägsinställningar - allt fungerar utan internet</string>
+	<string name="whatsnew_subscription_title">Upptäck världen på en prenumeration!</string>
+	<string name="whatsnew_subscription_message">Obegränsad tillgång till ruttkatalogen är mer lönsam än ett enstaka köp</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Uppdatering av navigering</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Vi har förbättrat byggandet av rutter till punkter som ligger långt ifrån vägarna</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

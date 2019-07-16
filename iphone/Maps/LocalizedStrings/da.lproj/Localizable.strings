@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.";
 
+"whatsnew_carplay_title" = "MAPS.ME bil navigation i CarPlay!";
+
+"whatsnew_carplay_message" = "Bogmærker, søgning, fartkameraer og køre muligheder er tilgængelige offline";
+
+"whatsnew_subscription_title" = "Hele verdenen via abonnement!";
+
+"whatsnew_subscription_message" = "Ubegrænset adgang til Katalog over Guider er mere rentabelt end et engangskøb";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Opdater navigation";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Vi har forbedret ruteplanlægning til steder, som er lang fra veje";
+
 
 /**********  Partners  **********/
 

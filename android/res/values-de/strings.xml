@@ -1612,6 +1612,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Uneingeschränkter Zugriff für %s/Jahr</string>
 	<string name="subscription_terms_guides">Der Betrag wird von Ihrem iTunes-Konto bei der Kaufbestätigung abgebucht. Die Subskription wird automatisch erneuert, wenn die automatische Erneuerung wenigstens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wird. Der Betrag wird von ihrem Konto gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung in den Kontoeinstellungen Apple ID jederzeit nach dem Kauf aktivieren oder deaktivieren. Sie können Reiseführer, die in Subskription heruntergeladen wurden, nur innerhalb der Subskriptionfrist benutzen. Nach 30 Tagen ab dem Ablaufdatum der Subskription werden die Reiseführer mit allen Lesezeichen automatisch gelöscht.</string>
 	<string name="subscription_terms">Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.</string>
+	<string name="whatsnew_carplay_title">Autonavigation MAPS.ME in CarPlay!</string>
+	<string name="whatsnew_carplay_message">Lesezeichengruppen, Suche, Geschwindigkeitskameras und Einstellung des Umweges – all das funktioniert ohne Internet</string>
+	<string name="whatsnew_subscription_title">Entdecke die Welt mit Subskription!</string>
+	<string name="whatsnew_subscription_message">Uneingeschränkter Zugriff auf den Routenkatalog ist günstiger als Einmalkauf</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigation Update</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Wir haben den Routenaufbau bis zu den von den Straßen weit entfernten Orten verbessert</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

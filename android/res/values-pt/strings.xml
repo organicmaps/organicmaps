@@ -1602,6 +1602,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Acesso ilimitado por %s/ano</string>
 	<string name="subscription_terms_guides">O pagamento será efetuado através da sua conta iTunes ao confirmar a compra. A subscrição será automaticamente renovada se a renovação automática não será desativada de pelo menos 24h antes da terminação do período atual. O dinheiro será descontado da sua conta pessoal de acordo com seu tarifário de renovação durante 24h antes da terminação do período atual. Pode gerenciar a renovação automática ou desativá-la nas configurações da conta pessoal Apple ID em qualquer altura após a compra. Pode usar as guias baixadas pela subscrição somente durante o seu prazo de validade. Após 30 dias da data do termino da subscrição, as guias com todos os marcadores serão automaticamente apagadas.</string>
 	<string name="subscription_terms">O pagamento será cobrado na sua conta do iTunes na confirmação da compra. A subscrição será automaticamente renovada, exceto se a renovação automática for desativada, pelo menos, 24 horas antes do fim do período atual. A sua conta será cobrada de acordo com o seu plano de renovação no prazo de 24 horas antes do fim do período atual. Pode gerir ou desativar a renovação automática nas definições da sua conta de ID da Apple, a qualquer momento, após a sua compra.</string>
+	<string name="whatsnew_carplay_title">Autonavegação da MAPS.ME no CarPlay!</string>
+	<string name="whatsnew_carplay_message">Favoritos, pesquisa, câmaras de velocidade e configurações do desvio – tudo funciona sem a ligação a Internet</string>
+	<string name="whatsnew_subscription_title">Descobre o mundo com a subscrição!</string>
+	<string name="whatsnew_subscription_message">O acesso ilimitado a catálogo de percursos é mais vantajoso que uma compra de cada vez</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Atualização de navegação</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Melhoramos a formação dos percursos para os pontos afastados das estradas</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>
@@ -2141,7 +2147,7 @@
 	<string name="type.tourism.attraction">Atração turística</string>
 	<string name="type.tourism.attraction.animal">Atração turística</string>
 	<string name="type.tourism.attraction.specified">Atração turística</string>
-	<string name="type.tourism.camp_site">Local de acampamento</string>
+	<string name="type.tourism.camp_site">Campismo</string>
 	<string name="type.tourism.caravan_site">Área de trailers</string>
 	<string name="type.tourism.chalet">Chalé</string>
 	<string name="type.tourism.gallery">Turismo</string>

@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
 
+"whatsnew_carplay_title" = "Autonavigare MAPS.ME în CarPlay!";
+
+"whatsnew_carplay_message" = "Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet";
+
+"whatsnew_subscription_title" = "Descoperă lumea la abonament!";
+
+"whatsnew_subscription_message" = "Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Actualizarea navigării";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum";
+
 
 /**********  Partners  **********/
 

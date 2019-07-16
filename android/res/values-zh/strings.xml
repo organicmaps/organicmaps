@@ -1602,6 +1602,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/年起可自由访问</string>
 	<string name="subscription_terms_guides">在确认购买后，将通过您的 iTunes账户完成付款。如果在当前使用期限结束前的24小时内未关闭自动延长功能，则订阅将自动更新。在当前使用期限结束前的24小时内，将根据您所选择的套餐计划，从您的账户中扣除相应金额。您可在购买后的任意时间内，在Apple ID的账户设置中调节或关闭自动延长功能。 您只能在订阅有效期内使用通过订阅下载的旅行指南。在订阅结束后的30天内，旅行指南和全部书签将被自动删除。</string>
 	<string name="subscription_terms">确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。</string>
+	<string name="whatsnew_carplay_title">MAPS.ME 自动导航已被纳入CarPlay系统中！</string>
+	<string name="whatsnew_carplay_message">可在无网络的条件下使用标记、搜索、车速摄像头和绕道设置</string>
+	<string name="whatsnew_subscription_title">订阅我们的服务，探索新世界！</string>
+	<string name="whatsnew_subscription_message">无限次使用线路目录比一次性购买更划算</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">导航更新</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">我们优化了距离道路较远的目标地点的线路设置</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

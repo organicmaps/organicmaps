@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "O pagamento será cobrado na sua conta do iTunes na confirmação da compra. A subscrição será automaticamente renovada, exceto se a renovação automática for desativada, pelo menos, 24 horas antes do fim do período atual. A sua conta será cobrada de acordo com o seu plano de renovação no prazo de 24 horas antes do fim do período atual. Pode gerir ou desativar a renovação automática nas definições da sua conta de ID da Apple, a qualquer momento, após a sua compra.";
 
+"whatsnew_carplay_title" = "Autonavegação da MAPS.ME no CarPlay!";
+
+"whatsnew_carplay_message" = "Favoritos, pesquisa, câmaras de velocidade e configurações do desvio – tudo funciona sem a ligação a Internet";
+
+"whatsnew_subscription_title" = "Descobre o mundo com a subscrição!";
+
+"whatsnew_subscription_message" = "O acesso ilimitado a catálogo de percursos é mais vantajoso que uma compra de cada vez";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Atualização de navegação";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Melhoramos a formação dos percursos para os pontos afastados das estradas";
+
 
 /**********  Partners  **********/
 
@@ -4669,7 +4681,7 @@
 
 "type.tourism.attraction.specified" = "Atração turística";
 
-"type.tourism.camp_site" = "Local de acampamento";
+"type.tourism.camp_site" = "Campismo";
 
 "type.tourism.caravan_site" = "Área de trailers";
 

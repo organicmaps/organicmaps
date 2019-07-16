@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.";
 
+"whatsnew_carplay_title" = "Điều hướng tự động MAPS.ME trong CarPlay!";
+
+"whatsnew_carplay_message" = "Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet";
+
+"whatsnew_subscription_title" = "Hãy mở cánh cửa thế giới bằng cách đăng ký!";
+
+"whatsnew_subscription_message" = "Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Cập nhận định hướng";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố";
+
 
 /**********  Partners  **********/
 

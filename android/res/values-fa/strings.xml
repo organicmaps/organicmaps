@@ -1542,6 +1542,12 @@
 	<string name="buy_btn_for_subscription_ios_only_mo">دسترسی نامحدود %s\ماه</string>
 	<string name="buy_btn_for_subscription_ios_only_year">دسترسی نامحدود %s\سال</string>
 	<string name="subscription_terms_guides">پس از تأیید خرید پرداخت از طریق حساب iTunes انجام خواهد شد. اشتراک به صورت خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی غیر فعال شود. با توجه به طرح تمدیدی شما، 24 ساعت پیش از اتمام دوره اشتراک، هزینه از حساب شما کسر می شود. شما می توانید در هر زمانی ویژگی تمدید خودکار را در تنظیمات حساب Apple ID خود مدیریت یا غیر فعال کنید. شما می توانید راهنماهای دانلود شده توسط اشتراک را تنها تا تاریخ انقضا استفاده کنید. 30 روز پس از تاریخ اتمام اشتراک، راهنما ها با بوک مارک ها به طور خودکار حذف خواهند شد.</string>
+	<string name="whatsnew_carplay_title">مسیر یابی خودرو MAPS.ME در CarPlay!</string>
+	<string name="whatsnew_carplay_message">نشانه ها، جستجو، دوربین های سرعت و گزینه های رانندگی در حالت آفلاین در دسترس هستند</string>
+	<string name="whatsnew_subscription_title">تمام جهان با اشتراک!</string>
+	<string name="whatsnew_subscription_message">دسترسی نامحدود به تمام کاتالوگ راهنما به صرفه تر از خرید یک بار مصرف است</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">به روز رسانی مسیریابی</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">مسیر برنامه ریزی به نقاطی دور از جاده‌ها بهبود داده ایم</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -1663,6 +1663,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Unlimited access for %s/year</string>
 	<string name="subscription_terms_guides">Payment will be charged to your iTunes account after purchase confirmation. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off the auto-renew feature in your Apple ID account settings at any time of your purchase. You can only use guides downloaded by subscription until its expiration date. After 30 days from the subscription expiry date guides with bookmarks will be automatically deleted.</string>
 	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
+	<string name="whatsnew_carplay_title">MAPS.ME car navigation in CarPlay!</string>
+	<string name="whatsnew_carplay_message">Bookmarks, search, speed cameras and routing options are available offline</string>
+	<string name="whatsnew_subscription_title">The whole world by subscription!</string>
+	<string name="whatsnew_subscription_message">Unlimited access to the guides catalog is more profitable than a one-time purchase</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigation update</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">We improved route planning to points, which are located far away from roads</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2445,7 +2451,7 @@
 	<string name="type.shop.kiosk">Kiosk</string>
 	<string name="type.shop.laundry">Laundry</string>
 	<string name="type.shop.mall">Mall</string>
-	<string name="type.shop.massage">Massage Parlour</string>
+	<string name="type.shop.massage">Massage salon</string>
 	<string name="type.shop.mobile_phone">Cell Phones</string>
 	<string name="type.shop.money_lender">Shop</string>
 	<string name="type.shop.motorcycle">Motorcycle Shop</string>

@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.";
 
+"whatsnew_carplay_title" = "MAPS.ME -autonavigointi CarPlayssa!";
+
+"whatsnew_carplay_message" = "Kirjanmerkit, haku, nopeuskamerat ja kiertotien asetukset ovat käytettävissä offline-tilassa";
+
+"whatsnew_subscription_title" = "Tilauksella koko maailma!";
+
+"whatsnew_subscription_message" = "Rajaton käyttöoikeus ohjekirjoihin on hyödyllisempi kuin kertaluontoinen ostos";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Navigointipäivitys";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Olemme parantaneet reittisuunnittelua kaukana teistä oleviin kohteisiin";
+
 
 /**********  Partners  **********/
 

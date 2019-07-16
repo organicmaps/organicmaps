@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。";
 
+"whatsnew_carplay_title" = "MAPS.ME 自动导航已被纳入CarPlay系统中！";
+
+"whatsnew_carplay_message" = "可在无网络的条件下使用标记、搜索、车速摄像头和绕道设置";
+
+"whatsnew_subscription_title" = "订阅我们的服务，探索新世界！";
+
+"whatsnew_subscription_message" = "无限次使用线路目录比一次性购买更划算";
+
+"whatsnew_carnavi_fixes_for_android_title" = "导航更新";
+
+"whatsnew_carnavi_fixes_for_android_message" = "我们优化了距离道路较远的目标地点的线路设置";
+
 
 /**********  Partners  **********/
 

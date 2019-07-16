@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
 
+"whatsnew_carplay_title" = "MAPS.ME autonavigering i CarPlay!";
+
+"whatsnew_carplay_message" = "Bokmärken, sök, hastighetskameror och omvägsinställningar - allt fungerar utan internet";
+
+"whatsnew_subscription_title" = "Upptäck världen på en prenumeration!";
+
+"whatsnew_subscription_message" = "Obegränsad tillgång till ruttkatalogen är mer lönsam än ett enstaka köp";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Uppdatering av navigering";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Vi har förbättrat byggandet av rutter till punkter som ligger långt ifrån vägarna";
+
 
 /**********  Partners  **********/
 

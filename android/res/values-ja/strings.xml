@@ -1597,6 +1597,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/年で無制限のアクセス</string>
 	<string name="subscription_terms_guides">支払いは購入の確認後にiTunesのアカウントに請求されます。サブスクリプションは、現在の有効期限が失効する24時間前までに自動更新機能を無効にしていない限り、自動的に更新されます。あなたのアカウントは現在の有効期限が失効する24時間前までの更新計画に基づいて請求されます。自動更新機能はApple IDのアカウント設定からにいつでも無効化する事ができます。ダウンロードしたガイドはサブスクリプションの失効日までしか利用できません。サブスクリプションの消失から30日でブックマークの付いたガイドは自動的に削除されます。</string>
 	<string name="subscription_terms">ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。</string>
+	<string name="whatsnew_carplay_title">CarPlay対応MAPS.MEのカーナビゲーションです！</string>
+	<string name="whatsnew_carplay_message">ブックマークや、検索、自動速度違反取締装置、運転オプションがオフラインで利用できます</string>
+	<string name="whatsnew_subscription_title">サブスクライブすれば世界中で利用できます！</string>
+	<string name="whatsnew_subscription_message">ガイドのカタログへの無制限のアクセスはワンタイム購入よりもお得です</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">ナビゲーションの更新</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">道から遠く離れた地点へのルート計画を改善しました</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

@@ -1496,6 +1496,12 @@
 	<string name="buy_btn_for_subscription_ios_only_mo">Full adgang for %s pr. måned</string>
 	<string name="buy_btn_for_subscription_ios_only_year">Full adgang for %s pr. år</string>
 	<string name="subscription_terms_guides">Betalingen vil belastes iTunes-kontoen din ved kjøpsbekreftelsen. Abonnementet vil automatisk fornyes med mindre automatisk fornyelse slås av minst 24 timer før slutten av den inneværende perioden. Kontoen din vil belastes i henhold til avtalen din for fornyelse 24 timer innen slutten av den inneværende perioden. Du kan når som helst etter kjøpet administrere eller slå av automatisk fornyelse i Apple ID-kontoinnstillingene dine. Du kan bruke guider som ble lastet ned med abonnementet kun i løpet av dets gyldighetsperiode. Guidene med alle bokmerker vil bli fjernet automatisk om 30 dager etter slutten av abonnementet.</string>
+	<string name="whatsnew_carplay_title">Autonavigering MAPS.ME i CarPlay!</string>
+	<string name="whatsnew_carplay_message">Bokmerker, søk, hastighets kameraer og omvei innstilinger- alt fungerer uten Internett</string>
+	<string name="whatsnew_subscription_title">Åpen verden rundt deg med abonnement!</string>
+	<string name="whatsnew_subscription_message">Ubegrenset tilgang til rutekatalogen er mer lønnsom enn engangs kjøp</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigerings fornyelse</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Vi har forbedret måten å lage ruter på til punkter, som ligger langt fra veier</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

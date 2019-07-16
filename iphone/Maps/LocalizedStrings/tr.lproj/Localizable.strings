@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
 
+"whatsnew_carplay_title" = "CarPlay'de MAPS.ME araç navigasyonu!";
+
+"whatsnew_carplay_message" = "Yer imleri, arama, hız kameraları ve sürüş seçenekleri çevrimdışı da mevcut";
+
+"whatsnew_subscription_title" = "Tüm dünya abonelikle elinizin altında!";
+
+"whatsnew_subscription_message" = "Rehber kataloğuna sınırsız erişim, bir kerelik satın almadan daha karlıdır";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Navigasyon güncellemesi";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Güzergah planlamayı yollardan uzakta bulunan noktalara erişecek kadar iyileştirdik";
+
 
 /**********  Partners  **********/
 

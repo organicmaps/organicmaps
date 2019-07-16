@@ -1593,6 +1593,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/년 으로 무제한 액세스</string>
 	<string name="subscription_terms_guides">구매 확인 후 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 기한 종료 전 적어도 24시간 전에 자동 갱신 기능이 꺼져있어야 합니다. 그렇지 않으면 구독은 자동 갱신됩니다. 현재 기한 종료 후 24시간 이내에 갱신에 대한 귀하의 계획에 따라 계정에 비용이 청구됩니다. 귀하가 구매 시 아무 때나 귀하의 Apple ID 계정에서 자동 갱신 기능을 끄거나 관리할 수 있습니다. 구독 만료 기간까지만 구독 시 다운로드한 가이드를 사용할 수 있습니다. 구독 만료일에서 30일이 지나면 북마크와 가이드는 자동으로 삭제됩니다.</string>
 	<string name="subscription_terms">결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.</string>
+	<string name="whatsnew_carplay_title">CarPlay의 MAPS.ME 자동차 내비게이션!</string>
+	<string name="whatsnew_carplay_message">북마크, 찾기, 속도 감시 카메라 및 루트 옵션이 오프라인에서 가능합니다</string>
+	<string name="whatsnew_subscription_title">구독으로 전 세계를 알게 됩니다!</string>
+	<string name="whatsnew_subscription_message">안내 카탈로그의 무제한 액세스는 한번 구매보다 더 이득입니다</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">내비게이션 업데이트</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">도로로부터 멀리 떨어져 있는 지점들에 대한 루트 계획을 개선했습니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

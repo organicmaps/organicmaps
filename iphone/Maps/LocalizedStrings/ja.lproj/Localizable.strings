@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
 
+"whatsnew_carplay_title" = "CarPlay対応MAPS.MEのカーナビゲーションです！";
+
+"whatsnew_carplay_message" = "ブックマークや、検索、自動速度違反取締装置、運転オプションがオフラインで利用できます";
+
+"whatsnew_subscription_title" = "サブスクライブすれば世界中で利用できます！";
+
+"whatsnew_subscription_message" = "ガイドのカタログへの無制限のアクセスはワンタイム購入よりもお得です";
+
+"whatsnew_carnavi_fixes_for_android_title" = "ナビゲーションの更新";
+
+"whatsnew_carnavi_fixes_for_android_message" = "道から遠く離れた地点へのルート計画を改善しました";
+
 
 /**********  Partners  **********/
 

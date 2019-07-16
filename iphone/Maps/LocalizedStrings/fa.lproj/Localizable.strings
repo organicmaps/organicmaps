@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
+"whatsnew_carplay_title" = "مسیر یابی خودرو MAPS.ME در CarPlay!";
+
+"whatsnew_carplay_message" = "نشانه ها، جستجو، دوربین های سرعت و گزینه های رانندگی در حالت آفلاین در دسترس هستند";
+
+"whatsnew_subscription_title" = "تمام جهان با اشتراک!";
+
+"whatsnew_subscription_message" = "دسترسی نامحدود به تمام کاتالوگ راهنما به صرفه تر از خرید یک بار مصرف است";
+
+"whatsnew_carnavi_fixes_for_android_title" = "به روز رسانی مسیریابی";
+
+"whatsnew_carnavi_fixes_for_android_message" = "مسیر برنامه ریزی به نقاطی دور از جاده‌ها بهبود داده ایم";
+
 
 /**********  Partners  **********/
 

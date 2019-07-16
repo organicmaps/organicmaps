@@ -1594,6 +1594,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Acces complet de %s/an</string>
 	<string name="subscription_terms_guides">Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.</string>
 	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
+	<string name="whatsnew_carplay_title">Autonavigare MAPS.ME în CarPlay!</string>
+	<string name="whatsnew_carplay_message">Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet</string>
+	<string name="whatsnew_subscription_title">Descoperă lumea la abonament!</string>
+	<string name="whatsnew_subscription_message">Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Actualizarea navigării</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Le paiement sera débité de votre compte iTunes lors de la confirmation d'achat. L'abonnement sera automatiquement renouvelé à moins que le renouvellement automatique ne soit désactivé au moins 24 heures avant la fin de la période en cours. Votre compte sera débité selon votre forfait pour un renouvellement dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer ou désactiver le renouvellement automatique depuis les paramètres de votre compte Apple ID à tout moment lors de votre achat.";
 
+"whatsnew_carplay_title" = "Navigation MAPS.ME pour automobile en mode CarPlay !";
+
+"whatsnew_carplay_message" = "Les signets, la recherche, les radars et les options de routage sont disponibles hors ligne";
+
+"whatsnew_subscription_title" = "Le monde entier par abonnement !";
+
+"whatsnew_subscription_message" = "L'accès illimité au catalogue des guides est plus rentable qu'un achat ponctuel";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Mise à jour de la navigation";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Nous avons amélioré la planification des itinéraires vers les destinations éloignés des routes";
+
 
 /**********  Partners  **********/
 

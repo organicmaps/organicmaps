@@ -1592,6 +1592,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Acceso completo por %s/año</string>
 	<string name="subscription_terms_guides">El pago se realizará desde tu cuenta de iTunes después de la confirmación de la compra. La suscripción se renovará automáticamente, a menos que la renovación automática se desactive, por las menos 24 horas antes del final del período actual. Los fondos se debitarán de tu cuenta de acuerdo con tu plan de tarifas de renovación, dentro de las 24 horas posteriores al final del período actual. Puedes administrar la renovación automática o deshabilitarla en la configuración de tu cuenta de Apple ID, en cualquier momento después de la compra. Podrás usar las guías, descargadas por suscripción, solo durante su período de validez. Al término de los 30 días posteriores al final de la suscripción, las guías con todos los marcadores se eliminarán automáticamente.</string>
 	<string name="subscription_terms">El pago se cobrará en tu cuenta de iTunes a la confirmación de la compra. La suscripción se renovará automáticamente a menos que se desactive la renovación automática al menos 24 horas antes del final del periodo actual. Se cobrará en tu cuenta según tu plan de renovación dentro de las 24 horas antes del final del periodo actual. Puedes gestionar o desactivar la renovación automática en los ajustes de cuenta de tu Apple ID en cualquier momento de tu compra.</string>
+	<string name="whatsnew_carplay_title">¡Navegación en coche de MAPS.ME en CarPlay!</string>
+	<string name="whatsnew_carplay_message">Marcadores, búsqueda, cámaras de la velocidad y configuración de desvíos: todo funciona sin Internet</string>
+	<string name="whatsnew_subscription_title">¡Abre el mundo por suscripción!</string>
+	<string name="whatsnew_subscription_message">El acceso ilimitado al catálogo de rutas es más rentable que una compra por vez única</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Actualización de navegación</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Hemos mejorado la construcción de rutas a puntos ubicados lejos de las carreteras</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>
@@ -2084,7 +2090,7 @@
 	<string name="type.shop.garden_centre">Vivero</string>
 	<string name="type.shop.gift">Tienda de regalos</string>
 	<string name="type.shop.greengrocer">Frutería</string>
-	<string name="type.shop.hairdresser">Peluquero</string>
+	<string name="type.shop.hairdresser">Peluquería</string>
 	<string name="type.shop.hardware">Ferretería</string>
 	<string name="type.shop.jewelry">Joyería</string>
 	<string name="type.shop.kiosk">Quiosco</string>

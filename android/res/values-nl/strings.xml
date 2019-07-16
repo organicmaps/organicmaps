@@ -1599,6 +1599,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Volledige toegang voor %s/jaar</string>
 	<string name="subscription_terms_guides">De betaling wordt gedaan vanaf uw iTunes-account na bevestiging van de aankoop. Abonnement wordt automatisch verlengd tenzij automatisch vernieuwen is uitgeschakeld ten minste 24 uur vóór het einde van de huidige periode. Het geld wordt binnen 24 uur na afloop van de lopende periode van uw rekening afgeschreven volgens uw verlengingsplan. Je kunt automatische verlenging beheren of uitschakelen in de instellingen van je Apple ID-account op elk moment na aankoop. U kunt de gidsen die u via abonnement hebt gedownload alleen gebruiken tijdens de abonnementsperiode. Na 30 dagen na het einde van het abonnement worden gidsen met alle bladwijzers automatisch verwijderd.</string>
 	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
+	<string name="whatsnew_carplay_title">Automatische navigatie MAPS.ME met CarPlay!</string>
+	<string name="whatsnew_carplay_message">Bladwijzers, zoeken, snelheidscamera\'s en omweginstellingen – alles werkt zonder internet</string>
+	<string name="whatsnew_subscription_title">Ontdek de wereld met een abonnement!</string>
+	<string name="whatsnew_subscription_message">Onbeperkte toegang tot de catalogus met routes is winstgevender dan een enige aankoop</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigatie update</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">We hebben de aanleg van routes naar punten ver van de weggen verbeterd</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

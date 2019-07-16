@@ -1603,6 +1603,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Pełny dostęp już za %s/rok</string>
 	<string name="subscription_terms_guides">Twoje konto iTunes zostanie obciążono opłatą po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie odnowiona, jeżeli nie wyłączysz automatycznego odnawiania co najmniej 24 godziny przed zakończeniem bieżącego okresu subskrypcji. Twoje konto zostanie obciążono opłatą zgodnie z Twoim planem taryfowym w ciągu 24 godzin przed zakończeniem bieżącego okresu subskrypcji. Możesz zarządzać automatycznym odnawianiem subskrypcji lub wyłączyć automatyczne odnawianie subskrypcji w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Będziesz mógł korzystać z przewodników pobranych w ramach subskrypcji tylko dopóki masz aktywną subskrypcję. Po upływie 30 dni po wygaśnięciu subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.</string>
 	<string name="subscription_terms">Po zatwierdzeniu płatności zostanie nią obciążone Twoje konto iTunes. Subskrypcja odnowi się automatycznie, chyba że opcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu rozliczeniowego. Twoje konto zostanie obciążone kwotą za odnowienie subskrypcji zgodnie z wybranym planem w przeciągu 24 godzin przed końcem bieżącego okresu rozliczeniowego. Automatycznym odnawianiem zarządzać można lub wyłączyć je w ustawieniach konta Apple ID w dowolnej chwili po dokonaniu zakupu.</string>
+	<string name="whatsnew_carplay_title">Nawigacja automatyczna MAPS.ME w CarPlay!</string>
+	<string name="whatsnew_carplay_message">Zakładki, wyszukiwanie, fotoradary i ustawienia objazdu — wszystko działa bez Internetu</string>
+	<string name="whatsnew_subscription_title">Otwórz świat, używając subskrypcji!</string>
+	<string name="whatsnew_subscription_message">Nieograniczony dostęp do katalogu tras jest bardziej opłacalny, w porównaniu z jednorazowym zakupem</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizacja nawigacji</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Ulepszyliśmy budowę tras do punktów, rozlokowanych z dala od dróg</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

@@ -1599,6 +1599,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Korlátlan hozzáférés %s/év-ért</string>
 	<string name="subscription_terms_guides">A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.</string>
 	<string name="subscription_terms">A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.</string>
+	<string name="whatsnew_carplay_title">MAPS.ME autós navigáció CarPlayben!</string>
+	<string name="whatsnew_carplay_message">Könyvjelzők, keresés, traffipax és útvonalválasztási lehetőség offline is elérhető</string>
+	<string name="whatsnew_subscription_title">Az egész világ az előfizetésed által!</string>
+	<string name="whatsnew_subscription_message">A korlátlan hozzáférés az útikönyvkatalógushoz sokkal gazdaságosabb, mint az egyszeri vásárlás</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigációs frissítés</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Fejlesztettük az útvonaltervezést olyan pontokhoz, melyek távol esnek az utaktól</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

@@ -1602,6 +1602,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Ubegrænset adgang til %s/år</string>
 	<string name="subscription_terms_guides">Betalingen vil blive opkrævet via din iTunes konto, efter købet er bekræftet. Abonnementet fornys automatisk, medmindre automatisk fornyelse er slået fra mindst 24 timer før udgangen af nuværende periode. Din konto vil blive ændret ifølge din fornyelsesplan, indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller deaktivere automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt for dit køb. Du kan kun bruge downloadede guider indtil dennes udløbsdato. Efter 30 dage fra abonnementets udløbsdato, vil guider med bookmarks automatisk blive slettet.</string>
 	<string name="subscription_terms">Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.</string>
+	<string name="whatsnew_carplay_title">MAPS.ME bil navigation i CarPlay!</string>
+	<string name="whatsnew_carplay_message">Bogmærker, søgning, fartkameraer og køre muligheder er tilgængelige offline</string>
+	<string name="whatsnew_subscription_title">Hele verdenen via abonnement!</string>
+	<string name="whatsnew_subscription_message">Ubegrænset adgang til Katalog over Guider er mere rentabelt end et engangskøb</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Opdater navigation</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Vi har forbedret ruteplanlægning til steder, som er lang fra veje</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

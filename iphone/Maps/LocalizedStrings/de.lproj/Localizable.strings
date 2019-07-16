@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.";
 
+"whatsnew_carplay_title" = "Autonavigation MAPS.ME in CarPlay!";
+
+"whatsnew_carplay_message" = "Lesezeichengruppen, Suche, Geschwindigkeitskameras und Einstellung des Umweges – all das funktioniert ohne Internet";
+
+"whatsnew_subscription_title" = "Entdecke die Welt mit Subskription!";
+
+"whatsnew_subscription_message" = "Uneingeschränkter Zugriff auf den Routenkatalog ist günstiger als Einmalkauf";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Navigation Update";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Wir haben den Routenaufbau bis zu den von den Straßen weit entfernten Orten verbessert";
+
 
 /**********  Partners  **********/
 

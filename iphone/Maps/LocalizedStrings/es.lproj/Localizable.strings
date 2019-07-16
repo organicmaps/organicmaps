@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "El pago se cobrará en tu cuenta de iTunes a la confirmación de la compra. La suscripción se renovará automáticamente a menos que se desactive la renovación automática al menos 24 horas antes del final del periodo actual. Se cobrará en tu cuenta según tu plan de renovación dentro de las 24 horas antes del final del periodo actual. Puedes gestionar o desactivar la renovación automática en los ajustes de cuenta de tu Apple ID en cualquier momento de tu compra.";
 
+"whatsnew_carplay_title" = "¡Navegación en coche de MAPS.ME en CarPlay!";
+
+"whatsnew_carplay_message" = "Marcadores, búsqueda, cámaras de la velocidad y configuración de desvíos: todo funciona sin Internet";
+
+"whatsnew_subscription_title" = "¡Abre el mundo por suscripción!";
+
+"whatsnew_subscription_message" = "El acceso ilimitado al catálogo de rutas es más rentable que una compra por vez única";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Actualización de navegación";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Hemos mejorado la construcción de rutas a puntos ubicados lejos de las carreteras";
+
 
 /**********  Partners  **********/
 
@@ -4465,7 +4477,7 @@
 
 "type.shop.greengrocer" = "Frutería";
 
-"type.shop.hairdresser" = "Peluquero";
+"type.shop.hairdresser" = "Peluquería";
 
 "type.shop.hardware" = "Ferretería";
 

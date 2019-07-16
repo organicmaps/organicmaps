@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
 
+"whatsnew_carplay_title" = "Navigasi MAPS.ME ada di CarPlay!";
+
+"whatsnew_carplay_message" = "Kini fitur penanda, pencarian, kamera kecepatan dan pemilihan rute bisa dilakukan secara offline";
+
+"whatsnew_subscription_title" = "Dapatkan semua akses dengan berlangganan!";
+
+"whatsnew_subscription_message" = "Lebih hemat dengan akses tanpa batas ke katalog panduan tanpa harus membelinya";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Pembaruan navigasi";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Kami meningkatkan perencanaan rute hingga ke titik titik yang jauh lokasinya dengan jalan";
+
 
 /**********  Partners  **********/
 

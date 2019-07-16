@@ -2915,6 +2915,18 @@
 
 "subscription_terms" = "Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.";
 
+"whatsnew_carplay_title" = "Auto navigace MAPS.ME v CarPlay!";
+
+"whatsnew_carplay_message" = "Záložky, vyhledávání, rychlostní kamery a možnosti řízení jsou dostupné v režimu offline";
+
+"whatsnew_subscription_title" = "Celý svět za předplatné!";
+
+"whatsnew_subscription_message" = "Neomezený přístup ke katalogu průvodců je výhodnější než jednorázová koupě";
+
+"whatsnew_carnavi_fixes_for_android_title" = "Aktualizace navigace";
+
+"whatsnew_carnavi_fixes_for_android_message" = "Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic";
+
 
 /**********  Partners  **********/
 

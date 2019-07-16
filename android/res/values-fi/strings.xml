@@ -1598,6 +1598,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Rajoittamaton pääsy hintaan %s/vuosi</string>
 	<string name="subscription_terms_guides">Maksu suoritetaan iTunes-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Apple ID -tili-asetuksissa milloin tahansa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.</string>
 	<string name="subscription_terms">Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.</string>
+	<string name="whatsnew_carplay_title">MAPS.ME -autonavigointi CarPlayssa!</string>
+	<string name="whatsnew_carplay_message">Kirjanmerkit, haku, nopeuskamerat ja kiertotien asetukset ovat käytettävissä offline-tilassa</string>
+	<string name="whatsnew_subscription_title">Tilauksella koko maailma!</string>
+	<string name="whatsnew_subscription_message">Rajaton käyttöoikeus ohjekirjoihin on hyödyllisempi kuin kertaluontoinen ostos</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Navigointipäivitys</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Olemme parantaneet reittisuunnittelua kaukana teistä oleviin kohteisiin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

@@ -1607,6 +1607,12 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Neomezený přístup za %s/rok</string>
 	<string name="subscription_terms_guides">Platba bude účtována na účet iTunes po potvrzení nákupu. Předplatné se automaticky obnoví, pokud není funkce automatického obnovení vypnuta alespoň 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle vašeho plánu pro obnovení do 24 hodin před koncem aktuálního období. Funkci automatického obnovení můžete v nastavení účtu Apple ID kdykoli spravovat nebo vypnout. Průvodce stažené podle předplatného můžete používat pouze do data expirace. Po 30 dnech od data vypršení předplatného budou automaticky odstraněni průvodci se záložkami.</string>
 	<string name="subscription_terms">Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.</string>
+	<string name="whatsnew_carplay_title">Auto navigace MAPS.ME v CarPlay!</string>
+	<string name="whatsnew_carplay_message">Záložky, vyhledávání, rychlostní kamery a možnosti řízení jsou dostupné v režimu offline</string>
+	<string name="whatsnew_subscription_title">Celý svět za předplatné!</string>
+	<string name="whatsnew_subscription_message">Neomezený přístup ke katalogu průvodců je výhodnější než jednorázová koupě</string>
+	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizace navigace</string>
+	<string name="whatsnew_carnavi_fixes_for_android_message">Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
