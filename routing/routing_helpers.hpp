@@ -54,11 +54,9 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the
 /// world graph.
-template <typename Graph, typename GetVertexByEdgeFn, typename GetOutgoingEdgesFn>
-bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, Graph & graph,
-                            std::set<typename Graph::Vertex> & marked,
-                            GetVertexByEdgeFn && getVertexByEdgeFn,
-                            GetOutgoingEdgesFn && getOutgoingEdgesFn)
+template <typename Graph>
+bool CheckGraphConnectivity(typename Graph::Vertex const & start, bool isOutgoing, size_t limit,
+                            Graph & graph, std::set<typename Graph::Vertex> & marked)
 {
   std::queue<typename Graph::Vertex> q;
   q.push(start);
@@ -72,10 +70,13 @@ bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, 
     q.pop();
 
     edges.clear();
-    getOutgoingEdgesFn(graph, u, edges);
+
+    // Note. If |isOutgoing| == true outgoing edges are looked for.
+    // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
+    graph.GetEdgeList(u, isOutgoing, edges);
     for (auto const & edge : edges)
     {
-      auto const & v = getVertexByEdgeFn(edge);
+      auto const & v = edge.GetTarget();
       if (marked.count(v) == 0)
       {
         q.push(v);

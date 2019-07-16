@@ -203,19 +203,7 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   // Maximum size (in Segment) of an island in road graph which may be found by the method.
   size_t constexpr kDeadEndTestLimit = 250;
 
-  auto const getVertexByEdgeFn = [](SegmentEdge const & edge) {
-    return edge.GetTarget();
-  };
-
-  // Note. If |isOutgoing| == true outgoing edges are looked for.
-  // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
-  auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
-                                               vector<SegmentEdge> & edges) {
-    graph.GetEdgeList(u, isOutgoing, edges);
-  };
-
-  return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph, visitedSegments,
-                                 getVertexByEdgeFn, getOutgoingEdgesFn);
+  return !CheckGraphConnectivity(segment, isOutgoing, kDeadEndTestLimit, worldGraph, visitedSegments);
 }
 }  // namespace
 
@@ -824,7 +812,7 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
   set<Segment> deadEnds;
   base::EraseIf(roads, [&deadEnds, &worldGraph, this](pair<FeatureID, IRoadGraph::RoadInfo> const & r) {
-    auto const & ft = r.first;
+    auto const & featureId = r.first;
     auto const & road = r.second;
     CHECK_GREATER_OR_EQUAL(road.m_junctions.size(), 2, ());
 
@@ -832,7 +820,7 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
     // So the number of checked edges should be minimized as possible.
     // Below a heuristic is used. If a first segment of a feature is forward direction is a dead end
     // all segments of the feature is considered as dead ends.
-    auto const segment = GetSegmentByEdge(Edge::MakeReal(ft, true /* forward */, 0 /* segment id */,
+    auto const segment = GetSegmentByEdge(Edge::MakeReal(featureId, true /* forward */, 0 /* segment id */,
                                                          road.m_junctions[0], road.m_junctions[1]));
     if (deadEnds.count(segment) != 0)
       return true;
@@ -885,8 +873,8 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 }
 
 void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
-    vector<pair<FeatureID, IRoadGraph::RoadInfo>> const & roads,
-    uint32_t count, vector<pair<Edge, Junction>> & edgeProj) const
+                                      vector<pair<FeatureID, IRoadGraph::RoadInfo>> const & roads,
+                                      uint32_t count, vector<pair<Edge, Junction>> & edgeProj) const
 {
   NearestEdgeFinder finder(point);
   for (auto const & r : roads)
@@ -978,11 +966,11 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
   auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, closestEdgesRadiusM);
-  auto const isGood = [this](FeatureID const & fid) {
+  auto const isGoodFeature = [this](FeatureID const & fid) {
     auto const & info = fid.m_mwmId.GetInfo();
     return m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
   };
-  auto closestRoads = m_roadGraph.FindRoads(rect, isGood);
+  auto closestRoads = m_roadGraph.FindRoads(rect, isGoodFeature);
 
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to call for all |closestRoads| before IsFencedOff(). If to remove all fenced off
