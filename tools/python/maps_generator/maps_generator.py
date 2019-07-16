@@ -124,6 +124,11 @@ def stage_index(env, country, **kwargs):
 
 
 @country_stage
+def stage_cities_ids_world(env, country, **kwargs):
+    stages.stage_cities_ids_world(env, country, **kwargs)
+
+
+@country_stage
 def stage_ugc(env, country, **kwargs):
     stages.stage_ugc(env, country, **kwargs)
 
@@ -161,6 +166,7 @@ def stage_mwm(env):
 
     def build_world(country):
         stage_index(env, country)
+        stage_cities_ids_world(env, country)
         env.finish_mwm(country)
 
     def build_world_coasts(country):

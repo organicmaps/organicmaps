@@ -125,8 +125,21 @@ def stage_index_world(env, country, **kwargs):
                            generate_search_index=True,
                            cities_boundaries_data=env.cities_boundaries_path,
                            generate_cities_boundaries=True,
-                           generate_cities_ids=True,
                            **kwargs)
+
+
+def stage_cities_ids_world(env, country, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.mwm_path,
+        user_resource_path=env.user_resource_path,
+        output=country,
+        generate_cities_ids=True,
+        **kwargs
+    )
 
 
 def stage_index(env, country, **kwargs):
