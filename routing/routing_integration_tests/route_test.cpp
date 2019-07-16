@@ -494,4 +494,15 @@ namespace
     // with hwtag=no is no used.
     TEST_GREATER(routeSegments[1].GetDistFromBeginningMeters(), 20.0, ());
   }
+
+  // Test when start is located near mwm border. In that case it's possible that one of
+  // closest edges is a dead end within one mwm. The end of this dead end should
+  // be taken into account in |IndexGraphStarterJoints<Graph>::FindFirstJoints()|.
+  UNIT_TEST(EnglandLondonStartNearMwmBorderTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        MercatorBounds::FromLatLon(51.603582, 0.266995), {0., 0.},
+        MercatorBounds::FromLatLon(51.606785, 0.264055), 416.8);
+  }
 }  // namespace

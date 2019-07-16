@@ -132,6 +132,11 @@ private:
     return m_graph.IsJoint(segment, fromStart);
   }
 
+  bool IsJointOrEnd(Segment const & segment, bool fromStart) const
+  {
+    return m_graph.IsJointOrEnd(segment, fromStart);
+  }
+
   bool FillEdgesAndParentsWeights(JointSegment const & vertex,
                                   bool isOutgoing,
                                   size_t & firstFakeId,
@@ -594,7 +599,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
     // or it's the real one and its end (RoadPoint) is |Joint|.
     if (((!IsRealSegment(segment) && m_graph.ConvertToReal(segment) &&
           isEndOfSegment(beforeConvert, segment, fromStart)) || IsRealSegment(beforeConvert)) &&
-        IsJoint(segment, fromStart))
+        IsJointOrEnd(segment, fromStart))
     {
       addFake(segment, beforeConvert);
       continue;
@@ -608,6 +613,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
 
     std::vector<SegmentEdge> edges;
     m_graph.GetEdgesList(beforeConvert, fromStart, edges);
+
     for (auto const & edge : edges)
     {
       Segment child = edge.GetTarget();

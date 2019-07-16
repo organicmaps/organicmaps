@@ -205,14 +205,12 @@ public:
 
   bool IsJoint(Segment const & segment, bool fromStart) const
   {
-    if (m_graph.IsJoint(segment.GetRoadPoint(fromStart)))
-      return true;
+    return IsJointOrEnd(segment, fromStart);
+  }
 
-    // For features, that ends out of mwm. In this case |m_graph.IsJoint| returns false, but we should
-    // think, that it's Joint anyway.
-    uint32_t const pointId = segment.GetPointId(fromStart);
-    uint32_t const pointsNumber = m_graph.GetGeometry().GetRoad(segment.GetFeatureId()).GetPointsCount();
-    return pointId == 0 || pointId + 1 == pointsNumber;
+  bool IsJointOrEnd(Segment const & segment, bool fromStart) const
+  {
+    return m_graph.IsJointOrEnd(segment, fromStart);
   }
 
   template <typename Vertex>

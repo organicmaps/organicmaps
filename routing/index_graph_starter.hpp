@@ -152,6 +152,11 @@ public:
   {
     return GetGraph().GetIndexGraph(segment.GetMwmId()).IsJoint(segment.GetRoadPoint(fromStart));
   }
+
+  bool IsJointOrEnd(Segment const & segment, bool fromStart)
+  {
+    return GetGraph().GetIndexGraph(segment.GetMwmId()).IsJointOrEnd(segment, fromStart);
+  }
   // @}
 
   ~IndexGraphStarter() override = default;

@@ -95,6 +95,7 @@ public:
   }
 
   bool IsJoint(RoadPoint const & roadPoint) const;
+  bool IsJointOrEnd(Segment const & segment, bool fromStart);
   void GetLastPointsForJoint(std::vector<Segment> const & children, bool isOutgoing,
                              std::vector<uint32_t> & lastPoints);
 

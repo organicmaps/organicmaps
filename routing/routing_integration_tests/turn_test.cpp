@@ -789,20 +789,20 @@ UNIT_TEST(BelorussiaMinskTest)
 // Test on building route from a point close to mwm border to a point close to a mwm border.
 // This test stop working because of an error in IndexGraphStarterJoints<Graph>::FindFirstJoints()
 // See https://jira.mail.ru/browse/MAPSME-11065 for details.
-//UNIT_TEST(EnglandLondonExitToLeftTest)
-//{
-//  TRouteResult const routeResult =
-//      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-//                                  MercatorBounds::FromLatLon(51.603582, 0.266995), {0., 0.},
-//                                  MercatorBounds::FromLatLon(51.606785, 0.264055));
-//
-//  Route const & route = *routeResult.first;
-//  RouterResultCode const result = routeResult.second;
-//
-//  TEST_EQUAL(result, RouterResultCode::NoError, ());
-//  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-//  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
-//}
+UNIT_TEST(EnglandLondonExitToLeftTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  MercatorBounds::FromLatLon(51.603582, 0.266995), {0., 0.},
+                                  MercatorBounds::FromLatLon(51.606785, 0.264055));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
+}
 
 // Test on the route from Leninsky prospect to its frontage road and turns generated on the route.
 UNIT_TEST(RussiaMoscowLeninskyProspTest)
