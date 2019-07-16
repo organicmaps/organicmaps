@@ -71,6 +71,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
     while (!m_eof && tasks.size() <= 2 * readersCount)
       tasks.emplace_back(threadPool.Submit([&] { return ReadEntries(kReadBlockLineCount); }));
 
+    CHECK(!tasks.empty(), ());
     auto & task = tasks.front();
     auto taskResult = task.get();
     tasks.pop_front();
@@ -192,14 +193,16 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
     entries.push_back(move(entry));
   }
 
-  return {std::move(entries), std::move(stats)};
+  return {move(entries), move(stats)};
 }
 
+// static
 bool HierarchyReader::DeserializeId(string const & str, uint64_t & id)
 {
   return strings::to_uint64(str, id, 16 /* base */);
 }
 
+// static
 string HierarchyReader::SerializeId(uint64_t id)
 {
   stringstream s;
