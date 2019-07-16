@@ -17,8 +17,8 @@ public:
   // CountrySpecifier overrides:
   void AdjustRegionsLevel(Node::PtrList & outers) override;
 
-
 private:
+  // CountrySpecifier overrides:
   PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
 
   void AdjustMoscowAdministrativeDivisions(Node::PtrList & outers);

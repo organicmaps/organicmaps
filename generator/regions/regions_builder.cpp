@@ -1,6 +1,7 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "generator/regions/admin_suburbs_marker.hpp"
+#include "generator/regions/country_specifier_builder.hpp"
 #include "generator/regions/place_points_integrator.hpp"
 #include "generator/regions/specs/rus.hpp"
 
@@ -326,15 +327,6 @@ Node::PtrList RegionsBuilder::BuildCountryRegionTrees(
   }
 
   return trees;
-}
-
-std::unique_ptr<CountrySpecifier> RegionsBuilder::GetCountrySpecifier(
-    std::string const & countryName) const
-{
-  if (countryName == u8"Россия" || countryName == u8"Российская Федерация" || countryName == u8"РФ")
-    return std::make_unique<specs::RusSpecifier>();
-
-  return std::make_unique<CountrySpecifier>();
 }
 }  // namespace regions
 }  // namespace generator

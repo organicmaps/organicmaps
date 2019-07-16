@@ -57,7 +57,6 @@ private:
   std::vector<Node::Ptr>::const_reverse_iterator FindAreaLowerBoundRely(
       std::vector<Node::Ptr> const & nodesInAreaOrder,
       std::vector<Node::Ptr>::const_reverse_iterator forItem) const;
-  std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName) const;
   static void InsertIntoSubtree(Node::Ptr & subtree, Node::Ptr && newNode,
                                 CountrySpecifier const & countrySpecifier);
   static bool IsAreaLessRely(Region const & l, Region const & r);

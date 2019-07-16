@@ -151,6 +151,8 @@ set(
   regions/collector_region_info.hpp
   regions/country_specifier.cpp
   regions/country_specifier.hpp
+  regions/country_specifier_builder.cpp
+  regions/country_specifier_builder.hpp
   regions/level_region.hpp
   regions/locality_point_integrator.cpp
   regions/locality_point_integrator.hpp
