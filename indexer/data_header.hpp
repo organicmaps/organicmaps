@@ -22,16 +22,6 @@ namespace feature
     /// Max possible scales. @see arrays in feature_impl.hpp
     static const size_t MAX_SCALES_COUNT = 4;
 
-  private:
-    serial::GeometryCodingParams m_codingParams;
-
-    // Rect around region border. Features which cross region border may cross this rect.
-    std::pair<int64_t, int64_t> m_bounds;
-
-    buffer_vector<uint8_t, MAX_SCALES_COUNT> m_scales;
-    buffer_vector<uint8_t, 2> m_langs;
-
-  public:
     DataHeader() = default;
     explicit DataHeader(string const & fileName);
     explicit DataHeader(FilesContainerR const & cont);
@@ -40,10 +30,12 @@ namespace feature
     {
       m_codingParams = cp;
     }
+
     inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
       return m_codingParams;
     }
+
     serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const;
 
     m2::RectD const GetBounds() const;
@@ -71,7 +63,6 @@ namespace feature
     inline bool IsMWMSuitable() const { return m_format <= version::Format::lastFormat; }
 
     /// @name Serialization
-    //@{
     void Save(FileWriter & w) const;
     void Load(FilesContainerR const & cont);
 
@@ -86,13 +77,20 @@ namespace feature
     inline MapType GetType() const { return m_type; }
 
   private:
-    version::Format m_format;
-    MapType m_type;
-
     /// Use lastFormat as a default value for indexes building.
     /// Pass the valid format from wmw in all other cases.
     void Load(ModelReaderPtr const & r, version::Format format);
     void LoadV1(ModelReaderPtr const & r);
-    //@}
+
+    version::Format m_format = version::Format::unknownFormat;
+    MapType m_type = world;
+
+    serial::GeometryCodingParams m_codingParams;
+
+    // Rect around region border. Features which cross region border may cross this rect.
+    std::pair<int64_t, int64_t> m_bounds;
+
+    buffer_vector<uint8_t, MAX_SCALES_COUNT> m_scales;
+    buffer_vector<uint8_t, 2> m_langs;
   };
 }

@@ -245,6 +245,15 @@ public:
 
   TReader SubReader() { return SubReader(Size()); }
 
+  std::unique_ptr<Reader> CreateSubReader(uint64_t size)
+  {
+    uint64_t const pos = m_pos;
+    Skip(size);
+    return m_reader.CreateSubReader(pos, size);
+  }
+
+  std::unique_ptr<Reader> CreateSubReader() { return CreateSubReader(Size()); }
+
 private:
   bool AssertPosition() const
   {

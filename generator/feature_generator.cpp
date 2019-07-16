@@ -140,4 +140,4 @@ uint32_t CheckedFilePosCast(FileWriter const & f)
                       ("Feature offset is out of 32bit boundary!"));
   return static_cast<uint32_t>(pos);
 }
-}
+}  // namespace feature

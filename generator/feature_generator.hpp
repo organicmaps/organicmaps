@@ -69,4 +69,4 @@ public:
 };
 
 uint32_t CheckedFilePosCast(FileWriter const & f);
-}
+}  // namespace feature

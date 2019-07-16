@@ -44,6 +44,13 @@ void WritePadding(TWriter & writer, uint64_t & bytesWritten)
   bytesWritten += padding;
 }
 
+template <typename Source>
+void SkipPadding(Source & src)
+{
+  uint32_t const padding = ToAlign8(src.Pos());
+  src.Skip(padding);
+}
+
 class MapVisitor
 {
 public:

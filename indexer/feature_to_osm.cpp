@@ -13,7 +13,7 @@
 namespace indexer
 {
 FeatureIdToGeoObjectIdBimap::FeatureIdToGeoObjectIdBimap(DataSource const & dataSource)
-  : m_dataSource(dataSource)
+  : m_dataSource(dataSource), m_reader(std::unique_ptr<ModelReader>())
 {
 }
 
@@ -37,11 +37,11 @@ bool FeatureIdToGeoObjectIdBimap::Load()
     return false;
   }
 
+  bool success = false;
   try
   {
-    auto reader = cont.GetReader(FEATURE_TO_OSM_FILE_TAG);
-    ReaderSource<ReaderPtr<ModelReader>> source(reader);
-    FeatureIdToGeoObjectIdSerDes::Deserialize(source, m_map);
+    m_reader = cont.GetReader(FEATURE_TO_OSM_FILE_TAG);
+    success = FeatureIdToGeoObjectIdSerDes::Deserialize(*m_reader.GetPtr(), *this);
   }
   catch (Reader::Exception const & e)
   {
@@ -49,8 +49,13 @@ bool FeatureIdToGeoObjectIdBimap::Load()
     return false;
   }
 
-  m_mwmId = handle.GetId();
-  return true;
+  if (success)
+  {
+    m_mwmId = handle.GetId();
+    return true;
+  }
+
+  return false;
 }
 
 bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id)
@@ -61,16 +66,65 @@ bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::Ge
     return false;
   }
 
-  return m_map.GetValue(fid.m_index, id);
+  if (m_memAll != nullptr)
+    return m_memAll->GetValue(fid.m_index, id);
+
+  if (m_mapNodes == nullptr || m_mapWays == nullptr || m_mapRelations == nullptr)
+    return false;
+
+  uint64_t serialId;
+  if (m_mapNodes->Get(fid.m_index, serialId))
+  {
+    id = base::MakeOsmNode(serialId);
+    return true;
+  }
+
+  if (m_mapWays->Get(fid.m_index, serialId))
+  {
+    id = base::MakeOsmWay(serialId);
+    return true;
+  }
+
+  if (m_mapRelations->Get(fid.m_index, serialId))
+  {
+    id = base::MakeOsmRelation(serialId);
+    return true;
+  }
+
+  return false;
 }
 
 bool FeatureIdToGeoObjectIdBimap::GetFeatureID(base::GeoObjectId const & id, FeatureID & fid)
 {
+  LOG(LWARNING, ("Getting GeoObjectId by FeatureId uses a lot of RAM in current implementation"));
+
+  if (!m_mwmId.IsAlive())
+    return false;
+
+  if (m_memAll == nullptr)
+  {
+    m_memAll = std::make_unique<FeatureIdToGeoObjectIdBimapMem>();
+    bool const success = FeatureIdToGeoObjectIdSerDes::Deserialize(*m_reader.GetPtr(), *m_memAll);
+    if (!success)
+    {
+      m_memAll.reset();
+      LOG(LERROR, ("Could not deserialize the FeatureId to OsmId mapping into memory."));
+      return false;
+    }
+  }
+
   uint32_t index;
-  if (!m_map.GetKey(id, index))
+  if (!m_memAll->GetKey(id, index))
     return false;
 
   fid = FeatureID(m_mwmId, index);
   return true;
 }
+
+// static
+std::string const FeatureIdToGeoObjectIdSerDes::kHeaderMagic = "mwmftosm";
+FeatureIdToGeoObjectIdSerDes::Version const FeatureIdToGeoObjectIdSerDes::kLatestVersion =
+    FeatureIdToGeoObjectIdSerDes::Version::V0;
+size_t constexpr FeatureIdToGeoObjectIdSerDes::kMagicAndVersionSize = 9;
+size_t constexpr FeatureIdToGeoObjectIdSerDes::kHeaderOffset = 16;
 }  // namespace indexer
