@@ -16878,7 +16878,7 @@
     pt = Cabeleireiro
     pt-BR = Cabeleireiro
     ro = Coafor
-    es = Peluquero
+    es = Peluquería
     sv = Frisör
     th = ช่างทำผม
     tr = Kuaför
@@ -17043,7 +17043,7 @@
     fa = فروشگاه
 
   [type.shop.massage]
-    en = Massage Parlour
+    en = Massage salon
     ru = Массажный салон
     ar = قاعة تدليك
     cs = Masážní salon
@@ -18508,7 +18508,7 @@
     ko = 캠핑
     nb = Overnatting i bobiler
     pl = Kamping
-    pt = Local de acampamento
+    pt = Campismo
     pt-BR = Local de acampamento
     es = Campamento
     th = การตั้งแคมป์
