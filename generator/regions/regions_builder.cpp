@@ -6,7 +6,6 @@
 #include "generator/regions/specs/rus.hpp"
 
 #include "base/assert.hpp"
-#include "base/thread_pool_computational.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/thread_pool_computational.hpp"
 
@@ -72,7 +71,7 @@ RegionsBuilder::Regions RegionsBuilder::ExtractCountriesOuters(Regions & regions
     return adminLevel == AdminLevel::Two && placeType == PlaceType::Unknown;
   };
   std::copy_if(std::begin(regions), std::end(regions), std::back_inserter(countriesOuters),
-      isCountry);
+               isCountry);
 
   base::EraseIf(regions, isCountry);
 
@@ -98,8 +97,8 @@ RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
   return result;
 }
 
-Node::Ptr RegionsBuilder::BuildCountryRegionTree(
-    Region const & outer, CountrySpecifier const & countrySpecifier) const
+Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & outer,
+                                                 CountrySpecifier const & countrySpecifier) const
 {
   auto nodes = MakeCountryNodesInAreaOrder(outer, m_regionsInAreaOrder, countrySpecifier);
 
@@ -119,8 +118,8 @@ std::vector<Node::Ptr> RegionsBuilder::MakeCountryNodesInAreaOrder(
     Region const & countryOuter, Regions const & regionsInAreaOrder,
     CountrySpecifier const & countrySpecifier) const
 {
-  std::vector<Node::Ptr> nodes{std::make_shared<Node>(LevelRegion{PlaceLevel::Country,
-                                                                  countryOuter})};
+  std::vector<Node::Ptr> nodes{
+      std::make_shared<Node>(LevelRegion{PlaceLevel::Country, countryOuter})};
   for (auto const & region : regionsInAreaOrder)
   {
     if (countryOuter.ContainsRect(region))
@@ -134,10 +133,9 @@ std::vector<Node::Ptr> RegionsBuilder::MakeCountryNodesInAreaOrder(
   return nodes;
 }
 
-Node::Ptr RegionsBuilder::ChooseParent(
-    std::vector<Node::Ptr> const & nodesInAreaOrder,
-    std::vector<Node::Ptr>::const_reverse_iterator forItem,
-    CountrySpecifier const & countrySpecifier) const
+Node::Ptr RegionsBuilder::ChooseParent(std::vector<Node::Ptr> const & nodesInAreaOrder,
+                                       std::vector<Node::Ptr>::const_reverse_iterator forItem,
+                                       CountrySpecifier const & countrySpecifier) const
 {
   auto const & node = *forItem;
   auto const & region = node->GetData();
@@ -193,7 +191,7 @@ std::vector<Node::Ptr>::const_reverse_iterator RegionsBuilder::FindAreaLowerBoun
 
 // static
 void RegionsBuilder::InsertIntoSubtree(Node::Ptr & subtree, LevelRegion && region,
-    CountrySpecifier const & countrySpecifier)
+                                       CountrySpecifier const & countrySpecifier)
 {
   auto newNode = std::make_shared<Node>(std::move(region));
   InsertIntoSubtree(subtree, std::move(newNode), countrySpecifier);
@@ -201,7 +199,7 @@ void RegionsBuilder::InsertIntoSubtree(Node::Ptr & subtree, LevelRegion && regio
 
 // static
 void RegionsBuilder::InsertIntoSubtree(Node::Ptr & subtree, Node::Ptr && newNode,
-    CountrySpecifier const & countrySpecifier)
+                                       CountrySpecifier const & countrySpecifier)
 {
   CHECK(0 < CompareAffiliation(subtree->GetData(), newNode->GetData(), countrySpecifier), ());
 
@@ -232,7 +230,7 @@ void RegionsBuilder::InsertIntoSubtree(Node::Ptr & subtree, Node::Ptr && newNode
 
 // static
 int RegionsBuilder::CompareAffiliation(LevelRegion const & l, LevelRegion const & r,
-    CountrySpecifier const & countrySpecifier)
+                                       CountrySpecifier const & countrySpecifier)
 {
   if (IsAreaLessRely(r, l) && l.Contains(r))
     return 1;
@@ -246,14 +244,14 @@ int RegionsBuilder::CompareAffiliation(LevelRegion const & l, LevelRegion const 
   auto const rArea = r.GetArea();
   if (0.5 * lArea >= rArea)
   {
-    LOG(LDEBUG, ("Region", l.GetId(), GetRegionNotation(l), "contains partly",
-                 r.GetId(), GetRegionNotation(r)));
+    LOG(LDEBUG, ("Region", l.GetId(), GetRegionNotation(l), "contains partly", r.GetId(),
+                 GetRegionNotation(r)));
     return 1;
   }
   if (0.5 * rArea >= lArea)
   {
-    LOG(LDEBUG, ("Region", r.GetId(), GetRegionNotation(r), "contains partly",
-                 l.GetId(), GetRegionNotation(l)));
+    LOG(LDEBUG, ("Region", r.GetId(), GetRegionNotation(r), "contains partly", l.GetId(),
+                 GetRegionNotation(l)));
     return -1;
   }
 
