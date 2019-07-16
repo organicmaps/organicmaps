@@ -124,14 +124,10 @@ PlaceLevel RussiaSpecifier::GetSpecificCountryLevel(Region const & region) const
   AdminLevel adminLevel = region.GetAdminLevel();
   switch (adminLevel)
   {
-  case AdminLevel::Two:
-    return PlaceLevel::Country;
-  case AdminLevel::Four:
-    return PlaceLevel::Region;
-  case AdminLevel::Six:
-    return PlaceLevel::Subregion;
-  default:
-    break;
+  case AdminLevel::Two: return PlaceLevel::Country;
+  case AdminLevel::Four: return PlaceLevel::Region;
+  case AdminLevel::Six: return PlaceLevel::Subregion;
+  default: break;
   }
 
   return PlaceLevel::Unknown;

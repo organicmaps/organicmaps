@@ -11,12 +11,10 @@ namespace specs
 {
 class MyanmarSpecifier final : public CountrySpecifier
 {
- private:
+private:
   // CountrySpecifier overrides:
   PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
-
 };
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

@@ -13,4 +13,3 @@ PlaceLevel AfghanistanSpecifier::GetSpecificCountryLevel(Region const & region) 
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

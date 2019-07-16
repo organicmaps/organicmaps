@@ -13,4 +13,3 @@ PlaceLevel LuxembourgSpecifier::GetSpecificCountryLevel(Region const & region) c
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

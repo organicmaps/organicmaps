@@ -13,4 +13,3 @@ PlaceLevel BosniaAndHerzegovinaSpecifier::GetSpecificCountryLevel(Region const &
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

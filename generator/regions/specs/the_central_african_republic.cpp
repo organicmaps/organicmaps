@@ -13,4 +13,3 @@ PlaceLevel TheCentralAfricanRepublicSpecifier::GetSpecificCountryLevel(Region co
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

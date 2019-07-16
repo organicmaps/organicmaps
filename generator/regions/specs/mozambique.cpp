@@ -13,4 +13,3 @@ PlaceLevel MozambiqueSpecifier::GetSpecificCountryLevel(Region const & region) c
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

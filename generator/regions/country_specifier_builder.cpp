@@ -118,7 +118,6 @@
 #include "generator/regions/specs/vanuatu.hpp"
 #include "generator/regions/specs/vietnam.hpp"
 
-
 namespace generator
 {
 namespace regions

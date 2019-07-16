@@ -13,4 +13,3 @@ PlaceLevel FrenchPolynesiaSpecifier::GetSpecificCountryLevel(Region const & regi
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

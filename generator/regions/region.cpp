@@ -32,8 +32,7 @@ Region::Region(FeatureBuilder const & fb, RegionDataProxy const & rd)
 
 Region::Region(StringUtf8Multilang const & name, RegionDataProxy const & rd,
                std::shared_ptr<BoostPolygon> const & polygon)
-  : RegionWithName(name)
-  , RegionWithData(rd)
+  : RegionWithName(name), RegionWithData(rd)
 {
   SetPolygon(polygon);
 }
@@ -61,7 +60,6 @@ std::string Region::GetInternationalName() const
 
   return intName;
 }
-
 
 std::string Region::GetName(int8_t lang) const
 {
@@ -98,10 +96,7 @@ boost::optional<std::string> Region::GetIsoCode() const
   return RegionWithData::GetIsoCode();
 }
 
-boost::optional<PlacePoint> const & Region::GetLabel() const noexcept
-{
-  return m_placeLabel;
-}
+boost::optional<PlacePoint> const & Region::GetLabel() const noexcept { return m_placeLabel; }
 
 void Region::SetLabel(PlacePoint const & place)
 {

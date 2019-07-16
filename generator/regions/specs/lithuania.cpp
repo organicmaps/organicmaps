@@ -13,4 +13,3 @@ PlaceLevel LithuaniaSpecifier::GetSpecificCountryLevel(Region const & region) co
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

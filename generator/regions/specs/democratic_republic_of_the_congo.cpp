@@ -6,11 +6,11 @@ namespace regions
 {
 namespace specs
 {
-PlaceLevel DemocraticRepublicOfTheCongoSpecifier::GetSpecificCountryLevel(Region const & region) const
+PlaceLevel DemocraticRepublicOfTheCongoSpecifier::GetSpecificCountryLevel(
+    Region const & region) const
 {
   return PlaceLevel::Unknown;
 }
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

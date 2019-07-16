@@ -13,4 +13,3 @@ PlaceLevel GabonSpecifier::GetSpecificCountryLevel(Region const & region) const
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

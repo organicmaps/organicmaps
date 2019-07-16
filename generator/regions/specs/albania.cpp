@@ -13,4 +13,3 @@ PlaceLevel AlbaniaSpecifier::GetSpecificCountryLevel(Region const & region) cons
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

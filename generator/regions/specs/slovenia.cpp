@@ -13,4 +13,3 @@ PlaceLevel SloveniaSpecifier::GetSpecificCountryLevel(Region const & region) con
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-

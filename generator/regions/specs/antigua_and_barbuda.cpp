@@ -13,4 +13,3 @@ PlaceLevel AntiguaAndBarbudaSpecifier::GetSpecificCountryLevel(Region const & re
 }  // namespace specs
 }  // namespace regions
 }  // namespace generator
-
