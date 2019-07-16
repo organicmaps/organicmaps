@@ -125,6 +125,7 @@ def stage_index_world(env, country, **kwargs):
                            generate_search_index=True,
                            cities_boundaries_data=env.cities_boundaries_path,
                            generate_cities_boundaries=True,
+                           generate_cities_ids=True,
                            **kwargs)
 
 
