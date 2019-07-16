@@ -4906,7 +4906,7 @@ pl:4Fryzjer
 pt:Cabeleireiro
 pt-BR:Cabeleireiro|barbeiro
 ro:Coafor
-es:4Peluquero
+es:4Peluquería
 sv:3Frisör
 th:3ช่างทำผม
 tr:3Kuaför
@@ -5423,7 +5423,7 @@ ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント
 ko:1캠핑|캠프|캠프장|캠핑을
 nb:Overnatting i bobiler
 pl:4Kamping|pole kempingowe
-pt:4Acampamento|área de acampamento|local de acampamento
+pt:4Campismo|Acampamento|área de acampamento|local de acampamento
 pt-BR:4Local de acampamento|área de acampamento|camping
 ro:Camping
 es:4Campamento|cámping|acampar|acampada
@@ -8997,7 +8997,7 @@ zh-Hant:葬儀社
 fa:مسئول تشییع جنازه
 
 shop-massage
-en:Massage Parlour|massage|spa|massage center|massage therapy|massage services|massage salon|spa treatment|spa services
+en:Massage salon|Massage Parlour|massage|spa|massage center|massage therapy|massage services|spa treatment|spa services
 ru:Массажный салон|массаж|спа|спа-салон|салон красоты|массажный кабинет
 ar:قاعة تدليك
 cs:Masážní salon
