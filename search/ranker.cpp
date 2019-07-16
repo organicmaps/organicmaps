@@ -45,7 +45,7 @@ size_t GetMaxNumberOfErrors(Geocoder::Params const & params)
 template <typename Slice>
 void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
-  bestScores.UpdateIfBetter(GetNameScores(name, slice););
+  bestScores.UpdateIfBetter(GetNameScores(name, slice));
 }
 
 template <typename Slice>
