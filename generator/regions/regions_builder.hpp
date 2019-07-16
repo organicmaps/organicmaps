@@ -28,7 +28,7 @@ public:
                           size_t threadsCount = 1);
 
   Regions const & GetCountriesOuters() const;
-  StringsList GetCountryNames() const;
+  StringsList GetCountryInternationalNames() const;
   void ForEachCountry(CountryFn fn);
 
   static void InsertIntoSubtree(Node::Ptr & subtree, LevelRegion && region,

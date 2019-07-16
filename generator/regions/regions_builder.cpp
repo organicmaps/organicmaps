@@ -83,13 +83,14 @@ RegionsBuilder::Regions const & RegionsBuilder::GetCountriesOuters() const
   return m_countriesOuters;
 }
 
-RegionsBuilder::StringsList RegionsBuilder::GetCountryNames() const
+RegionsBuilder::StringsList RegionsBuilder::GetCountryInternationalNames() const
 {
   StringsList result;
   std::unordered_set<std::string> set;
   for (auto const & c : GetCountriesOuters())
   {
-    auto const & name = c.GetName();
+    auto const & name =
+        c.GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
     if (set.insert(name).second)
       result.emplace_back(std::move(name));
   }
@@ -272,7 +273,7 @@ void RegionsBuilder::ForEachCountry(CountryFn fn)
   {
     base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
 
-    for (auto const & countryName : GetCountryNames())
+    for (auto const & countryName : GetCountryInternationalNames())
     {
       auto result = threadPool.Submit([this, countryName]() { return BuildCountry(countryName); });
       buildingTasks.emplace_back(std::move(result));
@@ -292,7 +293,10 @@ Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) cons
 {
   Regions outers;
   auto const & countries = GetCountriesOuters();
-  auto const pred = [&](Region const & country) { return countryName == country.GetName(); };
+  auto const pred = [&](Region const & country) {
+    return countryName ==
+           country.GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
+  };
   std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
 
   auto countrySpecifier = GetCountrySpecifier(countryName);

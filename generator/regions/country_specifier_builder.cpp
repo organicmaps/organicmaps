@@ -8,7 +8,7 @@ namespace regions
 {
 std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countryName)
 {
-  if (countryName == u8"Россия" || countryName == u8"Российская Федерация" || countryName == u8"РФ")
+  if (countryName == u8"Russia")
     return std::make_unique<specs::RusSpecifier>();
 
   return std::make_unique<CountrySpecifier>();

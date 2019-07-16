@@ -81,7 +81,7 @@ private:
       GenerateKv(countryName, outers);
     });
 
-    LOG(LINFO, ("Regions objects key-value for", builder.GetCountryNames().size(),
+    LOG(LINFO, ("Regions objects key-value for", builder.GetCountryInternationalNames().size(),
                 "countries storage saved to", m_pathOutRegionsKv));
     LOG(LINFO,
         (m_objectsRegions.size(), "total regions.", m_regionsCountries.size(), "total objects."));
