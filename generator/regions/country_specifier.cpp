@@ -14,6 +14,12 @@ PlaceLevel CountrySpecifier::GetLevel(Region const & region) const
   if (placeLevel != PlaceLevel::Unknown)
     return placeLevel;
 
+  return GetSpecificCountryLevel(region);
+}
+
+PlaceLevel CountrySpecifier::GetSpecificCountryLevel(Region const & region) const
+{
+  auto const placeType = region.GetPlaceType();
   if (region.GetAdminLevel() == AdminLevel::Two &&
       (placeType == PlaceType::Country || placeType == PlaceType::Unknown))
   {

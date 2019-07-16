@@ -16,9 +16,11 @@ class RusSpecifier final : public CountrySpecifier
 public:
   // CountrySpecifier overrides:
   void AdjustRegionsLevel(Node::PtrList & outers) override;
-  PlaceLevel GetLevel(Region const & region) const override;
+
 
 private:
+  PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
+
   void AdjustMoscowAdministrativeDivisions(Node::PtrList & outers);
   void AdjustMoscowAdministrativeDivisions(Node::Ptr const & tree);
   void MarkMoscowSubregionsByAdministrativeOkrugs(Node::Ptr & node);
@@ -27,8 +29,6 @@ private:
   void MarkMoscowSuburbsByAdministrativeDistrics(Node::Ptr & tree);
   void MarkMoscowAdministrativeDistric(Node::Ptr & node);
   void MarkAllSuburbsToSublocalities(Node::Ptr & tree);
-
-  static PlaceLevel GetRussiaPlaceLevel(AdminLevel adminLevel);
 
   bool m_moscowRegionWasProcessed{false};
   bool m_moscowCityWasProcessed{false};
