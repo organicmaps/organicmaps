@@ -6,6 +6,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
+
+#import "PWRichMediaStyle.h"
+
+#endif
+
 typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
     /**
      RichMedia is presented from push notification.
@@ -78,6 +84,15 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
  `PWRichMediaManager` class offers access to the singleton-instance of the manager responsible for Rich Media presentation.
  */
 @interface PWRichMediaManager : NSObject
+
+#if TARGET_OS_IPHONE
+
+/**
+ Style for Rich Media presenting.
+ */
+@property (nonatomic) PWRichMediaStyle *richMediaStyle;
+
+#endif
 
 /**
  Delegate for Rich Media presentation managing.

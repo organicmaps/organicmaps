@@ -4,6 +4,8 @@
 //  (c) Pushwoosh 2018
 //
 
+#if TARGET_OS_IPHONE
+
 #import <UIKit/UIKit.h>
 
 /*
@@ -14,3 +16,5 @@
 @property (nonatomic, strong) UIWindow *window;
 
 @end
+
+#endif

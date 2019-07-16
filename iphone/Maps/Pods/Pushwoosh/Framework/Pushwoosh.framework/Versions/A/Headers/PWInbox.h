@@ -45,6 +45,8 @@ typedef NS_ENUM(NSInteger, PWInboxMessageType) {
 @property (readonly, nonatomic) BOOL isRead;
 //! Action of the Inbox Message is performed (if true, an action was performed in the Inbox see + (void)performActionForMessageWithCode:(NSString *)code or an action was performed on the push tap )
 @property (readonly, nonatomic) BOOL isActionPerformed;
+@property (readonly, nonatomic) NSDictionary *actionParams;
+@property (readonly, nonatomic) NSString *attachmentUrl;
 
 @end
 

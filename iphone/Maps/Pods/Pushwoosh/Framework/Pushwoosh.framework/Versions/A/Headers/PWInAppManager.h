@@ -85,7 +85,6 @@
  */
 @interface PWInAppManager : NSObject
 
-
 + (instancetype)sharedManager;
 
 /**

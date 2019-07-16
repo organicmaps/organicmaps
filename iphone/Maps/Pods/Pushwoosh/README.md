@@ -9,7 +9,7 @@ Pushwoosh iOS SDK
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square)](https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation)
 
 The guide for SDK integration is available on Pushwoosh website:  
-http://docs.pushwoosh.com/docs/native-ios-sdk
+https://www.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications/setting-up-pushwoosh-ios-sdk
 
 The sample project is available here:  
 https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Samples/iPhone

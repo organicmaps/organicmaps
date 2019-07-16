@@ -11,14 +11,19 @@ PODS:
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.42.0):
     - FBSDKCoreKit
-  - Pushwoosh (5.9.0)
+  - Pushwoosh (5.16.0):
+    - Pushwoosh/Core (= 5.16.0)
+  - Pushwoosh/Core (5.16.0)
+  - Pushwoosh/Geozones (5.16.0):
+    - Pushwoosh/Core
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (= 2.3.0)
   - AppsFlyerFramework (= 4.9.0)
   - FBSDKCoreKit (= 4.42.0)
   - FBSDKLoginKit (= 4.42.0)
-  - Pushwoosh (= 5.9.0)
+  - Pushwoosh (= 5.16.0)
+  - Pushwoosh/Geozones (= 5.16.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -35,8 +40,8 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
   FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
-  Pushwoosh: 8eda99efebf90e44a53b55976db51c5da9b18deb
+  Pushwoosh: 6cba171e52f3f7b8ccd280f492a5831deac2f594
 
-PODFILE CHECKSUM: cd2a77eabd1ac707fac07870645088d9d3832bc2
+PODFILE CHECKSUM: 242bd36970f8034c39e3bd2e172433edd7ac4fa6
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.4

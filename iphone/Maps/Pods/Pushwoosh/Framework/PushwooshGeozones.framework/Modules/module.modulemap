@@ -1,0 +1,6 @@
+framework module PushwooshGeozones {
+  umbrella header "PWGeozonesManager.h"
+
+  export *
+  module * { export * }
+}
