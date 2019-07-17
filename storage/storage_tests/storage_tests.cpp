@@ -1418,10 +1418,10 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 
   using namespace generator::tests_support;
   {
-    TestMwmBuilder builder(country1, feature::DataHeader::country);
+    TestMwmBuilder builder(country1, feature::DataHeader::MapType::Country);
   }
   {
-    TestMwmBuilder builder(country2, feature::DataHeader::country);
+    TestMwmBuilder builder(country2, feature::DataHeader::MapType::Country);
   }
 
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());

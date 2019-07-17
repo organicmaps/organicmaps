@@ -115,7 +115,8 @@ bool FeaturesLoaderGuard::IsWorld() const
   if (!m_handle.IsAlive())
     return false;
 
-  return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
+  return m_handle.GetValue<MwmValue>()->GetHeader().GetType() ==
+         feature::DataHeader::MapType::World;
 }
 
 unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const

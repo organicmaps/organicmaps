@@ -47,7 +47,7 @@ string const kTestMwm = "test";
 
 void BuildEmptyMwm(LocalCountryFile & country)
 {
-  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 }
 
 unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)

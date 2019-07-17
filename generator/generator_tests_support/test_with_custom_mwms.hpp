@@ -35,7 +35,7 @@ public:
   // argument - TestMwmBuilder and adds all necessary features to the
   // country file.
   //
-  // *NOTE* when |type| is feature::DataHeader::country, the country
+  // *NOTE* when |type| is feature::DataHeader::MapType::Country, the country
   // with |name| will be automatically registered.
   template <typename BuildFn>
   MwmSet::MwmId BuildMwm(std::string const & name, feature::DataHeader::MapType type, BuildFn && fn)
@@ -76,13 +76,13 @@ public:
   template <typename BuildFn>
   MwmSet::MwmId BuildWorld(BuildFn && fn)
   {
-    return BuildMwm("testWorld", feature::DataHeader::world, std::forward<BuildFn>(fn));
+    return BuildMwm("testWorld", feature::DataHeader::MapType::World, std::forward<BuildFn>(fn));
   }
 
   template <typename BuildFn>
   MwmSet::MwmId BuildCountry(std::string const & name, BuildFn && fn)
   {
-    return BuildMwm(name, feature::DataHeader::country, std::forward<BuildFn>(fn));
+    return BuildMwm(name, feature::DataHeader::MapType::Country, std::forward<BuildFn>(fn));
   }
 
   void SetMwmVersion(uint32_t version);

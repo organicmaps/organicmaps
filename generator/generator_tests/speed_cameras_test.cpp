@@ -183,7 +183,8 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   }
 
   TEST(GenerateFinalFeatures(genInfo, country.GetCountryName(),
-                             feature::DataHeader::country), ("Cannot generate final feature"));
+                             feature::DataHeader::MapType::Country),
+       ("Cannot generate final feature"));
 
   string const & mwmFullPath = scopedMwm.GetFullPath();
 

@@ -12,7 +12,6 @@
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
@@ -37,8 +36,8 @@
 
 #include "defines.hpp"
 
-#include <list>
 #include <limits>
+#include <list>
 #include <memory>
 #include <vector>
 
@@ -104,7 +103,7 @@ public:
 
     // File Writer finalization function with appending to the main mwm file.
     auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
-        string const & postfix = string()) {
+                                   string const & postfix = string()) {
       w->Flush();
       m_writer.Write(w->GetName(), tag + postfix);
     };
@@ -131,7 +130,8 @@ public:
 
     m_writer.Finish();
 
-    if (m_header.GetType() == DataHeader::country || m_header.GetType() == DataHeader::world)
+    if (m_header.GetType() == DataHeader::MapType::Country ||
+        m_header.GetType() == DataHeader::MapType::World)
     {
       FileWriter osm2ftWriter(m_writer.GetFileName() + OSM2FEATURE_FILE_EXTENSION);
       m_osm2ft.Flush(osm2ftWriter);
@@ -280,7 +280,7 @@ private:
     return scales::IsGoodForLevel(level, r);
   }
 
-  bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
+  bool IsCountry() const { return m_header.GetType() == feature::DataHeader::MapType::Country; }
 
   void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in,
                       Points & out)
@@ -312,7 +312,8 @@ private:
   DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };
 
-bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType)
+bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name,
+                           feature::DataHeader::MapType mapType)
 {
   string const srcFilePath = info.GetTmpFileName(name);
   string const datFilePath = info.GetTargetFileName(name);
@@ -338,7 +339,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
   {
     FileReader reader(srcFilePath);
 
-    bool const isWorld = (mapType != DataHeader::country);
+    bool const isWorld = (mapType != DataHeader::MapType::Country);
 
     // Fill mwm header.
     DataHeader header;

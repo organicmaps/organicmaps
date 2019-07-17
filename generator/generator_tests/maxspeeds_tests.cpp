@@ -60,7 +60,7 @@ string const kCsv = "maxspeeds.csv";
 
 void BuildGeometry(Features const & roads, LocalCountryFile & country)
 {
-  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
   for (auto const & road : roads)
     builder.Add(generator::tests_support::TestStreet(road, string(), string()));
 }

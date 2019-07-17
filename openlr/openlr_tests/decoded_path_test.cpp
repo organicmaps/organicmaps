@@ -128,7 +128,7 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
                            ScopedFile::Mode::Create);
 
   {
-    TestMwmBuilder builder(country, feature::DataHeader::country);
+    TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
     builder.Add(TestRoad(points, "Interstate 60", "en"));
   }
 

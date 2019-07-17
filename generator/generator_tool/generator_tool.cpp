@@ -528,11 +528,13 @@ int GeneratorToolMain(int argc, char ** argv)
 
     if (FLAGS_generate_geometry)
     {
-      int mapType = feature::DataHeader::country;
+      using MapType = feature::DataHeader::MapType;
+
+      MapType mapType = MapType::Country;
       if (country == WORLD_FILE_NAME)
-        mapType = feature::DataHeader::world;
+        mapType = MapType::World;
       if (country == WORLD_COASTS_FILE_NAME)
-        mapType = feature::DataHeader::worldcoasts;
+        mapType = MapType::WorldCoasts;
 
       // On error move to the next bucket without index generation.
 
@@ -544,7 +546,7 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!feature::BuildOffsetsTable(datFile))
         continue;
 
-      if (mapType == feature::DataHeader::country)
+      if (mapType == MapType::Country)
       {
         string const metalinesFilename =
             genInfo.GetIntermediateFileName(METALINES_FILENAME);

@@ -31,7 +31,7 @@ bool IsWorldMwm(std::string const & path)
   try
   {
     feature::DataHeader const header(path);
-    return header.GetType() == feature::DataHeader::world;
+    return header.GetType() == feature::DataHeader::MapType::World;
   }
   catch (Reader::OpenException const & e)
   {

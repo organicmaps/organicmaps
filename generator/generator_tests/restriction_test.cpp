@@ -90,7 +90,7 @@ string DebugPrint(RestrictionUTurnForTests const & r)
 
 void BuildEmptyMwm(LocalCountryFile & country)
 {
-  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 }
 
 void LoadRestrictions(string const & mwmFilePath, 

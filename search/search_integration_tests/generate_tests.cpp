@@ -58,7 +58,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   auto file = platform::LocalCountryFile::MakeForTesting("testCountry");
 
   {
-    TestMwmBuilder builder(file, DataHeader::country);
+    TestMwmBuilder builder(file, DataHeader::MapType::Country);
 
     // Deprecated types.
     MakeFeature(builder, {"office", "travel_agent"}, {0, 0});

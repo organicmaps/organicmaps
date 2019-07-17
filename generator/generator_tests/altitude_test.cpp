@@ -124,7 +124,7 @@ vector<m2::PointD> ExtractPoints(TPoint3DList const & geom3D)
 
 void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFile & country)
 {
-  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 
   for (TPoint3DList const & geom3D : roads)
     builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), std::string(), std::string()));

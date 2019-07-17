@@ -141,7 +141,7 @@ void TestMwmBuilder::Finish()
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */, 1 /* threadsCount */),
         ("Can't build search index."));
 
-  if (m_type == DataHeader::world)
+  if (m_type == DataHeader::MapType::World)
   {
     CHECK(generator::BuildCitiesBoundariesForTesting(path, m_boundariesTable), ());
     CHECK(generator::BuildCitiesIdsForTesting(path), ());

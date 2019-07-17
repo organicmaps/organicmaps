@@ -11,6 +11,35 @@
 
 #include "defines.hpp"
 
+using namespace std;
+
+namespace
+{
+  template <class Sink, class Cont>
+  void SaveBytes(Sink & sink, Cont const & cont)
+  {
+    static_assert(sizeof(typename Cont::value_type) == 1, "");
+
+    uint32_t const count = static_cast<uint32_t>(cont.size());
+    WriteVarUint(sink, count);
+    if (count > 0)
+      sink.Write(&cont[0], count);
+  }
+
+  template <class Source, class Cont>
+  void LoadBytes(Source & src, Cont & cont)
+  {
+    static_assert(sizeof(typename Cont::value_type) == 1, "");
+    ASSERT(cont.empty(), ());
+
+    uint32_t const count = ReadVarUint<uint32_t>(src);
+    if (count > 0)
+    {
+      cont.resize(count);
+      src.Read(&cont[0], count);
+    }
+  }
+}  // namespace
 
 namespace feature
 {
@@ -52,42 +81,14 @@ namespace feature
 
     switch (type)
     {
-    case world: return make_pair(low, worldH);
-    case worldcoasts: return make_pair(low, high);
+    case MapType::World: return make_pair(low, worldH);
+    case MapType::WorldCoasts: return make_pair(low, high);
     default:
-      ASSERT_EQUAL(type, country, ());
+      ASSERT_EQUAL(type, MapType::Country, ());
       return make_pair(worldH + 1, high);
 
       // Uncomment this to test countries drawing in all scales.
       //return make_pair(1, high);
-    }
-  }
-
-  namespace
-  {
-    template <class TSink, class TCont>
-    void SaveBytes(TSink & sink, TCont const & cont)
-    {
-      static_assert(sizeof(typename TCont::value_type) == 1, "");
-
-      uint32_t const count = static_cast<uint32_t>(cont.size());
-      WriteVarUint(sink, count);
-      if (count > 0)
-        sink.Write(&cont[0], count);
-    }
-
-    template <class TSource, class TCont>
-    void LoadBytes(TSource & src, TCont & cont)
-    {
-      static_assert(sizeof(typename TCont::value_type) == 1, "");
-      ASSERT ( cont.empty(), () );
-
-      uint32_t const count = ReadVarUint<uint32_t>(src);
-      if (count > 0)
-      {
-        cont.resize(count);
-        src.Read(&cont[0], count);
-      }
     }
   }
 
@@ -152,8 +153,20 @@ namespace feature
     m_scales.resize(count);
     src.Read(m_scales.data(), count);
 
-    m_type = country;
+    m_type = MapType::Country;
 
     m_format = version::Format::v1;
   }
-}
+
+  string DebugPrint(DataHeader::MapType type)
+  {
+    switch (type)
+    {
+    case DataHeader::MapType::World: return "World";
+    case DataHeader::MapType::WorldCoasts: return "WorldCoasts";
+    case DataHeader::MapType::Country: return "Country";
+    }
+
+    UNREACHABLE();
+  }
+}  // namespace feature

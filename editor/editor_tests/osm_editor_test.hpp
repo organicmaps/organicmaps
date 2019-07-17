@@ -65,7 +65,7 @@ private:
     Cleanup(file);
 
     {
-      generator::tests_support::TestMwmBuilder builder(file, feature::DataHeader::country);
+      generator::tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
       fn(builder);
     }
 

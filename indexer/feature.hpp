@@ -32,7 +32,7 @@ class FeatureType
 {
 public:
   using Buffer = char const *;
-  using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
+  using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
   FeatureType(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
   FeatureType(osm::MapObject const & emo);

@@ -46,7 +46,7 @@ string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE
 
 void BuildTestMwmWithRoads(LocalCountryFile & country)
 {
-  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 
   for (size_t i = 0; i < 10; ++i)
   {

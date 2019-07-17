@@ -155,7 +155,8 @@ private:
                                            platform::CountryFile(kTestMwmName),
                                            kMinVersionForMigration);
     {
-      generator::tests_support::TestMwmBuilder builder(m_testMwm, feature::DataHeader::country);
+      generator::tests_support::TestMwmBuilder builder(m_testMwm,
+                                                       feature::DataHeader::MapType::Country);
       fn(builder);
     }
 
