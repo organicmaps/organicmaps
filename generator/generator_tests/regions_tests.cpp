@@ -487,7 +487,8 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPrefix
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions, u8"United Kingdom, locality: Edinburgh [(12, 12), (17, 17)]"), ());
+  TEST(HasName(regions,
+      u8"United Kingdom, region: Scotland [(12, 12), (18, 18)], locality: Edinburgh [(12, 12), (17, 17)]"), ());
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfix)
@@ -506,7 +507,8 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfi
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions, u8"United Kingdom, locality: Edinburgh [(12, 12), (17, 17)]"), ());
+  TEST(HasName(regions,
+      u8"United Kingdom, region: Scotland [(12, 12), (18, 18)], locality: Edinburgh [(12, 12), (17, 17)]"), ());
 }
 
 // Russia regions tests ----------------------------------------------------------------------------
