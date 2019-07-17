@@ -56,5 +56,5 @@ public enum Promo
   public static native PromoAfterBooking nativeGetPromoAfterBooking(@NonNull NetworkPolicy policy);
 
   @Nullable
-  public static native String nativeGetCityUrl(@NonNull NetworkPolicy policy);
+  public static native String nativeGetCityUrl(@NonNull NetworkPolicy policy, double lat, double lon);
 }
