@@ -2,6 +2,8 @@
 
 #include "ugc/types.hpp"
 
+#include "indexer/search_string_utils.hpp"
+
 #include <iomanip>
 #include <limits>
 #include <sstream>
@@ -102,7 +104,7 @@ string DebugPrint(RankingInfo const & info)
      << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
-  os << ", m_maxErrorsMade:" << info.m_maxErrorsMade;
+  os << ", m_numTokens:" << info.m_numTokens;
   os << ", m_matchedFraction:" << info.m_matchedFraction;
   os << ", m_type:" << DebugPrint(info.m_type);
   os << ", m_pureCats:" << info.m_pureCats;
@@ -122,7 +124,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << static_cast<int>(m_popularity) << ",";
   os << TransformRating(m_rating) << ",";
   os << DebugPrint(m_nameScore) << ",";
-  os << GetErrorsMade() << ",";
+  os << GetErrorsMadePerToken() << ",";
   os << m_matchedFraction << ",";
   os << DebugPrint(m_type) << ",";
   os << m_pureCats << ",";
@@ -165,7 +167,7 @@ double RankingInfo::GetLinearModelRank() const
   {
     result += kType[m_type];
     result += kNameScore[nameScore];
-    result += kErrorsMade * GetErrorsMade();
+    result += kErrorsMade * GetErrorsMadePerToken();
     result += kMatchedFraction * m_matchedFraction;
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
   }
@@ -176,15 +178,19 @@ double RankingInfo::GetLinearModelRank() const
   return result;
 }
 
-double RankingInfo::GetErrorsMade() const
+// We build LevensteinDFA based on feature tokens to match query.
+// Feature tokens can be longer than query tokens that's why every query token can be
+// matched to feature token with maximal supported errors number.
+// As maximal errors number depends only on tokens number (not tokens length),
+// errorsMade per token is supposed to be a good metric.
+double RankingInfo::GetErrorsMadePerToken() const
 {
+  size_t static const kMaxErrorsPerToken =
+      GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
   if (!m_errorsMade.IsValid())
-    return 1.0;
+    return static_cast<double>(kMaxErrorsPerToken);
 
-  if (m_maxErrorsMade == 0)
-    return 0.0;
-
-  CHECK_GREATER_OR_EQUAL(m_maxErrorsMade, m_errorsMade.m_errorsMade, ());
-  return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_maxErrorsMade);
+  CHECK_GREATER(m_numTokens, 0, ());
+  return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
 }
 }  // namespace search

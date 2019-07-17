@@ -33,15 +33,6 @@ namespace search
 {
 namespace
 {
-size_t GetMaxNumberOfErrors(Geocoder::Params const & params)
-{
-  size_t result = 0;
-  for (size_t i = 0; i < params.GetNumTokens(); ++i)
-    result += GetMaxErrorsForToken(params.GetToken(i).GetOriginal());
-
-  return result;
-}
-
 template <typename Slice>
 void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
 {
@@ -420,7 +411,7 @@ class RankerResultMaker
 
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
-      info.m_maxErrorsMade = GetMaxNumberOfErrors(m_params);
+      info.m_numTokens = m_params.GetNumTokens();
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);

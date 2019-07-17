@@ -57,16 +57,21 @@ void RemoveNumeroSigns(UniString & s)
 }
 }  // namespace
 
+size_t GetMaxErrorsForTokenLength(size_t length)
+{
+  if (length < 4)
+    return 0;
+  if (length < 8)
+    return 1;
+  return 2;
+}
+
 size_t GetMaxErrorsForToken(strings::UniString const & token)
 {
   bool const digitsOnly = all_of(token.begin(), token.end(), ::isdigit);
   if (digitsOnly)
     return 0;
-  if (token.size() < 4)
-    return 0;
-  if (token.size() < 8)
-    return 1;
-  return 2;
+  return GetMaxErrorsForTokenLength(token.size());
 }
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)

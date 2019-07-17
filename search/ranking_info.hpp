@@ -26,7 +26,7 @@ struct RankingInfo
   // correspond to important features.
   double GetLinearModelRank() const;
 
-  double GetErrorsMade() const;
+  double GetErrorsMadePerToken() const;
 
   // Distance from the feature to the pivot point.
   double m_distanceToPivot = kMaxDistMeters;
@@ -45,8 +45,8 @@ struct RankingInfo
 
   // Number of misprints.
   ErrorsMade m_errorsMade;
-  // Maximal number of allowed misprints for query.
-  size_t m_maxErrorsMade;
+  // Query tokens number.
+  size_t m_numTokens;
 
   // Fraction of characters from original query matched to feature.
   double m_matchedFraction = 0.0;
