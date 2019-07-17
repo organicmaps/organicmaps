@@ -49,16 +49,11 @@ std::string Region::GetTranslatedOrTransliteratedName(LanguageCode languageCode)
 std::string Region::GetInternationalName() const
 {
   if (!m_placeLabel)
-  {
-    std::string intName =
-        RegionWithName::GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
-    return intName.empty() ? RegionWithName::GetName() : intName;
-  }
+    return RegionWithName::GetInternationalName();
 
-  std::string const & intName =
-      m_placeLabel->GetTranslatedOrTransliteratedName(StringUtf8Multilang::kInternationalCode);
+  std::string intName = m_placeLabel->GetInternationalName();
 
-  return intName;
+  return intName.empty() ? RegionWithName::GetInternationalName() : intName;
 }
 
 std::string Region::GetName(int8_t lang) const

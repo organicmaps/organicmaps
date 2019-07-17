@@ -17,6 +17,14 @@ std::string RegionWithName::GetTranslatedOrTransliteratedName(LanguageCode langu
   return ::generator::GetTranslatedOrTransliteratedName(m_name, languageCode);
 }
 
+std::string RegionWithName::GetInternationalName() const
+{
+  std::string intName = ::generator::GetTranslatedOrTransliteratedName(
+      m_name, StringUtf8Multilang::kInternationalCode);
+
+  return intName.empty() ? GetName() : intName;
+}
+
 StringUtf8Multilang const & RegionWithName::GetMultilangName() const { return m_name; }
 
 base::GeoObjectId RegionWithData::GetId() const { return m_regionData.GetOsmId(); }

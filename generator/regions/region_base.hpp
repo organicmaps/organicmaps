@@ -31,7 +31,8 @@ public:
   explicit RegionWithName(StringUtf8Multilang name) : m_name(std::move(name)) {}
 
   std::string GetTranslatedOrTransliteratedName(LanguageCode languageCode) const;
-
+  // returns default name if int_name is empty
+  std::string GetInternationalName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const;
 
