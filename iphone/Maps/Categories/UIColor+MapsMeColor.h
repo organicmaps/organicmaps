@@ -53,6 +53,9 @@
 + (UIColor *)speedLimitWhite;
 + (UIColor *)speedLimitLightGray;
 + (UIColor *)speedLimitDarkGray;
++ (UIColor *)shadowColorBlue;
++ (UIColor *)shadowColorPurple;
++ (UIColor *)subscriptionCellBorder;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 + (UIColor *)colorFromHexString:(NSString *)hexString;

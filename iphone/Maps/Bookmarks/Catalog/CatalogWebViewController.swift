@@ -146,10 +146,17 @@ final class CatalogWebViewController: WebViewController {
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    let subscribePath = "/mobilefront/subscribe"
     guard let url = navigationAction.request.url,
-      url.scheme == "mapsme" || url.path == "/mobilefront/buy_kml" else {
+      url.scheme == "mapsme" || url.path == "/mobilefront/buy_kml" || url.path == subscribePath else {
         super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
         return
+    }
+
+    if url.path == subscribePath {
+      showSubscribe()
+      decisionHandler(.cancel);
+      return
     }
 
     processDeeplink(url)
@@ -178,6 +185,18 @@ final class CatalogWebViewController: WebViewController {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
     loadingIndicator.stopAnimating()
+  }
+
+  private func showSubscribe() {
+    let subscribeViewController = BookmarksSubscriptionViewController()
+    subscribeViewController.onSubscribe = { [weak self] in
+      self?.dismiss(animated: true)
+    }
+    subscribeViewController.onCancel = { [weak self] in
+      self?.dismiss(animated: true)
+    }
+
+    present(subscribeViewController, animated: true)
   }
 
   private func buildHeaders(completion: @escaping ([String : String]?) -> Void) {

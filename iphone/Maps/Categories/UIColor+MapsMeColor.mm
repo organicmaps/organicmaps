@@ -395,4 +395,16 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(51) green:scaled(51) blue:scaled(50) alpha:alpha100];
 }
 
++ (UIColor *)shadowColorBlue {
+  return [UIColor colorWithRed:scaled(5) green:scaled(70) blue:scaled(134) alpha:alpha100];
+}
+
++ (UIColor *)shadowColorPurple {
+  return [UIColor colorWithRed:scaled(88) green:scaled(0) blue:scaled(153) alpha:alpha100];
+}
+
++ (UIColor *)subscriptionCellBorder {
+  return [UIColor colorWithRed:scaled(174) green:scaled(184) blue:scaled(190) alpha:alpha100];
+}
+
 @end
