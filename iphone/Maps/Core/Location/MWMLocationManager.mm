@@ -193,7 +193,11 @@ void setPermissionRequested()
   [NSNotificationCenter.defaultCenter removeObserver:self];
   self.locationManager.delegate = nil;
 }
+
 + (void)start { [self manager].started = YES; }
+
++ (void)stop { [self manager].started = NO; }
+
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(Observer)observer

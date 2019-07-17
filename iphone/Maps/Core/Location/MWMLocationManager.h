@@ -5,6 +5,7 @@
 @interface MWMLocationManager : NSObject
 
 + (void)start;
++ (void)stop;
 
 + (void)addObserver:(id<MWMLocationObserver>)observer;
 + (void)removeObserver:(id<MWMLocationObserver>)observer;

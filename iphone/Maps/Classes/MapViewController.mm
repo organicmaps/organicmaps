@@ -52,10 +52,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
-
-// The first launch after process started. Used to skip "Not follow, no position" state and to run
-// locator.
-BOOL gIsFirstMyPositionMode = YES;
 }  // namespace
 
 @interface NSValueWrapper : NSObject
@@ -269,8 +265,7 @@ BOOL gIsFirstMyPositionMode = YES;
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
-  self.currentPositionMode = MWMMyPositionModePendingPosition;
-  [self processMyPositionStateModeEvent:self.currentPositionMode];
+  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
@@ -389,6 +384,9 @@ BOOL gIsFirstMyPositionMode = YES;
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
     // May be better solution would be multiobservers support in the C++ core.
     [self processMyPositionStateModeEvent:location_helpers::mwmMyPositionMode(mode)];
+  });
+  f.SetMyPositionPendingTimeoutListener([self]{
+    [self processMyPositionPendingTimeout];
   });
 
   self.userTouchesAction = UserTouchesActionNone;
@@ -565,36 +563,27 @@ BOOL gIsFirstMyPositionMode = YES;
   self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
   {
-  case MWMMyPositionModeNotFollowNoPosition:
-  {
-    BOOL const hasLocation = [MWMLocationManager lastLocation] != nil;
-    if (hasLocation)
-    {
-      GetFramework().SwitchMyPositionNextMode();
-      break;
-    }
-    if ([Alohalytics isFirstSession])
-      break;
-    if (gIsFirstMyPositionMode)
-    {
-      GetFramework().SwitchMyPositionNextMode();
-      break;
-    }
-    BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-    if (isMapVisible && ![MWMLocationManager isLocationProhibited])
-    {
-      [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
-        GetFramework().SwitchMyPositionNextMode();
-      }];
-    }
-    break;
-  }
-  case MWMMyPositionModePendingPosition:
+  case MWMMyPositionModeNotFollowNoPosition: break;
+  case MWMMyPositionModePendingPosition: [MWMLocationManager start]; break;
   case MWMMyPositionModeNotFollow: break;
   case MWMMyPositionModeFollow:
   case MWMMyPositionModeFollowAndRotate: self.disableStandbyOnLocationStateMode = YES; break;
   }
-  gIsFirstMyPositionMode = NO;
+}
+
+- (void)processMyPositionPendingTimeout {
+  [MWMLocationManager stop];
+  NSArray<id<MWMLocationModeListener>> * objects = self.listeners.allObjects;
+  for (id<MWMLocationModeListener> object in objects) {
+    [object processMyPositionPendingTimeout];
+  }
+  BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+  if (isMapVisible && ![MWMLocationManager isLocationProhibited])
+  {
+    [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
+      GetFramework().SwitchMyPositionNextMode();
+    }];
+  }
 }
 
 #pragma mark - MWMRemoveAdsViewControllerDelegate

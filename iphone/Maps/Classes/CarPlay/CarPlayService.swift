@@ -532,6 +532,9 @@ extension CarPlayService: LocationModeListener {
       break
     }
   }
+  
+  func processMyPositionPendingTimeout() {
+  }
 }
 
 // MARK: - Alerts and Trip Previews
