@@ -84,6 +84,23 @@ public:
     return result;
   }
 
+  // Submit work for execution.
+  // func - task to be performed.
+  // args - arguments for func
+  // Warning: If the thread pool is stopped then the call will be ignored.
+  template <typename F, typename... Args>
+  void SubmitWork(F && func, Args &&... args)
+  {
+    {
+      std::unique_lock<std::mutex> lock(m_mutex);
+      if (m_done)
+        return;
+
+      m_queue.emplace(std::bind(std::forward<F>(func), std::forward<Args>(args)...));
+    }
+    m_condition.notify_one();
+  }
+
   // Stop a ThreadPool.
   // Removes the tasks that are not yet started from the queue.
   // Unlike the destructor, this function does not wait for all runnables to complete:
