@@ -185,6 +185,10 @@ set(
   regions/specs/angola.hpp
   regions/specs/antigua_and_barbuda.cpp
   regions/specs/antigua_and_barbuda.hpp
+  regions/specs/argentina.cpp
+  regions/specs/argentina.hpp
+  regions/specs/aruba.cpp
+  regions/specs/aruba.hpp
   regions/specs/australia.cpp
   regions/specs/australia.hpp
   regions/specs/austria.cpp
@@ -203,14 +207,20 @@ set(
   regions/specs/belarus.hpp
   regions/specs/belgium.cpp
   regions/specs/belgium.hpp
+  regions/specs/belize.cpp
+  regions/specs/belize.hpp
   regions/specs/benin.cpp
   regions/specs/benin.hpp
   regions/specs/bhutan.cpp
   regions/specs/bhutan.hpp
+  regions/specs/bolivia.cpp
+  regions/specs/bolivia.hpp
   regions/specs/bosnia_and_herzegovina.cpp
   regions/specs/bosnia_and_herzegovina.hpp
   regions/specs/brazil.cpp
   regions/specs/brazil.hpp
+  regions/specs/brunei.cpp
+  regions/specs/brunei.hpp
   regions/specs/bulgaria.cpp
   regions/specs/bulgaria.hpp
   regions/specs/burkina_faso.cpp
@@ -223,18 +233,24 @@ set(
   regions/specs/canada.hpp
   regions/specs/chad.cpp
   regions/specs/chad.hpp
+  regions/specs/chile.cpp
+  regions/specs/chile.hpp
   regions/specs/china.cpp
   regions/specs/china.hpp
+  regions/specs/colombia.cpp
+  regions/specs/colombia.hpp
+  regions/specs/costa_rica.cpp
+  regions/specs/costa_rica.hpp
   regions/specs/cote_divoire.cpp
   regions/specs/cote_divoire.hpp
   regions/specs/croatia.cpp
   regions/specs/croatia.hpp
+  regions/specs/cuba.cpp
+  regions/specs/cuba.hpp
   regions/specs/cyprus.cpp
   regions/specs/cyprus.hpp
   regions/specs/czech_republic.cpp
   regions/specs/czech_republic.hpp
-  regions/specs/democratic_republic_of_the_congo.cpp
-  regions/specs/democratic_republic_of_the_congo.hpp
   regions/specs/denmark.cpp
   regions/specs/denmark.hpp
   regions/specs/dominican_republic.cpp
@@ -375,6 +391,8 @@ set(
   regions/specs/swaziland.hpp
   regions/specs/sweden.cpp
   regions/specs/sweden.hpp
+  regions/specs/suriname.cpp
+  regions/specs/suriname.hpp
   regions/specs/switzerland.cpp
   regions/specs/switzerland.hpp
   regions/specs/syria.cpp

@@ -8,6 +8,14 @@ namespace specs
 {
 PlaceLevel IraqSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four: return PlaceLevel::Region;    // governorates
+  case AdminLevel::Six: return PlaceLevel::Subregion;  // districts (qadha)
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

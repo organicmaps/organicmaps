@@ -8,6 +8,16 @@ namespace specs
 {
 PlaceLevel BrazilSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four:
+    return PlaceLevel::Region;  // Unidades Federativas (Estados e Distrito Federal)
+  case AdminLevel::Five: return PlaceLevel::Subregion;  // Mesorregiões
+  case AdminLevel::Ten: return PlaceLevel::Suburb;      // Bairros e Sub-Distritos
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

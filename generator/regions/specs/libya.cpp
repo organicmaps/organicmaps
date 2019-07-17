@@ -8,6 +8,13 @@ namespace specs
 {
 PlaceLevel LibyaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four: return PlaceLevel::Region;  //	district (Shabiya)
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

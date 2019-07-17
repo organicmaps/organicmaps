@@ -8,6 +8,13 @@ namespace specs
 {
 PlaceLevel IndonesiaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four: return PlaceLevel::Region;  // Province
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

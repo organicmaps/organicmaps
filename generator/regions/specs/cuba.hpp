@@ -9,7 +9,7 @@ namespace regions
 {
 namespace specs
 {
-class DemocraticRepublicOfTheCongoSpecifier final : public CountrySpecifier
+class CubaSpecifier final : public CountrySpecifier
 {
 private:
   // CountrySpecifier overrides:

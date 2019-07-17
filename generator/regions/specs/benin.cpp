@@ -8,6 +8,16 @@ namespace specs
 {
 PlaceLevel BeninSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four:
+    return PlaceLevel::Region;  // Communities, regions and language areas of Belgium
+  case AdminLevel::Six: return PlaceLevel::Subregion;  // Provinces
+  case AdminLevel::Nine: return PlaceLevel::Suburb;    // Deelgemeenten (sections)
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

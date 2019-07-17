@@ -8,6 +8,15 @@ namespace specs
 {
 PlaceLevel UkraineSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four: return PlaceLevel::Region;    // Oblasts
+  case AdminLevel::Six: return PlaceLevel::Subregion;  // районы в областях
+  case AdminLevel::Seven: return PlaceLevel::Sublocality;  // Административные районы в городах
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

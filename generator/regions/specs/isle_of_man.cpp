@@ -8,6 +8,14 @@ namespace specs
 {
 PlaceLevel IsleOfManSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Six: return PlaceLevel::Suburb;      // Sheedings
+  case AdminLevel::Eight: return PlaceLevel::Locality;  // Parish / Village / Town
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs

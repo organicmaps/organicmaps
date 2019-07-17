@@ -6,6 +6,8 @@
 #include "generator/regions/specs/andorra.hpp"
 #include "generator/regions/specs/angola.hpp"
 #include "generator/regions/specs/antigua_and_barbuda.hpp"
+#include "generator/regions/specs/argentina.hpp"
+#include "generator/regions/specs/aruba.hpp"
 #include "generator/regions/specs/australia.hpp"
 #include "generator/regions/specs/austria.hpp"
 #include "generator/regions/specs/azerbaijan.hpp"
@@ -15,22 +17,28 @@
 #include "generator/regions/specs/barbados.hpp"
 #include "generator/regions/specs/belarus.hpp"
 #include "generator/regions/specs/belgium.hpp"
+#include "generator/regions/specs/belize.hpp"
 #include "generator/regions/specs/benin.hpp"
 #include "generator/regions/specs/bhutan.hpp"
+#include "generator/regions/specs/bolivia.hpp"
 #include "generator/regions/specs/bosnia_and_herzegovina.hpp"
 #include "generator/regions/specs/brazil.hpp"
+#include "generator/regions/specs/brunei.hpp"
 #include "generator/regions/specs/bulgaria.hpp"
 #include "generator/regions/specs/burkina_faso.hpp"
 #include "generator/regions/specs/burundi.hpp"
 #include "generator/regions/specs/cameroon.hpp"
 #include "generator/regions/specs/canada.hpp"
 #include "generator/regions/specs/chad.hpp"
+#include "generator/regions/specs/chile.hpp"
 #include "generator/regions/specs/china.hpp"
+#include "generator/regions/specs/colombia.hpp"
+#include "generator/regions/specs/costa_rica.hpp"
 #include "generator/regions/specs/cote_divoire.hpp"
 #include "generator/regions/specs/croatia.hpp"
+#include "generator/regions/specs/cuba.hpp"
 #include "generator/regions/specs/cyprus.hpp"
 #include "generator/regions/specs/czech_republic.hpp"
-#include "generator/regions/specs/democratic_republic_of_the_congo.hpp"
 #include "generator/regions/specs/denmark.hpp"
 #include "generator/regions/specs/dominican_republic.hpp"
 #include "generator/regions/specs/egypt.hpp"
@@ -99,6 +107,7 @@
 #include "generator/regions/specs/south_africa.hpp"
 #include "generator/regions/specs/south_korea.hpp"
 #include "generator/regions/specs/south_sudan.hpp"
+#include "generator/regions/specs/suriname.hpp"
 #include "generator/regions/specs/swaziland.hpp"
 #include "generator/regions/specs/sweden.hpp"
 #include "generator/regions/specs/switzerland.hpp"
@@ -136,6 +145,10 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::AngolaSpecifier>();
   if (countryName == u8"Antigua and Barbuda")
     return std::make_unique<specs::AntiguaAndBarbudaSpecifier>();
+  if (countryName == u8"Argentina")
+    return std::make_unique<specs::ArgentinaSpecifier>();
+  if (countryName == u8"Aruba")
+    return std::make_unique<specs::ArubaSpecifier>();
   if (countryName == u8"Australia")
     return std::make_unique<specs::AustraliaSpecifier>();
   if (countryName == u8"Austria")
@@ -156,12 +169,18 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::BelgiumSpecifier>();
   if (countryName == u8"Benin")
     return std::make_unique<specs::BeninSpecifier>();
+  if (countryName == u8"Belize")
+    return std::make_unique<specs::BelizeSpecifier>();
   if (countryName == u8"Bhutan")
     return std::make_unique<specs::BhutanSpecifier>();
+  if (countryName == u8"Bolivia")
+    return std::make_unique<specs::BoliviaSpecifier>();
   if (countryName == u8"Bosnia and Herzegovina")
     return std::make_unique<specs::BosniaAndHerzegovinaSpecifier>();
   if (countryName == u8"Brazil")
     return std::make_unique<specs::BrazilSpecifier>();
+  if (countryName == u8"Brunei")
+    return std::make_unique<specs::BruneiSpecifier>();
   if (countryName == u8"Bulgaria")
     return std::make_unique<specs::BulgariaSpecifier>();
   if (countryName == u8"Burkina Faso")
@@ -176,18 +195,24 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::TheCentralAfricanRepublicSpecifier>();
   if (countryName == u8"Chad")
     return std::make_unique<specs::ChadSpecifier>();
+  if (countryName == u8"Colombia")
+    return std::make_unique<specs::ColombiaSpecifier>();
+  if (countryName == u8"Costa Rica")
+    return std::make_unique<specs::CostaRicaSpecifier>();
+  if (countryName == u8"Côte d'Ivoire")
+    return std::make_unique<specs::CoteDivoireSpecifier>();
   if (countryName == u8"Croatia")
     return std::make_unique<specs::CroatiaSpecifier>();
   if (countryName == u8"China")
     return std::make_unique<specs::ChinaSpecifier>();
-  if (countryName == u8"Hong Kong")
-    return std::make_unique<specs::HongKongSpecifier>();
+  if (countryName == u8"Chile")
+    return std::make_unique<specs::ChileSpecifier>();
   if (countryName == u8"Cyprus")
     return std::make_unique<specs::CyprusSpecifier>();
+  if (countryName == u8"Cuba")
+    return std::make_unique<specs::CubaSpecifier>();
   if (countryName == u8"Czech Republic")
     return std::make_unique<specs::CzechRepublicSpecifier>();
-  if (countryName == u8"Democratic Republic of the Congo")
-    return std::make_unique<specs::DemocraticRepublicOfTheCongoSpecifier>();
   if (countryName == u8"Denmark")
     return std::make_unique<specs::DenmarkSpecifier>();
   if (countryName == u8"Dominican Republic")
@@ -222,6 +247,8 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::HaitiSpecifier>();
   if (countryName == u8"Hungary")
     return std::make_unique<specs::HungarySpecifier>();
+  if (countryName == u8"Hong Kong")
+    return std::make_unique<specs::HongKongSpecifier>();
   if (countryName == u8"Iceland")
     return std::make_unique<specs::IcelandSpecifier>();
   if (countryName == u8"India")
@@ -240,8 +267,6 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::IsraelSpecifier>();
   if (countryName == u8"Italy")
     return std::make_unique<specs::ItalySpecifier>();
-  if (countryName == u8"Côte d'Ivoire")
-    return std::make_unique<specs::CoteDivoireSpecifier>();
   if (countryName == u8"Japan")
     return std::make_unique<specs::JapanSpecifier>();
   if (countryName == u8"Jordan")
@@ -306,7 +331,8 @@ std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & countr
     return std::make_unique<specs::PortugalSpecifier>();
   if (countryName == u8"Romania")
     return std::make_unique<specs::RomaniaSpecifier>();
-  if (countryName == u8"Russia")
+  if (countryName == u8"Russia" ||
+  countryName == u8"Россия" || countryName == u8"Российская Федерация" || countryName == u8"РФ")
     return std::make_unique<specs::RussiaSpecifier>();
   if (countryName == u8"Serbia")
     return std::make_unique<specs::SerbiaSpecifier>();

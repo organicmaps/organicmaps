@@ -8,6 +8,14 @@ namespace specs
 {
 PlaceLevel NorwaySpecifier::GetSpecificCountryLevel(Region const & region) const
 {
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Four: return PlaceLevel::Region;      // County
+  case AdminLevel::Seven: return PlaceLevel::Subregion;  // Muncipiality
+  default: break;
+  }
+
   return PlaceLevel::Unknown;
 }
 }  // namespace specs
