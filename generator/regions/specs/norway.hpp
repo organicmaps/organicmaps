@@ -11,6 +11,9 @@ namespace specs
 {
 class NorwaySpecifier final : public CountrySpecifier
 {
+public:
+  static std::vector<std::string> GetCountryNames() { return {"Norway"}; }
+
 private:
   // CountrySpecifier overrides:
   PlaceLevel GetSpecificCountryLevel(Region const & region) const override;

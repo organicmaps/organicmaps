@@ -1,11 +1,15 @@
 #include "generator/regions/specs/angola.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 namespace generator
 {
 namespace regions
 {
 namespace specs
 {
+REGISTER_COUNTRY_SPECIFIER(AngolaSpecifier);
+
 PlaceLevel AngolaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();

@@ -20,8 +20,10 @@ public:
   virtual int RelateByWeight(LevelRegion const & l, LevelRegion const & r) const;
   virtual ~CountrySpecifier() = default;
   static PlaceLevel GetLevel(PlaceType placeType);
- private:
+
+private:
   virtual PlaceLevel GetSpecificCountryLevel(Region const & region) const;
 };
+
 }  // namespace regions
 }  // namespace generator

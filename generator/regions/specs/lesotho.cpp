@@ -1,11 +1,15 @@
 #include "generator/regions/specs/lesotho.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 namespace generator
 {
 namespace regions
 {
 namespace specs
 {
+REGISTER_COUNTRY_SPECIFIER(LesothoSpecifier);
+
 PlaceLevel LesothoSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();

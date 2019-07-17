@@ -1,11 +1,15 @@
 #include "generator/regions/specs/sierra_leone.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 namespace generator
 {
 namespace regions
 {
 namespace specs
 {
+REGISTER_COUNTRY_SPECIFIER(SierraLeoneSpecifier);
+
 PlaceLevel SierraLeoneSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();

@@ -1,11 +1,15 @@
 #include "generator/regions/specs/isle_of_man.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 namespace generator
 {
 namespace regions
 {
 namespace specs
 {
+REGISTER_COUNTRY_SPECIFIER(IsleOfManSpecifier);
+
 PlaceLevel IsleOfManSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();

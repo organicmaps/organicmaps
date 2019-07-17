@@ -1,6 +1,10 @@
 #include "generator/regions/specs/russia.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 #include "base/stl_helpers.hpp"
+
+#include "generator/regions/country_specifier_builder.hpp"
 
 namespace generator
 {
@@ -118,6 +122,8 @@ void RussiaSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
   for (auto & subtree : tree->GetChildren())
     MarkAllSuburbsToSublocalities(subtree);
 }
+
+REGISTER_COUNTRY_SPECIFIER(RussiaSpecifier);
 
 PlaceLevel RussiaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {

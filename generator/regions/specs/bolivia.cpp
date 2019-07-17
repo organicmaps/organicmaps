@@ -1,11 +1,15 @@
 #include "generator/regions/specs/bolivia.hpp"
 
+#include "generator/regions/country_specifier_builder.hpp"
+
 namespace generator
 {
 namespace regions
 {
 namespace specs
 {
+REGISTER_COUNTRY_SPECIFIER(BoliviaSpecifier);
+
 PlaceLevel BoliviaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
   AdminLevel adminLevel = region.GetAdminLevel();

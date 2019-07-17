@@ -14,6 +14,11 @@ namespace specs
 class RussiaSpecifier final : public CountrySpecifier
 {
 public:
+  static std::vector<std::string> GetCountryNames()
+  {
+    return {"Russia", u8"Россия", u8"Российская Федерация", u8"РФ"};
+  }
+
   // CountrySpecifier overrides:
   void AdjustRegionsLevel(Node::PtrList & outers) override;
 
