@@ -11,49 +11,56 @@
     android:layout_height="wrap_content"
     android:minHeight="@dimen/discovery_expert_item_min_height">
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:minHeight="@dimen/discovery_search_item_min_height"
-      android:background="?attr/clickableBackground"
       android:orientation="vertical"
-      android:gravity="center_horizontal">
-      <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="@dimen/margin_base_plus"
-        android:layout_height="@dimen/margin_base_plus"
-        android:layout_marginTop="@dimen/margin_base_plus"/>
-      <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half_plus"
-        android:layout_marginLeft="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        style="@style/MwmWidget.Discovery.Item.Title"
-        android:maxLines="1"
-        android:minLines="1"
-        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
-        tools:text="Irina Severintseva"/>
-      <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:layout_marginLeft="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        style="@style/MwmWidget.Discovery.Item.Subtitle"
-        android:ellipsize="middle"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="★ ★ ★ ★ ★"/>
-    </LinearLayout>
-    <TextView
-      android:id="@+id/button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
-      style="@style/MwmWidget.Discovery.Item.Button"
-      android:layout_gravity="bottom"
-      android:lines="1"
-      android:text="@string/details"/>
+      android:minHeight="@dimen/discovery_expert_item_min_height">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minHeight="@dimen/discovery_search_item_min_height"
+        android:background="?attr/clickableBackground"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <ProgressBar
+          android:id="@+id/progress"
+          android:layout_width="@dimen/margin_base_plus"
+          android:layout_height="@dimen/margin_base_plus"
+          android:layout_marginTop="@dimen/margin_base_plus"/>
+        <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half_plus"
+          android:layout_marginLeft="@dimen/margin_half_plus"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          style="@style/MwmWidget.Discovery.Item.Title"
+          android:maxLines="1"
+          android:minLines="1"
+          android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
+          tools:text="Irina Severintseva"/>
+        <TextView
+          android:id="@+id/subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_eighth"
+          android:layout_marginLeft="@dimen/margin_half_plus"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          style="@style/MwmWidget.Discovery.Item.Subtitle"
+          android:ellipsize="middle"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="★ ★ ★ ★ ★"/>
+      </LinearLayout>
+      <TextView
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
+        style="@style/MwmWidget.Discovery.Item.Button"
+        android:layout_gravity="bottom"
+        android:lines="1"
+        android:text="@string/details"/>
+    </LinearLayout>
   </android.support.v7.widget.CardView>
 </FrameLayout>

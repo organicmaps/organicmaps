@@ -506,6 +506,7 @@ public class Holders
       super.bind(item);
       getTitle().setText(R.string.gallery_pp_download_guides_offline_title);
       mSubTitle.setText(R.string.gallery_pp_download_guides_offline_subtitle);
+      UiUtils.hide(getButton());
     }
   }
 

@@ -110,9 +110,7 @@ public class Factory
   @NonNull
   public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
   {
-    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
-    CatalogPromoLoadingAdapterStrategy strategy =
-        new CatalogPromoLoadingAdapterStrategy(listener, Promo.nativeGetCityUrl(policy));
+    CatalogPromoLoadingAdapterStrategy strategy = new CatalogPromoLoadingAdapterStrategy(null, null);
     return new GalleryAdapter<>(strategy);
   }
 
