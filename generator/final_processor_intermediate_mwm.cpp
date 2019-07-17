@@ -17,7 +17,6 @@
 #include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 #include "base/thread_pool_computational.hpp"
-#include "base/thread_pool_delayed.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -31,7 +30,7 @@
 
 #include "defines.hpp"
 
-using namespace base::thread_pool;
+using namespace base::thread_pool::computational;
 using namespace feature;
 using namespace serialization_policy;
 
@@ -52,7 +51,7 @@ std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder
                                                       AffiliationInterface const & affiliation,
                                                       size_t threadsCount)
 {
-  computational::ThreadPool pool(threadsCount);
+  ThreadPool pool(threadsCount);
   std::vector<std::future<std::vector<std::string>>> futuresAffiliations;
   for (auto const & fb : fbs)
   {
@@ -83,10 +82,10 @@ void AppendToCountries(std::vector<FeatureBuilder> const & fbs,
       countryToFbsIndexes[country].emplace_back(i);
   }
 
-  delayed::ThreadPool pool(threadsCount, delayed::ThreadPool::Exit::ExecPending);
+  ThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)
   {
-    pool.Push([&, country{std::move(p.first)}, indexes{std::move(p.second)}]() {
+    pool.SubmitWork([&, country{std::move(p.first)}, indexes{std::move(p.second)}]() {
       auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
       FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
       for (auto const index : indexes)
@@ -177,7 +176,7 @@ public:
   bool Process()
   {
     std::vector<std::future<std::vector<FeatureBuilder>>> citiesResults;
-    computational::ThreadPool pool(m_threadsCount);
+    ThreadPool pool(m_threadsCount);
     ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
       auto cities = pool.Submit([&, filename]() {
         std::vector<FeatureBuilder> cities;
@@ -318,9 +317,9 @@ bool CountryFinalProcessor::ProcessBooking()
   BookingDataset dataset(m_hotelsFilename);
   auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   {
-    delayed::ThreadPool pool(m_threadsCount, delayed::ThreadPool::Exit::ExecPending);
+    ThreadPool pool(m_threadsCount);
     ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-      pool.Push([&, filename]() {
+      pool.SubmitWork([&, filename]() {
         std::vector<FeatureBuilder> cities;
         if (!FilenameIsCountry(filename, affiliation))
           return;
@@ -398,9 +397,9 @@ bool CountryFinalProcessor::ProcessCoastline()
 bool CountryFinalProcessor::Finish()
 {
   auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  delayed::ThreadPool pool(m_threadsCount, delayed::ThreadPool::Exit::ExecPending);
+  ThreadPool pool(m_threadsCount);
   ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-    pool.Push([&, filename]() {
+    pool.SubmitWork([&, filename]() {
       if (!FilenameIsCountry(filename, affiliation))
         return;
 
