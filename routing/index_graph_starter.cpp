@@ -2,6 +2,8 @@
 
 #include "routing/fake_edges_container.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
@@ -293,7 +295,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
   // Add pure fake vertex
   auto const fakeSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
-  FakeVertex fakeVertex(thisEnding.m_originJunction, thisEnding.m_originJunction,
+  FakeVertex fakeVertex(kFakeNumMwmId, thisEnding.m_originJunction, thisEnding.m_originJunction,
                         FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(fakeSegment, fakeVertex);
   for (auto const & projection : thisEnding.m_projections)
@@ -305,7 +307,8 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
     // Add projection edges
     auto const projectionSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
-    FakeVertex projectionVertex(isStart ? thisEnding.m_originJunction : projection.m_junction,
+    FakeVertex projectionVertex(projection.m_segment.GetMwmId(),
+                                isStart ? thisEnding.m_originJunction : projection.m_junction,
                                 isStart ? projection.m_junction : thisEnding.m_originJunction,
                                 FakeVertex::Type::PureFake);
     m_fake.AddVertex(fakeSegment, projectionSegment, projectionVertex, isStart /* isOutgoing */,
@@ -332,9 +335,9 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
         frontJunction = backJunction = otherJunction;
     }
 
-    FakeVertex forwardPartOfReal(isStart ? projection.m_junction : backJunction,
-                                 isStart ? frontJunction : projection.m_junction,
-                                 FakeVertex::Type::PartOfReal);
+    FakeVertex forwardPartOfReal(
+        projection.m_segment.GetMwmId(), isStart ? projection.m_junction : backJunction,
+        isStart ? frontJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
     Segment fakeForwardSegment;
     if (!m_fake.FindSegment(forwardPartOfReal, fakeForwardSegment))
       fakeForwardSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
@@ -344,9 +347,9 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     if (!strictForward && !projection.m_isOneWay)
     {
       auto const backwardSegment = GetReverseSegment(projection.m_segment);
-      FakeVertex backwardPartOfReal(isStart ? projection.m_junction : frontJunction,
-                                    isStart ? backJunction : projection.m_junction,
-                                    FakeVertex::Type::PartOfReal);
+      FakeVertex backwardPartOfReal(
+          projection.m_segment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
+          isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
       Segment fakeBackwardSegment;
       if (!m_fake.FindSegment(backwardPartOfReal, fakeBackwardSegment))
         fakeBackwardSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
