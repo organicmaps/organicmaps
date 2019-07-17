@@ -12,7 +12,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -212,8 +211,7 @@ public:
       auto const j = static_cast<uint32_t>(m_ids.select(i));
       Value value;
       bool const ok = Get(j, value);
-      UNUSED_VALUE(ok);
-      ASSERT(ok, ());
+      CHECK(ok, ());
       fn(j, value);
     }
   }

@@ -110,7 +110,6 @@ public:
   static Version const kLatestVersion;
   static size_t const kMagicAndVersionSize;
   static size_t const kHeaderOffset;
-  static std::array<base::GeoObjectId::Type, 3> kTypes;
 
   struct HeaderV0
   {
@@ -219,9 +218,9 @@ public:
   {
     using Type = base::GeoObjectId::Type;
     auto const startPos = base::checked_cast<uint32_t>(sink.Pos());
-    SerializeV0(sink, Type::OsmNode, header.m_nodesOffset, map);
-    SerializeV0(sink, Type::OsmWay, header.m_waysOffset, map);
-    SerializeV0(sink, Type::OsmRelation, header.m_relationsOffset, map);
+    SerializeV0(sink, Type::OsmNode, map, header.m_nodesOffset);
+    SerializeV0(sink, Type::OsmWay, map, header.m_waysOffset);
+    SerializeV0(sink, Type::OsmRelation, map, header.m_relationsOffset);
 
     header.m_numEntries = static_cast<uint32_t>(map.Size());
 
@@ -232,8 +231,8 @@ public:
   }
 
   template <typename Sink>
-  static void SerializeV0(Sink & sink, base::GeoObjectId::Type type, uint32_t & offset,
-                          FeatureIdToGeoObjectIdBimapMem const & map)
+  static void SerializeV0(Sink & sink, base::GeoObjectId::Type type,
+                          FeatureIdToGeoObjectIdBimapMem const & map, uint32_t & offset)
   {
     offset = base::checked_cast<uint32_t>(sink.Pos());
     std::vector<std::pair<uint32_t, base::GeoObjectId>> entries;
