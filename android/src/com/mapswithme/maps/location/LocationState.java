@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,6 +12,12 @@ public final class LocationState
   {
     @SuppressWarnings("unused")
     void onMyPositionModeChanged(int newMode);
+  }
+
+  interface LocationPendingTimeoutListener
+  {
+    @SuppressWarnings("unused")
+    void onLocationPendingTimeout();
   }
 
   @Retention(RetentionPolicy.SOURCE)
@@ -30,6 +37,10 @@ public final class LocationState
 
   static native void nativeSetListener(ModeChangeListener listener);
   static native void nativeRemoveListener();
+
+  static native void nativeSetLocationPendingTimeoutListener(
+      @NonNull LocationPendingTimeoutListener listener);
+  static native void nativeRemoveLocationPendingTimeoutListener();
 
   private LocationState() {}
 

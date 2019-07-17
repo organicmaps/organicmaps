@@ -2205,12 +2205,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (!LocationHelper.INSTANCE.isActive())
         LocationHelper.INSTANCE.start();
+      LocationHelper.INSTANCE.switchToNextMode();
     };
 
     new AlertDialog.Builder(this)
         .setMessage(message)
         .setNegativeButton(R.string.current_location_unknown_stop_button, stopClickListener)
         .setPositiveButton(R.string.current_location_unknown_continue_button, continueClickListener)
+        .setCancelable(false)
         .show();
   }
 
