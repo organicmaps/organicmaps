@@ -23,7 +23,8 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
   gen::Accumulator<std::pair<base::GeoObjectId, uint32_t>> osmIdsToFeatureIds;
   for (; lineIter; ++lineIter)
   {
-    strings::SimpleTokenizer idIter(*lineIter, ", \t" /* id delimiters */);
+    auto const & line = *lineIter;
+    strings::SimpleTokenizer idIter(line, ", \t" /* id delimiters */);
     uint64_t osmId = 0;
     TEST(idIter, ());
     TEST(strings::to_uint64(*idIter, osmId), ("Cannot convert to uint64_t:", *idIter));
