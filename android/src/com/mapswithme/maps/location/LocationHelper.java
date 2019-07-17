@@ -20,6 +20,7 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.PushwooshHelper;
 
 public enum LocationHelper
 {
@@ -528,6 +529,7 @@ public enum LocationHelper
 
     if (mLocationProvider.isActive())
     {
+      PushwooshHelper.startLocationTracking();
       if (!mInFirstRun && getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         switchToNextMode();
     }
@@ -553,6 +555,7 @@ public enum LocationHelper
     //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
+    PushwooshHelper.stopLocationTracking();
   }
 
   /**
