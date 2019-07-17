@@ -67,18 +67,16 @@ public:
   template <typename F, typename... Args>
   auto Submit(F && func, Args &&... args) -> std::future<decltype(func(args...))>
   {
-    {
-      std::unique_lock<std::mutex> lock(m_mutex);
-      if (m_done)
-        return {};
-    }
     using ResultType = decltype(func(args...));
     std::packaged_task<ResultType()> task(std::bind(std::forward<F>(func),
                                                     std::forward<Args>(args)...));
     std::future<ResultType> result(task.get_future());
     {
       std::unique_lock<std::mutex> lock(m_mutex);
-      m_queue.emplace(std::move(task));
+      if (m_done)
+        return {};
+
+     m_queue.emplace(std::move(task));
     }
     m_condition.notify_one();
     return result;
@@ -91,12 +89,13 @@ public:
   template <typename F, typename... Args>
   void SubmitWork(F && func, Args &&... args)
   {
+    auto f = std::bind(std::forward<F>(func), std::forward<Args>(args)...);
     {
       std::unique_lock<std::mutex> lock(m_mutex);
       if (m_done)
         return;
 
-      m_queue.emplace(std::bind(std::forward<F>(func), std::forward<Args>(args)...));
+      m_queue.emplace(std::move(f));
     }
     m_condition.notify_one();
   }
