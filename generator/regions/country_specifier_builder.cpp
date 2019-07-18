@@ -4,7 +4,7 @@ namespace generator
 {
 namespace regions
 {
-std::unique_ptr<CountrySpecifier> CountrySpecifierBuilder::GetCountrySpecifier(
+std::unique_ptr<CountrySpecifier> CountrySpecifierBuilder::MakeCountrySpecifier(
 std::string const & country) const
 {
   auto it = m_specifiers.find(country);

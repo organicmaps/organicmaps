@@ -19,7 +19,9 @@ public:
     static CountrySpecifierBuilder instance;
     return instance;
   }
-  std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & country) const;
+
+  std::unique_ptr<CountrySpecifier> MakeCountrySpecifier(std::string const & country) const;
+
   template <class T>
   void Register()
   {

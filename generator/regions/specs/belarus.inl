@@ -1,12 +1,10 @@
-#include "generator/place_node.hpp"
-
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/country_specifier.hpp"
-#include "generator/regions/region.hpp"
 #include "generator/regions/country_specifier_builder.hpp"
+#include "generator/regions/region.hpp"
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace generator
 {
@@ -14,7 +12,6 @@ namespace regions
 {
 namespace specs
 {
-
 class BelarusSpecifier final : public CountrySpecifier
 {
 public:

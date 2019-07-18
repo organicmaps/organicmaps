@@ -296,7 +296,7 @@ Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) cons
   };
   std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
 
-  auto countrySpecifier = CountrySpecifierBuilder::GetInstance().GetCountrySpecifier(countryName);
+  auto countrySpecifier = CountrySpecifierBuilder::GetInstance().MakeCountrySpecifier(countryName);
   auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
 
   PlacePointsIntegrator pointsIntegrator{m_placePointsMap, *countrySpecifier};

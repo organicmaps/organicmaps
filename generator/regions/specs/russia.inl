@@ -1,9 +1,10 @@
+#include "generator/place_node.hpp"
 #include "generator/regions/country_specifier_builder.hpp"
 
 #include "base/stl_helpers.hpp"
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace generator
 {
@@ -11,10 +12,9 @@ namespace regions
 {
 namespace specs
 {
-
 class RussiaSpecifier final : public CountrySpecifier
 {
- public:
+public:
   static std::vector<std::string> GetCountryNames()
   {
     return {"Russia", u8"Россия", u8"Российская Федерация", u8"РФ"};
@@ -23,7 +23,7 @@ class RussiaSpecifier final : public CountrySpecifier
   // CountrySpecifier overrides:
   void AdjustRegionsLevel(Node::PtrList & outers) override;
 
- private:
+private:
   // CountrySpecifier overrides:
   PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
 
@@ -39,6 +39,8 @@ class RussiaSpecifier final : public CountrySpecifier
   bool m_moscowRegionWasProcessed{false};
   bool m_moscowCityWasProcessed{false};
 };
+
+REGISTER_COUNTRY_SPECIFIER(RussiaSpecifier);
 
 void RussiaSpecifier::AdjustRegionsLevel(Node::PtrList & outers)
 {
@@ -150,8 +152,6 @@ void RussiaSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
   for (auto & subtree : tree->GetChildren())
     MarkAllSuburbsToSublocalities(subtree);
 }
-
-REGISTER_COUNTRY_SPECIFIER(RussiaSpecifier);
 
 PlaceLevel RussiaSpecifier::GetSpecificCountryLevel(Region const & region) const
 {
