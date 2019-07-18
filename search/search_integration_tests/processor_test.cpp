@@ -1900,15 +1900,19 @@ UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
 
   {
     auto request = MakeRequest("cafe лермонтово ");
-    auto const & results = request->Results();
+    auto results = request->Results();
 
     Rules rules{ExactMatch(wonderlandId, cafe), ExactMatch(wonderlandId, lermontov)};
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(2, results.size(), ("Unexpected number of retrieved cafes."));
-    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, lermontov)}), ());
-    TEST(!results[0].GetRankingInfo().m_exactMatch, ());
-    TEST(results[1].GetRankingInfo().m_exactMatch, ());
+    if (!ResultsMatch({results[0]}, {ExactMatch(wonderlandId, cafe)}))
+      swap(results[0], results[1]);
+
+    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, cafe)}), ());
+    TEST(ResultsMatch({results[1]}, {ExactMatch(wonderlandId, lermontov)}), ());
+    TEST(results[0].GetRankingInfo().m_exactMatch, ());
+    TEST(!results[1].GetRankingInfo().m_exactMatch, ());
   }
 
   {
