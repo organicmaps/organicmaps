@@ -21,4 +21,10 @@ Java_com_mapswithme_util_statistics_PushwooshHelper_nativeSendEditorEditObjectTa
 {
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorEditDiscovered);
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_statistics_PushwooshHelper_nativeGetFormattedTimestamp(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().GetMarketingService().GetPushWooshTimestamp());
+}
 } // extern "C"

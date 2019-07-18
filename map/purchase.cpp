@@ -162,6 +162,14 @@ void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
 
   for (auto & listener : m_listeners)
     listener->OnSubscriptionChanged(type, isEnabled);
+
+  if (type == SubscriptionType::BookmarkCatalog)
+  {
+    auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
+    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
+      marketing::kBookmarkCatalogSubscriptionEnabled :
+      marketing::kBookmarkCatalogSubscriptionDisabled, nowStr);
+  }
 }
 
 void Purchase::Validate(ValidationInfo const & validationInfo, std::string const & accessToken)

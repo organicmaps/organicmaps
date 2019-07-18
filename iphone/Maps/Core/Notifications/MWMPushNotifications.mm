@@ -5,6 +5,9 @@
 #import "MWMCommon.h"
 #import "Statistics.h"
 
+#include "platform/marketing_service.hpp"
+#include "platform/platform.hpp"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
@@ -90,6 +93,10 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   [[PushNotificationManager pushManager].notificationCenterDelegate userNotificationCenter:center
                                                             didReceiveNotificationResponse:response
                                                                      withCompletionHandler:completionHandler];
+}
+
++ (NSString *)formattedTimestamp {
+  return @(GetPlatform().GetMarketingService().GetPushWooshTimestamp().c_str());
 }
 
 @end

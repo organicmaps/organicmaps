@@ -827,11 +827,9 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
     {
       GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloaded,
                                                            countryId);
-      char nowStr[18]{};
-      tm now = base::GmTime(time(nullptr));
-      strftime(nowStr, sizeof(nowStr), "%Y-%m-%d %H:%M", &now);
+      auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
       GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloadedTimestamp,
-                                                           std::string(nowStr));
+                                                           nowStr);
     }
   }
 

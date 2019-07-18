@@ -402,6 +402,7 @@ private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
   } else {
     pushManager!.setTags(["Bookmarks_Guides_paid_tier": categoryInfo.productId!]);
     pushManager!.setTags(["Bookmarks_Guides_paid_title": categoryInfo.name]);
+    pushManager!.setTags(["Bookmarks_Guides_paid_date": MWMPushNotifications.formattedTimestamp()]);
   }
 }
 

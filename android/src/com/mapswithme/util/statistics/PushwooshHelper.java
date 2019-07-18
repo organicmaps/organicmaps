@@ -52,4 +52,5 @@ public final class PushwooshHelper
   public static native void nativeProcessFirstLaunch();
   public static native void nativeSendEditorAddObjectTag();
   public static native void nativeSendEditorEditObjectTag();
+  public static native @NonNull String nativeGetFormattedTimestamp();
 }

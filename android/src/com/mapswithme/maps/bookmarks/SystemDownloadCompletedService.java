@@ -19,6 +19,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.PushwooshHelper;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -164,6 +165,8 @@ public class SystemDownloadCompletedService extends JobIntentService
     {
       app.sendPushWooshTags("Bookmarks_Guides_paid_tier", new String[] {productId});
       app.sendPushWooshTags("Bookmarks_Guides_paid_title", new String[] {name});
+      app.sendPushWooshTags("Bookmarks_Guides_paid_date",
+          new String[] {PushwooshHelper.nativeGetFormattedTimestamp()});
     }
   }
 
