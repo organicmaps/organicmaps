@@ -2163,5 +2163,49 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefixMatch)
     TEST(ResultsMatch("Yesenina cafe", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet bolshaya({m2::PointD(0.5, -0.5), m2::PointD(-0.5, 0.5)}, "большая дмитровка", "ru");
+  TestCafe bolnaya(m2::PointD(0.0, 0.0), "больная дмитровка", "ru");
+  TestStreet sw({m2::PointD(0.5, -0.5), m2::PointD(0.5, 0.5)}, "southwest street", "en");
+  TestStreet se({m2::PointD(-0.5, -0.5), m2::PointD(-0.5, 0.5)}, "southeast street", "en");
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(bolshaya);
+    builder.Add(bolnaya);
+    builder.Add(sw);
+    builder.Add(se);
+  });
+
+  {
+    Rules rules = {ExactMatch(wonderlandId, bolshaya), ExactMatch(wonderlandId, bolnaya)};
+    TEST(ResultsMatch("большая дмитровка", rules), ());
+    TEST(ResultsMatch("больная дмитровка", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(wonderlandId, bolshaya)};
+    // "б" is a synonym for "большая" but not for "больная".
+    TEST(ResultsMatch("б дмитровка", rules), ());
+  }
+  {
+    // "southeast" and "southwest" len is 9 and Levenstein distance is 2.
+    Rules rules = {ExactMatch(wonderlandId, sw), ExactMatch(wonderlandId, se)};
+    TEST(ResultsMatch("southeast street", rules), ());
+    TEST(ResultsMatch("southwest street", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(wonderlandId, sw)};
+    // "sw" is a synonym for "southwest" but not for "southeast".
+    TEST(ResultsMatch("sw street", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(wonderlandId, se)};
+    // "se" is a synonym for "southeast" but not for "southwest".
+    TEST(ResultsMatch("se street", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
