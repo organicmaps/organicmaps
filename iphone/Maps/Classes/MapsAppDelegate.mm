@@ -835,21 +835,21 @@ didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
            toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService setupWithWindow:window
                    interfaceController:interfaceController];
-  [self updateVisualScaleFromWindow:self.window
-                           toWindow:window
-                 isCarplayActivated:YES];
+  [self updateAppearanceFromWindow:self.window
+                          toWindow:window
+                isCarplayActivated:YES];
 }
 
 - (void)application:(UIApplication *)application
 didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
          fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService destroy];
-  [self updateVisualScaleFromWindow:window
-                           toWindow:self.window
-                 isCarplayActivated:NO];
+  [self updateAppearanceFromWindow:window
+                          toWindow:self.window
+                isCarplayActivated:NO];
 }
 
-- (void)updateVisualScaleFromWindow:(UIWindow *)sourceWindow
+- (void)updateAppearanceFromWindow:(UIWindow *)sourceWindow
                           toWindow:(UIWindow *)destinationWindow
                 isCarplayActivated:(BOOL)isCarplayActivated {
   CGFloat sourceContentScale = sourceWindow.screen.nativeScale;
@@ -861,6 +861,8 @@ didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
       [self updateVisualScaleToMain];
     }
   }
+
+  GetFramework().UpdateMyPositionRoutingOffset(!isCarplayActivated, 0);
 }
 
 - (void)updateVisualScale:(CGFloat)scale {
