@@ -36,36 +36,34 @@ public:
     void AddSynonym(std::string const & s);
     void AddSynonym(String const & s);
 
-    // Calls |fn| on the original token and on synonyms.
     template <typename Fn>
     std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value> ForEachSynonym(
         Fn && fn) const
     {
-      fn(m_original);
       std::for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
-    // Calls |fn| on the original token and on synonyms until |fn| return false.
     template <typename Fn>
-    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value> ForEachSynonym(
-        Fn && fn) const
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value>
+    ForOriginalAndSynonyms(Fn && fn) const
     {
-      if (!fn(m_original))
-        return;
-      for (auto const & synonym : m_synonyms)
-      {
-        if (!fn(synonym))
-          return;
-      }
+      fn(m_original);
+      ForEachSynonym(std::forward<Fn>(fn));
     }
 
     template <typename Fn>
     std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value, bool> AnyOfSynonyms(
         Fn && fn) const
     {
+      return std::any_of(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
+    }
+
+    template <typename Fn>
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value, bool>
+    AnyOfOriginalOrSynonyms(Fn && fn) const
+    {
       if (fn(m_original))
         return true;
-
       return std::any_of(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 

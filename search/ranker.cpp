@@ -159,11 +159,7 @@ pair<ErrorsMade, size_t> MatchTokenRange(FeatureType & ft, Geocoder::Params cons
 
   for (auto const token : range)
   {
-    ErrorsMade tokenErrors;
-    params.GetToken(token).ForEachSynonym([&](strings::UniString const & s) {
-      tokenErrors = ErrorsMade::Max(tokenErrors, ErrorsMade{GetMaxErrorsForToken(s)});
-    });
-    errorsMade += tokenErrors;
+    errorsMade += ErrorsMade{GetMaxErrorsForToken(params.GetToken(token).GetOriginal())};
     matchedLength += params.GetToken(token).GetOriginal().size();
   }
 

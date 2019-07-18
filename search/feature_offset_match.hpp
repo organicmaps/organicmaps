@@ -334,7 +334,7 @@ void MatchPostcodesInTrie(TokenSlice const & slice, trie::Iterator<ValueList> co
     // 2. For prefix match query like "streetname 40" where |streetname| is located in 40xxx
     // postcode zone will give all street vicinity as the result which is wrong.
     std::vector<UniStringDFA> dfas;
-    slice.Get(i).ForEachSynonym([&dfas](UniString const & s) { dfas.emplace_back(s); });
+    slice.Get(i).ForOriginalAndSynonyms([&dfas](UniString const & s) { dfas.emplace_back(s); });
     MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
 
     intersector.NextStep();

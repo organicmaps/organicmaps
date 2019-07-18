@@ -22,6 +22,8 @@
 using namespace std;
 using namespace strings;
 
+using PrefixDFA = PrefixDFAModifier<LevenshteinDFA>;
+
 namespace search
 {
 namespace
@@ -30,7 +32,7 @@ class IdfMapDelegate : public IdfMap::Delegate
 {
 public:
   IdfMapDelegate(vector<pair<LevenshteinDFA, uint64_t>> const & tokensToDf,
-                 vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> const & prefixToDf)
+                 vector<pair<PrefixDFA, uint64_t>> const & prefixToDf)
     : m_tokensToDf(tokensToDf), m_prefixToDf(prefixToDf)
   {
   }
@@ -63,7 +65,7 @@ public:
 
 private:
   vector<pair<LevenshteinDFA, uint64_t>> const & m_tokensToDf;
-  vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> const & m_prefixToDf;
+  vector<pair<PrefixDFA, uint64_t>> const & m_prefixToDf;
 };
 }  // namespace
 
@@ -94,7 +96,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
 
   vector<Retrieval::ExtendedFeatures> intersections(ctx.m_numTokens);
   vector<pair<LevenshteinDFA, uint64_t>> tokensToDf;
-  vector<pair<PrefixDFAModifier<LevenshteinDFA>, uint64_t>> prefixToDf;
+  vector<pair<PrefixDFA, uint64_t>> prefixToDf;
   bool const havePrefix = ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix();
   size_t const nonPrefixTokens = havePrefix ? ctx.m_numTokens - 1 : ctx.m_numTokens;
   for (size_t i = 0; i < nonPrefixTokens; ++i)
@@ -103,8 +105,10 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     auto const df = intersections.back().m_features.PopCount();
     if (df != 0)
     {
-      m_params.GetToken(i).ForEachSynonym([&tokensToDf, &df](UniString const & s) {
-        tokensToDf.emplace_back(BuildLevenshteinDFA(s), df);
+      auto const & token = m_params.GetToken(i);
+      tokensToDf.emplace_back(BuildLevenshteinDFA(token.GetOriginal()), df);
+      token.ForEachSynonym([&tokensToDf, &df](UniString const & s) {
+        tokensToDf.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */), df);
       });
     }
   }
@@ -116,9 +120,10 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     auto const prefixDf = intersections.back().m_features.PopCount();
     if (prefixDf != 0)
     {
-      m_params.GetToken(count).ForEachSynonym([&prefixToDf, &prefixDf](UniString const & s) {
-        prefixToDf.emplace_back(PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s)),
-                                prefixDf);
+      auto const & token = m_params.GetToken(count);
+      prefixToDf.emplace_back(PrefixDFA(BuildLevenshteinDFA(token.GetOriginal())), prefixDf);
+      token.ForEachSynonym([&prefixToDf, &prefixDf](UniString const & s) {
+        prefixToDf.emplace_back(PrefixDFA(strings::LevenshteinDFA(s, 0 /* maxErrors */)), prefixDf);
       });
     }
   }

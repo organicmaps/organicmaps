@@ -71,32 +71,30 @@ namespace impl
 {
 ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
 {
-  ErrorsMade errorsMade;
+  if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return text == s; }))
+    return ErrorsMade(0);
+
   auto const dfa = BuildLevenshteinDFA(text);
+  auto it = dfa.Begin();
+  strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
+  if (it.Accepts())
+    return ErrorsMade(it.ErrorsMade());
 
-  token.ForEachSynonym([&](strings::UniString const & s) {
-    auto it = dfa.Begin();
-    strings::DFAMove(it, s.begin(), s.end());
-    if (it.Accepts())
-      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.ErrorsMade()));
-  });
-
-  return errorsMade;
+  return {};
 }
 
 ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
 {
-  ErrorsMade errorsMade;
+  if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return StartsWith(text, s); }))
+    return ErrorsMade(0);
+
   auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(text));
+  auto it = dfa.Begin();
+  strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
+  if (!it.Rejects())
+    return ErrorsMade(it.PrefixErrorsMade());
 
-  token.ForEachSynonym([&](strings::UniString const & s) {
-    auto it = dfa.Begin();
-    strings::DFAMove(it, s.begin(), s.end());
-    if (!it.Rejects())
-      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.PrefixErrorsMade()));
-  });
-
-  return errorsMade;
+  return {};
 }
 }  // namespace impl
 

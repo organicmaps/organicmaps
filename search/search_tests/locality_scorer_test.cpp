@@ -78,7 +78,7 @@ public:
       bool const isPrefixToken = m_params.IsPrefixToken(i);
 
       vector<uint64_t> ids;
-      token.ForEachSynonym([&](UniString const & synonym) {
+      token.ForOriginalAndSynonyms([&](UniString const & synonym) {
         if (isPrefixToken)
         {
           m_searchIndex.ForEachInSubtree(synonym,

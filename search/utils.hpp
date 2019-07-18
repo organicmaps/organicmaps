@@ -125,4 +125,14 @@ void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> c
 
 // Returns true iff |query| contains |categoryEn| synonym.
 bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryName);
+
+template <typename DFA>
+void FillRequestFromToken(QueryParams::Token const & token, SearchTrieRequest<DFA> & request)
+{
+  request.m_names.emplace_back(BuildLevenshteinDFA(token.GetOriginal()));
+  // Allow misprints for original token only.
+  token.ForEachSynonym([&request](strings::UniString const & s) {
+    request.m_names.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */));
+  });
+}
 }  // namespace search

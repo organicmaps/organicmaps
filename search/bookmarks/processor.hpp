@@ -51,9 +51,7 @@ private:
   void Retrieve(QueryParams::Token const & token, Fn && fn) const
   {
     SearchTrieRequest<DFA> request;
-    token.ForEachSynonym([&request](strings::UniString const & s) {
-      request.m_names.emplace_back(BuildLevenshteinDFA(s));
-    });
+    FillRequestFromToken(token, request);
     request.m_langs.insert(StringUtf8Multilang::kDefaultCode);
 
     MatchFeaturesInTrie(
