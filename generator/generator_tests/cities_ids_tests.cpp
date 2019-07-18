@@ -78,8 +78,11 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
 
   auto const worldMwmPath = testWorldId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
 
-  indexer::FeatureIdToGeoObjectIdBimap bimap(GetDataSource());
-  TEST(bimap.Load(), ());
+  indexer::FeatureIdToGeoObjectIdOneWay oneWayMap(GetDataSource());
+  TEST(oneWayMap.Load(), ());
+
+  indexer::FeatureIdToGeoObjectIdTwoWay twoWayMap(GetDataSource());
+  TEST(twoWayMap.Load(), ());
 
   std::unordered_map<uint32_t, uint64_t> originalMapping;
   CHECK(ParseFeatureIdToTestIdMapping(worldMwmPath, originalMapping), ());
@@ -95,12 +98,13 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
 
       bool const mustExist = ftypes::IsLocalityChecker::Instance()(ft);
 
-      TEST_EQUAL(bimap.GetGeoObjectId(fid, gid), mustExist, (index, ft.GetNames()));
+      TEST_EQUAL(oneWayMap.GetGeoObjectId(fid, gid), mustExist, (index, ft.GetNames()));
+      TEST_EQUAL(twoWayMap.GetGeoObjectId(fid, gid), mustExist, (index, ft.GetNames()));
       if (!mustExist)
         return;
 
       ++numLocalities;
-      TEST_EQUAL(bimap.GetFeatureID(gid, receivedFid), mustExist, (index));
+      TEST_EQUAL(twoWayMap.GetFeatureID(gid, receivedFid), mustExist, (index));
       TEST_EQUAL(receivedFid, fid, ());
 
       CHECK(originalMapping.find(index) != originalMapping.end(), ());

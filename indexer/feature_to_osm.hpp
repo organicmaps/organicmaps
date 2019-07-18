@@ -28,24 +28,23 @@ class DataSource;
 
 namespace indexer
 {
-// An in-memory implementation of the data structure behind the FeatureIdToGeoObjectIdBimap.
+// An in-memory implementation of the data structure that provides a
+// serializable mapping of FeatureIDs to base::GeoObjectIds and back.
 using FeatureIdToGeoObjectIdBimapMem = base::BidirectionalMap<uint32_t, base::GeoObjectId>;
 
-// A serializable bidirectional read-only map of FeatureIds from a single
+// A unidirectional read-only map of FeatureIds from a single
 // mwm of a fixed version to GeoObjectIds.
 // Currently, only World.mwm of the latest version is supported.
-class FeatureIdToGeoObjectIdBimap
+class FeatureIdToGeoObjectIdOneWay
 {
 public:
   friend class FeatureIdToGeoObjectIdSerDes;
 
-  explicit FeatureIdToGeoObjectIdBimap(DataSource const & dataSource);
+  explicit FeatureIdToGeoObjectIdOneWay(DataSource const & dataSource);
 
   bool Load();
 
   bool GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id);
-
-  bool GetFeatureID(base::GeoObjectId const & id, FeatureID & fid);
 
   template <typename Fn>
   void ForEachEntry(Fn && fn) const
@@ -75,8 +74,6 @@ private:
   MwmSet::MwmId m_mwmId;
   FilesContainerR::TReader m_reader;
 
-  std::unique_ptr<FeatureIdToGeoObjectIdBimapMem> m_memAll;
-
   std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapNodes;
   std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapWays;
   std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapRelations;
@@ -84,6 +81,39 @@ private:
   std::unique_ptr<Reader> m_nodesReader;
   std::unique_ptr<Reader> m_waysReader;
   std::unique_ptr<Reader> m_relationsReader;
+};
+
+// A bidirectional read-only map of FeatureIds from a single
+// mwm of a fixed version to GeoObjectIds.
+// Currently, only World.mwm of the latest version is supported.
+// This class will likely be much heavier on RAM than FeatureIdToGeoObjectIdOneWay.
+class FeatureIdToGeoObjectIdTwoWay
+{
+public:
+  friend class FeatureIdToGeoObjectIdSerDes;
+
+  explicit FeatureIdToGeoObjectIdTwoWay(DataSource const & dataSource);
+
+  bool Load();
+
+  bool GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id);
+
+  bool GetFeatureID(base::GeoObjectId const & id, FeatureID & fid);
+
+  template <typename Fn>
+  void ForEachEntry(Fn && fn) const
+  {
+    if (!m_mwmId.IsAlive())
+      return;
+
+    m_map.ForEachEntry(std::forward<Fn>(fn));
+  }
+
+private:
+  DataSource const & m_dataSource;
+  MwmSet::MwmId m_mwmId;
+
+  FeatureIdToGeoObjectIdBimapMem m_map;
 };
 
 // Section format.
@@ -238,7 +268,7 @@ public:
     std::vector<std::pair<uint32_t, base::GeoObjectId>> entries;
     entries.reserve(map.Size());
     type = NormalizedType(type);
-    map.ForEachEntry([&sink, &entries, type](uint32_t const fid, base::GeoObjectId gid) {
+    map.ForEachEntry([&entries, type](uint32_t const fid, base::GeoObjectId gid) {
       if (NormalizedType(gid.GetType()) == type)
         entries.emplace_back(fid, gid);
     });
@@ -257,7 +287,7 @@ public:
 
   template <typename Reader>
   static void DeserializeV0(Reader & reader, HeaderV0 const & header,
-                            FeatureIdToGeoObjectIdBimap & map)
+                            FeatureIdToGeoObjectIdOneWay & map)
   {
     auto const nodesSize = header.m_waysOffset - header.m_nodesOffset;
     auto const waysSize = header.m_relationsOffset - header.m_waysOffset;

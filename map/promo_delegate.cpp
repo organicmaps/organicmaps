@@ -29,7 +29,7 @@ std::string PromoDelegate::GetCityId(m2::PointD const & point)
 
   if (!m_cities)
   {
-    m_cities = std::make_unique<indexer::FeatureIdToGeoObjectIdBimap>(m_dataSource);
+    m_cities = std::make_unique<indexer::FeatureIdToGeoObjectIdOneWay>(m_dataSource);
     m_cities->Load();
   }
 

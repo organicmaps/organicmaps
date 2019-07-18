@@ -12,12 +12,13 @@
 
 namespace indexer
 {
-FeatureIdToGeoObjectIdBimap::FeatureIdToGeoObjectIdBimap(DataSource const & dataSource)
+// FeatureIdToGeoObjectIdOneWay --------------------------------------------------------------------
+FeatureIdToGeoObjectIdOneWay::FeatureIdToGeoObjectIdOneWay(DataSource const & dataSource)
   : m_dataSource(dataSource), m_reader(std::unique_ptr<ModelReader>())
 {
 }
 
-bool FeatureIdToGeoObjectIdBimap::Load()
+bool FeatureIdToGeoObjectIdOneWay::Load()
 {
   auto const handle = indexer::FindWorld(m_dataSource);
   if (!handle.IsAlive())
@@ -58,16 +59,13 @@ bool FeatureIdToGeoObjectIdBimap::Load()
   return false;
 }
 
-bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id)
+bool FeatureIdToGeoObjectIdOneWay::GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id)
 {
   if (fid.m_mwmId != m_mwmId)
   {
     LOG(LERROR, ("Wrong mwm: feature has", fid.m_mwmId, "expected:", m_mwmId));
     return false;
   }
-
-  if (m_memAll != nullptr)
-    return m_memAll->GetValue(fid.m_index, id);
 
   if (m_mapNodes == nullptr || m_mapWays == nullptr || m_mapRelations == nullptr)
     return false;
@@ -94,33 +92,74 @@ bool FeatureIdToGeoObjectIdBimap::GetGeoObjectId(FeatureID const & fid, base::Ge
   return false;
 }
 
-bool FeatureIdToGeoObjectIdBimap::GetFeatureID(base::GeoObjectId const & id, FeatureID & fid)
+// FeatureIdToGeoObjectIdTwoWay --------------------------------------------------------------------
+FeatureIdToGeoObjectIdTwoWay::FeatureIdToGeoObjectIdTwoWay(DataSource const & dataSource)
+  : m_dataSource(dataSource)
 {
-  LOG(LWARNING, ("Getting GeoObjectId by FeatureId uses a lot of RAM in current implementation"));
+}
 
-  if (!m_mwmId.IsAlive())
-    return false;
-
-  if (m_memAll == nullptr)
+bool FeatureIdToGeoObjectIdTwoWay::Load()
+{
+  auto const handle = indexer::FindWorld(m_dataSource);
+  if (!handle.IsAlive())
   {
-    m_memAll = std::make_unique<FeatureIdToGeoObjectIdBimapMem>();
-    bool const success = FeatureIdToGeoObjectIdSerDes::Deserialize(*m_reader.GetPtr(), *m_memAll);
-    if (!success)
-    {
-      m_memAll.reset();
-      LOG(LERROR, ("Could not deserialize the FeatureId to OsmId mapping into memory."));
-      return false;
-    }
+    LOG(LWARNING, ("Can't find World map file."));
+    return false;
   }
 
-  uint32_t index;
-  if (!m_memAll->GetKey(id, index))
-    return false;
+  if (handle.GetId() == m_mwmId)
+    return true;
 
+  auto const & cont = handle.GetValue<MwmValue>()->m_cont;
+
+  if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
+  {
+    LOG(LWARNING, ("No cities fid bimap in the world map."));
+    return false;
+  }
+
+  bool success = false;
+  try
+  {
+    FilesContainerR::TReader const reader = cont.GetReader(FEATURE_TO_OSM_FILE_TAG);
+    success = FeatureIdToGeoObjectIdSerDes::Deserialize(*reader.GetPtr(), m_map);
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Can't read cities fid bimap from the world map:", e.Msg()));
+    return false;
+  }
+
+  if (success)
+  {
+    m_mwmId = handle.GetId();
+    return true;
+  }
+
+  return false;
+}
+
+bool FeatureIdToGeoObjectIdTwoWay::GetGeoObjectId(FeatureID const & fid, base::GeoObjectId & id)
+{
+  if (fid.m_mwmId != m_mwmId)
+  {
+    LOG(LERROR, ("Wrong mwm: feature has", fid.m_mwmId, "expected:", m_mwmId));
+    return false;
+  }
+
+  return m_map.GetValue(fid.m_index, id);
+}
+
+bool FeatureIdToGeoObjectIdTwoWay::GetFeatureID(base::GeoObjectId const & id, FeatureID & fid)
+{
+  uint32_t index;
+  if (!m_map.GetKey(id, index))
+    return false;
   fid = FeatureID(m_mwmId, index);
   return true;
 }
 
+// FeatureIdToGeoObjectIdSerDes --------------------------------------------------------------------
 // static
 std::string const FeatureIdToGeoObjectIdSerDes::kHeaderMagic = "mwmftosm";
 FeatureIdToGeoObjectIdSerDes::Version const FeatureIdToGeoObjectIdSerDes::kLatestVersion =

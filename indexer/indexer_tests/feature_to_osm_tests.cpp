@@ -40,14 +40,14 @@ Entries GetEntries(Cont const & cont)
   return res;
 };
 
-class FeatureIdToGeoObjectIdBimapTest : public TestWithCustomMwms
+class FeatureIdToGeoObjectIdTest : public TestWithCustomMwms
 {
 public:
   DataSource const & GetDataSource() const { return m_dataSource; }
 };
 }  // namespace
 
-UNIT_CLASS_TEST(FeatureIdToGeoObjectIdBimapTest, Smoke)
+UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
 {
   Entries const kEntries = {
       {0, base::MakeOsmNode(123)},
@@ -80,25 +80,33 @@ UNIT_CLASS_TEST(FeatureIdToGeoObjectIdBimapTest, Smoke)
     FeatureIdToGeoObjectIdSerDes::Deserialize(reader, deserMem);
   }
 
-  indexer::FeatureIdToGeoObjectIdBimap deserM(GetDataSource());
-  TEST(deserM.Load(), ());
+  indexer::FeatureIdToGeoObjectIdOneWay deserOneWay(GetDataSource());
+  TEST(deserOneWay.Load(), ());
+
+  indexer::FeatureIdToGeoObjectIdTwoWay deserTwoWay(GetDataSource());
+  TEST(deserTwoWay.Load(), ());
 
   Entries actualEntriesMem = GetEntries(deserMem);
-  Entries actualEntries = GetEntries(deserM);
+  Entries actualEntriesOneWay = GetEntries(deserOneWay);
+  Entries actualEntriesTwoWay = GetEntries(deserTwoWay);
   TEST_EQUAL(kEntries, actualEntriesMem, ());
-  TEST_EQUAL(kEntries, actualEntries, ());
+  TEST_EQUAL(kEntries, actualEntriesOneWay, ());
+  TEST_EQUAL(kEntries, actualEntriesTwoWay, ());
 
   for (auto const & entry : kEntries)
   {
     base::GeoObjectId gid;
-    TEST(deserM.GetGeoObjectId(FeatureID(testWorldId, entry.first), gid), ());
+    TEST(deserOneWay.GetGeoObjectId(FeatureID(testWorldId, entry.first), gid), ());
+    TEST_EQUAL(entry.second, gid, ());
+
+    TEST(deserTwoWay.GetGeoObjectId(FeatureID(testWorldId, entry.first), gid), ());
     TEST_EQUAL(entry.second, gid, ());
   }
 
   for (auto const & entry : kEntries)
   {
     FeatureID fid;
-    TEST(deserM.GetFeatureID(entry.second, fid), ());
+    TEST(deserTwoWay.GetFeatureID(entry.second, fid), ());
     TEST_EQUAL(entry.first, fid.m_index, ());
   }
 }

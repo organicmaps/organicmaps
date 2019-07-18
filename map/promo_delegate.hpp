@@ -26,5 +26,6 @@ public:
 private:
   DataSource const & m_dataSource;
   search::CityFinder & m_cityFinder;
-  std::unique_ptr<indexer::FeatureIdToGeoObjectIdBimap> m_cities;
+  // todo(@a, @m) Drop the unique_ptr and add an IsLoaded() method?
+  std::unique_ptr<indexer::FeatureIdToGeoObjectIdOneWay> m_cities;
 };
