@@ -3,7 +3,6 @@
 #include "generator/regions/admin_suburbs_marker.hpp"
 #include "generator/regions/country_specifier_builder.hpp"
 #include "generator/regions/place_points_integrator.hpp"
-#include "generator/regions/specs/russia.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -297,7 +296,7 @@ Node::PtrList RegionsBuilder::BuildCountry(std::string const & countryName) cons
   };
   std::copy_if(std::begin(countries), std::end(countries), std::back_inserter(outers), pred);
 
-  auto countrySpecifier = CountrySpecifierBuilder::GetCountrySpecifier(countryName);
+  auto countrySpecifier = CountrySpecifierBuilder::GetInstance().GetCountrySpecifier(countryName);
   auto countryTrees = BuildCountryRegionTrees(outers, *countrySpecifier);
 
   PlacePointsIntegrator pointsIntegrator{m_placePointsMap, *countrySpecifier};

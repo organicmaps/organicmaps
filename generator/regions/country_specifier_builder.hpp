@@ -14,39 +14,40 @@ namespace regions
 class CountrySpecifierBuilder
 {
 public:
+  static CountrySpecifierBuilder & GetInstance()
+  {
+    static CountrySpecifierBuilder instance;
+    return instance;
+  }
+  std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & country) const;
   template <class T>
-  void static Register()
+  void Register()
   {
     for (std::string name : T::GetCountryNames())
       m_specifiers.emplace(std::make_pair(std::move(name), []() { return std::make_unique<T>(); }));
   }
 
-  static std::unique_ptr<CountrySpecifier> GetCountrySpecifier(std::string const & country)
-  {
-    auto it = m_specifiers.find(country);
-    if (it == m_specifiers.end())
-    {
-      LOG(LWARNING, ("Country", country, "has not specifier, look at generator/regions/specs"));
-      return std::make_unique<CountrySpecifier>();
-    }
-
-    return it->second();
-  }
-
 private:
-  static std::unordered_map<std::string, std::function<std::unique_ptr<CountrySpecifier>(void)>>
+  CountrySpecifierBuilder() = default;
+  CountrySpecifierBuilder(const CountrySpecifierBuilder&) = delete;
+  CountrySpecifierBuilder& operator=(const CountrySpecifierBuilder&) = delete;
+  CountrySpecifierBuilder(CountrySpecifierBuilder&&) = delete;
+  CountrySpecifierBuilder& operator=(CountrySpecifierBuilder&&) = delete;
+
+  std::unordered_map<std::string, std::function<std::unique_ptr<CountrySpecifier>(void)>>
       m_specifiers;
-  static std::set<std::string> kCountriesWithoutSpecifier;
-  static std::set<std::string> kCountriesWithSpecifier;
-  static std::mutex kMutex;
 };
 
 #define REGISTER_COUNTRY_SPECIFIER(Specifier)                                                   \
-  struct REGISTER_COUNTRY_SPECIFIER##Specifier                                                  \
+  struct COUNTRY_SPECIFIER_##Specifier                                                          \
   {                                                                                             \
-    REGISTER_COUNTRY_SPECIFIER##Specifier() { CountrySpecifierBuilder::Register<Specifier>(); } \
+    COUNTRY_SPECIFIER_##Specifier()                                                    \
+    {                                                                                           \
+      CountrySpecifierBuilder::GetInstance().Register<Specifier>();                             \
+    }                                                                                           \
   };                                                                                            \
-  static REGISTER_COUNTRY_SPECIFIER##Specifier a;
+  static COUNTRY_SPECIFIER_##Specifier STATIC_VAR_COUNTRY_SPECIFIER_##Specifier;
+
 
 }  // namespace regions
 }  // namespace generator

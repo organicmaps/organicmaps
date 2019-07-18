@@ -89,6 +89,7 @@ omim_link_libraries(
   opening_hours
   stb_image
   sdf_image
+  ugc
   vulkan_wrapper
   # TODO(syershov): Use FindPackage.
   sqlite3
@@ -101,5 +102,3 @@ if (PLATFORM_LINUX)
     dl
   )
 endif()
-
-link_qt5_core(${PROJECT_NAME})

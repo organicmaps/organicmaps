@@ -1,0 +1,44 @@
+#include "generator/place_node.hpp"
+
+#include "generator/regions/collector_region_info.hpp"
+#include "generator/regions/country_specifier.hpp"
+#include "generator/regions/region.hpp"
+#include "generator/regions/country_specifier_builder.hpp"
+
+#include <vector>
+#include <string>
+
+namespace generator
+{
+namespace regions
+{
+namespace specs
+{
+
+class GreeceSpecifier final : public CountrySpecifier
+{
+public:
+  static std::vector<std::string> GetCountryNames() { return {"Greece"}; }
+
+private:
+  // CountrySpecifier overrides:
+  PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
+};
+
+REGISTER_COUNTRY_SPECIFIER(GreeceSpecifier);
+
+PlaceLevel GreeceSpecifier::GetSpecificCountryLevel(Region const & region) const
+{
+  AdminLevel adminLevel = region.GetAdminLevel();
+  switch (adminLevel)
+  {
+  case AdminLevel::Five: return PlaceLevel::Region;  // Όρια Περιφερειών (NUTS 2)
+  case AdminLevel::Six: return PlaceLevel::Subregion;  // Όρια Περιφερειακών ενοτήτων (NUTS 3)
+  default: break;
+  }
+
+  return PlaceLevel::Unknown;
+}
+}  // namespace specs
+}  // namespace regions
+}  // namespace generator
