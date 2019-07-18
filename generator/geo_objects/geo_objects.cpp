@@ -143,7 +143,7 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
   };
 
   auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
-    if (GeoObjectsFilter::HasHouse(fb))
+    if (GeoObjectsFilter::HasHouse(fb) || GeoObjectsFilter::IsPoi(fb))
     {
       concurrentCollect(fb);
       return;
