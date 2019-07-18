@@ -16,32 +16,32 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double constexpr kDistanceToPivot = -0.8175524;
+double constexpr kDistanceToPivot = -0.6874177;
 double constexpr kRank = 1.0000000;
 // todo: (@t.yan) Adjust.
 double constexpr kPopularity = 0.0500000;
 // todo: (@t.yan) Adjust.
 double constexpr kRating = 0.0500000;
-double constexpr kFalseCats = -0.3745520;
-double constexpr kErrorsMade = -0.1090870;
-double constexpr kMatchedFraction = 0.7859737;
-double constexpr kAllTokensUsed = 1.0000000;
+double constexpr kFalseCats = -1.0000000;
+double constexpr kErrorsMade = -0.1676639;
+double constexpr kMatchedFraction = 0.3178023;
+double constexpr kAllTokensUsed = 0.5873744;
 double constexpr kHasName = 0.5;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
-  -0.1752510 /* Zero */,
-  0.0309111 /* Substring */,
-  0.0127291 /* Prefix */,
-  0.1316108 /* Full Match */
+  0.0152243 /* Zero */,
+  -0.0259815 /* Substring */,
+  -0.0287346 /* Prefix */,
+  0.0394918 /* Full Match */
 };
 double constexpr kType[Model::TYPE_COUNT] = {
-  -0.1554708 /* POI */,
-  -0.1554708 /* Building */,
-  -0.1052415 /* Street */,
-  -0.1650949 /* Unclassified */,
-  -0.1556262 /* Village */,
-  0.1771632 /* City */,
-  0.0604687 /* State */,
-  0.3438015 /* Country */
+  -0.2041635 /* POI */,
+  -0.2041635 /* Building */,
+  -0.1595715 /* Street */,
+  -0.1821077 /* Unclassified */,
+  -0.1371902 /* Village */,
+  0.1800898 /* City */,
+  0.2355436 /* State */,
+  0.2673996 /* Country */
 };
 
 // Coeffs sanity checks.
