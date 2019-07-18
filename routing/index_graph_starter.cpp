@@ -348,7 +348,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     {
       auto const backwardSegment = GetReverseSegment(projection.m_segment);
       FakeVertex backwardPartOfReal(
-          projection.m_segment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
+          backwardSegment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
           isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
       Segment fakeBackwardSegment;
       if (!m_fake.FindSegment(backwardPartOfReal, fakeBackwardSegment))

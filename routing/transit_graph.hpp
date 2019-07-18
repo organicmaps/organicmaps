@@ -11,6 +11,8 @@
 #include "transit/transit_graph_data.hpp"
 #include "transit/transit_types.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
+
 #include <cstdint>
 #include <map>
 #include <memory>

@@ -48,7 +48,6 @@ public:
            ("Segment", from, "does not exist in fake graph."));
     ASSERT(m_segmentToVertex.find(to) != m_segmentToVertex.end(),
            ("Segment", to, "does not exist in fake graph."));
-
     m_outgoing[from].insert(to);
     m_ingoing[to].insert(from);
   }
