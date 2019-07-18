@@ -136,9 +136,19 @@ public:
     });
   }
 
-  void Process(FeatureBuilder const & fb)
+  static bool IsPlace(FeatureBuilder const & fb)
   {
+    auto const type = GetPlaceType(fb);
+    return type != ftype::GetEmptyValue()  && !fb.GetName().empty();
+  }
+
+  bool Process(FeatureBuilder const & fb)
+  {
+    if (!IsPlace(fb))
+      return false;
+
     m_processor.TryUpdate(fb);
+    return true;
   }
 
   std::vector<FeatureBuilder> GetFeatures() const
@@ -188,7 +198,7 @@ public:
         FeatureBuilderWriter<MaxAccuracy> writer(fullPath);
         for (size_t i = 0; i < fbs.size(); ++i)
         {
-          if (ftypes::IsCityTownOrVillage(fbs[i].GetTypes()))
+          if (CitiesHelper::IsPlace(fbs[i]))
             cities.emplace_back(std::move(fbs[i]));
           else
             writer.Write(std::move(fbs[i]));
