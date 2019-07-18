@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <string>
+#include <tuple>
 #include <utility>
 
 namespace routing
@@ -32,19 +33,14 @@ public:
 
   bool operator==(FakeVertex const & rhs) const
   {
-    return m_numMwmId == rhs.m_numMwmId && m_from == rhs.m_from && m_to == rhs.m_to &&
-           m_type == rhs.m_type;
+    return std::tie(m_numMwmId, m_from, m_to, m_type) ==
+           std::tie(rhs.m_numMwmId, rhs.m_from, rhs.m_to, rhs.m_type);
   }
 
   bool operator<(FakeVertex const & rhs) const
   {
-    if (m_numMwmId != rhs.m_numMwmId)
-      return m_numMwmId < rhs.m_numMwmId;
-    if (m_from != rhs.m_from)
-      return m_from < rhs.m_from;
-    if (m_to != rhs.m_to)
-      return m_to < rhs.m_to;
-    return m_type < rhs.m_type;
+    return std::tie(m_numMwmId, m_from, m_to, m_type) <
+           std::tie(rhs.m_numMwmId, rhs.m_from, rhs.m_to, rhs.m_type);
   }
 
   Junction const & GetJunctionFrom() const { return m_from; }
