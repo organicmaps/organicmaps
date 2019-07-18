@@ -14,7 +14,7 @@ struct GenerateInfo;
 
 namespace generator
 {
-class CityBoundaryProcessor;
+class PlaceProcessor;
 class CountryMapper;
 class LayerBase;
 // This class is the implementation of EmitterInterface for countries.
@@ -31,7 +31,7 @@ public:
 private:
   void WriteDump();
 
-  std::shared_ptr<CityBoundaryProcessor> m_cityBoundaryProcessor;
+  std::shared_ptr<PlaceProcessor> m_placeProcessor;
   std::shared_ptr<CountryMapper> m_countryMapper;
   std::string m_skippedListFilename;
   std::shared_ptr<LayerBase> m_processingChain;

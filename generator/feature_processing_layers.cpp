@@ -1,11 +1,11 @@
 #include "generator/feature_processing_layers.hpp"
 
-#include "generator/city_boundary_processor.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/emitter_interface.hpp"
+#include "generator/place_processor.hpp"
 #include "generator/type_helper.hpp"
 
 #include "indexer/classificator.hpp"
@@ -83,7 +83,7 @@ std::string LayerBase::GetAsStringRecursive() const
   return m_buffer.str();
 }
 
-RepresentationLayer::RepresentationLayer(std::shared_ptr<CityBoundaryProcessor> processor)
+RepresentationLayer::RepresentationLayer(std::shared_ptr<PlaceProcessor> processor)
   : m_processor(processor) {}
 
 void RepresentationLayer::Handle(FeatureBuilder & feature)
@@ -189,10 +189,10 @@ void PrepareFeatureLayer::Handle(FeatureBuilder & feature)
   LayerBase::Handle(feature);
 }
 
-CityBoundaryLayer::CityBoundaryLayer(std::shared_ptr<CityBoundaryProcessor> processor)
+PlaceLayer::PlaceLayer(std::shared_ptr<PlaceProcessor> processor)
   : m_processor(processor) {}
 
-void CityBoundaryLayer::Handle(FeatureBuilder & feature)
+void PlaceLayer::Handle(FeatureBuilder & feature)
 {
   auto const type = GetPlaceType(feature);
   if (type != ftype::GetEmptyValue() && !feature.GetName().empty())

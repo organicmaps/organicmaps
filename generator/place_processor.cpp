@@ -1,4 +1,4 @@
-#include "generator/city_boundary_processor.hpp"
+#include "generator/place_processor.hpp"
 
 #include "generator/type_helper.hpp"
 
@@ -19,13 +19,13 @@ GetOrCreateBoundariesTable(std::shared_ptr<OsmIdToBoundariesTable> boundariesTab
 }
 }  // namespace
 
-CityBoundaryProcessor::CityBoundaryProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable)
+PlaceProcessor::PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable)
   : m_boundariesTable(GetOrCreateBoundariesTable(boundariesTable))
 {
   ASSERT(m_boundariesTable.get(), ());
 }
 
-void CityBoundaryProcessor::UnionEqualPlacesIds(Place const & place)
+void PlaceProcessor::UnionEqualPlacesIds(Place const & place)
 {
   auto const id = place.GetFeature().GetLastOsmId();
   m_places.ForEachInRect(place.GetLimitRect(), [&](Place const & p) {
@@ -34,7 +34,7 @@ void CityBoundaryProcessor::UnionEqualPlacesIds(Place const & place)
   });
 }
 
-std::vector<FeatureBuilder> CityBoundaryProcessor::GetFeatures() const
+std::vector<FeatureBuilder> PlaceProcessor::GetFeatures() const
 {
   std::vector<FeatureBuilder> result;
   m_places.ForEach([&result](Place const & p) {
@@ -44,7 +44,7 @@ std::vector<FeatureBuilder> CityBoundaryProcessor::GetFeatures() const
   return result;
 }
 
-void CityBoundaryProcessor::Add(FeatureBuilder const & fb)
+void PlaceProcessor::Add(FeatureBuilder const & fb)
 {
   auto const type = GetPlaceType(fb);
   if (type == ftype::GetEmptyValue())
@@ -55,7 +55,7 @@ void CityBoundaryProcessor::Add(FeatureBuilder const & fb)
   UnionEqualPlacesIds(Place(fb, type, false /* saveParams */));
 }
 
-void CityBoundaryProcessor::TryUpdate(FeatureBuilder const & fb)
+void PlaceProcessor::TryUpdate(FeatureBuilder const & fb)
 {
   auto const type = GetPlaceType(fb);
   Place const place(fb, type);

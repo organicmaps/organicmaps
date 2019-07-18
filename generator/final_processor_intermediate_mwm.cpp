@@ -2,9 +2,9 @@
 
 #include "generator/affiliation.hpp"
 #include "generator/booking_dataset.hpp"
-#include "generator/city_boundary_processor.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_merger.hpp"
+#include "generator/place_processor.hpp"
 #include "generator/promo_catalog_cities.hpp"
 #include "generator/type_helper.hpp"
 
@@ -119,17 +119,17 @@ bool FilenameIsCountry(std::string filename, AffiliationInterface const & affili
   return affiliation.HasRegionByName(filename);
 }
 
-class CitiesHelper
+class PlaceHelper
 {
 public:
-  CitiesHelper()
+  PlaceHelper()
     : m_table(std::make_shared<OsmIdToBoundariesTable>())
     , m_processor(m_table)
   {
   }
 
-  explicit CitiesHelper(std::string const & filename)
-    : CitiesHelper()
+  explicit PlaceHelper(std::string const & filename)
+    : PlaceHelper()
   {
     ForEachFromDatRawFormat<MaxAccuracy>(filename, [&](auto const & fb, auto const &) {
       m_processor.Add(fb);
@@ -163,14 +163,14 @@ public:
 
 private:
   std::shared_ptr<OsmIdToBoundariesTable> m_table;
-  CityBoundaryProcessor m_processor;
+  PlaceProcessor m_processor;
 };
 
 class ProcessorCities
 {
 public:
   ProcessorCities(std::string const & temporaryMwmPath, AffiliationInterface const & affiliation,
-                  CitiesHelper & citiesHelper, size_t threadsCount = 1)
+                  PlaceHelper & citiesHelper, size_t threadsCount = 1)
     : m_temporaryMwmPath(temporaryMwmPath)
     , m_affiliation(affiliation)
     , m_citiesHelper(citiesHelper)
@@ -198,7 +198,7 @@ public:
         FeatureBuilderWriter<MaxAccuracy> writer(fullPath);
         for (size_t i = 0; i < fbs.size(); ++i)
         {
-          if (CitiesHelper::IsPlace(fbs[i]))
+          if (PlaceHelper::IsPlace(fbs[i]))
             cities.emplace_back(std::move(fbs[i]));
           else
             writer.Write(std::move(fbs[i]));
@@ -243,7 +243,7 @@ private:
   std::string m_citiesFilename;
   std::string m_temporaryMwmPath;
   AffiliationInterface const & m_affiliation;
-  CitiesHelper & m_citiesHelper;
+  PlaceHelper & m_citiesHelper;
   size_t m_threadsCount;
 };
 }  // namespace
@@ -367,8 +367,8 @@ bool CountryFinalProcessor::ProcessCities()
 {
   auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto citiesHelper = m_citiesAreasTmpFilename.empty()
-                      ? CitiesHelper()
-                      : CitiesHelper(m_citiesAreasTmpFilename);
+                      ? PlaceHelper()
+                      : PlaceHelper(m_citiesAreasTmpFilename);
   ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper, m_threadsCount);
   processorCities.SetPromoCatalog(m_citiesFilename);
   if (!processorCities.Process())
@@ -469,8 +469,8 @@ bool WorldFinalProcessor::ProcessCities()
 {
   auto const affiliation = SingleAffiliation(WORLD_FILE_NAME);
   auto citiesHelper = m_citiesAreasTmpFilename.empty()
-                      ? CitiesHelper()
-                      : CitiesHelper(m_citiesAreasTmpFilename);
+                      ? PlaceHelper()
+                      : PlaceHelper(m_citiesAreasTmpFilename);
   ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper);
   processorCities.SetPromoCatalog(m_citiesFilename);
   return processorCities.Process();

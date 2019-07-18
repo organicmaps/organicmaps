@@ -21,7 +21,7 @@ struct GenerateInfo;
 
 namespace generator
 {
-class CityBoundaryProcessor;
+class PlaceProcessor;
 class CountryMapper;
 class WorldMapper;
 
@@ -90,7 +90,7 @@ private:
 class RepresentationLayer : public LayerBase
 {
 public:
-  explicit RepresentationLayer(std::shared_ptr<CityBoundaryProcessor> processor);
+  explicit RepresentationLayer(std::shared_ptr<PlaceProcessor> processor);
 
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & feature) override;
@@ -102,7 +102,7 @@ private:
 
   void HandleArea(feature::FeatureBuilder & feature, FeatureParams const & params);
 
-  std::shared_ptr<CityBoundaryProcessor> m_processor;
+  std::shared_ptr<PlaceProcessor> m_processor;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -114,18 +114,18 @@ public:
   void Handle(feature::FeatureBuilder & feature) override;
 };
 
-// Responsibility of class CityBoundaryLayer - transfering control to the CityBoundaryProcessor
+// Responsibility of class PlaceLayer - transfering control to the PlaceProcessor
 // if the feature is a place.
-class CityBoundaryLayer : public LayerBase
+class PlaceLayer : public LayerBase
 {
 public:
-  explicit CityBoundaryLayer(std::shared_ptr<CityBoundaryProcessor> processor);
+  explicit PlaceLayer(std::shared_ptr<PlaceProcessor> processor);
 
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & feature) override;
 
 private:
-  std::shared_ptr<CityBoundaryProcessor> m_processor;
+  std::shared_ptr<PlaceProcessor> m_processor;
 };
 
 // Responsibility of class BookingLayer - mixing information from booking. If there is a

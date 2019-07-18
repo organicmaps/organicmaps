@@ -15,7 +15,7 @@ class FeatureBuilder;
 
 namespace generator
 {
-class CityBoundaryProcessor;
+class PlaceProcessor;
 class CountryMapper;
 class LayerBase;
 // This class is implementation of EmitterInterface for coastlines.
@@ -30,7 +30,7 @@ public:
   void GetNames(std::vector<std::string> & names) const override;
 
 private:
-  std::shared_ptr<CityBoundaryProcessor> m_cityBoundaryProcessor;
+  std::shared_ptr<PlaceProcessor> m_placeProcessor;
   std::shared_ptr<CoastlineFeaturesGenerator> m_generator;
   std::shared_ptr<LayerBase> m_processingChain;
   std::string m_coastlineGeomFilename;

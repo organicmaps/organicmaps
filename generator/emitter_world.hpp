@@ -14,7 +14,7 @@ struct GenerateInfo;
 
 namespace generator
 {
-class CityBoundaryProcessor;
+class PlaceProcessor;
 class WorldMapper;
 class LayerBase;
 
@@ -30,7 +30,7 @@ public:
   void GetNames(std::vector<std::string> & names) const override;
 
 private:
-  std::shared_ptr<CityBoundaryProcessor> m_cityBoundaryProcessor;
+  std::shared_ptr<PlaceProcessor> m_placeProcessor;
   std::shared_ptr<WorldMapper> m_worldMapper;
   std::shared_ptr<LayerBase> m_processingChain;
 };

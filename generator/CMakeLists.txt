@@ -29,8 +29,6 @@ set(
   cities_boundaries_checker.hpp
   cities_ids_builder.cpp
   cities_ids_builder.hpp
-  city_boundary_processor.cpp
-  city_boundary_processor.hpp
   city_roads_generator.cpp
   city_roads_generator.hpp
   coastlines_generator.cpp
@@ -132,6 +130,8 @@ set(
   osm_xml_source.hpp
   place.cpp
   place.hpp
+  place_processor.cpp
+  place_processor.hpp
   place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp

@@ -11,11 +11,11 @@
 
 namespace generator
 {
-// The class CityBoundaryProcessor is responsible for the union of boundaries of the cities.
-class CityBoundaryProcessor
+// The class PlaceProcessor is responsible for the union of boundaries of the places.
+class PlaceProcessor
 {
 public:
-  CityBoundaryProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable);
+  PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable);
 
   void Add(feature::FeatureBuilder const & fb);
   void TryUpdate(feature::FeatureBuilder const & fb);
