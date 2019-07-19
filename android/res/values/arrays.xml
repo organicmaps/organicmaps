@@ -3,34 +3,42 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whats_new_toll</item>
+    <item>@drawable/img_whatsnew_catalogsubs</item>
+    <item>@drawable/img_whatsnew_navi_android</item>
   </integer-array>
 
   <string-array name="news_title_keys">
-    <item>whatsnew_toll_unpaved_title</item>
+    <item>whatsnew_subscription_title</item>
+    <item>whatsnew_carnavi_fixes_for_android_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_toll_unpaved_message</item>
+    <item>@string/whatsnew_subscription_message</item>
+    <item>@string/whatsnew_carnavi_fixes_for_android_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
+    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_button_labels">
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_button_links">
+    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
     <item/>
   </string-array>
 </resources>
