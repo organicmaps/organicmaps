@@ -29,13 +29,14 @@ void AdminSuburbsMarker::MarkLocality(Node::Ptr & tree)
 void AdminSuburbsMarker::MarkSuburbsInLocality(Node::Ptr & tree)
 {
   auto & region = tree->GetData();
-  if (region.GetLevel() == PlaceLevel::Locality)
+  auto const level = region.GetLevel();
+  if (level == PlaceLevel::Locality)
   {
     MarkLocality(tree);
     return;
   }
 
-  if (region.GetAdminLevel() != AdminLevel::Unknown)
+  if (level == PlaceLevel::Unknown && region.GetAdminLevel() != AdminLevel::Unknown)
     region.SetLevel(PlaceLevel::Suburb);
 
   for (auto & subtree : tree->GetChildren())
@@ -54,7 +55,7 @@ void AdminSuburbsMarker::MarkUnderLocalityAsSublocalities(Node::Ptr & tree)
 
   if (level == PlaceLevel::Suburb)
     region.SetLevel(PlaceLevel::Sublocality);
-  else if (level == PlaceLevel::Unknown && region.GetAdminLevel() != AdminLevel::Unknown)
+  else if (level == PlaceLevel::Unknown)
     region.SetLevel(PlaceLevel::Sublocality);
 
   for (auto & subtree : tree->GetChildren())
