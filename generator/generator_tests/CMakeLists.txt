@@ -102,3 +102,5 @@ if (PLATFORM_LINUX)
     dl
   )
 endif()
+
+link_qt5_core(${PROJECT_NAME})
