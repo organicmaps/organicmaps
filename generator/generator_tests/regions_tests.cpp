@@ -567,20 +567,21 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
 
   TEST(HasName(regions, u8"Россия, region: Москва"), ());
   TEST(HasName(regions,
-               u8"Россия, region: Москва, subregion: Западный административный округ, "
-               u8"locality: Москва"),
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Западный административный округ"),
        ());
   TEST(HasName(regions,
-               u8"Россия, region: Москва, subregion: Западный административный округ, "
-               u8"locality: Москва, suburb: Раменки"),
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Западный административный округ, suburb: Раменки"),
        ());
   TEST(HasName(regions,
-               u8"Россия, region: Москва, subregion: Западный административный округ, "
-               u8"locality: Москва, suburb: Раменки, sublocality: Воробъёвы горы"),
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Западный административный округ, "
+               u8"suburb: Раменки, sublocality: Воробъёвы горы"),
        ());
   TEST(HasName(regions,
-               u8"Россия, region: Москва, subregion: Западный административный округ, "
-               u8"locality: Москва, sublocality: Центр"),
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Западный административный округ, sublocality: Центр"),
        ());
   TEST(!ContainsSubname(regions, u8"Тропарёво"), ());
 }

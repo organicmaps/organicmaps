@@ -63,11 +63,6 @@ NodePath MakeLevelPath(Node::Ptr const & node)
   }
   std::reverse(path.begin(), path.end());
 
-  // Sort by level in case that megapolis (PlaceLevel::Locality) contains subregions
-  // (PlaceLevel::Subregions).
-  std::sort(path.begin(), path.end(), [](Node::Ptr const & l, Node::Ptr const & r) {
-    return l->GetData().GetLevel() < r->GetData().GetLevel();
-  });
   return path;
 }
 
