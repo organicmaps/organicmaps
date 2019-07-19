@@ -92,6 +92,9 @@ bool LocalityPointIntegrator::IsSuitableForLocalityRegionize(LevelRegion const &
   if (regionPlaceType != PlaceType::Unknown && regionPlaceType >= PlaceType::City)
     return false;
 
+  if (region.GetArea() > 10 * GetRadiusByPlaceType(m_localityRegion.GetPlaceType()))
+    return false;
+
   return true;
 }
 

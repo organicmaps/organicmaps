@@ -70,7 +70,7 @@ struct OsmElementData
 {
   uint64_t m_id;
   std::vector<TagValue> m_tags;
-  std::vector<m2::PointI> m_polygon;
+  std::vector<m2::PointD> m_polygon;
   std::vector<OsmElement::Member> m_members;
 };
 
@@ -110,18 +110,14 @@ void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder:
     CHECK(elementData.m_polygon.size() == 1 || elementData.m_polygon.size() == 2, ());
     if (elementData.m_polygon.size() == 1)
     {
-      fb.SetCenter({static_cast<double>(elementData.m_polygon[0].x),
-                    static_cast<double>(elementData.m_polygon[0].y)});
+      fb.SetCenter(elementData.m_polygon[0]);
     }
     else if (elementData.m_polygon.size() == 2)
     {
       auto const & p1 = elementData.m_polygon[0];
       auto const & p2 = elementData.m_polygon[1];
-      vector<m2::PointD> poly = {{static_cast<double>(p1.x), static_cast<double>(p1.y)},
-                                 {static_cast<double>(p1.x), static_cast<double>(p2.y)},
-                                 {static_cast<double>(p2.x), static_cast<double>(p2.y)},
-                                 {static_cast<double>(p2.x), static_cast<double>(p1.y)},
-                                 {static_cast<double>(p1.x), static_cast<double>(p1.y)}};
+      vector<m2::PointD> poly = {
+          {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.y}};
       fb.AddPolygon(poly);
       fb.SetHoles({});
       fb.SetArea();
@@ -162,7 +158,7 @@ std::string ToLabelingString(vector<Node::Ptr> const & path, bool withGeometry)
       stream << " [";
 
       auto const & rect = region.GetRect();
-      stream << std::fixed << std::setprecision(0);
+      stream << std::fixed << std::setprecision(2);
       stream << "(" << rect.min_corner().get<0>() << ", " << rect.min_corner().get<1>() << "), ";
       stream << "(" << rect.max_corner().get<0>() << ", " << rect.max_corner().get<1>() << ")";
 
@@ -413,14 +409,15 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByAround)
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"Nederland", admin = "2", ba}, {{0, 0}, {50, 50}}},
-          {2, {name = u8"Nederland", admin = "3", ba}, {{10, 10}, {20, 20}}},
-          {3, {name = u8"Noord-Holland", admin = "4", ba}, {{12, 12}, {18, 18}}},
-          {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{15, 15}}},
+          {1, {name = u8"Nederland", admin = "2", ba}, {{0.00, 0.00}, {0.50, 0.50}}},
+          {2, {name = u8"Nederland", admin = "3", ba}, {{0.10, 0.10}, {0.20, 0.20}}},
+          {3, {name = u8"Noord-Holland", admin = "4", ba}, {{0.12, 0.12}, {0.18, 0.18}}},
+          {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(15, 15), (15, 15)]"), ());
+  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(0.07, 0.07), (0.23, 0.23)]"),
+      (regions));
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatching)
@@ -432,16 +429,16 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatching)
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"Nederland", admin = "2", ba}, {{0, 0}, {50, 50}}},
-          {2, {name = u8"Nederland", admin = "3", ba}, {{10, 10}, {20, 20}}},
-          {3, {name = u8"Noord-Holland", admin = "4", ba}, {{12, 12}, {18, 18}}},
-          {4, {name = u8"Amsterdam", admin = "8", ba}, {{14, 14}, {17, 17}}},
-          {5, {name = u8"Amsterdam", admin = "10", ba}, {{14, 14}, {16, 16}}},
-          {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{15, 15}}},
+          {1, {name = u8"Nederland", admin = "2", ba}, {{0.00, 0.00}, {0.50, 0.50}}},
+          {2, {name = u8"Nederland", admin = "3", ba}, {{0.10, 0.10}, {0.20, 0.20}}},
+          {3, {name = u8"Noord-Holland", admin = "4", ba}, {{0.12, 0.12}, {0.18, 0.18}}},
+          {4, {name = u8"Amsterdam", admin = "8", ba}, {{0.14, 0.14}, {0.17, 0.17}}},
+          {5, {name = u8"Amsterdam", admin = "10", ba}, {{0.14, 0.14}, {0.16, 0.16}}},
+          {6, {name = u8"Amsterdam", place = "city", admin = "2"}, {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(14, 14), (16, 16)]"), ());
+  TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(0.14, 0.14), (0.16, 0.16)]"), ());
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByEnglishNameMatching)
@@ -453,22 +450,19 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByEnglishNameMatching)
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"België / Belgique / Belgien", admin = "2", ba}, {{0, 0}, {50, 50}}},
-          {3,
-           {name = u8"Ville de Bruxelles - Stad Brussel", admin = "8", ba},
-           {{12, 12}, {18, 18}}},
-          {4,
-           {name = u8"Bruxelles / Brussel", {"name:en", "Brussels"}, admin = "9", ba},
-           {{12, 12}, {17, 17}}},
-          {5,
-           {name = u8"Bruxelles - Brussel", {"name:en", "Brussels"}, place = "city"},
-           {{15, 15}}},
+          {1, {name = u8"België / Belgique / Belgien", admin = "2", ba},
+           {{0.00, 0.00}, {0.50, 0.50}}},
+          {3, {name = u8"Ville de Bruxelles - Stad Brussel", admin = "8", ba},
+           {{0.12, 0.12}, {0.18, 0.18}}},
+          {4, {name = u8"Bruxelles / Brussel", {"name:en", "Brussels"}, admin = "9", ba},
+           {{0.12, 0.12}, {0.17, 0.17}}},
+          {5, {name = u8"Bruxelles - Brussel", {"name:en", "Brussels"}, place = "city"},
+           {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions,
-               u8"België / Belgique / Belgien, locality: Bruxelles - Brussel [(12, 12), (17, 17)]"),
-       ());
+  TEST(HasName(regions, u8"België / Belgique / Belgien, "
+                        u8"locality: Bruxelles - Brussel [(0.12, 0.12), (0.17, 0.17)]"), ());
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPrefix)
@@ -480,15 +474,17 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPrefix
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"United Kingdom", admin = "2", ba}, {{0, 0}, {50, 50}}},
-          {3, {name = u8"Scotland", admin = "4", ba}, {{12, 12}, {18, 18}}},
-          {4, {name = u8"City of Edinburgh", admin = "6", ba}, {{12, 12}, {17, 17}}},
-          {5, {name = u8"Edinburgh", place = "city"}, {{15, 15}}},
+          {1, {name = u8"United Kingdom", admin = "2", ba}, {{0.00, 0.00}, {0.50, 0.50}}},
+          {3, {name = u8"Scotland", admin = "4", ba}, {{0.12, 0.12}, {0.18, 0.18}}},
+          {4, {name = u8"City of Edinburgh", admin = "6", ba}, {{0.12, 0.12}, {0.17, 0.17}}},
+          {5, {name = u8"Edinburgh", place = "city"}, {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
   TEST(HasName(regions,
-      u8"United Kingdom, region: Scotland [(12, 12), (18, 18)], locality: Edinburgh [(12, 12), (17, 17)]"), ());
+               u8"United Kingdom, region: Scotland [(0.12, 0.12), (0.18, 0.18)], "
+               u8"locality: Edinburgh [(0.12, 0.12), (0.17, 0.17)]"),
+       ());
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfix)
@@ -500,15 +496,17 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfi
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"United Kingdom", admin = "2", ba}, {{0, 0}, {50, 50}}},
-          {3, {name = u8"Scotland", admin = "4", ba}, {{12, 12}, {18, 18}}},
-          {4, {name = u8"Edinburgh (city)", admin = "6", ba}, {{12, 12}, {17, 17}}},
-          {5, {name = u8"Edinburgh", place = "city"}, {{15, 15}}},
+          {1, {name = u8"United Kingdom", admin = "2", ba}, {{0.00, 0.00}, {0.50, 0.50}}},
+          {3, {name = u8"Scotland", admin = "4", ba}, {{0.12, 0.12}, {0.18, 0.18}}},
+          {4, {name = u8"Edinburgh (city)", admin = "6", ba}, {{0.12, 0.12}, {0.17, 0.17}}},
+          {5, {name = u8"Edinburgh", place = "city"}, {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
   TEST(HasName(regions,
-      u8"United Kingdom, region: Scotland [(12, 12), (18, 18)], locality: Edinburgh [(12, 12), (17, 17)]"), ());
+               u8"United Kingdom, region: Scotland [(0.12, 0.12), (0.18, 0.18)], "
+               u8"locality: Edinburgh [(0.12, 0.12), (0.17, 0.17)]"),
+       ());
 }
 
 // Russia regions tests ----------------------------------------------------------------------------
