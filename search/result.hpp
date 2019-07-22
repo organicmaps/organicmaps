@@ -236,7 +236,7 @@ public:
   template <typename Fn>
   void SortBy(Fn && comparator)
   {
-    sort(begin(), end(), std::forward<Fn>(comparator));
+    std::sort(begin(), end(), std::forward<Fn>(comparator));
     for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
       operator[](i).SetPositionInResults(i);
   }
