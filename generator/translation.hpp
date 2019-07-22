@@ -53,14 +53,17 @@ public:
   explicit Localizator(json_t & node) : m_node(GetOrCreateNode("locales", node)) {}
 
   template <class Object>
-  void AddLocale(std::string const & label, Object const & objectWithName,
+  void SetLocale(std::string const & label, Object const & objectWithName,
                  std::string const & level = std::string())
   {
+    RemoveLocale(DefaultLocaleName(), level, label);
     AddLocale(DefaultLocaleName(), level, objectWithName.GetName(), label);
 
     auto const & languages = LocaleLanguages();
     for (std::string const & language : languages)
     {
+      RemoveLocale(language, level, label);
+
       std::string const & translation = objectWithName.GetTranslatedOrTransliteratedName(
           StringUtf8Multilang::GetLangIndex(language));
 
@@ -112,6 +115,23 @@ private:
     }
 
     return *node;
+  }
+
+  void RemoveLocale(std::string const & language, std::string const & level,
+                    std::string const & label)
+  {
+    json_t * node = base::GetJSONOptionalField(&m_node, language);
+    if (!node)
+      return;
+
+    if (!level.empty())
+    {
+      node = base::GetJSONOptionalField(node, level);
+      if (!node)
+        return;
+    }
+
+    json_object_del(node, label.c_str());
   }
 
   std::vector<std::string> const & LocaleLanguages() const;

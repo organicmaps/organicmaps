@@ -111,7 +111,7 @@ private:
       CHECK(region.GetLevel() != regions::PlaceLevel::Unknown, ());
       auto const label = GetLabel(region.GetLevel());
       CHECK(label, ());
-      localizator.AddLocale(label, region, "address");
+      localizator.SetLocale(label, region, "address");
       if (m_verbose)
       {
         localizator.AddVerbose(
@@ -124,7 +124,7 @@ private:
       }
     }
 
-    localizator.AddLocale("name", main);
+    localizator.SetLocale("name", main);
     ToJSONObject(*properties, "rank", main.GetRank());
 
     if (path.size() > 1)

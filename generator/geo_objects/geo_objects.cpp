@@ -68,11 +68,11 @@ void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
 base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyValue)
 {
   auto result = regionKeyValue.second->MakeDeepCopyJson();
-  int const kHouseOrPoiRank = 30;
+
   UpdateCoordinates(fb.GetKeyPoint(), result);
+
   auto properties = base::GetJSONObligatoryField(result.get(), "properties");
   auto address = base::GetJSONObligatoryFieldByPath(properties, "locales", "default", "address");
-  ToJSONObject(*properties, "rank", kHouseOrPoiRank);
   auto const street = fb.GetParams().GetStreet();
   if (!street.empty())
     ToJSONObject(*address, "street", street);
@@ -83,6 +83,12 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
     ToJSONObject(*address, "building", house);
   else
     ToJSONObject(*address, "building", base::NewJSONNull());
+
+  Localizator localizator(*properties);
+  localizator.SetLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
+
+  int const kHouseOrPoiRank = 30;
+  ToJSONObject(*properties, "rank", kHouseOrPoiRank);
 
   ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionKeyValue.first));
   // auto locales = json_object_get(result.get(), "locales");
@@ -100,9 +106,11 @@ std::shared_ptr<JsonValue> FindHousePoi(FeatureBuilder const & fb,
 base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonValue const & json)
 {
   auto jsonWithAddress = json.MakeDeepCopyJson();
+
   auto properties = json_object_get(jsonWithAddress.get(), "properties");
   Localizator localizator(*properties);
-  localizator.AddLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
+  localizator.SetLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
+
   UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
   return jsonWithAddress;
 }

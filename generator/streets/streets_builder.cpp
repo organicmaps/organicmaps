@@ -190,17 +190,17 @@ base::JSONPtr StreetsBuilder::MakeStreetValue(uint64_t regionId, JsonValue const
                                               m2::RectD const & bbox, m2::PointD const & pinPoint)
 {
   auto streetObject = base::NewJSONObject();
+
   auto && regionLocales = base::GetJSONObligatoryFieldByPath(regionObject, "properties", "locales");
-
   auto locales = base::JSONPtr{json_deep_copy(const_cast<json_t *>(regionLocales))};
-
   auto properties = base::NewJSONObject();
   ToJSONObject(*properties, "locales", std::move(locales));
 
   Localizator localizator(*properties);
   auto const & localizee = Localizator::EasyObjectWithTranslation(streetName);
-  localizator.AddLocale("name", localizee);
-  localizator.AddLocale("street", localizee, "address");
+  localizator.SetLocale("name", localizee);
+
+  localizator.SetLocale("street", localizee, "address");
 
   ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionId));
   ToJSONObject(*streetObject, "properties", std::move(properties));
