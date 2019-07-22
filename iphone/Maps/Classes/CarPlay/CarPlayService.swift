@@ -306,7 +306,7 @@ extension CarPlayService: CPMapTemplateDelegate {
     FrameworkHelper.stopLocationFollow()
   }
   
-  public func mapTemplateWillDismissPanningInterface(_ mapTemplate: CPMapTemplate) {
+  public func mapTemplateDidDismissPanningInterface(_ mapTemplate: CPMapTemplate) {
     if let info = mapTemplate.userInfo as? MapInfo,
       info.type == CPConstants.TemplateType.navigation {
       MapTemplateBuilder.configureNavigationUI(mapTemplate: mapTemplate)
@@ -535,13 +535,15 @@ extension CarPlayService: LocationModeListener {
     }
     switch mode {
     case .follow, .followAndRotate:
-      MapTemplateBuilder.setupDestinationButton(mapTemplate: rootMapTemplate)
+      if !rootMapTemplate.isPanningInterfaceVisible {
+        MapTemplateBuilder.setupDestinationButton(mapTemplate: rootMapTemplate)
+      }
     case .notFollow:
       if !rootMapTemplate.isPanningInterfaceVisible {
         MapTemplateBuilder.setupRecenterButton(mapTemplate: rootMapTemplate)
       }
-    default:
-      break
+    case .pendingPosition, .notFollowNoPosition:
+      rootMapTemplate.leadingNavigationBarButtons = []
     }
   }
   
@@ -597,7 +599,11 @@ extension CarPlayService {
   
   func preparePreview(trips: [CPTrip]) {
     let mapTemplate = MapTemplateBuilder.buildTripPreviewTemplate(forTrips: trips)
-    pushTemplate(mapTemplate, animated: false)
+    if let interfaceController = interfaceController {
+      mapTemplate.mapDelegate = self
+      interfaceController.popToRootTemplate(animated: false)
+      interfaceController.pushTemplate(mapTemplate, animated: false)
+    }
   }
   
   func showPreview(mapTemplate: CPMapTemplate, trips: [CPTrip]) {
@@ -658,13 +664,23 @@ extension CarPlayService {
       titleVariants = ["\(L("dialog_routing_change_start_carplay"))"]
     case .endPointNotFound:
       titleVariants = ["\(L("dialog_routing_change_end_carplay"))"]
-    case .routeNotFoundRedressRouteError, .routeNotFound, .inconsistentMWMandRoute:
+    case .routeNotFoundRedressRouteError,
+         .routeNotFound,
+         .inconsistentMWMandRoute:
       titleVariants = ["\(L("dialog_routing_unable_locate_route_carplay"))"]
-    case .routeFileNotExist, .fileTooOld, .needMoreMaps, .pointsInDifferentMWM:
+    case .routeFileNotExist,
+         .fileTooOld,
+         .needMoreMaps,
+         .pointsInDifferentMWM:
       titleVariants = ["\(L("dialog_routing_download_files_carplay"))"]
-    case .internalError:
+    case .internalError,
+         .intermediatePointNotFound:
       titleVariants = ["\(L("dialog_routing_system_error_carplay"))"]
-    default:
+    case .noError,
+         .cancelled,
+         .hasWarnings,
+         .transitRouteNotFoundNoNetwork,
+         .transitRouteNotFoundTooLongPedestrian:
       return
     }
     
@@ -689,6 +705,7 @@ extension CarPlayService {
       self.interfaceController?.dismissTemplate(animated: true)
     })
     let noAction = CPAlertAction(title: L("cancel"), style: .cancel, handler: { [unowned self] _ in
+      FrameworkHelper.stopLocationFollow()
       self.router?.completeRouteAndRemovePoints()
       self.interfaceController?.dismissTemplate(animated: true)
     })

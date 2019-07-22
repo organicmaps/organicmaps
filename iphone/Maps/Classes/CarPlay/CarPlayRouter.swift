@@ -237,7 +237,15 @@ extension CarPlayRouter {
     var maneuvers = [CPManeuver]()
     let primaryManeuver = CPManeuver()
     primaryManeuver.userInfo = CPConstants.Maneuvers.primary
-    primaryManeuver.instructionVariants = [routeInfo.streetName]
+    var instructionVariant = routeInfo.streetName
+    if routeInfo.roundExitNumber != 0 {
+      let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
+                                                              number: .ordinal)
+      let exitNumber = String(coreFormat: L("carplay_roundabout_exit"),
+                              arguments: [ordinalExitNumber])
+      instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
+    }
+    primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
       let symbol = UIImage(named: imageName) {
       primaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol,
