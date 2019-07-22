@@ -134,6 +134,7 @@ final class CarPlayRouter: NSObject {
   func startRoute() {
     let manager = RoutingManager.routingManager
     manager.startRoute()
+    Statistics.logEvent(kStatRoutingRouteStart, withParameters: [kStatMode : kStatCarplay])
   }
   
   func setupCarPlaySpeedCameraMode() {

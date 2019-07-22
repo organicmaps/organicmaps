@@ -48,6 +48,7 @@ final class MapTemplateBuilder {
       mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.previewSettings)
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
+      Statistics.logEvent(kStatCarplaySettingsOpen, withParameters: [kStatFrom : kStatOverview])
     }
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
     return mapTemplate
@@ -70,6 +71,7 @@ final class MapTemplateBuilder {
     let settingsButton = buildBarButton(type: .settings) { _ in
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
+      Statistics.logEvent(kStatCarplaySettingsOpen, withParameters: [kStatFrom : kStatMap])
     }
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
   }
@@ -108,6 +110,7 @@ final class MapTemplateBuilder {
     let destinationButton = buildBarButton(type: .destination) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
+      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatMap])
     }
     mapTemplate.leadingNavigationBarButtons = [destinationButton]
   }
@@ -127,6 +130,7 @@ final class MapTemplateBuilder {
     let redirectButton = buildBarButton(type: .redirectRoute) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
+      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatNavigation])
     }
     template.leadingNavigationBarButtons = [muteButton, redirectButton]
   }
@@ -139,6 +143,7 @@ final class MapTemplateBuilder {
     let redirectButton = buildBarButton(type: .redirectRoute) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
+      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatNavigation])
     }
     template.leadingNavigationBarButtons = [unmuteButton, redirectButton]
   }

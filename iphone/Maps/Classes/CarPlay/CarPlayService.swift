@@ -401,8 +401,11 @@ extension CarPlayService: CPMapTemplateDelegate {
 extension CarPlayService: CPListTemplateDelegate {
   func listTemplate(_ listTemplate: CPListTemplate, didSelect item: CPListItem, completionHandler: @escaping () -> Void) {
     if let userInfo = item.userInfo as? ListItemInfo {
+      let fromStat: String
+      var categoryName = ""
       switch userInfo.type {
       case CPConstants.ListItemType.history:
+        fromStat = kStatRecent
         let locale = window?.textInputMode?.primaryLanguage ?? "en"
         guard let searchService = searchService else {
           completionHandler()
@@ -415,22 +418,31 @@ extension CarPlayService: CPListTemplateDelegate {
           self.pushTemplate(template, animated: true)
         })
       case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
+        fromStat = kStatCategory
         let metadata = userInfo.metadata as! CategoryInfo
+        categoryName = metadata.category.title
         let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: metadata.category))
         completionHandler()
         pushTemplate(template, animated: true)
       case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
+        fromStat = kStatBookmarks
         let metadata = userInfo.metadata as! BookmarkInfo
         let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
         preparePreview(forBookmark: bookmark)
         completionHandler()
       case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:
+        fromStat = kStatSearch
         let metadata = userInfo.metadata as! SearchResultInfo
         preparePreviewForSearchResults(selectedRow: metadata.originalRow)
         completionHandler()
       default:
+        fromStat = ""
         completionHandler()
       }
+      guard fromStat.count > 0 else { return }
+      Statistics.logEvent(kStatCarplayDestinationsItemSelected,
+                          withParameters: [kStatFrom : fromStat,
+                                           kStatCategory : categoryName])
     }
   }
 }

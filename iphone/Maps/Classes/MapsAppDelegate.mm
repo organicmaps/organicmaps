@@ -838,6 +838,8 @@ didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
   [self updateAppearanceFromWindow:self.window
                           toWindow:window
                 isCarplayActivated:YES];
+
+  [Statistics logEvent:kStatCarplayActivated];
 }
 
 - (void)application:(UIApplication *)application
@@ -847,6 +849,8 @@ didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
   [self updateAppearanceFromWindow:window
                           toWindow:self.window
                 isCarplayActivated:NO];
+
+  [Statistics logEvent:kStatCarplayDeactivated];
 }
 
 - (void)updateAppearanceFromWindow:(UIWindow *)sourceWindow

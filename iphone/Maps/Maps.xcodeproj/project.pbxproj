@@ -582,14 +582,7 @@
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
-		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
 		CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E8676226774C700D1EDF7 /* CPConstants.swift */; };
-		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
-		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
-		CD96C71122A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */; };
-		CD96C71422A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */; };
-		CD96C71722A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */; };
-		CD96C71C22A8113100DB7CFE /* MWMDiscoveryControllerViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */; };
 		CD9AD967228067F500EC174A /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD966228067F500EC174A /* MapInfo.swift */; };
 		CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96B2281B56900EC174A /* CPViewPortState.swift */; };
 		CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */; };
@@ -600,9 +593,6 @@
 		CDB4D5002231412900104869 /* MapTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */; };
 		CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FC2231412900104869 /* ListTemplateBuilder.swift */; };
 		CDB4D5022231412900104869 /* SettingsTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FD2231412900104869 /* SettingsTemplateBuilder.swift */; };
-		CDB92CEE229E9CF900EC757C /* MWMDiscoveryMapObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CED229E9CF900EC757C /* MWMDiscoveryMapObjects.mm */; };
-		CDB92CF1229EB8A800EC757C /* MWMDiscoverySearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */; };
-		CDB92CF822A5350500EC757C /* MWMDiscoveryHotelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */; };
 		CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */; };
 		CDCA273A2237FCFE00167D87 /* SearchTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27392237FCFE00167D87 /* SearchTemplateBuilder.swift */; };
 		CDCA273F2238087700167D87 /* MWMCarPlaySearchService.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA273E2238087700167D87 /* MWMCarPlaySearchService.mm */; };
@@ -1661,18 +1651,9 @@
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		BB8123D42130427E00ADE512 /* MetalContextFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContextFactory.h; sourceTree = "<group>"; };
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
-		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
-		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
 		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
 		CD08888422BCF1C900C1368D /* maps.me full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me full.entitlements"; sourceTree = "<group>"; };
 		CD6E8676226774C700D1EDF7 /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
-		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
-		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
-		CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCollectionHolderCell.xib; sourceTree = "<group>"; };
-		CD96C71222A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryGuideViewModel.h; sourceTree = "<group>"; };
-		CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoveryGuideViewModel.m; sourceTree = "<group>"; };
-		CD96C71522A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCityGalleryObjects.h; sourceTree = "<group>"; };
-		CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCityGalleryObjects.mm; sourceTree = "<group>"; };
 		CD9AD966228067F500EC174A /* MapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
 		CD9AD96B2281B56900EC174A /* CPViewPortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPViewPortState.swift; sourceTree = "<group>"; };
 		CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInfo.swift; sourceTree = "<group>"; };
@@ -1683,14 +1664,6 @@
 		CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTemplateBuilder.swift; sourceTree = "<group>"; };
 		CDB4D4FC2231412900104869 /* ListTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTemplateBuilder.swift; sourceTree = "<group>"; };
 		CDB4D4FD2231412900104869 /* SettingsTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTemplateBuilder.swift; sourceTree = "<group>"; };
-		CDB92CE9229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryControllerViewModel.h; sourceTree = "<group>"; };
-		CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryControllerViewModel.mm; sourceTree = "<group>"; };
-		CDB92CEC229E9CF900EC757C /* MWMDiscoveryMapObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryMapObjects.h; sourceTree = "<group>"; };
-		CDB92CED229E9CF900EC757C /* MWMDiscoveryMapObjects.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryMapObjects.mm; sourceTree = "<group>"; };
-		CDB92CEF229EB8A700EC757C /* MWMDiscoverySearchViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoverySearchViewModel.h; sourceTree = "<group>"; };
-		CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoverySearchViewModel.m; sourceTree = "<group>"; };
-		CDB92CF622A5350500EC757C /* MWMDiscoveryHotelViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryHotelViewModel.h; sourceTree = "<group>"; };
-		CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoveryHotelViewModel.m; sourceTree = "<group>"; };
 		CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInfo.swift; sourceTree = "<group>"; };
 		CDCA27392237FCFE00167D87 /* SearchTemplateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTemplateBuilder.swift; sourceTree = "<group>"; };
 		CDCA273D2238087700167D87 /* MWMCarPlaySearchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlaySearchService.h; sourceTree = "<group>"; };
@@ -3644,61 +3617,6 @@
 				4710366422D3764600585272 /* BookmarksSubscriptionCellViewController.xib */,
 			);
 			path = Catalog;
-			sourceTree = "<group>";
-		};
-		CD96C71822A80C8400DB7CFE /* Collection Cells */ = {
-			isa = PBXGroup;
-			children = (
-				CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */,
-				CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */,
-				34B6FD5D2015E6BE00C18E97 /* DiscoveryBookingCell.swift */,
-				34B6FD5E2015E6BF00C18E97 /* DiscoveryBookingCell.xib */,
-				F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */,
-				F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */,
-				F655C026207278300048A241 /* DiscoveryMoreCell.swift */,
-				F655C02820727A630048A241 /* DiscoveryMoreCell.xib */,
-			);
-			path = "Collection Cells";
-			sourceTree = "<group>";
-		};
-		CD96C71922A80CCF00DB7CFE /* Table Cells */ = {
-			isa = PBXGroup;
-			children = (
-				CD96C71A22A80D1600DB7CFE /* Holders */,
-				F6EBB26D1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift */,
-				F6EBB2711FD7E4FD00B69B6A /* DiscoveryNoResultsCell.xib */,
-				F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */,
-				F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */,
-				F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */,
-				F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */,
-			);
-			path = "Table Cells";
-			sourceTree = "<group>";
-		};
-		CD96C71A22A80D1600DB7CFE /* Holders */ = {
-			isa = PBXGroup;
-			children = (
-				CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */,
-				34B6FD612015F71900C18E97 /* DiscoveryBookingCollectionHolderCell.xib */,
-				F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */,
-				F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */,
-			);
-			path = Holders;
-			sourceTree = "<group>";
-		};
-		CD96C71B22A80D3E00DB7CFE /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				CDB92CE9229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.h */,
-				CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */,
-				CDB92CEF229EB8A700EC757C /* MWMDiscoverySearchViewModel.h */,
-				CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */,
-				CDB92CF622A5350500EC757C /* MWMDiscoveryHotelViewModel.h */,
-				CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */,
-				CD96C71222A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.h */,
-				CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */,
-			);
-			path = "View Models";
 			sourceTree = "<group>";
 		};
 		CDB4D4DA222D24EE00104869 /* CarPlay */ = {
@@ -5781,7 +5699,6 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
 				CODE_SIGN_STYLE = Manual;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
