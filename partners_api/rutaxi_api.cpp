@@ -165,7 +165,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                           ms::LatLon const & to) const
 {
-  return {"vzt://order.rutaxi.ru/a.php?" + productId, "https://go.onelink.me/757212956/mapsmevezet"};
+  return {"vzt://order.rutaxi.ru/a.php?&" + productId, "https://go.onelink.me/757212956/mapsmevezet"};
 }
 
 void MakeNearObject(std::string const & src, Object & dst)
@@ -189,10 +189,10 @@ void MakeProducts(std::string const & src, Object const & from, Object const & t
   base::Json root(src.c_str());
 
   std::ostringstream productStream;
-  productStream << "city=" << city.m_id << "&title1=" << UrlEncode(from.m_title)
-                << "&ob1=" << from.m_id << "&h1=" << UrlEncode(from.m_house)
-                << "&title2=" << UrlEncode(to.m_title) << "&ob2=" << to.m_id
-                << "&h2=" << UrlEncode(to.m_house);
+  productStream << "city=" << city.m_id << "&title1=" << from.m_title
+                << "&ob1=" << from.m_id << "&h1=" << from.m_house
+                << "&title2=" << to.m_title << "&ob2=" << to.m_id
+                << "&h2=" << to.m_house << "&e1=";
 
   taxi::Product product;
   product.m_productId = productStream.str();
