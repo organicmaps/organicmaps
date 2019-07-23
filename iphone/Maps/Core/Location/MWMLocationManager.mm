@@ -1,6 +1,5 @@
 #import "MWMLocationManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import <PushwooshGeozones/PWGeozonesManager.h>
 #import "MWMAlertViewController.h"
 #import "MWMGeoTrackerCore.h"
 #import "MWMLocationObserver.h"
@@ -510,7 +509,6 @@ void setPermissionRequested()
     setPermissionRequested();
     if ([CLLocationManager headingAvailable])
       [locationManager startUpdatingHeading];
-    [[PWGeozonesManager sharedManager] startLocationTracking];
   };
   if ([CLLocationManager locationServicesEnabled])
   {
@@ -539,7 +537,6 @@ void setPermissionRequested()
   [locationManager stopUpdatingLocation];
   if ([CLLocationManager headingAvailable])
     [locationManager stopUpdatingHeading];
-  [[PWGeozonesManager sharedManager] stopLocationTracking];
 }
 
 #pragma mark - Framework

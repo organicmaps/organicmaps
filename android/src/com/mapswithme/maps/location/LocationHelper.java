@@ -520,9 +520,6 @@ public enum LocationHelper
     //noinspection ConstantConditions
     mLocationProvider.start();
     mLogger.d(TAG, mLocationProvider.isActive() ? "SUCCESS" : "FAILURE");
-
-    if (mLocationProvider.isActive())
-      PushwooshHelper.startLocationTracking();
   }
 
   private void checkProviderInitialization()
@@ -545,7 +542,6 @@ public enum LocationHelper
     //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
-    PushwooshHelper.stopLocationTracking();
   }
 
   /**

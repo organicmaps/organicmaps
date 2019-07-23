@@ -8,7 +8,6 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.pushwoosh.Pushwoosh;
 import com.pushwoosh.exception.PushwooshException;
 import com.pushwoosh.function.Result;
-import com.pushwoosh.location.PushwooshLocation;
 import com.pushwoosh.tags.TagsBundle;
 
 import java.util.Arrays;
@@ -48,16 +47,6 @@ public final class PushwooshHelper
   private void onSuccess(@NonNull Result<Void, PushwooshException> result)
   {
     /* Do nothing by default */
-  }
-
-  public static void startLocationTracking()
-  {
-    PushwooshLocation.startLocationTracking();
-  }
-
-  public static void stopLocationTracking()
-  {
-    PushwooshLocation.stopLocationTracking();
   }
 
   public static native void nativeProcessFirstLaunch();
