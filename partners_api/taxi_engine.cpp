@@ -117,7 +117,6 @@ void ResultMaker::DecrementRequestCount()
 Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   AddApi<yandex::Api>(urls, Provider::Type::Yandex);
-  AddApi<uber::Api>(urls, Provider::Type::Uber);
   AddApi<maxim::Api>(urls, Provider::Type::Maxim);
   AddApi<rutaxi::Api>(urls, Provider::Type::Rutaxi);
 }
