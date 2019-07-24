@@ -2207,5 +2207,73 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
     TEST(ResultsMatch("se street", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
+{
+  string const countryName = "France";
+
+  TestVillage marckolsheim(m2::PointD(0, 0), "Marckolsheim", "en", 10 /* rank */);
+  marckolsheim.SetPostcode("67390");
+
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
+      "Rue des Serpents", "en");
+
+  TestBuilding building4(m2::PointD(0.0, 0.00001), "", "4", street.GetName("en"), "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(marckolsheim);
+    builder.Add(street);
+    builder.Add(building4);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules{ExactMatch(countryId, building4), ExactMatch(countryId, street)};
+    // Test that we not require the building to have a postcode if the city has.
+    TEST(ResultsMatch("Rue des Serpents 4 Marckolsheim 67390 ", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, street), ExactMatch(countryId, marckolsheim)};
+    // Test that we do not require the street to have a postcode if the city has.
+    TEST(ResultsMatch("Rue des Serpents Marckolsheim 67390 ", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, marckolsheim)};
+    TEST(ResultsMatch("67390 ", rules), ());
+    TEST(ResultsMatch("67390", rules), ());
+    TEST(ResultsMatch("Marckolsheim 67390 ", rules), ());
+    TEST(ResultsMatch("Marckolsheim 67390", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, StreetPostcodes)
+{
+  string const countryName = "France";
+
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
+      "Rue des Serpents", "en");
+  street.SetPostcode("67390");
+
+  TestBuilding building4(m2::PointD(0.0, 0.00001), "", "4", street.GetName("en"), "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(building4);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules{ExactMatch(countryId, building4), ExactMatch(countryId, street)};
+    // Test that we not require the building to have a postcode if the street has.
+    TEST(ResultsMatch("Rue des Serpents 4 67390 ", "ru", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, street)};
+    TEST(ResultsMatch("67390 ", rules), ());
+    TEST(ResultsMatch("67390", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

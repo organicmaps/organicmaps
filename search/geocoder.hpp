@@ -140,6 +140,8 @@ private:
       m_features.Reset();
     }
 
+    bool Has(uint32_t id) const { return m_features.HasBit(id); }
+
     TokenRange m_tokenRange;
     CBV m_features;
   };

@@ -173,10 +173,14 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       m_context->ForEachFeature(
-          MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point, kBuildingRadiusMeters),
+          MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point,
+                                                        kBuildingRadiusMeters),
           [&](FeatureType & ft) {
-            if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index))
+            if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index) &&
+                !m_postcodes->HasBit(GetMatchingStreet(ft)))
+            {
               return;
+            }
             if (house_numbers::HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()),
                                                  queryParse))
             {
@@ -294,21 +298,21 @@ private:
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
 
     uint32_t numFilterInvocations = 0;
-    auto houseNumberFilter = [&](uint32_t id, std::unique_ptr<FeatureType> & feature,
-                                 bool & loaded) -> bool {
+    auto houseNumberFilter = [&](uint32_t houseId, uint32_t streetId,
+                                 std::unique_ptr<FeatureType> & feature, bool & loaded) -> bool {
       ++numFilterInvocations;
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
 
-      if (std::binary_search(buildings.begin(), buildings.end(), id))
+      if (std::binary_search(buildings.begin(), buildings.end(), houseId))
         return true;
 
-      if (m_postcodes && !m_postcodes->HasBit(id))
+      if (m_postcodes && !m_postcodes->HasBit(houseId) && !m_postcodes->HasBit(streetId))
         return false;
 
       if (!loaded)
       {
-        feature = GetByIndex(id);
+        feature = GetByIndex(houseId);
         loaded = feature != nullptr;
       }
 
@@ -323,13 +327,14 @@ private:
     };
 
     std::unordered_map<uint32_t, bool> cache;
-    auto cachingHouseNumberFilter = [&](uint32_t id, std::unique_ptr<FeatureType> & feature,
+    auto cachingHouseNumberFilter = [&](uint32_t houseId, uint32_t streetId,
+                                        std::unique_ptr<FeatureType> & feature,
                                         bool & loaded) -> bool {
-      auto const it = cache.find(id);
+      auto const it = cache.find(houseId);
       if (it != cache.cend())
         return it->second;
-      bool const result = houseNumberFilter(id, feature, loaded);
-      cache[id] = result;
+      bool const result = houseNumberFilter(houseId, streetId, feature, loaded);
+      cache[houseId] = result;
       return result;
     };
 
@@ -345,7 +350,7 @@ private:
       {
         std::unique_ptr<FeatureType> feature;
         bool loaded = false;
-        if (!cachingHouseNumberFilter(houseId, feature, loaded))
+        if (!cachingHouseNumberFilter(houseId, streetId, feature, loaded))
           continue;
 
         if (!loaded)

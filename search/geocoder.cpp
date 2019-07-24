@@ -1109,7 +1109,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     {
       for (auto const & id : *layers.back().m_sortedFeatures)
       {
-        if (!m_postcodes.m_features.HasBit(id))
+        if (!m_postcodes.Has(id))
           continue;
         EmitResult(ctx, m_context->GetId(), id, Model::TYPE_STREET, layers.back().m_tokenRange,
                    nullptr /* geoParts */, true /* allTokensUsed */, true /* exactMatch */);
@@ -1153,7 +1153,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     // TYPE_STREET features were filtered in GreedilyMatchStreets().
     if (type < kNumClusters)
     {
-      if (m_postcodes.m_features.IsEmpty() || m_postcodes.m_features.HasBit(featureId))
+      if (m_postcodes.m_features.IsEmpty() || m_postcodes.Has(featureId))
         clusters[type].push_back(featureId);
     }
   };
@@ -1307,10 +1307,10 @@ void Geocoder::FindPaths(BaseContext & ctx)
 
   auto const & innermostLayer = *sortedLayers.front();
 
-  if (!m_postcodes.m_features.IsEmpty())
-    m_matcher->SetPostcodes(&m_postcodes.m_features);
-  else
+  if (m_postcodes.m_features.IsEmpty() || (ctx.m_city && m_postcodes.Has(ctx.m_city->m_featureId)))
     m_matcher->SetPostcodes(nullptr);
+  else
+    m_matcher->SetPostcodes(&m_postcodes.m_features);
 
   auto isExactMatch = [](BaseContext const & context, IntersectionResult const & result) {
     bool regionsChecked = false;
