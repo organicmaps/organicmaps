@@ -865,8 +865,6 @@ didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
       [self updateVisualScaleToMain];
     }
   }
-
-  GetFramework().UpdateMyPositionRoutingOffset(!isCarplayActivated, 0);
 }
 
 - (void)updateVisualScale:(CGFloat)scale {

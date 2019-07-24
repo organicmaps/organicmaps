@@ -33,5 +33,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)stopLocationFollow;
 + (NSArray<NSString *> *)obtainLastSearchQueries;
 + (BOOL)needUpdateMaps;
++ (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated;
++ (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY;
 
 @end

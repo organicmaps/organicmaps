@@ -53,6 +53,7 @@ final class CarPlayService: NSObject {
       router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
     ThemeManager.invalidate()
+    FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
   }
   
   @objc func destroy() {
@@ -76,6 +77,7 @@ final class CarPlayService: NSObject {
     sessionConfiguration = nil
     interfaceController = nil
     ThemeManager.invalidate()
+    FrameworkHelper.updatePositionArrowOffset(true, offset: 0)
   }
   
   @objc func interfaceStyle() -> UIUserInterfaceStyle {
@@ -103,6 +105,7 @@ final class CarPlayService: NSObject {
     let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode)
     mapTemplate.mapDelegate = self
     interfaceController?.setRootTemplate(mapTemplate, animated: true)
+    FrameworkHelper.rotateMap(0.0, animated: false)
   }
   
   private func applyNavigationRootTemplate(trip: CPTrip, routeInfo: RouteInfo) {
@@ -168,6 +171,7 @@ final class CarPlayService: NSObject {
       MapTemplateBuilder.setupRecenterButton(mapTemplate: mapTemplate)
     }
     updateVisibleViewPortState(.default)
+    FrameworkHelper.rotateMap(0.0, animated: true)
   }
   
   func updateMapTemplateUIToTripFinished(_ trip: CPTrip) {
@@ -705,7 +709,7 @@ extension CarPlayService {
       self.interfaceController?.dismissTemplate(animated: true)
     })
     let noAction = CPAlertAction(title: L("cancel"), style: .cancel, handler: { [unowned self] _ in
-      FrameworkHelper.stopLocationFollow()
+      FrameworkHelper.rotateMap(0.0, animated: false)
       self.router?.completeRouteAndRemovePoints()
       self.interfaceController?.dismissTemplate(animated: true)
     })

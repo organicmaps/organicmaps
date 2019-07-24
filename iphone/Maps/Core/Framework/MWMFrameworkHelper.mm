@@ -176,4 +176,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   return platform::migrate::NeedMigrate();
 }
 
++ (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated {
+  GetFramework().Rotate(azimuth, isAnimated);
+}
+
++ (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY {
+  GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
+}
+
 @end
