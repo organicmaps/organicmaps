@@ -18,6 +18,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Google Earth KML Document</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.google.earth.kml</string>
@@ -33,6 +35,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Google Earth KMZ Document</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.google.earth.kmz</string>
@@ -114,6 +118,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
