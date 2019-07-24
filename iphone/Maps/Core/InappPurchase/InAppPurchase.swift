@@ -25,4 +25,16 @@ final class InAppPurchase: NSObject {
   static func inAppBilling() -> IInAppBilling {
     return InAppBilling()
   }
+
+  @objc static var adsRemovalSubscriptionManager: SubscriptionManager = {
+    return SubscriptionManager(productIds: MWMPurchaseManager.productIds(),
+                               serverId: MWMPurchaseManager.adsRemovalServerId(),
+                               vendorId: MWMPurchaseManager.adsRemovalVendorId())
+  } ()
+
+  @objc static var bookmarksSubscriptionManager: SubscriptionManager = {
+    return SubscriptionManager(productIds: MWMPurchaseManager.bookmakrsProductIds(),
+                               serverId: MWMPurchaseManager.bookmarksSubscriptionServerId(),
+                               vendorId: MWMPurchaseManager.bookmarksSubscriptionVendorId())
+  } ()
 }

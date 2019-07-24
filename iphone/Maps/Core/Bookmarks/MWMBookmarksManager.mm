@@ -725,6 +725,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   }
 }
 
+- (void)ping:(PingCompletionBlock)callback {
+  self.bm.GetCatalog().Ping([callback] (bool success) {
+    callback(success);
+  });
+}
+
 #pragma mark - Helpers
 
 - (void)loopObservers:(void (^)(id<MWMBookmarksObserver> observer))block

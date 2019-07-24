@@ -97,8 +97,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1l-r7-y0s">
                             <rect key="frame" x="0.0" y="0.0" width="116" height="35"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAVE $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Udv-PO-OUs">
-                                    <rect key="frame" x="0.0" y="7" width="116" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAVE $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udv-PO-OUs">
+                                    <rect key="frame" x="4" y="7" width="108" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -109,8 +109,8 @@
                                 <constraint firstAttribute="height" constant="35" id="1hc-rF-WeJ"/>
                                 <constraint firstAttribute="width" constant="116" id="MmH-NQ-a79"/>
                                 <constraint firstItem="Udv-PO-OUs" firstAttribute="centerY" secondItem="T1l-r7-y0s" secondAttribute="centerY" id="Rc1-MY-abl"/>
-                                <constraint firstAttribute="trailing" secondItem="Udv-PO-OUs" secondAttribute="trailing" id="Ugx-X0-X5n"/>
-                                <constraint firstItem="Udv-PO-OUs" firstAttribute="leading" secondItem="T1l-r7-y0s" secondAttribute="leading" id="ftl-Dn-UeW"/>
+                                <constraint firstAttribute="trailing" secondItem="Udv-PO-OUs" secondAttribute="trailing" constant="4" id="Ugx-X0-X5n"/>
+                                <constraint firstItem="Udv-PO-OUs" firstAttribute="leading" secondItem="T1l-r7-y0s" secondAttribute="leading" constant="4" id="ftl-Dn-UeW"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

@@ -15,11 +15,9 @@ final class PendingTransactionsHandler: IPendingTransactionsHandler {
     case .paid:
       purchaseValidation.validateReceipt("") { [weak self] in
         switch $0 {
-        case .valid:
+        case .valid, .notValid:
           completion(.success)
           self?.pendingTransaction.finishTransaction()
-        case .notValid:
-          fallthrough
         case .error:
           completion(.error)
         case .authError:

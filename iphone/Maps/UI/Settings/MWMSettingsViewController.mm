@@ -372,7 +372,7 @@ using namespace power_management;
     [self.restoreSubscriptionCell.progress startAnimating];
     self.restoringSubscription = YES;
     __weak auto s = self;
-    [[SubscriptionManager shared] restore:^(MWMValidationResult result) {
+    [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
       __strong auto self = s;
       self.restoringSubscription = NO;
       [self.restoreSubscriptionCell.progress stopAnimating];

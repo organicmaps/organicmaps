@@ -16,6 +16,9 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 
 @interface MWMPurchaseManager : NSObject
 
++ (NSString *)bookmarksSubscriptionServerId;
++ (NSString *)bookmarksSubscriptionVendorId;
++ (NSArray<NSString *> *)bookmakrsProductIds;
 + (NSString *)adsRemovalServerId;
 + (NSString *)adsRemovalVendorId;
 + (NSArray<NSString *> *)productIds;
@@ -24,6 +27,7 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 + (MWMPurchaseManager *)sharedManager;
 
 - (void)validateReceipt:(NSString *)serverId
+               vendorId:(NSString *)vendorId
          refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback)callback;
 - (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback;

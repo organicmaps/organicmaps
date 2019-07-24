@@ -7,20 +7,22 @@
 
 @objc protocol ISubscription {
   var productId: String { get }
-  var price: NSDecimalNumber? { get }
+  var price: NSDecimalNumber { get }
   var priceLocale: Locale? { get }
   var period: SubscriptionPeriod { get }
 }
 
 class Subscription: ISubscription {
-  public static let productIds = MWMPurchaseManager.productIds()
+  public static let productIds = MWMPurchaseManager.productIds() + MWMPurchaseManager.bookmakrsProductIds()
   public static let legacyProductIds = MWMPurchaseManager.legacyProductIds()
-  private static let periodMap: [String: SubscriptionPeriod] = [productIds[0]: .week,
+  private static let periodMap: [String: SubscriptionPeriod] = [productIds[0]: .year,
                                                                 productIds[1]: .month,
-                                                                productIds[2]: .year]
+                                                                productIds[2]: .week,
+                                                                productIds[3]: .year,
+                                                                productIds[4]: .month]
   var productId: String
   var period: SubscriptionPeriod
-  var price: NSDecimalNumber?
+  var price: NSDecimalNumber
   var priceLocale: Locale?
 
   init(_ product: SKProduct) {

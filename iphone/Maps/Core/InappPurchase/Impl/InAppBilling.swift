@@ -35,6 +35,8 @@ final class InAppBilling: NSObject, IInAppBilling {
   }
 
   deinit {
+    productRequest?.cancel()
+    productRequest?.delegate = nil
     SKPaymentQueue.default().remove(self)
   }
 

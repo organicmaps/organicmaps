@@ -2,10 +2,15 @@ class BookmarksSubscriptionViewController: MWMViewController {
   @IBOutlet private var annualView: UIView!
   @IBOutlet private var monthlyView: UIView!
   @IBOutlet private var gradientView: GradientView!
-  @IBOutlet var scrollView: UIScrollView!
-  
+  @IBOutlet private var scrollView: UIScrollView!
+  @IBOutlet private var continueButton: UIButton!
+
   private let annualViewController = BookmarksSubscriptionCellViewController()
   private let monthlyViewController = BookmarksSubscriptionCellViewController()
+  private var priceFormatter: NumberFormatter?
+  private var monthlySubscription: ISubscription?
+  private var annualSubscription: ISubscription?
+  private var selectedSubscription: ISubscription?
 
   var onSubscribe: MWMVoidBlock?
   var onCancel: MWMVoidBlock?
@@ -35,20 +40,52 @@ class BookmarksSubscriptionViewController: MWMViewController {
 
     annualViewController.config(title: L("annual_subscription_title"),
                                 subtitle: L("annual_subscription_message"),
-                                price: "$29.99",
-                                image: UIImage(named: "bookmarksSubscriptionYear")!,
-                                discount: "SAVE $38")
+                                price: "",
+                                image: UIImage(named: "bookmarksSubscriptionYear")!)
     monthlyViewController.config(title: L("montly_subscription_title"),
                                 subtitle: L("montly_subscription_message"),
-                                price: "$3.99",
+                                price: "",
                                 image: UIImage(named: "bookmarksSubscriptionMonth")!)
     annualViewController.setSelected(true, animated: false)
+    continueButton.setTitle(L("current_location_unknown_continue_button").uppercased(), for: .normal)
+    InAppPurchase.bookmarksSubscriptionManager.addListener(self)
+    InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
+      guard let subscriptions = subscriptions, subscriptions.count == 2 else {
+        // TODO: hande error
+        return
+      }
+
+      self?.monthlySubscription = subscriptions[0]
+      self?.annualSubscription = subscriptions[1]
+      self?.selectedSubscription = self?.annualSubscription
+
+      let s = subscriptions[0]
+      let formatter = NumberFormatter()
+      formatter.locale = s.priceLocale
+      formatter.numberStyle = .currency
+
+      let monthlyPrice = subscriptions[0].price
+      let annualPrice = subscriptions[1].price
+      let discount = monthlyPrice.multiplying(by: 12).subtracting(annualPrice)
+      let discountString = formatter.string(from: discount)
+
+      self?.monthlyViewController.config(title: L("montly_subscription_title"),
+                                         subtitle: L("montly_subscription_message"),
+                                         price: formatter.string(from: monthlyPrice) ?? "",
+                                         image: UIImage(named: "bookmarksSubscriptionMonth")!)
+      self?.annualViewController.config(title: L("annual_subscription_title"),
+                                        subtitle: L("annual_subscription_message"),
+                                        price: formatter.string(from: annualPrice) ?? "",
+                                        image: UIImage(named: "bookmarksSubscriptionYear")!,
+                                        discount: (discountString != nil) ? "- \(discountString!)" : nil)
+    }
   }
 
   @IBAction func onAnnualViewTap(_ sender: UITapGestureRecognizer) {
     guard !annualViewController.isSelected else {
       return
     }
+    selectedSubscription = annualSubscription
     annualViewController.setSelected(true, animated: true)
     monthlyViewController.setSelected(false, animated: true)
     scrollView.scrollRectToVisible(annualView.convert(annualView.bounds, to: scrollView), animated: true)
@@ -58,16 +95,54 @@ class BookmarksSubscriptionViewController: MWMViewController {
     guard !monthlyViewController.isSelected else {
       return
     }
+    selectedSubscription = monthlySubscription
     annualViewController.setSelected(false, animated: true)
     monthlyViewController.setSelected(true, animated: true)
     scrollView.scrollRectToVisible(monthlyView.convert(monthlyView.bounds, to: scrollView), animated: true)
   }
 
   @IBAction func onContinue(_ sender: UIButton) {
-    onSubscribe?()
+    MWMBookmarksManager.shared().ping { [weak self] (success) in
+      guard success else {
+//        self?.loadingView.isHidden = true
+        let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
+          self?.dismiss(animated: true)
+        }
+        self?.present(errorDialog, animated: true)
+        return
+      }
+
+      guard let subscription = self?.selectedSubscription else {
+        return
+      }
+      
+      InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
+    }
   }
 
   @IBAction func onClose(_ sender: UIButton) {
     onCancel?()
+  }
+}
+
+extension BookmarksSubscriptionViewController: SubscriptionManagerListener {
+  func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
+
+  }
+
+  func didSubsribe(_ subscription: ISubscription) {
+    onSubscribe?()
+  }
+
+  func didFailToValidate(_ subscription: ISubscription, error: Error?) {
+
+  }
+
+  func didDefer(_ subscription: ISubscription) {
+
+  }
+
+  func validationError() {
+
   }
 }

@@ -146,14 +146,14 @@ final class CatalogWebViewController: WebViewController {
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-    let subscribePath = "/mobilefront/subscribe"
+    let subscribePath = "subscribe"
     guard let url = navigationAction.request.url,
-      url.scheme == "mapsme" || url.path == "/mobilefront/buy_kml" || url.path == subscribePath else {
+      url.scheme == "mapsme" || url.path.contains("buy_kml") || url.path.contains(subscribePath) else {
         super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
         return
     }
 
-    if url.path == subscribePath {
+    if url.path.contains(subscribePath) {
       showSubscribe()
       decisionHandler(.cancel);
       return
@@ -407,6 +407,11 @@ private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
 }
 
 extension CatalogWebViewController: PaidRouteViewControllerDelegate {
+  func didCompleteSubscription(_ viewController: PaidRouteViewController) {
+    dismiss(animated: true)
+    self.webView.reload()
+  }
+
   func didCompletePurchase(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
     download()

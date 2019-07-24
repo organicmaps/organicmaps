@@ -83,8 +83,8 @@ import SafariServices
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    SubscriptionManager.shared.addListener(self)
-    SubscriptionManager.shared.getAvailableSubscriptions { (subscriptions, error) in
+    InAppPurchase.adsRemovalSubscriptionManager.addListener(self)
+    InAppPurchase.adsRemovalSubscriptionManager.getAvailableSubscriptions { (subscriptions, error) in
       self.subscriptions = subscriptions
       self.productsLoadingIndicator.stopAnimating()
       guard let subscriptions = subscriptions else {
@@ -127,7 +127,7 @@ import SafariServices
   }
 
   deinit {
-    SubscriptionManager.shared.removeListener(self)
+    InAppPurchase.adsRemovalSubscriptionManager.removeListener(self)
   }
 
   @IBAction func onClose(_ sender: Any) {
@@ -188,7 +188,7 @@ import SafariServices
     Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId])
     Statistics.logEvent(kStatInappPay)
     showPurchaseProgress()
-    SubscriptionManager.shared.subscribe(to: subscription)
+    InAppPurchase.adsRemovalSubscriptionManager.subscribe(to: subscription)
   }
 
   private func showPurchaseProgress() {

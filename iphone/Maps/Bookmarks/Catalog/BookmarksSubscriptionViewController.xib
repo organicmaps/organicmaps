@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksSubscriptionViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
                 <outlet property="annualView" destination="Bae-oL-ekX" id="l9n-u0-LNW"/>
+                <outlet property="continueButton" destination="neX-0h-hs4" id="kQw-7y-Igs"/>
                 <outlet property="gradientView" destination="BcI-3g-iCI" id="Rmd-LB-Rl5"/>
                 <outlet property="monthlyView" destination="Jpy-cA-wCv" id="6yi-OC-MrD"/>
                 <outlet property="scrollView" destination="q5w-jW-Chn" id="dMR-TM-gMC"/>
@@ -49,6 +50,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold24"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="native_screen_subscription_title"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Every kind of journey. Whether alone or with friends, hiking or sunbathing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzD-qz-Fwt">
@@ -59,6 +61,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="native_screen_subscription_message"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5w-jW-Chn">
@@ -151,6 +154,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWZ-GP-RxW">
@@ -162,9 +166,10 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular9"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_terms_guides"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awa-we-Pjk" userLabel="TermsOfUse">
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awa-we-Pjk" userLabel="TermsOfUse">
                                     <rect key="frame" x="20" y="625.66666666666663" width="66" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
@@ -179,9 +184,10 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="terms_of_use"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60B-kT-Eev" userLabel="PrivacyPolicy">
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60B-kT-Eev" userLabel="PrivacyPolicy">
                                     <rect key="frame" x="325" y="625.66666666666663" width="69" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
@@ -196,6 +202,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="privacy_policy"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0Z-5m-unD">
@@ -233,6 +240,7 @@
                                 <constraint firstAttribute="trailing" secondItem="bOS-sQ-rkD" secondAttribute="trailing" constant="16" id="UBz-JQ-dSq"/>
                                 <constraint firstAttribute="trailing" secondItem="neX-0h-hs4" secondAttribute="trailing" constant="50" id="UTD-bj-67L"/>
                                 <constraint firstAttribute="trailing" secondItem="v0Z-5m-unD" secondAttribute="trailing" constant="8" id="aj5-SM-A2m"/>
+                                <constraint firstItem="60B-kT-Eev" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="awa-we-Pjk" secondAttribute="trailing" constant="16" id="bOW-rf-yBR"/>
                                 <constraint firstItem="neX-0h-hs4" firstAttribute="top" secondItem="q5w-jW-Chn" secondAttribute="bottom" constant="34" id="cZ6-hC-ePD"/>
                                 <constraint firstItem="q5w-jW-Chn" firstAttribute="top" secondItem="vzD-qz-Fwt" secondAttribute="bottom" constant="34" id="esu-FS-r9d"/>
                                 <constraint firstItem="vzD-qz-Fwt" firstAttribute="top" secondItem="bOS-sQ-rkD" secondAttribute="bottom" constant="16" id="f5X-2e-9pD"/>

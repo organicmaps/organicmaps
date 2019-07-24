@@ -10,10 +10,27 @@
 @property(nonatomic, copy) ValidateReceiptCallback callback;
 @property(nonatomic) SKReceiptRefreshRequest *receiptRequest;
 @property(nonatomic, copy) NSString * serverId;
+@property(nonatomic, copy) NSString * vendorId;
 
 @end
 
 @implementation MWMPurchaseManager
+
++ (NSString *)bookmarksSubscriptionServerId
+{
+  return @(BOOKMARKS_SUBSCRIPTION_SERVER_ID);
+}
+
++ (NSString *)bookmarksSubscriptionVendorId
+{
+  return @(BOOKMARKS_SUBSCRIPTION_VENDOR);
+}
+
++ (NSArray *)bookmakrsProductIds
+{
+  return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID),
+           @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
+}
 
 + (NSString *)adsRemovalServerId
 {
@@ -27,9 +44,9 @@
 
 + (NSArray *)productIds
 {
-  return @[@(ADS_REMOVAL_WEEKLY_PRODUCT_ID),
+  return @[@(ADS_REMOVAL_YEARLY_PRODUCT_ID),
            @(ADS_REMOVAL_MONTHLY_PRODUCT_ID),
-           @(ADS_REMOVAL_YEARLY_PRODUCT_ID)];
+           @(ADS_REMOVAL_WEEKLY_PRODUCT_ID)];
 }
 
 + (NSArray *)legacyProductIds
@@ -70,11 +87,13 @@
 }
 
 - (void)validateReceipt:(NSString *)serverId
+               vendorId:(NSString *)vendorId
          refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback)callback
 {
   self.callback = callback;
   self.serverId = serverId;
+  self.vendorId = vendorId;
   [self validateReceipt:refresh];
 }
 
@@ -112,7 +131,7 @@
   Purchase::ValidationInfo vi;
   vi.m_receiptData = [receiptData base64EncodedStringWithOptions:0].UTF8String;
   vi.m_serverId = self.serverId.UTF8String;
-  vi.m_vendorId = ADS_REMOVAL_VENDOR;
+  vi.m_vendorId = self.vendorId.UTF8String;
   auto const accessToken = GetFramework().GetUser().GetAccessToken();
   GetFramework().GetPurchase()->Validate(vi, accessToken);
 }

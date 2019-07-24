@@ -10,7 +10,7 @@ class SubscriptionManager: NSObject {
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
   typealias RestorationCompletion = (MWMValidationResult) -> Void
 
-  @objc static var shared: SubscriptionManager = { return SubscriptionManager() }()
+//  @objc static var shared: SubscriptionManager = { return SubscriptionManager() }()
 
   private let paymentQueue = SKPaymentQueue.default()
 
@@ -20,6 +20,17 @@ class SubscriptionManager: NSObject {
   private var pendingSubscription: ISubscription?
   private var listeners = NSHashTable<SubscriptionManagerListener>.weakObjects()
   private var restorationCallback: RestorationCompletion?
+
+  private var productIds: [String] = []
+  private var serverId: String = ""
+  private var vendorId: String = ""
+
+  convenience init(productIds: [String], serverId: String, vendorId: String) {
+    self.init()
+    self.productIds = productIds
+    self.serverId = serverId
+    self.vendorId = vendorId
+  }
 
   override private init() {
     super.init()
@@ -36,7 +47,7 @@ class SubscriptionManager: NSObject {
 
   @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion){
     subscriptionsComplection = completion
-    productsRequest = SKProductsRequest(productIdentifiers: Set(Subscription.productIds))
+    productsRequest = SKProductsRequest(productIdentifiers: Set(productIds))
     productsRequest!.delegate = self
     productsRequest!.start()
   }
@@ -66,19 +77,18 @@ class SubscriptionManager: NSObject {
 
   private func validate(_ refreshReceipt: Bool) {
     MWMPurchaseManager.shared()
-      .validateReceipt(MWMPurchaseManager.adsRemovalServerId(),
-                       refreshReceipt: refreshReceipt) { (_, validationResult) in
-        self.logEvents(validationResult)
+      .validateReceipt(serverId, vendorId: vendorId, refreshReceipt: refreshReceipt) { [weak self] (_, validationResult) in
+        self?.logEvents(validationResult)
         if validationResult == .valid || validationResult == .notValid {
           MWMPurchaseManager.shared().setAdsDisabled(validationResult == .valid)
-          self.paymentQueue.transactions
-            .filter { Subscription.productIds.contains($0.payment.productIdentifier) &&
+          self?.paymentQueue.transactions
+            .filter { self?.productIds.contains($0.payment.productIdentifier) ?? false &&
               ($0.transactionState == .purchased || $0.transactionState == .restored) }
-            .forEach { self.paymentQueue.finishTransaction($0) }
+            .forEach { self?.paymentQueue.finishTransaction($0) }
         }
 
-        self.restorationCallback?(validationResult)
-        self.restorationCallback = nil
+        self?.restorationCallback?(validationResult)
+        self?.restorationCallback = nil
     }
   }
 
@@ -87,7 +97,7 @@ class SubscriptionManager: NSObject {
     case .valid:
       Statistics.logEvent(kStatInappValidationSuccess)
       Statistics.logEvent(kStatInappProductDelivered,
-                          withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId()])
+                          withParameters: [kStatVendor : vendorId])
     case .notValid:
       Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0])
     case .serverError:
@@ -108,14 +118,14 @@ extension SubscriptionManager: SKProductsRequestDelegate {
   }
 
   func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-    guard response.products.count == 3 else {
+    guard response.products.count == productIds.count else {
       subscriptionsComplection?(nil, NSError(domain: "mapsme.subscriptions", code: -1, userInfo: nil))
       subscriptionsComplection = nil
       productsRequest = nil
       return
     }
     let subscriptions = response.products.map { Subscription($0) }
-      .sorted { $0.period.rawValue > $1.period.rawValue }
+      .sorted { $0.period.rawValue < $1.period.rawValue }
     products = Dictionary(uniqueKeysWithValues: response.products.map { ($0.productIdentifier, $0) })
     subscriptionsComplection?(subscriptions, nil)
     subscriptionsComplection = nil
@@ -126,7 +136,7 @@ extension SubscriptionManager: SKProductsRequestDelegate {
 extension SubscriptionManager: SKPaymentTransactionObserver {
   func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     let subscriptionTransactions = transactions.filter {
-      Subscription.productIds.contains($0.payment.productIdentifier)
+      productIds.contains($0.payment.productIdentifier)
     }
     subscriptionTransactions
       .filter { $0.transactionState == .failed }

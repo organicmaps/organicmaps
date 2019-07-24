@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags, NSInteger maxTagsNumber);
+typedef void (^PingCompletionBlock)(BOOL success);
 
 @interface MWMBookmarksManager : NSObject
 
@@ -93,6 +94,7 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 - (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
                     progress:(_Nullable ProgressBlock)progress
                   completion:(UploadCompletionBlock)completion;
+- (void)ping:(PingCompletionBlock)callback;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
