@@ -102,7 +102,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   for (size_t i = 0; i < nonPrefixTokens; ++i)
   {
     intersections[i] = ctx.m_features[i].Intersect(filter);
-    auto const df = intersections.back().m_features.PopCount();
+    auto const df = intersections[i].m_features.PopCount();
     if (df != 0)
     {
       auto const & token = m_params.GetToken(i);
@@ -117,7 +117,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   {
     auto const count = ctx.m_numTokens - 1;
     intersections[count] = ctx.m_features[count].Intersect(filter);
-    auto const prefixDf = intersections.back().m_features.PopCount();
+    auto const prefixDf = intersections[count].m_features.PopCount();
     if (prefixDf != 0)
     {
       auto const & token = m_params.GetToken(count);
