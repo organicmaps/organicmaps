@@ -148,6 +148,8 @@
 		56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA09E21E30E73B00D05C9A /* restriction_test.cpp */; };
 		56CA09E91E30F19800D05C9A /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CA09E81E30F19800D05C9A /* libtraffic.a */; };
 		56CA630A1F619C1000E6681B /* road_graph_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA63061F61206700E6681B /* road_graph_tests.cpp */; };
+		56CBED5522E9CE2600D51AF7 /* position_accumulator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CBED5322E9CE2500D51AF7 /* position_accumulator.hpp */; };
+		56CBED5622E9CE2600D51AF7 /* position_accumulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CBED5422E9CE2600D51AF7 /* position_accumulator.cpp */; };
 		56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */; };
 		56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */; };
 		56ED7DBD1F69425700B67156 /* turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F741F5850460064CB96 /* turn_test.cpp */; };
@@ -455,6 +457,8 @@
 		56CA09E21E30E73B00D05C9A /* restriction_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = restriction_test.cpp; sourceTree = "<group>"; };
 		56CA09E81E30F19800D05C9A /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "/Users/vladimirbykoyanko/src_github_master/omim/xcode/traffic/../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<absolute>"; };
 		56CA63061F61206700E6681B /* road_graph_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_tests.cpp; sourceTree = "<group>"; };
+		56CBED5322E9CE2500D51AF7 /* position_accumulator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = position_accumulator.hpp; sourceTree = "<group>"; };
+		56CBED5422E9CE2600D51AF7 /* position_accumulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = position_accumulator.cpp; sourceTree = "<group>"; };
 		56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_index_graph.hpp; sourceTree = "<group>"; };
 		56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		56EE14DC1FE812FC0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -845,6 +849,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				56CBED5422E9CE2600D51AF7 /* position_accumulator.cpp */,
+				56CBED5322E9CE2500D51AF7 /* position_accumulator.hpp */,
 				4443DC3522789793000C8E32 /* leaps_postprocessor.cpp */,
 				4443DC3622789793000C8E32 /* leaps_postprocessor.hpp */,
 				44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */,
@@ -1060,6 +1066,7 @@
 				674F9BCD1B0A580E00704FFA /* features_road_graph.hpp in Headers */,
 				40576F781F7A788B000B593B /* fake_vertex.hpp in Headers */,
 				670EE5741B664796001E8064 /* pedestrian_directions.hpp in Headers */,
+				56CBED5522E9CE2600D51AF7 /* position_accumulator.hpp in Headers */,
 				5694CECB1EBA25F7004576D3 /* road_access_serialization.hpp in Headers */,
 				0C08AA371DF8324D004195DD /* vehicle_mask.hpp in Headers */,
 				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
@@ -1352,6 +1359,7 @@
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
 				5694CECE1EBA25F7004576D3 /* vehicle_mask.cpp in Sources */,
 				0C45D7391F2F75500065C3ED /* routing_settings.cpp in Sources */,
+				56CBED5622E9CE2600D51AF7 /* position_accumulator.cpp in Sources */,
 				0C5FEC691DDE193F0017688C /* road_index.cpp in Sources */,
 				0CF709361F05172200D5067E /* checkpoints.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,

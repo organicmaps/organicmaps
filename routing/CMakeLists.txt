@@ -83,6 +83,8 @@ set(
   online_cross_fetcher.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
+  position_accumulator.cpp
+  position_accumulator.hpp
   restriction_loader.cpp
   restriction_loader.hpp
   restrictions_serialization.cpp
