@@ -111,7 +111,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(m_checkpoints, m_currentDirection, adjustToPrevRoute,
+  m_router->CalculateRoute(m_checkpoints, m_positionAccumulator.GetDirection(), adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback),
                            needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
@@ -341,9 +341,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
                                             MercatorBounds::XToLon(lastGoodPoint.x)));
     }
   }
-
-  if (m_userCurrentPositionValid && m_userFormerPositionValid)
-    m_currentDirection = m_userCurrentPosition - m_userFormerPosition;
 
   return m_state;
 }
@@ -610,12 +607,11 @@ void RoutingSession::SetChangeSessionStateCallback(
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  // All methods which read/write m_userCurrentPosition*, m_userFormerPosition*  work in RoutingManager thread
-  m_userFormerPosition = m_userCurrentPosition;
-  m_userFormerPositionValid = m_userCurrentPositionValid;
 
   m_userCurrentPosition = position;
   m_userCurrentPositionValid = true;
+
+  m_positionAccumulator.PushNextPoint(position);
 }
 
 void RoutingSession::EnableTurnNotifications(bool enable)

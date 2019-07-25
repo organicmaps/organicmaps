@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/async_router.hpp"
+#include "routing/position_accumulator.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -105,6 +106,10 @@ public:
 
   void SetUserCurrentPosition(m2::PointD const & position);
 
+  void ClearPositionAccumulator() { m_positionAccumulator.Clear(); }
+
+  void ActivateAdditionalFeatures() {}
+
   /// Disable following mode on GPS updates. Following mode is disabled only for the current route.
   /// If a route is rebuilt you must call DisableFollowMode again.
   /// Returns true if following was disabled, false if a route is not ready for the following yet.
@@ -188,23 +193,21 @@ private:
   bool m_isFollowing;
   Checkpoints m_checkpoints;
 
-
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance = 0.0;
   int m_moveAwayCounter = 0;
   m2::PointD m_lastGoodPosition;
-  // |m_currentDirection| is a vector from the position before last good position to last good position.
-  m2::PointD m_currentDirection;
+
   m2::PointD m_userCurrentPosition;
-  m2::PointD m_userFormerPosition;
   bool m_userCurrentPositionValid = false;
-  bool m_userFormerPositionValid = false;
 
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;
 
   SpeedCameraManager m_speedCameraManager;
   RoutingSettings m_routingSettings;
+
+  PositionAccumulator m_positionAccumulator;
 
   ReadyCallback m_buildReadyCallback;
   ReadyCallback m_rebuildReadyCallback;
