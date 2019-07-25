@@ -525,6 +525,7 @@ public class Holders
     {
       super.bind(item);
       getButton().setText(R.string.gallery_pp_download_guides_offline_cta);
+      UiUtils.show(getButton());
     }
 
     @Override

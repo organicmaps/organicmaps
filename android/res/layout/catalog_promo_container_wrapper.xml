@@ -6,5 +6,19 @@
   android:background="?attr/windowBackgroundForced"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
+  <TextView
+    android:id="@+id/catalog_promo_title"
+    android:text="@string/gallery_pp_download_guides_title"
+    android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+    style="@style/MwmWidget.Discovery.Subtitle"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:textAllCaps="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
   <include layout="@layout/catalog_promo_container"/>
 </LinearLayout>

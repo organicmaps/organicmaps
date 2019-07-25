@@ -134,6 +134,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     RecyclerView catalogPromoRecycler = getGallery(R.id.catalog_promo_recycler);
     setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
+    RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
+    GalleryAdapter galleryAdapter = mOnlineMode
+                                    ? Factory.createCatalogPromoLoadingAdapter(new CatalogPromoSelectedListener(requireActivity()))
+                                    : Factory.createCatalogPromoErrorAdapter(new ErrorCatalogPromoListener<>(requireActivity()));
+
+    promoRecycler.setAdapter(galleryAdapter);
   }
 
   private static void setLayoutManagerAndItemDecoration(@NonNull Context context,
