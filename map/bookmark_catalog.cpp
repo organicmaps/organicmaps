@@ -644,7 +644,7 @@ void BookmarkCatalog::Ping(PingCallback && callback) const
   {
     platform::HttpClient request(url);
     request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
-    uint32_t constexpr kPingTimeoutInSec = 15;
+    uint32_t constexpr kPingTimeoutInSec = 10;
     request.SetTimeout(kPingTimeoutInSec);
     if (request.RunHttpRequest())
     {
