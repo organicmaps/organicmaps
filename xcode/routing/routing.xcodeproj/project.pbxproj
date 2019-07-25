@@ -150,6 +150,7 @@
 		56CA630A1F619C1000E6681B /* road_graph_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA63061F61206700E6681B /* road_graph_tests.cpp */; };
 		56CBED5522E9CE2600D51AF7 /* position_accumulator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CBED5322E9CE2500D51AF7 /* position_accumulator.hpp */; };
 		56CBED5622E9CE2600D51AF7 /* position_accumulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CBED5422E9CE2600D51AF7 /* position_accumulator.cpp */; };
+		56CBED5822E9CFB600D51AF7 /* position_accumulator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CBED5722E9CFB600D51AF7 /* position_accumulator_tests.cpp */; };
 		56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */; };
 		56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */; };
 		56ED7DBD1F69425700B67156 /* turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F741F5850460064CB96 /* turn_test.cpp */; };
@@ -459,6 +460,7 @@
 		56CA63061F61206700E6681B /* road_graph_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_tests.cpp; sourceTree = "<group>"; };
 		56CBED5322E9CE2500D51AF7 /* position_accumulator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = position_accumulator.hpp; sourceTree = "<group>"; };
 		56CBED5422E9CE2600D51AF7 /* position_accumulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = position_accumulator.cpp; sourceTree = "<group>"; };
+		56CBED5722E9CFB600D51AF7 /* position_accumulator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = position_accumulator_tests.cpp; sourceTree = "<group>"; };
 		56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_index_graph.hpp; sourceTree = "<group>"; };
 		56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		56EE14DC1FE812FC0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -710,6 +712,7 @@
 		6742ACA01C68A07C009CB89E /* routing_tests */ = {
 			isa = PBXGroup;
 			children = (
+				56CBED5722E9CFB600D51AF7 /* position_accumulator_tests.cpp */,
 				440BE38722AFB31600C548FB /* uturn_restriction_tests.cpp */,
 				440BE38322AFB31100C548FB /* world_graph_builder.cpp */,
 				440BE38422AFB31100C548FB /* world_graph_builder.hpp */,
@@ -1306,6 +1309,7 @@
 				6742AD291C68A9DF009CB89E /* astar_router_test.cpp in Sources */,
 				6742AD371C68A9DF009CB89E /* turns_tts_text_tests.cpp in Sources */,
 				6742AD2C1C68A9DF009CB89E /* followed_polyline_test.cpp in Sources */,
+				56CBED5822E9CFB600D51AF7 /* position_accumulator_tests.cpp in Sources */,
 				6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */,
 				6742AD261C68A9DF009CB89E /* testingmain.cpp in Sources */,
 				6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */,

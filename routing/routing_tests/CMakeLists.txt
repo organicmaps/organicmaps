@@ -20,6 +20,7 @@ set(
   maxspeeds_tests.cpp
   nearest_edge_finder_tests.cpp
   online_cross_fetcher_test.cpp
+  position_accumulator_tests.cpp
   restriction_test.cpp
   road_access_test.cpp
   road_graph_builder.cpp
