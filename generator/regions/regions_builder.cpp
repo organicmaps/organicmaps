@@ -42,11 +42,14 @@ void RegionsBuilder::MoveLabelPlacePoints(PlacePointsMap & placePointsMap, Regio
     {
       auto label = placePointsMap.find(*labelOsmId);
       if (label != placePointsMap.end())
-      {
         region.SetLabel(label->second);
-        placePointsMap.erase(label);
-      }
     }
+  }
+
+  for (auto & region : regions)
+  {
+    if (auto const & label = region.GetLabel())
+      placePointsMap.erase(label->GetId());
   }
 }
 
