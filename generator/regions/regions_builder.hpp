@@ -36,6 +36,7 @@ public:
   // Return: 0 - no relation, 1 - |l| contains |r|, -1 - |r| contains |l|.
   static int CompareAffiliation(LevelRegion const & l, LevelRegion const & r,
                                 CountrySpecifier const & countrySpecifier);
+  static bool IsAreaLessRely(Region const & l, Region const & r);
 
 private:
   static constexpr double kAreaRelativeErrorPercent = 0.1;
@@ -59,7 +60,6 @@ private:
       std::vector<Node::Ptr>::const_reverse_iterator forItem) const;
   static void InsertIntoSubtree(Node::Ptr & subtree, Node::Ptr && newNode,
                                 CountrySpecifier const & countrySpecifier);
-  static bool IsAreaLessRely(Region const & l, Region const & r);
 
   Regions m_countriesOuters;
   Regions m_regionsInAreaOrder;

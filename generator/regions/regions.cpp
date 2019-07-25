@@ -158,6 +158,9 @@ private:
     size_t countryRegionsCount = 0;
     size_t countryObjectCount = 0;
 
+    std::vector<base::GeoObjectId> objectsOrder;
+    std::map<base::GeoObjectId, NodePath> objectsPaths;
+
     for (auto const & tree : outers)
     {
       if (m_verbose)
@@ -168,6 +171,7 @@ private:
         auto const & region = node->GetData();
         auto const & objectId = region.GetId();
         auto const & regionCountryEmplace = m_regionsCountries.emplace(objectId, country);
+        bool firstRegionOfObject = regionCountryEmplace.second;
         if (!regionCountryEmplace.second && regionCountryEmplace.first->second != country)
         {
           LOG(LWARNING, ("Failed to place", GetLabel(region.GetLevel()), "region", objectId, "(",
@@ -178,18 +182,40 @@ private:
 
         m_objectsRegions.emplace(objectId, node);
         ++countryRegionsCount;
-
-        if (regionCountryEmplace.second)
+        if (firstRegionOfObject)
         {
-          m_regionsKv << KeyValueStorage::SerializeDref(objectId.GetEncodedId()) << " "
-                      << KeyValueStorage::Serialize(BuildRegionValue(path)) << "\n";
+          objectsOrder.push_back(objectId);
           ++countryObjectCount;
+        }
+
+        auto pathEmplace = objectsPaths.emplace(objectId, path);
+        if (!pathEmplace.second)
+        {
+          auto & objectMaxRegionPath = pathEmplace.first->second;
+          auto & objectMaxRegion = objectMaxRegionPath.back()->GetData();
+          if (RegionsBuilder::IsAreaLessRely(objectMaxRegion, region))
+            objectMaxRegionPath = path;
         }
       });
     }
 
+    WriteObjectsInKv(objectsOrder, objectsPaths);
+
     LOG(LINFO, ("Country regions of", *country, "has built:", countryRegionsCount, "total regions.",
                 countryObjectCount, "objects."));
+  }
+
+  void WriteObjectsInKv(std::vector<base::GeoObjectId> const & objectsOrder,
+                        std::map<base::GeoObjectId, NodePath> const & objectsPaths)
+  {
+    for (auto const & objectId : objectsOrder)
+    {
+      auto pathIter = objectsPaths.find(objectId);
+      CHECK(pathIter != objectsPaths.end(), ());
+      auto const & path = pathIter->second;
+      m_regionsKv << KeyValueStorage::SerializeDref(objectId.GetEncodedId()) << " "
+                  << KeyValueStorage::Serialize(BuildRegionValue(path)) << "\n";
+    }
   }
 
   std::tuple<RegionsBuilder::Regions, PlacePointsMap> ReadDatasetFromTmpMwm(
