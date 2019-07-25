@@ -251,7 +251,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)menuActionBookingSearch
 {
-  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatSearch}];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatButton : kStatBooking}];
   self.state = MWMBottomMenuStateInactive;
   [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
                                       forInputLocale:[NSLocale currentLocale].localeIdentifier];
