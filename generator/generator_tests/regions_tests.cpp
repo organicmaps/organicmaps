@@ -540,6 +540,48 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusCitySuburb)
        ());
 }
 
+UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSubregion)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions({
+      {1, {name = u8"Россия", admin = "2", ba}, {{0, 0}, {50, 50}}},
+      {2, {name = u8"Центральный федеральный округ", admin = "3", ba}, {{10, 10}, {20, 20}}},
+      {3, {name = u8"Москва", admin = "4", ba}, {{12, 12}, {16, 16}}},
+
+      {4, {name = u8"Западный административный округ", admin = "5", ba}, {{12, 12}, {13, 13}}},
+      {4, {name = u8"Западный административный округ", admin = "5", ba}, {{13, 13}, {15, 14}}},
+      {5, {name = u8"Северный административный округ", admin = "5", ba}, {{13, 14}, {15, 15}}},
+      {6, {name = u8"Троицкий административный округ", admin = "5", ba}, {{15, 15}, {16, 16}}},
+
+      {7, {name = u8"Москва", place = "city"}, {{12, 12}, {13, 13}}},
+      {7, {name = u8"Москва", place = "city"}, {{13, 13}, {15, 15}}},
+  });
+
+  TEST(HasName(regions, u8"Россия, region: Москва"), ());
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, locality: Москва"),
+       ());
+  TEST(!HasName(regions,
+                u8"Россия, region: Москва, subregion: Западный административный округ, "
+                u8"locality: Москва"),
+       ());
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Западный административный округ"),
+       ());
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, locality: Москва, "
+               u8"subregion: Северный административный округ"),
+       ());
+  TEST(HasName(regions,
+               u8"Россия, region: Москва, subregion: Троицкий административный округ"),
+       ());
+}
+
 UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSuburb)
 {
   Tag const admin{"admin_level"};

@@ -23,6 +23,9 @@ public:
   // CountrySpecifier overrides:
   void AdjustRegionsLevel(Node::PtrList & outers) override;
 
+  int RelateByWeight(LevelRegion const & lhs, LevelRegion const & rhs) const override;
+  static bool IsFederalCity(LevelRegion const & region);
+
 private:
   // CountrySpecifier overrides:
   PlaceLevel GetSpecificCountryLevel(Region const & region) const override;
@@ -151,6 +154,34 @@ void RussiaSpecifier::MarkAllSuburbsToSublocalities(Node::Ptr & tree)
 
   for (auto & subtree : tree->GetChildren())
     MarkAllSuburbsToSublocalities(subtree);
+}
+
+int RussiaSpecifier::RelateByWeight(LevelRegion const & lhs, LevelRegion const & rhs) const
+{
+  if (PlaceLevel::Locality == lhs.GetLevel() && IsFederalCity(lhs))
+  {
+    auto rhsAdminLevel = rhs.GetAdminLevel();
+    if (rhsAdminLevel == AdminLevel::Five || rhsAdminLevel == AdminLevel::Eight)
+      return 1;
+  }
+
+  if (PlaceLevel::Locality == rhs.GetLevel() && IsFederalCity(rhs))
+  {
+    auto lhsAdminLevel = lhs.GetAdminLevel();
+    if (lhsAdminLevel == AdminLevel::Five || lhsAdminLevel == AdminLevel::Eight)
+      return -1;
+  }
+
+  return CountrySpecifier::RelateByWeight(lhs, rhs);
+}
+
+bool RussiaSpecifier::IsFederalCity(LevelRegion const & region)
+{
+  if (region.GetPlaceType() != PlaceType::City)
+    return false;
+
+  auto && name = region.GetName();
+  return name == u8"Москва" || name == u8"Санкт-Петербург" || name == u8"Севастополь";
 }
 
 PlaceLevel RussiaSpecifier::GetSpecificCountryLevel(Region const & region) const
