@@ -14,13 +14,21 @@
 struct BookmarkInfo
 {
   BookmarkInfo() = default;
+
   BookmarkInfo(kml::MarkId id, kml::BookmarkData const & data)
     : m_bookmarkId(id)
     , m_bookmarkData(data)
   {}
 
+  BookmarkInfo(kml::MarkId id, kml::BookmarkData const & data, search::ReverseGeocoder::RegionAddress const & address)
+    : m_bookmarkId(id)
+    , m_bookmarkData(data)
+    , m_address(address)
+  {}
+
   kml::MarkId m_bookmarkId;
   kml::BookmarkData m_bookmarkData;
+  search::ReverseGeocoder::RegionAddress m_address;
 };
 
 struct BookmarkGroupInfo

@@ -15,6 +15,7 @@ omim_link_libraries(
   generator
   routing
   search
+  storage
   openlr
   editor
   indexer

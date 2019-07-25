@@ -1995,6 +1995,25 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
   }
 }
 
+void BookmarkManager::PrepareBookmarksAddresses(kml::MarkGroupId catId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(IsBookmarkCategory(catId), ());
+
+  auto addressGetter = m_callbacks.m_getRegionAddressGetter();
+  if (!addressGetter)
+    return;
+
+  auto session = GetEditSession();
+  auto * group = GetGroup(catId);
+  for (auto bmId : group->GetUserMarks())
+  {
+    auto * bookmark = GetBookmarkForEdit(bmId);
+    if (!bookmark->GetAddress().IsValid())
+      bookmark->SetAddress(addressGetter->GetNearbyRegionAddress(bookmark->GetPivot()));
+  }
+}
+
 std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

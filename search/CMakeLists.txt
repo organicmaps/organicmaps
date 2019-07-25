@@ -133,6 +133,8 @@ set(
   ranking_info.hpp
   ranking_utils.cpp
   ranking_utils.hpp
+  region_address_getter.cpp
+  region_address_getter.hpp
   region_info_getter.cpp
   region_info_getter.hpp
   result.cpp

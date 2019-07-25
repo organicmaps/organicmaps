@@ -382,6 +382,7 @@ void Framework::Migrate(bool keepDownloaded)
   }
   m_selectedFeature = FeatureID();
   m_discoveryManager.reset();
+  m_regionAddressGetter.reset();
   m_searchAPI.reset();
   m_infoGetter.reset();
   m_taxiEngine.reset();
@@ -394,6 +395,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitCountryInfoGetter();
   InitSearchAPI();
   InitCityFinder();
+  InitRegionAddressGetter();
   InitDiscoveryManager();
   InitTaxiEngine();
   RegisterAllMaps();
@@ -493,6 +495,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
+      [this]() -> search::RegionAddressGetter * { CHECK(m_regionAddressGetter, ()); return m_regionAddressGetter.get(); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
@@ -514,6 +517,7 @@ Framework::Framework(FrameworkParams const & params)
   });
 
   InitCityFinder();
+  InitRegionAddressGetter();
   InitDiscoveryManager();
   InitTaxiEngine();
 
@@ -3818,6 +3822,16 @@ void Framework::InitCityFinder()
   ASSERT(!m_cityFinder, ());
 
   m_cityFinder = make_unique<search::CityFinder>(m_model.GetDataSource());
+}
+
+void Framework::InitRegionAddressGetter()
+{
+  ASSERT(!m_regionAddressGetter, ());
+  ASSERT(m_infoGetter, ());
+  ASSERT(m_cityFinder, ());
+
+  m_regionAddressGetter = make_unique<search::RegionAddressGetter>(m_model.GetDataSource(), *m_infoGetter,
+                                                                   *m_cityFinder);
 }
 
 void Framework::InitTaxiEngine()

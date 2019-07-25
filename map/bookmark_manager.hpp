@@ -28,6 +28,11 @@
 
 #include <boost/optional.hpp>
 
+namespace search
+{
+class RegionAddressGetter;
+}  // namespace search
+
 class User;
 
 class BookmarkManager final
@@ -57,19 +62,22 @@ public:
 
   struct Callbacks
   {
-    using GetStringsBundleFn = std::function<StringsBundle const &()>;
+    using GetStringsBundleFn = std::function<StringsBundle const & ()>;
+    using GetRegionAddressGetterFn = std::function<search::RegionAddressGetter * ()>;
     using CreatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using UpdatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
     using AttachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
-    template <typename StringsBundleGetter, typename CreateListener, typename UpdateListener, typename DeleteListener,
-      typename AttachListener, typename DetachListener>
-    Callbacks(StringsBundleGetter && stringsBundleGetter, CreateListener && createListener,
-              UpdateListener && updateListener, DeleteListener && deleteListener, AttachListener && attachListener,
-              DetachListener && detachListener)
-        : m_getStringsBundle(std::forward<StringsBundleGetter>(stringsBundleGetter))
+    template <typename StringsBundleProvider, typename RegionAddressGetterProvider,
+              typename CreateListener, typename UpdateListener, typename DeleteListener,
+              typename AttachListener, typename DetachListener>
+    Callbacks(StringsBundleProvider && stringsBundleProvider, RegionAddressGetterProvider && regionAddressGetterProvider,
+              CreateListener && createListener, UpdateListener && updateListener, DeleteListener && deleteListener,
+              AttachListener && attachListener, DetachListener && detachListener)
+        : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
+        , m_getRegionAddressGetter(std::forward<RegionAddressGetterProvider>(regionAddressGetterProvider))
         , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
         , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
         , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
@@ -78,6 +86,7 @@ public:
     {}
 
     GetStringsBundleFn m_getStringsBundle;
+    GetRegionAddressGetterFn m_getRegionAddressGetter;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;
@@ -543,6 +552,8 @@ private:
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
+
+  void PrepareBookmarksAddresses(kml::MarkGroupId groupId);
 
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 

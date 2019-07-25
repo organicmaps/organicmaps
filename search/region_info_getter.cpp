@@ -7,7 +7,6 @@
 #include "base/string_utils.hpp"
 
 #include <cstddef>
-#include <vector>
 
 using namespace std;
 using namespace storage;
@@ -54,36 +53,44 @@ void RegionInfoGetter::SetLocale(string const & locale)
   m_nameGetter = platform::GetTextByIdFactory(platform::TextSource::Countries, locale);
 }
 
-string RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id) const
+void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id, vector<string> & nameParts) const
 {
   size_t const kMaxNumParts = 2;
 
-  vector<string> parts;
   GetPathToRoot(id, m_countries, [&](storage::CountryId const & id) {
-    parts.push_back(GetLocalizedCountryName(id));
+    nameParts.push_back(GetLocalizedCountryName(id));
   });
 
-  if (parts.size() > kMaxNumParts)
-    parts.erase(parts.begin(), parts.end() - kMaxNumParts);
+  if (nameParts.size() > kMaxNumParts)
+    nameParts.erase(nameParts.begin(), nameParts.end() - kMaxNumParts);
 
-  base::EraseIf(parts, [&](string const & s) { return s.empty(); });
+  base::EraseIf(nameParts, [&](string const & s) { return s.empty(); });
 
-  if (!parts.empty())
-    return strings::JoinStrings(parts, ", ");
+  if (!nameParts.empty())
+    return;
 
   // Tries to get at least localized name for |id|, if |id| is a
   // disputed territory.
   auto name = GetLocalizedCountryName(id);
   if (!name.empty())
-    return name;
+  {
+    nameParts.push_back(name);
+    return;
+  }
 
   // Tries to transform map name to the full name.
   name = id;
   storage::CountryInfo::FileName2FullName(name);
   if (!name.empty())
-    return name;
+    nameParts.push_back(name);
+}
 
-  return {};
+string RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id) const
+{
+  vector<string> parts;
+  GetLocalizedFullName(id, parts);
+
+  return strings::JoinStrings(parts, ", ");
 }
 
 string RegionInfoGetter::GetLocalizedCountryName(storage::CountryId const & id) const

@@ -4,6 +4,8 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/string_utils.hpp"
@@ -19,9 +21,16 @@
 class FeatureType;
 class DataSource;
 
+namespace storage
+{
+class CountryInfoGetter;
+}  // namespace storage
+
 namespace search
 {
 class MwmContext;
+class CityFinder;
+class RegionInfoGetter;
 
 class ReverseGeocoder
 {
@@ -48,7 +57,7 @@ public:
   /// All "Nearby" functions work in this lookup radius.
   static int constexpr kLookupRadiusM = 500;
 
-  explicit ReverseGeocoder(DataSource const & dataSource);
+  ReverseGeocoder(DataSource const & dataSource);
 
   struct Street : public Object
   {
@@ -91,6 +100,34 @@ public:
     std::string FormatAddress() const;
   };
 
+  struct RegionAddress
+  {
+    storage::CountryId m_countryId;
+    FeatureID m_featureId;
+
+    bool operator==(RegionAddress const & rhs) const
+    {
+      return m_countryId == rhs.m_countryId && m_featureId == rhs.m_featureId;
+    }
+
+    bool operator!=(RegionAddress const & rhs) const { return !(*this == rhs); }
+    bool operator<(RegionAddress const & rhs) const
+    {
+      if (m_countryId == rhs.m_countryId)
+        return m_featureId < rhs.m_featureId;
+      return m_countryId < rhs.m_countryId;
+    }
+
+    bool IsValid() const { return storage::IsCountryIdValid(m_countryId) || m_featureId.IsValid(); }
+
+    std::string GetCountryName() const
+    {
+      if (m_featureId.IsValid() && m_featureId.m_mwmId.GetInfo()->GetType() != MwmInfo::WORLD)
+        return m_featureId.m_mwmId.GetInfo()->GetCountryName();
+      return m_countryId;
+    }
+  };
+
   friend std::string DebugPrint(Address const & addr);
 
   /// Returns a feature id of street from |streets| whose name best matches |keyName|
@@ -125,6 +162,11 @@ public:
   /// @returns false if  can't extruct address or ft have no house number.
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
+
+  /// @return The nearest region address where mwm or exact city known.
+  static RegionAddress GetNearbyRegionAddress(m2::PointD const & center, storage::CountryInfoGetter const & infoGetter,
+                                              CityFinder & cityFinder);
+  std::string GetLocalizedRegionAdress(RegionAddress const & addr, RegionInfoGetter const & nameGetter) const;
 
 private:
   /// Helper class to incapsulate house 2 street table reloading.

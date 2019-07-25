@@ -71,6 +71,17 @@ kml::BookmarkData const & Bookmark::GetData() const
   return m_data;
 }
 
+search::ReverseGeocoder::RegionAddress const & Bookmark::GetAddress() const
+{
+  return m_address;
+}
+
+void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address)
+{
+  SetDirty();
+  m_address = address;
+}
+
 dp::Anchor Bookmark::GetAnchor() const
 {
   return dp::Bottom;
