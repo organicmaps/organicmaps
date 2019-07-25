@@ -345,18 +345,18 @@ void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
     m_bookmarksProcessor.Erase(id);
 }
 
-void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId,
                                            vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
-    m_bookmarksProcessor.AttachToGroup(id, group);
+    m_bookmarksProcessor.AttachToGroup(id, groupId);
 }
 
-void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
                                              vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
-    m_bookmarksProcessor.DetachFromGroup(id, group);
+    m_bookmarksProcessor.DetachFromGroup(id, groupId);
 }
 
 Locales Processor::GetCategoryLocales() const

@@ -14,6 +14,6 @@ using Id = uint64_t;
 using GroupId = uint64_t;
 using Doc = Data;
 
-GroupId constexpr kInvalidGroupId = std::numeric_limits<GroupId>::max();
+extern GroupId const kInvalidGroupId;
 }  // namespace bookmarks
 }  // namespace search

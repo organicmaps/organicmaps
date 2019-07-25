@@ -146,6 +146,7 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
   marks.emplace_back(2, data);
   m_api.OnBookmarksCreated(marks);
+  m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
 
   auto runTest = [&](string const & query, kml::MarkGroupId const & groupId,
                      vector<kml::MarkId> const & expected) {
@@ -162,7 +163,6 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
     };
     params.m_groupId = groupId;
 
-    m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
     m_api.SearchInBookmarks(params);
 
     auto const ids = future.get();

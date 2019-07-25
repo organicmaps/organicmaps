@@ -24,6 +24,7 @@ set(
   bookmarks/processor.cpp
   bookmarks/processor.hpp
   bookmarks/results.hpp
+  bookmarks/types.cpp
   bookmarks/types.hpp
   cancel_exception.hpp
   categories_cache.cpp

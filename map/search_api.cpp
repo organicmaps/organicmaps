@@ -19,6 +19,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -59,9 +60,9 @@ bookmarks::Id KmlMarkIdToSearchBookmarkId(kml::MarkId id)
   static_assert(is_unsigned<kml::MarkId>::value, "");
   static_assert(is_unsigned<bookmarks::Id>::value, "");
 
-  static_assert(sizeof(bookmarks::Id) >= sizeof(kml::MarkId), "");
+  static_assert(sizeof(bookmarks::Id) == sizeof(kml::MarkId), "");
 
-  return static_cast<bookmarks::Id>(id);
+  return base::asserted_cast<bookmarks::Id>(id);
 }
 
 bookmarks::GroupId KmlGroupIdToSearchGroupId(kml::MarkGroupId id)
@@ -77,7 +78,7 @@ bookmarks::GroupId KmlGroupIdToSearchGroupId(kml::MarkGroupId id)
   if (id == kml::kInvalidMarkGroupId)
     return bookmarks::kInvalidGroupId;
 
-  return static_cast<bookmarks::GroupId>(id);
+  return base::asserted_cast<bookmarks::GroupId>(id);
 }
 
 kml::MarkId SearchBookmarkIdToKmlMarkId(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
@@ -410,7 +411,7 @@ void SearchAPI::OnBookmarksDeleted(vector<kml::MarkId> const & marks)
   m_engine.OnBookmarksDeleted(data);
 }
 
-void SearchAPI::OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & groupInfos)
+void SearchAPI::OnBookmarksAttached(vector<BookmarkGroupInfo> const & groupInfos)
 {
   for (auto const & info : groupInfos)
   {
@@ -420,7 +421,7 @@ void SearchAPI::OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & group
   }
 }
 
-void SearchAPI::OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & groupInfos)
+void SearchAPI::OnBookmarksDetached(vector<BookmarkGroupInfo> const & groupInfos)
 {
   for (auto const & info : groupInfos)
   {

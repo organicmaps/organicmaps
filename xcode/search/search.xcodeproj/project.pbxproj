@@ -73,6 +73,7 @@
 		34F558451DBF2E7600A4FC11 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558441DBF2E7600A4FC11 /* libopening_hours.a */; };
 		34F558471DBF2E8100A4FC11 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558461DBF2E8100A4FC11 /* libsuccinct.a */; };
 		34F558491DBF2EC700A4FC11 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558481DBF2EC700A4FC11 /* libz.tbd */; };
+		39066C5622EA03550053E9E1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39066C5522EA03540053E9E1 /* types.cpp */; };
 		3913DA511F9FCC88004AA681 /* suggest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3913DA501F9FCC88004AA681 /* suggest.cpp */; };
 		392688C320B2D1D600721762 /* bookmarks_processor_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392688B420B2D1BF00721762 /* bookmarks_processor_tests.cpp */; };
 		392688C420B2D1D600721762 /* mem_search_index_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392688B520B2D1BF00721762 /* mem_search_index_tests.cpp */; };
@@ -370,6 +371,7 @@
 		34F558441DBF2E7600A4FC11 /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		34F558461DBF2E8100A4FC11 /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		34F558481DBF2EC700A4FC11 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		39066C5522EA03540053E9E1 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
 		3913DA501F9FCC88004AA681 /* suggest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suggest.cpp; sourceTree = "<group>"; };
 		392688B420B2D1BF00721762 /* bookmarks_processor_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmarks_processor_tests.cpp; sourceTree = "<group>"; };
 		392688B520B2D1BF00721762 /* mem_search_index_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mem_search_index_tests.cpp; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 		0831F24D200E56100034C365 /* bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				39066C5522EA03540053E9E1 /* types.cpp */,
 				0831F24E200E56100034C365 /* results.hpp */,
 				0831F24F200E56100034C365 /* processor.cpp */,
 				0831F250200E56100034C365 /* data.cpp */,
@@ -1323,6 +1326,7 @@
 				675346E71A40560D00A0A8C3 /* keyword_lang_matcher.cpp in Sources */,
 				0831F258200E56110034C365 /* data.cpp in Sources */,
 				406B98DA229C3EDA0062EBEC /* feature_offset_match_tests.cpp in Sources */,
+				39066C5622EA03550053E9E1 /* types.cpp in Sources */,
 				3453BD5A1DAF91C100380ECB /* hotels_filter.cpp in Sources */,
 				345C8DB31D2D15A50037E3A6 /* streets_matcher.cpp in Sources */,
 				456E1B3E1F9A3C8E009C32E1 /* cities_boundaries_table.cpp in Sources */,

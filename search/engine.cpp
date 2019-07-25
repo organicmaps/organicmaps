@@ -176,19 +176,19 @@ void Engine::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
               [marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
 }
 
-void Engine::OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+void Engine::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId,
                                         vector<bookmarks::Id> const & marks)
 {
-  PostMessage(Message::TYPE_BROADCAST, [group, marks](Processor & processor) {
-    processor.OnBookmarksAttachedToGroup(group, marks);
+  PostMessage(Message::TYPE_BROADCAST, [groupId, marks](Processor & processor) {
+    processor.OnBookmarksAttachedToGroup(groupId, marks);
   });
 }
 
-void Engine::OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+void Engine::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
                                           vector<bookmarks::Id> const & marks)
 {
-  PostMessage(Message::TYPE_BROADCAST, [group, marks](Processor & processor) {
-    processor.OnBookmarksDetachedFromGroup(group, marks);
+  PostMessage(Message::TYPE_BROADCAST, [groupId, marks](Processor & processor) {
+    processor.OnBookmarksDetachedFromGroup(groupId, marks);
   });
 }
 

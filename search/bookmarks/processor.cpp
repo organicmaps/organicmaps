@@ -120,12 +120,14 @@ void Processor::DetachFromGroup(Id const & id, GroupId const & group)
   {
     LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
                    "but it does not belong to any group"));
+    return;
   }
 
   if (it->second != group)
   {
     LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
                    "but it only belongs to group", it->second));
+    return;
   }
   m_idToGroup.erase(it);
 }
