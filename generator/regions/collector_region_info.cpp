@@ -192,19 +192,22 @@ void CollectorRegionInfo::FillIsoCode(base::GeoObjectId const & osmId, OsmElemen
 
 void IsoCode::SetAlpha2(std::string const & alpha2)
 {
-  CHECK_LESS_OR_EQUAL(alpha2.size() + 1, ARRAY_SIZE(m_alpha2), ());
+  if (alpha2.size() + 1 != ARRAY_SIZE(m_alpha2))
+    return;
   std::strcpy(m_alpha2, alpha2.data());
 }
 
 void IsoCode::SetAlpha3(std::string const & alpha3)
 {
-  CHECK_LESS_OR_EQUAL(alpha3.size() + 1, ARRAY_SIZE(m_alpha3), ());
+  if (alpha3.size() + 1 != ARRAY_SIZE(m_alpha3))
+    return;
   std::strcpy(m_alpha3, alpha3.data());
 }
 
 void IsoCode::SetNumeric(std::string const & numeric)
 {
-  CHECK_LESS_OR_EQUAL(numeric.size() + 1, ARRAY_SIZE(m_numeric), ());
+  if (numeric.size() + 1 != ARRAY_SIZE(m_numeric))
+    return;
   std::strcpy(m_numeric, numeric.data());
 }
 }  // namespace regions
