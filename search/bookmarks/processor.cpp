@@ -78,13 +78,24 @@ Processor::Processor(Emitter & emitter, base::Cancellable const & cancellable)
 {
 }
 
+void Processor::EnableIndexingOfDescriptions(bool enable)
+{
+  m_indexDescriptions = enable;
+}
+
 void Processor::Add(Id const & id, Doc const & doc)
 {
   ASSERT_EQUAL(m_docs.count(id), 0, ());
 
   DocVec::Builder builder;
-  doc.ForEachToken(
+  doc.ForEachNameToken(
       [&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
+
+  if (m_indexDescriptions)
+  {
+    doc.ForEachDescriptionToken(
+        [&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
+  }
 
   DocVec const docVec(builder);
 

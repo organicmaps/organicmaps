@@ -42,6 +42,11 @@ public:
   Processor(Emitter & emitter, base::Cancellable const & cancellable);
   ~Processor() override = default;
 
+  // By default, only bookmark names are indexed. This method
+  // should be used to enable or disable indexing bookmarks
+  // by their descriptions.
+  void EnableIndexingOfDescriptions(bool enable);
+
   void Add(Id const & id, Doc const & doc);
   void Erase(Id const & id);
 
@@ -75,6 +80,8 @@ private:
 
   Index m_index;
   std::unordered_map<Id, DocVec> m_docs;
+
+  bool m_indexDescriptions = false;
 
   // Currently a bookmark can belong to at most one group
   // but in the future it is possible for a single bookmark to be

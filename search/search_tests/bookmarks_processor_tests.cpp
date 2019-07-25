@@ -25,6 +25,8 @@ class BookmarksProcessorTest
 public:
   BookmarksProcessorTest() : m_processor(m_emitter, m_cancellable) {}
 
+  Processor & GetProcessor() { return m_processor; }
+
   void Add(Id const & id, Doc const & doc) { m_processor.Add(id, doc); }
 
   void Erase(Id const & id) { m_processor.Erase(id); }
@@ -71,6 +73,8 @@ protected:
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
 {
+  GetProcessor().EnableIndexingOfDescriptions(true);
+
   Add(10, {"Double R Diner" /* name */,
            "They've got a cherry pie there that'll kill ya!" /* description */});
 
@@ -93,5 +97,34 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
   DetachFromGroup(20, 1);
   AttachToGroup(20, 0);
   TEST_EQUAL(Search("place", GroupId{0}), Ids({20, 18}), ());
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
+{
+  GetProcessor().EnableIndexingOfDescriptions(true);
+
+  Add(10, {"Double R Diner" /* name */,
+           "They've got a cherry pie there that'll kill ya!" /* description */});
+  TEST_EQUAL(Search("diner"), Ids({10}), ());
+  TEST_EQUAL(Search("cherry pie"), Ids({10}), ());
+
+  Erase(10);
+  TEST_EQUAL(Search("diner"), Ids(), ());
+  TEST_EQUAL(Search("cherry pie"), Ids{}, ());
+
+  GetProcessor().EnableIndexingOfDescriptions(false);
+  Add(10, {"Double R Diner" /* name */,
+           "They've got a cherry pie there that'll kill ya!" /* description */});
+  TEST_EQUAL(Search("diner"), Ids({10}), ());
+  TEST_EQUAL(Search("cherry pie"), Ids(), ());
+
+  // Already indexed results don't change.
+  GetProcessor().EnableIndexingOfDescriptions(true);
+  TEST_EQUAL(Search("diner"), Ids({10}), ());
+  TEST_EQUAL(Search("cherry pie"), Ids(), ());
+
+  Erase(10);
+  TEST_EQUAL(Search("diner"), Ids(), ());
+  TEST_EQUAL(Search("cherry pie"), Ids{}, ());
 }
 }  // namespace

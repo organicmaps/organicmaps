@@ -26,19 +26,27 @@ struct Data
 
   Data(kml::BookmarkData const & bookmarkData)
     : m_name(kml::GetDefaultStr(bookmarkData.m_name))
-    // todo(@m) Do not add descriptions to index in Version 0.
     , m_description(kml::GetDefaultStr(bookmarkData.m_description))
   {
   }
 
   template <typename Fn>
-  void ForEachToken(Fn && fn) const
+  void ForEachNameToken(Fn && fn) const
   {
     auto withDefaultLang = [&](strings::UniString const & token) {
       fn(StringUtf8Multilang::kDefaultCode, token);
     };
 
     ForEachNormalizedToken(m_name, withDefaultLang);
+  }
+
+  template <typename Fn>
+  void ForEachDescriptionToken(Fn && fn) const
+  {
+    auto withDefaultLang = [&](strings::UniString const & token) {
+      fn(StringUtf8Multilang::kDefaultCode, token);
+    };
+
     ForEachNormalizedToken(m_description, withDefaultLang);
   }
 
