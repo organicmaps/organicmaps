@@ -1465,7 +1465,7 @@
 	<string name="booking_button_toolbar">Finne en hotell på kortet</string>
 	<string name="popup_booking_download_guides_title">Du har booket en hotell?</string>
 	<string name="popup_booking_download_guides_message">Planlegg en rute ved hjelp av ferdige guider fra MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Idéer for reiser👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Idéer for reiser👇</string>
 	<string name="popup_mwm_download_guides_cta">Velge</string>
 	<string name="popup_mwm_download_guides_cta_1">Se</string>
 	<string name="gallery_pp_download_guides_offline_title">Planlegg din ferie sammen med MAPS.ME!</string>

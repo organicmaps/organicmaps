@@ -1571,7 +1571,7 @@
 	<string name="booking_button_toolbar">Znajdź hotel na mapie</string>
 	<string name="popup_booking_download_guides_title">Zarezerwowałeś hotel?</string>
 	<string name="popup_booking_download_guides_message">Zaplanuj trasę, korzystając z gotowych przewodników MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Pomysły na podróż👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Pomysły na podróż👇</string>
 	<string name="popup_mwm_download_guides_cta">Wybierz</string>
 	<string name="popup_mwm_download_guides_cta_1">Zobacz</string>
 	<string name="gallery_pp_download_guides_offline_title">Zaplanuj swoje wakacje z MAPS.ME!</string>

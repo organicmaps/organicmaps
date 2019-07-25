@@ -1581,7 +1581,7 @@
 	<string name="booking_button_toolbar">Choisissez un hôtel sur la carte</string>
 	<string name="popup_booking_download_guides_title">Avez-vous réservé un hôtel ?</string>
 	<string name="popup_booking_download_guides_message">Planifiez votre itinéraire avec des guides prêts à l\'emploi fait par MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Quelques idées pour vos vacances👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Quelques idées pour vos vacances👇</string>
 	<string name="popup_mwm_download_guides_cta">Choisissez un</string>
 	<string name="popup_mwm_download_guides_cta_1">Jetez un coup d\'oeil</string>
 	<string name="gallery_pp_download_guides_offline_title">Planifiez vos vacances avec MAPS.ME !</string>

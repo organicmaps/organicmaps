@@ -1323,7 +1323,7 @@
 	<string name="booking_button_toolbar">Επιλέξτε ξενοδοχείο στον χάρτη</string>
 	<string name="popup_booking_download_guides_title">Έχετε κράτηση ξενοδοχείου;</string>
 	<string name="popup_booking_download_guides_message">Προγραμματίστε τη διαδρομή σας με τους έτοιμους οδηγούς MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ιδέες για ταξίδια👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ιδέες για ταξίδια👇</string>
 	<string name="popup_mwm_download_guides_cta">Επιλογή</string>
 	<string name="popup_mwm_download_guides_cta_1">Προβολή</string>
 	<string name="gallery_pp_download_guides_offline_title">Προγραμματίστε τις διακοπές σας με το MAPS.ME!</string>

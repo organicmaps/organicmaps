@@ -1630,7 +1630,7 @@
 	<string name="booking_button_toolbar">Pick a hotel on the map</string>
 	<string name="popup_booking_download_guides_title">Booked a hotel?</string>
 	<string name="popup_booking_download_guides_message">Plan your route with ready-made guides from MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ideas for your vacation👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ideas for your vacation👇</string>
 	<string name="popup_mwm_download_guides_cta">Choose one</string>
 	<string name="popup_mwm_download_guides_cta_1">Take a look</string>
 	<string name="gallery_pp_download_guides_offline_title">Plan your vacation with MAPS.ME!</string>

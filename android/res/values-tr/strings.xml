@@ -1571,7 +1571,7 @@
 	<string name="booking_button_toolbar">Haritada bir otel seçin</string>
 	<string name="popup_booking_download_guides_title">Otel rezervasyonu yaptırdınız mı?</string>
 	<string name="popup_booking_download_guides_message">MAPS.ME adresinden, hazır rehberler ile rotanızı planlayın</string>
-	<string name="popup_mwm_download_guides_title">Tatiliniz için fikirler👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Tatiliniz için fikirler👇</string>
 	<string name="popup_mwm_download_guides_cta">Birini seçin</string>
 	<string name="popup_mwm_download_guides_cta_1">Bir göz atın</string>
 	<string name="gallery_pp_download_guides_offline_title">Tatilinizi MAPS.ME ile planlayın!</string>

@@ -1565,7 +1565,7 @@
 	<string name="booking_button_toolbar">マップ上のホテルを選択</string>
 	<string name="popup_booking_download_guides_title">ホテルを予約しましたか？</string>
 	<string name="popup_booking_download_guides_message">MAPS.MEのレディメイドなガイドでルートを計画しましょう</string>
-	<string name="popup_mwm_download_guides_title">あなたの休暇のためのアイディア👇🏻</string>
+	<string name="popup_mwm_download_guides_title">あなたの休暇のためのアイディア👇</string>
 	<string name="popup_mwm_download_guides_cta">1つ選択してください</string>
 	<string name="popup_mwm_download_guides_cta_1">ご覧ください</string>
 	<string name="gallery_pp_download_guides_offline_title">MAPS.MEで休暇の計画をたてましょう!</string>

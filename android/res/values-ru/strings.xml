@@ -1619,7 +1619,7 @@
 	<string name="booking_button_toolbar">Подобрать отель на карте</string>
 	<string name="popup_booking_download_guides_title">Забронирован отель?</string>
 	<string name="popup_booking_download_guides_message">Спланируйте маршрут с готовыми путеводителями MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Идеи для путешествий👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Идеи для путешествий👇</string>
 	<string name="popup_mwm_download_guides_cta">Выбрать</string>
 	<string name="popup_mwm_download_guides_cta_1">Посмотреть</string>
 	<string name="gallery_pp_download_guides_offline_title">Планируйте свой отдых с MAPS.ME!</string>

@@ -1571,7 +1571,7 @@
 	<string name="booking_button_toolbar">اختر فندقًا على الخريطة</string>
 	<string name="popup_booking_download_guides_title">هل حجزت فندقًا؟</string>
 	<string name="popup_booking_download_guides_message">خطط لوجهتك باستخدام دلائل جاهزة من MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">أفكار لعطلتك👇🏻</string>
+	<string name="popup_mwm_download_guides_title">أفكار لعطلتك👇</string>
 	<string name="popup_mwm_download_guides_cta">اختر واحدة</string>
 	<string name="popup_mwm_download_guides_cta_1">الق نظرة</string>
 	<string name="gallery_pp_download_guides_offline_title">خطط لعطلتك مع MAPS.ME!</string>

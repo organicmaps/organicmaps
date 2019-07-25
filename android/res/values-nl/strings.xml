@@ -1567,7 +1567,7 @@
 	<string name="booking_button_toolbar">Een hotel op de kaart zoeken</string>
 	<string name="popup_booking_download_guides_title">Hebt u een hotel geboekt?</string>
 	<string name="popup_booking_download_guides_message">Plan uw route met kant-en-klare reisgidsen van MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ideeën voor reisen👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ideeën voor reisen👇</string>
 	<string name="popup_mwm_download_guides_cta">Kiezen</string>
 	<string name="popup_mwm_download_guides_cta_1">Kijken</string>
 	<string name="gallery_pp_download_guides_offline_title">Plan uw vakantie met MAPS.ME!</string>

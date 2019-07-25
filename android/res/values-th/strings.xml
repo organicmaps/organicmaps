@@ -1571,7 +1571,7 @@
 	<string name="booking_button_toolbar">เลือกโรงแรมบนแผนที่</string>
 	<string name="popup_booking_download_guides_title">จองโรงแรมหรือไม่</string>
 	<string name="popup_booking_download_guides_message">วางแผนเส้นทางของคุณด้วยไกด์ที่จัดการเรียบร้อยด้วย MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">ไอเดียสำหรับวันหยุดของคุณ👇🏻</string>
+	<string name="popup_mwm_download_guides_title">ไอเดียสำหรับวันหยุดของคุณ👇</string>
 	<string name="popup_mwm_download_guides_cta">เลือกหนึ่งอย่าง</string>
 	<string name="popup_mwm_download_guides_cta_1">ลองดู</string>
 	<string name="gallery_pp_download_guides_offline_title">วางแผนวันหยุดด้วย MAPS.ME!</string>

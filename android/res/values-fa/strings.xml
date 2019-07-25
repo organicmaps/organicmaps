@@ -1511,7 +1511,7 @@
 	<string name="booking_button_toolbar">یک هتل را بر روی نقشه انتخاب کنید</string>
 	<string name="popup_booking_download_guides_title">هتل رزرو کرده‌اید؟</string>
 	<string name="popup_booking_download_guides_message">مسیر خود را با راهنماهای آماده MAPS.ME برنامه ریزی کنید</string>
-	<string name="popup_mwm_download_guides_title">ایده هایی برای تعطیلات👇🏻</string>
+	<string name="popup_mwm_download_guides_title">ایده هایی برای تعطیلات👇</string>
 	<string name="popup_mwm_download_guides_cta">یکی را انتخاب کنید</string>
 	<string name="popup_mwm_download_guides_cta_1">نگاهی کنید</string>
 	<string name="gallery_pp_download_guides_offline_title">تعطیلات خود را با MAPS.ME برنامه ریزی کنید!</string>

@@ -1570,7 +1570,7 @@
 	<string name="booking_button_toolbar">Escolher o hotel no mapa</string>
 	<string name="popup_booking_download_guides_title">Reservar hotel?</string>
 	<string name="popup_booking_download_guides_message">Planeja o seu percurso com guias prontas da MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ideias para viagens👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ideias para viagens👇</string>
 	<string name="popup_mwm_download_guides_cta">Escoler</string>
 	<string name="popup_mwm_download_guides_cta_1">Ver</string>
 	<string name="gallery_pp_download_guides_offline_title">Planeja as suas férias com MAPS.ME!</string>

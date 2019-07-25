@@ -1567,7 +1567,7 @@
 	<string name="booking_button_toolbar">Válassz egy hotelt a térképeb</string>
 	<string name="popup_booking_download_guides_title">Foglaltál egy hotelben?</string>
 	<string name="popup_booking_download_guides_message">Tervezd meg az útvonaladat a naprakész útikönyvekkel a MAPS.ME-től</string>
-	<string name="popup_mwm_download_guides_title">Ötletek a nyaralásodhoz👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ötletek a nyaralásodhoz👇</string>
 	<string name="popup_mwm_download_guides_cta">Válassz egyet</string>
 	<string name="popup_mwm_download_guides_cta_1">Vess rá egy pillantást</string>
 	<string name="gallery_pp_download_guides_offline_title">Tervezd meg a nyaralásodat MAPS.ME-vel!</string>

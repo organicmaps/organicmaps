@@ -1580,7 +1580,7 @@
 	<string name="booking_button_toolbar">Hotel auf der Karte suchen</string>
 	<string name="popup_booking_download_guides_title">Hotel gebucht?</string>
 	<string name="popup_booking_download_guides_message">Planen Sie die Route mit fertigen Reiseführern von MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ideen für Reisen👇🏻</string>
+	<string name="popup_mwm_download_guides_title">Ideen für Reisen👇</string>
 	<string name="popup_mwm_download_guides_cta">Auswählen</string>
 	<string name="popup_mwm_download_guides_cta_1">Anschauen</string>
 	<string name="gallery_pp_download_guides_offline_title">Planen Sie Ihren Urlaub mit MAPS.ME!</string>
