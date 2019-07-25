@@ -979,6 +979,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   }
   else if (ftypes::IsPromoCatalogChecker::Instance()(ft))
   {
+    info.SetOpeningMode(place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalog);
   }
 

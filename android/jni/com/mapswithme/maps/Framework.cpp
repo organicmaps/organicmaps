@@ -806,7 +806,10 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy,
 {
   auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
   if (api == nullptr)
+  {
+    onError();
     return;
+  }
 
   api->GetCityGallery(point, languages::GetCurrentNorm(), utm, onSuccess, onError);
 }
