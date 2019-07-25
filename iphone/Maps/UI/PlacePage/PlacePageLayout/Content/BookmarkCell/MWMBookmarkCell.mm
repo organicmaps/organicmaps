@@ -130,7 +130,9 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       auto font = [UIFont regular16];
       auto color = [UIColor blackPrimaryText];
-      auto str = [[NSMutableAttributedString alloc] initWithHtmlString:text baseFont:font];
+      auto str = [[NSMutableAttributedString alloc] initWithHtmlString:text
+                                                              baseFont:font
+                                                        estimatedWidth:[UIScreen mainScreen].bounds.size.width - 32.0f];
       if (str)
       {
         [str addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, str.length)];

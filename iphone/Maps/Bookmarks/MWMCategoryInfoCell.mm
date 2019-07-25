@@ -55,9 +55,12 @@
   self.authorLabel.text = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
                                                arguments:@[@(data.m_authorName.c_str())]];
   auto infoHtml = @(GetPreferredBookmarkStr(data.m_description).c_str());
-  auto info = [NSAttributedString stringWithHtml:infoHtml
-                               defaultAttributes: @{NSFontAttributeName : [UIFont regular14],
-                                                    NSForegroundColorAttributeName: [UIColor blackPrimaryText]}];
+  auto info = [[NSMutableAttributedString alloc] initWithHtmlString:infoHtml
+                                                           baseFont:[UIFont regular14]
+                                                     estimatedWidth:[UIScreen mainScreen].bounds.size.width - 32.0f];
+  [info addAttribute: NSForegroundColorAttributeName
+               value:[UIColor blackPrimaryText]
+               range:NSMakeRange(0, [info length])];
   auto shortInfo = @(GetPreferredBookmarkStr(data.m_annotation).c_str());
   if (info.length > 0 && shortInfo.length > 0)
   {
