@@ -28,34 +28,21 @@ class GeoObjectInfoGetter
 public:
   using IndexReader = ReaderPtr<Reader>;
 
-  GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index, KeyValueStorage const & kvStorage);
+  GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index,
+                      KeyValueStorage const & kvStorage);
 
-  template <typename Predicate>
-  std::shared_ptr<JsonValue> Find(m2::PointD const & point, Predicate && pred) const;
+  std::shared_ptr<JsonValue> Find(m2::PointD const & point,
+                                  std::function<bool(JsonValue const &)> && pred) const;
+
+  boost::optional<base::GeoObjectId> Search(
+      m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
+
+  static std::vector<base::GeoObjectId> SearchObjectsInIndex(
+      indexer::GeoObjectsIndex<IndexReader> const & index, m2::PointD const & point);
 
 private:
-  std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const;
-
   indexer::GeoObjectsIndex<IndexReader> m_index;
   KeyValueStorage const & m_storage;
 };
-
-template <typename Predicate>
-std::shared_ptr<JsonValue> GeoObjectInfoGetter::Find(
-    m2::PointD const & point, Predicate && pred) const
-{
-  auto const ids = SearchObjectsInIndex(point);
-  for (auto const & id : ids)
-  {
-    auto const object = m_storage.Find(id.GetEncodedId());
-    if (!object)
-      continue;
-
-    if (pred(std::cref(*object)))
-      return object;
-  }
-
-  return {};
-}
 }  // namespace geo_objects
 }  // namespace generator

@@ -54,39 +54,6 @@ OsmElement CreateOsmRelation(uint64_t id, std::string const & adminLevel,
   return el;
 }
 
-struct TagValue
-{
-  std::string m_key;
-  std::string m_value;
-};
-
-struct Tag
-{
-  TagValue operator=(std::string const & value) const { return {m_name, value}; }
-
-  std::string m_name;
-};
-
-struct OsmElementData
-{
-  uint64_t m_id;
-  std::vector<TagValue> m_tags;
-  std::vector<m2::PointD> m_polygon;
-  std::vector<OsmElement::Member> m_members;
-};
-
-OsmElement MakeOsmElement(OsmElementData const & elementData)
-{
-  OsmElement el;
-  el.m_id = elementData.m_id;
-  el.m_type = elementData.m_polygon.size() > 1 ? OsmElement::EntityType::Relation
-                                               : OsmElement::EntityType::Node;
-  for (auto const tag : elementData.m_tags)
-    el.AddTag(tag.m_key, tag.m_value);
-  el.m_members = elementData.m_members;
-  return el;
-}
-
 void CollectRegionInfo(std::string const & filename, std::vector<OsmElementData> const & testData)
 {
   CollectorRegionInfo collector(filename);
@@ -105,32 +72,7 @@ void BuildTestData(std::vector<OsmElementData> const & testData, RegionsBuilder:
 {
   for (auto const & elementData : testData)
   {
-    auto el = MakeOsmElement(elementData);
-    FeatureBuilder fb;
-
-    CHECK(elementData.m_polygon.size() == 1 || elementData.m_polygon.size() == 2, ());
-    if (elementData.m_polygon.size() == 1)
-    {
-      fb.SetCenter(elementData.m_polygon[0]);
-    }
-    else if (elementData.m_polygon.size() == 2)
-    {
-      auto const & p1 = elementData.m_polygon[0];
-      auto const & p2 = elementData.m_polygon[1];
-      vector<m2::PointD> poly = {
-          {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.y}};
-      fb.AddPolygon(poly);
-      fb.SetHoles({});
-      fb.SetArea();
-    }
-
-    auto osmId = el.m_type == OsmElement::EntityType::Relation ? MakeOsmRelation(el.m_id)
-                                                               : MakeOsmNode(el.m_id);
-    fb.SetOsmId(osmId);
-
-    FeatureParams params;
-    ftype::GetNameAndType(&el, params, [](uint32_t type) { return classif().IsTypeValid(type); });
-    fb.SetParams(params);
+    FeatureBuilder fb = FeatureBuilderFromOmsElementData(elementData);
 
     auto const id = fb.GetMostGenericOsmId();
     if (elementData.m_polygon.size() == 1)
@@ -422,7 +364,7 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByAround)
       true /* withGeometry */);
 
   TEST(HasName(regions, u8"Nederland, locality: Amsterdam [(0.07, 0.07), (0.23, 0.23)]"),
-      (regions));
+       (regions));
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatching)
@@ -455,19 +397,25 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByEnglishNameMatching)
 
   auto regions = GenerateTestRegions(
       {
-          {1, {name = u8"België / Belgique / Belgien", admin = "2", ba},
+          {1,
+           {name = u8"België / Belgique / Belgien", admin = "2", ba},
            {{0.00, 0.00}, {0.50, 0.50}}},
-          {3, {name = u8"Ville de Bruxelles - Stad Brussel", admin = "8", ba},
+          {3,
+           {name = u8"Ville de Bruxelles - Stad Brussel", admin = "8", ba},
            {{0.12, 0.12}, {0.18, 0.18}}},
-          {4, {name = u8"Bruxelles / Brussel", {"name:en", "Brussels"}, admin = "9", ba},
+          {4,
+           {name = u8"Bruxelles / Brussel", {"name:en", "Brussels"}, admin = "9", ba},
            {{0.12, 0.12}, {0.17, 0.17}}},
-          {5, {name = u8"Bruxelles - Brussel", {"name:en", "Brussels"}, place = "city"},
+          {5,
+           {name = u8"Bruxelles - Brussel", {"name:en", "Brussels"}, place = "city"},
            {{0.15, 0.15}}},
       },
       true /* withGeometry */);
 
-  TEST(HasName(regions, u8"België / Belgique / Belgien, "
-                        u8"locality: Bruxelles - Brussel [(0.12, 0.12), (0.17, 0.17)]"), ());
+  TEST(HasName(regions,
+               u8"België / Belgique / Belgien, "
+               u8"locality: Bruxelles - Brussel [(0.12, 0.12), (0.17, 0.17)]"),
+       ());
 }
 
 UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPrefix)
@@ -567,9 +515,7 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSubregion)
   });
 
   TEST(HasName(regions, u8"Россия, region: Москва"), ());
-  TEST(HasName(regions,
-               u8"Россия, region: Москва, locality: Москва"),
-       ());
+  TEST(HasName(regions, u8"Россия, region: Москва, locality: Москва"), ());
   TEST(!HasName(regions,
                 u8"Россия, region: Москва, subregion: Западный административный округ, "
                 u8"locality: Москва"),
@@ -582,8 +528,7 @@ UNIT_TEST(RegionsBuilderTest_GenerateRusMoscowSubregion)
                u8"Россия, region: Москва, locality: Москва, "
                u8"subregion: Северный административный округ"),
        ());
-  TEST(HasName(regions,
-               u8"Россия, region: Москва, subregion: Троицкий административный округ"),
+  TEST(HasName(regions, u8"Россия, region: Москва, subregion: Троицкий административный округ"),
        ());
 }
 

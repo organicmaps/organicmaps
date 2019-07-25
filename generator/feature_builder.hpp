@@ -258,7 +258,8 @@ using TypeSerializationVersion = typename std::underlying_type<SerializationVers
 
 struct MinSize
 {
-  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+  auto static const kSerializationVersion =
+      static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
 
   static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
   {
@@ -273,7 +274,8 @@ struct MinSize
 
 struct MaxAccuracy
 {
-  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+  auto static const kSerializationVersion =
+      static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
 
   static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
   {
@@ -288,10 +290,11 @@ struct MaxAccuracy
 }  // namespace serialization_policy
 
 // TODO(maksimandrianov): I would like to support the verification of serialization versions,
-// but this requires reworking of FeatureCollector class and its derived classes. It is in future plans
+// but this requires reworking of FeatureCollector class and its derived classes. It is in future
+// plans
 
-//template <class SerializationPolicy, class Source>
-//void TryReadAndCheckVersion(Source & src)
+// template <class SerializationPolicy, class Source>
+// void TryReadAndCheckVersion(Source & src)
 //{
 //  if (src.Size() - src.Pos() >= sizeof(serialization_policy::TypeSerializationVersion))
 //  {
@@ -344,7 +347,7 @@ void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & fi
 
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
-//  TryReadAndCheckVersion<SerializationPolicy>(src);
+  //  TryReadAndCheckVersion<SerializationPolicy>(src);
   auto const fileSize = reader.Size();
   auto currPos = src.Pos();
   std::mutex readMutex;
@@ -394,8 +397,9 @@ public:
     : m_writer(filename, op)
   {
     // TODO(maksimandrianov): I would like to support the verification of serialization versions,
-    // but this requires reworking of FeatureCollector class and its derived classes. It is in future plans
-    // WriteVarUint(m_writer, static_cast<serialization_policy::TypeSerializationVersion>(SerializationPolicy::kSerializationVersion));
+    // but this requires reworking of FeatureCollector class and its derived classes. It is in
+    // future plans WriteVarUint(m_writer,
+    // static_cast<serialization_policy::TypeSerializationVersion>(SerializationPolicy::kSerializationVersion));
   }
 
   void Write(FeatureBuilder const & fb)

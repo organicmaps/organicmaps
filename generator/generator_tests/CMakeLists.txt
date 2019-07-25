@@ -17,6 +17,7 @@ set(
   feature_builder_test.cpp
   feature_merger_test.cpp
   filter_elements_tests.cpp
+  geo_objects_tests.cpp
   intermediate_data_test.cpp
   maxspeeds_tests.cpp
   merge_collectors_tests.cpp

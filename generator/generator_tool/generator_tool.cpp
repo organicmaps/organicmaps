@@ -93,7 +93,8 @@ char const * GetDataPathHelp()
 
 // Coastlines.
 DEFINE_bool(make_coasts, false, "Create intermediate file with coasts data.");
-DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
+DEFINE_bool(fail_on_coasts, false,
+            "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_bool(emit_coasts, false,
             "Push coasts features from intermediate file to out files/countries.");
 
@@ -114,8 +115,9 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(no_ads, false, "generation without ads.");
-DEFINE_bool(generate_region_features, false,
-            "Generate intermediate features for regions to use in regions index and borders generation.");
+DEFINE_bool(
+    generate_region_features, false,
+    "Generate intermediate features for regions to use in regions index and borders generation.");
 DEFINE_bool(generate_streets_features, false,
             "Generate intermediate features for streets to use in server-side forward geocoder.");
 DEFINE_bool(generate_geo_objects_features, false,
@@ -141,8 +143,9 @@ DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
             "Use countries borders to split planet by regions and countries.");
 
-DEFINE_string(nodes_list_path, "",
-              "Path to file containing list of node ids we need to add to locality index. May be empty.");
+DEFINE_string(
+    nodes_list_path, "",
+    "Path to file containing list of node ids we need to add to locality index. May be empty.");
 
 // Routing.
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
@@ -178,10 +181,8 @@ DEFINE_string(popular_places_data, "",
               "Input Popular Places source file name. Needed both for World intermediate features "
               "generation (2nd pass for World) and popular places section generation (5th pass for "
               "countries).");
-DEFINE_string(brands_data, "",
-              "Path to json with OSM objects to brand ID map.");
-DEFINE_string(brands_translations_data, "",
-              "Path to json with brands translations and synonyms.");
+DEFINE_string(brands_data, "", "Path to json with OSM objects to brand ID map.");
+DEFINE_string(brands_translations_data, "", "Path to json with brands translations and synonyms.");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -194,11 +195,14 @@ DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter local
 // Service functions.
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
-DEFINE_string(unpack_borders, "", "Convert packed_polygons to a directory of polygon files (specify folder).");
-DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
+DEFINE_string(unpack_borders, "",
+              "Convert packed_polygons to a directory of polygon files (specify folder).");
+DEFINE_bool(unpack_mwm, false,
+            "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
-DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output' option) with full addresses list.");
+DEFINE_bool(generate_addresses_file, false,
+            "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
 
@@ -227,7 +231,7 @@ int GeneratorToolMain(int argc, char ** argv)
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
   google::SetUsageMessage(
-        "Takes OSM XML data from stdin and creates data and index files in several passes.");
+      "Takes OSM XML data from stdin and creates data and index files in several passes.");
   google::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
                            omim::build_version::git::kHash);
   google::ParseCommandLineFlags(&argc, &argv, true);
@@ -253,9 +257,9 @@ int GeneratorToolMain(int argc, char ** argv)
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;
 
-  genInfo.m_intermediateDir =
-      FLAGS_intermediate_data_path.empty() ?
-        path : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
+                                  ? path
+                                  : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
@@ -394,19 +398,22 @@ int GeneratorToolMain(int argc, char ** argv)
     if (FLAGS_generate_region_features)
     {
       auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
-      translators.Append(CreateTranslator(TranslatorType::Regions, emitter, cacheLoader.GetCache(), genInfo));
+      translators.Append(
+          CreateTranslator(TranslatorType::Regions, emitter, cacheLoader.GetCache(), genInfo));
     }
 
     if (FLAGS_generate_streets_features)
     {
       auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
-      translators.Append(CreateTranslator(TranslatorType::Streets, emitter, cacheLoader.GetCache()));
+      translators.Append(
+          CreateTranslator(TranslatorType::Streets, emitter, cacheLoader.GetCache()));
     }
 
     if (FLAGS_generate_geo_objects_features)
     {
       auto emitter = CreateEmitter(EmitterType::SimpleWithPreserialize, genInfo);
-      translators.Append(CreateTranslator(TranslatorType::GeoObjects, emitter, cacheLoader.GetCache()));
+      translators.Append(
+          CreateTranslator(TranslatorType::GeoObjects, emitter, cacheLoader.GetCache()));
     }
 
     if (!GenerateRaw(genInfo, translators))
@@ -415,19 +422,23 @@ int GeneratorToolMain(int argc, char ** argv)
 
   if (!FLAGS_streets_key_value.empty())
   {
-    streets::GenerateStreets(FLAGS_regions_index, FLAGS_regions_key_value,
-                             FLAGS_streets_features, FLAGS_geo_objects_features,
-                             FLAGS_streets_key_value,
-                             FLAGS_verbose, threadsCount);
+    streets::GenerateStreets(FLAGS_regions_index, FLAGS_regions_key_value, FLAGS_streets_features,
+                             FLAGS_geo_objects_features, FLAGS_streets_key_value, FLAGS_verbose,
+                             threadsCount);
   }
 
   if (!FLAGS_geo_objects_key_value.empty())
   {
-    if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
-                                         FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
-                                         FLAGS_geo_objects_key_value,
-                                         FLAGS_allow_addressless_for_countries,
-                                         FLAGS_verbose, threadsCount))
+    geo_objects::GeoObjectsGenerator geoObjectsGenerator{FLAGS_regions_index,
+                                                         FLAGS_regions_key_value,
+                                                         FLAGS_geo_objects_features,
+                                                         FLAGS_ids_without_addresses,
+                                                         FLAGS_geo_objects_key_value,
+                                                         FLAGS_allow_addressless_for_countries,
+                                                         FLAGS_verbose,
+                                                         threadsCount};
+
+    if (!geoObjectsGenerator.GenerateGeoObjects())
       return EXIT_FAILURE;
   }
 
@@ -446,7 +457,8 @@ int GeneratorToolMain(int argc, char ** argv)
     auto const outFile = base::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
     if (FLAGS_generate_geo_objects_index)
     {
-      if (!feature::GenerateGeoObjectsData(FLAGS_geo_objects_features, FLAGS_nodes_list_path, locDataFile))
+      if (!feature::GenerateGeoObjectsData(FLAGS_geo_objects_features, FLAGS_nodes_list_path,
+                                           locDataFile))
       {
         LOG(LCRITICAL, ("Error generating geo objects data."));
         return EXIT_FAILURE;
@@ -488,10 +500,11 @@ int GeneratorToolMain(int argc, char ** argv)
   {
     CHECK(FLAGS_generate_region_features, ("Option --generate_regions_kv can be used only "
                                            "together with option --generate_region_features."));
-    auto const pathInRegionsCollector = genInfo.GetTmpFileName(genInfo.m_fileName,
-                                                               regions::CollectorRegionInfo::kDefaultExt);
+    auto const pathInRegionsCollector =
+        genInfo.GetTmpFileName(genInfo.m_fileName, regions::CollectorRegionInfo::kDefaultExt);
     auto const pathInRegionsTmpMwm = genInfo.GetTmpFileName(genInfo.m_fileName);
-    auto const pathOutRepackedRegionsTmpMwm = genInfo.GetTmpFileName(genInfo.m_fileName + "_repacked");
+    auto const pathOutRepackedRegionsTmpMwm =
+        genInfo.GetTmpFileName(genInfo.m_fileName + "_repacked");
     auto const pathOutRegionsKv = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
     regions::GenerateRegions(pathInRegionsTmpMwm, pathInRegionsCollector, pathOutRegionsKv,
                              pathOutRepackedRegionsTmpMwm, FLAGS_verbose, threadsCount);
@@ -548,8 +561,7 @@ int GeneratorToolMain(int argc, char ** argv)
 
       if (mapType == MapType::Country)
       {
-        string const metalinesFilename =
-            genInfo.GetIntermediateFileName(METALINES_FILENAME);
+        string const metalinesFilename = genInfo.GetIntermediateFileName(METALINES_FILENAME);
 
         LOG(LINFO, ("Processing metalines from", metalinesFilename));
         if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
@@ -616,8 +628,7 @@ int GeneratorToolMain(int argc, char ** argv)
       }
       else
       {
-        string const camerasFilename =
-            genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+        string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
         BuildCamerasInfo(datFile, camerasFilename, osmToFeatureFilename);
       }
@@ -628,19 +639,18 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
-                        "countries_obsolete.txt). File must be located in data directory."));
+        LOG(LCRITICAL,
+            ("Countries file is needed. Please set countries file name (countries.txt or "
+             "countries_obsolete.txt). File must be located in data directory."));
         return EXIT_FAILURE;
       }
 
-      string const restrictionsFilename =
-          genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
-      string const roadAccessFilename =
-          genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
+      string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
+      string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
       routing::BuildRoutingIndex(datFile, country, *countryParentGetter);
-      routing::BuildRoadRestrictions(path, datFile, country, restrictionsFilename, osmToFeatureFilename,
-                                     *countryParentGetter);
+      routing::BuildRoadRestrictions(path, datFile, country, restrictionsFilename,
+                                     osmToFeatureFilename, *countryParentGetter);
       routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
     }
 
@@ -667,15 +677,17 @@ int GeneratorToolMain(int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
-                        "countries_obsolete.txt). File must be located in data directory."));
+        LOG(LCRITICAL,
+            ("Countries file is needed. Please set countries file name (countries.txt or "
+             "countries_obsolete.txt). File must be located in data directory."));
         return EXIT_FAILURE;
       }
 
       if (FLAGS_make_cross_mwm)
       {
         routing::BuildRoutingCrossMwmSection(path, datFile, country, *countryParentGetter,
-                                             osmToFeatureFilename, FLAGS_disable_cross_mwm_progress);
+                                             osmToFeatureFilename,
+                                             FLAGS_disable_cross_mwm_progress);
       }
 
       if (FLAGS_make_transit_cross_mwm)

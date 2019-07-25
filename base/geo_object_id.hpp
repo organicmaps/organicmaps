@@ -20,8 +20,8 @@ namespace base
 // Another byte is reserved and the last 6 bytes leave us with 2^48 possible values that can be
 // used for ids within a source.
 // Typically, the reserved byte will be zero but it may be used in future if the format changes.
-// At the time of writing (August 2018), OSM has approximately 2^32 different nodes with ids starting
-// from one (https://wiki.openstreetmap.org/wiki/Stats) and this is by far the largest
+// At the time of writing (August 2018), OSM has approximately 2^32 different nodes with ids
+// starting from one (https://wiki.openstreetmap.org/wiki/Stats) and this is by far the largest
 // serial numbers that we use.
 // The highest bit is zero so that the resulting number is positive if read as a signed 64-bit
 // integer in two's complement notation. This is important for readability in some database systems

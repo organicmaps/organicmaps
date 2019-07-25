@@ -7,7 +7,6 @@
 #include "generator/key_value_storage.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
-#include "generator/regions/region_info_getter.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -16,19 +15,17 @@
 
 #include "coding/mmap_reader.hpp"
 
+#include "coding/internal/file_data.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/geo_object_id.hpp"
-#include "base/logging.hpp"
-#include "base/timer.hpp"
 
 #include <cstdint>
 #include <fstream>
 #include <functional>
 #include <future>
 #include <mutex>
-
-#include "platform/platform.hpp"
 
 #include <boost/optional.hpp>
 
@@ -42,8 +39,6 @@ namespace geo_objects
 {
 namespace
 {
-using IndexReader = ReaderPtr<Reader>;
-
 bool HouseHasAddress(JsonValue const & json)
 {
   auto && address =
@@ -115,34 +110,11 @@ base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonVa
   return jsonWithAddress;
 }
 
-boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
-    std::string const & pathToGeoObjectsTmpMwm)
+void FilterAddresslessByCountryAndRepackMwm(
+    std::string const & pathInGeoObjectsTmpMwm, std::string const & includeCountries,
+    GeoObjectsGenerator::RegionInfoGetterProxy const & regionInfoGetter, size_t threadsCount)
 {
-  auto const dataFile = Platform().TmpPathForFile();
-  SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
-  if (!GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
-  {
-    LOG(LCRITICAL, ("Error generating geo objects data."));
-    return {};
-  }
-
-  auto const indexFile = Platform().TmpPathForFile();
-  SCOPE_GUARD(removeIndexFile, std::bind(Platform::RemoveFileIfExists, std::cref(indexFile)));
-  if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile))
-  {
-    LOG(LCRITICAL, ("Error generating geo objects index."));
-    return {};
-  }
-
-  return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
-}
-
-void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjectsTmpMwm,
-                                            std::string const & includeCountries,
-                                            regions::RegionInfoGetter const & regionInfoGetter,
-                                            size_t threadsCount)
-{
-  auto const path = Platform().TmpPathForFile();
+  auto const path = GetPlatform().TmpPathForFile();
   FeaturesCollector collector(path);
   std::mutex collectorMutex;
   auto concurrentCollect = [&](FeatureBuilder const & fb) {
@@ -173,16 +145,13 @@ void FilterAddresslessByCountryAndRepackMwm(std::string const & pathInGeoObjects
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, filteringCollector);
-
-  Platform().RemoveFileIfExists(pathInGeoObjectsTmpMwm);
-  if (std::rename(path.c_str(), pathInGeoObjectsTmpMwm.c_str()) != 0)
-    LOG(LERROR, ("Error: Cannot rename", path, "to", pathInGeoObjectsTmpMwm));
+  CHECK(base::RenameFileX(path, pathInGeoObjectsTmpMwm), ());
 }
 
-void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
-                                  regions::RegionInfoGetter const & regionInfoGetter,
-                                  std::string const & pathInGeoObjectsTmpMwm, bool verbose,
-                                  size_t threadsCount)
+void AddThingsWithHousesAndBuildingsAndEnrichWithRegionAddresses(
+    KeyValueStorage & geoObjectsKv,
+    GeoObjectsGenerator::RegionInfoGetterProxy const & regionInfoGetter,
+    std::string const & pathInGeoObjectsTmpMwm, bool verbose, size_t threadsCount)
 {
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
@@ -204,13 +173,13 @@ void BuildGeoObjectsWithAddresses(KeyValueStorage & geoObjectsKv,
   LOG(LINFO, ("Added", geoObjectsKv.Size(), "geo objects with addresses."));
 }
 
-void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
-                                     GeoObjectInfoGetter const & geoObjectInfoGetter,
-                                     std::string const & pathInGeoObjectsTmpMwm,
-                                     std::ostream & streamIdsWithoutAddress, bool verbose,
-                                     size_t threadsCount)
+void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
+                                       GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                       std::string const & pathInGeoObjectsTmpMwm,
+                                       std::ostream & streamIdsWithoutAddress, bool verbose,
+                                       size_t threadsCount)
 {
-  auto addressObjectsCount = geoObjectsKv.Size();
+  auto const addressObjectsCount = geoObjectsKv.Size();
 
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
@@ -235,53 +204,240 @@ void BuildGeoObjectsWithoutAddresses(KeyValueStorage & geoObjectsKv,
   LOG(LINFO,
       ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
 }
+
+struct NullBuildingsInfo
+{
+  std::unordered_map<base::GeoObjectId, base::GeoObjectId> m_addressPoints2Buildings;
+  std::set<base::GeoObjectId> m_buildingsIds;
+};
+
+NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                          std::string const & pathInGeoObjectsTmpMwm,
+                                          size_t threadsCount)
+{
+  NullBuildingsInfo result;
+
+  std::mutex updateMutex;
+  auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
+    if (!GeoObjectsFilter::HasHouse(fb) || !fb.IsPoint())
+      return;
+
+    auto const buildingId = geoObjectInfoGetter.Search(
+        fb.GetKeyPoint(), [](JsonValue const & json) { return !HouseHasAddress(json); });
+    if (!buildingId)
+      return;
+
+    auto const id = fb.GetMostGenericOsmId();
+
+    std::lock_guard<std::mutex> lock(updateMutex);
+    result.m_addressPoints2Buildings[id] = *buildingId;
+    result.m_buildingsIds.insert(*buildingId);
+  };
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
+  return result;
+}
+
+using BuildingsGeometries =
+    std::unordered_map<base::GeoObjectId, feature::FeatureBuilder::Geometry>;
+
+BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmpMwm,
+                                         NullBuildingsInfo const & buildingsInfo,
+                                         size_t threadsCount)
+{
+  BuildingsGeometries result;
+  std::mutex updateMutex;
+
+  auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
+    auto const id = fb.GetMostGenericOsmId();
+    if (buildingsInfo.m_buildingsIds.find(id) == buildingsInfo.m_buildingsIds.end() ||
+        fb.GetParams().GetGeomType() != feature::GeomType::Area)
+      return;
+
+    std::lock_guard<std::mutex> lock(updateMutex);
+
+    if (result.find(id) != result.end())
+      LOG(LINFO, ("More than one geometry for", id));
+    else
+      result[id] = fb.GetGeometry();
+  };
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
+  return result;
+}
+
+size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjectsTmpMwm,
+                                            NullBuildingsInfo const & buildingsInfo,
+                                            BuildingsGeometries const & geometries,
+                                            size_t threadsCount)
+{
+  auto const path = GetPlatform().TmpPathForFile();
+  FeaturesCollector collector(path);
+  std::atomic_size_t pointsEnriched{0};
+  std::mutex collectorMutex;
+
+  auto concurrentCollector = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
+    auto const id = fb.GetMostGenericOsmId();
+    auto point2BuildingIt = buildingsInfo.m_addressPoints2Buildings.find(id);
+    if (point2BuildingIt != buildingsInfo.m_addressPoints2Buildings.end())
+    {
+      auto const & geometry = geometries.at(point2BuildingIt->second);
+
+      // ResetGeometry does not reset center but SetCenter changes geometry type to Point and
+      // adds center to bounding rect
+      fb.SetCenter({});
+      // ResetGeometry clears bounding rect
+      fb.ResetGeometry();
+      fb.GetParams().SetGeomType(feature::GeomType::Area);
+
+      for (std::vector<m2::PointD> poly : geometry)
+        fb.AddPolygon(poly);
+
+      fb.PreSerialize();
+      ++pointsEnriched;
+    }
+    std::lock_guard<std::mutex> lock(collectorMutex);
+    collector.Collect(fb);
+  };
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentCollector);
+
+  CHECK(base::RenameFileX(path, pathInGeoObjectsTmpMwm), ());
+  return pointsEnriched;
+}
+
+void EnrichPointsWithOuterBuildingGeometry(GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                           std::string const & pathInGeoObjectsTmpMwm,
+                                           size_t threadsCount)
+{
+  auto const buildingInfo =
+      GetHelpfulNullBuildings(geoObjectInfoGetter, pathInGeoObjectsTmpMwm, threadsCount);
+
+  LOG(LINFO, ("Found", buildingInfo.m_addressPoints2Buildings.size(),
+              "address points with outer building geometry"));
+  LOG(LINFO, ("Found", buildingInfo.m_buildingsIds.size(), "helpful addressless buildings"));
+  auto const buildingGeometries =
+      GetBuildingsGeometry(pathInGeoObjectsTmpMwm, buildingInfo, threadsCount);
+  LOG(LINFO, ("Saved", buildingGeometries.size(), "buildings geometries"));
+
+  size_t const pointsCount = AddBuildingGeometriesToAddressPoints(
+      pathInGeoObjectsTmpMwm, buildingInfo, buildingGeometries, threadsCount);
+
+  LOG(LINFO, (pointsCount, "address points were enriched with outer building geomery"));
+}
+
+template <class Activist>
+auto Measure(std::string activity, Activist && activist)
+{
+  LOG(LINFO, ("Start", activity));
+  auto timer = base::Timer();
+  SCOPE_GUARD(_, [&]() { LOG(LINFO, ("Finish", activity, timer.ElapsedSeconds(), "seconds.")); });
+
+  return activist();
+}
 }  // namespace
 
-bool GenerateGeoObjects(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv,
-                        std::string const & pathInGeoObjectsTmpMwm,
-                        std::string const & pathOutIdsWithoutAddress,
-                        std::string const & pathOutGeoObjectsKv,
-                        std::string const & allowAddresslessForCountries, bool verbose,
-                        size_t threadsCount)
+boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
+    std::string const & pathToGeoObjectsTmpMwm)
 {
-  LOG(LINFO, ("Start generating geo objects.."));
-  auto timer = base::Timer();
-  SCOPE_GUARD(finishGeneratingGeoObjects, [&timer]() {
-    LOG(LINFO, ("Finish generating geo objects.", timer.ElapsedSeconds(), "seconds."));
-  });
-
-  regions::RegionInfoGetter regionInfoGetter{pathInRegionsIndex, pathInRegionsKv};
-  LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
-
-  if (allowAddresslessForCountries != "*")
+  auto const dataFile = GetPlatform().TmpPathForFile();
+  SCOPE_GUARD(removeDataFile, std::bind(Platform::RemoveFileIfExists, std::cref(dataFile)));
+  if (!GenerateGeoObjectsData(pathToGeoObjectsTmpMwm, "" /* nodesFile */, dataFile))
   {
-    FilterAddresslessByCountryAndRepackMwm(pathInGeoObjectsTmpMwm, allowAddresslessForCountries,
-                                           regionInfoGetter, threadsCount);
-    LOG(LINFO,
-        ("Addressless buildings are filtered except countries", allowAddresslessForCountries, "."));
+    LOG(LCRITICAL, ("Error generating geo objects data."));
+    return {};
   }
 
-  auto geoObjectIndexFuture =
-      std::async(std::launch::async, MakeTempGeoObjectsIndex, pathInGeoObjectsTmpMwm);
+  auto const indexFile = GetPlatform().TmpPathForFile();
+  SCOPE_GUARD(removeIndexFile, std::bind(Platform::RemoveFileIfExists, std::cref(indexFile)));
+  if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile))
+  {
+    LOG(LCRITICAL, ("Error generating geo objects index."));
+    return {};
+  }
 
-  Platform().RemoveFileIfExists(pathOutGeoObjectsKv);
-  KeyValueStorage geoObjectsKv(pathOutGeoObjectsKv, 0 /* cacheValuesCountLimit */);
-  BuildGeoObjectsWithAddresses(geoObjectsKv, regionInfoGetter, pathInGeoObjectsTmpMwm, verbose,
-                               threadsCount);
+  return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
+}
+
+GeoObjectsGenerator::GeoObjectsGenerator(
+    std::string pathInRegionsIndex, std::string pathInRegionsKv, std::string pathInGeoObjectsTmpMwm,
+    std::string pathOutIdsWithoutAddress, std::string pathOutGeoObjectsKv,
+    std::string allowAddresslessForCountries, bool verbose, size_t threadsCount)
+
+  : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
+  , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
+  , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
+  , m_allowAddresslessForCountries(std::move(allowAddresslessForCountries))
+  , m_verbose(verbose)
+  , m_threadsCount(threadsCount)
+  , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
+  , m_regionInfoGetter(pathInRegionsIndex, pathInRegionsKv)
+
+{
+}
+
+GeoObjectsGenerator::GeoObjectsGenerator(RegionInfoGetter && regionInfoGetter,
+                                         std::string pathInGeoObjectsTmpMwm,
+                                         std::string pathOutIdsWithoutAddress,
+                                         std::string pathOutGeoObjectsKv,
+                                         std::string allowAddresslessForCountries, bool verbose,
+                                         size_t threadsCount)
+  : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
+  , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
+  , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
+  , m_allowAddresslessForCountries(std::move(allowAddresslessForCountries))
+  , m_verbose(verbose)
+  , m_threadsCount(threadsCount)
+  , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
+  , m_regionInfoGetter(std::move(regionInfoGetter))
+{
+}
+
+bool GeoObjectsGenerator::GenerateGeoObjects()
+{
+  return Measure("generating geo objects", [&]() { return GenerateGeoObjectsPrivate(); });
+}
+
+bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
+{
+  auto geoObjectIndexFuture =
+      std::async(std::launch::async, MakeTempGeoObjectsIndex, m_pathInGeoObjectsTmpMwm);
+
+  AddThingsWithHousesAndBuildingsAndEnrichWithRegionAddresses(
+      m_geoObjectsKv, m_regionInfoGetter, m_pathInGeoObjectsTmpMwm, m_verbose, m_threadsCount);
+
   LOG(LINFO, ("Geo objects with addresses were built."));
 
   auto geoObjectIndex = geoObjectIndexFuture.get();
+
   LOG(LINFO, ("Index was built."));
   if (!geoObjectIndex)
     return false;
 
-  GeoObjectInfoGetter geoObjectInfoGetter{std::move(*geoObjectIndex), geoObjectsKv};
-  std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
-  BuildGeoObjectsWithoutAddresses(geoObjectsKv, geoObjectInfoGetter, pathInGeoObjectsTmpMwm,
-                                  streamIdsWithoutAddress, verbose, threadsCount);
+  GeoObjectInfoGetter const geoObjectInfoGetter{std::move(*geoObjectIndex), m_geoObjectsKv};
+
+  LOG(LINFO, ("Enrich address points with outer null building geometry."));
+
+  EnrichPointsWithOuterBuildingGeometry(geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm,
+                                        m_threadsCount);
+
+  std::ofstream streamIdsWithoutAddress(m_pathOutIdsWithoutAddress);
+
+  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm,
+                                    streamIdsWithoutAddress, m_verbose, m_threadsCount);
+
+  if (m_allowAddresslessForCountries != "*")
+  {
+    FilterAddresslessByCountryAndRepackMwm(m_pathInGeoObjectsTmpMwm, m_allowAddresslessForCountries,
+                                           m_regionInfoGetter, m_threadsCount);
+
+    LOG(LINFO, ("Addressless buildings are filtered except countries",
+                m_allowAddresslessForCountries, "."));
+  }
+
   LOG(LINFO, ("Geo objects without addresses were built."));
-  LOG(LINFO, ("Geo objects key-value storage saved to", pathOutGeoObjectsKv));
-  LOG(LINFO, ("Ids of POIs without addresses saved to", pathOutIdsWithoutAddress));
+  LOG(LINFO, ("Geo objects key-value storage saved to", m_pathOutGeoObjectsKv));
+  LOG(LINFO, ("Ids of POIs without addresses saved to", m_pathOutIdsWithoutAddress));
   return true;
 }
 }  // namespace geo_objects
