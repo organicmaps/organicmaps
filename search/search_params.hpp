@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/bookmarks/types.hpp"
+
 #include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 
@@ -60,6 +62,8 @@ struct SearchParams
   bool m_needHighlighting = false;
 
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+
+  bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 
   std::shared_ptr<Tracer> m_tracer;
 };

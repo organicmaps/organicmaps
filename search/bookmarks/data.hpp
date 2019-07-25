@@ -26,6 +26,7 @@ struct Data
 
   Data(kml::BookmarkData const & bookmarkData)
     : m_name(kml::GetDefaultStr(bookmarkData.m_name))
+    // todo(@m) Do not add descriptions to index in Version 0.
     , m_description(kml::GetDefaultStr(bookmarkData.m_description))
   {
   }

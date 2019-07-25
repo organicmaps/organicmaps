@@ -345,6 +345,20 @@ void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
     m_bookmarksProcessor.Erase(id);
 }
 
+void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+                                           vector<bookmarks::Id> const & marks)
+{
+  for (auto const & id : marks)
+    m_bookmarksProcessor.AttachToGroup(id, group);
+}
+
+void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+                                             vector<bookmarks::Id> const & marks)
+{
+  for (auto const & id : marks)
+    m_bookmarksProcessor.DetachFromGroup(id, group);
+}
+
 Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
@@ -428,7 +442,7 @@ void Processor::Search(SearchParams const & params)
         m_geocoder.GoEverywhere();
       }
       break;
-    case Mode::Bookmarks: SearchBookmarks(); break;
+    case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
     case Mode::Count: ASSERT(false, ("Invalid mode")); break;
     }
   }
@@ -484,10 +498,11 @@ void Processor::SearchPlusCode()
   m_emitter.Emit();
 }
 
-void Processor::SearchBookmarks() const
+void Processor::SearchBookmarks(bookmarks::GroupId const & groupId) const
 {
-  QueryParams params;
+  bookmarks::Processor::Params params;
   InitParams(params);
+  params.m_groupId = groupId;
   m_bookmarksProcessor.Search(params);
 }
 

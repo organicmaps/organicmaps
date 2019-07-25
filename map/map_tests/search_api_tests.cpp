@@ -139,29 +139,59 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   kml::SetDefaultStr(data.m_description, "They've got a cherry pie there that'll kill ya!");
   marks.emplace_back(0, data);
   kml::SetDefaultStr(data.m_name, "Silver Mustang Casino");
-  kml::SetDefaultStr(data.m_description, "Joyful place, owners Bradley and Rodney are very friendly!");
+  kml::SetDefaultStr(data.m_description,
+                     "Joyful place, owners Bradley and Rodney are very friendly!");
   marks.emplace_back(1, data);
   kml::SetDefaultStr(data.m_name, "Great Northern Hotel");
   kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
   marks.emplace_back(2, data);
   m_api.OnBookmarksCreated(marks);
 
-  promise<vector<kml::MarkId>> promise;
-  auto future = promise.get_future();
+  auto runTest = [&](string const & query, kml::MarkGroupId const & groupId,
+                     vector<kml::MarkId> const & expected) {
+    promise<vector<kml::MarkId>> promise;
+    auto future = promise.get_future();
 
-  BookmarksSearchParams params;
-  params.m_query = "gread silver hotel";
-  params.m_onResults = [&](vector<kml::MarkId> const & results,
-                           BookmarksSearchParams::Status status) {
-    if (status != BookmarksSearchParams::Status::Completed)
-      return;
-    promise.set_value(results);
+    BookmarksSearchParams params;
+    params.m_query = query;
+    params.m_onResults = [&](vector<kml::MarkId> const & results,
+                             BookmarksSearchParams::Status status) {
+      if (status != BookmarksSearchParams::Status::Completed)
+        return;
+      promise.set_value(results);
+    };
+    params.m_groupId = groupId;
+
+    m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
+    m_api.SearchInBookmarks(params);
+
+    auto const ids = future.get();
+    TEST_EQUAL(ids, expected, ());
   };
 
-  m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
-  m_api.SearchInBookmarks(params);
+  string const query = "gread silver hotel";
+  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({2, 1}));
 
-  auto const ids = future.get();
-  TEST_EQUAL(ids, vector<kml::MarkId>({2, 1}), ());
+  {
+    vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(10), vector<kml::MarkId>({0, 1}));
+    groupInfos.emplace_back(kml::MarkGroupId(11), vector<kml::MarkId>({2}));
+    m_api.OnBookmarksAttached(groupInfos);
+  }
+
+  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({2, 1}));
+  runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2}));
+
+  {
+    vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(10), vector<kml::MarkId>({1}));
+    m_api.OnBookmarksDetached(groupInfos);
+  }
+  {
+    vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(11), vector<kml::MarkId>({1}));
+    m_api.OnBookmarksAttached(groupInfos);
+  }
+  runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2, 1}));
 }
 }  // namespace

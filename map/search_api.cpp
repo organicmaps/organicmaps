@@ -51,7 +51,7 @@ void CancelQuery(weak_ptr<ProcessorHandle> & handle)
   handle.reset();
 }
 
-bookmarks::Id MarkIDToBookmarkId(kml::MarkId id)
+bookmarks::Id KmlMarkIdToSearchBookmarkId(kml::MarkId id)
 {
   static_assert(is_integral<kml::MarkId>::value, "");
   static_assert(is_integral<bookmarks::Id>::value, "");
@@ -64,21 +64,39 @@ bookmarks::Id MarkIDToBookmarkId(kml::MarkId id)
   return static_cast<bookmarks::Id>(id);
 }
 
-kml::MarkId BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
+bookmarks::GroupId KmlGroupIdToSearchGroupId(kml::MarkGroupId id)
+{
+  static_assert(is_integral<kml::MarkGroupId>::value, "");
+  static_assert(is_integral<bookmarks::GroupId>::value, "");
 
-void AppendBookmarkIdDocs(vector<BookmarkInfo> const & marks,
-                          vector<BookmarkIdDoc> & result)
+  static_assert(is_unsigned<kml::MarkGroupId>::value, "");
+  static_assert(is_unsigned<bookmarks::GroupId>::value, "");
+
+  static_assert(sizeof(bookmarks::GroupId) >= sizeof(kml::MarkGroupId), "");
+
+  if (id == kml::kInvalidMarkGroupId)
+    return bookmarks::kInvalidGroupId;
+
+  return static_cast<bookmarks::GroupId>(id);
+}
+
+kml::MarkId SearchBookmarkIdToKmlMarkId(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
+
+void AppendBookmarkIdDocs(vector<BookmarkInfo> const & marks, vector<BookmarkIdDoc> & result)
 {
   result.reserve(result.size() + marks.size());
 
   for (auto const & mark : marks)
-    result.emplace_back(MarkIDToBookmarkId(mark.m_bookmarkId), bookmarks::Doc(mark.m_bookmarkData));
+  {
+    result.emplace_back(KmlMarkIdToSearchBookmarkId(mark.m_bookmarkId),
+                        bookmarks::Doc(mark.m_bookmarkData));
+  }
 }
 
 void AppendBookmarkIds(vector<kml::MarkId> const & marks, vector<bookmarks::Id> & result)
 {
   result.reserve(result.size() + marks.size());
-  transform(marks.begin(), marks.end(), back_inserter(result), MarkIDToBookmarkId);
+  transform(marks.begin(), marks.end(), back_inserter(result), KmlMarkIdToSearchBookmarkId);
 }
 
 class BookmarksSearchCallback
@@ -111,7 +129,7 @@ public:
     ASSERT_LESS_OR_EQUAL(m_results.size(), rs.size(), ());
 
     for (size_t i = m_results.size(); i < rs.size(); ++i)
-      m_results.emplace_back(BookmarkIdToMarkID(rs[i].m_id));
+      m_results.emplace_back(SearchBookmarkIdToKmlMarkId(rs[i].m_id));
     if (m_onResults)
       m_onResults(m_results, m_status);
   }
@@ -262,6 +280,8 @@ bool SearchAPI::SearchInBookmarks(search::BookmarksSearchParams const & params)
       RunUITask([onStarted]() { onStarted(); });
   };
 
+  p.m_bookmarksGroupId = params.m_groupId;
+
   auto const onResults = params.m_onResults;
   p.m_onResults = BookmarksSearchCallback([this, onResults](
       BookmarksSearchParams::Results const & results, BookmarksSearchParams::Status status) {
@@ -390,12 +410,24 @@ void SearchAPI::OnBookmarksDeleted(vector<kml::MarkId> const & marks)
   m_engine.OnBookmarksDeleted(data);
 }
 
-void SearchAPI::OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & marks)
+void SearchAPI::OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & groupInfos)
 {
+  for (auto const & info : groupInfos)
+  {
+    vector<bookmarks::Id> data;
+    AppendBookmarkIds(info.m_bookmarkIds, data);
+    m_engine.OnBookmarksAttachedToGroup(KmlGroupIdToSearchGroupId(info.m_groupId), data);
+  }
 }
 
-void SearchAPI::OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & marks)
+void SearchAPI::OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & groupInfos)
 {
+  for (auto const & info : groupInfos)
+  {
+    vector<bookmarks::Id> data;
+    AppendBookmarkIds(info.m_bookmarkIds, data);
+    m_engine.OnBookmarksDetachedFromGroup(KmlGroupIdToSearchGroupId(info.m_groupId), data);
+  }
 }
 
 bool SearchAPI::Search(SearchParams const & params, bool forceSearch)

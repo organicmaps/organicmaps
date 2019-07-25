@@ -111,6 +111,10 @@ public:
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+                                  std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+                                    std::vector<bookmarks::Id> const & marks);
 
 private:
   struct Message

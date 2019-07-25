@@ -176,6 +176,22 @@ void Engine::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
               [marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
 }
 
+void Engine::OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+                                        vector<bookmarks::Id> const & marks)
+{
+  PostMessage(Message::TYPE_BROADCAST, [group, marks](Processor & processor) {
+    processor.OnBookmarksAttachedToGroup(group, marks);
+  });
+}
+
+void Engine::OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+                                          vector<bookmarks::Id> const & marks)
+{
+  PostMessage(Message::TYPE_BROADCAST, [group, marks](Processor & processor) {
+    processor.OnBookmarksDetachedFromGroup(group, marks);
+  });
+}
+
 void Engine::MainLoop(Context & context)
 {
   while (true)

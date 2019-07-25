@@ -147,8 +147,8 @@ public:
   void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);
-  void OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & marks);
-  void OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & marks);
+  void OnBookmarksAttached(std::vector<BookmarkGroupInfo> const & groupInfos);
+  void OnBookmarksDetached(std::vector<BookmarkGroupInfo> const & groupInfos);
 
 private:
   struct SearchIntent

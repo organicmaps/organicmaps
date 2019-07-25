@@ -78,7 +78,7 @@ public:
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
   void SearchPlusCode();
 
-  void SearchBookmarks() const;
+  void SearchBookmarks(bookmarks::GroupId const & groupId) const;
 
   void InitParams(QueryParams & params) const;
 
@@ -97,6 +97,10 @@ public:
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksAttachedToGroup(bookmarks::GroupId group,
+                                  std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksDetachedFromGroup(bookmarks::GroupId group,
+                                    std::vector<bookmarks::Id> const & marks);
 
 protected:
   Locales GetCategoryLocales() const;

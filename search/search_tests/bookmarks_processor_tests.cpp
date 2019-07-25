@@ -29,7 +29,13 @@ public:
 
   void Erase(Id const & id) { m_processor.Erase(id); }
 
-  Ids Search(string const & query)
+  void AttachToGroup(Id const & id, GroupId const & group) { m_processor.AttachToGroup(id, group); }
+  void DetachFromGroup(Id const & id, GroupId const & group)
+  {
+    m_processor.DetachFromGroup(id, group);
+  }
+
+  Ids Search(string const & query, GroupId const & groupId = kInvalidGroupId)
   {
     m_emitter.Init([](::search::Results const & /* results */) {} /* onResults */);
 
@@ -37,7 +43,7 @@ public:
     auto const isPrefix =
         TokenizeStringAndCheckIfLastTokenIsPrefix(query, tokens, search::Delimiters());
 
-    QueryParams params;
+    Processor::Params params;
     if (isPrefix)
     {
       ASSERT(!tokens.empty(), ());
@@ -47,6 +53,8 @@ public:
     {
       params.InitNoPrefix(tokens.begin(), tokens.end());
     }
+
+    params.m_groupId = groupId;
 
     m_processor.Search(params);
     Ids ids;
@@ -76,5 +84,14 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
   TEST_EQUAL(Search("great silver hotel"), Ids({20, 18}), ());
   TEST_EQUAL(Search("double r cafe"), Ids({10}), ());
   TEST_EQUAL(Search("dine"), Ids({10}), ());
+
+  AttachToGroup(Id{10}, GroupId{0});
+  AttachToGroup(Id{18}, GroupId{0});
+  AttachToGroup(Id{20}, GroupId{1});
+  TEST_EQUAL(Search("place"), Ids({20, 18}), ());
+  TEST_EQUAL(Search("place", GroupId{0}), Ids({18}), ());
+  DetachFromGroup(20, 1);
+  AttachToGroup(20, 0);
+  TEST_EQUAL(Search("place", GroupId{0}), Ids({20, 18}), ());
 }
 }  // namespace

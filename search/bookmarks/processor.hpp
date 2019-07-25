@@ -33,13 +33,22 @@ class Processor : public IdfMap::Delegate
 public:
   using Index = search_base::MemSearchIndex<Id>;
 
+  struct Params : public QueryParams
+  {
+    // If valid, only show results with bookmarks attached to |m_groupId|.
+    GroupId m_groupId = kInvalidGroupId;
+  };
+
   Processor(Emitter & emitter, base::Cancellable const & cancellable);
   ~Processor() override = default;
 
   void Add(Id const & id, Doc const & doc);
   void Erase(Id const & id);
 
-  void Search(QueryParams const & params) const;
+  void AttachToGroup(Id const & id, GroupId const & group);
+  void DetachFromGroup(Id const & id, GroupId const & group);
+
+  void Search(Params const & params) const;
 
   // IdfMap::Delegate overrides:
   uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const override;
@@ -66,6 +75,11 @@ private:
 
   Index m_index;
   std::unordered_map<Id, DocVec> m_docs;
+
+  // Currently a bookmark can belong to at most one group
+  // but in the future it is possible for a single bookmark to be
+  // attached to multiple groups.
+  std::unordered_map<Id, GroupId> m_idToGroup;
 };
 }  // namespace bookmarks
 }  // namespace search

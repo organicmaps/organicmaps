@@ -12,6 +12,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cstddef>
 
 using namespace std;
@@ -100,7 +101,36 @@ void Processor::Erase(Id const & id)
   m_docs.erase(id);
 }
 
-void Processor::Search(QueryParams const & params) const
+void Processor::AttachToGroup(Id const & id, GroupId const & group)
+{
+  auto const it = m_idToGroup.find(id);
+  if (it != m_idToGroup.end())
+  {
+    LOG(LWARNING, ("Tried to attach bookmark", id, "to group", group,
+                   "but it already belongs to group", it->second));
+  }
+
+  m_idToGroup[id] = group;
+}
+
+void Processor::DetachFromGroup(Id const & id, GroupId const & group)
+{
+  auto const it = m_idToGroup.find(id);
+  if (it == m_idToGroup.end())
+  {
+    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
+                   "but it does not belong to any group"));
+  }
+
+  if (it->second != group)
+  {
+    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
+                   "but it only belongs to group", it->second));
+  }
+  m_idToGroup.erase(it);
+}
+
+void Processor::Search(Params const & params) const
 {
   set<Id> ids;
   auto insertId = [&ids](Id const & id, bool /* exactMatch */) { ids.insert(id); };
@@ -123,6 +153,13 @@ void Processor::Search(QueryParams const & params) const
   for (auto const & id : ids)
   {
     BailIfCancelled();
+
+    if (params.m_groupId != kInvalidGroupId)
+    {
+      auto const it = m_idToGroup.find(id);
+      if (it == m_idToGroup.end() || it->second != params.m_groupId)
+        continue;
+    }
 
     auto it = m_docs.find(id);
     ASSERT(it != m_docs.end(), ("Can't find retrieved doc:", id));

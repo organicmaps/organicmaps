@@ -25,7 +25,7 @@ struct BookmarksSearchParams
   using OnResults = std::function<void(Results const & results, Status status)>;
 
   std::string m_query;
-  kml::MarkGroupId m_categoryId = kml::kInvalidMarkGroupId;
+  kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
   OnStarted m_onStarted;
   OnResults m_onResults;
 };
