@@ -37,6 +37,7 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
     super.prepareForReuse()
     spinner.isHidden = true
     spinner.stopRotation()
+    actionButton.isHidden = true
   }
 
   @objc func config(type: DiscoveryOnlineTemplateType, needSpinner: Bool, canUseNetwork: Bool, tap: @escaping Tap) {
@@ -57,6 +58,11 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
     if (needSpinner) {
       spinner.isHidden = false
       spinner.startRotation()
+      actionButton.isHidden = true
+    } else {
+      spinner.stopRotation()
+      spinner.isHidden = true
+      actionButton.isHidden = false
     }
     self.tap = tap
   }
