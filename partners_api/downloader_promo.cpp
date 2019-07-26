@@ -24,7 +24,7 @@ DownloaderPromo::Banner DownloaderPromo::GetBanner(storage::Storage const & stor
   if (it != cities.cend())
   {
     auto const id = strings::to_string(it->second.GetEncodedId());
-    return {Type::BookmarkCatalog, promoApi.GetLinkForDownloader(id, currentLocale)};
+    return {Type::BookmarkCatalog, promoApi.GetLinkForDownloader(id)};
   }
 
   return {};

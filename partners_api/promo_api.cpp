@@ -216,9 +216,9 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
           GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 
-std::string Api::GetLinkForDownloader(std::string const & id, std::string const & lang) const
+std::string Api::GetLinkForDownloader(std::string const & id) const
 {
-  return InjectUTM(MakeCityGalleryUrl(m_baseUrl, id, lang), UTM::DownloadMwmBanner);
+  return InjectUTM(GetCityCatalogueUrl(m_baseUrl, id), UTM::DownloadMwmBanner);
 }
 
 std::string Api::GetCityUrl(m2::PointD const & point) const

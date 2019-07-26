@@ -85,7 +85,7 @@ public:
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
   AfterBooking GetAfterBooking(std::string const & lang) const;
-  std::string GetLinkForDownloader(std::string const & id, std::string const & lang) const;
+  std::string GetLinkForDownloader(std::string const & id) const;
   std::string GetCityUrl(m2::PointD const & point) const;
   void GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,
                       CityGalleryCallback const & onSuccess, OnError const & onError) const;
