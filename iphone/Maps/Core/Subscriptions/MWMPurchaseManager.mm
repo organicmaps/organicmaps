@@ -1,4 +1,5 @@
 #import "MWMPurchaseManager.h"
+#import "MWMPurchaseValidation.h"
 
 #include "Framework.h"
 #include "private.h"
@@ -9,8 +10,9 @@
 
 @property(nonatomic, copy) ValidateReceiptCallback callback;
 @property(nonatomic) SKReceiptRefreshRequest *receiptRequest;
-@property(nonatomic, copy) NSString * serverId;
-@property(nonatomic, copy) NSString * vendorId;
+@property(nonatomic, copy) NSString *serverId;
+@property(nonatomic, copy) NSString *vendorId;
+@property(nonatomic) id<IMWMPurchaseValidation> purchaseValidation;
 
 @end
 
@@ -69,14 +71,13 @@
   return [result copy];
 }
 
-+ (MWMPurchaseManager *)sharedManager
-{
-  static MWMPurchaseManager *instance;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    instance = [[MWMPurchaseManager alloc] init];
-  });
-  return instance;
+- (instancetype)initWithVendorId:(NSString *)vendorId {
+  self = [super init];
+  if (self) {
+    _vendorId = vendorId;
+    _purchaseValidation = [[MWMPurchaseValidation alloc] initWithVendorId:vendorId];
+  }
+  return self;
 }
 
 - (void)refreshReceipt
@@ -87,53 +88,40 @@
 }
 
 - (void)validateReceipt:(NSString *)serverId
-               vendorId:(NSString *)vendorId
          refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback)callback
 {
   self.callback = callback;
   self.serverId = serverId;
-  self.vendorId = vendorId;
   [self validateReceipt:refresh];
 }
 
-- (void)validateReceipt:(BOOL)refresh
-{
-  NSURL * receiptUrl = [NSBundle mainBundle].appStoreReceiptURL;
-  NSData * receiptData = [NSData dataWithContentsOfURL:receiptUrl];
-
-  if (!receiptData)
-  {
-    if (refresh)
-      [self refreshReceipt];
-    else
-      [self noReceipt];
-    return;
-  }
-
-  GetFramework().GetPurchase()->SetValidationCallback([self](auto validationCode, auto const & validationInfo)
-  {
-    switch (validationCode)
-    {
-    case Purchase::ValidationCode::Verified:
-      [self validReceipt];
-      break;
-    case Purchase::ValidationCode::NotVerified:
-      [self invalidReceipt];
-      break;
-    case Purchase::ValidationCode::ServerError:
-    case Purchase::ValidationCode::AuthError:
-      [self serverError];
-      break;
+- (void)validateReceipt:(BOOL)refresh {
+  __weak __typeof(self) ws = self;
+  [self.purchaseValidation validateReceipt:self.serverId callback:^(MWMPurchaseValidationResult validationResult) {
+    __strong __typeof(self) self = ws;
+    switch (validationResult) {
+      case MWMPurchaseValidationResultValid:
+        [self validReceipt];
+        break;
+      case MWMPurchaseValidationResultNotValid:
+        [self invalidReceipt];
+        break;
+      case MWMPurchaseValidationResultError:
+        [self serverError];
+        break;
+      case MWMPurchaseValidationResultAuthError:
+        [self authError];
+        break;
+      case MWMPurchaseValidationResultNoReceipt:
+        if (refresh) {
+          [self refreshReceipt];
+        } else {
+          [self noReceipt];
+        }
+        break;
     }
-    GetFramework().GetPurchase()->SetValidationCallback(nullptr);
-  });
-  Purchase::ValidationInfo vi;
-  vi.m_receiptData = [receiptData base64EncodedStringWithOptions:0].UTF8String;
-  vi.m_serverId = self.serverId.UTF8String;
-  vi.m_vendorId = self.vendorId.UTF8String;
-  auto const accessToken = GetFramework().GetUser().GetAccessToken();
-  GetFramework().GetPurchase()->Validate(vi, accessToken);
+  }];
 }
 
 - (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback {
@@ -184,7 +172,7 @@
     self.callback(self.serverId, MWMValidationResultServerError);
 }
 
-- (void)setAdsDisabled:(BOOL)disabled
++ (void)setAdsDisabled:(BOOL)disabled
 {
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::RemoveAds, disabled);
 }

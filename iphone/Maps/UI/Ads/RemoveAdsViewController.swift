@@ -219,20 +219,18 @@ import SafariServices
 }
 
 extension RemoveAdsViewController: SubscriptionManagerListener {
-  func validationError() {
-    hidePurchaseProgress()
-    delegate?.didCompleteSubscribtion(self)
+  func didFailToValidate() {
+
+  }
+
+  func didValidate(_ isValid: Bool) {
+
   }
 
   func didSubsribe(_ subscription: ISubscription) {
+    MWMPurchaseManager.setAdsDisabled(true)
     hidePurchaseProgress()
     delegate?.didCompleteSubscribtion(self)
-  }
-
-  func didFailToValidate(_ subscription: ISubscription, error: Error?) {
-    hidePurchaseProgress()
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
-                                                          text: L("purchase_error_subtitle"))
   }
 
   func didDefer(_ subscription: ISubscription) {

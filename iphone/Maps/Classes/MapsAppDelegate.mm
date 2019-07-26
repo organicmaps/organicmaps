@@ -248,7 +248,10 @@ using namespace osm_auth_ios;
   [UNUserNotificationCenter currentNotificationCenter].delegate = self.notificationManager;
 
   if ([MWMFrameworkHelper isWiFiConnected]) {
-    [[InAppPurchase adsRemovalSubscriptionManager] validate];
+    [[InAppPurchase bookmarksSubscriptionManager] validateWithCompletion:nil];
+    [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
+      [MWMPurchaseManager setAdsDisabled:result != MWMValidationResultNotValid];
+    }];
     self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
     __weak __typeof(self) ws = self;
     [self.pendingTransactionHandler handlePendingTransactions:^(PendingTransactionsStatus) {

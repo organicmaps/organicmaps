@@ -1,35 +1,34 @@
 @objc protocol SubscriptionManagerListener: AnyObject {
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?)
   func didSubsribe(_ subscription: ISubscription)
-  func didFailToValidate(_ subscription: ISubscription, error: Error?)
   func didDefer(_ subscription: ISubscription)
-  func validationError()
+  func didFailToValidate()
+  func didValidate(_ isValid: Bool)
 }
 
 class SubscriptionManager: NSObject {
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
-  typealias RestorationCompletion = (MWMValidationResult) -> Void
-
-//  @objc static var shared: SubscriptionManager = { return SubscriptionManager() }()
+  typealias ValidationCompletion = (MWMValidationResult) -> Void
 
   private let paymentQueue = SKPaymentQueue.default()
-
   private var productsRequest: SKProductsRequest?
   private var subscriptionsComplection: SuscriptionsCompletion?
   private var products: [String: SKProduct]?
   private var pendingSubscription: ISubscription?
   private var listeners = NSHashTable<SubscriptionManagerListener>.weakObjects()
-  private var restorationCallback: RestorationCompletion?
+  private var restorationCallback: ValidationCompletion?
 
   private var productIds: [String] = []
   private var serverId: String = ""
   private var vendorId: String = ""
+  private var purchaseManager: MWMPurchaseManager?
 
   convenience init(productIds: [String], serverId: String, vendorId: String) {
     self.init()
     self.productIds = productIds
     self.serverId = serverId
     self.vendorId = vendorId
+    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
   }
 
   override private init() {
@@ -66,29 +65,29 @@ class SubscriptionManager: NSObject {
     listeners.remove(listener)
   }
 
-  @objc func validate() {
-    validate(false)
+  @objc func validate(completion: ValidationCompletion? = nil) {
+    validate(false, completion: completion)
   }
 
-  @objc func restore(_ callback: @escaping RestorationCompletion) {
-    restorationCallback = callback
-    validate(true)
+  @objc func restore(_ callback: @escaping ValidationCompletion) {
+    validate(true) {
+      callback($0)
+    }
   }
 
-  private func validate(_ refreshReceipt: Bool) {
-    MWMPurchaseManager.shared()
-      .validateReceipt(serverId, vendorId: vendorId, refreshReceipt: refreshReceipt) { [weak self] (_, validationResult) in
-        self?.logEvents(validationResult)
-        if validationResult == .valid || validationResult == .notValid {
-          MWMPurchaseManager.shared().setAdsDisabled(validationResult == .valid)
-          self?.paymentQueue.transactions
-            .filter { self?.productIds.contains($0.payment.productIdentifier) ?? false &&
-              ($0.transactionState == .purchased || $0.transactionState == .restored) }
-            .forEach { self?.paymentQueue.finishTransaction($0) }
-        }
-
-        self?.restorationCallback?(validationResult)
-        self?.restorationCallback = nil
+  private func validate(_ refreshReceipt: Bool, completion: ValidationCompletion? = nil) {
+    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] (_, validationResult) in
+      self?.logEvents(validationResult)
+      if validationResult == .valid || validationResult == .notValid {
+        self?.listeners.allObjects.forEach { $0.didValidate(validationResult == .valid) }
+        self?.paymentQueue.transactions
+          .filter { self?.productIds.contains($0.payment.productIdentifier) ?? false &&
+            ($0.transactionState == .purchased || $0.transactionState == .restored) }
+          .forEach { self?.paymentQueue.finishTransaction($0) }
+      } else {
+        self?.listeners.allObjects.forEach { $0.didFailToValidate() }
+      }
+      completion?(validationResult)
     }
   }
 
@@ -166,7 +165,6 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   }
 
   private func processPurchased(_ transaction: SKPaymentTransaction) {
-    MWMPurchaseManager.shared().setAdsDisabled(true)
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
       Statistics.logEvent(kStatInappPaymentSuccess)
@@ -175,7 +173,6 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   }
 
   private func processRestored(_ transaction: SKPaymentTransaction) {
-    MWMPurchaseManager.shared().setAdsDisabled(true)
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
       listeners.allObjects.forEach { $0.didSubsribe(ps) }

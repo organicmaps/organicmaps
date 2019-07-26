@@ -5,6 +5,7 @@ final class InAppPurchase: NSObject {
     let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
     let billing = InAppBilling()
     return PaidRoutePurchase(serverId: serverId,
+                             vendorId: BOOKMARKS_VENDOR,
                              productId: productId,
                              purchaseValidation: validation,
                              billing: billing)

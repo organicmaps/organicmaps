@@ -5,6 +5,8 @@ class BookmarksSubscriptionSuccessViewController: UIViewController {
   init(onOk: @escaping MWMVoidBlock) {
     self.onOk = onOk
     super.init(nibName: nil, bundle: nil)
+    transitioningDelegate = transitioning
+    modalPresentationStyle = .custom
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -17,15 +19,5 @@ class BookmarksSubscriptionSuccessViewController: UIViewController {
 
   @IBAction func onOk(_ sender: UIButton) {
     onOk()
-  }
-
-  override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-    get { return transitioning }
-    set { }
-  }
-
-  override var modalPresentationStyle: UIModalPresentationStyle {
-    get { return .custom }
-    set { }
   }
 }

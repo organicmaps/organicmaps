@@ -7,6 +7,8 @@ class BookmarksSubscriptionExpiredViewController: UIViewController {
     self.onSubscribe = onSubscribe
     self.onDelete = onDelete
     super.init(nibName: nil, bundle: nil)
+    transitioningDelegate = transitioning
+    modalPresentationStyle = .custom
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -23,15 +25,5 @@ class BookmarksSubscriptionExpiredViewController: UIViewController {
 
   @IBAction func onDelete(_ sender: UIButton) {
     onDelete()
-  }
-
-  override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-    get { return transitioning }
-    set { }
-  }
-
-  override var modalPresentationStyle: UIModalPresentationStyle {
-    get { return .custom }
-    set { }
   }
 }

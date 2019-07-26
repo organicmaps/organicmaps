@@ -204,28 +204,36 @@ class PaidRouteViewController: MWMViewController {
 }
 
 extension PaidRouteViewController : SubscriptionManagerListener {
+  func didFailToValidate() {
+    loadingView.isHidden = true
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                          text: L("purchase_error_subtitle"))
+  }
+
+  func didValidate(_ isValid: Bool) {
+    loadingView.isHidden = true
+    if (isValid) {
+      delegate?.didCompleteSubscription(self)
+      let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
+        self?.dismiss(animated: true)
+      }
+      present(successDialog, animated: true)
+    } else {
+      MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                            text: L("purchase_error_subtitle"))
+    }
+  }
+
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
     loadingView.isHidden = true
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                          text: L("purchase_error_subtitle"))
   }
 
   func didSubsribe(_ subscription: ISubscription) {
-    loadingView.isHidden = true
-    delegate?.didCompleteSubscription(self)
-    let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
-      self?.dismiss(animated: true)
-    }
-    present(successDialog, animated: true)
-  }
-
-  func didFailToValidate(_ subscription: ISubscription, error: Error?) {
-    loadingView.isHidden = true
   }
 
   func didDefer(_ subscription: ISubscription) {
-    loadingView.isHidden = true
-  }
-
-  func validationError() {
     loadingView.isHidden = true
   }
 }

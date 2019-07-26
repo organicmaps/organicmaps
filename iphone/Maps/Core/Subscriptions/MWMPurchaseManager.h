@@ -24,14 +24,13 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 + (NSArray<NSString *> *)productIds;
 + (NSArray<NSString *> *)legacyProductIds;
 + (NSArray<NSString *> *)bookmarkInappIds;
-+ (MWMPurchaseManager *)sharedManager;
++ (void)setAdsDisabled:(BOOL)disabled;
 
+- (instancetype)initWithVendorId:(NSString *)vendorId;
 - (void)validateReceipt:(NSString *)serverId
-               vendorId:(NSString *)vendorId
          refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback)callback;
 - (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback;
-- (void)setAdsDisabled:(BOOL)disabled;
 - (void)refreshReceipt;
 
 @end

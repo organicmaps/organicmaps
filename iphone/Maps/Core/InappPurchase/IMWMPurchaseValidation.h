@@ -5,6 +5,7 @@ typedef NS_ENUM(NSUInteger, MWMPurchaseValidationResult) {
   MWMPurchaseValidationResultNotValid,
   MWMPurchaseValidationResultError,
   MWMPurchaseValidationResultAuthError,
+  MWMPurchaseValidationResultNoReceipt
 };
 
 typedef void (^ValidatePurchaseCallback)(MWMPurchaseValidationResult validationResult);

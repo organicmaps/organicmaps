@@ -20,8 +20,10 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   private var storeProductCompletion: StoreProductCompletion?
   private var storePaymentCompletion: StorePaymentCompletion?
   private var billingProduct: IBillingProduct?
+  private var purchaseManager: MWMPurchaseManager
 
   init(serverId: String,
+       vendorId: String,
        productId: String,
        purchaseValidation: IMWMPurchaseValidation,
        billing: IInAppBilling) {
@@ -29,6 +31,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
     self.productId = productId
     self.purchaseValidation = purchaseValidation
     self.billing = billing
+    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
     super.init()
   }
 
@@ -50,7 +53,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
     }
 
     storePaymentCompletion = completion
-    MWMPurchaseManager.shared().startTransaction(serverId) { [weak self] (success, serverId) in
+    purchaseManager.startTransaction(serverId) { [weak self] (success, serverId) in
       if !success {
         self?.storePaymentCompletion?(.error, RoutePurchaseError.paymentError)
         self?.storePaymentCompletion = nil
@@ -77,7 +80,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
       case .valid:
         self?.billing.finishTransaction()
         self?.storePaymentCompletion?(.success, nil)
-      case .notValid:
+      case .notValid, .noReceipt:
         self?.storePaymentCompletion?(.error, RoutePurchaseError.validationFailed)
       case .error:
         self?.storePaymentCompletion?(.error, RoutePurchaseError.validationError)

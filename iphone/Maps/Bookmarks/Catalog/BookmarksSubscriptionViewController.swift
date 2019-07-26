@@ -4,6 +4,7 @@ class BookmarksSubscriptionViewController: MWMViewController {
   @IBOutlet private var gradientView: GradientView!
   @IBOutlet private var scrollView: UIScrollView!
   @IBOutlet private var continueButton: UIButton!
+  @IBOutlet var loadingView: UIView!
 
   private let annualViewController = BookmarksSubscriptionCellViewController()
   private let monthlyViewController = BookmarksSubscriptionCellViewController()
@@ -102,9 +103,10 @@ class BookmarksSubscriptionViewController: MWMViewController {
   }
 
   @IBAction func onContinue(_ sender: UIButton) {
+    loadingView.isHidden = false
     MWMBookmarksManager.shared().ping { [weak self] (success) in
       guard success else {
-//        self?.loadingView.isHidden = true
+        self?.loadingView.isHidden = true
         let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
           self?.dismiss(animated: true)
         }
@@ -126,23 +128,36 @@ class BookmarksSubscriptionViewController: MWMViewController {
 }
 
 extension BookmarksSubscriptionViewController: SubscriptionManagerListener {
-  func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
+  func didFailToValidate() {
+    loadingView.isHidden = true
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                          text: L("purchase_error_subtitle"))
+  }
 
+  func didValidate(_ isValid: Bool) {
+    loadingView.isHidden = true
+    if (isValid) {
+      onSubscribe?()
+      let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
+        self?.dismiss(animated: true)
+      }
+      present(successDialog, animated: true)
+    } else {
+      MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                            text: L("purchase_error_subtitle"))
+    }
+  }
+
+  func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
+    loadingView.isHidden = true
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                          text: L("purchase_error_subtitle"))
   }
 
   func didSubsribe(_ subscription: ISubscription) {
-    onSubscribe?()
-  }
-
-  func didFailToValidate(_ subscription: ISubscription, error: Error?) {
-
   }
 
   func didDefer(_ subscription: ISubscription) {
-
-  }
-
-  func validationError() {
 
   }
 }

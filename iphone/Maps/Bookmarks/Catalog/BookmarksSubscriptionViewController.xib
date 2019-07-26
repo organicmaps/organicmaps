@@ -15,6 +15,7 @@
                 <outlet property="annualView" destination="Bae-oL-ekX" id="l9n-u0-LNW"/>
                 <outlet property="continueButton" destination="neX-0h-hs4" id="kQw-7y-Igs"/>
                 <outlet property="gradientView" destination="BcI-3g-iCI" id="Rmd-LB-Rl5"/>
+                <outlet property="loadingView" destination="BHb-cU-Ze3" id="bfe-6a-BJf"/>
                 <outlet property="monthlyView" destination="Jpy-cA-wCv" id="6yi-OC-MrD"/>
                 <outlet property="scrollView" destination="q5w-jW-Chn" id="dMR-TM-gMC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -261,6 +262,24 @@
                         <constraint firstItem="Eiz-QQ-h0b" firstAttribute="width" secondItem="0eE-hs-sId" secondAttribute="width" id="ke9-ke-QPG"/>
                     </constraints>
                 </scrollView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHb-cU-Ze3">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XZg-yN-Jtv">
+                            <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
+                            <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.89998929790000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="XZg-yN-Jtv" firstAttribute="centerX" secondItem="BHb-cU-Ze3" secondAttribute="centerX" id="Ade-4z-Spa"/>
+                        <constraint firstItem="XZg-yN-Jtv" firstAttribute="centerY" secondItem="BHb-cU-Ze3" secondAttribute="centerY" id="CQX-i5-ZcY"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Nh0-0H-Zgm"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="toastBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -269,9 +288,13 @@
                 <constraint firstItem="0eE-hs-sId" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Avd-W3-cXU"/>
                 <constraint firstAttribute="trailing" secondItem="BcI-3g-iCI" secondAttribute="trailing" id="IKZ-OT-jxC"/>
                 <constraint firstAttribute="bottom" secondItem="BcI-3g-iCI" secondAttribute="bottom" id="SHg-Ke-dap"/>
+                <constraint firstAttribute="bottom" secondItem="BHb-cU-Ze3" secondAttribute="bottom" id="X6W-ia-1Mi"/>
+                <constraint firstAttribute="trailing" secondItem="BHb-cU-Ze3" secondAttribute="trailing" id="dNr-7E-k98"/>
                 <constraint firstItem="BcI-3g-iCI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="doL-Dw-bDS"/>
+                <constraint firstItem="BHb-cU-Ze3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ipn-ug-1wp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0eE-hs-sId" secondAttribute="bottom" id="ku8-zI-AI4"/>
                 <constraint firstItem="0eE-hs-sId" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="sv4-ek-sAP"/>
+                <constraint firstAttribute="top" secondItem="BHb-cU-Ze3" secondAttribute="top" id="vTu-oZ-veb"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <userDefinedRuntimeAttributes>
