@@ -807,21 +807,19 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 }
 
 void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
-                                 vector<pair<FeatureID, IRoadGraph::RoadInfo>> & roads) const
+                                 vector<IRoadGraph::FullRoadInfo> & roads) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
   set<Segment> deadEnds;
-  base::EraseIf(roads, [&deadEnds, &worldGraph, this](pair<FeatureID, IRoadGraph::RoadInfo> const & r) {
-    auto const & featureId = r.first;
-    auto const & road = r.second;
-    CHECK_GREATER_OR_EQUAL(road.m_junctions.size(), 2, ());
+  base::EraseIf(roads, [&deadEnds, &worldGraph, this](IRoadGraph::FullRoadInfo const & r) {
+    CHECK_GREATER_OR_EQUAL(r.m_roadInfo.m_junctions.size(), 2, ());
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
     // Below a heuristic is used. If a first segment of a feature is forward direction is a dead end
     // all segments of the feature is considered as dead ends.
-    auto const segment = GetSegmentByEdge(Edge::MakeReal(featureId, true /* forward */, 0 /* segment id */,
-                                                         road.m_junctions[0], road.m_junctions[1]));
+    auto const segment = GetSegmentByEdge(Edge::MakeReal(r.m_featureId, true /* forward */, 0 /* segment id */,
+                                                         r.m_roadInfo.m_junctions[0], r.m_roadInfo.m_junctions[1]));
     if (deadEnds.count(segment) != 0)
       return true;
 
@@ -837,14 +835,14 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
 }
 
 bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> const & edgeProjection,
-                              vector<pair<FeatureID, IRoadGraph::RoadInfo>> const & fences) const
+                              vector<IRoadGraph::FullRoadInfo> const & fences) const
 {
   auto const & edge = edgeProjection.first;
   auto const & projPoint = edgeProjection.second.GetPoint();
 
   for (auto const & fence : fences)
   {
-    auto const & featureGeom = fence.second.m_junctions;
+    auto const & featureGeom = fence.m_roadInfo.m_junctions;
     for (size_t i = 1; i < featureGeom.size(); ++i)
     {
       auto const & fencePointFrom = featureGeom[i - 1];
@@ -873,16 +871,12 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 }
 
 void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
-                                      vector<pair<FeatureID, IRoadGraph::RoadInfo>> const & roads,
+                                      vector<IRoadGraph::FullRoadInfo> const & roads,
                                       uint32_t count, vector<pair<Edge, Junction>> & edgeProj) const
 {
   NearestEdgeFinder finder(point);
   for (auto const & r : roads)
-  {
-    auto const & fid = r.first;
-    auto const & roadInfo = r.second;
-    finder.AddInformationSource(fid, roadInfo.m_junctions, roadInfo.m_bidirectional);
-  }
+    finder.AddInformationSource(r.m_featureId, r.m_roadInfo.m_junctions, r.m_roadInfo.m_bidirectional);
 
   finder.MakeResult(edgeProj, count);
 }
@@ -983,12 +977,11 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   // a feature to a |point| the more chances that it crosses the segment
   // |point|, projections of |point| on feature edges. It confirmed with benchmarks.
   sort(closestRoads.begin(), closestRoads.end(),
-       [&point](pair<FeatureID, IRoadGraph::RoadInfo> const & lhs,
-          pair<FeatureID, IRoadGraph::RoadInfo> const & rhs) {
-    CHECK(!lhs.second.m_junctions.empty(), ());
+       [&point](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs) {
+    CHECK(!lhs.m_roadInfo.m_junctions.empty(), ());
     return
-        point.SquaredLength(lhs.second.m_junctions[0].GetPoint()) <
-        point.SquaredLength(rhs.second.m_junctions[0].GetPoint());
+        point.SquaredLength(lhs.m_roadInfo.m_junctions[0].GetPoint()) <
+        point.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
   });
 
   // Getting |kMaxRoadCandidates| closest edges from |closestRoads|.

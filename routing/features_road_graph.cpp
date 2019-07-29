@@ -199,10 +199,10 @@ void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
   finder.MakeResult(vicinities, count);
 }
 
-vector<pair<FeatureID, IRoadGraph::RoadInfo>> FeaturesRoadGraph::FindRoads(
+vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
     m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const
 {
-  vector<pair<FeatureID, IRoadGraph::RoadInfo>> roads;
+  vector<IRoadGraph::FullRoadInfo> roads;
   auto const f = [&roads, &isGoodFeature, this](FeatureType & ft) {
     if (!m_vehicleModel.IsRoad(ft))
       return;
@@ -211,7 +211,8 @@ vector<pair<FeatureID, IRoadGraph::RoadInfo>> FeaturesRoadGraph::FindRoads(
     if (isGoodFeature && !isGoodFeature(featureId))
       return;
 
-    roads.emplace_back(featureId, GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH));
+    roads.emplace_back(featureId, GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH),
+                       true /* m_isRoadAccordingToModel */);
   };
 
   m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());

@@ -198,6 +198,21 @@ public:
     bool m_bidirectional;
   };
 
+  struct FullRoadInfo
+  {
+    FullRoadInfo(FeatureID const & featureId, RoadInfo const & roadInfo,
+                 bool isRoadAccordingToModel)
+      : m_featureId(featureId)
+      , m_roadInfo(roadInfo)
+      , m_isRoadAccordingToModel(isRoadAccordingToModel)
+    {
+    }
+
+    FeatureID m_featureId;
+    RoadInfo m_roadInfo;
+    bool m_isRoadAccordingToModel;
+  };
+
   /// This class is responsible for loading edges in a cross.
   class ICrossEdgesLoader
   {
@@ -318,7 +333,7 @@ public:
   /// lying in |rect|.
   /// \note |RoadInfo::m_speedKMPH| is set to |kInvalidSpeedKMPH|.
   /// \note Some roads returned by this method my lie outside |rect| but close to it.
-  virtual std::vector<std::pair<FeatureID, RoadInfo>> FindRoads(
+  virtual std::vector<FullRoadInfo> FindRoads(
       m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const { return {}; }
 
   /// @return Types for the specified feature

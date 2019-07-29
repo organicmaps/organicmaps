@@ -107,15 +107,15 @@ private:
 
   /// \brief Removes all roads from |roads| which goes to dead ends.
   void EraseIfDeadEnd(WorldGraph & worldGraph,
-                      std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> & roads) const;
+                      std::vector<IRoadGraph::FullRoadInfo> & roads) const;
 
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
   /// in |fences| except for a one which has the same geometry with |edgeProjection.first|.
   bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
-                   std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> const & fences) const;
+                   std::vector<IRoadGraph::FullRoadInfo> const & fences) const;
 
   void RoadsToNearestEdges(m2::PointD const & point,
-                           std::vector<std::pair<FeatureID, IRoadGraph::RoadInfo>> const & roads,
+                           std::vector<IRoadGraph::FullRoadInfo> const & roads,
                            uint32_t count, std::vector<std::pair<Edge, Junction>> & edgeProj) const;
 
   Segment GetSegmentByEdge(Edge const & edge) const;

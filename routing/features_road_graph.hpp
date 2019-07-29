@@ -82,7 +82,7 @@ public:
                                     ICrossEdgesLoader & edgesLoader) const override;
   void FindClosestEdges(m2::RectD const & rect, uint32_t count, IsGoodFeatureFn const & isGoodFeature,
                         std::vector<std::pair<Edge, Junction>> & vicinities) const override;
-  std::vector<std::pair<FeatureID, RoadInfo>> FindRoads(
+  std::vector<IRoadGraph::FullRoadInfo> FindRoads(
       m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
