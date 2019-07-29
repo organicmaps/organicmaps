@@ -565,6 +565,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   logSponsoredEvent(data, kStatPlacePageHotelMore);
   [UIApplication.sharedApplication openURL:data.sponsoredMoreURL
                                    options:@{} completionHandler:nil];
+  [MWMEye transitionToBookingWithPos:CGPointMake(data.mercator.x, data.mercator.y)];
 }
 
 - (void)openReviewUrl

@@ -152,7 +152,7 @@ void GetPromoCityGalleryImpl(std::string const & baseUrl, std::string const & id
     }
     catch (base::Json::Exception const & e)
     {
-      LOG(LERROR, (e.Msg()));
+      LOG(LERROR, (e.Msg(), httpResult));
       onError();
       return;
     }
