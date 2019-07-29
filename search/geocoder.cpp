@@ -314,6 +314,16 @@ size_t OrderCountries(boost::optional<m2::PointD> const & position, m2::RectD co
   return distance(infos.begin(), sep);
 }
 
+unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  dataSource.GetMwmsInfo(infos);
+  MwmSet::MwmHandle handle = indexer::FindWorld(dataSource, infos);
+  if (handle.IsAlive())
+    return make_unique<MwmContext>(move(handle));
+  return {};
+}
+
 #define TRACE(branch)                                      \
   m_resultTracer.CallMethod(ResultTracer::Branch::branch); \
   SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); });
@@ -621,15 +631,8 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
 
 void Geocoder::CacheWorldLocalities()
 {
-  vector<shared_ptr<MwmInfo>> infos;
-  m_dataSource.GetMwmsInfo(infos);
-
-  MwmSet::MwmHandle handle = indexer::FindWorld(m_dataSource, infos);
-  if (handle.IsAlive())
-  {
-    auto context = make_unique<MwmContext>(move(handle));
+  if (auto context = GetWorldContext(m_dataSource))
     UNUSED_VALUE(m_localitiesCache.Get(*context));
-  }
 }
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
@@ -983,6 +986,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
   TRACE(WithPostcodes);
 
   size_t const maxPostcodeTokens = GetMaxNumTokensInPostcode();
+  auto worldContext = GetWorldContext(m_dataSource);
 
   for (size_t startToken = 0; startToken != ctx.m_numTokens; ++startToken)
   {
@@ -1011,12 +1015,8 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
 
       m_postcodes.Clear();
 
-      vector<shared_ptr<MwmInfo>> infos;
-      m_dataSource.GetMwmsInfo(infos);
-      MwmSet::MwmHandle handle = indexer::FindWorld(m_dataSource, infos);
-      if (handle.IsAlive())
+      if (worldContext)
       {
-        auto worldContext = make_unique<MwmContext>(move(handle));
         m_postcodes.m_worldFeatures =
             RetrievePostcodeFeatures(*worldContext, TokenSlice(m_params, tokenRange));
       }
