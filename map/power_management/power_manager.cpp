@@ -209,7 +209,7 @@ bool PowerManager::Save()
     {
       LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
     }
-    catch (FileReader::Exception const & ex)
+    catch (FileWriter::Exception const & ex)
     {
       LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
     }
