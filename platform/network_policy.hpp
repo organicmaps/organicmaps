@@ -15,7 +15,7 @@ using PartnersApiFn = function<void(NetworkPolicy const & canUseNetwork)>;
 
 namespace network_policy
 {
-void CallPartnersApi(platform::PartnersApiFn fn, bool force);
+void CallPartnersApi(platform::PartnersApiFn fn, bool force, bool showAnyway);
 }
 
 namespace platform
@@ -27,7 +27,7 @@ class NetworkPolicy
   friend NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj);
 
   // iOS
-  friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force);
+  friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force, bool showAnyway);
   
   friend NetworkPolicy GetCurrentNetworkPolicy();
 

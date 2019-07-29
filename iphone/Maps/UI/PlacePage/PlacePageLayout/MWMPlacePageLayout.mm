@@ -216,6 +216,21 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }];
 }
 
+- (void)reloadPromoIfNeeded {
+  auto data = self.data;
+  if (!data)
+    return;
+  if (!data.isPromoCatalog)
+    return;
+  if (data.promoCatalogRows.size() == 1 && data.promoCatalogRows[0] == place_page::PromoCatalogRow::Guides) {
+    return;
+  }
+  __weak __typeof__(self) weakSelf = self;
+  network_policy::CallPartnersApi([weakSelf](auto const & canUseNetwork) {
+    [weakSelf.data reguestPromoCatalog:canUseNetwork];
+  });
+}
+
 #pragma mark - Downloader event
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress
@@ -615,9 +630,16 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
                canUseNetwork: rows.empty() || rows[indexPath.row] == PromoCatalogRow::GuidesRequestError
                          tap:^{
                            __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                           if (!strongSelf) { return; }
-                           NSURL *url = [strongSelf.data.promoGallery moreURL];
-                           [strongSelf.delegate openCatalogForURL:url];
+                           if (MWMPlatform.networkConnectionType == MWMNetworkConnectionTypeNone) {
+                             NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                             UIApplication * app = UIApplication.sharedApplication;
+                             if ([app canOpenURL:url])
+                               [app openURL:url options:@{} completionHandler:nil];
+                           } else {
+                             network_policy::CallPartnersApi([strongSelf](auto const & canUseNetwork) {
+                               [strongSelf.data reguestPromoCatalog:canUseNetwork];
+                             }, false, true);
+                           }
                          }];
         return cell;
       }
@@ -837,6 +859,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
                     }
                     NSURL *url = [NSURL URLWithString:itemPath];
                     [strongSelf.delegate openCatalogForURL:url];
+                    [Statistics logEvent:kStatPlacepageSponsoredItemSelected
+                          withParameters:@{
+                                           kStatProvider: kStatMapsmeGuides,
+                                           kStatPlacement: kStatPlacePage,
+                                           kStatItem: @(indexPath.item + 1),
+                                           kStatDestination: kStatCatalogue
+                                           }];
                   }];
   return cell;
 }
@@ -844,8 +873,30 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSURL *url = [self.data.promoGallery moreURL];
-  [self.delegate openCatalogForURL:url];
+  if (indexPath.item == self.data.promoGallery.count) {
+    NSURL *url = [self.data.promoGallery moreURL];
+    [self.delegate openCatalogForURL:url];
+    [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
+          withParameters:@{
+                           kStatProvider: kStatMapsmeGuides,
+                           kStatPlacement: kStatDiscovery
+                           }];
+  } else {
+    promo::CityGallery::Item const &item = [self.data.promoGallery galleryItemAtIndex:indexPath.row];
+    NSString *itemPath = @(item.m_url.c_str());
+    if (!itemPath || itemPath.length == 0) {
+      return;
+    }
+    NSURL *url = [NSURL URLWithString:itemPath];
+    [self.delegate openCatalogForURL:url];
+    [Statistics logEvent:kStatPlacepageSponsoredItemSelected
+          withParameters:@{
+                           kStatProvider: kStatMapsmeGuides,
+                           kStatPlacement: kStatPlacePage,
+                           kStatItem: @(indexPath.item + 1),
+                           kStatDestination: kStatCatalogue
+                           }];
+  }
 }
 
 @end

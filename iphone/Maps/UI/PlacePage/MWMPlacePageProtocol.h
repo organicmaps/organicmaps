@@ -53,5 +53,6 @@ struct HotelFacility;
 - (void)showReview:(place_page::Info const &)info;
 - (void)dismiss;
 - (void)mwm_refreshUI;
+- (void)didBecomeActive;
 
 @end

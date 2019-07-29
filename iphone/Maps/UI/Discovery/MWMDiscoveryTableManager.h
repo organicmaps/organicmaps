@@ -24,5 +24,6 @@ typedef MWMDiscoveryControllerViewModel *(^MWMGetModelCallback)(void);
 - (void)loadItems:(std::vector<discovery::ItemType> const &)types;
 - (void)reloadItem:(discovery::ItemType const)type;
 - (void)errorAtItem:(discovery::ItemType const)type;
+- (void)reloadGuidesIfNeeded;
 
 @end

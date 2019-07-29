@@ -1,5 +1,6 @@
 #import "MWMPlacePageActionBar.h"
 #import "MWMRatingSummaryViewValueType.h"
+#import "MWMNetworkPolicy.h"
 
 #include "partners_api/taxi_provider.hpp"
 
@@ -40,6 +41,7 @@ class Info;
 enum class Sections
 {
   Preview,
+  PromoCatalog,
   Bookmark,
   Description,
   HotelPhotos,
@@ -51,8 +53,7 @@ enum class Sections
   Buttons,
   UGCRating,
   UGCAddReview,
-  UGCReviews,
-  PromoCatalog
+  UGCReviews
 };
 
 enum class PreviewRows
@@ -286,5 +287,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 
 // TODO(Vlad): Use MWMSettings to store coordinate format.
 + (void)toggleCoordinateSystem;
+
+- (void)reguestPromoCatalog:(platform::NetworkPolicy const &)canUseNetwork;
 
 @end

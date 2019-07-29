@@ -5,7 +5,7 @@
 
 namespace network_policy
 {
-void CallPartnersApi(platform::PartnersApiFn fn, bool force)
+void CallPartnersApi(platform::PartnersApiFn fn, bool force, bool showAnyway)
 {
   auto const connectionType = GetPlatform().ConnectionStatus();
   if (connectionType == Platform::EConnectionType::CONNECTION_NONE)
@@ -24,7 +24,12 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force)
     {
     case Stage::Ask: return false;
     case Stage::Always: fn(true); return true;
-    case Stage::Never: fn(false); return true;
+    case Stage::Never:
+        if (showAnyway) {
+          return false;
+        }
+        fn(false);
+        return true;
     case Stage::Today:
       if (IsActivePolicyDate())
       {
@@ -33,6 +38,9 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force)
       }
       return false;
     case Stage::NotToday:
+      if (showAnyway) {
+        return false;
+      }
       if (IsActivePolicyDate())
       {
         fn(false);

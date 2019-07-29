@@ -149,6 +149,11 @@ struct Callback
                             [self.tableManager errorAtItem:type];
                           });
   [MWMEye discoveryShown];
+  
+  [NSNotificationCenter.defaultCenter addObserver:self
+                                         selector:@selector(didBecomeActive)
+                                             name:UIApplicationDidBecomeActiveNotification
+                                           object:nil];
 }
 
 #pragma mark - MWMDiscoveryTapDelegate
@@ -166,6 +171,7 @@ struct Callback
     case ItemType::Attractions:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchTourism];
+        event = kStatPlacepageSponsoredMoreSelected;
         eyeEvent = MWMEyeDiscoveryEventMoreAttractions;
       } else {
         [self showSearchResult:[self.viewModel.attractions searchResultAtIndex:index]];
@@ -177,6 +183,7 @@ struct Callback
     case ItemType::Cafes:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchFood];
+        event = kStatPlacepageSponsoredMoreSelected;
         eyeEvent = MWMEyeDiscoveryEventMoreCafes;
       } else {
         [self showSearchResult:[self.viewModel.cafes searchResultAtIndex:index]];
@@ -199,17 +206,16 @@ struct Callback
       break;
     case ItemType::Promo:
       if (index == [self.viewModel itemsCountForType:type]) {
-        [self logEvent:kStatPlacepageSponsoredMoreSelected
-                  type:type
-                 index:index
-           destination:kStatExternal];
+        [self openURLForItem:ItemType::Promo];
+        [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
+              withParameters:@{
+                               kStatProvider: StatProvider(type),
+                               kStatPlacement: kStatDiscovery
+                               }];
       } else {
-        [self openURLForItem:type];
-        [self logEvent:event
-                  type:type
-                 index:index
-           destination:kStatExternal];
+        [self openURLForItem:ItemType::Promo atIndex:index];
       }
+      
       return;
     case ItemType::LocalExperts:
       return;
@@ -322,7 +328,7 @@ struct Callback
       [self logEvent:kStatPlacepageSponsoredItemSelected
                 type:type
                index:index
-         destination:kStatExternal];
+         destination:kStatCatalogue];
       break;
   }
 }
@@ -347,6 +353,11 @@ struct Callback
   NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
   [controllers addObjectsFromArray:@[catalog]];
   [self.navigationController setViewControllers:controllers animated:YES];
+}
+
+- (void)didBecomeActive
+{
+  [self.tableManager reloadGuidesIfNeeded];
 }
 
 @end

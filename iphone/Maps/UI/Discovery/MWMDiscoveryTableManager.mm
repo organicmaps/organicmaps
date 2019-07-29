@@ -5,6 +5,7 @@
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
 #import "MWMDiscoveryGuideViewModel.h"
+#import "MWMNetworkPolicy.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -93,7 +94,39 @@ using namespace discovery;
 - (void)loadItems:(vector<ItemType> const &)types {
   m_types = types;
   m_loadingTypes = types;
+  if (!self.canUseNetwork) {
+    m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), ItemType:: Promo), m_loadingTypes.end());
+    m_failedTypes.push_back(ItemType:: Promo);
+    [Statistics logEvent:kStatPlacepageSponsoredError
+          withParameters:@{kStatProvider: StatProvider(ItemType:: Promo),
+                           kStatPlacement: kStatDiscovery}];
+  }
   [self.tableView reloadData];
+}
+
+- (void)reloadGuidesIfNeeded {
+  MWMNetworkConnectionType connectionType = MWMPlatform.networkConnectionType;
+  BOOL isNetworkAvailable = connectionType != MWMNetworkConnectionTypeNone;
+  if (connectionType == MWMNetworkConnectionTypeWwan) {
+    switch (network_policy::GetStage()) {
+      case network_policy::Stage::Always:
+        break;
+      case network_policy::Stage::NotToday:
+      case network_policy::Stage::Today:
+      case network_policy::Stage::Ask:
+      case network_policy::Stage::Never:
+        isNetworkAvailable = NO;
+        break;
+    }
+  }
+  if (m_failedTypes.size() != 0 && isNetworkAvailable) {
+    m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), ItemType:: Promo), m_failedTypes.end());
+    m_loadingTypes.push_back(ItemType:: Promo);
+    
+    NSInteger position = [self position:ItemType:: Promo];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
+                  withRowAnimation:UITableViewRowAnimationFade];
+  }
 }
 
 - (void)reloadItem:(ItemType const)type {
@@ -272,7 +305,18 @@ using namespace discovery;
                  needSpinner:isLoading
                canUseNetwork: self.canUseNetwork
                          tap:^{
-                           [weakSelf.delegate openURLForItem:type];
+                           __strong __typeof__(weakSelf) strongSelf = weakSelf;
+                           if (MWMPlatform.networkConnectionType == MWMNetworkConnectionTypeNone) {
+                             NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                             UIApplication * app = UIApplication.sharedApplication;
+                             if ([app canOpenURL:url])
+                               [app openURL:url options:@{} completionHandler:nil];
+                           } else {
+                             network_policy::CallPartnersApi([strongSelf](auto const & canUseNetwork) {
+                               strongSelf.canUseNetwork = canUseNetwork.CanUse();
+                               [strongSelf reloadGuidesIfNeeded];
+                             }, false, true);
+                           }
                          }];
         return cell;
       }

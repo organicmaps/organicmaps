@@ -89,6 +89,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 @implementation MWMPlacePageManager
 
+- (void)didBecomeActive {
+  if (self.layout) {
+    [self.layout reloadPromoIfNeeded];
+  }
+}
+
 - (void)showReview:(place_page::Info const &)info
 {
   [self show:info];
@@ -273,6 +279,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
     parameters[kStatProvider] = data.partnerName;
   else if (data.isHolidayObject)
     parameters[kStatProvider] = kStatHoliday;
+  else if (data.isPromoCatalog)
+    parameters[kStatProvider] = kStatMapsmeGuides;
 
   parameters[kStatConnection] = [Statistics connectionTypeString];
   parameters[kStatTags] = data.statisticsTags;

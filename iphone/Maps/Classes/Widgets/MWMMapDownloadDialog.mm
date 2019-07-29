@@ -298,7 +298,9 @@ using namespace storage;
           }
           NSURL *url = [NSURL URLWithString:urlString];
           [self.controller openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMDownloadMwmBanner];
+          [Statistics logEvent:kStatDownloaderBannerClick];
         }];
+        [Statistics logEvent:kStatDownloaderBannerShow];
         break;
       }
       case promo::DownloaderPromo::Type::NoPromo:

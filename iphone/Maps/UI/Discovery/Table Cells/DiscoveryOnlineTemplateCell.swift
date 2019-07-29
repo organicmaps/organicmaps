@@ -62,7 +62,7 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
     } else {
       spinner.stopRotation()
       spinner.isHidden = true
-      actionButton.isHidden = false
+      actionButton.isHidden = canUseNetwork ? true : false
     }
     self.tap = tap
   }

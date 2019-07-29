@@ -4,6 +4,7 @@ class PromoAfterBookingViewController: UIViewController {
   private var cityImageUrl: String
   private var okClosure: MWMVoidBlock
   private var cancelClosure: MWMVoidBlock
+  private var isCancelled: Bool = false
   
   @IBOutlet weak var cityImageView: UIImageView!
   
@@ -20,6 +21,18 @@ class PromoAfterBookingViewController: UIViewController {
   
   override func viewDidLoad() {
     setCityImage(cityImageUrl)
+    let eventParams = [kStatProvider: kStatMapsmeGuides, kStatScenario: kStatBooking]
+    Statistics.logEvent(kStatMapsmeInAppSuggestionShown, withParameters: eventParams)
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    if !isCancelled {
+      let eventParams = [kStatProvider: kStatMapsmeGuides,
+                         kStatScenario: kStatBooking,
+                         kStatOption: kStatOffscreen]
+      Statistics.logEvent(kStatMapsmeInAppSuggestionClosed, withParameters: eventParams)
+    }
   }
   
   private func setCityImage(_ imageUrl: String) {
@@ -32,10 +45,17 @@ class PromoAfterBookingViewController: UIViewController {
   }
   
   @IBAction func onOk() {
+    let eventParams = [kStatProvider: kStatMapsmeGuides, kStatScenario: kStatBooking]
+    Statistics.logEvent(kStatMapsmeInAppSuggestionClicked, withParameters: eventParams)
     okClosure()
   }
   
   @IBAction func onCancel() {
+    let eventParams = [kStatProvider: kStatMapsmeGuides,
+                       kStatScenario: kStatBooking,
+                       kStatOption: kStatCancel]
+    Statistics.logEvent(kStatMapsmeInAppSuggestionClosed, withParameters: eventParams)
+    isCancelled = true
     cancelClosure()
   }
   

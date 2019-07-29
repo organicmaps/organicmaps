@@ -5,9 +5,9 @@
 #import "MWMDiscoveryGuideViewModel.h"
 #import "MWMBannerHelpers.h"
 #import "MWMBookmarksManager.h"
-#import "MWMNetworkPolicy.h"
 #import "MWMUGCViewModel.h"
 #import "SwiftBridge.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -871,14 +871,35 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (!self.isPromoCatalog) {
     return;
   }
-  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
-    auto const api = GetFramework().GetPromoApi(canUseNetwork);
-    if (!api)
-      return;
-    auto const row = canUseNetwork.CanUse() ? PromoCatalogRow::GuidesRequestError : PromoCatalogRow::GuidesNoInternetError;
+  
+  __weak __typeof__(self) weakSelf = self;
+  network_policy::CallPartnersApi([weakSelf](auto const & canUseNetwork) {
+    [weakSelf reguestPromoCatalog:canUseNetwork];
+  });
+}
+
+- (void)reguestPromoCatalog:(platform::NetworkPolicy const &)canUseNetwork {
+  auto const api = GetFramework().GetPromoApi(canUseNetwork);
+  m_promoCatalogRows.clear();
+  
+  auto const row = canUseNetwork.CanUse() ? PromoCatalogRow::GuidesRequestError : PromoCatalogRow::GuidesNoInternetError;
+  if (!api) {
+    m_promoCatalogRows.push_back(row);
+    [Statistics logEvent:kStatPlacepageSponsoredError
+          withParameters:@{
+                           kStatProvider: kStatMapsmeGuides,
+                           kStatPlacement: kStatPlacePage
+                           }];
+  } else {
     auto const resultHandler = [self](promo::CityGallery const & cityGallery) {
       self.promoGallery = [[MWMDiscoveryCityGalleryObjects alloc] initWithGalleryResults:cityGallery];
       m_promoCatalogRows.push_back(PromoCatalogRow::Guides);
+      [Statistics logEvent:kStatPlacepageSponsoredShow
+            withParameters:@{
+                             kStatProvider: kStatMapsmeGuides,
+                             kStatPlacement: kStatPlacePage,
+                             kStatState: kStatOnline
+                             }];
       if (self.refreshPromoCallback) {
         self.refreshPromoCallback();
       }
@@ -886,6 +907,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     
     auto const errorHandler = [self, row]() {
       m_promoCatalogRows.push_back(row);
+      [Statistics logEvent:kStatPlacepageSponsoredError
+            withParameters:@{
+                             kStatProvider: kStatMapsmeGuides,
+                             kStatPlacement: kStatPlacePage
+                             }];
       if (self.refreshPromoCallback) {
         self.refreshPromoCallback();
       }
@@ -893,7 +919,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     auto appInfo = AppInfo.sharedInfo;
     auto locale = appInfo.twoLetterLanguageId.UTF8String;
     api->GetCityGallery(self.mercator, locale, UTM::PlacepageGallery, resultHandler, errorHandler);
-  });
+  }
+  
+  if (self.refreshPromoCallback) {
+    self.refreshPromoCallback();
+  }
 }
 
 - (MWMDiscoveryGuideViewModel *)guideAtIndex:(NSUInteger)index {
