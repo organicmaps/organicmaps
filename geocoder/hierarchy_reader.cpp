@@ -61,6 +61,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
   LOG(LINFO, ("Reading entries..."));
 
   vector<Entry> entries;
+  NameDictionaryMaker nameDictionaryMaker;
   ParsingStats stats{};
 
   base::thread_pool::computational::ThreadPool threadPool{readersCount};
@@ -77,6 +78,18 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
     tasks.pop_front();
 
     auto & taskEntries = taskResult.m_entries;
+    auto const & taskNameDictionary = taskResult.m_nameDictionary;
+    for (auto & entry : taskEntries)
+    {
+      for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
+      {
+        if (auto & position = entry.m_normalizedAddress[i])
+        {
+          auto const & name = taskNameDictionary.Get(position);
+          position = nameDictionaryMaker.Add(name);
+        }
+      }
+    }
     move(begin(taskEntries), end(taskEntries), back_inserter(entries));
 
     stats += taskResult.m_stats;
@@ -105,7 +118,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
       ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
   LOG(LINFO, ("(End of stats.)"));
 
-  return Hierarchy{move(entries), true};
+  return Hierarchy{move(entries), nameDictionaryMaker.Release()};
 }
 
 void HierarchyReader::CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
@@ -155,6 +168,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
 {
   vector<Entry> entries;
   entries.reserve(bufferSize);
+  NameDictionaryMaker nameDictionaryMaker;
   ParsingStats stats;
 
   for (size_t i = 0; i < bufferSize; ++i)
@@ -178,7 +192,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
     auto const osmId = base::GeoObjectId(encodedId);
     entry.m_osmId = osmId;
 
-    if (!entry.DeserializeFromJSON(json, stats))
+    if (!entry.DeserializeFromJSON(json, nameDictionaryMaker, stats))
       continue;
 
     if (entry.m_type == Type::Count)
@@ -193,7 +207,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
     entries.push_back(move(entry));
   }
 
-  return {move(entries), move(stats)};
+  return {move(entries), nameDictionaryMaker.Release(), move(stats)};
 }
 
 // static

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geocoder/name_dictionary.hpp"
 #include "geocoder/types.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -58,36 +59,38 @@ public:
   // part of the geojson entry.
   struct Entry
   {
-    bool DeserializeFromJSON(std::string const & jsonStr, ParsingStats & stats);
-
+    bool DeserializeFromJSON(std::string const & jsonStr,
+                             NameDictionaryMaker & normalizedNameDictionaryMaker,
+                             ParsingStats & stats);
     bool DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
+                                 NameDictionaryMaker & normalizedNameDictionaryMaker,
                                  ParsingStats & stats);
 
-    // Checks whether this entry is a parent of |e|.
-    bool IsParentTo(Entry const & e) const;
-
+    std::string const & GetNormalizedName(Type type,
+                                          NameDictionary const & normalizedNameDictionary) const;
     bool operator<(Entry const & rhs) const { return m_osmId < rhs.m_osmId; }
 
     base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
 
     // Original name of the entry. Useful for debugging.
     std::string m_name;
-    // Tokenized and simplified name of the entry.
-    Tokens m_nameTokens;
 
     Type m_type = Type::Count;
 
-    // The address fields of this entry, one per Type.
-    std::array<Tokens, static_cast<size_t>(Type::Count)> m_address;
+    // The positions of entry address fields in normalized name dictionary, one per Type.
+    std::array<NameDictionary::Position, static_cast<size_t>(Type::Count)> m_normalizedAddress{};
   };
 
-  explicit Hierarchy(std::vector<Entry> && entries, bool sorted);
+  explicit Hierarchy(std::vector<Entry> && entries, NameDictionary && normalizeNameDictionary);
 
   std::vector<Entry> const & GetEntries() const;
+  NameDictionary const & GetNormalizedNameDictionary() const;
 
   Entry const * GetEntryForOsmId(base::GeoObjectId const & osmId) const;
+  bool IsParentTo(Hierarchy::Entry const & entry, Hierarchy::Entry const & toEntry) const;
 
 private:
   std::vector<Entry> m_entries;
+  NameDictionary m_normalizedNameDictionary;
 };
 }  // namespace geocoder

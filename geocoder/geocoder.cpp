@@ -374,10 +374,14 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, vector
     {
       m_index.ForEachRelatedBuilding(docId, [&](Index::DocId const & buildingDocId) {
         auto const & bld = m_index.GetDoc(buildingDocId);
-        auto const bt = static_cast<size_t>(Type::Building);
-        auto const & realHN = MakeHouseNumber(bld.m_address[bt]);
-        if (search::house_numbers::HouseNumbersMatch(realHN, subqueryHN, false /* queryIsPrefix */))
+        auto const & realHN = bld.GetNormalizedName(Type::Building,
+                                                    m_hierarchy.GetNormalizedNameDictionary());
+        auto const & realHNUniStr = strings::MakeUniString(realHN);
+        if (search::house_numbers::HouseNumbersMatch(realHNUniStr, subqueryHN,
+                                                     false /* queryIsPrefix */))
+        {
           curLayer.m_entries.emplace_back(buildingDocId);
+        }
       });
     }
   });
@@ -405,7 +409,7 @@ bool Geocoder::HasParent(vector<Geocoder::Layer> const & layers, Hierarchy::Entr
     // Note that the relationship is somewhat inverted: every ancestor
     // is stored in the address but the nodes have no information
     // about their children.
-    if (m_index.GetDoc(docId).IsParentTo(e))
+    if (m_hierarchy.IsParentTo(m_index.GetDoc(docId), e))
       return true;
   }
   return false;

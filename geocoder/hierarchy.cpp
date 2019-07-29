@@ -16,12 +16,14 @@ using namespace std;
 namespace geocoder
 {
 // Hierarchy::Entry --------------------------------------------------------------------------------
-bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats & stats)
+bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr,
+                                           NameDictionaryMaker & normalizedNameDictionaryMaker,
+                                           ParsingStats & stats)
 {
   try
   {
     base::Json root(jsonStr.c_str());
-    return DeserializeFromJSONImpl(root.get(), jsonStr, stats);
+    return DeserializeFromJSONImpl(root.get(), jsonStr, normalizedNameDictionaryMaker, stats);
   }
   catch (base::Json::Exception const & e)
   {
@@ -32,6 +34,7 @@ bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats 
 
 // todo(@m) Factor out to geojson.hpp? Add geojson to myjansson?
 bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr,
+                                               NameDictionaryMaker & normalizedNameDictionaryMaker,
                                                ParsingStats & stats)
 {
   if (!json_is_object(root))
@@ -43,7 +46,8 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   auto const defaultLocale = base::GetJSONObligatoryFieldByPath(root, "properties", "locales",
                                                                 "default");
   auto const address = base::GetJSONObligatoryField(defaultLocale, "address");
-  bool hasDuplicateAddress = false;
+  m_normalizedAddress= {};
+  Tokens tokens;
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
   {
     Type const type = static_cast<Type>(i);
@@ -60,69 +64,52 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
     if (levelValue.empty())
       continue;
 
-    if (!m_address[i].empty())
-    {
-      LOG(LDEBUG, ("Duplicate address field", type, "when parsing", jsonStr));
-      hasDuplicateAddress = true;
-    }
+    search::NormalizeAndTokenizeAsUtf8(levelValue, tokens);
+    if (tokens.empty())
+      continue;
 
-    search::NormalizeAndTokenizeAsUtf8(levelValue, m_address[i]);
-
-    if (!m_address[i].empty())
-      m_type = static_cast<Type>(i);
+    auto normalizedValue = strings::JoinStrings(tokens, " ");
+    m_normalizedAddress[i] = normalizedNameDictionaryMaker.Add(normalizedValue);
+    m_type = static_cast<Type>(i);
   }
 
-  auto const & subregion = m_address[static_cast<size_t>(Type::Subregion)];
-  auto const & locality = m_address[static_cast<size_t>(Type::Locality)];
-  if (m_type == Type::Street && locality.empty() && subregion.empty() /* if locality detection fail */)
+  auto const & subregion = m_normalizedAddress[static_cast<size_t>(Type::Subregion)];
+  auto const & locality = m_normalizedAddress[static_cast<size_t>(Type::Locality)];
+  if (m_type == Type::Street && !locality && !subregion)
   {
     ++stats.m_noLocalityStreets;
     return false;
   }
-  if (m_type == Type::Building && locality.empty() && subregion.empty() /* if locality detection fail */)
+  if (m_type == Type::Building && !locality && !subregion)
   {
     ++stats.m_noLocalityBuildings;
     return false;
   }
 
-  m_nameTokens.clear();
   FromJSONObjectOptionalField(defaultLocale, "name", m_name);
-  search::NormalizeAndTokenizeAsUtf8(m_name, m_nameTokens);
-
   if (m_name.empty())
     ++stats.m_emptyNames;
-
-  if (hasDuplicateAddress)
-    ++stats.m_duplicateAddresses;
 
   if (m_type == Type::Count)
   {
     LOG(LDEBUG, ("No address in an hierarchy entry:", jsonStr));
     ++stats.m_emptyAddresses;
   }
-  else if (m_nameTokens != m_address[static_cast<size_t>(m_type)])
-  {
-    ++stats.m_mismatchedNames;
-  }
-
   return true;
 }
 
-bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
+std::string const & Hierarchy::Entry::GetNormalizedName(
+    Type type, NameDictionary const & normalizedNameDictionary) const
 {
-  for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
-  {
-    if (!m_address[i].empty() && m_address[i] != e.m_address[i])
-      return false;
-  }
-  return true;
+  return normalizedNameDictionary.Get(m_normalizedAddress[static_cast<size_t>(type)]);
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
-Hierarchy::Hierarchy(vector<Entry> && entries, bool sorted)
-  : m_entries{std::move(entries)}
+Hierarchy::Hierarchy(vector<Entry> && entries, NameDictionary && normalizedNameDictionary)
+  : m_entries{move(entries)}
+  , m_normalizedNameDictionary{move(normalizedNameDictionary)}
 {
-  if (!sorted)
+  if (!is_sorted(m_entries.begin(), m_entries.end()))
   {
     LOG(LINFO, ("Sorting entries..."));
     sort(m_entries.begin(), m_entries.end());
@@ -132,6 +119,11 @@ Hierarchy::Hierarchy(vector<Entry> && entries, bool sorted)
 vector<Hierarchy::Entry> const & Hierarchy::GetEntries() const
 {
   return m_entries;
+}
+
+NameDictionary const & Hierarchy::GetNormalizedNameDictionary() const
+{
+  return m_normalizedNameDictionary;
 }
 
 Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & osmId) const
@@ -146,5 +138,25 @@ Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & o
     return nullptr;
 
   return &(*it);
+}
+
+bool Hierarchy::IsParentTo(Hierarchy::Entry const & entry, Hierarchy::Entry const & toEntry) const
+{
+  for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
+  {
+    if (!entry.m_normalizedAddress[i])
+      continue;
+
+    if (!toEntry.m_normalizedAddress[i])
+      return false;
+    auto const pos1 = entry.m_normalizedAddress[i];
+    auto const pos2 = toEntry.m_normalizedAddress[i];
+    if (pos1 != pos2 &&
+        m_normalizedNameDictionary.Get(pos1) != m_normalizedNameDictionary.Get(pos2))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 }  // namespace geocoder

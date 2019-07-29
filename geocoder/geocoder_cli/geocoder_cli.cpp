@@ -24,13 +24,28 @@ void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
   if (results.empty())
     return;
   cout << "Top results:" << endl;
+
+  auto const & dictionary = hierarchy.GetNormalizedNameDictionary();
   for (size_t i = 0; i < results.size(); ++i)
   {
     if (FLAGS_top >= 0 && static_cast<int32_t>(i) >= FLAGS_top)
       break;
     cout << "  " << DebugPrint(results[i]);
     if (auto const && e = hierarchy.GetEntryForOsmId(results[i].m_osmId))
-      cout << " " << DebugPrint(e->m_address);
+    {
+      cout << " [";
+      auto const * delimiter = "";
+      for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
+      {
+        if (e->m_normalizedAddress[i])
+        {
+          auto type = static_cast<Type>(i);
+          cout << delimiter << ToString(type) << ": " << e->GetNormalizedName(type, dictionary);
+          delimiter = ", ";
+        }
+      }
+      cout << "]";
+    }
     cout << endl;
   }
 }

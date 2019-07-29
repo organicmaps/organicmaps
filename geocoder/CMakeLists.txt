@@ -12,6 +12,8 @@ set(
   hierarchy_reader.hpp
   index.cpp
   index.hpp
+  name_dictionary.cpp
+  name_dictionary.hpp
   result.cpp
   result.hpp
   types.cpp

@@ -26,6 +26,7 @@ namespace geocoder
 {
 Index::Index(Hierarchy const & hierarchy, unsigned int loadThreadsCount)
   : m_docs(hierarchy.GetEntries())
+  , m_hierarchy{hierarchy}
 {
   CHECK_GREATER_OR_EQUAL(loadThreadsCount, 1, ());
 
@@ -55,6 +56,8 @@ string Index::MakeIndexKey(Tokens const & tokens)
 void Index::AddEntries()
 {
   size_t numIndexed = 0;
+  auto const & dictionary = m_hierarchy.GetNormalizedNameDictionary();
+  Tokens tokens;
   for (DocId docId = 0; docId < static_cast<DocId>(m_docs.size()); ++docId)
   {
     auto const & doc = m_docs[static_cast<size_t>(docId)];
@@ -72,8 +75,9 @@ void Index::AddEntries()
     }
     else
     {
-      size_t const t = static_cast<size_t>(doc.m_type);
-      m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
+      auto const & name = doc.GetNormalizedName(doc.m_type, dictionary);
+      search::NormalizeAndTokenizeAsUtf8(name, tokens);
+      m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
     }
 
     ++numIndexed;
@@ -88,28 +92,30 @@ void Index::AddEntries()
 void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
 {
   CHECK_EQUAL(doc.m_type, Type::Street, ());
-  size_t const t = static_cast<size_t>(doc.m_type);
 
   auto isStreetSynonym = [] (string const & s) {
     return search::IsStreetSynonym(strings::MakeUniString(s));
   };
 
-  if (all_of(begin(doc.m_address[t]), end(doc.m_address[t]), isStreetSynonym))
+  auto const & dictionary = m_hierarchy.GetNormalizedNameDictionary();
+  auto const & name = doc.GetNormalizedName(Type::Street, dictionary);
+  Tokens tokens;
+  search::NormalizeAndTokenizeAsUtf8(name, tokens);
+
+  if (all_of(begin(tokens), end(tokens), isStreetSynonym))
   {
-    LOG(LDEBUG, ("Undefined proper name in tokens", doc.m_address[t], "of street entry",
-                 doc.m_osmId, "(", doc.m_address, ")"));
-    if (doc.m_address[t].size() > 1)
-      m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
+    if (tokens.size() > 1)
+      m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
     return;
   }
 
-  m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
+  m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
 
-  for (size_t i = 0; i < doc.m_address[t].size(); ++i)
+  for (size_t i = 0; i < tokens.size(); ++i)
   {
-    if (!isStreetSynonym(doc.m_address[t][i]))
+    if (!isStreetSynonym(tokens[i]))
       continue;
-    auto addr = doc.m_address[t];
+    auto addr = tokens;
     addr.erase(addr.begin() + i);
     m_docIdsByTokens[MakeIndexKey(addr)].emplace_back(docId);
   }
@@ -122,6 +128,8 @@ void Index::AddHouses(unsigned int loadThreadsCount)
 
   vector<thread> threads(loadThreadsCount);
   CHECK_GREATER(threads.size(), 0, ());
+
+  auto const & dictionary = m_hierarchy.GetNormalizedNameDictionary();
 
   for (size_t t = 0; t < threads.size(); ++t)
   {
@@ -137,31 +145,39 @@ void Index::AddHouses(unsigned int loadThreadsCount)
         if (buildingDoc.m_type != Type::Building)
           continue;
 
-        auto const & street = buildingDoc.m_address[static_cast<size_t>(Type::Street)];
-        auto const & locality = buildingDoc.m_address[static_cast<size_t>(Type::Locality)];
+        auto const & street = buildingDoc.m_normalizedAddress[static_cast<size_t>(Type::Street)];
+        auto const & locality =
+            buildingDoc.m_normalizedAddress[static_cast<size_t>(Type::Locality)];
 
-        Tokens const * relationName = nullptr;
-
-        if (!street.empty())
-          relationName = &street;
-        else if (!locality.empty())
-          relationName = &locality;
-
-        if (!relationName)
+        NameDictionary::Position relation = NameDictionary::kUnspecifiedPosition;
+        if (street)
+          relation = street;
+        else if (locality)
+          relation = locality;
+        else
           continue;
 
-        ForEachDocId(*relationName, [&](DocId const & candidate) {
+        auto const & relationName = dictionary.Get(relation);
+        Tokens relationNameTokens;
+        search::NormalizeAndTokenizeAsUtf8(relationName, relationNameTokens);
+        bool indexed = false;
+        ForEachDocId(relationNameTokens, [&](DocId const & candidate) {
           auto const & candidateDoc = GetDoc(candidate);
-          if (candidateDoc.IsParentTo(buildingDoc))
+          if (m_hierarchy.IsParentTo(candidateDoc, buildingDoc))
           {
+            indexed = true;
+
             lock_guard<mutex> lock(buildingsMutex);
             m_relatedBuildings[candidate].emplace_back(docId);
           }
         });
 
-        auto processedCount = numIndexed.fetch_add(1) + 1;
-        if (processedCount % kLogBatch == 0)
-          LOG(LINFO, ("Indexed", processedCount, "houses"));
+        if (indexed)
+        {
+          auto processedCount = numIndexed.fetch_add(1) + 1;
+          if (processedCount % kLogBatch == 0)
+            LOG(LINFO, ("Indexed", processedCount, "houses"));
+        }
       }
     });
   }

@@ -70,6 +70,7 @@ private:
   void AddHouses(unsigned int loadThreadsCount);
 
   std::vector<Doc> const & m_docs;
+  Hierarchy const & m_hierarchy;
 
   std::unordered_map<std::string, std::vector<DocId>> m_docIdsByTokens;
 

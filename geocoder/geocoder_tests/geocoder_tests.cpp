@@ -29,13 +29,6 @@ C00000000004B279 {"type": "Feature", "geometry": {"type": "Point", "coordinates"
 C0000000001C4CA7 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.7260117405499, 21.74300205]}, "properties": {"locales": {"default": {"name": "Ciego de Ávila", "address": {"region": "Ciego de Ávila", "country": "Cuba"}}}, "rank": 4}}
 C00000000059D6B5 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.9263054493181, 22.08185765]}, "properties": {"locales": {"default": {"name": "Florencia", "address": {"subregion": "Florencia", "region": "Ciego de Ávila", "country": "Cuba"}}}, "rank": 6}}
 )#";
-
-geocoder::Tokens Split(string const & s)
-{
-  geocoder::Tokens result;
-  search::NormalizeAndTokenizeAsUtf8(s, result);
-  return result;
-}
 }  // namespace
 
 namespace geocoder
@@ -74,6 +67,8 @@ UNIT_TEST(Geocoder_Hierarchy)
 {
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
+  auto const & hierarchy = geocoder.GetHierarchy();
+  auto const & dictionary = hierarchy.GetNormalizedNameDictionary();
 
   vector<Hierarchy::Entry> entries;
   geocoder.GetIndex().ForEachDocId({("florencia")}, [&](Index::DocId const & docId) {
@@ -81,9 +76,9 @@ UNIT_TEST(Geocoder_Hierarchy)
   });
 
   TEST_EQUAL(entries.size(), 1, ());
-  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
-  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"), ());
-  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"), ());
+  TEST_EQUAL(entries[0].GetNormalizedName(Type::Country, dictionary), "cuba", ());
+  TEST_EQUAL(entries[0].GetNormalizedName(Type::Region, dictionary), "ciego de avila", ());
+  TEST_EQUAL(entries[0].GetNormalizedName(Type::Subregion, dictionary), "florencia", ());
 }
 
 UNIT_TEST(Geocoder_OnlyBuildings)

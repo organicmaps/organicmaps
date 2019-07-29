@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geocoder/hierarchy.hpp"
+#include "geocoder/name_dictionary.hpp"
 
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
@@ -33,12 +34,13 @@ private:
   struct ParsingResult
   {
     std::vector<Entry> m_entries;
+    NameDictionary m_nameDictionary;
     ParsingStats m_stats;
   };
 
   ParsingResult ReadEntries(size_t count);
   ParsingResult DeserializeEntries(std::vector<std::string> const & linesBuffer,
-                                    std::size_t const bufferSize);
+                                   std::size_t const bufferSize);
   static bool DeserializeId(std::string const & str, uint64_t & id);
   static std::string SerializeId(uint64_t id);
 
