@@ -53,7 +53,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   void onCreate(@Nullable Bundle savedInstanceState)
   {
     mAuthorizer = new Authorizer(mFragment);
-    Application application = mFragment.getActivity().getApplication();
+    Application application = mFragment.requireActivity().getApplication();
     mDownloadController = new DefaultBookmarkDownloadController(application,
                                                                 new CatalogListenerDecorator(mFragment));
     if (savedInstanceState != null)
@@ -94,25 +94,27 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     mDownloadController.onSave(outState);
   }
 
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
   {
-    if (resultCode == Activity.RESULT_OK && requestCode == PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION)
-      BookmarkManager.INSTANCE.resetInvalidCategories();
-
-    if (requestCode != PurchaseUtils.REQ_CODE_PAY_BOOKMARK)
+    if (resultCode != Activity.RESULT_OK)
       return;
 
-    if (resultCode == Activity.RESULT_OK)
-      mDownloadController.retryDownloadBookmark();
-    else
-      mFragment.requireActivity().finish();
+    switch (requestCode)
+    {
+      case PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION:
+        BookmarkManager.INSTANCE.resetInvalidCategories();
+        break;
+      case PurchaseUtils.REQ_CODE_PAY_BOOKMARK:
+        mDownloadController.retryDownloadBookmark();
+        break;
+    }
   }
 
   private void showAuthorizationProgress()
   {
     String message = mFragment.getString(R.string.please_wait);
     ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(message, false, true);
-    mFragment.getActivity().getSupportFragmentManager()
+    mFragment.requireActivity().getSupportFragmentManager()
              .beginTransaction()
              .add(dialog, dialog.getClass().getCanonicalName())
              .commitAllowingStateLoss();
@@ -120,7 +122,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   private void hideAuthorizationProgress()
   {
-    FragmentManager fm = mFragment.getActivity().getSupportFragmentManager();
+    FragmentManager fm = mFragment.requireActivity().getSupportFragmentManager();
     String tag = ProgressDialogFragment.class.getCanonicalName();
     DialogFragment frag = (DialogFragment) fm.findFragmentByTag(tag);
     if (frag != null)
@@ -207,7 +209,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     @Nullable
     private Boolean mPendingInvalidCategoriesResult;
 
-    public InvalidCategoriesListener(@NonNull Fragment fragment)
+    InvalidCategoriesListener(@NonNull Fragment fragment)
     {
       mFrag = fragment;
     }
