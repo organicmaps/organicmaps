@@ -83,6 +83,7 @@
     <View
       android:id="@+id/onmap_downloader_divider"
       android:background="?android:listDivider"
+      android:visibility="gone"
       android:layout_marginStart="@dimen/margin_half_plus_eight"
       android:layout_marginEnd="@dimen/margin_half_plus_eight"
       android:layout_marginRight="@dimen/margin_half_plus_eight"
@@ -143,6 +144,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="@dimen/square_block_size"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         tools:visibility="gone">
         <TextView
