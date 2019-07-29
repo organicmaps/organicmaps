@@ -108,6 +108,8 @@ public:
   // Posts request to load countries tree.
   void LoadCountriesTree();
 
+  void EnableIndexingOfBookmarksDescriptions(bool enable);
+
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);

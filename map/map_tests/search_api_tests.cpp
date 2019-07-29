@@ -145,6 +145,7 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   kml::SetDefaultStr(data.m_name, "Great Northern Hotel");
   kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
   marks.emplace_back(2, data);
+  m_api.EnableIndexingOfBookmarksDescriptions(true);
   m_api.OnBookmarksCreated(marks);
   m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
 

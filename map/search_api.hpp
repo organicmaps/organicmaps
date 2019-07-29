@@ -144,6 +144,8 @@ public:
   void FilterAllHotelsInViewport(m2::RectD const & viewport,
                                  booking::filter::Tasks const & filterTasks) override;
 
+  void EnableIndexingOfBookmarksDescriptions(bool enable);
+
   void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);

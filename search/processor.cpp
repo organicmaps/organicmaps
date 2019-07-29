@@ -324,6 +324,11 @@ void Processor::LoadCitiesBoundaries()
 
 void Processor::LoadCountriesTree() { m_ranker.LoadCountriesTree(); }
 
+void Processor::EnableIndexingOfBookmarksDescriptions(bool enable)
+{
+  m_bookmarksProcessor.EnableIndexingOfDescriptions(enable);
+}
+
 void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)

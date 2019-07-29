@@ -158,6 +158,13 @@ void Engine::LoadCountriesTree()
               [](Processor & processor) { processor.LoadCountriesTree(); });
 }
 
+void Engine::EnableIndexingOfBookmarksDescriptions(bool enable)
+{
+  PostMessage(Message::TYPE_BROADCAST, [enable](Processor & processor) {
+    processor.EnableIndexingOfBookmarksDescriptions(enable);
+  });
+}
+
 void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,

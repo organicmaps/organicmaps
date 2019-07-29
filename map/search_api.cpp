@@ -390,6 +390,11 @@ void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
     m_delegate.FilterHotels(filterTasks, move(featureIds));
 }
 
+void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)
+{
+  m_engine.EnableIndexingOfBookmarksDescriptions(enable);
+}
+
 void SearchAPI::OnBookmarksCreated(vector<BookmarkInfo> const & marks)
 {
   vector<BookmarkIdDoc> data;
