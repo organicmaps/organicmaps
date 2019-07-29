@@ -54,7 +54,8 @@ UNIT_TEST(CountriesNamesTest)
                                    "Nagorno-Karabakh Republic",
                                    // MAPSME-10611
                                    "Mayorca Residencial",
-                                   "Magnolias Residencial"};
+                                   "Magnolias Residencial",
+                                   "Residencial Magnolias"};
 
   auto const features = cache.Get(mwmContext);
   features.ForEach([&](uint64_t fid) {
