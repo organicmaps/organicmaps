@@ -1010,8 +1010,19 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
       ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_POSTCODE, tokenRange);
 
       m_postcodes.Clear();
+
+      vector<shared_ptr<MwmInfo>> infos;
+      m_dataSource.GetMwmsInfo(infos);
+      MwmSet::MwmHandle handle = indexer::FindWorld(m_dataSource, infos);
+      if (handle.IsAlive())
+      {
+        auto worldContext = make_unique<MwmContext>(move(handle));
+        m_postcodes.m_worldFeatures =
+            RetrievePostcodeFeatures(*worldContext, TokenSlice(m_params, tokenRange));
+      }
+
       m_postcodes.m_tokenRange = tokenRange;
-      m_postcodes.m_features = move(postcodes);
+      m_postcodes.m_countryFeatures = move(postcodes);
 
       fn();
     }
@@ -1074,16 +1085,16 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   {
     // All tokens were consumed, find paths through layers, emit
     // features.
-    if (m_postcodes.m_features.IsEmpty())
+    if (m_postcodes.IsEmpty())
       return FindPaths(ctx);
 
     // When there are no layers but user entered a postcode, we have
     // to emit all features matching to the postcode.
     if (layers.size() == 0)
     {
-      CBV filtered = m_postcodes.m_features;
-      if (m_filter->NeedToFilter(m_postcodes.m_features))
-        filtered = m_filter->Filter(m_postcodes.m_features);
+      CBV filtered = m_postcodes.m_countryFeatures;
+      if (m_filter->NeedToFilter(m_postcodes.m_countryFeatures))
+        filtered = m_filter->Filter(m_postcodes.m_countryFeatures);
       filtered.ForEach([&](uint64_t bit) {
         auto const featureId = base::asserted_cast<uint32_t>(bit);
         Model::Type type;
@@ -1125,7 +1136,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     InitLayer(Model::TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
 
     vector<uint32_t> features;
-    m_postcodes.m_features.ForEach([&features](uint64_t bit) {
+    m_postcodes.m_countryFeatures.ForEach([&features](uint64_t bit) {
       features.push_back(base::asserted_cast<uint32_t>(bit));
     });
     layer.m_sortedFeatures = &features;
@@ -1153,7 +1164,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     // TYPE_STREET features were filtered in GreedilyMatchStreets().
     if (type < kNumClusters)
     {
-      if (m_postcodes.m_features.IsEmpty() || m_postcodes.Has(featureId))
+      if (m_postcodes.IsEmpty() || m_postcodes.Has(featureId))
         clusters[type].push_back(featureId);
     }
   };
@@ -1307,10 +1318,23 @@ void Geocoder::FindPaths(BaseContext & ctx)
 
   auto const & innermostLayer = *sortedLayers.front();
 
-  if (m_postcodes.m_features.IsEmpty() || (ctx.m_city && m_postcodes.Has(ctx.m_city->m_featureId)))
-    m_matcher->SetPostcodes(nullptr);
+  auto needPostcodes = [&]() {
+    if (m_postcodes.IsEmpty())
+      return false;
+
+    if (ctx.m_city)
+    {
+      auto const isWorld = ctx.m_city->m_countryId.GetInfo()->GetType() == MwmInfo::WORLD;
+      if (m_postcodes.Has(ctx.m_city->m_featureId, isWorld))
+        return false;
+    }
+    return true;
+  };
+
+  if (needPostcodes())
+    m_matcher->SetPostcodes(&m_postcodes.m_countryFeatures);
   else
-    m_matcher->SetPostcodes(&m_postcodes.m_features);
+    m_matcher->SetPostcodes(nullptr);
 
   auto isExactMatch = [](BaseContext const & context, IntersectionResult const & result) {
     bool regionsChecked = false;

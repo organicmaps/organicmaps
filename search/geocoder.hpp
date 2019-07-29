@@ -137,13 +137,22 @@ private:
     void Clear()
     {
       m_tokenRange.Clear();
-      m_features.Reset();
+      m_countryFeatures.Reset();
+      m_worldFeatures.Reset();
     }
 
-    bool Has(uint32_t id) const { return m_features.HasBit(id); }
+    bool Has(uint32_t id, bool searchWorld = false) const
+    {
+      if (searchWorld)
+        return m_worldFeatures.HasBit(id);
+      return m_countryFeatures.HasBit(id);
+    }
+
+    bool IsEmpty() const { return m_countryFeatures.IsEmpty() && m_worldFeatures.IsEmpty(); }
 
     TokenRange m_tokenRange;
-    CBV m_features;
+    CBV m_countryFeatures;
+    CBV m_worldFeatures;
   };
 
   // Sets search query params for categorial search.
@@ -290,7 +299,7 @@ private:
   PivotRectsCache m_pivotRectsCache;
   LocalityRectsCache m_localityRectsCache;
 
-  // Postcodes features in the mwm that is currently being processed.
+  // Postcodes features in the mwm that is currently being processed and World.mwm.
   Postcodes m_postcodes;
 
   // This filter is used to throw away excess features.

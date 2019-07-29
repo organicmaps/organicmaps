@@ -2208,7 +2208,7 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
+UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
 {
   string const countryName = "France";
 
@@ -2230,12 +2230,12 @@ UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
     Rules rules{ExactMatch(countryId, building4), ExactMatch(countryId, street)};
-    // Test that we not require the building to have a postcode if the city has.
+    // Test that we do not require the building to have a postcode if the village has.
     TEST(ResultsMatch("Rue des Serpents 4 Marckolsheim 67390 ", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, street), ExactMatch(countryId, marckolsheim)};
-    // Test that we do not require the street to have a postcode if the city has.
+    // Test that we do not require the street to have a postcode if the village has.
     TEST(ResultsMatch("Rue des Serpents Marckolsheim 67390 ", rules), ());
   }
   {
@@ -2266,13 +2266,44 @@ UNIT_CLASS_TEST(ProcessorTest, StreetPostcodes)
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
     Rules rules{ExactMatch(countryId, building4), ExactMatch(countryId, street)};
-    // Test that we not require the building to have a postcode if the street has.
+    // Test that we do not require the building to have a postcode if the street has.
     TEST(ResultsMatch("Rue des Serpents 4 67390 ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, street)};
     TEST(ResultsMatch("67390 ", rules), ());
     TEST(ResultsMatch("67390", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
+{
+  string const countryName = "Russia";
+
+  TestCity moscow(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
+  moscow.SetPostcode("123456");
+
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
+      "Tverskaya", "en");
+
+  TestBuilding building(m2::PointD(0.0, 0.00001), "", "4", street.GetName("en"), "en");
+
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(moscow);
+  });
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(moscow);
+    builder.Add(street);
+    builder.Add(building);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules{ExactMatch(countryId, building), ExactMatch(countryId, street)};
+    // Test that we do not require the building to have a postcode if the city has.
+    TEST(ResultsMatch("Tverskaya 4 Moscow 123456 ", rules), ());
   }
 }
 }  // namespace
