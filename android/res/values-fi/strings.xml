@@ -1558,7 +1558,7 @@
 	<string name="dialog_routing_change_end_carplay">Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen</string>
 	<string name="dialog_routing_check_gps_carplay">Ei ole GPS-signaalia. Siirry avaralle alueelle</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet</string>
-	<string name="dialog_routing_download_files_carplay">Kaikki kartat eivät ole käytettävissä reitin luomiseen. Lataa ne puhelimen sovellukseen</string>
+	<string name="dialog_routing_download_files_carplay">Luodaksesi reitin lataa puutt. kartat</string>
 	<string name="dialog_routing_system_error_carplay">On tapahtunut virhe. Käynnistä sovellus uudelleen</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Reitti luodaan nykyisestä sijainnista</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reitti muutetaan autoilijan reitiksi</string>
@@ -1604,6 +1604,16 @@
 	<string name="whatsnew_subscription_message">Rajaton käyttöoikeus ohjekirjoihin on hyödyllisempi kuin kertaluontoinen ostos</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigointipäivitys</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Olemme parantaneet reittisuunnittelua kaukana teistä oleviin kohteisiin</string>
+	<string name="avoid_unpaved_carplay_1">Päällyste</string>
+	<string name="avoid_unpaved_carplay_2">Vain päällyste</string>
+	<string name="avoid_ferry_carplay_1">Ei lauttoja</string>
+	<string name="avoid_ferry_carplay_2">Ei lauttoja</string>
+	<string name="avoid_tolls_carplay_1">Ei maksua</string>
+	<string name="avoid_tolls_carplay_2">Ei maksua</string>
+	<string name="speedcams_alert_title_carplay_1">Nopeuskamera</string>
+	<string name="speedcams_alert_title_carplay_2">Nopeuskamerat</string>
+	<string name="download_map_carplay">Lataa kartat laitteesi MAPS.ME-sovelluksessa</string>
+	<string name="carplay_roundabout_exit">Poistumisramppi %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

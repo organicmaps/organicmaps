@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Impossível criar percurso. Escolher outros pontos do percurso";
 
-"dialog_routing_download_files_carplay" = "Alguns mapas estão indisponíveis para criar percurso. Baixe-os no aplicação do telefone";
+"dialog_routing_download_files_carplay" = "Para construir percurso falta carregar os mapas no seu dispositivo";
 
 "dialog_routing_system_error_carplay" = "Ocorreu um erro. Reiniciar aplicação";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Atualização de navegação";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Melhoramos a formação dos percursos para os pontos afastados das estradas";
+
+"avoid_unpaved_carplay_1" = "Sem rurais";
+
+"avoid_unpaved_carplay_2" = "Sem rurais";
+
+"avoid_ferry_carplay_1" = "Sem ferry";
+
+"avoid_ferry_carplay_2" = "Sem ferry";
+
+"avoid_tolls_carplay_1" = "Sem pedágio";
+
+"avoid_tolls_carplay_2" = "Sem pedágio";
+
+"speedcams_alert_title_carplay_1" = "Radares";
+
+"speedcams_alert_title_carplay_2" = "Avisos de radar";
+
+"download_map_carplay" = "Baixar mapas de aplicação MAPS.ME para o seu dispositivo";
+
+"carplay_roundabout_exit" = "%s saída";
 
 
 /**********  Partners  **********/

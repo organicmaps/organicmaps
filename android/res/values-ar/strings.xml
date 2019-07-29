@@ -1563,7 +1563,7 @@
 	<string name="dialog_routing_change_end_carplay">لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر</string>
 	<string name="dialog_routing_check_gps_carplay">لا وجد إشارة GPS. يرجى التحرك لمكان مفتوح</string>
 	<string name="dialog_routing_unable_locate_route_carplay">لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق</string>
-	<string name="dialog_routing_download_files_carplay">لا تتواجد جميع الخرائط من أجل تحديد طريق. يرجى تحميلهم على هاتفك المحمول</string>
+	<string name="dialog_routing_download_files_carplay">كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك</string>
 	<string name="dialog_routing_system_error_carplay">حدث خطأ. يرجى إعادة تشغيل التطبيق</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">سيتم اعادة تحديد الطريق من موقعك الحالي</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">سيتم تعديل الطريق لتكون خاصة بالسيارة</string>
@@ -1609,6 +1609,16 @@
 	<string name="whatsnew_subscription_message">الوصول الغير محدود لفهرس الدلائل مربح أكثر من الشراء لمرة واحدة</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">تحديث الملاحة</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">لقد طورنا تخطيط المسارات لأماكن موجودة بعيدة عن الطرق</string>
+	<string name="avoid_unpaved_carplay_1">غير ترابي</string>
+	<string name="avoid_unpaved_carplay_2">تجنب غير الممهد</string>
+	<string name="avoid_ferry_carplay_1">بدون عبََارة</string>
+	<string name="avoid_ferry_carplay_2">تجنب العبََارة</string>
+	<string name="avoid_tolls_carplay_1">بدون رسوم</string>
+	<string name="avoid_tolls_carplay_2">تجنب الرسوم</string>
+	<string name="speedcams_alert_title_carplay_1">كاميرا سريعة</string>
+	<string name="speedcams_alert_title_carplay_2">تحذير سريع</string>
+	<string name="download_map_carplay">يُرجى تحميل الخرائط في تطبيق MAPS.ME على جهازك</string>
+	<string name="carplay_roundabout_exit">المخرج رقم %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

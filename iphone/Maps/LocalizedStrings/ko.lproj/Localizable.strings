@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "루트를 만들 수 없습니다. 또 다른 루트 지점을 지정해주세요";
 
-"dialog_routing_download_files_carplay" = "모든 지도가 경로를 만들기 위해 존재하는 것은 아닙니다. 귀하의 모바일 폰으로 지도들을 다운로드 해주세요";
+"dialog_routing_download_files_carplay" = "루트를 만들려면, 빠진 맵을 기기에 다운로드하세요";
 
 "dialog_routing_system_error_carplay" = "오류 발생. 어플리케이션을 재실행해주시길 바랍니다";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "내비게이션 업데이트";
 
 "whatsnew_carnavi_fixes_for_android_message" = "도로로부터 멀리 떨어져 있는 지점들에 대한 루트 계획을 개선했습니다";
+
+"avoid_unpaved_carplay_1" = "비포장 도로 없음";
+
+"avoid_unpaved_carplay_2" = "비포장 도로 없음";
+
+"avoid_ferry_carplay_1" = "여객선 없음";
+
+"avoid_ferry_carplay_2" = "여객선 없음";
+
+"avoid_tolls_carplay_1" = "유료 도로 없음";
+
+"avoid_tolls_carplay_2" = "유료 도로 없음";
+
+"speedcams_alert_title_carplay_1" = "속도단속 카메라";
+
+"speedcams_alert_title_carplay_2" = "속도단속 카메라";
+
+"download_map_carplay" = "MAPS.ME 앱 안의 지도들을 디바이스에 다운로드하세요";
+
+"carplay_roundabout_exit" = "%s번 출구";
 
 
 /**********  Partners  **********/

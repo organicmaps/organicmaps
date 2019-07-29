@@ -1562,7 +1562,7 @@
 	<string name="dialog_routing_change_end_carplay">Impossível criar percurso para o ponto final. Escolher outro</string>
 	<string name="dialog_routing_check_gps_carplay">Sem GPS. Siga para uma área aberta</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Impossível criar percurso. Escolher outros pontos do percurso</string>
-	<string name="dialog_routing_download_files_carplay">Alguns mapas estão indisponíveis para criar percurso. Baixe-os no aplicação do telefone</string>
+	<string name="dialog_routing_download_files_carplay">Para construir percurso falta carregar os mapas no seu dispositivo</string>
 	<string name="dialog_routing_system_error_carplay">Ocorreu um erro. Reiniciar aplicação</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">O percurso será reconstruído a partir da sua localização atual</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">O percurso será reconstruído para o rodoviário</string>
@@ -1608,6 +1608,16 @@
 	<string name="whatsnew_subscription_message">O acesso ilimitado a catálogo de percursos é mais vantajoso que uma compra de cada vez</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Atualização de navegação</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Melhoramos a formação dos percursos para os pontos afastados das estradas</string>
+	<string name="avoid_unpaved_carplay_1">Sem rurais</string>
+	<string name="avoid_unpaved_carplay_2">Sem rurais</string>
+	<string name="avoid_ferry_carplay_1">Sem ferry</string>
+	<string name="avoid_ferry_carplay_2">Sem ferry</string>
+	<string name="avoid_tolls_carplay_1">Sem pedágio</string>
+	<string name="avoid_tolls_carplay_2">Sem pedágio</string>
+	<string name="speedcams_alert_title_carplay_1">Radares</string>
+	<string name="speedcams_alert_title_carplay_2">Avisos de radar</string>
+	<string name="download_map_carplay">Baixar mapas de aplicação MAPS.ME para o seu dispositivo</string>
+	<string name="carplay_roundabout_exit">%s saída</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

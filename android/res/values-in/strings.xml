@@ -1557,7 +1557,7 @@
 	<string name="dialog_routing_change_end_carplay">Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya</string>
 	<string name="dialog_routing_check_gps_carplay">Tidak ada sinyal GPS. Harap pindah ke area terbuka</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Tidak dapat membuat rute. Harap tentukan titik rute lainnya</string>
-	<string name="dialog_routing_download_files_carplay">Tidak semua peta dapat dibuat rute. Silakan unduh peta ke ponsel Anda</string>
+	<string name="dialog_routing_download_files_carplay">Untuk membuat rute, unduh peta baru di perangkat anda</string>
 	<string name="dialog_routing_system_error_carplay">Terjadi kesalahan. Harap mulai ulang aplikasi</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Rute akan dibuat ulang dari lokasi saat ini</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rute akan diubah untuk mobil</string>
@@ -1603,6 +1603,16 @@
 	<string name="whatsnew_subscription_message">Lebih hemat dengan akses tanpa batas ke katalog panduan tanpa harus membelinya</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Pembaruan navigasi</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Kami meningkatkan perencanaan rute hingga ke titik titik yang jauh lokasinya dengan jalan</string>
+	<string name="avoid_unpaved_carplay_1">Jalan aspal</string>
+	<string name="avoid_unpaved_carplay_2">Hindari tanah</string>
+	<string name="avoid_ferry_carplay_1">Tanpa feri</string>
+	<string name="avoid_ferry_carplay_2">Hindari feri</string>
+	<string name="avoid_tolls_carplay_1">Tanpa tol</string>
+	<string name="avoid_tolls_carplay_2">Hindari tol</string>
+	<string name="speedcams_alert_title_carplay_1">Speedcam</string>
+	<string name="speedcams_alert_title_carplay_2">Info kecepatan</string>
+	<string name="download_map_carplay">Silakan unduh peta di apl MAPS.ME pada perangkat Anda</string>
+	<string name="carplay_roundabout_exit">Jalan keluar ke %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

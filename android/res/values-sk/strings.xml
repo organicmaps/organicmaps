@@ -1563,7 +1563,7 @@
 	<string name="dialog_routing_change_end_carplay">Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod</string>
 	<string name="dialog_routing_check_gps_carplay">Žiaden GPS signál. Presuňte sa na otvorené priestranstvo</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy</string>
-	<string name="dialog_routing_download_files_carplay">Nie všetky mapy sú k dispozícii pre vytvorenie trasy. Prosím stiahnite si ich na svojom mobilnom telefóne</string>
+	<string name="dialog_routing_download_files_carplay">Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy</string>
 	<string name="dialog_routing_system_error_carplay">Vyskytla sa chyba. Prosím reštartujte aplikáciu</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude obnovená z vašej aktuálnej polohy</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravená na jazdu autom</string>
@@ -1609,6 +1609,16 @@
 	<string name="whatsnew_subscription_message">Neobmedzený prístup do katalógu sprievodcov je výhodnejší ako jednorazový nákup</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizácia navigácie</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Zlepšili sme plánovanie trasy na miesta, ktoré sa nachádzajú ďaleko od ciest</string>
+	<string name="avoid_unpaved_carplay_1">Nespevn. NIE</string>
+	<string name="avoid_unpaved_carplay_2">Nespevnené ÁNO</string>
+	<string name="avoid_ferry_carplay_1">Trajekty NIE</string>
+	<string name="avoid_ferry_carplay_2">Trajekty ÁNO</string>
+	<string name="avoid_tolls_carplay_1">Spoplat. NIE</string>
+	<string name="avoid_tolls_carplay_2">Spoplatnené ÁNO</string>
+	<string name="speedcams_alert_title_carplay_1">Radary</string>
+	<string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
+	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii MAPS.ME vo vašom zariadení</string>
+	<string name="carplay_roundabout_exit">%s výjazd</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

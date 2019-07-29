@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Este imposibil de elaborat un traseu. Selectați alte puncte ale traseului";
 
-"dialog_routing_download_files_carplay" = "Nu toate hărțile sunt accesibile pentru elaborarea traseului. Descărcați-le în aplicația de pe telefon";
+"dialog_routing_download_files_carplay" = "Pentru noi trasee, încărcați hărțile lipsa pe dispozitivul dvs.";
 
 "dialog_routing_system_error_carplay" = "Eroare. Restartați aplicația";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Actualizarea navigării";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum";
+
+"avoid_unpaved_carplay_1" = "Fără neasfal";
+
+"avoid_unpaved_carplay_2" = "Fără neasfaltat";
+
+"avoid_ferry_carplay_1" = "Fără bacuri";
+
+"avoid_ferry_carplay_2" = "Fără bacuri";
+
+"avoid_tolls_carplay_1" = "Gratis";
+
+"avoid_tolls_carplay_2" = "Gratis";
+
+"speedcams_alert_title_carplay_1" = "Cameră video";
+
+"speedcams_alert_title_carplay_2" = "Info camere";
+
+"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația MAPS.ME de pe dispozitivul dvs.";
+
+"carplay_roundabout_exit" = "%s ieșire";
 
 
 /**********  Partners  **********/

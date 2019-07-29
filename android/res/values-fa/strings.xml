@@ -1503,7 +1503,7 @@
 	<string name="dialog_routing_change_end_carplay">امکان ایجاد مسیر به مقصد شما نیست. لطفاً نقطه دیگری را انتخاب کنید</string>
 	<string name="dialog_routing_check_gps_carplay">سیگنال GPS وجود ندارد. لطفاً به فضای باز بروید</string>
 	<string name="dialog_routing_unable_locate_route_carplay">امکان ایجاد مسیر نیست. لطفاً نقاط مسیر دیگری را مشخص کنید</string>
-	<string name="dialog_routing_download_files_carplay">همه نقشه ها برای ایجاد یک مسیر موجود نیست. لطفا آنها را بر روی تلفن همراه خود دانلود کنید</string>
+	<string name="dialog_routing_download_files_carplay">برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید</string>
 	<string name="dialog_routing_system_error_carplay">خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">مسیر از مکان فعلی شما بازسازی خواهد شد</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">مسیر به مسیر خودرویی تغییر خواهد کرد</string>
@@ -1548,6 +1548,16 @@
 	<string name="whatsnew_subscription_message">دسترسی نامحدود به تمام کاتالوگ راهنما به صرفه تر از خرید یک بار مصرف است</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">به روز رسانی مسیریابی</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">مسیر برنامه ریزی به نقاطی دور از جاده‌ها بهبود داده ایم</string>
+	<string name="avoid_unpaved_carplay_1">بی جاده خاکی</string>
+	<string name="avoid_unpaved_carplay_2">پرهیز از خاکی</string>
+	<string name="avoid_ferry_carplay_1">بدون بزرگراه</string>
+	<string name="avoid_ferry_carplay_2">پرهیز از اتوبان</string>
+	<string name="avoid_tolls_carplay_1">بدون عوارضی</string>
+	<string name="avoid_tolls_carplay_2">اجتناب از عوارض</string>
+	<string name="speedcams_alert_title_carplay_1">دوربین سرعت</string>
+	<string name="speedcams_alert_title_carplay_2">هشدارهای سرعت</string>
+	<string name="download_map_carplay">لطفا نقشه ها را در نرم افزار MAPS.ME روی دستگاه خود دانلود کنید</string>
+	<string name="carplay_roundabout_exit">خروجی %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

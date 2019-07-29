@@ -1566,7 +1566,7 @@
 	<string name="dialog_routing_change_end_carplay">無法建立到終點的路線。請選擇其他（路線）</string>
 	<string name="dialog_routing_check_gps_carplay">無GPS信號。請沿著空曠區域行駛</string>
 	<string name="dialog_routing_unable_locate_route_carplay">無法建立路線。請選擇其他路線點</string>
-	<string name="dialog_routing_download_files_carplay">並非所有地圖都可用於創建路線。請在手機的應用程序中下載它們</string>
+	<string name="dialog_routing_download_files_carplay">爲了創建線路，請在您的設備中下載所缺少的地圖</string>
 	<string name="dialog_routing_system_error_carplay">發生了錯誤。請重新啟動程序</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">該路線將從您的當前位置重建</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">該路線將改為汽車（路線）</string>
@@ -1612,6 +1612,16 @@
 	<string name="whatsnew_subscription_message">無限次使用線路目錄比壹次性購買更劃算</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">導航更新</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">我們優化了距離道路較遠的目標地點的線路設置</string>
+	<string name="avoid_unpaved_carplay_1">無土路路段</string>
+	<string name="avoid_unpaved_carplay_2">無土路路段</string>
+	<string name="avoid_ferry_carplay_1">無渡船</string>
+	<string name="avoid_ferry_carplay_2">無渡船</string>
+	<string name="avoid_tolls_carplay_1">無付費路段</string>
+	<string name="avoid_tolls_carplay_2">無付費路段</string>
+	<string name="speedcams_alert_title_carplay_1">攝像頭</string>
+	<string name="speedcams_alert_title_carplay_2">攝像頭信息</string>
+	<string name="download_map_carplay">將MAPS.ME軟件中的地圖下載至個人設備中</string>
+	<string name="carplay_roundabout_exit">%s號坡道</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Tidak dapat membuat rute. Harap tentukan titik rute lainnya";
 
-"dialog_routing_download_files_carplay" = "Tidak semua peta dapat dibuat rute. Silakan unduh peta ke ponsel Anda";
+"dialog_routing_download_files_carplay" = "Untuk membuat rute, unduh peta baru di perangkat anda";
 
 "dialog_routing_system_error_carplay" = "Terjadi kesalahan. Harap mulai ulang aplikasi";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Pembaruan navigasi";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Kami meningkatkan perencanaan rute hingga ke titik titik yang jauh lokasinya dengan jalan";
+
+"avoid_unpaved_carplay_1" = "Jalan aspal";
+
+"avoid_unpaved_carplay_2" = "Hindari tanah";
+
+"avoid_ferry_carplay_1" = "Tanpa feri";
+
+"avoid_ferry_carplay_2" = "Hindari feri";
+
+"avoid_tolls_carplay_1" = "Tanpa tol";
+
+"avoid_tolls_carplay_2" = "Hindari tol";
+
+"speedcams_alert_title_carplay_1" = "Speedcam";
+
+"speedcams_alert_title_carplay_2" = "Info kecepatan";
+
+"download_map_carplay" = "Silakan unduh peta di apl MAPS.ME pada perangkat Anda";
+
+"carplay_roundabout_exit" = "Jalan keluar ke %s";
 
 
 /**********  Partners  **********/

@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute";
 
-"dialog_routing_download_files_carplay" = "Ikke alle kart tilgjengeliig for å planlegge rute. Vennligst last dem ned på din mobil";
+"dialog_routing_download_files_carplay" = "For å beregne rute last ned manglende kart på enheten din";
 
 "dialog_routing_system_error_carplay" = "Feil oppstod. Vennligst restart appen";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigerings fornyelse";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Vi har forbedret måten å lage ruter på til punkter, som ligger langt fra veier";
+
+"avoid_unpaved_carplay_1" = "Ikke grusvei";
+
+"avoid_unpaved_carplay_2" = "Ikke uasfaltert";
+
+"avoid_ferry_carplay_1" = "Ingen ferger";
+
+"avoid_ferry_carplay_2" = "Unngå ferger";
+
+"avoid_tolls_carplay_1" = "Ingen bomvei";
+
+"avoid_tolls_carplay_2" = "Unngå bomvei";
+
+"speedcams_alert_title_carplay_1" = "Kamera-info";
+
+"speedcams_alert_title_carplay_2" = "Kamera-advarsel";
+
+"download_map_carplay" = "Vennligst last ned kart i MAPS.ME appen på enheten din";
+
+"carplay_roundabout_exit" = "%s avkjøring";
 
 
 /**********  Partners  **********/

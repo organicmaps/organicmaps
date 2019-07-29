@@ -1559,7 +1559,7 @@
 	<string name="dialog_routing_change_end_carplay">Nem lehet útvonalat tervezni a célodhoz. Kérjük válassz egy másik pontot</string>
 	<string name="dialog_routing_check_gps_carplay">Nincs GPS-jel. Kérjük menj egy nyílt területre</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket</string>
-	<string name="dialog_routing_download_files_carplay">Nincs meg minden térkép egy útvonal tervezéséhez. Kérjük töltsd le a mobiltelefonodra őket</string>
+	<string name="dialog_routing_download_files_carplay">Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre</string>
 	<string name="dialog_routing_system_error_carplay">Hiba történt. Kérjük indítsd újra az alkalmazást</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Az útvonal újra lesz tervezve a jelenlegi helyzetedről</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Az útvonal módosítva lesz egy autó számára</string>
@@ -1605,6 +1605,16 @@
 	<string name="whatsnew_subscription_message">A korlátlan hozzáférés az útikönyvkatalógushoz sokkal gazdaságosabb, mint az egyszeri vásárlás</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigációs frissítés</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Fejlesztettük az útvonaltervezést olyan pontokhoz, melyek távol esnek az utaktól</string>
+	<string name="avoid_unpaved_carplay_1">Nem földút</string>
+	<string name="avoid_unpaved_carplay_2">Földút kerülése</string>
+	<string name="avoid_ferry_carplay_1">Komp nélkül</string>
+	<string name="avoid_ferry_carplay_2">Kompok kerülése</string>
+	<string name="avoid_tolls_carplay_1">Nincs útdíj</string>
+	<string name="avoid_tolls_carplay_2">Útdíj kerülése</string>
+	<string name="speedcams_alert_title_carplay_1">Traffipaxok</string>
+	<string name="speedcams_alert_title_carplay_2">Sebességjelzés</string>
+	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a MAPS.ME alkalmazásban az eszközödre</string>
+	<string name="carplay_roundabout_exit">%s kijárat</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

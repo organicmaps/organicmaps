@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Impossibile trovare percorso. Scegli altre tappe";
 
-"dialog_routing_download_files_carplay" = "Non tutte le mappe sono disponibili per pianificare il percorso. Scaricale in App";
+"dialog_routing_download_files_carplay" = "Per creare percorso scarica mappe mancanti sul proprio dispositivo";
 
 "dialog_routing_system_error_carplay" = "Si è verificato un errore. Riavviare l'applicazione";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Aggiornare navigazione";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Abbiamo migliorato la pianificazione di itinerari per i luoghi situati lontano dalle strade principali";
+
+"avoid_unpaved_carplay_1" = "No sterrati";
+
+"avoid_unpaved_carplay_2" = "No sterrati";
+
+"avoid_ferry_carplay_1" = "No traghetti";
+
+"avoid_ferry_carplay_2" = "No traghetti";
+
+"avoid_tolls_carplay_1" = "No pedaggi";
+
+"avoid_tolls_carplay_2" = "Senza pedaggi";
+
+"speedcams_alert_title_carplay_1" = "Autovelox";
+
+"speedcams_alert_title_carplay_2" = "Info autovelox";
+
+"download_map_carplay" = "Scarica l'applicazione MAPS.ME sul tuo smartphone";
+
+"carplay_roundabout_exit" = "%s uscita";
 
 
 /**********  Partners  **********/

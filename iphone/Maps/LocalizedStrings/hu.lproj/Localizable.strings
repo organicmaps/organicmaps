@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket";
 
-"dialog_routing_download_files_carplay" = "Nincs meg minden térkép egy útvonal tervezéséhez. Kérjük töltsd le a mobiltelefonodra őket";
+"dialog_routing_download_files_carplay" = "Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre";
 
 "dialog_routing_system_error_carplay" = "Hiba történt. Kérjük indítsd újra az alkalmazást";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigációs frissítés";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Fejlesztettük az útvonaltervezést olyan pontokhoz, melyek távol esnek az utaktól";
+
+"avoid_unpaved_carplay_1" = "Nem földút";
+
+"avoid_unpaved_carplay_2" = "Földút kerülése";
+
+"avoid_ferry_carplay_1" = "Komp nélkül";
+
+"avoid_ferry_carplay_2" = "Kompok kerülése";
+
+"avoid_tolls_carplay_1" = "Nincs útdíj";
+
+"avoid_tolls_carplay_2" = "Útdíj kerülése";
+
+"speedcams_alert_title_carplay_1" = "Traffipaxok";
+
+"speedcams_alert_title_carplay_2" = "Sebességjelzés";
+
+"download_map_carplay" = "Kérjük, töltsd le a térképeket a MAPS.ME alkalmazásban az eszközödre";
+
+"carplay_roundabout_exit" = "%s kijárat";
 
 
 /**********  Partners  **********/

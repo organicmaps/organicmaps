@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "无法建立路线。请选择其他路线点";
 
-"dialog_routing_download_files_carplay" = "并非所有地图都可用于创建路线。请在手机的应用程序中下载它们";
+"dialog_routing_download_files_carplay" = "为了创建线路，请在您的设备中下载所缺少的地图";
 
 "dialog_routing_system_error_carplay" = "发生了错误。请重新启动程序";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "导航更新";
 
 "whatsnew_carnavi_fixes_for_android_message" = "我们优化了距离道路较远的目标地点的线路设置";
+
+"avoid_unpaved_carplay_1" = "无土路路段";
+
+"avoid_unpaved_carplay_2" = "无土路路段";
+
+"avoid_ferry_carplay_1" = "无渡船";
+
+"avoid_ferry_carplay_2" = "无渡船";
+
+"avoid_tolls_carplay_1" = "无付费路段";
+
+"avoid_tolls_carplay_2" = "无付费路段";
+
+"speedcams_alert_title_carplay_1" = "摄像头";
+
+"speedcams_alert_title_carplay_2" = "摄像头信息";
+
+"download_map_carplay" = "将MAPS.ME软件中的地图下载至个人设备中";
+
+"carplay_roundabout_exit" = "%s号坡道";
 
 
 /**********  Partners  **********/

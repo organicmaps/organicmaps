@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น";
 
-"dialog_routing_download_files_carplay" = "แผนที่ที่ใช้สร้างเส้นทางยังได้รับการโหลดไม่ครบ โปรดดาวน์โหลดแผนที่เหล่านั้นจากโทรศัพท์มือถือของคุณ";
+"dialog_routing_download_files_carplay" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ";
 
 "dialog_routing_system_error_carplay" = "พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "ปรับปรุงการนำทาง";
 
 "whatsnew_carnavi_fixes_for_android_message" = "เราได้ปรับปรุงเส้นทางการวางแผนไปยังจุดต่าง ๆ ซึ่งตั้งอยู่ห่างจากถนนต่าง ๆ";
+
+"avoid_unpaved_carplay_1" = "ไม่มีลูกรัง";
+
+"avoid_unpaved_carplay_2" = "หลีกเลี่ยงทาง";
+
+"avoid_ferry_carplay_1" = "ไม่มีเรือ";
+
+"avoid_ferry_carplay_2" = "หลีกเลี่ยงเรือ";
+
+"avoid_tolls_carplay_1" = "ไม่มีค่าผ่าน";
+
+"avoid_tolls_carplay_2" = "เลี่ยงทางด่วน";
+
+"speedcams_alert_title_carplay_1" = "จับความเร็ว";
+
+"speedcams_alert_title_carplay_2" = "เตือนความเร็ว";
+
+"download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ MAPS.ME บนอุปกรณ์ของคุณ";
+
+"carplay_roundabout_exit" = "ทางออกที่ %s";
 
 
 /**********  Partners  **********/

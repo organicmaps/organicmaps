@@ -1567,7 +1567,7 @@
 	<string name="dialog_routing_change_end_carplay">Nelze vystavět trasu k vaší destinaci. Zvolte prosím další bod</string>
 	<string name="dialog_routing_check_gps_carplay">Signál GPS neexistuje. Přesuňte se prosím do otevřeného prostoru</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Nelze sestavit trasu. Specifikujte prosím další body trasy</string>
-	<string name="dialog_routing_download_files_carplay">K sestavení trasy nejsou přítomny žádné mapy. Stáhněte si je prosím na váš mobilní telefon</string>
+	<string name="dialog_routing_download_files_carplay">K vytvoření trasy si stáhněte chybějící mapy do vašeho zařízení</string>
 	<string name="dialog_routing_system_error_carplay">Vyskytla se chyba. Restartujte prosím aplikaci</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude přestavěna od vaší aktuální polohy</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravena k autu jedna</string>
@@ -1613,6 +1613,16 @@
 	<string name="whatsnew_subscription_message">Neomezený přístup ke katalogu průvodců je výhodnější než jednorázová koupě</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizace navigace</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic</string>
+	<string name="avoid_unpaved_carplay_1">Bez pr. cest</string>
+	<string name="avoid_unpaved_carplay_2">Vyhnout se nezp</string>
+	<string name="avoid_ferry_carplay_1">Bez trajektů</string>
+	<string name="avoid_ferry_carplay_2">Vyh. se traj.</string>
+	<string name="avoid_tolls_carplay_1">Bez pl.sil.</string>
+	<string name="avoid_tolls_carplay_2">Vyh. se pl. sil</string>
+	<string name="speedcams_alert_title_carplay_1">Rych. kam.</string>
+	<string name="speedcams_alert_title_carplay_2">Rych. varování</string>
+	<string name="download_map_carplay">Stáhněte si prosím mapy do aplikace MAPS.ME ve vašem zařízení</string>
+	<string name="carplay_roundabout_exit">%s výjezd</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

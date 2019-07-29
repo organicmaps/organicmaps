@@ -1552,7 +1552,7 @@
 	<string name="dialog_routing_change_end_carplay">No se puede construir la ruta al punto final. Elige otra</string>
 	<string name="dialog_routing_check_gps_carplay">No hay señal GPS. Ve a una zona abierta</string>
 	<string name="dialog_routing_unable_locate_route_carplay">No se puede construir una ruta. Elige otros puntos de ruta</string>
-	<string name="dialog_routing_download_files_carplay">No todos los mapas están disponibles para trazar una ruta. Descárgalos en la aplicación de tu teléfono</string>
+	<string name="dialog_routing_download_files_carplay">Al construir ruta, descarga los mapas ausentes en tu dispositivo</string>
 	<string name="dialog_routing_system_error_carplay">Ocurrió un error. Reinicia la aplicación</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">La ruta se reconstruirá desde tu ubicación actual</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">La ruta se cambiará a coche</string>
@@ -1598,6 +1598,16 @@
 	<string name="whatsnew_subscription_message">El acceso ilimitado al catálogo de rutas es más rentable que una compra por vez única</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Actualización de navegación</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Hemos mejorado la construcción de rutas a puntos ubicados lejos de las carreteras</string>
+	<string name="avoid_unpaved_carplay_1">Sin de grava</string>
+	<string name="avoid_unpaved_carplay_2">Sin de grava</string>
+	<string name="avoid_ferry_carplay_1">Sin ferri</string>
+	<string name="avoid_ferry_carplay_2">Sin ferri</string>
+	<string name="avoid_tolls_carplay_1">Sin peaje</string>
+	<string name="avoid_tolls_carplay_2">Sin peaje</string>
+	<string name="speedcams_alert_title_carplay_1">Cám.velocid.</string>
+	<string name="speedcams_alert_title_carplay_2">Alerta velocid.</string>
+	<string name="download_map_carplay">Descarga mapas en la aplicación MAPS.ME en tu dispositivo</string>
+	<string name="carplay_roundabout_exit">%s desviación</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1573,7 +1573,7 @@
 	<string name="dialog_routing_change_end_carplay">Impossible de créer un itinéraire jusqu\'au point final. Choisissez un autre</string>
 	<string name="dialog_routing_check_gps_carplay">Pas de signal GPS. Passez sur le site ouvert</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Impossible de calculer l\'itinéraire. Sélectionnez les autres points d\'itinéraire</string>
-	<string name="dialog_routing_download_files_carplay">Pas toutes les cartes sont disponibles pour tracer un itinéraire. Téléchargez-les dans l\'application sur le téléphone</string>
+	<string name="dialog_routing_download_files_carplay">Pour créer la route, téléchargez les cartes sur votre appareil</string>
 	<string name="dialog_routing_system_error_carplay">Une erreur est survenue. Redémarrez l\'application</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">L\'itinéraire sera reconstruit à partir de votre position actuelle</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">L\'itinéraire sera changé en mode Voiture</string>
@@ -1619,6 +1619,16 @@
 	<string name="whatsnew_subscription_message">L\'accès illimité au catalogue des guides est plus rentable qu\'un achat ponctuel</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Mise à jour de la navigation</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Nous avons amélioré la planification des itinéraires vers les destinations éloignés des routes</string>
+	<string name="avoid_unpaved_carplay_1">Route de ter</string>
+	<string name="avoid_unpaved_carplay_2">Route de terre</string>
+	<string name="avoid_ferry_carplay_1">Sans navires</string>
+	<string name="avoid_ferry_carplay_2">Sans navires</string>
+	<string name="avoid_tolls_carplay_1">Sans péage</string>
+	<string name="avoid_tolls_carplay_2">Sans péage</string>
+	<string name="speedcams_alert_title_carplay_1">Caméras</string>
+	<string name="speedcams_alert_title_carplay_2">Info Caméras</string>
+	<string name="download_map_carplay">Téléchargez des cartes dans l\'application MAPS.ME sur votre appareil</string>
+	<string name="carplay_roundabout_exit">%s sortie</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

@@ -1610,7 +1610,7 @@
 	<string name="dialog_routing_change_end_carplay">Невозможно построить маршрут до конечной точки. Выберите другую</string>
 	<string name="dialog_routing_check_gps_carplay">Нет сигнала GPS. Проследуйте на открытую местность</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Невозможно построить маршрут. Выберите другие точки маршрута</string>
-	<string name="dialog_routing_download_files_carplay">Не все карты, необходимые для построения маршрута, доступны. Пожалуйста, скачайте их в приложении на мобильном устройстве</string>
+	<string name="dialog_routing_download_files_carplay">Чтобы построить маршрут, загрузите недостающие карты на своем устройстве</string>
 	<string name="dialog_routing_system_error_carplay">Произошла ошибка. Перезапустите приложение</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут будет перестроен от вашего текущего местоположения</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменен на автомобильный</string>
@@ -1657,6 +1657,16 @@
 	<string name="whatsnew_subscription_message">Неограниченный доступ к каталогу маршрутов выгоднее одноразовой покупки</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Обновление навигации</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Мы улучшили построение маршрутов до точек, расположенных далеко от дорог</string>
+	<string name="avoid_unpaved_carplay_1">Без грунт.</string>
+	<string name="avoid_unpaved_carplay_2">Без грунтовых</string>
+	<string name="avoid_ferry_carplay_1">Без паромов</string>
+	<string name="avoid_ferry_carplay_2">Без паромов</string>
+	<string name="avoid_tolls_carplay_1">Без платных</string>
+	<string name="avoid_tolls_carplay_2">Без платных</string>
+	<string name="speedcams_alert_title_carplay_1">Камеры</string>
+	<string name="speedcams_alert_title_carplay_2">Инфо о камерах</string>
+	<string name="download_map_carplay">Скачайте карты в приложении MAPS.ME на своем устройстве</string>
+	<string name="carplay_roundabout_exit">%s съезд</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

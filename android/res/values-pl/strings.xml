@@ -1563,7 +1563,7 @@
 	<string name="dialog_routing_change_end_carplay">Brak możliwości zbudowania trasy do punktu końcowego. Wybierz inny</string>
 	<string name="dialog_routing_check_gps_carplay">Brak sygnału GPS. Dostań się do terenu otwartego</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Brak możliwości zbudowania trasy. Wybierz inne punkty trasy</string>
-	<string name="dialog_routing_download_files_carplay">Nie wszystkie mapy są dostępne do budowania trasy. Pobierz je w aplikacji na telefon</string>
+	<string name="dialog_routing_download_files_carplay">Aby wyznaczyć trasę, pobierz brakujące mapy na Twoim urządzeniu</string>
 	<string name="dialog_routing_system_error_carplay">Wystąpił błąd. Uruchom aplikację ponownie</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa zostanie przebudowana z Twojej bieżącej lokalizacji</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa zostanie zmieniona na samochodową</string>
@@ -1609,6 +1609,16 @@
 	<string name="whatsnew_subscription_message">Nieograniczony dostęp do katalogu tras jest bardziej opłacalny, w porównaniu z jednorazowym zakupem</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizacja nawigacji</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Ulepszyliśmy budowę tras do punktów, rozlokowanych z dala od dróg</string>
+	<string name="avoid_unpaved_carplay_1">Bez gruntow.</string>
+	<string name="avoid_unpaved_carplay_2">Bez gruntowych</string>
+	<string name="avoid_ferry_carplay_1">Bez promów</string>
+	<string name="avoid_ferry_carplay_2">Bez promów</string>
+	<string name="avoid_tolls_carplay_1">Wył. płatne</string>
+	<string name="avoid_tolls_carplay_2">Wyłącz płatne</string>
+	<string name="speedcams_alert_title_carplay_1">Kamery</string>
+	<string name="speedcams_alert_title_carplay_2">Info o kamerach</string>
+	<string name="download_map_carplay">Pobierz mapy do aplikacji MAPS.ME na swoje urządzenie</string>
+	<string name="carplay_roundabout_exit">%s zjazd</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

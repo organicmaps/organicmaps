@@ -1315,7 +1315,7 @@
 	<string name="dialog_routing_change_end_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο</string>
 	<string name="dialog_routing_check_gps_carplay">Δεν υπάρχει σήμα GPS. Μετακινήστε σε μια ανοικτή τοποθεσία</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής</string>
-	<string name="dialog_routing_download_files_carplay">Δεν είναι διαθέσιμοι όλοι οι χάρτες για τη δημιουργία της διαδρομής. Κατεβάστε τους από την εφαρμογή στο κινητό σας τηλέφωνο</string>
+	<string name="dialog_routing_download_files_carplay">Για να χτίσετε διαδρομή, κατεβάστε χάρτες που λείπουν στη συσκευή</string>
 	<string name="dialog_routing_system_error_carplay">Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο</string>
@@ -1361,6 +1361,16 @@
 	<string name="whatsnew_subscription_message">Η απεριόριστη πρόσβαση στον κατάλογο των διαδρομών συμφέρει πιο πολύ από μια μεμονωμένη αγορά</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Ενημέρωση πλοήγησης</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Έχουμε βελτιώσει τη δημιουργία διαδρομών έως τα σημεία που βρίσκονται μακριά από τους δρόμους</string>
+	<string name="avoid_unpaved_carplay_1">Χ/χωματόδρ.</string>
+	<string name="avoid_unpaved_carplay_2">Χ/χωματόδρομους</string>
+	<string name="avoid_ferry_carplay_1">Χ/πορθμεία</string>
+	<string name="avoid_ferry_carplay_2">Χωρίς πορθμεία</string>
+	<string name="avoid_tolls_carplay_1">Χωρίς διόδια</string>
+	<string name="avoid_tolls_carplay_2">Χωρίς διόδια</string>
+	<string name="speedcams_alert_title_carplay_1">Κάμερες</string>
+	<string name="speedcams_alert_title_carplay_2">Πληροφ. γιαόρια</string>
+	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή MAPS.ME στη συσκευή σας</string>
+	<string name="carplay_roundabout_exit">%s έξοδος</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

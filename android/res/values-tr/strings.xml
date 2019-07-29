@@ -1563,7 +1563,7 @@
 	<string name="dialog_routing_change_end_carplay">Hedefinize rota oluşturulamıyor. Lütfen başka bir nokta seçin</string>
 	<string name="dialog_routing_check_gps_carplay">GPS sinyali yok. Lütfen açık bir alana geçin</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin</string>
-	<string name="dialog_routing_download_files_carplay">Rota oluşturmak için gereken tüm haritalar mevcut değil. Lütfen bunları cep telefonunuza indirin</string>
+	<string name="dialog_routing_download_files_carplay">Rota oluşturmak için cihazınızdaki eksik haritaları indirin</string>
 	<string name="dialog_routing_system_error_carplay">Hata oluştu. Lütfen uygulamayı yeniden başlatın</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Rota, mevcut konumunuzdan yeniden oluşturulacak</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rota, bir arabalı seyahat rotasına dönüştürülecek</string>
@@ -1609,6 +1609,16 @@
 	<string name="whatsnew_subscription_message">Rehber kataloğuna sınırsız erişim, bir kerelik satın almadan daha karlıdır</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigasyon güncellemesi</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Güzergah planlamayı yollardan uzakta bulunan noktalara erişecek kadar iyileştirdik</string>
+	<string name="avoid_unpaved_carplay_1">Stabilizesiz</string>
+	<string name="avoid_unpaved_carplay_2">Asfaltsız hariç</string>
+	<string name="avoid_ferry_carplay_1">Feribotsuz</string>
+	<string name="avoid_ferry_carplay_2">Feribot hariç</string>
+	<string name="avoid_tolls_carplay_1">Paralı yok</string>
+	<string name="avoid_tolls_carplay_2">Paralı hariç</string>
+	<string name="speedcams_alert_title_carplay_1">Hız kamerası</string>
+	<string name="speedcams_alert_title_carplay_2">Hız uyarıları</string>
+	<string name="download_map_carplay">Lütfen haritaları cihazınıza MAPS.ME uygulamasından indirin</string>
+	<string name="carplay_roundabout_exit">%s çıkış</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

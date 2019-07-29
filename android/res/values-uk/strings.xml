@@ -1564,7 +1564,7 @@
 	<string name="dialog_routing_change_end_carplay">Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу</string>
 	<string name="dialog_routing_check_gps_carplay">Немає сигналу GPS. Перейдіть на відкриту місцевість</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Неможливо побудувати маршрут. Оберіть інші точки маршруту</string>
-	<string name="dialog_routing_download_files_carplay">Не всі карти доступні для побудування маршруту. Завантажте їх в додатку на телефоні</string>
+	<string name="dialog_routing_download_files_carplay">Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої</string>
 	<string name="dialog_routing_system_error_carplay">Виникла помилка. Перезапустіть додаток</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут буде перебудовано від вашого поточного місця розташування</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут буде змінено на автомобільний</string>
@@ -1610,6 +1610,16 @@
 	<string name="whatsnew_subscription_message">Необмежений доступ до каталогу маршрутів вигідніший, ніж одноразове придбання</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Оновлення навігації</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Ми покращити побудову маршрутів до точок, розміщених далеко від доріг</string>
+	<string name="avoid_unpaved_carplay_1">Без ґрунт.</string>
+	<string name="avoid_unpaved_carplay_2">Без ґрунтових</string>
+	<string name="avoid_ferry_carplay_1">Без поромів</string>
+	<string name="avoid_ferry_carplay_2">Без поромів</string>
+	<string name="avoid_tolls_carplay_1">Без платних</string>
+	<string name="avoid_tolls_carplay_2">Без платних</string>
+	<string name="speedcams_alert_title_carplay_1">Камери</string>
+	<string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
+	<string name="download_map_carplay">Завантажте карти в додатку MAPS.ME на своєму пристрої</string>
+	<string name="carplay_roundabout_exit">%s з’їзд</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

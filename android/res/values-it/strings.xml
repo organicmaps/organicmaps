@@ -1558,7 +1558,7 @@
 	<string name="dialog_routing_change_end_carplay">Impossibile creare percorso per raggiungere la destinazione Scegli un\'altra destinazione</string>
 	<string name="dialog_routing_check_gps_carplay">Segnale GPS assente. Procedi su terreno aperto</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Impossibile trovare percorso. Scegli altre tappe</string>
-	<string name="dialog_routing_download_files_carplay">Non tutte le mappe sono disponibili per pianificare il percorso. Scaricale in App</string>
+	<string name="dialog_routing_download_files_carplay">Per creare percorso scarica mappe mancanti sul proprio dispositivo</string>
 	<string name="dialog_routing_system_error_carplay">Si è verificato un errore. Riavviare l\'applicazione</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Il percorso verrà impostato dalla tua posizione corrente</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Il percorso verrà modificato in modalità Auto</string>
@@ -1604,6 +1604,16 @@
 	<string name="whatsnew_subscription_message">Accesso illimitato al catalogo è molto più conveniente dell\'acquisto di una guida separata</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Aggiornare navigazione</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Abbiamo migliorato la pianificazione di itinerari per i luoghi situati lontano dalle strade principali</string>
+	<string name="avoid_unpaved_carplay_1">No sterrati</string>
+	<string name="avoid_unpaved_carplay_2">No sterrati</string>
+	<string name="avoid_ferry_carplay_1">No traghetti</string>
+	<string name="avoid_ferry_carplay_2">No traghetti</string>
+	<string name="avoid_tolls_carplay_1">No pedaggi</string>
+	<string name="avoid_tolls_carplay_2">Senza pedaggi</string>
+	<string name="speedcams_alert_title_carplay_1">Autovelox</string>
+	<string name="speedcams_alert_title_carplay_2">Info autovelox</string>
+	<string name="download_map_carplay">Scarica l\'applicazione MAPS.ME sul tuo smartphone</string>
+	<string name="carplay_roundabout_exit">%s uscita</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

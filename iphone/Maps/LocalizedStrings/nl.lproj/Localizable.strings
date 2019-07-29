@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Kan route niet bouwen. Selecteer andere tussenpunten";
 
-"dialog_routing_download_files_carplay" = "Niet alle kaarten zijn beschikbaar voor het opbouwen van een route. Download ze in de applicatie op uw smartphone";
+"dialog_routing_download_files_carplay" = "Om een route te bouwen, download u ontbrekende kaarten";
 
 "dialog_routing_system_error_carplay" = "Lets fout gegaan. Start de app opnieuw";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigatie update";
 
 "whatsnew_carnavi_fixes_for_android_message" = "We hebben de aanleg van routes naar punten ver van de weggen verbeterd";
+
+"avoid_unpaved_carplay_1" = "Geen aardew.";
+
+"avoid_unpaved_carplay_2" = "Geen aardewegen";
+
+"avoid_ferry_carplay_1" = "Geen ferry's";
+
+"avoid_ferry_carplay_2" = "Geen ferry's";
+
+"avoid_tolls_carplay_1" = "Zonder tol";
+
+"avoid_tolls_carplay_2" = "Zonder tol";
+
+"speedcams_alert_title_carplay_1" = "Cameras";
+
+"speedcams_alert_title_carplay_2" = "Over cameras";
+
+"download_map_carplay" = "Download kaarten in de MAPS.ME app op uw apparaat";
+
+"carplay_roundabout_exit" = "Afrit nr. %s";
 
 
 /**********  Partners  **********/

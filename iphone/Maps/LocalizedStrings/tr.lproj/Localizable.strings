@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin";
 
-"dialog_routing_download_files_carplay" = "Rota oluşturmak için gereken tüm haritalar mevcut değil. Lütfen bunları cep telefonunuza indirin";
+"dialog_routing_download_files_carplay" = "Rota oluşturmak için cihazınızdaki eksik haritaları indirin";
 
 "dialog_routing_system_error_carplay" = "Hata oluştu. Lütfen uygulamayı yeniden başlatın";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigasyon güncellemesi";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Güzergah planlamayı yollardan uzakta bulunan noktalara erişecek kadar iyileştirdik";
+
+"avoid_unpaved_carplay_1" = "Stabilizesiz";
+
+"avoid_unpaved_carplay_2" = "Asfaltsız hariç";
+
+"avoid_ferry_carplay_1" = "Feribotsuz";
+
+"avoid_ferry_carplay_2" = "Feribot hariç";
+
+"avoid_tolls_carplay_1" = "Paralı yok";
+
+"avoid_tolls_carplay_2" = "Paralı hariç";
+
+"speedcams_alert_title_carplay_1" = "Hız kamerası";
+
+"speedcams_alert_title_carplay_2" = "Hız uyarıları";
+
+"download_map_carplay" = "Lütfen haritaları cihazınıza MAPS.ME uygulamasından indirin";
+
+"carplay_roundabout_exit" = "%s çıkış";
 
 
 /**********  Partners  **********/

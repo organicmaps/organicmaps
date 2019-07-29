@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق";
 
-"dialog_routing_download_files_carplay" = "لا تتواجد جميع الخرائط من أجل تحديد طريق. يرجى تحميلهم على هاتفك المحمول";
+"dialog_routing_download_files_carplay" = "كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك";
 
 "dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "تحديث الملاحة";
 
 "whatsnew_carnavi_fixes_for_android_message" = "لقد طورنا تخطيط المسارات لأماكن موجودة بعيدة عن الطرق";
+
+"avoid_unpaved_carplay_1" = "غير ترابي";
+
+"avoid_unpaved_carplay_2" = "تجنب غير الممهد";
+
+"avoid_ferry_carplay_1" = "بدون عبََارة";
+
+"avoid_ferry_carplay_2" = "تجنب العبََارة";
+
+"avoid_tolls_carplay_1" = "بدون رسوم";
+
+"avoid_tolls_carplay_2" = "تجنب الرسوم";
+
+"speedcams_alert_title_carplay_1" = "كاميرا سريعة";
+
+"speedcams_alert_title_carplay_2" = "تحذير سريع";
+
+"download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق MAPS.ME على جهازك";
+
+"carplay_roundabout_exit" = "المخرج رقم %s";
 
 
 /**********  Partners  **********/

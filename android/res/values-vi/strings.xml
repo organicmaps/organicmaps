@@ -1554,7 +1554,7 @@
 	<string name="dialog_routing_change_end_carplay">Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác</string>
 	<string name="dialog_routing_check_gps_carplay">Không có tín hiệu GPS. Hãy đến vị trí có không gian mở</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường</string>
-	<string name="dialog_routing_download_files_carplay">Không phải tất cả bản đồ đều khả dụng để tạo tuyến đường. Hãy tải ứng dụng về điện thoại của bạn</string>
+	<string name="dialog_routing_download_files_carplay">Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị</string>
 	<string name="dialog_routing_system_error_carplay">Đã xảy ra lỗi. Khởi động lại ứng dụng</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô</string>
@@ -1600,6 +1600,16 @@
 	<string name="whatsnew_subscription_message">Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Cập nhận định hướng</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố</string>
+	<string name="avoid_unpaved_carplay_1">Trừ đườg đất</string>
+	<string name="avoid_unpaved_carplay_2">Trừ khôg trnhựa</string>
+	<string name="avoid_ferry_carplay_1">Không có phà</string>
+	<string name="avoid_ferry_carplay_2">Trừ phà</string>
+	<string name="avoid_tolls_carplay_1">Khôg đgcóphí</string>
+	<string name="avoid_tolls_carplay_2">Trừ đg có phí</string>
+	<string name="speedcams_alert_title_carplay_1">Сam tốc độ</string>
+	<string name="speedcams_alert_title_carplay_2">Cảnh báo tốc độ</string>
+	<string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng MAPS.ME trên thiết bị của bạn</string>
+	<string name="carplay_roundabout_exit">Lối ra %s của vòng xuyến</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

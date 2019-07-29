@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Невозможно построить маршрут. Выберите другие точки маршрута";
 
-"dialog_routing_download_files_carplay" = "Не все карты, необходимые для построения маршрута, доступны. Пожалуйста, скачайте их в приложении на мобильном устройстве";
+"dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своем устройстве";
 
 "dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Обновление навигации";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Мы улучшили построение маршрутов до точек, расположенных далеко от дорог";
+
+"avoid_unpaved_carplay_1" = "Без грунт.";
+
+"avoid_unpaved_carplay_2" = "Без грунтовых";
+
+"avoid_ferry_carplay_1" = "Без паромов";
+
+"avoid_ferry_carplay_2" = "Без паромов";
+
+"avoid_tolls_carplay_1" = "Без платных";
+
+"avoid_tolls_carplay_2" = "Без платных";
+
+"speedcams_alert_title_carplay_1" = "Камеры";
+
+"speedcams_alert_title_carplay_2" = "Инфо о камерах";
+
+"download_map_carplay" = "Скачайте карты в приложении MAPS.ME на своем устройстве";
+
+"carplay_roundabout_exit" = "%s съезд";
 
 
 /**********  Partners  **********/

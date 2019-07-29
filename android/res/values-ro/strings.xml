@@ -1554,7 +1554,7 @@
 	<string name="dialog_routing_change_end_carplay">Este imposibil de elaborat traseu până la punctul de sosire. Selectați altul</string>
 	<string name="dialog_routing_check_gps_carplay">Nu este semnal GPS. Mergeți la loc deschis</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Este imposibil de elaborat un traseu. Selectați alte puncte ale traseului</string>
-	<string name="dialog_routing_download_files_carplay">Nu toate hărțile sunt accesibile pentru elaborarea traseului. Descărcați-le în aplicația de pe telefon</string>
+	<string name="dialog_routing_download_files_carplay">Pentru noi trasee, încărcați hărțile lipsa pe dispozitivul dvs.</string>
 	<string name="dialog_routing_system_error_carplay">Eroare. Restartați aplicația</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Traseul se va reface de la locul actual al aflării dvs</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Traseul va fi modificat cu unul automobilistic</string>
@@ -1600,6 +1600,16 @@
 	<string name="whatsnew_subscription_message">Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Actualizarea navigării</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum</string>
+	<string name="avoid_unpaved_carplay_1">Fără neasfal</string>
+	<string name="avoid_unpaved_carplay_2">Fără neasfaltat</string>
+	<string name="avoid_ferry_carplay_1">Fără bacuri</string>
+	<string name="avoid_ferry_carplay_2">Fără bacuri</string>
+	<string name="avoid_tolls_carplay_1">Gratis</string>
+	<string name="avoid_tolls_carplay_2">Gratis</string>
+	<string name="speedcams_alert_title_carplay_1">Cameră video</string>
+	<string name="speedcams_alert_title_carplay_2">Info camere</string>
+	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația MAPS.ME de pe dispozitivul dvs.</string>
+	<string name="carplay_roundabout_exit">%s ieșire</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

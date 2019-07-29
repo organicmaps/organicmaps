@@ -1557,7 +1557,7 @@
 	<string name="dialog_routing_change_end_carplay">目的地へのルートは構築できません。別の地点を選択してください</string>
 	<string name="dialog_routing_check_gps_carplay">GPS信号がありません。開けた場所へ移動してください</string>
 	<string name="dialog_routing_unable_locate_route_carplay">ルートが構築できません。別のルート地点を設定して下さい</string>
-	<string name="dialog_routing_download_files_carplay">ルートを構築するために全てのマップが表示されているわけではありません。携帯電話にそれらをダウンロードしてください</string>
+	<string name="dialog_routing_download_files_carplay">ルートを作成するには、地図に表示されていない部分を端末でダウンロードします</string>
 	<string name="dialog_routing_system_error_carplay">エラーが発生しました。アプリを再起動してください</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">ルートは現在位置から再構築されます</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">ルートは自動車用として修正されます</string>
@@ -1603,6 +1603,16 @@
 	<string name="whatsnew_subscription_message">ガイドのカタログへの無制限のアクセスはワンタイム購入よりもお得です</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">ナビゲーションの更新</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">道から遠く離れた地点へのルート計画を改善しました</string>
+	<string name="avoid_unpaved_carplay_1">未舗装道路無し</string>
+	<string name="avoid_unpaved_carplay_2">未舗装道路無し</string>
+	<string name="avoid_ferry_carplay_1">フェリー無し</string>
+	<string name="avoid_ferry_carplay_2">フェリーを回避</string>
+	<string name="avoid_tolls_carplay_1">有料道路無し</string>
+	<string name="avoid_tolls_carplay_2">有料道路を回避</string>
+	<string name="speedcams_alert_title_carplay_1">速度警告</string>
+	<string name="speedcams_alert_title_carplay_2">速度警告</string>
+	<string name="download_map_carplay">あなたの機器のMAPS.MEのアプリにマップをダウンロードしてください</string>
+	<string name="carplay_roundabout_exit">第%s出口</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

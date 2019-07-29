@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Nelze sestavit trasu. Specifikujte prosím další body trasy";
 
-"dialog_routing_download_files_carplay" = "K sestavení trasy nejsou přítomny žádné mapy. Stáhněte si je prosím na váš mobilní telefon";
+"dialog_routing_download_files_carplay" = "K vytvoření trasy si stáhněte chybějící mapy do vašeho zařízení";
 
 "dialog_routing_system_error_carplay" = "Vyskytla se chyba. Restartujte prosím aplikaci";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Aktualizace navigace";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic";
+
+"avoid_unpaved_carplay_1" = "Bez pr. cest";
+
+"avoid_unpaved_carplay_2" = "Vyhnout se nezp";
+
+"avoid_ferry_carplay_1" = "Bez trajektů";
+
+"avoid_ferry_carplay_2" = "Vyh. se traj.";
+
+"avoid_tolls_carplay_1" = "Bez pl.sil.";
+
+"avoid_tolls_carplay_2" = "Vyh. se pl. sil";
+
+"speedcams_alert_title_carplay_1" = "Rych. kam.";
+
+"speedcams_alert_title_carplay_2" = "Rych. varování";
+
+"download_map_carplay" = "Stáhněte si prosím mapy do aplikace MAPS.ME ve vašem zařízení";
+
+"carplay_roundabout_exit" = "%s výjezd";
 
 
 /**********  Partners  **********/

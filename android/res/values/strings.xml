@@ -1621,7 +1621,7 @@
 	<string name="dialog_routing_change_end_carplay">Unable to build a route to your destination. Please choose another point</string>
 	<string name="dialog_routing_check_gps_carplay">No GPS signal. Please move to an open area</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Unable to build a route. Please specify other route points</string>
-	<string name="dialog_routing_download_files_carplay">Some maps required for planning the route are not present. Please, download them on your mobile device</string>
+	<string name="dialog_routing_download_files_carplay">To create a route, download missing maps on your device</string>
 	<string name="dialog_routing_system_error_carplay">An error occurred. Please restart the application</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">The route will be rebuilt from your current location</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">The route will be converted into an automobile one</string>
@@ -1669,6 +1669,16 @@
 	<string name="whatsnew_subscription_message">Unlimited access to the guides catalog is more profitable than a one-time purchase</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigation update</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">We improved route planning to points, which are located far away from roads</string>
+	<string name="avoid_unpaved_carplay_1">No dirt road</string>
+	<string name="avoid_unpaved_carplay_2">Avoid unpaved</string>
+	<string name="avoid_ferry_carplay_1">No ferries</string>
+	<string name="avoid_ferry_carplay_2">Avoid ferries</string>
+	<string name="avoid_tolls_carplay_1">No toll road</string>
+	<string name="avoid_tolls_carplay_2">Avoid toll road</string>
+	<string name="speedcams_alert_title_carplay_1">Speedсams</string>
+	<string name="speedcams_alert_title_carplay_2">Speed warnings</string>
+	<string name="download_map_carplay">Please download maps in MAPS.ME app on your device</string>
+	<string name="carplay_roundabout_exit">%s exit</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

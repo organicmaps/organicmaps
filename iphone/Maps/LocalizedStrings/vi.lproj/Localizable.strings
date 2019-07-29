@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường";
 
-"dialog_routing_download_files_carplay" = "Không phải tất cả bản đồ đều khả dụng để tạo tuyến đường. Hãy tải ứng dụng về điện thoại của bạn";
+"dialog_routing_download_files_carplay" = "Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị";
 
 "dialog_routing_system_error_carplay" = "Đã xảy ra lỗi. Khởi động lại ứng dụng";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Cập nhận định hướng";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố";
+
+"avoid_unpaved_carplay_1" = "Trừ đườg đất";
+
+"avoid_unpaved_carplay_2" = "Trừ khôg trnhựa";
+
+"avoid_ferry_carplay_1" = "Không có phà";
+
+"avoid_ferry_carplay_2" = "Trừ phà";
+
+"avoid_tolls_carplay_1" = "Khôg đgcóphí";
+
+"avoid_tolls_carplay_2" = "Trừ đg có phí";
+
+"speedcams_alert_title_carplay_1" = "Сam tốc độ";
+
+"speedcams_alert_title_carplay_2" = "Cảnh báo tốc độ";
+
+"download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng MAPS.ME trên thiết bị của bạn";
+
+"carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
 
 
 /**********  Partners  **********/

@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Unable to build a route. Please specify other route points";
 
-"dialog_routing_download_files_carplay" = "Some maps required for planning the route are not present. Please, download them on your mobile device";
+"dialog_routing_download_files_carplay" = "To create a route, download missing maps on your device";
 
 "dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigation update";
 
 "whatsnew_carnavi_fixes_for_android_message" = "We improved route planning to points, which are located far away from roads";
+
+"avoid_unpaved_carplay_1" = "No dirt road";
+
+"avoid_unpaved_carplay_2" = "Avoid unpaved";
+
+"avoid_ferry_carplay_1" = "No ferries";
+
+"avoid_ferry_carplay_2" = "Avoid ferries";
+
+"avoid_tolls_carplay_1" = "No toll road";
+
+"avoid_tolls_carplay_2" = "Avoid toll road";
+
+"speedcams_alert_title_carplay_1" = "Speedсams";
+
+"speedcams_alert_title_carplay_2" = "Speed warnings";
+
+"download_map_carplay" = "Please download maps in MAPS.ME app on your device";
+
+"carplay_roundabout_exit" = "%s exit";
 
 
 /**********  Partners  **********/

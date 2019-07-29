@@ -1572,7 +1572,7 @@
 	<string name="dialog_routing_change_end_carplay">Es ist unmöglich eine Reiseroute bis zum Endpunkt planen. Wählen Sie einen anderen</string>
 	<string name="dialog_routing_check_gps_carplay">Kein GPS-Signal. Gehen Sie in das offene Gelände</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Es ist unmöglich, eine Route zu planen. Wählen Sie andere Routenpunkte</string>
-	<string name="dialog_routing_download_files_carplay">Nicht alle Karten sind für Routenplanung zugänglich. Laden Sie sie in der App auf Ihrem Handy herunter</string>
+	<string name="dialog_routing_download_files_carplay">Laden Sie die fehlenden Karten hoch, um die Route zu erstellen</string>
 	<string name="dialog_routing_system_error_carplay">Fehler aufgetreten. Starten Sie Applikation neu</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Die Route wird von Ihrem derzeitigen Standpunkt geplant werden</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reiseroute wird zur Route für Fahrzeug geändert sein</string>
@@ -1618,6 +1618,16 @@
 	<string name="whatsnew_subscription_message">Uneingeschränkter Zugriff auf den Routenkatalog ist günstiger als Einmalkauf</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigation Update</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Wir haben den Routenaufbau bis zu den von den Straßen weit entfernten Orten verbessert</string>
+	<string name="avoid_unpaved_carplay_1">Ohne Landstr</string>
+	<string name="avoid_unpaved_carplay_2">Ohne Landstr.</string>
+	<string name="avoid_ferry_carplay_1">Ohne Fähren</string>
+	<string name="avoid_ferry_carplay_2">Ohne Fähren</string>
+	<string name="avoid_tolls_carplay_1">Ohne kpf Str</string>
+	<string name="avoid_tolls_carplay_2">Ohne kpfl. Str.</string>
+	<string name="speedcams_alert_title_carplay_1">Blitzer</string>
+	<string name="speedcams_alert_title_carplay_2">Blitzerwarnung</string>
+	<string name="download_map_carplay">Laden Sie Karten in der App MAPS.ME auf Ihrem Gerät herunter</string>
+	<string name="carplay_roundabout_exit">%s Ausfahrt</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

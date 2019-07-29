@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Неможливо побудувати маршрут. Оберіть інші точки маршруту";
 
-"dialog_routing_download_files_carplay" = "Не всі карти доступні для побудування маршруту. Завантажте їх в додатку на телефоні";
+"dialog_routing_download_files_carplay" = "Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої";
 
 "dialog_routing_system_error_carplay" = "Виникла помилка. Перезапустіть додаток";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Оновлення навігації";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Ми покращити побудову маршрутів до точок, розміщених далеко від доріг";
+
+"avoid_unpaved_carplay_1" = "Без ґрунт.";
+
+"avoid_unpaved_carplay_2" = "Без ґрунтових";
+
+"avoid_ferry_carplay_1" = "Без поромів";
+
+"avoid_ferry_carplay_2" = "Без поромів";
+
+"avoid_tolls_carplay_1" = "Без платних";
+
+"avoid_tolls_carplay_2" = "Без платних";
+
+"speedcams_alert_title_carplay_1" = "Камери";
+
+"speedcams_alert_title_carplay_2" = "Інфо о камерах";
+
+"download_map_carplay" = "Завантажте карти в додатку MAPS.ME на своєму пристрої";
+
+"carplay_roundabout_exit" = "%s з’їзд";
 
 
 /**********  Partners  **********/

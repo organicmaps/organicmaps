@@ -1563,7 +1563,7 @@
 	<string name="dialog_routing_change_end_carplay">ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่</string>
 	<string name="dialog_routing_check_gps_carplay">ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ</string>
 	<string name="dialog_routing_unable_locate_route_carplay">ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น</string>
-	<string name="dialog_routing_download_files_carplay">แผนที่ที่ใช้สร้างเส้นทางยังได้รับการโหลดไม่ครบ โปรดดาวน์โหลดแผนที่เหล่านั้นจากโทรศัพท์มือถือของคุณ</string>
+	<string name="dialog_routing_download_files_carplay">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ</string>
 	<string name="dialog_routing_system_error_carplay">พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน</string>
@@ -1609,6 +1609,16 @@
 	<string name="whatsnew_subscription_message">เข้าถึงแคตตาล็อกคู่มือได้ไม่จำกัดได้รับกำไรมากกว่าการซื้อแค่ครั้งเดียว</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">ปรับปรุงการนำทาง</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">เราได้ปรับปรุงเส้นทางการวางแผนไปยังจุดต่าง ๆ ซึ่งตั้งอยู่ห่างจากถนนต่าง ๆ</string>
+	<string name="avoid_unpaved_carplay_1">ไม่มีลูกรัง</string>
+	<string name="avoid_unpaved_carplay_2">หลีกเลี่ยงทาง</string>
+	<string name="avoid_ferry_carplay_1">ไม่มีเรือ</string>
+	<string name="avoid_ferry_carplay_2">หลีกเลี่ยงเรือ</string>
+	<string name="avoid_tolls_carplay_1">ไม่มีค่าผ่าน</string>
+	<string name="avoid_tolls_carplay_2">เลี่ยงทางด่วน</string>
+	<string name="speedcams_alert_title_carplay_1">จับความเร็ว</string>
+	<string name="speedcams_alert_title_carplay_2">เตือนความเร็ว</string>
+	<string name="download_map_carplay">โปรดดาวน์โหลดแผนที่ในแอพฯ MAPS.ME บนอุปกรณ์ของคุณ</string>
+	<string name="carplay_roundabout_exit">ทางออกที่ %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

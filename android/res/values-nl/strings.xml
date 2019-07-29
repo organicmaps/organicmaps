@@ -1559,7 +1559,7 @@
 	<string name="dialog_routing_change_end_carplay">Kan route naar het eindpunt niet opbouwen. Kies een andere punt</string>
 	<string name="dialog_routing_check_gps_carplay">Geen GPS-signaal. Ga naar het open veld</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Kan route niet bouwen. Selecteer andere tussenpunten</string>
-	<string name="dialog_routing_download_files_carplay">Niet alle kaarten zijn beschikbaar voor het opbouwen van een route. Download ze in de applicatie op uw smartphone</string>
+	<string name="dialog_routing_download_files_carplay">Om een route te bouwen, download u ontbrekende kaarten</string>
 	<string name="dialog_routing_system_error_carplay">Lets fout gegaan. Start de app opnieuw</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">De route wordt opnieuw opgebouwd vanaf uw huidige positie</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">De route wordt gewijzigd in de autoroute</string>
@@ -1605,6 +1605,16 @@
 	<string name="whatsnew_subscription_message">Onbeperkte toegang tot de catalogus met routes is winstgevender dan een enige aankoop</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Navigatie update</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">We hebben de aanleg van routes naar punten ver van de weggen verbeterd</string>
+	<string name="avoid_unpaved_carplay_1">Geen aardew.</string>
+	<string name="avoid_unpaved_carplay_2">Geen aardewegen</string>
+	<string name="avoid_ferry_carplay_1">Geen ferry\'s</string>
+	<string name="avoid_ferry_carplay_2">Geen ferry\'s</string>
+	<string name="avoid_tolls_carplay_1">Zonder tol</string>
+	<string name="avoid_tolls_carplay_2">Zonder tol</string>
+	<string name="speedcams_alert_title_carplay_1">Cameras</string>
+	<string name="speedcams_alert_title_carplay_2">Over cameras</string>
+	<string name="download_map_carplay">Download kaarten in de MAPS.ME app op uw apparaat</string>
+	<string name="carplay_roundabout_exit">Afrit nr. %s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

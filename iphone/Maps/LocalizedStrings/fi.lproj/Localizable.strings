@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet";
 
-"dialog_routing_download_files_carplay" = "Kaikki kartat eivät ole käytettävissä reitin luomiseen. Lataa ne puhelimen sovellukseen";
+"dialog_routing_download_files_carplay" = "Luodaksesi reitin lataa puutt. kartat";
 
 "dialog_routing_system_error_carplay" = "On tapahtunut virhe. Käynnistä sovellus uudelleen";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "Navigointipäivitys";
 
 "whatsnew_carnavi_fixes_for_android_message" = "Olemme parantaneet reittisuunnittelua kaukana teistä oleviin kohteisiin";
+
+"avoid_unpaved_carplay_1" = "Päällyste";
+
+"avoid_unpaved_carplay_2" = "Vain päällyste";
+
+"avoid_ferry_carplay_1" = "Ei lauttoja";
+
+"avoid_ferry_carplay_2" = "Ei lauttoja";
+
+"avoid_tolls_carplay_1" = "Ei maksua";
+
+"avoid_tolls_carplay_2" = "Ei maksua";
+
+"speedcams_alert_title_carplay_1" = "Nopeuskamera";
+
+"speedcams_alert_title_carplay_2" = "Nopeuskamerat";
+
+"download_map_carplay" = "Lataa kartat laitteesi MAPS.ME-sovelluksessa";
+
+"carplay_roundabout_exit" = "Poistumisramppi %s";
 
 
 /**********  Partners  **********/

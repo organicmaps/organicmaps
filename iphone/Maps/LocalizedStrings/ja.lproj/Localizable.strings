@@ -2831,7 +2831,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "ルートが構築できません。別のルート地点を設定して下さい";
 
-"dialog_routing_download_files_carplay" = "ルートを構築するために全てのマップが表示されているわけではありません。携帯電話にそれらをダウンロードしてください";
+"dialog_routing_download_files_carplay" = "ルートを作成するには、地図に表示されていない部分を端末でダウンロードします";
 
 "dialog_routing_system_error_carplay" = "エラーが発生しました。アプリを再起動してください";
 
@@ -2926,6 +2926,26 @@
 "whatsnew_carnavi_fixes_for_android_title" = "ナビゲーションの更新";
 
 "whatsnew_carnavi_fixes_for_android_message" = "道から遠く離れた地点へのルート計画を改善しました";
+
+"avoid_unpaved_carplay_1" = "未舗装道路無し";
+
+"avoid_unpaved_carplay_2" = "未舗装道路無し";
+
+"avoid_ferry_carplay_1" = "フェリー無し";
+
+"avoid_ferry_carplay_2" = "フェリーを回避";
+
+"avoid_tolls_carplay_1" = "有料道路無し";
+
+"avoid_tolls_carplay_2" = "有料道路を回避";
+
+"speedcams_alert_title_carplay_1" = "速度警告";
+
+"speedcams_alert_title_carplay_2" = "速度警告";
+
+"download_map_carplay" = "あなたの機器のMAPS.MEのアプリにマップをダウンロードしてください";
+
+"carplay_roundabout_exit" = "第%s出口";
 
 
 /**********  Partners  **********/

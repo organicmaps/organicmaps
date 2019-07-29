@@ -1562,7 +1562,7 @@
 	<string name="dialog_routing_change_end_carplay">Det går inte att bygga rutten till slutpunkten. Välj en annan</string>
 	<string name="dialog_routing_check_gps_carplay">Ingen GPS-signal. Följ till öppna området</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Det går inte att bygga ruten. Välj andra rutenspunkter</string>
-	<string name="dialog_routing_download_files_carplay">Inte alla kartor finns tillgängliga för att bygga en rutt. Ladda ner dem i appen på telefonen</string>
+	<string name="dialog_routing_download_files_carplay">För att skapa en rutt, ladda ner saknade kartor på din enhet</string>
 	<string name="dialog_routing_system_error_carplay">Ett fel uppstod. Starta om appen</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Ruten kommer att byggas om från din nuvarande plats</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Ruten kommer att ändras till bil</string>
@@ -1608,6 +1608,16 @@
 	<string name="whatsnew_subscription_message">Obegränsad tillgång till ruttkatalogen är mer lönsam än ett enstaka köp</string>
 	<string name="whatsnew_carnavi_fixes_for_android_title">Uppdatering av navigering</string>
 	<string name="whatsnew_carnavi_fixes_for_android_message">Vi har förbättrat byggandet av rutter till punkter som ligger långt ifrån vägarna</string>
+	<string name="avoid_unpaved_carplay_1">Utan kärrväg</string>
+	<string name="avoid_unpaved_carplay_2">Utan kärrvägar</string>
+	<string name="avoid_ferry_carplay_1">Utan färjor</string>
+	<string name="avoid_ferry_carplay_2">Utan färjor</string>
+	<string name="avoid_tolls_carplay_1">Utan betalda</string>
+	<string name="avoid_tolls_carplay_2">Utan betalda</string>
+	<string name="speedcams_alert_title_carplay_1">Kameror</string>
+	<string name="speedcams_alert_title_carplay_2">Info om kameror</string>
+	<string name="download_map_carplay">Ladda ner kartor i applikation MAPS.ME på din enhet</string>
+	<string name="carplay_roundabout_exit">%s utgången</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>
