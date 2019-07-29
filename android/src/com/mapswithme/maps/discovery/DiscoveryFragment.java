@@ -37,7 +37,6 @@ import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.placepage.ErrorCatalogPromoListener;
-import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.ConnectionState;
@@ -48,13 +47,12 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.List;
-
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
 import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
 import static com.mapswithme.util.statistics.Destination.ROUTING;
 import static com.mapswithme.util.statistics.GalleryPlacement.DISCOVERY;
 import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
+import static com.mapswithme.util.statistics.GalleryType.PROMO;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_ATTRACTIONS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_HOTELS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_RESTAURANTS;
@@ -339,6 +337,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
         RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
         gallery.setAdapter(adapter);
+        Statistics.INSTANCE.trackGalleryError(PROMO, DISCOVERY, null);
         break;
       default:
         throw new AssertionError("Unknown item type: " + type);

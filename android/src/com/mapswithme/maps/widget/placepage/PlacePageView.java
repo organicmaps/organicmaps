@@ -103,6 +103,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.GalleryPlacement;
+import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -399,6 +400,8 @@ public class PlacePageView extends NestedScrollView
     ErrorCatalogPromoListener<Items.Item> listener = new ErrorCatalogPromoListener<>(getActivity());
     com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
     mCatalogPromoRecycler.setAdapter(adapter);
+    Statistics.INSTANCE.trackGalleryError(GalleryType.PROMO, GalleryPlacement.PLACEPAGE,
+                                          Statistics.ParamValue.NO_PRODUCTS);
   }
 
   public interface SetMapObjectListener

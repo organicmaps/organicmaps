@@ -5,18 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.discovery.DiscoveryManager;
 import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
