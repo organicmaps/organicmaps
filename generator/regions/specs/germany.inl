@@ -31,7 +31,7 @@ PlaceLevel GermanySpecifier::GetSpecificCountryLevel(Region const & region) cons
   {
   case AdminLevel::Four: return PlaceLevel::Region;        // federal states border
   case AdminLevel::Five: return PlaceLevel::Subregion;     // state-district border
-  case AdminLevel::Eight: return PlaceLevel::Sublocality;  // Towns, Municipalities / City-districts
+  case AdminLevel::Eight: return PlaceLevel::Locality;     // Towns, Municipalities / City-districts
   default: break;
   }
 
