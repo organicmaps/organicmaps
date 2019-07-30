@@ -553,7 +553,8 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> con
     if (parse.empty())
       continue;
     if (parse[0] == queryParse[0] &&
-        IsSubsequence(parse.begin() + 1, parse.end(), queryParse.begin() + 1, queryParse.end()))
+        (IsSubsequence(parse.begin() + 1, parse.end(), queryParse.begin() + 1, queryParse.end()) ||
+         IsSubsequence(queryParse.begin() + 1, queryParse.end(), parse.begin() + 1, parse.end())))
     {
       return true;
     }

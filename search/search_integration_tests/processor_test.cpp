@@ -595,35 +595,41 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
   TestCity greenCity(m2::PointD(0, 0), "Зеленоград", "ru", 100 /* rank */);
 
   TestStreet street(
-      vector<m2::PointD>{m2::PointD(0.0, -10.0), m2::PointD(0, 0), m2::PointD(5.0, 5.0)},
+      vector<m2::PointD>{m2::PointD(-5.0, -5.0), m2::PointD(0, 0), m2::PointD(5.0, 5.0)},
       "Генерала Генералова", "ru");
 
-  TestBuilding building0(m2::PointD(2.0, 2.0), "", "100", "en");
-  TestBuilding building1(m2::PointD(3.0, 3.0), "", "к200", "ru");
-  TestBuilding building2(m2::PointD(4.0, 4.0), "", "300 строение 400", "ru");
+  TestBuilding building100(m2::PointD(2.0, 2.0), "", "100", "en");
+  TestBuilding building200(m2::PointD(3.0, 3.0), "", "к200", "ru");
+  TestBuilding building300(m2::PointD(4.0, 4.0), "", "300 строение 400", "ru");
+  TestBuilding building115(m2::PointD(1.0, 1.0), "", "115", "en");
+  TestBuilding building115k1(m2::PointD(-1.0, -1.0), "", "115к1", "en");
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(greenCity); });
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(street);
-    builder.Add(building0);
-    builder.Add(building1);
-    builder.Add(building2);
+    builder.Add(building100);
+    builder.Add(building200);
+    builder.Add(building300);
+    builder.Add(building115);
+    builder.Add(building115k1);
   });
 
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+
   {
-    Rules rules{ExactMatch(countryId, building0), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building100), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Зеленоград генералова к100 ", "ru", rules), ());
   }
   {
-    Rules rules{ExactMatch(countryId, building1), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building200), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Зеленоград генералова к200 ", "ru", rules), ());
   }
   {
-    Rules rules{ExactMatch(countryId, building1), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building200), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Зеленоград к200 генералова ", "ru", rules), ());
   }
   {
-    Rules rules{ExactMatch(countryId, building2), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building300), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Зеленоград 300 строение 400 генералова ", "ru", rules), ());
   }
   {
@@ -631,8 +637,36 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
     TEST(ResultsMatch("Зеленоград генералова строе 300", "ru", rules), ());
   }
   {
-    Rules rules{ExactMatch(countryId, building2), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building300), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Зеленоград генералова 300 строе", "ru", rules), ());
+  }
+  {
+    auto request = MakeRequest("Зеленоград Генерала Генералова 115 ", "ru");
+
+    // Test exact matching result ranked first.
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), 0, (results));
+    TEST(ResultMatches(results[0], ExactMatch(countryId, building115)), (results));
+
+    Rules rules{ExactMatch(countryId, building115), ExactMatch(countryId, building115k1),
+                ExactMatch(countryId, street)};
+    TEST(ResultsMatch(results, rules), ());
+  }
+  {
+    auto request = MakeRequest("Зеленоград Генерала Генералова 115к1 ", "ru");
+
+    // Test exact matching result ranked first.
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), 0, (results));
+    TEST(ResultMatches(results[0], ExactMatch(countryId, building115k1)), (results));
+
+    Rules rules{ExactMatch(countryId, building115k1), ExactMatch(countryId, building115),
+                ExactMatch(countryId, street)};
+    TEST(ResultsMatch(results, rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, building115), ExactMatch(countryId, street)};
+    TEST(ResultsMatch("Зеленоград Генерала Генералова 115к2 ", "ru", rules), ());
   }
 }
 
@@ -2267,7 +2301,7 @@ UNIT_CLASS_TEST(ProcessorTest, StreetPostcodes)
   {
     Rules rules{ExactMatch(countryId, building4), ExactMatch(countryId, street)};
     // Test that we do not require the building to have a postcode if the street has.
-    TEST(ResultsMatch("Rue des Serpents 4 67390 ", "ru", rules), ());
+    TEST(ResultsMatch("4 Rue des Serpents 67390 ", "ru", rules), ());
   }
   {
     Rules rules{ExactMatch(countryId, street)};
