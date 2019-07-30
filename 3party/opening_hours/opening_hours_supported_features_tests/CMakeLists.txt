@@ -7,5 +7,5 @@ set(
   opening_hours_supported_features_tests.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME} base opening_hours)
