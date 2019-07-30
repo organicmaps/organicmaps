@@ -275,15 +275,15 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     boolean isDownloading = enqueued || progress || applying;
     UiUtils.showIf(isPromoFound && isDownloading, mPromoContentDivider);
 
-    if (!isPromoFound)
-      return;
-
     boolean hasMegafonPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON;
     boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_BOOKMARK_CATALOG;
 
     UiUtils.showIf(isDownloading && hasMegafonPromo, mFrame, R.id.banner);
     UiUtils.showIf(isDownloading && hasCatalogPromo, mCatalogCallToActionContainer);
 
+
+    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
+      return;
 
     Statistics.ParameterBuilder builder =
         Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.toStatisticValue());
