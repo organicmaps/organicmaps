@@ -114,7 +114,7 @@ int main(int argc, char ** argv)
       string const & logFile = Checked_in();
       CmdMatch(logFile, FLAGS_out.empty() ? logFile + ".track" : FLAGS_out);
     }
-    if (cmd == "match_dir")
+    else if (cmd == "match_dir")
     {
       string const & logDir = Checked_in();
       CmdMatchDir(logDir, FLAGS_track_extension);
