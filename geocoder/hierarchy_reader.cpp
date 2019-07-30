@@ -61,7 +61,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
   LOG(LINFO, ("Reading entries..."));
 
   vector<Entry> entries;
-  NameDictionaryMaker nameDictionaryMaker;
+  NameDictionaryBuilder nameDictionaryBuilder;
   ParsingStats stats{};
 
   base::thread_pool::computational::ThreadPool threadPool{readersCount};
@@ -86,7 +86,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
         if (auto & position = entry.m_normalizedAddress[i])
         {
           auto const & name = taskNameDictionary.Get(position);
-          position = nameDictionaryMaker.Add(name);
+          position = nameDictionaryBuilder.Add(name);
         }
       }
     }
@@ -118,7 +118,7 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
       ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
   LOG(LINFO, ("(End of stats.)"));
 
-  return Hierarchy{move(entries), nameDictionaryMaker.Release()};
+  return Hierarchy{move(entries), nameDictionaryBuilder.Release()};
 }
 
 void HierarchyReader::CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
@@ -168,7 +168,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
 {
   vector<Entry> entries;
   entries.reserve(bufferSize);
-  NameDictionaryMaker nameDictionaryMaker;
+  NameDictionaryBuilder nameDictionaryBuilder;
   ParsingStats stats;
 
   for (size_t i = 0; i < bufferSize; ++i)
@@ -192,7 +192,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
     auto const osmId = base::GeoObjectId(encodedId);
     entry.m_osmId = osmId;
 
-    if (!entry.DeserializeFromJSON(json, nameDictionaryMaker, stats))
+    if (!entry.DeserializeFromJSON(json, nameDictionaryBuilder, stats))
       continue;
 
     if (entry.m_type == Type::Count)
@@ -207,7 +207,7 @@ HierarchyReader::ParsingResult HierarchyReader::DeserializeEntries(
     entries.push_back(move(entry));
   }
 
-  return {move(entries), nameDictionaryMaker.Release(), move(stats)};
+  return {move(entries), nameDictionaryBuilder.Release(), move(stats)};
 }
 
 // static

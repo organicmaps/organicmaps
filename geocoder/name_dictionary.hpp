@@ -29,12 +29,12 @@ private:
   std::vector<std::string> m_stock;
 };
 
-class NameDictionaryMaker
+class NameDictionaryBuilder
 {
 public:
-  NameDictionaryMaker() = default;
-  NameDictionaryMaker(NameDictionaryMaker const &) = delete;
-  NameDictionaryMaker & operator=(NameDictionaryMaker const &) = delete;
+  NameDictionaryBuilder() = default;
+  NameDictionaryBuilder(NameDictionaryBuilder const &) = delete;
+  NameDictionaryBuilder & operator=(NameDictionaryBuilder const &) = delete;
 
   NameDictionary::Position Add(std::string const & s);
   NameDictionary Release();

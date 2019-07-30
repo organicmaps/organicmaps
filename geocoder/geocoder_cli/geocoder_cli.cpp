@@ -37,7 +37,7 @@ void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
       auto const * delimiter = "";
       for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
       {
-        if (e->m_normalizedAddress[i])
+        if (e->m_normalizedAddress[i] != NameDictionary::kUnspecifiedPosition)
         {
           auto type = static_cast<Type>(i);
           cout << delimiter << ToString(type) << ": " << e->GetNormalizedName(type, dictionary);

@@ -17,13 +17,13 @@ namespace geocoder
 {
 // Hierarchy::Entry --------------------------------------------------------------------------------
 bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr,
-                                           NameDictionaryMaker & normalizedNameDictionaryMaker,
+                                           NameDictionaryBuilder & normalizedNameDictionaryBuilder,
                                            ParsingStats & stats)
 {
   try
   {
     base::Json root(jsonStr.c_str());
-    return DeserializeFromJSONImpl(root.get(), jsonStr, normalizedNameDictionaryMaker, stats);
+    return DeserializeFromJSONImpl(root.get(), jsonStr, normalizedNameDictionaryBuilder, stats);
   }
   catch (base::Json::Exception const & e)
   {
@@ -33,9 +33,9 @@ bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr,
 }
 
 // todo(@m) Factor out to geojson.hpp? Add geojson to myjansson?
-bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr,
-                                               NameDictionaryMaker & normalizedNameDictionaryMaker,
-                                               ParsingStats & stats)
+bool Hierarchy::Entry::DeserializeFromJSONImpl(
+    json_t * const root, string const & jsonStr,
+    NameDictionaryBuilder & normalizedNameDictionaryBuilder, ParsingStats & stats)
 {
   if (!json_is_object(root))
   {
@@ -69,18 +69,20 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
       continue;
 
     auto normalizedValue = strings::JoinStrings(tokens, " ");
-    m_normalizedAddress[i] = normalizedNameDictionaryMaker.Add(normalizedValue);
+    m_normalizedAddress[i] = normalizedNameDictionaryBuilder.Add(normalizedValue);
     m_type = static_cast<Type>(i);
   }
 
   auto const & subregion = m_normalizedAddress[static_cast<size_t>(Type::Subregion)];
   auto const & locality = m_normalizedAddress[static_cast<size_t>(Type::Locality)];
-  if (m_type == Type::Street && !locality && !subregion)
+  if (m_type == Type::Street && locality == NameDictionary::kUnspecifiedPosition &&
+      subregion == NameDictionary::kUnspecifiedPosition)
   {
     ++stats.m_noLocalityStreets;
     return false;
   }
-  if (m_type == Type::Building && !locality && !subregion)
+  if (m_type == Type::Building && locality == NameDictionary::kUnspecifiedPosition &&
+      subregion == NameDictionary::kUnspecifiedPosition)
   {
     ++stats.m_noLocalityBuildings;
     return false;
@@ -144,10 +146,10 @@ bool Hierarchy::IsParentTo(Hierarchy::Entry const & entry, Hierarchy::Entry cons
 {
   for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
   {
-    if (!entry.m_normalizedAddress[i])
+    if (entry.m_normalizedAddress[i] == NameDictionary::kUnspecifiedPosition)
       continue;
 
-    if (!toEntry.m_normalizedAddress[i])
+    if (toEntry.m_normalizedAddress[i] == NameDictionary::kUnspecifiedPosition)
       return false;
     auto const pos1 = entry.m_normalizedAddress[i];
     auto const pos2 = toEntry.m_normalizedAddress[i];

@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 
+#include <limits>
 #include <utility>
 
 namespace geocoder
@@ -16,13 +17,13 @@ std::string const & NameDictionary::Get(Position position) const
 
 NameDictionary::Position NameDictionary::Add(std::string const & s)
 {
-  CHECK_LESS(m_stock.size(), UINT32_MAX, ());
+  CHECK_LESS(m_stock.size(), std::numeric_limits<uint32_t>::max(), ());
   m_stock.push_back(s);
   return m_stock.size();  // index + 1
 }
 
-// NameDictionaryMaker -----------------------------------------------------------------------------
-NameDictionary::Position NameDictionaryMaker::Add(std::string const & s)
+// NameDictionaryBuilder -----------------------------------------------------------------------------
+NameDictionary::Position NameDictionaryBuilder::Add(std::string const & s)
 {
   auto indexItem = m_index.find(s);
   if (indexItem != m_index.end())
@@ -34,7 +35,7 @@ NameDictionary::Position NameDictionaryMaker::Add(std::string const & s)
   return p;
 }
 
-NameDictionary NameDictionaryMaker::Release()
+NameDictionary NameDictionaryBuilder::Release()
 {
   m_index.clear();
   return std::move(m_dictionary);

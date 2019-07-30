@@ -150,9 +150,9 @@ void Index::AddHouses(unsigned int loadThreadsCount)
             buildingDoc.m_normalizedAddress[static_cast<size_t>(Type::Locality)];
 
         NameDictionary::Position relation = NameDictionary::kUnspecifiedPosition;
-        if (street)
+        if (street != NameDictionary::kUnspecifiedPosition)
           relation = street;
-        else if (locality)
+        else if (locality != NameDictionary::kUnspecifiedPosition)
           relation = locality;
         else
           continue;
@@ -174,7 +174,7 @@ void Index::AddHouses(unsigned int loadThreadsCount)
 
         if (indexed)
         {
-          auto processedCount = numIndexed.fetch_add(1) + 1;
+          auto const processedCount = numIndexed.fetch_add(1) + 1;
           if (processedCount % kLogBatch == 0)
             LOG(LINFO, ("Indexed", processedCount, "houses"));
         }

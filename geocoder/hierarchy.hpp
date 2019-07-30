@@ -60,10 +60,10 @@ public:
   struct Entry
   {
     bool DeserializeFromJSON(std::string const & jsonStr,
-                             NameDictionaryMaker & normalizedNameDictionaryMaker,
+                             NameDictionaryBuilder & normalizedNameDictionaryBuilder,
                              ParsingStats & stats);
     bool DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
-                                 NameDictionaryMaker & normalizedNameDictionaryMaker,
+                                 NameDictionaryBuilder & normalizedNameDictionaryBuilder,
                                  ParsingStats & stats);
 
     std::string const & GetNormalizedName(Type type,
