@@ -19,7 +19,8 @@ Container::Container()
                        {"tourism", "guest_house"},
                        {"tourism", "hostel"},
                        {"tourism", "motel"},
-                       {"tourism", "resort"}});
+                       {"tourism", "resort"},
+                       {"sponsored", "promo_catalog"}});
 }
 
 void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
