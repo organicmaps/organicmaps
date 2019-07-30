@@ -58,6 +58,11 @@
     android:tint="?attr/colorAccent"
     android:src="@drawable/ic_menu_download_guides"/>
 
+  <ImageView
+    android:id="@+id/hotel_search"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_hotel_search"/>
+
   <FrameLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
