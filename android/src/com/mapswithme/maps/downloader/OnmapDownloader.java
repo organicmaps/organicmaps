@@ -282,7 +282,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(isDownloading && hasCatalogPromo, mCatalogCallToActionContainer);
 
 
-    if (mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
+    if (!isPromoFound)
       return;
 
     Statistics.ParameterBuilder builder =
