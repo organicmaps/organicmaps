@@ -142,7 +142,6 @@ BookmarkManager::Callbacks const bmCallbacks(
     static StringsBundle dummyBundle;
     return dummyBundle;
   },
-  [](){ return nullptr; },
   static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),
@@ -867,7 +866,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
       static StringsBundle dummyBundle;
       return dummyBundle;
     },
-    [](){ return nullptr; },
     onCreate, onUpdate, onDelete, onAttach, onDetach);
 
   User user;

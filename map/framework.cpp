@@ -380,9 +380,9 @@ void Framework::Migrate(bool keepDownloaded)
     m_drapeEngine->SetRenderingDisabled(true);
     OnDestroySurface();
   }
+  m_bmManager->ResetRegionAddressGetter();
   m_selectedFeature = FeatureID();
   m_discoveryManager.reset();
-  m_regionAddressGetter.reset();
   m_searchAPI.reset();
   m_infoGetter.reset();
   m_taxiEngine.reset();
@@ -395,7 +395,6 @@ void Framework::Migrate(bool keepDownloaded)
   InitCountryInfoGetter();
   InitSearchAPI();
   InitCityFinder();
-  InitRegionAddressGetter();
   InitDiscoveryManager();
   InitTaxiEngine();
   RegisterAllMaps();
@@ -404,6 +403,7 @@ void Framework::Migrate(bool keepDownloaded)
                                                   m_addressGetter, *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
+  m_bmManager->InitRegionAddressGetter(m_model.GetDataSource(), *m_infoGetter);
   if (m_drapeEngine && m_isRenderingEnabled)
   {
     m_drapeEngine->SetRenderingEnabled();
@@ -495,12 +495,13 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
-      [this]() -> search::RegionAddressGetter * { CHECK(m_regionAddressGetter, ()); return m_regionAddressGetter.get(); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
       [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksAttached(marks); },
       [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksDetached(marks); }));
+
+  m_bmManager->InitRegionAddressGetter(m_model.GetDataSource(), *m_infoGetter);
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
@@ -517,7 +518,6 @@ Framework::Framework(FrameworkParams const & params)
   });
 
   InitCityFinder();
-  InitRegionAddressGetter();
   InitDiscoveryManager();
   InitTaxiEngine();
 
@@ -3822,16 +3822,6 @@ void Framework::InitCityFinder()
   ASSERT(!m_cityFinder, ());
 
   m_cityFinder = make_unique<search::CityFinder>(m_model.GetDataSource());
-}
-
-void Framework::InitRegionAddressGetter()
-{
-  ASSERT(!m_regionAddressGetter, ());
-  ASSERT(m_infoGetter, ());
-  ASSERT(m_cityFinder, ());
-
-  m_regionAddressGetter = make_unique<search::RegionAddressGetter>(m_model.GetDataSource(), *m_infoGetter,
-                                                                   *m_cityFinder);
 }
 
 void Framework::InitTaxiEngine()

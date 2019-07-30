@@ -53,7 +53,8 @@ void RegionInfoGetter::SetLocale(string const & locale)
   m_nameGetter = platform::GetTextByIdFactory(platform::TextSource::Countries, locale);
 }
 
-void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id, vector<string> & nameParts) const
+void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id,
+                                            vector<string> & nameParts) const
 {
   size_t const kMaxNumParts = 2;
 

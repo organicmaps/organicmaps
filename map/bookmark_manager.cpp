@@ -965,6 +965,19 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_firstDrapeNotification = true;
 }
 
+void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
+                                              storage::CountryInfoGetter const & infoGetter)
+{
+  std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+  m_regionAddressGetter = std::make_unique<search::RegionAddressGetter>(dataSource, infoGetter);
+}
+
+void BookmarkManager::ResetRegionAddressGetter()
+{
+  std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+  m_regionAddressGetter.reset();
+}
+
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
 {
   m_viewport = screen;
@@ -1992,25 +2005,6 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
     if (!IsValidFilterType(filter, fromCatalog))
       continue;
     category.second->SetIsVisible(visible);
-  }
-}
-
-void BookmarkManager::PrepareBookmarksAddresses(kml::MarkGroupId catId)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(IsBookmarkCategory(catId), ());
-
-  auto addressGetter = m_callbacks.m_getRegionAddressGetter();
-  if (!addressGetter)
-    return;
-
-  auto session = GetEditSession();
-  auto * group = GetGroup(catId);
-  for (auto bmId : group->GetUserMarks())
-  {
-    auto * bookmark = GetBookmarkForEdit(bmId);
-    if (!bookmark->GetAddress().IsValid())
-      bookmark->SetAddress(addressGetter->GetNearbyRegionAddress(bookmark->GetPivot()));
   }
 }
 

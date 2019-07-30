@@ -57,7 +57,7 @@ public:
   /// All "Nearby" functions work in this lookup radius.
   static int constexpr kLookupRadiusM = 500;
 
-  ReverseGeocoder(DataSource const & dataSource);
+  explicit ReverseGeocoder(DataSource const & dataSource);
 
   struct Street : public Object
   {
@@ -102,30 +102,16 @@ public:
 
   struct RegionAddress
   {
+    // CountryId is set in case when FeatureID is not found or belongs to World.wmw
+    // and we can't get country name from it.
     storage::CountryId m_countryId;
     FeatureID m_featureId;
 
-    bool operator==(RegionAddress const & rhs) const
-    {
-      return m_countryId == rhs.m_countryId && m_featureId == rhs.m_featureId;
-    }
-
-    bool operator!=(RegionAddress const & rhs) const { return !(*this == rhs); }
-    bool operator<(RegionAddress const & rhs) const
-    {
-      if (m_countryId == rhs.m_countryId)
-        return m_featureId < rhs.m_featureId;
-      return m_countryId < rhs.m_countryId;
-    }
-
-    bool IsValid() const { return storage::IsCountryIdValid(m_countryId) || m_featureId.IsValid(); }
-
-    std::string GetCountryName() const
-    {
-      if (m_featureId.IsValid() && m_featureId.m_mwmId.GetInfo()->GetType() != MwmInfo::WORLD)
-        return m_featureId.m_mwmId.GetInfo()->GetCountryName();
-      return m_countryId;
-    }
+    bool IsValid() const;
+    std::string GetCountryName() const;
+    bool operator==(RegionAddress const & rhs) const;
+    bool operator!=(RegionAddress const & rhs) const;
+    bool operator<(RegionAddress const & rhs) const;
   };
 
   friend std::string DebugPrint(Address const & addr);
@@ -163,10 +149,12 @@ public:
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
-  /// @return The nearest region address where mwm or exact city known.
-  static RegionAddress GetNearbyRegionAddress(m2::PointD const & center, storage::CountryInfoGetter const & infoGetter,
+  /// Returns the nearest region address where mwm or exact city is known.
+  static RegionAddress GetNearbyRegionAddress(m2::PointD const & center,
+                                              storage::CountryInfoGetter const & infoGetter,
                                               CityFinder & cityFinder);
-  std::string GetLocalizedRegionAdress(RegionAddress const & addr, RegionInfoGetter const & nameGetter) const;
+  std::string GetLocalizedRegionAddress(RegionAddress const & addr,
+                                        RegionInfoGetter const & nameGetter) const;
 
 private:
   /// Helper class to incapsulate house 2 street table reloading.

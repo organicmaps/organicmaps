@@ -23,6 +23,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -33,6 +34,12 @@ namespace search
 class RegionAddressGetter;
 }  // namespace search
 
+namespace storage
+{
+class CountryInfoGetter;
+}  // namespace storage
+
+class DataSource;
 class User;
 
 class BookmarkManager final
@@ -62,31 +69,27 @@ public:
 
   struct Callbacks
   {
-    using GetStringsBundleFn = std::function<StringsBundle const & ()>;
-    using GetRegionAddressGetterFn = std::function<search::RegionAddressGetter * ()>;
+    using GetStringsBundleFn = std::function<StringsBundle const &()>;
     using CreatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using UpdatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
     using AttachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
-    template <typename StringsBundleProvider, typename RegionAddressGetterProvider,
-              typename CreateListener, typename UpdateListener, typename DeleteListener,
-              typename AttachListener, typename DetachListener>
-    Callbacks(StringsBundleProvider && stringsBundleProvider, RegionAddressGetterProvider && regionAddressGetterProvider,
-              CreateListener && createListener, UpdateListener && updateListener, DeleteListener && deleteListener,
+    template <typename StringsBundleProvider, typename CreateListener, typename UpdateListener,
+              typename DeleteListener, typename AttachListener, typename DetachListener>
+    Callbacks(StringsBundleProvider && stringsBundleProvider, CreateListener && createListener,
+              UpdateListener && updateListener, DeleteListener && deleteListener,
               AttachListener && attachListener, DetachListener && detachListener)
-        : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
-        , m_getRegionAddressGetter(std::forward<RegionAddressGetterProvider>(regionAddressGetterProvider))
-        , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
-        , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
-        , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
-        , m_attachedBookmarksCallback(std::forward<AttachListener>(attachListener))
-        , m_detachedBookmarksCallback(std::forward<DetachListener>(detachListener))
+      : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
+      , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
+      , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
+      , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
+      , m_attachedBookmarksCallback(std::forward<AttachListener>(attachListener))
+      , m_detachedBookmarksCallback(std::forward<DetachListener>(detachListener))
     {}
 
     GetStringsBundleFn m_getStringsBundle;
-    GetRegionAddressGetterFn m_getRegionAddressGetter;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;
@@ -158,6 +161,10 @@ public:
   BookmarkManager(User & user, Callbacks && callbacks);
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+
+  void InitRegionAddressGetter(DataSource const & dataSource,
+                               storage::CountryInfoGetter const & infoGetter);
+  void ResetRegionAddressGetter();
 
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
@@ -553,8 +560,6 @@ private:
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
 
-  void PrepareBookmarksAddresses(kml::MarkGroupId groupId);
-
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 
   ThreadChecker m_threadChecker;
@@ -563,6 +568,10 @@ private:
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
+
+  unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
+  std::mutex m_regionAddressMutex;
+
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;

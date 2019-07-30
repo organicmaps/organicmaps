@@ -85,7 +85,7 @@ string Join(string const & s, Args &&... args)
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 // static
-boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(std::string const & keyName,
+boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
                                                                  vector<Street> const & streets)
 {
   auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
@@ -326,24 +326,27 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radiu
 }
 
 // static
-ReverseGeocoder::RegionAddress ReverseGeocoder::GetNearbyRegionAddress(m2::PointD const & center,
-                                                                       storage::CountryInfoGetter const & infoGetter,
-                                                                       CityFinder & cityFinder)
+ReverseGeocoder::RegionAddress ReverseGeocoder::GetNearbyRegionAddress(
+    m2::PointD const & center, storage::CountryInfoGetter const & infoGetter,
+    CityFinder & cityFinder)
 {
   RegionAddress addr;
   addr.m_featureId = cityFinder.GetCityFeatureID(center);
-  if (!addr.m_featureId.IsValid() || addr.m_featureId.m_mwmId.GetInfo()->GetType() == MwmInfo::WORLD)
+  if (!addr.m_featureId.IsValid() ||
+      addr.m_featureId.m_mwmId.GetInfo()->GetType() == MwmInfo::WORLD)
+  {
     addr.m_countryId = infoGetter.GetRegionCountryId(center);
+  }
   return addr;
 }
 
-std::string ReverseGeocoder::GetLocalizedRegionAdress(RegionAddress const & addr,
-                                                      RegionInfoGetter const & nameGetter) const
+string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
+                                                  RegionInfoGetter const & nameGetter) const
 {
   if (!addr.IsValid())
     return {};
 
-  std::string addrStr;
+  string addrStr;
   if (addr.m_featureId.IsValid())
   {
     m_dataSource.ReadFeature([&addrStr](FeatureType & ft) { ft.GetReadableName(addrStr); },
@@ -352,17 +355,10 @@ std::string ReverseGeocoder::GetLocalizedRegionAdress(RegionAddress const & addr
     auto const countryName = addr.GetCountryName();
     if (!countryName.empty())
     {
-      std::vector<std::string> nameParts;
+      vector<string> nameParts;
       nameGetter.GetLocalizedFullName(countryName, nameParts);
-
-      std::vector<std::string> uniqueParts;
-      uniqueParts.push_back(addrStr);
-      for (auto part : nameParts)
-      {
-        if (uniqueParts.back() != part)
-          uniqueParts.push_back(part);
-      }
-      addrStr = strings::JoinStrings(uniqueParts, ", ");
+      nameParts.erase(unique(nameParts.begin(), nameParts.end()), nameParts.end());
+      addrStr = strings::JoinStrings(nameParts, ", ");
     }
   }
   else
@@ -413,6 +409,35 @@ string ReverseGeocoder::Address::FormatAddress() const
     return {};
 
   return Join(m_street.m_name, m_building.m_name);
+}
+
+bool ReverseGeocoder::RegionAddress::IsValid() const
+{
+  return storage::IsCountryIdValid(m_countryId) || m_featureId.IsValid();
+}
+
+string ReverseGeocoder::RegionAddress::GetCountryName() const
+{
+  if (m_featureId.IsValid() && m_featureId.m_mwmId.GetInfo()->GetType() != MwmInfo::WORLD)
+    return m_featureId.m_mwmId.GetInfo()->GetCountryName();
+  return m_countryId;
+}
+
+bool ReverseGeocoder::RegionAddress::operator==(RegionAddress const & rhs) const
+{
+  return m_countryId == rhs.m_countryId && m_featureId == rhs.m_featureId;
+}
+
+bool ReverseGeocoder::RegionAddress::operator!=(RegionAddress const & rhs) const
+{
+  return !(*this == rhs);
+}
+
+bool ReverseGeocoder::RegionAddress::operator<(RegionAddress const & rhs) const
+{
+  if (m_countryId != rhs.m_countryId)
+    return m_countryId < rhs.m_countryId;
+  return m_featureId < rhs.m_featureId;
 }
 
 string DebugPrint(ReverseGeocoder::Object const & obj)
