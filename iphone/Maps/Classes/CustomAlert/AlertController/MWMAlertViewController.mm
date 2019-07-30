@@ -276,6 +276,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)displayAlert:(MWMAlert *)alert
 {
+  UIViewController *ownerVC = self.ownerViewController;
+  BOOL isOwnerLoaded = ownerVC.isViewLoaded;
+  if (!isOwnerLoaded) {
+    return;
+  }
+  
   // TODO(igrechuhin): Remove this check on location manager refactoring.
   // Workaround for current location manager duplicate error alerts.
   if ([alert isKindOfClass:[MWMLocationAlert class]])
@@ -300,7 +306,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
   [self removeFromParentViewController];
   alert.alertController = self;
-  [self.ownerViewController addChildViewController:self];
+  [ownerVC addChildViewController:self];
   alert.alpha = 0.;
   CGFloat const scale = 1.1;
   alert.transform = CGAffineTransformMakeScale(scale, scale);
