@@ -44,10 +44,12 @@
           android:id="@+id/downloader_title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="@style/MwmTextAppearance.Title"
-          android:textSize="@dimen/text_size_toolbar"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:fontFamily="@string/robotoMedium"
+          android:textStyle="normal"
           android:gravity="center_horizontal"
-          tools:text="Some title very loooooooooong title"/>
+          tools:text="Some title very loooooooooong title"
+          tools:ignore="UnusedAttribute"/>
         <TextView
           android:id="@+id/downloader_size"
           android:layout_width="wrap_content"
@@ -103,7 +105,7 @@
         android:visibility="gone"
         android:gravity="center"
         android:layout_height="wrap_content"
-        tools:visibility="visible">
+        tools:visibility="gone">
         <ImageView
           android:id="@+id/icon"
           android:layout_width="wrap_content"
@@ -146,33 +148,37 @@
         android:layout_width="@dimen/square_block_size"
         android:visibility="gone"
         android:layout_height="wrap_content"
-        tools:visibility="gone">
+        tools:visibility="visible">
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
           android:text="@string/popup_mwm_download_guides_title"
           android:gravity="center"
+          android:fontFamily="@string/robotoMedium"
+          android:textStyle="normal"
           android:textAppearance="?android:attr/textAppearanceLarge"
-          tools:text="very very very loooooooooooooooooong text"/>
+          tools:text="very very very loooooooooooooooooong text"
+          tools:ignore="UnusedAttribute"/>
         <Button
           android:id="@+id/catalog_call_to_action_btn"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingLeft="@dimen/margin_half"
-          android:paddingStart="@dimen/margin_half"
-          android:paddingRight="@dimen/margin_half"
-          android:paddingEnd="@dimen/margin_half"
           style="@style/MwmWidget.Button.Primary"
-          android:paddingTop="@dimen/margin_quarter_plus"
-          android:paddingBottom="@dimen/margin_quarter_plus"
           android:layout_marginTop="@dimen/margin_base"
           android:fontFamily="@string/robotoMedium"
+          android:textStyle="normal"
           android:textAllCaps="false"
+          android:paddingTop="@dimen/margin_half_plus_eight"
+          android:paddingBottom="@dimen/margin_half_plus_eight"
+          android:paddingRight="@dimen/margin_half"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingStart="@dimen/margin_half"
           android:textSize="@dimen/text_size_body_3"
           android:text="@string/popup_mwm_download_guides_cta"
+          tools:text="DOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDES"
           android:textColor="@color/white_primary"
-          android:lines="1"
           tools:targetApi="jelly_bean"/>
       </LinearLayout>
     </LinearLayout>
