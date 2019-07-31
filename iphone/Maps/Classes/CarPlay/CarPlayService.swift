@@ -143,6 +143,11 @@ final class CarPlayService: NSObject {
     interfaceController?.popTemplate(animated: animated)
   }
   
+  func presentAlert(_ template: CPAlertTemplate, animated: Bool) {
+    interfaceController?.dismissTemplate(animated: false)
+    interfaceController?.presentTemplate(template, animated: animated)
+  }
+  
   func cancelCurrentTrip() {
     router?.cancelTrip()
     if let carplayVC = carplayVC {
@@ -220,8 +225,7 @@ final class CarPlayService: NSObject {
     }
     let alert = CPAlertTemplate(titleVariants: [L("download_map_carplay")], actions: [])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.downloadMap]
-    interfaceController?.dismissTemplate(animated: true)
-    interfaceController?.presentTemplate(alert, animated: true)
+    presentAlert(alert, animated: true)
   }
   
   @objc func hideNoMapAlert() {
@@ -648,7 +652,7 @@ extension CarPlayService {
     })
     let alert = CPAlertTemplate(titleVariants: [L("redirect_route_alert")], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.redirectRoute]
-    interfaceController?.presentTemplate(alert, animated: true)
+    presentAlert(alert, animated: true)
   }
   
   func showKeyboardAlert() {
@@ -656,7 +660,7 @@ extension CarPlayService {
       self.interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: [L("keyboard_availability_alert")], actions: [okAction])
-    interfaceController?.presentTemplate(alert, animated: true)
+    presentAlert(alert, animated: true)
   }
   
   func showErrorAlert(code: RouterResultCode, countries: [String]) {
@@ -692,7 +696,7 @@ extension CarPlayService {
       self.interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: titleVariants, actions: [okAction])
-    interfaceController?.presentTemplate(alert, animated: true)
+    presentAlert(alert, animated: true)
   }
   
   func showRecoverRouteAlert(trip: CPTrip, isTypeCorrect: Bool) {
@@ -716,6 +720,6 @@ extension CarPlayService {
     let title = isTypeCorrect ? L("dialog_routing_rebuild_from_current_location_carplay") : L("dialog_routing_rebuild_for_vehicle_carplay")
     let alert = CPAlertTemplate(titleVariants: [title], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.restoreRoute]
-    interfaceController?.presentTemplate(alert, animated: true)
+    presentAlert(alert, animated: true)
   }
 }
