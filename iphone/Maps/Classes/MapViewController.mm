@@ -280,9 +280,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
-  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
+  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
@@ -579,7 +579,10 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   switch (mode)
   {
   case MWMMyPositionModeNotFollowNoPosition: break;
-  case MWMMyPositionModePendingPosition: [MWMLocationManager start]; break;
+  case MWMMyPositionModePendingPosition:
+      if (self.welcomePageController && [Alohalytics isFirstSession]) { break; }
+      [MWMLocationManager start];
+      break;
   case MWMMyPositionModeNotFollow: break;
   case MWMMyPositionModeFollow:
   case MWMMyPositionModeFollowAndRotate: self.disableStandbyOnLocationStateMode = YES; break;
@@ -595,9 +598,13 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
   if (isMapVisible && ![MWMLocationManager isLocationProhibited])
   {
-    [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
+    if (self.welcomePageController) {
       GetFramework().SwitchMyPositionNextMode();
-    }];
+    } else {
+      [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
+        GetFramework().SwitchMyPositionNextMode();
+      }];
+    }
   }
 }
 
