@@ -7,33 +7,34 @@ import android.support.v4.app.FragmentManager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 
+import java.util.Objects;
+
 public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
 {
   private static final String PROGRESS_DIALOG_TAG = "base_progress_dialog";
 
-  @SuppressWarnings("NullableProblems")
   protected void showProgress()
   {
-    int resId = getProgressDialogTitle();
+    int resId = getProgressMessageId();
     String title = getString(resId);
     ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(title);
-    getFragmentManager()
-        .beginTransaction()
-        .add(dialog, PROGRESS_DIALOG_TAG)
-        .commitAllowingStateLoss();
+    Objects.requireNonNull(getFragmentManager())
+           .beginTransaction()
+           .add(dialog, PROGRESS_DIALOG_TAG)
+           .commitAllowingStateLoss();
   }
 
   @StringRes
-  protected int getProgressDialogTitle()
+  protected int getProgressMessageId()
   {
     return R.string.downloading;
   }
 
-  @SuppressWarnings("NullableProblems")
   protected void hideProgress()
   {
     FragmentManager fm = getFragmentManager();
-    DialogFragment frag = (DialogFragment) fm.findFragmentByTag(PROGRESS_DIALOG_TAG);
+    DialogFragment frag = (DialogFragment) Objects.requireNonNull(fm)
+                                                  .findFragmentByTag(PROGRESS_DIALOG_TAG);
     if (frag != null)
       frag.dismissAllowingStateLoss();
   }

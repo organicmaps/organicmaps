@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.Utils;
@@ -24,7 +26,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Collections;
 import java.util.List;
 
-public class BookmarkSubscriptionFragment extends BaseMwmFragment
+public class BookmarkSubscriptionFragment extends BaseAuthFragment
     implements AlertDialogCallback, PurchaseStateActivator<BookmarkSubscriptionPaymentState>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
@@ -249,13 +251,13 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
 
   public void finishPinging()
   {
-    if (mPingingResult)
+    if (!mPingingResult)
     {
-      launchPurchaseFlow();
+      PurchaseUtils.showPingFailureDialog(this);
       return;
     }
 
-    PurchaseUtils.showPingFailureDialog(this);
+    authorize();
   }
 
   @Override
@@ -273,6 +275,44 @@ public class BookmarkSubscriptionFragment extends BaseMwmFragment
                                                                     : PurchaseUtils.Period.P1M;
     ProductDetails details = getProductDetailsForPeriod(period);
     mPurchaseController.launchPurchaseFlow(details.getProductId());
+  }
+
+  @Override
+  protected int getProgressMessageId()
+  {
+    return R.string.please_wait;
+  }
+
+  @Override
+  public void onAuthorizationFinish(boolean success)
+  {
+    hideProgress();
+    if (!success)
+    {
+      Toast.makeText(requireContext(), R.string.profile_authorization_error, Toast.LENGTH_LONG)
+           .show();
+      return;
+    }
+
+    launchPurchaseFlow();
+  }
+
+  @Override
+  public void onAuthorizationStart()
+  {
+    showProgress();
+  }
+
+  @Override
+  public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
+  {
+    LOGGER.i(TAG, "Social authentication cancelled,  auth type = " + type);
+  }
+
+  @Override
+  public void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error)
+  {
+    LOGGER.w(TAG, "Social authentication error = " + error + ",  auth type = " + type);
   }
 
   private class AnnualCardClickListener implements View.OnClickListener
