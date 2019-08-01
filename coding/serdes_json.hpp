@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <deque>
+#include <map>
 #include <memory>
 #include <type_traits>
 #include <unordered_set>
@@ -170,6 +171,15 @@ public:
     });
   }
 
+  template <typename Key, typename T>
+  void operator()(std::pair<Key, T> const & p, char const * name = nullptr)
+  {
+    NewScopeWith(base::NewJSONObject(), name, [this, &p] {
+      (*this)(p.first, "key");
+      (*this)(p.second, "value");
+    });
+  }
+
   template <typename Optional>
   void operator()(Optional const & opt, Optional const &, char const * name = nullptr)
   {
@@ -313,6 +323,38 @@ public:
       RestoreContext(context);
     }
 
+    RestoreContext(outerContext);
+  }
+
+  template <typename Key, typename T>
+  void operator()(std::map<Key, T> & dst, char const * name = nullptr)
+  {
+    json_t * outerContext = SaveContext(name);
+
+    if (!json_is_array(m_json))
+      MYTHROW(base::Json::Exception,
+              ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
+
+    size_t size = json_array_size(m_json);
+    for (size_t index = 0; index < size; ++index)
+    {
+      json_t * context = SaveContext();
+      m_json = json_array_get(context, index);
+      std::pair<Key, T> tmp;
+      (*this)(tmp);
+      dst.insert(tmp);
+      RestoreContext(context);
+    }
+
+    RestoreContext(outerContext);
+  }
+
+  template <typename Key, typename T>
+  void operator()(std::pair<Key, T> & dst, char const * name = nullptr)
+  {
+    json_t * outerContext = SaveContext(name);
+    (*this)(dst.first, "key");
+    (*this)(dst.second, "value");
     RestoreContext(outerContext);
   }
 

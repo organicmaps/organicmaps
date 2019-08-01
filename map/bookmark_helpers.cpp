@@ -9,6 +9,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_utils.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -26,7 +27,7 @@
 
 namespace
 {
-std::map<std::string, kml::BookmarkIcon> const kBookmarkTypeToIcon = {
+std::map<std::string, kml::BookmarkIcon> const kFeatureTypeToBookmarkIcon = {
   {"amenity-bbq", kml::BookmarkIcon::Food},
   {"tourism-picnic_site", kml::BookmarkIcon::Food},
   {"leisure-picnic_table", kml::BookmarkIcon::Food},
@@ -128,7 +129,6 @@ std::map<std::string, kml::BookmarkIcon> const kBookmarkTypeToIcon = {
   {"office-lawyer", kml::BookmarkIcon::Building},
   {"building-train_station", kml::BookmarkIcon::Building},
   {"building-university", kml::BookmarkIcon::Building},
-
 
   {"amenity-atm", kml::BookmarkIcon::Exchange},
   {"amenity-bureau_de_change", kml::BookmarkIcon::Exchange},
@@ -237,6 +237,215 @@ std::map<std::string, kml::BookmarkIcon> const kBookmarkTypeToIcon = {
   {"amenity-clinic", kml::BookmarkIcon::Medicine},
   {"amenity-childcare", kml::BookmarkIcon::Medicine},
   {"emergency-defibrillator", kml::BookmarkIcon::Medicine}
+};
+
+std::map<std::string, BookmarkBaseType> const kFeatureTypeToBookmarkType = {
+  {"amenity-bbq", BookmarkBaseType::Food},
+  {"tourism-picnic_site", BookmarkBaseType::Food},
+  {"leisure-picnic_table", BookmarkBaseType::Food},
+  {"amenity-cafe", BookmarkBaseType::Food},
+  {"amenity-restaurant", BookmarkBaseType::Food},
+  {"amenity-fast_food", BookmarkBaseType::Food},
+  {"amenity-food_court", BookmarkBaseType::Food},
+  {"amenity-bar", BookmarkBaseType::Food},
+  {"amenity-pub", BookmarkBaseType::Food},
+  {"amenity-biergarten", BookmarkBaseType::Food},
+
+  {"waterway-waterfall", BookmarkBaseType::Sights},
+  {"historic-tomb", BookmarkBaseType::Sights},
+  {"historic-boundary_stone", BookmarkBaseType::Sights},
+  {"historic-ship", BookmarkBaseType::Sights},
+  {"historic-archaeological_site", BookmarkBaseType::Sights},
+  {"historic-monument", BookmarkBaseType::Sights},
+  {"historic-memorial", BookmarkBaseType::Sights},
+  {"tourism-attraction", BookmarkBaseType::Sights},
+  {"tourism-theme_park", BookmarkBaseType::Sights},
+  {"tourism-viewpoint", BookmarkBaseType::Sights},
+  {"historic-fort", BookmarkBaseType::Sights},
+  {"historic-castle", BookmarkBaseType::Sights},
+  {"tourism-artwork", BookmarkBaseType::Sights},
+  {"historic-ruins", BookmarkBaseType::Sights},
+  {"historic-wayside_shrine", BookmarkBaseType::Sights},
+  {"historic-wayside_cross", BookmarkBaseType::Sights},
+
+  {"tourism-gallery", BookmarkBaseType::Museum},
+  {"tourism-museum", BookmarkBaseType::Museum},
+  {"amenity-arts_centre", BookmarkBaseType::Museum},
+
+  {"sport", BookmarkBaseType::Entertainment},
+  {"sport-multi", BookmarkBaseType::Entertainment},
+  {"leisure-playground", BookmarkBaseType::Entertainment},
+  {"leisure-water_park", BookmarkBaseType::Entertainment},
+  {"amenity-casino", BookmarkBaseType::Entertainment},
+  {"sport-archery", BookmarkBaseType::Entertainment},
+  {"sport-shooting", BookmarkBaseType::Entertainment},
+  {"sport-australian_football", BookmarkBaseType::Entertainment},
+  {"sport-bowls", BookmarkBaseType::Entertainment},
+  {"sport-curling", BookmarkBaseType::Entertainment},
+  {"sport-cricket", BookmarkBaseType::Entertainment},
+  {"sport-baseball", BookmarkBaseType::Entertainment},
+  {"sport-basketball", BookmarkBaseType::Entertainment},
+  {"sport-american_football", BookmarkBaseType::Entertainment},
+  {"sport-athletics", BookmarkBaseType::Entertainment},
+  {"sport-golf", BookmarkBaseType::Entertainment},
+  {"sport-gymnastics", BookmarkBaseType::Entertainment},
+  {"sport-tennis", BookmarkBaseType::Entertainment},
+  {"sport-skiing", BookmarkBaseType::Entertainment},
+  {"sport-soccer", BookmarkBaseType::Entertainment},
+  {"amenity-nightclub", BookmarkBaseType::Entertainment},
+  {"amenity-cinema", BookmarkBaseType::Entertainment},
+  {"amenity-theatre", BookmarkBaseType::Entertainment},
+  {"leisure-stadium", BookmarkBaseType::Entertainment},
+
+  {"boundary-national_park", BookmarkBaseType::Park},
+  {"leisure-nature_reserve", BookmarkBaseType::Park},
+  {"landuse-forest", BookmarkBaseType::Park},
+
+  {"natural-beach", BookmarkBaseType::Swim},
+  {"sport-diving", BookmarkBaseType::Swim},
+  {"sport-scuba_diving", BookmarkBaseType::Swim},
+  {"sport-swimming", BookmarkBaseType::Swim},
+  {"leisure-swimming_pool", BookmarkBaseType::Swim},
+
+  {"natural-cave_entrance", BookmarkBaseType::Mountain},
+  {"natural-peak", BookmarkBaseType::Mountain},
+  {"natural-volcano", BookmarkBaseType::Mountain},
+  {"natural-rock", BookmarkBaseType::Mountain},
+  {"natural-bare_rock", BookmarkBaseType::Mountain},
+
+  {"amenity-veterinary", BookmarkBaseType::Animals},
+  {"leisure-dog_park", BookmarkBaseType::Animals},
+  {"tourism-zoo", BookmarkBaseType::Animals},
+
+  {"tourism-apartment", BookmarkBaseType::Hotel},
+  {"tourism-chalet", BookmarkBaseType::Hotel},
+  {"tourism-guest_house", BookmarkBaseType::Hotel},
+  {"tourism-alpine_hut", BookmarkBaseType::Hotel},
+  {"tourism-wilderness_hut", BookmarkBaseType::Hotel},
+  {"tourism-hostel", BookmarkBaseType::Hotel},
+  {"tourism-motel", BookmarkBaseType::Hotel},
+  {"tourism-resort", BookmarkBaseType::Hotel},
+  {"tourism-hotel", BookmarkBaseType::Hotel},
+  {"sponsored-booking", BookmarkBaseType::Hotel},
+
+  {"amenity-kindergarten", BookmarkBaseType::Building},
+  {"amenity-school", BookmarkBaseType::Building},
+  {"office", BookmarkBaseType::Building},
+  {"amenity-library", BookmarkBaseType::Building},
+  {"amenity-courthouse", BookmarkBaseType::Building},
+  {"amenity-college", BookmarkBaseType::Building},
+  {"amenity-police", BookmarkBaseType::Building},
+  {"amenity-prison", BookmarkBaseType::Building},
+  {"amenity-embassy", BookmarkBaseType::Building},
+  {"office-lawyer", BookmarkBaseType::Building},
+  {"building-train_station", BookmarkBaseType::Building},
+  {"building-university", BookmarkBaseType::Building},
+
+  {"amenity-atm", BookmarkBaseType::Exchange},
+  {"amenity-bureau_de_change", BookmarkBaseType::Exchange},
+  {"amenity-bank", BookmarkBaseType::Exchange},
+
+  {"amenity-vending_machine", BookmarkBaseType::Shop},
+  {"shop", BookmarkBaseType::Shop},
+  {"amenity-marketplace", BookmarkBaseType::Shop},
+  {"craft", BookmarkBaseType::Shop},
+  {"shop-pawnbroker", BookmarkBaseType::Shop},
+  {"shop-supermarket", BookmarkBaseType::Shop},
+  {"shop-car_repair", BookmarkBaseType::Shop},
+  {"shop-mall", BookmarkBaseType::Shop},
+  {"highway-services", BookmarkBaseType::Shop},
+  {"shop-stationery", BookmarkBaseType::Shop},
+  {"shop-variety_store", BookmarkBaseType::Shop},
+  {"shop-alcohol", BookmarkBaseType::Shop},
+  {"shop-wine", BookmarkBaseType::Shop},
+  {"shop-books", BookmarkBaseType::Shop},
+  {"shop-bookmaker", BookmarkBaseType::Shop},
+  {"shop-bakery", BookmarkBaseType::Shop},
+  {"shop-beauty", BookmarkBaseType::Shop},
+  {"shop-cosmetics", BookmarkBaseType::Shop},
+  {"shop-beverages", BookmarkBaseType::Shop},
+  {"shop-bicycle", BookmarkBaseType::Shop},
+  {"shop-butcher", BookmarkBaseType::Shop},
+  {"shop-car", BookmarkBaseType::Shop},
+  {"shop-motorcycle", BookmarkBaseType::Shop},
+  {"shop-car_parts", BookmarkBaseType::Shop},
+  {"shop-car_repair", BookmarkBaseType::Shop},
+  {"shop-tyres", BookmarkBaseType::Shop},
+  {"shop-chemist", BookmarkBaseType::Shop},
+  {"shop-clothes", BookmarkBaseType::Shop},
+  {"shop-computer", BookmarkBaseType::Shop},
+  {"shop-tattoo", BookmarkBaseType::Shop},
+  {"shop-erotic", BookmarkBaseType::Shop},
+  {"shop-funeral_directors", BookmarkBaseType::Shop},
+  {"shop-confectionery", BookmarkBaseType::Shop},
+  {"shop-chocolate", BookmarkBaseType::Shop},
+  {"amenity-ice_cream", BookmarkBaseType::Shop},
+  {"shop-convenience", BookmarkBaseType::Shop},
+  {"shop-copyshop", BookmarkBaseType::Shop},
+  {"shop-photo", BookmarkBaseType::Shop},
+  {"shop-pet", BookmarkBaseType::Shop},
+  {"shop-department_store", BookmarkBaseType::Shop},
+  {"shop-doityourself", BookmarkBaseType::Shop},
+  {"shop-electronics", BookmarkBaseType::Shop},
+  {"shop-florist", BookmarkBaseType::Shop},
+  {"shop-furniture", BookmarkBaseType::Shop},
+  {"shop-garden_centre", BookmarkBaseType::Shop},
+  {"shop-gift", BookmarkBaseType::Shop},
+  {"shop-music", BookmarkBaseType::Shop},
+  {"shop-video", BookmarkBaseType::Shop},
+  {"shop-musical_instrument", BookmarkBaseType::Shop},
+  {"shop-greengrocer", BookmarkBaseType::Shop},
+  {"shop-hairdresser", BookmarkBaseType::Shop},
+  {"shop-hardware", BookmarkBaseType::Shop},
+  {"shop-jewelry", BookmarkBaseType::Shop},
+  {"shop-kiosk", BookmarkBaseType::Shop},
+  {"shop-laundry", BookmarkBaseType::Shop},
+  {"shop-dry_cleaning", BookmarkBaseType::Shop},
+  {"shop-mobile_phone", BookmarkBaseType::Shop},
+  {"shop-optician", BookmarkBaseType::Shop},
+  {"shop-outdoor", BookmarkBaseType::Shop},
+  {"shop-seafood", BookmarkBaseType::Shop},
+  {"shop-shoes", BookmarkBaseType::Shop},
+  {"shop-sports", BookmarkBaseType::Shop},
+  {"shop-ticket", BookmarkBaseType::Shop},
+  {"shop-toys", BookmarkBaseType::Shop},
+  {"shop-fabric", BookmarkBaseType::Shop},
+  {"shop-alcohol", BookmarkBaseType::Shop},
+
+  {"amenity-parking", BookmarkBaseType::Parking},
+  {"vending-parking_tickets", BookmarkBaseType::Parking},
+  {"tourism-caravan_site", BookmarkBaseType::Parking},
+  {"amenity-bicycle_parking", BookmarkBaseType::Parking},
+  {"amenity-taxi", BookmarkBaseType::Parking},
+  {"amenity-car_sharing", BookmarkBaseType::Parking},
+  {"tourism-camp_site", BookmarkBaseType::Parking},
+  {"amenity-motorcycle_parking", BookmarkBaseType::Parking},
+
+  {"amenity-place_of_worship", BookmarkBaseType::ReligiousPlace},
+  {"amenity-place_of_worship-christian", BookmarkBaseType::ReligiousPlace},
+  {"landuse-cemetery-christian", BookmarkBaseType::ReligiousPlace},
+  {"amenity-grave_yard-christian", BookmarkBaseType::ReligiousPlace},
+  {"amenity-place_of_worship-jewish", BookmarkBaseType::ReligiousPlace},
+  {"amenity-place_of_worship-buddhist", BookmarkBaseType::ReligiousPlace},
+  {"amenity-place_of_worship-muslim", BookmarkBaseType::ReligiousPlace},
+
+  {"amenity-fuel", BookmarkBaseType::Gas},
+  {"amenity-charging_station", BookmarkBaseType::Gas},
+
+  {"amenity-fountain", BookmarkBaseType::Water},
+  {"natural-spring", BookmarkBaseType::Water},
+  {"amenity-drinking_water", BookmarkBaseType::Water},
+  {"man_made-water_tap", BookmarkBaseType::Water},
+  {"amenity-water_point", BookmarkBaseType::Water},
+
+  {"amenity-dentist", BookmarkBaseType::Medicine},
+  {"amenity-clinic", BookmarkBaseType::Medicine},
+  {"amenity-doctors", BookmarkBaseType::Medicine},
+  {"amenity-hospital", BookmarkBaseType::Medicine},
+  {"amenity-pharmacy", BookmarkBaseType::Medicine},
+  {"amenity-clinic", BookmarkBaseType::Medicine},
+  {"amenity-childcare", BookmarkBaseType::Medicine},
+  {"emergency-defibrillator", BookmarkBaseType::Medicine}
 };
 
 void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
@@ -418,10 +627,40 @@ void ResetIds(kml::FileData & kmlData)
     trackData.m_id = kml::kInvalidTrackId;
 }
 
-kml::BookmarkIcon GetBookmarkIconByType(uint32_t type)
+BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes)
+{
+  auto const & c = classif();
+  for (auto typeIndex : featureTypes)
+  {
+    auto const type = c.GetTypeForIndex(typeIndex);
+    auto const typeStr = c.GetReadableObjectName(type);
+
+    static std::string const kDelim = "-";
+
+    std::vector<std::string> tokens;
+    strings::Tokenize(typeStr, kDelim.c_str(), [&tokens](std::string const & s) { tokens.push_back(s); });
+
+    for (size_t sz = tokens.size(); sz > 0; --sz)
+    {
+      std::stringstream ss;
+      for (size_t i = 0; i < sz; ++i)
+      {
+        ss << tokens[i];
+        if (i + 1 < sz)
+          ss << kDelim;
+      }
+      auto const itType = kFeatureTypeToBookmarkType.find(ss.str());
+      if (itType != kFeatureTypeToBookmarkType.cend())
+        return itType->second;
+    }
+  }
+  return BookmarkBaseType::None;
+}
+
+kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
 {
   auto const typeStr = classif().GetReadableObjectName(type);
-  
+
   static std::string const kDelim = "-";
   std::vector<std::string> v;
   strings::Tokenize(typeStr, kDelim.c_str(), [&v] (std::string const & s) {v.push_back(s);});
@@ -434,8 +673,8 @@ kml::BookmarkIcon GetBookmarkIconByType(uint32_t type)
       if (i + 1 < sz)
         ss << kDelim;
     }
-    auto const itIcon = kBookmarkTypeToIcon.find(ss.str());
-    if (itIcon != kBookmarkTypeToIcon.cend())
+    auto const itIcon = kFeatureTypeToBookmarkIcon.find(ss.str());
+    if (itIcon != kFeatureTypeToBookmarkIcon.cend())
       return itIcon->second;
   }
   return kml::BookmarkIcon::None;
@@ -451,7 +690,7 @@ void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bm
   {
     bmData.m_featureTypes.push_back(c.GetIndexForType(*it));
     if (bmData.m_icon == kml::BookmarkIcon::None)
-      bmData.m_icon = GetBookmarkIconByType(*it);
+      bmData.m_icon = GetBookmarkIconByFeatureType(*it);
   }
 }
 
@@ -465,9 +704,36 @@ std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature
   return kml::GetPreferredBookmarkStr(name, regionData, languages::GetCurrentNorm());
 }
 
-std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types)
+std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
 {
-  return kml::GetLocalizedBookmarkType(types);
+  return kml::GetLocalizedFeatureType(types);
+}
+
+std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
+{
+  switch (type)
+  {
+  case BookmarkBaseType::None: return "";
+  case BookmarkBaseType::Hotel: return platform::GetLocalizedString("hotels");
+  case BookmarkBaseType::Animals: return platform::GetLocalizedString("animals");
+  case BookmarkBaseType::Building: return platform::GetLocalizedString("buildings");
+  case BookmarkBaseType::Entertainment: return platform::GetLocalizedString("entertainment");
+  case BookmarkBaseType::Exchange: return platform::GetLocalizedString("money");
+  case BookmarkBaseType::Food: return platform::GetLocalizedString("food_places");
+  case BookmarkBaseType::Gas: return platform::GetLocalizedString("fuel_places");
+  case BookmarkBaseType::Medicine: return platform::GetLocalizedString("medicine");
+  case BookmarkBaseType::Mountain: return platform::GetLocalizedString("mountains");
+  case BookmarkBaseType::Museum: return platform::GetLocalizedString("museums");
+  case BookmarkBaseType::Park: return platform::GetLocalizedString("parks");
+  case BookmarkBaseType::Parking: return platform::GetLocalizedString("parkings");
+  case BookmarkBaseType::ReligiousPlace: return platform::GetLocalizedString("religious_places");
+  case BookmarkBaseType::Shop: return platform::GetLocalizedString("shops");
+  case BookmarkBaseType::Sights: return platform::GetLocalizedString("tourist_places");
+  case BookmarkBaseType::Swim: return platform::GetLocalizedString("swim_places");
+  case BookmarkBaseType::Water: return platform::GetLocalizedString("water");
+  case BookmarkBaseType::Count: CHECK(false, ("Invalid bookmark base type")); return "";
+  }
+  UNREACHABLE();
 }
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)

@@ -62,7 +62,7 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
   return preferredName;
 }
 
-std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types)
+std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
 {
   if (types.empty())
     return {};
@@ -80,7 +80,7 @@ std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string co
   if (name.empty())
     name = GetPreferredBookmarkStr(bmData.m_name, languageNorm);
   if (name.empty())
-    name = GetLocalizedBookmarkType(bmData.m_featureTypes);
+    name = GetLocalizedFeatureType(bmData.m_featureTypes);
   return name;
 }
 }  // namespace kml

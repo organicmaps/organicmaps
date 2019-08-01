@@ -257,7 +257,7 @@ void Info::SetTitlesForBookmark()
   std::vector<std::string> subtitle;
   subtitle.push_back(m_bookmarkCategoryName);
   if (!m_bookmarkData.m_featureTypes.empty())
-    subtitle.push_back(GetLocalizedBookmarkType(m_bookmarkData.m_featureTypes));
+    subtitle.push_back(GetLocalizedFeatureType(m_bookmarkData.m_featureTypes));
   m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
 }
 
