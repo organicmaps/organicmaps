@@ -4,6 +4,9 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "geometry/parametrized_segment.hpp"
+#include "geometry/point2d.hpp"
+
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -159,5 +162,24 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
 
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+}
+
+bool PolylineInRect(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect)
+{
+  if (junctions.empty())
+    return false;
+
+  if (junctions.size() == 1)
+    return rect.IsPointInside(junctions.front().GetPoint());
+
+  auto const & center = rect.Center();
+  for (size_t i = 1; i < junctions.size(); ++i)
+  {
+    m2::ParametrizedSegment<m2::PointD> segProj(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
+    m2::PointD const & proj = segProj.ClosestPointTo(center);
+    if (rect.IsPointInside(proj))
+      return true;
+  }
+  return false;
 }
 }  // namespace routing

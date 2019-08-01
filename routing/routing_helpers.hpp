@@ -2,6 +2,7 @@
 
 #include "routing/directions_engine.hpp"
 #include "routing/index_road_graph.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/traffic_stash.hpp"
 
@@ -10,6 +11,8 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
+
+#include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
 
@@ -49,6 +52,9 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
 /// \brief Converts |edge| to |segment|.
 /// \returns Segment() if mwm of |edge| is not alive.
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
+
+// @returns true if any part of polyline |junctions| lay in |rect| and false otherwise.
+bool PolylineInRect(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect);
 
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,
