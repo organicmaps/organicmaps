@@ -75,9 +75,11 @@ void Index::AddEntries()
     }
     else
     {
-      auto const & name = doc.GetNormalizedName(doc.m_type, dictionary);
-      search::NormalizeAndTokenizeAsUtf8(name, tokens);
-      m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
+      for (auto const & name : doc.GetNormalizedMultipleNames(doc.m_type, dictionary))
+      {
+        search::NormalizeAndTokenizeAsUtf8(name, tokens);
+        InsertToIndex(tokens, docId);
+      }
     }
 
     ++numIndexed;
@@ -98,26 +100,28 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
   };
 
   auto const & dictionary = m_hierarchy.GetNormalizedNameDictionary();
-  auto const & name = doc.GetNormalizedName(Type::Street, dictionary);
   Tokens tokens;
-  search::NormalizeAndTokenizeAsUtf8(name, tokens);
-
-  if (all_of(begin(tokens), end(tokens), isStreetSynonym))
+  for (auto const & name : doc.GetNormalizedMultipleNames(Type::Street, dictionary))
   {
-    if (tokens.size() > 1)
-      m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
-    return;
-  }
+    search::NormalizeAndTokenizeAsUtf8(name, tokens);
 
-  m_docIdsByTokens[MakeIndexKey(tokens)].emplace_back(docId);
+    if (all_of(begin(tokens), end(tokens), isStreetSynonym))
+    {
+      if (tokens.size() > 1)
+        InsertToIndex(tokens, docId);
+      return;
+    }
 
-  for (size_t i = 0; i < tokens.size(); ++i)
-  {
-    if (!isStreetSynonym(tokens[i]))
-      continue;
-    auto addr = tokens;
-    addr.erase(addr.begin() + i);
-    m_docIdsByTokens[MakeIndexKey(addr)].emplace_back(docId);
+    InsertToIndex(tokens, docId);
+
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+      if (!isStreetSynonym(tokens[i]))
+        continue;
+      auto addr = tokens;
+      addr.erase(addr.begin() + i);
+      InsertToIndex(addr, docId);
+    }
   }
 }
 
@@ -157,9 +161,12 @@ void Index::AddHouses(unsigned int loadThreadsCount)
         else
           continue;
 
-        auto const & relationName = dictionary.Get(relation);
+        auto const & relationMultipleNames = dictionary.Get(relation);
+        auto const & relationName = relationMultipleNames.GetMainName();
         Tokens relationNameTokens;
         search::NormalizeAndTokenizeAsUtf8(relationName, relationNameTokens);
+        CHECK(!relationNameTokens.empty(), ());
+
         bool indexed = false;
         ForEachDocId(relationNameTokens, [&](DocId const & candidate) {
           auto const & candidateDoc = GetDoc(candidate);
@@ -187,5 +194,12 @@ void Index::AddHouses(unsigned int loadThreadsCount)
 
   if (numIndexed % kLogBatch != 0)
     LOG(LINFO, ("Indexed", numIndexed, "houses"));
+}
+
+void Index::InsertToIndex(Tokens const & tokens, DocId docId)
+{
+  auto & ids = m_docIdsByTokens[MakeIndexKey(tokens)];
+  if (0 == count(ids.begin(), ids.end(), docId))
+    ids.emplace_back(docId);
 }
 }  // namespace geocoder

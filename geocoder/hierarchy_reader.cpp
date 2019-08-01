@@ -85,8 +85,8 @@ Hierarchy HierarchyReader::Read(unsigned int readersCount)
       {
         if (auto & position = entry.m_normalizedAddress[i])
         {
-          auto const & name = taskNameDictionary.Get(position);
-          position = nameDictionaryBuilder.Add(name);
+          auto const & multipleNames = taskNameDictionary.Get(position);
+          position = nameDictionaryBuilder.Add(MultipleNames{multipleNames});
         }
       }
     }

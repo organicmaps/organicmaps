@@ -65,9 +65,16 @@ public:
     bool DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
                                  NameDictionaryBuilder & normalizedNameDictionaryBuilder,
                                  ParsingStats & stats);
+    bool DeserializeAddressFromJSON(json_t * const root,
+                                    NameDictionaryBuilder & normalizedNameDictionaryBuilder,
+                                    ParsingStats & stats);
+    static bool FetchAddressFieldNames(json_t * const locales, Type type,
+                                       MultipleNames & multipleNames,
+                                       NameDictionaryBuilder & normalizedNameDictionaryBuilder,
+                                       ParsingStats & stats);
 
-    std::string const & GetNormalizedName(Type type,
-                                          NameDictionary const & normalizedNameDictionary) const;
+    MultipleNames const & GetNormalizedMultipleNames(
+        Type type, NameDictionary const & normalizedNameDictionary) const;
     bool operator<(Entry const & rhs) const { return m_osmId < rhs.m_osmId; }
 
     base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);

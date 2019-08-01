@@ -55,6 +55,8 @@ public:
   }
 
 private:
+  void InsertToIndex(Tokens const & tokens, DocId docId);
+
   // Converts |tokens| to a single UTF-8 string that can be used
   // as a key in the |m_docIdsByTokens| map.
   static std::string MakeIndexKey(Tokens const & tokens);

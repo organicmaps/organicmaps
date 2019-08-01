@@ -76,9 +76,25 @@ UNIT_TEST(Geocoder_Hierarchy)
   });
 
   TEST_EQUAL(entries.size(), 1, ());
-  TEST_EQUAL(entries[0].GetNormalizedName(Type::Country, dictionary), "cuba", ());
-  TEST_EQUAL(entries[0].GetNormalizedName(Type::Region, dictionary), "ciego de avila", ());
-  TEST_EQUAL(entries[0].GetNormalizedName(Type::Subregion, dictionary), "florencia", ());
+  TEST_EQUAL(entries[0].GetNormalizedMultipleNames(Type::Country, dictionary).GetMainName(), "cuba",
+             ());
+  TEST_EQUAL(entries[0].GetNormalizedMultipleNames(Type::Region, dictionary).GetMainName(),
+             "ciego de avila", ());
+  TEST_EQUAL(entries[0].GetNormalizedMultipleNames(Type::Subregion, dictionary).GetMainName(),
+             "florencia", ());
+}
+
+UNIT_TEST(Geocoder_EnglishNames)
+{
+  string const kData = R"#(
+10 {"properties": {"locales": {"default": {"address": {"locality": "Москва"}}, "en": {"address": {"locality": "Moscow"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Москва", "street": "улица Новый Арбат"}}, "en": {"address": {"locality": "Moscow", "street": "New Arbat Avenue"}}}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Moscow, New Arbat", {{Id{0x11}, 1.0}, {Id{0x10}, 0.6}});
 }
 
 UNIT_TEST(Geocoder_OnlyBuildings)

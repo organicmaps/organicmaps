@@ -40,7 +40,8 @@ void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
         if (e->m_normalizedAddress[i] != NameDictionary::kUnspecifiedPosition)
         {
           auto type = static_cast<Type>(i);
-          cout << delimiter << ToString(type) << ": " << e->GetNormalizedName(type, dictionary);
+          auto multipleNames = e->GetNormalizedMultipleNames(type, dictionary);
+          cout << delimiter << ToString(type) << ": " << multipleNames.GetMainName();
           delimiter = ", ";
         }
       }

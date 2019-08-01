@@ -43,34 +43,44 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(
     MYTHROW(base::Json::Exception, ("Not a json object."));
   }
 
+  if (!DeserializeAddressFromJSON(root, normalizedNameDictionaryBuilder, stats))
+    return false;
+
   auto const defaultLocale = base::GetJSONObligatoryFieldByPath(root, "properties", "locales",
                                                                 "default");
-  auto const address = base::GetJSONObligatoryField(defaultLocale, "address");
+  FromJSONObjectOptionalField(defaultLocale, "name", m_name);
+  if (m_name.empty())
+    ++stats.m_emptyNames;
+
+  if (m_type == Type::Count)
+  {
+    LOG(LDEBUG, ("No address in an hierarchy entry:", jsonStr));
+    ++stats.m_emptyAddresses;
+  }
+  return true;
+}
+
+bool Hierarchy::Entry::DeserializeAddressFromJSON(
+    json_t * const root, NameDictionaryBuilder & normalizedNameDictionaryBuilder,
+    ParsingStats & stats)
+{
+  auto const locales = base::GetJSONObligatoryFieldByPath(root, "properties", "locales");
   m_normalizedAddress= {};
-  Tokens tokens;
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
   {
     Type const type = static_cast<Type>(i);
-    string const & levelKey = ToString(type);
-    auto const levelJson = base::GetJSONOptionalField(address, levelKey);
-    if (!levelJson)
-      continue;
-
-    if (base::JSONIsNull(levelJson))
+    MultipleNames multipleNames;
+    if (!FetchAddressFieldNames(locales, type, multipleNames, normalizedNameDictionaryBuilder,
+                                stats))
+    {
       return false;
+    }
 
-    string levelValue;
-    FromJSON(levelJson, levelValue);
-    if (levelValue.empty())
-      continue;
-
-    search::NormalizeAndTokenizeAsUtf8(levelValue, tokens);
-    if (tokens.empty())
-      continue;
-
-    auto normalizedValue = strings::JoinStrings(tokens, " ");
-    m_normalizedAddress[i] = normalizedNameDictionaryBuilder.Add(normalizedValue);
-    m_type = static_cast<Type>(i);
+    if (!multipleNames.GetMainName().empty())
+    {
+      m_normalizedAddress[i] = normalizedNameDictionaryBuilder.Add(move(multipleNames));
+      m_type = static_cast<Type>(i);
+    }
   }
 
   auto const & subregion = m_normalizedAddress[static_cast<size_t>(Type::Subregion)];
@@ -88,22 +98,53 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(
     return false;
   }
 
-  FromJSONObjectOptionalField(defaultLocale, "name", m_name);
-  if (m_name.empty())
-    ++stats.m_emptyNames;
-
-  if (m_type == Type::Count)
-  {
-    LOG(LDEBUG, ("No address in an hierarchy entry:", jsonStr));
-    ++stats.m_emptyAddresses;
-  }
   return true;
 }
 
-std::string const & Hierarchy::Entry::GetNormalizedName(
+// static
+bool Hierarchy::Entry::FetchAddressFieldNames(
+    json_t * const locales, Type type, MultipleNames & multipleNames,
+    NameDictionaryBuilder & normalizedNameDictionaryBuilder, ParsingStats & stats)
+{
+  char const * localeName = nullptr;
+  json_t * localisedNames = nullptr;
+  string const & levelKey = ToString(type);
+  Tokens tokens;
+  json_object_foreach(locales, localeName, localisedNames)
+  {
+    auto const address = base::GetJSONObligatoryField(localisedNames, "address");
+    auto const levelJson = base::GetJSONOptionalField(address, levelKey);
+    if (!levelJson)
+      continue;
+
+    if (base::JSONIsNull(levelJson))
+      return false;
+
+    string levelValue;
+    FromJSON(levelJson, levelValue);
+    if (levelValue.empty())
+      continue;
+
+    search::NormalizeAndTokenizeAsUtf8(levelValue, tokens);
+    if (tokens.empty())
+      continue;
+
+    auto normalizedValue = strings::JoinStrings(tokens, " ");
+    static std::string defaultLocale = "default";
+    if (localeName == defaultLocale)
+      multipleNames.SetMainName(normalizedValue);
+    else
+      multipleNames.AddAltName(normalizedValue);
+  }
+
+  return true;
+}
+
+MultipleNames const & Hierarchy::Entry::GetNormalizedMultipleNames(
     Type type, NameDictionary const & normalizedNameDictionary) const
 {
-  return normalizedNameDictionary.Get(m_normalizedAddress[static_cast<size_t>(type)]);
+  auto const & addressField = m_normalizedAddress[static_cast<size_t>(type)];
+  return normalizedNameDictionary.Get(addressField);
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
@@ -151,13 +192,16 @@ bool Hierarchy::IsParentTo(Hierarchy::Entry const & entry, Hierarchy::Entry cons
 
     if (toEntry.m_normalizedAddress[i] == NameDictionary::kUnspecifiedPosition)
       return false;
+
     auto const pos1 = entry.m_normalizedAddress[i];
     auto const pos2 = toEntry.m_normalizedAddress[i];
-    if (pos1 != pos2 &&
-        m_normalizedNameDictionary.Get(pos1) != m_normalizedNameDictionary.Get(pos2))
-    {
+    if (pos1 == pos2)
+      continue;
+
+    auto const & name1 = m_normalizedNameDictionary.Get(pos1).GetMainName();
+    auto const & name2 = m_normalizedNameDictionary.Get(pos2).GetMainName();
+    if (name1 != name2)
       return false;
-    }
   }
   return true;
 }

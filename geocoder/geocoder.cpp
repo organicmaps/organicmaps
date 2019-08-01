@@ -374,8 +374,9 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, vector
     {
       m_index.ForEachRelatedBuilding(docId, [&](Index::DocId const & buildingDocId) {
         auto const & bld = m_index.GetDoc(buildingDocId);
-        auto const & realHN = bld.GetNormalizedName(Type::Building,
-                                                    m_hierarchy.GetNormalizedNameDictionary());
+        auto const & multipleHN = bld.GetNormalizedMultipleNames(
+            Type::Building, m_hierarchy.GetNormalizedNameDictionary());
+        auto const & realHN = multipleHN.GetMainName();
         auto const & realHNUniStr = strings::MakeUniString(realHN);
         if (search::house_numbers::HouseNumbersMatch(realHNUniStr, subqueryHN,
                                                      false /* queryIsPrefix */))
