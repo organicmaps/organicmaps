@@ -17,8 +17,10 @@ typedef NS_ENUM(NSUInteger, MWMTheme) {
 };
 
 typedef uint64_t MWMMarkID;
-typedef uint64_t MWMLineID;
+typedef uint64_t MWMTrackID;
 typedef uint64_t MWMMarkGroupID;
+typedef NSArray<NSNumber *> * MWMMarkIDCollection;
+typedef NSArray<NSNumber *> * MWMTrackIDCollection;
 typedef NSArray<NSNumber *> * MWMGroupIDCollection;
 
 typedef NS_ENUM(NSUInteger, MWMBookmarksShareStatus) {

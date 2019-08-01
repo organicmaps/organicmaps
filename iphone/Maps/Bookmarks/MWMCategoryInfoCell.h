@@ -1,4 +1,5 @@
 #import "MWMTableViewCell.h"
+#import "BookmarksSection.h"
 
 namespace kml
 {
@@ -7,7 +8,7 @@ struct CategoryData;
 
 @class MWMCategoryInfoCell;
 
-@protocol MWMCategoryInfoCellDelegate
+@protocol MWMCategoryInfoCellDelegate <InfoSectionDelegate>
 
 - (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell;
 
