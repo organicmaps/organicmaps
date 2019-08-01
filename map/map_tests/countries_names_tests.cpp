@@ -55,7 +55,16 @@ UNIT_TEST(CountriesNamesTest)
                                    // MAPSME-10611
                                    "Mayorca Residencial",
                                    "Magnolias Residencial",
-                                   "Residencial Magnolias"};
+                                   "Residencial Magnolias",
+                                   // It's relevant only for relase-92.
+                                   "Municipio Guanarito",
+                                   "Municipio Esteller",
+                                   "Municipio Turén",
+                                   "Municipio Araure",
+                                   "Municipio Páez",
+                                   "Municipio Agua Blanca",
+                                   "Municipio Onoto",
+                                   "Municipio Santa Rosalía"};
 
   auto const features = cache.Get(mwmContext);
   features.ForEach([&](uint64_t fid) {
