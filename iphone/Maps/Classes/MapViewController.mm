@@ -282,7 +282,8 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   self.view.clipsToBounds = YES;
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
-  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
+  [self processMyPositionStateModeEvent:[MWMLocationManager isLocationProhibited] ?
+                                         MWMMyPositionModeNotFollowNoPosition : MWMMyPositionModePendingPosition];
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
@@ -582,6 +583,8 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   case MWMMyPositionModePendingPosition:
       if (self.welcomePageController && [Alohalytics isFirstSession]) { break; }
       [MWMLocationManager start];
+      if (![MWMLocationManager isStarted])
+        [self processMyPositionStateModeEvent: MWMMyPositionModeNotFollowNoPosition];
       break;
   case MWMMyPositionModeNotFollow: break;
   case MWMMyPositionModeFollow:

@@ -1,5 +1,6 @@
 #import "MWMSideButtons.h"
 #import "MWMButton.h"
+#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMSettings.h"
@@ -15,19 +16,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 namespace
 {
 NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
-
-NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger imagesCount)
-{
-  NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
-  NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
-  for (NSUInteger i = 1; i <= imagesCount; i += 1)
-  {
-    NSString * name =
-        [NSString stringWithFormat:@"%@_%@_%@", animationTemplate, mode, @(i).stringValue];
-    [images addObject:static_cast<UIImage *>([UIImage imageNamed:name])];
-  }
-  return images.copy;
-}
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -85,51 +73,11 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)mwm_refreshUI
 {
   [self.sideView mwm_refreshUI];
-  [self.locationButton.imageView stopRotation];
   [self refreshLocationButtonState:self.locationMode];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
-  UIButton * locBtn = self.locationButton;
-  [locBtn.imageView stopRotation];
-
-  NSArray<UIImage *> * images =
-      ^NSArray<UIImage *> *(MWMMyPositionMode oldMode, MWMMyPositionMode newMode)
-  {
-    switch (newMode)
-    {
-    case MWMMyPositionModeNotFollow:
-    case MWMMyPositionModeNotFollowNoPosition:
-      if (oldMode == MWMMyPositionModeFollowAndRotate)
-        return animationImages(@"btn_follow_and_rotate_to_get_position", 3);
-      else if (oldMode == MWMMyPositionModeFollow)
-        return animationImages(@"btn_follow_to_get_position", 3);
-      return nil;
-    case MWMMyPositionModeFollow:
-      if (oldMode == MWMMyPositionModeFollowAndRotate)
-        return animationImages(@"btn_follow_and_rotate_to_follow", 3);
-      else if (oldMode == MWMMyPositionModeNotFollow ||
-               oldMode == MWMMyPositionModeNotFollowNoPosition)
-        return animationImages(@"btn_get_position_to_follow", 3);
-      return nil;
-    case MWMMyPositionModePendingPosition: return nil;
-    case MWMMyPositionModeFollowAndRotate:
-      if (oldMode == MWMMyPositionModeFollow)
-        return animationImages(@"btn_follow_to_follow_and_rotate", 3);
-      return nil;
-    }
-  }
-  (self.locationMode, mode);
-  locBtn.imageView.animationImages = images;
-  if (images)
-  {
-    locBtn.imageView.animationDuration = 0.0;
-    locBtn.imageView.animationRepeatCount = 1;
-    locBtn.imageView.image = images.lastObject;
-    [locBtn.imageView startAnimating];
-  }
-  [locBtn.imageView stopRotation];
   [self refreshLocationButtonState:mode];
   self.locationMode = mode;
 }
@@ -138,29 +86,21 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 - (void)refreshLocationButtonState:(MWMMyPositionMode)state
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    if (self.locationButton.imageView.isRotating)
+  MWMButton * locBtn = self.locationButton;
+  [locBtn.imageView stopRotation];
+  switch (state)
+  {
+    case MWMMyPositionModePendingPosition:
     {
-      [self refreshLocationButtonState:state];
+      locBtn.imageName = @"btn_pending";
+      [locBtn.imageView startRotation:1];
+      break;
     }
-    else
-    {
-      MWMButton * locBtn = self.locationButton;
-      switch (state)
-      {
-      case MWMMyPositionModePendingPosition:
-      {
-        locBtn.imageName = @"btn_pending";
-        [locBtn.imageView startRotation:1];
-        break;
-      }
-      case MWMMyPositionModeNotFollow:
-      case MWMMyPositionModeNotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
-      case MWMMyPositionModeFollow: locBtn.imageName = @"btn_follow"; break;
-      case MWMMyPositionModeFollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
-      }
-    }
-  });
+    case MWMMyPositionModeNotFollow:
+    case MWMMyPositionModeNotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
+    case MWMMyPositionModeFollow: locBtn.imageName = @"btn_follow"; break;
+    case MWMMyPositionModeFollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
+  }
 }
 
 #pragma mark - Actions
@@ -191,6 +131,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (IBAction)locationTouchUpInside
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
+  [MWMLocationManager enableLocationAlert];
   GetFramework().SwitchMyPositionNextMode();
 }
 

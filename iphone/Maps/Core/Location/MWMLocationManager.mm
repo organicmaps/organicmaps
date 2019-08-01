@@ -132,17 +132,28 @@ BOOL keepRunningInBackground()
 }
 
 NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequestedKey";
+NSString * const kLocationAlertNeedShowKey = @"kLocationAlertNeedShowKey";
 
-BOOL isPermissionRequested()
-{
+BOOL isPermissionRequested() {
   return [NSUserDefaults.standardUserDefaults boolForKey:kLocationPermissionRequestedKey];
 }
 
-void setPermissionRequested()
-{
+void setPermissionRequested() {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:YES forKey:kLocationPermissionRequestedKey];
   [ud synchronize];
+}
+       
+BOOL needShowLocationAlert() {
+ if ([NSUserDefaults.standardUserDefaults objectForKey:kLocationAlertNeedShowKey] == nil)
+   return YES;
+ return [NSUserDefaults.standardUserDefaults boolForKey:kLocationAlertNeedShowKey];
+}
+
+void setShowLocationAlert(BOOL needShow) {
+ NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+ [ud setBool:needShow forKey:kLocationAlertNeedShowKey];
+ [ud synchronize];
 }
 }  // namespace
 
@@ -196,6 +207,8 @@ void setPermissionRequested()
 + (void)start { [self manager].started = YES; }
 
 + (void)stop { [self manager].started = NO; }
+
++ (BOOL)isStarted { return [self manager].started; }
 
 #pragma mark - Add/Remove Observers
 
@@ -325,10 +338,12 @@ void setPermissionRequested()
     [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
     break;
   case location::EDenied:
-    [[MWMAlertViewController activeAlertController] presentLocationAlert];
-    break;
   case location::EGPSIsOff:
-    // iOS shows its own alert.
+    if (needShowLocationAlert()) {
+      [[MWMAlertViewController activeAlertController] presentLocationAlertWithCancelBlock:^{
+        setShowLocationAlert(NO);
+      }];
+    }
     break;
   }
 }
@@ -472,20 +487,19 @@ void setPermissionRequested()
   if (_started == started)
     return;
   NSNotificationCenter * notificationCenter = NSNotificationCenter.defaultCenter;
-  if (started)
-  {
+  if (started) {
     _started = [self start];
-    [notificationCenter addObserver:self
-                           selector:@selector(orientationChanged)
-                               name:UIDeviceOrientationDidChangeNotification
-                             object:nil];
-    [notificationCenter addObserver:self
-                           selector:@selector(batteryStateChangedNotification:)
-                               name:UIDeviceBatteryStateDidChangeNotification
-                             object:nil];
-  }
-  else
-  {
+    if (_started) {
+      [notificationCenter addObserver:self
+                             selector:@selector(orientationChanged)
+                                 name:UIDeviceOrientationDidChangeNotification
+                               object:nil];
+      [notificationCenter addObserver:self
+                             selector:@selector(batteryStateChangedNotification:)
+                                 name:UIDeviceBatteryStateDidChangeNotification
+                               object:nil];
+    }
+  } else {
     _started = NO;
     [self stop];
     [notificationCenter removeObserver:self
@@ -523,8 +537,6 @@ void setPermissionRequested()
   }
   else
   {
-    // Call start to make iOS show its alert to request geo service.
-    doStart();
     [self processLocationStatus:location::EGPSIsOff];
   }
   return NO;
@@ -585,6 +597,12 @@ void setPermissionRequested()
   {
     _frameworkUpdateMode = frameworkUpdateMode;
   }
+}
+
+#pragma mark - Location alert
+
++ (void)enableLocationAlert {
+  setShowLocationAlert(YES);
 }
 
 @end

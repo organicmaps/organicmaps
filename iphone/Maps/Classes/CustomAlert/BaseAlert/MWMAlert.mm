@@ -15,7 +15,10 @@
 @implementation MWMAlert
 
 + (MWMAlert *)rateAlert { return [MWMRateAlert alert]; }
-+ (MWMAlert *)locationAlert { return [MWMLocationAlert alert]; }
++ (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock {
+  return [MWMLocationAlert alertWithCancelBlock:cancelBlock];
+}
+
 + (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];

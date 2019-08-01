@@ -9,17 +9,19 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 @interface MWMLocationAlert ()
 
 @property (weak, nonatomic) IBOutlet UIButton * rightButton;
+@property (nullable, nonatomic) MWMVoidBlock cancelBlock;
 
 @end
 
 @implementation MWMLocationAlert
 
-+ (instancetype)alert
++ (instancetype)alertWithCancelBlock:(MWMVoidBlock)cancelBlock
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMLocationAlert * alert =
       [NSBundle.mainBundle loadNibNamed:kLocationAlertNibName owner:nil options:nil].firstObject;
   [alert setNeedsCloseAlertAfterEnterBackground];
+  alert.cancelBlock = cancelBlock;
   return alert;
 }
 
@@ -37,7 +39,7 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 - (IBAction)closeTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
-  [self close:nil];
+  [self close:self.cancelBlock];
 }
 
 @end

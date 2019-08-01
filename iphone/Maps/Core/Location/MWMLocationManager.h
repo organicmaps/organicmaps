@@ -6,6 +6,7 @@
 
 + (void)start;
 + (void)stop;
++ (BOOL)isStarted;
 
 + (void)addObserver:(id<MWMLocationObserver>)observer;
 + (void)removeObserver:(id<MWMLocationObserver>)observer;
@@ -18,6 +19,8 @@
 
 + (void)applicationDidBecomeActive;
 + (void)applicationWillResignActive;
+
++ (void)enableLocationAlert;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

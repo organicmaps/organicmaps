@@ -51,10 +51,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 #pragma mark - Actions
 
 - (void)presentRateAlert { [self displayAlert:[MWMAlert rateAlert]]; }
-- (void)presentLocationAlert
+- (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock
 {
   if (![MapViewController sharedController].welcomePageController)
-    [self displayAlert:[MWMAlert locationAlert]];
+    [self displayAlert:[MWMAlert locationAlertWithCancelBlock: cancelBlock]];
 }
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild
