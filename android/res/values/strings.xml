@@ -2205,6 +2205,7 @@
 	<string name="type.natural.glacier">Glacier</string>
 	<string name="type.natural.grassland">Field</string>
 	<string name="type.natural.heath">Heath</string>
+	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.lake">Lake</string>
 	<string name="type.natural.land">natural-land</string>
 	<string name="type.natural.meadow">Meadow</string>

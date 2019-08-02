@@ -3997,6 +3997,8 @@
 
 "type.natural.heath" = "Heath";
 
+"type.natural.hot_spring" = "Hot Spring";
+
 "type.natural.lake" = "Danau";
 
 "type.natural.land" = "natural-land";

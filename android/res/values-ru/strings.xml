@@ -2049,6 +2049,7 @@
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.grassland">Поле</string>
+	<string name="type.natural.hot_spring">Горячий Источник</string>
 	<string name="type.natural.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.pond">Пруд</string>
