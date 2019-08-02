@@ -618,6 +618,7 @@ world  +
         glacier  -
         grassland  -
         heath  -
+        hot_spring  -
         lake  -
         land  -
         meadow  -

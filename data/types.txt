@@ -1322,3 +1322,4 @@ cuisine|fine_dining
 cuisine|tea
 natural|geyser
 sponsored|promo_catalog
+natural|hot_spring
