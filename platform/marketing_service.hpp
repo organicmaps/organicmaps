@@ -32,6 +32,8 @@ extern char const * const kDiscoveryButtonDiscovered;
 extern char const * const kBookHotelOnBookingComDiscovered;
 extern char const * const kBookmarkCatalogSubscriptionEnabled;
 extern char const * const kBookmarkCatalogSubscriptionDisabled;
+extern char const * const kRemoveAdsSubscriptionEnabled;
+extern char const * const kRemoveAdsSubscriptionDisabled;
 
 // Events.
 extern char const * const kDownloaderMapActionFinished;

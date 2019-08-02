@@ -163,12 +163,18 @@ void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
   for (auto & listener : m_listeners)
     listener->OnSubscriptionChanged(type, isEnabled);
 
+  auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
   if (type == SubscriptionType::BookmarkCatalog)
   {
-    auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
     GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
       marketing::kBookmarkCatalogSubscriptionEnabled :
       marketing::kBookmarkCatalogSubscriptionDisabled, nowStr);
+  }
+  else if (type == SubscriptionType::RemoveAds)
+  {
+    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
+      marketing::kRemoveAdsSubscriptionEnabled :
+      marketing::kRemoveAdsSubscriptionDisabled, nowStr);
   }
 }
 
