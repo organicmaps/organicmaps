@@ -57,7 +57,9 @@ public:
                  std::string const & level = std::string())
   {
     RemoveLocale(DefaultLocaleName(), level, label);
-    AddLocale(DefaultLocaleName(), level, objectWithName.GetName(), label);
+    auto const & name = objectWithName.GetName();
+    if (!name.empty())
+      AddLocale(DefaultLocaleName(), level, name, label);
 
     auto const & languages = LocaleLanguages();
     for (std::string const & language : languages)
