@@ -107,6 +107,8 @@ public:
   void operator()(uint8_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(uint32_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(uint64_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(int8_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(int32_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(int64_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(double const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(std::string const & s, char const * name = nullptr) { ToJsonObjectOrValue(s, name); }
