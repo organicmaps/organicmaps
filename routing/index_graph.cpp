@@ -60,8 +60,8 @@ bool IndexGraph::IsJointOrEnd(Segment const & segment, bool fromStart)
   return pointId + 1 == pointsNumber;
 }
 
-void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges,
-                             map<Segment, Segment> & parents)
+void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                             vector<SegmentEdge> & edges, map<Segment, Segment> & parents)
 {
   RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
@@ -69,12 +69,12 @@ void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<Se
   if (jointId != Joint::kInvalidId)
   {
     m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp) {
-      GetNeighboringEdges(segment, rp, isOutgoing, edges, parents);
+      GetNeighboringEdges(segment, rp, isOutgoing, useRoutingOptions, edges, parents);
     });
   }
   else
   {
-    GetNeighboringEdges(segment, roadPoint, isOutgoing, edges, parents);
+    GetNeighboringEdges(segment, roadPoint, isOutgoing, useRoutingOptions, edges, parents);
   }
 }
 
@@ -206,14 +206,15 @@ RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                                     vector<SegmentEdge> & edges, map<Segment, Segment> & parents)
+                                     bool useRoutingOptions, vector<SegmentEdge> & edges,
+                                     map<Segment, Segment> & parents)
 {
   RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
 
   if (!road.IsValid())
     return;
 
-  if (!road.SuitableForOptions(m_avoidRoutingOptions))
+  if (useRoutingOptions && !road.SuitableForOptions(m_avoidRoutingOptions))
     return;
 
   bool const bidirectional = !road.IsOneWay();

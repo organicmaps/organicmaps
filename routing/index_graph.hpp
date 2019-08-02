@@ -45,7 +45,8 @@ public:
 
   static std::map<Segment, Segment> kEmptyParentsSegments;
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
-  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                   std::vector<SegmentEdge> & edges,
                    std::map<Segment, Segment> & parents = kEmptyParentsSegments);
 
   void GetEdgeList(JointSegment const & parentJoint,
@@ -120,7 +121,8 @@ private:
   RouteWeight CalcSegmentWeight(Segment const & segment);
 
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                           std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
+                           bool useRoutingOptions, std::vector<SegmentEdge> & edges,
+                           std::map<Segment, Segment> & parents);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
   RouteWeight GetPenalties(Segment const & u, Segment const & v);

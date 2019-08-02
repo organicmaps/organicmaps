@@ -216,7 +216,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
       return;
     }
 
-    m_graph.GetEdgeList(segment, isOutgoing, edges);
+    m_graph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
     return;
   }
 
@@ -228,7 +228,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
       bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
       bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
-        m_graph.GetEdgeList(real, isOutgoing, edges);
+        m_graph.GetEdgeList(real, isOutgoing, true /* useRoutingOptions */, edges);
     }
 
     for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
@@ -236,7 +236,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   }
   else
   {
-    m_graph.GetEdgeList(segment, isOutgoing, edges);
+    m_graph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
   }
 
   AddFakeEdges(segment, isOutgoing, edges);

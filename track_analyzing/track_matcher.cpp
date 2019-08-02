@@ -183,7 +183,7 @@ void TrackMatcher::Step::FillCandidates(Step const & previousStep, IndexGraph & 
     m_candidates.emplace_back(segment, DistanceToSegment(segment, m_point, graph));
 
     edges.clear();
-    graph.GetEdgeList(segment, true /* isOutgoing */, edges);
+    graph.GetEdgeList(segment, true /* isOutgoing */, true /* useRoutingOptions */, edges);
 
     for (SegmentEdge const & edge : edges)
     {
@@ -209,7 +209,8 @@ void TrackMatcher::Step::ChooseSegment(Step const & nextStep, IndexGraph & index
   double minDistance = numeric_limits<double>::max();
 
   vector<SegmentEdge> edges;
-  indexGraph.GetEdgeList(nextStep.m_segment, false /* isOutgoing */, edges);
+  indexGraph.GetEdgeList(nextStep.m_segment, false /* isOutgoing */, true /* useRoutingOptions */,
+                         edges);
   edges.emplace_back(nextStep.m_segment, GetAStarWeightZero<RouteWeight>());
 
   for (Candidate const & candidate : m_candidates)

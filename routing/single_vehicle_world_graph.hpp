@@ -34,7 +34,7 @@ public:
   // @{
   ~SingleVehicleWorldGraph() override = default;
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing,
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges) override;
 
   void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,

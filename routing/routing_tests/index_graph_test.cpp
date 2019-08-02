@@ -84,7 +84,7 @@ void TestEdges(IndexGraph & graph, Segment const & segment, vector<Segment> cons
          ());
 
   vector<SegmentEdge> edges;
-  graph.GetEdgeList(segment, isOutgoing, edges);
+  graph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
 
   vector<Segment> targets;
   for (SegmentEdge const & edge : edges)

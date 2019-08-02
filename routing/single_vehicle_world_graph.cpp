@@ -74,6 +74,34 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
   jointEdges.insert(jointEdges.end(), newCrossMwmEdges.begin(), newCrossMwmEdges.end());
 }
 
+void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+                                          bool useRoutingOptions, vector<SegmentEdge> & edges)
+{
+  if (m_mode == WorldGraphMode::LeapsOnly)
+  {
+    CHECK(m_crossMwmGraph, ());
+    // Ingoing edges listing is not supported for leaps because we do not have enough information
+    // to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
+    CHECK(isOutgoing, ("Ingoing edges listing is not supported for LeapsOnly mode."));
+    if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
+      GetTwins(segment, isOutgoing, useRoutingOptions, edges);
+    else
+      m_crossMwmGraph->GetOutgoingEdgeList(segment, edges);
+
+    return;
+  }
+
+  ASSERT(m_parentsForSegments.forward && m_parentsForSegments.backward,
+         ("m_parentsForSegments was not initialized in SingleVehicleWorldGraph."));
+  auto & parents = isOutgoing ? *m_parentsForSegments.forward : *m_parentsForSegments.backward;
+  IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
+  indexGraph.GetEdgeList(segment, isOutgoing, useRoutingOptions, edges, parents);
+
+  if (m_mode != WorldGraphMode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
+    GetTwins(segment, isOutgoing, useRoutingOptions, edges);
+
+}
+
 void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,
                                           Segment const & parent, bool isOutgoing,
                                           vector<JointEdge> & jointEdges,
@@ -92,33 +120,6 @@ void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,
 
   if (m_mode != WorldGraphMode::JointSingleMwm)
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
-}
-
-void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                          vector<SegmentEdge> & edges)
-{
-  if (m_mode == WorldGraphMode::LeapsOnly)
-  {
-    CHECK(m_crossMwmGraph, ());
-    // Ingoing edges listing is not supported for leaps because we do not have enough information
-    // to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
-    CHECK(isOutgoing, ("Ingoing edges listing is not supported for LeapsOnly mode."));
-    if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
-      GetTwins(segment, isOutgoing, edges);
-    else
-      m_crossMwmGraph->GetOutgoingEdgeList(segment, edges);
-
-    return;
-  }
-
-  ASSERT(m_parentsForSegments.forward && m_parentsForSegments.backward,
-         ("m_parentsForSegments was not initialized in SingleVehicleWorldGraph."));
-  auto & parents = isOutgoing ? *m_parentsForSegments.forward : *m_parentsForSegments.backward;
-  IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
-  indexGraph.GetEdgeList(segment, isOutgoing, edges, parents);
-
-  if (m_mode != WorldGraphMode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
-    GetTwins(segment, isOutgoing, edges);
 }
 
 Junction const & SingleVehicleWorldGraph::GetJunction(Segment const & segment, bool front)
@@ -146,14 +147,14 @@ void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
                                                    vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, true /* useRoutingOptions */, edges);
 }
 
 void SingleVehicleWorldGraph::GetIngoingEdgesList(Segment const & segment,
                                                   vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, true /* useRoutingOptions */, edges);
 }
 
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)

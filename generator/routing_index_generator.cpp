@@ -193,7 +193,7 @@ public:
 
   void GetEdgesList(Segment const & child, bool isOutgoing, vector<SegmentEdge> & edges)
   {
-    m_graph.GetEdgeList(child, isOutgoing, edges);
+    m_graph.GetEdgeList(child, isOutgoing, true /* useRoutingOptions */, edges);
   }
 
   void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,

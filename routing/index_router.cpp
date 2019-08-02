@@ -11,7 +11,6 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/leaps_postprocessor.hpp"
-#include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
@@ -197,13 +196,32 @@ bool IsTheSameSegments(m2::PointD const & seg1From, m2::PointD const & seg1To,
   return (seg1From == seg2From && seg1To == seg2To) || (seg1From == seg2To && seg1To == seg2From);
 }
 
-bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph,
-               set<Segment> & visitedSegments)
+bool IsDeadEnd(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+               WorldGraph & worldGraph, set<Segment> & visitedSegments)
 {
   // Maximum size (in Segment) of an island in road graph which may be found by the method.
   size_t constexpr kDeadEndTestLimit = 250;
 
-  return !CheckGraphConnectivity(segment, isOutgoing, kDeadEndTestLimit, worldGraph, visitedSegments);
+  return !CheckGraphConnectivity(segment, isOutgoing, useRoutingOptions, kDeadEndTestLimit,
+                                 worldGraph, visitedSegments);
+}
+
+bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                     WorldGraph & worldGraph, set<Segment> & deadEnds)
+{
+  if (deadEnds.count(segment) != 0)
+    return true;
+
+  set<Segment> visitedSegments;
+  if (IsDeadEnd(segment, isOutgoing, useRoutingOptions, worldGraph, visitedSegments))
+  {
+    auto const beginIt = std::make_move_iterator(visitedSegments.begin());
+    auto const endIt = std::make_move_iterator(visitedSegments.end());
+    deadEnds.insert(beginIt, endIt);
+    return true;
+  }
+
+  return false;
 }
 }  // namespace
 
@@ -820,17 +838,8 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
     // all segments of the feature is considered as dead ends.
     auto const segment = GetSegmentByEdge(Edge::MakeReal(r.m_featureId, true /* forward */, 0 /* segment id */,
                                                          r.m_roadInfo.m_junctions[0], r.m_roadInfo.m_junctions[1]));
-    if (deadEnds.count(segment) != 0)
-      return true;
-
-    set<Segment> visitedSegments;
-    if (!IsDeadEnd(segment, true /* isOutgoing */, worldGraph, visitedSegments))
-      return false;
-
-    auto const beginIt = std::make_move_iterator(visitedSegments.begin());
-    auto const endIt = std::make_move_iterator(visitedSegments.end());
-    deadEnds.insert(beginIt, endIt);
-    return true;
+    return IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, worldGraph,
+                           deadEnds);
   });
 }
 
@@ -871,10 +880,11 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 }
 
 void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
-                                      vector<IRoadGraph::FullRoadInfo> const & roads,
-                                      uint32_t count, vector<pair<Edge, Junction>> & edgeProj) const
+                                      vector<IRoadGraph::FullRoadInfo> const & roads, uint32_t count,
+                                      IsEdgeProjGood const & IsGood,
+                                      vector<pair<Edge, Junction>> & edgeProj) const
 {
-  NearestEdgeFinder finder(point);
+  NearestEdgeFinder finder(point, IsGood);
   for (auto const & r : roads)
     finder.AddInformationSource(r.m_featureId, r.m_roadInfo.m_junctions, r.m_roadInfo.m_bidirectional);
 
@@ -926,14 +936,14 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
   auto const file = platform::CountryFile(m_countryFileFn(point));
 
   vector<Edge> bestEdges;
-  if (!FindBestEdges(point, file, direction, isOutgoing, 20.0 /* closestEdgesRadiusM */,
+  if (!FindBestEdges(point, file, direction, isOutgoing, 40.0 /* closestEdgesRadiusM */,
                      worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
   {
-    if (!FindBestEdges(point, file, direction, isOutgoing, 300.0 /* closestEdgesRadiusM */,
+    if (!FindBestEdges(point, file, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
                        worldGraph, bestEdges, bestSegmentIsAlmostCodirectional) &&
                        bestEdges.size() < kMaxRoadCandidates)
     {
-      if (!FindBestEdges(point, file, direction, isOutgoing, 1500.0 /* closestEdgesRadiusM */,
+      if (!FindBestEdges(point, file, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */,
                          worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
       {
         return false;
@@ -984,17 +994,22 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
         point.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
   });
 
+  set<Segment> deadEnds;
+  auto const IsGood = [&, this](pair<Edge, Junction> const & edgeProj){
+    auto const segment = GetSegmentByEdge(edgeProj.first);
+    if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
+      return false;
+
+    // Removing all candidates which are fenced off by the road graph from |point|.
+    // It's better to perform this step after |candidates| are found:
+    // * by performance reasons
+    // * the closest edge(s) is not separated from |point| by other edges.
+    return !IsFencedOff(point, edgeProj, closestRoads);
+  };
+
   // Getting |kMaxRoadCandidates| closest edges from |closestRoads|.
   vector<pair<Edge, Junction>> candidates;
-  RoadsToNearestEdges(point, closestRoads, kMaxRoadCandidates, candidates);
-
-  // Removing all candidates which are fenced off by the road graph from |point|.
-  // It's better to perform this step after |candidates| are found:
-  // * by performance reasons
-  // * the closest edge(s) is not separated from |point| by other edges.
-  base::EraseIf(candidates, [&point, &closestRoads, this](pair<Edge, Junction> const & candidate) {
-    return IsFencedOff(point, candidate, closestRoads);
-  });
+  RoadsToNearestEdges(point, closestRoads, kMaxRoadCandidates, IsGood, candidates);
 
   if (candidates.empty())
     return false;

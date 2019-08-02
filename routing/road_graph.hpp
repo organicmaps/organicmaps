@@ -326,13 +326,11 @@ public:
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
   virtual void FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                                IsGoodFeatureFn const & isGoodFeature,
                                 std::vector<std::pair<Edge, Junction>> & vicinities) const {};
 
-  /// \returns Vector of pairs FeatureID and corresponing RoadInfo for road features
+  /// \returns Vector of pairs FeatureID and corresponding RoadInfo for road features
   /// lying in |rect|.
   /// \note |RoadInfo::m_speedKMPH| is set to |kInvalidSpeedKMPH|.
-  /// \note Some roads returned by this method my lie outside |rect| but close to it.
   virtual std::vector<FullRoadInfo> FindRoads(
       m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const { return {}; }
 

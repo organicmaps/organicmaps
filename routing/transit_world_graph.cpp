@@ -24,15 +24,7 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
   CHECK(m_estimator, ());
 }
 
-void TransitWorldGraph::GetEdgeList(JointSegment const & parentJoint,
-                                    Segment const & segment, bool isOutgoing,
-                                    std::vector<JointEdge> & edges,
-                                    std::vector<RouteWeight> & parentWeights)
-{
-  CHECK(false, ("TransitWorldGraph does not support Joints mode."));
-}
-
-void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                                     vector<SegmentEdge> & edges)
 {
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
@@ -47,14 +39,14 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
       bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
       bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
-        AddRealEdges(real, isOutgoing, edges);
+        AddRealEdges(real, isOutgoing, useRoutingOptions, edges);
     }
 
-    GetTwins(segment, isOutgoing, edges);
+    GetTwins(segment, isOutgoing, useRoutingOptions, edges);
   }
   else
   {
-    AddRealEdges(segment, isOutgoing, edges);
+    AddRealEdges(segment, isOutgoing, useRoutingOptions, edges);
   }
 
   vector<SegmentEdge> fakeFromReal;
@@ -70,6 +62,14 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
     }
   }
   edges.insert(edges.end(), fakeFromReal.begin(), fakeFromReal.end());
+}
+
+void TransitWorldGraph::GetEdgeList(JointSegment const & parentJoint,
+                                    Segment const & segment, bool isOutgoing,
+                                    std::vector<JointEdge> & edges,
+                                    std::vector<RouteWeight> & parentWeights)
+{
+  CHECK(false, ("TransitWorldGraph does not support Joints mode."));
 }
 
 Junction const & TransitWorldGraph::GetJunction(Segment const & segment, bool front)
@@ -109,13 +109,13 @@ void TransitWorldGraph::ClearCachedGraphs()
 void TransitWorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, true /* useRoutingOptions */, edges);
 }
 
 void TransitWorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, true /* useRoutingOptions */, edges);
 }
 
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
@@ -199,11 +199,11 @@ RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint
 }
 
 void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
-                                     vector<SegmentEdge> & edges)
+                                     bool useRoutingOptions, vector<SegmentEdge> & edges)
 {
   auto & indexGraph = GetIndexGraph(segment.GetMwmId());
-  indexGraph.GetEdgeList(segment, isOutgoing, edges);
-  GetTwins(segment, isOutgoing, edges);
+  indexGraph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
+  GetTwins(segment, isOutgoing, useRoutingOptions, edges);
 }
 
 TransitGraph & TransitWorldGraph::GetTransitGraph(NumMwmId mwmId)

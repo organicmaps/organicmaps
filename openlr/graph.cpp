@@ -68,7 +68,7 @@ void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
 {
   m_graph.FindClosestEdges(
       MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
-      count, nullptr /* isGoodFeature */, vicinities);
+      count, vicinities);
 }
 
 void Graph::AddIngoingFakeEdge(Edge const & e)

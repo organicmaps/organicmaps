@@ -34,8 +34,13 @@ public:
   // WorldGraph overrides:
   ~TransitWorldGraph() override = default;
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing,
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges) override;
+  void GetEdgeList(JointSegment const & parentJoint,
+                   Segment const & segment, bool isOutgoing,
+                   std::vector<JointEdge> & edges,
+                   std::vector<RouteWeight> & parentWeights) override;
+
   bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override
   {
     return weight.GetWeight() - weight.GetTransitTime() <=
@@ -61,11 +66,6 @@ public:
   double CalcSegmentETA(Segment const & segment) override;
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
 
-  void GetEdgeList(JointSegment const & parentJoint,
-                   Segment const & segment, bool isOutgoing,
-                   std::vector<JointEdge> & edges,
-                   std::vector<RouteWeight> & parentWeights) override;
-
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
   {
     return m_indexLoader->GetIndexGraph(numMwmId);
@@ -83,7 +83,8 @@ private:
   }
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
-  void AddRealEdges(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+  void AddRealEdges(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                    vector<SegmentEdge> & edges);
   TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

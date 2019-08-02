@@ -11,6 +11,7 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME}
   openlr
   routing
+  traffic
   routing_common
   storage
   editor

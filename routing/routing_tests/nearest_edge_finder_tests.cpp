@@ -18,7 +18,7 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
   unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
   InitRoadGraphMockSourceWithTest1(*graph);
 
-  NearestEdgeFinder finder(point);
+  NearestEdgeFinder finder(point, nullptr /* isEdgeProjGood */);
   for (size_t i = 0; i < graph->GetRoadCount(); ++i)
   {
     FeatureID const featureId = MakeTestFeatureID(base::checked_cast<uint32_t>(i));

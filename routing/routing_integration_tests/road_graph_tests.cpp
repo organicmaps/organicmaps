@@ -45,7 +45,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
   graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(
                              j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
-                         20 /* count */, {} /* ignoredFeatures */, sourceVicinity);
+                         20 /* count */, sourceVicinity);
   // In case of the combinatorial explosion mentioned above all the memory was consumed for
   // FeaturesRoadGraph::m_fakeIngoingEdges and FeaturesRoadGraph::m_fakeOutgoingEdges fields.
   graph.AddFakeEdges(j, sourceVicinity);

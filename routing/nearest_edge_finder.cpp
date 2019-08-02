@@ -10,8 +10,8 @@ namespace routing
 {
 using namespace std;
 
-NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point)
-    : m_point(point)
+NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IsEdgeProjGood const & isEdgeProjGood)
+    : m_point(point), m_isEdgeProjGood(isEdgeProjGood)
 {
 }
 
@@ -102,19 +102,29 @@ void NearestEdgeFinder::CandidateToResult(Candidate const & candidate,
                                           size_t maxCountFeatures,
                                           vector<pair<Edge, Junction>> & res) const
 {
-  res.emplace_back(Edge::MakeReal(candidate.m_fid, true /* forward */, candidate.m_segId,
-                                  candidate.m_segStart, candidate.m_segEnd),
-                   candidate.m_projPoint);
-  if (res.size() >= maxCountFeatures)
-    return;
+  AddResIf(candidate.m_fid, true /* forward */, candidate.m_segId,
+           candidate.m_segStart, candidate.m_segEnd, candidate.m_projPoint, maxCountFeatures, res);
 
   if (candidate.m_bidirectional)
   {
-    res.emplace_back(Edge::MakeReal(candidate.m_fid, false /* forward */, candidate.m_segId,
-                                    candidate.m_segEnd, candidate.m_segStart),
-                     candidate.m_projPoint);
-    if (res.size() >= maxCountFeatures)
-      return;
+    AddResIf(candidate.m_fid, false /* forward */, candidate.m_segId, candidate.m_segEnd,
+             candidate.m_segStart, candidate.m_projPoint, maxCountFeatures, res);
   }
+}
+
+void NearestEdgeFinder::AddResIf(FeatureID const & featureId, bool forward, uint32_t segId,
+                                 Junction const & startJunction, Junction const & endJunction,
+                                 Junction const & projPoint, size_t maxCountFeatures,
+                                 vector<pair<Edge, Junction>> & res) const
+{
+  if (res.size() >= maxCountFeatures)
+    return;
+
+  auto const edge = Edge::MakeReal(featureId, forward, segId, startJunction, endJunction);
+  auto const edgeProj = make_pair(edge, projPoint);
+  if (m_isEdgeProjGood && !m_isEdgeProjGood(edgeProj))
+    return;
+
+  res.emplace_back(edgeProj);
 }
 }  // namespace routing

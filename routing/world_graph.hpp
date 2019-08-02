@@ -45,7 +45,7 @@ public:
 
   virtual ~WorldGraph() = default;
 
-  virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
+  virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                            std::vector<SegmentEdge> & edges) = 0;
   virtual void GetEdgeList(JointSegment const & vertex, Segment const & segment, bool isOutgoing,
                            std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) = 0;
@@ -109,7 +109,8 @@ public:
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
 
 protected:
-  void GetTwins(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                std::vector<SegmentEdge> & edges);
   virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
                              std::vector<Segment> & twins) = 0;
 };

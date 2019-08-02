@@ -1,4 +1,6 @@
 #include "routing/features_road_graph.hpp"
+
+#include "routing/routing_helpers.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/route.hpp"
 
@@ -20,7 +22,6 @@ using namespace std;
 
 namespace routing
 {
-
 namespace
 {
 uint32_t constexpr kPowOfTwoForFeatureCacheSize = 10; // cache contains 2 ^ kPowOfTwoForFeatureCacheSize elements
@@ -174,19 +175,16 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                                         IsGoodFeatureFn const & isGoodFeature,
                                          vector<pair<Edge, Junction>> & vicinities) const
 {
-  NearestEdgeFinder finder(rect.Center());
+  NearestEdgeFinder finder(rect.Center(), nullptr /* IsEdgeProjGood */);
 
-  auto const f = [&finder, &isGoodFeature, this](FeatureType & ft)
+  auto const f = [&finder, this](FeatureType & ft)
   {
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
     FeatureID const & featureId = ft.GetID();
-    if (isGoodFeature && !isGoodFeature(featureId))
-      return;
 
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
     CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
@@ -203,7 +201,7 @@ vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
     m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const
 {
   vector<IRoadGraph::FullRoadInfo> roads;
-  auto const f = [&roads, &isGoodFeature, this](FeatureType & ft) {
+  auto const f = [&roads, &isGoodFeature, &rect, this](FeatureType & ft) {
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
@@ -211,8 +209,13 @@ vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
     if (isGoodFeature && !isGoodFeature(featureId))
       return;
 
-    roads.emplace_back(featureId, GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH),
-                       true /* m_isRoadAccordingToModel */);
+    // DataSource::ForEachInRect() gives not ony features inside |rect| but some other features
+    // which lie close to the rect. Removes all the features which don't cross |rect|.
+    auto const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
+    if (!PolylineInRect(roadInfo.m_junctions, rect))
+      return;
+
+    roads.emplace_back(featureId, roadInfo, true /* m_isRoadAccordingToModel */);
   };
 
   m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());

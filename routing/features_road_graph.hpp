@@ -80,8 +80,8 @@ public:
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
-  void FindClosestEdges(m2::RectD const & rect, uint32_t count, IsGoodFeatureFn const & isGoodFeature,
-                        std::vector<std::pair<Edge, Junction>> & vicinities) const override;
+  void FindClosestEdges(m2::RectD const & rect, uint32_t count,
+      std::vector<std::pair<Edge, Junction>> & vicinities) const override;
   std::vector<IRoadGraph::FullRoadInfo> FindRoads(
       m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
@@ -132,5 +132,4 @@ private:
 // with start point s such as that |s - p| < d, and edge is considered outgouing from p.
 // Symmetrically for ingoing edges.
 double GetRoadCrossingRadiusMeters();
-
 }  // namespace routing

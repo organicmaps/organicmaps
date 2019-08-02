@@ -11,6 +11,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/index_graph_starter_joints.hpp"
 #include "routing/joint.hpp"
+#include "routing/nearest_edge_finder.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/segment.hpp"
@@ -115,8 +116,9 @@ private:
                    std::vector<IRoadGraph::FullRoadInfo> const & fences) const;
 
   void RoadsToNearestEdges(m2::PointD const & point,
-                           std::vector<IRoadGraph::FullRoadInfo> const & roads,
-                           uint32_t count, std::vector<std::pair<Edge, Junction>> & edgeProj) const;
+                           std::vector<IRoadGraph::FullRoadInfo> const & roads, uint32_t count,
+                           IsEdgeProjGood const & isGood,
+                           std::vector<std::pair<Edge, Junction>> & edgeProj) const;
 
   Segment GetSegmentByEdge(Edge const & edge) const;
 
