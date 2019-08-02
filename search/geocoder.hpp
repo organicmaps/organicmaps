@@ -178,6 +178,8 @@ private:
 
   void FillVillageLocalities(BaseContext const & ctx);
 
+  bool CityHasPostcode(BaseContext const & ctx) const;
+
   template <typename Fn>
   void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, Fn && fn);
 
@@ -240,7 +242,7 @@ private:
   void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
                   bool allTokensUsed, bool exactMatch);
   void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange,
-                  bool allTokensUsed, bool exactMatch);
+                  bool allTokensUsed);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all

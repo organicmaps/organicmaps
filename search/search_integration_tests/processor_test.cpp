@@ -2254,11 +2254,13 @@ UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
       "Rue des Serpents", "en");
 
   TestBuilding building4(m2::PointD(0.0, 0.00001), "", "4", street.GetName("en"), "en");
+  TestPOI poi(m2::PointD(0.0, -0.00001), "Carrefour", "en");
 
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(marckolsheim);
     builder.Add(street);
     builder.Add(building4);
+    builder.Add(poi);
   });
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
@@ -2268,7 +2270,12 @@ UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
     TEST(ResultsMatch("Rue des Serpents 4 Marckolsheim 67390 ", rules), ());
   }
   {
-    Rules rules{ExactMatch(countryId, street), ExactMatch(countryId, marckolsheim)};
+    Rules rules{ExactMatch(countryId, poi), ExactMatch(countryId, street)};
+    // Test that we do not require the poi to have a postcode if the village has.
+    TEST(ResultsMatch("Carrefour Rue des Serpents Marckolsheim 67390 ", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, street)};
     // Test that we do not require the street to have a postcode if the village has.
     TEST(ResultsMatch("Rue des Serpents Marckolsheim 67390 ", rules), ());
   }
