@@ -1,19 +1,25 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.Utils;
 
 public class ErrorCatalogPromoListener<T extends Items.Item> implements com.mapswithme.maps.gallery.ItemSelectedListener<T>
 {
   @NonNull
-  private final Activity mActivity;
+  private final FragmentActivity mActivity;
+  @NonNull
+  private final NetworkPolicy.NetworkPolicyListener mListener;
 
-  public ErrorCatalogPromoListener(@NonNull Activity activity)
+  public ErrorCatalogPromoListener(@NonNull FragmentActivity activity,
+                                   @NonNull NetworkPolicy.NetworkPolicyListener listener)
   {
     mActivity = activity;
+    mListener = listener;
   }
 
   @Override
@@ -29,11 +35,14 @@ public class ErrorCatalogPromoListener<T extends Items.Item> implements com.maps
   @Override
   public void onItemSelected(@NonNull T item, int position)
   {
-    Utils.showSystemSettings(getActivity());
+    if (ConnectionState.isConnected())
+      NetworkPolicy.checkNetworkPolicy(mActivity.getSupportFragmentManager(),  mListener, true);
+    else
+      Utils.showSystemSettings(getActivity());
   }
 
   @NonNull
-  protected Activity getActivity()
+  protected FragmentActivity getActivity()
   {
     return mActivity;
   }

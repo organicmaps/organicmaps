@@ -27,7 +27,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -132,12 +131,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     RecyclerView catalogPromoRecycler = getGallery(R.id.catalog_promo_recycler);
     setLayoutManagerAndItemDecoration(requireContext(), catalogPromoRecycler);
-    RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-    GalleryAdapter galleryAdapter = mOnlineMode
-                                    ? Factory.createCatalogPromoLoadingAdapter(new CatalogPromoSelectedListener(requireActivity()))
-                                    : Factory.createCatalogPromoErrorAdapter(new ErrorCatalogPromoListener<>(requireActivity()));
-
-    promoRecycler.setAdapter(galleryAdapter);
   }
 
   private static void setLayoutManagerAndItemDecoration(@NonNull Context context,
@@ -195,12 +188,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
   private void requestDiscoveryInfoAndInitAdapters()
   {
-    NetworkPolicy.checkNetworkPolicy(getFragmentManager(), policy ->
-    {
-      mOnlineMode = policy.canUseNetwork();
-      initNetworkBasedAdapters();
-      requestDiscoveryInfo();
-    });
+    NetworkPolicy.checkNetworkPolicy(getFragmentManager(), this::onNetworkPolicyResult);
+  }
+
+  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy)
+  {
+    mOnlineMode = policy.canUseNetwork();
+    initNetworkBasedAdapters();
+    requestDiscoveryInfo();
   }
 
   private void initSearchBasedAdapters()
@@ -212,12 +207,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
   private void initNetworkBasedAdapters()
   {
-    if (!mOnlineMode)
-      return;
-
     RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
-    BaseItemSelectedListener<Items.Item> listener = new CatalogPromoSelectedListener(requireActivity());
-    promoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter(listener));
+    ItemSelectedListener<Items.Item> listener = mOnlineMode
+                                                    ? new CatalogPromoSelectedListener(requireActivity())
+                                                    : new ErrorCatalogPromoListener<>(requireActivity(),
+                                                                                      this::onNetworkPolicyResult);
+
+    GalleryAdapter adapter = mOnlineMode ? Factory.createCatalogPromoLoadingAdapter()
+                                         : Factory.createCatalogPromoNoConnectionAdapter(listener);
+    promoRecycler.setAdapter(adapter);
   }
 
   private void requestDiscoveryInfo()
@@ -296,8 +294,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   @Override
   public void onCatalogPromoResultReceived(@NonNull PromoCityGallery gallery)
   {
-    updateViewsVisibility(gallery.getItems(), R.id.catalog_promo_recycler,
-                          R.id.catalog_promo_title);
     if (gallery.getItems().length == 0)
       return;
 
@@ -332,9 +328,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
         break;
       case PROMO:
-        ErrorCatalogPromoListener<Items.Item> listener =
-            new ErrorCatalogPromoListener<>(requireActivity());
-        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
+        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(null);
         RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
         gallery.setAdapter(adapter);
         Statistics.INSTANCE.trackGalleryError(PROMO, DISCOVERY, null);

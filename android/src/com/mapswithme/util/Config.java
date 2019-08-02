@@ -251,31 +251,23 @@ public final class Config
     nativeSetLargeFontsSize(value);
   }
 
-  @NetworkPolicy.NetworkPolicyDef
-  public static int getUseMobileDataSettings()
+  @NonNull
+  public static NetworkPolicy.Type getUseMobileDataSettings()
   {
-    switch(getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.NONE))
-    {
-      case NetworkPolicy.ASK:
-        return NetworkPolicy.ASK;
-      case NetworkPolicy.ALWAYS:
-        return NetworkPolicy.ALWAYS;
-      case NetworkPolicy.NEVER:
-        return NetworkPolicy.NEVER;
-      case NetworkPolicy.NOT_TODAY:
-        return NetworkPolicy.NOT_TODAY;
-      case NetworkPolicy.TODAY:
-        return NetworkPolicy.TODAY;
-      case NetworkPolicy.NONE:
-        return NetworkPolicy.NONE;
-    }
+    int value = getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.NONE);
 
-    throw new AssertionError("Wrong NetworkPolicy type!");
+    if ((value != NetworkPolicy.NONE && value < 0) || value >= NetworkPolicy.Type.values().length)
+      throw new AssertionError("Wrong NetworkPolicy type : " + value);
+
+    if (value == NetworkPolicy.NONE)
+      return NetworkPolicy.Type.NONE;
+
+    return NetworkPolicy.Type.values()[value];
   }
 
-  public static void setUseMobileDataSettings(@NetworkPolicy.NetworkPolicyDef int value)
+  public static void setUseMobileDataSettings(@NonNull NetworkPolicy.Type value)
   {
-    setInt(KEY_MISC_USE_MOBILE_DATA, value);
+    setInt(KEY_MISC_USE_MOBILE_DATA, value.ordinal());
     setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
   }
 

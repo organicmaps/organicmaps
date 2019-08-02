@@ -3,11 +3,13 @@ package com.mapswithme.maps.gallery.impl;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
+import com.mapswithme.maps.gallery.Holders;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.promo.PromoCityGallery;
@@ -105,16 +107,37 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
+  public static GalleryAdapter createCatalogPromoLoadingAdapter()
   {
     CatalogPromoLoadingAdapterStrategy strategy = new CatalogPromoLoadingAdapterStrategy(null, null);
     return new GalleryAdapter<>(strategy);
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoErrorAdapter(@NonNull ItemSelectedListener<Items.Item> listener)
+  public static GalleryAdapter createCatalogPromoNoConnectionAdapter(@Nullable ItemSelectedListener<Items.Item> listener)
   {
     return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener));
+  }
+
+  @NonNull
+  public static GalleryAdapter createCatalogPromoErrorAdapter(@Nullable ItemSelectedListener<Items.Item> listener)
+  {
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener)
+    {
+      @Override
+      protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView)
+      {
+        return new Holders.CatalogErrorHolder(itemView, mItems, getListener())
+        {
+          @Override
+          public void bind(@NonNull Items.Item item)
+          {
+            super.bind(item);
+            getButton().setVisibility(View.INVISIBLE);
+          }
+        };
+      }
+    });
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,

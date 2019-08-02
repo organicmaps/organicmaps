@@ -519,10 +519,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (mobilePref == null)
       return;
 
-    int curValue = Config.getUseMobileDataSettings();
+    NetworkPolicy.Type curValue = Config.getUseMobileDataSettings();
 
-    if (curValue != NetworkPolicy.NOT_TODAY && curValue != NetworkPolicy.TODAY
-        && curValue != NetworkPolicy.NONE)
+    if (curValue != NetworkPolicy.Type.NOT_TODAY && curValue != NetworkPolicy.Type.TODAY
+        && curValue != NetworkPolicy.Type.NONE)
     {
       mobilePref.setValue(String.valueOf(curValue));
       mobilePref.setSummary(mobilePref.getEntry());
@@ -537,20 +537,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         String valueStr = (String)newValue;
-        switch (Integer.parseInt(valueStr))
-        {
-          case NetworkPolicy.ASK:
-            Config.setUseMobileDataSettings(NetworkPolicy.ASK);
-            break;
-          case NetworkPolicy.ALWAYS:
-            Config.setUseMobileDataSettings(NetworkPolicy.ALWAYS);
-            break;
-          case NetworkPolicy.NEVER:
-            Config.setUseMobileDataSettings(NetworkPolicy.NEVER);
-            break;
-          default:
-            throw new AssertionError("Wrong NetworkPolicy type!");
-        }
+        int value = Integer.parseInt(valueStr);
+        NetworkPolicy.Type type = NetworkPolicy.Type.values()[value];
+
+        if (type == NetworkPolicy.Type.ALWAYS
+            || type == NetworkPolicy.Type.ASK
+            || type == NetworkPolicy.Type.NEVER)
+
+          Config.setUseMobileDataSettings(type);
+        else
+          throw new AssertionError("Wrong NetworkPolicy type, value = " + valueStr);
 
         UiThread.runLater(new Runnable()
         {

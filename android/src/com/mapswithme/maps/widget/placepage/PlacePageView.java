@@ -397,8 +397,7 @@ public class PlacePageView extends NestedScrollView
   @Override
   public void onErrorReceived()
   {
-    ErrorCatalogPromoListener<Items.Item> listener = new ErrorCatalogPromoListener<>(getActivity());
-    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(null);
     mCatalogPromoRecycler.setAdapter(adapter);
     Statistics.INSTANCE.trackGalleryError(GalleryType.PROMO, GalleryPlacement.PLACEPAGE,
                                           Statistics.ParamValue.NO_PRODUCTS);
@@ -875,8 +874,7 @@ public class PlacePageView extends NestedScrollView
     mCatalogPromoTitleView = findViewById(R.id.catalog_promo_title);
     BaseItemSelectedListener<Items.Item> listener =
         new BaseItemSelectedListener<>(getActivity());
-    com.mapswithme.maps.gallery.GalleryAdapter adapter =
-        Factory.createCatalogPromoLoadingAdapter(listener);
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoLoadingAdapter();
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                                                                 LinearLayoutManager.HORIZONTAL,
@@ -1254,10 +1252,17 @@ public class PlacePageView extends NestedScrollView
     if (mSponsored == null || mMapObject == null)
       return;
 
-    if (hasPromoGallery)
+    if (hasPromoGallery && policy.canUseNetwork())
     {
       Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
                                               UTM.UTM_PLACEPAGE_GALLERY);
+    }
+    else if (hasPromoGallery)
+    {
+      ErrorCatalogPromoListener<Items.Item> listener =
+          new ErrorCatalogPromoListener<>(getActivity(), this::onNetworkPolicyResult);
+      com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoNoConnectionAdapter(listener);
+      mCatalogPromoRecycler.setAdapter(adapter);
     }
 
     mSponsored.updateId(mMapObject);
@@ -1272,6 +1277,16 @@ public class PlacePageView extends NestedScrollView
 
     Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
     Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
+  }
+
+  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy)
+  {
+    if (policy.canUseNetwork())
+    {
+      Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
+                                              UTM.UTM_PLACEPAGE_GALLERY);
+      mCatalogPromoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
+    }
   }
 
   private boolean isNetworkNeeded()

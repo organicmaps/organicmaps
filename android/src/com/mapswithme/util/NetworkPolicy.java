@@ -12,23 +12,87 @@ import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
 {
+  public enum Type
+  {
+    ASK,
+
+    ALWAYS
+        {
+          @Override
+          public void apply(@NonNull FragmentManager fragmentManager,
+                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
+          {
+            boolean nowInRoaming = ConnectionState.isInRoaming();
+            boolean acceptedInRoaming = Config.getMobileDataRoaming();
+
+            if (nowInRoaming && !acceptedInRoaming)
+              showDialog(fragmentManager, listener);
+            else
+              listener.onResult(new NetworkPolicy(true));
+          }
+        },
+
+    NEVER
+        {
+          @Override
+          public void apply(@NonNull FragmentManager fragmentManager,
+                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
+          {
+            if (isDialogAllowed)
+              showDialog(fragmentManager, listener);
+            else
+              listener.onResult(new NetworkPolicy(false));
+          }
+        },
+
+
+    NOT_TODAY
+        {
+          @Override
+          public void apply(@NonNull FragmentManager fragmentManager,
+                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
+          {
+            if (isDialogAllowed)
+              showDialog(fragmentManager, listener);
+            else
+              showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(false));
+          }
+        },
+
+    TODAY
+        {
+          @Override
+          public void apply(@NonNull FragmentManager fragmentManager,
+                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
+          {
+            boolean nowInRoaming = ConnectionState.isInRoaming();
+            boolean acceptedInRoaming = Config.getMobileDataRoaming();
+
+            if (nowInRoaming && !acceptedInRoaming)
+              showDialog(fragmentManager, listener);
+            else
+              showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
+          }
+        },
+
+    NONE;
+
+    public void apply(@NonNull FragmentManager fragmentManager,
+                      @NonNull final NetworkPolicyListener listener,
+                      boolean isDialogAllowed)
+    {
+      showDialog(fragmentManager, listener);
+    }
+  }
+
+
   public static final int NONE = -1;
-  public static final int ASK = 0;
-  public static final int ALWAYS = 1;
-  public static final int NEVER = 2;
-  public static final int NOT_TODAY = 3;
-  public static final int TODAY = 4;
 
   private static final String TAG_NETWORK_POLICY = "network_policy";
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ NONE, ASK, ALWAYS, NEVER, NOT_TODAY, TODAY })
-  @interface NetworkPolicyDef
-  {
-  }
-
   public static void checkNetworkPolicy(@NonNull FragmentManager fragmentManager,
-                                        @NonNull final NetworkPolicyListener listener)
+                                        @NonNull final NetworkPolicyListener listener,
+                                        boolean isDialogAllowed)
   {
     if (ConnectionState.isWifiConnected())
     {
@@ -42,34 +106,14 @@ public final class NetworkPolicy
       return;
     }
 
-    boolean nowInRoaming = ConnectionState.isInRoaming();
-    boolean acceptedInRoaming = Config.getMobileDataRoaming();
-    int type = Config.getUseMobileDataSettings();
-    switch (type)
-    {
-      case ASK:
-      case NONE:
-        showDialog(fragmentManager, listener);
-        break;
-      case ALWAYS:
-        if (nowInRoaming && !acceptedInRoaming)
-          showDialog(fragmentManager, listener);
-        else
-          listener.onResult(new NetworkPolicy(true));
-        break;
-      case NEVER:
-        listener.onResult(new NetworkPolicy(false));
-        break;
-      case NOT_TODAY:
-        showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(false));
-        break;
-      case TODAY:
-        if (nowInRoaming && !acceptedInRoaming)
-          showDialog(fragmentManager, listener);
-        else
-          showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
-        break;
-    }
+    Type type = Config.getUseMobileDataSettings();
+    type.apply(fragmentManager, listener, isDialogAllowed);
+  }
+
+  public static void checkNetworkPolicy(@NonNull FragmentManager fragmentManager,
+                                        @NonNull final NetworkPolicyListener listener)
+  {
+    checkNetworkPolicy(fragmentManager, listener, false);
   }
 
   public static boolean getCurrentNetworkUsageStatus()
@@ -85,8 +129,8 @@ public final class NetworkPolicy
     if (nowInRoaming && !acceptedInRoaming)
       return false;
 
-    int type = Config.getUseMobileDataSettings();
-    return type == ALWAYS || (type == TODAY && isToday());
+    Type type = Config.getUseMobileDataSettings();
+    return type == Type.ALWAYS || (type == Type.TODAY && isToday());
   }
 
   private static boolean isToday()

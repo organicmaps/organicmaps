@@ -32,7 +32,7 @@ public class StackedButtonDialogFragment extends DialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Config.setUseMobileDataSettings(NetworkPolicy.ALWAYS);
+            Config.setUseMobileDataSettings(NetworkPolicy.Type.ALWAYS);
             if (mListener != null)
               mListener.onResult(NetworkPolicy.newInstance(true));
           }
@@ -42,7 +42,7 @@ public class StackedButtonDialogFragment extends DialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Config.setUseMobileDataSettings(NetworkPolicy.NOT_TODAY);
+            Config.setUseMobileDataSettings(NetworkPolicy.Type.NOT_TODAY);
             Config.setMobileDataTimeStamp(System.currentTimeMillis());
             if (mListener != null)
               mListener.onResult(NetworkPolicy.newInstance(false));
@@ -53,7 +53,7 @@ public class StackedButtonDialogFragment extends DialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Config.setUseMobileDataSettings(NetworkPolicy.TODAY);
+            Config.setUseMobileDataSettings(NetworkPolicy.Type.TODAY);
             Config.setMobileDataTimeStamp(System.currentTimeMillis());
             if (mListener != null)
               mListener.onResult(NetworkPolicy.newInstance(true));
