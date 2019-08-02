@@ -138,7 +138,8 @@ UNIT_TEST(SmallRoutes_JustNoError)
         integration::CalculateRoute(integration::GetVehicleComponents(type),
                                     MercatorBounds::FromLatLon(start), {0., 0.},
                                     MercatorBounds::FromLatLon(finish));
-    TEST_EQUAL(result.second, RouterResultCode::NoError, ());
+    TEST_EQUAL(result.second, RouterResultCode::NoError,
+               (std::get<0>(route), std::get<1>(route), std::get<2>(route)));
   }
 
   number = 0;
