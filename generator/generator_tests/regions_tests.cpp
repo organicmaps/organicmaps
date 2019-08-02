@@ -18,6 +18,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -175,6 +176,7 @@ std::vector<std::string> GenerateTestRegions(std::vector<OsmElementData> const &
   classificator::Load();
 
   auto const filename = GetFileName();
+  SCOPE_GUARD(removeCollectorFile, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   CollectRegionInfo(filename, testData);
 
   RegionsBuilder::Regions regions;
@@ -349,6 +351,7 @@ bool NameExists(std::vector<std::string> const & coll, std::string const & name)
 UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 {
   auto const filename = MakeCollectorData();
+  SCOPE_GUARD(removeCollectorFile, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector), {} /* placePointsMap */);
   auto const & countryNames = builder.GetCountryInternationalNames();
@@ -360,6 +363,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 UNIT_TEST(RegionsBuilderTest_GetCountries)
 {
   auto const filename = MakeCollectorData();
+  SCOPE_GUARD(removeCollectorFile, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector), {} /* placePointsMap */);
   auto const & countries = builder.GetCountriesOuters();
@@ -375,6 +379,7 @@ UNIT_TEST(RegionsBuilderTest_GetCountries)
 UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
 {
   auto const filename = MakeCollectorData();
+  SCOPE_GUARD(removeCollectorFile, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   RegionInfo collector(filename);
   std::vector<std::string> bankOfNames;
   RegionsBuilder builder(MakeTestDataSet1(collector), {} /* placePointsMap */);
