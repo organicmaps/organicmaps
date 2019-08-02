@@ -12388,6 +12388,10 @@
   [type.natural.heath]
     en = Heath
 
+  [type.natural.hot_spring]
+    en = Hot Spring
+    ru = Горячий Источник
+
   [type.natural.lake]
     en = Lake
     ru = Озеро
