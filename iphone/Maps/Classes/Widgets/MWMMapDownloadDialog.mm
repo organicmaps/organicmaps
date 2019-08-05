@@ -297,7 +297,7 @@ using namespace storage;
             return;
           }
           NSURL *url = [NSURL URLWithString:urlString];
-          [self.controller openCatalogDeeplink:url animated:YES utm:MWMUTMDownloadMwmBanner];
+          [self.controller openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMDownloadMwmBanner];
         }];
         break;
       }

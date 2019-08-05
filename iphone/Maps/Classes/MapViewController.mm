@@ -545,7 +545,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 {
   MWMCatalogWebViewController *catalog;
   catalog = [MWMCatalogWebViewController catalogFromAbsoluteUrl:url utm:utm];
-  [self openCatalogInternal:catalog animated:animated utm:utm];
+  NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
+  [controllers addObjectsFromArray:@[catalog]];
+  [self.navigationController setViewControllers:controllers animated:animated];
 }
 
 - (void)searchText:(NSString *)text
