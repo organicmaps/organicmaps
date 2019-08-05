@@ -127,6 +127,8 @@ private:
                           std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
   RouteWeight GetPenalties(Segment const & u, Segment const & v);
 
+  void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
+                                       bool isOutgoing, std::vector<Segment> & children);
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
   void ReconstructJointSegment(JointSegment const & parentJoint,
                                Segment const & parent,

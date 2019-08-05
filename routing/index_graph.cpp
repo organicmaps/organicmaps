@@ -234,6 +234,28 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
   }
 }
 
+void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
+                                                 bool isOutgoing, std::vector<Segment> & children)
+{
+  RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
+  if (!road.IsValid())
+    return;
+
+  // Note. Flag |useRoutingOptions| is not passed to this place because it's true
+  // for all cases in current code. So if below should be checked anyway.
+  if (!road.SuitableForOptions(m_avoidRoutingOptions))
+    return;
+
+  bool const bidirectional = !road.IsOneWay();
+  auto const pointId = rp.GetPointId();
+
+  if ((isOutgoing || bidirectional) && pointId + 1 < road.GetPointsCount())
+    children.emplace_back(numMwmId, rp.GetFeatureId(), pointId, isOutgoing);
+
+  if ((!isOutgoing || bidirectional) && pointId > 0)
+    children.emplace_back(numMwmId, rp.GetFeatureId(), pointId - 1, !isOutgoing);
+}
+
 void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing,
                                              vector<Segment> & children)
 {
@@ -241,27 +263,17 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
 
   if (jointId == Joint::kInvalidId)
-    return;
-
-  m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp)
   {
-    RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
-    if (!road.IsValid())
-      return;
+    if (IsJointOrEnd(parent, isOutgoing))
+    {
+      // It's not a joint but a loose end of a feature.
+      GetSegmentCandidateForRoadPoint(roadPoint, parent.GetMwmId(), isOutgoing, children);
+    }
+    return;
+  }
 
-    // Note. Flag |useRoutingOptions| is not passed to this place because it's true
-    // for all cases in current code. So if below should be checked anyway.
-    if (!road.SuitableForOptions(m_avoidRoutingOptions))
-      return;
-
-    bool const bidirectional = !road.IsOneWay();
-    auto const pointId = rp.GetPointId();
-
-    if ((isOutgoing || bidirectional) && pointId + 1 < road.GetPointsCount())
-      children.emplace_back(parent.GetMwmId(), rp.GetFeatureId(), pointId, isOutgoing);
-
-    if ((!isOutgoing || bidirectional) && pointId > 0)
-      children.emplace_back(parent.GetMwmId(), rp.GetFeatureId(), pointId - 1, !isOutgoing);
+  m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp) {
+    GetSegmentCandidateForRoadPoint(rp, parent.GetMwmId(), isOutgoing, children);
   });
 }
 
