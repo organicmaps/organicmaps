@@ -206,14 +206,11 @@ public:
 
   struct SortedBlock
   {
+    bool operator==(SortedBlock const & other) const;
+
     std::string m_blockName;
     kml::MarkIdCollection m_markIds;
     kml::MarkIdCollection m_trackIds;
-
-    bool operator==(SortedBlock const & other) const
-    {
-      return m_blockName == other.m_blockName && m_markIds == other.m_markIds && m_trackIds == other.m_trackIds;
-    }
   };
   using SortedBlocksCollection = std::vector<SortedBlock>;
 
@@ -304,10 +301,6 @@ public:
       ArchiveError,
       FileError
     };
-    kml::MarkGroupId m_categoryId;
-    Code m_code;
-    std::string m_sharingPath;
-    std::string m_errorString;
 
     SharingResult(kml::MarkGroupId categoryId, std::string const & sharingPath)
       : m_categoryId(categoryId)
@@ -325,6 +318,11 @@ public:
       , m_code(code)
       , m_errorString(errorString)
     {}
+
+    kml::MarkGroupId m_categoryId;
+    Code m_code;
+    std::string m_sharingPath;
+    std::string m_errorString;
   };
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
@@ -629,7 +627,8 @@ private:
   struct SortBookmarkData
   {
     SortBookmarkData() = default;
-    SortBookmarkData(kml::BookmarkData const & bmData, search::ReverseGeocoder::RegionAddress const & address)
+    SortBookmarkData(kml::BookmarkData const & bmData,
+                     search::ReverseGeocoder::RegionAddress const & address)
       : m_id(bmData.m_id)
       , m_point(bmData.m_point)
       , m_type(GetBookmarkBaseType(bmData.m_featureTypes))
@@ -699,12 +698,13 @@ private:
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo
   {
-    std::string m_filename;
-    bool m_isTemporaryFile = false;
     BookmarkLoaderInfo() = default;
     BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile)
       : m_filename(filename), m_isTemporaryFile(isTemporaryFile)
     {}
+
+    std::string m_filename;
+    bool m_isTemporaryFile = false;
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
@@ -734,36 +734,23 @@ private:
 
   struct Properties
   {
-    std::map<std::string, std::string> m_values;
-
-    bool GetProperty(std::string const & propertyName, std::string & value) const
-    {
-      auto const it = m_values.find(propertyName);
-      if (it == m_values.end())
-        return false;
-      value = it->second;
-      return true;
-    }
-
     DECLARE_VISITOR_AND_DEBUG_PRINT(Properties, visitor(m_values, "values"))
+
+    bool GetProperty(std::string const & propertyName, std::string & value) const;
+
+    std::map<std::string, std::string> m_values;
   };
 
   struct Metadata
   {
-    std::map<std::string, Properties> m_entriesProperties;
-    Properties m_commonProperties;
-
-    bool GetEntryProperty(std::string const & entryName, std::string const & propertyName, std::string & value) const
-    {
-      auto const it = m_entriesProperties.find(entryName);
-      if (it == m_entriesProperties.end())
-        return false;
-
-      return it->second.GetProperty(propertyName, value);
-    }
-
     DECLARE_VISITOR_AND_DEBUG_PRINT(Metadata, visitor(m_entriesProperties, "entriesProperties"),
                                     visitor(m_commonProperties, "commonProperties"))
+
+    bool GetEntryProperty(std::string const & entryName, std::string const & propertyName,
+                          std::string & value) const;
+
+    std::map<std::string, Properties> m_entriesProperties;
+    Properties m_commonProperties;
   };
 
   Metadata m_metadata;
@@ -772,8 +759,6 @@ private:
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
-
-std::string DebugPrint(BookmarkManager::SortingType type);
 
 namespace lightweight
 {

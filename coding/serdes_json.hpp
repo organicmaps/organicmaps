@@ -308,8 +308,10 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
+    {
       MYTHROW(base::Json::Exception,
               ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
+    }
 
     if (N != json_array_size(m_json))
     {
@@ -334,8 +336,10 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
+    {
       MYTHROW(base::Json::Exception,
               ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
+    }
 
     size_t size = json_array_size(m_json);
     for (size_t index = 0; index < size; ++index)

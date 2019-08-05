@@ -627,56 +627,45 @@ void ResetIds(kml::FileData & kmlData)
     trackData.m_id = kml::kInvalidTrackId;
 }
 
+bool TruncType(std::string & type)
+{
+  static std::string const kDelim = "-";
+  auto const pos = type.rfind(kDelim);
+  if (pos == std::string::npos)
+    return false;
+  type.resize(pos);
+  return true;
+}
+
 BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes)
 {
   auto const & c = classif();
   for (auto typeIndex : featureTypes)
   {
     auto const type = c.GetTypeForIndex(typeIndex);
-    auto const typeStr = c.GetReadableObjectName(type);
+    auto typeStr = c.GetReadableObjectName(type);
 
-    static std::string const kDelim = "-";
-
-    std::vector<std::string> tokens;
-    strings::Tokenize(typeStr, kDelim.c_str(), [&tokens](std::string const & s) { tokens.push_back(s); });
-
-    for (size_t sz = tokens.size(); sz > 0; --sz)
+    do
     {
-      std::stringstream ss;
-      for (size_t i = 0; i < sz; ++i)
-      {
-        ss << tokens[i];
-        if (i + 1 < sz)
-          ss << kDelim;
-      }
-      auto const itType = kFeatureTypeToBookmarkType.find(ss.str());
+      auto const itType = kFeatureTypeToBookmarkType.find(typeStr);
       if (itType != kFeatureTypeToBookmarkType.cend())
         return itType->second;
-    }
+    } while (TruncType(typeStr));
   }
   return BookmarkBaseType::None;
 }
 
 kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
 {
-  auto const typeStr = classif().GetReadableObjectName(type);
+  auto typeStr = classif().GetReadableObjectName(type);
 
-  static std::string const kDelim = "-";
-  std::vector<std::string> v;
-  strings::Tokenize(typeStr, kDelim.c_str(), [&v] (std::string const & s) {v.push_back(s);});
-  for (size_t sz = v.size(); sz > 0; sz--)
+  do
   {
-    std::stringstream ss;
-    for (size_t i = 0; i < sz; i++)
-    {
-      ss << v[i];
-      if (i + 1 < sz)
-        ss << kDelim;
-    }
-    auto const itIcon = kFeatureTypeToBookmarkIcon.find(ss.str());
+    auto const itIcon = kFeatureTypeToBookmarkIcon.find(typeStr);
     if (itIcon != kFeatureTypeToBookmarkIcon.cend())
       return itIcon->second;
-  }
+  } while (TruncType(typeStr));
+
   return kml::BookmarkIcon::None;
 }
 
@@ -713,7 +702,7 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
 {
   switch (type)
   {
-  case BookmarkBaseType::None: return "";
+  case BookmarkBaseType::None: return {};
   case BookmarkBaseType::Hotel: return platform::GetLocalizedString("hotels");
   case BookmarkBaseType::Animals: return platform::GetLocalizedString("animals");
   case BookmarkBaseType::Building: return platform::GetLocalizedString("buildings");
@@ -731,7 +720,7 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
   case BookmarkBaseType::Sights: return platform::GetLocalizedString("tourist_places");
   case BookmarkBaseType::Swim: return platform::GetLocalizedString("swim_places");
   case BookmarkBaseType::Water: return platform::GetLocalizedString("water");
-  case BookmarkBaseType::Count: CHECK(false, ("Invalid bookmark base type")); return "";
+  case BookmarkBaseType::Count: CHECK(false, ("Invalid bookmark base type")); return {};
   }
   UNREACHABLE();
 }

@@ -20,7 +20,7 @@ using namespace std;
 namespace
 {
 template <typename PtrT>
-bool samePtrValue(PtrT const & lhs, PtrT const & rhs)
+bool SamePtrValue(PtrT const & lhs, PtrT const & rhs)
 {
   return (!lhs && !rhs) || (lhs && rhs && *lhs == *rhs);
 }
@@ -28,7 +28,7 @@ bool samePtrValue(PtrT const & lhs, PtrT const & rhs)
 template <typename T>
 bool TestSerDes(T const & value)
 {
-  std::string jsonStr;
+  string jsonStr;
   {
     using Sink = MemWriter<string>;
     Sink sink(jsonStr);
@@ -62,53 +62,53 @@ enum class TestEnum
 struct ValueTypes
 {
   DECLARE_VISITOR(visitor(m_boolValue, "boolValue"),
-                  visitor(m_uint8_tValue, "uint8_tValue"),
-                  visitor(m_uint32_tValue, "uint32_tValue"),
-                  visitor(m_uint64_tValue, "uint64_tValue"),
-                  visitor(m_int8_tValue, "int8_tValue"),
-                  visitor(m_int32_tValue, "int32_tValue"),
-                  visitor(m_int64_tValue, "int64_tValue"),
+                  visitor(m_uint8Value, "uint8Value"),
+                  visitor(m_uint32Value, "uint32Value"),
+                  visitor(m_uint64Value, "uint64Value"),
+                  visitor(m_int8Value, "int8Value"),
+                  visitor(m_int32Value, "int32Value"),
+                  visitor(m_int64Value, "int64Value"),
                   visitor(m_doubleValue, "doubleValue"),
                   visitor(m_stringValue, "stringValue"),
                   visitor(m_enumValue, "enumValue"),
-                  visitor(m_time_pointValue, "time_pointValue"));
+                  visitor(m_timePointValue, "timePointValue"));
 
   ValueTypes() = default;
   ValueTypes(uint32_t testCounter)
     : m_boolValue(static_cast<bool>(testCounter % 2))
-    , m_uint8_tValue(numeric_limits<uint8_t>::max() - static_cast<uint8_t>(testCounter))
-    , m_uint32_tValue(numeric_limits<uint32_t>::max() - testCounter)
-    , m_uint64_tValue(numeric_limits<uint64_t>::max() - testCounter)
-    , m_int8_tValue(numeric_limits<int8_t>::min() + static_cast<int8_t>(testCounter))
-    , m_int32_tValue(numeric_limits<int32_t>::min() + static_cast<int32_t>(testCounter))
-    , m_int64_tValue(numeric_limits<int64_t>::min() + static_cast<int64_t>(testCounter))
+    , m_uint8Value(numeric_limits<uint8_t>::max() - static_cast<uint8_t>(testCounter))
+    , m_uint32Value(numeric_limits<uint32_t>::max() - testCounter)
+    , m_uint64Value(numeric_limits<uint64_t>::max() - testCounter)
+    , m_int8Value(numeric_limits<int8_t>::min() + static_cast<int8_t>(testCounter))
+    , m_int32Value(numeric_limits<int32_t>::min() + static_cast<int32_t>(testCounter))
+    , m_int64Value(numeric_limits<int64_t>::min() + static_cast<int64_t>(testCounter))
     , m_doubleValue(numeric_limits<double>::max() - testCounter)
     , m_stringValue(strings::to_string(testCounter))
     , m_enumValue(static_cast<TestEnum>(testCounter % static_cast<uint32_t>(TestEnum::Count)))
-    , m_time_pointValue(chrono::system_clock::now())
+    , m_timePointValue(chrono::system_clock::now())
   {}
 
   bool operator==(ValueTypes const & rhs) const
   {
-    return m_boolValue == rhs.m_boolValue && m_uint8_tValue == rhs.m_uint8_tValue &&
-      m_uint32_tValue == rhs.m_uint32_tValue && m_uint64_tValue == rhs.m_uint64_tValue &&
-      m_int8_tValue == rhs.m_int8_tValue && m_int32_tValue == rhs.m_int32_tValue &&
-      m_int64_tValue == rhs.m_int64_tValue && m_doubleValue == rhs.m_doubleValue &&
+    return m_boolValue == rhs.m_boolValue && m_uint8Value == rhs.m_uint8Value &&
+      m_uint32Value == rhs.m_uint32Value && m_uint64Value == rhs.m_uint64Value &&
+      m_int8Value == rhs.m_int8Value && m_int32Value == rhs.m_int32Value &&
+      m_int64Value == rhs.m_int64Value && m_doubleValue == rhs.m_doubleValue &&
       m_stringValue == rhs.m_stringValue && m_enumValue == rhs.m_enumValue &&
-      m_time_pointValue == rhs.m_time_pointValue;
+      m_timePointValue == rhs.m_timePointValue;
   }
 
   bool m_boolValue;
-  uint8_t m_uint8_tValue;
-  uint32_t m_uint32_tValue;
-  uint64_t m_uint64_tValue;
-  int8_t m_int8_tValue;
-  int32_t m_int32_tValue;
-  int64_t m_int64_tValue;
+  uint8_t m_uint8Value;
+  uint32_t m_uint32Value;
+  uint64_t m_uint64Value;
+  int8_t m_int8Value;
+  int32_t m_int32Value;
+  int64_t m_int64Value;
   double m_doubleValue;
   string m_stringValue;
   TestEnum m_enumValue;
-  chrono::system_clock::time_point m_time_pointValue;
+  chrono::system_clock::time_point m_timePointValue;
 };
 
 struct ObjectTypes
@@ -137,24 +137,24 @@ struct ObjectTypes
 
 struct PointerTypes
 {
-  DECLARE_VISITOR(visitor(m_unique_ptrValue, "unique_ptrValue"),
-                  visitor(m_shared_ptrValue, "shared_ptrValue"));
+  DECLARE_VISITOR(visitor(m_uniquePtrValue, "uniquePtrValue"),
+                  visitor(m_sharedPtrValue, "sharedPtrValue"));
 
   PointerTypes() = default;
   PointerTypes(uint32_t testCounter)
   {
-    m_unique_ptrValue = make_unique<ValueTypes>(testCounter);
-    m_shared_ptrValue = make_shared<ValueTypes>(testCounter);
+    m_uniquePtrValue = make_unique<ValueTypes>(testCounter);
+    m_sharedPtrValue = make_shared<ValueTypes>(testCounter);
   }
 
   bool operator==(PointerTypes const & rhs) const
   {
-    return samePtrValue(m_unique_ptrValue, rhs.m_unique_ptrValue) &&
-      samePtrValue(m_shared_ptrValue, rhs.m_shared_ptrValue);
+    return SamePtrValue(m_uniquePtrValue, rhs.m_uniquePtrValue) &&
+      SamePtrValue(m_sharedPtrValue, rhs.m_sharedPtrValue);
   }
 
-  unique_ptr<ValueTypes> m_unique_ptrValue;
-  shared_ptr<ValueTypes> m_shared_ptrValue;
+  unique_ptr<ValueTypes> m_uniquePtrValue;
+  shared_ptr<ValueTypes> m_sharedPtrValue;
 };
 
 struct ArrayTypes
@@ -163,7 +163,7 @@ struct ArrayTypes
                   visitor(m_dequeValue, "dequeValue"),
                   visitor(m_vectorValue, "vectorValue"),
                   visitor(m_mapValue, "mapValue"),
-                  visitor(m_unordered_setValue, "unordered_setValue"));
+                  visitor(m_unorderedSetValue, "unorderedSetValue"));
 
   ArrayTypes() = default;
   ArrayTypes(uint32_t testCounter)
@@ -171,21 +171,21 @@ struct ArrayTypes
     , m_dequeValue({testCounter + 2, testCounter + 1, testCounter})
     , m_vectorValue({testCounter, testCounter + 2, testCounter + 1})
     , m_mapValue({{testCounter, testCounter}, {testCounter + 1, testCounter + 1}})
-    , m_unordered_setValue({testCounter + 2, testCounter, testCounter + 1})
+    , m_unorderedSetValue({testCounter + 2, testCounter, testCounter + 1})
   {}
 
   bool operator==(ArrayTypes const & rhs) const
   {
     return m_arrayValue == rhs.m_arrayValue && m_dequeValue == rhs.m_dequeValue &&
       m_vectorValue == rhs.m_vectorValue && m_mapValue == rhs.m_mapValue &&
-      m_unordered_setValue == rhs.m_unordered_setValue;
+      m_unorderedSetValue == rhs.m_unorderedSetValue;
   }
 
   array<uint32_t, 3> m_arrayValue;
   deque<uint32_t> m_dequeValue;
   vector<uint32_t> m_vectorValue;
   map<uint32_t, uint32_t> m_mapValue;
-  unordered_set<uint32_t> m_unordered_setValue;
+  unordered_set<uint32_t> m_unorderedSetValue;
 };
 }  // namespace
 
@@ -233,7 +233,7 @@ UNIT_TEST(SerdesJsonTest)
   {
     struct Hasher
     {
-      std::hash<string> m_hasher;
+      hash<string> m_hasher;
 
       size_t operator()(pair<string, string> const & item) const
       {

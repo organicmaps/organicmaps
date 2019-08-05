@@ -29,6 +29,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -217,13 +218,24 @@ Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
   return result;
 }
 
+std::string ToString(BookmarkManager::SortingType type)
+{
+  switch (type)
+  {
+  case BookmarkManager::SortingType::ByTime: return "ByTime";
+  case BookmarkManager::SortingType::ByType: return "ByType";
+  case BookmarkManager::SortingType::ByDistance: return "ByDistance";
+  }
+  UNREACHABLE();
+}
+
 bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & type)
 {
-  if (typeStr == DebugPrint(BookmarkManager::SortingType::ByTime))
+  if (typeStr == ToString(BookmarkManager::SortingType::ByTime))
     type = BookmarkManager::SortingType::ByTime;
-  else if (typeStr == DebugPrint(BookmarkManager::SortingType::ByType))
+  else if (typeStr == ToString(BookmarkManager::SortingType::ByType))
     type = BookmarkManager::SortingType::ByType;
-  else if (typeStr == DebugPrint(BookmarkManager::SortingType::ByDistance))
+  else if (typeStr == ToString(BookmarkManager::SortingType::ByDistance))
     type = BookmarkManager::SortingType::ByDistance;
   else
     return false;
@@ -838,7 +850,7 @@ void BookmarkManager::SetLastSortingType(kml::MarkGroupId groupId, SortingType s
   if (entryName.empty())
     return;
 
-  m_metadata.m_entriesProperties[entryName].m_values[kSortingTypeProperty] = DebugPrint(sortingType);
+  m_metadata.m_entriesProperties[entryName].m_values[kSortingTypeProperty] = ToString(sortingType);
   SaveMetadata();
 }
 
@@ -853,7 +865,8 @@ void BookmarkManager::ResetLastSortingType(kml::MarkGroupId groupId)
   SaveMetadata();
 }
 
-std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes(kml::MarkGroupId groupId, bool hasMyPosition) const
+std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes(
+  kml::MarkGroupId groupId, bool hasMyPosition) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(groupId), ());
@@ -922,7 +935,8 @@ std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes
 }
 
 template <typename T, typename R>
-BookmarkManager::SortedByTimeBlockType GetSortedByTimeBlockType(std::chrono::duration<T, R> const & timePeriod)
+BookmarkManager::SortedByTimeBlockType GetSortedByTimeBlockType(
+  std::chrono::duration<T, R> const & timePeriod)
 {
   static auto const kDay = std::chrono::hours(24);
   static auto const kWeek = 7 * kDay;
@@ -943,11 +957,16 @@ std::string BookmarkManager::GetSortedByTimeBlockName(SortedByTimeBlockType bloc
 {
   switch (blockType)
   {
-  case SortedByTimeBlockType::WeekAgo: return platform::GetLocalizedString("week_ago_sorttype");
-  case SortedByTimeBlockType::MonthAgo: return platform::GetLocalizedString("month_ago_sorttype");
-  case SortedByTimeBlockType::MoreThanMonthAgo: return platform::GetLocalizedString("moremonth_ago_sorttype");
-  case SortedByTimeBlockType::MoreThanYearAgo: return platform::GetLocalizedString("moreyear_ago_sorttype");
-  case SortedByTimeBlockType::Others: return GetOthersSortedBlockName();
+  case SortedByTimeBlockType::WeekAgo:
+    return platform::GetLocalizedString("week_ago_sorttype");
+  case SortedByTimeBlockType::MonthAgo:
+    return platform::GetLocalizedString("month_ago_sorttype");
+  case SortedByTimeBlockType::MoreThanMonthAgo:
+    return platform::GetLocalizedString("moremonth_ago_sorttype");
+  case SortedByTimeBlockType::MoreThanYearAgo:
+    return platform::GetLocalizedString("moreyear_ago_sorttype");
+  case SortedByTimeBlockType::Others:
+    return GetOthersSortedBlockName();
   }
   UNREACHABLE();
 }
@@ -1004,19 +1023,16 @@ void BookmarkManager::FilterInvalidData(SortedBlocksCollection & sortedBlocks,
     FilterInvalidTracks(block.m_trackIds);
   }
 
-  sortedBlocks.erase(std::remove_if(sortedBlocks.begin(), sortedBlocks.end(),
-                                    [](SortedBlock const & block)
-                                    {
-                                      return block.m_trackIds.empty() && block.m_markIds.empty();
-                                    }),
-                     sortedBlocks.end());
+  base::EraseIf(sortedBlocks, [](SortedBlock const & block)
+                              {
+                                return block.m_trackIds.empty() && block.m_markIds.empty();
+                              });
 
-  newAddresses.erase(std::remove_if(newAddresses.begin(), newAddresses.end(),
-                                    [this](std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress> const & item)
-                                    {
-                                      return GetBookmark(item.first) == nullptr;
-                                    }),
-                     newAddresses.end());
+  base::EraseIf(newAddresses, [this](std::pair<kml::MarkId,
+                                               search::ReverseGeocoder::RegionAddress> const & item)
+                              {
+                                return GetBookmark(item.first) == nullptr;
+                              });
 }
 
 void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresses)
@@ -1030,7 +1046,8 @@ void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresse
   }
 }
 
-void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort, m2::PointD const & myPosition,
+void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
+                                     m2::PointD const & myPosition,
                                      SortedBlocksCollection & sortedBlocks)
 {
   CHECK(m_regionAddressGetter != nullptr, ());
@@ -1043,11 +1060,12 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
     sortedMarks.push_back(std::make_pair(&mark, distance));
   }
 
-  std::sort(sortedMarks.begin(), sortedMarks.end(), [](std::pair<SortBookmarkData const *, double> const & lbm,
-                                                       std::pair<SortBookmarkData const *, double> const & rbm)
-  {
-    return lbm.second < rbm.second;
-  });
+  std::sort(sortedMarks.begin(), sortedMarks.end(),
+            [](std::pair<SortBookmarkData const *, double> const & lbm,
+               std::pair<SortBookmarkData const *, double> const & rbm)
+            {
+              return lbm.second < rbm.second;
+            });
 
   std::map<search::ReverseGeocoder::RegionAddress, size_t> regionBlockIndices;
   SortedBlock othersBlock;
@@ -1062,8 +1080,8 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
       continue;
     }
 
-    auto const currentRegion = distance < kNearDistanceInMeters ? search::ReverseGeocoder::RegionAddress()
-                                                                : mark.m_address;
+    auto const currentRegion =
+      distance < kNearDistanceInMeters ? search::ReverseGeocoder::RegionAddress() : mark.m_address;
 
     size_t blockIndex;
     auto const it = regionBlockIndices.find(currentRegion);
@@ -1102,10 +1120,11 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
   for (auto const & mark : bookmarksForSort)
     sortedMarks.push_back(&mark);
 
-  std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  {
-    return lbm->m_timestamp > rbm->m_timestamp;
-  });
+  std::sort(sortedMarks.begin(), sortedMarks.end(),
+            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
+            {
+              return lbm->m_timestamp > rbm->m_timestamp;
+            });
 
   auto const currentTime = std::chrono::system_clock::now();
 
@@ -1143,10 +1162,11 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
   for (auto const & mark : bookmarksForSort)
     sortedMarks.push_back(&mark);
 
-  std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  {
-    return lbm->m_timestamp > rbm->m_timestamp;
-  });
+  std::sort(sortedMarks.begin(), sortedMarks.end(),
+            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
+            {
+              return lbm->m_timestamp > rbm->m_timestamp;
+            });
 
   std::map<BookmarkBaseType, size_t> typesCount;
   size_t othersTypeMarksCount = 0;
@@ -1172,13 +1192,12 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
     if (typeCount.second < kMinCommonTypesCount && typeCount.first != BookmarkBaseType::Hotel)
       othersTypeMarksCount += typeCount.second;
     else
-      sortedTypes.push_back(std::make_pair(typeCount.first, typeCount.second));
+      sortedTypes.push_back(typeCount);
   }
-  std::sort(sortedTypes.begin(), sortedTypes.end(), [](std::pair<BookmarkBaseType, size_t> const & l,
-                                                       std::pair<BookmarkBaseType, size_t> const & r)
-  {
-    return l.second > r.second;
-  });
+
+  std::sort(sortedTypes.begin(), sortedTypes.end(),
+            [](std::pair<BookmarkBaseType, size_t> const & l,
+               std::pair<BookmarkBaseType, size_t> const & r){ return l.second > r.second; });
 
   std::map<BookmarkBaseType, size_t> blockIndices;
   sortedBlocks.resize(sortedTypes.size() + (othersTypeMarksCount > 0 ? 1 : 0));
@@ -1198,10 +1217,15 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
   for (auto mark : sortedMarks)
   {
     auto const type = mark->m_type;
-    if (type == BookmarkBaseType::None || (type != BookmarkBaseType::Hotel && typesCount[type] < kMinCommonTypesCount))
+    if (type == BookmarkBaseType::None ||
+      (type != BookmarkBaseType::Hotel && typesCount[type] < kMinCommonTypesCount))
+    {
       sortedBlocks.back().m_markIds.push_back(mark->m_id);
+    }
     else
+    {
       sortedBlocks[blockIndices[type]].m_markIds.push_back(mark->m_id);
+    }
   }
 }
 
@@ -1247,7 +1271,7 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
     std::unique_lock<std::mutex> lock(m_regionAddressMutex);
     if (m_regionAddressGetter == nullptr)
     {
-      LOG(LWARNING, ("Region address getter in no set, bookmarks sorting failed."));
+      LOG(LWARNING, ("Region address getter is not set, bookmarks sorting failed."));
       params.m_onResults({} /* sortedBlocks */, SortParams::Status::Cancelled);
       return;
     }
@@ -1260,14 +1284,15 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [this, params, bookmarksForSort = std::move(bookmarksForSort)]() mutable
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, params, bookmarksForSort = std::move(bookmarksForSort)]() mutable
   {
     std::unique_lock<std::mutex> lock(m_regionAddressMutex);
     if (m_regionAddressGetter == nullptr)
     {
       GetPlatform().RunTask(Platform::Thread::Gui, [params]
       {
-        LOG(LWARNING, ("Region address getter in no set, bookmarks sorting failed."));
+        LOG(LWARNING, ("Region address getter is not set, bookmarks sorting failed."));
         params.m_onResults({} /* sortedBlocks */, SortParams::Status::Cancelled);
       });
       return;
@@ -1279,7 +1304,8 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
     SortedBlocksCollection sortedBlocks;
     GetSortedBookmarksImpl(params, bookmarksForSort, sortedBlocks);
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, params, newAddresses = std::move(newAddresses),
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, params,
+                                                  newAddresses = std::move(newAddresses),
                                                   sortedBlocks = std::move(sortedBlocks)]() mutable
     {
       FilterInvalidData(sortedBlocks, newAddresses);
@@ -1616,7 +1642,8 @@ void BookmarkManager::LoadMetadata()
   }
   catch (base::Json::Exception const & exception)
   {
-    LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(), "json:", jsonStr));
+    LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(),
+      "json:", jsonStr));
     return;
   }
 
@@ -3167,20 +3194,13 @@ void BookmarkManager::ResetInvalidCategories()
 void BookmarkManager::FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  bookmarks.erase(std::remove_if(bookmarks.begin(), bookmarks.end(),
-                                 [this](kml::MarkId const & id)
-                                 {
-                                   return GetBookmark(id) == nullptr;
-                                 }),
-                  bookmarks.end());
+  base::EraseIf(bookmarks, [this](kml::MarkId const & id){ return GetBookmark(id) == nullptr; });
 }
 
 void BookmarkManager::FilterInvalidTracks(kml::TrackIdCollection & tracks) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  tracks.erase(std::remove_if(tracks.begin(), tracks.end(),
-                              [this](kml::TrackId const & id) { return GetTrack(id) == nullptr; }),
-               tracks.end());
+  base::EraseIf(tracks, [this](kml::TrackId const & id){ return GetTrack(id) == nullptr; });
 }
 
 kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
@@ -3330,6 +3350,33 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
 
   m_attachedBookmarks.clear();
   m_detachedBookmarks.clear();
+}
+
+bool BookmarkManager::SortedBlock::operator==(SortedBlock const & other) const
+{
+  return m_blockName == other.m_blockName && m_markIds == other.m_markIds &&
+    m_trackIds == other.m_trackIds;
+}
+
+bool BookmarkManager::Properties::GetProperty(std::string const & propertyName,
+                                              std::string & value) const
+{
+  auto const it = m_values.find(propertyName);
+  if (it == m_values.end())
+    return false;
+  value = it->second;
+  return true;
+}
+
+bool BookmarkManager::Metadata::GetEntryProperty(std::string const & entryName,
+                                                 std::string const & propertyName,
+                                                 std::string & value) const
+{
+  auto const it = m_entriesProperties.find(entryName);
+  if (it == m_entriesProperties.end())
+    return false;
+
+  return it->second.GetProperty(propertyName, value);
 }
 
 // static
@@ -3529,17 +3576,6 @@ bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::NotifyChanges()
 {
   m_bmManager.NotifyChanges();
-}
-
-std::string DebugPrint(BookmarkManager::SortingType type)
-{
-  switch (type)
-  {
-  case BookmarkManager::SortingType::ByTime: return "ByTime";
-  case BookmarkManager::SortingType::ByType: return "ByType";
-  case BookmarkManager::SortingType::ByDistance: return "ByDistance";
-  }
-  UNREACHABLE();
 }
 
 namespace lightweight
