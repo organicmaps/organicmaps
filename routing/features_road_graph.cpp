@@ -189,7 +189,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
     CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
 
-    finder.AddInformationSource(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
+    finder.AddInformationSource(IRoadGraph::FullRoadInfo(featureId, roadInfo));
   };
 
   m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());
@@ -197,8 +197,8 @@ void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
   finder.MakeResult(vicinities, count);
 }
 
-vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
-    m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const
+vector<IRoadGraph::FullRoadInfo>
+FeaturesRoadGraph::FindRoads(m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const
 {
   vector<IRoadGraph::FullRoadInfo> roads;
   auto const f = [&roads, &isGoodFeature, &rect, this](FeatureType & ft) {
@@ -209,7 +209,7 @@ vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
     if (isGoodFeature && !isGoodFeature(featureId))
       return;
 
-    // DataSource::ForEachInRect() gives not ony features inside |rect| but some other features
+    // DataSource::ForEachInRect() gives not only features inside |rect| but some other features
     // which lie close to the rect. Removes all the features which don't cross |rect|.
     auto const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
     if (!RectCoversPolyline(roadInfo.m_junctions, rect))

@@ -15,15 +15,14 @@ NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IsEdgeProjGood co
 {
 }
 
-void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
-                                             IRoadGraph::JunctionVec const & junctions,
-                                             bool bidirectional)
+void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & roadInfo)
 {
-  if (!featureId.IsValid())
+  if (!roadInfo.m_featureId.IsValid())
     return;
 
   Candidate res;
 
+  auto const & junctions = roadInfo.m_roadInfo.m_junctions;
   size_t const count = junctions.size();
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
@@ -68,10 +67,10 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
         startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
   }
 
-  res.m_fid = featureId;
+  res.m_fid = roadInfo.m_featureId;
   res.m_segStart = segStart;
   res.m_segEnd = segEnd;
-  res.m_bidirectional = bidirectional;
+  res.m_bidirectional = roadInfo.m_roadInfo.m_bidirectional;
 
   ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude(), feature::kInvalidAltitude, ());
   ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
@@ -102,26 +101,20 @@ void NearestEdgeFinder::CandidateToResult(Candidate const & candidate,
                                           size_t maxCountFeatures,
                                           vector<pair<Edge, Junction>> & res) const
 {
-  AddResIf(candidate.m_fid, true /* forward */, candidate.m_segId,
-           candidate.m_segStart, candidate.m_segEnd, candidate.m_projPoint, maxCountFeatures, res);
+  AddResIf(candidate, true /* forward */, maxCountFeatures, res);
 
   if (candidate.m_bidirectional)
-  {
-    AddResIf(candidate.m_fid, false /* forward */, candidate.m_segId, candidate.m_segEnd,
-             candidate.m_segStart, candidate.m_projPoint, maxCountFeatures, res);
-  }
+    AddResIf(candidate, false /* forward */, maxCountFeatures, res);
 }
 
-void NearestEdgeFinder::AddResIf(FeatureID const & featureId, bool forward, uint32_t segId,
-                                 Junction const & startJunction, Junction const & endJunction,
-                                 Junction const & projPoint, size_t maxCountFeatures,
+void NearestEdgeFinder::AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
                                  vector<pair<Edge, Junction>> & res) const
 {
   if (res.size() >= maxCountFeatures)
     return;
 
-  auto const edge = Edge::MakeReal(featureId, forward, segId, startJunction, endJunction);
-  auto const edgeProj = make_pair(edge, projPoint);
+  auto const & edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, candidate.m_segStart, candidate.m_segEnd);
+  auto const & edgeProj = make_pair(edge, candidate.m_projPoint);
   if (m_isEdgeProjGood && !m_isEdgeProjGood(edgeProj))
     return;
 

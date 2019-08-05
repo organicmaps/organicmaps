@@ -829,15 +829,17 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
   set<Segment> deadEnds;
-  base::EraseIf(roads, [&deadEnds, &worldGraph, this](IRoadGraph::FullRoadInfo const & r) {
-    CHECK_GREATER_OR_EQUAL(r.m_roadInfo.m_junctions.size(), 2, ());
+  base::EraseIf(roads, [&deadEnds, &worldGraph, this](auto const & fullRoadInfo) {
+    CHECK_GREATER_OR_EQUAL(fullRoadInfo.m_roadInfo.m_junctions.size(), 2, ());
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
     // Below a heuristic is used. If a first segment of a feature is forward direction is a dead end
     // all segments of the feature is considered as dead ends.
-    auto const segment = GetSegmentByEdge(Edge::MakeReal(r.m_featureId, true /* forward */, 0 /* segment id */,
-                                                         r.m_roadInfo.m_junctions[0], r.m_roadInfo.m_junctions[1]));
+    auto const segment = GetSegmentByEdge(Edge::MakeReal(fullRoadInfo.m_featureId, true /* forward */,
+                                                         0 /* segment id */,
+                                                         fullRoadInfo.m_roadInfo.m_junctions[0],
+                                                         fullRoadInfo.m_roadInfo.m_junctions[1]));
     return IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, worldGraph,
                            deadEnds);
   });
@@ -885,8 +887,8 @@ void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
                                       vector<pair<Edge, Junction>> & edgeProj) const
 {
   NearestEdgeFinder finder(point, isGood);
-  for (auto const & r : roads)
-    finder.AddInformationSource(r.m_featureId, r.m_roadInfo.m_junctions, r.m_roadInfo.m_bidirectional);
+  for (auto const & road : roads)
+    finder.AddInformationSource(road);
 
   finder.MakeResult(edgeProj, count);
 }

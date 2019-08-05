@@ -30,8 +30,8 @@ public:
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
-  void AddInformationSource(FeatureID const & featureId, IRoadGraph::JunctionVec const & junctions,
-                            bool bidirectional);
+  void AddInformationSource(IRoadGraph::FullRoadInfo const & roadInfo);
+
 
   void MakeResult(std::vector<std::pair<Edge, Junction>> & res, size_t maxCountFeatures);
 
@@ -49,9 +49,7 @@ private:
     bool m_bidirectional = true;
   };
 
-  void AddResIf(FeatureID const & featureId, bool forward, uint32_t segId,
-                Junction const & startJunction, Junction const & endJunction,
-                Junction const & projPoint, size_t maxCountFeatures,
+  void AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
                 std::vector<std::pair<Edge, Junction>> & res) const;
   void CandidateToResult(Candidate const & candidate, size_t maxCountFeatures,
                          std::vector<std::pair<Edge, Junction>> & res) const;
