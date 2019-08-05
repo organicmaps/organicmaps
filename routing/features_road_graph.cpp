@@ -93,7 +93,7 @@ VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleM
   ASSERT(vehicleModel, ());
   ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxWeightSpeed(), ());
 
-  itr = m_cache.insert(make_pair(featureId.m_mwmId, move(vehicleModel))).first;
+  itr = m_cache.emplace(featureId.m_mwmId, move(vehicleModel)).first;
   return itr->second.get();
 }
 
@@ -104,7 +104,7 @@ void FeaturesRoadGraph::CrossCountryVehicleModel::Clear()
 
 IRoadGraph::RoadInfo & FeaturesRoadGraph::RoadInfoCache::Find(FeatureID const & featureId, bool & found)
 {
-  auto res = m_cache.insert(make_pair(featureId.m_mwmId, TMwmFeatureCache()));
+  auto res = m_cache.emplace(featureId.m_mwmId, TMwmFeatureCache());
   if (res.second)
     res.first->second.Init(kPowOfTwoForFeatureCacheSize);
   return res.first->second.Find(featureId.m_index, found);
@@ -361,7 +361,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const 
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_dataSource, m_dataSource.GetMwmHandleById(mwmId))))
+  return m_mwmLocks.emplace(move(mwmId), Value(m_dataSource, m_dataSource.GetMwmHandleById(mwmId)))
       .first->second;
 }
 }  // namespace routing
