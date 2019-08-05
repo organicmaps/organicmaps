@@ -53,8 +53,11 @@ bool IndexGraph::IsJointOrEnd(Segment const & segment, bool fromStart)
   // For features, that ends out of mwm. In this case |m_graph.IsJoint| returns false, but we should
   // think, that it's Joint anyway.
   uint32_t const pointId = segment.GetPointId(fromStart);
+  if (pointId == 0)
+    return true;
+
   uint32_t const pointsNumber = GetGeometry().GetRoad(segment.GetFeatureId()).GetPointsCount();
-  return pointId == 0 || pointId + 1 == pointsNumber;
+  return pointId + 1 == pointsNumber;
 }
 
 void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges,
