@@ -1007,7 +1007,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
   // if they don't match RoutingOptions.
   set<Segment> deadEnds;
-  auto const isGood = [&, this](pair<Edge, Junction> const & edgeProj){
+  auto const isGood = [&](pair<Edge, Junction> const & edgeProj){
     auto const segment = GetSegmentByEdge(edgeProj.first);
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
       return false;
