@@ -15,9 +15,11 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
   private func layout() {
     collectionView.setNeedsLayout()
     collectionView.layoutIfNeeded()
-    if collectionViewHeight.constant != collectionView.contentSize.height {
-      collectionViewHeight.constant = collectionView.contentSize.height
-      frame.size.height = collectionViewHeight.constant
+    if abs(collectionViewHeight.constant - collectionView.contentSize.height) > 2.0 {
+      let newHeight = collectionView.contentSize.height
+      collectionViewHeight.constant = newHeight
+      frame.size.height = newHeight
+      tableView?.reloadData()
     }
   }
 
