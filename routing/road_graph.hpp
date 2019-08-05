@@ -200,17 +200,14 @@ public:
 
   struct FullRoadInfo
   {
-    FullRoadInfo(FeatureID const & featureId, RoadInfo const & roadInfo,
-                 bool isRoadAccordingToModel)
+    FullRoadInfo(FeatureID const & featureId, RoadInfo const & roadInfo)
       : m_featureId(featureId)
       , m_roadInfo(roadInfo)
-      , m_isRoadAccordingToModel(isRoadAccordingToModel)
     {
     }
 
     FeatureID m_featureId;
     RoadInfo m_roadInfo;
-    bool m_isRoadAccordingToModel;
   };
 
   /// This class is responsible for loading edges in a cross.

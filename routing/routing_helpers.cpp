@@ -4,7 +4,6 @@
 
 #include "traffic/traffic_info.hpp"
 
-#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -164,7 +163,23 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
 
-bool PolylineInRect(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect)
+bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect)
+{
+  double constexpr kEps = 1e-6;
+  bool isSideIntersected = false;
+  rect.ForEachSide([&segment, &isSideIntersected](m2::PointD const & a, m2::PointD const & b) {
+    if (isSideIntersected)
+      return;
+
+    m2::Segment2D const rectSide(a, b);
+    isSideIntersected =
+        m2::Intersect(segment, rectSide, kEps).m_type != m2::IntersectionResult::Type::Zero;
+  });
+
+  return isSideIntersected;
+}
+
+bool RectCoversPolyline(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect)
 {
   if (junctions.empty())
     return false;
@@ -172,14 +187,21 @@ bool PolylineInRect(IRoadGraph::JunctionVec const & junctions, m2::RectD const &
   if (junctions.size() == 1)
     return rect.IsPointInside(junctions.front().GetPoint());
 
-  auto const & center = rect.Center();
-  for (size_t i = 1; i < junctions.size(); ++i)
+  for (auto const & j : junctions)
   {
-    m2::ParametrizedSegment<m2::PointD> segProj(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
-    m2::PointD const & proj = segProj.ClosestPointTo(center);
-    if (rect.IsPointInside(proj))
+    if (rect.IsPointInside(j.GetPoint()))
       return true;
   }
+
+  // No point of polyline |junctions| lays inside |rect| but may be segments of the polyline
+  // cross |rect| borders.
+  for (size_t i = 1; i < junctions.size(); ++i)
+  {
+    m2::Segment2D const polylineSegment(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
+    if (SegmentCrossesRect(polylineSegment, rect))
+      return true;
+  }
+
   return false;
 }
 }  // namespace routing

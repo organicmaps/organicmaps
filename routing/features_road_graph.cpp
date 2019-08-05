@@ -212,10 +212,10 @@ vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraph::FindRoads(
     // DataSource::ForEachInRect() gives not ony features inside |rect| but some other features
     // which lie close to the rect. Removes all the features which don't cross |rect|.
     auto const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
-    if (!PolylineInRect(roadInfo.m_junctions, rect))
+    if (!RectCoversPolyline(roadInfo.m_junctions, rect))
       return;
 
-    roads.emplace_back(featureId, roadInfo, true /* m_isRoadAccordingToModel */);
+    roads.emplace_back(featureId, roadInfo);
   };
 
   m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());

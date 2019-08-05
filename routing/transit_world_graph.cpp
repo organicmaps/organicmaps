@@ -202,7 +202,7 @@ void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
                                      bool useRoutingOptions, vector<SegmentEdge> & edges)
 {
   auto & indexGraph = GetIndexGraph(segment.GetMwmId());
-  indexGraph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
+  indexGraph.GetEdgeList(segment, isOutgoing, useRoutingOptions, edges);
   GetTwins(segment, isOutgoing, useRoutingOptions, edges);
 }
 

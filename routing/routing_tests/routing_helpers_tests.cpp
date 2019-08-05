@@ -69,25 +69,25 @@ UNIT_TEST(FillSegmentInfoTest)
 UNIT_TEST(PolylineInRectTest)
 {
   // Empty polyline.
-  TEST(!PolylineInRect({}, m2::RectD()), ());
-  TEST(!PolylineInRect({}, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+  TEST(!RectCoversPolyline({}, m2::RectD()), ());
+  TEST(!RectCoversPolyline({}, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
 
   // One point polyline outside the rect.
   {
     auto const junctions = IRoadGraph::JunctionVec({{m2::PointD(3.0, 3.0), 0 /* altitude */}});
-    TEST(!PolylineInRect(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+    TEST(!RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   // One point polyline inside the rect.
   {
     auto const junctions = IRoadGraph::JunctionVec({{m2::PointD(1.0, 1.0), 0 /* altitude */}});
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   // One point polyline on the rect border.
   {
     auto const junctions = IRoadGraph::JunctionVec({{m2::PointD(0.0, 0.0), 0 /* altitude */}});
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   // Two point polyline touching the rect border.
@@ -96,16 +96,24 @@ UNIT_TEST(PolylineInRectTest)
         {m2::PointD(-1.0, -1.0), 0 /* altitude */},
         {m2::PointD(0.0, 0.0), 0 /* altitude */},
     });
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
-  // Crossing rect.
+  // Crossing rect by a segment but no polyline points inside the rect.
   {
     auto const junctions = IRoadGraph::JunctionVec({
         {m2::PointD(-1.0, -1.0), 0 /* altitude */},
         {m2::PointD(5.0, 5.0), 0 /* altitude */},
     });
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
+  }
+
+  {
+    auto const junctions = IRoadGraph::JunctionVec({
+        {m2::PointD(0.0, 1.0), 0 /* altitude */},
+        {m2::PointD(100.0, 2.0), 0 /* altitude */},
+    });
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 100.0, 1.0)), ());
   }
 
   // Crossing a rect very close to a corner.
@@ -114,7 +122,7 @@ UNIT_TEST(PolylineInRectTest)
         {m2::PointD(-1.0, 0.0), 0 /* altitude */},
         {m2::PointD(1.0, 1.9), 0 /* altitude */},
     });
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
   }
 
   // Three point polyline crossing the rect.
@@ -124,7 +132,7 @@ UNIT_TEST(PolylineInRectTest)
         {m2::PointD(1.0, 0.01), 0 /* altitude */},
         {m2::PointD(2.0, -1.0), 0 /* altitude */},
     });
-    TEST(PolylineInRect(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
+    TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
   }
 }
 }  // namespace routing_test

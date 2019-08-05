@@ -13,6 +13,7 @@
 #include "routing_common/pedestrian_model.hpp"
 
 #include "geometry/rect2d.hpp"
+#include "geometry/segment2d.hpp"
 
 #include "base/cancellable.hpp"
 
@@ -53,8 +54,11 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
 /// \returns Segment() if mwm of |edge| is not alive.
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 
-// @returns true if any part of polyline |junctions| lay in |rect| and false otherwise.
-bool PolylineInRect(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect);
+/// \returns true if |segment| crosses any side of |rect|.
+bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect);
+
+// \returns true if any part of polyline |junctions| lay in |rect| and false otherwise.
+bool RectCoversPolyline(IRoadGraph::JunctionVec const & junctions, m2::RectD const & rect);
 
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,

@@ -881,10 +881,10 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 
 void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
                                       vector<IRoadGraph::FullRoadInfo> const & roads, uint32_t count,
-                                      IsEdgeProjGood const & IsGood,
+                                      IsEdgeProjGood const & isGood,
                                       vector<pair<Edge, Junction>> & edgeProj) const
 {
-  NearestEdgeFinder finder(point, IsGood);
+  NearestEdgeFinder finder(point, isGood);
   for (auto const & r : roads)
     finder.AddInformationSource(r.m_featureId, r.m_roadInfo.m_junctions, r.m_roadInfo.m_bidirectional);
 
@@ -978,9 +978,10 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   auto closestRoads = m_roadGraph.FindRoads(rect, isGoodFeature);
 
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
-  // It's necessary to call for all |closestRoads| before IsFencedOff(). If to remove all fenced off
-  // by other features from |point| candidates at first, only dead ends candidates may be left.
-  // And then the dead end candidates will be removed as well as dead ends.
+  // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
+  // If to remove all fenced off by other features from |point| candidates at first,
+  // only dead ends candidates may be left. And then the dead end candidates will be removed
+  // as well as dead ends. It often happens near airports.
   EraseIfDeadEnd(worldGraph, closestRoads);
 
   // Sorting from the closest features to the further ones. The idea is the closer
@@ -994,22 +995,29 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
         point.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
   });
 
+  // Note about necessity of removing dead ends twice.
+  // At first, only real dead ends and roads which are not correct according to |worldGraph|
+  // are removed in EraseIfDeadEnd() function. It's necessary to prepare correct road network
+  // (|closestRoads|) which will be used in IsFencedOff() method later and |closestRoads|
+  // should contain all roads independently of routing options to prevent crossing roads
+  // which are switched off in RoutingOptions.
+  // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
+  // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
+  // if they don't match RoutingOptions.
   set<Segment> deadEnds;
-  auto const IsGood = [&, this](pair<Edge, Junction> const & edgeProj){
+  auto const isGood = [&, this](pair<Edge, Junction> const & edgeProj){
     auto const segment = GetSegmentByEdge(edgeProj.first);
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
       return false;
 
-    // Removing all candidates which are fenced off by the road graph from |point|.
-    // It's better to perform this step after |candidates| are found:
-    // * by performance reasons
-    // * the closest edge(s) is not separated from |point| by other edges.
+    // Removing all candidates which are fenced off by the road graph (|closestRoads|) from |point|.
     return !IsFencedOff(point, edgeProj, closestRoads);
   };
 
-  // Getting |kMaxRoadCandidates| closest edges from |closestRoads|.
+  // Getting |kMaxRoadCandidates| closest edges from |closestRoads| if they are correct
+  // according to isGood() function.
   vector<pair<Edge, Junction>> candidates;
-  RoadsToNearestEdges(point, closestRoads, kMaxRoadCandidates, IsGood, candidates);
+  RoadsToNearestEdges(point, closestRoads, kMaxRoadCandidates, isGood, candidates);
 
   if (candidates.empty())
     return false;

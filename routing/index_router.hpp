@@ -106,7 +106,8 @@ private:
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();
 
-  /// \brief Removes all roads from |roads| which goes to dead ends.
+  /// \brief Removes all roads from |roads| which goes to dead ends and all road which
+  /// is not good according to |worldGraph|. For car routing it's roads with hwtag nocar.
   void EraseIfDeadEnd(WorldGraph & worldGraph,
                       std::vector<IRoadGraph::FullRoadInfo> & roads) const;
 
