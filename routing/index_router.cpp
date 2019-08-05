@@ -882,7 +882,7 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
 }
 
 void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
-                                      vector<IRoadGraph::FullRoadInfo> const & roads, uint32_t count,
+                                      vector<IRoadGraph::FullRoadInfo> const & roads,
                                       IsEdgeProjGood const & isGood,
                                       vector<pair<Edge, Junction>> & edgeProj) const
 {
@@ -890,7 +890,7 @@ void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
   for (auto const & road : roads)
     finder.AddInformationSource(road);
 
-  finder.MakeResult(edgeProj, count);
+  finder.MakeResult(edgeProj, kMaxRoadCandidates);
 }
 
 Segment IndexRouter::GetSegmentByEdge(Edge const & edge) const
@@ -1016,10 +1016,9 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
     return !IsFencedOff(point, edgeProj, closestRoads);
   };
 
-  // Getting |kMaxRoadCandidates| closest edges from |closestRoads| if they are correct
-  // according to isGood() function.
+  // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
   vector<pair<Edge, Junction>> candidates;
-  RoadsToNearestEdges(point, closestRoads, kMaxRoadCandidates, isGood, candidates);
+  RoadsToNearestEdges(point, closestRoads, isGood, candidates);
 
   if (candidates.empty())
     return false;

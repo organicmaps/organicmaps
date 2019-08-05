@@ -117,7 +117,7 @@ private:
                    std::vector<IRoadGraph::FullRoadInfo> const & fences) const;
 
   void RoadsToNearestEdges(m2::PointD const & point,
-                           std::vector<IRoadGraph::FullRoadInfo> const & roads, uint32_t count,
+                           std::vector<IRoadGraph::FullRoadInfo> const & roads,
                            IsEdgeProjGood const & isGood,
                            std::vector<std::pair<Edge, Junction>> & edgeProj) const;
 
