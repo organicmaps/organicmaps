@@ -793,12 +793,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 #pragma mark - MWMPlacePagePromoProtocol
 
 - (void)openCatalogForURL:(NSURL *)url {
-  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
-  bookmarks.activeTab = ActiveTabCatalog;
   // NOTE: UTM is already into URL, core part does it for Placepage Gallery.
   MWMCatalogWebViewController *catalog = [MWMCatalogWebViewController catalogFromAbsoluteUrl:url utm:MWMUTMNone];
   NSMutableArray<UIViewController *> * controllers = [self.ownerViewController.navigationController.viewControllers mutableCopy];
-  [controllers addObjectsFromArray:@[bookmarks, catalog]];
+  [controllers addObjectsFromArray:@[catalog]];
   [self.ownerViewController.navigationController setViewControllers:controllers animated:YES];
 }
 

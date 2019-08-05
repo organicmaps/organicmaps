@@ -342,12 +342,10 @@ struct Callback
 }
 
 - (void)openCatalogForURL:(NSURL *)url {
-  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
-  bookmarks.activeTab = ActiveTabCatalog;
   // NOTE: UTM is already into URL, core part does it for Discovery page.
   MWMCatalogWebViewController *catalog = [MWMCatalogWebViewController catalogFromAbsoluteUrl:url utm:MWMUTMNone];
   NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
-  [controllers addObjectsFromArray:@[bookmarks, catalog]];
+  [controllers addObjectsFromArray:@[catalog]];
   [self.navigationController setViewControllers:controllers animated:YES];
 }
 
