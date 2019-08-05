@@ -62,7 +62,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   else
   {
     double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), closestPoint);
-    ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
+    ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (roadInfo.m_featureId));
     projPointAlt =
         startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
   }

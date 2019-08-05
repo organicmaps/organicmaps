@@ -187,9 +187,9 @@ bool RectCoversPolyline(IRoadGraph::JunctionVec const & junctions, m2::RectD con
   if (junctions.size() == 1)
     return rect.IsPointInside(junctions.front().GetPoint());
 
-  for (auto const & j : junctions)
+  for (auto const & junction : junctions)
   {
-    if (rect.IsPointInside(j.GetPoint()))
+    if (rect.IsPointInside(junction.GetPoint()))
       return true;
   }
 
