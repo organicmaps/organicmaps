@@ -73,6 +73,14 @@ public:
     });
   }
 
+  template <typename Do>
+  bool ForAnyRegionGeometry(Do && fn) const
+  {
+    return m_regions.ForAny([&](auto const & region) {
+      return fn(region.Data());
+    });
+  }
+
 private:
   std::string m_name;
   RegionsContainer m_regions;

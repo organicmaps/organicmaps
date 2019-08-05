@@ -123,8 +123,8 @@ public:
     TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* geometryPointsCnt */,
                 460460 /* pointCnt */, 87058 /* lineCnt */, 250272 /* areaCnt */,
                 95650 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* geometryPointsCnt */,
-                397694 /* pointCnt */, 81712 /* lineCnt */, 157586 /* areaCnt */,
+    TestCountry(southCanterbury, 636994 /* fbsCnt */, 6984278 /* geometryPointsCnt */,
+                397694 /* pointCnt */, 81712 /* lineCnt */, 157588 /* areaCnt */,
                 89249 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
     TestCountry(southSouthland, 340492 /* fbsCnt */, 5342793 /* geometryPointsCnt */, 185847 /* pointCnt */,
                 40124 /* lineCnt */, 114521 /* areaCnt */, 40497 /* poiCnt */,
@@ -159,8 +159,8 @@ public:
     TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* geometryPointsCnt */,
                 460460 /* pointCnt */, 87058 /* lineCnt */, 250272 /* areaCnt */,
                 95650 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* geometryPointsCnt */,
-                397694 /* pointCnt */, 81712 /* lineCnt */, 157586 /* areaCnt */,
+    TestCountry(southCanterbury, 636994 /* fbsCnt */, 6984278 /* geometryPointsCnt */,
+                397694 /* pointCnt */, 81712 /* lineCnt */, 157588 /* areaCnt */,
                 89249 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
     size_t partner1CntReal = 0;
     TestCountry(southSouthland, 340494 /* fbsCnt */, 5342795 /* geometryPointsCnt */, 185849 /* pointCnt */,

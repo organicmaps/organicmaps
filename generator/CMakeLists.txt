@@ -21,6 +21,8 @@ set(
   brands_loader.hpp
   camera_info_collector.cpp
   camera_info_collector.hpp
+  cells_merger.cpp
+  cells_merger.hpp
   centers_table_builder.cpp
   centers_table_builder.hpp
   check_model.cpp

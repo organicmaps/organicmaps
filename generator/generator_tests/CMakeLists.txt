@@ -6,6 +6,7 @@ set(
   booking_tests.cpp
   brands_loader_test.cpp
   camera_collector_tests.cpp
+  cells_merger_tests.cpp
   cities_boundaries_checker_tests.cpp
   cities_ids_tests.cpp
   city_roads_tests.cpp

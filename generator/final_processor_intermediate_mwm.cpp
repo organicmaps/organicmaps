@@ -334,7 +334,7 @@ void CountryFinalProcessor::Process()
 void CountryFinalProcessor::ProcessBooking()
 {
   BookingDataset dataset(m_hotelsFilename);
-  auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   {
     ThreadPool pool(m_threadsCount);
     ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
@@ -373,7 +373,7 @@ void CountryFinalProcessor::ProcessBooking()
 
 void CountryFinalProcessor::ProcessCities()
 {
-  auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto citiesHelper = m_citiesAreasTmpFilename.empty()
                       ? PlaceHelper()
                       : PlaceHelper(m_citiesAreasTmpFilename);
@@ -390,7 +390,7 @@ void CountryFinalProcessor::ProcessCities()
 
 void CountryFinalProcessor::ProcessCoastline()
 {
-  auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto fbs = ReadAllDatRawFormat(m_coastlineGeomFilename);
   auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
   AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
@@ -412,14 +412,14 @@ void CountryFinalProcessor::AddFakeNodes()
     ftype::GetNameAndType(&element, fb.GetParams());
     fbs.emplace_back(std::move(fb));
   });
-  auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
   AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
 }
 
 void CountryFinalProcessor::Finish()
 {
-  auto const affiliation = CountriesFilesAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   ThreadPool pool(m_threadsCount);
   ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
     pool.SubmitWork([&, filename]() {
