@@ -173,8 +173,8 @@ public:
     });
   }
 
-  template <typename Key, typename T>
-  void operator()(std::pair<Key, T> const & p, char const * name = nullptr)
+  template <typename Key, typename Value>
+  void operator()(std::pair<Key, Value> const & p, char const * name = nullptr)
   {
     NewScopeWith(base::NewJSONObject(), name, [this, &p] {
       (*this)(p.first, "key");
@@ -288,7 +288,7 @@ public:
       MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
 
     T tmp;
-    size_t size = json_array_size(m_json);
+    size_t const size = json_array_size(m_json);
     dest.reserve(size);
     for (size_t index = 0; index < size; ++index)
     {
@@ -316,7 +316,7 @@ public:
     if (N != json_array_size(m_json))
     {
       MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array of size", N,
-                                    "but size is", json_array_size(m_json)));
+                                      "but size is", json_array_size(m_json)));
     }
 
     for (size_t index = 0; index < N; ++index)
@@ -341,7 +341,7 @@ public:
               ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
     }
 
-    size_t size = json_array_size(m_json);
+    size_t const size = json_array_size(m_json);
     for (size_t index = 0; index < size; ++index)
     {
       json_t * context = SaveContext();
@@ -355,8 +355,8 @@ public:
     RestoreContext(outerContext);
   }
 
-  template <typename Key, typename T>
-  void operator()(std::pair<Key, T> & dst, char const * name = nullptr)
+  template <typename Key, typename Value>
+  void operator()(std::pair<Key, Value> & dst, char const * name = nullptr)
   {
     json_t * outerContext = SaveContext(name);
     (*this)(dst.first, "key");

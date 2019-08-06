@@ -19,8 +19,8 @@ using namespace std;
 
 namespace
 {
-template <typename PtrT>
-bool SamePtrValue(PtrT const & lhs, PtrT const & rhs)
+template <typename Ptr>
+bool SamePtrValue(Ptr const & lhs, Ptr const & rhs)
 {
   return (!lhs && !rhs) || (lhs && rhs && *lhs == *rhs);
 }
@@ -233,12 +233,12 @@ UNIT_TEST(SerdesJsonTest)
   {
     struct Hasher
     {
-      hash<string> m_hasher;
-
       size_t operator()(pair<string, string> const & item) const
       {
         return m_hasher(item.first + item.second);
       }
+
+      hash<string> m_hasher;
     };
 
     unordered_set<pair<string, string>, Hasher> testValue = {{"ab", "ab"}, {"ef", "ef"},

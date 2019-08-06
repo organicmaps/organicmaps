@@ -231,7 +231,8 @@ public:
     OnResults m_onResults;
   };
 
-  std::set<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId, bool hasMyPosition) const;
+  std::vector<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId,
+                                                    bool hasMyPosition) const;
   void GetSortedBookmarks(SortParams const & params);
 
   bool GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const;

@@ -799,10 +799,10 @@ UNIT_TEST(Bookmarks_Sorting)
     kml::MarkGroupId catId = bmManager.CreateBookmarkCategory("test", false);
     fillCategory(catId, testData);
 
-    std::set<BookmarkManager::SortingType> expectedSortingTypes = {
-      BookmarkManager::SortingType::ByTime,
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes = {
+      BookmarkManager::SortingType::ByType,
       BookmarkManager::SortingType::ByDistance,
-      BookmarkManager::SortingType::ByType};
+      BookmarkManager::SortingType::ByTime};
 
     auto const sortingTypes = bmManager.GetAvailableSortingTypes(catId, true);
     TEST(sortingTypes == expectedSortingTypes, ());
@@ -825,14 +825,15 @@ UNIT_TEST(Bookmarks_Sorting)
     kml::MarkGroupId catId2 = bmManager.CreateBookmarkCategory("test2", false);
     fillCategory(catId2, testData2);
 
-    std::set<BookmarkManager::SortingType> expectedSortingTypes2 = {
-      BookmarkManager::SortingType::ByDistance,
-      BookmarkManager::SortingType::ByType};
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes2 = {
+      BookmarkManager::SortingType::ByType,
+      BookmarkManager::SortingType::ByDistance};
 
     auto const sortingTypes2 = bmManager.GetAvailableSortingTypes(catId2, true);
     TEST(sortingTypes2 == expectedSortingTypes2, ());
 
-    std::set<BookmarkManager::SortingType> expectedSortingTypes2_2 = {BookmarkManager::SortingType::ByType};
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes2_2 = {
+      BookmarkManager::SortingType::ByType};
 
     auto const sortingTypes2_2 = bmManager.GetAvailableSortingTypes(catId2, false);
     TEST(sortingTypes2_2 == expectedSortingTypes2_2, ());
@@ -851,7 +852,7 @@ UNIT_TEST(Bookmarks_Sorting)
     kml::MarkGroupId catId3 = bmManager.CreateBookmarkCategory("test3", false);
     fillCategory(catId3, testData3);
 
-    std::set<BookmarkManager::SortingType> expectedSortingTypes3 = {};
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes3 = {};
     auto const sortingTypes3 = bmManager.GetAvailableSortingTypes(catId3, false);
     TEST(sortingTypes3 == expectedSortingTypes3, ());
   }
@@ -860,7 +861,7 @@ UNIT_TEST(Bookmarks_Sorting)
     kml::MarkGroupId catId4 = bmManager.CreateBookmarkCategory("test4", false);
     fillCategory(catId4, testData4);
 
-    std::set<BookmarkManager::SortingType> expectedSortingTypes4 = { BookmarkManager::SortingType::ByType };
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes4 = { BookmarkManager::SortingType::ByType };
     auto const sortingTypes4 = bmManager.GetAvailableSortingTypes(catId4, false);
     TEST(sortingTypes4 == expectedSortingTypes4, ());
 

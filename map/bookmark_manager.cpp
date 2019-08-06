@@ -865,7 +865,7 @@ void BookmarkManager::ResetLastSortingType(kml::MarkGroupId groupId)
   SaveMetadata();
 }
 
-std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes(
+std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes(
   kml::MarkGroupId groupId, bool hasMyPosition) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -891,16 +891,8 @@ std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes
       }
       else
       {
-        auto it = typesCount.find(type);
-        if (it == typesCount.end())
-        {
-          typesCount.insert(std::make_pair(type, 1));
-        }
-        else
-        {
-          ++it->second;
-          byTypeChecked = it->second == kMinCommonTypesCount;
-        }
+        auto const count = ++typesCount[type];
+        byTypeChecked = (count == kMinCommonTypesCount);
       }
     }
 
@@ -923,13 +915,13 @@ std::set<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes
     }
   }
 
-  std::set<SortingType> sortingTypes;
-  if (hasMyPosition)
-    sortingTypes.insert(SortingType::ByDistance);
+  std::vector<SortingType> sortingTypes;
   if (byTypeChecked)
-    sortingTypes.insert(SortingType::ByType);
+    sortingTypes.push_back(SortingType::ByType);
+  if (hasMyPosition)
+    sortingTypes.push_back(SortingType::ByDistance);
   if (byTimeChecked)
-    sortingTypes.insert(SortingType::ByTime);
+    sortingTypes.push_back(SortingType::ByTime);
 
   return sortingTypes;
 }
@@ -990,7 +982,7 @@ std::string BookmarkManager::GetLocalizedRegionAddress(m2::PointD const & pt)
   std::unique_lock<std::mutex> lock(m_regionAddressMutex);
   if (m_regionAddressGetter == nullptr)
   {
-    LOG(LWARNING, ("Region address getter in no set. Address getting failed."));
+    LOG(LWARNING, ("Region address getter is not set. Address getting failed."));
     return {};
   }
   return m_regionAddressGetter->GetLocalizedRegionAddress(pt);
@@ -1179,11 +1171,7 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
       continue;
     }
 
-    auto it = typesCount.find(type);
-    if (it != typesCount.end())
-      ++it->second;
-    else
-      typesCount.insert(std::make_pair(type, 1));
+    ++typesCount[type];
   }
 
   std::vector<std::pair<BookmarkBaseType, size_t>> sortedTypes;
