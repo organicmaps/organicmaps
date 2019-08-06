@@ -280,6 +280,13 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
   add_gcc_cpp_compile_options("-Wno-noexcept-type")
 endif()
 
+find_package(PythonInterp)
+if (PYTHONINTERP_FOUND)
+  message("Using python: ${PYTHON_EXECUTABLE}")
+else()
+  message(FATAL_ERROR "Cannot find python.")
+endif()
+
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(descriptions)

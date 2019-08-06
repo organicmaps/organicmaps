@@ -1,7 +1,7 @@
 project(shaders)
 
 execute_process(
-  COMMAND python ${OMIM_ROOT}/shaders/gl_shaders_preprocessor.py
+  COMMAND ${PYTHON_EXECUTABLE} ${OMIM_ROOT}/shaders/gl_shaders_preprocessor.py
   ${OMIM_ROOT}/shaders/GL
   shader_index.txt
   programs.hpp
