@@ -29,7 +29,7 @@ bool CheckWeGotExpectedIdsByPoint(m2::PointD const & point,
   return test == reference;
 }
 
-UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside)
+void TestMe(std::vector<OsmElementData> const & osmElements)
 {
   // Absolutely random region.
   std::shared_ptr<JsonValue> value = std::make_shared<JsonValue>(LoadFromString(
@@ -79,7 +79,44 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
   ScopedFile const idsWithoutAddresses{"ids_without_addresses.txt", ScopedFile::Mode::DoNotCreate};
   ScopedFile const geoObjectsKeyValue{"geo_objects.jsonl", ScopedFile::Mode::DoNotCreate};
 
-  std::vector<base::GeoObjectId> allIds;
+  std::vector<base::GeoObjectId> expectedIds;
+
+  {
+    FeaturesCollector collector(geoObjectsFeatures.GetFullPath());
+    for (OsmElementData const & elementData : osmElements)
+    {
+      FeatureBuilder fb = FeatureBuilderFromOmsElementData(elementData);
+      if (fb.IsPoint())
+        expectedIds.emplace_back(fb.GetMostGenericOsmId());
+
+      TEST(fb.PreSerialize(), ());
+      collector.Collect(fb);
+    }
+  }
+
+  GeoObjectsGenerator geoObjectsGenerator{regionGetter,
+                                          geoObjectsFeatures.GetFullPath(),
+                                          idsWithoutAddresses.GetFullPath(),
+                                          geoObjectsKeyValue.GetFullPath(),
+                                          false /* verbose */ ,
+                                          1 /* threadsCount */};
+
+
+  TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
+
+  auto const geoObjectsIndex = MakeTempGeoObjectsIndex(geoObjectsFeatures.GetFullPath());
+  TEST(geoObjectsIndex.has_value(), ("Temporary index build failed"));
+
+  TEST(CheckWeGotExpectedIdsByPoint({1.5, 1.5}, expectedIds, *geoObjectsIndex), ());
+  TEST(CheckWeGotExpectedIdsByPoint({2, 2}, expectedIds, *geoObjectsIndex), ());
+  TEST(CheckWeGotExpectedIdsByPoint({4, 4}, expectedIds, *geoObjectsIndex), ());
+}
+
+
+
+
+UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside)
+{
   std::vector<OsmElementData> const osmElements{
       {1,
        {{"addr:housenumber", "39 с79"},
@@ -93,36 +130,34 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {}},
       {3,
        {{"addr:housenumber", "39 с80"},
+        {"addr:street", "Ленинградский проспект"}},
+       {{1.6, 1.6}},
+       {}}
+  };
+  TestMe(osmElements);
+}
+
+UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside2)
+{
+  std::vector<OsmElementData> const osmElements{
+      {1,
+       {{"addr:housenumber", "39 с80"},
+        {"addr:street", "Ленинградский проспект"}},
+       {{1.6, 1.6}},
+       {}
+      },
+      {2,
+       {{"addr:housenumber", "39 с79"},
         {"addr:street", "Ленинградский проспект"},
         {"building", "yes"}},
-       {{1.6, 1.6}},
+       {{1.5, 1.5}},
        {}},
+      {3,
+       {{"building", "commercial"}, {"type", "multipolygon"}, {"name", "superbuilding"}},
+       {{1, 1}, {4, 4}},
+       {}},
+
   };
-
-  {
-    FeaturesCollector collector(geoObjectsFeatures.GetFullPath());
-    for (OsmElementData const & elementData : osmElements)
-    {
-      FeatureBuilder fb = FeatureBuilderFromOmsElementData(elementData);
-      allIds.emplace_back(fb.GetMostGenericOsmId());
-      TEST(fb.PreSerialize(), ());
-      collector.Collect(fb);
-    }
-  }
-
-  GeoObjectsGenerator geoObjectsGenerator{regionGetter,
-                                          geoObjectsFeatures.GetFullPath(),
-                                          idsWithoutAddresses.GetFullPath(),
-                                          geoObjectsKeyValue.GetFullPath(),
-                                          "*", /* allowAddresslessForCountries */
-                                          false /* verbose */ ,
-                                          1 /* threadsCount */};
-  TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
-
-  auto const geoObjectsIndex = MakeTempGeoObjectsIndex(geoObjectsFeatures.GetFullPath());
-  TEST(geoObjectsIndex.has_value(), ("Temporary index build failed"));
-
-  TEST(CheckWeGotExpectedIdsByPoint({1.5, 1.5}, allIds, *geoObjectsIndex), ());
-  TEST(CheckWeGotExpectedIdsByPoint({2, 2}, allIds, *geoObjectsIndex), ());
-  TEST(CheckWeGotExpectedIdsByPoint({4, 4}, allIds, *geoObjectsIndex), ());
+  TestMe(osmElements);
 }
+

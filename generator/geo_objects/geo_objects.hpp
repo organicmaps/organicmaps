@@ -49,23 +49,18 @@ public:
       return m_regionInfoGetter ? m_regionInfoGetter->FindDeepest(point)
                                 : m_externalInfoGetter->operator()(point);
     }
-
   private:
     boost::optional<regions::RegionInfoGetter> m_regionInfoGetter;
     boost::optional<RegionInfoGetter> m_externalInfoGetter;
   };
 
-  // |allowAddresslessForCountries| specifies countries for which addressless buldings are
-  // constructed in index and key-value files. Countries are specified by osm's default local name
-  // (or part of name) separated by commas. Default value is '*' (for all countries).
   GeoObjectsGenerator(std::string pathInRegionsIndex, std::string pathInRegionsKv,
                       std::string pathInGeoObjectsTmpMwm, std::string pathOutIdsWithoutAddress,
-                      std::string pathOutGeoObjectsKv, std::string allowAddresslessForCountries,
-                      bool verbose, size_t threadsCount);
+                      std::string pathOutGeoObjectsKv, bool verbose, size_t threadsCount);
 
   GeoObjectsGenerator(RegionInfoGetter && regionInfoGetter, std::string pathInGeoObjectsTmpMwm,
                       std::string pathOutIdsWithoutAddress, std::string pathOutGeoObjectsKv,
-                      std::string allowAddresslessForCountries, bool verbose, size_t threadsCount);
+                      bool verbose, size_t threadsCount);
 
   // This function generates key-value pairs for geo objects.
   // First, we try to generate key-value pairs only for houses, since we cannot say anything about
@@ -73,6 +68,11 @@ public:
   // we build an index for houses. And then we finish building key-value pairs for poi using this
   // index for houses.
   bool GenerateGeoObjects();
+
+  KeyValueStorage const & GetKeyValueStorage() const
+  {
+    return m_geoObjectsKv;
+  }
 
 private:
   bool GenerateGeoObjectsPrivate();
@@ -85,7 +85,7 @@ private:
   std::string m_pathInGeoObjectsTmpMwm;
   std::string m_pathOutIdsWithoutAddress;
   std::string m_pathOutGeoObjectsKv;
-  std::string m_allowAddresslessForCountries;
+
   bool m_verbose = false;
   size_t m_threadsCount = 1;
 

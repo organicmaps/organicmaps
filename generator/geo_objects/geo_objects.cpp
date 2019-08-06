@@ -110,45 +110,7 @@ base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonVa
   return jsonWithAddress;
 }
 
-void FilterAddresslessByCountryAndRepackMwm(
-    std::string const & pathInGeoObjectsTmpMwm, std::string const & includeCountries,
-    GeoObjectsGenerator::RegionInfoGetterProxy const & regionInfoGetter, size_t threadsCount)
-{
-  auto const path = GetPlatform().TmpPathForFile();
-  FeaturesCollector collector(path);
-  std::mutex collectorMutex;
-  auto concurrentCollect = [&](FeatureBuilder const & fb) {
-    std::lock_guard<std::mutex> lock(collectorMutex);
-    collector.Collect(fb);
-  };
-
-  auto const filteringCollector = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
-    if (GeoObjectsFilter::HasHouse(fb) || GeoObjectsFilter::IsPoi(fb))
-    {
-      concurrentCollect(fb);
-      return;
-    }
-
-    static_assert(
-        std::is_base_of<regions::ConcurrentGetProcessability, regions::RegionInfoGetter>::value,
-        "");
-    auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
-    if (!regionKeyValue)
-      return;
-
-    auto && country = base::GetJSONObligatoryFieldByPath(
-        *regionKeyValue->second, "properties", "locales", "default", "address", "country");
-    auto countryName = FromJSON<std::string>(country);
-    auto pos = includeCountries.find(countryName);
-    if (pos != std::string::npos)
-      concurrentCollect(fb);
-  };
-
-  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, filteringCollector);
-  CHECK(base::RenameFileX(path, pathInGeoObjectsTmpMwm), ());
-}
-
-void AddThingsWithHousesAndBuildingsAndEnrichWithRegionAddresses(
+void AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
     KeyValueStorage & geoObjectsKv,
     GeoObjectsGenerator::RegionInfoGetterProxy const & regionInfoGetter,
     std::string const & pathInGeoObjectsTmpMwm, bool verbose, size_t threadsCount)
@@ -306,9 +268,9 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
   return pointsEnriched;
 }
 
-void EnrichPointsWithOuterBuildingGeometry(GeoObjectInfoGetter const & geoObjectInfoGetter,
-                                           std::string const & pathInGeoObjectsTmpMwm,
-                                           size_t threadsCount)
+NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
+    GeoObjectInfoGetter const & geoObjectInfoGetter, std::string const & pathInGeoObjectsTmpMwm,
+    size_t threadsCount)
 {
   auto const buildingInfo =
       GetHelpfulNullBuildings(geoObjectInfoGetter, pathInGeoObjectsTmpMwm, threadsCount);
@@ -324,6 +286,7 @@ void EnrichPointsWithOuterBuildingGeometry(GeoObjectInfoGetter const & geoObject
       pathInGeoObjectsTmpMwm, buildingInfo, buildingGeometries, threadsCount);
 
   LOG(LINFO, (pointsCount, "address points were enriched with outer building geomery"));
+  return buildingInfo;
 }
 
 template <class Activist>
@@ -359,15 +322,35 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
   return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
 }
 
-GeoObjectsGenerator::GeoObjectsGenerator(
-    std::string pathInRegionsIndex, std::string pathInRegionsKv, std::string pathInGeoObjectsTmpMwm,
-    std::string pathOutIdsWithoutAddress, std::string pathOutGeoObjectsKv,
-    std::string allowAddresslessForCountries, bool verbose, size_t threadsCount)
+void FilterAddresslessThanGaveTheirGeometryToInnerPoints(std::string const & pathInGeoObjectsTmpMwm,
+                                                         NullBuildingsInfo const & buildingsInfo,
+                                                         size_t threadsCount)
+{
+  auto const path = GetPlatform().TmpPathForFile();
+  FeaturesCollector collector(path);
+  std::mutex collectorMutex;
+  auto concurrentCollect = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
+    auto const id = fb.GetMostGenericOsmId();
+    if (buildingsInfo.m_buildingsIds.find(id) != buildingsInfo.m_buildingsIds.end())
+      return;
 
+    std::lock_guard<std::mutex> lock(collectorMutex);
+    collector.Collect(fb);
+  };
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentCollect);
+  CHECK(base::RenameFileX(path, pathInGeoObjectsTmpMwm), ());
+}
+
+GeoObjectsGenerator::GeoObjectsGenerator(std::string pathInRegionsIndex,
+                                         std::string pathInRegionsKv,
+                                         std::string pathInGeoObjectsTmpMwm,
+                                         std::string pathOutIdsWithoutAddress,
+                                         std::string pathOutGeoObjectsKv, bool verbose,
+                                         size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
   , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
-  , m_allowAddresslessForCountries(std::move(allowAddresslessForCountries))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
   , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
@@ -379,13 +362,11 @@ GeoObjectsGenerator::GeoObjectsGenerator(
 GeoObjectsGenerator::GeoObjectsGenerator(RegionInfoGetter && regionInfoGetter,
                                          std::string pathInGeoObjectsTmpMwm,
                                          std::string pathOutIdsWithoutAddress,
-                                         std::string pathOutGeoObjectsKv,
-                                         std::string allowAddresslessForCountries, bool verbose,
+                                         std::string pathOutGeoObjectsKv, bool verbose,
                                          size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
   , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
-  , m_allowAddresslessForCountries(std::move(allowAddresslessForCountries))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
   , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
@@ -403,7 +384,7 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   auto geoObjectIndexFuture =
       std::async(std::launch::async, MakeTempGeoObjectsIndex, m_pathInGeoObjectsTmpMwm);
 
-  AddThingsWithHousesAndBuildingsAndEnrichWithRegionAddresses(
+  AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
       m_geoObjectsKv, m_regionInfoGetter, m_pathInGeoObjectsTmpMwm, m_verbose, m_threadsCount);
 
   LOG(LINFO, ("Geo objects with addresses were built."));
@@ -411,6 +392,7 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   auto geoObjectIndex = geoObjectIndexFuture.get();
 
   LOG(LINFO, ("Index was built."));
+
   if (!geoObjectIndex)
     return false;
 
@@ -418,22 +400,18 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
 
   LOG(LINFO, ("Enrich address points with outer null building geometry."));
 
-  EnrichPointsWithOuterBuildingGeometry(geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm,
-                                        m_threadsCount);
+  NullBuildingsInfo const & buildingInfo = EnrichPointsWithOuterBuildingGeometry(
+      geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm, m_threadsCount);
 
   std::ofstream streamIdsWithoutAddress(m_pathOutIdsWithoutAddress);
 
   AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm,
                                     streamIdsWithoutAddress, m_verbose, m_threadsCount);
 
-  if (m_allowAddresslessForCountries != "*")
-  {
-    FilterAddresslessByCountryAndRepackMwm(m_pathInGeoObjectsTmpMwm, m_allowAddresslessForCountries,
-                                           m_regionInfoGetter, m_threadsCount);
+  FilterAddresslessThanGaveTheirGeometryToInnerPoints(m_pathInGeoObjectsTmpMwm, buildingInfo,
+                                                      m_threadsCount);
 
-    LOG(LINFO, ("Addressless buildings are filtered except countries",
-                m_allowAddresslessForCountries, "."));
-  }
+  LOG(LINFO, ("Addressless buildings with geometry we used for inner points were filtered"));
 
   LOG(LINFO, ("Geo objects without addresses were built."));
   LOG(LINFO, ("Geo objects key-value storage saved to", m_pathOutGeoObjectsKv));
