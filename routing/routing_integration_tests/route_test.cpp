@@ -19,8 +19,6 @@ namespace
   public:
     RoutingOptionSetter(RoutingOptions::Road road)
     {
-      m_formerRoutingOptions.LoadCarOptionsFromSettings();
-
       RoutingOptions routingOptions;
       routingOptions.Add(road);
       RoutingOptions::SaveCarOptionsToSettings(routingOptions);
@@ -32,7 +30,7 @@ namespace
     }
 
   private:
-    RoutingOptions m_formerRoutingOptions;
+    RoutingOptions m_formerRoutingOptions = RoutingOptions::LoadCarOptionsFromSettings();
   };
 
 
