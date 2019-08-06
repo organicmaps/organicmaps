@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
@@ -13,6 +14,28 @@ using namespace std;
 
 namespace
 {
+  class RoutingOptionSetter
+  {
+  public:
+    RoutingOptionSetter(RoutingOptions::Road road)
+    {
+      m_formerRoutingOptions.LoadCarOptionsFromSettings();
+
+      RoutingOptions routingOptions;
+      routingOptions.Add(road);
+      RoutingOptions::SaveCarOptionsToSettings(routingOptions);
+    }
+
+    ~RoutingOptionSetter()
+    {
+      RoutingOptions::SaveCarOptionsToSettings(m_formerRoutingOptions);
+    }
+
+  private:
+    RoutingOptions m_formerRoutingOptions;
+  };
+
+
   UNIT_TEST(StrangeCaseInAfrica)
   {
     integration::CalculateRouteAndTestRouteLength(
@@ -504,5 +527,28 @@ namespace
         integration::GetVehicleComponents(VehicleType::Car),
         MercatorBounds::FromLatLon(51.603582, 0.266995), {0., 0.},
         MercatorBounds::FromLatLon(51.606785, 0.264055), 416.8);
+  }
+
+  // Test that toll road is not crossed by a fake edge if RouingOptions are set to Road::Toll.
+  UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
+  {
+    auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
+    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
+
+    integration::CalculateRouteAndTestRouteLength(
+        vehicleComponents, MercatorBounds::FromLatLon(55.93934, 37.406), {0.0, 0.0},
+        MercatorBounds::FromLatLon(55.93952, 37.45089), 8987.7);
+  }
+
+  // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect()
+  // while looking for fake edges.
+  UNIT_TEST(RussiaMoscowNecessityRectCoversPolylineTest)
+  {
+    auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
+    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
+
+    integration::CalculateRouteAndTestRouteLength(
+        vehicleComponents, MercatorBounds::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
+        MercatorBounds::FromLatLon(55.93706, 37.45339), 10270.2);
   }
 }  // namespace

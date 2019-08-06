@@ -241,8 +241,6 @@ void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId 
   if (!road.IsValid())
     return;
 
-  // Note. Flag |useRoutingOptions| is not passed to this place because it's true
-  // for all cases in current code. So if below should be checked anyway.
   if (!road.SuitableForOptions(m_avoidRoutingOptions))
     return;
 
