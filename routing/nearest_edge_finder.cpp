@@ -113,7 +113,9 @@ void NearestEdgeFinder::AddResIf(Candidate const & candidate, bool forward, size
   if (res.size() >= maxCountFeatures)
     return;
 
-  auto const & edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, candidate.m_segStart, candidate.m_segEnd);
+  Junction const & start = forward ? candidate.m_segStart : candidate.m_segEnd;
+  Junction const & end = forward ? candidate.m_segEnd : candidate.m_segStart;
+  auto const & edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, start,end);
   auto const & edgeProj = make_pair(edge, candidate.m_projPoint);
   if (m_isEdgeProjGood && !m_isEdgeProjGood(edgeProj))
     return;
