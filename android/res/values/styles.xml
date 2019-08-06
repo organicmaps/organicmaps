@@ -347,6 +347,7 @@
     <item name="android:paddingTop">@dimen/margin_half_plus</item>
     <item name="android:paddingBottom">@dimen/margin_half_plus</item>
     <item name="android:background">?windowBackgroundForced</item>
+    <item name="android:letterSpacing" tools:targetApi="lollipop">0.04</item>
     <item name="android:minLines">1</item>
     <item name="android:ellipsize">end</item>
   </style>

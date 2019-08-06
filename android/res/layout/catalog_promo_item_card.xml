@@ -69,7 +69,7 @@
       android:paddingLeft="@dimen/margin_half_plus"
       android:paddingRight="@dimen/margin_half_plus"
       android:paddingEnd="@dimen/margin_half_plus"
-      android:layout_marginTop="@dimen/height_block_base"
+      android:layout_marginTop="@dimen/pro_label_margin"
       android:textColor="@android:color/white"
       android:textAppearance="?android:attr/textAppearanceSmall"
       app:fontFamily="@string/robotoMedium"
