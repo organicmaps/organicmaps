@@ -15,13 +15,18 @@ class ThreadsJoiner
 public:
   explicit ThreadsJoiner(ThreadContainer & threads) : m_threads(threads) {}
 
-  ~ThreadsJoiner()
+  void TryJoin()
   {
     for (auto & thread : m_threads)
     {
       if (thread.joinable())
         thread.join();
     }
+  }
+
+  ~ThreadsJoiner()
+  {
+    TryJoin();
   }
 
 private:

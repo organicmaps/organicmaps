@@ -64,7 +64,7 @@ public:
   {
     std::unique_lock<std::mutex> lk(m_mutex);
     m_cond.wait(lk, [this]{ return !m_queue.empty(); });
-    value = m_queue.front();
+    value = std::move(m_queue.front());
     m_queue.pop();
   }
 
@@ -74,7 +74,7 @@ public:
     if (m_queue.empty())
       return false;
 
-    value = m_queue.front();
+    value = std::move(m_queue.front());
     m_queue.pop();
     return true;
 

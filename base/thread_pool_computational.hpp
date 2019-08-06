@@ -76,7 +76,7 @@ public:
       if (m_done)
         return {};
 
-     m_queue.emplace(std::move(task));
+      m_queue.emplace(std::move(task));
     }
     m_condition.notify_one();
     return result;
@@ -113,6 +113,16 @@ public:
       m_done = true;
     }
     m_condition.notify_all();
+  }
+
+  void WaitAndStop()
+  {
+    {
+      std::unique_lock<std::mutex> lock(m_mutex);
+      m_done = true;
+    }
+    m_condition.notify_all();
+    m_joiner.TryJoin();
   }
 
 private:
