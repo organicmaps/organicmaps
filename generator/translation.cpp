@@ -4,6 +4,8 @@
 
 #include "coding/transliteration.hpp"
 
+#include "platform/platform.hpp"
+
 #include <unordered_map>
 
 namespace
@@ -19,11 +21,23 @@ const std::unordered_map<generator::LanguageCode, Languages> kPreferredLanguages
 Languages kLocalelanguages = {"en", "ru"};
 }  // namespace
 
+namespace
+{
+struct TransliterationInitilizer
+{
+  TransliterationInitilizer()
+  {
+    Transliteration::Instance().Init(GetPlatform().ResourcesDir());
+  }
+};
+} // namespace
 namespace generator
 {
 std::string GetTranslatedOrTransliteratedName(StringUtf8Multilang const & name,
                                               LanguageCode languageCode)
 {
+  static TransliterationInitilizer littleStaticHelperToPreventMisinitilizedTranslations;
+
   std::string s = GetName(name, languageCode);
   if (!s.empty())
     return s;

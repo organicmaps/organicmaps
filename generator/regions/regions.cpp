@@ -10,7 +10,6 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "geometry/mercator.hpp"
-#include "platform/platform.hpp"
 
 #include "coding/transliteration.hpp"
 
@@ -59,7 +58,6 @@ public:
   {
     LOG(LINFO, ("Start generating regions from", m_pathInRegionsTmpMwm));
     auto timer = base::Timer{};
-    Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 
     RegionsBuilder::Regions regions;
     PlacePointsMap placePointsMap;
