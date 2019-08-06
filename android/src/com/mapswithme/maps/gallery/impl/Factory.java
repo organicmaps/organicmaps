@@ -16,6 +16,7 @@ import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
@@ -129,11 +130,8 @@ public class Factory
       {
         return new Holders.CatalogErrorHolder(itemView, mItems, getListener())
         {
-          @Override
-          public void bind(@NonNull Items.Item item)
           {
-            super.bind(item);
-            getButton().setVisibility(View.INVISIBLE);
+            UiUtils.invisible(itemView, R.id.button);
           }
         };
       }

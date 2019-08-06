@@ -543,10 +543,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         if (type == NetworkPolicy.Type.ALWAYS
             || type == NetworkPolicy.Type.ASK
             || type == NetworkPolicy.Type.NEVER)
-
+        {
           Config.setUseMobileDataSettings(type);
+        }
         else
+        {
           throw new AssertionError("Wrong NetworkPolicy type, value = " + valueStr);
+        }
 
         UiThread.runLater(new Runnable()
         {

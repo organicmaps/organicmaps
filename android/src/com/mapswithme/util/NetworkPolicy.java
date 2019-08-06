@@ -1,13 +1,10 @@
 package com.mapswithme.util;
 
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.widget.StackedButtonDialogFragment;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
@@ -19,7 +16,7 @@ public final class NetworkPolicy
     ALWAYS
         {
           @Override
-          public void apply(@NonNull FragmentManager fragmentManager,
+          public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
             boolean nowInRoaming = ConnectionState.isInRoaming();
@@ -35,7 +32,7 @@ public final class NetworkPolicy
     NEVER
         {
           @Override
-          public void apply(@NonNull FragmentManager fragmentManager,
+          public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
             if (isDialogAllowed)
@@ -49,7 +46,7 @@ public final class NetworkPolicy
     NOT_TODAY
         {
           @Override
-          public void apply(@NonNull FragmentManager fragmentManager,
+          public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
             if (isDialogAllowed)
@@ -62,7 +59,7 @@ public final class NetworkPolicy
     TODAY
         {
           @Override
-          public void apply(@NonNull FragmentManager fragmentManager,
+          public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
             boolean nowInRoaming = ConnectionState.isInRoaming();
@@ -77,7 +74,7 @@ public final class NetworkPolicy
 
     NONE;
 
-    public void apply(@NonNull FragmentManager fragmentManager,
+    public void check(@NonNull FragmentManager fragmentManager,
                       @NonNull final NetworkPolicyListener listener,
                       boolean isDialogAllowed)
     {
@@ -107,7 +104,7 @@ public final class NetworkPolicy
     }
 
     Type type = Config.getUseMobileDataSettings();
-    type.apply(fragmentManager, listener, isDialogAllowed);
+    type.check(fragmentManager, listener, isDialogAllowed);
   }
 
   public static void checkNetworkPolicy(@NonNull FragmentManager fragmentManager,

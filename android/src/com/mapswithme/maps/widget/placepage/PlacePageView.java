@@ -1246,12 +1246,12 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
-    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
-    toggleCatalogPromoGallery(hasPromoGallery);
-
     if (mSponsored == null || mMapObject == null)
       return;
 
+    boolean hasPromoGallery = mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
+    toggleCatalogPromoGallery(hasPromoGallery);
+    
     if (hasPromoGallery && policy.canUseNetwork())
     {
       Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
@@ -1260,7 +1260,7 @@ public class PlacePageView extends NestedScrollView
     else if (hasPromoGallery)
     {
       ErrorCatalogPromoListener<Items.Item> listener =
-          new ErrorCatalogPromoListener<>(getActivity(), this::onNetworkPolicyResult);
+          new ErrorCatalogPromoListener<>(getActivity(), networkPolicy -> onNetworkPolicyResult(networkPolicy, mMapObject));
       com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoNoConnectionAdapter(listener);
       mCatalogPromoRecycler.setAdapter(adapter);
     }
@@ -1279,11 +1279,11 @@ public class PlacePageView extends NestedScrollView
     Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
   }
 
-  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy)
+  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy, @NonNull MapObject mapObject)
   {
     if (policy.canUseNetwork())
     {
-      Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
+      Promo.INSTANCE.nativeRequestCityGallery(policy, mapObject.getLat(), mapObject.getLon(),
                                               UTM.UTM_PLACEPAGE_GALLERY);
       mCatalogPromoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
     }

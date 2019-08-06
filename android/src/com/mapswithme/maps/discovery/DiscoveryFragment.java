@@ -78,7 +78,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         return;
 
       if (ConnectionState.isConnected())
-        requestDiscoveryInfoAndInitAdapters();
+        NetworkPolicy.checkNetworkPolicy(getFragmentManager(), DiscoveryFragment.this::onNetworkPolicyResult);
     }
   };
 
@@ -183,11 +183,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     initFoodGallery();
     initSearchBasedAdapters();
     initCatalogPromoGallery();
-    requestDiscoveryInfoAndInitAdapters();
-  }
-
-  private void requestDiscoveryInfoAndInitAdapters()
-  {
     NetworkPolicy.checkNetworkPolicy(getFragmentManager(), this::onNetworkPolicyResult);
   }
 
@@ -209,9 +204,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
     ItemSelectedListener<Items.Item> listener = mOnlineMode
-                                                    ? new CatalogPromoSelectedListener(requireActivity())
-                                                    : new ErrorCatalogPromoListener<>(requireActivity(),
-                                                                                      this::onNetworkPolicyResult);
+                                                ?
+                                                new CatalogPromoSelectedListener(requireActivity())
+                                                : new ErrorCatalogPromoListener<>(requireActivity(),
+                                                                                  this::onNetworkPolicyResult);
 
     GalleryAdapter adapter = mOnlineMode ? Factory.createCatalogPromoLoadingAdapter()
                                          : Factory.createCatalogPromoNoConnectionAdapter(listener);
@@ -294,6 +290,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   @Override
   public void onCatalogPromoResultReceived(@NonNull PromoCityGallery gallery)
   {
+    updateViewsVisibility(gallery.getItems(), R.id.catalog_promo_recycler,
+                          R.id.catalog_promo_title);
     if (gallery.getItems().length == 0)
       return;
 
