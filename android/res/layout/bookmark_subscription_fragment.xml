@@ -87,7 +87,6 @@
         android:layout_marginLeft="@dimen/margin_quadruple"
         android:layout_marginRight="@dimen/margin_quadruple"
         android:layout_marginTop="@dimen/margin_double_and_half"
-        android:layout_marginBottom="@dimen/margin_base"
         android:layout_gravity="center">
         <Button
           android:id="@+id/continue_btn"
@@ -109,7 +108,7 @@
         android:id="@+id/restore_purchase_btn"
         android:background="?attr/selectableItemBackground"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_half_plus"
+        android:layout_marginTop="@dimen/margin_base_plus_quarter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_quadruple"
