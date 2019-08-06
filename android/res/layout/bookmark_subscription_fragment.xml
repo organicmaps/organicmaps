@@ -117,7 +117,6 @@
         android:layout_marginLeft="@dimen/margin_quadruple"
         android:layout_marginRight="@dimen/margin_quadruple"
         android:minHeight="@dimen/primary_button_min_height"
-        android:minWidth="@dimen/primary_button_min_width"
         android:paddingLeft="@dimen/margin_half_plus"
         android:paddingStart="@dimen/margin_half_plus"
         android:paddingRight="@dimen/margin_half_plus"
