@@ -266,6 +266,7 @@
   <dimen name="bookmarks_subs_margin_top">34dp</dimen>
   <dimen name="bookmarks_subs_sale_min_width">84dp</dimen>
   <dimen name="bookmarks_subs_offer_card_width">164dp</dimen>
+  <dimen name="bookmarks_subs_card_corner_radius">9dp</dimen>
 
   <!-- Promo-->
   <dimen name="promo_after_booking_width">288dp</dimen>

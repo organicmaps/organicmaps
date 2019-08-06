@@ -17,7 +17,7 @@
     android:layout_height="match_parent"
     android:minHeight="@dimen/subs_card_min_height"
     app:cardBackgroundColor="?attr/bookmarkSubscriptionCardBg"
-    app:cardCornerRadius="@dimen/margin_half_plus_eight"
+    app:cardCornerRadius="@dimen/bookmarks_subs_card_corner_radius"
     android:layout_marginRight="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_quarter">
     <RelativeLayout
@@ -33,10 +33,7 @@
         <ImageView
           android:src="@drawable/img_annual_subscription_offer"
           android:layout_gravity="top"
-          android:layout_marginEnd="@dimen/margin_eighth"
-          android:layout_marginRight="@dimen/margin_eighth"
-          android:layout_marginLeft="@dimen/margin_eighth"
-          android:layout_marginStart="@dimen/margin_eighth"
+          android:layout_marginTop="@dimen/divider_height"
           android:scaleType="fitCenter"
           android:adjustViewBounds="true"
           android:layout_width="match_parent"
@@ -118,7 +115,7 @@
     android:layout_height="match_parent"
     android:minHeight="@dimen/subs_card_min_height"
     app:cardBackgroundColor="?attr/bookmarkSubscriptionCardBg"
-    app:cardCornerRadius="@dimen/margin_half_plus_eight"
+    app:cardCornerRadius="@dimen/bookmarks_subs_card_corner_radius"
     android:layout_marginStart="@dimen/margin_quarter"
     android:layout_marginLeft="@dimen/margin_quarter">
     <RelativeLayout
@@ -134,10 +131,7 @@
 
       <ImageView
         android:src="@drawable/img_monthly_subscription_offer"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginTop="@dimen/divider_height"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_width="match_parent"

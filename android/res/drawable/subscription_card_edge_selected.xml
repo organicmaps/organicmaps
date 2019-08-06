@@ -6,8 +6,8 @@
     android:color="@color/white_primary"
     android:width="3dp"/>
   <corners
-    android:topLeftRadius="10dp"
-    android:bottomLeftRadius="10dp"
-    android:topRightRadius="10dp"
-    android:bottomRightRadius="10dp"/>
+    android:topLeftRadius="@dimen/margin_quarter_plus"
+    android:bottomLeftRadius="@dimen/margin_quarter_plus"
+    android:topRightRadius="@dimen/margin_quarter_plus"
+    android:bottomRightRadius="@dimen/margin_quarter_plus"/>
 </shape>

@@ -4,10 +4,10 @@
   <solid android:color="@android:color/transparent"/>
   <stroke
     android:color="#8caeb8be"
-    android:width="1dp"/>
+    android:width="@dimen/divider_width"/>
   <corners
-    android:topLeftRadius="10dp"
-    android:bottomLeftRadius="10dp"
-    android:topRightRadius="10dp"
-    android:bottomRightRadius="10dp"/>
+    android:topLeftRadius="@dimen/bookmarks_subs_card_corner_radius"
+    android:bottomLeftRadius="@dimen/bookmarks_subs_card_corner_radius"
+    android:topRightRadius="@dimen/bookmarks_subs_card_corner_radius"
+    android:bottomRightRadius="@dimen/bookmarks_subs_card_corner_radius"/>
 </shape>
