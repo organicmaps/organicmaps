@@ -202,7 +202,10 @@
   <color name="tips_and_triks_secondary_text_night">@color/dark_gray</color>
 
   <color name="turquoise">#D0F6FF</color>
-  <color name="bookmark_subscription_subtitle">#C6152B1C</color>
+  <color name="bookmarks_subs_title">#c60b2b1b</color>
+  <color name="bookmarks_subs_title_night">#c6ffffff</color>
+  <color name="bookmarks_subs_subtitle">#c6152b1c</color>
+  <color name="bookmarks_subs_subtitle_night">#c6ffffff</color>
   <color name="sale_view_bg">#A335F4</color>
 
 </resources>

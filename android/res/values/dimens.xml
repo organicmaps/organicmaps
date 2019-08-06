@@ -263,6 +263,8 @@
   <dimen name="bookmark_purchase_img_height">258dp</dimen>
   <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
+  <dimen name="bookmarks_subs_margin_top">34dp</dimen>
+  <dimen name="bookmarks_subs_sale_min_width">84dp</dimen>
 
   <!-- Promo-->
   <dimen name="promo_after_booking_width">288dp</dimen>

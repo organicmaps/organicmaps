@@ -129,4 +129,9 @@
     <attr name="newsMarker" format="reference"/>
     <attr name="searchLayoutBackground" format="reference"/>
   </declare-styleable>
+
+  <declare-styleable name="ThemeAttrs.BookmarksSubscription">
+    <attr name="subscriptionTitleColor" format="color"/>
+    <attr name="subscriptionSubtitleColor" format="color"/>
+  </declare-styleable>
 </resources>

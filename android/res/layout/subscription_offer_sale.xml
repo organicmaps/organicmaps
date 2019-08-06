@@ -12,6 +12,7 @@
     android:textStyle="bold"
     android:fontFamily="@string/robotoMedium"
     android:layout_width="wrap_content"
+    android:minWidth="@dimen/bookmarks_subs_sale_min_width"
     android:layout_height="wrap_content"
     android:textColor="?attr/routingButtonHint"
     android:lineSpacingExtra="2sp"
