@@ -279,7 +279,7 @@ public:
       "rue", "avenue", "carré", "cercle", "route", "boulevard", "drive", "autoroute", "lane", "chemin",
 
        // Italiano - Italian
-      "corso", "piazza", "strada", "via", "viale",
+      "corso", "piazza", "piazzale", "strada", "via", "viale",
 
       // Nederlands - Dutch
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
