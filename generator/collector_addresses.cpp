@@ -5,14 +5,22 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-using namespace feature;
+#include "platform/platform.hpp"
 
-#include <fstream>
+#include "coding/internal/file_data.hpp"
+
+#include "base/assert.hpp"
+
+using namespace feature;
 
 namespace generator
 {
 CollectorAddresses::CollectorAddresses(std::string const & filename)
-  : CollectorInterface(filename) {}
+  : CollectorInterface(filename)
+{
+  m_writer.exceptions(std::fstream::failbit | std::fstream::badbit);
+  m_writer.open(GetTmpFilename());
+}
 
 std::shared_ptr<CollectorInterface>
 CollectorAddresses::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
@@ -25,15 +33,19 @@ void CollectorAddresses::CollectFeature(feature::FeatureBuilder const & feature,
   std::string addr;
   auto const & checker = ftypes::IsBuildingChecker::Instance();
   if (checker(feature.GetTypes()) && feature.FormatFullAddress(addr))
-    m_stringStream << addr << "\n";
+    m_writer << addr << "\n";
+}
+
+void CollectorAddresses::Finish()
+{
+  if (m_writer.is_open())
+    m_writer.close();
 }
 
 void CollectorAddresses::Save()
 {
-  std::ofstream stream;
-  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  stream.open(GetFilename());
-  stream << m_stringStream.str();
+  if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
+    CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void CollectorAddresses::Merge(CollectorInterface const & collector)
@@ -43,6 +55,6 @@ void CollectorAddresses::Merge(CollectorInterface const & collector)
 
 void CollectorAddresses::MergeInto(CollectorAddresses & collector) const
 {
-  collector.m_stringStream << m_stringStream.str();
+  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

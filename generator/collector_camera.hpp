@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <fstream>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -52,14 +53,19 @@ public:
   {
     CameraInfo(const OsmElement & element);
 
+    bool IsValid() const { return m_speed >= 0; }
+
     uint64_t m_id = 0;
     double m_lon = 0.0;
     double m_lat = 0.0;
-    std::string m_speed;
+    int32_t m_speed = 0;
     std::vector<uint64_t> m_ways;
   };
 
   static size_t const kMaxSpeedSpeedStringLength;
+
+  CameraProcessor(std::string const & filename);
+  ~CameraProcessor();
 
   void ForEachCamera(Fn && toDo) const;
   void ProcessNode(OsmElement const & element);
@@ -67,10 +73,12 @@ public:
 
   void FillCameraInWays();
 
+  void Finish();
   void Merge(CameraProcessor const & cameraProcessor);
 
 private:
-  std::unordered_map<uint64_t, std::vector<uint64_t>> m_ways;
+  std::string m_waysFilename;
+  std::unique_ptr<FileWriter> m_waysWriter;
   std::unordered_map<uint64_t, CameraInfo> m_speedCameras;
   std::unordered_map<uint64_t, std::vector<uint64_t>> m_cameraToWays;
 };
@@ -88,6 +96,7 @@ public:
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;

@@ -70,6 +70,8 @@ bool WriteToTempAndRenameToFile(std::string const & dest,
                                 std::function<bool(std::string const &)> const & write,
                                 std::string const & tmp = "");
 
+void AppendFileToFile(std::string const & fromFilename, std::string const & toFilename);
+
 /// @return false if copy fails. DO NOT THROWS exceptions
 bool CopyFileX(std::string const & fOld, std::string const & fNew);
 bool IsEqualFiles(std::string const & firstFile, std::string const & secondFile);

@@ -4,9 +4,9 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
 
+#include <strstream>
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace generator
 {
@@ -29,6 +29,7 @@ public:
   Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
@@ -57,6 +58,6 @@ private:
   // with ParseMaxspeedTag() function. That means all macro like RU:urban or GE:rural
   // are converted to an appropriate speed value and macro "none" and "walk" are converted
   // to |kNoneMaxSpeed| and |kWalkMaxSpeed|.
-  std::vector<std::string> m_data;
+  std::ofstream m_writer;
 };
 }  // namespace generator

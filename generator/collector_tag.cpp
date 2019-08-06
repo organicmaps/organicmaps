@@ -3,51 +3,49 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
+#include "platform/platform.hpp"
+
+#include "coding/internal/file_data.hpp"
+
+#include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
 namespace generator
 {
 CollectorTag::CollectorTag(std::string const & filename, std::string const & tagKey,
-                           Validator const & validator, bool ignoreIfNotOpen)
+                           Validator const & validator)
   : CollectorInterface(filename)
   , m_tagKey(tagKey)
   , m_validator(validator)
-  , m_ignoreIfNotOpen(ignoreIfNotOpen) {}
+{
+  m_writer.exceptions(std::fstream::failbit | std::fstream::badbit);
+  m_writer.open(GetTmpFilename());
+}
 
 std::shared_ptr<CollectorInterface>
 CollectorTag::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
 {
-  return std::make_shared<CollectorTag>(GetFilename(), m_tagKey, m_validator, m_ignoreIfNotOpen);
+  return std::make_shared<CollectorTag>(GetFilename(), m_tagKey, m_validator);
 }
 
 void CollectorTag::Collect(OsmElement const & el)
 {
   auto const tag = el.GetTag(m_tagKey);
   if (!tag.empty() && m_validator(tag))
-    m_stream << GetGeoObjectId(el).GetEncodedId() << "\t" << tag << "\n";
+    m_writer << GetGeoObjectId(el).GetEncodedId() << "\t" << tag << "\n";
+}
+
+void CollectorTag::Finish()
+{
+  if (m_writer.is_open())
+    m_writer.close();
 }
 
 void CollectorTag::Save()
 {
-  std::ofstream stream;
-  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  try
-  {
-    stream.open(GetFilename());
-    stream << m_stream.str();
-  }
-  catch (std::ios::failure const & e)
-  {
-    if (m_ignoreIfNotOpen)
-    {
-      LOG(LINFO, ("Сould not open file", GetFilename(), ". This was ignored."));
-    }
-    else
-    {
-      throw e;
-    }
-  }
+  if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
+    CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void CollectorTag::Merge(CollectorInterface const & collector)
@@ -57,6 +55,6 @@ void CollectorTag::Merge(CollectorInterface const & collector)
 
 void CollectorTag::MergeInto(CollectorTag & collector) const
 {
-  collector.m_stream << m_stream.str();
+  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

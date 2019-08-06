@@ -78,18 +78,18 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, 
   AddFilter(std::make_shared<FilterPlanet>());
   AddFilter(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
 
-  AddCollector(std::make_shared<CollectorTag>(info.m_idToWikidataFilename, "wikidata" /* tagKey */,
-                                              WikiDataValidator, true /* ignoreIfNotOpen */));
   AddCollector(std::make_shared<feature::MetalinesBuilder>(info.GetIntermediateFileName(METALINES_FILENAME)));
-
   // These are the four collector that collect additional information for the future building of routing section.
   AddCollector(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
-  AddCollector(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache));
+  AddCollector(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME),
+                                                            std::shared_ptr<cache::IntermediateDataReader>(&cache, [](cache::IntermediateDataReader *) {})));
   AddCollector(std::make_shared<routing::RoadAccessWriter>(info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
   AddCollector(std::make_shared<routing::CameraCollector>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
 
   if (info.m_genAddresses)
     AddCollector(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
+  if (!info.m_idToWikidataFilename.empty())
+    AddCollector(std::make_shared<CollectorTag>(info.m_idToWikidataFilename, "wikidata" /* tagKey */, WikiDataValidator));
 }
 
 void TranslatorCountry::Preprocess(OsmElement & element)

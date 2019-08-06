@@ -1,19 +1,27 @@
-#include "generator/collector_city_boundary.hpp"
+#include "generator/collector_city_area.hpp"
 
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "platform/platform.hpp"
+
+#include "coding/internal/file_data.hpp"
+
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <iterator>
 
 using namespace feature;
+using namespace feature::serialization_policy;
 
 namespace generator
 {
 CityAreaCollector::CityAreaCollector(std::string const & filename)
-  : CollectorInterface(filename) {}
+  : CollectorInterface(filename),
+    m_witer(std::make_unique<FeatureBuilderWriter<MaxAccuracy>>(GetTmpFilename())) {}
 
 std::shared_ptr<CollectorInterface>
 CityAreaCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
@@ -23,18 +31,23 @@ CityAreaCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &)
 
 void CityAreaCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const &)
 {
-  if (feature.IsArea() && ftypes::IsCityTownOrVillage(feature.GetTypes()))
-    m_boundaries.emplace_back(feature);
+  if (!(feature.IsArea() && ftypes::IsCityTownOrVillage(feature.GetTypes())))
+    return;
+
+  auto copy = feature;
+  if (copy.PreSerialize())
+    m_witer->Write(copy);
+}
+
+void CityAreaCollector::Finish()
+{
+  m_witer.reset({});
 }
 
 void CityAreaCollector::Save()
 {
-  FeatureBuilderWriter<serialization_policy::MaxAccuracy> collector(GetFilename());
-  for (auto & boundary : m_boundaries)
-  {
-    if (boundary.PreSerialize())
-      collector.Write(boundary);
-  }
+  if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
+    CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void CityAreaCollector::Merge(generator::CollectorInterface const & collector)
@@ -44,7 +57,6 @@ void CityAreaCollector::Merge(generator::CollectorInterface const & collector)
 
 void CityAreaCollector::MergeInto(CityAreaCollector & collector) const
 {
-  std::copy(std::begin(m_boundaries), std::end(m_boundaries),
-            std::back_inserter(collector.m_boundaries));
+  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

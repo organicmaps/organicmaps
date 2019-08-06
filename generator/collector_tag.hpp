@@ -5,7 +5,6 @@
 #include <fstream>
 #include <functional>
 #include <memory>
-#include <sstream>
 #include <string>
 
 struct OsmElement;
@@ -29,21 +28,22 @@ public:
   using Validator = std::function<bool(std::string const & tagValue)>;
 
   explicit CollectorTag(std::string const & filename, std::string const & tagKey,
-                        Validator const & validator, bool ignoreIfNotOpen = false);
+                        Validator const & validator);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
   Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
 
   void Collect(OsmElement const & el) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(CollectorTag & collector) const override;
+
 private:
-  std::stringstream m_stream;
+  std::ofstream m_writer;
   std::string m_tagKey;
   Validator m_validator;
-  bool m_ignoreIfNotOpen;
 };
 }  // namespace generator

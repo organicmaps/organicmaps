@@ -127,10 +127,10 @@ public:
   CollectorRegionInfo(std::string const & filename);
 
   // CollectorInterface overrides:
-  void Collect(OsmElement const & el) override;
   std::shared_ptr<CollectorInterface>
   Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
 
+  void Collect(OsmElement const & el) override;
   void Save() override;
 
   void Merge(CollectorInterface const & collector) override;

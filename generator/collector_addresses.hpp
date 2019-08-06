@@ -2,8 +2,8 @@
 
 #include "generator/collector_interface.hpp"
 
+#include <fstream>
 #include <memory>
-#include <sstream>
 #include <string>
 
 namespace generator
@@ -23,12 +23,13 @@ public:
   Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(CollectorAddresses & collector) const override;
 
 private:
-  std::stringstream m_stringStream;
+  std::ofstream m_writer;
 };
 }  // namespace generator

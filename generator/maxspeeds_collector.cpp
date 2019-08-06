@@ -4,14 +4,16 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
-#include "coding/file_writer.hpp"
+#include "platform/platform.hpp"
 
+#include "coding/internal/file_data.hpp"
+
+#include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <iterator>
 #include <sstream>
 
@@ -36,7 +38,11 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
 namespace generator
 {
 MaxspeedsCollector::MaxspeedsCollector(string const & filename)
-  : CollectorInterface(filename) {}
+  : CollectorInterface(filename)
+{
+  m_writer.exceptions(fstream::failbit | fstream::badbit);
+  m_writer.open(GetTmpFilename());
+}
 
 
 shared_ptr<CollectorInterface>
@@ -65,7 +71,7 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
       SpeedInUnits dummySpeed;
       if (!ParseMaxspeedAndWriteToStream(t.m_value, dummySpeed, ss))
         return;
-      m_data.push_back(ss.str());
+      m_writer << ss.str() << '\n';
       return;
     }
 
@@ -108,21 +114,20 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
     ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
   }
 
-  m_data.push_back(ss.str());
+  m_writer << ss.str() << '\n';
+}
+
+void MaxspeedsCollector::Finish()
+{
+  if (m_writer.is_open())
+    m_writer.close();
 }
 
 void MaxspeedsCollector::Save()
 {
   LOG(LINFO, ("Saving maxspeed tag values to", GetFilename()));
-
-  ofstream stream;
-  stream.exceptions(fstream::failbit | fstream::badbit);
-  stream.open(GetFilename());
-
-  for (auto const & s : m_data)
-    stream << s << '\n';
-
-  LOG(LINFO, ("Wrote", m_data.size(), "maxspeed tags to", GetFilename()));
+  if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
+    CHECK(CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void MaxspeedsCollector::Merge(CollectorInterface const & collector)
@@ -132,6 +137,6 @@ void MaxspeedsCollector::Merge(CollectorInterface const & collector)
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {
-  copy(begin(m_data), end(m_data), back_inserter(collector.m_data));
+  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

@@ -14,21 +14,21 @@
 
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include <initializer_list>
-
-#include "defines.hpp"
-
 #include <algorithm>
+#include <initializer_list>
 #include <unordered_map>
 #include <utility>
 
-#include "boost/optional.hpp"
+#include <boost/optional.hpp>
+
+#include "defines.hpp"
 
 using namespace feature;
 using namespace routing;
@@ -289,7 +289,7 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
   }
 }
 
-void RoadAccessTagProcessor::Process(FeatureBuilder const & fb, OsmElement const & elem)
+void RoadAccessTagProcessor::Process(OsmElement const & elem)
 {
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
@@ -300,21 +300,15 @@ void RoadAccessTagProcessor::Process(FeatureBuilder const & fb, OsmElement const
       m_barriers.emplace(elem.m_id, accessType);
     return;
   }
-
-  if (elem.m_type != OsmElement::EntityType::Way)
-    return;
-
-  auto const accessType = GetAccessType(elem);
-  if (accessType != RoadAccess::Type::Yes)
-    m_wayToAccess.emplace(elem.m_id, accessType);
-
-  if (!routing::IsRoad(fb.GetTypes()))
-    return;
-
-  m_roads.emplace(elem.m_id, elem.m_nodes);
+  else if (elem.m_type == OsmElement::EntityType::Way)
+  {
+    auto const accessType = GetAccessType(elem);
+    if (accessType != RoadAccess::Type::Yes)
+      m_wayToAccess.emplace(elem.m_id, accessType);
+  }
 }
 
-void RoadAccessTagProcessor::Write(std::stringstream & stream)
+void RoadAccessTagProcessor::WriteWayToAccess(std::ostream & stream)
 {
   // All feature tags.
   for (auto const & i : m_wayToAccess)
@@ -322,21 +316,21 @@ void RoadAccessTagProcessor::Write(std::stringstream & stream)
     stream << ToString(m_vehicleType) << " " << ToString(i.second) << " " << i.first << " "
            << 0 /* wildcard segment Idx */ << endl;
   }
+}
 
-  // Barrier tags.
-  for (auto const & i : m_roads)
+void RoadAccessTagProcessor::WriteBarrierTags(std::ostream & stream, uint64_t id,
+                                              std::vector<uint64_t> const & points)
+{
+  for (size_t pointIdx = 0; pointIdx < points.size(); ++pointIdx)
   {
-    for (size_t pointIdx = 0; pointIdx < i.second.size(); ++pointIdx)
-    {
-      auto const it = m_barriers.find(i.second[pointIdx]);
-      if (it == m_barriers.cend())
-        continue;
+    auto const it = m_barriers.find(points[pointIdx]);
+    if (it == m_barriers.cend())
+      continue;
 
-      RoadAccess::Type const roadAccessType = it->second;
-      // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
-      stream << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << i.first << " "
-             << pointIdx + 1 << endl;
-    }
+    RoadAccess::Type const roadAccessType = it->second;
+    // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
+    stream << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << id << " "
+           << pointIdx + 1 << endl;
   }
 }
 
@@ -344,9 +338,8 @@ void RoadAccessTagProcessor::Merge(RoadAccessTagProcessor const & other)
 {
   CHECK_EQUAL(m_vehicleType, other.m_vehicleType, ());
 
-  m_barriers.insert(std::begin(other.m_barriers), std::end(other.m_barriers));
-  m_wayToAccess.insert(std::begin(other.m_wayToAccess), std::end(other.m_wayToAccess));
-  m_roads.insert(std::begin(other.m_roads), std::end(other.m_roads));
+  m_barriers.insert(begin(other.m_barriers), end(other.m_barriers));
+  m_wayToAccess.insert(begin(other.m_wayToAccess), end(other.m_wayToAccess));
 }
 
 bool RoadAccessTagProcessor::ShouldIgnoreBarrierWithoutAccess(OsmElement const & osmElement) const
@@ -391,33 +384,65 @@ RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) 
 // RoadAccessWriter ------------------------------------------------------------
 RoadAccessWriter::RoadAccessWriter(string const & filename)
   : generator::CollectorInterface(filename)
+  , m_waysFilename(GetTmpFilename() + ".roads_ids")
+  , m_waysWriter(make_unique<FileWriter>(m_waysFilename))
 {
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
 }
 
-std::shared_ptr<generator::CollectorInterface>
-RoadAccessWriter::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const &) const
+RoadAccessWriter::~RoadAccessWriter()
 {
-  return std::make_shared<RoadAccessWriter>(GetFilename());
+  CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
+}
+
+shared_ptr<generator::CollectorInterface>
+RoadAccessWriter::Clone(shared_ptr<generator::cache::IntermediateDataReader> const &) const
+{
+  return make_shared<RoadAccessWriter>(GetFilename());
 }
 
 void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
   for (auto & p : m_tagProcessors)
-    p.Process(fb, elem);
+    p.Process(elem);
+
+  if (!routing::IsRoad(fb.GetTypes()))
+    return;
+
+  m_waysWriter->Write(&elem.m_id, sizeof(elem.m_id));
+  rw::WriteVectorOfPOD(*m_waysWriter, elem.m_nodes);
+}
+
+void RoadAccessWriter::Finish()
+{
+  m_waysWriter.reset({});
 }
 
 void RoadAccessWriter::Save()
 {
-  std::stringstream stream;
-  for (auto & p : m_tagProcessors)
-    p.Write(stream);
-
-  std::ofstream out;
-  out.exceptions(std::fstream::failbit | std::fstream::badbit);
+  ofstream out;
+  out.exceptions(fstream::failbit | fstream::badbit);
   out.open(GetFilename());
-  out << stream.str();
+
+  for (auto & p : m_tagProcessors)
+    p.WriteWayToAccess(out);
+
+  FileReader reader(m_waysFilename);
+  ReaderSource<FileReader> src(reader);
+  auto const fileSize = reader.Size();
+  auto currPos = reader.GetOffset();
+  while (currPos < fileSize)
+  {
+    uint64_t wayId;
+    std::vector<uint64_t> nodes;
+    src.Read(&wayId, sizeof(wayId));
+    rw::ReadVectorOfPOD(src, nodes);
+    for (auto & p : m_tagProcessors)
+      p.WriteBarrierTags(out, wayId, nodes);
+
+    currPos = src.Pos();
+  }
 }
 
 void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)
@@ -432,6 +457,8 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
 
   for (size_t i = 0; i < otherProcessors.size(); ++i)
     otherProcessors[i].Merge(m_tagProcessors[i]);
+
+  base::AppendFileToFile(m_waysFilename, collector.m_waysFilename);
 }
 
 // RoadAccessCollector ----------------------------------------------------------

@@ -3,8 +3,8 @@
 #include "generator/collector_interface.hpp"
 #include "generator/intermediate_data.hpp"
 
+#include <fstream>
 #include <memory>
-#include <sstream>
 #include <string>
 
 class RelationElement;
@@ -35,13 +35,14 @@ public:
   static std::string const kWayString;
 
   RestrictionWriter(std::string const & filename,
-                    generator::cache::IntermediateDataReader const & cache);
+                    std::shared_ptr<generator::cache::IntermediateDataReader> const & cache);
 
   // generator::CollectorInterface overrides:
   std::shared_ptr<CollectorInterface>
   Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & cache = {}) const override;
 
   void CollectRelation(RelationElement const & relationElement) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
@@ -50,8 +51,8 @@ public:
   static ViaType ConvertFromString(std::string const & str);
 
 private:
-  std::stringstream m_stream;
-  generator::cache::IntermediateDataReader const & m_cache;
+  std::ofstream m_writer;
+  std::shared_ptr<generator::cache::IntermediateDataReader> m_cache;
 };
 
 std::string DebugPrint(RestrictionWriter::ViaType const & type);

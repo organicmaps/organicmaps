@@ -43,8 +43,9 @@ public:
 
   explicit RoadAccessTagProcessor(VehicleType vehicleType);
 
-  void Process(feature::FeatureBuilder const & fb, OsmElement const & elem);
-  void Write(std::stringstream & stream);
+  void Process(OsmElement const & elem);
+  void WriteWayToAccess(std::ostream & stream);
+  void WriteBarrierTags(std::ostream & stream, uint64_t id, std::vector<uint64_t> const & points);
   void Merge(RoadAccessTagProcessor const & roadAccessTagProcessor);
 
 private:
@@ -65,7 +66,6 @@ private:
 
   std::unordered_map<uint64_t, RoadAccess::Type> m_barriers;
   std::unordered_map<uint64_t, RoadAccess::Type> m_wayToAccess;
-  std::unordered_map<uint64_t, std::vector<uint64_t>> m_roads;
 };
 
 class RoadAccessWriter : public generator::CollectorInterface
@@ -74,17 +74,21 @@ public:
   explicit RoadAccessWriter(std::string const & filename);
 
   // CollectorInterface overrides:
+  ~RoadAccessWriter() override;
+
   std::shared_ptr<CollectorInterface>
   Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
+  void Finish() override;
   void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(RoadAccessWriter & collector) const override;
 
 private:
-  std::ofstream m_stream;
+  std::string m_waysFilename;
+  std::unique_ptr<FileWriter> m_waysWriter;
   std::vector<RoadAccessTagProcessor> m_tagProcessors;
 };
 

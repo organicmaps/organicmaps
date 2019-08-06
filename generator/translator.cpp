@@ -50,6 +50,7 @@ void Translator::Emit(OsmElement & element)
 
 bool Translator::Finish()
 {
+  m_collectors.Finish();
   m_collectors.Save();
   return m_emitter->Finish();
 }
