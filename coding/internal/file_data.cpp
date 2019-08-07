@@ -300,6 +300,9 @@ bool CopyFileX(string const & fOld, string const & fNew)
 
     if (ifs.is_open() && ofs.is_open())
     {
+      if (ifs.peek() == ifstream::traits_type::eof())
+        return true;
+
       ofs << ifs.rdbuf();
       ofs.flush();
 
