@@ -443,7 +443,7 @@ void DrawWidget::OnViewportChanged(ScreenBase const & screen)
 {
   TBase::OnViewportChanged(screen);
   if (m_screenshotMode)
-    m_screenshoter->OnViewportChanged();
+    m_screenshoter->CheckViewport();
 }
 
 bool DrawWidget::Search(search::EverywhereSearchParams const & params)

@@ -107,7 +107,8 @@ void Screenshoter::ProcessNextKml()
   ExpandBookmarksRectForPreview(m_dataRect);
   CHECK(m_dataRect.IsValid(), ());
 
-  m_framework.ShowBookmarkCategory(newCatId, false);
+  if (!CheckViewport())
+    m_framework.ShowBookmarkCategory(newCatId, false);
 }
 
 void Screenshoter::PrepareCountries()
@@ -157,10 +158,10 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
   }
 }
 
-void Screenshoter::OnViewportChanged()
+bool Screenshoter::CheckViewport()
 {
   if (m_state != State::WaitPosition)
-    return;
+    return false;
 
   auto const currentViewport = m_framework.GetCurrentViewport();
 
@@ -173,7 +174,9 @@ void Screenshoter::OnViewportChanged()
          fabs(m_dataRect.SizeY() - currentViewport.SizeY()) < kEpsRect)))
   {
     PrepareCountries();
+    return true;
   }
+  return false;
 }
 
 void Screenshoter::OnGraphicsReady()

@@ -38,7 +38,7 @@ public:
   void Start();
 
   void OnCountryChanged(storage::CountryId countryId);
-  void OnViewportChanged();
+  bool CheckViewport();
   void OnGraphicsReady();
 
 private:
