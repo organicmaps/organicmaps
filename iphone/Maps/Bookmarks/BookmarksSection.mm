@@ -2,7 +2,6 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "MWMBookmarksManager.h"
-#import "MWMCategoryInfoCell.h"
 #import "MWMLocationHelpers.h"
 #import "MWMSearchManager.h"
 #include "Framework.h"
@@ -80,8 +79,10 @@ CGFloat const kPinDiameter = 22.0f;
 {
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
   if (!cell)
+  {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                   reuseIdentifier:@"BookmarksVCBookmarkItemCell"];
+  }
   CHECK(cell, ("Invalid bookmark cell."));
   
   kml::MarkId const bmId = [self.delegate bookmarkSection:self getBookmarkIdByRow:row];
@@ -119,149 +120,11 @@ CGFloat const kPinDiameter = 22.0f;
   return YES;
 }
 
-- (void)deleteRow: (NSInteger)row
+- (BOOL)deleteRow: (NSInteger)row
 {
   kml::MarkId const bmId = [self.delegate bookmarkSection:self getBookmarkIdByRow:row];
   [[MWMBookmarksManager sharedManager] deleteBookmark:bmId];
-  [self.delegate bookmarkSection:self onDeleteBookmarkInRow:row];
-}
-
-@end
-
-////////////////////////////////////////////////////////
-
-@interface TracksSection()
-
-@property (weak, nonatomic) id<TracksSectionDelegate> delegate;
-
-@end
-
-@implementation TracksSection
-
-- (instancetype)initWithDelegate:(id<TracksSectionDelegate>)delegate
-{
-  return [self initWithBlockIndex:nil delegate:delegate];
-}
-
-- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate: (id<TracksSectionDelegate>)delegate
-{
-  self = [super init];
-  if (self)
-  {
-    _blockIndex = blockIndex;
-    _delegate = delegate;
-  }
-  return self;
-}
-
-- (NSInteger)numberOfRows
-{
-  return [self.delegate numberOfTracksInSection:self];
-}
-
-- (NSString *)title
-{
-  return [self.delegate titleOfTracksSection:self];
-}
-
-- (BOOL)canEdit
-{
-  return [self.delegate canEditTracksSection:self];
-}
-
-- (UITableViewCell *)tableView: (UITableView *)tableView cellForRow: (NSInteger)row
-{
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
-  if (!cell)
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
-  CHECK(cell, ("Invalid track cell."));
-  
-  auto const & bm = GetFramework().GetBookmarkManager();
-  
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
-  Track const * track = bm.GetTrack(trackId);
-  cell.textLabel.text = @(track->GetName().c_str());
-  string dist;
-  if (measurement_utils::FormatDistance(track->GetLengthMeters(), dist))
-    //Change Length before release!!!
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), @(dist.c_str())];
-  else
-    cell.detailTextLabel.text = nil;
-  dp::Color const c = track->GetColor(0);
-  cell.imageView.image = [CircleView createCircleImageWith:kPinDiameter
-                                                  andColor:[UIColor colorWithRed:c.GetRed()/255.f
-                                                                           green:c.GetGreen()/255.f
-                                                                            blue:c.GetBlue()/255.f
-                                                                           alpha:1.f]];
-  return cell;
-}
-
-- (BOOL)didSelectRow: (NSInteger)row
-{
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
-  GetFramework().ShowTrack(trackId);
-  return YES;
-}
-
-- (void)deleteRow: (NSInteger)row
-{
-  // TODO(@darina): [[MWMBookmarksManager sharedManager] deleteTrack:bmId];?
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
-  auto & bm = GetFramework().GetBookmarkManager();
-  bm.GetEditSession().DeleteTrack(trackId);
-  [self.delegate tracksSection:self onDeleteTrackInRow:row];
-}
-
-@end
-
-////////////////////////////////////////////////////////
-
-@interface InfoSection()
-
-@property (weak, nonatomic) id<InfoSectionDelegate> delegate;
-
-@end
-
-@implementation InfoSection
-
-- (instancetype)initWithDelegate: (id<InfoSectionDelegate>)delegate
-{
-  self = [super init];
-  if (self)
-  {
-    _delegate = delegate;
-  }
-  return self;
-}
-
-- (NSInteger)numberOfRows
-{
-  return 1;
-}
-
-- (NSString *)title
-{
-  return L(@"placepage_place_description");
-}
-
-- (BOOL)canEdit
-{
-  return NO;
-}
-
-- (UITableViewCell *)tableView: (UITableView *)tableView cellForRow: (NSInteger)row
-{
-  return [self.delegate infoCellForTableView:tableView];
-}
-
-- (BOOL)didSelectRow: (NSInteger)row
-{
-  return NO;
-}
-
-- (void)deleteRow: (NSInteger)row
-{
-  
+  return [self.delegate bookmarkSection:self onDeleteBookmarkInRow:row];
 }
 
 @end

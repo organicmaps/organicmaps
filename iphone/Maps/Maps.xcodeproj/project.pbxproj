@@ -589,6 +589,8 @@
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
+		BB87BF8A22FAF1CA008A8A72 /* TracksSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB87BF8922FAF1CA008A8A72 /* TracksSection.mm */; };
+		BB87BF8D22FAF435008A8A72 /* InfoSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB87BF8C22FAF435008A8A72 /* InfoSection.mm */; };
 		BBED27022292F6C000788143 /* BookmarksSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBED27012292F6C000788143 /* BookmarksSection.mm */; };
 		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
 		CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */; };
@@ -1679,6 +1681,11 @@
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		BB8123D42130427E00ADE512 /* MetalContextFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContextFactory.h; sourceTree = "<group>"; };
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
+		BB87BF8722FAEC82008A8A72 /* TableSectionDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableSectionDataSource.h; sourceTree = "<group>"; };
+		BB87BF8822FAF125008A8A72 /* TracksSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TracksSection.h; sourceTree = "<group>"; };
+		BB87BF8922FAF1CA008A8A72 /* TracksSection.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TracksSection.mm; sourceTree = "<group>"; };
+		BB87BF8B22FAF3B8008A8A72 /* InfoSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoSection.h; sourceTree = "<group>"; };
+		BB87BF8C22FAF435008A8A72 /* InfoSection.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoSection.mm; sourceTree = "<group>"; };
 		BBED27002292F42000788143 /* BookmarksSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarksSection.h; sourceTree = "<group>"; };
 		BBED27012292F6C000788143 /* BookmarksSection.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarksSection.mm; sourceTree = "<group>"; };
 		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
@@ -4735,6 +4742,11 @@
 				B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */,
 				BBED27002292F42000788143 /* BookmarksSection.h */,
 				BBED27012292F6C000788143 /* BookmarksSection.mm */,
+				BB87BF8722FAEC82008A8A72 /* TableSectionDataSource.h */,
+				BB87BF8822FAF125008A8A72 /* TracksSection.h */,
+				BB87BF8922FAF1CA008A8A72 /* TracksSection.mm */,
+				BB87BF8B22FAF3B8008A8A72 /* InfoSection.h */,
+				BB87BF8C22FAF435008A8A72 /* InfoSection.mm */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -5420,6 +5432,7 @@
 				CDCA2745223FCFD200167D87 /* SearchResultInfo.swift in Sources */,
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,
 				349D1ADE1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */,
+				BB87BF8A22FAF1CA008A8A72 /* TracksSection.mm in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.mm in Sources */,
 				470A89FD21342A9D00D72FBF /* TutorialBlurView.swift in Sources */,
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
@@ -5454,6 +5467,7 @@
 				3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */,
 				CDB92CF1229EB8A800EC757C /* MWMDiscoverySearchViewModel.m in Sources */,
 				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
+				BB87BF8D22FAF435008A8A72 /* InfoSection.mm in Sources */,
 				4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
