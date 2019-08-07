@@ -322,8 +322,8 @@ void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
                                        GeoObjectInfoGetter const & geoObjectInfoGetter,
                                        NullBuildingsInfo const & buildingsInfo,
                                        std::string const & pathInGeoObjectsTmpMwm,
-                                       std::ostream & streamIdsWithoutAddress, bool verbose,
-                                       size_t threadsCount)
+                                       std::ostream & streamPoiIdsToAddToLocalityIndex,
+                                       bool verbose, size_t threadsCount)
 {
   auto const addressObjectsCount = geoObjectsKv.Size();
 
@@ -343,7 +343,7 @@ void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
 
     std::lock_guard<std::mutex> lock(updateMutex);
     geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
-    streamIdsWithoutAddress << id << "\n";
+    streamPoiIdsToAddToLocalityIndex << id << "\n";
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
@@ -379,7 +379,7 @@ GeoObjectsGenerator::GeoObjectsGenerator(std::string pathInRegionsIndex,
                                          std::string pathOutGeoObjectsKv, bool verbose,
                                          size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
-  , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
+  , m_pathOutPoiIdsToAddToLocalityIndex(std::move(pathOutIdsWithoutAddress))
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
@@ -395,7 +395,7 @@ GeoObjectsGenerator::GeoObjectsGenerator(RegionInfoGetter && regionInfoGetter,
                                          std::string pathOutGeoObjectsKv, bool verbose,
                                          size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
-  , m_pathOutIdsWithoutAddress(std::move(pathOutIdsWithoutAddress))
+  , m_pathOutPoiIdsToAddToLocalityIndex(std::move(pathOutIdsWithoutAddress))
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
@@ -433,11 +433,11 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   NullBuildingsInfo const & buildingInfo = EnrichPointsWithOuterBuildingGeometry(
       geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm, m_threadsCount);
 
-  std::ofstream streamIdsWithoutAddress(m_pathOutIdsWithoutAddress);
+  std::ofstream streamPoiIdsToAddToLocalityIndex(m_pathOutPoiIdsToAddToLocalityIndex);
 
   AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, buildingInfo,
-                                    m_pathInGeoObjectsTmpMwm, streamIdsWithoutAddress, m_verbose,
-                                    m_threadsCount);
+                                    m_pathInGeoObjectsTmpMwm, streamPoiIdsToAddToLocalityIndex,
+                                    m_verbose, m_threadsCount);
 
   FilterAddresslessThanGaveTheirGeometryToInnerPoints(m_pathInGeoObjectsTmpMwm, buildingInfo,
                                                       m_threadsCount);
@@ -446,7 +446,7 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
 
   LOG(LINFO, ("Geo objects without addresses were built."));
   LOG(LINFO, ("Geo objects key-value storage saved to", m_pathOutGeoObjectsKv));
-  LOG(LINFO, ("Ids of POIs without addresses saved to", m_pathOutIdsWithoutAddress));
+  LOG(LINFO, ("Ids of POIs without addresses saved to", m_pathOutPoiIdsToAddToLocalityIndex));
   return true;
 }
 }  // namespace geo_objects

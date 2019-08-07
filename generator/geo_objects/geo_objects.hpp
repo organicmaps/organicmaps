@@ -85,7 +85,7 @@ private:
   }
 
   std::string m_pathInGeoObjectsTmpMwm;
-  std::string m_pathOutIdsWithoutAddress;
+  std::string m_pathOutPoiIdsToAddToLocalityIndex;
   std::string m_pathOutGeoObjectsKv;
 
   bool m_verbose = false;
