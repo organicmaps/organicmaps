@@ -15,7 +15,7 @@ class ThreadsJoiner
 public:
   explicit ThreadsJoiner(ThreadContainer & threads) : m_threads(threads) {}
 
-  void TryJoin()
+  void Join()
   {
     for (auto & thread : m_threads)
     {
@@ -26,7 +26,7 @@ public:
 
   ~ThreadsJoiner()
   {
-    TryJoin();
+    Join();
   }
 
 private:

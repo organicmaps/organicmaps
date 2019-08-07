@@ -115,14 +115,14 @@ public:
     m_condition.notify_all();
   }
 
-  void WaitAndStop()
+  void WaitingStop()
   {
     {
       std::unique_lock<std::mutex> lock(m_mutex);
       m_done = true;
     }
     m_condition.notify_all();
-    m_joiner.TryJoin();
+    m_joiner.Join();
   }
 
 private:
