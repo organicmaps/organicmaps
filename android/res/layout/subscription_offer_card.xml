@@ -10,6 +10,9 @@
 
   <android.support.v7.widget.CardView
     android:id="@+id/annual_price_card"
+    android:stateListAnimator="@animator/lift_on_touch"
+    android:clickable="true"
+    android:focusable="true"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     android:orientation="vertical"
@@ -108,6 +111,9 @@
 
   <android.support.v7.widget.CardView
     android:id="@+id/monthly_price_card"
+    android:stateListAnimator="@animator/lift_on_touch"
+    android:clickable="true"
+    android:focusable="true"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     android:orientation="vertical"
