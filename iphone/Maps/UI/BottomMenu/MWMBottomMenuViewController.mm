@@ -81,6 +81,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     _mapViewController = controller;
     _delegate = delegate;
     [controller addChildViewController:self];
+    self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+                                  UIViewAutoresizingFlexibleTopMargin |
+                                  UIViewAutoresizingFlexibleBottomMargin |
+                                  UIViewAutoresizingFlexibleHeight);
     [controller.controlsView addSubview:self.view];
     [controller.view layoutIfNeeded];
   }
