@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.ugc.Impress;
@@ -467,7 +468,8 @@ public class Holders
 
     private void bindProLabel(@NonNull PromoEntity item)
     {
-      mProLabel.setVisibility(item.getCategory() == null ? View.GONE : View.VISIBLE);
+      PromoCityGallery.LuxCategory category = item.getCategory();
+      UiUtils.showIf(category != null && !TextUtils.isEmpty(category.getName()), mProLabel);
       if (item.getCategory() == null)
         return;
 

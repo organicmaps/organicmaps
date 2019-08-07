@@ -35,6 +35,7 @@
   <dimen name="primary_button_min_height">36dp</dimen>
   <dimen name="primary_button_min_width">64dp</dimen>
   <dimen name="dialog_min_width">288dp</dimen>
+  <dimen name="default_elevation">2dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
