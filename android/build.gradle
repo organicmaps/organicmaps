@@ -119,7 +119,7 @@ def getDate() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2, 'arm64-v8a': 3]
+project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50]
 project.ext.appId = 'com.mapswithme.maps.pro'
 
 crashlytics {
