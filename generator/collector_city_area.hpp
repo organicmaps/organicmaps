@@ -29,6 +29,6 @@ public:
   void MergeInto(CityAreaCollector & collector) const override;
 
 private:
-  std::unique_ptr<feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>> m_witer;
+  std::unique_ptr<feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>> m_writer;
 };
 }  // namespace generator

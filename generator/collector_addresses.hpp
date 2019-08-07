@@ -30,6 +30,6 @@ public:
   void MergeInto(CollectorAddresses & collector) const override;
 
 private:
-  std::ofstream m_writer;
+  std::ofstream m_stream;
 };
 }  // namespace generator

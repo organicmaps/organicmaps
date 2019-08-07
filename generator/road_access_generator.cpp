@@ -15,6 +15,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
@@ -410,7 +411,7 @@ void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement cons
   if (!routing::IsRoad(fb.GetTypes()))
     return;
 
-  m_waysWriter->Write(&elem.m_id, sizeof(elem.m_id));
+  WriteToSink(*m_waysWriter, elem.m_id);
   rw::WriteVectorOfPOD(*m_waysWriter, elem.m_nodes);
 }
 
@@ -421,6 +422,7 @@ void RoadAccessWriter::Finish()
 
 void RoadAccessWriter::Save()
 {
+  CHECK(!m_waysWriter, ("Finish() has not been called."));
   ofstream out;
   out.exceptions(fstream::failbit | fstream::badbit);
   out.open(GetFilename());
@@ -430,18 +432,13 @@ void RoadAccessWriter::Save()
 
   FileReader reader(m_waysFilename);
   ReaderSource<FileReader> src(reader);
-  auto const fileSize = reader.Size();
-  auto currPos = reader.GetOffset();
-  while (currPos < fileSize)
+  while (src.Size() > 0)
   {
-    uint64_t wayId;
+    uint64_t wayId = ReadPrimitiveFromSource<uint64_t>(src);
     std::vector<uint64_t> nodes;
-    src.Read(&wayId, sizeof(wayId));
     rw::ReadVectorOfPOD(src, nodes);
     for (auto & p : m_tagProcessors)
       p.WriteBarrierTags(out, wayId, nodes);
-
-    currPos = src.Pos();
   }
 }
 
@@ -458,6 +455,7 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
   for (size_t i = 0; i < otherProcessors.size(); ++i)
     otherProcessors[i].Merge(m_tagProcessors[i]);
 
+  CHECK(!m_waysWriter || !collector.m_waysWriter, ("Finish() has not been called."));
   base::AppendFileToFile(m_waysFilename, collector.m_waysFilename);
 }
 

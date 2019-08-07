@@ -19,8 +19,8 @@ CollectorTag::CollectorTag(std::string const & filename, std::string const & tag
   , m_tagKey(tagKey)
   , m_validator(validator)
 {
-  m_writer.exceptions(std::fstream::failbit | std::fstream::badbit);
-  m_writer.open(GetTmpFilename());
+  m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  m_stream.open(GetTmpFilename());
 }
 
 std::shared_ptr<CollectorInterface>
@@ -33,17 +33,18 @@ void CollectorTag::Collect(OsmElement const & el)
 {
   auto const tag = el.GetTag(m_tagKey);
   if (!tag.empty() && m_validator(tag))
-    m_writer << GetGeoObjectId(el).GetEncodedId() << "\t" << tag << "\n";
+    m_stream << GetGeoObjectId(el).GetEncodedId() << "\t" << tag << "\n";
 }
 
 void CollectorTag::Finish()
 {
-  if (m_writer.is_open())
-    m_writer.close();
+  if (m_stream.is_open())
+    m_stream.close();
 }
 
 void CollectorTag::Save()
 {
+  CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
@@ -55,6 +56,7 @@ void CollectorTag::Merge(CollectorInterface const & collector)
 
 void CollectorTag::MergeInto(CollectorTag & collector) const
 {
+  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

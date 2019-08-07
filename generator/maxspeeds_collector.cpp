@@ -40,8 +40,8 @@ namespace generator
 MaxspeedsCollector::MaxspeedsCollector(string const & filename)
   : CollectorInterface(filename)
 {
-  m_writer.exceptions(fstream::failbit | fstream::badbit);
-  m_writer.open(GetTmpFilename());
+  m_stream.exceptions(fstream::failbit | fstream::badbit);
+  m_stream.open(GetTmpFilename());
 }
 
 
@@ -71,7 +71,7 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
       SpeedInUnits dummySpeed;
       if (!ParseMaxspeedAndWriteToStream(t.m_value, dummySpeed, ss))
         return;
-      m_writer << ss.str() << '\n';
+      m_stream << ss.str() << '\n';
       return;
     }
 
@@ -114,17 +114,18 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
     ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
   }
 
-  m_writer << ss.str() << '\n';
+  m_stream << ss.str() << '\n';
 }
 
 void MaxspeedsCollector::Finish()
 {
-  if (m_writer.is_open())
-    m_writer.close();
+  if (m_stream.is_open())
+    m_stream.close();
 }
 
 void MaxspeedsCollector::Save()
 {
+  CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   LOG(LINFO, ("Saving maxspeed tag values to", GetFilename()));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(CopyFileX(GetTmpFilename(), GetFilename()), ());
@@ -137,6 +138,7 @@ void MaxspeedsCollector::Merge(CollectorInterface const & collector)
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {
+  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

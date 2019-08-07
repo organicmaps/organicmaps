@@ -21,7 +21,7 @@ namespace generator
 {
 CityAreaCollector::CityAreaCollector(std::string const & filename)
   : CollectorInterface(filename),
-    m_witer(std::make_unique<FeatureBuilderWriter<MaxAccuracy>>(GetTmpFilename())) {}
+    m_writer(std::make_unique<FeatureBuilderWriter<MaxAccuracy>>(GetTmpFilename())) {}
 
 std::shared_ptr<CollectorInterface>
 CityAreaCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
@@ -36,16 +36,17 @@ void CityAreaCollector::CollectFeature(FeatureBuilder const & feature, OsmElemen
 
   auto copy = feature;
   if (copy.PreSerialize())
-    m_witer->Write(copy);
+    m_writer->Write(copy);
 }
 
 void CityAreaCollector::Finish()
 {
-  m_witer.reset({});
+  m_writer.reset({});
 }
 
 void CityAreaCollector::Save()
 {
+  CHECK(!m_writer, ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
@@ -57,6 +58,7 @@ void CityAreaCollector::Merge(generator::CollectorInterface const & collector)
 
 void CityAreaCollector::MergeInto(CityAreaCollector & collector) const
 {
+  CHECK(!m_writer || !collector.m_writer, ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

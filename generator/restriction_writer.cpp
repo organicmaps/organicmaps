@@ -100,9 +100,9 @@ RestrictionWriter::RestrictionWriter(std::string const & filename,
   : generator::CollectorInterface(filename)
   , m_cache(cache)
 {
-  m_writer.exceptions(std::fstream::failbit | std::fstream::badbit);
-  m_writer.open(GetTmpFilename());
-  m_writer << std::setprecision(20);
+  m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  m_stream.open(GetTmpFilename());
+  m_stream << std::setprecision(20);
 }
 
 std::shared_ptr<generator::CollectorInterface>
@@ -183,15 +183,15 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
                                                                                  : ViaType::Way;
 
   auto const printHeader = [&]() { 
-    m_writer << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
+    m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
   };
 
   if (viaType == ViaType::Way)
   {
     printHeader();
-    m_writer << fromOsmId << ",";
+    m_stream << fromOsmId << ",";
     for (auto const & viaMember : via)
-      m_writer << viaMember.first << ",";
+      m_stream << viaMember.first << ",";
   }
   else
   {
@@ -202,21 +202,22 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
       return;
 
     printHeader();
-    m_writer << x << "," << y << ",";
-    m_writer << fromOsmId << ",";
+    m_stream << x << "," << y << ",";
+    m_stream << fromOsmId << ",";
   }
 
-  m_writer << toOsmId << '\n';
+  m_stream << toOsmId << '\n';
 }
 
 void RestrictionWriter::Finish()
 {
-  if (m_writer.is_open())
-    m_writer.close();
+  if (m_stream.is_open())
+    m_stream.close();
 }
 
 void RestrictionWriter::Save()
 {
+  CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
@@ -228,6 +229,7 @@ void RestrictionWriter::Merge(generator::CollectorInterface const & collector)
 
 void RestrictionWriter::MergeInto(RestrictionWriter & collector) const
 {
+  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 

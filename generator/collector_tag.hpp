@@ -42,7 +42,7 @@ public:
   void MergeInto(CollectorTag & collector) const override;
 
 private:
-  std::ofstream m_writer;
+  std::ofstream m_stream;
   std::string m_tagKey;
   Validator m_validator;
 };

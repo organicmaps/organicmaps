@@ -18,8 +18,8 @@ namespace generator
 CollectorAddresses::CollectorAddresses(std::string const & filename)
   : CollectorInterface(filename)
 {
-  m_writer.exceptions(std::fstream::failbit | std::fstream::badbit);
-  m_writer.open(GetTmpFilename());
+  m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  m_stream.open(GetTmpFilename());
 }
 
 std::shared_ptr<CollectorInterface>
@@ -33,17 +33,18 @@ void CollectorAddresses::CollectFeature(feature::FeatureBuilder const & feature,
   std::string addr;
   auto const & checker = ftypes::IsBuildingChecker::Instance();
   if (checker(feature.GetTypes()) && feature.FormatFullAddress(addr))
-    m_writer << addr << "\n";
+    m_stream << addr << "\n";
 }
 
 void CollectorAddresses::Finish()
 {
-  if (m_writer.is_open())
-    m_writer.close();
+  if (m_stream.is_open())
+    m_stream.close();
 }
 
 void CollectorAddresses::Save()
 {
+  CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
@@ -55,6 +56,7 @@ void CollectorAddresses::Merge(CollectorInterface const & collector)
 
 void CollectorAddresses::MergeInto(CollectorAddresses & collector) const
 {
+  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator

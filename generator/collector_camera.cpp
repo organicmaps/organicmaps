@@ -81,7 +81,7 @@ void CameraProcessor::ForEachCamera(Fn && toDo) const
 
 void CameraProcessor::ProcessWay(OsmElement const & element)
 {
-  m_waysWriter->Write(&element.m_id, sizeof(element.m_id));
+  WriteToSink(*m_waysWriter, element.m_id);
   rw::WriteVectorOfPOD(*m_waysWriter, element.m_nodes);
 }
 
@@ -89,13 +89,10 @@ void CameraProcessor::FillCameraInWays()
 {
   FileReader reader(m_waysFilename);
   ReaderSource<FileReader> src(reader);
-  auto const fileSize = reader.Size();
-  auto currPos = reader.GetOffset();
-  while (currPos < fileSize)
+  while (src.Size() > 0)
   {
-    uint64_t wayId;
+    uint64_t wayId = ReadPrimitiveFromSource<uint64_t>(src);
     std::vector<uint64_t> nodes;
-    src.Read(&wayId, sizeof(wayId));
     rw::ReadVectorOfPOD(src, nodes);
     for (auto const & node : nodes)
     {
@@ -105,7 +102,6 @@ void CameraProcessor::FillCameraInWays()
 
       m_cameraToWays[itCamera->first].push_back(wayId);
     }
-    currPos = src.Pos();
   }
 }
 

@@ -51,7 +51,7 @@ public:
   static ViaType ConvertFromString(std::string const & str);
 
 private:
-  std::ofstream m_writer;
+  std::ofstream m_stream;
   std::shared_ptr<generator::cache::IntermediateDataReader> m_cache;
 };
 

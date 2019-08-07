@@ -58,6 +58,6 @@ private:
   // with ParseMaxspeedTag() function. That means all macro like RU:urban or GE:rural
   // are converted to an appropriate speed value and macro "none" and "walk" are converted
   // to |kNoneMaxSpeed| and |kWalkMaxSpeed|.
-  std::ofstream m_writer;
+  std::ofstream m_stream;
 };
 }  // namespace generator
