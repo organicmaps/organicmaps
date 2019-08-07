@@ -599,7 +599,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
     // or it's the real one and its end (RoadPoint) is |Joint|.
     if (((!IsRealSegment(segment) && m_graph.ConvertToReal(segment) &&
           isEndOfSegment(beforeConvert, segment, fromStart)) || IsRealSegment(beforeConvert)) &&
-        IsJointOrEnd(segment, fromStart))
+        IsJoint(segment, fromStart))
     {
       addFake(segment, beforeConvert);
       continue;

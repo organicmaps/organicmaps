@@ -261,14 +261,7 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
 
   if (jointId == Joint::kInvalidId)
-  {
-    if (IsJointOrEnd(parent, isOutgoing))
-    {
-      // It's not a joint but a loose end of a feature.
-      GetSegmentCandidateForRoadPoint(roadPoint, parent.GetMwmId(), isOutgoing, children);
-    }
     return;
-  }
 
   m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp) {
     GetSegmentCandidateForRoadPoint(rp, parent.GetMwmId(), isOutgoing, children);
