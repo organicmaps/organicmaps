@@ -20,7 +20,7 @@ function(get_last_git_commit_timestamp result_name)
   find_package(Git)
   if (GIT_FOUND)
     execute_process(COMMAND
-      "${GIT_EXECUTABLE}" log -1 --format=%ad --date=unix
+      "${GIT_EXECUTABLE}" show -s --format=%ct HEAD
       WORKING_DIRECTORY "${OMIM_ROOT}"
       OUTPUT_VARIABLE GIT_TIMESTAMP
       ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)

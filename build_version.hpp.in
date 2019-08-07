@@ -10,7 +10,7 @@ namespace build_version
 namespace git
 {
 constexpr char const * const kHash = "@GIT_HASH@";
-constexpr uint64_t kTimestamp  = @GIT_TIMESTAMP@;
+constexpr uint64_t kTimestamp = @GIT_TIMESTAMP@;
 }  // namespace git
 }  // namespace build_version
 }  // namespace omim
