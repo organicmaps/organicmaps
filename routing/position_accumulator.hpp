@@ -4,28 +4,25 @@
 
 #include <queue>
 
+namespace routing
+{
 /// \brief This class accumulates a track of some number of last gps positions.
 /// The track is used to calculate the direction of an end user.
 class PositionAccumulator
 {
 public:
   // Several last gps positions are accumulating in |PositionAccumulator::m_points|.
-  // The last positions may be removed from |PositionAccumulator::m_points| in several cases.
-  // 1. If after the removing the last point the length of the track will be more than |kMinTrackLengthM|.
+  // The last position (the last point from |m_points|) may be removed if after the removing it
+  // the length of the all track will be more than |kMinTrackLengthM|.
   static double constexpr kMinTrackLengthM = 70.0;
-  // 2. All points from |m_points| except for |m_points.back()| if the distance between
-  // |m_points.back()| and next point (|point|) is more than
-  static double constexpr kMinGoodSegmentLengthM = 9.0;
-  // and more than
-  static double constexpr kMaxGoodSegmentLengthM = 80.0;
-  // Than means that only last segment is used to get the direction
-  // |PositionAccumulator::GetDirection()| if a driver goes quick enough.
 
   // All segments which are shorter than
-  static double constexpr kMinValidSegmentLengthM = 1.0;
-  // and longer than
-  static double constexpr kMaxValidSegmentLengthM = kMaxGoodSegmentLengthM;
-  // should be removed.
+  static double constexpr kMinValidSegmentLengthM = 10.0;
+  // are not added to the track.
+
+  // If a segment is longer then
+  static double constexpr kMaxValidSegmentLengthM = 80.0;
+  // all the content of |m_points| is removed the current point is added to track.
 
   void PushNextPoint(m2::PointD const & point);
   void Clear();
@@ -44,3 +41,4 @@ private:
   std::deque<m2::PointD> m_points;
   double m_trackLengthM = 0.0;
 };
+}  // routing
