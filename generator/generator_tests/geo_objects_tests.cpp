@@ -107,7 +107,8 @@ GeoObjectsGenerator TearUp(std::vector<OsmElementData> const & osmElements,
                              1 /* threadsCount */};
 }
 
-void TestFindReverse(std::vector<OsmElementData> const & osmElements)
+void TestFindReverse(std::vector<OsmElementData> const & osmElements,
+                     std::vector<m2::PointD> const & where)
 {
   classificator::Load();
   ScopedFile const geoObjectsFeatures{"geo_objects_features.mwm", ScopedFile::Mode::DoNotCreate};
@@ -126,9 +127,10 @@ void TestFindReverse(std::vector<OsmElementData> const & osmElements)
 
   TEST(geoObjectsIndex.has_value(), ("Temporary index build failed"));
 
-  TEST(CheckWeGotExpectedIdsByPoint({1.5, 1.5}, expectedIds, *geoObjectsIndex), ());
-  TEST(CheckWeGotExpectedIdsByPoint({2, 2}, expectedIds, *geoObjectsIndex), ());
-  TEST(CheckWeGotExpectedIdsByPoint({4, 4}, expectedIds, *geoObjectsIndex), ());
+  for (auto const & point : where)
+  {
+    TEST(CheckWeGotExpectedIdsByPoint(point, expectedIds, *geoObjectsIndex), ());
+  }
 }
 
 UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside)
@@ -150,7 +152,8 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {{1.6, 1.6}},
        {}}
   };
-  TestFindReverse(osmElements);
+
+  TestFindReverse(osmElements, {{1.5, 1.5}, {2, 2}, {4, 4}});
 }
 
 UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside2)
@@ -174,7 +177,24 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {}},
 
   };
-  TestFindReverse(osmElements);
+  TestFindReverse(osmElements, {{1.5, 1.5}, {2, 2}, {4, 4}});
+}
+
+UNIT_TEST(GenerateGeoObjects_AddNullBuildingPointToPoint)
+{
+  std::vector<OsmElementData> const osmElements{
+      {1,
+       {{"addr:housenumber", "39 с79"},
+        {"addr:street", "Ленинградский проспект"},
+        {"building", "yes"}},
+       {{1.5, 1.5}},
+       {}},
+      {3,
+       {{"building", "commercial"}, {"type", "multipolygon"}, {"name", "superbuilding"}},
+       {{1.5, 1.5}},
+       {}},
+  };
+  TestFindReverse(osmElements, {});
 }
 
 void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)

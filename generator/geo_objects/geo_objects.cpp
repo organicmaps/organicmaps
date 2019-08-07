@@ -188,20 +188,28 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
     auto point2BuildingIt = buildingsInfo.m_addressPoints2Buildings.find(id);
     if (point2BuildingIt != buildingsInfo.m_addressPoints2Buildings.end())
     {
-      auto const & geometry = geometries.at(point2BuildingIt->second);
+      auto geometryIt = geometries.find(point2BuildingIt->second);
+      if (geometryIt != geometries.end())
+      {
+        auto const & geometry = geometryIt->second;
 
-      // ResetGeometry does not reset center but SetCenter changes geometry type to Point and
-      // adds center to bounding rect
-      fb.SetCenter({});
-      // ResetGeometry clears bounding rect
-      fb.ResetGeometry();
-      fb.GetParams().SetGeomType(feature::GeomType::Area);
+        // ResetGeometry does not reset center but SetCenter changes geometry type to Point and
+        // adds center to bounding rect
+        fb.SetCenter({});
+        // ResetGeometry clears bounding rect
+        fb.ResetGeometry();
+        fb.GetParams().SetGeomType(feature::GeomType::Area);
 
-      for (std::vector<m2::PointD> poly : geometry)
-        fb.AddPolygon(poly);
+        for (std::vector<m2::PointD> poly : geometry)
+          fb.AddPolygon(poly);
 
-      fb.PreSerialize();
-      ++pointsEnriched;
+        fb.PreSerialize();
+        ++pointsEnriched;
+      }
+      else
+      {
+        LOG(LINFO, (point2BuildingIt->second, "is a null building with strange geometry"));
+      }
     }
     std::lock_guard<std::mutex> lock(collectorMutex);
     collector.Collect(fb);
