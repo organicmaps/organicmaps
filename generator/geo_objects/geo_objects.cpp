@@ -39,15 +39,6 @@ namespace geo_objects
 {
 namespace
 {
-bool HouseHasAddress(JsonValue const & json)
-{
-  auto && address =
-      base::GetJSONObligatoryFieldByPath(json, "properties", "locales", "default", "address");
-
-  auto && building = base::GetJSONOptionalField(address, "building");
-  return building && !base::JSONIsNull(building);
-}
-
 void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
 {
   auto geometry = json_object_get(json.get(), "geometry");
@@ -92,24 +83,6 @@ base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyVa
   return result;
 }
 
-std::shared_ptr<JsonValue> FindHousePoi(FeatureBuilder const & fb,
-                                        GeoObjectInfoGetter const & geoObjectInfoGetter)
-{
-  return geoObjectInfoGetter.Find(fb.GetKeyPoint(), HouseHasAddress);
-}
-
-base::JSONPtr MakeGeoObjectValueWithoutAddress(FeatureBuilder const & fb, JsonValue const & json)
-{
-  auto jsonWithAddress = json.MakeDeepCopyJson();
-
-  auto properties = json_object_get(jsonWithAddress.get(), "properties");
-  Localizator localizator(*properties);
-  localizator.SetLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
-
-  UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
-  return jsonWithAddress;
-}
-
 void AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
     KeyValueStorage & geoObjectsKv,
     GeoObjectsGenerator::RegionInfoGetterProxy const & regionInfoGetter,
@@ -135,42 +108,13 @@ void AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
   LOG(LINFO, ("Added", geoObjectsKv.Size(), "geo objects with addresses."));
 }
 
-void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
-                                       GeoObjectInfoGetter const & geoObjectInfoGetter,
-                                       std::string const & pathInGeoObjectsTmpMwm,
-                                       std::ostream & streamIdsWithoutAddress, bool verbose,
-                                       size_t threadsCount)
-{
-  auto const addressObjectsCount = geoObjectsKv.Size();
-
-  std::mutex updateMutex;
-  auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
-    if (!GeoObjectsFilter::IsPoi(fb))
-      return;
-    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
-      return;
-
-    auto const house = FindHousePoi(fb, geoObjectInfoGetter);
-    if (!house)
-      return;
-
-    auto const id = fb.GetMostGenericOsmId().GetEncodedId();
-    auto jsonValue = MakeGeoObjectValueWithoutAddress(fb, *house);
-
-    std::lock_guard<std::mutex> lock(updateMutex);
-    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
-    streamIdsWithoutAddress << id << "\n";
-  };
-
-  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-  LOG(LINFO,
-      ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
-}
-
 struct NullBuildingsInfo
 {
   std::unordered_map<base::GeoObjectId, base::GeoObjectId> m_addressPoints2Buildings;
-  std::set<base::GeoObjectId> m_buildingsIds;
+  // Quite possible to have many points for one building. We want to use
+  // their addresses for POIs according to buildings and have no idea how to distinguish between
+  // them, so take one random
+  std::unordered_map<base::GeoObjectId, base::GeoObjectId> m_Buildings2AddressPoint;
 };
 
 NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectInfoGetter,
@@ -185,7 +129,7 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectI
       return;
 
     auto const buildingId = geoObjectInfoGetter.Search(
-        fb.GetKeyPoint(), [](JsonValue const & json) { return !HouseHasAddress(json); });
+        fb.GetKeyPoint(), [](JsonValue const & json) { return !JsonHasBuilding(json); });
     if (!buildingId)
       return;
 
@@ -193,7 +137,7 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectI
 
     std::lock_guard<std::mutex> lock(updateMutex);
     result.m_addressPoints2Buildings[id] = *buildingId;
-    result.m_buildingsIds.insert(*buildingId);
+    result.m_Buildings2AddressPoint[*buildingId] = id;
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
@@ -212,7 +156,8 @@ BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmp
 
   auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     auto const id = fb.GetMostGenericOsmId();
-    if (buildingsInfo.m_buildingsIds.find(id) == buildingsInfo.m_buildingsIds.end() ||
+    if (buildingsInfo.m_Buildings2AddressPoint.find(id) ==
+            buildingsInfo.m_Buildings2AddressPoint.end() ||
         fb.GetParams().GetGeomType() != feature::GeomType::Area)
       return;
 
@@ -277,7 +222,8 @@ NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
 
   LOG(LINFO, ("Found", buildingInfo.m_addressPoints2Buildings.size(),
               "address points with outer building geometry"));
-  LOG(LINFO, ("Found", buildingInfo.m_buildingsIds.size(), "helpful addressless buildings"));
+  LOG(LINFO,
+      ("Found", buildingInfo.m_Buildings2AddressPoint.size(), "helpful addressless buildings"));
   auto const buildingGeometries =
       GetBuildingsGeometry(pathInGeoObjectsTmpMwm, buildingInfo, threadsCount);
   LOG(LINFO, ("Saved", buildingGeometries.size(), "buildings geometries"));
@@ -299,6 +245,15 @@ auto Measure(std::string activity, Activist && activist)
   return activist();
 }
 }  // namespace
+
+bool JsonHasBuilding(JsonValue const & json)
+{
+  auto && address =
+      base::GetJSONObligatoryFieldByPath(json, "properties", "locales", "default", "address");
+
+  auto && building = base::GetJSONOptionalField(address, "building");
+  return building && !base::JSONIsNull(building);
+}
 
 boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
     std::string const & pathToGeoObjectsTmpMwm)
@@ -322,6 +277,72 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
   return indexer::ReadIndex<indexer::GeoObjectsIndexBox<IndexReader>, MmapReader>(indexFile);
 }
 
+std::shared_ptr<JsonValue> FindHousePoi(FeatureBuilder const & fb,
+                                        GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                        NullBuildingsInfo const & buildingsInfo)
+{
+  std::shared_ptr<JsonValue> house = geoObjectInfoGetter.Find(fb.GetKeyPoint(), JsonHasBuilding);
+  if (house)
+    return house;
+
+  std::vector<base::GeoObjectId> potentialIds =
+      geoObjectInfoGetter.SearchObjectsInIndex(fb.GetKeyPoint());
+
+  for (base::GeoObjectId id : potentialIds)
+  {
+    auto const it = buildingsInfo.m_Buildings2AddressPoint.find(id);
+    if (it != buildingsInfo.m_Buildings2AddressPoint.end())
+      return geoObjectInfoGetter.GetKeyValueStorage().Find(it->second.GetEncodedId());
+  }
+
+  return {};
+}
+
+base::JSONPtr MakeJsonValueWithNameFromFeature(FeatureBuilder const & fb, JsonValue const & json)
+{
+  auto jsonWithAddress = json.MakeDeepCopyJson();
+
+  auto properties = json_object_get(jsonWithAddress.get(), "properties");
+  Localizator localizator(*properties);
+  localizator.SetLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
+
+  UpdateCoordinates(fb.GetKeyPoint(), jsonWithAddress);
+  return jsonWithAddress;
+}
+
+void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
+                                       GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                       NullBuildingsInfo const & buildingsInfo,
+                                       std::string const & pathInGeoObjectsTmpMwm,
+                                       std::ostream & streamIdsWithoutAddress, bool verbose,
+                                       size_t threadsCount)
+{
+  auto const addressObjectsCount = geoObjectsKv.Size();
+
+  std::mutex updateMutex;
+  auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
+    if (!GeoObjectsFilter::IsPoi(fb))
+      return;
+    if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
+      return;
+
+    auto const house = FindHousePoi(fb, geoObjectInfoGetter, buildingsInfo);
+    if (!house)
+      return;
+
+    auto const id = fb.GetMostGenericOsmId().GetEncodedId();
+    auto jsonValue = MakeJsonValueWithNameFromFeature(fb, *house);
+
+    std::lock_guard<std::mutex> lock(updateMutex);
+    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
+    streamIdsWithoutAddress << id << "\n";
+  };
+
+  ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
+  LOG(LINFO,
+      ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
+}
+
 void FilterAddresslessThanGaveTheirGeometryToInnerPoints(std::string const & pathInGeoObjectsTmpMwm,
                                                          NullBuildingsInfo const & buildingsInfo,
                                                          size_t threadsCount)
@@ -331,7 +352,8 @@ void FilterAddresslessThanGaveTheirGeometryToInnerPoints(std::string const & pat
   std::mutex collectorMutex;
   auto concurrentCollect = [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
     auto const id = fb.GetMostGenericOsmId();
-    if (buildingsInfo.m_buildingsIds.find(id) != buildingsInfo.m_buildingsIds.end())
+    if (buildingsInfo.m_Buildings2AddressPoint.find(id) !=
+        buildingsInfo.m_Buildings2AddressPoint.end())
       return;
 
     std::lock_guard<std::mutex> lock(collectorMutex);
@@ -405,8 +427,9 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
 
   std::ofstream streamIdsWithoutAddress(m_pathOutIdsWithoutAddress);
 
-  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm,
-                                    streamIdsWithoutAddress, m_verbose, m_threadsCount);
+  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, buildingInfo,
+                                    m_pathInGeoObjectsTmpMwm, streamIdsWithoutAddress, m_verbose,
+                                    m_threadsCount);
 
   FilterAddresslessThanGaveTheirGeometryToInnerPoints(m_pathInGeoObjectsTmpMwm, buildingInfo,
                                                       m_threadsCount);

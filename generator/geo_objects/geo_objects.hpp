@@ -23,6 +23,8 @@ using IndexReader = ReaderPtr<Reader>;
 boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
     std::string const & pathToGeoObjectsTmpMwm);
 
+bool JsonHasBuilding(JsonValue const & json);
+
 class GeoObjectsGenerator
 {
 public:

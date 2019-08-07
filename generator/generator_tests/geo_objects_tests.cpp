@@ -7,6 +7,7 @@
 #include "generator/generator_tests/common.hpp"
 #include "generator/geo_objects/geo_object_info_getter.hpp"
 #include "generator/geo_objects/geo_objects.hpp"
+#include "generator/geo_objects/geo_objects_filter.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -29,7 +30,31 @@ bool CheckWeGotExpectedIdsByPoint(m2::PointD const & point,
   return test == reference;
 }
 
-void TestMe(std::vector<OsmElementData> const & osmElements)
+std::vector<base::GeoObjectId> CollectFeatures(
+    std::vector<OsmElementData> const & osmElements, ScopedFile const & geoObjectsFeatures,
+    std::function<bool(FeatureBuilder const &)> && accepter)
+{
+  std::vector<base::GeoObjectId> expectedIds;
+  {
+    FeaturesCollector collector(geoObjectsFeatures.GetFullPath());
+    for (OsmElementData const & elementData : osmElements)
+    {
+      FeatureBuilder fb = FeatureBuilderFromOmsElementData(elementData);
+      if (accepter(fb))
+        expectedIds.emplace_back(fb.GetMostGenericOsmId());
+
+      TEST(fb.PreSerialize(), ());
+      collector.Collect(fb);
+    }
+  }
+
+  return expectedIds;
+}
+
+GeoObjectsGenerator TearUp(std::vector<OsmElementData> const & osmElements,
+                           ScopedFile const & geoObjectsFeatures,
+                           ScopedFile const & idsWithoutAddresses,
+                           ScopedFile const & geoObjectsKeyValue)
 {
   // Absolutely random region.
   std::shared_ptr<JsonValue> value = std::make_shared<JsonValue>(LoadFromString(
@@ -72,48 +97,39 @@ void TestMe(std::vector<OsmElementData> const & osmElements)
                }
              })"));
 
-  auto regionGetter = [&value](auto && point) { return KeyValue{1, value}; };
-  classificator::Load();
+  auto regionGetter = [value](auto && point) { return KeyValue{1, value}; };
 
+  return GeoObjectsGenerator{regionGetter,
+                             geoObjectsFeatures.GetFullPath(),
+                             idsWithoutAddresses.GetFullPath(),
+                             geoObjectsKeyValue.GetFullPath(),
+                             false /* verbose */,
+                             1 /* threadsCount */};
+}
+
+void TestFindReverse(std::vector<OsmElementData> const & osmElements)
+{
+  classificator::Load();
   ScopedFile const geoObjectsFeatures{"geo_objects_features.mwm", ScopedFile::Mode::DoNotCreate};
   ScopedFile const idsWithoutAddresses{"ids_without_addresses.txt", ScopedFile::Mode::DoNotCreate};
   ScopedFile const geoObjectsKeyValue{"geo_objects.jsonl", ScopedFile::Mode::DoNotCreate};
 
-  std::vector<base::GeoObjectId> expectedIds;
+  auto const & expectedIds = CollectFeatures(
+      osmElements, geoObjectsFeatures, [](FeatureBuilder const & fb) { return fb.IsPoint(); });
 
-  {
-    FeaturesCollector collector(geoObjectsFeatures.GetFullPath());
-    for (OsmElementData const & elementData : osmElements)
-    {
-      FeatureBuilder fb = FeatureBuilderFromOmsElementData(elementData);
-      if (fb.IsPoint())
-        expectedIds.emplace_back(fb.GetMostGenericOsmId());
-
-      TEST(fb.PreSerialize(), ());
-      collector.Collect(fb);
-    }
-  }
-
-  GeoObjectsGenerator geoObjectsGenerator{regionGetter,
-                                          geoObjectsFeatures.GetFullPath(),
-                                          idsWithoutAddresses.GetFullPath(),
-                                          geoObjectsKeyValue.GetFullPath(),
-                                          false /* verbose */ ,
-                                          1 /* threadsCount */};
-
+  GeoObjectsGenerator geoObjectsGenerator =
+      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue);
 
   TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
 
   auto const geoObjectsIndex = MakeTempGeoObjectsIndex(geoObjectsFeatures.GetFullPath());
+
   TEST(geoObjectsIndex.has_value(), ("Temporary index build failed"));
 
   TEST(CheckWeGotExpectedIdsByPoint({1.5, 1.5}, expectedIds, *geoObjectsIndex), ());
   TEST(CheckWeGotExpectedIdsByPoint({2, 2}, expectedIds, *geoObjectsIndex), ());
   TEST(CheckWeGotExpectedIdsByPoint({4, 4}, expectedIds, *geoObjectsIndex), ());
 }
-
-
-
 
 UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside)
 {
@@ -134,7 +150,7 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {{1.6, 1.6}},
        {}}
   };
-  TestMe(osmElements);
+  TestFindReverse(osmElements);
 }
 
 UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside2)
@@ -158,6 +174,46 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {}},
 
   };
-  TestMe(osmElements);
+  TestFindReverse(osmElements);
 }
 
+void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)
+{
+  classificator::Load();
+  ScopedFile const geoObjectsFeatures{"geo_objects_features.mwm", ScopedFile::Mode::DoNotCreate};
+  ScopedFile const idsWithoutAddresses{"ids_without_addresses.txt", ScopedFile::Mode::DoNotCreate};
+  ScopedFile const geoObjectsKeyValue{"geo_objects.jsonl", ScopedFile::Mode::DoNotCreate};
+
+  auto const & expectedIds =
+      CollectFeatures(osmElements, geoObjectsFeatures,
+                      [](FeatureBuilder const & fb) { return GeoObjectsFilter::IsPoi(fb); });
+
+  GeoObjectsGenerator geoObjectsGenerator =
+      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue);
+
+  TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
+  for (GeoObjectId id : expectedIds)
+  {
+    std::shared_ptr<JsonValue> value =
+        geoObjectsGenerator.GetKeyValueStorage().Find(id.GetEncodedId());
+    TEST(value, ("Id", id, "is not stored in key value"));
+    TEST(JsonHasBuilding(*value), ("No address for", id));
+  }
+}
+
+UNIT_TEST(GenerateGeoObjects_CheckPoiEnricedWithAddress)
+{
+  std::vector<OsmElementData> const osmElements{
+      {1, {{"addr:housenumber", "111"}, {"addr:street", "Healing street"}}, {{1.6, 1.6}}, {}},
+      {2,
+       {{"building", "commercial"}, {"type", "multipolygon"}, {"name", "superbuilding"}},
+       {{1, 1}, {4, 4}},
+       {}},
+      {3,
+       {{"shop", "supermarket"}, {"population", "1"}, {"name", "ForgetMeNot"}},
+       {{1.5, 1.5}},
+       {}},
+  };
+
+  TestPoiHasAddress(osmElements);
+}

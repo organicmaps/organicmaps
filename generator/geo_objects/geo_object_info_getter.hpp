@@ -37,9 +37,19 @@ public:
   boost::optional<base::GeoObjectId> Search(
       m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
 
+  std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const
+  {
+    return SearchObjectsInIndex(m_index, point);
+  }
+
   static std::vector<base::GeoObjectId> SearchObjectsInIndex(
       indexer::GeoObjectsIndex<IndexReader> const & index, m2::PointD const & point);
 
+
+  KeyValueStorage const & GetKeyValueStorage() const
+  {
+    return m_storage;
+  }
 private:
   indexer::GeoObjectsIndex<IndexReader> m_index;
   KeyValueStorage const & m_storage;
