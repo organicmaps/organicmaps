@@ -189,10 +189,18 @@ void MakeProducts(std::string const & src, Object const & from, Object const & t
   base::Json root(src.c_str());
 
   std::ostringstream productStream;
+// Vezet app for Android is not decodes url encoding.
+#if defined(OMIM_OS_ANDROID)
   productStream << "city=" << city.m_id << "&title1=" << from.m_title
                 << "&ob1=" << from.m_id << "&h1=" << from.m_house
                 << "&title2=" << to.m_title << "&ob2=" << to.m_id
                 << "&h2=" << to.m_house << "&e1=";
+#else
+  productStream << "city=" << city.m_id << "&title1=" << UrlEncode(from.m_title)
+                << "&ob1=" << from.m_id << "&h1=" << UrlEncode(from.m_house)
+                << "&title2=" << UrlEncode(to.m_title) << "&ob2=" << to.m_id
+                << "&h2=" << UrlEncode(to.m_house) << "&e1=";
+#endif
 
   taxi::Product product;
   product.m_productId = productStream.str();
