@@ -106,19 +106,9 @@ using namespace discovery;
 
 - (void)reloadGuidesIfNeeded {
   MWMNetworkConnectionType connectionType = MWMPlatform.networkConnectionType;
-  BOOL isNetworkAvailable = connectionType != MWMNetworkConnectionTypeNone;
-  if (connectionType == MWMNetworkConnectionTypeWwan) {
-    switch (network_policy::GetStage()) {
-      case network_policy::Stage::Always:
-        break;
-      case network_policy::Stage::NotToday:
-      case network_policy::Stage::Today:
-      case network_policy::Stage::Ask:
-      case network_policy::Stage::Never:
-        isNetworkAvailable = NO;
-        break;
-    }
-  }
+  BOOL isNetworkAvailable = connectionType == MWMNetworkConnectionTypeWifi ||
+                            (connectionType == MWMNetworkConnectionTypeWwan && self.canUseNetwork);
+  
   if (m_failedTypes.size() != 0 && isNetworkAvailable) {
     m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), ItemType:: Promo), m_failedTypes.end());
     m_loadingTypes.push_back(ItemType:: Promo);
