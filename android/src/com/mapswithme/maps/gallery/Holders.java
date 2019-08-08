@@ -29,6 +29,8 @@ import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.RatingView;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
@@ -527,7 +529,14 @@ public class Holders
     {
       super.bind(item);
       getButton().setText(R.string.gallery_pp_download_guides_offline_cta);
-      UiUtils.show(getButton());
+      boolean hasNetwork = ConnectionState.isConnected() ||
+                           NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus()).canUseNetwork();
+
+      if (hasNetwork)
+        UiUtils.invisible(getButton());
+      else
+        UiUtils.show(getButton());
+
     }
 
     @Override

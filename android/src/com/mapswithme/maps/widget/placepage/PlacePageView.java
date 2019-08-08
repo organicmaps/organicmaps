@@ -1261,7 +1261,7 @@ public class PlacePageView extends NestedScrollView
     {
       ErrorCatalogPromoListener<Items.Item> listener =
           new ErrorCatalogPromoListener<>(getActivity(), networkPolicy -> onNetworkPolicyResult(networkPolicy, mMapObject));
-      com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoNoConnectionAdapter(listener);
+      com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
       mCatalogPromoRecycler.setAdapter(adapter);
     }
 

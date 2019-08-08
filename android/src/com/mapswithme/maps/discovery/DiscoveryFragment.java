@@ -210,7 +210,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                                                                   this::onNetworkPolicyResult);
 
     GalleryAdapter adapter = mOnlineMode ? Factory.createCatalogPromoLoadingAdapter()
-                                         : Factory.createCatalogPromoNoConnectionAdapter(listener);
+                                         : Factory.createCatalogPromoErrorAdapter(listener);
     promoRecycler.setAdapter(adapter);
   }
 

@@ -115,27 +115,9 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoNoConnectionAdapter(@Nullable ItemSelectedListener<Items.Item> listener)
-  {
-    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener));
-  }
-
-  @NonNull
   public static GalleryAdapter createCatalogPromoErrorAdapter(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener)
-    {
-      @Override
-      protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView)
-      {
-        return new Holders.CatalogErrorHolder(itemView, mItems, getListener())
-        {
-          {
-            UiUtils.invisible(itemView, R.id.button);
-          }
-        };
-      }
-    });
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener));
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,
