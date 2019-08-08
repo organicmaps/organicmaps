@@ -122,7 +122,7 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectI
                                           size_t threadsCount)
 {
   NullBuildingsInfo result;
-
+  static int64_t counter = 0;
   std::mutex updateMutex;
   auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::HasHouse(fb) || !fb.IsPoint())
@@ -137,6 +137,9 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectI
 
     std::lock_guard<std::mutex> lock(updateMutex);
     result.m_addressPoints2Buildings[id] = *buildingId;
+    counter++;
+    if (counter % 100000)
+      LOG(LINFO, (counter, "Helpful building added"));
     result.m_Buildings2AddressPoint[*buildingId] = id;
   };
 
@@ -153,6 +156,7 @@ BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmp
 {
   BuildingsGeometries result;
   std::mutex updateMutex;
+  static int64_t counter = 0;
 
   auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     auto const id = fb.GetMostGenericOsmId();
@@ -167,9 +171,14 @@ BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmp
       LOG(LINFO, ("More than one geometry for", id));
     else
       result[id] = fb.GetGeometry();
+
+    counter++;
+    if (counter % 100000)
+      LOG(LINFO, (counter, "Building geometries added"));
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
+  LOG(LINFO, (sizeof(result), " is size of geometries"));
   return result;
 }
 
@@ -182,7 +191,6 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
   FeaturesCollector collector(path);
   std::atomic_size_t pointsEnriched{0};
   std::mutex collectorMutex;
-
   auto concurrentCollector = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     auto const id = fb.GetMostGenericOsmId();
     auto point2BuildingIt = buildingsInfo.m_addressPoints2Buildings.find(id);
@@ -205,6 +213,8 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
 
         fb.PreSerialize();
         ++pointsEnriched;
+        if (pointsEnriched % 100000)
+          LOG(LINFO, (pointsEnriched, "Points enriched with geometry"));
       }
       else
       {
@@ -326,7 +336,7 @@ void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
                                        bool verbose, size_t threadsCount)
 {
   auto const addressObjectsCount = geoObjectsKv.Size();
-
+  size_t counter = 0;
   std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsPoi(fb))
@@ -342,6 +352,9 @@ void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
     auto jsonValue = MakeJsonValueWithNameFromFeature(fb, *house);
 
     std::lock_guard<std::mutex> lock(updateMutex);
+    counter++;
+    if (counter % 100000)
+      LOG(LINFO, (counter, "pois added added"));
     geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
     streamPoiIdsToAddToLocalityIndex << id << "\n";
   };
