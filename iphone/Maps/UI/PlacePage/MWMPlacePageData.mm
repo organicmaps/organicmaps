@@ -446,6 +446,14 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   });
 }
 
+- (NSInteger)bookmarkSectionPosition {
+  if (self.isPromoCatalog) {
+    return 2;
+  } else {
+    return 1;
+  }
+}
+
 #pragma mark - Update bookmark status
 
 - (void)updateBookmarkStatus:(BOOL)isBookmark
@@ -464,7 +472,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     auto editSession = bmManager.GetEditSession();
     auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);
-    m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
+    NSUInteger position = [self bookmarkSectionPosition];
+    if (self.isPromoCatalog) {
+      m_sections.insert(m_sections.begin() + position, Sections::Bookmark);
+    } else {
+      m_sections.insert(m_sections.begin() + position, Sections::Bookmark);
+    }
   }
   else
   {

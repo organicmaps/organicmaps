@@ -196,8 +196,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   if (!tv)
     return;
   [tv update:^{
+    NSUInteger const position = [data bookmarkSectionPosition];
     auto set =
-        [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
+        [NSIndexSet indexSetWithIndex:position];
     if (isBookmark)
       [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
     else

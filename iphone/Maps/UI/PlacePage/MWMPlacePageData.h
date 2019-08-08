@@ -289,5 +289,6 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 + (void)toggleCoordinateSystem;
 
 - (void)reguestPromoCatalog:(platform::NetworkPolicy const &)canUseNetwork;
+- (NSInteger)bookmarkSectionPosition;
 
 @end
