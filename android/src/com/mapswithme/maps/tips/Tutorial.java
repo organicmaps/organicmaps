@@ -23,7 +23,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 import java.util.Arrays;
 import java.util.List;
 
-public enum TipsApi
+public enum Tutorial
 {
   BOOKMARKS(R.string.tips_bookmarks_catalog_title,
             R.string.tips_bookmarks_catalog_message,
@@ -76,7 +76,9 @@ public enum TipsApi
 
   STUB
       {
-        public void showTutorial(@NonNull Activity activity)
+        @Override
+        public void show(@NonNull Activity activity,
+                         @Nullable MaterialTapTargetPrompt.PromptStateChangeListener listener)
         {
           throw new UnsupportedOperationException("Not supported here!");
         }
@@ -90,7 +92,7 @@ public enum TipsApi
       };
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = TipsApi.class.getSimpleName();
+  private static final String TAG = Tutorial.class.getSimpleName();
 
   @StringRes
   private final int mPrimaryText;
@@ -103,8 +105,8 @@ public enum TipsApi
   @Nullable
   private final MainMenu.Item mSiblingMenuItem;
 
-  TipsApi(@StringRes int primaryText, @StringRes int secondaryText, @IdRes int anchorViewId,
-          @Nullable MainMenu.Item siblingMenuItem, @NonNull Class<?>... allowedScreens)
+  Tutorial(@StringRes int primaryText, @StringRes int secondaryText, @IdRes int anchorViewId,
+           @Nullable MainMenu.Item siblingMenuItem, @NonNull Class<?>... allowedScreens)
   {
     mPrimaryText = primaryText;
     mSecondaryText = secondaryText;
@@ -113,7 +115,7 @@ public enum TipsApi
     mAllowedScreens = Arrays.asList(allowedScreens);
   }
 
-  TipsApi()
+  Tutorial()
   {
     this(UiUtils.NO_ID, UiUtils.NO_ID, UiUtils.NO_ID, null);
   }
@@ -123,8 +125,8 @@ public enum TipsApi
     return mAllowedScreens.contains(screenClass);
   }
 
-  public void showTutorial(@NonNull Activity activity,
-                           @Nullable  MaterialTapTargetPrompt.PromptStateChangeListener listener)
+  public void show(@NonNull Activity activity,
+                   @Nullable  MaterialTapTargetPrompt.PromptStateChangeListener listener)
   {
     View target = activity.findViewById(mAnchorViewId);
     MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt
@@ -156,18 +158,17 @@ public enum TipsApi
   public abstract ClickInterceptor createClickInterceptor();
 
   @NonNull
-  public static <T> TipsApi requestCurrent(@NonNull Context context,
-                                           @NonNull Class<T> requiredScreenClass)
+  public static <T> Tutorial requestCurrent(@NonNull Context context,
+                                            @NonNull Class<T> requiredScreenClass)
   {
     if (MwmApplication.from(context).isFirstLaunch())
       return STUB;
 
     int index = Framework.nativeGetCurrentTipIndex();
-    TipsApi value = index >= 0 ? values()[index] : STUB;
-    TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
-                                                                                  : STUB;
+    Tutorial value = index >= 0 ? values()[index] : STUB;
+    Tutorial tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
+                                                                                   : STUB;
     LOGGER.d(TAG, "tipsApi = " + tipsApi);
     return tipsApi;
   }
-
 }

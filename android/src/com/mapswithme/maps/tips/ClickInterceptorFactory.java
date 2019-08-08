@@ -40,7 +40,7 @@ class ClickInterceptorFactory
   {
     OpenBookmarksCatalog()
     {
-      super(TipsApi.BOOKMARKS);
+      super(Tutorial.BOOKMARKS);
     }
 
     @Override
@@ -57,7 +57,7 @@ class ClickInterceptorFactory
   {
     ActivateSubwayLayer()
     {
-      super(TipsApi.MAP_LAYERS);
+      super(Tutorial.MAP_LAYERS);
     }
 
     @Override
@@ -72,7 +72,7 @@ class ClickInterceptorFactory
   {
     SearchHotels()
     {
-      super(TipsApi.SEARCH);
+      super(Tutorial.SEARCH);
     }
 
     @Override
@@ -86,7 +86,7 @@ class ClickInterceptorFactory
   {
     OpenDiscoveryScreen()
     {
-      super(TipsApi.DISCOVERY);
+      super(Tutorial.DISCOVERY);
     }
 
     @Override

@@ -8,8 +8,8 @@ import android.view.View;
 import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
-import com.mapswithme.maps.tips.TipsApi;
-import com.mapswithme.maps.tips.TipsClickListener;
+import com.mapswithme.maps.tips.Tutorial;
+import com.mapswithme.maps.tips.TutorialClickListener;
 import com.mapswithme.util.InputUtils;
 
 import java.util.Collection;
@@ -29,7 +29,7 @@ public class MapLayerCompositeController implements MapLayerController
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
                                      @NonNull AppCompatActivity activity)
   {
-    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, TipsApi.MAP_LAYERS);
+    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, Tutorial.MAP_LAYERS);
     mActivity = activity;
     mChildrenEntries = createEntries(traffic, subway, activity, listener);
     mMasterEntry = getCurrentLayer();
@@ -264,11 +264,11 @@ public class MapLayerCompositeController implements MapLayerController
     }
   }
 
-  private class OpenBottomDialogClickListener extends TipsClickListener
+  private class OpenBottomDialogClickListener extends TutorialClickListener
   {
-    OpenBottomDialogClickListener(@NonNull Activity activity, @NonNull TipsApi provider)
+    OpenBottomDialogClickListener(@NonNull Activity activity, @NonNull Tutorial tutorial)
     {
-      super(activity, provider);
+      super(activity, tutorial);
     }
 
     @Override

@@ -3,14 +3,14 @@ package com.mapswithme.maps.metrics;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.discovery.DiscoveryUserEvent;
-import com.mapswithme.maps.tips.TipsAction;
-import com.mapswithme.maps.tips.TipsApi;
+import com.mapswithme.maps.tips.TutorialAction;
+import com.mapswithme.maps.tips.Tutorial;
 
 public class UserActionsLogger
 {
-  public static void logTipClickedEvent(@NonNull TipsApi provider, @NonNull TipsAction action)
+  public static void logTipClickedEvent(@NonNull Tutorial tutorial, @NonNull TutorialAction action)
   {
-    nativeTipClicked(provider.ordinal(), action.ordinal());
+    nativeTipClicked(tutorial.ordinal(), action.ordinal());
   }
 
   public static void logBookingFilterUsedEvent()

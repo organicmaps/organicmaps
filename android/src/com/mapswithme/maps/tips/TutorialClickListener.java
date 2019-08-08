@@ -7,29 +7,29 @@ import android.view.View;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.util.statistics.Statistics;
 
-public abstract class TipsClickListener implements View.OnClickListener
+public abstract class TutorialClickListener implements View.OnClickListener
 {
   @NonNull
   private final Activity mActivity;
   @NonNull
-  private final TipsApi mTipsApi;
+  private final Tutorial mTutorial;
 
-  public TipsClickListener(@NonNull Activity activity, @NonNull TipsApi provider)
+  public TutorialClickListener(@NonNull Activity activity, @NonNull Tutorial tutorial)
   {
     mActivity = activity;
-    mTipsApi = provider;
+    mTutorial = tutorial;
   }
 
   @Override
   public final void onClick(View v)
   {
-    TipsApi api = TipsApi.requestCurrent(mActivity, mActivity.getClass());
-    if (api == mTipsApi)
+    Tutorial tutorial = Tutorial.requestCurrent(mActivity, mActivity.getClass());
+    if (tutorial == mTutorial)
     {
       MwmActivity mwmActivity = (MwmActivity) mActivity;
-      ClickInterceptor interceptor = api.createClickInterceptor();
+      ClickInterceptor interceptor = tutorial.createClickInterceptor();
       interceptor.onInterceptClick(mwmActivity);
-      Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_CLICK, api.ordinal());
+      Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_CLICK, tutorial.ordinal());
       return;
     }
 

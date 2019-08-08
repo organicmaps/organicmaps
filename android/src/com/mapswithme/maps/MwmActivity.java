@@ -110,8 +110,8 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
-import com.mapswithme.maps.tips.TipsAction;
-import com.mapswithme.maps.tips.TipsApi;
+import com.mapswithme.maps.tips.TutorialAction;
+import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -253,7 +253,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private PlacePageController mPlacePageController;
   @Nullable
-  private TipsApi mCurrentTipsApi;
+  private Tutorial mTutorial;
 
   public interface LeftAnimationTrackListener
   {
@@ -2222,7 +2222,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPromptStateChanged(@NonNull MaterialTapTargetPrompt prompt, int state)
   {
-    if (mCurrentTipsApi == null)
+    if (mTutorial == null)
       return;
 
     if (state != MaterialTapTargetPrompt.STATE_DISMISSED
@@ -2231,25 +2231,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    UserActionsLogger.logTipClickedEvent(mCurrentTipsApi, TipsAction.GOT_IT_CLICKED);
-    Statistics.INSTANCE.trackTipsClose(mCurrentTipsApi.ordinal());
-    mCurrentTipsApi = null;
+    UserActionsLogger.logTipClickedEvent(mTutorial, TutorialAction.GOT_IT_CLICKED);
+    Statistics.INSTANCE.trackTipsClose(mTutorial.ordinal());
+    mTutorial = null;
   }
 
-  private void tryToShowTips()
+  private void tryToShowTutorial()
   {
-    TipsApi api = TipsApi.requestCurrent(this, getClass());
-    if (api == TipsApi.STUB)
+    Tutorial tutorial = Tutorial.requestCurrent(this, getClass());
+    if (tutorial == Tutorial.STUB)
       return;
 
-    if (mCurrentTipsApi != null)
+    if (mTutorial != null)
       return;
 
-    mCurrentTipsApi = api;
-    mCurrentTipsApi.showTutorial(getActivity(), this);
+    mTutorial = tutorial;
+    mTutorial.show(getActivity(), this);
 
     Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW,
-                                       mCurrentTipsApi.ordinal());
+                                       mTutorial.ordinal());
   }
 
   private boolean tryToShowPromoAfterBooking()
@@ -2281,7 +2281,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (tryToShowPromoAfterBooking())
       return;
 
-    tryToShowTips();
+    tryToShowTutorial();
   }
 
   @Override
@@ -2427,8 +2427,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public final void onMenuItemClick()
     {
-      TipsApi api = TipsApi.requestCurrent(getActivity(), getActivity().getClass());
-      LOGGER.d(TAG, "TipsApi = " + api);
+      Tutorial api = Tutorial.requestCurrent(getActivity(), getActivity().getClass());
+      LOGGER.d(TAG, "Tutorial = " + api);
       if (getItem() == api.getSiblingMenuItem())
       {
         api.createClickInterceptor().onInterceptClick(getActivity());

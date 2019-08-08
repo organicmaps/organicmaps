@@ -8,23 +8,23 @@ import com.mapswithme.maps.metrics.UserActionsLogger;
 public abstract class AbstractClickInterceptor implements ClickInterceptor
 {
   @NonNull
-  private final TipsApi mTipsApi;
+  private final Tutorial mTutorial;
 
-  AbstractClickInterceptor(@NonNull TipsApi tipsApi)
+  AbstractClickInterceptor(@NonNull Tutorial tutorial)
   {
-    mTipsApi = tipsApi;
+    mTutorial = tutorial;
   }
 
   @NonNull
-  TipsApi getType()
+  Tutorial getType()
   {
-    return mTipsApi;
+    return mTutorial;
   }
 
   @Override
   public final void onInterceptClick(@NonNull MwmActivity activity)
   {
-    UserActionsLogger.logTipClickedEvent(getType(), TipsAction.ACTION_CLICKED);
+    UserActionsLogger.logTipClickedEvent(getType(), TutorialAction.ACTION_CLICKED);
     onInterceptClickInternal(activity);
   }
 
