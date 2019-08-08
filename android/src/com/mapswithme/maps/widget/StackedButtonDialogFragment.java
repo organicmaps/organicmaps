@@ -45,7 +45,7 @@ public class StackedButtonDialogFragment extends DialogFragment
   private void onDialogBtnClicked(@NonNull NetworkPolicy.Type type, boolean canUse)
   {
     Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.MOBILE_INTERNET_ALERT,
-                                               type.getAnalytics().getName());
+                                               type.toStatisticValue());
     Config.setUseMobileDataSettings(type);
     if (mListener != null)
       mListener.onResult(NetworkPolicy.newInstance(canUse));

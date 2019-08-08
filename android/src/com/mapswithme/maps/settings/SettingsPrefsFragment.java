@@ -546,7 +546,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         {
           Config.setUseMobileDataSettings(type);
           Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.SETTINGS_MOBILE_INTERNET_CHANGE,
-                                                     type.getAnalytics().getName());
+                                                     type.toStatisticValue());
         }
         else
         {
