@@ -12,7 +12,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/geo_objects/geo_objects.hpp"
+#include "generator/geo_objects/geo_objects_generator.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"

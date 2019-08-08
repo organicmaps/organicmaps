@@ -42,6 +42,10 @@ public:
     return SearchGeoObjectIdsByPoint(m_index, point);
   }
 
+  KeyValueStorage const & GetKeyValueStorage() const
+  {
+    return m_storage;
+  }
   static std::vector<base::GeoObjectId> SearchGeoObjectIdsByPoint(
       indexer::GeoObjectsIndex<IndexReader> const & index, m2::PointD const & point);
 

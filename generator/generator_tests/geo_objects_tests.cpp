@@ -5,9 +5,9 @@
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/generator_tests/common.hpp"
-#include "generator/geo_objects/geo_object_maintainer.hpp"
-#include "generator/geo_objects/geo_objects.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
+#include "generator/geo_objects/geo_objects_generator.hpp"
+#include "generator/geo_objects/geo_objects_maintainer.hpp"
 
 #include "indexer/classificator_loader.hpp"
 

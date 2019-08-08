@@ -88,8 +88,10 @@ set(
   filter_planet.hpp
   gen_mwm_info.hpp
   generate_info.hpp
-  geo_objects/geo_object_maintainer.cpp
-  geo_objects/geo_object_maintainer.hpp
+  geo_objects/geo_objects_generator.cpp
+  geo_objects/geo_objects_generator.hpp
+  geo_objects/geo_objects_maintainer.cpp
+  geo_objects/geo_objects_maintainer.hpp
   geo_objects/geo_objects.cpp
   geo_objects/geo_objects.hpp
   geo_objects/geo_objects_filter.cpp
