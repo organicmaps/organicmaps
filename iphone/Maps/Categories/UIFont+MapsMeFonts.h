@@ -41,6 +41,7 @@
 + (UIFont *)bold36;
 + (UIFont *)bold48;
 + (UIFont *)italic16;
++ (UIFont *)semibold14;
 
 + (UIFont *)fontWithName:(NSString *)fontName;
 

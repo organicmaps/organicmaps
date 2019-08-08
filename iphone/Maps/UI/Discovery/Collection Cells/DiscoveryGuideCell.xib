@@ -32,6 +32,7 @@
                             <constraint firstAttribute="width" constant="160" id="k85-sb-f1d"/>
                             <constraint firstAttribute="height" constant="40" id="mzG-ku-CVD"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <state key="normal" title="Button"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>

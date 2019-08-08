@@ -30,6 +30,7 @@ final class DiscoveryGuideCell: UICollectionViewCell {
   
   @IBOutlet var detailsButton: UIButton! {
     didSet {
+      detailsButton.titleLabel?.font = UIFont.semibold14()
       detailsButton.setTitleColor(UIColor.linkBlue(), for: .normal)
       detailsButton.setTitle(L("details"), for: .normal)
     }
