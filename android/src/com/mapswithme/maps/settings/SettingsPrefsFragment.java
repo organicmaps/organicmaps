@@ -545,6 +545,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
             || type == NetworkPolicy.Type.NEVER)
         {
           Config.setUseMobileDataSettings(type);
+          Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.SETTINGS_MOBILE_INTERNET_CHANGE,
+                                                     type.getAnalytics().getName());
         }
         else
         {

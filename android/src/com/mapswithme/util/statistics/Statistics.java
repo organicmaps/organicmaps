@@ -289,6 +289,9 @@ public enum Statistics
     public static final String PLACEPAGE_DESCRIPTION_MORE = "Placepage_Description_more";
     public static final String PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK = "Placepage_Description_Outbound_click";
     public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
+    public static final String SETTINGS_MOBILE_INTERNET_CHANGE = "Settings_MobileInternet_change";
+    public static final String MOBILE_INTERNET_ALERT = "MobileInternet_alert";
+
     public static final String DOWNLOADER_BANNER_SHOW = "Downloader_Banner_show";
     public static final String DOWNLOADER_BANNER_CLICK = "Downloader_Banner_click";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
@@ -598,6 +601,11 @@ public enum Statistics
     public static final String CANCEL = "Cancel";
     public static final String MEGAFON = "Megafon";
     public static final String MAP = "map";
+    public static final String ALWAYS = "always";
+    public static final String NEVER = "never";
+    public static final String ASK = "ask";
+    public static final String TODAY = "today";
+    public static final String NOT_TODAY = "not_today";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
@@ -869,6 +877,11 @@ public enum Statistics
     trackEvent(newObject ? EventName.EDITOR_ERROR_CREATE : EventName.EDITOR_ERROR_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+  }
+
+  public void trackNetworkUsageAlert(@NonNull String event, @NonNull String param)
+  {
+    trackEvent(event, Statistics.params().add(VALUE, param));
   }
 
   public void trackAuthRequest(OsmOAuth.AuthType type)

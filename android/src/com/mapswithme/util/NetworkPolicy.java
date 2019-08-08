@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.widget.StackedButtonDialogFragment;
+import com.mapswithme.util.statistics.Analytics;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,9 +13,9 @@ public final class NetworkPolicy
 {
   public enum Type
   {
-    ASK,
+    ASK(new Analytics(Statistics.ParamValue.ASK)),
 
-    ALWAYS
+    ALWAYS(new Analytics(Statistics.ParamValue.ALWAYS))
         {
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
@@ -29,7 +31,7 @@ public final class NetworkPolicy
           }
         },
 
-    NEVER
+    NEVER(new Analytics(Statistics.ParamValue.NEVER))
         {
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
@@ -43,7 +45,7 @@ public final class NetworkPolicy
         },
 
 
-    NOT_TODAY
+    NOT_TODAY(new Analytics(Statistics.ParamValue.NOT_TODAY))
         {
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
@@ -56,7 +58,7 @@ public final class NetworkPolicy
           }
         },
 
-    TODAY
+    TODAY(new Analytics(Statistics.ParamValue.TODAY))
         {
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
@@ -72,13 +74,41 @@ public final class NetworkPolicy
           }
         },
 
-    NONE;
+    NONE
+        {
+          @NonNull
+          @Override
+          public Analytics getAnalytics()
+          {
+            throw new UnsupportedOperationException("Not supported here " + name());
+          }
+        };
+
+    @NonNull
+    private final Analytics mAnalytics;
+
+    Type(@NonNull Analytics analytics)
+    {
+
+      mAnalytics = analytics;
+    }
+
+    Type()
+    {
+      this(new Analytics(""));
+    }
 
     public void check(@NonNull FragmentManager fragmentManager,
                       @NonNull final NetworkPolicyListener listener,
                       boolean isDialogAllowed)
     {
       showDialog(fragmentManager, listener);
+    }
+
+    @NonNull
+    public Analytics getAnalytics()
+    {
+      return mAnalytics;
     }
   }
 

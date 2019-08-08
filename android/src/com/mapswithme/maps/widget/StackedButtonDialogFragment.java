@@ -1,7 +1,6 @@
 package com.mapswithme.maps.widget;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.statistics.Statistics;
 
 public class StackedButtonDialogFragment extends DialogFragment
 {
@@ -27,39 +27,29 @@ public class StackedButtonDialogFragment extends DialogFragment
         .setTitle(R.string.mobile_data_dialog)
         .setMessage(R.string.mobile_data_description)
         .setCancelable(false)
-        .setPositiveButton(R.string.mobile_data_option_always, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(NetworkPolicy.Type.ALWAYS);
-            if (mListener != null)
-              mListener.onResult(NetworkPolicy.newInstance(true));
-          }
-        })
-        .setNegativeButton(R.string.mobile_data_option_not_today, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(NetworkPolicy.Type.NOT_TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
-            if (mListener != null)
-              mListener.onResult(NetworkPolicy.newInstance(false));
-          }
-        })
-        .setNeutralButton(R.string.mobile_data_option_today, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(NetworkPolicy.Type.TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
-            if (mListener != null)
-              mListener.onResult(NetworkPolicy.newInstance(true));
-          }
-        })
+        .setPositiveButton(R.string.mobile_data_option_always,
+                           (dialog, which) -> onDialogBtnClicked(NetworkPolicy.Type.ALWAYS, true))
+        .setNegativeButton(R.string.mobile_data_option_not_today,
+                           (dialog, which) -> onMobileDataImpactBtnClicked(NetworkPolicy.Type.NOT_TODAY, false))
+        .setNeutralButton(R.string.mobile_data_option_today,
+                          (dialog, which) -> onMobileDataImpactBtnClicked(NetworkPolicy.Type.TODAY, true))
         .build();
+  }
+
+  private void onMobileDataImpactBtnClicked(@NonNull NetworkPolicy.Type today, boolean canUse)
+  {
+    Config.setMobileDataTimeStamp(System.currentTimeMillis());
+    onDialogBtnClicked(today, canUse);
+  }
+
+  private void onDialogBtnClicked(@NonNull NetworkPolicy.Type type, boolean canUse)
+  {
+    Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.MOBILE_INTERNET_ALERT,
+                                               type.getAnalytics().getName());
+    Config.setUseMobileDataSettings(type);
+    if (mListener != null)
+      mListener.onResult(NetworkPolicy.newInstance(canUse));
+
   }
 
   @Override
