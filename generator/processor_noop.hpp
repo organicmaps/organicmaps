@@ -19,7 +19,7 @@ public:
   }
 
   void Process(feature::FeatureBuilder &) override {}
-  void Flush() override {}
+  void Finish() override {}
 
   void Merge(FeatureProcessorInterface const &) override {}
   void MergeInto(ProcessorNoop &) const override {}

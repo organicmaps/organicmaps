@@ -29,7 +29,7 @@ void ProcessorSimple::Process(feature::FeatureBuilder & fb)
   m_affilationsLayer->AddBufferToQueueIfFull(m_queue);
 }
 
-void ProcessorSimple::Flush()
+void ProcessorSimple::Finish()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
 }

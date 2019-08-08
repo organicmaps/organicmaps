@@ -35,7 +35,7 @@ void ProcessorCoastline::Process(feature::FeatureBuilder & feature)
   m_affilationsLayer->AddBufferToQueueIfFull(m_queue);
 }
 
-void ProcessorCoastline::Flush()
+void ProcessorCoastline::Finish()
 {
   m_affilationsLayer->AddBufferToQueue(m_queue);
 }

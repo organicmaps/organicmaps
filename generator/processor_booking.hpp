@@ -36,7 +36,7 @@ public:
       m_features.emplace(fb.GetMostGenericOsmId(), fb);
   }
 
-  void Flush() override {}
+  void Finish() override {}
 
   void Merge(FeatureProcessorInterface const &) override
   {

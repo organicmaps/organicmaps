@@ -26,7 +26,7 @@ public:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
 
   void Process(feature::FeatureBuilder & feature) override;
-  void Flush() override;
+  void Finish() override;
 
   void Merge(FeatureProcessorInterface const & other) override;
   void MergeInto(ProcessorWorld & other) const override;
