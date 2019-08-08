@@ -54,6 +54,9 @@ public:
   KeyValueStorage & operator=(KeyValueStorage const &) = delete;
 
   void Insert(uint64_t key, JsonValue && valueJson);
+
+  static std::string SerializeFullLine(uint64_t key, JsonValue && valueJson);
+
   std::shared_ptr<JsonValue> Find(uint64_t key) const;
   size_t Size() const;
 

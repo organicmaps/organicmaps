@@ -5,7 +5,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/generator_tests/common.hpp"
-#include "generator/geo_objects/geo_object_info_getter.hpp"
+#include "generator/geo_objects/geo_object_maintainer.hpp"
 #include "generator/geo_objects/geo_objects.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
 
@@ -24,7 +24,8 @@ bool CheckWeGotExpectedIdsByPoint(m2::PointD const & point,
                                   std::vector<base::GeoObjectId> reference,
                                   indexer::GeoObjectsIndex<IndexReader> const & index)
 {
-  std::vector<base::GeoObjectId> test = GeoObjectInfoGetter::SearchObjectsInIndex(index, point);
+  std::vector<base::GeoObjectId> test =
+      GeoObjectMaintainer::SearchGeoObjectIdsByPoint(index, point);
   std::sort(test.begin(), test.end());
   std::sort(reference.begin(), reference.end());
   return test == reference;

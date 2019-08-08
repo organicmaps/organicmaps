@@ -2,7 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
-#include "generator/geo_objects/geo_object_info_getter.hpp"
+#include "generator/geo_objects/geo_object_maintainer.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
 #include "generator/key_value_storage.hpp"
 #include "generator/locality_sorter.hpp"
@@ -117,7 +117,7 @@ struct NullBuildingsInfo
   std::unordered_map<base::GeoObjectId, base::GeoObjectId> m_Buildings2AddressPoint;
 };
 
-NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectInfoGetter,
+NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectMaintainer const & geoObjectMaintainer,
                                           std::string const & pathInGeoObjectsTmpMwm,
                                           size_t threadsCount)
 {
@@ -128,7 +128,10 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectInfoGetter const & geoObjectI
     if (!GeoObjectsFilter::HasHouse(fb) || !fb.IsPoint())
       return;
 
-    auto const buildingId = geoObjectInfoGetter.Search(
+
+    // Можно искать не нуллбилдинги в кв, а те айдишгики, которых нет в кв, которое построено без нуллбилдингов.
+
+    auto const buildingId = geoObjectMaintainer.SearchIdOfFirstMatchedObject(
         fb.GetKeyPoint(), [](JsonValue const & json) { return !JsonHasBuilding(json); });
     if (!buildingId)
       return;
@@ -232,11 +235,11 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
 }
 
 NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
-    GeoObjectInfoGetter const & geoObjectInfoGetter, std::string const & pathInGeoObjectsTmpMwm,
+    GeoObjectMaintainer const & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
     size_t threadsCount)
 {
   auto const buildingInfo =
-      GetHelpfulNullBuildings(geoObjectInfoGetter, pathInGeoObjectsTmpMwm, threadsCount);
+      GetHelpfulNullBuildings(geoObjectMaintainer, pathInGeoObjectsTmpMwm, threadsCount);
 
   LOG(LINFO, ("Found", buildingInfo.m_addressPoints2Buildings.size(),
               "address points with outer building geometry"));
@@ -296,21 +299,22 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
 }
 
 std::shared_ptr<JsonValue> FindHousePoi(FeatureBuilder const & fb,
-                                        GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                        GeoObjectMaintainer const & geoObjectMaintainer,
                                         NullBuildingsInfo const & buildingsInfo)
 {
-  std::shared_ptr<JsonValue> house = geoObjectInfoGetter.Find(fb.GetKeyPoint(), JsonHasBuilding);
+  std::shared_ptr<JsonValue> house =
+      geoObjectMaintainer.FindFirstMatchedObject(fb.GetKeyPoint(), JsonHasBuilding);
   if (house)
     return house;
 
   std::vector<base::GeoObjectId> potentialIds =
-      geoObjectInfoGetter.SearchObjectsInIndex(fb.GetKeyPoint());
+      geoObjectMaintainer.SearchObjectsInIndex(fb.GetKeyPoint());
 
   for (base::GeoObjectId id : potentialIds)
   {
     auto const it = buildingsInfo.m_Buildings2AddressPoint.find(id);
-    if (it != buildingsInfo.m_Buildings2AddressPoint.end())
-      return geoObjectInfoGetter.GetKeyValueStorage().Find(it->second.GetEncodedId());
+//    if (it != buildingsInfo.m_Buildings2AddressPoint.end())
+//      return geoObjectMaintainer.GetKeyValueStorage().Find(it->second.GetEncodedId());
   }
 
   return {};
@@ -329,7 +333,7 @@ base::JSONPtr MakeJsonValueWithNameFromFeature(FeatureBuilder const & fb, JsonVa
 }
 
 void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
-                                       GeoObjectInfoGetter const & geoObjectInfoGetter,
+                                       GeoObjectMaintainer const & geoObjectMaintainer,
                                        NullBuildingsInfo const & buildingsInfo,
                                        std::string const & pathInGeoObjectsTmpMwm,
                                        std::ostream & streamPoiIdsToAddToLocalityIndex,
@@ -344,7 +348,7 @@ void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
     if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
       return;
 
-    auto const house = FindHousePoi(fb, geoObjectInfoGetter, buildingsInfo);
+    auto const house = FindHousePoi(fb, geoObjectMaintainer, buildingsInfo);
     if (!house)
       return;
 
@@ -439,16 +443,16 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   if (!geoObjectIndex)
     return false;
 
-  GeoObjectInfoGetter const geoObjectInfoGetter{std::move(*geoObjectIndex), m_geoObjectsKv};
+  GeoObjectMaintainer const geoObjectMaintainer{std::move(*geoObjectIndex), m_geoObjectsKv};
 
   LOG(LINFO, ("Enrich address points with outer null building geometry."));
 
   NullBuildingsInfo const & buildingInfo = EnrichPointsWithOuterBuildingGeometry(
-      geoObjectInfoGetter, m_pathInGeoObjectsTmpMwm, m_threadsCount);
+      geoObjectMaintainer, m_pathInGeoObjectsTmpMwm, m_threadsCount);
 
   std::ofstream streamPoiIdsToAddToLocalityIndex(m_pathOutPoiIdsToAddToLocalityIndex);
 
-  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectInfoGetter, buildingInfo,
+  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectMaintainer, buildingInfo,
                                     m_pathInGeoObjectsTmpMwm, streamPoiIdsToAddToLocalityIndex,
                                     m_verbose, m_threadsCount);
 

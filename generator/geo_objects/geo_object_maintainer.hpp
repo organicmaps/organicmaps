@@ -23,33 +23,29 @@ namespace generator
 {
 namespace geo_objects
 {
-class GeoObjectInfoGetter
+class GeoObjectMaintainer
 {
 public:
   using IndexReader = ReaderPtr<Reader>;
 
-  GeoObjectInfoGetter(indexer::GeoObjectsIndex<IndexReader> && index,
+  GeoObjectMaintainer(indexer::GeoObjectsIndex<IndexReader> && index,
                       KeyValueStorage const & kvStorage);
 
-  std::shared_ptr<JsonValue> Find(m2::PointD const & point,
-                                  std::function<bool(JsonValue const &)> && pred) const;
+  std::shared_ptr<JsonValue> FindFirstMatchedObject(
+      m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
 
-  boost::optional<base::GeoObjectId> Search(
+  boost::optional<base::GeoObjectId> SearchIdOfFirstMatchedObject(
       m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
 
   std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const
   {
-    return SearchObjectsInIndex(m_index, point);
+    return SearchGeoObjectIdsByPoint(m_index, point);
   }
 
-  static std::vector<base::GeoObjectId> SearchObjectsInIndex(
+  static std::vector<base::GeoObjectId> SearchGeoObjectIdsByPoint(
       indexer::GeoObjectsIndex<IndexReader> const & index, m2::PointD const & point);
 
 
-  KeyValueStorage const & GetKeyValueStorage() const
-  {
-    return m_storage;
-  }
 private:
   indexer::GeoObjectsIndex<IndexReader> m_index;
   KeyValueStorage const & m_storage;

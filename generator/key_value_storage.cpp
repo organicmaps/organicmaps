@@ -77,6 +77,17 @@ bool KeyValueStorage::ParseKeyValueLine(std::string const & line, std::streamoff
   return true;
 }
 
+// static
+std::string KeyValueStorage::SerializeFullLine(uint64_t key, JsonValue && value)
+{
+  auto json = Serialize(value);
+  CHECK(!json.empty(), ());
+
+  std::stringstream result;
+  result << SerializeDref(key) << " " << json << "\n";
+  return result.str();
+}
+
 void KeyValueStorage::Insert(uint64_t key, JsonValue && value)
 {
   auto json = Serialize(value);
