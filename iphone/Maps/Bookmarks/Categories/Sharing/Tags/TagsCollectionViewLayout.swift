@@ -20,6 +20,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
   @IBInspectable var itemWidth: CGFloat = 50
   @IBInspectable var lineSpacing: CGFloat = 10
   @IBInspectable var elementsSpacing: CGFloat = 10
+  @IBInspectable var showHeaders: Bool = true
 
   override func prepare() {
     super.prepare()
@@ -39,7 +40,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
       
       let indexPath = IndexPath(item: 0, section: section)
       
-      if collectionView.numberOfSections > 0 {
+      if showHeaders {
         let headerSize = headersCache[indexPath]?.size ?? CGSize(width: contentWidth, height: itemHeight)
         let frame = CGRect(x: 0, y: yOffset, width: headerSize.width, height: headerSize.height)
         let attr = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
