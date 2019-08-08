@@ -38,6 +38,8 @@ UNIT_TEST(MergeCollector_Case1)
   collector2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
   collector2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
 
+  collector1->Finish();
+  collector2->Finish();
   collector1->Merge(*collector2);
   collector1->Save();
 
@@ -72,6 +74,8 @@ UNIT_TEST(MergeCollector_Case2)
   collection2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
   collection2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
 
+  collection1->Finish();
+  collection2->Finish();
   collection1->Merge(*collection2);
   collection1->Save();
 
