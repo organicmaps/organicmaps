@@ -6,47 +6,43 @@ namespace generator
 {
 TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
                                  std::shared_ptr<cache::IntermediateData> const & cache,
-                                 size_t copyCount)
-  : m_translators({original})
-  , m_threadPool(copyCount + 1)
+                                 size_t threadCount)
+  : m_threadPool(threadCount)
 {
-  m_freeTranslators.Push(0);
-  m_translators.reserve(copyCount + 1);
-  for (size_t i = 0; i < copyCount; ++i)
-  {
-    auto cache_ = cache->Clone();
-    auto translator = original->Clone(cache_);
-    m_translators.emplace_back(translator);
-    m_freeTranslators.Push(i + 1);
-  }
+  m_translators.Push(original);
+  for (size_t i = 0; i < threadCount; ++i)
+    m_translators.Push(original->Clone());
+
+  CHECK_EQUAL(m_translators.size(), threadCount + 1, ());
 }
 
 void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
 {
-  base::threads::DataWrapper<size_t> d;
-  m_freeTranslators.WaitAndPop(d);
-  auto const idx = d.Get();
-  m_threadPool.SubmitWork([&, idx, elements{move(elements)}]() mutable {
+  std::shared_ptr<TranslatorInterface> translator;
+  m_translators.WaitAndPop(translator);
+  m_threadPool.SubmitWork([&, translator, elements{move(elements)}]() mutable {
     for (auto & element : elements)
-      m_translators[idx]->Emit(element);
+      translator->Emit(element);
 
-    m_freeTranslators.Push(idx);
+    m_translators.Push(translator);
   });
 }
 
 bool TranslatorsPool::Finish()
 {
-  m_threadPool.WaitAndStop();
+  m_threadPool.WaitingStop();
   using TranslatorPtr = std::shared_ptr<TranslatorInterface>;
   base::threads::ThreadSafeQueue<std::future<TranslatorPtr>> queue;
-  for (auto const & t : m_translators)
+  while (!m_translators.Empty())
   {
     std::promise<TranslatorPtr> p;
-    p.set_value(t);
+    std::shared_ptr<TranslatorInterface> translator;
+    m_translators.TryPop(translator);
+    p.set_value(translator);
     queue.Push(p.get_future());
   }
 
-  base::thread_pool::computational::ThreadPool pool(m_translators.size() / 2 + 1);
+  base::thread_pool::computational::ThreadPool pool(queue.size() / 2 + 1);
   while (queue.Size() != 1)
   {
     std::future<TranslatorPtr> left;

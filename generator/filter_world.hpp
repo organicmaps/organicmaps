@@ -20,7 +20,7 @@ public:
   bool IsAccepted(feature::FeatureBuilder const & feature) override;
 
   static bool IsInternationalAirport(feature::FeatureBuilder const & fb);
-  static bool IsGoogScale(feature::FeatureBuilder const & fb);
+  static bool IsGoodScale(feature::FeatureBuilder const & fb);
   static bool IsPopularAttraction(feature::FeatureBuilder const & fb, std::string const & popularityFilename);
 
 private:

@@ -18,7 +18,7 @@ class RawGenerator
 {
 public:
   explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1,
-                        size_t chankSize = 1024);
+                        size_t chunkSize = 1024);
 
   void GenerateCountries(bool disableAds = true);
   void GenerateWorld(bool disableAds = true);
@@ -30,7 +30,7 @@ public:
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
                       std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
   bool Execute();
-  std::vector<std::string> GetNames() const;
+  std::vector<std::string> const & GetNames() const;
   std::shared_ptr<FeatureProcessorQueue> GetQueue();
   void ForceReloadCache();
 
@@ -52,7 +52,7 @@ private:
 
   feature::GenerateInfo & m_genInfo;
   size_t m_threadsCount;
-  size_t m_chankSize;
+  size_t m_chunkSize;
   std::shared_ptr<cache::IntermediateData> m_cache;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<TranslatorCollection> m_translators;

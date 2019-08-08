@@ -19,17 +19,17 @@ public:
   ~RawGeneratorWriter();
 
   void Run();
+  void ShutdownAndJoin();
   std::vector<std::string> GetNames();
 
 private:
   using FeatureBuilderWriter = feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>;
 
   void Write(std::vector<ProcessedData> const & vecChanks);
-  void ShutdownAndJoin();
 
   std::thread m_thread;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::string m_path;
-  std::unordered_map<std::string, std::unique_ptr<FileWriter>> m_collectors;
+  std::unordered_map<std::string, std::unique_ptr<FileWriter>> m_writers;
 };
 }  // namespace generator

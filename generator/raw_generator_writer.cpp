@@ -25,6 +25,8 @@ void RawGeneratorWriter::Run()
     {
       FeatureProcessorChank chank;
       m_queue->WaitAndPop(chank);
+      // As a sign of the end of tasks, we use an empty message. We have the right to do that,
+      // because there is only one reader.
       if (chank.IsEmpty())
         return;
 
@@ -35,10 +37,11 @@ void RawGeneratorWriter::Run()
 
 std::vector<std::string> RawGeneratorWriter::GetNames()
 {
-  ShutdownAndJoin();
+  CHECK(!m_thread.joinable(), ());
+
   std::vector<std::string> names;
-  names.reserve(m_collectors.size());
-  for (const auto  & p : m_collectors)
+  names.reserve(m_writers.size());
+  for (const auto & p : m_writers)
     names.emplace_back(p.first);
 
   return names;
@@ -53,26 +56,28 @@ void RawGeneratorWriter::Write(std::vector<ProcessedData> const & vecChanks)
       if (affiliation.empty())
         continue;
 
-      auto collectorIt = m_collectors.find(affiliation);
-      if (collectorIt == std::cend(m_collectors))
+      auto writerIt = m_writers.find(affiliation);
+      if (writerIt == std::cend(m_writers))
       {
         auto path = base::JoinPath(m_path, affiliation + DATA_FILE_EXTENSION_TMP);
         auto writer = std::make_unique<FileWriter>(std::move(path));
-        collectorIt = m_collectors.emplace(affiliation, std::move(writer)).first;
+        writerIt = m_writers.emplace(affiliation, std::move(writer)).first;
       }
 
-      auto & collector = collectorIt->second;
+      auto & writer = writerIt->second;
       auto const & buffer = chank.m_buffer;
-      WriteVarUint(*collector, static_cast<uint32_t>(buffer.size()));
-      collector->Write(buffer.data(), buffer.size());
+      WriteVarUint(*writer, static_cast<uint32_t>(buffer.size()));
+      writer->Write(buffer.data(), buffer.size());
     }
   }
 }
 
 void RawGeneratorWriter::ShutdownAndJoin()
 {
-  m_queue->Push({});
   if (m_thread.joinable())
+  {
+    m_queue->Push({});
     m_thread.join();
+  }
 }
 }  // namespace generator

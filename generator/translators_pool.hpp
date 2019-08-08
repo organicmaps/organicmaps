@@ -17,14 +17,13 @@ class TranslatorsPool
 public:
   explicit TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
                            std::shared_ptr<generator::cache::IntermediateData> const & cache,
-                           size_t copyCount);
+                           size_t threadCount);
 
   void Emit(std::vector<OsmElement> && elements);
   bool Finish();
 
 private:
-  std::vector<std::shared_ptr<TranslatorInterface>> m_translators;
   base::thread_pool::computational::ThreadPool m_threadPool;
-  base::threads::ThreadSafeQueue<base::threads::DataWrapper<size_t>> m_freeTranslators;
+  base::threads::ThreadSafeQueue<std::shared_ptr<TranslatorInterface>> m_translators;
 };
 }  // namespace generator

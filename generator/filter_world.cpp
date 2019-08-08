@@ -22,7 +22,7 @@ std::shared_ptr<FilterInterface> FilterWorld::Clone() const
 
 bool FilterWorld::IsAccepted(feature::FeatureBuilder const & fb)
 {
-  return IsGoogScale(fb) ||
+  return IsGoodScale(fb) ||
       IsPopularAttraction(fb, m_popularityFilename) ||
       IsInternationalAirport(fb);
 }
@@ -35,7 +35,7 @@ bool FilterWorld::IsInternationalAirport(feature::FeatureBuilder const & fb)
 }
 
 // static
-bool FilterWorld::IsGoogScale(feature::FeatureBuilder const & fb)
+bool FilterWorld::IsGoodScale(feature::FeatureBuilder const & fb)
 {
   // GetMinFeatureDrawScale also checks suitable size for AREA features
   return scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale();
@@ -64,10 +64,7 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
 
   // todo(@t.yan): adjust
   uint8_t const kPopularityThreshold = 12;
-  if (it->second < kPopularityThreshold)
-    return false;
-
   // todo(@t.yan): maybe check place has wikipedia link.
-  return true;
+  return it->second >= kPopularityThreshold;
 }
 }  // namespace generator

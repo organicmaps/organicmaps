@@ -12,10 +12,10 @@
 
 namespace generator
 {
-RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount, size_t chankSize)
+RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount, size_t chunkSize)
   : m_genInfo(genInfo)
   , m_threadsCount(threadsCount)
-  , m_chankSize(chankSize)
+  , m_chunkSize(chunkSize)
   , m_cache(std::make_shared<generator::cache::IntermediateData>(genInfo))
   , m_queue(std::make_shared<FeatureProcessorQueue>())
   , m_translators(std::make_shared<TranslatorCollection>())
@@ -94,24 +94,23 @@ bool RawGenerator::Execute()
   while (!m_finalProcessors.empty())
   {
     base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
-    do
+    while (true)
     {
-      auto const & finalProcessor = m_finalProcessors.top();
+      auto const finalProcessor = m_finalProcessors.top();
+      m_finalProcessors.pop();
       threadPool.SubmitWork([finalProcessor{finalProcessor}]() {
         finalProcessor->Process();
       });
-      m_finalProcessors.pop();
       if (m_finalProcessors.empty() || *finalProcessor != *m_finalProcessors.top())
         break;
     }
-    while (true);
   }
 
   LOG(LINFO, ("Final processing is finished."));
   return true;
 }
 
-std::vector<std::string> RawGenerator::GetNames() const
+std::vector<std::string> const & RawGenerator::GetNames() const
 {
   return m_names;
 }
@@ -160,29 +159,30 @@ bool RawGenerator::GenerateFilteredFeatures()
   SourceReader reader = m_genInfo.m_osmFileName.empty() ? SourceReader()
                                                         : SourceReader(m_genInfo.m_osmFileName);
 
-  unique_ptr<ProcessorOsmElementsInterface> sourseProcessor;
+  std::unique_ptr<ProcessorOsmElementsInterface> sourseProcessor;
   switch (m_genInfo.m_osmFileType) {
   case feature::GenerateInfo::OsmSourceType::O5M:
-    sourseProcessor = make_unique<ProcessorOsmElementsFromO5M>(reader);
+    sourseProcessor = std::make_unique<ProcessorOsmElementsFromO5M>(reader);
     break;
   case feature::GenerateInfo::OsmSourceType::XML:
-    sourseProcessor = make_unique<ProcessorXmlElementsFromXml>(reader);
+    sourseProcessor = std::make_unique<ProcessorXmlElementsFromXml>(reader);
     break;
   }
+  CHECK(sourseProcessor, ());
 
-  TranslatorsPool translators(m_translators, m_cache, m_threadsCount - 1 /* copyCount */);
+  TranslatorsPool translators(m_translators, m_cache, m_threadsCount);
   RawGeneratorWriter rawGeneratorWriter(m_queue, m_genInfo.m_tmpDir);
   rawGeneratorWriter.Run();
 
   size_t element_pos = 0;
-  std::vector<OsmElement> elements(m_chankSize);
+  std::vector<OsmElement> elements(m_chunkSize);
   while(sourseProcessor->TryRead(elements[element_pos]))
   {
-    if (++element_pos != m_chankSize)
+    if (++element_pos != m_chunkSize)
       continue;
 
     translators.Emit(std::move(elements));
-    elements = vector<OsmElement>(m_chankSize);
+    elements = vector<OsmElement>(m_chunkSize);
     element_pos = 0;
   }
   elements.resize(element_pos);
@@ -192,6 +192,7 @@ bool RawGenerator::GenerateFilteredFeatures()
   if (!translators.Finish())
     return false;
 
+  rawGeneratorWriter.ShutdownAndJoin();
   m_names = rawGeneratorWriter.GetNames();
   LOG(LINFO, ("Names:", m_names));
   return true;
