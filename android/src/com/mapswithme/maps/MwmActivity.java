@@ -110,6 +110,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.tips.TipsAction;
 import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
@@ -135,6 +136,7 @@ import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.List;
 import java.util.Stack;
@@ -162,7 +164,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  AdsRemovalActivationCallback,
                                  PlacePageController.SlideListener,
                                  AlertDialogCallback, RoutingModeListener,
-                                 AppBackgroundTracker.OnTransitionListener
+                                 AppBackgroundTracker.OnTransitionListener,
+                                 MaterialTapTargetPrompt.PromptStateChangeListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -179,9 +182,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      ReportFragment.class.getName(),
                                                      DiscoveryFragment.class.getName() };
 
-  private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
-
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_DISCOVERY = 2;
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
@@ -251,6 +252,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageController mPlacePageController;
+  @Nullable
+  private TipsApi mCurrentTipsApi;
 
   public interface LeftAnimationTrackListener
   {
@@ -2216,16 +2219,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  private boolean tryToShowTips()
+  @Override
+  public void onPromptStateChanged(@NonNull MaterialTapTargetPrompt prompt, int state)
+  {
+    if (mCurrentTipsApi == null)
+      return;
+
+    if (state != MaterialTapTargetPrompt.STATE_DISMISSED
+        && state != MaterialTapTargetPrompt.STATE_FINISHED)
+    {
+      return;
+    }
+
+    UserActionsLogger.logTipClickedEvent(mCurrentTipsApi, TipsAction.GOT_IT_CLICKED);
+    Statistics.INSTANCE.trackTipsClose(mCurrentTipsApi.ordinal());
+    mCurrentTipsApi = null;
+  }
+
+  private void tryToShowTips()
   {
     TipsApi api = TipsApi.requestCurrent(this, getClass());
     if (api == TipsApi.STUB)
-      return false;
+      return;
 
-    api.showTutorial(getActivity());
+    if (mCurrentTipsApi != null)
+      return;
 
-    Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW, api.ordinal());
-    return true;
+    mCurrentTipsApi = api;
+    mCurrentTipsApi.showTutorial(getActivity(), this);
+
+    Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW,
+                                       mCurrentTipsApi.ordinal());
   }
 
   private boolean tryToShowPromoAfterBooking()

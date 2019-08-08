@@ -13,13 +13,11 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.Arrays;
@@ -125,7 +123,8 @@ public enum TipsApi
     return mAllowedScreens.contains(screenClass);
   }
 
-  public void showTutorial(@NonNull Activity activity)
+  public void showTutorial(@NonNull Activity activity,
+                           @Nullable  MaterialTapTargetPrompt.PromptStateChangeListener listener)
   {
     View target = activity.findViewById(mAnchorViewId);
     MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt
@@ -143,17 +142,8 @@ public enum TipsApi
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
         .setPromptBackground(new ImmersiveModeCompatPromptBackground(activity.getWindowManager()))
-        .setPromptStateChangeListener((prompt, state) -> onPromptStateChanged(state));
+        .setPromptStateChangeListener(listener);
     builder.show();
-  }
-
-  private void onPromptStateChanged(int state)
-  {
-    if (state == MaterialTapTargetPrompt.STATE_DISMISSED)
-    {
-      UserActionsLogger.logTipClickedEvent(TipsApi.this, TipsAction.GOT_IT_CLICKED);
-      Statistics.INSTANCE.trackTipsClose(ordinal());
-    }
   }
 
   @Nullable
