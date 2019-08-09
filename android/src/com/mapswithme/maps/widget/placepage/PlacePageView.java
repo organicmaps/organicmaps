@@ -1246,12 +1246,12 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
+    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
+    toggleCatalogPromoGallery(hasPromoGallery);
+
     if (mSponsored == null || mMapObject == null)
       return;
 
-    boolean hasPromoGallery = mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
-    toggleCatalogPromoGallery(hasPromoGallery);
-    
     if (hasPromoGallery && policy.canUseNetwork())
     {
       Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
