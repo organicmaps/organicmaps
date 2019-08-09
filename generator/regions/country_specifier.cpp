@@ -64,11 +64,13 @@ PlaceLevel CountrySpecifier::GetLevel(PlaceType placeType)
 
 int CountrySpecifier::RelateByWeight(LevelRegion const & l, LevelRegion const & r) const
 {
-  if (l.GetLevel() != PlaceLevel::Unknown && r.GetLevel() != PlaceLevel::Unknown)
+  auto const lLevel = l.GetLevel();
+  auto const rLevel = r.GetLevel();
+  if (lLevel != PlaceLevel::Unknown && rLevel != PlaceLevel::Unknown)
   {
-    if (l.GetLevel() > r.GetLevel())
+    if (lLevel > rLevel)
       return -1;
-    if (l.GetLevel() < r.GetLevel())
+    if (lLevel < rLevel)
       return 1;
   }
 
@@ -87,10 +89,18 @@ int CountrySpecifier::RelateByWeight(LevelRegion const & l, LevelRegion const & 
   auto const rAdminLevel = r.GetAdminLevel();
   if (lAdminLevel != AdminLevel::Unknown && rAdminLevel != AdminLevel::Unknown)
   {
-    if (lAdminLevel > rAdminLevel)
+    if (lAdminLevel > rAdminLevel &&
+        // Ignore capital point (admin_level=2).
+        (rAdminLevel != AdminLevel::Two || rLevel == PlaceLevel::Country))
+    {
       return -1;
-    if (lAdminLevel < rAdminLevel)
+    }
+    if (lAdminLevel < rAdminLevel &&
+        // Ignore capital point (admin_level=2).
+        (lAdminLevel != AdminLevel::Two || lLevel == PlaceLevel::Country))
+    {
       return 1;
+    }
   }
   if (lAdminLevel != AdminLevel::Unknown)
     return 1;

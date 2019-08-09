@@ -462,6 +462,28 @@ UNIT_TEST(RegionsBuilderTest_GenerateCityPointRegionByNameMatchingWithCityPostfi
        ());
 }
 
+UNIT_TEST(RegionsBuilderTest_GenerateCapitalPointRegionAndAdminRegionWithSameBoundary)
+{
+  Tag const admin{"admin_level"};
+  Tag const place{"place"};
+  Tag const name{"name"};
+  TagValue const ba{"boundary", "administrative"};
+
+  auto regions = GenerateTestRegions(
+      {
+          {1, {name = u8"Country", admin = "2", ba}, {{0.00, 0.00}, {0.50, 0.50}}},
+          {2, {name = u8"Region", admin = "6", ba}, {{0.10, 0.10}, {0.20, 0.20}}},
+          {3, {name = u8"Washington", admin = "8", ba}, {{0.10, 0.10}, {0.20, 0.20}}},
+          {4, {name = u8"Washington", place = "city", admin = "2"}, {{0.15, 0.15}}},
+      },
+      true /* withGeometry */);
+
+  TEST_EQUAL(regions.size(), 2, (regions));
+  TEST(HasName(regions, u8"Country"), (regions));
+  TEST(HasName(regions, u8"Country, locality: Washington [(0.10, 0.10), (0.20, 0.20)]"),
+       (regions));
+}
+
 // Russia regions tests ----------------------------------------------------------------------------
 UNIT_TEST(RegionsBuilderTest_GenerateRusCitySuburb)
 {
