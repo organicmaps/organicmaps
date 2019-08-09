@@ -3,14 +3,16 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/assert.hpp"
+
 #include <cstdint>
 #include <string>
 #include <vector>
 
-class ContainerFileWriter : public FileWriter
+class FileContainerWriter : public FileWriter
 {
 public:
-  ContainerFileWriter(std::string const & fileName, Op operation)
+  FileContainerWriter(std::string const & fileName, Op operation)
     : FileWriter(fileName, operation)
   {
   }
@@ -21,7 +23,7 @@ public:
 private:
   void WritePadding(uint64_t offset, uint64_t factor)
   {
-    ASSERT(factor > 1, ());
+    ASSERT_GREATER(factor, 1, ());
     uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
     if (!padding)
       return;
@@ -30,16 +32,17 @@ private:
   }
 };
 
-class TruncatingFileWriter : public ContainerFileWriter
+class TruncatingFileWriter : public FileContainerWriter
 {
 public:
   explicit TruncatingFileWriter(std::string const & fileName)
-    : ContainerFileWriter(fileName, FileWriter::OP_WRITE_EXISTING)
+    : FileContainerWriter(fileName, FileWriter::OP_WRITE_EXISTING)
   {
   }
 
   TruncatingFileWriter(TruncatingFileWriter && rhs) = default;
 
+  // Writer overrides:
   ~TruncatingFileWriter() override
   {
     GetFileData().Flush();

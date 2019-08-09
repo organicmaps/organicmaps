@@ -427,7 +427,7 @@ std::unique_ptr<FileWriter> FilesContainerW::GetWriter(Tag const & tag)
   {
     SaveCurrentSize();
 
-    auto writer = make_unique<ContainerFileWriter>(m_name, FileWriter::OP_APPEND);
+    auto writer = make_unique<FileContainerWriter>(m_name, FileWriter::OP_APPEND);
     writer->WritePaddingByPos(kSectionAlignment);
 
     m_info.emplace_back(tag, writer->Pos());
