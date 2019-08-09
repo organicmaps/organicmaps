@@ -1044,6 +1044,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     addTask((MapTask) target ->
     {
+      RoutingController.get().attach(this);
       RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
       RoutingController.get().prepare(true, object);
       return false;
