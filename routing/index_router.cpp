@@ -889,7 +889,8 @@ void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
 
 Segment IndexRouter::GetSegmentByEdge(Edge const & edge) const
 {
-  auto const & info = edge.GetFeatureId().m_mwmId.GetInfo();
+  auto const & featureId = edge.GetFeatureId();
+  auto const & info = featureId.m_mwmId.GetInfo();
   CHECK(info, ());
   auto const numMwmId = m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
