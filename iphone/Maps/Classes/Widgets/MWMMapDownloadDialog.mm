@@ -101,6 +101,7 @@ using namespace storage;
 }
 
 - (void)configDialog {
+  [self removePreviousBunnerIfNeeded];
   auto &f = GetFramework();
   auto const &s = f.GetStorage();
   auto const &p = f.GetDownloadingPolicy();
@@ -345,6 +346,18 @@ using namespace storage;
       self.bannerViewController = nil;
       self.bannerView.hidden = YES;
     }];
+}
+
+- (void)removePreviousBunnerIfNeeded {
+  if (!self.bannerViewController) {
+    return;
+  }
+  self.bannerVisibleConstraintV.priority = UILayoutPriorityDefaultLow;
+  self.bannerVisibleConstraintH.priority = UILayoutPriorityDefaultLow;
+  [self.bannerViewController.view removeFromSuperview];
+  self.bannerViewController = nil;
+  self.bannerView.hidden = YES;
+  [self layoutIfNeeded];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
