@@ -46,15 +46,21 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base_plus"
     style="@style/MwmWidget.Button.Primary"/>
-  <TextView
-    android:id="@+id/decline_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/primary_button_min_height"
-    android:gravity="center"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textAllCaps="true"
-    android:textStyle="bold"
-    android:background="?attr/selectableItemBackground"/>
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/decline_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/primary_button_min_height"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:layout_marginTop="@dimen/margin_half_plus"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textAllCaps="true"
+      android:textStyle="bold"
+      android:background="?attr/selectableItemBackground"/>
+  </FrameLayout>
+
 </LinearLayout>
