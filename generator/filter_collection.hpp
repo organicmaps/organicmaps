@@ -18,6 +18,8 @@ class FilterCollection : public CollectionBase<std::shared_ptr<FilterInterface>>
 {
 public:
   // FilterInterface overrides:
+  std::shared_ptr<FilterInterface> Clone() const override;
+
   bool IsAccepted(OsmElement const & element) override;
   bool IsAccepted(feature::FeatureBuilder const & feature) override;
 };

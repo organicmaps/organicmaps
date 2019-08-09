@@ -22,6 +22,11 @@ class FilterRegions : public FilterInterface
 {
 public:
   // FilterInterface overrides:
+  std::shared_ptr<FilterInterface> Clone() const override
+  {
+    return std::make_shared<FilterRegions>();
+  }
+
   bool IsAccepted(OsmElement const & element) override
   {
     for (auto const & t : element.Tags())

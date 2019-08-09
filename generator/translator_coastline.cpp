@@ -23,7 +23,13 @@ namespace
 class CoastlineFilter : public FilterInterface
 {
 public:
-  bool IsAccepted(FeatureBuilder const & feature)
+  // FilterInterface overrides:
+  std::shared_ptr<FilterInterface> Clone() const override
+  {
+    return std::make_shared<CoastlineFilter>();
+  }
+
+  bool IsAccepted(FeatureBuilder const & feature) override
   {
     auto const & checker = ftypes::IsCoastlineChecker::Instance();
     return checker(feature.GetTypes());

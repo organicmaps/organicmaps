@@ -10,6 +10,11 @@ namespace generator
 {
 namespace geo_objects
 {
+std::shared_ptr<FilterInterface> GeoObjectsFilter::Clone() const
+{
+  return std::make_shared<GeoObjectsFilter>();
+}
+
 bool GeoObjectsFilter::IsAccepted(OsmElement const & element)
 {
   return osm_element::IsBuilding(element) || osm_element::HasHouse(element) || osm_element::IsPoi(element);

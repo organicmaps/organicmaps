@@ -9,6 +9,11 @@ namespace generator
 {
 namespace streets
 {
+std::shared_ptr<FilterInterface> StreetsFilter::Clone() const
+{
+  return std::make_shared<StreetsFilter>();
+}
+
 bool StreetsFilter::IsAccepted(OsmElement const & element)
 {
   return StreetsBuilder::IsStreet(element);

@@ -153,11 +153,17 @@ bool FilterElements::ParseTags(json_t * json, FilterData & fdata)
 }
 
 FilterElements::FilterElements(std::string const & filename)
+  : m_filename(filename)
 {
-  std::ifstream stream(filename);
+  std::ifstream stream(m_filename);
   std::string str((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
   if (!ParseString(str))
-    LOG(LERROR, ("Cannot parse file", filename));
+    LOG(LERROR, ("Cannot parse file", m_filename));
+}
+
+std::shared_ptr<FilterInterface> FilterElements::Clone() const
+{
+  return std::make_shared<FilterElements>(m_filename);
 }
 
 bool FilterElements::IsAccepted(OsmElement const & element)
