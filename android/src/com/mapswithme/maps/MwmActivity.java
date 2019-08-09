@@ -1890,10 +1890,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
+    adjustCompassAndTraffic(visible ? calcFloatingViewsOffset()
+                                    : UiUtils.getStatusBarHeight(getApplicationContext()));
     int toolbarHeight = mSearchController.getToolbar().getHeight();
-    int offset = calcFloatingViewsOffset();
-
-    adjustCompassAndTraffic(visible ? toolbarHeight : offset);
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
     {
