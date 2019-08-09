@@ -4,7 +4,7 @@ class PromoAfterBookingViewController: UIViewController {
   private var cityImageUrl: String
   private var okClosure: MWMVoidBlock
   private var cancelClosure: MWMVoidBlock
-  private var isCancelled: Bool = false
+  private var isOnButtonClosed: Bool = false
   
   @IBOutlet weak var cityImageView: UIImageView!
   
@@ -27,7 +27,7 @@ class PromoAfterBookingViewController: UIViewController {
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    if !isCancelled {
+    if !isOnButtonClosed {
       let eventParams = [kStatProvider: kStatMapsmeGuides,
                          kStatScenario: kStatBooking,
                          kStatOption: kStatOffscreen]
@@ -47,6 +47,7 @@ class PromoAfterBookingViewController: UIViewController {
   @IBAction func onOk() {
     let eventParams = [kStatProvider: kStatMapsmeGuides, kStatScenario: kStatBooking]
     Statistics.logEvent(kStatMapsmeInAppSuggestionClicked, withParameters: eventParams)
+    isOnButtonClosed = true
     okClosure()
   }
   
@@ -55,7 +56,7 @@ class PromoAfterBookingViewController: UIViewController {
                        kStatScenario: kStatBooking,
                        kStatOption: kStatCancel]
     Statistics.logEvent(kStatMapsmeInAppSuggestionClosed, withParameters: eventParams)
-    isCancelled = true
+    isOnButtonClosed = true
     cancelClosure()
   }
   

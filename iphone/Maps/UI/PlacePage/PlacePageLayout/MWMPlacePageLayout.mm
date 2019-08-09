@@ -880,7 +880,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: kStatDiscovery
+                           kStatPlacement: kStatPlacePage
                            }];
   } else {
     promo::CityGallery::Item const &item = [self.data.promoGallery galleryItemAtIndex:indexPath.row];

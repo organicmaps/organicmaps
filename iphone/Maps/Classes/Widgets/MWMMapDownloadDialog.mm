@@ -286,7 +286,17 @@ using namespace storage;
         __weak __typeof(self) ws = self;
         self.bannerViewController = [[MWMMegafonBannerViewController alloc] initWithTapHandler:^{
           [ws bannerAction];
+          [Statistics logEvent:kStatDownloaderBannerClick
+                withParameters:@{
+                                 kStatFrom: kStatMap,
+                                 kStatProvider: kStatMegafon
+                                 }];
         }];
+        [Statistics logEvent:kStatDownloaderBannerShow
+              withParameters:@{
+                               kStatFrom: kStatMap,
+                               kStatProvider: kStatMegafon
+                               }];
         break;
       }
       case promo::DownloaderPromo::Type::BookmarkCatalog: {
@@ -299,9 +309,17 @@ using namespace storage;
           }
           NSURL *url = [NSURL URLWithString:urlString];
           [self.controller openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMDownloadMwmBanner];
-          [Statistics logEvent:kStatDownloaderBannerClick];
+          [Statistics logEvent:kStatDownloaderBannerClick
+                withParameters:@{
+                                 kStatFrom: kStatMap,
+                                 kStatProvider: kStatMapsmeGuides
+                                 }];
         }];
-        [Statistics logEvent:kStatDownloaderBannerShow];
+        [Statistics logEvent:kStatDownloaderBannerShow
+              withParameters:@{
+                               kStatFrom: kStatMap,
+                               kStatProvider: kStatMapsmeGuides
+                               }];
         break;
       }
       case promo::DownloaderPromo::Type::NoPromo:

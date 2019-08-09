@@ -58,7 +58,7 @@ using np = platform::NetworkPolicy;
     SetStage(Never);
   }
 
-  [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : statValue}];
+  [Statistics logEvent:kStatSettingsMobileInternetChange withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
