@@ -33,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_title"
+        android:layout_gravity="center"
         android:textColor="?subscriptionTitleColor"
         android:text="@string/native_screen_subscription_title"
         android:fontFamily="@string/robotoMedium"
@@ -53,6 +54,7 @@
         tools:text="Every kind of journey. Whether alone or with friends, hiking or sunbathing"
         android:text="@string/native_screen_subscription_message"
         android:gravity="center"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@string/robotoRegular"
@@ -64,8 +66,9 @@
 
       <FrameLayout
         android:layout_marginTop="@dimen/bookmarks_subs_margin_top"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
         android:clipToPadding="false"
         android:clipChildren="false"
         android:layout_height="wrap_content">
