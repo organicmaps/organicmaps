@@ -32,6 +32,7 @@ public class PurchaseUtils
   public final static int REQ_CODE_PAY_SUBSCRIPTION = 10;
   public static final String DIALOG_TAG_CHECK_INVALID_SUBS = "check_invalid_subs";
   public static final String DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS = "bmk_subscription_success";
+  public static final String EXTRA_IS_SUBSCRIPTION = "extra_is_subscription";
 
   final static int WEEKS_IN_YEAR = 52;
   final static int MONTHS_IN_YEAR = 12;

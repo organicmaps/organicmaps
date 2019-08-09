@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -109,7 +110,23 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onBuySubscriptionClicked()
   {
-    BookmarkSubscriptionActivity.start(requireActivity());
+    BookmarkSubscriptionActivity.startForResult(this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode != Activity.RESULT_OK)
+      return;
+
+    if (requestCode == PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION)
+    {
+      Intent intent = new Intent();
+      intent.putExtra(PurchaseUtils.EXTRA_IS_SUBSCRIPTION, true);
+      requireActivity().setResult(Activity.RESULT_OK, intent);
+      requireActivity().finish();
+    }
   }
 
   private void onBuyInappClicked()

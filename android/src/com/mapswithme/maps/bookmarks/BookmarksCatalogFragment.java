@@ -216,10 +216,18 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (resultCode != Activity.RESULT_OK)
       return;
 
-    if (requestCode != PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION)
-      return;
 
-    showSubscriptionSuccessDialog();
+    if (requestCode == PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION)
+    {
+      showSubscriptionSuccessDialog();
+      return;
+    }
+
+    if (requestCode == PurchaseUtils.REQ_CODE_PAY_BOOKMARK && data != null
+        && data.getBooleanExtra(PurchaseUtils.EXTRA_IS_SUBSCRIPTION, false))
+    {
+      mWebView.reload();
+    }
   }
 
   private void showSubscriptionSuccessDialog()
