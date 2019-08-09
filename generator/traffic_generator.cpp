@@ -30,8 +30,8 @@ bool GenerateTrafficKeysFromDataFile(std::string const & mwmPath)
     TrafficInfo::SerializeTrafficKeys(keys, buf);
 
     FilesContainerW writeContainer(mwmPath, FileWriter::OP_WRITE_EXISTING);
-    FileWriter writer = writeContainer.GetWriter(TRAFFIC_KEYS_FILE_TAG);
-    writer.Write(buf.data(), buf.size());
+    auto writer = writeContainer.GetWriter(TRAFFIC_KEYS_FILE_TAG);
+    writer->Write(buf.data(), buf.size());
   }
   catch (RootException const & e)
   {

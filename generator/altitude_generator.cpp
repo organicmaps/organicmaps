@@ -171,16 +171,16 @@ void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGe
     CHECK(processor.IsFeatureAltitudesSorted(), ());
 
     FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = cont.GetWriter(ALTITUDES_FILE_TAG);
+    auto w = cont.GetWriter(ALTITUDES_FILE_TAG);
 
     AltitudeHeader header;
     header.m_minAltitude = processor.GetMinAltitude();
 
-    auto const startOffset = w.Pos();
-    header.Serialize(w);
+    auto const startOffset = w->Pos();
+    header.Serialize(*w);
     {
       // Altitude availability serialization.
-      coding::FreezeVisitor<Writer> visitor(w);
+      coding::FreezeVisitor<Writer> visitor(*w);
       succinct::bit_vector_builder & builder = processor.GetAltitudeAvailabilityBuilder();
       succinct::rs_bit_vector(&builder).map(visitor);
     }

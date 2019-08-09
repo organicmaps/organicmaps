@@ -79,21 +79,21 @@ public:
   {
     // write version information
     {
-      FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-      version::WriteVersion(w, m_versionDate);
+      auto w = m_writer.GetWriter(VERSION_FILE_TAG);
+      version::WriteVersion(*w, m_versionDate);
     }
 
     // write own mwm header
     m_header.SetBounds(m_bounds);
     {
-      FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
-      m_header.Save(w);
+      auto w = m_writer.GetWriter(HEADER_FILE_TAG);
+      m_header.Save(*w);
     }
 
     // write region info
     {
-      FileWriter w = m_writer.GetWriter(REGION_INFO_FILE_TAG);
-      m_regionData.Serialize(w);
+      auto w = m_writer.GetWriter(REGION_INFO_FILE_TAG);
+      m_regionData.Serialize(*w);
     }
 
     // assume like we close files
@@ -117,11 +117,11 @@ public:
 
     {
       /// @todo Replace this mapping vector with succint structure.
-      FileWriter w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
+      auto w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
       for (auto const & v : m_metadataOffset)
       {
-        WriteToSink(w, v.first);
-        WriteToSink(w, v.second);
+        WriteToSink(*w, v.first);
+        WriteToSink(*w, v.second);
       }
     }
 

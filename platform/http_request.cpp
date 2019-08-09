@@ -325,8 +325,6 @@ public:
 
     // Create file and reserve needed size.
     unique_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
-    // Reserving disk space is very slow on a device.
-    //writer->Reserve(fileSize);
 
     // Assign here, because previous functions can throw an exception.
     m_writer.swap(writer);

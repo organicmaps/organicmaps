@@ -247,25 +247,3 @@ UNIT_TEST(MemWriter_Chunks)
     ReadTestData(r);
   }
 }
-
-UNIT_TEST(FileWriter_Reserve)
-{
-  string const TEST_FILE = "FileWriter_Reserve.test";
-  uint64_t TEST_SIZE = 666;
-
-  {
-    FileWriter w(TEST_FILE, FileWriter::OP_WRITE_TRUNCATE);
-    w.Reserve(TEST_SIZE);
-  }
-
-  {
-    uint64_t size;
-    TEST(base::GetFileSize(TEST_FILE, size), ());
-    TEST_EQUAL(size, TEST_SIZE, ());
-
-    FileWriter w(TEST_FILE, FileWriter::OP_WRITE_EXISTING);
-    TEST_EQUAL(w.Size(), TEST_SIZE, ());
-  }
-
-  FileWriter::DeleteFileX(TEST_FILE);
-}

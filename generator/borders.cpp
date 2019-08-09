@@ -105,7 +105,7 @@ public:
   void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
   {
     // use index in vector as tag
-    FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
+    auto w = m_writer.GetWriter(strings::to_string(m_polys.size()));
     serial::GeometryCodingParams cp;
 
     // calc rect
@@ -129,7 +129,7 @@ public:
       SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
                           AccumulateSkipSmallTrg<decltype(distFn), m2::PointD>(distFn, out, eps));
 
-      serial::SaveOuterPath(out, cp, w);
+      serial::SaveOuterPath(out, cp, *w);
     }
   }
 
@@ -137,8 +137,8 @@ public:
 
   void WritePolygonsInfo()
   {
-    FileWriter w = m_writer.GetWriter(PACKED_POLYGONS_INFO_TAG);
-    rw::Write(w, m_polys);
+    auto w = m_writer.GetWriter(PACKED_POLYGONS_INFO_TAG);
+    rw::Write(*w, m_polys);
   }
 
 private:

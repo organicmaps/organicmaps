@@ -60,8 +60,8 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
 
     {
       FilesContainerW writeContainer(filename, FileWriter::OP_WRITE_EXISTING);
-      FileWriter writer = writeContainer.GetWriter(CENTERS_FILE_TAG);
-      builder.Freeze(writer);
+      auto writer = writeContainer.GetWriter(CENTERS_FILE_TAG);
+      builder.Freeze(*writer);
     }
   }
   catch (RootException const & e)

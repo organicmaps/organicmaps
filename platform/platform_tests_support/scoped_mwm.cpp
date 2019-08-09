@@ -25,12 +25,12 @@ ScopedMwm::ScopedMwm(string const & relativePath) : m_file(relativePath, ScopedF
 
     // Each writer must be in it's own scope to avoid conflicts on the final write.
     {
-      FileWriter versionWriter = container.GetWriter(VERSION_FILE_TAG);
-      version::WriteVersion(versionWriter, base::SecondsSinceEpoch());
+      auto versionWriter = container.GetWriter(VERSION_FILE_TAG);
+      version::WriteVersion(*versionWriter, base::SecondsSinceEpoch());
     }
 
-    FileWriter w = container.GetWriter(HEADER_FILE_TAG);
-    header.Save(w);
+    auto w = container.GetWriter(HEADER_FILE_TAG);
+    header.Save(*w);
   }
 }
 }  // namespace tests_support

@@ -39,8 +39,8 @@ bool WriteRegionDataForTests(string const & path, vector<string> const & languag
     FilesContainerW writer(path, FileWriter::OP_WRITE_EXISTING);
     RegionData regionData;
     regionData.SetLanguages(languages);
-    FileWriter w = writer.GetWriter(REGION_INFO_FILE_TAG);
-    regionData.Serialize(w);
+    auto w = writer.GetWriter(REGION_INFO_FILE_TAG);
+    regionData.Serialize(*w);
   }
   catch (Writer::Exception const & e)
   {

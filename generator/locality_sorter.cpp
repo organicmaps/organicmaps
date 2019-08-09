@@ -86,14 +86,14 @@ public:
   void Finish() override
   {
     {
-      FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-      version::WriteVersion(w, m_versionDate);
+      auto w = m_writer.GetWriter(VERSION_FILE_TAG);
+      version::WriteVersion(*w, m_versionDate);
     }
 
     m_header.SetBounds(m_bounds);
     {
-      FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
-      m_header.Save(w);
+      auto w = m_writer.GetWriter(HEADER_FILE_TAG);
+      m_header.Save(*w);
     }
 
     Flush();

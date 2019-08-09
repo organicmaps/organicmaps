@@ -69,9 +69,9 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
     return;
 
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter w = cont.GetWriter(CITY_ROADS_FILE_TAG);
+  auto w = cont.GetWriter(CITY_ROADS_FILE_TAG);
 
-  routing::CityRoadsSerializer::Serialize(w, move(cityRoadFeatureIds));
+  routing::CityRoadsSerializer::Serialize(*w, move(cityRoadFeatureIds));
 }
 
 bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)

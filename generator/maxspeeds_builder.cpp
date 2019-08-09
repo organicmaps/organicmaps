@@ -166,9 +166,9 @@ void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && spee
     return;
 
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(MAXSPEEDS_FILE_TAG);
+  auto writer = cont.GetWriter(MAXSPEEDS_FILE_TAG);
 
-  MaxspeedsSerializer::Serialize(speeds, writer);
+  MaxspeedsSerializer::Serialize(speeds, *writer);
   LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
 }
 

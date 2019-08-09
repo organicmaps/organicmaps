@@ -230,8 +230,8 @@ void BuildTransit(string const & mwmDir, CountryId const & countryId,
   jointData.CheckValidSortedUnique();
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(TRANSIT_FILE_TAG);
-  jointData.Serialize(writer);
+  auto writer = cont.GetWriter(TRANSIT_FILE_TAG);
+  jointData.Serialize(*writer);
 }
 }  // namespace transit
 }  // namespace routing

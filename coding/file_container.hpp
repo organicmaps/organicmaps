@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -240,7 +241,7 @@ public:
                   FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
   ~FilesContainerW();
 
-  FileWriter GetWriter(Tag const & tag);
+  std::unique_ptr<FileWriter> GetWriter(Tag const & tag);
 
   void Write(std::string const & fPath, Tag const & tag);
   void Write(ModelReaderPtr reader, Tag const & tag);

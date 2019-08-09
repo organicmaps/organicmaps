@@ -5,26 +5,14 @@
 
 using namespace std;
 
-FileWriter::FileWriter(FileWriter && rhs)
-: m_pFileData(move(rhs.m_pFileData)), m_bTruncOnClose(rhs.m_bTruncOnClose)
-{
-}
-
-FileWriter::FileWriter(string const & fileName, FileWriter::Op op, bool bTruncOnClose)
+FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
   : m_pFileData(make_unique<base::FileData>(fileName, static_cast<base::FileData::Op>(op)))
-  , m_bTruncOnClose(bTruncOnClose)
 {
 }
 
 FileWriter::~FileWriter()
 {
-  if (m_pFileData)
-  {
-    Flush();
-
-    if (m_bTruncOnClose)
-      m_pFileData->Truncate(Pos());
-  }
+  Flush();
 }
 
 uint64_t FileWriter::Pos() const
@@ -42,10 +30,6 @@ void FileWriter::Write(void const * p, size_t size)
   m_pFileData->Write(p, size);
 }
 
-void FileWriter::WritePaddingByEnd(size_t factor) { WritePadding(Size(), factor); }
-
-void FileWriter::WritePaddingByPos(size_t factor) { WritePadding(Pos(), factor); }
-
 string const & FileWriter::GetName() const
 {
   return m_pFileData->GetName();
@@ -61,27 +45,17 @@ void FileWriter::Flush()
   m_pFileData->Flush();
 }
 
-void FileWriter::Reserve(uint64_t size)
+base::FileData & FileWriter::GetFileData()
 {
-  if (size > 0)
-  {
-    m_pFileData->Seek(size-1);
-    uint8_t b = 0;
-    m_pFileData->Write(&b, 1);
-  }
+  return *m_pFileData;
+}
+
+base::FileData const & FileWriter::GetFileData() const
+{
+  return *m_pFileData;
 }
 
 void FileWriter::DeleteFileX(string const & fName)
 {
   UNUSED_VALUE(base::DeleteFileX(fName));
-}
-
-void FileWriter::WritePadding(uint64_t offset, uint64_t factor)
-{
-  ASSERT(factor > 1, ());
-  uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
-  if (!padding)
-    return;
-  vector<uint8_t> buffer(static_cast<size_t>(padding));
-  Write(buffer.data(), buffer.size());
 }

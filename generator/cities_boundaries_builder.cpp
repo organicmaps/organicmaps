@@ -64,8 +64,8 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
   });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter sink = container.GetWriter(CITIES_BOUNDARIES_FILE_TAG);
-  indexer::CitiesBoundariesSerDes::Serialize(sink, all);
+  auto sink = container.GetWriter(CITIES_BOUNDARIES_FILE_TAG);
+  indexer::CitiesBoundariesSerDes::Serialize(*sink, all);
 
   return true;
 }

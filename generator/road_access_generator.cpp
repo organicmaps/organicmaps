@@ -502,8 +502,8 @@ void BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
   }
 
   FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
+  auto writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
 
-  RoadAccessSerializer::Serialize(writer, collector.GetRoadAccessAllTypes());
+  RoadAccessSerializer::Serialize(*writer, collector.GetRoadAccessAllTypes());
 }
 }  // namespace routing

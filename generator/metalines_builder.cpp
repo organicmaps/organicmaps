@@ -267,10 +267,10 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
 
   // Write buffer to section.
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(METALINES_FILE_TAG);
+  auto writer = cont.GetWriter(METALINES_FILE_TAG);
   WriteToSink(writer, kMetaLinesSectionVersion);
   WriteVarUint(writer, count);
-  writer.Write(buffer.data(), buffer.size());
+  writer->Write(buffer.data(), buffer.size());
   LOG(LINFO, ("Finished writing metalines section, found", count, "metalines."));
   return true;
 }

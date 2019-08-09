@@ -25,7 +25,7 @@ UNIT_TEST(FilesContainer_Smoke)
 
     for (size_t i = 0; i < count; ++i)
     {
-      FileWriter w = writer.GetWriter(strings::to_string(i));
+      auto w = writer.GetWriter(strings::to_string(i));
 
       for (uint32_t j = 0; j < i; ++j)
         WriteVarUint(w, j);
@@ -56,7 +56,7 @@ UNIT_TEST(FilesContainer_Smoke)
     {
       FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
 
-      FileWriter w = writer.GetWriter(strings::to_string(arrAppend[i]));
+      auto w = writer.GetWriter(strings::to_string(arrAppend[i]));
       WriteVarUint(w, arrAppend[i]);
     }
 
@@ -96,16 +96,16 @@ UNIT_TEST(FilesContainer_Shared)
 
     FilesContainerW writer(fName);
 
-    FileWriter w1 = writer.GetWriter("5");
+    auto w1 = writer.GetWriter("5");
     WriteToSink(w1, uint32_t(0));
 
     for (uint32_t i = 0; i < count; ++i)
       WriteVarUint(w1, i);
-    w1.Flush();
+    w1->Flush();
 
-    FileWriter w2 = writer.GetWriter("2");
+    auto w2 = writer.GetWriter("2");
     WriteToSink(w2, test64);
-    w2.Flush();
+    w2->Flush();
   }
 
   {
@@ -119,7 +119,7 @@ UNIT_TEST(FilesContainer_Shared)
     CheckInvariant(reader, "2", test64);
 
     FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = writer.GetWriter("3");
+    auto w = writer.GetWriter("3");
 
     ReaderSource<FilesContainerR::TReader> src(r1);
     for (uint32_t i = 0; i < count; ++i)
@@ -145,8 +145,8 @@ namespace
                           char const * key, char const * value)
   {
     FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = writer.GetWriter(key);
-    w.Write(value, strlen(value));
+    auto w = writer.GetWriter(key);
+    w->Write(value, strlen(value));
   }
 
   void CheckContainer(string const & fName,
@@ -185,8 +185,8 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
     for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
-      FileWriter w = writer.GetWriter(key[i]);
-      w.Write(value[i], strlen(value[i]));
+      auto w = writer.GetWriter(key[i]);
+      w->Write(value[i], strlen(value[i]));
     }
   }
 
@@ -218,8 +218,8 @@ UNIT_TEST(FilesMappingContainer_Handle)
 
   {
     FilesContainerW writer(fName);
-    FileWriter w = writer.GetWriter(tag);
-    w.Write(tag.c_str(), tag.size());
+    auto w = writer.GetWriter(tag);
+    w->Write(tag.c_str(), tag.size());
   }
 
   {
@@ -261,8 +261,8 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
 
   {
     FilesContainerW writer(containerPath);
-    FileWriter w = writer.GetWriter(tagName);
-    w.Write(tagName.c_str(), tagName.size());
+    auto w = writer.GetWriter(tagName);
+    w->Write(tagName.c_str(), tagName.size());
   }
 
   {
@@ -295,11 +295,11 @@ UNIT_TEST(FilesMappingContainer_Smoke)
 
     for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
-      FileWriter w = writer.GetWriter(key[i]);
+      auto w = writer.GetWriter(key[i]);
       for (uint32_t j = 0; j < count; ++j)
       {
         uint32_t v = j + static_cast<uint32_t>(i);
-        w.Write(&v, sizeof(v));
+        w->Write(&v, sizeof(v));
       }
     }
   }
@@ -347,9 +347,9 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
     for (size_t i = 0; i < sz; ++i)
     {
-      FileWriter w = writer.GetWriter(key[i]);
+      auto w = writer.GetWriter(key[i]);
       for (size_t j = 0; j < count[i]; ++j)
-        w.Write(&byte[j % ARRAY_SIZE(byte)], 1);
+        w->Write(&byte[j % ARRAY_SIZE(byte)], 1);
     }
   }
 

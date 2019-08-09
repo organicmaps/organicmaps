@@ -1,5 +1,6 @@
 #include "coding/file_container.hpp"
 
+#include "coding/file_container_writers.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
@@ -385,7 +386,7 @@ void FilesContainerW::DeleteSection(Tag const & tag)
   Open(FileWriter::OP_WRITE_EXISTING);
 }
 
-FileWriter FilesContainerW::GetWriter(Tag const & tag)
+std::unique_ptr<FileWriter> FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_finished, ());
 
@@ -414,11 +415,11 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
     ASSERT(!m_info.empty(), ());
 
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
-    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING, true);
-    writer.Seek(curr);
-    writer.WritePaddingByPos(kSectionAlignment);
+    auto writer = make_unique<TruncatingFileWriter>(m_name);
+    writer->Seek(curr);
+    writer->WritePaddingByPos(kSectionAlignment);
 
-    m_info.emplace_back(tag, writer.Pos());
+    m_info.emplace_back(tag, writer->Pos());
     ASSERT_EQUAL(m_info.back().m_offset % kSectionAlignment, 0, ());
     return writer;
   }
@@ -426,10 +427,10 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
   {
     SaveCurrentSize();
 
-    FileWriter writer(m_name, FileWriter::OP_APPEND);
-    writer.WritePaddingByPos(kSectionAlignment);
+    auto writer = make_unique<ContainerFileWriter>(m_name, FileWriter::OP_APPEND);
+    writer->WritePaddingByPos(kSectionAlignment);
 
-    m_info.emplace_back(tag, writer.Pos());
+    m_info.emplace_back(tag, writer->Pos());
     ASSERT_EQUAL(m_info.back().m_offset % kSectionAlignment, 0, ());
     return writer;
   }
@@ -443,21 +444,21 @@ void FilesContainerW::Write(string const & fPath, Tag const & tag)
 void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
 {
   ReaderSource<ModelReaderPtr> src(reader);
-  FileWriter writer = GetWriter(tag);
+  auto writer = GetWriter(tag);
 
-  rw::ReadAndWrite(src, writer);
+  rw::ReadAndWrite(src, *writer);
 }
 
 void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)
 {
   if (!buffer.empty())
-    GetWriter(tag).Write(buffer.data(), buffer.size());
+    GetWriter(tag)->Write(buffer.data(), buffer.size());
 }
 
 void FilesContainerW::Write(vector<uint8_t> const & buffer, Tag const & tag)
 {
   if (!buffer.empty())
-    GetWriter(tag).Write(buffer.data(), buffer.size());
+    GetWriter(tag)->Write(buffer.data(), buffer.size());
 }
 
 void FilesContainerW::Finish()

@@ -325,8 +325,8 @@ void BuildCamerasInfo(std::string const & dataFilePath,
   generator::CamerasInfoCollector collector(dataFilePath, camerasInfoPath, osmIdsToFeatureIdsPath);
 
   FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(CAMERAS_INFO_FILE_TAG);
+  auto writer = cont.GetWriter(CAMERAS_INFO_FILE_TAG);
 
-  collector.Serialize(writer);
+  collector.Serialize(*writer);
 }
 }  // namespace generator

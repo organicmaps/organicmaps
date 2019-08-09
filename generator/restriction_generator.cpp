@@ -117,8 +117,8 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
   LOG(LINFO, ("Routing restriction info:", header));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter w = cont.GetWriter(RESTRICTIONS_FILE_TAG);
-  header.Serialize(w);
+  auto w = cont.GetWriter(RESTRICTIONS_FILE_TAG);
+  header.Serialize(*w);
 
   base::SortUnique(restrictions);
   RestrictionSerializer::Serialize(header, restrictions.begin(), restrictions.end(), w);

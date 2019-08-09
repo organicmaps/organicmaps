@@ -36,31 +36,27 @@ public:
     OP_APPEND = 3
   };
 
-  FileWriter(FileWriter && rhs);
-
   explicit FileWriter(std::string const & fileName,
-                      Op operation = OP_WRITE_TRUNCATE, bool bTruncOnClose = false);
+                      Op operation = OP_WRITE_TRUNCATE);
+  FileWriter(FileWriter && rhs) = default;
+
   ~FileWriter() override;
 
+  // Writer overrides:
   void Seek(uint64_t pos) override;
   uint64_t Pos() const override;
   void Write(void const * p, size_t size) override;
 
-  void WritePaddingByEnd(size_t factor);
-  void WritePaddingByPos(size_t factor);
-
   uint64_t Size() const;
   void Flush();
-
-  void Reserve(uint64_t size);
+  std::string const & GetName() const;
 
   static void DeleteFileX(std::string const & fName);
 
-  std::string const & GetName() const;
+protected:
+  base::FileData & GetFileData();
+  base::FileData const & GetFileData() const;
 
 private:
-  void WritePadding(uint64_t offset, uint64_t factor);
-
   std::unique_ptr<base::FileData> m_pFileData;
-  bool m_bTruncOnClose;
 };

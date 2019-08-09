@@ -589,11 +589,11 @@ bool BuildRoutingIndex(string const & filename, string const & country,
     processor.BuildGraph(graph);
 
     FilesContainerW cont(filename, FileWriter::OP_WRITE_EXISTING);
-    FileWriter writer = cont.GetWriter(ROUTING_FILE_TAG);
+    auto writer = cont.GetWriter(ROUTING_FILE_TAG);
 
-    auto const startPos = writer.Pos();
-    IndexGraphSerializer::Serialize(graph, processor.GetMasks(), writer);
-    auto const sectionSize = writer.Pos() - startPos;
+    auto const startPos = writer->Pos();
+    IndexGraphSerializer::Serialize(graph, processor.GetMasks(), *writer);
+    auto const sectionSize = writer->Pos() - startPos;
 
     LOG(LINFO, ("Routing section created:", sectionSize, "bytes,", graph.GetNumRoads(), "roads,",
                 graph.GetNumJoints(), "joints,", graph.GetNumPoints(), "points"));
@@ -618,9 +618,9 @@ void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
   serial::GeometryCodingParams const codingParams = LoadGeometryCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(sectionName);
-  auto const startPos = writer.Pos();
-  CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
-  auto const sectionSize = writer.Pos() - startPos;
+  auto const startPos = writer->Pos();
+  CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, *writer);
+  auto const sectionSize = writer->Pos() - startPos;
 
   LOG(LINFO, ("Cross mwm section generated, size:", sectionSize, "bytes"));
 }

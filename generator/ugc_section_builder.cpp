@@ -49,9 +49,9 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
     return true;
 
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(UGC_FILE_TAG);
+  auto writer = cont.GetWriter(UGC_FILE_TAG);
   ugc::binary::UGCSeriaizer serializer(std::move(content));
-  serializer.Serialize(writer);
+  serializer.Serialize(*writer);
 
   return true;
 }

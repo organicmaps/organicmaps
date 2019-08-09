@@ -68,10 +68,10 @@ void WriteCitiesIdsSectionToFile(std::string const & dataPath,
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   // Note that we only store cities ids but nothing stops us from
   // generalizing the section if we need, so a more generic tag is used.
-  FileWriter sink = container.GetWriter(FEATURE_TO_OSM_FILE_TAG);
-  auto const pos0 = sink.Pos();
-  indexer::FeatureIdToGeoObjectIdSerDes::Serialize(sink, map);
-  auto const pos1 = sink.Pos();
+  auto sink = container.GetWriter(FEATURE_TO_OSM_FILE_TAG);
+  auto const pos0 = sink->Pos();
+  indexer::FeatureIdToGeoObjectIdSerDes::Serialize(*sink, map);
+  auto const pos1 = sink->Pos();
 
   LOG(LINFO,
       ("Serialized cities ids. Number of entries:", map.Size(), "Size in bytes:", pos1 - pos0));
