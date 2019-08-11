@@ -17,8 +17,7 @@ struct Tcolor
   float rgb[3];
 };
 
-static Tcolor const g_color [] =
-{
+static Tcolor const g_color[] = {
   {kml::PredefinedColor::Red, {229, 27, 35}},
   {kml::PredefinedColor::Yellow, {255, 200, 0}},
   {kml::PredefinedColor::Blue, {0, 110, 199}},

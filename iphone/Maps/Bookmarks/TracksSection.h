@@ -16,11 +16,10 @@
 
 @interface TracksSection : NSObject <TableSectionDataSource>
 
-@property (nullable, nonatomic) NSNumber * blockIndex;
+@property(nullable, nonatomic) NSNumber *blockIndex;
 
 - (instancetype)initWithDelegate:(id<TracksSectionDelegate>)delegate;
 
-- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex
-                          delegate:(id<TracksSectionDelegate>)delegate;
+- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate:(id<TracksSectionDelegate>)delegate;
 
 @end

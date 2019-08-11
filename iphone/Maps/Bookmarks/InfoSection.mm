@@ -1,50 +1,42 @@
 #import "InfoSection.h"
 
-@interface InfoSection()
+@interface InfoSection ()
 
-@property (weak, nonatomic) id<InfoSectionDelegate> delegate;
+@property(weak, nonatomic) id<InfoSectionDelegate> delegate;
 
 @end
 
 @implementation InfoSection
 
-- (instancetype)initWithDelegate: (id<InfoSectionDelegate>)delegate
-{
+- (instancetype)initWithDelegate:(id<InfoSectionDelegate>)delegate {
   self = [super init];
-  if (self)
-  {
+  if (self) {
     _delegate = delegate;
   }
   return self;
 }
 
-- (NSInteger)numberOfRows
-{
+- (NSInteger)numberOfRows {
   return 1;
 }
 
-- (NSString *)title
-{
+- (NSString *)title {
   return L(@"placepage_place_description");
 }
 
-- (BOOL)canEdit
-{
+- (BOOL)canEdit {
   return NO;
 }
 
-- (UITableViewCell *)tableView: (UITableView *)tableView cellForRow: (NSInteger)row
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
   return [self.delegate infoCellForTableView:tableView];
 }
 
-- (BOOL)didSelectRow: (NSInteger)row
-{
+- (BOOL)didSelectRow:(NSInteger)row {
   return NO;
 }
 
-- (BOOL)deleteRow: (NSInteger)row
-{
+- (BOOL)deleteRow:(NSInteger)row {
   return YES;
 }
 

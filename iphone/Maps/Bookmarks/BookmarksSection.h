@@ -16,7 +16,7 @@
 
 @interface BookmarksSection : NSObject <TableSectionDataSource>
 
-@property (nullable, nonatomic) NSNumber * blockIndex;
+@property(nullable, nonatomic) NSNumber *blockIndex;
 
 - (instancetype)initWithDelegate:(id<BookmarksSectionDelegate>)delegate;
 - (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate:(id<BookmarksSectionDelegate>)delegate;

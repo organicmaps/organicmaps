@@ -11,4 +11,3 @@
 - (instancetype)initWithDelegate:(id<InfoSectionDelegate>)delegate;
 
 @end
-

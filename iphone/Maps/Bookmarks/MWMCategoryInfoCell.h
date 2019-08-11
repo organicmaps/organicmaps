@@ -1,5 +1,5 @@
-#import "MWMTableViewCell.h"
 #import "InfoSection.h"
+#import "MWMTableViewCell.h"
 
 namespace kml
 {

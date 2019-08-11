@@ -2,61 +2,53 @@
 #import "CircleView.h"
 #include "Framework.h"
 
-namespace
-{
-  CGFloat const kPinDiameter = 22.0f;
+namespace {
+CGFloat const kPinDiameter = 22.0f;
 }  // namespace
 
-@interface TracksSection()
+@interface TracksSection ()
 
-@property (weak, nonatomic) id<TracksSectionDelegate> delegate;
+@property(weak, nonatomic) id<TracksSectionDelegate> delegate;
 
 @end
 
 @implementation TracksSection
 
-- (instancetype)initWithDelegate:(id<TracksSectionDelegate>)delegate
-{
+- (instancetype)initWithDelegate:(id<TracksSectionDelegate>)delegate {
   return [self initWithBlockIndex:nil delegate:delegate];
 }
 
-- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate: (id<TracksSectionDelegate>)delegate
-{
+- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate:(id<TracksSectionDelegate>)delegate {
   self = [super init];
-  if (self)
-  {
+  if (self) {
     _blockIndex = blockIndex;
     _delegate = delegate;
   }
   return self;
 }
 
-- (NSInteger)numberOfRows
-{
+- (NSInteger)numberOfRows {
   return [self.delegate numberOfTracksInSection:self];
 }
 
-- (NSString *)title
-{
+- (NSString *)title {
   return [self.delegate titleOfTracksSection:self];
 }
 
-- (BOOL)canEdit
-{
+- (BOOL)canEdit {
   return [self.delegate canEditTracksSection:self];
 }
 
-- (UITableViewCell *)tableView: (UITableView *)tableView cellForRow: (NSInteger)row
-{
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
   if (!cell)
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
   CHECK(cell, ("Invalid track cell."));
-  
-  auto const & bm = GetFramework().GetBookmarkManager();
-  
+
+  auto const &bm = GetFramework().GetBookmarkManager();
+
   kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
-  Track const * track = bm.GetTrack(trackId);
+  Track const *track = bm.GetTrack(trackId);
   cell.textLabel.text = @(track->GetName().c_str());
   string dist;
   if (measurement_utils::FormatDistance(track->GetLengthMeters(), dist))
@@ -72,17 +64,15 @@ namespace
   return cell;
 }
 
-- (BOOL)didSelectRow: (NSInteger)row
-{
+- (BOOL)didSelectRow:(NSInteger)row {
   kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
   GetFramework().ShowTrack(trackId);
   return YES;
 }
 
-- (BOOL)deleteRow: (NSInteger)row
-{
+- (BOOL)deleteRow:(NSInteger)row {
   kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
-  auto & bm = GetFramework().GetBookmarkManager();
+  auto &bm = GetFramework().GetBookmarkManager();
   bm.GetEditSession().DeleteTrack(trackId);
   return [self.delegate tracksSection:self onDeleteTrackInRow:row];
 }
