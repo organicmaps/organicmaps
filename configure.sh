@@ -26,6 +26,15 @@ SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 SAVED_PRIVATE_BRANCH_FILE="$BASE_PATH/.private_repository_branch"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
+usage() {
+  echo "This tool configures omim with private repository or as an opensource build"
+  echo "Usage:"
+  echo "  $0 private_repo_url [private_repo_branch]  - to configure with private repository"
+  echo "  echo '[private_repo_url] [private_repo_branch]' | $0  - alternate invocation for private repository configuration"
+  echo "  $0  - to use with saved repository url and branch or to set up an open source build if nothing is saved"
+  echo ""
+}
+
 setup_opensource() {
   echo "Initializing repository with default values in Open-Source mode."
   cat "$DEFAULT_PRIVATE_HEADER" > "$PRIVATE_HEADER"
@@ -67,6 +76,11 @@ setup_private() {
     echo "Private files have been updated."
   fi
 }
+
+if [ "${1-}" = "-h" -o "${1-}" = "--help" ]; then
+  usage
+  exit 1
+fi
 
 ARGS_PRIVATE_REPO=${1-}
 ARGS_PRIVATE_BRANCH=${2-}
