@@ -15,7 +15,10 @@ namespace specs
 class UnitedStatesSpecifier final : public CountrySpecifier
 {
 public:
-  static std::vector<std::string> GetCountryNames() { return {"United States"}; }
+  static std::vector<std::string> GetCountryNames()
+  {
+    return {"United States", "United States of America"};
+  }
 
 private:
   // CountrySpecifier overrides:
