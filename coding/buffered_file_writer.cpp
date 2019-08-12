@@ -2,18 +2,20 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/assert.hpp"
+
 BufferedFileWriter::BufferedFileWriter(std::string const & fileName,
                                        Op operation /* = OP_WRITE_TRUNCATE */,
                                        size_t bufferSize /*  = 4096 */)
   : FileWriter(fileName, operation)
 {
+  CHECK_GREATER(bufferSize, 0, ());
   m_buf.reserve(bufferSize);
 }
 
 BufferedFileWriter::~BufferedFileWriter()
 {
   DropBuffer();
-  GetFileData().Flush();
 }
 
 void BufferedFileWriter::Seek(uint64_t pos)
@@ -44,8 +46,7 @@ void BufferedFileWriter::Write(void const * p, size_t size)
     {
       auto const copyCount = m_buf.capacity() - m_buf.size();
       std::copy(src, src + copyCount, std::back_inserter(m_buf));
-      FileWriter::Write(m_buf.data(), m_buf.size());
-      m_buf.clear();
+      DropBuffer();
       src += copyCount;
       size -= copyCount;
     }
@@ -70,6 +71,6 @@ void BufferedFileWriter::DropBuffer()
   if (m_buf.empty())
     return;
 
-  GetFileData().Write(m_buf.data(), m_buf.size());
+  FileWriter::Write(m_buf.data(), m_buf.size());
   m_buf.clear();
 }

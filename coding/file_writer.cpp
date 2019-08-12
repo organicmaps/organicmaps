@@ -12,7 +12,8 @@ FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
 
 FileWriter::~FileWriter()
 {
-  m_pFileData->Flush();
+  // Note: FileWriter::Flush will be called (like non virtual method).
+  Flush();
 }
 
 uint64_t FileWriter::Pos() const
