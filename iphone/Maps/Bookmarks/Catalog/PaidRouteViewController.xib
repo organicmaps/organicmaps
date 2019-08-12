@@ -268,7 +268,7 @@
                     </variation>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cG9-gK-iOG">
-                    <rect key="frame" x="333" y="30" width="32" height="32"/>
+                    <rect key="frame" x="328" y="30" width="32" height="32"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="6l2-ll-cL4"/>
@@ -311,7 +311,7 @@
                 <constraint firstItem="pbL-bL-mXm" firstAttribute="top" secondItem="wJO-dJ-F8G" secondAttribute="bottom" id="2lg-Fd-ggP"/>
                 <constraint firstItem="wJO-dJ-F8G" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3sj-tj-YDX"/>
                 <constraint firstAttribute="trailing" secondItem="wJO-dJ-F8G" secondAttribute="trailing" id="7vQ-mS-aXd"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cG9-gK-iOG" secondAttribute="trailing" constant="10" id="BYt-6e-15L"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cG9-gK-iOG" secondAttribute="trailing" constant="15" id="BYt-6e-15L"/>
                 <constraint firstItem="I10-rL-z9q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Gtb-Sq-SC0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pbL-bL-mXm" secondAttribute="bottom" id="Lrf-Mc-vHX"/>
                 <constraint firstAttribute="bottom" secondItem="1jX-9f-swC" secondAttribute="bottom" id="M6z-RM-5RE"/>
