@@ -35,7 +35,6 @@
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
