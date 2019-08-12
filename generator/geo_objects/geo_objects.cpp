@@ -38,66 +38,27 @@ namespace geo_objects
 {
 namespace
 {
-void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
-{
-  auto geometry = json_object_get(json.get(), "geometry");
-  auto coordinates = json_object_get(geometry, "coordinates");
-  if (json_array_size(coordinates) == 2)
-  {
-    auto const latLon = MercatorBounds::ToLatLon(point);
-    json_array_set_new(coordinates, 0, ToJSON(latLon.m_lon).release());
-    json_array_set_new(coordinates, 1, ToJSON(latLon.m_lat).release());
-  }
-}
-
-base::JSONPtr AddAddress(FeatureBuilder const & fb, KeyValue const & regionKeyValue)
-{
-  auto result = regionKeyValue.second->MakeDeepCopyJson();
-
-  UpdateCoordinates(fb.GetKeyPoint(), result);
-
-  auto properties = base::GetJSONObligatoryField(result.get(), "properties");
-  auto address = base::GetJSONObligatoryFieldByPath(properties, "locales", "default", "address");
-  auto const street = fb.GetParams().GetStreet();
-  if (!street.empty())
-    ToJSONObject(*address, "street", street);
-
-  // By writing home null in the field we can understand that the house has no address.
-  auto const house = fb.GetParams().house.Get();
-  if (!house.empty())
-    ToJSONObject(*address, "building", house);
-  else
-    ToJSONObject(*address, "building", base::NewJSONNull());
-
-  Localizator localizator(*properties);
-  localizator.SetLocale("name", Localizator::EasyObjectWithTranslation(fb.GetMultilangName()));
-
-  int const kHouseOrPoiRank = 30;
-  ToJSONObject(*properties, "rank", kHouseOrPoiRank);
-
-  ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionKeyValue.first));
-  // auto locales = json_object_get(result.get(), "locales");
-  // auto en = json_object_get(result.get(), "en");
-  // todo(maksimandrianov): Add en locales.
-  return result;
-}
-
-NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectMaintainer const & geoObjectMaintainer,
+NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectMaintainer & geoObjectMaintainer,
                                           std::string const & pathInGeoObjectsTmpMwm,
                                           size_t threadsCount)
 {
   NullBuildingsInfo result;
   static int64_t counter = 0;
   std::mutex updateMutex;
+  auto const & view = geoObjectMaintainer.CreateView();
+
   auto const saveIdFold = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::HasHouse(fb) || !fb.IsPoint())
       return;
 
-    // Можно искать не нуллбилдинги в кв, а те айдишгики, которых нет в кв, которое построено без
-    // нуллбилдингов.
+    // search for ids of Buildinds not stored with geoObjectsMantainer
+    // they are nullBuildings
+    auto const buildingId =
+        view.SearchIdOfFirstMatchedObject(fb.GetKeyPoint(), [&view](base::GeoObjectId id) {
+          auto const & geoData = view.GetGeoData(id);
+          return geoData && geoData->m_house.empty();
+        });
 
-    auto const buildingId = geoObjectMaintainer.SearchIdOfFirstMatchedObject(
-        fb.GetKeyPoint(), [](JsonValue const & json) { return !JsonHasBuilding(json); });
     if (!buildingId)
       return;
 
@@ -106,7 +67,7 @@ NullBuildingsInfo GetHelpfulNullBuildings(GeoObjectMaintainer const & geoObjectM
     std::lock_guard<std::mutex> lock(updateMutex);
     result.m_addressPoints2Buildings[id] = *buildingId;
     counter++;
-    if (counter % 100000)
+    if (counter % 100000 == 0)
       LOG(LINFO, (counter, "Helpful building added"));
     result.m_Buildings2AddressPoint[*buildingId] = id;
   };
@@ -141,12 +102,12 @@ BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmp
       result[id] = fb.GetGeometry();
 
     counter++;
-    if (counter % 100000)
+    if (counter % 100000 == 0)
       LOG(LINFO, (counter, "Building geometries added"));
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
-  LOG(LINFO, (sizeof(result), " is size of geometries"));
+  LOG(LINFO, (sizeof(result), "is size of geometries in bytes"));
   return result;
 }
 
@@ -181,7 +142,7 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
 
         fb.PreSerialize();
         ++pointsEnriched;
-        if (pointsEnriched % 100000)
+        if (pointsEnriched % 100000 == 0)
           LOG(LINFO, (pointsEnriched, "Points enriched with geometry"));
       }
       else
@@ -199,23 +160,26 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
   return pointsEnriched;
 }
 
-std::shared_ptr<JsonValue> FindHouse(FeatureBuilder const & fb,
-                                     GeoObjectMaintainer const & geoObjectMaintainer,
-                                     NullBuildingsInfo const & buildingsInfo)
+base::JSONPtr FindHouse(FeatureBuilder const & fb, GeoObjectMaintainer & geoObjectMaintainer,
+                        NullBuildingsInfo const & buildingsInfo)
 {
-  std::shared_ptr<JsonValue> house =
-      geoObjectMaintainer.FindFirstMatchedObject(fb.GetKeyPoint(), JsonHasBuilding);
+  auto const & view = geoObjectMaintainer.CreateView();
+
+  base::JSONPtr house =
+      view.GetFullGeoObject(fb.GetKeyPoint(), [](GeoObjectMaintainer::GeoObjectData const & data) {
+        return !data.m_house.empty();
+      });
+
   if (house)
     return house;
 
-  std::vector<base::GeoObjectId> potentialIds =
-      geoObjectMaintainer.SearchObjectsInIndex(fb.GetKeyPoint());
+  std::vector<base::GeoObjectId> potentialIds = view.SearchObjectsInIndex(fb.GetKeyPoint());
 
   for (base::GeoObjectId id : potentialIds)
   {
     auto const it = buildingsInfo.m_Buildings2AddressPoint.find(id);
     if (it != buildingsInfo.m_Buildings2AddressPoint.end())
-      return geoObjectMaintainer.GetKeyValueStorage().Find(it->second.GetEncodedId());
+      return view.GetFullGeoObject(it->second);
   }
 
   return {};
@@ -266,32 +230,20 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
 }
 
 void AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
-    KeyValueStorage & geoObjectsKv, RegionInfoGetterProxy const & regionInfoGetter,
-    std::string const & pathInGeoObjectsTmpMwm, bool verbose, size_t threadsCount)
+    GeoObjectMaintainer & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
+    bool verbose, size_t threadsCount)
 {
-  std::mutex updateMutex;
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
-    if (!GeoObjectsFilter::IsBuilding(fb) && !GeoObjectsFilter::HasHouse(fb))
-      return;
-
-    auto regionKeyValue = regionInfoGetter.FindDeepest(fb.GetKeyPoint());
-    if (!regionKeyValue)
-      return;
-
-    auto const id = fb.GetMostGenericOsmId().GetEncodedId();
-    auto jsonValue = AddAddress(fb, *regionKeyValue);
-
-    std::lock_guard<std::mutex> lock(updateMutex);
-    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
+    geoObjectMaintainer.StoreAndEnrich(fb);
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-  LOG(LINFO, ("Added", geoObjectsKv.Size(), "geo objects with addresses."));
+  LOG(LINFO, ("Added", geoObjectMaintainer.Size(), "geo objects with addresses."));
 }
 
-NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
-    GeoObjectMaintainer const & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
-    size_t threadsCount)
+NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(GeoObjectMaintainer & geoObjectMaintainer,
+                                                        std::string const & pathInGeoObjectsTmpMwm,
+                                                        size_t threadsCount)
 {
   auto const buildingInfo =
       GetHelpfulNullBuildings(geoObjectMaintainer, pathInGeoObjectsTmpMwm, threadsCount);
@@ -311,40 +263,37 @@ NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
   return buildingInfo;
 }
 
-void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
-                                       GeoObjectMaintainer const & geoObjectMaintainer,
+void AddPoisEnrichedWithHouseAddresses(GeoObjectMaintainer & geoObjectMaintainer,
                                        NullBuildingsInfo const & buildingsInfo,
                                        std::string const & pathInGeoObjectsTmpMwm,
                                        std::ostream & streamPoiIdsToAddToLocalityIndex,
                                        bool verbose, size_t threadsCount)
 {
-  auto const addressObjectsCount = geoObjectsKv.Size();
-  size_t counter = 0;
-  std::mutex updateMutex;
+  std::atomic_size_t counter{0};
+
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsPoi(fb))
       return;
     if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
       return;
 
-    auto const house = FindHouse(fb, geoObjectMaintainer, buildingsInfo);
+    auto house = FindHouse(fb, geoObjectMaintainer, buildingsInfo);
     if (!house)
       return;
 
-    auto const id = fb.GetMostGenericOsmId().GetEncodedId();
-    auto jsonValue = MakeJsonValueWithNameFromFeature(fb, *house);
+    auto const id = fb.GetMostGenericOsmId();
+    auto jsonValue = MakeJsonValueWithNameFromFeature(fb, JsonValue{std::move(house)});
 
-    std::lock_guard<std::mutex> lock(updateMutex);
     counter++;
-    if (counter % 100000)
+    if (counter % 100000 == 0)
       LOG(LINFO, (counter, "pois added added"));
-    geoObjectsKv.Insert(id, JsonValue{std::move(jsonValue)});
+
+    geoObjectMaintainer.WriteToStorage(id, JsonValue{std::move(jsonValue)});
     streamPoiIdsToAddToLocalityIndex << id << "\n";
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, concurrentTransformer);
-  LOG(LINFO,
-      ("Added ", geoObjectsKv.Size() - addressObjectsCount, "geo objects without addresses."));
+  LOG(LINFO, ("Added", counter, "POIs enriched with address."));
 }
 
 void FilterAddresslessThanGaveTheirGeometryToInnerPoints(std::string const & pathInGeoObjectsTmpMwm,

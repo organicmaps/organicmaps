@@ -2,6 +2,10 @@
 
 #include "generator/key_value_storage.hpp"
 
+#include "generator/regions/region_info_getter.hpp"
+
+#include "generator/feature_builder.hpp"
+
 #include "indexer/locality_index.hpp"
 
 #include "coding/reader.hpp"
@@ -23,36 +27,111 @@ namespace generator
 {
 namespace geo_objects
 {
+class RegionInfoGetterProxy
+{
+public:
+  using RegionInfoGetter = std::function<boost::optional<KeyValue>(m2::PointD const & pathPoint)>;
+  RegionInfoGetterProxy(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv)
+  {
+    m_regionInfoGetter = regions::RegionInfoGetter(pathInRegionsIndex, pathInRegionsKv);
+    LOG(LINFO, ("Size of regions key-value storage:", m_regionInfoGetter->GetStorage().Size()));
+  }
+
+  explicit RegionInfoGetterProxy(RegionInfoGetter && regionInfoGetter)
+    : m_externalInfoGetter(std::move(regionInfoGetter))
+  {
+    LOG(LINFO, ("External regions info provided"));
+  }
+
+  boost::optional<KeyValue> FindDeepest(m2::PointD const & point) const
+  {
+    return m_regionInfoGetter ? m_regionInfoGetter->FindDeepest(point)
+                              : m_externalInfoGetter->operator()(point);
+  }
+
+private:
+  boost::optional<regions::RegionInfoGetter> m_regionInfoGetter;
+  boost::optional<RegionInfoGetter> m_externalInfoGetter;
+};
+
+void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json);
+
 class GeoObjectMaintainer
 {
 public:
-  using IndexReader = ReaderPtr<Reader>;
-
-  GeoObjectMaintainer(indexer::GeoObjectsIndex<IndexReader> && index,
-                      KeyValueStorage const & kvStorage);
-
-  std::shared_ptr<JsonValue> FindFirstMatchedObject(
-      m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
-
-  boost::optional<base::GeoObjectId> SearchIdOfFirstMatchedObject(
-      m2::PointD const & point, std::function<bool(JsonValue const &)> && pred) const;
-
-  std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const
+  struct GeoObjectData
   {
-    return SearchGeoObjectIdsByPoint(m_index, point);
-  }
+    std::string m_street;
+    std::string m_house;
+    m2::PointD m_keyPoint;
+    StringUtf8Multilang m_name;
+  };
 
-  KeyValueStorage const & GetKeyValueStorage() const
+  using GeoId2GeoData = std::unordered_map<base::GeoObjectId, GeoObjectData>;
+  using GeoIndex = indexer::GeoObjectsIndex<ReaderPtr<Reader>>;
+
+  class GeoObjectsView
   {
-    return m_storage;
-  }
-  static std::vector<base::GeoObjectId> SearchGeoObjectIdsByPoint(
-      indexer::GeoObjectsIndex<IndexReader> const & index, m2::PointD const & point);
+  public:
+    GeoObjectsView(GeoIndex const & geoIndex, GeoId2GeoData const & geoId2GeoData,
+                   RegionInfoGetterProxy const & regionInfoGetter, std::mutex & updateMutex)
+      : m_geoIndex(geoIndex)
+      , m_geoId2GeoData(geoId2GeoData)
+      , m_regionInfoGetter(regionInfoGetter)
+      , m_lock(updateMutex, std::defer_lock)
+    {
+      CHECK(m_lock.try_lock(), ("Cannot create GeoObjectView on locked mutex"));
+    }
+    boost::optional<base::GeoObjectId> SearchIdOfFirstMatchedObject(
+        m2::PointD const & point, std::function<bool(base::GeoObjectId)> && pred) const;
 
+    boost::optional<GeoObjectData> GetGeoData(base::GeoObjectId id) const;
+
+    std::vector<base::GeoObjectId> SearchObjectsInIndex(m2::PointD const & point) const
+    {
+      return SearchGeoObjectIdsByPoint(m_geoIndex, point);
+    }
+
+    base::JSONPtr GetFullGeoObject(base::GeoObjectId id) const;
+
+    base::JSONPtr GetFullGeoObject(
+        m2::PointD point,
+        std::function<bool(GeoObjectMaintainer::GeoObjectData const &)> && pred) const;
+
+    static std::vector<base::GeoObjectId> SearchGeoObjectIdsByPoint(GeoIndex const & index,
+                                                                    m2::PointD point);
+
+  private:
+    GeoIndex const & m_geoIndex;
+    GeoId2GeoData const & m_geoId2GeoData;
+    RegionInfoGetterProxy const & m_regionInfoGetter;
+    std::unique_lock<std::mutex> m_lock;
+  };
+
+  GeoObjectMaintainer(std::string const & pathOutGeoObjectsKv,
+                      RegionInfoGetterProxy && regionInfoGetter);
+
+  void SetIndex(GeoIndex && index) { m_index = std::move(index); }
+
+  void StoreAndEnrich(feature::FeatureBuilder & fb);
+  void WriteToStorage(base::GeoObjectId id, JsonValue && value);
+
+  size_t Size() const { return m_geoId2GeoData.size(); }
+
+  const GeoObjectsView CreateView()
+  {
+    return GeoObjectsView(m_index, m_geoId2GeoData, m_regionInfoGetter, m_updateMutex);
+  }
 
 private:
-  indexer::GeoObjectsIndex<IndexReader> m_index;
-  KeyValueStorage const & m_storage;
+  static std::fstream InitGeoObjectsKv(std::string const & pathOutGeoObjectsKv);
+
+  std::fstream m_geoObjectsKvStorage;
+  std::mutex m_updateMutex;
+
+  GeoIndex m_index;
+  RegionInfoGetterProxy m_regionInfoGetter;
+  GeoId2GeoData m_geoId2GeoData;
 };
 }  // namespace geo_objects
 }  // namespace generator

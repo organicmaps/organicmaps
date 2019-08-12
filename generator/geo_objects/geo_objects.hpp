@@ -2,8 +2,6 @@
 
 #include "generator/key_value_storage.hpp"
 
-#include "generator/regions/region_info_getter.hpp"
-
 #include "generator/geo_objects/geo_objects_maintainer.hpp"
 
 #include "geometry/meter.hpp"
@@ -21,33 +19,6 @@ namespace generator
 {
 namespace geo_objects
 {
-class RegionInfoGetterProxy
-{
-public:
-  using RegionInfoGetter = std::function<boost::optional<KeyValue>(m2::PointD const & pathPoint)>;
-  RegionInfoGetterProxy(std::string const & pathInRegionsIndex,
-                        std::string const & pathInRegionsKv)
-  {
-    m_regionInfoGetter = regions::RegionInfoGetter(pathInRegionsIndex, pathInRegionsKv);
-    LOG(LINFO, ("Size of regions key-value storage:", m_regionInfoGetter->GetStorage().Size()));
-  }
-
-  explicit RegionInfoGetterProxy(RegionInfoGetter && regionInfoGetter)
-      : m_externalInfoGetter(std::move(regionInfoGetter))
-  {
-    LOG(LINFO, ("External regions info provided"));
-  }
-
-  boost::optional<KeyValue> FindDeepest(m2::PointD const & point) const
-  {
-    return m_regionInfoGetter ? m_regionInfoGetter->FindDeepest(point)
-                              : m_externalInfoGetter->operator()(point);
-  }
-private:
-  boost::optional<regions::RegionInfoGetter> m_regionInfoGetter;
-  boost::optional<RegionInfoGetter> m_externalInfoGetter;
-};
-
 
 using IndexReader = ReaderPtr<Reader>;
 
@@ -57,8 +28,8 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
 bool JsonHasBuilding(JsonValue const & json);
 
 void AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
-    KeyValueStorage & geoObjectsKv, RegionInfoGetterProxy const & regionInfoGetter,
-    std::string const & pathInGeoObjectsTmpMwm, bool verbose, size_t threadsCount);
+    GeoObjectMaintainer & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
+    bool verbose, size_t threadsCount);
 
 struct NullBuildingsInfo
 {
@@ -70,12 +41,10 @@ struct NullBuildingsInfo
 };
 
 NullBuildingsInfo EnrichPointsWithOuterBuildingGeometry(
-    GeoObjectMaintainer const & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
+    GeoObjectMaintainer & geoObjectMaintainer, std::string const & pathInGeoObjectsTmpMwm,
     size_t threadsCount);
 
-
-void AddPoisEnrichedWithHouseAddresses(KeyValueStorage & geoObjectsKv,
-                                       GeoObjectMaintainer const & geoObjectMaintainer,
+void AddPoisEnrichedWithHouseAddresses(GeoObjectMaintainer & geoObjectMaintainer,
                                        NullBuildingsInfo const & buildingsInfo,
                                        std::string const & pathInGeoObjectsTmpMwm,
                                        std::ostream & streamPoiIdsToAddToLocalityIndex,

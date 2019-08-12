@@ -32,19 +32,13 @@ public:
   // we build an index for houses. And then we finish building key-value pairs for poi using this
   // index for houses.
   bool GenerateGeoObjects();
-
-  KeyValueStorage const & GetKeyValueStorage() const
+  GeoObjectMaintainer& GetMaintainer()
   {
-    return m_geoObjectsKv;
+    return m_geoObjectMaintainer;
   }
 
 private:
   bool GenerateGeoObjectsPrivate();
-  static KeyValueStorage InitGeoObjectsKv(std::string const & pathOutGeoObjectsKv)
-  {
-    Platform().RemoveFileIfExists(pathOutGeoObjectsKv);
-    return KeyValueStorage(pathOutGeoObjectsKv, 0 /* cacheValuesCountLimit */);
-  }
 
   std::string m_pathInGeoObjectsTmpMwm;
   std::string m_pathOutPoiIdsToAddToLocalityIndex;
@@ -52,9 +46,7 @@ private:
 
   bool m_verbose = false;
   size_t m_threadsCount = 1;
-
-  KeyValueStorage m_geoObjectsKv;
-  RegionInfoGetterProxy m_regionInfoGetter;
+  GeoObjectMaintainer m_geoObjectMaintainer;
 };
 }  // namespace geo_objects
 }  // namespace generator

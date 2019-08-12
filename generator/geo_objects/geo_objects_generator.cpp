@@ -34,8 +34,7 @@ GeoObjectsGenerator::GeoObjectsGenerator(std::string pathInRegionsIndex,
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
-  , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
-  , m_regionInfoGetter(pathInRegionsIndex, pathInRegionsKv)
+  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(pathInRegionsIndex, pathInRegionsKv)}
 
 {
 }
@@ -49,8 +48,7 @@ GeoObjectsGenerator::GeoObjectsGenerator(
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
-  , m_geoObjectsKv(InitGeoObjectsKv(m_pathOutGeoObjectsKv))
-  , m_regionInfoGetter(std::move(regionInfoGetter))
+  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(std::move(regionInfoGetter))}
 {
 }
 
@@ -65,7 +63,7 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
       std::async(std::launch::async, MakeTempGeoObjectsIndex, m_pathInGeoObjectsTmpMwm);
 
   AddBuildingsAndThingsWithHousesThenEnrichAllWithRegionAddresses(
-      m_geoObjectsKv, m_regionInfoGetter, m_pathInGeoObjectsTmpMwm, m_verbose, m_threadsCount);
+      m_geoObjectMaintainer, m_pathInGeoObjectsTmpMwm, m_verbose, m_threadsCount);
 
   LOG(LINFO, ("Geo objects with addresses were built."));
 
@@ -76,18 +74,17 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   if (!geoObjectIndex)
     return false;
 
-  GeoObjectMaintainer const geoObjectMaintainer{std::move(*geoObjectIndex), m_geoObjectsKv};
+  m_geoObjectMaintainer.SetIndex(std::move(*geoObjectIndex));
 
   LOG(LINFO, ("Enrich address points with outer null building geometry."));
 
   NullBuildingsInfo const & buildingInfo = EnrichPointsWithOuterBuildingGeometry(
-      geoObjectMaintainer, m_pathInGeoObjectsTmpMwm, m_threadsCount);
+      m_geoObjectMaintainer, m_pathInGeoObjectsTmpMwm, m_threadsCount);
 
   std::ofstream streamPoiIdsToAddToLocalityIndex(m_pathOutPoiIdsToAddToLocalityIndex);
 
-  AddPoisEnrichedWithHouseAddresses(m_geoObjectsKv, geoObjectMaintainer, buildingInfo,
-                                    m_pathInGeoObjectsTmpMwm, streamPoiIdsToAddToLocalityIndex,
-                                    m_verbose, m_threadsCount);
+  AddPoisEnrichedWithHouseAddresses(m_geoObjectMaintainer, buildingInfo, m_pathInGeoObjectsTmpMwm,
+                                    streamPoiIdsToAddToLocalityIndex, m_verbose, m_threadsCount);
 
   FilterAddresslessThanGaveTheirGeometryToInnerPoints(m_pathInGeoObjectsTmpMwm, buildingInfo,
                                                       m_threadsCount);

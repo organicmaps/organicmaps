@@ -25,7 +25,7 @@ bool CheckWeGotExpectedIdsByPoint(m2::PointD const & point,
                                   indexer::GeoObjectsIndex<IndexReader> const & index)
 {
   std::vector<base::GeoObjectId> test =
-      GeoObjectMaintainer::SearchGeoObjectIdsByPoint(index, point);
+      GeoObjectMaintainer::GeoObjectsView::SearchGeoObjectIdsByPoint(index, point);
   std::sort(test.begin(), test.end());
   std::sort(reference.begin(), reference.end());
   return test == reference;
@@ -52,10 +52,10 @@ std::vector<base::GeoObjectId> CollectFeatures(
   return expectedIds;
 }
 
-GeoObjectsGenerator TearUp(std::vector<OsmElementData> const & osmElements,
-                           ScopedFile const & geoObjectsFeatures,
-                           ScopedFile const & idsWithoutAddresses,
-                           ScopedFile const & geoObjectsKeyValue)
+std::unique_ptr<GeoObjectsGenerator> TearUp(std::vector<OsmElementData> const & osmElements,
+                                            ScopedFile const & geoObjectsFeatures,
+                                            ScopedFile const & idsWithoutAddresses,
+                                            ScopedFile const & geoObjectsKeyValue)
 {
   // Absolutely random region.
   std::shared_ptr<JsonValue> value = std::make_shared<JsonValue>(LoadFromString(
@@ -100,16 +100,24 @@ GeoObjectsGenerator TearUp(std::vector<OsmElementData> const & osmElements,
 
   auto regionGetter = [value](auto && point) { return KeyValue{1, value}; };
 
-  return GeoObjectsGenerator{regionGetter,
-                             geoObjectsFeatures.GetFullPath(),
-                             idsWithoutAddresses.GetFullPath(),
-                             geoObjectsKeyValue.GetFullPath(),
-                             false /* verbose */,
-                             1 /* threadsCount */};
+  return std::make_unique<GeoObjectsGenerator>(
+      regionGetter, geoObjectsFeatures.GetFullPath(), idsWithoutAddresses.GetFullPath(),
+      geoObjectsKeyValue.GetFullPath(), false /* verbose */, 1 /* threadsCount */);
+}
+
+void TestRegionAddress(json_t const * json)
+{
+  const auto address =
+      GetJSONObligatoryFieldByPath(json, "properties", "locales", "default", "address");
+  TEST_EQUAL(FromJSONToString(GetJSONObligatoryField(address, "country")), "Bahamas", ());
+  TEST_EQUAL(FromJSONToString(GetJSONObligatoryField(address, "region")), "Central Abaco", ());
+  TEST_EQUAL(FromJSONToString(GetJSONObligatoryField(address, "locality")), "Leisure Lee", ());
 }
 
 void TestFindReverse(std::vector<OsmElementData> const & osmElements,
-                     std::vector<m2::PointD> const & where)
+                     std::vector<m2::PointD> const & where,
+                     std::vector<GeoObjectId> const & expected = {}
+                     )
 {
   classificator::Load();
   ScopedFile const geoObjectsFeatures{"geo_objects_features.mwm", ScopedFile::Mode::DoNotCreate};
@@ -119,10 +127,10 @@ void TestFindReverse(std::vector<OsmElementData> const & osmElements,
   auto const & expectedIds = CollectFeatures(
       osmElements, geoObjectsFeatures, [](FeatureBuilder const & fb) { return fb.IsPoint(); });
 
-  GeoObjectsGenerator geoObjectsGenerator =
-      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue);
+  std::unique_ptr<GeoObjectsGenerator> geoObjectsGenerator{
+      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue)};
 
-  TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
+  TEST(geoObjectsGenerator->GenerateGeoObjects(), ("Generate Geo Objects failed"));
 
   auto const geoObjectsIndex = MakeTempGeoObjectsIndex(geoObjectsFeatures.GetFullPath());
 
@@ -131,6 +139,30 @@ void TestFindReverse(std::vector<OsmElementData> const & osmElements,
   for (auto const & point : where)
   {
     TEST(CheckWeGotExpectedIdsByPoint(point, expectedIds, *geoObjectsIndex), ());
+  }
+
+  auto const & view = geoObjectsGenerator->GetMaintainer().CreateView();
+
+  const auto & toCheck = expected.empty() ? expectedIds : expected;
+  std::cerr << DebugPrint(toCheck) << std::endl;
+
+  for (auto const & id : toCheck)
+  {
+    auto json = view.GetFullGeoObject(id);
+    TestRegionAddress(json.get());
+    TEST(JsonHasBuilding(JsonValue{std::move(json)}), ("No address for", id));
+  }
+
+  geoObjectsGenerator.reset(nullptr);
+
+  KeyValueStorage kvStorage{geoObjectsKeyValue.GetFullPath(), 0 /*cacheValuesCountLimit*/};
+
+  for (GeoObjectId id : toCheck)
+  {
+    std::shared_ptr<JsonValue> value = kvStorage.Find(id.GetEncodedId());
+    TEST(value, ("Id", id.GetEncodedId(), "is not stored in key value"));
+    TEST(JsonHasBuilding(*value), ("No address for", id));
+    TestRegionAddress(*value);
   }
 }
 
@@ -148,24 +180,20 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside
        {{1, 1}, {4, 4}},
        {}},
       {3,
-       {{"addr:housenumber", "39 с80"},
-        {"addr:street", "Ленинградский проспект"}},
+       {{"addr:housenumber", "39 с80"}, {"addr:street", "Ленинградский проспект"}},
        {{1.6, 1.6}},
-       {}}
-  };
+       {}}};
 
   TestFindReverse(osmElements, {{1.5, 1.5}, {2, 2}, {4, 4}});
 }
 
-UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesInside2)
+UNIT_TEST(GenerateGeoObjects_AddNullBuildingGeometryForPointsWithAddressesReverse)
 {
   std::vector<OsmElementData> const osmElements{
       {1,
-       {{"addr:housenumber", "39 с80"},
-        {"addr:street", "Ленинградский проспект"}},
+       {{"addr:housenumber", "39 с80"}, {"addr:street", "Ленинградский проспект"}},
        {{1.6, 1.6}},
-       {}
-      },
+       {}},
       {2,
        {{"addr:housenumber", "39 с79"},
         {"addr:street", "Ленинградский проспект"},
@@ -195,7 +223,7 @@ UNIT_TEST(GenerateGeoObjects_AddNullBuildingPointToPoint)
        {{1.5, 1.5}},
        {}},
   };
-  TestFindReverse(osmElements, {});
+  TestFindReverse(osmElements, {}, {base::MakeOsmNode(1)});
 }
 
 void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)
@@ -209,20 +237,25 @@ void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)
       CollectFeatures(osmElements, geoObjectsFeatures,
                       [](FeatureBuilder const & fb) { return GeoObjectsFilter::IsPoi(fb); });
 
-  GeoObjectsGenerator geoObjectsGenerator =
-      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue);
+  std::unique_ptr<GeoObjectsGenerator> geoObjectsGenerator = {
+      TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue)};
 
-  TEST(geoObjectsGenerator.GenerateGeoObjects(), ("Generate Geo Objects failed"));
+  TEST(geoObjectsGenerator->GenerateGeoObjects(), ("Generate Geo Objects failed"));
+
+  geoObjectsGenerator.reset(nullptr);
+
+  KeyValueStorage kvStorage{geoObjectsKeyValue.GetFullPath(), 0 /*cacheValuesCountLimit*/};
+
   for (GeoObjectId id : expectedIds)
   {
-    std::shared_ptr<JsonValue> value =
-        geoObjectsGenerator.GetKeyValueStorage().Find(id.GetEncodedId());
+    std::shared_ptr<JsonValue> value = kvStorage.Find(id.GetEncodedId());
     TEST(value, ("Id", id, "is not stored in key value"));
     TEST(JsonHasBuilding(*value), ("No address for", id));
+    TestRegionAddress(*value);
   }
 }
 
-UNIT_TEST(GenerateGeoObjects_CheckPoiEnricedWithAddress)
+UNIT_TEST(GenerateGeoObjects_CheckPoiEnrichedWithAddress)
 {
   std::vector<OsmElementData> const osmElements{
       {1, {{"addr:housenumber", "111"}, {"addr:street", "Healing street"}}, {{1.6, 1.6}}, {}},
