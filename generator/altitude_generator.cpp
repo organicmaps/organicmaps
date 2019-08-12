@@ -184,7 +184,7 @@ void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGe
       succinct::bit_vector_builder & builder = processor.GetAltitudeAvailabilityBuilder();
       succinct::rs_bit_vector(&builder).map(visitor);
     }
-    header.m_featureTableOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+    header.m_featureTableOffset = base::checked_cast<uint32_t>(w->Pos() - startOffset);
 
     std::vector<uint32_t> offsets;
     std::vector<uint8_t> deltas;
@@ -207,20 +207,20 @@ void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGe
       for (uint32_t offset : offsets)
         builder.push_back(offset);
 
-      coding::FreezeVisitor<Writer> visitor(w);
+      coding::FreezeVisitor<Writer> visitor(*w);
       succinct::elias_fano(&builder).map(visitor);
     }
     // Writing altitude info.
-    header.m_altitudesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
-    w.Write(deltas.data(), deltas.size());
-    w.WritePaddingByEnd(8);
-    header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+    header.m_altitudesOffset = base::checked_cast<uint32_t>(w->Pos() - startOffset);
+    w->Write(deltas.data(), deltas.size());
+    w->WritePaddingByEnd(8);
+    header.m_endOffset = base::checked_cast<uint32_t>(w->Pos() - startOffset);
 
     // Rewriting header info.
-    auto const endOffset = w.Pos();
-    w.Seek(startOffset);
+    auto const endOffset = w->Pos();
+    w->Seek(startOffset);
     header.Serialize(w);
-    w.Seek(endOffset);
+    w->Seek(endOffset);
     LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", header.m_endOffset));
     if (processor.HasAltitudeInfo())
       LOG(LINFO, ("Min altitude is", processor.GetMinAltitude()));

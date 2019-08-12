@@ -1,6 +1,5 @@
 #include "coding/file_container.hpp"
 
-#include "coding/file_container_writers.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
@@ -386,7 +385,7 @@ void FilesContainerW::DeleteSection(Tag const & tag)
   Open(FileWriter::OP_WRITE_EXISTING);
 }
 
-std::unique_ptr<FileWriter> FilesContainerW::GetWriter(Tag const & tag)
+std::unique_ptr<FileContainerWriter> FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_finished, ());
 

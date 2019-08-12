@@ -121,7 +121,7 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
   header.Serialize(*w);
 
   base::SortUnique(restrictions);
-  RestrictionSerializer::Serialize(header, restrictions.begin(), restrictions.end(), w);
+  RestrictionSerializer::Serialize(header, restrictions.begin(), restrictions.end(), *w);
 }
 
 bool BuildRoadRestrictions(std::string const & targetPath,
