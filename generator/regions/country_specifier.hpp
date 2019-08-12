@@ -16,8 +16,7 @@ public:
   virtual void AdjustRegionsLevel(Node::PtrList & outers);
   PlaceLevel GetLevel(Region const & region) const;
 
-  // Return -1 - |l| is under place of |r|, 0 - undefined relation, 1 - |r| is under place of |l|.
-  // Non-transitive.
+  // Return -1 - |l| is under place of |r|, 1 - |r| is under place of |l|.
   virtual int RelateByWeight(LevelRegion const & l, LevelRegion const & r) const;
   static PlaceLevel GetLevel(PlaceType placeType);
 

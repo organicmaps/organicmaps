@@ -72,6 +72,11 @@ base::GeoObjectId Region::GetId() const
   return RegionWithData::GetId();
 }
 
+base::GeoObjectId Region::GetOriginId() const
+{
+  return RegionWithData::GetId();
+}
+
 PlaceType Region::GetPlaceType() const
 {
   if (m_placeLabel)

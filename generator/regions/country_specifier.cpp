@@ -102,12 +102,28 @@ int CountrySpecifier::RelateByWeight(LevelRegion const & l, LevelRegion const & 
       return 1;
     }
   }
-  if (lAdminLevel != AdminLevel::Unknown)
-    return 1;
-  if (rAdminLevel != AdminLevel::Unknown)
-    return -1;
+  else
+  {
+    if (lAdminLevel != AdminLevel::Unknown)
+      return 1;
+    else if (rAdminLevel != AdminLevel::Unknown)
+      return -1;
+  }
 
-  return 0;
+  // Let leveled region is derived region.
+  if (lLevel != PlaceLevel::Unknown && rLevel == PlaceLevel::Unknown)
+    return -1;
+  if (rLevel != PlaceLevel::Unknown && lLevel == PlaceLevel::Unknown)
+    return 1;
+
+  // Let place-marked region is derived region.
+  if (lPlaceType != PlaceType::Unknown && rPlaceType == PlaceType::Unknown)
+    return -1;
+  if (rPlaceType != PlaceType::Unknown && lPlaceType == PlaceType::Unknown)
+    return 1;
+
+  CHECK_NOT_EQUAL(l.GetOriginId(), r.GetOriginId(), ());
+  return l.GetOriginId() < r.GetOriginId() ? 1 : -1;
 }
 }  // namespace regions
 }  // namespace generator

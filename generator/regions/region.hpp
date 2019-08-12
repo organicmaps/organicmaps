@@ -32,6 +32,7 @@ public:
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
 
   base::GeoObjectId GetId() const;
+  base::GeoObjectId GetOriginId() const;
   using RegionWithData::GetAdminLevel;
   PlaceType GetPlaceType() const;
   boost::optional<std::string> GetIsoCode() const;

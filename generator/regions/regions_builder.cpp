@@ -174,6 +174,8 @@ Node::Ptr RegionsBuilder::ChooseParent(std::vector<Node::Ptr> const & nodesInAre
     }
   }
 
+  CHECK(!parent || -1 == CompareAffiliation(region, parent->GetData(), countrySpecifier),
+        (GetRegionNotation(region), GetRegionNotation(parent->GetData())));
   return parent;
 }
 
