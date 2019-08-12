@@ -107,7 +107,6 @@ BuildingsGeometries GetBuildingsGeometry(std::string const & pathInGeoObjectsTmp
   };
 
   ForEachParallelFromDatRawFormat(threadsCount, pathInGeoObjectsTmpMwm, saveIdFold);
-  LOG(LINFO, (sizeof(result), "is size of geometries in bytes"));
   return result;
 }
 
@@ -160,26 +159,26 @@ size_t AddBuildingGeometriesToAddressPoints(std::string const & pathInGeoObjects
   return pointsEnriched;
 }
 
-base::JSONPtr FindHouse(FeatureBuilder const & fb, GeoObjectMaintainer & geoObjectMaintainer,
+base::JSONPtr FindHouse(FeatureBuilder const & fb,
+                        GeoObjectMaintainer::GeoObjectsView const & geoView,
                         NullBuildingsInfo const & buildingsInfo)
 {
-  auto const & view = geoObjectMaintainer.CreateView();
 
   base::JSONPtr house =
-      view.GetFullGeoObject(fb.GetKeyPoint(), [](GeoObjectMaintainer::GeoObjectData const & data) {
+      geoView.GetFullGeoObject(fb.GetKeyPoint(), [](GeoObjectMaintainer::GeoObjectData const & data) {
         return !data.m_house.empty();
       });
 
   if (house)
     return house;
 
-  std::vector<base::GeoObjectId> potentialIds = view.SearchObjectsInIndex(fb.GetKeyPoint());
+  std::vector<base::GeoObjectId> potentialIds = geoView.SearchObjectsInIndex(fb.GetKeyPoint());
 
   for (base::GeoObjectId id : potentialIds)
   {
     auto const it = buildingsInfo.m_Buildings2AddressPoint.find(id);
     if (it != buildingsInfo.m_Buildings2AddressPoint.end())
-      return view.GetFullGeoObject(it->second);
+      return geoView.GetFullGeoObjectWithoutNameAndCoordinates(it->second);
   }
 
   return {};
@@ -271,13 +270,16 @@ void AddPoisEnrichedWithHouseAddresses(GeoObjectMaintainer & geoObjectMaintainer
 {
   std::atomic_size_t counter{0};
 
+  auto const & view = geoObjectMaintainer.CreateView();
+
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
     if (!GeoObjectsFilter::IsPoi(fb))
       return;
     if (GeoObjectsFilter::IsBuilding(fb) || GeoObjectsFilter::HasHouse(fb))
       return;
 
-    auto house = FindHouse(fb, geoObjectMaintainer, buildingsInfo);
+    // No name and coordinates here, we will take it from fb in MakeJsonValueWithNameFromFeature
+    auto house = FindHouse(fb, view, buildingsInfo);
     if (!house)
       return;
 

@@ -1,6 +1,7 @@
 #include "generator/geo_objects/geo_objects_maintainer.hpp"
 #include "generator/geo_objects/geo_objects_filter.hpp"
 
+#include "generator/key_value_storage.hpp"
 #include "generator/translation.hpp"
 
 #include <utility>
@@ -88,7 +89,7 @@ void GeoObjectMaintainer::StoreAndEnrich(feature::FeatureBuilder & fb)
 
   auto const it = m_geoId2GeoData.emplace(
       std::make_pair(id, GeoObjectData{fb.GetParams().GetStreet(), fb.GetParams().house.Get(),
-                                       fb.GetKeyPoint(), fb.GetMultilangName()}));
+                                       base::GeoObjectId(regionKeyValue->first)}));
 
   // Duplicate ID's are possible
   if (!it.second)
@@ -100,7 +101,7 @@ void GeoObjectMaintainer::StoreAndEnrich(feature::FeatureBuilder & fb)
 
 void GeoObjectMaintainer::WriteToStorage(base::GeoObjectId id, JsonValue && value)
 {
-  std::lock_guard<std::mutex> lock(m_updateMutex);
+  std::lock_guard<std::mutex> lock(m_storageMutex);
   m_geoObjectsKvStorage << KeyValueStorage::SerializeFullLine(id.GetEncodedId(), std::move(value));
 }
 
@@ -121,30 +122,33 @@ base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObject(
     if (!pred(geoData))
       continue;
 
-    auto regionKeyValue = m_regionInfoGetter.FindDeepest(geoData.m_keyPoint);
-    if (!regionKeyValue)
+
+    auto regionJsonValue = m_regionInfoGetter.FindById(geoData.m_regionId);
+    if (!regionJsonValue)
       return {};
 
-    return AddAddress(geoData.m_street, geoData.m_house, geoData.m_keyPoint, geoData.m_name,
-                      *regionKeyValue);
+    return AddAddress(geoData.m_street, geoData.m_house, point, StringUtf8Multilang(),
+                      KeyValue(geoData.m_regionId.GetEncodedId(), regionJsonValue));
   }
 
   return {};
 }
 
-base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObject(base::GeoObjectId id) const
+base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObjectWithoutNameAndCoordinates(
+    base::GeoObjectId id) const
 {
   auto const it = m_geoId2GeoData.find(id);
   if (it == m_geoId2GeoData.end())
     return {};
 
   auto const geoData = it->second;
-  auto regionKeyValue = m_regionInfoGetter.FindDeepest(geoData.m_keyPoint);
-  if (!regionKeyValue)
+  auto regionJsonValue = m_regionInfoGetter.FindById(geoData.m_regionId);
+  if (!regionJsonValue)
     return {};
 
-  return AddAddress(geoData.m_street, geoData.m_house, geoData.m_keyPoint, geoData.m_name,
-                    *regionKeyValue);
+  // no need to store name here, it will be overriden by poi name
+  return AddAddress(geoData.m_street, geoData.m_house, m2::PointD(), StringUtf8Multilang(),
+                    KeyValue(geoData.m_regionId.GetEncodedId(), regionJsonValue));
 }
 
 boost::optional<GeoObjectMaintainer::GeoObjectData> GeoObjectMaintainer::GeoObjectsView::GetGeoData(

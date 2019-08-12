@@ -40,7 +40,8 @@ GeoObjectsGenerator::GeoObjectsGenerator(std::string pathInRegionsIndex,
 }
 
 GeoObjectsGenerator::GeoObjectsGenerator(
-    RegionInfoGetterProxy::RegionInfoGetter && regionInfoGetter, std::string pathInGeoObjectsTmpMwm,
+    RegionInfoGetterProxy::RegionInfoGetter && regionInfoGetter,
+    RegionInfoGetterProxy::RegionIdGetter && regionIdGetter, std::string pathInGeoObjectsTmpMwm,
     std::string pathOutIdsWithoutAddress, std::string pathOutGeoObjectsKv, bool verbose,
     size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
@@ -48,7 +49,8 @@ GeoObjectsGenerator::GeoObjectsGenerator(
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
-  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(std::move(regionInfoGetter))}
+  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(std::move(regionInfoGetter),
+                                                                       std::move(regionIdGetter))}
 {
 }
 

@@ -23,6 +23,7 @@ public:
                       std::string pathOutGeoObjectsKv, bool verbose, size_t threadsCount);
 
   GeoObjectsGenerator(RegionInfoGetterProxy::RegionInfoGetter && regionInfoGetter,
+                      RegionInfoGetterProxy::RegionIdGetter && regionIdGetter,
                       std::string pathInGeoObjectsTmpMwm, std::string pathOutIdsWithoutAddress,
                       std::string pathOutGeoObjectsKv, bool verbose, size_t threadsCount);
 

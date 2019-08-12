@@ -98,11 +98,14 @@ std::unique_ptr<GeoObjectsGenerator> TearUp(std::vector<OsmElementData> const & 
                }
              })"));
 
-  auto regionGetter = [value](auto && point) { return KeyValue{1, value}; };
-
-  return std::make_unique<GeoObjectsGenerator>(
-      regionGetter, geoObjectsFeatures.GetFullPath(), idsWithoutAddresses.GetFullPath(),
+  auto regionInfoGetter = [value](auto && point) { return KeyValue{1, value}; };
+  auto regionIdGetter = [value](auto && point) { return value; };
+  auto result = std::make_unique<GeoObjectsGenerator>(
+      regionInfoGetter, regionIdGetter, geoObjectsFeatures.GetFullPath(), idsWithoutAddresses.GetFullPath(),
       geoObjectsKeyValue.GetFullPath(), false /* verbose */, 1 /* threadsCount */);
+
+  TEST(result->GenerateGeoObjects(), ("Generate Geo Objects failed"));
+  return result;
 }
 
 void TestRegionAddress(json_t const * json)
@@ -130,8 +133,6 @@ void TestFindReverse(std::vector<OsmElementData> const & osmElements,
   std::unique_ptr<GeoObjectsGenerator> geoObjectsGenerator{
       TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue)};
 
-  TEST(geoObjectsGenerator->GenerateGeoObjects(), ("Generate Geo Objects failed"));
-
   auto const geoObjectsIndex = MakeTempGeoObjectsIndex(geoObjectsFeatures.GetFullPath());
 
   TEST(geoObjectsIndex.has_value(), ("Temporary index build failed"));
@@ -144,11 +145,10 @@ void TestFindReverse(std::vector<OsmElementData> const & osmElements,
   auto const & view = geoObjectsGenerator->GetMaintainer().CreateView();
 
   const auto & toCheck = expected.empty() ? expectedIds : expected;
-  std::cerr << DebugPrint(toCheck) << std::endl;
 
   for (auto const & id : toCheck)
   {
-    auto json = view.GetFullGeoObject(id);
+    auto json = view.GetFullGeoObjectWithoutNameAndCoordinates(id);
     TestRegionAddress(json.get());
     TEST(JsonHasBuilding(JsonValue{std::move(json)}), ("No address for", id));
   }
@@ -239,8 +239,6 @@ void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)
 
   std::unique_ptr<GeoObjectsGenerator> geoObjectsGenerator = {
       TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue)};
-
-  TEST(geoObjectsGenerator->GenerateGeoObjects(), ("Generate Geo Objects failed"));
 
   geoObjectsGenerator.reset(nullptr);
 

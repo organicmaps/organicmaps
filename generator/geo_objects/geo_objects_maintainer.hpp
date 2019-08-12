@@ -31,14 +31,18 @@ class RegionInfoGetterProxy
 {
 public:
   using RegionInfoGetter = std::function<boost::optional<KeyValue>(m2::PointD const & pathPoint)>;
+  using RegionIdGetter = std::function<std::shared_ptr<JsonValue>(base::GeoObjectId id)>;
+
   RegionInfoGetterProxy(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv)
   {
     m_regionInfoGetter = regions::RegionInfoGetter(pathInRegionsIndex, pathInRegionsKv);
     LOG(LINFO, ("Size of regions key-value storage:", m_regionInfoGetter->GetStorage().Size()));
   }
 
-  explicit RegionInfoGetterProxy(RegionInfoGetter && regionInfoGetter)
+  explicit RegionInfoGetterProxy(RegionInfoGetter && regionInfoGetter, RegionIdGetter && regionIdGetter)
     : m_externalInfoGetter(std::move(regionInfoGetter))
+    , m_externalRegionIdGetter(std::move(regionIdGetter))
+
   {
     LOG(LINFO, ("External regions info provided"));
   }
@@ -49,9 +53,18 @@ public:
                               : m_externalInfoGetter->operator()(point);
   }
 
+  std::shared_ptr<JsonValue> FindById(base::GeoObjectId id) const
+  {
+    return m_externalRegionIdGetter ? m_externalRegionIdGetter->operator()(id) :
+           m_regionInfoGetter->GetStorage().Find(id.GetEncodedId());
+
+  }
+
+
 private:
   boost::optional<regions::RegionInfoGetter> m_regionInfoGetter;
   boost::optional<RegionInfoGetter> m_externalInfoGetter;
+  boost::optional<RegionIdGetter> m_externalRegionIdGetter;
 };
 
 void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json);
@@ -63,8 +76,7 @@ public:
   {
     std::string m_street;
     std::string m_house;
-    m2::PointD m_keyPoint;
-    StringUtf8Multilang m_name;
+    base::GeoObjectId m_regionId;
   };
 
   using GeoId2GeoData = std::unordered_map<base::GeoObjectId, GeoObjectData>;
@@ -92,7 +104,7 @@ public:
       return SearchGeoObjectIdsByPoint(m_geoIndex, point);
     }
 
-    base::JSONPtr GetFullGeoObject(base::GeoObjectId id) const;
+    base::JSONPtr GetFullGeoObjectWithoutNameAndCoordinates(base::GeoObjectId id) const;
 
     base::JSONPtr GetFullGeoObject(
         m2::PointD point,
@@ -128,6 +140,7 @@ private:
 
   std::fstream m_geoObjectsKvStorage;
   std::mutex m_updateMutex;
+  std::mutex m_storageMutex;
 
   GeoIndex m_index;
   RegionInfoGetterProxy m_regionInfoGetter;
