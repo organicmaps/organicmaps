@@ -559,4 +559,14 @@ namespace
 
     TEST_EQUAL(route.second, RouterResultCode::NoError, ());
   }
+
+  UNIT_TEST(AreMwmsNear_HelsinkiPiter)
+  {
+    TRouteResult route =
+        integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                    MercatorBounds::FromLatLon(60.87083, 26.53612), {0., 0.},
+                                    MercatorBounds::FromLatLon(60.95360, 28.53979));
+
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
+  }
 }  // namespace

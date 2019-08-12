@@ -153,7 +153,7 @@ private:
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
                                 Route & route) const;
 
-  bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
+  bool AreMwmsNear(IndexGraphStarter const & starter) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
 
   RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,

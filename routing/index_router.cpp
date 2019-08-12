@@ -560,8 +560,8 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
       break;
     case VehicleType::Car:
-      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraphMode::Joints
-                                                                : WorldGraphMode::LeapsOnly);
+      starter.GetGraph().SetMode(AreMwmsNear(starter) ? WorldGraphMode::Joints
+                                                      : WorldGraphMode::LeapsOnly);
       break;
     case VehicleType::Count:
       CHECK(false, ("Unknown vehicle type:", m_vehicleType));
@@ -1365,17 +1365,24 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   return RouterResultCode::NoError;
 }
 
-bool IndexRouter::AreMwmsNear(set<NumMwmId> const & mwmIds) const
+bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
 {
-  for (auto const & outerId : mwmIds)
+  auto const & startMwmIds = starter.GetStartMwms();
+  auto const & finishMwmIds = starter.GetFinishMwms();
+  for (auto const startMwmId : startMwmIds)
   {
-    m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(outerId).GetName());
-    size_t found = 0;
-    m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id) { found += mwmIds.count(id); });
-    if (found != mwmIds.size())
-      return false;
+    m2::RectD const & rect = m_countryRectFn(m_numMwmIds->GetFile(startMwmId).GetName());
+    bool found = false;
+    m_numMwmTree->ForEachInRect(rect,
+                                [&finishMwmIds, &found](NumMwmId id) {
+                                  if (!found && finishMwmIds.count(id) > 0)
+                                    found = true;
+                                });
+    if (found)
+      return true;
   }
-  return true;
+
+  return false;
 }
 
 bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
