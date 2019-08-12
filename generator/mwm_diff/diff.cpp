@@ -1,5 +1,6 @@
 #include "generator/mwm_diff/diff.hpp"
 
+#include "coding/buffered_file_writer.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/reader.hpp"
@@ -134,7 +135,7 @@ DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwm
   try
   {
     FileReader oldReader(oldMwmPath);
-    FileWriter newWriter(newMwmPath);
+    BufferedFileWriter newWriter(newMwmPath);
     FileReader diffFileReader(diffPath);
 
     ReaderSource<FileReader> diffFileSource(diffFileReader);
