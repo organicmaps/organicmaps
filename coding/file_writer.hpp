@@ -47,8 +47,9 @@ public:
   uint64_t Pos() const override;
   void Write(void const * p, size_t size) override;
 
-  uint64_t Size() const;
-  void Flush();
+  virtual uint64_t Size() const;
+  virtual void Flush();
+
   std::string const & GetName() const;
 
   static void DeleteFileX(std::string const & fName);

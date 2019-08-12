@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "coding/buffered_file_writer.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
@@ -212,16 +213,16 @@ void ReadTestData(Reader & r)
   string const sub = s.substr(CHUNKS_COUNT * CHUNK_SIZE);
   TEST_EQUAL(sub, TEST_STRING, (sub, TEST_STRING));
 }
-
-UNIT_TEST(FileWriter_Chunks)
+template <typename WriterType>
+void WriteToFileAndTest()
 {
   string const TEST_FILE = "FileWriter_Chunks.test";
   {
-    FileWriter fileWriter(TEST_FILE, FileWriter::OP_WRITE_TRUNCATE);
+    WriterType fileWriter(TEST_FILE, FileWriter::OP_WRITE_TRUNCATE);
     WriteTestData1(fileWriter);
   }
   {
-    FileWriter fileWriter(TEST_FILE, FileWriter::OP_WRITE_EXISTING);
+    WriterType fileWriter(TEST_FILE, FileWriter::OP_WRITE_EXISTING);
     WriteTestData2(fileWriter);
   }
   {
@@ -229,6 +230,16 @@ UNIT_TEST(FileWriter_Chunks)
     ReadTestData(r);
   }
   FileWriter::DeleteFileX(TEST_FILE);
+}
+
+UNIT_TEST(FileWriter_Chunks)
+{
+  WriteToFileAndTest<FileWriter>();
+}
+
+UNIT_TEST(BufferedFileWriter_Smoke)
+{
+  WriteToFileAndTest<BufferedFileWriter>();
 }
 
 UNIT_TEST(MemWriter_Chunks)

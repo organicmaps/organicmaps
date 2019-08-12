@@ -12,7 +12,7 @@ FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
 
 FileWriter::~FileWriter()
 {
-  Flush();
+  m_pFileData->Flush();
 }
 
 uint64_t FileWriter::Pos() const

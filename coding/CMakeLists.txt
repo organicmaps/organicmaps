@@ -16,6 +16,8 @@ set(
   base64.hpp
   bit_streams.hpp
   buffer_reader.hpp
+  buffered_file_writer.cpp
+  buffered_file_writer.hpp
   bwt_coder.hpp
   byte_stream.hpp
   compressed_bit_vector.cpp
