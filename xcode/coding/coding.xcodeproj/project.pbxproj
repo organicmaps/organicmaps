@@ -48,6 +48,8 @@
 		3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF1F1F8F55740081202C /* csv_reader.hpp */; };
 		3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF201F8F55740081202C /* csv_reader.cpp */; };
 		3DAB4B6822FDC6DF00F7E5EB /* file_container_writers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DAB4B6722FDC6DF00F7E5EB /* file_container_writers.hpp */; };
+		3DAB4B6E23018E0500F7E5EB /* buffered_file_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DAB4B6C23018E0500F7E5EB /* buffered_file_writer.cpp */; };
+		3DAB4B6F23018E0500F7E5EB /* buffered_file_writer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DAB4B6D23018E0500F7E5EB /* buffered_file_writer.hpp */; };
 		402E9A9321D0DBD9002D3CF4 /* map_uint32_to_val.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 402E9A9221D0DBD9002D3CF4 /* map_uint32_to_val.hpp */; };
 		4098EA6321D12088005612FF /* map_uint32_to_val_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4098EA6221D12088005612FF /* map_uint32_to_val_tests.cpp */; };
 		454523B4202AEB21009275C1 /* serdes_json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523B3202AEB21009275C1 /* serdes_json.hpp */; };
@@ -203,6 +205,8 @@
 		3D74EF1F1F8F55740081202C /* csv_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_reader.hpp; sourceTree = "<group>"; };
 		3D74EF201F8F55740081202C /* csv_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader.cpp; sourceTree = "<group>"; };
 		3DAB4B6722FDC6DF00F7E5EB /* file_container_writers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_container_writers.hpp; sourceTree = "<group>"; };
+		3DAB4B6C23018E0500F7E5EB /* buffered_file_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffered_file_writer.cpp; sourceTree = "<group>"; };
+		3DAB4B6D23018E0500F7E5EB /* buffered_file_writer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffered_file_writer.hpp; sourceTree = "<group>"; };
 		402E9A9221D0DBD9002D3CF4 /* map_uint32_to_val.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_uint32_to_val.hpp; sourceTree = "<group>"; };
 		4098EA6221D12088005612FF /* map_uint32_to_val_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_uint32_to_val_tests.cpp; sourceTree = "<group>"; };
 		454523B3202AEB21009275C1 /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 		6753421D1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXGroup;
 			children = (
+				3DAB4B6C23018E0500F7E5EB /* buffered_file_writer.cpp */,
+				3DAB4B6D23018E0500F7E5EB /* buffered_file_writer.hpp */,
 				3DAB4B6722FDC6DF00F7E5EB /* file_container_writers.hpp */,
 				3973743021C17EFE0003807A /* string_utf8_multilang.cpp */,
 				3973742F21C17EFE0003807A /* string_utf8_multilang.hpp */,
@@ -543,6 +549,7 @@
 				39B2B97B1FB4692D00AB85A1 /* text_storage.hpp in Headers */,
 				347F33391C4540F0009758CC /* fixed_bits_ddvector.hpp in Headers */,
 				675E889D1DB7B0D000F8EBDA /* traffic.hpp in Headers */,
+				3DAB4B6F23018E0500F7E5EB /* buffered_file_writer.hpp in Headers */,
 				347F33381C4540F0009758CC /* compressed_bit_vector.hpp in Headers */,
 				675342B21A3F588C00A0A8C3 /* parse_xml.hpp in Headers */,
 				675342AF1A3F588C00A0A8C3 /* mmap_reader.hpp in Headers */,
@@ -721,6 +728,7 @@
 				347F333A1C4540F0009758CC /* simple_dense_coding.cpp in Sources */,
 				675342D11A3F588C00A0A8C3 /* zip_creator.cpp in Sources */,
 				675342B61A3F588C00A0A8C3 /* reader_streambuf.cpp in Sources */,
+				3DAB4B6E23018E0500F7E5EB /* buffered_file_writer.cpp in Sources */,
 				675342821A3F588C00A0A8C3 /* base64.cpp in Sources */,
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
 				4563B062205909290057556D /* sha1.cpp in Sources */,
