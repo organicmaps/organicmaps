@@ -549,4 +549,14 @@ namespace
         vehicleComponents, MercatorBounds::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
         MercatorBounds::FromLatLon(55.93706, 37.45339), 10270.2);
   }
+
+  UNIT_TEST(NoCrash_RioGrandeCosmopolis)
+  {
+    TRouteResult route =
+        integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                    MercatorBounds::FromLatLon(-32.17641, -52.16350), {0., 0.},
+                                    MercatorBounds::FromLatLon(-22.64374, -47.19720));
+
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
+  }
 }  // namespace
